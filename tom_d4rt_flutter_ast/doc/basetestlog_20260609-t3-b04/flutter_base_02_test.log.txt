@@ -1,0 +1,99 @@
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_02_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:49978/g6IGKukcWLI=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:49978/g6IGKukcWLI=/devtools/?uri=ws://127.0.0.1:49978/g6IGKukcWLI=/ws
+=================================================================
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+00:15 +0: Test App Health app is running
+00:15 +1: semantics/ semantics_test.dart
+[METRIC] script=semantics/semantics_test.dart sourceBytes=92482 sourceChars=91793 bundleJsonBytes=1165523 clearMs=218 readMs=7 bundleMs=217 httpMs=1912 totalMs=2357 status=success httpStatus=200 outputLines=51 frameworkErrors=0 appBodyMs=14 appParseMs=67 appSetStateMs=68 appInterpretStartMs=78 appInterpretEndMs=1515 appFirstFrameMs=1696 appPumpEndMs=1898
+00:17 +2: widgets/ align_test.dart
+[METRIC] script=widgets/align_test.dart sourceBytes=60306 sourceChars=60247 bundleJsonBytes=676232 clearMs=221 readMs=3 bundleMs=58 httpMs=1485 totalMs=1769 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=22 appSetStateMs=22 appInterpretStartMs=28 appInterpretEndMs=1197 appFirstFrameMs=1277 appPumpEndMs=1478
+00:19 +3: widgets/ animation_test.dart
+[METRIC] script=widgets/animation_test.dart sourceBytes=58441 sourceChars=58431 bundleJsonBytes=689660 clearMs=205 readMs=6 bundleMs=60 httpMs=2152 totalMs=2424 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=18 appSetStateMs=18 appInterpretStartMs=27 appInterpretEndMs=996 appFirstFrameMs=1703 appPumpEndMs=2146
+00:21 +4: widgets/ center_test.dart
+[METRIC] script=widgets/center_test.dart sourceBytes=66455 sourceChars=66450 bundleJsonBytes=952066 clearMs=385 readMs=1 bundleMs=72 httpMs=1812 totalMs=2272 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=4 appParseMs=23 appSetStateMs=23 appInterpretStartMs=28 appInterpretEndMs=938 appFirstFrameMs=1605 appPumpEndMs=1806
+00:24 +5: widgets/ changenotifier_test.dart
+[METRIC] script=widgets/changenotifier_test.dart sourceBytes=70741 sourceChars=70729 bundleJsonBytes=816947 clearMs=240 readMs=1 bundleMs=69 httpMs=2446 totalMs=2758 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=2 appParseMs=19 appSetStateMs=19 appInterpretStartMs=25 appInterpretEndMs=2176 appFirstFrameMs=2239 appPumpEndMs=2440
+00:26 +6: widgets/ cliprrect_test.dart
+[METRIC] script=widgets/cliprrect_test.dart sourceBytes=44552 sourceChars=44462 bundleJsonBytes=515530 clearMs=219 readMs=2 bundleMs=29 httpMs=1332 totalMs=1584 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=16 appInterpretEndMs=1062 appFirstFrameMs=1127 appPumpEndMs=1328
+00:28 +7: widgets/ column_test.dart
+[METRIC] script=widgets/column_test.dart sourceBytes=68760 sourceChars=68623 bundleJsonBytes=710321 clearMs=225 readMs=2 bundleMs=42 httpMs=1957 totalMs=2228 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=24 appInterpretEndMs=1627 appFirstFrameMs=1750 appPumpEndMs=1950
+00:30 +8: widgets/ container_test.dart
+[METRIC] script=widgets/container_test.dart sourceBytes=44944 sourceChars=44944 bundleJsonBytes=587918 clearMs=204 readMs=2 bundleMs=28 httpMs=1339 totalMs=1575 status=success httpStatus=200 outputLines=40 frameworkErrors=0 appBodyMs=0 appParseMs=9 appSetStateMs=9 appInterpretStartMs=13 appInterpretEndMs=1089 appFirstFrameMs=1134 appPumpEndMs=1335
+00:32 +9: widgets/ expanded_test.dart
+[METRIC] script=widgets/expanded_test.dart sourceBytes=69664 sourceChars=69498 bundleJsonBytes=808118 clearMs=222 readMs=2 bundleMs=41 httpMs=1524 totalMs=1791 status=success httpStatus=200 outputLines=3 frameworkErrors=0 appBodyMs=2 appParseMs=17 appSetStateMs=17 appInterpretStartMs=20 appInterpretEndMs=1229 appFirstFrameMs=1317 appPumpEndMs=1519
+00:34 +10: widgets/ flexible_test.dart
+[METRIC] script=widgets/flexible_test.dart sourceBytes=84314 sourceChars=84314 bundleJsonBytes=907888 clearMs=220 readMs=2 bundleMs=23 httpMs=1502 totalMs=1748 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=11 appSetStateMs=11 appInterpretStartMs=13 appInterpretEndMs=1217 appFirstFrameMs=1297 appPumpEndMs=1497
+00:35 +11: widgets/ focusnode_test.dart
+[METRIC] script=widgets/focusnode_test.dart sourceBytes=75870 sourceChars=75866 bundleJsonBytes=879446 clearMs=203 readMs=2 bundleMs=26 httpMs=2636 totalMs=2867 status=success httpStatus=200 outputLines=8 frameworkErrors=0 appBodyMs=2 appParseMs=20 appSetStateMs=20 appInterpretStartMs=27 appInterpretEndMs=2316 appFirstFrameMs=2429 appPumpEndMs=2630
+00:38 +12: widgets/ form_test.dart
+[METRIC] script=widgets/form_test.dart sourceBytes=68662 sourceChars=68570 bundleJsonBytes=781325 clearMs=224 readMs=3 bundleMs=29 httpMs=1478 totalMs=1736 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=18 appSetStateMs=18 appInterpretStartMs=22 appInterpretEndMs=1069 appFirstFrameMs=1273 appPumpEndMs=1473
+00:40 +13: widgets/ gesturedetector_test.dart
+[METRIC] script=widgets/gesturedetector_test.dart sourceBytes=42456 sourceChars=42418 bundleJsonBytes=523489 clearMs=204 readMs=2 bundleMs=14 httpMs=1395 totalMs=1616 status=success httpStatus=200 outputLines=29 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=12 appInterpretEndMs=1167 appFirstFrameMs=1190 appPumpEndMs=1391
+00:42 +14: widgets/ gridview_test.dart
+[METRIC] script=widgets/gridview_test.dart sourceBytes=77738 sourceChars=77624 bundleJsonBytes=809214 clearMs=202 readMs=2 bundleMs=27 httpMs=2042 totalMs=2276 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=2 appParseMs=21 appSetStateMs=21 appInterpretStartMs=22 appInterpretEndMs=1405 appFirstFrameMs=1836 appPumpEndMs=2037
+00:44 +15: widgets/ image_test.dart
+[METRIC] script=widgets/image_test.dart sourceBytes=115879 sourceChars=115875 bundleJsonBytes=1442645 clearMs=223 readMs=1 bundleMs=46 httpMs=3852 totalMs=4124 status=success httpStatus=200 outputLines=3 frameworkErrors=0 appBodyMs=3 appParseMs=32 appSetStateMs=33 appInterpretStartMs=36 appInterpretEndMs=1258 appFirstFrameMs=3642 appPumpEndMs=3845
+00:48 +16: widgets/ inkwell_test.dart
+[METRIC] script=widgets/inkwell_test.dart sourceBytes=83320 sourceChars=83275 bundleJsonBytes=918766 clearMs=204 readMs=2 bundleMs=24 httpMs=1672 totalMs=1903 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=22 appSetStateMs=22 appInterpretStartMs=26 appInterpretEndMs=1347 appFirstFrameMs=1466 appPumpEndMs=1667
+00:50 +17: widgets/ key_test.dart
+[METRIC] script=widgets/key_test.dart sourceBytes=54513 sourceChars=54447 bundleJsonBytes=614262 clearMs=219 readMs=2 bundleMs=15 httpMs=1390 totalMs=1628 status=success httpStatus=200 outputLines=9 frameworkErrors=0 appBodyMs=1 appParseMs=12 appSetStateMs=13 appInterpretStartMs=21 appInterpretEndMs=1123 appFirstFrameMs=1184 appPumpEndMs=1385
+00:52 +18: widgets/ listview_test.dart
+[METRIC] script=widgets/listview_test.dart sourceBytes=68992 sourceChars=68877 bundleJsonBytes=768164 clearMs=221 readMs=1 bundleMs=19 httpMs=1341 totalMs=1583 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=21 appInterpretEndMs=1106 appFirstFrameMs=1129 appPumpEndMs=1329
+00:53 +19: widgets/ navigator_test.dart
+[METRIC] script=widgets/navigator_test.dart sourceBytes=54021 sourceChars=53989 bundleJsonBytes=684190 clearMs=203 readMs=1 bundleMs=30 httpMs=2568 totalMs=2803 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=21 appInterpretEndMs=2154 appFirstFrameMs=2363 appPumpEndMs=2563
+00:56 +20: widgets/ opacity_test.dart
+[METRIC] script=widgets/opacity_test.dart sourceBytes=63275 sourceChars=63275 bundleJsonBytes=650513 clearMs=203 readMs=2 bundleMs=31 httpMs=2594 totalMs=2831 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=0 appParseMs=12 appSetStateMs=12 appInterpretStartMs=14 appInterpretEndMs=2363 appFirstFrameMs=2390 appPumpEndMs=2590
+00:59 +21: widgets/ padding_test.dart
+[METRIC] script=widgets/padding_test.dart sourceBytes=74399 sourceChars=74399 bundleJsonBytes=836934 clearMs=203 readMs=2 bundleMs=22 httpMs=1423 totalMs=1652 status=success httpStatus=200 outputLines=26 frameworkErrors=0 appBodyMs=0 appParseMs=11 appSetStateMs=11 appInterpretStartMs=13 appInterpretEndMs=1178 appFirstFrameMs=1218 appPumpEndMs=1419
+01:00 +22: widgets/ pageview_test.dart
+[METRIC] script=widgets/pageview_test.dart sourceBytes=52436 sourceChars=52374 bundleJsonBytes=623895 clearMs=217 readMs=1 bundleMs=15 httpMs=1307 totalMs=1541 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=1 appParseMs=17 appSetStateMs=17 appInterpretStartMs=19 appInterpretEndMs=952 appFirstFrameMs=1100 appPumpEndMs=1302
+01:02 +23: widgets/ positioned_test.dart
+[METRIC] script=widgets/positioned_test.dart sourceBytes=74263 sourceChars=74006 bundleJsonBytes=819378 clearMs=221 readMs=2 bundleMs=35 httpMs=1518 totalMs=1778 status=success httpStatus=200 outputLines=9 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=24 appInterpretEndMs=1217 appFirstFrameMs=1311 appPumpEndMs=1513
+01:04 +24: widgets/ richtext_test.dart
+[METRIC] script=widgets/richtext_test.dart sourceBytes=57105 sourceChars=56935 bundleJsonBytes=689017 clearMs=222 readMs=2 bundleMs=21 httpMs=1277 totalMs=1524 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=17 appSetStateMs=17 appInterpretStartMs=21 appInterpretEndMs=1021 appFirstFrameMs=1072 appPumpEndMs=1272
+01:05 +25: widgets/ row_test.dart
+[METRIC] script=widgets/row_test.dart sourceBytes=64028 sourceChars=63940 bundleJsonBytes=694948 clearMs=204 readMs=2 bundleMs=24 httpMs=1481 totalMs=1713 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=14 appSetStateMs=14 appInterpretStartMs=18 appInterpretEndMs=1195 appFirstFrameMs=1276 appPumpEndMs=1477
+01:07 +26: widgets/ scaffold_test.dart
+[METRIC] script=widgets/scaffold_test.dart sourceBytes=81432 sourceChars=81318 bundleJsonBytes=954335 clearMs=204 readMs=2 bundleMs=25 httpMs=1556 totalMs=1789 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=18 appSetStateMs=18 appInterpretStartMs=26 appInterpretEndMs=981 appFirstFrameMs=1350 appPumpEndMs=1551
+01:09 +27: widgets/ sized_box_test.dart
+[METRIC] script=widgets/sized_box_test.dart sourceBytes=56893 sourceChars=56861 bundleJsonBytes=672572 clearMs=203 readMs=2 bundleMs=18 httpMs=1267 totalMs=1493 status=success httpStatus=200 outputLines=26 frameworkErrors=0 appBodyMs=2 appParseMs=14 appSetStateMs=14 appInterpretStartMs=17 appInterpretEndMs=1022 appFirstFrameMs=1061 appPumpEndMs=1263
+01:10 +28: widgets/ stack_test.dart
+[METRIC] script=widgets/stack_test.dart sourceBytes=52937 sourceChars=52869 bundleJsonBytes=579494 clearMs=220 readMs=1 bundleMs=14 httpMs=1264 totalMs=1502 status=success httpStatus=200 outputLines=41 frameworkErrors=0 appBodyMs=1 appParseMs=12 appSetStateMs=13 appInterpretStartMs=17 appInterpretEndMs=1017 appFirstFrameMs=1059 appPumpEndMs=1259
+01:12 +29: widgets/ statefulwidget_test.dart
+[METRIC] script=widgets/statefulwidget_test.dart sourceBytes=129867 sourceChars=129853 bundleJsonBytes=1521380 clearMs=204 readMs=2 bundleMs=44 httpMs=1571 totalMs=1823 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=4 appParseMs=31 appSetStateMs=31 appInterpretStartMs=39 appInterpretEndMs=1023 appFirstFrameMs=1365 appPumpEndMs=1565
+01:14 +30: widgets/ textfield_test.dart
+[METRIC] script=widgets/textfield_test.dart sourceBytes=39216 sourceChars=39214 bundleJsonBytes=433035 clearMs=203 readMs=2 bundleMs=15 httpMs=1260 totalMs=1481 status=success httpStatus=200 outputLines=49 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=13 appInterpretEndMs=1029 appFirstFrameMs=1055 appPumpEndMs=1255
+01:15 +31: widgets/ text_test.dart
+[METRIC] script=widgets/text_test.dart sourceBytes=54327 sourceChars=54228 bundleJsonBytes=664644 clearMs=203 readMs=2 bundleMs=17 httpMs=1357 totalMs=1580 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=2 appParseMs=13 appSetStateMs=13 appInterpretStartMs=18 appInterpretEndMs=1090 appFirstFrameMs=1151 appPumpEndMs=1352
+01:17 +32: widgets/ transform_test.dart
+[METRIC] script=widgets/transform_test.dart sourceBytes=60015 sourceChars=59856 bundleJsonBytes=582927 clearMs=203 readMs=1 bundleMs=14 httpMs=1527 totalMs=1746 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=14 appInterpretEndMs=1228 appFirstFrameMs=1322 appPumpEndMs=1523
+01:18 +33: widgets/ wrap_test.dart
+[METRIC] script=widgets/wrap_test.dart sourceBytes=61152 sourceChars=61150 bundleJsonBytes=834514 clearMs=202 readMs=1 bundleMs=16 httpMs=1651 totalMs=1871 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=18 appSetStateMs=18 appInterpretStartMs=22 appInterpretEndMs=1331 appFirstFrameMs=1445 appPumpEndMs=1646
+01:20 +34: services/ textformatter_test.dart
+[METRIC] script=services/textformatter_test.dart sourceBytes=53063 sourceChars=48716 bundleJsonBytes=601205 clearMs=216 readMs=2 bundleMs=14 httpMs=1293 totalMs=1526 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=1 appParseMs=12 appSetStateMs=12 appInterpretStartMs=19 appInterpretEndMs=1030 appFirstFrameMs=1088 appPumpEndMs=1289
+01:22 +35: material/ bottomappbar_test.dart
+[METRIC] script=material/bottomappbar_test.dart sourceBytes=39426 sourceChars=39404 bundleJsonBytes=475662 clearMs=203 readMs=1 bundleMs=10 httpMs=1332 totalMs=1548 status=success httpStatus=200 outputLines=13 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=17 appInterpretEndMs=1031 appFirstFrameMs=1127 appPumpEndMs=1328
+01:23 +36: material/ circleavatar_test.dart
+[METRIC] script=material/circleavatar_test.dart sourceBytes=50813 sourceChars=50737 bundleJsonBytes=547445 clearMs=203 readMs=0 bundleMs=12 httpMs=1318 totalMs=1536 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=16 appInterpretEndMs=1063 appFirstFrameMs=1113 appPumpEndMs=1314
+01:25 +37: material/ scrollbar_test.dart
+[METRIC] script=material/scrollbar_test.dart sourceBytes=50426 sourceChars=50408 bundleJsonBytes=636246 clearMs=219 readMs=1 bundleMs=13 httpMs=2475 totalMs=2710 status=success httpStatus=200 outputLines=30 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=18 appInterpretEndMs=2183 appFirstFrameMs=2270 appPumpEndMs=2471
+01:28 +38: material/ segmentedbutton_test.dart
+[METRIC] script=material/segmentedbutton_test.dart sourceBytes=68207 sourceChars=68207 bundleJsonBytes=750758 clearMs=202 readMs=1 bundleMs=15 httpMs=2457 totalMs=2677 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=1 appParseMs=12 appSetStateMs=12 appInterpretStartMs=21 appInterpretEndMs=2210 appFirstFrameMs=2252 appPumpEndMs=2453
+01:30 +39: material/ selectabletext_test.dart
+[METRIC] script=material/selectabletext_test.dart sourceBytes=50204 sourceChars=50102 bundleJsonBytes=570082 clearMs=218 readMs=1 bundleMs=13 httpMs=1307 totalMs=1540 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=1 appParseMs=17 appSetStateMs=17 appInterpretStartMs=20 appInterpretEndMs=1031 appFirstFrameMs=1102 appPumpEndMs=1303
+01:32 +40: material/ sliverappbar_test.dart
+[METRIC] script=material/sliverappbar_test.dart sourceBytes=51552 sourceChars=51546 bundleJsonBytes=624591 clearMs=218 readMs=2 bundleMs=11 httpMs=1402 totalMs=1635 status=success httpStatus=200 outputLines=24 frameworkErrors=0 appBodyMs=3 appParseMs=15 appSetStateMs=15 appInterpretStartMs=20 appInterpretEndMs=998 appFirstFrameMs=1197 appPumpEndMs=1398
+01:34 +41: material/ togglebuttons_test.dart
+[METRIC] script=material/togglebuttons_test.dart sourceBytes=94219 sourceChars=94117 bundleJsonBytes=986016 clearMs=203 readMs=0 bundleMs=21 httpMs=1501 totalMs=1726 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=3 appParseMs=20 appSetStateMs=20 appInterpretStartMs=23 appInterpretEndMs=1019 appFirstFrameMs=1295 appPumpEndMs=1496
+01:35 +42: (tearDownAll)
+01:36 +42: All tests passed!

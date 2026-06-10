@@ -1,0 +1,414 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 91.0.0 (101.0.0 available)
+  analyzer 8.4.1 (13.1.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.0.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.17.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.10 (0.7.12 available)
+! tom_analyzer_shared 0.1.0 from path ../../basics/tom_analyzer_shared (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt 1.8.20 from path ../tom_d4rt (overridden in ./pubspec_overrides.yaml)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+18 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter/test/flutter_base_05_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+00:10 +0: Test App Health app is running
+00:10 +1: dart_ui/ paragraph_test.dart
+[METRIC] script=dart_ui/paragraph_test.dart sourceChars=67160 clearMs=218 httpMs=3140 totalMs=3365 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=6 appParseMs=6 appSetStateMs=6 appInterpretStartMs=20 appInterpretEndMs=2668 appFirstFrameMs=2928 appPumpEndMs=3130
+00:14 +2: dart_ui/ text_data_test.dart
+00:16 +2: (setUpAll)
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:51061/5UFRDbGDKXQ=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:51061/5UFRDbGDKXQ=/devtools/?uri=ws://127.0.0.1:51061/5UFRDbGDKXQ=/ws
+=================================================================
+00:18 +2: dart_ui/ text_data_test.dart
+[METRIC] script=dart_ui/text_data_test.dart sourceChars=80369 clearMs=219 httpMs=4431 totalMs=4651 status=success httpStatus=200 outputLines=14 frameworkErrors=0 appBodyMs=6 appParseMs=6 appSetStateMs=6 appInterpretStartMs=14 appInterpretEndMs=1511 appFirstFrameMs=1575 appPumpEndMs=1576
+00:18 +3: dart_ui/ filters_test.dart
+[METRIC] script=dart_ui/filters_test.dart sourceChars=30076 clearMs=218 httpMs=2481 totalMs=2702 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=2 appInterpretStartMs=6 appInterpretEndMs=954 appFirstFrameMs=1332 appPumpEndMs=1332
+00:21 +4: dart_ui/ font_test.dart
+[METRIC] script=dart_ui/font_test.dart sourceChars=24722 clearMs=219 httpMs=2578 totalMs=2800 status=success httpStatus=200 outputLines=23 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=1283 appFirstFrameMs=1410 appPumpEndMs=1410
+00:24 +5: dart_ui/ vertices_test.dart
+[METRIC] script=dart_ui/vertices_test.dart sourceChars=56680 clearMs=218 httpMs=2476 totalMs=2697 status=success httpStatus=200 outputLines=26 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=1082 appFirstFrameMs=1159 appPumpEndMs=1159
+00:26 +6: dart_ui/ picture_test.dart
+[METRIC] script=dart_ui/picture_test.dart sourceChars=75891 clearMs=235 httpMs=2511 totalMs=2750 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=1098 appFirstFrameMs=1158 appPumpEndMs=1158
+00:29 +7: gestures/ recognizers_test.dart
+[METRIC] script=gestures/recognizers_test.dart sourceChars=84206 clearMs=223 httpMs=2581 totalMs=2806 status=success httpStatus=200 outputLines=25 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=1049 appFirstFrameMs=1119 appPumpEndMs=1119
+00:32 +8: gestures/ velocity_test.dart
+[METRIC] script=gestures/velocity_test.dart sourceChars=101194 clearMs=223 httpMs=2870 totalMs=3094 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=9 appInterpretEndMs=970 appFirstFrameMs=1071 appPumpEndMs=1071
+00:35 +9: services/ codecs_test.dart
+[METRIC] script=services/codecs_test.dart sourceChars=59865 clearMs=217 httpMs=3162 totalMs=3381 status=success httpStatus=200 outputLines=44 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=1165 appFirstFrameMs=1223 appPumpEndMs=1223
+00:38 +10: services/ channels_test.dart
+[METRIC] script=services/channels_test.dart sourceChars=58390 clearMs=217 httpMs=2643 totalMs=2861 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=9 appInterpretEndMs=1028 appFirstFrameMs=1101 appPumpEndMs=1102
+00:41 +11: services/ keyboard_test.dart
+[METRIC] script=services/keyboard_test.dart sourceChars=67225 clearMs=232 httpMs=3693 totalMs=3926 status=success httpStatus=200 outputLines=7 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=1002 appFirstFrameMs=1040 appPumpEndMs=1040
+00:45 +12: services/ cursor_test.dart
+[METRIC] script=services/cursor_test.dart sourceChars=81516 clearMs=217 httpMs=3806 totalMs=4024 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=2107 appFirstFrameMs=2226 appPumpEndMs=2226
+00:49 +13: services/ textboundary_test.dart
+[METRIC] script=services/textboundary_test.dart sourceChars=72745 clearMs=233 httpMs=4409 totalMs=4643 status=success httpStatus=200 outputLines=11 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=1012 appFirstFrameMs=1155 appPumpEndMs=1156
+00:54 +14: services/ spellcheck_test.dart
+[METRIC] script=services/spellcheck_test.dart sourceChars=58252 clearMs=230 httpMs=2528 totalMs=2760 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=1040 appFirstFrameMs=1097 appPumpEndMs=1098
+00:57 +15: services/ platform_test.dart
+[METRIC] script=services/platform_test.dart sourceChars=70598 clearMs=226 httpMs=4483 totalMs=4711 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=1098 appFirstFrameMs=1134 appPumpEndMs=1135
+01:01 +16: services/ asset_test.dart
+[METRIC] script=services/asset_test.dart sourceChars=57683 clearMs=221 httpMs=2482 totalMs=2704 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=1023 appFirstFrameMs=1075 appPumpEndMs=1075
+01:04 +17: semantics/ semantics_data_test.dart
+[METRIC] script=semantics/semantics_data_test.dart sourceChars=118379 clearMs=222 httpMs=2667 totalMs=2891 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=1043 appFirstFrameMs=1127 appPumpEndMs=1128
+01:07 +18: scheduler/ tickerfuture_test.dart
+[METRIC] script=scheduler/tickerfuture_test.dart sourceChars=68599 clearMs=231 httpMs=2391 totalMs=2624 status=success httpStatus=200 outputLines=20 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=938 appFirstFrameMs=1234 appPumpEndMs=1240
+01:10 +19: rendering/ renderobjects_basic_test.dart
+[METRIC] script=rendering/renderobjects_basic_test.dart sourceChars=118671 clearMs=407 httpMs=8257 totalMs=8784 status=transport_error httpStatus=-1 outputLines=0 frameworkErrors=0
+01:18 +19 -1: rendering/ renderobjects_basic_test.dart [E]
+  Bad state: Transport failure while running "rendering/renderobjects_basic_test.dart"
+  Operation: POST /build?filename=rendering%2Frenderobjects_basic_test.dart&suite=main.dart
+  Error: HttpException: Connection closed before full header was received, uri = http://localhost:4248/build?filename=rendering%2Frenderobjects_basic_test.dart&suite=main.dart
+  
+  Stack trace:
+  dart:async/future_impl.dart 21:26                              _interceptError
+  dart:async/future_impl.dart 52:23                              _interceptUserError
+  dart:async/stream_controller.dart 624:39                       _StreamController.addError
+  dart:_http/http_parser.dart 1255:17                            _HttpParser._reportHttpError
+  dart:_http/http_parser.dart 952:9                              _HttpParser._onDone
+  package:stack_trace/src/stack_zone_specification.dart 207:15   StackZoneSpecification._run
+  package:stack_trace/src/stack_zone_specification.dart 114:48   StackZoneSpecification._registerCallback.<fn>
+  dart:async/zone_root.dart 27:47                                _rootRun
+  dart:async/zone.dart 726:19                                    _CustomZone.run
+  dart:async/zone.dart 625:7                                     _CustomZone.runGuarded
+  dart:async/stream_impl.dart 434:13                             _BufferingStreamSubscription._sendDone.sendDone
+  dart:async/stream_impl.dart 444:7                              _BufferingStreamSubscription._sendDone
+  dart:async/stream_impl.dart 333:7                              _BufferingStreamSubscription._close
+  dart:async/stream_controller.dart 806:19                       _SyncStreamControllerDispatch._sendDone
+  dart:async/stream_controller.dart 652:7                        _StreamController._closeUnchecked
+  dart:async/stream_controller.dart 645:5                        _StreamController.close
+  dart:io-patch/socket_patch.dart 2881:21                        _Socket._onData
+  package:stack_trace/src/stack_zone_specification.dart 127:36   StackZoneSpecification._registerUnaryCallback.<fn>.<fn>
+  package:stack_trace/src/stack_zone_specification.dart 207:15   StackZoneSpecification._run
+  package:stack_trace/src/stack_zone_specification.dart 127:24   StackZoneSpecification._registerUnaryCallback.<fn>
+  dart:async/zone_root.dart 56:13                                _rootRunUnary
+  dart:async/zone.dart 733:19                                    _CustomZone.runUnary
+  dart:async/zone.dart 633:7                                     _CustomZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+  dart:async/stream_controller.dart 663:7                        _StreamController._add
+  dart:async/stream_controller.dart 618:5                        _StreamController.add
+  dart:io-patch/socket_patch.dart 2319:33                        new _RawSocket.<fn>
+  dart:io-patch/socket_patch.dart 1640:18                        _NativeSocket.issueReadEvent.issue
+  dart:async/schedule_microtask.dart 40:35                       _microtaskLoop
+  dart:async/schedule_microtask.dart 49:5                        _startMicrotaskLoop
+  ===== asynchronous gap ===========================
+  dart:async/zone.dart 747:19                                    _CustomZone.registerCallback
+  dart:async/stream_impl.dart 201:17                             _BufferingStreamSubscription._registerDoneHandler
+  dart:async/stream_impl.dart 138:17                             new _BufferingStreamSubscription.zoned
+  dart:async/stream_impl.dart 125:12                             new _BufferingStreamSubscription
+  dart:async/stream_controller.dart 878:7                        new _ControllerSubscription
+  dart:async/stream_controller.dart 697:47                       _StreamController._subscribe
+  dart:async/stream_controller.dart 854:20                       _ControllerStream._createSubscription
+  dart:async/stream_impl.dart 516:42                             _StreamImpl.listen
+  dart:io-patch/socket_patch.dart 2721:31                        _Socket.listen
+  dart:_http/http_parser.dart 344:34                             _HttpParser.listenToStream
+  dart:_http/http_impl.dart 2183:17                              new _HttpClientConnection
+  dart:_http/http_impl.dart 2716:30                              _ConnectionTarget.connect.<fn>.<fn>
+  package:stack_trace/src/stack_zone_specification.dart 127:36   StackZoneSpecification._registerUnaryCallback.<fn>.<fn>
+  package:stack_trace/src/stack_zone_specification.dart 207:15   StackZoneSpecification._run
+  package:stack_trace/src/stack_zone_specification.dart 127:24   StackZoneSpecification._registerUnaryCallback.<fn>
+  dart:async/zone_root.dart 48:47                                _rootRunUnary
+  dart:async/zone.dart 733:19                                    _CustomZone.runUnary
+  ===== asynchronous gap ===========================
+  dart:async/zone.dart 754:19                                    _CustomZone.registerUnaryCallback
+  dart:async/future_impl.dart 403:23                             Future.then
+  dart:_http/http_impl.dart 2710:29                              _ConnectionTarget.connect.<fn>
+  package:stack_trace/src/stack_zone_specification.dart 127:36   StackZoneSpecification._registerUnaryCallback.<fn>.<fn>
+  package:stack_trace/src/stack_zone_specification.dart 207:15   StackZoneSpecification._run
+  package:stack_trace/src/stack_zone_specification.dart 127:24   StackZoneSpecification._registerUnaryCallback.<fn>
+  dart:async/zone_root.dart 48:47                                _rootRunUnary
+  dart:async/zone.dart 733:19                                    _CustomZone.runUnary
+  ===== asynchronous gap ===========================
+  dart:async/zone.dart 754:19                                    _CustomZone.registerUnaryCallback
+  dart:async/future_impl.dart 403:23                             Future.then
+  dart:_http/http_impl.dart 2702:27                              _ConnectionTarget.connect
+  dart:_http/http_impl.dart 3193:12                              _HttpClient._getConnection.connect
+  dart:_http/http_impl.dart 3198:12                              _HttpClient._getConnection
+  dart:_http/http_impl.dart 3021:12                              _HttpClient._openUrl
+  dart:_http/http_impl.dart 2868:48                              _HttpClient.getUrl
+  test/send_test_runner.dart 1235:34                             _httpGet.<fn>
+  dart:async/future.dart 260:40                                  new Future.<fn>
+  package:stack_trace/src/stack_zone_specification.dart 207:15   StackZoneSpecification._run
+  package:stack_trace/src/stack_zone_specification.dart 114:48   StackZoneSpecification._registerCallback.<fn>
+  dart:async/zone_root.dart 27:47                                _rootRun
+  dart:async/zone.dart 726:19                                    _CustomZone.run
+  dart:async/zone.dart 625:7                                     _CustomZone.runGuarded
+  dart:async/zone.dart 666:23                                    _CustomZone.bindCallbackGuarded.<fn>
+  package:stack_trace/src/stack_zone_specification.dart 207:15   StackZoneSpecification._run
+  package:stack_trace/src/stack_zone_specification.dart 114:48   StackZoneSpecification._registerCallback.<fn>
+  dart:async/zone_root.dart 35:13                                _rootRun
+  dart:async/zone.dart 726:19                                    _CustomZone.run
+  dart:async/zone.dart 649:23                                    _CustomZone.bindCallback.<fn>
+  dart:async-patch/timer_patch.dart 18:15                        Timer._createTimer.<fn>
+  dart:isolate-patch/timer_impl.dart 423:19                      _Timer._runTimers
+  dart:isolate-patch/timer_impl.dart 454:5                       _Timer._handleMessage
+  dart:isolate-patch/isolate_patch.dart 193:12                   _RawReceivePort._handleMessage
+  ===== asynchronous gap ===========================
+  dart:async/zone.dart 747:19                                    _CustomZone.registerCallback
+  dart:async/zone.dart 665:22                                    _CustomZone.bindCallbackGuarded
+  dart:async/timer.dart 50:20                                    new Timer
+  dart:async/timer.dart 107:5                                    Timer.run
+  dart:async/future.dart 257:11                                  new Future
+  test/send_test_runner.dart 1234:10                             _httpGet
+  test/send_test_runner.dart 996:30                              SendTestRunner.isAppRunning
+  test/flutter_base_05_test.dart 23:46                           main.<fn>.<fn>
+  package:test_api/src/backend/declarer.dart 253:25              Declarer.test.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:async/zone.dart 754:19                                    _CustomZone.registerUnaryCallback
+  package:test_api/src/backend/declarer.dart 252:15              Declarer.test.<fn>.<fn>
+  dart:async/zone_root.dart 35:13                                _rootRun
+  dart:async/zone.dart 726:19                                    _CustomZone.run
+  dart:async/zone_api.dart 166:6                                 _runZoned
+  dart:async/zone_api.dart 92:10                                 runZoned
+  package:test_api/src/backend/declarer.dart 250:17              Declarer.test.<fn>
+  package:test_api/src/backend/invoker.dart 318:17               Invoker._waitForOutstandingCallbacks.<fn>
+  dart:async/zone_root.dart 35:13                                _rootRun
+  dart:async/zone.dart 726:19                                    _CustomZone.run
+  dart:async/zone_api.dart 166:6                                 _runZoned
+  dart:async/zone_api.dart 92:10                                 runZoned
+  package:test_api/src/backend/invoker.dart 314:5                Invoker._waitForOutstandingCallbacks
+  package:test_api/src/backend/invoker.dart 457:21               Invoker._onRun.<fn>.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:async/zone.dart 754:19                                    _CustomZone.registerUnaryCallback
+  package:test_api/src/backend/invoker.dart 455:15               Invoker._onRun.<fn>.<fn>.<fn>
+  dart:async/zone_root.dart 35:13                                _rootRun
+  dart:async/zone.dart 726:19                                    _CustomZone.run
+  dart:async/zone_api.dart 166:6                                 _runZoned
+  dart:async/zone_api.dart 92:10                                 runZoned
+  package:test_api/src/backend/invoker.dart 445:11               Invoker._onRun.<fn>.<fn>
+  package:test_api/src/backend/invoker.dart 500:15               Invoker._guardIfGuarded
+  package:test_api/src/backend/invoker.dart 444:9                Invoker._onRun.<fn>
+  package:stack_trace/src/chain.dart 97:24                       Chain.capture.<fn>
+  dart:async/zone_root.dart 35:13                                _rootRun
+  dart:async/zone.dart 726:19                                    _CustomZone.run
+  dart:async/zone_api.dart 166:6                                 _runZoned
+  dart:async/zone_api.dart 92:10                                 runZoned
+  package:stack_trace/src/chain.dart 95:12                       Chain.capture
+  package:test_api/src/backend/invoker.dart 442:11               Invoker._onRun
+  package:test_api/src/backend/live_test_controller.dart 161:11  LiveTestController.run
+  package:test_api/src/backend/remote_listener.dart 323:16       RemoteListener._runLiveTest.<fn>
+  dart:async/zone_root.dart 35:13                                _rootRun
+  dart:async/zone.dart 726:19                                    _CustomZone.run
+  dart:async/zone_api.dart 166:6                                 _runZoned
+  dart:async/zone_api.dart 92:10                                 runZoned
+  package:test_api/src/backend/remote_listener.dart 322:5        RemoteListener._runLiveTest
+  package:test_api/src/backend/remote_listener.dart 263:7        RemoteListener._serializeTest.<fn>
+  dart:async/zone_root.dart 48:47                                _rootRunUnary
+  dart:async/zone.dart 733:19                                    _CustomZone.runUnary
+  dart:async/zone.dart 633:7                                     _CustomZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+  dart:async/stream_controller.dart 663:7                        _StreamController._add
+  dart:async/stream_controller.dart 618:5                        _StreamController.add
+  dart:async/zone_root.dart 56:13                                _rootRunUnary
+  dart:async/zone.dart 733:19                                    _CustomZone.runUnary
+  dart:async/zone.dart 633:7                                     _CustomZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+  dart:async/stream_controller.dart 663:7                        _StreamController._add
+  dart:async/stream_controller.dart 618:5                        _StreamController.add
+  dart:async/stream_controller.dart 898:13                       _StreamSinkWrapper.add
+  package:stream_channel/src/guarantee_channel.dart 125:12       _GuaranteeSink.add
+  package:stream_channel/src/multi_channel.dart 159:31           new _MultiChannel.<fn>
+  dart:async/zone.dart 891:10                                    _RootZone.runUnaryGuarded
+  dart:_internal/async_cast.dart 95:11                           CastStreamSubscription._onData
+  dart:async/zone.dart 891:10                                    _RootZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+  dart:async/stream_controller.dart 663:7                        _StreamController._add
+  dart:async/stream_controller.dart 618:5                        _StreamController.add
+  dart:async/zone.dart 891:10                                    _RootZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+  dart:async/stream_controller.dart 663:7                        _StreamController._add
+  dart:async/stream_controller.dart 618:5                        _StreamController.add
+  dart:async/stream_controller.dart 898:13                       _StreamSinkWrapper.add
+  dart:async/zone.dart 891:10                                    _RootZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_pipe.dart 154:11                             _ForwardingStreamSubscription._add
+  dart:async/stream_pipe.dart 252:10                             _MapStream._handleData
+  dart:async/stream_pipe.dart 184:13                             _ForwardingStreamSubscription._handleData
+  dart:async/zone.dart 891:10                                    _RootZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+  dart:async/stream_controller.dart 663:7                        _StreamController._add
+  dart:async/stream_controller.dart 618:5                        _StreamController.add
+  dart:_http/websocket_impl.dart 1252:27                         new _WebSocketImpl._fromSocket.<fn>
+  dart:async/zone.dart 891:10                                    _RootZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_transformers.dart 67:11                      _SinkTransformerStreamSubscription._add
+  dart:async/stream_transformers.dart 13:11                      _EventSinkWrapper.add
+  dart:_http/websocket_impl.dart 348:23                          _WebSocketProtocolTransformer._messageFrameEnd
+  dart:_http/websocket_impl.dart 238:46                          _WebSocketProtocolTransformer.add
+  dart:async/stream_transformers.dart 115:24                     _SinkTransformerStreamSubscription._handleData
+  dart:async/zone.dart 891:10                                    _RootZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+  dart:async/stream_controller.dart 663:7                        _StreamController._add
+  dart:async/stream_controller.dart 618:5                        _StreamController.add
+  dart:io-patch/socket_patch.dart 2874:41                        _Socket._onData
+  dart:async/zone.dart 891:10                                    _RootZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+  dart:async/stream_controller.dart 663:7                        _StreamController._add
+  dart:async/stream_controller.dart 618:5                        _StreamController.add
+  dart:io-patch/socket_patch.dart 2312:31                        new _RawSocket.<fn>
+  dart:io-patch/socket_patch.dart 1647:14                        _NativeSocket.issueReadEvent.issue
+  dart:async/schedule_microtask.dart 40:35                       _microtaskLoop
+  dart:async/schedule_microtask.dart 49:5                        _startMicrotaskLoop
+  
+  
+  Runner app process: still running (no exit code observed).
+  
+  Captured app STDOUT tail:
+    Launching lib/main.dart on macOS in debug mode...
+    Building macOS application...                                   
+    ✓ Built build/macos/Build/Products/Debug/tom_d4rt_flutter_test_app.app
+    2026-06-09 14:43:42.205 tom_d4rt_flutter_test_app[89057:108838579] Running with merged UI and platform thread. Experimental.
+    Syncing files to device macOS...                                   156ms
+    
+    Flutter run key commands.
+    r Hot reload. 🔥🔥🔥
+    R Hot restart.
+    h List all available interactive commands.
+    d Detach (terminate "flutter run" but leave application running).
+    c Clear the screen
+    q Quit (terminate the application on the device).
+    
+    A Dart VM Service on macOS is available at: http://127.0.0.1:51061/5UFRDbGDKXQ=/
+    The Flutter DevTools debugger and profiler on macOS is available at: http://127.0.0.1:51061/5UFRDbGDKXQ=/devtools/?uri=ws://127.0.0.1:51061/5UFRDbGDKXQ=/ws
+    flutter: [D4rtApp] Failed to start server: SocketException: Failed to create server socket (OS Error: Address already in use, errno = 48), address = 127.0.0.1, port = 4248
+  
+  test/send_test_runner.dart 793:7  SendTestRunner.send
+  
+01:18 +19 -1: rendering/ renderobjects_clip_test.dart
+[recycle] killing wedged test app (pid=88385)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=rendering/renderobjects_clip_test.dart sourceChars=79275 clearMs=1951 httpMs=2289 totalMs=18751 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=3 appParseMs=3 appSetStateMs=3 appInterpretStartMs=7 appInterpretEndMs=1448 appFirstFrameMs=2086 appPumpEndMs=-1
+01:37 +20 -1: rendering/ renderobjects_layout_test.dart
+[METRIC] script=rendering/renderobjects_layout_test.dart sourceChars=79588 clearMs=1719 httpMs=2331 totalMs=4052 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=1972 appFirstFrameMs=2118 appPumpEndMs=-1
+01:41 +21 -1: rendering/ renderobjects_sizing_test.dart
+[METRIC] script=rendering/renderobjects_sizing_test.dart sourceChars=78425 clearMs=1562 httpMs=3678 totalMs=5241 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=3353 appFirstFrameMs=3463 appPumpEndMs=-1
+01:46 +22 -1: rendering/ renderobjects_sliver_test.dart
+[METRIC] script=rendering/renderobjects_sliver_test.dart sourceChars=78574 clearMs=1681 httpMs=2598 totalMs=4281 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=14 appInterpretEndMs=2078 appFirstFrameMs=2384 appPumpEndMs=-1
+01:51 +23 -1: rendering/ renderobjects_view_test.dart
+[METRIC] script=rendering/renderobjects_view_test.dart sourceChars=69682 clearMs=1808 httpMs=1779 totalMs=3589 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=1415 appFirstFrameMs=1567 appPumpEndMs=-1
+01:54 +24 -1: rendering/ canvas_test.dart
+[METRIC] script=rendering/canvas_test.dart sourceChars=107968 clearMs=1418 httpMs=3980 totalMs=5400 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=8 appInterpretEndMs=3051 appFirstFrameMs=3769 appPumpEndMs=-1
+02:00 +25 -1: rendering/ layers_data_test.dart
+[METRIC] script=rendering/layers_data_test.dart sourceChars=106220 clearMs=1434 httpMs=2442 totalMs=3877 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=2033 appFirstFrameMs=2230 appPumpEndMs=-1
+02:04 +26 -1: rendering/ sliver_delegates_test.dart
+[METRIC] script=rendering/sliver_delegates_test.dart sourceChars=70007 clearMs=1454 httpMs=2285 totalMs=3742 status=success httpStatus=200 outputLines=3 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=1423 appFirstFrameMs=2074 appPumpEndMs=-1
+02:07 +27 -1: rendering/ parentdata_test.dart
+[METRIC] script=rendering/parentdata_test.dart sourceChars=86435 clearMs=1430 httpMs=3428 totalMs=4860 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=3170 appFirstFrameMs=3216 appPumpEndMs=-1
+02:12 +28 -1: rendering/ gradient_rendering_test.dart
+[METRIC] script=rendering/gradient_rendering_test.dart sourceChars=78293 clearMs=1374 httpMs=1736 totalMs=3112 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=1449 appFirstFrameMs=1525 appPumpEndMs=-1
+02:15 +29 -1: proxies/ custompaint_proxy_test.dart
+[METRIC] script=proxies/custompaint_proxy_test.dart sourceChars=77205 clearMs=1400 httpMs=1994 totalMs=3396 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=1508 appFirstFrameMs=1780 appPumpEndMs=-1
+02:19 +30 -1: proxies/ customclipper_proxy_test.dart
+[METRIC] script=proxies/customclipper_proxy_test.dart sourceChars=92577 clearMs=1593 httpMs=1616 totalMs=3212 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=1331 appFirstFrameMs=1408 appPumpEndMs=-1
+02:22 +31 -1: proxies/ flowdelegate_proxy_test.dart
+[METRIC] script=proxies/flowdelegate_proxy_test.dart sourceChars=61277 clearMs=1384 httpMs=1707 totalMs=3094 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=9 appInterpretEndMs=1315 appFirstFrameMs=1497 appPumpEndMs=-1
+02:25 +32 -1: proxies/ multichildlayout_proxy_test.dart
+[METRIC] script=proxies/multichildlayout_proxy_test.dart sourceChars=64367 clearMs=1430 httpMs=1584 totalMs=3017 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=1310 appFirstFrameMs=1375 appPumpEndMs=-1
+02:28 +33 -1: proxies/ singlechildlayout_proxy_test.dart
+[METRIC] script=proxies/singlechildlayout_proxy_test.dart sourceChars=79681 clearMs=1387 httpMs=1638 totalMs=3027 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=1301 appFirstFrameMs=1426 appPumpEndMs=-1
+02:31 +34 -1: animation/ animation_status_test.dart
+[METRIC] script=animation/animation_status_test.dart sourceChars=27233 clearMs=1477 httpMs=1614 totalMs=3093 status=success httpStatus=200 outputLines=37 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=1356 appFirstFrameMs=1403 appPumpEndMs=-1
+02:34 +35 -1: animation/ animation_misc_adv_test.dart
+[METRIC] script=animation/animation_misc_adv_test.dart sourceChars=77879 clearMs=1634 httpMs=2097 totalMs=3734 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=8 appInterpretEndMs=1761 appFirstFrameMs=1886 appPumpEndMs=-1
+02:38 +36 -1: cupertino/ cupertino_secondary_test.dart
+[METRIC] script=cupertino/cupertino_secondary_test.dart sourceChars=84490 clearMs=1434 httpMs=2946 totalMs=4382 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=2665 appFirstFrameMs=2735 appPumpEndMs=-1
+02:42 +37 -1: cupertino/ cupertino_nav_segmented_test.dart
+[METRIC] script=cupertino/cupertino_nav_segmented_test.dart sourceChars=54345 clearMs=1492 httpMs=1896 totalMs=3390 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=1321 appFirstFrameMs=1684 appPumpEndMs=-1
+02:46 +38 -1: cupertino/ cupertino_form_scroll_test.dart
+[METRIC] script=cupertino/cupertino_form_scroll_test.dart sourceChars=65361 clearMs=1459 httpMs=2857 totalMs=4318 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=2566 appFirstFrameMs=2646 appPumpEndMs=-1
+02:50 +39 -1: cupertino/ cupertino_controls_advanced_test.dart
+[METRIC] script=cupertino/cupertino_controls_advanced_test.dart sourceChars=59549 clearMs=1473 httpMs=2926 totalMs=4400 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=2676 appFirstFrameMs=2714 appPumpEndMs=-1
+02:54 +40 -1: cupertino/ cupertino_picker_advanced_test.dart
+[METRIC] script=cupertino/cupertino_picker_advanced_test.dart sourceChars=55381 clearMs=1480 httpMs=1625 totalMs=3107 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=1366 appFirstFrameMs=1415 appPumpEndMs=-1
+02:58 +41 -1: cupertino/ cupertino_theming_test.dart
+[METRIC] script=cupertino/cupertino_theming_test.dart sourceChars=72904 clearMs=1454 httpMs=4386 totalMs=5844 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=4072 appFirstFrameMs=4177 appPumpEndMs=-1
+03:03 +42 -1: cupertino/ cupertino_sections_test.dart
+[METRIC] script=cupertino/cupertino_sections_test.dart sourceChars=53193 clearMs=1489 httpMs=2896 totalMs=4388 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=2658 appFirstFrameMs=2685 appPumpEndMs=-1
+03:08 +43 -1: cupertino/ cupertino_refresh_mag_test.dart
+[METRIC] script=cupertino/cupertino_refresh_mag_test.dart sourceChars=76425 clearMs=1457 httpMs=1649 totalMs=3108 status=success httpStatus=200 outputLines=10 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=9 appInterpretEndMs=1405 appFirstFrameMs=1439 appPumpEndMs=-1
+03:11 +44 -1: cupertino/ cupertino_tabbar_scaffold_test.dart
+[METRIC] script=cupertino/cupertino_tabbar_scaffold_test.dart sourceChars=72110 clearMs=1494 httpMs=2856 totalMs=4352 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=2599 appFirstFrameMs=2646 appPumpEndMs=-1
+03:15 +45 -1: cupertino/ cupertino_page_route_test.dart
+[METRIC] script=cupertino/cupertino_page_route_test.dart sourceChars=86297 clearMs=1449 httpMs=3476 totalMs=4927 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=3111 appFirstFrameMs=3267 appPumpEndMs=-1
+03:20 +46 -1: cupertino/ cupertino_colors_system_test.dart
+[METRIC] script=cupertino/cupertino_colors_system_test.dart sourceChars=70632 clearMs=1431 httpMs=4315 totalMs=5747 status=success httpStatus=200 outputLines=23 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=4074 appFirstFrameMs=4106 appPumpEndMs=-1
+03:26 +47 -1: cupertino/ cupertino_misc_adv_test.dart
+[METRIC] script=cupertino/cupertino_misc_adv_test.dart sourceChars=74379 clearMs=1394 httpMs=3165 totalMs=4561 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=2832 appFirstFrameMs=2957 appPumpEndMs=-1
+03:31 +48 -1: dart_ui/ enums_ui_test.dart
+[METRIC] script=dart_ui/enums_ui_test.dart sourceChars=28520 clearMs=1537 httpMs=1716 totalMs=3256 status=success httpStatus=200 outputLines=60 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=1475 appFirstFrameMs=1508 appPumpEndMs=-1
+03:34 +49 -1: dart_ui/ dart_ui_advanced_test.dart
+[METRIC] script=dart_ui/dart_ui_advanced_test.dart sourceChars=24315 clearMs=1406 httpMs=1556 totalMs=2964 status=success httpStatus=200 outputLines=24 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=1319 appFirstFrameMs=1347 appPumpEndMs=-1
+03:37 +50 -1: dart_ui/ dart_ui_paint_canvas_test.dart
+[METRIC] script=dart_ui/dart_ui_paint_canvas_test.dart sourceChars=21128 clearMs=1427 httpMs=1575 totalMs=3005 status=success httpStatus=200 outputLines=25 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=1338 appFirstFrameMs=1365 appPumpEndMs=-1
+03:40 +51 -1: dart_ui/ dart_ui_image_codec_test.dart
+[METRIC] script=dart_ui/dart_ui_image_codec_test.dart sourceChars=25989 clearMs=1876 httpMs=1588 totalMs=3466 status=success httpStatus=200 outputLines=27 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=1350 appFirstFrameMs=1381 appPumpEndMs=-1
+03:43 +52 -1: dart_ui/ dart_ui_misc_adv_test.dart
+[METRIC] script=dart_ui/dart_ui_misc_adv_test.dart sourceChars=29142 clearMs=1466 httpMs=1546 totalMs=3015 status=success httpStatus=200 outputLines=24 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=1313 appFirstFrameMs=1339 appPumpEndMs=-1
+03:46 +53 -1: foundation/ buffers_misc_test.dart
+[METRIC] script=foundation/buffers_misc_test.dart sourceChars=64249 clearMs=1440 httpMs=1780 totalMs=3223 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=1485 appFirstFrameMs=1572 appPumpEndMs=-1
+03:49 +54 -1: foundation/ observer_list_test.dart
+[METRIC] script=foundation/observer_list_test.dart sourceChars=75418 clearMs=1409 httpMs=1771 totalMs=3182 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=1318 appFirstFrameMs=1563 appPumpEndMs=-1
+03:53 +55 -1: foundation/ synchronousfuture_test.dart
+[METRIC] script=foundation/synchronousfuture_test.dart sourceChars=56431 clearMs=1513 httpMs=1750 totalMs=3265 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=1339 appFirstFrameMs=1541 appPumpEndMs=-1
+03:56 +56 -1: foundation/ targetplatform_test.dart
+[METRIC] script=foundation/targetplatform_test.dart sourceChars=65335 clearMs=1407 httpMs=1878 totalMs=3287 status=success httpStatus=200 outputLines=9 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=1616 appFirstFrameMs=1671 appPumpEndMs=-1
+03:59 +57 -1: foundation/ foundation_misc_adv_test.dart
+[METRIC] script=foundation/foundation_misc_adv_test.dart sourceChars=77702 clearMs=1829 httpMs=3199 totalMs=5030 status=success httpStatus=200 outputLines=3 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=2887 appFirstFrameMs=2989 appPumpEndMs=-1
+04:04 +58 -1: gestures/ scale_details_test.dart
+[METRIC] script=gestures/scale_details_test.dart sourceChars=56458 clearMs=1427 httpMs=1775 totalMs=3205 status=success httpStatus=200 outputLines=51 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=1530 appFirstFrameMs=1569 appPumpEndMs=-1
+04:07 +59 -1: gestures/ velocity_drag_test.dart
+[METRIC] script=gestures/velocity_drag_test.dart sourceChars=84790 clearMs=1356 httpMs=1763 totalMs=3122 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=8 appInterpretEndMs=1508 appFirstFrameMs=1556 appPumpEndMs=-1
+04:11 +60 -1: gestures/ tap_force_test.dart
+[METRIC] script=gestures/tap_force_test.dart sourceChars=93301 clearMs=1361 httpMs=1722 totalMs=3086 status=success httpStatus=200 outputLines=101 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=1497 appFirstFrameMs=1513 appPumpEndMs=-1
+04:14 +61 -1: gestures/ gesture_callbacks_test.dart
+[METRIC] script=gestures/gesture_callbacks_test.dart sourceChars=79449 clearMs=1357 httpMs=1726 totalMs=3085 status=success httpStatus=200 outputLines=6 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=1452 appFirstFrameMs=1520 appPumpEndMs=-1
+04:17 +62 -1: gestures/ gesture_callbacks_adv_test.dart
+[METRIC] script=gestures/gesture_callbacks_adv_test.dart sourceChars=64575 clearMs=1382 httpMs=1811 totalMs=3196 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=1554 appFirstFrameMs=1608 appPumpEndMs=-1
+04:20 +63 -1: (tearDownAll)
+04:21 +63 -1: Some tests failed.

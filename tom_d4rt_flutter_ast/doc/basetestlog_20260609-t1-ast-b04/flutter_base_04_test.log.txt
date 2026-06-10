@@ -1,0 +1,1120 @@
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_04_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:55020/6euFp9ugnFA=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:55020/6euFp9ugnFA=/devtools/?uri=ws://127.0.0.1:55020/6euFp9ugnFA=/ws
+=================================================================
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+00:14 +0: Test App Health app is running
+00:14 +1: material/ batch 3 themadata_test.dart
+[METRIC] script=material/themadata_test.dart sourceBytes=62400 sourceChars=62294 bundleJsonBytes=695596 clearMs=215 readMs=5 bundleMs=200 httpMs=2527 totalMs=2950 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=12 appParseMs=60 appSetStateMs=60 appInterpretStartMs=69 appInterpretEndMs=1863 appFirstFrameMs=2314 appPumpEndMs=2516
+00:17 +2: material/ batch 3 appbar_themes_test.dart
+[METRIC] script=material/appbar_themes_test.dart sourceBytes=70995 sourceChars=70995 bundleJsonBytes=786615 clearMs=215 readMs=1 bundleMs=59 httpMs=2790 totalMs=3067 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=0 appParseMs=11 appSetStateMs=11 appInterpretStartMs=12 appInterpretEndMs=2489 appFirstFrameMs=2583 appPumpEndMs=2785
+00:20 +3: material/ batch 3 navigation_themes_test.dart
+[METRIC] script=material/navigation_themes_test.dart sourceBytes=64097 sourceChars=64036 bundleJsonBytes=817012 clearMs=205 readMs=6 bundleMs=52 httpMs=45037 totalMs=45301 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+[recycle] build-timeout in material/navigation_themes_test.dart — app event loop is wedged; killing it now, restarting before the next test (no cascade)
+01:06 +3 -1: material/ batch 3 navigation_themes_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 45 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_base_04_test.dart 52:7                 main.<fn>.<fn>
+  
+01:06 +3 -1: material/ batch 3 component_themes_test.dart
+[recycle] killing wedged test app (pid=53174)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=material/component_themes_test.dart sourceBytes=62873 sourceChars=62797 bundleJsonBytes=826099 clearMs=204 readMs=1 bundleMs=44 httpMs=1911 totalMs=15233 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=13 appParseMs=68 appSetStateMs=68 appInterpretStartMs=80 appInterpretEndMs=1672 appFirstFrameMs=1703 appPumpEndMs=1903
+01:21 +4 -1: material/ batch 3 dialog_themes_test.dart
+[METRIC] script=material/dialog_themes_test.dart sourceBytes=59914 sourceChars=59832 bundleJsonBytes=681833 clearMs=202 readMs=2 bundleMs=26 httpMs=1548 totalMs=1780 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=19 appSetStateMs=19 appInterpretStartMs=24 appInterpretEndMs=1203 appFirstFrameMs=1341 appPumpEndMs=1543
+01:23 +5 -1: material/ batch 3 input_themes_test.dart
+[METRIC] script=material/input_themes_test.dart sourceBytes=85953 sourceChars=85877 bundleJsonBytes=933946 clearMs=221 readMs=1 bundleMs=34 httpMs=1622 totalMs=1880 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=20 appSetStateMs=20 appInterpretStartMs=21 appInterpretEndMs=1109 appFirstFrameMs=1415 appPumpEndMs=1617
+01:25 +6 -1: material/ batch 3 picker_themes_test.dart
+[METRIC] script=material/picker_themes_test.dart sourceBytes=65483 sourceChars=65469 bundleJsonBytes=782274 clearMs=202 readMs=1 bundleMs=31 httpMs=1592 totalMs=1826 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=26 appSetStateMs=26 appInterpretStartMs=28 appInterpretEndMs=1264 appFirstFrameMs=1383 appPumpEndMs=1585
+01:27 +7 -1: material/ batch 3 menu_themes_test.dart
+[METRIC] script=material/menu_themes_test.dart sourceBytes=81541 sourceChars=81541 bundleJsonBytes=920800 clearMs=222 readMs=1 bundleMs=51 httpMs=2979 totalMs=3255 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=14 appSetStateMs=14 appInterpretStartMs=15 appInterpretEndMs=2610 appFirstFrameMs=2773 appPumpEndMs=2974
+01:30 +8 -1: material/ batch 3 misc_themes_test.dart
+[METRIC] script=material/misc_themes_test.dart sourceBytes=36815 sourceChars=36775 bundleJsonBytes=468583 clearMs=203 readMs=0 bundleMs=12 httpMs=1415 totalMs=1632 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=1 appParseMs=8 appSetStateMs=8 appInterpretStartMs=16 appInterpretEndMs=1005 appFirstFrameMs=1207 appPumpEndMs=1411
+01:32 +9 -1: material/ batch 3 widgetstate_test.dart
+[METRIC] script=material/widgetstate_test.dart sourceBytes=79743 sourceChars=79743 bundleJsonBytes=1046252 clearMs=203 readMs=1 bundleMs=33 httpMs=1932 totalMs=2170 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=17 appSetStateMs=17 appInterpretStartMs=18 appInterpretEndMs=1616 appFirstFrameMs=1724 appPumpEndMs=1926
+01:34 +10 -1: material/ batch 3 licensepage_test.dart
+[METRIC] script=material/licensepage_test.dart sourceBytes=43698 sourceChars=43677 bundleJsonBytes=486040 clearMs=222 readMs=4 bundleMs=14 httpMs=1256 totalMs=1496 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=11 appInterpretEndMs=970 appFirstFrameMs=1041 appPumpEndMs=1252
+01:35 +11 -1: material/ batch 3 datepicker_widgets_test.dart
+[METRIC] script=material/datepicker_widgets_test.dart sourceBytes=53972 sourceChars=53964 bundleJsonBytes=503579 clearMs=203 readMs=5 bundleMs=13 httpMs=1590 totalMs=1812 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=14 appInterpretEndMs=1022 appFirstFrameMs=1385 appPumpEndMs=1586
+01:37 +12 -1: material/ batch 3 timepicker_widget_test.dart
+[METRIC] script=material/timepicker_widget_test.dart sourceBytes=51347 sourceChars=51347 bundleJsonBytes=635517 clearMs=217 readMs=1 bundleMs=34 httpMs=1373 totalMs=1627 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=0 appParseMs=8 appSetStateMs=8 appInterpretStartMs=14 appInterpretEndMs=1001 appFirstFrameMs=1167 appPumpEndMs=1369
+01:39 +13 -1: material/ batch 3 menubar_test.dart
+[METRIC] script=material/menubar_test.dart sourceBytes=79689 sourceChars=79669 bundleJsonBytes=900779 clearMs=224 readMs=2 bundleMs=46 httpMs=1464 totalMs=1737 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=23 appInterpretEndMs=1196 appFirstFrameMs=1258 appPumpEndMs=1460
+01:40 +14 -1: material/ batch 3 expansiontile_test.dart
+[METRIC] script=material/expansiontile_test.dart sourceBytes=80734 sourceChars=80686 bundleJsonBytes=857834 clearMs=203 readMs=2 bundleMs=28 httpMs=2302 totalMs=2537 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=22 appInterpretEndMs=1950 appFirstFrameMs=2097 appPumpEndMs=2297
+01:43 +15 -1: material/ batch 3 badge_test.dart
+[METRIC] script=material/badge_test.dart sourceBytes=67862 sourceChars=67778 bundleJsonBytes=687561 clearMs=204 readMs=2 bundleMs=36 httpMs=1425 totalMs=1669 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=1 appParseMs=15 appSetStateMs=15 appInterpretStartMs=24 appInterpretEndMs=1004 appFirstFrameMs=1219 appPumpEndMs=1420
+01:45 +16 -1: material/ batch 3 material_widget_test.dart
+[METRIC] script=material/material_widget_test.dart sourceBytes=82646 sourceChars=82553 bundleJsonBytes=1003090 clearMs=222 readMs=2 bundleMs=35 httpMs=1406 totalMs=1667 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=18 appSetStateMs=18 appInterpretStartMs=25 appInterpretEndMs=1094 appFirstFrameMs=1198 appPumpEndMs=1400
+01:46 +17 -1: material/ batch 3 pageroute_test.dart
+[METRIC] script=material/pageroute_test.dart sourceBytes=81220 sourceChars=81116 bundleJsonBytes=891100 clearMs=203 readMs=1 bundleMs=27 httpMs=2752 totalMs=2985 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=2 appParseMs=17 appSetStateMs=18 appInterpretStartMs=24 appInterpretEndMs=2458 appFirstFrameMs=2540 appPumpEndMs=2742
+01:49 +18 -1: material/ batch 3 nav_destinations_test.dart
+[METRIC] script=material/nav_destinations_test.dart sourceBytes=42923 sourceChars=42923 bundleJsonBytes=487215 clearMs=1497 readMs=1 bundleMs=10 httpMs=55003 totalMs=57252 status=transport_error httpStatus=-1 outputLines=0 frameworkErrors=0
+02:47 +18 -2: material/ batch 3 nav_destinations_test.dart [E]
+  Bad state: Transport failure while running "material/nav_destinations_test.dart"
+  Operation: POST /build?filename=material%2Fnav_destinations_test.dart&suite=main.dart
+  Error: TimeoutException after 0:00:55.000000: Future not completed
+  
+  Stack trace:
+  #0      Future.timeout.<anonymous closure> (dart:async/future_impl.dart:1042:24)
+  <asynchronous suspension>
+  #1      SendTestRunner.send (file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/send_test_runner.dart:1135:18)
+  <asynchronous suspension>
+  #2      main.<anonymous closure>.<anonymous closure> (file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_04_test.dart:155:22)
+  <asynchronous suspension>
+  #3      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+  <asynchronous suspension>
+  #4      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+  <asynchronous suspension>
+  #5      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+  <asynchronous suspension>
+  
+  
+  Runner app process: exited with code 0
+  
+  Captured app STDOUT tail:
+    flutter: [D4rtApp][build-metric] file="material/component_themes_test.dart" widgetType="Scaffold" bodyMs=13 parseMs=68 setStateMs=68 interpretStartMs=80 interpretEndMs=1672 firstFrameMs=1703 pumpEndMs=1903 totalMs=1904
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=3 lastClearedFile="material/component_themes_test.dart" currentTestFile="material/component_themes_test.dart" sinceClearMs=0 gen=3 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=3 lastClearedFile="material/component_themes_test.dart" currentTestFile="material/component_themes_test.dart" sinceClearMs=200 gen=4 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [material/dialog_themes_test.dart] (681793 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=3 lastClearedFile="material/component_themes_test.dart" currentTestFile="material/dialog_themes_test.dart" sinceClearMs=236 gen=4 :: incoming /build filename="material/dialog_themes_test.dart" suite="main.dart" bytes=681793
+    flutter: [D4rtApp][clean][build-postpump] clearCount=3 lastClearedFile="material/component_themes_test.dart" currentTestFile="material/dialog_themes_test.dart" sinceClearMs=1778 gen=5 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="material/dialog_themes_test.dart" widgetType="MaterialApp" bodyMs=2 parseMs=19 setStateMs=19 interpretStartMs=24 interpretEndMs=1203 firstFrameMs=1341 pumpEndMs=1543 totalMs=1543
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=4 lastClearedFile="material/dialog_themes_test.dart" currentTestFile="material/dialog_themes_test.dart" sinceClearMs=0 gen=5 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=4 lastClearedFile="material/dialog_themes_test.dart" currentTestFile="material/dialog_themes_test.dart" sinceClearMs=201 gen=6 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [material/input_themes_test.dart] (933870 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=4 lastClearedFile="material/dialog_themes_test.dart" currentTestFile="material/input_themes_test.dart" sinceClearMs=245 gen=6 :: incoming /build filename="material/input_themes_test.dart" suite="main.dart" bytes=933870
+    flutter: [D4rtApp][clean][build-postpump] clearCount=4 lastClearedFile="material/dialog_themes_test.dart" currentTestFile="material/input_themes_test.dart" sinceClearMs=1859 gen=7 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="material/input_themes_test.dart" widgetType="Scaffold" bodyMs=2 parseMs=20 setStateMs=20 interpretStartMs=21 interpretEndMs=1109 firstFrameMs=1415 pumpEndMs=1617 totalMs=1617
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=5 lastClearedFile="material/input_themes_test.dart" currentTestFile="material/input_themes_test.dart" sinceClearMs=0 gen=7 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=5 lastClearedFile="material/input_themes_test.dart" currentTestFile="material/input_themes_test.dart" sinceClearMs=200 gen=8 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [material/picker_themes_test.dart] (782260 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=5 lastClearedFile="material/input_themes_test.dart" currentTestFile="material/picker_themes_test.dart" sinceClearMs=240 gen=8 :: incoming /build filename="material/picker_themes_test.dart" suite="main.dart" bytes=782260
+    flutter: [D4rtApp] [script] PickerThemes deep demo executing
+    flutter: [D4rtApp][clean][build-postpump] clearCount=5 lastClearedFile="material/input_themes_test.dart" currentTestFile="material/picker_themes_test.dart" sinceClearMs=1823 gen=9 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="material/picker_themes_test.dart" widgetType="Scaffold" bodyMs=2 parseMs=26 setStateMs=26 interpretStartMs=28 interpretEndMs=1264 firstFrameMs=1383 pumpEndMs=1585 totalMs=1585
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=6 lastClearedFile="material/picker_themes_test.dart" currentTestFile="material/picker_themes_test.dart" sinceClearMs=0 gen=9 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=6 lastClearedFile="material/picker_themes_test.dart" currentTestFile="material/picker_themes_test.dart" sinceClearMs=201 gen=10 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [material/menu_themes_test.dart] (920800 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=6 lastClearedFile="material/picker_themes_test.dart" currentTestFile="material/menu_themes_test.dart" sinceClearMs=261 gen=10 :: incoming /build filename="material/menu_themes_test.dart" suite="main.dart" bytes=920800
+    flutter: [D4rtApp] [script] Menu themes deep visual demo: build()
+    flutter: [D4rtApp] [script] Menu themes deep visual demo: build() done
+    flutter: [D4rtApp][clean][build-postpump] clearCount=6 lastClearedFile="material/picker_themes_test.dart" currentTestFile="material/menu_themes_test.dart" sinceClearMs=3235 gen=11 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="material/menu_themes_test.dart" widgetType="MaterialApp" bodyMs=0 parseMs=14 setStateMs=14 interpretStartMs=15 interpretEndMs=2610 firstFrameMs=2773 pumpEndMs=2974 totalMs=2974
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=7 lastClearedFile="material/menu_themes_test.dart" currentTestFile="material/menu_themes_test.dart" sinceClearMs=0 gen=11 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=7 lastClearedFile="material/menu_themes_test.dart" currentTestFile="material/menu_themes_test.dart" sinceClearMs=201 gen=12 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [material/misc_themes_test.dart] (468567 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=7 lastClearedFile="material/menu_themes_test.dart" currentTestFile="material/misc_themes_test.dart" sinceClearMs=219 gen=12 :: incoming /build filename="material/misc_themes_test.dart" suite="main.dart" bytes=468567
+    flutter: [D4rtApp] [script] Misc Material Themes Deep Demo executing
+    flutter: [D4rtApp] [script] Base ThemeData created (Material 3, indigo seed)
+    flutter: [D4rtApp] [script] === Section 1: Overview of Material Theme Data Classes ===
+    flutter: [D4rtApp] [script] Created 7 overview concept cards
+    flutter: [D4rtApp] [script] === Section 2: ChipThemeData (Chip, ActionChip, InputChip) ===
+    flutter: [D4rtApp] [script] ChipThemeData built — selectedColor: Color(alpha: 1.0000, red: 0.3020, green: 0.7137, blue: 0.6745, colorSpace: ColorSpace.sRGB)
+    flutter: [D4rtApp] [script] === Section 3: BadgeThemeData (Badge on icons) ===
+    flutter: [D4rtApp] [script] BadgeThemeData built — large: 18.0, small: 8.0
+    flutter: [D4rtApp] [script] === Section 4: ListTileThemeData (4 list tiles) ===
+    flutter: [D4rtApp] [script] ListTileThemeData built — tileColor: Color(alpha: 1.0000, red: 0.9294, green: 0.9059, blue: 0.9647, colorSpace: ColorSpace.sRGB)
+    flutter: [D4rtApp] [script] === Section 5: ProgressIndicatorThemeData (Linear + Circular) ===
+    flutter: [D4rtApp] [script] ProgressIndicatorThemeData built — color: Color(alpha: 1.0000, red: 0.9608, green: 0.4863, blue: 0.0000, colorSpace: ColorSpace.sRGB), linearMinHeight: 10.0
+    flutter: [D4rtApp] [script] === Section 6: TooltipThemeData (themed tooltip on button) ===
+    flutter: [D4rtApp] [script] TooltipThemeData built — wait: 0:00:00.200000, show: 0:00:03.000000
+    flutter: [D4rtApp] [script] === Section 7: SearchBarThemeData ===
+    flutter: [D4rtApp] [script] SearchBarThemeData built
+    flutter: [D4rtApp] [script] === Section 8: SegmentedButtonThemeData ===
+    flutter: [D4rtApp] [script] SegmentedButtonThemeData built
+    flutter: [D4rtApp] [script] === Section 9: Code Examples ===
+    flutter: [D4rtApp] [script] Created 6 code panels
+    flutter: [D4rtApp] [script] === Section 10: Summary ===
+    flutter: [D4rtApp] [script] Misc Material Themes Deep Demo completed successfully
+    flutter: [D4rtApp][clean][build-postpump] clearCount=7 lastClearedFile="material/menu_themes_test.dart" currentTestFile="material/misc_themes_test.dart" sinceClearMs=1629 gen=13 :: pumped 200ms on built widget (SingleChildScrollView), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="material/misc_themes_test.dart" widgetType="SingleChildScrollView" bodyMs=1 parseMs=8 setStateMs=8 interpretStartMs=16 interpretEndMs=1005 firstFrameMs=1207 pumpEndMs=1411 totalMs=1411
+    flutter: [D4rtApp] Build completed: SingleChildScrollView
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=8 lastClearedFile="material/misc_themes_test.dart" currentTestFile="material/misc_themes_test.dart" sinceClearMs=0 gen=13 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=8 lastClearedFile="material/misc_themes_test.dart" currentTestFile="material/misc_themes_test.dart" sinceClearMs=201 gen=14 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [material/widgetstate_test.dart] (1046252 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=8 lastClearedFile="material/misc_themes_test.dart" currentTestFile="material/widgetstate_test.dart" sinceClearMs=241 gen=14 :: incoming /build filename="material/widgetstate_test.dart" suite="main.dart" bytes=1046252
+    flutter: [D4rtApp][clean][build-postpump] clearCount=8 lastClearedFile="material/misc_themes_test.dart" currentTestFile="material/widgetstate_test.dart" sinceClearMs=2167 gen=15 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="material/widgetstate_test.dart" widgetType="Scaffold" bodyMs=0 parseMs=17 setStateMs=17 interpretStartMs=18 interpretEndMs=1616 firstFrameMs=1724 pumpEndMs=1926 totalMs=1926
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=9 lastClearedFile="material/widgetstate_test.dart" currentTestFile="material/widgetstate_test.dart" sinceClearMs=0 gen=15 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=9 lastClearedFile="material/widgetstate_test.dart" currentTestFile="material/widgetstate_test.dart" sinceClearMs=202 gen=16 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [material/licensepage_test.dart] (486023 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=9 lastClearedFile="material/widgetstate_test.dart" currentTestFile="material/licensepage_test.dart" sinceClearMs=226 gen=16 :: incoming /build filename="material/licensepage_test.dart" suite="main.dart" bytes=486023
+    flutter: [D4rtApp] [script] LicensePage Deep Demo executing
+    flutter: [D4rtApp] [script] === Section 1: Title banner ===
+    flutter: [D4rtApp] [script] === Section 2: Anatomy diagram ===
+    flutter: [D4rtApp] [script] === Section 3: Real LicensePage inline ===
+    flutter: [D4rtApp] [script] === Section 4: Field showcase ===
+    flutter: [D4rtApp] [script] === Section 5: showLicensePage integration ===
+    flutter: [D4rtApp] [script] === Section 6: LicenseRegistry ===
+    flutter: [D4rtApp] [script] === Section 7: Mock master/detail ===
+    flutter: [D4rtApp] [script] === Section 8: Localization ===
+    flutter: [D4rtApp] [script] === Section 9: Footguns ===
+    flutter: [D4rtApp] [script] === Section 10: Recap ===
+    flutter: [D4rtApp] [script] LicensePage Deep Demo complete
+    flutter: [D4rtApp][clean][build-postpump] clearCount=9 lastClearedFile="material/widgetstate_test.dart" currentTestFile="material/licensepage_test.dart" sinceClearMs=1477 gen=17 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="material/licensepage_test.dart" widgetType="Scaffold" bodyMs=1 parseMs=9 setStateMs=9 interpretStartMs=11 interpretEndMs=970 firstFrameMs=1041 pumpEndMs=1252 totalMs=1252
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=10 lastClearedFile="material/licensepage_test.dart" currentTestFile="material/licensepage_test.dart" sinceClearMs=0 gen=17 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=10 lastClearedFile="material/licensepage_test.dart" currentTestFile="material/licensepage_test.dart" sinceClearMs=201 gen=18 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [material/datepicker_widgets_test.dart] (503571 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=10 lastClearedFile="material/licensepage_test.dart" currentTestFile="material/datepicker_widgets_test.dart" sinceClearMs=225 gen=18 :: incoming /build filename="material/datepicker_widgets_test.dart" suite="main.dart" bytes=503571
+    flutter: [D4rtApp] [script] Material date picker deep demo starting
+    flutter: [D4rtApp][clean][build-postpump] clearCount=10 lastClearedFile="material/licensepage_test.dart" currentTestFile="material/datepicker_widgets_test.dart" sinceClearMs=1810 gen=19 :: pumped 200ms on built widget (Material), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="material/datepicker_widgets_test.dart" widgetType="Material" bodyMs=1 parseMs=9 setStateMs=9 interpretStartMs=14 interpretEndMs=1022 firstFrameMs=1385 pumpEndMs=1586 totalMs=1586
+    flutter: [D4rtApp] Build completed: Material
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=11 lastClearedFile="material/datepicker_widgets_test.dart" currentTestFile="material/datepicker_widgets_test.dart" sinceClearMs=0 gen=19 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=11 lastClearedFile="material/datepicker_widgets_test.dart" currentTestFile="material/datepicker_widgets_test.dart" sinceClearMs=201 gen=20 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [material/timepicker_widget_test.dart] (635517 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=11 lastClearedFile="material/datepicker_widgets_test.dart" currentTestFile="material/timepicker_widget_test.dart" sinceClearMs=242 gen=20 :: incoming /build filename="material/timepicker_widget_test.dart" suite="main.dart" bytes=635517
+    flutter: [D4rtApp] [script] TimePickerDialog deep visual demo: starting
+    flutter: [D4rtApp] [script] TimePickerDialog deep visual demo: assembled
+    flutter: [D4rtApp] [script] text direction: TextDirection.ltr
+    flutter: [D4rtApp] [script] diagAngle (math.pi/4): 0.7853981633974483
+    flutter: [D4rtApp][clean][build-postpump] clearCount=11 lastClearedFile="material/datepicker_widgets_test.dart" currentTestFile="material/timepicker_widget_test.dart" sinceClearMs=1611 gen=21 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="material/timepicker_widget_test.dart" widgetType="Scaffold" bodyMs=0 parseMs=8 setStateMs=8 interpretStartMs=14 interpretEndMs=1001 firstFrameMs=1167 pumpEndMs=1369 totalMs=1369
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=12 lastClearedFile="material/timepicker_widget_test.dart" currentTestFile="material/timepicker_widget_test.dart" sinceClearMs=0 gen=21 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=12 lastClearedFile="material/timepicker_widget_test.dart" currentTestFile="material/timepicker_widget_test.dart" sinceClearMs=201 gen=22 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [material/menubar_test.dart] (900759 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=12 lastClearedFile="material/timepicker_widget_test.dart" currentTestFile="material/menubar_test.dart" sinceClearMs=258 gen=22 :: incoming /build filename="material/menubar_test.dart" suite="main.dart" bytes=900759
+    flutter: [D4rtApp][clean][build-postpump] clearCount=12 lastClearedFile="material/timepicker_widget_test.dart" currentTestFile="material/menubar_test.dart" sinceClearMs=1716 gen=23 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="material/menubar_test.dart" widgetType="MaterialApp" bodyMs=2 parseMs=16 setStateMs=16 interpretStartMs=23 interpretEndMs=1196 firstFrameMs=1258 pumpEndMs=1460 totalMs=1460
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=13 lastClearedFile="material/menubar_test.dart" currentTestFile="material/menubar_test.dart" sinceClearMs=0 gen=23 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=13 lastClearedFile="material/menubar_test.dart" currentTestFile="material/menubar_test.dart" sinceClearMs=201 gen=24 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [material/expansiontile_test.dart] (857786 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=13 lastClearedFile="material/menubar_test.dart" currentTestFile="material/expansiontile_test.dart" sinceClearMs=239 gen=24 :: incoming /build filename="material/expansiontile_test.dart" suite="main.dart" bytes=857786
+    flutter: [D4rtApp] [script] ExpansionTile deep visual demo executing
+    flutter: [D4rtApp] [script] ExpansionTile demo tree assembled
+    flutter: [D4rtApp][clean][build-postpump] clearCount=13 lastClearedFile="material/menubar_test.dart" currentTestFile="material/expansiontile_test.dart" sinceClearMs=2535 gen=25 :: pumped 200ms on built widget (Theme), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="material/expansiontile_test.dart" widgetType="Theme" bodyMs=2 parseMs=16 setStateMs=16 interpretStartMs=22 interpretEndMs=1950 firstFrameMs=2097 pumpEndMs=2297 totalMs=2298
+    flutter: [D4rtApp] Build completed: Theme
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=14 lastClearedFile="material/expansiontile_test.dart" currentTestFile="material/expansiontile_test.dart" sinceClearMs=0 gen=25 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=14 lastClearedFile="material/expansiontile_test.dart" currentTestFile="material/expansiontile_test.dart" sinceClearMs=202 gen=26 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [material/badge_test.dart] (687489 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=14 lastClearedFile="material/expansiontile_test.dart" currentTestFile="material/badge_test.dart" sinceClearMs=247 gen=26 :: incoming /build filename="material/badge_test.dart" suite="main.dart" bytes=687489
+    flutter: [D4rtApp] [script] Badge deep visual demo: build() entered
+    flutter: [D4rtApp] [script] Badge deep visual demo: 14 sections assembled
+    flutter: [D4rtApp][clean][build-postpump] clearCount=14 lastClearedFile="material/expansiontile_test.dart" currentTestFile="material/badge_test.dart" sinceClearMs=1666 gen=27 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="material/badge_test.dart" widgetType="MaterialApp" bodyMs=1 parseMs=15 setStateMs=15 interpretStartMs=24 interpretEndMs=1004 firstFrameMs=1219 pumpEndMs=1420 totalMs=1420
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=15 lastClearedFile="material/badge_test.dart" currentTestFile="material/badge_test.dart" sinceClearMs=0 gen=27 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=15 lastClearedFile="material/badge_test.dart" currentTestFile="material/badge_test.dart" sinceClearMs=201 gen=28 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [material/material_widget_test.dart] (1003055 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=15 lastClearedFile="material/badge_test.dart" currentTestFile="material/material_widget_test.dart" sinceClearMs=248 gen=28 :: incoming /build filename="material/material_widget_test.dart" suite="main.dart" bytes=1003055
+    flutter: [D4rtApp][clean][build-postpump] clearCount=15 lastClearedFile="material/badge_test.dart" currentTestFile="material/material_widget_test.dart" sinceClearMs=1646 gen=29 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="material/material_widget_test.dart" widgetType="Scaffold" bodyMs=2 parseMs=18 setStateMs=18 interpretStartMs=25 interpretEndMs=1094 firstFrameMs=1198 pumpEndMs=1400 totalMs=1401
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=16 lastClearedFile="material/material_widget_test.dart" currentTestFile="material/material_widget_test.dart" sinceClearMs=0 gen=29 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=16 lastClearedFile="material/material_widget_test.dart" currentTestFile="material/material_widget_test.dart" sinceClearMs=200 gen=30 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [material/pageroute_test.dart] (891032 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=16 lastClearedFile="material/material_widget_test.dart" currentTestFile="material/pageroute_test.dart" sinceClearMs=239 gen=30 :: incoming /build filename="material/pageroute_test.dart" suite="main.dart" bytes=891032
+    flutter: [D4rtApp] [script] pageroute_test: building Material navigation departure board
+    flutter: [D4rtApp] [script] pageroute_test: constructing route specimens
+    flutter: [D4rtApp] [script] pageroute_test: section 1 — hero header
+    flutter: [D4rtApp] [script] pageroute_test: section 2 — concept overview
+    flutter: [D4rtApp] [script] pageroute_test: section 3 — class hierarchy
+    flutter: [D4rtApp] [script] pageroute_test: section 4 — constructor anatomy boarding pass
+    flutter: [D4rtApp] [script] pageroute_test: section 5 — live specimens
+    flutter: [D4rtApp] [script] pageroute_test: section 6 — transition snapshots
+    flutter: [D4rtApp] [script] pageroute_test: section 7 — fullscreenDialog vs standard
+    flutter: [D4rtApp] [script] pageroute_test: section 8 — PageRouteBuilder showcase
+    flutter: [D4rtApp] [script] pageroute_test: section 9 — result type T
+    flutter: [D4rtApp] [script] pageroute_test: section 10 — lifecycle ladder
+    flutter: [D4rtApp] [script] pageroute_test: section 11 — recipe cards
+    flutter: [D4rtApp] [script] pageroute_test: section 12 — comparison table
+    flutter: [D4rtApp] [script] pageroute_test: section 13 — pitfalls
+    flutter: [D4rtApp] [script] pageroute_test: section 14 — glossary
+    flutter: [D4rtApp] [script] pageroute_test: section 15 — Cupertino cameo
+    flutter: [D4rtApp] [script] pageroute_test: section 16 — epilogue
+    flutter: [D4rtApp] [script] pageroute_test: assembling final widget tree
+    flutter: [D4rtApp][clean][build-postpump] clearCount=16 lastClearedFile="material/material_widget_test.dart" currentTestFile="material/pageroute_test.dart" sinceClearMs=2979 gen=31 :: pumped 200ms on built widget (Container), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="material/pageroute_test.dart" widgetType="Container" bodyMs=2 parseMs=17 setStateMs=18 interpretStartMs=24 interpretEndMs=2458 firstFrameMs=2540 pumpEndMs=2742 totalMs=2742
+    flutter: [D4rtApp] Build completed: Container
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=17 lastClearedFile="material/pageroute_test.dart" currentTestFile="material/pageroute_test.dart" sinceClearMs=0 gen=31 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=17 lastClearedFile="material/pageroute_test.dart" currentTestFile="material/pageroute_test.dart" sinceClearMs=1311 gen=32 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [material/nav_destinations_test.dart] (487215 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=17 lastClearedFile="material/pageroute_test.dart" currentTestFile="material/nav_destinations_test.dart" sinceClearMs=1652 gen=32 :: incoming /build filename="material/nav_destinations_test.dart" suite="main.dart" bytes=487215
+    Lost connection to device.
+  
+  Captured app STDERR tail:
+    Failed to foreground app; open returned 1
+    [process] test app exited with code 0
+  
+  test/send_test_runner.dart 1180:7  SendTestRunner.send
+  
+02:47 +18 -2: material/ batch 3 dropdownform_test.dart
+[recycle] killing wedged test app (pid=54637)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=material/dropdownform_test.dart sourceBytes=63922 sourceChars=63908 bundleJsonBytes=844085 clearMs=203 readMs=2 bundleMs=40 httpMs=4199 totalMs=17445 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=14 appParseMs=63 appSetStateMs=63 appInterpretStartMs=67 appInterpretEndMs=3651 appFirstFrameMs=3988 appPumpEndMs=4189
+03:04 +19 -2: material/ batch 3 rawscrollbar_test.dart
+[METRIC] script=material/rawscrollbar_test.dart sourceBytes=62939 sourceChars=62935 bundleJsonBytes=754445 clearMs=203 readMs=1 bundleMs=16 httpMs=3291 totalMs=3514 status=success httpStatus=200 outputLines=27 frameworkErrors=0 appBodyMs=2 appParseMs=15 appSetStateMs=15 appInterpretStartMs=19 appInterpretEndMs=2985 appFirstFrameMs=3084 appPumpEndMs=3286
+03:08 +20 -2: material/ batch 3 mergeable_test.dart
+[METRIC] script=material/mergeable_test.dart sourceBytes=56038 sourceChars=56010 bundleJsonBytes=675994 clearMs=204 readMs=1 bundleMs=25 httpMs=1564 totalMs=1797 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=24 appSetStateMs=24 appInterpretStartMs=25 appInterpretEndMs=1181 appFirstFrameMs=1359 appPumpEndMs=1559
+03:09 +21 -2: widgets/ batch 3 listbody_test.dart
+[METRIC] script=widgets/listbody_test.dart sourceBytes=92260 sourceChars=92242 bundleJsonBytes=991827 clearMs=204 readMs=1 bundleMs=24 httpMs=1529 totalMs=1758 status=success httpStatus=200 outputLines=7 frameworkErrors=0 appBodyMs=2 appParseMs=24 appSetStateMs=24 appInterpretStartMs=28 appInterpretEndMs=1237 appFirstFrameMs=1321 appPumpEndMs=1523
+03:11 +22 -2: widgets/ batch 3 flow_test.dart
+[METRIC] script=widgets/flow_test.dart sourceBytes=72451 sourceChars=72375 bundleJsonBytes=881015 clearMs=222 readMs=2 bundleMs=39 httpMs=1637 totalMs=1902 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=22 appInterpretEndMs=1335 appFirstFrameMs=1431 appPumpEndMs=1631
+03:13 +23 -2: widgets/ batch 3 pagecontroller_test.dart
+[METRIC] script=widgets/pagecontroller_test.dart sourceBytes=62121 sourceChars=62045 bundleJsonBytes=731546 clearMs=204 readMs=1 bundleMs=21 httpMs=1311 totalMs=1539 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=13 appSetStateMs=13 appInterpretStartMs=21 appInterpretEndMs=1037 appFirstFrameMs=1104 appPumpEndMs=1306
+03:15 +24 -2: widgets/ batch 3 tabcontroller_test.dart
+[METRIC] script=widgets/tabcontroller_test.dart sourceBytes=84414 sourceChars=84310 bundleJsonBytes=905786 clearMs=204 readMs=1 bundleMs=21 httpMs=1319 totalMs=1545 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=20 appSetStateMs=20 appInterpretStartMs=23 appInterpretEndMs=1046 appFirstFrameMs=1112 appPumpEndMs=1314
+03:16 +25 -2: widgets/ batch 3 overlay_test.dart
+[METRIC] script=widgets/overlay_test.dart sourceBytes=60993 sourceChars=60981 bundleJsonBytes=693664 clearMs=215 readMs=1 bundleMs=23 httpMs=1249 totalMs=1490 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=13 appSetStateMs=13 appInterpretStartMs=19 appInterpretEndMs=991 appFirstFrameMs=1044 appPumpEndMs=1244
+03:18 +26 -2: widgets/ batch 3 route_test.dart
+[METRIC] script=widgets/route_test.dart sourceBytes=69652 sourceChars=69548 bundleJsonBytes=780418 clearMs=204 readMs=1 bundleMs=17 httpMs=2302 totalMs=2526 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=12 appSetStateMs=12 appInterpretStartMs=19 appInterpretEndMs=1777 appFirstFrameMs=2096 appPumpEndMs=2298
+03:20 +27 -2: widgets/ batch 3 localizations_test.dart
+[METRIC] script=widgets/localizations_test.dart sourceBytes=53725 sourceChars=53663 bundleJsonBytes=549002 clearMs=218 readMs=3 bundleMs=13 httpMs=1307 totalMs=1543 status=success httpStatus=200 outputLines=38 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=12 appInterpretEndMs=1047 appFirstFrameMs=1101 appPumpEndMs=1303
+03:22 +28 -2: widgets/ batch 3 actions_test.dart
+[METRIC] script=widgets/actions_test.dart sourceBytes=60082 sourceChars=59978 bundleJsonBytes=663589 clearMs=217 readMs=1 bundleMs=15 httpMs=1439 totalMs=1674 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=16 appInterpretEndMs=1208 appFirstFrameMs=1233 appPumpEndMs=1433
+03:23 +29 -2: widgets/ batch 3 focustraversal_test.dart
+[METRIC] script=widgets/focustraversal_test.dart sourceBytes=72355 sourceChars=69569 bundleJsonBytes=857340 clearMs=205 readMs=2 bundleMs=33 httpMs=1546 totalMs=1787 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=23 appInterpretEndMs=1218 appFirstFrameMs=1339 appPumpEndMs=1540
+03:25 +30 -2: widgets/ batch 3 blocksemantics_test.dart
+[METRIC] script=widgets/blocksemantics_test.dart sourceBytes=88899 sourceChars=88845 bundleJsonBytes=959685 clearMs=204 readMs=1 bundleMs=34 httpMs=1480 totalMs=1722 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=21 appSetStateMs=21 appInterpretStartMs=24 appInterpretEndMs=921 appFirstFrameMs=1273 appPumpEndMs=1474
+03:27 +31 -2: widgets/ batch 3 scrollnotification_test.dart
+[METRIC] script=widgets/scrollnotification_test.dart sourceBytes=72178 sourceChars=72178 bundleJsonBytes=848751 clearMs=203 readMs=2 bundleMs=34 httpMs=2189 totalMs=2430 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=11 appSetStateMs=11 appInterpretStartMs=19 appInterpretEndMs=1856 appFirstFrameMs=1981 appPumpEndMs=2183
+03:29 +32 -2: widgets/ batch 3 keepalive_test.dart
+[METRIC] script=widgets/keepalive_test.dart sourceBytes=94389 sourceChars=89107 bundleJsonBytes=743268 clearMs=275 readMs=3 bundleMs=25 httpMs=55007 totalMs=56091 status=transport_error httpStatus=-1 outputLines=0 frameworkErrors=0
+04:25 +32 -3: widgets/ batch 3 keepalive_test.dart [E]
+  Bad state: Transport failure while running "widgets/keepalive_test.dart"
+  Operation: POST /build?filename=widgets%2Fkeepalive_test.dart&suite=main.dart
+  Error: TimeoutException after 0:00:55.000000: Future not completed
+  
+  Stack trace:
+  #0      Future.timeout.<anonymous closure> (dart:async/future_impl.dart:1042:24)
+  <asynchronous suspension>
+  #1      SendTestRunner.send (file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/send_test_runner.dart:1135:18)
+  <asynchronous suspension>
+  #2      main.<anonymous closure>.<anonymous closure> (file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_04_test.dart:253:22)
+  <asynchronous suspension>
+  #3      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+  <asynchronous suspension>
+  #4      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+  <asynchronous suspension>
+  #5      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+  <asynchronous suspension>
+  
+  
+  Runner app process: exited with code 0
+  
+  Captured app STDOUT tail:
+    flutter: [D4rtApp] [script] Section 12 ready.
+    flutter: [D4rtApp] [script] === RawScrollbar / Scrollbar / CupertinoScrollbar demo end ===
+    flutter: [D4rtApp][clean][build-postpump] clearCount=3 lastClearedFile="material/dropdownform_test.dart" currentTestFile="material/rawscrollbar_test.dart" sinceClearMs=3511 gen=5 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="material/rawscrollbar_test.dart" widgetType="Scaffold" bodyMs=2 parseMs=15 setStateMs=15 interpretStartMs=19 interpretEndMs=2985 firstFrameMs=3084 pumpEndMs=3286 totalMs=3286
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=4 lastClearedFile="material/rawscrollbar_test.dart" currentTestFile="material/rawscrollbar_test.dart" sinceClearMs=0 gen=5 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=4 lastClearedFile="material/rawscrollbar_test.dart" currentTestFile="material/rawscrollbar_test.dart" sinceClearMs=201 gen=6 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [material/mergeable_test.dart] (675974 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=4 lastClearedFile="material/rawscrollbar_test.dart" currentTestFile="material/mergeable_test.dart" sinceClearMs=236 gen=6 :: incoming /build filename="material/mergeable_test.dart" suite="main.dart" bytes=675974
+    flutter: [D4rtApp][clean][build-postpump] clearCount=4 lastClearedFile="material/rawscrollbar_test.dart" currentTestFile="material/mergeable_test.dart" sinceClearMs=1794 gen=7 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="material/mergeable_test.dart" widgetType="Scaffold" bodyMs=2 parseMs=24 setStateMs=24 interpretStartMs=25 interpretEndMs=1181 firstFrameMs=1359 pumpEndMs=1559 totalMs=1559
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=5 lastClearedFile="material/mergeable_test.dart" currentTestFile="material/mergeable_test.dart" sinceClearMs=0 gen=7 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=5 lastClearedFile="material/mergeable_test.dart" currentTestFile="material/mergeable_test.dart" sinceClearMs=201 gen=8 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [widgets/listbody_test.dart] (991817 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=5 lastClearedFile="material/mergeable_test.dart" currentTestFile="widgets/listbody_test.dart" sinceClearMs=235 gen=8 :: incoming /build filename="widgets/listbody_test.dart" suite="main.dart" bytes=991817
+    flutter: [D4rtApp] [script] [stack-spruce] ListBody deep-dive demo starting
+    flutter: [D4rtApp] [script] [stack-spruce] Theme: forester cordwood, sixteen-color spruce scale
+    flutter: [D4rtApp] [script] [stack-spruce] D4rt mode: snapshot build, no Stateful, no controllers
+    flutter: [D4rtApp] [script] [stack-spruce] Target widget: ListBody (flex-less linear layout)
+    flutter: [D4rtApp] [script] [stack-spruce] Constructor: ({mainAxis, reverse, children})
+    flutter: [D4rtApp] [script] [stack-spruce] Composing 14-section snapshot tree...
+    flutter: [D4rtApp] [script] [stack-spruce] warmup ListBody built: mainAxis=Axis.vertical reverse=false children=2
+    flutter: [D4rtApp][clean][build-postpump] clearCount=5 lastClearedFile="material/mergeable_test.dart" currentTestFile="widgets/listbody_test.dart" sinceClearMs=1756 gen=9 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="widgets/listbody_test.dart" widgetType="Scaffold" bodyMs=2 parseMs=24 setStateMs=24 interpretStartMs=28 interpretEndMs=1237 firstFrameMs=1321 pumpEndMs=1523 totalMs=1523
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=6 lastClearedFile="widgets/listbody_test.dart" currentTestFile="widgets/listbody_test.dart" sinceClearMs=0 gen=9 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=6 lastClearedFile="widgets/listbody_test.dart" currentTestFile="widgets/listbody_test.dart" sinceClearMs=201 gen=10 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [widgets/flow_test.dart] (880975 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=6 lastClearedFile="widgets/listbody_test.dart" currentTestFile="widgets/flow_test.dart" sinceClearMs=252 gen=10 :: incoming /build filename="widgets/flow_test.dart" suite="main.dart" bytes=880975
+    flutter: [D4rtApp] [script] [flow_test] === BEGIN deep visual demo of Flutter Flow widget ===
+    flutter: [D4rtApp] [script] [flow_test] interpreter mode: depicting paintChildren output via Stack + Transform
+    flutter: [D4rtApp] [script] [flow_test] section 0: page header
+    flutter: [D4rtApp] [script] [flow_test] section 1: anatomy diagram
+    flutter: [D4rtApp] [script] [flow_test] section 2: radial / orbital menu
+    flutter: [D4rtApp] [script] [flow_test] section 3: fan-out cards
+    flutter: [D4rtApp] [script] [flow_test] section 4: staggered cascade tiles
+    flutter: [D4rtApp] [script] [flow_test] section 5: hex tile grid
+    flutter: [D4rtApp] [script] [flow_test] section 6: parallax depth cards
+    flutter: [D4rtApp] [script] [flow_test] section 7: FlowDelegate API surface
+    flutter: [D4rtApp] [script] [flow_test] section 8: comparison table
+    flutter: [D4rtApp] [script] [flow_test] section 9: tip cards
+    flutter: [D4rtApp] [script] [flow_test] section 10: paintChildren walkthrough
+    flutter: [D4rtApp] [script] [flow_test] section 11: footer
+    flutter: [D4rtApp] [script] [flow_test] composed 12 top-level sections
+    flutter: [D4rtApp][clean][build-postpump] clearCount=6 lastClearedFile="widgets/listbody_test.dart" currentTestFile="widgets/flow_test.dart" sinceClearMs=1881 gen=11 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="widgets/flow_test.dart" widgetType="Scaffold" bodyMs=2 parseMs=16 setStateMs=16 interpretStartMs=22 interpretEndMs=1335 firstFrameMs=1431 pumpEndMs=1631 totalMs=1631
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=7 lastClearedFile="widgets/flow_test.dart" currentTestFile="widgets/flow_test.dart" sinceClearMs=0 gen=11 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=7 lastClearedFile="widgets/flow_test.dart" currentTestFile="widgets/flow_test.dart" sinceClearMs=202 gen=12 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [widgets/pagecontroller_test.dart] (731486 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=7 lastClearedFile="widgets/flow_test.dart" currentTestFile="widgets/pagecontroller_test.dart" sinceClearMs=232 gen=12 :: incoming /build filename="widgets/pagecontroller_test.dart" suite="main.dart" bytes=731486
+    flutter: [D4rtApp][clean][build-postpump] clearCount=7 lastClearedFile="widgets/flow_test.dart" currentTestFile="widgets/pagecontroller_test.dart" sinceClearMs=1536 gen=13 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="widgets/pagecontroller_test.dart" widgetType="MaterialApp" bodyMs=2 parseMs=13 setStateMs=13 interpretStartMs=21 interpretEndMs=1037 firstFrameMs=1104 pumpEndMs=1306 totalMs=1306
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=8 lastClearedFile="widgets/pagecontroller_test.dart" currentTestFile="widgets/pagecontroller_test.dart" sinceClearMs=0 gen=13 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=8 lastClearedFile="widgets/pagecontroller_test.dart" currentTestFile="widgets/pagecontroller_test.dart" sinceClearMs=202 gen=14 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [widgets/tabcontroller_test.dart] (905717 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=8 lastClearedFile="widgets/pagecontroller_test.dart" currentTestFile="widgets/tabcontroller_test.dart" sinceClearMs=231 gen=14 :: incoming /build filename="widgets/tabcontroller_test.dart" suite="main.dart" bytes=905717
+    flutter: [D4rtApp][clean][build-postpump] clearCount=8 lastClearedFile="widgets/pagecontroller_test.dart" currentTestFile="widgets/tabcontroller_test.dart" sinceClearMs=1543 gen=15 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="widgets/tabcontroller_test.dart" widgetType="MaterialApp" bodyMs=2 parseMs=20 setStateMs=20 interpretStartMs=23 interpretEndMs=1046 firstFrameMs=1112 pumpEndMs=1314 totalMs=1314
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=9 lastClearedFile="widgets/tabcontroller_test.dart" currentTestFile="widgets/tabcontroller_test.dart" sinceClearMs=0 gen=15 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=9 lastClearedFile="widgets/tabcontroller_test.dart" currentTestFile="widgets/tabcontroller_test.dart" sinceClearMs=200 gen=16 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [widgets/overlay_test.dart] (693654 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=9 lastClearedFile="widgets/tabcontroller_test.dart" currentTestFile="widgets/overlay_test.dart" sinceClearMs=233 gen=16 :: incoming /build filename="widgets/overlay_test.dart" suite="main.dart" bytes=693654
+    flutter: [D4rtApp] [script] overlay_test: building visual deep demo
+    flutter: [D4rtApp][clean][build-postpump] clearCount=9 lastClearedFile="widgets/tabcontroller_test.dart" currentTestFile="widgets/overlay_test.dart" sinceClearMs=1475 gen=17 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="widgets/overlay_test.dart" widgetType="MaterialApp" bodyMs=2 parseMs=13 setStateMs=13 interpretStartMs=19 interpretEndMs=991 firstFrameMs=1044 pumpEndMs=1244 totalMs=1244
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=10 lastClearedFile="widgets/overlay_test.dart" currentTestFile="widgets/overlay_test.dart" sinceClearMs=0 gen=17 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=10 lastClearedFile="widgets/overlay_test.dart" currentTestFile="widgets/overlay_test.dart" sinceClearMs=202 gen=18 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [widgets/route_test.dart] (780320 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=10 lastClearedFile="widgets/overlay_test.dart" currentTestFile="widgets/route_test.dart" sinceClearMs=227 gen=18 :: incoming /build filename="widgets/route_test.dart" suite="main.dart" bytes=780320
+    flutter: [D4rtApp][clean][build-postpump] clearCount=10 lastClearedFile="widgets/overlay_test.dart" currentTestFile="widgets/route_test.dart" sinceClearMs=2523 gen=19 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="widgets/route_test.dart" widgetType="MaterialApp" bodyMs=1 parseMs=12 setStateMs=12 interpretStartMs=19 interpretEndMs=1777 firstFrameMs=2096 pumpEndMs=2298 totalMs=2298
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=11 lastClearedFile="widgets/route_test.dart" currentTestFile="widgets/route_test.dart" sinceClearMs=0 gen=19 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=11 lastClearedFile="widgets/route_test.dart" currentTestFile="widgets/route_test.dart" sinceClearMs=200 gen=20 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [widgets/localizations_test.dart] (548972 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=11 lastClearedFile="widgets/route_test.dart" currentTestFile="widgets/localizations_test.dart" sinceClearMs=222 gen=20 :: incoming /build filename="widgets/localizations_test.dart" suite="main.dart" bytes=548972
+    flutter: [D4rtApp] [script] [atlas-walnut] Localizations deep-dive demo starting
+    flutter: [D4rtApp] [script] [atlas-walnut] Theme: warm walnut + parchment + compass night
+    flutter: [D4rtApp] [script] [atlas-walnut] D4rt mode: snapshot build, no Stateful, no setState
+    flutter: [D4rtApp] [script] [atlas-walnut] Target widget: Localizations (InheritedWidget)
+    flutter: [D4rtApp] [script] [atlas-walnut] Constructor: ({locale, delegates, child})
+    flutter: [D4rtApp] [script] [atlas-walnut] Reading Localizations.localeOf(context)...
+    flutter: [D4rtApp] [script] [atlas-walnut] localeOf -> en_US
+    flutter: [D4rtApp] [script] [atlas-walnut] localeOf.languageCode -> en
+    flutter: [D4rtApp] [script] [atlas-walnut] localeOf.countryCode -> US
+    flutter: [D4rtApp] [script] [atlas-walnut] localeOf.scriptCode -> (none)
+    flutter: [D4rtApp] [script] [atlas-walnut] MaterialLocalizations.okButtonLabel -> OK
+    flutter: [D4rtApp] [script] [atlas-walnut] MaterialLocalizations.cancelButtonLabel -> Cancel
+    flutter: [D4rtApp] [script] [atlas-walnut] MaterialLocalizations.closeButtonLabel -> Close
+    flutter: [D4rtApp] [script] [atlas-walnut] MaterialLocalizations.nextMonthTooltip -> Next month
+    flutter: [D4rtApp] [script] [atlas-walnut] Composing 12-section snapshot tree...
+    flutter: [D4rtApp] [script] [atlas-walnut] Locale gallery: 22 locales constructed
+    flutter: [D4rtApp] [script] [atlas-walnut]   [0] en lang=en country=-
+    flutter: [D4rtApp] [script] [atlas-walnut]   [1] en_GB lang=en country=GB
+    flutter: [D4rtApp] [script] [atlas-walnut]   [2] en_US lang=en country=US
+    flutter: [D4rtApp] [script] [atlas-walnut]   [3] de lang=de country=-
+    flutter: [D4rtApp] [script] [atlas-walnut]   [4] de_AT lang=de country=AT
+    flutter: [D4rtApp] [script] [atlas-walnut]   [5] de_CH lang=de country=CH
+    flutter: [D4rtApp] [script] [atlas-walnut]   [6] fr_FR lang=fr country=FR
+    flutter: [D4rtApp] [script] [atlas-walnut]   [7] fr_CA lang=fr country=CA
+    flutter: [D4rtApp] [script] [atlas-walnut]   [8] es_ES lang=es country=ES
+    flutter: [D4rtApp] [script] [atlas-walnut]   [9] es_MX lang=es country=MX
+    flutter: [D4rtApp] [script] [atlas-walnut]   [10] pt_BR lang=pt country=BR
+    flutter: [D4rtApp] [script] [atlas-walnut]   [11] it_IT lang=it country=IT
+    flutter: [D4rtApp] [script] [atlas-walnut]   [12] nl_NL lang=nl country=NL
+    flutter: [D4rtApp] [script] [atlas-walnut]   [13] ja_JP lang=ja country=JP
+    flutter: [D4rtApp] [script] [atlas-walnut]   [14] ko_KR lang=ko country=KR
+    flutter: [D4rtApp] [script] [atlas-walnut]   [15] zh_CN lang=zh country=CN
+    flutter: [D4rtApp] [script] [atlas-walnut]   [16] zh_TW lang=zh country=TW
+    flutter: [D4rtApp] [script] [atlas-walnut]   [17] ar_SA lang=ar country=SA
+    flutter: [D4rtApp] [script] [atlas-walnut]   [18] he_IL lang=he country=IL
+    flutter: [D4rtApp] [script] [atlas-walnut]   [19] ru_RU lang=ru country=RU
+    flutter: [D4rtApp] [script] [atlas-walnut]   [20] tr_TR lang=tr country=TR
+    flutter: [D4rtApp] [script] [atlas-walnut]   [21] hi_IN lang=hi country=IN
+    flutter: [D4rtApp][clean][build-postpump] clearCount=11 lastClearedFile="widgets/route_test.dart" currentTestFile="widgets/localizations_test.dart" sinceClearMs=1524 gen=21 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="widgets/localizations_test.dart" widgetType="Scaffold" bodyMs=1 parseMs=10 setStateMs=10 interpretStartMs=12 interpretEndMs=1047 firstFrameMs=1101 pumpEndMs=1303 totalMs=1303
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=12 lastClearedFile="widgets/localizations_test.dart" currentTestFile="widgets/localizations_test.dart" sinceClearMs=0 gen=21 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=12 lastClearedFile="widgets/localizations_test.dart" currentTestFile="widgets/localizations_test.dart" sinceClearMs=201 gen=22 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [widgets/actions_test.dart] (663531 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=12 lastClearedFile="widgets/localizations_test.dart" currentTestFile="widgets/actions_test.dart" sinceClearMs=225 gen=22 :: incoming /build filename="widgets/actions_test.dart" suite="main.dart" bytes=663531
+    flutter: [D4rtApp] [script] Actions / Intent Deep Demo executing
+    flutter: [D4rtApp] [script] [D4rt] D4rt-LIMIT: User-defined Intent subclass "_SaveIntent" wrapped as _InterpretedIntent. Actions.invoke<_SaveIntent> / type-keyed dispatch (Actions(actions: {_SaveIntent: myAction})) will NOT work — all interpreted Intent subclasses share runtimeType _InterpretedIntent at runtime. Workaround: call action.invoke(intent[, context]) directly on the Action instance instead of using Actions.invoke.
+    flutter: [D4rtApp] [script] [D4rt] D4rt-LIMIT: User-defined Intent subclass "_UndoIntent" wrapped as _InterpretedIntent. Actions.invoke<_UndoIntent> / type-keyed dispatch (Actions(actions: {_UndoIntent: myAction})) will NOT work — all interpreted Intent subclasses share runtimeType _InterpretedIntent at runtime. Workaround: call action.invoke(intent[, context]) directly on the Action instance instead of using Actions.invoke.
+    flutter: [D4rtApp] [script] [D4rt] D4rt-LIMIT: User-defined Intent subclass "_RedoIntent" wrapped as _InterpretedIntent. Actions.invoke<_RedoIntent> / type-keyed dispatch (Actions(actions: {_RedoIntent: myAction})) will NOT work — all interpreted Intent subclasses share runtimeType _InterpretedIntent at runtime. Workaround: call action.invoke(intent[, context]) directly on the Action instance instead of using Actions.invoke.
+    flutter: [D4rtApp][clean][build-postpump] clearCount=12 lastClearedFile="widgets/localizations_test.dart" currentTestFile="widgets/actions_test.dart" sinceClearMs=1657 gen=23 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="widgets/actions_test.dart" widgetType="MaterialApp" bodyMs=1 parseMs=10 setStateMs=10 interpretStartMs=16 interpretEndMs=1208 firstFrameMs=1233 pumpEndMs=1433 totalMs=1434
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=13 lastClearedFile="widgets/actions_test.dart" currentTestFile="widgets/actions_test.dart" sinceClearMs=0 gen=23 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=13 lastClearedFile="widgets/actions_test.dart" currentTestFile="widgets/actions_test.dart" sinceClearMs=201 gen=24 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [widgets/focustraversal_test.dart] (857274 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=13 lastClearedFile="widgets/actions_test.dart" currentTestFile="widgets/focustraversal_test.dart" sinceClearMs=246 gen=24 :: incoming /build filename="widgets/focustraversal_test.dart" suite="main.dart" bytes=857274
+    flutter: [D4rtApp] [script] ===== FOCUS TRAVERSAL DEEP VISUAL DEMO =====
+    flutter: [D4rtApp] [script] rootScope: rootScope
+    flutter: [D4rtApp] [script] formScope: formScope
+    flutter: [D4rtApp] [script] aNode canRequestFocus: true
+    flutter: [D4rtApp] [script] aNode.skipTraversal: false
+    flutter: [D4rtApp] [script] FocusManager.instance present: FocusManager
+    flutter: [D4rtApp] [script] readingPolicy: ReadingOrderTraversalPolicy
+    flutter: [D4rtApp] [script] widgetPolicy: WidgetOrderTraversalPolicy
+    flutter: [D4rtApp] [script] orderedPolicy: OrderedTraversalPolicy
+    flutter: [D4rtApp] [script] NumericFocusOrder(1).order: 1.0
+    flutter: [D4rtApp] [script] NumericFocusOrder(2) > NumericFocusOrder(1): true
+    flutter: [D4rtApp] [script] LexicalFocusOrder("alpha").order: alpha
+    flutter: [D4rtApp] [script] LexicalFocusOrder compare alpha vs beta: -1
+    flutter: [D4rtApp] [script] LexicalFocusOrder compare gamma vs beta: 1
+    flutter: [D4rtApp] [script] ===== END FOCUS TRAVERSAL DEEP VISUAL DEMO =====
+    flutter: [D4rtApp][clean][build-postpump] clearCount=13 lastClearedFile="widgets/actions_test.dart" currentTestFile="widgets/focustraversal_test.dart" sinceClearMs=1784 gen=25 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="widgets/focustraversal_test.dart" widgetType="MaterialApp" bodyMs=2 parseMs=16 setStateMs=16 interpretStartMs=23 interpretEndMs=1218 firstFrameMs=1339 pumpEndMs=1540 totalMs=1540
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=14 lastClearedFile="widgets/focustraversal_test.dart" currentTestFile="widgets/focustraversal_test.dart" sinceClearMs=0 gen=25 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=14 lastClearedFile="widgets/focustraversal_test.dart" currentTestFile="widgets/focustraversal_test.dart" sinceClearMs=202 gen=26 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [widgets/blocksemantics_test.dart] (959631 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=14 lastClearedFile="widgets/focustraversal_test.dart" currentTestFile="widgets/blocksemantics_test.dart" sinceClearMs=248 gen=26 :: incoming /build filename="widgets/blocksemantics_test.dart" suite="main.dart" bytes=959631
+    flutter: [D4rtApp][clean][build-postpump] clearCount=14 lastClearedFile="widgets/focustraversal_test.dart" currentTestFile="widgets/blocksemantics_test.dart" sinceClearMs=1719 gen=27 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="widgets/blocksemantics_test.dart" widgetType="MaterialApp" bodyMs=2 parseMs=21 setStateMs=21 interpretStartMs=24 interpretEndMs=921 firstFrameMs=1273 pumpEndMs=1474 totalMs=1474
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=15 lastClearedFile="widgets/blocksemantics_test.dart" currentTestFile="widgets/blocksemantics_test.dart" sinceClearMs=0 gen=27 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=15 lastClearedFile="widgets/blocksemantics_test.dart" currentTestFile="widgets/blocksemantics_test.dart" sinceClearMs=202 gen=28 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [widgets/scrollnotification_test.dart] (848751 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=15 lastClearedFile="widgets/blocksemantics_test.dart" currentTestFile="widgets/scrollnotification_test.dart" sinceClearMs=243 gen=28 :: incoming /build filename="widgets/scrollnotification_test.dart" suite="main.dart" bytes=848751
+    flutter: [D4rtApp][clean][build-postpump] clearCount=15 lastClearedFile="widgets/blocksemantics_test.dart" currentTestFile="widgets/scrollnotification_test.dart" sinceClearMs=2426 gen=29 :: pumped 200ms on built widget (Directionality), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="widgets/scrollnotification_test.dart" widgetType="Directionality" bodyMs=0 parseMs=11 setStateMs=11 interpretStartMs=19 interpretEndMs=1856 firstFrameMs=1981 pumpEndMs=2183 totalMs=2183
+    flutter: [D4rtApp] Build completed: Directionality
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=16 lastClearedFile="widgets/scrollnotification_test.dart" currentTestFile="widgets/scrollnotification_test.dart" sinceClearMs=0 gen=29 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=16 lastClearedFile="widgets/scrollnotification_test.dart" currentTestFile="widgets/scrollnotification_test.dart" sinceClearMs=200 gen=30 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [widgets/keepalive_test.dart] (743072 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=16 lastClearedFile="widgets/scrollnotification_test.dart" currentTestFile="widgets/keepalive_test.dart" sinceClearMs=253 gen=30 :: incoming /build filename="widgets/keepalive_test.dart" suite="main.dart" bytes=743072
+    Lost connection to device.
+  
+  Captured app STDERR tail:
+    [process] test app exited with code 0
+  
+  test/send_test_runner.dart 1180:7  SendTestRunner.send
+  
+04:25 +32 -3: widgets/ batch 3 sliverwidgets_test.dart
+[recycle] killing wedged test app (pid=56606)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=widgets/sliverwidgets_test.dart sourceBytes=57263 sourceChars=57211 bundleJsonBytes=601232 clearMs=203 readMs=1 bundleMs=28 httpMs=1707 totalMs=14924 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=10 appParseMs=70 appSetStateMs=70 appInterpretStartMs=83 appInterpretEndMs=1283 appFirstFrameMs=1497 appPumpEndMs=1699
+04:40 +33 -3: widgets/ batch 3 animatedgrid_test.dart
+[METRIC] script=widgets/animatedgrid_test.dart sourceBytes=56772 sourceChars=56752 bundleJsonBytes=752436 clearMs=216 readMs=1 bundleMs=35 httpMs=1329 totalMs=1582 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=5 appParseMs=28 appSetStateMs=28 appInterpretStartMs=33 appInterpretEndMs=928 appFirstFrameMs=1122 appPumpEndMs=1324
+04:42 +34 -3: widgets/ batch 3 listener_test.dart
+[METRIC] script=widgets/listener_test.dart sourceBytes=84829 sourceChars=84569 bundleJsonBytes=898160 clearMs=204 readMs=1 bundleMs=24 httpMs=1717 totalMs=1947 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=21 appSetStateMs=21 appInterpretStartMs=28 appInterpretEndMs=1262 appFirstFrameMs=1511 appPumpEndMs=1711
+04:44 +35 -3: widgets/ batch 3 backbutton_test.dart
+[METRIC] script=widgets/backbutton_test.dart sourceBytes=53781 sourceChars=53781 bundleJsonBytes=525331 clearMs=203 readMs=2 bundleMs=33 httpMs=1453 totalMs=1693 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=9 appInterpretEndMs=1174 appFirstFrameMs=1246 appPumpEndMs=1449
+04:46 +36 -3: widgets/ batch 3 router_test.dart
+[METRIC] script=widgets/router_test.dart sourceBytes=116710 sourceChars=116625 bundleJsonBytes=1616831 clearMs=214 readMs=2 bundleMs=90 httpMs=3432 totalMs=3740 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=4 appParseMs=31 appSetStateMs=31 appInterpretStartMs=35 appInterpretEndMs=2171 appFirstFrameMs=3224 appPumpEndMs=3425
+04:49 +37 -3: widgets/ batch 3 navigatorstate_test.dart
+[METRIC] script=widgets/navigatorstate_test.dart sourceBytes=68329 sourceChars=68184 bundleJsonBytes=776418 clearMs=216 readMs=1 bundleMs=38 httpMs=1765 totalMs=2021 status=success httpStatus=200 outputLines=7 frameworkErrors=0 appBodyMs=1 appParseMs=18 appSetStateMs=18 appInterpretStartMs=19 appInterpretEndMs=958 appFirstFrameMs=1560 appPumpEndMs=1761
+04:51 +38 -3: widgets/ batch 3 formstate_test.dart
+[METRIC] script=widgets/formstate_test.dart sourceBytes=120196 sourceChars=120196 bundleJsonBytes=1186619 clearMs=204 readMs=1 bundleMs=33 httpMs=1756 totalMs=1996 status=success httpStatus=200 outputLines=23 frameworkErrors=0 appBodyMs=1 appParseMs=12 appSetStateMs=12 appInterpretStartMs=19 appInterpretEndMs=1358 appFirstFrameMs=1549 appPumpEndMs=1751
+04:53 +39 -3: widgets/ batch 3 scaffoldstate_test.dart
+[METRIC] script=widgets/scaffoldstate_test.dart sourceBytes=88066 sourceChars=87982 bundleJsonBytes=897237 clearMs=216 readMs=1 bundleMs=22 httpMs=1614 totalMs=1854 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=6 appParseMs=19 appSetStateMs=19 appInterpretStartMs=20 appInterpretEndMs=965 appFirstFrameMs=1408 appPumpEndMs=1609
+04:55 +40 -3: cupertino/ localization_test.dart
+[METRIC] script=cupertino/localization_test.dart sourceBytes=75731 sourceChars=75646 bundleJsonBytes=751657 clearMs=225 readMs=2 bundleMs=22 httpMs=3291 totalMs=3542 status=success httpStatus=200 outputLines=7 frameworkErrors=0 appBodyMs=2 appParseMs=13 appSetStateMs=13 appInterpretStartMs=20 appInterpretEndMs=3022 appFirstFrameMs=3084 appPumpEndMs=3285
+04:59 +41 -3: cupertino/ toolbar_test.dart
+[METRIC] script=cupertino/toolbar_test.dart sourceBytes=38277 sourceChars=29273 bundleJsonBytes=287319 clearMs=220 readMs=2 bundleMs=11 httpMs=2166 totalMs=2401 status=success httpStatus=200 outputLines=231 frameworkErrors=0 appBodyMs=1 appParseMs=6 appSetStateMs=6 appInterpretStartMs=8 appInterpretEndMs=1932 appFirstFrameMs=1956 appPumpEndMs=2158
+05:01 +42 -3: cupertino/ magnifier_test.dart
+[METRIC] script=cupertino/magnifier_test.dart sourceBytes=76099 sourceChars=76099 bundleJsonBytes=1101142 clearMs=219 readMs=1 bundleMs=53 httpMs=3518 totalMs=3793 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=12 appSetStateMs=12 appInterpretStartMs=18 appInterpretEndMs=3074 appFirstFrameMs=3311 appPumpEndMs=3511
+05:05 +43 -3: cupertino/ refresh_test.dart
+[METRIC] script=cupertino/refresh_test.dart sourceBytes=50318 sourceChars=50282 bundleJsonBytes=560874 clearMs=205 readMs=1 bundleMs=24 httpMs=2230 totalMs=2461 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=17 appInterpretEndMs=1999 appFirstFrameMs=2020 appPumpEndMs=2221
+05:07 +44 -3: cupertino/ datepicker_modes_test.dart
+[METRIC] script=cupertino/datepicker_modes_test.dart sourceBytes=84518 sourceChars=84408 bundleJsonBytes=935956 clearMs=346 readMs=2 bundleMs=27 httpMs=55006 totalMs=56150 status=transport_error httpStatus=-1 outputLines=0 frameworkErrors=0
+06:04 +44 -4: cupertino/ datepicker_modes_test.dart [E]
+  Bad state: Transport failure while running "cupertino/datepicker_modes_test.dart"
+  Operation: POST /build?filename=cupertino%2Fdatepicker_modes_test.dart&suite=main.dart
+  Error: TimeoutException after 0:00:55.000000: Future not completed
+  
+  Stack trace:
+  #0      Future.timeout.<anonymous closure> (dart:async/future_impl.dart:1042:24)
+  <asynchronous suspension>
+  #1      SendTestRunner.send (file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/send_test_runner.dart:1135:18)
+  <asynchronous suspension>
+  #2      main.<anonymous closure>.<anonymous closure> (file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_04_test.dart:338:22)
+  <asynchronous suspension>
+  #3      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+  <asynchronous suspension>
+  #4      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+  <asynchronous suspension>
+  #5      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+  <asynchronous suspension>
+  
+  
+  Runner app process: exited with code 0
+  
+  Captured app STDOUT tail:
+    flutter: [D4rtApp] [script]   CupertinoTextSelectionToolbarButton.text(
+    flutter: [D4rtApp] [script]     text: "Cut",
+    flutter: [D4rtApp] [script]     onPressed: () {},
+    flutter: [D4rtApp] [script]   )
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] ┌────────────────────────────────────────────────────────────────────┐
+    flutter: [D4rtApp] [script] │ SECTION 4: DISABLED BUTTONS                                       │
+    flutter: [D4rtApp] [script] │ Handling unavailable actions                                      │
+    flutter: [D4rtApp] [script] └────────────────────────────────────────────────────────────────────┘
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] Disabled button configuration: [416246195]
+    flutter: [D4rtApp] [script]   • onPressed: null
+    flutter: [D4rtApp] [script]   • Visual: Dimmed/grayed text
+    flutter: [D4rtApp] [script]   • Tap: No response
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] Common disabled scenarios:
+    flutter: [D4rtApp] [script]   • Paste → Clipboard empty
+    flutter: [D4rtApp] [script]   • Cut/Copy → No selection
+    flutter: [D4rtApp] [script]   • Undo → Nothing to undo
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] ┌────────────────────────────────────────────────────────────────────┐
+    flutter: [D4rtApp] [script] │ SECTION 5: CUPERTINO TEXT SELECTION TOOLBAR                       │
+    flutter: [D4rtApp] [script] │ Mobile iOS toolbar container                                      │
+    flutter: [D4rtApp] [script] └────────────────────────────────────────────────────────────────────┘
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] CupertinoTextSelectionToolbar properties:
+    flutter: [D4rtApp] [script]   • runtimeType: CupertinoTextSelectionToolbar
+    flutter: [D4rtApp] [script]   • anchorAbove: Offset(100.0, 50.0)
+    flutter: [D4rtApp] [script]   • anchorBelow: Offset(100.0, 80.0)
+    flutter: [D4rtApp] [script]   • children: 4 toolbar buttons
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] Anchor positioning:
+    flutter: [D4rtApp] [script]              anchorAbove
+    flutter: [D4rtApp] [script]                  │
+    flutter: [D4rtApp] [script]   ┌──────────────▼───────────────┐
+    flutter: [D4rtApp] [script]   │ Cut │ Copy │ Paste │ Select  │  ← Toolbar
+    flutter: [D4rtApp] [script]   └────────────────────────────────┘
+    flutter: [D4rtApp] [script]                  │
+    flutter: [D4rtApp] [script]              anchorBelow
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script]   • Toolbar appears above selection if space
+    flutter: [D4rtApp] [script]   • Falls back to below if needed
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] ┌────────────────────────────────────────────────────────────────────┐
+    flutter: [D4rtApp] [script] │ SECTION 6: ADAPTIVE TOOLBAR                                       │
+    flutter: [D4rtApp] [script] │ CupertinoAdaptiveTextSelectionToolbar                             │
+    flutter: [D4rtApp] [script] └────────────────────────────────────────────────────────────────────┘
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] CupertinoAdaptiveTextSelectionToolbar properties:
+    flutter: [D4rtApp] [script]   • runtimeType: CupertinoAdaptiveTextSelectionToolbar
+    flutter: [D4rtApp] [script]   • anchors: TextSelectionToolbarAnchors
+    flutter: [D4rtApp] [script]   • children: 3 toolbar buttons
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] Adaptive behavior:
+    flutter: [D4rtApp] [script]   • iOS/macOS: Cupertino styling
+    flutter: [D4rtApp] [script]   • Automatically adapts to platform
+    flutter: [D4rtApp] [script]   • Uses TextSelectionToolbarAnchors
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] TextSelectionToolbarAnchors:
+    flutter: [D4rtApp] [script]   • primaryAnchor: Main position
+    flutter: [D4rtApp] [script]   • secondaryAnchor: Fallback position
+    flutter: [D4rtApp] [script]   • Used for smart positioning
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] ┌────────────────────────────────────────────────────────────────────┐
+    flutter: [D4rtApp] [script] │ SECTION 7: DESKTOP TOOLBAR                                        │
+    flutter: [D4rtApp] [script] │ CupertinoDesktopTextSelectionToolbar                              │
+    flutter: [D4rtApp] [script] └────────────────────────────────────────────────────────────────────┘
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] CupertinoDesktopTextSelectionToolbar properties:
+    flutter: [D4rtApp] [script]   • runtimeType: CupertinoDesktopTextSelectionToolbar
+    flutter: [D4rtApp] [script]   • anchor: Offset(200.0, 100.0)
+    flutter: [D4rtApp] [script]   • children: 4 desktop toolbar buttons
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] Desktop vs Mobile toolbars:
+    flutter: [D4rtApp] [script] ┌──────────────────────┬──────────────────────┬──────────────────────┐
+    flutter: [D4rtApp] [script] │      Feature         │       Mobile         │       Desktop        │
+    flutter: [D4rtApp] [script] ├──────────────────────┼──────────────────────┼──────────────────────┤
+    flutter: [D4rtApp] [script] │ Style                │ Rounded bubble       │ Menu-like dropdown   │
+    flutter: [D4rtApp] [script] │ Position             │ Above/below text     │ At cursor position   │
+    flutter: [D4rtApp] [script] │ Layout               │ Horizontal row       │ Vertical list        │
+    flutter: [D4rtApp] [script] │ Button style         │ Inline with dividers │ Full-width rows      │
+    flutter: [D4rtApp] [script] └──────────────────────┴──────────────────────┴──────────────────────┘
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] ┌────────────────────────────────────────────────────────────────────┐
+    flutter: [D4rtApp] [script] │ SECTION 8: DESKTOP TOOLBAR BUTTON                                 │
+    flutter: [D4rtApp] [script] │ CupertinoDesktopTextSelectionToolbarButton                        │
+    flutter: [D4rtApp] [script] └────────────────────────────────────────────────────────────────────┘
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] CupertinoDesktopTextSelectionToolbarButton properties:
+    flutter: [D4rtApp] [script]   • runtimeType: CupertinoDesktopTextSelectionToolbarButton
+    flutter: [D4rtApp] [script]   • child: Text("Select All")
+    flutter: [D4rtApp] [script]   • onPressed: Callback function
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] Desktop button .text constructor: [596611598]
+    flutter: [D4rtApp] [script]   • text: "Look Up" (String)
+    flutter: [D4rtApp] [script]   • Same convenience as mobile
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] Visual representation (Desktop):
+    flutter: [D4rtApp] [script]   ┌─────────────────────┐
+    flutter: [D4rtApp] [script]   │ Cut            ⌘X  │
+    flutter: [D4rtApp] [script]   │ Copy           ⌘C  │
+    flutter: [D4rtApp] [script]   │ Paste          ⌘V  │
+    flutter: [D4rtApp] [script]   │ Select All     ⌘A  │
+    flutter: [D4rtApp] [script]   └─────────────────────┘
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] ┌────────────────────────────────────────────────────────────────────┐
+    flutter: [D4rtApp] [script] │ SECTION 9: COMPLETE TOOLBAR EXAMPLE                               │
+    flutter: [D4rtApp] [script] │ Building a full-featured toolbar                                  │
+    flutter: [D4rtApp] [script] └────────────────────────────────────────────────────────────────────┘
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] fullToolbar: CupertinoDesktopTextSelectionToolbar
+    flutter: [D4rtApp] [script] Full-featured toolbar created:
+    flutter: [D4rtApp] [script]   • 5 action buttons
+    flutter: [D4rtApp] [script]   • Desktop styling
+    flutter: [D4rtApp] [script]   • Positioned at (200, 150)
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] Common toolbar actions:
+    flutter: [D4rtApp] [script] ┌────────────────┬────────────────────────────────────────────────────┐
+    flutter: [D4rtApp] [script] │     Action     │   Description                                      │
+    flutter: [D4rtApp] [script] ├────────────────┼────────────────────────────────────────────────────┤
+    flutter: [D4rtApp] [script] │ Cut            │ Move selection to clipboard                        │
+    flutter: [D4rtApp] [script] │ Copy           │ Copy selection to clipboard                        │
+    flutter: [D4rtApp] [script] │ Paste          │ Insert clipboard contents                          │
+    flutter: [D4rtApp] [script] │ Select All     │ Select entire text content                         │
+    flutter: [D4rtApp] [script] │ Look Up        │ Dictionary/definition lookup (macOS)               │
+    flutter: [D4rtApp] [script] │ Share          │ Share selected text                                │
+    flutter: [D4rtApp] [script] │ Translate      │ Translate selected text                            │
+    flutter: [D4rtApp] [script] └────────────────┴────────────────────────────────────────────────────┘
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] ┌────────────────────────────────────────────────────────────────────┐
+    flutter: [D4rtApp] [script] │ SECTION 10: PRACTICAL USE CASES                                   │
+    flutter: [D4rtApp] [script] │ When and how to use Cupertino toolbars                            │
+    flutter: [D4rtApp] [script] └────────────────────────────────────────────────────────────────────┘
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] 1. Custom Text Field Selection
+    flutter: [D4rtApp] [script]    Use CupertinoTextSelectionToolbar to build
+    flutter: [D4rtApp] [script]    custom text selection behavior
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] 2. Rich Text Editors
+    flutter: [D4rtApp] [script]    Add formatting buttons to the toolbar:
+    flutter: [D4rtApp] [script]    Bold, Italic, Underline, etc.
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] 3. Cross-Platform Apps
+    flutter: [D4rtApp] [script]    Use CupertinoAdaptiveTextSelectionToolbar
+    flutter: [D4rtApp] [script]    for automatic platform adaptation
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] 4. Desktop-First Apps
+    flutter: [D4rtApp] [script]    Use CupertinoDesktopTextSelectionToolbar
+    flutter: [D4rtApp] [script]    for macOS-native experience
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] 5. Context Menus
+    flutter: [D4rtApp] [script]    Build custom context menus using
+    flutter: [D4rtApp] [script]    toolbar button widgets
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] ╔════════════════════════════════════════════════════════════════════╗
+    flutter: [D4rtApp] [script] ║           CUPERTINO TOOLBAR WIDGETS SUMMARY                       ║
+    flutter: [D4rtApp] [script] ╚════════════════════════════════════════════════════════════════════╝
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] Cupertino toolbar key features:
+    flutter: [D4rtApp] [script]   • 5 main toolbar widgets
+    flutter: [D4rtApp] [script]   • Mobile and desktop variants
+    flutter: [D4rtApp] [script]   • Adaptive platform support
+    flutter: [D4rtApp] [script]   • Standard iOS/macOS actions
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] Widget selection guide:
+    flutter: [D4rtApp] [script]   • Mobile iOS: CupertinoTextSelectionToolbar
+    flutter: [D4rtApp] [script]   • Desktop macOS: CupertinoDesktopTextSelectionToolbar
+    flutter: [D4rtApp] [script]   • Cross-platform: CupertinoAdaptiveTextSelectionToolbar
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] Cupertino Toolbar Widgets Deep Demo completed
+    flutter: [D4rtApp][clean][build-postpump] clearCount=11 lastClearedFile="cupertino/localization_test.dart" currentTestFile="cupertino/toolbar_test.dart" sinceClearMs=2379 gen=21 :: pumped 200ms on built widget (CupertinoPageScaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="cupertino/toolbar_test.dart" widgetType="CupertinoPageScaffold" bodyMs=1 parseMs=6 setStateMs=6 interpretStartMs=8 interpretEndMs=1932 firstFrameMs=1956 pumpEndMs=2158 totalMs=2158
+    flutter: [D4rtApp] Build completed: CupertinoPageScaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=12 lastClearedFile="cupertino/toolbar_test.dart" currentTestFile="cupertino/toolbar_test.dart" sinceClearMs=0 gen=21 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=12 lastClearedFile="cupertino/toolbar_test.dart" currentTestFile="cupertino/toolbar_test.dart" sinceClearMs=201 gen=22 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [cupertino/magnifier_test.dart] (1101142 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=12 lastClearedFile="cupertino/toolbar_test.dart" currentTestFile="cupertino/magnifier_test.dart" sinceClearMs=264 gen=22 :: incoming /build filename="cupertino/magnifier_test.dart" suite="main.dart" bytes=1101142
+    flutter: [D4rtApp][clean][build-postpump] clearCount=12 lastClearedFile="cupertino/toolbar_test.dart" currentTestFile="cupertino/magnifier_test.dart" sinceClearMs=3774 gen=23 :: pumped 200ms on built widget (CupertinoApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="cupertino/magnifier_test.dart" widgetType="CupertinoApp" bodyMs=0 parseMs=12 setStateMs=12 interpretStartMs=18 interpretEndMs=3074 firstFrameMs=3311 pumpEndMs=3511 totalMs=3511
+    flutter: [D4rtApp] Build completed: CupertinoApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=13 lastClearedFile="cupertino/magnifier_test.dart" currentTestFile="cupertino/magnifier_test.dart" sinceClearMs=0 gen=23 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=13 lastClearedFile="cupertino/magnifier_test.dart" currentTestFile="cupertino/magnifier_test.dart" sinceClearMs=201 gen=24 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [cupertino/refresh_test.dart] (560840 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=13 lastClearedFile="cupertino/magnifier_test.dart" currentTestFile="cupertino/refresh_test.dart" sinceClearMs=235 gen=24 :: incoming /build filename="cupertino/refresh_test.dart" suite="main.dart" bytes=560840
+    flutter: [D4rtApp] [script] CupertinoSliverRefreshControl deep visual demo: building tree.
+    flutter: [D4rtApp] [script] Sections rendered: 13.
+    flutter: [D4rtApp][clean][build-postpump] clearCount=13 lastClearedFile="cupertino/magnifier_test.dart" currentTestFile="cupertino/refresh_test.dart" sinceClearMs=2455 gen=25 :: pumped 200ms on built widget (CupertinoApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="cupertino/refresh_test.dart" widgetType="CupertinoApp" bodyMs=1 parseMs=10 setStateMs=10 interpretStartMs=17 interpretEndMs=1999 firstFrameMs=2020 pumpEndMs=2221 totalMs=2222
+    flutter: [D4rtApp] Build completed: CupertinoApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=14 lastClearedFile="cupertino/refresh_test.dart" currentTestFile="cupertino/refresh_test.dart" sinceClearMs=0 gen=25 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=14 lastClearedFile="cupertino/refresh_test.dart" currentTestFile="cupertino/refresh_test.dart" sinceClearMs=201 gen=26 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [cupertino/datepicker_modes_test.dart] (935846 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=14 lastClearedFile="cupertino/refresh_test.dart" currentTestFile="cupertino/datepicker_modes_test.dart" sinceClearMs=249 gen=26 :: incoming /build filename="cupertino/datepicker_modes_test.dart" suite="main.dart" bytes=935846
+    Lost connection to device.
+  
+  Captured app STDERR tail:
+    Failed to foreground app; open returned 1
+    [process] test app exited with code 0
+  
+  test/send_test_runner.dart 1180:7  SendTestRunner.send
+  
+06:04 +44 -4: cupertino/ tab_test.dart
+[recycle] killing wedged test app (pid=58570)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=cupertino/tab_test.dart sourceBytes=60995 sourceChars=60987 bundleJsonBytes=728156 clearMs=205 readMs=2 bundleMs=34 httpMs=2579 totalMs=16301 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=10 appParseMs=53 appSetStateMs=53 appInterpretStartMs=56 appInterpretEndMs=2085 appFirstFrameMs=2370 appPumpEndMs=2571
+06:20 +45 -4: cupertino/ cupertino_themes_batch1_test.dart
+[METRIC] script=cupertino/cupertino_themes_batch1_test.dart sourceBytes=53624 sourceChars=53592 bundleJsonBytes=597113 clearMs=203 readMs=1 bundleMs=20 httpMs=2293 totalMs=2518 status=success httpStatus=200 outputLines=42 frameworkErrors=0 appBodyMs=5 appParseMs=18 appSetStateMs=18 appInterpretStartMs=22 appInterpretEndMs=1956 appFirstFrameMs=2084 appPumpEndMs=2286
+06:22 +46 -4: cupertino/ cupertino_themes_batch2_test.dart
+[METRIC] script=cupertino/cupertino_themes_batch2_test.dart sourceBytes=83343 sourceChars=83311 bundleJsonBytes=969589 clearMs=222 readMs=4 bundleMs=21 httpMs=2588 totalMs=2836 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=6 appParseMs=19 appSetStateMs=19 appInterpretStartMs=21 appInterpretEndMs=2213 appFirstFrameMs=2379 appPumpEndMs=2582
+06:25 +47 -4: cupertino/ cupertino_themes_batch3_test.dart
+[METRIC] script=cupertino/cupertino_themes_batch3_test.dart sourceBytes=82869 sourceChars=82773 bundleJsonBytes=898224 clearMs=205 readMs=2 bundleMs=23 httpMs=2382 totalMs=2614 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=3 appParseMs=17 appSetStateMs=17 appInterpretStartMs=24 appInterpretEndMs=2011 appFirstFrameMs=2177 appPumpEndMs=2377
+06:28 +48 -4: cupertino/ cupertino_themes_batch4_test.dart
+[METRIC] script=cupertino/cupertino_themes_batch4_test.dart sourceBytes=56768 sourceChars=56768 bundleJsonBytes=688889 clearMs=203 readMs=1 bundleMs=21 httpMs=2063 totalMs=2290 status=success httpStatus=200 outputLines=35 frameworkErrors=0 appBodyMs=0 appParseMs=11 appSetStateMs=11 appInterpretStartMs=20 appInterpretEndMs=1796 appFirstFrameMs=1856 appPumpEndMs=2057
+06:30 +49 -4: painting/ shapes_test.dart
+[METRIC] script=painting/shapes_test.dart sourceBytes=63522 sourceChars=63522 bundleJsonBytes=784772 clearMs=224 readMs=2 bundleMs=24 httpMs=1305 totalMs=1556 status=success httpStatus=200 outputLines=100 frameworkErrors=0 appBodyMs=0 appParseMs=11 appSetStateMs=11 appInterpretStartMs=17 appInterpretEndMs=1047 appFirstFrameMs=1097 appPumpEndMs=1299
+06:32 +50 -4: painting/ gradients_test.dart
+[METRIC] script=painting/gradients_test.dart sourceBytes=47472 sourceChars=47436 bundleJsonBytes=538085 clearMs=219 readMs=1 bundleMs=14 httpMs=1344 totalMs=1580 status=success httpStatus=200 outputLines=29 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=15 appInterpretEndMs=1089 appFirstFrameMs=1138 appPumpEndMs=1339
+06:33 +51 -4: painting/ decoration_test.dart
+[METRIC] script=painting/decoration_test.dart sourceBytes=71894 sourceChars=71894 bundleJsonBytes=838770 clearMs=205 readMs=1 bundleMs=27 httpMs=1479 totalMs=1714 status=success httpStatus=200 outputLines=53 frameworkErrors=0 appBodyMs=0 appParseMs=17 appSetStateMs=17 appInterpretStartMs=25 appInterpretEndMs=1191 appFirstFrameMs=1264 appPumpEndMs=1466
+06:35 +52 -4: painting/ image_providers_test.dart
+[METRIC] script=painting/image_providers_test.dart sourceBytes=60083 sourceChars=59966 bundleJsonBytes=650259 clearMs=220 readMs=2 bundleMs=21 httpMs=1451 totalMs=1696 status=success httpStatus=200 outputLines=101 frameworkErrors=0 appBodyMs=2 appParseMs=15 appSetStateMs=15 appInterpretStartMs=21 appInterpretEndMs=1193 appFirstFrameMs=1244 appPumpEndMs=1444
+06:37 +53 -4: painting/ colors_test.dart
+[METRIC] script=painting/colors_test.dart sourceBytes=65670 sourceChars=65610 bundleJsonBytes=659890 clearMs=217 readMs=1 bundleMs=16 httpMs=1385 totalMs=1621 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=1 appParseMs=12 appSetStateMs=12 appInterpretStartMs=13 appInterpretEndMs=1124 appFirstFrameMs=1181 appPumpEndMs=1381
+06:38 +54 -4: painting/ matrix_test.dart
+[METRIC] script=painting/matrix_test.dart sourceBytes=84514 sourceChars=84495 bundleJsonBytes=863397 clearMs=204 readMs=1 bundleMs=23 httpMs=1793 totalMs=2022 status=success httpStatus=200 outputLines=3 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=20 appInterpretEndMs=1468 appFirstFrameMs=1585 appPumpEndMs=1787
+06:40 +55 -4: painting/ text_painting_test.dart
+[METRIC] script=painting/text_painting_test.dart sourceBytes=82958 sourceChars=82958 bundleJsonBytes=979957 clearMs=220 readMs=1 bundleMs=27 httpMs=1212 totalMs=1462 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=21 appSetStateMs=21 appInterpretStartMs=22 appInterpretEndMs=955 appFirstFrameMs=1005 appPumpEndMs=1206
+06:42 +56 -4: painting/ text_selection_test.dart
+[METRIC] script=painting/text_selection_test.dart sourceBytes=68673 sourceChars=68673 bundleJsonBytes=676645 clearMs=205 readMs=1 bundleMs=24 httpMs=1545 totalMs=1776 status=success httpStatus=200 outputLines=20 frameworkErrors=0 appBodyMs=2 appParseMs=17 appSetStateMs=17 appInterpretStartMs=25 appInterpretEndMs=1044 appFirstFrameMs=1337 appPumpEndMs=1539
+06:44 +57 -4: animation/ animationstyle_test.dart
+[METRIC] script=animation/animationstyle_test.dart sourceBytes=69466 sourceChars=69452 bundleJsonBytes=759273 clearMs=221 readMs=3 bundleMs=24 httpMs=2436 totalMs=2685 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=20 appInterpretEndMs=2190 appFirstFrameMs=2225 appPumpEndMs=2427
+06:46 +58 -4: animation/ alwaysstoppedanimation_test.dart
+[METRIC] script=animation/alwaysstoppedanimation_test.dart sourceBytes=78614 sourceChars=78613 bundleJsonBytes=1012787 clearMs=272 readMs=7 bundleMs=35 httpMs=55006 totalMs=56092 status=transport_error httpStatus=-1 outputLines=0 frameworkErrors=0
+07:42 +58 -5: animation/ alwaysstoppedanimation_test.dart [E]
+  Bad state: Transport failure while running "animation/alwaysstoppedanimation_test.dart"
+  Operation: POST /build?filename=animation%2Falwaysstoppedanimation_test.dart&suite=main.dart
+  Error: TimeoutException after 0:00:55.000000: Future not completed
+  
+  Stack trace:
+  #0      Future.timeout.<anonymous closure> (dart:async/future_impl.dart:1042:24)
+  <asynchronous suspension>
+  #1      SendTestRunner.send (file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/send_test_runner.dart:1135:18)
+  <asynchronous suspension>
+  #2      main.<anonymous closure>.<anonymous closure> (file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_04_test.dart:441:22)
+  <asynchronous suspension>
+  #3      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+  <asynchronous suspension>
+  #4      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+  <asynchronous suspension>
+  #5      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+  <asynchronous suspension>
+  
+  
+  Runner app process: exited with code 0
+  
+  Captured app STDOUT tail:
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [painting/image_providers_test.dart] (650169 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=10 lastClearedFile="painting/decoration_test.dart" currentTestFile="painting/image_providers_test.dart" sinceClearMs=233 gen=18 :: incoming /build filename="painting/image_providers_test.dart" suite="main.dart" bytes=650169
+    flutter: [D4rtApp] [script] [image_providers_test] starting deep demo of ImageProvider family
+    flutter: [D4rtApp] [script] [image_providers_test] palette: darkroom/photo-lab
+    flutter: [D4rtApp] [script] [image_providers_test] sandbox: D4rt-AST renderer (static)
+    flutter: [D4rtApp] [script] [image_providers_test] no resolve/loadImage will be invoked
+    flutter: [D4rtApp] [script] --- section 0: anchor instances ---
+    flutter: [D4rtApp] [script] AssetImage assetA.assetName       = assets/photo_lab/contact_sheet.png
+    flutter: [D4rtApp] [script] AssetImage assetA.package         = demo_photo_lab
+    flutter: [D4rtApp] [script] AssetImage assetA.toString        = AssetImage(bundle: null, name: "packages/demo_photo_lab/assets/photo_lab/contact_sheet.png")
+    flutter: [D4rtApp] [script] AssetImage assetA.hashCode        = 208202430
+    flutter: [D4rtApp] [script] AssetImage assetA == assetATwin   = true
+    flutter: [D4rtApp] [script] AssetImage assetA == assetB       = false
+    flutter: [D4rtApp] [script] AssetImage assetA.runtimeType     = AssetImage
+    flutter: [D4rtApp] [script] NetworkImage netA.url         = https://example.com/lab/roll-A.jpg
+    flutter: [D4rtApp] [script] NetworkImage netA.scale       = 1.0
+    flutter: [D4rtApp] [script] NetworkImage netA.headers     = {Accept: image/jpeg, X-Lab-Roll: A}
+    flutter: [D4rtApp] [script] NetworkImage netA.toString    = NetworkImage("https://example.com/lab/roll-A.jpg", scale: 1.0, webHtmlElementStrategy: never, headers: {Accept: image/jpeg, X-Lab-Roll: A})
+    flutter: [D4rtApp] [script] NetworkImage netA.hashCode    = 204486270
+    flutter: [D4rtApp] [script] NetworkImage netA == netATwin = true
+    flutter: [D4rtApp] [script] NetworkImage netA == netB     = false
+    flutter: [D4rtApp] [script] MemoryImage memA.bytes.length = 16
+    flutter: [D4rtApp] [script] MemoryImage memA.scale        = 1.5
+    flutter: [D4rtApp] [script] MemoryImage memA.toString     = MemoryImage(Uint8List#95b9d, scale: 1.5)
+    flutter: [D4rtApp] [script] MemoryImage memA.hashCode     = 463412131
+    flutter: [D4rtApp] [script] MemoryImage memA == memATwin  = true
+    flutter: [D4rtApp] [script] MemoryImage memA == memB      = false
+    flutter: [D4rtApp] [script] ExactAssetImage exactA.assetName   = assets/photo_lab/grain_2x.png
+    flutter: [D4rtApp] [script] ExactAssetImage exactA.scale       = 2.0
+    flutter: [D4rtApp] [script] ExactAssetImage exactA.package     = demo_photo_lab
+    flutter: [D4rtApp] [script] ExactAssetImage exactA.toString    = ExactAssetImage(name: "packages/demo_photo_lab/assets/photo_lab/grain_2x.png", scale: 2.0, bundle: null)
+    flutter: [D4rtApp] [script] ExactAssetImage exactA == twin     = true
+    flutter: [D4rtApp] [script] ExactAssetImage exactA == exactB   = false
+    flutter: [D4rtApp] [script] ResizeImage resizeA.width        = 256
+    flutter: [D4rtApp] [script] ResizeImage resizeA.height       = 256
+    flutter: [D4rtApp] [script] ResizeImage resizeA.policy       = ResizeImagePolicy.fit
+    flutter: [D4rtApp] [script] ResizeImage resizeA.allowUpscaling=false
+    flutter: [D4rtApp] [script] ResizeImage resizeA.imageProvider=AssetImage(bundle: null, name: "packages/demo_photo_lab/assets/photo_lab/contact_sheet.png")
+    flutter: [D4rtApp] [script] ResizeImage resizeA.toString     = ResizeImage()
+    flutter: [D4rtApp] [script] total providers under analysis = 11
+    flutter: [D4rtApp] [script] providers[0].runtimeType = AssetImage
+    flutter: [D4rtApp] [script] providers[1].runtimeType = AssetImage
+    flutter: [D4rtApp] [script] providers[2].runtimeType = NetworkImage
+    flutter: [D4rtApp] [script] providers[3].runtimeType = NetworkImage
+    flutter: [D4rtApp] [script] providers[4].runtimeType = MemoryImage
+    flutter: [D4rtApp] [script] providers[5].runtimeType = MemoryImage
+    flutter: [D4rtApp] [script] providers[6].runtimeType = ExactAssetImage
+    flutter: [D4rtApp] [script] providers[7].runtimeType = ExactAssetImage
+    flutter: [D4rtApp] [script] providers[8].runtimeType = ResizeImage
+    flutter: [D4rtApp] [script] providers[9].runtimeType = ResizeImage
+    flutter: [D4rtApp] [script] providers[10].runtimeType = ResizeImage
+    flutter: [D4rtApp] [script] --- section 1: title banner ---
+    flutter: [D4rtApp] [script] --- section 2: lifecycle diagram ---
+    flutter: [D4rtApp] [script] lifecycle nodes: configuration -> key -> cache -> completer -> frame
+    flutter: [D4rtApp] [script] the provider itself is just a recipe; nothing happens until resolve()
+    flutter: [D4rtApp] [script] we therefore inspect providers WITHOUT invoking the loader
+    flutter: [D4rtApp] [script] --- section 3: provider gallery ---
+    flutter: [D4rtApp] [script] card 1: AssetImage with package
+    flutter: [D4rtApp] [script] card 2: AssetImage without package
+    flutter: [D4rtApp] [script] card 3: NetworkImage with headers + scale
+    flutter: [D4rtApp] [script] card 4: MemoryImage from a tiny Uint8List
+    flutter: [D4rtApp] [script] card 5: ExactAssetImage with scale=2
+    flutter: [D4rtApp] [script] card 6: ResizeImage wrapping AssetImage
+    flutter: [D4rtApp] [script] --- section 4: ResizeImage policies ---
+    flutter: [D4rtApp] [script] policy.fit  : preserves aspect, fits within bounds
+    flutter: [D4rtApp] [script] policy.exact: forces exact pixel dimensions (may distort)
+    flutter: [D4rtApp] [script] allowUpscaling=false prevents enlarging beyond intrinsic size
+    flutter: [D4rtApp] [script] null width/height becomes a target hint, not a clamp
+    flutter: [D4rtApp] [script] --- section 5: equality semantics ---
+    flutter: [D4rtApp] [script] AssetImage equality is by (assetName, bundle, package).
+    flutter: [D4rtApp] [script] NetworkImage equality is by (url, scale).
+    flutter: [D4rtApp] [script] MemoryImage equality is by (bytes-identity, scale).
+    flutter: [D4rtApp] [script] Two providers with equal cache-keys share a cache entry.
+    flutter: [D4rtApp] [script] assetA == assetATwin   = true
+    flutter: [D4rtApp] [script] assetA == assetB       = false
+    flutter: [D4rtApp] [script] netA   == netATwin     = true
+    flutter: [D4rtApp] [script] netA   == netB         = false
+    flutter: [D4rtApp] [script] memA   == memATwin     = true
+    flutter: [D4rtApp] [script] memA   == memB         = false
+    flutter: [D4rtApp] [script] exactA == exactATwin   = true
+    flutter: [D4rtApp] [script] exactA == exactB       = false
+    flutter: [D4rtApp] [script] --- section 6: provider comparison table ---
+    flutter: [D4rtApp] [script] axes: source, key type, blocking?, typical use
+    flutter: [D4rtApp] [script] FileImage skipped at runtime (no file IO in sandbox)
+    flutter: [D4rtApp] [script] ResizeImage is a *decorator* — its key composes the inner key
+    flutter: [D4rtApp] [script] --- section 7: cache-key concept ---
+    flutter: [D4rtApp] [script] obtainKey returns Future<T> — we do NOT call it in the sandbox
+    flutter: [D4rtApp] [script] we describe T conceptually for each provider variant
+    flutter: [D4rtApp] [script] keys must be == and hashCode for ImageCache to dedupe correctly
+    flutter: [D4rtApp] [script] --- section 8: cheat-sheet ---
+    flutter: [D4rtApp] [script] rule of thumb: pick the cheapest source that matches the lifecycle
+    flutter: [D4rtApp] [script] shipped with the app   -> AssetImage / ExactAssetImage
+    flutter: [D4rtApp] [script] fetched from internet  -> NetworkImage
+    flutter: [D4rtApp] [script] already in RAM         -> MemoryImage
+    flutter: [D4rtApp] [script] on local disk          -> FileImage (mobile/desktop only)
+    flutter: [D4rtApp] [script] any of the above big   -> wrap in ResizeImage
+    flutter: [D4rtApp] [script] --- section 9: signature card ---
+    flutter: [D4rtApp] [script] demo total providers: 11
+    flutter: [D4rtApp] [script] demo equality checks: 8
+    flutter: [D4rtApp] [script] demo cards rendered : 6
+    flutter: [D4rtApp] [script] demo finished
+    flutter: [D4rtApp] [script] --- composing root widget tree ---
+    flutter: [D4rtApp] [script] [image_providers_test] root composed; returning to renderer
+    flutter: [D4rtApp][clean][build-postpump] clearCount=10 lastClearedFile="painting/decoration_test.dart" currentTestFile="painting/image_providers_test.dart" sinceClearMs=1676 gen=19 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="painting/image_providers_test.dart" widgetType="Scaffold" bodyMs=2 parseMs=15 setStateMs=15 interpretStartMs=21 interpretEndMs=1193 firstFrameMs=1244 pumpEndMs=1444 totalMs=1445
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=11 lastClearedFile="painting/image_providers_test.dart" currentTestFile="painting/image_providers_test.dart" sinceClearMs=0 gen=19 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=11 lastClearedFile="painting/image_providers_test.dart" currentTestFile="painting/image_providers_test.dart" sinceClearMs=201 gen=20 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [painting/colors_test.dart] (659832 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=11 lastClearedFile="painting/image_providers_test.dart" currentTestFile="painting/colors_test.dart" sinceClearMs=225 gen=20 :: incoming /build filename="painting/colors_test.dart" suite="main.dart" bytes=659832
+    flutter: [D4rtApp] [script] ColorsTest deep demo executing
+    flutter: [D4rtApp] [script] Crimson equality across constructors: true
+    flutter: [D4rtApp] [script] Crimson hashCode parity: true
+    flutter: [D4rtApp] [script] Colors.indigo[500] == .shade500 -> true
+    flutter: [D4rtApp][clean][build-postpump] clearCount=11 lastClearedFile="painting/image_providers_test.dart" currentTestFile="painting/colors_test.dart" sinceClearMs=1604 gen=21 :: pumped 200ms on built widget (SingleChildScrollView), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="painting/colors_test.dart" widgetType="SingleChildScrollView" bodyMs=1 parseMs=12 setStateMs=12 interpretStartMs=13 interpretEndMs=1124 firstFrameMs=1181 pumpEndMs=1381 totalMs=1381
+    flutter: [D4rtApp] Build completed: SingleChildScrollView
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=12 lastClearedFile="painting/colors_test.dart" currentTestFile="painting/colors_test.dart" sinceClearMs=0 gen=21 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=12 lastClearedFile="painting/colors_test.dart" currentTestFile="painting/colors_test.dart" sinceClearMs=202 gen=22 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [painting/matrix_test.dart] (863387 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=12 lastClearedFile="painting/colors_test.dart" currentTestFile="painting/matrix_test.dart" sinceClearMs=234 gen=22 :: incoming /build filename="painting/matrix_test.dart" suite="main.dart" bytes=863387
+    flutter: [D4rtApp] [script] [matrix_test] Cartesian Indigo reference assembling
+    flutter: [D4rtApp] [script] [matrix_test] identity built: [0] [1.0,0.0,0.0,0.0]
+    [1] [0.0,1.0,0.0,0.0]
+    [2] [0.0,0.0,1.0,0.0]
+    [3] [0.0,0.0,0.0,1.0]
+    
+    flutter: [D4rtApp] [script] [matrix_test] rotZ45 built: [0] [0.7071068967259818,-0.7071066656470943,0.0,0.0]
+    [1] [0.7071066656470943,0.7071068967259818,0.0,0.0]
+    [2] [0.0,0.0,1.0,0.0]
+    [3] [0.0,0.0,0.0,1.0]
+    
+    flutter: [D4rtApp][clean][build-postpump] clearCount=12 lastClearedFile="painting/colors_test.dart" currentTestFile="painting/matrix_test.dart" sinceClearMs=2019 gen=23 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="painting/matrix_test.dart" widgetType="Scaffold" bodyMs=2 parseMs=16 setStateMs=16 interpretStartMs=20 interpretEndMs=1468 firstFrameMs=1585 pumpEndMs=1787 totalMs=1787
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=13 lastClearedFile="painting/matrix_test.dart" currentTestFile="painting/matrix_test.dart" sinceClearMs=0 gen=23 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=13 lastClearedFile="painting/matrix_test.dart" currentTestFile="painting/matrix_test.dart" sinceClearMs=200 gen=24 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [painting/text_painting_test.dart] (979955 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=13 lastClearedFile="painting/matrix_test.dart" currentTestFile="painting/text_painting_test.dart" sinceClearMs=239 gen=24 :: incoming /build filename="painting/text_painting_test.dart" suite="main.dart" bytes=979955
+    flutter: [D4rtApp][clean][build-postpump] clearCount=13 lastClearedFile="painting/matrix_test.dart" currentTestFile="painting/text_painting_test.dart" sinceClearMs=1442 gen=25 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="painting/text_painting_test.dart" widgetType="MaterialApp" bodyMs=2 parseMs=21 setStateMs=21 interpretStartMs=22 interpretEndMs=955 firstFrameMs=1005 pumpEndMs=1206 totalMs=1206
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=14 lastClearedFile="painting/text_painting_test.dart" currentTestFile="painting/text_painting_test.dart" sinceClearMs=0 gen=25 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=14 lastClearedFile="painting/text_painting_test.dart" currentTestFile="painting/text_painting_test.dart" sinceClearMs=201 gen=26 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [painting/text_selection_test.dart] (676644 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=14 lastClearedFile="painting/text_painting_test.dart" currentTestFile="painting/text_selection_test.dart" sinceClearMs=236 gen=26 :: incoming /build filename="painting/text_selection_test.dart" suite="main.dart" bytes=676644
+    flutter: [D4rtApp] [script] -- text_selection_test.dart --
+    flutter: [D4rtApp] [script] range05.isValid = true
+    flutter: [D4rtApp] [script] range05.isNormalized = true
+    flutter: [D4rtApp] [script] range05.isCollapsed = false
+    flutter: [D4rtApp] [script] rangeFlipped.isNormalized = false
+    flutter: [D4rtApp] [script] rangeEmpty.isCollapsed = true
+    flutter: [D4rtApp] [script] rangeCollapsed.isCollapsed = true
+    flutter: [D4rtApp] [script] textBefore(0,5) = ""
+    flutter: [D4rtApp] [script] textInside(0,5) = "Hello"
+    flutter: [D4rtApp] [script] textAfter(0,5)  = ",
+    World!"
+    flutter: [D4rtApp] [script] pos0.affinity = TextAffinity.downstream
+    flutter: [D4rtApp] [script] posUp.affinity = TextAffinity.upstream
+    flutter: [D4rtApp] [script] posDown.affinity = TextAffinity.downstream
+    flutter: [D4rtApp] [script] selForward.isCollapsed = false
+    flutter: [D4rtApp] [script] selBackward base/extent = 9/2
+    flutter: [D4rtApp] [script] selBackward.start..end = 2..9
+    flutter: [D4rtApp] [script] selCollapsed.isCollapsed = true
+    flutter: [D4rtApp] [script] selFromPos.baseOffset = 5
+    flutter: [D4rtApp] [script] selUp.affinity = TextAffinity.upstream
+    flutter: [D4rtApp] [script] selDown.affinity = TextAffinity.downstream
+    flutter: [D4rtApp][clean][build-postpump] clearCount=14 lastClearedFile="painting/text_painting_test.dart" currentTestFile="painting/text_selection_test.dart" sinceClearMs=1773 gen=27 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="painting/text_selection_test.dart" widgetType="MaterialApp" bodyMs=2 parseMs=17 setStateMs=17 interpretStartMs=25 interpretEndMs=1044 firstFrameMs=1337 pumpEndMs=1539 totalMs=1539
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=15 lastClearedFile="painting/text_selection_test.dart" currentTestFile="painting/text_selection_test.dart" sinceClearMs=0 gen=27 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=15 lastClearedFile="painting/text_selection_test.dart" currentTestFile="painting/text_selection_test.dart" sinceClearMs=201 gen=28 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [animation/animationstyle_test.dart] (759259 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=15 lastClearedFile="painting/text_selection_test.dart" currentTestFile="animation/animationstyle_test.dart" sinceClearMs=237 gen=28 :: incoming /build filename="animation/animationstyle_test.dart" suite="main.dart" bytes=759259
+    flutter: [D4rtApp] [script] AnimationStyle deep visual demo executing
+    flutter: [D4rtApp] [script]   rng warm-up: 50
+    flutter: [D4rtApp] [script]   building widget tree with 11 sections
+    flutter: [D4rtApp] [script]   section widget count: 23
+    flutter: [D4rtApp] [script] AnimationStyle deep visual demo built successfully
+    flutter: [D4rtApp][clean][build-postpump] clearCount=15 lastClearedFile="painting/text_selection_test.dart" currentTestFile="animation/animationstyle_test.dart" sinceClearMs=2662 gen=29 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="animation/animationstyle_test.dart" widgetType="MaterialApp" bodyMs=2 parseMs=16 setStateMs=16 interpretStartMs=20 interpretEndMs=2190 firstFrameMs=2225 pumpEndMs=2427 totalMs=2427
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=16 lastClearedFile="animation/animationstyle_test.dart" currentTestFile="animation/animationstyle_test.dart" sinceClearMs=0 gen=29 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=16 lastClearedFile="animation/animationstyle_test.dart" currentTestFile="animation/animationstyle_test.dart" sinceClearMs=201 gen=30 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [animation/alwaysstoppedanimation_test.dart] (1012786 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=16 lastClearedFile="animation/animationstyle_test.dart" currentTestFile="animation/alwaysstoppedanimation_test.dart" sinceClearMs=264 gen=30 :: incoming /build filename="animation/alwaysstoppedanimation_test.dart" suite="main.dart" bytes=1012786
+    Lost connection to device.
+  
+  Captured app STDERR tail:
+    [process] test app exited with code 0
+  
+  test/send_test_runner.dart 1180:7  SendTestRunner.send
+  
+07:42 +58 -5: animation/ compoundanimation_test.dart
+[recycle] killing wedged test app (pid=60504)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=animation/compoundanimation_test.dart sourceBytes=38606 sourceChars=38574 bundleJsonBytes=491506 clearMs=205 readMs=3 bundleMs=21 httpMs=1745 totalMs=15464 status=success httpStatus=200 outputLines=52 frameworkErrors=0 appBodyMs=13 appParseMs=53 appSetStateMs=53 appInterpretStartMs=64 appInterpretEndMs=1440 appFirstFrameMs=1536 appPumpEndMs=1736
+07:58 +59 -5: animation/ tweensequence_test.dart
+[METRIC] script=animation/tweensequence_test.dart sourceBytes=37385 sourceChars=37319 bundleJsonBytes=489594 clearMs=203 readMs=1 bundleMs=12 httpMs=1504 totalMs=1721 status=success httpStatus=200 outputLines=99 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=15 appInterpretEndMs=1230 appFirstFrameMs=1298 appPumpEndMs=1498
+08:00 +60 -5: animation/ animatable_test.dart
+[METRIC] script=animation/animatable_test.dart sourceBytes=100705 sourceChars=100623 bundleJsonBytes=1162903 clearMs=202 readMs=1 bundleMs=22 httpMs=1632 totalMs=1859 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=26 appSetStateMs=27 appInterpretStartMs=30 appInterpretEndMs=1240 appFirstFrameMs=1416 appPumpEndMs=1625
+08:01 +61 -5: physics/ simulations_test.dart
+[METRIC] script=physics/simulations_test.dart sourceBytes=54553 sourceChars=54513 bundleJsonBytes=709074 clearMs=254 readMs=1 bundleMs=20 httpMs=1554 totalMs=1831 status=success httpStatus=200 outputLines=134 frameworkErrors=0 appBodyMs=2 appParseMs=15 appSetStateMs=15 appInterpretStartMs=19 appInterpretEndMs=1240 appFirstFrameMs=1347 appPumpEndMs=1549
+08:03 +62 -5: foundation/ error_test.dart
+[METRIC] script=foundation/error_test.dart sourceBytes=66182 sourceChars=66182 bundleJsonBytes=657481 clearMs=219 readMs=1 bundleMs=15 httpMs=2073 totalMs=2310 status=success httpStatus=200 outputLines=6 frameworkErrors=0 appBodyMs=0 appParseMs=9 appSetStateMs=9 appInterpretStartMs=10 appInterpretEndMs=1813 appFirstFrameMs=1869 appPumpEndMs=2069
+08:06 +63 -5: foundation/ diagnostics_test.dart
+[METRIC] script=foundation/diagnostics_test.dart sourceBytes=79752 sourceChars=78826 bundleJsonBytes=810880 clearMs=203 readMs=1 bundleMs=23 httpMs=1443 totalMs=1671 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=21 appInterpretEndMs=1131 appFirstFrameMs=1235 appPumpEndMs=1437
+08:07 +64 -5: foundation/ license_test.dart
+[METRIC] script=foundation/license_test.dart sourceBytes=76907 sourceChars=76865 bundleJsonBytes=830171 clearMs=215 readMs=1 bundleMs=16 httpMs=1424 totalMs=1657 status=success httpStatus=200 outputLines=24 frameworkErrors=0 appBodyMs=2 appParseMs=17 appSetStateMs=17 appInterpretStartMs=18 appInterpretEndMs=1144 appFirstFrameMs=1219 appPumpEndMs=1419
+08:09 +65 -5: (tearDownAll)
+08:10 +65 -5: Some tests failed.

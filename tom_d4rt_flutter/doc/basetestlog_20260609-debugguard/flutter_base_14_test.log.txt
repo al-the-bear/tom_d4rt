@@ -1,0 +1,113 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 91.0.0 (101.0.0 available)
+  analyzer 8.4.1 (13.1.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.0.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.17.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.10 (0.7.12 available)
+! tom_analyzer_shared 0.1.0 from path ../../basics/tom_analyzer_shared (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt 1.8.20 from path ../tom_d4rt (overridden in ./pubspec_overrides.yaml)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+18 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter/test/flutter_base_14_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+00:11 +0: Test App Health app is running
+00:11 +1: services/ individual android_view_controller_test.dart
+[METRIC] script=services/android_view_controller_test.dart sourceChars=61666 clearMs=205 httpMs=3423 totalMs=3635 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=3 appParseMs=3 appSetStateMs=4 appInterpretStartMs=8 appInterpretEndMs=1588 appFirstFrameMs=1736 appPumpEndMs=1736
+00:14 +2: services/ individual app_kit_view_controller_test.dart
+00:15 +2: (setUpAll)
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:52237/32KLmITOuBw=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:52237/32KLmITOuBw=/devtools/?uri=ws://127.0.0.1:52237/32KLmITOuBw=/ws
+=================================================================
+00:17 +2: services/ individual app_kit_view_controller_test.dart
+[METRIC] script=services/app_kit_view_controller_test.dart sourceChars=32623 clearMs=218 httpMs=2532 totalMs=2751 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=1218 appFirstFrameMs=1269 appPumpEndMs=1269
+00:17 +3: services/ individual asset_manifest_test.dart
+[METRIC] script=services/asset_manifest_test.dart sourceChars=44907 clearMs=217 httpMs=2952 totalMs=3170 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=1014 appFirstFrameMs=1581 appPumpEndMs=1582
+00:20 +4: services/ individual asset_metadata_test.dart
+[METRIC] script=services/asset_metadata_test.dart sourceChars=67955 clearMs=229 httpMs=2856 totalMs=3088 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=8 appInterpretEndMs=989 appFirstFrameMs=1477 appPumpEndMs=1477
+00:23 +5: services/ individual autofill_configuration_test.dart
+[METRIC] script=services/autofill_configuration_test.dart sourceChars=44602 clearMs=215 httpMs=3087 totalMs=3304 status=success httpStatus=200 outputLines=75 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=995 appFirstFrameMs=1401 appPumpEndMs=1401
+00:27 +6: services/ individual autofill_scope_test.dart
+[METRIC] script=services/autofill_scope_test.dart sourceChars=54801 clearMs=233 httpMs=3078 totalMs=3313 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=974 appFirstFrameMs=1868 appPumpEndMs=1869
+00:30 +7: services/ individual browser_context_menu_test.dart
+[METRIC] script=services/browser_context_menu_test.dart sourceChars=45097 clearMs=217 httpMs=2490 totalMs=2709 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=1195 appFirstFrameMs=1315 appPumpEndMs=1317
+00:33 +8: services/ individual caching_asset_bundle_test.dart
+[METRIC] script=services/caching_asset_bundle_test.dart sourceChars=31626 clearMs=223 httpMs=2285 totalMs=2510 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=1000 appFirstFrameMs=1215 appPumpEndMs=1215
+00:35 +9: services/ individual darwin_platform_view_controller_test.dart
+[METRIC] script=services/darwin_platform_view_controller_test.dart sourceChars=36929 clearMs=220 httpMs=2362 totalMs=2584 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=1103 appFirstFrameMs=1193 appPumpEndMs=1193
+00:38 +10: services/ individual default_process_text_service_test.dart
+[METRIC] script=services/default_process_text_service_test.dart sourceChars=59180 clearMs=217 httpMs=2901 totalMs=3121 status=success httpStatus=200 outputLines=49 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=985 appFirstFrameMs=1473 appPumpEndMs=1473
+00:41 +11: services/ individual default_spell_check_service_test.dart
+[METRIC] script=services/default_spell_check_service_test.dart sourceChars=60532 clearMs=216 httpMs=2660 totalMs=2879 status=success httpStatus=200 outputLines=58 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=1129 appFirstFrameMs=1261 appPumpEndMs=1261
+00:44 +12: services/ individual expensive_android_view_controller_test.dart
+[METRIC] script=services/expensive_android_view_controller_test.dart sourceChars=36222 clearMs=219 httpMs=3263 totalMs=3487 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=1739 appFirstFrameMs=2094 appPumpEndMs=2095
+00:47 +13: services/ individual flutter_version_test.dart
+[METRIC] script=services/flutter_version_test.dart sourceChars=70210 clearMs=203 httpMs=2699 totalMs=2904 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=1293 appFirstFrameMs=1502 appPumpEndMs=1502
+00:50 +14: services/ individual font_loader_test.dart
+[METRIC] script=services/font_loader_test.dart sourceChars=94960 clearMs=228 httpMs=2732 totalMs=2963 status=success httpStatus=200 outputLines=11 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=1129 appFirstFrameMs=1327 appPumpEndMs=1328
+00:53 +15: services/ individual hybrid_android_view_controller_test.dart
+[METRIC] script=services/hybrid_android_view_controller_test.dart sourceChars=51698 clearMs=228 httpMs=2491 totalMs=2721 status=success httpStatus=200 outputLines=17 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=1318 appFirstFrameMs=1355 appPumpEndMs=1355
+00:56 +16: services/ individual live_text_test.dart
+[METRIC] script=services/live_text_test.dart sourceChars=35373 clearMs=219 httpMs=2487 totalMs=2708 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=1108 appFirstFrameMs=1295 appPumpEndMs=1295
+00:59 +17: services/ individual network_asset_bundle_test.dart
+[METRIC] script=services/network_asset_bundle_test.dart sourceChars=66178 clearMs=226 httpMs=2580 totalMs=2809 status=success httpStatus=200 outputLines=37 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=1070 appFirstFrameMs=1151 appPumpEndMs=1151
+01:01 +18: services/ individual platform_asset_bundle_test.dart
+[METRIC] script=services/platform_asset_bundle_test.dart sourceChars=29588 clearMs=223 httpMs=2285 totalMs=2513 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=1074 appFirstFrameMs=1119 appPumpEndMs=1119
+01:04 +19: services/ individual platform_view_controller_test.dart
+[METRIC] script=services/platform_view_controller_test.dart sourceChars=28783 clearMs=222 httpMs=2600 totalMs=2824 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=980 appFirstFrameMs=1457 appPumpEndMs=1457
+01:07 +20: services/ individual platform_views_registry_test.dart
+[METRIC] script=services/platform_views_registry_test.dart sourceChars=62020 clearMs=220 httpMs=3788 totalMs=4010 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=2229 appFirstFrameMs=2403 appPumpEndMs=2403
+01:11 +21: services/ individual platform_views_service_test.dart
+[METRIC] script=services/platform_views_service_test.dart sourceChars=32800 clearMs=215 httpMs=3032 totalMs=3250 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=1575 appFirstFrameMs=1871 appPumpEndMs=1872
+01:14 +22: services/ individual predictive_back_event_test.dart
+[METRIC] script=services/predictive_back_event_test.dart sourceChars=48563 clearMs=214 httpMs=2329 totalMs=2545 status=success httpStatus=200 outputLines=17 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=1051 appFirstFrameMs=1169 appPumpEndMs=1170
+01:17 +23: services/ individual process_text_action_test.dart
+[METRIC] script=services/process_text_action_test.dart sourceChars=76902 clearMs=213 httpMs=2742 totalMs=2958 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=1185 appFirstFrameMs=1261 appPumpEndMs=1262
+01:19 +24: services/ individual process_text_service_test.dart
+[METRIC] script=services/process_text_service_test.dart sourceChars=33063 clearMs=214 httpMs=2430 totalMs=2647 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=1180 appFirstFrameMs=1282 appPumpEndMs=1282
+01:22 +25: services/ individual restoration_manager_test.dart
+[METRIC] script=services/restoration_manager_test.dart sourceChars=32835 clearMs=217 httpMs=3691 totalMs=3910 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=2390 appFirstFrameMs=2497 appPumpEndMs=2497
+01:26 +26: services/ individual scribe_test.dart
+[METRIC] script=services/scribe_test.dart sourceChars=47878 clearMs=220 httpMs=2222 totalMs=2445 status=success httpStatus=200 outputLines=17 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=1071 appFirstFrameMs=1099 appPumpEndMs=1099
+01:28 +27: services/ individual spell_check_service_test.dart
+[METRIC] script=services/spell_check_service_test.dart sourceChars=77971 clearMs=215 httpMs=2756 totalMs=2974 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=1128 appFirstFrameMs=1226 appPumpEndMs=1227
+01:31 +28: services/ individual suggestion_span_test.dart
+[METRIC] script=services/suggestion_span_test.dart sourceChars=93663 clearMs=227 httpMs=2802 totalMs=3031 status=success httpStatus=200 outputLines=21 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=1193 appFirstFrameMs=1242 appPumpEndMs=1242
+01:34 +29: services/ individual surface_android_view_controller_test.dart
+[METRIC] script=services/surface_android_view_controller_test.dart sourceChars=45240 clearMs=227 httpMs=2620 totalMs=2850 status=success httpStatus=200 outputLines=17 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=2 appInterpretEndMs=1383 appFirstFrameMs=1502 appPumpEndMs=1503
+01:37 +30: services/ individual system_channels_test.dart
+[METRIC] script=services/system_channels_test.dart sourceChars=74065 clearMs=218 httpMs=3862 totalMs=4083 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=2297 appFirstFrameMs=2458 appPumpEndMs=2458
+01:41 +31: services/ individual text_layout_metrics_test.dart
+[METRIC] script=services/text_layout_metrics_test.dart sourceChars=37681 clearMs=216 httpMs=2424 totalMs=2643 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=1054 appFirstFrameMs=1159 appPumpEndMs=1160
+01:44 +32: services/ individual texture_android_view_controller_test.dart
+[METRIC] script=services/texture_android_view_controller_test.dart sourceChars=46500 clearMs=212 httpMs=2953 totalMs=3167 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=1700 appFirstFrameMs=1844 appPumpEndMs=1845
+01:47 +33: services/ individual ui_kit_view_controller_test.dart
+[METRIC] script=services/ui_kit_view_controller_test.dart sourceChars=39602 clearMs=218 httpMs=2566 totalMs=2786 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=976 appFirstFrameMs=1333 appPumpEndMs=1334
+01:50 +34: services/ individual undo_manager_client_test.dart
+[METRIC] script=services/undo_manager_client_test.dart sourceChars=38789 clearMs=220 httpMs=2391 totalMs=2613 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=4 appInterpretEndMs=1154 appFirstFrameMs=1175 appPumpEndMs=1175
+01:53 +35: services/ individual undo_manager_test.dart
+[METRIC] script=services/undo_manager_test.dart sourceChars=38442 clearMs=215 httpMs=2475 totalMs=2692 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=8 appInterpretEndMs=1219 appFirstFrameMs=1258 appPumpEndMs=1258
+01:55 +36: (tearDownAll)
+01:56 +36: All tests passed!

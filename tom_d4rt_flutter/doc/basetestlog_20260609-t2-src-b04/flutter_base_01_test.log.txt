@@ -1,0 +1,492 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 91.0.0 (101.0.0 available)
+  analyzer 8.4.1 (13.1.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.0.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.17.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.10 (0.7.12 available)
+! tom_analyzer_shared 0.1.0 from path ../../basics/tom_analyzer_shared (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt 1.8.20 from path ../tom_d4rt (overridden in ./pubspec_overrides.yaml)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+18 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter/test/flutter_base_01_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+[test-app] waiting for /health on port 4248 (15s elapsed, 31 probes)…
+[test-app] waiting for /health on port 4248 (18s elapsed, 37 probes)…
+[test-app] waiting for /health on port 4248 (21s elapsed, 43 probes)…
+[test-app] waiting for /health on port 4248 (24s elapsed, 49 probes)…
+[test-app] waiting for /health on port 4248 (27s elapsed, 55 probes)…
+[test-app] waiting for /health on port 4248 (31s elapsed, 61 probes)…
+[test-app] waiting for /health on port 4248 (34s elapsed, 67 probes)…
+[test-app] waiting for /health on port 4248 (37s elapsed, 73 probes)…
+[test-app] waiting for /health on port 4248 (40s elapsed, 79 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:60057/4ywkQqoTI_c=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:60057/4ywkQqoTI_c=/devtools/?uri=ws://127.0.0.1:60057/4ywkQqoTI_c=/ws
+=================================================================
+[test-app] waiting for /health on port 4248 (43s elapsed, 85 probes)…
+00:44 +0: Test App Health app is running
+00:44 +1: animation/ curve_test.dart
+[METRIC] script=animation/curve_test.dart sourceChars=37738 clearMs=210 httpMs=3059 totalMs=3276 status=success httpStatus=200 outputLines=39 frameworkErrors=0 appBodyMs=5 appParseMs=5 appSetStateMs=5 appInterpretStartMs=16 appInterpretEndMs=2562 appFirstFrameMs=2849 appPumpEndMs=3050
+00:47 +2: animation/ tween_test.dart
+[METRIC] script=animation/tween_test.dart sourceChars=57964 clearMs=216 httpMs=2356 totalMs=2573 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=958 appFirstFrameMs=2152 appPumpEndMs=2353
+00:50 +3: cupertino/ button_test.dart
+[METRIC] script=cupertino/button_test.dart sourceChars=42735 clearMs=206 httpMs=2495 totalMs=2706 status=success httpStatus=200 outputLines=17 frameworkErrors=0 appBodyMs=4 appParseMs=4 appSetStateMs=5 appInterpretStartMs=8 appInterpretEndMs=2225 appFirstFrameMs=2290 appPumpEndMs=2491
+00:52 +4: cupertino/ contextmenu_test.dart
+[METRIC] script=cupertino/contextmenu_test.dart sourceChars=69488 clearMs=204 httpMs=2438 totalMs=2645 status=success httpStatus=200 outputLines=8 frameworkErrors=0 appBodyMs=3 appParseMs=3 appSetStateMs=4 appInterpretStartMs=4 appInterpretEndMs=2142 appFirstFrameMs=2232 appPumpEndMs=2434
+00:55 +5: cupertino/ controls_test.dart
+[METRIC] script=cupertino/controls_test.dart sourceChars=66195 clearMs=222 httpMs=3755 totalMs=3979 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=3515 appFirstFrameMs=3549 appPumpEndMs=3751
+00:59 +6: cupertino/ cupertinoapp_test.dart
+[METRIC] script=cupertino/cupertinoapp_test.dart sourceChars=60170 clearMs=217 httpMs=2404 totalMs=2626 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=9 appInterpretEndMs=2114 appFirstFrameMs=2200 appPumpEndMs=2400
+01:02 +7: cupertino/ dialog_test.dart
+[METRIC] script=cupertino/dialog_test.dart sourceChars=50110 clearMs=204 httpMs=2526 totalMs=2732 status=success httpStatus=200 outputLines=27 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=2130 appFirstFrameMs=2321 appPumpEndMs=2522
+01:04 +8: cupertino/ form_test.dart
+[METRIC] script=cupertino/form_test.dart sourceChars=37209 clearMs=217 httpMs=2556 totalMs=2774 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=2206 appFirstFrameMs=2351 appPumpEndMs=2552
+01:07 +9: cupertino/ icons_test.dart
+[METRIC] script=cupertino/icons_test.dart sourceChars=48116 clearMs=203 httpMs=2574 totalMs=2779 status=success httpStatus=200 outputLines=17 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=2264 appFirstFrameMs=2370 appPumpEndMs=2570
+01:10 +10: cupertino/ list_test.dart
+[METRIC] script=cupertino/list_test.dart sourceChars=67442 clearMs=202 httpMs=3475 totalMs=3679 status=success httpStatus=200 outputLines=11 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=3144 appFirstFrameMs=3269 appPumpEndMs=3471
+01:14 +11: cupertino/ picker_test.dart
+[METRIC] script=cupertino/picker_test.dart sourceChars=52259 clearMs=300 httpMs=55002 totalMs=56057 status=transport_error httpStatus=-1 outputLines=0 frameworkErrors=0
+02:10 +11 -1: cupertino/ picker_test.dart [E]
+  Bad state: Transport failure while running "cupertino/picker_test.dart"
+  Operation: POST /build?filename=cupertino%2Fpicker_test.dart&suite=main.dart
+  Error: TimeoutException after 0:00:55.000000: Future not completed
+  
+  Stack trace:
+  #0      Future.timeout.<anonymous closure> (dart:async/future_impl.dart:1042:24)
+  <asynchronous suspension>
+  #1      SendTestRunner.send (file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter/test/send_test_runner.dart:752:18)
+  <asynchronous suspension>
+  #2      main.<anonymous closure>.<anonymous closure> (file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter/test/flutter_base_01_test.dart:109:22)
+  <asynchronous suspension>
+  #3      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+  <asynchronous suspension>
+  #4      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+  <asynchronous suspension>
+  #5      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+  <asynchronous suspension>
+  
+  
+  Runner app process: exited with code 0
+  
+  Captured app STDOUT tail:
+    flutter: ColorTween palette 0: Color(alpha: 1.0000, red: 0.9373, green: 0.2667, blue: 0.2667, colorSpace: ColorSpace.sRGB) -> Color(alpha: 1.0000, red: 0.1333, green: 0.7725, blue: 0.3686, colorSpace: ColorSpace.sRGB)
+    flutter: ColorTween palette 1: Color(alpha: 1.0000, red: 0.0549, green: 0.6471, blue: 0.9137, colorSpace: ColorSpace.sRGB) -> Color(alpha: 1.0000, red: 0.9804, green: 0.8000, blue: 0.0824, colorSpace: ColorSpace.sRGB)
+    flutter: ColorTween palette 2: Color(alpha: 1.0000, red: 0.0667, green: 0.0941, blue: 0.1529, colorSpace: ColorSpace.sRGB) -> Color(alpha: 1.0000, red: 0.9804, green: 0.9804, blue: 0.9804, colorSpace: ColorSpace.sRGB)
+    flutter: ColorTween palette 3: Color(alpha: 1.0000, red: 0.9255, green: 0.2824, blue: 0.6000, colorSpace: ColorSpace.sRGB) -> Color(alpha: 1.0000, red: 0.3098, green: 0.2745, blue: 0.8980, colorSpace: ColorSpace.sRGB)
+    flutter: === Section 2: ColorTween ===
+    flutter: SizeTween midpoint = Size(58.0, 38.0)
+    flutter: RectTween midpoint = Rect.fromLTRB(30.0, 10.0, 80.0, 50.0)
+    flutter: === Section 3: SizeTween and RectTween ===
+    flutter: AlignmentTween 0 mid = Alignment.center
+    flutter: AlignmentTween 1 mid = Alignment.center
+    flutter: AlignmentTween 2 mid = Alignment.center
+    flutter: AlignmentTween 3 mid = Alignment.center
+    flutter: === Section 4: AlignmentTween ===
+    flutter: EdgeInsetsTween mid = EdgeInsets(13.0, 3.0, 3.0, 15.0)
+    flutter: BorderRadiusTween mid = BorderRadius.only(topLeft: Radius.circular(18.0), topRight: Radius.circular(3.0), bottomLeft: Radius.circular(3.0), bottomRight: Radius.circular(18.0))
+    flutter: === Section 5: EdgeInsetsTween and BorderRadiusTween ===
+    flutter: BorderTween midpoint = Border.all(BorderSide(color: Color(alpha: 1.0000, red: 0.5412, green: 0.2235, blue: 0.3373, colorSpace: ColorSpace.sRGB), width: 3.5))
+    flutter: TextStyleTween midpoint = TextStyle(debugLabel: lerp(unknown ⎯0.5→ unknown), inherit: true, color: Color(alpha: 1.0000, red: 0.4961, green: 0.1882, blue: 0.3765, colorSpace: ColorSpace.sRGB), size: 18.0, weight: 600, letterSpacing: 1.0)
+    flutter: Matrix4Tween midpoint = [0] [1.1086554390135441,-0.4592201188381077,0.0,0.0]
+    [1] [0.4592201188381077,1.1086554390135441,0.0,0.0]
+    [2] [0.0,0.0,1.2,0.0]
+    [3] [0.0,0.0,0.0,1.0]
+    
+    flutter: === Section 6: BorderTween, TextStyleTween, Matrix4Tween ===
+    flutter: ConstantTween at every t: 0.42 0.42 0.42
+    flutter: ReverseTween at 0.0 = 100.0 / at 1.0 = 0.0
+    flutter: === Section 7: ConstantTween, ReverseTween, CurveTween ===
+    flutter: chained value at 0.5 = 51.6875
+    flutter: === Section 8: .chain() and .animate() ===
+    flutter: === Section 9: Recipes and Glossary ===
+    flutter: [D4rtApp][clean][build-postpump] clearCount=2 lastClearedFile="animation/curve_test.dart" currentTestFile="animation/tween_test.dart" sinceClearMs=2557 gen=4 :: pumped 200ms on built widget (_InterpretedStatelessWidget), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="animation/tween_test.dart" widgetType="_InterpretedStatelessWidget" bodyMs=0 parseMs=0 setStateMs=0 interpretStartMs=3 interpretEndMs=958 firstFrameMs=2152 pumpEndMs=2353 totalMs=2353
+    flutter: [D4rtApp] Build completed: _InterpretedStatelessWidget
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=3 lastClearedFile="animation/tween_test.dart" currentTestFile="animation/tween_test.dart" sinceClearMs=0 gen=4 :: received /clear (inflightBuild=false, pendingSource=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=3 lastClearedFile="animation/tween_test.dart" currentTestFile="animation/tween_test.dart" sinceClearMs=202 gen=5 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [cupertino/button_test.dart] (42735 chars)
+    flutter: [D4rtApp][clean][build] clearCount=3 lastClearedFile="animation/tween_test.dart" currentTestFile="cupertino/button_test.dart" sinceClearMs=216 gen=5 :: incoming /build filename="cupertino/button_test.dart" suite="main.dart" chars=42735
+    flutter: [D4rtApp] [script] CupertinoButton deep demo executing
+    flutter: [D4rtApp] [script] === Section 1: Hero header ===
+    flutter: [D4rtApp] [script] === Section 2: Anatomy diagram ===
+    flutter: [D4rtApp] [script] === Section 3: Variants — default, filled, tinted ===
+    flutter: [D4rtApp] [script] === Section 4: sizeStyle catalogue ===
+    flutter: [D4rtApp] [script] === Section 5: pressedOpacity scale ===
+    flutter: [D4rtApp] [script] === Section 6: borderRadius palette ===
+    flutter: [D4rtApp] [script] === Section 7: Custom padding ===
+    flutter: [D4rtApp] [script] === Section 8: color and disabledColor ===
+    flutter: [D4rtApp] [script] === Section 9: Embedded icon buttons ===
+    flutter: [D4rtApp] [script] === Section 10: Inside a navigation bar ===
+    flutter: [D4rtApp] [script] === Section 11: ActionSheet-style frame ===
+    flutter: [D4rtApp] [script] === Section 12: Badged button ===
+    flutter: [D4rtApp] [script] === Section 13: Reminders micro-app ===
+    flutter: [D4rtApp] [script] === Section 14: Cheat sheet ===
+    flutter: [D4rtApp] [script] === Extra: alignment and focusNode ===
+    flutter: [D4rtApp] [script] Composing the page
+    flutter: [D4rtApp][clean][build-postpump] clearCount=3 lastClearedFile="animation/tween_test.dart" currentTestFile="cupertino/button_test.dart" sinceClearMs=2703 gen=6 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="cupertino/button_test.dart" widgetType="Scaffold" bodyMs=4 parseMs=4 setStateMs=5 interpretStartMs=8 interpretEndMs=2225 firstFrameMs=2290 pumpEndMs=2491 totalMs=2491
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=4 lastClearedFile="cupertino/button_test.dart" currentTestFile="cupertino/button_test.dart" sinceClearMs=0 gen=6 :: received /clear (inflightBuild=false, pendingSource=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=4 lastClearedFile="cupertino/button_test.dart" currentTestFile="cupertino/button_test.dart" sinceClearMs=202 gen=7 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [cupertino/contextmenu_test.dart] (69488 chars)
+    flutter: [D4rtApp][clean][build] clearCount=4 lastClearedFile="cupertino/button_test.dart" currentTestFile="cupertino/contextmenu_test.dart" sinceClearMs=211 gen=7 :: incoming /build filename="cupertino/contextmenu_test.dart" suite="main.dart" chars=69488
+    flutter: [D4rtApp] [script] CupertinoContextMenu deep demo executing
+    flutter: [D4rtApp] [script]   kOpenBorderRadius: 12.0
+    flutter: [D4rtApp] [script]   animationOpensAt: 0.7048458149779736
+    flutter: [D4rtApp] [script]   five recipes mounted in section 5
+    flutter: [D4rtApp] [script]   five live instances mounted in section 7
+    flutter: [D4rtApp] [script]   property matrix has eight variants
+    flutter: [D4rtApp] [script]   pitfalls catalogued: nine
+    flutter: [D4rtApp] [script]   glossary entries: fifteen
+    flutter: [D4rtApp][clean][build-postpump] clearCount=4 lastClearedFile="cupertino/button_test.dart" currentTestFile="cupertino/contextmenu_test.dart" sinceClearMs=2642 gen=8 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="cupertino/contextmenu_test.dart" widgetType="MaterialApp" bodyMs=3 parseMs=3 setStateMs=4 interpretStartMs=4 interpretEndMs=2142 firstFrameMs=2232 pumpEndMs=2434 totalMs=2435
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=5 lastClearedFile="cupertino/contextmenu_test.dart" currentTestFile="cupertino/contextmenu_test.dart" sinceClearMs=0 gen=8 :: received /clear (inflightBuild=false, pendingSource=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=5 lastClearedFile="cupertino/contextmenu_test.dart" currentTestFile="cupertino/contextmenu_test.dart" sinceClearMs=202 gen=9 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [cupertino/controls_test.dart] (66195 chars)
+    flutter: [D4rtApp][clean][build] clearCount=5 lastClearedFile="cupertino/contextmenu_test.dart" currentTestFile="cupertino/controls_test.dart" sinceClearMs=210 gen=9 :: incoming /build filename="cupertino/controls_test.dart" suite="main.dart" chars=66195
+    flutter: [D4rtApp] [script] Cupertino controls deep visual demo executing
+    flutter: [D4rtApp] [script]   rng warm-up: 20
+    flutter: [D4rtApp] [script]   building widget tree with 13 sections
+    flutter: [D4rtApp] [script]   section widget count: 28
+    flutter: [D4rtApp] [script] Cupertino controls deep visual demo built successfully
+    flutter: [D4rtApp][clean][build-postpump] clearCount=5 lastClearedFile="cupertino/contextmenu_test.dart" currentTestFile="cupertino/controls_test.dart" sinceClearMs=3960 gen=10 :: pumped 200ms on built widget (CupertinoApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="cupertino/controls_test.dart" widgetType="CupertinoApp" bodyMs=0 parseMs=0 setStateMs=0 interpretStartMs=4 interpretEndMs=3515 firstFrameMs=3549 pumpEndMs=3751 totalMs=3751
+    flutter: [D4rtApp] Build completed: CupertinoApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=6 lastClearedFile="cupertino/controls_test.dart" currentTestFile="cupertino/controls_test.dart" sinceClearMs=0 gen=10 :: received /clear (inflightBuild=false, pendingSource=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=6 lastClearedFile="cupertino/controls_test.dart" currentTestFile="cupertino/controls_test.dart" sinceClearMs=202 gen=11 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [cupertino/cupertinoapp_test.dart] (60170 chars)
+    flutter: [D4rtApp][clean][build] clearCount=6 lastClearedFile="cupertino/controls_test.dart" currentTestFile="cupertino/cupertinoapp_test.dart" sinceClearMs=210 gen=11 :: incoming /build filename="cupertino/cupertinoapp_test.dart" suite="main.dart" chars=60170
+    flutter: [D4rtApp] [script] CupertinoApp deep visual demo executing
+    flutter: [D4rtApp][clean][build-postpump] clearCount=6 lastClearedFile="cupertino/controls_test.dart" currentTestFile="cupertino/cupertinoapp_test.dart" sinceClearMs=2611 gen=12 :: pumped 200ms on built widget (Container), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="cupertino/cupertinoapp_test.dart" widgetType="Container" bodyMs=0 parseMs=0 setStateMs=0 interpretStartMs=9 interpretEndMs=2114 firstFrameMs=2200 pumpEndMs=2400 totalMs=2401
+    flutter: [D4rtApp] Build completed: Container
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=7 lastClearedFile="cupertino/cupertinoapp_test.dart" currentTestFile="cupertino/cupertinoapp_test.dart" sinceClearMs=0 gen=12 :: received /clear (inflightBuild=false, pendingSource=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=7 lastClearedFile="cupertino/cupertinoapp_test.dart" currentTestFile="cupertino/cupertinoapp_test.dart" sinceClearMs=201 gen=13 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [cupertino/dialog_test.dart] (50110 chars)
+    flutter: [D4rtApp][clean][build] clearCount=7 lastClearedFile="cupertino/cupertinoapp_test.dart" currentTestFile="cupertino/dialog_test.dart" sinceClearMs=208 gen=13 :: incoming /build filename="cupertino/dialog_test.dart" suite="main.dart" chars=50110
+    flutter: [D4rtApp] [script] Cupertino Dialog Deep Demo executing
+    flutter: [D4rtApp] [script] === Section 1: Cupertino Dialog Family Overview ===
+    flutter: [D4rtApp] [script] Created 3 overview cards
+    flutter: [D4rtApp] [script] === Section 2: CupertinoAlertDialog Variants ===
+    flutter: [D4rtApp] [script] Variant 2A: basic single-action alert created
+    flutter: [D4rtApp] [script] Variant 2B: confirm alert with default action created
+    flutter: [D4rtApp] [script] Variant 2C: triple-action alert created
+    flutter: [D4rtApp] [script] Variant 2D: scrollable terms alert created
+    flutter: [D4rtApp] [script] Variant 2E: no-title alert created
+    flutter: [D4rtApp] [script] Variant 2F: animated alert created
+    flutter: [D4rtApp] [script] Created 6 alert variant cards
+    flutter: [D4rtApp] [script] === Section 3: CupertinoDialogAction States ===
+    flutter: [D4rtApp] [script] Created 5 action state cards
+    flutter: [D4rtApp] [script] === Section 4: CupertinoActionSheet Variants ===
+    flutter: [D4rtApp] [script] Sheet 4A: plain action sheet created
+    flutter: [D4rtApp] [script] Sheet 4B: titled action sheet created
+    flutter: [D4rtApp] [script] Sheet 4C: share sheet with cancel created
+    flutter: [D4rtApp] [script] Sheet 4D: destructive action sheet created
+    flutter: [D4rtApp] [script] Sheet 4E: default action sheet created
+    flutter: [D4rtApp] [script] Created 5 sheet variant cards
+    flutter: [D4rtApp] [script] === Section 5: Real-World Examples ===
+    flutter: [D4rtApp] [script] Created 5 real-world example cards
+    flutter: [D4rtApp] [script] === Section 6: CupertinoPopupSurface + Comparison ===
+    flutter: [D4rtApp] [script] Created code panel and comparison table
+    flutter: [D4rtApp] [script] === Section 7: Summary ===
+    flutter: [D4rtApp] [script] Created summary panel
+    flutter: [D4rtApp] [script] Cupertino Dialog Deep Demo completed successfully
+    flutter: [D4rtApp][clean][build-postpump] clearCount=7 lastClearedFile="cupertino/cupertinoapp_test.dart" currentTestFile="cupertino/dialog_test.dart" sinceClearMs=2730 gen=14 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="cupertino/dialog_test.dart" widgetType="MaterialApp" bodyMs=0 parseMs=0 setStateMs=0 interpretStartMs=2 interpretEndMs=2130 firstFrameMs=2321 pumpEndMs=2522 totalMs=2522
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=8 lastClearedFile="cupertino/dialog_test.dart" currentTestFile="cupertino/dialog_test.dart" sinceClearMs=0 gen=14 :: received /clear (inflightBuild=false, pendingSource=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=8 lastClearedFile="cupertino/dialog_test.dart" currentTestFile="cupertino/dialog_test.dart" sinceClearMs=201 gen=15 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [cupertino/form_test.dart] (37209 chars)
+    flutter: [D4rtApp][clean][build] clearCount=8 lastClearedFile="cupertino/dialog_test.dart" currentTestFile="cupertino/form_test.dart" sinceClearMs=208 gen=15 :: incoming /build filename="cupertino/form_test.dart" suite="main.dart" chars=37209
+    flutter: [D4rtApp] [script] Cupertino form_test (settings + anatomy gallery) starting
+    flutter: [D4rtApp] [script] Cupertino form_test build tree assembled
+    flutter: [D4rtApp][clean][build-postpump] clearCount=8 lastClearedFile="cupertino/dialog_test.dart" currentTestFile="cupertino/form_test.dart" sinceClearMs=2760 gen=16 :: pumped 200ms on built widget (CupertinoApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="cupertino/form_test.dart" widgetType="CupertinoApp" bodyMs=0 parseMs=0 setStateMs=0 interpretStartMs=1 interpretEndMs=2206 firstFrameMs=2351 pumpEndMs=2552 totalMs=2552
+    flutter: [D4rtApp] Build completed: CupertinoApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=9 lastClearedFile="cupertino/form_test.dart" currentTestFile="cupertino/form_test.dart" sinceClearMs=0 gen=16 :: received /clear (inflightBuild=false, pendingSource=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=9 lastClearedFile="cupertino/form_test.dart" currentTestFile="cupertino/form_test.dart" sinceClearMs=200 gen=17 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [cupertino/icons_test.dart] (48116 chars)
+    flutter: [D4rtApp][clean][build] clearCount=9 lastClearedFile="cupertino/form_test.dart" currentTestFile="cupertino/icons_test.dart" sinceClearMs=206 gen=17 :: incoming /build filename="cupertino/icons_test.dart" suite="main.dart" chars=48116
+    flutter: [D4rtApp] [script] CupertinoIcons Deep Demo executing
+    flutter: [D4rtApp] [script] === Section 1: Header and Introduction ===
+    flutter: [D4rtApp] [script] === Section 2: Categorized Icon Grids ===
+    flutter: [D4rtApp] [script] Rendering category Navigation (12 icons)
+    flutter: [D4rtApp] [script] Rendering category Actions (12 icons)
+    flutter: [D4rtApp] [script] Rendering category Media (12 icons)
+    flutter: [D4rtApp] [script] Rendering category System (12 icons)
+    flutter: [D4rtApp] [script] Rendering category Communication (12 icons)
+    flutter: [D4rtApp] [script] Rendering category Social (12 icons)
+    flutter: [D4rtApp] [script] Rendering category Files (12 icons)
+    flutter: [D4rtApp] [script] Rendering category People (12 icons)
+    flutter: [D4rtApp] [script] === Section 3: CupertinoIcons vs Material Icons ===
+    flutter: [D4rtApp] [script] === Section 4: Size Ramp and Color Variations ===
+    flutter: [D4rtApp] [script] === Section 5: Interaction Wrappers ===
+    flutter: [D4rtApp] [script] === Section 6: Recipes ===
+    flutter: [D4rtApp] [script] === Section 7: Glossary ===
+    flutter: [D4rtApp] [script] CupertinoIcons Deep Demo completed successfully
+    flutter: [D4rtApp][clean][build-postpump] clearCount=9 lastClearedFile="cupertino/form_test.dart" currentTestFile="cupertino/icons_test.dart" sinceClearMs=2775 gen=18 :: pumped 200ms on built widget (SingleChildScrollView), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="cupertino/icons_test.dart" widgetType="SingleChildScrollView" bodyMs=0 parseMs=0 setStateMs=0 interpretStartMs=3 interpretEndMs=2264 firstFrameMs=2370 pumpEndMs=2570 totalMs=2570
+    flutter: [D4rtApp] Build completed: SingleChildScrollView
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=10 lastClearedFile="cupertino/icons_test.dart" currentTestFile="cupertino/icons_test.dart" sinceClearMs=0 gen=18 :: received /clear (inflightBuild=false, pendingSource=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=10 lastClearedFile="cupertino/icons_test.dart" currentTestFile="cupertino/icons_test.dart" sinceClearMs=200 gen=19 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [cupertino/list_test.dart] (67442 chars)
+    flutter: [D4rtApp][clean][build] clearCount=10 lastClearedFile="cupertino/icons_test.dart" currentTestFile="cupertino/list_test.dart" sinceClearMs=203 gen=19 :: incoming /build filename="cupertino/list_test.dart" suite="main.dart" chars=67442
+    flutter: [D4rtApp] [script] Cupertino list widgets deep visual demo executing
+    flutter: [D4rtApp] [script]   building section 1 - hero intro
+    flutter: [D4rtApp] [script]   building section 2 - anatomy
+    flutter: [D4rtApp] [script]   building section 3 - inset vs plain
+    flutter: [D4rtApp] [script]   building section 4 - notched variant
+    flutter: [D4rtApp] [script]   building section 5 - form section gallery
+    flutter: [D4rtApp] [script]   building section 6 - cupertino vs material
+    flutter: [D4rtApp] [script]   building section 7 - recipe cards
+    flutter: [D4rtApp] [script]   building section 8 - pitfalls
+    flutter: [D4rtApp] [script]   building section 9 - cheat sheet
+    flutter: [D4rtApp] [script] Assembling final widget tree
+    flutter: [D4rtApp][clean][build-postpump] clearCount=10 lastClearedFile="cupertino/icons_test.dart" currentTestFile="cupertino/list_test.dart" sinceClearMs=3675 gen=20 :: pumped 200ms on built widget (CupertinoApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="cupertino/list_test.dart" widgetType="CupertinoApp" bodyMs=0 parseMs=0 setStateMs=0 interpretStartMs=4 interpretEndMs=3144 firstFrameMs=3269 pumpEndMs=3471 totalMs=3472
+    flutter: [D4rtApp] Build completed: CupertinoApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=11 lastClearedFile="cupertino/list_test.dart" currentTestFile="cupertino/list_test.dart" sinceClearMs=0 gen=20 :: received /clear (inflightBuild=false, pendingSource=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=11 lastClearedFile="cupertino/list_test.dart" currentTestFile="cupertino/list_test.dart" sinceClearMs=217 gen=21 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [cupertino/picker_test.dart] (52259 chars)
+    flutter: [D4rtApp][clean][build] clearCount=11 lastClearedFile="cupertino/list_test.dart" currentTestFile="cupertino/picker_test.dart" sinceClearMs=275 gen=21 :: incoming /build filename="cupertino/picker_test.dart" suite="main.dart" chars=52259
+    Lost connection to device.
+  
+  Captured app STDERR tail:
+    Failed to foreground app; open returned 1
+    [process] test app exited with code 0
+  
+  test/send_test_runner.dart 793:7  SendTestRunner.send
+  
+02:10 +11 -1: cupertino/ route_test.dart
+[recycle] killing wedged test app (pid=89401)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=cupertino/route_test.dart sourceChars=68105 clearMs=203 httpMs=2067 totalMs=15754 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=6 appParseMs=6 appSetStateMs=7 appInterpretStartMs=10 appInterpretEndMs=1745 appFirstFrameMs=1861 appPumpEndMs=2062
+02:25 +12 -1: cupertino/ scaffold_test.dart
+[METRIC] script=cupertino/scaffold_test.dart sourceChars=80777 clearMs=204 httpMs=2466 totalMs=2671 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=1823 appFirstFrameMs=2263 appPumpEndMs=2463
+02:28 +13 -1: cupertino/ segmented_test.dart
+[METRIC] script=cupertino/segmented_test.dart sourceChars=64514 clearMs=204 httpMs=2601 totalMs=2807 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=4 appParseMs=4 appSetStateMs=4 appInterpretStartMs=5 appInterpretEndMs=2195 appFirstFrameMs=2398 appPumpEndMs=2598
+02:31 +14 -1: cupertino/ textfield_test.dart
+[METRIC] script=cupertino/textfield_test.dart sourceChars=45295 clearMs=203 httpMs=1578 totalMs=1783 status=success httpStatus=200 outputLines=11 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=1241 appFirstFrameMs=1373 appPumpEndMs=1574
+02:33 +15 -1: cupertino/ theme_test.dart
+[METRIC] script=cupertino/theme_test.dart sourceChars=79051 clearMs=222 httpMs=2629 totalMs=2852 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=1932 appFirstFrameMs=2423 appPumpEndMs=2625
+02:36 +16 -1: dart_ui/ color_test.dart
+[METRIC] script=dart_ui/color_test.dart sourceChars=22827 clearMs=215 httpMs=1283 totalMs=1500 status=success httpStatus=200 outputLines=38 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=1050 appFirstFrameMs=1079 appPumpEndMs=1280
+02:37 +17 -1: dart_ui/ geometry_test.dart
+[METRIC] script=dart_ui/geometry_test.dart sourceChars=20064 clearMs=215 httpMs=1258 totalMs=1476 status=success httpStatus=200 outputLines=43 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=1030 appFirstFrameMs=1054 appPumpEndMs=1254
+02:38 +18 -1: dart_ui/ offset_test.dart
+[METRIC] script=dart_ui/offset_test.dart sourceChars=33165 clearMs=202 httpMs=1307 totalMs=1511 status=success httpStatus=200 outputLines=40 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=1061 appFirstFrameMs=1104 appPumpEndMs=1304
+02:40 +19 -1: dart_ui/ paint_test.dart
+[METRIC] script=dart_ui/paint_test.dart sourceChars=26251 clearMs=202 httpMs=1283 totalMs=1487 status=success httpStatus=200 outputLines=46 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=1050 appFirstFrameMs=1078 appPumpEndMs=1280
+02:41 +20 -1: dart_ui/ primitives_test.dart
+[METRIC] script=dart_ui/primitives_test.dart sourceChars=80290 clearMs=214 httpMs=1670 totalMs=1937 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=968 appFirstFrameMs=1465 appPumpEndMs=1667
+02:43 +21 -1: dart_ui/ rect_test.dart
+[METRIC] script=dart_ui/rect_test.dart sourceChars=23680 clearMs=218 httpMs=1228 totalMs=1447 status=success httpStatus=200 outputLines=31 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=1001 appFirstFrameMs=1023 appPumpEndMs=1224
+02:45 +22 -1: dart_ui/ size_test.dart
+[METRIC] script=dart_ui/size_test.dart sourceChars=21047 clearMs=213 httpMs=1226 totalMs=1441 status=success httpStatus=200 outputLines=40 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=1002 appFirstFrameMs=1022 appPumpEndMs=1222
+02:46 +23 -1: dart_ui/ text_test.dart
+[METRIC] script=dart_ui/text_test.dart sourceChars=74256 clearMs=214 httpMs=1326 totalMs=1542 status=success httpStatus=200 outputLines=44 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=1095 appFirstFrameMs=1119 appPumpEndMs=1321
+02:48 +24 -1: foundation/ key_test.dart
+[METRIC] script=foundation/key_test.dart sourceChars=54871 clearMs=211 httpMs=1400 totalMs=1613 status=success httpStatus=200 outputLines=11 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=1094 appFirstFrameMs=1196 appPumpEndMs=1397
+02:49 +25 -1: foundation/ notifier_test.dart
+[METRIC] script=foundation/notifier_test.dart sourceChars=50814 clearMs=204 httpMs=1380 totalMs=1587 status=success httpStatus=200 outputLines=63 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=1134 appFirstFrameMs=1175 appPumpEndMs=1377
+02:51 +26 -1: gestures/ details_test.dart
+[METRIC] script=gestures/details_test.dart sourceChars=73297 clearMs=204 httpMs=1517 totalMs=1725 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=1 appInterpretStartMs=10 appInterpretEndMs=1071 appFirstFrameMs=1307 appPumpEndMs=1510
+02:53 +27 -1: material/ bottomnavigationbar_test.dart
+[METRIC] script=material/bottomnavigationbar_test.dart sourceChars=78883 clearMs=245 httpMs=48128 totalMs=48377 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=7 appInterpretEndMs=29543 appFirstFrameMs=48066 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/bottomnavigationbar_test.dart:
+    Build timed out after 30 seconds
+[recycle] build-timeout in material/bottomnavigationbar_test.dart — app event loop is wedged; killing it now, restarting before the next test (no cascade)
+03:42 +27 -2: material/ bottomnavigationbar_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_base_01_test.dart 231:7                main.<fn>.<fn>
+  
+03:42 +27 -2: material/ buttons_test.dart
+[recycle] killing wedged test app (pid=91915)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=material/buttons_test.dart sourceChars=58430 clearMs=205 httpMs=1661 totalMs=15312 status=success httpStatus=200 outputLines=16 frameworkErrors=0 appBodyMs=8 appParseMs=8 appSetStateMs=9 appInterpretStartMs=12 appInterpretEndMs=1277 appFirstFrameMs=1455 appPumpEndMs=1655
+03:57 +28 -2: material/ buttonstyle_test.dart
+[METRIC] script=material/buttonstyle_test.dart sourceChars=45919 clearMs=203 httpMs=1416 totalMs=1620 status=success httpStatus=200 outputLines=43 frameworkErrors=0 appBodyMs=4 appParseMs=4 appSetStateMs=4 appInterpretStartMs=5 appInterpretEndMs=1117 appFirstFrameMs=1210 appPumpEndMs=1412
+03:59 +29 -2: material/ card_test.dart
+[METRIC] script=material/card_test.dart sourceChars=57725 clearMs=215 httpMs=1343 totalMs=1560 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=1024 appFirstFrameMs=1137 appPumpEndMs=1339
+04:00 +30 -2: material/ chips_test.dart
+[METRIC] script=material/chips_test.dart sourceChars=13706 clearMs=217 httpMs=1128 totalMs=1347 status=success httpStatus=200 outputLines=64 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=850 appFirstFrameMs=926 appPumpEndMs=1126
+04:02 +31 -2: material/ datatable_test.dart
+[METRIC] script=material/datatable_test.dart sourceChars=15509 clearMs=203 httpMs=1125 totalMs=1330 status=success httpStatus=200 outputLines=43 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=862 appFirstFrameMs=920 appPumpEndMs=1121
+04:03 +32 -2: material/ dialog_test.dart
+[METRIC] script=material/dialog_test.dart sourceChars=48078 clearMs=218 httpMs=1415 totalMs=1636 status=success httpStatus=200 outputLines=31 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=1068 appFirstFrameMs=1210 appPumpEndMs=1411
+04:05 +33 -2: material/ divider_test.dart
+[METRIC] script=material/divider_test.dart sourceChars=48356 clearMs=216 httpMs=1216 totalMs=1434 status=success httpStatus=200 outputLines=40 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=955 appFirstFrameMs=1012 appPumpEndMs=1213
+04:06 +34 -2: material/ dropdown_test.dart
+[METRIC] script=material/dropdown_test.dart sourceChars=44152 clearMs=204 httpMs=2830 totalMs=3036 status=success httpStatus=200 outputLines=25 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=2435 appFirstFrameMs=2626 appPumpEndMs=2827
+04:09 +35 -2: material/ elevated_button_test.dart
+[METRIC] script=material/elevated_button_test.dart sourceChars=47364 clearMs=217 httpMs=1262 totalMs=1481 status=success httpStatus=200 outputLines=40 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=987 appFirstFrameMs=1059 appPumpEndMs=1260
+04:11 +36 -2: material/ expansion_test.dart
+[METRIC] script=material/expansion_test.dart sourceChars=14983 clearMs=204 httpMs=1083 totalMs=1289 status=success httpStatus=200 outputLines=35 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=844 appFirstFrameMs=877 appPumpEndMs=1079
+04:12 +37 -2: material/ floatingactionbutton_test.dart
+[METRIC] script=material/floatingactionbutton_test.dart sourceChars=59797 clearMs=214 httpMs=1267 totalMs=1483 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=979 appFirstFrameMs=1063 appPumpEndMs=1264
+04:13 +38 -2: material/ formcontrols_test.dart
+[METRIC] script=material/formcontrols_test.dart sourceChars=77599 clearMs=203 httpMs=2032 totalMs=2237 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=1619 appFirstFrameMs=1828 appPumpEndMs=2028
+04:16 +39 -2: material/ icon_test.dart
+[METRIC] script=material/icon_test.dart sourceChars=77571 clearMs=204 httpMs=1939 totalMs=2145 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=1601 appFirstFrameMs=1734 appPumpEndMs=1936
+04:18 +40 -2: material/ icontheme_test.dart
+[METRIC] script=material/icontheme_test.dart sourceChars=64982 clearMs=214 httpMs=1306 totalMs=1522 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=956 appFirstFrameMs=1102 appPumpEndMs=1304
+04:19 +41 -2: material/ inputdecoration_test.dart
+[METRIC] script=material/inputdecoration_test.dart sourceChars=50790 clearMs=219 httpMs=1285 totalMs=1506 status=success httpStatus=200 outputLines=25 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=933 appFirstFrameMs=1081 appPumpEndMs=1282
+04:21 +42 -2: material/ listtile_test.dart
+[METRIC] script=material/listtile_test.dart sourceChars=71726 clearMs=203 httpMs=1315 totalMs=1521 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=988 appFirstFrameMs=1111 appPumpEndMs=1312
+04:22 +43 -2: material/ materialapp_test.dart
+[METRIC] script=material/materialapp_test.dart sourceChars=56248 clearMs=215 httpMs=1435 totalMs=1652 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=1163 appFirstFrameMs=1227 appPumpEndMs=1429
+04:24 +44 -2: material/ materialbanner_test.dart
+[METRIC] script=material/materialbanner_test.dart sourceChars=63099 clearMs=259 httpMs=22695 totalMs=22956 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=20288 appFirstFrameMs=22351 appPumpEndMs=22688
+04:47 +45 -2: material/ materialcolor_test.dart
+[METRIC] script=material/materialcolor_test.dart sourceChars=41242 clearMs=383 httpMs=30163 totalMs=30548 status=success httpStatus=200 outputLines=44 frameworkErrors=0 appBodyMs=3 appParseMs=3 appSetStateMs=9 appInterpretStartMs=32 appInterpretEndMs=27255 appFirstFrameMs=29367 appPumpEndMs=29974
+05:18 +46 -2: material/ navigation_test.dart
+[METRIC] script=material/navigation_test.dart sourceChars=16162 clearMs=960 httpMs=35385 totalMs=36347 status=error httpStatus=400 outputLines=37 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=5 appInterpretStartMs=42 appInterpretEndMs=34434 appFirstFrameMs=35320 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in material/navigation_test.dart:
+    Build timed out after 30 seconds
+[recycle] build-timeout in material/navigation_test.dart — app event loop is wedged; killing it now, restarting before the next test (no cascade)
+05:55 +46 -3: material/ navigation_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_base_01_test.dart 347:7                main.<fn>.<fn>
+  
+05:55 +46 -3: material/ progress_test.dart
+[recycle] killing wedged test app (pid=93796)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=material/progress_test.dart sourceChars=61685 clearMs=203 httpMs=1489 totalMs=15148 status=success httpStatus=200 outputLines=34 frameworkErrors=0 appBodyMs=7 appParseMs=7 appSetStateMs=7 appInterpretStartMs=10 appInterpretEndMs=1199 appFirstFrameMs=1281 appPumpEndMs=1483
+06:10 +47 -3: material/ scaffold_test.dart
+[METRIC] script=material/scaffold_test.dart sourceChars=79016 clearMs=202 httpMs=2422 totalMs=2627 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=1 appInterpretStartMs=2 appInterpretEndMs=1631 appFirstFrameMs=2218 appPumpEndMs=2419
+06:12 +48 -3: material/ search_test.dart
+[METRIC] script=material/search_test.dart sourceChars=48201 clearMs=203 httpMs=1354 totalMs=1560 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=2 appInterpretStartMs=5 appInterpretEndMs=1022 appFirstFrameMs=1149 appPumpEndMs=1351
+06:14 +49 -3: material/ stepper_test.dart
+[METRIC] script=material/stepper_test.dart sourceChars=82782 clearMs=202 httpMs=1720 totalMs=1924 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=3 appParseMs=3 appSetStateMs=4 appInterpretStartMs=4 appInterpretEndMs=1088 appFirstFrameMs=1514 appPumpEndMs=1716
+06:16 +50 -3: material/ tabs_test.dart
+[METRIC] script=material/tabs_test.dart sourceChars=77081 clearMs=221 httpMs=1406 totalMs=1630 status=success httpStatus=200 outputLines=9 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=833 appFirstFrameMs=1201 appPumpEndMs=1403
+06:18 +51 -3: material/ text_button_test.dart
+[METRIC] script=material/text_button_test.dart sourceChars=58648 clearMs=216 httpMs=1461 totalMs=1679 status=success httpStatus=200 outputLines=11 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=1157 appFirstFrameMs=1256 appPumpEndMs=1457
+06:19 +52 -3: material/ theme_test.dart
+[METRIC] script=material/theme_test.dart sourceChars=46212 clearMs=215 httpMs=1430 totalMs=1648 status=success httpStatus=200 outputLines=35 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=2 appInterpretStartMs=3 appInterpretEndMs=1137 appFirstFrameMs=1224 appPumpEndMs=1426
+06:21 +53 -3: material/ tooltip_badge_test.dart
+[METRIC] script=material/tooltip_badge_test.dart sourceChars=46482 clearMs=217 httpMs=1177 totalMs=1396 status=success httpStatus=200 outputLines=47 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=927 appFirstFrameMs=973 appPumpEndMs=1174
+06:22 +54 -3: painting/ alignment_test.dart
+[METRIC] script=painting/alignment_test.dart sourceChars=63349 clearMs=204 httpMs=1457 totalMs=1664 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=1170 appFirstFrameMs=1252 appPumpEndMs=1454
+06:24 +55 -3: painting/ border_radius_test.dart
+[METRIC] script=painting/border_radius_test.dart sourceChars=59637 clearMs=205 httpMs=1174 totalMs=1381 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=929 appFirstFrameMs=970 appPumpEndMs=1170
+06:25 +56 -3: painting/ border_test.dart
+[METRIC] script=painting/border_test.dart sourceChars=97782 clearMs=204 httpMs=1309 totalMs=1515 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=1019 appFirstFrameMs=1105 appPumpEndMs=1306
+06:27 +57 -3: painting/ box_decoration_test.dart
+[METRIC] script=painting/box_decoration_test.dart sourceChars=58366 clearMs=203 httpMs=1169 totalMs=1374 status=success httpStatus=200 outputLines=24 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=926 appFirstFrameMs=963 appPumpEndMs=1165
+06:28 +58 -3: painting/ edge_insets_test.dart
+[METRIC] script=painting/edge_insets_test.dart sourceChars=50740 clearMs=220 httpMs=1140 totalMs=1364 status=success httpStatus=200 outputLines=38 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=909 appFirstFrameMs=935 appPumpEndMs=1136
+06:30 +59 -3: painting/ edgeinsets_test.dart
+[METRIC] script=painting/edgeinsets_test.dart sourceChars=43715 clearMs=215 httpMs=1171 totalMs=1389 status=success httpStatus=200 outputLines=63 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=10 appInterpretEndMs=936 appFirstFrameMs=967 appPumpEndMs=1168
+06:31 +60 -3: painting/ gradient_shadow_test.dart
+[METRIC] script=painting/gradient_shadow_test.dart sourceChars=59967 clearMs=203 httpMs=1247 totalMs=1453 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=816 appFirstFrameMs=1042 appPumpEndMs=1244
+06:32 +61 -3: painting/ textstyle_test.dart
+[METRIC] script=painting/textstyle_test.dart sourceChars=63417 clearMs=218 httpMs=1242 totalMs=1464 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=815 appFirstFrameMs=1037 appPumpEndMs=1239
+06:34 +62 -3: physics/ spring_test.dart
+[METRIC] script=physics/spring_test.dart sourceChars=17999 clearMs=217 httpMs=978 totalMs=1198 status=success httpStatus=200 outputLines=71 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=759 appFirstFrameMs=774 appPumpEndMs=975
+06:35 +63 -3: rendering/ boxconstraints_test.dart
+[METRIC] script=rendering/boxconstraints_test.dart sourceChars=50403 clearMs=216 httpMs=1216 totalMs=1435 status=success httpStatus=200 outputLines=56 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=939 appFirstFrameMs=1011 appPumpEndMs=1211
+06:37 +64 -3: rendering/ layers_test.dart
+[METRIC] script=rendering/layers_test.dart sourceChars=16958 clearMs=216 httpMs=25844 totalMs=26065 status=success httpStatus=200 outputLines=48 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=2 appInterpretStartMs=13 appInterpretEndMs=25167 appFirstFrameMs=25499 appPumpEndMs=25784
+07:03 +65 -3: rendering/ textpainter_test.dart
+[METRIC] script=rendering/textpainter_test.dart sourceChars=52880 clearMs=528 httpMs=32274 totalMs=32805 status=error httpStatus=400 outputLines=46 frameworkErrors=0 appBodyMs=7 appParseMs=7 appSetStateMs=18 appInterpretStartMs=36 appInterpretEndMs=29753 appFirstFrameMs=32180 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in rendering/textpainter_test.dart:
+    Build timed out after 30 seconds
+[recycle] build-timeout in rendering/textpainter_test.dart — app event loop is wedged; killing it now, restarting before the next test (no cascade)
+07:36 +65 -4: rendering/ textpainter_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_base_01_test.dart 478:7                main.<fn>.<fn>
+  
+07:36 +65 -4: rendering/ viewport_test.dart
+[recycle] killing wedged test app (pid=96330)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=rendering/viewport_test.dart sourceChars=43381 clearMs=203 httpMs=1936 totalMs=15088 status=success httpStatus=200 outputLines=43 frameworkErrors=0 appBodyMs=6 appParseMs=6 appSetStateMs=7 appInterpretStartMs=10 appInterpretEndMs=1652 appFirstFrameMs=1729 appPumpEndMs=1930
+07:51 +66 -4: scheduler/ ticker_test.dart
+[METRIC] script=scheduler/ticker_test.dart sourceChars=44798 clearMs=217 httpMs=1372 totalMs=1592 status=success httpStatus=200 outputLines=13 frameworkErrors=0 appBodyMs=3 appParseMs=3 appSetStateMs=4 appInterpretStartMs=4 appInterpretEndMs=1111 appFirstFrameMs=1169 appPumpEndMs=1369
+07:53 +67 -4: (tearDownAll)
+07:54 +67 -4: Some tests failed.

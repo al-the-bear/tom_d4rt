@@ -1,0 +1,124 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 91.0.0 (101.0.0 available)
+  analyzer 8.4.1 (13.1.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.0.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.17.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.10 (0.7.12 available)
+! tom_analyzer_shared 0.1.0 from path ../../basics/tom_analyzer_shared (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt 1.8.20 from path ../tom_d4rt (overridden in ./pubspec_overrides.yaml)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+18 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter/test/flutter_base_02_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:56579/fT-I6xZ7mP8=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:56579/fT-I6xZ7mP8=/devtools/?uri=ws://127.0.0.1:56579/fT-I6xZ7mP8=/ws
+=================================================================
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+00:14 +0: Test App Health app is running
+00:14 +1: semantics/ semantics_test.dart
+[METRIC] script=semantics/semantics_test.dart sourceChars=91793 clearMs=208 httpMs=1728 totalMs=1947 status=success httpStatus=200 outputLines=51 frameworkErrors=0 appBodyMs=8 appParseMs=8 appSetStateMs=9 appInterpretStartMs=20 appInterpretEndMs=1328 appFirstFrameMs=1512 appPumpEndMs=1714
+00:16 +2: widgets/ align_test.dart
+[METRIC] script=widgets/align_test.dart sourceChars=60247 clearMs=220 httpMs=1236 totalMs=1460 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=5 appParseMs=5 appSetStateMs=5 appInterpretStartMs=6 appInterpretEndMs=954 appFirstFrameMs=1031 appPumpEndMs=1231
+00:17 +3: widgets/ animation_test.dart
+[METRIC] script=widgets/animation_test.dart sourceChars=58431 clearMs=206 httpMs=1640 totalMs=1854 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=928 appFirstFrameMs=1365 appPumpEndMs=1637
+00:19 +4: widgets/ center_test.dart
+[METRIC] script=widgets/center_test.dart sourceChars=66450 clearMs=305 httpMs=1657 totalMs=1964 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=880 appFirstFrameMs=1452 appPumpEndMs=1653
+00:21 +5: widgets/ changenotifier_test.dart
+[METRIC] script=widgets/changenotifier_test.dart sourceChars=70729 clearMs=221 httpMs=2065 totalMs=2289 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=1814 appFirstFrameMs=1862 appPumpEndMs=2062
+00:23 +6: widgets/ cliprrect_test.dart
+[METRIC] script=widgets/cliprrect_test.dart sourceChars=44462 clearMs=203 httpMs=1166 totalMs=1372 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=896 appFirstFrameMs=961 appPumpEndMs=1163
+00:25 +7: widgets/ column_test.dart
+[METRIC] script=widgets/column_test.dart sourceChars=68623 clearMs=218 httpMs=1278 totalMs=1499 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=1 appInterpretStartMs=6 appInterpretEndMs=947 appFirstFrameMs=1074 appPumpEndMs=1274
+00:26 +8: widgets/ container_test.dart
+[METRIC] script=widgets/container_test.dart sourceChars=44944 clearMs=205 httpMs=1123 totalMs=1330 status=success httpStatus=200 outputLines=40 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=866 appFirstFrameMs=919 appPumpEndMs=1119
+00:27 +9: widgets/ expanded_test.dart
+[METRIC] script=widgets/expanded_test.dart sourceChars=69498 clearMs=205 httpMs=1189 totalMs=1396 status=success httpStatus=200 outputLines=3 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=1 appInterpretStartMs=10 appInterpretEndMs=894 appFirstFrameMs=984 appPumpEndMs=1185
+00:29 +10: widgets/ flexible_test.dart
+[METRIC] script=widgets/flexible_test.dart sourceChars=84314 clearMs=204 httpMs=1171 totalMs=1377 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=885 appFirstFrameMs=967 appPumpEndMs=1167
+00:30 +11: widgets/ focusnode_test.dart
+[METRIC] script=widgets/focusnode_test.dart sourceChars=75866 clearMs=221 httpMs=2217 totalMs=2440 status=success httpStatus=200 outputLines=8 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=1921 appFirstFrameMs=2012 appPumpEndMs=2214
+00:33 +12: widgets/ form_test.dart
+[METRIC] script=widgets/form_test.dart sourceChars=68570 clearMs=219 httpMs=1267 totalMs=1489 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=872 appFirstFrameMs=1064 appPumpEndMs=1264
+00:34 +13: widgets/ gesturedetector_test.dart
+[METRIC] script=widgets/gesturedetector_test.dart sourceChars=42418 clearMs=205 httpMs=1172 totalMs=1380 status=success httpStatus=200 outputLines=29 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=941 appFirstFrameMs=966 appPumpEndMs=1169
+00:36 +14: widgets/ gridview_test.dart
+[METRIC] script=widgets/gridview_test.dart sourceChars=77624 clearMs=205 httpMs=1354 totalMs=1563 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=908 appFirstFrameMs=1148 appPumpEndMs=1350
+00:37 +15: widgets/ image_test.dart
+[METRIC] script=widgets/image_test.dart sourceChars=115875 clearMs=223 httpMs=1971 totalMs=2196 status=success httpStatus=200 outputLines=3 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=884 appFirstFrameMs=1764 appPumpEndMs=1967
+00:39 +16: widgets/ inkwell_test.dart
+[METRIC] script=widgets/inkwell_test.dart sourceChars=83275 clearMs=223 httpMs=1200 totalMs=1426 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=896 appFirstFrameMs=996 appPumpEndMs=1197
+00:41 +17: widgets/ key_test.dart
+[METRIC] script=widgets/key_test.dart sourceChars=54447 clearMs=203 httpMs=1177 totalMs=1383 status=success httpStatus=200 outputLines=9 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=905 appFirstFrameMs=972 appPumpEndMs=1174
+00:42 +18: widgets/ listview_test.dart
+[METRIC] script=widgets/listview_test.dart sourceChars=68877 clearMs=224 httpMs=1110 totalMs=1336 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=877 appFirstFrameMs=905 appPumpEndMs=1106
+00:44 +19: widgets/ navigator_test.dart
+[METRIC] script=widgets/navigator_test.dart sourceChars=53989 clearMs=203 httpMs=2330 totalMs=2535 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=1928 appFirstFrameMs=2125 appPumpEndMs=2327
+00:46 +20: widgets/ opacity_test.dart
+[METRIC] script=widgets/opacity_test.dart sourceChars=63275 clearMs=220 httpMs=2216 totalMs=2438 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=1983 appFirstFrameMs=2010 appPumpEndMs=2212
+00:48 +21: widgets/ padding_test.dart
+[METRIC] script=widgets/padding_test.dart sourceChars=74399 clearMs=216 httpMs=1102 totalMs=1321 status=success httpStatus=200 outputLines=26 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=854 appFirstFrameMs=897 appPumpEndMs=1099
+00:50 +22: widgets/ pageview_test.dart
+[METRIC] script=widgets/pageview_test.dart sourceChars=52374 clearMs=218 httpMs=1104 totalMs=1324 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=831 appFirstFrameMs=901 appPumpEndMs=1101
+00:51 +23: widgets/ positioned_test.dart
+[METRIC] script=widgets/positioned_test.dart sourceChars=74006 clearMs=203 httpMs=1196 totalMs=1402 status=success httpStatus=200 outputLines=9 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=886 appFirstFrameMs=991 appPumpEndMs=1193
+00:53 +24: widgets/ richtext_test.dart
+[METRIC] script=widgets/richtext_test.dart sourceChars=56935 clearMs=220 httpMs=1121 totalMs=1344 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=860 appFirstFrameMs=916 appPumpEndMs=1118
+00:54 +25: widgets/ row_test.dart
+[METRIC] script=widgets/row_test.dart sourceChars=63940 clearMs=203 httpMs=1136 totalMs=1341 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=857 appFirstFrameMs=932 appPumpEndMs=1134
+00:55 +26: widgets/ scaffold_test.dart
+[METRIC] script=widgets/scaffold_test.dart sourceChars=81318 clearMs=223 httpMs=1263 totalMs=1488 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=863 appFirstFrameMs=1059 appPumpEndMs=1260
+00:57 +27: widgets/ sized_box_test.dart
+[METRIC] script=widgets/sized_box_test.dart sourceChars=56861 clearMs=223 httpMs=1087 totalMs=1312 status=success httpStatus=200 outputLines=26 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=847 appFirstFrameMs=883 appPumpEndMs=1084
+00:58 +28: widgets/ stack_test.dart
+[METRIC] script=widgets/stack_test.dart sourceChars=52869 clearMs=202 httpMs=1090 totalMs=1294 status=success httpStatus=200 outputLines=41 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=843 appFirstFrameMs=884 appPumpEndMs=1086
+00:59 +29: widgets/ statefulwidget_test.dart
+[METRIC] script=widgets/statefulwidget_test.dart sourceChars=129853 clearMs=221 httpMs=1264 totalMs=1488 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=856 appFirstFrameMs=1059 appPumpEndMs=1261
+01:01 +30: widgets/ textfield_test.dart
+[METRIC] script=widgets/textfield_test.dart sourceChars=39214 clearMs=220 httpMs=1092 totalMs=1315 status=success httpStatus=200 outputLines=49 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=859 appFirstFrameMs=888 appPumpEndMs=1088
+01:02 +31: widgets/ text_test.dart
+[METRIC] script=widgets/text_test.dart sourceChars=54228 clearMs=204 httpMs=1113 totalMs=1319 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=851 appFirstFrameMs=908 appPumpEndMs=1110
+01:03 +32: widgets/ transform_test.dart
+[METRIC] script=widgets/transform_test.dart sourceChars=59856 clearMs=220 httpMs=1169 totalMs=1391 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=868 appFirstFrameMs=965 appPumpEndMs=1166
+01:05 +33: widgets/ wrap_test.dart
+[METRIC] script=widgets/wrap_test.dart sourceChars=61150 clearMs=204 httpMs=1198 totalMs=1404 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=881 appFirstFrameMs=992 appPumpEndMs=1194
+01:06 +34: services/ textformatter_test.dart
+[METRIC] script=services/textformatter_test.dart sourceChars=48716 clearMs=220 httpMs=1117 totalMs=1339 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=854 appFirstFrameMs=913 appPumpEndMs=1114
+01:08 +35: material/ bottomappbar_test.dart
+[METRIC] script=material/bottomappbar_test.dart sourceChars=39404 clearMs=204 httpMs=1143 totalMs=1349 status=success httpStatus=200 outputLines=13 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=857 appFirstFrameMs=939 appPumpEndMs=1141
+01:09 +36: material/ circleavatar_test.dart
+[METRIC] script=material/circleavatar_test.dart sourceChars=50737 clearMs=203 httpMs=1112 totalMs=1318 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=858 appFirstFrameMs=907 appPumpEndMs=1109
+01:10 +37: material/ scrollbar_test.dart
+[METRIC] script=material/scrollbar_test.dart sourceChars=50408 clearMs=219 httpMs=1964 totalMs=2185 status=success httpStatus=200 outputLines=30 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=1678 appFirstFrameMs=1761 appPumpEndMs=1962
+01:12 +38: material/ segmentedbutton_test.dart
+[METRIC] script=material/segmentedbutton_test.dart sourceChars=68207 clearMs=203 httpMs=2135 totalMs=2341 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=1889 appFirstFrameMs=1931 appPumpEndMs=2133
+01:15 +39: material/ selectabletext_test.dart
+[METRIC] script=material/selectabletext_test.dart sourceChars=50102 clearMs=224 httpMs=1134 totalMs=1360 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=860 appFirstFrameMs=929 appPumpEndMs=1130
+01:16 +40: material/ sliverappbar_test.dart
+[METRIC] script=material/sliverappbar_test.dart sourceChars=51546 clearMs=204 httpMs=1238 totalMs=1446 status=success httpStatus=200 outputLines=24 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=2 appInterpretStartMs=11 appInterpretEndMs=859 appFirstFrameMs=1033 appPumpEndMs=1235
+01:18 +41: material/ togglebuttons_test.dart
+[METRIC] script=material/togglebuttons_test.dart sourceChars=94117 clearMs=223 httpMs=1242 totalMs=1467 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=843 appFirstFrameMs=1038 appPumpEndMs=1239
+01:19 +42: (tearDownAll)
+01:20 +42: All tests passed!

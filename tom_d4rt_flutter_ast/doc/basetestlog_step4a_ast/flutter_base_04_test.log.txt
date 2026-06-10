@@ -1,0 +1,409 @@
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_04_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:61932/iQww2979If4=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:61932/iQww2979If4=/devtools/?uri=ws://127.0.0.1:61932/iQww2979If4=/ws
+=================================================================
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+00:14 +0: Test App Health app is running
+00:14 +1: material/ batch 3 themadata_test.dart
+[METRIC] script=material/themadata_test.dart sourceBytes=62400 sourceChars=62294 bundleJsonBytes=695596 clearMs=218 readMs=5 bundleMs=202 httpMs=2541 totalMs=2968 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=12 appParseMs=57 appSetStateMs=57 appInterpretStartMs=69 appInterpretEndMs=1878 appFirstFrameMs=2329 appPumpEndMs=2531
+00:17 +2: material/ batch 3 appbar_themes_test.dart
+[METRIC] script=material/appbar_themes_test.dart sourceBytes=70995 sourceChars=70995 bundleJsonBytes=786615 clearMs=213 readMs=1 bundleMs=57 httpMs=2607 totalMs=2880 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=15 appInterpretStartMs=19 appInterpretEndMs=2316 appFirstFrameMs=2399 appPumpEndMs=2602
+00:20 +3: material/ batch 3 navigation_themes_test.dart
+[METRIC] script=material/navigation_themes_test.dart sourceBytes=64097 sourceChars=64036 bundleJsonBytes=817012 clearMs=216 readMs=7 bundleMs=52 httpMs=1629 totalMs=1906 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=23 appSetStateMs=23 appInterpretStartMs=31 appInterpretEndMs=1231 appFirstFrameMs=1421 appPumpEndMs=1623
+00:22 +4: material/ batch 3 component_themes_test.dart
+[METRIC] script=material/component_themes_test.dart sourceBytes=62873 sourceChars=62797 bundleJsonBytes=826099 clearMs=204 readMs=1 bundleMs=40 httpMs=1756 totalMs=2003 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=19 appSetStateMs=19 appInterpretStartMs=27 appInterpretEndMs=1528 appFirstFrameMs=1548 appPumpEndMs=1750
+00:24 +5: material/ batch 3 dialog_themes_test.dart
+[METRIC] script=material/dialog_themes_test.dart sourceBytes=59914 sourceChars=59832 bundleJsonBytes=681833 clearMs=216 readMs=1 bundleMs=23 httpMs=1536 totalMs=1778 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=17 appInterpretEndMs=1200 appFirstFrameMs=1329 appPumpEndMs=1531
+00:25 +6: material/ batch 3 input_themes_test.dart
+[METRIC] script=material/input_themes_test.dart sourceBytes=85953 sourceChars=85877 bundleJsonBytes=933946 clearMs=222 readMs=2 bundleMs=33 httpMs=1563 totalMs=1822 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=22 appSetStateMs=22 appInterpretStartMs=26 appInterpretEndMs=1117 appFirstFrameMs=1357 appPumpEndMs=1558
+00:27 +7: material/ batch 3 picker_themes_test.dart
+[METRIC] script=material/picker_themes_test.dart sourceBytes=65483 sourceChars=65469 bundleJsonBytes=782274 clearMs=216 readMs=1 bundleMs=26 httpMs=1607 totalMs=1852 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=15 appSetStateMs=15 appInterpretStartMs=23 appInterpretEndMs=1281 appFirstFrameMs=1400 appPumpEndMs=1601
+00:29 +8: material/ batch 3 menu_themes_test.dart
+[METRIC] script=material/menu_themes_test.dart sourceBytes=81541 sourceChars=81541 bundleJsonBytes=920800 clearMs=202 readMs=4 bundleMs=36 httpMs=3053 totalMs=3297 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=13 appSetStateMs=13 appInterpretStartMs=20 appInterpretEndMs=2692 appFirstFrameMs=2846 appPumpEndMs=3048
+00:32 +9: material/ batch 3 misc_themes_test.dart
+[METRIC] script=material/misc_themes_test.dart sourceBytes=36815 sourceChars=36775 bundleJsonBytes=468583 clearMs=204 readMs=2 bundleMs=18 httpMs=1423 totalMs=1648 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=16 appInterpretEndMs=1035 appFirstFrameMs=1218 appPumpEndMs=1419
+00:34 +10: material/ batch 3 widgetstate_test.dart
+[METRIC] script=material/widgetstate_test.dart sourceBytes=79743 sourceChars=79743 bundleJsonBytes=1046252 clearMs=203 readMs=1 bundleMs=32 httpMs=1810 totalMs=2048 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=15 appSetStateMs=15 appInterpretStartMs=18 appInterpretEndMs=1492 appFirstFrameMs=1603 appPumpEndMs=1804
+00:36 +11: material/ batch 3 licensepage_test.dart
+[METRIC] script=material/licensepage_test.dart sourceBytes=43698 sourceChars=43677 bundleJsonBytes=486040 clearMs=202 readMs=4 bundleMs=13 httpMs=1259 totalMs=1479 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=11 appInterpretEndMs=979 appFirstFrameMs=1052 appPumpEndMs=1255
+00:38 +12: material/ batch 3 datepicker_widgets_test.dart
+[METRIC] script=material/datepicker_widgets_test.dart sourceBytes=53972 sourceChars=53964 bundleJsonBytes=503579 clearMs=236 readMs=6 bundleMs=15 httpMs=1628 totalMs=1886 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=16 appInterpretEndMs=1048 appFirstFrameMs=1423 appPumpEndMs=1624
+00:40 +13: material/ batch 3 timepicker_widget_test.dart
+[METRIC] script=material/timepicker_widget_test.dart sourceBytes=51347 sourceChars=51347 bundleJsonBytes=635517 clearMs=202 readMs=1 bundleMs=33 httpMs=1395 totalMs=1632 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=0 appParseMs=8 appSetStateMs=9 appInterpretStartMs=15 appInterpretEndMs=1030 appFirstFrameMs=1189 appPumpEndMs=1390
+00:41 +14: material/ batch 3 menubar_test.dart
+[METRIC] script=material/menubar_test.dart sourceBytes=79689 sourceChars=79669 bundleJsonBytes=900779 clearMs=205 readMs=2 bundleMs=41 httpMs=1505 totalMs=1756 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=19 appSetStateMs=19 appInterpretStartMs=24 appInterpretEndMs=1230 appFirstFrameMs=1299 appPumpEndMs=1499
+00:43 +15: material/ batch 3 expansiontile_test.dart
+[METRIC] script=material/expansiontile_test.dart sourceBytes=80734 sourceChars=80686 bundleJsonBytes=857834 clearMs=204 readMs=1 bundleMs=26 httpMs=2319 totalMs=2552 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=17 appInterpretEndMs=1973 appFirstFrameMs=2112 appPumpEndMs=2314
+00:45 +16: material/ batch 3 badge_test.dart
+[METRIC] script=material/badge_test.dart sourceBytes=67862 sourceChars=67778 bundleJsonBytes=687561 clearMs=220 readMs=1 bundleMs=35 httpMs=1418 totalMs=1674 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=1 appParseMs=13 appSetStateMs=13 appInterpretStartMs=22 appInterpretEndMs=1019 appFirstFrameMs=1211 appPumpEndMs=1413
+00:47 +17: material/ batch 3 material_widget_test.dart
+[METRIC] script=material/material_widget_test.dart sourceBytes=82646 sourceChars=82553 bundleJsonBytes=1003090 clearMs=221 readMs=2 bundleMs=35 httpMs=1438 totalMs=1697 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=21 appSetStateMs=21 appInterpretStartMs=24 appInterpretEndMs=1132 appFirstFrameMs=1232 appPumpEndMs=1433
+00:49 +18: material/ batch 3 pageroute_test.dart
+[METRIC] script=material/pageroute_test.dart sourceBytes=81220 sourceChars=81116 bundleJsonBytes=891100 clearMs=204 readMs=1 bundleMs=24 httpMs=2768 totalMs=2998 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=2 appParseMs=17 appSetStateMs=17 appInterpretStartMs=21 appInterpretEndMs=2480 appFirstFrameMs=2563 appPumpEndMs=2763
+00:52 +19: material/ batch 3 nav_destinations_test.dart
+[METRIC] script=material/nav_destinations_test.dart sourceBytes=42923 sourceChars=42923 bundleJsonBytes=487215 clearMs=203 readMs=1 bundleMs=12 httpMs=1279 totalMs=1497 status=success httpStatus=200 outputLines=20 frameworkErrors=0 appBodyMs=0 appParseMs=7 appSetStateMs=7 appInterpretStartMs=8 appInterpretEndMs=975 appFirstFrameMs=1073 appPumpEndMs=1275
+00:53 +20: material/ batch 3 dropdownform_test.dart
+[METRIC] script=material/dropdownform_test.dart sourceBytes=63922 sourceChars=63908 bundleJsonBytes=844085 clearMs=220 readMs=1 bundleMs=32 httpMs=2967 totalMs=3223 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=21 appSetStateMs=21 appInterpretStartMs=23 appInterpretEndMs=2575 appFirstFrameMs=2759 appPumpEndMs=2960
+00:57 +21: material/ batch 3 rawscrollbar_test.dart
+[METRIC] script=material/rawscrollbar_test.dart sourceBytes=62939 sourceChars=62935 bundleJsonBytes=754445 clearMs=221 readMs=0 bundleMs=19 httpMs=2859 totalMs=3101 status=success httpStatus=200 outputLines=27 frameworkErrors=0 appBodyMs=1 appParseMs=13 appSetStateMs=13 appInterpretStartMs=20 appInterpretEndMs=2577 appFirstFrameMs=2654 appPumpEndMs=2854
+01:00 +22: material/ batch 3 mergeable_test.dart
+[METRIC] script=material/mergeable_test.dart sourceBytes=56038 sourceChars=56010 bundleJsonBytes=675994 clearMs=203 readMs=1 bundleMs=16 httpMs=1375 totalMs=1597 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=13 appSetStateMs=13 appInterpretStartMs=20 appInterpretEndMs=1052 appFirstFrameMs=1170 appPumpEndMs=1370
+01:01 +23: widgets/ batch 3 listbody_test.dart
+[METRIC] script=widgets/listbody_test.dart sourceBytes=92260 sourceChars=92242 bundleJsonBytes=991827 clearMs=204 readMs=1 bundleMs=23 httpMs=1486 totalMs=1715 status=success httpStatus=200 outputLines=7 frameworkErrors=0 appBodyMs=2 appParseMs=21 appSetStateMs=21 appInterpretStartMs=29 appInterpretEndMs=1202 appFirstFrameMs=1281 appPumpEndMs=1481
+01:03 +24: widgets/ batch 3 flow_test.dart
+[METRIC] script=widgets/flow_test.dart sourceBytes=72451 sourceChars=72375 bundleJsonBytes=881015 clearMs=204 readMs=1 bundleMs=35 httpMs=1441 totalMs=1683 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=2 appParseMs=17 appSetStateMs=17 appInterpretStartMs=25 appInterpretEndMs=1164 appFirstFrameMs=1235 appPumpEndMs=1436
+01:05 +25: widgets/ batch 3 pagecontroller_test.dart
+[METRIC] script=widgets/pagecontroller_test.dart sourceBytes=62121 sourceChars=62045 bundleJsonBytes=731546 clearMs=203 readMs=1 bundleMs=20 httpMs=1294 totalMs=1520 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=13 appSetStateMs=13 appInterpretStartMs=14 appInterpretEndMs=1037 appFirstFrameMs=1090 appPumpEndMs=1290
+01:06 +26: widgets/ batch 3 tabcontroller_test.dart
+[METRIC] script=widgets/tabcontroller_test.dart sourceBytes=84414 sourceChars=84310 bundleJsonBytes=905786 clearMs=204 readMs=3 bundleMs=31 httpMs=1323 totalMs=1563 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=19 appSetStateMs=19 appInterpretStartMs=27 appInterpretEndMs=1058 appFirstFrameMs=1116 appPumpEndMs=1318
+01:08 +27: widgets/ batch 3 overlay_test.dart
+[METRIC] script=widgets/overlay_test.dart sourceBytes=60993 sourceChars=60981 bundleJsonBytes=693664 clearMs=220 readMs=2 bundleMs=19 httpMs=1260 totalMs=1502 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=14 appSetStateMs=14 appInterpretStartMs=16 appInterpretEndMs=1009 appFirstFrameMs=1054 appPumpEndMs=1255
+01:09 +28: widgets/ batch 3 route_test.dart
+[METRIC] script=widgets/route_test.dart sourceBytes=69652 sourceChars=69548 bundleJsonBytes=780418 clearMs=219 readMs=2 bundleMs=17 httpMs=2327 totalMs=2567 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=14 appSetStateMs=14 appInterpretStartMs=21 appInterpretEndMs=1811 appFirstFrameMs=2120 appPumpEndMs=2322
+01:12 +29: widgets/ batch 3 localizations_test.dart
+[METRIC] script=widgets/localizations_test.dart sourceBytes=53725 sourceChars=53663 bundleJsonBytes=549002 clearMs=205 readMs=2 bundleMs=19 httpMs=1327 totalMs=1555 status=success httpStatus=200 outputLines=38 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=14 appInterpretEndMs=1069 appFirstFrameMs=1122 appPumpEndMs=1323
+01:13 +30: widgets/ batch 3 actions_test.dart
+[METRIC] script=widgets/actions_test.dart sourceBytes=60082 sourceChars=59978 bundleJsonBytes=663589 clearMs=204 readMs=1 bundleMs=14 httpMs=1473 totalMs=1694 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=1 appParseMs=13 appSetStateMs=13 appInterpretStartMs=14 appInterpretEndMs=1241 appFirstFrameMs=1266 appPumpEndMs=1467
+01:15 +31: widgets/ batch 3 focustraversal_test.dart
+[METRIC] script=widgets/focustraversal_test.dart sourceBytes=72355 sourceChars=69569 bundleJsonBytes=857340 clearMs=217 readMs=2 bundleMs=20 httpMs=1569 totalMs=1809 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=2 appParseMs=15 appSetStateMs=15 appInterpretStartMs=22 appInterpretEndMs=1244 appFirstFrameMs=1364 appPumpEndMs=1564
+01:17 +32: widgets/ batch 3 blocksemantics_test.dart
+[METRIC] script=widgets/blocksemantics_test.dart sourceBytes=88899 sourceChars=88845 bundleJsonBytes=959685 clearMs=204 readMs=2 bundleMs=33 httpMs=1478 totalMs=1719 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=20 appSetStateMs=20 appInterpretStartMs=25 appInterpretEndMs=926 appFirstFrameMs=1270 appPumpEndMs=1471
+01:19 +33: widgets/ batch 3 scrollnotification_test.dart
+[METRIC] script=widgets/scrollnotification_test.dart sourceBytes=72178 sourceChars=72178 bundleJsonBytes=848751 clearMs=220 readMs=2 bundleMs=42 httpMs=2214 totalMs=2480 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=11 appSetStateMs=11 appInterpretStartMs=13 appInterpretEndMs=1873 appFirstFrameMs=2007 appPumpEndMs=2209
+01:21 +34: widgets/ batch 3 keepalive_test.dart
+[METRIC] script=widgets/keepalive_test.dart sourceBytes=94389 sourceChars=89107 bundleJsonBytes=743268 clearMs=222 readMs=2 bundleMs=28 httpMs=2266 totalMs=2520 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=2 appParseMs=14 appSetStateMs=14 appInterpretStartMs=17 appInterpretEndMs=1988 appFirstFrameMs=2061 appPumpEndMs=2261
+01:24 +35: widgets/ batch 3 sliverwidgets_test.dart
+[METRIC] script=widgets/sliverwidgets_test.dart sourceBytes=57263 sourceChars=57211 bundleJsonBytes=601232 clearMs=203 readMs=1 bundleMs=14 httpMs=1349 totalMs=1570 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=12 appInterpretEndMs=1019 appFirstFrameMs=1144 appPumpEndMs=1345
+01:25 +36: widgets/ batch 3 animatedgrid_test.dart
+[METRIC] script=widgets/animatedgrid_test.dart sourceBytes=56772 sourceChars=56752 bundleJsonBytes=752436 clearMs=217 readMs=2 bundleMs=31 httpMs=1229 totalMs=1481 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=15 appSetStateMs=15 appInterpretStartMs=24 appInterpretEndMs=927 appFirstFrameMs=1024 appPumpEndMs=1224
+01:27 +37: widgets/ batch 3 listener_test.dart
+[METRIC] script=widgets/listener_test.dart sourceBytes=84829 sourceChars=84569 bundleJsonBytes=898160 clearMs=204 readMs=2 bundleMs=23 httpMs=1516 totalMs=1747 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=19 appInterpretEndMs=1129 appFirstFrameMs=1310 appPumpEndMs=1511
+01:28 +38: widgets/ batch 3 backbutton_test.dart
+[METRIC] script=widgets/backbutton_test.dart sourceBytes=53781 sourceChars=53781 bundleJsonBytes=525331 clearMs=204 readMs=2 bundleMs=34 httpMs=1306 totalMs=1547 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=7 appInterpretStartMs=10 appInterpretEndMs=1041 appFirstFrameMs=1101 appPumpEndMs=1301
+01:30 +39: widgets/ batch 3 router_test.dart
+[METRIC] script=widgets/router_test.dart sourceBytes=116710 sourceChars=116625 bundleJsonBytes=1616831 clearMs=204 readMs=2 bundleMs=87 httpMs=3017 totalMs=3311 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=3 appParseMs=35 appSetStateMs=35 appInterpretStartMs=39 appInterpretEndMs=2074 appFirstFrameMs=2809 appPumpEndMs=3010
+01:33 +40: widgets/ batch 3 navigatorstate_test.dart
+[METRIC] script=widgets/navigatorstate_test.dart sourceBytes=68329 sourceChars=68184 bundleJsonBytes=776418 clearMs=220 readMs=2 bundleMs=45 httpMs=1479 totalMs=1748 status=success httpStatus=200 outputLines=7 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=19 appInterpretEndMs=921 appFirstFrameMs=1272 appPumpEndMs=1474
+01:35 +41: widgets/ batch 3 formstate_test.dart
+[METRIC] script=widgets/formstate_test.dart sourceBytes=120196 sourceChars=120196 bundleJsonBytes=1186619 clearMs=220 readMs=1 bundleMs=33 httpMs=1926 totalMs=2182 status=success httpStatus=200 outputLines=23 frameworkErrors=0 appBodyMs=0 appParseMs=18 appSetStateMs=18 appInterpretStartMs=22 appInterpretEndMs=1599 appFirstFrameMs=1719 appPumpEndMs=1920
+01:37 +42: widgets/ batch 3 scaffoldstate_test.dart
+[METRIC] script=widgets/scaffoldstate_test.dart sourceBytes=88066 sourceChars=87982 bundleJsonBytes=897237 clearMs=218 readMs=1 bundleMs=21 httpMs=1971 totalMs=2213 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=18 appSetStateMs=18 appInterpretStartMs=24 appInterpretEndMs=1374 appFirstFrameMs=1761 appPumpEndMs=1963
+01:39 +43: cupertino/ localization_test.dart
+[METRIC] script=cupertino/localization_test.dart sourceBytes=75731 sourceChars=75646 bundleJsonBytes=751657 clearMs=218 readMs=2 bundleMs=19 httpMs=4481 totalMs=4721 status=success httpStatus=200 outputLines=7 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=21 appInterpretEndMs=4230 appFirstFrameMs=4274 appPumpEndMs=4476
+01:44 +44: cupertino/ toolbar_test.dart
+[METRIC] script=cupertino/toolbar_test.dart sourceBytes=38277 sourceChars=29273 bundleJsonBytes=287319 clearMs=221 readMs=1 bundleMs=8 httpMs=2951 totalMs=3183 status=success httpStatus=200 outputLines=231 frameworkErrors=0 appBodyMs=0 appParseMs=5 appSetStateMs=5 appInterpretStartMs=7 appInterpretEndMs=2718 appFirstFrameMs=2746 appPumpEndMs=2947
+01:47 +45: cupertino/ magnifier_test.dart
+[METRIC] script=cupertino/magnifier_test.dart sourceBytes=76099 sourceChars=76099 bundleJsonBytes=1101142 clearMs=217 readMs=1 bundleMs=43 httpMs=4847 totalMs=5109 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=15 appSetStateMs=15 appInterpretStartMs=22 appInterpretEndMs=4404 appFirstFrameMs=4640 appPumpEndMs=4841
+01:52 +46: cupertino/ refresh_test.dart
+[METRIC] script=cupertino/refresh_test.dart sourceBytes=50318 sourceChars=50282 bundleJsonBytes=560874 clearMs=202 readMs=1 bundleMs=15 httpMs=3159 totalMs=3379 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=12 appInterpretEndMs=2928 appFirstFrameMs=2952 appPumpEndMs=3154
+01:56 +47: cupertino/ datepicker_modes_test.dart
+[METRIC] script=cupertino/datepicker_modes_test.dart sourceBytes=84518 sourceChars=84408 bundleJsonBytes=935956 clearMs=204 readMs=1 bundleMs=22 httpMs=45027 totalMs=45255 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=17 appSetStateMs=17 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+[recycle] build-timeout in cupertino/datepicker_modes_test.dart — app event loop is wedged; killing it now, restarting before the next test (no cascade)
+02:42 +47 -1: cupertino/ datepicker_modes_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 45 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_base_04_test.dart 341:7                main.<fn>.<fn>
+  
+02:42 +47 -1: cupertino/ tab_test.dart
+[recycle] killing wedged test app (pid=15574)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=cupertino/tab_test.dart sourceBytes=60995 sourceChars=60987 bundleJsonBytes=728156 clearMs=204 readMs=1 bundleMs=23 httpMs=2646 totalMs=15829 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=9 appParseMs=54 appSetStateMs=54 appInterpretStartMs=67 appInterpretEndMs=2148 appFirstFrameMs=2438 appPumpEndMs=2638
+02:58 +48 -1: cupertino/ cupertino_themes_batch1_test.dart
+[METRIC] script=cupertino/cupertino_themes_batch1_test.dart sourceBytes=53624 sourceChars=53592 bundleJsonBytes=597113 clearMs=204 readMs=1 bundleMs=19 httpMs=2267 totalMs=2492 status=success httpStatus=200 outputLines=42 frameworkErrors=0 appBodyMs=4 appParseMs=18 appSetStateMs=18 appInterpretStartMs=25 appInterpretEndMs=1936 appFirstFrameMs=2060 appPumpEndMs=2261
+03:00 +49 -1: cupertino/ cupertino_themes_batch2_test.dart
+[METRIC] script=cupertino/cupertino_themes_batch2_test.dart sourceBytes=83343 sourceChars=83311 bundleJsonBytes=969589 clearMs=225 readMs=2 bundleMs=21 httpMs=2598 totalMs=2848 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=6 appParseMs=21 appSetStateMs=21 appInterpretStartMs=29 appInterpretEndMs=2224 appFirstFrameMs=2393 appPumpEndMs=2593
+03:03 +50 -1: cupertino/ cupertino_themes_batch3_test.dart
+[METRIC] script=cupertino/cupertino_themes_batch3_test.dart sourceBytes=82869 sourceChars=82773 bundleJsonBytes=898224 clearMs=222 readMs=3 bundleMs=26 httpMs=2413 totalMs=2666 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=3 appParseMs=21 appSetStateMs=21 appInterpretStartMs=25 appInterpretEndMs=2032 appFirstFrameMs=2201 appPumpEndMs=2408
+03:06 +51 -1: cupertino/ cupertino_themes_batch4_test.dart
+[METRIC] script=cupertino/cupertino_themes_batch4_test.dart sourceBytes=56768 sourceChars=56768 bundleJsonBytes=688889 clearMs=237 readMs=1 bundleMs=17 httpMs=2092 totalMs=2348 status=success httpStatus=200 outputLines=35 frameworkErrors=0 appBodyMs=0 appParseMs=9 appSetStateMs=9 appInterpretStartMs=12 appInterpretEndMs=1819 appFirstFrameMs=1887 appPumpEndMs=2087
+03:08 +52 -1: painting/ shapes_test.dart
+[METRIC] script=painting/shapes_test.dart sourceBytes=63522 sourceChars=63522 bundleJsonBytes=784772 clearMs=204 readMs=1 bundleMs=15 httpMs=1345 totalMs=1567 status=success httpStatus=200 outputLines=100 frameworkErrors=0 appBodyMs=0 appParseMs=9 appSetStateMs=9 appInterpretStartMs=13 appInterpretEndMs=1088 appFirstFrameMs=1140 appPumpEndMs=1341
+03:10 +53 -1: painting/ gradients_test.dart
+[METRIC] script=painting/gradients_test.dart sourceBytes=47472 sourceChars=47436 bundleJsonBytes=538085 clearMs=203 readMs=1 bundleMs=10 httpMs=1322 totalMs=1537 status=success httpStatus=200 outputLines=29 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=10 appInterpretEndMs=1072 appFirstFrameMs=1116 appPumpEndMs=1318
+03:11 +54 -1: painting/ decoration_test.dart
+[METRIC] script=painting/decoration_test.dart sourceBytes=71894 sourceChars=71894 bundleJsonBytes=838770 clearMs=204 readMs=1 bundleMs=27 httpMs=1545 totalMs=1779 status=success httpStatus=200 outputLines=53 frameworkErrors=0 appBodyMs=0 appParseMs=13 appSetStateMs=13 appInterpretStartMs=18 appInterpretEndMs=1268 appFirstFrameMs=1332 appPumpEndMs=1534
+03:13 +55 -1: painting/ image_providers_test.dart
+[METRIC] script=painting/image_providers_test.dart sourceBytes=60083 sourceChars=59966 bundleJsonBytes=650259 clearMs=215 readMs=1 bundleMs=12 httpMs=1463 totalMs=1692 status=success httpStatus=200 outputLines=101 frameworkErrors=0 appBodyMs=1 appParseMs=12 appSetStateMs=12 appInterpretStartMs=15 appInterpretEndMs=1204 appFirstFrameMs=1255 appPumpEndMs=1457
+03:15 +56 -1: painting/ colors_test.dart
+[METRIC] script=painting/colors_test.dart sourceBytes=65670 sourceChars=65610 bundleJsonBytes=659890 clearMs=202 readMs=1 bundleMs=15 httpMs=1475 totalMs=1695 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=1 appParseMs=12 appSetStateMs=12 appInterpretStartMs=12 appInterpretEndMs=1209 appFirstFrameMs=1270 appPumpEndMs=1471
+03:16 +57 -1: painting/ matrix_test.dart
+[METRIC] script=painting/matrix_test.dart sourceBytes=84514 sourceChars=84495 bundleJsonBytes=863397 clearMs=204 readMs=3 bundleMs=26 httpMs=1847 totalMs=2082 status=success httpStatus=200 outputLines=3 frameworkErrors=0 appBodyMs=2 appParseMs=24 appSetStateMs=24 appInterpretStartMs=24 appInterpretEndMs=1521 appFirstFrameMs=1640 appPumpEndMs=1841
+03:18 +58 -1: painting/ text_painting_test.dart
+[METRIC] script=painting/text_painting_test.dart sourceBytes=82958 sourceChars=82958 bundleJsonBytes=979957 clearMs=204 readMs=1 bundleMs=22 httpMs=1239 totalMs=1466 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=21 appSetStateMs=21 appInterpretStartMs=30 appInterpretEndMs=981 appFirstFrameMs=1033 appPumpEndMs=1234
+03:20 +59 -1: painting/ text_selection_test.dart
+[METRIC] script=painting/text_selection_test.dart sourceBytes=68673 sourceChars=68673 bundleJsonBytes=676645 clearMs=202 readMs=1 bundleMs=16 httpMs=1582 totalMs=1802 status=success httpStatus=200 outputLines=20 frameworkErrors=0 appBodyMs=2 appParseMs=19 appSetStateMs=19 appInterpretStartMs=27 appInterpretEndMs=1054 appFirstFrameMs=1375 appPumpEndMs=1577
+03:22 +60 -1: animation/ animationstyle_test.dart
+[METRIC] script=animation/animationstyle_test.dart sourceBytes=69466 sourceChars=69452 bundleJsonBytes=759273 clearMs=204 readMs=3 bundleMs=19 httpMs=2440 totalMs=2667 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=15 appInterpretEndMs=2196 appFirstFrameMs=2232 appPumpEndMs=2432
+03:24 +61 -1: animation/ alwaysstoppedanimation_test.dart
+[METRIC] script=animation/alwaysstoppedanimation_test.dart sourceBytes=78614 sourceChars=78613 bundleJsonBytes=1012787 clearMs=203 readMs=2 bundleMs=20 httpMs=55003 totalMs=55952 status=transport_error httpStatus=-1 outputLines=0 frameworkErrors=0
+04:20 +61 -2: animation/ alwaysstoppedanimation_test.dart [E]
+  Bad state: Transport failure while running "animation/alwaysstoppedanimation_test.dart"
+  Operation: POST /build?filename=animation%2Falwaysstoppedanimation_test.dart&suite=main.dart
+  Error: TimeoutException after 0:00:55.000000: Future not completed
+  
+  Stack trace:
+  #0      Future.timeout.<anonymous closure> (dart:async/future_impl.dart:1042:24)
+  <asynchronous suspension>
+  #1      SendTestRunner.send (file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/send_test_runner.dart:1135:18)
+  <asynchronous suspension>
+  #2      main.<anonymous closure>.<anonymous closure> (file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_04_test.dart:441:22)
+  <asynchronous suspension>
+  #3      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+  <asynchronous suspension>
+  #4      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+  <asynchronous suspension>
+  #5      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+  <asynchronous suspension>
+  
+  
+  Runner app process: exited with code 0
+  
+  Captured app STDOUT tail:
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [painting/image_providers_test.dart] (650169 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=10 lastClearedFile="painting/decoration_test.dart" currentTestFile="painting/image_providers_test.dart" sinceClearMs=220 gen=18 :: incoming /build filename="painting/image_providers_test.dart" suite="main.dart" bytes=650169
+    flutter: [D4rtApp] [script] [image_providers_test] starting deep demo of ImageProvider family
+    flutter: [D4rtApp] [script] [image_providers_test] palette: darkroom/photo-lab
+    flutter: [D4rtApp] [script] [image_providers_test] sandbox: D4rt-AST renderer (static)
+    flutter: [D4rtApp] [script] [image_providers_test] no resolve/loadImage will be invoked
+    flutter: [D4rtApp] [script] --- section 0: anchor instances ---
+    flutter: [D4rtApp] [script] AssetImage assetA.assetName       = assets/photo_lab/contact_sheet.png
+    flutter: [D4rtApp] [script] AssetImage assetA.package         = demo_photo_lab
+    flutter: [D4rtApp] [script] AssetImage assetA.toString        = AssetImage(bundle: null, name: "packages/demo_photo_lab/assets/photo_lab/contact_sheet.png")
+    flutter: [D4rtApp] [script] AssetImage assetA.hashCode        = 266772531
+    flutter: [D4rtApp] [script] AssetImage assetA == assetATwin   = true
+    flutter: [D4rtApp] [script] AssetImage assetA == assetB       = false
+    flutter: [D4rtApp] [script] AssetImage assetA.runtimeType     = AssetImage
+    flutter: [D4rtApp] [script] NetworkImage netA.url         = https://example.com/lab/roll-A.jpg
+    flutter: [D4rtApp] [script] NetworkImage netA.scale       = 1.0
+    flutter: [D4rtApp] [script] NetworkImage netA.headers     = {Accept: image/jpeg, X-Lab-Roll: A}
+    flutter: [D4rtApp] [script] NetworkImage netA.toString    = NetworkImage("https://example.com/lab/roll-A.jpg", scale: 1.0, webHtmlElementStrategy: never, headers: {Accept: image/jpeg, X-Lab-Roll: A})
+    flutter: [D4rtApp] [script] NetworkImage netA.hashCode    = 534657835
+    flutter: [D4rtApp] [script] NetworkImage netA == netATwin = true
+    flutter: [D4rtApp] [script] NetworkImage netA == netB     = false
+    flutter: [D4rtApp] [script] MemoryImage memA.bytes.length = 16
+    flutter: [D4rtApp] [script] MemoryImage memA.scale        = 1.5
+    flutter: [D4rtApp] [script] MemoryImage memA.toString     = MemoryImage(Uint8List#c1662, scale: 1.5)
+    flutter: [D4rtApp] [script] MemoryImage memA.hashCode     = 454073673
+    flutter: [D4rtApp] [script] MemoryImage memA == memATwin  = true
+    flutter: [D4rtApp] [script] MemoryImage memA == memB      = false
+    flutter: [D4rtApp] [script] ExactAssetImage exactA.assetName   = assets/photo_lab/grain_2x.png
+    flutter: [D4rtApp] [script] ExactAssetImage exactA.scale       = 2.0
+    flutter: [D4rtApp] [script] ExactAssetImage exactA.package     = demo_photo_lab
+    flutter: [D4rtApp] [script] ExactAssetImage exactA.toString    = ExactAssetImage(name: "packages/demo_photo_lab/assets/photo_lab/grain_2x.png", scale: 2.0, bundle: null)
+    flutter: [D4rtApp] [script] ExactAssetImage exactA == twin     = true
+    flutter: [D4rtApp] [script] ExactAssetImage exactA == exactB   = false
+    flutter: [D4rtApp] [script] ResizeImage resizeA.width        = 256
+    flutter: [D4rtApp] [script] ResizeImage resizeA.height       = 256
+    flutter: [D4rtApp] [script] ResizeImage resizeA.policy       = ResizeImagePolicy.fit
+    flutter: [D4rtApp] [script] ResizeImage resizeA.allowUpscaling=false
+    flutter: [D4rtApp] [script] ResizeImage resizeA.imageProvider=AssetImage(bundle: null, name: "packages/demo_photo_lab/assets/photo_lab/contact_sheet.png")
+    flutter: [D4rtApp] [script] ResizeImage resizeA.toString     = ResizeImage()
+    flutter: [D4rtApp] [script] total providers under analysis = 11
+    flutter: [D4rtApp] [script] providers[0].runtimeType = AssetImage
+    flutter: [D4rtApp] [script] providers[1].runtimeType = AssetImage
+    flutter: [D4rtApp] [script] providers[2].runtimeType = NetworkImage
+    flutter: [D4rtApp] [script] providers[3].runtimeType = NetworkImage
+    flutter: [D4rtApp] [script] providers[4].runtimeType = MemoryImage
+    flutter: [D4rtApp] [script] providers[5].runtimeType = MemoryImage
+    flutter: [D4rtApp] [script] providers[6].runtimeType = ExactAssetImage
+    flutter: [D4rtApp] [script] providers[7].runtimeType = ExactAssetImage
+    flutter: [D4rtApp] [script] providers[8].runtimeType = ResizeImage
+    flutter: [D4rtApp] [script] providers[9].runtimeType = ResizeImage
+    flutter: [D4rtApp] [script] providers[10].runtimeType = ResizeImage
+    flutter: [D4rtApp] [script] --- section 1: title banner ---
+    flutter: [D4rtApp] [script] --- section 2: lifecycle diagram ---
+    flutter: [D4rtApp] [script] lifecycle nodes: configuration -> key -> cache -> completer -> frame
+    flutter: [D4rtApp] [script] the provider itself is just a recipe; nothing happens until resolve()
+    flutter: [D4rtApp] [script] we therefore inspect providers WITHOUT invoking the loader
+    flutter: [D4rtApp] [script] --- section 3: provider gallery ---
+    flutter: [D4rtApp] [script] card 1: AssetImage with package
+    flutter: [D4rtApp] [script] card 2: AssetImage without package
+    flutter: [D4rtApp] [script] card 3: NetworkImage with headers + scale
+    flutter: [D4rtApp] [script] card 4: MemoryImage from a tiny Uint8List
+    flutter: [D4rtApp] [script] card 5: ExactAssetImage with scale=2
+    flutter: [D4rtApp] [script] card 6: ResizeImage wrapping AssetImage
+    flutter: [D4rtApp] [script] --- section 4: ResizeImage policies ---
+    flutter: [D4rtApp] [script] policy.fit  : preserves aspect, fits within bounds
+    flutter: [D4rtApp] [script] policy.exact: forces exact pixel dimensions (may distort)
+    flutter: [D4rtApp] [script] allowUpscaling=false prevents enlarging beyond intrinsic size
+    flutter: [D4rtApp] [script] null width/height becomes a target hint, not a clamp
+    flutter: [D4rtApp] [script] --- section 5: equality semantics ---
+    flutter: [D4rtApp] [script] AssetImage equality is by (assetName, bundle, package).
+    flutter: [D4rtApp] [script] NetworkImage equality is by (url, scale).
+    flutter: [D4rtApp] [script] MemoryImage equality is by (bytes-identity, scale).
+    flutter: [D4rtApp] [script] Two providers with equal cache-keys share a cache entry.
+    flutter: [D4rtApp] [script] assetA == assetATwin   = true
+    flutter: [D4rtApp] [script] assetA == assetB       = false
+    flutter: [D4rtApp] [script] netA   == netATwin     = true
+    flutter: [D4rtApp] [script] netA   == netB         = false
+    flutter: [D4rtApp] [script] memA   == memATwin     = true
+    flutter: [D4rtApp] [script] memA   == memB         = false
+    flutter: [D4rtApp] [script] exactA == exactATwin   = true
+    flutter: [D4rtApp] [script] exactA == exactB       = false
+    flutter: [D4rtApp] [script] --- section 6: provider comparison table ---
+    flutter: [D4rtApp] [script] axes: source, key type, blocking?, typical use
+    flutter: [D4rtApp] [script] FileImage skipped at runtime (no file IO in sandbox)
+    flutter: [D4rtApp] [script] ResizeImage is a *decorator* — its key composes the inner key
+    flutter: [D4rtApp] [script] --- section 7: cache-key concept ---
+    flutter: [D4rtApp] [script] obtainKey returns Future<T> — we do NOT call it in the sandbox
+    flutter: [D4rtApp] [script] we describe T conceptually for each provider variant
+    flutter: [D4rtApp] [script] keys must be == and hashCode for ImageCache to dedupe correctly
+    flutter: [D4rtApp] [script] --- section 8: cheat-sheet ---
+    flutter: [D4rtApp] [script] rule of thumb: pick the cheapest source that matches the lifecycle
+    flutter: [D4rtApp] [script] shipped with the app   -> AssetImage / ExactAssetImage
+    flutter: [D4rtApp] [script] fetched from internet  -> NetworkImage
+    flutter: [D4rtApp] [script] already in RAM         -> MemoryImage
+    flutter: [D4rtApp] [script] on local disk          -> FileImage (mobile/desktop only)
+    flutter: [D4rtApp] [script] any of the above big   -> wrap in ResizeImage
+    flutter: [D4rtApp] [script] --- section 9: signature card ---
+    flutter: [D4rtApp] [script] demo total providers: 11
+    flutter: [D4rtApp] [script] demo equality checks: 8
+    flutter: [D4rtApp] [script] demo cards rendered : 6
+    flutter: [D4rtApp] [script] demo finished
+    flutter: [D4rtApp] [script] --- composing root widget tree ---
+    flutter: [D4rtApp] [script] [image_providers_test] root composed; returning to renderer
+    flutter: [D4rtApp][clean][build-postpump] clearCount=10 lastClearedFile="painting/decoration_test.dart" currentTestFile="painting/image_providers_test.dart" sinceClearMs=1676 gen=19 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="painting/image_providers_test.dart" widgetType="Scaffold" bodyMs=1 parseMs=12 setStateMs=12 interpretStartMs=15 interpretEndMs=1204 firstFrameMs=1255 pumpEndMs=1457 totalMs=1457
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=11 lastClearedFile="painting/image_providers_test.dart" currentTestFile="painting/image_providers_test.dart" sinceClearMs=0 gen=19 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=11 lastClearedFile="painting/image_providers_test.dart" currentTestFile="painting/image_providers_test.dart" sinceClearMs=200 gen=20 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [painting/colors_test.dart] (659832 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=11 lastClearedFile="painting/image_providers_test.dart" currentTestFile="painting/colors_test.dart" sinceClearMs=222 gen=20 :: incoming /build filename="painting/colors_test.dart" suite="main.dart" bytes=659832
+    flutter: [D4rtApp] [script] ColorsTest deep demo executing
+    flutter: [D4rtApp] [script] Crimson equality across constructors: true
+    flutter: [D4rtApp] [script] Crimson hashCode parity: true
+    flutter: [D4rtApp] [script] Colors.indigo[500] == .shade500 -> true
+    flutter: [D4rtApp][clean][build-postpump] clearCount=11 lastClearedFile="painting/image_providers_test.dart" currentTestFile="painting/colors_test.dart" sinceClearMs=1692 gen=21 :: pumped 200ms on built widget (SingleChildScrollView), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="painting/colors_test.dart" widgetType="SingleChildScrollView" bodyMs=1 parseMs=12 setStateMs=12 interpretStartMs=12 interpretEndMs=1209 firstFrameMs=1270 pumpEndMs=1471 totalMs=1471
+    flutter: [D4rtApp] Build completed: SingleChildScrollView
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=12 lastClearedFile="painting/colors_test.dart" currentTestFile="painting/colors_test.dart" sinceClearMs=0 gen=21 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=12 lastClearedFile="painting/colors_test.dart" currentTestFile="painting/colors_test.dart" sinceClearMs=202 gen=22 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [painting/matrix_test.dart] (863387 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=12 lastClearedFile="painting/colors_test.dart" currentTestFile="painting/matrix_test.dart" sinceClearMs=240 gen=22 :: incoming /build filename="painting/matrix_test.dart" suite="main.dart" bytes=863387
+    flutter: [D4rtApp] [script] [matrix_test] Cartesian Indigo reference assembling
+    flutter: [D4rtApp] [script] [matrix_test] identity built: [0] [1.0,0.0,0.0,0.0]
+    [1] [0.0,1.0,0.0,0.0]
+    [2] [0.0,0.0,1.0,0.0]
+    [3] [0.0,0.0,0.0,1.0]
+    
+    flutter: [D4rtApp] [script] [matrix_test] rotZ45 built: [0] [0.7071068967259818,-0.7071066656470943,0.0,0.0]
+    [1] [0.7071066656470943,0.7071068967259818,0.0,0.0]
+    [2] [0.0,0.0,1.0,0.0]
+    [3] [0.0,0.0,0.0,1.0]
+    
+    flutter: [D4rtApp][clean][build-postpump] clearCount=12 lastClearedFile="painting/colors_test.dart" currentTestFile="painting/matrix_test.dart" sinceClearMs=2079 gen=23 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="painting/matrix_test.dart" widgetType="Scaffold" bodyMs=2 parseMs=24 setStateMs=24 interpretStartMs=24 interpretEndMs=1521 firstFrameMs=1640 pumpEndMs=1841 totalMs=1841
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=13 lastClearedFile="painting/matrix_test.dart" currentTestFile="painting/matrix_test.dart" sinceClearMs=0 gen=23 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=13 lastClearedFile="painting/matrix_test.dart" currentTestFile="painting/matrix_test.dart" sinceClearMs=201 gen=24 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [painting/text_painting_test.dart] (979955 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=13 lastClearedFile="painting/matrix_test.dart" currentTestFile="painting/text_painting_test.dart" sinceClearMs=232 gen=24 :: incoming /build filename="painting/text_painting_test.dart" suite="main.dart" bytes=979955
+    flutter: [D4rtApp][clean][build-postpump] clearCount=13 lastClearedFile="painting/matrix_test.dart" currentTestFile="painting/text_painting_test.dart" sinceClearMs=1464 gen=25 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="painting/text_painting_test.dart" widgetType="MaterialApp" bodyMs=2 parseMs=21 setStateMs=21 interpretStartMs=30 interpretEndMs=981 firstFrameMs=1033 pumpEndMs=1234 totalMs=1234
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=14 lastClearedFile="painting/text_painting_test.dart" currentTestFile="painting/text_painting_test.dart" sinceClearMs=0 gen=25 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=14 lastClearedFile="painting/text_painting_test.dart" currentTestFile="painting/text_painting_test.dart" sinceClearMs=200 gen=26 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [painting/text_selection_test.dart] (676644 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=14 lastClearedFile="painting/text_painting_test.dart" currentTestFile="painting/text_selection_test.dart" sinceClearMs=225 gen=26 :: incoming /build filename="painting/text_selection_test.dart" suite="main.dart" bytes=676644
+    flutter: [D4rtApp] [script] -- text_selection_test.dart --
+    flutter: [D4rtApp] [script] range05.isValid = true
+    flutter: [D4rtApp] [script] range05.isNormalized = true
+    flutter: [D4rtApp] [script] range05.isCollapsed = false
+    flutter: [D4rtApp] [script] rangeFlipped.isNormalized = false
+    flutter: [D4rtApp] [script] rangeEmpty.isCollapsed = true
+    flutter: [D4rtApp] [script] rangeCollapsed.isCollapsed = true
+    flutter: [D4rtApp] [script] textBefore(0,5) = ""
+    flutter: [D4rtApp] [script] textInside(0,5) = "Hello"
+    flutter: [D4rtApp] [script] textAfter(0,5)  = ",
+    World!"
+    flutter: [D4rtApp] [script] pos0.affinity = TextAffinity.downstream
+    flutter: [D4rtApp] [script] posUp.affinity = TextAffinity.upstream
+    flutter: [D4rtApp] [script] posDown.affinity = TextAffinity.downstream
+    flutter: [D4rtApp] [script] selForward.isCollapsed = false
+    flutter: [D4rtApp] [script] selBackward base/extent = 9/2
+    flutter: [D4rtApp] [script] selBackward.start..end = 2..9
+    flutter: [D4rtApp] [script] selCollapsed.isCollapsed = true
+    flutter: [D4rtApp] [script] selFromPos.baseOffset = 5
+    flutter: [D4rtApp] [script] selUp.affinity = TextAffinity.upstream
+    flutter: [D4rtApp] [script] selDown.affinity = TextAffinity.downstream
+    flutter: [D4rtApp][clean][build-postpump] clearCount=14 lastClearedFile="painting/text_painting_test.dart" currentTestFile="painting/text_selection_test.dart" sinceClearMs=1800 gen=27 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="painting/text_selection_test.dart" widgetType="MaterialApp" bodyMs=2 parseMs=19 setStateMs=19 interpretStartMs=27 interpretEndMs=1054 firstFrameMs=1375 pumpEndMs=1577 totalMs=1577
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=15 lastClearedFile="painting/text_selection_test.dart" currentTestFile="painting/text_selection_test.dart" sinceClearMs=0 gen=27 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=15 lastClearedFile="painting/text_selection_test.dart" currentTestFile="painting/text_selection_test.dart" sinceClearMs=201 gen=28 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [animation/animationstyle_test.dart] (759259 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=15 lastClearedFile="painting/text_selection_test.dart" currentTestFile="animation/animationstyle_test.dart" sinceClearMs=231 gen=28 :: incoming /build filename="animation/animationstyle_test.dart" suite="main.dart" bytes=759259
+    flutter: [D4rtApp] [script] AnimationStyle deep visual demo executing
+    flutter: [D4rtApp] [script]   rng warm-up: 50
+    flutter: [D4rtApp] [script]   building widget tree with 11 sections
+    flutter: [D4rtApp] [script]   section widget count: 23
+    flutter: [D4rtApp] [script] AnimationStyle deep visual demo built successfully
+    flutter: [D4rtApp][clean][build-postpump] clearCount=15 lastClearedFile="painting/text_selection_test.dart" currentTestFile="animation/animationstyle_test.dart" sinceClearMs=2662 gen=29 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="animation/animationstyle_test.dart" widgetType="MaterialApp" bodyMs=1 parseMs=14 setStateMs=14 interpretStartMs=15 interpretEndMs=2196 firstFrameMs=2232 pumpEndMs=2432 totalMs=2432
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=16 lastClearedFile="animation/animationstyle_test.dart" currentTestFile="animation/animationstyle_test.dart" sinceClearMs=0 gen=29 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=16 lastClearedFile="animation/animationstyle_test.dart" currentTestFile="animation/animationstyle_test.dart" sinceClearMs=200 gen=30 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [animation/alwaysstoppedanimation_test.dart] (1012786 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=16 lastClearedFile="animation/animationstyle_test.dart" currentTestFile="animation/alwaysstoppedanimation_test.dart" sinceClearMs=236 gen=30 :: incoming /build filename="animation/alwaysstoppedanimation_test.dart" suite="main.dart" bytes=1012786
+    Lost connection to device.
+  
+  Captured app STDERR tail:
+    Failed to foreground app; open returned 1
+    [process] test app exited with code 0
+  
+  test/send_test_runner.dart 1180:7  SendTestRunner.send
+  
+04:20 +61 -2: animation/ compoundanimation_test.dart
+[recycle] killing wedged test app (pid=18902)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=animation/compoundanimation_test.dart sourceBytes=38606 sourceChars=38574 bundleJsonBytes=491506 clearMs=203 readMs=1 bundleMs=17 httpMs=1656 totalMs=14850 status=success httpStatus=200 outputLines=52 frameworkErrors=0 appBodyMs=11 appParseMs=50 appSetStateMs=50 appInterpretStartMs=57 appInterpretEndMs=1355 appFirstFrameMs=1447 appPumpEndMs=1648
+04:35 +62 -2: animation/ tweensequence_test.dart
+[METRIC] script=animation/tweensequence_test.dart sourceBytes=37385 sourceChars=37319 bundleJsonBytes=489594 clearMs=223 readMs=0 bundleMs=11 httpMs=1518 totalMs=1754 status=success httpStatus=200 outputLines=99 frameworkErrors=0 appBodyMs=1 appParseMs=15 appSetStateMs=15 appInterpretStartMs=20 appInterpretEndMs=1248 appFirstFrameMs=1310 appPumpEndMs=1512
+04:37 +63 -2: animation/ animatable_test.dart
+[METRIC] script=animation/animatable_test.dart sourceBytes=100705 sourceChars=100623 bundleJsonBytes=1162903 clearMs=204 readMs=1 bundleMs=25 httpMs=1635 totalMs=1867 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=3 appParseMs=21 appSetStateMs=21 appInterpretStartMs=25 appInterpretEndMs=1242 appFirstFrameMs=1414 appPumpEndMs=1629
+04:39 +64 -2: physics/ simulations_test.dart
+[METRIC] script=physics/simulations_test.dart sourceBytes=54553 sourceChars=54513 bundleJsonBytes=709074 clearMs=251 readMs=1 bundleMs=20 httpMs=1553 totalMs=1826 status=success httpStatus=200 outputLines=134 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=15 appInterpretEndMs=1245 appFirstFrameMs=1347 appPumpEndMs=1548
+04:41 +65 -2: foundation/ error_test.dart
+[METRIC] script=foundation/error_test.dart sourceBytes=66182 sourceChars=66182 bundleJsonBytes=657481 clearMs=204 readMs=1 bundleMs=20 httpMs=2066 totalMs=2292 status=success httpStatus=200 outputLines=6 frameworkErrors=0 appBodyMs=0 appParseMs=12 appSetStateMs=12 appInterpretStartMs=17 appInterpretEndMs=1810 appFirstFrameMs=1860 appPumpEndMs=2061
+04:43 +66 -2: foundation/ diagnostics_test.dart
+[METRIC] script=foundation/diagnostics_test.dart sourceBytes=79752 sourceChars=78826 bundleJsonBytes=810880 clearMs=220 readMs=1 bundleMs=26 httpMs=1404 totalMs=1652 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=14 appSetStateMs=14 appInterpretStartMs=21 appInterpretEndMs=1109 appFirstFrameMs=1194 appPumpEndMs=1396
+04:45 +67 -2: foundation/ license_test.dart
+[METRIC] script=foundation/license_test.dart sourceBytes=76907 sourceChars=76865 bundleJsonBytes=830171 clearMs=203 readMs=1 bundleMs=21 httpMs=1439 totalMs=1666 status=success httpStatus=200 outputLines=24 frameworkErrors=0 appBodyMs=2 appParseMs=15 appSetStateMs=15 appInterpretStartMs=22 appInterpretEndMs=1162 appFirstFrameMs=1233 appPumpEndMs=1435
+04:46 +68 -2: (tearDownAll)
+04:47 +68 -2: Some tests failed.

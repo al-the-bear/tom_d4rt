@@ -1,0 +1,4 @@
+flutter_base_01_test: exit=1 +69 -2
+flutter_base_02_test: exit=0 +42
+flutter_base_03_test: exit=0 +52
+flutter_base_04_test: exit=0 +70
