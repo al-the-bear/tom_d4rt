@@ -1,3 +1,12 @@
+## 1.8.3
+
+### Dependencies
+- Require `tom_d4rt_ast ^0.1.5` / `tom_ast_generator ^0.1.1` to pick up the
+  `StaticResolver` slot-resolution pipeline (`resolvedSlot` / `declSlot`):
+  parsed source is converted to a mirror AST whose resolved reads bind to
+  frame slots, and the AST-driven interpreter serves them without name-map
+  walks.
+
 ## 1.8.2
 
 ### Features
