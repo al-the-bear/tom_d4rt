@@ -1,6 +1,6 @@
 name: tom_d4rt_generator
 description: D4rt bridge generator for creating BridgedClass implementations from Dart source. Supports per-package generation, deduplication, and cross-package bridging.
-version: 1.9.1
+version: 1.9.2
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_generator
 topics:
@@ -33,7 +33,7 @@ dependencies:
   tom_build_base: ^2.6.21
 
   # D4rt runtime (used by testing library)
-  tom_d4rt: ^1.8.20
+  tom_d4rt: ^1.8.21
 
   # Shared analyzer summary caching — same cache directory as
   # tom_reflection_generator so sibling generators can reuse each

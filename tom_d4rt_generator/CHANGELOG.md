@@ -1,3 +1,20 @@
+## 1.9.2
+
+### Generator features
+- Annotation-driven proxy/relaxer directive core + scanner (`@D4rtUserProxy` /
+  `@D4rtUserRelaxer`) with a variant-pattern engine.
+- Template families: B3 generic-constructor reifiers, A4 RenderBox-proxy,
+  super-constructor-arg capture factories, generic-type-arg proxy variants,
+  State-proxy mixin variants, generic interceptor re-dispatch.
+- `genericInterceptors` config wired into `BridgeConfig`; VM↔web
+  signature-skew coercion table.
+- `yieldVoidCallbacks` switch for cooperative input/frame yield (OPEN B.14):
+  void callback wrappers emitted as async closures awaiting a 1ms delay.
+- Per-symbol `@Deprecated` allowlist; opt-in `vector_math_64` bridge.
+
+### Dependency
+- Require `tom_d4rt ^1.8.21`.
+
 ## 1.9.1
 
 ### Fix — build_runner path emits a compiling `dartscript.b.dart`
