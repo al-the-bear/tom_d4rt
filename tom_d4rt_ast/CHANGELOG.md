@@ -1,3 +1,11 @@
+## 0.1.5
+
+- Consume `tom_ast_model ^0.1.1` for the `StaticResolver` slot-resolution
+  members (`resolvedSlot` / `declSlot`); the AST-driven `InterpreterVisitor`
+  now serves resolved reads from frame slots instead of name-map walks.
+- Mirror the `tom_d4rt 1.8.21` interpreter fixes (redirecting factories,
+  sibling static-field writes, native-side reset).
+
 ## 0.1.4
 
 - First public release on pub.dev.
