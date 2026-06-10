@@ -14,6 +14,7 @@ part 'ast_directives.dart';
 part 'ast_misc.dart';
 part 'ast_patterns.dart';
 part 'ast_visitor.dart';
+part 'ast_scope_resolver.dart';
 
 /// Base class for all serializable AST nodes
 abstract class SAstNode {

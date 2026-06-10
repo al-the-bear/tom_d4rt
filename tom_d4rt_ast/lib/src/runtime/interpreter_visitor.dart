@@ -84,22 +84,19 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   /// [Environment.getAtDepthOrMiss]); a stale entry self-heals on the next read.
   final Expando<int> _identifierDepthCache = Expando<int>();
 
-  /// S1 (perf plan_3 §9.1) static-resolution side-table: maps an identifier
-  /// *use* node to its statically-computed [StaticCoord]. Populated by
-  /// [resolveStaticCoordinates] before Pass 2. In S1 it carries only depth-0
-  /// coordinates and is consumed solely by the validation assert in
-  /// [visitSimpleIdentifier] — it does not yet change any read. S3 will switch
-  /// the read path onto these coordinates and retire the T9 [_identifierDepthCache].
-  final Expando<StaticCoord> staticCoords = Expando<StaticCoord>();
-
-  /// Run the S1 static lexical resolver over [declarations], populating
-  /// [staticCoords]. Mirror of the analyzer-side
-  /// `InterpreterVisitor.resolveStaticCoordinates`.
+  /// Run the static lexical resolver over [declarations] (perf plan_3 §9, S2
+  /// step c). The resolver writes (depth, slot) coordinates directly onto the
+  /// mirror [SSimpleIdentifier] nodes ([SSimpleIdentifier.resolvedDepth] /
+  /// [SSimpleIdentifier.resolvedSlot]), so they also survive serialization for
+  /// the analyzer-free Flutter precompute target. Bundles produced via
+  /// `tom_ast_generator` already carry these coordinates; this execute-time
+  /// pass covers hand-built / deserialized units and is idempotent (it
+  /// recomputes identical coordinates). In S1/S2 the coordinates are consumed
+  /// solely by the validation assert in [visitSimpleIdentifier] — they do not
+  /// yet change any read. S3 will switch the read path onto these coordinates
+  /// and retire the T9 [_identifierDepthCache].
   void resolveStaticCoordinates(Iterable<SAstNode> declarations) {
-    final resolver = StaticResolver(staticCoords);
-    for (final declaration in declarations) {
-      declaration.accept(resolver);
-    }
+    StaticResolver().resolve(declarations);
   }
 
   /// Execute and clear all pending static-field initializers. Intended to be
@@ -456,18 +453,21 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   Object? visitSimpleIdentifier(SSimpleIdentifier node) {
     final name = node.name;
 
-    // S1 (perf plan_3 §9.1) validation: if the static resolver assigned a
+    // S1/S2 (perf plan_3 §9) validation: if the static resolver assigned a
     // coordinate to this use, its depth must equal what the live environment
-    // resolves. Asserts only — no behaviour change. Proves the resolver's
-    // scope model against the real interpreter before S3 routes reads onto it.
+    // resolves. The coordinate now lives on the node itself
+    // ([SSimpleIdentifier.resolvedDepth]) rather than an Expando side-table, so
+    // it survives serialization. Asserts only — no behaviour change. Proves the
+    // resolver's scope model against the real interpreter before S3 routes
+    // reads onto it.
     assert(() {
-      final coord = staticCoords[node];
-      if (coord != null) {
+      final staticDepth = node.resolvedDepth;
+      if (staticDepth != null) {
         final live = environment.resolveDepthOf(name);
-        if (coord.depth != live) {
+        if (staticDepth != live) {
           throw StateError(
-            'S1 static-resolver depth mismatch for "$name": '
-            'static=${coord.depth} live=$live',
+            'static-resolver depth mismatch for "$name": '
+            'static=$staticDepth live=$live',
           );
         }
       }

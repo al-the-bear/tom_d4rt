@@ -1,42 +1,19 @@
-import 'package:tom_d4rt_ast/ast.dart';
+// Static lexical scope resolver for the serializable AST (perf plan_3 §9 S1/S2).
+// ignore_for_file: constant_identifier_names
 
-/// Statically-resolved lexical coordinate of an identifier *use* (AST-side
-/// mirror of the analyzer-based `StaticCoord` in `tom_d4rt`).
-///
-/// Produced by [StaticResolver] (perf plan_3 §4, sub-step S1) and carried on
-/// the mirror AST via an [Expando] side-table — keyed by [SSimpleIdentifier]
-/// node identity, the same mechanism the analyzer side uses (the analyzer's
-/// `SimpleIdentifier` is sealed, so a side-table is the only option there; we
-/// keep the AST side symmetric rather than adding a mutable field). [depth] is
-/// the number of enclosing `Environment` hops from the use's runtime scope to
-/// the declaring scope; [slot] is the declaration index within that scope
-/// (declaration order). In S1 only [depth] is validated at runtime (against
-/// [Environment.resolveDepthOf]); [slot] is computed now so that S3 can index
-/// per-frame slot arrays without re-resolving.
-class StaticCoord {
-  /// Enclosing-hop distance from the use to its declaring scope.
-  final int depth;
+part of 'ast_core.dart';
 
-  /// Declaration index within the declaring scope (declaration order).
-  final int slot;
-
-  const StaticCoord(this.depth, this.slot);
-
-  @override
-  String toString() => 'StaticCoord(depth: $depth, slot: $slot)';
-}
-
-/// Does [node] open a new runtime [Environment] frame?
+/// Does [node] open a new runtime `Environment` frame?
 ///
 /// This is the **shared scope-frame predicate** (plan_3 §4.4, risk R1): the
 /// single decision the resolver and the interpreter must agree on. It is
 /// deliberately **over-approximating** — it may return `true` for a construct
 /// the interpreter happens not to wrap in its own frame. Over-approximation is
-/// safe for the S1 depth-0 resolver: modelling an *extra* frame only ever
-/// raises a computed depth (suppressing a coordinate), never lowers it, so it
-/// can never manufacture a false depth-0. Under-approximation (missing a frame
-/// the interpreter *does* push) is the unsafe direction and is what this list
-/// guards against by erring generous.
+/// safe for the depth-0 resolver: modelling an *extra* frame only ever raises a
+/// computed depth (suppressing a coordinate), never lowers it, so it can never
+/// manufacture a false depth-0. Under-approximation (missing a frame the
+/// interpreter *does* push) is the unsafe direction and is what this list guards
+/// against by erring generous.
 bool opensLexicalFrame(SAstNode node) {
   return node is SBlock ||
       node is SForStatement ||
@@ -52,7 +29,7 @@ bool opensLexicalFrame(SAstNode node) {
 }
 
 /// One modelled lexical scope on the resolver's stack.
-class _Frame {
+class _ScopeFrame {
   /// True only for [SBlock] frames. Declarations are slotted **only** into the
   /// innermost slottable frame; declarations whose innermost frame is opaque
   /// (e.g. a bare `var` directly inside a `switch` case with no block) are left
@@ -64,7 +41,7 @@ class _Frame {
 
   int _nextSlot = 0;
 
-  _Frame(this.slottable);
+  _ScopeFrame(this.slottable);
 
   int? slotOf(String name) => slots[name];
 
@@ -73,53 +50,61 @@ class _Frame {
   }
 }
 
-/// Static lexical resolver (plan_3 §4.4 / §9 S1), AST-side mirror.
+/// Static lexical resolver (plan_3 §4.4 / §9 S1–S2), operating directly on the
+/// serializable mirror AST.
 ///
-/// Walks the mirror AST maintaining a stack of [_Frame]s that mirror the
+/// Walks the AST maintaining a stack of [_ScopeFrame]s that mirror the
 /// interpreter's `Environment` nesting (via [opensLexicalFrame]). For every
 /// identifier *use* whose declaration it can prove lives in the **innermost**
-/// modelled scope (depth 0), it records a [StaticCoord] into [_coords]. All
+/// modelled scope (depth 0), it writes the coordinate **onto the node**
+/// ([SSimpleIdentifier.resolvedDepth] / [SSimpleIdentifier.resolvedSlot]) so it
+/// serializes into the bundle (analyzer-free Flutter precompute target). All
 /// other uses (cross-frame, parameters, top-level/global, bridge/prefixed/enum
 /// names, anything ambiguous) are left unresolved and continue on the existing
 /// name-keyed `Environment.get` path.
 ///
-/// S1 deliberately emits **only depth-0** coordinates: an innermost-block local
-/// is, by construction, at live depth 0 from any use in that same block, so the
-/// runtime depth assert can never fire on a sound emission. Widening to
-/// cross-frame depths is a later increment under the same harness.
+/// S1/S2 deliberately emit **only depth-0** coordinates: an innermost-block
+/// local is, by construction, at live depth 0 from any use in that same block,
+/// so the runtime depth assert can never fire on a sound emission. Widening to
+/// cross-frame depths is a later increment (S3) under the same harness.
 ///
-/// The mirror AST has no `.parent` back-pointer, so the analyzer side's
-/// parent-based use-filtering cannot be replicated here. That filtering is a
-/// pure optimisation (it avoids annotating inert nodes), not a correctness
+/// The mirror AST has no `.parent` back-pointer, so an analyzer-style
+/// parent-based use-filter is not possible here. That filtering is a pure
+/// optimisation (it avoids annotating inert nodes), not a correctness
 /// requirement: emission is conditioned on the name matching an innermost-block
 /// local, and any such match is at live depth 0 regardless of the node's
-/// syntactic role — so the depth assert holds. The single cheap filter we keep
-/// is [SSimpleIdentifier.inDeclarationContext], which excludes declaration
-/// sites.
+/// syntactic role — so the depth assert holds. The single cheap filter kept is
+/// [SSimpleIdentifier.inDeclarationContext], which excludes declaration sites.
 class StaticResolver extends GeneralizingSAstVisitor<void> {
-  final Expando<StaticCoord> _coords;
-  final List<_Frame> _stack = [];
+  final List<_ScopeFrame> _stack = [];
 
-  StaticResolver(this._coords);
+  StaticResolver();
 
-  /// Default descent. Unlike the analyzer's `GeneralizingAstVisitor`, the
-  /// mirror [GeneralizingSAstVisitor.visitNode] returns `null` without
-  /// recursing, so an un-overridden node would halt the walk. Recurse into
-  /// children here so the resolver reaches nested blocks and identifier uses,
-  /// matching the analyzer-side resolver's traversal.
+  /// Resolve every identifier use under [declarations], writing coordinates
+  /// onto the nodes. Idempotent: re-running recomputes the same coordinates.
+  void resolve(Iterable<SAstNode> declarations) {
+    for (final declaration in declarations) {
+      declaration.accept(this);
+    }
+  }
+
+  /// Default descent. Unlike the analyzer's `GeneralizingAstVisitor`, the mirror
+  /// [GeneralizingSAstVisitor.visitNode] returns without recursing, so an
+  /// un-overridden node would halt the walk. Recurse into children here so the
+  /// resolver reaches nested blocks and identifier uses.
   @override
   void visitNode(SAstNode node) => node.visitChildren(this);
 
   void _pushAndDescend(SAstNode node, {required bool slottable}) {
-    _stack.add(_Frame(slottable));
+    _stack.add(_ScopeFrame(slottable));
     node.visitChildren(this);
     _stack.removeLast();
   }
 
   /// Slots [name] into the innermost frame **iff** that frame is slottable.
   /// A declaration whose innermost frame is opaque is intentionally dropped
-  /// (left unresolved) rather than leaked into an outer frame, which would
-  /// risk a false depth-0.
+  /// (left unresolved) rather than leaked into an outer frame, which would risk
+  /// a false depth-0.
   void _declareLocal(String name) {
     if (name == '_') return;
     if (_stack.isEmpty) return;
@@ -171,9 +156,7 @@ class StaticResolver extends GeneralizingSAstVisitor<void> {
       _pushAndDescend(node, slottable: false);
 
   @override
-  void visitVariableDeclarationStatement(
-    SVariableDeclarationStatement node,
-  ) {
+  void visitVariableDeclarationStatement(SVariableDeclarationStatement node) {
     // Match the interpreter's executeBlock order: evaluate the initializer
     // BEFORE the name is in scope (so `var x = x` reads the outer `x`), then
     // declare the slot. Visiting only the initializer here (not the name node)
@@ -186,9 +169,7 @@ class StaticResolver extends GeneralizingSAstVisitor<void> {
   }
 
   @override
-  void visitFunctionDeclarationStatement(
-    SFunctionDeclarationStatement node,
-  ) {
+  void visitFunctionDeclarationStatement(SFunctionDeclarationStatement node) {
     // Local function names are defined in declaration order by executeBlock.
     final name = node.functionDeclaration.name?.name;
     if (name != null) _declareLocal(name);
@@ -203,10 +184,13 @@ class StaticResolver extends GeneralizingSAstVisitor<void> {
         final frame = _stack[_stack.length - 1 - depth];
         final slot = frame.slotOf(name);
         if (slot != null) {
-          // Only the innermost scope (depth 0) is emitted in S1 — sound by
+          // Only the innermost scope (depth 0) is emitted in S1/S2 — sound by
           // construction. Stop either way so an outer same-name declaration
           // never produces a spurious coordinate.
-          if (depth == 0) _coords[node] = StaticCoord(0, slot);
+          if (depth == 0) {
+            node.resolvedDepth = 0;
+            node.resolvedSlot = slot;
+          }
           break;
         }
       }

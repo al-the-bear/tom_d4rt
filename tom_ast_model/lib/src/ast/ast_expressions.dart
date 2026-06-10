@@ -18,6 +18,21 @@ class SSimpleIdentifier extends SIdentifier {
   /// Whether this is a declaration (vs reference)
   final bool inDeclarationContext;
 
+  /// S2 (perf plan_3 §4.3 step c): statically-resolved lexical coordinate of
+  /// this identifier *use* — the number of enclosing `Environment` hops to the
+  /// declaring scope ([resolvedDepth]) and the declaration index within that
+  /// scope ([resolvedSlot]). Populated by the static scope resolver pre-pass
+  /// ([StaticResolver]) and serialized, so the analyzer-free Flutter precompute
+  /// path interprets with zero resolution cost. `null` = unresolved → the
+  /// interpreter falls back to the name-keyed `Environment.get` path. Mutable
+  /// because the resolver assigns them after construction. In S2 these are
+  /// carried + validated by an assert only; S3 routes reads onto them.
+  ///
+  /// Emitted into [toJson] only when non-null, so an unresolved identifier
+  /// serializes byte-identically to the pre-S2 format (backward compatible).
+  int? resolvedDepth;
+  int? resolvedSlot;
+
   SSimpleIdentifier({
     required this.offset,
     required this.length,
@@ -38,6 +53,8 @@ class SSimpleIdentifier extends SIdentifier {
     'length': length,
     'name': name,
     'inDeclarationContext': inDeclarationContext,
+    if (resolvedDepth != null) 'resolvedDepth': resolvedDepth,
+    if (resolvedSlot != null) 'resolvedSlot': resolvedSlot,
   };
 
   factory SSimpleIdentifier.fromJson(Map<String, dynamic> json) {
@@ -46,7 +63,9 @@ class SSimpleIdentifier extends SIdentifier {
       length: json['length'] as int,
       name: json['name'] as String,
       inDeclarationContext: json['inDeclarationContext'] as bool? ?? false,
-    );
+    )
+      ..resolvedDepth = json['resolvedDepth'] as int?
+      ..resolvedSlot = json['resolvedSlot'] as int?;
   }
 
   @override

@@ -32,7 +32,6 @@ export 'src/runtime/callable.dart';
 
 // Interpreter visitors
 export 'src/runtime/declaration_visitor.dart';
-export 'src/runtime/scope_frame.dart';
 export 'src/runtime/interpreter_visitor.dart';
 
 // Async execution support

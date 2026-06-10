@@ -31,7 +31,7 @@ class AstConverter {
       }
     }
 
-    return SCompilationUnit(
+    final compilationUnit = SCompilationUnit(
       offset: unit.offset,
       length: unit.length,
       scriptTag: unit.scriptTag?.scriptTag.lexeme,
@@ -39,6 +39,14 @@ class AstConverter {
       declarations: declarations,
       comments: comments,
     );
+
+    // S2 step c (perf plan_3 §9.2): run the static lexical resolver so depth-0
+    // local-variable uses carry their (depth, slot) coordinates on the node and
+    // serialize into the bundle — the analyzer-free Flutter precompute target.
+    // Idempotent: re-running recomputes identical coordinates.
+    StaticResolver().resolve(declarations);
+
+    return compilationUnit;
   }
 
   /// Main dispatch method to convert any AST node
