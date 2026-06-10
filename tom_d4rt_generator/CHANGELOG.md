@@ -1,3 +1,25 @@
+## 1.9.1
+
+### Fix — build_runner path emits a compiling `dartscript.b.dart`
+The build_runner / orchestrator code path previously produced a
+`dartscript.b.dart` that could not compile, because:
+
+- the delegating barrel (`<Module>Bridge`) was missing the
+  `subPackageBarrels()` method the shared dartscript template calls
+  unconditionally, and
+- `relaxers.b.dart` (imported by the dartscript template whenever the
+  config has modules) was never generated on the build_runner path.
+
+Both halves are fixed: the orchestrator's delegating barrel now emits
+`subPackageBarrels()` (primary package excluded, sub-package barrel URIs
+listed), and the build_runner path now generates `relaxers.b.dart` —
+falling back to a resolvable no-op stub (`registerRelaxers()` /
+`registerGenericConstructors()`) when there are no extraction sites. The
+standalone/CLI and build_runner paths now emit interchangeable
+registration code. Covered by a new regression test
+(`test/build_runner_dartscript_compile_test.dart`) that assembles the
+build_runner artifacts and asserts `dart analyze` reports no errors.
+
 ## 1.9.0
 
 ### Refactoring — summary-backed extraction migration (Phases 1–6)
