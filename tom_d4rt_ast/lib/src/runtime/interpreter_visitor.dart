@@ -72,6 +72,18 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   final Map<SSetOrMapLiteral, Object> _constCollectionCache =
       <SSetOrMapLiteral, Object>{};
 
+  /// T9 (perf, plan_2 §6 — bounded realization of 4b indexed lexical access):
+  /// inline depth cache for [visitSimpleIdentifier]. After a name's first
+  /// resolution, the scope depth (enclosing-hops to its declaring frame) is
+  /// recorded keyed by the identifier-use node, so subsequent reads of a plain
+  /// lexical local skip the per-level name-hashing the full chain walk pays at
+  /// every intermediate scope — reading at the fixed depth via pointer-hops + a
+  /// single terminal hash instead. Names that resolve via a non-local path
+  /// (bridge / prefixed import / enum) get no entry and always take the full
+  /// [Environment.get] walk. The fast path is self-validating (see
+  /// [Environment.getAtDepthOrMiss]); a stale entry self-heals on the next read.
+  final Expando<int> _identifierDepthCache = Expando<int>();
+
   /// Execute and clear all pending static-field initializers. Intended to be
   /// called by the top-level runner after every class declaration has been
   /// visited, so that forward-referenced class constructors are available.
@@ -434,8 +446,29 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     // Lexical search & Bridges
     try {
-      // Use environment.get() which handles strings and bridges
-      final value = environment.get(name);
+      // T9 inline depth cache: after first resolution, read a plain lexical
+      // local at its fixed scope depth (pointer-hops + one terminal hash),
+      // skipping the per-level hashing the full chain walk pays. Re-validated
+      // each read and re-resolved on any miss, so it cannot return a stale or
+      // wrong binding. Non-local hits (bridge/prefixed/enum) cache no depth and
+      // always take the full [environment.get] walk.
+      Object? value;
+      final cachedDepth = _identifierDepthCache[node];
+      if (cachedDepth != null) {
+        final fast = environment.getAtDepthOrMiss(name, cachedDepth);
+        if (!identical(fast, Environment.slotMiss)) {
+          value = fast;
+        } else {
+          value = environment.get(name);
+          final d = environment.resolveDepthOf(name);
+          if (d >= 0) _identifierDepthCache[node] = d;
+        }
+      } else {
+        // Use environment.get() which handles strings and bridges
+        value = environment.get(name);
+        final d = environment.resolveDepthOf(name);
+        if (d >= 0) _identifierDepthCache[node] = d;
+      }
       // If get() succeeds, the value is found (variable or bridge)
       if (Logger.isDebug) {
         Logger.debug(
