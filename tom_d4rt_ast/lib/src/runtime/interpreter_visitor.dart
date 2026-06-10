@@ -470,6 +470,19 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             'static=$staticDepth live=$live',
           );
         }
+        // S3b parity (plan_3 §9.3): the slot view must agree with the live name
+        // view. A coordinate is emitted only for an eligible depth-0 local, so
+        // `defineSlot` ran in this frame before the read; `getSlot` and `get`
+        // must return the identical binding. Divergence means the additive
+        // dual-write (define/assign sync) leaked — fix before S3c flips reads.
+        final slot = node.resolvedSlot;
+        if (slot != null &&
+            !identical(environment.getSlot(slot), environment.get(name))) {
+          throw StateError(
+            'S3b slot/name parity mismatch for "$name" at slot $slot: '
+            'getSlot=${environment.getSlot(slot)} get=${environment.get(name)}',
+          );
+        }
       }
       return true;
     }());
@@ -6368,6 +6381,20 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         final isFinal = node.isFinal;
         final variableName = variable.name!.name;
 
+        // S3b additive (plan_3 §4.6 / §9.3): if the resolver slotted this local,
+        // dual-write the value into the frame's slot array alongside the name
+        // binding. The slot index lives on the mirror node itself
+        // ([SVariableDeclaration.declSlot]) — no Expando, so it survives
+        // serialization. Production still reads via name; a debug parity assert
+        // in [visitSimpleIdentifier] validates the two views agree.
+        final declSlot = variable.declSlot;
+        void def(Object? v) {
+          environment.define(variableName, v);
+          if (declSlot != null) {
+            environment.defineSlot(declSlot, variableName, v);
+          }
+        }
+
         if (isLate) {
           // Handle late variable
           if (variable.initializer != null) {
@@ -6376,14 +6403,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               // Create a closure that will evaluate the initializer when accessed
               return variable.initializer!.accept<Object?>(this);
             }, isFinal: isFinal);
-            environment.define(variableName, lateVar);
+            def(lateVar);
             Logger.debug(
               "[VariableDeclList] Defined late variable '$variableName' with lazy initializer.",
             );
           } else {
             // Late variable without initializer
             final lateVar = LateVariable(variableName, null, isFinal: isFinal);
-            environment.define(variableName, lateVar);
+            def(lateVar);
             Logger.debug(
               "[VariableDeclList] Defined late variable '$variableName' without initializer.",
             );
@@ -6400,7 +6427,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               Logger.debug(
                 "[VariableDeclList] Async init for '$variableName'. Defined as null.",
               );
-              environment.define(variableName, null);
+              def(null);
               // Propagate the suspension request.
               // If there are multiple async inits, the LAST suspension request wins.
             } else {
@@ -6411,14 +6438,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                   "[VariableDeclList] Sync init for '$variableName'. Defined as $initValue.",
                 );
               }
-              environment.define(variableName, initValue);
+              def(initValue);
             }
           } else {
             // No initializer: Define as null
             Logger.debug(
               "[VariableDeclList] No init for '$variableName'. Defined as null.",
             );
-            environment.define(variableName, null);
+            def(null);
             result = null; // No suspension
           }
 

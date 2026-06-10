@@ -75,6 +75,29 @@ class Environment {
   final Environment? _enclosing;
   final Map<String, Object?> _values = {};
 
+  // ── S3b additive slot runtime (perf plan_3 §4.6 / §9.3) ───────────────────
+  // Per-frame slot array for resolver-eligible block locals (a local read only
+  // at depth 0, never an assignment target). Lazily allocated — the
+  // overwhelming majority of frames declare no slottable local, so [_slots]
+  // stays `null` at zero cost. Additive in S3b: a slotted `define` dual-writes
+  // [_slots] AND [_values]; production reads still go through the name `get`;
+  // a debug parity assert (`identical(getSlot, get)`) validates the slot model
+  // against the live name model. S3c flips eligible reads onto [getSlot] and
+  // demotes those locals out of [_values].
+  List<Object?>? _slots;
+
+  // name → slot index for the slotted locals of THIS frame. Used only on the
+  // WRITE path ([defineSlot] / [assign]) to keep [_slots] in sync when a value
+  // is set by a path other than the original `define` (async-init resume, late
+  // initialization). The resolved READ path never consults this — it indexes
+  // [_slots] by the coordinate's slot directly (note-6, §10.4). Stays `null`
+  // on frames with no slotted local.
+  Map<String, int>? _slotIndex;
+
+  /// Sentinel for an allocated-but-unwritten slot — distinct from a real
+  /// `null` binding, so a stale read is detectable in debug.
+  static final Object _unset = Object();
+
   // Step d (perf plan_3 §4.5): the seven auxiliary collections below are
   // allocated *lazily*. Every Environment frame carries the hot `_values` map,
   // but the overwhelming majority of frames (function bodies, loop blocks,
@@ -204,6 +227,35 @@ class Environment {
     }
     _values[name] = value;
   }
+
+  /// Writes [value] into this frame's slot array at [slot] and records the
+  /// [name]→[slot] mapping, growing/allocating [_slots] lazily.
+  ///
+  /// S3b is **additive**: the caller still calls [define] to keep the name
+  /// binding in [_values]; this records the parallel slot so the debug parity
+  /// assert can validate the two views. The [name] is kept so a later [assign]
+  /// to the same local keeps the slot in sync (the resolver only slots
+  /// read-only locals, but async-init resume and late initialization set the
+  /// value through a path other than the original `define`).
+  void defineSlot(int slot, String name, Object? value) {
+    var slots = _slots;
+    if (slots == null) {
+      slots = List<Object?>.filled(slot + 1, _unset, growable: true);
+      _slots = slots;
+    } else if (slot >= slots.length) {
+      while (slots.length <= slot) {
+        slots.add(_unset);
+      }
+    }
+    slots[slot] = value;
+    (_slotIndex ??= {})[name] = slot;
+  }
+
+  /// Reads the value at [slot] in THIS frame's slot array. The caller guarantees
+  /// (via the static resolver's depth-0 coordinate) that the slot was written by
+  /// a preceding [defineSlot] in the same frame. No name hashing — one list
+  /// index (note-6, §10.4).
+  Object? getSlot(int slot) => _slots![slot];
 
   /// Registers a bridged class in this environment.
   ///
@@ -930,6 +982,14 @@ class Environment {
             " [Env.assign] Assigned '$name' locally in env: $hashCode");
       }
       _values[name] = value;
+      // S3b additive: keep a slotted local's slot in sync when its value is set
+      // through `assign` (async-init resume, late init) rather than the original
+      // `define`, so the debug parity assert holds. O(1) null-guarded — frames
+      // with no slotted local skip the map probe entirely.
+      if (_slotIndex != null) {
+        final slot = _slotIndex![name];
+        if (slot != null) _slots![slot] = value;
+      }
       return value;
     }
 

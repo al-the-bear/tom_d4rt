@@ -118,14 +118,44 @@ class _Frame {
 /// cross-frame depths is a later increment under the same harness.
 class StaticResolver extends GeneralizingAstVisitor<void> {
   final Expando<StaticCoord> _coords;
+
+  /// Side-table carrying the compacted slot index of each eligible
+  /// *declaration* node (the analyzer's `VariableDeclaration` is sealed, so a
+  /// field cannot be added — plan_3 §4.3). Populated on block exit; read by the
+  /// interpreter at `visitVariableDeclarationList` to dual-write the slot.
+  final Expando<int> _declSlots;
+
   final List<_Frame> _stack = [];
 
-  StaticResolver(this._coords);
+  /// True while resolving inside the body of the *nearest enclosing* function
+  /// that is `async`, `async*`, or `sync*`. Slot eligibility is suppressed in
+  /// such bodies (plan_3 §4.6, read-only first cut): the async/generator state
+  /// machine delivers awaited values and re-entered loop variables through a
+  /// back-channel (`callable.dart` resume: a direct `Environment.define` +
+  /// speculative `assign` on the resumed frame) that does not flow through the
+  /// declaration's `defineSlot`, so a slot would go stale. Tracks the *nearest*
+  /// function (not a depth count) so a synchronous closure nested inside an
+  /// async function re-enables slotting for its own body.
+  bool _inAsyncFunction = false;
+
+  StaticResolver(this._coords, this._declSlots);
 
   void _pushAndDescend(AstNode node, {required bool slottable}) {
     _stack.add(_Frame(slottable));
     node.visitChildren(this);
     _stack.removeLast();
+  }
+
+  /// Push a function frame, setting [_inAsyncFunction] to *this* function's
+  /// async/generator-ness for the duration of its body (nearest-function wins),
+  /// then restore the enclosing value on exit.
+  void _descendFunction(AstNode node, FunctionBody body) {
+    final saved = _inAsyncFunction;
+    _inAsyncFunction = body.isAsynchronous || body.isGenerator;
+    _stack.add(_Frame(false));
+    node.visitChildren(this);
+    _stack.removeLast();
+    _inAsyncFunction = saved;
   }
 
   /// Records [name] in the innermost frame **iff** that frame is slottable.
@@ -141,13 +171,14 @@ class StaticResolver extends GeneralizingAstVisitor<void> {
   }
 
   /// Resolve a block frame, then commit compacted slots (perf plan_3 §4.6):
-  /// eligible candidate decls get dense indices `0..k-1` in lexical order and
-  /// their pending depth-0 reads receive a coordinate. (Analyzer side carries
-  /// only the *use* coordinate in [_coords]; `declSlot`/`slotCount` side-tables
-  /// arrive in S3c when the interpreter consumes them.)
+  /// eligible candidate decls get dense indices `0..k-1` in lexical order, the
+  /// declaration node records its slot in [_declSlots], and its pending depth-0
+  /// reads receive a coordinate in [_coords].
   @override
   void visitBlock(Block node) {
-    final frame = _Frame(true);
+    // A block inside an async/generator function body is non-slottable: its
+    // locals can be rebound by the state-machine resume back-channel.
+    final frame = _Frame(!_inAsyncFunction);
     _stack.add(frame);
     node.visitChildren(this);
     _stack.removeLast();
@@ -155,6 +186,7 @@ class StaticResolver extends GeneralizingAstVisitor<void> {
     var slot = 0;
     for (final decl in frame.decls) {
       if (!decl.isCandidate || !decl.eligible) continue;
+      _declSlots[decl.node!] = slot;
       for (final use in decl.pendingReads) {
         _coords[use] = StaticCoord(0, slot);
       }
@@ -192,15 +224,15 @@ class StaticResolver extends GeneralizingAstVisitor<void> {
 
   @override
   void visitFunctionExpression(FunctionExpression node) =>
-      _pushAndDescend(node, slottable: false);
+      _descendFunction(node, node.body);
 
   @override
   void visitMethodDeclaration(MethodDeclaration node) =>
-      _pushAndDescend(node, slottable: false);
+      _descendFunction(node, node.body);
 
   @override
   void visitConstructorDeclaration(ConstructorDeclaration node) =>
-      _pushAndDescend(node, slottable: false);
+      _descendFunction(node, node.body);
 
   @override
   void visitVariableDeclarationStatement(VariableDeclarationStatement node) {

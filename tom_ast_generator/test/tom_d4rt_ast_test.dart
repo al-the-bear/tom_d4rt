@@ -227,6 +227,53 @@ void main() {
       expect(declNamed(ast, 'b').declSlot, isNull);
       expect(declNamed(ast, 'c').declSlot, equals(1));
     });
+
+    test('locals in an async function body are not slotted', () {
+      // The async state machine delivers awaited values / re-entered loop
+      // variables through a resume back-channel (a direct define + speculative
+      // assign) that bypasses `defineSlot`, so a slot would go stale. The
+      // resolver therefore suppresses slotting for any block inside an async/
+      // generator function body (plan_3 §4.6 read-only first cut).
+      final ast = convert('''
+Future<void> main() async {
+  var a = await fetch();
+  var b = 2;
+  print(a);
+  print(b);
+}
+''');
+      expect(mainBlock(ast).slotCount, equals(0));
+      expect(declNamed(ast, 'a').declSlot, isNull);
+      expect(declNamed(ast, 'b').declSlot, isNull);
+    });
+
+    test('locals in a sync* / async* generator body are not slotted', () {
+      final ast = convert('''
+Iterable<int> main() sync* {
+  var a = 1;
+  yield a;
+}
+''');
+      expect(mainBlock(ast).slotCount, equals(0));
+      expect(declNamed(ast, 'a').declSlot, isNull);
+    });
+
+    test('a sync closure nested in an async function still slots its locals',
+        () {
+      // Nearest-function-wins: the inner synchronous closure re-enables
+      // slotting for its own body even though the outer function is async.
+      final ast = convert('''
+Future<void> main() async {
+  await Future<void>.value();
+  [1].forEach((x) {
+    var inner = x;
+    print(inner);
+  });
+}
+''');
+      // `inner` lives in the sync closure's block → slotted at 0.
+      expect(declNamed(ast, 'inner').declSlot, equals(0));
+    });
   });
 }
 

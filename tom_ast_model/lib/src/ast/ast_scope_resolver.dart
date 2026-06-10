@@ -109,6 +109,17 @@ class _ScopeFrame {
 class StaticResolver extends GeneralizingSAstVisitor<void> {
   final List<_ScopeFrame> _stack = [];
 
+  /// True while resolving inside the body of the *nearest enclosing* function
+  /// that is `async`, `async*`, or `sync*`. Slot eligibility is suppressed in
+  /// such bodies (plan_3 §4.6, read-only first cut): the async/generator state
+  /// machine delivers awaited values and re-entered loop variables through a
+  /// back-channel (`callable.dart` resume: a direct `Environment.define` +
+  /// speculative `assign` on the resumed frame) that does not flow through the
+  /// declaration's `defineSlot`, so a slot would go stale. Tracks the *nearest*
+  /// function (not a depth count) so a synchronous closure nested inside an
+  /// async function re-enables slotting for its own body.
+  bool _inAsyncFunction = false;
+
   StaticResolver();
 
   /// Resolve every identifier use under [declarations], writing coordinates
@@ -132,6 +143,19 @@ class StaticResolver extends GeneralizingSAstVisitor<void> {
     _stack.removeLast();
   }
 
+  /// Push a function frame, setting [_inAsyncFunction] to *this* function's
+  /// async/generator-ness for the duration of its body (nearest-function wins),
+  /// then restore the enclosing value on exit.
+  void _descendFunction(SAstNode node, SFunctionBody? body) {
+    final saved = _inAsyncFunction;
+    _inAsyncFunction =
+        (body?.isAsynchronous ?? false) || (body?.isGenerator ?? false);
+    _stack.add(_ScopeFrame(false));
+    node.visitChildren(this);
+    _stack.removeLast();
+    _inAsyncFunction = saved;
+  }
+
   /// Records [name] in the innermost frame **iff** that frame is slottable.
   /// A declaration whose innermost frame is opaque is intentionally dropped
   /// (left unresolved) rather than leaked into an outer frame, which would risk
@@ -149,7 +173,9 @@ class StaticResolver extends GeneralizingSAstVisitor<void> {
   /// pending depth-0 reads get `resolvedSlot`, and the block records `slotCount`.
   @override
   void visitBlock(SBlock node) {
-    final frame = _ScopeFrame(true);
+    // A block inside an async/generator function body is non-slottable: its
+    // locals can be rebound by the state-machine resume back-channel.
+    final frame = _ScopeFrame(!_inAsyncFunction);
     _stack.add(frame);
     node.visitChildren(this);
     _stack.removeLast();
@@ -197,15 +223,15 @@ class StaticResolver extends GeneralizingSAstVisitor<void> {
 
   @override
   void visitFunctionExpression(SFunctionExpression node) =>
-      _pushAndDescend(node, slottable: false);
+      _descendFunction(node, node.body);
 
   @override
   void visitMethodDeclaration(SMethodDeclaration node) =>
-      _pushAndDescend(node, slottable: false);
+      _descendFunction(node, node.body);
 
   @override
   void visitConstructorDeclaration(SConstructorDeclaration node) =>
-      _pushAndDescend(node, slottable: false);
+      _descendFunction(node, node.body);
 
   @override
   void visitVariableDeclarationStatement(SVariableDeclarationStatement node) {
