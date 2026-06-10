@@ -74,15 +74,27 @@ class GlobalGetter {
 class Environment {
   final Environment? _enclosing;
   final Map<String, Object?> _values = {};
-  final Map<String, BridgedClass> _bridgedClasses = {};
-  final Map<Type, BridgedClass> _bridgedClassesLookupByType = {};
+
+  // Step d (perf plan_3 §4.5): the seven auxiliary collections below are
+  // allocated *lazily*. Every Environment frame carries the hot `_values` map,
+  // but the overwhelming majority of frames (function bodies, loop blocks,
+  // catch clauses, …) register no bridge / enum / extension / prefixed import,
+  // so these backing fields stay `null` and cost zero allocation. Each has a
+  // pair of accessors:
+  //   * the bare-named read view (`_bridgedClasses`, …) returns an empty
+  //     `const` collection when the backing field is null — non-allocating and,
+  //     being unmodifiable, a tripwire that throws if a write ever slips
+  //     through it instead of the `…OrNew` getter;
+  //   * the `…OrNew` write view allocates the real collection on first use.
+  Map<String, BridgedClass>? _bridgedClassesRaw;
+  Map<Type, BridgedClass>? _bridgedClassesLookupByTypeRaw;
   // GEN-115 Phase 2 — runtimeType→bridge resolution cache. Populated by
   // [toBridgedInstance] after a non-trivial step-2 / step-3 walk so that
   // repeat lookups of the same private impl type (e.g. _BodyBoxConstraints,
   // _BigIntImpl, FakeTimer) skip the O(N) iteration over every registered
   // bridge. Invalidated on every mutation of [_bridgedClassesLookupByType]
   // via [_invalidateResolutionCache].
-  final Map<Type, BridgedClass> _resolvedTypeCache = {};
+  Map<Type, BridgedClass>? _resolvedTypeCacheRaw;
   // T4 (perf, plan_2 §6 / F3): negative resolution cache — the set of
   // runtimeTypes that have NO bridge (the full step-1/2/3 walk found nothing
   // and [toBridgedClass] threw). Without it, every wrap of a common unbridged
@@ -94,11 +106,40 @@ class Environment {
   // single set probe. Cleared together with [_resolvedTypeCache] on any
   // bridge-type mutation, so a later registration can still turn a cached
   // miss into a hit.
-  final Set<Type> _unbridgedTypeCache = {};
-  final Map<String, BridgedEnum> _bridgedEnums = {}; // Store bridged enums
-  final List<InterpretedExtension> _unnamedExtensions =
-      []; // Store unnamed extensions
-  final Map<String, Environment> _prefixedImports = {}; // For prefixed imports
+  Set<Type>? _unbridgedTypeCacheRaw;
+  Map<String, BridgedEnum>? _bridgedEnumsRaw; // Store bridged enums
+  List<InterpretedExtension>? _unnamedExtensionsRaw; // Store unnamed extensions
+  Map<String, Environment>? _prefixedImportsRaw; // For prefixed imports
+
+  // Read views — empty const when the backing field is null (no allocation).
+  Map<String, BridgedClass> get _bridgedClasses =>
+      _bridgedClassesRaw ?? const <String, BridgedClass>{};
+  Map<Type, BridgedClass> get _bridgedClassesLookupByType =>
+      _bridgedClassesLookupByTypeRaw ?? const <Type, BridgedClass>{};
+  Map<Type, BridgedClass> get _resolvedTypeCache =>
+      _resolvedTypeCacheRaw ?? const <Type, BridgedClass>{};
+  Set<Type> get _unbridgedTypeCache =>
+      _unbridgedTypeCacheRaw ?? const <Type>{};
+  Map<String, BridgedEnum> get _bridgedEnums =>
+      _bridgedEnumsRaw ?? const <String, BridgedEnum>{};
+  List<InterpretedExtension> get _unnamedExtensions =>
+      _unnamedExtensionsRaw ?? const <InterpretedExtension>[];
+  Map<String, Environment> get _prefixedImports =>
+      _prefixedImportsRaw ?? const <String, Environment>{};
+
+  // Write views — allocate the backing collection on first use.
+  Map<String, BridgedClass> get _bridgedClassesOrNew =>
+      _bridgedClassesRaw ??= {};
+  Map<Type, BridgedClass> get _bridgedClassesLookupByTypeOrNew =>
+      _bridgedClassesLookupByTypeRaw ??= {};
+  Map<Type, BridgedClass> get _resolvedTypeCacheOrNew =>
+      _resolvedTypeCacheRaw ??= {};
+  Set<Type> get _unbridgedTypeCacheOrNew => _unbridgedTypeCacheRaw ??= {};
+  Map<String, BridgedEnum> get _bridgedEnumsOrNew => _bridgedEnumsRaw ??= {};
+  List<InterpretedExtension> get _unnamedExtensionsOrNew =>
+      _unnamedExtensionsRaw ??= [];
+  Map<String, Environment> get _prefixedImportsOrNew =>
+      _prefixedImportsRaw ??= {};
 
   /// OPEN B.9 — when this environment is the top execution scope of a static
   /// member, it holds *snapshots* of the owner class's static fields so that
@@ -186,8 +227,8 @@ class Environment {
         "Redefining bridged class or colliding with existing definition: $name",
       );
     }
-    _bridgedClasses[name] = bridgedClass;
-    _bridgedClassesLookupByType[bridgedClass.nativeType] = bridgedClass;
+    _bridgedClassesOrNew[name] = bridgedClass;
+    _bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] = bridgedClass;
     _invalidateResolutionCache();
     Logger.debug("[Environment] Defined bridge for class: $name");
   }
@@ -196,8 +237,8 @@ class Environment {
   /// [_bridgedClassesLookupByType], because a newly-registered bridge can
   /// change the most-specific resolution for previously-cached runtimeTypes.
   void _invalidateResolutionCache() {
-    if (_resolvedTypeCache.isNotEmpty) _resolvedTypeCache.clear();
-    if (_unbridgedTypeCache.isNotEmpty) _unbridgedTypeCache.clear();
+    _resolvedTypeCacheRaw?.clear();
+    _unbridgedTypeCacheRaw?.clear();
   }
 
   /// Looks up a bridged class by name, walking the enclosing scope chain.
@@ -231,7 +272,7 @@ class Environment {
   /// type-only counterpart for callers that want to avoid name-scope pollution.
   /// Mirrors [tom_d4rt:Environment.registerBridgeType].
   void registerBridgeType(BridgedClass bridgedClass) {
-    _bridgedClassesLookupByType[bridgedClass.nativeType] = bridgedClass;
+    _bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] = bridgedClass;
     _invalidateResolutionCache();
   }
 
@@ -252,7 +293,7 @@ class Environment {
     if (identical(target, this)) return;
     var added = false;
     for (final entry in _bridgedClassesLookupByType.entries) {
-      target._bridgedClassesLookupByType.putIfAbsent(entry.key, () {
+      target._bridgedClassesLookupByTypeOrNew.putIfAbsent(entry.key, () {
         added = true;
         return entry.value;
       });
@@ -281,7 +322,7 @@ class Environment {
       );
       return;
     }
-    _bridgedClasses[aliasName] = target;
+    _bridgedClassesOrNew[aliasName] = target;
     Logger.debug(
       "[Environment] Defined bridge alias: $aliasName -> $targetName",
     );
@@ -370,7 +411,7 @@ class Environment {
     if (allMatches.isNotEmpty) {
       final filtered = _filterToMostSpecific(allMatches);
       final picked = filtered.isNotEmpty ? filtered.last : allMatches.last;
-      _resolvedTypeCache[runtimeType] = picked;
+      _resolvedTypeCacheOrNew[runtimeType] = picked;
       return BridgedInstance(picked, nativeObject);
     }
 
@@ -381,10 +422,10 @@ class Environment {
     try {
       bridgedClass = toBridgedClass(runtimeType);
     } on RuntimeD4rtException {
-      _unbridgedTypeCache.add(runtimeType);
+      _unbridgedTypeCacheOrNew.add(runtimeType);
       rethrow;
     }
-    _resolvedTypeCache[runtimeType] = bridgedClass;
+    _resolvedTypeCacheOrNew[runtimeType] = bridgedClass;
     return BridgedInstance(bridgedClass, nativeObject);
   }
 
@@ -568,7 +609,7 @@ class Environment {
         "Redefining bridged enum or colliding with existing definition: $name",
       );
     }
-    _bridgedEnums[name] = bridgedEnum;
+    _bridgedEnumsOrNew[name] = bridgedEnum;
     Logger.debug("[Environment] Defined bridge for enum: $name");
   }
 
@@ -980,7 +1021,7 @@ class Environment {
 
   // Method to add unnamed extensions
   void addUnnamedExtension(InterpretedExtension extension) {
-    _unnamedExtensions.add(extension);
+    _unnamedExtensionsOrNew.add(extension);
   }
 
   // Method to find applicable extension members (Placeholder)
@@ -1258,8 +1299,8 @@ class Environment {
         include = !hideNames.contains(name);
       }
       if (include) {
-        newEnv._bridgedClasses[name] = bridgedClass;
-        newEnv._bridgedClassesLookupByType[bridgedClass.nativeType] =
+        newEnv._bridgedClassesOrNew[name] = bridgedClass;
+        newEnv._bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] =
             bridgedClass;
       }
     });
@@ -1273,7 +1314,7 @@ class Environment {
         include = !hideNames.contains(name);
       }
       if (include) {
-        newEnv._bridgedEnums[name] = bridgedEnum;
+        newEnv._bridgedEnumsOrNew[name] = bridgedEnum;
       }
     });
 
@@ -1286,13 +1327,13 @@ class Environment {
         include = !hideNames.contains(name);
       }
       if (include) {
-        newEnv._prefixedImports[name] =
+        newEnv._prefixedImportsOrNew[name] =
             environment; // Copy the reference to the prefixed environment
       }
     });
 
     // Copy unnamed extensions (cannot be filtered by name)
-    newEnv._unnamedExtensions.addAll(_unnamedExtensions);
+    newEnv._unnamedExtensionsOrNew.addAll(_unnamedExtensions);
 
     Logger.debug(
       "[Environment.shallowCopyFiltered] Created filtered environment. Original size: ${_values.length} values. New size: ${newEnv._values.length} values.",
@@ -1403,8 +1444,8 @@ class Environment {
           "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
           "bridged class '$name' with imported version",
         );
-        _bridgedClasses[name] = bridgedClass;
-        _bridgedClassesLookupByType[bridgedClass.nativeType] = bridgedClass;
+        _bridgedClassesOrNew[name] = bridgedClass;
+        _bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] = bridgedClass;
         _invalidateResolutionCache();
         return;
       }
@@ -1428,8 +1469,8 @@ class Environment {
         );
         return;
       }
-      _bridgedClasses[name] = bridgedClass;
-      _bridgedClassesLookupByType[bridgedClass.nativeType] = bridgedClass;
+      _bridgedClassesOrNew[name] = bridgedClass;
+      _bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] = bridgedClass;
       _invalidateResolutionCache();
     });
 
@@ -1449,7 +1490,7 @@ class Environment {
           "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
           "bridged enum '$name' with imported version",
         );
-        _bridgedEnums[name] = bridgedEnum;
+        _bridgedEnumsOrNew[name] = bridgedEnum;
         return;
       }
       if (_values.containsKey(name) ||
@@ -1468,7 +1509,7 @@ class Environment {
         );
         return;
       }
-      _bridgedEnums[name] = bridgedEnum;
+      _bridgedEnumsOrNew[name] = bridgedEnum;
     });
 
     sourceEnvToImportFrom._prefixedImports.forEach((name, env) {
@@ -1496,7 +1537,7 @@ class Environment {
           "Name conflict in environment: Symbol '$name' (prefixed import) is already defined or collides with another symbol type.",
         );
       }
-      _prefixedImports[name] = env;
+      _prefixedImportsOrNew[name] = env;
     });
 
     // Unnamed extensions are additive. C11: Guard against the self-import /
@@ -1511,7 +1552,7 @@ class Environment {
       _unnamedExtensions,
       sourceEnvToImportFrom._unnamedExtensions,
     )) {
-      _unnamedExtensions.addAll(sourceEnvToImportFrom._unnamedExtensions);
+      _unnamedExtensionsOrNew.addAll(sourceEnvToImportFrom._unnamedExtensions);
     }
 
     Logger.debug(
@@ -1524,6 +1565,6 @@ class Environment {
     Logger.debug(
       "[Env.definePrefixedImport] Defining prefixed import '$prefix' with environment $importEnvironment (hash: ${importEnvironment.hashCode})",
     );
-    _prefixedImports[prefix] = importEnvironment;
+    _prefixedImportsOrNew[prefix] = importEnvironment;
   }
 }
