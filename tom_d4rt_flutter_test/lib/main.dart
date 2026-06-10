@@ -36,6 +36,17 @@ import 'src/widgets/samples_bar.dart';
 import 'src/widgets/script_info_panel.dart';
 import 'src/widgets/script_search_bar.dart';
 
+/// Name of a bundled sample to launch automatically on boot, skipping the
+/// manual pick + "Run Sample" step. Set via
+/// `--dart-define=AUTORUN_SAMPLE=profiler_life` (or any sample folder name).
+/// Empty (the default) leaves the normal interactive shell untouched.
+///
+/// Intended for hands-free profiling: pair it with a self-running sample
+/// such as `profiler_life`, which boots unpaused and keeps the interpreter
+/// under sustained load so a memory/CPU leak shows up in the DevTools
+/// profiler without any interaction.
+const String kAutorunSample = String.fromEnvironment('AUTORUN_SAMPLE');
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   // Host-side diagnostic for the "snake.poll keys=0 mid-gameplay" bug.
@@ -95,6 +106,7 @@ class _AppShellState extends State<_AppShell>
 
   GeneratorPrefs _prefs = GeneratorPrefs();
   bool _prefsLoaded = false;
+  bool _autorunLaunched = false;
 
   @override
   void initState() {
@@ -106,6 +118,34 @@ class _AppShellState extends State<_AppShell>
     _generator = GeneratorNotifier(samplesNotifier: _samplesNotifier);
     _tabs = TabController(length: 4, vsync: this);
     _loadPrefs();
+    if (kAutorunSample.isNotEmpty) {
+      _samplesNotifier.addListener(_maybeAutorun);
+      _maybeAutorun();
+    }
+  }
+
+  /// Once the sample corpus has loaded, auto-launch [kAutorunSample] exactly
+  /// once — bypassing the Examples tab and the "Run Sample" button. A missing
+  /// name is left alone (the interactive shell stays usable), so a typo in the
+  /// dart-define degrades gracefully instead of crashing.
+  void _maybeAutorun() {
+    if (_autorunLaunched || kAutorunSample.isEmpty) return;
+    if (_samplesNotifier.loading) return;
+    SampleAppEntry? match;
+    for (final s in _samplesNotifier.samples) {
+      if (s.name == kAutorunSample) {
+        match = s;
+        break;
+      }
+    }
+    if (match == null) return;
+    _autorunLaunched = true;
+    _samplesNotifier.removeListener(_maybeAutorun);
+    final sample = match;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _runSample(sample);
+    });
   }
 
   Future<void> _loadPrefs() async {
@@ -265,12 +305,37 @@ class _MobileSamplesShell extends StatefulWidget {
 class _MobileSamplesShellState extends State<_MobileSamplesShell> {
   late final SampleAppsNotifier _samplesNotifier;
   late final SourceFlutterD4rt _d4rt;
+  bool _autorunLaunched = false;
 
   @override
   void initState() {
     super.initState();
     _samplesNotifier = SampleAppsNotifier();
     _d4rt = SourceFlutterD4rt();
+    if (kAutorunSample.isNotEmpty) {
+      _samplesNotifier.addListener(_maybeAutorun);
+      _maybeAutorun();
+    }
+  }
+
+  void _maybeAutorun() {
+    if (_autorunLaunched || kAutorunSample.isEmpty) return;
+    if (_samplesNotifier.loading) return;
+    SampleAppEntry? match;
+    for (final s in _samplesNotifier.samples) {
+      if (s.name == kAutorunSample) {
+        match = s;
+        break;
+      }
+    }
+    if (match == null) return;
+    _autorunLaunched = true;
+    _samplesNotifier.removeListener(_maybeAutorun);
+    final sample = match;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _runSample(sample);
+    });
   }
 
   @override
