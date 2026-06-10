@@ -59,11 +59,11 @@ class SSimpleIdentifier extends SIdentifier {
 
   factory SSimpleIdentifier.fromJson(Map<String, dynamic> json) {
     return SSimpleIdentifier(
-      offset: json['offset'] as int,
-      length: json['length'] as int,
-      name: json['name'] as String,
-      inDeclarationContext: json['inDeclarationContext'] as bool? ?? false,
-    )
+        offset: json['offset'] as int,
+        length: json['length'] as int,
+        name: json['name'] as String,
+        inDeclarationContext: json['inDeclarationContext'] as bool? ?? false,
+      )
       ..resolvedDepth = json['resolvedDepth'] as int?
       ..resolvedSlot = json['resolvedSlot'] as int?;
   }

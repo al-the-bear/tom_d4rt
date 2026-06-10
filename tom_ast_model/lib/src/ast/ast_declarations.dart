@@ -22,7 +22,8 @@ mixin SFunctionBodyOwner on SAstNode {
 // Function Declaration
 // ============================================================================
 
-class SFunctionDeclaration extends SNamedCompilationUnitMember with SNamedDeclaration {
+class SFunctionDeclaration extends SNamedCompilationUnitMember
+    with SNamedDeclaration {
   @override
   final int offset;
   @override
@@ -69,19 +70,19 @@ class SFunctionDeclaration extends SNamedCompilationUnitMember with SNamedDeclar
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        if (returnType != null) 'returnType': returnType!.toJson(),
-        'isGetter': isGetter,
-        'isSetter': isSetter,
-        'isExternal': isExternal,
-        if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
-        if (functionExpression != null)
-          'functionExpression': functionExpression!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    if (returnType != null) 'returnType': returnType!.toJson(),
+    'isGetter': isGetter,
+    'isSetter': isSetter,
+    'isExternal': isExternal,
+    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+    if (functionExpression != null)
+      'functionExpression': functionExpression!.toJson(),
+  };
 
   factory SFunctionDeclaration.fromJson(Map<String, dynamic> json) {
     return SFunctionDeclaration(
@@ -90,27 +91,33 @@ class SFunctionDeclaration extends SNamedCompilationUnitMember with SNamedDeclar
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      returnType: SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?) as STypeAnnotation?,
+      returnType:
+          SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?)
+              as STypeAnnotation?,
       isGetter: json['isGetter'] as bool? ?? false,
       isSetter: json['isSetter'] as bool? ?? false,
       isExternal: json['isExternal'] as bool? ?? false,
       typeParameters: json['typeParameters'] != null
           ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>)
+              json['typeParameters'] as Map<String, dynamic>,
+            )
           : null,
       functionExpression: json['functionExpression'] != null
           ? SFunctionExpression.fromJson(
-              json['functionExpression'] as Map<String, dynamic>)
+              json['functionExpression'] as Map<String, dynamic>,
+            )
           : null,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitFunctionDeclaration(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitFunctionDeclaration(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -181,22 +188,22 @@ class SMethodDeclaration extends SClassMember with SNamedDeclaration {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        if (returnType != null) 'returnType': returnType!.toJson(),
-        'isStatic': isStatic,
-        'isAbstract': isAbstract,
-        'isExternal': isExternal,
-        'isGetter': isGetter,
-        'isSetter': isSetter,
-        'isOperator': isOperator,
-        if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
-        if (parameters != null) 'parameters': parameters!.toJson(),
-        if (body != null) 'body': body!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    if (returnType != null) 'returnType': returnType!.toJson(),
+    'isStatic': isStatic,
+    'isAbstract': isAbstract,
+    'isExternal': isExternal,
+    'isGetter': isGetter,
+    'isSetter': isSetter,
+    'isOperator': isOperator,
+    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+    if (parameters != null) 'parameters': parameters!.toJson(),
+    if (body != null) 'body': body!.toJson(),
+  };
 
   factory SMethodDeclaration.fromJson(Map<String, dynamic> json) {
     return SMethodDeclaration(
@@ -205,11 +212,14 @@ class SMethodDeclaration extends SClassMember with SNamedDeclaration {
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      returnType: SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?) as STypeAnnotation?,
+      returnType:
+          SAstNodeFactory.fromJson(json['returnType'] as Map<String, dynamic>?)
+              as STypeAnnotation?,
       isStatic: json['isStatic'] as bool? ?? false,
       isAbstract: json['isAbstract'] as bool? ?? false,
       isExternal: json['isExternal'] as bool? ?? false,
@@ -218,13 +228,17 @@ class SMethodDeclaration extends SClassMember with SNamedDeclaration {
       isOperator: json['isOperator'] as bool? ?? false,
       typeParameters: json['typeParameters'] != null
           ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>)
+              json['typeParameters'] as Map<String, dynamic>,
+            )
           : null,
       parameters: json['parameters'] != null
           ? SFormalParameterList.fromJson(
-              json['parameters'] as Map<String, dynamic>)
+              json['parameters'] as Map<String, dynamic>,
+            )
           : null,
-      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?) as SFunctionBody?,
+      body:
+          SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?)
+              as SFunctionBody?,
     );
   }
 
@@ -248,7 +262,8 @@ class SMethodDeclaration extends SClassMember with SNamedDeclaration {
 // Class Declaration
 // ============================================================================
 
-class SClassDeclaration extends SNamedCompilationUnitMember with SNamedDeclaration {
+class SClassDeclaration extends SNamedCompilationUnitMember
+    with SNamedDeclaration {
   @override
   final int offset;
   @override
@@ -305,24 +320,24 @@ class SClassDeclaration extends SNamedCompilationUnitMember with SNamedDeclarati
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        'isAbstract': isAbstract,
-        'isSealed': isSealed,
-        'isBase': isBase,
-        'isInterface': isInterface,
-        'isFinal': isFinal,
-        'isMixin': isMixin,
-        if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
-        if (extendsClause != null) 'extendsClause': extendsClause!.toJson(),
-        if (implementsClause != null)
-          'implementsClause': implementsClause!.toJson(),
-        if (withClause != null) 'withClause': withClause!.toJson(),
-        'members': members.map((m) => m.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    'isAbstract': isAbstract,
+    'isSealed': isSealed,
+    'isBase': isBase,
+    'isInterface': isInterface,
+    'isFinal': isFinal,
+    'isMixin': isMixin,
+    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+    if (extendsClause != null) 'extendsClause': extendsClause!.toJson(),
+    if (implementsClause != null)
+      'implementsClause': implementsClause!.toJson(),
+    if (withClause != null) 'withClause': withClause!.toJson(),
+    'members': members.map((m) => m.toJson()).toList(),
+  };
 
   factory SClassDeclaration.fromJson(Map<String, dynamic> json) {
     return SClassDeclaration(
@@ -331,7 +346,8 @@ class SClassDeclaration extends SNamedCompilationUnitMember with SNamedDeclarati
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
@@ -343,20 +359,25 @@ class SClassDeclaration extends SNamedCompilationUnitMember with SNamedDeclarati
       isMixin: json['isMixin'] as bool? ?? false,
       typeParameters: json['typeParameters'] != null
           ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>)
+              json['typeParameters'] as Map<String, dynamic>,
+            )
           : null,
       extendsClause: json['extendsClause'] != null
           ? SExtendsClause.fromJson(
-              json['extendsClause'] as Map<String, dynamic>)
+              json['extendsClause'] as Map<String, dynamic>,
+            )
           : null,
       implementsClause: json['implementsClause'] != null
           ? SImplementsClause.fromJson(
-              json['implementsClause'] as Map<String, dynamic>)
+              json['implementsClause'] as Map<String, dynamic>,
+            )
           : null,
       withClause: json['withClause'] != null
           ? SWithClause.fromJson(json['withClause'] as Map<String, dynamic>)
           : null,
-      members: SAstNodeFactory.listFromJson<SClassMember>(json['members'] as List?),
+      members: SAstNodeFactory.listFromJson<SClassMember>(
+        json['members'] as List?,
+      ),
     );
   }
 
@@ -383,7 +404,8 @@ class SClassDeclaration extends SNamedCompilationUnitMember with SNamedDeclarati
 // Mixin Declaration
 // ============================================================================
 
-class SMixinDeclaration extends SNamedCompilationUnitMember with SNamedDeclaration {
+class SMixinDeclaration extends SNamedCompilationUnitMember
+    with SNamedDeclaration {
   @override
   final int offset;
   @override
@@ -417,18 +439,18 @@ class SMixinDeclaration extends SNamedCompilationUnitMember with SNamedDeclarati
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        'isBase': isBase,
-        if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
-        if (onClause != null) 'onClause': onClause!.toJson(),
-        if (implementsClause != null)
-          'implementsClause': implementsClause!.toJson(),
-        'members': members.map((m) => m.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    'isBase': isBase,
+    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+    if (onClause != null) 'onClause': onClause!.toJson(),
+    if (implementsClause != null)
+      'implementsClause': implementsClause!.toJson(),
+    'members': members.map((m) => m.toJson()).toList(),
+  };
 
   factory SMixinDeclaration.fromJson(Map<String, dynamic> json) {
     return SMixinDeclaration(
@@ -437,23 +459,28 @@ class SMixinDeclaration extends SNamedCompilationUnitMember with SNamedDeclarati
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
       isBase: json['isBase'] as bool? ?? false,
       typeParameters: json['typeParameters'] != null
           ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>)
+              json['typeParameters'] as Map<String, dynamic>,
+            )
           : null,
       onClause: json['onClause'] != null
           ? SOnClause.fromJson(json['onClause'] as Map<String, dynamic>)
           : null,
       implementsClause: json['implementsClause'] != null
           ? SImplementsClause.fromJson(
-              json['implementsClause'] as Map<String, dynamic>)
+              json['implementsClause'] as Map<String, dynamic>,
+            )
           : null,
-      members: SAstNodeFactory.listFromJson<SClassMember>(json['members'] as List?),
+      members: SAstNodeFactory.listFromJson<SClassMember>(
+        json['members'] as List?,
+      ),
     );
   }
 
@@ -479,7 +506,8 @@ class SMixinDeclaration extends SNamedCompilationUnitMember with SNamedDeclarati
 // Enum Declaration
 // ============================================================================
 
-class SEnumDeclaration extends SNamedCompilationUnitMember with SNamedDeclaration {
+class SEnumDeclaration extends SNamedCompilationUnitMember
+    with SNamedDeclaration {
   @override
   final int offset;
   @override
@@ -513,18 +541,18 @@ class SEnumDeclaration extends SNamedCompilationUnitMember with SNamedDeclaratio
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
-        if (implementsClause != null)
-          'implementsClause': implementsClause!.toJson(),
-        if (withClause != null) 'withClause': withClause!.toJson(),
-        'constants': constants.map((c) => c.toJson()).toList(),
-        'members': members.map((m) => m.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+    if (implementsClause != null)
+      'implementsClause': implementsClause!.toJson(),
+    if (withClause != null) 'withClause': withClause!.toJson(),
+    'constants': constants.map((c) => c.toJson()).toList(),
+    'members': members.map((m) => m.toJson()).toList(),
+  };
 
   factory SEnumDeclaration.fromJson(Map<String, dynamic> json) {
     return SEnumDeclaration(
@@ -533,27 +561,36 @@ class SEnumDeclaration extends SNamedCompilationUnitMember with SNamedDeclaratio
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
       typeParameters: json['typeParameters'] != null
           ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>)
+              json['typeParameters'] as Map<String, dynamic>,
+            )
           : null,
       implementsClause: json['implementsClause'] != null
           ? SImplementsClause.fromJson(
-              json['implementsClause'] as Map<String, dynamic>)
+              json['implementsClause'] as Map<String, dynamic>,
+            )
           : null,
       withClause: json['withClause'] != null
           ? SWithClause.fromJson(json['withClause'] as Map<String, dynamic>)
           : null,
-      constants: (json['constants'] as List?)
-              ?.map((c) =>
-                  SEnumConstantDeclaration.fromJson(c as Map<String, dynamic>))
+      constants:
+          (json['constants'] as List?)
+              ?.map(
+                (c) => SEnumConstantDeclaration.fromJson(
+                  c as Map<String, dynamic>,
+                ),
+              )
               .toList() ??
           [],
-      members: SAstNodeFactory.listFromJson<SClassMember>(json['members'] as List?),
+      members: SAstNodeFactory.listFromJson<SClassMember>(
+        json['members'] as List?,
+      ),
     );
   }
 
@@ -606,14 +643,14 @@ class SEnumConstantDeclaration extends SDeclaration with SNamedDeclaration {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
-        if (arguments != null) 'arguments': arguments!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
+    if (arguments != null) 'arguments': arguments!.toJson(),
+  };
 
   factory SEnumConstantDeclaration.fromJson(Map<String, dynamic> json) {
     return SEnumConstantDeclaration(
@@ -622,13 +659,15 @@ class SEnumConstantDeclaration extends SDeclaration with SNamedDeclaration {
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
       typeArguments: json['typeArguments'] != null
           ? STypeArgumentList.fromJson(
-              json['typeArguments'] as Map<String, dynamic>)
+              json['typeArguments'] as Map<String, dynamic>,
+            )
           : null,
       arguments: json['arguments'] != null
           ? SArgumentList.fromJson(json['arguments'] as Map<String, dynamic>)
@@ -637,7 +676,8 @@ class SEnumConstantDeclaration extends SDeclaration with SNamedDeclaration {
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitEnumConstantDeclaration(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitEnumConstantDeclaration(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -654,7 +694,8 @@ class SEnumConstantDeclaration extends SDeclaration with SNamedDeclaration {
 // Extension Declaration
 // ============================================================================
 
-class SExtensionDeclaration extends SCompilationUnitMember with SNamedDeclaration {
+class SExtensionDeclaration extends SCompilationUnitMember
+    with SNamedDeclaration {
   @override
   final int offset;
   @override
@@ -684,15 +725,15 @@ class SExtensionDeclaration extends SCompilationUnitMember with SNamedDeclaratio
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
-        if (extendedType != null) 'extendedType': extendedType!.toJson(),
-        'members': members.map((m) => m.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+    if (extendedType != null) 'extendedType': extendedType!.toJson(),
+    'members': members.map((m) => m.toJson()).toList(),
+  };
 
   factory SExtensionDeclaration.fromJson(Map<String, dynamic> json) {
     return SExtensionDeclaration(
@@ -701,22 +742,30 @@ class SExtensionDeclaration extends SCompilationUnitMember with SNamedDeclaratio
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
       typeParameters: json['typeParameters'] != null
           ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>)
+              json['typeParameters'] as Map<String, dynamic>,
+            )
           : null,
       extendedType:
-          SAstNodeFactory.fromJson(json['extendedType'] as Map<String, dynamic>?) as STypeAnnotation?,
-      members: SAstNodeFactory.listFromJson<SClassMember>(json['members'] as List?),
+          SAstNodeFactory.fromJson(
+                json['extendedType'] as Map<String, dynamic>?,
+              )
+              as STypeAnnotation?,
+      members: SAstNodeFactory.listFromJson<SClassMember>(
+        json['members'] as List?,
+      ),
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitExtensionDeclaration(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitExtensionDeclaration(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -786,17 +835,17 @@ class SVariableDeclaration extends SDeclaration with SNamedDeclaration {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        if (initializer != null) 'initializer': initializer!.toJson(),
-        'isConst': isConst,
-        'isFinal': isFinal,
-        'isLate': isLate,
-        if (declSlot != null) 'declSlot': declSlot,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    if (initializer != null) 'initializer': initializer!.toJson(),
+    'isConst': isConst,
+    'isFinal': isFinal,
+    'isLate': isLate,
+    if (declSlot != null) 'declSlot': declSlot,
+  };
 
   factory SVariableDeclaration.fromJson(Map<String, dynamic> json) {
     return SVariableDeclaration(
@@ -805,12 +854,14 @@ class SVariableDeclaration extends SDeclaration with SNamedDeclaration {
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
       initializer:
-          SAstNodeFactory.fromJson(json['initializer'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['initializer'] as Map<String, dynamic>?)
+              as SExpression?,
       isConst: json['isConst'] as bool? ?? false,
       isFinal: json['isFinal'] as bool? ?? false,
       isLate: json['isLate'] as bool? ?? false,
@@ -818,7 +869,8 @@ class SVariableDeclaration extends SDeclaration with SNamedDeclaration {
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitVariableDeclaration(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitVariableDeclaration(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -866,31 +918,36 @@ class SVariableDeclarationList extends SDeclaration {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (type != null) 'type': type!.toJson(),
-        'variables': variables.map((v) => v.toJson()).toList(),
-        'isConst': isConst,
-        'isFinal': isFinal,
-        'isLate': isLate,
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (type != null) 'type': type!.toJson(),
+    'variables': variables.map((v) => v.toJson()).toList(),
+    'isConst': isConst,
+    'isFinal': isFinal,
+    'isLate': isLate,
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+  };
 
   factory SVariableDeclarationList.fromJson(Map<String, dynamic> json) {
     return SVariableDeclarationList(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
-      variables: (json['variables'] as List?)
-              ?.map((v) =>
-                  SVariableDeclaration.fromJson(v as Map<String, dynamic>))
+      type:
+          SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?)
+              as STypeAnnotation?,
+      variables:
+          (json['variables'] as List?)
+              ?.map(
+                (v) => SVariableDeclaration.fromJson(v as Map<String, dynamic>),
+              )
               .toList() ??
           [],
       isConst: json['isConst'] as bool? ?? false,
       isFinal: json['isFinal'] as bool? ?? false,
       isLate: json['isLate'] as bool? ?? false,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
@@ -898,7 +955,8 @@ class SVariableDeclarationList extends SDeclaration {
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitVariableDeclarationList(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitVariableDeclarationList(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -942,22 +1000,23 @@ class SFieldDeclaration extends SClassMember {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        'isStatic': isStatic,
-        'isAbstract': isAbstract,
-        'isCovariant': isCovariant,
-        'isExternal': isExternal,
-        if (fields != null) 'fields': fields!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    'isStatic': isStatic,
+    'isAbstract': isAbstract,
+    'isCovariant': isCovariant,
+    'isExternal': isExternal,
+    if (fields != null) 'fields': fields!.toJson(),
+  };
 
   factory SFieldDeclaration.fromJson(Map<String, dynamic> json) {
     return SFieldDeclaration(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
@@ -967,7 +1026,8 @@ class SFieldDeclaration extends SClassMember {
       isExternal: json['isExternal'] as bool? ?? false,
       fields: json['fields'] != null
           ? SVariableDeclarationList.fromJson(
-              json['fields'] as Map<String, dynamic>)
+              json['fields'] as Map<String, dynamic>,
+            )
           : null,
     );
   }
@@ -1008,32 +1068,35 @@ class STopLevelVariableDeclaration extends SCompilationUnitMember {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        'isExternal': isExternal,
-        if (variables != null) 'variables': variables!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    'isExternal': isExternal,
+    if (variables != null) 'variables': variables!.toJson(),
+  };
 
   factory STopLevelVariableDeclaration.fromJson(Map<String, dynamic> json) {
     return STopLevelVariableDeclaration(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
       isExternal: json['isExternal'] as bool? ?? false,
       variables: json['variables'] != null
           ? SVariableDeclarationList.fromJson(
-              json['variables'] as Map<String, dynamic>)
+              json['variables'] as Map<String, dynamic>,
+            )
           : null,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitTopLevelVariableDeclaration(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitTopLevelVariableDeclaration(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -1103,21 +1166,21 @@ class SConstructorDeclaration extends SClassMember with SNamedDeclaration {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        if (returnType != null) 'returnType': returnType!.toJson(),
-        'isFactory': isFactory,
-        'isConst': isConst,
-        'isExternal': isExternal,
-        if (parameters != null) 'parameters': parameters!.toJson(),
-        'initializers': initializers.map((i) => i.toJson()).toList(),
-        if (redirectedConstructor != null)
-          'redirectedConstructor': redirectedConstructor!.toJson(),
-        if (body != null) 'body': body!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    if (returnType != null) 'returnType': returnType!.toJson(),
+    'isFactory': isFactory,
+    'isConst': isConst,
+    'isExternal': isExternal,
+    if (parameters != null) 'parameters': parameters!.toJson(),
+    'initializers': initializers.map((i) => i.toJson()).toList(),
+    if (redirectedConstructor != null)
+      'redirectedConstructor': redirectedConstructor!.toJson(),
+    if (body != null) 'body': body!.toJson(),
+  };
 
   factory SConstructorDeclaration.fromJson(Map<String, dynamic> json) {
     return SConstructorDeclaration(
@@ -1126,33 +1189,41 @@ class SConstructorDeclaration extends SClassMember with SNamedDeclaration {
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
       returnType: json['returnType'] != null
           ? SSimpleIdentifier.fromJson(
-              json['returnType'] as Map<String, dynamic>)
+              json['returnType'] as Map<String, dynamic>,
+            )
           : null,
       isFactory: json['isFactory'] as bool? ?? false,
       isConst: json['isConst'] as bool? ?? false,
       isExternal: json['isExternal'] as bool? ?? false,
       parameters: json['parameters'] != null
           ? SFormalParameterList.fromJson(
-              json['parameters'] as Map<String, dynamic>)
+              json['parameters'] as Map<String, dynamic>,
+            )
           : null,
-      initializers:
-          SAstNodeFactory.listFromJson<SConstructorInitializer>(json['initializers'] as List?),
+      initializers: SAstNodeFactory.listFromJson<SConstructorInitializer>(
+        json['initializers'] as List?,
+      ),
       redirectedConstructor: json['redirectedConstructor'] != null
           ? SConstructorName.fromJson(
-              json['redirectedConstructor'] as Map<String, dynamic>)
+              json['redirectedConstructor'] as Map<String, dynamic>,
+            )
           : null,
-      body: SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?) as SFunctionBody?,
+      body:
+          SAstNodeFactory.fromJson(json['body'] as Map<String, dynamic>?)
+              as SFunctionBody?,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitConstructorDeclaration(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitConstructorDeclaration(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -1174,7 +1245,8 @@ class SConstructorDeclaration extends SClassMember with SNamedDeclaration {
 // Typedef Declaration
 // ============================================================================
 
-class STypedefDeclaration extends SNamedCompilationUnitMember with SNamedDeclaration {
+class STypedefDeclaration extends SNamedCompilationUnitMember
+    with SNamedDeclaration {
   @override
   final int offset;
   @override
@@ -1202,14 +1274,14 @@ class STypedefDeclaration extends SNamedCompilationUnitMember with SNamedDeclara
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
-        if (type != null) 'type': type!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+    if (type != null) 'type': type!.toJson(),
+  };
 
   factory STypedefDeclaration.fromJson(Map<String, dynamic> json) {
     return STypedefDeclaration(
@@ -1218,15 +1290,19 @@ class STypedefDeclaration extends SNamedCompilationUnitMember with SNamedDeclara
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
       typeParameters: json['typeParameters'] != null
           ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>)
+              json['typeParameters'] as Map<String, dynamic>,
+            )
           : null,
-      type: SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?) as STypeAnnotation?,
+      type:
+          SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?)
+              as STypeAnnotation?,
     );
   }
 
@@ -1249,7 +1325,8 @@ class STypedefDeclaration extends SNamedCompilationUnitMember with SNamedDeclara
 // ============================================================================
 
 /// An extension type declaration: `extension type MyType(int value) implements int { ... }`
-class SExtensionTypeDeclaration extends SNamedCompilationUnitMember with SNamedDeclaration {
+class SExtensionTypeDeclaration extends SNamedCompilationUnitMember
+    with SNamedDeclaration {
   @override
   final int offset;
   @override
@@ -1292,18 +1369,18 @@ class SExtensionTypeDeclaration extends SNamedCompilationUnitMember with SNamedD
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
-        'representation': representation.toJson(),
-        if (implementsClause != null)
-          'implementsClause': implementsClause!.toJson(),
-        'members': members.map((m) => m.toJson()).toList(),
-        'isConst': isConst,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    if (typeParameters != null) 'typeParameters': typeParameters!.toJson(),
+    'representation': representation.toJson(),
+    if (implementsClause != null)
+      'implementsClause': implementsClause!.toJson(),
+    'members': members.map((m) => m.toJson()).toList(),
+    'isConst': isConst,
+  };
 
   factory SExtensionTypeDeclaration.fromJson(Map<String, dynamic> json) {
     return SExtensionTypeDeclaration(
@@ -1312,27 +1389,36 @@ class SExtensionTypeDeclaration extends SNamedCompilationUnitMember with SNamedD
       name: json['name'] != null
           ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
           : null,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
       typeParameters: json['typeParameters'] != null
           ? STypeParameterList.fromJson(
-              json['typeParameters'] as Map<String, dynamic>)
+              json['typeParameters'] as Map<String, dynamic>,
+            )
           : null,
-      representation: SAstNodeFactory.fromJson(
-          json['representation'] as Map<String, dynamic>?) as SRepresentationDeclaration,
+      representation:
+          SAstNodeFactory.fromJson(
+                json['representation'] as Map<String, dynamic>?,
+              )
+              as SRepresentationDeclaration,
       implementsClause: json['implementsClause'] != null
           ? SImplementsClause.fromJson(
-              json['implementsClause'] as Map<String, dynamic>)
+              json['implementsClause'] as Map<String, dynamic>,
+            )
           : null,
-      members: SAstNodeFactory.listFromJson<SClassMember>(json['members'] as List?),
+      members: SAstNodeFactory.listFromJson<SClassMember>(
+        json['members'] as List?,
+      ),
       isConst: json['isConst'] as bool? ?? false,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitExtensionTypeDeclaration(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitExtensionTypeDeclaration(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -1378,12 +1464,12 @@ class SRepresentationDeclaration extends SAstNode {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'fieldName': fieldName,
-        'fieldType': fieldType.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'fieldName': fieldName,
+    'fieldType': fieldType.toJson(),
+  };
 
   factory SRepresentationDeclaration.fromJson(Map<String, dynamic> json) {
     return SRepresentationDeclaration(
@@ -1391,12 +1477,14 @@ class SRepresentationDeclaration extends SAstNode {
       length: json['length'] as int,
       fieldName: json['fieldName'] as String,
       fieldType:
-          SAstNodeFactory.fromJson(json['fieldType'] as Map<String, dynamic>?) as STypeAnnotation,
+          SAstNodeFactory.fromJson(json['fieldType'] as Map<String, dynamic>?)
+              as STypeAnnotation,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitRepresentationDeclaration(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitRepresentationDeclaration(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {

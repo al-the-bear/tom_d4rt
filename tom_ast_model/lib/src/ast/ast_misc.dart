@@ -26,17 +26,19 @@ class SArgumentList extends SAstNode {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'arguments': arguments.map((a) => a.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'arguments': arguments.map((a) => a.toJson()).toList(),
+  };
 
   factory SArgumentList.fromJson(Map<String, dynamic> json) {
     return SArgumentList(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      arguments: SAstNodeFactory.listFromJson<SExpression>(json['arguments'] as List?),
+      arguments: SAstNodeFactory.listFromJson<SExpression>(
+        json['arguments'] as List?,
+      ),
     );
   }
 
@@ -80,15 +82,14 @@ class SAnnotation extends SAstNode {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (name != null) 'name': name!.toJson(),
-        if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
-        if (constructorName != null)
-          'constructorName': constructorName!.toJson(),
-        if (arguments != null) 'arguments': arguments!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (name != null) 'name': name!.toJson(),
+    if (typeArguments != null) 'typeArguments': typeArguments!.toJson(),
+    if (constructorName != null) 'constructorName': constructorName!.toJson(),
+    if (arguments != null) 'arguments': arguments!.toJson(),
+  };
 
   factory SAnnotation.fromJson(Map<String, dynamic> json) {
     return SAnnotation(
@@ -99,11 +100,13 @@ class SAnnotation extends SAstNode {
           : null,
       typeArguments: json['typeArguments'] != null
           ? STypeArgumentList.fromJson(
-              json['typeArguments'] as Map<String, dynamic>)
+              json['typeArguments'] as Map<String, dynamic>,
+            )
           : null,
       constructorName: json['constructorName'] != null
           ? SSimpleIdentifier.fromJson(
-              json['constructorName'] as Map<String, dynamic>)
+              json['constructorName'] as Map<String, dynamic>,
+            )
           : null,
       arguments: json['arguments'] != null
           ? SArgumentList.fromJson(json['arguments'] as Map<String, dynamic>)
@@ -148,12 +151,12 @@ class SComment extends SAstNode {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'content': content,
-        'commentType': commentType,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'content': content,
+    'commentType': commentType,
+  };
 
   factory SComment.fromJson(Map<String, dynamic> json) {
     return SComment(
@@ -183,22 +186,18 @@ class SLabel extends SAstNode {
 
   final SSimpleIdentifier? label;
 
-  SLabel({
-    required this.offset,
-    required this.length,
-    this.label,
-  });
+  SLabel({required this.offset, required this.length, this.label});
 
   @override
   String get nodeType => 'Label';
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (label != null) 'label': label!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (label != null) 'label': label!.toJson(),
+  };
 
   factory SLabel.fromJson(Map<String, dynamic> json) {
     return SLabel(
@@ -231,22 +230,18 @@ class SExtendsClause extends SAstNode {
 
   final SNamedType? superclass;
 
-  SExtendsClause({
-    required this.offset,
-    required this.length,
-    this.superclass,
-  });
+  SExtendsClause({required this.offset, required this.length, this.superclass});
 
   @override
   String get nodeType => 'ExtendsClause';
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (superclass != null) 'superclass': superclass!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (superclass != null) 'superclass': superclass!.toJson(),
+  };
 
   factory SExtendsClause.fromJson(Map<String, dynamic> json) {
     return SExtendsClause(
@@ -286,17 +281,18 @@ class SImplementsClause extends SAstNode {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'interfaces': interfaces.map((i) => i.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'interfaces': interfaces.map((i) => i.toJson()).toList(),
+  };
 
   factory SImplementsClause.fromJson(Map<String, dynamic> json) {
     return SImplementsClause(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      interfaces: (json['interfaces'] as List?)
+      interfaces:
+          (json['interfaces'] as List?)
               ?.map((i) => SNamedType.fromJson(i as Map<String, dynamic>))
               .toList() ??
           [],
@@ -333,17 +329,18 @@ class SWithClause extends SAstNode {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'mixinTypes': mixinTypes.map((m) => m.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'mixinTypes': mixinTypes.map((m) => m.toJson()).toList(),
+  };
 
   factory SWithClause.fromJson(Map<String, dynamic> json) {
     return SWithClause(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      mixinTypes: (json['mixinTypes'] as List?)
+      mixinTypes:
+          (json['mixinTypes'] as List?)
               ?.map((m) => SNamedType.fromJson(m as Map<String, dynamic>))
               .toList() ??
           [],
@@ -380,18 +377,20 @@ class SOnClause extends SAstNode {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'superclassConstraints':
-            superclassConstraints.map((s) => s.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'superclassConstraints': superclassConstraints
+        .map((s) => s.toJson())
+        .toList(),
+  };
 
   factory SOnClause.fromJson(Map<String, dynamic> json) {
     return SOnClause(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      superclassConstraints: (json['superclassConstraints'] as List?)
+      superclassConstraints:
+          (json['superclassConstraints'] as List?)
               ?.map((s) => SNamedType.fromJson(s as Map<String, dynamic>))
               .toList() ??
           [],
@@ -434,12 +433,12 @@ class SConstructorName extends SAstNode {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (type != null) 'type': type!.toJson(),
-        if (name != null) 'name': name!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (type != null) 'type': type!.toJson(),
+    if (name != null) 'name': name!.toJson(),
+  };
 
   factory SConstructorName.fromJson(Map<String, dynamic> json) {
     return SConstructorName(
@@ -485,13 +484,12 @@ class SSuperConstructorInvocation extends SConstructorInitializer {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (constructorName != null)
-          'constructorName': constructorName!.toJson(),
-        if (argumentList != null) 'argumentList': argumentList!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (constructorName != null) 'constructorName': constructorName!.toJson(),
+    if (argumentList != null) 'argumentList': argumentList!.toJson(),
+  };
 
   factory SSuperConstructorInvocation.fromJson(Map<String, dynamic> json) {
     return SSuperConstructorInvocation(
@@ -499,7 +497,8 @@ class SSuperConstructorInvocation extends SConstructorInitializer {
       length: json['length'] as int,
       constructorName: json['constructorName'] != null
           ? SSimpleIdentifier.fromJson(
-              json['constructorName'] as Map<String, dynamic>)
+              json['constructorName'] as Map<String, dynamic>,
+            )
           : null,
       argumentList: json['argumentList'] != null
           ? SArgumentList.fromJson(json['argumentList'] as Map<String, dynamic>)
@@ -508,7 +507,8 @@ class SSuperConstructorInvocation extends SConstructorInitializer {
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitSuperConstructorInvocation(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitSuperConstructorInvocation(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -538,21 +538,23 @@ class SRedirectingConstructorInvocation extends SConstructorInitializer {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (constructorName != null)
-          'constructorName': constructorName!.toJson(),
-        if (argumentList != null) 'argumentList': argumentList!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (constructorName != null) 'constructorName': constructorName!.toJson(),
+    if (argumentList != null) 'argumentList': argumentList!.toJson(),
+  };
 
-  factory SRedirectingConstructorInvocation.fromJson(Map<String, dynamic> json) {
+  factory SRedirectingConstructorInvocation.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return SRedirectingConstructorInvocation(
       offset: json['offset'] as int,
       length: json['length'] as int,
       constructorName: json['constructorName'] != null
           ? SSimpleIdentifier.fromJson(
-              json['constructorName'] as Map<String, dynamic>)
+              json['constructorName'] as Map<String, dynamic>,
+            )
           : null,
       argumentList: json['argumentList'] != null
           ? SArgumentList.fromJson(json['argumentList'] as Map<String, dynamic>)
@@ -561,7 +563,8 @@ class SRedirectingConstructorInvocation extends SConstructorInitializer {
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitRedirectingConstructorInvocation(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitRedirectingConstructorInvocation(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -591,12 +594,12 @@ class SConstructorFieldInitializer extends SConstructorInitializer {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (fieldName != null) 'fieldName': fieldName!.toJson(),
-        if (expression != null) 'expression': expression!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (fieldName != null) 'fieldName': fieldName!.toJson(),
+    if (expression != null) 'expression': expression!.toJson(),
+  };
 
   factory SConstructorFieldInitializer.fromJson(Map<String, dynamic> json) {
     return SConstructorFieldInitializer(
@@ -604,15 +607,18 @@ class SConstructorFieldInitializer extends SConstructorInitializer {
       length: json['length'] as int,
       fieldName: json['fieldName'] != null
           ? SSimpleIdentifier.fromJson(
-              json['fieldName'] as Map<String, dynamic>)
+              json['fieldName'] as Map<String, dynamic>,
+            )
           : null,
       expression:
-          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['expression'] as Map<String, dynamic>?)
+              as SExpression?,
     );
   }
 
   @override
-  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitConstructorFieldInitializer(this);
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitConstructorFieldInitializer(this);
 
   @override
   void visitChildren(SAstVisitor visitor) {
@@ -642,21 +648,23 @@ class SAssertInitializer extends SConstructorInitializer {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        if (condition != null) 'condition': condition!.toJson(),
-        if (message != null) 'message': message!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (condition != null) 'condition': condition!.toJson(),
+    if (message != null) 'message': message!.toJson(),
+  };
 
   factory SAssertInitializer.fromJson(Map<String, dynamic> json) {
     return SAssertInitializer(
       offset: json['offset'] as int,
       length: json['length'] as int,
       condition:
-          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['condition'] as Map<String, dynamic>?)
+              as SExpression?,
       message:
-          SAstNodeFactory.fromJson(json['message'] as Map<String, dynamic>?) as SExpression?,
+          SAstNodeFactory.fromJson(json['message'] as Map<String, dynamic>?)
+              as SExpression?,
     );
   }
 

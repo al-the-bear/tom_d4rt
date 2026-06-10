@@ -35,29 +35,34 @@ class SImportDirective extends SNamespaceDirective {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        if (uri != null) 'uri': uri!.toJson(),
-        if (prefix != null) 'prefix': prefix!.toJson(),
-        'combinators': combinators.map((c) => c.toJson()).toList(),
-        'isDeferred': isDeferred,
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    if (uri != null) 'uri': uri!.toJson(),
+    if (prefix != null) 'prefix': prefix!.toJson(),
+    'combinators': combinators.map((c) => c.toJson()).toList(),
+    'isDeferred': isDeferred,
+  };
 
   factory SImportDirective.fromJson(Map<String, dynamic> json) {
     return SImportDirective(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      uri: SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?) as SStringLiteral?,
+      uri:
+          SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?)
+              as SStringLiteral?,
       prefix: json['prefix'] != null
           ? SSimpleIdentifier.fromJson(json['prefix'] as Map<String, dynamic>)
           : null,
-      combinators: SAstNodeFactory.listFromJson<SCombinator>(json['combinators'] as List?),
+      combinators: SAstNodeFactory.listFromJson<SCombinator>(
+        json['combinators'] as List?,
+      ),
       isDeferred: json['isDeferred'] as bool? ?? false,
     );
   }
@@ -106,24 +111,29 @@ class SExportDirective extends SNamespaceDirective {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        if (uri != null) 'uri': uri!.toJson(),
-        'combinators': combinators.map((c) => c.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    if (uri != null) 'uri': uri!.toJson(),
+    'combinators': combinators.map((c) => c.toJson()).toList(),
+  };
 
   factory SExportDirective.fromJson(Map<String, dynamic> json) {
     return SExportDirective(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      uri: SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?) as SStringLiteral?,
-      combinators: SAstNodeFactory.listFromJson<SCombinator>(json['combinators'] as List?),
+      uri:
+          SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?)
+              as SStringLiteral?,
+      combinators: SAstNodeFactory.listFromJson<SCombinator>(
+        json['combinators'] as List?,
+      ),
     );
   }
 
@@ -168,22 +178,25 @@ class SPartDirective extends SUriBasedDirective {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        if (uri != null) 'uri': uri!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    if (uri != null) 'uri': uri!.toJson(),
+  };
 
   factory SPartDirective.fromJson(Map<String, dynamic> json) {
     return SPartDirective(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      uri: SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?) as SStringLiteral?,
+      uri:
+          SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?)
+              as SStringLiteral?,
     );
   }
 
@@ -223,25 +236,29 @@ class SPartOfDirective extends SDirective {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        if (uri != null) 'uri': uri!.toJson(),
-        if (libraryName != null) 'libraryName': libraryName!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    if (uri != null) 'uri': uri!.toJson(),
+    if (libraryName != null) 'libraryName': libraryName!.toJson(),
+  };
 
   factory SPartOfDirective.fromJson(Map<String, dynamic> json) {
     return SPartOfDirective(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      uri: SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?) as SStringLiteral?,
+      uri:
+          SAstNodeFactory.fromJson(json['uri'] as Map<String, dynamic>?)
+              as SStringLiteral?,
       libraryName:
-          SAstNodeFactory.fromJson(json['libraryName'] as Map<String, dynamic>?) as SIdentifier?,
+          SAstNodeFactory.fromJson(json['libraryName'] as Map<String, dynamic>?)
+              as SIdentifier?,
     );
   }
 
@@ -284,22 +301,25 @@ class SLibraryDirective extends SDirective {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'metadata': metadata.map((a) => a.toJson()).toList(),
-        if (name != null) 'name': name!.toJson(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'metadata': metadata.map((a) => a.toJson()).toList(),
+    if (name != null) 'name': name!.toJson(),
+  };
 
   factory SLibraryDirective.fromJson(Map<String, dynamic> json) {
     return SLibraryDirective(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      metadata: (json['metadata'] as List?)
+      metadata:
+          (json['metadata'] as List?)
               ?.map((a) => SAnnotation.fromJson(a as Map<String, dynamic>))
               .toList() ??
           [],
-      name: SAstNodeFactory.fromJson(json['name'] as Map<String, dynamic>?) as SIdentifier?,
+      name:
+          SAstNodeFactory.fromJson(json['name'] as Map<String, dynamic>?)
+              as SIdentifier?,
     );
   }
 
@@ -338,19 +358,21 @@ class SShowCombinator extends SCombinator {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'shownNames': shownNames.map((n) => n.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'shownNames': shownNames.map((n) => n.toJson()).toList(),
+  };
 
   factory SShowCombinator.fromJson(Map<String, dynamic> json) {
     return SShowCombinator(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      shownNames: (json['shownNames'] as List?)
+      shownNames:
+          (json['shownNames'] as List?)
               ?.map(
-                  (n) => SSimpleIdentifier.fromJson(n as Map<String, dynamic>))
+                (n) => SSimpleIdentifier.fromJson(n as Map<String, dynamic>),
+              )
               .toList() ??
           [],
     );
@@ -386,19 +408,21 @@ class SHideCombinator extends SCombinator {
 
   @override
   Map<String, dynamic> toJson() => {
-        'nodeType': nodeType,
-        'offset': offset,
-        'length': length,
-        'hiddenNames': hiddenNames.map((n) => n.toJson()).toList(),
-      };
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    'hiddenNames': hiddenNames.map((n) => n.toJson()).toList(),
+  };
 
   factory SHideCombinator.fromJson(Map<String, dynamic> json) {
     return SHideCombinator(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      hiddenNames: (json['hiddenNames'] as List?)
+      hiddenNames:
+          (json['hiddenNames'] as List?)
               ?.map(
-                  (n) => SSimpleIdentifier.fromJson(n as Map<String, dynamic>))
+                (n) => SSimpleIdentifier.fromJson(n as Map<String, dynamic>),
+              )
               .toList() ??
           [],
     );
