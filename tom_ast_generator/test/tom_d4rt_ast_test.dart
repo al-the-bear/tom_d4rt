@@ -197,7 +197,7 @@ void main() {
       expect(use.resolvedSlot, isNull);
     });
 
-    test('an assigned local is ineligible in the read-only cut', () {
+    test('a depth-0 assigned local IS slotted (S3d)', () {
       final ast = convert('''
 void main() {
   var a = 1;
@@ -205,27 +205,72 @@ void main() {
   print(a);
 }
 ''');
-      // `a = 2` demotes `a` out of slot eligibility (read-only first cut).
+      // S3d (plan_3 §4.7): `a = 2` is a depth-0 assignment target, so `a` stays
+      // slot-eligible (the write is kept in sync with the slot by
+      // `Environment.assign`'s `_slotIndex` path). The read `print(a)` carries
+      // the slot coordinate.
+      expect(mainBlock(ast).slotCount, equals(1));
+      expect(declNamed(ast, 'a').declSlot, equals(0));
+      // The read `print(a)` carries the slot coordinate; the assignment-target
+      // `a` in `a = 2` is intercepted as a write (no read coordinate), so filter
+      // to the use that actually got a slot.
+      final slottedUses = collect<SSimpleIdentifier>(ast)
+          .where((id) => id.name == 'a' && id.resolvedSlot != null)
+          .toList();
+      expect(slottedUses.length, equals(1));
+      expect(slottedUses.single.resolvedSlot, equals(0));
+    });
+
+    test('a depth>0 assignment target escapes (S3d, no slot)', () {
+      final ast = convert('''
+void main() {
+  var a = 1;
+  {
+    a = 2;
+  }
+  print(a);
+}
+''');
+      // `a = 2` is assigned from a nested block (depth 1) → escaped → not
+      // slotted, exactly like a depth>0 read.
       expect(mainBlock(ast).slotCount, equals(0));
       expect(declNamed(ast, 'a').declSlot, isNull);
     });
 
-    test('eligible siblings compact around an ineligible local', () {
+    test('eligible siblings compact around an ineligible (escaped) local', () {
       final ast = convert('''
 void main() {
   var a = 1;
   var b = 2;
   var c = 3;
-  b = 9;
+  {
+    print(b);
+  }
   print(a);
   print(c);
 }
 ''');
-      // `b` is assigned → ineligible; `a` and `c` compact to dense 0,1.
+      // `b` escapes into a nested block → ineligible; `a` and `c` compact to
+      // dense 0,1. (A depth-0 assignment no longer demotes under S3d, so the
+      // ineligibility here is driven by the nested-block read.)
       expect(mainBlock(ast).slotCount, equals(2));
       expect(declNamed(ast, 'a').declSlot, equals(0));
       expect(declNamed(ast, 'b').declSlot, isNull);
       expect(declNamed(ast, 'c').declSlot, equals(1));
+    });
+
+    test('a depth-0 compound/increment target stays slotted (S3d)', () {
+      final ast = convert('''
+void main() {
+  var a = 0;
+  a += 5;
+  a++;
+  print(a);
+}
+''');
+      // `a += 5` and `a++` are depth-0 assignment targets → still eligible.
+      expect(mainBlock(ast).slotCount, equals(1));
+      expect(declNamed(ast, 'a').declSlot, equals(0));
     });
 
     test('locals in an async function body are not slotted', () {

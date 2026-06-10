@@ -34,8 +34,9 @@ bool opensLexicalFrame(SAstNode node) {
 /// `var`/`final` locals declared directly in a slottable [SBlock] qualify; local
 /// function names are recorded with a null [node] so they correctly *shadow*
 /// outer same-named locals but are never themselves slotted). A candidate stays
-/// [eligible] until a depth>0 use (escape) or an assignment-target use demotes
-/// it; only eligible candidates receive a compacted slot on block exit.
+/// [eligible] until a depth>0 use (escape) — whether a read or an assignment
+/// target (S3d). A depth-0 assignment target no longer demotes (S3d, §4.7).
+/// Only eligible candidates receive a compacted slot on block exit.
 class _Decl {
   final String name;
 
@@ -259,8 +260,9 @@ class StaticResolver extends GeneralizingSAstVisitor<void> {
 
   @override
   void visitAssignmentExpression(SAssignmentExpression node) {
-    // An assignment target (`x = …`, `x += …`) demotes the local out of slot
-    // eligibility in this read-only first cut (S3d widens to `setSlot`). A
+    // An assignment target (`x = …`, `x += …`): S3d (plan_3 §4.6/§9.3) keeps a
+    // *depth-0* target slot-eligible (the write is synced to the slot by
+    // `Environment.assign`'s `_slotIndex` path); a depth>0 target escapes. A
     // complex target (`a.b = …`, `a[i] = …`) is descended normally.
     final lhs = node.leftHandSide;
     if (lhs is SSimpleIdentifier) {
@@ -321,15 +323,23 @@ class StaticResolver extends GeneralizingSAstVisitor<void> {
     }
   }
 
-  /// Classify a bare identifier *assignment target*: demote the matching
-  /// candidate to ineligible (read-only cut). Stops at the first declaring
-  /// frame (shadowing).
+  /// Classify a bare identifier *assignment target* (`x = …`, `x += …`, `x++`).
+  /// S3d (plan_3 §4.6/§9.3): a **depth-0** assignment target — the variable
+  /// assigned within its own declaring block — stays slot-eligible; the write is
+  /// kept in sync with the slot by `Environment.assign`'s `_slotIndex` path
+  /// (added in S3b pt2), so later reads still resolve through `getSlot`. A
+  /// **depth>0** assignment target *escapes* the candidate (assigned from a
+  /// nested frame → ineligible), exactly like a depth>0 read; widening those to a
+  /// cross-frame `setSlot` is S3e (§4.7). Stops at the first declaring frame
+  /// (shadowing).
   void _useAssignTarget(String name) {
     for (var depth = 0; depth < _stack.length; depth++) {
       final frame = _stack[_stack.length - 1 - depth];
       final decl = frame.declOf(name);
       if (decl == null) continue;
-      if (decl.isCandidate) decl.eligible = false;
+      if (decl.isCandidate && depth != 0) {
+        decl.eligible = false; // assigned from a nested frame → escaped
+      }
       return;
     }
   }
