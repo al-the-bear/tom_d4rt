@@ -33,6 +33,7 @@ export 'package:tom_d4rt/src/environment.dart';
 export 'package:tom_d4rt/src/exceptions.dart';
 export 'package:tom_d4rt/src/interpreter_visitor.dart';
 export 'package:tom_d4rt/src/late_variable.dart';
+export 'package:tom_d4rt/src/scope_frame.dart';
 export 'package:tom_d4rt/src/stdlib/stdlib.dart';
 export 'src/d4rt_base.dart';
 export 'src/bridge/registration.dart' hide BridgedMethodCallable;

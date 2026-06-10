@@ -69,6 +69,25 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   /// [Environment.getAtDepthOrMiss]); a stale entry self-heals on the next read.
   final Expando<int> _identifierDepthCache = Expando<int>();
 
+  /// S1 (plan_3 §9.1): per-identifier-use static lexical coordinates produced
+  /// by [StaticResolver]. Read **only** inside a debug `assert` in
+  /// [visitSimpleIdentifier] to validate the static scope model against live
+  /// resolution — never consulted on the production hot path, so it is fully
+  /// stripped in `--release`/AOT. Empty until [resolveStaticCoordinates] runs;
+  /// nodes with no entry simply fall through to the existing name-keyed path.
+  final Expando<StaticCoord> staticCoords = Expando<StaticCoord>();
+
+  /// Runs the [StaticResolver] over [declarations], populating [staticCoords].
+  /// Invoked by the execute pipeline after Pass-1 declarations and before
+  /// Pass-2 interpretation. A no-op for execute paths that do not call it
+  /// (their nodes simply carry no coordinate).
+  void resolveStaticCoordinates(Iterable<AstNode> declarations) {
+    final resolver = StaticResolver(staticCoords);
+    for (final declaration in declarations) {
+      declaration.accept(resolver);
+    }
+  }
+
   /// Execute and clear all pending static-field initializers. Intended to be
   /// called by the top-level runner after every class declaration has been
   /// visited, so that forward-referenced class constructors are available.
@@ -391,6 +410,25 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   @override
   Object? visitSimpleIdentifier(SimpleIdentifier node) {
     final name = node.name;
+
+    // S1 (plan_3 §9.1) — validate the static resolver against live resolution.
+    // Debug-only: the whole block is stripped in `--release`/AOT and never
+    // touches the production hot path. A coordinate is emitted only for an
+    // innermost-block local (depth 0), which is at live depth 0 by construction;
+    // a mismatch means the resolver's scope model diverged from the interpreter
+    // (risk R1) and must be fixed before S3 relies on slots.
+    assert(() {
+      final coord = staticCoords[node];
+      if (coord != null) {
+        final live = environment.resolveDepthOf(name);
+        if (coord.depth != live) {
+          throw StateError(
+              'S1 static-resolver depth mismatch for "$name": '
+              'static=${coord.depth} live=$live');
+        }
+      }
+      return true;
+    }());
 
     if (Logger.isDebug) {
       Logger.debug(

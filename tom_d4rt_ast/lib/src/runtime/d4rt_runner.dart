@@ -1079,6 +1079,11 @@ class D4rtRunner {
       moduleContext: moduleContext,
     );
 
+    // S1 (perf plan_3 §9.1): populate the static-resolution side-table before
+    // Pass 2 so the validation assert in visitSimpleIdentifier can cross-check
+    // every resolved coordinate against the live environment depth.
+    _visitor!.resolveStaticCoordinates(compilationUnit.declarations);
+
     Object? functionResult;
     try {
       Logger.debug("[_executeInEnvironment] Starting Pass 2: Interpretation");

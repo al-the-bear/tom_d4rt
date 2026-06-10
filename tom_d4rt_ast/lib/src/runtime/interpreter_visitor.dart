@@ -84,6 +84,24 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   /// [Environment.getAtDepthOrMiss]); a stale entry self-heals on the next read.
   final Expando<int> _identifierDepthCache = Expando<int>();
 
+  /// S1 (perf plan_3 §9.1) static-resolution side-table: maps an identifier
+  /// *use* node to its statically-computed [StaticCoord]. Populated by
+  /// [resolveStaticCoordinates] before Pass 2. In S1 it carries only depth-0
+  /// coordinates and is consumed solely by the validation assert in
+  /// [visitSimpleIdentifier] — it does not yet change any read. S3 will switch
+  /// the read path onto these coordinates and retire the T9 [_identifierDepthCache].
+  final Expando<StaticCoord> staticCoords = Expando<StaticCoord>();
+
+  /// Run the S1 static lexical resolver over [declarations], populating
+  /// [staticCoords]. Mirror of the analyzer-side
+  /// `InterpreterVisitor.resolveStaticCoordinates`.
+  void resolveStaticCoordinates(Iterable<SAstNode> declarations) {
+    final resolver = StaticResolver(staticCoords);
+    for (final declaration in declarations) {
+      declaration.accept(resolver);
+    }
+  }
+
   /// Execute and clear all pending static-field initializers. Intended to be
   /// called by the top-level runner after every class declaration has been
   /// visited, so that forward-referenced class constructors are available.
@@ -437,6 +455,24 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   @override
   Object? visitSimpleIdentifier(SSimpleIdentifier node) {
     final name = node.name;
+
+    // S1 (perf plan_3 §9.1) validation: if the static resolver assigned a
+    // coordinate to this use, its depth must equal what the live environment
+    // resolves. Asserts only — no behaviour change. Proves the resolver's
+    // scope model against the real interpreter before S3 routes reads onto it.
+    assert(() {
+      final coord = staticCoords[node];
+      if (coord != null) {
+        final live = environment.resolveDepthOf(name);
+        if (coord.depth != live) {
+          throw StateError(
+            'S1 static-resolver depth mismatch for "$name": '
+            'static=${coord.depth} live=$live',
+          );
+        }
+      }
+      return true;
+    }());
 
     if (Logger.isDebug) {
       Logger.debug(

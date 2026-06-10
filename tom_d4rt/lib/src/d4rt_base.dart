@@ -1344,6 +1344,11 @@ class D4rt {
         globalEnvironment: executionEnvironment,
         moduleLoader: _moduleLoader,
         initiallibrary: library != null ? Uri.parse(library) : null);
+    // S1 (plan_3 §9.1): static lexical resolver pass. Populates the visitor's
+    // [staticCoords] side-table so the debug depth-assert in
+    // visitSimpleIdentifier can validate the scope model. No effect in
+    // release builds beyond the (cheap) resolver walk.
+    _visitor!.resolveStaticCoordinates(compilationUnit.declarations);
     Object? functionResult;
     try {
       Logger.debug("[_executeInEnvironment] Starting Pass 2: Interpretation");
