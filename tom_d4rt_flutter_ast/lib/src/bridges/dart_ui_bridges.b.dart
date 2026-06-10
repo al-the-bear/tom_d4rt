@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/development/flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart
-// Generated: 2026-06-07T20:18:51.921641
+// Generated: 2026-06-10T13:35:39.187946
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
