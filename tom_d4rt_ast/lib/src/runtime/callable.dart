@@ -1384,6 +1384,7 @@ class InterpretedFunction implements Callable {
     final previousFunction = visitor.currentFunction;
     final previousAsyncState = visitor.currentAsyncState;
 
+    D4rtDiag.enterCall();
     try {
       visitor.currentFunction = this;
 
@@ -1546,6 +1547,7 @@ class InterpretedFunction implements Callable {
     } finally {
       visitor.currentFunction = previousFunction;
       visitor.currentAsyncState = previousAsyncState;
+      D4rtDiag.exitCall();
     }
   }
 

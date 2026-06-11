@@ -1,3 +1,42 @@
+/// Lightweight, always-on interpreter instrumentation counters.
+///
+/// These are plain integer increments on the hottest interpreter paths — no
+/// allocation, no stack capture — so they are safe to leave compiled in. They
+/// exist to diagnose pathological per-frame cost in embeddings (e.g. the
+/// `particle_field` Flutter sample freeze): a harness reads [callCount] /
+/// [maxDepth] before and after a unit of work to see whether a spike is driven
+/// by call volume or interpreter recursion depth (the latter is what makes
+/// exception-based `return` unwinding expensive — see the perf analysis).
+class D4rtDiag {
+  /// Monotonic count of interpreted function-call entries (`_callImpl`).
+  static int callCount = 0;
+
+  /// Current synchronous interpreter call-nesting depth.
+  static int depth = 0;
+
+  /// High-water mark of [depth] since the last [reset].
+  static int maxDepth = 0;
+
+  /// Resets the windowed counters ([callCount], [maxDepth]). [depth] is the
+  /// live nesting level and is intentionally left untouched.
+  static void reset() {
+    callCount = 0;
+    maxDepth = 0;
+  }
+
+  /// Records entry into an interpreted call frame.
+  static void enterCall() {
+    callCount++;
+    depth++;
+    if (depth > maxDepth) maxDepth = depth;
+  }
+
+  /// Records exit from an interpreted call frame.
+  static void exitCall() {
+    depth--;
+  }
+}
+
 /// Static error reporter that tracks all created [D4rtException]s.
 ///
 /// This is used primarily in test modes to detect errors that occurred
