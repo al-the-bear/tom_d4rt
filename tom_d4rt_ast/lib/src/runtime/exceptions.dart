@@ -17,11 +17,31 @@ class D4rtDiag {
   /// High-water mark of [depth] since the last [reset].
   static int maxDepth = 0;
 
-  /// Resets the windowed counters ([callCount], [maxDepth]). [depth] is the
-  /// live nesting level and is intentionally left untouched.
+  /// Per-window allocation counters for the prime per-rebuild garbage
+  /// suspects. The `particle_field` freeze is a stop-the-world major GC of
+  /// ~2.2GB old-gen garbage accumulated at ~22MB/frame; these counters localize
+  /// which interpreter allocation dominates a single interpreted rebuild.
+  static int envAllocs = 0;
+
+  /// Count of interpreted-closure objects materialized in the window.
+  static int closureAllocs = 0;
+
+  /// Count of `InterpretedInstance` objects constructed in the window.
+  static int instanceAllocs = 0;
+
+  /// Count of `BridgedInstance` objects constructed in the window.
+  static int bridgedAllocs = 0;
+
+  /// Resets the windowed counters ([callCount], [maxDepth], and the allocation
+  /// counters). [depth] is the live nesting level and is intentionally left
+  /// untouched.
   static void reset() {
     callCount = 0;
     maxDepth = 0;
+    envAllocs = 0;
+    closureAllocs = 0;
+    instanceAllocs = 0;
+    bridgedAllocs = 0;
   }
 
   /// Records entry into an interpreted call frame.

@@ -327,7 +327,9 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
     this.bridgedClass,
     this.nativeObject, {
     this.typeArguments = const [],
-  }); // Removed local initialization
+  }) {
+    D4rtDiag.bridgedAllocs++;
+  }
 
   @override
   RuntimeType get valueType => bridgedClass;

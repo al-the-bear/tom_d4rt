@@ -180,7 +180,9 @@ class Environment {
   /// Creates a new environment, optionally with an enclosing (parent) environment.
   ///
   /// [enclosing] The parent environment for lexical scoping. If null, this becomes a root environment.
-  Environment({Environment? enclosing}) : _enclosing = enclosing;
+  Environment({Environment? enclosing}) : _enclosing = enclosing {
+    D4rtDiag.envAllocs++;
+  }
 
   /// Gets the enclosing (parent) environment, if any.
   Environment? get enclosing => _enclosing;

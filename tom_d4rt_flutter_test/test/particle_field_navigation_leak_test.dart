@@ -185,6 +185,11 @@ void _registerSingleMountProbe() {
       final callBuckets = <int, List<num>>{}; // 100-frame bucket -> calls/pump
       final depthBuckets = <int, List<num>>{}; // 100-frame bucket -> maxDepth
       final rssBuckets = <int, List<num>>{}; // 100-frame bucket -> RSS (MB)
+      // Per-pump allocation counts of the prime per-rebuild garbage suspects.
+      final envBuckets = <int, List<num>>{}; // Environment allocations/pump
+      final closureBuckets = <int, List<num>>{}; // InterpretedFunction/pump
+      final instanceBuckets = <int, List<num>>{}; // InterpretedInstance/pump
+      final bridgedBuckets = <int, List<num>>{}; // BridgedInstance/pump
       final canvas = find.byKey(const Key('field-canvas'));
       Offset? canvasCenter;
       if (canvas.evaluate().isNotEmpty) {
@@ -220,6 +225,10 @@ void _registerSingleMountProbe() {
         sw.stop();
         final calls = D4rtDiag.callCount;
         final maxDepth = D4rtDiag.maxDepth;
+        final envAllocs = D4rtDiag.envAllocs;
+        final closureAllocs = D4rtDiag.closureAllocs;
+        final instanceAllocs = D4rtDiag.instanceAllocs;
+        final bridgedAllocs = D4rtDiag.bridgedAllocs;
         final us = sw.elapsedMicroseconds;
         final rssMb = ProcessInfo.currentRss / (1024 * 1024);
         final b = frame ~/ 100;
@@ -227,9 +236,15 @@ void _registerSingleMountProbe() {
         callBuckets.putIfAbsent(b, () => <num>[]).add(calls);
         depthBuckets.putIfAbsent(b, () => <num>[]).add(maxDepth);
         rssBuckets.putIfAbsent(b, () => <num>[]).add(rssMb);
+        envBuckets.putIfAbsent(b, () => <num>[]).add(envAllocs);
+        closureBuckets.putIfAbsent(b, () => <num>[]).add(closureAllocs);
+        instanceBuckets.putIfAbsent(b, () => <num>[]).add(instanceAllocs);
+        bridgedBuckets.putIfAbsent(b, () => <num>[]).add(bridgedAllocs);
         if (us > 1000 * 1000) {
           slowFrames.add('frame=$frame  ${(us / 1e6).toStringAsFixed(2)}s  '
               'calls=$calls  maxDepth=$maxDepth  '
+              'env=$envAllocs  closures=$closureAllocs  '
+              'instances=$instanceAllocs  bridged=$bridgedAllocs  '
               'RSS=${rssMb.toStringAsFixed(0)}MB  '
               'modeSwitch=$didSwitch(${didSwitch ? switchedTo : "-"})  '
               'attractorTap=$didTap');
@@ -276,6 +291,10 @@ void _registerSingleMountProbe() {
             '${meanMs(bk).toStringAsFixed(2)} ms | '
             'calls~${meanOf(callBuckets, bk).toStringAsFixed(0)} | '
             'depth<=${maxOf(depthBuckets, bk)} | '
+            'env~${meanOf(envBuckets, bk).toStringAsFixed(0)} | '
+            'closures~${meanOf(closureBuckets, bk).toStringAsFixed(0)} | '
+            'inst~${meanOf(instanceBuckets, bk).toStringAsFixed(0)} | '
+            'bridged~${meanOf(bridgedBuckets, bk).toStringAsFixed(0)} | '
             'RSS~${meanOf(rssBuckets, bk).toStringAsFixed(0)}MB');
       }
       // ignore: avoid_print

@@ -1105,7 +1105,9 @@ class InterpretedInstance implements RuntimeValue {
   // Store generic type arguments for this instance (e.g., for List<String>, this would be [StringType])
   final List<RuntimeType>? typeArguments;
 
-  InterpretedInstance(this.klass, {this.typeArguments});
+  InterpretedInstance(this.klass, {this.typeArguments}) {
+    D4rtDiag.instanceAllocs++;
+  }
 
   /// Get the generic type arguments for this instance
   List<RuntimeType>? getTypeArguments() => typeArguments;

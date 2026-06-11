@@ -170,7 +170,9 @@ class InterpretedFunction implements Callable {
     this.isNullable = false,
     this.typeParameterNames = const [],
     this.typeParameterBounds = const {},
-  }) : _constructorInitializers = constructorInitializers;
+  }) : _constructorInitializers = constructorInitializers {
+    D4rtDiag.closureAllocs++;
+  }
 
   // Constructor for declared functions (top-level or nested, not methods)
   InterpretedFunction.declaration(FunctionDeclaration declaration,
