@@ -1609,7 +1609,20 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       return rightOperandValue;
     }
 
-    final leftBridgedInstance = toBridgedInstance(leftOperandValue);
+    // Perf (particle_field GC freeze): `num`/`String`/`bool` all have
+    // direct-type stdlib bridges, so `toBridgedInstance` would mint a fresh
+    // BridgedInstance for every arithmetic / comparison operand — millions of
+    // throwaway wrappers per second in a physics+paint loop — only for the
+    // value to be immediately unwrapped via `.nativeObject` (which equals the
+    // primitive itself). Skip the wrap for these natively-handled value types:
+    // numeric arithmetic is done inline below, and primitives never dispatch
+    // through a bridged-operator adapter. `(null, false)` is identical in
+    // effect to the wrapped-then-unwrapped result.
+    final leftBridgedInstance =
+        (leftOperandValue is num || leftOperandValue is String ||
+                leftOperandValue is bool)
+            ? (null, false)
+            : toBridgedInstance(leftOperandValue);
     // GEN-095 (D8f): an InterpretedFunction is a *function value*, not a
     // thunk. Auto-invoking it here corrupts equality / null-check semantics
     // for callbacks (e.g. `onHorizontalDrag == null` would invoke the
@@ -1622,7 +1635,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                 leftOperandValue.canCallWithoutArgs)
         ? leftOperandValue.call(this, [])
         : leftOperandValue;
-    final rightBridgedInstance = toBridgedInstance(rightOperandValue);
+    final rightBridgedInstance =
+        (rightOperandValue is num || rightOperandValue is String ||
+                rightOperandValue is bool)
+            ? (null, false)
+            : toBridgedInstance(rightOperandValue);
     final right = rightBridgedInstance.$2
         ? rightBridgedInstance.$1!.nativeObject
         : (rightOperandValue is InterpretedFunction &&
@@ -1735,8 +1752,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
 
     // Check for bridged operator methods (e.g., +, -, *, /, etc. on BridgedInstance)
-    if (toBridgedInstance(leftOperandValue).$2) {
-      final bridgedInstance = toBridgedInstance(leftOperandValue).$1!;
+    // Reuse the wrappers already resolved above (leftBridgedInstance /
+    // rightBridgedInstance): each `toBridgedInstance` call mints a fresh
+    // BridgedInstance and re-runs the type-resolution walk, so re-calling here
+    // would triple the per-operator bridged-wrapper churn that drives the
+    // particle_field GC freeze.
+    if (leftBridgedInstance.$2) {
+      final bridgedInstance = leftBridgedInstance.$1!;
       final bridgedClass = bridgedInstance.bridgedClass;
 
       final methodAdapter = bridgedClass.findInstanceMethodAdapter(
@@ -1749,8 +1771,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         );
         try {
           // Unwrap right operand if it's a BridgedInstance
-          final rightArg = toBridgedInstance(rightOperandValue).$2
-              ? toBridgedInstance(rightOperandValue).$1!.nativeObject
+          final rightArg = rightBridgedInstance.$2
+              ? rightBridgedInstance.$1!.nativeObject
               : rightOperandValue;
           return methodAdapter(
             this,
