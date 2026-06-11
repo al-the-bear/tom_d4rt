@@ -446,42 +446,57 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       );
     }
 
-    // Lexical search & Bridges
-    try {
-      // S3c (plan_3 §9.3 / §4.6): an eligible innermost-block local carries a
-      // resolved slot directly on the node ([SSimpleIdentifier.resolvedSlot]);
-      // read it straight from the current frame's slot array — one field read +
-      // one list index, no name hashing and no chain walk (note-6 §10.4).
-      // Eligibility (the resolver) guarantees the matching `defineSlot` ran in
-      // this same frame before any read, and that the local is never assigned or
-      // captured, so the slot is the sole live binding. Every other use (bridge
-      // / prefixed / enum / non-local) carries no slot and takes the full
-      // name-based [environment.get] walk. The slot field also survives
-      // serialization, so analyzer-free bundles take this fast path too.
-      Object? value;
-      final slot = node.resolvedSlot;
-      if (slot != null) {
-        value = environment.getSlot(slot);
-      } else {
-        // Use environment.get() which handles strings and bridges
-        value = environment.get(name);
-      }
-      // If get() succeeds, the value is found (variable or bridge)
+    // Lexical search & Bridges.
+    //
+    // S3c (plan_3 §9.3 / §4.6): an eligible innermost-block local carries a
+    // resolved slot directly on the node ([SSimpleIdentifier.resolvedSlot]);
+    // read it straight from the current frame's slot array — one field read +
+    // one list index, no name hashing and no chain walk (note-6 §10.4).
+    // Eligibility (the resolver) guarantees the matching `defineSlot` ran in
+    // this same frame before any read, and that the local is never assigned or
+    // captured, so the slot is the sole live binding. Every other use (bridge
+    // / prefixed / enum / non-local) carries no slot and takes the full
+    // name-based [Environment.lookup] walk. The slot field also survives
+    // serialization, so analyzer-free bundles take this fast path too.
+    //
+    // The lexical walk uses the NON-THROWING [Environment.lookup]: a miss here
+    // is the COMMON case for an instance-member reference (a bare field/getter
+    // that means `this.<name>`), so the old throwing `get()` turned every such
+    // read into a thrown+caught `RuntimeD4rtException` with a captured stack
+    // trace — thousands per second under an animation loop, dominating CPU and
+    // allocation. A sentinel keeps the miss on the normal return path; we fall
+    // through to the implicit-`this` lookup below without ever throwing.
+    Object? value;
+    final bool foundLexically;
+    final slot = node.resolvedSlot;
+    if (slot != null) {
+      value = environment.getSlot(slot);
+      foundLexically = true;
+    } else {
+      final looked = environment.lookup(name);
+      foundLexically = !identical(looked, Environment.kNotFound);
+      value = foundLexically ? looked : null;
+    }
+
+    if (foundLexically) {
       if (Logger.isDebug) {
         Logger.debug(
-          "[visitSimpleIdentifier] Found '$name' via environment.get() -> ${value?.runtimeType}",
+          "[visitSimpleIdentifier] Found '$name' via environment.lookup() -> ${value?.runtimeType}",
         );
       }
 
-      // Handle late variables
+      // Handle late variables. `.value` triggers lazy initialization and may
+      // throw LateInitializationError; per Plan H that must surface unwrapped
+      // (native Dart semantics), so we let it propagate rather than fall through
+      // to the implicit-'this' lookup that would rewrap it as "Undefined
+      // variable".
       if (value is LateVariable) {
         if (Logger.isDebug) {
           Logger.debug(
             "[visitSimpleIdentifier] Accessing late variable '$name'",
           );
         }
-        return value
-            .value; // This will trigger lazy initialization or throw if uninitialized
+        return value.value;
       }
 
       // note-6 (§10.4): keep the resolved-read return path free of any String
@@ -493,15 +508,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         );
       }
       return value;
-    } on LateInitializationError {
-      // Plan H: late local accessed before assignment must surface unwrapped —
-      // do NOT fall through to the implicit-'this' lookup that would
-      // ultimately rewrap as "Undefined variable".
-      rethrow;
-    } on RuntimeD4rtException catch (getErr) {
-      // Ignore get() error for now, try 'this' then
+    }
+
+    if (Logger.isDebug) {
       Logger.debug(
-        "[visitSimpleIdentifier] '$name' not found lexically or as bridge. Trying implicit 'this'. Error: ${getErr.message}",
+        "[visitSimpleIdentifier] '$name' not found lexically or as bridge. Trying implicit 'this'.",
       );
     }
 

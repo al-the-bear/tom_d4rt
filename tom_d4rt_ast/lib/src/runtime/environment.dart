@@ -743,10 +743,42 @@ class Environment {
     return _enclosing?._getBridgedEnumValueImpl(value, visited);
   }
 
-  /// Retrieves the value associated with [name].
-  /// Searches the current environment, then recursively searches parent environments.
-  /// Returns `null` if the name is not found in the entire chain.
+  /// Sentinel returned by [lookup] when [name] resolves to no binding in the
+  /// whole chain. A fresh identity object so it can never collide with a real
+  /// stored value (including `null`). Lets callers on the hot path distinguish
+  /// "absent" from "present-but-null" WITHOUT throwing — see [lookup].
+  static final Object kNotFound = Object();
+
+  /// Retrieves the value associated with [name], throwing
+  /// `RuntimeD4rtException("Undefined variable: ...")` when it is absent.
+  ///
+  /// Thin wrapper over [lookup]: this is the throwing contract the bulk of the
+  /// interpreter relies on. Resolution callers that fall back on a miss (e.g.
+  /// implicit-`this` member access in [InterpreterVisitor.visitSimpleIdentifier])
+  /// should call [lookup] directly to avoid the cost of constructing, throwing
+  /// and catching an exception — with its stack-trace capture — on every miss.
   dynamic get(String name) {
+    final value = lookup(name);
+    if (identical(value, kNotFound)) {
+      throw RuntimeD4rtException("Undefined variable: $name");
+    }
+    return value;
+  }
+
+  /// Non-throwing variant of [get]: resolves [name] across the lexical chain
+  /// (locals, bridged classes/enums, prefixed imports) and returns [kNotFound]
+  /// instead of throwing when nothing matches.
+  ///
+  /// Why this exists: the lexical → implicit-`this` fallback in
+  /// [InterpreterVisitor.visitSimpleIdentifier] runs on every bare-identifier
+  /// read. For an instance-member reference (a field/getter named without
+  /// `this.`) the lexical probe necessarily misses, and the old throwing [get]
+  /// turned that routine miss into a thrown+caught `RuntimeD4rtException` with a
+  /// captured stack trace — thousands per second under an animation loop,
+  /// dominating both CPU and allocation. Returning a sentinel keeps the miss on
+  /// the normal return path. (The rare malformed-prefix errors below still
+  /// throw — they are genuine errors, not "not found".)
+  Object? lookup(String name) {
     // Env.get is the single hottest interpreter path (perf plan round 2, T1).
     // Two structural choices keep it cheap:
     //   1. Walk the enclosing chain ITERATIVELY rather than via `get` recursion,
@@ -883,7 +915,7 @@ class Environment {
         '[Env.get] \'$name\' not found in env chain starting from: $hashCode (no parent)',
       ); // Log chain end
     }
-    throw RuntimeD4rtException("Undefined variable: $name");
+    return kNotFound;
   }
 
   /// Unwraps bridge wrappers for setter assignment.
