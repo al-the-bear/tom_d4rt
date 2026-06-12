@@ -120,6 +120,19 @@
       ]
     },
     {
+      "name": "conway_life_optimized",
+      "main": "main.dart",
+      "files": [
+        "board.dart",
+        "control_bar.dart",
+        "grid_painter.dart",
+        "home.dart",
+        "life_controller.dart",
+        "main.dart",
+        "patterns.dart"
+      ]
+    },
+    {
       "name": "counter2",
       "main": "main.dart",
       "files": [
@@ -211,6 +224,18 @@
       ]
     },
     {
+      "name": "particle_field_optimized",
+      "main": "main.dart",
+      "files": [
+        "field.dart",
+        "field_controller.dart",
+        "home.dart",
+        "main.dart",
+        "mode_selector.dart",
+        "particle_painter.dart"
+      ]
+    },
+    {
       "name": "photo_gallery_hero",
       "main": "main.dart",
       "files": [
@@ -230,6 +255,27 @@
         "main.dart",
         "phase_chip.dart",
         "session.dart"
+      ]
+    },
+    {
+      "name": "profiler_field",
+      "main": "main.dart",
+      "files": [
+        "field.dart",
+        "home.dart",
+        "main.dart",
+        "particle_painter.dart"
+      ]
+    },
+    {
+      "name": "profiler_life",
+      "main": "main.dart",
+      "files": [
+        "board.dart",
+        "grid_painter.dart",
+        "home.dart",
+        "main.dart",
+        "patterns.dart"
       ]
     },
     {

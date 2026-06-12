@@ -6207,6 +6207,71 @@ Widget build(BuildContext context) {
       });
     });
   });
+
+  // Optimized samples (particle-field freeze §"Optimized-script rewrite plan",
+  // step 3): the rebuild-free variants drive the canvas through host-owned
+  // `ValueNotifier`s + `CustomPainter(repaint:)` instead of per-frame
+  // `setState`. These smoke tests prove the variants interpret and that the
+  // notifier → leaf-rebuild path works end-to-end inside the interpreter.
+  group('particle_field_optimized (notifier-driven, rebuild-free)', () {
+    testWidgets('boots and Step drives the controller without a tree rebuild',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'particle_field_optimized');
+
+        // The static (interpreted-once) tree rendered.
+        expect(find.text('Particle Field (optimized)'), findsOneWidget);
+        expect(find.text('mode Attract'), findsOneWidget);
+        // Controller seeded the field on boot.
+        expect(_printLog.any((l) => l.startsWith('field.init')), isTrue);
+
+        // Step → controller.stepOnce() advances the ValueNotifier<Field>.
+        await tester.tap(find.byKey(const Key('btn-step')));
+        await tester.pumpAndSettle(const Duration(seconds: 1));
+        expect(_printLog.any((l) => l.startsWith('field.step')), isTrue,
+            reason: 'btn-step should route through the controller and step '
+                'the simulation notifier.');
+      });
+    });
+
+    testWidgets('mode change rebuilds only the mode leaf via ValueNotifier',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'particle_field_optimized');
+        expect(find.text('mode Attract'), findsOneWidget);
+
+        // Tap the "Orbit" segment of the SegmentedButton → controller.setMode
+        // fires the `mode` notifier, which rebuilds just the chip's
+        // ValueListenableBuilder leaf.
+        await tester.tap(find.text('Orbit'));
+        await tester.pumpAndSettle(const Duration(seconds: 1));
+        expect(find.text('mode Orbit'), findsOneWidget,
+            reason: 'mode-chip leaf should rebuild from the mode notifier.');
+      });
+    });
+  });
+
+  group('conway_life_optimized (dense grid + notifier-driven)', () {
+    testWidgets('boots and Step advances the dense-grid generation counter',
+        (tester) async {
+      await _runInZone(() async {
+        await _mountSample(tester, 'conway_life_optimized');
+
+        // Static tree + initial stats leaf rendered.
+        expect(find.text("Conway's Life (optimized)"), findsOneWidget);
+        expect(find.text('gen 0 / alive 0'), findsOneWidget);
+        expect(_printLog.any((l) => l.startsWith('life.init')), isTrue);
+
+        // Step on an empty board → dense stepLife runs, gen increments, the
+        // stats notifier fires and the gen-chip leaf rebuilds.
+        await tester.tap(find.byKey(const Key('btn-step')));
+        await tester.pumpAndSettle(const Duration(seconds: 1));
+        expect(find.text('gen 1 / alive 0'), findsOneWidget,
+            reason: 'dense stepLife + stats notifier should drive the chip.');
+        expect(_printLog.any((l) => l.startsWith('life.step gen=1')), isTrue);
+      });
+    });
+  });
 }
 
 /// Pump a `MaterialApp` whose body is the widget produced by interpreting
