@@ -1109,6 +1109,29 @@ class InterpretedInstance implements RuntimeValue {
     D4rtDiag.instanceAllocs++;
   }
 
+  // Perf S2 (particle-field freeze §"Remaining work" step 2): cache method
+  // tear-offs. A bare `obj.method` (a tear-off, not an immediate call) re-mints
+  // a fresh bound `InterpretedFunction` on every property access — on a hot
+  // per-frame rebuild path that allocates hundreds of redundant closures that
+  // get promoted to old-gen and trigger major GC. The bound method is invariant
+  // for a given (instance, unbound method) pair: `this` is final and the
+  // closure environment is the class-definition environment, both stable. So we
+  // memoise it, keyed by the unbound method (which `findInstanceMethod` returns
+  // as a stable, per-name-cached object). This also gives correct Dart tear-off
+  // identity — `obj.method == obj.method` is now true, matching the language.
+  // Only METHOD tear-offs go through here; invoked getters/setters/operators
+  // (`getter.bind(this).call(...)`) bypass the cache, since they are executed
+  // immediately and their result, not the binding, is what flows on.
+  // Mirror of tom_d4rt/lib/src/runtime_types.dart.
+  Map<InterpretedFunction, Callable>? _boundMethodCache;
+
+  /// Returns the bound tear-off of [method] for this instance, allocating it
+  /// once and reusing it on subsequent accesses. See [_boundMethodCache].
+  Callable bindMethodCached(InterpretedFunction method) {
+    final cache = _boundMethodCache ??= Map<InterpretedFunction, Callable>.identity();
+    return cache.putIfAbsent(method, () => method.bind(this));
+  }
+
   /// Get the generic type arguments for this instance
   List<RuntimeType>? getTypeArguments() => typeArguments;
 
@@ -1383,7 +1406,8 @@ class InterpretedInstance implements RuntimeValue {
 
       final method = currentClass.findInstanceMethod(name);
       if (method != null) {
-        return method.bind(this); // Bind to the *original* instance ('this')
+        // Perf S2: cached tear-off — bind once, reuse on subsequent accesses.
+        return bindMethodCached(method); // Bound to the *original* 'this'
       }
 
       // Bug-45 (narrowed): widget access on State<T> subclass instances
@@ -1507,7 +1531,8 @@ class InterpretedInstance implements RuntimeValue {
 
       final method = mixin.findInstanceMethod(name);
       if (method != null) {
-        return method.bind(this);
+        // Perf S2: cached tear-off — see [_boundMethodCache].
+        return bindMethodCached(method);
       }
     }
 
