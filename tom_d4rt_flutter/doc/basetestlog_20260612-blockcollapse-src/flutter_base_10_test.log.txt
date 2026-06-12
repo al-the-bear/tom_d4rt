@@ -1,0 +1,162 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 91.0.0 (102.0.0 available)
+  analyzer 8.4.1 (13.2.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.0.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.17.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.10 (0.7.12 available)
+! tom_analyzer_shared 0.1.0 from path ../../basics/tom_analyzer_shared (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt 1.8.21 from path ../tom_d4rt (overridden in ./pubspec_overrides.yaml)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+18 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter/test/flutter_base_10_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:54828/I6FaQkI4azw=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:54828/I6FaQkI4azw=/devtools/?uri=ws://127.0.0.1:54828/I6FaQkI4azw=/ws
+=================================================================
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+00:13 +0: Test App Health app is running
+00:13 +1: material/ individual adaptive_text_selection_toolbar_test.dart
+[METRIC] script=material/adaptive_text_selection_toolbar_test.dart sourceChars=29907 clearMs=207 httpMs=1567 totalMs=1780 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=5 appParseMs=5 appSetStateMs=5 appInterpretStartMs=11 appInterpretEndMs=1242 appFirstFrameMs=1356 appPumpEndMs=1558
+00:15 +2: material/ individual app_bar_theme_data_test.dart
+[METRIC] script=material/app_bar_theme_data_test.dart sourceChars=21566 clearMs=203 httpMs=1254 totalMs=1459 status=success httpStatus=200 outputLines=9 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=971 appFirstFrameMs=1050 appPumpEndMs=1252
+00:16 +3: material/ individual base_range_slider_track_shape_test.dart
+[METRIC] script=material/base_range_slider_track_shape_test.dart sourceChars=26766 clearMs=216 httpMs=1213 totalMs=1432 status=success httpStatus=200 outputLines=3 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=2 appInterpretStartMs=2 appInterpretEndMs=891 appFirstFrameMs=1007 appPumpEndMs=1210
+00:17 +4: material/ individual base_slider_track_shape_test.dart
+[METRIC] script=material/base_slider_track_shape_test.dart sourceChars=24123 clearMs=218 httpMs=1156 totalMs=1376 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=876 appFirstFrameMs=952 appPumpEndMs=1154
+00:19 +5: material/ individual bottom_app_bar_theme_data_test.dart
+[METRIC] script=material/bottom_app_bar_theme_data_test.dart sourceChars=22760 clearMs=202 httpMs=1239 totalMs=1444 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=901 appFirstFrameMs=1037 appPumpEndMs=1237
+00:20 +6: material/ individual button_style_button_test.dart
+[METRIC] script=material/button_style_button_test.dart sourceChars=28545 clearMs=203 httpMs=1194 totalMs=1400 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=881 appFirstFrameMs=991 appPumpEndMs=1192
+00:22 +7: material/ individual calendar_delegate_test.dart
+[METRIC] script=material/calendar_delegate_test.dart sourceChars=28745 clearMs=203 httpMs=1357 totalMs=1562 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=914 appFirstFrameMs=1154 appPumpEndMs=1354
+00:23 +8: material/ individual card_theme_data_test.dart
+[METRIC] script=material/card_theme_data_test.dart sourceChars=24802 clearMs=203 httpMs=1117 totalMs=1323 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=862 appFirstFrameMs=915 appPumpEndMs=1115
+00:25 +9: material/ individual checkbox_list_tile_test.dart
+[METRIC] script=material/checkbox_list_tile_test.dart sourceChars=71371 clearMs=203 httpMs=1831 totalMs=2035 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=912 appFirstFrameMs=1627 appPumpEndMs=1828
+00:27 +10: material/ individual checkmarkable_chip_attributes_test.dart
+[METRIC] script=material/checkmarkable_chip_attributes_test.dart sourceChars=23392 clearMs=217 httpMs=1190 totalMs=1410 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=898 appFirstFrameMs=986 appPumpEndMs=1187
+00:28 +11: material/ individual chip_animation_style_test.dart
+[METRIC] script=material/chip_animation_style_test.dart sourceChars=31787 clearMs=204 httpMs=1222 totalMs=1427 status=success httpStatus=200 outputLines=6 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=945 appFirstFrameMs=1019 appPumpEndMs=1220
+00:29 +12: material/ individual colors_test.dart
+[METRIC] script=material/colors_test.dart sourceChars=21378 clearMs=217 httpMs=1210 totalMs=1429 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=919 appFirstFrameMs=1006 appPumpEndMs=1207
+00:31 +13: material/ individual controls_details_test.dart
+[METRIC] script=material/controls_details_test.dart sourceChars=34664 clearMs=202 httpMs=1157 totalMs=1361 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=891 appFirstFrameMs=953 appPumpEndMs=1154
+00:32 +14: material/ individual data_table_source_test.dart
+[METRIC] script=material/data_table_source_test.dart sourceChars=47927 clearMs=203 httpMs=1163 totalMs=1368 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=901 appFirstFrameMs=959 appPumpEndMs=1161
+00:34 +15: material/ individual data_table_theme_data_test.dart
+[METRIC] script=material/data_table_theme_data_test.dart sourceChars=26766 clearMs=217 httpMs=1131 totalMs=1352 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=2 appInterpretStartMs=3 appInterpretEndMs=884 appFirstFrameMs=928 appPumpEndMs=1128
+00:35 +16: material/ individual data_table_theme_test.dart
+[METRIC] script=material/data_table_theme_test.dart sourceChars=36259 clearMs=204 httpMs=1110 totalMs=1316 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=862 appFirstFrameMs=907 appPumpEndMs=1108
+00:36 +17: material/ individual date_range_picker_dialog_test.dart
+[METRIC] script=material/date_range_picker_dialog_test.dart sourceChars=76428 clearMs=203 httpMs=1316 totalMs=1524 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=4 appParseMs=4 appSetStateMs=4 appInterpretStartMs=10 appInterpretEndMs=868 appFirstFrameMs=1113 appPumpEndMs=1313
+00:38 +18: material/ individual date_time_range_test.dart
+[METRIC] script=material/date_time_range_test.dart sourceChars=30926 clearMs=202 httpMs=1111 totalMs=1314 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=860 appFirstFrameMs=907 appPumpEndMs=1108
+00:39 +19: material/ individual date_utils_test.dart
+[METRIC] script=material/date_utils_test.dart sourceChars=34302 clearMs=202 httpMs=1123 totalMs=1327 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=866 appFirstFrameMs=920 appPumpEndMs=1121
+00:40 +20: material/ individual default_material_localizations_test.dart
+[METRIC] script=material/default_material_localizations_test.dart sourceChars=31207 clearMs=203 httpMs=1105 totalMs=1310 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=857 appFirstFrameMs=903 appPumpEndMs=1103
+00:42 +21: material/ individual deletable_chip_attributes_test.dart
+[METRIC] script=material/deletable_chip_attributes_test.dart sourceChars=28484 clearMs=216 httpMs=1179 totalMs=1398 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=858 appFirstFrameMs=976 appPumpEndMs=1177
+00:43 +22: material/ individual desktop_text_selection_controls_test.dart
+[METRIC] script=material/desktop_text_selection_controls_test.dart sourceChars=34083 clearMs=220 httpMs=1121 totalMs=1343 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=871 appFirstFrameMs=916 appPumpEndMs=1118
+00:45 +23: material/ individual desktop_text_selection_toolbar_button_test.dart
+[METRIC] script=material/desktop_text_selection_toolbar_button_test.dart sourceChars=68425 clearMs=203 httpMs=1168 totalMs=1372 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=874 appFirstFrameMs=966 appPumpEndMs=1166
+00:46 +24: material/ individual desktop_text_selection_toolbar_test.dart
+[METRIC] script=material/desktop_text_selection_toolbar_test.dart sourceChars=33315 clearMs=203 httpMs=1134 totalMs=1339 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=877 appFirstFrameMs=931 appPumpEndMs=1131
+00:47 +25: material/ individual dialog_theme_data_test.dart
+[METRIC] script=material/dialog_theme_data_test.dart sourceChars=28172 clearMs=203 httpMs=1107 totalMs=1313 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=867 appFirstFrameMs=903 appPumpEndMs=1105
+00:49 +26: material/ individual disabled_chip_attributes_test.dart
+[METRIC] script=material/disabled_chip_attributes_test.dart sourceChars=34747 clearMs=215 httpMs=1104 totalMs=1321 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=862 appFirstFrameMs=900 appPumpEndMs=1101
+00:50 +27: material/ individual filled_button_theme_data_test.dart
+[METRIC] script=material/filled_button_theme_data_test.dart sourceChars=25951 clearMs=217 httpMs=1354 totalMs=1573 status=success httpStatus=200 outputLines=32 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=877 appFirstFrameMs=1115 appPumpEndMs=1352
+00:51 +28: material/ individual floating_action_button_animator_test.dart
+[METRIC] script=material/floating_action_button_animator_test.dart sourceChars=44483 clearMs=228 httpMs=1382 totalMs=1612 status=success httpStatus=200 outputLines=37 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=1133 appFirstFrameMs=1180 appPumpEndMs=1380
+00:53 +29: material/ individual floating_action_button_location_test.dart
+[METRIC] script=material/floating_action_button_location_test.dart sourceChars=39104 clearMs=203 httpMs=1108 totalMs=1313 status=success httpStatus=200 outputLines=37 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=856 appFirstFrameMs=904 appPumpEndMs=1106
+00:54 +30: material/ individual icon_button_theme_data_test.dart
+[METRIC] script=material/icon_button_theme_data_test.dart sourceChars=41524 clearMs=215 httpMs=1137 totalMs=1354 status=success httpStatus=200 outputLines=85 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=849 appFirstFrameMs=933 appPumpEndMs=1134
+00:56 +31: material/ individual input_decoration_theme_test.dart
+[METRIC] script=material/input_decoration_theme_test.dart sourceChars=48714 clearMs=217 httpMs=1824 totalMs=2043 status=success httpStatus=200 outputLines=14 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=1468 appFirstFrameMs=1621 appPumpEndMs=1821
+00:58 +32: material/ individual material_button_test.dart
+[METRIC] script=material/material_button_test.dart sourceChars=39315 clearMs=203 httpMs=1124 totalMs=1330 status=success httpStatus=200 outputLines=28 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=847 appFirstFrameMs=920 appPumpEndMs=1122
+00:59 +33: material/ individual material_localizations_test.dart
+[METRIC] script=material/material_localizations_test.dart sourceChars=31196 clearMs=220 httpMs=1133 totalMs=1354 status=success httpStatus=200 outputLines=97 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=875 appFirstFrameMs=930 appPumpEndMs=1130
+01:00 +34: material/ individual material_text_selection_controls_test.dart
+[METRIC] script=material/material_text_selection_controls_test.dart sourceChars=38070 clearMs=218 httpMs=1156 totalMs=1377 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=848 appFirstFrameMs=953 appPumpEndMs=1154
+01:02 +35: material/ individual material_type_test.dart
+[METRIC] script=material/material_type_test.dart sourceChars=65679 clearMs=203 httpMs=1129 totalMs=1337 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=851 appFirstFrameMs=927 appPumpEndMs=1127
+01:03 +36: material/ individual menu_style_test.dart
+[METRIC] script=material/menu_style_test.dart sourceChars=61030 clearMs=202 httpMs=1109 totalMs=1314 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=859 appFirstFrameMs=907 appPumpEndMs=1107
+01:05 +37: material/ individual navigation_drawer_theme_data_test.dart
+[METRIC] script=material/navigation_drawer_theme_data_test.dart sourceChars=35715 clearMs=203 httpMs=1100 totalMs=1305 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=851 appFirstFrameMs=897 appPumpEndMs=1098
+01:06 +38: material/ individual outlined_button_theme_data_test.dart
+[METRIC] script=material/outlined_button_theme_data_test.dart sourceChars=35798 clearMs=215 httpMs=1106 totalMs=1323 status=success httpStatus=200 outputLines=13 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=847 appFirstFrameMs=902 appPumpEndMs=1103
+01:07 +39: material/ individual radio_list_tile_test.dart
+[METRIC] script=material/radio_list_tile_test.dart sourceChars=36900 clearMs=203 httpMs=1130 totalMs=1335 status=success httpStatus=200 outputLines=47 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=854 appFirstFrameMs=926 appPumpEndMs=1128
+01:08 +40: material/ individual range_labels_test.dart
+[METRIC] script=material/range_labels_test.dart sourceChars=48778 clearMs=218 httpMs=1117 totalMs=1337 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=837 appFirstFrameMs=913 appPumpEndMs=1114
+01:10 +41: material/ individual range_slider_test.dart
+[METRIC] script=material/range_slider_test.dart sourceChars=41574 clearMs=203 httpMs=1084 totalMs=1290 status=success httpStatus=200 outputLines=34 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=3 appInterpretStartMs=3 appInterpretEndMs=845 appFirstFrameMs=880 appPumpEndMs=1081
+01:11 +42: material/ individual range_slider_thumb_shape_test.dart
+[METRIC] script=material/range_slider_thumb_shape_test.dart sourceChars=56924 clearMs=203 httpMs=1117 totalMs=1323 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=842 appFirstFrameMs=914 appPumpEndMs=1115
+01:12 +43: material/ individual range_slider_tick_mark_shape_test.dart
+[METRIC] script=material/range_slider_tick_mark_shape_test.dart sourceChars=56626 clearMs=203 httpMs=1115 totalMs=1320 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=848 appFirstFrameMs=912 appPumpEndMs=1113
+01:14 +44: material/ individual range_slider_track_shape_test.dart
+[METRIC] script=material/range_slider_track_shape_test.dart sourceChars=69514 clearMs=203 httpMs=1108 totalMs=1314 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=853 appFirstFrameMs=904 appPumpEndMs=1106
+01:15 +45: material/ individual range_slider_value_indicator_shape_test.dart
+[METRIC] script=material/range_slider_value_indicator_shape_test.dart sourceChars=66687 clearMs=214 httpMs=1100 totalMs=1317 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=848 appFirstFrameMs=897 appPumpEndMs=1098
+01:16 +46: material/ individual range_values_test.dart
+[METRIC] script=material/range_values_test.dart sourceChars=68638 clearMs=203 httpMs=1099 totalMs=1304 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=846 appFirstFrameMs=897 appPumpEndMs=1097
+01:18 +47: material/ individual raw_material_button_test.dart
+[METRIC] script=material/raw_material_button_test.dart sourceChars=53999 clearMs=203 httpMs=1100 totalMs=1305 status=success httpStatus=200 outputLines=29 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=855 appFirstFrameMs=897 appPumpEndMs=1098
+01:19 +48: material/ individual rectangular_slider_track_shape_test.dart
+[METRIC] script=material/rectangular_slider_track_shape_test.dart sourceChars=33723 clearMs=203 httpMs=1095 totalMs=1300 status=success httpStatus=200 outputLines=55 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=851 appFirstFrameMs=892 appPumpEndMs=1092
+01:20 +49: material/ individual round_slider_overlay_shape_test.dart
+[METRIC] script=material/round_slider_overlay_shape_test.dart sourceChars=38446 clearMs=202 httpMs=1107 totalMs=1312 status=success httpStatus=200 outputLines=23 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=855 appFirstFrameMs=905 appPumpEndMs=1105
+01:22 +50: material/ individual round_slider_thumb_shape_test.dart
+[METRIC] script=material/round_slider_thumb_shape_test.dart sourceChars=33922 clearMs=203 httpMs=1136 totalMs=1342 status=success httpStatus=200 outputLines=67 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=858 appFirstFrameMs=934 appPumpEndMs=1134
+01:23 +51: material/ individual round_slider_tick_mark_shape_test.dart
+[METRIC] script=material/round_slider_tick_mark_shape_test.dart sourceChars=32567 clearMs=202 httpMs=1116 totalMs=1320 status=success httpStatus=200 outputLines=45 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=855 appFirstFrameMs=913 appPumpEndMs=1114
+01:24 +52: material/ individual rounded_rect_slider_track_shape_test.dart
+[METRIC] script=material/rounded_rect_slider_track_shape_test.dart sourceChars=49221 clearMs=203 httpMs=1117 totalMs=1322 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=856 appFirstFrameMs=914 appPumpEndMs=1115
+01:26 +53: material/ individual scaffold_feature_controller_test.dart
+[METRIC] script=material/scaffold_feature_controller_test.dart sourceChars=59277 clearMs=203 httpMs=1089 totalMs=1294 status=success httpStatus=200 outputLines=13 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=856 appFirstFrameMs=885 appPumpEndMs=1086
+01:27 +54: material/ individual scaffold_messenger_state_test.dart
+[METRIC] script=material/scaffold_messenger_state_test.dart sourceChars=38599 clearMs=216 httpMs=1108 totalMs=1326 status=success httpStatus=200 outputLines=37 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=857 appFirstFrameMs=905 appPumpEndMs=1106
+01:28 +55: material/ individual scaffold_messenger_test.dart
+[METRIC] script=material/scaffold_messenger_test.dart sourceChars=36533 clearMs=203 httpMs=1083 totalMs=1288 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=842 appFirstFrameMs=879 appPumpEndMs=1081
+01:30 +56: material/ individual scaffold_state_test.dart
+[METRIC] script=material/scaffold_state_test.dart sourceChars=42764 clearMs=213 httpMs=1090 totalMs=1305 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=849 appFirstFrameMs=886 appPumpEndMs=1087
+01:31 +57: material/ individual selectable_chip_attributes_test.dart
+[METRIC] script=material/selectable_chip_attributes_test.dart sourceChars=53334 clearMs=216 httpMs=1162 totalMs=1380 status=success httpStatus=200 outputLines=9 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=853 appFirstFrameMs=959 appPumpEndMs=1160
+01:32 +58: material/ individual slider_component_shape_test.dart
+[METRIC] script=material/slider_component_shape_test.dart sourceChars=43421 clearMs=217 httpMs=1093 totalMs=1312 status=success httpStatus=200 outputLines=27 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=856 appFirstFrameMs=890 appPumpEndMs=1090
+01:34 +59: material/ individual slider_tick_mark_shape_test.dart
+[METRIC] script=material/slider_tick_mark_shape_test.dart sourceChars=51245 clearMs=203 httpMs=1097 totalMs=1302 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=849 appFirstFrameMs=893 appPumpEndMs=1095
+01:35 +60: material/ individual slider_track_shape_test.dart
+[METRIC] script=material/slider_track_shape_test.dart sourceChars=36561 clearMs=215 httpMs=1084 totalMs=1301 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=841 appFirstFrameMs=880 appPumpEndMs=1082
+01:36 +61: (tearDownAll)
+01:37 +61: All tests passed!

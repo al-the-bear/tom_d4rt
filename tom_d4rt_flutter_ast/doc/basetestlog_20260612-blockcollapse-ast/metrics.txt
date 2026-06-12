@@ -1,0 +1,17 @@
+flutter_base_01_test: exit=0 +71
+flutter_base_02_test: exit=0 +42
+flutter_base_03_test: exit=0 +52
+flutter_base_04_test: exit=1 +68 -2
+flutter_base_05_test: exit=0 +64
+flutter_base_06_test: exit=1 +65 -1
+flutter_base_07_test: exit=0 +62
+flutter_base_08_test: exit=0 +48
+flutter_base_09_test: exit=0 +26
+flutter_base_10_test: exit=0 +61
+flutter_base_11_test: exit=0 +42
+flutter_base_12_test: exit=0 +61
+flutter_base_13_test: exit=1 +52 -2
+flutter_base_14_test: exit=1 +35 -1
+flutter_base_15_test: exit=1 +59 ~1 -1
+flutter_base_16_test: exit=0 +61
+flutter_base_17_test: exit=1 +49 -2

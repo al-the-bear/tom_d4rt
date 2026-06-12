@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-06-05T11:07:49.638831
+// Generated: 2026-06-12T12:06:31.054860
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -240,6 +240,54 @@ class DartOverviewBridge {
     };
   }
 
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain (MCI#1 / A1).
+  static Map<String, List<String>> classSupertypes() {
+    return {
+      'Car': ['Vehicle'],
+      'Motorcycle': ['Vehicle'],
+      'DogAnimal': ['BaseAnimal'],
+      'JsonDataSource': ['DataSource'],
+      'XmlDataSource': ['DataSource'],
+      'SealedCircle': ['SealedShape'],
+      'SealedSquare': ['SealedShape'],
+      'SealedTriangle': ['SealedShape'],
+      'LoggingService': ['LoggerMixin'],
+      'DerivedFromAbstractBase': ['AbstractBaseClass'],
+      'RestApiClient': ['ApiClient'],
+      'GraphqlApiClient': ['ApiClient'],
+      'SingletonHolder': ['AbstractFinalClass'],
+      'CircleShape': ['Shape'],
+      'SquareShape': ['Shape'],
+      'Employee': ['PersonBase'],
+      'Manager': ['PersonBase'],
+      'Cat': ['Animal'],
+      'EmailNotificationService': ['NotificationService'],
+      'SmsNotificationService': ['NotificationService'],
+      'SmartThermostat': ['Switchable', 'TemperatureControl', 'Connectable'],
+      'Robot': ['Machine'],
+      'AdvancedRobot': ['Robot', 'Machine', 'Speakable', 'Connectable'],
+      'SortablePerson': ['Comparable'],
+      'SerializablePrintable': ['Printable', 'Serializable'],
+      'TrackedItem': ['Trackable'],
+      'Musician': ['Musical'],
+      'ProfessionalDancer': ['Dancing'],
+      'Entertainer': ['Musical', 'Dancing'],
+      'CountableItem': ['Counter'],
+      'ConsoleLogger': ['Logging'],
+      'MultiMixed': ['Greeter1', 'Greeter2'],
+      'HelpfulService': ['Helper'],
+      'Button': ['EventEmitter'],
+      'SortableItem': ['ComparableMixin', 'Comparable'],
+      'ComparableMixin': ['Comparable'],
+    };
+  }
+
   /// Returns a map of type alias names to their target class names.
   ///
   /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
@@ -397,6 +445,11 @@ class DartOverviewBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // MCI#1 / A1: Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();

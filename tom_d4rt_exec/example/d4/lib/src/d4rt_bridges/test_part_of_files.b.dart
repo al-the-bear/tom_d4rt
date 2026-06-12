@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_exec/example/d4/lib/test_part_of_files.dart
-// Generated: 2026-06-05T11:07:50.919909
+// Source: /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_exec/example/d4/lib/test_part_of_files.dart
+// Generated: 2026-06-12T12:06:33.079697
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -33,6 +33,18 @@ class TestPartOfFilesBridge {
       'PartOfTestService': 'package:d4_example/test_part_of_files.dart',
       'PartCallback': 'package:d4_example/test_part_of_files.dart',
       'PartData': 'package:d4_example/test_part_of_files.dart',
+    };
+  }
+
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain (MCI#1 / A1).
+  static Map<String, List<String>> classSupertypes() {
+    return {
     };
   }
 
@@ -103,6 +115,11 @@ class TestPartOfFilesBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // MCI#1 / A1: Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
   }
 
   /// Returns a map of global function names to their native implementations.
