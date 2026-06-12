@@ -5,17 +5,18 @@
 // d4rt interpreter re-interprets the entire `build()` every generation. Here
 // the mutable state lives in `ValueNotifier`s owned by this controller:
 //
-//   * `cells` — the dense board (`List<int>`). Drives the painter directly via
-//               `CustomPainter(repaint: cells)`, so a tick repaints the board
-//               with **zero widget rebuild** (only the interpreted `paint()`
-//               re-runs).
+//   * `cells` — the sparse live board (`Set<int>` of cell indices). Drives the
+//               painter directly via `CustomPainter(repaint: cells)`, so a tick
+//               repaints the board with **zero widget rebuild** (only the
+//               interpreted `paint()` re-runs).
 //   * `stats` — `LifeStats(gen, alive)`, drives the `gen=… alive=…` chip via a
 //               tiny `ValueListenableBuilder` rather than rebuilding the bar.
 //   * `paused` / `tickMs` — drive the play/pause icon and the speed slider.
 //
-// Together with the dense-grid model in `board.dart`, this removes both
-// allocation sources the doc identifies: the per-tick widget rebuild and the
-// per-cell `Set`/`Map` churn inside `stepLife`.
+// Together with the integer-keyed sparse model in `board.dart`, this removes
+// both allocation sources the doc identifies: the per-tick widget rebuild and
+// the per-generation interpreter churn inside `stepLife` (work now scales with
+// live-cell count, with native int keys instead of interpreted `Cell` hashing).
 //
 // ignore_for_file: avoid_print — the print() lines are the run/test trail.
 import 'dart:async';
@@ -45,8 +46,8 @@ class LifeStats {
 }
 
 class LifeController {
-  final ValueNotifier<List<int>> cells =
-      ValueNotifier<List<int>>(emptyBoard());
+  final ValueNotifier<Set<int>> cells =
+      ValueNotifier<Set<int>>(emptyBoard());
   final ValueNotifier<LifeStats> stats =
       ValueNotifier<LifeStats>(const LifeStats(0, 0));
   final ValueNotifier<bool> paused = ValueNotifier<bool>(true);
@@ -140,11 +141,14 @@ class LifeController {
   void toggleCellAt(Offset local, Size size) {
     final idx = _hitIndex(local, size);
     if (idx == null) return;
-    final next = List<int>.of(cells.value);
-    final wasAlive = next[idx] == 1;
-    next[idx] = wasAlive ? 0 : 1;
+    final next = Set<int>.of(cells.value);
+    if (next.contains(idx)) {
+      next.remove(idx);
+    } else {
+      next.add(idx);
+    }
     cells.value = next;
-    final alive = countAlive(next);
+    final alive = next.length;
     _publish(alive);
     final x = idx % kBoardW;
     final y = idx ~/ kBoardW;
@@ -156,11 +160,11 @@ class LifeController {
   void paintCellAt(Offset local, Size size) {
     final idx = _hitIndex(local, size);
     if (idx == null) return;
-    if (cells.value[idx] == 1) return;
-    final next = List<int>.of(cells.value);
-    next[idx] = 1;
+    if (cells.value.contains(idx)) return;
+    final next = Set<int>.of(cells.value);
+    next.add(idx);
     cells.value = next;
-    final alive = countAlive(next);
+    final alive = next.length;
     _publish(alive);
     final x = idx % kBoardW;
     final y = idx ~/ kBoardW;

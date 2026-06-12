@@ -1,9 +1,9 @@
 // Preset patterns for Conway's Game of Life (optimized variant).
 //
 // Each pattern is a list of `(dx, dy)` offsets relative to an anchor cell.
-// `stampAt(anchorX, anchorY)` returns a fresh **dense board** (`List<int>`
-// of length `kCellCount`) with the pattern's cells set to 1 — matching the
-// dense-grid model in `board.dart`.
+// `stampAt(anchorX, anchorY)` returns a fresh **sparse board** (`Set<int>` of
+// live cell indices) with the pattern's cells set alive — matching the
+// integer-keyed sparse model in `board.dart`.
 //
 // Offsets are written in "human" coordinates with the anchor at the visual
 // centre of the pattern, so callers can just say "drop blinker at (30, 20)".
@@ -15,17 +15,18 @@ class LifePattern {
 
   const LifePattern(this.name, this.offsets);
 
-  /// Default anchor is the centre cell of the board. Returns a dense board.
-  List<int> stampAt([int? anchorX, int? anchorY]) {
+  /// Default anchor is the centre cell of the board. Returns a sparse board
+  /// (set of live cell indices).
+  Set<int> stampAt([int? anchorX, int? anchorY]) {
     final ax = anchorX ?? (kBoardW ~/ 2);
     final ay = anchorY ?? (kBoardH ~/ 2);
-    final board = emptyBoard();
+    final board = <int>{};
     for (final off in offsets) {
       final x = ax + off[0];
       final y = ay + off[1];
       if (x < 0 || x >= kBoardW) continue;
       if (y < 0 || y >= kBoardH) continue;
-      board[y * kBoardW + x] = 1;
+      board.add(y * kBoardW + x);
     }
     return board;
   }

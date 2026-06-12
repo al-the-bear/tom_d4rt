@@ -1,17 +1,24 @@
 // Pure model + step function for Conway's Game of Life (optimized variant).
 //
-// THE MODEL OPTIMIZATION (particle-field freeze §"conway_life — rewrite the
-// rendering AND the model"): the original sample uses a sparse `Set<Cell>` +
-// `Map<Cell,int>` neighbour count. Under the d4rt interpreter every `Set` /
-// `Map` operation on a `Cell` key dispatches the interpreted `==` / `hashCode`
-// and mints fresh `Environment`s + closures — the ~26k `Environment`/gen that
-// dominate the per-tick churn.
+// THE MODEL — sparse, with **integer-encoded** cell keys. The first
+// "optimized" cut used a dense `List<int>` of length `kBoardW*kBoardH`, which
+// is the right shape for a *compiler* but a disaster under the d4rt
+// interpreter: `stepLife` scanned the whole 60×40 board every generation —
+// a fixed ~19 200 inner iterations, **independent of population**. In the
+// interpreter cost scales with interpreted *loop-iteration count*, not native
+// op count, so that fixed scan cost ~43 500 `Environment`/gen and ran 27×
+// slower than the original sparse sample (see
+// `particle_field_freeze_analysis.md` §"Profiler verdict").
 //
-// On a bounded 60×40 board a **dense integer grid** is both simpler and far
-// cheaper in the interpreter: the board is a flat `List<int>` of length
-// `kBoardW * kBoardH` (1 = alive, 0 = dead), indexed by `y * kBoardW + x`.
-// Neighbour counting becomes pure integer index arithmetic — **no `Cell`
-// allocation and no interpreted `hashCode` / `==` dispatch per cell**.
+// This model keeps the **sparse** representation (work ∝ live-cell count) but
+// drops the original sample's `Cell` value object. A live cell is a single
+// `int` index `y * kBoardW + x`; the live board is a `Set<int>` and neighbour
+// counting accumulates into a `Map<int, int>`. Because the keys are plain
+// `int`s, `Set`/`Map` membership uses the interpreter's **native** primitive
+// hashing — there is no interpreted `hashCode` / `==` dispatch per cell, which
+// was the ~26k-`Environment`/gen tax the original `Set<Cell>` model paid at
+// high population. Net: sparse iteration *and* native keys — cheaper than both
+// the dense grid and the original object-keyed sparse model.
 
 /// Board width in cells.
 const int kBoardW = 60;
@@ -19,56 +26,64 @@ const int kBoardW = 60;
 /// Board height in cells.
 const int kBoardH = 40;
 
-/// Total cell count of the dense grid.
+/// Total addressable cells (bounds product). Not an array length — the live
+/// board is sparse — but handy for documenting the coordinate space.
 const int kCellCount = kBoardW * kBoardH;
 
 /// Flat-array index for board coordinate (x, y). No bounds checking — callers
 /// guard the edges where it matters.
 int cellIndex(int x, int y) => y * kBoardW + x;
 
-/// A fresh all-dead board.
-List<int> emptyBoard() => List<int>.filled(kCellCount, 0);
+/// Column of a flat cell index.
+int cellX(int index) => index % kBoardW;
 
-/// Count of alive cells in [cells].
-int countAlive(List<int> cells) {
-  var n = 0;
-  for (final v in cells) {
-    if (v == 1) n += 1;
-  }
-  return n;
-}
+/// Row of a flat cell index.
+int cellY(int index) => index ~/ kBoardW;
+
+/// A fresh empty (all-dead) board.
+Set<int> emptyBoard() => <int>{};
+
+/// Count of alive cells in [cells] — just its cardinality.
+int countAlive(Set<int> cells) => cells.length;
 
 /// Compute the next generation of [cells].
 ///
-/// Returns a brand-new dense board; the input is not mutated. We scan the
-/// whole 60×40 grid once (O(W*H*8) = 19 200 integer reads / gen, independent
-/// of population) accumulating each cell's live-neighbour count via index
-/// arithmetic. A live cell survives iff its count is 2 or 3; a dead cell
-/// becomes alive iff its count is exactly 3. There is no `Cell` object, no
-/// `Set`/`Map`, and therefore no interpreted equality dispatch anywhere on
-/// the hot path.
-List<int> stepLife(List<int> cells) {
-  final next = List<int>.filled(kCellCount, 0);
-  for (var y = 0; y < kBoardH; y++) {
-    for (var x = 0; x < kBoardW; x++) {
-      var count = 0;
-      for (var dy = -1; dy <= 1; dy++) {
-        for (var dx = -1; dx <= 1; dx++) {
-          if (dx == 0 && dy == 0) continue;
-          final nx = x + dx;
-          final ny = y + dy;
-          if (nx < 0 || nx >= kBoardW) continue;
-          if (ny < 0 || ny >= kBoardH) continue;
-          count += cells[ny * kBoardW + nx];
-        }
+/// Returns a brand-new live set; the input is not mutated. The work is
+/// proportional to the live-cell count, not the board area: we visit each live
+/// cell once and bump the live-neighbour tally of its in-bounds neighbours in a
+/// `Map<int, int>`. A cell is alive next generation iff it has exactly 3 live
+/// neighbours (birth or survival) or exactly 2 live neighbours and is currently
+/// alive (survival). Every key is a plain `int`, so there is no interpreted
+/// equality dispatch anywhere on the hot path.
+Set<int> stepLife(Set<int> cells) {
+  if (cells.isEmpty) return <int>{};
+
+  // Tally live-neighbour counts for every cell adjacent to a live one.
+  final counts = <int, int>{};
+  for (final idx in cells) {
+    final x = idx % kBoardW;
+    final y = idx ~/ kBoardW;
+    for (var dy = -1; dy <= 1; dy++) {
+      final ny = y + dy;
+      if (ny < 0 || ny >= kBoardH) continue;
+      final rowBase = ny * kBoardW;
+      for (var dx = -1; dx <= 1; dx++) {
+        if (dx == 0 && dy == 0) continue;
+        final nx = x + dx;
+        if (nx < 0 || nx >= kBoardW) continue;
+        final nIdx = rowBase + nx;
+        counts[nIdx] = (counts[nIdx] ?? 0) + 1;
       }
-      final idx = y * kBoardW + x;
-      final alive = cells[idx] == 1;
-      if (alive) {
-        if (count == 2 || count == 3) next[idx] = 1;
-      } else {
-        if (count == 3) next[idx] = 1;
-      }
+    }
+  }
+
+  // Apply the birth/survival rule. Only cells with ≥1 live neighbour appear in
+  // `counts`; a live cell with 0–1 neighbours is simply never added and dies.
+  final next = <int>{};
+  for (final idx in counts.keys) {
+    final count = counts[idx];
+    if (count == 3 || (count == 2 && cells.contains(idx))) {
+      next.add(idx);
     }
   }
   return next;

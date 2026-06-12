@@ -6251,8 +6251,8 @@ Widget build(BuildContext context) {
     });
   });
 
-  group('conway_life_optimized (dense grid + notifier-driven)', () {
-    testWidgets('boots and Step advances the dense-grid generation counter',
+  group('conway_life_optimized (sparse int-keyed + notifier-driven)', () {
+    testWidgets('boots and Step advances the sparse generation counter',
         (tester) async {
       await _runInZone(() async {
         await _mountSample(tester, 'conway_life_optimized');
@@ -6262,12 +6262,12 @@ Widget build(BuildContext context) {
         expect(find.text('gen 0 / alive 0'), findsOneWidget);
         expect(_printLog.any((l) => l.startsWith('life.init')), isTrue);
 
-        // Step on an empty board → dense stepLife runs, gen increments, the
+        // Step on an empty board → sparse stepLife runs, gen increments, the
         // stats notifier fires and the gen-chip leaf rebuilds.
         await tester.tap(find.byKey(const Key('btn-step')));
         await tester.pumpAndSettle(const Duration(seconds: 1));
         expect(find.text('gen 1 / alive 0'), findsOneWidget,
-            reason: 'dense stepLife + stats notifier should drive the chip.');
+            reason: 'sparse stepLife + stats notifier should drive the chip.');
         expect(_printLog.any((l) => l.startsWith('life.step gen=1')), isTrue);
       });
     });

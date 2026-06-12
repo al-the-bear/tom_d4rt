@@ -11,8 +11,9 @@
 //   * taps / drags update `controller.cells` instead of calling `setState`;
 //   * the control bar isolates its dynamic readouts in `ValueListenableBuilder`s.
 //
-// Combined with the dense-grid model, per-tick churn drops to just the
-// interpreted `paint()` plus the integer-only `stepLife`.
+// Combined with the integer-keyed sparse model, per-tick churn drops to just
+// the interpreted `paint()` plus a `stepLife` whose cost scales with the live
+// population rather than the full board area.
 import 'package:flutter/material.dart';
 
 import 'control_bar.dart';

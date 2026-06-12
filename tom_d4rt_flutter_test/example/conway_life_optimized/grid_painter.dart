@@ -1,19 +1,20 @@
 // CustomPainter that draws the Life board (optimized variant).
 //
-// Takes the live dense board as a `ValueListenable<List<int>>` and registers
+// Takes the live sparse board as a `ValueListenable<Set<int>>` and registers
 // it as its `repaint:` source. The `CustomPaint` is built once; each
 // generation that replaces `cells.value` repaints just this painter — the
 // interpreted `paint()` re-runs but no widget subtree is re-interpreted.
 //
-// Live cells are read by flat index (`y * kBoardW + x`); no `Cell` objects,
-// no `Set` membership tests.
+// Drawing iterates ONLY the live cells (decoding each flat index back to
+// (x, y)), so paint cost is proportional to population — not the full board
+// area as the earlier dense variant's 2 400-cell scan was.
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'board.dart';
 
 class GridPainter extends CustomPainter {
-  final ValueListenable<List<int>> cells;
+  final ValueListenable<Set<int>> cells;
   final Color liveColor;
   final Color gridColor;
 
@@ -29,16 +30,14 @@ class GridPainter extends CustomPainter {
     final cellW = size.width / kBoardW;
     final cellH = size.height / kBoardH;
 
-    // Filled live cells first so the grid lines sit on top of them.
+    // Filled live cells first so the grid lines sit on top of them. Only the
+    // live set is visited.
     final livePaint = Paint()..color = liveColor;
-    for (var y = 0; y < kBoardH; y++) {
-      final rowBase = y * kBoardW;
-      for (var x = 0; x < kBoardW; x++) {
-        if (board[rowBase + x] == 1) {
-          final r = Rect.fromLTWH(x * cellW, y * cellH, cellW, cellH);
-          canvas.drawRect(r, livePaint);
-        }
-      }
+    for (final idx in board) {
+      final x = idx % kBoardW;
+      final y = idx ~/ kBoardW;
+      final r = Rect.fromLTWH(x * cellW, y * cellH, cellW, cellH);
+      canvas.drawRect(r, livePaint);
     }
 
     // Then the thin grid.
