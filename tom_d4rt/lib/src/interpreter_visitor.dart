@@ -123,9 +123,58 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     return lastValue;
   }
 
+  /// S4 (perf, particle-field freeze §"Remaining work" step 1): per-`Block`
+  /// cache of "does this block introduce any name bindings into its own
+  /// scope?". A block that declares nothing (no local variables, functions,
+  /// pattern declarations, or local type declarations) needs no child
+  /// `Environment` of its own — its statements observe and mutate exactly the
+  /// enclosing frame. Collapsing such a frame is sound under the slot runtime:
+  /// a depth-0 [StaticCoord] only ever reads a local from its *declaring*
+  /// block's frame, and a declaring block always introduces a binding (hence is
+  /// never collapsed); every cross-block read uses the depth-agnostic name walk,
+  /// which tolerates a shorter scope chain. The scan runs once per block node
+  /// and is cached on the node's identity, so repeated executions of a hot
+  /// block (e.g. a Flutter `build` body re-run every frame) pay it only once.
+  final Expando<bool> _blockIntroducesBindings = Expando<bool>();
+
   @override
   Object? visitBlock(Block node) {
-    return executeBlock(node.statements, Environment(enclosing: environment));
+    if (_blockNeedsOwnFrame(node)) {
+      return executeBlock(node.statements, Environment(enclosing: environment));
+    }
+    // No bindings introduced: run statements directly in the current frame.
+    // Passing `environment` makes executeBlock's save/restore a no-op.
+    return executeBlock(node.statements, environment);
+  }
+
+  /// True when [node] declares at least one name in its own block scope and
+  /// therefore requires a dedicated child [Environment]. Cached per node.
+  bool _blockNeedsOwnFrame(Block node) {
+    final cached = _blockIntroducesBindings[node];
+    if (cached != null) return cached;
+    final result = _statementsIntroduceBindings(node.statements);
+    _blockIntroducesBindings[node] = result;
+    return result;
+  }
+
+  /// True if any statement binds a name into the enclosing block scope.
+  /// Mirrors the declaration kinds handled by [executeBlock]; unwraps
+  /// [LabeledStatement] so a labelled declaration still counts.
+  bool _statementsIntroduceBindings(List<Statement> statements) {
+    for (var statement in statements) {
+      while (statement is LabeledStatement) {
+        statement = statement.statement;
+      }
+      if (statement is VariableDeclarationStatement ||
+          statement is FunctionDeclarationStatement ||
+          statement is PatternVariableDeclarationStatement ||
+          statement is ClassDeclaration ||
+          statement is MixinDeclaration ||
+          statement is EnumDeclaration) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /// Returns true if the given expression chain contains a null-aware
