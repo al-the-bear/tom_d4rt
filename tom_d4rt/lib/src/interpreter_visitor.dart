@@ -510,6 +510,30 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         return value.value;
       }
 
+      // FIX-20260613-1038-C: instance members shadow bridged top-level /
+      // library declarations. The lexical walk above also reaches the global
+      // scope, so a bridged top-level name (e.g. vector_math's
+      // `radians(double)`) can mask an instance field/getter/method of the
+      // same name — the wrong way round for Dart, whose order is
+      // locals → instance members → library. Correct it here, gated tightly so
+      // the common path pays almost nothing:
+      //   * the slot fast-path (`coord != null`) is a resolved local — never a
+      //     global, so it is skipped entirely;
+      //   * we only look past the lexical hit when `this` actually declares a
+      //     member of this name (the genuine collision), and only THEN confirm
+      //     the lexical value came from the global scope (a true local below
+      //     global keeps shadowing, matching Dart).
+      if (coord == null) {
+        final maybeThis = environment.lookup('this');
+        if (maybeThis is InterpretedInstance &&
+            maybeThis.hasInstanceMember(name)) {
+          final globalHit = globalEnvironment.lookup(name);
+          if (identical(globalHit, value)) {
+            return maybeThis.get(name, visitor: this);
+          }
+        }
+      }
+
       // note-6 (§10.4): keep the resolved-read return path free of any String
       // `==`/hash — the `name` comparison only runs when debug logging is on, so
       // a production read is just the slot index + LateVariable check above.

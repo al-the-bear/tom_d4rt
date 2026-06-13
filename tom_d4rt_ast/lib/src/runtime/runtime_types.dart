@@ -1326,6 +1326,22 @@ class InterpretedInstance implements RuntimeValue {
     return '<instance of ${klass.name}>';
   }
 
+  /// Non-throwing check: does this instance declare an instance member
+  /// (field, getter, or method) named [name]?
+  ///
+  /// Used by [InterpreterVisitor.visitSimpleIdentifier] so an instance member
+  /// can shadow a bridged top-level / library declaration of the same name —
+  /// Dart's resolution order is locals → instance members → library. Walks the
+  /// mixin/superclass chains (via [InterpretedClass.findInstanceGetter] /
+  /// [InterpretedClass.findInstanceMethod]); deliberately ignores statics and
+  /// the universal `Object` members so it only reports genuine instance state.
+  bool hasInstanceMember(String name) {
+    if (_fields.containsKey(name)) return true;
+    if (klass.findInstanceGetter(name) != null) return true;
+    if (klass.findInstanceMethod(name) != null) return true;
+    return false;
+  }
+
   // Get: Field -> Getter -> Method (now includes inheritance)
   @override
   Object? get(String name, {InterpreterVisitor? visitor}) {
