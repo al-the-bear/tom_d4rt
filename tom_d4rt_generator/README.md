@@ -446,7 +446,7 @@ tom_d4rt (interpreter)
     |
     +-- tom_d4rt_generator  (THIS PACKAGE — bridge generator)
             |
-            +-- tom_d4rt_flutter_ast / tom_d4rt_flutterm
+            +-- tom_d4rt_flutter / tom_d4rt_flutter_ast
                 (Flutter + Material bridge corpus — output of this generator)
 ```
 
