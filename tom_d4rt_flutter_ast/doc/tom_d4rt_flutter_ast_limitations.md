@@ -8,7 +8,7 @@ sources, which it does not repeat:
   exhaustiveness, abstract-class inheritance, `Actions`/`Intent` dispatch,
   isolates, platform-capability gaps) are **shared with the source-based
   runtime** → see
-  [`tom_d4rt_flutter/doc/interpreter_limits_and_workarounds.md`](../../tom_d4rt_flutter/doc/interpreter_limits_and_workarounds.md).
+  [`tom_d4rt_flutter/doc/tom_d4rt_flutter_limitations.md`](../../tom_d4rt_flutter/doc/tom_d4rt_flutter_limitations.md).
 - **Interpreter / language-level limits** are owned by the canon →
   [`tom_d4rt/doc/d4rt_limitations.md`](../../tom_d4rt/doc/d4rt_limitations.md).
 

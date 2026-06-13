@@ -1,8 +1,19 @@
-# Interpreter Limits and Workarounds — tom_d4rt_flutter_ast
+# tom_d4rt_flutter — Limitations (Flutter-runtime delta)
 
 Known fundamental limits of the D4rt interpreter when executing Flutter code,
 where the limitation cannot be fixed purely in the interpreter and requires
 bridge-side adapter infrastructure.
+
+> **Delta on the interpreter canon.** This file documents only the
+> **Flutter-runtime** limitations — bridge-adapter gaps, ticker/State proxy
+> ceilings, platform-capability cases, and per-case script workarounds. The
+> language- and interpreter-level limits (records, isolates, generators,
+> pattern semantics, the allocation-rate/major-GC freeze in Lim-10, …) are
+> owned by the canonical
+> [`tom_d4rt/doc/d4rt_limitations.md`](../../tom_d4rt/doc/d4rt_limitations.md)
+> and are not repeated here. The analyzer-free Flutter sibling adds its own
+> small delta on top of this file —
+> [`tom_d4rt_flutter_ast/doc/tom_d4rt_flutter_ast_limitations.md`](../../tom_d4rt_flutter_ast/doc/tom_d4rt_flutter_ast_limitations.md).
 
 ## Table of Contents
 

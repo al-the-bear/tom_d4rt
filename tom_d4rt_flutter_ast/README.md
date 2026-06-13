@@ -233,7 +233,7 @@ app-for-app.
 | [doc/tom_d4rt_flutter_ast_user_guide.md](doc/tom_d4rt_flutter_ast_user_guide.md) | **Differences-only guide** vs the source-based runtime — `FlutterD4rt`, bundle-driven execution, the sync/async entry points, and the web / over-the-air fit. |
 | [doc/tom_d4rt_flutter_ast_limitations.md](doc/tom_d4rt_flutter_ast_limitations.md) | AST-specific limitation deltas (no on-device parsing, bundle↔runtime version alignment, web) + backlinks to the base. |
 | [../tom_d4rt_flutter/doc/tom_d4rt_flutter_user_guide.md](../tom_d4rt_flutter/doc/tom_d4rt_flutter_user_guide.md) | **Base Flutter-runtime guide** — shared bridge surface, registration order, performance/GC. Read this first. |
-| [../tom_d4rt_flutter/doc/interpreter_limits_and_workarounds.md](../tom_d4rt_flutter/doc/interpreter_limits_and_workarounds.md) | Shared bridge-adapter limits catalogue with script workarounds. |
+| [../tom_d4rt_flutter/doc/tom_d4rt_flutter_limitations.md](../tom_d4rt_flutter/doc/tom_d4rt_flutter_limitations.md) | Shared bridge-adapter limits catalogue with script workarounds. |
 | [../tom_d4rt_ast/doc/tom_d4rt_ast_user_guide.md](../tom_d4rt_ast/doc/tom_d4rt_ast_user_guide.md) | The analyzer-free interpreter core. |
 
 ## Architecture
@@ -333,9 +333,11 @@ under the `tom_ai/d4rt/` sub-tree.
 - Version: `0.1.0`
 - `publish_to: none` — monorepo-only, not available on pub.dev
 - Requires Flutter `>=3.27.0`, Dart SDK `^3.10.4`
-- Active development: the bug-fix corpus in `doc/flutter_bugs.md` and
-  `doc/interpreter_limits_and_workarounds.md` tracks known Flutter-test-environment
-  issues and D4rt interpreter limits with recommended script-level workarounds.
+- Active development: the bug-fix corpus in `doc/flutter_bugs.md` tracks
+  known Flutter-test-environment issues; D4rt interpreter limits with
+  recommended script-level workarounds live in this package's
+  `doc/tom_d4rt_flutter_ast_limitations.md` delta and the shared base
+  `../tom_d4rt_flutter/doc/tom_d4rt_flutter_limitations.md`.
 - A planned consolidation will move generic D4rt machinery upstream into
   `tom_d4rt_ast`/`tom_d4rt_exec`, keeping only the Flutter-specific surface in
   this package.

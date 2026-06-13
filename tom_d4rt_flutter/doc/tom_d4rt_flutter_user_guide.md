@@ -17,8 +17,8 @@ with no analyzer and a web-compatible footprint.
 >   [`tom_d4rt/doc/d4rt_user_guide.md`](../../tom_d4rt/doc/d4rt_user_guide.md).
 > - The extension-hook contract (`registerExtensions` / `finalizeBridges`) →
 >   [`tom_d4rt_ast/doc/extension_registration.md`](../../tom_d4rt_ast/doc/extension_registration.md).
-> - The full interpreter limits / workarounds catalogue →
->   [`interpreter_limits_and_workarounds.md`](interpreter_limits_and_workarounds.md)
+> - The full Flutter-runtime limits / workarounds catalogue →
+>   [`tom_d4rt_flutter_limitations.md`](tom_d4rt_flutter_limitations.md)
 >   and the canonical
 >   [`tom_d4rt/doc/d4rt_limitations.md`](../../tom_d4rt/doc/d4rt_limitations.md).
 
@@ -287,7 +287,7 @@ flutter run --release
 The Flutter bridge surface is broad but not total. The full catalogue —
 with error messages, root-cause analysis, and per-case script workarounds —
 is in
-[`interpreter_limits_and_workarounds.md`](interpreter_limits_and_workarounds.md);
+[`tom_d4rt_flutter_limitations.md`](tom_d4rt_flutter_limitations.md);
 interpreter-level language limits live in the canonical
 [`tom_d4rt/doc/d4rt_limitations.md`](../../tom_d4rt/doc/d4rt_limitations.md).
 The headline cases a script author hits most often:

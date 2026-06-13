@@ -1,4 +1,12 @@
-# Known macOS Test Failures in tom_d4rt_dcli
+# tom_d4rt_dcli — Limitations (delta)
+
+> **Delta on the interpreter canon.** D4rt language- and interpreter-level
+> limits are owned by the canonical
+> [`tom_d4rt/doc/d4rt_limitations.md`](../../tom_d4rt/doc/d4rt_limitations.md)
+> and are not repeated here. This file documents only the limitations
+> **specific to the DCli REPL surface** — currently the macOS DCli/filesystem
+> known test failures below. They stem from the upstream `dcli` package and
+> macOS platform behaviour, not from the D4rt interpreter.
 
 **Date:** 2026-03-09
 **Affects:** 14 tests (13 permissions, 1 directory operations)
