@@ -10,6 +10,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
+const String _kTestFileName = 'flutter_extended_24_test.dart';
+
 void main() {
   setUpAll(() async {
     // 1401-TODO #11 (H2) — bumped from 120s to 180s. `interactive_tests_test`
@@ -23,6 +25,7 @@ void main() {
     // side TODO #10 in error_analysis.md for the recoverable-vs-
     // kernel-zombie mode analysis.
     await SendTestRunner.setUp(
+      suite: _kTestFileName,
       regenerateBridges: false,
       timeout: const Duration(seconds: 180),
     );

@@ -10,6 +10,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
+const String _kTestFileName = 'flutter_extended_24_test.dart';
+
 void main() {
   setUpAll(() async {
     // testlog_20260529-1944 TODO C.202 — budget reduced 180 s → 25 s.
@@ -20,7 +22,10 @@ void main() {
     // launch genuinely wedges, the 25 s budget fires first and surfaces
     // `SendTestRunner`'s own "failed to start within 25 seconds"
     // message rather than the generic `(setUpAll)` timeout.
-    await SendTestRunner.setUp(timeout: const Duration(seconds: 25));
+    await SendTestRunner.setUp(
+      suite: _kTestFileName,
+      timeout: const Duration(seconds: 25),
+    );
   });
 
   tearDownAll(() async {

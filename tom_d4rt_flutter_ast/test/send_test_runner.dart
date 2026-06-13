@@ -1561,7 +1561,7 @@ class SendTestRunner {
     final appStages = _formatAppMetric(appMetric);
     // ignore: avoid_print
     print(
-      '[METRIC] script=$scriptPath '
+      '[METRIC] script=$scriptPath testFile=${_currentSuite ?? '<unknown>'} '
       'sourceBytes=$sourceBytes sourceChars=$sourceChars '
       'bundleJsonBytes=$bundleJsonBytes '
       'clearMs=${clearDuration.inMilliseconds} '

@@ -9,9 +9,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
+const String _kTestFileName = 'flutter_extended_18_test.dart';
+
 void main() {
   setUpAll(() async {
-    await SendTestRunner.setUp();
+    await SendTestRunner.setUp(suite: _kTestFileName);
   });
 
   tearDownAll(() async {

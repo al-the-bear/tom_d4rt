@@ -51,9 +51,11 @@ void expectSuccess(SendResult result) {
   expect(result.success && !result.hasFrameworkErrors, isTrue, reason: reason);
 }
 
+const String _kTestFileName = 'interpreter_generator_open_issues_test.dart';
+
 void main() {
   setUpAll(() async {
-    await SendTestRunner.setUp();
+    await SendTestRunner.setUp(suite: _kTestFileName);
   });
 
   tearDownAll(() async {

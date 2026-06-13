@@ -28,9 +28,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
+const String _kTestFileName = 'suspicious_rewrite_tests.dart';
+
 void main() {
   setUpAll(() async {
-    await SendTestRunner.setUp();
+    await SendTestRunner.setUp(suite: _kTestFileName);
   });
 
   tearDownAll(() async {
