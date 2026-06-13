@@ -134,17 +134,14 @@ need the annotation-driven emission (P&R#6 c) live first.
 
 ---
 
-## Plans, reviews, and historical analysis
+## Development records
 
-These are development-time records, not user documentation; kept for context:
-
-| Doc | Purpose |
-|-----|---------|
-| [step0_review_baseline.md](step0_review_baseline.md), [mci_step0_review_baseline.md](mci_step0_review_baseline.md), [open_step0_review_baseline.md](open_step0_review_baseline.md) | P&R step-0 component reviews / baselines. |
-| [summary_refactoring_plan.md](summary_refactoring_plan.md), [baseline_summary_refactor.md](baseline_summary_refactor.md) | Refactoring plan + summary. |
-| [reexport_implementation_plan.md](reexport_implementation_plan.md) | Re-export resolution plan. |
-| [flutter_fixes_1.md](flutter_fixes_1.md), [flutter_fixes_2.md](flutter_fixes_2.md) | Flutter-corpus fix logs. |
-| [summary_phase7_regression.md](summary_phase7_regression.md), [test_coverage.md](test_coverage.md), [issues.md](issues.md) | Regression / coverage / issue logs. |
+Step-0 component reviews/baselines, refactoring + regression summaries,
+re-export and fix logs, and the coverage/issue trackers are kept in the
+repository for development context but are **not published** — they are
+development-time records, not user documentation, and are excluded from the
+package via `.pubignore`. The live backlog lives in the quest folder
+(`_ai/quests/d4rt/`).
 
 > Stale-prose flags (do not treat as current): the April "Current Scale"
 > figures in `mass_generation_reduction.md` are explicitly superseded by its

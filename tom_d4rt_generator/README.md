@@ -494,9 +494,6 @@ Repository: `github.com/al-the-bear/tom_d4rt` (monorepo), path
 | [CLI User Guide](doc/d4rt_generator_cli_user_guide.md) | `d4rtgen` command reference |
 | [UserBridge Guide](doc/user_bridge_user_guide.md) | Writing override classes |
 | [UserBridge Design](doc/userbridge_override_design.md) | Override system internals |
-| [Known Issues](doc/issues.md) | 46+ documented issues with source-to-bridge-to-problem examples |
-| [Test Coverage](doc/test_coverage.md) | Feature inventory and test status |
-| [Summary Refactoring Plan](doc/summary_refactoring_plan.md) | v1.9.0 element-mode migration details |
 
 ---
 
