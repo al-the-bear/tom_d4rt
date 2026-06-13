@@ -356,10 +356,13 @@ tom_dcli_exec
 
 ## Documentation
 
-- [User Guide](doc/d4rt_user_guide.md) — complete usage documentation, execution modes, and configuration.
+`tom_d4rt_exec` is the analyzer-using entry point; its docs are exec-specific and link to `tom_d4rt` for the (identical) language semantics and bridging model.
+
+- [User Guide](doc/tom_d4rt_exec_user_guide.md) — exec-specific: the parse → mirror-AST → interpret pipeline, source execution, and the bundle / typed-execute API. Links to the base guide for shared semantics.
+- [Limitations (delta)](doc/tom_d4rt_exec_limitations.md) — entry-point-specific limits (not web-safe; analyzer-boundary parse errors; bundle/runtime version alignment); links back to the canon.
 - [Bridging Guide](doc/BRIDGING_GUIDE.md) — how to bridge native Dart classes and functions manually.
 - [Advanced Bridging Guide](doc/advanced_bridging_user_guide.md) — `D4` helper class, type coercion, argument extraction, target validation, and global function bridging.
-- [Known Limitations](doc/d4rt_limitations.md) — documented won't-fix limitations (isolate serialization, large-tuple records).
+- Base (shared) docs: [tom_d4rt User Guide](../tom_d4rt/doc/d4rt_user_guide.md) · [Limitations (canonical)](../tom_d4rt/doc/d4rt_limitations.md).
 - [Bridge Generator User Guide](../tom_d4rt_generator/doc/bridgegenerator_user_guide.md) — automating bridge creation with code generation.
 - [Bridge Generator Reference](../tom_d4rt_generator/doc/bridgegenerator_user_reference.md) — generator configuration options.
 
