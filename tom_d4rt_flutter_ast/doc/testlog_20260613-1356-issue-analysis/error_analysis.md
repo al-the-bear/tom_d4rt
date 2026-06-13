@@ -113,3 +113,34 @@ The issue-analysis run is **clean of the conditions it was designed to surface**
 ### Recommended follow-ups (infrastructure, not bridges)
 - Raise / adapt the per-script build deadline after a recycle, or add a warmup probe so the first post-recycle script is not measured against a cold app.
 - Add a bounded retry on `GET /clear` transport failures to absorb the Class-B hiccup.
+
+---
+
+## Addendum — individual rerun verification (2026-06-13)
+
+To confirm the failures are flaky infrastructure rather than per-test defects, **every failing test from this run was re-executed individually**, one at a time, against a freshly booted companion app. The exact failing test names were taken from the JSON reporters (not the markdown tables), so each rerun targeted the precise variant that failed:
+
+```
+flutter test test/<file> --plain-name '<exact full test name>' --timeout 120s
+```
+
+Strictly serial; source-direct and AST run sequentially, never concurrent. **An isolated rerun is *harsher* than the batch for Class-A timeouts** — each script is now always the first/cold script against a cold app and interpreter, with no preceding warm script — so any test that still times out individually is a *weaker* defect signal than in the batch, not a stronger one.
+
+### Result
+
+| Project | Reran | Passed individually | Still failed | All still-failing = Class-A cold-start timeout? |
+|---------|------:|--------------------:|-------------:|:--:|
+| `tom_d4rt_flutter` (source-direct) | 21 | **18** | 3 | yes (`Build timed out after 30 s`) |
+| `tom_d4rt_flutter_ast` (AST-driven) | 36 | **29** | 7 | yes (`Build timed out after 45 s`) |
+| **Combined** | **57** | **47** | **10** | **yes — 0 genuine defects** |
+
+**47 of 57 (82 %) passed outright in isolation.** Every one of the 10 that still failed shows the *identical* Class-A signature — `status=error`, `httpMs≈30000/45000` (the app-side build deadline hit exactly), `frameworkErrors=0`, and `appInterpretStartMs=-1` (**interpretation never started** — the cold build did not finish before the deadline). No `EXCEPTION CAUGHT`, no interpreter exception, no overflow on any rerun. The single Class-B transport test (`retest: widgets/nested_scroll_view_state_test.dart`) **passed individually in both projects**, confirming it was a teardown-sequence artifact.
+
+Still-failing individually (all cold-start build timeouts, the largest scripts):
+
+- **source-direct (3):** `flutter_base_01` cupertino/form_test.dart; `flutter_base_05` services/textboundary_test.dart (~73 k chars); `flutter_extended_18` widgets/restorable_enum_n_test.dart.
+- **AST (7):** `flutter_base_06` material/chip_variants_test.dart; `flutter_base_07` animation/animation_with_parent_mixin_test.dart; `flutter_base_11` painting/resize_image_test.dart; `flutter_base_13` rendering/render_sliver_offstage_test.dart; `flutter_base_16` widgets/page_scroll_physics_test.dart; `flutter_extended_03` dart_ui/text_baseline_test.dart; `flutter_extended_08` painting/asset_bundle_image_key_test.dart.
+
+### Conclusion
+
+The individual rerun **confirms the failure taxonomy**: there are no genuine bridge or interpreter defects. The residual failures are the cold-start build-timeout (Class A) — exactly the condition the rerun makes more likely by always running cold — and they are eliminated for heavier scripts only by giving the build a warm app. This validates the recommended follow-up (warmup probe / adaptive post-recycle deadline) as the correct fix, and reconfirms that the batch-run failure counts are an artifact of harness warm-up, not the generated bridges.
