@@ -257,6 +257,17 @@ tom_d4rt               (original analyzer-based interpreter; kept in sync with t
 
 The `tom_d4rt_ast` package is the only component that a Flutter app needs to embed. Build tooling (`tom_ast_generator`, `tom_d4rt_exec`, `tom_d4rt`) runs on the developer machine or CI server and is never shipped to end users.
 
+## Documentation
+
+`tom_d4rt_ast` runs the same interpreter as the analyzer-based base, so its docs are **differences-only** (policy P1) and link to `tom_d4rt` for shared semantics.
+
+- [User Guide](doc/tom_d4rt_ast_user_guide.md) — what differs in the analyzer-free runtime: `AstBundle` loading, `D4rtRunner`, the typed-execute API, and the Flutter/web deployment model.
+- [Limitations (delta)](doc/tom_d4rt_ast_limitations.md) — runtime-specific limits (no on-device parser, web `dart:io` absence, bundle-scoped imports); links back to the canon.
+- [Extension Registration](doc/extension_registration.md) — `registerExtensions` / `finalizeBridges` ordering contract.
+- [Relaxer Usage Logging](doc/usage_logging.md) — opt-in `D4` usage instrumentation.
+- [Runtime Registration Surface](doc/runtime_registration_surface.md) — the canonical `D4.register*` reference (shared with the VM twin).
+- Base (shared) docs: [tom_d4rt User Guide](../tom_d4rt/doc/d4rt_user_guide.md) · [Bridging Guide](../tom_d4rt/doc/BRIDGING_GUIDE.md) · [Limitations (canonical)](../tom_d4rt/doc/d4rt_limitations.md).
+
 ## Status
 
 **Version 0.1.5** — current release on pub.dev (first published at 0.1.4). The package is production-quality in the context of the Tom framework and is kept continuously in sync with the analyzer-based `tom_d4rt` interpreter.
