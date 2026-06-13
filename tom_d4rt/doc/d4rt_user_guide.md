@@ -17,6 +17,11 @@ For information on bridging Dart classes and functions to the interpreter, see t
 - [File-Based Execution](#file-based-execution)
 - [Continued Execution](#continued-execution)
 - [Registering Bridges](#registering-bridges)
+- [Extension Registration and Facades](#extension-registration-and-facades)
+  - [registerExtensions and finalizeBridges](#registerextensions-and-finalizebridges)
+  - [Registration Facades](#registration-facades)
+  - [Warmup](#warmup)
+  - [Relaxer Usage Logging](#relaxer-usage-logging)
 - [The Standard Library](#the-standard-library)
 - [Imports and Library URIs](#imports-and-library-uris)
 - [Security and Permissions](#security-and-permissions)
@@ -34,7 +39,7 @@ Add the dependency to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  tom_d4rt: ^1.6.0
+  tom_d4rt: ^1.8.21
 ```
 
 Import the package:
@@ -355,6 +360,103 @@ d4rt.execute(source: '''
 ```
 
 See the [Bridging Guide](BRIDGING_GUIDE.md) for detailed bridging documentation.
+
+---
+
+## Extension Registration and Facades
+
+Bridge packages frequently need to wire up additional runtime state — type
+relaxers, interface proxies, generic-constructor factories — **after** their
+main `registerBridgedClass` / `registerBridgedEnum` calls have run. Rather than
+relying on a comment-driven "must run after bridges" convention, `D4rt` exposes
+a programmatic extension hook with an enforced ordering contract. The same hook
+exists on the analyzer-free runners (`D4rtRunner` in `tom_d4rt_ast`, `D4rt` in
+`tom_d4rt_exec`), so bridge packages register once and run unchanged against
+either interpreter.
+
+### registerExtensions and finalizeBridges
+
+`registerExtensions(packageName, body)` queues a callback for a bridge package.
+The body is **not** run immediately — the runner stores it and runs every queued
+body in registration order when `finalizeBridges()` is called, or implicitly on
+the first `execute()` / `eval()` that follows.
+
+```dart
+final d4rt = D4rt();
+
+// Wire the package's base bridges first…
+registerMyPackageBridges(d4rt);
+
+// …then queue the post-bridge extension wiring.
+d4rt.registerExtensions('package:my_pkg/my_pkg.dart', () {
+  d4rt.registerRelaxerFactory('MyBox', (inner, visitor) => MyBox(inner));
+  d4rt.registerInterfaceProxy('MyListener', (instance, visitor) => _MyProxy(instance, visitor));
+});
+
+// Runs all queued callbacks once, in registration order. Optional —
+// the first execute()/eval() calls it for you.
+d4rt.finalizeBridges();
+
+d4rt.execute(source: '/* … */');
+```
+
+Contract:
+
+- **One callback per package name.** A second `registerExtensions` with the
+  same `packageName` overwrites the previous body.
+- **Run once, then frozen.** `finalizeBridges()` is idempotent — repeat calls
+  return without re-running anything. After it has run, calling
+  `registerExtensions` throws a `StateError` (registering extensions after
+  finalization is a misuse).
+- Call `registerExtensions` for every bridge package **before** the first
+  `execute()` / `eval()` (or before an explicit `finalizeBridges()`).
+
+### Registration Facades
+
+These three methods register custom runtime adapters on the static `D4`
+registries. They are thin facades intended to be called **from inside a
+`registerExtensions` body** so the registration runs once at finalize time, in
+package order, after the standard bridges are wired up. (They may also be called
+directly before the first `execute()` / `eval()`.) All three are idempotent on
+factory identity.
+
+| Method | Purpose |
+|--------|---------|
+| `registerRelaxerFactory(baseTypeName, factory)` | A *relaxer* converts an interpreted/bridged value into a native instance of a parameterized (or plain) bridged type when an argument of that type is required. `baseTypeName` is the base type name without type arguments (e.g. `'ValueListenable'`, `'MyBox'`). |
+| `registerInterfaceProxy(bridgedTypeName, factory)` | A *proxy* wraps an `InterpretedInstance` that implements a bridged abstract interface so it can be passed where the native interface is required. |
+| `registerGenericConstructor(className, constructorName, factory)` | Builds a native instance of a generic bridged class from interpreted arguments and type arguments. Use `''` for the unnamed constructor. |
+
+For large bridge surfaces, `tom_d4rt_generator` emits these registrations
+automatically; the facades exist so embedders and hand-written bridges can
+register adapters for their own (user-project) types without touching the
+generator.
+
+### Warmup
+
+`warmup()` calls `finalizeBridges()` and then executes a trivial throwaway
+script (`int main() => 0;`). This JIT-warms the analyzer parser, the module
+loader environment, bridge finalization, and the interpreter call path in one
+pass, so the first *real* build does not cold-start mid-test under host load. It
+is idempotent and script-neutral — every real `execute*` rebuilds its module
+loader and environment from scratch, so the throwaway state is discarded. Call
+it once after all bridge registration and before the first real build.
+
+### Relaxer Usage Logging
+
+To audit which relaxers, proxies, and generic constructors are actually hit at
+runtime, enable usage logging:
+
+```dart
+D4.usageLogEnabled = true;
+// … run scripts …
+print(D4.usageLogSummary());
+```
+
+Alternatively, set the environment variable `D4RT_LOG_RELAXER_USAGE` to a
+truthy value (`1`, `true`, `yes`, `on`, case-insensitive). On `finalizeBridges()`
+the runner enables the flag, resets the log, and prints the usage summary at run
+end automatically. Embedders that enable the flag programmatically do their own
+reporting and are not affected by the env var.
 
 ---
 

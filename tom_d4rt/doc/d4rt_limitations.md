@@ -2,6 +2,14 @@
 
 This document provides a comprehensive reference of all known D4rt interpreter limitations and bugs, their current status, fixability assessment, and solution strategies.
 
+> **Canonical limitations reference.** This is the single source of truth for
+> D4rt *interpreter* limitations across the whole project family. The
+> analyzer-free line (`tom_d4rt_ast`, `tom_d4rt_exec`), the Flutter runtimes
+> (`tom_d4rt_flutter`, `tom_d4rt_flutter_ast`), and the CLI runners share this
+> interpreter, so each of those projects ships only a **delta** limitations file
+> that documents its own project-specific limits and links back here. Do not
+> duplicate the entries below into downstream docs.
+
 **Last Updated:** 2026-02-08
 
 ---
