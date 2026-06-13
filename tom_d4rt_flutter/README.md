@@ -36,6 +36,17 @@ The barrel (`lib/tom_d4rt_flutter.dart`) exports:
 
 ---
 
+## Documentation
+
+| Doc | What it covers |
+|-----|----------------|
+| [doc/tom_d4rt_flutter_user_guide.md](doc/tom_d4rt_flutter_user_guide.md) | **Authoritative Flutter-runtime guide** — `SourceFlutterD4rt`, the four execution entry points, multi-file programs, extension registration, performance/GC, and the known-limits summary. |
+| [doc/interpreter_limits_and_workarounds.md](doc/interpreter_limits_and_workarounds.md) | Full bridge-adapter limits catalogue with per-case script workarounds. |
+| [../tom_d4rt/doc/d4rt_user_guide.md](../tom_d4rt/doc/d4rt_user_guide.md) | Base interpreter — language subset, bridging model, shared semantics. |
+| [../tom_d4rt/doc/d4rt_limitations.md](../tom_d4rt/doc/d4rt_limitations.md) | Canonical interpreter-level limitations. |
+
+---
+
 ## Where it sits in the D4rt ecosystem
 
 | Package | Role | Relationship |
