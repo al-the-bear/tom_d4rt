@@ -28,7 +28,7 @@ dart pub add tom_d4rt_ast
 
 ```yaml
 dependencies:
-  tom_d4rt_ast: ^0.1.4
+  tom_d4rt_ast: ^0.1.5
 ```
 
 The package requires Dart SDK `^3.10.4`. Its only runtime dependencies are `archive` (ZIP/gzip bundle I/O) and `tom_ast_model` (zero-dependency `SAstNode` definitions).
@@ -259,7 +259,7 @@ The `tom_d4rt_ast` package is the only component that a Flutter app needs to emb
 
 ## Status
 
-**Version 0.1.4** — first public release on pub.dev. The package is production-quality in the context of the Tom framework and is kept continuously in sync with the analyzer-based `tom_d4rt` interpreter.
+**Version 0.1.5** — current release on pub.dev (first published at 0.1.4). The package is production-quality in the context of the Tom framework and is kept continuously in sync with the analyzer-based `tom_d4rt` interpreter.
 
 Repository: [https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_ast](https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_ast)
 

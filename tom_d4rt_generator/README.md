@@ -36,7 +36,7 @@ Add the generator as a dev dependency:
 
 ```yaml
 dev_dependencies:
-  tom_d4rt_generator: ^1.9.0
+  tom_d4rt_generator: ^1.9.2
   build_runner: ^2.4.0   # only needed for build_runner integration
 ```
 
@@ -483,7 +483,7 @@ Repository: `github.com/al-the-bear/tom_d4rt` (monorepo), path
 
 ## Status
 
-**Mature — v1.9.0.**
+**Mature — v1.9.2.**
 
 Version 1.9.0 completes a six-phase migration from a dual-path (AST + element)
 extraction model to a single element-mode code path backed by analyzer `.sum`

@@ -26,7 +26,7 @@ This split means downstream packages (`tom_dcli_exec`, Flutter apps, servers) ca
 
 ```yaml
 dependencies:
-  tom_d4rt_exec: ^1.8.2
+  tom_d4rt_exec: ^1.8.3
 ```
 
 ```sh
@@ -365,7 +365,7 @@ tom_dcli_exec
 
 ## Status
 
-**Version 1.8.2** — first public release on pub.dev.
+**Version 1.8.3** — current release on pub.dev (first published at 1.8.2).
 
 - 1680+ tests passing (2 intentional won't-fix exclusions).
 - All 20 Dart language areas covered in the `dart_overview` test suite.

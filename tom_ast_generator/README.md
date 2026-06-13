@@ -32,7 +32,7 @@ The package also provides the `astgen` CLI, which automates the conversion step 
 
 ```yaml
 dependencies:
-  tom_ast_generator: ^0.1.0
+  tom_ast_generator: ^0.1.1
 ```
 
 ```
@@ -318,7 +318,7 @@ All packages live in the same repository:
 
 ## Status
 
-**Version 0.1.0** — first public release on pub.dev.
+**Version 0.1.1** — current release on pub.dev (first published at 0.1.0).
 
 The core conversion and bundling are production-ready. The `include_imports`,
 `import_depth`, and `include_relative_imports` fields in the CLI `buildkit.yaml`

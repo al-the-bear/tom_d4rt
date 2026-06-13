@@ -20,7 +20,7 @@ Or add it manually to `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  tom_ast_model: ^0.1.0
+  tom_ast_model: ^0.1.1
 ```
 
 The only transitive dependency is `dart:convert` from the Dart SDK itself; there are no pub.dev dependencies.
@@ -239,13 +239,21 @@ Separately, `tom_d4rt` is the original analyzer-based interpreter and `tom_d4rt_
 
 ## Status and Repository
 
-This is an early-stage package at version `0.1.0`, extracted from `tom_d4rt_ast` as its first independent public release. The API surface may evolve as the D4rt ecosystem matures.
+This is an early-stage package at version `0.1.1`, extracted from `tom_d4rt_ast` and first independently published at `0.1.0`. The API surface may evolve as the D4rt ecosystem matures.
 
 - **Repository**: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_ast_model
 - **SDK requirement**: Dart `^3.10.4`
 - **License**: see `LICENSE` in the repository
 
 ## Changelog
+
+### 0.1.1
+
+- Add `StaticResolver` and the `resolvedSlot` / `declSlot` node fields that
+  back the interpreter's slot-based variable resolution (static name → frame
+  slot binding computed once, replacing per-access map lookups).
+- Add `ForEachPartsWithPattern` support so pattern-destructuring `for-in`
+  loops round-trip through the serializable AST.
 
 ### 0.1.0
 
