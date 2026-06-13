@@ -492,6 +492,37 @@ all five documented consumer packages is byte-identical to the pre-migration
 baseline (modulo the `Generated: <timestamp>` header). All known consumers have
 zero new regressions.
 
+### What's new in 1.9.1 – 1.9.2
+
+**1.9.1 — build_runner registration parity (fix).** The build_runner /
+orchestrator path now emits a compiling `dartscript.b.dart`: the delegating
+barrel emits the `subPackageBarrels()` method the shared template calls, and
+the build_runner path now generates `relaxers.b.dart` (falling back to a
+resolvable no-op stub when there are no extraction sites). The standalone/CLI
+and build_runner paths now emit interchangeable registration code, locked by a
+new regression test that `dart analyze`-checks the assembled artifacts.
+
+**1.9.2 — annotation-driven proxies/relaxers and new template families.**
+
+- **Annotation directives** `@D4rtUserProxy` / `@D4rtUserRelaxer`, backed by a
+  variant-pattern engine, let user bridges declare proxy/relaxer overrides
+  (full treatment in the configuration & registration-facade docs).
+- **New template families**: B3 generic-constructor reifiers, A4
+  RenderBox-proxy, super-constructor-arg capture factories, generic-type-arg
+  proxy variants, State-proxy mixin variants, and generic interceptor
+  re-dispatch.
+- **`genericInterceptors`** config knob wired into `BridgeConfig`, plus a
+  VM↔web signature-skew coercion table.
+- **`yieldVoidCallbacks`** switch for cooperative input/frame yield: void
+  callback wrappers are emitted as async closures awaiting a 1 ms delay.
+- Per-symbol `@Deprecated` allowlist; opt-in `vector_math_64` bridge.
+- Requires `tom_d4rt ^1.8.21`.
+
+> The new config knobs (`genericInterceptors`, `yieldVoidCallbacks`) are
+> documented in the Configuration section; the registration facades and the
+> `@D4rtUserProxy` / `@D4rtUserRelaxer` annotations get their full reference in
+> the registration-facade docs. See `CHANGELOG.md` for the complete entry.
+
 Repository: <https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_generator>
 
 ---
