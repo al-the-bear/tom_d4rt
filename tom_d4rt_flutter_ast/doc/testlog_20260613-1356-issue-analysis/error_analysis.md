@@ -144,3 +144,28 @@ Still-failing individually (all cold-start build timeouts, the largest scripts):
 ### Conclusion
 
 The individual rerun **confirms the failure taxonomy**: there are no genuine bridge or interpreter defects. The residual failures are the cold-start build-timeout (Class A) — exactly the condition the rerun makes more likely by always running cold — and they are eliminated for heavier scripts only by giving the build a warm app. This validates the recommended follow-up (warmup probe / adaptive post-recycle deadline) as the correct fix, and reconfirms that the batch-run failure counts are an artifact of harness warm-up, not the generated bridges.
+
+---
+
+## Addendum 2 — third-pass rerun of the 10 still-failing tests (2026-06-13)
+
+The 10 tests that **still failed in the individual rerun above** (3 source-direct + 7 AST) were each re-executed **a third time**, individually and strictly serial (source first, AST after), against a freshly booted companion app — identical method (`flutter test test/<file> --plain-name '<exact full test name>' --timeout 120s`). The goal: distinguish a *consistent* failure (which would point at a genuine defect) from a *non-deterministic* cold-start timeout.
+
+### Result — all 10 passed
+
+| Project | Reran | Passed | Still failed |
+|---------|------:|-------:|-------------:|
+| `tom_d4rt_flutter` (source-direct) | 3 | **3** | 0 |
+| `tom_d4rt_flutter_ast` (AST-driven) | 7 | **7** | 0 |
+| **Combined** | **10** | **10** | **0** |
+
+Every one of the 10 that timed out in pass 2 **passed cleanly in pass 3**, each with `status=success`, `frameworkErrors=0`, and `appInterpretStartMs` in the normal 16–64 ms range (interpretation started and completed normally — `appInterpretEndMs ≈ 1.1 s`). The same scripts that hit the cold build deadline on the previous pass finished well within it on this one.
+
+Pass-3 detail (all PASS):
+
+- **source-direct (3):** `flutter_base_01` cupertino/form_test.dart; `flutter_base_05` services/textboundary_test.dart; `flutter_extended_18` widgets/restorable_enum_n_test.dart.
+- **AST (7):** `flutter_base_06` material/chip_variants_test.dart; `flutter_base_07` animation/animation_with_parent_mixin_test.dart; `flutter_base_11` painting/resize_image_test.dart; `flutter_base_13` rendering/render_sliver_offstage_test.dart; `flutter_base_16` widgets/page_scroll_physics_test.dart; `flutter_extended_03` dart_ui/text_baseline_test.dart; `flutter_extended_08` painting/asset_bundle_image_key_test.dart.
+
+### Conclusion
+
+The third pass is **decisive**: the residual 10 failures are **non-deterministic cold-start build timeouts, not genuine defects**. A test that fails on one cold run and passes on the next cold run cannot be a per-test bridge or interpreter bug — the input is identical; only the host's build-warmup state differs. Combined across all three passes, **100 % of the original 57 failures are confirmed flaky companion-app infrastructure**, with zero attributable to the interpreter or generated bridges. The warmup-probe / adaptive post-recycle deadline follow-up remains the correct and only needed fix.
