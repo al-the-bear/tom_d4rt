@@ -39,6 +39,11 @@ class FieldController {
   Ticker? _ticker;
   int _lastElapsedUs = 0;
 
+  /// Wall-clock seconds accumulated since the last physics step. The ticker
+  /// fires once per rendered frame, but the physics is advanced in FIXED
+  /// [kStepDt] quanta drained from this accumulator (see [_onFrame]).
+  double _simAccumS = 0.0;
+
   FieldController._(this.vsync, this.field, this._rng);
 
   factory FieldController({required TickerProvider vsync}) {
@@ -116,10 +121,35 @@ class FieldController {
     } else {
       _ticker ??= vsync.createTicker(_onFrame);
       _lastElapsedUs = 0;
+      _simAccumS = 0.0;
       _ticker!.start();
       print('field.play');
     }
   }
+
+  // Fixed-timestep simulation: advance physics in FIXED [kStepDt] quanta
+  // drained from a wall-clock accumulator, NOT once per rendered frame.
+  //
+  // Why this matters here (and not in the original sample): the original
+  // drives the canvas with `setState` -> a full interpreted widget rebuild +
+  // a full Flutter relayout/raster of the whole page every frame. That heavy
+  // per-frame cost throttles its effective frame rate, which *accidentally*
+  // throttles how often the (dominant, unoptimised) interpreted `stepField`
+  // physics runs — capping the allocation rate that feeds the major-GC freeze.
+  // This optimized variant removed that cost (notifier + `CustomPainter
+  // (repaint:)`, no rebuild), so an unguarded `step-per-frame` ticker would run
+  // physics at full vsync — ~2.6x more steps/sec in the profiler harness, far
+  // more in the real app where the original also pays full-tree raster. Same
+  // garbage per step x more steps/sec = a higher allocation rate, so the freeze
+  // arrives *sooner*, not later (user-observed: ~4-5s vs ~60s).
+  //
+  // Stepping a FIXED [kStepDt] from an accumulator decouples the physics rate
+  // from render fps: the simulation advances at the same real-time speed
+  // regardless of how fast frames render, and the number of `stepField` calls
+  // per wall-second is bounded (1 / kStepDt = 20 Hz) instead of tracking vsync.
+  // `_kMaxCatchUpSteps` bounds catch-up after a stall so a long pause can't
+  // trigger a burst of steps (spiral-of-death guard).
+  static const int _kMaxCatchUpSteps = 4;
 
   void _onFrame(Duration elapsed) {
     if (paused.value) return;
@@ -130,8 +160,19 @@ class FieldController {
     }
     final dtUs = nowUs - _lastElapsedUs;
     _lastElapsedUs = nowUs;
-    final dt = (dtUs / 1000000.0).clamp(0.0, 0.05);
-    if (dt <= 0.0) return;
-    field.value = stepField(field.value, dt);
+    var frameS = dtUs / 1000000.0;
+    if (frameS <= 0.0) return;
+    // Clamp a single frame's contribution so a long stall (e.g. a GC pause)
+    // doesn't bank seconds of catch-up work.
+    if (frameS > _kMaxCatchUpSteps * kStepDt) {
+      frameS = _kMaxCatchUpSteps * kStepDt;
+    }
+    _simAccumS += frameS;
+    var steps = 0;
+    while (_simAccumS >= kStepDt && steps < _kMaxCatchUpSteps) {
+      field.value = stepField(field.value, kStepDt);
+      _simAccumS -= kStepDt;
+      steps++;
+    }
   }
 }
