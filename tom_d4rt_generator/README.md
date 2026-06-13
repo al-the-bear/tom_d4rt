@@ -283,7 +283,11 @@ example projects.
 
 ## Configuration Reference
 
-All keys live under a top-level `d4rtgen:` block in `buildkit.yaml`.
+All keys live under a top-level `d4rtgen:` block in `buildkit.yaml`. This is a
+quick reference; the **full configuration guide** — with the advanced entry
+shapes (proxy variants, generic constructors/interceptors, recreators) and the
+registration-facade / annotation-directive surfaces — is in
+[doc/tom_d4rt_generator_configuration.md](doc/tom_d4rt_generator_configuration.md).
 
 ### Top-level keys
 
@@ -308,6 +312,17 @@ All keys live under a top-level `d4rtgen:` block in `buildkit.yaml`.
 | `proxyClasses` | `List` | `[]` | Abstract classes to proxy (string or `{className, proxyName}`) |
 | `relaxerOutputPath` | `String` | auto-derived | Output path for the relaxer wrappers file |
 | `priorRelaxerModules` | `List<String>` | `[]` | Upstream packages whose relaxers to import instead of re-generating |
+| `generateAllRelaxers` | `bool` | `true` | When `false`, restrict the combinatorial relaxer/RC-2 surface to discovered sites + `relaxerClasses` + `additionalRelaxerTypes` (collapses output size) |
+| `relaxerClasses` | `List` | `[]` | Extra classes kept eligible as relaxer/RC-2 type-args when `generateAllRelaxers: false` |
+| `additionalRelaxerTypes` | `List<String>` | `[]` | Extra type names kept eligible when `generateAllRelaxers: false` (emitted by the corpus scanner) |
+| `recreatorClasses` | `List` | `[]` | Single-type-param widgets to emit `registerGenericTypeWrapper` re-creators for (MCI#5) |
+| `genericInterceptors` | `List` | `[]` | Type-arg-keyed re-dispatch interceptors (MCI#8 — e.g. `RadioGroup.maybeOf<T>`); dormant when empty |
+| `genericConstructors` | `List` | `[]` | Templated RC-2 generic constructor factories (MCI#6 — e.g. `GlobalKey<NavigatorState>()`); dormant when empty |
+| `yieldVoidCallbacks` | `bool` | `false` | Wrap void bridged callbacks in an `async` closure that yields to the event loop (`tom_d4rt_flutter*` only) |
+
+See [doc/tom_d4rt_generator_configuration.md](doc/tom_d4rt_generator_configuration.md)
+for the per-entry YAML shapes of `proxyClasses`, `genericConstructors`,
+`genericInterceptors`, and `recreatorClasses`.
 
 ### Per-module keys (`modules[*]`)
 
@@ -317,9 +332,11 @@ All keys live under a top-level `d4rtgen:` block in `buildkit.yaml`.
 | `barrelFiles` | `List<String>` | required (or inferred from `barrelImport`) | Barrel files to scan |
 | `barrelImport` | `String` | — | Primary barrel URI for import-prefix generation |
 | `outputPath` | `String` | required | Output `*.b.dart` file path |
+| `excludePatterns` | `List<String>` | `[]` | Class-name glob patterns to skip |
 | `excludeClasses` | `List<String>` | `[]` | Class names to skip |
 | `excludeEnums` | `List<String>` | `[]` | Enum names to skip |
 | `excludeFunctions` | `List<String>` | `[]` | Top-level function names to skip |
+| `excludeConstructors` | `List<String>` | `[]` | Constructor names (`Class.named`) to skip |
 | `excludeVariables` | `List<String>` | `[]` | Top-level variable names to skip |
 | `excludeSourcePatterns` | `List<String>` | `[]` | Source URI glob patterns to skip; supports `#symbol` selectors |
 | `followAllReExports` | `bool` | `true` | Follow all external re-exports by default |
@@ -328,6 +345,7 @@ All keys live under a top-level `d4rtgen:` block in `buildkit.yaml`.
 | `importShowClause` | `List<String>` | `[]` | Symbols to include in generated `import … show` |
 | `importHideClause` | `List<String>` | `[]` | Symbols to include in generated `import … hide` |
 | `generateDeprecatedElements` | `bool` | `false` | Include `@deprecated` elements in output |
+| `deprecatedAllowlist` | `List<String>` | `[]` | Per-symbol opt-in for deprecated elements even when `generateDeprecatedElements: false` |
 
 ---
 
@@ -471,7 +489,8 @@ Repository: `github.com/al-the-bear/tom_d4rt` (monorepo), path
 | Document | Description |
 |---|---|
 | [Bridge Generator User Guide](doc/bridgegenerator_user_guide.md) | End-to-end walkthrough |
-| [Configuration Reference](doc/bridgegenerator_user_reference.md) | All `buildkit.yaml` options |
+| [Configuration Guide](doc/tom_d4rt_generator_configuration.md) | **Authoritative** full `d4rtgen:` `buildkit.yaml` model — all keys, advanced entry shapes, facades/annotations |
+| [build.yaml Builder Reference](doc/bridgegenerator_user_reference.md) | `build_runner` builder-options reference |
 | [CLI User Guide](doc/d4rt_generator_cli_user_guide.md) | `d4rtgen` command reference |
 | [UserBridge Guide](doc/user_bridge_user_guide.md) | Writing override classes |
 | [UserBridge Design](doc/userbridge_override_design.md) | Override system internals |

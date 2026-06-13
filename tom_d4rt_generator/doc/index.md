@@ -18,6 +18,7 @@ proxy/relaxer optimization work (quest `d4rt`, P&R campaign) consolidated.
 | Doc | What it covers |
 |-----|----------------|
 | [bridgegenerator_user_guide.md](bridgegenerator_user_guide.md) | Quick start: dependencies, annotations, running `build_runner`. |
+| [tom_d4rt_generator_configuration.md](tom_d4rt_generator_configuration.md) | **Authoritative** full `d4rtgen:` `buildkit.yaml` configuration model — every top-level and per-module key, advanced entry shapes, facades/annotations. |
 | [d4rt_generator_cli_user_guide.md](d4rt_generator_cli_user_guide.md) | The `d4rtgen` CLI (no-build_runner generation, CI, batch). |
 | [bridgegenerator_user_reference.md](bridgegenerator_user_reference.md) | `build.yaml` builder-configuration reference. |
 
