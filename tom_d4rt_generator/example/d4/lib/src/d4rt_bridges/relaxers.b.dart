@@ -10,10 +10,9 @@ library;
 // ignore_for_file: unused_import, invalid_implementation_override, deprecated_member_use, sort_child_properties_last, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
 
-// GEN-095: No relaxers or RC-2 generic constructors are reachable
-// via this package's barrel imports. Emitting empty stubs so the
-// orchestrator's `registerRelaxers()` / `registerGenericConstructors()`
-// calls still resolve.
+// GEN-095: No relaxers or RC-2 generic constructors reachable via barrels
+// Emitting empty stubs so the dartscript registration calls
+// to registerRelaxers() / registerGenericConstructors() resolve.
 
 /// No-op: no GEN-079 relaxer wrappers for this package.
 void registerRelaxers() {}

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 73 files
-// Generated: 2026-06-05T11:06:50.497965
+// Generated: 2026-06-13T20:21:27.246543
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -244,6 +244,51 @@ class DcliBridge {
     };
   }
 
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain (MCI#1 / A1).
+  static Map<String, List<String>> classSupertypes() {
+    return {
+      'RestoreFileException': ['DCliException', 'Exception'],
+      'BackupFileException': ['DCliException', 'Exception'],
+      'CatException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'CopyException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'CreateDirException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'DCliFunctionException': ['DCliException', 'Exception'],
+      'DeleteException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'DeleteDirException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'Env': ['DCliFunction'],
+      'Find': ['DCliFunction'],
+      'MoveException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'MoveDirException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'MoveTreeException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'DCliException': ['Exception'],
+      'RunException': ['DCliException', 'Exception'],
+      'FetchException': ['DCliException', 'Exception'],
+      'ReadException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'ResourceException': ['DCliException', 'Exception'],
+      'DartProjectException': ['DCliException', 'Exception'],
+      'TemplateNotFoundException': ['DCliException', 'Exception'],
+      'InvalidProjectTemplateException': ['DCliException', 'Exception'],
+      'ShellException': ['DCliException', 'Exception'],
+      'UnknownShell': ['ShellMixin', 'Shell'],
+      'InvalidArgumentException': ['DCliException', 'Exception'],
+      'InvalidTemplateException': ['DCliException', 'Exception'],
+      'InstallException': ['DCliException', 'Exception'],
+      'ProcessSyncException': ['DCliException', 'Exception'],
+      'FileNotFoundException': ['DCliException', 'Exception'],
+      'NotAFileException': ['DCliException', 'Exception'],
+      'LockException': ['DCliException', 'Exception'],
+      'FindProgress': ['InternalProgress'],
+      'HeadProgress': ['InternalProgress'],
+      'TailProgress': ['InternalProgress'],
+    };
+  }
+
   /// Returns a map of type alias names to their target class names.
   ///
   /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
@@ -466,6 +511,11 @@ class DcliBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // MCI#1 / A1: Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();
