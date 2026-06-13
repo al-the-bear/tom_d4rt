@@ -217,6 +217,22 @@ visitSimpleIdentifier → visitIdentifier → visitExpression
     → visitCollectionElement → visitNode
 ```
 
+## Documentation
+
+| Document | Purpose |
+|----------|---------|
+| [doc/tom_ast_model_user_guide.md](doc/tom_ast_model_user_guide.md) | Differences-only orientation: the model's shape, the four capabilities (typed tree, JSON round-trip, equality/diff, visitors), and the interpreter binding-hint fields. |
+| [doc/tom_ast_model_limitations.md](doc/tom_ast_model_limitations.md) | Model-specific deltas (syntax-not-semantics, coverage tracking, JSON compatibility boundary); backlinks to the canonical interpreter limitations. |
+
+This package adds no interpreter behaviour of its own — shared semantics and
+language coverage are documented once in the base projects:
+
+- [tom_d4rt User Guide](../tom_d4rt/doc/d4rt_user_guide.md) and
+  [Limitations (canonical)](../tom_d4rt/doc/d4rt_limitations.md).
+- [tom_ast_generator User Guide](../tom_ast_generator/doc/tom_ast_generator_user_guide.md)
+  — produces these trees; [tom_d4rt_ast User Guide](../tom_d4rt_ast/doc/tom_d4rt_ast_user_guide.md)
+  — interprets them.
+
 ## Where it fits in the D4rt ecosystem
 
 ```
