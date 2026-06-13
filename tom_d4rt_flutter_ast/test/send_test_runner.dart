@@ -1095,7 +1095,13 @@ class SendTestRunner {
     final bundler = _bundler ??= AstBundler(
       bridgedLibraries: d4rt.interpreter.bridgedLibraryUris,
     );
-    var bundle = await bundler.createFromSource(source);
+    // Use the real test-script path as the bundle entry-point URI so the
+    // interpreter (and anything that surfaces the program identity, e.g.
+    // error stack traces and the test-app's executable label) reports the
+    // current test file instead of the generic `main.dart` default. The
+    // name travels inside the bundle, so it stays correct for single-file
+    // runs and when multiple test files are processed in one run.
+    var bundle = await bundler.createFromSource(source, sourcePath: scriptPath);
 
     // Optionally include source code alongside the AST
     if (includeSource) {
