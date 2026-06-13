@@ -417,6 +417,6 @@ See the [example/advanced_bridging/](../example/advanced_bridging/) folder for c
 ## See Also
 
 - [BRIDGING_GUIDE.md](BRIDGING_GUIDE.md) - Basic bridging concepts
-- [d4rt_user_guide.md](d4rt_user_guide.md) - General D4rt usage guide
-- [d4rt_limitations.md](d4rt_limitations.md) - Known limitations
+- [tom_d4rt_exec_user_guide.md](tom_d4rt_exec_user_guide.md) - General D4rt usage guide
+- [tom_d4rt_exec_limitations.md](tom_d4rt_exec_limitations.md) - Known limitations
 - [tom_d4rt_generator: user_bridge_user_guide.md](../../tom_d4rt_generator/doc/user_bridge_user_guide.md) - UserBridge overrides for code generation

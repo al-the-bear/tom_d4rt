@@ -6,8 +6,8 @@ The `astgen` tool uses a two-tier configuration pattern for project discovery an
 
 This tool uses the shared CLI infrastructure from **tom_build_base**:
 
-- [CLI Tools Navigation](../../tom_build_base/doc/cli_tools_navigation.md) — Standard CLI commands, execution modes, and navigation options
-- [Build Base User Guide](../../tom_build_base/doc/build_base_user_guide.md) — Configuration loading, project discovery, and workspace mode
+- [CLI Tools Navigation](https://github.com/al-the-bear/tom_basics/blob/main/tom_build_base/doc/cli_tools_navigation.md) — Standard CLI commands, execution modes, and navigation options
+- [Build Base User Guide](https://github.com/al-the-bear/tom_basics/blob/main/tom_build_base/doc/build_base_user_guide.md) — Configuration loading, project discovery, and workspace mode
 
 For CLI usage details, see [tom_build_configuration_and_cli.md](tom_build_configuration_and_cli.md).
 
