@@ -111,7 +111,9 @@ difference is the entry class (`D4rtRunner` rather than `D4rt`). Two companion
 docs cover the runtime-wiring details, which are shared with the base:
 
 - [extension_registration.md](extension_registration.md) — the
-  `registerExtensions` / `finalizeBridges` ordering contract.
+  `registerExtensions` / `finalizeBridges` ordering contract **and the
+  canonical typed-execute API reference** (`executeBundleAs<T>` /
+  `executeBundleAsAsync<T>`, the `D4.unwrapAs<T>` coercion rules).
 - [usage_logging.md](usage_logging.md) — opt-in relaxer / proxy / constructor
   usage instrumentation (`D4.usageLogEnabled`, `D4RT_LOG_RELAXER_USAGE`).
 - [runtime_registration_surface.md](runtime_registration_surface.md) — the

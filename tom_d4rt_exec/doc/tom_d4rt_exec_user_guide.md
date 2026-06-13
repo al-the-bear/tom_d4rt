@@ -105,6 +105,9 @@ the raw interpreter result is converted to a native value and cast with
 `D4.unwrapAs<T>`, throwing `D4UnwrapException` on mismatch. This is the same
 typed surface a Flutter app uses on `tom_d4rt_ast` — see the
 [tom_d4rt_ast User Guide](../../tom_d4rt_ast/doc/tom_d4rt_ast_user_guide.md).
+The canonical contract for the typed-execute API (parameters, the unwrap
+coercion rules, and how `finalizeBridges` ties in) lives in
+[tom_d4rt_ast → Extension registration → Typed-execute API](../../tom_d4rt_ast/doc/extension_registration.md#typed-execute-api).
 
 ### Extension registration, warmup
 

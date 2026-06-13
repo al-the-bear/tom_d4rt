@@ -33,6 +33,78 @@ class D4rtRunner {
 embedders that use the analyzer-based entry point see the same
 contract.
 
+## Typed-execute API
+
+`finalizeBridges` exists so the typed-execute surface can fire it for
+you. `executeBundleAs<T>` / `executeBundleAsAsync<T>` are the
+**bundle-based** typed entry points on `D4rtRunner` (and `D4` in
+`tom_d4rt_exec`, which delegates to the inner runner). They run a
+pre-compiled `AstBundle`'s entry function and route the raw result
+through `D4.unwrapAs<T>`, so the caller gets a plain native `T` —
+never a `BridgedInstance`, `BridgedEnumValue`, or `InterpretedInstance`
+wrapper.
+
+```dart
+class D4rtRunner {
+  /// Execute [bundle]'s entry function and unwrap the result to [T]
+  /// via D4.unwrapAs. Throws [D4UnwrapException] if the result cannot
+  /// be coerced to T.
+  T executeBundleAs<T>(
+    AstBundle bundle, {
+    String? entryPoint,            // bundle entry module (default: bundle's own)
+    String name = 'main',          // function to call within that module
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+  });
+
+  /// Async variant — awaits the result if it is a Future before
+  /// unwrapping. Use this for `async` entry points (or when calling
+  /// outside a synchronous render path). A synchronous bundle still
+  /// works: the awaited value is just the raw return.
+  Future<T> executeBundleAsAsync<T>(AstBundle bundle, { … });
+}
+```
+
+Both methods exist **only on the AST line** (`tom_d4rt_ast` runner and
+`tom_d4rt_exec`'s `D4rt`). Base `tom_d4rt` has **no** bundle typed-execute
+and correctly should not — bundles are an analyzer-free, `SAstNode`
+concept; the analyzer-based base executes Dart source directly. What
+base `tom_d4rt` *does* share is the `registerExtensions` /
+`finalizeBridges` half of this contract (documented above and in the
+`tom_d4rt` user guide's "Extension Registration and Facades" section).
+
+### How finalize ties in
+
+`finalizeBridges` runs implicitly at the top of every `executeBundle*`
+call (§API), so the two methods need no explicit setup ceremony — the
+queued extension callbacks fire once, in registration order, before
+the script body runs. The unwrap step is the only difference between
+the raw `executeBundle` and the typed `executeBundleAs<T>`:
+
+| Call | Returns | Notes |
+|------|---------|-------|
+| `executeBundle(bundle, …)` | `Object?` (raw) | caller deals with the wrapper |
+| `executeBundleAs<T>(bundle, …)` | `T` | `D4.unwrapAs<T>(raw, visitor: …)` |
+| `executeBundleAsAsync<T>(bundle, …)` | `Future<T>` | awaits a `Future` raw, then unwraps |
+
+`D4.unwrapAs<T>` coercion rules (see `D4` in
+`lib/src/runtime/generator/d4.dart`): `null` → `T` if `null is T`;
+`BridgedInstance` → its `nativeObject`; `BridgedEnumValue` → its
+`nativeValue`; a value that already `is T` → as-is; `InterpretedInstance`
+→ its `bridgedSuperObject`, else an interface proxy built via the
+visitor; otherwise it throws `D4UnwrapException`. Passing the runner's
+visitor is what lets an `InterpretedInstance` be wrapped in a registered
+interface proxy.
+
+### Canonical consumer
+
+`FlutterD4rt` (in `tom_d4rt_flutter_ast`) is the reference consumer: its
+`build<T>` / `buildAsync<T>` / `execute<T>` / `executeAsync<T>` all route
+through `executeBundleAs<T>` / `executeBundleAsAsync<T>`, then re-throw
+any `D4UnwrapException` as `FlutterD4rtException` to keep its public
+exception contract. See
+`tom_d4rt_flutter_ast/doc/tom_d4rt_flutter_ast_user_guide.md` §2.
+
 ## User-registration facade (P&R#3)
 
 The runner also exposes three thin delegates onto the static `D4`
@@ -124,7 +196,7 @@ The four invariants in `tom_d4rt_ast/test/runtime/extension_hook_test.dart`:
 
 ## Canonical example: `FlutterD4rt`
 
-`tom_d4rt_flutterm/lib/src/flutter_d4rt.dart` uses the hook for the
+`tom_d4rt_flutter_ast/lib/src/flutter_d4rt.dart` uses the hook for the
 post-material proxy-override wiring:
 
 ```dart
@@ -135,7 +207,7 @@ void _registerBridges() {
   FlutterMaterialBridges.register(_interpreter);
   // Post-material work goes in the extension callback.
   _interpreter.registerExtensions(
-    'tom_d4rt_flutterm',
+    'tom_d4rt_flutter_ast',
     registerD4rtInterfaceProxyOverrides,
   );
   _interpreter.finalizeBridges();
