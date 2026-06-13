@@ -292,6 +292,23 @@ ast:
   # ... mirror AST content
 ```
 
+## Documentation
+
+| Document | Purpose |
+|----------|---------|
+| [doc/tom_ast_generator_user_guide.md](doc/tom_ast_generator_user_guide.md) | Differences-only guide: role in the pipeline (1:1 copy + bundling), `astgen` vs the bridge generator, when to bundle, bundle emission. |
+| [doc/tom_ast_generator_limitations.md](doc/tom_ast_generator_limitations.md) | Conversion/bundling deltas; backlinks to the canonical interpreter limitations. |
+| [doc/astgen_build_yaml.md](doc/astgen_build_yaml.md) | Full `astgen` `buildkit.yaml` configuration reference. |
+| [doc/tom_build_configuration_and_cli.md](doc/tom_build_configuration_and_cli.md) | CLI usage, options, and execution modes. |
+
+Shared interpreter semantics are documented once in the base projects — this
+package adds no interpreter behaviour of its own:
+
+- [tom_d4rt User Guide](../tom_d4rt/doc/d4rt_user_guide.md) and
+  [Limitations (canonical)](../tom_d4rt/doc/d4rt_limitations.md).
+- [tom_d4rt_ast User Guide](../tom_d4rt_ast/doc/tom_d4rt_ast_user_guide.md) —
+  the analyzer-free runtime that consumes the bundles produced here.
+
 ## Ecosystem position
 
 ```
