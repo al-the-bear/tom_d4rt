@@ -105,6 +105,50 @@ a couple of minimal snippets and points here via an
 
 ---
 
+## Limitations-file canon (todo-2 decision)
+
+**Decision (recorded 2026-06-13).** There is exactly **one canonical
+limitations document**, `tom_d4rt/doc/d4rt_limitations.md`, owned by
+the base interpreter. It is the single source of truth for interpreter
+and generator limitations. Every other project ships a **delta** file
+that documents only its own project-specific limitations and links
+back to the canon. All limitations files are named uniformly
+`<project>_limitations.md`; legacy names are retired.
+
+Rationale: the audit found the limitations docs are currently
+duplicated verbatim rather than layered — `tom_d4rt_exec`'s
+`d4rt_limitations.md` is a byte-identical 2880-line copy of the base,
+and `tom_d4rt_flutter` / `tom_d4rt_flutter_ast` carry an identical
+854-line `interpreter_limits_and_workarounds.md`. Duplication means a
+fix has to land in N places; the canon+delta model fixes that (P5,
+DRY).
+
+### Current files → target (executed under todo 20)
+
+| Current file | Lines | Target |
+|--------------|-------|--------|
+| `tom_d4rt/doc/d4rt_limitations.md` | 2880 | **Canon.** Keep; bring fully current. |
+| `tom_d4rt_exec/doc/d4rt_limitations.md` | 2880 (identical copy) | Replace with `tom_d4rt_exec_limitations.md` delta (exec-specific only: analyzer-parse path, bundle) + backlink. |
+| `tom_d4rt_dcli/doc/known_issues_macos.md` | 129 | Rename/fold into `tom_d4rt_dcli_limitations.md` (macOS DCli known issues as its delta) + backlink. |
+| `tom_d4rt_flutter/doc/interpreter_limits_and_workarounds.md` | 854 | Becomes `tom_d4rt_flutter_limitations.md` (Flutter-runtime deltas — bridge-adapter limits, perf/GC) + backlink. |
+| `tom_d4rt_flutter_ast/doc/interpreter_limits_and_workarounds.md` | 854 (identical copy) | Replace with `tom_d4rt_flutter_ast_limitations.md` delta vs the flutter base (no analyzer, bundle, web fit) + backlink to `tom_d4rt_flutter`. |
+| `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` | 8941 | Internal corpus tracker, **not user-facing** — relocate under quest folder / `_copilot_guidelines/` per P5 (todo 26); fold any genuine user-visible limits into the flutter delta/canon. |
+
+### Projects with no limitations file yet — add a delta or explicit "none"
+
+`tom_d4rt_ast`, `tom_ast_generator`, `tom_ast_model`,
+`tom_d4rt_generator`, `tom_dcli_exec`, `tom_d4rt_flutter_test`,
+`tom_d4rt_flutter_ast_test` each add a `<project>_limitations.md`
+that either lists project-specific deltas or states "no
+project-specific limitations beyond the base — see
+`tom_d4rt/doc/d4rt_limitations.md`."
+
+> Correction to the plan's todo-2 list: `tom_d4rt_flutter` does **not**
+> have an `interpreter_unfixable.md` — only `tom_d4rt_flutter_ast`
+> does. The inventory above is the authoritative current state.
+
+---
+
 ## Current gaps (audit snapshot, 2026-06-13)
 
 Captured to seed Phase B/C work; re-verify at edit time.
