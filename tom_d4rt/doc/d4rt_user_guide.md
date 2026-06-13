@@ -431,6 +431,17 @@ automatically; the facades exist so embedders and hand-written bridges can
 register adapters for their own (user-project) types without touching the
 generator.
 
+**Imperative vs. declarative.** The three methods above are the *imperative*
+path — you call them at runtime. For a user project's **own** generic classes,
+there is also a *declarative* path: annotate a marker class with
+`@D4rtUserProxy` / `@D4rtUserRelaxer` (both re-exported from
+`package:tom_d4rt/d4rt.dart`, mirroring the `@D4rtUserBridge` member-override
+convention) and let the generator expand the concrete type-argument
+instantiations — including multi-type-parameter generics the auto-generator
+does not cover — without editing `buildkit.yaml`. See the generator's
+[user_proxy_relaxer_annotations.md](../../tom_d4rt_generator/doc/user_proxy_relaxer_annotations.md)
+for the variant syntax and worked examples.
+
 ### Warmup
 
 `warmup()` calls `finalizeBridges()` and then executes a trivial throwaway
