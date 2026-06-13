@@ -2,7 +2,22 @@
 
 Comprehensive examples demonstrating DCli shell scripting library usage.
 
-## Examples
+This is the **canonical DCli sample home** (P2): the analyzer-free sibling
+[`tom_dcli_exec`](../../tom_dcli_exec/example/README.md) points here rather
+than duplicating samples, so every program below runs unchanged on both the
+analyzer-based (`tom_d4rt_dcli`) and analyzer-free (`tom_dcli_exec`) runtimes.
+
+## Extended multi-file samples
+
+Full multi-file CLI applications — the command-line analog of the Flutter
+"extended sample" apps — with classes and functions split across files.
+
+| Sample | Description |
+|--------|-------------|
+| [build_suite/](build_suite/README.md) | Build/automation tool: `BuildTask` hierarchy + `TaskRunner` across files, shell bridges (`which`, `'dart --version'.firstLine`), and a `buildkit.yaml` BuildKit pipeline |
+| [log_pipeline/](log_pipeline/README.md) | File-processing pipeline: parse → filter → aggregate stages over generated `.log` files, with a written report and coloured console summary |
+
+## Single-file snippets
 
 | File | Description |
 |------|-------------|

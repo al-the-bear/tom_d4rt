@@ -270,6 +270,23 @@ print(result); // 3
 
 ---
 
+## Examples
+
+The [`example/`](example/README.md) folder is the **canonical DCli sample
+home** for the D4rt CLI ecosystem. Alongside the single-file snippets it
+ships two extended, multi-file CLI applications:
+
+| Sample | Description |
+|--------|-------------|
+| [`example/build_suite/`](example/build_suite/README.md) | Build/automation tool — `BuildTask` hierarchy + `TaskRunner` across files, shell bridges, and a `buildkit.yaml` BuildKit pipeline |
+| [`example/log_pipeline/`](example/log_pipeline/README.md) | File-processing pipeline — parse → filter → aggregate stages over generated `.log` files, with a written report and coloured summary |
+
+Both run unchanged on the analyzer-free sibling
+[`tom_dcli_exec`](../tom_dcli_exec/example/README.md), which points back here
+instead of duplicating samples.
+
+---
+
 ## Architecture
 
 ### Stacked-REPL design

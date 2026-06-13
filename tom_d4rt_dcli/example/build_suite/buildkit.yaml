@@ -1,0 +1,26 @@
+# BuildKit wiring for the build-suite sample.
+#
+# Demonstrates how a multi-file DCli script is driven from a BuildKit
+# pipeline (the workspace-automation analog described in the DCli scripting
+# guide, Appendix C). Run a pipeline with:
+#
+#   bk :pipeline ci          # from this folder
+#
+# or invoke the script directly:
+#
+#   dcli main.dart all
+#
+# The `dcli` steps below call the same entry point with different targets,
+# so the suite doubles as a set of composable build phases.
+pipelines:
+  ci:
+    description: Clean, generate, analyze and package the scratch project.
+    steps:
+      - dcli main.dart clean
+      - dcli main.dart analyze
+      - dcli main.dart all
+
+  quick:
+    description: Fast inner-loop check — generate + analyze only.
+    steps:
+      - dcli main.dart analyze
