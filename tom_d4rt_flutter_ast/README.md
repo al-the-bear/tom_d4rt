@@ -226,6 +226,16 @@ The same sample set is mirrored in the source-direct sibling
 (`tom_d4rt_flutter_test/example/`), so the two execution paths can be compared
 app-for-app.
 
+## Documentation
+
+| Doc | What it covers |
+|-----|----------------|
+| [doc/tom_d4rt_flutter_ast_user_guide.md](doc/tom_d4rt_flutter_ast_user_guide.md) | **Differences-only guide** vs the source-based runtime — `FlutterD4rt`, bundle-driven execution, the sync/async entry points, and the web / over-the-air fit. |
+| [doc/tom_d4rt_flutter_ast_limitations.md](doc/tom_d4rt_flutter_ast_limitations.md) | AST-specific limitation deltas (no on-device parsing, bundle↔runtime version alignment, web) + backlinks to the base. |
+| [../tom_d4rt_flutter/doc/tom_d4rt_flutter_user_guide.md](../tom_d4rt_flutter/doc/tom_d4rt_flutter_user_guide.md) | **Base Flutter-runtime guide** — shared bridge surface, registration order, performance/GC. Read this first. |
+| [../tom_d4rt_flutter/doc/interpreter_limits_and_workarounds.md](../tom_d4rt_flutter/doc/interpreter_limits_and_workarounds.md) | Shared bridge-adapter limits catalogue with script workarounds. |
+| [../tom_d4rt_ast/doc/tom_d4rt_ast_user_guide.md](../tom_d4rt_ast/doc/tom_d4rt_ast_user_guide.md) | The analyzer-free interpreter core. |
+
 ## Architecture
 
 ### Generated bridges vs hand-written user bridges
