@@ -136,7 +136,21 @@ d4rtgen:
       mixinVariants:
         - SingleTickerProviderStateMixin
         - RestorationMixin
+    - className: BoxScrollView           # super-formal defaults for an
+      superArgDefaults:                  #   abstract base the proxy extends
+        scrollDirection: Axis.vertical
+        reverse: 'false'
+        clipBehavior: Clip.hardEdge
 ```
+
+The three map keys on a proxy entry are independent and may be combined:
+
+| Proxy key | Type | Purpose |
+|-----------|------|---------|
+| `proxyName` | `String` | Override the generated proxy class name (default `D4rt<ClassName>`). |
+| `mixinVariants` | `List<String>` | Emit one proxy variant per mixin so an interpreted subclass can mix in `SingleTickerProviderStateMixin` etc. (MCI#3 / A3+A4). |
+| `typeArgVariants` | `List<{typeArg, defaultExpr}>` | Emit one typed proxy per type argument; the first entry is the default arm (MCI#6 / B1). |
+| `superArgDefaults` | `Map<String,String>` | Default expressions for the **required** super-formal parameters of the abstract base the proxy extends, so the generated proxy can call `super(...)` without the script supplying them. Keys are parameter names; values are Dart expressions (quote bare literals like `'false'`). |
 
 ### Generic constructor entries
 
