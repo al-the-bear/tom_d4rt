@@ -326,9 +326,9 @@ under the `tom_ai/d4rt/` sub-tree.
 - Active development: the bug-fix corpus in `doc/flutter_bugs.md` and
   `doc/interpreter_limits_and_workarounds.md` tracks known Flutter-test-environment
   issues and D4rt interpreter limits with recommended script-level workarounds.
-- A planned consolidation (`doc/d4rt_consolidation_plan.md`) will move generic D4rt
-  machinery upstream into `tom_d4rt_ast`/`tom_d4rt_exec`, keeping only the
-  Flutter-specific surface in this package.
+- A planned consolidation will move generic D4rt machinery upstream into
+  `tom_d4rt_ast`/`tom_d4rt_exec`, keeping only the Flutter-specific surface in
+  this package.
 
 Repository:
 [https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_flutter_ast](https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_flutter_ast)
