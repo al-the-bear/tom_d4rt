@@ -56,6 +56,24 @@ program whose entry point `main.dart` exposes a top-level
 inlined into the bundle; bridged `package:flutter/*` imports are left for the
 runtime to resolve natively.
 
+This project ships **33** AST-bundle samples — the shared subset of the
+canonical raw-source corpus in
+[`tom_d4rt_flutter_test`](../tom_d4rt_flutter_test) (37 samples). The same 33
+programs run app-for-app on both runtimes, so the source-based and
+bundle-based paths can be compared directly.
+
+The **4 samples that are source-only by design** — `profiler_field`,
+`profiler_life`, `particle_field_optimized`, `conway_life_optimized` — are
+**not** compiled to bundles here. The two `profiler_*` apps are self-running
+diagnostics for the source-interpreted render path, and the two `*_optimized`
+apps are GC-mitigation demos whose unoptimized twins (`particle_field`,
+`conway_life`) are already in this corpus. See the
+[`tom_d4rt_flutter_test` README "Sample corpus" section](../tom_d4rt_flutter_test/README.md#sample-corpus)
+for the per-sample rationale. The compiler
+(`tool/compile_samples_to_bundles.dart`) auto-discovers every
+`example/<name>/main.dart`, so this exclusion is enforced simply by **not**
+copying those four directories into this project's `example/`.
+
 ## Layout
 
 | Path | Role |

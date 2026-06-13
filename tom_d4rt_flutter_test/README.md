@@ -20,6 +20,28 @@ demonstrate and manually verify the library on every platform.
   Flutter UI source and interprets the result on the fly, showing the
   on-the-fly-update workflow the D4rt ecosystem targets.
 
+## Sample corpus
+
+The `example/` tree holds **37** multi-file D4rt sample apps, snapshotted into
+`assets/samples/index.json` by `tool/sync_samples_to_assets.dart`. This is the
+canonical raw-source sample home (P2); the analyzer-free sibling
+[`tom_d4rt_flutter_ast_test`](../tom_d4rt_flutter_ast_test) mirrors **33** of
+them as pre-compiled `AstBundle` JSON.
+
+**33 samples are shared app-for-app** with the AST sibling so the source-based
+and bundle-based runtimes can be compared on identical programs. **4 samples
+are source-only by design** — they are not ported to AST bundles:
+
+| Source-only sample | Why it stays raw-source only |
+|--------------------|------------------------------|
+| `profiler_field` | Self-running profiling harness (autorun via `--dart-define=AUTORUN_SAMPLE=…`, `buildProgram`) used to measure the major-GC freeze on the **source-interpreted** render path — the [todo-19 GC analysis](../tom_d4rt/doc/d4rt_limitations.md#lim-10-per-step-allocation-rate-drives-major-gc). A diagnostic tool, not a demo; no analog purpose on the AST path. |
+| `profiler_life` | Same — Conway's Life profiling harness for the source path. |
+| `particle_field_optimized` | GC-mitigation demo (fixed-timestep governor + `ValueNotifier` incremental render). Its unoptimized twin `particle_field` is in **both** corpora and already validates the AST path; the optimized variant exists to be compared against that twin on the source path. |
+| `conway_life_optimized` | Same — the GC-mitigated twin of `conway_life` (which is in both corpora). |
+
+The optimization pattern these demos exercise is documented in the
+[`tom_d4rt_flutter` Performance & GC section](../tom_d4rt_flutter/doc/tom_d4rt_flutter_user_guide.md).
+
 ## Relationship to the library
 
 | Package | Role |
