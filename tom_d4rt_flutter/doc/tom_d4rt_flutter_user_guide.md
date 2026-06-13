@@ -195,6 +195,91 @@ with `dart run tool/regenerate_bridges.dart`.
   conformance runs the host app drives `/clear` (→ `resetScript()`) to drop
   script-declared globals.
 
+### 5.1 High-frequency loops and the major-GC freeze
+
+A script that drives a **high-frequency loop** — a per-frame simulation step,
+a particle/cellular-automaton update, a tight `while` — can stall the whole UI
+for **multiple seconds** at a time. The stall is a Dart **stop-the-world major
+(old-generation) GC**, not a bridge defect. Interpretation allocates far more
+short-lived objects per unit of work than compiled Dart (every evaluated
+expression mints AST-walk temporaries; every call frame mints an
+`Environment`), so a fast loop promotes enough survivors into the old
+generation to trigger a costly collection.
+
+The governing relation is:
+
+```text
+allocation_rate = garbage_per_step × steps_per_second
+```
+
+> **Counter-intuitive corollary.** The compiled-Dart instinct that "fewer,
+> tighter steps = less garbage" *inverts* under the interpreter. A rewrite that
+> cuts native allocations but removes an accidental cadence cap (e.g. an
+> implicit frame-rate governor) raises `steps_per_second`, raising the
+> allocation rate, and hits the freeze **sooner** — in one measured
+> particle-field case ≈12× sooner (≈4–5 s vs ≈60 s) than the "less optimal"
+> original. Reason about loop-iteration count and per-iteration `Environment`
+> minting, not native allocation counts.
+
+This is the interpreter-level limitation
+[`tom_d4rt/doc/d4rt_limitations.md` → Lim-10](../../tom_d4rt/doc/d4rt_limitations.md#lim-10-per-step-allocation-rate-drives-major-gc).
+Two independent levers mitigate it; use them together for smooth high-frequency
+simulations.
+
+#### Lever 1 — cap the cadence (fixed-timestep governor)
+
+Decouple simulation cadence from frame cadence with a fixed-timestep
+accumulator: bank elapsed wall-clock time and drain it in fixed quanta, with a
+small catch-up cap as a spiral-of-death guard. This bounds `steps_per_second`
+regardless of how fast frames arrive. The optimized samples use a 20 Hz step
+(`kStepDt = 0.05 s`) and a 4-step catch-up cap:
+
+```dart
+static const double kStepDt = 0.05;        // 20 Hz simulation tick
+static const int _kMaxCatchUpSteps = 4;    // spiral-of-death guard
+
+void _onFrame(Duration elapsed) {
+  if (paused.value) return;
+  final nowUs = elapsed.inMicroseconds;
+  if (_lastElapsedUs == 0) { _lastElapsedUs = nowUs; return; }
+  final dtUs = nowUs - _lastElapsedUs;
+  _lastElapsedUs = nowUs;
+  var frameS = dtUs / 1000000.0;
+  if (frameS <= 0.0) return;
+  // Clamp one frame so a long pause can't queue an unbounded burst of steps.
+  if (frameS > _kMaxCatchUpSteps * kStepDt) frameS = _kMaxCatchUpSteps * kStepDt;
+  _simAccumS += frameS;
+  var steps = 0;
+  while (_simAccumS >= kStepDt && steps < _kMaxCatchUpSteps) {
+    field.value = stepField(field.value, kStepDt);
+    _simAccumS -= kStepDt;
+    steps++;
+  }
+}
+```
+
+Full sample:
+`tom_d4rt_flutter_test/example/particle_field_optimized/field_controller.dart`.
+
+#### Lever 2 — cap the Dart old-gen heap (engine switch)
+
+Limiting the Dart old generation keeps collections **short and frequent**
+instead of **rare and catastrophic**. Set the `old-gen-heap-size` Flutter
+engine switch (which forwards to the VM flag `--old_gen_heap_size=<MB>`) via the
+generic engine-switch environment protocol:
+
+```bash
+FLUTTER_ENGINE_SWITCHES=1 \
+FLUTTER_ENGINE_SWITCH_1="old-gen-heap-size=256" \
+flutter run --release
+```
+
+- Caps the Dart **old generation** (≈256 MB confirmed effective for the
+  particle-field case), **not** process RSS.
+- Works in **release** builds, not just debug.
+- Combine with Lever 1: the governor keeps the allocation rate bounded; the
+  heap cap keeps each collection cheap.
+
 ---
 
 ## 6. Known limits & workarounds

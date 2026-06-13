@@ -10,7 +10,7 @@ This document provides a comprehensive reference of all known D4rt interpreter l
 > that documents its own project-specific limits and links back here. Do not
 > duplicate the entries below into downstream docs.
 
-**Last Updated:** 2026-02-08
+**Last Updated:** 2026-06-13
 
 ---
 
@@ -106,6 +106,7 @@ Combined list of all limitations and bugs, sorted by status (Fixed → TODO → 
 | Bug-98 | [Extension getter on bridged List not resolved](#bug-98-extension-getter-on-bridged-list-not-resolved) — `dart_overview_bugs_test: Bug-98` | Medium | ✅ Fixed |
 | Bug-99 | [Stream.handleError callback receives wrong argument count](#bug-99-streamhandleerror-callback-receives-wrong-argument-count) — `dart_overview_bugs_test: Bug-99` | Low | ✅ Fixed |
 | Lim-3 | [Isolate execution with interpreted code](#lim-3-isolate-execution-with-interpreted-code) — `limitations_and_bugs_test: Lim-3` (1) | Fundamental | ⚠️ Limited |
+| Lim-10 | [Per-step allocation rate drives stop-the-world major GC](#lim-10-per-step-allocation-rate-drives-major-gc) | Fundamental | ⚠️ Limited |
 | Bug-14 | [Records with named fields or >9 positional fields return InterpretedRecord](#bug-14-records-with-named-fields-or-9-positional-fields) — `limitations_and_bugs_test: Bug-14` (2) | High | 🚫 Won't Fix |
 
 **Status Legend:**
@@ -234,6 +235,75 @@ cannot be serialized and sent across isolate boundaries.
 2. Design scripts for single-threaded execution
 3. Use external processes instead of isolates
 4. Compile D4rt scripts to native Dart for production use
+
+---
+
+### Lim-10: Per-Step Allocation Rate Drives Major GC
+
+**Status:** ⚠️ Limited (by design — inherent to interpretation)  
+**Fixable:** ❌ No (architectural; mitigated, not removed)  
+**Complexity:** Fundamental
+
+#### Problem Description
+
+Interpreting a script allocates far more short-lived objects per unit of work
+than the equivalent compiled Dart. Every evaluated expression mints AST-walk
+temporaries, every call frame mints an `Environment`, and every interpreted
+loop iteration repeats that cost. When a script drives a high-frequency loop —
+a per-frame simulation step, a tight `while`, a particle/cellular-automaton
+update — the **allocation rate** is high enough that survivors get promoted
+into the Dart old generation. The eventual old-gen collection is a
+**stop-the-world major GC**, observed as a multi-second freeze of the whole
+isolate (and, in Flutter, the UI).
+
+The governing relation is:
+
+```text
+allocation_rate = garbage_per_step × steps_per_second
+```
+
+Both factors are amplified by interpretation: `garbage_per_step` is large (the
+interpreter allocates where compiled code would not), and `steps_per_second`
+is whatever the script's loop cadence happens to be. The freeze is reached
+sooner the faster the loop runs.
+
+> **Counter-intuitive corollary.** The compiled-Dart instinct that "fewer,
+> tighter steps = less garbage" *inverts* under the interpreter. A rewrite that
+> reduces native allocations but removes an accidental cadence cap (e.g. an
+> implicit frame-rate governor) raises `steps_per_second`, raising the
+> allocation rate, and reaches the major-GC freeze **sooner** — in one measured
+> particle-field case ~12× sooner (≈4–5 s vs ≈60 s) than the "less optimal"
+> original. Reason about loop-iteration count and per-iteration `Environment`
+> minting, not native allocation counts.
+
+#### Why It Cannot Be "Fixed"
+
+The allocation behaviour is intrinsic to walking an AST with per-scope
+environments. Removing it would mean compiling rather than interpreting. The
+limitation is therefore **mitigated**, not eliminated, by two independent
+levers:
+
+1. **Cap the steps (governor).** Decouple simulation cadence from frame/​loop
+   cadence with a fixed-timestep accumulator: bank elapsed wall-clock time and
+   drain it in fixed quanta (e.g. `kStepDt = 0.05 s` → 20 Hz), with a small
+   catch-up cap (e.g. 4 steps) as a spiral-of-death guard. This bounds
+   `steps_per_second` regardless of how fast frames arrive.
+
+2. **Cap the heap (engine switch, Flutter only).** Limit the Dart old
+   generation so collections stay short and frequent instead of rare and
+   catastrophic — the `old-gen-heap-size` engine switch (see the
+   `tom_d4rt_flutter` "Performance & GC" section).
+
+Either lever alone helps; together they keep an interpreted high-frequency
+simulation smooth. For production-grade hot loops, move the loop body into a
+bridged (compiled) class.
+
+#### Reference
+
+Full root-cause analysis, two reproductions (particle field, Conway's Life),
+the 2026-06-13 correction, and the governor fix:
+`tom_d4rt_flutter` docs and the quest analysis
+`_ai/quests/d4rt/particle_field_freeze_analysis.md`.
 
 ---
 
