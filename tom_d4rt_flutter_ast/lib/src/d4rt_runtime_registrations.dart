@@ -7,6 +7,12 @@
 /// - Construct generic classes with type arguments (RC-2: GlobalKey)
 library;
 
+// The AST variant reaches into the sibling interpreter packages' internal
+// APIs (`tom_d4rt_ast`/`tom_d4rt_exec` `src/`) and hand-mirrors the same
+// proxy/widget boilerplate the generator emits into `*.b.dart` — so the same
+// generated-style lints are suppressed here as in the bridge headers.
+// ignore_for_file: implementation_imports, no_logic_in_create_state, prefer_const_constructors_in_immutables, sort_child_properties_last, unintended_html_in_doc_comment
+
 import 'dart:ui'
     as ui
     show FontStyle, FontWeight, StrutStyle, TextLeadingDistribution, TextStyle;

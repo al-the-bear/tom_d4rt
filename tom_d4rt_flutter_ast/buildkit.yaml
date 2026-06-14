@@ -9,8 +9,12 @@ d4rtgen:
   generateDartscript: true
   dartscriptPath: lib/src/bridges/material_bridges.b.dart
   registrationClass: FlutterMaterialBridges
-  generateTestRunner: true
-  testRunnerPath: test/bridge_test_runner.b.dart
+  # This app drives the bridge corpus over HTTP via the hand-written
+  # `test/send_test_runner.dart`, not via the generated CLI test-runner stub.
+  # The generated stub targets the source-based `D4rtRunner(source:)` API and
+  # does not compile against the AST runner (`ast:`), so it is disabled —
+  # matching the source twin's `generateTestRunner: false`.
+  generateTestRunner: false
   # GEN-083: Proxy class generation for abstract delegates
   generateProxies: true
   proxiesOutputPath: lib/src/bridges/flutter_proxies.b.dart

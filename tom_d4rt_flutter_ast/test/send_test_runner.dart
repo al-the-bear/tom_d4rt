@@ -19,6 +19,7 @@
 /// ```
 ///
 /// Run with: flutter test test/send_test_runner.dart
+// ignore_for_file: avoid_print  // test harness: print is the progress/debug channel
 @TestOn('vm')
 library;
 
@@ -257,13 +258,9 @@ class SendTestRunner {
   }
 
   static void _printProfilerBanner(String message) {
-    // ignore: avoid_print
     print('');
-    // ignore: avoid_print
     print('=================================================================');
-    // ignore: avoid_print
     print('[D4RT_PROFILE] $message');
-    // ignore: avoid_print
     print('=================================================================');
   }
 
@@ -808,7 +805,6 @@ class SendTestRunner {
       final now = DateTime.now();
       if (now.difference(lastHeartbeat) >= const Duration(seconds: 3)) {
         lastHeartbeat = now;
-        // ignore: avoid_print
         print(
           '[test-app] waiting for /health on port $port '
           '(${now.difference(start).inSeconds}s elapsed, $probes probes)…',
@@ -869,14 +865,12 @@ class SendTestRunner {
       return;
     }
     if (_profileMode) {
-      // ignore: avoid_print
       print(
         '[recycle] suppressed: D4RT_PROFILE is set, keeping the wedged app '
         'alive for inspection. Subsequent sends will likely fail.',
       );
       return;
     }
-    // ignore: avoid_print
     print('[recycle] killing wedged test app (pid=${_testAppProcess?.pid})');
     try {
       await _killTestApp();
@@ -896,7 +890,6 @@ class SendTestRunner {
     // well below the test-level 30s budget.
     await _waitForPortFree(timeout: const Duration(seconds: 20));
     _testAppProcess = null;
-    // ignore: avoid_print
     print('[recycle] starting fresh test app');
     // 1401-TODO #11 (H2) — bumped from 60s to 120s, matching the
     // [setUp] default. See setUp's comment for the sweep-end cumulative
@@ -906,7 +899,6 @@ class SendTestRunner {
     // not exercise the widget tree. Confirm the new app's event loop is
     // actually responsive by doing a real /clear roundtrip — that proves
     // setState/Timer/post-frame are all healthy.
-    // ignore: avoid_print
     print('[recycle] verifying /clear roundtrip');
     await _httpGet(
       client,
@@ -915,7 +907,6 @@ class SendTestRunner {
       port: port,
       timeout: const Duration(seconds: 8),
     );
-    // ignore: avoid_print
     print('[recycle] ready');
   }
 
@@ -1024,7 +1015,6 @@ class SendTestRunner {
         // Recycle didn't produce a healthy app — re-arm the flag so the
         // next test tries again, and surface the failure to flutter_test.
         _appNeedsRecycle = true;
-        // ignore: avoid_print
         print('[recycle] FAILED: $error');
         Error.throwWithStackTrace(
           StateError('Test app recycle failed: $error'),
@@ -1216,7 +1206,6 @@ class SendTestRunner {
     // Log framework errors (red error screens) prominently so they are
     // visible in test output even when the D4rt build itself succeeded.
     if (frameworkErrors.isNotEmpty) {
-      // ignore: avoid_print
       print(
         '\n  ⚠️  FRAMEWORK ERROR in $scriptPath '
         '(${frameworkErrors.length} error(s)):',
@@ -1224,7 +1213,6 @@ class SendTestRunner {
       for (final err in frameworkErrors) {
         // Truncate very long messages for readability
         final short = err.length > 200 ? '${err.substring(0, 200)}…' : err;
-        // ignore: avoid_print
         print('       $short');
       }
     }
@@ -1260,7 +1248,6 @@ class SendTestRunner {
         // runs at the very start of the next send() (before that test builds
         // anything), so the boot cost lands on the next test's fresh per-test
         // budget instead of this one's already-exhausted ~45 s.
-        // ignore: avoid_print
         print(
           '[recycle] build-timeout in $scriptPath — app event loop is wedged; '
           'killing it now, restarting before the next test (no cascade)',
@@ -1335,7 +1322,6 @@ class SendTestRunner {
         statusCode: httpStatus,
       );
     } catch (error, stackTrace) {
-      // ignore: avoid_print
       print('Interact error: $error\n$stackTrace');
       return InteractResult(
         success: false,
@@ -1559,7 +1545,6 @@ class SendTestRunner {
     Map<String, dynamic>? appMetric,
   }) {
     final appStages = _formatAppMetric(appMetric);
-    // ignore: avoid_print
     print(
       '[METRIC] script=$scriptPath testFile=${_currentSuite ?? '<unknown>'} '
       'sourceBytes=$sourceBytes sourceChars=$sourceChars '

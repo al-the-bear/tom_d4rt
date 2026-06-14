@@ -9,20 +9,25 @@
 # packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
 
+analyzer:
+  # `send_ast_via_http_scripts/` holds the D4rt bridge-corpus *fixtures*: each
+  # `.dart` file is read as source text and shipped over HTTP to be interpreted
+  # by the runner — none of it is compiled into this app. The corpus
+  # deliberately exercises interpreter edge cases (dead code, dead null-aware
+  # expressions, unreachable switch arms, etc.), so static analysis of these
+  # fixtures is noise, not a signal. Exclude them from analysis.
+  exclude:
+    - test/send_ast_via_http_scripts/**
+  errors:
+    # interaction_controller.dart uses `_isDown` as a write-only state flag for
+    # the gesture-simulation helpers, and re-imports rendering.dart for clarity.
+    # Both are intentional — matches the source twin's nested-app config.
+    unused_field: ignore
+    unnecessary_import: ignore
+
 linter:
-  # The lint rules applied to this project can be customized in the
-  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
-  # included above or to enable additional rules. A list of all available lints
-  # and their documentation is published at https://dart.dev/lints.
-  #
-  # Instead of disabling a lint rule for the entire project in the
-  # section below, it can also be suppressed for a single line of code
-  # or a specific dart file by using the `// ignore: name_of_lint` and
-  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
-  # producing the lint.
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    avoid_print: false  # test app uses print for debug logging
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
