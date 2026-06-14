@@ -2956,3 +2956,19 @@ Check the number of parameters the user's callback function accepts. If it accep
 - [d4rt User Guide](d4rt_user_guide.md) - General D4rt usage guide
 - [Bridging Guide](BRIDGING_GUIDE.md) - Bridging native Dart classes and enums
 - [Advanced Bridging User Guide](advanced_bridging_user_guide.md) - User bridges and the low-level bridging API
+- [Manual Bridge Interventions](manual_bridge_interventions.md) - The hand-written bridge residue that survives generation, with worked examples
+
+### Project-specific limitation deltas
+
+Each downstream project ships only the limitations specific to it and links back
+to this canon. When a limitation is *interpreter-level*, it belongs here; when it
+is project-specific (a Flutter bridge-adapter gap, the exec entry point, the
+bundle runtime, …), it belongs in the matching delta below:
+
+- [tom_d4rt_flutter](../../tom_d4rt_flutter/doc/tom_d4rt_flutter_limitations.md) - Flutter-runtime bridge-adapter limits (ticker/State proxies, exhaustiveness, platform-capability cases, per-case script workarounds)
+- [tom_d4rt_flutter_ast](../../tom_d4rt_flutter_ast/doc/tom_d4rt_flutter_ast_limitations.md) - analyzer-free Flutter delta on top of the source-based Flutter file
+- [tom_d4rt_ast](../../tom_d4rt_ast/doc/tom_d4rt_ast_limitations.md) - analyzer-free runtime deltas (no on-device parsing)
+- [tom_d4rt_exec](../../tom_d4rt_exec/doc/tom_d4rt_exec_limitations.md) - source-parsing entry-point deltas (not web-safe)
+- [tom_ast_generator](../../tom_ast_generator/doc/tom_ast_generator_limitations.md) - conversion / bundling deltas
+- [tom_ast_model](../../tom_ast_model/doc/tom_ast_model_limitations.md) - data-model deltas (syntax, not semantics)
+- [tom_d4rt_dcli](../../tom_d4rt_dcli/doc/tom_d4rt_dcli_limitations.md) - DCli REPL-surface deltas
