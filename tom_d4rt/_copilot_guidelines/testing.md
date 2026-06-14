@@ -117,7 +117,7 @@ dart test --name "Lim-3"
 
 ## Test Results Tracking with Testkit Baselines
 
-Test results are tracked using **testkit baselines** in `doc/baseline_MMDD_HHMM.csv`. The most recent baseline file is the currently relevant one.
+Test results are tracked using **testkit baselines** in `testlog/baseline_MMDD_HHMM.csv`. The most recent baseline file is the currently relevant one.
 
 ### Baseline CSV Format
 
@@ -166,7 +166,7 @@ Testkit always uses `--reporter json` internally for parsing results.
 
 ### Output Files
 
-- `doc/baseline_MMDD_HHMM.csv` — Baseline files (most recent is current)
+- `testlog/baseline_MMDD_HHMM.csv` — Baseline files (most recent is current)
 - `last_testrun.json` — Raw test output from last run (overwritten each time)
 
 ### Workflow
@@ -231,6 +231,6 @@ When fixing a bug:
 
 ## Related Documentation
 
-- `doc/baseline_*.csv` — Test result baselines (most recent is current)
+- `testlog/baseline_*.csv` — Test result baselines (most recent is current)
 - `doc/issues.md` — Bug and issue documentation
 

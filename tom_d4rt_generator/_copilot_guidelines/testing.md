@@ -618,7 +618,7 @@ Tests for known bugs (GEN-041, GEN-042) are expected to fail. The passing baseli
 
 ## Test Results Tracking with Testkit Baselines
 
-Test results are tracked using **testkit baselines** in `doc/baseline_MMDD_HHMM.csv`. The most recent baseline file is the currently relevant one.
+Test results are tracked using **testkit baselines** in `testlog/baseline_MMDD_HHMM.csv`. The most recent baseline file is the currently relevant one.
 
 ### Running Tests
 
@@ -682,7 +682,7 @@ Testkit always uses `--reporter json` internally for parsing results.
 
 ### Output Files
 
-- `doc/baseline_MMDD_HHMM.csv` — Baseline files (most recent is current)
+- `testlog/baseline_MMDD_HHMM.csv` — Baseline files (most recent is current)
 - `last_testrun.json` — Raw test output from last run (overwritten each time)
 
 ### Test ID Convention
@@ -803,6 +803,6 @@ All commands must succeed for the release to proceed.
 
 ## Related Documentation
 
-- `doc/baseline_*.csv` — Test result baselines (most recent is current)
+- `testlog/baseline_*.csv` — Test result baselines (most recent is current)
 - `doc/issues.md` — Bug and issue documentation
 - `doc/test_coverage.md` — Feature coverage matrix
