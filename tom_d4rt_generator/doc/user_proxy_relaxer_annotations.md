@@ -213,5 +213,5 @@ generation entry point.
 - End-to-end integration of a `TomFormList<TElement, TForm>` script and a
   wildcard-pattern case (P&R #6 g).
 
-The authoritative live status is in `_ai/quests/d4rt/` —
-`proxy_and_relaxer_generation_optimization.md` (P&R #6) and `todo_impossible.md`.
+The still-required manual interventions and what the generator now automates
+are catalogued in `../../tom_d4rt/doc/manual_bridge_interventions.md`.

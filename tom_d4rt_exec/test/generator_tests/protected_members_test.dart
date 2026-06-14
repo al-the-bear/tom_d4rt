@@ -1,6 +1,6 @@
-/// MCI#4 / A6 premise-lock-in tests.
+/// `@protected` / `@visibleForTesting` premise-lock-in tests.
 ///
-/// A6 in `manual_code_interventions.md` proposed automating the hand-written
+/// An earlier proposal suggested automating the hand-written
 /// `D4.registerSupplementaryMethod(...)` adapters for `@protected` /
 /// `@visibleForTesting` members, on the stated premise that "the generator
 /// currently skips" those members. That premise is **stale**: the generator

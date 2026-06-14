@@ -121,7 +121,7 @@ reduced by generation (see C.1), but the need for concrete-per-variant classes
 cannot be eliminated.
 **Workaround:** provide a concrete proxy variant per used mixin-set / type arg
 (today hand-written in `d4rt_runtime_registrations.dart`; see
-`manual_code_interventions.md` for the automation path).
+`../../tom_d4rt/doc/manual_bridge_interventions.md` §3 for the automation path).
 
 ### A.4 — `vector_math_64` types — opt-in module shipped (generation done; integration/base-test gate pending)
 
@@ -387,7 +387,8 @@ the tick back to verify input is no longer starved is part of the gated tail.
 ## 4. C — Generator-fixable issues
 
 Bridge-generator gaps. Several are *functionally* worked around today by
-hand-written runtime registrations (see `manual_code_interventions.md`); they
+hand-written runtime registrations (see
+`../../tom_d4rt/doc/manual_bridge_interventions.md`); they
 remain open as **generator** work because the generator cannot yet emit the fix
 automatically.
 
@@ -397,8 +398,8 @@ to native): `Curve` (U3), `NotchedShape` / `FloatingActionButtonLocation` (U5),
 `Enum` (U8), `RouteAware` (U9), `HitTestTarget` (U11). ~33 proxies exist but are
 hand-written one-per-type. *Fix:* generator auto-emits an interface proxy for any
 script-defined subclass of a bridged abstract/mixin (the templatable majority;
-the non-templatable residue is A.3). Overlaps
-`manual_code_interventions.md` TODO #2.
+the non-templatable residue is A.3). See the automated-interface-proxy entry in
+`../../tom_d4rt/doc/manual_bridge_interventions.md` §3.
 
 ### C.3 — Non-wrappable arithmetic defaults on positional native ctors (U2)
 `BridgeGenerator._wrapDefaultValue` returns null for any default containing an

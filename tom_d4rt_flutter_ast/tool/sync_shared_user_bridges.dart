@@ -15,11 +15,12 @@
 /// here: conditional imports branch on `dart.library.*` environment constants,
 /// never on which application package (`tom_d4rt` vs `tom_d4rt_ast`) is on the
 /// dependency path — so a template + copy-generator is the only viable
-/// mechanism (see `manual_code_interventions.md` MCI#9).
+/// mechanism (see `../../tom_d4rt/doc/manual_bridge_interventions.md` §1).
 ///
 /// The AST-only `scene_builder_user_bridge.dart` is a legitimate VM↔web
-/// divergence (B5/MCI#10) and is **deliberately excluded** — it has no non-AST
-/// counterpart and must not be synced.
+/// divergence (see `manual_bridge_interventions.md` §4.5) and is
+/// **deliberately excluded** — it has no non-AST counterpart and must not be
+/// synced.
 ///
 /// Run from the `tom_d4rt_flutter_ast` project root:
 ///   dart run tool/sync_shared_user_bridges.dart          # write the non-AST copies

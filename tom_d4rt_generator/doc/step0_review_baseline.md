@@ -1,7 +1,9 @@
 # Step-0 Review Baseline — Proxy & Relaxer Generation Optimization
 
 **Quest:** d4rt · **Date:** 2026-06-05 · **Source todo:** cleanup_todos.md #1
-(= `proxy_and_relaxer_generation_optimization.md` step 0, sub-steps a–g).
+(= the former `proxy_and_relaxer_generation_optimization.md` step 0, sub-steps
+a–g; that analysis doc has since been consolidated into the published guide
+`../../tom_d4rt/doc/manual_bridge_interventions.md`).
 
 This is the durable record produced by the step-0 code review. It is the
 accurate baseline that later steps (1–7) amend. Generation **metrics** live

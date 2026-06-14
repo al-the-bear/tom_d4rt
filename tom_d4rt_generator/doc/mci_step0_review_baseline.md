@@ -1,7 +1,9 @@
 # MCI Step-0 Review Baseline — Runtime Registration Surface
 
 **Quest:** d4rt · **Date:** 2026-06-05 · **Source todo:** cleanup_todos.md #2
-(= `manual_code_interventions.md` step 0, sub-steps a–e).
+(= the former `manual_code_interventions.md` step 0, sub-steps a–e; that
+analysis doc has since been consolidated into the published guide
+`../../tom_d4rt/doc/manual_bridge_interventions.md`).
 
 This is the durable record produced by the MCI step-0 code review of the
 **runtime/registration surface** that hosts every hand-written intervention,
