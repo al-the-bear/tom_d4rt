@@ -1,8 +1,7 @@
 ## 1.0.0
 
-Initial release of the source-based Flutter bridge runtime. Monorepo-only
-(`publish_to: none`); consumed via path dependency by `tom_d4rt_flutter_test`
-and the HTTP harness.
+Initial pub.dev release of the source-based Flutter bridge runtime — the
+recommended way to run D4rt scripts that return Flutter widget trees.
 
 - `SourceFlutterD4rt` — a `tom_d4rt` interpreter pre-loaded with the full
   generated Flutter Material bridge surface (17 generated `*.b.dart` files under
