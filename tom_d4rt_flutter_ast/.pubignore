@@ -15,3 +15,11 @@ _copilot_guidelines/
 doc/basetestlog_*/
 doc/testlog_*/
 doc/*.log.txt
+doc/_orchestration_*.log.txt
+
+# Root-level scratch artifacts from the test campaign (test-result dumps,
+# generator scratch scripts) — never part of the published package.
+*testresults*.json
+last_testrun.json
+ztmp_*
+260404_*
