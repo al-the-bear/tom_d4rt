@@ -1926,10 +1926,8 @@ class _InterpretedKeepAliveState extends State<_InterpretedStatefulWidget>
   @override
   Object get d4rtInstance => _stateInstance;
 
-  // `AutomaticKeepAliveClientMixin` declares `wantKeepAlive` as an
-  // abstract getter — the analyzer does not consider implementing it
-  // as an "override" (no inherited implementation), so we omit
-  // `@override` to keep the analyzer quiet.
+  // `AutomaticKeepAliveClientMixin` declares `wantKeepAlive`, so this
+  // getter overrides the mixin member and carries `@override`.
   @override
   bool get wantKeepAlive {
     final getter = _stateInstance.klass.findInstanceGetter('wantKeepAlive');
