@@ -1,3 +1,7 @@
+// Doc comments below describe bridged-type scenarios using Dart type names
+// (e.g. BridgedInstance<Object>); the angle brackets are prose, not HTML.
+// ignore_for_file: unintended_html_in_doc_comment
+
 /// Tests for Flutter bridge issues found during essential classes testing.
 ///
 /// These tests verify the generator correctly handles issues found in:

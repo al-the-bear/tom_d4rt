@@ -103,8 +103,9 @@ class InterpretedFunction implements Callable {
 
   // Helper to extract loop variable name from a SDeclaredIdentifier or SSimpleIdentifier
   static String _loopVarName(SAstNode? loopVariable) {
-    if (loopVariable is SDeclaredIdentifier)
+    if (loopVariable is SDeclaredIdentifier) {
       return loopVariable.identifier?.name ?? '';
+    }
     if (loopVariable is SSimpleIdentifier) return loopVariable.name;
     return '';
   }
@@ -355,10 +356,12 @@ class InterpretedFunction implements Callable {
     return params.where((p) {
       if (p is SSimpleFormalParameter) return p.isPositional;
       if (p is SDefaultFormalParameter) return p.isPositional;
-      if (p is SFieldFormalParameter)
+      if (p is SFieldFormalParameter) {
         return true; // this.x params are positional
-      if (p is SSuperFormalParameter)
+      }
+      if (p is SSuperFormalParameter) {
         return true; // super.x params are positional
+      }
       if (p is SFunctionTypedFormalParameter) return true;
       return false;
     }).length;
@@ -705,8 +708,9 @@ class InterpretedFunction implements Callable {
           }
         }
 
-        if (paramName == null)
+        if (paramName == null) {
           throw StateD4rtException("Parameter missing name");
+        }
         processedParamNames.add(paramName);
 
         // Find corresponding argument and value

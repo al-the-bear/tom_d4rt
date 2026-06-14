@@ -1113,9 +1113,7 @@ void _generateFactoryCallback(
 
 /// Parsed shape of a function-typed return type, e.g.
 /// `List<CustomPainterSemantics> Function(Size)?` →
-///   (returnType: 'List<CustomPainterSemantics>',
-///    paramTypes: ['Size'],
-///    isNullable: true)
+///   `(returnType: 'List<CustomPainterSemantics>', paramTypes: ['Size'], isNullable: true)`
 ///
 /// Returns `null` when [type] is not an explicit `R Function(...)` form
 /// (typedefs like `VoidCallback` would resolve to `Function`-ish strings

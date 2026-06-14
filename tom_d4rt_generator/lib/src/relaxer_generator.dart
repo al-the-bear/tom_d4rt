@@ -314,8 +314,9 @@ Future<RelaxerGenerationResult> generateRelaxers({
         funcName,
         allowNullableVariants: nullableArgsOk,
       );
-      if (code.isEmpty)
+      if (code.isEmpty) {
         continue; // All type args were filtered (e.g., self-referential bounds)
+      }
       buffer.writeln(code);
       factoriesGenerated++;
       (factoryNames[target.baseTypeName] ??= []).add(funcName);
@@ -576,7 +577,7 @@ List<_RelaxerTarget> _buildRelaxerTargets(
     for (final typeName in allConcreteBridgedTypes) {
       if (typeName == className) continue;
       if (!isUnbounded &&
-          !_rc2SatisfiesBound(typeName, typeParamBound!, globalClassLookup)) {
+          !_rc2SatisfiesBound(typeName, typeParamBound, globalClassLookup)) {
         continue;
       }
       eligibleTypeArgs.add(typeName);

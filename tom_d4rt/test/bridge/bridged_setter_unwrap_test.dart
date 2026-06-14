@@ -17,6 +17,10 @@
 ///   - `prefix.property = value` via `PrefixedIdentifier`
 library;
 
+// The `_NativeHolder` getter/setter pair intentionally wraps a private field
+// to mirror the covariant generic store of `ValueNotifier<T>.value` under test.
+// ignore_for_file: unnecessary_getters_setters
+
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
 

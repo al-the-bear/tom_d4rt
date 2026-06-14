@@ -25,7 +25,8 @@ void main() {
   
   // Confirmation
   if (confirm('Save profile?', defaultValue: true)) {
-    print(green('Profile saved for $name'));
+    print(green('Profile saved for $name (age $age)'));
+    print('Password length: ${password.length}');
   }
   
   // Menu selection

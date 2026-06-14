@@ -207,15 +207,14 @@ void main() {
     test('updates timestamp of existing file', () {
       final path = p.join(testDir, 'existing.txt');
       touch(path, create: true);
-      final oldStat = File(path).statSync();
 
       // Small delay to ensure timestamp difference
       sleep(100, interval: Interval.milliseconds);
-      touch(path);
 
-      final newStat = File(path).statSync();
-      // Filesystem timestamp resolution may cause same time
-      // Just verify file still exists and can be touched
+      // Filesystem timestamp resolution is platform-dependent and may not
+      // advance reliably, so we only assert that re-touching an existing file
+      // completes without error and the file survives.
+      expect(() => touch(path), returnsNormally);
       expect(exists(path), isTrue);
     });
 

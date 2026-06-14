@@ -8,6 +8,12 @@
 /// 5. TickerProvider interface not recognized (vsync parameter)
 library;
 
+// This fixture deliberately reproduces the anti-patterns it documents above
+// (wrapper getters/setters, redundant overrides, doc comments with angle
+// brackets) so the bridge generator can be exercised against them. The lints
+// they trigger are part of the fixture's purpose, not defects to fix.
+// ignore_for_file: unnecessary_getters_setters, unnecessary_overrides, unintended_html_in_doc_comment, hash_and_equals
+
 // =============================================================================
 // ISSUE 1: BridgedInstance unwrapping for native types
 // Paint.color expects Color, but receives BridgedInstance<Object>
@@ -127,7 +133,6 @@ abstract class Key {
 
 /// UniqueKey must expose hashCode.
 class UniqueKey extends Key {
-  // ignore: hash_and_equals
   @override
   int get hashCode => super.hashCode; // Uses Object.hashCode
 

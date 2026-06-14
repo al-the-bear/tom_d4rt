@@ -60,7 +60,7 @@ void main() {
   /// entry (i.e. an empty / root class is omitted from the table).
   Set<String>? supertypesOf(String className) {
     // Match `      'Dog': ['Animal', 'Walks'],`
-    final pattern = RegExp("'" + RegExp.escape(className) + r"': \[([^\]]*)\]");
+    final pattern = RegExp("'${RegExp.escape(className)}': \\[([^\\]]*)\\]");
     final match = pattern.firstMatch(generatedCode);
     if (match == null) return null;
     final inner = match.group(1)!.trim();

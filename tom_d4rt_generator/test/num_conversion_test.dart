@@ -1,3 +1,7 @@
+// Doc comments below describe bridged-type scenarios using Dart type names
+// (e.g. Tween<T>); the angle brackets are prose, not HTML.
+// ignore_for_file: unintended_html_in_doc_comment
+
 /// Tests for num type conversion, missing bridged classes, and methods.
 ///
 /// These tests verify the generator correctly handles:

@@ -1,5 +1,4 @@
 import 'package:tom_d4rt_ast/runtime.dart';
-import 'package:tom_d4rt_ast/src/runtime/module_context.dart';
 
 /// Represents an enum type defined in the host Dart environment and bridged into the interpreter.
 /// It holds the definition and provides access to its values.

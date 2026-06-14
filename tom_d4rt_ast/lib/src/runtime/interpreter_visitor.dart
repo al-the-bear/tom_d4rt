@@ -1,8 +1,5 @@
 import 'dart:async';
 import 'package:tom_d4rt_ast/runtime.dart';
-import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_enum.dart';
-import 'package:tom_d4rt_ast/src/runtime/generator/d4.dart';
-import 'package:tom_d4rt_ast/src/runtime/module_context.dart';
 
 /// Detects whether any `SFunctionExpression` (closure) appears in a subtree.
 /// Used by the classic-for loop optimization (T8/F5) to decide whether a
@@ -454,6 +451,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     return node.value;
   }
 
+  @override
   Object? visitStringLiteral(SAstNode node) {
     if (node is SSimpleStringLiteral) {
       return node.value;
@@ -1204,7 +1202,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // Return directly the string for simplicity in prefixed access?
         // No, return a callable function to be consistent with methods.
         return NativeFunction(
-          (_, args, __, ___) {
+          (_, args, _, _) {
             if (args.isNotEmpty) {
               throw RuntimeD4rtException("toString() takes no arguments.");
             }
@@ -1503,7 +1501,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           return Function;
         case 'toString':
           return NativeFunction(
-            (_, args, __, ___) {
+            (_, args, _, _) {
               if (args.isNotEmpty) {
                 throw RuntimeD4rtException("toString() takes no arguments.");
               }
@@ -1560,16 +1558,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       if (prefixValue is Enum) {
         switch (memberName) {
           case 'name':
-            return (prefixValue as Enum).name;
+            return (prefixValue).name;
           case 'index':
-            return (prefixValue as Enum).index;
+            return (prefixValue).index;
           case 'hashCode':
             return prefixValue.hashCode;
           case 'runtimeType':
             return prefixValue.runtimeType;
           case 'toString':
             return NativeFunction(
-              (_, args, __, ___) => prefixValue.toString(),
+              (_, args, _, _) => prefixValue.toString(),
               arity: 0,
               name: 'toString',
             );
@@ -1589,7 +1587,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             return prefixValue.runtimeType;
           case 'toString':
             return NativeFunction(
-              (_, args, __, ___) => prefixValue.toString(),
+              (_, args, _, _) => prefixValue.toString(),
               arity: 0,
               name: 'toString',
             );
@@ -1771,8 +1769,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           if (right == 0) throw RuntimeD4rtException("Modulo by zero.");
           return left % right;
         case '~/':
-          if (right == 0)
+          if (right == 0) {
             throw RuntimeD4rtException("Integer division by zero.");
+          }
           return left ~/ right;
         default:
           break;
@@ -5563,9 +5562,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       if (target is Enum) {
         switch (propertyName) {
           case 'name':
-            return (target as Enum).name;
+            return (target).name;
           case 'index':
-            return (target as Enum).index;
+            return (target).index;
           case 'hashCode':
             return target.hashCode;
           case 'runtimeType':
@@ -7138,8 +7137,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // Compound assignment
         Object? currentValue;
         if (indexTarget is List) {
-          if (indexValue is! int)
+          if (indexValue is! int) {
             throw RuntimeD4rtException('List index must be int.');
+          }
           if (indexValue < 0 || indexValue >= indexTarget.length) {
             throw RuntimeD4rtException('Index out of range.');
           }
@@ -7175,8 +7175,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
       // Set the value
       if (indexTarget is List) {
-        if (indexValue is! int)
+        if (indexValue is! int) {
           throw RuntimeD4rtException('List index must be int.');
+        }
         if (indexValue < 0 || indexValue >= indexTarget.length) {
           throw RuntimeD4rtException('Index out of range.');
         }
@@ -10229,6 +10230,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
   }
 
+  @override
   dynamic visitIdentifier(SAstNode node) {
     final identName = (node as SSimpleIdentifier).name;
     final value = environment.get(identName);
@@ -13510,7 +13512,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         return record.runtimeType;
       case 'toString':
         return NativeFunction(
-          (_, args, __, ___) => record.toString(),
+          (_, args, _, _) => record.toString(),
           arity: 0,
           name: 'toString',
         );

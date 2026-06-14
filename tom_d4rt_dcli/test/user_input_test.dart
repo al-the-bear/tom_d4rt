@@ -534,7 +534,7 @@ void main() {
     test('menu options are strings', () {
       final options = ['First', 'Second', 'Third'];
 
-      expect(options.every((o) => o is String), isTrue);
+      expect(options, isA<List<String>>());
     });
   });
 

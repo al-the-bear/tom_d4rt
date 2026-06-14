@@ -262,7 +262,9 @@ class ModuleLoader {
       if (libEnum == null) continue;
       final name = libEnum.enumDefinition.name;
       if (!_shouldRegisterName(name,
-          showNames: showNames, hideNames: hideNames)) continue;
+          showNames: showNames, hideNames: hideNames)) {
+        continue;
+      }
       try {
         final bridgedEnum = libEnum.enumDefinition.buildBridgedEnum();
         targetEnvironment.defineBridgedEnum(bridgedEnum);
@@ -279,7 +281,9 @@ class ModuleLoader {
       if (libClass == null) continue;
       final name = libClass.bridgedClass.name;
       if (!_shouldRegisterName(name,
-          showNames: showNames, hideNames: hideNames)) continue;
+          showNames: showNames, hideNames: hideNames)) {
+        continue;
+      }
       try {
         targetEnvironment.defineBridge(libClass.bridgedClass);
         Logger.debug(
@@ -294,7 +298,9 @@ class ModuleLoader {
       for (final alias in d4rt!.classAliases) {
         if (alias.library != uriString) continue;
         if (!_shouldRegisterName(alias.aliasName,
-            showNames: showNames, hideNames: hideNames)) continue;
+            showNames: showNames, hideNames: hideNames)) {
+          continue;
+        }
         try {
           targetEnvironment.defineBridgeAlias(alias.aliasName, alias.targetName);
           Logger.debug(
@@ -308,7 +314,9 @@ class ModuleLoader {
       for (final typedef in d4rt!.functionTypedefs) {
         if (typedef.library != uriString) continue;
         if (!_shouldRegisterName(typedef.name,
-            showNames: showNames, hideNames: hideNames)) continue;
+            showNames: showNames, hideNames: hideNames)) {
+          continue;
+        }
         try {
           targetEnvironment.defineBridge(
               BridgedClass(nativeType: Function, name: typedef.name));
@@ -328,7 +336,9 @@ class ModuleLoader {
       final name = libFunc.function.name;
       if (name == '<native>') continue;
       if (!_shouldRegisterName(name,
-          showNames: showNames, hideNames: hideNames)) continue;
+          showNames: showNames, hideNames: hideNames)) {
+        continue;
+      }
       try {
         targetEnvironment.define(name, libFunc.function);
         Logger.debug(
@@ -343,7 +353,9 @@ class ModuleLoader {
       final libVar = entry[uriString];
       if (libVar == null) continue;
       if (!_shouldRegisterName(libVar.name,
-          showNames: showNames, hideNames: hideNames)) continue;
+          showNames: showNames, hideNames: hideNames)) {
+        continue;
+      }
       try {
         targetEnvironment.define(libVar.name, libVar.value);
         Logger.debug(
@@ -364,7 +376,9 @@ class ModuleLoader {
       final libGetter = entry[uriString];
       if (libGetter == null) continue;
       if (!_shouldRegisterName(libGetter.name,
-          showNames: showNames, hideNames: hideNames)) continue;
+          showNames: showNames, hideNames: hideNames)) {
+        continue;
+      }
       final setter = settersByName.remove(libGetter.name);
       try {
         targetEnvironment.define(
@@ -380,7 +394,9 @@ class ModuleLoader {
     // Remaining standalone setters
     for (final entry in settersByName.entries) {
       if (!_shouldRegisterName(entry.key,
-          showNames: showNames, hideNames: hideNames)) continue;
+          showNames: showNames, hideNames: hideNames)) {
+        continue;
+      }
       try {
         targetEnvironment.define(
             entry.key,
@@ -403,7 +419,9 @@ class ModuleLoader {
       final extName = definition.name ?? '<unnamed>';
       if (definition.name != null &&
           !_shouldRegisterName(definition.name!,
-              showNames: showNames, hideNames: hideNames)) continue;
+              showNames: showNames, hideNames: hideNames)) {
+        continue;
+      }
       try {
         RuntimeType? onType;
         try {

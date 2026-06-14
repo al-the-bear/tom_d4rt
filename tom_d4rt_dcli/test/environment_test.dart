@@ -117,14 +117,15 @@ void main() {
     });
 
     test('home directory contains expected subdirectories', () {
-      // Most home directories have these
-      final hasExpected = exists(p.join(HOME, '.bashrc')) ||
-          exists(p.join(HOME, '.bash_profile')) ||
-          exists(p.join(HOME, '.profile')) ||
-          exists(p.join(HOME, '.zshrc'));
-
-      // At least one config file should exist
-      expect(true, isTrue); // Don't fail if none exist
+      // Probing common config files must not throw, but their presence is
+      // environment-dependent so we don't assert on the result.
+      expect(
+        () => exists(p.join(HOME, '.bashrc')) ||
+            exists(p.join(HOME, '.bash_profile')) ||
+            exists(p.join(HOME, '.profile')) ||
+            exists(p.join(HOME, '.zshrc')),
+        returnsNormally,
+      );
     });
   });
 

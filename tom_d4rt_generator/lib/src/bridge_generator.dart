@@ -4308,7 +4308,7 @@ class BridgeGenerator {
           if (extName.startsWith('_')) continue;
 
           final extUri = extElement.firstFragment.libraryFragment.source.uri;
-          final extKey = '$extUri:${extName ?? '(unnamed)'}';
+          final extKey = '$extUri:$extName';
           if (seenExtensions.contains(extKey)) continue;
           seenExtensions.add(extKey);
 
@@ -4405,7 +4405,7 @@ class BridgeGenerator {
           if (verbose) {
             print(
               '  GEN-049: Discovered extension '
-              '${extName ?? "(unnamed)"} on $onTypeName '
+              '$extName on $onTypeName '
               'from import $libraryUri',
             );
           }
@@ -14514,14 +14514,14 @@ class BridgeGenerator {
     // Initialize result map
     if (declareVariable) {
       if (isNullable) {
-        lines.add('${indent}$fullMapType? $localName;');
+        lines.add('$indent$fullMapType? $localName;');
       } else {
         lines.add('${indent}final $localName = <$keyType, $valueType>{};');
       }
     } else {
       // Variable already declared - initialize it
       if (!isNullable) {
-        lines.add('${indent}$localName = <$keyType, $valueType>{};');
+        lines.add('$indent$localName = <$keyType, $valueType>{};');
       }
     }
 
@@ -14544,7 +14544,7 @@ class BridgeGenerator {
     // RC-4: Use D4.extractBridgedArg for map keys to unwrap BridgedInstance.
     // Direct `as` cast fails when the key is wrapped in BridgedInstance.
     lines.add(
-      "$indent    final k = D4.extractBridgedArg<$keyType>(entry.key, '${localName}[key]');",
+      "$indent    final k = D4.extractBridgedArg<$keyType>(entry.key, '$localName[key]');",
     );
     lines.add('$indent    final v = entry.value;');
     lines.add('$indent    if (v == null) {');

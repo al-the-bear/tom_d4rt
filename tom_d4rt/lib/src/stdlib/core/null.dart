@@ -8,12 +8,15 @@ class NullCore {
         isAssignable: (v) => v == null,
         typeParameterCount: 0,
         methods: {
+          // The `Null` bridge's target is always the null value, so calling
+          // through `null` directly is equivalent and avoids the cast-to-Null
+          // pattern that the analyzer flags as dead code.
           'toString': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Null).toString();
+            return null.toString();
           },
         },
         getters: {
-          'hashCode': (visitor, target) => (target as Null).hashCode,
+          'hashCode': (visitor, target) => null.hashCode,
         },
       );
 }

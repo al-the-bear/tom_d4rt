@@ -1392,9 +1392,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       if (prefixValue is Enum) {
         switch (memberName) {
           case 'name':
-            return (prefixValue as Enum).name;
+            return (prefixValue).name;
           case 'index':
-            return (prefixValue as Enum).index;
+            return (prefixValue).index;
           case 'hashCode':
             return prefixValue.hashCode;
           case 'runtimeType':
@@ -1598,8 +1598,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           if (right == 0) throw RuntimeD4rtException("Modulo by zero.");
           return left % right;
         case TokenType.TILDE_SLASH:
-          if (right == 0)
+          if (right == 0) {
             throw RuntimeD4rtException("Integer division by zero.");
+          }
           return left ~/ right;
         default:
           break;
@@ -4891,9 +4892,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       if (target is Enum) {
         switch (propertyName) {
           case 'name':
-            return (target as Enum).name;
+            return (target).name;
           case 'index':
-            return (target as Enum).index;
+            return (target).index;
           case 'hashCode':
             return target.hashCode;
           case 'runtimeType':
@@ -6370,8 +6371,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // Compound assignment
         Object? currentValue;
         if (indexTarget is List) {
-          if (indexValue is! int)
+          if (indexValue is! int) {
             throw RuntimeD4rtException('List index must be int.');
+          }
           if (indexValue < 0 || indexValue >= indexTarget.length) {
             throw RuntimeD4rtException('Index out of range.');
           }
@@ -6405,8 +6407,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
       // Set the value
       if (indexTarget is List) {
-        if (indexValue is! int)
+        if (indexValue is! int) {
           throw RuntimeD4rtException('List index must be int.');
+        }
         if (indexValue < 0 || indexValue >= indexTarget.length) {
           throw RuntimeD4rtException('Index out of range.');
         }

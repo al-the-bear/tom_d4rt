@@ -16,6 +16,11 @@ include: package:lints/recommended.yaml
 linter:
   rules:
     dangling_library_doc_comments: false
+    # The dcli scripting-guide examples are intentionally numbered
+    # (01_hello.dart, 02_string_as_process.dart, …) so the guide can
+    # reference them in order. The numeric prefix trips file_names, which
+    # we disable here rather than renaming and breaking the guide.
+    file_names: false
 
 # Exclude generated bridge files
 analyzer:

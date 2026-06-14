@@ -4,7 +4,6 @@
 @TestOn('vm')
 library;
 
-import 'dart:io';
 import 'package:dcli/dcli.dart' hide isEmpty;
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
@@ -253,9 +252,10 @@ void main() {
       final lines = <String>[];
 
       startFromArgs('echo', ['-n', 'hello', 'world'],
-          progress: Progress.capture());
+          progress: Progress((line) => lines.add(line)));
 
-      expect(true, isTrue);
+      expect(lines.join(' '), contains('hello'));
+      expect(lines.join(' '), contains('world'));
     });
   });
 

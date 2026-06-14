@@ -1,5 +1,4 @@
 import 'package:tom_d4rt_ast/runtime.dart';
-import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_enum.dart';
 import 'package:tom_d4rt_ast/src/runtime/utils/extensions/string.dart';
 
 /// A wrapper for lazy-evaluated global getters with optional setter support.

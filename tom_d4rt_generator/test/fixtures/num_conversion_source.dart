@@ -1,3 +1,8 @@
+// This fixture deliberately uses wrapper getters/setters and doc comments with
+// Dart type names in angle brackets so the bridge generator can be exercised
+// against them. The lints they trigger are part of the fixture's purpose.
+// ignore_for_file: unnecessary_getters_setters, unintended_html_in_doc_comment
+
 /// Test fixture for num type conversion in generated bridges.
 ///
 /// Tests the following scenarios:

@@ -1617,8 +1617,9 @@ $code
       if (count < 0) {
         if (!silent) state.writeError('File not found: $resolvedPath');
       } else {
-        if (!silent)
+        if (!silent) {
           state.writeSuccess('Loaded $count defines from: $resolvedPath');
+        }
       }
       return true;
     }
@@ -1764,20 +1765,23 @@ $code
     }
 
     if (line == 'scripts') {
-      if (!silent)
+      if (!silent) {
         _listFilesByPattern(state, state.currentDirectory, '.script.txt');
+      }
       return true;
     }
 
     if (line == 'plays') {
-      if (!silent)
+      if (!silent) {
         _listFilesByPatterns(state, state.currentDirectory, replayFilePatterns);
+      }
       return true;
     }
 
     if (line == 'executes') {
-      if (!silent)
+      if (!silent) {
         _listFilesByPattern(state, state.currentDirectory, '.exec.dart');
+      }
       return true;
     }
 
@@ -1824,8 +1828,9 @@ $code
 
     if (line == '.start-script') {
       state.multilineMode = MultilineMode.script;
-      if (!silent)
+      if (!silent) {
         print('(entering script mode - type .end to run with return value)');
+      }
       return true;
     }
 
@@ -1954,10 +1959,11 @@ $code
     final definition = line.substring(7);
     final eqIndex = definition.indexOf('=');
     if (eqIndex <= 0) {
-      if (!silent)
+      if (!silent) {
         state.writeError(
           'Invalid define syntax. Use: define <name>=<template>',
         );
+      }
       return true;
     }
     final name = definition.substring(0, eqIndex).trim();
@@ -1967,8 +1973,9 @@ $code
       return true;
     }
     if (!RegExp(r'^[a-zA-Z_][a-zA-Z0-9_]*$').hasMatch(name)) {
-      if (!silent)
+      if (!silent) {
         state.writeError('Invalid define name: must be a valid identifier');
+      }
       return true;
     }
     setDefine(name, template);
@@ -2007,8 +2014,9 @@ $code
           sessionFile.path,
           silent: true,
         );
-        if (!silent)
+        if (!silent) {
           state.writeMuted('Restored $replayedLines lines from session.');
+        }
       } catch (e) {
         if (!silent) state.writeWarning('Failed to replay session: $e');
       }
@@ -2045,10 +2053,11 @@ $code
             sessionFile.path,
             silent: true,
           );
-          if (!silent)
+          if (!silent) {
             state.writeMuted(
               'Replayed $replayedLines lines from session: $name',
             );
+          }
         } catch (e) {
           if (e is D4rtException) {
             e.revoke();
@@ -2066,10 +2075,11 @@ $code
               replayFilePath,
               silent: true,
             );
-            if (!silent)
+            if (!silent) {
               state.writeMuted(
                 'Replayed $replayedLines lines from: $replayFilePath',
               );
+            }
           } catch (e) {
             if (e is D4rtException) {
               e.revoke();
