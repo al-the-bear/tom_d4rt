@@ -1,3 +1,7 @@
+## 1.9.4
+
+- Housekeeping: test artifacts now live in a gitignored `testlog/` folder; `doc/` no longer ships machine-generated baselines or last_testrun.json. No code changes.
+
 ## 1.9.3
 
 ### Generated-code hygiene

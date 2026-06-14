@@ -1,3 +1,7 @@
+## 1.8.5
+
+- Housekeeping: test artifacts now live in a gitignored `testlog/` folder; `doc/` no longer ships machine-generated baselines or last_testrun.json. No code changes.
+
 ## 1.8.4
 
 - Picks up `tom_d4rt_ast 0.1.6` (instance/bridged shadowing fix, implicit-

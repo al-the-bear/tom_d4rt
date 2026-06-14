@@ -1,3 +1,7 @@
+## 1.8.23
+
+- Housekeeping: test artifacts now live in a gitignored `testlog/` folder; `doc/` no longer ships machine-generated baselines or last_testrun.json. No code changes.
+
 ## 1.8.22
 
 ### Fixes

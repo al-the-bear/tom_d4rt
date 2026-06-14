@@ -1,3 +1,7 @@
+## 0.1.7
+
+- Housekeeping: test artifacts now live in a gitignored `testlog/` folder; `doc/` no longer ships machine-generated baselines or last_testrun.json. No code changes.
+
 ## 0.1.6
 
 - Mirror the `tom_d4rt 1.8.22` interpreter fixes: instance members shadow

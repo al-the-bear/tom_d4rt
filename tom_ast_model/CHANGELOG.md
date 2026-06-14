@@ -1,3 +1,7 @@
+## 0.1.3
+
+- Housekeeping: test artifacts now live in a gitignored `testlog/` folder; `doc/` no longer ships machine-generated baselines or last_testrun.json. No code changes.
+
 ## 0.1.2
 
 - Documentation: limitations and user guide updated; README aligned with the

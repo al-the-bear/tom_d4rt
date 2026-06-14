@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Housekeeping: test artifacts now live in a gitignored `testlog/` folder; `doc/` no longer ships machine-generated baselines or last_testrun.json. No code changes.
+
 ## 1.0.0
 
 Initial pub.dev release of the source-based Flutter bridge runtime — the
