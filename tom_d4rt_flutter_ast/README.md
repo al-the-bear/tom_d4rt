@@ -11,9 +11,20 @@ renders natively inside the host application.
 
 The interpreter runs entirely on the **analyzer-free** execution path
 (`tom_d4rt_ast` + `tom_d4rt_exec`), so it can be embedded in a shipping Flutter app
-with no Dart analyzer dependency and no platform-channel overhead. This makes the
-package the strategic building block for **over-the-air UI updates**: ship widget code
-in an `AstBundle`, execute it at runtime, and render the result — no app-store cycle.
+with no Dart analyzer dependency and no platform-channel overhead. That makes this
+package the right choice for **over-the-air UI updates** and **web** targets: ship
+widget code in an `AstBundle`, execute it at runtime, and render the result — no
+app-store cycle.
+
+> **Which package should I use?** Start with the **source-based**
+> [`tom_d4rt_flutter`](../tom_d4rt_flutter) (`SourceFlutterD4rt`) — it is the
+> primary, recommended Flutter integration. It parses Dart source directly, has
+> the simplest workflow, and covers desktop and mobile development. Reach for
+> **this** AST-based package only when you specifically need the analyzer-free
+> path: embedding in a shipping app for over-the-air updates, or running on the
+> web (dart2js / dart2wasm). The two packages share the same bridge surface and
+> script corpus; the AST variant trades the on-device parse step for a
+> pre-compiled `AstBundle`.
 
 The bridge layer covers `dart:ui` plus the following Flutter library barrels:
 

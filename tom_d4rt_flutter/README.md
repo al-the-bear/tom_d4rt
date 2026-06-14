@@ -4,16 +4,21 @@
 > renders interpreted Dart UI against **real Flutter widgets**.
 
 `tom_d4rt_flutter` is the reusable library at the centre of the Flutter-facing
-D4rt stack. It exposes `SourceFlutterD4rt`: a `tom_d4rt` interpreter pre-loaded
+D4rt stack, and the **primary, recommended** way to run interpreted Dart UI on
+Flutter. It exposes `SourceFlutterD4rt`: a `tom_d4rt` interpreter pre-loaded
 with the full generated Flutter Material bridge surface (17 generated bridge
 files under `lib/src/bridges/`) plus hand-written runtime registrations
 (interface proxies, type relaxers, generic factories) and the
 `d4rt_user_bridges/` overrides. Feed it raw Dart source and it returns a live
 `Widget`.
 
-This package declares `publish_to: 'none'` — it lives inside the D4rt monorepo
-and is consumed via path dependency by the demo/test application
-(`tom_d4rt_flutter_test`) and the HTTP harness.
+> **Start here for Flutter + D4rt.** Use this source-based package for desktop
+> and mobile development — it parses Dart source directly and has the simplest
+> workflow. The analyzer-free sibling
+> [`tom_d4rt_flutter_ast`](../tom_d4rt_flutter_ast) (`FlutterD4rt`) shares the
+> same bridge surface but is only needed when you must run without the Dart
+> analyzer: embedding in a shipping app for over-the-air updates, or targeting
+> the web (dart2js / dart2wasm).
 
 ---
 
