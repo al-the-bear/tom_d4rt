@@ -305,7 +305,7 @@ Future<ProxyGenerationResult> generateProxies({
 
   // ignore_for_file for common generated code issues
   buffer.writeln(
-    '// ignore_for_file: unused_import, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member',
+    '// ignore_for_file: unused_import, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unused_local_variable, unintended_html_in_doc_comment, non_constant_identifier_names, unreachable_switch_case, unnecessary_cast, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, use_key_in_widget_constructors, annotate_overrides, must_call_super, no_logic_in_create_state, unused_field, deprecated_member_use, sort_child_properties_last, unnecessary_import',
   );
   buffer.writeln();
 

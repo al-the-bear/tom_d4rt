@@ -701,7 +701,7 @@ void registerD4rtInterfaceProxyOverrides() {
     if (cached is ParentDataWidget) return cached;
     final child = _readChildWidget(instance, visitor) ?? const SizedBox();
     final proxy = _InterpretedParentDataWidget(
-        visitor, instance, child: child, key: _readKey(instance, visitor));
+        visitor, instance, key: _readKey(instance, visitor), child: child);
     instance.nativeProxy = proxy;
     return proxy;
   });
@@ -1140,7 +1140,11 @@ class _InterpretedStatefulWidget extends StatefulWidget {
 
   const _InterpretedStatefulWidget(this._visitor, this._instance, {super.key});
 
+  // Bridging an interpreted StatefulWidget requires dispatching to the
+  // script's own createState() here, so the logic in this override is
+  // intrinsic rather than an oversight.
   @override
+  // ignore: no_logic_in_create_state
   State<_InterpretedStatefulWidget> createState() {
     final method = _instance.klass.findInstanceMethod('createState');
     if (method != null) {
@@ -1926,6 +1930,7 @@ class _InterpretedKeepAliveState extends State<_InterpretedStatefulWidget>
   // abstract getter — the analyzer does not consider implementing it
   // as an "override" (no inherited implementation), so we omit
   // `@override` to keep the analyzer quiet.
+  @override
   bool get wantKeepAlive {
     final getter = _stateInstance.klass.findInstanceGetter('wantKeepAlive');
     if (getter != null) {
@@ -2528,7 +2533,7 @@ void _updateRenderObject(
 
 /// Native [LeafRenderObjectWidget] backing an interpreted subclass.
 class _InterpretedLeafRenderObjectWidget extends LeafRenderObjectWidget {
-  _InterpretedLeafRenderObjectWidget(
+  const _InterpretedLeafRenderObjectWidget(
     this._visitor,
     this._instance, {
     super.key,
@@ -2549,7 +2554,7 @@ class _InterpretedLeafRenderObjectWidget extends LeafRenderObjectWidget {
 /// Native [SingleChildRenderObjectWidget] backing an interpreted subclass.
 class _InterpretedSingleChildRenderObjectWidget
     extends SingleChildRenderObjectWidget {
-  _InterpretedSingleChildRenderObjectWidget(
+  const _InterpretedSingleChildRenderObjectWidget(
     this._visitor,
     this._instance, {
     super.key,
@@ -2571,7 +2576,7 @@ class _InterpretedSingleChildRenderObjectWidget
 /// Native [MultiChildRenderObjectWidget] backing an interpreted subclass.
 class _InterpretedMultiChildRenderObjectWidget
     extends MultiChildRenderObjectWidget {
-  _InterpretedMultiChildRenderObjectWidget(
+  const _InterpretedMultiChildRenderObjectWidget(
     this._visitor,
     this._instance, {
     super.key,
@@ -2603,7 +2608,7 @@ class _InterpretedMultiChildRenderObjectWidget
 /// proxies. Real shortcut dispatch for fully-interpreted Intents is a
 /// separate concern.
 class _InterpretedIntent extends Intent {
-  _InterpretedIntent(this._visitor, this._instance) : super();
+  const _InterpretedIntent(this._visitor, this._instance) : super();
 
   // Held for parity with the other proxies and to keep the InterpretedInstance
   // reachable for possible future forwarding (toString, debugFillProperties).
@@ -2664,7 +2669,7 @@ class _InterpretedAction extends Action<Intent> {
 /// internal to the interpreter.
 class _InterpretedSlottedMultiChildRenderObjectWidget
     extends SlottedMultiChildRenderObjectWidget<dynamic, RenderObject> {
-  _InterpretedSlottedMultiChildRenderObjectWidget(
+  const _InterpretedSlottedMultiChildRenderObjectWidget(
     this._visitor,
     this._instance, {
     super.key,
@@ -3632,7 +3637,7 @@ class _InterpretedRenderAligningShiftedBox extends RenderAligningShiftedBox
 // used only in debug error messages and does not affect runtime behaviour.
 class _InterpretedParentDataWidget extends ParentDataWidget<ParentData>
     implements D4InterpretedProxy {
-  _InterpretedParentDataWidget(this._visitor, this._instance,
+  const _InterpretedParentDataWidget(this._visitor, this._instance,
       {required super.child, super.key});
 
   final InterpreterVisitor _visitor;
@@ -3947,9 +3952,9 @@ Object _unwrapInheritedWidget(InheritedWidget widget) {
 // C6b: ThemeExtension proxy for interpreted ThemeExtension subclasses
 // ---------------------------------------------------------------------------
 
-/// Native [ThemeExtension] backing an interpreted subclass (e.g. BrandTokens
-/// extends ThemeExtension<BrandTokens>). Forwards `copyWith()` and `lerp()`
-/// to the script.
+/// Native [ThemeExtension] backing an interpreted subclass (e.g. a
+/// `BrandTokens extends ThemeExtension<BrandTokens>`). Forwards `copyWith()`
+/// and `lerp()` to the script.
 ///
 /// Uses F-bounded polymorphism: `_InterpretedThemeExtension extends
 /// ThemeExtension<_InterpretedThemeExtension>`. By covariance, this is also
@@ -4068,7 +4073,7 @@ T? _readSuperArg<T>(
 
 /// Native [TwoDimensionalScrollView] backing an interpreted subclass.
 class _InterpretedTwoDimensionalScrollView extends TwoDimensionalScrollView {
-  _InterpretedTwoDimensionalScrollView._(
+  const _InterpretedTwoDimensionalScrollView._(
     this._visitor,
     this._instance, {
     super.key,
@@ -4168,7 +4173,7 @@ class _InterpretedTwoDimensionalScrollView extends TwoDimensionalScrollView {
 /// Delegates [buildChildLayout] to the interpreted class's override,
 /// enabling scripts that extend [BoxScrollView] to power a real scrollable.
 class _InterpretedBoxScrollView extends BoxScrollView {
-  _InterpretedBoxScrollView._(
+  const _InterpretedBoxScrollView._(
     this._visitor,
     this._instance, {
     super.key,
@@ -4239,7 +4244,7 @@ class _InterpretedBoxScrollView extends BoxScrollView {
 
 /// Native [TwoDimensionalViewport] backing an interpreted subclass.
 class _InterpretedTwoDimensionalViewport extends TwoDimensionalViewport {
-  _InterpretedTwoDimensionalViewport._(
+  const _InterpretedTwoDimensionalViewport._(
     this._visitor,
     this._instance, {
     super.key,

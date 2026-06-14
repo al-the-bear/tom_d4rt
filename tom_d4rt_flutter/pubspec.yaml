@@ -17,6 +17,10 @@ dependencies:
   # Direct dependency required so the generated vector_math_bridges.b.dart can
   # import it; mirrors tom_d4rt_flutter_ast which already carries this dep.
   vector_math: ^2.2.0
+  # Generated bridges import meta and characters directly; mirrors the
+  # constraints used by tom_d4rt_flutter_ast.
+  meta: ^1.17.0
+  characters: ^1.4.0
 
 dev_dependencies:
   flutter_test:
