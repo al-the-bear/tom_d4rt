@@ -1,3 +1,14 @@
+## 0.1.6
+
+- Mirror the `tom_d4rt 1.8.22` interpreter fixes: instance members shadow
+  bridged top-level functions (FIX-20260613-1038-C); no exception-as-control-
+  flow on implicit-`this` reads.
+- Mirror the `tom_d4rt 1.8.22` performance work: per-instance bound-method
+  tear-off cache, no-binding `Environment` frame collapse, no primitive-operand
+  wrapping in binary expressions.
+- Documentation: limitations consolidated; user guide and README updated to
+  point at `tom_d4rt`'s canonical limitations reference.
+
 ## 0.1.5
 
 - Consume `tom_ast_model ^0.1.1` for the `StaticResolver` slot-resolution

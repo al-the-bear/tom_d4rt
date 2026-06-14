@@ -1,6 +1,6 @@
 name: tom_ast_generator
 description: AST converter from Dart analyzer AST to serializable AST model.
-version: 0.1.1
+version: 0.1.2
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_ast_generator
 topics:

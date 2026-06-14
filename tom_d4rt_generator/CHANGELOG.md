@@ -1,3 +1,15 @@
+## 1.9.3
+
+### Generated-code hygiene
+- Emit expanded `// ignore_for_file:` headers in generated `*.b.dart` bridges
+  so generated bridge corpora (including `tom_d4rt_flutter`) are analyzer-clean
+  without per-file hand edits.
+
+### Documentation
+- Consolidated proxy/relaxer manual-intervention guidance into
+  `doc/user_proxy_relaxer_annotations.md` and the MCI baseline docs; README
+  aligned with the source-primary documentation reframe.
+
 ## 1.9.2
 
 ### Generator features

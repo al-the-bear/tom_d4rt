@@ -1,3 +1,23 @@
+## 1.8.22
+
+### Fixes
+- Instance members now correctly shadow bridged top-level functions of the
+  same name (FIX-20260613-1038-C).
+- Stop using exception-as-control-flow on implicit-`this` member reads; the
+  interpreter resolves the member directly instead of throwing and catching.
+
+### Performance
+- Cache bound-method tear-offs per instance.
+- Collapse the `Environment` frame for blocks that introduce no bindings.
+- Stop wrapping primitive operands in binary expressions.
+
+### Documentation
+- README reframed to present the source-based interpreter as the primary,
+  recommended option.
+- Consolidated manual-intervention guidance into
+  `doc/manual_bridge_interventions.md` and limitations into
+  `doc/d4rt_limitations.md` (now the canonical limitations reference).
+
 ## 1.8.21
 
 ### Performance

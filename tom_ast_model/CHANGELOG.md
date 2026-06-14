@@ -1,3 +1,8 @@
+## 0.1.2
+
+- Documentation: limitations and user guide updated; README aligned with the
+  source-primary documentation reframe across the D4rt ecosystem.
+
 ## 0.1.1
 
 - Add `StaticResolver` and the `resolvedSlot` / `declSlot` node fields that

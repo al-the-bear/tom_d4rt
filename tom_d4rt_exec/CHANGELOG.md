@@ -1,3 +1,12 @@
+## 1.8.4
+
+- Picks up `tom_d4rt_ast 0.1.6` (instance/bridged shadowing fix, implicit-
+  `this` read fix, interpreter performance work) via the existing
+  `^0.1.5` constraint.
+- Documentation: BRIDGING_GUIDE, advanced/standard user guides, and
+  limitations updated; README aligned with the source-primary documentation
+  reframe.
+
 ## 1.8.3
 
 ### Dependencies

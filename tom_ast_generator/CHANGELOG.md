@@ -1,3 +1,9 @@
+## 0.1.2
+
+- Documentation: build.yaml/CLI guide, limitations, and user guide updated;
+  README aligned with the source-primary documentation reframe across the D4rt
+  ecosystem.
+
 ## 0.1.1
 
 - Consume `tom_ast_model ^0.1.1` / `tom_d4rt_ast ^0.1.5`: the converter now
