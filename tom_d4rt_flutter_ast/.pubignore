@@ -1,0 +1,17 @@
+# Files excluded from the published pub.dev archive (gitignore syntax).
+# These are large dev-only assets that consumers of the package never need.
+
+# Conformance / HTTP-harness test corpus + the nested Flutter test app.
+test/
+
+# Build output and scratch dirs.
+build/
+ztmp/
+
+# Development guidelines (not user documentation).
+_copilot_guidelines/
+
+# Bug-fix-campaign test-run logs and orchestration dumps kept under doc/.
+doc/basetestlog_*/
+doc/testlog_*/
+doc/*.log.txt

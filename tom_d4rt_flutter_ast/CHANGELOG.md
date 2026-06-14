@@ -1,8 +1,8 @@
 ## 0.1.0
 
-Initial release of the analyzer-free Flutter Material bridge runtime.
-Monorepo-only (`publish_to: none`); the AST-driven counterpart to
-`tom_d4rt_flutter`.
+Initial pub.dev release of the analyzer-free Flutter Material bridge runtime —
+the AST-driven counterpart to `tom_d4rt_flutter`, specialized for over-the-air
+and web delivery (no `analyzer` dependency).
 
 - `FlutterD4rt` — executes D4rt scripts that return Flutter widget trees, built
   on the zero-dependency `tom_d4rt_ast` interpreter (no `analyzer`, no
