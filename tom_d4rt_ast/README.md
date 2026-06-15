@@ -18,6 +18,29 @@ A Flutter app embeds `tom_d4rt_ast` (no analyzer weight). Server-side tooling us
 
 `tom_d4rt` is the original analyzer-based interpreter that parses and executes Dart source directly. `tom_d4rt_ast` contains the same `InterpreterVisitor`, `Environment`, bridging infrastructure, and standard library — they are kept in strict 1:1 sync. The difference is the AST source: `tom_d4rt` builds its AST from the analyzer's `CompilationUnit`; `tom_d4rt_ast` reads `SAstNode` trees from `tom_ast_model`. Any interpreter fix applied to one package must be applied to the other. The `D4` helper class (static bridge utilities) exists in both packages with an identical API surface (`lib/src/runtime/generator/d4.dart` in this package, `lib/src/generator/d4.dart` in `tom_d4rt`).
 
+### Which line to use — source-based vs analyzer-free
+
+D4rt ships in **two execution families**:
+
+- **Source-based (analyzer)** — `tom_d4rt`, `tom_d4rt_dcli`,
+  `tom_d4rt_flutter`. Parses Dart source with the `analyzer` package and
+  interprets it directly. This is the **stable reference** and is **usually the
+  preferable choice**.
+- **Analyzer-free (mirror AST)** — **this package**, plus `tom_ast_model`,
+  `tom_ast_generator`, `tom_d4rt_exec`, `tom_dcli_exec`, and
+  `tom_d4rt_flutter_ast`. Runs from pre-compiled `SAstNode` trees with **no
+  analyzer dependency**, which is what makes it viable on the **web** (the
+  analyzer package is too large to ship) and for **on-the-fly / OTA UI
+  updates**.
+
+`tom_d4rt_ast` is a **complete alternative** to the source-based interpreter,
+but because the **generated AST bundles are large**, reach for it only when the
+**web/OTA constraint applies**. For server-side or CLI scripting where the
+analyzer is acceptable, prefer `tom_d4rt` (or its drop-in entry point
+`tom_d4rt_exec`). See [`tom_d4rt_exec`](../tom_d4rt_exec/) for the
+analyzer-free execution entry that parses source at build time and feeds this
+runtime.
+
 ## Installation
 
 ```sh
@@ -28,7 +51,7 @@ dart pub add tom_d4rt_ast
 
 ```yaml
 dependencies:
-  tom_d4rt_ast: ^0.1.5
+  tom_d4rt_ast: ^0.1.7
 ```
 
 The package requires Dart SDK `^3.10.4`. Its only runtime dependencies are `archive` (ZIP/gzip bundle I/O) and `tom_ast_model` (zero-dependency `SAstNode` definitions).
@@ -49,15 +72,81 @@ The package requires Dart SDK `^3.10.4`. Its only runtime dependencies are `arch
 - **`registerExtensions` / `finalizeBridges`** — ordered extension hook for bridge packages that have post-registration wiring dependencies.
 - **Introspection** — `DeclarationInfo` sealed class hierarchy (`FunctionInfo`, `ClassInfo`, `VariableInfo`, `EnumInfo`, `ExtensionInfo`) for inspecting what a script declares.
 
+## How a bundle gets here
+
+In normal use you do **not** build `SAstNode` trees by hand. The AST arrives
+as a pre-compiled bundle produced by build-time tooling, and `tom_d4rt_ast`
+only runs it:
+
+```
+Dart source (.dart)
+      │
+      ▼  analyzer (build time, off-device)
+analyzer CompilationUnit
+      │
+      ▼  tom_ast_generator  (1:1 copy → mirror AST)
+SAstNode tree
+      │
+      ▼  AstBundle  (JSON / gzip / ZIP, ships to the device)
+.ast bundle
+      │
+      ▼  tom_d4rt_ast  (THIS package — on-device, no analyzer)
+typed result / widget tree
+```
+
+The conversion (analyzer → mirror AST → bundle) is owned by
+[`tom_ast_generator`](../tom_ast_generator/) and driven end-to-end by
+[`tom_d4rt_exec`](../tom_d4rt_exec/). This package is the **last stage only**:
+load a bundle, execute it, get a typed result back. The hand-built-AST example
+further down exists for completeness and tests — it is not the normal path.
+
 ## Quick Start
 
-### Minimum: execute a hand-built bundle
+### Run a pre-compiled bundle (the normal path)
 
 ```dart
 import 'package:tom_d4rt_ast/runtime.dart';
 
 void main() {
-  // Build a minimal AST manually (or load from a .ast file).
+  final bundle = AstBundle.fromFile('path/to/script.ast');
+
+  final runner = D4rtRunner();
+  runner.grant(FilesystemPermission.read); // grant only what the script needs
+
+  final result = runner.executeBundleAs<String>(bundle, name: 'buildLabel');
+  print(result);
+}
+```
+
+### Load from bytes (e.g. downloaded over HTTP in Flutter)
+
+```dart
+import 'package:tom_d4rt_ast/runtime.dart';
+
+Future<void> runScript(List<int> bytes) async {
+  final bundle = AstBundle.fromZip(bytes);   // or fromBytes() for gzip JSON
+  final runner = D4rtRunner();
+  final result = await runner.executeBundleAsAsync<Map<String, dynamic>>(bundle);
+  print(result);
+}
+```
+
+### Parse a JSON AST string
+
+```dart
+final runner = D4rtRunner();
+final ast = runner.parseJson(jsonString); // returns SCompilationUnit
+final result = runner.execute(ast: ast, name: 'compute');
+```
+
+### Advanced: build a bundle by hand
+
+This is **not** the normal path (see [How a bundle gets here](#how-a-bundle-gets-here)) — bundles are produced by `tom_ast_generator`. It is shown only so the `SAstNode` shape is concrete, e.g. for tests that synthesise tiny programs:
+
+```dart
+import 'package:tom_d4rt_ast/runtime.dart';
+
+void main() {
   final mainFn = SFunctionDeclaration(
     offset: 0,
     length: 0,
@@ -94,47 +183,9 @@ void main() {
     modules: {'package:demo/main.dart': unit},
   );
 
-  final runner = D4rtRunner();
-  final result = runner.executeBundleAs<int>(bundle);
+  final result = D4rtRunner().executeBundleAs<int>(bundle);
   print(result); // 42
 }
-```
-
-### Load a pre-compiled `.ast` file
-
-```dart
-import 'package:tom_d4rt_ast/runtime.dart';
-
-void main() {
-  final bundle = AstBundle.fromFile('path/to/script.ast');
-
-  final runner = D4rtRunner();
-  runner.grant(FilesystemPermission.read); // grant only what the script needs
-
-  final result = runner.executeBundleAs<String>(bundle, name: 'buildLabel');
-  print(result);
-}
-```
-
-### Load from bytes (e.g. downloaded over HTTP in Flutter)
-
-```dart
-import 'package:tom_d4rt_ast/runtime.dart';
-
-Future<void> runScript(List<int> bytes) async {
-  final bundle = AstBundle.fromZip(bytes);   // or fromBytes() for gzip JSON
-  final runner = D4rtRunner();
-  final result = await runner.executeBundleAsAsync<Map<String, dynamic>>(bundle);
-  print(result);
-}
-```
-
-### Parse a JSON AST string
-
-```dart
-final runner = D4rtRunner();
-final ast = runner.parseJson(jsonString); // returns SCompilationUnit
-final result = runner.execute(ast: ast, name: 'compute');
 ```
 
 ### Registering a native class bridge
@@ -201,6 +252,26 @@ final result = runner.executeBundleAs<Widget>(bundle); // first build, no cold s
 
 `D4rtRunner` has no Dart source parser (that lives in `tom_d4rt_exec`'s `D4rt`, whose `warmup()` additionally warms the analyzer front-end by parsing + executing a trivial throwaway script), so the runner warms only the bridge/stdlib half — the portion the parser-less Flutter runtime and a test app's `/warmup` endpoint share. The analyzer-based VM twin `tom_d4rt`'s `D4rt.warmup()` mirrors the same contract.
 
+## Example projects
+
+The interpreter executes the same Dart language as the source-based line, so
+the language/bridging samples apply directly — the only difference is that the
+analyzer-free runtime consumes a pre-compiled `AstBundle` rather than source
+text. Runnable samples live in
+[`tom_d4rt_samples/`](../tom_d4rt_samples/):
+
+| Sample | What it shows |
+| --- | --- |
+| [`d4rt_introduction_sample`](../tom_d4rt_samples/d4rt_introduction_sample/) | Basic interpreter use and language semantics. |
+| [`d4rt_advanced_sample`](../tom_d4rt_samples/d4rt_advanced_sample/) | Advanced language and bridging features. |
+| [`d4rt_flutter_sample`](../tom_d4rt_samples/d4rt_flutter_sample/) | Flutter Material bridges — the canonical web/OTA target for this runtime. |
+| [`d4rt_userbridges_sample`](../tom_d4rt_samples/d4rt_userbridges_sample/) | Hand-written `D4UserBridge` overrides. |
+
+For the **end-to-end AstBundle → widget tree** path on Flutter (the web/OTA use
+case this package exists for), see
+[`tom_d4rt_flutter_ast`](../tom_d4rt_flutter_ast/) and its demo app
+[`tom_d4rt_flutter_ast_test`](../tom_d4rt_flutter_ast_test/).
+
 ## Architecture and Key Concepts
 
 ### SAstNode-driven execution
@@ -257,7 +328,7 @@ tom_d4rt               (original analyzer-based interpreter; kept in sync with t
 
 The `tom_d4rt_ast` package is the only component that a Flutter app needs to embed. Build tooling (`tom_ast_generator`, `tom_d4rt_exec`, `tom_d4rt`) runs on the developer machine or CI server and is never shipped to end users.
 
-## Documentation
+## Further documentation
 
 `tom_d4rt_ast` runs the same interpreter as the analyzer-based base, so its docs are **differences-only** (policy P1) and link to `tom_d4rt` for shared semantics.
 
@@ -268,9 +339,17 @@ The `tom_d4rt_ast` package is the only component that a Flutter app needs to emb
 - [Runtime Registration Surface](doc/runtime_registration_surface.md) — the canonical `D4.register*` reference (shared with the VM twin).
 - Base (shared) docs: [tom_d4rt User Guide](../tom_d4rt/doc/d4rt_user_guide.md) · [Bridging Guide](../tom_d4rt/doc/BRIDGING_GUIDE.md) · [Limitations (canonical)](../tom_d4rt/doc/d4rt_limitations.md).
 
+### Related packages
+
+- [`tom_ast_model`](../tom_ast_model/) — the zero-dependency `SAstNode` data model this runtime executes. Defines every node kind, JSON round-tripping, and structural equality; this package adds the interpreter on top.
+- [`tom_ast_generator`](../tom_ast_generator/) — the analyzer-based copier that turns Dart source into `SAstNode` bundles. Owns the build-time half of the pipeline.
+- [`tom_d4rt_exec`](../tom_d4rt_exec/) — the full execution entry point (analyzer at parse time, this runtime for interpretation); the drop-in counterpart of `tom_d4rt`.
+- [`tom_d4rt_flutter_ast`](../tom_d4rt_flutter_ast/) — Flutter Material bridges built on this runtime; the canonical web/OTA consumer.
+- [`tom_d4rt`](../tom_d4rt/) — the source-based reference interpreter kept in strict 1:1 sync with this package.
+
 ## Status
 
-**Version 0.1.5** — current release on pub.dev (first published at 0.1.4). The package is production-quality in the context of the Tom framework and is kept continuously in sync with the analyzer-based `tom_d4rt` interpreter.
+**Version 0.1.7** — current release on pub.dev (first published at 0.1.4). The package is production-quality in the context of the Tom framework and is kept continuously in sync with the analyzer-based `tom_d4rt` interpreter.
 
 Repository: [https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_ast](https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_ast)
 
