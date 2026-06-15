@@ -113,9 +113,12 @@ void main(List<String> args) => print((Money(1000) + Money(250)).format());" \
   | ./run_example.sh
 ```
 
-The first run fetches dependencies and generates the bridges
-(`dart run tom_d4rt_generator:d4rtgen`) if `lib/dartscript.b.dart` is missing.
-On Windows use `run_example.ps1` with the same arguments.
+The generated bridges (`lib/*.b.dart`) — overrides already woven in — are
+**checked into the repository**, so the examples run on a fresh clone with no
+generation step (the first run only fetches dependencies). After changing a
+native class, a user bridge, or `buildkit.yaml`, regenerate them — see
+[`run_generator.md`](run_generator.md). On Windows use `run_example.ps1` with the
+same arguments.
 
 `money_math` prints:
 
@@ -232,7 +235,9 @@ export 'src/d4rt_user_bridges/money_user_bridge.dart';
 // ... and the others
 ```
 
-When you run `dart run tom_d4rt_generator:d4rtgen`, the generator:
+When you run the generator
+(`dart run tom_d4rt_generator:d4rtgen --not-recursive -s "$(pwd)"`, see
+[`run_generator.md`](run_generator.md)), it:
 
 1. **Pre-scans** every barrel-reachable file for classes extending
    `D4UserBridge`. It logs them as skipped *as bridge targets*
@@ -422,8 +427,8 @@ Both are single-file scripts; run them with `./run_example.sh <name>`.
 ## 12. Where to go next
 
 - **Add your own override**: write a `*_user_bridge.dart` under
-  `lib/src/d4rt_user_bridges/`, export it from the barrel, and regenerate with
-  `dart run tom_d4rt_generator:d4rtgen`. The naming convention does the wiring.
+  `lib/src/d4rt_user_bridges/`, export it from the barrel, and regenerate (see
+  [`run_generator.md`](run_generator.md)). The naming convention does the wiring.
 - **Generic proxies / relaxers**: for libraries with heavy generics, the
   generator also supports `@D4rtUserProxy` / `@D4rtUserRelaxer` to drive generic
   constructor and method dispatch — a step beyond the per-member overrides here.
