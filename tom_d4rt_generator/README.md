@@ -25,8 +25,31 @@ generated class that maps interpreter method calls to native Dart invocations.
    a `dartscript.b.dart` entry-point that wires everything together.
 
 The generated files are consumed at runtime by the `tom_d4rt` interpreter and
-by bridge corpus packages such as `tom_d4rt_flutter_ast` (the Flutter/Material
-bridge corpus).
+by bridge corpus packages such as `tom_d4rt_flutter` and `tom_d4rt_flutter_ast`
+(the Flutter/Material bridge corpora — see [Ecosystem](#ecosystem)).
+
+> **Start here:** [`doc/index.md`](doc/index.md) is the navigation hub for this
+> package's documentation. It maps the 17 docs into the four mechanism areas
+> (A–D) summarised below and links each to its canonical reference. Read it
+> before diving into the individual guides.
+
+### What it generates — the A–D taxonomy
+
+The generator emits four categories of artifact. The labels **A–D** are used
+throughout the codebase and the docs; this README and
+[`doc/index.md`](doc/index.md) share the same taxonomy:
+
+| Cat | Artifact | Selection | What it solves | Canonical doc |
+|-----|----------|-----------|----------------|---------------|
+| **A** | `$Relaxed*<V>` type-relaxing wrapper classes | auto (1 type param) | erased generics (`ValueNotifier<dynamic>` ≠ `ValueNotifier<MagnifierInfo>`) | [generics_wrapper_and_type_relaxation_strategy.md](doc/generics_wrapper_and_type_relaxation_strategy.md) |
+| **B** | `_relax*` factory switches (`registerGenericTypeWrapper`) | auto + combinatorial | materialising a concrete type-arg at runtime | [generics_wrapper_and_type_relaxation_strategy.md](doc/generics_wrapper_and_type_relaxation_strategy.md) |
+| **C** | `_rc2*` generic-constructor factories (`registerGenericConstructor`) | auto + combinatorial | `MyClass<String>()` without knowing the type at generation time | [generic_constructor_and_other_extensions.md](doc/generic_constructor_and_other_extensions.md) |
+| **D** | `D4rt*` proxy classes (`registerInterfaceProxy`) | explicit `proxyClasses:` | native subclasses of abstract delegates (`CustomPainter`, `FlowDelegate`) | [proxy_class_generation.md](doc/proxy_class_generation.md) |
+
+The combinatorial **B/C** families dominate generated size; the reduction knobs
+(`generateAllRelaxers` / `relaxerClasses` / `additionalRelaxerTypes`, plus the
+scanned allowlist in [generate_allowlists.md](doc/generate_allowlists.md)) trade
+generate-everything for a scanned allowlist.
 
 ---
 
@@ -36,7 +59,7 @@ Add the generator as a dev dependency:
 
 ```yaml
 dev_dependencies:
-  tom_d4rt_generator: ^1.9.2
+  tom_d4rt_generator: ^1.9.4
   build_runner: ^2.4.0   # only needed for build_runner integration
 ```
 
@@ -113,6 +136,77 @@ import 'package:my_package/dartscript.b.dart';
 final d4rt = D4rt();
 MyPackageBridge.registerBridges(d4rt, 'package:my_package/my_package.dart');
 ```
+
+---
+
+## End-to-end worked example
+
+A complete loop: a barrel exposes a native class, the generator bridges it, and
+a D4rt script calls it through the `tom_d4rt` interpreter.
+
+**1. The native API and its barrel** (`lib/my_package.dart`):
+
+```dart
+// lib/src/temperature.dart
+class Temperature {
+  final double celsius;
+  const Temperature(this.celsius);
+  double get fahrenheit => celsius * 9 / 5 + 32;
+  Temperature warmer(double by) => Temperature(celsius + by);
+}
+
+// lib/my_package.dart  (barrel)
+export 'src/temperature.dart';
+```
+
+**2. Generate the bridges** with the `d4rtgen:` block from the Quick Start:
+
+```bash
+dart run tom_d4rt_generator:d4rtgen --project=.
+# writes lib/src/d4rt_bridges/my_package_bridges.b.dart,
+# lib/dartscript.b.dart, relaxers.b.dart, etc.
+```
+
+**3. Register and run a script** against the generated bridges:
+
+```dart
+import 'package:tom_d4rt/d4rt.dart';
+import 'package:my_package/dartscript.b.dart';
+
+void main() {
+  final d4rt = D4rt();
+  MyPackageBridge.registerBridges(
+    d4rt,
+    'package:my_package/my_package.dart',
+  );
+
+  final result = d4rt.execute(
+    source: '''
+      import 'package:my_package/my_package.dart';
+
+      double main() {
+        final t = Temperature(20).warmer(5); // 25 C
+        return t.fahrenheit;                  // 77.0
+      }
+    ''',
+  );
+
+  print(result); // 77.0
+}
+```
+
+The script never imports the native package directly — it runs inside the
+sandbox and reaches `Temperature` only through the generated `BridgedClass`.
+When the generator cannot derive correct code for a member, override just that
+member with a `D4UserBridge` (see [UserBridge override system](#userbridge-override-system))
+without touching the rest of the generated file.
+
+For runnable, multi-feature versions of this loop see the sample projects under
+[`tom_d4rt_samples/`](../tom_d4rt_samples/):
+[`d4rt_userbridges_sample`](../tom_d4rt_samples/d4rt_userbridges_sample/) (the
+hand-written override path this generator scans) and
+[`d4rt_introduction_sample`](../tom_d4rt_samples/d4rt_introduction_sample/)
+(basic interpreter use of bridged APIs).
 
 ---
 
@@ -484,22 +578,72 @@ Repository: `github.com/al-the-bear/tom_d4rt` (monorepo), path
 
 ---
 
-## Documentation
+## Further documentation
+
+[`doc/index.md`](doc/index.md) is the navigation hub — start there. The docs are
+grouped by the mechanism areas it defines:
+
+**Getting started**
 
 | Document | Description |
 |---|---|
+| [doc/index.md](doc/index.md) | Navigation hub — maps all docs into the A–D mechanism areas |
 | [Bridge Generator User Guide](doc/bridgegenerator_user_guide.md) | End-to-end walkthrough |
 | [Configuration Guide](doc/tom_d4rt_generator_configuration.md) | **Authoritative** full `d4rtgen:` `buildkit.yaml` model — all keys, advanced entry shapes, facades/annotations |
-| [build.yaml Builder Reference](doc/bridgegenerator_user_reference.md) | `build_runner` builder-options reference |
 | [CLI User Guide](doc/d4rt_generator_cli_user_guide.md) | `d4rtgen` command reference |
-| [UserBridge Guide](doc/user_bridge_user_guide.md) | Writing override classes |
-| [UserBridge Design](doc/userbridge_override_design.md) | Override system internals |
+| [build.yaml Builder Reference](doc/bridgegenerator_user_reference.md) | `build_runner` builder-options reference |
+
+**Generics (categories A/B/C)**
+
+| Document | Description |
+|---|---|
+| [Generics wrappers & type relaxation](doc/generics_wrapper_and_type_relaxation_strategy.md) | A/B — `$Relaxed*<V>` wrappers and `_relax*` factory switches |
+| [Generic constructors & runtime extensions](doc/generic_constructor_and_other_extensions.md) | C — `_rc2*` generic-constructor factories (RC-1…RC-5) |
+| [Generate allowlists](doc/generate_allowlists.md) | Reduction knobs and the scanned relaxer allowlist |
+
+**Proxies (category D)**
+
+| Document | Description |
+|---|---|
+| [Proxy class generation](doc/proxy_class_generation.md) | D — `D4rt*` proxy subclasses for abstract delegates |
+
+**User bridges & annotation directives**
+
+| Document | Description |
+|---|---|
+| [UserBridge Guide](doc/user_bridge_user_guide.md) | Writing `@D4rtUserBridge` override classes |
+| [UserBridge Design](doc/userbridge_override_design.md) | Override pre-scan and registration routing internals |
+| [User proxy/relaxer annotations](doc/user_proxy_relaxer_annotations.md) | `@D4rtUserProxy` / `@D4rtUserRelaxer` variant-pattern directives |
+
+**Advanced**
+
+| Document | Description |
+|---|---|
+| [Deprecated allowlist](doc/deprecated_allowlist.md) | Per-symbol `@Deprecated` opt-in |
+| [VM↔web skew coercion](doc/vm_web_skew_coercion.md) | Nullability-skew coercion registry |
+
+**Testing**
+
+| Document | Description |
+|---|---|
+| [Test coverage](doc/test_coverage.md) | Test-suite layout and coverage |
+| [Worked samples](doc/worked_samples.md) | Sample apps catalogued against the mechanisms they exercise |
+| [Issues](doc/issues.md) | Known issues / open-issue log |
+
+### Consumers and related packages
+
+- [`tom_d4rt`](../tom_d4rt/) — the interpreter that provides the runtime types
+  (`BridgedClass`, `D4UserBridge`, `D4rt`, `D4`, …) the generated code depends on.
+- [`tom_d4rt_flutter`](../tom_d4rt_flutter/) — source-based Flutter/Material
+  bridge corpus generated by this tool.
+- [`tom_d4rt_flutter_ast`](../tom_d4rt_flutter_ast/) — analyzer-free Flutter/
+  Material bridge corpus (web/OTA) generated by this tool.
 
 ---
 
 ## Status
 
-**Mature — v1.9.2.**
+**Mature — v1.9.4.**
 
 Version 1.9.0 completes a six-phase migration from a dual-path (AST + element)
 extraction model to a single element-mode code path backed by analyzer `.sum`
@@ -507,6 +651,17 @@ summaries. The public generator API is unchanged. Generated bridge output for
 all five documented consumer packages is byte-identical to the pre-migration
 baseline (modulo the `Generated: <timestamp>` header). All known consumers have
 zero new regressions.
+
+### What's new in 1.9.3 – 1.9.4
+
+**1.9.4 — housekeeping.** Test artifacts moved to a gitignored `testlog/`
+folder; `doc/` no longer ships machine-generated baselines. No code changes.
+
+**1.9.3 — generated-code hygiene & docs.** Generated `*.b.dart` bridges now emit
+expanded `// ignore_for_file:` headers so corpora (including `tom_d4rt_flutter`)
+are analyzer-clean without per-file hand edits; proxy/relaxer
+manual-intervention guidance consolidated into
+[doc/user_proxy_relaxer_annotations.md](doc/user_proxy_relaxer_annotations.md).
 
 ### What's new in 1.9.1 – 1.9.2
 
