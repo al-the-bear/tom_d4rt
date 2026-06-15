@@ -1,0 +1,17 @@
+# Run a D4rt example by folder name, or a script piped on stdin.
+#
+#   ./run_example.ps1 calculator          # runs example/calculator/main.dart
+#   ./run_example.ps1 calculator 2 + 3     # forwards "2 + 3" to the script
+#   'void main(_) { print(1 + 1); }' | ./run_example.ps1
+#
+# Always run from the package root so example/<name>/ resolves.
+$ErrorActionPreference = 'Stop'
+Set-Location -Path $PSScriptRoot
+
+if (-not (Test-Path '.dart_tool')) {
+    Write-Host 'Fetching dependencies (first run)...'
+    dart pub get
+}
+
+# Args are forwarded to the runner; with none, it reads the script from stdin.
+dart run bin/run_example.dart @args

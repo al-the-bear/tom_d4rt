@@ -1,0 +1,17 @@
+name: d4rt_introduction_sample
+description: >-
+  Introductory D4rt sample — runs multi-file D4rt scripts with the pure
+  interpreter, no external libraries and no bridges. Establishes the shared
+  runner and run-script conventions used by the other d4rt samples.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  tom_d4rt: ^1.8.23
+
+dev_dependencies:
+  lints: ^4.0.0
+  test: ^1.25.0
