@@ -21,9 +21,7 @@ example/**/bin/*
 doc/testlog_*/
 doc/baseline_*.csv
 
-# Internal development records — re-export plan, coverage + issue trackers.
-# index.md labels these "development-time records, not user documentation"
-# (P5: not user-facing).
-doc/reexport_implementation_plan.md
+# Internal development records — coverage + issue trackers. index.md labels
+# these "development-time records, not user documentation" (P5: not user-facing).
 doc/test_coverage.md
 doc/issues.md

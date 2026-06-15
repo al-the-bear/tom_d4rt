@@ -54,9 +54,10 @@ The combinatorial B/C switch families dominate generated size. The reduction
 knobs let a consumer trade generate-everything for a scanned allowlist.
 
 - [tom_d4rt_generator_configuration.md](tom_d4rt_generator_configuration.md) —
-  the `generateAllRelaxers` / `relaxerClasses` / `additionalRelaxerTypes` knobs
-  and the test-corpus type scanner workflow (`scan_corpus_types`) that produces
-  the `corpus_relaxer_allowlist.yaml` artifact.
+  the `generateAllRelaxers` / `relaxerClasses` / `additionalRelaxerTypes` knobs.
+- [generate_allowlists.md](generate_allowlists.md) — what the
+  `corpus_relaxer_allowlist.yaml` relaxer allowlist is, why it exists, and how to
+  regenerate it with `scan_corpus_types` (also covers the deprecated allowlist).
 
 ### 3. User registration — overriding what the generator can't derive
 
