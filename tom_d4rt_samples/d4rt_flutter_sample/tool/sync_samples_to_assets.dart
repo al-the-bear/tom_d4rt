@@ -110,7 +110,8 @@ void main(List<String> args) {
 
 /// Replaces (or inserts) the marker-delimited asset list under the `flutter:`
 /// key. The block declares `assets/samples/index.json` plus one entry per
-/// sample directory.
+/// sample directory, and the static `assets/copy_paste_samples/` folder that
+/// backs the "Paste & Run" / "Files" tabs (hand-authored, not synced here).
 void _rewritePubspecAssets(String pubspecPath, List<_Sample> samples) {
   final pubspec = File(pubspecPath);
   final lines = pubspec.readAsLinesSync();
@@ -120,6 +121,11 @@ void _rewritePubspecAssets(String pubspecPath, List<_Sample> samples) {
     '  assets:',
     '    - assets/samples/index.json',
     for (final s in samples) '    - assets/samples/${s.name}/',
+    // Copy-paste snippet folder: hand-authored short scripts surfaced in the
+    // Files tree as the "copy-paste-samples" group and used by the Paste & Run
+    // tab. Declared here so it ships on every platform; never run as an app.
+    '    - assets/copy_paste_samples/index.json',
+    '    - assets/copy_paste_samples/',
     _endMarker,
   ];
 

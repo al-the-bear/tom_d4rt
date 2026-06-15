@@ -34,4 +34,6 @@ flutter:
     - assets/samples/clock_face/
     - assets/samples/counter_app/
     - assets/samples/tip_calculator/
+    - assets/copy_paste_samples/index.json
+    - assets/copy_paste_samples/
   # >>> END generated sample assets <<<

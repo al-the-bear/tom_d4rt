@@ -1,0 +1,11 @@
+{
+  "generated": "hand-authored — short scripts for the Paste & Run tab",
+  "name": "copy-paste-samples",
+  "files": [
+    "buttons_row.dart",
+    "counter_button.dart",
+    "gradient_box.dart",
+    "hello_card.dart",
+    "list_demo.dart"
+  ]
+}
