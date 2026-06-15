@@ -1,3 +1,14 @@
+## 1.1.6
+
+- Fix duplicate-export collisions that broke AOT compilation in hosted
+  consumers (e.g. `tom_core_d4rt`'s `d4rt` binary). The VS Code integration
+  re-export now hides `PermissionResult`, `ConversationExchange`, `ProjectInfo`
+  and `WorkspaceInfo` so the package's own `bot_mode` types win, and
+  `telegram_bot_server` hides the VS Code `ConversationExchange` so the local
+  `conversation_trail` type is used. No public API change for the package's own
+  types; the VS Code variants of those four names are no longer re-exported
+  (import `tom_vscode_scripting_api` directly if you need them).
+
 ## 1.1.5
 
 - Housekeeping: test artifacts now live in a gitignored `testlog/` folder; `doc/` no longer ships machine-generated baselines or last_testrun.json. No code changes.

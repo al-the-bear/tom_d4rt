@@ -7,7 +7,13 @@ import 'package:tom_vscode_scripting_api/script_globals.dart';
 
 import 'repl_state.dart';
 
-export 'package:tom_vscode_scripting_api/script_globals.dart';
+// Hide domain types that collide with this package's own bot_mode types
+// (PermissionResult, ConversationExchange) and with tom_build's workspace
+// types (ProjectInfo, WorkspaceInfo) when re-exported downstream. Consumers
+// needing the VS Code variants import tom_vscode_scripting_api directly. The
+// VS Code globals (vscode, window, …) and bridge adapters remain available.
+export 'package:tom_vscode_scripting_api/script_globals.dart'
+    hide PermissionResult, ConversationExchange, ProjectInfo, WorkspaceInfo;
 
 /// Mixin providing VS Code integration for D4rt REPL tools.
 ///

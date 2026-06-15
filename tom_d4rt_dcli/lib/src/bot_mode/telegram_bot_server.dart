@@ -8,7 +8,9 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:tom_chattools/tom_chattools.dart';
-import 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart';
+// Hide ConversationExchange so the local conversation_trail.dart type wins.
+import 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart'
+    hide ConversationExchange;
 
 import 'bot_mode_config.dart';
 import 'conversation_trail.dart';
