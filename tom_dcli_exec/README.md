@@ -19,18 +19,39 @@ Analyzer-free D4rt REPL/CLI with full DCli shell-scripting bridges — the exten
   server with configurable security, file transfer, conversation trail, and Copilot-chat
   forwarding.
 
-### Relation to `tom_d4rt_dcli`
+### Source-based vs analyzer-free — which D4rt family
 
-The workspace contains two parallel DCli-capable tools:
+D4rt ships in two execution families, and `tom_dcli_exec` belongs to the
+second:
 
-| Package | Interpreter | Source parsing |
-|---------|-------------|----------------|
-| `tom_dcli_exec` **(this)** | `tom_d4rt_exec` — analyzer-free, mirror AST | `tom_ast_generator` (analyzer only at parse time, not at runtime) |
-| `tom_d4rt_dcli` | `tom_d4rt` — full analyzer-based interpreter | built-in analyzer runtime |
+- **Source-based (analyzer)** — `tom_d4rt`, **`tom_d4rt_dcli`**,
+  `tom_d4rt_flutter`. Parses Dart source with the analyzer, giving full type
+  inference and precise error reporting. This is the **stable reference and
+  usually the preferable choice**.
+- **Analyzer-free (mirror AST)** — `tom_d4rt_ast`, `tom_ast_model`,
+  `tom_ast_generator`, `tom_d4rt_exec`, **`tom_dcli_exec`**,
+  `tom_d4rt_flutter_ast`. Runs from pre-compiled `SAstNode` trees with **no
+  analyzer dependency at runtime**, which makes it viable on the **web** (the
+  analyzer is too large to ship there) and for **on-the-fly / OTA updates**.
+  It is a complete alternative, but because generated AST bundles are large,
+  the source-based interpreter is usually preferable unless the web/OTA
+  constraint applies.
 
-`tom_dcli_exec` is the preferred base for new tools that need fast startup and minimal
-dependencies. It carries the `analyzer` package only to drive `tom_ast_generator`'s
-source-to-mirror-AST conversion; the interpreter itself never loads the analyzer at runtime.
+The workspace therefore contains two parallel DCli-capable tools that expose
+the same `D4rtReplBase` / `DcliRepl` surface and differ only in the underlying
+engine:
+
+| Package | Interpreter | Source parsing | Binary |
+|---------|-------------|----------------|--------|
+| `tom_dcli_exec` **(this)** | `tom_d4rt_exec` — analyzer-free, mirror AST | `tom_ast_generator` (analyzer only at parse time, not at runtime) | `dclie` |
+| [`tom_d4rt_dcli`](../tom_d4rt_dcli/README.md) | `tom_d4rt` — full analyzer-based interpreter | built-in analyzer runtime | `dcli` |
+
+`tom_dcli_exec` carries the `analyzer` package only to drive
+`tom_ast_generator`'s source-to-mirror-AST conversion; the interpreter itself
+never loads the analyzer at runtime, which is what makes the engine viable on
+the web and for OTA bundle delivery. A tool written against the source-based
+twin [`tom_d4rt_dcli`](../tom_d4rt_dcli/README.md) ports here by swapping the
+dependency.
 
 ### Ecosystem position
 
@@ -50,7 +71,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  tom_dcli_exec: ^1.1.2
+  tom_dcli_exec: ^1.1.3
 ```
 
 Or via the command line:
@@ -194,6 +215,50 @@ etc.).
 registered as D4rt bridges and available in scripts. Failures accumulate in
 `verificationFailures` for batch reporting at the end of a `-test` run.
 
+## Quick start — running scripts
+
+Once `dclie` is on your `PATH` (`dart pub global activate tom_dcli_exec`), a
+D4rt script can carry a shebang and run directly like any shell script:
+
+```dart
+#!/usr/bin/env dclie
+import 'package:dcli/dcli.dart';
+
+// A throwaway maintenance script — no compile step needed.
+final stale = find('*.tmp', workingDirectory: '.').toList();
+for (final f in stale) {
+  print('removing $f');
+  delete(f);
+}
+print('cleaned ${stale.length} temp files');
+```
+
+```sh
+chmod +x cleanup.dart
+./cleanup.dart          # the shebang routes the file through dclie
+```
+
+For one-liners, generated code, or composing with other shell tools, pipe the
+source straight into `dclie --stdin`. The process exit code is the script's
+return value, so scripts slot into pipelines and `&&` chains:
+
+```sh
+echo 'print(42);' | dclie --stdin
+cat my_script.dart | dclie --stdin
+echo 'return 5 + 6;' | dclie --stdin          # exit code = 11
+generate_script | dclie --stdin && echo ok    # gate on the script's result
+```
+
+### Examples
+
+The [`example/`](example/README.md) folder collects runnable DCli snippets and
+multi-file CLI apps for this analyzer-free base. For a standalone,
+repo-curated walkthrough see the
+[`d4rt_dcli_sample`](../tom_d4rt_samples/d4rt_dcli_sample/README.md) in the
+shared `tom_d4rt_samples` collection. Both run unchanged on the source-based
+twin [`tom_d4rt_dcli`](../tom_d4rt_dcli/example/README.md) — the sample homes
+are shared across the two engines rather than duplicated.
+
 ## Quick start — extending the REPL
 
 Subclass `D4rtReplBase` to create a tool with your own bridges:
@@ -303,9 +368,24 @@ Options
   --bot-config <file>         Bot mode configuration YAML file
 ```
 
+## Further documentation
+
+| Document | What it covers |
+|---|---|
+| [`doc/build.md`](doc/build.md) | Building and compiling the `dclie` binary; bridge regeneration via `build_runner`. |
+| [`doc/testing.md`](doc/testing.md) | Test layout and how to run the suite with `testkit`. |
+
+### Related packages
+
+| Package | Relationship |
+|---|---|
+| [`tom_d4rt_exec`](../tom_d4rt_exec/README.md) | The analyzer-free interpreter this package is built on. |
+| [`tom_d4rt_dcli`](../tom_d4rt_dcli/README.md) | Source-based twin — same `DcliRepl` surface on `tom_d4rt`. |
+| [`tom_ast_generator`](../tom_ast_generator/README.md) | Source → mirror-AST conversion used at parse time. |
+
 ## Status
 
-Current release: **1.1.2** (first public release — 389 tests, 0 failures, 0 skips).
+Current release: **1.1.3** (389 tests, 0 failures, 0 skips).
 
 Source repository: <https://github.com/al-the-bear/tom_d4rt/tree/main/tom_dcli_exec>
 
