@@ -69,6 +69,8 @@ d4rt_introduction_sample/
 ├── README.md                    # this article
 ├── run_example.sh               # POSIX runner (also accepts stdin)
 ├── run_example.ps1              # PowerShell runner (also accepts stdin)
+├── she_bang_macos.sh            # compile run_example + open a shell with it on PATH (macOS)
+├── she_bang_linux.sh            # compile run_example + open a shell with it on PATH (Linux)
 ├── bin/
 │   └── run_example.dart         # the runner: builds D4rt, loads a folder, executes
 └── example/
@@ -76,7 +78,8 @@ d4rt_introduction_sample/
     │   ├── tokenizer.dart
     │   ├── parser.dart
     │   ├── evaluator.dart
-    │   ├── main.dart
+    │   ├── util/format.dart
+    │   ├── main.dart            # executable: starts with #!/usr/bin/env run_example
     │   └── run.sh               # directly-executable convenience wrapper
     ├── json_report/             # collections + closures (multi-file)
     │   ├── model.dart
@@ -142,6 +145,40 @@ Running calculator demo:
 
 Final environment: {radius: 3.0, pi: 3.14159, area: 28.274309999999996, circumference: 18.849539999999998}
 ```
+
+### Running an example directly (shebang launchers)
+
+Each example's `main.dart` begins with a shebang line:
+
+```dart
+#!/usr/bin/env run_example
+```
+
+so it can be executed *as a file* — `./main.dart` — instead of going through
+`run_example.sh`. For that to work, a real `run_example` binary has to be on
+`PATH`. This is the same pattern `tom_d4rt_dcli` uses: it ships a compiled `dcli`
+binary that runs a script passed as its argument, so a script starting with
+`#!/usr/bin/env dcli` is directly executable.
+
+The `she_bang_macos.sh` / `she_bang_linux.sh` helpers set this up for you: they
+compile `bin/run_example.dart` to a native `bin/run_example` binary, put it on
+`PATH`, and drop you into a shell where the shebang resolves:
+
+```sh
+./she_bang_macos.sh            # (or ./she_bang_linux.sh on Linux)
+# ...then, inside the spawned shell:
+cd example/calculator
+./main.dart                    # runs the demo
+./main.dart "(2 + 3) * 4"      # evaluates one expression
+```
+
+When `run_example` is handed a file path, it runs that file as the entry script,
+loading the sibling `.dart` files in the same folder so relative imports (such as
+the calculator's `util/format.dart`) still resolve. Both D4rt and the Dart
+analyzer treat the leading `#!` line as a *script tag* and ignore it, so the same
+files continue to work unchanged via `./run_example.sh <name>` and in your
+editor. The compiled binary is gitignored — build it with the `she_bang_*`
+helper on the machine where you want to run the launchers.
 
 ---
 

@@ -1,3 +1,4 @@
+#!/usr/bin/env run_example
 // state_machine example: a turnstile modelled as a small state machine.
 //
 // Shows enums, a switch over an event type, and immutable state transitions.

@@ -1,6 +1,6 @@
 // Runner for the D4rt introduction sample.
 //
-// Two modes:
+// Three modes:
 //
 //   1. Folder mode:  run_example.dart <example-name> [script-args...]
 //        Loads *every* `.dart` file under `example/<example-name>/` —
@@ -11,8 +11,16 @@
 //        does `entryLibraryUri.resolve(importString)` and looks the result up
 //        in the map. It never touches the filesystem itself.
 //
-//   2. Stdin mode:   <something> | run_example.dart
-//        With no example name, reads a script from stdin and executes it. The
+//   2. Script-file mode:  run_example.dart <path/to/script>
+//        When the first argument is an existing file, that file *is* the entry
+//        script. This is what the `main.sh` shebang launchers use: a file whose
+//        first line is `#!<path-to-this-binary>` followed by ordinary D4rt
+//        source. The interpreter ignores the leading `#!` line (it is a Dart
+//        script tag), and sibling `.dart` files in the script's own directory
+//        are loaded so the script can use relative imports.
+//
+//   3. Stdin mode:   <something> | run_example.dart
+//        With no arguments, reads a script from stdin and executes it. The
 //        script may still use relative imports to sibling files: every `.dart`
 //        file under the caller's original working directory is loaded
 //        (recursively, same as folder mode) and the stdin script is mounted
@@ -30,9 +38,38 @@ void main(List<String> args) {
     return;
   }
 
-  final exampleName = args.first;
+  final first = args.first;
   final scriptArgs = args.skip(1).toList();
-  _runFolder(exampleName, scriptArgs);
+
+  // Script-file mode: a shebang launcher (or an explicit path) hands us a file.
+  final scriptFile = File(first);
+  if (scriptFile.existsSync()) {
+    _runScriptFile(scriptFile, scriptArgs);
+    return;
+  }
+
+  _runFolder(first, scriptArgs);
+}
+
+/// Execute a single script [file] (e.g. a `main.sh` shebang launcher). Sibling
+/// `.dart` files in the script's own directory are loaded so it can use relative
+/// imports; the entry file itself is mounted under its absolute `file://` URI so
+/// the interpreter resolves imports against the same directory.
+void _runScriptFile(File file, List<String> scriptArgs) {
+  final scriptDir = file.parent;
+  final sources = scriptDir.existsSync()
+      ? _loadDartSources(scriptDir)
+      : <String, String>{};
+  final entryUri = file.absolute.uri.toString();
+  sources[entryUri] = file.readAsStringSync();
+
+  _execute(
+    source: sources[entryUri]!,
+    library: entryUri,
+    sources: sources,
+    scriptArgs: scriptArgs,
+    label: file.path,
+  );
 }
 
 /// Load `example/<name>/**.dart` into a source map and run its `main()`.

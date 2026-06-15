@@ -1,3 +1,4 @@
+#!/usr/bin/env run_example
 // json_report example: collections, closures and higher-order functions.
 //
 // Groups a list of employee records by department and prints a salary report.

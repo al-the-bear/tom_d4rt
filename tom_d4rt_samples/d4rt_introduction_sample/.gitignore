@@ -2,3 +2,6 @@
 .packages
 pubspec.lock
 build/
+# Compiled launcher binary produced by compile.sh / compile.ps1.
+bin/run_example
+bin/run_example.exe

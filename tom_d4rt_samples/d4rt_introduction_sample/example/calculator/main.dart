@@ -1,4 +1,11 @@
+#!/usr/bin/env run_example
 // Entry point of the calculator example.
+//
+// The leading `#!/usr/bin/env run_example` line makes this file directly
+// executable once `run_example` is on PATH (see `she_bang_macos.sh` /
+// `she_bang_linux.sh`): `./main.dart` or `./main.dart "(2 + 3) * 4"`. D4rt and
+// the Dart analyzer both treat the `#!` line as a script tag and ignore it, so
+// the file still runs unchanged via `./run_example.sh calculator`.
 //
 // The runner calls `main(args)` where `args` is the list of strings passed
 // after the example name. If you pass an expression it is evaluated; otherwise
