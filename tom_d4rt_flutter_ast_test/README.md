@@ -4,10 +4,18 @@ Analyzer-free D4rt Flutter demo. A sample browser that loads **pre-compiled
 `AstBundle` JSON** from assets and renders each one through
 [`FlutterD4rt`](../tom_d4rt_flutter_ast) — the zero-analyzer, web-safe runtime.
 
-This is the AST-runtime counterpart to `tom_d4rt_flutter_test` (which compiles
-`.dart` source on the device via the analyzer). The whole point here is
-**independence from the analyzer and `dart:io`**: the shipped app depends only
-on `tom_d4rt_flutter_ast` + `tom_d4rt_ast`, so it builds and runs on the web.
+This is the AST-runtime counterpart to
+[`tom_d4rt_flutter_test`](../tom_d4rt_flutter_test) (which compiles `.dart`
+source on the device via the analyzer). The whole point here is **independence
+from the analyzer and `dart:io`**: the shipped app depends only on
+`tom_d4rt_flutter_ast` + `tom_d4rt_ast`, so it builds and runs on the web.
+
+It lives in the [`tom_d4rt`](https://github.com/al-the-bear/tom_d4rt) monorepo
+(under `tom_ai/d4rt/`) and demonstrates the **analyzer-free `AstBundle` path**
+— the one that unlocks **web** delivery and **over-the-air UI updates** — as
+opposed to the source-based path exercised by
+[`tom_d4rt_flutter_test`](../tom_d4rt_flutter_test). The two apps run the same
+sample set so the two execution families can be compared app-for-app.
 
 ## How it works
 
