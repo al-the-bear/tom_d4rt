@@ -20,9 +20,30 @@ dcli  (DcliRepl in this package, bin/dcli.dart)
         └── tom_build_cli       (binary: tom — adds build/workspace bridges)
 ```
 
-### Analyzer-based vs analyzer-free
+### Source-based vs analyzer-free — which D4rt family
 
-`tom_d4rt_dcli` requires the Dart analyzer to resolve and execute scripts, which gives full type inference and precise error reporting. If you need a lightweight interpreter without that dependency, use its counterpart `tom_dcli_exec`, which is built on `tom_d4rt_exec` (analyzer-free runtime). Both packages expose the same `D4rtReplBase` / `DcliRepl` surface but differ in the underlying execution engine.
+D4rt ships in two execution families, and `tom_d4rt_dcli` belongs to the
+first:
+
+- **Source-based (analyzer)** — `tom_d4rt`, `tom_d4rt_dcli`,
+  `tom_d4rt_flutter`. Parses Dart source with the analyzer, giving full type
+  inference and precise error reporting. This is the **stable reference and
+  usually the preferable choice**.
+- **Analyzer-free (mirror AST)** — `tom_d4rt_ast`, `tom_ast_model`,
+  `tom_ast_generator`, `tom_d4rt_exec`, **`tom_dcli_exec`**,
+  `tom_d4rt_flutter_ast`. Runs from pre-compiled `SAstNode` trees with **no
+  analyzer dependency**, which makes it viable on the **web** (the analyzer is
+  too large to ship there) and for **on-the-fly / OTA updates**. It is a
+  complete alternative, but because generated AST bundles are large, the
+  source-based interpreter is usually preferable unless the web/OTA constraint
+  applies.
+
+`tom_d4rt_dcli` requires the Dart analyzer (via `tom_d4rt`) to resolve and
+execute scripts. Its **analyzer-free twin is
+[`tom_dcli_exec`](../tom_dcli_exec/README.md)**, built on `tom_d4rt_exec`.
+Both packages expose the same `D4rtReplBase` / `DcliRepl` surface and the same
+`dcli` executable — they differ only in the underlying execution engine — so a
+tool written against one ports to the other by swapping the dependency.
 
 ---
 
@@ -32,7 +53,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  tom_d4rt_dcli: ^1.1.4
+  tom_d4rt_dcli: ^1.1.6
 ```
 
 Or via the command line:
@@ -193,6 +214,43 @@ dart run tom_d4rt_dcli:dcli myscript.dart
 dart run tom_d4rt_dcli:dcli my_setup.dcli
 ```
 
+### Shebang scripts — run `.dart` files like shell scripts
+
+Once the `dcli` binary is on your `PATH` (compiled from a downstream tool, or
+via `dart pub global activate`), a D4rt script can carry a shebang and run
+directly:
+
+```dart
+#!/usr/bin/env dcli
+import 'package:dcli/dcli.dart';
+
+// A throwaway maintenance script — no compile step needed.
+final stale = find('*.tmp', workingDirectory: '.').toList();
+for (final f in stale) {
+  print('removing $f');
+  delete(f);
+}
+print('cleaned ${stale.length} temp files');
+```
+
+```bash
+chmod +x cleanup.dart
+./cleanup.dart          # the shebang routes the file through dcli
+```
+
+### Piping scripts via stdin
+
+For one-liners, generated code, or composing with other shell tools, pipe the
+source straight into `dcli --stdin`. The process exit code is the script's
+return value, so scripts compose into pipelines and `&&` chains:
+
+```bash
+echo 'print(42);' | dcli --stdin
+cat my_script.dart | dcli --stdin
+echo 'return 5 + 6;' | dcli --stdin          # exit code = 11
+generate_script | dcli --stdin && echo ok    # gate on the script's result
+```
+
 ### Extending D4rtReplBase to build your own CLI tool
 
 `D4rtReplBase` is the abstract backbone. Subclass it and override the extension points:
@@ -285,6 +343,11 @@ Both run unchanged on the analyzer-free sibling
 [`tom_dcli_exec`](../tom_dcli_exec/example/README.md), which points back here
 instead of duplicating samples.
 
+For a standalone, repo-curated walkthrough see the
+[`d4rt_dcli_sample`](../tom_d4rt_samples/d4rt_dcli_sample/README.md) in the
+shared `tom_d4rt_samples` collection — a self-contained DCli scripting tour
+sitting alongside the interpreter, Flutter, and advanced samples.
+
 ---
 
 ## Architecture
@@ -352,9 +415,29 @@ This package resides at
 
 ---
 
+## Further documentation
+
+| Document | What it covers |
+|---|---|
+| [`doc/build.md`](doc/build.md) | Building and compiling the `dcli` binary; bridge regeneration via `build_runner`. |
+| [`doc/testing.md`](doc/testing.md) | Test layout and how to run the suite with `testkit`. |
+| [`doc/tom_d4rt_dcli_limitations.md`](doc/tom_d4rt_dcli_limitations.md) | Known limitations of the dcli REPL and its bridges. |
+
+### Related packages
+
+| Package | Relationship |
+|---|---|
+| [`tom_d4rt`](../tom_d4rt/README.md) | The source-based interpreter this package is built on. |
+| [`tom_dcli_exec`](../tom_dcli_exec/README.md) | Analyzer-free twin — same `DcliRepl` surface on `tom_d4rt_exec`. |
+| [`tom_d4rt_generator`](../tom_d4rt_generator/README.md) | Generates the dcli bridges (`*.b.dart`). |
+
+---
+
 ## Status
 
-**Current version: 1.1.4** — regenerated all bridges against `tom_d4rt_generator` 1.9.0.
+**Current version: 1.1.6** — duplicate-export collision fixes for AOT-compiled
+hosted consumers (see [CHANGELOG](CHANGELOG.md)); bridges regenerated against
+`tom_d4rt_generator` 1.9.0.
 
 Requires Dart SDK `^3.10.4`.
 
