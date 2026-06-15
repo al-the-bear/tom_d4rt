@@ -14,11 +14,31 @@ files under `lib/src/bridges/`) plus hand-written runtime registrations
 
 > **Start here for Flutter + D4rt.** Use this source-based package for desktop
 > and mobile development — it parses Dart source directly and has the simplest
-> workflow. The analyzer-free sibling
-> [`tom_d4rt_flutter_ast`](../tom_d4rt_flutter_ast) (`FlutterD4rt`) shares the
-> same bridge surface but is only needed when you must run without the Dart
-> analyzer: embedding in a shipping app for over-the-air updates, or targeting
-> the web (dart2js / dart2wasm).
+> workflow.
+
+### Source-based vs analyzer-free — which D4rt family
+
+D4rt ships in two execution families, and `tom_d4rt_flutter` is the
+**source-based** Flutter member:
+
+- **Source-based (analyzer)** — `tom_d4rt`, `tom_d4rt_dcli`,
+  **`tom_d4rt_flutter`**. Parses Dart source with the analyzer, giving full
+  type inference and precise error reporting. This is the **stable reference
+  and usually the preferable choice** for desktop and mobile.
+- **Analyzer-free (mirror AST)** — `tom_d4rt_ast`, `tom_ast_model`,
+  `tom_ast_generator`, `tom_d4rt_exec`, `tom_dcli_exec`,
+  **[`tom_d4rt_flutter_ast`](../tom_d4rt_flutter_ast)** (`FlutterD4rt`). Runs
+  from pre-compiled `SAstNode` bundles with **no analyzer dependency at
+  runtime**, which is what makes it viable on the **web** (the analyzer is too
+  large to ship via dart2js / dart2wasm) and for **over-the-air UI updates**
+  (download a bundle, render it, no app-store round trip).
+
+The two Flutter packages share the **same generated bridge surface and the
+same conformance script corpus** (see *Testing*) — they differ only in the
+underlying engine. Because generated AST bundles are large, prefer this
+source-based package unless the web/OTA constraint applies; switch to
+[`tom_d4rt_flutter_ast`](../tom_d4rt_flutter_ast) only when you must run
+without the analyzer.
 
 ---
 
@@ -39,6 +59,88 @@ The barrel (`lib/tom_d4rt_flutter.dart`) exports:
   multi-file sample apps; `SourceFlutterD4rt.buildMultiFile` builds these
   directly.
 
+| Entry point | Use it for |
+|---|---|
+| `build<T>(source, [context])` | A single-file script — calls its top-level `build` function and unwraps the result as `T`. |
+| `buildMultiFile<T>(mainFilePath, {buildContext})` | A multi-file program on disk (desktop) — resolves every relative `import` into the interpreter's source map, then runs `build`. |
+| `buildProgram<T>(program, {buildContext})` | A pre-resolved `SampleProgram` (mobile / asset-bundled) — no filesystem access. |
+| `execute<T>(source, {name, positionalArgs, namedArgs})` | Any named function, not just `build`. |
+
+---
+
+## Quick start — script → widget
+
+A D4rt UI script is ordinary Dart: it declares a top-level
+`Widget build(BuildContext context)` function that returns a widget tree built
+from the **real** Flutter Material classes. `SourceFlutterD4rt.build` parses the
+source, calls that function, and hands you back a live `Widget` you can drop
+straight into your tree.
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:tom_d4rt_flutter/tom_d4rt_flutter.dart';
+
+// The interpreter pre-loaded with the full Flutter Material bridge surface.
+// Construct it once and reuse it across builds.
+final runner = SourceFlutterD4rt();
+
+// In a real app this string would be fetched from a server, a file, or a
+// text field — here it is inline for clarity.
+const uiScript = '''
+import 'package:flutter/material.dart';
+
+Widget build(BuildContext context) {
+  return Card(
+    margin: const EdgeInsets.all(16),
+    child: Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text('Hello from interpreted Dart!',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 12),
+          ElevatedButton(
+            onPressed: () => debugPrint('tapped'),
+            child: const Text('Press me'),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+''';
+
+class InterpretedPanel extends StatelessWidget {
+  const InterpretedPanel({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // Interpret the script and render its widget tree inline.
+    return runner.build<Widget>(uiScript, context);
+  }
+}
+```
+
+Key points:
+
+- The result is a genuine `Widget` made of real `Card`, `Column`,
+  `ElevatedButton`, … instances — not a mock or a screenshot. State, gestures,
+  and animations all work.
+- The `BuildContext` you pass is forwarded as the first positional argument to
+  the script's `build` function, so interpreted code can call
+  `Theme.of(context)`, `MediaQuery.of(context)`, and friends.
+- `build<T>` unwraps the interpreter's result to the native `T` for you via
+  `D4.unwrapAs<T>`, so you get a `Widget`, not a wrapped interpreter value.
+- For UI that spans several files (the usual shape of a real sample app), use
+  `buildMultiFile<Widget>('lib/main.dart', buildContext: context)` instead — it
+  resolves the relative `import` graph for you.
+
+See the **authoritative** runtime walkthrough in
+[doc/tom_d4rt_flutter_user_guide.md](doc/tom_d4rt_flutter_user_guide.md) for the
+four execution entry points, multi-file programs, extension registration, and
+the performance/GC notes.
+
 ---
 
 ## Documentation
@@ -47,8 +149,12 @@ The barrel (`lib/tom_d4rt_flutter.dart`) exports:
 |-----|----------------|
 | [doc/tom_d4rt_flutter_user_guide.md](doc/tom_d4rt_flutter_user_guide.md) | **Authoritative Flutter-runtime guide** — `SourceFlutterD4rt`, the four execution entry points, multi-file programs, extension registration, performance/GC, and the known-limits summary. |
 | [doc/tom_d4rt_flutter_limitations.md](doc/tom_d4rt_flutter_limitations.md) | Full bridge-adapter limits catalogue (Flutter-runtime delta) with per-case script workarounds. |
+| [doc/manual_bridge_interventions.md](doc/manual_bridge_interventions.md) | The hand-written runtime registrations layered on top of the generated bridges — interface proxies, type relaxers, generic factories, and `d4rt_user_bridges/` overrides — and why each is needed. |
 | [../tom_d4rt/doc/d4rt_user_guide.md](../tom_d4rt/doc/d4rt_user_guide.md) | Base interpreter — language subset, bridging model, shared semantics. |
 | [../tom_d4rt/doc/d4rt_limitations.md](../tom_d4rt/doc/d4rt_limitations.md) | Canonical interpreter-level limitations. |
+
+> `doc/example_app_plan.md` is an **internal development record** (sample-app
+> build plan), not user documentation — it ships only for development context.
 
 ---
 
@@ -93,6 +199,13 @@ The same sample set is mirrored in the AST sibling
 (`tom_d4rt_flutter_ast_test/example/`), so the source-direct and AST paths can
 be compared app-for-app.
 
+For a single, repo-curated starter see the
+[`d4rt_flutter_sample`](../tom_d4rt_samples/d4rt_flutter_sample/README.md) in
+the shared `tom_d4rt_samples` collection — a focused Flutter-Material script
+rendered through `SourceFlutterD4rt`, sitting alongside the interpreter, dcli,
+and advanced samples. This package's own [`example/`](example/README.md) folder
+holds the minimal library-usage snippet.
+
 ---
 
 ## Regenerating the bridges
@@ -135,3 +248,17 @@ Suites, in rough order of coverage breadth: `essential_classes_test`,
 `important_classes_test`, `secondary_classes_test`,
 `hardly_relevant_classes_{1..5}_test`, plus the interpreter-issue,
 cluster-repro, blocking, timeout, interactive, and suspicious-rewrite suites.
+
+---
+
+## Status
+
+Current version: **1.0.1**. Source repository:
+<https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_flutter>.
+
+This package lives in the `tom_d4rt` monorepo at `tom_ai/d4rt/tom_d4rt_flutter`.
+For the analyzer-free Flutter path see
+[`tom_d4rt_flutter_ast`](../tom_d4rt_flutter_ast/README.md); for the base
+interpreter and the bridge generator see
+[`tom_d4rt`](../tom_d4rt/README.md) and
+[`tom_d4rt_generator`](../tom_d4rt_generator/README.md).
