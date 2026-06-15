@@ -1,15 +1,27 @@
 # tom_d4rt_exec
 
-Analyzer-free D4rt interpreter — the CLI and embedding entry point that parses Dart source via the `analyzer` package, mirrors the resulting AST into the `tom_d4rt_ast` serializable tree, and hands it to the `tom_d4rt_ast` interpreter for execution.
+The analyzer-free **execution entry point** of the D4rt interpreter family: it parses Dart source with the `analyzer` package, mirrors the resulting AST 1:1 into the serializable [`tom_d4rt_ast`](../tom_d4rt_ast/) tree, and hands that tree to the `tom_d4rt_ast` interpreter — which runs with **no `analyzer` types at runtime**.
 
 ## Overview
 
-`tom_d4rt_exec` is the **migration target** for the D4rt interpreter ecosystem, replacing `tom_d4rt` for all Flutter and server use-cases. It separates the two responsibilities that were bundled together in the original package:
+`tom_d4rt_exec` is the analyzer-free counterpart of [`tom_d4rt`](../tom_d4rt/). It separates the two responsibilities the original package bundled together:
 
-1. **Parsing** — Dart source is parsed by the `analyzer` package and converted 1:1 into the `tom_d4rt_ast` mirror AST via `tom_ast_generator`'s `AstConverter`.
-2. **Execution** — The mirror AST is handed to `tom_d4rt_ast`'s `InterpreterVisitor` and `D4rtRunner`, which perform the actual interpretation entirely without `analyzer` at runtime.
+1. **Parsing** — Dart source is parsed by the `analyzer` package and converted 1:1 into the `tom_d4rt_ast` mirror AST via [`tom_ast_generator`](../tom_ast_generator/)'s `AstConverter`.
+2. **Execution** — The mirror AST is handed to `tom_d4rt_ast`'s `InterpreterVisitor` and `D4rtRunner`, which interpret it entirely without `analyzer` at runtime.
 
-This split means downstream packages (`tom_dcli_exec`, Flutter apps, servers) can embed the interpreter, run scripts, and hot-reload interpreted code **without taking a compile-time or tree-shake dependency on `analyzer`** — the analyzer step happens only here, at the execution entry point.
+This split is what makes the analyzer-free family possible: the **runtime** (`tom_d4rt_ast`) carries no `analyzer` dependency, so it can ship to the **web** — where the `analyzer` package is too large — and drive **on-the-fly / OTA UI updates** by interpreting pre-built AST bundles. `tom_d4rt_exec` is the build/CLI side of that workflow: it does the analyzer parse and produces the tree (or an `AstBundle`) that the runtime executes.
+
+### Which interpreter should I use?
+
+[`tom_d4rt`](../tom_d4rt/) is the stable reference and is **usually the preferable choice** for command-line, server, and desktop embeddings. Reach for the analyzer-free line (`tom_d4rt_exec` + `tom_d4rt_ast`) when you actually need the web / OTA case: the runtime has no analyzer dependency, but because the AST bundles it consumes are **large**, it is a complete alternative rather than a default.
+
+| Package | What it is | Analyzer dependency | Use when |
+|---|---|---|---|
+| [`tom_d4rt`](../tom_d4rt/) | Source-based reference interpreter; parse + interpret in one package | Yes (parse and runtime) | CLI / server / desktop — the usual choice |
+| `tom_d4rt_exec` *(this package)* | Analyzer-free execution entry; parse via analyzer, interpret via `tom_d4rt_ast` | Yes, **parse only** — none at runtime | You need the analyzer-free runtime, or to build `AstBundle`s |
+| [`tom_d4rt_ast`](../tom_d4rt_ast/) | Pure runtime + serializable AST; runs pre-built bundles | **No** | Web / OTA — ship bundles, interpret on device |
+
+`tom_d4rt_exec` keeps `tom_d4rt`'s public API: bridge packages and scripts move over by changing imports only (see [Ecosystem](#ecosystem)).
 
 ### Execution modes
 
@@ -26,7 +38,7 @@ This split means downstream packages (`tom_dcli_exec`, Flutter apps, servers) ca
 
 ```yaml
 dependencies:
-  tom_d4rt_exec: ^1.8.3
+  tom_d4rt_exec: ^1.8.5
 ```
 
 ```sh
@@ -67,6 +79,15 @@ void main() {
   );
 }
 ```
+
+## Example projects
+
+`tom_d4rt_exec` shares its execution API and language semantics with [`tom_d4rt`](../tom_d4rt/), so the runnable samples in [`tom_d4rt_samples/`](../tom_d4rt_samples/) apply here too — the only change is the import (`package:tom_d4rt_exec/tom_d4rt.dart`):
+
+- [d4rt_introduction_sample](../tom_d4rt_samples/d4rt_introduction_sample/) — run multi-file D4rt programs with nothing but the interpreter. Start here.
+- [d4rt_advanced_sample](../tom_d4rt_samples/d4rt_advanced_sample/) — bridge a native Dart library using [`tom_d4rt_generator`](../tom_d4rt_generator/).
+
+For the web / OTA bundle workflow that is unique to the analyzer-free line, see [Bundle Execution](#bundle-execution) below and [`tom_d4rt_ast`](../tom_d4rt_ast/).
 
 ## Usage
 
@@ -259,7 +280,7 @@ if (errors.isNotEmpty) {
 
 ### Bundle Execution
 
-For environments where the parse step must be eliminated at runtime (Flutter hot-reload, tight startup), use `AstBundler` (re-exported from `tom_ast_generator`) to pre-bundle scripts, then execute the bundle:
+For environments where the parse step must be eliminated at runtime (web, Flutter hot-reload / OTA, tight startup), use `AstBundler` (re-exported from [`tom_ast_generator`](../tom_ast_generator/)) to pre-bundle scripts, then execute the bundle. This is the workflow a server uses to compile source once and ship the bundle to a thin [`tom_d4rt_ast`](../tom_d4rt_ast/) client:
 
 ```dart
 final bundler = AstBundler(config: AstBundlerConfig(...));
@@ -269,6 +290,26 @@ final d4rt = D4rt();
 // ... register bridges ...
 d4rt.executeBundle(bundle);
 ```
+
+#### Typed bundle execution
+
+`executeBundleAs<T>` / `executeBundleAsAsync<T>` run a bundle and **unwrap the result to a native `T`** instead of returning a `BridgedInstance`, using the same unwrap path as the runner (`D4.unwrapAs<T>`). Use the async variant for `async` entry points that return a `Future`:
+
+```dart
+final widget = d4rt.executeBundleAs<Widget>(bundle, name: 'build');
+final value  = await d4rt.executeBundleAsAsync<int>(bundle, name: 'computeAsync');
+```
+
+#### Extension hook for bridge packages
+
+Bridge packages register relaxers and proxy factories through a programmatic hook rather than comment-driven ordering. `registerExtensions(packageName, body)` queues a callback; `finalizeBridges()` runs every queued callback once, in registration order, after the standard bridges are wired up — it is called implicitly on the first `execute` / `executeBundle`:
+
+```dart
+d4rt.registerExtensions('my_pkg', () => registerMyOverrides());
+d4rt.finalizeBridges(); // optional — runs implicitly on first execute
+```
+
+See the [extension-registration guide](../tom_d4rt_ast/doc/extension_registration.md) in `tom_d4rt_ast` for the full contract.
 
 ## Architecture and Key Concepts
 
@@ -352,23 +393,31 @@ tom_d4rt_exec          <-- THIS PACKAGE
 tom_dcli_exec
 ```
 
-`tom_d4rt` is the original monolithic interpreter that bundles the analyzer, AST, and runtime together. `tom_d4rt_exec` replaces it for all new integrations. Bridge packages generated against `tom_d4rt` can be migrated by changing their import from `package:tom_d4rt/tom_d4rt.dart` to `package:tom_d4rt_exec/tom_d4rt.dart` — the compatibility alias keeps the public API identical.
+[`tom_d4rt`](../tom_d4rt/) is the source-based reference that bundles the analyzer, AST, and runtime together — and remains the usual choice for CLI / server / desktop (see [Which interpreter should I use?](#which-interpreter-should-i-use)). `tom_d4rt_exec` is the entry point for the analyzer-free line you adopt when the web / OTA constraint applies. Bridge packages and scripts written against `tom_d4rt` move over by changing their import from `package:tom_d4rt/tom_d4rt.dart` to `package:tom_d4rt_exec/tom_d4rt.dart` — the compatibility alias keeps the public API identical.
 
-## Documentation
+## Further documentation
 
 `tom_d4rt_exec` is the analyzer-using entry point; its docs are exec-specific and link to `tom_d4rt` for the (identical) language semantics and bridging model.
+
+This package's own guides (in [`doc/`](doc/)):
 
 - [User Guide](doc/tom_d4rt_exec_user_guide.md) — exec-specific: the parse → mirror-AST → interpret pipeline, source execution, and the bundle / typed-execute API. Links to the base guide for shared semantics.
 - [Limitations (delta)](doc/tom_d4rt_exec_limitations.md) — entry-point-specific limits (not web-safe; analyzer-boundary parse errors; bundle/runtime version alignment); links back to the canon.
 - [Bridging Guide](doc/BRIDGING_GUIDE.md) — how to bridge native Dart classes and functions manually.
 - [Advanced Bridging Guide](doc/advanced_bridging_user_guide.md) — `D4` helper class, type coercion, argument extraction, target validation, and global function bridging.
-- Base (shared) docs: [tom_d4rt User Guide](../tom_d4rt/doc/d4rt_user_guide.md) · [Limitations (canonical)](../tom_d4rt/doc/d4rt_limitations.md).
-- [Bridge Generator User Guide](../tom_d4rt_generator/doc/bridgegenerator_user_guide.md) — automating bridge creation with code generation.
-- [Bridge Generator Reference](../tom_d4rt_generator/doc/bridgegenerator_user_reference.md) — generator configuration options.
+- [Issues](doc/issues.md) — tracked exec-specific issues and their status.
+
+Related packages (don't duplicate — follow the link):
+
+- [tom_d4rt_ast](../tom_d4rt_ast/) — the analyzer-free runtime this package executes against ([extension registration](../tom_d4rt_ast/doc/extension_registration.md))
+- [tom_ast_generator](../tom_ast_generator/) — the `AstConverter` (analyzer AST → mirror AST) and `AstBundler` this package re-exports
+- [tom_d4rt](../tom_d4rt/) — the source-based reference; base docs: [User Guide](../tom_d4rt/doc/d4rt_user_guide.md) · [Limitations (canonical)](../tom_d4rt/doc/d4rt_limitations.md)
+- [tom_d4rt_generator](../tom_d4rt_generator/) — automated bridge generation ([user guide](../tom_d4rt_generator/doc/bridgegenerator_user_guide.md) · [reference](../tom_d4rt_generator/doc/bridgegenerator_user_reference.md))
+- [tom_dcli_exec](../tom_dcli_exec/) — DCli REPL built on this entry point
 
 ## Status
 
-**Version 1.8.3** — current release on pub.dev (first published at 1.8.2).
+**Version 1.8.5** — current release on pub.dev (first published at 1.8.2).
 
 - 1680+ tests passing (2 intentional won't-fix exclusions).
 - All 20 Dart language areas covered in the `dart_overview` test suite.
