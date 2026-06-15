@@ -1,0 +1,22 @@
+name: d4rt_dcli_sample
+description: >-
+  D4rt dcli sample — combines the dcli shell-scripting bridges (file I/O,
+  process execution) with a native log-analysis library bridged via
+  tom_d4rt_generator. Shows third-party and project-owned bridges working
+  together in one interpreter.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  tom_d4rt: ^1.8.23
+  tom_d4rt_dcli: ^1.1.3
+  # Referenced directly by the example scripts (import 'package:dcli/dcli.dart').
+  dcli: ^8.4.2
+
+dev_dependencies:
+  tom_d4rt_generator: ^1.9.4
+  lints: ^4.0.0
+  test: ^1.25.0

@@ -1,0 +1,23 @@
+# Bridge-generator configuration for the dcli sample.
+#
+# Regenerate the *.b.dart bridges with:
+#   dart run tom_d4rt_generator:d4rtgen
+#
+# This generates bridges only for THIS project's native log-analysis library.
+# The dcli bridges come ready-made from the tom_d4rt_dcli package
+# (TomD4rtDcliBridge.register) and are not generated here.
+
+d4rtgen:
+  name: d4rt_dcli_sample
+  helpersImport: package:tom_d4rt/tom_d4rt.dart
+  generateBarrel: true
+  barrelPath: lib/d4rt_bridges.b.dart
+  generateDartscript: true
+  dartscriptPath: lib/dartscript.b.dart
+  registrationClass: DcliSampleBridges
+  modules:
+    - name: loglib
+      barrelFiles:
+        - lib/d4rt_dcli_sample.dart
+      barrelImport: package:d4rt_dcli_sample/d4rt_dcli_sample.dart
+      outputPath: lib/src/d4rt_bridges/loglib_bridges.b.dart

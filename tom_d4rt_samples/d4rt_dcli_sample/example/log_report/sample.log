@@ -1,0 +1,15 @@
+[INFO] service starting up
+[DEBUG] loaded configuration from config.yaml
+[INFO] listening on port 8080
+INFO: handled GET /health in 2ms
+[WARNING] cache miss for key user:42
+[INFO] handled GET /users/42 in 18ms
+[ERROR] database connection refused (attempt 1)
+[WARNING] retrying database connection
+[ERROR] database connection refused (attempt 2)
+[INFO] database connection established
+[DEBUG] connection pool size now 4
+[INFO] handled POST /users in 31ms
+[ERROR] unhandled exception in /reports: NullPointer
+[INFO] request completed with status 500
+[INFO] service shutting down
