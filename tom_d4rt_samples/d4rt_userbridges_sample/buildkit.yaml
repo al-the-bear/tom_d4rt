@@ -1,0 +1,25 @@
+# Bridge-generator configuration for the user-bridges sample.
+#
+# Regenerate the *.b.dart bridges with:
+#   dart run tom_d4rt_generator:d4rtgen
+#
+# The generator follows the barrel under `modules`, emits a BridgedClass for
+# every exported native type, and — before generating — pre-scans the barrel's
+# exported files for `@D4rtUserBridge` / `@D4rtGlobalsUserBridge` classes,
+# folding those hand-written overrides into the output. The combined surface is
+# wired into a single registration class (`UserBridgesSampleBridges`).
+
+d4rtgen:
+  name: d4rt_userbridges_sample
+  helpersImport: package:tom_d4rt/tom_d4rt.dart
+  generateBarrel: true
+  barrelPath: lib/d4rt_bridges.b.dart
+  generateDartscript: true
+  dartscriptPath: lib/dartscript.b.dart
+  registrationClass: UserBridgesSampleBridges
+  modules:
+    - name: ledger
+      barrelFiles:
+        - lib/d4rt_userbridges_sample.dart
+      barrelImport: package:d4rt_userbridges_sample/d4rt_userbridges_sample.dart
+      outputPath: lib/src/d4rt_bridges/ledger_bridges.b.dart

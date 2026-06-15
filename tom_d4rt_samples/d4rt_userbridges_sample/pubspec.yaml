@@ -1,0 +1,19 @@
+name: d4rt_userbridges_sample
+description: >-
+  D4rt user-bridges sample — bridges a native Dart library with
+  tom_d4rt_generator and layers hand-written D4UserBridge overrides on top
+  (operators, methods, composite/generic index operators, and library globals)
+  for the cases the generator cannot handle automatically.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  tom_d4rt: ^1.8.23
+
+dev_dependencies:
+  tom_d4rt_generator: ^1.9.4
+  lints: ^4.0.0
+  test: ^1.25.0
