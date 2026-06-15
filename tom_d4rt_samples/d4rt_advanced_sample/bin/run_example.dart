@@ -7,19 +7,21 @@
 //   run_example.dart <example-name> [args...]   # run example/<name>/main.dart
 //   <something> | run_example.dart              # run a single script from stdin
 //
-// Folder mode loads every `.dart` file in the example folder into a source map
-// keyed by `package:example/<file>`, so relative imports between script files
-// resolve in-memory. The bridged native library is reached via its own
-// package URI: `package:d4rt_advanced_sample/d4rt_advanced_sample.dart`.
+// Folder mode loads every `.dart` file under the example folder (subfolders
+// included) into a source map keyed by each file's absolute `file://` URI, so
+// relative imports between script files — including `import 'sub/helper.dart';`
+// — resolve in-memory. Stdin mode loads the caller's working directory the same
+// way, so a piped script can import sibling files too. The bridged native
+// library is reached via its own package URI:
+// `package:d4rt_advanced_sample/d4rt_advanced_sample.dart`.
 import 'dart:io';
 
 import 'package:tom_d4rt/d4rt.dart';
 
 // The generated registration class. Produced by `dart run
 // tom_d4rt_generator:d4rtgen` from buildkit.yaml — never hand-edited.
+// See run_generator.md for how (and when) to regenerate it.
 import 'package:d4rt_advanced_sample/dartscript.b.dart';
-
-const _packageRoot = 'package:example';
 
 void main(List<String> args) {
   if (args.isEmpty) {
@@ -37,15 +39,8 @@ void _runFolder(String name, List<String> scriptArgs) {
     exit(64);
   }
 
-  final sources = <String, String>{};
-  for (final entity in folder.listSync()) {
-    if (entity is File && entity.path.endsWith('.dart')) {
-      final fileName = entity.uri.pathSegments.last;
-      sources['$_packageRoot/$fileName'] = entity.readAsStringSync();
-    }
-  }
-
-  final entryUri = '$_packageRoot/main.dart';
+  final sources = _loadDartSources(folder);
+  final entryUri = folder.absolute.uri.resolve('main.dart').toString();
   final entrySource = sources[entryUri];
   if (entrySource == null) {
     stderr.writeln('No main.dart in ${folder.path}');
@@ -68,7 +63,20 @@ void _runStdin() {
     stderr.writeln('   or: echo "<script>" | run_example.dart');
     exit(64);
   }
-  _execute(source: source, scriptArgs: const [], label: 'stdin');
+
+  final callerDir = _callerDir();
+  final sources =
+      callerDir.existsSync() ? _loadDartSources(callerDir) : <String, String>{};
+  final entryUri = callerDir.absolute.uri.resolve('__stdin__.dart').toString();
+  sources[entryUri] = source;
+
+  _execute(
+    source: source,
+    library: entryUri,
+    sources: sources,
+    scriptArgs: const [],
+    label: 'stdin',
+  );
 }
 
 void _execute({
@@ -98,6 +106,26 @@ void _execute({
     stderr.writeln(st);
     exit(70);
   }
+}
+
+/// Recursively read every `.dart` file under [dir] into a source map keyed by
+/// each file's absolute `file://` URI, so relative imports (subfolders too)
+/// resolve against the entry library's `file://` URI.
+Map<String, String> _loadDartSources(Directory dir) {
+  final sources = <String, String>{};
+  for (final entity in dir.listSync(recursive: true)) {
+    if (entity is File && entity.path.endsWith('.dart')) {
+      sources[entity.absolute.uri.toString()] = entity.readAsStringSync();
+    }
+  }
+  return sources;
+}
+
+/// The caller's original working directory (exported as `TOM_D4RT_CALLER_CWD`
+/// by the shell wrappers before they `cd` into the package root).
+Directory _callerDir() {
+  final cwd = Platform.environment['TOM_D4RT_CALLER_CWD'];
+  return Directory(cwd == null || cwd.isEmpty ? Directory.current.path : cwd);
 }
 
 String _readAllStdin() {

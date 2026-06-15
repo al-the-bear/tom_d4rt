@@ -117,11 +117,13 @@ From the package root:
 ./run_example.sh shape_report
 ```
 
-The runner generates the bridges automatically on first run if they are missing.
-To regenerate them by hand at any time:
+The generated bridges (`lib/*.b.dart`) are **checked into the repository**, so
+the examples run on a fresh clone without any generation step. If you change the
+native library or `buildkit.yaml`, regenerate them — see
+[`run_generator.md`](run_generator.md):
 
 ```sh
-dart run tom_d4rt_generator:d4rtgen
+dart run tom_d4rt_generator:d4rtgen --not-recursive -s "$(pwd)"
 ```
 
 Expected output for `./run_example.sh physics_sim` (abridged):
@@ -227,15 +229,20 @@ flutter-material bridges, for instance) declare many modules.
 ## 6. Running the generator
 
 ```sh
-dart run tom_d4rt_generator:d4rtgen
+dart run tom_d4rt_generator:d4rtgen --not-recursive -s "$(pwd)"
 ```
 
 The generator reads `buildkit.yaml`, resolves your package and its dependencies,
 analyses the barrel's exported types with the Dart analyzer, and writes the
 `*.b.dart` files listed above. It is deterministic: running it again over
-unchanged input produces byte-identical output. You commit the generated files so
-the project is browsable and runnable without a generation step, and regenerate
-whenever the native library changes.
+unchanged input produces the same content (only the timestamp comment differs).
+The generated files are **committed** so the project is browsable and runnable
+without a generation step; you regenerate whenever the native library or
+`buildkit.yaml` changes.
+
+The `-s "$(pwd)"` flag is required — the generator needs an absolute, normalized
+scan path. See [`run_generator.md`](run_generator.md) for the full reference
+(flags, the list of emitted files, and why the output is checked in).
 
 ---
 
