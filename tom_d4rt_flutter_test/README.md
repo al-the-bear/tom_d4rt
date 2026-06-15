@@ -7,6 +7,12 @@ interpreter with the full Flutter Material bridge surface — in a real,
 interactive runtime. It is **not** a published package; it exists to
 demonstrate and manually verify the library on every platform.
 
+It lives in the [`tom_d4rt`](https://github.com/al-the-bear/tom_d4rt) monorepo
+(under `tom_ai/d4rt/`) and pairs with the **source-based** Flutter family
+member [`tom_d4rt_flutter`](../tom_d4rt_flutter); its analyzer-free counterpart
+is [`tom_d4rt_flutter_ast_test`](../tom_d4rt_flutter_ast_test), which runs the
+shared sample set from pre-compiled `AstBundle`s.
+
 ## What it does
 
 - **Sample-app runner** — discovers the Dart sample apps under `example/`
