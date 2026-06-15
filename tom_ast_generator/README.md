@@ -26,13 +26,32 @@ Interpreted at runtime
 
 The package also provides the `astgen` CLI, which automates the conversion step across a whole Dart workspace using `buildkit.yaml`-driven configuration.
 
+### Where it sits — the analyzer-free family
+
+D4rt ships in **two execution families**. The **source-based** line
+(`tom_d4rt`, `tom_d4rt_dcli`, `tom_d4rt_flutter`) parses Dart with the
+`analyzer` package and interprets it directly — it is the **stable reference and
+usually the preferable choice**. The **analyzer-free** line — `tom_ast_model`,
+`tom_d4rt_ast`, `tom_ast_generator`, `tom_d4rt_exec`, `tom_dcli_exec`,
+`tom_d4rt_flutter_ast` — runs from pre-compiled `SAstNode` trees with **no
+analyzer dependency**, which is what makes it viable on the **web** (the
+analyzer is too large to ship) and for **on-the-fly / OTA UI updates**. Because
+the generated AST bundles are large, reach for the analyzer-free line only when
+that web/OTA constraint applies.
+
+`tom_ast_generator` is the **build-time bridge** between the two: it is the
+**only** package in the analyzer-free line that depends on `analyzer`. It runs
+off-device (build machine / CI), converting source into bundles that the
+device-side runtime ([`tom_d4rt_ast`](../tom_d4rt_ast/)) executes without the
+analyzer ever being present.
+
 ## Installation
 
 ### As a library dependency
 
 ```yaml
 dependencies:
-  tom_ast_generator: ^0.1.1
+  tom_ast_generator: ^0.1.3
 ```
 
 ```
@@ -206,6 +225,42 @@ void main() { print(add(1, 2)); }
 ''');
 ```
 
+### End-to-end: source → bundle → run
+
+The whole point of this package is to bridge the two D4rt families. Here is the
+full round trip — convert on the build machine, run on the device with **no
+analyzer**:
+
+```dart
+// ── Build machine / CI (analyzer present) ──────────────────────────────
+import 'dart:io';
+import 'package:tom_ast_generator/tom_ast_generator.dart';
+
+Future<void> buildBundle() async {
+  final bundler = AstBundler(packageName: 'my_app', projectRoot: '.');
+  final bundle = await bundler.createFromFile('lib/scripts/build_ui.dart');
+  // Ship these bytes as a Flutter asset / serve them over HTTP.
+  await File('assets/build_ui.ast').writeAsBytes(bundle.toBytes());
+}
+```
+
+```dart
+// ── Device / runtime (analyzer ABSENT) ─────────────────────────────────
+import 'package:tom_d4rt_ast/runtime.dart';
+
+Future<String> runBundle(List<int> bytes) async {
+  final bundle = AstBundle.fromBytes(bytes);
+  final runner = D4rtRunner();
+  return runner.executeBundleAs<String>(bundle, name: 'buildLabel');
+}
+```
+
+The same bundle can be driven by [`tom_d4rt_exec`](../tom_d4rt_exec/) on the CLI
+(it wraps `astgen`/`AstBundler` parsing and the `tom_d4rt_ast` runtime into a
+single drop-in `D4rt` entry point), or by
+[`tom_d4rt_flutter_ast`](../tom_d4rt_flutter_ast/) to render a live widget tree
+— that is the OTA UI-update path this package exists to enable.
+
 ### `astgen` CLI — `buildkit.yaml` configuration
 
 Place an `astgen:` section in `buildkit.yaml` at your project root:
@@ -292,7 +347,17 @@ ast:
   # ... mirror AST content
 ```
 
-## Documentation
+## Examples
+
+The package's [`example/`](example/README.md) tree contains **generator test
+fixtures** (converter inputs wired into the test harnesses), not user-facing
+samples — `example/README.md` explains this and points to the canonical sample
+homes. For runnable language/bridging samples, see
+[`tom_d4rt_samples/`](../tom_d4rt_samples/), e.g.
+[`d4rt_introduction_sample`](../tom_d4rt_samples/d4rt_introduction_sample/) and
+[`d4rt_advanced_sample`](../tom_d4rt_samples/d4rt_advanced_sample/).
+
+## Further documentation
 
 | Document | Purpose |
 |----------|---------|
@@ -308,6 +373,15 @@ package adds no interpreter behaviour of its own:
   [Limitations (canonical)](../tom_d4rt/doc/d4rt_limitations.md).
 - [tom_d4rt_ast User Guide](../tom_d4rt_ast/doc/tom_d4rt_ast_user_guide.md) —
   the analyzer-free runtime that consumes the bundles produced here.
+
+### Related packages
+
+- [`tom_ast_model`](../tom_ast_model/) — the zero-dependency `SAstNode` data
+  model this converter emits.
+- [`tom_d4rt_ast`](../tom_d4rt_ast/) — the analyzer-free runtime that interprets
+  the bundles produced here.
+- [`tom_d4rt_exec`](../tom_d4rt_exec/) — the drop-in execution entry point that
+  wraps this converter and the runtime into a single `D4rt` API.
 
 ## Ecosystem position
 
@@ -335,7 +409,7 @@ All packages live in the same repository:
 
 ## Status
 
-**Version 0.1.1** — current release on pub.dev (first published at 0.1.0).
+**Version 0.1.3** — current release on pub.dev (first published at 0.1.0).
 
 The core conversion and bundling are production-ready. The `include_imports`,
 `import_depth`, and `include_relative_imports` fields in the CLI `buildkit.yaml`
