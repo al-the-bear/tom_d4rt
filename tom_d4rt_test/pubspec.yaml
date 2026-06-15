@@ -1,5 +1,5 @@
 name: tom_d4rt_test
-description: A sample command-line application.
+description: Behavioural conformance test suite for the tom_d4rt interpreter.
 version: 1.0.0
 # repository: https://github.com/my_org/my_repo
 
