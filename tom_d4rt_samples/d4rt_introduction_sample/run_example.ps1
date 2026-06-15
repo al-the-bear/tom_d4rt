@@ -6,6 +6,9 @@
 #
 # Always run from the package root so example/<name>/ resolves.
 $ErrorActionPreference = 'Stop'
+# Remember where the user invoked us, so a stdin script can import sibling
+# files relative to the caller's directory (not the package root we cd into).
+if (-not $env:TOM_D4RT_CALLER_CWD) { $env:TOM_D4RT_CALLER_CWD = (Get-Location).Path }
 Set-Location -Path $PSScriptRoot
 
 if (-not (Test-Path '.dart_tool')) {

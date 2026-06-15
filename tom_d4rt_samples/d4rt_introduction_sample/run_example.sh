@@ -7,6 +7,9 @@
 #
 # Always run from the package root so example/<name>/ resolves.
 set -euo pipefail
+# Remember where the user invoked us, so a stdin script can import sibling
+# files relative to the caller's directory (not the package root we cd into).
+export TOM_D4RT_CALLER_CWD="${TOM_D4RT_CALLER_CWD:-$PWD}"
 cd "$(dirname "$0")"
 
 if [ ! -d .dart_tool ]; then

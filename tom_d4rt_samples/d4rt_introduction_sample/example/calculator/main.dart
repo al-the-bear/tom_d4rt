@@ -8,13 +8,16 @@
 //   ./run_example.sh calculator "(2 + 3) * 4"   # evaluates one expression
 
 import 'evaluator.dart';
+import 'util/format.dart';
 
 void main(List<String> args) {
   final calc = Calculator();
 
   if (args.isNotEmpty) {
     final expr = args.join(' ');
-    print('$expr = ${calc.eval(expr)}');
+    // `formatResult` comes from the `util/` subfolder — a subfolder-relative
+    // import the runner resolves against this file's location.
+    print(formatResult(expr, calc.eval(expr)));
     return;
   }
 

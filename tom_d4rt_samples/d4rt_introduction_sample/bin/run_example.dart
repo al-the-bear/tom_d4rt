@@ -3,28 +3,26 @@
 // Two modes:
 //
 //   1. Folder mode:  run_example.dart <example-name> [script-args...]
-//        Loads *every* `.dart` file in `example/<example-name>/` into a
-//        in-memory source map, keyed by a synthetic `package:` URI, and
-//        executes `main.dart`'s `main()`. Relative imports between the files
-//        (e.g. `import 'parser.dart';`) resolve inside that map — which is how
-//        the pure interpreter does multi-file execution: it never touches the
-//        filesystem itself, it just looks URIs up in the map you give it.
+//        Loads *every* `.dart` file under `example/<example-name>/` —
+//        subfolders included — into an in-memory source map, keyed by each
+//        file's absolute `file://` URI, and executes `main.dart`'s `main()`.
+//        Relative imports between the files (e.g. `import 'parser.dart';` or
+//        `import 'sub/helper.dart';`) resolve inside that map: the interpreter
+//        does `entryLibraryUri.resolve(importString)` and looks the result up
+//        in the map. It never touches the filesystem itself.
 //
 //   2. Stdin mode:   <something> | run_example.dart
-//        With no example name, reads a single self-contained script from stdin
-//        and executes it. A stdin script has no sibling files, so it must not
-//        use relative imports.
+//        With no example name, reads a script from stdin and executes it. The
+//        script may still use relative imports to sibling files: every `.dart`
+//        file under the caller's original working directory is loaded
+//        (recursively, same as folder mode) and the stdin script is mounted
+//        alongside them under a synthetic `file://` URI in that directory.
 //
 // Everything the scripts need (`print`, collections, classes, enums, async,
 // pattern matching, ...) is built into the interpreter — no bridges required.
 import 'dart:io';
 
 import 'package:tom_d4rt/d4rt.dart';
-
-/// Synthetic package the example files are mounted under. Relative imports
-/// between the files resolve against this, so `import 'parser.dart';` in
-/// `package:example/main.dart` becomes `package:example/parser.dart`.
-const _packageRoot = 'package:example';
 
 void main(List<String> args) {
   if (args.isEmpty) {
@@ -37,7 +35,7 @@ void main(List<String> args) {
   _runFolder(exampleName, scriptArgs);
 }
 
-/// Load `example/<name>/*.dart` into a source map and run its `main()`.
+/// Load `example/<name>/**.dart` into a source map and run its `main()`.
 void _runFolder(String name, List<String> scriptArgs) {
   final folder = Directory('example/$name');
   if (!folder.existsSync()) {
@@ -46,16 +44,8 @@ void _runFolder(String name, List<String> scriptArgs) {
     exit(64); // EX_USAGE
   }
 
-  // Mount every .dart file in the folder under the synthetic package.
-  final sources = <String, String>{};
-  for (final entity in folder.listSync()) {
-    if (entity is File && entity.path.endsWith('.dart')) {
-      final fileName = entity.uri.pathSegments.last;
-      sources['$_packageRoot/$fileName'] = entity.readAsStringSync();
-    }
-  }
-
-  final entryUri = '$_packageRoot/main.dart';
+  final sources = _loadDartSources(folder);
+  final entryUri = folder.absolute.uri.resolve('main.dart').toString();
   final entrySource = sources[entryUri];
   if (entrySource == null) {
     stderr.writeln('No main.dart in ${folder.path}');
@@ -71,7 +61,9 @@ void _runFolder(String name, List<String> scriptArgs) {
   );
 }
 
-/// Read a single script from stdin and run it (no sibling files / imports).
+/// Read a script from stdin and run it. Sibling `.dart` files under the
+/// caller's original working directory are loaded too, so the piped script can
+/// use relative imports just like a folder example.
 void _runStdin() {
   final source = _readAllStdin();
   if (source.trim().isEmpty) {
@@ -79,7 +71,20 @@ void _runStdin() {
     stderr.writeln('   or: echo "<script>" | run_example.dart');
     exit(64);
   }
-  _execute(source: source, scriptArgs: const [], label: 'stdin');
+
+  final callerDir = _callerDir();
+  final sources =
+      callerDir.existsSync() ? _loadDartSources(callerDir) : <String, String>{};
+  final entryUri = callerDir.absolute.uri.resolve('__stdin__.dart').toString();
+  sources[entryUri] = source;
+
+  _execute(
+    source: source,
+    library: entryUri,
+    sources: sources,
+    scriptArgs: const [],
+    label: 'stdin',
+  );
 }
 
 /// Shared execution path. A fresh interpreter per run keeps examples isolated.
@@ -106,6 +111,28 @@ void _execute({
     stderr.writeln(st);
     exit(70); // EX_SOFTWARE
   }
+}
+
+/// Recursively read every `.dart` file under [dir] into a source map keyed by
+/// each file's absolute `file://` URI. Because the entry library is also an
+/// absolute `file://` URI, relative imports (including ones reaching into
+/// subfolders) resolve against these keys.
+Map<String, String> _loadDartSources(Directory dir) {
+  final sources = <String, String>{};
+  for (final entity in dir.listSync(recursive: true)) {
+    if (entity is File && entity.path.endsWith('.dart')) {
+      sources[entity.absolute.uri.toString()] = entity.readAsStringSync();
+    }
+  }
+  return sources;
+}
+
+/// The caller's original working directory. The shell wrappers export it as
+/// `TOM_D4RT_CALLER_CWD` before they `cd` into the package root, so stdin mode
+/// can find the user's sibling files rather than the package root's.
+Directory _callerDir() {
+  final cwd = Platform.environment['TOM_D4RT_CALLER_CWD'];
+  return Directory(cwd == null || cwd.isEmpty ? Directory.current.path : cwd);
 }
 
 /// Read all of stdin as a single string.
