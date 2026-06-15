@@ -1,0 +1,23 @@
+# Bridge-generator configuration for the advanced sample.
+#
+# Regenerate the *.b.dart bridges with:
+#   dart run tom_d4rt_generator:d4rtgen
+#
+# The generator follows the barrel listed under `modules`, emits a BridgedClass
+# registration for every exported type, and wires them into a single
+# registration class (`AdvancedSampleBridges`) via dartscript.b.dart.
+
+d4rtgen:
+  name: d4rt_advanced_sample
+  helpersImport: package:tom_d4rt/tom_d4rt.dart
+  generateBarrel: true
+  barrelPath: lib/d4rt_bridges.b.dart
+  generateDartscript: true
+  dartscriptPath: lib/dartscript.b.dart
+  registrationClass: AdvancedSampleBridges
+  modules:
+    - name: geometry
+      barrelFiles:
+        - lib/d4rt_advanced_sample.dart
+      barrelImport: package:d4rt_advanced_sample/d4rt_advanced_sample.dart
+      outputPath: lib/src/d4rt_bridges/geometry_bridges.b.dart
