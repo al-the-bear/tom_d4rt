@@ -21,17 +21,9 @@ example/**/bin/*
 doc/testlog_*/
 doc/baseline_*.csv
 
-# Internal development records — step-0 reviews, refactoring/regression
-# summaries, fix logs, coverage + issue trackers. index.md labels these
-# "development-time records, not user documentation" (P5: not user-facing).
-doc/step0_review_baseline.md
-doc/mci_step0_review_baseline.md
-doc/open_step0_review_baseline.md
-doc/summary_refactoring_plan.md
-doc/baseline_summary_refactor.md
+# Internal development records — re-export plan, coverage + issue trackers.
+# index.md labels these "development-time records, not user documentation"
+# (P5: not user-facing).
 doc/reexport_implementation_plan.md
-doc/flutter_fixes_1.md
-doc/flutter_fixes_2.md
-doc/summary_phase7_regression.md
 doc/test_coverage.md
 doc/issues.md

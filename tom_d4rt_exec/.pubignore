@@ -21,6 +21,5 @@ example/**/bin/*
 doc/testlog_*/
 doc/baseline_*.csv
 
-# Internal development docs — issue log + test baseline (P5: not user-facing).
+# Internal development docs — issue log (P5: not user-facing).
 doc/issues.md
-doc/tests.csv

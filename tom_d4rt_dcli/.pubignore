@@ -20,7 +20,3 @@ example/**/bin/*
 **/all_tests.*
 doc/testlog_*/
 doc/baseline_*.csv
-
-# Internal development docs — dated issue log + regen baseline (P5: not user-facing).
-doc/issues_0215-0800.md
-doc/regen_transcript_baseline_20260422.txt

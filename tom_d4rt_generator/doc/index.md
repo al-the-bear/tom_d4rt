@@ -27,8 +27,7 @@ proxy/relaxer optimization work (quest `d4rt`, P&R campaign) consolidated.
 ## The four mechanism areas
 
 The generator emits four categories of artifact. The labels **A–D** are the
-ones used throughout the codebase and in
-[mass_generation_reduction.md](mass_generation_reduction.md):
+ones used throughout the codebase:
 
 | Cat | Artifact | Selection | Canonical doc |
 |-----|----------|-----------|---------------|
@@ -54,11 +53,10 @@ ones used throughout the codebase and in
 The combinatorial B/C switch families dominate generated size. The reduction
 knobs let a consumer trade generate-everything for a scanned allowlist.
 
-- [mass_generation_reduction.md](mass_generation_reduction.md) — the measured
-  baselines, category counts, and the `generateAllRelaxers` /
-  `relaxerClasses` / `additionalRelaxerTypes` knobs (P&R#4), plus the
-  test-corpus type scanner workflow (`scan_corpus_types`, P&R#5) and the
-  `corpus_relaxer_allowlist.yaml` artifact.
+- [tom_d4rt_generator_configuration.md](tom_d4rt_generator_configuration.md) —
+  the `generateAllRelaxers` / `relaxerClasses` / `additionalRelaxerTypes` knobs
+  and the test-corpus type scanner workflow (`scan_corpus_types`) that produces
+  the `corpus_relaxer_allowlist.yaml` artifact.
 
 ### 3. User registration — overriding what the generator can't derive
 
@@ -143,8 +141,7 @@ development-time records, not user documentation, and are excluded from the
 package via `.pubignore`. The live backlog lives in the quest folder
 (`_ai/quests/d4rt/`).
 
-> Stale-prose flags (do not treat as current): the April "Current Scale"
-> figures in `mass_generation_reduction.md` are explicitly superseded by its
-> 2026-06-05 step-0 baseline; `generic_constructor_and_other_extensions.md`
-> references `tom_d4rt_flutterm` paths — the live flutter-material twins are
-> `tom_d4rt_flutter` and `tom_d4rt_flutter_ast`.
+> Stale-prose flags (do not treat as current):
+> `generic_constructor_and_other_extensions.md` references `tom_d4rt_flutterm`
+> paths — the live flutter-material twins are `tom_d4rt_flutter` and
+> `tom_d4rt_flutter_ast`.

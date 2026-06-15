@@ -76,7 +76,7 @@ Mirrors `BridgeConfig` in `lib/src/bridge_config.dart`.
 | `priorRelaxerModules` | `List<String>` | `[]` | Upstream package names whose relaxers to import instead of re-generating. |
 | `generateAllRelaxers` | `bool` | `true` | When `true`, enumerate *every* bridged class as a candidate generic type-arg (full combinatorial B/C surface — large output). When `false`, restrict to discovered sites + `relaxerClasses` + `additionalRelaxerTypes`. |
 | `relaxerClasses` | `List` | `[]` | Extra classes kept eligible as relaxer/RC-2 type-args when `generateAllRelaxers: false`. |
-| `additionalRelaxerTypes` | `List<String>` | `[]` | Extra type names kept eligible when `generateAllRelaxers: false` (this is what the corpus scanner emits — see [mass_generation_reduction.md](mass_generation_reduction.md)). |
+| `additionalRelaxerTypes` | `List<String>` | `[]` | Extra type names kept eligible when `generateAllRelaxers: false` (this is what the `scan_corpus_types` corpus scanner emits into `corpus_relaxer_allowlist.yaml`). |
 | `recreatorClasses` | `List` | `[]` | Single-type-param widgets to emit `registerGenericTypeWrapper` re-creators for (MCI#5 / A5). |
 | `genericInterceptors` | `List` | `[]` | Type-arg-keyed re-dispatch interceptors (MCI#8 / B4 — e.g. `RadioGroup.maybeOf<T>`). Dormant when empty. |
 | `genericConstructors` | `List` | `[]` | Templated RC-2 generic constructor factories (MCI#6 / B3 — e.g. `GlobalKey<NavigatorState>()`). Dormant when empty. |
@@ -239,4 +239,3 @@ conventions" table for the full list and the `*.b.dart` header/extension rules.
 - [bridgegenerator_user_guide.md](bridgegenerator_user_guide.md) — quick start.
 - [d4rt_generator_cli_user_guide.md](d4rt_generator_cli_user_guide.md) — the `d4rtgen` CLI.
 - [generics_wrapper_and_type_relaxation_strategy.md](generics_wrapper_and_type_relaxation_strategy.md) — why relaxers (A/B) exist.
-- [mass_generation_reduction.md](mass_generation_reduction.md) — the reduction knobs and corpus scanner.

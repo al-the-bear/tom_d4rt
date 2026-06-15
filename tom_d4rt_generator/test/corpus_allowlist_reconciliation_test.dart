@@ -11,8 +11,7 @@
 /// A *runtime* zero-miss proof (the dynamic half) needs one serial corpus run
 /// with `D4RT_LOG_RELAXER_USAGE=1` on both flutter twins — co-located with the
 /// `generateAllRelaxers: false` production flip behind the heavyweight serial
-/// base-test gate (see `mass_generation_reduction.md` §"Cross-validation").
-/// That stays deferred.
+/// base-test gate. That stays deferred.
 ///
 /// What is provable here, statically and without flutter, is the *static*
 /// guarantee the runtime proof rests on: the committed allowlist is a faithful,
@@ -28,7 +27,7 @@
 /// is a type-arg supplied purely by inference (never written `<...>`); those
 /// correspond to bridge extraction sites and are covered independently by
 /// `genericExtractionSites`, which the reduced gating unions in regardless of
-/// the allowlist (see `mass_generation_reduction.md` lines 162–172).
+/// the allowlist.
 library;
 
 import 'dart:io';

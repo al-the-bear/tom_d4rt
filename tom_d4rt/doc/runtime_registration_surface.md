@@ -24,6 +24,3 @@ The only functional differences are in the downstream manual registration file
   drift (the web twin is behind), tracked to converge under MCI item 3.
 - **`RouterDelegate<Object>`** is used here, where the web twin uses
   `RouterDelegate<dynamic>`. One is wrong; reconcile under MCI item 2.
-
-The canonical, line-referenced divergence map is §0b of
-`tom_d4rt_generator/doc/mci_step0_review_baseline.md`.

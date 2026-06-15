@@ -1,9 +1,26 @@
 # Re-export handling — analysis & implementation plan
 
-**Status:** in progress — Step 2 implementing
+**Status:** ✅ complete — all steps implemented (verified 2026-06-15).
 **Author:** d4rt quest, source-based interpreter follow-up
-**Related:** `bridgegenerator_user_reference.md`, `flutter_fixes_*.md`,
+**Related:** `bridgegenerator_user_reference.md`,
 `tom_d4rt_flutter_test/doc/implementaton_plan.md`
+
+> **Implementation verified.** Every step of this plan is now live:
+> - Step 1 (generator manifest) — `bridgeReExports()` +
+>   `registerLibraryReExport` calls emitted (GEN-107 Phase 2).
+> - Step 2 (the `tom_d4rt` consumer that was "the actual work") —
+>   `ModuleLoader._mergeReExportsGlobal` + `_intersectShow` / `_unionHide`
+>   exist in `tom_d4rt/lib/src/module_loader.dart` (lines 1535 / 541 / 548)
+>   and are invoked from `_fetchModuleSource` (line 1373).
+>   `registerLibraryReExport` + `_libraryReExports` storage + the
+>   `libraryReExports` getter exist in `tom_d4rt/lib/src/d4rt_base.dart`
+>   (lines 351 / 182 / 328).
+> - The misleading "re-exports work transparently here" comment has been
+>   corrected (`d4rt_base.dart:336` now points to `_mergeReExportsGlobal`).
+> - Step 4 (`tom_d4rt_exec`) — already correct via `AstModuleLoader`.
+> - Coverage: `tom_d4rt/test/bridge/reexport_deduplication_test.dart`.
+>
+> The remainder of this document is retained as the historical analysis.
 
 ## The problem in one sentence
 

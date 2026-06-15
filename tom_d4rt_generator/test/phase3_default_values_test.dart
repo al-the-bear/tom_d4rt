@@ -1,8 +1,8 @@
 /// Phase 3 / B2: Default-value rendering via the element-mode walker.
 ///
-/// The summary-backed refactoring plan (doc/summary_refactoring_plan.md,
-/// §3 — "Close bridge-output diffs") explicitly calls for representative
-/// unit tests covering default-value patterns:
+/// The summary-backed refactoring plan ("Close bridge-output diffs")
+/// explicitly calls for representative unit tests covering default-value
+/// patterns:
 ///
 ///   > Default-value rendering — chase any `null` / `dynamic` regressions
 ///   > for summary-backed constants. Add unit tests under `test/` for
