@@ -173,6 +173,13 @@ and the `d4rt_user_bridges/` overrides; the generated adapters are the
 fix the generator (`tom_d4rt_generator`) or `buildkit.yaml` and regenerate
 with `dart run tool/regenerate_bridges.dart`.
 
+The four `@D4rtUserBridge` overrides this package ships (`State.setState`
+scheduler-phase deferral, `BasicMessageChannel.setMessageHandler`,
+`StrutStyle`, `Text('')`) and the runtime-registration interventions
+(`InheritedWidget` ancestor walk, `ChangeNotifier`/`Listenable` identity
+proxies) are catalogued with worked examples and "why it's manual" rationale
+in [`manual_bridge_interventions.md`](manual_bridge_interventions.md).
+
 ---
 
 ## 5. Performance & GC
