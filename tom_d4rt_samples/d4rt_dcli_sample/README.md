@@ -118,9 +118,12 @@ echo "import 'package:dcli/dcli.dart'; void main(){ print(exists('.')); }" \
   | ./run_example.sh
 ```
 
-The first run fetches dependencies and, if `lib/dartscript.b.dart` is missing,
-runs the generator. Each example folder also has a `run.sh` you can launch from
-anywhere; it just calls back into the root runner.
+The generated bridges (`lib/*.b.dart`) are **checked into the repository**, so
+the examples run on a fresh clone with no generation step (the first run only
+fetches dependencies). If you change the native log library or `buildkit.yaml`,
+regenerate them — see [`run_generator.md`](run_generator.md). Each example folder
+also has a `run.sh` you can launch from anywhere; it just calls back into the
+root runner.
 
 Expected output of `log_report`:
 
@@ -235,11 +238,13 @@ d4rtgen:
 ```
 
 The key point: this config describes **only our library**. We do not, and must
-not, list `dcli` here — its bridges already exist in `tom_d4rt_dcli`. Regenerate
-with:
+not, list `dcli` here — its bridges already exist in `tom_d4rt_dcli`. The
+generated bridges are **checked in**; regenerate them (see
+[`run_generator.md`](run_generator.md)) only after changing the native library
+or this config:
 
 ```bash
-dart run tom_d4rt_generator:d4rtgen
+dart run tom_d4rt_generator:d4rtgen --not-recursive -s "$(pwd)"
 ```
 
 The generator emits `lib/src/d4rt_bridges/loglib_bridges.b.dart` (the
