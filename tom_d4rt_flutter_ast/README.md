@@ -26,6 +26,34 @@ app-store cycle.
 > script corpus; the AST variant trades the on-device parse step for a
 > pre-compiled `AstBundle`.
 
+### Source-based vs analyzer-free — which D4rt family
+
+D4rt ships in two execution families, and `tom_d4rt_flutter_ast` is the
+**analyzer-free** Flutter member:
+
+- **Source-based (analyzer)** — `tom_d4rt`, `tom_d4rt_dcli`,
+  **[`tom_d4rt_flutter`](../tom_d4rt_flutter)**. Parses Dart source with the
+  analyzer, giving full type inference and precise error reporting. This is the
+  **stable reference and usually the preferable choice**.
+- **Analyzer-free (mirror AST)** — `tom_d4rt_ast`, `tom_ast_model`,
+  `tom_ast_generator`, `tom_d4rt_exec`, `tom_dcli_exec`,
+  **`tom_d4rt_flutter_ast`** (this package). Runs from pre-compiled `SAstNode`
+  bundles with **no analyzer dependency at runtime**.
+
+The analyzer-free path is what unlocks the two scenarios the source-based
+runtime cannot serve:
+
+- **Web** — the `analyzer` package is too large to ship via dart2js / dart2wasm,
+  so the only way to interpret Dart UI in a browser is from a pre-compiled
+  bundle.
+- **Over-the-air UI updates** — compile a screen to an `AstBundle` on a server,
+  download it into a shipping app, and render it at runtime — no app-store
+  round trip and no user-side update.
+
+Because generated AST bundles are large, prefer the source-based
+[`tom_d4rt_flutter`](../tom_d4rt_flutter) unless one of those constraints
+applies.
+
 The bridge layer covers `dart:ui` plus the following Flutter library barrels:
 
 | Library | Bridge file |
@@ -44,22 +72,24 @@ The bridge layer covers `dart:ui` plus the following Flutter library barrels:
 | `flutter/material.dart` | `material_widgets_bridges.b.dart` |
 | `flutter/cupertino.dart` | `cupertino_bridges.b.dart` |
 
-## Monorepo Setup
-
-`tom_d4rt_flutter_ast` is **not published to pub.dev** (`publish_to: none`). It is
-consumed within the monorepo via a path dependency.
+## Installation
 
 Add the package to your Flutter application's `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  tom_d4rt_flutter_ast:
-    path: ../tom_d4rt_flutter_ast   # adjust relative path as needed
+  tom_d4rt_flutter_ast: ^0.1.1
+```
+
+Or via the command line:
+
+```sh
+dart pub add tom_d4rt_flutter_ast
 ```
 
 The package pulls in its own transitive D4rt dependencies (`tom_d4rt_ast`,
-`tom_d4rt_exec`, `tom_ast_generator`) via their own path entries; nothing extra is
-needed in the consuming project's `pubspec.yaml` for those.
+`tom_d4rt_exec`, `tom_ast_generator`); nothing extra is needed in the consuming
+project's `pubspec.yaml` for those.
 
 ## Usage
 
@@ -237,11 +267,20 @@ The same sample set is mirrored in the source-direct sibling
 (`tom_d4rt_flutter_test/example/`), so the two execution paths can be compared
 app-for-app.
 
+For a single, repo-curated starter see the
+[`d4rt_flutter_sample`](../tom_d4rt_samples/d4rt_flutter_sample/README.md) in
+the shared `tom_d4rt_samples` collection — a focused Flutter-Material script,
+sitting alongside the interpreter, dcli, and advanced samples. This package's
+own [`example/`](example/README.md) folder holds the minimal library-usage
+snippet.
+
 ## Documentation
 
 | Doc | What it covers |
 |-----|----------------|
 | [doc/tom_d4rt_flutter_ast_user_guide.md](doc/tom_d4rt_flutter_ast_user_guide.md) | **Differences-only guide** vs the source-based runtime — `FlutterD4rt`, bundle-driven execution, the sync/async entry points, and the web / over-the-air fit. |
+| [doc/creating_fully_dynamic_applications.md](doc/creating_fully_dynamic_applications.md) | The over-the-air / fully-dynamic-app playbook — compiling UI to `AstBundle`s on a server, shipping them to a thin host app, and rendering them at runtime. |
+| [doc/test_script_context.md](doc/test_script_context.md) | The script-side contract — the `build` / named-entry convention, the `BuildContext` argument, and what a bundle-driven script may assume. |
 | [doc/tom_d4rt_flutter_ast_limitations.md](doc/tom_d4rt_flutter_ast_limitations.md) | AST-specific limitation deltas (no on-device parsing, bundle↔runtime version alignment, web) + backlinks to the base. |
 | [../tom_d4rt_flutter/doc/tom_d4rt_flutter_user_guide.md](../tom_d4rt_flutter/doc/tom_d4rt_flutter_user_guide.md) | **Base Flutter-runtime guide** — shared bridge surface, registration order, performance/GC. Read this first. |
 | [../tom_d4rt_flutter/doc/tom_d4rt_flutter_limitations.md](../tom_d4rt_flutter/doc/tom_d4rt_flutter_limitations.md) | Shared bridge-adapter limits catalogue with script workarounds. |
@@ -339,19 +378,33 @@ All packages are in the same git repository:
 [github.com/al-the-bear/tom_d4rt](https://github.com/al-the-bear/tom_d4rt),
 under the `tom_ai/d4rt/` sub-tree.
 
+### Related packages
+
+| Package | Relationship |
+|---|---|
+| [`tom_d4rt_flutter`](../tom_d4rt_flutter/README.md) | Source-based twin — same bridge surface and script corpus on the analyzer path. |
+| [`tom_d4rt_ast`](../tom_d4rt_ast/README.md) | The zero-dependency analyzer-free interpreter core this package runs on. |
+| [`tom_ast_generator`](../tom_ast_generator/README.md) | Compiles Dart source into the `AstBundle`s this package executes. |
+| [`tom_d4rt_flutter_ast_test`](../tom_d4rt_flutter_ast_test/README.md) | The demo/test app and the 33-sample conformance corpus. |
+| [`tom_d4rt_generator`](../tom_d4rt_generator/README.md) | Generates the `*.b.dart` bridges (dev dependency only). |
+
 ## Status
 
-- Version: `0.1.0`
-- `publish_to: none` — monorepo-only, not available on pub.dev
+- Version: `0.1.1`
 - Requires Flutter `>=3.27.0`, Dart SDK `^3.10.4`
-- Active development: the bug-fix corpus in `doc/flutter_bugs.md` tracks
-  known Flutter-test-environment issues; D4rt interpreter limits with
-  recommended script-level workarounds live in this package's
-  `doc/tom_d4rt_flutter_ast_limitations.md` delta and the shared base
-  `../tom_d4rt_flutter/doc/tom_d4rt_flutter_limitations.md`.
+- D4rt interpreter limits with recommended script-level workarounds live in
+  this package's
+  [`doc/tom_d4rt_flutter_ast_limitations.md`](doc/tom_d4rt_flutter_ast_limitations.md)
+  delta and the shared base
+  [`../tom_d4rt_flutter/doc/tom_d4rt_flutter_limitations.md`](../tom_d4rt_flutter/doc/tom_d4rt_flutter_limitations.md).
 - A planned consolidation will move generic D4rt machinery upstream into
   `tom_d4rt_ast`/`tom_d4rt_exec`, keeping only the Flutter-specific surface in
   this package.
+
+> The `doc/flutter_bugs.md`, `interpreter_issues.md`,
+> `interpreter_unfixable.md`, `interpreter_generator_open_issues.md`, and
+> `generator_issues.md` files are **internal development logs**, not user
+> documentation — they ship for development context only.
 
 Repository:
 [https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_flutter_ast](https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_flutter_ast)
