@@ -10,6 +10,39 @@ The primary motivation is **on-device Dart interpretation and pre-compiled AST d
 
 The package is extracted from `tom_d4rt_ast`, the analyzer-free interpreter runtime, so that the AST data contract is versioned and shared independently of any execution engine.
 
+### Data only — where interpretation lives
+
+`tom_ast_model` is **pure data**. It defines the `SAstNode` tree, JSON
+round-tripping, structural equality/diffing, and the visitor scaffolding — and
+nothing else. It does **not** parse Dart source, and it does **not** execute
+anything:
+
+- **Producing** these trees from Dart source is owned by
+  [`tom_ast_generator`](../tom_ast_generator/) (analyzer-based, build time).
+- **Interpreting** these trees is owned by
+  [`tom_d4rt_ast`](../tom_d4rt_ast/) (the analyzer-free runtime), which adds the
+  `InterpreterVisitor`, `Environment`, bridging, and standard library on top of
+  this model.
+
+Keeping the data contract in its own zero-dependency package is what lets the
+same `SAstNode` JSON flow from a build server into a Flutter app without
+dragging either the analyzer or an interpreter into the dependency graph.
+
+### Where it sits — the analyzer-free family
+
+D4rt ships in **two execution families**. The **source-based** line
+(`tom_d4rt`, `tom_d4rt_dcli`, `tom_d4rt_flutter`) parses Dart with the
+`analyzer` package and is the **stable reference, usually the preferable
+choice**. The **analyzer-free** line — `tom_ast_model`, `tom_d4rt_ast`,
+`tom_ast_generator`, `tom_d4rt_exec`, `tom_dcli_exec`, `tom_d4rt_flutter_ast`
+— runs from pre-compiled `SAstNode` trees with **no analyzer dependency**,
+which is what makes it viable on the **web** (the analyzer is too large to
+ship) and for **on-the-fly / OTA UI updates**. Because the generated AST
+bundles are large, reach for the analyzer-free line only when that web/OTA
+constraint applies. This package is the **foundation of that line** — every
+analyzer-free package depends, directly or transitively, on the model defined
+here.
+
 ## Installation
 
 ```bash
@@ -20,7 +53,7 @@ Or add it manually to `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  tom_ast_model: ^0.1.1
+  tom_ast_model: ^0.1.3
 ```
 
 The only transitive dependency is `dart:convert` from the Dart SDK itself; there are no pub.dev dependencies.
@@ -172,6 +205,26 @@ final List<SStatement> stmts =
     SAstNodeFactory.listFromJson<SStatement>(rawList);
 ```
 
+## Examples and next steps
+
+This package is **infrastructure** — a data model consumed by the interpreter
+and generator, not a runtime you write programs against — so it ships no sample
+programs of its own. See [`example/README.md`](example/README.md), which points
+at the three canonical sample homes for runnable D4rt scripts.
+
+Where to go next depends on what you need:
+
+- To **run** an `SAstNode` tree, move to [`tom_d4rt_ast`](../tom_d4rt_ast/) — the
+  analyzer-free interpreter that consumes this model.
+- To **produce** an `SAstNode` tree from Dart source, see
+  [`tom_ast_generator`](../tom_ast_generator/).
+- For the full **source → bundle → run** pipeline, see
+  [`tom_d4rt_exec`](../tom_d4rt_exec/).
+- For runnable language/bridging samples, see
+  [`tom_d4rt_samples/`](../tom_d4rt_samples/) (e.g.
+  [`d4rt_introduction_sample`](../tom_d4rt_samples/d4rt_introduction_sample/),
+  [`d4rt_advanced_sample`](../tom_d4rt_samples/d4rt_advanced_sample/)).
+
 ## Architecture and Key Concepts
 
 ### SAstNode — the universal base
@@ -217,7 +270,7 @@ visitSimpleIdentifier → visitIdentifier → visitExpression
     → visitCollectionElement → visitNode
 ```
 
-## Documentation
+## Further documentation
 
 | Document | Purpose |
 |----------|---------|
@@ -255,13 +308,24 @@ Separately, `tom_d4rt` is the original analyzer-based interpreter and `tom_d4rt_
 
 ## Status and Repository
 
-This is an early-stage package at version `0.1.1`, extracted from `tom_d4rt_ast` and first independently published at `0.1.0`. The API surface may evolve as the D4rt ecosystem matures.
+This is an early-stage package at version `0.1.3`, extracted from `tom_d4rt_ast` and first independently published at `0.1.0`. The API surface may evolve as the D4rt ecosystem matures.
 
 - **Repository**: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_ast_model
 - **SDK requirement**: Dart `^3.10.4`
 - **License**: see `LICENSE` in the repository
 
 ## Changelog
+
+### 0.1.3
+
+- Housekeeping: test artifacts now live in a gitignored `testlog/` folder;
+  `doc/` no longer ships machine-generated baselines or `last_testrun.json`.
+  No code changes.
+
+### 0.1.2
+
+- Documentation: limitations and user guide updated; README aligned with the
+  source-primary documentation reframe across the D4rt ecosystem.
 
 ### 0.1.1
 
