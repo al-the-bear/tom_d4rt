@@ -1,0 +1,36 @@
+{
+  "generated": "tool/sync_samples_to_assets.dart",
+  "samples": [
+    {
+      "name": "clock_face",
+      "main": "main.dart",
+      "files": [
+        "clock.dart",
+        "clock_painter.dart",
+        "home.dart",
+        "main.dart",
+        "timezone_dial.dart"
+      ]
+    },
+    {
+      "name": "counter_app",
+      "main": "main.dart",
+      "files": [
+        "counter.dart",
+        "main.dart"
+      ]
+    },
+    {
+      "name": "tip_calculator",
+      "main": "main.dart",
+      "files": [
+        "currency.dart",
+        "home.dart",
+        "inputs.dart",
+        "locale_dropdown.dart",
+        "main.dart",
+        "summary.dart"
+      ]
+    }
+  ]
+}

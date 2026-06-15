@@ -1,0 +1,37 @@
+name: d4rt_flutter_sample
+description: >-
+  Flutter D4rt sample — runs multi-file Flutter UI written as D4rt scripts,
+  interpreted at runtime via SourceFlutterD4rt. Scripts are bundled as assets
+  so the same app works on desktop, iOS and iPadOS without recompiling. Pick a
+  sample by name in the UI and it is interpreted into a live widget tree.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # The source-based Flutter interpreter: SourceFlutterD4rt plus the full
+  # Flutter Material bridge surface and the SampleSource asset loaders.
+  tom_d4rt_flutter: ^1.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  # Used only by tool/sync_samples_to_assets.dart to mirror example/ into assets.
+  path: ^1.9.0
+
+flutter:
+  uses-material-design: true
+  # >>> BEGIN generated sample assets (tool/sync_samples_to_assets.dart) <<<
+  assets:
+    - assets/samples/index.json
+    - assets/samples/clock_face/
+    - assets/samples/counter_app/
+    - assets/samples/tip_calculator/
+  # >>> END generated sample assets <<<
