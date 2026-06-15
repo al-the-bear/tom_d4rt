@@ -23,6 +23,7 @@ class TipInputs extends StatefulWidget {
   final int party;
   final ValueChanged<double> onTipChanged;
   final ValueChanged<int> onPartyChanged;
+  final ValueChanged<String> onBillChanged;
   final VoidCallback onBillSubmitted;
 
   const TipInputs({
@@ -32,6 +33,7 @@ class TipInputs extends StatefulWidget {
     required this.party,
     required this.onTipChanged,
     required this.onPartyChanged,
+    required this.onBillChanged,
     required this.onBillSubmitted,
   });
 
@@ -76,6 +78,7 @@ class _TipInputsState extends State<TipInputs> {
               labelText: 'Bill',
               border: OutlineInputBorder(),
             ),
+            onChanged: (value) => widget.onBillChanged(value),
             onSubmitted: (_) => widget.onBillSubmitted(),
           ),
           const SizedBox(height: 12.0),

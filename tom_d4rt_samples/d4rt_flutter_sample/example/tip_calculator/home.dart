@@ -70,6 +70,24 @@ class _TipCalculatorHomeState extends State<TipCalculatorHome> {
         'currency=${kCurrencyFormats[_currency]!.code}');
   }
 
+  // Live recompute as the user types — the bill must update without
+  // waiting for an explicit submit, otherwise the tip never reflects
+  // the typed amount. Intermediate, not-yet-parseable input (e.g.
+  // "12.") is ignored until it becomes a valid number.
+  void _onBillChanged(String raw) {
+    final parsed = parseAmount(raw, _currency);
+    if (parsed == null) {
+      print('tip.bill.invalid raw=$raw');
+      return;
+    }
+    if (parsed == _bill) return;
+    setState(() {
+      _bill = parsed;
+    });
+    print('tip.bill raw=$raw parsed=${parsed.toStringAsFixed(2)}');
+    _logCompute();
+  }
+
   void _onBillSubmitted() {
     final raw = _billController.text;
     final parsed = parseAmount(raw, _currency);
@@ -142,6 +160,7 @@ class _TipCalculatorHomeState extends State<TipCalculatorHome> {
               party: _party,
               onTipChanged: _onTipChanged,
               onPartyChanged: _onPartyChanged,
+              onBillChanged: _onBillChanged,
               onBillSubmitted: _onBillSubmitted,
             ),
             const SizedBox(height: 16.0),
