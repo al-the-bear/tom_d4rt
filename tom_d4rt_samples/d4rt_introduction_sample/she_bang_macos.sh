@@ -47,4 +47,6 @@ cat <<'MSG'
 
 MSG
 
-exec bash
+# Open the user's login shell (zsh by default on macOS) so it behaves like a
+# normal terminal. PATH was exported above, so run_example is visible inside it.
+exec "${SHELL:-/bin/zsh}"

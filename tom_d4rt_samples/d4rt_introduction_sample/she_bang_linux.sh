@@ -47,4 +47,7 @@ cat <<'MSG'
 
 MSG
 
-exec bash
+# Open the user's login shell (bash by default on most Linux distros) so it
+# behaves like a normal terminal. PATH was exported above, so run_example is
+# visible inside it.
+exec "${SHELL:-/bin/bash}"
