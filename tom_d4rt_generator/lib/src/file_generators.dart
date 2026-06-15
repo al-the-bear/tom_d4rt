@@ -35,6 +35,17 @@ String ensureBDartExtension(String path) {
   return '$path.b.dart';
 }
 
+/// Normalizes a relative filesystem path into a POSIX-style Dart import URI.
+///
+/// [p.relative] returns host-native separators (backslashes on Windows), which
+/// are invalid inside Dart `import`/`export` URIs: Dart parses `\t` as a TAB
+/// escape, corrupting the URI (e.g. `src\tom_basics\…` becomes
+/// `src%09om_basics%09…`). Generated files must always use `/` regardless of
+/// the host OS, so every computed relative import/export URI is routed through
+/// this helper.
+String toImportUri(String relativePath) =>
+    p.posix.normalize(relativePath.replaceAll('\\', '/'));
+
 /// Computes the import path for a module's output file relative to the
 /// importing file's directory.
 ///
@@ -52,7 +63,7 @@ String _moduleImportPath(
     final libRelative = normalizedOutput.substring(4); // strip 'lib/'
     return 'package:$packageName/$libRelative';
   }
-  return p.relative(normalizedOutput, from: fromDir);
+  return toImportUri(p.relative(normalizedOutput, from: fromDir));
 }
 
 /// Generates the content for a barrel file that exports all bridge modules.
@@ -72,7 +83,7 @@ String generateBarrelFileContent(BridgeConfig config) {
   for (final module in config.modules) {
     final normalizedOutput = ensureBDartExtension(module.outputPath);
     final relativePath = p.relative(normalizedOutput, from: barrelDir);
-    final dartPath = p.posix.normalize(relativePath.replaceAll('\\', '/'));
+    final dartPath = toImportUri(relativePath);
     buffer.writeln("export '$dartPath';");
   }
 

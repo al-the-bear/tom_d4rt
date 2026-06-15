@@ -29,6 +29,9 @@ dependencies:
   glob: ^2.1.0
   yaml: ^3.1.0
   
+  # Annotations (@visibleForTesting) used in lib/.
+  meta: ^1.17.0
+
   # Shared build utilities
   tom_build_base: ^2.6.21
 
@@ -47,7 +50,6 @@ executables:
 dev_dependencies:
   build_runner: ^2.4.0
   lints: ^6.0.0
-  meta: ^1.17.0
   test: ^1.25.6
   # CPU sampling for the D4rt performance suite (test/perf). Used by the
   # profiling driver to pull aggregated VM CPU samples via the service API.

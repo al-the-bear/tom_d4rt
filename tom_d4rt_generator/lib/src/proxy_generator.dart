@@ -220,10 +220,15 @@ Future<ProxyGenerationResult> generateProxies({
   final errors = <String>[];
   final proxies = <ProxyGenerationInfo>[];
 
-  // Set up analyzer context for the project
-  final absoluteProjectPath = p.isAbsolute(projectPath)
-      ? projectPath
-      : p.normalize(p.join(Directory.current.path, projectPath));
+  // Set up analyzer context for the project. The path must be absolute AND
+  // normalized: `AnalysisContextCollection*` rejects non-normalized
+  // `includedPaths` ("Only absolute normalized paths are supported"), and an
+  // already-absolute forward-slash path is not normalized on Windows.
+  final absoluteProjectPath = p.normalize(
+    p.isAbsolute(projectPath)
+        ? projectPath
+        : p.join(Directory.current.path, projectPath),
+  );
 
   final hasSummaries =
       (librarySummaryPaths != null && librarySummaryPaths.isNotEmpty) ||

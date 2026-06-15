@@ -469,18 +469,22 @@ Future<UserBridgeScanner> _preScanUserBridges(
     // [LibraryElement]. Forward the shared summary bundles so that
     // `D4UserBridge` (from tom_d4rt) and `@D4rtUserBridge` resolve against
     // the same `.sum` cache used by downstream bridge generation.
+    // `AnalysisContextCollection*` rejects non-normalized `includedPaths`
+    // ("Only absolute normalized paths are supported") — a forward-slash
+    // absolute path is not normalized on Windows, so normalise it.
+    final normalizedProjectDir = p.normalize(projectDir);
     final hasSummaries =
         (summaryPaths != null && summaryPaths.isNotEmpty) ||
             sdkSummaryPath != null;
     final AnalysisContextCollection collection = hasSummaries
         ? AnalysisContextCollectionImpl(
-            includedPaths: [projectDir],
+            includedPaths: [normalizedProjectDir],
             sdkPath: sdkSummaryPath == null ? getSdkPath() : null,
             sdkSummaryPath: sdkSummaryPath,
             librarySummaryPaths: summaryPaths ?? const [],
           )
         : AnalysisContextCollection(
-            includedPaths: [projectDir],
+            includedPaths: [normalizedProjectDir],
             sdkPath: getSdkPath(),
           );
 

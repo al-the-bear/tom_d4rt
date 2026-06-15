@@ -16,7 +16,7 @@ import 'package:path/path.dart' as p;
 
 import 'bridge_config.dart';
 import 'bridge_generator.dart';
-import 'file_generators.dart' show ensureBDartExtension;
+import 'file_generators.dart' show ensureBDartExtension, toImportUri;
 import 'file_writer.dart';
 import 'sdk_utils.dart' show getSdkPath;
 import 'user_bridge_scanner.dart';
@@ -214,18 +214,22 @@ class PerPackageBridgeOrchestrator {
       // tom_d4rt) and `@D4rtUserBridge` resolve against the same `.sum`
       // cache used by the BridgeGenerator instances this orchestrator
       // spawns.
+      // `AnalysisContextCollection*` rejects non-normalized `includedPaths`
+      // ("Only absolute normalized paths are supported") — a forward-slash
+      // absolute path is not normalized on Windows, so normalise it.
+      final normalizedProjectRoot = p.normalize(projectRoot);
       final hasSummaries =
           (librarySummaryPaths != null && librarySummaryPaths!.isNotEmpty) ||
               sdkSummaryPath != null;
       final AnalysisContextCollection collection = hasSummaries
           ? AnalysisContextCollectionImpl(
-              includedPaths: [projectRoot],
+              includedPaths: [normalizedProjectRoot],
               sdkPath: sdkSummaryPath == null ? getSdkPath() : null,
               sdkSummaryPath: sdkSummaryPath,
               librarySummaryPaths: librarySummaryPaths ?? const [],
             )
           : AnalysisContextCollection(
-              includedPaths: [projectRoot],
+              includedPaths: [normalizedProjectRoot],
               sdkPath: getSdkPath(),
             );
 
@@ -874,8 +878,8 @@ class PerPackageBridgeOrchestrator {
         ? toFile.substring(4)
         : toFile;
 
-    // Calculate relative path
-    return p.relative(toFileClean, from: fromDirClean);
+    // Calculate relative path (POSIX separators for valid Dart import URIs).
+    return toImportUri(p.relative(toFileClean, from: fromDirClean));
   }
 
   /// Converts a snake_case or kebab-case string to PascalCase.

@@ -19,6 +19,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
 import 'element_mode_extractor.dart';
@@ -1376,10 +1377,19 @@ class BridgeGenerator {
   /// [AnalysisContextCollectionImpl] so it can load those `.sum`
   /// bundles instead of re-scanning dependency sources from disk.
   AnalysisContextCollection _getAnalysisContext() {
-    // Ensure workspacePath is absolute for the analyzer
-    final absoluteWorkspacePath = p.isAbsolute(workspacePath)
-        ? workspacePath
-        : p.normalize(p.join(Directory.current.path, workspacePath));
+    // Ensure workspacePath is absolute AND normalized for the analyzer.
+    // `AnalysisContextCollection*` rejects non-normalized `includedPaths`
+    // ("Only absolute normalized paths are supported"). On Windows an
+    // already-absolute path like `C:/Code/...` (forward slashes) is NOT
+    // normalized per the host (Windows) path context, so it must be run
+    // through `p.normalize` to become `C:\Code\...`. Skipping this caused
+    // every external file to fail resolution → 0 classes generated → stale
+    // bridge files left in place on Windows.
+    final absoluteWorkspacePath = p.normalize(
+      p.isAbsolute(workspacePath)
+          ? workspacePath
+          : p.join(Directory.current.path, workspacePath),
+    );
     if (_analysisContext != null) return _analysisContext!;
 
     final hasSummaries = (librarySummaryPaths != null &&
@@ -7903,6 +7913,14 @@ class BridgeGenerator {
       normalizedPath = Uri.parse(sourceFile).toFilePath();
     }
 
+    // Normalise host-native separators to POSIX. On Windows `sourceFile` and
+    // `toFilePath()` return backslash paths, which would (a) defeat the
+    // forward-slash `/lib/`, `/test/`, `/sky_engine/lib/` lookups below and
+    // (b) be embedded raw into generated source-URI map string literals, where
+    // `\u`/`\t` sequences corrupt the emitted Dart. Import/source URIs are
+    // always POSIX.
+    normalizedPath = normalizedPath.replaceAll('\\', '/');
+
     // Special handling for sky_engine (dart:ui) files.
     // Paths like .../flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart
     // should be converted to dart:ui instead of package:sky_engine/ui/ui.dart.
@@ -7942,8 +7960,17 @@ class BridgeGenerator {
       return 'package:$packageName/$fileName';
     }
 
-    return sourceFile;
+    // Fall back to the POSIX-normalised path (never the raw backslash input):
+    // an unresolved source URI must still be a valid Dart string literal.
+    return normalizedPath;
   }
+
+  /// Test-only accessor for [_getPackageUri].
+  ///
+  /// Source-URI mapping is private but its host-separator normalisation is a
+  /// regression-prone Windows defect, so it is exposed for unit testing.
+  @visibleForTesting
+  String packageUriForTesting(String sourceFile) => _getPackageUri(sourceFile);
 
   /// Detects the package name from a file path by looking at pubspec.yaml.
   ///

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/src/bridge_config.dart';
 import 'package:tom_d4rt_generator/src/file_generators.dart';
@@ -39,6 +41,76 @@ void main() {
               'Exports must not duplicate src/bridges prefix from module output paths',
         );
         expect(content, isNot(contains("export 'src/bridges/")));
+      },
+    );
+
+    test(
+      'G-FGEN-02: toImportUri converts host backslashes to POSIX slashes. '
+      '[2026-06-15] (FAIL)',
+      () {
+        // `p.relative` returns host-native separators (backslashes on
+        // Windows). Dart import/export URIs must always use `/` — `\t` would
+        // otherwise be parsed as a TAB escape, corrupting the URI.
+        expect(
+          toImportUri(r'src\tom_basics\tom_basics_bridges.b.dart'),
+          equals('src/tom_basics/tom_basics_bridges.b.dart'),
+        );
+        // Already-POSIX input is preserved.
+        expect(
+          toImportUri('src/foo/bar.b.dart'),
+          equals('src/foo/bar.b.dart'),
+        );
+        // Mixed separators are normalised.
+        expect(
+          toImportUri(r'src/foo\bar.b.dart'),
+          equals('src/foo/bar.b.dart'),
+        );
+      },
+    );
+
+    test(
+      'G-FGEN-03: Dartscript module imports use POSIX separators on every host. '
+      '[2026-06-15] (FAIL)',
+      () {
+        // Reproduces the tom_core_d4rt Windows defect: relative module imports
+        // in lib/dartscript.b.dart were emitted with backslashes, so Dart
+        // could not parse them (`src\tom_basics\…` → invalid URI).
+        final config = BridgeConfig(
+          name: 'tom_dartscript_bridges',
+          dartscriptPath: 'lib/dartscript.b.dart',
+          modules: const [
+            ModuleConfig(
+              name: 'tom_basics',
+              barrelFiles: ['package:tom_basics/tom_basics.dart'],
+              outputPath: 'lib/src/tom_basics/tom_basics_bridges.b.dart',
+            ),
+          ],
+        );
+
+        final content = generateDartscriptFileContent(
+          config,
+          dartscriptPath: 'lib/dartscript.b.dart',
+          packageName: 'tom_core_d4rt',
+        );
+
+        expect(
+          content,
+          contains(
+            "import 'src/tom_basics/tom_basics_bridges.b.dart' "
+            'as tom_basics_bridges;',
+          ),
+        );
+        // No import/export line may contain a backslash, regardless of host OS.
+        final offending = const LineSplitter()
+            .convert(content)
+            .where((l) => l.trimLeft().startsWith('import '))
+            .where((l) => l.contains(r'\'))
+            .toList();
+        expect(
+          offending,
+          isEmpty,
+          reason: 'Import URIs must not contain backslashes: $offending',
+        );
       },
     );
   });
