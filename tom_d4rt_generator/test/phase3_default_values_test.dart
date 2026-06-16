@@ -111,6 +111,35 @@ void main() {
           ));
     });
 
+    test(
+        'GEN-SET-1: empty-Set named default renders as typed empty set, '
+        'never bare `const {}` [2026-06-16]', () {
+      // `Set<String> flags = const {}` — a bare `const {}` makes Dart infer an
+      // empty Map (static type Object), which fails to assign to the
+      // `Set<String>` parameter (argument_type_not_assignable). The default
+      // MUST be rendered as a typed empty set.
+      expect(
+        generatedCode,
+        contains('const <String>{}'),
+        reason: 'empty-Set default must be a typed empty set, not bare {}.',
+      );
+      // No fixture has a legitimate empty-Map default, so a bare `: const {};`
+      // fallback can only come from the Set empty-default defect.
+      expect(
+        generatedCode,
+        isNot(contains(': const {};')),
+        reason: 'bare empty-collection fallback must never reach the output.',
+      );
+    });
+
+    test(
+        'GEN-SET-2: empty-Set positional default renders as typed empty set '
+        '[2026-06-16]', () {
+      // `Set<int> ids = const {}` (optional positional) must coerce to a typed
+      // empty set so the constructor argument keeps its `Set<int>` type.
+      expect(generatedCode, contains('const <int>{}'));
+    });
+
     test('enum-value default is preserved with enum qualifier', () {
       // `this.tri = TriState.auto`
       expect(generatedCode, contains('TriState.auto'));

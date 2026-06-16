@@ -1,3 +1,20 @@
+## 1.9.6
+
+### Bug fixes (empty-Set default coercion)
+
+- **GEN-SET** — a `Set` parameter whose default was a bare `const {}` (e.g.
+  `TomCommandParser({Set<String> additionalCommands = const {}})`,
+  `ParsedCommand({Set<String> flags = const {}})`) emitted the default
+  unchanged. Dart parses bare `const {}` as an empty **Map** (static type
+  `Object`), so the generated constructor call failed with
+  `argument_type_not_assignable` ("The argument type 'Object' can't be
+  assigned to the parameter type 'Set<String>'") — visible at
+  `dart compile exe` and `dart analyze`, and the cause of broken
+  `tom_build_cli` bridge calls after regeneration. `_getTypedDefaultValue`
+  now has a `Set` branch (checked before `Map`) that renders both bare and
+  already-typed empty-set defaults as `const <T>{}`, covering the named and
+  positional coercion paths. Adds the GEN-SET-1/GEN-SET-2 regression tests.
+
 ## 1.9.5
 
 ### Bug fixes (AOT-only bridge compile defects)

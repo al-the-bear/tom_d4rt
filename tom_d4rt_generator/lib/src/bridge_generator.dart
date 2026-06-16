@@ -11000,6 +11000,29 @@ class BridgeGenerator {
       if (typedListMatch != null) {
         return 'const <$elementType>[]';
       }
+    } else if (_isSetType(fullType)) {
+      // A bare `const {}` / `{}` default on a Set parameter must become a
+      // typed empty *set* `const <T>{}`. Left bare, Dart infers an empty Map
+      // (static type Object), which fails to assign to the Set parameter
+      // (argument_type_not_assignable). Checked before _isMapType so Set<T>
+      // never falls through to the map branch.
+      final elementType = _getSetElementType(
+        fullType,
+        typeToUri: typeToUri,
+        classTypeParams: classTypeParams,
+        sourceFilePath: sourceFilePath,
+      );
+      if (defaultValue == 'const {}' || defaultValue == '{}') {
+        return 'const <$elementType>{}';
+      }
+      // Handle already-typed empty sets: const <T>{} — re-resolve the element
+      // type so prefixes are applied correctly.
+      final typedSetMatch = RegExp(
+        r'^const\s*<[^>,]+>\{\}$',
+      ).firstMatch(defaultValue);
+      if (typedSetMatch != null) {
+        return 'const <$elementType>{}';
+      }
     } else if (_isMapType(fullType)) {
       final (keyType, valueType) = _getMapTypeArgs(
         fullType,

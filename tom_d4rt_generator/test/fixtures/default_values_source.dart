@@ -75,3 +75,26 @@ class ArithmeticPositionalDefault {
   ArithmeticPositionalDefault([this.endAngle = math.pi * 2]);
   final double endAngle;
 }
+
+/// Set-typed parameters with empty-collection defaults — mirrors the real
+/// `TomCommandParser({Set<String> additionalCommands = const {}})` and
+/// `ParsedCommand({Set<String> flags = const {}})` shapes that broke
+/// `tom_build_cli`. A bare `const {}` default on a `Set` parameter must render
+/// as a typed empty set `const <String>{}`. Emitting bare `const {}` makes
+/// Dart infer an empty *Map* (static type `Object`), which then fails to
+/// assign to the `Set<String>` parameter with an argument_type_not_assignable
+/// error. Covers both the named and positional empty-set paths plus an
+/// already-typed `const <int>{}` default.
+class SetDefaults {
+  SetDefaults({
+    this.flags = const {},
+    this.tags = const <String>{},
+  });
+  final Set<String> flags;
+  final Set<String> tags;
+}
+
+class SetPositionalDefault {
+  SetPositionalDefault([this.ids = const {}]);
+  final Set<int> ids;
+}
