@@ -1,3 +1,32 @@
+## 1.9.5
+
+### Bug fixes (AOT-only bridge compile defects)
+
+Two defects surfaced by `tom_core_d4rt`'s bridge corpus, visible only at
+`dart compile exe` (masked from `dart analyze` by the generated
+`ignore_for_file` header):
+
+- **B3b** — generic methods whose callback parameter returns the method's
+  own type parameter (e.g. `FutureOr<T> Function(MySQLConnection)` in
+  `MySQLConnectionPool.withConnection<T>` / `transactional<T>`) failed with
+  `FutureOr<Object?> Function(X) can't be assigned to
+  FutureOr<Object> Function(X)`: the callback wrapper resolves `T` to
+  `Object?` but generic inference picked a non-nullable `Object`. The
+  generated method call now pins explicit type arguments (each parameter's
+  bound, or `Object?` when unbounded) via `_methodCallTypeArgs` when a
+  function-typed parameter references the method type parameter, bypassing
+  inference.
+- **B4** — package-URI resolution used a hardcoded sub-workspace
+  `searchDirs` list that omitted `distributed/`, so `part of` files in
+  packages outside that list were imported directly ("has a 'part of'
+  declaration"). Resolution now goes through
+  `.dart_tool/package_config.json` (`_packageRootSync`) first, covering
+  every package in the resolution graph, with the directory scan kept as a
+  fallback.
+
+Also removes leftover GEN-060 debug prints. Adds the G-CB-13 regression
+test.
+
 ## 1.9.4
 
 - Housekeeping: test artifacts now live in a gitignored `testlog/` folder; `doc/` no longer ships machine-generated baselines or last_testrun.json. No code changes.
