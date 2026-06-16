@@ -1,5 +1,9 @@
 # tom_d4rt_flutter_test_app
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 A new Flutter project.
 
 ## Getting Started

@@ -1,5 +1,9 @@
 # tom_d4rt_exec
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 The analyzer-free **execution entry point** of the D4rt interpreter family: it parses Dart source with the `analyzer` package, mirrors the resulting AST 1:1 into the serializable [`tom_d4rt_ast`](../tom_d4rt_ast/) tree, and hands that tree to the `tom_d4rt_ast` interpreter — which runs with **no `analyzer` types at runtime**.
 
 ## Overview

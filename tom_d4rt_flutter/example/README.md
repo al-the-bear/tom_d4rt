@@ -1,5 +1,9 @@
 # tom_d4rt_flutter examples → see tom_d4rt_flutter_test
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 `tom_d4rt_flutter` is the **source-based Flutter Material bridge library**
 (`SourceFlutterD4rt`). Its samples are not duplicated here — the canonical
 home for this library's samples (P2) is its own test & demo app,

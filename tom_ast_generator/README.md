@@ -1,5 +1,9 @@
 # tom_ast_generator
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 A 1:1 converter from the Dart analyzer AST to a fully serializable mirror AST, with bundling machinery that enables parse-once, serialize, and interpret-without-analyzer workflows.
 
 ## Overview

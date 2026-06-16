@@ -1,5 +1,9 @@
 # tom_dcli_exec
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 Analyzer-free D4rt REPL/CLI with full DCli shell-scripting bridges — the extensible base for building D4rt command-line tools.
 
 ## Overview

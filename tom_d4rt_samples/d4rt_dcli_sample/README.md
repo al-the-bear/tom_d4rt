@@ -1,5 +1,9 @@
 # D4rt DCli Sample — shell scripting plus your own bridges
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 > The advanced sample bridged **one** library: your own compiled geometry/physics
 > engine. Real scripts rarely live in such a closed world — they read files, run
 > commands, and talk to the operating system. This sample shows how to give D4rt

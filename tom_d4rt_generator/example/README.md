@@ -1,5 +1,9 @@
 # tom_d4rt_generator examples → see the canonical sample homes
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 `tom_d4rt_generator` is the **D4rt bridge generator**. The contents of this
 `example/` tree (`dart_overview/`, `d4/`, `example_project/`,
 `user_reference/`, `userbridge_*`, `generate_example_bridges.dart`,

@@ -1,5 +1,9 @@
 # D4rt User-Bridges Sample — overriding what the generator can't bridge
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 The [advanced sample](../d4rt_advanced_sample/) showed the bridge generator
 turning a native Dart library into something a D4rt script can drive. The
 generator is good, but it is not omniscient: a handful of Dart shapes — operator

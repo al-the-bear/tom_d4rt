@@ -1,5 +1,9 @@
 # tom_d4rt_test
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 > Behavioural **conformance** suite for the source-based D4rt interpreter
 > [`tom_d4rt`](../tom_d4rt). **Scaffold today** — wired into the workspace, not
 > yet populated.

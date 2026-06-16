@@ -1,5 +1,9 @@
 # D4rt Flutter bridge corpus — running the tests
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 This folder holds the D4rt Flutter bridge test corpus. The corpus is split into
 `flutter_base_NN_test.dart` and `flutter_extended_NN_test.dart` files (~50 tests
 each). Each test sends a D4rt script to a **freshly-spawned companion app** over

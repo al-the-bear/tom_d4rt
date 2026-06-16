@@ -1,5 +1,9 @@
 # D4rt Advanced Sample — bridging a native library with the generator
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 > The introduction sample ran *pure* scripts: everything the program touched was
 > built into the interpreter. This sample crosses the first boundary. It exposes
 > **your own compiled Dart library** — a small geometry/physics engine — to D4rt

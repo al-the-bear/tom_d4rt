@@ -1,5 +1,9 @@
 # tom_d4rt_flutter
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 > Source-based D4rt interpreter with the full Flutter Material bridge surface —
 > renders interpreted Dart UI against **real Flutter widgets**.
 

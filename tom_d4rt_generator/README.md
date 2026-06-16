@@ -1,5 +1,9 @@
 # tom_d4rt_generator
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 D4rt bridge generator — reads `buildkit.yaml`, follows barrel exports, and emits
 `*.b.dart` files that register Dart APIs with the D4rt sandboxed interpreter.
 

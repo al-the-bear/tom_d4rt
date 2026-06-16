@@ -1,5 +1,9 @@
 # log_pipeline — extended multi-file DCli sample
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 A file-processing pipeline written as a multi-file D4rt CLI script. It
 synthesises a few sample `.log` files in a temp directory, then runs a
 **parse → filter → aggregate** pipeline over them and emits both a coloured

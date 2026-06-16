@@ -1,5 +1,9 @@
 # build_suite — extended multi-file DCli sample
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 A miniature build/automation tool, written as a multi-file D4rt CLI script.
 It is the command-line analog of the Flutter "extended sample" apps: a real
 multi-file program with classes and functions split across files, driven by

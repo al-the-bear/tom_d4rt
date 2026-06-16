@@ -1,5 +1,9 @@
 # D4rt Introduction Sample
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 > The on-ramp to D4rt. This project runs **multi-file D4rt programs with nothing
 > but the interpreter** — no external libraries, no generated bridges, no host
 > integration. It is the smallest complete picture of "embed an interpreter,

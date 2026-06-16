@@ -1,5 +1,9 @@
 # tom_d4rt_flutter_ast_test
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 Analyzer-free D4rt Flutter demo. A sample browser that loads **pre-compiled
 `AstBundle` JSON** from assets and renders each one through
 [`FlutterD4rt`](../tom_d4rt_flutter_ast) — the zero-analyzer, web-safe runtime.

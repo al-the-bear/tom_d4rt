@@ -1,5 +1,9 @@
 # tom_d4rt_ast
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 Analyzer-free Dart interpreter runtime that executes pre-compiled `SAstNode` bundles with full bridging, sandboxing, and standard library support.
 
 ## Overview

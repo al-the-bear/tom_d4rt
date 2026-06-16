@@ -1,5 +1,9 @@
 # Dart Language Overview
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 A comprehensive collection of Dart language feature demonstrations, used for testing the `tom_analyzer` code analysis and reflection generation tools.
 
 ## Purpose

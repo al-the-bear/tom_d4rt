@@ -1,5 +1,9 @@
 # D4rt Interpreter Performance Suite
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 A small, focused benchmark + profiling harness for the D4rt interpreter
 (`tom_d4rt`). It exists to answer two questions:
 

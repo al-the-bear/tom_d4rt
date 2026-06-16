@@ -1,5 +1,9 @@
 # tom_d4rt_exec examples
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 `tom_d4rt_exec` is the **analyzer-free CLI / embedding entry point**. This
 `example/` tree contains two kinds of content:
 

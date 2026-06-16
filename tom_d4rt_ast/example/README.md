@@ -1,5 +1,9 @@
 # tom_d4rt_ast examples → see the canonical sample homes
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 `tom_d4rt_ast` is the **analyzer-free interpreter runtime** that executes
 pre-compiled `SAstNode` / `AstBundle` trees. Its end-to-end showcase is the
 analyzer-free Flutter test app **[`tom_d4rt_flutter_ast_test`](../../tom_d4rt_flutter_ast_test/README.md)**,

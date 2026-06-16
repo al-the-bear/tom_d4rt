@@ -1,5 +1,9 @@
 # tom_d4rt_flutter_ast
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 D4rt Flutter-Material bridge — execute D4rt scripts that return live Flutter widget trees, without an app-store republish.
 
 ## Overview

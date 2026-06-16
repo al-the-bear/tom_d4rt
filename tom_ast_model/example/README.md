@@ -1,5 +1,9 @@
 # tom_ast_model examples → see the canonical sample homes
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 `tom_ast_model` is a zero-dependency **AST data model** — a serializable
 mirror of the Dart analyzer's node hierarchy. It is infrastructure consumed
 by the interpreter and generator, not a runtime you write programs against,

@@ -1,5 +1,9 @@
 # tom_d4rt examples
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 `tom_d4rt` is the analyzer-based reference interpreter, and this `example/`
 tree is the **canonical home (P2) for raw-source interpreter and bridging
 samples** — the language-level and native-interop demos that don't need a

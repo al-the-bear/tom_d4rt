@@ -1,5 +1,9 @@
 # D4rt Flutter Sample — interpret UI from source at runtime
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 > The earlier samples ran D4rt scripts on the command line. This one runs them
 > **inside a live Flutter app**: the screens you see are not compiled into the
 > binary — they are Dart *source files*, shipped as assets, parsed and

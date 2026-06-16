@@ -1,5 +1,9 @@
 # D4 Advanced Bridging Examples
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 This folder contains examples demonstrating the `D4` helper class and best practices for creating robust bridges between native Dart code and D4rt scripts.
 
 ## Overview

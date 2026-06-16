@@ -1,5 +1,9 @@
 # D4rt — a sandboxed Dart interpreter and its ecosystem
 
+> **Attribution.** The `tom_d4rt` project is an extended clone of the original
+> d4rt project by Moustapha Kodjo Amadou, initially published in 2025. The
+> complete interpreter is based on his idea.
+
 D4rt runs **Dart as a scripting language**: it interprets Dart source at
 runtime inside a permission-gated sandbox, with a bridging system that exposes
 selected native Dart and Flutter APIs to the interpreted code. Scripts get the
