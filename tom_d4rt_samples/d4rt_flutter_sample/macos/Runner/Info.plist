@@ -28,5 +28,20 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<!--
+	  Opt out of Flutter's experimental merged platform/UI thread.
+
+	  This app interprets Dart scripts into a live widget tree *synchronously*
+	  on the UI thread (see SourceFlutterD4rt.buildProgram / build). With the
+	  platform thread merged into the UI thread (the default since Flutter
+	  3.29+), that synchronous work also blocks window/OS event handling — so a
+	  sample that rebuilds interpreted code every animation frame (e.g.
+	  clock_face once Play is pressed) starves the platform thread and the
+	  window stops responding to input until the animation stops (it never
+	  does), leaving "close" as the only option. Keeping the threads separate
+	  lets the window stay responsive while the UI thread interprets.
+	-->
+	<key>FLTEnableMergedPlatformUIThread</key>
+	<false/>
 </dict>
 </plist>
