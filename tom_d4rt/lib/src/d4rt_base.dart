@@ -476,23 +476,26 @@ class D4rt {
       {String? basePath,
       bool allowFileSystemImports = false,
       bool collectRegistrationErrors = false}) {
-    final moduleLoader = ModuleLoader(
-      Environment(),
-      sources ?? {},
-      _bridgedEnumDefinitions,
-      _bridgedClases,
-      libraryFunctions: _libraryFunctions,
-      libraryVariables: _libraryVariables,
-      libraryGetters: _libraryGetters,
-      librarySetters: _librarySetters,
-      bridgedExtensions: _bridgedExtensions,
-      d4rt: this,
-      collectRegistrationErrors: collectRegistrationErrors,
-    );
+    final moduleLoader = D4rtProfile.time('initModule.moduleLoader', () {
+      return ModuleLoader(
+        Environment(),
+        sources ?? {},
+        _bridgedEnumDefinitions,
+        _bridgedClases,
+        libraryFunctions: _libraryFunctions,
+        libraryVariables: _libraryVariables,
+        libraryGetters: _libraryGetters,
+        librarySetters: _librarySetters,
+        bridgedExtensions: _bridgedExtensions,
+        d4rt: this,
+        collectRegistrationErrors: collectRegistrationErrors,
+      );
+    });
     _visitor = InterpreterVisitor(
         globalEnvironment: moduleLoader.globalEnvironment,
         moduleLoader: moduleLoader);
-    Stdlib(moduleLoader.globalEnvironment).register();
+    D4rtProfile.time(
+        'initModule.stdlib', () => Stdlib(moduleLoader.globalEnvironment).register());
 
     // Pre-populate globalEnvironment type map so that toBridgedInstance() can
     // resolve native objects returned by bridge methods (e.g. the native
@@ -502,11 +505,13 @@ class D4rt {
     // ModuleLoader._registerBridgesForUriInto at import time.
     // Mirrors D4rtRunner._registerBridgedDefinitions (type-only variant).
     final globalEnv = moduleLoader.globalEnvironment;
-    for (final entry in _bridgedClases) {
-      for (final libClass in entry.values) {
-        globalEnv.registerBridgeType(libClass.bridgedClass);
+    D4rtProfile.time('initModule.bridgeTypes', () {
+      for (final entry in _bridgedClases) {
+        for (final libClass in entry.values) {
+          globalEnv.registerBridgeType(libClass.bridgedClass);
+        }
       }
-    }
+    });
 
     // §U28 / TODO #14 — capture the post-stdlib baseline of `_values`
     // keys for [resetScriptDeclarations]. Per-library bridge entries
@@ -1159,7 +1164,8 @@ class D4rt {
         basePath: basePath, allowFileSystemImports: allowFileSystemImports);
 
     // Parse the source
-    final compilationUnit = _parseSource(source: source, library: library);
+    final compilationUnit = D4rtProfile.time(
+        'parse', () => _parseSource(source: source, library: library));
 
     // Library-scoped globals are registered via ModuleLoader when imports are processed
     final executionEnvironment = _moduleLoader.globalEnvironment;
@@ -1332,12 +1338,14 @@ class D4rt {
     // [registerExtensions]. Run any queued callbacks now (in registration
     // order) before pass 1 sees any declarations. Idempotent — a no-op
     // if the embedder already called [finalizeBridges] explicitly.
-    finalizeBridges();
+    D4rtProfile.time('finalizeBridges', finalizeBridges);
     Logger.debug("[_executeInEnvironment] Starting Pass 1: Declaration");
-    final declarationVisitor = DeclarationVisitor(executionEnvironment);
-    for (final declaration in compilationUnit.declarations) {
-      declaration.accept<void>(declarationVisitor);
-    }
+    D4rtProfile.time('pass1.declarations', () {
+      final declarationVisitor = DeclarationVisitor(executionEnvironment);
+      for (final declaration in compilationUnit.declarations) {
+        declaration.accept<void>(declarationVisitor);
+      }
+    });
     Logger.debug("[_executeInEnvironment] Finished Pass 1: Declaration");
 
     _visitor = InterpreterVisitor(
@@ -1348,23 +1356,32 @@ class D4rt {
     // [staticCoords] side-table so the debug depth-assert in
     // visitSimpleIdentifier can validate the scope model. No effect in
     // release builds beyond the (cheap) resolver walk.
-    _visitor!.resolveStaticCoordinates(compilationUnit.declarations);
+    D4rtProfile.time('visitor.setup',
+        () => _visitor!.resolveStaticCoordinates(compilationUnit.declarations));
     Object? functionResult;
+    // Non-overlapping pass-2 timers: 'pass2.imports' covers directive
+    // processing (the dominant cost — registering the imported bridge
+    // surface by name); 'pass2.interpret' covers the declaration passes and
+    // the actual function call. Started after directives, stopped in finally.
+    Stopwatch? pass2Sw;
     try {
       Logger.debug("[_executeInEnvironment] Starting Pass 2: Interpretation");
       Logger.debug(
           "[_executeInEnvironment] Processing directives (imports, exports, etc.)...");
-      for (final directive in compilationUnit.directives) {
-        if (directive is ImportDirective) {
-          Logger.debug(
-              "[_executeInEnvironment]   - Processing ImportDirective: ${directive.uri.stringValue}");
-          _visitor!.visitImportDirective(directive);
-        } else {
-          Logger.debug(
-              "[_executeInEnvironment]   - Skipping directive of type: ${directive.runtimeType}");
+      D4rtProfile.time('pass2.imports', () {
+        for (final directive in compilationUnit.directives) {
+          if (directive is ImportDirective) {
+            Logger.debug(
+                "[_executeInEnvironment]   - Processing ImportDirective: ${directive.uri.stringValue}");
+            _visitor!.visitImportDirective(directive);
+          } else {
+            Logger.debug(
+                "[_executeInEnvironment]   - Skipping directive of type: ${directive.runtimeType}");
+          }
         }
-      }
+      });
       Logger.debug("[_executeInEnvironment] Finished processing directives.");
+      if (D4rtProfile.enabled) pass2Sw = Stopwatch()..start();
 
       // RC-4: Process declarations in dependency order (matching ModuleLoader).
       // The DeclarationVisitor (pass 1) only creates class/mixin placeholders
@@ -1472,6 +1489,11 @@ class D4rt {
         rethrow;
       } else {
         throw RuntimeD4rtException('Unexpected error: $e');
+      }
+    } finally {
+      if (pass2Sw != null) {
+        pass2Sw.stop();
+        D4rtProfile.mark('pass2.interpret', pass2Sw.elapsedMicroseconds);
       }
     }
     if (functionResult is InterpretedInstance) {

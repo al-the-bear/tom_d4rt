@@ -1,0 +1,12 @@
+# Local multi-package dev overrides.
+#
+# This app depends on tom_d4rt_flutter (path), which in turn references
+# tom_d4rt and tom_d4rt_generator by *hosted* version. To make every package
+# resolve to its sibling checkout (rather than mixing path + hosted sources),
+# pin the shared packages to path here. Standard local multi-package dev
+# pattern — not an API-shim override.
+dependency_overrides:
+  tom_d4rt:
+    path: ../tom_d4rt
+  tom_d4rt_generator:
+    path: ../tom_d4rt_generator

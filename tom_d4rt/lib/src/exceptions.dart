@@ -57,6 +57,73 @@ class D4rtDiag {
   }
 }
 
+/// Opt-in per-phase timing profiler for [D4rt.execute] and friends.
+///
+/// Disabled by default — when [enabled] is false every hook is a single
+/// boolean check, so it is safe to leave compiled in. A harness or embedder
+/// sets [enabled] = true, runs an interpretation, then reads [phases] (or
+/// calls [report]) to see where wall time went.
+///
+/// Motivation: the ~1.4s "first interpretation" stall observed in Flutter
+/// embeddings is NOT the analyzer parse (~10ms) and NOT the complexity of the
+/// interpreted widget tree (a 1000-line sample costs the same as a one-widget
+/// snippet). It is bridge (re)registration: `execute()` rebuilds a fresh
+/// [Environment] via `_initModule` on every call, re-running
+/// `Stdlib(...).register()` and re-registering the entire bridged-class
+/// surface. These counters make that attribution visible per phase.
+class D4rtProfile {
+  /// Master switch. When false, [time]/[mark] are near-free no-ops.
+  static bool enabled = false;
+
+  /// Accumulated wall time per named phase, in microseconds, since [reset].
+  static final Map<String, int> phases = <String, int>{};
+
+  /// Number of times each phase was recorded since [reset].
+  static final Map<String, int> counts = <String, int>{};
+
+  /// Clears all accumulated phase timings.
+  static void reset() {
+    phases.clear();
+    counts.clear();
+  }
+
+  /// Records [micros] against [phase]. No-op when [enabled] is false.
+  static void mark(String phase, int micros) {
+    if (!enabled) return;
+    phases[phase] = (phases[phase] ?? 0) + micros;
+    counts[phase] = (counts[phase] ?? 0) + 1;
+  }
+
+  /// Times [body], attributing its wall time to [phase], and returns its
+  /// result. When [enabled] is false, runs [body] with zero Stopwatch
+  /// overhead so the call site stays free in production.
+  static T time<T>(String phase, T Function() body) {
+    if (!enabled) return body();
+    final sw = Stopwatch()..start();
+    final r = body();
+    sw.stop();
+    mark(phase, sw.elapsedMicroseconds);
+    return r;
+  }
+
+  /// Human-readable breakdown, phases sorted by descending time.
+  static String report() {
+    if (phases.isEmpty) return 'D4rtProfile: (no samples)';
+    final entries = phases.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+    final total = phases.values.fold<int>(0, (a, b) => a + b);
+    final buf = StringBuffer('D4rtProfile breakdown '
+        '(total ${(total / 1000).toStringAsFixed(1)}ms):\n');
+    for (final e in entries) {
+      final ms = (e.value / 1000).toStringAsFixed(1);
+      final pct = total == 0 ? 0 : (e.value * 100 / total).round();
+      buf.writeln('  ${e.key.padRight(26)} ${ms.padLeft(8)}ms '
+          '${pct.toString().padLeft(3)}%  (x${counts[e.key]})');
+    }
+    return buf.toString();
+  }
+}
+
 /// Static error reporter that tracks all created [D4rtException]s.
 ///
 /// This is used primarily in test modes to detect errors that occurred
