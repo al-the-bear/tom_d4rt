@@ -98,6 +98,17 @@ void main() {
         expect(generatedCode, contains("'transform':"));
         expect(generatedCode, contains('as String'));
       });
+
+      test('G-CB-13 (B3b): generic method whose callback returns the method '
+          'type parameter pins explicit `<Object?>` type args. [2026-06-16 13:39] (PASS)', () {
+        // `T mapValue<T>(T Function(String) mapper, String input)` — the
+        // callback wrapper resolves T to `Object?`, but generic inference can
+        // pick a non-nullable `Object`, making the wrapper non-assignable
+        // (the MySQLConnectionPool.withConnection/transactional AOT failure).
+        // The fix pins the method call's type argument so inference is bypassed.
+        expect(generatedCode, contains("'mapValue':"));
+        expect(generatedCode, contains('mapValue<Object?>('));
+      });
     });
 
     group('Nullable Callbacks', () {

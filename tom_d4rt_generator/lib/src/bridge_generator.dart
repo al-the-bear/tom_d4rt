@@ -1496,6 +1496,55 @@ class BridgeGenerator {
   /// Cache for resolved package paths.
   final Map<String, String?> _packagePathCache = {};
 
+  /// Synchronously-built map of package name → package root directory, parsed
+  /// once from `.dart_tool/package_config.json`. `null` until first access,
+  /// then an (possibly empty) map. Used by [_packageRootSync] so that
+  /// synchronous resolvers (e.g. [_getFilePathForPackageUri]) get the same
+  /// authoritative resolution as the async [_resolvePackagePath].
+  Map<String, String>? _packageConfigRoots;
+
+  /// Returns the package root directory for [packageName] using
+  /// `.dart_tool/package_config.json`, or `null` if not found. Synchronous and
+  /// cached. Unlike the hardcoded sub-workspace search this covers every
+  /// package the resolution graph knows about (including `distributed/`).
+  String? _packageRootSync(String packageName) {
+    var roots = _packageConfigRoots;
+    if (roots == null) {
+      roots = <String, String>{};
+      final packageConfigFile = File(
+        '$workspacePath/.dart_tool/package_config.json',
+      );
+      if (packageConfigFile.existsSync()) {
+        try {
+          final json =
+              jsonDecode(packageConfigFile.readAsStringSync())
+                  as Map<String, dynamic>;
+          final packages = json['packages'] as List<dynamic>?;
+          if (packages != null) {
+            for (final pkg in packages) {
+              final name = pkg['name'] as String?;
+              var rootUri = pkg['rootUri'] as String?;
+              if (name == null || rootUri == null) continue;
+              if (rootUri.startsWith('file://')) {
+                rootUri = Uri.parse(rootUri).toFilePath();
+              } else {
+                // rootUri is relative to the .dart_tool directory.
+                rootUri = p.normalize(
+                  p.join(workspacePath, '.dart_tool', rootUri),
+                );
+              }
+              roots[name] = rootUri;
+            }
+          }
+        } catch (e) {
+          if (verbose) print('Error reading package_config.json: $e');
+        }
+      }
+      _packageConfigRoots = roots;
+    }
+    return roots[packageName];
+  }
+
   /// Resolves a package name to its root directory path.
   ///
   /// Uses `.dart_tool/package_config.json` for reliable resolution,
@@ -5332,15 +5381,9 @@ class BridgeGenerator {
   /// If the URI points to a file with 'part of ...' directive, returns the
   /// parent library URI. Otherwise returns the original URI unchanged.
   String _resolvePartOfToParent(String uri) {
-    // DEBUG
-    if (uri.contains('call_callback')) {
-      print('  [PARTOF] Resolving: $uri');
-    }
-
     // Check cached mapping first
     final cached = _partOfToParent[uri];
     if (cached != null) {
-      if (uri.contains('call_callback')) print('  [PARTOF] Cache hit: $cached');
       return cached;
     }
 
@@ -5351,20 +5394,13 @@ class BridgeGenerator {
     try {
       final filePath = _getFilePathForPackageUri(uri);
       if (filePath == null) {
-        if (uri.contains('call_callback'))
-          print('  [PARTOF] File not found for: $uri');
         return uri;
       }
 
       final file = File(filePath);
       if (!file.existsSync()) {
-        if (uri.contains('call_callback'))
-          print('  [PARTOF] File does not exist: $filePath');
         return uri;
       }
-
-      if (uri.contains('call_callback'))
-        print('  [PARTOF] Found file: $filePath');
 
       final content = file.readAsStringSync();
       final firstLines = content.split('\n').take(30).toList();
@@ -5428,6 +5464,19 @@ class BridgeGenerator {
 
     final pkgName = withoutScheme.substring(0, slashIndex);
     final pkgPath = withoutScheme.substring(slashIndex + 1);
+
+    // Primary: resolve via .dart_tool/package_config.json. This is the
+    // authoritative resolution graph and covers every sub-workspace
+    // (including `distributed/`), unlike the hardcoded `searchDirs` fallback
+    // below which historically omitted directories and caused part-of files
+    // to be imported directly (B4 — tom_dist_ledger/ledger_api/call_callback).
+    final pkgRoot = _packageRootSync(pkgName);
+    if (pkgRoot != null) {
+      final candidatePath = p.join(pkgRoot, 'lib', pkgPath);
+      if (File(candidatePath).existsSync()) {
+        return candidatePath;
+      }
+    }
 
     // Detect workspace root by looking for tom_workspace.yaml or tom.code-workspace
     var wsRoot = workspacePath;
@@ -6225,16 +6274,8 @@ class BridgeGenerator {
     // not a class being bridged).
     for (var uri in externalImports) {
       if (!uri.startsWith('package:')) continue;
-      // GEN-060 DEBUG: Check if this is the call_callback URI
-      if (uri.contains('call_callback')) {
-        print('  [EXTIMPORT] Processing: $uri');
-      }
       // GEN-060 FIX: Resolve part-of files to their parent library
-      final resolvedUri = _resolvePartOfToParent(uri);
-      if (resolvedUri != uri && uri.contains('call_callback')) {
-        print('  [EXTIMPORT] Resolved to: $resolvedUri');
-      }
-      uri = resolvedUri;
+      uri = _resolvePartOfToParent(uri);
       // Always add external type URIs — they're return types and parameter types
       // that must be accessible for proper type casting in generated code.
       if (!allImportUris.contains(uri)) {
@@ -6245,10 +6286,6 @@ class BridgeGenerator {
     // Assign $<pkgname>_<counter> prefixes and write import statements
     final packageCounters = <String, int>{};
     for (final uri in allImportUris.toList()..sort()) {
-      // GEN-060 DEBUG
-      if (uri.contains('call_callback')) {
-        print('  [WRITEIMPORT] Writing import for: $uri');
-      }
       final parsed = _parsePackageUri(uri);
       final pkgName = parsed?.$1 ?? 'pkg';
       final sanitized = pkgName.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_');
@@ -8671,6 +8708,56 @@ class BridgeGenerator {
     return false;
   }
 
+  /// B3b: Builds an explicit method-level type-argument list (e.g. `<Object?>`)
+  /// for a generic method whose callback parameter references the method's own
+  /// type parameter.
+  ///
+  /// Without explicit type arguments, Dart infers the method type parameter
+  /// from the callback wrapper's static type. The wrapper resolves an
+  /// unresolved type parameter to `Object?` (e.g. a `FutureOr<T>` callback
+  /// return becomes `FutureOr<Object?>`), but generic inference can still pick
+  /// a non-nullable solution (`Object`) for `T`, making the wrapper
+  /// non-assignable — `FutureOr<Object?> Function(X)` is not assignable to
+  /// `FutureOr<Object> Function(X)`. This is the `MySQLConnectionPool`
+  /// `withConnection<T>` / `transactional<T>` failure. Pinning each method
+  /// type parameter to its bound (or `Object?` when unbounded) matches the
+  /// wrapper's own resolution and removes the inference hazard.
+  ///
+  /// Returns an empty string when no explicit type arguments are needed.
+  /// Explicit type arguments are only valid on a statically-typed receiver,
+  /// so callers must pass [usesDynamicDispatch] = false to opt in.
+  String _methodCallTypeArgs(
+    MemberInfo method, {
+    required bool usesDynamicDispatch,
+    Map<String, String> typeToUri = const {},
+    String? sourceFilePath,
+  }) {
+    if (usesDynamicDispatch) return '';
+    final typeParams = method.methodTypeParameters;
+    if (typeParams.isEmpty) return '';
+    // Only needed when a function-typed parameter references a method type
+    // parameter (the inference hazard described above).
+    if (!_methodHasFunctionParamsReferencingClassTypeParams(
+      method.parameters,
+      typeParams,
+    )) {
+      return '';
+    }
+    final args = typeParams.entries.map((e) {
+      final bound = e.value;
+      if (bound == null || bound.isEmpty || bound == 'dynamic') {
+        return 'Object?';
+      }
+      return _getTypeArgument(
+        bound,
+        typeToUri: typeToUri,
+        classTypeParams: const {},
+        sourceFilePath: sourceFilePath,
+      );
+    }).join(', ');
+    return '<$args>';
+  }
+
   /// Generates constructor body code.
   /// Returns false if the constructor cannot be bridged.
   /// Generates positional dispatch loop for unwrappable positional defaults.
@@ -9925,10 +10012,18 @@ class BridgeGenerator {
             hasLegacyOptionalFuncParam
         ? '(t as dynamic)'
         : 't';
+    // B3b: pin generic method type arguments when a callback param references
+    // the method's own type parameter, to avoid an inference hazard that picks
+    // a non-nullable solution incompatible with the `Object?`-resolved wrapper.
+    final methodTypeArgs = _methodCallTypeArgs(
+      method,
+      usesDynamicDispatch: callTarget != 't',
+      sourceFilePath: cls.sourceFile,
+    );
     if (useCombinatorial) {
       _generateCombinatorialDispatch(
         buffer,
-        '$callTarget.${method.name}',
+        '$callTarget.${method.name}$methodTypeArgs',
         args,
         nonWrappableDefaults,
         method.name,
@@ -9939,12 +10034,12 @@ class BridgeGenerator {
     } else {
       if (isVoid) {
         buffer.writeln(
-          '        $callTarget.${method.name}(${args.join(', ')});',
+          '        $callTarget.${method.name}$methodTypeArgs(${args.join(', ')});',
         );
         buffer.writeln('        return null;');
       } else {
         buffer.writeln(
-          '        return $callTarget.${method.name}(${args.join(', ')});',
+          '        return $callTarget.${method.name}$methodTypeArgs(${args.join(', ')});',
         );
       }
     }
