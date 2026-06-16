@@ -16,7 +16,6 @@ import 'package:flutter/material.dart';
 
 import 'package:tom_d4rt_flutter/tom_d4rt_flutter.dart';
 
-import '../interpret_timing.dart';
 import '../test_runner.dart';
 import '../test_script_loader.dart';
 
@@ -118,10 +117,7 @@ class _D4rtScriptViewState extends State<D4rtScriptView> {
     runZonedGuarded(
       () {
         try {
-          resultWidget = timedInterpret(
-            pending.name,
-            () => widget.d4rt.build<Widget>(pending.source, context),
-          );
+          resultWidget = widget.d4rt.build<Widget>(pending.source, context);
           _builtWidget = resultWidget;
           _generation++;
 

@@ -13,8 +13,6 @@ import 'package:flutter/material.dart';
 
 import 'package:tom_d4rt_flutter/tom_d4rt_flutter.dart';
 
-import '../interpret_timing.dart';
-
 class SampleAppPage extends StatefulWidget {
   final SampleAppEntry sample;
   final SourceFlutterD4rt d4rt;
@@ -117,12 +115,9 @@ class _SampleAppPageState extends State<SampleAppPage> {
 
   void _interpret(BuildContext context) {
     try {
-      final widgetResult = timedInterpret(
-        widget.sample.name,
-        () => widget.d4rt.buildProgram<Widget>(
-          _program!,
-          buildContext: context,
-        ),
+      final widgetResult = widget.d4rt.buildProgram<Widget>(
+        _program!,
+        buildContext: context,
       );
       _built = widgetResult;
     } on SourceFlutterD4rtException catch (e) {
