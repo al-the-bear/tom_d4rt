@@ -1,0 +1,885 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 91.0.0 (100.0.0 available)
+  analyzer 8.4.1 (13.0.0 available)
+  async 2.13.0 (2.13.1 available)
+  build 4.0.4 (4.0.6 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.2 (4.1.4 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.17.0 (1.18.2 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.10 (0.7.12 available)
+! tom_analyzer_shared 0.1.0 from path ../../basics/tom_analyzer_shared (overridden in ./pubspec_overrides.yaml)
+  tom_build_base 2.6.11 (2.6.21 available)
+  tom_d4rt 1.8.10 (1.8.19 available)
+  vector_math 2.2.0 (2.3.0 available)
+  vm_service 15.0.2 (15.2.0 available)
+  win32 5.15.0 (6.2.0 available)
+Got dependencies!
+18 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/hardly_relevant_classes_3_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: Test App Health app is running
+00:11 +1: rendering/ alignment_geometry_tween_test.dart
+[METRIC] script=rendering/alignment_geometry_tween_test.dart sourceBytes=33015 sourceChars=30587 bundleJsonBytes=427837 clearMs=33 readMs=11 bundleMs=258 httpMs=1891 totalMs=2199 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+00:14 +2: rendering/ alignment_tween_test.dart
+[METRIC] script=rendering/alignment_tween_test.dart sourceBytes=41615 sourceChars=40175 bundleJsonBytes=475078 clearMs=115 readMs=7 bundleMs=104 httpMs=1896 totalMs=2124 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:16 +3: rendering/ annotated_region_layer_test.dart
+[METRIC] script=rendering/annotated_region_layer_test.dart sourceBytes=40639 sourceChars=38195 bundleJsonBytes=516128 clearMs=46 readMs=5 bundleMs=64 httpMs=2169 totalMs=2285 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+00:18 +4: rendering/ annotation_entry_test.dart
+[METRIC] script=rendering/annotation_entry_test.dart sourceBytes=47093 sourceChars=44567 bundleJsonBytes=535455 clearMs=36 readMs=8 bundleMs=44 httpMs=1896 totalMs=1986 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+00:20 +5: rendering/ annotation_result_test.dart
+[METRIC] script=rendering/annotation_result_test.dart sourceBytes=49556 sourceChars=47618 bundleJsonBytes=549004 clearMs=43 readMs=1 bundleMs=60 httpMs=1807 totalMs=1913 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+00:22 +6: rendering/ backdrop_key_test.dart
+[METRIC] script=rendering/backdrop_key_test.dart sourceBytes=44493 sourceChars=44493 bundleJsonBytes=408099 clearMs=65 readMs=0 bundleMs=31 httpMs=1729 totalMs=1827 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:24 +7: rendering/ cache_extent_style_test.dart
+[METRIC] script=rendering/cache_extent_style_test.dart sourceBytes=41491 sourceChars=39862 bundleJsonBytes=462793 clearMs=75 readMs=1 bundleMs=37 httpMs=1826 totalMs=1941 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+00:26 +8: rendering/ child_layout_helper_test.dart
+[METRIC] script=rendering/child_layout_helper_test.dart sourceBytes=50330 sourceChars=47792 bundleJsonBytes=589885 clearMs=70 readMs=1 bundleMs=60 httpMs=1562 totalMs=1694 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+00:27 +9: rendering/ class_test.dart
+[METRIC] script=rendering/class_test.dart sourceBytes=50057 sourceChars=48533 bundleJsonBytes=695280 clearMs=113 readMs=1 bundleMs=48 httpMs=1612 totalMs=1775 status=success httpStatus=200 outputLines=84 frameworkErrors=0
+00:29 +10: rendering/ clear_selection_event_test.dart
+[METRIC] script=rendering/clear_selection_event_test.dart sourceBytes=73892 sourceChars=73724 bundleJsonBytes=974945 clearMs=64 readMs=1 bundleMs=120 httpMs=2861 totalMs=3047 status=success httpStatus=200 outputLines=0 frameworkErrors=25
+
+  ⚠️  FRAMEWORK ERROR in rendering/clear_selection_event_test.dart (25 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       A RenderFlex overflowed by Infinity pixels on the bottom.
+00:32 +11: rendering/ const_test.dart
+[METRIC] script=rendering/const_test.dart sourceBytes=44946 sourceChars=44684 bundleJsonBytes=518411 clearMs=97 readMs=0 bundleMs=24 httpMs=1451 totalMs=1574 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:34 +12: rendering/ container_parent_data_mixin_test.dart
+[METRIC] script=rendering/container_parent_data_mixin_test.dart sourceBytes=42965 sourceChars=42179 bundleJsonBytes=332376 clearMs=64 readMs=1 bundleMs=28 httpMs=1544 totalMs=1638 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+00:35 +13: rendering/ cross_axis_alignment_test.dart
+[METRIC] script=rendering/cross_axis_alignment_test.dart sourceBytes=41128 sourceChars=39822 bundleJsonBytes=436536 clearMs=72 readMs=0 bundleMs=19 httpMs=1504 totalMs=1598 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+00:37 +14: rendering/ decoration_position_test.dart
+[METRIC] script=rendering/decoration_position_test.dart sourceBytes=36514 sourceChars=35082 bundleJsonBytes=397488 clearMs=56 readMs=1 bundleMs=25 httpMs=1424 totalMs=1507 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+00:39 +15: rendering/ diagnostics_debug_creator_test.dart
+[METRIC] script=rendering/diagnostics_debug_creator_test.dart sourceBytes=86099 sourceChars=81583 bundleJsonBytes=849724 clearMs=101 readMs=1 bundleMs=75 httpMs=1471 totalMs=1649 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:40 +16: rendering/ directionally_extend_selection_event_test.dart
+[METRIC] script=rendering/directionally_extend_selection_event_test.dart sourceBytes=45709 sourceChars=42549 bundleJsonBytes=443104 clearMs=102 readMs=1 bundleMs=24 httpMs=1655 totalMs=1784 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:42 +17: rendering/ flex_fit_test.dart
+[METRIC] script=rendering/flex_fit_test.dart sourceBytes=34474 sourceChars=33046 bundleJsonBytes=394433 clearMs=63 readMs=1 bundleMs=22 httpMs=1421 totalMs=1508 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:43 +18: rendering/ floating_header_snap_configuration_test.dart
+[METRIC] script=rendering/floating_header_snap_configuration_test.dart sourceBytes=43964 sourceChars=43940 bundleJsonBytes=313014 clearMs=106 readMs=1 bundleMs=19 httpMs=1760 totalMs=1887 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+00:45 +19: rendering/ flow_painting_context_test.dart
+[METRIC] script=rendering/flow_painting_context_test.dart sourceBytes=43924 sourceChars=41080 bundleJsonBytes=508993 clearMs=103 readMs=1 bundleMs=56 httpMs=1380 totalMs=1541 status=success httpStatus=200 outputLines=50 frameworkErrors=0
+00:47 +20: rendering/ flow_parent_data_test.dart
+[METRIC] script=rendering/flow_parent_data_test.dart sourceBytes=51222 sourceChars=51208 bundleJsonBytes=676714 clearMs=73 readMs=1 bundleMs=53 httpMs=2128 totalMs=2256 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:49 +21: rendering/ fraction_column_width_test.dart
+[METRIC] script=rendering/fraction_column_width_test.dart sourceBytes=42787 sourceChars=42739 bundleJsonBytes=458010 clearMs=80 readMs=1 bundleMs=25 httpMs=1497 totalMs=1605 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+00:51 +22: rendering/ fractional_offset_tween_test.dart
+[METRIC] script=rendering/fractional_offset_tween_test.dart sourceBytes=54554 sourceChars=52088 bundleJsonBytes=589473 clearMs=57 readMs=1 bundleMs=50 httpMs=1535 totalMs=1645 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+00:52 +23: rendering/ granularly_extend_selection_event_test.dart
+[METRIC] script=rendering/granularly_extend_selection_event_test.dart sourceBytes=58110 sourceChars=55324 bundleJsonBytes=540935 clearMs=66 readMs=1 bundleMs=32 httpMs=2250 totalMs=2351 status=success httpStatus=200 outputLines=64 frameworkErrors=0
+00:55 +24: rendering/ growth_direction_test.dart
+[METRIC] script=rendering/growth_direction_test.dart sourceBytes=43385 sourceChars=41659 bundleJsonBytes=425608 clearMs=51 readMs=1 bundleMs=24 httpMs=1861 totalMs=1938 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+00:57 +25: rendering/ hit_test_behavior_test.dart
+[METRIC] script=rendering/hit_test_behavior_test.dart sourceBytes=107858 sourceChars=107858 bundleJsonBytes=791097 clearMs=119 readMs=0 bundleMs=51 httpMs=1630 totalMs=1802 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+00:59 +26: rendering/ image_filter_config_test.dart
+[METRIC] script=rendering/image_filter_config_test.dart sourceBytes=24230 sourceChars=22641 bundleJsonBytes=233893 clearMs=73 readMs=0 bundleMs=11 httpMs=1368 totalMs=1454 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:00 +27: rendering/ image_filter_context_test.dart
+[METRIC] script=rendering/image_filter_context_test.dart sourceBytes=22862 sourceChars=21272 bundleJsonBytes=214111 clearMs=36 readMs=1 bundleMs=11 httpMs=1334 totalMs=1384 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+01:01 +28: rendering/ list_wheel_child_manager_test.dart
+[METRIC] script=rendering/list_wheel_child_manager_test.dart sourceBytes=34967 sourceChars=34927 bundleJsonBytes=318363 clearMs=99 readMs=1 bundleMs=17 httpMs=1398 totalMs=1516 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+01:03 +29: rendering/ main_axis_alignment_test.dart
+[METRIC] script=rendering/main_axis_alignment_test.dart sourceBytes=41464 sourceChars=41427 bundleJsonBytes=376139 clearMs=74 readMs=1 bundleMs=25 httpMs=1424 totalMs=1526 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+01:04 +30: rendering/ main_axis_size_test.dart
+[METRIC] script=rendering/main_axis_size_test.dart sourceBytes=30323 sourceChars=29723 bundleJsonBytes=317491 clearMs=134 readMs=1 bundleMs=15 httpMs=1350 totalMs=1502 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:06 +31: rendering/ max_column_width_test.dart
+[METRIC] script=rendering/max_column_width_test.dart sourceBytes=30245 sourceChars=29719 bundleJsonBytes=291698 clearMs=61 readMs=1 bundleMs=21 httpMs=1378 totalMs=1462 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+01:07 +32: rendering/ min_column_width_test.dart
+[METRIC] script=rendering/min_column_width_test.dart sourceBytes=33362 sourceChars=32800 bundleJsonBytes=323370 clearMs=66 readMs=1 bundleMs=17 httpMs=1458 totalMs=1543 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:09 +33: rendering/ multi_child_layout_parent_data_test.dart
+[METRIC] script=rendering/multi_child_layout_parent_data_test.dart sourceBytes=42202 sourceChars=38770 bundleJsonBytes=333607 clearMs=112 readMs=1 bundleMs=15 httpMs=1359 totalMs=1488 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+01:10 +34: rendering/ over_scroll_header_stretch_configuration_test.dart
+[METRIC] script=rendering/over_scroll_header_stretch_configuration_test.dart sourceBytes=40130 sourceChars=40130 bundleJsonBytes=414502 clearMs=51 readMs=0 bundleMs=36 httpMs=1738 totalMs=1827 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:12 +35: rendering/ overflow_box_fit_test.dart
+[METRIC] script=rendering/overflow_box_fit_test.dart sourceBytes=65681 sourceChars=62837 bundleJsonBytes=718009 clearMs=58 readMs=1 bundleMs=33 httpMs=1448 totalMs=1542 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:14 +36: rendering/ performance_overlay_option_test.dart
+[METRIC] script=rendering/performance_overlay_option_test.dart sourceBytes=57891 sourceChars=57834 bundleJsonBytes=738441 clearMs=68 readMs=1 bundleMs=56 httpMs=5705 totalMs=5831 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+01:20 +37: rendering/ persistent_header_show_on_screen_configuration_test.dart
+[METRIC] script=rendering/persistent_header_show_on_screen_configuration_test.dart sourceBytes=82829 sourceChars=82829 bundleJsonBytes=404668 clearMs=98 readMs=1 bundleMs=19 httpMs=1835 totalMs=1954 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+01:22 +38: rendering/ pipeline_manifold_test.dart
+[METRIC] script=rendering/pipeline_manifold_test.dart sourceBytes=74813 sourceChars=74725 bundleJsonBytes=904360 clearMs=80 readMs=1 bundleMs=79 httpMs=2037 totalMs=2199 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+01:24 +39: rendering/ placeholder_span_index_semantics_tag_test.dart
+[METRIC] script=rendering/placeholder_span_index_semantics_tag_test.dart sourceBytes=71205 sourceChars=71133 bundleJsonBytes=792016 clearMs=82 readMs=1 bundleMs=66 httpMs=4803 totalMs=4953 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+01:29 +40: rendering/ platform_view_hit_test_behavior_test.dart
+[METRIC] script=rendering/platform_view_hit_test_behavior_test.dart sourceBytes=52864 sourceChars=52864 bundleJsonBytes=743915 clearMs=74 readMs=0 bundleMs=42 httpMs=2763 totalMs=2881 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:32 +41: rendering/ platform_view_render_box_test.dart
+[METRIC] script=rendering/platform_view_render_box_test.dart sourceBytes=74117 sourceChars=68619 bundleJsonBytes=741481 clearMs=68 readMs=1 bundleMs=39 httpMs=1775 totalMs=1885 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+01:34 +42: rendering/ render_abstract_viewport_test.dart
+[METRIC] script=rendering/render_abstract_viewport_test.dart sourceBytes=76536 sourceChars=76442 bundleJsonBytes=833213 clearMs=88 readMs=1 bundleMs=73 httpMs=2134 totalMs=2298 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:36 +43: rendering/ render_android_view_test.dart
+[METRIC] script=rendering/render_android_view_test.dart sourceBytes=72674 sourceChars=72573 bundleJsonBytes=784969 clearMs=110 readMs=1 bundleMs=76 httpMs=1621 totalMs=1808 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+01:38 +44: rendering/ render_animated_opacity_mixin_test.dart
+[METRIC] script=rendering/render_animated_opacity_mixin_test.dart sourceBytes=74794 sourceChars=74700 bundleJsonBytes=796739 clearMs=54 readMs=1 bundleMs=52 httpMs=2139 totalMs=2247 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:40 +45: rendering/ render_animated_size_state_test.dart
+[METRIC] script=rendering/render_animated_size_state_test.dart sourceBytes=67740 sourceChars=67596 bundleJsonBytes=792746 clearMs=57 readMs=1 bundleMs=41 httpMs=1636 totalMs=1737 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+01:42 +46: rendering/ render_app_kit_view_test.dart
+[METRIC] script=rendering/render_app_kit_view_test.dart sourceBytes=60805 sourceChars=60805 bundleJsonBytes=850801 clearMs=85 readMs=0 bundleMs=43 httpMs=2578 totalMs=2707 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:44 +47: rendering/ render_clip_r_superellipse_test.dart
+[METRIC] script=rendering/render_clip_r_superellipse_test.dart sourceBytes=65124 sourceChars=64894 bundleJsonBytes=764648 clearMs=86 readMs=1 bundleMs=49 httpMs=2950 totalMs=3087 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:47 +48: rendering/ render_darwin_platform_view_test.dart
+[METRIC] script=rendering/render_darwin_platform_view_test.dart sourceBytes=58055 sourceChars=58055 bundleJsonBytes=868067 clearMs=78 readMs=0 bundleMs=45 httpMs=2220 totalMs=2345 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:50 +49: rendering/ render_decorated_sliver_test.dart
+[METRIC] script=rendering/render_decorated_sliver_test.dart sourceBytes=52898 sourceChars=52896 bundleJsonBytes=786333 clearMs=78 readMs=1 bundleMs=37 httpMs=1867 totalMs=1985 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:52 +50: rendering/ render_editable_painter_test.dart
+[METRIC] script=rendering/render_editable_painter_test.dart sourceBytes=54957 sourceChars=54906 bundleJsonBytes=629158 clearMs=71 readMs=1 bundleMs=46 httpMs=1887 totalMs=2006 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:54 +51: rendering/ render_inline_children_container_defaults_test.dart
+[METRIC] script=rendering/render_inline_children_container_defaults_test.dart sourceBytes=46746 sourceChars=46730 bundleJsonBytes=535607 clearMs=78 readMs=1 bundleMs=24 httpMs=1559 totalMs=1663 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+01:55 +52: rendering/ render_object_with_layout_callback_mixin_test.dart
+[METRIC] script=rendering/render_object_with_layout_callback_mixin_test.dart sourceBytes=37979 sourceChars=37979 bundleJsonBytes=448831 clearMs=69 readMs=0 bundleMs=21 httpMs=1518 totalMs=1611 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+01:57 +53: rendering/ render_performance_overlay_test.dart
+[METRIC] script=rendering/render_performance_overlay_test.dart sourceBytes=32550 sourceChars=32470 bundleJsonBytes=364814 clearMs=80 readMs=1 bundleMs=15 httpMs=1406 totalMs=1504 status=success httpStatus=200 outputLines=38 frameworkErrors=0
+01:59 +54: rendering/ render_proxy_sliver_test.dart
+[METRIC] script=rendering/render_proxy_sliver_test.dart sourceBytes=55211 sourceChars=55211 bundleJsonBytes=765975 clearMs=36 readMs=0 bundleMs=42 httpMs=1618 totalMs=1698 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:00 +55: rendering/ render_sliver_box_child_manager_test.dart
+[METRIC] script=rendering/render_sliver_box_child_manager_test.dart sourceBytes=81920 sourceChars=81839 bundleJsonBytes=814485 clearMs=61 readMs=0 bundleMs=35 httpMs=1854 totalMs=1952 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+02:02 +56: rendering/ render_sliver_constrained_cross_axis_test.dart
+[METRIC] script=rendering/render_sliver_constrained_cross_axis_test.dart sourceBytes=66646 sourceChars=66638 bundleJsonBytes=769095 clearMs=74 readMs=3 bundleMs=34 httpMs=1385 totalMs=1497 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:04 +57: rendering/ render_sliver_cross_axis_group_test.dart
+[METRIC] script=rendering/render_sliver_cross_axis_group_test.dart sourceBytes=65179 sourceChars=65173 bundleJsonBytes=748862 clearMs=93 readMs=11 bundleMs=34 httpMs=1421 totalMs=1559 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:05 +58: rendering/ render_sliver_edge_insets_padding_test.dart
+[METRIC] script=rendering/render_sliver_edge_insets_padding_test.dart sourceBytes=61834 sourceChars=61834 bundleJsonBytes=747275 clearMs=35 readMs=0 bundleMs=39 httpMs=1358 totalMs=1434 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:07 +59: rendering/ render_sliver_fill_remaining_and_overscroll_test.dart
+[METRIC] script=rendering/render_sliver_fill_remaining_and_overscroll_test.dart sourceBytes=56834 sourceChars=56834 bundleJsonBytes=691893 clearMs=60 readMs=0 bundleMs=33 httpMs=1354 totalMs=1449 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:08 +60: rendering/ render_sliver_fill_remaining_with_scrollable_test.dart
+[METRIC] script=rendering/render_sliver_fill_remaining_with_scrollable_test.dart sourceBytes=57121 sourceChars=57121 bundleJsonBytes=702390 clearMs=54 readMs=0 bundleMs=33 httpMs=1345 totalMs=1435 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:10 +61: rendering/ render_sliver_fixed_extent_box_adaptor_test.dart
+[METRIC] script=rendering/render_sliver_fixed_extent_box_adaptor_test.dart sourceBytes=64100 sourceChars=64100 bundleJsonBytes=804907 clearMs=56 readMs=0 bundleMs=38 httpMs=1368 totalMs=1464 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:11 +62: rendering/ render_sliver_floating_pinned_persistent_header_test.dart
+[METRIC] script=rendering/render_sliver_floating_pinned_persistent_header_test.dart sourceBytes=89021 sourceChars=88916 bundleJsonBytes=1043118 clearMs=34 readMs=1 bundleMs=80 httpMs=1826 totalMs=1942 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+02:13 +63: rendering/ render_sliver_main_axis_group_test.dart
+[METRIC] script=rendering/render_sliver_main_axis_group_test.dart sourceBytes=39217 sourceChars=38897 bundleJsonBytes=445076 clearMs=81 readMs=1 bundleMs=20 httpMs=1528 totalMs=1631 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:15 +64: rendering/ render_sliver_semantics_annotations_test.dart
+[METRIC] script=rendering/render_sliver_semantics_annotations_test.dart sourceBytes=38636 sourceChars=38383 bundleJsonBytes=441818 clearMs=69 readMs=1 bundleMs=23 httpMs=1626 totalMs=1720 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:16 +65: rendering/ render_sliver_single_box_adapter_test.dart
+[METRIC] script=rendering/render_sliver_single_box_adapter_test.dart sourceBytes=42677 sourceChars=42412 bundleJsonBytes=481454 clearMs=121 readMs=1 bundleMs=20 httpMs=1465 totalMs=1608 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:18 +66: rendering/ render_ui_kit_view_test.dart
+[METRIC] script=rendering/render_ui_kit_view_test.dart sourceBytes=71118 sourceChars=71026 bundleJsonBytes=757509 clearMs=48 readMs=1 bundleMs=41 httpMs=1674 totalMs=1765 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+02:20 +67: rendering/ rendering_service_extensions_test.dart
+[METRIC] script=rendering/rendering_service_extensions_test.dart sourceBytes=57658 sourceChars=57658 bundleJsonBytes=737165 clearMs=47 readMs=0 bundleMs=41 httpMs=2535 totalMs=2625 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in rendering/rendering_service_extensions_test.dart (1 error(s)):
+       A RenderFlex overflowed by 11 pixels on the bottom.
+02:22 +68: rendering/ revealed_offset_test.dart
+[METRIC] script=rendering/revealed_offset_test.dart sourceBytes=45466 sourceChars=45396 bundleJsonBytes=480685 clearMs=79 readMs=1 bundleMs=21 httpMs=1486 totalMs=1588 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+02:24 +69: rendering/ scroll_direction_test.dart
+[METRIC] script=rendering/scroll_direction_test.dart sourceBytes=49305 sourceChars=49227 bundleJsonBytes=549451 clearMs=114 readMs=1 bundleMs=29 httpMs=1949 totalMs=2094 status=success httpStatus=200 outputLines=29 frameworkErrors=8
+
+  ⚠️  FRAMEWORK ERROR in rendering/scroll_direction_test.dart (8 error(s)):
+       A RenderFlex overflowed by 15 pixels on the right.
+       A RenderFlex overflowed by 15 pixels on the right.
+       A RenderFlex overflowed by 15 pixels on the right.
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+02:26 +70: rendering/ select_all_selection_event_test.dart
+[METRIC] script=rendering/select_all_selection_event_test.dart sourceBytes=43927 sourceChars=43852 bundleJsonBytes=453115 clearMs=187 readMs=1 bundleMs=19 httpMs=1433 totalMs=1641 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+02:28 +71: rendering/ select_paragraph_selection_event_test.dart
+[METRIC] script=rendering/select_paragraph_selection_event_test.dart sourceBytes=77975 sourceChars=77916 bundleJsonBytes=986280 clearMs=71 readMs=1 bundleMs=62 httpMs=2416 totalMs=2552 status=success httpStatus=200 outputLines=17 frameworkErrors=12
+
+  ⚠️  FRAMEWORK ERROR in rendering/select_paragraph_selection_event_test.dart (12 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+02:30 +72: rendering/ select_word_selection_event_test.dart
+[METRIC] script=rendering/select_word_selection_event_test.dart sourceBytes=62501 sourceChars=62501 bundleJsonBytes=700713 clearMs=60 readMs=0 bundleMs=33 httpMs=2073 totalMs=2167 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+02:32 +73: rendering/ selected_content_range_test.dart
+[METRIC] script=rendering/selected_content_range_test.dart sourceBytes=55908 sourceChars=55850 bundleJsonBytes=578543 clearMs=69 readMs=1 bundleMs=25 httpMs=1699 totalMs=1796 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+02:34 +74: rendering/ selection_edge_update_event_test.dart
+[METRIC] script=rendering/selection_edge_update_event_test.dart sourceBytes=52660 sourceChars=52570 bundleJsonBytes=580418 clearMs=90 readMs=1 bundleMs=29 httpMs=1861 totalMs=1982 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+02:36 +75: rendering/ selection_event_test.dart
+[METRIC] script=rendering/selection_event_test.dart sourceBytes=81545 sourceChars=81339 bundleJsonBytes=828104 clearMs=74 readMs=1 bundleMs=40 httpMs=1690 totalMs=1806 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+02:38 +76: rendering/ selection_event_type_test.dart
+[METRIC] script=rendering/selection_event_type_test.dart sourceBytes=58082 sourceChars=58039 bundleJsonBytes=617069 clearMs=62 readMs=0 bundleMs=22 httpMs=2009 totalMs=2095 status=success httpStatus=200 outputLines=32 frameworkErrors=0
+02:40 +77: rendering/ selection_extend_direction_test.dart
+[METRIC] script=rendering/selection_extend_direction_test.dart sourceBytes=55655 sourceChars=55577 bundleJsonBytes=649819 clearMs=108 readMs=1 bundleMs=32 httpMs=2086 totalMs=2229 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:42 +78: rendering/ selection_handler_test.dart
+[METRIC] script=rendering/selection_handler_test.dart sourceBytes=55179 sourceChars=55077 bundleJsonBytes=558065 clearMs=139 readMs=1 bundleMs=23 httpMs=1482 totalMs=1647 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+02:44 +79: rendering/ selection_registrant_test.dart
+[METRIC] script=rendering/selection_registrant_test.dart sourceBytes=56221 sourceChars=56137 bundleJsonBytes=579583 clearMs=115 readMs=1 bundleMs=27 httpMs=1610 totalMs=1753 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+02:46 +80: rendering/ selection_result_test.dart
+[METRIC] script=rendering/selection_result_test.dart sourceBytes=47793 sourceChars=47793 bundleJsonBytes=550401 clearMs=67 readMs=0 bundleMs=12 httpMs=2191 totalMs=2271 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+02:48 +81: rendering/ selection_status_test.dart
+[METRIC] script=rendering/selection_status_test.dart sourceBytes=57572 sourceChars=57572 bundleJsonBytes=600371 clearMs=42 readMs=0 bundleMs=27 httpMs=1924 totalMs=1995 status=success httpStatus=200 outputLines=20 frameworkErrors=5
+
+  ⚠️  FRAMEWORK ERROR in rendering/selection_status_test.dart (5 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+02:50 +82: rendering/ selection_utils_test.dart
+[METRIC] script=rendering/selection_utils_test.dart sourceBytes=78007 sourceChars=77853 bundleJsonBytes=702701 clearMs=41 readMs=1 bundleMs=36 httpMs=1484 totalMs=1563 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+02:52 +83: rendering/ sliver_logical_container_parent_data_test.dart
+[METRIC] script=rendering/sliver_logical_container_parent_data_test.dart sourceBytes=53141 sourceChars=53061 bundleJsonBytes=567893 clearMs=44 readMs=1 bundleMs=25 httpMs=1549 totalMs=1621 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+02:53 +84: rendering/ sliver_paint_order_test.dart
+[METRIC] script=rendering/sliver_paint_order_test.dart sourceBytes=73631 sourceChars=73217 bundleJsonBytes=775156 clearMs=66 readMs=1 bundleMs=39 httpMs=2342 totalMs=2449 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:56 +85: rendering/ sliver_physical_container_parent_data_test.dart
+[METRIC] script=rendering/sliver_physical_container_parent_data_test.dart sourceBytes=40717 sourceChars=39336 bundleJsonBytes=415778 clearMs=88 readMs=1 bundleMs=30 httpMs=1453 totalMs=1573 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:57 +86: rendering/ stack_fit_test.dart
+[METRIC] script=rendering/stack_fit_test.dart sourceBytes=35000 sourceChars=33455 bundleJsonBytes=371245 clearMs=73 readMs=0 bundleMs=17 httpMs=1492 totalMs=1584 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:59 +87: rendering/ table_border_test.dart
+[METRIC] script=rendering/table_border_test.dart sourceBytes=41604 sourceChars=40148 bundleJsonBytes=595433 clearMs=66 readMs=0 bundleMs=13 httpMs=1573 totalMs=1654 status=success httpStatus=200 outputLines=41 frameworkErrors=0
+03:01 +88: rendering/ table_cell_vertical_alignment_test.dart
+[METRIC] script=rendering/table_cell_vertical_alignment_test.dart sourceBytes=34331 sourceChars=32904 bundleJsonBytes=363691 clearMs=63 readMs=0 bundleMs=18 httpMs=1419 totalMs=1502 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:02 +89: rendering/ text_granularity_test.dart
+[METRIC] script=rendering/text_granularity_test.dart sourceBytes=45476 sourceChars=45476 bundleJsonBytes=500154 clearMs=66 readMs=0 bundleMs=20 httpMs=1869 totalMs=1956 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+03:04 +90: rendering/ text_selection_handle_type_test.dart
+[METRIC] script=rendering/text_selection_handle_type_test.dart sourceBytes=36943 sourceChars=35550 bundleJsonBytes=408784 clearMs=47 readMs=0 bundleMs=17 httpMs=1369 totalMs=1435 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:05 +91: rendering/ texture_box_test.dart
+[METRIC] script=rendering/texture_box_test.dart sourceBytes=39684 sourceChars=38107 bundleJsonBytes=447108 clearMs=108 readMs=0 bundleMs=16 httpMs=1419 totalMs=1545 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:07 +92: rendering/ tree_sliver_indentation_type_test.dart
+[METRIC] script=rendering/tree_sliver_indentation_type_test.dart sourceBytes=34976 sourceChars=33561 bundleJsonBytes=423106 clearMs=79 readMs=0 bundleMs=18 httpMs=1565 totalMs=1664 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:09 +93: rendering/ tree_sliver_node_parent_data_test.dart
+[METRIC] script=rendering/tree_sliver_node_parent_data_test.dart sourceBytes=36981 sourceChars=35560 bundleJsonBytes=426382 clearMs=74 readMs=0 bundleMs=21 httpMs=1516 totalMs=1612 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:10 +94: rendering/ vertical_caret_movement_run_test.dart
+[METRIC] script=rendering/vertical_caret_movement_run_test.dart sourceBytes=35965 sourceChars=34506 bundleJsonBytes=389321 clearMs=64 readMs=0 bundleMs=16 httpMs=1437 totalMs=1519 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:12 +95: rendering/ wrap_alignment_test.dart
+[METRIC] script=rendering/wrap_alignment_test.dart sourceBytes=31480 sourceChars=29589 bundleJsonBytes=365486 clearMs=72 readMs=0 bundleMs=22 httpMs=1679 totalMs=1775 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:14 +96: rendering/ wrap_cross_alignment_test.dart
+[METRIC] script=rendering/wrap_cross_alignment_test.dart sourceBytes=37123 sourceChars=35821 bundleJsonBytes=513834 clearMs=67 readMs=0 bundleMs=24 httpMs=1644 totalMs=1736 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+03:15 +97: scheduler/ class_test.dart
+[METRIC] script=scheduler/class_test.dart sourceBytes=40471 sourceChars=39107 bundleJsonBytes=575159 clearMs=65 readMs=1 bundleMs=25 httpMs=1602 totalMs=1694 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+03:17 +98: scheduler/ priority_test.dart
+[METRIC] script=scheduler/priority_test.dart sourceBytes=63195 sourceChars=63195 bundleJsonBytes=443796 clearMs=63 readMs=0 bundleMs=20 httpMs=1686 totalMs=1771 status=success httpStatus=200 outputLines=33 frameworkErrors=0
+03:19 +99: scheduler/ scheduler_phase_test.dart
+[METRIC] script=scheduler/scheduler_phase_test.dart sourceBytes=58456 sourceChars=58452 bundleJsonBytes=663227 clearMs=48 readMs=1 bundleMs=30 httpMs=1743 totalMs=1823 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+03:21 +100: scheduler/ scheduler_service_extensions_test.dart
+[METRIC] script=scheduler/scheduler_service_extensions_test.dart sourceBytes=44485 sourceChars=44465 bundleJsonBytes=512441 clearMs=59 readMs=1 bundleMs=24 httpMs=1469 totalMs=1555 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:22 +101: semantics/ accessibility_focus_block_type_test.dart
+[METRIC] script=semantics/accessibility_focus_block_type_test.dart sourceBytes=59605 sourceChars=59585 bundleJsonBytes=662078 clearMs=44 readMs=1 bundleMs=28 httpMs=1845 totalMs=1919 status=success httpStatus=200 outputLines=0 frameworkErrors=5
+
+  ⚠️  FRAMEWORK ERROR in semantics/accessibility_focus_block_type_test.dart (5 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+03:24 +102: semantics/ announce_semantics_event_test.dart
+[METRIC] script=semantics/announce_semantics_event_test.dart sourceBytes=69380 sourceChars=69305 bundleJsonBytes=688837 clearMs=104 readMs=1 bundleMs=32 httpMs=2144 totalMs=2282 status=success httpStatus=200 outputLines=12 frameworkErrors=6
+
+  ⚠️  FRAMEWORK ERROR in semantics/announce_semantics_event_test.dart (6 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+03:26 +103: semantics/ assertiveness_test.dart
+[METRIC] script=semantics/assertiveness_test.dart sourceBytes=55906 sourceChars=55890 bundleJsonBytes=658673 clearMs=72 readMs=1 bundleMs=35 httpMs=1692 totalMs=1801 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+03:28 +104: semantics/ attributed_string_property_test.dart
+[METRIC] script=semantics/attributed_string_property_test.dart sourceBytes=57794 sourceChars=57794 bundleJsonBytes=534735 clearMs=45 readMs=0 bundleMs=22 httpMs=1955 totalMs=2024 status=success httpStatus=200 outputLines=29 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in semantics/attributed_string_property_test.dart (1 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+03:30 +105: semantics/ class_test.dart
+[METRIC] script=semantics/class_test.dart sourceBytes=71400 sourceChars=68221 bundleJsonBytes=763099 clearMs=105 readMs=1 bundleMs=35 httpMs=1758 totalMs=1900 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+03:32 +106: semantics/ debug_semantics_dump_order_test.dart
+[METRIC] script=semantics/debug_semantics_dump_order_test.dart sourceBytes=53601 sourceChars=53601 bundleJsonBytes=624655 clearMs=75 readMs=0 bundleMs=25 httpMs=1662 totalMs=1764 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:34 +107: semantics/ focus_semantic_event_test.dart
+[METRIC] script=semantics/focus_semantic_event_test.dart sourceBytes=54184 sourceChars=54140 bundleJsonBytes=615036 clearMs=52 readMs=1 bundleMs=27 httpMs=2109 totalMs=2190 status=success httpStatus=200 outputLines=24 frameworkErrors=16
+
+  ⚠️  FRAMEWORK ERROR in semantics/focus_semantic_event_test.dart (16 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+03:36 +108: semantics/ long_press_semantics_event_test.dart
+[METRIC] script=semantics/long_press_semantics_event_test.dart sourceBytes=52951 sourceChars=52839 bundleJsonBytes=543768 clearMs=99 readMs=1 bundleMs=22 httpMs=1589 totalMs=1712 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+03:38 +109: semantics/ tap_semantic_event_test.dart
+[METRIC] script=semantics/tap_semantic_event_test.dart sourceBytes=70168 sourceChars=70048 bundleJsonBytes=937007 clearMs=105 readMs=1 bundleMs=44 httpMs=2121 totalMs=2272 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:40 +110: semantics/ tooltip_semantics_event_test.dart
+[METRIC] script=semantics/tooltip_semantics_event_test.dart sourceBytes=63328 sourceChars=63146 bundleJsonBytes=741278 clearMs=58 readMs=1 bundleMs=35 httpMs=2054 totalMs=2149 status=success httpStatus=200 outputLines=23 frameworkErrors=13
+
+  ⚠️  FRAMEWORK ERROR in semantics/tooltip_semantics_event_test.dart (13 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+03:42 +111: services/ android_motion_event_test.dart
+[METRIC] script=services/android_motion_event_test.dart sourceBytes=61092 sourceChars=61074 bundleJsonBytes=717296 clearMs=36 readMs=1 bundleMs=38 httpMs=2280 totalMs=2357 status=success httpStatus=200 outputLines=42 frameworkErrors=0
+03:45 +112: services/ android_pointer_coords_test.dart
+[METRIC] script=services/android_pointer_coords_test.dart sourceBytes=85437 sourceChars=85334 bundleJsonBytes=1075429 clearMs=82 readMs=1 bundleMs=57 httpMs=2873 totalMs=3015 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:48 +113: services/ android_pointer_properties_test.dart
+[METRIC] script=services/android_pointer_properties_test.dart sourceBytes=64994 sourceChars=64946 bundleJsonBytes=798029 clearMs=79 readMs=1 bundleMs=80 httpMs=2260 totalMs=2421 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+03:50 +114: services/ application_switcher_description_test.dart
+[METRIC] script=services/application_switcher_description_test.dart sourceBytes=85627 sourceChars=85583 bundleJsonBytes=917432 clearMs=111 readMs=1 bundleMs=46 httpMs=2637 totalMs=2797 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:53 +115: services/ autofill_client_test.dart
+[METRIC] script=services/autofill_client_test.dart sourceBytes=46827 sourceChars=46187 bundleJsonBytes=531893 clearMs=115 readMs=1 bundleMs=23 httpMs=1747 totalMs=1888 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+03:55 +116: services/ autofill_hints_test.dart
+[METRIC] script=services/autofill_hints_test.dart sourceBytes=38554 sourceChars=37918 bundleJsonBytes=420475 clearMs=58 readMs=1 bundleMs=24 httpMs=1843 totalMs=1928 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+03:57 +117: services/ autofill_scope_mixin_test.dart
+[METRIC] script=services/autofill_scope_mixin_test.dart sourceBytes=43117 sourceChars=42467 bundleJsonBytes=468520 clearMs=68 readMs=1 bundleMs=20 httpMs=1820 totalMs=1910 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+03:59 +118: services/ background_isolate_binary_messenger_test.dart
+[METRIC] script=services/background_isolate_binary_messenger_test.dart sourceBytes=44909 sourceChars=44217 bundleJsonBytes=505419 clearMs=77 readMs=1 bundleMs=24 httpMs=1764 totalMs=1868 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+04:00 +119: services/ binary_messenger_test.dart
+[METRIC] script=services/binary_messenger_test.dart sourceBytes=57849 sourceChars=57798 bundleJsonBytes=688775 clearMs=79 readMs=1 bundleMs=31 httpMs=1814 totalMs=1927 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:02 +120: services/ class_test.dart
+[METRIC] script=services/class_test.dart sourceBytes=32975 sourceChars=31574 bundleJsonBytes=353472 clearMs=78 readMs=1 bundleMs=17 httpMs=1360 totalMs=1457 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:04 +121: services/ content_sensitivity_test.dart
+[METRIC] script=services/content_sensitivity_test.dart sourceBytes=53972 sourceChars=53908 bundleJsonBytes=629844 clearMs=40 readMs=1 bundleMs=35 httpMs=1865 totalMs=1942 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+04:06 +122: services/ deferred_component_test.dart
+[METRIC] script=services/deferred_component_test.dart sourceBytes=41851 sourceChars=41213 bundleJsonBytes=477849 clearMs=44 readMs=0 bundleMs=28 httpMs=1769 totalMs=1842 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+04:08 +123: services/ delta_text_input_client_test.dart
+[METRIC] script=services/delta_text_input_client_test.dart sourceBytes=52003 sourceChars=51341 bundleJsonBytes=628457 clearMs=56 readMs=1 bundleMs=28 httpMs=1637 totalMs=1723 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+04:09 +124: services/ device_orientation_test.dart
+[METRIC] script=services/device_orientation_test.dart sourceBytes=47269 sourceChars=47269 bundleJsonBytes=580579 clearMs=45 readMs=0 bundleMs=28 httpMs=1884 totalMs=1959 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+04:11 +125: services/ floating_cursor_drag_state_test.dart
+[METRIC] script=services/floating_cursor_drag_state_test.dart sourceBytes=55730 sourceChars=55730 bundleJsonBytes=573815 clearMs=45 readMs=0 bundleMs=27 httpMs=1863 totalMs=1937 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:13 +126: services/ g_l_f_w_key_helper_test.dart
+[METRIC] script=services/g_l_f_w_key_helper_test.dart sourceBytes=36969 sourceChars=36337 bundleJsonBytes=438144 clearMs=52 readMs=1 bundleMs=21 httpMs=1683 totalMs=1758 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+04:15 +127: services/ gtk_key_helper_test.dart
+[METRIC] script=services/gtk_key_helper_test.dart sourceBytes=37876 sourceChars=36503 bundleJsonBytes=449956 clearMs=44 readMs=0 bundleMs=20 httpMs=1486 totalMs=1553 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:17 +128: services/ i_o_s_system_context_menu_item_data_copy_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_copy_test.dart sourceBytes=80395 sourceChars=80395 bundleJsonBytes=760705 clearMs=64 readMs=0 bundleMs=36 httpMs=2073 totalMs=2174 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+04:19 +129: services/ i_o_s_system_context_menu_item_data_custom_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_custom_test.dart sourceBytes=77698 sourceChars=77693 bundleJsonBytes=883140 clearMs=22 readMs=1 bundleMs=43 httpMs=2031 totalMs=2098 status=success httpStatus=200 outputLines=67 frameworkErrors=0
+04:21 +130: services/ i_o_s_system_context_menu_item_data_cut_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_cut_test.dart sourceBytes=62966 sourceChars=62935 bundleJsonBytes=611283 clearMs=48 readMs=1 bundleMs=26 httpMs=1910 totalMs=1985 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+04:23 +131: services/ i_o_s_system_context_menu_item_data_live_text_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_live_text_test.dart sourceBytes=58926 sourceChars=58923 bundleJsonBytes=703051 clearMs=49 readMs=0 bundleMs=34 httpMs=1812 totalMs=1897 status=success httpStatus=200 outputLines=48 frameworkErrors=0
+04:25 +132: services/ i_o_s_system_context_menu_item_data_look_up_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_look_up_test.dart sourceBytes=52595 sourceChars=52574 bundleJsonBytes=601861 clearMs=48 readMs=1 bundleMs=31 httpMs=1850 totalMs=1932 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+04:27 +133: services/ i_o_s_system_context_menu_item_data_paste_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_paste_test.dart sourceBytes=61925 sourceChars=61925 bundleJsonBytes=442661 clearMs=47 readMs=0 bundleMs=20 httpMs=1915 totalMs=1984 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+04:29 +134: services/ i_o_s_system_context_menu_item_data_search_web_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_search_web_test.dart sourceBytes=51336 sourceChars=46890 bundleJsonBytes=530334 clearMs=51 readMs=1 bundleMs=25 httpMs=1597 totalMs=1675 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+04:30 +135: services/ i_o_s_system_context_menu_item_data_select_all_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_select_all_test.dart sourceBytes=79237 sourceChars=79237 bundleJsonBytes=667369 clearMs=55 readMs=0 bundleMs=31 httpMs=2205 totalMs=2293 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+04:33 +136: services/ i_o_s_system_context_menu_item_data_share_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_share_test.dart sourceBytes=43261 sourceChars=43199 bundleJsonBytes=531730 clearMs=121 readMs=1 bundleMs=51 httpMs=1791 totalMs=1965 status=success httpStatus=200 outputLines=18 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in services/i_o_s_system_context_menu_item_data_share_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+04:35 +137: services/ i_o_s_system_context_menu_item_data_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_test.dart sourceBytes=37011 sourceChars=36330 bundleJsonBytes=432719 clearMs=61 readMs=0 bundleMs=19 httpMs=1736 totalMs=1818 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+04:36 +138: services/ key_data_transit_mode_test.dart
+[METRIC] script=services/key_data_transit_mode_test.dart sourceBytes=55280 sourceChars=55122 bundleJsonBytes=637600 clearMs=47 readMs=0 bundleMs=32 httpMs=1885 totalMs=1966 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:38 +139: services/ key_down_event_test.dart
+[METRIC] script=services/key_down_event_test.dart sourceBytes=89391 sourceChars=89270 bundleJsonBytes=889163 clearMs=47 readMs=1 bundleMs=46 httpMs=2554 totalMs=2649 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:41 +140: services/ key_event_manager_test.dart
+[METRIC] script=services/key_event_manager_test.dart sourceBytes=36092 sourceChars=35462 bundleJsonBytes=425106 clearMs=82 readMs=0 bundleMs=18 httpMs=1760 totalMs=1863 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+04:43 +141: services/ key_event_test.dart
+[METRIC] script=services/key_event_test.dart sourceBytes=85860 sourceChars=85838 bundleJsonBytes=993075 clearMs=48 readMs=1 bundleMs=33 httpMs=2406 totalMs=2490 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:45 +142: services/ key_helper_test.dart
+[METRIC] script=services/key_helper_test.dart sourceBytes=70873 sourceChars=70873 bundleJsonBytes=634714 clearMs=71 readMs=0 bundleMs=30 httpMs=2469 totalMs=2572 status=success httpStatus=200 outputLines=33 frameworkErrors=0
+04:48 +143: services/ key_message_test.dart
+[METRIC] script=services/key_message_test.dart sourceBytes=75074 sourceChars=75039 bundleJsonBytes=844405 clearMs=49 readMs=1 bundleMs=37 httpMs=2483 totalMs=2571 status=success httpStatus=200 outputLines=32 frameworkErrors=0
+04:51 +144: services/ key_repeat_event_test.dart
+[METRIC] script=services/key_repeat_event_test.dart sourceBytes=59610 sourceChars=59598 bundleJsonBytes=531358 clearMs=66 readMs=1 bundleMs=24 httpMs=2999 totalMs=3091 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:54 +145: services/ key_up_event_test.dart
+[METRIC] script=services/key_up_event_test.dart sourceBytes=69793 sourceChars=69716 bundleJsonBytes=873009 clearMs=75 readMs=1 bundleMs=46 httpMs=2110 totalMs=2233 status=success httpStatus=200 outputLines=28 frameworkErrors=5
+
+  ⚠️  FRAMEWORK ERROR in services/key_up_event_test.dart (5 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+04:56 +146: services/ keyboard_key_test.dart
+[METRIC] script=services/keyboard_key_test.dart sourceBytes=56812 sourceChars=56723 bundleJsonBytes=706646 clearMs=47 readMs=1 bundleMs=30 httpMs=2203 totalMs=2282 status=success httpStatus=200 outputLines=44 frameworkErrors=0
+04:58 +147: services/ keyboard_lock_mode_test.dart
+[METRIC] script=services/keyboard_lock_mode_test.dart sourceBytes=56695 sourceChars=56623 bundleJsonBytes=649292 clearMs=47 readMs=1 bundleMs=30 httpMs=1936 totalMs=2016 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+05:00 +148: services/ keyboard_side_test.dart
+[METRIC] script=services/keyboard_side_test.dart sourceBytes=63586 sourceChars=63503 bundleJsonBytes=685471 clearMs=49 readMs=1 bundleMs=60 httpMs=2951 totalMs=3063 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+05:03 +149: services/ max_length_enforcement_test.dart
+[METRIC] script=services/max_length_enforcement_test.dart sourceBytes=54112 sourceChars=54074 bundleJsonBytes=580616 clearMs=50 readMs=1 bundleMs=27 httpMs=2106 totalMs=2184 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+05:05 +150: services/ message_codec_test.dart
+[METRIC] script=services/message_codec_test.dart sourceBytes=57731 sourceChars=57666 bundleJsonBytes=598410 clearMs=49 readMs=1 bundleMs=36 httpMs=2976 totalMs=3064 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+05:09 +151: services/ method_codec_test.dart
+[METRIC] script=services/method_codec_test.dart sourceBytes=62821 sourceChars=62813 bundleJsonBytes=764899 clearMs=70 readMs=1 bundleMs=44 httpMs=3725 totalMs=3841 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+05:12 +152: services/ missing_plugin_exception_test.dart
+[METRIC] script=services/missing_plugin_exception_test.dart sourceBytes=40127 sourceChars=40127 bundleJsonBytes=478858 clearMs=79 readMs=1 bundleMs=27 httpMs=1896 totalMs=2004 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+05:14 +153: services/ modifier_key_test.dart
+[METRIC] script=services/modifier_key_test.dart sourceBytes=82292 sourceChars=81369 bundleJsonBytes=877938 clearMs=89 readMs=0 bundleMs=24 httpMs=7500 totalMs=7614 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+05:22 +154: services/ mouse_cursor_manager_test.dart
+[METRIC] script=services/mouse_cursor_manager_test.dart sourceBytes=36696 sourceChars=36060 bundleJsonBytes=446255 clearMs=89 readMs=0 bundleMs=11 httpMs=1838 totalMs=1940 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+05:24 +155: services/ mouse_cursor_session_test.dart
+[METRIC] script=services/mouse_cursor_session_test.dart sourceBytes=53706 sourceChars=49336 bundleJsonBytes=571364 clearMs=72 readMs=1 bundleMs=35 httpMs=1750 totalMs=1859 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+05:26 +156: services/ mouse_tracker_annotation_test.dart
+[METRIC] script=services/mouse_tracker_annotation_test.dart sourceBytes=50107 sourceChars=50055 bundleJsonBytes=613585 clearMs=53 readMs=1 bundleMs=33 httpMs=2004 totalMs=2093 status=success httpStatus=200 outputLines=53 frameworkErrors=0
+05:28 +157: services/ platform_exception_test.dart
+[METRIC] script=services/platform_exception_test.dart sourceBytes=55101 sourceChars=55093 bundleJsonBytes=584777 clearMs=52 readMs=1 bundleMs=26 httpMs=2070 totalMs=2150 status=success httpStatus=200 outputLines=29 frameworkErrors=5
+
+  ⚠️  FRAMEWORK ERROR in services/platform_exception_test.dart (5 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+05:30 +158: services/ raw_floating_cursor_point_test.dart
+[METRIC] script=services/raw_floating_cursor_point_test.dart sourceBytes=92103 sourceChars=92103 bundleJsonBytes=925371 clearMs=46 readMs=0 bundleMs=46 httpMs=4015 totalMs=4109 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+05:34 +159: services/ raw_key_down_event_test.dart
+[METRIC] script=services/raw_key_down_event_test.dart sourceBytes=32729 sourceChars=32066 bundleJsonBytes=378219 clearMs=76 readMs=0 bundleMs=17 httpMs=1773 totalMs=1867 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+05:36 +160: services/ raw_key_event_data_android_test.dart
+[METRIC] script=services/raw_key_event_data_android_test.dart sourceBytes=84114 sourceChars=83986 bundleJsonBytes=914158 clearMs=71 readMs=1 bundleMs=44 httpMs=3134 totalMs=3252 status=success httpStatus=200 outputLines=0 frameworkErrors=40
+
+  ⚠️  FRAMEWORK ERROR in services/raw_key_event_data_android_test.dart (40 error(s)):
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+05:39 +161: services/ raw_key_event_data_fuchsia_test.dart
+[METRIC] script=services/raw_key_event_data_fuchsia_test.dart sourceBytes=65886 sourceChars=65802 bundleJsonBytes=818185 clearMs=105 readMs=0 bundleMs=27 httpMs=2529 totalMs=2662 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:42 +162: services/ raw_key_event_data_ios_test.dart
+[METRIC] script=services/raw_key_event_data_ios_test.dart sourceBytes=64784 sourceChars=64723 bundleJsonBytes=759001 clearMs=37 readMs=1 bundleMs=41 httpMs=2291 totalMs=2372 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:44 +163: services/ raw_key_event_data_linux_test.dart
+[METRIC] script=services/raw_key_event_data_linux_test.dart sourceBytes=114850 sourceChars=114704 bundleJsonBytes=1351357 clearMs=44 readMs=1 bundleMs=58 httpMs=3844 totalMs=3948 status=success httpStatus=200 outputLines=0 frameworkErrors=5
+
+  ⚠️  FRAMEWORK ERROR in services/raw_key_event_data_linux_test.dart (5 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+05:48 +164: services/ raw_key_event_data_mac_os_test.dart
+[METRIC] script=services/raw_key_event_data_mac_os_test.dart sourceBytes=50929 sourceChars=46772 bundleJsonBytes=572803 clearMs=62 readMs=1 bundleMs=26 httpMs=1739 totalMs=1829 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+05:50 +165: services/ raw_key_event_data_test.dart
+[METRIC] script=services/raw_key_event_data_test.dart sourceBytes=30143 sourceChars=29507 bundleJsonBytes=340139 clearMs=87 readMs=0 bundleMs=15 httpMs=1817 totalMs=1920 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+05:52 +166: services/ raw_key_event_data_web_test.dart
+[METRIC] script=services/raw_key_event_data_web_test.dart sourceBytes=75390 sourceChars=69237 bundleJsonBytes=784499 clearMs=47 readMs=1 bundleMs=39 httpMs=2433 totalMs=2521 status=success httpStatus=200 outputLines=75 frameworkErrors=0
+05:55 +167: services/ raw_key_event_data_windows_test.dart
+[METRIC] script=services/raw_key_event_data_windows_test.dart sourceBytes=72232 sourceChars=72139 bundleJsonBytes=894882 clearMs=77 readMs=0 bundleMs=31 httpMs=2361 totalMs=2471 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in services/raw_key_event_data_windows_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+05:57 +168: services/ raw_key_event_test.dart
+[METRIC] script=services/raw_key_event_test.dart sourceBytes=60188 sourceChars=60023 bundleJsonBytes=554676 clearMs=45 readMs=0 bundleMs=13 httpMs=2010 totalMs=2070 status=success httpStatus=200 outputLines=108 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in services/raw_key_event_test.dart (1 error(s)):
+       A RenderFlex overflowed by 2378 pixels on the bottom.
+05:59 +169: services/ raw_key_up_event_test.dart
+[METRIC] script=services/raw_key_up_event_test.dart sourceBytes=72612 sourceChars=67192 bundleJsonBytes=721991 clearMs=48 readMs=1 bundleMs=37 httpMs=2189 totalMs=2276 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+06:01 +170: services/ raw_keyboard_test.dart
+[METRIC] script=services/raw_keyboard_test.dart sourceBytes=86486 sourceChars=86348 bundleJsonBytes=1077440 clearMs=86 readMs=0 bundleMs=41 httpMs=2723 totalMs=2852 status=success httpStatus=200 outputLines=0 frameworkErrors=10
+
+  ⚠️  FRAMEWORK ERROR in services/raw_keyboard_test.dart (10 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+06:04 +171: services/ restoration_bucket_test.dart
+[METRIC] script=services/restoration_bucket_test.dart sourceBytes=34417 sourceChars=33745 bundleJsonBytes=394175 clearMs=70 readMs=0 bundleMs=9 httpMs=1773 totalMs=1854 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+06:06 +172: services/ scribble_client_test.dart
+[METRIC] script=services/scribble_client_test.dart sourceBytes=31872 sourceChars=31226 bundleJsonBytes=361569 clearMs=43 readMs=0 bundleMs=8 httpMs=1772 totalMs=1825 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+06:08 +173: services/ selection_changed_cause_test.dart
+[METRIC] script=services/selection_changed_cause_test.dart sourceBytes=61313 sourceChars=61275 bundleJsonBytes=700807 clearMs=62 readMs=1 bundleMs=36 httpMs=2302 totalMs=2402 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+06:10 +174: services/ selection_rect_test.dart
+[METRIC] script=services/selection_rect_test.dart sourceBytes=62071 sourceChars=62009 bundleJsonBytes=698475 clearMs=130 readMs=1 bundleMs=35 httpMs=2103 totalMs=2270 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+06:13 +175: services/ sensitive_content_service_test.dart
+[METRIC] script=services/sensitive_content_service_test.dart sourceBytes=32253 sourceChars=31623 bundleJsonBytes=370720 clearMs=52 readMs=0 bundleMs=16 httpMs=1782 totalMs=1852 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+06:14 +176: services/ services_service_extensions_test.dart
+[METRIC] script=services/services_service_extensions_test.dart sourceBytes=67013 sourceChars=67013 bundleJsonBytes=747349 clearMs=48 readMs=0 bundleMs=32 httpMs=2084 totalMs=2167 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:17 +177: services/ smart_dashes_type_test.dart
+[METRIC] script=services/smart_dashes_type_test.dart sourceBytes=32369 sourceChars=31675 bundleJsonBytes=370704 clearMs=40 readMs=0 bundleMs=17 httpMs=1809 totalMs=1868 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+06:19 +178: services/ smart_quotes_type_test.dart
+[METRIC] script=services/smart_quotes_type_test.dart sourceBytes=69642 sourceChars=69574 bundleJsonBytes=736982 clearMs=75 readMs=1 bundleMs=43 httpMs=3951 totalMs=4071 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:23 +179: services/ swipe_edge_test.dart
+[METRIC] script=services/swipe_edge_test.dart sourceBytes=57562 sourceChars=57526 bundleJsonBytes=658493 clearMs=115 readMs=1 bundleMs=29 httpMs=1846 totalMs=1992 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+06:25 +180: services/ system_context_menu_client_test.dart
+[METRIC] script=services/system_context_menu_client_test.dart sourceBytes=34776 sourceChars=34542 bundleJsonBytes=366159 clearMs=50 readMs=0 bundleMs=16 httpMs=2533 totalMs=2600 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+06:27 +181: services/ system_context_menu_controller_test.dart
+[METRIC] script=services/system_context_menu_controller_test.dart sourceBytes=34357 sourceChars=34123 bundleJsonBytes=354898 clearMs=70 readMs=1 bundleMs=15 httpMs=2462 totalMs=2549 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+06:30 +182: services/ system_sound_type_test.dart
+[METRIC] script=services/system_sound_type_test.dart sourceBytes=64417 sourceChars=64343 bundleJsonBytes=746864 clearMs=74 readMs=1 bundleMs=58 httpMs=5465 totalMs=5600 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+06:35 +183: services/ system_ui_mode_test.dart
+[METRIC] script=services/system_ui_mode_test.dart sourceBytes=53935 sourceChars=53929 bundleJsonBytes=601426 clearMs=91 readMs=1 bundleMs=27 httpMs=2217 totalMs=2337 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+06:38 +184: services/ system_ui_overlay_test.dart
+[METRIC] script=services/system_ui_overlay_test.dart sourceBytes=53484 sourceChars=53441 bundleJsonBytes=568446 clearMs=57 readMs=0 bundleMs=24 httpMs=2044 totalMs=2126 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+06:40 +185: services/ text_capitalization_test.dart
+[METRIC] script=services/text_capitalization_test.dart sourceBytes=57079 sourceChars=57051 bundleJsonBytes=691288 clearMs=45 readMs=1 bundleMs=34 httpMs=2544 totalMs=2625 status=success httpStatus=200 outputLines=32 frameworkErrors=0
+06:42 +186: services/ text_editing_delta_deletion_test.dart
+[METRIC] script=services/text_editing_delta_deletion_test.dart sourceBytes=49040 sourceChars=48937 bundleJsonBytes=532372 clearMs=82 readMs=1 bundleMs=23 httpMs=3002 totalMs=3109 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:46 +187: services/ text_editing_delta_insertion_test.dart
+[METRIC] script=services/text_editing_delta_insertion_test.dart sourceBytes=55908 sourceChars=55846 bundleJsonBytes=664008 clearMs=85 readMs=1 bundleMs=32 httpMs=2286 totalMs=2406 status=success httpStatus=200 outputLines=51 frameworkErrors=0
+06:48 +188: services/ text_editing_delta_non_text_update_test.dart
+[METRIC] script=services/text_editing_delta_non_text_update_test.dart sourceBytes=47112 sourceChars=47046 bundleJsonBytes=576817 clearMs=23 readMs=1 bundleMs=25 httpMs=3291 totalMs=3341 status=success httpStatus=200 outputLines=38 frameworkErrors=4
+
+  ⚠️  FRAMEWORK ERROR in services/text_editing_delta_non_text_update_test.dart (4 error(s)):
+       Rect argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 26 pos 10: '<optimized out>'
+       Rect argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 26 pos 10: '<optimized out>'
+       Rect argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 26 pos 10: '<optimized out>'
+       Rect argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 26 pos 10: '<optimized out>'
+06:51 +189: services/ text_editing_delta_replacement_test.dart
+[METRIC] script=services/text_editing_delta_replacement_test.dart sourceBytes=69770 sourceChars=69684 bundleJsonBytes=774031 clearMs=59 readMs=2 bundleMs=35 httpMs=2585 totalMs=2683 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:54 +190: services/ text_editing_value_test.dart
+[METRIC] script=services/text_editing_value_test.dart sourceBytes=75276 sourceChars=75067 bundleJsonBytes=814056 clearMs=67 readMs=1 bundleMs=40 httpMs=3489 totalMs=3598 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+06:58 +191: services/ text_input_action_test.dart
+[METRIC] script=services/text_input_action_test.dart sourceBytes=48395 sourceChars=48373 bundleJsonBytes=541446 clearMs=45 readMs=0 bundleMs=23 httpMs=3513 totalMs=3584 status=success httpStatus=200 outputLines=41 frameworkErrors=0
+07:01 +192: services/ text_input_client_test.dart
+[METRIC] script=services/text_input_client_test.dart sourceBytes=34599 sourceChars=34357 bundleJsonBytes=360741 clearMs=90 readMs=0 bundleMs=18 httpMs=2587 totalMs=2697 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+07:04 +193: services/ text_input_configuration_test.dart
+[METRIC] script=services/text_input_configuration_test.dart sourceBytes=77168 sourceChars=77064 bundleJsonBytes=929817 clearMs=76 readMs=1 bundleMs=42 httpMs=3698 totalMs=3818 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:08 +194: services/ text_input_connection_test.dart
+[METRIC] script=services/text_input_connection_test.dart sourceBytes=37040 sourceChars=36792 bundleJsonBytes=389746 clearMs=78 readMs=2 bundleMs=17 httpMs=2645 totalMs=2742 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+07:10 +195: services/ text_input_control_test.dart
+[METRIC] script=services/text_input_control_test.dart sourceBytes=39557 sourceChars=39319 bundleJsonBytes=398713 clearMs=82 readMs=1 bundleMs=18 httpMs=2476 totalMs=2578 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+07:13 +196: services/ text_input_test.dart
+[METRIC] script=services/text_input_test.dart sourceBytes=36461 sourceChars=36215 bundleJsonBytes=370252 clearMs=71 readMs=0 bundleMs=16 httpMs=2428 totalMs=2517 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+07:16 +197: services/ text_input_type_test.dart
+[METRIC] script=services/text_input_type_test.dart sourceBytes=73988 sourceChars=73783 bundleJsonBytes=783044 clearMs=66 readMs=1 bundleMs=34 httpMs=2900 totalMs=3002 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:19 +198: services/ text_selection_delegate_test.dart
+[METRIC] script=services/text_selection_delegate_test.dart sourceBytes=39778 sourceChars=39560 bundleJsonBytes=424870 clearMs=54 readMs=0 bundleMs=22 httpMs=2626 totalMs=2704 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+07:21 +199: services/ text_selection_test.dart
+[METRIC] script=services/text_selection_test.dart sourceBytes=50355 sourceChars=50290 bundleJsonBytes=560297 clearMs=45 readMs=1 bundleMs=24 httpMs=2324 totalMs=2395 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in services/text_selection_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+07:24 +200: services/ undo_direction_test.dart
+[METRIC] script=services/undo_direction_test.dart sourceBytes=58577 sourceChars=58478 bundleJsonBytes=687649 clearMs=56 readMs=1 bundleMs=32 httpMs=2212 totalMs=2303 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+07:26 +201: (tearDownAll)
+07:27 +201: All tests passed!

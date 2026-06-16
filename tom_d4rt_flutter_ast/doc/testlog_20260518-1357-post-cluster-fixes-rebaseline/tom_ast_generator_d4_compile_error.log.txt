@@ -1,0 +1,16 @@
+D4 COMPILATION FAILED:
+
+lib/src/d4rt_bridges/test_callback_types.b.dart:175:158: Error: The argument type 'FutureOr<Object?> Function(dynamic)' can't be assigned to the parameter type 'FutureOr<Object> Function(dynamic)'.
+ - 'Object' is from 'dart:core'.
+        return t.withConnection(((dynamic p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as FutureOr<Object?> Function(dynamic));
+                                                                                                                                                             ^
+Error: AOT compilation failed
+Bad state: Generating AOT kernel dill failed!
+D4 COMPILATION FAILED:
+
+lib/src/d4rt_bridges/test_callback_types.b.dart:175:158: Error: The argument type 'FutureOr<Object?> Function(dynamic)' can't be assigned to the parameter type 'FutureOr<Object> Function(dynamic)'.
+ - 'Object' is from 'dart:core'.
+        return t.withConnection(((dynamic p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as FutureOr<Object?> Function(dynamic));
+                                                                                                                                                             ^
+Error: AOT compilation failed
+Bad state: Generating AOT kernel dill failed!

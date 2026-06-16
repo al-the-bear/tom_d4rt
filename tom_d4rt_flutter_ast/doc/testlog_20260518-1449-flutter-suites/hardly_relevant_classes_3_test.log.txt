@@ -1,0 +1,1226 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 91.0.0 (100.0.0 available)
+  analyzer 8.4.1 (13.0.0 available)
+  async 2.13.0 (2.13.1 available)
+  build 4.0.4 (4.0.6 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.2 (4.1.4 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.17.0 (1.18.2 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.10 (0.7.12 available)
+! tom_analyzer_shared 0.1.0 from path ../../basics/tom_analyzer_shared (overridden in ./pubspec_overrides.yaml)
+  tom_build_base 2.6.11 (2.6.21 available)
+  tom_d4rt 1.8.10 (1.8.19 available)
+  vector_math 2.2.0 (2.3.0 available)
+  vm_service 15.0.2 (15.2.0 available)
+  win32 5.15.0 (6.2.0 available)
+Got dependencies!
+18 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/hardly_relevant_classes_3_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: Test App Health app is running
+00:11 +1: rendering/ alignment_geometry_tween_test.dart
+[METRIC] script=rendering/alignment_geometry_tween_test.dart sourceBytes=33015 sourceChars=30587 bundleJsonBytes=427837 clearMs=72 readMs=11 bundleMs=262 httpMs=2092 totalMs=2439 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+00:14 +2: rendering/ alignment_tween_test.dart
+[METRIC] script=rendering/alignment_tween_test.dart sourceBytes=41615 sourceChars=40175 bundleJsonBytes=475078 clearMs=61 readMs=6 bundleMs=87 httpMs=2076 totalMs=2231 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:16 +3: rendering/ annotated_region_layer_test.dart
+[METRIC] script=rendering/annotated_region_layer_test.dart sourceBytes=40639 sourceChars=38195 bundleJsonBytes=516128 clearMs=51 readMs=4 bundleMs=57 httpMs=2400 totalMs=2513 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+00:19 +4: rendering/ annotation_entry_test.dart
+[METRIC] script=rendering/annotation_entry_test.dart sourceBytes=47093 sourceChars=44567 bundleJsonBytes=535455 clearMs=33 readMs=8 bundleMs=45 httpMs=2244 totalMs=2332 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+00:21 +5: rendering/ annotation_result_test.dart
+[METRIC] script=rendering/annotation_result_test.dart sourceBytes=49556 sourceChars=47618 bundleJsonBytes=549004 clearMs=41 readMs=1 bundleMs=59 httpMs=2043 totalMs=2146 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+00:23 +6: rendering/ backdrop_key_test.dart
+[METRIC] script=rendering/backdrop_key_test.dart sourceBytes=44493 sourceChars=44493 bundleJsonBytes=408099 clearMs=57 readMs=0 bundleMs=31 httpMs=1946 totalMs=2036 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:25 +7: rendering/ cache_extent_style_test.dart
+[METRIC] script=rendering/cache_extent_style_test.dart sourceBytes=41491 sourceChars=39862 bundleJsonBytes=462793 clearMs=75 readMs=1 bundleMs=37 httpMs=2127 totalMs=2242 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+00:27 +8: rendering/ child_layout_helper_test.dart
+[METRIC] script=rendering/child_layout_helper_test.dart sourceBytes=50330 sourceChars=47792 bundleJsonBytes=589885 clearMs=75 readMs=1 bundleMs=61 httpMs=1740 totalMs=1878 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+00:29 +9: rendering/ class_test.dart
+[METRIC] script=rendering/class_test.dart sourceBytes=50057 sourceChars=48533 bundleJsonBytes=695280 clearMs=72 readMs=1 bundleMs=46 httpMs=1848 totalMs=1969 status=success httpStatus=200 outputLines=84 frameworkErrors=0
+00:31 +10: rendering/ clear_selection_event_test.dart
+[METRIC] script=rendering/clear_selection_event_test.dart sourceBytes=73892 sourceChars=73724 bundleJsonBytes=974945 clearMs=65 readMs=0 bundleMs=128 httpMs=3161 totalMs=3356 status=success httpStatus=200 outputLines=0 frameworkErrors=58
+
+  ⚠️  FRAMEWORK ERROR in rendering/clear_selection_event_test.dart (58 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       Offset argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 41 pos 10: '<optimized out>'
+       A RenderFlex overflowed by Infinity pixels on the bottom.
+00:35 +11: rendering/ const_test.dart
+[METRIC] script=rendering/const_test.dart sourceBytes=44946 sourceChars=44684 bundleJsonBytes=518411 clearMs=85 readMs=1 bundleMs=29 httpMs=1655 totalMs=1772 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:36 +12: rendering/ container_parent_data_mixin_test.dart
+[METRIC] script=rendering/container_parent_data_mixin_test.dart sourceBytes=42965 sourceChars=42179 bundleJsonBytes=332376 clearMs=64 readMs=1 bundleMs=19 httpMs=1736 totalMs=1821 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+00:38 +13: rendering/ cross_axis_alignment_test.dart
+[METRIC] script=rendering/cross_axis_alignment_test.dart sourceBytes=41128 sourceChars=39822 bundleJsonBytes=436536 clearMs=38 readMs=1 bundleMs=26 httpMs=1610 totalMs=1676 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+00:40 +14: rendering/ decoration_position_test.dart
+[METRIC] script=rendering/decoration_position_test.dart sourceBytes=36514 sourceChars=35082 bundleJsonBytes=397488 clearMs=56 readMs=1 bundleMs=25 httpMs=1564 totalMs=1646 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+00:42 +15: rendering/ diagnostics_debug_creator_test.dart
+[METRIC] script=rendering/diagnostics_debug_creator_test.dart sourceBytes=86099 sourceChars=81583 bundleJsonBytes=849724 clearMs=80 readMs=2 bundleMs=77 httpMs=1637 totalMs=1796 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:43 +16: rendering/ directionally_extend_selection_event_test.dart
+[METRIC] script=rendering/directionally_extend_selection_event_test.dart sourceBytes=45709 sourceChars=42549 bundleJsonBytes=443104 clearMs=56 readMs=1 bundleMs=25 httpMs=1858 totalMs=1942 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:45 +17: rendering/ flex_fit_test.dart
+[METRIC] script=rendering/flex_fit_test.dart sourceBytes=34474 sourceChars=33046 bundleJsonBytes=394433 clearMs=83 readMs=1 bundleMs=28 httpMs=1681 totalMs=1795 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:47 +18: rendering/ floating_header_snap_configuration_test.dart
+[METRIC] script=rendering/floating_header_snap_configuration_test.dart sourceBytes=43964 sourceChars=43940 bundleJsonBytes=313014 clearMs=105 readMs=1 bundleMs=18 httpMs=1979 totalMs=2104 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+00:49 +19: rendering/ flow_painting_context_test.dart
+[METRIC] script=rendering/flow_painting_context_test.dart sourceBytes=43924 sourceChars=41080 bundleJsonBytes=508993 clearMs=89 readMs=1 bundleMs=53 httpMs=1607 totalMs=1751 status=success httpStatus=200 outputLines=50 frameworkErrors=0
+00:51 +20: rendering/ flow_parent_data_test.dart
+[METRIC] script=rendering/flow_parent_data_test.dart sourceBytes=51222 sourceChars=51208 bundleJsonBytes=676714 clearMs=63 readMs=1 bundleMs=52 httpMs=2417 totalMs=2534 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:53 +21: rendering/ fraction_column_width_test.dart
+[METRIC] script=rendering/fraction_column_width_test.dart sourceBytes=42787 sourceChars=42739 bundleJsonBytes=458010 clearMs=110 readMs=1 bundleMs=24 httpMs=1691 totalMs=1827 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+00:55 +22: rendering/ fractional_offset_tween_test.dart
+[METRIC] script=rendering/fractional_offset_tween_test.dart sourceBytes=54554 sourceChars=52088 bundleJsonBytes=589473 clearMs=39 readMs=1 bundleMs=50 httpMs=1759 totalMs=1850 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+00:57 +23: rendering/ granularly_extend_selection_event_test.dart
+[METRIC] script=rendering/granularly_extend_selection_event_test.dart sourceBytes=58110 sourceChars=55324 bundleJsonBytes=540935 clearMs=106 readMs=1 bundleMs=34 httpMs=2465 totalMs=2607 status=success httpStatus=200 outputLines=64 frameworkErrors=0
+01:00 +24: rendering/ growth_direction_test.dart
+[METRIC] script=rendering/growth_direction_test.dart sourceBytes=43385 sourceChars=41659 bundleJsonBytes=425608 clearMs=62 readMs=1 bundleMs=24 httpMs=2166 totalMs=2253 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+01:02 +25: rendering/ hit_test_behavior_test.dart
+[METRIC] script=rendering/hit_test_behavior_test.dart sourceBytes=107858 sourceChars=107858 bundleJsonBytes=791097 clearMs=72 readMs=0 bundleMs=32 httpMs=1839 totalMs=1944 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:04 +26: rendering/ image_filter_config_test.dart
+[METRIC] script=rendering/image_filter_config_test.dart sourceBytes=24230 sourceChars=22641 bundleJsonBytes=233893 clearMs=74 readMs=1 bundleMs=12 httpMs=1575 totalMs=1663 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:06 +27: rendering/ image_filter_context_test.dart
+[METRIC] script=rendering/image_filter_context_test.dart sourceBytes=22862 sourceChars=21272 bundleJsonBytes=214111 clearMs=103 readMs=1 bundleMs=13 httpMs=1526 totalMs=1644 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+01:07 +28: rendering/ list_wheel_child_manager_test.dart
+[METRIC] script=rendering/list_wheel_child_manager_test.dart sourceBytes=34967 sourceChars=34927 bundleJsonBytes=318363 clearMs=51 readMs=1 bundleMs=17 httpMs=1618 totalMs=1689 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+01:09 +29: rendering/ main_axis_alignment_test.dart
+[METRIC] script=rendering/main_axis_alignment_test.dart sourceBytes=41464 sourceChars=41427 bundleJsonBytes=376139 clearMs=76 readMs=1 bundleMs=25 httpMs=1627 totalMs=1730 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+01:11 +30: rendering/ main_axis_size_test.dart
+[METRIC] script=rendering/main_axis_size_test.dart sourceBytes=30323 sourceChars=29723 bundleJsonBytes=317491 clearMs=71 readMs=1 bundleMs=22 httpMs=1605 totalMs=1701 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:12 +31: rendering/ max_column_width_test.dart
+[METRIC] script=rendering/max_column_width_test.dart sourceBytes=30245 sourceChars=29719 bundleJsonBytes=291698 clearMs=54 readMs=1 bundleMs=13 httpMs=1701 totalMs=1770 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+01:14 +32: rendering/ min_column_width_test.dart
+[METRIC] script=rendering/min_column_width_test.dart sourceBytes=33362 sourceChars=32800 bundleJsonBytes=323370 clearMs=44 readMs=1 bundleMs=15 httpMs=1614 totalMs=1675 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:16 +33: rendering/ multi_child_layout_parent_data_test.dart
+[METRIC] script=rendering/multi_child_layout_parent_data_test.dart sourceBytes=42202 sourceChars=38770 bundleJsonBytes=333607 clearMs=72 readMs=1 bundleMs=15 httpMs=1565 totalMs=1655 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+01:18 +34: rendering/ over_scroll_header_stretch_configuration_test.dart
+[METRIC] script=rendering/over_scroll_header_stretch_configuration_test.dart sourceBytes=40130 sourceChars=40130 bundleJsonBytes=414502 clearMs=118 readMs=1 bundleMs=33 httpMs=1864 totalMs=2016 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:20 +35: rendering/ overflow_box_fit_test.dart
+[METRIC] script=rendering/overflow_box_fit_test.dart sourceBytes=65681 sourceChars=62837 bundleJsonBytes=718009 clearMs=75 readMs=1 bundleMs=32 httpMs=1663 totalMs=1773 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:21 +36: rendering/ performance_overlay_option_test.dart
+[METRIC] script=rendering/performance_overlay_option_test.dart sourceBytes=57891 sourceChars=57834 bundleJsonBytes=738441 clearMs=42 readMs=1 bundleMs=46 httpMs=5928 totalMs=6018 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+01:27 +37: rendering/ persistent_header_show_on_screen_configuration_test.dart
+[METRIC] script=rendering/persistent_header_show_on_screen_configuration_test.dart sourceBytes=82829 sourceChars=82829 bundleJsonBytes=404668 clearMs=56 readMs=1 bundleMs=19 httpMs=2068 totalMs=2145 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+01:29 +38: rendering/ pipeline_manifold_test.dart
+[METRIC] script=rendering/pipeline_manifold_test.dart sourceBytes=74813 sourceChars=74725 bundleJsonBytes=904360 clearMs=120 readMs=1 bundleMs=72 httpMs=2195 totalMs=2390 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+01:32 +39: rendering/ placeholder_span_index_semantics_tag_test.dart
+[METRIC] script=rendering/placeholder_span_index_semantics_tag_test.dart sourceBytes=71205 sourceChars=71133 bundleJsonBytes=792016 clearMs=78 readMs=1 bundleMs=70 httpMs=5065 totalMs=5215 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+01:37 +40: rendering/ platform_view_hit_test_behavior_test.dart
+[METRIC] script=rendering/platform_view_hit_test_behavior_test.dart sourceBytes=52864 sourceChars=52864 bundleJsonBytes=743915 clearMs=106 readMs=1 bundleMs=37 httpMs=3042 totalMs=3187 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:40 +41: rendering/ platform_view_render_box_test.dart
+[METRIC] script=rendering/platform_view_render_box_test.dart sourceBytes=74117 sourceChars=68619 bundleJsonBytes=741481 clearMs=66 readMs=1 bundleMs=40 httpMs=2070 totalMs=2178 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+01:42 +42: rendering/ render_abstract_viewport_test.dart
+[METRIC] script=rendering/render_abstract_viewport_test.dart sourceBytes=76536 sourceChars=76442 bundleJsonBytes=833213 clearMs=55 readMs=1 bundleMs=85 httpMs=2272 totalMs=2414 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:45 +43: rendering/ render_android_view_test.dart
+[METRIC] script=rendering/render_android_view_test.dart sourceBytes=72674 sourceChars=72573 bundleJsonBytes=784969 clearMs=93 readMs=1 bundleMs=74 httpMs=1769 totalMs=1938 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+01:47 +44: rendering/ render_animated_opacity_mixin_test.dart
+[METRIC] script=rendering/render_animated_opacity_mixin_test.dart sourceBytes=74794 sourceChars=74700 bundleJsonBytes=796739 clearMs=77 readMs=1 bundleMs=54 httpMs=2317 totalMs=2450 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:49 +45: rendering/ render_animated_size_state_test.dart
+[METRIC] script=rendering/render_animated_size_state_test.dart sourceBytes=67740 sourceChars=67596 bundleJsonBytes=792746 clearMs=76 readMs=1 bundleMs=45 httpMs=1949 totalMs=2072 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+01:51 +46: rendering/ render_app_kit_view_test.dart
+[METRIC] script=rendering/render_app_kit_view_test.dart sourceBytes=60805 sourceChars=60805 bundleJsonBytes=850801 clearMs=73 readMs=0 bundleMs=45 httpMs=2966 totalMs=3086 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:54 +47: rendering/ render_clip_r_superellipse_test.dart
+[METRIC] script=rendering/render_clip_r_superellipse_test.dart sourceBytes=65124 sourceChars=64894 bundleJsonBytes=764648 clearMs=80 readMs=1 bundleMs=53 httpMs=2920 totalMs=3055 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:58 +48: rendering/ render_darwin_platform_view_test.dart
+[METRIC] script=rendering/render_darwin_platform_view_test.dart sourceBytes=58055 sourceChars=58055 bundleJsonBytes=868067 clearMs=90 readMs=0 bundleMs=27 httpMs=2423 totalMs=2542 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:00 +49: rendering/ render_decorated_sliver_test.dart
+[METRIC] script=rendering/render_decorated_sliver_test.dart sourceBytes=52898 sourceChars=52896 bundleJsonBytes=786333 clearMs=71 readMs=1 bundleMs=43 httpMs=2151 totalMs=2267 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:02 +50: rendering/ render_editable_painter_test.dart
+[METRIC] script=rendering/render_editable_painter_test.dart sourceBytes=54957 sourceChars=54906 bundleJsonBytes=629158 clearMs=68 readMs=0 bundleMs=25 httpMs=2080 totalMs=2175 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+02:05 +51: rendering/ render_inline_children_container_defaults_test.dart
+[METRIC] script=rendering/render_inline_children_container_defaults_test.dart sourceBytes=46746 sourceChars=46730 bundleJsonBytes=535607 clearMs=71 readMs=0 bundleMs=14 httpMs=1763 totalMs=1851 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+02:06 +52: rendering/ render_object_with_layout_callback_mixin_test.dart
+[METRIC] script=rendering/render_object_with_layout_callback_mixin_test.dart sourceBytes=37979 sourceChars=37979 bundleJsonBytes=448831 clearMs=43 readMs=0 bundleMs=21 httpMs=1623 totalMs=1689 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+02:08 +53: rendering/ render_performance_overlay_test.dart
+[METRIC] script=rendering/render_performance_overlay_test.dart sourceBytes=32550 sourceChars=32470 bundleJsonBytes=364814 clearMs=44 readMs=1 bundleMs=18 httpMs=1558 totalMs=1622 status=success httpStatus=200 outputLines=38 frameworkErrors=0
+02:10 +54: rendering/ render_proxy_sliver_test.dart
+[METRIC] script=rendering/render_proxy_sliver_test.dart sourceBytes=55211 sourceChars=55211 bundleJsonBytes=765975 clearMs=97 readMs=0 bundleMs=20 httpMs=1837 totalMs=1956 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:12 +55: rendering/ render_sliver_box_child_manager_test.dart
+[METRIC] script=rendering/render_sliver_box_child_manager_test.dart sourceBytes=81920 sourceChars=81839 bundleJsonBytes=814485 clearMs=61 readMs=0 bundleMs=35 httpMs=2085 totalMs=2184 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+02:14 +56: rendering/ render_sliver_constrained_cross_axis_test.dart
+[METRIC] script=rendering/render_sliver_constrained_cross_axis_test.dart sourceBytes=66646 sourceChars=66638 bundleJsonBytes=769095 clearMs=66 readMs=2 bundleMs=30 httpMs=1618 totalMs=1716 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:16 +57: rendering/ render_sliver_cross_axis_group_test.dart
+[METRIC] script=rendering/render_sliver_cross_axis_group_test.dart sourceBytes=65179 sourceChars=65173 bundleJsonBytes=748862 clearMs=86 readMs=2 bundleMs=19 httpMs=1619 totalMs=1727 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:17 +58: rendering/ render_sliver_edge_insets_padding_test.dart
+[METRIC] script=rendering/render_sliver_edge_insets_padding_test.dart sourceBytes=61834 sourceChars=61834 bundleJsonBytes=747275 clearMs=36 readMs=1 bundleMs=43 httpMs=1583 totalMs=1664 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:19 +59: rendering/ render_sliver_fill_remaining_and_overscroll_test.dart
+[METRIC] script=rendering/render_sliver_fill_remaining_and_overscroll_test.dart sourceBytes=56834 sourceChars=56834 bundleJsonBytes=691893 clearMs=35 readMs=1 bundleMs=40 httpMs=1506 totalMs=1583 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:21 +60: rendering/ render_sliver_fill_remaining_with_scrollable_test.dart
+[METRIC] script=rendering/render_sliver_fill_remaining_with_scrollable_test.dart sourceBytes=57121 sourceChars=57121 bundleJsonBytes=702390 clearMs=74 readMs=0 bundleMs=32 httpMs=1495 totalMs=1603 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:22 +61: rendering/ render_sliver_fixed_extent_box_adaptor_test.dart
+[METRIC] script=rendering/render_sliver_fixed_extent_box_adaptor_test.dart sourceBytes=64100 sourceChars=64100 bundleJsonBytes=804907 clearMs=45 readMs=0 bundleMs=40 httpMs=1538 totalMs=1626 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:24 +62: rendering/ render_sliver_floating_pinned_persistent_header_test.dart
+[METRIC] script=rendering/render_sliver_floating_pinned_persistent_header_test.dart sourceBytes=89021 sourceChars=88916 bundleJsonBytes=1043118 clearMs=48 readMs=1 bundleMs=70 httpMs=2164 totalMs=2285 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+02:26 +63: rendering/ render_sliver_main_axis_group_test.dart
+[METRIC] script=rendering/render_sliver_main_axis_group_test.dart sourceBytes=39217 sourceChars=38897 bundleJsonBytes=445076 clearMs=69 readMs=1 bundleMs=23 httpMs=1782 totalMs=1877 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:28 +64: rendering/ render_sliver_semantics_annotations_test.dart
+[METRIC] script=rendering/render_sliver_semantics_annotations_test.dart sourceBytes=38636 sourceChars=38383 bundleJsonBytes=441818 clearMs=72 readMs=1 bundleMs=24 httpMs=1836 totalMs=1935 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:30 +65: rendering/ render_sliver_single_box_adapter_test.dart
+[METRIC] script=rendering/render_sliver_single_box_adapter_test.dart sourceBytes=42677 sourceChars=42412 bundleJsonBytes=481454 clearMs=77 readMs=1 bundleMs=21 httpMs=1754 totalMs=1854 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:32 +66: rendering/ render_ui_kit_view_test.dart
+[METRIC] script=rendering/render_ui_kit_view_test.dart sourceBytes=71118 sourceChars=71026 bundleJsonBytes=757509 clearMs=66 readMs=1 bundleMs=46 httpMs=1873 totalMs=1987 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+02:34 +67: rendering/ rendering_service_extensions_test.dart
+[METRIC] script=rendering/rendering_service_extensions_test.dart sourceBytes=57658 sourceChars=57658 bundleJsonBytes=737165 clearMs=48 readMs=0 bundleMs=41 httpMs=2819 totalMs=2910 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in rendering/rendering_service_extensions_test.dart (1 error(s)):
+       A RenderFlex overflowed by 11 pixels on the bottom.
+02:37 +68: rendering/ revealed_offset_test.dart
+[METRIC] script=rendering/revealed_offset_test.dart sourceBytes=45466 sourceChars=45396 bundleJsonBytes=480685 clearMs=50 readMs=1 bundleMs=22 httpMs=1640 totalMs=1715 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+02:38 +69: rendering/ scroll_direction_test.dart
+[METRIC] script=rendering/scroll_direction_test.dart sourceBytes=49305 sourceChars=49227 bundleJsonBytes=549451 clearMs=72 readMs=1 bundleMs=22 httpMs=2254 totalMs=2351 status=success httpStatus=200 outputLines=29 frameworkErrors=8
+
+  ⚠️  FRAMEWORK ERROR in rendering/scroll_direction_test.dart (8 error(s)):
+       A RenderFlex overflowed by 15 pixels on the right.
+       A RenderFlex overflowed by 15 pixels on the right.
+       A RenderFlex overflowed by 15 pixels on the right.
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+02:41 +70: rendering/ select_all_selection_event_test.dart
+[METRIC] script=rendering/select_all_selection_event_test.dart sourceBytes=43927 sourceChars=43852 bundleJsonBytes=453115 clearMs=37 readMs=1 bundleMs=22 httpMs=1753 totalMs=1814 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+02:43 +71: rendering/ select_paragraph_selection_event_test.dart
+[METRIC] script=rendering/select_paragraph_selection_event_test.dart sourceBytes=77975 sourceChars=77916 bundleJsonBytes=986280 clearMs=59 readMs=1 bundleMs=58 httpMs=2731 totalMs=2851 status=success httpStatus=200 outputLines=17 frameworkErrors=12
+
+  ⚠️  FRAMEWORK ERROR in rendering/select_paragraph_selection_event_test.dart (12 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+02:45 +72: rendering/ select_word_selection_event_test.dart
+[METRIC] script=rendering/select_word_selection_event_test.dart sourceBytes=62501 sourceChars=62501 bundleJsonBytes=700713 clearMs=64 readMs=0 bundleMs=36 httpMs=2358 totalMs=2459 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+02:48 +73: rendering/ selected_content_range_test.dart
+[METRIC] script=rendering/selected_content_range_test.dart sourceBytes=55908 sourceChars=55850 bundleJsonBytes=578543 clearMs=63 readMs=1 bundleMs=27 httpMs=1900 totalMs=1992 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+02:50 +74: rendering/ selection_edge_update_event_test.dart
+[METRIC] script=rendering/selection_edge_update_event_test.dart sourceBytes=52660 sourceChars=52570 bundleJsonBytes=580418 clearMs=62 readMs=1 bundleMs=30 httpMs=2023 totalMs=2116 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+02:52 +75: rendering/ selection_event_test.dart
+[METRIC] script=rendering/selection_event_test.dart sourceBytes=81545 sourceChars=81339 bundleJsonBytes=828104 clearMs=75 readMs=1 bundleMs=42 httpMs=1880 totalMs=2000 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+02:54 +76: rendering/ selection_event_type_test.dart
+[METRIC] script=rendering/selection_event_type_test.dart sourceBytes=58082 sourceChars=58039 bundleJsonBytes=617069 clearMs=61 readMs=1 bundleMs=31 httpMs=2321 totalMs=2415 status=success httpStatus=200 outputLines=32 frameworkErrors=0
+02:56 +77: rendering/ selection_extend_direction_test.dart
+[METRIC] script=rendering/selection_extend_direction_test.dart sourceBytes=55655 sourceChars=55577 bundleJsonBytes=649819 clearMs=57 readMs=1 bundleMs=31 httpMs=2260 totalMs=2349 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:59 +78: rendering/ selection_handler_test.dart
+[METRIC] script=rendering/selection_handler_test.dart sourceBytes=55179 sourceChars=55077 bundleJsonBytes=558065 clearMs=52 readMs=1 bundleMs=23 httpMs=1677 totalMs=1754 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+03:00 +79: rendering/ selection_registrant_test.dart
+[METRIC] script=rendering/selection_registrant_test.dart sourceBytes=56221 sourceChars=56137 bundleJsonBytes=579583 clearMs=102 readMs=1 bundleMs=27 httpMs=1739 totalMs=1870 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+03:02 +80: rendering/ selection_result_test.dart
+[METRIC] script=rendering/selection_result_test.dart sourceBytes=47793 sourceChars=47793 bundleJsonBytes=550401 clearMs=70 readMs=0 bundleMs=26 httpMs=2368 totalMs=2466 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+03:05 +81: rendering/ selection_status_test.dart
+[METRIC] script=rendering/selection_status_test.dart sourceBytes=57572 sourceChars=57572 bundleJsonBytes=600371 clearMs=47 readMs=0 bundleMs=26 httpMs=2183 totalMs=2258 status=success httpStatus=200 outputLines=20 frameworkErrors=5
+
+  ⚠️  FRAMEWORK ERROR in rendering/selection_status_test.dart (5 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+03:07 +82: rendering/ selection_utils_test.dart
+[METRIC] script=rendering/selection_utils_test.dart sourceBytes=78007 sourceChars=77853 bundleJsonBytes=702701 clearMs=66 readMs=1 bundleMs=34 httpMs=1768 totalMs=1870 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+03:09 +83: rendering/ sliver_logical_container_parent_data_test.dart
+[METRIC] script=rendering/sliver_logical_container_parent_data_test.dart sourceBytes=53141 sourceChars=53061 bundleJsonBytes=567893 clearMs=44 readMs=1 bundleMs=23 httpMs=1720 totalMs=1791 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+03:11 +84: rendering/ sliver_paint_order_test.dart
+[METRIC] script=rendering/sliver_paint_order_test.dart sourceBytes=73631 sourceChars=73217 bundleJsonBytes=775156 clearMs=65 readMs=1 bundleMs=38 httpMs=2508 totalMs=2614 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:13 +85: rendering/ sliver_physical_container_parent_data_test.dart
+[METRIC] script=rendering/sliver_physical_container_parent_data_test.dart sourceBytes=40717 sourceChars=39336 bundleJsonBytes=415778 clearMs=80 readMs=1 bundleMs=21 httpMs=1659 totalMs=1762 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:15 +86: rendering/ stack_fit_test.dart
+[METRIC] script=rendering/stack_fit_test.dart sourceBytes=35000 sourceChars=33455 bundleJsonBytes=371245 clearMs=73 readMs=0 bundleMs=19 httpMs=1695 totalMs=1789 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:17 +87: rendering/ table_border_test.dart
+[METRIC] script=rendering/table_border_test.dart sourceBytes=41604 sourceChars=40148 bundleJsonBytes=595433 clearMs=71 readMs=1 bundleMs=25 httpMs=1714 totalMs=1813 status=success httpStatus=200 outputLines=41 frameworkErrors=0
+03:19 +88: rendering/ table_cell_vertical_alignment_test.dart
+[METRIC] script=rendering/table_cell_vertical_alignment_test.dart sourceBytes=34331 sourceChars=32904 bundleJsonBytes=363691 clearMs=98 readMs=0 bundleMs=18 httpMs=1537 totalMs=1655 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:20 +89: rendering/ text_granularity_test.dart
+[METRIC] script=rendering/text_granularity_test.dart sourceBytes=45476 sourceChars=45476 bundleJsonBytes=500154 clearMs=57 readMs=0 bundleMs=24 httpMs=2129 totalMs=2211 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+03:23 +90: rendering/ text_selection_handle_type_test.dart
+[METRIC] script=rendering/text_selection_handle_type_test.dart sourceBytes=36943 sourceChars=35550 bundleJsonBytes=408784 clearMs=55 readMs=1 bundleMs=18 httpMs=1587 totalMs=1663 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:24 +91: rendering/ texture_box_test.dart
+[METRIC] script=rendering/texture_box_test.dart sourceBytes=39684 sourceChars=38107 bundleJsonBytes=447108 clearMs=59 readMs=1 bundleMs=24 httpMs=1750 totalMs=1835 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:26 +92: rendering/ tree_sliver_indentation_type_test.dart
+[METRIC] script=rendering/tree_sliver_indentation_type_test.dart sourceBytes=34976 sourceChars=33561 bundleJsonBytes=423106 clearMs=62 readMs=0 bundleMs=18 httpMs=1674 totalMs=1756 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:28 +93: rendering/ tree_sliver_node_parent_data_test.dart
+[METRIC] script=rendering/tree_sliver_node_parent_data_test.dart sourceBytes=36981 sourceChars=35560 bundleJsonBytes=426382 clearMs=70 readMs=1 bundleMs=21 httpMs=1728 totalMs=1822 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:30 +94: rendering/ vertical_caret_movement_run_test.dart
+[METRIC] script=rendering/vertical_caret_movement_run_test.dart sourceBytes=35965 sourceChars=34506 bundleJsonBytes=389321 clearMs=57 readMs=1 bundleMs=17 httpMs=1631 totalMs=1707 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:31 +95: rendering/ wrap_alignment_test.dart
+[METRIC] script=rendering/wrap_alignment_test.dart sourceBytes=31480 sourceChars=29589 bundleJsonBytes=365486 clearMs=121 readMs=1 bundleMs=16 httpMs=1765 totalMs=1904 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:33 +96: rendering/ wrap_cross_alignment_test.dart
+[METRIC] script=rendering/wrap_cross_alignment_test.dart sourceBytes=37123 sourceChars=35821 bundleJsonBytes=513834 clearMs=87 readMs=1 bundleMs=24 httpMs=1916 totalMs=2029 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+03:35 +97: scheduler/ class_test.dart
+[METRIC] script=scheduler/class_test.dart sourceBytes=40471 sourceChars=39107 bundleJsonBytes=575159 clearMs=103 readMs=1 bundleMs=29 httpMs=1868 totalMs=2002 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+03:37 +98: scheduler/ priority_test.dart
+[METRIC] script=scheduler/priority_test.dart sourceBytes=63195 sourceChars=63195 bundleJsonBytes=443796 clearMs=62 readMs=0 bundleMs=20 httpMs=1767 totalMs=1851 status=success httpStatus=200 outputLines=33 frameworkErrors=0
+03:39 +99: scheduler/ scheduler_phase_test.dart
+[METRIC] script=scheduler/scheduler_phase_test.dart sourceBytes=58456 sourceChars=58452 bundleJsonBytes=663227 clearMs=53 readMs=1 bundleMs=30 httpMs=1837 totalMs=1922 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+03:41 +100: scheduler/ scheduler_service_extensions_test.dart
+[METRIC] script=scheduler/scheduler_service_extensions_test.dart sourceBytes=44485 sourceChars=44465 bundleJsonBytes=512441 clearMs=102 readMs=1 bundleMs=24 httpMs=1665 totalMs=1793 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:43 +101: semantics/ accessibility_focus_block_type_test.dart
+[METRIC] script=semantics/accessibility_focus_block_type_test.dart sourceBytes=59605 sourceChars=59585 bundleJsonBytes=662078 clearMs=46 readMs=1 bundleMs=28 httpMs=1999 totalMs=2076 status=success httpStatus=200 outputLines=0 frameworkErrors=5
+
+  ⚠️  FRAMEWORK ERROR in semantics/accessibility_focus_block_type_test.dart (5 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+03:45 +102: semantics/ announce_semantics_event_test.dart
+[METRIC] script=semantics/announce_semantics_event_test.dart sourceBytes=69380 sourceChars=69305 bundleJsonBytes=688837 clearMs=43 readMs=1 bundleMs=32 httpMs=2330 totalMs=2407 status=success httpStatus=200 outputLines=12 frameworkErrors=6
+
+  ⚠️  FRAMEWORK ERROR in semantics/announce_semantics_event_test.dart (6 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+03:47 +103: semantics/ assertiveness_test.dart
+[METRIC] script=semantics/assertiveness_test.dart sourceBytes=55906 sourceChars=55890 bundleJsonBytes=658673 clearMs=61 readMs=1 bundleMs=35 httpMs=1916 totalMs=2014 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+03:49 +104: semantics/ attributed_string_property_test.dart
+[METRIC] script=semantics/attributed_string_property_test.dart sourceBytes=57794 sourceChars=57794 bundleJsonBytes=534735 clearMs=97 readMs=0 bundleMs=21 httpMs=2227 totalMs=2348 status=success httpStatus=200 outputLines=29 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in semantics/attributed_string_property_test.dart (1 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+03:52 +105: semantics/ class_test.dart
+[METRIC] script=semantics/class_test.dart sourceBytes=71400 sourceChars=68221 bundleJsonBytes=763099 clearMs=73 readMs=1 bundleMs=36 httpMs=1998 totalMs=2109 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+03:54 +106: semantics/ debug_semantics_dump_order_test.dart
+[METRIC] script=semantics/debug_semantics_dump_order_test.dart sourceBytes=53601 sourceChars=53601 bundleJsonBytes=624655 clearMs=82 readMs=0 bundleMs=25 httpMs=1877 totalMs=1986 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:56 +107: semantics/ focus_semantic_event_test.dart
+[METRIC] script=semantics/focus_semantic_event_test.dart sourceBytes=54184 sourceChars=54140 bundleJsonBytes=615036 clearMs=47 readMs=1 bundleMs=27 httpMs=2347 totalMs=2423 status=success httpStatus=200 outputLines=24 frameworkErrors=16
+
+  ⚠️  FRAMEWORK ERROR in semantics/focus_semantic_event_test.dart (16 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+03:58 +108: semantics/ long_press_semantics_event_test.dart
+[METRIC] script=semantics/long_press_semantics_event_test.dart sourceBytes=52951 sourceChars=52839 bundleJsonBytes=543768 clearMs=55 readMs=1 bundleMs=22 httpMs=1838 totalMs=1917 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+04:00 +109: semantics/ tap_semantic_event_test.dart
+[METRIC] script=semantics/tap_semantic_event_test.dart sourceBytes=70168 sourceChars=70048 bundleJsonBytes=937007 clearMs=59 readMs=1 bundleMs=42 httpMs=2334 totalMs=2437 status=success httpStatus=200 outputLines=0 frameworkErrors=8
+
+  ⚠️  FRAMEWORK ERROR in semantics/tap_semantic_event_test.dart (8 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+04:03 +110: semantics/ tooltip_semantics_event_test.dart
+[METRIC] script=semantics/tooltip_semantics_event_test.dart sourceBytes=63328 sourceChars=63146 bundleJsonBytes=741278 clearMs=145 readMs=1 bundleMs=34 httpMs=2248 totalMs=2429 status=success httpStatus=200 outputLines=23 frameworkErrors=24
+
+  ⚠️  FRAMEWORK ERROR in semantics/tooltip_semantics_event_test.dart (24 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+04:05 +111: services/ android_motion_event_test.dart
+[METRIC] script=services/android_motion_event_test.dart sourceBytes=61092 sourceChars=61074 bundleJsonBytes=717296 clearMs=97 readMs=1 bundleMs=36 httpMs=2381 totalMs=2517 status=success httpStatus=200 outputLines=42 frameworkErrors=0
+04:08 +112: services/ android_pointer_coords_test.dart
+[METRIC] script=services/android_pointer_coords_test.dart sourceBytes=84965 sourceChars=84866 bundleJsonBytes=1078706 clearMs=52 readMs=1 bundleMs=53 httpMs=3181 totalMs=3288 status=success httpStatus=200 outputLines=0 frameworkErrors=7
+
+  ⚠️  FRAMEWORK ERROR in services/android_pointer_coords_test.dart (7 error(s)):
+       Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got BridgedClass
+       Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got BridgedClass
+       Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got BridgedClass
+       Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got BridgedClass
+       Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got BridgedClass
+       Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got BridgedClass
+       Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got BridgedClass
+04:11 +113: services/ android_pointer_properties_test.dart
+[METRIC] script=services/android_pointer_properties_test.dart sourceBytes=64994 sourceChars=64946 bundleJsonBytes=798029 clearMs=58 readMs=1 bundleMs=62 httpMs=2476 totalMs=2598 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+04:14 +114: services/ application_switcher_description_test.dart
+[METRIC] script=services/application_switcher_description_test.dart sourceBytes=85627 sourceChars=85583 bundleJsonBytes=917432 clearMs=94 readMs=1 bundleMs=50 httpMs=2758 totalMs=2905 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:16 +115: services/ autofill_client_test.dart
+[METRIC] script=services/autofill_client_test.dart sourceBytes=46827 sourceChars=46187 bundleJsonBytes=531893 clearMs=64 readMs=1 bundleMs=23 httpMs=2008 totalMs=2097 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+04:19 +116: services/ autofill_hints_test.dart
+[METRIC] script=services/autofill_hints_test.dart sourceBytes=38554 sourceChars=37918 bundleJsonBytes=420475 clearMs=50 readMs=1 bundleMs=21 httpMs=2013 totalMs=2086 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+04:21 +117: services/ autofill_scope_mixin_test.dart
+[METRIC] script=services/autofill_scope_mixin_test.dart sourceBytes=43117 sourceChars=42467 bundleJsonBytes=468520 clearMs=64 readMs=1 bundleMs=24 httpMs=1936 totalMs=2025 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+04:23 +118: services/ background_isolate_binary_messenger_test.dart
+[METRIC] script=services/background_isolate_binary_messenger_test.dart sourceBytes=44909 sourceChars=44217 bundleJsonBytes=505419 clearMs=68 readMs=1 bundleMs=25 httpMs=1985 totalMs=2080 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+04:25 +119: services/ binary_messenger_test.dart
+[METRIC] script=services/binary_messenger_test.dart sourceBytes=57849 sourceChars=57798 bundleJsonBytes=688775 clearMs=53 readMs=1 bundleMs=31 httpMs=1894 totalMs=1981 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:27 +120: services/ class_test.dart
+[METRIC] script=services/class_test.dart sourceBytes=32975 sourceChars=31574 bundleJsonBytes=353472 clearMs=45 readMs=1 bundleMs=18 httpMs=1573 totalMs=1638 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:28 +121: services/ content_sensitivity_test.dart
+[METRIC] script=services/content_sensitivity_test.dart sourceBytes=53972 sourceChars=53908 bundleJsonBytes=629844 clearMs=62 readMs=0 bundleMs=14 httpMs=2038 totalMs=2116 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+04:31 +122: services/ deferred_component_test.dart
+[METRIC] script=services/deferred_component_test.dart sourceBytes=41851 sourceChars=41213 bundleJsonBytes=477849 clearMs=49 readMs=1 bundleMs=26 httpMs=1840 totalMs=1917 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+04:32 +123: services/ delta_text_input_client_test.dart
+[METRIC] script=services/delta_text_input_client_test.dart sourceBytes=52003 sourceChars=51341 bundleJsonBytes=628457 clearMs=61 readMs=1 bundleMs=26 httpMs=1921 totalMs=2011 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+04:34 +124: services/ device_orientation_test.dart
+[METRIC] script=services/device_orientation_test.dart sourceBytes=47269 sourceChars=47269 bundleJsonBytes=580579 clearMs=53 readMs=0 bundleMs=25 httpMs=2221 totalMs=2301 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+04:37 +125: services/ floating_cursor_drag_state_test.dart
+[METRIC] script=services/floating_cursor_drag_state_test.dart sourceBytes=55730 sourceChars=55730 bundleJsonBytes=573815 clearMs=49 readMs=1 bundleMs=23 httpMs=2109 totalMs=2184 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:39 +126: services/ g_l_f_w_key_helper_test.dart
+[METRIC] script=services/g_l_f_w_key_helper_test.dart sourceBytes=36969 sourceChars=36337 bundleJsonBytes=438144 clearMs=40 readMs=0 bundleMs=21 httpMs=1921 totalMs=1984 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+04:41 +127: services/ gtk_key_helper_test.dart
+[METRIC] script=services/gtk_key_helper_test.dart sourceBytes=37876 sourceChars=36503 bundleJsonBytes=449956 clearMs=109 readMs=1 bundleMs=20 httpMs=1681 totalMs=1812 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+04:43 +128: services/ i_o_s_system_context_menu_item_data_copy_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_copy_test.dart sourceBytes=80395 sourceChars=80395 bundleJsonBytes=760705 clearMs=69 readMs=0 bundleMs=35 httpMs=2221 totalMs=2327 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+04:45 +129: services/ i_o_s_system_context_menu_item_data_custom_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_custom_test.dart sourceBytes=77698 sourceChars=77693 bundleJsonBytes=883140 clearMs=21 readMs=1 bundleMs=45 httpMs=2308 totalMs=2375 status=success httpStatus=200 outputLines=67 frameworkErrors=0
+04:47 +130: services/ i_o_s_system_context_menu_item_data_cut_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_cut_test.dart sourceBytes=62966 sourceChars=62935 bundleJsonBytes=611283 clearMs=46 readMs=1 bundleMs=25 httpMs=2148 totalMs=2222 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+04:50 +131: services/ i_o_s_system_context_menu_item_data_live_text_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_live_text_test.dart sourceBytes=58926 sourceChars=58923 bundleJsonBytes=703051 clearMs=98 readMs=1 bundleMs=35 httpMs=2134 totalMs=2270 status=success httpStatus=200 outputLines=48 frameworkErrors=0
+04:52 +132: services/ i_o_s_system_context_menu_item_data_look_up_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_look_up_test.dart sourceBytes=52595 sourceChars=52574 bundleJsonBytes=601861 clearMs=51 readMs=1 bundleMs=33 httpMs=2160 totalMs=2246 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+04:54 +133: services/ i_o_s_system_context_menu_item_data_paste_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_paste_test.dart sourceBytes=61925 sourceChars=61925 bundleJsonBytes=442661 clearMs=46 readMs=0 bundleMs=20 httpMs=2200 totalMs=2267 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+04:56 +134: services/ i_o_s_system_context_menu_item_data_search_web_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_search_web_test.dart sourceBytes=51336 sourceChars=46890 bundleJsonBytes=530334 clearMs=46 readMs=1 bundleMs=27 httpMs=1730 totalMs=1805 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+04:58 +135: services/ i_o_s_system_context_menu_item_data_select_all_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_select_all_test.dart sourceBytes=79237 sourceChars=79237 bundleJsonBytes=667369 clearMs=61 readMs=0 bundleMs=32 httpMs=2447 totalMs=2542 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+05:01 +136: services/ i_o_s_system_context_menu_item_data_share_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_share_test.dart sourceBytes=43261 sourceChars=43199 bundleJsonBytes=531730 clearMs=71 readMs=1 bundleMs=49 httpMs=2079 totalMs=2202 status=success httpStatus=200 outputLines=18 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in services/i_o_s_system_context_menu_item_data_share_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+05:03 +137: services/ i_o_s_system_context_menu_item_data_test.dart
+[METRIC] script=services/i_o_s_system_context_menu_item_data_test.dart sourceBytes=37011 sourceChars=36330 bundleJsonBytes=432719 clearMs=49 readMs=0 bundleMs=15 httpMs=1914 totalMs=1979 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+05:05 +138: services/ key_data_transit_mode_test.dart
+[METRIC] script=services/key_data_transit_mode_test.dart sourceBytes=55280 sourceChars=55122 bundleJsonBytes=637600 clearMs=63 readMs=1 bundleMs=33 httpMs=2199 totalMs=2297 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:07 +139: services/ key_down_event_test.dart
+[METRIC] script=services/key_down_event_test.dart sourceBytes=89391 sourceChars=89270 bundleJsonBytes=889163 clearMs=51 readMs=1 bundleMs=47 httpMs=2804 totalMs=2905 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:10 +140: services/ key_event_manager_test.dart
+[METRIC] script=services/key_event_manager_test.dart sourceBytes=36092 sourceChars=35462 bundleJsonBytes=425106 clearMs=64 readMs=0 bundleMs=19 httpMs=1892 totalMs=1977 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+05:12 +141: services/ key_event_test.dart
+[METRIC] script=services/key_event_test.dart sourceBytes=85860 sourceChars=85838 bundleJsonBytes=993075 clearMs=59 readMs=1 bundleMs=46 httpMs=2780 totalMs=2887 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:15 +142: services/ key_helper_test.dart
+[METRIC] script=services/key_helper_test.dart sourceBytes=70873 sourceChars=70873 bundleJsonBytes=634714 clearMs=62 readMs=0 bundleMs=30 httpMs=2741 totalMs=2835 status=success httpStatus=200 outputLines=33 frameworkErrors=0
+05:18 +143: services/ key_message_test.dart
+[METRIC] script=services/key_message_test.dart sourceBytes=75074 sourceChars=75039 bundleJsonBytes=844405 clearMs=79 readMs=1 bundleMs=36 httpMs=2807 totalMs=2924 status=success httpStatus=200 outputLines=32 frameworkErrors=12
+
+  ⚠️  FRAMEWORK ERROR in services/key_message_test.dart (12 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+05:21 +144: services/ key_repeat_event_test.dart
+[METRIC] script=services/key_repeat_event_test.dart sourceBytes=59610 sourceChars=59598 bundleJsonBytes=531358 clearMs=139 readMs=0 bundleMs=23 httpMs=3424 totalMs=3588 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+05:24 +145: services/ key_up_event_test.dart
+[METRIC] script=services/key_up_event_test.dart sourceBytes=69793 sourceChars=69716 bundleJsonBytes=873009 clearMs=50 readMs=1 bundleMs=47 httpMs=2339 totalMs=2438 status=success httpStatus=200 outputLines=28 frameworkErrors=5
+
+  ⚠️  FRAMEWORK ERROR in services/key_up_event_test.dart (5 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+05:27 +146: services/ keyboard_key_test.dart
+[METRIC] script=services/keyboard_key_test.dart sourceBytes=56812 sourceChars=56723 bundleJsonBytes=706646 clearMs=95 readMs=1 bundleMs=35 httpMs=2314 totalMs=2446 status=success httpStatus=200 outputLines=44 frameworkErrors=0
+05:29 +147: services/ keyboard_lock_mode_test.dart
+[METRIC] script=services/keyboard_lock_mode_test.dart sourceBytes=56695 sourceChars=56623 bundleJsonBytes=649292 clearMs=104 readMs=1 bundleMs=28 httpMs=2190 totalMs=2324 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+05:32 +148: services/ keyboard_side_test.dart
+[METRIC] script=services/keyboard_side_test.dart sourceBytes=63586 sourceChars=63503 bundleJsonBytes=685471 clearMs=42 readMs=1 bundleMs=53 httpMs=3281 totalMs=3378 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+05:35 +149: services/ max_length_enforcement_test.dart
+[METRIC] script=services/max_length_enforcement_test.dart sourceBytes=54112 sourceChars=54074 bundleJsonBytes=580616 clearMs=51 readMs=1 bundleMs=27 httpMs=2373 totalMs=2453 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+05:38 +150: services/ message_codec_test.dart
+[METRIC] script=services/message_codec_test.dart sourceBytes=57731 sourceChars=57666 bundleJsonBytes=598410 clearMs=155 readMs=1 bundleMs=37 httpMs=3332 totalMs=3526 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+05:41 +151: services/ method_codec_test.dart
+[METRIC] script=services/method_codec_test.dart sourceBytes=62821 sourceChars=62813 bundleJsonBytes=764899 clearMs=52 readMs=1 bundleMs=44 httpMs=3862 totalMs=3961 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+05:45 +152: services/ missing_plugin_exception_test.dart
+[METRIC] script=services/missing_plugin_exception_test.dart sourceBytes=40127 sourceChars=40127 bundleJsonBytes=478858 clearMs=65 readMs=0 bundleMs=21 httpMs=2035 totalMs=2123 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+05:47 +153: services/ modifier_key_test.dart
+[METRIC] script=services/modifier_key_test.dart sourceBytes=82292 sourceChars=81369 bundleJsonBytes=877938 clearMs=54 readMs=1 bundleMs=45 httpMs=7767 totalMs=7868 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+05:55 +154: services/ mouse_cursor_manager_test.dart
+[METRIC] script=services/mouse_cursor_manager_test.dart sourceBytes=36696 sourceChars=36060 bundleJsonBytes=446255 clearMs=78 readMs=1 bundleMs=19 httpMs=1967 totalMs=2067 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+05:57 +155: services/ mouse_cursor_session_test.dart
+[METRIC] script=services/mouse_cursor_session_test.dart sourceBytes=53706 sourceChars=49336 bundleJsonBytes=571364 clearMs=64 readMs=1 bundleMs=26 httpMs=1855 totalMs=1946 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+05:59 +156: services/ mouse_tracker_annotation_test.dart
+[METRIC] script=services/mouse_tracker_annotation_test.dart sourceBytes=50107 sourceChars=50055 bundleJsonBytes=613585 clearMs=41 readMs=1 bundleMs=28 httpMs=2213 totalMs=2285 status=success httpStatus=200 outputLines=53 frameworkErrors=0
+06:01 +157: services/ platform_exception_test.dart
+[METRIC] script=services/platform_exception_test.dart sourceBytes=55101 sourceChars=55093 bundleJsonBytes=584777 clearMs=47 readMs=0 bundleMs=27 httpMs=2272 totalMs=2348 status=success httpStatus=200 outputLines=29 frameworkErrors=5
+
+  ⚠️  FRAMEWORK ERROR in services/platform_exception_test.dart (5 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+06:04 +158: services/ raw_floating_cursor_point_test.dart
+[METRIC] script=services/raw_floating_cursor_point_test.dart sourceBytes=92103 sourceChars=92103 bundleJsonBytes=925371 clearMs=94 readMs=0 bundleMs=40 httpMs=4268 totalMs=4404 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+06:08 +159: services/ raw_key_down_event_test.dart
+[METRIC] script=services/raw_key_down_event_test.dart sourceBytes=32729 sourceChars=32066 bundleJsonBytes=378219 clearMs=69 readMs=0 bundleMs=9 httpMs=2001 totalMs=2081 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+06:10 +160: services/ raw_key_event_data_android_test.dart
+[METRIC] script=services/raw_key_event_data_android_test.dart sourceBytes=84114 sourceChars=83986 bundleJsonBytes=914158 clearMs=68 readMs=1 bundleMs=41 httpMs=3360 totalMs=3471 status=success httpStatus=200 outputLines=0 frameworkErrors=54
+
+  ⚠️  FRAMEWORK ERROR in services/raw_key_event_data_android_test.dart (54 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+06:14 +161: services/ raw_key_event_data_fuchsia_test.dart
+[METRIC] script=services/raw_key_event_data_fuchsia_test.dart sourceBytes=65886 sourceChars=65802 bundleJsonBytes=818185 clearMs=86 readMs=1 bundleMs=43 httpMs=2795 totalMs=2925 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:17 +162: services/ raw_key_event_data_ios_test.dart
+[METRIC] script=services/raw_key_event_data_ios_test.dart sourceBytes=64784 sourceChars=64723 bundleJsonBytes=759001 clearMs=91 readMs=1 bundleMs=44 httpMs=2601 totalMs=2738 status=success httpStatus=200 outputLines=0 frameworkErrors=28
+
+  ⚠️  FRAMEWORK ERROR in services/raw_key_event_data_ios_test.dart (28 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+06:19 +163: services/ raw_key_event_data_linux_test.dart
+[METRIC] script=services/raw_key_event_data_linux_test.dart sourceBytes=114850 sourceChars=114704 bundleJsonBytes=1351357 clearMs=35 readMs=1 bundleMs=64 httpMs=3929 totalMs=4030 status=success httpStatus=200 outputLines=0 frameworkErrors=28
+
+  ⚠️  FRAMEWORK ERROR in services/raw_key_event_data_linux_test.dart (28 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+06:23 +164: services/ raw_key_event_data_mac_os_test.dart
+[METRIC] script=services/raw_key_event_data_mac_os_test.dart sourceBytes=50929 sourceChars=46772 bundleJsonBytes=572803 clearMs=168 readMs=1 bundleMs=26 httpMs=1916 totalMs=2112 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+06:25 +165: services/ raw_key_event_data_test.dart
+[METRIC] script=services/raw_key_event_data_test.dart sourceBytes=30143 sourceChars=29507 bundleJsonBytes=340139 clearMs=55 readMs=0 bundleMs=15 httpMs=2049 totalMs=2121 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+06:28 +166: services/ raw_key_event_data_web_test.dart
+[METRIC] script=services/raw_key_event_data_web_test.dart sourceBytes=75390 sourceChars=69237 bundleJsonBytes=784499 clearMs=69 readMs=1 bundleMs=38 httpMs=2783 totalMs=2893 status=success httpStatus=200 outputLines=75 frameworkErrors=0
+06:30 +167: services/ raw_key_event_data_windows_test.dart
+[METRIC] script=services/raw_key_event_data_windows_test.dart sourceBytes=72232 sourceChars=72139 bundleJsonBytes=894882 clearMs=64 readMs=1 bundleMs=42 httpMs=2627 totalMs=2736 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in services/raw_key_event_data_windows_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+06:33 +168: services/ raw_key_event_test.dart
+[METRIC] script=services/raw_key_event_test.dart sourceBytes=60188 sourceChars=60023 bundleJsonBytes=554676 clearMs=37 readMs=1 bundleMs=30 httpMs=2300 totalMs=2370 status=success httpStatus=200 outputLines=108 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in services/raw_key_event_test.dart (1 error(s)):
+       A RenderFlex overflowed by 2409 pixels on the bottom.
+06:36 +169: services/ raw_key_up_event_test.dart
+[METRIC] script=services/raw_key_up_event_test.dart sourceBytes=72612 sourceChars=67192 bundleJsonBytes=721991 clearMs=47 readMs=1 bundleMs=36 httpMs=2505 totalMs=2590 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+06:38 +170: services/ raw_keyboard_test.dart
+[METRIC] script=services/raw_keyboard_test.dart sourceBytes=86486 sourceChars=86348 bundleJsonBytes=1077440 clearMs=75 readMs=1 bundleMs=54 httpMs=3103 totalMs=3235 status=success httpStatus=200 outputLines=0 frameworkErrors=10
+
+  ⚠️  FRAMEWORK ERROR in services/raw_keyboard_test.dart (10 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+06:41 +171: services/ restoration_bucket_test.dart
+[METRIC] script=services/restoration_bucket_test.dart sourceBytes=34417 sourceChars=33745 bundleJsonBytes=394175 clearMs=57 readMs=0 bundleMs=14 httpMs=2109 totalMs=2181 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+06:44 +172: services/ scribble_client_test.dart
+[METRIC] script=services/scribble_client_test.dart sourceBytes=31872 sourceChars=31226 bundleJsonBytes=361569 clearMs=64 readMs=0 bundleMs=9 httpMs=2019 totalMs=2095 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+06:46 +173: services/ selection_changed_cause_test.dart
+[METRIC] script=services/selection_changed_cause_test.dart sourceBytes=61313 sourceChars=61275 bundleJsonBytes=700807 clearMs=68 readMs=1 bundleMs=33 httpMs=2516 totalMs=2619 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+06:48 +174: services/ selection_rect_test.dart
+[METRIC] script=services/selection_rect_test.dart sourceBytes=62071 sourceChars=62009 bundleJsonBytes=698475 clearMs=55 readMs=1 bundleMs=34 httpMs=2320 totalMs=2411 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+06:51 +175: services/ sensitive_content_service_test.dart
+[METRIC] script=services/sensitive_content_service_test.dart sourceBytes=32253 sourceChars=31623 bundleJsonBytes=370720 clearMs=54 readMs=0 bundleMs=16 httpMs=1970 totalMs=2042 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+06:53 +176: services/ services_service_extensions_test.dart
+[METRIC] script=services/services_service_extensions_test.dart sourceBytes=67013 sourceChars=67013 bundleJsonBytes=747349 clearMs=104 readMs=0 bundleMs=34 httpMs=2442 totalMs=2581 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+06:55 +177: services/ smart_dashes_type_test.dart
+[METRIC] script=services/smart_dashes_type_test.dart sourceBytes=32369 sourceChars=31675 bundleJsonBytes=370704 clearMs=58 readMs=1 bundleMs=16 httpMs=2056 totalMs=2132 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+06:58 +178: services/ smart_quotes_type_test.dart
+[METRIC] script=services/smart_quotes_type_test.dart sourceBytes=69642 sourceChars=69574 bundleJsonBytes=736982 clearMs=70 readMs=1 bundleMs=38 httpMs=4356 totalMs=4467 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:02 +179: services/ swipe_edge_test.dart
+[METRIC] script=services/swipe_edge_test.dart sourceBytes=57562 sourceChars=57526 bundleJsonBytes=658493 clearMs=105 readMs=1 bundleMs=36 httpMs=2111 totalMs=2254 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+07:04 +180: services/ system_context_menu_client_test.dart
+[METRIC] script=services/system_context_menu_client_test.dart sourceBytes=34776 sourceChars=34542 bundleJsonBytes=366159 clearMs=45 readMs=0 bundleMs=16 httpMs=2654 totalMs=2717 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+07:07 +181: services/ system_context_menu_controller_test.dart
+[METRIC] script=services/system_context_menu_controller_test.dart sourceBytes=34357 sourceChars=34123 bundleJsonBytes=354898 clearMs=76 readMs=0 bundleMs=12 httpMs=2673 totalMs=2763 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+07:10 +182: services/ system_sound_type_test.dart
+[METRIC] script=services/system_sound_type_test.dart sourceBytes=64417 sourceChars=64343 bundleJsonBytes=746864 clearMs=78 readMs=1 bundleMs=50 httpMs=5579 totalMs=5709 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+07:15 +183: services/ system_ui_mode_test.dart
+[METRIC] script=services/system_ui_mode_test.dart sourceBytes=53935 sourceChars=53929 bundleJsonBytes=601426 clearMs=110 readMs=1 bundleMs=31 httpMs=2503 totalMs=2646 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+07:18 +184: services/ system_ui_overlay_test.dart
+[METRIC] script=services/system_ui_overlay_test.dart sourceBytes=53484 sourceChars=53441 bundleJsonBytes=568446 clearMs=59 readMs=1 bundleMs=26 httpMs=2295 totalMs=2382 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+07:21 +185: services/ text_capitalization_test.dart
+[METRIC] script=services/text_capitalization_test.dart sourceBytes=57079 sourceChars=57051 bundleJsonBytes=691288 clearMs=47 readMs=1 bundleMs=36 httpMs=2941 totalMs=3026 status=success httpStatus=200 outputLines=32 frameworkErrors=0
+07:24 +186: services/ text_editing_delta_deletion_test.dart
+[METRIC] script=services/text_editing_delta_deletion_test.dart sourceBytes=49040 sourceChars=48937 bundleJsonBytes=532372 clearMs=57 readMs=1 bundleMs=23 httpMs=3159 totalMs=3241 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:27 +187: services/ text_editing_delta_insertion_test.dart
+[METRIC] script=services/text_editing_delta_insertion_test.dart sourceBytes=55908 sourceChars=55846 bundleJsonBytes=664008 clearMs=72 readMs=1 bundleMs=32 httpMs=2463 totalMs=2569 status=success httpStatus=200 outputLines=51 frameworkErrors=0
+07:29 +188: services/ text_editing_delta_non_text_update_test.dart
+[METRIC] script=services/text_editing_delta_non_text_update_test.dart sourceBytes=47112 sourceChars=47046 bundleJsonBytes=576817 clearMs=49 readMs=0 bundleMs=26 httpMs=3650 totalMs=3728 status=success httpStatus=200 outputLines=38 frameworkErrors=38
+
+  ⚠️  FRAMEWORK ERROR in services/text_editing_delta_non_text_update_test.dart (38 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       Rect argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 26 pos 10: '<optimized out>'
+       Rect argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 26 pos 10: '<optimized out>'
+       Rect argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 26 pos 10: '<optimized out>'
+       Rect argument contained a NaN value.
+'dart:ui/painting.dart':
+Failed assertion: line 26 pos 10: '<optimized out>'
+07:33 +189: services/ text_editing_delta_replacement_test.dart
+[METRIC] script=services/text_editing_delta_replacement_test.dart sourceBytes=69770 sourceChars=69684 bundleJsonBytes=774031 clearMs=75 readMs=1 bundleMs=35 httpMs=2858 totalMs=2970 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:36 +190: services/ text_editing_value_test.dart
+[METRIC] script=services/text_editing_value_test.dart sourceBytes=75276 sourceChars=75067 bundleJsonBytes=814056 clearMs=73 readMs=1 bundleMs=44 httpMs=3802 totalMs=3921 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+07:40 +191: services/ text_input_action_test.dart
+[METRIC] script=services/text_input_action_test.dart sourceBytes=48395 sourceChars=48373 bundleJsonBytes=541446 clearMs=67 readMs=0 bundleMs=13 httpMs=3713 totalMs=3795 status=success httpStatus=200 outputLines=41 frameworkErrors=0
+07:44 +192: services/ text_input_client_test.dart
+[METRIC] script=services/text_input_client_test.dart sourceBytes=34599 sourceChars=34357 bundleJsonBytes=360741 clearMs=81 readMs=1 bundleMs=18 httpMs=2697 totalMs=2798 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+07:47 +193: services/ text_input_configuration_test.dart
+[METRIC] script=services/text_input_configuration_test.dart sourceBytes=77168 sourceChars=77064 bundleJsonBytes=929817 clearMs=58 readMs=1 bundleMs=51 httpMs=4008 totalMs=4119 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+07:51 +194: services/ text_input_connection_test.dart
+[METRIC] script=services/text_input_connection_test.dart sourceBytes=37040 sourceChars=36792 bundleJsonBytes=389746 clearMs=66 readMs=1 bundleMs=18 httpMs=2861 totalMs=2948 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+07:54 +195: services/ text_input_control_test.dart
+[METRIC] script=services/text_input_control_test.dart sourceBytes=39557 sourceChars=39319 bundleJsonBytes=398713 clearMs=65 readMs=0 bundleMs=14 httpMs=2767 totalMs=2847 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+07:57 +196: services/ text_input_test.dart
+[METRIC] script=services/text_input_test.dart sourceBytes=36461 sourceChars=36215 bundleJsonBytes=370252 clearMs=66 readMs=1 bundleMs=16 httpMs=2645 totalMs=2729 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+07:59 +197: services/ text_input_type_test.dart
+[METRIC] script=services/text_input_type_test.dart sourceBytes=73988 sourceChars=73783 bundleJsonBytes=783044 clearMs=69 readMs=1 bundleMs=25 httpMs=3022 totalMs=3119 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+08:02 +198: services/ text_selection_delegate_test.dart
+[METRIC] script=services/text_selection_delegate_test.dart sourceBytes=39778 sourceChars=39560 bundleJsonBytes=424870 clearMs=56 readMs=0 bundleMs=18 httpMs=2685 totalMs=2761 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+08:05 +199: services/ text_selection_test.dart
+[METRIC] script=services/text_selection_test.dart sourceBytes=50355 sourceChars=50290 bundleJsonBytes=560297 clearMs=45 readMs=1 bundleMs=25 httpMs=2702 totalMs=2774 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in services/text_selection_test.dart (1 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+08:08 +200: services/ undo_direction_test.dart
+[METRIC] script=services/undo_direction_test.dart sourceBytes=58577 sourceChars=58478 bundleJsonBytes=687649 clearMs=46 readMs=1 bundleMs=38 httpMs=2468 totalMs=2555 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+08:10 +201: (tearDownAll)
+08:11 +201: All tests passed!

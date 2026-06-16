@@ -1,0 +1,513 @@
+00:00 +0: loading test/stdin/stdin_preprocessing_test.dart
+00:00 +0: test/stdin/stdin_preprocessing_test.dart: (setUpAll)
+00:00 +0: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+══════════════════════════════════════════════════════════════
+  dcli --stdin Smart Preprocessing Tests
+══════════════════════════════════════════════════════════════
+
+Case 1: Bare statements (auto-import, auto-wrap)
+  ✓ bare print statement exits 0 (exit=0)
+  ✓ bare print statement output
+  ✓ bare return int → exit code 42 (exit=42)
+  ✓ bare return 0 → exit code 0 (exit=0)
+  ✓ multi-line bare statements exit 0 (exit=0)
+  ✓ multi-line bare computes correctly
+  ✓ stdlib bridges available in bare mode (exit=0)
+  ✓ dart:math max() works
+  ✓ dart:io Platform available in bare mode (exit=0)
+
+Case 2: main() without imports (auto-prefix imports)
+  ✓ void main without imports exits 0 (exit=0)
+  ✓ void main output correct
+  ✓ Object main with bridge usage exits 0 (exit=0)
+  ✓ bridge imports auto-prefixed for main
+  ✓ int main() return value used as exit code (exit=7)
+
+Case 3: Complete script (imports + main)
+  ✓ complete script exits 0 (exit=0)
+  ✓ complete script output correct
+  ✓ complete script with dart:io exits 0 (exit=0)
+  ✓ complete script accesses dart:io
+
+Error handling
+  ✓ empty stdin exits 1 (exit=1)
+  ✓ empty stdin error message
+  ✓ unclosed string is lenient (parser recovers) (exit=0)
+  ✓ syntax error exits 2 (exit=2)
+  ✓ runtime error exits 2 (exit=2)
+
+══════════════════════════════════════════════════════════════
+  All 23 tests passed ✓
+══════════════════════════════════════════════════════════════
+
+00:00 +1: test/cli_api_script_test.dart: CLI API Script Execution - State Modification variable persistence define variable in script, verify exists
+00:00 +2: test/cli_api_script_test.dart: CLI API Script Execution - State Modification variable persistence define variable in script, verify exists
+00:00 +3: test/cli_api_script_test.dart: CLI API Script Execution - State Modification variable persistence define variable in script, verify exists
+00:00 +4: test/cli_api_script_test.dart: CLI API Script Execution - State Modification variable persistence define variable in script, verify exists
+00:00 +5: test/cli_api_script_test.dart: CLI API Script Execution - State Modification variable persistence define variable in script, verify exists
+00:01 +6: test/cli_api_script_test.dart: CLI API Script Execution - State Modification variable persistence define variable in script, verify exists
+00:01 +7: test/cli_api_script_test.dart: CLI API Script Execution - State Modification variable persistence define variable in script, verify exists
+00:01 +8: test/tom_dcli_exec_test.dart: version is defined
+00:01 +9: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — main without imports should use int return from main as exit code
+00:01 +10: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — main without imports should use int return from main as exit code
+00:01 +11: test/tom_dcli_exec_test.dart: TomD4rtDcliBridge registers without error
+00:01 +12: test/tom_dcli_exec_test.dart: TomD4rtDcliBridge registers without error
+00:01 +13: test/tom_dcli_exec_test.dart: TomD4rtDcliBridge registers without error
+00:01 +14: test/tom_dcli_exec_test.dart: TomD4rtDcliBridge registers without error
+00:01 +14: test/cli_api_script_test.dart: CLI API Script Execution - State Modification variable persistence variable shadowing in new execution
+20
+00:01 +15: test/tom_dcli_exec_test.dart: TomD4rtDcliBridge registers without error
+00:01 +16: test/stdin/stdin_preprocessing_test.dart: stdin error handling should exit 1 on empty stdin
+00:01 +17: test/stdin/stdin_preprocessing_test.dart: stdin error handling should exit 1 on empty stdin
+00:01 +18: test/cli_api_script_test.dart: CLI API Script Execution - State Modification function persistence define multiple functions
+00:01 +19: test/stdin/stdin_preprocessing_test.dart: stdin error handling should exit 0 on unclosed string (parser is lenient)
+00:01 +20: test/stdin/stdin_preprocessing_test.dart: stdin error handling should exit 0 on unclosed string (parser is lenient)
+00:01 +21: test/stdin/stdin_preprocessing_test.dart: stdin error handling should exit 0 on unclosed string (parser is lenient)
+00:01 +22: test/cli_api_script_test.dart: CLI API Script Execution - State Modification function persistence higher-order function
+00:01 +23: test/cli_api_script_test.dart: CLI API Script Execution - State Modification function persistence higher-order function
+00:01 +24: test/stdin/stdin_preprocessing_test.dart: stdin error handling should exit 2 on runtime error
+00:01 +25: test/cli_api_script_test.dart: CLI API Script Execution - State Modification class persistence define class, create instance
+00:01 +26: test/cli_api_script_test.dart: CLI API Script Execution - State Modification class persistence class with constructor
+00:01 +27: test/cli_api_script_test.dart: CLI API Script Execution - State Modification class persistence class with named constructor
+00:01 +28: test/repl_base_search_filter_test.dart: parseSearchFilter returns null for empty query
+00:01 +29: test/cli_api_script_test.dart: CLI API Script Execution - State Modification class persistence class inheritance
+00:01 +30: test/cli_api_script_test.dart: CLI API Script Execution - State Modification class persistence class inheritance
+00:01 +31: test/cli_api_script_test.dart: CLI API Script Execution - State Modification class persistence class inheritance
+00:01 +32: test/repl_base_search_filter_test.dart: parseSearchFilter exact match can be case-sensitive with single quotes
+00:01 +33: test/cli_api_script_test.dart: CLI API Script Execution - State Modification class persistence class with static members
+00:01 +34: test/cli_api_script_test.dart: CLI API Script Execution - State Modification class persistence class with static members
+00:01 +35: test/cli_api_script_test.dart: CLI API Script Execution - State Modification class persistence class with static members
+00:01 +36: test/cli_api_script_test.dart: CLI API Script Execution - State Modification class persistence class with static members
+00:01 +37: test/cli_api_script_test.dart: CLI API Script Execution - State Modification class persistence class with static members
+00:01 +38: test/repl_base_search_filter_test.dart: parseSearchFilterDetails exact match mode with no wildcards
+00:01 +39: test/cli_api_script_test.dart: CLI API Script Execution - State Modification define command define persists function definition
+00:01 +40: test/cli_api_script_test.dart: CLI API Script Execution - State Modification define command define persists function definition
+00:01 +41: test/cli_api_script_test.dart: CLI API Script Execution - State Modification define command define persists function definition
+00:01 +42: test/cli_api_script_test.dart: CLI API Script Execution - State Modification define command define persists function definition
+00:01 +43: test/cli_api_script_test.dart: CLI API Script Execution - State Modification define command define persists class definition
+00:01 +44: test/cli_api_script_test.dart: CLI API Script Execution - State Modification multiline script execution multiline script returns last expression
+00:01 +45: test/cli_api_script_test.dart: CLI API Script Execution - State Modification multiline script execution multiline file adds to environment
+00:01 +46: test/cli_api_script_test.dart: CLI API Script Execution - State Modification multiline script execution multiline execute runs in fresh environment
+fresh
+00:01 +47: test/cli_api_script_test.dart: CLI API Script Execution - State Modification file execution execute file defines variables accessible later
+00:01 +48: test/cli_api_script_test.dart: CLI API Script Execution - State Modification file execution .file command shares environment
+00:01 +49: test/cli_api_script_test.dart: CLI API Script Execution - State Modification file execution script file executes line by line
+00:01 +50: test/cli_api_script_test.dart: CLI API Script Execution - State Modification replay file execution replay file executes commands
+00:01 +51: test/cli_api_script_test.dart: CLI API Script Execution - State Modification replay file execution load file shows output
+00:01 +52: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios build up state incrementally
+00:02 +53: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:02 +54: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties toolName returns configured name
+00:02 +55: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios async code execution
+00:02 +56: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods properties dataDirectory returns configured path
+00:02 +57: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios exception handling in scripts
+00:02 +58: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios exception handling in scripts
+00:02 +59: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios exception handling in scripts
+00:02 +60: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios exception handling in scripts
+00:02 +61: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios exception handling in scripts
+00:02 +62: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods directory navigation cwd returns current directory
+00:02 +63: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios enum definition and use
+00:02 +64: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios enum definition and use
+00:02 +65: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios enum definition and use
+00:02 +66: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios enum definition and use
+00:02 +67: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods directory navigation cd with tilde expansion
+00:02 +68: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios extension methods
+00:02 +69: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios extension methods
+00:02 +70: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods directory navigation home returns to data directory
+00:02 +71: test/dcli_example/dcli_example_test.dart: (setUpAll)
+Using dclie binary: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_dcli_exec/bin/dclie
+00:02 +71: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios typedef and function types
+00:02 +72: test/cli_api_script_test.dart: CLI API Script Execution - State Modification complex scenarios typedef and function types
+00:02 +73: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 01_hello
+00:02 +74: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 01_hello
+00:02 +75: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 01_hello
+00:02 +76: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 01_hello
+00:02 +77: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 01_hello
+00:02 +78: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 01_hello
+00:02 +79: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +80: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +81: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +82: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +83: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +84: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +85: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +86: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +87: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +88: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +89: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +90: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +91: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +92: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +93: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +94: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +95: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +96: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +97: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +98: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +99: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +100: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +101: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +102: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +103: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks exists() returns true for existing file
+00:02 +104: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 04_file_write
+00:02 +105: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 04_file_write
+00:02 +106: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 04_file_write
+00:02 +107: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 04_file_write
+00:02 +108: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 04_file_write
+00:02 +109: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 04_file_write
+00:02 +110: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 04_file_write
+00:02 +111: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 04_file_write
+00:03 +112: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 04_file_write
+00:03 +113: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 04_file_write
+00:03 +114: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 04_file_write
+00:03 +115: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 04_file_write
+00:03 +116: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 04_file_write
+00:03 +117: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 04_file_write
+00:03 +118: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 04_file_write
+00:03 +119: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods introspection registeredVariables returns list
+00:03 +120: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks isDirectory() returns false for files
+00:03 +121: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks isDirectory() returns false for files
+00:03 +122: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 05_progress_capture
+00:03 +123: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 05_progress_capture
+00:03 +124: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 05_progress_capture
+00:03 +125: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 05_progress_capture
+00:03 +126: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 05_progress_capture
+00:03 +127: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 05_progress_capture
+00:03 +127: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Bridge Availability VSCodeBridgeClient.isAvailable returns bool
+VS Code bridge available: false
+00:03 +128: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 05_progress_capture
+00:03 +129: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 05_progress_capture
+00:03 +130: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks isEmpty() returns false for non-empty directory
+00:03 +130: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Bridge Availability VSCodeBridgeClient can connect when available
+Skipping: VS Code bridge not available
+00:03 +131: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks isEmpty() returns false for non-empty directory
+00:03 +132: test/cli_api_bridges_test.dart: DCli Global Functions - File System Checks isEmpty() returns false for non-empty directory
+00:03 +133: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 06_env_access
+00:03 +134: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 06_env_access
+00:03 +135: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 06_env_access
+00:03 +136: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 06_env_access
+00:03 +137: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 06_env_access
+00:03 +138: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCode Class VSCode.isInitialized returns correct state
+00:03 +139: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCode Class VSCode.isInitialized returns correct state
+Skipping: VS Code bridge not available
+00:03 +140: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCode Class VSCode.isInitialized returns correct state
+00:03 +141: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 07_basic_file_ops
+00:03 +141: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCode Class VSCode.getVersion returns version string
+Skipping: VS Code bridge not available
+00:03 +142: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations touch() updates existing file timestamp
+00:03 +143: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations touch() updates existing file timestamp
+00:03 +144: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations touch() updates existing file timestamp
+00:03 +145: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +146: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +146: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCode Class VSCode.getEnv returns environment info
+Skipping: VS Code bridge not available
+00:03 +147: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +148: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +148: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution execute runs fresh program
+42
+00:03 +149: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +149: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeWorkspace getWorkspaceFolders returns list
+Skipping: VS Code bridge not available
+00:03 +150: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +151: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +152: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +152: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeWorkspace getConfiguration returns configuration
+Skipping: VS Code bridge not available
+00:03 +153: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +154: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +155: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +156: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +157: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +158: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +159: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +160: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +161: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +161: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeWindow showInformationMessage displays message
+Skipping: VS Code bridge not available
+00:03 +162: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +163: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +164: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +165: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +166: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +166: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeWindow getActiveTextEditor returns editor info
+Skipping: VS Code bridge not available
+00:03 +167: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +168: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +169: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +170: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +170: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeCommands getCommands returns list of commands
+Skipping: VS Code bridge not available
+00:03 +171: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +172: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +173: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +174: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +175: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +176: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +176: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeCommands executeCommand can run basic command
+Skipping: VS Code bridge not available
+00:03 +177: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +178: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +179: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +179: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+Skipping: VS Code bridge not available
+00:03 +180: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +180: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution executeFile runs file
+from file
+00:03 +180: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getExtension returns specific extension
+Skipping: VS Code bridge not available
+00:03 +181: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +182: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +183: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +183: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can access VSCode class from script
+Skipping: VS Code bridge not available
+00:03 +184: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +184: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can access VSCodeBridgeClient from script
+Skipping: VS Code bridge not available
+00:03 +185: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +186: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +186: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create VSCodeUri from script
+Skipping: VS Code bridge not available
+00:03 +187: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +187: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create WorkspaceFolder from script
+Skipping: VS Code bridge not available
+00:03 +188: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +189: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +189: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create Position and Range from script
+Skipping: VS Code bridge not available
+00:03 +190: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +191: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +191: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create Selection from script
+Skipping: VS Code bridge not available
+00:03 +192: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +193: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +194: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 10_temp_files
+00:03 +195: test/cli_api_test.dart: D4rtCliController eval executes expressions
+00:03 +196: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create QuickPickItem from script
+00:03 +197: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create QuickPickItem from script
+Skipping: VS Code bridge not available
+00:03 +198: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create QuickPickItem from script
+00:03 +199: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 11_find_details
+00:03 +200: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 11_find_details
+00:03 +201: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 11_find_details
+00:03 +202: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 11_find_details
+00:03 +203: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 11_find_details
+00:03 +204: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 11_find_details
+00:03 +205: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 11_find_details
+00:03 +205: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create InputBoxOptions from script
+Skipping: VS Code bridge not available
+00:03 +206: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 11_find_details
+00:03 +207: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 11_find_details
+00:03 +208: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 11_find_details
+00:03 +209: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 11_find_details
+00:03 +209: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create MessageOptions from script
+Skipping: VS Code bridge not available
+00:03 +210: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 11_find_details
+00:03 +210: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Live Bridge Commands script can get VS Code version through bridge
+Skipping: VS Code bridge not available
+00:03 +211: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 11_find_details
+00:03 +211: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Live Bridge Commands script can get workspace folders through bridge
+Skipping: VS Code bridge not available
+00:03 +212: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 11_find_details
+00:03 +213: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 11_find_details
+00:03 +214: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations stat() returns file information
+00:04 +214: test/cli_api_test.dart: D4rtCliController execute runs code in fresh environment
+42
+00:04 +215: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations stat() returns file information
+00:04 +216: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations stat() returns file information
+00:04 +216: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Live Bridge Commands script can get active editor through bridge
+Skipping: VS Code bridge not available
+00:04 +217: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations stat() returns file information
+00:04 +218: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations stat() returns file information
+00:04 +219: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 13_cross_platform
+00:04 +220: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 13_cross_platform
+00:04 +221: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 13_cross_platform
+00:04 +222: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 13_cross_platform
+00:04 +223: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 13_cross_platform
+00:04 +224: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 13_cross_platform
+00:04 +225: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide Examples 13_cross_platform
+00:04 +226: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations calculateHash() returns hash string
+00:04 +227: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations calculateHash() returns hash string
+00:04 +228: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations calculateHash() returns hash string
+00:04 +229: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations calculateHash() returns hash string
+00:04 +230: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations calculateHash() returns hash string
+00:04 +231: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations calculateHash() returns hash string
+00:04 +232: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample color_output
+00:04 +233: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample color_output
+00:04 +234: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample color_output
+00:04 +235: test/cli_api_bridges_test.dart: DCli Global Functions - File Operations calculateHash() returns consistent hash for same content
+00:04 +236: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods processPrompt handles cd command
+00:04 +237: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +238: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +239: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +240: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +241: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +242: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +243: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +244: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +245: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +246: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +247: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +248: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +249: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +250: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +251: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +252: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +253: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +254: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +255: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +256: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +257: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +258: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +259: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +260: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +261: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +262: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +263: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +264: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +265: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +266: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +267: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +268: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +269: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +270: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +271: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +272: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +273: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +274: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample file_operations
+00:04 +275: test/cli_api_bridges_test.dart: DCli Global Functions - Directory Operations copyTree() copies directory tree
+00:04 +276: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample directory_operations
+00:04 +277: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample directory_operations
+00:04 +278: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample directory_operations
+00:04 +279: test/cli_api_bridges_test.dart: DCli Global Functions - Directory Operations createTempDir() with suffix parameter
+00:04 +280: test/dcli_example/dcli_example_test.dart: DCli Project - standalone kill_tomcat
+00:04 +281: test/dcli_example/dcli_example_test.dart: DCli Project - standalone kill_tomcat
+00:04 +282: test/dcli_example/dcli_example_test.dart: DCli Project - standalone kill_tomcat
+00:04 +283: test/dcli_example/dcli_example_test.dart: DCli Project - standalone kill_tomcat
+00:04 +284: test/dcli_example/dcli_example_test.dart: DCli Project - standalone kill_tomcat
+00:04 +285: test/dcli_example/dcli_example_test.dart: DCli Project - standalone kill_tomcat
+00:04 +286: test/dcli_example/dcli_example_test.dart: DCli Project - standalone kill_tomcat
+00:04 +287: test/dcli_example/dcli_example_test.dart: DCli Project - standalone kill_tomcat
+00:04 +288: test/dcli_example/dcli_example_test.dart: DCli Project - standalone kill_tomcat
+00:04 +289: test/dcli_example/dcli_example_test.dart: DCli Project - standalone kill_tomcat
+00:04 +290: test/dcli_example/dcli_example_test.dart: DCli Project - standalone kill_tomcat
+00:04 +291: test/dcli_example/dcli_example_test.dart: DCli Project - standalone kill_tomcat
+00:05 +292: test/dcli_example/dcli_example_test.dart: DCli Project - standalone kill_tomcat
+00:05 +293: test/cli_api_bridges_test.dart: DCli Global Functions - Backup/Restore restoreFile() with ignoreMissing handles missing backup
+00:05 +294: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide - Advanced 08_command_execution
+00:05 +295: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide - Advanced 08_command_execution
+00:05 +296: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide - Advanced 08_command_execution
+00:05 +297: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide - Advanced 08_command_execution
+00:05 +298: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide - Advanced 08_command_execution
+00:05 +299: test/cli_api_bridges_test.dart: DCli Global Functions - Echo/Print echo() is callable
+Hello Echo00:05 +300: test/cli_api_bridges_test.dart: DCli Global Functions - Echo/Print echo() is callable
+00:05 +301: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide - Advanced 14_shell_execution
+no newlineafter00:05 +302: test/dcli_example/dcli_example_test.dart: DCli Scripting Guide - Advanced 14_shell_execution
+00:05 +303: test/cli_api_bridges_test.dart: DCli Global Functions - Sleep sleep() with milliseconds pauses execution
+00:05 +304: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) environment
+00:05 +305: test/cli_api_bridges_test.dart: DCli Global Functions - Sleep Interval.seconds enum value is available
+00:05 +306: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +307: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +308: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +309: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +310: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +311: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +312: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +313: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +314: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +315: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +316: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +317: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +318: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +319: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +320: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +321: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +322: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +323: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +324: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) process_execution
+00:05 +325: test/cli_api_bridges_test.dart: DCli Classes - FileSync FileSync write and read
+00:05 +326: test/dcli_example/dcli_example_test.dart: DCli Project - tomexample (advanced) error_handling
+00:06 +327: test/cli_api_bridges_test.dart: DCli Classes - FileSync FileSync.append() adds to file
+00:06 +328: test/cli_api_bridges_test.dart: DCli Classes - FileSync FileSync.append() adds to file
+00:06 +329: test/cli_api_bridges_test.dart: DCli Classes - NamedLock NamedLock() constructor creates instance
+00:06 +330: test/cli_api_bridges_test.dart: DCli Classes - NamedLock NamedLock.withLock() executes callback (deprecated in dcli 8.4.2, throws UnsupportedError)
+00:06 +331: test/cli_api_bridges_test.dart: DCli Classes - NamedLock NamedLock.withLock() with timeout (deprecated in dcli 8.4.2, throws UnsupportedError)
+00:06 +332: test/cli_api_bridges_test.dart: DCli Classes - NamedLock NamedLock.withLockAsync() executes callback
+00:06 +333: test/cli_api_bridges_test.dart: DCli Classes - NamedLock NamedLock.withLockAsync() with timeout
+00:06 +334: test/cli_api_bridges_test.dart: DCli Classes - Progress Progress.print() creates instance
+00:06 +335: test/cli_api_bridges_test.dart: DCli Classes - Progress Progress.capture() creates instance
+00:06 +336: test/cli_api_bridges_test.dart: DCli Classes - Progress Progress.devNull() creates instance
+00:06 +337: test/cli_api_bridges_test.dart: DCli Classes - ProcessDetails ProcessDetails() constructor creates instance
+00:06 +338: test/cli_api_bridges_test.dart: DCli Classes - ProcessDetails ProcessDetails.pid returns process ID
+00:06 +339: test/cli_api_bridges_test.dart: DCli Classes - ProcessDetails ProcessDetails.name returns process name
+00:07 +340: test/cli_api_bridges_test.dart: DCli Classes - PubCache PubCache() constructor creates instance
+00:07 +341: test/cli_api_bridges_test.dart: DCli Classes - PubCache PubCache().pathTo returns path
+00:07 +342: test/cli_api_bridges_test.dart: DCli Classes - Settings Settings() constructor creates instance
+00:07 +343: test/cli_api_bridges_test.dart: DCli Classes - Settings Settings().isVerbose returns boolean
+00:07 +344: test/cli_api_bridges_test.dart: CLI API Classes - CliState CliState constructor creates instance
+00:07 +345: test/cli_api_bridges_test.dart: CLI API Classes - CliState CliState.cwd returns initial directory
+00:07 +346: test/cli_api_bridges_test.dart: CLI API Classes - CliState CliState.dataDirectory returns data directory
+00:07 +347: test/cli_api_bridges_test.dart: CLI API Classes - ExecuteResult ExecuteResult.success() creates success result
+00:07 +348: test/cli_api_bridges_test.dart: CLI API Classes - ExecuteResult ExecuteResult.success() stores result value
+00:07 +349: test/cli_api_bridges_test.dart: CLI API Classes - ExecuteResult ExecuteResult.success() has null error
+00:07 +350: test/cli_api_bridges_test.dart: CLI API Classes - ExecuteResult ExecuteResult.failure() creates failure result
+00:07 +351: test/cli_api_bridges_test.dart: CLI API Classes - ExecuteResult ExecuteResult.failure() stores error message
+00:07 +352: test/cli_api_bridges_test.dart: CLI API Classes - Exceptions CliException constructor creates instance
+00:07 +353: test/cli_api_bridges_test.dart: CLI API Classes - Exceptions CliException.message returns message
+00:07 +354: test/cli_api_bridges_test.dart: CLI API Classes - Exceptions CliFileNotFoundException constructor creates instance
+00:07 +355: test/cli_api_bridges_test.dart: CLI API Classes - Exceptions CliFileNotFoundException.path returns path
+00:07 +356: test/cli_api_bridges_test.dart: CLI API Classes - Exceptions DirectoryNotFoundException constructor creates instance
+00:07 +357: test/cli_api_bridges_test.dart: CLI API Classes - Exceptions DirectoryNotFoundException.path returns path
+00:07 +358: test/cli_api_bridges_test.dart: CLI API Classes - Exceptions ExecutionException constructor creates instance
+00:07 +359: test/cli_api_bridges_test.dart: CLI API Classes - ExecutionContext ExecutionContext constructor creates instance
+00:07 +360: test/cli_api_bridges_test.dart: CLI API Classes - ExecutionContext ExecutionContext.workingDirectory returns directory
+00:07 +361: test/cli_api_bridges_test.dart: CLI API Classes - ExecutionContext ExecutionContext.sourceFile returns source file
+00:07 +362: test/cli_api_bridges_test.dart: CLI API Classes - ExecutionContext ExecutionContext.recordToSession returns flag
+00:07 +363: test/cli_api_bridges_test.dart: CLI API Classes - ExecutionContext ExecutionContext.silent returns flag
+00:07 +364: test/cli_api_bridges_test.dart: CLI API Classes - ExecutionContext ExecutionContext.isMultilineMode returns false initially
+00:07 +365: test/cli_api_bridges_test.dart: CLI API Classes - ContextStack ContextStack constructor creates instance
+00:07 +366: test/cli_api_bridges_test.dart: CLI API Classes - ContextStack ContextStack.cwd returns initial directory
+00:07 +367: test/cli_api_bridges_test.dart: CLI API Classes - ContextStack ContextStack.depth returns 0 initially
+00:07 +368: test/cli_api_bridges_test.dart: CLI API Classes - ContextStack ContextStack push increases depth
+00:07 +369: test/cli_api_bridges_test.dart: CLI API Classes - ContextStack ContextStack push changes cwd
+00:07 +370: test/cli_api_bridges_test.dart: CLI API Classes - ContextStack ContextStack pop decreases depth
+00:07 +371: test/cli_api_bridges_test.dart: CLI API Classes - ContextStack ContextStack pop restores cwd
+00:07 +372: test/cli_api_bridges_test.dart: Enums - MultilineMode MultilineMode.none is available
+00:07 +373: test/cli_api_bridges_test.dart: Enums - MultilineMode MultilineMode.script is available
+00:07 +374: test/cli_api_bridges_test.dart: Enums - MultilineMode MultilineMode.file is available
+00:07 +375: test/cli_api_bridges_test.dart: Enums - MultilineMode MultilineMode.executeNew is available
+00:07 +376: test/cli_api_bridges_test.dart: Enums - MultilineMode MultilineMode.define is available
+00:07 +377: test/cli_api_bridges_test.dart: Enums - MultilineMode MultilineMode enum has multiple values
+00:07 +378: test/cli_api_bridges_test.dart: Enums - SymbolKind SymbolKind.package is available
+00:07 +379: test/cli_api_bridges_test.dart: Enums - SymbolKind SymbolKind.class_ is available
+00:07 +380: test/cli_api_bridges_test.dart: Enums - SymbolKind SymbolKind.method is available
+00:07 +381: test/cli_api_bridges_test.dart: Enums - SymbolKind SymbolKind.variable is available
+00:07 +382: test/cli_api_bridges_test.dart: Enums - SymbolKind SymbolKind.enum_ is available
+00:07 +383: test/cli_api_bridges_test.dart: Enums - DCli Enums FetchMethod.get is available
+00:08 +384: test/cli_api_bridges_test.dart: Enums - DCli Enums FetchMethod.post is available
+00:08 +385: test/cli_api_bridges_test.dart: Enums - DCli Enums FetchStatus.complete is available
+00:08 +386: test/cli_api_bridges_test.dart: Enums - DCli Enums SortDirection.ascending is available
+00:08 +387: test/cli_api_bridges_test.dart: Enums - DCli Enums SortDirection.descending is available
+00:08 +388: test/cli_api_bridges_test.dart: Enums - DCli Enums Find.file is available
+00:08 +389: test/cli_api_bridges_test.dart: Enums - DCli Enums Find.directory is available
+00:08 +390: test/cli_api_bridges_test.dart: Enums - DCli Enums Find.link is available
+00:08 +391: test/cli_api_bridges_test.dart: Integration - Complex File Operations create, modify, and verify file
+00:08 +392: test/cli_api_bridges_test.dart: Integration - Complex File Operations copy file tree and verify structure
+00:08 +393: test/cli_api_bridges_test.dart: Integration - Complex File Operations find files and count results
+00:08 +394: test/cli_api_bridges_test.dart: Integration - Complex File Operations backup, modify, and restore file
+00:08 +395: test/cli_api_bridges_test.dart: Integration - Complex File Operations create temp directory, add files, clean up
+00:08 +396: test/cli_api_bridges_test.dart: Integration - Complex File Operations use DartSdk and verify properties
+00:08 +397: test/cli_api_bridges_test.dart: Integration - Complex File Operations use which to find multiple commands
+00:08 +398: test/cli_api_bridges_test.dart: Integration - Complex File Operations create and use NamedLock with callback (deprecated in dcli 8.4.2, throws UnsupportedError)
+00:08 +399: test/cli_api_bridges_test.dart: Integration - Complex File Operations create and use NamedLock with withLockAsync
+00:08 +400: test/cli_api_bridges_test.dart: Integration - Complex File Operations chain file operations
+00:08 +401: test/cli_api_bridges_test.dart: Integration - Complex File Operations create directory hierarchy and verify
+00:08 +402: test/cli_api_bridges_test.dart: Integration - Complex File Operations createSymLink + resolveSymLink + deleteSymlink chain
+00:08 +403: test/cli_api_bridges_test.dart: Integration - Error Handling exists returns false for nonexistent path
+00:08 +404: test/cli_api_bridges_test.dart: Integration - Error Handling isFile returns false for nonexistent path
+00:08 +405: test/cli_api_bridges_test.dart: Integration - Error Handling isDirectory returns false for nonexistent path
+00:08 +406: test/cli_api_bridges_test.dart: Integration - Error Handling which returns not found for nonexistent command
+00:08 +407: test/cli_api_bridges_test.dart: Integration - Error Handling createTempDir creates unique directories
+00:08 +408: test/cli_api_bridges_test.dart: Integration - Error Handling createTempFile creates unique files
+00:08 +409: test/cli_api_bridges_test.dart: Integration - State Persistence file modifications persist
+00:08 +410: test/cli_api_bridges_test.dart: Integration - State Persistence directory modifications persist
+00:08 +411: test/cli_api_bridges_test.dart: Integration - State Persistence file content modifications persist
+00:08 +412: All tests passed!

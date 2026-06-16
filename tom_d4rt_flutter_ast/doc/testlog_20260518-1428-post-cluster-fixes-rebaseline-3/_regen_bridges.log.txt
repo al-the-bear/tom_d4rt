@@ -1,0 +1,149 @@
+Regenerating bridges for: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast
+Config: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/buildkit.yaml
+
+Warning: Failed to log d4rtgen invocation: PathNotFoundException: Cannot open file, path = '/Users/alexiskyaw/Desktop/Code/tom2/d4rtgen_invocations.log' (OS Error: No such file or directory, errno = 2)
+Resolving dependencies for summary caching...
+Found 83 dependencies (77 cacheable).
+Generating 2 missing summaries...
+  Generating summary (1/77): args
+  Generating summary (2/77): chalkdart
+  Generating summary (3/77): characters
+  Generating summary (4/77): circular_buffer
+  Generating summary (5/77): clock
+  Generating summary (6/77): collection
+  Generating summary (7/77): csv
+  Generating summary (8/77): fake_async
+  Generating summary (9/77): ffi
+  Generating summary (10/77): fixnum
+  Generating summary (11/77): ini
+  Generating summary (12/77): lints
+    Skipping lints: no public libraries
+  Generating summary (13/77): flutter_lints
+    Skipping flutter_lints: no public libraries
+  Generating summary (14/77): logging
+  Generating summary (15/77): marked
+  Generating summary (16/77): console_markdown
+  Generating summary (17/77): material_color_utilities
+  Generating summary (18/77): meta
+  Generating summary (19/77): _fe_analyzer_shared
+  Generating summary (20/77): async
+  Generating summary (21/77): chunked_stream
+  Generating summary (22/77): equatable
+  Generating summary (23/77): functional_data
+  Generating summary (24/77): json2yaml
+  Generating summary (25/77): mime
+  Generating summary (26/77): native_synchronization_temp
+  Generating summary (27/77): path
+  Generating summary (28/77): file
+  Generating summary (29/77): globbing
+  Generating summary (30/77): intl
+  Generating summary (31/77): package_config
+  Generating summary (32/77): posix
+  Generating summary (33/77): archive
+  Generating summary (34/77): pub_semver
+  Generating summary (35/77): scope
+  Generating summary (36/77): dcli_common
+  Generating summary (37/77): simple_sparse_list
+  Generating summary (38/77): sky_engine
+  Generating summary (39/77): stack_trace
+  Generating summary (40/77): stream_channel
+  Generating summary (41/77): sum_types
+  Generating summary (42/77): system_info2
+  Generating summary (43/77): term_glyph
+  Generating summary (44/77): source_span
+  Generating summary (45/77): string_scanner
+  Generating summary (46/77): boolean_selector
+  Generating summary (47/77): glob
+  Generating summary (48/77): test_api
+  Generating summary (49/77): matcher
+  Generating summary (50/77): typed_data
+  Generating summary (51/77): convert
+  Generating summary (52/77): crypto
+  Generating summary (53/77): unicode
+  Generating summary (54/77): strings
+  Generating summary (55/77): pubspec_manager
+  Generating summary (56/77): uuid
+  Generating summary (57/77): dcli_core
+  Generating summary (58/77): validators2
+  Generating summary (59/77): vector_math
+  Generating summary (60/77): flutter
+  Generating summary (61/77): vm_service
+  Generating summary (62/77): leak_tracker
+  Generating summary (63/77): leak_tracker_testing
+  Generating summary (64/77): leak_tracker_flutter_testing
+  Generating summary (65/77): flutter_test
+  Generating summary (66/77): watcher
+  Generating summary (67/77): win32
+  Generating summary (68/77): dart_console
+  Generating summary (69/77): dcli_terminal
+  Generating summary (70/77): yaml
+  Generating summary (71/77): analyzer
+  Generating summary (72/77): build
+  Generating summary (73/77): pubspec_lock
+  Generating summary (74/77): settings_yaml
+  Generating summary (75/77): dcli
+  Generating summary (76/77): tom_build_base
+  Generating summary (77/77): tom_d4rt
+Loading 75 cached summaries.
+  USER-BRIDGE: pre-scanned 3 class user bridges and 0 globals user bridges from /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast
+  GEN-076: Module dart_ui generated 102 classes, global total: 102
+  GEN-076: Module flutter_painting generated 90 classes, global total: 189
+  GEN-076: Module flutter_foundation generated 68 classes, global total: 257
+  GEN-076: Module flutter_animation generated 52 classes, global total: 309
+  GEN-076: Module flutter_physics generated 7 classes, global total: 316
+  GEN-076: Module flutter_scheduler generated 4 classes, global total: 320
+  GEN-076: Module flutter_semantics generated 24 classes, global total: 344
+  GEN-076: Module flutter_services generated 124 classes, global total: 468
+  GEN-076: Module flutter_gestures generated 91 classes, global total: 559
+  GEN-076: Module flutter_rendering generated 244 classes, global total: 802
+  GEN-076: Module flutter_widgets generated 725 classes, global total: 1520
+  GEN-076: Module flutter_material generated 404 classes, global total: 1910
+  GEN-076: Module flutter_cupertino generated 84 classes, global total: 1987
+  PROXY: Generated D4rtCustomPainter for CustomPainter (2 abstract + 5 overridable methods)
+  PROXY: Generated D4rtCustomClipper for CustomClipper (2 abstract + 3 overridable methods)
+  PROXY: Generated D4rtFlowDelegate for FlowDelegate (2 abstract + 3 overridable methods)
+  PROXY: Generated D4rtMultiChildLayoutDelegate for MultiChildLayoutDelegate (2 abstract + 4 overridable methods)
+  PROXY: Generated D4rtSingleChildLayoutDelegate for SingleChildLayoutDelegate (1 abstract + 3 overridable methods)
+  PROXY: Generated D4rtSliverPersistentHeaderDelegate for SliverPersistentHeaderDelegate (4 abstract + 4 overridable methods)
+  PROXY: Generated D4rtDataTableSource for DataTableSource (4 abstract + 5 overridable methods)
+  PROXY: Generated D4rtTransitionDelegate for TransitionDelegate (1 abstract + 0 overridable methods)
+  PROXY: Generated D4rtGradientTransform for GradientTransform (1 abstract + 0 overridable methods)
+  PROXY: Generated D4rtSliderComponentShape for SliderComponentShape (2 abstract + 0 overridable methods)
+  PROXY: Generated D4rtSpellCheckService for SpellCheckService (1 abstract + 0 overridable methods)
+  GEN-083: Generated 11 proxy classes → /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/flutter_proxies.b.dart
+  RELAXER: Generated 50 wrapper classes, 99 factory functions, 118 generic constructor registrations → /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/flutter_relaxers.b.dart
+  GEN-079: Generated 50 relaxer wrappers (99 factories) → /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/flutter_relaxers.b.dart
+  GEN-079 WARNING: No ClassInfo for generic base type "ComputeCallback" — it may be from dart:core or an unscanned package
+  GEN-079 WARNING: No ClassInfo for generic base type "FutureOr" — it may be from dart:core or an unscanned package
+  GEN-079 WARNING: No ClassInfo for generic base type "SlottedMultiChildRenderObjectWidgetMixin" — it may be from dart:core or an unscanned package
+  GEN-079 WARNING: No ClassInfo for generic base type "ValueChanged" — it may be from dart:core or an unscanned package
+  GEN-079 WARNING: No ClassInfo for ComputeCallback — skipping wrapper
+  GEN-079 WARNING: No ClassInfo for FutureOr — skipping wrapper
+  GEN-079 WARNING: SlottedContainerRenderObjectMixin has 2 type params — skipping wrapper (only single-param supported)
+  GEN-079 WARNING: No ClassInfo for SlottedMultiChildRenderObjectWidgetMixin — skipping wrapper
+  GEN-079 WARNING: No ClassInfo for ValueChanged — skipping wrapper
+
+=== Generation Complete ===
+Total classes: 2019
+Total modules: 13
+Output files: 18
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/dart_ui_bridges.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/painting_bridges.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/foundation_bridges.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/animation_bridges.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/physics_bridges.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/scheduler_bridges.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/semantics_bridges.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/services_bridges.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/gestures_bridges.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/rendering_bridges.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/widgets_bridges.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/material_widgets_bridges.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/cupertino_bridges.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/flutter_bridges_barrel.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/material_bridges.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/bridge_test_runner.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/flutter_proxies.b.dart
+  - /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/lib/src/bridges/flutter_relaxers.b.dart
+Time: 0:00:26.932635
+Success: true
