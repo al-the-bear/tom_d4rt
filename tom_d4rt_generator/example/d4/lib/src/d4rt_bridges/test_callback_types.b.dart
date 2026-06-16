@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_generator/example/d4/lib/test_callback_types.dart
-// Generated: 2026-06-12T18:35:30.845403
+// Generated: 2026-06-16T22:25:25.849434
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -189,7 +189,7 @@ BridgedClass _createGenericCallbackServiceBridge() {
           throw ArgumentError('withConnection: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.withConnection(((dynamic p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as FutureOr<Object?> Function(dynamic));
+        return t.withConnection<Object?>(((dynamic p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as FutureOr<Object?> Function(dynamic));
       },
       'transactional': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_5.GenericCallbackService>(target, 'GenericCallbackService');
@@ -198,7 +198,7 @@ BridgedClass _createGenericCallbackServiceBridge() {
           throw ArgumentError('transactional: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.transactional(((String p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as FutureOr<Object?> Function(String));
+        return t.transactional<Object?>(((String p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0])); }) as FutureOr<Object?> Function(String));
       },
       'withBoundedType': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_5.GenericCallbackService>(target, 'GenericCallbackService');
@@ -207,7 +207,7 @@ BridgedClass _createGenericCallbackServiceBridge() {
           throw ArgumentError('withBoundedType: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.withBoundedType(((dynamic p0) { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as FutureOr<Object>; }) as FutureOr<Object> Function(dynamic));
+        return t.withBoundedType<Object>(((dynamic p0) { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor) as FutureOr<Object>; }) as FutureOr<Object> Function(dynamic));
       },
     },
     constructorSignatures: {
