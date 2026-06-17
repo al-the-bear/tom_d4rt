@@ -1,0 +1,73 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 91.0.0 (103.0.0 available)
+  analyzer 8.4.1 (13.3.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.1.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.17.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.10 (0.7.12 available)
+  tom_analyzer_shared 0.1.0 (0.2.0 available)
+  tom_build_base 2.6.21 (2.6.25 available)
+  tom_d4rt 1.8.22 (1.8.23 available)
+  tom_d4rt_generator 1.9.3 (1.9.6 available)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+22 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter/test/flutter_base_06_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+[test-app] waiting for /health on port 4248 (15s elapsed, 31 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:59029/yGmhVIOSAfs=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:59029/yGmhVIOSAfs=/devtools/?uri=ws://127.0.0.1:59029/yGmhVIOSAfs=/ws
+=================================================================
+[test-app] waiting for /health on port 4248 (18s elapsed, 37 probes)…
+00:19 +0: Test App Health app is running
+00:19 +1: material/ buttonstyle_popup_test.dart
+[METRIC] script=material/buttonstyle_popup_test.dart testFile=flutter_base_06_test.dart sourceChars=72635 clearMs=211 httpMs=8610 totalMs=8827 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=5 appParseMs=5 appSetStateMs=6 appInterpretStartMs=17 appInterpretEndMs=8161 appFirstFrameMs=8399 appPumpEndMs=8600
+00:28 +2: material/ chip_variants_test.dart
+[METRIC] script=material/chip_variants_test.dart testFile=flutter_base_06_test.dart sourceChars=58303 clearMs=215 httpMs=3636 totalMs=3855 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=2 appInterpretStartMs=4 appInterpretEndMs=3118 appFirstFrameMs=3433 appPumpEndMs=3634
+00:32 +3: material/ datetime_utils_test.dart
+[METRIC] script=material/datetime_utils_test.dart testFile=flutter_base_06_test.dart sourceChars=49770 clearMs=216 httpMs=3595 totalMs=3816 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=3 appParseMs=3 appSetStateMs=3 appInterpretStartMs=10 appInterpretEndMs=3083 appFirstFrameMs=3391 appPumpEndMs=3592
+00:36 +4: material/ fablocation_messenger_test.dart
+[METRIC] script=material/fablocation_messenger_test.dart testFile=flutter_base_06_test.dart sourceChars=62074 clearMs=213 httpMs=3422 totalMs=3638 status=success httpStatus=200 outputLines=20 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=5 appInterpretEndMs=3185 appFirstFrameMs=3218 appPumpEndMs=3419
+00:40 +5: material/ texttheme_test.dart
+[METRIC] script=material/texttheme_test.dart testFile=flutter_base_06_test.dart sourceChars=53246 clearMs=215 httpMs=3556 totalMs=3773 status=success httpStatus=200 outputLines=26 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=3262 appFirstFrameMs=3352 appPumpEndMs=3553
+00:43 +6: material/ input_borders_test.dart
+[METRIC] script=material/input_borders_test.dart testFile=flutter_base_06_test.dart sourceChars=76485 clearMs=217 httpMs=7220 totalMs=7439 status=success httpStatus=200 outputLines=24 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=6769 appFirstFrameMs=7015 appPumpEndMs=7217
+00:51 +7: material/ button_types_test.dart
+[METRIC] script=material/button_types_test.dart testFile=flutter_base_06_test.dart sourceChars=59102 clearMs=243 httpMs=3941 totalMs=4187 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=3665 appFirstFrameMs=3736 appPumpEndMs=3938
+00:55 +8: material/ scaffold_advanced_test.dart
+[METRIC] script=material/scaffold_advanced_test.dart testFile=flutter_base_06_test.dart sourceChars=82689 clearMs=203 httpMs=3929 totalMs=4134 status=success httpStatus=200 outputLines=24 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=3 appInterpretEndMs=3482 appFirstFrameMs=3724 appPumpEndMs=3925
+00:59 +9: material/ tab_indicator_test.dart
+[METRIC] script=material/tab_indicator_test.dart testFile=flutter_base_06_test.dart sourceChars=80991 clearMs=219 httpMs=3778 totalMs=4000 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=3478 appFirstFrameMs=3570 appPumpEndMs=3771
+01:03 +10: material/ popup_advanced_test.dart
+[METRIC] script=material/popup_advanced_test.dart testFile=flutter_base_06_test.dart sourceChars=78132 clearMs=221 httpMs=3822 totalMs=4045 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=3528 appFirstFrameMs=3615 appPumpEndMs=3817
+01:07 +11: material/ autocomplete_datepicker_test.dart
+[METRIC] script=material/autocomplete_datepicker_test.dart testFile=flutter_base_06_test.dart sourceChars=24646 clearMs=211 httpMs=3294 totalMs=3508 status=success httpStatus=200 outputLines=3 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=3054 appFirstFrameMs=3091 appPumpEndMs=3292
+01:11 +12: material/ chip_attributes_test.dart
+[METRIC] script=material/chip_attributes_test.dart testFile=flutter_base_06_test.dart sourceChars=61955 clearMs=214 httpMs=3534 totalMs=3750 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=3048 appFirstFrameMs=3329 appPumpEndMs=3530
+01:14 +13: material/ color_scheme_test.dart
+[METRIC] script=material/color_scheme_test.dart testFile=flutter_base_06_test.dart sourceChars=72023 clearMs=231 httpMs=3301 totalMs=3534 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=2995 appFirstFrameMs=3093 appPumpEndMs=3295
+01:18 +14: material/ dialog_advanced_test.dart
+[METRIC] script=material/dialog_advanced_test.dart testFile=flutter_base_06_test.dart sourceChars=79474 clearMs=215 httpMs=3465 totalMs=3683 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=3103 appFirstFrameMs=3262 appPumpEndMs=3462
+01:22 +15: material/ divider_listtile_test.dart

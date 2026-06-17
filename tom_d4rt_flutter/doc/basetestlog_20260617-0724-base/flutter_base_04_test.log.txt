@@ -166,3 +166,40 @@ Try `flutter pub outdated` for more information.
 08:06 +62: animation/ alwaysstoppedanimation_test.dart
 [METRIC] script=animation/alwaysstoppedanimation_test.dart testFile=flutter_base_04_test.dart sourceChars=78613 clearMs=203 httpMs=27580 totalMs=27787 status=success httpStatus=200 outputLines=44 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=21448 appInterpretEndMs=27300 appFirstFrameMs=27372 appPumpEndMs=27576
 08:34 +63: animation/ compoundanimation_test.dart
+[METRIC] script=animation/compoundanimation_test.dart testFile=flutter_base_04_test.dart sourceChars=38574 clearMs=204 httpMs=30006 totalMs=30211 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in animation/compoundanimation_test.dart:
+    Build timed out after 30 seconds
+[recycle] build-timeout in animation/compoundanimation_test.dart — app event loop is wedged; killing it now, restarting before the next test (no cascade)
+09:04 +63 -1: animation/ compoundanimation_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_base_04_test.dart 453:7                main.<fn>.<fn>
+  
+09:04 +63 -1: animation/ tweensequence_test.dart
+[recycle] killing wedged test app (pid=43054)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+[test-app] waiting for /health on port 4248 (15s elapsed, 31 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=animation/tweensequence_test.dart testFile=flutter_base_04_test.dart sourceChars=37319 clearMs=202 httpMs=4292 totalMs=22652 status=success httpStatus=200 outputLines=99 frameworkErrors=0 appBodyMs=8 appParseMs=8 appSetStateMs=9 appInterpretStartMs=12 appInterpretEndMs=3895 appFirstFrameMs=4079 appPumpEndMs=4280
+09:27 +64 -1: animation/ animatable_test.dart
+[METRIC] script=animation/animatable_test.dart testFile=flutter_base_04_test.dart sourceChars=100623 clearMs=226 httpMs=4625 totalMs=4855 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=5 appParseMs=5 appSetStateMs=6 appInterpretStartMs=9 appInterpretEndMs=3944 appFirstFrameMs=4369 appPumpEndMs=4577
+09:32 +65 -1: physics/ simulations_test.dart
+[METRIC] script=physics/simulations_test.dart testFile=flutter_base_04_test.dart sourceChars=54513 clearMs=240 httpMs=3428 totalMs=3670 status=success httpStatus=200 outputLines=134 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=3059 appFirstFrameMs=3224 appPumpEndMs=3425
+09:36 +66 -1: foundation/ error_test.dart
+[METRIC] script=foundation/error_test.dart testFile=flutter_base_04_test.dart sourceChars=66182 clearMs=221 httpMs=6304 totalMs=6527 status=success httpStatus=200 outputLines=6 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=6014 appFirstFrameMs=6100 appPumpEndMs=6301
+09:42 +67 -1: foundation/ diagnostics_test.dart
+[METRIC] script=foundation/diagnostics_test.dart testFile=flutter_base_04_test.dart sourceChars=78826 clearMs=208 httpMs=4086 totalMs=4299 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=3717 appFirstFrameMs=3867 appPumpEndMs=4068
+09:47 +68 -1: foundation/ license_test.dart
+[METRIC] script=foundation/license_test.dart testFile=flutter_base_04_test.dart sourceChars=76865 clearMs=220 httpMs=3275 totalMs=3497 status=success httpStatus=200 outputLines=24 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=2973 appFirstFrameMs=3071 appPumpEndMs=3272
+09:50 +69 -1: (tearDownAll)
+09:51 +69 -1: Some tests failed.
