@@ -21,18 +21,28 @@
 //    point being demonstrated — edit the source, re-run, see the new output —
 //    is identical; only the value is frozen for determinism.
 //
-//  • Fixed surface + device pixel ratio, so the PNG dimensions and layout are
-//    identical on every machine. Text is drawn with Flutter's bundled test
-//    font (uniform glyph boxes), which is the same on all platforms — that is
-//    what makes goldens portable; the shots capture layout/structure rather
-//    than typeface.
+//  • Fixed surface + device pixel ratio, so the PNG dimensions are identical
+//    on every machine.
+//
+//  • Real fonts loaded before pumping (see _loadRealFonts). By default
+//    `flutter test` falls back to the placeholder test font, which draws every
+//    glyph as a uniform box and renders no icons — the shots then show boxes
+//    instead of legible text/icons. We load the Material/Cupertino icon fonts
+//    from the bundled FontManifest and a committed copy of Roboto (the Material
+//    default text family) so the goldens show actual text and icons.
+//    Reproducibility is preserved because the exact font files are committed
+//    under test/fonts/, not pulled from the (machine-specific) SDK cache.
 //
 // Asset loads (the Samples list) are async and show a spinner — an infinite
 // animation that would make pumpAndSettle time out. So we prime the app with
 // _pumpUntilFound (which drives the real event loop via runAsync) until the
 // spinner has cleared before using pumpAndSettle for tab/route transitions.
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:d4rt_flutter_sample/main.dart';
@@ -68,6 +78,58 @@ Widget build(BuildContext context) {
 }
 ''';
 
+/// Load real fonts so the goldens show actual glyphs and icons instead of the
+/// test framework's placeholder boxes.
+///
+/// Two sources:
+///  • Icon fonts (MaterialIcons, CupertinoIcons) are already present in the
+///    test asset bundle's `FontManifest.json`. Each is registered under the
+///    exact family string the framework references — the manifest already
+///    carries the `packages/…` prefix for package-provided fonts — so `Icon`
+///    widgets render real glyphs.
+///  • Roboto (the Material default text family on the test target platform) and
+///    `monospace` (used by the Paste & Run editor's TextField, see
+///    paste_run_tab.dart) are NOT bundled; they ship with the engine / are
+///    platform aliases. We commit Roboto-{Regular,Medium,Bold}.ttf and
+///    RobotoMono-{Regular,Bold}.ttf under test/fonts/ and register them under
+///    the `Roboto` and `monospace` families respectively so all default text
+///    AND the source editor render with real, reproducible glyphs.
+Future<void> _loadRealFonts() async {
+  // Icon fonts from the bundled FontManifest.
+  final manifestJson = await rootBundle.loadString('FontManifest.json');
+  final manifest =
+      (json.decode(manifestJson) as List).cast<Map<String, dynamic>>();
+  for (final entry in manifest) {
+    final loader = FontLoader(entry['family'] as String);
+    for (final font in (entry['fonts'] as List).cast<Map<String, dynamic>>()) {
+      loader.addFont(rootBundle.load(font['asset'] as String));
+    }
+    await loader.load();
+  }
+
+  // Text families from committed test fixtures. Paths are relative to the
+  // package root, which is the CWD when `flutter test` runs.
+  await _loadFamilyFromFiles('Roboto', const [
+    'test/fonts/Roboto-Regular.ttf',
+    'test/fonts/Roboto-Medium.ttf',
+    'test/fonts/Roboto-Bold.ttf',
+  ]);
+  await _loadFamilyFromFiles('monospace', const [
+    'test/fonts/RobotoMono-Regular.ttf',
+    'test/fonts/RobotoMono-Bold.ttf',
+  ]);
+}
+
+/// Register [family] from on-disk font [paths] (relative to the package root).
+Future<void> _loadFamilyFromFiles(String family, List<String> paths) async {
+  final loader = FontLoader(family);
+  for (final path in paths) {
+    final bytes = await File(path).readAsBytes();
+    loader.addFont(Future<ByteData>.value(ByteData.sublistView(bytes)));
+  }
+  await loader.load();
+}
+
 /// Pump frames until [finder] matches or [tries] is exhausted.
 ///
 /// Asset reads via `rootBundle` complete on the real event loop, which `pump`
@@ -89,6 +151,11 @@ Future<void> _pumpUntilFound(
 }
 
 void main() {
+  setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    await _loadRealFonts();
+  });
+
   testWidgets(
     'Paste & Run golden walk: enter, execute, edit with date, execute again',
     (WidgetTester tester) async {
