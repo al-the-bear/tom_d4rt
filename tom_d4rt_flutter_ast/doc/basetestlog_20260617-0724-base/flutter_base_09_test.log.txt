@@ -1,0 +1,354 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 91.0.0 (103.0.0 available)
+  analyzer 8.4.1 (13.3.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.1.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.17.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.10 (0.7.12 available)
+  tom_analyzer_shared 0.1.0 (0.2.0 available)
+  tom_ast_generator 0.1.2 (0.1.3 available)
+  tom_ast_model 0.1.2 (0.1.3 available)
+  tom_build_base 2.6.21 (2.6.25 available)
+  tom_d4rt 1.8.22 (1.8.23 available)
+  tom_d4rt_ast 0.1.6 (0.1.8 available)
+  tom_d4rt_exec 1.8.4 (1.8.5 available)
+  tom_d4rt_generator 1.9.3 (1.9.6 available)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+26 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_09_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:54433/16axG48b2Zo=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:54433/16axG48b2Zo=/devtools/?uri=ws://127.0.0.1:54433/16axG48b2Zo=/ws
+=================================================================
+[test-app] waiting for /health on port 4247 (15s elapsed, 31 probes)…
+00:19 +0: Test App Health app is running
+00:19 +1: gestures/ individual base_tap_and_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/base_tap_and_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=61193 sourceChars=61153 bundleJsonBytes=678797 clearMs=211 readMs=3 bundleMs=226 httpMs=3529 totalMs=3972 status=success httpStatus=200 outputLines=42 frameworkErrors=0 appBodyMs=13 appParseMs=59 appSetStateMs=60 appInterpretStartMs=70 appInterpretEndMs=3215 appFirstFrameMs=3317 appPumpEndMs=3518
+00:23 +2: gestures/ individual delayed_multi_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/delayed_multi_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=55444 sourceChars=55402 bundleJsonBytes=665543 clearMs=202 readMs=3 bundleMs=48 httpMs=3740 totalMs=3994 status=success httpStatus=200 outputLines=28 frameworkErrors=0 appBodyMs=2 appParseMs=21 appSetStateMs=21 appInterpretStartMs=26 appInterpretEndMs=3445 appFirstFrameMs=3533 appPumpEndMs=3734
+00:27 +3: gestures/ individual device_gesture_settings_test.dart
+[METRIC] script=gestures/device_gesture_settings_test.dart testFile=flutter_base_09_test.dart sourceBytes=50358 sourceChars=50326 bundleJsonBytes=596652 clearMs=204 readMs=5 bundleMs=37 httpMs=3765 totalMs=4013 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=19 appInterpretEndMs=3483 appFirstFrameMs=3561 appPumpEndMs=3761
+00:31 +4: gestures/ individual drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=51176 sourceChars=51157 bundleJsonBytes=621980 clearMs=203 readMs=1 bundleMs=34 httpMs=3727 totalMs=3966 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=19 appInterpretEndMs=3423 appFirstFrameMs=3521 appPumpEndMs=3722
+00:35 +5: gestures/ individual drag_test.dart
+[METRIC] script=gestures/drag_test.dart testFile=flutter_base_09_test.dart sourceBytes=58201 sourceChars=58161 bundleJsonBytes=708757 clearMs=203 readMs=1 bundleMs=23 httpMs=3808 totalMs=4037 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=15 appSetStateMs=15 appInterpretStartMs=20 appInterpretEndMs=3526 appFirstFrameMs=3603 appPumpEndMs=3803
+00:39 +6: gestures/ individual eager_gesture_recognizer_test.dart
+[METRIC] script=gestures/eager_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=46004 sourceChars=46004 bundleJsonBytes=545064 clearMs=204 readMs=1 bundleMs=41 httpMs=4122 totalMs=4370 status=success httpStatus=200 outputLines=26 frameworkErrors=0 appBodyMs=0 appParseMs=9 appSetStateMs=9 appInterpretStartMs=10 appInterpretEndMs=3846 appFirstFrameMs=3914 appPumpEndMs=4116
+00:43 +7: gestures/ individual horizontal_multi_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/horizontal_multi_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=49435 sourceChars=49359 bundleJsonBytes=592939 clearMs=217 readMs=1 bundleMs=39 httpMs=3882 totalMs=4141 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=1 appParseMs=17 appSetStateMs=17 appInterpretStartMs=20 appInterpretEndMs=3547 appFirstFrameMs=3675 appPumpEndMs=3878
+00:47 +8: gestures/ individual immediate_multi_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/immediate_multi_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=73480 sourceChars=73421 bundleJsonBytes=903240 clearMs=223 readMs=1 bundleMs=72 httpMs=3892 totalMs=4190 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=5 appParseMs=35 appSetStateMs=35 appInterpretStartMs=36 appInterpretEndMs=3508 appFirstFrameMs=3684 appPumpEndMs=3886
+00:52 +9: gestures/ individual long_press_down_details_test.dart
+[METRIC] script=gestures/long_press_down_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=69462 sourceChars=69462 bundleJsonBytes=834070 clearMs=205 readMs=1 bundleMs=24 httpMs=3741 totalMs=3973 status=success httpStatus=200 outputLines=20 frameworkErrors=0 appBodyMs=0 appParseMs=16 appSetStateMs=16 appInterpretStartMs=19 appInterpretEndMs=3460 appFirstFrameMs=3533 appPumpEndMs=3735
+00:55 +10: gestures/ individual multi_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/multi_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=53907 sourceChars=53878 bundleJsonBytes=594796 clearMs=219 readMs=1 bundleMs=30 httpMs=3727 totalMs=3979 status=success httpStatus=200 outputLines=16 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=22 appInterpretEndMs=3453 appFirstFrameMs=3520 appPumpEndMs=3721
+00:59 +11: gestures/ individual multi_drag_pointer_state_test.dart
+[METRIC] script=gestures/multi_drag_pointer_state_test.dart testFile=flutter_base_09_test.dart sourceBytes=52167 sourceChars=52167 bundleJsonBytes=649026 clearMs=218 readMs=1 bundleMs=18 httpMs=3693 totalMs=3932 status=success httpStatus=200 outputLines=8 frameworkErrors=0 appBodyMs=0 appParseMs=10 appSetStateMs=10 appInterpretStartMs=13 appInterpretEndMs=3423 appFirstFrameMs=3487 appPumpEndMs=3688
+01:03 +12: gestures/ individual multi_tap_gesture_recognizer_test.dart
+[METRIC] script=gestures/multi_tap_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=59042 sourceChars=59030 bundleJsonBytes=658039 clearMs=204 readMs=1 bundleMs=21 httpMs=3728 totalMs=3956 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=23 appInterpretEndMs=3460 appFirstFrameMs=3523 appPumpEndMs=3723
+01:07 +13: gestures/ individual positioned_gesture_details_test.dart
+[METRIC] script=gestures/positioned_gesture_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=74567 sourceChars=74446 bundleJsonBytes=811504 clearMs=205 readMs=1 bundleMs=41 httpMs=3955 totalMs=4202 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=18 appSetStateMs=18 appInterpretStartMs=27 appInterpretEndMs=3651 appFirstFrameMs=3725 appPumpEndMs=3928
+01:12 +14: gestures/ individual serial_tap_cancel_details_test.dart
+[METRIC] script=gestures/serial_tap_cancel_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=53932 sourceChars=53926 bundleJsonBytes=671478 clearMs=203 readMs=1 bundleMs=19 httpMs=45023 totalMs=45247 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=12 appSetStateMs=12 appInterpretStartMs=-1 appInterpretEndMs=-1 appFirstFrameMs=-1 appPumpEndMs=-1
+[recycle] build-timeout in gestures/serial_tap_cancel_details_test.dart — app event loop is wedged; killing it now, restarting before the next test (no cascade)
+01:58 +14 -1: gestures/ individual serial_tap_cancel_details_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 45 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_base_09_test.dart 129:7                main.<fn>.<fn>
+  
+01:58 +14 -1: gestures/ individual serial_tap_down_details_test.dart
+[recycle] killing wedged test app (pid=33568)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=gestures/serial_tap_down_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=58388 sourceChars=58266 bundleJsonBytes=573109 clearMs=203 readMs=1 bundleMs=16 httpMs=6266 totalMs=21141 status=success httpStatus=200 outputLines=139 frameworkErrors=0 appBodyMs=12 appParseMs=56 appSetStateMs=56 appInterpretStartMs=62 appInterpretEndMs=5959 appFirstFrameMs=6056 appPumpEndMs=6258
+02:19 +15 -1: gestures/ individual serial_tap_gesture_recognizer_test.dart
+[METRIC] script=gestures/serial_tap_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=54773 sourceChars=54737 bundleJsonBytes=713575 clearMs=223 readMs=1 bundleMs=20 httpMs=3780 totalMs=4025 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=2 appParseMs=23 appSetStateMs=23 appInterpretStartMs=29 appInterpretEndMs=3495 appFirstFrameMs=3573 appPumpEndMs=3775
+02:23 +16 -1: gestures/ individual serial_tap_up_details_test.dart
+[METRIC] script=gestures/serial_tap_up_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=48635 sourceChars=48581 bundleJsonBytes=550704 clearMs=222 readMs=1 bundleMs=14 httpMs=3439 totalMs=3680 status=success httpStatus=200 outputLines=24 frameworkErrors=0 appBodyMs=1 appParseMs=13 appSetStateMs=13 appInterpretStartMs=16 appInterpretEndMs=3133 appFirstFrameMs=3234 appPumpEndMs=3435
+02:26 +17 -1: gestures/ individual tap_and_horizontal_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/tap_and_horizontal_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=60969 sourceChars=60965 bundleJsonBytes=708362 clearMs=203 readMs=1 bundleMs=19 httpMs=3679 totalMs=3904 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=17 appSetStateMs=17 appInterpretStartMs=25 appInterpretEndMs=3389 appFirstFrameMs=3474 appPumpEndMs=3674
+02:30 +18 -1: gestures/ individual tap_and_pan_gesture_recognizer_test.dart
+[METRIC] script=gestures/tap_and_pan_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=83007 sourceChars=81619 bundleJsonBytes=815660 clearMs=204 readMs=1 bundleMs=17 httpMs=3798 totalMs=4022 status=success httpStatus=200 outputLines=3 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=17 appInterpretStartMs=19 appInterpretEndMs=3450 appFirstFrameMs=3591 appPumpEndMs=3793
+02:34 +19 -1: gestures/ individual tap_drag_down_details_test.dart
+[METRIC] script=gestures/tap_drag_down_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=86930 sourceChars=86683 bundleJsonBytes=778757 clearMs=203 readMs=1 bundleMs=17 httpMs=6477 totalMs=6700 status=success httpStatus=200 outputLines=169 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=20 appInterpretEndMs=6192 appFirstFrameMs=6267 appPumpEndMs=6469
+02:41 +20 -1: gestures/ individual tap_drag_end_details_test.dart
+[METRIC] script=gestures/tap_drag_end_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=64462 sourceChars=64399 bundleJsonBytes=778653 clearMs=301 readMs=1 bundleMs=27 httpMs=55003 totalMs=56055 status=transport_error httpStatus=-1 outputLines=0 frameworkErrors=0
+03:37 +20 -2: gestures/ individual tap_drag_end_details_test.dart [E]
+  Bad state: Transport failure while running "gestures/tap_drag_end_details_test.dart"
+  Operation: POST /build?filename=gestures%2Ftap_drag_end_details_test.dart&suite=flutter_base_09_test.dart
+  Error: TimeoutException after 0:00:55.000000: Future not completed
+  
+  Stack trace:
+  #0      Future.timeout.<anonymous closure> (dart:async/future_impl.dart:1042:24)
+  <asynchronous suspension>
+  #1      SendTestRunner.send (file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/send_test_runner.dart:1131:18)
+  <asynchronous suspension>
+  #2      main.<anonymous closure>.<anonymous closure> (file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_09_test.dart:175:22)
+  <asynchronous suspension>
+  #3      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+  <asynchronous suspension>
+  #4      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+  <asynchronous suspension>
+  #5      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+  <asynchronous suspension>
+  
+  
+  Runner app process: exited with code 0
+  
+  Captured app STDOUT tail:
+    flutter: [D4rtApp][clean][build] clearCount=6 lastClearedFile="gestures/tap_and_horizontal_drag_gesture_recognizer_test.dart" currentTestFile="gestures/tap_and_pan_gesture_recognizer_test.dart" sinceClearMs=227 gen=10 :: incoming /build filename="gestures/tap_and_pan_gesture_recognizer_test.dart" suite="flutter_base_09_test.dart" bytes=814276
+    flutter: [D4rtApp] [script] TapAndPanGestureRecognizer harbor-tide demo: starting
+    flutter: [D4rtApp] [script] Recognizer probed and disposed cleanly.
+    flutter: [D4rtApp] [script] TapAndPanGestureRecognizer harbor-tide demo: build complete
+    flutter: [D4rtApp][clean][build-postpump] clearCount=6 lastClearedFile="gestures/tap_and_horizontal_drag_gesture_recognizer_test.dart" currentTestFile="gestures/tap_and_pan_gesture_recognizer_test.dart" sinceClearMs=4019 gen=11 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="gestures/tap_and_pan_gesture_recognizer_test.dart" widgetType="Scaffold" bodyMs=2 parseMs=16 setStateMs=17 interpretStartMs=19 interpretEndMs=3450 firstFrameMs=3591 pumpEndMs=3793 totalMs=3793
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=7 lastClearedFile="gestures/tap_and_pan_gesture_recognizer_test.dart" currentTestFile="gestures/tap_and_pan_gesture_recognizer_test.dart" sinceClearMs=0 gen=11 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=7 lastClearedFile="gestures/tap_and_pan_gesture_recognizer_test.dart" currentTestFile="gestures/tap_and_pan_gesture_recognizer_test.dart" sinceClearMs=201 gen=12 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [gestures/tap_drag_down_details_test.dart] (778568 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=7 lastClearedFile="gestures/tap_and_pan_gesture_recognizer_test.dart" currentTestFile="gestures/tap_drag_down_details_test.dart" sinceClearMs=228 gen=12 :: incoming /build filename="gestures/tap_drag_down_details_test.dart" suite="flutter_base_09_test.dart" bytes=778568
+    flutter: [D4rtApp] [script] =====================================================
+    flutter: [D4rtApp] [script]  TapDragDownDetails — DEEP DEMO (cobalt+coral edition)
+    flutter: [D4rtApp] [script] =====================================================
+    flutter: [D4rtApp] [script] 
+    === Section 0: Anchor instance ===
+    flutter: [D4rtApp] [script] Constructing the canonical TapDragDownDetails…
+    flutter: [D4rtApp] [script] --- anchor ---
+    flutter: [D4rtApp] [script]   runtimeType        : TapDragDownDetails
+    flutter: [D4rtApp] [script]   globalPosition     : Offset(140.0, 95.0)
+    flutter: [D4rtApp] [script]   localPosition      : Offset(40.0, 25.0)
+    flutter: [D4rtApp] [script]   kind               : PointerDeviceKind.touch
+    flutter: [D4rtApp] [script]   consecutiveTapCount: 1
+    flutter: [D4rtApp] [script] anchor == anchorTwin (identity)   : false
+    flutter: [D4rtApp] [script] anchor == anchorTwin (== operator): false
+    flutter: [D4rtApp] [script] anchor.runtimeType == twin.runtime: true
+    flutter: [D4rtApp] [script] Note: TapDragDownDetails does not override == — two instances
+    flutter: [D4rtApp] [script]       with identical fields are still distinct Dart objects.
+    flutter: [D4rtApp] [script] 
+    === Section 1: Field-by-field ===
+    flutter: [D4rtApp] [script] globalPosition is in the device coordinate space (origin top-
+    flutter: [D4rtApp] [script] left of the screen / window). It is what you compare against
+    flutter: [D4rtApp] [script] a hit-test result, what you log to telemetry, and what you
+    flutter: [D4rtApp] [script] forward to a drag-handler that wants absolute coordinates.
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] localPosition is in the coordinate space of the box that
+    flutter: [D4rtApp] [script] received the hit. If you put a TapAndDragGestureRecognizer on
+    flutter: [D4rtApp] [script] a 200x100 panel, localPosition is the offset *inside* that
+    flutter: [D4rtApp] [script] panel — so (0,0) is the top-left of the panel, not of the
+    flutter: [D4rtApp] [script] screen. This is what you usually want to drive a custom paint
+    flutter: [D4rtApp] [script] or to compute a drag-relative selection.
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] kind is the PointerDeviceKind that started the gesture. It is
+    flutter: [D4rtApp] [script] NULLABLE on TapDragDownDetails (unlike SerialTapDownDetails
+    flutter: [D4rtApp] [script] where it is required). null means "unknown / unspecified", a
+    flutter: [D4rtApp] [script] legitimate state for synthesised events such as those produced
+    flutter: [D4rtApp] [script] by tests or accessibility forwarding.
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] consecutiveTapCount is the discriminator. 1 = first tap of a
+    flutter: [D4rtApp] [script] sequence, 2 = the second within kDoubleTapTimeout *and* within
+    flutter: [D4rtApp] [script] kDoubleTapSlop of the previous tap, 3 = the third, …. When the
+    flutter: [D4rtApp] [script] user dwells too long or drifts too far, the count resets.
+    flutter: [D4rtApp] [script] 
+    === Section 2: Gallery (consecutiveTapCount = 1..5) ===
+    flutter: [D4rtApp] [script] --- gallery[0] ---
+    flutter: [D4rtApp] [script]   runtimeType        : TapDragDownDetails
+    flutter: [D4rtApp] [script]   globalPosition     : Offset(40.0, 60.0)
+    flutter: [D4rtApp] [script]   localPosition      : Offset(10.0, 12.0)
+    flutter: [D4rtApp] [script]   kind               : PointerDeviceKind.touch
+    flutter: [D4rtApp] [script]   consecutiveTapCount: 1
+    flutter: [D4rtApp] [script] --- gallery[1] ---
+    flutter: [D4rtApp] [script]   runtimeType        : TapDragDownDetails
+    flutter: [D4rtApp] [script]   globalPosition     : Offset(82.0, 92.0)
+    flutter: [D4rtApp] [script]   localPosition      : Offset(14.0, 18.0)
+    flutter: [D4rtApp] [script]   kind               : PointerDeviceKind.touch
+    flutter: [D4rtApp] [script]   consecutiveTapCount: 2
+    flutter: [D4rtApp] [script] --- gallery[2] ---
+    flutter: [D4rtApp] [script]   runtimeType        : TapDragDownDetails
+    flutter: [D4rtApp] [script]   globalPosition     : Offset(140.0, 130.0)
+    flutter: [D4rtApp] [script]   localPosition      : Offset(20.0, 22.0)
+    flutter: [D4rtApp] [script]   kind               : PointerDeviceKind.mouse
+    flutter: [D4rtApp] [script]   consecutiveTapCount: 3
+    flutter: [D4rtApp] [script] --- gallery[3] ---
+    flutter: [D4rtApp] [script]   runtimeType        : TapDragDownDetails
+    flutter: [D4rtApp] [script]   globalPosition     : Offset(210.0, 170.0)
+    flutter: [D4rtApp] [script]   localPosition      : Offset(28.0, 30.0)
+    flutter: [D4rtApp] [script]   kind               : PointerDeviceKind.mouse
+    flutter: [D4rtApp] [script]   consecutiveTapCount: 4
+    flutter: [D4rtApp] [script] --- gallery[4] ---
+    flutter: [D4rtApp] [script]   runtimeType        : TapDragDownDetails
+    flutter: [D4rtApp] [script]   globalPosition     : Offset(280.0, 220.0)
+    flutter: [D4rtApp] [script]   localPosition      : Offset(34.0, 36.0)
+    flutter: [D4rtApp] [script]   kind               : PointerDeviceKind.stylus
+    flutter: [D4rtApp] [script]   consecutiveTapCount: 5
+    flutter: [D4rtApp] [script] Gallery shows escalation: consecutiveTapCount climbs while
+    flutter: [D4rtApp] [script] position drifts a few pixels — exactly what you observe from
+    flutter: [D4rtApp] [script] a real user repeatedly tapping at "the same place" on a
+    flutter: [D4rtApp] [script] trackpad to expand a text-selection.
+    flutter: [D4rtApp] [script] 
+    === Section 3: PointerDeviceKind variations ===
+    flutter: [D4rtApp] [script] --- kindTouch ---
+    flutter: [D4rtApp] [script]   runtimeType        : TapDragDownDetails
+    flutter: [D4rtApp] [script]   globalPosition     : Offset(50.0, 50.0)
+    flutter: [D4rtApp] [script]   localPosition      : Offset(5.0, 5.0)
+    flutter: [D4rtApp] [script]   kind               : PointerDeviceKind.touch
+    flutter: [D4rtApp] [script]   consecutiveTapCount: 1
+    flutter: [D4rtApp] [script] --- kindMouse ---
+    flutter: [D4rtApp] [script]   runtimeType        : TapDragDownDetails
+    flutter: [D4rtApp] [script]   globalPosition     : Offset(50.0, 50.0)
+    flutter: [D4rtApp] [script]   localPosition      : Offset(5.0, 5.0)
+    flutter: [D4rtApp] [script]   kind               : PointerDeviceKind.mouse
+    flutter: [D4rtApp] [script]   consecutiveTapCount: 2
+    flutter: [D4rtApp] [script] --- kindStylus ---
+    flutter: [D4rtApp] [script]   runtimeType        : TapDragDownDetails
+    flutter: [D4rtApp] [script]   globalPosition     : Offset(50.0, 50.0)
+    flutter: [D4rtApp] [script]   localPosition      : Offset(5.0, 5.0)
+    flutter: [D4rtApp] [script]   kind               : PointerDeviceKind.stylus
+    flutter: [D4rtApp] [script]   consecutiveTapCount: 1
+    flutter: [D4rtApp] [script] --- kindInverted ---
+    flutter: [D4rtApp] [script]   runtimeType        : TapDragDownDetails
+    flutter: [D4rtApp] [script]   globalPosition     : Offset(50.0, 50.0)
+    flutter: [D4rtApp] [script]   localPosition      : Offset(5.0, 5.0)
+    flutter: [D4rtApp] [script]   kind               : PointerDeviceKind.invertedStylus
+    flutter: [D4rtApp] [script]   consecutiveTapCount: 1
+    flutter: [D4rtApp] [script] --- kindTrackpad ---
+    flutter: [D4rtApp] [script]   runtimeType        : TapDragDownDetails
+    flutter: [D4rtApp] [script]   globalPosition     : Offset(50.0, 50.0)
+    flutter: [D4rtApp] [script]   localPosition      : Offset(5.0, 5.0)
+    flutter: [D4rtApp] [script]   kind               : PointerDeviceKind.trackpad
+    flutter: [D4rtApp] [script]   consecutiveTapCount: 2
+    flutter: [D4rtApp] [script] --- kindUnknown ---
+    flutter: [D4rtApp] [script]   runtimeType        : TapDragDownDetails
+    flutter: [D4rtApp] [script]   globalPosition     : Offset(50.0, 50.0)
+    flutter: [D4rtApp] [script]   localPosition      : Offset(5.0, 5.0)
+    flutter: [D4rtApp] [script]   kind               : PointerDeviceKind.unknown
+    flutter: [D4rtApp] [script]   consecutiveTapCount: 1
+    flutter: [D4rtApp] [script] --- kindNull (no kind specified) ---
+    flutter: [D4rtApp] [script]   runtimeType        : TapDragDownDetails
+    flutter: [D4rtApp] [script]   globalPosition     : Offset(50.0, 50.0)
+    flutter: [D4rtApp] [script]   localPosition      : Offset(5.0, 5.0)
+    flutter: [D4rtApp] [script]   kind               : null
+    flutter: [D4rtApp] [script]   consecutiveTapCount: 1
+    flutter: [D4rtApp] [script] 
+    === Section 4: Lifecycle (tap1 → tap2 + drag) ===
+    flutter: [D4rtApp] [script] --- lifeT1Down ---
+    flutter: [D4rtApp] [script]   runtimeType        : TapDragDownDetails
+    flutter: [D4rtApp] [script]   globalPosition     : Offset(100.0, 100.0)
+    flutter: [D4rtApp] [script]   localPosition      : Offset(10.0, 10.0)
+    flutter: [D4rtApp] [script]   kind               : PointerDeviceKind.mouse
+    flutter: [D4rtApp] [script]   consecutiveTapCount: 1
+    flutter: [D4rtApp] [script] --- lifeT2Down ---
+    flutter: [D4rtApp] [script]   runtimeType        : TapDragDownDetails
+    flutter: [D4rtApp] [script]   globalPosition     : Offset(102.0, 101.0)
+    flutter: [D4rtApp] [script]   localPosition      : Offset(12.0, 11.0)
+    flutter: [D4rtApp] [script]   kind               : PointerDeviceKind.mouse
+    flutter: [D4rtApp] [script]   consecutiveTapCount: 2
+    flutter: [D4rtApp] [script] --- lifeT3Down ---
+    flutter: [D4rtApp] [script]   runtimeType        : TapDragDownDetails
+    flutter: [D4rtApp] [script]   globalPosition     : Offset(105.0, 103.0)
+    flutter: [D4rtApp] [script]   localPosition      : Offset(15.0, 13.0)
+    flutter: [D4rtApp] [script]   kind               : PointerDeviceKind.mouse
+    flutter: [D4rtApp] [script]   consecutiveTapCount: 3
+    flutter: [D4rtApp] [script] Each subsequent TapDragDownDetails arrives within the
+    flutter: [D4rtApp] [script] recognizer timeout (kDoubleTapTimeout, ~300 ms by default) and
+    flutter: [D4rtApp] [script] within kDoubleTapSlop (~18 px) of the prior tap. If either of
+    flutter: [D4rtApp] [script] those budgets is violated, consecutiveTapCount resets to 1.
+    flutter: [D4rtApp] [script] After consecutiveTapCount reaches its target, the user can
+    flutter: [D4rtApp] [script] move the pointer past kPrecisePointerHitSlop to escalate the
+    flutter: [D4rtApp] [script] gesture into a drag — which is the moment onDragStart fires.
+    flutter: [D4rtApp] [script] 
+    === Section 5: Detection flow ===
+    flutter: [D4rtApp] [script]   PointerDownEvent  ──► PointerRouter
+    flutter: [D4rtApp] [script]   PointerRouter     ──► TapAndDragGestureRecognizer
+    flutter: [D4rtApp] [script]   Recognizer wins   ──► onTapDown(TapDragDownDetails)  ★
+    flutter: [D4rtApp] [script]        (this demo)
+    flutter: [D4rtApp] [script]   pointer moves     ──► onDragStart(TapDragStartDetails)
+    flutter: [D4rtApp] [script]   pointer moves     ──► onDragUpdate(TapDragUpdateDetails)
+    flutter: [D4rtApp] [script]   PointerUpEvent    ──► onDragEnd(TapDragEndDetails)
+    flutter: [D4rtApp] [script]                      OR onTapUp(TapDragUpDetails) (no drag)
+    flutter: [D4rtApp] [script] 
+    === Section 6: Cousin types ===
+    flutter: [D4rtApp] [script]   TapDownDetails        — plain tap; no consecutiveTapCount
+    flutter: [D4rtApp] [script]   DragDownDetails       — plain drag; no consecutiveTapCount
+    flutter: [D4rtApp] [script]   TapDragDownDetails ★  — tap+drag combo; HAS the count
+    flutter: [D4rtApp] [script]   TapDragStartDetails   — drag has just started (after taps)
+    flutter: [D4rtApp] [script]   TapDragUpdateDetails  — drag is moving
+    flutter: [D4rtApp] [script]   TapDragUpDetails      — finger lifted; tap completed
+    flutter: [D4rtApp] [script]   TapDragEndDetails     — drag finished
+    flutter: [D4rtApp] [script]   SerialTapDownDetails  — pure-tap counter (no drag escalate)
+    flutter: [D4rtApp] [script] 
+    === Section 7: Where TapAndDragGestureRecognizer earns its keep ===
+    flutter: [D4rtApp] [script]   * Text editors  : drag-select word on count=2, paragraph=3
+    flutter: [D4rtApp] [script]   * Map / images  : double-tap-and-drag to zoom-pan
+    flutter: [D4rtApp] [script]   * Sliders       : double-tap to fine-tune, then drag
+    flutter: [D4rtApp] [script]   * File managers : tap-then-drag to box-select files
+    flutter: [D4rtApp] [script]   * Drawing apps  : double-tap pen for "smoothed" stroke mode
+    flutter: [D4rtApp] [script]   * Replaces ad-hoc TapGestureRecognizer + DragGestureRecognizer
+    flutter: [D4rtApp] [script]     pairs that fight each other in the gesture arena.
+    flutter: [D4rtApp][clean][build-postpump] clearCount=7 lastClearedFile="gestures/tap_and_pan_gesture_recognizer_test.dart" currentTestFile="gestures/tap_drag_down_details_test.dart" sinceClearMs=6694 gen=13 :: pumped 200ms on built widget (SingleChildScrollView), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="gestures/tap_drag_down_details_test.dart" widgetType="SingleChildScrollView" bodyMs=2 parseMs=16 setStateMs=16 interpretStartMs=20 interpretEndMs=6192 firstFrameMs=6267 pumpEndMs=6469 totalMs=6469
+    flutter: [D4rtApp] Build completed: SingleChildScrollView
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=8 lastClearedFile="gestures/tap_drag_down_details_test.dart" currentTestFile="gestures/tap_drag_down_details_test.dart" sinceClearMs=0 gen=13 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=8 lastClearedFile="gestures/tap_drag_down_details_test.dart" currentTestFile="gestures/tap_drag_down_details_test.dart" sinceClearMs=203 gen=14 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [gestures/tap_drag_end_details_test.dart] (778622 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=8 lastClearedFile="gestures/tap_drag_down_details_test.dart" currentTestFile="gestures/tap_drag_end_details_test.dart" sinceClearMs=301 gen=14 :: incoming /build filename="gestures/tap_drag_end_details_test.dart" suite="flutter_base_09_test.dart" bytes=778622
+    Lost connection to device.
+  
+  Captured app STDERR tail:
+    [process] test app exited with code 0
+  
+  test/send_test_runner.dart 1176:7  SendTestRunner.send
+  
+03:37 +20 -2: gestures/ individual tap_drag_start_details_test.dart
+[recycle] killing wedged test app (pid=35708)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=gestures/tap_drag_start_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=78100 sourceChars=77978 bundleJsonBytes=836109 clearMs=202 readMs=1 bundleMs=33 httpMs=4020 totalMs=19799 status=success httpStatus=200 outputLines=166 frameworkErrors=0 appBodyMs=10 appParseMs=63 appSetStateMs=63 appInterpretStartMs=67 appInterpretEndMs=3595 appFirstFrameMs=3811 appPumpEndMs=4012
+03:57 +21 -2: gestures/ individual tap_drag_up_details_test.dart
+[METRIC] script=gestures/tap_drag_up_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=51462 sourceChars=51448 bundleJsonBytes=625533 clearMs=220 readMs=1 bundleMs=16 httpMs=3798 totalMs=4039 status=success httpStatus=200 outputLines=37 frameworkErrors=0 appBodyMs=5 appParseMs=24 appSetStateMs=24 appInterpretStartMs=27 appInterpretEndMs=3504 appFirstFrameMs=3591 appPumpEndMs=3793
+04:01 +22 -2: gestures/ individual tap_drag_update_details_test.dart
+[METRIC] script=gestures/tap_drag_update_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=69780 sourceChars=69677 bundleJsonBytes=754553 clearMs=204 readMs=1 bundleMs=16 httpMs=4512 totalMs=4735 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=18 appSetStateMs=18 appInterpretStartMs=20 appInterpretEndMs=4189 appFirstFrameMs=4305 appPumpEndMs=4507
+04:06 +23 -2: gestures/ individual vertical_multi_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/vertical_multi_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=73417 sourceChars=73303 bundleJsonBytes=881176 clearMs=202 readMs=1 bundleMs=20 httpMs=3769 totalMs=3993 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=21 appSetStateMs=21 appInterpretStartMs=22 appInterpretEndMs=3457 appFirstFrameMs=3563 appPumpEndMs=3764
+04:10 +24 -2: (tearDownAll)
+04:10 +24 -2: Some tests failed.

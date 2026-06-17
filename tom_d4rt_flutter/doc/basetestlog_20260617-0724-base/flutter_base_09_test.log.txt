@@ -1,0 +1,94 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 91.0.0 (103.0.0 available)
+  analyzer 8.4.1 (13.3.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.1.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.17.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.10 (0.7.12 available)
+  tom_analyzer_shared 0.1.0 (0.2.0 available)
+  tom_build_base 2.6.21 (2.6.25 available)
+  tom_d4rt 1.8.22 (1.8.23 available)
+  tom_d4rt_generator 1.9.3 (1.9.6 available)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+22 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter/test/flutter_base_09_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:62646/JtL2vAZ5vzE=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:62646/JtL2vAZ5vzE=/devtools/?uri=ws://127.0.0.1:62646/JtL2vAZ5vzE=/ws
+=================================================================
+00:15 +0: Test App Health app is running
+00:15 +1: gestures/ individual base_tap_and_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/base_tap_and_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceChars=61153 clearMs=214 httpMs=3715 totalMs=3938 status=success httpStatus=200 outputLines=42 frameworkErrors=0 appBodyMs=8 appParseMs=8 appSetStateMs=8 appInterpretStartMs=19 appInterpretEndMs=3405 appFirstFrameMs=3504 appPumpEndMs=3705
+00:19 +2: gestures/ individual delayed_multi_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/delayed_multi_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceChars=55402 clearMs=219 httpMs=3609 totalMs=3832 status=success httpStatus=200 outputLines=28 frameworkErrors=0 appBodyMs=5 appParseMs=5 appSetStateMs=5 appInterpretStartMs=11 appInterpretEndMs=3311 appFirstFrameMs=3404 appPumpEndMs=3605
+00:23 +3: gestures/ individual device_gesture_settings_test.dart
+[METRIC] script=gestures/device_gesture_settings_test.dart testFile=flutter_base_09_test.dart sourceChars=50326 clearMs=202 httpMs=3594 totalMs=3801 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=3311 appFirstFrameMs=3390 appPumpEndMs=3591
+00:27 +4: gestures/ individual drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceChars=51157 clearMs=219 httpMs=3533 totalMs=3754 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=3246 appFirstFrameMs=3330 appPumpEndMs=3531
+00:31 +5: gestures/ individual drag_test.dart
+[METRIC] script=gestures/drag_test.dart testFile=flutter_base_09_test.dart sourceChars=58161 clearMs=219 httpMs=3474 totalMs=3695 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=3207 appFirstFrameMs=3271 appPumpEndMs=3472
+00:34 +6: gestures/ individual eager_gesture_recognizer_test.dart
+[METRIC] script=gestures/eager_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceChars=46004 clearMs=202 httpMs=3474 totalMs=3677 status=success httpStatus=200 outputLines=26 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=3220 appFirstFrameMs=3269 appPumpEndMs=3471
+00:38 +7: gestures/ individual horizontal_multi_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/horizontal_multi_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceChars=49359 clearMs=203 httpMs=3598 totalMs=3803 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=3256 appFirstFrameMs=3394 appPumpEndMs=3595
+00:42 +8: gestures/ individual immediate_multi_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/immediate_multi_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceChars=73421 clearMs=218 httpMs=4023 totalMs=4243 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=3644 appFirstFrameMs=3819 appPumpEndMs=4020
+00:46 +9: gestures/ individual long_press_down_details_test.dart
+[METRIC] script=gestures/long_press_down_details_test.dart testFile=flutter_base_09_test.dart sourceChars=69462 clearMs=220 httpMs=3856 totalMs=4080 status=success httpStatus=200 outputLines=20 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=3575 appFirstFrameMs=3652 appPumpEndMs=3853
+00:50 +10: gestures/ individual multi_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/multi_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceChars=53878 clearMs=203 httpMs=3829 totalMs=4035 status=success httpStatus=200 outputLines=16 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=3558 appFirstFrameMs=3625 appPumpEndMs=3826
+00:54 +11: gestures/ individual multi_drag_pointer_state_test.dart
+[METRIC] script=gestures/multi_drag_pointer_state_test.dart testFile=flutter_base_09_test.dart sourceChars=52167 clearMs=217 httpMs=3812 totalMs=4031 status=success httpStatus=200 outputLines=8 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=3553 appFirstFrameMs=3607 appPumpEndMs=3809
+00:58 +12: gestures/ individual multi_tap_gesture_recognizer_test.dart
+[METRIC] script=gestures/multi_tap_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceChars=59030 clearMs=214 httpMs=3843 totalMs=4059 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=3578 appFirstFrameMs=3639 appPumpEndMs=3840
+01:02 +13: gestures/ individual positioned_gesture_details_test.dart
+[METRIC] script=gestures/positioned_gesture_details_test.dart testFile=flutter_base_09_test.dart sourceChars=74446 clearMs=202 httpMs=3831 totalMs=4035 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=3553 appFirstFrameMs=3627 appPumpEndMs=3829
+01:06 +14: gestures/ individual serial_tap_cancel_details_test.dart
+[METRIC] script=gestures/serial_tap_cancel_details_test.dart testFile=flutter_base_09_test.dart sourceChars=53926 clearMs=214 httpMs=3796 totalMs=4013 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=3551 appFirstFrameMs=3592 appPumpEndMs=3793
+01:10 +15: gestures/ individual serial_tap_down_details_test.dart
+[METRIC] script=gestures/serial_tap_down_details_test.dart testFile=flutter_base_09_test.dart sourceChars=58266 clearMs=214 httpMs=6861 totalMs=7077 status=success httpStatus=200 outputLines=139 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=6618 appFirstFrameMs=6657 appPumpEndMs=6858
+01:17 +16: gestures/ individual serial_tap_gesture_recognizer_test.dart
+[METRIC] script=gestures/serial_tap_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceChars=54737 clearMs=202 httpMs=3831 totalMs=4036 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=3579 appFirstFrameMs=3628 appPumpEndMs=3828
+01:21 +17: gestures/ individual serial_tap_up_details_test.dart
+[METRIC] script=gestures/serial_tap_up_details_test.dart testFile=flutter_base_09_test.dart sourceChars=48581 clearMs=204 httpMs=3516 totalMs=3722 status=success httpStatus=200 outputLines=24 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=3267 appFirstFrameMs=3313 appPumpEndMs=3513
+01:25 +18: gestures/ individual tap_and_horizontal_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/tap_and_horizontal_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceChars=60965 clearMs=203 httpMs=3784 totalMs=3989 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=3534 appFirstFrameMs=3581 appPumpEndMs=3781
+01:29 +19: gestures/ individual tap_and_pan_gesture_recognizer_test.dart
+[METRIC] script=gestures/tap_and_pan_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceChars=81619 clearMs=203 httpMs=3877 totalMs=4083 status=success httpStatus=200 outputLines=3 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=8 appInterpretEndMs=3584 appFirstFrameMs=3673 appPumpEndMs=3875
+01:33 +20: gestures/ individual tap_drag_down_details_test.dart
+[METRIC] script=gestures/tap_drag_down_details_test.dart testFile=flutter_base_09_test.dart sourceChars=86683 clearMs=202 httpMs=6766 totalMs=6970 status=success httpStatus=200 outputLines=169 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=6518 appFirstFrameMs=6562 appPumpEndMs=6763
+01:40 +21: gestures/ individual tap_drag_end_details_test.dart
+[METRIC] script=gestures/tap_drag_end_details_test.dart testFile=flutter_base_09_test.dart sourceChars=64399 clearMs=203 httpMs=4527 totalMs=4733 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=4274 appFirstFrameMs=4324 appPumpEndMs=4525
+01:45 +22: gestures/ individual tap_drag_start_details_test.dart
+[METRIC] script=gestures/tap_drag_start_details_test.dart testFile=flutter_base_09_test.dart sourceChars=77978 clearMs=203 httpMs=3957 totalMs=4163 status=success httpStatus=200 outputLines=166 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=3669 appFirstFrameMs=3754 appPumpEndMs=3954
+01:49 +23: gestures/ individual tap_drag_up_details_test.dart
+[METRIC] script=gestures/tap_drag_up_details_test.dart testFile=flutter_base_09_test.dart sourceChars=51448 clearMs=203 httpMs=3773 totalMs=3978 status=success httpStatus=200 outputLines=37 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=3529 appFirstFrameMs=3569 appPumpEndMs=3770
+01:53 +24: gestures/ individual tap_drag_update_details_test.dart
+[METRIC] script=gestures/tap_drag_update_details_test.dart testFile=flutter_base_09_test.dart sourceChars=69677 clearMs=215 httpMs=4561 totalMs=4778 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=4291 appFirstFrameMs=4357 appPumpEndMs=4558
+01:58 +25: gestures/ individual vertical_multi_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/vertical_multi_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceChars=73303 clearMs=217 httpMs=3805 totalMs=4024 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=3540 appFirstFrameMs=3601 appPumpEndMs=3802
+02:02 +26: (tearDownAll)
+02:03 +26: All tests passed!

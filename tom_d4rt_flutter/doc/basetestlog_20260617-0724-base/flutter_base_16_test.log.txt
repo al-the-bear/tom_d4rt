@@ -1,0 +1,528 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 91.0.0 (103.0.0 available)
+  analyzer 8.4.1 (13.3.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.1.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.17.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.10 (0.7.12 available)
+  tom_analyzer_shared 0.1.0 (0.2.0 available)
+  tom_build_base 2.6.21 (2.6.25 available)
+  tom_d4rt 1.8.22 (1.8.23 available)
+  tom_d4rt_generator 1.9.3 (1.9.6 available)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+22 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter/test/flutter_base_16_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:52758/YMX5WChMhNQ=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:52758/YMX5WChMhNQ=/devtools/?uri=ws://127.0.0.1:52758/YMX5WChMhNQ=/ws
+=================================================================
+00:15 +0: Test App Health app is running
+00:15 +1: widgets/ individual overflow_bar_test.dart
+[METRIC] script=widgets/overflow_bar_test.dart testFile=flutter_base_16_test.dart sourceChars=70015 clearMs=214 httpMs=4371 totalMs=4592 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=5 appParseMs=5 appSetStateMs=6 appInterpretStartMs=15 appInterpretEndMs=3230 appFirstFrameMs=4160 appPumpEndMs=4362
+00:20 +2: widgets/ individual overflow_box_test.dart
+[METRIC] script=widgets/overflow_box_test.dart testFile=flutter_base_16_test.dart sourceChars=75480 clearMs=203 httpMs=11023 totalMs=11227 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=10598 appFirstFrameMs=10818 appPumpEndMs=11020
+00:31 +3: widgets/ individual page_scroll_physics_test.dart
+[METRIC] script=widgets/page_scroll_physics_test.dart testFile=flutter_base_16_test.dart sourceChars=62172 clearMs=213 httpMs=10821 totalMs=11038 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=2 appParseMs=2 appSetStateMs=2 appInterpretStartMs=3 appInterpretEndMs=10489 appFirstFrameMs=10616 appPumpEndMs=10817
+00:42 +4: widgets/ individual page_storage_bucket_test.dart
+[METRIC] script=widgets/page_storage_bucket_test.dart testFile=flutter_base_16_test.dart sourceChars=84402 clearMs=216 httpMs=11295 totalMs=11512 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=10462 appFirstFrameMs=11090 appPumpEndMs=11291
+00:54 +5: widgets/ individual page_storage_key_test.dart
+[METRIC] script=widgets/page_storage_key_test.dart testFile=flutter_base_16_test.dart sourceChars=44729 clearMs=270 httpMs=49302 totalMs=49576 status=error httpStatus=400 outputLines=614 frameworkErrors=0 appBodyMs=60 appParseMs=60 appSetStateMs=61 appInterpretStartMs=88 appInterpretEndMs=49075 appFirstFrameMs=49273 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/page_storage_key_test.dart:
+    Build timed out after 30 seconds
+[recycle] build-timeout in widgets/page_storage_key_test.dart — app event loop is wedged; killing it now, restarting before the next test (no cascade)
+01:44 +5 -1: widgets/ individual page_storage_key_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_base_16_test.dart 72:7                 main.<fn>.<fn>
+  
+01:44 +5 -1: widgets/ individual page_storage_test.dart
+[recycle] killing wedged test app (pid=44421)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=widgets/page_storage_test.dart testFile=flutter_base_16_test.dart sourceChars=77358 clearMs=203 httpMs=4418 totalMs=19089 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=5 appParseMs=5 appSetStateMs=5 appInterpretStartMs=8 appInterpretEndMs=3343 appFirstFrameMs=4212 appPumpEndMs=4413
+02:03 +6 -1: widgets/ individual parent_data_element_test.dart
+[METRIC] script=widgets/parent_data_element_test.dart testFile=flutter_base_16_test.dart sourceChars=45016 clearMs=204 httpMs=5161 totalMs=5366 status=success httpStatus=200 outputLines=525 frameworkErrors=0 appBodyMs=3 appParseMs=3 appSetStateMs=3 appInterpretStartMs=5 appInterpretEndMs=4918 appFirstFrameMs=4955 appPumpEndMs=5155
+02:08 +7 -1: widgets/ individual parent_data_widget_test.dart
+[METRIC] script=widgets/parent_data_widget_test.dart testFile=flutter_base_16_test.dart sourceChars=51226 clearMs=210 httpMs=5025 totalMs=5237 status=success httpStatus=200 outputLines=456 frameworkErrors=0 appBodyMs=4 appParseMs=4 appSetStateMs=4 appInterpretStartMs=4 appInterpretEndMs=4785 appFirstFrameMs=4822 appPumpEndMs=5022
+02:14 +8 -1: widgets/ individual performance_overlay_test.dart
+[METRIC] script=widgets/performance_overlay_test.dart testFile=flutter_base_16_test.dart sourceChars=85981 clearMs=202 httpMs=5108 totalMs=5312 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=1 appSetStateMs=1 appInterpretStartMs=6 appInterpretEndMs=4804 appFirstFrameMs=4903 appPumpEndMs=5105
+02:19 +9 -1: widgets/ individual physical_model_test.dart
+[METRIC] script=widgets/physical_model_test.dart testFile=flutter_base_16_test.dart sourceChars=47920 clearMs=220 httpMs=5109 totalMs=5330 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=4746 appFirstFrameMs=4906 appPumpEndMs=5107
+02:24 +10 -1: widgets/ individual physical_shape_test.dart
+[METRIC] script=widgets/physical_shape_test.dart testFile=flutter_base_16_test.dart sourceChars=43460 clearMs=217 httpMs=5041 totalMs=5260 status=success httpStatus=200 outputLines=25 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=2 appInterpretEndMs=4778 appFirstFrameMs=4837 appPumpEndMs=5037
+02:30 +11 -1: widgets/ individual pinned_header_sliver_test.dart
+[METRIC] script=widgets/pinned_header_sliver_test.dart testFile=flutter_base_16_test.dart sourceChars=42989 clearMs=203 httpMs=55003 totalMs=55920 status=transport_error httpStatus=-1 outputLines=0 frameworkErrors=0
+03:25 +11 -2: widgets/ individual pinned_header_sliver_test.dart [E]
+  Bad state: Transport failure while running "widgets/pinned_header_sliver_test.dart"
+  Operation: POST /build?filename=widgets%2Fpinned_header_sliver_test.dart&suite=flutter_base_16_test.dart
+  Error: TimeoutException after 0:00:55.000000: Future not completed
+  
+  Stack trace:
+  #0      Future.timeout.<anonymous closure> (dart:async/future_impl.dart:1042:24)
+  <asynchronous suspension>
+  #1      SendTestRunner.send (file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter/test/send_test_runner.dart:752:18)
+  <asynchronous suspension>
+  #2      main.<anonymous closure>.<anonymous closure> (file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter/test/flutter_base_16_test.dart:118:22)
+  <asynchronous suspension>
+  #3      Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:253:15)
+  <asynchronous suspension>
+  #4      Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:250:11)
+  <asynchronous suspension>
+  #5      Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:318:9)
+  <asynchronous suspension>
+  
+  
+  Runner app process: exited with code 0
+  
+  Captured app STDOUT tail:
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script]   ┌──────────────────────────────────────────────────────┐
+    flutter: [D4rtApp] [script]   │  Mistake 1: Wrong parent                              │
+    flutter: [D4rtApp] [script]   │  Column(children: [Positioned(child: Text("x"))])    │
+    flutter: [D4rtApp] [script]   │  → "Positioned must be placed inside Stack"           │
+    flutter: [D4rtApp] [script]   │                                                       │
+    flutter: [D4rtApp] [script]   │  Mistake 2: Multiple incompatible wrappers            │
+    flutter: [D4rtApp] [script]   │  Stack(children: [Flexible(child: Text("x"))])       │
+    flutter: [D4rtApp] [script]   │  → "Flexible must be placed inside Flex"              │
+    flutter: [D4rtApp] [script]   │                                                       │
+    flutter: [D4rtApp] [script]   │  Mistake 3: Nesting ParentDataWidgets                 │
+    flutter: [D4rtApp] [script]   │  Stack(children: [                                    │
+    flutter: [D4rtApp] [script]   │    Positioned(child: Positioned(child: Box(...)))     │
+    flutter: [D4rtApp] [script]   │  ])                                                   │
+    flutter: [D4rtApp] [script]   │  → Inner Positioned has no direct Stack parent-data   │
+    flutter: [D4rtApp] [script]   │    context — confusing behavior                       │
+    flutter: [D4rtApp] [script]   │                                                       │
+    flutter: [D4rtApp] [script]   │  Mistake 4: Forgetting it in CustomMultiChildLayout   │
+    flutter: [D4rtApp] [script]   │  CustomMultiChildLayout(children: [Text("x")])       │
+    flutter: [D4rtApp] [script]   │  → Children must be wrapped in LayoutId(...)          │
+    flutter: [D4rtApp] [script]   └──────────────────────────────────────────────────────┘
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] ═══════════════════════════════════════════════════════════
+    flutter: [D4rtApp] [script]   SECTION 16: Live Demo — Stack with Positioned
+    flutter: [D4rtApp] [script] ═══════════════════════════════════════════════════════════
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] ═══════════════════════════════════════════════════════════
+    flutter: [D4rtApp] [script]   SECTION 17: Live Demo — Row with Flexible/Expanded
+    flutter: [D4rtApp] [script] ═══════════════════════════════════════════════════════════
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] ═══════════════════════════════════════════════════════════
+    flutter: [D4rtApp] [script]   SECTION 18: Live Demo — CustomMultiChildLayout
+    flutter: [D4rtApp] [script] ═══════════════════════════════════════════════════════════
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script]   Live widget built: ParentDataWidget visual
+    flutter: [D4rtApp] [script]   • Stack with 4 Positioned children (StackParentData)
+    flutter: [D4rtApp] [script]   • 3 Row/Column demos (FlexParentData)
+    flutter: [D4rtApp] [script]   • CustomMultiChildLayout with 3 LayoutId children
+    flutter: [D4rtApp] [script]   • Summary card and type mapping reference
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] ═══════════════════════════════════════════════════════════
+    flutter: [D4rtApp] [script]   SECTION 19: Summary
+    flutter: [D4rtApp] [script] ═══════════════════════════════════════════════════════════
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script]   ParentDataWidget is the abstract base that gives
+    flutter: [D4rtApp] [script]   Flutter its per-child layout configuration system.
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script]   ┌──────────────────────────────────────────────────────┐
+    flutter: [D4rtApp] [script]   │  Key takeaways:                                      │
+    flutter: [D4rtApp] [script]   │                                                      │
+    flutter: [D4rtApp] [script]   │  1. Abstract class, never instantiated directly      │
+    flutter: [D4rtApp] [script]   │  2. Extends ProxyWidget (single child, no render)    │
+    flutter: [D4rtApp] [script]   │  3. applyParentData() is the core mechanism          │
+    flutter: [D4rtApp] [script]   │  4. createElement() creates ParentDataElement<T>     │
+    flutter: [D4rtApp] [script]   │  5. Debug type safety via debugTypicalAncestorWidget │
+    flutter: [D4rtApp] [script]   │  6. Subclasses: Positioned, Flexible, LayoutId, etc.│
+    flutter: [D4rtApp] [script]   │  7. Zero render overhead — pure metadata bridge      │
+    flutter: [D4rtApp] [script]   │  8. Most common usage: Stack→Positioned, Row→Flex    │
+    flutter: [D4rtApp] [script]   └──────────────────────────────────────────────────────┘
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script]   Demo colors used:
+    flutter: [D4rtApp] [script]   ┌──────────────────────────────────────────────────────┐
+    flutter: [D4rtApp] [script]   │  Red 900   ffb71c1c  Deep
+    flutter: [D4rtApp] [script]   │  Red 800   ffc62828  Dark
+    flutter: [D4rtApp] [script]   │  Coral     ffe85d5d  Primary
+    flutter: [D4rtApp] [script]   │  Salmon    fffa8072  Secondary
+    flutter: [D4rtApp] [script]   │  DOrange4  ffff7043  Warm
+    flutter: [D4rtApp] [script]   │  Pink 300  fff06292  Accent
+    flutter: [D4rtApp] [script]   │  Red 200   ffef9a9a  Muted
+    flutter: [D4rtApp] [script]   │  Red 100   ffffcdd2  Highlight
+    flutter: [D4rtApp] [script]   │  Blush     fffff0ee  Surface
+    flutter: [D4rtApp] [script]   │  Pink 50   fffce4ec  Light
+    flutter: [D4rtApp] [script]   └──────────────────────────────────────────────────────┘
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp] [script] ████████████████████████████████████████████████████████████
+    flutter: [D4rtApp] [script] ██  ParentDataWidget — Demonstration Complete             ██
+    flutter: [D4rtApp] [script] ████████████████████████████████████████████████████████████
+    flutter: [D4rtApp] [script] 
+    flutter: [D4rtApp][clean][build-postpump] clearCount=4 lastClearedFile="widgets/parent_data_element_test.dart" currentTestFile="widgets/parent_data_widget_test.dart" sinceClearMs=5226 gen=7 :: pumped 200ms on built widget (Scaffold), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="widgets/parent_data_widget_test.dart" widgetType="Scaffold" bodyMs=4 parseMs=4 setStateMs=4 interpretStartMs=4 interpretEndMs=4785 firstFrameMs=4822 pumpEndMs=5022 totalMs=5022
+    flutter: [D4rtApp] Build completed: Scaffold
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=5 lastClearedFile="widgets/parent_data_widget_test.dart" currentTestFile="widgets/parent_data_widget_test.dart" sinceClearMs=0 gen=7 :: received /clear (inflightBuild=false, pendingSource=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=5 lastClearedFile="widgets/parent_data_widget_test.dart" currentTestFile="widgets/parent_data_widget_test.dart" sinceClearMs=200 gen=8 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [widgets/performance_overlay_test.dart] (85981 chars)
+    flutter: [D4rtApp][clean][build] clearCount=5 lastClearedFile="widgets/parent_data_widget_test.dart" currentTestFile="widgets/performance_overlay_test.dart" sinceClearMs=205 gen=8 :: incoming /build filename="widgets/performance_overlay_test.dart" suite="flutter_base_16_test.dart" chars=85981
+    flutter: [D4rtApp][clean][build-postpump] clearCount=5 lastClearedFile="widgets/parent_data_widget_test.dart" currentTestFile="widgets/performance_overlay_test.dart" sinceClearMs=5310 gen=9 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="widgets/performance_overlay_test.dart" widgetType="MaterialApp" bodyMs=1 parseMs=1 setStateMs=1 interpretStartMs=6 interpretEndMs=4804 firstFrameMs=4903 pumpEndMs=5105 totalMs=5105
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=6 lastClearedFile="widgets/performance_overlay_test.dart" currentTestFile="widgets/performance_overlay_test.dart" sinceClearMs=0 gen=9 :: received /clear (inflightBuild=false, pendingSource=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=6 lastClearedFile="widgets/performance_overlay_test.dart" currentTestFile="widgets/performance_overlay_test.dart" sinceClearMs=202 gen=10 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [widgets/physical_model_test.dart] (47920 chars)
+    flutter: [D4rtApp][clean][build] clearCount=6 lastClearedFile="widgets/performance_overlay_test.dart" currentTestFile="widgets/physical_model_test.dart" sinceClearMs=205 gen=10 :: incoming /build filename="widgets/physical_model_test.dart" suite="flutter_base_16_test.dart" chars=47920
+    flutter: === SECTION 1: Basic Elevation ===
+    flutter: PhysicalModel creates a physical layer with elevation
+    flutter: Current elevation: 8.0
+    flutter: Higher elevation = larger/softer shadow
+    flutter: Basic elevation section rendered
+    flutter: === SECTION 2: Shape & Border Radius ===
+    flutter: PhysicalModel supports BoxShape.rectangle and BoxShape.circle
+    flutter: Border radius only applies to rectangle shape
+    flutter: Current shape: 0 (0=rectangle, 1=circle)
+    flutter: Current border radius: 12.0
+    flutter: Shape section rendered
+    flutter: === SECTION 3: Shadow Colors ===
+    flutter: shadowColor determines the color of the elevation shadow
+    flutter: Current shadow color: Color(alpha: 1.0000, red: 0.0000, green: 0.0000, blue: 0.0000, colorSpace: ColorSpace.sRGB)
+    flutter: Shadow opacity: 1.0
+    flutter: Shadow color section rendered
+    flutter: === SECTION 4: Model Colors ===
+    flutter: The color property sets the surface color of the model
+    flutter: This is the physical surface color, not child background
+    flutter: Current color index: 0
+    flutter: Model color section rendered
+    flutter: === SECTION 5: Clipping Behavior ===
+    flutter: PhysicalModel clips its child to the model shape
+    flutter: clipBehavior controls how content is clipped
+    flutter: Current clip enabled: true
+    flutter: Clipping section rendered
+    flutter: === SECTION 6: Animated Elevation ===
+    flutter: Use AnimatedPhysicalModel for smooth transitions
+    flutter: Or TweenAnimationBuilder with regular PhysicalModel
+    flutter: Current animated elevation: 4.0
+    flutter: Animated elevation section rendered
+    flutter: === SECTION 7: PhysicalModel vs Material ===
+    flutter: PhysicalModel: Lower-level, direct control
+    flutter: Material: Higher-level, respects theme
+    flutter: Card: Material with defaults, most convenient
+    flutter: Comparison elevation: 6.0
+    flutter: Comparison section rendered
+    flutter: === SECTION 8: Practical Use Cases ===
+    flutter: PhysicalModel is useful for:
+    flutter:   - Custom buttons without Material overhead
+    flutter:   - Floating action indicators
+    flutter:   - Avatar badges
+    flutter:   - Toast notifications
+    flutter: Practical use cases section rendered
+    flutter: === API Reference Summary ===
+    flutter: PhysicalModel Properties:
+    flutter:   - color: Color - Surface color of the model
+    flutter:   - elevation: double - Z-depth of the model
+    flutter:   - shape: BoxShape - rectangle or circle
+    flutter:   - borderRadius: BorderRadius? - For rectangles only
+    flutter:   - shadowColor: Color - Color of the shadow
+    flutter:   - clipBehavior: Clip - How to clip child
+    flutter: 
+    flutter: AnimatedPhysicalModel adds:
+    flutter:   - duration: Duration - Animation duration
+    flutter:   - curve: Curve - Animation curve
+    flutter: [D4rtApp][clean][build-postpump] clearCount=6 lastClearedFile="widgets/performance_overlay_test.dart" currentTestFile="widgets/physical_model_test.dart" sinceClearMs=5312 gen=11 :: pumped 200ms on built widget (MaterialApp), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="widgets/physical_model_test.dart" widgetType="MaterialApp" bodyMs=0 parseMs=0 setStateMs=0 interpretStartMs=0 interpretEndMs=4746 firstFrameMs=4906 pumpEndMs=5107 totalMs=5107
+    flutter: [D4rtApp] Build completed: MaterialApp
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=7 lastClearedFile="widgets/physical_model_test.dart" currentTestFile="widgets/physical_model_test.dart" sinceClearMs=0 gen=11 :: received /clear (inflightBuild=false, pendingSource=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=7 lastClearedFile="widgets/physical_model_test.dart" currentTestFile="widgets/physical_model_test.dart" sinceClearMs=201 gen=12 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [widgets/physical_shape_test.dart] (43460 chars)
+    flutter: [D4rtApp][clean][build] clearCount=7 lastClearedFile="widgets/physical_model_test.dart" currentTestFile="widgets/physical_shape_test.dart" sinceClearMs=204 gen=12 :: incoming /build filename="widgets/physical_shape_test.dart" suite="flutter_base_16_test.dart" chars=43460
+    flutter: [D4rtApp] [script] PhysicalShape Deep Demo executing
+    flutter: [D4rtApp] [script] === Section 1: PhysicalShape Basics ===
+    flutter: [D4rtApp] [script] Created 3 basic shape variants: rectangle, stadium, circle
+    flutter: [D4rtApp] [script] === Section 2: Elevation Comparison ===
+    flutter: [D4rtApp] [script]   Elevation 0.0 → intensity 0.00
+    flutter: [D4rtApp] [script]   Elevation 1.0 → intensity 0.04
+    flutter: [D4rtApp] [script]   Elevation 2.0 → intensity 0.08
+    flutter: [D4rtApp] [script]   Elevation 4.0 → intensity 0.17
+    flutter: [D4rtApp] [script]   Elevation 8.0 → intensity 0.33
+    flutter: [D4rtApp] [script]   Elevation 12.0 → intensity 0.50
+    flutter: [D4rtApp] [script]   Elevation 16.0 → intensity 0.67
+    flutter: [D4rtApp] [script]   Elevation 24.0 → intensity 1.00
+    flutter: [D4rtApp] [script] Created 8 elevation samples
+    flutter: [D4rtApp] [script] === Section 3: Shadow Colors ===
+    flutter: [D4rtApp] [script] Created 6 shadow color samples
+    flutter: [D4rtApp] [script] === Section 4: Border Shapes ===
+    flutter: [D4rtApp] [script] Created 4 shape variants: beveled, continuous, star, asymmetric
+    flutter: [D4rtApp] [script] === Section 5: Practical UI Examples ===
+    flutter: [D4rtApp] [script] Created 3 practical UI cards
+    flutter: [D4rtApp] [script] === Section 6: Clip Behavior ===
+    flutter: [D4rtApp] [script] Created 4 clip behavior samples
+    flutter: [D4rtApp] [script] === Section 7: Layered Composition ===
+    flutter: [D4rtApp] [script] Created layered dashboard composition
+    flutter: [D4rtApp] [script] === Section 8: PhysicalShape vs PhysicalModel ===
+    flutter: [D4rtApp] [script] === Assembling final layout ===
+    flutter: [D4rtApp][clean][build-postpump] clearCount=7 lastClearedFile="widgets/physical_model_test.dart" currentTestFile="widgets/physical_shape_test.dart" sinceClearMs=5241 gen=13 :: pumped 200ms on built widget (SingleChildScrollView), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="widgets/physical_shape_test.dart" widgetType="SingleChildScrollView" bodyMs=0 parseMs=0 setStateMs=0 interpretStartMs=2 interpretEndMs=4778 firstFrameMs=4837 pumpEndMs=5037 totalMs=5037
+    flutter: [D4rtApp] Build completed: SingleChildScrollView
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=8 lastClearedFile="widgets/physical_shape_test.dart" currentTestFile="widgets/physical_shape_test.dart" sinceClearMs=0 gen=13 :: received /clear (inflightBuild=false, pendingSource=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=8 lastClearedFile="widgets/physical_shape_test.dart" currentTestFile="widgets/physical_shape_test.dart" sinceClearMs=201 gen=14 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [widgets/pinned_header_sliver_test.dart] (42989 chars)
+    flutter: [D4rtApp][clean][build] clearCount=8 lastClearedFile="widgets/physical_shape_test.dart" currentTestFile="widgets/pinned_header_sliver_test.dart" sinceClearMs=205 gen=14 :: incoming /build filename="widgets/pinned_header_sliver_test.dart" suite="flutter_base_16_test.dart" chars=42989
+    Lost connection to device.
+  
+  Captured app STDERR tail:
+    Failed to foreground app; open returned 1
+    [process] test app exited with code 0
+  
+  test/send_test_runner.dart 793:7  SendTestRunner.send
+  
+03:25 +11 -2: widgets/ individual platform_menu_bar_test.dart
+[recycle] killing wedged test app (pid=46386)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=widgets/platform_menu_bar_test.dart testFile=flutter_base_16_test.dart sourceChars=52757 clearMs=201 httpMs=4089 totalMs=18786 status=success httpStatus=200 outputLines=26 frameworkErrors=0 appBodyMs=7 appParseMs=7 appSetStateMs=8 appInterpretStartMs=11 appInterpretEndMs=3805 appFirstFrameMs=3883 appPumpEndMs=4084
+03:44 +12 -2: widgets/ individual platform_menu_item_group_test.dart
+[METRIC] script=widgets/platform_menu_item_group_test.dart testFile=flutter_base_16_test.dart sourceChars=49402 clearMs=219 httpMs=3727 totalMs=3948 status=success httpStatus=200 outputLines=21 frameworkErrors=0 appBodyMs=4 appParseMs=4 appSetStateMs=4 appInterpretStartMs=4 appInterpretEndMs=3460 appFirstFrameMs=3524 appPumpEndMs=3725
+03:48 +13 -2: widgets/ individual platform_menu_item_test.dart
+[METRIC] script=widgets/platform_menu_item_test.dart testFile=flutter_base_16_test.dart sourceChars=44770 clearMs=203 httpMs=3685 totalMs=3890 status=success httpStatus=200 outputLines=20 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=3417 appFirstFrameMs=3481 appPumpEndMs=3683
+03:52 +14 -2: widgets/ individual platform_menu_test.dart
+[METRIC] script=widgets/platform_menu_test.dart testFile=flutter_base_16_test.dart sourceChars=51410 clearMs=204 httpMs=3667 totalMs=3872 status=success httpStatus=200 outputLines=20 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=3410 appFirstFrameMs=3462 appPumpEndMs=3664
+03:56 +15 -2: widgets/ individual platform_provided_menu_item_test.dart
+[METRIC] script=widgets/platform_provided_menu_item_test.dart testFile=flutter_base_16_test.dart sourceChars=39855 clearMs=219 httpMs=3031 totalMs=3251 status=success httpStatus=200 outputLines=384 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=2790 appFirstFrameMs=2826 appPumpEndMs=3026
+03:59 +16 -2: widgets/ individual platform_view_link_test.dart
+[METRIC] script=widgets/platform_view_link_test.dart testFile=flutter_base_16_test.dart sourceChars=42592 clearMs=202 httpMs=3375 totalMs=3579 status=success httpStatus=200 outputLines=399 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=3142 appFirstFrameMs=3171 appPumpEndMs=3372
+04:03 +17 -2: widgets/ individual platform_view_surface_test.dart
+[METRIC] script=widgets/platform_view_surface_test.dart testFile=flutter_base_16_test.dart sourceChars=38691 clearMs=204 httpMs=3315 totalMs=3521 status=success httpStatus=200 outputLines=368 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=3081 appFirstFrameMs=3110 appPumpEndMs=3312
+04:06 +18 -2: widgets/ individual pop_scope_test.dart
+[METRIC] script=widgets/pop_scope_test.dart testFile=flutter_base_16_test.dart sourceChars=61341 clearMs=214 httpMs=3472 totalMs=3688 status=success httpStatus=200 outputLines=23 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=3208 appFirstFrameMs=3264 appPumpEndMs=3464
+04:10 +19 -2: widgets/ individual positioned_directional_test.dart
+[METRIC] script=widgets/positioned_directional_test.dart testFile=flutter_base_16_test.dart sourceChars=40830 clearMs=271 httpMs=31569 totalMs=31842 status=error httpStatus=400 outputLines=14 frameworkErrors=0 appBodyMs=13 appParseMs=13 appSetStateMs=17 appInterpretStartMs=29 appInterpretEndMs=31251 appFirstFrameMs=31549 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/positioned_directional_test.dart:
+    Build timed out after 30 seconds
+[recycle] build-timeout in widgets/positioned_directional_test.dart — app event loop is wedged; killing it now, restarting before the next test (no cascade)
+04:43 +19 -3: widgets/ individual positioned_directional_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_base_16_test.dart 182:7                main.<fn>.<fn>
+  
+04:43 +19 -3: widgets/ individual primary_scroll_controller_test.dart
+[recycle] killing wedged test app (pid=48307)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=widgets/primary_scroll_controller_test.dart testFile=flutter_base_16_test.dart sourceChars=40586 clearMs=203 httpMs=3471 totalMs=18200 status=success httpStatus=200 outputLines=14 frameworkErrors=0 appBodyMs=7 appParseMs=7 appSetStateMs=7 appInterpretStartMs=11 appInterpretEndMs=3126 appFirstFrameMs=3265 appPumpEndMs=3466
+05:01 +20 -3: widgets/ individual proxy_element_test.dart
+[METRIC] script=widgets/proxy_element_test.dart testFile=flutter_base_16_test.dart sourceChars=59799 clearMs=202 httpMs=3201 totalMs=3405 status=success httpStatus=200 outputLines=32 frameworkErrors=0 appBodyMs=4 appParseMs=4 appSetStateMs=4 appInterpretStartMs=4 appInterpretEndMs=2896 appFirstFrameMs=2997 appPumpEndMs=3198
+05:04 +21 -3: widgets/ individual proxy_widget_test.dart
+[METRIC] script=widgets/proxy_widget_test.dart testFile=flutter_base_16_test.dart sourceChars=80407 clearMs=203 httpMs=3138 totalMs=3342 status=success httpStatus=200 outputLines=47 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=2853 appFirstFrameMs=2933 appPumpEndMs=3135
+05:08 +22 -3: widgets/ individual radio_group_test.dart
+[METRIC] script=widgets/radio_group_test.dart testFile=flutter_base_16_test.dart sourceChars=47528 clearMs=221 httpMs=3669 totalMs=3892 status=success httpStatus=200 outputLines=21 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=3396 appFirstFrameMs=3464 appPumpEndMs=3666
+05:11 +23 -3: widgets/ individual range_maintaining_scroll_physics_test.dart
+[METRIC] script=widgets/range_maintaining_scroll_physics_test.dart testFile=flutter_base_16_test.dart sourceChars=33379 clearMs=220 httpMs=3377 totalMs=3598 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=3126 appFirstFrameMs=3174 appPumpEndMs=3375
+05:15 +24 -3: widgets/ individual raw_magnifier_test.dart
+[METRIC] script=widgets/raw_magnifier_test.dart testFile=flutter_base_16_test.dart sourceChars=48716 clearMs=203 httpMs=3394 totalMs=3598 status=success httpStatus=200 outputLines=20 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=3120 appFirstFrameMs=3192 appPumpEndMs=3392
+05:19 +25 -3: widgets/ individual raw_view_test.dart
+[METRIC] script=widgets/raw_view_test.dart testFile=flutter_base_16_test.dart sourceChars=54182 clearMs=203 httpMs=3405 totalMs=3611 status=success httpStatus=200 outputLines=16 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=3110 appFirstFrameMs=3201 appPumpEndMs=3403
+05:22 +26 -3: widgets/ individual render_object_element_test.dart
+[METRIC] script=widgets/render_object_element_test.dart testFile=flutter_base_16_test.dart sourceChars=36294 clearMs=217 httpMs=4463 totalMs=4682 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=4153 appFirstFrameMs=4258 appPumpEndMs=4459
+05:27 +27 -3: widgets/ individual render_object_widget_test.dart
+[METRIC] script=widgets/render_object_widget_test.dart testFile=flutter_base_16_test.dart sourceChars=32809 clearMs=242 httpMs=49411 totalMs=49654 status=error httpStatus=400 outputLines=4 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=1 appInterpretStartMs=4 appInterpretEndMs=48852 appFirstFrameMs=49369 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/render_object_widget_test.dart:
+    Build timed out after 30 seconds
+[recycle] build-timeout in widgets/render_object_widget_test.dart — app event loop is wedged; killing it now, restarting before the next test (no cascade)
+06:17 +27 -4: widgets/ individual render_object_widget_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_base_16_test.dart 245:7                main.<fn>.<fn>
+  
+06:17 +27 -4: widgets/ individual restorable_bool_test.dart
+[recycle] killing wedged test app (pid=49781)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=widgets/restorable_bool_test.dart testFile=flutter_base_16_test.dart sourceChars=59262 clearMs=202 httpMs=3556 totalMs=18249 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=8 appParseMs=8 appSetStateMs=8 appInterpretStartMs=12 appInterpretEndMs=3331 appFirstFrameMs=3348 appPumpEndMs=3551
+06:36 +28 -4: widgets/ individual restorable_date_time_test.dart
+[METRIC] script=widgets/restorable_date_time_test.dart testFile=flutter_base_16_test.dart sourceChars=50970 clearMs=203 httpMs=3457 totalMs=3661 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=4 appParseMs=4 appSetStateMs=4 appInterpretStartMs=4 appInterpretEndMs=3090 appFirstFrameMs=3253 appPumpEndMs=3455
+06:39 +29 -4: widgets/ individual restorable_double_test.dart
+[METRIC] script=widgets/restorable_double_test.dart testFile=flutter_base_16_test.dart sourceChars=58674 clearMs=215 httpMs=3467 totalMs=3684 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=3038 appFirstFrameMs=3263 appPumpEndMs=3465
+06:43 +30 -4: widgets/ individual restorable_enum_test.dart
+[METRIC] script=widgets/restorable_enum_test.dart testFile=flutter_base_16_test.dart sourceChars=67101 clearMs=215 httpMs=3307 totalMs=3523 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=3043 appFirstFrameMs=3102 appPumpEndMs=3303
+06:46 +31 -4: widgets/ individual restorable_int_test.dart
+[METRIC] script=widgets/restorable_int_test.dart testFile=flutter_base_16_test.dart sourceChars=53015 clearMs=204 httpMs=3345 totalMs=3550 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=3067 appFirstFrameMs=3141 appPumpEndMs=3343
+06:50 +32 -4: widgets/ individual restorable_property_test.dart
+[METRIC] script=widgets/restorable_property_test.dart testFile=flutter_base_16_test.dart sourceChars=46352 clearMs=203 httpMs=3314 totalMs=3518 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=3017 appFirstFrameMs=3110 appPumpEndMs=3311
+06:53 +33 -4: widgets/ individual restorable_string_test.dart
+[METRIC] script=widgets/restorable_string_test.dart testFile=flutter_base_16_test.dart sourceChars=60692 clearMs=216 httpMs=3574 totalMs=3791 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=2991 appFirstFrameMs=3370 appPumpEndMs=3572
+06:57 +34 -4: widgets/ individual restorable_text_editing_controller_test.dart
+[METRIC] script=widgets/restorable_text_editing_controller_test.dart testFile=flutter_base_16_test.dart sourceChars=50810 clearMs=204 httpMs=3223 totalMs=3428 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=2977 appFirstFrameMs=3019 appPumpEndMs=3220
+07:01 +35 -4: widgets/ individual restorable_value_test.dart
+[METRIC] script=widgets/restorable_value_test.dart testFile=flutter_base_16_test.dart sourceChars=46160 clearMs=267 httpMs=46404 totalMs=46673 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=4 appInterpretStartMs=6 appInterpretEndMs=45136 appFirstFrameMs=46359 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/restorable_value_test.dart:
+    Build timed out after 30 seconds
+[recycle] build-timeout in widgets/restorable_value_test.dart — app event loop is wedged; killing it now, restarting before the next test (no cascade)
+07:48 +35 -5: widgets/ individual restorable_value_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_base_16_test.dart 308:7                main.<fn>.<fn>
+  
+07:48 +35 -5: widgets/ individual restoration_mixin_test.dart
+[recycle] killing wedged test app (pid=51573)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=widgets/restoration_mixin_test.dart testFile=flutter_base_16_test.dart sourceChars=55176 clearMs=202 httpMs=3666 totalMs=18892 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=7 appParseMs=7 appSetStateMs=8 appInterpretStartMs=11 appInterpretEndMs=3435 appFirstFrameMs=3458 appPumpEndMs=3661
+08:07 +36 -5: widgets/ individual root_element_test.dart
+[METRIC] script=widgets/root_element_test.dart testFile=flutter_base_16_test.dart sourceChars=46630 clearMs=204 httpMs=3439 totalMs=3645 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=4 appParseMs=4 appSetStateMs=4 appInterpretStartMs=5 appInterpretEndMs=3125 appFirstFrameMs=3235 appPumpEndMs=3437
+08:11 +37 -5: widgets/ individual root_restoration_scope_test.dart
+[METRIC] script=widgets/root_restoration_scope_test.dart testFile=flutter_base_16_test.dart sourceChars=41632 clearMs=215 httpMs=3399 totalMs=3615 status=success httpStatus=200 outputLines=11 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=3127 appFirstFrameMs=3194 appPumpEndMs=3396
+08:14 +38 -5: widgets/ individual root_widget_test.dart
+[METRIC] script=widgets/root_widget_test.dart testFile=flutter_base_16_test.dart sourceChars=38283 clearMs=203 httpMs=3349 totalMs=3553 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=3088 appFirstFrameMs=3144 appPumpEndMs=3346
+08:18 +39 -5: widgets/ individual scroll_action_test.dart
+[METRIC] script=widgets/scroll_action_test.dart testFile=flutter_base_16_test.dart sourceChars=63022 clearMs=217 httpMs=4089 totalMs=4309 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=3751 appFirstFrameMs=3887 appPumpEndMs=4087
+08:22 +40 -5: widgets/ individual scroll_configuration_test.dart
+[METRIC] script=widgets/scroll_configuration_test.dart testFile=flutter_base_16_test.dart sourceChars=42248 clearMs=204 httpMs=3384 totalMs=3589 status=success httpStatus=200 outputLines=10 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=3082 appFirstFrameMs=3180 appPumpEndMs=3382
+08:26 +41 -5: widgets/ individual scroll_intent_test.dart
+[METRIC] script=widgets/scroll_intent_test.dart testFile=flutter_base_16_test.dart sourceChars=66912 clearMs=203 httpMs=4033 totalMs=4238 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=7 appInterpretEndMs=3755 appFirstFrameMs=3829 appPumpEndMs=4031
+08:30 +42 -5: widgets/ individual scroll_physics_test.dart
+[METRIC] script=widgets/scroll_physics_test.dart testFile=flutter_base_16_test.dart sourceChars=33811 clearMs=215 httpMs=3325 totalMs=3541 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=3064 appFirstFrameMs=3118 appPumpEndMs=3320
+08:34 +43 -5: widgets/ individual scroll_position_test.dart
+[METRIC] script=widgets/scroll_position_test.dart testFile=flutter_base_16_test.dart sourceChars=34974 clearMs=268 httpMs=40111 totalMs=40380 status=error httpStatus=400 outputLines=4 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=39191 appFirstFrameMs=40078 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/scroll_position_test.dart:
+    Build timed out after 30 seconds
+[recycle] build-timeout in widgets/scroll_position_test.dart — app event loop is wedged; killing it now, restarting before the next test (no cascade)
+09:15 +43 -6: widgets/ individual scroll_position_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_base_16_test.dart 369:7                main.<fn>.<fn>
+  
+09:15 +43 -6: widgets/ individual scrollable_state_test.dart
+[recycle] killing wedged test app (pid=53297)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=widgets/scrollable_state_test.dart testFile=flutter_base_16_test.dart sourceChars=29434 clearMs=202 httpMs=3500 totalMs=18235 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=7 appParseMs=7 appSetStateMs=7 appInterpretStartMs=10 appInterpretEndMs=3115 appFirstFrameMs=3295 appPumpEndMs=3495
+09:33 +44 -6: widgets/ individual scrollable_test.dart
+[METRIC] script=widgets/scrollable_test.dart testFile=flutter_base_16_test.dart sourceChars=41981 clearMs=202 httpMs=3165 totalMs=3369 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=3 appParseMs=3 appSetStateMs=3 appInterpretStartMs=4 appInterpretEndMs=2890 appFirstFrameMs=2963 appPumpEndMs=3163
+09:36 +45 -6: widgets/ individual selectable_region_test.dart
+[METRIC] script=widgets/selectable_region_test.dart testFile=flutter_base_16_test.dart sourceChars=54500 clearMs=203 httpMs=3094 totalMs=3300 status=success httpStatus=200 outputLines=17 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=2854 appFirstFrameMs=2891 appPumpEndMs=3092
+09:39 +46 -6: widgets/ individual selection_container_test.dart
+[METRIC] script=widgets/selection_container_test.dart testFile=flutter_base_16_test.dart sourceChars=48269 clearMs=203 httpMs=3062 totalMs=3267 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=2831 appFirstFrameMs=2858 appPumpEndMs=3060
+09:43 +47 -6: widgets/ individual selection_listener_test.dart
+[METRIC] script=widgets/selection_listener_test.dart testFile=flutter_base_16_test.dart sourceChars=44640 clearMs=217 httpMs=3048 totalMs=3268 status=success httpStatus=200 outputLines=14 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=2819 appFirstFrameMs=2844 appPumpEndMs=3046
+09:46 +48 -6: widgets/ individual selection_overlay_test.dart
+[METRIC] script=widgets/selection_overlay_test.dart testFile=flutter_base_16_test.dart sourceChars=46116 clearMs=204 httpMs=3039 totalMs=3246 status=success httpStatus=200 outputLines=14 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=2811 appFirstFrameMs=2835 appPumpEndMs=3037
+09:49 +49 -6: widgets/ individual shader_mask_test.dart
+[METRIC] script=widgets/shader_mask_test.dart testFile=flutter_base_16_test.dart sourceChars=42225 clearMs=216 httpMs=3272 totalMs=3491 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=2885 appFirstFrameMs=3049 appPumpEndMs=3270
+09:53 +50 -6: widgets/ individual shared_app_data_test.dart
+[METRIC] script=widgets/shared_app_data_test.dart testFile=flutter_base_16_test.dart sourceChars=48718 clearMs=223 httpMs=3055 totalMs=3280 status=success httpStatus=200 outputLines=14 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=2824 appFirstFrameMs=2851 appPumpEndMs=3053
+09:56 +51 -6: widgets/ individual shrink_wrapping_viewport_test.dart
+[METRIC] script=widgets/shrink_wrapping_viewport_test.dart testFile=flutter_base_16_test.dart sourceChars=73860 clearMs=216 httpMs=3087 totalMs=3304 status=success httpStatus=200 outputLines=39 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=2848 appFirstFrameMs=2882 appPumpEndMs=3083
+09:59 +52 -6: widgets/ individual single_child_render_object_element_test.dart
+[METRIC] script=widgets/single_child_render_object_element_test.dart testFile=flutter_base_16_test.dart sourceChars=55393 clearMs=210 httpMs=37452 totalMs=37664 status=error httpStatus=400 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=8 appInterpretStartMs=50 appInterpretEndMs=37157 appFirstFrameMs=37427 appPumpEndMs=-1
+
+  ✗ BUILD ERROR in widgets/single_child_render_object_element_test.dart:
+    Build timed out after 30 seconds
+[recycle] build-timeout in widgets/single_child_render_object_element_test.dart — app event loop is wedged; killing it now, restarting before the next test (no cascade)
+10:38 +52 -7: widgets/ individual single_child_render_object_element_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 30 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_base_16_test.dart 439:7                main.<fn>.<fn>
+  
+10:38 +52 -7: widgets/ individual single_child_render_object_widget_test.dart
+[recycle] killing wedged test app (pid=54946)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4248 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4248 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4248 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4248 (12s elapsed, 25 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=widgets/single_child_render_object_widget_test.dart testFile=flutter_base_16_test.dart sourceChars=53857 clearMs=203 httpMs=3550 totalMs=18236 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=7 appParseMs=7 appSetStateMs=7 appInterpretStartMs=11 appInterpretEndMs=3260 appFirstFrameMs=3343 appPumpEndMs=3545
+10:56 +53 -7: widgets/ individual single_ticker_provider_state_mixin_test.dart
+[METRIC] script=widgets/single_ticker_provider_state_mixin_test.dart testFile=flutter_base_16_test.dart sourceChars=87183 clearMs=204 httpMs=3500 totalMs=3705 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=3 appParseMs=3 appSetStateMs=3 appInterpretStartMs=6 appInterpretEndMs=3012 appFirstFrameMs=3281 appPumpEndMs=3497
+11:00 +54 -7: (tearDownAll)
+11:00 +54 -7: Some tests failed.
