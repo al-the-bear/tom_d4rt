@@ -351,3 +351,28 @@ Try `flutter pub outdated` for more information.
 06:43 +50 -3: rendering/ render_mixins_test.dart
 [METRIC] script=rendering/render_mixins_test.dart testFile=flutter_base_06_test.dart sourceChars=90579 clearMs=220 httpMs=3378 totalMs=3600 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=0 appInterpretEndMs=3045 appFirstFrameMs=3173 appPumpEndMs=3375
 06:46 +51 -3: rendering/ render_layers_pipeline_test.dart
+[METRIC] script=rendering/render_layers_pipeline_test.dart testFile=flutter_base_06_test.dart sourceChars=71978 clearMs=203 httpMs=7376 totalMs=7581 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=7099 appFirstFrameMs=7174 appPumpEndMs=7374
+06:54 +52 -3: scheduler/ scheduler_misc_test.dart
+[METRIC] script=scheduler/scheduler_misc_test.dart testFile=flutter_base_06_test.dart sourceChars=83337 clearMs=202 httpMs=3309 totalMs=3514 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=2960 appFirstFrameMs=3101 appPumpEndMs=3305
+06:57 +53 -3: semantics/ semantics_properties_test.dart
+[METRIC] script=semantics/semantics_properties_test.dart testFile=flutter_base_06_test.dart sourceChars=44764 clearMs=213 httpMs=3427 totalMs=3643 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=3152 appFirstFrameMs=3224 appPumpEndMs=3425
+07:01 +54 -3: semantics/ semantics_events_test.dart
+[METRIC] script=semantics/semantics_events_test.dart testFile=flutter_base_06_test.dart sourceChars=68904 clearMs=223 httpMs=6937 totalMs=7162 status=success httpStatus=200 outputLines=20 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=5 appInterpretEndMs=6674 appFirstFrameMs=6733 appPumpEndMs=6934
+07:08 +55 -3: semantics/ semantics_config_test.dart
+[METRIC] script=semantics/semantics_config_test.dart testFile=flutter_base_06_test.dart sourceChars=78883 clearMs=220 httpMs=4171 totalMs=4394 status=success httpStatus=200 outputLines=68 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=3882 appFirstFrameMs=3968 appPumpEndMs=4168
+07:13 +56 -3: services/ system_chrome_test.dart
+[METRIC] script=services/system_chrome_test.dart testFile=flutter_base_06_test.dart sourceChars=59564 clearMs=203 httpMs=3820 totalMs=4026 status=success httpStatus=200 outputLines=46 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=3583 appFirstFrameMs=3616 appPumpEndMs=3817
+07:17 +57 -3: services/ text_editing_value_test.dart
+[METRIC] script=services/text_editing_value_test.dart testFile=flutter_base_06_test.dart sourceChars=75067 clearMs=217 httpMs=3872 totalMs=4093 status=success httpStatus=200 outputLines=28 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=3625 appFirstFrameMs=3668 appPumpEndMs=3870
+07:21 +58 -3: services/ services_advanced_test.dart
+[METRIC] script=services/services_advanced_test.dart testFile=flutter_base_06_test.dart sourceChars=94612 clearMs=216 httpMs=3821 totalMs=4039 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=1 appInterpretEndMs=3546 appFirstFrameMs=3617 appPumpEndMs=3818
+07:25 +59 -3: services/ platform_channels_test.dart
+[METRIC] script=services/platform_channels_test.dart testFile=flutter_base_06_test.dart sourceChars=83432 clearMs=203 httpMs=3838 totalMs=4044 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=3561 appFirstFrameMs=3635 appPumpEndMs=3836
+07:29 +60 -3: services/ key_events_test.dart
+[METRIC] script=services/key_events_test.dart testFile=flutter_base_06_test.dart sourceChars=87701 clearMs=218 httpMs=3781 totalMs=4001 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=3 appInterpretEndMs=3520 appFirstFrameMs=3578 appPumpEndMs=3778
+07:33 +61 -3: services/ restoration_platform_test.dart
+[METRIC] script=services/restoration_platform_test.dart testFile=flutter_base_06_test.dart sourceChars=66452 clearMs=203 httpMs=3900 totalMs=4105 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=6 appInterpretEndMs=3601 appFirstFrameMs=3696 appPumpEndMs=3898
+07:37 +62 -3: services/ key_events_adv_test.dart
+[METRIC] script=services/key_events_adv_test.dart testFile=flutter_base_06_test.dart sourceChars=43149 clearMs=214 httpMs=3157 totalMs=3373 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=0 appParseMs=0 appSetStateMs=0 appInterpretStartMs=4 appInterpretEndMs=2892 appFirstFrameMs=2954 appPumpEndMs=3154
+07:40 +63 -3: (tearDownAll)
+07:41 +63 -3: Some tests failed.
