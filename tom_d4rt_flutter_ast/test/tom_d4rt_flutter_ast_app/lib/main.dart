@@ -967,8 +967,9 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         ? Uri.decodeComponent(suiteParam)
         : null;
     // Per-request build budget override. Defaults to 45 s — the uniform
-    // AST-app build timeout, nested below the runner's 55 s HTTP timeout
-    // and the 60 s per-test flutter timeout (45 < 55 < 60). Slow scripts
+    // AST-app build timeout (fixed harness budget, see quest memory
+    // "Flutter corpus test rules"), nested below the 65 s per-test flutter
+    // timeout (build 45 < flutter 65). Slow scripts
     // like `retest/widgets/app_kit_view_test.dart` can override via the
     // test runner's `httpBuildTimeout` parameter, which threads through
     // as `&buildBudgetMs=N`. Capped at 120 s to prevent runaway scripts

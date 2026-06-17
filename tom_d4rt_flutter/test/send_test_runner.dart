@@ -1217,13 +1217,15 @@ class SendTestRunner {
 // the timeouts the harness fails fast on transport, the catch sites in
 // send() observe the failure, recycle the app, and the next script runs
 // against a fresh process.
-const Duration _httpClearTimeout = Duration(seconds: 5);
-// 55s sits just under the outer `flutter test --timeout 60s` (5s headroom), so
-// the inner cap no longer pre-empts the outer timeout. The previous 25s value
-// fired first and recorded heavy-but-progressing builds as transport failures
-// on a loaded host; at 55s a slow build gets nearly the full minute, while a
-// genuinely wedged transport still fails before the outer 60s elapses.
-const Duration _httpBuildTimeout = Duration(seconds: 55);
+// Fixed harness budgets (see quest memory "Flutter corpus test rules"):
+// clear=15s, build=45s, whole flutter test=65s — applied uniformly so a slow
+// build on a loaded host is never misreported as a transport failure.
+const Duration _httpClearTimeout = Duration(seconds: 15);
+// 45s build budget sits under the outer `flutter test --timeout 65s` (20s
+// headroom), so the inner cap never pre-empts the outer timeout. The server
+// enforces the same 45s budget (see test app main.dart), so a slow build gets
+// the full window while a genuinely wedged transport still fails before 65s.
+const Duration _httpBuildTimeout = Duration(seconds: 45);
 
 Future<Map<String, dynamic>> _httpGet(
   HttpClient client,

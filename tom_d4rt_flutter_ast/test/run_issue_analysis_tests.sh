@@ -37,14 +37,14 @@ PROJECT="$(basename "$PWD")"
 # seconds (default 70 = ~60s per-test max + margin). Catches mid-run stalls AND
 # "never reaches the first test" hangs so a wedged transport fails fast instead
 # of burning the timeout-900 backstop. Override with IDLE_TIMEOUT=<seconds>.
-IDLE_TIMEOUT="${IDLE_TIMEOUT:-70}"
+IDLE_TIMEOUT="${IDLE_TIMEOUT:-80}"
 
 ID="${1:-$(date +%Y%m%d-%H%M)-issue-analysis}"
 OUT="doc/testlog_${ID}"
 mkdir -p "$OUT"
 
 # Per-FILE wall-clock backstop so a wedged transport can't hang the whole run.
-# (The --timeout 60s below is the PER-TEST limit; this caps an entire file.)
+# (The --timeout 65s below is the PER-TEST limit; this caps an entire file.)
 # Uses coreutils `timeout` (Linux) or `gtimeout` (macOS+coreutils) if present;
 # otherwise relies on the per-test timeout alone.
 TIMEOUT_BIN=()
@@ -86,7 +86,7 @@ for f in "${FILES[@]}"; do
   IDLE_TIMEOUT="$IDLE_TIMEOUT" "$SCRIPT_DIR/idle_timeout.sh" \
     "$IDLE_TIMEOUT" "${OUT}/${base}.log.txt" -- \
     "${TIMEOUT_BIN[@]+"${TIMEOUT_BIN[@]}"}" flutter test "test/${f}" \
-    --timeout 60s \
+    --timeout 65s \
     --file-reporter "json:${OUT}/${base}.result.json"
   rc=$?
   # flutter test summary line looks like: "00:42 +45 ~2 -1: Some tests failed."
