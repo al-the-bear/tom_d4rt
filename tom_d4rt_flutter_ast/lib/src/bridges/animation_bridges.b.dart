@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 11 files
-// Generated: 2026-06-14T15:14:14.368497
+// Generated: 2026-06-16T23:29:48.100499
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
 
@@ -535,7 +535,7 @@ BridgedClass _createTickerFutureBridge() {
         }
         final onValueRaw = positional[0];
         final onError = D4.getOptionalNamedArg<Function?>(named, 'onError');
-        return t.then(((void p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, onValueRaw, [null])); }) as FutureOr<Object?> Function(void), onError: onError);
+        return t.then<Object?>(((void p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, onValueRaw, [null])); }) as FutureOr<Object?> Function(void), onError: onError);
       },
       'timeout': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');

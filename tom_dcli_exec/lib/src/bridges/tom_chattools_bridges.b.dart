@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-05-02T21:25:56.136266
+// Generated: 2026-06-16T23:29:23.144167
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt_exec.dart';
@@ -52,6 +52,19 @@ class TomChattoolsBridge {
       'ChatApi': 'package:tom_chattools/src/api/chat/chat_api.dart',
       'ChatMessageFilter': 'package:tom_chattools/src/api/chat/chat_api.dart',
       'TelegramChatConfig': 'package:tom_chattools/src/telegram/telegram_config.dart',
+    };
+  }
+
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain (MCI#1 / A1).
+  static Map<String, List<String>> classSupertypes() {
+    return {
+      'TelegramChatConfig': ['ChatConfig'],
     };
   }
 
@@ -153,6 +166,11 @@ class TomChattoolsBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // MCI#1 / A1: Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();
@@ -857,6 +875,7 @@ BridgedClass _createTelegramChatConfigBridge() {
     nativeType: $tom_chattools_7.TelegramChatConfig,
     name: 'TelegramChatConfig',
     isAssignable: (v) => v is $tom_chattools_7.TelegramChatConfig,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final token = D4.getRequiredNamedArg<String>(named, 'token', 'TelegramChatConfig');

@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 13 files
-// Generated: 2026-04-23T19:13:42.344907
+// Generated: 2026-06-16T23:28:10.845081
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -123,6 +123,21 @@ class TomVscodeScriptingApiBridge {
     };
   }
 
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain (MCI#1 / A1).
+  static Map<String, List<String>> classSupertypes() {
+    return {
+      'VSCodeBridgeAdapter': ['VSCodeAdapter'],
+      'LazyVSCodeBridgeAdapter': ['VSCodeAdapter'],
+      'Selection': ['Range'],
+    };
+  }
+
   /// Returns a map of type alias names to their target class names.
   ///
   /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
@@ -178,6 +193,30 @@ class TomVscodeScriptingApiBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:tom_vscode_scripting_api/script_globals.dart', target: 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart', show: null, hide: null),
+      (source: 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart', target: 'package:tom_vscode_scripting_api/src/vscode_adapter.dart', show: null, hide: null),
+      (source: 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart', target: 'package:tom_vscode_scripting_api/src/vscode_bridge_client.dart', show: null, hide: null),
+      (source: 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart', target: 'package:tom_vscode_scripting_api/src/vscode_bridge_adapter.dart', show: null, hide: null),
+      (source: 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart', target: 'package:tom_vscode_scripting_api/src/vscode.dart', show: null, hide: null),
+      (source: 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart', target: 'package:tom_vscode_scripting_api/src/vscode_commands.dart', show: null, hide: null),
+      (source: 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart', target: 'package:tom_vscode_scripting_api/src/vscode_extensions.dart', show: null, hide: null),
+      (source: 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart', target: 'package:tom_vscode_scripting_api/src/vscode_lm.dart', show: null, hide: null),
+      (source: 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart', target: 'package:tom_vscode_scripting_api/src/vscode_window.dart', show: null, hide: null),
+      (source: 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart', target: 'package:tom_vscode_scripting_api/src/vscode_workspace.dart', show: null, hide: null),
+      (source: 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart', target: 'package:tom_vscode_scripting_api/src/vscode_chat.dart', show: null, hide: null),
+      (source: 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart', target: 'package:tom_vscode_scripting_api/src/vscode_helper.dart', show: null, hide: null),
+      (source: 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart', target: 'package:tom_vscode_scripting_api/src/vscode_types.dart', show: null, hide: null),
+      (source: 'package:tom_vscode_scripting_api/tom_vscode_scripting_api.dart', target: 'package:tom_vscode_scripting_api/script_globals.dart', show: null, hide: null),
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
@@ -189,6 +228,11 @@ class TomVscodeScriptingApiBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // MCI#1 / A1: Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();
@@ -204,6 +248,11 @@ class TomVscodeScriptingApiBridge {
     final typedefs = functionTypedefs();
     for (final name in typedefs) {
       interpreter.registerFunctionTypedef(name, importPath);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 
@@ -305,6 +354,7 @@ BridgedClass _createVSCodeAdapterBridge() {
     nativeType: $tom_vscode_scripting_api_3.VSCodeAdapter,
     name: 'VSCodeAdapter',
     isAssignable: (v) => v is $tom_vscode_scripting_api_3.VSCodeAdapter,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -521,6 +571,7 @@ BridgedClass _createVSCodeBridgeAdapterBridge() {
     nativeType: $tom_vscode_scripting_api_4.VSCodeBridgeAdapter,
     name: 'VSCodeBridgeAdapter',
     isAssignable: (v) => v is $tom_vscode_scripting_api_4.VSCodeBridgeAdapter,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'VSCodeBridgeAdapter');
@@ -573,6 +624,7 @@ BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
     nativeType: $tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter,
     name: 'LazyVSCodeBridgeAdapter',
     isAssignable: (v) => v is $tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         final host = D4.getNamedArgWithDefault<String>(named, 'host', '127.0.0.1');
@@ -1748,7 +1800,7 @@ BridgedClass _createVSCodeChatBridge() {
         final description = D4.getOptionalNamedArg<String?>(named, 'description');
         final fullName = D4.getOptionalNamedArg<String?>(named, 'fullName');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return t.createChatParticipant(id, handler: ($tom_vscode_scripting_api_6.ChatRequest p0, $tom_vscode_scripting_api_6.ChatContext p1, $tom_vscode_scripting_api_6.ChatResponseStream p2) { return D4.extractBridgedArg<Future<$tom_vscode_scripting_api_6.ChatResult>>(D4.callInterpreterCallback(visitor!, handlerRaw, [p0, p1, p2]), 'callback', visitor); }, description: description, fullName: fullName, timeoutSeconds: timeoutSeconds);
+        return t.createChatParticipant(id, handler: (($tom_vscode_scripting_api_6.ChatRequest p0, $tom_vscode_scripting_api_6.ChatContext p1, $tom_vscode_scripting_api_6.ChatResponseStream p2) { return Future.value(D4.callInterpreterCallback(visitor!, handlerRaw, [p0, p1, p2])).then((v) => v as $tom_vscode_scripting_api_6.ChatResult); }) as Future<$tom_vscode_scripting_api_6.ChatResult> Function($tom_vscode_scripting_api_6.ChatRequest, $tom_vscode_scripting_api_6.ChatContext, $tom_vscode_scripting_api_6.ChatResponseStream), description: description, fullName: fullName, timeoutSeconds: timeoutSeconds);
       },
     },
     staticMethods: {
@@ -2747,7 +2799,7 @@ BridgedClass _createFileBatchBridge() {
           throw ArgumentError('process: Missing required argument "processor" at position 0');
         }
         final processorRaw = positional[0];
-        return t.process((String p0, String p1) { return D4.extractBridgedArg<Future<dynamic>>(D4.callInterpreterCallback(visitor!, processorRaw, [p0, p1]), 'callback', visitor); });
+        return t.process<Object?>(((String p0, String p1) { return Future.value(D4.callInterpreterCallback(visitor!, processorRaw, [p0, p1])).then((v) => v as dynamic); }) as Future<dynamic> Function(String, String));
       },
       'filter': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_vscode_scripting_api_9.FileBatch>(target, 'FileBatch');
@@ -2756,7 +2808,7 @@ BridgedClass _createFileBatchBridge() {
           throw ArgumentError('filter: Missing required argument "predicate" at position 0');
         }
         final predicateRaw = positional[0];
-        return t.filter((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); });
+        return t.filter(((String p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; }) as bool Function(String));
       },
     },
     staticMethods: {
@@ -3076,6 +3128,7 @@ BridgedClass _createSelectionBridge() {
     nativeType: $tom_vscode_scripting_api_11.Selection,
     name: 'Selection',
     isAssignable: (v) => v is $tom_vscode_scripting_api_11.Selection,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Selection');

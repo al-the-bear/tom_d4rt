@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-05-02T21:25:56.012946
+// Generated: 2026-06-16T23:29:21.863537
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt_exec.dart';
@@ -39,6 +39,21 @@ class PathBridge {
       'PathMap': 'package:path/src/path_map.dart',
       'PathSet': 'package:path/src/path_set.dart',
       'Style': 'package:path/src/style.dart',
+    };
+  }
+
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain (MCI#1 / A1).
+  static Map<String, List<String>> classSupertypes() {
+    return {
+      'PathException': ['Exception'],
+      'PathMap': ['MapView', 'Map'],
+      'PathSet': ['Iterable', 'Set', '_SetIterable', 'EfficientLengthIterable', 'HideEfficientLengthIterable'],
     };
   }
 
@@ -114,6 +129,11 @@ class PathBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // MCI#1 / A1: Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
 
     // Register global variables
     registerGlobalVariables(interpreter, importPath);
@@ -668,6 +688,7 @@ BridgedClass _createPathExceptionBridge() {
     nativeType: $path_4.PathException,
     name: 'PathException',
     isAssignable: (v) => v is $path_4.PathException,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'PathException');
@@ -712,6 +733,7 @@ BridgedClass _createPathMapBridge() {
     nativeType: $path_5.PathMap,
     name: 'PathMap',
     isAssignable: (v) => v is $path_5.PathMap,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         final context = D4.getOptionalNamedArg<$path_2.Context?>(named, 'context');
@@ -814,7 +836,7 @@ BridgedClass _createPathMapBridge() {
           throw ArgumentError('map: Missing required argument "transform" at position 0');
         }
         final transformRaw = positional[0];
-        return (t as dynamic).map((String? p0, dynamic p1) { return D4.extractBridgedArg<MapEntry<dynamic, dynamic>>(D4.callInterpreterCallback(visitor!, transformRaw, [p0, p1]), 'callback', visitor); });
+        return (t as dynamic).map(((String? p0, dynamic p1) { return D4.extractBridgedArg<MapEntry<dynamic, dynamic>>(D4.callInterpreterCallback(visitor!, transformRaw, [p0, p1]), 'callback', visitor) as MapEntry<dynamic, dynamic>; }) as MapEntry<dynamic, dynamic> Function(String?, dynamic));
       },
       'update': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_5.PathMap>(target, 'PathMap');
@@ -844,7 +866,7 @@ BridgedClass _createPathMapBridge() {
           throw ArgumentError('removeWhere: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        (t as dynamic).removeWhere((String? p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, testRaw, [p0, p1]) as bool; });
+        (t as dynamic).removeWhere(((String? p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, testRaw, [p0, p1]) as bool; }) as bool Function(String?, dynamic));
         return null;
       },
       '[]': (visitor, target, positional, named, typeArgs) {
@@ -900,6 +922,7 @@ BridgedClass _createPathSetBridge() {
     nativeType: $path_6.PathSet,
     name: 'PathSet',
     isAssignable: (v) => v is $path_6.PathSet,
+    hierarchyDepth: 5,
     constructors: {
       '': (visitor, positional, named) {
         final context = D4.getOptionalNamedArg<$path_2.Context?>(named, 'context');
@@ -1012,7 +1035,7 @@ BridgedClass _createPathSetBridge() {
           throw ArgumentError('removeWhere: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        t.removeWhere((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        t.removeWhere(((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(String?));
         return null;
       },
       'retainAll': (visitor, target, positional, named, typeArgs) {
@@ -1032,7 +1055,7 @@ BridgedClass _createPathSetBridge() {
           throw ArgumentError('retainWhere: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        t.retainWhere((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        t.retainWhere(((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(String?));
         return null;
       },
       'union': (visitor, target, positional, named, typeArgs) {
@@ -1064,7 +1087,7 @@ BridgedClass _createPathSetBridge() {
           throw ArgumentError('map: Missing required argument "toElement" at position 0');
         }
         final toElementRaw = positional[0];
-        return t.map((String? p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
+        return t.map<Object?>((String? p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
       },
       'where': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
@@ -1073,7 +1096,7 @@ BridgedClass _createPathSetBridge() {
           throw ArgumentError('where: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.where((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.where(((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(String?));
       },
       'whereType': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
@@ -1086,7 +1109,7 @@ BridgedClass _createPathSetBridge() {
           throw ArgumentError('expand: Missing required argument "toElements" at position 0');
         }
         final toElementsRaw = positional[0];
-        return t.expand((String? p0) { return D4.extractBridgedArg<Iterable<dynamic>>(D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]), 'callback', visitor); });
+        return t.expand<Object?>(((String? p0) { return D4.extractBridgedArg<Iterable<dynamic>>(D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]), 'callback', visitor) as Iterable<dynamic>; }) as Iterable<dynamic> Function(String?));
       },
       'forEach': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
@@ -1105,7 +1128,7 @@ BridgedClass _createPathSetBridge() {
           throw ArgumentError('reduce: Missing required argument "combine" at position 0');
         }
         final combineRaw = positional[0];
-        return t.reduce((String? p0, String? p1) { return D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]) as String?; });
+        return t.reduce(((String? p0, String? p1) { return D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]) as String?; }) as String? Function(String?, String?));
       },
       'fold': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
@@ -1115,7 +1138,7 @@ BridgedClass _createPathSetBridge() {
           throw ArgumentError('fold: Missing required argument "combine" at position 1');
         }
         final combineRaw = positional[1];
-        return t.fold(initialValue, (dynamic p0, String? p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
+        return t.fold<Object?>(initialValue, (dynamic p0, String? p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'every': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
@@ -1124,7 +1147,7 @@ BridgedClass _createPathSetBridge() {
           throw ArgumentError('every: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.every((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.every(((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(String?));
       },
       'join': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
@@ -1138,7 +1161,7 @@ BridgedClass _createPathSetBridge() {
           throw ArgumentError('any: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.any((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.any(((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(String?));
       },
       'toList': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
@@ -1158,7 +1181,7 @@ BridgedClass _createPathSetBridge() {
           throw ArgumentError('takeWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.takeWhile((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.takeWhile(((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(String?));
       },
       'skip': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
@@ -1173,7 +1196,7 @@ BridgedClass _createPathSetBridge() {
           throw ArgumentError('skipWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.skipWhile((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.skipWhile(((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(String?));
       },
       'firstWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
@@ -1183,7 +1206,7 @@ BridgedClass _createPathSetBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.firstWhere((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as String?; });
+        return t.firstWhere(((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(String?), orElse: orElseRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as String?; }) as String? Function());
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
@@ -1193,7 +1216,7 @@ BridgedClass _createPathSetBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.lastWhere((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as String?; });
+        return t.lastWhere(((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(String?), orElse: orElseRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as String?; }) as String? Function());
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');
@@ -1203,7 +1226,7 @@ BridgedClass _createPathSetBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.singleWhere((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as String?; });
+        return t.singleWhere(((String? p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(String?), orElse: orElseRaw == null ? null : (() { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as String?; }) as String? Function());
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$path_6.PathSet>(target, 'PathSet');

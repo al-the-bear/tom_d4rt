@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 46 files
-// Generated: 2026-06-14T15:14:13.174362
+// Generated: 2026-06-16T23:29:47.466552
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
 
@@ -2136,7 +2136,7 @@ BridgedClass _createPaintingBindingBridge() {
         final priority = D4.getRequiredArg<$flutter_55.Priority>(positional, 1, 'priority', 'scheduleTask');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final flow = D4.getOptionalNamedArg<Flow?>(named, 'flow');
-        return t.scheduleTask((() { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, taskRaw, [])); }) as FutureOr<Object?> Function(), priority, debugLabel: debugLabel, flow: flow);
+        return t.scheduleTask<Object?>((() { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, taskRaw, [])); }) as FutureOr<Object?> Function(), priority, debugLabel: debugLabel, flow: flow);
       },
       'handleEventLoopCallback': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding');

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/development/flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart
-// Generated: 2026-06-14T15:14:10.377509
+// Generated: 2026-06-16T23:29:45.871696
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
 
@@ -3803,7 +3803,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('map: Missing required argument "toElement" at position 0');
         }
         final toElementRaw = positional[0];
-        return t.map(($dart_ui.PathMetric p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
+        return t.map<Object?>(($dart_ui.PathMetric p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
       },
       'where': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3825,7 +3825,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('expand: Missing required argument "toElements" at position 0');
         }
         final toElementsRaw = positional[0];
-        return t.expand((($dart_ui.PathMetric p0) { return D4.extractBridgedArg<Iterable<dynamic>>(D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]), 'callback', visitor) as Iterable<dynamic>; }) as Iterable<dynamic> Function($dart_ui.PathMetric));
+        return t.expand<Object?>((($dart_ui.PathMetric p0) { return D4.extractBridgedArg<Iterable<dynamic>>(D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]), 'callback', visitor) as Iterable<dynamic>; }) as Iterable<dynamic> Function($dart_ui.PathMetric));
       },
       'contains': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3860,7 +3860,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('fold: Missing required argument "combine" at position 1');
         }
         final combineRaw = positional[1];
-        return t.fold(initialValue, (dynamic p0, $dart_ui.PathMetric p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
+        return t.fold<Object?>(initialValue, (dynamic p0, $dart_ui.PathMetric p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'every': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');

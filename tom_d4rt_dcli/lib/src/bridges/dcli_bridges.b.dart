@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 73 files
-// Generated: 2026-04-23T19:13:42.899025
+// Generated: 2026-06-16T23:28:15.413244
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -247,6 +247,54 @@ class DcliBridge {
     };
   }
 
+  /// Returns a map of class names to their flattened (transitive)
+  /// native supertype names (superclasses, interfaces and mixins).
+  ///
+  /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
+  /// of bridged classes pass `is`/subtype checks against bridged
+  /// ancestors and the interface-proxy supertype walk resolves up the
+  /// chain (MCI#1 / A1).
+  static Map<String, List<String>> classSupertypes() {
+    return {
+      'RestoreFileException': ['DCliException', 'Exception'],
+      'BackupFileException': ['DCliException', 'Exception'],
+      'CatException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'CopyException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'CreateDirException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'DCliFunctionException': ['DCliException', 'Exception'],
+      'DeleteException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'DeleteDirException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'Env': ['DCliFunction'],
+      'Find': ['DCliFunction'],
+      'MoveException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'MoveDirException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'MoveTreeException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'DCliException': ['Exception'],
+      'RunException': ['DCliException', 'Exception'],
+      'Ask': ['DCliFunction'],
+      'AskValidatorException': ['DCliException', 'Exception'],
+      'AskValidatorIPAddress': ['AskValidator'],
+      'FetchException': ['DCliException', 'Exception'],
+      'ReadException': ['DCliFunctionException', 'DCliException', 'Exception'],
+      'ResourceException': ['DCliException', 'Exception'],
+      'DartProjectException': ['DCliException', 'Exception'],
+      'TemplateNotFoundException': ['DCliException', 'Exception'],
+      'InvalidProjectTemplateException': ['DCliException', 'Exception'],
+      'ShellException': ['DCliException', 'Exception'],
+      'UnknownShell': ['ShellMixin', 'Shell'],
+      'InvalidArgumentException': ['DCliException', 'Exception'],
+      'InvalidTemplateException': ['DCliException', 'Exception'],
+      'InstallException': ['DCliException', 'Exception'],
+      'ProcessSyncException': ['DCliException', 'Exception'],
+      'FileNotFoundException': ['DCliException', 'Exception'],
+      'NotAFileException': ['DCliException', 'Exception'],
+      'LockException': ['DCliException', 'Exception'],
+      'FindProgress': ['InternalProgress'],
+      'HeadProgress': ['InternalProgress'],
+      'TailProgress': ['InternalProgress'],
+    };
+  }
+
   /// Returns a map of type alias names to their target class names.
   ///
   /// Type aliases like `typedef MaterialStateProperty<T> = WidgetStateProperty<T>`
@@ -334,6 +382,16 @@ class DcliBridge {
         },
       ),
       BridgedExtensionDefinition(
+        name: 'DigestHelper',
+        onTypeName: 'Digest',
+        methods: {
+          'hexEncode': (visitor, target, positional, named, typeArgs) {
+            final t = target as $crypto_1.Digest;
+            return Function.apply(t.hexEncode, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
+          },
+        },
+      ),
+      BridgedExtensionDefinition(
         name: 'StringAsProcess',
         onTypeName: 'String',
         getters: {
@@ -404,8 +462,108 @@ class DcliBridge {
   static Map<String, String> extensionSourceUris() {
     return {
       'PlatformEx': 'package:dcli_core/src/util/platform.dart',
+      'DigestHelper': 'package:dcli/src/util/digest_helper.dart',
       'StringAsProcess': 'package:dcli/src/util/string_as_process.dart',
     };
+  }
+
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:dcli/dcli.dart', target: 'package:crypto/crypto.dart', show: {'Digest'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli_core/dcli_core.dart', show: {'CancelableLineAction', 'CatException', 'CopyException', 'CreateDirException', 'DCliException', 'DCliFunction', 'DCliFunctionException', 'DeleteDirException', 'Env', 'FindItem', 'HOME', 'LineAction', 'MoveDirException', 'MoveException', 'MoveTreeException', 'PATH', 'PlatformEx', 'RunException', 'StackList', 'cat', 'copy', 'copyTree', 'createDir', 'createTempDir', 'createTempFile', 'createTempFilename', 'deleteDir', 'env', 'envs', 'exists', 'isDirectory', 'isEmpty', 'isFile', 'isLink', 'isOnPATH', 'move', 'moveDir', 'moveTree', 'privatePath', 'pwd', 'rootPath', 'touch', 'truepath', 'verbose', 'withEnvironmentAsync', 'withTempDirAsync', 'withTempFileAsync'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli_core/src/util/dev_null.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli_core/src/util/platform.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli_terminal/dcli_terminal.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/ask.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/backup.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/confirm.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/create_dir.dart', show: {'withTempDir'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/delete.dart', show: {'DeleteException', 'delete'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/echo.dart', show: {'echo'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/fetch.dart', show: {'FetchData', 'FetchException', 'FetchMethod', 'FetchProgress', 'FetchStatus', 'FetchUrl', 'OnFetchProgress', 'fetch', 'fetchMultiple'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/file_list.dart', show: {'fileList'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/find.dart', show: {'Find', 'find'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/head.dart', show: {'head'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/is.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/menu.dart', show: {'menu'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/read.dart', show: {'ReadException', 'read', 'readStdin'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/replace.dart', show: {'replace'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/run.dart', show: {'run', 'start', 'startFromArgs'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/sleep.dart', show: {'Interval', 'sleep', 'sleepAsync'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/tail.dart', show: {'tail'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/functions/which.dart', show: {'which'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/installers/installer.dart', show: {'installFromSourceKey'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/progress/progress.dart', show: {'Progress'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/resources/packed_resource.dart', show: {'PackedResource'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/resources/resources.dart', show: {'ResourceException', 'Resources'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/script/dart_project.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/script/dart_script.dart', show: {'DartScript'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/script/dart_sdk.dart', show: {'DartSdk'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/settings.dart', show: {'Settings'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/shell/shell.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/shell/shell_detection.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/shell/unknown_shell.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/capture.dart', show: {'capture'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/dcli_paths.dart', show: {'DCliPaths'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/digest_helper.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/editor.dart', show: {'showEditor'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/exceptions.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/file_sort.dart', show: {'Column', 'FileSort', 'SortDirection'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/file_sync.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/file_util.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/named_lock.dart', show: {'LockException', 'NamedLock'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/process_helper.dart', show: {'ProcessDetails', 'ProcessHelper'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/pub_cache.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/remote.dart', show: {'Remote'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/runnable_process.dart', show: {'printerr'}, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/string_as_process.dart', show: null, hide: null),
+      (source: 'package:dcli/dcli.dart', target: 'package:dcli/src/util/temp_file.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/backup.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/cat.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/copy.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/copy_tree.dart', show: {'CopyTreeException', 'copyTree'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/create_dir.dart', show: {'CreateDirException', 'createDir', 'createTempDir', 'withTempDirAsync'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/create_dir.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/dcli_function.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/delete.dart', show: {'DeleteException', 'delete'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/delete_dir.dart', show: {'DeleteDirException', 'deleteDir'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/env.dart', show: {'Env', 'HOME', 'PATH', 'env', 'envs', 'isOnPATH', 'withEnvironment', 'withEnvironmentAsync'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/find.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/find_async.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/head.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/is.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/move.dart', show: {'MoveException', 'move'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/move_dir.dart', show: {'MoveDirException', 'moveDir'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/move_tree.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/pwd.dart', show: {'pwd'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/tail.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/touch.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/functions/which.dart', show: {'Which', 'WhichSearch', 'which'}, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/settings.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/dcli_exception.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/dcli_platform.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/dev_null.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/file.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/limited_stream_controller.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/line_action.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/line_file.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/platform.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/run_exception.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/stack_list.dart', show: null, hide: null),
+      (source: 'package:dcli_core/dcli_core.dart', target: 'package:dcli_core/src/util/truepath.dart', show: {'privatePath', 'rootPath', 'truepath'}, hide: null),
+      (source: 'package:dcli_terminal/dcli_terminal.dart', target: 'package:dcli_terminal/src/ansi.dart', show: null, hide: null),
+      (source: 'package:dcli_terminal/dcli_terminal.dart', target: 'package:dcli_terminal/src/ansi_color.dart', show: null, hide: null),
+      (source: 'package:dcli_terminal/dcli_terminal.dart', target: 'package:dcli_terminal/src/format.dart', show: null, hide: null),
+      (source: 'package:dcli_terminal/dcli_terminal.dart', target: 'package:dcli_terminal/src/terminal.dart', show: null, hide: null),
+      (source: 'package:dcli/src/functions/backup.dart', target: 'package:dcli_core/dcli_core.dart', show: {'BackupFileException', 'RestoreFileException'}, hide: null),
+      (source: 'package:dcli/src/functions/delete.dart', target: 'package:dcli_core/dcli_core.dart', show: {'DeleteException'}, hide: null),
+      (source: 'package:dcli/src/functions/find.dart', target: 'package:dcli_core/dcli_core.dart', show: {'Find'}, hide: null),
+    ];
   }
 
   /// Registers all bridges with an interpreter.
@@ -419,6 +577,11 @@ class DcliBridge {
     for (final bridge in classes) {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
+
+    // MCI#1 / A1: Register the flattened native supertype table so
+    // interpreted subclasses pass subtype checks against bridged
+    // ancestors. Idempotent — safe to call per barrel.
+    BridgedClass.registerSupertypes(classSupertypes());
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();
@@ -450,6 +613,11 @@ class DcliBridge {
     final typedefs = functionTypedefs();
     for (final name in typedefs) {
       interpreter.registerFunctionTypedef(name, importPath);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 
@@ -525,7 +693,7 @@ class DcliBridge {
         }
         if (named.containsKey('filter')) {
           final filterRaw = named['filter'];
-          final filter = (String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, filterRaw, [p0]), 'callback', visitor); };
+          final filter = ((String p0) { return D4.callInterpreterCallback(visitor!, filterRaw, [p0]) as bool; }) as bool Function(String);
           $dcli_core_4.copyTree(from, to, overwrite: overwrite, includeHidden: includeHidden, includeEmpty: includeEmpty, includeLinks: includeLinks, recursive: recursive, filter: filter);
           return null;
         }
@@ -543,7 +711,7 @@ class DcliBridge {
           throw ArgumentError('withTempDirAsync: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        final action = (String p0) { return D4.extractBridgedArg<Future<dynamic>>(D4.callInterpreterCallback(visitor!, actionRaw, [p0]), 'callback', visitor); };
+        final action = ((String p0) { return Future.value(D4.callInterpreterCallback(visitor!, actionRaw, [p0])).then((v) => v as dynamic); }) as Future<dynamic> Function(String);
         final keep = D4.getNamedArgWithDefault<bool>(named, 'keep', false);
         final pathToTempDir = D4.getOptionalNamedArg<String?>(named, 'pathToTempDir');
         return $dcli_core_5.withTempDirAsync<dynamic>(action, keep: keep, pathToTempDir: pathToTempDir);
@@ -568,7 +736,7 @@ class DcliBridge {
           throw ArgumentError('withEnvironmentAsync: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        final callback = () { return D4.extractBridgedArg<Future<dynamic>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); };
+        final callback = (() { return Future.value(D4.callInterpreterCallback(visitor!, callbackRaw, [])).then((v) => v as dynamic); }) as Future<dynamic> Function();
         final environment = D4.getRequiredNamedArg<Map<String, String>>(named, 'environment', 'withEnvironmentAsync');
         return $dcli_core_9.withEnvironmentAsync<dynamic>(callback, environment: environment);
       },
@@ -623,7 +791,7 @@ class DcliBridge {
         }
         if (named.containsKey('filter')) {
           final filterRaw = named['filter'];
-          final filter = (String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, filterRaw, [p0]), 'callback', visitor); };
+          final filter = ((String p0) { return D4.callInterpreterCallback(visitor!, filterRaw, [p0]) as bool; }) as bool Function(String);
           $dcli_core_14.moveTree(from, to, overwrite: overwrite, includeHidden: includeHidden, filter: filter);
           return null;
         }
@@ -641,7 +809,7 @@ class DcliBridge {
           throw ArgumentError('verbose: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        final callback = () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); };
+        final callback = (() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as String; }) as String Function();
         return $dcli_core_18.verbose(callback);
       },
       'devNull': (visitor, positional, named, typeArgs) {
@@ -765,7 +933,7 @@ class DcliBridge {
         }
         if (named.containsKey('customPrompt')) {
           final customPromptRaw = named['customPrompt'];
-          final customPrompt = (String p0, String? p1, bool p2) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1, p2]), 'callback', visitor); };
+          final customPrompt = ((String p0, String? p1, bool p2) { return D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1, p2]) as String; }) as String Function(String, String?, bool);
           return $dcli_1.ask(prompt, toLower: toLower, hidden: hidden, required: required, defaultValue: defaultValue, validator: validator, customErrorMessage: customErrorMessage, customPrompt: customPrompt);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -789,7 +957,7 @@ class DcliBridge {
           throw ArgumentError('withFileProtectionAsync: Missing required argument "action" at position 1');
         }
         final actionRaw = positional[1];
-        final action = () { return D4.extractBridgedArg<Future<dynamic>>(D4.callInterpreterCallback(visitor!, actionRaw, []), 'callback', visitor); };
+        final action = (() { return Future.value(D4.callInterpreterCallback(visitor!, actionRaw, [])).then((v) => v as dynamic); }) as Future<dynamic> Function();
         final workingDirectory = D4.getOptionalNamedArg<String?>(named, 'workingDirectory');
         return $dcli_2.withFileProtectionAsync<dynamic>(protected, action, workingDirectory: workingDirectory);
       },
@@ -802,7 +970,7 @@ class DcliBridge {
         }
         if (named.containsKey('customPrompt')) {
           final customPromptRaw = named['customPrompt'];
-          final customPrompt = (String p0, bool? p1) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1]), 'callback', visitor); };
+          final customPrompt = ((String p0, bool? p1) { return D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1]) as String; }) as String Function(String, bool?);
           return $dcli_3.confirm(prompt, defaultValue: defaultValue, customPrompt: customPrompt);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -895,14 +1063,14 @@ class DcliBridge {
         final defaultOption = D4.getOptionalNamedArg<dynamic>(named, 'defaultOption');
         final limit = D4.getOptionalNamedArg<int?>(named, 'limit');
         final formatRaw = named['format'];
-        final format = formatRaw == null ? null : (dynamic p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, formatRaw, [p0]), 'callback', visitor); };
+        final format = formatRaw == null ? null : ((dynamic p0) { return D4.callInterpreterCallback(visitor!, formatRaw, [p0]) as String; }) as String Function(dynamic);
         final fromStart = D4.getNamedArgWithDefault<bool>(named, 'fromStart', true);
         if (!named.containsKey('customPrompt')) {
           return $dcli_11.menu(prompt, options: options, defaultOption: defaultOption, limit: limit, format: format, fromStart: fromStart);
         }
         if (named.containsKey('customPrompt')) {
           final customPromptRaw = named['customPrompt'];
-          final customPrompt = (String p0, String? p1) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1]), 'callback', visitor); };
+          final customPrompt = ((String p0, String? p1) { return D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1]) as String; }) as String Function(String, String?);
           return $dcli_11.menu(prompt, options: options, defaultOption: defaultOption, limit: limit, format: format, fromStart: fromStart, customPrompt: customPrompt);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -1022,7 +1190,7 @@ class DcliBridge {
           throw ArgumentError('capture: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        final action = () { return D4.extractBridgedArg<Future<dynamic>>(D4.callInterpreterCallback(visitor!, actionRaw, []), 'callback', visitor); };
+        final action = (() { return Future.value(D4.callInterpreterCallback(visitor!, actionRaw, [])).then((v) => v as dynamic); }) as Future<dynamic> Function();
         final progress = D4.getOptionalNamedArg<$dcli_19.Progress?>(named, 'progress');
         return $dcli_29.capture<dynamic>(action, progress: progress);
       },
@@ -1365,6 +1533,7 @@ BridgedClass _createRestoreFileExceptionBridge() {
     nativeType: $dcli_core_1.RestoreFileException,
     name: 'RestoreFileException',
     isAssignable: (v) => v is $dcli_core_1.RestoreFileException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'RestoreFileException');
@@ -1429,6 +1598,7 @@ BridgedClass _createBackupFileExceptionBridge() {
     nativeType: $dcli_core_1.BackupFileException,
     name: 'BackupFileException',
     isAssignable: (v) => v is $dcli_core_1.BackupFileException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BackupFileException');
@@ -1493,6 +1663,7 @@ BridgedClass _createCatExceptionBridge() {
     nativeType: $dcli_core_2.CatException,
     name: 'CatException',
     isAssignable: (v) => v is $dcli_core_2.CatException,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CatException');
@@ -1558,6 +1729,7 @@ BridgedClass _createCopyExceptionBridge() {
     nativeType: $dcli_core_3.CopyException,
     name: 'CopyException',
     isAssignable: (v) => v is $dcli_core_3.CopyException,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CopyException');
@@ -1622,6 +1794,7 @@ BridgedClass _createCreateDirExceptionBridge() {
     nativeType: $dcli_core_5.CreateDirException,
     name: 'CreateDirException',
     isAssignable: (v) => v is $dcli_core_5.CreateDirException,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CreateDirException');
@@ -1706,6 +1879,7 @@ BridgedClass _createDCliFunctionExceptionBridge() {
     nativeType: $dcli_core_6.DCliFunctionException,
     name: 'DCliFunctionException',
     isAssignable: (v) => v is $dcli_core_6.DCliFunctionException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DCliFunctionException');
@@ -1771,6 +1945,7 @@ BridgedClass _createDeleteExceptionBridge() {
     nativeType: $dcli_core_7.DeleteException,
     name: 'DeleteException',
     isAssignable: (v) => v is $dcli_core_7.DeleteException,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DeleteException');
@@ -1835,6 +2010,7 @@ BridgedClass _createDeleteDirExceptionBridge() {
     nativeType: $dcli_core_8.DeleteDirException,
     name: 'DeleteDirException',
     isAssignable: (v) => v is $dcli_core_8.DeleteDirException,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DeleteDirException');
@@ -1899,6 +2075,7 @@ BridgedClass _createEnvBridge() {
     nativeType: $dcli_core_9.Env,
     name: 'Env',
     isAssignable: (v) => v is $dcli_core_9.Env,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_core_9.Env();
@@ -2039,6 +2216,7 @@ BridgedClass _createFindBridge() {
     nativeType: $dcli_core_10.Find,
     name: 'Find',
     isAssignable: (v) => v is $dcli_core_10.Find,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_core_10.Find();
@@ -2119,6 +2297,7 @@ BridgedClass _createMoveExceptionBridge() {
     nativeType: $dcli_core_12.MoveException,
     name: 'MoveException',
     isAssignable: (v) => v is $dcli_core_12.MoveException,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MoveException');
@@ -2183,6 +2362,7 @@ BridgedClass _createMoveDirExceptionBridge() {
     nativeType: $dcli_core_13.MoveDirException,
     name: 'MoveDirException',
     isAssignable: (v) => v is $dcli_core_13.MoveDirException,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MoveDirException');
@@ -2247,6 +2427,7 @@ BridgedClass _createMoveTreeExceptionBridge() {
     nativeType: $dcli_core_14.MoveTreeException,
     name: 'MoveTreeException',
     isAssignable: (v) => v is $dcli_core_14.MoveTreeException,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'MoveTreeException');
@@ -2311,6 +2492,7 @@ BridgedClass _createDCliExceptionBridge() {
     nativeType: $dcli_core_19.DCliException,
     name: 'DCliException',
     isAssignable: (v) => v is $dcli_core_19.DCliException,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DCliException');
@@ -2395,6 +2577,7 @@ BridgedClass _createRunExceptionBridge() {
     nativeType: $dcli_core_24.RunException,
     name: 'RunException',
     isAssignable: (v) => v is $dcli_core_24.RunException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'RunException');
@@ -2943,6 +3126,7 @@ BridgedClass _createAskBridge() {
     nativeType: $dcli_1.Ask,
     name: 'Ask',
     isAssignable: (v) => v is $dcli_1.Ask,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         return $dcli_1.Ask();
@@ -3070,6 +3254,7 @@ BridgedClass _createAskValidatorExceptionBridge() {
     nativeType: $dcli_1.AskValidatorException,
     name: 'AskValidatorException',
     isAssignable: (v) => v is $dcli_1.AskValidatorException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'AskValidatorException');
@@ -3134,6 +3319,7 @@ BridgedClass _createAskValidatorBridge() {
     nativeType: $dcli_1.AskValidator,
     name: 'AskValidator',
     isAssignable: (v) => v is $dcli_1.AskValidator,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3160,6 +3346,7 @@ BridgedClass _createAskValidatorIPAddressBridge() {
     nativeType: $dcli_1.AskValidatorIPAddress,
     name: 'AskValidatorIPAddress',
     isAssignable: (v) => v is $dcli_1.AskValidatorIPAddress,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('version')) {
@@ -3449,7 +3636,7 @@ BridgedClass _createFetchProgressBridge() {
         D4.requireMinArgs(positional, 1, 'show');
         final progress = D4.getRequiredArg<$dcli_6.FetchProgress>(positional, 0, 'progress', 'show');
         final formatRaw = named['format'];
-        final format = formatRaw == null ? null : ($dcli_6.FetchProgress p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, formatRaw, [p0]), 'callback', visitor); };
+        final format = formatRaw == null ? null : (($dcli_6.FetchProgress p0) { return D4.callInterpreterCallback(visitor!, formatRaw, [p0]) as String; }) as String Function($dcli_6.FetchProgress);
         return $dcli_6.FetchProgress.show(progress, format: format);
       },
     },
@@ -3496,6 +3683,7 @@ BridgedClass _createFetchExceptionBridge() {
     nativeType: $dcli_6.FetchException,
     name: 'FetchException',
     isAssignable: (v) => v is $dcli_6.FetchException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FetchException');
@@ -3578,6 +3766,7 @@ BridgedClass _createReadExceptionBridge() {
     nativeType: $dcli_12.ReadException,
     name: 'ReadException',
     isAssignable: (v) => v is $dcli_12.ReadException,
+    hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ReadException');
@@ -3643,6 +3832,7 @@ BridgedClass _createProgressBridge() {
     nativeType: $dcli_19.Progress,
     name: 'Progress',
     isAssignable: (v) => v is $dcli_19.Progress,
+    isAbstract: true,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Progress');
@@ -3813,6 +4003,7 @@ BridgedClass _createPackedResourceBridge() {
     nativeType: $dcli_20.PackedResource,
     name: 'PackedResource',
     isAssignable: (v) => v is $dcli_20.PackedResource,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -3919,6 +4110,7 @@ BridgedClass _createResourceExceptionBridge() {
     nativeType: $dcli_21.ResourceException,
     name: 'ResourceException',
     isAssignable: (v) => v is $dcli_21.ResourceException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ResourceException');
@@ -4105,6 +4297,7 @@ BridgedClass _createDartProjectExceptionBridge() {
     nativeType: $dcli_22.DartProjectException,
     name: 'DartProjectException',
     isAssignable: (v) => v is $dcli_22.DartProjectException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DartProjectException');
@@ -4169,6 +4362,7 @@ BridgedClass _createTemplateNotFoundExceptionBridge() {
     nativeType: $dcli_22.TemplateNotFoundException,
     name: 'TemplateNotFoundException',
     isAssignable: (v) => v is $dcli_22.TemplateNotFoundException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TemplateNotFoundException');
@@ -4233,6 +4427,7 @@ BridgedClass _createInvalidProjectTemplateExceptionBridge() {
     nativeType: $dcli_22.InvalidProjectTemplateException,
     name: 'InvalidProjectTemplateException',
     isAssignable: (v) => v is $dcli_22.InvalidProjectTemplateException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'InvalidProjectTemplateException');
@@ -4740,6 +4935,7 @@ BridgedClass _createShellBridge() {
     nativeType: $dcli_26.Shell,
     name: 'Shell',
     isAssignable: (v) => v is $dcli_26.Shell,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -4825,7 +5021,7 @@ BridgedClass _createShellBridge() {
         }
         final actionRaw = positional[0];
         final allowUnprivileged = D4.getNamedArgWithDefault<bool>(named, 'allowUnprivileged', false);
-        return t.withPrivilegesAsync(() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, actionRaw, []), 'callback', visitor); }, allowUnprivileged: allowUnprivileged);
+        return t.withPrivilegesAsync((() { return Future.value(D4.callInterpreterCallback(visitor!, actionRaw, [])); }) as Future<void> Function(), allowUnprivileged: allowUnprivileged);
       },
       'privilegesRequiredMessage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dcli_26.Shell>(target, 'Shell');
@@ -4892,6 +5088,7 @@ BridgedClass _createShellExceptionBridge() {
     nativeType: $dcli_26.ShellException,
     name: 'ShellException',
     isAssignable: (v) => v is $dcli_26.ShellException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ShellException');
@@ -4985,6 +5182,7 @@ BridgedClass _createUnknownShellBridge() {
     nativeType: $dcli_28.UnknownShell,
     name: 'UnknownShell',
     isAssignable: (v) => v is $dcli_28.UnknownShell,
+    hierarchyDepth: 2,
     constructors: {
       'withPid': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'UnknownShell');
@@ -5087,7 +5285,7 @@ BridgedClass _createUnknownShellBridge() {
         }
         final actionRaw = positional[0];
         final allowUnprivileged = D4.getNamedArgWithDefault<bool>(named, 'allowUnprivileged', false);
-        return t.withPrivilegesAsync(() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, actionRaw, []), 'callback', visitor); }, allowUnprivileged: allowUnprivileged);
+        return t.withPrivilegesAsync((() { return Future.value(D4.callInterpreterCallback(visitor!, actionRaw, [])); }) as Future<void> Function(), allowUnprivileged: allowUnprivileged);
       },
       'addFileAssocation': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell');
@@ -5104,6 +5302,8 @@ BridgedClass _createUnknownShellBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dcli_28.UnknownShell>(target, 'UnknownShell');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<$dcli_28.UnknownShell>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -5208,6 +5408,7 @@ BridgedClass _createInvalidArgumentExceptionBridge() {
     nativeType: $dcli_33.InvalidArgumentException,
     name: 'InvalidArgumentException',
     isAssignable: (v) => v is $dcli_33.InvalidArgumentException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'InvalidArgumentException');
@@ -5272,6 +5473,7 @@ BridgedClass _createInvalidTemplateExceptionBridge() {
     nativeType: $dcli_33.InvalidTemplateException,
     name: 'InvalidTemplateException',
     isAssignable: (v) => v is $dcli_33.InvalidTemplateException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'InvalidTemplateException');
@@ -5336,6 +5538,7 @@ BridgedClass _createInstallExceptionBridge() {
     nativeType: $dcli_33.InstallException,
     name: 'InstallException',
     isAssignable: (v) => v is $dcli_33.InstallException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'InstallException');
@@ -5400,6 +5603,7 @@ BridgedClass _createProcessSyncExceptionBridge() {
     nativeType: $dcli_33.ProcessSyncException,
     name: 'ProcessSyncException',
     isAssignable: (v) => v is $dcli_33.ProcessSyncException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ProcessSyncException');
@@ -5611,7 +5815,7 @@ BridgedClass _createFileSyncBridge() {
           throw ArgumentError('read: Missing required argument "lineAction" at position 0');
         }
         final lineActionRaw = positional[0];
-        t.read((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, lineActionRaw, [p0]), 'callback', visitor); });
+        t.read(((String p0) { return D4.callInterpreterCallback(visitor!, lineActionRaw, [p0]) as bool; }) as bool Function(String));
         return null;
       },
       'resolveSymLink': (visitor, target, positional, named, typeArgs) {
@@ -5703,6 +5907,7 @@ BridgedClass _createFileNotFoundExceptionBridge() {
     nativeType: $dcli_36.FileNotFoundException,
     name: 'FileNotFoundException',
     isAssignable: (v) => v is $dcli_36.FileNotFoundException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FileNotFoundException');
@@ -5767,6 +5972,7 @@ BridgedClass _createNotAFileExceptionBridge() {
     nativeType: $dcli_36.NotAFileException,
     name: 'NotAFileException',
     isAssignable: (v) => v is $dcli_36.NotAFileException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'NotAFileException');
@@ -5865,7 +6071,7 @@ BridgedClass _createNamedLockBridge() {
         }
         final fnRaw = positional[0];
         final waiting = D4.getOptionalNamedArg<String?>(named, 'waiting');
-        return t.withLockAsync(() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, fnRaw, []), 'callback', visitor); }, waiting: waiting);
+        return t.withLockAsync((() { return Future.value(D4.callInterpreterCallback(visitor!, fnRaw, [])); }) as Future<void> Function(), waiting: waiting);
       },
     },
     constructorSignatures: {
@@ -5893,6 +6099,7 @@ BridgedClass _createLockExceptionBridge() {
     nativeType: $dcli_37.LockException,
     name: 'LockException',
     isAssignable: (v) => v is $dcli_37.LockException,
+    hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'LockException');
@@ -6060,6 +6267,8 @@ BridgedClass _createProcessDetailsBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dcli_38.ProcessDetails>(target, 'ProcessDetails');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<$dcli_38.ProcessDetails>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -6326,6 +6535,7 @@ BridgedClass _createFindProgressBridge() {
     nativeType: $dcli_8.FindProgress,
     name: 'FindProgress',
     isAssignable: (v) => v is $dcli_8.FindProgress,
+    hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FindProgress');
@@ -6362,7 +6572,7 @@ BridgedClass _createFindProgressBridge() {
       'workingDirectory': (visitor, target, value) => 
         D4.validateTarget<$dcli_8.FindProgress>(target, 'FindProgress').workingDirectory = D4.extractBridgedArg<String>(value, 'workingDirectory'),
       'types': (visitor, target, value) => 
-        D4.validateTarget<$dcli_8.FindProgress>(target, 'FindProgress').types = (value as List).cast<FileSystemEntityType>().toList(),
+        D4.validateTarget<$dcli_8.FindProgress>(target, 'FindProgress').types = D4.coerceList<FileSystemEntityType>(value, 'types'),
     },
     methods: {
       'forEach': (visitor, target, positional, named, typeArgs) {
@@ -6416,6 +6626,7 @@ BridgedClass _createHeadProgressBridge() {
     nativeType: $dcli_9.HeadProgress,
     name: 'HeadProgress',
     isAssignable: (v) => v is $dcli_9.HeadProgress,
+    hierarchyDepth: 1,
     constructors: {
     },
     methods: {
@@ -6450,6 +6661,7 @@ BridgedClass _createTailProgressBridge() {
     nativeType: $dcli_16.TailProgress,
     name: 'TailProgress',
     isAssignable: (v) => v is $dcli_16.TailProgress,
+    hierarchyDepth: 1,
     constructors: {
     },
     getters: {
