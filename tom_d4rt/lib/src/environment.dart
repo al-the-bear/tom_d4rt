@@ -110,6 +110,14 @@ class Environment {
   //     through it instead of the `…OrNew` getter;
   //   * the `…OrNew` write view allocates the real collection on first use.
   Map<String, BridgedClass>? _bridgedClassesRaw;
+  // Same-name bridge overflow: when two distinct bridges register under the
+  // same simple name (e.g. `tom_doc_scanner` and `tom_md2latex` both export a
+  // `MarkdownParser`), `_bridgedClasses` keeps only the last-registered one.
+  // The bridges it displaced are stashed here so static/constructor resolution
+  // can fall back to a sibling that declares a member the primary lacks. Null
+  // until a genuine name collision occurs — the common one-bridge-per-name case
+  // allocates nothing.
+  Map<String, List<BridgedClass>>? _shadowedBridgesRaw;
   Map<Type, BridgedClass>? _bridgedClassesLookupByTypeRaw;
   // GEN-115 Phase 2 — runtimeType→bridge resolution cache. Populated by
   // [toBridgedInstance] after a non-trivial step-2 / step-3 walk so that
@@ -153,6 +161,8 @@ class Environment {
   // Write views — allocate the backing collection on first use.
   Map<String, BridgedClass> get _bridgedClassesOrNew =>
       _bridgedClassesRaw ??= {};
+  Map<String, List<BridgedClass>> get _shadowedBridgesOrNew =>
+      _shadowedBridgesRaw ??= {};
   Map<Type, BridgedClass> get _bridgedClassesLookupByTypeOrNew =>
       _bridgedClassesLookupByTypeRaw ??= {};
   Map<Type, BridgedClass> get _resolvedTypeCacheOrNew =>
@@ -281,6 +291,9 @@ class Environment {
       Logger.warn(
           "Redefining bridged class or colliding with existing definition: $name");
     }
+    // Preserve a displaced same-name bridge so static/constructor resolution
+    // can fall back to it (two packages exporting an identically named class).
+    _recordShadowedBridge(name, _bridgedClassesRaw?[name], bridgedClass);
     _bridgedClassesOrNew[name] = bridgedClass;
     _bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] = bridgedClass;
     _invalidateResolutionCache();
@@ -311,6 +324,47 @@ class Environment {
       current = current._enclosing;
     }
     return null;
+  }
+
+  /// Stashes a same-name bridge that a new registration is about to displace,
+  /// so static/constructor resolution can fall back to it (two packages
+  /// exporting an identically named class). No-op when [prior] is null or is
+  /// the same instance as [replacement]. Also drops [replacement] from the
+  /// shadow list, since it is becoming the primary.
+  void _recordShadowedBridge(
+      String name, BridgedClass? prior, BridgedClass replacement) {
+    if (prior == null || identical(prior, replacement)) return;
+    final shadowed = _shadowedBridgesOrNew.putIfAbsent(name, () => []);
+    if (!shadowed.any((b) => identical(b, prior))) shadowed.add(prior);
+    shadowed.removeWhere((b) => identical(b, replacement));
+  }
+
+  /// Returns every bridged class registered under [name] across the scope
+  /// chain — the primary (last-wins) bridge of each scope first, followed by
+  /// any same-name bridges it displaced.
+  ///
+  /// Used by static/constructor resolution to disambiguate identically named
+  /// bridges from different packages (e.g. two libraries each exporting a
+  /// `MarkdownParser`): when the primary bridge lacks the requested member, the
+  /// caller can fall back to a sibling that declares it. Returns an empty list
+  /// when no bridge with [name] is registered.
+  List<BridgedClass> findAllBridgedClassesByName(String name) {
+    final result = <BridgedClass>[];
+    Environment? current = this;
+    while (current != null) {
+      final primary = current._bridgedClassesRaw?[name];
+      if (primary != null && !result.any((b) => identical(b, primary))) {
+        result.add(primary);
+      }
+      final shadowed = current._shadowedBridgesRaw?[name];
+      if (shadowed != null) {
+        for (final b in shadowed) {
+          if (!result.any((x) => identical(x, b))) result.add(b);
+        }
+      }
+      current = current._enclosing;
+    }
+    return result;
   }
 
   /// Pre-registers a bridge's native-type mapping for runtime type resolution.
@@ -1395,6 +1449,10 @@ class Environment {
         Logger.debug(
             "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
             "bridged class '$name' with imported version");
+        // Preserve the displaced same-name bridge (e.g. tom_doc_scanner's
+        // MarkdownParser shadowed by tom_md2latex's) so static/constructor
+        // resolution can fall back to it.
+        _recordShadowedBridge(name, _bridgedClassesRaw?[name], bridgedClass);
         _bridgedClassesOrNew[name] = bridgedClass;
         _bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] = bridgedClass;
         _invalidateResolutionCache();
@@ -1421,6 +1479,17 @@ class Environment {
       _bridgedClassesOrNew[name] = bridgedClass;
       _bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] = bridgedClass;
       _invalidateResolutionCache();
+    });
+
+    // Carry over any same-name bridges the source itself had shadowed, so a
+    // multi-hop import chain keeps every package's bridge reachable for
+    // static/constructor fallback.
+    sourceEnvToImportFrom._shadowedBridgesRaw?.forEach((name, bridges) {
+      for (final bridge in bridges) {
+        if (identical(_bridgedClassesRaw?[name], bridge)) continue;
+        final shadowed = _shadowedBridgesOrNew.putIfAbsent(name, () => []);
+        if (!shadowed.any((b) => identical(b, bridge))) shadowed.add(bridge);
+      }
     });
 
     sourceEnvToImportFrom._bridgedEnums.forEach((name, bridgedEnum) {

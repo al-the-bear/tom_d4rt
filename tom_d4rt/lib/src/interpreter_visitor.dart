@@ -3751,8 +3751,25 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
       } else if (targetValue is BridgedClass) {
         // This is a method call on a bridged class (bridged constructor or static method)
-        final bridgedClass = targetValue;
         final methodName = node.methodName.name;
+        // Same-name bridge disambiguation: with last-wins registration the
+        // resolved bridge may be a different package's identically named class
+        // (e.g. two libraries each export a `MarkdownParser`). If it declares
+        // neither this constructor nor this static method, fall back to a
+        // sibling same-name bridge that does.
+        var bridgedClass = targetValue;
+        if (bridgedClass.findConstructorAdapter(methodName) == null &&
+            bridgedClass.findStaticMethodAdapter(methodName) == null) {
+          for (final alt
+              in environment.findAllBridgedClassesByName(targetValue.name)) {
+            if (identical(alt, targetValue)) continue;
+            if (alt.findConstructorAdapter(methodName) != null ||
+                alt.findStaticMethodAdapter(methodName) != null) {
+              bridgedClass = alt;
+              break;
+            }
+          }
+        }
         Logger.debug(
             "[visitMethodInvocation] Target is BridgedClass: '$methodName' on '${bridgedClass.name}'");
 

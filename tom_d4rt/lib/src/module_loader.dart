@@ -1016,13 +1016,17 @@ class ModuleLoader {
               Logger.debug(
                   " [execute] Skipping duplicate class '$className' from same source: $sourceUri");
               continue;
-            } else {
-              // Different source - this is an actual duplicate, error
-              registrationErrors.add(
-                  "Duplicate class '$className' exists from source '$existingSourceUri' and source '$sourceUri'. "
-                  "These are different classes with the same name.");
-              continue;
             }
+            // B2 MarkdownParser clash: two different libraries declare a
+            // same-name bridge. Do NOT error — register this one too. The
+            // import wins as the primary; defineBridge records the displaced
+            // sibling as a shadow so static/constructor lookups can fall back
+            // to whichever bridge actually declares the requested member.
+            // Matches the tolerant per-module behaviour of the GEN-100 path.
+            Logger.debug(
+                " [execute] Same-name class '$className' from a different "
+                "source ($existingSourceUri vs $sourceUri); registering both "
+                "with shadow fallback.");
           }
 
           _registeredClasses[className] = sourceUri;
