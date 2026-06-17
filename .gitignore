@@ -114,6 +114,14 @@ reflectable.dart
 # The `doc/` folder itself is fully tracked (no test artifacts written there).
 **/testlog/
 
+# Baseline test-run capture folders under doc/ — regenerated on every test run,
+# so versioning them only churns the tree and produces reconcile conflicts.
+**/doc/basetestlog_*/
+
+# Generated bridge/example output (*.b.dart) under the d4 example trees —
+# produced by the generator on every build; never hand-edited, never versioned.
+**/example/d4/**/*.b.dart
+
 # Symbols
 app.*.symbols
 
