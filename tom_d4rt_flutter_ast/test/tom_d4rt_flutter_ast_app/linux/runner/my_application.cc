@@ -54,6 +54,15 @@ static void my_application_activate(GApplication* application) {
 
   gtk_window_set_default_size(window, 1920, 1440);
 
+  // Test-harness window: appear WITHOUT stealing focus from the user's
+  // foreground app (e.g. the editor). By default the window manager focuses a
+  // window when it is mapped; disabling focus-on-map means the window becomes
+  // visible (and keeps rendering — Linux Flutter drives frames off the
+  // compositor, not focus, so the HTTP-driven /build loop is unaffected) but
+  // does not pull keyboard focus. The user can click the window to focus it
+  // normally. Must be set before the window is mapped (see first_frame_cb).
+  gtk_window_set_focus_on_map(window, FALSE);
+
   g_autoptr(FlDartProject) project = fl_dart_project_new();
   fl_dart_project_set_dart_entrypoint_arguments(
       project, self->dart_entrypoint_arguments);

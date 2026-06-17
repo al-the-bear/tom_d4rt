@@ -150,7 +150,14 @@ bool Win32Window::Create(const std::wstring& title,
 }
 
 bool Win32Window::Show() {
-  return ShowWindow(window_handle_, SW_SHOWNORMAL);
+  // Test-harness window: show WITHOUT stealing focus from the user's
+  // foreground app (e.g. the editor). SW_SHOWNOACTIVATE displays the window in
+  // its current size/position but does not activate it, so keyboard focus
+  // stays where it was. The window is still visible and rendering (Windows
+  // Flutter drives frames off DWM vsync regardless of focus), so the
+  // HTTP-driven /build loop is unaffected. The user can click the window to
+  // focus it normally.
+  return ShowWindow(window_handle_, SW_SHOWNOACTIVATE);
 }
 
 // static
