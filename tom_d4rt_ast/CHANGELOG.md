@@ -1,3 +1,12 @@
+## 0.1.8
+
+### Fixes
+- Mirror the `tom_d4rt 1.8.24` same-name bridge fix (B2 "MarkdownParser clash"):
+  the `Environment` stashes displaced same-name bridges and
+  `InterpreterVisitor` falls back to a sibling bridge that declares the
+  requested static/constructor member, so identically named `BridgedClass`es
+  from different libraries resolve to the one that actually declares the member.
+
 ## 0.1.7
 
 - Housekeeping: test artifacts now live in a gitignored `testlog/` folder; `doc/` no longer ships machine-generated baselines or last_testrun.json. No code changes.

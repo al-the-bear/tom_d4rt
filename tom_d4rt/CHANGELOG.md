@@ -1,3 +1,15 @@
+## 1.8.24
+
+### Fixes
+- Same-name bridges from different libraries now resolve to the library that
+  declares the requested member (B2 "MarkdownParser clash"). Previously two
+  packages exporting an identically named `BridgedClass` registered last-wins by
+  simple name, so the second silently shadowed the first and static/constructor
+  calls to the displaced library's class failed. The `Environment` now stashes
+  displaced same-name bridges and the method-invocation visitor falls back to a
+  sibling bridge that declares the member; the module loader no longer errors on
+  same-name/different-source class duplicates.
+
 ## 1.8.23
 
 - Housekeeping: test artifacts now live in a gitignored `testlog/` folder; `doc/` no longer ships machine-generated baselines or last_testrun.json. No code changes.
