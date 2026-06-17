@@ -122,6 +122,14 @@ reflectable.dart
 # produced by the generator on every build; never hand-edited, never versioned.
 **/example/d4/**/*.b.dart
 
+# Per-run test output — rewritten on every test run, never needed at rest.
+**/doc/last_testrun.json
+
+# Legacy test baselines that landed directly under doc/. The live convention
+# (testkit) already writes baselines under the gitignored testlog/, so a
+# baseline_*.csv left under doc/ is a stray capture that only churns the tree.
+**/doc/baseline_*.csv
+
 # Symbols
 app.*.symbols
 

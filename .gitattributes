@@ -1,0 +1,14 @@
+# Build-generated files — never line-merge them. They are machine-produced and
+# only valid as a complete set from one build run, so a blended hand-merge is
+# always wrong. The `generated-newer-wins` driver (registered globally by
+# .claude/skills/install.sh, sourced from
+# .claude/skills/_lib/merge_drivers/tom_generated_newer_wins.py) keeps the side
+# whose build is newer (higher buildNumber / later timestamp) and otherwise
+# takes the remote side, so these resolve deterministically on every reconcile
+# instead of recurring as conflicts. See the meta CLAUDE.md "Generated-file
+# merge conflicts (reconcile policy)" and reconciliation_problem_analysis.md
+# § 4.D. If the driver is not registered on a machine, git simply falls back to
+# its default merge for these paths (a re-run of install.sh restores it).
+**/tom_build_state.json    merge=generated-newer-wins
+**/*.versioner.dart        merge=generated-newer-wins
+**/*.reflection.dart       merge=generated-newer-wins
