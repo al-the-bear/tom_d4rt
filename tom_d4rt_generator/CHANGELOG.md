@@ -1,3 +1,22 @@
+## 1.9.7
+
+### Bug fixes (AllBridge import surface dropped under single-package inline)
+
+- **GEN-077** — the generated dartscript helper calls
+  `AllBridge.getImportBlock()` and `AllBridge.subPackageBarrels()`
+  unconditionally, but the AllBridge emitter gated both methods behind
+  `if (importBlockUri != null)` while `sourceLibraries()` was always emitted.
+  In the single-package inline strategy (`sourceImport` unset, so
+  `importBlockUri` resolves to `null`), AllBridge declared `sourceLibraries()`
+  but neither `getImportBlock()` nor `subPackageBarrels()` — and the
+  `dartscript.b.dart` half that calls them still compiled, breaking downstream
+  consumers (`tom_brain_procedure`, `tom_brain_run`, Observatory) with
+  "method isn't defined" errors after regeneration. The emitter now writes
+  both methods unconditionally: when there is no resolved barrel URI it derives
+  the import block straight from the canonical `sourceLibraries()` URIs and
+  returns an empty `subPackageBarrels()`. Adds the GEN-077 regression tests
+  (G-ISS-37/38/39) that force `importBlockUri == null`.
+
 ## 1.9.6
 
 ### Bug fixes (empty-Set default coercion)

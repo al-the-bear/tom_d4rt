@@ -7710,6 +7710,68 @@ class BridgeGenerator {
       }
       buffer.writeln('  }');
       buffer.writeln();
+    } else {
+      // Single-package inline strategy with no resolved barrel URI. The
+      // generated dartscript helper calls getImportBlock() and
+      // subPackageBarrels() UNCONDITIONALLY, so both methods must be emitted
+      // here too — matching sourceLibraries() above, which is always emitted.
+      // (Gating these behind importBlockUri != null caused a downstream
+      // compile regression: dartscript.b.dart called methods that the
+      // AllBridge class no longer declared.)
+      //
+      // Derive the import block straight from the canonical source libraries
+      // so D4rt scripts still get a usable import surface, and report no
+      // sub-package barrels (there are none in this configuration).
+      final packageSourceUris =
+          allSourceUris.where((uri) => uri.startsWith('package:')).toList()
+            ..sort();
+
+      buffer.writeln(
+        '  /// Returns the import statement needed for D4rt scripts.',
+      );
+      buffer.writeln('  ///');
+      buffer.writeln(
+        '  /// Use this in your D4rt initialization script to make all',
+      );
+      buffer.writeln('  /// bridged classes available to scripts.');
+      buffer.writeln('  static String getImportBlock() {');
+      if (packageSourceUris.isEmpty) {
+        buffer.writeln("    return '';");
+      } else if (packageSourceUris.length == 1) {
+        final only = packageSourceUris.first;
+        if (importShowClause.isNotEmpty) {
+          buffer.writeln(
+            "    return \"import '$only' show ${importShowClause.join(', ')};\";",
+          );
+        } else if (importHideClause.isNotEmpty) {
+          buffer.writeln(
+            "    return \"import '$only' hide ${importHideClause.join(', ')};\";",
+          );
+        } else {
+          buffer.writeln("    return \"import '$only';\";");
+        }
+      } else {
+        buffer.writeln('    final imports = StringBuffer();');
+        for (final uri in packageSourceUris) {
+          buffer.writeln("    imports.writeln(\"import '$uri';\");");
+        }
+        buffer.writeln('    return imports.toString();');
+      }
+      buffer.writeln('  }');
+      buffer.writeln();
+
+      buffer.writeln(
+        '  /// Returns barrel import URIs for sub-packages discovered through re-exports.',
+      );
+      buffer.writeln('  ///');
+      buffer.writeln(
+        '  /// This configuration uses the single-package inline strategy and',
+      );
+      buffer.writeln('  /// therefore has no sub-package barrels.');
+      buffer.writeln('  static List<String> subPackageBarrels() {');
+      buffer.writeln('    return [];');
+      buffer.writeln('  }');
+      buffer.writeln();
     }
 
     // Generate GlobalBridge class if we have globals
