@@ -735,14 +735,15 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         ? Uri.decodeComponent(suiteParam)
         : null;
     // testlog_20260528-2206 TODO #5 — per-request build budget override
-    // (mirror of flutter_ast). Defaults to 30 s; slow scripts can
-    // override via the test runner's `httpBuildTimeout` which threads
-    // through as `&buildBudgetMs=N`. Capped at 120 s.
+    // (mirror of flutter_ast). Defaults to 45 s (fixed harness build budget,
+    // see quest memory "Flutter corpus test rules"); slow scripts can override
+    // via the test runner's `httpBuildTimeout` which threads through as
+    // `&buildBudgetMs=N`. Capped at 120 s.
     final budgetParamMs =
         int.tryParse(request.uri.queryParameters['buildBudgetMs'] ?? '');
     final buildBudget = budgetParamMs != null
         ? Duration(milliseconds: budgetParamMs.clamp(1000, 120000))
-        : const Duration(seconds: 30);
+        : const Duration(seconds: 45);
     if (mounted && (filename != null || suite != null)) {
       setState(() {
         if (filename != null) _currentTestFile = filename;

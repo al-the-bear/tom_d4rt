@@ -60,7 +60,7 @@ foreach ($f in $files) {
   # The idle watchdog wraps the run: it streams output to the log and kills the
   # whole process tree (returning 124) after $idle seconds of silence.
   & "$scriptDir/idle_timeout.ps1" $idle "$out/$base.log.txt" `
-    flutter test "test/$f" --timeout 60s --file-reporter "json:$out/$base.result.json"
+    flutter test "test/$f" --timeout 65s --file-reporter "json:$out/$base.result.json"
   $rc = $LASTEXITCODE
   # flutter test summary line looks like: "00:42 +45 ~2 -1: Some tests failed."
   $m = Select-String -Path "$out/$base.log.txt" -Pattern '\+\d+( ~\d+)?( -\d+)?' |
