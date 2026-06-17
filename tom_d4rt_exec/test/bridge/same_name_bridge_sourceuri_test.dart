@@ -72,12 +72,6 @@ String main() {
     test(
         'B2-CLASH-3: when BOTH same-name libraries are imported, each static '
         'still resolves to the library that declared it [2026-06-17]', () {
-      // PUBLISH-GATED: the shadow-fallback fix lives in tom_d4rt_ast's
-      // Environment + InterpreterVisitor and exec's tolerant module loader.
-      // exec depends on the *published* tom_d4rt_ast (hosted, not a path dep —
-      // path overrides are forbidden by the workspace rules), so this end-to-end
-      // case only goes green once tom_d4rt_ast ships the fix and exec's
-      // constraint is bumped. Remove this skip then.
       interpreter.registerBridgedClass(
         docScannerParser(),
         'package:tom_doc_scanner/tom_doc_scanner.dart',
@@ -99,8 +93,6 @@ String main() {
 ''';
 
       expect(interpreter.execute(source: source), 'doc-scanner-id:Hello World');
-    },
-        skip: 'Publish-gated: needs tom_d4rt_ast shipped with the same-name '
-            'bridge shadow-fallback fix and exec constraint bumped.');
+    });
   });
 }

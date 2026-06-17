@@ -1,3 +1,12 @@
+## 1.8.6
+
+### Fixes
+- Consume `tom_d4rt_ast ^0.1.8` (B2 "MarkdownParser clash" fix). The module
+  loader no longer errors on same-name/different-source bridged class
+  duplicates — it registers both and relies on the AST runtime's shadow
+  fallback, matching the tolerant per-module behaviour of the tom_d4rt and
+  tom_d4rt_ast runtimes.
+
 ## 1.8.5
 
 - Housekeeping: test artifacts now live in a gitignored `testlog/` folder; `doc/` no longer ships machine-generated baselines or last_testrun.json. No code changes.
