@@ -1,4 +1,4 @@
-## 1.9.8
+## 1.9.9
 
 - Upgraded `tom_analyzer_shared` to `^0.3.0`. Analyzer summaries are now stored
   in the shared Tom tool-cache directory (resolved via `ToolCacheLocator`:
