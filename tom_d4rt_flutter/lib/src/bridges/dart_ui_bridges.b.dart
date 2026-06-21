@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/development/flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart
-// Generated: 2026-06-17T19:03:30.754022
+// Generated: 2026-06-21T13:48:35.564992
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
 
@@ -65,10 +65,15 @@ class DartUiBridge {
       _createGradientBridge(),
       _createImageShaderBridge(),
       _createFragmentProgramBridge(),
+      _createUniformTypeBridge(),
       _createUniformFloatSlotBridge(),
       _createUniformVec2SlotBridge(),
       _createUniformVec3SlotBridge(),
       _createUniformVec4SlotBridge(),
+      _createUniformMat2SlotBridge(),
+      _createUniformMat3SlotBridge(),
+      _createUniformMat4SlotBridge(),
+      _createUniformArrayBridge(),
       _createImageSamplerSlotBridge(),
       _createFragmentShaderBridge(),
       _createVerticesBridge(),
@@ -87,6 +92,7 @@ class DartUiBridge {
       _createViewPaddingBridge(),
       _createViewConstraintsBridge(),
       _createDisplayFeatureBridge(),
+      _createDisplayCornerRadiiBridge(),
       _createLocaleBridge(),
       _createSemanticsActionEventBridge(),
       _createViewFocusEventBridge(),
@@ -176,10 +182,15 @@ class DartUiBridge {
       'Gradient': 'dart:ui',
       'ImageShader': 'dart:ui',
       'FragmentProgram': 'dart:ui',
+      'UniformType': 'dart:ui',
       'UniformFloatSlot': 'dart:ui',
       'UniformVec2Slot': 'dart:ui',
       'UniformVec3Slot': 'dart:ui',
       'UniformVec4Slot': 'dart:ui',
+      'UniformMat2Slot': 'dart:ui',
+      'UniformMat3Slot': 'dart:ui',
+      'UniformMat4Slot': 'dart:ui',
+      'UniformArray': 'dart:ui',
       'ImageSamplerSlot': 'dart:ui',
       'FragmentShader': 'dart:ui',
       'Vertices': 'dart:ui',
@@ -198,6 +209,7 @@ class DartUiBridge {
       'ViewPadding': 'dart:ui',
       'ViewConstraints': 'dart:ui',
       'DisplayFeature': 'dart:ui',
+      'DisplayCornerRadii': 'dart:ui',
       'Locale': 'dart:ui',
       'SemanticsActionEvent': 'dart:ui',
       'ViewFocusEvent': 'dart:ui',
@@ -268,6 +280,13 @@ class DartUiBridge {
       'Gradient': ['Shader', 'NativeFieldWrapperClass1'],
       'ImageShader': ['Shader', 'NativeFieldWrapperClass1'],
       'FragmentProgram': ['NativeFieldWrapperClass1'],
+      'UniformFloatSlot': ['UniformType'],
+      'UniformVec2Slot': ['UniformType'],
+      'UniformVec3Slot': ['UniformType'],
+      'UniformVec4Slot': ['UniformType'],
+      'UniformMat2Slot': ['UniformType'],
+      'UniformMat3Slot': ['UniformType'],
+      'UniformMat4Slot': ['UniformType'],
       'FragmentShader': ['Shader', 'NativeFieldWrapperClass1'],
       'Vertices': ['NativeFieldWrapperClass1'],
       'ImmutableBuffer': ['NativeFieldWrapperClass1'],
@@ -4488,6 +4507,20 @@ BridgedClass _createFragmentProgramBridge() {
 }
 
 // =============================================================================
+// UniformType Bridge
+// =============================================================================
+
+BridgedClass _createUniformTypeBridge() {
+  return BridgedClass(
+    nativeType: $dart_ui.UniformType,
+    name: 'UniformType',
+    isAssignable: (v) => v is $dart_ui.UniformType,
+    constructors: {
+    },
+  );
+}
+
+// =============================================================================
 // UniformFloatSlot Bridge
 // =============================================================================
 
@@ -4496,6 +4529,7 @@ BridgedClass _createUniformFloatSlotBridge() {
     nativeType: $dart_ui.UniformFloatSlot,
     name: 'UniformFloatSlot',
     isAssignable: (v) => v is $dart_ui.UniformFloatSlot,
+    hierarchyDepth: 1,
     constructors: {
     },
     getters: {
@@ -4532,6 +4566,7 @@ BridgedClass _createUniformVec2SlotBridge() {
     nativeType: $dart_ui.UniformVec2Slot,
     name: 'UniformVec2Slot',
     isAssignable: (v) => v is $dart_ui.UniformVec2Slot,
+    hierarchyDepth: 1,
     constructors: {
     },
     methods: {
@@ -4559,6 +4594,7 @@ BridgedClass _createUniformVec3SlotBridge() {
     nativeType: $dart_ui.UniformVec3Slot,
     name: 'UniformVec3Slot',
     isAssignable: (v) => v is $dart_ui.UniformVec3Slot,
+    hierarchyDepth: 1,
     constructors: {
     },
     methods: {
@@ -4587,6 +4623,7 @@ BridgedClass _createUniformVec4SlotBridge() {
     nativeType: $dart_ui.UniformVec4Slot,
     name: 'UniformVec4Slot',
     isAssignable: (v) => v is $dart_ui.UniformVec4Slot,
+    hierarchyDepth: 1,
     constructors: {
     },
     methods: {
@@ -4603,6 +4640,140 @@ BridgedClass _createUniformVec4SlotBridge() {
     },
     methodSignatures: {
       'set': 'void set(double x, double y, double z, double w)',
+    },
+  );
+}
+
+// =============================================================================
+// UniformMat2Slot Bridge
+// =============================================================================
+
+BridgedClass _createUniformMat2SlotBridge() {
+  return BridgedClass(
+    nativeType: $dart_ui.UniformMat2Slot,
+    name: 'UniformMat2Slot',
+    isAssignable: (v) => v is $dart_ui.UniformMat2Slot,
+    hierarchyDepth: 1,
+    constructors: {
+    },
+    methods: {
+      'set': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_ui.UniformMat2Slot>(target, 'UniformMat2Slot');
+        D4.requireMinArgs(positional, 4, 'set');
+        final m00 = D4.getRequiredArg<double>(positional, 0, 'm00', 'set');
+        final m01 = D4.getRequiredArg<double>(positional, 1, 'm01', 'set');
+        final m10 = D4.getRequiredArg<double>(positional, 2, 'm10', 'set');
+        final m11 = D4.getRequiredArg<double>(positional, 3, 'm11', 'set');
+        t.set(m00, m01, m10, m11);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'set': 'void set(double m00, double m01, double m10, double m11)',
+    },
+  );
+}
+
+// =============================================================================
+// UniformMat3Slot Bridge
+// =============================================================================
+
+BridgedClass _createUniformMat3SlotBridge() {
+  return BridgedClass(
+    nativeType: $dart_ui.UniformMat3Slot,
+    name: 'UniformMat3Slot',
+    isAssignable: (v) => v is $dart_ui.UniformMat3Slot,
+    hierarchyDepth: 1,
+    constructors: {
+    },
+    methods: {
+      'set': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_ui.UniformMat3Slot>(target, 'UniformMat3Slot');
+        D4.requireMinArgs(positional, 9, 'set');
+        final m00 = D4.getRequiredArg<double>(positional, 0, 'm00', 'set');
+        final m01 = D4.getRequiredArg<double>(positional, 1, 'm01', 'set');
+        final m02 = D4.getRequiredArg<double>(positional, 2, 'm02', 'set');
+        final m10 = D4.getRequiredArg<double>(positional, 3, 'm10', 'set');
+        final m11 = D4.getRequiredArg<double>(positional, 4, 'm11', 'set');
+        final m12 = D4.getRequiredArg<double>(positional, 5, 'm12', 'set');
+        final m20 = D4.getRequiredArg<double>(positional, 6, 'm20', 'set');
+        final m21 = D4.getRequiredArg<double>(positional, 7, 'm21', 'set');
+        final m22 = D4.getRequiredArg<double>(positional, 8, 'm22', 'set');
+        t.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'set': 'void set(double m00, double m01, double m02, double m10, double m11, double m12, double m20, double m21, double m22)',
+    },
+  );
+}
+
+// =============================================================================
+// UniformMat4Slot Bridge
+// =============================================================================
+
+BridgedClass _createUniformMat4SlotBridge() {
+  return BridgedClass(
+    nativeType: $dart_ui.UniformMat4Slot,
+    name: 'UniformMat4Slot',
+    isAssignable: (v) => v is $dart_ui.UniformMat4Slot,
+    hierarchyDepth: 1,
+    constructors: {
+    },
+    methods: {
+      'set': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_ui.UniformMat4Slot>(target, 'UniformMat4Slot');
+        D4.requireMinArgs(positional, 16, 'set');
+        final m00 = D4.getRequiredArg<double>(positional, 0, 'm00', 'set');
+        final m01 = D4.getRequiredArg<double>(positional, 1, 'm01', 'set');
+        final m02 = D4.getRequiredArg<double>(positional, 2, 'm02', 'set');
+        final m03 = D4.getRequiredArg<double>(positional, 3, 'm03', 'set');
+        final m10 = D4.getRequiredArg<double>(positional, 4, 'm10', 'set');
+        final m11 = D4.getRequiredArg<double>(positional, 5, 'm11', 'set');
+        final m12 = D4.getRequiredArg<double>(positional, 6, 'm12', 'set');
+        final m13 = D4.getRequiredArg<double>(positional, 7, 'm13', 'set');
+        final m20 = D4.getRequiredArg<double>(positional, 8, 'm20', 'set');
+        final m21 = D4.getRequiredArg<double>(positional, 9, 'm21', 'set');
+        final m22 = D4.getRequiredArg<double>(positional, 10, 'm22', 'set');
+        final m23 = D4.getRequiredArg<double>(positional, 11, 'm23', 'set');
+        final m30 = D4.getRequiredArg<double>(positional, 12, 'm30', 'set');
+        final m31 = D4.getRequiredArg<double>(positional, 13, 'm31', 'set');
+        final m32 = D4.getRequiredArg<double>(positional, 14, 'm32', 'set');
+        final m33 = D4.getRequiredArg<double>(positional, 15, 'm33', 'set');
+        t.set(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'set': 'void set(double m00, double m01, double m02, double m03, double m10, double m11, double m12, double m13, double m20, double m21, double m22, double m23, double m30, double m31, double m32, double m33)',
+    },
+  );
+}
+
+// =============================================================================
+// UniformArray Bridge
+// =============================================================================
+
+BridgedClass _createUniformArrayBridge() {
+  return BridgedClass(
+    nativeType: $dart_ui.UniformArray,
+    name: 'UniformArray',
+    isAssignable: (v) => v is $dart_ui.UniformArray,
+    constructors: {
+    },
+    getters: {
+      'length': (visitor, target) => D4.validateTarget<$dart_ui.UniformArray>(target, 'UniformArray').length,
+    },
+    methods: {
+      '[]': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_ui.UniformArray>(target, 'UniformArray');
+        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'operator[]');
+        return t[index];
+      },
+    },
+    getterSignatures: {
+      'length': 'int get length',
     },
   );
 }
@@ -4695,6 +4866,66 @@ BridgedClass _createFragmentShaderBridge() {
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'getUniformVec4');
         return t.getUniformVec4(name);
       },
+      'getUniformMat2': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_ui.FragmentShader>(target, 'FragmentShader');
+        D4.requireMinArgs(positional, 1, 'getUniformMat2');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'getUniformMat2');
+        return t.getUniformMat2(name);
+      },
+      'getUniformMat3': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_ui.FragmentShader>(target, 'FragmentShader');
+        D4.requireMinArgs(positional, 1, 'getUniformMat3');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'getUniformMat3');
+        return t.getUniformMat3(name);
+      },
+      'getUniformMat4': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_ui.FragmentShader>(target, 'FragmentShader');
+        D4.requireMinArgs(positional, 1, 'getUniformMat4');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'getUniformMat4');
+        return t.getUniformMat4(name);
+      },
+      'getUniformFloatArray': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_ui.FragmentShader>(target, 'FragmentShader');
+        D4.requireMinArgs(positional, 1, 'getUniformFloatArray');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'getUniformFloatArray');
+        return t.getUniformFloatArray(name);
+      },
+      'getUniformVec2Array': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_ui.FragmentShader>(target, 'FragmentShader');
+        D4.requireMinArgs(positional, 1, 'getUniformVec2Array');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'getUniformVec2Array');
+        return t.getUniformVec2Array(name);
+      },
+      'getUniformVec3Array': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_ui.FragmentShader>(target, 'FragmentShader');
+        D4.requireMinArgs(positional, 1, 'getUniformVec3Array');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'getUniformVec3Array');
+        return t.getUniformVec3Array(name);
+      },
+      'getUniformVec4Array': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_ui.FragmentShader>(target, 'FragmentShader');
+        D4.requireMinArgs(positional, 1, 'getUniformVec4Array');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'getUniformVec4Array');
+        return t.getUniformVec4Array(name);
+      },
+      'getUniformMat2Array': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_ui.FragmentShader>(target, 'FragmentShader');
+        D4.requireMinArgs(positional, 1, 'getUniformMat2Array');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'getUniformMat2Array');
+        return t.getUniformMat2Array(name);
+      },
+      'getUniformMat3Array': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_ui.FragmentShader>(target, 'FragmentShader');
+        D4.requireMinArgs(positional, 1, 'getUniformMat3Array');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'getUniformMat3Array');
+        return t.getUniformMat3Array(name);
+      },
+      'getUniformMat4Array': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_ui.FragmentShader>(target, 'FragmentShader');
+        D4.requireMinArgs(positional, 1, 'getUniformMat4Array');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'getUniformMat4Array');
+        return t.getUniformMat4Array(name);
+      },
       'getImageSampler': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.FragmentShader>(target, 'FragmentShader');
         D4.requireMinArgs(positional, 1, 'getImageSampler');
@@ -4718,6 +4949,16 @@ BridgedClass _createFragmentShaderBridge() {
       'getUniformVec2': 'UniformVec2Slot getUniformVec2(String name)',
       'getUniformVec3': 'UniformVec3Slot getUniformVec3(String name)',
       'getUniformVec4': 'UniformVec4Slot getUniformVec4(String name)',
+      'getUniformMat2': 'UniformMat2Slot getUniformMat2(String name)',
+      'getUniformMat3': 'UniformMat3Slot getUniformMat3(String name)',
+      'getUniformMat4': 'UniformMat4Slot getUniformMat4(String name)',
+      'getUniformFloatArray': 'UniformArray<UniformFloatSlot> getUniformFloatArray(String name)',
+      'getUniformVec2Array': 'UniformArray<UniformVec2Slot> getUniformVec2Array(String name)',
+      'getUniformVec3Array': 'UniformArray<UniformVec3Slot> getUniformVec3Array(String name)',
+      'getUniformVec4Array': 'UniformArray<UniformVec4Slot> getUniformVec4Array(String name)',
+      'getUniformMat2Array': 'UniformArray<UniformMat2Slot> getUniformMat2Array(String name)',
+      'getUniformMat3Array': 'UniformArray<UniformMat3Slot> getUniformMat3Array(String name)',
+      'getUniformMat4Array': 'UniformArray<UniformMat4Slot> getUniformMat4Array(String name)',
       'getImageSampler': 'ImageSamplerSlot getImageSampler(String name)',
       'setImageSampler': 'void setImageSampler(int index, Image image, {FilterQuality filterQuality = FilterQuality.none})',
     },
@@ -6228,6 +6469,60 @@ BridgedClass _createDisplayFeatureBridge() {
 }
 
 // =============================================================================
+// DisplayCornerRadii Bridge
+// =============================================================================
+
+BridgedClass _createDisplayCornerRadiiBridge() {
+  return BridgedClass(
+    nativeType: $dart_ui.DisplayCornerRadii,
+    name: 'DisplayCornerRadii',
+    isAssignable: (v) => v is $dart_ui.DisplayCornerRadii,
+    constructors: {
+      '': (visitor, positional, named) {
+        final topLeft = D4.getRequiredNamedArg<double>(named, 'topLeft', 'DisplayCornerRadii');
+        final topRight = D4.getRequiredNamedArg<double>(named, 'topRight', 'DisplayCornerRadii');
+        final bottomRight = D4.getRequiredNamedArg<double>(named, 'bottomRight', 'DisplayCornerRadii');
+        final bottomLeft = D4.getRequiredNamedArg<double>(named, 'bottomLeft', 'DisplayCornerRadii');
+        return $dart_ui.DisplayCornerRadii(topLeft: topLeft, topRight: topRight, bottomRight: bottomRight, bottomLeft: bottomLeft);
+      },
+    },
+    getters: {
+      'topLeft': (visitor, target) => D4.validateTarget<$dart_ui.DisplayCornerRadii>(target, 'DisplayCornerRadii').topLeft,
+      'topRight': (visitor, target) => D4.validateTarget<$dart_ui.DisplayCornerRadii>(target, 'DisplayCornerRadii').topRight,
+      'bottomRight': (visitor, target) => D4.validateTarget<$dart_ui.DisplayCornerRadii>(target, 'DisplayCornerRadii').bottomRight,
+      'bottomLeft': (visitor, target) => D4.validateTarget<$dart_ui.DisplayCornerRadii>(target, 'DisplayCornerRadii').bottomLeft,
+      'hashCode': (visitor, target) => D4.validateTarget<$dart_ui.DisplayCornerRadii>(target, 'DisplayCornerRadii').hashCode,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_ui.DisplayCornerRadii>(target, 'DisplayCornerRadii');
+        return t.toString();
+      },
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$dart_ui.DisplayCornerRadii>(target, 'DisplayCornerRadii');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'const DisplayCornerRadii({required double topLeft, required double topRight, required double bottomRight, required double bottomLeft})',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'topLeft': 'double get topLeft',
+      'topRight': 'double get topRight',
+      'bottomRight': 'double get bottomRight',
+      'bottomLeft': 'double get bottomLeft',
+      'hashCode': 'int get hashCode',
+    },
+  );
+}
+
+// =============================================================================
 // Locale Bridge
 // =============================================================================
 
@@ -7705,6 +8000,7 @@ BridgedClass _createTextDecorationBridge() {
       },
     },
     getters: {
+      'maskValue': (visitor, target) => D4.validateTarget<$dart_ui.TextDecoration>(target, 'TextDecoration').maskValue,
       'hashCode': (visitor, target) => D4.validateTarget<$dart_ui.TextDecoration>(target, 'TextDecoration').hashCode,
     },
     methods: {
@@ -7740,6 +8036,7 @@ BridgedClass _createTextDecorationBridge() {
       'toString': 'String toString()',
     },
     getterSignatures: {
+      'maskValue': 'int get maskValue',
       'hashCode': 'int get hashCode',
     },
     staticGetterSignatures: {
@@ -8528,6 +8825,7 @@ BridgedClass _createFlutterViewBridge() {
       'padding': (visitor, target) => D4.validateTarget<$dart_ui.FlutterView>(target, 'FlutterView').padding,
       'gestureSettings': (visitor, target) => D4.validateTarget<$dart_ui.FlutterView>(target, 'FlutterView').gestureSettings,
       'displayFeatures': (visitor, target) => D4.validateTarget<$dart_ui.FlutterView>(target, 'FlutterView').displayFeatures,
+      'displayCornerRadii': (visitor, target) => D4.validateTarget<$dart_ui.FlutterView>(target, 'FlutterView').displayCornerRadii,
     },
     methods: {
       'render': (visitor, target, positional, named, typeArgs) {
@@ -8568,6 +8866,7 @@ BridgedClass _createFlutterViewBridge() {
       'padding': 'ViewPadding get padding',
       'gestureSettings': 'GestureSettings get gestureSettings',
       'displayFeatures': 'List<DisplayFeature> get displayFeatures',
+      'displayCornerRadii': 'DisplayCornerRadii? get displayCornerRadii',
     },
   );
 }
@@ -8592,6 +8891,9 @@ BridgedClass _createAccessibilityFeaturesBridge() {
       'highContrast': (visitor, target) => D4.validateTarget<$dart_ui.AccessibilityFeatures>(target, 'AccessibilityFeatures').highContrast,
       'onOffSwitchLabels': (visitor, target) => D4.validateTarget<$dart_ui.AccessibilityFeatures>(target, 'AccessibilityFeatures').onOffSwitchLabels,
       'supportsAnnounce': (visitor, target) => D4.validateTarget<$dart_ui.AccessibilityFeatures>(target, 'AccessibilityFeatures').supportsAnnounce,
+      'autoPlayAnimatedImages': (visitor, target) => D4.validateTarget<$dart_ui.AccessibilityFeatures>(target, 'AccessibilityFeatures').autoPlayAnimatedImages,
+      'autoPlayVideos': (visitor, target) => D4.validateTarget<$dart_ui.AccessibilityFeatures>(target, 'AccessibilityFeatures').autoPlayVideos,
+      'deterministicCursor': (visitor, target) => D4.validateTarget<$dart_ui.AccessibilityFeatures>(target, 'AccessibilityFeatures').deterministicCursor,
       'hashCode': (visitor, target) => D4.validateTarget<$dart_ui.AccessibilityFeatures>(target, 'AccessibilityFeatures').hashCode,
     },
     methods: {
@@ -8619,6 +8921,9 @@ BridgedClass _createAccessibilityFeaturesBridge() {
       'highContrast': 'bool get highContrast',
       'onOffSwitchLabels': 'bool get onOffSwitchLabels',
       'supportsAnnounce': 'bool get supportsAnnounce',
+      'autoPlayAnimatedImages': 'bool get autoPlayAnimatedImages',
+      'autoPlayVideos': 'bool get autoPlayVideos',
+      'deterministicCursor': 'bool get deterministicCursor',
       'hashCode': 'int get hashCode',
     },
   );

@@ -25,7 +25,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  tom_d4rt_generator: ^1.9.3
+  tom_d4rt_generator: ^1.9.7
 
 flutter:
   uses-material-design: true
