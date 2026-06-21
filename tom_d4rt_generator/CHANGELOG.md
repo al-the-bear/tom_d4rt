@@ -1,3 +1,18 @@
+## 1.9.8
+
+### Generation quality (suppress unavoidable const-arg warning)
+
+- Bridge `.b.dart` files emit constructor calls that forward script-supplied
+  runtime values into `const` constructors (e.g. `IconData(codePoint, …)`).
+  Because those arguments are only known at run time they can never be const,
+  so the analyzer reports `non_const_argument_for_const_parameter` — an
+  unavoidable, cosmetic warning for bridged code. Added
+  `non_const_argument_for_const_parameter` to the generated
+  `// ignore_for_file:` directive so regenerated bridge surfaces analyze
+  cleanly (previously surfaced as 3 warnings against `IconData` in
+  `widgets_bridges.b.dart` for both `tom_d4rt_flutter` and
+  `tom_d4rt_flutter_ast`).
+
 ## 1.9.7
 
 ### Bug fixes (AllBridge import surface dropped under single-package inline)
