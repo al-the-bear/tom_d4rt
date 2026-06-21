@@ -4268,11 +4268,14 @@ class _InterpretedRenderTwoDimensionalViewport
 ///
 /// Forwards `isSatisfiedBy(Set<WidgetState> states)` to the interpreter so the
 /// resolver (e.g. `WidgetStateColor.fromMap` / `WidgetStatePropertyMap`)
-/// evaluates the script's predicate at lookup time. The proxy also implements
-/// `&`, `|` and `~` by composing through the bridged operator overloads so
-/// expressions like `WidgetState.pressed & ~_MyConstraint()` continue to
-/// work whether the interpreted predicate appears on the left or right.
-class _InterpretedWidgetStatesConstraint implements WidgetStatesConstraint {
+/// evaluates the script's predicate at lookup time. The `&`, `|` and `~`
+/// operators come from the `WidgetStatesConstraint` mixin's default
+/// implementations (which compose by calling `isSatisfiedBy` on each operand),
+/// so expressions like `WidgetState.pressed & ~_MyConstraint()` continue to
+/// work whether the interpreted predicate appears on the left or right. The
+/// mixin is applied with `with` rather than `implements` precisely so those
+/// default operators are inherited instead of having to be re-declared.
+class _InterpretedWidgetStatesConstraint with WidgetStatesConstraint {
   _InterpretedWidgetStatesConstraint(this._visitor, this._instance);
 
   final InterpreterVisitor _visitor;
