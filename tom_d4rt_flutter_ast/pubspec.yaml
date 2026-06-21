@@ -23,7 +23,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0
   path: ^1.9.0
-  tom_d4rt_generator: ^1.9.7
+  tom_d4rt_generator: ^1.9.8
   # Analyzer front-end + 1:1 AST copier. Used ONLY by the bridge
   # regeneration tool (tool/regenerate_bridges.dart) and the test
   # driver — never by lib/ runtime code. The bridges and FlutterD4rt
