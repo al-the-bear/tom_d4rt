@@ -110,7 +110,7 @@ class D4rt {
 
     // Check for parse errors
     final hasErrors = result.errors
-        .any((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR);
+        .any((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR);
 
     // Convert analyzer AST to serializable AST
     final cu = _converter.convertCompilationUnit(result.unit);

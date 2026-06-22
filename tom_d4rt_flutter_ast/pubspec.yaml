@@ -23,7 +23,11 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0
   path: ^1.9.0
-  tom_d4rt_generator: ^1.9.8
+  # analyzer-10 migration: tom_d4rt_generator (still analyzer ^8.4.1) cannot
+  # share a resolution with tom_ast_generator / tom_d4rt_exec on analyzer ^10.
+  # Bridge regeneration is deferred to the cli_tools-quest generator migration;
+  # committed *.b.dart bridges are used as-is in the meantime.
+  # tom_d4rt_generator: ^1.9.8
   # Analyzer front-end + 1:1 AST copier. Used ONLY by the bridge
   # regeneration tool (tool/regenerate_bridges.dart) and the test
   # driver — never by lib/ runtime code. The bridges and FlutterD4rt

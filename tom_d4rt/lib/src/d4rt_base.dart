@@ -1301,7 +1301,7 @@ class D4rt {
       );
 
       final errors = result.errors
-          .where((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR)
+          .where((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR)
           .toList();
       if (errors.isNotEmpty) {
         final errorMessages = errors.map((e) {
@@ -1599,7 +1599,7 @@ class D4rt {
       );
 
       final errors = result.errors
-          .where((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR)
+          .where((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR)
           .toList();
       if (errors.isNotEmpty) {
         final errorMessages = errors.map((e) {
@@ -1832,7 +1832,7 @@ class D4rt {
     );
 
     final errors = parseResult.errors
-        .where((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR)
+        .where((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR)
         .toList();
     if (errors.isNotEmpty) {
       final errorMessages = errors.map((e) {
@@ -1935,7 +1935,7 @@ class D4rt {
 
     // Check if it parses as valid declaration(s)
     final declErrors = declarationParseResult.errors
-        .where((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR)
+        .where((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR)
         .toList();
 
     if (declErrors.isEmpty &&

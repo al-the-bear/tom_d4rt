@@ -190,7 +190,7 @@ class DeclarationVisitor extends GeneralizingAstVisitor<void> {
     RuntimeType declaredReturnType;
 
     if (returnTypeNode is NamedType) {
-      final typeName = returnTypeNode.name2.lexeme;
+      final typeName = returnTypeNode.name.lexeme;
       Logger.debug(
           "[DeclarationVisitor.visitFunctionDeclaration]   Return type node name: $typeName");
 

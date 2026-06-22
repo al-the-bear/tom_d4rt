@@ -20,7 +20,7 @@ environment:
   sdk: ^3.5.0
 
 dependencies:
-  analyzer: ^8.4.1
+  analyzer: ^10.0.0
   pub_semver: ^2.2.0
   tom_d4rt_ast: ^0.1.8
   tom_ast_generator: ^0.1.1
@@ -31,4 +31,7 @@ dev_dependencies:
   path: ^1.9.0
   test: ^1.25.15
   tom_build_base: ^2.6.21
-  tom_d4rt_generator: ^1.9.0
+  # analyzer-10 migration: tom_d4rt_generator (still analyzer ^8.4.1) and the
+  # test/generator_tests/ suite are deferred to the cli_tools-quest generator
+  # migration — they cannot share a resolution with analyzer ^10.
+  # tom_d4rt_generator: ^1.9.0

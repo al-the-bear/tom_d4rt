@@ -1,0 +1,8 @@
+# Local multi-package dev overrides (analyzer-10 migration).
+#
+# The hosted tom_d4rt still targets analyzer ^8.x. This package is on the
+# analyzer-^10 migration, so tom_d4rt must resolve from its migrated local
+# checkout. Standard local multi-package dev pattern — not an API-shim override.
+dependency_overrides:
+  tom_d4rt:
+    path: ../tom_d4rt

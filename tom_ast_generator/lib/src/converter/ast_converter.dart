@@ -1531,8 +1531,7 @@ class AstConverter {
       offset: node.offset,
       length: node.length,
       metadata: _convertAnnotations(node.metadata),
-      // ignore: deprecated_member_use
-      name: _as<SIdentifier>(node.name2),
+      name: _as<SIdentifier>(node.name),
     );
   }
 

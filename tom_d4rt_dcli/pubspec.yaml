@@ -44,4 +44,8 @@ dev_dependencies:
   build_runner: ^2.4.15
   lints: ^6.0.0
   test: ^1.25.6
-  tom_d4rt_generator: ^1.9.0
+  # analyzer-10 migration: tom_d4rt_generator (still analyzer ^8.4.1) cannot
+  # share a resolution with tom_d4rt's analyzer ^10. Bridge regeneration is
+  # deferred to the cli_tools-quest generator migration; committed *.b.dart
+  # bridges are used as-is in the meantime.
+  # tom_d4rt_generator: ^1.9.0
