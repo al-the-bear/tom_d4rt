@@ -1,0 +1,5 @@
+project_id: D4V2
+name: d4v2
+description: >-
+  D4rt interpreter (v2, analyzer ^10.0.0).
+license: MIT

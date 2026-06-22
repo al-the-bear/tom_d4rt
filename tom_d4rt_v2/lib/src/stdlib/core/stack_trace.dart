@@ -1,0 +1,26 @@
+import 'package:tom_d4rt_v2/d4rt.dart';
+
+class StackTraceCore {
+  static BridgedClass get definition => BridgedClass(
+        nativeType: StackTrace,
+        name: 'StackTrace',
+        typeParameterCount: 0,
+        nativeNames: [
+          '_StringStackTrace',
+        ],
+        staticGetters: {
+          'current': (visitor) => StackTrace.current,
+          'empty': (visitor) => StackTrace.empty,
+        },
+        methods: {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
+            return (target as StackTrace).toString();
+          },
+        },
+        getters: {
+          'hashCode': (visitor, target) => (target as StackTrace).hashCode,
+          'runtimeType': (visitor, target) =>
+              (target as StackTrace).runtimeType,
+        },
+      );
+}
