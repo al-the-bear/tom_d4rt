@@ -309,19 +309,18 @@ class AstModuleLoader implements ModuleContext {
   }
 
   /// Checks if the runner has any bridged content for the given URI.
+  ///
+  /// Step 1 (import-optimization plan): the registries are now URI-keyed,
+  /// so this is an O(1) `containsKey` per registry instead of scanning the
+  /// whole list.
   bool _hasBridgedContent(String uriString) {
-    return _anyEntryMatches(runner.bridgedEnumDefinitions, uriString) ||
-        _anyEntryMatches(runner.bridgedClasses, uriString) ||
-        _anyEntryMatches(runner.bridgedExtensions, uriString) ||
-        _anyEntryMatches(runner.libraryFunctions, uriString) ||
-        _anyEntryMatches(runner.libraryVariables, uriString) ||
-        _anyEntryMatches(runner.libraryGetters, uriString) ||
-        _anyEntryMatches(runner.librarySetters, uriString);
-  }
-
-  /// Checks if any map entry in a list has the given key.
-  bool _anyEntryMatches<T>(List<Map<String, T>> entries, String key) {
-    return entries.any((m) => m.containsKey(key));
+    return runner.bridgedEnumDefinitions.containsKey(uriString) ||
+        runner.bridgedClasses.containsKey(uriString) ||
+        runner.bridgedExtensions.containsKey(uriString) ||
+        runner.libraryFunctions.containsKey(uriString) ||
+        runner.libraryVariables.containsKey(uriString) ||
+        runner.libraryGetters.containsKey(uriString) ||
+        runner.librarySetters.containsKey(uriString);
   }
 
   /// Registers all bridged definitions for a URI into a target environment.
@@ -334,10 +333,10 @@ class AstModuleLoader implements ModuleContext {
     Set<String>? hideNames,
     Environment targetEnvironment,
   ) {
-    // Register bridged enums
-    for (final entry in runner.bridgedEnumDefinitions) {
-      final libEnum = entry[uriString];
-      if (libEnum == null) continue;
+    // Register bridged enums (Step 1: direct O(matched) URI lookup).
+    for (final libEnum
+        in runner.bridgedEnumDefinitions[uriString]?.values ??
+            const <LibraryEnum>[]) {
       final name = libEnum.enumDefinition.name;
       if (!_shouldInclude(name, showNames, hideNames)) continue;
 
@@ -348,10 +347,10 @@ class AstModuleLoader implements ModuleContext {
       );
     }
 
-    // Register bridged classes
-    for (final entry in runner.bridgedClasses) {
-      final libClass = entry[uriString];
-      if (libClass == null) continue;
+    // Register bridged classes (Step 1: direct O(matched) URI lookup).
+    for (final libClass
+        in runner.bridgedClasses[uriString]?.values ??
+            const <LibraryClass>[]) {
       final name = libClass.bridgedClass.name;
       if (!_shouldInclude(name, showNames, hideNames)) continue;
 
@@ -405,9 +404,9 @@ class AstModuleLoader implements ModuleContext {
     // BridgedExtensionDefinition.buildInterpretedExtension, and register it
     // in the target environment (named extensions also get a value entry
     // so explicit `MyExt(value).method()` syntax can resolve them).
-    for (final entry in runner.bridgedExtensions) {
-      final libExt = entry[uriString];
-      if (libExt == null) continue;
+    for (final libExt
+        in runner.bridgedExtensions[uriString] ??
+            const <LibraryExtension>[]) {
       final extDef = libExt.extensionDefinition;
       final name = extDef.name;
       if (name != null && !_shouldInclude(name, showNames, hideNames)) continue;
@@ -449,10 +448,10 @@ class AstModuleLoader implements ModuleContext {
       );
     }
 
-    // Register library functions
-    for (final entry in runner.libraryFunctions) {
-      final libFunc = entry[uriString];
-      if (libFunc == null) continue;
+    // Register library functions (Step 1: direct O(matched) URI lookup).
+    for (final libFunc
+        in runner.libraryFunctions[uriString]?.values ??
+            const <LibraryFunction>[]) {
       final name = libFunc.function.name;
       if (name == '<native>') continue; // Skip unnamed functions
       if (!_shouldInclude(name, showNames, hideNames)) continue;
@@ -463,10 +462,10 @@ class AstModuleLoader implements ModuleContext {
       );
     }
 
-    // Register library variables
-    for (final entry in runner.libraryVariables) {
-      final libVar = entry[uriString];
-      if (libVar == null) continue;
+    // Register library variables (Step 1: direct O(matched) URI lookup).
+    for (final libVar
+        in runner.libraryVariables[uriString]?.values ??
+            const <LibraryVariable>[]) {
       if (!_shouldInclude(libVar.name, showNames, hideNames)) continue;
 
       targetEnvironment.define(libVar.name, libVar.value);
@@ -478,16 +477,15 @@ class AstModuleLoader implements ModuleContext {
 
     // Register library getters (paired with optional setters)
     final settersByName = <String, LibrarySetter>{};
-    for (final entry in runner.librarySetters) {
-      final libSetter = entry[uriString];
-      if (libSetter != null) {
-        settersByName[libSetter.name] = libSetter;
-      }
+    for (final libSetter
+        in runner.librarySetters[uriString]?.values ??
+            const <LibrarySetter>[]) {
+      settersByName[libSetter.name] = libSetter;
     }
 
-    for (final entry in runner.libraryGetters) {
-      final libGetter = entry[uriString];
-      if (libGetter == null) continue;
+    for (final libGetter
+        in runner.libraryGetters[uriString]?.values ??
+            const <LibraryGetter>[]) {
       if (!_shouldInclude(libGetter.name, showNames, hideNames)) continue;
 
       final setter = settersByName.remove(libGetter.name);

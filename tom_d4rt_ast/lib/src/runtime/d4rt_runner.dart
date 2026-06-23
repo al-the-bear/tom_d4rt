@@ -108,9 +108,16 @@ class LibraryExtension {
 /// For source code parsing and execution, use the D4rt class from
 /// tom_d4rt_exec which provides full integration with tom_ast_generator.
 class D4rtRunner {
-  final List<Map<String, LibraryEnum>> _bridgedEnumDefinitions = [];
-  final List<Map<String, LibraryClass>> _bridgedClasses = [];
-  final List<Map<String, LibraryExtension>> _bridgedExtensions = [];
+  // Step 1 (import-optimization plan) — registries are keyed by source
+  // library URI so registering / resolving one URI is an O(matched) direct
+  // `registry[uri]` lookup instead of an O(N) full-list scan. The inner map
+  // is keyed by element name (top-level declaration names are unique per
+  // library). Extensions are the exception: they can be unnamed and several
+  // unnamed extensions may share a URI, so they are stored as a per-URI
+  // list rather than a name-keyed map.
+  final Map<String, Map<String, LibraryEnum>> _bridgedEnumDefinitions = {};
+  final Map<String, Map<String, LibraryClass>> _bridgedClasses = {};
+  final Map<String, List<LibraryExtension>> _bridgedExtensions = {};
 
   /// GEN-074: Class aliases (type aliases) for alias name → target class name mapping.
   final List<({String aliasName, String targetName, String library})>
@@ -121,10 +128,10 @@ class D4rtRunner {
   /// and type arguments.
   final List<({String name, String library})> _functionTypedefs = [];
 
-  final List<Map<String, LibraryFunction>> _libraryFunctions = [];
-  final List<Map<String, LibraryVariable>> _libraryVariables = [];
-  final List<Map<String, LibraryGetter>> _libraryGetters = [];
-  final List<Map<String, LibrarySetter>> _librarySetters = [];
+  final Map<String, Map<String, LibraryFunction>> _libraryFunctions = {};
+  final Map<String, Map<String, LibraryVariable>> _libraryVariables = {};
+  final Map<String, Map<String, LibraryGetter>> _libraryGetters = {};
+  final Map<String, Map<String, LibrarySetter>> _librarySetters = {};
   final Map<Type, BridgedClass> _bridgedDefLookupByType = {};
   final Set<Permission> _grantedPermissions = {};
 
@@ -194,28 +201,30 @@ class D4rtRunner {
   // Bridge Data Access (for AstModuleLoader)
   // =========================================================================
 
-  /// Registered bridged enum definitions keyed by library URI.
-  List<Map<String, LibraryEnum>> get bridgedEnumDefinitions =>
+  /// Registered bridged enum definitions: URI → (name → enum).
+  Map<String, Map<String, LibraryEnum>> get bridgedEnumDefinitions =>
       _bridgedEnumDefinitions;
 
-  /// Registered bridged class definitions keyed by library URI.
-  List<Map<String, LibraryClass>> get bridgedClasses => _bridgedClasses;
+  /// Registered bridged class definitions: URI → (name → class).
+  Map<String, Map<String, LibraryClass>> get bridgedClasses => _bridgedClasses;
 
-  /// Registered bridged extension definitions keyed by library URI.
-  List<Map<String, LibraryExtension>> get bridgedExtensions =>
+  /// Registered bridged extension definitions: URI → list of extensions.
+  Map<String, List<LibraryExtension>> get bridgedExtensions =>
       _bridgedExtensions;
 
-  /// Registered library functions keyed by library URI.
-  List<Map<String, LibraryFunction>> get libraryFunctions => _libraryFunctions;
+  /// Registered library functions: URI → (name → function).
+  Map<String, Map<String, LibraryFunction>> get libraryFunctions =>
+      _libraryFunctions;
 
-  /// Registered library variables keyed by library URI.
-  List<Map<String, LibraryVariable>> get libraryVariables => _libraryVariables;
+  /// Registered library variables: URI → (name → variable).
+  Map<String, Map<String, LibraryVariable>> get libraryVariables =>
+      _libraryVariables;
 
-  /// Registered library getters keyed by library URI.
-  List<Map<String, LibraryGetter>> get libraryGetters => _libraryGetters;
+  /// Registered library getters: URI → (name → getter).
+  Map<String, Map<String, LibraryGetter>> get libraryGetters => _libraryGetters;
 
-  /// Registered library setters keyed by library URI.
-  List<Map<String, LibrarySetter>> get librarySetters => _librarySetters;
+  /// Registered library setters: URI → (name → setter).
+  Map<String, Map<String, LibrarySetter>> get librarySetters => _librarySetters;
 
   /// The set of library URIs that have at least one registered bridge
   /// (class, enum, extension, function, variable, getter, or setter).
@@ -228,23 +237,15 @@ class D4rtRunner {
   /// extra bookkeeping is required. Lives here (zero-dependency core) so the
   /// host parser can be any analyzer front-end without coupling the runtime
   /// to it.
-  Set<String> get bridgedLibraryUris {
-    final uris = <String>{};
-    void addKeys<V>(List<Map<String, V>> registries) {
-      for (final entry in registries) {
-        uris.addAll(entry.keys);
-      }
-    }
-
-    addKeys(_bridgedClasses);
-    addKeys(_bridgedEnumDefinitions);
-    addKeys(_bridgedExtensions);
-    addKeys(_libraryFunctions);
-    addKeys(_libraryVariables);
-    addKeys(_libraryGetters);
-    addKeys(_librarySetters);
-    return uris;
-  }
+  Set<String> get bridgedLibraryUris => <String>{
+        ..._bridgedClasses.keys,
+        ..._bridgedEnumDefinitions.keys,
+        ..._bridgedExtensions.keys,
+        ..._libraryFunctions.keys,
+        ..._libraryVariables.keys,
+        ..._libraryGetters.keys,
+        ..._librarySetters.keys,
+      };
 
   // =========================================================================
   // Bridge Registration
@@ -257,7 +258,7 @@ class D4rtRunner {
     String? sourceUri,
   }) {
     final libEnum = LibraryEnum(definition, sourceUri: sourceUri);
-    _bridgedEnumDefinitions.add({library: libEnum});
+    (_bridgedEnumDefinitions[library] ??= {})[libEnum.name] = libEnum;
   }
 
   /// Registers a bridged class definition.
@@ -267,7 +268,7 @@ class D4rtRunner {
     String? sourceUri,
   }) {
     final libClass = LibraryClass(definition, sourceUri: sourceUri);
-    _bridgedClasses.add({library: libClass});
+    (_bridgedClasses[library] ??= {})[libClass.name] = libClass;
     _bridgedDefLookupByType[definition.nativeType] = definition;
   }
 
@@ -355,7 +356,7 @@ class D4rtRunner {
     String? sourceUri,
   }) {
     final libExt = LibraryExtension(definition, sourceUri: sourceUri);
-    _bridgedExtensions.add({library: libExt});
+    (_bridgedExtensions[library] ??= []).add(libExt);
   }
 
   /// Registers a top-level native function.
@@ -372,7 +373,7 @@ class D4rtRunner {
       sourceUri: sourceUri,
       signature: signature,
     );
-    _libraryFunctions.add({library: libFunc});
+    (_libraryFunctions[library] ??= {})[libFunc.name] = libFunc;
   }
 
   /// Lower-case alias for [registerTopLevelFunction].
@@ -405,9 +406,8 @@ class D4rtRunner {
     String library, {
     String? sourceUri,
   }) {
-    _libraryVariables.add({
-      library: LibraryVariable(name, value, sourceUri: sourceUri),
-    });
+    (_libraryVariables[library] ??= {})[name] =
+        LibraryVariable(name, value, sourceUri: sourceUri);
   }
 
   /// Registers a global getter.
@@ -417,9 +417,8 @@ class D4rtRunner {
     String library, {
     String? sourceUri,
   }) {
-    _libraryGetters.add({
-      library: LibraryGetter(name, getter, sourceUri: sourceUri),
-    });
+    (_libraryGetters[library] ??= {})[name] =
+        LibraryGetter(name, getter, sourceUri: sourceUri);
   }
 
   /// Registers a global setter.
@@ -429,9 +428,8 @@ class D4rtRunner {
     String library, {
     String? sourceUri,
   }) {
-    _librarySetters.add({
-      library: LibrarySetter(name, setter, sourceUri: sourceUri),
-    });
+    (_librarySetters[library] ??= {})[name] =
+        LibrarySetter(name, setter, sourceUri: sourceUri);
   }
 
   // =========================================================================
@@ -759,19 +757,25 @@ class D4rtRunner {
   }
 
   /// Registers all bridged definitions into the environment.
+  ///
+  /// Step 1 (import-optimization plan): iterates the URI-keyed registries
+  /// (`uri → name → element`) directly. Iteration is grouped by URI
+  /// (outer-map insertion order) then by name (inner-map insertion order);
+  /// this eager global dump is only a baseline for name resolution — import
+  /// directives later register the authoritative per-module surface.
   void _registerBridgedDefinitions(Environment env) {
     // Register bridged enums
-    for (final entry in _bridgedEnumDefinitions) {
-      for (final e in entry.entries) {
-        final bridgedEnum = e.value.enumDefinition.buildBridgedEnum();
+    for (final byName in _bridgedEnumDefinitions.values) {
+      for (final libEnum in byName.values) {
+        final bridgedEnum = libEnum.enumDefinition.buildBridgedEnum();
         env.defineBridgedEnum(bridgedEnum);
       }
     }
 
     // Register bridged classes
-    for (final entry in _bridgedClasses) {
-      for (final e in entry.entries) {
-        env.defineBridge(e.value.bridgedClass);
+    for (final byName in _bridgedClasses.values) {
+      for (final libClass in byName.values) {
+        env.defineBridge(libClass.bridgedClass);
       }
     }
 
@@ -784,35 +788,34 @@ class D4rtRunner {
     }
 
     // Register library functions
-    for (final entry in _libraryFunctions) {
-      for (final e in entry.entries) {
-        final name = e.value.function.name;
+    for (final byName in _libraryFunctions.values) {
+      for (final libFunc in byName.values) {
+        final name = libFunc.function.name;
         // Skip default "<native>" names - only define named functions
         if (name != '<native>') {
-          env.define(name, e.value.function);
+          env.define(name, libFunc.function);
         }
       }
     }
 
     // Register library variables
-    for (final entry in _libraryVariables) {
-      for (final e in entry.entries) {
-        env.define(e.value.name, e.value.value);
+    for (final byName in _libraryVariables.values) {
+      for (final libVar in byName.values) {
+        env.define(libVar.name, libVar.value);
       }
     }
 
     // Register library getters (with optional setters)
     // Match getter and setter by name
     final setterMap = <String, LibrarySetter>{};
-    for (final entry in _librarySetters) {
-      for (final e in entry.entries) {
-        setterMap[e.value.name] = e.value;
+    for (final byName in _librarySetters.values) {
+      for (final libSetter in byName.values) {
+        setterMap[libSetter.name] = libSetter;
       }
     }
 
-    for (final entry in _libraryGetters) {
-      for (final e in entry.entries) {
-        final getter = e.value;
+    for (final byName in _libraryGetters.values) {
+      for (final getter in byName.values) {
         final setter = setterMap[getter.name];
         env.define(
           getter.name,
@@ -824,22 +827,22 @@ class D4rtRunner {
     // Register any remaining setters without corresponding getters
     // (These would be write-only properties, which is unusual but supported)
     final registeredGetterNames = <String>{};
-    for (final entry in _libraryGetters) {
-      for (final e in entry.entries) {
-        registeredGetterNames.add(e.value.name);
+    for (final byName in _libraryGetters.values) {
+      for (final getter in byName.values) {
+        registeredGetterNames.add(getter.name);
       }
     }
-    for (final entry in _librarySetters) {
-      for (final e in entry.entries) {
-        if (!registeredGetterNames.contains(e.value.name)) {
+    for (final byName in _librarySetters.values) {
+      for (final libSetter in byName.values) {
+        if (!registeredGetterNames.contains(libSetter.name)) {
           // Write-only property - use a GlobalGetter with null getter
           env.define(
-            e.value.name,
+            libSetter.name,
             GlobalGetter(
               () => throw RuntimeD4rtException(
-                'Property ${e.value.name} is write-only',
+                'Property ${libSetter.name} is write-only',
               ),
-              setter: e.value.setter,
+              setter: libSetter.setter,
             ),
           );
         }
