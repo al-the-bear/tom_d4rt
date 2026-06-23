@@ -704,13 +704,33 @@ class Environment {
   }
 
   BridgedClass toBridgedClass(Type nativeType) {
-    // Search current environment and enclosing ones
+    // Resolution is split into TWO chain walks so that a PRECISE match in a
+    // far (enclosing) frame always beats a FUZZY name-prefix match in a near
+    // frame. Before this split the loop tried every strategy — including the
+    // loose G-DCLI-05 `startsWith` prefix fallback — within a single frame and
+    // returned on the first hit, so a nearer frame's fuzzy match short-circuited
+    // a more-correct precise match still waiting in an enclosing frame.
+    //
+    // Concrete failure (lazy-bridge substrate, step #17/#19): a
+    // `MappedListIterable<…>` returned by `List.map(...).toList()` has its
+    // precise `nativeNames` entry on the stdlib `Iterable` bridge, which (under
+    // the warm-parent / per-module split) lives in an *enclosing* frame. A
+    // nearer module frame carries the `Map` bridge but not `Iterable`, and
+    // `"MappedListIterable".startsWith("Map")` made the fuzzy fallback wrap it
+    // as `Map` — so `.toList()` failed. Walking all frames for precise matches
+    // first, then all frames for the fuzzy fallback, resolves it to `Iterable`.
+    final String nativeTypeNameFull = nativeType.toString();
+
+    // PASS A — precise matching across the whole scope chain: exact Type
+    // lookup, `_FooImpl → Foo` canonicalization, generic-base `name`/
+    // `nativeNames` match, suffix match, name-exact, and longest-nativeName
+    // prefix. Every strategy here is anchored on a declared bridge identity.
     Environment? current = this;
     while (current != null) {
       BridgedClass? bridgedClass =
           current._bridgedClassesLookupByType[nativeType];
 
-      String nativeTypeName = nativeType.toString();
+      String nativeTypeName = nativeTypeNameFull;
 
       if (bridgedClass == null && (nativeTypeName.substring(0, 1) == '_')) {
         if (nativeTypeName.endsWith('Impl')) {
@@ -756,30 +776,35 @@ class Environment {
       // prefix (e.g. Set's `_HashSet`).
       bridgedClass ??= _longestNativeNamePrefixMatch(current, nativeTypeName);
 
-      // G-DCLI-05 FIX: Handle non-underscore implementation types like
-      // ProgressBothImpl, where the class name contains the bridge name.
-      // Check if any registered bridge name is a prefix of the native type name.
-      // e.g., "ProgressBothImpl" contains bridge name "Progress"
-      if (bridgedClass == null) {
-        bridgedClass =
-            current._bridgedClassesLookupByType.entries.firstWhereOrNull((e) {
-          final bridgeName = e.value.name;
-          // Only match if the bridge name is a substantial prefix (>= 3 chars)
-          // and the native type name starts with it followed by more chars
-          return bridgeName.length >= 3 &&
-              nativeTypeName.startsWith(bridgeName) &&
-              nativeTypeName.length > bridgeName.length;
-        })?.value;
-        if (bridgedClass != null) {
-          Logger.debug(
-              "[Environment] Matched native type '$nativeTypeName' to bridge '${bridgedClass.name}' via prefix matching");
-        }
-      }
-
       if (bridgedClass != null) {
         return bridgedClass;
       }
 
+      current = current._enclosing;
+    }
+
+    // PASS B — fuzzy fallback across the whole scope chain. G-DCLI-05 FIX:
+    // handle non-underscore implementation types like `ProgressBothImpl`, where
+    // a registered bridge name (`Progress`) is a prefix of the native type
+    // name. Runs only after every frame failed PASS A, so a precise match
+    // anywhere in the chain wins over this loose prefix match (see the method
+    // header for the `MappedListIterable` → `Map` false-positive this guards).
+    current = this;
+    while (current != null) {
+      final bridgedClass =
+          current._bridgedClassesLookupByType.entries.firstWhereOrNull((e) {
+        final bridgeName = e.value.name;
+        // Only match if the bridge name is a substantial prefix (>= 3 chars)
+        // and the native type name starts with it followed by more chars.
+        return bridgeName.length >= 3 &&
+            nativeTypeNameFull.startsWith(bridgeName) &&
+            nativeTypeNameFull.length > bridgeName.length;
+      })?.value;
+      if (bridgedClass != null) {
+        Logger.debug(
+            "[Environment] Matched native type '$nativeTypeNameFull' to bridge '${bridgedClass.name}' via prefix matching");
+        return bridgedClass;
+      }
       current = current._enclosing;
     }
 

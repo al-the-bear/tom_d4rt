@@ -1,3 +1,32 @@
+## 1.10.1
+
+### Fixed — native→bridge resolution: precise match must beat fuzzy prefix across scopes
+
+- `Environment.toBridgedClass` now resolves a native runtime type in **two
+  chain walks** instead of one strategy-cascade per frame:
+  1. **Pass A (precise)** walks the whole enclosing-scope chain trying exact
+     `Type` lookup, `_FooImpl → Foo` canonicalization, generic-base `name` /
+     `nativeNames` match, suffix match, name-exact, and longest-`nativeName`
+     prefix — every strategy anchored on a declared bridge identity.
+  2. **Pass B (fuzzy fallback)** walks the whole chain trying the loose
+     G-DCLI-05 `name`-is-a-prefix-of-the-type match (e.g. `ProgressBothImpl`
+     → `Progress`).
+
+  Previously both passes ran interleaved within a single frame and returned on
+  the first hit, so a fuzzy prefix match in a **nearer** frame short-circuited a
+  more-correct precise match still waiting in an **enclosing** frame.
+
+  Concrete failure surfaced by the lazy-bridge substrate (import-optimization
+  steps #17/#19): a `MappedListIterable<…>` returned by
+  `List.map(...).toList()` carries its precise `nativeNames` entry on the stdlib
+  `Iterable` bridge, which under the warm-parent / per-module split lives in an
+  enclosing frame. A nearer module frame held the `Map` bridge but not
+  `Iterable`, and `"MappedListIterable".startsWith("Map")` made the fuzzy
+  fallback wrap it as `Map` — so `.toList()` failed with `Bridged class 'Map'
+  has no instance method named 'toList'`. The two-pass walk now resolves it to
+  `Iterable` (precise) regardless of frame distance. Mirrored in
+  `tom_d4rt_ast`'s `Environment.toBridgedClass`.
+
 ## 1.10.0
 
 ### Added — lazy bridge registration (import-optimization, additive)
