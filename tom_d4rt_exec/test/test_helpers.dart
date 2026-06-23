@@ -4,7 +4,7 @@
 /// Note: D4rt now handles parsing internally, so tests using D4rt() don't
 /// need this callback.
 import 'package:analyzer/dart/analysis/utilities.dart' as analyzer;
-import 'package:analyzer/error/error.dart' show ErrorSeverity;
+import 'package:analyzer/error/error.dart' show DiagnosticSeverity;
 import 'package:tom_ast_generator/tom_ast_generator.dart';
 
 /// Parse Dart source code into an [SCompilationUnit] using the analyzer
@@ -22,7 +22,7 @@ SCompilationUnit parseSource(String sourceCode, {String? path}) {
   // Check for parse errors (not warnings/hints) so that eval() can distinguish
   // valid declarations from error-recovery artifacts.
   final hasErrors = result.errors
-      .any((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR);
+      .any((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR);
   if (hasErrors) {
     return SCompilationUnit(
       offset: cu.offset,
