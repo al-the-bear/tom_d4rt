@@ -44,13 +44,28 @@ class SourceFlutterD4rt {
   }
 
   void _registerBridges() {
-    registerRelaxers();
-    registerD4rtRuntimeExtensions();
-    FlutterMaterialBridges.register(_interpreter);
-    _interpreter.registerExtensions(
-      'tom_d4rt_flutter',
-      registerD4rtInterfaceProxyOverrides,
-    );
+    // Import-optimization step #19: pay the expensive bridge-registration cost
+    // only the first time this package is seen in the process. `providePackage`
+    // returns `false` on first sight (and opens the registration context so the
+    // `register*` calls below land in the package pool) and `true` on later
+    // instances, which reuse the pooled definitions. Every registration here
+    // targets process-global tables — relaxers and interface proxies land in
+    // static `D4` maps, the material bridges register lazy thunks into the
+    // pooled bundle, and the extension callback is once-per-package-per-process
+    // — so running this block exactly once is correct and sufficient.
+    if (_interpreter.providePackage('tom_d4rt_flutter') == false) {
+      registerRelaxers();
+      registerD4rtRuntimeExtensions();
+      FlutterMaterialBridges.register(_interpreter);
+      _interpreter.registerExtensions(
+        'tom_d4rt_flutter',
+        registerD4rtInterfaceProxyOverrides,
+      );
+    }
+    // `finalizeBridges()` runs on every instance: it builds this instance's
+    // warm parent from the pooled definitions and fires any not-yet-fired
+    // extension callbacks. It is cheap on later instances (its own
+    // `_bridgesFinalized` / once-per-process guards short-circuit the work).
     _interpreter.finalizeBridges();
   }
 

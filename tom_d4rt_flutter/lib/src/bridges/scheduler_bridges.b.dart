@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 5 files
-// Generated: 2026-06-21T14:41:01.054539
+// Generated: 2026-06-23T21:19:02.824227
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -26,6 +26,10 @@ import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/text_user_bridge.dart' as
 /// Bridge class for flutter_scheduler module.
 class FlutterSchedulerBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createPriorityBridge(),
@@ -33,6 +37,31 @@ class FlutterSchedulerBridge {
       _createSchedulerBindingBridge(),
       _createTickerBridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'Priority': _createPriorityBridge,
+      'PerformanceModeRequestHandle': _createPerformanceModeRequestHandleBridge,
+      'SchedulerBinding': _createSchedulerBindingBridge,
+      'Ticker': _createTickerBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'Priority': $flutter_6.Priority,
+      'PerformanceModeRequestHandle': $flutter_4.PerformanceModeRequestHandle,
+      'SchedulerBinding': $flutter_4.SchedulerBinding,
+      'Ticker': $flutter_8.Ticker,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -151,11 +180,20 @@ class FlutterSchedulerBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // MCI#1 / A1: Register the flattened native supertype table so

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-06-21T14:41:00.045492
+// Generated: 2026-06-23T21:19:01.922111
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -48,6 +48,10 @@ import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/text_user_bridge.dart' as
 /// Bridge class for flutter_foundation module.
 class FlutterFoundationBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createCategoryBridge(),
@@ -119,6 +123,159 @@ class FlutterFoundationBridge {
       _createUnicodeBridge(),
       _createImmutableBridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'Category': _createCategoryBridge,
+      'DocumentationIcon': _createDocumentationIconBridge,
+      'Summary': _createSummaryBridge,
+      'CachingIterable': _createCachingIterableBridge,
+      'Factory': _createFactoryBridge,
+      'TextTreeConfiguration': _createTextTreeConfigurationBridge,
+      'TextTreeRenderer': _createTextTreeRendererBridge,
+      'DiagnosticsNode': _createDiagnosticsNodeBridge,
+      'MessageProperty': _createMessagePropertyBridge,
+      'StringProperty': _createStringPropertyBridge,
+      'DoubleProperty': _createDoublePropertyBridge,
+      'IntProperty': _createIntPropertyBridge,
+      'PercentProperty': _createPercentPropertyBridge,
+      'FlagProperty': _createFlagPropertyBridge,
+      'IterableProperty': _createIterablePropertyBridge,
+      'EnumProperty': _createEnumPropertyBridge,
+      'ObjectFlagProperty': _createObjectFlagPropertyBridge,
+      'FlagsSummary': _createFlagsSummaryBridge,
+      'DiagnosticsProperty': _createDiagnosticsPropertyBridge,
+      'DiagnosticableNode': _createDiagnosticableNodeBridge,
+      'DiagnosticableTreeNode': _createDiagnosticableTreeNodeBridge,
+      'DiagnosticPropertiesBuilder': _createDiagnosticPropertiesBuilderBridge,
+      'DiagnosticableTree': _createDiagnosticableTreeBridge,
+      'DiagnosticsBlock': _createDiagnosticsBlockBridge,
+      'DiagnosticsSerializationDelegate': _createDiagnosticsSerializationDelegateBridge,
+      'Diagnosticable': _createDiagnosticableBridge,
+      'DiagnosticableTreeMixin': _createDiagnosticableTreeMixinBridge,
+      'StackFrame': _createStackFrameBridge,
+      'PartialStackFrame': _createPartialStackFrameBridge,
+      'StackFilter': _createStackFilterBridge,
+      'RepetitiveStackFrameFilter': _createRepetitiveStackFrameFilterBridge,
+      'ErrorDescription': _createErrorDescriptionBridge,
+      'ErrorSummary': _createErrorSummaryBridge,
+      'ErrorHint': _createErrorHintBridge,
+      'ErrorSpacer': _createErrorSpacerBridge,
+      'FlutterErrorDetails': _createFlutterErrorDetailsBridge,
+      'FlutterError': _createFlutterErrorBridge,
+      'DiagnosticsStackTrace': _createDiagnosticsStackTraceBridge,
+      'BindingBase': _createBindingBaseBridge,
+      'BitField': _createBitFieldBridge,
+      'Listenable': _createListenableBridge,
+      'ValueListenable': _createValueListenableBridge,
+      'ChangeNotifier': _createChangeNotifierBridge,
+      'ValueNotifier': _createValueNotifierBridge,
+      'Key': _createKeyBridge,
+      'LocalKey': _createLocalKeyBridge,
+      'UniqueKey': _createUniqueKeyBridge,
+      'ValueKey': _createValueKeyBridge,
+      'LicenseParagraph': _createLicenseParagraphBridge,
+      'LicenseEntry': _createLicenseEntryBridge,
+      'LicenseEntryWithLineBreaks': _createLicenseEntryWithLineBreaksBridge,
+      'LicenseRegistry': _createLicenseRegistryBridge,
+      'ObjectEvent': _createObjectEventBridge,
+      'ObjectCreated': _createObjectCreatedBridge,
+      'ObjectDisposed': _createObjectDisposedBridge,
+      'FlutterMemoryAllocations': _createFlutterMemoryAllocationsBridge,
+      'ObserverList': _createObserverListBridge,
+      'HashedObserverList': _createHashedObserverListBridge,
+      'PersistentHashMap': _createPersistentHashMapBridge,
+      'WriteBuffer': _createWriteBufferBridge,
+      'ReadBuffer': _createReadBufferBridge,
+      'SynchronousFuture': _createSynchronousFutureBridge,
+      'FlutterTimeline': _createFlutterTimelineBridge,
+      'TimedBlock': _createTimedBlockBridge,
+      'AggregatedTimings': _createAggregatedTimingsBridge,
+      'AggregatedTimedBlock': _createAggregatedTimedBlockBridge,
+      'Unicode': _createUnicodeBridge,
+      'Immutable': _createImmutableBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'Category': $flutter_1.Category,
+      'DocumentationIcon': $flutter_1.DocumentationIcon,
+      'Summary': $flutter_1.Summary,
+      'CachingIterable': $flutter_3.CachingIterable,
+      'Factory': $flutter_3.Factory,
+      'TextTreeConfiguration': $flutter_12.TextTreeConfiguration,
+      'TextTreeRenderer': $flutter_12.TextTreeRenderer,
+      'DiagnosticsNode': $flutter_12.DiagnosticsNode,
+      'MessageProperty': $flutter_12.MessageProperty,
+      'StringProperty': $flutter_12.StringProperty,
+      'DoubleProperty': $flutter_12.DoubleProperty,
+      'IntProperty': $flutter_12.IntProperty,
+      'PercentProperty': $flutter_12.PercentProperty,
+      'FlagProperty': $flutter_12.FlagProperty,
+      'IterableProperty': $flutter_12.IterableProperty,
+      'EnumProperty': $flutter_12.EnumProperty,
+      'ObjectFlagProperty': $flutter_12.ObjectFlagProperty,
+      'FlagsSummary': $flutter_12.FlagsSummary,
+      'DiagnosticsProperty': $flutter_12.DiagnosticsProperty,
+      'DiagnosticableNode': $flutter_12.DiagnosticableNode,
+      'DiagnosticableTreeNode': $flutter_12.DiagnosticableTreeNode,
+      'DiagnosticPropertiesBuilder': $flutter_12.DiagnosticPropertiesBuilder,
+      'DiagnosticableTree': $flutter_12.DiagnosticableTree,
+      'DiagnosticsBlock': $flutter_12.DiagnosticsBlock,
+      'DiagnosticsSerializationDelegate': $flutter_12.DiagnosticsSerializationDelegate,
+      'Diagnosticable': $flutter_12.Diagnosticable,
+      'DiagnosticableTreeMixin': $flutter_12.DiagnosticableTreeMixin,
+      'StackFrame': $flutter_24.StackFrame,
+      'PartialStackFrame': $flutter_2.PartialStackFrame,
+      'StackFilter': $flutter_2.StackFilter,
+      'RepetitiveStackFrameFilter': $flutter_2.RepetitiveStackFrameFilter,
+      'ErrorDescription': $flutter_2.ErrorDescription,
+      'ErrorSummary': $flutter_2.ErrorSummary,
+      'ErrorHint': $flutter_2.ErrorHint,
+      'ErrorSpacer': $flutter_2.ErrorSpacer,
+      'FlutterErrorDetails': $flutter_2.FlutterErrorDetails,
+      'FlutterError': $flutter_2.FlutterError,
+      'DiagnosticsStackTrace': $flutter_2.DiagnosticsStackTrace,
+      'BindingBase': $flutter_4.BindingBase,
+      'BitField': $flutter_5.BitField,
+      'Listenable': $flutter_7.Listenable,
+      'ValueListenable': $flutter_7.ValueListenable,
+      'ChangeNotifier': $flutter_7.ChangeNotifier,
+      'ValueNotifier': $flutter_7.ValueNotifier,
+      'Key': $flutter_14.Key,
+      'LocalKey': $flutter_14.LocalKey,
+      'UniqueKey': $flutter_14.UniqueKey,
+      'ValueKey': $flutter_14.ValueKey,
+      'LicenseParagraph': $flutter_15.LicenseParagraph,
+      'LicenseEntry': $flutter_15.LicenseEntry,
+      'LicenseEntryWithLineBreaks': $flutter_15.LicenseEntryWithLineBreaks,
+      'LicenseRegistry': $flutter_15.LicenseRegistry,
+      'ObjectEvent': $flutter_16.ObjectEvent,
+      'ObjectCreated': $flutter_16.ObjectCreated,
+      'ObjectDisposed': $flutter_16.ObjectDisposed,
+      'FlutterMemoryAllocations': $flutter_16.FlutterMemoryAllocations,
+      'ObserverList': $flutter_18.ObserverList,
+      'HashedObserverList': $flutter_18.HashedObserverList,
+      'PersistentHashMap': $flutter_19.PersistentHashMap,
+      'WriteBuffer': $flutter_22.WriteBuffer,
+      'ReadBuffer': $flutter_22.ReadBuffer,
+      'SynchronousFuture': $flutter_25.SynchronousFuture,
+      'FlutterTimeline': $flutter_26.FlutterTimeline,
+      'TimedBlock': $flutter_26.TimedBlock,
+      'AggregatedTimings': $flutter_26.AggregatedTimings,
+      'AggregatedTimedBlock': $flutter_26.AggregatedTimedBlock,
+      'Unicode': $flutter_27.Unicode,
+      'Immutable': $meta_1.Immutable,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -392,11 +549,20 @@ class FlutterFoundationBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // MCI#1 / A1: Register the flattened native supertype table so

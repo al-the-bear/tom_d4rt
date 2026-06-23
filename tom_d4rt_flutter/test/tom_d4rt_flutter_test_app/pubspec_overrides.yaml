@@ -1,0 +1,14 @@
+# Local multi-package dev override (test harness only).
+#
+# This app is `publish_to: none` — a dev-only HTTP harness that drives the
+# bridge conformance corpus. It depends on `tom_d4rt_flutter` by path, whose
+# generated `*.b.dart` bridges call `tom_d4rt`'s `registerBridgedClassLazy`
+# (published in tom_d4rt 1.10.0). Resolving `tom_d4rt` from its in-tree
+# checkout pins this harness to the exact sources that produced the published
+# 1.10.1 artifact, so the conformance run is deterministic without waiting on
+# pub.dev propagation. The parent library carries the publish-time floor
+# (tom_d4rt ^1.10.1); this is the standard local multi-package dev pattern,
+# not an API-shim override.
+dependency_overrides:
+  tom_d4rt:
+    path: ../../../tom_d4rt

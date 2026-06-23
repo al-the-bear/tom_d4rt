@@ -10,7 +10,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  tom_d4rt: ^1.8.22
+  # 1.10.0 adds the public `registerBridgedClassLazy` registrar that the
+  # generated lazy bridges (registerBridges → registerBridgedClassLazy) call.
+  # 1.9.0 carried the providePackage/finalizeBridges pool API but not this
+  # registrar, so generated bridges would not compile against it.
+  # 1.10.1 fixes Environment.toBridgedClass to resolve a native runtime type by
+  # a PRECISE match across the whole scope chain before any fuzzy name-prefix
+  # fallback — without it, a MappedListIterable from `List.map(...).toList()`
+  # under the lazy warm-parent split wrongly resolved to the `Map` bridge.
+  tom_d4rt: ^1.10.1
   path: ^1.9.0
   # A.4: opt-in vector_math_64 bridge surface (Quad / Vector3 / Vector4 / …).
   # Direct dependency required so the generated vector_math_bridges.b.dart can
@@ -25,11 +33,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  # analyzer-10 migration: tom_d4rt_generator (still analyzer ^8.4.1) cannot
-  # share a resolution with tom_d4rt's analyzer ^10. Bridge regeneration is
-  # deferred to the cli_tools-quest generator migration; committed *.b.dart
-  # bridges are used as-is in the meantime.
-  # tom_d4rt_generator: ^1.9.8
+  # Bridge regeneration (tool/regenerate_bridges.dart). 1.11.0 is analyzer-10
+  # (matching tom_d4rt's analyzer ^10) and emits the lazy bridge-factory thunks
+  # (bridgeClassThunks/bridgeClassTypes) the import-optimization guard pairs
+  # with. The earlier analyzer-8 conflict that deferred regen is resolved.
+  tom_d4rt_generator: ^1.11.0
 
 flutter:
   uses-material-design: true

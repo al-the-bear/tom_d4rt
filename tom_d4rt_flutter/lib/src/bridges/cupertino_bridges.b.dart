@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 111 files
-// Generated: 2026-06-21T14:41:17.029449
+// Generated: 2026-06-23T21:19:15.985036
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -192,6 +192,10 @@ import 'package:flutter/widgets.dart' as $aux_flutter;
 /// Bridge class for flutter_cupertino module.
 class FlutterCupertinoBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createCupertinoActivityIndicatorBridge(),
@@ -284,6 +288,201 @@ class FlutterCupertinoBridge {
       _createTextStyleBridge(),
       _createSpellCheckResultsBridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'CupertinoActivityIndicator': _createCupertinoActivityIndicatorBridge,
+      'CupertinoLinearActivityIndicator': _createCupertinoLinearActivityIndicatorBridge,
+      'CupertinoAdaptiveTextSelectionToolbar': _createCupertinoAdaptiveTextSelectionToolbarBridge,
+      'CupertinoApp': _createCupertinoAppBridge,
+      'CupertinoScrollBehavior': _createCupertinoScrollBehaviorBridge,
+      'CupertinoTabBar': _createCupertinoTabBarBridge,
+      'CupertinoButton': _createCupertinoButtonBridge,
+      'CupertinoCheckbox': _createCupertinoCheckboxBridge,
+      'CupertinoColors': _createCupertinoColorsBridge,
+      'CupertinoDynamicColor': _createCupertinoDynamicColorBridge,
+      'CupertinoContextMenu': _createCupertinoContextMenuBridge,
+      'CupertinoContextMenuAction': _createCupertinoContextMenuActionBridge,
+      'CupertinoFocusHalo': _createCupertinoFocusHaloBridge,
+      'CupertinoDatePicker': _createCupertinoDatePickerBridge,
+      'CupertinoTimerPicker': _createCupertinoTimerPickerBridge,
+      'CupertinoDesktopTextSelectionControls': _createCupertinoDesktopTextSelectionControlsBridge,
+      'CupertinoDesktopTextSelectionToolbar': _createCupertinoDesktopTextSelectionToolbarBridge,
+      'CupertinoDesktopTextSelectionToolbarButton': _createCupertinoDesktopTextSelectionToolbarButtonBridge,
+      'CupertinoAlertDialog': _createCupertinoAlertDialogBridge,
+      'CupertinoPopupSurface': _createCupertinoPopupSurfaceBridge,
+      'CupertinoActionSheet': _createCupertinoActionSheetBridge,
+      'CupertinoActionSheetAction': _createCupertinoActionSheetActionBridge,
+      'CupertinoDialogAction': _createCupertinoDialogActionBridge,
+      'CupertinoExpansionTile': _createCupertinoExpansionTileBridge,
+      'CupertinoFormRow': _createCupertinoFormRowBridge,
+      'CupertinoFormSection': _createCupertinoFormSectionBridge,
+      'CupertinoIconThemeData': _createCupertinoIconThemeDataBridge,
+      'CupertinoIcons': _createCupertinoIconsBridge,
+      'CupertinoUserInterfaceLevel': _createCupertinoUserInterfaceLevelBridge,
+      'CupertinoListSection': _createCupertinoListSectionBridge,
+      'CupertinoListTile': _createCupertinoListTileBridge,
+      'CupertinoListTileChevron': _createCupertinoListTileChevronBridge,
+      'CupertinoLocalizations': _createCupertinoLocalizationsBridge,
+      'DefaultCupertinoLocalizations': _createDefaultCupertinoLocalizationsBridge,
+      'CupertinoTextMagnifier': _createCupertinoTextMagnifierBridge,
+      'CupertinoMagnifier': _createCupertinoMagnifierBridge,
+      'CupertinoMenuEntry': _createCupertinoMenuEntryBridge,
+      'CupertinoMenuAnchor': _createCupertinoMenuAnchorBridge,
+      'CupertinoMenuDivider': _createCupertinoMenuDividerBridge,
+      'CupertinoMenuItem': _createCupertinoMenuItemBridge,
+      'CupertinoNavigationBar': _createCupertinoNavigationBarBridge,
+      'CupertinoSliverNavigationBar': _createCupertinoSliverNavigationBarBridge,
+      'CupertinoNavigationBarBackButton': _createCupertinoNavigationBarBackButtonBridge,
+      'CupertinoPageScaffold': _createCupertinoPageScaffoldBridge,
+      'CupertinoPageScaffoldBackgroundColor': _createCupertinoPageScaffoldBackgroundColorBridge,
+      'ObstructingPreferredSizeWidget': _createObstructingPreferredSizeWidgetBridge,
+      'CupertinoPicker': _createCupertinoPickerBridge,
+      'CupertinoPickerDefaultSelectionOverlay': _createCupertinoPickerDefaultSelectionOverlayBridge,
+      'CupertinoRadio': _createCupertinoRadioBridge,
+      'CupertinoSliverRefreshControl': _createCupertinoSliverRefreshControlBridge,
+      'CupertinoPageRoute': _createCupertinoPageRouteBridge,
+      'CupertinoPage': _createCupertinoPageBridge,
+      'CupertinoPageTransition': _createCupertinoPageTransitionBridge,
+      'CupertinoFullscreenDialogTransition': _createCupertinoFullscreenDialogTransitionBridge,
+      'CupertinoModalPopupRoute': _createCupertinoModalPopupRouteBridge,
+      'CupertinoDialogRoute': _createCupertinoDialogRouteBridge,
+      'CupertinoPageTransitionsBuilder': _createCupertinoPageTransitionsBuilderBridge,
+      'CupertinoRouteTransitionMixin': _createCupertinoRouteTransitionMixinBridge,
+      'CupertinoScrollbar': _createCupertinoScrollbarBridge,
+      'CupertinoSearchTextField': _createCupertinoSearchTextFieldBridge,
+      'CupertinoSegmentedControl': _createCupertinoSegmentedControlBridge,
+      'CupertinoSheetTransition': _createCupertinoSheetTransitionBridge,
+      'CupertinoSheetRoute': _createCupertinoSheetRouteBridge,
+      'CupertinoSlider': _createCupertinoSliderBridge,
+      'CupertinoSlidingSegmentedControl': _createCupertinoSlidingSegmentedControlBridge,
+      'CupertinoSpellCheckSuggestionsToolbar': _createCupertinoSpellCheckSuggestionsToolbarBridge,
+      'CupertinoSwitch': _createCupertinoSwitchBridge,
+      'CupertinoTabController': _createCupertinoTabControllerBridge,
+      'CupertinoTabScaffold': _createCupertinoTabScaffoldBridge,
+      'RestorableCupertinoTabController': _createRestorableCupertinoTabControllerBridge,
+      'CupertinoTabView': _createCupertinoTabViewBridge,
+      'CupertinoTextField': _createCupertinoTextFieldBridge,
+      'CupertinoTextFormFieldRow': _createCupertinoTextFormFieldRowBridge,
+      'CupertinoTextSelectionControls': _createCupertinoTextSelectionControlsBridge,
+      'CupertinoTextSelectionToolbar': _createCupertinoTextSelectionToolbarBridge,
+      'CupertinoTextSelectionToolbarButton': _createCupertinoTextSelectionToolbarButtonBridge,
+      'CupertinoTextThemeData': _createCupertinoTextThemeDataBridge,
+      'CupertinoTheme': _createCupertinoThemeBridge,
+      'InheritedCupertinoTheme': _createInheritedCupertinoThemeBridge,
+      'CupertinoThemeData': _createCupertinoThemeDataBridge,
+      'NoDefaultCupertinoThemeData': _createNoDefaultCupertinoThemeDataBridge,
+      'CupertinoThumbPainter': _createCupertinoThumbPainterBridge,
+      'DiagnosticsProperty': _createDiagnosticsPropertyBridge,
+      'ImageConfiguration': _createImageConfigurationBridge,
+      'ImageProvider': _createImageProviderBridge,
+      'TextSpan': _createTextSpanBridge,
+      'TextEditingValue': _createTextEditingValueBridge,
+      'TextStyle': _createTextStyleBridge,
+      'SpellCheckResults': _createSpellCheckResultsBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'CupertinoActivityIndicator': $flutter_4.CupertinoActivityIndicator,
+      'CupertinoLinearActivityIndicator': $flutter_4.CupertinoLinearActivityIndicator,
+      'CupertinoAdaptiveTextSelectionToolbar': $flutter_5.CupertinoAdaptiveTextSelectionToolbar,
+      'CupertinoApp': $flutter_6.CupertinoApp,
+      'CupertinoScrollBehavior': $flutter_6.CupertinoScrollBehavior,
+      'CupertinoTabBar': $flutter_7.CupertinoTabBar,
+      'CupertinoButton': $flutter_8.CupertinoButton,
+      'CupertinoCheckbox': $flutter_9.CupertinoCheckbox,
+      'CupertinoColors': $flutter_10.CupertinoColors,
+      'CupertinoDynamicColor': $flutter_10.CupertinoDynamicColor,
+      'CupertinoContextMenu': $flutter_12.CupertinoContextMenu,
+      'CupertinoContextMenuAction': $flutter_13.CupertinoContextMenuAction,
+      'CupertinoFocusHalo': $flutter_14.CupertinoFocusHalo,
+      'CupertinoDatePicker': $flutter_15.CupertinoDatePicker,
+      'CupertinoTimerPicker': $flutter_15.CupertinoTimerPicker,
+      'CupertinoDesktopTextSelectionControls': $flutter_17.CupertinoDesktopTextSelectionControls,
+      'CupertinoDesktopTextSelectionToolbar': $flutter_18.CupertinoDesktopTextSelectionToolbar,
+      'CupertinoDesktopTextSelectionToolbarButton': $flutter_19.CupertinoDesktopTextSelectionToolbarButton,
+      'CupertinoAlertDialog': $flutter_20.CupertinoAlertDialog,
+      'CupertinoPopupSurface': $flutter_20.CupertinoPopupSurface,
+      'CupertinoActionSheet': $flutter_20.CupertinoActionSheet,
+      'CupertinoActionSheetAction': $flutter_20.CupertinoActionSheetAction,
+      'CupertinoDialogAction': $flutter_20.CupertinoDialogAction,
+      'CupertinoExpansionTile': $flutter_21.CupertinoExpansionTile,
+      'CupertinoFormRow': $flutter_22.CupertinoFormRow,
+      'CupertinoFormSection': $flutter_23.CupertinoFormSection,
+      'CupertinoIconThemeData': $flutter_24.CupertinoIconThemeData,
+      'CupertinoIcons': $flutter_25.CupertinoIcons,
+      'CupertinoUserInterfaceLevel': $flutter_26.CupertinoUserInterfaceLevel,
+      'CupertinoListSection': $flutter_27.CupertinoListSection,
+      'CupertinoListTile': $flutter_28.CupertinoListTile,
+      'CupertinoListTileChevron': $flutter_28.CupertinoListTileChevron,
+      'CupertinoLocalizations': $flutter_29.CupertinoLocalizations,
+      'DefaultCupertinoLocalizations': $flutter_29.DefaultCupertinoLocalizations,
+      'CupertinoTextMagnifier': $flutter_30.CupertinoTextMagnifier,
+      'CupertinoMagnifier': $flutter_30.CupertinoMagnifier,
+      'CupertinoMenuEntry': $flutter_31.CupertinoMenuEntry,
+      'CupertinoMenuAnchor': $flutter_31.CupertinoMenuAnchor,
+      'CupertinoMenuDivider': $flutter_31.CupertinoMenuDivider,
+      'CupertinoMenuItem': $flutter_31.CupertinoMenuItem,
+      'CupertinoNavigationBar': $flutter_32.CupertinoNavigationBar,
+      'CupertinoSliverNavigationBar': $flutter_32.CupertinoSliverNavigationBar,
+      'CupertinoNavigationBarBackButton': $flutter_32.CupertinoNavigationBarBackButton,
+      'CupertinoPageScaffold': $flutter_33.CupertinoPageScaffold,
+      'CupertinoPageScaffoldBackgroundColor': $flutter_33.CupertinoPageScaffoldBackgroundColor,
+      'ObstructingPreferredSizeWidget': $flutter_33.ObstructingPreferredSizeWidget,
+      'CupertinoPicker': $flutter_34.CupertinoPicker,
+      'CupertinoPickerDefaultSelectionOverlay': $flutter_34.CupertinoPickerDefaultSelectionOverlay,
+      'CupertinoRadio': $flutter_35.CupertinoRadio,
+      'CupertinoSliverRefreshControl': $flutter_36.CupertinoSliverRefreshControl,
+      'CupertinoPageRoute': $flutter_37.CupertinoPageRoute,
+      'CupertinoPage': $flutter_37.CupertinoPage,
+      'CupertinoPageTransition': $flutter_37.CupertinoPageTransition,
+      'CupertinoFullscreenDialogTransition': $flutter_37.CupertinoFullscreenDialogTransition,
+      'CupertinoModalPopupRoute': $flutter_37.CupertinoModalPopupRoute,
+      'CupertinoDialogRoute': $flutter_37.CupertinoDialogRoute,
+      'CupertinoPageTransitionsBuilder': $flutter_37.CupertinoPageTransitionsBuilder,
+      'CupertinoRouteTransitionMixin': $flutter_37.CupertinoRouteTransitionMixin,
+      'CupertinoScrollbar': $flutter_38.CupertinoScrollbar,
+      'CupertinoSearchTextField': $flutter_39.CupertinoSearchTextField,
+      'CupertinoSegmentedControl': $flutter_40.CupertinoSegmentedControl,
+      'CupertinoSheetTransition': $flutter_41.CupertinoSheetTransition,
+      'CupertinoSheetRoute': $flutter_41.CupertinoSheetRoute,
+      'CupertinoSlider': $flutter_42.CupertinoSlider,
+      'CupertinoSlidingSegmentedControl': $flutter_43.CupertinoSlidingSegmentedControl,
+      'CupertinoSpellCheckSuggestionsToolbar': $flutter_44.CupertinoSpellCheckSuggestionsToolbar,
+      'CupertinoSwitch': $flutter_45.CupertinoSwitch,
+      'CupertinoTabController': $flutter_46.CupertinoTabController,
+      'CupertinoTabScaffold': $flutter_46.CupertinoTabScaffold,
+      'RestorableCupertinoTabController': $flutter_46.RestorableCupertinoTabController,
+      'CupertinoTabView': $flutter_47.CupertinoTabView,
+      'CupertinoTextField': $flutter_48.CupertinoTextField,
+      'CupertinoTextFormFieldRow': $flutter_49.CupertinoTextFormFieldRow,
+      'CupertinoTextSelectionControls': $flutter_50.CupertinoTextSelectionControls,
+      'CupertinoTextSelectionToolbar': $flutter_51.CupertinoTextSelectionToolbar,
+      'CupertinoTextSelectionToolbarButton': $flutter_52.CupertinoTextSelectionToolbarButton,
+      'CupertinoTextThemeData': $flutter_53.CupertinoTextThemeData,
+      'CupertinoTheme': $flutter_54.CupertinoTheme,
+      'InheritedCupertinoTheme': $flutter_54.InheritedCupertinoTheme,
+      'CupertinoThemeData': $flutter_54.CupertinoThemeData,
+      'NoDefaultCupertinoThemeData': $flutter_54.NoDefaultCupertinoThemeData,
+      'CupertinoThumbPainter': $flutter_55.CupertinoThumbPainter,
+      'DiagnosticsProperty': $flutter_58.DiagnosticsProperty,
+      'ImageConfiguration': $flutter_76.ImageConfiguration,
+      'ImageProvider': $flutter_76.ImageProvider,
+      'TextSpan': $flutter_82.TextSpan,
+      'TextEditingValue': $flutter_98.TextEditingValue,
+      'TextStyle': $flutter_83.TextStyle,
+      'SpellCheckResults': $flutter_95.SpellCheckResults,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -1459,11 +1658,20 @@ class FlutterCupertinoBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // MCI#1 / A1: Register the flattened native supertype table so
