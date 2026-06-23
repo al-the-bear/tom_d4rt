@@ -97,4 +97,36 @@ void main() {
       expect(all, containsAll(<BridgedClass>[first, second]));
     });
   });
+
+  group('IMP-OPT-17: N-of-M lazy materialization (build counter)', () {
+    test(
+        'IMP-OPT-17a: resolving N of M registered thunks builds exactly N',
+        () {
+      // Models the generator's lazy emission: M classes registered as deferred
+      // factory thunks, each incrementing a shared build counter when built.
+      const total = 2064; // mirrors the flutter-material corpus size
+      const used = 7;
+      final env = Environment();
+      var builds = 0;
+      for (var i = 0; i < total; i++) {
+        final name = 'Cls$i';
+        env.defineBridgeLazy(name, Object, () {
+          builds++;
+          return BridgedClass(nativeType: Object, name: name);
+        });
+      }
+
+      // Registration of all M classes must not build a single one.
+      expect(builds, 0, reason: 'registering thunks must not build classes');
+
+      // A "script" resolves only `used` of them, by name.
+      for (var i = 0; i < used; i++) {
+        final resolved = env.findBridgedClassByName('Cls$i');
+        expect(resolved, isNotNull);
+      }
+
+      expect(builds, used,
+          reason: 'only the resolved classes are materialized (≈N of M)');
+    });
+  });
 }

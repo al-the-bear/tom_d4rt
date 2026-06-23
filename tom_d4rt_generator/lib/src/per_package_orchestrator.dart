@@ -657,6 +657,11 @@ class PerPackageBridgeOrchestrator {
 
     // bridgeClasses()
     buffer.writeln('  /// Returns all bridge class definitions.');
+    buffer.writeln('  ///');
+    buffer.writeln(
+      '  /// Eager. Prefer [bridgeClassThunks] + [bridgeClassTypes] for lazy',
+    );
+    buffer.writeln('  /// registration (Step #17).');
     buffer.writeln('  static List<BridgedClass> bridgeClasses() {');
     buffer.writeln('    return [');
     for (final pkgName in sortedPackages) {
@@ -667,6 +672,40 @@ class PerPackageBridgeOrchestrator {
       }
     }
     buffer.writeln('    ];');
+    buffer.writeln('  }');
+    buffer.writeln();
+
+    // Step #17 — bridgeClassThunks(): aggregated deferred factory thunks.
+    buffer.writeln('  /// Returns deferred factory thunks keyed by class name');
+    buffer.writeln('  /// (Step #17), aggregated across the required packages.');
+    buffer.writeln(
+      '  static Map<String, BridgedClass Function()> bridgeClassThunks() {',
+    );
+    buffer.writeln('    return {');
+    for (final pkgName in sortedPackages) {
+      if (packageFiles.containsKey(pkgName)) {
+        final alias = 'pkg_${pkgName.replaceAll('-', '_')}';
+        final pkgClassName = 'Package${_toPascalCase(pkgName)}Bridge';
+        buffer.writeln('      ...$alias.$pkgClassName.bridgeClassThunks(),');
+      }
+    }
+    buffer.writeln('    };');
+    buffer.writeln('  }');
+    buffer.writeln();
+
+    // Step #17 — bridgeClassTypes(): aggregated native types keyed by name.
+    buffer.writeln('  /// Returns native [Type]s keyed by class name (Step #17),');
+    buffer.writeln('  /// parallel to [bridgeClassThunks].');
+    buffer.writeln('  static Map<String, Type> bridgeClassTypes() {');
+    buffer.writeln('    return {');
+    for (final pkgName in sortedPackages) {
+      if (packageFiles.containsKey(pkgName)) {
+        final alias = 'pkg_${pkgName.replaceAll('-', '_')}';
+        final pkgClassName = 'Package${_toPascalCase(pkgName)}Bridge';
+        buffer.writeln('      ...$alias.$pkgClassName.bridgeClassTypes(),');
+      }
+    }
+    buffer.writeln('    };');
     buffer.writeln('  }');
     buffer.writeln();
 

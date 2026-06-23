@@ -208,6 +208,9 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 
 class $className {
   static List<BridgedClass> bridgeClasses() => const [];
+  // Step #17 — lazy factory + native-type maps the aggregator delegates to.
+  static Map<String, BridgedClass Function()> bridgeClassThunks() => const {};
+  static Map<String, Type> bridgeClassTypes() => const {};
   static Map<String, String> classSourceUris() => const {};
   static List<BridgedEnumDefinition> bridgedEnums() => const [];
   static Map<String, NativeFunctionImpl> globalFunctions() => const {};

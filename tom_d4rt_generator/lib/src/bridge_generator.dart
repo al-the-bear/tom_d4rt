@@ -6358,12 +6358,63 @@ class BridgeGenerator {
 
     // bridgeClasses method
     buffer.writeln('  /// Returns all bridge class definitions.');
+    buffer.writeln('  ///');
+    buffer.writeln(
+      '  /// Eager — building every class. Prefer [bridgeClassThunks] +',
+    );
+    buffer.writeln(
+      '  /// [bridgeClassTypes] for lazy registration (Step #17); this remains',
+    );
+    buffer.writeln('  /// for diagnostics and callers that need the full list.');
     buffer.writeln('  static List<BridgedClass> bridgeClasses() {');
     buffer.writeln('    return [');
     for (final cls in classes) {
       buffer.writeln('      _create${cls.name}Bridge(),');
     }
     buffer.writeln('    ];');
+    buffer.writeln('  }');
+    buffer.writeln();
+
+    // Step #17 — bridgeClassThunks: name → deferred factory thunk. Each thunk
+    // builds one class's BridgedClass (member maps + adapter closures) on
+    // demand, so a script touching N of the M classes materializes ≈N objects
+    // rather than M.
+    buffer.writeln('  /// Returns deferred factory thunks keyed by class name.');
+    buffer.writeln('  ///');
+    buffer.writeln(
+      '  /// Each thunk builds one class\'s [BridgedClass] on demand. Plugs into',
+    );
+    buffer.writeln(
+      '  /// the interpreter\'s lazy registry via [registerBridges] (Step #17).',
+    );
+    buffer.writeln(
+      '  static Map<String, BridgedClass Function()> bridgeClassThunks() {',
+    );
+    buffer.writeln('    return {');
+    for (final cls in classes) {
+      buffer.writeln("      '${cls.name}': _create${cls.name}Bridge,");
+    }
+    buffer.writeln('    };');
+    buffer.writeln('  }');
+    buffer.writeln();
+
+    // Step #17 — bridgeClassTypes: name → native Type, parallel to
+    // [bridgeClassThunks]. Lets the registry index a class by its native type
+    // without building the BridgedClass.
+    buffer.writeln(
+      '  /// Returns native [Type]s keyed by class name, parallel to',
+    );
+    buffer.writeln(
+      '  /// [bridgeClassThunks] (Step #17). Used to register the native-type',
+    );
+    buffer.writeln('  /// lookup thunk without building the BridgedClass.');
+    buffer.writeln('  static Map<String, Type> bridgeClassTypes() {');
+    buffer.writeln('    return {');
+    for (final cls in classes) {
+      final prefixedName = _getPrefixedClassName(cls.name, cls.sourceFile);
+      buffer.writeln("      '${cls.name}': $prefixedName,");
+    }
+    buffer.writeln('    };');
     buffer.writeln('  }');
     buffer.writeln();
 
@@ -6780,14 +6831,25 @@ class BridgeGenerator {
       '  static void registerBridges(D4rt interpreter, String importPath) {',
     );
     buffer.writeln(
-      '    // Register bridged classes with source URIs for deduplication',
+      '    // Step #17 — register deferred factory thunks (not pre-built',
     );
-    buffer.writeln('    final classes = bridgeClasses();');
-    buffer.writeln('    final classSources = classSourceUris();');
-    buffer.writeln('    for (final bridge in classes) {');
     buffer.writeln(
-      '      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);',
+      '    // BridgedClass objects): a script touching N of the M classes',
     );
+    buffer.writeln(
+      '    // materializes ≈N (each thunk builds its class on first resolve).',
+    );
+    buffer.writeln('    final classThunks = bridgeClassThunks();');
+    buffer.writeln('    final classTypes = bridgeClassTypes();');
+    buffer.writeln('    final classSources = classSourceUris();');
+    buffer.writeln('    for (final entry in classThunks.entries) {');
+    buffer.writeln('      interpreter.registerBridgedClassLazy(');
+    buffer.writeln('        entry.key,');
+    buffer.writeln('        classTypes[entry.key]!,');
+    buffer.writeln('        entry.value,');
+    buffer.writeln('        importPath,');
+    buffer.writeln('        sourceUri: classSources[entry.key],');
+    buffer.writeln('      );');
     buffer.writeln('    }');
     buffer.writeln();
     buffer.writeln(

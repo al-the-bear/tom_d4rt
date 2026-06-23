@@ -269,13 +269,16 @@ class ModuleLoader {
     // Bridged classes
     for (final libClass
         in bridgedClases[uriString]?.values ?? const <LibraryClass>[]) {
-      final name = libClass.bridgedClass.name;
+      final name = libClass.name;
       if (!_shouldRegisterName(name,
           showNames: showNames, hideNames: hideNames)) {
         continue;
       }
       try {
-        targetEnvironment.defineBridge(libClass.bridgedClass);
+        // Step #17 — transfer the deferred thunk so the BridgedClass is only
+        // built if the importing module actually resolves the class.
+        targetEnvironment.defineBridgeLazy(
+            libClass.name, libClass.nativeType, libClass.thunk);
         Logger.debugLazy(() =>
             ' [ModuleLoader] GEN-100: Registered bridged class: $name from $uriString');
       } catch (e) {
@@ -978,8 +981,7 @@ class ModuleLoader {
       for (final libClass
           in bridgedClases[uriString]?.values ?? const <LibraryClass>[]) {
         hasContentForUri = true;
-        final definition = libClass.bridgedClass;
-        final className = definition.name;
+        final className = libClass.name;
 
         // Check show/hide filters
         if (!_shouldRegisterName(className,
@@ -1015,7 +1017,9 @@ class ModuleLoader {
         _registeredClasses[className] = sourceUri;
 
         try {
-          globalEnvironment.defineBridge(definition);
+          // Step #17 — transfer the deferred thunk (build on first resolve).
+          globalEnvironment.defineBridgeLazy(
+              libClass.name, libClass.nativeType, libClass.thunk);
           Logger.debugLazy(() =>
               " [execute] Registered bridged class: $className from $sourceUri");
         } catch (e) {
@@ -1369,10 +1373,13 @@ class ModuleLoader {
     // registerBridgedClass) that may not yet be loaded into the environment.
     for (final classMap in bridgedClases.values) {
       for (final libClass in classMap.values) {
-        if (libClass.bridgedClass.name == typeName) {
+        // Step #17 — compare by name without forcing a build; only the matched
+        // class is materialized (it is genuinely being resolved here).
+        if (libClass.name == typeName) {
           // Register the class in globalEnvironment so it's available
           // for extension type matching
-          globalEnvironment.defineBridge(libClass.bridgedClass);
+          globalEnvironment.defineBridgeLazy(
+              libClass.name, libClass.nativeType, libClass.thunk);
           Logger.debug(
               "[ModuleLoader] Resolved extension on-type '$typeName' from registered bridge class");
           return libClass.bridgedClass;

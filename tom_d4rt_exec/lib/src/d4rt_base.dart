@@ -36,7 +36,10 @@ class D4rt {
       _classAliases = [];
   InterpretedInstance? _interpretedInstance;
   InterpreterVisitor? _visitor;
-  final Map<Type, BridgedClass> _bridgedDefLookupByType = {};
+  // Step #17 — thunk-backed native-type lookup (see LazyBridgeRegistry). The
+  // exact-type `operator[]` path builds at most one class on demand; the
+  // isAssignable supertype fallback (rare) still iterates `.entries`.
+  final LazyBridgeRegistry<Type> _bridgedDefLookupByType = LazyBridgeRegistry();
   final Set<Permission> _grantedPermissions = {};
 
   /// Internal AST converter for parsing source code.
@@ -155,10 +158,33 @@ class D4rt {
   ///   Used for deduplication when the same class is exported through multiple barrels.
   void registerBridgedClass(BridgedClass definition, String library,
       {String? sourceUri}) {
-    final libClass = LibraryClass(definition, sourceUri: sourceUri);
+    registerBridgedClassLazy(
+      definition.name,
+      definition.nativeType,
+      () => definition,
+      library,
+      sourceUri: sourceUri,
+    );
+  }
+
+  /// Step #17 — registers a bridged class via a deferred factory [thunk].
+  ///
+  /// Forwards the thunk to the inner [_runner] (the measured analyzer-free
+  /// path) and stores it lazily in the wrapper's local registries so the
+  /// [BridgedClass] is built only when first resolved by name or native type.
+  void registerBridgedClassLazy(
+    String name,
+    Type nativeType,
+    BridgedClass Function() thunk,
+    String library, {
+    String? sourceUri,
+  }) {
+    final libClass =
+        LibraryClass.lazy(name, nativeType, thunk, sourceUri: sourceUri);
     _bridgedClases.add({library: libClass});
-    _bridgedDefLookupByType[definition.nativeType] = definition;
-    _runner.registerBridgedClass(definition, library, sourceUri: sourceUri);
+    _bridgedDefLookupByType.putThunk(nativeType, thunk);
+    _runner.registerBridgedClassLazy(name, nativeType, thunk, library,
+        sourceUri: sourceUri);
     _bridgedLibraryUris.add(library);
   }
 

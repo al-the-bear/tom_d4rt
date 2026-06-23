@@ -67,7 +67,12 @@ class GlobalGetter {
 /// first touched during interpretation.
 ///
 /// Mirror of the same class in `tom_d4rt_ast` `runtime/environment.dart`.
-class _LazyBridgeRegistry<K> extends MapBase<K, BridgedClass> {
+///
+/// Public so the `D4rt`-level registries (`_bridgedDefLookupByType` and the
+/// pooled `BridgeBundle.bridgedDefLookupByType`) can be thunk-backed too —
+/// the generator's lazy emission (import-optimization plan step #17) stores a
+/// `Type → thunk` entry at registration time without building the class.
+class LazyBridgeRegistry<K> extends MapBase<K, BridgedClass> {
   final Map<K, BridgedClass Function()> _thunks = {};
   final Map<K, BridgedClass> _memo = {};
 
@@ -77,6 +82,15 @@ class _LazyBridgeRegistry<K> extends MapBase<K, BridgedClass> {
   void putThunk(K key, BridgedClass Function() thunk) {
     _thunks[key] = thunk;
     _memo.remove(key);
+  }
+
+  /// Copies every deferred thunk (and any already-built memo) from [other]
+  /// into this registry **without building** the unresolved thunks. Used to
+  /// merge a pooled bundle's type lookup into a per-instance one (the lazy
+  /// counterpart of `Map.addAll`, which would force a build via `forEach`).
+  void addThunksFrom(LazyBridgeRegistry<K> other) {
+    _thunks.addAll(other._thunks);
+    _memo.addAll(other._memo);
   }
 
   @override
@@ -176,8 +190,8 @@ class Environment {
   //   * the `…OrNew` write view allocates the real collection on first use.
   // Step #3 (import-optimization): the name and type bridge registries are
   // thunk-capable — each entry may be a deferred `() => BridgedClass` built and
-  // memoized on first lookup. See [_LazyBridgeRegistry].
-  _LazyBridgeRegistry<String>? _bridgedClassesRaw;
+  // memoized on first lookup. See [LazyBridgeRegistry].
+  LazyBridgeRegistry<String>? _bridgedClassesRaw;
   // Same-name bridge overflow: when two distinct bridges register under the
   // same simple name (e.g. `tom_doc_scanner` and `tom_md2latex` both export a
   // `MarkdownParser`), `_bridgedClasses` keeps only the last-registered one.
@@ -186,7 +200,7 @@ class Environment {
   // until a genuine name collision occurs — the common one-bridge-per-name case
   // allocates nothing.
   Map<String, List<BridgedClass>>? _shadowedBridgesRaw;
-  _LazyBridgeRegistry<Type>? _bridgedClassesLookupByTypeRaw;
+  LazyBridgeRegistry<Type>? _bridgedClassesLookupByTypeRaw;
   // GEN-115 Phase 2 — runtimeType→bridge resolution cache. Populated by
   // [toBridgedInstance] after a non-trivial step-2 / step-3 walk so that
   // repeat lookups of the same private impl type (e.g. _BodyBoxConstraints,
@@ -227,12 +241,12 @@ class Environment {
       _prefixedImportsRaw ?? const <String, Environment>{};
 
   // Write views — allocate the backing collection on first use.
-  _LazyBridgeRegistry<String> get _bridgedClassesOrNew =>
-      _bridgedClassesRaw ??= _LazyBridgeRegistry<String>();
+  LazyBridgeRegistry<String> get _bridgedClassesOrNew =>
+      _bridgedClassesRaw ??= LazyBridgeRegistry<String>();
   Map<String, List<BridgedClass>> get _shadowedBridgesOrNew =>
       _shadowedBridgesRaw ??= {};
-  _LazyBridgeRegistry<Type> get _bridgedClassesLookupByTypeOrNew =>
-      _bridgedClassesLookupByTypeRaw ??= _LazyBridgeRegistry<Type>();
+  LazyBridgeRegistry<Type> get _bridgedClassesLookupByTypeOrNew =>
+      _bridgedClassesLookupByTypeRaw ??= LazyBridgeRegistry<Type>();
   Map<Type, BridgedClass> get _resolvedTypeCacheOrNew =>
       _resolvedTypeCacheRaw ??= {};
   Set<Type> get _unbridgedTypeCacheOrNew => _unbridgedTypeCacheRaw ??= {};
@@ -474,8 +488,18 @@ class Environment {
   ///
   /// Mirrors the type-population step of [D4rtRunner._registerBridgedDefinitions].
   void registerBridgeType(BridgedClass bridgedClass) {
-    _bridgedClassesLookupByTypeOrNew
-        .putThunk(bridgedClass.nativeType, () => bridgedClass);
+    registerBridgeTypeLazy(bridgedClass.nativeType, () => bridgedClass);
+  }
+
+  /// Lazy variant of [registerBridgeType]: registers a deferred [thunk] under
+  /// [nativeType] in the type-only lookup without building the [BridgedClass]
+  /// until the type is first resolved by [toBridgedInstance].
+  ///
+  /// Used by the warm-parent builders so importing a bridge package registers
+  /// the type baseline without forcing every one of the package's classes to
+  /// build up front (import-optimization plan step #17).
+  void registerBridgeTypeLazy(Type nativeType, BridgedClass Function() thunk) {
+    _bridgedClassesLookupByTypeOrNew.putThunk(nativeType, thunk);
     _invalidateResolutionCache();
   }
 

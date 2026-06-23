@@ -57,12 +57,38 @@ class LibraryFunction {
 }
 
 /// Wrapper class for library-scoped bridged classes.
+///
+/// Step #17 (import-optimization): the wrapped [BridgedClass] is built lazily
+/// via a deferred [thunk] and memoized on first access to [bridgedClass].
+/// [name] / [nativeType] are stored up front so registration, lookup filtering
+/// and warm-parent seeding never force the heavy build. Mirror of
+/// `tom_d4rt`'s [LibraryClass].
 class LibraryClass {
-  final BridgedClass bridgedClass;
+  /// The class name — always available without building the bridge.
+  final String name;
+
+  /// The native Dart type the bridge wraps — available without building.
+  final Type nativeType;
   final String? sourceUri;
 
-  const LibraryClass(this.bridgedClass, {this.sourceUri});
-  String get name => bridgedClass.name;
+  final BridgedClass Function() _thunk;
+  BridgedClass? _built;
+
+  /// Eager wrapper: [bridgedClass] is already built.
+  LibraryClass(BridgedClass bridgedClass, {this.sourceUri})
+      : name = bridgedClass.name,
+        nativeType = bridgedClass.nativeType,
+        _built = bridgedClass,
+        _thunk = (() => bridgedClass);
+
+  /// Lazy wrapper: [thunk] builds the bridge on first access to [bridgedClass].
+  LibraryClass.lazy(this.name, this.nativeType, this._thunk, {this.sourceUri});
+
+  /// The bridged class, built (and memoized) on first access.
+  BridgedClass get bridgedClass => _built ??= _thunk();
+
+  /// A deferred thunk resolving (and memoizing) [bridgedClass] on call.
+  BridgedClass Function() get thunk => () => bridgedClass;
 }
 
 /// Wrapper class for library-scoped bridged enums.
@@ -108,7 +134,8 @@ class _PackageBridgeBundle {
   final Map<String, Map<String, LibraryVariable>> libraryVariables = {};
   final Map<String, Map<String, LibraryGetter>> libraryGetters = {};
   final Map<String, Map<String, LibrarySetter>> librarySetters = {};
-  final Map<Type, BridgedClass> bridgedDefLookupByType = {};
+  // Step #17 — thunk-backed native-type lookup (see LazyBridgeRegistry).
+  final LazyBridgeRegistry<Type> bridgedDefLookupByType = LazyBridgeRegistry();
   final Map<String,
           List<({String uri, Set<String>? show, Set<String>? hide})>>
       libraryReExports = {};
@@ -178,7 +205,8 @@ class D4rtRunner {
   final Map<String, Map<String, LibraryVariable>> _libraryVariables = {};
   final Map<String, Map<String, LibraryGetter>> _libraryGetters = {};
   final Map<String, Map<String, LibrarySetter>> _librarySetters = {};
-  final Map<Type, BridgedClass> _bridgedDefLookupByType = {};
+  // Step #17 — thunk-backed native-type lookup (see LazyBridgeRegistry).
+  final LazyBridgeRegistry<Type> _bridgedDefLookupByType = LazyBridgeRegistry();
   final Set<Permission> _grantedPermissions = {};
 
   /// GEN-107: Bridge re-exports modelled in the runtime.
@@ -470,18 +498,43 @@ class D4rtRunner {
   }
 
   /// Registers a bridged class definition.
+  ///
+  /// Eager wrapper around [registerBridgedClassLazy] — the [definition] is
+  /// already materialized, so its thunk just returns it.
   void registerBridgedClass(
     BridgedClass definition,
     String library, {
     String? sourceUri,
   }) {
-    final libClass = LibraryClass(definition, sourceUri: sourceUri);
-    (_bridgedClasses[library] ??= {})[libClass.name] = libClass;
-    _bridgedDefLookupByType[definition.nativeType] = definition;
+    registerBridgedClassLazy(
+      definition.name,
+      definition.nativeType,
+      () => definition,
+      library,
+      sourceUri: sourceUri,
+    );
+  }
+
+  /// Step #17 — registers a bridged class via a deferred factory [thunk].
+  ///
+  /// The [BridgedClass] is built (member maps + adapter closures) only when
+  /// the class is first resolved by name or native type, so a script that
+  /// touches N of M registered classes materializes ≈N objects rather than M.
+  /// The single memoized build point is [LibraryClass.bridgedClass].
+  void registerBridgedClassLazy(
+    String name,
+    Type nativeType,
+    BridgedClass Function() thunk,
+    String library, {
+    String? sourceUri,
+  }) {
+    final libClass = LibraryClass.lazy(name, nativeType, thunk, sourceUri: sourceUri);
+    (_bridgedClasses[library] ??= {})[name] = libClass;
+    _bridgedDefLookupByType.putThunk(nativeType, thunk);
     // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
     final bundle = _bundleFor();
-    (bundle.bridgedClasses[library] ??= {})[libClass.name] = libClass;
-    bundle.bridgedDefLookupByType[definition.nativeType] = definition;
+    (bundle.bridgedClasses[library] ??= {})[name] = libClass;
+    bundle.bridgedDefLookupByType.putThunk(nativeType, thunk);
   }
 
   /// GEN-074: Registers a class alias (type alias).
@@ -1144,10 +1197,11 @@ class D4rtRunner {
       }
     }
 
-    // Register bridged classes
+    // Register bridged classes (Step #17 — lazily, so the class's member maps
+    // + adapter closures are only built when the env first resolves it).
     for (final byName in classes.values) {
       for (final libClass in byName.values) {
-        env.defineBridge(libClass.bridgedClass);
+        env.defineBridgeLazy(libClass.name, libClass.nativeType, libClass.thunk);
       }
     }
 

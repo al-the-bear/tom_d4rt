@@ -351,10 +351,13 @@ class AstModuleLoader implements ModuleContext {
     for (final libClass
         in runner.bridgedClasses[uriString]?.values ??
             const <LibraryClass>[]) {
-      final name = libClass.bridgedClass.name;
+      final name = libClass.name;
       if (!_shouldInclude(name, showNames, hideNames)) continue;
 
-      targetEnvironment.defineBridge(libClass.bridgedClass);
+      // Step #17 — transfer the deferred thunk so the BridgedClass is only
+      // built if the importing module actually resolves the class.
+      targetEnvironment.defineBridgeLazy(
+          libClass.name, libClass.nativeType, libClass.thunk);
       Logger.debugLazy(
         () => '[AstModuleLoader] Registered bridged class: $name from $uriString',
       );
