@@ -21,3 +21,6 @@ analyzer:
     # Example sub-projects have their own pubspec.yaml and analysis config.
     # They must be analyzed individually, not from the parent package.
     - example/**
+    # Scratch/temp bridge outputs (gitignored, not part of the package surface;
+    # they import throwaway test packages that aren't dependencies).
+    - ztmp/**

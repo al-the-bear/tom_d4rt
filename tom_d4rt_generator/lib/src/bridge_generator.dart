@@ -1486,7 +1486,7 @@ class BridgeGenerator {
         sdkSummaryPath: sdkSummaryPath,
         librarySummaryPaths:
             hasSummaries ? (librarySummaryPaths ?? const []) : const [],
-        packagesFile: packageConfigFile,
+        packageConfigFile: packageConfigFile,
       );
     }
 
@@ -6003,7 +6003,7 @@ class BridgeGenerator {
     // Also include external classes from other packages for cross-package inheritance
     final lookupClasses = allClasses ?? classes;
     _classLookup = {
-      if (externalClassLookup != null) ...externalClassLookup,
+      ...?externalClassLookup,
       for (final cls in lookupClasses) cls.name: cls,
     };
 

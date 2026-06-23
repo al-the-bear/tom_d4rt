@@ -1,3 +1,34 @@
+## 1.10.0
+
+### Analyzer 10 migration
+
+- Upgraded `analyzer` to `^10.0.0` (from `^8.4.1`). Applied the analyzer-10 API
+  renames the generator relied on:
+  - `AnalysisContextCollectionImpl(..., packagesFile: …)` →
+    `packageConfigFile: …` (constructor parameter rename) in
+    `bridge_generator.dart`.
+  - `NamedType.name2` → `NamedType.name` in `corpus_type_scanner.dart`.
+  - Tidied a now-flagged null-aware spread (`...?externalClassLookup`) in
+    `bridge_generator.dart`.
+  `Element.isSynthetic` remains deprecated-but-functional under analyzer 10; it
+  is left in place because this package already sets
+  `deprecated_member_use: ignore` project-wide, so no per-call migration was
+  needed.
+- Bumped `tom_d4rt` to `^1.8.25` (first analyzer-10 build on pub.dev; earlier
+  `1.8.x` carry `analyzer ^8` and would conflict) and `tom_analyzer_shared` to
+  `^0.4.0`.
+- Stale analyzer-8 `.sum` summary bundles under `example/d4/.tom/analyzer-cache/`
+  are undecodable by analyzer 10's `bundle_reader` (`RangeError` in
+  `_decodeVariance`) and were poisoning the test suites. Added a `.gitignore`
+  for `**/.tom/analyzer-cache/` and untracked the 92 regenerable bundles; they
+  rebuild on demand under the active analyzer.
+
+> **Incorporates 1.9.9** (published out-of-band, skipping local's 1.9.8): the
+> `tom_analyzer_shared ^0.3.0` shared-tool-cache change (analyzer summaries
+> resolved via `ToolCacheLocator` into the shared Tom tool-cache directory) is
+> superseded here by the `^0.4.0` constraint, so its behaviour is retained. This
+> release also carries the 1.9.8 const-arg suppression that 1.9.9 omitted.
+
 ## 1.9.8
 
 ### Generation quality (suppress unavoidable const-arg warning)

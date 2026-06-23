@@ -154,7 +154,7 @@ class _TypeArgumentCollector extends RecursiveAstVisitor<void> {
   void visitTypeArgumentList(TypeArgumentList node) {
     for (final arg in node.arguments) {
       if (arg is NamedType) {
-        final name = arg.name2.lexeme;
+        final name = arg.name.lexeme;
         if (!_nonBridgeableTypeArgs.contains(name)) {
           counts[name] = (counts[name] ?? 0) + 1;
         }
