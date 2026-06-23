@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:tom_d4rt_ast/runtime.dart';
 import 'package:tom_d4rt_ast/src/runtime/utils/extensions/string.dart';
 
@@ -44,6 +46,69 @@ class GlobalGetter {
 
   /// Whether this global getter supports assignment.
   bool get hasSetter => setter != null;
+}
+
+/// A `key → BridgedClass` map whose entries may be stored as **deferred
+/// thunks** rather than pre-built classes.
+///
+/// Step #3 of the import-optimization plan (substrate for the generator's
+/// lazy emission, plan step #17). [operator []] resolves a thunk on first
+/// access and **memoizes** the built [BridgedClass], so a heavy class body
+/// (its seven member maps and all adapter closures) is constructed at most
+/// once. [containsKey] / [keys] / [length] only consult the thunk keys, so
+/// probing for a name never forces a build.
+///
+/// Used both name-keyed (`K = String`, lexical lookup) and type-keyed
+/// (`K = Type`, native-object resolution). Today every entry is a trivial
+/// `() => alreadyBuiltClass` thunk (registration still hands over built
+/// classes — behaviour unchanged); once the generator emits genuinely
+/// deferred thunks, the heavy body is built only when the name/type is
+/// first touched during interpretation.
+///
+/// Mirror of the same class in `tom_d4rt` `environment.dart`.
+class _LazyBridgeRegistry<K> extends MapBase<K, BridgedClass> {
+  final Map<K, BridgedClass Function()> _thunks = {};
+  final Map<K, BridgedClass> _memo = {};
+
+  /// Registers [key] as a deferred [thunk]. The [BridgedClass] is not built
+  /// until [operator []] is first called for [key]; any previously memoized
+  /// result is dropped so the new thunk wins.
+  void putThunk(K key, BridgedClass Function() thunk) {
+    _thunks[key] = thunk;
+    _memo.remove(key);
+  }
+
+  @override
+  BridgedClass? operator [](Object? key) {
+    final cached = _memo[key];
+    if (cached != null) return cached;
+    final thunk = _thunks[key];
+    if (thunk == null) return null;
+    final built = thunk();
+    _memo[key as K] = built;
+    return built;
+  }
+
+  @override
+  void operator []=(K key, BridgedClass value) {
+    _thunks[key] = () => value;
+    _memo[key] = value;
+  }
+
+  @override
+  BridgedClass? remove(Object? key) {
+    _thunks.remove(key);
+    return _memo.remove(key);
+  }
+
+  @override
+  Iterable<K> get keys => _thunks.keys;
+
+  @override
+  void clear() {
+    _thunks.clear();
+    _memo.clear();
+  }
 }
 
 /// Represents the execution environment for interpreted code.
@@ -108,7 +173,10 @@ class Environment {
   //     being unmodifiable, a tripwire that throws if a write ever slips
   //     through it instead of the `…OrNew` getter;
   //   * the `…OrNew` write view allocates the real collection on first use.
-  Map<String, BridgedClass>? _bridgedClassesRaw;
+  // Step #3 (import-optimization): the name and type bridge registries are
+  // thunk-capable — each entry may be a deferred `() => BridgedClass` built and
+  // memoized on first lookup. See [_LazyBridgeRegistry].
+  _LazyBridgeRegistry<String>? _bridgedClassesRaw;
   // Same-name bridge overflow: when two distinct bridges register under the
   // same simple name (e.g. `tom_doc_scanner` and `tom_md2latex` both export a
   // `MarkdownParser`), `_bridgedClasses` keeps only the last-registered one.
@@ -117,7 +185,7 @@ class Environment {
   // until a genuine name collision occurs — the common one-bridge-per-name case
   // allocates nothing.
   Map<String, List<BridgedClass>>? _shadowedBridgesRaw;
-  Map<Type, BridgedClass>? _bridgedClassesLookupByTypeRaw;
+  _LazyBridgeRegistry<Type>? _bridgedClassesLookupByTypeRaw;
   // GEN-115 Phase 2 — runtimeType→bridge resolution cache. Populated by
   // [toBridgedInstance] after a non-trivial step-2 / step-3 walk so that
   // repeat lookups of the same private impl type (e.g. _BodyBoxConstraints,
@@ -158,12 +226,12 @@ class Environment {
       _prefixedImportsRaw ?? const <String, Environment>{};
 
   // Write views — allocate the backing collection on first use.
-  Map<String, BridgedClass> get _bridgedClassesOrNew =>
-      _bridgedClassesRaw ??= {};
+  _LazyBridgeRegistry<String> get _bridgedClassesOrNew =>
+      _bridgedClassesRaw ??= _LazyBridgeRegistry<String>();
   Map<String, List<BridgedClass>> get _shadowedBridgesOrNew =>
       _shadowedBridgesRaw ??= {};
-  Map<Type, BridgedClass> get _bridgedClassesLookupByTypeOrNew =>
-      _bridgedClassesLookupByTypeRaw ??= {};
+  _LazyBridgeRegistry<Type> get _bridgedClassesLookupByTypeOrNew =>
+      _bridgedClassesLookupByTypeRaw ??= _LazyBridgeRegistry<Type>();
   Map<Type, BridgedClass> get _resolvedTypeCacheOrNew =>
       _resolvedTypeCacheRaw ??= {};
   Set<Type> get _unbridgedTypeCacheOrNew => _unbridgedTypeCacheRaw ??= {};
@@ -280,21 +348,43 @@ class Environment {
   /// This makes the native class available for use in interpreted code
   /// under the name specified by the bridged class definition.
   void defineBridge(BridgedClass bridgedClass) {
-    final name = bridgedClass.name;
+    // An already-built class registers as a trivial `() => obj` thunk; the
+    // lazy substrate resolves it on first lookup and memoizes (behaviour
+    // unchanged for eager callers). See [defineBridgeLazy].
+    defineBridgeLazy(
+        bridgedClass.name, bridgedClass.nativeType, () => bridgedClass);
+  }
 
-    if (_values.containsKey(name) ||
-        _bridgedClasses.containsKey(name) ||
-        _bridgedEnums.containsKey(name)) {
-      // CHECK: Also check bridged enums
+  /// Registers a bridged class as a **deferred thunk** keyed by [name], plus a
+  /// parallel `Type → thunk` entry under [nativeType] for native-object
+  /// resolution. The [BridgedClass] is built (and memoized) only when [name]
+  /// or [nativeType] is first resolved — the substrate the generator's lazy
+  /// emission plugs into (import-optimization plan step #17).
+  ///
+  /// In the common no-collision case the thunk is stored without building. A
+  /// genuine same-name collision (another bridge / enum / value already holds
+  /// [name]) resolves the new thunk eagerly so the displaced bridge can be
+  /// preserved for static/constructor fallback and the shadow list shares the
+  /// same instance the memo will serve. Collisions are rare, so this does not
+  /// regress the common lazy path.
+  void defineBridgeLazy(
+      String name, Type nativeType, BridgedClass Function() thunk) {
+    final collides = _values.containsKey(name) ||
+        (_bridgedClassesRaw?.containsKey(name) ?? false) ||
+        _bridgedEnums.containsKey(name);
+    if (collides) {
+      // CHECK: Also collides with bridged enums / values.
       Logger.warn(
         "Redefining bridged class or colliding with existing definition: $name",
       );
+      // Preserve a displaced same-name bridge so static/constructor resolution
+      // can fall back to it (two packages exporting an identically named class).
+      final built = thunk();
+      _recordShadowedBridge(name, _bridgedClassesRaw?[name], built);
+      thunk = () => built;
     }
-    // Preserve a displaced same-name bridge so static/constructor resolution
-    // can fall back to it (two packages exporting an identically named class).
-    _recordShadowedBridge(name, _bridgedClassesRaw?[name], bridgedClass);
-    _bridgedClassesOrNew[name] = bridgedClass;
-    _bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] = bridgedClass;
+    _bridgedClassesOrNew.putThunk(name, thunk);
+    _bridgedClassesLookupByTypeOrNew.putThunk(nativeType, thunk);
     _invalidateResolutionCache();
     Logger.debug("[Environment] Defined bridge for class: $name");
   }
@@ -379,7 +469,8 @@ class Environment {
   /// type-only counterpart for callers that want to avoid name-scope pollution.
   /// Mirrors [tom_d4rt:Environment.registerBridgeType].
   void registerBridgeType(BridgedClass bridgedClass) {
-    _bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] = bridgedClass;
+    _bridgedClassesLookupByTypeOrNew
+        .putThunk(bridgedClass.nativeType, () => bridgedClass);
     _invalidateResolutionCache();
   }
 
