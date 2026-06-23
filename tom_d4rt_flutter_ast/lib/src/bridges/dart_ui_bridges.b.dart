@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/Desktop/development/flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart
-// Generated: 2026-06-21T14:43:25.174973
+// Generated: 2026-06-24T00:36:39.001055
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -21,6 +21,10 @@ import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/text_user_bridge.dart
 /// Bridge class for dart_ui module.
 class DartUiBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createChannelBuffersBridge(),
@@ -131,6 +135,237 @@ class DartUiBridge {
       _createFrameDataBridge(),
       _createGestureSettingsBridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'ChannelBuffers': _createChannelBuffersBridge,
+      'Scene': _createSceneBridge,
+      'TransformEngineLayer': _createTransformEngineLayerBridge,
+      'OffsetEngineLayer': _createOffsetEngineLayerBridge,
+      'ClipRectEngineLayer': _createClipRectEngineLayerBridge,
+      'ClipRRectEngineLayer': _createClipRRectEngineLayerBridge,
+      'ClipRSuperellipseEngineLayer': _createClipRSuperellipseEngineLayerBridge,
+      'ClipPathEngineLayer': _createClipPathEngineLayerBridge,
+      'OpacityEngineLayer': _createOpacityEngineLayerBridge,
+      'ColorFilterEngineLayer': _createColorFilterEngineLayerBridge,
+      'ImageFilterEngineLayer': _createImageFilterEngineLayerBridge,
+      'BackdropFilterEngineLayer': _createBackdropFilterEngineLayerBridge,
+      'ShaderMaskEngineLayer': _createShaderMaskEngineLayerBridge,
+      'SceneBuilder': _createSceneBuilderBridge,
+      'OffsetBase': _createOffsetBaseBridge,
+      'Offset': _createOffsetBridge,
+      'Size': _createSizeBridge,
+      'Rect': _createRectBridge,
+      'Radius': _createRadiusBridge,
+      'RRect': _createRRectBridge,
+      'RSuperellipse': _createRSuperellipseBridge,
+      'RSTransform': _createRSTransformBridge,
+      'IsolateNameServer': _createIsolateNameServerBridge,
+      'KeyData': _createKeyDataBridge,
+      'DartPluginRegistrant': _createDartPluginRegistrantBridge,
+      'Color': _createColorBridge,
+      'Paint': _createPaintBridge,
+      'Image': _createImageBridge,
+      'FrameInfo': _createFrameInfoBridge,
+      'Codec': _createCodecBridge,
+      'TargetImageSize': _createTargetImageSizeBridge,
+      'EngineLayer': _createEngineLayerBridge,
+      'Path': _createPathBridge,
+      'Tangent': _createTangentBridge,
+      'PathMetrics': _createPathMetricsBridge,
+      'PathMetricIterator': _createPathMetricIteratorBridge,
+      'PathMetric': _createPathMetricBridge,
+      'MaskFilter': _createMaskFilterBridge,
+      'ColorFilter': _createColorFilterBridge,
+      'ImageFilter': _createImageFilterBridge,
+      'Shader': _createShaderBridge,
+      'Gradient': _createGradientBridge,
+      'ImageShader': _createImageShaderBridge,
+      'FragmentProgram': _createFragmentProgramBridge,
+      'UniformType': _createUniformTypeBridge,
+      'UniformFloatSlot': _createUniformFloatSlotBridge,
+      'UniformVec2Slot': _createUniformVec2SlotBridge,
+      'UniformVec3Slot': _createUniformVec3SlotBridge,
+      'UniformVec4Slot': _createUniformVec4SlotBridge,
+      'UniformMat2Slot': _createUniformMat2SlotBridge,
+      'UniformMat3Slot': _createUniformMat3SlotBridge,
+      'UniformMat4Slot': _createUniformMat4SlotBridge,
+      'UniformArray': _createUniformArrayBridge,
+      'ImageSamplerSlot': _createImageSamplerSlotBridge,
+      'FragmentShader': _createFragmentShaderBridge,
+      'Vertices': _createVerticesBridge,
+      'Canvas': _createCanvasBridge,
+      'Picture': _createPictureBridge,
+      'PictureRecorder': _createPictureRecorderBridge,
+      'Shadow': _createShadowBridge,
+      'ImmutableBuffer': _createImmutableBufferBridge,
+      'ImageDescriptor': _createImageDescriptorBridge,
+      'PictureRasterizationException': _createPictureRasterizationExceptionBridge,
+      'RootIsolateToken': _createRootIsolateTokenBridge,
+      'PlatformDispatcher': _createPlatformDispatcherBridge,
+      'SystemColor': _createSystemColorBridge,
+      'SystemColorPalette': _createSystemColorPaletteBridge,
+      'FrameTiming': _createFrameTimingBridge,
+      'ViewPadding': _createViewPaddingBridge,
+      'ViewConstraints': _createViewConstraintsBridge,
+      'DisplayFeature': _createDisplayFeatureBridge,
+      'DisplayCornerRadii': _createDisplayCornerRadiiBridge,
+      'Locale': _createLocaleBridge,
+      'SemanticsActionEvent': _createSemanticsActionEventBridge,
+      'ViewFocusEvent': _createViewFocusEventBridge,
+      'CallbackHandle': _createCallbackHandleBridge,
+      'PluginUtilities': _createPluginUtilitiesBridge,
+      'PointerData': _createPointerDataBridge,
+      'PointerDataPacket': _createPointerDataPacketBridge,
+      'SemanticsAction': _createSemanticsActionBridge,
+      'SemanticsFlag': _createSemanticsFlagBridge,
+      'StringAttribute': _createStringAttributeBridge,
+      'SpellOutStringAttribute': _createSpellOutStringAttributeBridge,
+      'LocaleStringAttribute': _createLocaleStringAttributeBridge,
+      'SemanticsUpdateBuilder': _createSemanticsUpdateBuilderBridge,
+      'SemanticsUpdate': _createSemanticsUpdateBridge,
+      'FontWeight': _createFontWeightBridge,
+      'FontFeature': _createFontFeatureBridge,
+      'FontVariation': _createFontVariationBridge,
+      'GlyphInfo': _createGlyphInfoBridge,
+      'TextDecoration': _createTextDecorationBridge,
+      'TextHeightBehavior': _createTextHeightBehaviorBridge,
+      'TextStyle': _createTextStyleBridge,
+      'ParagraphStyle': _createParagraphStyleBridge,
+      'StrutStyle': _createStrutStyleBridge,
+      'TextBox': _createTextBoxBridge,
+      'TextPosition': _createTextPositionBridge,
+      'TextRange': _createTextRangeBridge,
+      'ParagraphConstraints': _createParagraphConstraintsBridge,
+      'LineMetrics': _createLineMetricsBridge,
+      'Paragraph': _createParagraphBridge,
+      'ParagraphBuilder': _createParagraphBuilderBridge,
+      'Display': _createDisplayBridge,
+      'FlutterView': _createFlutterViewBridge,
+      'AccessibilityFeatures': _createAccessibilityFeaturesBridge,
+      'FrameData': _createFrameDataBridge,
+      'GestureSettings': _createGestureSettingsBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'ChannelBuffers': $dart_ui.ChannelBuffers,
+      'Scene': $dart_ui.Scene,
+      'TransformEngineLayer': $dart_ui.TransformEngineLayer,
+      'OffsetEngineLayer': $dart_ui.OffsetEngineLayer,
+      'ClipRectEngineLayer': $dart_ui.ClipRectEngineLayer,
+      'ClipRRectEngineLayer': $dart_ui.ClipRRectEngineLayer,
+      'ClipRSuperellipseEngineLayer': $dart_ui.ClipRSuperellipseEngineLayer,
+      'ClipPathEngineLayer': $dart_ui.ClipPathEngineLayer,
+      'OpacityEngineLayer': $dart_ui.OpacityEngineLayer,
+      'ColorFilterEngineLayer': $dart_ui.ColorFilterEngineLayer,
+      'ImageFilterEngineLayer': $dart_ui.ImageFilterEngineLayer,
+      'BackdropFilterEngineLayer': $dart_ui.BackdropFilterEngineLayer,
+      'ShaderMaskEngineLayer': $dart_ui.ShaderMaskEngineLayer,
+      'SceneBuilder': $dart_ui.SceneBuilder,
+      'OffsetBase': $dart_ui.OffsetBase,
+      'Offset': $dart_ui.Offset,
+      'Size': $dart_ui.Size,
+      'Rect': $dart_ui.Rect,
+      'Radius': $dart_ui.Radius,
+      'RRect': $dart_ui.RRect,
+      'RSuperellipse': $dart_ui.RSuperellipse,
+      'RSTransform': $dart_ui.RSTransform,
+      'IsolateNameServer': $dart_ui.IsolateNameServer,
+      'KeyData': $dart_ui.KeyData,
+      'DartPluginRegistrant': $dart_ui.DartPluginRegistrant,
+      'Color': $dart_ui.Color,
+      'Paint': $dart_ui.Paint,
+      'Image': $dart_ui.Image,
+      'FrameInfo': $dart_ui.FrameInfo,
+      'Codec': $dart_ui.Codec,
+      'TargetImageSize': $dart_ui.TargetImageSize,
+      'EngineLayer': $dart_ui.EngineLayer,
+      'Path': $dart_ui.Path,
+      'Tangent': $dart_ui.Tangent,
+      'PathMetrics': $dart_ui.PathMetrics,
+      'PathMetricIterator': $dart_ui.PathMetricIterator,
+      'PathMetric': $dart_ui.PathMetric,
+      'MaskFilter': $dart_ui.MaskFilter,
+      'ColorFilter': $dart_ui.ColorFilter,
+      'ImageFilter': $dart_ui.ImageFilter,
+      'Shader': $dart_ui.Shader,
+      'Gradient': $dart_ui.Gradient,
+      'ImageShader': $dart_ui.ImageShader,
+      'FragmentProgram': $dart_ui.FragmentProgram,
+      'UniformType': $dart_ui.UniformType,
+      'UniformFloatSlot': $dart_ui.UniformFloatSlot,
+      'UniformVec2Slot': $dart_ui.UniformVec2Slot,
+      'UniformVec3Slot': $dart_ui.UniformVec3Slot,
+      'UniformVec4Slot': $dart_ui.UniformVec4Slot,
+      'UniformMat2Slot': $dart_ui.UniformMat2Slot,
+      'UniformMat3Slot': $dart_ui.UniformMat3Slot,
+      'UniformMat4Slot': $dart_ui.UniformMat4Slot,
+      'UniformArray': $dart_ui.UniformArray,
+      'ImageSamplerSlot': $dart_ui.ImageSamplerSlot,
+      'FragmentShader': $dart_ui.FragmentShader,
+      'Vertices': $dart_ui.Vertices,
+      'Canvas': $dart_ui.Canvas,
+      'Picture': $dart_ui.Picture,
+      'PictureRecorder': $dart_ui.PictureRecorder,
+      'Shadow': $dart_ui.Shadow,
+      'ImmutableBuffer': $dart_ui.ImmutableBuffer,
+      'ImageDescriptor': $dart_ui.ImageDescriptor,
+      'PictureRasterizationException': $dart_ui.PictureRasterizationException,
+      'RootIsolateToken': $dart_ui.RootIsolateToken,
+      'PlatformDispatcher': $dart_ui.PlatformDispatcher,
+      'SystemColor': $dart_ui.SystemColor,
+      'SystemColorPalette': $dart_ui.SystemColorPalette,
+      'FrameTiming': $dart_ui.FrameTiming,
+      'ViewPadding': $dart_ui.ViewPadding,
+      'ViewConstraints': $dart_ui.ViewConstraints,
+      'DisplayFeature': $dart_ui.DisplayFeature,
+      'DisplayCornerRadii': $dart_ui.DisplayCornerRadii,
+      'Locale': $dart_ui.Locale,
+      'SemanticsActionEvent': $dart_ui.SemanticsActionEvent,
+      'ViewFocusEvent': $dart_ui.ViewFocusEvent,
+      'CallbackHandle': $dart_ui.CallbackHandle,
+      'PluginUtilities': $dart_ui.PluginUtilities,
+      'PointerData': $dart_ui.PointerData,
+      'PointerDataPacket': $dart_ui.PointerDataPacket,
+      'SemanticsAction': $dart_ui.SemanticsAction,
+      'SemanticsFlag': $dart_ui.SemanticsFlag,
+      'StringAttribute': $dart_ui.StringAttribute,
+      'SpellOutStringAttribute': $dart_ui.SpellOutStringAttribute,
+      'LocaleStringAttribute': $dart_ui.LocaleStringAttribute,
+      'SemanticsUpdateBuilder': $dart_ui.SemanticsUpdateBuilder,
+      'SemanticsUpdate': $dart_ui.SemanticsUpdate,
+      'FontWeight': $dart_ui.FontWeight,
+      'FontFeature': $dart_ui.FontFeature,
+      'FontVariation': $dart_ui.FontVariation,
+      'GlyphInfo': $dart_ui.GlyphInfo,
+      'TextDecoration': $dart_ui.TextDecoration,
+      'TextHeightBehavior': $dart_ui.TextHeightBehavior,
+      'TextStyle': $dart_ui.TextStyle,
+      'ParagraphStyle': $dart_ui.ParagraphStyle,
+      'StrutStyle': $dart_ui.StrutStyle,
+      'TextBox': $dart_ui.TextBox,
+      'TextPosition': $dart_ui.TextPosition,
+      'TextRange': $dart_ui.TextRange,
+      'ParagraphConstraints': $dart_ui.ParagraphConstraints,
+      'LineMetrics': $dart_ui.LineMetrics,
+      'Paragraph': $dart_ui.Paragraph,
+      'ParagraphBuilder': $dart_ui.ParagraphBuilder,
+      'Display': $dart_ui.Display,
+      'FlutterView': $dart_ui.FlutterView,
+      'AccessibilityFeatures': $dart_ui.AccessibilityFeatures,
+      'FrameData': $dart_ui.FrameData,
+      'GestureSettings': $dart_ui.GestureSettings,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -652,11 +887,20 @@ class DartUiBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // MCI#1 / A1: Register the flattened native supertype table so

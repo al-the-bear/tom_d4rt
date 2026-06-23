@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-06-21T14:43:29.387301
+// Generated: 2026-06-24T00:36:42.338252
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -25,6 +25,10 @@ import 'package:tom_d4rt_flutter_ast/src/d4rt_user_bridges/text_user_bridge.dart
 /// Bridge class for flutter_physics module.
 class FlutterPhysicsBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createToleranceBridge(),
@@ -35,6 +39,37 @@ class FlutterPhysicsBridge {
       _createSpringSimulationBridge(),
       _createScrollSpringSimulationBridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'Tolerance': _createToleranceBridge,
+      'ClampedSimulation': _createClampedSimulationBridge,
+      'FrictionSimulation': _createFrictionSimulationBridge,
+      'BoundedFrictionSimulation': _createBoundedFrictionSimulationBridge,
+      'GravitySimulation': _createGravitySimulationBridge,
+      'SpringSimulation': _createSpringSimulationBridge,
+      'ScrollSpringSimulation': _createScrollSpringSimulationBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'Tolerance': $flutter_6.Tolerance,
+      'ClampedSimulation': $flutter_1.ClampedSimulation,
+      'FrictionSimulation': $flutter_2.FrictionSimulation,
+      'BoundedFrictionSimulation': $flutter_2.BoundedFrictionSimulation,
+      'GravitySimulation': $flutter_3.GravitySimulation,
+      'SpringSimulation': $flutter_5.SpringSimulation,
+      'ScrollSpringSimulation': $flutter_5.ScrollSpringSimulation,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -148,11 +183,20 @@ class FlutterPhysicsBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // MCI#1 / A1: Register the flattened native supertype table so

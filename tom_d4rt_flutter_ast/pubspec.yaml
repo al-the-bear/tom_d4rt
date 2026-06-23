@@ -11,7 +11,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  tom_d4rt_ast: ^0.1.6
+  # 0.1.9 adds the providePackage/finalizeBridges import-optimization API the
+  # step #20 `_registerBridges` guard calls. 0.1.10 carries the precise-before-
+  # fuzzy `Environment.toBridgedClass` fix (MappedListIterable → Iterable, not
+  # Map) that the lazy warm-parent substrate the guard activates depends on.
+  tom_d4rt_ast: ^0.1.10
   archive: ^4.0.9
   # Explicit transitive Flutter deps used in generated bridge code
   characters: ^1.4.0
@@ -23,17 +27,17 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0
   path: ^1.9.0
-  # analyzer-10 migration: tom_d4rt_generator (still analyzer ^8.4.1) cannot
-  # share a resolution with tom_ast_generator / tom_d4rt_exec on analyzer ^10.
-  # Bridge regeneration is deferred to the cli_tools-quest generator migration;
-  # committed *.b.dart bridges are used as-is in the meantime.
-  # tom_d4rt_generator: ^1.9.8
+  # Bridge regeneration (tool/regenerate_bridges.dart). 1.11.0 is analyzer-10,
+  # matching tom_d4rt_exec / tom_ast_generator (also analyzer ^10), so the
+  # earlier analyzer-8-vs-10 conflict that deferred regen is resolved — the
+  # generator now shares a single resolution with the rest of the toolchain.
+  tom_d4rt_generator: ^1.11.0
   # Analyzer front-end + 1:1 AST copier. Used ONLY by the bridge
   # regeneration tool (tool/regenerate_bridges.dart) and the test
   # driver — never by lib/ runtime code. The bridges and FlutterD4rt
   # resolve entirely within tom_d4rt_ast, keeping the runtime
   # analyzer-free and web-safe.
-  tom_d4rt_exec: ^1.8.4
+  tom_d4rt_exec: ^1.9.0
   tom_ast_generator: ^0.1.2
 
 # For information on the generic Dart part of this file, see the

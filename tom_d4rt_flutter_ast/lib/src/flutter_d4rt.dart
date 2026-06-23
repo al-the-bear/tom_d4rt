@@ -42,24 +42,39 @@ class FlutterD4rt {
   }
 
   void _registerBridges() {
-    // Pre-material: user-bridge relaxers and runtime extensions must
-    // register their generic-constructor factories BEFORE material so
-    // material's auto-gen factory ends up on top of the
-    // newest-first chain. Putting them after material flips the chain
-    // and breaks scripts like `ValueNotifier<int>(0)` (the user-bridge
-    // factory hard-casts to `double?`).
-    registerRelaxers();
-    registerD4rtRuntimeExtensions();
-    FlutterMaterialBridges.register(_interpreter);
-    // Post-material: `registerD4rtInterfaceProxyOverrides` rewrites a
-    // handful of `<dynamic>`-parameterised proxies with concrete type
-    // arguments and depends on material's proxy registrations being in
-    // place. The extension hook fires it after material at finalize
-    // time (explicit below, or implicitly on the first execute).
-    _interpreter.registerExtensions(
-      'tom_d4rt_flutter_ast',
-      registerD4rtInterfaceProxyOverrides,
-    );
+    // Import-optimization step #20: pay the expensive bridge-registration cost
+    // only the first time this package is seen in the process. `providePackage`
+    // returns `false` on first sight (and opens the registration context so the
+    // `register*` calls below land in the package pool) and `true` on later
+    // instances, which reuse the pooled definitions. Every registration here
+    // targets process-global tables — relaxers and interface proxies land in
+    // static `D4` maps, the material bridges register lazy thunks into the
+    // pooled bundle, and the extension callback is once-per-package-per-process
+    // — so running this block exactly once is correct and sufficient.
+    if (_interpreter.providePackage('tom_d4rt_flutter_ast') == false) {
+      // Pre-material: user-bridge relaxers and runtime extensions must
+      // register their generic-constructor factories BEFORE material so
+      // material's auto-gen factory ends up on top of the
+      // newest-first chain. Putting them after material flips the chain
+      // and breaks scripts like `ValueNotifier<int>(0)` (the user-bridge
+      // factory hard-casts to `double?`).
+      registerRelaxers();
+      registerD4rtRuntimeExtensions();
+      FlutterMaterialBridges.register(_interpreter);
+      // Post-material: `registerD4rtInterfaceProxyOverrides` rewrites a
+      // handful of `<dynamic>`-parameterised proxies with concrete type
+      // arguments and depends on material's proxy registrations being in
+      // place. The extension hook fires it after material at finalize
+      // time (explicit below, or implicitly on the first execute).
+      _interpreter.registerExtensions(
+        'tom_d4rt_flutter_ast',
+        registerD4rtInterfaceProxyOverrides,
+      );
+    }
+    // `finalizeBridges()` runs on every instance: it builds this instance's
+    // warm parent from the pooled definitions and fires any not-yet-fired
+    // extension callbacks. It is cheap on later instances (its own
+    // `_bridgesFinalized` / once-per-process guards short-circuit the work).
     _interpreter.finalizeBridges();
   }
 

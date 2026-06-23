@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 5 files
-// Generated: 2026-06-21T14:43:30.456872
+// Generated: 2026-06-24T00:36:43.273192
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -31,6 +31,10 @@ import 'package:flutter/src/foundation/change_notifier.dart' as $aux_flutter_2;
 /// Bridge class for flutter_semantics module.
 class FlutterSemanticsBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createSemanticsHandleBridge(),
@@ -58,6 +62,71 @@ class FlutterSemanticsBridge {
       _createOrdinalSortKeyBridge(),
       _createSemanticsServiceBridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'SemanticsHandle': _createSemanticsHandleBridge,
+      'SemanticsBinding': _createSemanticsBindingBridge,
+      'SemanticsEvent': _createSemanticsEventBridge,
+      'AnnounceSemanticsEvent': _createAnnounceSemanticsEventBridge,
+      'TooltipSemanticsEvent': _createTooltipSemanticsEventBridge,
+      'LongPressSemanticsEvent': _createLongPressSemanticsEventBridge,
+      'TapSemanticEvent': _createTapSemanticEventBridge,
+      'FocusSemanticEvent': _createFocusSemanticEventBridge,
+      'SemanticsTag': _createSemanticsTagBridge,
+      'ChildSemanticsConfigurationsResult': _createChildSemanticsConfigurationsResultBridge,
+      'ChildSemanticsConfigurationsResultBuilder': _createChildSemanticsConfigurationsResultBuilderBridge,
+      'CustomSemanticsAction': _createCustomSemanticsActionBridge,
+      'AttributedString': _createAttributedStringBridge,
+      'AttributedStringProperty': _createAttributedStringPropertyBridge,
+      'SemanticsLabelBuilder': _createSemanticsLabelBuilderBridge,
+      'SemanticsData': _createSemanticsDataBridge,
+      'SemanticsHintOverrides': _createSemanticsHintOverridesBridge,
+      'SemanticsProperties': _createSemanticsPropertiesBridge,
+      'SemanticsNode': _createSemanticsNodeBridge,
+      'SemanticsOwner': _createSemanticsOwnerBridge,
+      'SemanticsConfiguration': _createSemanticsConfigurationBridge,
+      'SemanticsSortKey': _createSemanticsSortKeyBridge,
+      'OrdinalSortKey': _createOrdinalSortKeyBridge,
+      'SemanticsService': _createSemanticsServiceBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'SemanticsHandle': $flutter_5.SemanticsHandle,
+      'SemanticsBinding': $flutter_5.SemanticsBinding,
+      'SemanticsEvent': $flutter_8.SemanticsEvent,
+      'AnnounceSemanticsEvent': $flutter_8.AnnounceSemanticsEvent,
+      'TooltipSemanticsEvent': $flutter_8.TooltipSemanticsEvent,
+      'LongPressSemanticsEvent': $flutter_8.LongPressSemanticsEvent,
+      'TapSemanticEvent': $flutter_8.TapSemanticEvent,
+      'FocusSemanticEvent': $flutter_8.FocusSemanticEvent,
+      'SemanticsTag': $flutter_7.SemanticsTag,
+      'ChildSemanticsConfigurationsResult': $flutter_7.ChildSemanticsConfigurationsResult,
+      'ChildSemanticsConfigurationsResultBuilder': $flutter_7.ChildSemanticsConfigurationsResultBuilder,
+      'CustomSemanticsAction': $flutter_7.CustomSemanticsAction,
+      'AttributedString': $flutter_7.AttributedString,
+      'AttributedStringProperty': $flutter_7.AttributedStringProperty,
+      'SemanticsLabelBuilder': $flutter_7.SemanticsLabelBuilder,
+      'SemanticsData': $flutter_7.SemanticsData,
+      'SemanticsHintOverrides': $flutter_7.SemanticsHintOverrides,
+      'SemanticsProperties': $flutter_7.SemanticsProperties,
+      'SemanticsNode': $flutter_7.SemanticsNode,
+      'SemanticsOwner': $flutter_7.SemanticsOwner,
+      'SemanticsConfiguration': $flutter_7.SemanticsConfiguration,
+      'SemanticsSortKey': $flutter_7.SemanticsSortKey,
+      'OrdinalSortKey': $flutter_7.OrdinalSortKey,
+      'SemanticsService': $flutter_9.SemanticsService,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -494,11 +563,20 @@ class FlutterSemanticsBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // MCI#1 / A1: Register the flattened native supertype table so
