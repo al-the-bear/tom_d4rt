@@ -386,7 +386,7 @@ class Environment {
     _bridgedClassesOrNew.putThunk(name, thunk);
     _bridgedClassesLookupByTypeOrNew.putThunk(nativeType, thunk);
     _invalidateResolutionCache();
-    Logger.debug("[Environment] Defined bridge for class: $name");
+    Logger.debugLazy(() => "[Environment] Defined bridge for class: $name");
   }
 
   /// Clears the [_resolvedTypeCache]. Called from every site that mutates
@@ -808,7 +808,7 @@ class Environment {
       );
     }
     _bridgedEnumsOrNew[name] = bridgedEnum;
-    Logger.debug("[Environment] Defined bridge for enum: $name");
+    Logger.debugLazy(() => "[Environment] Defined bridge for enum: $name");
   }
 
   /// Checks if the given object is a bridged enum value

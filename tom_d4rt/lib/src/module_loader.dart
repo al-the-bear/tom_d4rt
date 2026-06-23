@@ -259,7 +259,7 @@ class ModuleLoader {
       try {
         final bridgedEnum = libEnum.enumDefinition.buildBridgedEnum();
         targetEnvironment.defineBridgedEnum(bridgedEnum);
-        Logger.debug(
+        Logger.debugLazy(() =>
             ' [ModuleLoader] GEN-100: Registered bridged enum: $name from $uriString');
       } catch (e) {
         Logger.error("registering bridged enum '$name' into module env: $e");
@@ -276,7 +276,7 @@ class ModuleLoader {
       }
       try {
         targetEnvironment.defineBridge(libClass.bridgedClass);
-        Logger.debug(
+        Logger.debugLazy(() =>
             ' [ModuleLoader] GEN-100: Registered bridged class: $name from $uriString');
       } catch (e) {
         Logger.error("registering bridged class '$name' into module env: $e");
@@ -294,7 +294,7 @@ class ModuleLoader {
         try {
           targetEnvironment.defineBridgeAlias(
               alias.aliasName, alias.targetName);
-          Logger.debug(
+          Logger.debugLazy(() =>
               ' [ModuleLoader] GEN-100: Registered alias: ${alias.aliasName} → ${alias.targetName} from $uriString');
         } catch (e) {
           Logger.error(
@@ -311,7 +311,7 @@ class ModuleLoader {
         try {
           targetEnvironment.defineBridge(
               BridgedClass(nativeType: Function, name: typedef.name));
-          Logger.debug(
+          Logger.debugLazy(() =>
               ' [ModuleLoader] GEN-100: Registered function typedef: ${typedef.name} from $uriString');
         } catch (e) {
           Logger.error(
@@ -331,7 +331,7 @@ class ModuleLoader {
       }
       try {
         targetEnvironment.define(name, libFunc.function);
-        Logger.debug(
+        Logger.debugLazy(() =>
             ' [ModuleLoader] GEN-100: Registered library function: $name from $uriString');
       } catch (e) {
         Logger.error(
@@ -348,7 +348,7 @@ class ModuleLoader {
       }
       try {
         targetEnvironment.define(libVar.name, libVar.value);
-        Logger.debug(
+        Logger.debugLazy(() =>
             ' [ModuleLoader] GEN-100: Registered library variable: ${libVar.name} from $uriString');
       } catch (e) {
         Logger.error(
@@ -372,7 +372,7 @@ class ModuleLoader {
       try {
         targetEnvironment.define(libGetter.name,
             GlobalGetter(libGetter.getter, setter: setter?.setter));
-        Logger.debug(
+        Logger.debugLazy(() =>
             ' [ModuleLoader] GEN-100: Registered library getter: ${libGetter.name} from $uriString');
       } catch (e) {
         Logger.error(
@@ -437,7 +437,7 @@ class ModuleLoader {
         if (definition.name != null) {
           targetEnvironment.define(definition.name!, interpretedExt);
         }
-        Logger.debug(
+        Logger.debugLazy(() =>
             ' [ModuleLoader] GEN-100: Registered extension "$extName" on '
             '${definition.onTypeName} from $uriString');
       } catch (e) {
@@ -937,7 +937,7 @@ class ModuleLoader {
         // Check show/hide filters
         if (!_shouldRegisterName(enumName,
             showNames: showNames, hideNames: hideNames)) {
-          Logger.debug(
+          Logger.debugLazy(() =>
               " [execute] Skipping enum '$enumName' due to show/hide filter");
           continue;
         }
@@ -949,7 +949,7 @@ class ModuleLoader {
           final existingSourceUri = _registeredEnums[enumName]!;
           if (existingSourceUri == sourceUri) {
             // Same enum from same canonical source - silently skip (re-export case)
-            Logger.debug(
+            Logger.debugLazy(() =>
                 " [execute] Skipping duplicate enum '$enumName' from same source: $sourceUri");
             continue;
           } else {
@@ -966,7 +966,7 @@ class ModuleLoader {
         try {
           final bridgedEnum = definition.buildBridgedEnum();
           globalEnvironment.defineBridgedEnum(bridgedEnum);
-          Logger.debug(
+          Logger.debugLazy(() =>
               " [execute] Registered bridged enum: $enumName from $sourceUri");
         } catch (e) {
           Logger.error("registering bridged enum '$enumName': $e");
@@ -984,7 +984,7 @@ class ModuleLoader {
         // Check show/hide filters
         if (!_shouldRegisterName(className,
             showNames: showNames, hideNames: hideNames)) {
-          Logger.debug(
+          Logger.debugLazy(() =>
               " [execute] Skipping class '$className' due to show/hide filter");
           continue;
         }
@@ -996,7 +996,7 @@ class ModuleLoader {
           final existingSourceUri = _registeredClasses[className]!;
           if (existingSourceUri == sourceUri) {
             // Same class from same canonical source - silently skip (re-export case)
-            Logger.debug(
+            Logger.debugLazy(() =>
                 " [execute] Skipping duplicate class '$className' from same source: $sourceUri");
             continue;
           }
@@ -1006,7 +1006,7 @@ class ModuleLoader {
           // sibling as a shadow so static/constructor lookups can fall back
           // to whichever bridge actually declares the requested member.
           // Matches the tolerant per-module behaviour of the GEN-100 path.
-          Logger.debug(
+          Logger.debugLazy(() =>
               " [execute] Same-name class '$className' from a different "
               "source ($existingSourceUri vs $sourceUri); registering both "
               "with shadow fallback.");
@@ -1016,7 +1016,7 @@ class ModuleLoader {
 
         try {
           globalEnvironment.defineBridge(definition);
-          Logger.debug(
+          Logger.debugLazy(() =>
               " [execute] Registered bridged class: $className from $sourceUri");
         } catch (e) {
           Logger.error("registering bridged class '$className': $e");
@@ -1035,7 +1035,7 @@ class ModuleLoader {
         // Check show/hide filters first
         if (!_shouldRegisterName(funcName,
             showNames: showNames, hideNames: hideNames)) {
-          Logger.debug(
+          Logger.debugLazy(() =>
               " [execute] Skipping function '$funcName' due to show/hide filter");
           continue;
         }
@@ -1048,7 +1048,7 @@ class ModuleLoader {
           final existingSourceUri = _registeredFunctions[funcName]!;
           if (existingSourceUri == sourceUri) {
             // Same function from same canonical source - silently skip (re-export case)
-            Logger.debug(
+            Logger.debugLazy(() =>
                 " [execute] Skipping duplicate function '$funcName' from same source: $sourceUri");
             continue;
           } else {
@@ -1063,7 +1063,7 @@ class ModuleLoader {
         try {
           globalEnvironment.define(funcName, nativeFunc);
           _registeredFunctions[funcName] = sourceUri;
-          Logger.debug(
+          Logger.debugLazy(() =>
               " [execute] Registered library function: $funcName from $sourceUri");
         } catch (e) {
           Logger.error("registering library function '$funcName': $e");
@@ -1080,7 +1080,7 @@ class ModuleLoader {
         // Check show/hide filters first
         if (!_shouldRegisterName(varName,
             showNames: showNames, hideNames: hideNames)) {
-          Logger.debug(
+          Logger.debugLazy(() =>
               " [execute] Skipping variable '$varName' due to show/hide filter");
           continue;
         }
@@ -1093,7 +1093,7 @@ class ModuleLoader {
           final existingSourceUri = _registeredVariables[varName]!;
           if (existingSourceUri == sourceUri) {
             // Same variable from same canonical source - silently skip (re-export case)
-            Logger.debug(
+            Logger.debugLazy(() =>
                 " [execute] Skipping duplicate variable '$varName' from same source: $sourceUri");
             continue;
           } else {
@@ -1108,7 +1108,7 @@ class ModuleLoader {
         try {
           globalEnvironment.define(varName, libVar.value);
           _registeredVariables[varName] = sourceUri;
-          Logger.debug(
+          Logger.debugLazy(() =>
               " [execute] Registered library variable: $varName from $sourceUri");
         } catch (e) {
           Logger.error("registering library variable '$varName': $e");
@@ -1125,7 +1125,7 @@ class ModuleLoader {
         // Check show/hide filters first
         if (!_shouldRegisterName(getterName,
             showNames: showNames, hideNames: hideNames)) {
-          Logger.debug(
+          Logger.debugLazy(() =>
               " [execute] Skipping getter '$getterName' due to show/hide filter");
           continue;
         }
@@ -1138,7 +1138,7 @@ class ModuleLoader {
           final existingSourceUri = _registeredGetters[getterName]!;
           if (existingSourceUri == sourceUri) {
             // Same getter from same canonical source - silently skip (re-export case)
-            Logger.debug(
+            Logger.debugLazy(() =>
                 " [execute] Skipping duplicate getter '$getterName' from same source: $sourceUri");
             continue;
           } else {
@@ -1153,7 +1153,7 @@ class ModuleLoader {
         try {
           globalEnvironment.define(getterName, GlobalGetter(libGetter.getter));
           _registeredGetters[getterName] = sourceUri;
-          Logger.debug(
+          Logger.debugLazy(() =>
               " [execute] Registered library getter: $getterName from $sourceUri");
         } catch (e) {
           Logger.error("registering library getter '$getterName': $e");
@@ -1171,7 +1171,7 @@ class ModuleLoader {
         // Check show/hide filters first
         if (!_shouldRegisterName(setterName,
             showNames: showNames, hideNames: hideNames)) {
-          Logger.debug(
+          Logger.debugLazy(() =>
               " [execute] Skipping setter '$setterName' due to show/hide filter");
           continue;
         }
@@ -1184,7 +1184,7 @@ class ModuleLoader {
           final existingSourceUri = _registeredSetters[setterName]!;
           if (existingSourceUri == sourceUri) {
             // Same setter from same canonical source - silently skip (re-export case)
-            Logger.debug(
+            Logger.debugLazy(() =>
                 " [execute] Skipping duplicate setter '$setterName' from same source: $sourceUri");
             continue;
           } else {
@@ -1208,7 +1208,7 @@ class ModuleLoader {
                   existingValue.getter,
                   setter: libSetter.setter,
                 ));
-            Logger.debug(
+            Logger.debugLazy(() =>
                 " [execute] Added setter to existing getter: $setterName from $sourceUri");
           } else {
             // No getter yet - create a GlobalGetter that only has a setter
@@ -1223,7 +1223,7 @@ class ModuleLoader {
                 ));
           }
           _registeredSetters[setterName] = sourceUri;
-          Logger.debug(
+          Logger.debugLazy(() =>
               " [execute] Registered library setter: $setterName from $sourceUri");
         } catch (e) {
           Logger.error("registering library setter '$setterName': $e");
@@ -1243,7 +1243,7 @@ class ModuleLoader {
         if (definition.name != null &&
             !_shouldRegisterName(definition.name!,
                 showNames: showNames, hideNames: hideNames)) {
-          Logger.debug(
+          Logger.debugLazy(() =>
               " [execute] Skipping extension '$extName' due to show/hide filter");
           continue;
         }
@@ -1258,7 +1258,7 @@ class ModuleLoader {
         if (_registeredExtensions.containsKey(deduplicationKey)) {
           final existingSourceUri = _registeredExtensions[deduplicationKey]!;
           if (existingSourceUri == sourceUri) {
-            Logger.debug(
+            Logger.debugLazy(() =>
                 " [execute] Skipping duplicate extension '$extName on ${definition.onTypeName}' from same source: $sourceUri");
             continue;
           } else {
@@ -1303,11 +1303,11 @@ class ModuleLoader {
           // Named extensions are defined by name; unnamed are added as unnamed extensions
           if (definition.name != null) {
             globalEnvironment.define(definition.name!, interpretedExt);
-            Logger.debug(
+            Logger.debugLazy(() =>
                 " [execute] Registered named bridged extension: ${definition.name} on ${definition.onTypeName} from $sourceUri");
           } else {
             globalEnvironment.addUnnamedExtension(interpretedExt);
-            Logger.debug(
+            Logger.debugLazy(() =>
                 " [execute] Registered unnamed bridged extension on ${definition.onTypeName} from $sourceUri");
           }
         } catch (e) {
