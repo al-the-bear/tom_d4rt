@@ -1,3 +1,14 @@
+## 1.8.25
+
+- **Analyzer 10 migration (publish).** Widened the `analyzer` constraint from
+  `^8.0.0` to `^10.0.0` and applied the analyzer-10 API renames
+  (`NamedType`/`LibraryDirective` `.name2` → `.name`; `ErrorSeverity` →
+  `DiagnosticSeverity`; `errorCode.errorSeverity` → `diagnosticCode.severity`).
+  The source change itself shipped earlier but was never published — the prior
+  `1.8.24` on pub.dev still carried `analyzer: ^8.0.0`. This release publishes
+  the analyzer-10 build so hosted consumers (notably `tom_d4rt_generator`) can
+  resolve it. No behavioural change.
+
 ## 1.8.24
 
 ### Fixes
