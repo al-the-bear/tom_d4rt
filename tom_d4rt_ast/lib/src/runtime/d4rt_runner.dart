@@ -232,6 +232,26 @@ class D4rtRunner {
   /// call (or `null`, in which case they fall back to [_defaultPackage]).
   String? _currentProvidingPackage;
 
+  /// Step 8 — process-global cache of warm parent [Environment]s for
+  /// **migrated** instances, keyed by the sorted allowed-set signature
+  /// (`(_allowedPackages.toList()..sort()).join('|')`). Two instances that
+  /// were granted the same set of packages share one warm parent: stdlib +
+  /// the pooled bridge bundles for those packages, built once per signature
+  /// per process. The bridge thunks stored by [Environment.defineBridge]
+  /// capture only pre-built values (never `this`), so cross-instance sharing
+  /// is safe. Cleared together with [_packagePool] by [debugResetPool].
+  static final Map<String, Environment> _warmParentCache = {};
+
+  /// Step 8 — per-instance warm parent for **legacy** instances (those with
+  /// an empty [_allowedPackages]). Built from this instance's per-instance
+  /// registration maps and cached *here*, not in [_warmParentCache]: legacy
+  /// registrations all land under [_defaultPackage], so a process-global
+  /// cache keyed on the (empty) signature would leak one instance's bridges
+  /// into another and collide on same-named classes across tests. A
+  /// per-instance field keeps each legacy runner's warm parent private while
+  /// still building it at most once for that runner.
+  Environment? _instanceWarmParent;
+
   /// Per-instance, insertion-ordered set of package names for which this
   /// instance registered an extension callback via [registerExtensions].
   /// [finalizeBridges] fires the pooled callbacks for these packages in
@@ -403,10 +423,20 @@ class D4rtRunner {
     return count;
   }
 
-  /// Diagnostics / test introspection — clears the process-global pool. Used
-  /// only by tests that need a pristine pool (the pool is otherwise immortal
+  /// Diagnostics / test introspection — clears the process-global pool and
+  /// the step-8 warm-parent cache (the migrated-instance parents are keyed on
+  /// pool contents, so they must be evicted together to stay consistent).
+  /// Used only by tests that need a pristine pool (both are otherwise immortal
   /// for the life of the process). Not part of the normal runtime contract.
-  static void debugResetPool() => _packagePool.clear();
+  static void debugResetPool() {
+    _packagePool.clear();
+    _warmParentCache.clear();
+  }
+
+  /// Diagnostics / test introspection — how many warm parents are currently
+  /// cached for migrated instances (step 8). Lets tests assert that two
+  /// consecutive executes for the same allowed-set build the parent once.
+  static int get debugWarmParentCacheSize => _warmParentCache.length;
 
   /// The packages this instance has been granted via [providePackage]
   /// (its security whitelist). Read-only snapshot.
@@ -769,13 +799,15 @@ class D4rtRunner {
   /// [execute]/[executeBundle] rebuilds a fresh environment as usual.
   void warmup() {
     finalizeBridges();
-    // Build (and discard) an environment to pay the stdlib + bridged
-    // definition registration cost before the first real build. The next
-    // execute*/executeBundle* call constructs its own fresh environment.
-    _initEnvironment();
+    // Step 8: build (and cache) the warm parent so the first real build does
+    // not pay the stdlib + bridged-definition cost. _initEnvironment returns a
+    // throwaway child chained off that parent; the next execute*/executeBundle*
+    // call constructs its own fresh child off the same cached parent.
+    final child = _initEnvironment();
+    final parentEntries = child.enclosing?.values.length ?? 0;
     Logger.debug(
       '[D4rtRunner.warmup] Warmed bridge + stdlib infrastructure '
-      '(${_globalEnvironment?.values.length ?? 0} baseline entries).',
+      '($parentEntries warm-parent baseline entries).',
     );
   }
 
@@ -874,27 +906,89 @@ class D4rtRunner {
   // Execution
   // =========================================================================
 
-  /// Initializes the execution environment.
+  /// Initializes the execution environment for one execute/executeBundle call.
+  ///
+  /// Step 8 (import-optimization plan) — warm parent reuse. The stdlib + the
+  /// bridged-definition baseline are expensive to build but identical across
+  /// runs of the same runner (and across runners granted the same package
+  /// set), so they now live on a shared, immutable **warm parent**
+  /// [Environment] built at most once (see [_warmParent]). Each call returns a
+  /// fresh **child** environment chained off that parent via `enclosing`:
+  ///
+  ///  * `Stdlib(...).register()` and `_registerBridgedDefinitions(...)` run on
+  ///    the parent once, not per call.
+  ///  * The child starts empty; the [DeclarationVisitor] writes the script's
+  ///    top-level declarations into the child, and import processing refines
+  ///    bridges into the child — both isolated to this call.
+  ///  * Name / bridge lookups that miss in the child chain up to the parent
+  ///    (`Environment.get`, `findBridgedClassByName`, `getBridgedClassForType`,
+  ///    and `assign` all traverse `_enclosing`), so the warm baseline is fully
+  ///    visible without copying it.
+  ///
+  /// Because the child is discarded after each call, script state cannot leak
+  /// between executes. [_baselineValueKeys] is captured from the (empty) child,
+  /// so [resetScriptDeclarations] treats every child-local entry as a
+  /// script declaration to evict.
   Environment _initEnvironment() {
-    final globalEnv = Environment();
-    _globalEnvironment = globalEnv;
+    final child = Environment(enclosing: _warmParent());
+    _globalEnvironment = child;
 
-    // Register standard library
-    Stdlib(globalEnv).register();
+    // §U28 / TODO #14 — capture the post-registration baseline of the child's
+    // `_values` keys. With the step-8 split the child is empty of stdlib /
+    // bridge entries (those live on the immutable parent), so the baseline is
+    // effectively empty and [resetScriptDeclarations] evicts every script-
+    // declared entry the DeclarationVisitor / import pass added to the child.
+    _baselineValueKeys = child.values.keys.toSet();
 
-    // Register bridged definitions into global environment.
-    // This pre-populates all bridges for type-based resolution (toBridgedInstance)
-    // and provides a baseline for name resolution. Import directives will later
-    // overwrite specific entries when libraries are explicitly imported.
-    _registerBridgedDefinitions(globalEnv);
+    return child;
+  }
 
-    // §U28 / TODO #14 — capture the post-registration baseline of
-    // `_values` keys so [resetScriptDeclarations] can later distinguish
-    // bridge / stdlib entries from script-declared ones added during
-    // pass 1 (DeclarationVisitor) and pass 2 (import processing).
-    _baselineValueKeys = globalEnv.values.keys.toSet();
+  /// Step 8 — returns this runner's warm parent [Environment], building it at
+  /// most once.
+  ///
+  /// Two cache regimes, selected by whether the instance has been migrated to
+  /// the `providePackage` idiom:
+  ///
+  ///  * **Migrated** (`_allowedPackages` non-empty): the parent is keyed on the
+  ///    sorted allowed-set signature and shared process-wide via
+  ///    [_warmParentCache]. It is built from the pooled bridge bundles for the
+  ///    granted packages only — the security boundary is the allowed-set.
+  ///  * **Legacy** (`_allowedPackages` empty): the parent is built from this
+  ///    instance's per-instance registration maps and cached per-instance
+  ///    ([_instanceWarmParent]). It is *not* shared, because legacy
+  ///    registrations all collapse onto [_defaultPackage]; a process-global
+  ///    cache would leak one runner's bridges into another and collide on
+  ///    same-named classes across tests.
+  Environment _warmParent() {
+    if (_allowedPackages.isEmpty) {
+      return _instanceWarmParent ??= _buildWarmParentFromInstanceMaps();
+    }
+    final key = (_allowedPackages.toList()..sort()).join('|');
+    return _warmParentCache.putIfAbsent(key, _buildWarmParentFromPool);
+  }
 
-    return globalEnv;
+  /// Builds a warm parent from this instance's per-instance registration maps
+  /// (legacy path). Stdlib + the full bridged-definition baseline.
+  Environment _buildWarmParentFromInstanceMaps() {
+    final parent = Environment();
+    Stdlib(parent).register();
+    _registerBridgedDefinitions(parent);
+    return parent;
+  }
+
+  /// Builds a warm parent from the pooled bridge bundles for this instance's
+  /// granted packages (migrated path). Stdlib + the bridged definitions of the
+  /// allowed packages only, in sorted package order for determinism.
+  Environment _buildWarmParentFromPool() {
+    final parent = Environment();
+    Stdlib(parent).register();
+    for (final packageName in _allowedPackages.toList()..sort()) {
+      final bundle = _packagePool[packageName];
+      if (bundle != null) {
+        _registerBridgedDefinitionsFromBundle(parent, bundle);
+      }
+    }
+    return parent;
   }
 
   /// §U28 / TODO #14 — Evict script-declared entries from the current
@@ -961,9 +1055,55 @@ class D4rtRunner {
   /// (outer-map insertion order) then by name (inner-map insertion order);
   /// this eager global dump is only a baseline for name resolution — import
   /// directives later register the authoritative per-module surface.
-  void _registerBridgedDefinitions(Environment env) {
+  void _registerBridgedDefinitions(Environment env) => _registerDefsInto(
+        env,
+        enumDefinitions: _bridgedEnumDefinitions,
+        classes: _bridgedClasses,
+        functionTypedefs: _functionTypedefs,
+        libraryFunctions: _libraryFunctions,
+        libraryVariables: _libraryVariables,
+        libraryGetters: _libraryGetters,
+        librarySetters: _librarySetters,
+      );
+
+  /// Step 8 — registers the bridged definitions of a single pooled
+  /// [_PackageBridgeBundle] into [env]. The bundle holds the same collection
+  /// shapes as the per-instance maps, so this delegates to [_registerDefsInto]
+  /// with the bundle's slices. Used by the migrated warm-parent build path
+  /// ([_buildWarmParentFromPool]).
+  void _registerBridgedDefinitionsFromBundle(
+    Environment env,
+    _PackageBridgeBundle bundle,
+  ) =>
+      _registerDefsInto(
+        env,
+        enumDefinitions: bundle.bridgedEnumDefinitions,
+        classes: bundle.bridgedClasses,
+        functionTypedefs: bundle.functionTypedefs,
+        libraryFunctions: bundle.libraryFunctions,
+        libraryVariables: bundle.libraryVariables,
+        libraryGetters: bundle.libraryGetters,
+        librarySetters: bundle.librarySetters,
+      );
+
+  /// Shared baseline-registration logic for both the per-instance maps
+  /// ([_registerBridgedDefinitions]) and the pooled bundles
+  /// ([_registerBridgedDefinitionsFromBundle]). Iterates the URI-keyed
+  /// registries (`uri → name → element`) grouped by URI then by name; this
+  /// eager dump is only a baseline for name resolution — import directives
+  /// later register the authoritative per-module surface into the child env.
+  void _registerDefsInto(
+    Environment env, {
+    required Map<String, Map<String, LibraryEnum>> enumDefinitions,
+    required Map<String, Map<String, LibraryClass>> classes,
+    required List<({String name, String library})> functionTypedefs,
+    required Map<String, Map<String, LibraryFunction>> libraryFunctions,
+    required Map<String, Map<String, LibraryVariable>> libraryVariables,
+    required Map<String, Map<String, LibraryGetter>> libraryGetters,
+    required Map<String, Map<String, LibrarySetter>> librarySetters,
+  }) {
     // Register bridged enums
-    for (final byName in _bridgedEnumDefinitions.values) {
+    for (final byName in enumDefinitions.values) {
       for (final libEnum in byName.values) {
         final bridgedEnum = libEnum.enumDefinition.buildBridgedEnum();
         env.defineBridgedEnum(bridgedEnum);
@@ -971,7 +1111,7 @@ class D4rtRunner {
     }
 
     // Register bridged classes
-    for (final byName in _bridgedClasses.values) {
+    for (final byName in classes.values) {
       for (final libClass in byName.values) {
         env.defineBridge(libClass.bridgedClass);
       }
@@ -979,14 +1119,14 @@ class D4rtRunner {
 
     // Register function typedefs as BridgedClass(nativeType: Function)
     // so they can be resolved in type annotations and type arguments.
-    for (final typedef in _functionTypedefs) {
+    for (final typedef in functionTypedefs) {
       env.defineBridge(
         BridgedClass(nativeType: Function, name: typedef.name),
       );
     }
 
     // Register library functions
-    for (final byName in _libraryFunctions.values) {
+    for (final byName in libraryFunctions.values) {
       for (final libFunc in byName.values) {
         final name = libFunc.function.name;
         // Skip default "<native>" names - only define named functions
@@ -997,7 +1137,7 @@ class D4rtRunner {
     }
 
     // Register library variables
-    for (final byName in _libraryVariables.values) {
+    for (final byName in libraryVariables.values) {
       for (final libVar in byName.values) {
         env.define(libVar.name, libVar.value);
       }
@@ -1006,13 +1146,13 @@ class D4rtRunner {
     // Register library getters (with optional setters)
     // Match getter and setter by name
     final setterMap = <String, LibrarySetter>{};
-    for (final byName in _librarySetters.values) {
+    for (final byName in librarySetters.values) {
       for (final libSetter in byName.values) {
         setterMap[libSetter.name] = libSetter;
       }
     }
 
-    for (final byName in _libraryGetters.values) {
+    for (final byName in libraryGetters.values) {
       for (final getter in byName.values) {
         final setter = setterMap[getter.name];
         env.define(
@@ -1025,12 +1165,12 @@ class D4rtRunner {
     // Register any remaining setters without corresponding getters
     // (These would be write-only properties, which is unusual but supported)
     final registeredGetterNames = <String>{};
-    for (final byName in _libraryGetters.values) {
+    for (final byName in libraryGetters.values) {
       for (final getter in byName.values) {
         registeredGetterNames.add(getter.name);
       }
     }
-    for (final byName in _librarySetters.values) {
+    for (final byName in librarySetters.values) {
       for (final libSetter in byName.values) {
         if (!registeredGetterNames.contains(libSetter.name)) {
           // Write-only property - use a GlobalGetter with null getter
