@@ -1,3 +1,26 @@
+## 1.10.0
+
+### Added — lazy bridge registration (import-optimization, additive)
+
+- `D4rt.registerBridgedClassLazy(String name, Type nativeType, BridgedClass Function() thunk, String library, {String? sourceUri})`
+  — registers a bridged class by **deferred thunk**: the `BridgedClass` body
+  (member maps + adapter closures) is built and memoized only when the class
+  is first resolved by name or native type during interpretation. This is the
+  runtime substrate the generator's lazy bridge emission targets (plan step
+  #17): a script that touches N of a package's classes builds ≈N bridges
+  rather than all of them.
+- `D4rt.registerBridgedClass(...)` now delegates to `registerBridgedClassLazy`
+  by wrapping the already-built definition as a trivial `() => definition`
+  thunk — behaviour is unchanged for eager callers; the lazy path simply
+  memoizes on first lookup.
+
+This method was introduced in-tree alongside the generator's thunk emission
+(commit `2d341b786`) after 1.9.0 was published, so 1.9.0 carried the
+`providePackage` / `finalizeBridges` pool API but not the lazy registrar that
+generated `*.b.dart` bridges call. 1.10.0 publishes the missing public method
+so downstream bridge packages (e.g. `tom_d4rt_flutter`) compile against a
+released `tom_d4rt`.
+
 ## 1.9.0
 
 ### Added — import-optimization API (additive, backward compatible)
