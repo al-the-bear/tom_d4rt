@@ -96,8 +96,24 @@ class BridgedEnumDefinition<T extends Enum> {
     }
   }
 
+  /// Memoized result of [buildBridgedEnum]. A [BridgedEnum] is effectively
+  /// immutable once built (its adapter maps are populated only during
+  /// construction), so a single instance can be safely shared across every
+  /// environment and `execute()` call. Building it is non-trivial — it
+  /// constructs a [BridgedEnumValue] per enum value twice — and was previously
+  /// repeated on each lookup (twice per `execute()`). Caching it makes the
+  /// build happen at most once per process.
+  BridgedEnum? _builtEnum;
+
   /// Builds the [BridgedEnum] object from this definition.
+  ///
+  /// The first call constructs and memoizes the enum; subsequent calls return
+  /// the same cached instance.
   BridgedEnum buildBridgedEnum() {
+    final cached = _builtEnum;
+    if (cached != null) {
+      return cached;
+    }
     // Placeholder for the main enum, will be replaced by the real instance after creation.
     // This is necessary because BridgedEnumValue needs a reference to its type,
     // but the full type (BridgedEnum) needs the value list.
@@ -152,7 +168,7 @@ class BridgedEnumDefinition<T extends Enum> {
     bridgedEnum.values.clear();
     bridgedEnum.values.addAll(finalBridgedValues);
 
-    return bridgedEnum;
+    return _builtEnum = bridgedEnum;
   }
 }
 
