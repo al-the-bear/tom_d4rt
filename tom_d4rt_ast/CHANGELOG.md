@@ -1,3 +1,19 @@
+## 0.1.10
+
+### Fixed — native→bridge resolution: precise match must beat fuzzy prefix across scopes
+
+- `Environment.toBridgedClass` now walks the **entire** enclosing scope chain
+  doing only **precise** matching (exact `Type`, `_FooImpl→Foo`
+  canonicalization, generic-base name / `nativeNames`, suffix, name-exact,
+  longest-`nativeNames`-prefix) before a **second** full-chain walk applies the
+  G-DCLI-05 fuzzy `startsWith` fallback. Previously the fuzzy fallback ran
+  *within each frame* before advancing, so under the lazy warm-parent split a
+  `MappedListIterable` from `List.map(...).toList()` resolved to the nearer
+  `Map` bridge (`"MappedListIterable".startsWith("Map")`) instead of the
+  precise `Iterable` `nativeNames` match in the enclosing warm-parent frame,
+  failing with *"Bridged class 'Map' has no instance method named 'toList'"*.
+- Twin of `tom_d4rt` 1.10.1; the analyzer-free interpreter shares the fix.
+
 ## 0.1.9
 
 ### Added — import-optimization API (additive, backward compatible)
