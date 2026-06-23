@@ -117,6 +117,31 @@ final base = D4rt();
 final d4rt = FlutterD4rt.withInterpreter(base);
 ```
 
+### Warming up off the first frame
+
+Construction registers the (process-global) bridge surface, but the
+per-instance **warm parent** — the `Environment` every build chains a fresh
+child off — plus stdlib registration are built lazily on the **first** real
+build, putting that one-time cost on the first on-screen frame. Call
+`warmup()` once after construction to move it off-frame; the idiomatic call
+site is a post-first-frame callback (or a splash screen / background
+microtask):
+
+```dart
+final d4rt = FlutterD4rt();
+
+@override
+void initState() {
+  super.initState();
+  // First frame renders immediately; the warm-up runs right after it,
+  // before the first script build, so that build renders without the stall.
+  WidgetsBinding.instance.addPostFrameCallback((_) => d4rt.warmup());
+}
+```
+
+`warmup()` is idempotent and script-neutral — the warm-up environment is
+discarded, and repeat calls short-circuit.
+
 ### Building a widget from a D4rt script
 
 A D4rt script that returns a widget must expose a top-level `build(BuildContext ctx)`

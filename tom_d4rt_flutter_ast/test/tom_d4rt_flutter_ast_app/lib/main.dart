@@ -211,6 +211,31 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     _startServer();
     _startFrameKeepAlive();
     _discoverProfilerUris();
+    _scheduleWarmup();
+  }
+
+  /// Import-optimization step #21 — pay the interpreter's residual warm cost
+  /// (warm-parent + stdlib registration) off the first frame.
+  ///
+  /// Scheduled via [WidgetsBinding.addPostFrameCallback] so it never blocks
+  /// initial paint: the first frame renders, then [FlutterD4rt.warmup] runs
+  /// before the harness has finished bringing up the HTTP server and sending
+  /// its first `/build`. The elapsed time is logged as a `[D4rtApp][warmup]`
+  /// metric so the off-frame move is measurable in the test logs; compare it
+  /// against the first `[BUILD_METRIC]` `interpMs`, which now excludes this
+  /// one-time cost.
+  void _scheduleWarmup() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final sw = Stopwatch()..start();
+      _d4rt.warmup();
+      sw.stop();
+      // Use [_log] (debugPrint + in-app log) so the off-frame move is visible
+      // in the normal console and the in-app log panel — `developer.log` is
+      // swallowed by plain `flutter run`.
+      _log('[warmup] FlutterD4rt.warmup() completed off-frame in '
+          '${sw.elapsedMilliseconds}ms.');
+    });
   }
 
   /// Background-render keep-alive.

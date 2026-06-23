@@ -147,6 +147,34 @@ the performance/GC notes.
 
 ---
 
+## Warming up off the first frame
+
+Construction registers the (process-global) bridge surface, but the
+per-instance **warm parent** — the `Environment` every build chains a fresh
+child off — plus stdlib registration and the analyzer parser front-end are
+warmed lazily on the **first** real build, putting that one-time cost on the
+first on-screen frame. Call `warmup()` once after construction to move it
+off-frame; the idiomatic call site is a post-first-frame callback (or a
+splash screen / background microtask):
+
+```dart
+final runner = SourceFlutterD4rt();
+
+@override
+void initState() {
+  super.initState();
+  // First frame renders immediately; the warm-up runs right after it,
+  // before the first script build, so that build renders without the stall.
+  WidgetsBinding.instance.addPostFrameCallback((_) => runner.warmup());
+}
+```
+
+`warmup()` is idempotent and script-neutral — the warm-up environment (and
+the throwaway `int main() => 0;` parse) is discarded, and repeat calls
+short-circuit.
+
+---
+
 ## Documentation
 
 | Doc | What it covers |

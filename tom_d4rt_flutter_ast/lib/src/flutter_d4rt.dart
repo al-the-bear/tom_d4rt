@@ -81,6 +81,29 @@ class FlutterD4rt {
   /// The underlying [D4rt] interpreter.
   D4rt get interpreter => _interpreter;
 
+  /// Import-optimization step #21 — pay the residual per-instance warm cost
+  /// off the first frame.
+  ///
+  /// Construction already registers the (process-global) bridge surface, but
+  /// the per-instance **warm parent** — the immutable `Environment` every
+  /// [build] / [execute] chains a fresh child off — plus the stdlib
+  /// registration are built lazily on the **first** real build, adding that
+  /// one-time cost to the first on-screen frame. Calling [warmup] once after
+  /// construction moves that cost off-frame so the first script build renders
+  /// without the warm-up stall. The idiomatic call site is a post-first-frame
+  /// callback (or a splash-screen / background microtask):
+  ///
+  /// ```dart
+  /// final d4rt = FlutterD4rt();
+  /// WidgetsBinding.instance.addPostFrameCallback((_) => d4rt.warmup());
+  /// ```
+  ///
+  /// Idempotent and script-neutral: the warm-up environment is discarded and
+  /// leaves no script declarations behind, and repeat calls short-circuit on
+  /// the runner's own finalize / warm-parent-cache guards. Forwards to
+  /// [D4rt.warmup].
+  void warmup() => _interpreter.warmup();
+
   /// Execute a D4rt bundle and extract the result as type [T].
   ///
   /// The bundle's entry function (default: `build`) should return an object
