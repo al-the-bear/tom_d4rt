@@ -1,3 +1,26 @@
+## 1.9.0
+
+### Added — import-optimization API (additive, backward compatible)
+
+- `D4rt.providePackage(String)` — process-global package pool gate: returns
+  `false` the first time a package is seen (caller registers its bridges) and
+  `true` once pooled (caller skips registration and reuses the pooled
+  definitions). The granted set is the instance's security whitelist, exposed
+  read-only via `allowedPackages`.
+- `D4rt.registerExtensions(String package, void Function() callback)` /
+  `finalizeBridges()` — queued bridge-package extension hooks that fire
+  **exactly once per package per process** (at pool population), replacing the
+  old once-per-instance firing.
+- Warm-parent reuse: each execute runs in a fresh child `Environment` chained
+  off a shared warm parent built at most once per allowed-set signature
+  (migrated instances) or per instance (legacy) — script declarations never
+  leak across executes or instances. The warm parent registers only the bridge
+  *type* lookup (`registerBridgeType`); the analyzer `ModuleLoader` owns
+  per-module name registration at import time for module isolation
+  (GEN-100/107).
+- Test/diagnostic introspection: `debugPooledPackages`, `debugPooledClassCount`,
+  `debugWarmParentCacheSize`, `debugResetPool`.
+
 ## 1.8.25
 
 - **Analyzer 10 migration (publish).** Widened the `analyzer` constraint from
