@@ -166,6 +166,16 @@ class _PackageBridgeBundle {
   /// [D4rt.registerExtensions]. One callback per package name (idempotent
   /// overwrite). Fired by [D4rt.finalizeBridges].
   void Function()? extensionCallback;
+
+  /// Step 11 — whether [extensionCallback] has already been fired in this
+  /// process. The bundle lives in the process-global `_packagePool`, so this
+  /// flag enforces the once-per-package-per-process firing contract:
+  /// [D4rt.finalizeBridges] fires the callback only when this is `false`,
+  /// then sets it `true`. A second interpreter whose [finalizeBridges]
+  /// encounters the same (already-fired) pooled package skips it — the
+  /// callback's static D4 / BridgedClass side effects are already in place.
+  /// Reset together with the pool by `debugResetPool`.
+  bool extensionFired = false;
 }
 
 /// The main D4rt interpreter class.
@@ -288,7 +298,9 @@ class D4rt {
   /// Per-instance, insertion-ordered set of package names for which this
   /// instance registered an extension callback via [registerExtensions].
   /// [finalizeBridges] fires the pooled callbacks for these packages in
-  /// registration order.
+  /// registration order, skipping any whose pooled bundle has already fired
+  /// in this process (step 11 once-per-package-per-process firing, guarded by
+  /// `_PackageBridgeBundle.extensionFired`).
   final Set<String> _extensionPackages = {};
 
   /// Step 8/9 — cached merged per-module registries for the migrated path,
@@ -1085,10 +1097,13 @@ class D4rt {
         'explicitly after the last registerExtensions).',
       );
     }
-    // Step 7: the body is stored on the package's pooled bundle rather than an
-    // instance map, and this instance records the package in
+    // Step 7/11: the body is stored on the package's pooled bundle rather than
+    // an instance map, and this instance records the package in
     // [_extensionPackages] (in registration order) so [finalizeBridges] knows
-    // which pooled callbacks to fire and when.
+    // which pooled callbacks to fire and when. Firing is once per package per
+    // process — the first interpreter to finalize the package fires it, later
+    // interpreters (and later instances granted the already-pooled package)
+    // skip it.
     _bundleFor(packageName).extensionCallback = body;
     _extensionPackages.add(packageName);
   }
@@ -1103,17 +1118,39 @@ class D4rt {
   /// of a Flutter helper that touches bridges before the first script
   /// runs).
   ///
-  /// **Idempotent:** repeat calls return without re-running any
-  /// callback — the contract is "run once, then frozen". After this
-  /// call returns, [registerExtensions] throws [StateError].
+  /// **Idempotent per instance:** repeat calls on the same interpreter
+  /// return without re-running any callback — the contract is "run once,
+  /// then frozen". After this call returns, [registerExtensions] throws
+  /// [StateError].
+  ///
+  /// **Step 11 — once per package per process.** Extension callbacks live
+  /// on the process-global pooled bundles (`_packagePool`). A callback is
+  /// fired only the first time *any* interpreter finalizes the package,
+  /// guarded by `_PackageBridgeBundle.extensionFired`. A second interpreter
+  /// granted the same (already-pooled) package — e.g. via the canonical
+  /// `if (providePackage(name) == false) { register…; registerExtensions… }`
+  /// idiom, where the second instance skips both — never re-fires it.
+  /// Because the callback's effects (relaxers, interface proxies, generic
+  /// constructors) land in *static* D4 / BridgedClass registries shared
+  /// across instances, firing once is correct and sufficient.
   void finalizeBridges() {
     if (_bridgesFinalized) return;
     _bridgesFinalized = true;
-    // Step 7: callbacks live on the pooled bundles; fire this instance's
-    // registered packages in registration order.
+    // Callbacks live on the pooled bundles; fire this instance's registered
+    // packages in registration order, but only those not yet fired anywhere
+    // in the process (step 11 once-per-package-per-process guard).
     for (final packageName in _extensionPackages) {
-      final callback = _packagePool[packageName]?.extensionCallback;
+      final bundle = _packagePool[packageName];
+      final callback = bundle?.extensionCallback;
       if (callback == null) continue;
+      if (bundle!.extensionFired) {
+        Logger.debugLazy(
+          () => '[D4rt.finalizeBridges] Extensions for "$packageName" already '
+              'fired in this process — skipping.',
+        );
+        continue;
+      }
+      bundle.extensionFired = true;
       Logger.debug(
         '[D4rt.finalizeBridges] Running extensions for "$packageName"',
       );
