@@ -1,3 +1,27 @@
+## 1.11.0
+
+### Lazy bridge factories (import-optimization)
+
+- Generated per-package bridges now emit **factory thunks** instead of a
+  pre-built `List<BridgedClass>`:
+  - `static Map<String, BridgedClass Function()> bridgeClassThunks()` — class
+    name → deferred factory that builds one class's member maps + adapter
+    closures on demand.
+  - `static Map<String, Type> bridgeClassTypes()` — class name → native `Type`,
+    so the same thunk registers into both the name-keyed and type-keyed
+    registries with the correct `sourceUri`.
+  - `registerBridges` now loops the thunks through the interpreter's
+    `registerBridgedClassLazy(name, type, thunk, importPath, sourceUri:)`
+    instead of constructing every `BridgedClass` eagerly. A script that uses
+    N of M generated classes materializes ≈N objects, not M.
+  - `bridgeClasses()` is retained (eager, diagnostic) for callers that still
+    want the full materialized list.
+- The aggregator barrel (`per_package_orchestrator`) now spreads
+  `bridgeClassThunks()` / `bridgeClassTypes()` from each per-package bridge.
+- Bumped `tom_d4rt` constraint to `^1.9.0`: the generated `registerBridges`
+  targets the import-optimization API (`registerBridgedClassLazy`) introduced
+  in `tom_d4rt` 1.9.0 / `tom_d4rt_ast` 0.1.9.
+
 ## 1.10.0
 
 ### Analyzer 10 migration
