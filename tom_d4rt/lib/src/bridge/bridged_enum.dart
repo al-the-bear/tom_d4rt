@@ -147,7 +147,7 @@ class BridgedEnumValue implements RuntimeValue {
               return methodAdapter(
                   InterpreterVisitor(
                       globalEnvironment: Environment(),
-                      moduleLoader: ModuleLoader(Environment(), {}, [], [])),
+                      moduleLoader: ModuleLoader(Environment(), {}, {}, {})),
                   nativeValue,
                   [],
                   {},
@@ -215,7 +215,7 @@ class BridgedEnumValue implements RuntimeValue {
         return toStringAdapter(
             InterpreterVisitor(
                 globalEnvironment: Environment(),
-                moduleLoader: ModuleLoader(Environment(), {}, [], [])),
+                moduleLoader: ModuleLoader(Environment(), {}, {}, {})),
             nativeValue,
             [],
             {},

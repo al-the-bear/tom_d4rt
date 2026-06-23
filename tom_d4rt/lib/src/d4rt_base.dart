@@ -154,9 +154,17 @@ class LibraryExtension {
 /// ''');
 /// ```
 class D4rt {
-  final List<Map<String, LibraryEnum>> _bridgedEnumDefinitions = [];
-  final List<Map<String, LibraryClass>> _bridgedClases = [];
-  final List<Map<String, LibraryExtension>> _bridgedExtensions = [];
+  // Step #2 (import-optimization): registries are keyed by library URI so that
+  // registering or looking up one URI touches only that URI's bucket
+  // (O(matched)) instead of scanning a list of single-entry maps per URI.
+  // Top-level declaration names are unique per library, so the inner map is
+  // keyed by name. Extensions are the exception (nullable / duplicate unnamed
+  // names) and use a per-URI List. Mirrors D4rtRunner in tom_d4rt_ast.
+  final Map<String /*uri*/, Map<String /*name*/, LibraryEnum>>
+      _bridgedEnumDefinitions = {};
+  final Map<String /*uri*/, Map<String /*name*/, LibraryClass>> _bridgedClases =
+      {};
+  final Map<String /*uri*/, List<LibraryExtension>> _bridgedExtensions = {};
 
   /// GEN-074: Class aliases - (aliasName, targetName, library) tuples
   final List<({String aliasName, String targetName, String library})>
@@ -177,8 +185,7 @@ class D4rt {
   /// Mirror of the same field on [D4rtRunner] in tom_d4rt_ast — kept in
   /// lockstep so generated bridge code calling `registerLibraryReExport`
   /// works against either interpreter.
-  final Map<String,
-          List<({String uri, Set<String>? show, Set<String>? hide})>>
+  final Map<String, List<({String uri, Set<String>? show, Set<String>? hide})>>
       _libraryReExports = {};
 
   InterpretedInstance? _interpretedInstance;
@@ -223,10 +230,14 @@ class D4rt {
   // Structure matches classes/enums: List of {libraryPath: definition}
   // For functions: use LibraryFunction wrapper that includes sourceUri for deduplication
   // For variables/getters: wrapper classes contain name, value/getter, and sourceUri
-  final List<Map<String, LibraryFunction>> _libraryFunctions = [];
-  final List<Map<String, LibraryVariable>> _libraryVariables = [];
-  final List<Map<String, LibraryGetter>> _libraryGetters = [];
-  final List<Map<String, LibrarySetter>> _librarySetters = [];
+  final Map<String /*uri*/, Map<String /*name*/, LibraryFunction>>
+      _libraryFunctions = {};
+  final Map<String /*uri*/, Map<String /*name*/, LibraryVariable>>
+      _libraryVariables = {};
+  final Map<String /*uri*/, Map<String /*name*/, LibraryGetter>>
+      _libraryGetters = {};
+  final Map<String /*uri*/, Map<String /*name*/, LibrarySetter>>
+      _librarySetters = {};
 
   late ModuleLoader _moduleLoader;
   bool _hasExecutedOnce = false;
@@ -255,7 +266,7 @@ class D4rt {
   void registerBridgedEnum(BridgedEnumDefinition definition, String library,
       {String? sourceUri}) {
     final libEnum = LibraryEnum(definition, sourceUri: sourceUri);
-    _bridgedEnumDefinitions.add({library: libEnum});
+    (_bridgedEnumDefinitions[library] ??= {})[libEnum.name] = libEnum;
   }
 
   /// Registers a bridged class definition for use in interpreted code.
@@ -271,7 +282,7 @@ class D4rt {
   void registerBridgedClass(BridgedClass definition, String library,
       {String? sourceUri}) {
     final libClass = LibraryClass(definition, sourceUri: sourceUri);
-    _bridgedClases.add({library: libClass});
+    (_bridgedClases[library] ??= {})[libClass.name] = libClass;
     _bridgedDefLookupByType[definition.nativeType] = definition;
   }
 
@@ -317,7 +328,8 @@ class D4rt {
   /// Exposed so [ModuleLoader._registerBridgesForUriInto] can register
   /// function typedef names (e.g. VoidCallback) into per-module environments.
   /// Mirrors [D4rtRunner.functionTypedefs].
-  List<({String name, String library})> get functionTypedefs => _functionTypedefs;
+  List<({String name, String library})> get functionTypedefs =>
+      _functionTypedefs;
 
   /// GEN-107: Registered library re-exports keyed by source library URI.
   ///
@@ -374,7 +386,7 @@ class D4rt {
       BridgedExtensionDefinition definition, String library,
       {String? sourceUri}) {
     final libExt = LibraryExtension(definition, sourceUri: sourceUri);
-    _bridgedExtensions.add({library: libExt});
+    (_bridgedExtensions[library] ??= []).add(libExt);
   }
 
   /// Registers a top-level native function for use in interpreted code.
@@ -392,7 +404,7 @@ class D4rt {
     final nativeFunc = NativeFunction(function, name: name, arity: 0);
     final libFunc =
         LibraryFunction(nativeFunc, sourceUri: sourceUri, signature: signature);
-    _libraryFunctions.add({library: libFunc});
+    (_libraryFunctions[library] ??= {})[libFunc.name] = libFunc;
   }
 
   /// Registers a global variable for use in interpreted code.
@@ -415,8 +427,8 @@ class D4rt {
   /// ```
   void registerGlobalVariable(String name, Object? value, String library,
       {String? sourceUri}) {
-    _libraryVariables
-        .add({library: LibraryVariable(name, value, sourceUri: sourceUri)});
+    (_libraryVariables[library] ??= {})[name] =
+        LibraryVariable(name, value, sourceUri: sourceUri);
   }
 
   /// Registers a global getter for use in interpreted code.
@@ -441,8 +453,8 @@ class D4rt {
   void registerGlobalGetter(
       String name, Object? Function() getter, String library,
       {String? sourceUri}) {
-    _libraryGetters
-        .add({library: LibraryGetter(name, getter, sourceUri: sourceUri)});
+    (_libraryGetters[library] ??= {})[name] =
+        LibraryGetter(name, getter, sourceUri: sourceUri);
   }
 
   /// Registers a global setter for a top-level setter in a specific library.
@@ -468,8 +480,8 @@ class D4rt {
   void registerGlobalSetter(
       String name, void Function(Object?) setter, String library,
       {String? sourceUri}) {
-    _librarySetters
-        .add({library: LibrarySetter(name, setter, sourceUri: sourceUri)});
+    (_librarySetters[library] ??= {})[name] =
+        LibrarySetter(name, setter, sourceUri: sourceUri);
   }
 
   ModuleLoader _initModule(Map<String, String>? sources,
@@ -502,8 +514,8 @@ class D4rt {
     // ModuleLoader._registerBridgesForUriInto at import time.
     // Mirrors D4rtRunner._registerBridgedDefinitions (type-only variant).
     final globalEnv = moduleLoader.globalEnvironment;
-    for (final entry in _bridgedClases) {
-      for (final libClass in entry.values) {
+    for (final byName in _bridgedClases.values) {
+      for (final libClass in byName.values) {
         globalEnv.registerBridgeType(libClass.bridgedClass);
       }
     }
@@ -819,7 +831,8 @@ class D4rt {
   void registerRelaxerFactory(
     String baseTypeName,
     GenericTypeWrapperFactory factory,
-  ) => D4.registerGenericTypeWrapper(baseTypeName, factory);
+  ) =>
+      D4.registerGenericTypeWrapper(baseTypeName, factory);
 
   /// Registers an interface-proxy factory for [bridgedTypeName].
   ///
@@ -832,7 +845,8 @@ class D4rt {
   void registerInterfaceProxy(
     String bridgedTypeName,
     InterfaceProxyFactory factory,
-  ) => D4.registerInterfaceProxy(bridgedTypeName, factory);
+  ) =>
+      D4.registerInterfaceProxy(bridgedTypeName, factory);
 
   /// Registers a generic-constructor factory for [className].[constructorName].
   ///
@@ -847,7 +861,8 @@ class D4rt {
     String className,
     String constructorName,
     GenericConstructorFactory factory,
-  ) => D4.registerGenericConstructor(className, constructorName, factory);
+  ) =>
+      D4.registerGenericConstructor(className, constructorName, factory);
 
   /// Checks if a specific permission is granted.
   ///
@@ -891,10 +906,9 @@ class D4rt {
     final importsMap = <String, ImportConfiguration>{};
 
     // Process bridged classes
-    for (final entry in _bridgedClases) {
-      for (final MapEntry(:key, :value) in entry.entries) {
-        final importPath = key;
-        final libClass = value;
+    for (final MapEntry(key: importPath, value: byName)
+        in _bridgedClases.entries) {
+      for (final libClass in byName.values) {
         final bridgedClass = libClass.bridgedClass;
 
         final classInfo = BridgedClassInfo(
@@ -934,10 +948,9 @@ class D4rt {
     }
 
     // Process bridged enums
-    for (final entry in _bridgedEnumDefinitions) {
-      for (final MapEntry(:key, :value) in entry.entries) {
-        final importPath = key;
-        final libEnum = value;
+    for (final MapEntry(key: importPath, value: byName)
+        in _bridgedEnumDefinitions.entries) {
+      for (final libEnum in byName.values) {
         final enumDef = libEnum.enumDefinition;
 
         final enumInfo = BridgedEnumInfo(
@@ -972,8 +985,9 @@ class D4rt {
 
     // Build global variables list from library-scoped variables
     final globalVariables = <GlobalVariableInfo>[];
-    for (final entry in _libraryVariables) {
-      for (final MapEntry(key: libraryUri, value: variable) in entry.entries) {
+    for (final MapEntry(key: libraryUri, value: byName)
+        in _libraryVariables.entries) {
+      for (final variable in byName.values) {
         globalVariables.add(GlobalVariableInfo(
           name: variable.name,
           valueType: variable.value?.runtimeType.toString() ?? 'Null',
@@ -984,8 +998,9 @@ class D4rt {
 
     // Build global getters list from library-scoped getters
     final globalGetters = <GlobalGetterInfo>[];
-    for (final entry in _libraryGetters) {
-      for (final MapEntry(key: libraryUri, value: getter) in entry.entries) {
+    for (final MapEntry(key: libraryUri, value: byName)
+        in _libraryGetters.entries) {
+      for (final getter in byName.values) {
         globalGetters.add(GlobalGetterInfo(
           name: getter.name,
           libraryUri: libraryUri,
@@ -996,8 +1011,9 @@ class D4rt {
     // Build global functions list from library-scoped functions
     final globalFunctions = <GlobalFunctionInfo>[];
     final seenFunctions = <String>{};
-    for (final entry in _libraryFunctions) {
-      for (final MapEntry(key: libraryUri, value: func) in entry.entries) {
+    for (final MapEntry(key: libraryUri, value: byName)
+        in _libraryFunctions.entries) {
+      for (final func in byName.values) {
         final name = func.name;
         if (name != '<native>' && !seenFunctions.contains(name)) {
           seenFunctions.add(name);
