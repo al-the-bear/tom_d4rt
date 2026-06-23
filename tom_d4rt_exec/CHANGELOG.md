@@ -1,3 +1,14 @@
+## 1.9.0
+
+### Dependencies
+- Consume `tom_d4rt_ast ^0.1.9` for the import-optimization API: the
+  process-global package pool (`providePackage` / `allowedPackages`),
+  once-per-process bridge-extension hooks (`registerExtensions` /
+  `finalizeBridges` / `warmup`), warm-parent reuse across executes, and
+  `executeBundleAs<T>` result unwrapping. The `D4rt` wrapper exposes these
+  through its inner `D4rtRunner`. Additive and backward compatible — existing
+  `execute()` / `eval()` call sites are unaffected.
+
 ## 1.8.6
 
 ### Fixes
