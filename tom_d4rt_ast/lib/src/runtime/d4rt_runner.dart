@@ -83,6 +83,42 @@ class LibraryExtension {
   String? get name => extensionDefinition.name;
 }
 
+/// Step 7 (import-optimization plan) — process-global registration payload
+/// for a single bridge package.
+///
+/// Holds the same per-URI registries the [D4rtRunner] instance fields hold
+/// today, but keyed once per package name in the static
+/// [D4rtRunner._packagePool] so the (expensive) bridge registration for a
+/// package is paid at most once per process and can be reused across every
+/// runner instance and every `execute*` call.
+///
+/// In step 7 the pool is *populated* (write path) but not yet *consumed*:
+/// the runner still reads its per-instance maps for resolution. Step 8
+/// switches the read path (a warm parent [Environment]) onto the pool. The
+/// shapes here are intentionally identical to the per-instance fields so the
+/// read-path switch is a mechanical change rather than a re-modelling.
+class _PackageBridgeBundle {
+  final Map<String, Map<String, LibraryEnum>> bridgedEnumDefinitions = {};
+  final Map<String, Map<String, LibraryClass>> bridgedClasses = {};
+  final Map<String, List<LibraryExtension>> bridgedExtensions = {};
+  final List<({String aliasName, String targetName, String library})>
+      classAliases = [];
+  final List<({String name, String library})> functionTypedefs = [];
+  final Map<String, Map<String, LibraryFunction>> libraryFunctions = {};
+  final Map<String, Map<String, LibraryVariable>> libraryVariables = {};
+  final Map<String, Map<String, LibraryGetter>> libraryGetters = {};
+  final Map<String, Map<String, LibrarySetter>> librarySetters = {};
+  final Map<Type, BridgedClass> bridgedDefLookupByType = {};
+  final Map<String,
+          List<({String uri, Set<String>? show, Set<String>? hide})>>
+      libraryReExports = {};
+
+  /// The single extension callback registered for this package via
+  /// [D4rtRunner.registerExtensions]. One callback per package name
+  /// (idempotent overwrite). Fired by [D4rtRunner.finalizeBridges].
+  void Function()? extensionCallback;
+}
+
 /// D4rtRunner - Execute pre-parsed AST trees without analyzer dependency.
 ///
 /// This class provides the core interpreter functionality for executing
@@ -156,6 +192,52 @@ class D4rtRunner {
           List<({String uri, Set<String>? show, Set<String>? hide})>>
       _libraryReExports = {};
 
+  // ===========================================================================
+  // Step 7 (import-optimization plan) — process-global package pool.
+  //
+  // The pool pays each bridge package's registration cost at most once per
+  // process and keys it by the package name passed to [providePackage], so a
+  // second runner instance for the same package reuses the pooled definitions
+  // instead of rebuilding them. Security is enforced per instance via the
+  // [_allowedPackages] whitelist: an instance only ever sees the packages it
+  // explicitly provided (plus the synthetic [_defaultPackage] used by
+  // unmigrated callers).
+  //
+  // In step 7 the pool is written but not yet read — resolution still uses
+  // the per-instance maps above. Step 8 moves the read path (a warm parent
+  // [Environment]) onto the pool, and step 11 fires extension callbacks once
+  // per process at pool-population time.
+  // ===========================================================================
+
+  /// Synthetic package name for [register*] calls made without an active
+  /// [providePackage] context (legacy / unmigrated callers). Every instance
+  /// is implicitly allowed this package so today's "everything is exposed"
+  /// behaviour is preserved for consumers that have not adopted the
+  /// `providePackage`-guarded registration idiom.
+  static const String _defaultPackage = '<default>';
+
+  /// Process-global pool of per-package registration payloads, keyed by the
+  /// package name passed to [providePackage] (or [_defaultPackage] for
+  /// unmigrated callers). Built once per package per process.
+  static final Map<String, _PackageBridgeBundle> _packagePool = {};
+
+  /// Per-instance security whitelist: the set of packages this instance has
+  /// been granted via [providePackage]. Consumed by the warm-parent build in
+  /// step 8; tracked here from step 7 so [providePackage] owns the grant.
+  final Set<String> _allowedPackages = {};
+
+  /// The package whose bridges are currently being registered, set by
+  /// [providePackage] when it returns `false`. [register*] calls accumulate
+  /// into [_packagePool] under this package until the next [providePackage]
+  /// call (or `null`, in which case they fall back to [_defaultPackage]).
+  String? _currentProvidingPackage;
+
+  /// Per-instance, insertion-ordered set of package names for which this
+  /// instance registered an extension callback via [registerExtensions].
+  /// [finalizeBridges] fires the pooled callbacks for these packages in
+  /// registration order. (Step 11 moves firing to once-per-process.)
+  final Set<String> _extensionPackages = {};
+
   InterpreterVisitor? _visitor;
   Environment? _globalEnvironment;
   bool _hasExecutedOnce = false;
@@ -174,16 +256,6 @@ class D4rtRunner {
   /// surface is identical per call, but capturing every time keeps the
   /// snapshot trivially consistent with the current environment).
   Set<String>? _baselineValueKeys;
-
-  /// Step 6: extension callbacks registered by bridge packages, keyed by
-  /// package name. Insertion order is preserved (Dart `Map` literals are
-  /// `LinkedHashMap`) so [finalizeBridges] runs callbacks deterministically.
-  ///
-  /// Re-registering with the same `packageName` overwrites the previous
-  /// body — the contract is one extension callback per bridge package,
-  /// which makes the call idempotent if a process spins up multiple
-  /// runners that each fire the same package's `register*` shape.
-  final Map<String, void Function()> _extensionCallbacks = {};
 
   /// Step 6: whether [finalizeBridges] has run on this runner.
   bool _bridgesFinalized = false;
@@ -251,6 +323,95 @@ class D4rtRunner {
   // Bridge Registration
   // =========================================================================
 
+  /// Step 7 — Grants [packageName] to this instance and reports whether its
+  /// bridge definitions are already in the process-global pool.
+  ///
+  /// Returns `true`  → already pooled; the caller should **skip** registration
+  ///                   and the pooled definitions are reused for this instance.
+  /// Returns `false` → not pooled; the caller **must** register the package's
+  ///                   bridges now. Those `register*` calls accumulate into the
+  ///                   pool under [packageName] (because this call sets
+  ///                   [_currentProvidingPackage]), so the next instance in the
+  ///                   process gets `true`.
+  ///
+  /// Either way [packageName] is added to this instance's [_allowedPackages]
+  /// whitelist — only allowed packages are exposed in the interpreter
+  /// environment (consumed by the warm-parent build in step 8).
+  ///
+  /// Idempotent on [packageName]: calling it again for an already-provided
+  /// package returns `true` (it is now pooled) and leaves the grant in place.
+  ///
+  /// Canonical call site:
+  /// ```dart
+  /// if (runner.providePackage('tom_d4rt_flutter') == false) {
+  ///   FlutterMaterialBridges.register(runner); // first instance pays the cost
+  ///   runner.registerExtensions('tom_d4rt_flutter', registerOverrides);
+  /// }
+  /// // here the package is registered AND allowed in this instance
+  /// ```
+  bool providePackage(String packageName) {
+    _allowedPackages.add(packageName);
+    final alreadyPooled = _packagePool.containsKey(packageName);
+    if (alreadyPooled) {
+      // Pooled already — the caller skips registration, so no package context
+      // is opened. Clear any stale context from a prior provide call.
+      _currentProvidingPackage = null;
+      Logger.debugLazy(
+        () => '[D4rtRunner.providePackage] "$packageName" already pooled — '
+            'reusing pooled definitions.',
+      );
+      return true;
+    }
+    // First time this package is seen in the process: open the registration
+    // context so the caller's register* calls land in the pool under this
+    // package, and create the (empty) bundle now so an extension-only package
+    // still has a home.
+    _currentProvidingPackage = packageName;
+    _bundleFor(packageName);
+    Logger.debugLazy(
+      () => '[D4rtRunner.providePackage] "$packageName" not pooled — caller '
+          'must register; subsequent register* route into the pool.',
+    );
+    return false;
+  }
+
+  /// Returns the pooled bundle for the currently-providing package, creating
+  /// it on first use. Falls back to [_defaultPackage] for `register*` calls
+  /// made without an active [providePackage] context (legacy callers).
+  _PackageBridgeBundle _bundleFor([String? package]) =>
+      _packagePool.putIfAbsent(
+        package ?? _currentProvidingPackage ?? _defaultPackage,
+        _PackageBridgeBundle.new,
+      );
+
+  /// Diagnostics / test introspection — the set of package names currently in
+  /// the process-global pool (including the synthetic [_defaultPackage] once a
+  /// legacy `register*` call has run). Read-only; does not expose the bundles.
+  static Set<String> get debugPooledPackages => _packagePool.keys.toSet();
+
+  /// Diagnostics / test introspection — the number of bridged classes pooled
+  /// under [packageName] across all source URIs (0 if not pooled). Lets tests
+  /// assert that a freshly-provided package's definitions landed in the pool
+  /// without exposing the internal bundle type.
+  static int debugPooledClassCount(String packageName) {
+    final bundle = _packagePool[packageName];
+    if (bundle == null) return 0;
+    var count = 0;
+    for (final byName in bundle.bridgedClasses.values) {
+      count += byName.length;
+    }
+    return count;
+  }
+
+  /// Diagnostics / test introspection — clears the process-global pool. Used
+  /// only by tests that need a pristine pool (the pool is otherwise immortal
+  /// for the life of the process). Not part of the normal runtime contract.
+  static void debugResetPool() => _packagePool.clear();
+
+  /// The packages this instance has been granted via [providePackage]
+  /// (its security whitelist). Read-only snapshot.
+  Set<String> get allowedPackages => Set.unmodifiable(_allowedPackages);
+
   /// Registers a bridged enum definition.
   void registerBridgedEnum(
     BridgedEnumDefinition definition,
@@ -259,6 +420,11 @@ class D4rtRunner {
   }) {
     final libEnum = LibraryEnum(definition, sourceUri: sourceUri);
     (_bridgedEnumDefinitions[library] ??= {})[libEnum.name] = libEnum;
+    // Step 7: dual-write into the process-global pool for the current package
+    // (or '<default>' for unmigrated callers). The pool is not read until
+    // step 8; the per-instance map above remains the resolution source today.
+    final bundle = _bundleFor();
+    (bundle.bridgedEnumDefinitions[library] ??= {})[libEnum.name] = libEnum;
   }
 
   /// Registers a bridged class definition.
@@ -270,6 +436,10 @@ class D4rtRunner {
     final libClass = LibraryClass(definition, sourceUri: sourceUri);
     (_bridgedClasses[library] ??= {})[libClass.name] = libClass;
     _bridgedDefLookupByType[definition.nativeType] = definition;
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    final bundle = _bundleFor();
+    (bundle.bridgedClasses[library] ??= {})[libClass.name] = libClass;
+    bundle.bridgedDefLookupByType[definition.nativeType] = definition;
   }
 
   /// GEN-074: Registers a class alias (type alias).
@@ -281,11 +451,14 @@ class D4rtRunner {
   /// [targetName] The target class name (e.g., 'WidgetStateProperty').
   /// [library] The library path where this alias is exported from.
   void registerClassAlias(String aliasName, String targetName, String library) {
-    _classAliases.add((
+    final alias = (
       aliasName: aliasName,
       targetName: targetName,
       library: library,
-    ));
+    );
+    _classAliases.add(alias);
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    _bundleFor().classAliases.add(alias);
   }
 
   /// Registered class aliases keyed by library URI.
@@ -303,7 +476,10 @@ class D4rtRunner {
   /// [name] The typedef name (e.g., 'VoidCallback').
   /// [library] The library path where this typedef is exported from.
   void registerFunctionTypedef(String name, String library) {
-    _functionTypedefs.add((name: name, library: library));
+    final typedef = (name: name, library: library);
+    _functionTypedefs.add(typedef);
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    _bundleFor().functionTypedefs.add(typedef);
   }
 
   /// Registered function typedefs.
@@ -342,11 +518,10 @@ class D4rtRunner {
     Set<String>? show,
     Set<String>? hide,
   }) {
-    _libraryReExports.putIfAbsent(sourceUri, () => []).add((
-      uri: targetUri,
-      show: show,
-      hide: hide,
-    ));
+    final reExport = (uri: targetUri, show: show, hide: hide);
+    _libraryReExports.putIfAbsent(sourceUri, () => []).add(reExport);
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    _bundleFor().libraryReExports.putIfAbsent(sourceUri, () => []).add(reExport);
   }
 
   /// Registers a bridged extension.
@@ -357,6 +532,8 @@ class D4rtRunner {
   }) {
     final libExt = LibraryExtension(definition, sourceUri: sourceUri);
     (_bridgedExtensions[library] ??= []).add(libExt);
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    (_bundleFor().bridgedExtensions[library] ??= []).add(libExt);
   }
 
   /// Registers a top-level native function.
@@ -374,6 +551,8 @@ class D4rtRunner {
       signature: signature,
     );
     (_libraryFunctions[library] ??= {})[libFunc.name] = libFunc;
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    (_bundleFor().libraryFunctions[library] ??= {})[libFunc.name] = libFunc;
   }
 
   /// Lower-case alias for [registerTopLevelFunction].
@@ -406,8 +585,10 @@ class D4rtRunner {
     String library, {
     String? sourceUri,
   }) {
-    (_libraryVariables[library] ??= {})[name] =
-        LibraryVariable(name, value, sourceUri: sourceUri);
+    final libVar = LibraryVariable(name, value, sourceUri: sourceUri);
+    (_libraryVariables[library] ??= {})[name] = libVar;
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    (_bundleFor().libraryVariables[library] ??= {})[name] = libVar;
   }
 
   /// Registers a global getter.
@@ -417,8 +598,10 @@ class D4rtRunner {
     String library, {
     String? sourceUri,
   }) {
-    (_libraryGetters[library] ??= {})[name] =
-        LibraryGetter(name, getter, sourceUri: sourceUri);
+    final libGetter = LibraryGetter(name, getter, sourceUri: sourceUri);
+    (_libraryGetters[library] ??= {})[name] = libGetter;
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    (_bundleFor().libraryGetters[library] ??= {})[name] = libGetter;
   }
 
   /// Registers a global setter.
@@ -428,8 +611,10 @@ class D4rtRunner {
     String library, {
     String? sourceUri,
   }) {
-    (_librarySetters[library] ??= {})[name] =
-        LibrarySetter(name, setter, sourceUri: sourceUri);
+    final libSetter = LibrarySetter(name, setter, sourceUri: sourceUri);
+    (_librarySetters[library] ??= {})[name] = libSetter;
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    (_bundleFor().librarySetters[library] ??= {})[name] = libSetter;
   }
 
   // =========================================================================
@@ -499,6 +684,13 @@ class D4rtRunner {
   /// identity, so this contract is satisfied for the standard
   /// `register*` calls.)
   ///
+  /// Step 7: the body is stored on the package's pooled bundle
+  /// ([_packagePool] entry for [packageName]) rather than an instance map,
+  /// and this instance records the package in [_extensionPackages] (in
+  /// registration order) so [finalizeBridges] knows which pooled callbacks
+  /// to fire and when. Firing is still per-instance in step 7; step 11
+  /// moves it to once-per-process.
+  ///
   /// Throws [StateError] if [finalizeBridges] has already run on this
   /// runner — adding extensions after finalization is a misuse.
   void registerExtensions(String packageName, void Function() body) {
@@ -510,7 +702,8 @@ class D4rtRunner {
         'finalizeBridges() explicitly after the last registerExtensions).',
       );
     }
-    _extensionCallbacks[packageName] = body;
+    _bundleFor(packageName).extensionCallback = body;
+    _extensionPackages.add(packageName);
   }
 
   /// Runs every extension callback registered via [registerExtensions]
@@ -529,11 +722,16 @@ class D4rtRunner {
   void finalizeBridges() {
     if (_bridgesFinalized) return;
     _bridgesFinalized = true;
-    for (final entry in _extensionCallbacks.entries) {
+    // Step 7: callbacks live on the pooled bundles; fire this instance's
+    // registered packages in registration order. (Step 11 moves firing to
+    // once-per-process at pool population.)
+    for (final packageName in _extensionPackages) {
+      final callback = _packagePool[packageName]?.extensionCallback;
+      if (callback == null) continue;
       Logger.debug(
-        '[D4rtRunner.finalizeBridges] Running extensions for "${entry.key}"',
+        '[D4rtRunner.finalizeBridges] Running extensions for "$packageName"',
       );
-      entry.value();
+      callback();
     }
   }
 
