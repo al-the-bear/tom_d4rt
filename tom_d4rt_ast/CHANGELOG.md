@@ -1,3 +1,29 @@
+## 0.1.9
+
+### Added — import-optimization API (additive, backward compatible)
+
+- `D4rtRunner.providePackage(String)` — process-global package pool gate:
+  returns `false` the first time a package is seen (caller registers its
+  bridges) and `true` once pooled (caller skips registration and reuses the
+  pooled definitions). The granted set is the instance's security whitelist,
+  exposed read-only via `allowedPackages`.
+- `D4rtRunner.registerExtensions(String package, void Function() callback)` /
+  `finalizeBridges()` — queued bridge-package extension hooks that fire
+  **exactly once per package per process** (at pool population), replacing the
+  old once-per-instance firing. `warmup()` finalizes and builds the warm
+  parent for the instance's allowed-set.
+- Warm-parent reuse: each `executeBundle*` runs in a fresh child `Environment`
+  chained off a shared, immutable warm parent built at most once per
+  allowed-set signature (migrated instances) or per instance (legacy) — script
+  declarations never leak across executes or instances.
+- `executeBundleAs<T>` / `executeBundleAsAsync<T>` route the result through
+  `D4.unwrapAs<T>` so consumers get a native `T` rather than a
+  `BridgedInstance`.
+- Test/diagnostic introspection: `debugPooledPackages`,
+  `debugPooledClassCount`, `debugWarmParentCacheSize`, `debugResetPool`.
+
+See `doc/extension_registration.md` for the canonical registration pattern.
+
 ## 0.1.8
 
 ### Fixes
