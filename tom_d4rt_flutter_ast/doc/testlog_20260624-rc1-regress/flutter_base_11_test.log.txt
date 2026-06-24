@@ -1,0 +1,238 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (104.0.0 available)
+  analyzer 10.2.0 (14.0.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.1.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.18.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.11 (0.7.12 available)
+! tom_ast_generator 0.1.3 from path ../tom_ast_generator (overridden in ./pubspec_overrides.yaml)
+! tom_ast_model 0.1.3 from path ../tom_ast_model (overridden in ./pubspec_overrides.yaml)
+  tom_build_base 2.6.21 (2.6.25 available)
+! tom_d4rt_ast 0.1.10 from path ../tom_d4rt_ast (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt_exec 1.9.0 from path ../tom_d4rt_exec (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt_generator 1.11.0 from path ../tom_d4rt_generator (overridden in ./pubspec_overrides.yaml)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+19 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_11_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:49912/Ri2SJ-0oRkA=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:49912/Ri2SJ-0oRkA=/devtools/?uri=ws://127.0.0.1:49912/Ri2SJ-0oRkA=/ws
+=================================================================
+00:17 +0: Test App Health app is running
+00:17 +1: material/ individual snack_bar_action_test.dart
+[METRIC] script=material/snack_bar_action_test.dart testFile=flutter_base_11_test.dart sourceBytes=48833 sourceChars=48821 bundleJsonBytes=407208 clearMs=211 readMs=5 bundleMs=151 httpMs=1194 totalMs=1564 status=success httpStatus=200 outputLines=3 frameworkErrors=0 appBodyMs=8 appParseMs=53 appSetStateMs=53 appInterpretStartMs=61 appInterpretEndMs=762 appFirstFrameMs=984 appPumpEndMs=1184
+00:18 +2: material/ individual snack_bar_behavior_test.dart
+[METRIC] script=material/snack_bar_behavior_test.dart testFile=flutter_base_11_test.dart sourceBytes=57955 sourceChars=57955 bundleJsonBytes=575109 clearMs=218 readMs=1 bundleMs=73 httpMs=882 totalMs=1177 status=success httpStatus=200 outputLines=29 frameworkErrors=0 appBodyMs=1 appParseMs=15 appSetStateMs=15 appInterpretStartMs=16 appInterpretEndMs=591 appFirstFrameMs=675 appPumpEndMs=877
+00:20 +3: material/ individual snack_bar_closed_reason_test.dart
+[METRIC] script=material/snack_bar_closed_reason_test.dart testFile=flutter_base_11_test.dart sourceBytes=51653 sourceChars=51591 bundleJsonBytes=535557 clearMs=203 readMs=4 bundleMs=58 httpMs=796 totalMs=1063 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=5 appParseMs=14 appSetStateMs=14 appInterpretStartMs=16 appInterpretEndMs=524 appFirstFrameMs=591 appPumpEndMs=791
+00:21 +4: material/ individual spell_check_suggestions_toolbar_test.dart
+[METRIC] script=material/spell_check_suggestions_toolbar_test.dart testFile=flutter_base_11_test.dart sourceBytes=72977 sourceChars=72977 bundleJsonBytes=975232 clearMs=204 readMs=1 bundleMs=83 httpMs=919 totalMs=1210 status=success httpStatus=200 outputLines=0 frameworkErrors=10 appBodyMs=1 appParseMs=16 appSetStateMs=16 appInterpretStartMs=24 appInterpretEndMs=521 appFirstFrameMs=710 appPumpEndMs=911
+
+  ⚠️  FRAMEWORK ERROR in material/spell_check_suggestions_toolbar_test.dart (10 error(s)):
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+00:22 +5: material/ individual stepper_type_test.dart
+[METRIC] script=material/stepper_type_test.dart testFile=flutter_base_11_test.dart sourceBytes=37646 sourceChars=37644 bundleJsonBytes=442213 clearMs=217 readMs=1 bundleMs=26 httpMs=849 totalMs=1094 status=success httpStatus=200 outputLines=14 frameworkErrors=0 appBodyMs=1 appParseMs=8 appSetStateMs=8 appInterpretStartMs=9 appInterpretEndMs=520 appFirstFrameMs=644 appPumpEndMs=845
+00:23 +6: material/ individual switch_list_tile_test.dart
+[METRIC] script=material/switch_list_tile_test.dart testFile=flutter_base_11_test.dart sourceBytes=36637 sourceChars=36637 bundleJsonBytes=448222 clearMs=203 readMs=1 bundleMs=16 httpMs=871 totalMs=1093 status=success httpStatus=200 outputLines=38 frameworkErrors=34 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=11 appInterpretEndMs=515 appFirstFrameMs=665 appPumpEndMs=866
+
+  ⚠️  FRAMEWORK ERROR in material/switch_list_tile_test.dart (34 error(s)):
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+00:24 +7: material/ individual tab_bar_indicator_size_test.dart
+[METRIC] script=material/tab_bar_indicator_size_test.dart testFile=flutter_base_11_test.dart sourceBytes=45120 sourceChars=45120 bundleJsonBytes=482797 clearMs=212 readMs=1 bundleMs=42 httpMs=770 totalMs=1027 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=0 appParseMs=5 appSetStateMs=5 appInterpretStartMs=9 appInterpretEndMs=515 appFirstFrameMs=564 appPumpEndMs=766
+00:25 +8: material/ individual tab_bar_theme_data_test.dart
+[METRIC] script=material/tab_bar_theme_data_test.dart testFile=flutter_base_11_test.dart sourceBytes=71176 sourceChars=71176 bundleJsonBytes=898839 clearMs=217 readMs=1 bundleMs=55 httpMs=1529 totalMs=1803 status=success httpStatus=200 outputLines=0 frameworkErrors=8 appBodyMs=0 appParseMs=12 appSetStateMs=12 appInterpretStartMs=18 appInterpretEndMs=509 appFirstFrameMs=1321 appPumpEndMs=1522
+
+  ⚠️  FRAMEWORK ERROR in material/tab_bar_theme_data_test.dart (8 error(s)):
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+00:27 +9: material/ individual text_button_theme_data_test.dart
+[METRIC] script=material/text_button_theme_data_test.dart testFile=flutter_base_11_test.dart sourceBytes=52944 sourceChars=52906 bundleJsonBytes=561570 clearMs=215 readMs=2 bundleMs=26 httpMs=763 totalMs=1009 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=17 appInterpretEndMs=519 appFirstFrameMs=557 appPumpEndMs=758
+00:28 +10: material/ individual text_selection_toolbar_test.dart
+[METRIC] script=material/text_selection_toolbar_test.dart testFile=flutter_base_11_test.dart sourceBytes=48678 sourceChars=48623 bundleJsonBytes=543573 clearMs=203 readMs=2 bundleMs=18 httpMs=781 totalMs=1006 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=18 appInterpretEndMs=529 appFirstFrameMs=575 appPumpEndMs=777
+00:29 +11: material/ individual text_selection_toolbar_text_button_test.dart
+[METRIC] script=material/text_selection_toolbar_text_button_test.dart testFile=flutter_base_11_test.dart sourceBytes=64088 sourceChars=64034 bundleJsonBytes=784184 clearMs=204 readMs=2 bundleMs=22 httpMs=792 totalMs=1022 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=22 appSetStateMs=22 appInterpretStartMs=29 appInterpretEndMs=529 appFirstFrameMs=587 appPumpEndMs=787
+00:30 +12: material/ individual tooltip_visibility_test.dart
+[METRIC] script=material/tooltip_visibility_test.dart testFile=flutter_base_11_test.dart sourceBytes=50447 sourceChars=50447 bundleJsonBytes=540973 clearMs=203 readMs=1 bundleMs=15 httpMs=758 totalMs=980 status=success httpStatus=200 outputLines=26 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=13 appInterpretEndMs=508 appFirstFrameMs=554 appPumpEndMs=754
+00:31 +13: material/ individual typography_test.dart
+[METRIC] script=material/typography_test.dart testFile=flutter_base_11_test.dart sourceBytes=38232 sourceChars=38228 bundleJsonBytes=421981 clearMs=215 readMs=3 bundleMs=13 httpMs=763 totalMs=994 status=success httpStatus=200 outputLines=27 frameworkErrors=0 appBodyMs=1 appParseMs=7 appSetStateMs=7 appInterpretStartMs=12 appInterpretEndMs=516 appFirstFrameMs=558 appPumpEndMs=759
+00:32 +14: material/ individual visual_density_test.dart
+[METRIC] script=material/visual_density_test.dart testFile=flutter_base_11_test.dart sourceBytes=52086 sourceChars=52086 bundleJsonBytes=645508 clearMs=218 readMs=1 bundleMs=20 httpMs=852 totalMs=1092 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=0 appParseMs=8 appSetStateMs=8 appInterpretStartMs=14 appInterpretEndMs=521 appFirstFrameMs=646 appPumpEndMs=847
+00:33 +15: painting/ individual automatic_notched_shape_test.dart
+[METRIC] script=painting/automatic_notched_shape_test.dart testFile=flutter_base_11_test.dart sourceBytes=58473 sourceChars=58471 bundleJsonBytes=665071 clearMs=216 readMs=2 bundleMs=24 httpMs=784 totalMs=1028 status=success httpStatus=200 outputLines=40 frameworkErrors=0 appBodyMs=2 appParseMs=12 appSetStateMs=12 appInterpretStartMs=15 appInterpretEndMs=525 appFirstFrameMs=578 appPumpEndMs=779
+00:34 +16: painting/ individual border_directional_test.dart
+[METRIC] script=painting/border_directional_test.dart testFile=flutter_base_11_test.dart sourceBytes=42767 sourceChars=42767 bundleJsonBytes=524298 clearMs=216 readMs=2 bundleMs=16 httpMs=738 totalMs=974 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=0 appParseMs=7 appSetStateMs=7 appInterpretStartMs=9 appInterpretEndMs=501 appFirstFrameMs=533 appPumpEndMs=734
+00:35 +17: painting/ individual box_border_test.dart
+[METRIC] script=painting/box_border_test.dart testFile=flutter_base_11_test.dart sourceBytes=42078 sourceChars=42074 bundleJsonBytes=551906 clearMs=202 readMs=1 bundleMs=21 httpMs=776 totalMs=1002 status=success httpStatus=200 outputLines=53 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=14 appInterpretEndMs=528 appFirstFrameMs=571 appPumpEndMs=772
+00:36 +18: painting/ individual box_painter_test.dart
+[METRIC] script=painting/box_painter_test.dart testFile=flutter_base_11_test.dart sourceBytes=43087 sourceChars=43087 bundleJsonBytes=520073 clearMs=218 readMs=1 bundleMs=15 httpMs=758 totalMs=995 status=success httpStatus=200 outputLines=25 frameworkErrors=0 appBodyMs=0 appParseMs=7 appSetStateMs=7 appInterpretStartMs=12 appInterpretEndMs=517 appFirstFrameMs=554 appPumpEndMs=754
+00:37 +19: painting/ individual decoration_image_painter_test.dart
+[METRIC] script=painting/decoration_image_painter_test.dart testFile=flutter_base_11_test.dart sourceBytes=91972 sourceChars=87505 bundleJsonBytes=968290 clearMs=203 readMs=2 bundleMs=52 httpMs=970 totalMs=1229 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=12 appParseMs=36 appSetStateMs=36 appInterpretStartMs=36 appInterpretEndMs=655 appFirstFrameMs=761 appPumpEndMs=962
+00:38 +20: painting/ individual flutter_logo_decoration_test.dart
+[METRIC] script=painting/flutter_logo_decoration_test.dart testFile=flutter_base_11_test.dart sourceBytes=44594 sourceChars=44590 bundleJsonBytes=552477 clearMs=221 readMs=1 bundleMs=21 httpMs=751 totalMs=996 status=success httpStatus=200 outputLines=61 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=11 appInterpretEndMs=511 appFirstFrameMs=545 appPumpEndMs=746
+00:39 +21: painting/ individual gradient_test.dart
+[METRIC] script=painting/gradient_test.dart testFile=flutter_base_11_test.dart sourceBytes=47305 sourceChars=47267 bundleJsonBytes=579716 clearMs=204 readMs=1 bundleMs=16 httpMs=780 totalMs=1003 status=success httpStatus=200 outputLines=66 frameworkErrors=0 appBodyMs=2 appParseMs=12 appSetStateMs=12 appInterpretStartMs=18 appInterpretEndMs=533 appFirstFrameMs=573 appPumpEndMs=775
+00:40 +22: painting/ individual image_cache_status_test.dart
+[METRIC] script=painting/image_cache_status_test.dart testFile=flutter_base_11_test.dart sourceBytes=41344 sourceChars=41342 bundleJsonBytes=512994 clearMs=222 readMs=4 bundleMs=16 httpMs=795 totalMs=1039 status=success httpStatus=200 outputLines=40 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=17 appInterpretEndMs=546 appFirstFrameMs=589 appPumpEndMs=791
+00:41 +23: painting/ individual image_chunk_event_test.dart
+[METRIC] script=painting/image_chunk_event_test.dart testFile=flutter_base_11_test.dart sourceBytes=42326 sourceChars=42308 bundleJsonBytes=509128 clearMs=216 readMs=4 bundleMs=13 httpMs=773 totalMs=1007 status=success httpStatus=200 outputLines=34 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=17 appInterpretEndMs=520 appFirstFrameMs=567 appPumpEndMs=769
+00:42 +24: painting/ individual image_info_test.dart
+[METRIC] script=painting/image_info_test.dart testFile=flutter_base_11_test.dart sourceBytes=87609 sourceChars=87469 bundleJsonBytes=900906 clearMs=203 readMs=2 bundleMs=38 httpMs=1293 totalMs=1537 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=15 appSetStateMs=15 appInterpretStartMs=20 appInterpretEndMs=1002 appFirstFrameMs=1085 appPumpEndMs=1287
+00:44 +25: painting/ individual image_stream_completer_test.dart
+[METRIC] script=painting/image_stream_completer_test.dart testFile=flutter_base_11_test.dart sourceBytes=59014 sourceChars=59014 bundleJsonBytes=747216 clearMs=218 readMs=1 bundleMs=37 httpMs=751 totalMs=1008 status=success httpStatus=200 outputLines=48 frameworkErrors=0 appBodyMs=0 appParseMs=14 appSetStateMs=14 appInterpretStartMs=19 appInterpretEndMs=507 appFirstFrameMs=545 appPumpEndMs=746
+00:45 +26: painting/ individual image_stream_listener_test.dart
+[METRIC] script=painting/image_stream_listener_test.dart testFile=flutter_base_11_test.dart sourceBytes=42299 sourceChars=42280 bundleJsonBytes=495836 clearMs=204 readMs=2 bundleMs=12 httpMs=769 totalMs=989 status=success httpStatus=200 outputLines=25 frameworkErrors=0 appBodyMs=1 appParseMs=8 appSetStateMs=8 appInterpretStartMs=13 appInterpretEndMs=532 appFirstFrameMs=564 appPumpEndMs=765
+00:46 +27: painting/ individual image_stream_test.dart
+[METRIC] script=painting/image_stream_test.dart testFile=flutter_base_11_test.dart sourceBytes=53037 sourceChars=53017 bundleJsonBytes=628341 clearMs=203 readMs=2 bundleMs=16 httpMs=747 totalMs=968 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=19 appInterpretEndMs=505 appFirstFrameMs=542 appPumpEndMs=743
+00:47 +28: painting/ individual linear_border_edge_test.dart
+[METRIC] script=painting/linear_border_edge_test.dart testFile=flutter_base_11_test.dart sourceBytes=44257 sourceChars=44231 bundleJsonBytes=574396 clearMs=218 readMs=2 bundleMs=14 httpMs=752 totalMs=987 status=success httpStatus=200 outputLines=44 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=17 appInterpretEndMs=511 appFirstFrameMs=547 appPumpEndMs=748
+00:48 +29: painting/ individual linear_border_test.dart
+[METRIC] script=painting/linear_border_test.dart testFile=flutter_base_11_test.dart sourceBytes=62584 sourceChars=62547 bundleJsonBytes=767162 clearMs=217 readMs=1 bundleMs=20 httpMs=770 totalMs=1009 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=17 appSetStateMs=17 appInterpretStartMs=23 appInterpretEndMs=516 appFirstFrameMs=565 appPumpEndMs=765
+00:49 +30: painting/ individual notched_shape_test.dart
+[METRIC] script=painting/notched_shape_test.dart testFile=flutter_base_11_test.dart sourceBytes=51946 sourceChars=51926 bundleJsonBytes=620276 clearMs=203 readMs=2 bundleMs=19 httpMs=772 totalMs=998 status=success httpStatus=200 outputLines=41 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=18 appInterpretEndMs=514 appFirstFrameMs=568 appPumpEndMs=768
+00:50 +31: painting/ individual outlined_border_test.dart
+[METRIC] script=painting/outlined_border_test.dart testFile=flutter_base_11_test.dart sourceBytes=46773 sourceChars=46765 bundleJsonBytes=569821 clearMs=203 readMs=1 bundleMs=11 httpMs=786 totalMs=1003 status=success httpStatus=200 outputLines=27 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=18 appInterpretEndMs=515 appFirstFrameMs=581 appPumpEndMs=782
+00:51 +32: painting/ individual placeholder_dimensions_test.dart
+[METRIC] script=painting/placeholder_dimensions_test.dart testFile=flutter_base_11_test.dart sourceBytes=49051 sourceChars=49051 bundleJsonBytes=579448 clearMs=217 readMs=1 bundleMs=17 httpMs=771 totalMs=1008 status=success httpStatus=200 outputLines=43 frameworkErrors=0 appBodyMs=0 appParseMs=12 appSetStateMs=12 appInterpretStartMs=16 appInterpretEndMs=516 appFirstFrameMs=566 appPumpEndMs=766
+00:52 +33: painting/ individual placeholder_span_test.dart
+[METRIC] script=painting/placeholder_span_test.dart testFile=flutter_base_11_test.dart sourceBytes=50847 sourceChars=50847 bundleJsonBytes=586516 clearMs=203 readMs=2 bundleMs=12 httpMs=745 totalMs=964 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=13 appInterpretEndMs=502 appFirstFrameMs=536 appPumpEndMs=737
+00:53 +34: painting/ individual resize_image_key_test.dart
+[METRIC] script=painting/resize_image_key_test.dart testFile=flutter_base_11_test.dart sourceBytes=43035 sourceChars=43035 bundleJsonBytes=535954 clearMs=218 readMs=1 bundleMs=18 httpMs=768 totalMs=1006 status=success httpStatus=200 outputLines=54 frameworkErrors=0 appBodyMs=0 appParseMs=7 appSetStateMs=7 appInterpretStartMs=13 appInterpretEndMs=518 appFirstFrameMs=562 appPumpEndMs=763
+00:54 +35: painting/ individual resize_image_test.dart
+[METRIC] script=painting/resize_image_test.dart testFile=flutter_base_11_test.dart sourceBytes=43058 sourceChars=43014 bundleJsonBytes=528764 clearMs=203 readMs=2 bundleMs=14 httpMs=756 totalMs=976 status=success httpStatus=200 outputLines=23 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=14 appInterpretEndMs=518 appFirstFrameMs=550 appPumpEndMs=751
+00:55 +36: painting/ individual rounded_superellipse_border_test.dart
+[METRIC] script=painting/rounded_superellipse_border_test.dart testFile=flutter_base_11_test.dart sourceBytes=52635 sourceChars=52591 bundleJsonBytes=660504 clearMs=219 readMs=2 bundleMs=17 httpMs=738 totalMs=978 status=success httpStatus=200 outputLines=48 frameworkErrors=0 appBodyMs=1 appParseMs=15 appSetStateMs=15 appInterpretStartMs=16 appInterpretEndMs=503 appFirstFrameMs=534 appPumpEndMs=734
+00:56 +37: painting/ individual shape_border_test.dart
+[METRIC] script=painting/shape_border_test.dart testFile=flutter_base_11_test.dart sourceBytes=40468 sourceChars=40464 bundleJsonBytes=456957 clearMs=204 readMs=2 bundleMs=12 httpMs=782 totalMs=1000 status=success httpStatus=200 outputLines=80 frameworkErrors=0 appBodyMs=0 appParseMs=12 appSetStateMs=12 appInterpretStartMs=16 appInterpretEndMs=550 appFirstFrameMs=577 appPumpEndMs=778
+00:57 +38: painting/ individual star_border_test.dart
+[METRIC] script=painting/star_border_test.dart testFile=flutter_base_11_test.dart sourceBytes=35259 sourceChars=35234 bundleJsonBytes=409061 clearMs=202 readMs=1 bundleMs=14 httpMs=734 totalMs=953 status=success httpStatus=200 outputLines=45 frameworkErrors=0 appBodyMs=1 appParseMs=8 appSetStateMs=8 appInterpretStartMs=13 appInterpretEndMs=501 appFirstFrameMs=529 appPumpEndMs=730
+00:58 +39: painting/ individual word_boundary_test.dart
+[METRIC] script=painting/word_boundary_test.dart testFile=flutter_base_11_test.dart sourceBytes=43911 sourceChars=43905 bundleJsonBytes=521226 clearMs=203 readMs=1 bundleMs=14 httpMs=775 totalMs=996 status=success httpStatus=200 outputLines=81 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=13 appInterpretEndMs=524 appFirstFrameMs=569 appPumpEndMs=770
+00:59 +40: physics/ individual clamped_simulation_test.dart
+[METRIC] script=physics/clamped_simulation_test.dart testFile=flutter_base_11_test.dart sourceBytes=81239 sourceChars=81155 bundleJsonBytes=874565 clearMs=218 readMs=1 bundleMs=29 httpMs=814 totalMs=1064 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=3 appParseMs=16 appSetStateMs=16 appInterpretStartMs=17 appInterpretEndMs=521 appFirstFrameMs=607 appPumpEndMs=809
+01:00 +41: physics/ individual gravity_simulation_test.dart
+[METRIC] script=physics/gravity_simulation_test.dart testFile=flutter_base_11_test.dart sourceBytes=58174 sourceChars=58174 bundleJsonBytes=730077 clearMs=214 readMs=1 bundleMs=18 httpMs=829 totalMs=1064 status=success httpStatus=200 outputLines=47 frameworkErrors=0 appBodyMs=4 appParseMs=18 appSetStateMs=18 appInterpretStartMs=24 appInterpretEndMs=577 appFirstFrameMs=623 appPumpEndMs=824
+01:01 +42: (tearDownAll)
+01:02 +42: All tests passed!

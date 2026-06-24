@@ -1,7 +1,0 @@
-tom_d4rt_ast rc=0 dur=2s
-tom_dcli_exec rc=0 dur=12s
-tom_d4rt rc=1 dur=29s
-tom_ast_generator rc=1 dur=36s
-tom_d4rt_generator rc=1 dur=43s
-tom_d4rt_exec rc=1 dur=61s
-tom_d4rt_dcli rc=0 dur=358s

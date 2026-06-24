@@ -1,0 +1,29 @@
+{"protocolVersion":"0.1.1","runnerVersion":null,"pid":32676,"type":"start","time":0}
+{"suite":{"id":0,"platform":"vm","path":"/Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_14_test.dart"},"type":"suite","time":0}
+{"test":{"id":1,"name":"loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_14_test.dart","suiteID":0,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":0}
+{"count":1,"time":2,"type":"allSuites"}
+{"testID":1,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":3860}
+{"group":{"id":2,"suiteID":0,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":36,"line":null,"column":null,"url":null},"type":"group","time":3861}
+{"test":{"id":3,"name":"(setUpAll)","suiteID":0,"groupIDs":[2],"metadata":{"skip":false,"skipReason":null},"line":15,"column":3,"url":"file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_14_test.dart"},"type":"testStart","time":3861}
+{"testID":3,"messageType":"print","message":"[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…","type":"print","time":7403}
+{"testID":3,"messageType":"print","message":"[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…","type":"print","time":10495}
+{"testID":3,"messageType":"print","message":"[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…","type":"print","time":13594}
+{"testID":3,"messageType":"print","message":"[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…","type":"print","time":16689}
+{"testID":3,"messageType":"print","message":"[test-app] waiting for /health on port 4247 (15s elapsed, 31 probes)…","type":"print","time":19801}
+{"testID":3,"messageType":"print","message":"","type":"print","time":20066}
+{"testID":3,"messageType":"print","message":"=================================================================","type":"print","time":20066}
+{"testID":3,"messageType":"print","message":"[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:50743/qAJxdTzfpAE=/","type":"print","time":20066}
+{"testID":3,"messageType":"print","message":"=================================================================","type":"print","time":20066}
+{"testID":3,"messageType":"print","message":"","type":"print","time":20066}
+{"testID":3,"messageType":"print","message":"=================================================================","type":"print","time":20066}
+{"testID":3,"messageType":"print","message":"[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:50743/qAJxdTzfpAE=/devtools/?uri=ws://127.0.0.1:50743/qAJxdTzfpAE=/ws","type":"print","time":20066}
+{"testID":3,"messageType":"print","message":"=================================================================","type":"print","time":20066}
+{"testID":3,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":22466}
+{"group":{"id":4,"suiteID":0,"parentID":2,"name":"Test App Health","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":23,"column":3,"url":"file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_14_test.dart"},"type":"group","time":22469}
+{"test":{"id":5,"name":"Test App Health app is running","suiteID":0,"groupIDs":[2,4],"metadata":{"skip":false,"skipReason":null},"line":24,"column":5,"url":"file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_14_test.dart"},"type":"testStart","time":22469}
+{"testID":5,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":22598}
+{"group":{"id":6,"suiteID":0,"parentID":2,"name":"services/ individual","metadata":{"skip":false,"skipReason":null},"testCount":35,"line":35,"column":3,"url":"file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_14_test.dart"},"type":"group","time":22600}
+{"test":{"id":7,"name":"services/ individual android_view_controller_test.dart","suiteID":0,"groupIDs":[2,6],"metadata":{"skip":false,"skipReason":null},"line":36,"column":5,"url":"file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_14_test.dart"},"type":"testStart","time":22600}
+{"testID":7,"messageType":"print","message":"[METRIC] script=services/android_view_controller_test.dart testFile=flutter_base_14_test.dart sourceBytes=62312 sourceChars=61666 bundleJsonBytes=678005 clearMs=208 readMs=19 bundleMs=260 httpMs=1654 totalMs=2145 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=16 appParseMs=74 appSetStateMs=74 appInterpretStartMs=85 appInterpretEndMs=1170 appFirstFrameMs=1438 appPumpEndMs=1639","type":"print","time":24776}
+{"testID":7,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":24777}
+{"test":{"id":8,"name":"services/ individual app_kit_view_controller_test.dart","suiteID":0,"groupIDs":[2,6],"metadata":{"skip":false,"skipReason":null},"line":43,"column":5,"url":"file:///Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_14_test.dart"},"type":"testStart","time":24778}

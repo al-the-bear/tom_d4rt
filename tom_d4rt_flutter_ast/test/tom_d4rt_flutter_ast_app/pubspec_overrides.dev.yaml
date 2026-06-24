@@ -14,6 +14,14 @@
 #
 # This is the standard local multi-package dev pattern, not an API-shim
 # override; remove once tom_ast_model is republished with the slot members.
+#
+# tom_d4rt_ast itself must also resolve from its local checkout: the
+# interpreter's bridged-enum operator dispatch (the `&`/`|`/`~` overloads
+# Flutter's WidgetState gains from WidgetStateOperators) is fixed locally but
+# not yet republished past hosted 0.1.10. Without this override the app pulls
+# the stale hosted runtime and the local fix never executes.
 dependency_overrides:
+  tom_d4rt_ast:
+    path: ../../../tom_d4rt_ast
   tom_ast_model:
     path: ../../../tom_ast_model

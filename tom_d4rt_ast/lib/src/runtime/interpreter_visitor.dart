@@ -1864,6 +1864,24 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
     }
 
+    // Bridged enum operator methods (e.g. the `&`, `|`, `^` overloads Flutter's
+    // `WidgetState` gains from the `WidgetStateOperators` mixin). `WidgetState`
+    // is bridged as an enum whose definition carries operator adapters, so a
+    // `WidgetState.hovered & ~WidgetState.disabled` expression has a
+    // BridgedEnumValue left operand. Dispatch to the bridged operator adapter
+    // before the built-in switch (which only knows int/BigInt) so these don't
+    // fall through to "Unsupported binary operator".
+    if (leftOperandValue is BridgedEnumValue &&
+        leftOperandValue.hasMethod(operatorName)) {
+      // Unwrap a BridgedEnumValue right operand to its native value so the
+      // native operator receives the type it expects (e.g. a
+      // WidgetStatesConstraint rather than the interpreter's wrapper).
+      final rightArg = rightOperandValue is BridgedEnumValue
+          ? rightOperandValue.nativeValue
+          : rightOperandValue;
+      return leftOperandValue.invoke(this, operatorName, [rightArg], {});
+    }
+
     // Only try extension immediately for operators where standard checks might bypass it
     // (e.g., ==, !=, <, >, <=, >= which have generic fallbacks)
     bool checkExtensionEarly = [
@@ -8017,6 +8035,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             }
           }
           // No class operator found, try extensions
+        }
+
+        // Bridged enum unary operator `~` (e.g. `~WidgetState.disabled`, where
+        // WidgetState is bridged as an enum with a `~` operator adapter).
+        if (operandValue is BridgedEnumValue && operandValue.hasMethod('~')) {
+          return operandValue.invoke(this, '~', const [], const {});
         }
 
         // Check for bridged operator methods (unary ~)
