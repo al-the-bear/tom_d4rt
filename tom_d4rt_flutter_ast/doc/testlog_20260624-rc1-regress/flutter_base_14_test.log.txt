@@ -46,3 +46,7 @@ Try `flutter pub outdated` for more information.
 00:18 +1: services/ individual android_view_controller_test.dart
 [METRIC] script=services/android_view_controller_test.dart testFile=flutter_base_14_test.dart sourceBytes=62312 sourceChars=61666 bundleJsonBytes=678005 clearMs=208 readMs=19 bundleMs=260 httpMs=1654 totalMs=2145 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=16 appParseMs=74 appSetStateMs=74 appInterpretStartMs=85 appInterpretEndMs=1170 appFirstFrameMs=1438 appPumpEndMs=1639
 00:20 +2: services/ individual app_kit_view_controller_test.dart
+[METRIC] script=services/app_kit_view_controller_test.dart testFile=flutter_base_14_test.dart sourceBytes=34008 sourceChars=32623 bundleJsonBytes=397102 clearMs=221 readMs=3 bundleMs=49 httpMs=939 totalMs=1214 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=16 appInterpretEndMs=653 appFirstFrameMs=733 appPumpEndMs=933
+00:22 +3: services/ individual asset_manifest_test.dart
+[METRIC] script=services/asset_manifest_test.dart testFile=flutter_base_14_test.dart sourceBytes=45569 sourceChars=44907 bundleJsonBytes=513842 clearMs=227 readMs=1 bundleMs=30 httpMs=976 totalMs=1236 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=2 appParseMs=11 appSetStateMs=11 appInterpretStartMs=18 appInterpretEndMs=636 appFirstFrameMs=769 appPumpEndMs=969
+00:23 +4: services/ individual asset_metadata_test.dart
