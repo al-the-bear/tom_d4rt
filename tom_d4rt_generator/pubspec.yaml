@@ -38,8 +38,10 @@ dependencies:
   # D4rt runtime (used by testing library). 1.9.0 ships the import-optimization
   # API the generated `registerBridges` now targets (`registerBridgedClassLazy`);
   # earlier 1.8.x lack it. 1.9.0 is also analyzer-10 (1.8.25 was the first such
-  # build; earlier 1.8.x carry analyzer ^8 and would conflict).
-  tom_d4rt: ^1.9.0
+  # build; earlier 1.8.x carry analyzer ^8 and would conflict). Floor raised to
+  # 1.10.1 (precise-before-fuzzy `Environment.toBridgedClass` fix) alongside the
+  # Phase-6 publish walk of the import-optimization plan.
+  tom_d4rt: ^1.10.1
 
   # Shared analyzer summary caching — same cache directory as
   # tom_reflection_generator so sibling generators can reuse each
