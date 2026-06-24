@@ -140,3 +140,7 @@ Try `flutter pub outdated` for more information.
 01:03 +48: widgets/ text_editing_adv_test.dart
 [METRIC] script=widgets/text_editing_adv_test.dart testFile=flutter_base_07_test.dart sourceBytes=65917 sourceChars=65787 bundleJsonBytes=797238 clearMs=202 readMs=2 bundleMs=18 httpMs=578 totalMs=801 status=success httpStatus=200 outputLines=64 frameworkErrors=0 appBodyMs=2 appParseMs=13 appSetStateMs=13 appInterpretStartMs=16 appInterpretEndMs=337 appFirstFrameMs=373 appPumpEndMs=574
 01:04 +49: widgets/ restoration_adv_test.dart
+[METRIC] script=widgets/restoration_adv_test.dart testFile=flutter_base_07_test.dart sourceBytes=61598 sourceChars=61448 bundleJsonBytes=719355 clearMs=220 readMs=0 bundleMs=24 httpMs=614 totalMs=860 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=2 appParseMs=12 appSetStateMs=12 appInterpretStartMs=15 appInterpretEndMs=334 appFirstFrameMs=408 appPumpEndMs=609
+01:05 +50: widgets/ shortcuts_actions_adv_test.dart
+[METRIC] script=widgets/shortcuts_actions_adv_test.dart testFile=flutter_base_07_test.dart sourceBytes=73727 sourceChars=73727 bundleJsonBytes=771051 clearMs=202 readMs=1 bundleMs=21 httpMs=844 totalMs=1070 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=0 appParseMs=8 appSetStateMs=8 appInterpretStartMs=13 appInterpretEndMs=582 appFirstFrameMs=638 appPumpEndMs=839
+01:06 +51: widgets/ autofill_context_adv_test.dart
