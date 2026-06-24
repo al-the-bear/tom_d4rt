@@ -18,7 +18,9 @@ dependencies:
   glob: ^2.1.2
   path: ^1.9.1
   yaml: ^3.1.2
-  tom_d4rt_ast: ^0.1.5
+  # Floor raised to 0.1.10 for the import-optimization Phase 6 publish walk
+  # (precise-before-fuzzy twin fix); resolves hosted from pub.dev.
+  tom_d4rt_ast: ^0.1.10
   tom_ast_model: ^0.1.1
   tom_build_base: ^2.6.21
 
