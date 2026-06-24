@@ -13,8 +13,10 @@ environment:
   sdk: ^3.10.4
 
 dependencies:
-  # D4rt runtime
-  tom_d4rt: ^1.8.20
+  # D4rt runtime. Floor raised to 1.10.1 (import-optimization Phase 6;
+  # precise-before-fuzzy Environment.toBridgedClass fix). Override-pinned to
+  # ../tom_d4rt in-tree via pubspec_overrides.yaml, so the bump is cosmetic.
+  tom_d4rt: ^1.10.1
 
   # VS Code scripting API (for bridge support)
   tom_vscode_scripting_api: ^1.0.1
