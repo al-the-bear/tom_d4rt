@@ -13,10 +13,12 @@ environment:
   sdk: ^3.10.4
 
 dependencies:
-  # D4rt runtime (analyzer-free mirror AST)
-  tom_d4rt_exec: ^1.8.2
+  # D4rt runtime (analyzer-free mirror AST). Floors raised for the
+  # import-optimization Phase 6 publish walk; both are override-pinned to
+  # ../tom_d4rt_exec / ../tom_d4rt_ast in-tree, so the bumps are cosmetic.
+  tom_d4rt_exec: ^1.9.0
   # Mirror-AST interpreter — generated bridges import its runtime directly.
-  tom_d4rt_ast: ^0.1.4
+  tom_d4rt_ast: ^0.1.10
   # AST converter (analyzer → mirror AST) for parseSourceCallback
   tom_ast_generator: ^0.1.0
   # Analyzer needed by tom_ast_generator for parsing
