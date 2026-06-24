@@ -1,0 +1,166 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (104.0.0 available)
+  analyzer 10.2.0 (14.0.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.1.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.18.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.11 (0.7.12 available)
+! tom_ast_generator 0.1.3 from path ../tom_ast_generator (overridden in ./pubspec_overrides.yaml)
+! tom_ast_model 0.1.3 from path ../tom_ast_model (overridden in ./pubspec_overrides.yaml)
+  tom_build_base 2.6.21 (2.6.25 available)
+! tom_d4rt_ast 0.1.10 from path ../tom_d4rt_ast (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt_exec 1.9.0 from path ../tom_d4rt_exec (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt_generator 1.11.0 from path ../tom_d4rt_generator (overridden in ./pubspec_overrides.yaml)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+19 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_extended_19_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:63593/CePIEO3DL-I=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:63593/CePIEO3DL-I=/devtools/?uri=ws://127.0.0.1:63593/CePIEO3DL-I=/ws
+=================================================================
+00:17 +0: Test App Health app is running
+00:17 +1: widgets/ shortcut_serialization_test.dart
+[METRIC] script=widgets/shortcut_serialization_test.dart testFile=flutter_extended_19_test.dart sourceBytes=53949 sourceChars=52533 bundleJsonBytes=590646 clearMs=208 readMs=3 bundleMs=217 httpMs=1181 totalMs=1612 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=13 appParseMs=59 appSetStateMs=59 appInterpretStartMs=66 appInterpretEndMs=853 appFirstFrameMs=968 appPumpEndMs=1171
+00:18 +2: widgets/ single_activator_test.dart
+[METRIC] script=widgets/single_activator_test.dart testFile=flutter_extended_19_test.dart sourceBytes=53859 sourceChars=52443 bundleJsonBytes=614174 clearMs=214 readMs=4 bundleMs=39 httpMs=595 totalMs=854 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=19 appSetStateMs=19 appInterpretStartMs=23 appInterpretEndMs=302 appFirstFrameMs=390 appPumpEndMs=590
+00:19 +3: widgets/ size_changed_layout_notification_test.dart
+[METRIC] script=widgets/size_changed_layout_notification_test.dart testFile=flutter_extended_19_test.dart sourceBytes=61967 sourceChars=61906 bundleJsonBytes=705132 clearMs=203 readMs=1 bundleMs=68 httpMs=594 totalMs=867 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=20 appSetStateMs=20 appInterpretStartMs=24 appInterpretEndMs=279 appFirstFrameMs=385 appPumpEndMs=587
+00:20 +4: widgets/ size_changed_layout_notifier_test.dart
+[METRIC] script=widgets/size_changed_layout_notifier_test.dart testFile=flutter_extended_19_test.dart sourceBytes=71236 sourceChars=71153 bundleJsonBytes=803091 clearMs=217 readMs=1 bundleMs=56 httpMs=581 totalMs=856 status=success httpStatus=200 outputLines=32 frameworkErrors=0 appBodyMs=2 appParseMs=24 appSetStateMs=24 appInterpretStartMs=24 appInterpretEndMs=320 appFirstFrameMs=373 appPumpEndMs=575
+00:21 +5: widgets/ sized_overflow_box_test.dart
+[METRIC] script=widgets/sized_overflow_box_test.dart testFile=flutter_extended_19_test.dart sourceBytes=66939 sourceChars=66896 bundleJsonBytes=776572 clearMs=222 readMs=3 bundleMs=31 httpMs=552 totalMs=809 status=success httpStatus=200 outputLines=39 frameworkErrors=0 appBodyMs=2 appParseMs=17 appSetStateMs=17 appInterpretStartMs=21 appInterpretEndMs=299 appFirstFrameMs=347 appPumpEndMs=547
+00:22 +6: widgets/ sliver_animated_grid_state_test.dart
+[METRIC] script=widgets/sliver_animated_grid_state_test.dart testFile=flutter_extended_19_test.dart sourceBytes=71119 sourceChars=71005 bundleJsonBytes=873917 clearMs=204 readMs=5 bundleMs=61 httpMs=725 totalMs=996 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=26 appSetStateMs=26 appInterpretStartMs=28 appInterpretEndMs=274 appFirstFrameMs=517 appPumpEndMs=719
+00:23 +7: widgets/ sliver_animated_list_state_test.dart
+[METRIC] script=widgets/sliver_animated_list_state_test.dart testFile=flutter_extended_19_test.dart sourceBytes=32173 sourceChars=31069 bundleJsonBytes=413543 clearMs=221 readMs=1 bundleMs=13 httpMs=564 totalMs=801 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=16 appInterpretEndMs=263 appFirstFrameMs=357 appPumpEndMs=560
+00:23 +8: widgets/ sliver_child_builder_delegate_test.dart
+[METRIC] script=widgets/sliver_child_builder_delegate_test.dart testFile=flutter_extended_19_test.dart sourceBytes=33023 sourceChars=31529 bundleJsonBytes=362518 clearMs=203 readMs=0 bundleMs=12 httpMs=632 totalMs=849 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=1 appParseMs=8 appSetStateMs=8 appInterpretStartMs=16 appInterpretEndMs=274 appFirstFrameMs=427 appPumpEndMs=629
+00:24 +9: widgets/ sliver_child_delegate_test.dart
+[METRIC] script=widgets/sliver_child_delegate_test.dart testFile=flutter_extended_19_test.dart sourceBytes=61584 sourceChars=61490 bundleJsonBytes=715897 clearMs=223 readMs=2 bundleMs=28 httpMs=622 totalMs=876 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=1 appParseMs=16 appSetStateMs=16 appInterpretStartMs=17 appInterpretEndMs=294 appFirstFrameMs=416 appPumpEndMs=617
+00:25 +10: widgets/ sliver_child_list_delegate_test.dart
+[METRIC] script=widgets/sliver_child_list_delegate_test.dart testFile=flutter_extended_19_test.dart sourceBytes=33276 sourceChars=31762 bundleJsonBytes=377871 clearMs=204 readMs=1 bundleMs=18 httpMs=578 totalMs=803 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=10 appInterpretEndMs=265 appFirstFrameMs=373 appPumpEndMs=574
+00:26 +11: widgets/ sliver_ensure_semantics_test.dart
+[METRIC] script=widgets/sliver_ensure_semantics_test.dart testFile=flutter_extended_19_test.dart sourceBytes=69892 sourceChars=69780 bundleJsonBytes=687420 clearMs=220 readMs=2 bundleMs=20 httpMs=528 totalMs=771 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=1 appParseMs=15 appSetStateMs=15 appInterpretStartMs=19 appInterpretEndMs=289 appFirstFrameMs=322 appPumpEndMs=523
+00:27 +12: widgets/ sliver_fade_transition_test.dart
+[METRIC] script=widgets/sliver_fade_transition_test.dart testFile=flutter_extended_19_test.dart sourceBytes=46503 sourceChars=45901 bundleJsonBytes=423977 clearMs=202 readMs=1 bundleMs=11 httpMs=544 totalMs=760 status=success httpStatus=200 outputLines=20 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=15 appInterpretEndMs=283 appFirstFrameMs=339 appPumpEndMs=540
+00:28 +13: widgets/ sliver_multi_box_adaptor_element_test.dart
+[METRIC] script=widgets/sliver_multi_box_adaptor_element_test.dart testFile=flutter_extended_19_test.dart sourceBytes=71622 sourceChars=71526 bundleJsonBytes=954213 clearMs=202 readMs=1 bundleMs=24 httpMs=631 totalMs=859 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=21 appSetStateMs=21 appInterpretStartMs=21 appInterpretEndMs=268 appFirstFrameMs=406 appPumpEndMs=625
+00:28 +14: widgets/ sliver_multi_box_adaptor_widget_test.dart
+[METRIC] script=widgets/sliver_multi_box_adaptor_widget_test.dart testFile=flutter_extended_19_test.dart sourceBytes=79201 sourceChars=79079 bundleJsonBytes=921243 clearMs=234 readMs=2 bundleMs=35 httpMs=594 totalMs=867 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=20 appSetStateMs=20 appInterpretStartMs=21 appInterpretEndMs=263 appFirstFrameMs=382 appPumpEndMs=587
+00:29 +15: widgets/ sliver_overlap_absorber_handle_test.dart
+[METRIC] script=widgets/sliver_overlap_absorber_handle_test.dart testFile=flutter_extended_19_test.dart sourceBytes=48197 sourceChars=48173 bundleJsonBytes=489270 clearMs=244 readMs=1 bundleMs=15 httpMs=517 totalMs=779 status=success httpStatus=200 outputLines=40 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=16 appInterpretEndMs=277 appFirstFrameMs=311 appPumpEndMs=513
+00:30 +16: widgets/ sliver_overlap_absorber_test.dart
+[METRIC] script=widgets/sliver_overlap_absorber_test.dart testFile=flutter_extended_19_test.dart sourceBytes=54023 sourceChars=53991 bundleJsonBytes=537047 clearMs=217 readMs=2 bundleMs=17 httpMs=518 totalMs=755 status=success httpStatus=200 outputLines=31 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=17 appInterpretEndMs=282 appFirstFrameMs=311 appPumpEndMs=513
+00:31 +17: widgets/ sliver_overlap_injector_test.dart
+[METRIC] script=widgets/sliver_overlap_injector_test.dart testFile=flutter_extended_19_test.dart sourceBytes=54279 sourceChars=54249 bundleJsonBytes=553020 clearMs=218 readMs=2 bundleMs=14 httpMs=516 totalMs=751 status=success httpStatus=200 outputLines=35 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=12 appInterpretEndMs=281 appFirstFrameMs=312 appPumpEndMs=512
+00:32 +18: widgets/ sliver_persistent_header_delegate_test.dart
+[METRIC] script=widgets/sliver_persistent_header_delegate_test.dart testFile=flutter_extended_19_test.dart sourceBytes=30041 sourceChars=29061 bundleJsonBytes=333692 clearMs=203 readMs=2 bundleMs=18 httpMs=644 totalMs=868 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=1 appParseMs=7 appSetStateMs=7 appInterpretStartMs=11 appInterpretEndMs=337 appFirstFrameMs=438 appPumpEndMs=640
+00:32 +19: widgets/ sliver_reorderable_list_state_test.dart
+[METRIC] script=widgets/sliver_reorderable_list_state_test.dart testFile=flutter_extended_19_test.dart sourceBytes=80849 sourceChars=80656 bundleJsonBytes=1030273 clearMs=222 readMs=1 bundleMs=47 httpMs=708 totalMs=980 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=24 appSetStateMs=24 appInterpretStartMs=33 appInterpretEndMs=278 appFirstFrameMs=499 appPumpEndMs=703
+00:33 +20: widgets/ sliver_with_keep_alive_widget_test.dart
+[METRIC] script=widgets/sliver_with_keep_alive_widget_test.dart testFile=flutter_extended_19_test.dart sourceBytes=41867 sourceChars=41821 bundleJsonBytes=443980 clearMs=202 readMs=1 bundleMs=16 httpMs=507 totalMs=728 status=success httpStatus=200 outputLines=44 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=11 appInterpretEndMs=270 appFirstFrameMs=303 appPumpEndMs=503
+00:34 +21: widgets/ slotted_container_render_object_mixin_test.dart
+[METRIC] script=widgets/slotted_container_render_object_mixin_test.dart testFile=flutter_extended_19_test.dart sourceBytes=75454 sourceChars=75294 bundleJsonBytes=815679 clearMs=204 readMs=2 bundleMs=57 httpMs=621 totalMs=884 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=18 appSetStateMs=18 appInterpretStartMs=19 appInterpretEndMs=352 appFirstFrameMs=412 appPumpEndMs=616
+00:35 +22: widgets/ slotted_multi_child_render_object_widget_mixin_test.dart
+[METRIC] script=widgets/slotted_multi_child_render_object_widget_mixin_test.dart testFile=flutter_extended_19_test.dart sourceBytes=76732 sourceChars=76639 bundleJsonBytes=941261 clearMs=225 readMs=1 bundleMs=43 httpMs=699 totalMs=971 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=20 appSetStateMs=20 appInterpretStartMs=23 appInterpretEndMs=346 appFirstFrameMs=491 appPumpEndMs=694
+00:36 +23: widgets/ slotted_multi_child_render_object_widget_test.dart
+[METRIC] script=widgets/slotted_multi_child_render_object_widget_test.dart testFile=flutter_extended_19_test.dart sourceBytes=74269 sourceChars=74210 bundleJsonBytes=999274 clearMs=229 readMs=1 bundleMs=39 httpMs=748 totalMs=1018 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=22 appSetStateMs=22 appInterpretStartMs=25 appInterpretEndMs=359 appFirstFrameMs=541 appPumpEndMs=742
+00:37 +24: widgets/ slotted_render_object_element_test.dart
+[METRIC] script=widgets/slotted_render_object_element_test.dart testFile=flutter_extended_19_test.dart sourceBytes=82460 sourceChars=82258 bundleJsonBytes=1081632 clearMs=204 readMs=1 bundleMs=36 httpMs=643 totalMs=885 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=3 appParseMs=25 appSetStateMs=25 appInterpretStartMs=26 appInterpretEndMs=342 appFirstFrameMs=433 appPumpEndMs=635
+00:38 +25: widgets/ snapshot_controller_test.dart
+[METRIC] script=widgets/snapshot_controller_test.dart testFile=flutter_extended_19_test.dart sourceBytes=33167 sourceChars=33049 bundleJsonBytes=361224 clearMs=226 readMs=1 bundleMs=10 httpMs=513 totalMs=751 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=1 appParseMs=7 appSetStateMs=7 appInterpretStartMs=9 appInterpretEndMs=268 appFirstFrameMs=308 appPumpEndMs=509
+00:39 +26: widgets/ snapshot_mode_test.dart
+[METRIC] script=widgets/snapshot_mode_test.dart testFile=flutter_extended_19_test.dart sourceBytes=63266 sourceChars=63226 bundleJsonBytes=792050 clearMs=202 readMs=1 bundleMs=23 httpMs=665 totalMs=893 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=17 appSetStateMs=17 appInterpretStartMs=22 appInterpretEndMs=267 appFirstFrameMs=458 appPumpEndMs=660
+00:40 +27: widgets/ snapshot_painter_test.dart
+[METRIC] script=widgets/snapshot_painter_test.dart testFile=flutter_extended_19_test.dart sourceBytes=41039 sourceChars=41031 bundleJsonBytes=440118 clearMs=202 readMs=1 bundleMs=11 httpMs=517 totalMs=733 status=success httpStatus=200 outputLines=49 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=16 appInterpretEndMs=282 appFirstFrameMs=311 appPumpEndMs=513
+00:40 +28: widgets/ snapshot_widget_test.dart
+[METRIC] script=widgets/snapshot_widget_test.dart testFile=flutter_extended_19_test.dart sourceBytes=43871 sourceChars=43861 bundleJsonBytes=461209 clearMs=217 readMs=1 bundleMs=10 httpMs=520 totalMs=751 status=success httpStatus=200 outputLines=38 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=16 appInterpretEndMs=284 appFirstFrameMs=317 appPumpEndMs=517
+00:41 +29: widgets/ standard_component_type_test.dart
+[METRIC] script=widgets/standard_component_type_test.dart testFile=flutter_extended_19_test.dart sourceBytes=91977 sourceChars=91891 bundleJsonBytes=1062681 clearMs=203 readMs=1 bundleMs=27 httpMs=1566 totalMs=1800 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=23 appSetStateMs=23 appInterpretStartMs=25 appInterpretEndMs=270 appFirstFrameMs=1357 appPumpEndMs=1561
+00:43 +30: widgets/ static_selection_container_delegate_test.dart
+[METRIC] script=widgets/static_selection_container_delegate_test.dart testFile=flutter_extended_19_test.dart sourceBytes=69224 sourceChars=69126 bundleJsonBytes=860797 clearMs=202 readMs=2 bundleMs=39 httpMs=734 totalMs=979 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=18 appSetStateMs=18 appInterpretStartMs=21 appInterpretEndMs=344 appFirstFrameMs=522 appPumpEndMs=729
+00:44 +31: widgets/ status_transition_widget_test.dart
+[METRIC] script=widgets/status_transition_widget_test.dart testFile=flutter_extended_19_test.dart sourceBytes=41688 sourceChars=41666 bundleJsonBytes=475126 clearMs=257 readMs=1 bundleMs=10 httpMs=537 totalMs=806 status=success httpStatus=200 outputLines=49 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=16 appInterpretEndMs=302 appFirstFrameMs=330 appPumpEndMs=532
+00:45 +32: widgets/ stream_builder_base_test.dart
+[METRIC] script=widgets/stream_builder_base_test.dart testFile=flutter_extended_19_test.dart sourceBytes=33902 sourceChars=33772 bundleJsonBytes=376540 clearMs=204 readMs=1 bundleMs=10 httpMs=510 totalMs=727 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=1 appParseMs=7 appSetStateMs=7 appInterpretStartMs=10 appInterpretEndMs=264 appFirstFrameMs=304 appPumpEndMs=507
+00:45 +33: widgets/ stretch_effect_test.dart
+[METRIC] script=widgets/stretch_effect_test.dart testFile=flutter_extended_19_test.dart sourceBytes=40374 sourceChars=40368 bundleJsonBytes=446586 clearMs=217 readMs=1 bundleMs=10 httpMs=508 totalMs=739 status=success httpStatus=200 outputLines=47 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=16 appInterpretEndMs=277 appFirstFrameMs=303 appPumpEndMs=504
+00:46 +34: widgets/ system_context_menu_test.dart
+[METRIC] script=widgets/system_context_menu_test.dart testFile=flutter_extended_19_test.dart sourceBytes=42584 sourceChars=42578 bundleJsonBytes=471221 clearMs=218 readMs=1 bundleMs=14 httpMs=500 totalMs=735 status=success httpStatus=200 outputLines=45 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=12 appInterpretEndMs=269 appFirstFrameMs=294 appPumpEndMs=496
+00:47 +35: widgets/ system_text_scaler_test.dart
+[METRIC] script=widgets/system_text_scaler_test.dart testFile=flutter_extended_19_test.dart sourceBytes=43689 sourceChars=43679 bundleJsonBytes=462879 clearMs=204 readMs=1 bundleMs=10 httpMs=496 totalMs=713 status=success httpStatus=200 outputLines=49 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=11 appInterpretEndMs=269 appFirstFrameMs=292 appPumpEndMs=492
+00:48 +36: widgets/ tap_region_registry_test.dart
+[METRIC] script=widgets/tap_region_registry_test.dart testFile=flutter_extended_19_test.dart sourceBytes=48709 sourceChars=48699 bundleJsonBytes=528269 clearMs=202 readMs=2 bundleMs=12 httpMs=502 totalMs=719 status=success httpStatus=200 outputLines=47 frameworkErrors=0 appBodyMs=1 appParseMs=13 appSetStateMs=13 appInterpretStartMs=17 appInterpretEndMs=273 appFirstFrameMs=297 appPumpEndMs=498
+00:48 +37: widgets/ text_selection_gesture_detector_builder_delegate_test.dart
+[METRIC] script=widgets/text_selection_gesture_detector_builder_delegate_test.dart testFile=flutter_extended_19_test.dart sourceBytes=71204 sourceChars=71100 bundleJsonBytes=854624 clearMs=217 readMs=2 bundleMs=21 httpMs=559 totalMs=800 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=20 appSetStateMs=20 appInterpretStartMs=27 appInterpretEndMs=279 appFirstFrameMs=350 appPumpEndMs=552
+00:49 +38: widgets/ text_selection_gesture_detector_builder_test.dart
+[METRIC] script=widgets/text_selection_gesture_detector_builder_test.dart testFile=flutter_extended_19_test.dart sourceBytes=64791 sourceChars=64725 bundleJsonBytes=835856 clearMs=202 readMs=2 bundleMs=20 httpMs=568 totalMs=793 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=23 appInterpretEndMs=290 appFirstFrameMs=362 appPumpEndMs=564
+00:50 +39: widgets/ text_selection_handle_controls_test.dart
+[METRIC] script=widgets/text_selection_handle_controls_test.dart testFile=flutter_extended_19_test.dart sourceBytes=53334 sourceChars=53282 bundleJsonBytes=659491 clearMs=215 readMs=1 bundleMs=14 httpMs=764 totalMs=995 status=success httpStatus=200 outputLines=39 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=15 appInterpretStartMs=20 appInterpretEndMs=521 appFirstFrameMs=557 appPumpEndMs=759
+00:51 +40: widgets/ text_selection_toolbar_layout_delegate_test.dart
+[METRIC] script=widgets/text_selection_toolbar_layout_delegate_test.dart testFile=flutter_extended_19_test.dart sourceBytes=77693 sourceChars=77691 bundleJsonBytes=729994 clearMs=217 readMs=2 bundleMs=16 httpMs=569 totalMs=805 status=success httpStatus=200 outputLines=42 frameworkErrors=0 appBodyMs=0 appParseMs=10 appSetStateMs=10 appInterpretStartMs=18 appInterpretEndMs=299 appFirstFrameMs=362 appPumpEndMs=564
+00:52 +41: widgets/ text_style_tween_test.dart
+[METRIC] script=widgets/text_style_tween_test.dart testFile=flutter_extended_19_test.dart sourceBytes=32366 sourceChars=32238 bundleJsonBytes=387544 clearMs=202 readMs=1 bundleMs=9 httpMs=513 totalMs=727 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=1 appParseMs=7 appSetStateMs=7 appInterpretStartMs=10 appInterpretEndMs=268 appFirstFrameMs=310 appPumpEndMs=510
+00:52 +42: widgets/ texture_test.dart
+[METRIC] script=widgets/texture_test.dart testFile=flutter_extended_19_test.dart sourceBytes=41807 sourceChars=41803 bundleJsonBytes=455726 clearMs=203 readMs=1 bundleMs=10 httpMs=515 totalMs=731 status=success httpStatus=200 outputLines=47 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=10 appInterpretEndMs=282 appFirstFrameMs=310 appPumpEndMs=511
+00:53 +43: widgets/ ticker_mode_data_test.dart
+[METRIC] script=widgets/ticker_mode_data_test.dart testFile=flutter_extended_19_test.dart sourceBytes=38685 sourceChars=38683 bundleJsonBytes=419435 clearMs=204 readMs=1 bundleMs=10 httpMs=490 totalMs=706 status=success httpStatus=200 outputLines=49 frameworkErrors=0 appBodyMs=0 appParseMs=7 appSetStateMs=7 appInterpretStartMs=7 appInterpretEndMs=262 appFirstFrameMs=286 appPumpEndMs=486
+00:54 +44: widgets/ toggleable_painter_test.dart
+[METRIC] script=widgets/toggleable_painter_test.dart testFile=flutter_extended_19_test.dart sourceBytes=54956 sourceChars=54920 bundleJsonBytes=701706 clearMs=204 readMs=1 bundleMs=16 httpMs=647 totalMs=869 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=20 appInterpretEndMs=265 appFirstFrameMs=441 appPumpEndMs=643
+00:55 +45: widgets/ toggleable_state_mixin_test.dart
+[METRIC] script=widgets/toggleable_state_mixin_test.dart testFile=flutter_extended_19_test.dart sourceBytes=34472 sourceChars=34324 bundleJsonBytes=373067 clearMs=221 readMs=1 bundleMs=8 httpMs=513 totalMs=745 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=1 appParseMs=7 appSetStateMs=7 appInterpretStartMs=15 appInterpretEndMs=273 appFirstFrameMs=308 appPumpEndMs=510
+00:55 +46: widgets/ toolbar_items_parent_data_test.dart
+[METRIC] script=widgets/toolbar_items_parent_data_test.dart testFile=flutter_extended_19_test.dart sourceBytes=26251 sourceChars=26247 bundleJsonBytes=358903 clearMs=203 readMs=1 bundleMs=9 httpMs=491 totalMs=706 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=7 appSetStateMs=7 appInterpretStartMs=10 appInterpretEndMs=253 appFirstFrameMs=287 appPumpEndMs=488
+00:56 +47: widgets/ toolbar_options_test.dart
+[METRIC] script=widgets/toolbar_options_test.dart testFile=flutter_extended_19_test.dart sourceBytes=18490 sourceChars=18488 bundleJsonBytes=250618 clearMs=203 readMs=1 bundleMs=6 httpMs=492 totalMs=703 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=5 appSetStateMs=5 appInterpretStartMs=13 appInterpretEndMs=253 appFirstFrameMs=288 appPumpEndMs=488
+00:57 +48: widgets/ tooltip_position_context_test.dart
+[METRIC] script=widgets/tooltip_position_context_test.dart testFile=flutter_extended_19_test.dart sourceBytes=16399 sourceChars=16399 bundleJsonBytes=242300 clearMs=204 readMs=1 bundleMs=7 httpMs=495 totalMs=708 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=6 appInterpretEndMs=258 appFirstFrameMs=291 appPumpEndMs=492
+00:58 +49: widgets/ tooltip_window_controller_delegate_test.dart
+[METRIC] script=widgets/tooltip_window_controller_delegate_test.dart testFile=flutter_extended_19_test.dart sourceBytes=55167 sourceChars=55133 bundleJsonBytes=702869 clearMs=203 readMs=2 bundleMs=19 httpMs=611 totalMs=836 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=16 appSetStateMs=16 appInterpretStartMs=24 appInterpretEndMs=265 appFirstFrameMs=405 appPumpEndMs=607
+00:58 +50: widgets/ tooltip_window_controller_test.dart
+[METRIC] script=widgets/tooltip_window_controller_test.dart testFile=flutter_extended_19_test.dart sourceBytes=16337 sourceChars=16331 bundleJsonBytes=232168 clearMs=218 readMs=1 bundleMs=8 httpMs=486 totalMs=715 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=5 appSetStateMs=5 appInterpretStartMs=5 appInterpretEndMs=248 appFirstFrameMs=283 appPumpEndMs=483
+00:59 +51: widgets/ tooltip_window_test.dart
+[METRIC] script=widgets/tooltip_window_test.dart testFile=flutter_extended_19_test.dart sourceBytes=109716 sourceChars=109623 bundleJsonBytes=1368672 clearMs=203 readMs=1 bundleMs=52 httpMs=839 totalMs=1096 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=4 appParseMs=35 appSetStateMs=35 appInterpretStartMs=40 appInterpretEndMs=332 appFirstFrameMs=619 appPumpEndMs=822
+01:00 +52: widgets/ tracking_scroll_controller_test.dart
+[METRIC] script=widgets/tracking_scroll_controller_test.dart testFile=flutter_extended_19_test.dart sourceBytes=28296 sourceChars=28172 bundleJsonBytes=309591 clearMs=223 readMs=1 bundleMs=8 httpMs=511 totalMs=745 status=success httpStatus=200 outputLines=16 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=10 appInterpretEndMs=270 appFirstFrameMs=307 appPumpEndMs=507
+01:01 +53: widgets/ transformation_controller_test.dart
+[METRIC] script=widgets/transformation_controller_test.dart testFile=flutter_extended_19_test.dart sourceBytes=34058 sourceChars=33935 bundleJsonBytes=416353 clearMs=226 readMs=1 bundleMs=11 httpMs=528 totalMs=768 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=15 appInterpretEndMs=282 appFirstFrameMs=322 appPumpEndMs=523
+01:02 +54: widgets/ transition_delegate_test.dart
+[METRIC] script=widgets/transition_delegate_test.dart testFile=flutter_extended_19_test.dart sourceBytes=34960 sourceChars=33755 bundleJsonBytes=397231 clearMs=204 readMs=1 bundleMs=10 httpMs=683 totalMs=899 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=1 appParseMs=8 appSetStateMs=8 appInterpretStartMs=11 appInterpretEndMs=259 appFirstFrameMs=479 appPumpEndMs=679
+01:03 +55: widgets/ transition_route_test.dart
+[METRIC] script=widgets/transition_route_test.dart testFile=flutter_extended_19_test.dart sourceBytes=33128 sourceChars=32964 bundleJsonBytes=363516 clearMs=237 readMs=1 bundleMs=9 httpMs=518 totalMs=767 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=1 appParseMs=7 appSetStateMs=7 appInterpretStartMs=10 appInterpretEndMs=279 appFirstFrameMs=313 appPumpEndMs=515
+01:03 +56: widgets/ transpose_characters_intent_test.dart
+[METRIC] script=widgets/transpose_characters_intent_test.dart testFile=flutter_extended_19_test.dart sourceBytes=68293 sourceChars=68177 bundleJsonBytes=748203 clearMs=220 readMs=1 bundleMs=17 httpMs=589 totalMs=828 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=2 appParseMs=22 appSetStateMs=22 appInterpretStartMs=24 appInterpretEndMs=329 appFirstFrameMs=383 appPumpEndMs=585
+01:04 +57: widgets/ traversal_direction_test.dart
+[METRIC] script=widgets/traversal_direction_test.dart testFile=flutter_extended_19_test.dart sourceBytes=16048 sourceChars=16042 bundleJsonBytes=221505 clearMs=202 readMs=1 bundleMs=7 httpMs=496 totalMs=708 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=5 appSetStateMs=5 appInterpretStartMs=12 appInterpretEndMs=258 appFirstFrameMs=291 appPumpEndMs=493
+01:05 +58: widgets/ traversal_edge_behavior_test.dart
+[METRIC] script=widgets/traversal_edge_behavior_test.dart testFile=flutter_extended_19_test.dart sourceBytes=50634 sourceChars=50600 bundleJsonBytes=617175 clearMs=216 readMs=2 bundleMs=13 httpMs=535 totalMs=767 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=1 appParseMs=13 appSetStateMs=13 appInterpretStartMs=14 appInterpretEndMs=285 appFirstFrameMs=329 appPumpEndMs=530
+01:06 +59: widgets/ tree_sliver_controller_test.dart
+[METRIC] script=widgets/tree_sliver_controller_test.dart testFile=flutter_extended_19_test.dart sourceBytes=30518 sourceChars=30272 bundleJsonBytes=332914 clearMs=204 readMs=2 bundleMs=8 httpMs=516 totalMs=731 status=success httpStatus=200 outputLines=18 frameworkErrors=0 appBodyMs=1 appParseMs=7 appSetStateMs=7 appInterpretStartMs=13 appInterpretEndMs=281 appFirstFrameMs=313 appPumpEndMs=513
+01:06 +60: widgets/ tree_sliver_node_test.dart
+[METRIC] script=widgets/tree_sliver_node_test.dart testFile=flutter_extended_19_test.dart sourceBytes=41365 sourceChars=41359 bundleJsonBytes=469316 clearMs=203 readMs=1 bundleMs=11 httpMs=503 totalMs=720 status=success httpStatus=200 outputLines=47 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=18 appInterpretEndMs=276 appFirstFrameMs=297 appPumpEndMs=500
+01:07 +61: (tearDownAll)
+01:08 +61: All tests passed!

@@ -1,0 +1,97 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (104.0.0 available)
+  analyzer 10.2.0 (14.0.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.1.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.18.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.11 (0.7.12 available)
+! tom_ast_generator 0.1.3 from path ../tom_ast_generator (overridden in ./pubspec_overrides.yaml)
+! tom_ast_model 0.1.3 from path ../tom_ast_model (overridden in ./pubspec_overrides.yaml)
+  tom_build_base 2.6.21 (2.6.25 available)
+! tom_d4rt_ast 0.1.10 from path ../tom_d4rt_ast (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt_exec 1.9.0 from path ../tom_d4rt_exec (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt_generator 1.11.0 from path ../tom_d4rt_generator (overridden in ./pubspec_overrides.yaml)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+19 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_09_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+[test-app] waiting for /health on port 4247 (15s elapsed, 31 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:55892/YiuJkhKcfkM=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:55892/YiuJkhKcfkM=/devtools/?uri=ws://127.0.0.1:55892/YiuJkhKcfkM=/ws
+=================================================================
+00:19 +0: Test App Health app is running
+00:19 +1: gestures/ individual base_tap_and_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/base_tap_and_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=61193 sourceChars=61153 bundleJsonBytes=678797 clearMs=207 readMs=6 bundleMs=199 httpMs=1212 totalMs=1626 status=success httpStatus=200 outputLines=42 frameworkErrors=0 appBodyMs=13 appParseMs=58 appSetStateMs=58 appInterpretStartMs=66 appInterpretEndMs=912 appFirstFrameMs=1000 appPumpEndMs=1201
+00:20 +2: gestures/ individual delayed_multi_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/delayed_multi_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=55444 sourceChars=55402 bundleJsonBytes=665543 clearMs=221 readMs=3 bundleMs=50 httpMs=655 totalMs=931 status=success httpStatus=200 outputLines=28 frameworkErrors=0 appBodyMs=2 appParseMs=18 appSetStateMs=18 appInterpretStartMs=24 appInterpretEndMs=363 appFirstFrameMs=448 appPumpEndMs=649
+00:21 +3: gestures/ individual device_gesture_settings_test.dart
+[METRIC] script=gestures/device_gesture_settings_test.dart testFile=flutter_base_09_test.dart sourceBytes=50358 sourceChars=50326 bundleJsonBytes=596652 clearMs=202 readMs=4 bundleMs=39 httpMs=641 totalMs=888 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=12 appSetStateMs=12 appInterpretStartMs=19 appInterpretEndMs=371 appFirstFrameMs=436 appPumpEndMs=636
+00:22 +4: gestures/ individual drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=51176 sourceChars=51157 bundleJsonBytes=621980 clearMs=203 readMs=1 bundleMs=43 httpMs=635 totalMs=884 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=17 appSetStateMs=17 appInterpretStartMs=26 appInterpretEndMs=339 appFirstFrameMs=428 appPumpEndMs=630
+00:23 +5: gestures/ individual drag_test.dart
+[METRIC] script=gestures/drag_test.dart testFile=flutter_base_09_test.dart sourceBytes=58201 sourceChars=58161 bundleJsonBytes=708757 clearMs=222 readMs=1 bundleMs=25 httpMs=587 totalMs=837 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=21 appInterpretEndMs=322 appFirstFrameMs=381 appPumpEndMs=582
+00:24 +6: gestures/ individual eager_gesture_recognizer_test.dart
+[METRIC] script=gestures/eager_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=46004 sourceChars=46004 bundleJsonBytes=545064 clearMs=203 readMs=1 bundleMs=39 httpMs=579 totalMs=824 status=success httpStatus=200 outputLines=26 frameworkErrors=0 appBodyMs=0 appParseMs=9 appSetStateMs=9 appInterpretStartMs=12 appInterpretEndMs=321 appFirstFrameMs=373 appPumpEndMs=575
+00:25 +7: gestures/ individual horizontal_multi_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/horizontal_multi_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=49435 sourceChars=49359 bundleJsonBytes=592939 clearMs=218 readMs=0 bundleMs=40 httpMs=675 totalMs=935 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=1 appParseMs=12 appSetStateMs=12 appInterpretStartMs=13 appInterpretEndMs=351 appFirstFrameMs=470 appPumpEndMs=670
+00:26 +8: gestures/ individual immediate_multi_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/immediate_multi_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=73480 sourceChars=73421 bundleJsonBytes=903240 clearMs=204 readMs=1 bundleMs=77 httpMs=823 totalMs=1106 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=21 appSetStateMs=21 appInterpretStartMs=25 appInterpretEndMs=374 appFirstFrameMs=617 appPumpEndMs=817
+00:27 +9: gestures/ individual long_press_down_details_test.dart
+[METRIC] script=gestures/long_press_down_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=69462 sourceChars=69462 bundleJsonBytes=834070 clearMs=204 readMs=1 bundleMs=25 httpMs=654 totalMs=884 status=success httpStatus=200 outputLines=20 frameworkErrors=0 appBodyMs=0 appParseMs=10 appSetStateMs=11 appInterpretStartMs=18 appInterpretEndMs=377 appFirstFrameMs=446 appPumpEndMs=648
+00:28 +10: gestures/ individual multi_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/multi_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=53907 sourceChars=53878 bundleJsonBytes=594796 clearMs=219 readMs=1 bundleMs=32 httpMs=631 totalMs=885 status=success httpStatus=200 outputLines=16 frameworkErrors=0 appBodyMs=1 appParseMs=15 appSetStateMs=15 appInterpretStartMs=23 appInterpretEndMs=340 appFirstFrameMs=424 appPumpEndMs=626
+00:28 +11: gestures/ individual multi_drag_pointer_state_test.dart
+[METRIC] script=gestures/multi_drag_pointer_state_test.dart testFile=flutter_base_09_test.dart sourceBytes=52167 sourceChars=52167 bundleJsonBytes=649026 clearMs=203 readMs=2 bundleMs=18 httpMs=585 totalMs=809 status=success httpStatus=200 outputLines=8 frameworkErrors=0 appBodyMs=0 appParseMs=11 appSetStateMs=11 appInterpretStartMs=15 appInterpretEndMs=330 appFirstFrameMs=379 appPumpEndMs=580
+00:29 +12: gestures/ individual multi_tap_gesture_recognizer_test.dart
+[METRIC] script=gestures/multi_tap_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=59042 sourceChars=59030 bundleJsonBytes=658039 clearMs=219 readMs=1 bundleMs=23 httpMs=630 totalMs=874 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=13 appSetStateMs=13 appInterpretStartMs=17 appInterpretEndMs=357 appFirstFrameMs=423 appPumpEndMs=624
+00:30 +13: gestures/ individual positioned_gesture_details_test.dart
+[METRIC] script=gestures/positioned_gesture_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=74567 sourceChars=74446 bundleJsonBytes=811504 clearMs=223 readMs=3 bundleMs=69 httpMs=795 totalMs=1091 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=4 appParseMs=22 appSetStateMs=22 appInterpretStartMs=24 appInterpretEndMs=471 appFirstFrameMs=573 appPumpEndMs=775
+00:31 +14: gestures/ individual serial_tap_cancel_details_test.dart
+[METRIC] script=gestures/serial_tap_cancel_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=53932 sourceChars=53926 bundleJsonBytes=671478 clearMs=215 readMs=1 bundleMs=25 httpMs=649 totalMs=892 status=success httpStatus=200 outputLines=19 frameworkErrors=0 appBodyMs=2 appParseMs=14 appSetStateMs=14 appInterpretStartMs=16 appInterpretEndMs=395 appFirstFrameMs=441 appPumpEndMs=641
+00:32 +15: gestures/ individual serial_tap_down_details_test.dart
+[METRIC] script=gestures/serial_tap_down_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=58388 sourceChars=58266 bundleJsonBytes=573109 clearMs=230 readMs=9 bundleMs=25 httpMs=940 totalMs=1206 status=success httpStatus=200 outputLines=139 frameworkErrors=0 appBodyMs=2 appParseMs=17 appSetStateMs=17 appInterpretStartMs=22 appInterpretEndMs=682 appFirstFrameMs=731 appPumpEndMs=933
+00:33 +16: gestures/ individual serial_tap_gesture_recognizer_test.dart
+[METRIC] script=gestures/serial_tap_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=54773 sourceChars=54737 bundleJsonBytes=713575 clearMs=226 readMs=2 bundleMs=34 httpMs=681 totalMs=945 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=2 appParseMs=18 appSetStateMs=18 appInterpretStartMs=23 appInterpretEndMs=421 appFirstFrameMs=471 appPumpEndMs=674
+00:34 +17: gestures/ individual serial_tap_up_details_test.dart
+[METRIC] script=gestures/serial_tap_up_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=48635 sourceChars=48581 bundleJsonBytes=550704 clearMs=226 readMs=6 bundleMs=20 httpMs=640 totalMs=895 status=success httpStatus=200 outputLines=24 frameworkErrors=0 appBodyMs=1 appParseMs=15 appSetStateMs=15 appInterpretStartMs=18 appInterpretEndMs=373 appFirstFrameMs=432 appPumpEndMs=635
+00:35 +18: gestures/ individual tap_and_horizontal_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/tap_and_horizontal_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=60969 sourceChars=60965 bundleJsonBytes=708362 clearMs=228 readMs=4 bundleMs=29 httpMs=661 totalMs=925 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=17 appSetStateMs=17 appInterpretStartMs=25 appInterpretEndMs=395 appFirstFrameMs=453 appPumpEndMs=654
+00:36 +19: gestures/ individual tap_and_pan_gesture_recognizer_test.dart
+[METRIC] script=gestures/tap_and_pan_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=83007 sourceChars=81619 bundleJsonBytes=815660 clearMs=221 readMs=2 bundleMs=27 httpMs=712 totalMs=964 status=success httpStatus=200 outputLines=3 frameworkErrors=0 appBodyMs=2 appParseMs=19 appSetStateMs=19 appInterpretStartMs=20 appInterpretEndMs=410 appFirstFrameMs=505 appPumpEndMs=706
+00:37 +20: gestures/ individual tap_drag_down_details_test.dart
+[METRIC] script=gestures/tap_drag_down_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=86930 sourceChars=86683 bundleJsonBytes=778757 clearMs=218 readMs=3 bundleMs=22 httpMs=874 totalMs=1118 status=success httpStatus=200 outputLines=169 frameworkErrors=0 appBodyMs=2 appParseMs=15 appSetStateMs=15 appInterpretStartMs=21 appInterpretEndMs=622 appFirstFrameMs=666 appPumpEndMs=868
+00:38 +21: gestures/ individual tap_drag_end_details_test.dart
+[METRIC] script=gestures/tap_drag_end_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=64462 sourceChars=64399 bundleJsonBytes=778653 clearMs=217 readMs=1 bundleMs=27 httpMs=728 totalMs=975 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=17 appSetStateMs=17 appInterpretStartMs=23 appInterpretEndMs=464 appFirstFrameMs=521 appPumpEndMs=723
+00:39 +22: gestures/ individual tap_drag_start_details_test.dart
+[METRIC] script=gestures/tap_drag_start_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=78100 sourceChars=77978 bundleJsonBytes=836109 clearMs=218 readMs=1 bundleMs=29 httpMs=715 totalMs=964 status=success httpStatus=200 outputLines=166 frameworkErrors=0 appBodyMs=2 appParseMs=19 appSetStateMs=19 appInterpretStartMs=26 appInterpretEndMs=430 appFirstFrameMs=510 appPumpEndMs=710
+00:40 +23: gestures/ individual tap_drag_up_details_test.dart
+[METRIC] script=gestures/tap_drag_up_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=51462 sourceChars=51448 bundleJsonBytes=625533 clearMs=204 readMs=0 bundleMs=14 httpMs=577 totalMs=797 status=success httpStatus=200 outputLines=37 frameworkErrors=0 appBodyMs=1 appParseMs=12 appSetStateMs=12 appInterpretStartMs=12 appInterpretEndMs=328 appFirstFrameMs=371 appPumpEndMs=573
+00:41 +24: gestures/ individual tap_drag_update_details_test.dart
+[METRIC] script=gestures/tap_drag_update_details_test.dart testFile=flutter_base_09_test.dart sourceBytes=69780 sourceChars=69677 bundleJsonBytes=754553 clearMs=215 readMs=1 bundleMs=19 httpMs=728 totalMs=965 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=15 appSetStateMs=15 appInterpretStartMs=22 appInterpretEndMs=457 appFirstFrameMs=522 appPumpEndMs=722
+00:42 +25: gestures/ individual vertical_multi_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/vertical_multi_drag_gesture_recognizer_test.dart testFile=flutter_base_09_test.dart sourceBytes=73417 sourceChars=73303 bundleJsonBytes=881176 clearMs=218 readMs=1 bundleMs=20 httpMs=629 totalMs=868 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=23 appInterpretEndMs=355 appFirstFrameMs=423 appPumpEndMs=623
+00:43 +26: (tearDownAll)
+00:44 +26: All tests passed!
