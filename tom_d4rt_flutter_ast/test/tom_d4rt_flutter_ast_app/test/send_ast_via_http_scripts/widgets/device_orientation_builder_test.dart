@@ -204,22 +204,28 @@ class _HeroBanner extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: SwitchListTile(
-                  value: isLandscape,
-                  onChanged: onLandscapeToggle,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Simulate Landscape', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
+                    value: isLandscape,
+                    onChanged: onLandscapeToggle,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('Simulate Landscape', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  ),
                 ),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: SwitchListTile(
-                  value: denseCards,
-                  onChanged: onDenseToggle,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Dense Cards', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
+                    value: denseCards,
+                    onChanged: onDenseToggle,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('Dense Cards', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  ),
                 ),
               ),
             ],
@@ -980,12 +986,15 @@ class _ControlPanel extends StatelessWidget {
         children: [
           const Text('Lab Controls', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13.5)),
           const SizedBox(height: 8),
-          SwitchListTile(
-            value: denseCards,
-            onChanged: onDenseToggle,
-            dense: true,
-            contentPadding: EdgeInsets.zero,
-            title: const Text('Dense cards'),
+          Material(
+            type: MaterialType.transparency,
+            child: SwitchListTile(
+              value: denseCards,
+              onChanged: onDenseToggle,
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+              title: const Text('Dense cards'),
+            ),
           ),
           const SizedBox(height: 6),
           Text('Scale: ${cardScale.toStringAsFixed(2)}x', style: const TextStyle(fontWeight: FontWeight.w700)),

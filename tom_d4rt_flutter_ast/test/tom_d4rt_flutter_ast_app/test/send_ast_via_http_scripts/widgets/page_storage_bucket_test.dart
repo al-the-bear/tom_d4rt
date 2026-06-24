@@ -733,12 +733,15 @@ class _ReadWriteConsoleSceneState extends State<_ReadWriteConsoleScene> {
                               value: _priority,
                               onChanged: (v) => setState(() => _priority = v),
                             ),
-                            SwitchListTile(
-                              value: _pinned,
-                              onChanged: (v) => setState(() => _pinned = v),
-                              dense: true,
-                              contentPadding: EdgeInsets.zero,
-                              title: const Text('Pinned'),
+                            Material(
+                              type: MaterialType.transparency,
+                              child: SwitchListTile(
+                                value: _pinned,
+                                onChanged: (v) => setState(() => _pinned = v),
+                                dense: true,
+                                contentPadding: EdgeInsets.zero,
+                                title: const Text('Pinned'),
+                              ),
                             ),
                             const SizedBox(height: 8),
                             Wrap(

@@ -187,39 +187,51 @@ class _GlobalDeck extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: SwitchListTile(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
                   value: compact,
                   onChanged: onCompactChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Compact scenes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
+                ),
               ),
               Expanded(
-                child: SwitchListTile(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
                   value: guides,
                   onChanged: onGuidesChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Guide overlays', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
+                ),
               ),
               Expanded(
-                child: SwitchListTile(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
                   value: notes,
                   onChanged: onNotesChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Instruction notes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
+                ),
               ),
               Expanded(
-                child: SwitchListTile(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
                   value: rtl,
                   onChanged: onRtlChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: const Text('RTL mode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                ),
                 ),
               ),
             ],
@@ -449,12 +461,15 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                         onToggleNull: (isNull) => setState(() => _maxH = isNull ? null : 300),
                         onChangeEnd: (v) => _push('maxHeight=${v?.toStringAsFixed(0) ?? 'null'}'),
                       ),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _showBounds,
                         onChanged: (v) => setState(() => _showBounds = v),
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Show boundary overlays'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       _FactTable(rows: [
@@ -947,7 +962,9 @@ class _NegotiationSceneState extends State<_NegotiationScene> {
                         onChanged: (v) => setState(() => _childWidth = v),
                         onChangeEnd: (v) => _push('child width=${v.toStringAsFixed(0)}'),
                       ),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _clipLeft,
                         onChanged: (v) {
                           setState(() => _clipLeft = v);
@@ -957,7 +974,10 @@ class _NegotiationSceneState extends State<_NegotiationScene> {
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Clip left lane'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _clipRight,
                         onChanged: (v) {
                           setState(() => _clipRight = v);
@@ -967,12 +987,16 @@ class _NegotiationSceneState extends State<_NegotiationScene> {
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Clip right lane'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _showGuide,
                         onChanged: (v) => setState(() => _showGuide = v),
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Show annotation guides'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       if (widget.notes)
@@ -1192,19 +1216,25 @@ class _AnnotationSceneState extends State<_AnnotationScene> {
                         onChanged: (v) => setState(() => _canvasH = v),
                         onChangeEnd: (v) => _push('canvas height=${v.toStringAsFixed(0)}'),
                       ),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _showOverlay,
                         onChanged: (v) => setState(() => _showOverlay = v),
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Show boundary overlay'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _showLabels,
                         onChanged: (v) => setState(() => _showLabels = v),
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Show annotation labels'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       if (widget.notes)

@@ -1288,7 +1288,9 @@ dynamic build(BuildContext context) {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: enabled,
                           title: const Text('Enable interaction'),
@@ -1300,9 +1302,12 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Interaction enabled.' : 'Interaction disabled.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: darkCanvas,
                           title: const Text('Dark preview canvas'),
@@ -1314,13 +1319,16 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Dark canvas enabled.' : 'Dark canvas disabled.');
                           },
                         ),
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: denseOverlay,
                           title: const Text('Dense overlay hints'),
@@ -1332,9 +1340,12 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Dense overlay enabled.' : 'Dense overlay disabled.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showGridOverlay,
                           title: const Text('Grid overlay'),
@@ -1346,13 +1357,16 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Grid overlay enabled.' : 'Grid overlay disabled.');
                           },
                         ),
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showMilestones,
                           title: const Text('Milestone marks'),
@@ -1364,9 +1378,12 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Milestone marks visible.' : 'Milestone marks hidden.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: snapToDivisions,
                           title: const Text('Snap to divisions'),
@@ -1379,13 +1396,16 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Division snapping enabled.' : 'Division snapping disabled.');
                           },
                         ),
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showThirdPreview,
                           title: const Text('Third preview panel'),
@@ -1396,6 +1416,7 @@ dynamic build(BuildContext context) {
                             });
                             addLog(value ? 'Third preview shown.' : 'Third preview hidden.');
                           },
+                        ),
                         ),
                       ),
                     ],

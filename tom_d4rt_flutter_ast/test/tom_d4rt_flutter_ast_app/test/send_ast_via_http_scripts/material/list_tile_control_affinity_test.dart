@@ -207,7 +207,9 @@ dynamic build(BuildContext context) {
     for (var i = 0; i < checkboxItems.length; i++) {
       final item = checkboxItems[i];
       tiles.add(
-        CheckboxListTile(
+        Material(
+          type: MaterialType.transparency,
+          child: CheckboxListTile(
           value: i == 0,
           onChanged: (value) {},
           title: Text(item['title'] as String),
@@ -215,6 +217,7 @@ dynamic build(BuildContext context) {
           secondary: Icon(item['icon'] as IconData, color: color),
           controlAffinity: affinity,
           activeColor: color,
+        ),
         ),
       );
     }
@@ -304,7 +307,9 @@ dynamic build(BuildContext context) {
     for (var i = 0; i < switchItems.length; i++) {
       final item = switchItems[i];
       tiles.add(
-        SwitchListTile(
+        Material(
+          type: MaterialType.transparency,
+          child: SwitchListTile(
           value: i < 2,
           onChanged: (value) {},
           title: Text(item['title'] as String),
@@ -312,6 +317,7 @@ dynamic build(BuildContext context) {
           secondary: Icon(item['icon'] as IconData, color: color),
           controlAffinity: affinity,
           activeColor: color,
+        ),
         ),
       );
     }
@@ -401,7 +407,9 @@ dynamic build(BuildContext context) {
     for (var i = 0; i < radioItems.length; i++) {
       final item = radioItems[i];
       tiles.add(
-        RadioListTile<int>(
+        Material(
+          type: MaterialType.transparency,
+          child: RadioListTile<int>(
           value: i,
           groupValue: 1,
           onChanged: (value) {},
@@ -410,6 +418,7 @@ dynamic build(BuildContext context) {
           secondary: Icon(item['icon'] as IconData, color: color),
           controlAffinity: affinity,
           activeColor: color,
+        ),
         ),
       );
     }
@@ -678,7 +687,9 @@ dynamic build(BuildContext context) {
         ),
       ],
     ),
-    child: Column(
+    child: Material(
+      type: MaterialType.transparency,
+      child: Column(
       children: [
         Container(
           width: double.infinity,
@@ -814,6 +825,7 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 8.0),
       ],
+    ),
     ),
   );
   print('Created settings example');

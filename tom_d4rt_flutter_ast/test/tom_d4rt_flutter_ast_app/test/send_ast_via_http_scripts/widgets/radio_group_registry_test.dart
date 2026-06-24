@@ -608,7 +608,9 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8),
               ...sizeOptions.map((opt) => Padding(
                     padding: EdgeInsets.only(bottom: 2),
-                    child: RadioListTile<String>(
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: RadioListTile<String>(
                       value: opt['value'] as String,
                       groupValue: selectedSize,
                       onChanged: (v) {},
@@ -617,6 +619,7 @@ dynamic build(BuildContext context) {
                       secondary: Icon(opt['icon'] as IconData, color: Colors.deepPurple[600]),
                       dense: true,
                       activeColor: Colors.deepPurple[700],
+                    ),
                     ),
                   )),
             ],
@@ -637,7 +640,9 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8),
               ...themeOptions.map((opt) => Padding(
                     padding: EdgeInsets.only(bottom: 2),
-                    child: RadioListTile<String>(
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: RadioListTile<String>(
                       value: opt['value'] as String,
                       groupValue: selectedTheme,
                       onChanged: (v) {},
@@ -646,6 +651,7 @@ dynamic build(BuildContext context) {
                       secondary: Icon(opt['icon'] as IconData, color: Colors.indigo[600]),
                       dense: true,
                       activeColor: Colors.indigo[700],
+                    ),
                     ),
                   )),
             ],
@@ -667,7 +673,9 @@ dynamic build(BuildContext context) {
                     left: BorderSide(color: opt['color'] as Color, width: 4),
                   ),
                 ),
-                child: RadioListTile<String>(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: RadioListTile<String>(
                   value: opt['value'] as String,
                   groupValue: selectedPriority,
                   onChanged: (v) {},
@@ -682,6 +690,7 @@ dynamic build(BuildContext context) {
                   subtitle: Text(opt['subtitle'] as String, style: TextStyle(fontSize: 12)),
                   secondary: Icon(opt['icon'] as IconData, color: opt['color'] as Color),
                   activeColor: opt['color'] as Color,
+                ),
                 ),
               ),
             )),

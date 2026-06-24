@@ -1196,11 +1196,14 @@ class _SliverItem extends StatelessWidget {
         ),
       );
     } else {
-      return ListTile(
-        dense: true,
-        leading: const Icon(Icons.list),
-        title: Text('Row ${index + 1}'),
-        subtitle: const Text('SliverList row entry'),
+      return Material(
+        type: MaterialType.transparency,
+        child: ListTile(
+          dense: true,
+          leading: const Icon(Icons.list),
+          title: Text('Row ${index + 1}'),
+          subtitle: const Text('SliverList row entry'),
+        ),
       );
     }
   }
@@ -1717,14 +1720,17 @@ class _LiveConstraintsInspectorSectionState
               ),
             ],
           ),
-          SwitchListTile(
-            title: const Text('Tight constraints (min == max)'),
-            subtitle: const Text(
-              'Toggle: BoxConstraints.tight() vs '
-              'BoxConstraints(maxWidth, maxHeight).',
+          Material(
+            type: MaterialType.transparency,
+            child: SwitchListTile(
+              title: const Text('Tight constraints (min == max)'),
+              subtitle: const Text(
+                'Toggle: BoxConstraints.tight() vs '
+                'BoxConstraints(maxWidth, maxHeight).',
+              ),
+              value: _tight,
+              onChanged: (v) => setState(() => _tight = v),
             ),
-            value: _tight,
-            onChanged: (v) => setState(() => _tight = v),
           ),
           const SizedBox(height: 8),
           Center(

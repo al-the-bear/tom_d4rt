@@ -1262,7 +1262,9 @@ dynamic build(BuildContext context) {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: enabled,
                           title: const Text('Enable interaction'),
@@ -1274,9 +1276,12 @@ dynamic build(BuildContext context) {
                             logMessage(v ? 'Interaction enabled.' : 'Interaction disabled.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: darkCanvas,
                           title: const Text('Dark preview canvas'),
@@ -1288,13 +1293,16 @@ dynamic build(BuildContext context) {
                             logMessage(v ? 'Dark canvas enabled.' : 'Dark canvas disabled.');
                           },
                         ),
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: denseLabels,
                           title: const Text('Dense label mode'),
@@ -1306,9 +1314,12 @@ dynamic build(BuildContext context) {
                             logMessage(v ? 'Dense label mode enabled.' : 'Dense label mode disabled.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showMilestones,
                           title: const Text('Milestone hints'),
@@ -1320,13 +1331,16 @@ dynamic build(BuildContext context) {
                             logMessage(v ? 'Milestones shown.' : 'Milestones hidden.');
                           },
                         ),
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: highContrastIndicators,
                           title: const Text('High contrast indicators'),
@@ -1338,9 +1352,12 @@ dynamic build(BuildContext context) {
                             logMessage(v ? 'High contrast mode enabled.' : 'High contrast mode disabled.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showThirdPreview,
                           title: const Text('Comparison preview'),
@@ -1351,6 +1368,7 @@ dynamic build(BuildContext context) {
                             });
                             logMessage(v ? 'Comparison preview enabled.' : 'Comparison preview hidden.');
                           },
+                        ),
                         ),
                       ),
                     ],

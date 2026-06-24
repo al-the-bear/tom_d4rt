@@ -108,7 +108,9 @@ dynamic build(BuildContext context) {
               bottomRight: Radius.circular(16.0),
             ),
           ),
-          child: Column(
+          child: Material(
+            type: MaterialType.transparency,
+            child: Column(
             children: [
               SwitchListTile(
                 value: true,
@@ -124,6 +126,7 @@ dynamic build(BuildContext context) {
                 subtitle: Text('This switch is currently OFF'),
               ),
             ],
+          ),
           ),
         ),
       ],
@@ -181,21 +184,27 @@ dynamic build(BuildContext context) {
                 ),
               ),
             ),
-            SwitchListTile(
-              value: true,
-              onChanged: (v) {},
-              title: Text('ON State', style: TextStyle(fontSize: 13.0)),
-              activeColor: config['active'] as Color?,
-              activeThumbColor: config['thumb'] as Color?,
-              activeTrackColor: config['track'] as Color?,
-              dense: true,
+            Material(
+              type: MaterialType.transparency,
+              child: SwitchListTile(
+                value: true,
+                onChanged: (v) {},
+                title: Text('ON State', style: TextStyle(fontSize: 13.0)),
+                activeColor: config['active'] as Color?,
+                activeThumbColor: config['thumb'] as Color?,
+                activeTrackColor: config['track'] as Color?,
+                dense: true,
+              ),
             ),
-            SwitchListTile(
-              value: false,
-              onChanged: (v) {},
-              title: Text('OFF State', style: TextStyle(fontSize: 13.0)),
-              activeColor: config['active'] as Color?,
-              dense: true,
+            Material(
+              type: MaterialType.transparency,
+              child: SwitchListTile(
+                value: false,
+                onChanged: (v) {},
+                title: Text('OFF State', style: TextStyle(fontSize: 13.0)),
+                activeColor: config['active'] as Color?,
+                dense: true,
+              ),
             ),
           ],
         ),
@@ -224,7 +233,9 @@ dynamic build(BuildContext context) {
           ),
         ],
       ),
-      child: SwitchListTile(
+      child: Material(
+        type: MaterialType.transparency,
+        child: SwitchListTile(
         value: true,
         onChanged: (v) {},
         title: Text('Notifications'),
@@ -238,6 +249,7 @@ dynamic build(BuildContext context) {
           child: Icon(Icons.notifications, color: Colors.blue),
         ),
         activeColor: Colors.blue,
+      ),
       ),
     ),
     // With Avatar
@@ -254,7 +266,9 @@ dynamic build(BuildContext context) {
           ),
         ],
       ),
-      child: SwitchListTile(
+      child: Material(
+        type: MaterialType.transparency,
+        child: SwitchListTile(
         value: true,
         onChanged: (v) {},
         title: Text('Dark Mode'),
@@ -264,6 +278,7 @@ dynamic build(BuildContext context) {
           child: Icon(Icons.dark_mode, color: Colors.amber),
         ),
         activeColor: Colors.grey.shade700,
+      ),
       ),
     ),
     // With Badge
@@ -280,7 +295,9 @@ dynamic build(BuildContext context) {
           ),
         ],
       ),
-      child: SwitchListTile(
+      child: Material(
+        type: MaterialType.transparency,
+        child: SwitchListTile(
         value: false,
         onChanged: (v) {},
         title: Text('WiFi'),
@@ -312,6 +329,7 @@ dynamic build(BuildContext context) {
         ),
         activeColor: Colors.green,
       ),
+      ),
     ),
     // With Status Text
     Container(
@@ -327,7 +345,9 @@ dynamic build(BuildContext context) {
           ),
         ],
       ),
-      child: SwitchListTile(
+      child: Material(
+        type: MaterialType.transparency,
+        child: SwitchListTile(
         value: true,
         onChanged: (v) {},
         title: Text('Auto-Sync'),
@@ -348,6 +368,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         activeColor: Colors.teal,
+      ),
       ),
     ),
   ];
@@ -398,7 +419,9 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child: Column(
+          child: Material(
+            type: MaterialType.transparency,
+            child: Column(
             children: [
               SwitchListTile.adaptive(
                 value: true,
@@ -418,6 +441,7 @@ dynamic build(BuildContext context) {
                 activeColor: Colors.amber.shade700,
               ),
             ],
+          ),
           ),
         ),
         SizedBox(height: 16.0),
@@ -504,7 +528,9 @@ dynamic build(BuildContext context) {
                   ),
                 ),
               ),
-              SwitchListTile(
+              Material(
+                type: MaterialType.transparency,
+                child: SwitchListTile(
                 value: true,
                 onChanged: (v) {},
                 title: Text('Standard Spacing'),
@@ -512,6 +538,7 @@ dynamic build(BuildContext context) {
                 secondary: Icon(Icons.space_bar, color: Colors.cyan),
                 dense: false,
                 activeColor: Colors.cyan,
+              ),
               ),
             ],
           ),
@@ -534,7 +561,9 @@ dynamic build(BuildContext context) {
                   ),
                 ),
               ),
-              SwitchListTile(
+              Material(
+                type: MaterialType.transparency,
+                child: SwitchListTile(
                 value: true,
                 onChanged: (v) {},
                 title: Text('Dense Spacing'),
@@ -542,6 +571,7 @@ dynamic build(BuildContext context) {
                 secondary: Icon(Icons.compress, color: Colors.cyan),
                 dense: true,
                 activeColor: Colors.cyan,
+              ),
               ),
             ],
           ),
@@ -619,13 +649,16 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            SwitchListTile(
+            Material(
+              type: MaterialType.transparency,
+              child: SwitchListTile(
               value: true,
               onChanged: (v) {},
               title: Text('$label Affinity'),
               subtitle: Text('controlAffinity: $affinity'),
               controlAffinity: affinity,
               activeColor: color,
+            ),
             ),
           ],
         ),
@@ -681,13 +714,16 @@ dynamic build(BuildContext context) {
     for (var i = 0; i < settings.length; i++) {
       final setting = settings[i];
       tiles.add(
-        SwitchListTile(
+        Material(
+          type: MaterialType.transparency,
+          child: SwitchListTile(
           value: setting['value'] as bool,
           onChanged: (v) {},
           title: Text(setting['name'] as String),
           subtitle: Text(setting['subtitle'] as String),
           activeColor: category['color'] as Color,
           dense: true,
+        ),
         ),
       );
       if (i < settings.length - 1) {

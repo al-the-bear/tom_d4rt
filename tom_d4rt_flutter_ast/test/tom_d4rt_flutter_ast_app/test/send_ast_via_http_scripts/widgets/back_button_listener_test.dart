@@ -889,11 +889,14 @@ class _ToggleableListenerDemoState extends State<_ToggleableListenerDemo> {
     final core = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        SwitchListTile(
-          value: _enabled,
-          title: const Text('Enable BackButtonListener'),
-          subtitle: Text(_enabled ? 'Listener registered' : 'Listener absent'),
-          onChanged: (v) => setState(() => _enabled = v),
+        Material(
+          type: MaterialType.transparency,
+          child: SwitchListTile(
+            value: _enabled,
+            title: const Text('Enable BackButtonListener'),
+            subtitle: Text(_enabled ? 'Listener registered' : 'Listener absent'),
+            onChanged: (v) => setState(() => _enabled = v),
+          ),
         ),
         ElevatedButton.icon(
           onPressed: _simulate,
@@ -1008,13 +1011,16 @@ class _PriorityDemoState extends State<_PriorityDemo> {
                       style: TextStyle(fontWeight: FontWeight.w600),
                     ),
                     for (final o in _Owner.values)
-                      RadioListTile<_Owner>(
-                        value: o,
-                        groupValue: _winner,
-                        title: Text(_label(o)),
-                        dense: true,
-                        onChanged: (v) =>
-                            setState(() => _winner = v ?? _winner),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: RadioListTile<_Owner>(
+                          value: o,
+                          groupValue: _winner,
+                          title: Text(_label(o)),
+                          dense: true,
+                          onChanged: (v) =>
+                              setState(() => _winner = v ?? _winner),
+                        ),
                       ),
                     const SizedBox(height: 4),
                     ElevatedButton.icon(

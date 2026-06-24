@@ -191,39 +191,51 @@ class _TopDeck extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: SwitchListTile(
-                  value: compact,
-                  onChanged: onCompactChanged,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Compact mode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
+                    value: compact,
+                    onChanged: onCompactChanged,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('Compact mode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  ),
                 ),
               ),
               Expanded(
-                child: SwitchListTile(
-                  value: showGuide,
-                  onChanged: onGuideChanged,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Guide grids', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
+                    value: showGuide,
+                    onChanged: onGuideChanged,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('Guide grids', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  ),
                 ),
               ),
               Expanded(
-                child: SwitchListTile(
-                  value: showNotes,
-                  onChanged: onNotesChanged,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Instruction notes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
+                    value: showNotes,
+                    onChanged: onNotesChanged,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('Instruction notes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  ),
                 ),
               ),
               Expanded(
-                child: SwitchListTile(
-                  value: rtl,
-                  onChanged: onRtlChanged,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('RTL direction', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
+                    value: rtl,
+                    onChanged: onRtlChanged,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('RTL direction', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  ),
                 ),
               ),
             ],
@@ -567,12 +579,15 @@ class _RawFoundationsSceneState extends State<_RawFoundationsScene> {
                         ],
                       ),
                       const SizedBox(height: 8),
-                      SwitchListTile(
-                        value: _overlay,
-                        onChanged: (v) => setState(() => _overlay = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('Show center lane overlay'),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
+                          value: _overlay,
+                          onChanged: (v) => setState(() => _overlay = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Show center lane overlay'),
+                        ),
                       ),
                       const SizedBox(height: 8),
                       _KeyValueTable(
@@ -721,12 +736,15 @@ class _GeometryForgeSceneState extends State<_GeometryForgeScene> {
                         max: 1.0,
                         onChanged: (v) => setState(() => _opacity = v),
                       ),
-                      SwitchListTile(
-                        value: _useMagnifier,
-                        onChanged: (v) => setState(() => _useMagnifier = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('Enable center magnifier'),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
+                          value: _useMagnifier,
+                          onChanged: (v) => setState(() => _useMagnifier = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Enable center magnifier'),
+                        ),
                       ),
                       const SizedBox(height: 8),
                       _KeyValueTable(

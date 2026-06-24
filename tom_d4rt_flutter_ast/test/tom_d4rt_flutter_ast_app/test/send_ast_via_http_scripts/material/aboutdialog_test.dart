@@ -728,16 +728,24 @@ dynamic build(BuildContext context) {
             ),
           ),
         ),
-        ListTile(
+        Material(
+          type: MaterialType.transparency,
+          child: ListTile(
           leading: Icon(Icons.home, color: purplePrimary),
           title: Text('Home'),
         ),
-        ListTile(
+        ),
+        Material(
+          type: MaterialType.transparency,
+          child: ListTile(
           leading: Icon(Icons.settings, color: purplePrimary),
           title: Text('Settings'),
         ),
+        ),
         Divider(height: 1.0),
-        AboutListTile(
+        Material(
+          type: MaterialType.transparency,
+          child: AboutListTile(
           icon: Icon(Icons.info_outline, color: purplePrimary),
           applicationName: 'Tom Demo',
           applicationVersion: '1.0.0',
@@ -749,6 +757,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontSize: 12.0),
             ),
           ],
+        ),
         ),
       ],
     ),

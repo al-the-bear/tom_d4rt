@@ -190,39 +190,51 @@ class _GlobalDeck extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: SwitchListTile(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
                   value: compact,
                   onChanged: onCompactChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Compact scenes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
+                ),
               ),
               Expanded(
-                child: SwitchListTile(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
                   value: guides,
                   onChanged: onGuidesChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Guide overlays', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
+                ),
               ),
               Expanded(
-                child: SwitchListTile(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
                   value: notes,
                   onChanged: onNotesChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Instruction notes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
+                ),
               ),
               Expanded(
-                child: SwitchListTile(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
                   value: rtl,
                   onChanged: onRtlChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: const Text('RTL mode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                ),
                 ),
               ),
             ],
@@ -440,7 +452,9 @@ class _MechanicsSceneState extends State<_MechanicsScene> {
                           }
                         },
                       ),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _rtl,
                         onChanged: (v) {
                           setState(() => _rtl = v);
@@ -450,7 +464,10 @@ class _MechanicsSceneState extends State<_MechanicsScene> {
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Internal RTL'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _longLabels,
                         onChanged: (v) {
                           setState(() => _longLabels = v);
@@ -459,6 +476,7 @@ class _MechanicsSceneState extends State<_MechanicsScene> {
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Long button labels'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       _FactTable(rows: [
@@ -650,7 +668,9 @@ class _AlignmentSceneState extends State<_AlignmentScene> {
                         onChanged: (v) => setState(() => _overflowSpacing = v),
                         onChangeEnd: (v) => _push('overflowSpacing=${v.toStringAsFixed(1)}'),
                       ),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _longLabels,
                         onChanged: (v) {
                           setState(() => _longLabels = v);
@@ -659,6 +679,7 @@ class _AlignmentSceneState extends State<_AlignmentScene> {
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Long action labels'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       if (widget.notes)
@@ -879,7 +900,9 @@ class _DialogSceneState extends State<_DialogScene> {
                         onChanged: (v) => setState(() => _dialogWidth = v),
                         onChangeEnd: (v) => _push('dialog width=${v.toStringAsFixed(0)}'),
                       ),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _includeExtra,
                         onChanged: (v) {
                           setState(() => _includeExtra = v);
@@ -889,7 +912,10 @@ class _DialogSceneState extends State<_DialogScene> {
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Include extra action'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _longLabels,
                         onChanged: (v) {
                           setState(() => _longLabels = v);
@@ -898,6 +924,7 @@ class _DialogSceneState extends State<_DialogScene> {
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Long labels'),
+                      ),
                       ),
                       _EnumDropdown<int>(
                         label: 'overflowAlignment',
@@ -1135,7 +1162,9 @@ class _DirectionalitySceneState extends State<_DirectionalityScene> {
                           }
                         },
                       ),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _longLabels,
                         onChanged: (v) {
                           setState(() => _longLabels = v);
@@ -1144,6 +1173,7 @@ class _DirectionalitySceneState extends State<_DirectionalityScene> {
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Long labels'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       if (widget.notes)
@@ -1491,7 +1521,9 @@ class _PracticalModuleState extends State<_PracticalModule> {
           Row(
             children: [
               Expanded(
-                child: SwitchListTile(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
                   value: _longLabels,
                   onChanged: (v) {
                     setState(() => _longLabels = v);
@@ -1500,6 +1532,7 @@ class _PracticalModuleState extends State<_PracticalModule> {
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Long labels', style: TextStyle(fontSize: 12)),
+                ),
                 ),
               ),
               SizedBox(

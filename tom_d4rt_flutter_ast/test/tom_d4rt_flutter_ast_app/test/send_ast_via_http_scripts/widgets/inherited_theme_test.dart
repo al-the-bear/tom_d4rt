@@ -369,39 +369,51 @@ class _TopDeck extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: SwitchListTile(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
                     dense: true,
                     contentPadding: EdgeInsets.zero,
                     value: compact,
                     onChanged: onCompactChanged,
                     title: const Text('Compact', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
+                  ),
                 ),
                 Expanded(
-                  child: SwitchListTile(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
                     dense: true,
                     contentPadding: EdgeInsets.zero,
                     value: showGrid,
                     onChanged: onShowGridChanged,
                     title: const Text('Guide grid', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
+                  ),
                 ),
                 Expanded(
-                  child: SwitchListTile(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
                     dense: true,
                     contentPadding: EdgeInsets.zero,
                     value: showLabels,
                     onChanged: onShowLabelsChanged,
                     title: const Text('Labels', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
+                  ),
                 ),
                 Expanded(
-                  child: SwitchListTile(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
                     dense: true,
                     contentPadding: EdgeInsets.zero,
                     value: rtl,
                     onChanged: onRtlChanged,
                     title: const Text('RTL', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  ),
                   ),
                 ),
               ],
@@ -592,19 +604,25 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                         onSelectionChanged: (v) => setState(() => _view = v.first),
                       ),
                       const SizedBox(height: 8),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         value: _showBounds,
                         onChanged: (v) => setState(() => _showBounds = v),
                         title: const Text('Show panel bounds'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         value: _showLabels,
                         onChanged: (v) => setState(() => _showLabels = v),
                         title: const Text('Show role labels'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       _ThemeInfoTable(data: root),
@@ -958,26 +976,35 @@ class _LayeredOverridesSceneState extends State<_LayeredOverridesScene> {
                     children: [
                       const Text('Override toggles', style: TextStyle(fontWeight: FontWeight.w800)),
                       const SizedBox(height: 8),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         value: _enableMiddle,
                         onChanged: (v) => setState(() => _enableMiddle = v),
                         title: const Text('Enable middle theme layer'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         value: _enableInner,
                         onChanged: (v) => setState(() => _enableInner = v),
                         title: const Text('Enable inner theme layer'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         value: _showBorders,
                         onChanged: (v) => setState(() => _showBorders = v),
                         title: const Text('Show layer border emphasis'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       _ThemeInfoTable(data: root, title: 'Root data'),
@@ -1161,26 +1188,35 @@ class _CaptureAllSceneState extends State<_CaptureAllScene> {
                     children: [
                       const Text('captureAll controls', style: TextStyle(fontWeight: FontWeight.w800)),
                       const SizedBox(height: 8),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         value: _preserve,
                         onChanged: (v) => setState(() => _preserve = v),
                         title: const Text('Preserve source inherited theme using captureAll'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         value: _foreignTint,
                         onChanged: (v) => setState(() => _foreignTint = v),
                         title: const Text('Use olive foreign target theme'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         value: _showWire,
                         onChanged: (v) => setState(() => _showWire = v),
                         title: const Text('Show transfer wire overlay'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       Container(
@@ -1775,19 +1811,25 @@ class _DynamicTimelineSceneState extends State<_DynamicTimelineScene> {
                       onSelectionChanged: (v) => setState(() => _index = v.first),
                     ),
                     const SizedBox(height: 8),
-                    SwitchListTile(
+                    Material(
+                      type: MaterialType.transparency,
+                      child: SwitchListTile(
                       dense: true,
                       contentPadding: EdgeInsets.zero,
                       value: _running,
                       onChanged: (v) => setState(() => _running = v),
                       title: const Text('Run dynamic theme animation'),
                     ),
-                    SwitchListTile(
+                    ),
+                    Material(
+                      type: MaterialType.transparency,
+                      child: SwitchListTile(
                       dense: true,
                       contentPadding: EdgeInsets.zero,
                       value: _freezeViews,
                       onChanged: (v) => setState(() => _freezeViews = v),
                       title: const Text('Freeze content animations in panels'),
+                    ),
                     ),
                     const SizedBox(height: 8),
                     _ThemeInfoTable(data: animated, title: 'Animated inherited data'),
@@ -2284,7 +2326,9 @@ class _WorkspaceTasksState extends State<_WorkspaceTasks> {
               itemCount: _tasks.length,
               itemBuilder: (context, index) {
                 final task = _tasks[index];
-                return CheckboxListTile(
+                return Material(
+                  type: MaterialType.transparency,
+                  child: CheckboxListTile(
                   dense: true,
                   value: task.done,
                   onChanged: (v) {
@@ -2294,6 +2338,7 @@ class _WorkspaceTasksState extends State<_WorkspaceTasks> {
                   title: Text(task.name),
                   subtitle: Text(task.done ? 'done' : 'pending'),
                   controlAffinity: ListTileControlAffinity.leading,
+                ),
                 );
               },
             ),
@@ -2349,7 +2394,9 @@ class _WorkspaceTimelineState extends State<_WorkspaceTimeline> {
               widget.onEvent('timeline progress ${(v * 100).toStringAsFixed(1)}%');
             },
           ),
-          SwitchListTile(
+          Material(
+            type: MaterialType.transparency,
+            child: SwitchListTile(
             dense: true,
             contentPadding: EdgeInsets.zero,
             value: _milestones,
@@ -2358,6 +2405,7 @@ class _WorkspaceTimelineState extends State<_WorkspaceTimeline> {
               widget.onEvent('timeline milestones = $v');
             },
             title: const Text('Show milestones'),
+          ),
           ),
           const SizedBox(height: 8),
           Expanded(

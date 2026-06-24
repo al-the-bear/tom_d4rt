@@ -120,7 +120,9 @@ dynamic build(BuildContext context) {
   for (final method in paymentMethods) {
     print('Payment: ${method['title']}');
     paymentTiles.add(
-      RadioListTile<int>(
+      Material(
+        type: MaterialType.transparency,
+        child: RadioListTile<int>(
         value: method['value'] as int,
         groupValue: 0,
         onChanged: (value) {},
@@ -135,6 +137,7 @@ dynamic build(BuildContext context) {
           child: Icon(method['icon'] as IconData, color: Colors.green, size: 24.0),
         ),
         activeColor: Colors.green,
+      ),
       ),
     );
     if (method != paymentMethods.last) {
@@ -217,7 +220,9 @@ dynamic build(BuildContext context) {
   for (final option in shippingOptions) {
     print('Shipping: ${option['title']}');
     shippingTiles.add(
-      RadioListTile<int>(
+      Material(
+        type: MaterialType.transparency,
+        child: RadioListTile<int>(
         value: option['value'] as int,
         groupValue: 1,
         onChanged: (value) {},
@@ -247,6 +252,7 @@ dynamic build(BuildContext context) {
         ),
         subtitle: Text(option['subtitle'] as String),
         activeColor: Colors.orange,
+      ),
       ),
     );
   }
@@ -360,7 +366,9 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            RadioListTile<int>(
+            Material(
+              type: MaterialType.transparency,
+              child: RadioListTile<int>(
               value: 0,
               groupValue: 0,
               onChanged: (v) {},
@@ -369,7 +377,10 @@ dynamic build(BuildContext context) {
               activeColor: color,
               dense: true,
             ),
-            RadioListTile<int>(
+            ),
+            Material(
+              type: MaterialType.transparency,
+              child: RadioListTile<int>(
               value: 1,
               groupValue: 0,
               onChanged: (v) {},
@@ -377,6 +388,7 @@ dynamic build(BuildContext context) {
               controlAffinity: affinity,
               activeColor: color,
               dense: true,
+            ),
             ),
           ],
         ),
@@ -553,7 +565,9 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child: Column(
+          child: Material(
+            type: MaterialType.transparency,
+            child: Column(
             children: [
               RadioListTile<int>(
                 value: 0,
@@ -575,6 +589,7 @@ dynamic build(BuildContext context) {
                 activeColor: Colors.deepPurple,
               ),
             ],
+          ),
           ),
         ),
         SizedBox(height: 16.0),
@@ -630,7 +645,9 @@ dynamic build(BuildContext context) {
           color: config['bgColor'] as Color,
           borderRadius: BorderRadius.circular(12.0),
         ),
-        child: RadioListTile<int>(
+        child: Material(
+          type: MaterialType.transparency,
+          child: RadioListTile<int>(
           value: 0,
           groupValue: 0,
           onChanged: (v) {},
@@ -640,6 +657,7 @@ dynamic build(BuildContext context) {
           ),
           activeColor: config['fillColor'] as Color?,
           dense: true,
+        ),
         ),
       ),
     );
@@ -664,7 +682,9 @@ dynamic build(BuildContext context) {
         ),
       ],
     ),
-    child: Column(
+    child: Material(
+      type: MaterialType.transparency,
+      child: Column(
       children: [
         Container(
           width: double.infinity,
@@ -802,6 +822,7 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 16.0),
       ],
+    ),
     ),
   );
   print('Created survey form');
@@ -1172,7 +1193,10 @@ Widget _buildCustomizationCard({
             ],
           ),
         ),
-        ...examples,
+        Material(
+          type: MaterialType.transparency,
+          child: Column(children: examples),
+        ),
         SizedBox(height: 8.0),
       ],
     ),

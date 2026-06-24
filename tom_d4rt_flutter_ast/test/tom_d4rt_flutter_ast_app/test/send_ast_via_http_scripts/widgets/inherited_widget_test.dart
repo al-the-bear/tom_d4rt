@@ -433,39 +433,51 @@ class _CommandDeck extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: SwitchListTile(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
                     value: compact,
                     onChanged: onCompactChanged,
                     dense: true,
                     contentPadding: EdgeInsets.zero,
                     title: const Text('Compact layout', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
+                  ),
                 ),
                 Expanded(
-                  child: SwitchListTile(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
                     value: guide,
                     onChanged: onGuideChanged,
                     dense: true,
                     contentPadding: EdgeInsets.zero,
                     title: const Text('Guide background', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
+                  ),
                 ),
                 Expanded(
-                  child: SwitchListTile(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
                     value: labels,
                     onChanged: onLabelsChanged,
                     dense: true,
                     contentPadding: EdgeInsets.zero,
                     title: const Text('Show labels', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
+                  ),
                 ),
                 Expanded(
-                  child: SwitchListTile(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
                     value: rtl,
                     onChanged: onRtlChanged,
                     dense: true,
                     contentPadding: EdgeInsets.zero,
                     title: const Text('RTL mode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  ),
                   ),
                 ),
               ],
@@ -697,19 +709,25 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                         },
                       ),
                       const SizedBox(height: 8),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _showTree,
                         onChanged: (v) => setState(() => _showTree = v),
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Show branch tree labels'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _showBars,
                         onChanged: (v) => setState(() => _showBars = v),
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Show density/energy bars'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       _SnapshotTable(data: snapshot, title: 'Current inherited snapshot'),
@@ -1044,7 +1062,9 @@ class _NestedOverridesSceneState extends State<_NestedOverridesScene> {
                     children: [
                       const Text('Override controls', style: TextStyle(fontWeight: FontWeight.w800)),
                       const SizedBox(height: 8),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _middle,
                         onChanged: (v) {
                           setState(() => _middle = v);
@@ -1054,7 +1074,10 @@ class _NestedOverridesSceneState extends State<_NestedOverridesScene> {
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Enable middle scope override'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _inner,
                         onChanged: (v) {
                           setState(() => _inner = v);
@@ -1064,7 +1087,10 @@ class _NestedOverridesSceneState extends State<_NestedOverridesScene> {
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Enable inner scope override'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _hardContrast,
                         onChanged: (v) {
                           setState(() => _hardContrast = v);
@@ -1073,6 +1099,7 @@ class _NestedOverridesSceneState extends State<_NestedOverridesScene> {
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Hard contrast inner profile'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       _SnapshotTable(data: root, title: 'Root snapshot'),
@@ -1533,7 +1560,9 @@ class _ContextBoundarySceneState extends State<_ContextBoundaryScene> {
                     children: [
                       const Text('Boundary controls', style: TextStyle(fontWeight: FontWeight.w800)),
                       const SizedBox(height: 8),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _overrideRight,
                         onChanged: (v) {
                           setState(() => _overrideRight = v);
@@ -1543,19 +1572,26 @@ class _ContextBoundarySceneState extends State<_ContextBoundaryScene> {
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Enable right branch local scope'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _highlight,
                         onChanged: (v) => setState(() => _highlight = v),
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Highlight branch boundary frames'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _showBuilderTags,
                         onChanged: (v) => setState(() => _showBuilderTags = v),
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Show Builder placement tags'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       Container(
