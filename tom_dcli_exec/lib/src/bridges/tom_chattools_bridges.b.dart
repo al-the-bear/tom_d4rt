@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-06-23T10:23:47.664558
+// Generated: 2026-06-24T08:28:37.560743
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -19,6 +19,10 @@ import 'package:tom_chattools/src/telegram/telegram_config.dart' as $tom_chattoo
 /// Bridge class for tom_chattools module.
 class TomChattoolsBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createChatConfigBridge(),
@@ -33,6 +37,45 @@ class TomChattoolsBridge {
       _createChatMessageFilterBridge(),
       _createTelegramChatConfigBridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'ChatConfig': _createChatConfigBridge,
+      'ChatMessage': _createChatMessageBridge,
+      'ChatSender': _createChatSenderBridge,
+      'ChatAttachment': _createChatAttachmentBridge,
+      'ChatResponse': _createChatResponseBridge,
+      'ChatReceiver': _createChatReceiverBridge,
+      'ChatReceiverInfo': _createChatReceiverInfoBridge,
+      'ChatSettings': _createChatSettingsBridge,
+      'ChatApi': _createChatApiBridge,
+      'ChatMessageFilter': _createChatMessageFilterBridge,
+      'TelegramChatConfig': _createTelegramChatConfigBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'ChatConfig': $tom_chattools_2.ChatConfig,
+      'ChatMessage': $tom_chattools_3.ChatMessage,
+      'ChatSender': $tom_chattools_3.ChatSender,
+      'ChatAttachment': $tom_chattools_3.ChatAttachment,
+      'ChatResponse': $tom_chattools_5.ChatResponse,
+      'ChatReceiver': $tom_chattools_4.ChatReceiver,
+      'ChatReceiverInfo': $tom_chattools_4.ChatReceiverInfo,
+      'ChatSettings': $tom_chattools_6.ChatSettings,
+      'ChatApi': $tom_chattools_1.ChatApi,
+      'ChatMessageFilter': $tom_chattools_1.ChatMessageFilter,
+      'TelegramChatConfig': $tom_chattools_7.TelegramChatConfig,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -160,11 +203,20 @@ class TomChattoolsBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // MCI#1 / A1: Register the flattened native supertype table so

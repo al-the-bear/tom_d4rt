@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 13 files
-// Generated: 2026-06-23T10:23:47.191981
+// Generated: 2026-06-24T08:28:37.072635
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -25,6 +25,10 @@ import 'package:tom_vscode_scripting_api/src/vscode_workspace.dart' as $tom_vsco
 /// Bridge class for tom_vscode_scripting_api module.
 class TomVscodeScriptingApiBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createVSCodeAdapterBridge(),
@@ -70,6 +74,107 @@ class TomVscodeScriptingApiBridge {
       _createTerminalOptionsBridge(),
       _createFileSystemWatcherOptionsBridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'VSCodeAdapter': _createVSCodeAdapterBridge,
+      'VSCodeBridgeResult': _createVSCodeBridgeResultBridge,
+      'VSCodeBridgeClient': _createVSCodeBridgeClientBridge,
+      'VSCodeBridgeAdapter': _createVSCodeBridgeAdapterBridge,
+      'LazyVSCodeBridgeAdapter': _createLazyVSCodeBridgeAdapterBridge,
+      'VSCode': _createVSCodeBridge,
+      'VSCodeCommands': _createVSCodeCommandsBridge,
+      'VSCodeCommonCommands': _createVSCodeCommonCommandsBridge,
+      'Extension': _createExtensionBridge,
+      'VSCodeExtensions': _createVSCodeExtensionsBridge,
+      'VSCodeLanguageModel': _createVSCodeLanguageModelBridge,
+      'LanguageModelChat': _createLanguageModelChatBridge,
+      'LanguageModelChatMessage': _createLanguageModelChatMessageBridge,
+      'LanguageModelChatResponse': _createLanguageModelChatResponseBridge,
+      'LanguageModelToolResult': _createLanguageModelToolResultBridge,
+      'LanguageModelToolInformation': _createLanguageModelToolInformationBridge,
+      'VSCodeWindow': _createVSCodeWindowBridge,
+      'VSCodeWorkspace': _createVSCodeWorkspaceBridge,
+      'VSCodeChat': _createVSCodeChatBridge,
+      'ChatParticipant': _createChatParticipantBridge,
+      'ChatRequest': _createChatRequestBridge,
+      'ChatPromptReference': _createChatPromptReferenceBridge,
+      'ChatContext': _createChatContextBridge,
+      'ChatResult': _createChatResultBridge,
+      'ChatErrorDetails': _createChatErrorDetailsBridge,
+      'ChatResponseStream': _createChatResponseStreamBridge,
+      'HelperLogging': _createHelperLoggingBridge,
+      'VsCodeHelper': _createVsCodeHelperBridge,
+      'VsProgress': _createVsProgressBridge,
+      'FileBatch': _createFileBatchBridge,
+      'VSCodeUri': _createVSCodeUriBridge,
+      'WorkspaceFolder': _createWorkspaceFolderBridge,
+      'TextDocument': _createTextDocumentBridge,
+      'Position': _createPositionBridge,
+      'Range': _createRangeBridge,
+      'Selection': _createSelectionBridge,
+      'TextEditor': _createTextEditorBridge,
+      'QuickPickItem': _createQuickPickItemBridge,
+      'InputBoxOptions': _createInputBoxOptionsBridge,
+      'MessageOptions': _createMessageOptionsBridge,
+      'TerminalOptions': _createTerminalOptionsBridge,
+      'FileSystemWatcherOptions': _createFileSystemWatcherOptionsBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'VSCodeAdapter': $tom_vscode_scripting_api_3.VSCodeAdapter,
+      'VSCodeBridgeResult': $tom_vscode_scripting_api_5.VSCodeBridgeResult,
+      'VSCodeBridgeClient': $tom_vscode_scripting_api_5.VSCodeBridgeClient,
+      'VSCodeBridgeAdapter': $tom_vscode_scripting_api_4.VSCodeBridgeAdapter,
+      'LazyVSCodeBridgeAdapter': $tom_vscode_scripting_api_4.LazyVSCodeBridgeAdapter,
+      'VSCode': $tom_vscode_scripting_api_2.VSCode,
+      'VSCodeCommands': $tom_vscode_scripting_api_7.VSCodeCommands,
+      'VSCodeCommonCommands': $tom_vscode_scripting_api_7.VSCodeCommonCommands,
+      'Extension': $tom_vscode_scripting_api_8.Extension,
+      'VSCodeExtensions': $tom_vscode_scripting_api_8.VSCodeExtensions,
+      'VSCodeLanguageModel': $tom_vscode_scripting_api_10.VSCodeLanguageModel,
+      'LanguageModelChat': $tom_vscode_scripting_api_10.LanguageModelChat,
+      'LanguageModelChatMessage': $tom_vscode_scripting_api_10.LanguageModelChatMessage,
+      'LanguageModelChatResponse': $tom_vscode_scripting_api_10.LanguageModelChatResponse,
+      'LanguageModelToolResult': $tom_vscode_scripting_api_10.LanguageModelToolResult,
+      'LanguageModelToolInformation': $tom_vscode_scripting_api_10.LanguageModelToolInformation,
+      'VSCodeWindow': $tom_vscode_scripting_api_12.VSCodeWindow,
+      'VSCodeWorkspace': $tom_vscode_scripting_api_13.VSCodeWorkspace,
+      'VSCodeChat': $tom_vscode_scripting_api_6.VSCodeChat,
+      'ChatParticipant': $tom_vscode_scripting_api_6.ChatParticipant,
+      'ChatRequest': $tom_vscode_scripting_api_6.ChatRequest,
+      'ChatPromptReference': $tom_vscode_scripting_api_6.ChatPromptReference,
+      'ChatContext': $tom_vscode_scripting_api_6.ChatContext,
+      'ChatResult': $tom_vscode_scripting_api_6.ChatResult,
+      'ChatErrorDetails': $tom_vscode_scripting_api_6.ChatErrorDetails,
+      'ChatResponseStream': $tom_vscode_scripting_api_6.ChatResponseStream,
+      'HelperLogging': $tom_vscode_scripting_api_9.HelperLogging,
+      'VsCodeHelper': $tom_vscode_scripting_api_9.VsCodeHelper,
+      'VsProgress': $tom_vscode_scripting_api_9.VsProgress,
+      'FileBatch': $tom_vscode_scripting_api_9.FileBatch,
+      'VSCodeUri': $tom_vscode_scripting_api_11.VSCodeUri,
+      'WorkspaceFolder': $tom_vscode_scripting_api_11.WorkspaceFolder,
+      'TextDocument': $tom_vscode_scripting_api_11.TextDocument,
+      'Position': $tom_vscode_scripting_api_11.Position,
+      'Range': $tom_vscode_scripting_api_11.Range,
+      'Selection': $tom_vscode_scripting_api_11.Selection,
+      'TextEditor': $tom_vscode_scripting_api_11.TextEditor,
+      'QuickPickItem': $tom_vscode_scripting_api_11.QuickPickItem,
+      'InputBoxOptions': $tom_vscode_scripting_api_11.InputBoxOptions,
+      'MessageOptions': $tom_vscode_scripting_api_11.MessageOptions,
+      'TerminalOptions': $tom_vscode_scripting_api_11.TerminalOptions,
+      'FileSystemWatcherOptions': $tom_vscode_scripting_api_11.FileSystemWatcherOptions,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -222,11 +327,20 @@ class TomVscodeScriptingApiBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // MCI#1 / A1: Register the flattened native supertype table so

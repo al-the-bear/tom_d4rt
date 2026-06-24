@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 10 files
-// Generated: 2026-06-23T10:23:47.088393
+// Generated: 2026-06-24T08:28:36.982537
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -33,6 +33,10 @@ import 'package:tom_d4rt_ast/src/runtime/exceptions.dart' as $aux_tom_d4rt_ast;
 /// Bridge class for cli_api module.
 class CliApiBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createD4rtCliApiBridge(),
@@ -57,6 +61,65 @@ class CliApiBridge {
       _createContextStackBridge(),
       _createD4rtBridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'D4rtCliApi': _createD4rtCliApiBridge,
+      'D4rtCliController': _createD4rtCliControllerBridge,
+      'CliGlobalHolder': _createCliGlobalHolderBridge,
+      'CliException': _createCliExceptionBridge,
+      'CliFileNotFoundException': _createCliFileNotFoundExceptionBridge,
+      'DirectoryNotFoundException': _createDirectoryNotFoundExceptionBridge,
+      'ExecutionException': _createExecutionExceptionBridge,
+      'ReplayException': _createReplayExceptionBridge,
+      'InvalidMultilineModeException': _createInvalidMultilineModeExceptionBridge,
+      'MaxNestingDepthException': _createMaxNestingDepthExceptionBridge,
+      'CliNotInitializedException': _createCliNotInitializedExceptionBridge,
+      'ExecuteResult': _createExecuteResultBridge,
+      'ImportInfo': _createImportInfoBridge,
+      'SymbolInfo': _createSymbolInfoBridge,
+      'CliRuntime': _createCliRuntimeBridge,
+      'CliRuntimeImpl': _createCliRuntimeImplBridge,
+      'CliState': _createCliStateBridge,
+      'VerificationFailure': _createVerificationFailureBridge,
+      'ExecutionContext': _createExecutionContextBridge,
+      'ContextStack': _createContextStackBridge,
+      'D4rt': _createD4rtBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'D4rtCliApi': $tom_dcli_exec_1.D4rtCliApi,
+      'D4rtCliController': $tom_dcli_exec_3.D4rtCliController,
+      'CliGlobalHolder': $tom_dcli_exec_3.CliGlobalHolder,
+      'CliException': $tom_dcli_exec_4.CliException,
+      'CliFileNotFoundException': $tom_dcli_exec_4.CliFileNotFoundException,
+      'DirectoryNotFoundException': $tom_dcli_exec_4.DirectoryNotFoundException,
+      'ExecutionException': $tom_dcli_exec_4.ExecutionException,
+      'ReplayException': $tom_dcli_exec_4.ReplayException,
+      'InvalidMultilineModeException': $tom_dcli_exec_4.InvalidMultilineModeException,
+      'MaxNestingDepthException': $tom_dcli_exec_4.MaxNestingDepthException,
+      'CliNotInitializedException': $tom_dcli_exec_4.CliNotInitializedException,
+      'ExecuteResult': $tom_dcli_exec_5.ExecuteResult,
+      'ImportInfo': $tom_dcli_exec_5.ImportInfo,
+      'SymbolInfo': $tom_dcli_exec_5.SymbolInfo,
+      'CliRuntime': $tom_dcli_exec_6.CliRuntime,
+      'CliRuntimeImpl': $tom_dcli_exec_6.CliRuntimeImpl,
+      'CliState': $tom_dcli_exec_7.CliState,
+      'VerificationFailure': $tom_dcli_exec_8.VerificationFailure,
+      'ExecutionContext': $tom_dcli_exec_9.ExecutionContext,
+      'ContextStack': $tom_dcli_exec_9.ContextStack,
+      'D4rt': $tom_d4rt_exec_1.D4rt,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -193,11 +256,20 @@ class CliApiBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // MCI#1 / A1: Register the flattened native supertype table so
@@ -2366,6 +2438,7 @@ BridgedClass _createD4rtBridge() {
       'bridgedLibraryUris': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').bridgedLibraryUris,
       'libraryReExports': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').libraryReExports,
       'bridgesFinalized': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').bridgesFinalized,
+      'allowedPackages': (visitor, target) => D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt').allowedPackages,
     },
     methods: {
       'registerBridgedEnum': (visitor, target, positional, named, typeArgs) {
@@ -2384,6 +2457,20 @@ BridgedClass _createD4rtBridge() {
         final library = D4.getRequiredArg<String>(positional, 1, 'library', 'registerBridgedClass');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
         t.registerBridgedClass(definition, library, sourceUri: sourceUri);
+        return null;
+      },
+      'registerBridgedClassLazy': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 4, 'registerBridgedClassLazy');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'registerBridgedClassLazy');
+        final nativeType = D4.getRequiredArg<Type>(positional, 1, 'nativeType', 'registerBridgedClassLazy');
+        if (positional.length <= 2) {
+          throw ArgumentError('registerBridgedClassLazy: Missing required argument "thunk" at position 2');
+        }
+        final thunkRaw = positional[2];
+        final library = D4.getRequiredArg<String>(positional, 3, 'library', 'registerBridgedClassLazy');
+        final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
+        t.registerBridgedClassLazy(name, nativeType, (() { return D4.extractBridgedArg<$tom_d4rt_ast_2.BridgedClass>(D4.callInterpreterCallback(visitor!, thunkRaw, []), 'callback', visitor) as $tom_d4rt_ast_2.BridgedClass; }) as $tom_d4rt_ast_2.BridgedClass Function(), library, sourceUri: sourceUri);
         return null;
       },
       'registerClassAlias': (visitor, target, positional, named, typeArgs) {
@@ -2539,6 +2626,12 @@ BridgedClass _createD4rtBridge() {
         t.resetScriptDeclarations();
         return null;
       },
+      'providePackage': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 1, 'providePackage');
+        final packageName = D4.getRequiredArg<String>(positional, 0, 'packageName', 'providePackage');
+        return t.providePackage(packageName);
+      },
       'getConfiguration': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_exec_1.D4rt>(target, 'D4rt');
         return t.getConfiguration();
@@ -2648,12 +2741,27 @@ BridgedClass _createD4rtBridge() {
         return t.invoke(name, positionalArgs, namedArgs, sources);
       },
     },
+    staticGetters: {
+      'debugPooledPackages': (visitor) => $tom_d4rt_exec_1.D4rt.debugPooledPackages,
+      'debugWarmParentCacheSize': (visitor) => $tom_d4rt_exec_1.D4rt.debugWarmParentCacheSize,
+    },
+    staticMethods: {
+      'debugPooledClassCount': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'debugPooledClassCount');
+        final packageName = D4.getRequiredArg<String>(positional, 0, 'packageName', 'debugPooledClassCount');
+        return $tom_d4rt_exec_1.D4rt.debugPooledClassCount(packageName);
+      },
+      'debugResetPool': (visitor, positional, named, typeArgs) {
+        return $tom_d4rt_exec_1.D4rt.debugResetPool();
+      },
+    },
     constructorSignatures: {
       '': 'D4rt()',
     },
     methodSignatures: {
       'registerBridgedEnum': 'void registerBridgedEnum(BridgedEnumDefinition<Enum> definition, String library, {String? sourceUri})',
       'registerBridgedClass': 'void registerBridgedClass(BridgedClass definition, String library, {String? sourceUri})',
+      'registerBridgedClassLazy': 'void registerBridgedClassLazy(String name, Type nativeType, BridgedClass Function() thunk, String library, {String? sourceUri})',
       'registerClassAlias': 'void registerClassAlias(String aliasName, String targetName, String library)',
       'registerFunctionTypedef': 'void registerFunctionTypedef(String name, String library)',
       'registerLibraryReExport': 'void registerLibraryReExport(String sourceUri, String targetUri, {Set<String>? show, Set<String>? hide})',
@@ -2672,6 +2780,7 @@ BridgedClass _createD4rtBridge() {
       'finalizeBridges': 'void finalizeBridges()',
       'warmup': 'void warmup()',
       'resetScriptDeclarations': 'void resetScriptDeclarations()',
+      'providePackage': 'bool providePackage(String packageName)',
       'getConfiguration': 'D4rtConfiguration getConfiguration()',
       'getEnvironmentState': 'EnvironmentState? getEnvironmentState()',
       'execute': 'dynamic execute({String? source, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, Object? args, String? library, Map<String, String>? sources, String? basePath, bool allowFileSystemImports = false})',
@@ -2690,6 +2799,15 @@ BridgedClass _createD4rtBridge() {
       'bridgedLibraryUris': 'Set<String> get bridgedLibraryUris',
       'libraryReExports': 'Map<String, List<({Set<String>? hide, Set<String>? show, String uri})>> get libraryReExports',
       'bridgesFinalized': 'bool get bridgesFinalized',
+      'allowedPackages': 'Set<String> get allowedPackages',
+    },
+    staticMethodSignatures: {
+      'debugPooledClassCount': 'int debugPooledClassCount(String packageName)',
+      'debugResetPool': 'void debugResetPool()',
+    },
+    staticGetterSignatures: {
+      'debugPooledPackages': 'Set<String> get debugPooledPackages',
+      'debugWarmParentCacheSize': 'int get debugWarmParentCacheSize',
     },
   );
 }
