@@ -803,6 +803,9 @@ class SendTestRunner {
     // Cluster J TODO #18 — test-app per-stage timings.
     final appMetric =
         (response['_buildMetric'] as Map?)?.cast<String, dynamic>();
+    // Init-path profiler snapshot (compile-time gated in the interpreter).
+    final initProfile =
+        (response['_initProfile'] as Map?)?.cast<String, dynamic>();
 
     _printSendMetrics(
       scriptPath: scriptPath,
@@ -815,6 +818,7 @@ class SendTestRunner {
       outputLines: output.length,
       frameworkErrorCount: frameworkErrors.length,
       appMetric: appMetric,
+      initProfile: initProfile,
     );
 
     if (frameworkErrors.isNotEmpty) {
@@ -1147,6 +1151,10 @@ class SendTestRunner {
     required int frameworkErrorCount,
     // Cluster J TODO #18 — per-stage test-app timings.
     Map<String, dynamic>? appMetric,
+    // Init-path profiler snapshot (compile-time gated in the interpreter).
+    // Printed as a separate `[PROFILE]` line so the profiler scripts can
+    // grep it out without disturbing the existing `[METRIC]` shape.
+    Map<String, dynamic>? initProfile,
   }) {
     final appStages = _formatAppMetric(appMetric);
     // ignore: avoid_print
@@ -1160,6 +1168,38 @@ class SendTestRunner {
       'outputLines=$outputLines frameworkErrors=$frameworkErrorCount'
       '$appStages',
     );
+    final profileSuffix = _formatInitProfile(initProfile);
+    if (profileSuffix.isNotEmpty) {
+      // ignore: avoid_print
+      print('[PROFILE] script=$scriptPath '
+          'testFile=${_currentSuite ?? '<unknown>'}$profileSuffix');
+    }
+  }
+
+  /// Format the optional `_initProfile` snapshot (`{name: {us, ms, n}}`) as a
+  /// suffix for a `[PROFILE]` line. Returns an empty string when profiling
+  /// wasn't compiled in (the field is `null`/empty), so non-profiling runs are
+  /// unaffected. Spans are emitted longest-first.
+  static String _formatInitProfile(Map<String, dynamic>? m) {
+    if (m == null || m.isEmpty) return '';
+    final entries = m.entries.toList()
+      ..sort((a, b) {
+        final av = (a.value as Map?)?['us'];
+        final bv = (b.value as Map?)?['us'];
+        final ai = av is num ? av : 0;
+        final bi = bv is num ? bv : 0;
+        return bi.compareTo(ai);
+      });
+    final buf = StringBuffer();
+    for (final e in entries) {
+      final v = (e.value as Map?)?.cast<String, dynamic>();
+      final ms = v?['ms'];
+      final n = v?['n'];
+      final msStr =
+          ms is num ? ms.toStringAsFixed(3) : (ms?.toString() ?? '-');
+      buf.write(' ${e.key}=${msStr}ms(${n ?? '-'}x)');
+    }
+    return buf.toString();
   }
 
   /// Mirror of flutter_ast's `_formatAppMetric` — formats the test-app

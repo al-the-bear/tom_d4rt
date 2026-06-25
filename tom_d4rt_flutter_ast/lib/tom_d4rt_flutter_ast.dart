@@ -17,6 +17,7 @@
 library;
 
 export 'src/flutter_d4rt.dart';
+export 'src/profiling_metrics.dart';
 export 'src/bridges/material_bridges.b.dart' show FlutterMaterialBridges;
 
 // Re-export key runtime types for convenience. These resolve entirely within

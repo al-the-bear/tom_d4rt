@@ -1185,6 +1185,10 @@ class SendTestRunner {
     // Cluster J TODO #18 — test-app per-stage timings.
     final appMetric =
         (response['_buildMetric'] as Map?)?.cast<String, dynamic>();
+    // Init-path profiler snapshot (compile-time gated in the interpreter).
+    // `null` unless profiling is compiled in.
+    final initProfile =
+        (response['_initProfile'] as Map?)?.cast<String, dynamic>();
 
     _printSendMetrics(
       scriptPath: scriptPath,
@@ -1201,6 +1205,7 @@ class SendTestRunner {
       outputLines: output.length,
       frameworkErrorCount: frameworkErrors.length,
       appMetric: appMetric,
+      initProfile: initProfile,
     );
 
     // Log framework errors (red error screens) prominently so they are
@@ -1543,6 +1548,10 @@ class SendTestRunner {
     // millisecond offsets from the test app's Stopwatch start at the
     // top of `_handleBuild`.
     Map<String, dynamic>? appMetric,
+    // Init-path profiler snapshot (compile-time gated in the interpreter).
+    // Printed as a separate `[PROFILE]` line so the profiler scripts can
+    // grep it out without disturbing the existing `[METRIC]` shape.
+    Map<String, dynamic>? initProfile,
   }) {
     final appStages = _formatAppMetric(appMetric);
     print(
@@ -1558,6 +1567,37 @@ class SendTestRunner {
       'outputLines=$outputLines frameworkErrors=$frameworkErrorCount'
       '$appStages',
     );
+    final profileSuffix = _formatInitProfile(initProfile);
+    if (profileSuffix.isNotEmpty) {
+      print('[PROFILE] script=$scriptPath '
+          'testFile=${_currentSuite ?? '<unknown>'}$profileSuffix');
+    }
+  }
+
+  /// Format the optional `_initProfile` snapshot (`{name: {us, ms, n}}`) as a
+  /// suffix for a `[PROFILE]` line. Returns an empty string when profiling
+  /// wasn't compiled in (the field is `null`/empty), so non-profiling runs are
+  /// unaffected. Spans are emitted longest-first.
+  static String _formatInitProfile(Map<String, dynamic>? m) {
+    if (m == null || m.isEmpty) return '';
+    final entries = m.entries.toList()
+      ..sort((a, b) {
+        final av = (a.value as Map?)?['us'];
+        final bv = (b.value as Map?)?['us'];
+        final ai = av is num ? av : 0;
+        final bi = bv is num ? bv : 0;
+        return bi.compareTo(ai);
+      });
+    final buf = StringBuffer();
+    for (final e in entries) {
+      final v = (e.value as Map?)?.cast<String, dynamic>();
+      final ms = v?['ms'];
+      final n = v?['n'];
+      final msStr =
+          ms is num ? ms.toStringAsFixed(3) : (ms?.toString() ?? '-');
+      buf.write(' ${e.key}=${msStr}ms(${n ?? '-'}x)');
+    }
+    return buf.toString();
   }
 
   /// Format the optional `_buildMetric` map (see TODO #18) as a suffix

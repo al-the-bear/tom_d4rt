@@ -235,6 +235,12 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       // swallowed by plain `flutter run`.
       _log('[warmup] FlutterD4rt.warmup() completed off-frame in '
           '${sw.elapsedMilliseconds}ms.');
+      // When the compile-time init profiler is on, dump the per-phase
+      // breakdown so a profiling session sees the warmup cost split out.
+      // Dead-code-eliminated when ProfilingMetrics.enabled is false.
+      if (ProfilingMetrics.enabled) {
+        _log('[profile] ${ProfilingMetrics.report(title: "D4rt warmup profile")}');
+      }
     });
   }
 
@@ -1161,6 +1167,10 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         'firstFrameMs': _firstFrameMs,
         'pumpEndMs': _pumpEndMs,
       };
+      // Init-path profiler snapshot (compile-time gated). `null` when the
+      // profiler is off so the harness can omit the profiling block.
+      responseJson['_initProfile'] =
+          ProfilingMetrics.enabled ? ProfilingMetrics.snapshot() : null;
       _respond(request, result.success ? 200 : 400, responseJson);
     } on FormatException catch (e) {
       _capturingFrameworkErrors = false;
