@@ -54,6 +54,9 @@ export 'src/runtime/ast_module_loader.dart';
 // Main runner API
 export 'src/runtime/d4rt_runner.dart';
 
+// Init-path profiler (compile-time gated)
+export 'src/runtime/profiler.dart';
+
 // Bundle format
 export 'src/runtime/ast_bundle.dart';
 

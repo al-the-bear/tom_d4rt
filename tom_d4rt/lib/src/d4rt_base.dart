@@ -20,6 +20,7 @@ import 'package:tom_d4rt/src/stdlib/stdlib.dart';
 import 'package:tom_d4rt/src/bridge/registration.dart';
 import 'package:tom_d4rt/src/security/permissions.dart';
 import 'package:tom_d4rt/src/introspection.dart';
+import 'package:tom_d4rt/src/profiler.dart';
 
 /// Wrapper class for library-scoped variables.
 /// Stores a variable name, its value, and optionally its canonical source URI
@@ -841,7 +842,12 @@ class D4rt {
     // canonical embedder (FlutterD4rt) finalizes via `warmup` before the first
     // execute; tom_d4rt makes the implicit path correct without that
     // requirement.
+    final swFinalize = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     finalizeBridges();
+    if (D4rtProfiler.enabled) {
+      D4rtProfiler.record(
+          '_initModule.finalizeBridges', swFinalize!.elapsedMicroseconds);
+    }
 
     // Step 9 — pick the registries the [ModuleLoader] reads from. Legacy
     // instances pass their per-instance maps directly; migrated instances
@@ -860,8 +866,14 @@ class D4rt {
     // shared, immutable warm parent built at most once (see [_warmParent]).
     // Each execute gets a fresh child chained off that parent; name / bridge
     // lookups that miss in the child chain up to the parent.
+    final swWarm = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     final child = Environment(enclosing: _warmParent());
+    if (D4rtProfiler.enabled) {
+      D4rtProfiler.record(
+          '_initModule.warmParent', swWarm!.elapsedMicroseconds);
+    }
 
+    final swLoader = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     final moduleLoader = ModuleLoader(
       child,
       sources ?? {},
@@ -875,6 +887,10 @@ class D4rt {
       d4rt: this,
       collectRegistrationErrors: collectRegistrationErrors,
     );
+    if (D4rtProfiler.enabled) {
+      D4rtProfiler.record(
+          '_initModule.moduleLoader', swLoader!.elapsedMicroseconds);
+    }
     _visitor = InterpreterVisitor(
         globalEnvironment: child, moduleLoader: moduleLoader);
 
@@ -1233,8 +1249,12 @@ class D4rt {
   /// before the first real build. Mirrors `D4rtRunner.warmup` /
   /// `D4rt.warmup` in `tom_d4rt_ast` / `tom_d4rt_exec`.
   void warmup() {
+    final swWarmup = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     finalizeBridges();
     execute(source: 'int main() => 0;');
+    if (D4rtProfiler.enabled) {
+      D4rtProfiler.record('warmup', swWarmup!.elapsedMicroseconds);
+    }
   }
 
   /// P&R#1: enable [D4.usageLogEnabled] when `D4RT_LOG_RELAXER_USAGE` is set to
@@ -1626,11 +1646,19 @@ class D4rt {
     }
 
     // Initialize a fresh module loader (resets global environment)
+    final swInit = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     _moduleLoader = _initModule(sources,
         basePath: basePath, allowFileSystemImports: allowFileSystemImports);
+    if (D4rtProfiler.enabled) {
+      D4rtProfiler.record('execute._initModule', swInit!.elapsedMicroseconds);
+    }
 
     // Parse the source
+    final swParse = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     final compilationUnit = _parseSource(source: source, library: library);
+    if (D4rtProfiler.enabled) {
+      D4rtProfiler.record('execute._parseSource', swParse!.elapsedMicroseconds);
+    }
 
     // Library-scoped globals are registered via ModuleLoader when imports are processed
     final executionEnvironment = _moduleLoader.globalEnvironment;
@@ -1805,12 +1833,18 @@ class D4rt {
     // if the embedder already called [finalizeBridges] explicitly.
     finalizeBridges();
     Logger.debug("[_executeInEnvironment] Starting Pass 1: Declaration");
+    final swPass1 = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     final declarationVisitor = DeclarationVisitor(executionEnvironment);
     for (final declaration in compilationUnit.declarations) {
       declaration.accept<void>(declarationVisitor);
     }
+    if (D4rtProfiler.enabled) {
+      D4rtProfiler.record(
+          '_executeInEnvironment.pass1', swPass1!.elapsedMicroseconds);
+    }
     Logger.debug("[_executeInEnvironment] Finished Pass 1: Declaration");
 
+    final swResolve = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     _visitor = InterpreterVisitor(
         globalEnvironment: executionEnvironment,
         moduleLoader: _moduleLoader,
@@ -1820,8 +1854,16 @@ class D4rt {
     // visitSimpleIdentifier can validate the scope model. No effect in
     // release builds beyond the (cheap) resolver walk.
     _visitor!.resolveStaticCoordinates(compilationUnit.declarations);
+    if (D4rtProfiler.enabled) {
+      D4rtProfiler.record('_executeInEnvironment.visitorBuild',
+          swResolve!.elapsedMicroseconds);
+    }
     Object? functionResult;
     try {
+      // Profiler: time the declaration-registration setup (directives +
+      // enum/class/extension/function/variable passes) that prepares the
+      // environment, ending right before the actual `main()` interpretation.
+      final swPass2 = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
       Logger.debug("[_executeInEnvironment] Starting Pass 2: Interpretation");
       Logger.debug(
           "[_executeInEnvironment] Processing directives (imports, exports, etc.)...");
@@ -1897,6 +1939,10 @@ class D4rt {
         }
       }
       Logger.debug("[_executeInEnvironment] Finished processing declarations");
+      if (D4rtProfiler.enabled) {
+        D4rtProfiler.record(
+            '_executeInEnvironment.pass2Setup', swPass2!.elapsedMicroseconds);
+      }
       Logger.debug("[_executeInEnvironment] Looking for $name function");
       final functionCallable = executionEnvironment.get(name);
       if (functionCallable is Callable) {

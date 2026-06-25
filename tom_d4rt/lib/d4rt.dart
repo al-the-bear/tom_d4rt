@@ -36,6 +36,7 @@ export 'package:tom_d4rt/src/late_variable.dart';
 export 'package:tom_d4rt/src/scope_frame.dart';
 export 'package:tom_d4rt/src/stdlib/stdlib.dart';
 export 'src/d4rt_base.dart';
+export 'src/profiler.dart';
 export 'src/bridge/registration.dart' hide BridgedMethodCallable;
 export 'src/utils/extensions/map.dart';
 export 'src/utils/extensions/list.dart';
