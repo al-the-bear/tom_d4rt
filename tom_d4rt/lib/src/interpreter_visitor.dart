@@ -3767,6 +3767,45 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           throw RuntimeD4rtException(
               "Native error during bridged enum method call '$methodName' on $targetValue: $e", originalException: e);
         }
+      } else if (targetValue is BridgedEnum) {
+        // Static method call on a bridged enum type, e.g.
+        // `PageFormat.fromString('A4')` (GitHub issue #2). Instance methods go
+        // through the BridgedEnumValue branch above; this branch handles the
+        // enum TYPE as the target.
+        final staticMethodAdapter =
+            targetValue.findStaticMethodAdapter(methodName);
+        if (staticMethodAdapter == null) {
+          throw RuntimeD4rtException(
+              "Undefined static method '$methodName' on bridged enum '${targetValue.name}'.");
+        }
+        final evaluationResult = _evaluateArgumentsAsync(node.argumentList);
+        if (evaluationResult is AsyncSuspensionRequest) {
+          return evaluationResult; // Propagate suspension
+        }
+        final (positionalArgs, namedArgs) =
+            evaluationResult as (List<Object?>, Map<String, Object?>);
+        List<RuntimeType>? evaluatedTypeArguments;
+        final typeArgsNode = node.typeArguments;
+        if (typeArgsNode != null) {
+          evaluatedTypeArguments = typeArgsNode.arguments
+              .map((typeNode) => _resolveTypeAnnotation(typeNode))
+              .toList();
+        }
+        try {
+          return D4.withActiveVisitor(
+            this,
+            () => staticMethodAdapter(
+                this, positionalArgs, namedArgs, evaluatedTypeArguments),
+          );
+        } on RuntimeD4rtException {
+          rethrow;
+        } catch (e, s) {
+          Logger.error(
+              "[visitMethodInvocation] Native exception during bridged enum static method '${targetValue.name}.$methodName': $e\n$s");
+          throw RuntimeD4rtException(
+              "Native error during bridged enum static method '$methodName' on '${targetValue.name}': $e",
+              originalException: e);
+        }
       } else if (targetValue is BridgedClass) {
         // This is a method call on a bridged class (bridged constructor or static method)
         final methodName = node.methodName.name;

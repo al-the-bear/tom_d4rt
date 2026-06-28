@@ -36,7 +36,74 @@ enum FlagState {
       other is FlagState ? other.name : other.toString();
 }
 
+// 4. Enum with a STATIC factory method. Mirrors the `PageFormat.fromString`
+// shape from GitHub issue #2: a `static PageFormat fromString(String name)`
+// on the enum must be reachable as `EnumType.fromString(args)` from
+// interpreted code.
+enum SizeEnum {
+  small,
+  medium,
+  large;
+
+  static SizeEnum fromString(String name) =>
+      SizeEnum.values.firstWhere((e) => e.name == name,
+          orElse: () => SizeEnum.small);
+
+  static SizeEnum get largest => SizeEnum.large;
+}
+
 void main() {
+  group('Bridged Enum Tests - Static methods (issue #2)', () {
+    late D4rt interpreter;
+
+    setUp(() {
+      interpreter = D4rt();
+      final sizeDefinition = BridgedEnumDefinition<SizeEnum>(
+        name: 'SizeEnum',
+        values: SizeEnum.values,
+        staticMethods: {
+          'fromString': (visitor, positional, named, typeArgs) =>
+              SizeEnum.fromString(positional[0] as String),
+        },
+        staticGetters: {
+          'largest': () => SizeEnum.largest,
+        },
+      );
+      interpreter.registerBridgedEnum(
+          sizeDefinition, 'package:test/size.dart');
+    });
+
+    test('I-ENUM-STATIC-1: call static method on bridged enum', () {
+      final code = '''
+        import 'package:test/size.dart';
+        main() => SizeEnum.fromString('medium');
+      ''';
+      final result = interpreter.execute(source: code);
+      expect(result, equals(SizeEnum.medium));
+    });
+
+    test('I-ENUM-STATIC-2: static method result feeds back into script', () {
+      final code = '''
+        import 'package:test/size.dart';
+        main() {
+          var s = SizeEnum.fromString('large');
+          return s.index;
+        }
+      ''';
+      final result = interpreter.execute(source: code);
+      expect(result, equals(2));
+    });
+
+    test('I-ENUM-STATIC-3: static getter still resolves alongside methods', () {
+      final code = '''
+        import 'package:test/size.dart';
+        main() => SizeEnum.largest;
+      ''';
+      final result = interpreter.execute(source: code);
+      expect(result, equals(SizeEnum.large));
+    });
+  });
+
   group('Bridged Enum Tests - Simple', () {
     late D4rt interpreter;
 

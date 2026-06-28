@@ -21,8 +21,17 @@ class BridgedEnum implements RuntimeType {
   /// E.g. `WidgetState.any` which returns a `WidgetStatesConstraint`.
   Map<String, Object? Function()> staticGetters = {};
 
+  /// Static method adapters for static factory/helper members.
+  /// E.g. `PageFormat.fromString(name)`, invoked as `EnumType.method(args)`.
+  Map<String, BridgedStaticMethodAdapter> staticMethods = {};
+
   /// Creates a definition for a bridged enum.
   BridgedEnum(this.name, this.values);
+
+  /// Resolves a static method adapter by [methodName], or `null` if the enum
+  /// declares no such static method.
+  BridgedStaticMethodAdapter? findStaticMethodAdapter(String methodName) =>
+      staticMethods[methodName];
 
   @override
   String toString() => 'BridgedEnum($name)';

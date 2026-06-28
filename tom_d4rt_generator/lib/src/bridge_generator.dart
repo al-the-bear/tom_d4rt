@@ -494,6 +494,11 @@ class EnumInfo {
   /// E.g. `WidgetState.any` which is a `static const WidgetStatesConstraint`.
   final List<String> staticGetterNames;
 
+  /// Issue #2: Static method details (static factory/helper methods).
+  /// E.g. `static PageFormat fromString(String name)`, invoked from interpreted
+  /// code as `PageFormat.fromString(args)`.
+  final List<EnumMethodDetail> staticMethodDetails;
+
   const EnumInfo({
     required this.name,
     required this.values,
@@ -502,6 +507,7 @@ class EnumInfo {
     this.getterNames = const [],
     this.methodDetails = const [],
     this.staticGetterNames = const [],
+    this.staticMethodDetails = const [],
   });
 }
 
@@ -6589,6 +6595,35 @@ class BridgeGenerator {
           buffer.writeln(
             "          '$getter': () => $prefixedEnumName.$getter,",
           );
+        }
+        buffer.writeln('        },');
+      }
+
+      // Issue #2: Emit static method adapters (e.g. `PageFormat.fromString`)
+      // so `EnumType.staticMethod(args)` resolves in the interpreter.
+      // RC-7: Use parameter-aware coercion for static methods with collection
+      // params, mirroring the instance-method emission above.
+      if (enumInfo.staticMethodDetails.isNotEmpty) {
+        buffer.writeln('        staticMethods: {');
+        for (final methodDetail in enumInfo.staticMethodDetails) {
+          final method = methodDetail.name;
+          buffer.writeln(
+            "          '$method': (visitor, positional, named, typeArgs) {",
+          );
+          if (methodDetail.hasCollectionParams) {
+            _emitEnumMethodWithCoercion(
+              buffer,
+              method,
+              methodDetail,
+              enumInfo.sourceFile,
+              receiver: prefixedEnumName,
+            );
+          } else {
+            buffer.writeln(
+              "            return Function.apply($prefixedEnumName.$method, positional, named.map((k, v) => MapEntry(Symbol(k), v)));",
+            );
+          }
+          buffer.writeln('          },');
         }
         buffer.writeln('        },');
       }
@@ -13652,8 +13687,9 @@ class BridgeGenerator {
     StringBuffer buffer,
     String methodName,
     EnumMethodDetail methodDetail,
-    String sourceFile,
-  ) {
+    String sourceFile, {
+    String receiver = 't',
+  }) {
     final positionalParams =
         methodDetail.parameters.where((p) => !p.isNamed).toList();
     final namedParams =
@@ -13754,7 +13790,7 @@ class BridgeGenerator {
 
     // Emit the method call with coerced arguments
     final allArgs = [...posArgNames, ...namedArgExprs].join(', ');
-    buffer.writeln("            return t.$methodName($allArgs);");
+    buffer.writeln("            return $receiver.$methodName($allArgs);");
   }
 
   /// Checks if a type is a Map type (e.g., Map<String, int>).
