@@ -1219,10 +1219,18 @@ class InterpretedFunction implements Callable {
     // wrap, native container operations downstream of a `targetValue[key]`
     // (visitIndexExpression) read `D4.activeVisitor == null` and silently
     // fall back to identity hashing, breaking content-equality lookups.
-    return D4.withActiveVisitor<Object?>(visitor, () {
+    //
+    // Hot path: push/pop the active visitor directly rather than via
+    // `withActiveVisitor`, whose `T Function()` argument allocates a closure on
+    // every interpreted function call. The save/set/restore semantics are
+    // identical (nesting included).
+    final previousActiveVisitor = D4.pushActiveVisitor(visitor);
+    try {
       return _callImpl(visitor, positionalArguments, namedArguments,
           typeArguments);
-    });
+    } finally {
+      D4.popActiveVisitor(previousActiveVisitor);
+    }
   }
 
   Object? _callImpl(
