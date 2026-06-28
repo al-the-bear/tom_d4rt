@@ -122,6 +122,16 @@ reflectable.dart
 # produced by the generator on every build; never hand-edited, never versioned.
 **/example/d4/**/*.b.dart
 
+# Compiled native runners under the d4 example trees — `dart compile exe`
+# outputs (recompiled by the d4rt_tester/coverage suites on every run). They
+# are architecture-specific and previously embedded a developer-specific path,
+# so they are build artifacts, not versioned sources.
+**/example/d4/bin/d4
+**/example/d4/bin/d4_coverage
+**/example/d4/bin/d4_tester
+**/example/d4/bin/d4rtrun
+**/example/d4/bin/d4rtrun.b
+
 # Per-run test output — rewritten on every test run, never needed at rest.
 **/doc/last_testrun.json
 
