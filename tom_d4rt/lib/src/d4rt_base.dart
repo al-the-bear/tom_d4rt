@@ -533,6 +533,15 @@ class D4rt {
   /// cached for migrated instances (step 8).
   static int get debugWarmParentCacheSize => _warmParentCache.length;
 
+  /// Step #3 (retention) — number of source modules whose parsed
+  /// [CompilationUnit] this instance currently retains (via the live
+  /// [_moduleLoader]'s per-loader cache). `0` before the first execute or after
+  /// [dispose]. Because every `execute*` builds a fresh [_moduleLoader], this
+  /// reflects only the *current* run, never an accumulation of prior runs'
+  /// ASTs — the test asserts it stays bounded across N sequential executes.
+  int get debugLoadedModuleCount =>
+      _hasExecutedOnce ? _moduleLoader.loadedModuleCount : 0;
+
   /// Step 9 — returns the merged per-module registry bundle for a **migrated**
   /// instance (one that has called [providePackage] at least once), or `null`
   /// for the **legacy** path (which reads the per-instance maps directly).
@@ -1087,6 +1096,38 @@ class D4rt {
       "script-declared entries; ${env.values.length} stdlib entries "
       "preserved; native accumulator cleared.",
     );
+  }
+
+  /// Step #3 (retention) — releases the interpreter artifacts retained from the
+  /// most recent run so a finished run's parsed [CompilationUnit], interpreted
+  /// declarations, and per-run environment become collectable while this
+  /// instance is kept alive but idle.
+  ///
+  /// This addresses the baseline's per-instance AST/`BridgedClass` retention:
+  /// an embedder that creates one [D4rt] per script (the pattern that produced
+  /// ~88 retained `CompilationUnitImpl` generations) can call [dispose] after a
+  /// run to drop that run's AST graph instead of pinning it for the instance's
+  /// whole lifetime. (Reusing a *single* instance across scripts is now cheap —
+  /// step #2 shares the ~982-class bridge surface process-wide — and is the
+  /// preferred pattern; [dispose] covers the per-instance case.)
+  ///
+  /// What it releases (per-run state only):
+  ///  * the script-declared environment entries and the cross-build native
+  ///    accumulator, via [resetScriptDeclarations];
+  ///  * the parsed-module cache holding this run's [CompilationUnit]s, via
+  ///    [ModuleLoader.releaseLoadedModules];
+  ///  * the [InterpreterVisitor] ([_visitor]).
+  ///
+  /// What it preserves (process-global, no per-run state): the package pool,
+  /// warm-parent cache, and shared bridged-module env cache. A subsequent
+  /// `execute*` rebuilds the per-run loader/visitor via [_initModule] as usual,
+  /// so [dispose] is non-destructive — the instance remains fully usable.
+  void dispose() {
+    resetScriptDeclarations();
+    if (_hasExecutedOnce) {
+      _moduleLoader.releaseLoadedModules();
+    }
+    _visitor = null;
   }
 
   /// Validates all bridge registrations by running the given init script

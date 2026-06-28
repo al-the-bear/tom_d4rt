@@ -108,6 +108,22 @@ class ModuleLoader {
   /// warnings when a module is later explicitly imported.
   final Set<String> _autoLoadedStdlibs = {};
 
+  /// Step #3 (retention) — number of source modules currently parsed and
+  /// cached in [_moduleCache] (each entry holds a parsed [CompilationUnit]).
+  /// Read-only introspection so [D4rt] can assert that prior runs' ASTs are not
+  /// accumulated. Bridged-module envs (which carry no user AST) are not counted.
+  int get loadedModuleCount => _moduleCache.length;
+
+  /// Step #3 (retention) — drops the per-loader parsed-module cache so a
+  /// finished run's [CompilationUnit]s become collectable. Only the per-loader
+  /// [_moduleCache] is cleared; the process-global shared bridge caches (pool,
+  /// warm parent, [sharedBridgedModuleEnvironments]) are untouched — they hold
+  /// no per-run state and are reused across executes. A subsequent execute
+  /// re-parses and re-populates [_moduleCache] as usual.
+  void releaseLoadedModules() {
+    _moduleCache.clear();
+  }
+
   ModuleLoader(this.globalEnvironment, this.sources,
       this.bridgedEnumDefinitions, this.bridgedClases,
       {this.d4rt,

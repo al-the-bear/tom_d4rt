@@ -324,6 +324,14 @@ class D4rtRunner {
   Environment? _globalEnvironment;
   bool _hasExecutedOnce = false;
 
+  /// Step #3 (retention) — the [AstModuleLoader] built for the most recent
+  /// `executeBundle`. Held so [debugLoadedModuleCount] can observe the parsed
+  /// modules this run retains and [dispose] can release them. It is the same
+  /// generation already reachable via [_visitor], so the field adds no
+  /// retention beyond the visitor's; both are cleared together by [dispose].
+  /// Replaced on every `executeBundle`, so it never accumulates prior runs.
+  AstModuleLoader? _lastModuleLoader;
+
   /// §U28 / TODO #14 — snapshot of [_globalEnvironment].`values` keys
   /// captured at the end of [_initEnvironment], i.e. AFTER stdlib +
   /// bridge registration but BEFORE the DeclarationVisitor visits the
@@ -501,6 +509,13 @@ class D4rtRunner {
   /// cached for migrated instances (step 8). Lets tests assert that two
   /// consecutive executes for the same allowed-set build the parent once.
   static int get debugWarmParentCacheSize => _warmParentCache.length;
+
+  /// Step #3 (retention) — number of bundle modules whose [SCompilationUnit]
+  /// this runner currently retains (via the most recent [_lastModuleLoader]).
+  /// `0` before the first execute or after [dispose]. Because every
+  /// `executeBundle` builds a fresh loader, this reflects only the *current*
+  /// run, never an accumulation of prior runs' ASTs.
+  int get debugLoadedModuleCount => _lastModuleLoader?.loadedModuleCount ?? 0;
 
   /// The packages this instance has been granted via [providePackage]
   /// (its security whitelist). Read-only snapshot.
@@ -1183,6 +1198,32 @@ class D4rtRunner {
     );
   }
 
+  /// Step #3 (retention) — releases the interpreter artifacts retained from the
+  /// most recent run so a finished run's [SCompilationUnit] graph, interpreted
+  /// declarations, and per-run environment become collectable while this runner
+  /// is kept alive but idle.
+  ///
+  /// Mirror of [D4rt.dispose] (analyzer twin). It addresses the baseline's
+  /// per-instance AST/`BridgedClass` retention: an embedder that keeps one
+  /// runner per script (the pattern behind the ~88 retained AST generations)
+  /// can call [dispose] after a run to drop that run's graph instead of pinning
+  /// it for the runner's whole lifetime. Reusing a single runner across scripts
+  /// is now cheap (step #2 shares the bridge surface process-wide) and is
+  /// preferred; [dispose] covers the per-instance case.
+  ///
+  /// Releases per-run state only: script-declared environment entries and the
+  /// cross-build native accumulator (via [resetScriptDeclarations]), the
+  /// parsed-module cache (via [AstModuleLoader.releaseLoadedModules]), and the
+  /// [InterpreterVisitor]. Preserves the process-global pool, warm-parent cache,
+  /// and shared bridged-module env cache. A subsequent `executeBundle` rebuilds
+  /// the per-run loader/visitor, so [dispose] is non-destructive.
+  void dispose() {
+    resetScriptDeclarations();
+    _lastModuleLoader?.releaseLoadedModules();
+    _lastModuleLoader = null;
+    _visitor = null;
+  }
+
   /// Registers all bridged definitions into the environment.
   ///
   /// Step 1 (import-optimization plan): iterates the URI-keyed registries
@@ -1460,6 +1501,9 @@ class D4rtRunner {
       onBridgedModuleEnvBuilt: () => _debugBridgedModuleEnvBuilds++,
     );
     moduleLoader.currentLibrary = Uri.parse(entryUri);
+    // Step #3 (retention) — track the current run's loader so dispose() can
+    // release its parsed-module cache and debugLoadedModuleCount can observe it.
+    _lastModuleLoader = moduleLoader;
     if (D4rtProfiler.enabled) {
       D4rtProfiler.record(
           'executeBundle.moduleLoader', swLoader!.elapsedMicroseconds);

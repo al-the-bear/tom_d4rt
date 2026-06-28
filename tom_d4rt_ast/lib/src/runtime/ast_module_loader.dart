@@ -66,6 +66,21 @@ class AstModuleLoader implements ModuleContext {
   /// Tracks which bridged library URIs have been processed.
   final Set<String> _registeredBridgeUris = {};
 
+  /// Step #3 (retention) — number of bundle modules currently loaded and cached
+  /// in [_moduleCache] (each holds an [SCompilationUnit] AST). Read-only
+  /// introspection so [D4rtRunner] can assert prior runs' ASTs are not
+  /// accumulated. Bridged-module envs (no user AST) are not counted.
+  int get loadedModuleCount => _moduleCache.length;
+
+  /// Step #3 (retention) — drops the per-loader parsed-module cache so a
+  /// finished run's [SCompilationUnit] graph becomes collectable. Only the
+  /// per-loader [_moduleCache] is cleared; the process-global shared bridge
+  /// caches ([sharedBridgedModuleEnvironments] et al.) are untouched. A
+  /// subsequent execute rebuilds the loader and re-populates the cache.
+  void releaseLoadedModules() {
+    _moduleCache.clear();
+  }
+
   /// Creates an [AstModuleLoader] for resolving imports from a bundle.
   ///
   /// - [modules] — the module map from [AstBundle.modules]
