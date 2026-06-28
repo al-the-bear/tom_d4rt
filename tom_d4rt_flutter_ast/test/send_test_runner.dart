@@ -240,6 +240,23 @@ class SendTestRunner {
     return v == '1' || v == 'true' || v == 'yes';
   }
 
+  /// True when env var `D4RT_USE_RUNNING_APP` is set. In this mode [setUp]
+  /// does NOT reap/start/own a test app (nor regenerate bridges) — it
+  /// connects to an app that is already listening on [port] (started
+  /// out-of-band, e.g. by `test/start_test_profiler.sh`). [tearDown] then
+  /// leaves that app alone.
+  ///
+  /// This is what lets `test/run_test_profiler.sh` run every
+  /// `flutter_base_*` / `flutter_extended_*` file in a SINGLE serial
+  /// `flutter test` invocation against ONE long-lived app — so a human can
+  /// attach DevTools once (before any test runs) and keep a single profiling
+  /// session for the whole corpus, instead of the app being torn down and
+  /// relaunched per file.
+  static bool get _useRunningApp {
+    final v = Platform.environment['D4RT_USE_RUNNING_APP']?.toLowerCase();
+    return v == '1' || v == 'true' || v == 'yes';
+  }
+
   static void _scanForProfilerUris(String line) {
     if (_vmServiceUri == null) {
       final m = _vmServiceUriPattern.firstMatch(line);
@@ -320,11 +337,17 @@ class SendTestRunner {
     _devToolsUri = null;
     _currentSuite = suite ?? _detectSuiteName();
 
-    if (regenerateBridges) {
+    // In "use running app" mode the caller manages the app lifecycle
+    // out-of-band: it already built+launched the app (with whatever bridges
+    // were current then), so neither regenerate bridges nor start/own an app
+    // here. [tearDown] also leaves it alone (`_startedByRunner` stays false).
+    final useRunningApp = _useRunningApp;
+
+    if (regenerateBridges && !useRunningApp) {
       await _ensureBridgesRegenerated();
     }
 
-    if (startApp) {
+    if (startApp && !useRunningApp) {
       // Always reap any prior test_app first — covers orphans from a
       // SIGKILL'd parent or a wedged-but-still-bound prior invocation.
       // `_killExistingProcess` is best-effort and is safe to run when
