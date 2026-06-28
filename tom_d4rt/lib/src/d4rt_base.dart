@@ -229,6 +229,29 @@ class _PackageBridgeBundle {
 /// ''');
 /// ```
 class D4rt {
+  /// Creates an interpreter.
+  ///
+  /// [reuseAcrossRuns] controls the cross-run performance caches (the warm
+  /// parent and the per-bridged-module environments). When `true` (the
+  /// default) those caches are kept alive across repeated `execute*` calls so
+  /// the expensive bridge-binding surface is built once and reused — this is
+  /// the fast path and is safe for the overwhelming majority of callers, since
+  /// generated bridges hold no per-run state and cannot leak between runs.
+  ///
+  /// Set it to `false` only when you need full isolation between successive
+  /// `execute*` runs on the **same** instance: the warm parent and bridged
+  /// module environments are then rebuilt fresh on every run, so nothing an
+  /// earlier run touched can be observed by a later one. Migrated instances
+  /// (those using [providePackage]) still never share state *across instances*
+  /// regardless of this flag — it governs reuse *within* an instance and, for
+  /// migrated instances, participation in the process-global caches.
+  D4rt({this.reuseAcrossRuns = true});
+
+  /// Whether the cross-run bridge caches are reused between `execute*` calls.
+  /// See the constructor. `false` forces a fresh warm parent and fresh bridged
+  /// module environments on every run for full inter-run isolation.
+  final bool reuseAcrossRuns;
+
   // Step #2 (import-optimization): registries are keyed by library URI so that
   // registering or looking up one URI touches only that URI's bucket
   // (O(matched)) instead of scanning a list of single-entry maps per URI.
@@ -327,6 +350,18 @@ class D4rt {
   /// field keeps each legacy interpreter's warm parent private while still
   /// building it at most once for that instance.
   Environment? _instanceWarmParent;
+
+  /// Per-instance analogue of [_bridgedModuleEnvCache] for **legacy** instances
+  /// (empty [_allowedPackages]) and for the cross-run reuse that
+  /// [reuseAcrossRuns] enables by default. A process-global cache cannot be
+  /// used for legacy instances — their bridges collapse onto [_defaultPackage],
+  /// so the empty signature would substitute one instance's module envs into
+  /// another. This per-instance map keeps the bound bridged-module environments
+  /// private to the instance while still letting repeated `execute*` calls on
+  /// the same instance reuse them. Invalidated by [_bundleFor] whenever a new
+  /// registration arrives, so a register-after-execute sequence rebinds. `null`
+  /// when [reuseAcrossRuns] is `false` (every run rebuilds for isolation).
+  Map<String, Environment>? _instanceBridgedModuleEnvCache;
 
   /// Step #2 (import-binding optimization) — process-global cache of the
   /// per-bridged-module [Environment]s for **migrated** instances, keyed first
@@ -487,11 +522,23 @@ class D4rt {
   /// Returns the pooled bundle for the currently-providing package, creating
   /// it on first use. Falls back to [_defaultPackage] for `register*` calls
   /// made without an active [providePackage] context (legacy callers).
-  _PackageBridgeBundle _bundleFor([String? package]) =>
-      _packagePool.putIfAbsent(
-        package ?? _currentProvidingPackage ?? _defaultPackage,
-        _PackageBridgeBundle.new,
-      );
+  ///
+  /// This is the single choke point for *every* `register*` call, so it is also
+  /// where the per-instance cross-run caches are invalidated: a new
+  /// registration may change what the warm parent or a bridged module env
+  /// should bind, so any previously-built per-instance caches are stale and
+  /// must be rebuilt on the next run. (No-op for the process-global migrated
+  /// caches, which are keyed by the immutable pool signature; clearing
+  /// per-instance fields here also fixes a latent [_instanceWarmParent]
+  /// register-after-execute staleness bug.)
+  _PackageBridgeBundle _bundleFor([String? package]) {
+    _instanceWarmParent = null;
+    _instanceBridgedModuleEnvCache = null;
+    return _packagePool.putIfAbsent(
+      package ?? _currentProvidingPackage ?? _defaultPackage,
+      _PackageBridgeBundle.new,
+    );
+  }
 
   /// The packages this instance has been granted via [providePackage]
   /// (its security whitelist). Read-only snapshot.
@@ -923,18 +970,32 @@ class D4rt {
           '_initModule.warmParent', swWarm!.elapsedMicroseconds);
     }
 
-    // Step #2 — migrated instances share their per-bridged-module environments
-    // process-wide (keyed by allowed-set signature), built once with the shared
-    // warm parent as `enclosing`. This is the single biggest `pass2Setup` win:
-    // the transitive bridge surface is bound once per allowed-set instead of on
-    // every execute. Legacy instances (empty allowed-set) pass `null` and keep
-    // the per-loader, per-execute behavior.
+    // Step #2 — bridged-module environments are bound once and reused across
+    // runs, the single biggest `pass2Setup` win: the transitive bridge surface
+    // (e.g. ~982 classes for `package:flutter/material.dart`) is bound once
+    // instead of on every execute. Two reuse regimes, both gated by
+    // [reuseAcrossRuns]:
+    //  * Migrated instances (non-empty allowed-set) share their module envs
+    //    process-wide via [_bridgedModuleEnvCache], keyed by the allowed-set
+    //    signature — safe to share because the bound definitions come from the
+    //    immutable process-global pool.
+    //  * Legacy instances (empty allowed-set) reuse a *per-instance*
+    //    [_instanceBridgedModuleEnvCache] — never shared across instances, so
+    //    their `<default>`-package bridges cannot substitute into another
+    //    interpreter, while repeated `execute*` on the same instance still
+    //    reuse the bound surface.
+    // When [reuseAcrossRuns] is false both stay null → the loader rebuilds the
+    // module envs fresh every run for full inter-run isolation.
     Map<String, Environment>? sharedBridgedModuleEnvs;
     Environment? sharedModuleEnclosing;
-    if (_allowedPackages.isNotEmpty) {
-      final key = (_allowedPackages.toList()..sort()).join('|');
-      sharedBridgedModuleEnvs =
-          _bridgedModuleEnvCache.putIfAbsent(key, () => {});
+    if (reuseAcrossRuns) {
+      if (_allowedPackages.isNotEmpty) {
+        final key = (_allowedPackages.toList()..sort()).join('|');
+        sharedBridgedModuleEnvs =
+            _bridgedModuleEnvCache.putIfAbsent(key, () => {});
+      } else {
+        sharedBridgedModuleEnvs = _instanceBridgedModuleEnvCache ??= {};
+      }
       sharedModuleEnclosing = warmParent;
     }
 
@@ -997,6 +1058,13 @@ class D4rt {
   /// answer `toBridgedInstance` type queries for native values returned by
   /// bridge methods before imports are processed.
   Environment _warmParent() {
+    // Full inter-run isolation: build a throwaway warm parent every run so no
+    // cached state survives between `execute*` calls on this instance.
+    if (!reuseAcrossRuns) {
+      return _allowedPackages.isEmpty
+          ? _buildWarmParentFromInstanceMaps()
+          : _buildWarmParentFromPool();
+    }
     if (_allowedPackages.isEmpty) {
       return _instanceWarmParent ??= _buildWarmParentFromInstanceMaps();
     }

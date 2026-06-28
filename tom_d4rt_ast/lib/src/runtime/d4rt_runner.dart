@@ -312,6 +312,18 @@ class D4rtRunner {
   /// still building it at most once for that runner.
   Environment? _instanceWarmParent;
 
+  /// Per-instance analogue of [_bridgedModuleEnvCache] for **legacy** runners
+  /// (empty [_allowedPackages]) and for the cross-run reuse that
+  /// [reuseAcrossRuns] enables by default. A process-global cache cannot be
+  /// used for legacy runners — their bridges collapse onto [_defaultPackage],
+  /// so the empty signature would substitute one runner's module envs into
+  /// another. This per-instance map keeps the bound bridged-module
+  /// environments private to the runner while still letting repeated
+  /// `executeBundle*` calls reuse them. Invalidated by [_bundleFor] whenever a
+  /// new registration arrives, so a register-after-execute sequence rebinds.
+  /// `null` when [reuseAcrossRuns] is `false` (every run rebuilds).
+  Map<String, Environment>? _instanceBridgedModuleEnvCache;
+
   /// Per-instance, insertion-ordered set of package names for which this
   /// instance registered an extension callback via [registerExtensions].
   /// [finalizeBridges] fires the pooled callbacks for these packages in
@@ -351,7 +363,26 @@ class D4rtRunner {
   bool _bridgesFinalized = false;
 
   /// Creates a D4rtRunner instance for executing pre-parsed AST.
-  D4rtRunner();
+  ///
+  /// [reuseAcrossRuns] controls the cross-run performance caches (the warm
+  /// parent and the per-bridged-module environments). When `true` (the
+  /// default) those caches are kept alive across repeated `executeBundle*`
+  /// calls so the expensive bridge-binding surface is built once and reused —
+  /// the fast path, safe for almost all callers since generated bridges hold no
+  /// per-run state and cannot leak between runs.
+  ///
+  /// Set it to `false` only when you need full isolation between successive
+  /// runs on the **same** runner: the warm parent and bridged module
+  /// environments are then rebuilt fresh on every run. Migrated runners (those
+  /// using [providePackage]) still never share state *across instances*
+  /// regardless of this flag — it governs reuse *within* a runner and, for
+  /// migrated runners, participation in the process-global caches.
+  D4rtRunner({this.reuseAcrossRuns = true});
+
+  /// Whether the cross-run bridge caches are reused between `executeBundle*`
+  /// calls. See the constructor. `false` forces a fresh warm parent and fresh
+  /// bridged module environments on every run for full inter-run isolation.
+  final bool reuseAcrossRuns;
 
   /// Gets the current interpreter visitor instance.
   InterpreterVisitor? get visitor => _visitor;
@@ -468,11 +499,23 @@ class D4rtRunner {
   /// Returns the pooled bundle for the currently-providing package, creating
   /// it on first use. Falls back to [_defaultPackage] for `register*` calls
   /// made without an active [providePackage] context (legacy callers).
-  _PackageBridgeBundle _bundleFor([String? package]) =>
-      _packagePool.putIfAbsent(
-        package ?? _currentProvidingPackage ?? _defaultPackage,
-        _PackageBridgeBundle.new,
-      );
+  ///
+  /// This is the single choke point for *every* `register*` call, so it is also
+  /// where the per-instance cross-run caches are invalidated: a new
+  /// registration may change what the warm parent or a bridged module env
+  /// should bind, so any previously-built per-instance caches are stale and
+  /// must be rebuilt on the next run. (No-op for the process-global migrated
+  /// caches, which are keyed by the immutable pool signature; clearing
+  /// per-instance fields here also fixes a latent [_instanceWarmParent]
+  /// register-after-execute staleness bug.)
+  _PackageBridgeBundle _bundleFor([String? package]) {
+    _instanceWarmParent = null;
+    _instanceBridgedModuleEnvCache = null;
+    return _packagePool.putIfAbsent(
+      package ?? _currentProvidingPackage ?? _defaultPackage,
+      _PackageBridgeBundle.new,
+    );
+  }
 
   /// Diagnostics / test introspection — the set of package names currently in
   /// the process-global pool (including the synthetic [_defaultPackage] once a
@@ -1090,6 +1133,13 @@ class D4rtRunner {
   ///    cache would leak one runner's bridges into another and collide on
   ///    same-named classes across tests.
   Environment _warmParent() {
+    // Full inter-run isolation: build a throwaway warm parent every run so no
+    // cached state survives between `executeBundle*` calls on this runner.
+    if (!reuseAcrossRuns) {
+      return _allowedPackages.isEmpty
+          ? _buildWarmParentFromInstanceMaps()
+          : _buildWarmParentFromPool();
+    }
     if (_allowedPackages.isEmpty) {
       return _instanceWarmParent ??= _buildWarmParentFromInstanceMaps();
     }
@@ -1481,15 +1531,26 @@ class D4rtRunner {
 
     // Create AstModuleLoader for import resolution
     final swLoader = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
-    // PERF step #2: for migrated (non-empty allowed-set) instances, share the
-    // bridged-module envs across executions with the same signature, built
-    // under the shared warm parent (the execution environment's enclosing).
+    // PERF step #2: reuse bridged-module envs across executions, built under
+    // the shared warm parent (the execution environment's enclosing). Gated by
+    // [reuseAcrossRuns]:
+    //  * Migrated (non-empty allowed-set) runners share envs process-wide via
+    //    [_bridgedModuleEnvCache], keyed by the allowed-set signature.
+    //  * Legacy runners reuse a *per-instance* [_instanceBridgedModuleEnvCache]
+    //    — never shared across runners, so their `<default>`-package bridges
+    //    cannot substitute into another runner.
+    // When [reuseAcrossRuns] is false both stay null → the loader rebuilds the
+    // module envs fresh every run for full inter-run isolation.
     Map<String, Environment>? sharedBridgedModuleEnvs;
     Environment? sharedModuleEnclosing;
-    if (_allowedPackages.isNotEmpty) {
-      final key = (_allowedPackages.toList()..sort()).join('|');
-      sharedBridgedModuleEnvs =
-          _bridgedModuleEnvCache.putIfAbsent(key, () => {});
+    if (reuseAcrossRuns) {
+      if (_allowedPackages.isNotEmpty) {
+        final key = (_allowedPackages.toList()..sort()).join('|');
+        sharedBridgedModuleEnvs =
+            _bridgedModuleEnvCache.putIfAbsent(key, () => {});
+      } else {
+        sharedBridgedModuleEnvs = _instanceBridgedModuleEnvCache ??= {};
+      }
       sharedModuleEnclosing = executionEnvironment.enclosing;
     }
     final moduleLoader = AstModuleLoader(
