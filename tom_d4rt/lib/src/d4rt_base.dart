@@ -328,6 +328,41 @@ class D4rt {
   /// building it at most once for that instance.
   Environment? _instanceWarmParent;
 
+  /// Step #2 (import-binding optimization) — process-global cache of the
+  /// per-bridged-module [Environment]s for **migrated** instances, keyed first
+  /// by the sorted allowed-set signature (the same key as [_warmParentCache])
+  /// and then by module URI string.
+  ///
+  /// Building a bridged module's environment (binding its whole transitive
+  /// re-export surface — e.g. `package:flutter/material.dart` pulls in ~982
+  /// classes) is the dominant `pass2Setup` cost. Before this cache it was
+  /// rebuilt on **every** `execute*` because the [ModuleLoader] (and its
+  /// per-loader `_bridgedModuleEnvironments`) is recreated each run. The bound
+  /// definitions all come from the immutable process-global [_packagePool], so
+  /// a module env is identical across executes that share an allowed-set and is
+  /// safe to share. It is built with the shared warm parent
+  /// ([_warmParentCache] entry) as its `enclosing`, so it carries no
+  /// per-execution state. Cleared together with [_packagePool] /
+  /// [_warmParentCache] by [debugResetPool].
+  ///
+  /// Legacy instances (empty [_allowedPackages]) are intentionally excluded:
+  /// like the warm parent, their bridges collapse onto [_defaultPackage], so a
+  /// process-global cache keyed on the empty signature would leak one
+  /// interpreter's bridges into another. They keep the per-loader, per-execute
+  /// behavior.
+  static final Map<String, Map<String, Environment>> _bridgedModuleEnvCache =
+      {};
+
+  /// Step #2 diagnostics — incremented each time a bridged module environment
+  /// is *built* (a cache miss in [_bridgedModuleEnvCache]). A reuse leaves it
+  /// unchanged. Lets tests assert the cache is hit across executes that share
+  /// an allowed-set and rebuilt for a different one.
+  static int _debugBridgedModuleEnvBuilds = 0;
+
+  /// Step #2 diagnostics — number of bridged module environments built so far
+  /// (process-wide). See [_debugBridgedModuleEnvBuilds].
+  static int get debugBridgedModuleEnvBuildCount => _debugBridgedModuleEnvBuilds;
+
   /// Per-instance, insertion-ordered set of package names for which this
   /// instance registered an extension callback via [registerExtensions].
   /// [finalizeBridges] fires the pooled callbacks for these packages in
@@ -487,6 +522,11 @@ class D4rt {
   static void debugResetPool() {
     _packagePool.clear();
     _warmParentCache.clear();
+    // Step #2 — the cached bridged module envs are keyed on the same allowed-set
+    // signatures and built against the (now-cleared) warm parents, so evict
+    // them together to stay consistent.
+    _bridgedModuleEnvCache.clear();
+    _debugBridgedModuleEnvBuilds = 0;
   }
 
   /// Diagnostics / test introspection — how many warm parents are currently
@@ -867,10 +907,26 @@ class D4rt {
     // Each execute gets a fresh child chained off that parent; name / bridge
     // lookups that miss in the child chain up to the parent.
     final swWarm = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
-    final child = Environment(enclosing: _warmParent());
+    final warmParent = _warmParent();
+    final child = Environment(enclosing: warmParent);
     if (D4rtProfiler.enabled) {
       D4rtProfiler.record(
           '_initModule.warmParent', swWarm!.elapsedMicroseconds);
+    }
+
+    // Step #2 — migrated instances share their per-bridged-module environments
+    // process-wide (keyed by allowed-set signature), built once with the shared
+    // warm parent as `enclosing`. This is the single biggest `pass2Setup` win:
+    // the transitive bridge surface is bound once per allowed-set instead of on
+    // every execute. Legacy instances (empty allowed-set) pass `null` and keep
+    // the per-loader, per-execute behavior.
+    Map<String, Environment>? sharedBridgedModuleEnvs;
+    Environment? sharedModuleEnclosing;
+    if (_allowedPackages.isNotEmpty) {
+      final key = (_allowedPackages.toList()..sort()).join('|');
+      sharedBridgedModuleEnvs =
+          _bridgedModuleEnvCache.putIfAbsent(key, () => {});
+      sharedModuleEnclosing = warmParent;
     }
 
     final swLoader = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
@@ -886,6 +942,9 @@ class D4rt {
       bridgedExtensions: merged?.bridgedExtensions ?? _bridgedExtensions,
       d4rt: this,
       collectRegistrationErrors: collectRegistrationErrors,
+      sharedBridgedModuleEnvironments: sharedBridgedModuleEnvs,
+      sharedModuleEnclosing: sharedModuleEnclosing,
+      onBridgedModuleEnvBuilt: () => _debugBridgedModuleEnvBuilds++,
     );
     if (D4rtProfiler.enabled) {
       D4rtProfiler.record(

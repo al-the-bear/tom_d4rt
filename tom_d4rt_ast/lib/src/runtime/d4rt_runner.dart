@@ -281,6 +281,27 @@ class D4rtRunner {
   /// is safe. Cleared together with [_packagePool] by [debugResetPool].
   static final Map<String, Environment> _warmParentCache = {};
 
+  /// PERF step #2 — process-global cache of fully-built bridged-module
+  /// environments, keyed by the sorted allowed-set signature and then by module
+  /// URI. For a given allowed-set, the ~982-class flutter bridge surface is
+  /// registered into per-module envs exactly once per process instead of being
+  /// rebuilt on every execution (the dominant `pass2Setup` cost). The module
+  /// envs enclose the shared warm parent (same signature), so they are safe to
+  /// reuse across executions. Only used by migrated (non-empty allowed-set)
+  /// instances. Cleared together with [_packagePool] by [debugResetPool].
+  static final Map<String, Map<String, Environment>> _bridgedModuleEnvCache =
+      {};
+
+  /// PERF step #2 — count of bridged-module envs actually built (cache misses).
+  /// Lets the reuse unit test assert that a second execution with the same
+  /// allowed-set rebuilds nothing while a different allowed-set rebuilds.
+  static int _debugBridgedModuleEnvBuilds = 0;
+
+  /// Diagnostics / test introspection — number of bridged-module envs built so
+  /// far (PERF step #2). Increments only on a cache miss.
+  static int get debugBridgedModuleEnvBuildCount =>
+      _debugBridgedModuleEnvBuilds;
+
   /// Step 8 — per-instance warm parent for **legacy** instances (those with
   /// an empty [_allowedPackages]). Built from this instance's per-instance
   /// registration maps and cached *here*, not in [_warmParentCache]: legacy
@@ -472,6 +493,8 @@ class D4rtRunner {
   static void debugResetPool() {
     _packagePool.clear();
     _warmParentCache.clear();
+    _bridgedModuleEnvCache.clear();
+    _debugBridgedModuleEnvBuilds = 0;
   }
 
   /// Diagnostics / test introspection — how many warm parents are currently
@@ -1417,10 +1440,24 @@ class D4rtRunner {
 
     // Create AstModuleLoader for import resolution
     final swLoader = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
+    // PERF step #2: for migrated (non-empty allowed-set) instances, share the
+    // bridged-module envs across executions with the same signature, built
+    // under the shared warm parent (the execution environment's enclosing).
+    Map<String, Environment>? sharedBridgedModuleEnvs;
+    Environment? sharedModuleEnclosing;
+    if (_allowedPackages.isNotEmpty) {
+      final key = (_allowedPackages.toList()..sort()).join('|');
+      sharedBridgedModuleEnvs =
+          _bridgedModuleEnvCache.putIfAbsent(key, () => {});
+      sharedModuleEnclosing = executionEnvironment.enclosing;
+    }
     final moduleLoader = AstModuleLoader(
       modules: bundle.modules,
       globalEnvironment: executionEnvironment,
       runner: this,
+      sharedBridgedModuleEnvironments: sharedBridgedModuleEnvs,
+      sharedModuleEnclosing: sharedModuleEnclosing,
+      onBridgedModuleEnvBuilt: () => _debugBridgedModuleEnvBuilds++,
     );
     moduleLoader.currentLibrary = Uri.parse(entryUri);
     if (D4rtProfiler.enabled) {

@@ -65,6 +65,26 @@ class ModuleLoader {
   // vs painting.TextStyle) from conflicting in globalEnvironment.
   final Map<String, Environment> _bridgedModuleEnvironments = {};
 
+  /// Step #2 (import-binding optimization) — when non-null, a process-global
+  /// cache (owned by [D4rt], keyed per allowed-set signature) that this loader
+  /// reads/writes instead of the per-loader [_bridgedModuleEnvironments]. Set
+  /// for **migrated** instances so a bridged module's environment is built once
+  /// per allowed-set and reused across every `execute*`, rather than rebuilt by
+  /// each freshly-constructed loader. `null` for legacy instances, which keep
+  /// the per-loader behavior. See [D4rt.debugBridgedModuleEnvBuildCount].
+  final Map<String, Environment>? sharedBridgedModuleEnvironments;
+
+  /// Step #2 — the `enclosing` environment for cached bridged module envs. The
+  /// shared warm parent (immutable, per allowed-set), so a cached module env
+  /// carries no per-execution state. Only consulted when
+  /// [sharedBridgedModuleEnvironments] is non-null. When `null` the per-loader
+  /// path uses [globalEnvironment] as before.
+  final Environment? sharedModuleEnclosing;
+
+  /// Step #2 — invoked once each time a bridged module env is *built* (a cache
+  /// miss). Lets [D4rt] count builds for the cache-reuse regression test.
+  final void Function()? onBridgedModuleEnvBuilt;
+
   // GEN-100 sync: per-stdlib isolated environments for non-ambient stdlib modules.
   // dart:core and dart:async stay in globalEnvironment (ambient/unconditional);
   // dart:math, dart:convert, dart:io etc. each get their own env.
@@ -96,7 +116,10 @@ class ModuleLoader {
       this.libraryGetters = const {},
       this.librarySetters = const {},
       this.bridgedExtensions = const {},
-      this.collectRegistrationErrors = false}) {
+      this.collectRegistrationErrors = false,
+      this.sharedBridgedModuleEnvironments,
+      this.sharedModuleEnclosing,
+      this.onBridgedModuleEnvBuilt}) {
     Logger.debug(
         "[ModuleLoader] Initialized with ${sources.length} preloaded sources.");
   }
@@ -213,20 +236,28 @@ class ModuleLoader {
       Uri uri, Set<String>? showNames, Set<String>? hideNames) {
     final uriString = uri.toString();
 
+    // Step #2 — migrated instances share a process-global module-env cache
+    // built once per allowed-set against the shared warm parent; legacy
+    // instances use the per-loader cache built against this execute's
+    // globalEnvironment. Picking the cache + enclosing here keeps the build
+    // path identical otherwise.
+    final cache = sharedBridgedModuleEnvironments ?? _bridgedModuleEnvironments;
+    final moduleEnclosing = sharedModuleEnclosing ?? globalEnvironment;
     Environment moduleEnv;
-    if (_bridgedModuleEnvironments.containsKey(uriString)) {
-      moduleEnv = _bridgedModuleEnvironments[uriString]!;
+    if (cache.containsKey(uriString)) {
+      moduleEnv = cache[uriString]!;
     } else {
       // GEN-100 FIX: Build the module env with show=null/hide=null so it
       // contains ALL symbols the module transitively exports.  The per-import
       // show/hide filter is applied later in importEnvironment() at the call
       // site — it must NOT be baked into the cached module env, which is
       // shared across every import of this URI.
-      moduleEnv = Environment(enclosing: globalEnvironment);
+      moduleEnv = Environment(enclosing: moduleEnclosing);
       _registerBridgesForUriInto(uriString, null, null, moduleEnv);
       _mergeReExports(
           uriString, moduleEnv, null, null, <String, Set<String>?>{});
-      _bridgedModuleEnvironments[uriString] = moduleEnv;
+      cache[uriString] = moduleEnv;
+      onBridgedModuleEnvBuilt?.call();
       Logger.debug(
           '[ModuleLoader] GEN-100: Created per-module env for $uriString');
     }

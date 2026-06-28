@@ -75,7 +75,28 @@ class AstModuleLoader implements ModuleContext {
     required this.modules,
     required this.globalEnvironment,
     required this.runner,
+    this.sharedBridgedModuleEnvironments,
+    this.sharedModuleEnclosing,
+    this.onBridgedModuleEnvBuilt,
   });
+
+  /// Optional process-global cache of bridged-module environments keyed by
+  /// module URI, shared across every execution that has the same allowed-set
+  /// signature (PERF step #2). When supplied, [_tryLoadBridgedModule] reuses an
+  /// already-built module env instead of re-registering the ~982-class flutter
+  /// bridge surface on every run. `null` for legacy (empty allowed-set)
+  /// instances, which keep the per-loader [_bridgedModuleEnvironments] cache.
+  final Map<String, Environment>? sharedBridgedModuleEnvironments;
+
+  /// Enclosing environment for entries built into
+  /// [sharedBridgedModuleEnvironments]. Must be the shared warm parent (not the
+  /// per-execution global environment), so a cached module env is safe to reuse
+  /// across executions. `null` falls back to [globalEnvironment].
+  final Environment? sharedModuleEnclosing;
+
+  /// Invoked once each time a bridged-module env is actually built (cache miss).
+  /// Lets the runner expose a debug build counter for the reuse unit test.
+  final void Function()? onBridgedModuleEnvBuilt;
 
   @override
   bool checkPermission(dynamic operation) {
@@ -280,21 +301,28 @@ class AstModuleLoader implements ModuleContext {
     // The environment encloses globalEnvironment so standard library and other
     // pre-registered symbols are still accessible, but this module's bridges
     // are isolated in its own environment.
+    // PERF step #2: when a process-global cache is provided (migrated
+    // allowed-set instances), reuse module envs across executions. The env is
+    // built under the shared warm parent so it is safe to share. Legacy
+    // instances keep the per-loader cache enclosed by globalEnvironment.
+    final cache = sharedBridgedModuleEnvironments ?? _bridgedModuleEnvironments;
+    final moduleEnclosing = sharedModuleEnclosing ?? globalEnvironment;
     Environment moduleEnv;
-    if (_bridgedModuleEnvironments.containsKey(uriString)) {
-      moduleEnv = _bridgedModuleEnvironments[uriString]!;
+    if (cache.containsKey(uriString)) {
+      moduleEnv = cache[uriString]!;
     } else {
       // GEN-100 FIX: Build the module env with show=null/hide=null so it
       // contains ALL symbols the module transitively exports.  The per-import
       // show/hide filter is applied later in importEnvironment() at the call
       // site — it must NOT be baked into the cached module env, which is
       // shared across every import of this URI.
-      moduleEnv = Environment(enclosing: globalEnvironment);
+      moduleEnv = Environment(enclosing: moduleEnclosing);
       _registerBridgesForUriInto(uriString, null, null, moduleEnv);
       // GEN-107: Merge re-exported libraries into this module's environment.
       _mergeReExports(uriString, moduleEnv, null, null, <String, Set<String>?>{});
-      _bridgedModuleEnvironments[uriString] = moduleEnv;
+      cache[uriString] = moduleEnv;
       _registeredBridgeUris.add(uriString);
+      onBridgedModuleEnvBuilt?.call();
     }
 
     // Return module with its own environment as exportedEnvironment
