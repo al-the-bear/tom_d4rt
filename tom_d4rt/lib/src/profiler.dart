@@ -29,7 +29,7 @@ class D4rtProfiler {
   D4rtProfiler._();
 
   /// Master compile-time switch. **MUST remain `false` in published code.**
-  static const bool enabled = false;
+  static const bool enabled = true;
 
   static final Map<String, _ProfileEntry> _entries = <String, _ProfileEntry>{};
   static final List<String> _order = <String>[];
