@@ -1,3 +1,18 @@
+## 1.12.0
+
+### Added — emit static enum methods into `BridgedEnumDefinition` (GitHub issue #2)
+
+- The enum extractor now collects an enum's **public static** methods (these
+  were previously dropped) and emits them into a `staticMethods:` block on the
+  generated `BridgedEnumDefinition`, dispatched on the enum **type** (not an
+  instance receiver). This makes static factory/helper methods like
+  `PageFormat.fromString(name)` reachable from interpreted code.
+- Collection-typed static parameters reuse the existing coercion path via a
+  parameterized receiver, so `D4.coerceList`/map coercion applies the same way
+  it does for instance methods.
+- Requires `tom_d4rt` `^1.11.0` (which accepts the new `staticMethods`
+  parameter); the floor was raised accordingly.
+
 ## 1.11.0
 
 ### Lazy bridge factories (import-optimization)

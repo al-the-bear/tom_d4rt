@@ -1,3 +1,17 @@
+## 1.11.0
+
+### Added — static method dispatch on bridged enums (GitHub issue #2)
+
+- `BridgedEnumDefinition` and `BridgedEnum` gained a `staticMethods` map
+  (`Map<String, BridgedStaticMethodAdapter>`), wired through
+  `buildBridgedEnum()`, plus `BridgedEnum.findStaticMethodAdapter(name)`.
+- `visitMethodInvocation` now dispatches a static method call where the target
+  is a bridged enum **type** (e.g. `PageFormat.fromString('A4')`). Previously
+  only instance methods on enum *values* were reachable, so static factory
+  helpers threw *"Undefined property or method '…' on BridgedEnum"*.
+- Backward compatible: `staticMethods` defaults to an empty map; existing enum
+  bridges are unaffected. Twin of `tom_d4rt_ast` 0.1.11.
+
 ## 1.10.1
 
 ### Fixed — native→bridge resolution: precise match must beat fuzzy prefix across scopes
