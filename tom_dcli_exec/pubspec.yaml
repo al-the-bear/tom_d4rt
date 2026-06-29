@@ -16,19 +16,19 @@ dependencies:
   # D4rt runtime (analyzer-free mirror AST). Floors raised for the
   # import-optimization Phase 6 publish walk; both are override-pinned to
   # ../tom_d4rt_exec / ../tom_d4rt_ast in-tree, so the bumps are cosmetic.
-  tom_d4rt_exec: ^1.9.0
+  tom_d4rt_exec: ">=1.9.0"
   # Mirror-AST interpreter — generated bridges import its runtime directly.
-  tom_d4rt_ast: ^0.1.10
+  tom_d4rt_ast: ">=0.1.11"
   # AST converter (analyzer → mirror AST) for parseSourceCallback
-  tom_ast_generator: ^0.1.0
+  tom_ast_generator: ">=0.1.4"
   # Analyzer needed by tom_ast_generator for parsing
   analyzer: ^10.0.0
 
   # VS Code scripting API (for bridge support)
-  tom_vscode_scripting_api: ^1.0.1
+  tom_vscode_scripting_api: ">=1.1.0"
 
   # Chat tools for Telegram integration
-  tom_chattools: ^1.0.2
+  tom_chattools: ">=1.0.2"
 
   # External packages for CLI
   dcli: ^8.4.2
@@ -56,4 +56,4 @@ dev_dependencies:
   # analyzer-10: tom_d4rt_generator 1.10.0 is the analyzer-10 build (cli_tools
   # quest, migration plan Phase 4), so it now shares this package's analyzer ^10
   # resolution and bridge regeneration via build_runner is available again.
-  tom_d4rt_generator: ^1.10.0
+  tom_d4rt_generator: ">=1.12.1"

@@ -10,7 +10,7 @@ dependencies:
   path: ^1.9.0
   # Floor set to the freshly-published runtime (import-optimization Phase 6);
   # resolves hosted from pub.dev.
-  tom_d4rt: ^1.10.1
+  tom_d4rt: ">=1.11.0"
 
 dev_dependencies:
   lints: ^5.0.0

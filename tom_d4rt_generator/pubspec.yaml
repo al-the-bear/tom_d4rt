@@ -1,6 +1,6 @@
 name: tom_d4rt_generator
 description: D4rt bridge generator for creating BridgedClass implementations from Dart source. Supports per-package generation, deduplication, and cross-package bridging.
-version: 1.12.0
+version: 1.12.1
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_generator
 topics:
@@ -32,22 +32,21 @@ dependencies:
   # Annotations (@visibleForTesting) used in lib/.
   meta: ^1.17.0
 
-  # Shared build utilities
-  tom_build_base: ^2.6.21
+  # In-workspace components: lower-bound only (no upper cap) so `pub upgrade`
+  # always tracks our latest published versions during active development.
+  # Shared build utilities.
+  tom_build_base: ">=2.6.25"
 
-  # D4rt runtime (used by testing library). 1.9.0 ships the import-optimization
-  # API the generated `registerBridges` now targets (`registerBridgedClassLazy`);
-  # earlier 1.8.x lack it. 1.9.0 is also analyzer-10 (1.8.25 was the first such
-  # build; earlier 1.8.x carry analyzer ^8 and would conflict). Floor raised to
-  # 1.11.0: generated enum bridges now emit the `staticMethods:` parameter on
-  # `BridgedEnumDefinition` (GitHub issue #2 — static enum method dispatch),
-  # which earlier 1.10.x do not accept.
-  tom_d4rt: ^1.11.0
+  # D4rt runtime (used by testing library). Floor 1.11.0: generated enum bridges
+  # emit the `staticMethods:` parameter on `BridgedEnumDefinition` (GitHub issue
+  # #2 — static enum method dispatch) which earlier 1.10.x do not accept.
+  tom_d4rt: ">=1.11.0"
 
   # Shared analyzer summary caching — same cache directory as
   # tom_reflection_generator so sibling generators can reuse each
-  # other's cached summaries. See _copilot_guidelines/d4rt/.
-  tom_analyzer_shared: ^0.4.0
+  # other's cached summaries. See _copilot_guidelines/d4rt/. Floor 0.6.0 for the
+  # ToolCacheLocator shared tool-cache root.
+  tom_analyzer_shared: ">=0.6.0"
 
 executables:
   d4rtgen: d4rtgen

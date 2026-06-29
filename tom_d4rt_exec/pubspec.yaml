@@ -22,16 +22,16 @@ environment:
 dependencies:
   analyzer: ^10.0.0
   pub_semver: ^2.2.0
-  tom_d4rt_ast: ^0.1.9
-  tom_ast_generator: ^0.1.1
+  tom_d4rt_ast: ">=0.1.11"
+  tom_ast_generator: ">=0.1.4"
 
 dev_dependencies:
   lints: ^6.0.0
   meta: ^1.16.0
   path: ^1.9.0
   test: ^1.25.15
-  tom_build_base: ^2.6.21
+  tom_build_base: ">=2.6.25"
   # analyzer-10: tom_d4rt_generator 1.10.0 is the analyzer-10 build (cli_tools
   # quest, migration plan Phase 4), so it now shares this package's analyzer ^10
   # resolution and the test/generator_tests/ suite runs again.
-  tom_d4rt_generator: ^1.10.0
+  tom_d4rt_generator: ">=1.12.1"

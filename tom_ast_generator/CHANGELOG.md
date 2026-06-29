@@ -1,3 +1,13 @@
+## 0.1.4
+
+- Publish the analyzer-10 migration. The 0.1.3 release on pub.dev still carried
+  `analyzer: ^8.0.0` / `tom_d4rt_ast: ^0.1.5`; the source had already moved to
+  `analyzer: ^10.0.0` / `tom_d4rt_ast >=0.1.11` without a version bump, so the
+  hosted package was stale. This bump ships the analyzer-10 constraints.
+- In-workspace dependencies now use lower-bound-only constraints (no upper cap)
+  so `pub upgrade` tracks our latest published components during active
+  development.
+
 ## 0.1.3
 
 - Housekeeping: test artifacts now live in a gitignored `testlog/` folder; `doc/` no longer ships machine-generated baselines or last_testrun.json. No code changes.

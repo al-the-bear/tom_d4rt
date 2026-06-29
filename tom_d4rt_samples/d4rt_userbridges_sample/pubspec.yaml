@@ -11,9 +11,9 @@ environment:
   sdk: ^3.5.0
 
 dependencies:
-  tom_d4rt: ^1.10.1
+  tom_d4rt: ">=1.11.0"
 
 dev_dependencies:
-  tom_d4rt_generator: ^1.9.4
+  tom_d4rt_generator: ">=1.12.1"
   lints: ^4.0.0
   test: ^1.25.0

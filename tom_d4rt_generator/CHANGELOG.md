@@ -1,3 +1,10 @@
+## 1.12.1
+
+- Track our latest published components: `tom_analyzer_shared` floor raised to
+  `>=0.6.0` (ToolCacheLocator shared tool-cache root), and all in-workspace
+  dependencies now use lower-bound-only constraints (no upper cap) so
+  `pub upgrade` resolves to our latest versions during active development.
+
 ## 1.12.0
 
 ### Added — emit static enum methods into `BridgedEnumDefinition` (GitHub issue #2)
