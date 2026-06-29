@@ -68,6 +68,11 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   final FlutterD4rt _d4rt = FlutterD4rt();
   final InteractionController _interactionController = InteractionController();
   HttpServer? _server;
+
+  /// Periodic forced-frame timer that keeps the render pipeline flowing while
+  /// the app window is not foreground. See [_startFrameKeepAlive].
+  Timer? _frameKeepAlive;
+
   final List<String> _logs = [];
   Widget? _d4rtWidget;
   String? _lastError;
@@ -204,7 +209,71 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     _originalErrorWidgetBuilder = ErrorWidget.builder;
     ErrorWidget.builder = _silentErrorWidget;
     _startServer();
+    _startFrameKeepAlive();
     _discoverProfilerUris();
+    _scheduleWarmup();
+  }
+
+  /// Import-optimization step #21 — pay the interpreter's residual warm cost
+  /// (warm-parent + stdlib registration) off the first frame.
+  ///
+  /// Scheduled via [WidgetsBinding.addPostFrameCallback] so it never blocks
+  /// initial paint: the first frame renders, then [FlutterD4rt.warmup] runs
+  /// before the harness has finished bringing up the HTTP server and sending
+  /// its first `/build`. The elapsed time is logged as a `[D4rtApp][warmup]`
+  /// metric so the off-frame move is measurable in the test logs; compare it
+  /// against the first `[BUILD_METRIC]` `interpMs`, which now excludes this
+  /// one-time cost.
+  void _scheduleWarmup() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final sw = Stopwatch()..start();
+      _d4rt.warmup();
+      sw.stop();
+      // Use [_log] (debugPrint + in-app log) so the off-frame move is visible
+      // in the normal console and the in-app log panel — `developer.log` is
+      // swallowed by plain `flutter run`.
+      _log('[warmup] FlutterD4rt.warmup() completed off-frame in '
+          '${sw.elapsedMilliseconds}ms.');
+      // When the compile-time init profiler is on, dump the per-phase
+      // breakdown so a profiling session sees the warmup cost split out.
+      // Dead-code-eliminated when ProfilingMetrics.enabled is false.
+      if (ProfilingMetrics.enabled) {
+        _log('[profile] ${ProfilingMetrics.report(title: "D4rt warmup profile")}');
+      }
+    });
+  }
+
+  /// Background-render keep-alive.
+  ///
+  /// On desktop the Flutter engine only services frames while
+  /// [SchedulerBinding.framesEnabled] is true, which the framework flips to
+  /// `false` whenever the app's [AppLifecycleState] leaves `resumed` — i.e.
+  /// when the window is occluded, inactive, backgrounded, or on another Space.
+  /// In that state `setState` still marks the tree dirty but
+  /// [SchedulerBinding.scheduleFrame] becomes a no-op, so a `/build` request
+  /// can mark a widget for rebuild and then wait forever for the post-frame
+  /// callback that completes `_buildCompleter` — the `/build` then times out.
+  /// The hallmark symptom is a "frozen" UI that resumes the instant any OS
+  /// input event (e.g. opening the macOS menu bar) forces a single frame.
+  ///
+  /// [SchedulerBinding.scheduleForcedFrame] bypasses the `framesEnabled` gate,
+  /// so a low-frequency periodic forced frame keeps the build/pump pipeline
+  /// flowing while the window is not foreground — letting the HTTP-driven test
+  /// suite run unattended in the background. ~10 Hz flushes pending builds
+  /// promptly without meaningful CPU cost. This is paired with the per-platform
+  /// throttle/App-Nap suppression in the native runners (macOS
+  /// `MainFlutterWindow.swift`, Windows `flutter_window.cpp`) that keeps this
+  /// timer itself firing at full rate while the process is backgrounded.
+  ///
+  /// Keep this in sync with the equivalent in
+  /// tom_d4rt_flutter/test/tom_d4rt_flutter_test_app/lib/main.dart.
+  void _startFrameKeepAlive() {
+    _frameKeepAlive?.cancel();
+    _frameKeepAlive = Timer.periodic(const Duration(milliseconds: 100), (_) {
+      if (!mounted) return;
+      WidgetsBinding.instance.scheduleForcedFrame();
+    });
   }
 
   /// Replacement for the default [ErrorWidget.builder]. Renders a 1×1
@@ -545,6 +614,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
 
   @override
   void dispose() {
+    _frameKeepAlive?.cancel();
     _tabController.dispose();
     FlutterError.onError = _originalFlutterErrorHandler;
     WidgetsBinding.instance.platformDispatcher.onError =
@@ -608,8 +678,11 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     final deadline = DateTime.now().add(duration);
     while (mounted && DateTime.now().isBefore(deadline)) {
       final c = Completer<void>();
+      // scheduleForcedFrame (not scheduleFrame) so frames are produced even
+      // when the window is not foreground and `framesEnabled` is false — see
+      // [_startFrameKeepAlive].
       WidgetsBinding.instance
-        ..scheduleFrame()
+        ..scheduleForcedFrame()
         ..addPostFrameCallback((_) {
           if (!c.isCompleted) c.complete();
         });
@@ -1094,6 +1167,10 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         'firstFrameMs': _firstFrameMs,
         'pumpEndMs': _pumpEndMs,
       };
+      // Init-path profiler snapshot (compile-time gated). `null` when the
+      // profiler is off so the harness can omit the profiling block.
+      responseJson['_initProfile'] =
+          ProfilingMetrics.enabled ? ProfilingMetrics.snapshot() : null;
       _respond(request, result.success ? 200 : 400, responseJson);
     } on FormatException catch (e) {
       _capturingFrameworkErrors = false;

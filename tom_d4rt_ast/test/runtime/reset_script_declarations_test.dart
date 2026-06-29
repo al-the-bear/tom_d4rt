@@ -91,12 +91,15 @@ void main() {
       // script declaration.
       expect(runner.executeBundleAs<int>(bundleWithExtraTopLevelFn(7)), 7);
 
-      // Capture stdlib baseline size for comparison post-reset.
+      // Step 8 (warm parent): the visitor's globalEnvironment is the
+      // per-execute child; it holds the script declarations (`main`, `extra`),
+      // while stdlib/bridges live on the warm parent. So the child's local
+      // `_values` is non-empty purely because of script declarations.
       final preResetValueCount = runner.visitor!.globalEnvironment.values.length;
       expect(
         preResetValueCount,
         greaterThan(0),
-        reason: 'stdlib registration must populate the global environment',
+        reason: 'script declarations must populate the child environment',
       );
 
       // Reset evicts the `extra` (and `main`) entries.
@@ -162,22 +165,31 @@ void main() {
       // Bootstrap the global environment by running any bundle.
       expect(runner.executeBundleAs<int>(bundleWithExtraTopLevelFn(1)), 1);
 
-      // Stdlib bridges land in `_values` via `Stdlib(globalEnv).register()`
-      // during _initEnvironment. They MUST be in the post-init baseline
-      // so the reset preserves them.
+      // Step 8 (warm parent): stdlib bridges land on the shared warm PARENT
+      // via `Stdlib(parent).register()`, not on the per-execute child. The
+      // visitor's `globalEnvironment` is the child; its `enclosing` is the
+      // warm parent that holds the stdlib baseline. `reset` walks the child,
+      // so stdlib on the parent is preserved by construction.
       final env = runner.visitor!.globalEnvironment;
+      final parent = env.enclosing!;
       expect(
-        env.values.containsKey('print'),
+        parent.values.containsKey('print'),
         isTrue,
-        reason: 'stdlib `print` must be registered after _initEnvironment',
+        reason: 'stdlib `print` must be registered on the warm parent',
+      );
+      // Resolvable from the child via the enclosing chain (the script's view).
+      expect(
+        env.get('print'),
+        isNotNull,
+        reason: 'child must resolve stdlib `print` through the warm parent',
       );
 
       // The script declarations get evicted...
       runner.resetScriptDeclarations();
 
-      // ...but stdlib survives.
+      // ...but stdlib survives on the immutable parent.
       expect(
-        env.values.containsKey('print'),
+        parent.values.containsKey('print'),
         isTrue,
         reason: 'reset must NOT evict stdlib `print` (TODO #14 §707)',
       );
@@ -194,33 +206,31 @@ void main() {
       // Run any bundle to populate the environment.
       expect(runner.executeBundleAs<int>(bundleWithExtraTopLevelFn(1)), 1);
 
+      // Step 8 (warm parent): `_registerBridgedDefinitions` runs on the warm
+      // PARENT, so built-in stdlib bridges (e.g. _Random) live on
+      // `env.enclosing`, not on the per-execute child. The reset walks the
+      // child's `_values`, so parent bridges are preserved by construction.
       final env = runner.visitor!.globalEnvironment;
-      // _registerBridgedDefinitions is called during _initEnvironment
-      // and registers built-in stdlib bridges (e.g. _Random) via
-      // `defineBridge` into `_bridgedClasses`. They live in a different
-      // map than `_values`, so the reset (which walks `_values`) MUST
-      // NOT touch them. We snapshot the bridge-name count and the
-      // assignment-by-type map size pre-reset, and assert post-reset
-      // they are unchanged.
-      final preBridgeNames = env.bridgedClassNames.toSet();
+      final parent = env.enclosing!;
+      final preBridgeNames = parent.bridgedClassNames.toSet();
       expect(
         preBridgeNames,
         isNotEmpty,
         reason:
-            'stdlib bridge registration must populate _bridgedClasses '
-            '(at minimum: _Random etc.)',
+            'stdlib bridge registration must populate the warm parent\'s '
+            '_bridgedClasses (at minimum: _Random etc.)',
       );
 
       runner.resetScriptDeclarations();
 
-      final postBridgeNames = env.bridgedClassNames.toSet();
+      final postBridgeNames = parent.bridgedClassNames.toSet();
       expect(
         postBridgeNames,
         preBridgeNames,
         reason:
             'reset must NOT evict any bridged class names — bridge '
-            'registrations live in `_bridgedClasses`, not `_values` '
-            '(TODO #14 §707 + §676 — Expando/bridge preservation rule)',
+            'registrations live on the warm parent\'s `_bridgedClasses`, '
+            'not the child\'s `_values` (TODO #14 §707 + §676)',
       );
     });
 
@@ -229,17 +239,19 @@ void main() {
       final runner = D4rtRunner();
       expect(runner.executeBundleAs<int>(bundleWithExtraTopLevelFn(1)), 1);
 
+      // Step 8 (warm parent): bridged enums also live on the warm parent.
       final env = runner.visitor!.globalEnvironment;
-      final preEnumNames = env.bridgedEnumNames.toSet();
+      final parent = env.enclosing!;
+      final preEnumNames = parent.bridgedEnumNames.toSet();
 
       runner.resetScriptDeclarations();
 
       expect(
-        env.bridgedEnumNames.toSet(),
+        parent.bridgedEnumNames.toSet(),
         preEnumNames,
         reason:
-            'reset must NOT evict bridged enum names — they live in '
-            '`_bridgedEnums`, not `_values`',
+            'reset must NOT evict bridged enum names — they live on the warm '
+            'parent\'s `_bridgedEnums`, not the child\'s `_values`',
       );
     });
   });

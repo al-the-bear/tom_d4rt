@@ -1,0 +1,576 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (104.0.0 available)
+  analyzer 10.2.0 (14.0.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.1.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.18.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.11 (0.7.12 available)
+! tom_ast_generator 0.1.3 from path ../tom_ast_generator (overridden in ./pubspec_overrides.yaml)
+! tom_ast_model 0.1.3 from path ../tom_ast_model (overridden in ./pubspec_overrides.yaml)
+  tom_build_base 2.6.21 (2.6.25 available)
+! tom_d4rt_ast 0.1.10 from path ../tom_d4rt_ast (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt_exec 1.9.0 from path ../tom_d4rt_exec (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt_generator 1.11.0 from path ../tom_d4rt_generator (overridden in ./pubspec_overrides.yaml)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+19 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_extended_23_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+[test-app] waiting for /health on port 4247 (15s elapsed, 31 probes)…
+[test-app] waiting for /health on port 4247 (18s elapsed, 37 probes)…
+[test-app] waiting for /health on port 4247 (21s elapsed, 43 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:64881/bEP4PcINraM=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:64881/bEP4PcINraM=/devtools/?uri=ws://127.0.0.1:64881/bEP4PcINraM=/ws
+=================================================================
+00:23 +0: Test App Health app is running
+00:24 +1: Section 1 - Tests with workarounds reverted retest: animation/reverse_tween_test.dart
+[METRIC] script=retest/animation/reverse_tween_test.dart testFile=flutter_extended_23_test.dart sourceBytes=45855 sourceChars=35359 bundleJsonBytes=405139 clearMs=222 readMs=4 bundleMs=314 httpMs=1622 totalMs=2165 status=success httpStatus=200 outputLines=230 frameworkErrors=0 appBodyMs=11 appParseMs=61 appSetStateMs=61 appInterpretStartMs=71 appInterpretEndMs=1320 appFirstFrameMs=1398 appPumpEndMs=1602
+00:26 +2: Section 1 - Tests with workarounds reverted retest: dart_ui/key_event_type_test.dart
+[METRIC] script=retest/dart_ui/key_event_type_test.dart testFile=flutter_extended_23_test.dart sourceBytes=36897 sourceChars=36897 bundleJsonBytes=616537 clearMs=219 readMs=1 bundleMs=151 httpMs=861 totalMs=1233 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=24 appSetStateMs=24 appInterpretStartMs=25 appInterpretEndMs=381 appFirstFrameMs=651 appPumpEndMs=853
+00:27 +3: Section 1 - Tests with workarounds reverted retest: dart_ui/vertex_mode_test.dart
+[METRIC] script=retest/dart_ui/vertex_mode_test.dart testFile=flutter_extended_23_test.dart sourceBytes=39322 sourceChars=39292 bundleJsonBytes=481811 clearMs=228 readMs=7 bundleMs=110 httpMs=726 totalMs=1073 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=10 appParseMs=22 appSetStateMs=22 appInterpretStartMs=23 appInterpretEndMs=387 appFirstFrameMs=511 appPumpEndMs=713
+00:28 +4: Section 1 - Tests with workarounds reverted retest: dart_ui/color_space_test.dart
+[METRIC] script=retest/dart_ui/color_space_test.dart testFile=flutter_extended_23_test.dart sourceBytes=27241 sourceChars=25531 bundleJsonBytes=263344 clearMs=224 readMs=2 bundleMs=22 httpMs=568 totalMs=818 status=success httpStatus=200 outputLines=17 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=9 appInterpretEndMs=311 appFirstFrameMs=361 appPumpEndMs=563
+00:29 +5: Section 1 - Tests with workarounds reverted retest: dart_ui/system_color_palette_test.dart
+  Skip: SystemColor not supported on desktop platforms (web-only API)
+00:29 +5 ~1: Section 1 - Tests with workarounds reverted retest: foundation/object_created_test.dart
+[METRIC] script=retest/foundation/object_created_test.dart testFile=flutter_extended_23_test.dart sourceBytes=81336 sourceChars=81245 bundleJsonBytes=891175 clearMs=221 readMs=1 bundleMs=71 httpMs=715 totalMs=1009 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=18 appSetStateMs=18 appInterpretStartMs=25 appInterpretEndMs=369 appFirstFrameMs=507 appPumpEndMs=709
+00:30 +6 ~1: Section 1 - Tests with workarounds reverted retest: foundation/object_disposed_test.dart
+[METRIC] script=retest/foundation/object_disposed_test.dart testFile=flutter_extended_23_test.dart sourceBytes=66103 sourceChars=65932 bundleJsonBytes=719186 clearMs=204 readMs=2 bundleMs=36 httpMs=615 totalMs=858 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=15 appSetStateMs=15 appInterpretStartMs=24 appInterpretEndMs=331 appFirstFrameMs=406 appPumpEndMs=607
+00:31 +7 ~1: Section 1 - Tests with workarounds reverted retest: foundation/object_event_test.dart
+[METRIC] script=retest/foundation/object_event_test.dart testFile=flutter_extended_23_test.dart sourceBytes=53426 sourceChars=53400 bundleJsonBytes=602717 clearMs=215 readMs=1 bundleMs=31 httpMs=619 totalMs=867 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=12 appInterpretEndMs=332 appFirstFrameMs=413 appPumpEndMs=613
+00:32 +8 ~1: Section 1 - Tests with workarounds reverted retest: material/bottom_navigation_bar_type_test.dart
+[METRIC] script=retest/material/bottom_navigation_bar_type_test.dart testFile=flutter_extended_23_test.dart sourceBytes=61834 sourceChars=61826 bundleJsonBytes=724116 clearMs=203 readMs=1 bundleMs=22 httpMs=673 totalMs=901 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=12 appSetStateMs=12 appInterpretStartMs=14 appInterpretEndMs=280 appFirstFrameMs=467 appPumpEndMs=668
+00:32 +9 ~1: Section 1 - Tests with workarounds reverted retest: material/button_bar_theme_test.dart
+[METRIC] script=retest/material/button_bar_theme_test.dart testFile=flutter_extended_23_test.dart sourceBytes=26697 sourceChars=26697 bundleJsonBytes=345111 clearMs=221 readMs=0 bundleMs=16 httpMs=596 totalMs=834 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=9 appInterpretEndMs=311 appFirstFrameMs=390 appPumpEndMs=592
+00:33 +10 ~1: Section 1 - Tests with workarounds reverted retest: material/button_bar_layout_behavior_test.dart
+[METRIC] script=retest/material/button_bar_layout_behavior_test.dart testFile=flutter_extended_23_test.dart sourceBytes=58689 sourceChars=58683 bundleJsonBytes=654474 clearMs=220 readMs=1 bundleMs=31 httpMs=692 totalMs=946 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=8 appSetStateMs=8 appInterpretStartMs=11 appInterpretEndMs=267 appFirstFrameMs=484 appPumpEndMs=686
+00:34 +11 ~1: Section 1 - Tests with workarounds reverted retest: material/button_text_theme_test.dart
+[METRIC] script=retest/material/button_text_theme_test.dart testFile=flutter_extended_23_test.dart sourceBytes=50676 sourceChars=50676 bundleJsonBytes=538129 clearMs=205 readMs=1 bundleMs=23 httpMs=689 totalMs=920 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=7 appSetStateMs=7 appInterpretStartMs=11 appInterpretEndMs=273 appFirstFrameMs=483 appPumpEndMs=684
+00:35 +12 ~1: Section 1 - Tests with workarounds reverted retest: material/dropdown_menu_close_behavior_test.dart
+[METRIC] script=retest/material/dropdown_menu_close_behavior_test.dart testFile=flutter_extended_23_test.dart sourceBytes=65169 sourceChars=65157 bundleJsonBytes=769228 clearMs=224 readMs=1 bundleMs=51 httpMs=1512 totalMs=1790 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=15 appSetStateMs=15 appInterpretStartMs=24 appInterpretEndMs=291 appFirstFrameMs=1304 appPumpEndMs=1506
+00:37 +13 ~1: Section 1 - Tests with workarounds reverted retest: material/gapped_range_slider_track_shape_test.dart
+[METRIC] script=retest/material/gapped_range_slider_track_shape_test.dart testFile=flutter_extended_23_test.dart sourceBytes=36884 sourceChars=36884 bundleJsonBytes=447995 clearMs=215 readMs=1 bundleMs=14 httpMs=607 totalMs=837 status=success httpStatus=200 outputLines=42 frameworkErrors=0 appBodyMs=0 appParseMs=5 appSetStateMs=5 appInterpretStartMs=13 appInterpretEndMs=302 appFirstFrameMs=399 appPumpEndMs=601
+00:38 +14 ~1: Section 1 - Tests with workarounds reverted retest: material/hour_format_test.dart
+[METRIC] script=retest/material/hour_format_test.dart testFile=flutter_extended_23_test.dart sourceBytes=47370 sourceChars=47368 bundleJsonBytes=621808 clearMs=224 readMs=2 bundleMs=39 httpMs=1514 totalMs=1781 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=12 appSetStateMs=12 appInterpretStartMs=17 appInterpretEndMs=304 appFirstFrameMs=1307 appPumpEndMs=1508
+00:40 +15 ~1: Section 1 - Tests with workarounds reverted retest: material/material_banner_closed_reason_test.dart
+[METRIC] script=retest/material/material_banner_closed_reason_test.dart testFile=flutter_extended_23_test.dart sourceBytes=57951 sourceChars=57951 bundleJsonBytes=661813 clearMs=220 readMs=0 bundleMs=26 httpMs=860 totalMs=1107 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=23 appInterpretEndMs=322 appFirstFrameMs=646 appPumpEndMs=848
+00:41 +16 ~1: Section 1 - Tests with workarounds reverted retest: material/navigation_destination_label_behavior_test.dart
+[METRIC] script=retest/material/navigation_destination_label_behavior_test.dart testFile=flutter_extended_23_test.dart sourceBytes=82243 sourceChars=82243 bundleJsonBytes=887979 clearMs=203 readMs=1 bundleMs=31 httpMs=881 totalMs=1118 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=18 appInterpretEndMs=289 appFirstFrameMs=672 appPumpEndMs=875
+00:42 +17 ~1: Section 1 - Tests with workarounds reverted retest: material/navigation_rail_label_type_test.dart
+[METRIC] script=retest/material/navigation_rail_label_type_test.dart testFile=flutter_extended_23_test.dart sourceBytes=24170 sourceChars=21222 bundleJsonBytes=294932 clearMs=221 readMs=2 bundleMs=34 httpMs=594 totalMs=853 status=success httpStatus=200 outputLines=92 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=8 appInterpretEndMs=333 appFirstFrameMs=386 appPumpEndMs=586
+00:43 +18 ~1: Section 1 - Tests with workarounds reverted retest: material/popup_menu_position_test.dart
+[METRIC] script=retest/material/popup_menu_position_test.dart testFile=flutter_extended_23_test.dart sourceBytes=23956 sourceChars=21002 bundleJsonBytes=297533 clearMs=223 readMs=1 bundleMs=18 httpMs=1041 totalMs=1285 status=success httpStatus=200 outputLines=75 frameworkErrors=0 appBodyMs=1 appParseMs=6 appSetStateMs=6 appInterpretStartMs=9 appInterpretEndMs=792 appFirstFrameMs=835 appPumpEndMs=1037
+00:44 +19 ~1: Section 1 - Tests with workarounds reverted retest: material/theme_extension_test.dart
+[METRIC] script=retest/material/theme_extension_test.dart testFile=flutter_extended_23_test.dart sourceBytes=48728 sourceChars=48728 bundleJsonBytes=768072 clearMs=221 readMs=1 bundleMs=52 httpMs=680 totalMs=955 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=9 appSetStateMs=9 appInterpretStartMs=12 appInterpretEndMs=305 appFirstFrameMs=472 appPumpEndMs=673
+00:45 +20 ~1: Section 1 - Tests with workarounds reverted retest: material/toggle_buttons_theme_data_test.dart
+[METRIC] script=retest/material/toggle_buttons_theme_data_test.dart testFile=flutter_extended_23_test.dart sourceBytes=48130 sourceChars=48130 bundleJsonBytes=706972 clearMs=223 readMs=1 bundleMs=31 httpMs=652 totalMs=908 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=15 appSetStateMs=15 appInterpretStartMs=24 appInterpretEndMs=325 appFirstFrameMs=440 appPumpEndMs=644
+00:46 +21 ~1: Section 1 - Tests with workarounds reverted retest: material/toggle_buttons_theme_test.dart
+[METRIC] script=retest/material/toggle_buttons_theme_test.dart testFile=flutter_extended_23_test.dart sourceBytes=56958 sourceChars=56958 bundleJsonBytes=770226 clearMs=217 readMs=0 bundleMs=24 httpMs=619 totalMs=862 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=9 appSetStateMs=9 appInterpretStartMs=12 appInterpretEndMs=307 appFirstFrameMs=410 appPumpEndMs=613
+00:47 +22 ~1: Section 1 - Tests with workarounds reverted retest: painting/axis_direction_test.dart
+[METRIC] script=retest/painting/axis_direction_test.dart testFile=flutter_extended_23_test.dart sourceBytes=44337 sourceChars=44099 bundleJsonBytes=634533 clearMs=204 readMs=1 bundleMs=25 httpMs=703 totalMs=933 status=success httpStatus=200 outputLines=29 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=18 appInterpretEndMs=440 appFirstFrameMs=498 appPumpEndMs=698
+00:48 +23 ~1: Section 1 - Tests with workarounds reverted retest: rendering/hit_test_behavior_test.dart
+[METRIC] script=retest/rendering/hit_test_behavior_test.dart testFile=flutter_extended_23_test.dart sourceBytes=33426 sourceChars=31822 bundleJsonBytes=332784 clearMs=220 readMs=0 bundleMs=10 httpMs=569 totalMs=800 status=success httpStatus=200 outputLines=6 frameworkErrors=0 appBodyMs=1 appParseMs=6 appSetStateMs=6 appInterpretStartMs=13 appInterpretEndMs=323 appFirstFrameMs=360 appPumpEndMs=562
+00:49 +24 ~1: Section 1 - Tests with workarounds reverted retest: rendering/over_scroll_header_stretch_configuration_test.dart
+[METRIC] script=retest/rendering/over_scroll_header_stretch_configuration_test.dart testFile=flutter_extended_23_test.dart sourceBytes=56087 sourceChars=52927 bundleJsonBytes=641157 clearMs=217 readMs=1 bundleMs=36 httpMs=607 totalMs=863 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=7 appSetStateMs=7 appInterpretStartMs=9 appInterpretEndMs=295 appFirstFrameMs=401 appPumpEndMs=601
+00:49 +25 ~1: Section 1 - Tests with workarounds reverted retest: rendering/render_android_view_test.dart
+[METRIC] script=retest/rendering/render_android_view_test.dart testFile=flutter_extended_23_test.dart sourceBytes=60674 sourceChars=60674 bundleJsonBytes=793499 clearMs=204 readMs=2 bundleMs=27 httpMs=1132 totalMs=1367 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=8 appSetStateMs=8 appInterpretStartMs=14 appInterpretEndMs=393 appFirstFrameMs=925 appPumpEndMs=1126
+00:51 +26 ~1: Section 1 - Tests with workarounds reverted retest: widgets/nested_scroll_view_state_test.dart
+[METRIC] script=retest/widgets/nested_scroll_view_state_test.dart testFile=flutter_extended_23_test.dart sourceBytes=0 sourceChars=0 bundleJsonBytes=0 clearMs=358 readMs=0 bundleMs=0 httpMs=0 totalMs=734 status=clear_failed httpStatus=-1 outputLines=0 frameworkErrors=0
+00:52 +26 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/nested_scroll_view_state_test.dart [E]
+  Bad state: Transport failure while running "retest/widgets/nested_scroll_view_state_test.dart"
+  Operation: GET /clear
+  Error: HttpException: Connection closed before full header was received, uri = http://localhost:4247/clear
+  
+  Stack trace:
+  dart:async/future_impl.dart 21:26                              _interceptError
+  dart:async/future_impl.dart 52:23                              _interceptUserError
+  dart:async/stream_controller.dart 624:39                       _StreamController.addError
+  dart:_http/http_parser.dart 1262:17                            _HttpParser._reportHttpError
+  dart:_http/http_parser.dart 959:9                              _HttpParser._onDone
+  package:stack_trace/src/stack_zone_specification.dart 207:15   StackZoneSpecification._run
+  package:stack_trace/src/stack_zone_specification.dart 114:48   StackZoneSpecification._registerCallback.<fn>
+  dart:async/zone_root.dart 27:47                                _rootRun
+  dart:async/zone.dart 726:19                                    _CustomZone.run
+  dart:async/zone.dart 625:7                                     _CustomZone.runGuarded
+  dart:async/stream_impl.dart 434:13                             _BufferingStreamSubscription._sendDone.sendDone
+  dart:async/stream_impl.dart 444:7                              _BufferingStreamSubscription._sendDone
+  dart:async/stream_impl.dart 333:7                              _BufferingStreamSubscription._close
+  dart:async/stream_controller.dart 806:19                       _SyncStreamControllerDispatch._sendDone
+  dart:async/stream_controller.dart 652:7                        _StreamController._closeUnchecked
+  dart:async/stream_controller.dart 645:5                        _StreamController.close
+  dart:io-patch/socket_patch.dart 2881:21                        _Socket._onData
+  package:stack_trace/src/stack_zone_specification.dart 127:36   StackZoneSpecification._registerUnaryCallback.<fn>.<fn>
+  package:stack_trace/src/stack_zone_specification.dart 207:15   StackZoneSpecification._run
+  package:stack_trace/src/stack_zone_specification.dart 127:24   StackZoneSpecification._registerUnaryCallback.<fn>
+  dart:async/zone_root.dart 56:13                                _rootRunUnary
+  dart:async/zone.dart 733:19                                    _CustomZone.runUnary
+  dart:async/zone.dart 633:7                                     _CustomZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+  dart:async/stream_controller.dart 663:7                        _StreamController._add
+  dart:async/stream_controller.dart 618:5                        _StreamController.add
+  dart:io-patch/socket_patch.dart 2319:33                        new _RawSocket.<fn>
+  dart:io-patch/socket_patch.dart 1640:18                        _NativeSocket.issueReadEvent.issue
+  dart:async/schedule_microtask.dart 40:35                       _microtaskLoop
+  dart:async/schedule_microtask.dart 49:5                        _startMicrotaskLoop
+  ===== asynchronous gap ===========================
+  dart:async/zone.dart 747:19                                    _CustomZone.registerCallback
+  dart:async/stream_impl.dart 201:17                             _BufferingStreamSubscription._registerDoneHandler
+  dart:async/stream_impl.dart 138:17                             new _BufferingStreamSubscription.zoned
+  dart:async/stream_impl.dart 125:12                             new _BufferingStreamSubscription
+  dart:async/stream_controller.dart 878:7                        new _ControllerSubscription
+  dart:async/stream_controller.dart 697:47                       _StreamController._subscribe
+  dart:async/stream_controller.dart 854:20                       _ControllerStream._createSubscription
+  dart:async/stream_impl.dart 516:42                             _StreamImpl.listen
+  dart:io-patch/socket_patch.dart 2721:31                        _Socket.listen
+  dart:_http/http_parser.dart 344:34                             _HttpParser.listenToStream
+  dart:_http/http_impl.dart 2183:17                              new _HttpClientConnection
+  dart:_http/http_impl.dart 2716:30                              _ConnectionTarget.connect.<fn>.<fn>
+  package:stack_trace/src/stack_zone_specification.dart 127:36   StackZoneSpecification._registerUnaryCallback.<fn>.<fn>
+  package:stack_trace/src/stack_zone_specification.dart 207:15   StackZoneSpecification._run
+  package:stack_trace/src/stack_zone_specification.dart 127:24   StackZoneSpecification._registerUnaryCallback.<fn>
+  dart:async/zone_root.dart 48:47                                _rootRunUnary
+  dart:async/zone.dart 733:19                                    _CustomZone.runUnary
+  ===== asynchronous gap ===========================
+  dart:async/zone.dart 754:19                                    _CustomZone.registerUnaryCallback
+  dart:async/future_impl.dart 403:23                             Future.then
+  dart:_http/http_impl.dart 2710:29                              _ConnectionTarget.connect.<fn>
+  package:stack_trace/src/stack_zone_specification.dart 127:36   StackZoneSpecification._registerUnaryCallback.<fn>.<fn>
+  package:stack_trace/src/stack_zone_specification.dart 207:15   StackZoneSpecification._run
+  package:stack_trace/src/stack_zone_specification.dart 127:24   StackZoneSpecification._registerUnaryCallback.<fn>
+  dart:async/zone_root.dart 48:47                                _rootRunUnary
+  dart:async/zone.dart 733:19                                    _CustomZone.runUnary
+  ===== asynchronous gap ===========================
+  dart:async/zone.dart 754:19                                    _CustomZone.registerUnaryCallback
+  dart:async/future_impl.dart 403:23                             Future.then
+  dart:_http/http_impl.dart 2702:27                              _ConnectionTarget.connect
+  dart:_http/http_impl.dart 3197:12                              _HttpClient._getConnection.connect
+  dart:_http/http_impl.dart 3202:12                              _HttpClient._getConnection
+  dart:_http/http_impl.dart 3021:12                              _HttpClient._openUrl
+  dart:_http/http_impl.dart 2868:48                              _HttpClient.getUrl
+  test/send_test_runner.dart 1639:34                             _httpGet.<fn>
+  dart:async/future.dart 260:40                                  new Future.<fn>
+  package:stack_trace/src/stack_zone_specification.dart 207:15   StackZoneSpecification._run
+  package:stack_trace/src/stack_zone_specification.dart 114:48   StackZoneSpecification._registerCallback.<fn>
+  dart:async/zone_root.dart 27:47                                _rootRun
+  dart:async/zone.dart 726:19                                    _CustomZone.run
+  dart:async/zone.dart 625:7                                     _CustomZone.runGuarded
+  dart:async/zone.dart 666:23                                    _CustomZone.bindCallbackGuarded.<fn>
+  package:stack_trace/src/stack_zone_specification.dart 207:15   StackZoneSpecification._run
+  package:stack_trace/src/stack_zone_specification.dart 114:48   StackZoneSpecification._registerCallback.<fn>
+  dart:async/zone_root.dart 35:13                                _rootRun
+  dart:async/zone.dart 726:19                                    _CustomZone.run
+  dart:async/zone.dart 649:23                                    _CustomZone.bindCallback.<fn>
+  dart:async-patch/timer_patch.dart 18:15                        Timer._createTimer.<fn>
+  dart:isolate-patch/timer_impl.dart 423:19                      _Timer._runTimers
+  dart:isolate-patch/timer_impl.dart 454:5                       _Timer._handleMessage
+  dart:isolate-patch/isolate_patch.dart 192:12                   _RawReceivePort._handleMessage
+  ===== asynchronous gap ===========================
+  dart:async/zone.dart 747:19                                    _CustomZone.registerCallback
+  dart:async/zone.dart 665:22                                    _CustomZone.bindCallbackGuarded
+  dart:async/timer.dart 50:20                                    new Timer
+  dart:async/timer.dart 107:5                                    Timer.run
+  dart:async/future.dart 257:11                                  new Future
+  test/send_test_runner.dart 1638:10                             _httpGet
+  test/send_test_runner.dart 1386:30                             SendTestRunner.isAppRunning
+  test/flutter_extended_23_test.dart 27:46                       main.<fn>.<fn>
+  package:test_api/src/backend/declarer.dart 253:25              Declarer.test.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:async/zone.dart 754:19                                    _CustomZone.registerUnaryCallback
+  package:test_api/src/backend/declarer.dart 252:15              Declarer.test.<fn>.<fn>
+  dart:async/zone_root.dart 35:13                                _rootRun
+  dart:async/zone.dart 726:19                                    _CustomZone.run
+  dart:async/zone_api.dart 166:6                                 _runZoned
+  dart:async/zone_api.dart 92:10                                 runZoned
+  package:test_api/src/backend/declarer.dart 250:17              Declarer.test.<fn>
+  package:test_api/src/backend/invoker.dart 318:17               Invoker._waitForOutstandingCallbacks.<fn>
+  dart:async/zone_root.dart 35:13                                _rootRun
+  dart:async/zone.dart 726:19                                    _CustomZone.run
+  dart:async/zone_api.dart 166:6                                 _runZoned
+  dart:async/zone_api.dart 92:10                                 runZoned
+  package:test_api/src/backend/invoker.dart 314:5                Invoker._waitForOutstandingCallbacks
+  package:test_api/src/backend/invoker.dart 457:21               Invoker._onRun.<fn>.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:async/zone.dart 754:19                                    _CustomZone.registerUnaryCallback
+  package:test_api/src/backend/invoker.dart 455:15               Invoker._onRun.<fn>.<fn>.<fn>
+  dart:async/zone_root.dart 35:13                                _rootRun
+  dart:async/zone.dart 726:19                                    _CustomZone.run
+  dart:async/zone_api.dart 166:6                                 _runZoned
+  dart:async/zone_api.dart 92:10                                 runZoned
+  package:test_api/src/backend/invoker.dart 445:11               Invoker._onRun.<fn>.<fn>
+  package:test_api/src/backend/invoker.dart 500:15               Invoker._guardIfGuarded
+  package:test_api/src/backend/invoker.dart 444:9                Invoker._onRun.<fn>
+  package:stack_trace/src/chain.dart 97:24                       Chain.capture.<fn>
+  dart:async/zone_root.dart 35:13                                _rootRun
+  dart:async/zone.dart 726:19                                    _CustomZone.run
+  dart:async/zone_api.dart 166:6                                 _runZoned
+  dart:async/zone_api.dart 92:10                                 runZoned
+  package:stack_trace/src/chain.dart 95:12                       Chain.capture
+  package:test_api/src/backend/invoker.dart 442:11               Invoker._onRun
+  package:test_api/src/backend/live_test_controller.dart 161:11  LiveTestController.run
+  package:test_api/src/backend/remote_listener.dart 323:16       RemoteListener._runLiveTest.<fn>
+  dart:async/zone_root.dart 35:13                                _rootRun
+  dart:async/zone.dart 726:19                                    _CustomZone.run
+  dart:async/zone_api.dart 166:6                                 _runZoned
+  dart:async/zone_api.dart 92:10                                 runZoned
+  package:test_api/src/backend/remote_listener.dart 322:5        RemoteListener._runLiveTest
+  package:test_api/src/backend/remote_listener.dart 263:7        RemoteListener._serializeTest.<fn>
+  dart:async/zone_root.dart 48:47                                _rootRunUnary
+  dart:async/zone.dart 733:19                                    _CustomZone.runUnary
+  dart:async/zone.dart 633:7                                     _CustomZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+  dart:async/stream_controller.dart 663:7                        _StreamController._add
+  dart:async/stream_controller.dart 618:5                        _StreamController.add
+  dart:async/zone_root.dart 56:13                                _rootRunUnary
+  dart:async/zone.dart 733:19                                    _CustomZone.runUnary
+  dart:async/zone.dart 633:7                                     _CustomZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+  dart:async/stream_controller.dart 663:7                        _StreamController._add
+  dart:async/stream_controller.dart 618:5                        _StreamController.add
+  dart:async/stream_controller.dart 898:13                       _StreamSinkWrapper.add
+  package:stream_channel/src/guarantee_channel.dart 125:12       _GuaranteeSink.add
+  package:stream_channel/src/multi_channel.dart 159:31           new _MultiChannel.<fn>
+  dart:async/zone.dart 891:10                                    _RootZone.runUnaryGuarded
+  dart:_internal/async_cast.dart 95:11                           CastStreamSubscription._onData
+  dart:async/zone.dart 891:10                                    _RootZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+  dart:async/stream_controller.dart 663:7                        _StreamController._add
+  dart:async/stream_controller.dart 618:5                        _StreamController.add
+  dart:async/zone.dart 891:10                                    _RootZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+  dart:async/stream_controller.dart 663:7                        _StreamController._add
+  dart:async/stream_controller.dart 618:5                        _StreamController.add
+  dart:async/stream_controller.dart 898:13                       _StreamSinkWrapper.add
+  dart:async/zone.dart 891:10                                    _RootZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_pipe.dart 154:11                             _ForwardingStreamSubscription._add
+  dart:async/stream_pipe.dart 252:10                             _MapStream._handleData
+  dart:async/stream_pipe.dart 184:13                             _ForwardingStreamSubscription._handleData
+  dart:async/zone.dart 891:10                                    _RootZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+  dart:async/stream_controller.dart 663:7                        _StreamController._add
+  dart:async/stream_controller.dart 618:5                        _StreamController.add
+  dart:_http/websocket_impl.dart 1252:27                         new _WebSocketImpl._fromSocket.<fn>
+  dart:async/zone.dart 891:10                                    _RootZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_transformers.dart 67:11                      _SinkTransformerStreamSubscription._add
+  dart:async/stream_transformers.dart 13:11                      _EventSinkWrapper.add
+  dart:_http/websocket_impl.dart 348:23                          _WebSocketProtocolTransformer._messageFrameEnd
+  dart:_http/websocket_impl.dart 238:46                          _WebSocketProtocolTransformer.add
+  dart:async/stream_transformers.dart 115:24                     _SinkTransformerStreamSubscription._handleData
+  dart:async/zone.dart 891:10                                    _RootZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+  dart:async/stream_controller.dart 663:7                        _StreamController._add
+  dart:async/stream_controller.dart 618:5                        _StreamController.add
+  dart:io-patch/socket_patch.dart 2874:41                        _Socket._onData
+  dart:async/zone.dart 891:10                                    _RootZone.runUnaryGuarded
+  dart:async/stream_impl.dart 381:11                             _BufferingStreamSubscription._sendData
+  dart:async/stream_impl.dart 312:7                              _BufferingStreamSubscription._add
+  dart:async/stream_controller.dart 798:19                       _SyncStreamControllerDispatch._sendData
+  dart:async/stream_controller.dart 663:7                        _StreamController._add
+  dart:async/stream_controller.dart 618:5                        _StreamController.add
+  dart:io-patch/socket_patch.dart 2312:31                        new _RawSocket.<fn>
+  dart:io-patch/socket_patch.dart 1647:14                        _NativeSocket.issueReadEvent.issue
+  dart:async/schedule_microtask.dart 40:35                       _microtaskLoop
+  dart:async/schedule_microtask.dart 49:5                        _startMicrotaskLoop
+  
+  
+  Runner app process: exited with code 0
+  
+  Captured app STDOUT tail:
+    flutter: [D4rtApp] [script]   ThemeData.popupMenuTheme.position: PopupMenuPosition.under
+    flutter: [D4rtApp] [script] 
+    [11] Use-case scenarios
+    flutter: [D4rtApp] [script]   over:
+    flutter: [D4rtApp] [script]     - Main menu buttons
+    flutter: [D4rtApp] [script]     - Dropdown selectors
+    flutter: [D4rtApp] [script]     - Toolbar menus
+    flutter: [D4rtApp] [script]   under:
+    flutter: [D4rtApp] [script]     - Context menus
+    flutter: [D4rtApp] [script]     - Action buttons in cards
+    flutter: [D4rtApp] [script]     - FAB menus
+    flutter: [D4rtApp] [script] 
+    [12] Set operations & grouping
+    flutter: [D4rtApp] [script]   Overlapping: over
+    flutter: [D4rtApp] [script]   Non-overlap : under
+    flutter: [D4rtApp] [script]   All: over, under
+    flutter: [D4rtApp] [script] 
+    [13] Interaction simulation
+    flutter: [D4rtApp] [script]   Scenario: user taps button with position=over
+    flutter: [D4rtApp] [script]     Step 1: Menu appears at button top
+    flutter: [D4rtApp] [script]     Step 2: Button obscured by menu
+    flutter: [D4rtApp] [script]     Step 3: Tap item to dismiss
+    flutter: [D4rtApp] [script]   Scenario: user taps button with position=under
+    flutter: [D4rtApp] [script]     Step 1: Menu appears below button
+    flutter: [D4rtApp] [script]     Step 2: Button stays visible above
+    flutter: [D4rtApp] [script]     Step 3: Tap item to dismiss
+    flutter: [D4rtApp] [script] 
+    [14] Theme colour palette
+    flutter: [D4rtApp] [script]   amber: a=1.00, r=1.00, g=0.56, b=0.00
+    flutter: [D4rtApp] [script]   honey: a=1.00, r=1.00, g=0.70, b=0.00
+    flutter: [D4rtApp] [script]   amberLight: a=1.00, r=1.00, g=0.97, b=0.88
+    flutter: [D4rtApp] [script] 
+    [15] Visual offset diagrams
+    flutter: [D4rtApp] [script]   over: offset=(0.0, 0.0)
+    flutter: [D4rtApp] [script]   under: offset=(0.0, 48.0)
+    flutter: [D4rtApp] [script] 
+    [16] Summary dashboard widget
+    flutter: [D4rtApp] [script]   Building full visual demo...
+    flutter: [D4rtApp] [script] ============================================================
+    flutter: [D4rtApp] [script] PopupMenuPosition deep-demo completed
+    flutter: [D4rtApp][clean][build-postpump] clearCount=18 lastClearedFile="retest/material/navigation_rail_label_type_test.dart" currentTestFile="retest/material/popup_menu_position_test.dart" sinceClearMs=1264 gen=36 :: pumped 200ms on built widget (SingleChildScrollView), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="retest/material/popup_menu_position_test.dart" widgetType="SingleChildScrollView" bodyMs=1 parseMs=6 setStateMs=6 interpretStartMs=9 interpretEndMs=792 firstFrameMs=835 pumpEndMs=1037 totalMs=1037
+    flutter: [D4rtApp] Build completed: SingleChildScrollView
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=19 lastClearedFile="retest/material/popup_menu_position_test.dart" currentTestFile="retest/material/popup_menu_position_test.dart" sinceClearMs=0 gen=36 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=19 lastClearedFile="retest/material/popup_menu_position_test.dart" currentTestFile="retest/material/popup_menu_position_test.dart" sinceClearMs=201 gen=37 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [retest/material/theme_extension_test.dart] (768072 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=19 lastClearedFile="retest/material/popup_menu_position_test.dart" currentTestFile="retest/material/theme_extension_test.dart" sinceClearMs=262 gen=37 :: incoming /build filename="retest/material/theme_extension_test.dart" suite="flutter_extended_23_test.dart" bytes=768072
+    flutter: [D4rtApp] [script] ThemeExtension deep demo initialized
+    flutter: [D4rtApp][clean][build-postpump] clearCount=19 lastClearedFile="retest/material/popup_menu_position_test.dart" currentTestFile="retest/material/theme_extension_test.dart" sinceClearMs=934 gen=38 :: pumped 200ms on built widget (StatefulBuilder), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="retest/material/theme_extension_test.dart" widgetType="StatefulBuilder" bodyMs=0 parseMs=9 setStateMs=9 interpretStartMs=12 interpretEndMs=305 firstFrameMs=472 pumpEndMs=673 totalMs=673
+    flutter: [D4rtApp] Build completed: StatefulBuilder
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=20 lastClearedFile="retest/material/theme_extension_test.dart" currentTestFile="retest/material/theme_extension_test.dart" sinceClearMs=0 gen=38 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=20 lastClearedFile="retest/material/theme_extension_test.dart" currentTestFile="retest/material/theme_extension_test.dart" sinceClearMs=202 gen=39 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [retest/material/toggle_buttons_theme_data_test.dart] (706972 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=20 lastClearedFile="retest/material/theme_extension_test.dart" currentTestFile="retest/material/toggle_buttons_theme_data_test.dart" sinceClearMs=242 gen=39 :: incoming /build filename="retest/material/toggle_buttons_theme_data_test.dart" suite="flutter_extended_23_test.dart" bytes=706972
+    flutter: [D4rtApp] [script] ToggleButtonsThemeData deep demo initialized
+    flutter: [D4rtApp][clean][build-postpump] clearCount=20 lastClearedFile="retest/material/theme_extension_test.dart" currentTestFile="retest/material/toggle_buttons_theme_data_test.dart" sinceClearMs=885 gen=40 :: pumped 200ms on built widget (StatefulBuilder), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="retest/material/toggle_buttons_theme_data_test.dart" widgetType="StatefulBuilder" bodyMs=0 parseMs=15 setStateMs=15 interpretStartMs=24 interpretEndMs=325 firstFrameMs=440 pumpEndMs=644 totalMs=644
+    flutter: [D4rtApp] Build completed: StatefulBuilder
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=21 lastClearedFile="retest/material/toggle_buttons_theme_data_test.dart" currentTestFile="retest/material/toggle_buttons_theme_data_test.dart" sinceClearMs=0 gen=40 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=21 lastClearedFile="retest/material/toggle_buttons_theme_data_test.dart" currentTestFile="retest/material/toggle_buttons_theme_data_test.dart" sinceClearMs=202 gen=41 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [retest/material/toggle_buttons_theme_test.dart] (770226 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=21 lastClearedFile="retest/material/toggle_buttons_theme_data_test.dart" currentTestFile="retest/material/toggle_buttons_theme_test.dart" sinceClearMs=234 gen=41 :: incoming /build filename="retest/material/toggle_buttons_theme_test.dart" suite="flutter_extended_23_test.dart" bytes=770226
+    flutter: [D4rtApp] [script] ToggleButtonsTheme deep demo initialized
+    flutter: [D4rtApp][clean][build-postpump] clearCount=21 lastClearedFile="retest/material/toggle_buttons_theme_data_test.dart" currentTestFile="retest/material/toggle_buttons_theme_test.dart" sinceClearMs=846 gen=42 :: pumped 200ms on built widget (StatefulBuilder), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="retest/material/toggle_buttons_theme_test.dart" widgetType="StatefulBuilder" bodyMs=0 parseMs=9 setStateMs=9 interpretStartMs=12 interpretEndMs=307 firstFrameMs=410 pumpEndMs=613 totalMs=613
+    flutter: [D4rtApp] Build completed: StatefulBuilder
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=22 lastClearedFile="retest/material/toggle_buttons_theme_test.dart" currentTestFile="retest/material/toggle_buttons_theme_test.dart" sinceClearMs=0 gen=42 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=22 lastClearedFile="retest/material/toggle_buttons_theme_test.dart" currentTestFile="retest/material/toggle_buttons_theme_test.dart" sinceClearMs=200 gen=43 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [retest/painting/axis_direction_test.dart] (634511 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=22 lastClearedFile="retest/material/toggle_buttons_theme_test.dart" currentTestFile="retest/painting/axis_direction_test.dart" sinceClearMs=234 gen=43 :: incoming /build filename="retest/painting/axis_direction_test.dart" suite="flutter_extended_23_test.dart" bytes=634511
+    flutter: [D4rtApp] [script] AxisDirection Deep Demo executing
+    flutter: [D4rtApp] [script] === Section 1: Title & Overview ===
+    flutter: [D4rtApp] [script] === Section 2: Compass Rose ===
+    flutter: [D4rtApp] [script] === Section 3: Enum Detail Cards ===
+    flutter: [D4rtApp] [script]   up: axis=Axis.vertical, reversed=true, flipped=down
+    flutter: [D4rtApp] [script]   right: axis=Axis.horizontal, reversed=false, flipped=left
+    flutter: [D4rtApp] [script]   down: axis=Axis.vertical, reversed=false, flipped=up
+    flutter: [D4rtApp] [script]   left: axis=Axis.horizontal, reversed=true, flipped=right
+    flutter: [D4rtApp] [script] === Section 4: Axis Mapping ===
+    flutter: [D4rtApp] [script] === Section 5: Reversed Direction Analysis ===
+    flutter: [D4rtApp] [script] === Section 6: flipAxisDirection Visual ===
+    flutter: [D4rtApp] [script]   flip(up) = down
+    flutter: [D4rtApp] [script]   flip(right) = left
+    flutter: [D4rtApp] [script]   flip(down) = up
+    flutter: [D4rtApp] [script]   flip(left) = right
+    flutter: [D4rtApp] [script] === Section 7: Scroll Simulation ===
+    flutter: [D4rtApp] [script] === Section 8: GrowthDirection Relationship ===
+    flutter: [D4rtApp] [script] === Section 9: Usage in Common Widgets ===
+    flutter: [D4rtApp] [script] === Section 10: reverse Flag Conversion ===
+    flutter: [D4rtApp] [script] === Section 11: Direction Portraits ===
+    flutter: [D4rtApp] [script] === Section 12: TextDirection Interplay ===
+    flutter: [D4rtApp] [script] === Section 13: Practical Patterns ===
+    flutter: [D4rtApp] [script] === Section 14: Equality & Comparison ===
+    flutter: [D4rtApp] [script]   up == up: true
+    flutter: [D4rtApp] [script]   up == down: false
+    flutter: [D4rtApp] [script]   right.index: 1
+    flutter: [D4rtApp] [script] === Section 15: Helper Functions Summary ===
+    flutter: [D4rtApp] [script] === Section 16: Summary Dashboard ===
+    flutter: [D4rtApp] [script] AxisDirection Deep Demo complete
+    flutter: [D4rtApp][clean][build-postpump] clearCount=22 lastClearedFile="retest/material/toggle_buttons_theme_test.dart" currentTestFile="retest/painting/axis_direction_test.dart" sinceClearMs=930 gen=44 :: pumped 200ms on built widget (SingleChildScrollView), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="retest/painting/axis_direction_test.dart" widgetType="SingleChildScrollView" bodyMs=1 parseMs=11 setStateMs=11 interpretStartMs=18 interpretEndMs=440 firstFrameMs=498 pumpEndMs=698 totalMs=698
+    flutter: [D4rtApp] Build completed: SingleChildScrollView
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=23 lastClearedFile="retest/painting/axis_direction_test.dart" currentTestFile="retest/painting/axis_direction_test.dart" sinceClearMs=0 gen=44 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=23 lastClearedFile="retest/painting/axis_direction_test.dart" currentTestFile="retest/painting/axis_direction_test.dart" sinceClearMs=201 gen=45 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [retest/rendering/hit_test_behavior_test.dart] (332760 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=23 lastClearedFile="retest/painting/axis_direction_test.dart" currentTestFile="retest/rendering/hit_test_behavior_test.dart" sinceClearMs=218 gen=45 :: incoming /build filename="retest/rendering/hit_test_behavior_test.dart" suite="flutter_extended_23_test.dart" bytes=332760
+    flutter: [D4rtApp] [script] HitTestBehavior deep demo executing
+    flutter: [D4rtApp] [script] HitTestBehavior values:
+    flutter: [D4rtApp] [script]   deferToChild (index=0)
+    flutter: [D4rtApp] [script]   opaque (index=1)
+    flutter: [D4rtApp] [script]   translucent (index=2)
+    flutter: [D4rtApp] [script] HitTestBehavior deep demo completed
+    flutter: [D4rtApp][clean][build-postpump] clearCount=23 lastClearedFile="retest/painting/axis_direction_test.dart" currentTestFile="retest/rendering/hit_test_behavior_test.dart" sinceClearMs=779 gen=46 :: pumped 200ms on built widget (SingleChildScrollView), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="retest/rendering/hit_test_behavior_test.dart" widgetType="SingleChildScrollView" bodyMs=1 parseMs=6 setStateMs=6 interpretStartMs=13 interpretEndMs=323 firstFrameMs=360 pumpEndMs=562 totalMs=562
+    flutter: [D4rtApp] Build completed: SingleChildScrollView
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=24 lastClearedFile="retest/rendering/hit_test_behavior_test.dart" currentTestFile="retest/rendering/hit_test_behavior_test.dart" sinceClearMs=0 gen=46 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=24 lastClearedFile="retest/rendering/hit_test_behavior_test.dart" currentTestFile="retest/rendering/hit_test_behavior_test.dart" sinceClearMs=200 gen=47 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [retest/rendering/over_scroll_header_stretch_configuration_test.dart] (641157 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=24 lastClearedFile="retest/rendering/hit_test_behavior_test.dart" currentTestFile="retest/rendering/over_scroll_header_stretch_configuration_test.dart" sinceClearMs=245 gen=47 :: incoming /build filename="retest/rendering/over_scroll_header_stretch_configuration_test.dart" suite="flutter_extended_23_test.dart" bytes=641157
+    flutter: [D4rtApp][clean][build-postpump] clearCount=24 lastClearedFile="retest/rendering/hit_test_behavior_test.dart" currentTestFile="retest/rendering/over_scroll_header_stretch_configuration_test.dart" sinceClearMs=846 gen=48 :: pumped 200ms on built widget (_InterpretedStatelessWidget), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="retest/rendering/over_scroll_header_stretch_configuration_test.dart" widgetType="_InterpretedStatelessWidget" bodyMs=0 parseMs=7 setStateMs=7 interpretStartMs=9 interpretEndMs=295 firstFrameMs=401 pumpEndMs=601 totalMs=601
+    flutter: [D4rtApp] Build completed: _InterpretedStatelessWidget
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=25 lastClearedFile="retest/rendering/over_scroll_header_stretch_configuration_test.dart" currentTestFile="retest/rendering/over_scroll_header_stretch_configuration_test.dart" sinceClearMs=0 gen=48 :: received /clear (inflightBuild=false, pendingBundle=false)
+    flutter: [D4rtApp][clean][clear-postpump] clearCount=25 lastClearedFile="retest/rendering/over_scroll_header_stretch_configuration_test.dart" currentTestFile="retest/rendering/over_scroll_header_stretch_configuration_test.dart" sinceClearMs=201 gen=49 :: pumped 200ms on waiting screen, responding with status=cleared
+    flutter: [D4rtApp] POST /build
+    flutter: [D4rtApp] Building widget [retest/rendering/render_android_view_test.dart] (793499 bytes)
+    flutter: [D4rtApp][clean][build] clearCount=25 lastClearedFile="retest/rendering/over_scroll_header_stretch_configuration_test.dart" currentTestFile="retest/rendering/render_android_view_test.dart" sinceClearMs=237 gen=49 :: incoming /build filename="retest/rendering/render_android_view_test.dart" suite="flutter_extended_23_test.dart" bytes=793499
+    flutter: [D4rtApp] [platform error] PlatformException(unregistered_view_type, A UIKitView widget is trying to create a PlatformView with an unregistered type: < demo/native-map >, If you are the author of the PlatformView, make sure `registerViewFactory` is invoked.
+    flutter: See: https://docs.flutter.dev/development/platform-integration/platform-views#on-the-platform-side-1 for more details.
+    flutter: If you are not the author of the PlatformView, make sure to call `GeneratedPluginRegistrant.register`., null)
+    flutter: [D4rtApp] [platform stack] #0      StandardMethodCodec.decodeEnvelope (package:flutter/src/services/message_codecs.dart:653:7)
+    flutter: [D4rtApp] [platform stack] #1      MethodChannel._invokeMethod (package:flutter/src/services/platform_channel.dart:366:18)
+    flutter: [D4rtApp] [platform stack] <asynchronous suspension>
+    flutter: [D4rtApp] [platform stack] #2      TextureAndroidViewController._sendCreateMessage (package:flutter/src/services/platform_views.dart:1258:30)
+    flutter: [D4rtApp] [platform stack] <asynchronous suspension>
+    flutter: [D4rtApp] [platform stack] #3      AndroidViewController.create (package:flutter/src/services/platform_views.dart:852:5)
+    flutter: [D4rtApp] [platform stack] <asynchronous suspension>
+    flutter: [D4rtApp] [platform stack] #4      AndroidViewController.setSize (package:flutter/src/services/platform_views.dart:879:7)
+    flutter: [D4rtApp] [platform stack] ... 4 more line(s)
+    flutter: [D4rtApp][clean][platform] clearCount=25 lastClearedFile="retest/rendering/over_scroll_header_stretch_configuration_test.dart" currentTestFile="retest/rendering/render_android_view_test.dart" sinceClearMs=1191 gen=50 :: platform-dispatcher error: PlatformException(unregistered_view_type, A UIKitView widget is trying to create a PlatformView with an unregistered type: < demo/native-map >, If you are the author of the PlatformView, make sure `registerViewFactory` is invoked.
+    flutter: [D4rtApp][clean][build-postpump] clearCount=25 lastClearedFile="retest/rendering/over_scroll_header_stretch_configuration_test.dart" currentTestFile="retest/rendering/render_android_view_test.dart" sinceClearMs=1363 gen=50 :: pumped 200ms on built widget (_InterpretedStatefulWidget), capturedFrameworkErrors=0
+    flutter: [D4rtApp][build-metric] file="retest/rendering/render_android_view_test.dart" widgetType="_InterpretedStatefulWidget" bodyMs=0 parseMs=8 setStateMs=8 interpretStartMs=14 interpretEndMs=393 firstFrameMs=925 pumpEndMs=1126 totalMs=1126
+    flutter: [D4rtApp] Build completed: _InterpretedStatefulWidget
+    flutter: [D4rtApp] GET /clear
+    flutter: [D4rtApp][clean][clear] clearCount=26 lastClearedFile="retest/rendering/render_android_view_test.dart" currentTestFile="retest/rendering/render_android_view_test.dart" sinceClearMs=0 gen=50 :: received /clear (inflightBuild=false, pendingBundle=false)
+    *** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[__NSDictionaryM longLongValue]: unrecognized selector sent to instance 0x160546ae0'
+    *** First throw call stack:
+    (
+    	0   CoreFoundation                      0x000000019d363a30 __exceptionPreprocess + 176
+    	1   libobjc.A.dylib                     0x000000019ce26b90 objc_exception_throw + 88
+    	2   CoreFoundation                      0x000000019d420988 -[NSObject(NSObject) __retain_OA] + 0
+    	3   CoreFoundation                      0x000000019d2d1b6c ___forwarding___ + 1500
+    	4   CoreFoundation                      0x000000019d2d14d0 _CF_forwarding_prep_0 + 96
+    	5   FlutterMacOS                        0x00000001072a538c -[FlutterPlatformViewController handleMethodCall:result:] + 708
+    	6   FlutterMacOS                        0x000000010729467c __41-[FlutterEngine setUpPlatformViewChannel]_block_invoke + 120
+    	7   FlutterMacOS                        0x0000000107300f98 __45-[FlutterMethodChannel setMethodCallHandler:]_block_invoke + 180
+    	8   FlutterMacOS                        0x0000000107293adc -[FlutterEngine engineCallbackOnPlatformMessage:] + 416
+    	9   FlutterMacOS                        0x0000000107c15ab8 _ZNSt4__fl10__function6__funcIZ23FlutterEngineInitializeE3$_3NS_9allocatorIS2_EEFvNS_10unique_ptrIN7flutter15PlatformMessageENS_14default_deleteIS7_EEEEEEclEOSA_ + 128
+    	10  FlutterMacOS                        0x0000000107c29a28 _ZN7flutter20PlatformViewEmbedder21HandlePlatformMessageENSt4__fl10unique_ptrINS_15PlatformMessageENS1_14default_deleteIS3_EEEE + 76
+    	11  FlutterMacOS                        0x0000000107c2a618 _ZNSt4__fl10__function6__funcIN3fml8internal14CopyableLambdaIZN7flutter20PlatformViewEmbedder30EmbedderPlatformMessageHandler21HandlePlatformMessageENS_10unique_ptrINS5_15PlatformMessageENS_14def	12  FlutterMacOS                        0x0000000107c267b0 _ZN7flutter18EmbedderTaskRunner8PostTaskEy + 576
+    	13  FlutterMacOS                        0x0000000107c1a784 _ZN7flutter14EmbedderEngine7RunTaskEPK11FlutterTask + 56
+    	14  FlutterMacOS                        0x0000000107c0cf28 FlutterEngineRunTask + 68
+    	15  FlutterMacOS                        0x00000001072975dc __60-[FlutterEngine postMainThreadTask:targetTimeInNanoseconds:]_block_invoke + 72
+    	16  FlutterMacOS                        0x00000001072fbe48 $sIeyB_Ieg_TR + 16
+    	17  FlutterMacOS                        0x00000001072faea8 $s20InternalFlutterSwift0B7RunLoopC19performExpiredTasks33_D4CDF1FCA38C25E611593B39D16A3F51LLyyF + 916
+    	18  FlutterMacOS                        0x00000001072fafcc $s20InternalFlutterSwift0B7RunLoopCACyc33_D4CDF1FCA38C25E611593B39D16A3F51LlfcySo05CFRunE8TimerRefaSg_SvSgtcfU0_ + 212
+    	19  FlutterMacOS                        0x00000001072fb008 $s20InternalFlutterSwift0B7RunLoopCACyc33_D4CDF1FCA38C25E611593B39D16A3F51LlfcySo05CFRunE8TimerRefaSg_SvSgtcfU0_To + 36
+    	20  CoreFoundation                      0x000000019d30bba0 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 32
+    	21  CoreFoundation                      0x000000019d30b860 __CFRunLoopDoTimer + 980
+    	22  CoreFoundation                      0x000000019d30b39c __CFRunLoopDoTimers + 332
+    	23  CoreFoundation                      0x000000019d2f17a8 __CFRunLoopRun + 1848
+    	24  CoreFoundation                      0x000000019d2f09e8 CFRunLoopRunSpecific + 572
+    	25  HIToolbox                           0x00000001a8d9127c RunCurrentEventLoopInMode + 324
+    	26  HIToolbox                           0x00000001a8d944e8 ReceiveNextEventCommon + 676
+    	27  HIToolbox                           0x00000001a8f1f484 _BlockUntilNextEventMatchingListInModeWithFilter + 76
+    	28  AppKit                              0x00000001a1211a34 _DPSNextEvent + 684
+    	29  AppKit                              0x00000001a1bb0940 -[NSApplication(NSEventRouting) _nextEventMatchingEventMask:untilDate:inMode:dequeue:] + 688
+    	30  AppKit                              0x00000001a1204be4 -[NSApplication run] + 480
+    	31  AppKit                              0x00000001a11db2dc NSApplicationMain + 880
+    	32  tom_d4rt_flutter_ast_app.debug.dyli 0x00000001042e65c4 $sSo21NSApplicationDelegateP6AppKitE4mainyyFZ + 40
+    	33  tom_d4rt_flutter_ast_app.debug.dyli 0x00000001042e658c $s24tom_d4rt_flutter_ast_app11AppDelegateC5$mainyyFZ + 44
+    	34  tom_d4rt_flutter_ast_app.debug.dyli 0x00000001042e6684 __debug_main_executable_dylib_entry_point + 28
+    	35  dyld                                0x000000019ce66b98 start + 6076
+    )
+    libc++abi: terminating due to uncaught exception of type NSException
+    Lost connection to device.
+  
+  Captured app STDERR tail:
+    Failed to foreground app; open returned 1
+    [process] test app exited with code 0
+  
+  test/send_test_runner.dart 1073:9  SendTestRunner.send
+  
+00:52 +26 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/next_focus_intent_test.dart
+[recycle] killing wedged test app (pid=84286)
+[recycle] starting fresh test app
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+[test-app] waiting for /health on port 4247 (15s elapsed, 31 probes)…
+[test-app] waiting for /health on port 4247 (18s elapsed, 37 probes)…
+[recycle] verifying /clear roundtrip
+[recycle] ready
+[METRIC] script=retest/widgets/next_focus_intent_test.dart testFile=flutter_extended_23_test.dart sourceBytes=51326 sourceChars=49706 bundleJsonBytes=472730 clearMs=205 readMs=1 bundleMs=40 httpMs=1397 totalMs=23846 status=success httpStatus=200 outputLines=17 frameworkErrors=0 appBodyMs=14 appParseMs=67 appSetStateMs=67 appInterpretStartMs=75 appInterpretEndMs=1075 appFirstFrameMs=1187 appPumpEndMs=1388
+01:15 +27 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/object_key_test.dart
+[METRIC] script=retest/widgets/object_key_test.dart testFile=flutter_extended_23_test.dart sourceBytes=49180 sourceChars=47530 bundleJsonBytes=473492 clearMs=225 readMs=1 bundleMs=60 httpMs=691 totalMs=978 status=success httpStatus=200 outputLines=26 frameworkErrors=0 appBodyMs=1 appParseMs=17 appSetStateMs=17 appInterpretStartMs=24 appInterpretEndMs=394 appFirstFrameMs=480 appPumpEndMs=682
+01:16 +28 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/raw_dialog_route_test.dart
+[METRIC] script=retest/widgets/raw_dialog_route_test.dart testFile=flutter_extended_23_test.dart sourceBytes=59662 sourceChars=59630 bundleJsonBytes=616864 clearMs=218 readMs=1 bundleMs=23 httpMs=836 totalMs=1079 status=success httpStatus=200 outputLines=21 frameworkErrors=0 appBodyMs=2 appParseMs=14 appSetStateMs=14 appInterpretStartMs=16 appInterpretEndMs=356 appFirstFrameMs=622 appPumpEndMs=826
+01:17 +29 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/raw_keyboard_listener_test.dart
+[METRIC] script=retest/widgets/raw_keyboard_listener_test.dart testFile=flutter_extended_23_test.dart sourceBytes=74419 sourceChars=74407 bundleJsonBytes=809251 clearMs=227 readMs=1 bundleMs=27 httpMs=732 totalMs=989 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=22 appSetStateMs=22 appInterpretStartMs=23 appInterpretEndMs=310 appFirstFrameMs=526 appPumpEndMs=726
+01:18 +30 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/raw_menu_overlay_info_test.dart
+[METRIC] script=retest/widgets/raw_menu_overlay_info_test.dart testFile=flutter_extended_23_test.dart sourceBytes=31347 sourceChars=30753 bundleJsonBytes=346875 clearMs=221 readMs=3 bundleMs=10 httpMs=551 totalMs=786 status=success httpStatus=200 outputLines=23 frameworkErrors=0 appBodyMs=1 appParseMs=7 appSetStateMs=7 appInterpretStartMs=10 appInterpretEndMs=299 appFirstFrameMs=345 appPumpEndMs=547
+01:19 +31 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/raw_radio_test.dart
+[METRIC] script=retest/widgets/raw_radio_test.dart testFile=flutter_extended_23_test.dart sourceBytes=46987 sourceChars=46879 bundleJsonBytes=489723 clearMs=202 readMs=0 bundleMs=30 httpMs=830 totalMs=1065 status=success httpStatus=200 outputLines=11 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=11 appInterpretEndMs=285 appFirstFrameMs=624 appPumpEndMs=826
+01:20 +32 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/redo_text_intent_test.dart
+[METRIC] script=retest/widgets/redo_text_intent_test.dart testFile=flutter_extended_23_test.dart sourceBytes=57893 sourceChars=56759 bundleJsonBytes=707610 clearMs=224 readMs=2 bundleMs=41 httpMs=644 totalMs=913 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=24 appInterpretEndMs=309 appFirstFrameMs=434 appPumpEndMs=634
+01:21 +33 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_controller_delegate_test.dart
+[METRIC] script=retest/widgets/regular_window_controller_delegate_test.dart testFile=flutter_extended_23_test.dart sourceBytes=69108 sourceChars=67980 bundleJsonBytes=766185 clearMs=203 readMs=2 bundleMs=34 httpMs=580 totalMs=821 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=21 appSetStateMs=21 appInterpretStartMs=22 appInterpretEndMs=304 appFirstFrameMs=371 appPumpEndMs=572
+01:22 +34 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_controller_linux_test.dart
+[METRIC] script=retest/widgets/regular_window_controller_linux_test.dart testFile=flutter_extended_23_test.dart sourceBytes=64203 sourceChars=63172 bundleJsonBytes=751214 clearMs=212 readMs=1 bundleMs=32 httpMs=595 totalMs=842 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=14 appSetStateMs=14 appInterpretStartMs=21 appInterpretEndMs=306 appFirstFrameMs=387 appPumpEndMs=588
+01:23 +35 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_controller_mac_o_s_test.dart
+[METRIC] script=retest/widgets/regular_window_controller_mac_o_s_test.dart testFile=flutter_extended_23_test.dart sourceBytes=73966 sourceChars=72928 bundleJsonBytes=831680 clearMs=229 readMs=2 bundleMs=31 httpMs=630 totalMs=894 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=21 appInterpretEndMs=312 appFirstFrameMs=421 appPumpEndMs=622
+01:24 +36 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_controller_test.dart
+[METRIC] script=retest/widgets/regular_window_controller_test.dart testFile=flutter_extended_23_test.dart sourceBytes=98582 sourceChars=96080 bundleJsonBytes=1180143 clearMs=226 readMs=3 bundleMs=79 httpMs=584 totalMs=894 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=3 appParseMs=22 appSetStateMs=22 appInterpretStartMs=26 appInterpretEndMs=307 appFirstFrameMs=375 appPumpEndMs=577
+01:25 +37 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_controller_win32_test.dart
+[METRIC] script=retest/widgets/regular_window_controller_win32_test.dart testFile=flutter_extended_23_test.dart sourceBytes=57827 sourceChars=56775 bundleJsonBytes=735785 clearMs=203 readMs=2 bundleMs=25 httpMs=560 totalMs=792 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=2 appParseMs=15 appSetStateMs=15 appInterpretStartMs=16 appInterpretEndMs=280 appFirstFrameMs=354 appPumpEndMs=554
+01:26 +38 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_test.dart
+[METRIC] script=retest/widgets/regular_window_test.dart testFile=flutter_extended_23_test.dart sourceBytes=54650 sourceChars=53604 bundleJsonBytes=699485 clearMs=204 readMs=1 bundleMs=17 httpMs=565 totalMs=788 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=1 appParseMs=19 appSetStateMs=19 appInterpretStartMs=22 appInterpretEndMs=292 appFirstFrameMs=354 appPumpEndMs=555
+01:26 +39 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/render_abstract_layout_builder_mixin_test.dart
+[METRIC] script=retest/widgets/render_abstract_layout_builder_mixin_test.dart testFile=flutter_extended_23_test.dart sourceBytes=43817 sourceChars=42352 bundleJsonBytes=487279 clearMs=203 readMs=1 bundleMs=14 httpMs=523 totalMs=743 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=14 appInterpretEndMs=266 appFirstFrameMs=317 appPumpEndMs=519
+01:27 +40 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/render_nested_scroll_view_viewport_test.dart
+[METRIC] script=retest/widgets/render_nested_scroll_view_viewport_test.dart testFile=flutter_extended_23_test.dart sourceBytes=80258 sourceChars=80216 bundleJsonBytes=927352 clearMs=219 readMs=1 bundleMs=24 httpMs=684 totalMs=930 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=22 appSetStateMs=22 appInterpretStartMs=30 appInterpretEndMs=390 appFirstFrameMs=475 appPumpEndMs=677
+01:28 +41 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/render_tap_region_surface_test.dart
+[METRIC] script=retest/widgets/render_tap_region_surface_test.dart testFile=flutter_extended_23_test.dart sourceBytes=40017 sourceChars=38539 bundleJsonBytes=456047 clearMs=220 readMs=1 bundleMs=11 httpMs=519 totalMs=752 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=8 appSetStateMs=8 appInterpretStartMs=11 appInterpretEndMs=264 appFirstFrameMs=313 appPumpEndMs=515
+01:29 +42 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/replace_text_intent_test.dart
+[METRIC] script=retest/widgets/replace_text_intent_test.dart testFile=flutter_extended_23_test.dart sourceBytes=59816 sourceChars=57840 bundleJsonBytes=598663 clearMs=223 readMs=2 bundleMs=24 httpMs=559 totalMs=810 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=1 appParseMs=17 appSetStateMs=17 appInterpretStartMs=19 appInterpretEndMs=290 appFirstFrameMs=353 appPumpEndMs=553
+01:30 +43 ~1 -1: Section 1 - Tests with workarounds reverted retest: widgets/request_focus_action_test.dart
+[METRIC] script=retest/widgets/request_focus_action_test.dart testFile=flutter_extended_23_test.dart sourceBytes=51653 sourceChars=49789 bundleJsonBytes=514653 clearMs=227 readMs=2 bundleMs=17 httpMs=542 totalMs=789 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=16 appInterpretEndMs=286 appFirstFrameMs=335 appPumpEndMs=536
+01:30 +44 ~1 -1: (tearDownAll)
+01:31 +44 ~1 -1: Some tests failed.
+
+Failing tests:
+  /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_extended_23_test.dart: Section 1 - Tests with workarounds reverted retest: widgets/nested_scroll_view_state_test.dart

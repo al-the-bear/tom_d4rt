@@ -5,5 +5,5 @@ dependency_overrides:
       ref: fork-fix
   tom_d4rt:
     path: ../tom_d4rt
-  tom_d4rt_generator:
-    path: ../tom_d4rt_generator
+  # tom_d4rt_generator override removed for analyzer-10 migration (generator
+  # stays on analyzer ^8.4.1; deferred to the cli_tools-quest migration).

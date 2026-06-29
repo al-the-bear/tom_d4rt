@@ -1,3 +1,59 @@
+## 0.1.11
+
+### Added — static method dispatch on bridged enums (GitHub issue #2)
+
+- `BridgedEnumDefinition` and `BridgedEnum` gained a `staticMethods` map
+  (`Map<String, BridgedStaticMethodAdapter>`), wired through
+  `buildBridgedEnum()`, plus `BridgedEnum.findStaticMethodAdapter(name)`.
+- The analyzer-free `InterpreterVisitor` now dispatches a static method call
+  where the target is a bridged enum **type** (e.g.
+  `PageFormat.fromString('A4')`). Previously only instance methods on enum
+  *values* were reachable.
+- Backward compatible: `staticMethods` defaults to an empty map. Twin of
+  `tom_d4rt` 1.11.0; the analyzer-free interpreter shares the fix.
+
+## 0.1.10
+
+### Fixed — native→bridge resolution: precise match must beat fuzzy prefix across scopes
+
+- `Environment.toBridgedClass` now walks the **entire** enclosing scope chain
+  doing only **precise** matching (exact `Type`, `_FooImpl→Foo`
+  canonicalization, generic-base name / `nativeNames`, suffix, name-exact,
+  longest-`nativeNames`-prefix) before a **second** full-chain walk applies the
+  G-DCLI-05 fuzzy `startsWith` fallback. Previously the fuzzy fallback ran
+  *within each frame* before advancing, so under the lazy warm-parent split a
+  `MappedListIterable` from `List.map(...).toList()` resolved to the nearer
+  `Map` bridge (`"MappedListIterable".startsWith("Map")`) instead of the
+  precise `Iterable` `nativeNames` match in the enclosing warm-parent frame,
+  failing with *"Bridged class 'Map' has no instance method named 'toList'"*.
+- Twin of `tom_d4rt` 1.10.1; the analyzer-free interpreter shares the fix.
+
+## 0.1.9
+
+### Added — import-optimization API (additive, backward compatible)
+
+- `D4rtRunner.providePackage(String)` — process-global package pool gate:
+  returns `false` the first time a package is seen (caller registers its
+  bridges) and `true` once pooled (caller skips registration and reuses the
+  pooled definitions). The granted set is the instance's security whitelist,
+  exposed read-only via `allowedPackages`.
+- `D4rtRunner.registerExtensions(String package, void Function() callback)` /
+  `finalizeBridges()` — queued bridge-package extension hooks that fire
+  **exactly once per package per process** (at pool population), replacing the
+  old once-per-instance firing. `warmup()` finalizes and builds the warm
+  parent for the instance's allowed-set.
+- Warm-parent reuse: each `executeBundle*` runs in a fresh child `Environment`
+  chained off a shared, immutable warm parent built at most once per
+  allowed-set signature (migrated instances) or per instance (legacy) — script
+  declarations never leak across executes or instances.
+- `executeBundleAs<T>` / `executeBundleAsAsync<T>` route the result through
+  `D4.unwrapAs<T>` so consumers get a native `T` rather than a
+  `BridgedInstance`.
+- Test/diagnostic introspection: `debugPooledPackages`,
+  `debugPooledClassCount`, `debugWarmParentCacheSize`, `debugResetPool`.
+
+See `doc/extension_registration.md` for the canonical registration pattern.
+
 ## 0.1.8
 
 ### Fixes

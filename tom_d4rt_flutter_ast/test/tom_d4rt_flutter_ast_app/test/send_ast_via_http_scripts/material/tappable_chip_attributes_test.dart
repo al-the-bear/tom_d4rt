@@ -1480,7 +1480,9 @@ dynamic build(BuildContext context) {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: chipActionsEnabled,
                           title: const Text('Chip actions enabled'),
@@ -1493,9 +1495,12 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Primary callbacks enabled.' : 'Primary callbacks disabled.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: enableTooltips,
                           title: const Text('Enable tooltips'),
@@ -1508,13 +1513,16 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Tooltips enabled.' : 'Tooltips disabled.');
                           },
                         ),
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: denseMode,
                           title: const Text('Dense mode'),
@@ -1527,9 +1535,12 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Dense mode enabled.' : 'Dense mode disabled.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: highContrast,
                           title: const Text('High contrast'),
@@ -1542,13 +1553,16 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'High contrast enabled.' : 'High contrast disabled.');
                           },
                         ),
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showDisabledSamples,
                           title: const Text('Show disabled samples'),
@@ -1560,9 +1574,12 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Disabled samples shown.' : 'Disabled samples hidden.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showLongLabels,
                           title: const Text('Long labels'),
@@ -1575,13 +1592,16 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Long labels enabled.' : 'Long labels disabled.');
                           },
                         ),
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showThirdBoard,
                           title: const Text('Show third board'),
@@ -1593,9 +1613,12 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Third board shown.' : 'Third board hidden.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showHeatmap,
                           title: const Text('Show tap heatmap'),
@@ -1606,6 +1629,7 @@ dynamic build(BuildContext context) {
                             });
                             addLog(value ? 'Tap heatmap shown.' : 'Tap heatmap hidden.');
                           },
+                        ),
                         ),
                       ),
                     ],

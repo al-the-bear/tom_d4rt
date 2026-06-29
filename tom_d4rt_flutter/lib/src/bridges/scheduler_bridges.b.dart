@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 5 files
-// Generated: 2026-06-17T19:03:33.507794
+// Generated: 2026-06-23T21:19:02.824227
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'dart:async';
@@ -26,16 +26,42 @@ import 'package:tom_d4rt_flutter/src/d4rt_user_bridges/text_user_bridge.dart' as
 /// Bridge class for flutter_scheduler module.
 class FlutterSchedulerBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createPriorityBridge(),
       _createPerformanceModeRequestHandleBridge(),
       _createSchedulerBindingBridge(),
-      _createTickerProviderBridge(),
       _createTickerBridge(),
-      _createTickerFutureBridge(),
-      _createTickerCanceledBridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'Priority': _createPriorityBridge,
+      'PerformanceModeRequestHandle': _createPerformanceModeRequestHandleBridge,
+      'SchedulerBinding': _createSchedulerBindingBridge,
+      'Ticker': _createTickerBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'Priority': $flutter_6.Priority,
+      'PerformanceModeRequestHandle': $flutter_4.PerformanceModeRequestHandle,
+      'SchedulerBinding': $flutter_4.SchedulerBinding,
+      'Ticker': $flutter_8.Ticker,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -47,10 +73,7 @@ class FlutterSchedulerBridge {
       'Priority': 'package:flutter/src/scheduler/priority.dart',
       'PerformanceModeRequestHandle': 'package:flutter/src/scheduler/binding.dart',
       'SchedulerBinding': 'package:flutter/src/scheduler/binding.dart',
-      'TickerProvider': 'package:flutter/src/scheduler/ticker.dart',
       'Ticker': 'package:flutter/src/scheduler/ticker.dart',
-      'TickerFuture': 'package:flutter/src/scheduler/ticker.dart',
-      'TickerCanceled': 'package:flutter/src/scheduler/ticker.dart',
     };
   }
 
@@ -64,8 +87,6 @@ class FlutterSchedulerBridge {
   static Map<String, List<String>> classSupertypes() {
     return {
       'SchedulerBinding': ['BindingBase'],
-      'TickerFuture': ['Future'],
-      'TickerCanceled': ['Exception'],
     };
   }
 
@@ -159,11 +180,20 @@ class FlutterSchedulerBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // MCI#1 / A1: Register the flattened native supertype table so
@@ -763,35 +793,6 @@ BridgedClass _createSchedulerBindingBridge() {
 }
 
 // =============================================================================
-// TickerProvider Bridge
-// =============================================================================
-
-BridgedClass _createTickerProviderBridge() {
-  return BridgedClass(
-    nativeType: $flutter_8.TickerProvider,
-    name: 'TickerProvider',
-    isAssignable: (v) => v is $flutter_8.TickerProvider,
-    isAbstract: true,
-    constructors: {
-    },
-    methods: {
-      'createTicker': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerProvider>(target, 'TickerProvider');
-        D4.requireMinArgs(positional, 1, 'createTicker');
-        if (positional.isEmpty) {
-          throw ArgumentError('createTicker: Missing required argument "onTick" at position 0');
-        }
-        final onTickRaw = positional[0];
-        return t.createTicker((Duration p0) { D4.callInterpreterCallback(visitor!, onTickRaw, [p0]); });
-      },
-    },
-    methodSignatures: {
-      'createTicker': 'Ticker createTicker(TickerCallback onTick)',
-    },
-  );
-}
-
-// =============================================================================
 // Ticker Bridge
 // =============================================================================
 
@@ -897,132 +898,6 @@ BridgedClass _createTickerBridge() {
     setterSignatures: {
       'forceFrames': 'set forceFrames(dynamic value)',
       'muted': 'set muted(bool value)',
-    },
-  );
-}
-
-// =============================================================================
-// TickerFuture Bridge
-// =============================================================================
-
-BridgedClass _createTickerFutureBridge() {
-  return BridgedClass(
-    nativeType: $flutter_8.TickerFuture,
-    name: 'TickerFuture',
-    isAssignable: (v) => v is $flutter_8.TickerFuture,
-    hierarchyDepth: 1,
-    constructors: {
-      'complete': (visitor, positional, named) {
-        return $flutter_8.TickerFuture.complete();
-      },
-    },
-    getters: {
-      'orCancel': (visitor, target) => D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture').orCancel,
-    },
-    methods: {
-      'whenCompleteOrCancel': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture');
-        D4.requireMinArgs(positional, 1, 'whenCompleteOrCancel');
-        if (positional.isEmpty) {
-          throw ArgumentError('whenCompleteOrCancel: Missing required argument "callback" at position 0');
-        }
-        final callbackRaw = positional[0];
-        t.whenCompleteOrCancel(() { D4.callInterpreterCallback(visitor!, callbackRaw, []); });
-        return null;
-      },
-      'asStream': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture');
-        return t.asStream();
-      },
-      'catchError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture');
-        D4.requireMinArgs(positional, 1, 'catchError');
-        final onError = D4.getRequiredArg<Function>(positional, 0, 'onError', 'catchError');
-        final testRaw = named['test'];
-        return t.catchError(onError, test: testRaw == null ? null : ((Object p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }) as bool Function(Object));
-      },
-      'then': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture');
-        D4.requireMinArgs(positional, 1, 'then');
-        if (positional.isEmpty) {
-          throw ArgumentError('then: Missing required argument "onValue" at position 0');
-        }
-        final onValueRaw = positional[0];
-        final onError = D4.getOptionalNamedArg<Function?>(named, 'onError');
-        return t.then<Object?>(((void p0) { return D4.castCallbackResult<FutureOr<Object?>>(D4.callInterpreterCallback(visitor!, onValueRaw, [null])); }) as FutureOr<Object?> Function(void), onError: onError);
-      },
-      'timeout': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture');
-        D4.requireMinArgs(positional, 1, 'timeout');
-        final timeLimit = D4.getRequiredArg<Duration>(positional, 0, 'timeLimit', 'timeout');
-        final onTimeoutRaw = named['onTimeout'];
-        return t.timeout(timeLimit, onTimeout: onTimeoutRaw == null ? null : (() { return D4.extractBridgedArg<FutureOr<void>>(D4.callInterpreterCallback(visitor!, onTimeoutRaw, []), 'callback', visitor) as FutureOr<void>; }) as FutureOr<void> Function());
-      },
-      'whenComplete': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture');
-        D4.requireMinArgs(positional, 1, 'whenComplete');
-        if (positional.isEmpty) {
-          throw ArgumentError('whenComplete: Missing required argument "action" at position 0');
-        }
-        final actionRaw = positional[0];
-        return t.whenComplete(() { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, actionRaw, [])); });
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerFuture>(target, 'TickerFuture');
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      'complete': 'TickerFuture.complete()',
-    },
-    methodSignatures: {
-      'whenCompleteOrCancel': 'void whenCompleteOrCancel(VoidCallback callback)',
-      'asStream': 'Stream<void> asStream()',
-      'catchError': 'Future<void> catchError(Function onError, {bool Function(Object)? test})',
-      'then': 'Future<R> then(FutureOr<R> Function(void value) onValue, {Function? onError})',
-      'timeout': 'Future<void> timeout(Duration timeLimit, {FutureOr<void> Function()? onTimeout})',
-      'whenComplete': 'Future<void> whenComplete(dynamic Function() action)',
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'orCancel': 'Future<void> get orCancel',
-    },
-  );
-}
-
-// =============================================================================
-// TickerCanceled Bridge
-// =============================================================================
-
-BridgedClass _createTickerCanceledBridge() {
-  return BridgedClass(
-    nativeType: $flutter_8.TickerCanceled,
-    name: 'TickerCanceled',
-    isAssignable: (v) => v is $flutter_8.TickerCanceled,
-    hierarchyDepth: 1,
-    constructors: {
-      '': (visitor, positional, named) {
-        final ticker = D4.getOptionalArg<$flutter_8.Ticker?>(positional, 0, 'ticker');
-        return $flutter_8.TickerCanceled(ticker);
-      },
-    },
-    getters: {
-      'ticker': (visitor, target) => D4.validateTarget<$flutter_8.TickerCanceled>(target, 'TickerCanceled').ticker,
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_8.TickerCanceled>(target, 'TickerCanceled');
-        return t.toString();
-      },
-    },
-    constructorSignatures: {
-      '': 'const TickerCanceled([Ticker? ticker])',
-    },
-    methodSignatures: {
-      'toString': 'String toString()',
-    },
-    getterSignatures: {
-      'ticker': 'Ticker? get ticker',
     },
   );
 }

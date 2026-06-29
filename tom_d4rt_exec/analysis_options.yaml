@@ -28,6 +28,8 @@ analyzer:
     deprecated_member_use: ignore
   exclude:
     - example/**
+    # analyzer-10 migration: deferred to cli_tools-quest generator migration.
+    - test/generator_tests/**
 
 # Uncomment the following section to specify additional rules.
 

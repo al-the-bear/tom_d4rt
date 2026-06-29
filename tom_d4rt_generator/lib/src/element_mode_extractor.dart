@@ -543,7 +543,9 @@ class ElementModeExtractor {
     final getterNames = <String>[];
     final methodDetails = <EnumMethodDetail>[];
     final staticGetterNames = <String>[];
+    final staticMethodDetails = <EnumMethodDetail>[];
     final methodNames = <String>[];
+    final staticMethodNames = <String>[];
 
     for (final field in enumEl.fields) {
       if (field.isSynthetic) continue;
@@ -588,9 +590,17 @@ class ElementModeExtractor {
     for (final method in enumEl.methods) {
       if (method.isSynthetic) continue;
       if (method.isPrivate) continue;
-      if (method.isStatic) continue;
       final methodName = method.name;
       if (methodName == null) continue;
+      if (method.isStatic) {
+        // Issue #2: emit static factory/helper methods (e.g.
+        // `PageFormat.fromString`) so `EnumType.method(args)` resolves.
+        if (builtInNames.contains(methodName)) continue;
+        if (staticMethodNames.contains(methodName)) continue;
+        staticMethodNames.add(methodName);
+        staticMethodDetails.add(_collectEnumMethodDetail(method));
+        continue;
+      }
       methodNames.add(methodName);
       methodDetails.add(_collectEnumMethodDetail(method));
     }
@@ -635,6 +645,7 @@ class ElementModeExtractor {
         getterNames: getterNames,
         methodDetails: methodDetails,
         staticGetterNames: staticGetterNames,
+        staticMethodDetails: staticMethodDetails,
       ),
     );
   }

@@ -240,6 +240,23 @@ class SendTestRunner {
     return v == '1' || v == 'true' || v == 'yes';
   }
 
+  /// True when env var `D4RT_USE_RUNNING_APP` is set. In this mode [setUp]
+  /// does NOT reap/start/own a test app (nor regenerate bridges) — it
+  /// connects to an app that is already listening on [port] (started
+  /// out-of-band, e.g. by `test/start_test_profiler.sh`). [tearDown] then
+  /// leaves that app alone.
+  ///
+  /// This is what lets `test/run_test_profiler.sh` run every
+  /// `flutter_base_*` / `flutter_extended_*` file in a SINGLE serial
+  /// `flutter test` invocation against ONE long-lived app — so a human can
+  /// attach DevTools once (before any test runs) and keep a single profiling
+  /// session for the whole corpus, instead of the app being torn down and
+  /// relaunched per file.
+  static bool get _useRunningApp {
+    final v = Platform.environment['D4RT_USE_RUNNING_APP']?.toLowerCase();
+    return v == '1' || v == 'true' || v == 'yes';
+  }
+
   static void _scanForProfilerUris(String line) {
     if (_vmServiceUri == null) {
       final m = _vmServiceUriPattern.firstMatch(line);
@@ -320,11 +337,17 @@ class SendTestRunner {
     _devToolsUri = null;
     _currentSuite = suite ?? _detectSuiteName();
 
-    if (regenerateBridges) {
+    // In "use running app" mode the caller manages the app lifecycle
+    // out-of-band: it already built+launched the app (with whatever bridges
+    // were current then), so neither regenerate bridges nor start/own an app
+    // here. [tearDown] also leaves it alone (`_startedByRunner` stays false).
+    final useRunningApp = _useRunningApp;
+
+    if (regenerateBridges && !useRunningApp) {
       await _ensureBridgesRegenerated();
     }
 
-    if (startApp) {
+    if (startApp && !useRunningApp) {
       // Always reap any prior test_app first — covers orphans from a
       // SIGKILL'd parent or a wedged-but-still-bound prior invocation.
       // `_killExistingProcess` is best-effort and is safe to run when
@@ -1185,6 +1208,10 @@ class SendTestRunner {
     // Cluster J TODO #18 — test-app per-stage timings.
     final appMetric =
         (response['_buildMetric'] as Map?)?.cast<String, dynamic>();
+    // Init-path profiler snapshot (compile-time gated in the interpreter).
+    // `null` unless profiling is compiled in.
+    final initProfile =
+        (response['_initProfile'] as Map?)?.cast<String, dynamic>();
 
     _printSendMetrics(
       scriptPath: scriptPath,
@@ -1201,6 +1228,7 @@ class SendTestRunner {
       outputLines: output.length,
       frameworkErrorCount: frameworkErrors.length,
       appMetric: appMetric,
+      initProfile: initProfile,
     );
 
     // Log framework errors (red error screens) prominently so they are
@@ -1543,6 +1571,10 @@ class SendTestRunner {
     // millisecond offsets from the test app's Stopwatch start at the
     // top of `_handleBuild`.
     Map<String, dynamic>? appMetric,
+    // Init-path profiler snapshot (compile-time gated in the interpreter).
+    // Printed as a separate `[PROFILE]` line so the profiler scripts can
+    // grep it out without disturbing the existing `[METRIC]` shape.
+    Map<String, dynamic>? initProfile,
   }) {
     final appStages = _formatAppMetric(appMetric);
     print(
@@ -1558,6 +1590,37 @@ class SendTestRunner {
       'outputLines=$outputLines frameworkErrors=$frameworkErrorCount'
       '$appStages',
     );
+    final profileSuffix = _formatInitProfile(initProfile);
+    if (profileSuffix.isNotEmpty) {
+      print('[PROFILE] script=$scriptPath '
+          'testFile=${_currentSuite ?? '<unknown>'}$profileSuffix');
+    }
+  }
+
+  /// Format the optional `_initProfile` snapshot (`{name: {us, ms, n}}`) as a
+  /// suffix for a `[PROFILE]` line. Returns an empty string when profiling
+  /// wasn't compiled in (the field is `null`/empty), so non-profiling runs are
+  /// unaffected. Spans are emitted longest-first.
+  static String _formatInitProfile(Map<String, dynamic>? m) {
+    if (m == null || m.isEmpty) return '';
+    final entries = m.entries.toList()
+      ..sort((a, b) {
+        final av = (a.value as Map?)?['us'];
+        final bv = (b.value as Map?)?['us'];
+        final ai = av is num ? av : 0;
+        final bi = bv is num ? bv : 0;
+        return bi.compareTo(ai);
+      });
+    final buf = StringBuffer();
+    for (final e in entries) {
+      final v = (e.value as Map?)?.cast<String, dynamic>();
+      final ms = v?['ms'];
+      final n = v?['n'];
+      final msStr =
+          ms is num ? ms.toStringAsFixed(3) : (ms?.toString() ?? '-');
+      buf.write(' ${e.key}=${msStr}ms(${n ?? '-'}x)');
+    }
+    return buf.toString();
   }
 
   /// Format the optional `_buildMetric` map (see TODO #18) as a suffix

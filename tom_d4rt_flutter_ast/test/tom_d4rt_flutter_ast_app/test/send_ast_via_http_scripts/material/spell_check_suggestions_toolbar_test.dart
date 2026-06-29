@@ -1467,7 +1467,9 @@ dynamic build(BuildContext context) {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: toolbarVisible,
                           title: const Text('Toolbar visible'),
@@ -1480,9 +1482,12 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Toolbar shown.' : 'Toolbar hidden.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: denseToolbar,
                           title: const Text('Dense toolbar mode'),
@@ -1498,13 +1503,16 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Dense toolbar enabled.' : 'Dense toolbar disabled.');
                           },
                         ),
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: includeUtilityActions,
                           title: const Text('Include utility action'),
@@ -1517,9 +1525,12 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Utility action enabled.' : 'Utility action disabled.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: includeSeverityTag,
                           title: const Text('Severity tag overlay'),
@@ -1531,13 +1542,16 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Severity tag shown.' : 'Severity tag hidden.');
                           },
                         ),
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showGrid,
                           title: const Text('Grid overlay'),
@@ -1549,9 +1563,12 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Grid overlay enabled.' : 'Grid overlay disabled.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showSafeArea,
                           title: const Text('Safe area guide'),
@@ -1563,13 +1580,16 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Safe area guide enabled.' : 'Safe area guide disabled.');
                           },
                         ),
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showKeyboard,
                           title: const Text('Keyboard inset active'),
@@ -1583,9 +1603,12 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Keyboard inset activated.' : 'Keyboard inset deactivated.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: rtl,
                           title: const Text('RTL mode'),
@@ -1598,13 +1621,16 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'RTL mode enabled.' : 'RTL mode disabled.');
                           },
                         ),
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showHeatmap,
                           title: const Text('Show heatmap panel'),
@@ -1616,9 +1642,12 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Heatmap panel shown.' : 'Heatmap panel hidden.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showThirdScene,
                           title: const Text('Show third scene'),
@@ -1629,6 +1658,7 @@ dynamic build(BuildContext context) {
                             });
                             addLog(value ? 'Third scene shown.' : 'Third scene hidden.');
                           },
+                        ),
                         ),
                       ),
                     ],

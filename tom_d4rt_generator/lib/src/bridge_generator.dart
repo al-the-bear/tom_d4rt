@@ -494,6 +494,11 @@ class EnumInfo {
   /// E.g. `WidgetState.any` which is a `static const WidgetStatesConstraint`.
   final List<String> staticGetterNames;
 
+  /// Issue #2: Static method details (static factory/helper methods).
+  /// E.g. `static PageFormat fromString(String name)`, invoked from interpreted
+  /// code as `PageFormat.fromString(args)`.
+  final List<EnumMethodDetail> staticMethodDetails;
+
   const EnumInfo({
     required this.name,
     required this.values,
@@ -502,6 +507,7 @@ class EnumInfo {
     this.getterNames = const [],
     this.methodDetails = const [],
     this.staticGetterNames = const [],
+    this.staticMethodDetails = const [],
   });
 }
 
@@ -1486,7 +1492,7 @@ class BridgeGenerator {
         sdkSummaryPath: sdkSummaryPath,
         librarySummaryPaths:
             hasSummaries ? (librarySummaryPaths ?? const []) : const [],
-        packagesFile: packageConfigFile,
+        packageConfigFile: packageConfigFile,
       );
     }
 
@@ -6003,7 +6009,7 @@ class BridgeGenerator {
     // Also include external classes from other packages for cross-package inheritance
     final lookupClasses = allClasses ?? classes;
     _classLookup = {
-      if (externalClassLookup != null) ...externalClassLookup,
+      ...?externalClassLookup,
       for (final cls in lookupClasses) cls.name: cls,
     };
 
@@ -6041,7 +6047,7 @@ class BridgeGenerator {
 
     // Suppress common linter warnings in generated code
     buffer.writeln(
-      '// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import',
+      '// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import',
     );
     buffer.writeln();
 
@@ -6358,12 +6364,63 @@ class BridgeGenerator {
 
     // bridgeClasses method
     buffer.writeln('  /// Returns all bridge class definitions.');
+    buffer.writeln('  ///');
+    buffer.writeln(
+      '  /// Eager — building every class. Prefer [bridgeClassThunks] +',
+    );
+    buffer.writeln(
+      '  /// [bridgeClassTypes] for lazy registration (Step #17); this remains',
+    );
+    buffer.writeln('  /// for diagnostics and callers that need the full list.');
     buffer.writeln('  static List<BridgedClass> bridgeClasses() {');
     buffer.writeln('    return [');
     for (final cls in classes) {
       buffer.writeln('      _create${cls.name}Bridge(),');
     }
     buffer.writeln('    ];');
+    buffer.writeln('  }');
+    buffer.writeln();
+
+    // Step #17 — bridgeClassThunks: name → deferred factory thunk. Each thunk
+    // builds one class's BridgedClass (member maps + adapter closures) on
+    // demand, so a script touching N of the M classes materializes ≈N objects
+    // rather than M.
+    buffer.writeln('  /// Returns deferred factory thunks keyed by class name.');
+    buffer.writeln('  ///');
+    buffer.writeln(
+      '  /// Each thunk builds one class\'s [BridgedClass] on demand. Plugs into',
+    );
+    buffer.writeln(
+      '  /// the interpreter\'s lazy registry via [registerBridges] (Step #17).',
+    );
+    buffer.writeln(
+      '  static Map<String, BridgedClass Function()> bridgeClassThunks() {',
+    );
+    buffer.writeln('    return {');
+    for (final cls in classes) {
+      buffer.writeln("      '${cls.name}': _create${cls.name}Bridge,");
+    }
+    buffer.writeln('    };');
+    buffer.writeln('  }');
+    buffer.writeln();
+
+    // Step #17 — bridgeClassTypes: name → native Type, parallel to
+    // [bridgeClassThunks]. Lets the registry index a class by its native type
+    // without building the BridgedClass.
+    buffer.writeln(
+      '  /// Returns native [Type]s keyed by class name, parallel to',
+    );
+    buffer.writeln(
+      '  /// [bridgeClassThunks] (Step #17). Used to register the native-type',
+    );
+    buffer.writeln('  /// lookup thunk without building the BridgedClass.');
+    buffer.writeln('  static Map<String, Type> bridgeClassTypes() {');
+    buffer.writeln('    return {');
+    for (final cls in classes) {
+      final prefixedName = _getPrefixedClassName(cls.name, cls.sourceFile);
+      buffer.writeln("      '${cls.name}': $prefixedName,");
+    }
+    buffer.writeln('    };');
     buffer.writeln('  }');
     buffer.writeln();
 
@@ -6538,6 +6595,35 @@ class BridgeGenerator {
           buffer.writeln(
             "          '$getter': () => $prefixedEnumName.$getter,",
           );
+        }
+        buffer.writeln('        },');
+      }
+
+      // Issue #2: Emit static method adapters (e.g. `PageFormat.fromString`)
+      // so `EnumType.staticMethod(args)` resolves in the interpreter.
+      // RC-7: Use parameter-aware coercion for static methods with collection
+      // params, mirroring the instance-method emission above.
+      if (enumInfo.staticMethodDetails.isNotEmpty) {
+        buffer.writeln('        staticMethods: {');
+        for (final methodDetail in enumInfo.staticMethodDetails) {
+          final method = methodDetail.name;
+          buffer.writeln(
+            "          '$method': (visitor, positional, named, typeArgs) {",
+          );
+          if (methodDetail.hasCollectionParams) {
+            _emitEnumMethodWithCoercion(
+              buffer,
+              method,
+              methodDetail,
+              enumInfo.sourceFile,
+              receiver: prefixedEnumName,
+            );
+          } else {
+            buffer.writeln(
+              "            return Function.apply($prefixedEnumName.$method, positional, named.map((k, v) => MapEntry(Symbol(k), v)));",
+            );
+          }
+          buffer.writeln('          },');
         }
         buffer.writeln('        },');
       }
@@ -6780,14 +6866,25 @@ class BridgeGenerator {
       '  static void registerBridges(D4rt interpreter, String importPath) {',
     );
     buffer.writeln(
-      '    // Register bridged classes with source URIs for deduplication',
+      '    // Step #17 — register deferred factory thunks (not pre-built',
     );
-    buffer.writeln('    final classes = bridgeClasses();');
-    buffer.writeln('    final classSources = classSourceUris();');
-    buffer.writeln('    for (final bridge in classes) {');
     buffer.writeln(
-      '      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);',
+      '    // BridgedClass objects): a script touching N of the M classes',
     );
+    buffer.writeln(
+      '    // materializes ≈N (each thunk builds its class on first resolve).',
+    );
+    buffer.writeln('    final classThunks = bridgeClassThunks();');
+    buffer.writeln('    final classTypes = bridgeClassTypes();');
+    buffer.writeln('    final classSources = classSourceUris();');
+    buffer.writeln('    for (final entry in classThunks.entries) {');
+    buffer.writeln('      interpreter.registerBridgedClassLazy(');
+    buffer.writeln('        entry.key,');
+    buffer.writeln('        classTypes[entry.key]!,');
+    buffer.writeln('        entry.value,');
+    buffer.writeln('        importPath,');
+    buffer.writeln('        sourceUri: classSources[entry.key],');
+    buffer.writeln('      );');
     buffer.writeln('    }');
     buffer.writeln();
     buffer.writeln(
@@ -13590,8 +13687,9 @@ class BridgeGenerator {
     StringBuffer buffer,
     String methodName,
     EnumMethodDetail methodDetail,
-    String sourceFile,
-  ) {
+    String sourceFile, {
+    String receiver = 't',
+  }) {
     final positionalParams =
         methodDetail.parameters.where((p) => !p.isNamed).toList();
     final namedParams =
@@ -13692,7 +13790,7 @@ class BridgeGenerator {
 
     // Emit the method call with coerced arguments
     final allArgs = [...posArgNames, ...namedArgExprs].join(', ');
-    buffer.writeln("            return t.$methodName($allArgs);");
+    buffer.writeln("            return $receiver.$methodName($allArgs);");
   }
 
   /// Checks if a type is a Map type (e.g., Map<String, int>).

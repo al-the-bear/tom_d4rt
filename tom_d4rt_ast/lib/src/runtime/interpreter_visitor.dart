@@ -1864,6 +1864,24 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
     }
 
+    // Bridged enum operator methods (e.g. the `&`, `|`, `^` overloads Flutter's
+    // `WidgetState` gains from the `WidgetStateOperators` mixin). `WidgetState`
+    // is bridged as an enum whose definition carries operator adapters, so a
+    // `WidgetState.hovered & ~WidgetState.disabled` expression has a
+    // BridgedEnumValue left operand. Dispatch to the bridged operator adapter
+    // before the built-in switch (which only knows int/BigInt) so these don't
+    // fall through to "Unsupported binary operator".
+    if (leftOperandValue is BridgedEnumValue &&
+        leftOperandValue.hasMethod(operatorName)) {
+      // Unwrap a BridgedEnumValue right operand to its native value so the
+      // native operator receives the type it expects (e.g. a
+      // WidgetStatesConstraint rather than the interpreter's wrapper).
+      final rightArg = rightOperandValue is BridgedEnumValue
+          ? rightOperandValue.nativeValue
+          : rightOperandValue;
+      return leftOperandValue.invoke(this, operatorName, [rightArg], {});
+    }
+
     // Only try extension immediately for operators where standard checks might bypass it
     // (e.g., ==, !=, <, >, <=, >= which have generic fallbacks)
     bool checkExtensionEarly = [
@@ -4256,6 +4274,45 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             "Native error during bridged enum method call '$methodName' on $targetValue: $e",
             originalException: e,
           );
+        }
+      } else if (targetValue is BridgedEnum) {
+        // Static method call on a bridged enum type, e.g.
+        // `PageFormat.fromString('A4')` (GitHub issue #2). Instance methods go
+        // through the BridgedEnumValue branch above; this branch handles the
+        // enum TYPE as the target.
+        final staticMethodAdapter =
+            targetValue.findStaticMethodAdapter(methodName);
+        if (staticMethodAdapter == null) {
+          throw RuntimeD4rtException(
+              "Undefined static method '$methodName' on bridged enum '${targetValue.name}'.");
+        }
+        final evaluationResult = _evaluateArgumentsAsync(node.argumentList);
+        if (evaluationResult is AsyncSuspensionRequest) {
+          return evaluationResult; // Propagate suspension
+        }
+        final (positionalArgs, namedArgs) =
+            evaluationResult as (List<Object?>, Map<String, Object?>);
+        List<RuntimeType>? evaluatedTypeArguments;
+        final typeArgsNode = node.typeArguments;
+        if (typeArgsNode != null) {
+          evaluatedTypeArguments = typeArgsNode.arguments
+              .map((typeNode) => _resolveTypeAnnotation(typeNode))
+              .toList();
+        }
+        try {
+          return D4.withActiveVisitor(
+            this,
+            () => staticMethodAdapter(
+                this, positionalArgs, namedArgs, evaluatedTypeArguments),
+          );
+        } on RuntimeD4rtException {
+          rethrow;
+        } catch (e, s) {
+          Logger.error(
+              "[visitMethodInvocation] Native exception during bridged enum static method '${targetValue.name}.$methodName': $e\n$s");
+          throw RuntimeD4rtException(
+              "Native error during bridged enum static method '$methodName' on '${targetValue.name}': $e",
+              originalException: e);
         }
       } else if (targetValue is BridgedClass) {
         // This is a method call on a bridged class (bridged constructor or static method)
@@ -8017,6 +8074,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             }
           }
           // No class operator found, try extensions
+        }
+
+        // Bridged enum unary operator `~` (e.g. `~WidgetState.disabled`, where
+        // WidgetState is bridged as an enum with a `~` operator adapter).
+        if (operandValue is BridgedEnumValue && operandValue.hasMethod('~')) {
+          return operandValue.invoke(this, '~', const [], const {});
         }
 
         // Check for bridged operator methods (unary ~)

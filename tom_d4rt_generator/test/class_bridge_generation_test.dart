@@ -419,6 +419,70 @@ void main() {
       expect(generatedCode, contains("name: 'SimpleProcessor'"));
     });
   });
+
+  group('Step #17 — lazy bridge factory emission', () {
+    late String generatedCode;
+
+    setUpAll(() async {
+      final testFixturesDir =
+          p.join(Directory.current.path, 'test', 'fixtures');
+      final tempDir =
+          Directory.systemTemp.createTempSync('bridge_lazy_test_').path;
+
+      final generator = BridgeGenerator(
+        workspacePath: testFixturesDir,
+        skipPrivate: true,
+        helpersImport: 'package:tom_d4rt/tom_d4rt.dart',
+        sourceImport: 'class_test_source.dart',
+        packageName: 'test_package',
+      );
+
+      final sourceFile = p.join(testFixturesDir, 'class_test_source.dart');
+      final outputFile = p.join(tempDir, 'lazy_test.dart');
+
+      await generator.generateBridges(
+        sourceFiles: [sourceFile],
+        outputPath: outputFile,
+        moduleName: 'test',
+      );
+
+      generatedCode = await File(outputFile).readAsString();
+
+      addTearDown(() {
+        try {
+          Directory(tempDir).deleteSync(recursive: true);
+        } catch (_) {}
+      });
+    });
+
+    test('G-CLS-LAZY-1: emits bridgeClassThunks() mapping name → factory', () {
+      expect(generatedCode,
+          contains('static Map<String, BridgedClass Function()> bridgeClassThunks()'));
+      // Each class is registered as its deferred `_createXBridge` factory
+      // (the tear-off, not an invocation).
+      expect(generatedCode, contains("'SimpleClass': _createSimpleClassBridge,"));
+    });
+
+    test('G-CLS-LAZY-2: emits bridgeClassTypes() mapping name → native Type', () {
+      expect(generatedCode,
+          contains('static Map<String, Type> bridgeClassTypes()'));
+      expect(generatedCode,
+          contains(r"'SimpleClass': $test_package_1.SimpleClass,"));
+    });
+
+    test('G-CLS-LAZY-3: registerBridges registers thunks via '
+        'registerBridgedClassLazy (not pre-built objects)', () {
+      expect(generatedCode, contains('final classThunks = bridgeClassThunks();'));
+      expect(generatedCode, contains('final classTypes = bridgeClassTypes();'));
+      expect(generatedCode, contains('interpreter.registerBridgedClassLazy('));
+      // The eager per-bridge registration call must no longer be emitted in
+      // the class-registration loop.
+      expect(
+          generatedCode,
+          isNot(contains(
+              'interpreter.registerBridgedClass(bridge, importPath')));
+    });
+  });
 }
 
 /// Extracts the BridgedClass section for [className] from generated code.

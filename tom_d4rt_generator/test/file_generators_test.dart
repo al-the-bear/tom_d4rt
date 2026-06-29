@@ -113,5 +113,39 @@ void main() {
         );
       },
     );
+
+    test(
+      'G-FGEN-04: Test runner carries no hardcoded developer log path. '
+      '[2026-06-28] (FAIL)',
+      () {
+        // Issue #3: the generated d4rtrun.b.dart baked in a developer-specific
+        // absolute path (`/Users/alexiskyaw/.../tom2/d4_invocations.log`) and an
+        // unconditional per-invocation logger that threw (and was swallowed) on
+        // every other machine. The per-invocation log was dropped entirely; the
+        // generated runner must contain no trace of it.
+        final config = BridgeConfig(
+          name: 'tom_dartscript_bridges',
+          modules: const [
+            ModuleConfig(
+              name: 'tom_basics',
+              barrelFiles: ['package:tom_basics/tom_basics.dart'],
+              outputPath: 'lib/src/tom_basics/tom_basics_bridges.b.dart',
+            ),
+          ],
+        );
+
+        final content = generateTestRunnerContent(
+          config,
+          testRunnerPath: 'bin/d4rtrun.b.dart',
+          packageName: 'tom_core_d4rt',
+        );
+
+        expect(content, isNot(contains('d4_invocations.log')));
+        expect(content, isNot(contains('_d4InvocationsLogPath')));
+        expect(content, isNot(contains('_logD4Invocation')));
+        // Guard against any absolute developer path leaking back in.
+        expect(content, isNot(contains('/Users/')));
+      },
+    );
   });
 }

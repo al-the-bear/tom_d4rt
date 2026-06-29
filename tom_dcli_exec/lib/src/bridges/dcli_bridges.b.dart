@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 73 files
-// Generated: 2026-06-17T19:04:28.013670
+// Generated: 2026-06-28T14:29:56.837116
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt_exec.dart';
@@ -97,6 +97,10 @@ import 'package:dcli/src/util/parser.dart' as $aux_dcli_6;
 /// Bridge class for dcli module.
 class DcliBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createRestoreFileExceptionBridge(),
@@ -168,6 +172,159 @@ class DcliBridge {
       _createWhichBridge(),
       _createScopeKeyBridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'RestoreFileException': _createRestoreFileExceptionBridge,
+      'BackupFileException': _createBackupFileExceptionBridge,
+      'CatException': _createCatExceptionBridge,
+      'CopyException': _createCopyExceptionBridge,
+      'CreateDirException': _createCreateDirExceptionBridge,
+      'DCliFunction': _createDCliFunctionBridge,
+      'DCliFunctionException': _createDCliFunctionExceptionBridge,
+      'DeleteException': _createDeleteExceptionBridge,
+      'DeleteDirException': _createDeleteDirExceptionBridge,
+      'Env': _createEnvBridge,
+      'Find': _createFindBridge,
+      'FindItem': _createFindItemBridge,
+      'MoveException': _createMoveExceptionBridge,
+      'MoveDirException': _createMoveDirExceptionBridge,
+      'MoveTreeException': _createMoveTreeExceptionBridge,
+      'DCliException': _createDCliExceptionBridge,
+      'RunException': _createRunExceptionBridge,
+      'StackList': _createStackListBridge,
+      'Ansi': _createAnsiBridge,
+      'AnsiColor': _createAnsiColorBridge,
+      'Format': _createFormatBridge,
+      'Terminal': _createTerminalBridge,
+      'Ask': _createAskBridge,
+      'AskValidatorException': _createAskValidatorExceptionBridge,
+      'AskValidator': _createAskValidatorBridge,
+      'AskValidatorIPAddress': _createAskValidatorIPAddressBridge,
+      'Confirm': _createConfirmBridge,
+      'FetchData': _createFetchDataBridge,
+      'FetchUrl': _createFetchUrlBridge,
+      'FetchProgress': _createFetchProgressBridge,
+      'FetchException': _createFetchExceptionBridge,
+      'ReadException': _createReadExceptionBridge,
+      'Progress': _createProgressBridge,
+      'PackedResource': _createPackedResourceBridge,
+      'Resources': _createResourcesBridge,
+      'ResourceException': _createResourceExceptionBridge,
+      'DartProject': _createDartProjectBridge,
+      'DartProjectException': _createDartProjectExceptionBridge,
+      'TemplateNotFoundException': _createTemplateNotFoundExceptionBridge,
+      'InvalidProjectTemplateException': _createInvalidProjectTemplateExceptionBridge,
+      'DartScript': _createDartScriptBridge,
+      'DartSdk': _createDartSdkBridge,
+      'Settings': _createSettingsBridge,
+      'Shell': _createShellBridge,
+      'ShellException': _createShellExceptionBridge,
+      'ShellDetection': _createShellDetectionBridge,
+      'UnknownShell': _createUnknownShellBridge,
+      'DCliPaths': _createDCliPathsBridge,
+      'InvalidArgumentException': _createInvalidArgumentExceptionBridge,
+      'InvalidTemplateException': _createInvalidTemplateExceptionBridge,
+      'InstallException': _createInstallExceptionBridge,
+      'ProcessSyncException': _createProcessSyncExceptionBridge,
+      'FileSort': _createFileSortBridge,
+      'Column': _createColumnBridge,
+      'FileSync': _createFileSyncBridge,
+      'FileNotFoundException': _createFileNotFoundExceptionBridge,
+      'NotAFileException': _createNotAFileExceptionBridge,
+      'NamedLock': _createNamedLockBridge,
+      'LockException': _createLockExceptionBridge,
+      'ProcessHelper': _createProcessHelperBridge,
+      'ProcessDetails': _createProcessDetailsBridge,
+      'PubCache': _createPubCacheBridge,
+      'Remote': _createRemoteBridge,
+      'FindProgress': _createFindProgressBridge,
+      'HeadProgress': _createHeadProgressBridge,
+      'TailProgress': _createTailProgressBridge,
+      'Which': _createWhichBridge,
+      'ScopeKey': _createScopeKeyBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'RestoreFileException': $dcli_core_1.RestoreFileException,
+      'BackupFileException': $dcli_core_1.BackupFileException,
+      'CatException': $dcli_core_2.CatException,
+      'CopyException': $dcli_core_3.CopyException,
+      'CreateDirException': $dcli_core_5.CreateDirException,
+      'DCliFunction': $dcli_core_6.DCliFunction,
+      'DCliFunctionException': $dcli_core_6.DCliFunctionException,
+      'DeleteException': $dcli_core_7.DeleteException,
+      'DeleteDirException': $dcli_core_8.DeleteDirException,
+      'Env': $dcli_core_9.Env,
+      'Find': $dcli_core_10.Find,
+      'FindItem': $dcli_core_10.FindItem,
+      'MoveException': $dcli_core_12.MoveException,
+      'MoveDirException': $dcli_core_13.MoveDirException,
+      'MoveTreeException': $dcli_core_14.MoveTreeException,
+      'DCliException': $dcli_core_19.DCliException,
+      'RunException': $dcli_core_24.RunException,
+      'StackList': $dcli_core_25.StackList,
+      'Ansi': $dcli_terminal_1.Ansi,
+      'AnsiColor': $dcli_terminal_2.AnsiColor,
+      'Format': $dcli_terminal_3.Format,
+      'Terminal': $dcli_terminal_4.Terminal,
+      'Ask': $dcli_1.Ask,
+      'AskValidatorException': $dcli_1.AskValidatorException,
+      'AskValidator': $dcli_1.AskValidator,
+      'AskValidatorIPAddress': $dcli_1.AskValidatorIPAddress,
+      'Confirm': $dcli_3.Confirm,
+      'FetchData': $dcli_6.FetchData,
+      'FetchUrl': $dcli_6.FetchUrl,
+      'FetchProgress': $dcli_6.FetchProgress,
+      'FetchException': $dcli_6.FetchException,
+      'ReadException': $dcli_12.ReadException,
+      'Progress': $dcli_19.Progress,
+      'PackedResource': $dcli_20.PackedResource,
+      'Resources': $dcli_21.Resources,
+      'ResourceException': $dcli_21.ResourceException,
+      'DartProject': $dcli_22.DartProject,
+      'DartProjectException': $dcli_22.DartProjectException,
+      'TemplateNotFoundException': $dcli_22.TemplateNotFoundException,
+      'InvalidProjectTemplateException': $dcli_22.InvalidProjectTemplateException,
+      'DartScript': $dcli_23.DartScript,
+      'DartSdk': $dcli_24.DartSdk,
+      'Settings': $dcli_25.Settings,
+      'Shell': $dcli_26.Shell,
+      'ShellException': $dcli_26.ShellException,
+      'ShellDetection': $dcli_27.ShellDetection,
+      'UnknownShell': $dcli_28.UnknownShell,
+      'DCliPaths': $dcli_30.DCliPaths,
+      'InvalidArgumentException': $dcli_33.InvalidArgumentException,
+      'InvalidTemplateException': $dcli_33.InvalidTemplateException,
+      'InstallException': $dcli_33.InstallException,
+      'ProcessSyncException': $dcli_33.ProcessSyncException,
+      'FileSort': $dcli_34.FileSort,
+      'Column': $dcli_34.Column,
+      'FileSync': $dcli_35.FileSync,
+      'FileNotFoundException': $dcli_36.FileNotFoundException,
+      'NotAFileException': $dcli_36.NotAFileException,
+      'NamedLock': $dcli_37.NamedLock,
+      'LockException': $dcli_37.LockException,
+      'ProcessHelper': $dcli_38.ProcessHelper,
+      'ProcessDetails': $dcli_38.ProcessDetails,
+      'PubCache': $dcli_39.PubCache,
+      'Remote': $dcli_40.Remote,
+      'FindProgress': $dcli_8.FindProgress,
+      'HeadProgress': $dcli_9.HeadProgress,
+      'TailProgress': $dcli_16.TailProgress,
+      'Which': $dcli_core_17.Which,
+      'ScopeKey': $scope_1.ScopeKey,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -571,11 +728,20 @@ class DcliBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // MCI#1 / A1: Register the flattened native supertype table so

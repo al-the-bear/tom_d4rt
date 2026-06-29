@@ -227,39 +227,51 @@ class _TopRibbon extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: SwitchListTile(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
                     dense: true,
                     contentPadding: EdgeInsets.zero,
                     value: compact,
                     onChanged: onCompactChanged,
                     title: const Text('Compact', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
+                  ),
                 ),
                 Expanded(
-                  child: SwitchListTile(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
                     dense: true,
                     contentPadding: EdgeInsets.zero,
                     value: showGrid,
                     onChanged: onShowGridChanged,
                     title: const Text('Guide grid', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
+                  ),
                 ),
                 Expanded(
-                  child: SwitchListTile(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
                     dense: true,
                     contentPadding: EdgeInsets.zero,
                     value: showLabels,
                     onChanged: onShowLabelsChanged,
                     title: const Text('Labels', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
+                  ),
                 ),
                 Expanded(
-                  child: SwitchListTile(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
                     dense: true,
                     contentPadding: EdgeInsets.zero,
                     value: rtl,
                     onChanged: onRtlChanged,
                     title: const Text('RTL', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  ),
                   ),
                 ),
               ],
@@ -430,19 +442,25 @@ class _FundamentalSceneState extends State<_FundamentalScene> {
                         divisions: 3,
                         onChanged: (v) => setState(() => _index = v.round()),
                       ),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         value: _showBounds,
                         onChanged: (v) => setState(() => _showBounds = v),
                         title: const Text('Show panel bounds'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         value: _showIndexBadge,
                         onChanged: (v) => setState(() => _showIndexBadge = v),
                         title: const Text('Show active index badge'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       Container(
@@ -655,26 +673,35 @@ class _SelectionPatternsSceneState extends State<_SelectionPatternsScene> {
                     children: [
                       const Text('Control modes', style: TextStyle(fontWeight: FontWeight.w800)),
                       const SizedBox(height: 8),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         value: _chipMode,
                         onChanged: (v) => setState(() => _chipMode = v),
                         title: const Text('Enable choice-chip control'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         value: _sliderMode,
                         onChanged: (v) => setState(() => _sliderMode = v),
                         title: const Text('Enable slider control'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         value: _stepButtons,
                         onChanged: (v) => setState(() => _stepButtons = v),
                         title: const Text('Enable stepper buttons'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       if (_chipMode)
@@ -1062,7 +1089,9 @@ class _PersistencePaneState extends State<_PersistencePane> {
               ),
             ],
           ),
-          SwitchListTile(
+          Material(
+            type: MaterialType.transparency,
+            child: SwitchListTile(
             dense: true,
             contentPadding: EdgeInsets.zero,
             value: _enabled,
@@ -1071,6 +1100,7 @@ class _PersistencePaneState extends State<_PersistencePane> {
               widget.onEvent('pane ${widget.id} switch = $v');
             },
             title: const Text('Pane-specific toggle'),
+          ),
           ),
           const SizedBox(height: 6),
           Expanded(
@@ -1085,7 +1115,9 @@ class _PersistencePaneState extends State<_PersistencePane> {
                 itemCount: 16,
                 itemBuilder: (context, index) {
                   final selected = _selected.contains(index);
-                  return ListTile(
+                  return Material(
+                    type: MaterialType.transparency,
+                    child: ListTile(
                     dense: true,
                     title: Text('Item ${index + 1}'),
                     subtitle: Text('selection in pane ${widget.id}'),
@@ -1100,6 +1132,7 @@ class _PersistencePaneState extends State<_PersistencePane> {
                       });
                       widget.onEvent('pane ${widget.id} item ${index + 1} -> ${!selected}');
                     },
+                  ),
                   );
                 },
               ),
@@ -1166,12 +1199,15 @@ class _BackgroundActivitySceneState extends State<_BackgroundActivityScene> {
                       onSelectionChanged: (v) => setState(() => _index = v.first),
                     ),
                     const SizedBox(height: 8),
-                    SwitchListTile(
+                    Material(
+                      type: MaterialType.transparency,
+                      child: SwitchListTile(
                       dense: true,
                       contentPadding: EdgeInsets.zero,
                       value: _paused,
                       onChanged: (v) => setState(() => _paused = v),
                       title: const Text('Pause all feeds'),
+                    ),
                     ),
                     const SizedBox(height: 8),
                     Container(
@@ -1410,26 +1446,35 @@ class _ResponsiveRtlSceneState extends State<_ResponsiveRtlScene> {
                       onSelectionChanged: (v) => setState(() => _index = v.first),
                     ),
                     const SizedBox(height: 8),
-                    SwitchListTile(
+                    Material(
+                      type: MaterialType.transparency,
+                      child: SwitchListTile(
                       dense: true,
                       contentPadding: EdgeInsets.zero,
                       value: _wide,
                       onChanged: (v) => setState(() => _wide = v),
                       title: const Text('Wide container mode'),
                     ),
-                    SwitchListTile(
+                    ),
+                    Material(
+                      type: MaterialType.transparency,
+                      child: SwitchListTile(
                       dense: true,
                       contentPadding: EdgeInsets.zero,
                       value: _dense,
                       onChanged: (v) => setState(() => _dense = v),
                       title: const Text('Dense tile mode'),
                     ),
-                    SwitchListTile(
+                    ),
+                    Material(
+                      type: MaterialType.transparency,
+                      child: SwitchListTile(
                       dense: true,
                       contentPadding: EdgeInsets.zero,
                       value: _showHints,
                       onChanged: (v) => setState(() => _showHints = v),
                       title: const Text('Show direction and size hints'),
+                    ),
                     ),
                     const SizedBox(height: 8),
                     Container(
@@ -1906,7 +1951,9 @@ class _TasksViewState extends State<_TasksView> {
               itemCount: _tasks.length,
               itemBuilder: (context, index) {
                 final task = _tasks[index];
-                return CheckboxListTile(
+                return Material(
+                  type: MaterialType.transparency,
+                  child: CheckboxListTile(
                   value: task.done,
                   onChanged: (v) {
                     setState(() => task.done = v ?? false);
@@ -1915,6 +1962,7 @@ class _TasksViewState extends State<_TasksView> {
                   title: Text(task.title),
                   subtitle: Text(task.done ? 'Completed' : 'Pending'),
                   controlAffinity: ListTileControlAffinity.leading,
+                ),
                 );
               },
             ),
@@ -1969,7 +2017,9 @@ class _TimelineViewState extends State<_TimelineView> {
               widget.onEvent('timeline progress ${(_progress * 100).toStringAsFixed(1)}%');
             },
           ),
-          SwitchListTile(
+          Material(
+            type: MaterialType.transparency,
+            child: SwitchListTile(
             dense: true,
             contentPadding: EdgeInsets.zero,
             value: _showMilestones,
@@ -1978,6 +2028,7 @@ class _TimelineViewState extends State<_TimelineView> {
               widget.onEvent('timeline milestones = $v');
             },
             title: const Text('Show milestone markers'),
+          ),
           ),
           const SizedBox(height: 8),
           Expanded(

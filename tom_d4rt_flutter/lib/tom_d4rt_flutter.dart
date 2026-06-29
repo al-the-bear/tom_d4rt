@@ -13,3 +13,4 @@ library;
 
 export 'src/source_flutter_d4rt.dart';
 export 'src/sample_source.dart';
+export 'src/profiling_metrics.dart';

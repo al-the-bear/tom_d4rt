@@ -74,7 +74,74 @@ proxy getter:
 See `tom_d4rt/doc/advanced_bridging_user_guide.md` §"RC-9" for the worked
 example.
 
-## 5. Web-divergence map (where the twins legitimately differ)
+## 5. Process-global package pool + warm parent (`providePackage`)
+
+A second process-global surface, distinct from the `D4.register*` sinks
+above: the **bridge-definition pool** that makes a package's registration
+cost a once-per-process expense. It lives on `D4rtRunner`
+(`lib/src/runtime/d4rt_runner.dart`) and is mirrored on `D4rt` in
+`tom_d4rt_exec` and `tom_d4rt`. Background, root-cause analysis, and the
+measured payoff are in the quest doc
+`_ai/quests/d4rt/interpreter_import_optimization.md` (+ its plan /
+decisions companions); this is the catalogue entry.
+
+| Surface | Scope | Purpose |
+|---------|-------|---------|
+| `static Map<String, _PackageBridgeBundle> _packagePool` | process-global | the immutable per-package registration payload (bridged classes/enums/extensions, library functions/vars/getters/setters, aliases, typedefs, re-exports, type→thunk map, queued extension callbacks), built once per package per process |
+| `static Map<String, Environment> _warmParentCache` | process-global | the imports-resolved warm parent `Environment` (stdlib + pooled bundles for an allowed-set), keyed by the sorted allowed-set signature; reused across instances **and** across `execute*`/`executeBundle*` calls |
+| `Set<String> _allowedPackages` | per-instance | security whitelist — an instance only ever sees packages it has provided; the warm parent it gets contains only those packages |
+
+### `providePackage` contract
+
+```dart
+/// Grants [packageName] to this instance and reports whether its bridge
+/// definitions are already pooled.
+///   false → not pooled; caller MUST register now (those register* calls
+///           accumulate into the pool under [packageName]).
+///   true  → already pooled; caller skips registration and reuses the pool.
+/// Either way [packageName] is added to this instance's allowed set.
+bool providePackage(String packageName);
+```
+
+Canonical guard idiom (see `FlutterD4rt._registerBridges`):
+
+```dart
+if (runner.providePackage('tom_d4rt_flutter_ast') == false) {
+  registerRelaxers();
+  registerD4rtRuntimeExtensions();
+  FlutterMaterialBridges.register(runner);
+  runner.registerExtensions('tom_d4rt_flutter_ast', registerProxyOverrides);
+}
+runner.finalizeBridges(); // cheap on later instances
+```
+
+Legacy callers that never call `providePackage` route their `register*`
+calls into a synthetic `'<default>'` package every instance is implicitly
+allowed — preserving the pre-pool "everything is exposed" behaviour.
+
+### How it ties to the rest of the surface
+
+- The pool holds the **definitions**; the lazy **thunks** (a class's seven
+  member maps + adapter closures) are still built on first resolution and
+  memoized into the warm parent — so the `D4.register*` sinks in § 1 are
+  still populated exactly once, at bridge-finalize time.
+- `finalizeBridges` / `registerExtensions` (see
+  `extension_registration.md`) fire their queued callbacks **once per
+  package per process** (at pool population), not once per instance.
+- `warmup()` finalizes + builds the warm parent for the instance's
+  allowed-set deliberately, so the one-time cost is paid off-frame.
+- Test introspection: `debugResetPool` (clears both static maps),
+  `debugPooledPackages`, `debugPooledClassCount(name)`,
+  `debugWarmParentCacheSize`.
+
+> **Residual (tracked):** the warm parent eliminates the per-execute
+> bridge *rebuild*, but the per-execute import *directive* resolution
+> still reassembles a package's per-import module environment each
+> `executeBundle` (fresh `AstModuleLoader` per call). Follow-up: hoist the
+> per-URI bridged-module environments to runner scope — see
+> `_ai/quests/d4rt/completion_steps.d4rt.md`.
+
+## 6. Web-divergence map (where the twins legitimately differ)
 
 The registration **API** is in lockstep. The divergence lives only in the
 downstream manual registration files

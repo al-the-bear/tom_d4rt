@@ -867,6 +867,8 @@ Widget _sideBySideTile({
                   brightness: Brightness.light,
                 ),
               ),
+              child: Material(
+              type: MaterialType.transparency,
               child: ExpansionTile(
                 key: ValueKey<String>('demo3-$label'),
                 initiallyExpanded: expanded,
@@ -909,6 +911,7 @@ Widget _sideBySideTile({
                     trailing: Switch(value: true, onChanged: (bool _) {}),
                   ),
                 ],
+              ),
               ),
             ),
           ),
@@ -987,6 +990,8 @@ Widget _themedRow({
         ),
         ExpansionTileTheme(
           data: themeData,
+          child: Material(
+          type: MaterialType.transparency,
           child: ExpansionTile(
             key: ValueKey<String>('demo4-$label'),
             initiallyExpanded: expanded,
@@ -1016,6 +1021,7 @@ Widget _themedRow({
                 trailing: Text('8.6 GB'),
               ),
             ],
+          ),
           ),
         ),
       ],
@@ -1393,6 +1399,8 @@ Widget _recipeSettingsGroup() {
       dividerColor: const Color(0x00000000),
       colorScheme: ColorScheme.fromSeed(seedColor: _kAccent),
     ),
+    child: Material(
+    type: MaterialType.transparency,
     child: ExpansionTile(
       key: const ValueKey<String>('recipe-settings'),
       initiallyExpanded: true,
@@ -1434,6 +1442,7 @@ Widget _recipeSettingsGroup() {
         ),
       ],
     ),
+    ),
   );
   return _recipeShell(
     tag: 'RECIPE 01',
@@ -1471,7 +1480,9 @@ Widget _recipeFaqList() {
     ),
     child: Column(
       children: const <Widget>[
-        ExpansionTile(
+        Material(
+          type: MaterialType.transparency,
+          child: ExpansionTile(
           key: ValueKey<String>('recipe-faq-1'),
           initiallyExpanded: false,
           tilePadding: EdgeInsets.symmetric(horizontal: 14.0),
@@ -1489,8 +1500,11 @@ Widget _recipeFaqList() {
             ),
           ],
         ),
+        ),
         Divider(height: 0.0),
-        ExpansionTile(
+        Material(
+          type: MaterialType.transparency,
+          child: ExpansionTile(
           key: ValueKey<String>('recipe-faq-2'),
           initiallyExpanded: true,
           tilePadding: EdgeInsets.symmetric(horizontal: 14.0),
@@ -1508,6 +1522,7 @@ Widget _recipeFaqList() {
               ),
             ),
           ],
+        ),
         ),
       ],
     ),
@@ -1545,6 +1560,8 @@ Widget _recipeNestedForm() {
       dividerColor: const Color(0x00000000),
       colorScheme: ColorScheme.fromSeed(seedColor: _kAccentGreen),
     ),
+    child: Material(
+    type: MaterialType.transparency,
     child: ExpansionTile(
       key: const ValueKey<String>('recipe-form'),
       initiallyExpanded: true,
@@ -1615,6 +1632,7 @@ Widget _recipeNestedForm() {
         ),
       ],
     ),
+    ),
   );
   return _recipeShell(
     tag: 'RECIPE 03',
@@ -1653,7 +1671,9 @@ Widget _recipeController() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        ExpansionTile(
+        Material(
+          type: MaterialType.transparency,
+          child: ExpansionTile(
           key: const ValueKey<String>('recipe-controller'),
           controller: controller,
           initiallyExpanded: true,
@@ -1682,6 +1702,7 @@ Widget _recipeController() {
               trailing: Text('> 100'),
             ),
           ],
+        ),
         ),
         const SizedBox(height: 8.0),
         Row(
@@ -1742,7 +1763,9 @@ Widget _recipeControlAffinity() {
     ),
     child: Column(
       children: const <Widget>[
-        ExpansionTile(
+        Material(
+          type: MaterialType.transparency,
+          child: ExpansionTile(
           key: ValueKey<String>('recipe-affinity-trailing'),
           initiallyExpanded: false,
           controlAffinity: ListTileControlAffinity.trailing,
@@ -1757,8 +1780,11 @@ Widget _recipeControlAffinity() {
             ListTile(dense: true, title: Text('archived/')),
           ],
         ),
+        ),
         Divider(height: 1.0),
-        ExpansionTile(
+        Material(
+          type: MaterialType.transparency,
+          child: ExpansionTile(
           key: ValueKey<String>('recipe-affinity-leading'),
           initiallyExpanded: true,
           controlAffinity: ListTileControlAffinity.leading,
@@ -1772,6 +1798,7 @@ Widget _recipeControlAffinity() {
             ListTile(dense: true, title: Text('drafts/')),
             ListTile(dense: true, title: Text('archived/')),
           ],
+        ),
         ),
       ],
     ),

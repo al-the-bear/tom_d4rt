@@ -581,8 +581,7 @@ class ModuleLoader implements context.ModuleContext {
         if (bridgedClass.containsKey(uriString)) {
           hasContentForUri = true;
           final libClass = bridgedClass[uriString]!;
-          final definition = libClass.bridgedClass;
-          final className = definition.name;
+          final className = libClass.name;
 
           // Check show/hide filters
           if (!_shouldRegisterName(className,
@@ -619,7 +618,9 @@ class ModuleLoader implements context.ModuleContext {
           _registeredClasses[className] = sourceUri;
 
           try {
-            globalEnvironment.defineBridge(definition);
+            // Step #17 — transfer the deferred thunk (build on first resolve).
+            globalEnvironment.defineBridgeLazy(
+                libClass.name, libClass.nativeType, libClass.thunk);
             Logger.debug(
                 " [execute] Registered bridged class: $className from $sourceUri");
           } catch (e) {
@@ -995,10 +996,13 @@ class ModuleLoader implements context.ModuleContext {
     // registerBridgedClass) that may not yet be loaded into the environment.
     for (final classMap in bridgedClases) {
       for (final libClass in classMap.values) {
-        if (libClass.bridgedClass.name == typeName) {
+        // Step #17 — compare by name without forcing a build; only the matched
+        // class is materialized (it is genuinely being resolved here).
+        if (libClass.name == typeName) {
           // Register the class in globalEnvironment so it's available
           // for extension type matching
-          globalEnvironment.defineBridge(libClass.bridgedClass);
+          globalEnvironment.defineBridgeLazy(
+              libClass.name, libClass.nativeType, libClass.thunk);
           Logger.debug(
               "[ModuleLoader] Resolved extension on-type '$typeName' from registered bridge class");
           return libClass.bridgedClass;

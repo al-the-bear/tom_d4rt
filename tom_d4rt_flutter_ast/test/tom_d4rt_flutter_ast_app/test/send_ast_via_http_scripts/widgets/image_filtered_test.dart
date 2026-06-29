@@ -216,7 +216,9 @@ class _ControlDeck extends StatelessWidget {
           end: Alignment.bottomRight,
         ),
       ),
-      child: Padding(
+      child: Material(
+        type: MaterialType.transparency,
+        child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -296,6 +298,7 @@ class _ControlDeck extends StatelessWidget {
           ],
         ),
       ),
+      ),
     );
   }
 }
@@ -344,7 +347,9 @@ class _SceneCard extends StatelessWidget {
           BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 14, offset: const Offset(0, 6)),
         ],
       ),
-      child: Padding(
+      child: Material(
+        type: MaterialType.transparency,
+        child: Padding(
         padding: const EdgeInsets.all(14),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -375,6 +380,7 @@ class _SceneCard extends StatelessWidget {
             child,
           ],
         ),
+      ),
       ),
     );
   }
@@ -2327,12 +2333,15 @@ class _GuideStage extends StatelessWidget {
           end: Alignment.bottomRight,
         ),
       ),
-      child: Stack(
+      child: Material(
+        type: MaterialType.transparency,
+        child: Stack(
         fit: StackFit.expand,
         children: [
           if (showGrid) CustomPaint(painter: _GridPainter()),
           child,
         ],
+      ),
       ),
     );
   }

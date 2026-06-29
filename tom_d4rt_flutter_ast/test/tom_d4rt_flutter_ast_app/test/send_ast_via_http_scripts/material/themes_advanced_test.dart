@@ -1068,15 +1068,21 @@ dynamic build(BuildContext context) {
         ),
         componentRow(
           'ListTile',
-          const ListTile(
+          const Material(
+            type: MaterialType.transparency,
+            child: ListTile(
             leading: Icon(Icons.folder_outlined),
             title: Text('Documents'),
             subtitle: Text('1.2 GB'),
           ),
-          const ListTile(
+          ),
+          const Material(
+            type: MaterialType.transparency,
+            child: ListTile(
             leading: Icon(Icons.folder_outlined),
             title: Text('Documents'),
             subtitle: Text('1.2 GB'),
+          ),
           ),
         ),
         componentRow(

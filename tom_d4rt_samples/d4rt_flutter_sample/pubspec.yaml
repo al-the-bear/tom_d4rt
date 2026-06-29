@@ -17,7 +17,7 @@ dependencies:
 
   # The source-based Flutter interpreter: SourceFlutterD4rt plus the full
   # Flutter Material bridge surface and the SampleSource asset loaders.
-  tom_d4rt_flutter: ^1.0.1
+  tom_d4rt_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:

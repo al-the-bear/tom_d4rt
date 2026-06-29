@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 46 files
-// Generated: 2026-06-17T19:04:57.601388
+// Generated: 2026-06-28T14:30:27.577032
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
 import 'package:tom_d4rt_ast/d4rt.dart';
 import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
@@ -86,6 +86,10 @@ import 'package:vector_math/vector_math_64.dart' as $vector_math_1;
 /// Bridge class for flutter_painting module.
 class FlutterPaintingBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createAlignmentGeometryBridge(),
@@ -178,6 +182,201 @@ class FlutterPaintingBridge {
       _createTextStyleBridge(),
       _createMatrix4Bridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'AlignmentGeometry': _createAlignmentGeometryBridge,
+      'Alignment': _createAlignmentBridge,
+      'AlignmentDirectional': _createAlignmentDirectionalBridge,
+      'TextAlignVertical': _createTextAlignVerticalBridge,
+      'BeveledRectangleBorder': _createBeveledRectangleBorderBridge,
+      'PaintingBinding': _createPaintingBindingBridge,
+      'BorderRadiusGeometry': _createBorderRadiusGeometryBridge,
+      'BorderRadius': _createBorderRadiusBridge,
+      'BorderRadiusDirectional': _createBorderRadiusDirectionalBridge,
+      'BorderSide': _createBorderSideBridge,
+      'ShapeBorder': _createShapeBorderBridge,
+      'OutlinedBorder': _createOutlinedBorderBridge,
+      'BoxBorder': _createBoxBorderBridge,
+      'Border': _createBorderBridge,
+      'BorderDirectional': _createBorderDirectionalBridge,
+      'BoxDecoration': _createBoxDecorationBridge,
+      'FittedSizes': _createFittedSizesBridge,
+      'BoxShadow': _createBoxShadowBridge,
+      'CircleBorder': _createCircleBorderBridge,
+      'ClipContext': _createClipContextBridge,
+      'HSVColor': _createHSVColorBridge,
+      'HSLColor': _createHSLColorBridge,
+      'ColorSwatch': _createColorSwatchBridge,
+      'ColorProperty': _createColorPropertyBridge,
+      'ContinuousRectangleBorder': _createContinuousRectangleBorderBridge,
+      'ImageSizeInfo': _createImageSizeInfoBridge,
+      'Decoration': _createDecorationBridge,
+      'BoxPainter': _createBoxPainterBridge,
+      'DecorationImage': _createDecorationImageBridge,
+      'DecorationImagePainter': _createDecorationImagePainterBridge,
+      'EdgeInsetsGeometry': _createEdgeInsetsGeometryBridge,
+      'EdgeInsets': _createEdgeInsetsBridge,
+      'EdgeInsetsDirectional': _createEdgeInsetsDirectionalBridge,
+      'FlutterLogoDecoration': _createFlutterLogoDecorationBridge,
+      'FractionalOffset': _createFractionalOffsetBridge,
+      'GradientTransform': _createGradientTransformBridge,
+      'GradientRotation': _createGradientRotationBridge,
+      'Gradient': _createGradientBridge,
+      'LinearGradient': _createLinearGradientBridge,
+      'RadialGradient': _createRadialGradientBridge,
+      'SweepGradient': _createSweepGradientBridge,
+      'ImageCache': _createImageCacheBridge,
+      'ImageCacheStatus': _createImageCacheStatusBridge,
+      'ImageConfiguration': _createImageConfigurationBridge,
+      'ImageProvider': _createImageProviderBridge,
+      'AssetBundleImageKey': _createAssetBundleImageKeyBridge,
+      'AssetBundleImageProvider': _createAssetBundleImageProviderBridge,
+      'ResizeImageKey': _createResizeImageKeyBridge,
+      'ResizeImage': _createResizeImageBridge,
+      'NetworkImage': _createNetworkImageBridge,
+      'MemoryImage': _createMemoryImageBridge,
+      'ExactAssetImage': _createExactAssetImageBridge,
+      'NetworkImageLoadException': _createNetworkImageLoadExceptionBridge,
+      'AssetImage': _createAssetImageBridge,
+      'ImageInfo': _createImageInfoBridge,
+      'ImageStreamListener': _createImageStreamListenerBridge,
+      'ImageChunkEvent': _createImageChunkEventBridge,
+      'ImageStream': _createImageStreamBridge,
+      'ImageStreamCompleterHandle': _createImageStreamCompleterHandleBridge,
+      'ImageStreamCompleter': _createImageStreamCompleterBridge,
+      'OneFrameImageStreamCompleter': _createOneFrameImageStreamCompleterBridge,
+      'MultiFrameImageStreamCompleter': _createMultiFrameImageStreamCompleterBridge,
+      'Accumulator': _createAccumulatorBridge,
+      'InlineSpanSemanticsInformation': _createInlineSpanSemanticsInformationBridge,
+      'InlineSpan': _createInlineSpanBridge,
+      'LinearBorderEdge': _createLinearBorderEdgeBridge,
+      'LinearBorder': _createLinearBorderBridge,
+      'MatrixUtils': _createMatrixUtilsBridge,
+      'TransformProperty': _createTransformPropertyBridge,
+      'NotchedShape': _createNotchedShapeBridge,
+      'CircularNotchedRectangle': _createCircularNotchedRectangleBridge,
+      'AutomaticNotchedShape': _createAutomaticNotchedShapeBridge,
+      'OvalBorder': _createOvalBorderBridge,
+      'PlaceholderSpan': _createPlaceholderSpanBridge,
+      'RoundedRectangleBorder': _createRoundedRectangleBorderBridge,
+      'RoundedSuperellipseBorder': _createRoundedSuperellipseBorderBridge,
+      'ShaderWarmUp': _createShaderWarmUpBridge,
+      'ShapeDecoration': _createShapeDecorationBridge,
+      'StadiumBorder': _createStadiumBorderBridge,
+      'StarBorder': _createStarBorderBridge,
+      'StrutStyle': _createStrutStyleBridge,
+      'TextSelection': _createTextSelectionBridge,
+      'PlaceholderDimensions': _createPlaceholderDimensionsBridge,
+      'WordBoundary': _createWordBoundaryBridge,
+      'TextPainter': _createTextPainterBridge,
+      'TextScaler': _createTextScalerBridge,
+      'TextSpan': _createTextSpanBridge,
+      'TextStyle': _createTextStyleBridge,
+      'Matrix4': _createMatrix4Bridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'AlignmentGeometry': $flutter_10.AlignmentGeometry,
+      'Alignment': $flutter_10.Alignment,
+      'AlignmentDirectional': $flutter_10.AlignmentDirectional,
+      'TextAlignVertical': $flutter_10.TextAlignVertical,
+      'BeveledRectangleBorder': $flutter_12.BeveledRectangleBorder,
+      'PaintingBinding': $flutter_13.PaintingBinding,
+      'BorderRadiusGeometry': $flutter_14.BorderRadiusGeometry,
+      'BorderRadius': $flutter_14.BorderRadius,
+      'BorderRadiusDirectional': $flutter_14.BorderRadiusDirectional,
+      'BorderSide': $flutter_15.BorderSide,
+      'ShapeBorder': $flutter_15.ShapeBorder,
+      'OutlinedBorder': $flutter_15.OutlinedBorder,
+      'BoxBorder': $flutter_16.BoxBorder,
+      'Border': $flutter_16.Border,
+      'BorderDirectional': $flutter_16.BorderDirectional,
+      'BoxDecoration': $flutter_17.BoxDecoration,
+      'FittedSizes': $flutter_18.FittedSizes,
+      'BoxShadow': $flutter_19.BoxShadow,
+      'CircleBorder': $flutter_20.CircleBorder,
+      'ClipContext': $flutter_21.ClipContext,
+      'HSVColor': $flutter_22.HSVColor,
+      'HSLColor': $flutter_22.HSLColor,
+      'ColorSwatch': $flutter_22.ColorSwatch,
+      'ColorProperty': $flutter_22.ColorProperty,
+      'ContinuousRectangleBorder': $flutter_23.ContinuousRectangleBorder,
+      'ImageSizeInfo': $flutter_24.ImageSizeInfo,
+      'Decoration': $flutter_25.Decoration,
+      'BoxPainter': $flutter_25.BoxPainter,
+      'DecorationImage': $flutter_26.DecorationImage,
+      'DecorationImagePainter': $flutter_26.DecorationImagePainter,
+      'EdgeInsetsGeometry': $flutter_27.EdgeInsetsGeometry,
+      'EdgeInsets': $flutter_27.EdgeInsets,
+      'EdgeInsetsDirectional': $flutter_27.EdgeInsetsDirectional,
+      'FlutterLogoDecoration': $flutter_28.FlutterLogoDecoration,
+      'FractionalOffset': $flutter_29.FractionalOffset,
+      'GradientTransform': $flutter_31.GradientTransform,
+      'GradientRotation': $flutter_31.GradientRotation,
+      'Gradient': $flutter_31.Gradient,
+      'LinearGradient': $flutter_31.LinearGradient,
+      'RadialGradient': $flutter_31.RadialGradient,
+      'SweepGradient': $flutter_31.SweepGradient,
+      'ImageCache': $flutter_32.ImageCache,
+      'ImageCacheStatus': $flutter_32.ImageCacheStatus,
+      'ImageConfiguration': $flutter_34.ImageConfiguration,
+      'ImageProvider': $flutter_34.ImageProvider,
+      'AssetBundleImageKey': $flutter_34.AssetBundleImageKey,
+      'AssetBundleImageProvider': $flutter_34.AssetBundleImageProvider,
+      'ResizeImageKey': $flutter_34.ResizeImageKey,
+      'ResizeImage': $flutter_34.ResizeImage,
+      'NetworkImage': $flutter_34.NetworkImage,
+      'MemoryImage': $flutter_34.MemoryImage,
+      'ExactAssetImage': $flutter_34.ExactAssetImage,
+      'NetworkImageLoadException': $flutter_34.NetworkImageLoadException,
+      'AssetImage': $flutter_35.AssetImage,
+      'ImageInfo': $flutter_36.ImageInfo,
+      'ImageStreamListener': $flutter_36.ImageStreamListener,
+      'ImageChunkEvent': $flutter_36.ImageChunkEvent,
+      'ImageStream': $flutter_36.ImageStream,
+      'ImageStreamCompleterHandle': $flutter_36.ImageStreamCompleterHandle,
+      'ImageStreamCompleter': $flutter_36.ImageStreamCompleter,
+      'OneFrameImageStreamCompleter': $flutter_36.OneFrameImageStreamCompleter,
+      'MultiFrameImageStreamCompleter': $flutter_36.MultiFrameImageStreamCompleter,
+      'Accumulator': $flutter_37.Accumulator,
+      'InlineSpanSemanticsInformation': $flutter_37.InlineSpanSemanticsInformation,
+      'InlineSpan': $flutter_37.InlineSpan,
+      'LinearBorderEdge': $flutter_38.LinearBorderEdge,
+      'LinearBorder': $flutter_38.LinearBorder,
+      'MatrixUtils': $flutter_39.MatrixUtils,
+      'TransformProperty': $flutter_39.TransformProperty,
+      'NotchedShape': $flutter_40.NotchedShape,
+      'CircularNotchedRectangle': $flutter_40.CircularNotchedRectangle,
+      'AutomaticNotchedShape': $flutter_40.AutomaticNotchedShape,
+      'OvalBorder': $flutter_41.OvalBorder,
+      'PlaceholderSpan': $flutter_43.PlaceholderSpan,
+      'RoundedRectangleBorder': $flutter_44.RoundedRectangleBorder,
+      'RoundedSuperellipseBorder': $flutter_44.RoundedSuperellipseBorder,
+      'ShaderWarmUp': $flutter_45.ShaderWarmUp,
+      'ShapeDecoration': $flutter_46.ShapeDecoration,
+      'StadiumBorder': $flutter_47.StadiumBorder,
+      'StarBorder': $flutter_48.StarBorder,
+      'StrutStyle': $flutter_49.StrutStyle,
+      'TextSelection': $flutter_64.TextSelection,
+      'PlaceholderDimensions': $flutter_50.PlaceholderDimensions,
+      'WordBoundary': $flutter_50.WordBoundary,
+      'TextPainter': $flutter_50.TextPainter,
+      'TextScaler': $flutter_51.TextScaler,
+      'TextSpan': $flutter_52.TextSpan,
+      'TextStyle': $flutter_53.TextStyle,
+      'Matrix4': $vector_math_1.Matrix4,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -614,8 +813,9 @@ class FlutterPaintingBridge {
       (source: 'package:flutter/src/foundation/consolidate_response.dart', target: 'dart:typed_data', show: {'Uint8List'}, hide: null),
       (source: 'package:flutter/src/foundation/debug.dart', target: 'dart:ui', show: {'Brightness'}, hide: null),
       (source: 'package:flutter/src/foundation/debug.dart', target: 'package:flutter/src/foundation/print.dart', show: {'DebugPrintCallback'}, hide: null),
+      (source: 'package:flutter/src/foundation/error_dumper.dart', target: 'package:flutter/src/foundation/_error_dumper_io.dart', show: null, hide: null),
       (source: 'package:flutter/src/foundation/serialization.dart', target: 'dart:typed_data', show: {'ByteData', 'Endian', 'Float32List', 'Float64List', 'Int32List', 'Int64List', 'Uint8List'}, hide: null),
-      (source: 'package:flutter/foundation.dart', target: 'package:meta/meta.dart', show: {'factory', 'immutable', 'internal', 'mustCallSuper', 'nonVirtual', 'optionalTypeArgs', 'protected', 'required', 'visibleForOverriding', 'visibleForTesting'}, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:meta/meta.dart', show: {'factory', 'immutable', 'internal', 'mustBeConst', 'mustCallSuper', 'nonVirtual', 'optionalTypeArgs', 'protected', 'required', 'visibleForOverriding', 'visibleForTesting'}, hide: null),
       (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/annotations.dart', show: null, hide: null),
       (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/assertions.dart', show: null, hide: null),
       (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/basic_types.dart', show: null, hide: null),
@@ -628,6 +828,7 @@ class FlutterPaintingBridge {
       (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/constants.dart', show: null, hide: null),
       (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/debug.dart', show: null, hide: null),
       (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/diagnostics.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/error_dumper.dart', show: null, hide: null),
       (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/isolates.dart', show: null, hide: null),
       (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/key.dart', show: null, hide: null),
       (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/licenses.dart', show: null, hide: null),
@@ -862,11 +1063,20 @@ class FlutterPaintingBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // MCI#1 / A1: Register the flattened native supertype table so

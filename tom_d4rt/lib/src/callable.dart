@@ -129,7 +129,7 @@ class InterpretedFunction implements Callable {
   static RuntimeType _resolveTypeAnnotationDynamic(
       TypeAnnotation typeNode, Environment env) {
     if (typeNode is NamedType) {
-      final typeName = typeNode.name2.lexeme;
+      final typeName = typeNode.name.lexeme;
 
       Logger.debug(
           "[InterpretedFunction._resolveTypeAnnotationDynamic] Resolving NamedType: $typeName");
@@ -1219,10 +1219,18 @@ class InterpretedFunction implements Callable {
     // wrap, native container operations downstream of a `targetValue[key]`
     // (visitIndexExpression) read `D4.activeVisitor == null` and silently
     // fall back to identity hashing, breaking content-equality lookups.
-    return D4.withActiveVisitor<Object?>(visitor, () {
+    //
+    // Hot path: push/pop the active visitor directly rather than via
+    // `withActiveVisitor`, whose `T Function()` argument allocates a closure on
+    // every interpreted function call. The save/set/restore semantics are
+    // identical (nesting included).
+    final previousActiveVisitor = D4.pushActiveVisitor(visitor);
+    try {
       return _callImpl(visitor, positionalArguments, namedArguments,
           typeArguments);
-    });
+    } finally {
+      D4.popActiveVisitor(previousActiveVisitor);
+    }
   }
 
   Object? _callImpl(
@@ -1420,12 +1428,12 @@ class InterpretedFunction implements Callable {
 
     // Resolve the target class name and optional named-constructor part. The
     // unresolved parser can place `Y` in importPrefix and the named-ctor part
-    // in name2 for a redirect like `= Circle.r` (mirrors the ambiguity handled
+    // in name for a redirect like `= Circle.r` (mirrors the ambiguity handled
     // in visitInstanceCreationExpression).
     String className;
     String namedCtorPart;
     if (target.name != null) {
-      className = typeNode.name2.lexeme;
+      className = typeNode.name.lexeme;
       namedCtorPart = target.name!.name;
     } else if (typeNode.importPrefix != null) {
       final possibleClassName = typeNode.importPrefix!.name.lexeme;
@@ -1437,13 +1445,13 @@ class InterpretedFunction implements Callable {
       }
       if (possibleType is InterpretedClass || possibleType is BridgedClass) {
         className = possibleClassName;
-        namedCtorPart = typeNode.name2.lexeme;
+        namedCtorPart = typeNode.name.lexeme;
       } else {
-        className = typeNode.name2.lexeme;
+        className = typeNode.name.lexeme;
         namedCtorPart = '';
       }
     } else {
-      className = typeNode.name2.lexeme;
+      className = typeNode.name.lexeme;
       namedCtorPart = '';
     }
 

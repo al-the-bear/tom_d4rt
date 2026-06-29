@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 50 files
-// Generated: 2026-06-17T19:05:01.407981
+// Generated: 2026-06-28T14:30:31.741884
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
 import 'package:tom_d4rt_ast/d4rt.dart';
 import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
@@ -126,6 +126,10 @@ import 'package:flutter/src/painting/clip.dart' as $aux_flutter_3;
 /// Bridge class for flutter_rendering module.
 class FlutterRenderingBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createMatrix4Bridge(),
@@ -364,6 +368,7 @@ class FlutterRenderingBridge {
       _createAlignmentGeometryTweenBridge(),
       _createViewConfigurationBridge(),
       _createRenderViewBridge(),
+      _createScrollCacheExtentBridge(),
       _createRenderAbstractViewportBridge(),
       _createRevealedOffsetBridge(),
       _createRenderViewportBaseBridge(),
@@ -374,6 +379,515 @@ class FlutterRenderingBridge {
       _createRenderWrapBridge(),
       _createHSVColorBridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'Matrix4': _createMatrix4Bridge,
+      'RenderAnimatedSize': _createRenderAnimatedSizeBridge,
+      'RenderingFlutterBinding': _createRenderingFlutterBindingBridge,
+      'RendererBinding': _createRendererBindingBridge,
+      'BoxConstraints': _createBoxConstraintsBridge,
+      'BoxHitTestResult': _createBoxHitTestResultBridge,
+      'BoxHitTestEntry': _createBoxHitTestEntryBridge,
+      'BoxParentData': _createBoxParentDataBridge,
+      'ContainerBoxParentData': _createContainerBoxParentDataBridge,
+      'RenderBox': _createRenderBoxBridge,
+      'RenderBoxContainerDefaultsMixin': _createRenderBoxContainerDefaultsMixinBridge,
+      'MultiChildLayoutParentData': _createMultiChildLayoutParentDataBridge,
+      'MultiChildLayoutDelegate': _createMultiChildLayoutDelegateBridge,
+      'RenderCustomMultiChildLayoutBox': _createRenderCustomMultiChildLayoutBoxBridge,
+      'CustomPainter': _createCustomPainterBridge,
+      'CustomPainterSemantics': _createCustomPainterSemanticsBridge,
+      'RenderCustomPaint': _createRenderCustomPaintBridge,
+      'DebugOverflowIndicatorMixin': _createDebugOverflowIndicatorMixinBridge,
+      'RenderDecoratedSliver': _createRenderDecoratedSliverBridge,
+      'TextSelectionPoint': _createTextSelectionPointBridge,
+      'VerticalCaretMovementRun': _createVerticalCaretMovementRunBridge,
+      'RenderEditable': _createRenderEditableBridge,
+      'RenderEditablePainter': _createRenderEditablePainterBridge,
+      'RenderErrorBox': _createRenderErrorBoxBridge,
+      'FlexParentData': _createFlexParentDataBridge,
+      'RenderFlex': _createRenderFlexBridge,
+      'FlowPaintingContext': _createFlowPaintingContextBridge,
+      'FlowDelegate': _createFlowDelegateBridge,
+      'FlowParentData': _createFlowParentDataBridge,
+      'RenderFlow': _createRenderFlowBridge,
+      'RenderImage': _createRenderImageBridge,
+      'ImageFilterContext': _createImageFilterContextBridge,
+      'ImageFilterConfig': _createImageFilterConfigBridge,
+      'AnnotationEntry': _createAnnotationEntryBridge,
+      'AnnotationResult': _createAnnotationResultBridge,
+      'Layer': _createLayerBridge,
+      'LayerHandle': _createLayerHandleBridge,
+      'PictureLayer': _createPictureLayerBridge,
+      'TextureLayer': _createTextureLayerBridge,
+      'PlatformViewLayer': _createPlatformViewLayerBridge,
+      'PerformanceOverlayLayer': _createPerformanceOverlayLayerBridge,
+      'ContainerLayer': _createContainerLayerBridge,
+      'OffsetLayer': _createOffsetLayerBridge,
+      'ClipRectLayer': _createClipRectLayerBridge,
+      'ClipRRectLayer': _createClipRRectLayerBridge,
+      'ClipRSuperellipseLayer': _createClipRSuperellipseLayerBridge,
+      'ClipPathLayer': _createClipPathLayerBridge,
+      'ColorFilterLayer': _createColorFilterLayerBridge,
+      'ImageFilterLayer': _createImageFilterLayerBridge,
+      'TransformLayer': _createTransformLayerBridge,
+      'OpacityLayer': _createOpacityLayerBridge,
+      'ShaderMaskLayer': _createShaderMaskLayerBridge,
+      'BackdropKey': _createBackdropKeyBridge,
+      'BackdropFilterLayer': _createBackdropFilterLayerBridge,
+      'LayerLink': _createLayerLinkBridge,
+      'LeaderLayer': _createLeaderLayerBridge,
+      'FollowerLayer': _createFollowerLayerBridge,
+      'AnnotatedRegionLayer': _createAnnotatedRegionLayerBridge,
+      'ChildLayoutHelper': _createChildLayoutHelperBridge,
+      'ListBodyParentData': _createListBodyParentDataBridge,
+      'RenderListBody': _createRenderListBodyBridge,
+      'ListWheelChildManager': _createListWheelChildManagerBridge,
+      'ListWheelParentData': _createListWheelParentDataBridge,
+      'RenderListWheelViewport': _createRenderListWheelViewportBridge,
+      'MouseTracker': _createMouseTrackerBridge,
+      'ParentData': _createParentDataBridge,
+      'PaintingContext': _createPaintingContextBridge,
+      'Constraints': _createConstraintsBridge,
+      'PipelineOwner': _createPipelineOwnerBridge,
+      'PipelineManifold': _createPipelineManifoldBridge,
+      'RenderObject': _createRenderObjectBridge,
+      'DiagnosticsDebugCreator': _createDiagnosticsDebugCreatorBridge,
+      'RenderObjectWithChildMixin': _createRenderObjectWithChildMixinBridge,
+      'RenderObjectWithLayoutCallbackMixin': _createRenderObjectWithLayoutCallbackMixinBridge,
+      'ContainerParentDataMixin': _createContainerParentDataMixinBridge,
+      'ContainerRenderObjectMixin': _createContainerRenderObjectMixinBridge,
+      'RelayoutWhenSystemFontsChangeMixin': _createRelayoutWhenSystemFontsChangeMixinBridge,
+      'SemanticsAnnotationsMixin': _createSemanticsAnnotationsMixinBridge,
+      'PlaceholderSpanIndexSemanticsTag': _createPlaceholderSpanIndexSemanticsTagBridge,
+      'TextParentData': _createTextParentDataBridge,
+      'RenderParagraph': _createRenderParagraphBridge,
+      'RenderInlineChildrenContainerDefaults': _createRenderInlineChildrenContainerDefaultsBridge,
+      'RenderPerformanceOverlay': _createRenderPerformanceOverlayBridge,
+      'RenderAndroidView': _createRenderAndroidViewBridge,
+      'RenderDarwinPlatformView': _createRenderDarwinPlatformViewBridge,
+      'RenderUiKitView': _createRenderUiKitViewBridge,
+      'RenderAppKitView': _createRenderAppKitViewBridge,
+      'PlatformViewRenderBox': _createPlatformViewRenderBoxBridge,
+      'RenderProxyBox': _createRenderProxyBoxBridge,
+      'RenderProxyBoxWithHitTestBehavior': _createRenderProxyBoxWithHitTestBehaviorBridge,
+      'RenderConstrainedBox': _createRenderConstrainedBoxBridge,
+      'RenderLimitedBox': _createRenderLimitedBoxBridge,
+      'RenderAspectRatio': _createRenderAspectRatioBridge,
+      'RenderIntrinsicWidth': _createRenderIntrinsicWidthBridge,
+      'RenderIntrinsicHeight': _createRenderIntrinsicHeightBridge,
+      'RenderIgnoreBaseline': _createRenderIgnoreBaselineBridge,
+      'RenderOpacity': _createRenderOpacityBridge,
+      'RenderAnimatedOpacity': _createRenderAnimatedOpacityBridge,
+      'RenderShaderMask': _createRenderShaderMaskBridge,
+      'RenderBackdropFilter': _createRenderBackdropFilterBridge,
+      'CustomClipper': _createCustomClipperBridge,
+      'ShapeBorderClipper': _createShapeBorderClipperBridge,
+      'RenderClipRect': _createRenderClipRectBridge,
+      'RenderClipRRect': _createRenderClipRRectBridge,
+      'RenderClipRSuperellipse': _createRenderClipRSuperellipseBridge,
+      'RenderClipOval': _createRenderClipOvalBridge,
+      'RenderClipPath': _createRenderClipPathBridge,
+      'RenderPhysicalModel': _createRenderPhysicalModelBridge,
+      'RenderPhysicalShape': _createRenderPhysicalShapeBridge,
+      'RenderDecoratedBox': _createRenderDecoratedBoxBridge,
+      'RenderTransform': _createRenderTransformBridge,
+      'RenderFittedBox': _createRenderFittedBoxBridge,
+      'RenderFractionalTranslation': _createRenderFractionalTranslationBridge,
+      'RenderPointerListener': _createRenderPointerListenerBridge,
+      'RenderMouseRegion': _createRenderMouseRegionBridge,
+      'RenderRepaintBoundary': _createRenderRepaintBoundaryBridge,
+      'RenderIgnorePointer': _createRenderIgnorePointerBridge,
+      'RenderOffstage': _createRenderOffstageBridge,
+      'RenderAbsorbPointer': _createRenderAbsorbPointerBridge,
+      'RenderMetaData': _createRenderMetaDataBridge,
+      'RenderSemanticsGestureHandler': _createRenderSemanticsGestureHandlerBridge,
+      'RenderSemanticsAnnotations': _createRenderSemanticsAnnotationsBridge,
+      'RenderBlockSemantics': _createRenderBlockSemanticsBridge,
+      'RenderMergeSemantics': _createRenderMergeSemanticsBridge,
+      'RenderExcludeSemantics': _createRenderExcludeSemanticsBridge,
+      'RenderIndexedSemantics': _createRenderIndexedSemanticsBridge,
+      'RenderLeaderLayer': _createRenderLeaderLayerBridge,
+      'RenderFollowerLayer': _createRenderFollowerLayerBridge,
+      'RenderAnnotatedRegion': _createRenderAnnotatedRegionBridge,
+      'RenderProxyBoxMixin': _createRenderProxyBoxMixinBridge,
+      'RenderAnimatedOpacityMixin': _createRenderAnimatedOpacityMixinBridge,
+      'RenderProxySliver': _createRenderProxySliverBridge,
+      'RenderSliverOpacity': _createRenderSliverOpacityBridge,
+      'RenderSliverIgnorePointer': _createRenderSliverIgnorePointerBridge,
+      'RenderSliverOffstage': _createRenderSliverOffstageBridge,
+      'RenderSliverAnimatedOpacity': _createRenderSliverAnimatedOpacityBridge,
+      'RenderSliverConstrainedCrossAxis': _createRenderSliverConstrainedCrossAxisBridge,
+      'RenderSliverSemanticsAnnotations': _createRenderSliverSemanticsAnnotationsBridge,
+      'RenderRotatedBox': _createRenderRotatedBoxBridge,
+      'SelectionHandler': _createSelectionHandlerBridge,
+      'SelectedContentRange': _createSelectedContentRangeBridge,
+      'SelectedContent': _createSelectedContentBridge,
+      'SelectionUtils': _createSelectionUtilsBridge,
+      'SelectionEvent': _createSelectionEventBridge,
+      'SelectAllSelectionEvent': _createSelectAllSelectionEventBridge,
+      'ClearSelectionEvent': _createClearSelectionEventBridge,
+      'SelectWordSelectionEvent': _createSelectWordSelectionEventBridge,
+      'SelectParagraphSelectionEvent': _createSelectParagraphSelectionEventBridge,
+      'SelectionEdgeUpdateEvent': _createSelectionEdgeUpdateEventBridge,
+      'GranularlyExtendSelectionEvent': _createGranularlyExtendSelectionEventBridge,
+      'DirectionallyExtendSelectionEvent': _createDirectionallyExtendSelectionEventBridge,
+      'SelectionRegistrar': _createSelectionRegistrarBridge,
+      'SelectionGeometry': _createSelectionGeometryBridge,
+      'SelectionPoint': _createSelectionPointBridge,
+      'Selectable': _createSelectableBridge,
+      'SelectionRegistrant': _createSelectionRegistrantBridge,
+      'RenderShiftedBox': _createRenderShiftedBoxBridge,
+      'RenderPadding': _createRenderPaddingBridge,
+      'RenderAligningShiftedBox': _createRenderAligningShiftedBoxBridge,
+      'RenderPositionedBox': _createRenderPositionedBoxBridge,
+      'RenderConstrainedOverflowBox': _createRenderConstrainedOverflowBoxBridge,
+      'RenderConstraintsTransformBox': _createRenderConstraintsTransformBoxBridge,
+      'RenderSizedOverflowBox': _createRenderSizedOverflowBoxBridge,
+      'RenderFractionallySizedOverflowBox': _createRenderFractionallySizedOverflowBoxBridge,
+      'SingleChildLayoutDelegate': _createSingleChildLayoutDelegateBridge,
+      'RenderCustomSingleChildLayoutBox': _createRenderCustomSingleChildLayoutBoxBridge,
+      'RenderBaseline': _createRenderBaselineBridge,
+      'SliverLayoutDimensions': _createSliverLayoutDimensionsBridge,
+      'SliverConstraints': _createSliverConstraintsBridge,
+      'SliverGeometry': _createSliverGeometryBridge,
+      'SliverHitTestResult': _createSliverHitTestResultBridge,
+      'SliverHitTestEntry': _createSliverHitTestEntryBridge,
+      'SliverLogicalParentData': _createSliverLogicalParentDataBridge,
+      'SliverLogicalContainerParentData': _createSliverLogicalContainerParentDataBridge,
+      'SliverPhysicalParentData': _createSliverPhysicalParentDataBridge,
+      'SliverPhysicalContainerParentData': _createSliverPhysicalContainerParentDataBridge,
+      'RenderSliver': _createRenderSliverBridge,
+      'RenderSliverSingleBoxAdapter': _createRenderSliverSingleBoxAdapterBridge,
+      'RenderSliverToBoxAdapter': _createRenderSliverToBoxAdapterBridge,
+      'RenderSliverHelpers': _createRenderSliverHelpersBridge,
+      'RenderSliverFillViewport': _createRenderSliverFillViewportBridge,
+      'RenderSliverFillRemainingWithScrollable': _createRenderSliverFillRemainingWithScrollableBridge,
+      'RenderSliverFillRemaining': _createRenderSliverFillRemainingBridge,
+      'RenderSliverFillRemainingAndOverscroll': _createRenderSliverFillRemainingAndOverscrollBridge,
+      'RenderSliverFixedExtentBoxAdaptor': _createRenderSliverFixedExtentBoxAdaptorBridge,
+      'RenderSliverFixedExtentList': _createRenderSliverFixedExtentListBridge,
+      'RenderSliverVariedExtentList': _createRenderSliverVariedExtentListBridge,
+      'SliverGridGeometry': _createSliverGridGeometryBridge,
+      'SliverGridLayout': _createSliverGridLayoutBridge,
+      'SliverGridRegularTileLayout': _createSliverGridRegularTileLayoutBridge,
+      'SliverGridDelegate': _createSliverGridDelegateBridge,
+      'SliverGridDelegateWithFixedCrossAxisCount': _createSliverGridDelegateWithFixedCrossAxisCountBridge,
+      'SliverGridDelegateWithMaxCrossAxisExtent': _createSliverGridDelegateWithMaxCrossAxisExtentBridge,
+      'SliverGridParentData': _createSliverGridParentDataBridge,
+      'RenderSliverGrid': _createRenderSliverGridBridge,
+      'RenderSliverCrossAxisGroup': _createRenderSliverCrossAxisGroupBridge,
+      'RenderSliverMainAxisGroup': _createRenderSliverMainAxisGroupBridge,
+      'RenderSliverList': _createRenderSliverListBridge,
+      'RenderSliverBoxChildManager': _createRenderSliverBoxChildManagerBridge,
+      'SliverMultiBoxAdaptorParentData': _createSliverMultiBoxAdaptorParentDataBridge,
+      'RenderSliverMultiBoxAdaptor': _createRenderSliverMultiBoxAdaptorBridge,
+      'KeepAliveParentDataMixin': _createKeepAliveParentDataMixinBridge,
+      'RenderSliverWithKeepAliveMixin': _createRenderSliverWithKeepAliveMixinBridge,
+      'RenderSliverEdgeInsetsPadding': _createRenderSliverEdgeInsetsPaddingBridge,
+      'RenderSliverPadding': _createRenderSliverPaddingBridge,
+      'OverScrollHeaderStretchConfiguration': _createOverScrollHeaderStretchConfigurationBridge,
+      'PersistentHeaderShowOnScreenConfiguration': _createPersistentHeaderShowOnScreenConfigurationBridge,
+      'RenderSliverPersistentHeader': _createRenderSliverPersistentHeaderBridge,
+      'RenderSliverScrollingPersistentHeader': _createRenderSliverScrollingPersistentHeaderBridge,
+      'RenderSliverPinnedPersistentHeader': _createRenderSliverPinnedPersistentHeaderBridge,
+      'FloatingHeaderSnapConfiguration': _createFloatingHeaderSnapConfigurationBridge,
+      'RenderSliverFloatingPersistentHeader': _createRenderSliverFloatingPersistentHeaderBridge,
+      'RenderSliverFloatingPinnedPersistentHeader': _createRenderSliverFloatingPinnedPersistentHeaderBridge,
+      'TreeSliverNodeParentData': _createTreeSliverNodeParentDataBridge,
+      'TreeSliverIndentationType': _createTreeSliverIndentationTypeBridge,
+      'RenderTreeSliver': _createRenderTreeSliverBridge,
+      'RelativeRect': _createRelativeRectBridge,
+      'StackParentData': _createStackParentDataBridge,
+      'RenderStack': _createRenderStackBridge,
+      'RenderIndexedStack': _createRenderIndexedStackBridge,
+      'TableCellParentData': _createTableCellParentDataBridge,
+      'TableColumnWidth': _createTableColumnWidthBridge,
+      'IntrinsicColumnWidth': _createIntrinsicColumnWidthBridge,
+      'FixedColumnWidth': _createFixedColumnWidthBridge,
+      'FractionColumnWidth': _createFractionColumnWidthBridge,
+      'FlexColumnWidth': _createFlexColumnWidthBridge,
+      'MaxColumnWidth': _createMaxColumnWidthBridge,
+      'MinColumnWidth': _createMinColumnWidthBridge,
+      'RenderTable': _createRenderTableBridge,
+      'TableBorder': _createTableBorderBridge,
+      'TextureBox': _createTextureBoxBridge,
+      'FractionalOffsetTween': _createFractionalOffsetTweenBridge,
+      'AlignmentTween': _createAlignmentTweenBridge,
+      'AlignmentGeometryTween': _createAlignmentGeometryTweenBridge,
+      'ViewConfiguration': _createViewConfigurationBridge,
+      'RenderView': _createRenderViewBridge,
+      'ScrollCacheExtent': _createScrollCacheExtentBridge,
+      'RenderAbstractViewport': _createRenderAbstractViewportBridge,
+      'RevealedOffset': _createRevealedOffsetBridge,
+      'RenderViewportBase': _createRenderViewportBaseBridge,
+      'RenderViewport': _createRenderViewportBridge,
+      'RenderShrinkWrappingViewport': _createRenderShrinkWrappingViewportBridge,
+      'ViewportOffset': _createViewportOffsetBridge,
+      'WrapParentData': _createWrapParentDataBridge,
+      'RenderWrap': _createRenderWrapBridge,
+      'HSVColor': _createHSVColorBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'Matrix4': $vector_math_1.Matrix4,
+      'RenderAnimatedSize': $flutter_40.RenderAnimatedSize,
+      'RenderingFlutterBinding': $flutter_41.RenderingFlutterBinding,
+      'RendererBinding': $flutter_41.RendererBinding,
+      'BoxConstraints': $flutter_42.BoxConstraints,
+      'BoxHitTestResult': $flutter_42.BoxHitTestResult,
+      'BoxHitTestEntry': $flutter_42.BoxHitTestEntry,
+      'BoxParentData': $flutter_42.BoxParentData,
+      'ContainerBoxParentData': $flutter_42.ContainerBoxParentData,
+      'RenderBox': $flutter_42.RenderBox,
+      'RenderBoxContainerDefaultsMixin': $flutter_42.RenderBoxContainerDefaultsMixin,
+      'MultiChildLayoutParentData': $flutter_43.MultiChildLayoutParentData,
+      'MultiChildLayoutDelegate': $flutter_43.MultiChildLayoutDelegate,
+      'RenderCustomMultiChildLayoutBox': $flutter_43.RenderCustomMultiChildLayoutBox,
+      'CustomPainter': $flutter_44.CustomPainter,
+      'CustomPainterSemantics': $flutter_44.CustomPainterSemantics,
+      'RenderCustomPaint': $flutter_44.RenderCustomPaint,
+      'DebugOverflowIndicatorMixin': $flutter_46.DebugOverflowIndicatorMixin,
+      'RenderDecoratedSliver': $flutter_47.RenderDecoratedSliver,
+      'TextSelectionPoint': $flutter_48.TextSelectionPoint,
+      'VerticalCaretMovementRun': $flutter_48.VerticalCaretMovementRun,
+      'RenderEditable': $flutter_48.RenderEditable,
+      'RenderEditablePainter': $flutter_48.RenderEditablePainter,
+      'RenderErrorBox': $flutter_49.RenderErrorBox,
+      'FlexParentData': $flutter_50.FlexParentData,
+      'RenderFlex': $flutter_50.RenderFlex,
+      'FlowPaintingContext': $flutter_51.FlowPaintingContext,
+      'FlowDelegate': $flutter_51.FlowDelegate,
+      'FlowParentData': $flutter_51.FlowParentData,
+      'RenderFlow': $flutter_51.RenderFlow,
+      'RenderImage': $flutter_52.RenderImage,
+      'ImageFilterContext': $flutter_53.ImageFilterContext,
+      'ImageFilterConfig': $flutter_53.ImageFilterConfig,
+      'AnnotationEntry': $flutter_54.AnnotationEntry,
+      'AnnotationResult': $flutter_54.AnnotationResult,
+      'Layer': $flutter_54.Layer,
+      'LayerHandle': $flutter_54.LayerHandle,
+      'PictureLayer': $flutter_54.PictureLayer,
+      'TextureLayer': $flutter_54.TextureLayer,
+      'PlatformViewLayer': $flutter_54.PlatformViewLayer,
+      'PerformanceOverlayLayer': $flutter_54.PerformanceOverlayLayer,
+      'ContainerLayer': $flutter_54.ContainerLayer,
+      'OffsetLayer': $flutter_54.OffsetLayer,
+      'ClipRectLayer': $flutter_54.ClipRectLayer,
+      'ClipRRectLayer': $flutter_54.ClipRRectLayer,
+      'ClipRSuperellipseLayer': $flutter_54.ClipRSuperellipseLayer,
+      'ClipPathLayer': $flutter_54.ClipPathLayer,
+      'ColorFilterLayer': $flutter_54.ColorFilterLayer,
+      'ImageFilterLayer': $flutter_54.ImageFilterLayer,
+      'TransformLayer': $flutter_54.TransformLayer,
+      'OpacityLayer': $flutter_54.OpacityLayer,
+      'ShaderMaskLayer': $flutter_54.ShaderMaskLayer,
+      'BackdropKey': $flutter_54.BackdropKey,
+      'BackdropFilterLayer': $flutter_54.BackdropFilterLayer,
+      'LayerLink': $flutter_54.LayerLink,
+      'LeaderLayer': $flutter_54.LeaderLayer,
+      'FollowerLayer': $flutter_54.FollowerLayer,
+      'AnnotatedRegionLayer': $flutter_54.AnnotatedRegionLayer,
+      'ChildLayoutHelper': $flutter_55.ChildLayoutHelper,
+      'ListBodyParentData': $flutter_56.ListBodyParentData,
+      'RenderListBody': $flutter_56.RenderListBody,
+      'ListWheelChildManager': $flutter_57.ListWheelChildManager,
+      'ListWheelParentData': $flutter_57.ListWheelParentData,
+      'RenderListWheelViewport': $flutter_57.RenderListWheelViewport,
+      'MouseTracker': $flutter_58.MouseTracker,
+      'ParentData': $flutter_59.ParentData,
+      'PaintingContext': $flutter_59.PaintingContext,
+      'Constraints': $flutter_59.Constraints,
+      'PipelineOwner': $flutter_59.PipelineOwner,
+      'PipelineManifold': $flutter_59.PipelineManifold,
+      'RenderObject': $flutter_59.RenderObject,
+      'DiagnosticsDebugCreator': $flutter_59.DiagnosticsDebugCreator,
+      'RenderObjectWithChildMixin': $flutter_59.RenderObjectWithChildMixin,
+      'RenderObjectWithLayoutCallbackMixin': $flutter_59.RenderObjectWithLayoutCallbackMixin,
+      'ContainerParentDataMixin': $flutter_59.ContainerParentDataMixin,
+      'ContainerRenderObjectMixin': $flutter_59.ContainerRenderObjectMixin,
+      'RelayoutWhenSystemFontsChangeMixin': $flutter_59.RelayoutWhenSystemFontsChangeMixin,
+      'SemanticsAnnotationsMixin': $flutter_59.SemanticsAnnotationsMixin,
+      'PlaceholderSpanIndexSemanticsTag': $flutter_60.PlaceholderSpanIndexSemanticsTag,
+      'TextParentData': $flutter_60.TextParentData,
+      'RenderParagraph': $flutter_60.RenderParagraph,
+      'RenderInlineChildrenContainerDefaults': $flutter_60.RenderInlineChildrenContainerDefaults,
+      'RenderPerformanceOverlay': $flutter_61.RenderPerformanceOverlay,
+      'RenderAndroidView': $flutter_62.RenderAndroidView,
+      'RenderDarwinPlatformView': $flutter_62.RenderDarwinPlatformView,
+      'RenderUiKitView': $flutter_62.RenderUiKitView,
+      'RenderAppKitView': $flutter_62.RenderAppKitView,
+      'PlatformViewRenderBox': $flutter_62.PlatformViewRenderBox,
+      'RenderProxyBox': $flutter_63.RenderProxyBox,
+      'RenderProxyBoxWithHitTestBehavior': $flutter_63.RenderProxyBoxWithHitTestBehavior,
+      'RenderConstrainedBox': $flutter_63.RenderConstrainedBox,
+      'RenderLimitedBox': $flutter_63.RenderLimitedBox,
+      'RenderAspectRatio': $flutter_63.RenderAspectRatio,
+      'RenderIntrinsicWidth': $flutter_63.RenderIntrinsicWidth,
+      'RenderIntrinsicHeight': $flutter_63.RenderIntrinsicHeight,
+      'RenderIgnoreBaseline': $flutter_63.RenderIgnoreBaseline,
+      'RenderOpacity': $flutter_63.RenderOpacity,
+      'RenderAnimatedOpacity': $flutter_63.RenderAnimatedOpacity,
+      'RenderShaderMask': $flutter_63.RenderShaderMask,
+      'RenderBackdropFilter': $flutter_63.RenderBackdropFilter,
+      'CustomClipper': $flutter_63.CustomClipper,
+      'ShapeBorderClipper': $flutter_63.ShapeBorderClipper,
+      'RenderClipRect': $flutter_63.RenderClipRect,
+      'RenderClipRRect': $flutter_63.RenderClipRRect,
+      'RenderClipRSuperellipse': $flutter_63.RenderClipRSuperellipse,
+      'RenderClipOval': $flutter_63.RenderClipOval,
+      'RenderClipPath': $flutter_63.RenderClipPath,
+      'RenderPhysicalModel': $flutter_63.RenderPhysicalModel,
+      'RenderPhysicalShape': $flutter_63.RenderPhysicalShape,
+      'RenderDecoratedBox': $flutter_63.RenderDecoratedBox,
+      'RenderTransform': $flutter_63.RenderTransform,
+      'RenderFittedBox': $flutter_63.RenderFittedBox,
+      'RenderFractionalTranslation': $flutter_63.RenderFractionalTranslation,
+      'RenderPointerListener': $flutter_63.RenderPointerListener,
+      'RenderMouseRegion': $flutter_63.RenderMouseRegion,
+      'RenderRepaintBoundary': $flutter_63.RenderRepaintBoundary,
+      'RenderIgnorePointer': $flutter_63.RenderIgnorePointer,
+      'RenderOffstage': $flutter_63.RenderOffstage,
+      'RenderAbsorbPointer': $flutter_63.RenderAbsorbPointer,
+      'RenderMetaData': $flutter_63.RenderMetaData,
+      'RenderSemanticsGestureHandler': $flutter_63.RenderSemanticsGestureHandler,
+      'RenderSemanticsAnnotations': $flutter_63.RenderSemanticsAnnotations,
+      'RenderBlockSemantics': $flutter_63.RenderBlockSemantics,
+      'RenderMergeSemantics': $flutter_63.RenderMergeSemantics,
+      'RenderExcludeSemantics': $flutter_63.RenderExcludeSemantics,
+      'RenderIndexedSemantics': $flutter_63.RenderIndexedSemantics,
+      'RenderLeaderLayer': $flutter_63.RenderLeaderLayer,
+      'RenderFollowerLayer': $flutter_63.RenderFollowerLayer,
+      'RenderAnnotatedRegion': $flutter_63.RenderAnnotatedRegion,
+      'RenderProxyBoxMixin': $flutter_63.RenderProxyBoxMixin,
+      'RenderAnimatedOpacityMixin': $flutter_63.RenderAnimatedOpacityMixin,
+      'RenderProxySliver': $flutter_64.RenderProxySliver,
+      'RenderSliverOpacity': $flutter_64.RenderSliverOpacity,
+      'RenderSliverIgnorePointer': $flutter_64.RenderSliverIgnorePointer,
+      'RenderSliverOffstage': $flutter_64.RenderSliverOffstage,
+      'RenderSliverAnimatedOpacity': $flutter_64.RenderSliverAnimatedOpacity,
+      'RenderSliverConstrainedCrossAxis': $flutter_64.RenderSliverConstrainedCrossAxis,
+      'RenderSliverSemanticsAnnotations': $flutter_64.RenderSliverSemanticsAnnotations,
+      'RenderRotatedBox': $flutter_65.RenderRotatedBox,
+      'SelectionHandler': $flutter_66.SelectionHandler,
+      'SelectedContentRange': $flutter_66.SelectedContentRange,
+      'SelectedContent': $flutter_66.SelectedContent,
+      'SelectionUtils': $flutter_66.SelectionUtils,
+      'SelectionEvent': $flutter_66.SelectionEvent,
+      'SelectAllSelectionEvent': $flutter_66.SelectAllSelectionEvent,
+      'ClearSelectionEvent': $flutter_66.ClearSelectionEvent,
+      'SelectWordSelectionEvent': $flutter_66.SelectWordSelectionEvent,
+      'SelectParagraphSelectionEvent': $flutter_66.SelectParagraphSelectionEvent,
+      'SelectionEdgeUpdateEvent': $flutter_66.SelectionEdgeUpdateEvent,
+      'GranularlyExtendSelectionEvent': $flutter_66.GranularlyExtendSelectionEvent,
+      'DirectionallyExtendSelectionEvent': $flutter_66.DirectionallyExtendSelectionEvent,
+      'SelectionRegistrar': $flutter_66.SelectionRegistrar,
+      'SelectionGeometry': $flutter_66.SelectionGeometry,
+      'SelectionPoint': $flutter_66.SelectionPoint,
+      'Selectable': $flutter_66.Selectable,
+      'SelectionRegistrant': $flutter_66.SelectionRegistrant,
+      'RenderShiftedBox': $flutter_68.RenderShiftedBox,
+      'RenderPadding': $flutter_68.RenderPadding,
+      'RenderAligningShiftedBox': $flutter_68.RenderAligningShiftedBox,
+      'RenderPositionedBox': $flutter_68.RenderPositionedBox,
+      'RenderConstrainedOverflowBox': $flutter_68.RenderConstrainedOverflowBox,
+      'RenderConstraintsTransformBox': $flutter_68.RenderConstraintsTransformBox,
+      'RenderSizedOverflowBox': $flutter_68.RenderSizedOverflowBox,
+      'RenderFractionallySizedOverflowBox': $flutter_68.RenderFractionallySizedOverflowBox,
+      'SingleChildLayoutDelegate': $flutter_68.SingleChildLayoutDelegate,
+      'RenderCustomSingleChildLayoutBox': $flutter_68.RenderCustomSingleChildLayoutBox,
+      'RenderBaseline': $flutter_68.RenderBaseline,
+      'SliverLayoutDimensions': $flutter_69.SliverLayoutDimensions,
+      'SliverConstraints': $flutter_69.SliverConstraints,
+      'SliverGeometry': $flutter_69.SliverGeometry,
+      'SliverHitTestResult': $flutter_69.SliverHitTestResult,
+      'SliverHitTestEntry': $flutter_69.SliverHitTestEntry,
+      'SliverLogicalParentData': $flutter_69.SliverLogicalParentData,
+      'SliverLogicalContainerParentData': $flutter_69.SliverLogicalContainerParentData,
+      'SliverPhysicalParentData': $flutter_69.SliverPhysicalParentData,
+      'SliverPhysicalContainerParentData': $flutter_69.SliverPhysicalContainerParentData,
+      'RenderSliver': $flutter_69.RenderSliver,
+      'RenderSliverSingleBoxAdapter': $flutter_69.RenderSliverSingleBoxAdapter,
+      'RenderSliverToBoxAdapter': $flutter_69.RenderSliverToBoxAdapter,
+      'RenderSliverHelpers': $flutter_69.RenderSliverHelpers,
+      'RenderSliverFillViewport': $flutter_70.RenderSliverFillViewport,
+      'RenderSliverFillRemainingWithScrollable': $flutter_70.RenderSliverFillRemainingWithScrollable,
+      'RenderSliverFillRemaining': $flutter_70.RenderSliverFillRemaining,
+      'RenderSliverFillRemainingAndOverscroll': $flutter_70.RenderSliverFillRemainingAndOverscroll,
+      'RenderSliverFixedExtentBoxAdaptor': $flutter_71.RenderSliverFixedExtentBoxAdaptor,
+      'RenderSliverFixedExtentList': $flutter_71.RenderSliverFixedExtentList,
+      'RenderSliverVariedExtentList': $flutter_71.RenderSliverVariedExtentList,
+      'SliverGridGeometry': $flutter_72.SliverGridGeometry,
+      'SliverGridLayout': $flutter_72.SliverGridLayout,
+      'SliverGridRegularTileLayout': $flutter_72.SliverGridRegularTileLayout,
+      'SliverGridDelegate': $flutter_72.SliverGridDelegate,
+      'SliverGridDelegateWithFixedCrossAxisCount': $flutter_72.SliverGridDelegateWithFixedCrossAxisCount,
+      'SliverGridDelegateWithMaxCrossAxisExtent': $flutter_72.SliverGridDelegateWithMaxCrossAxisExtent,
+      'SliverGridParentData': $flutter_72.SliverGridParentData,
+      'RenderSliverGrid': $flutter_72.RenderSliverGrid,
+      'RenderSliverCrossAxisGroup': $flutter_73.RenderSliverCrossAxisGroup,
+      'RenderSliverMainAxisGroup': $flutter_73.RenderSliverMainAxisGroup,
+      'RenderSliverList': $flutter_74.RenderSliverList,
+      'RenderSliverBoxChildManager': $flutter_75.RenderSliverBoxChildManager,
+      'SliverMultiBoxAdaptorParentData': $flutter_75.SliverMultiBoxAdaptorParentData,
+      'RenderSliverMultiBoxAdaptor': $flutter_75.RenderSliverMultiBoxAdaptor,
+      'KeepAliveParentDataMixin': $flutter_75.KeepAliveParentDataMixin,
+      'RenderSliverWithKeepAliveMixin': $flutter_75.RenderSliverWithKeepAliveMixin,
+      'RenderSliverEdgeInsetsPadding': $flutter_76.RenderSliverEdgeInsetsPadding,
+      'RenderSliverPadding': $flutter_76.RenderSliverPadding,
+      'OverScrollHeaderStretchConfiguration': $flutter_77.OverScrollHeaderStretchConfiguration,
+      'PersistentHeaderShowOnScreenConfiguration': $flutter_77.PersistentHeaderShowOnScreenConfiguration,
+      'RenderSliverPersistentHeader': $flutter_77.RenderSliverPersistentHeader,
+      'RenderSliverScrollingPersistentHeader': $flutter_77.RenderSliverScrollingPersistentHeader,
+      'RenderSliverPinnedPersistentHeader': $flutter_77.RenderSliverPinnedPersistentHeader,
+      'FloatingHeaderSnapConfiguration': $flutter_77.FloatingHeaderSnapConfiguration,
+      'RenderSliverFloatingPersistentHeader': $flutter_77.RenderSliverFloatingPersistentHeader,
+      'RenderSliverFloatingPinnedPersistentHeader': $flutter_77.RenderSliverFloatingPinnedPersistentHeader,
+      'TreeSliverNodeParentData': $flutter_78.TreeSliverNodeParentData,
+      'TreeSliverIndentationType': $flutter_78.TreeSliverIndentationType,
+      'RenderTreeSliver': $flutter_78.RenderTreeSliver,
+      'RelativeRect': $flutter_79.RelativeRect,
+      'StackParentData': $flutter_79.StackParentData,
+      'RenderStack': $flutter_79.RenderStack,
+      'RenderIndexedStack': $flutter_79.RenderIndexedStack,
+      'TableCellParentData': $flutter_80.TableCellParentData,
+      'TableColumnWidth': $flutter_80.TableColumnWidth,
+      'IntrinsicColumnWidth': $flutter_80.IntrinsicColumnWidth,
+      'FixedColumnWidth': $flutter_80.FixedColumnWidth,
+      'FractionColumnWidth': $flutter_80.FractionColumnWidth,
+      'FlexColumnWidth': $flutter_80.FlexColumnWidth,
+      'MaxColumnWidth': $flutter_80.MaxColumnWidth,
+      'MinColumnWidth': $flutter_80.MinColumnWidth,
+      'RenderTable': $flutter_80.RenderTable,
+      'TableBorder': $flutter_81.TableBorder,
+      'TextureBox': $flutter_82.TextureBox,
+      'FractionalOffsetTween': $flutter_83.FractionalOffsetTween,
+      'AlignmentTween': $flutter_83.AlignmentTween,
+      'AlignmentGeometryTween': $flutter_83.AlignmentGeometryTween,
+      'ViewConfiguration': $flutter_84.ViewConfiguration,
+      'RenderView': $flutter_84.RenderView,
+      'ScrollCacheExtent': $flutter_85.ScrollCacheExtent,
+      'RenderAbstractViewport': $flutter_85.RenderAbstractViewport,
+      'RevealedOffset': $flutter_85.RevealedOffset,
+      'RenderViewportBase': $flutter_85.RenderViewportBase,
+      'RenderViewport': $flutter_85.RenderViewport,
+      'RenderShrinkWrappingViewport': $flutter_85.RenderShrinkWrappingViewport,
+      'ViewportOffset': $flutter_86.ViewportOffset,
+      'WrapParentData': $flutter_87.WrapParentData,
+      'RenderWrap': $flutter_87.RenderWrap,
+      'HSVColor': $flutter_28.HSVColor,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -618,6 +1132,7 @@ class FlutterRenderingBridge {
       'AlignmentGeometryTween': 'package:flutter/src/rendering/tweens.dart',
       'ViewConfiguration': 'package:flutter/src/rendering/view.dart',
       'RenderView': 'package:flutter/src/rendering/view.dart',
+      'ScrollCacheExtent': 'package:flutter/src/rendering/viewport.dart',
       'RenderAbstractViewport': 'package:flutter/src/rendering/viewport.dart',
       'RevealedOffset': 'package:flutter/src/rendering/viewport.dart',
       'RenderViewportBase': 'package:flutter/src/rendering/viewport.dart',
@@ -1148,11 +1663,20 @@ class FlutterRenderingBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // MCI#1 / A1: Register the flattened native supertype table so
@@ -9209,6 +9733,10 @@ BridgedClass _createRenderDecoratedSliverBridge() {
         final t = D4.validateTarget<$flutter_47.RenderDecoratedSliver>(target, 'RenderDecoratedSliver');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_47.RenderDecoratedSliver>(target, 'RenderDecoratedSliver');
+        return t.getMaxPaintRect();
+      },
       'debugValidateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_47.RenderDecoratedSliver>(target, 'RenderDecoratedSliver');
         D4.requireMinArgs(positional, 1, 'debugValidateChild');
@@ -9281,6 +9809,7 @@ BridgedClass _createRenderDecoratedSliverBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
     },
     getterSignatures: {
@@ -61369,6 +61898,10 @@ BridgedClass _createRenderProxySliverBridge() {
         final t = D4.validateTarget<$flutter_64.RenderProxySliver>(target, 'RenderProxySliver');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_64.RenderProxySliver>(target, 'RenderProxySliver');
+        return t.getMaxPaintRect();
+      },
       'debugValidateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_64.RenderProxySliver>(target, 'RenderProxySliver');
         D4.requireMinArgs(positional, 1, 'debugValidateChild');
@@ -61438,6 +61971,7 @@ BridgedClass _createRenderProxySliverBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
     },
     getterSignatures: {
@@ -61944,6 +62478,10 @@ BridgedClass _createRenderSliverOpacityBridge() {
         final t = D4.validateTarget<$flutter_64.RenderSliverOpacity>(target, 'RenderSliverOpacity');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_64.RenderSliverOpacity>(target, 'RenderSliverOpacity');
+        return t.getMaxPaintRect();
+      },
       'debugValidateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_64.RenderSliverOpacity>(target, 'RenderSliverOpacity');
         D4.requireMinArgs(positional, 1, 'debugValidateChild');
@@ -62016,6 +62554,7 @@ BridgedClass _createRenderSliverOpacityBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
     },
     getterSignatures: {
@@ -62526,6 +63065,10 @@ BridgedClass _createRenderSliverIgnorePointerBridge() {
         final t = D4.validateTarget<$flutter_64.RenderSliverIgnorePointer>(target, 'RenderSliverIgnorePointer');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_64.RenderSliverIgnorePointer>(target, 'RenderSliverIgnorePointer');
+        return t.getMaxPaintRect();
+      },
       'debugValidateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_64.RenderSliverIgnorePointer>(target, 'RenderSliverIgnorePointer');
         D4.requireMinArgs(positional, 1, 'debugValidateChild');
@@ -62598,6 +63141,7 @@ BridgedClass _createRenderSliverIgnorePointerBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
     },
     getterSignatures: {
@@ -63104,6 +63648,10 @@ BridgedClass _createRenderSliverOffstageBridge() {
         final t = D4.validateTarget<$flutter_64.RenderSliverOffstage>(target, 'RenderSliverOffstage');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_64.RenderSliverOffstage>(target, 'RenderSliverOffstage');
+        return t.getMaxPaintRect();
+      },
       'debugValidateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_64.RenderSliverOffstage>(target, 'RenderSliverOffstage');
         D4.requireMinArgs(positional, 1, 'debugValidateChild');
@@ -63176,6 +63724,7 @@ BridgedClass _createRenderSliverOffstageBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
     },
     getterSignatures: {
@@ -63684,6 +64233,10 @@ BridgedClass _createRenderSliverAnimatedOpacityBridge() {
         final t = D4.validateTarget<$flutter_64.RenderSliverAnimatedOpacity>(target, 'RenderSliverAnimatedOpacity');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_64.RenderSliverAnimatedOpacity>(target, 'RenderSliverAnimatedOpacity');
+        return t.getMaxPaintRect();
+      },
       'debugValidateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_64.RenderSliverAnimatedOpacity>(target, 'RenderSliverAnimatedOpacity');
         D4.requireMinArgs(positional, 1, 'debugValidateChild');
@@ -63756,6 +64309,7 @@ BridgedClass _createRenderSliverAnimatedOpacityBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
     },
     getterSignatures: {
@@ -64261,6 +64815,10 @@ BridgedClass _createRenderSliverConstrainedCrossAxisBridge() {
         final t = D4.validateTarget<$flutter_64.RenderSliverConstrainedCrossAxis>(target, 'RenderSliverConstrainedCrossAxis');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_64.RenderSliverConstrainedCrossAxis>(target, 'RenderSliverConstrainedCrossAxis');
+        return t.getMaxPaintRect();
+      },
       'debugValidateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_64.RenderSliverConstrainedCrossAxis>(target, 'RenderSliverConstrainedCrossAxis');
         D4.requireMinArgs(positional, 1, 'debugValidateChild');
@@ -64333,6 +64891,7 @@ BridgedClass _createRenderSliverConstrainedCrossAxisBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
     },
     getterSignatures: {
@@ -64861,6 +65420,10 @@ BridgedClass _createRenderSliverSemanticsAnnotationsBridge() {
         final t = D4.validateTarget<$flutter_64.RenderSliverSemanticsAnnotations>(target, 'RenderSliverSemanticsAnnotations');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_64.RenderSliverSemanticsAnnotations>(target, 'RenderSliverSemanticsAnnotations');
+        return t.getMaxPaintRect();
+      },
       'debugValidateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_64.RenderSliverSemanticsAnnotations>(target, 'RenderSliverSemanticsAnnotations');
         D4.requireMinArgs(positional, 1, 'debugValidateChild');
@@ -64945,6 +65508,7 @@ BridgedClass _createRenderSliverSemanticsAnnotationsBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
       'initSemanticsAnnotations': 'void initSemanticsAnnotations({required SemanticsProperties properties, required bool container, required bool explicitChildNodes, required bool excludeSemantics, required bool blockUserActions, required Locale? localeForSubtree, required TextDirection? textDirection})',
     },
@@ -74939,6 +75503,10 @@ BridgedClass _createRenderSliverBridge() {
         final t = D4.validateTarget<$flutter_69.RenderSliver>(target, 'RenderSliver');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_69.RenderSliver>(target, 'RenderSliver');
+        return t.getMaxPaintRect();
+      },
     },
     methodSignatures: {
       'reassemble': 'void reassemble()',
@@ -75002,6 +75570,7 @@ BridgedClass _createRenderSliverBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
     },
     getterSignatures: {
       'parentData': 'ParentData? get parentData',
@@ -75501,6 +76070,10 @@ BridgedClass _createRenderSliverSingleBoxAdapterBridge() {
         final t = D4.validateTarget<$flutter_69.RenderSliverSingleBoxAdapter>(target, 'RenderSliverSingleBoxAdapter');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_69.RenderSliverSingleBoxAdapter>(target, 'RenderSliverSingleBoxAdapter');
+        return t.getMaxPaintRect();
+      },
       'setChildParentData': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_69.RenderSliverSingleBoxAdapter>(target, 'RenderSliverSingleBoxAdapter');
         D4.requireMinArgs(positional, 3, 'setChildParentData');
@@ -75596,6 +76169,7 @@ BridgedClass _createRenderSliverSingleBoxAdapterBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'setChildParentData': 'void setChildParentData(RenderObject child, SliverConstraints constraints, SliverGeometry geometry)',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
       'hitTestBoxChild': 'bool hitTestBoxChild(BoxHitTestResult result, RenderBox child, {required double mainAxisPosition, required double crossAxisPosition})',
@@ -76104,6 +76678,10 @@ BridgedClass _createRenderSliverToBoxAdapterBridge() {
         final t = D4.validateTarget<$flutter_69.RenderSliverToBoxAdapter>(target, 'RenderSliverToBoxAdapter');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_69.RenderSliverToBoxAdapter>(target, 'RenderSliverToBoxAdapter');
+        return t.getMaxPaintRect();
+      },
       'setChildParentData': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_69.RenderSliverToBoxAdapter>(target, 'RenderSliverToBoxAdapter');
         D4.requireMinArgs(positional, 3, 'setChildParentData');
@@ -76202,6 +76780,7 @@ BridgedClass _createRenderSliverToBoxAdapterBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'setChildParentData': 'void setChildParentData(RenderObject child, SliverConstraints constraints, SliverGeometry geometry)',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
       'hitTestBoxChild': 'bool hitTestBoxChild(BoxHitTestResult result, RenderBox child, {required double mainAxisPosition, required double crossAxisPosition})',
@@ -76410,6 +76989,10 @@ BridgedClass _createRenderSliverHelpersBridge() {
       'getAbsoluteSize': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_69.RenderSliverHelpers>(target, 'RenderSliverHelpers');
         return t.getAbsoluteSize();
+      },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_69.RenderSliverHelpers>(target, 'RenderSliverHelpers');
+        return t.getMaxPaintRect();
       },
       'debugPaint': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_69.RenderSliverHelpers>(target, 'RenderSliverHelpers');
@@ -76740,6 +77323,7 @@ BridgedClass _createRenderSliverHelpersBridge() {
       'applyPaintTransform': 'void applyPaintTransform(RenderObject child, Matrix4 transform)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'debugPaint': 'void debugPaint(PaintingContext context, Offset offset)',
       'handleEvent': 'void handleEvent(PointerEvent event, SliverHitTestEntry entry)',
       'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
@@ -76843,7 +77427,8 @@ BridgedClass _createRenderSliverFillViewportBridge() {
       '': (visitor, positional, named) {
         final childManager = D4.getRequiredNamedArg<$flutter_75.RenderSliverBoxChildManager>(named, 'childManager', 'RenderSliverFillViewport');
         final viewportFraction = D4.getNamedArgWithDefault<double>(named, 'viewportFraction', 1.0);
-        return $flutter_70.RenderSliverFillViewport(childManager: childManager, viewportFraction: viewportFraction);
+        final allowImplicitScrolling = D4.getNamedArgWithDefault<bool>(named, 'allowImplicitScrolling', true);
+        return $flutter_70.RenderSliverFillViewport(childManager: childManager, viewportFraction: viewportFraction, allowImplicitScrolling: allowImplicitScrolling);
       },
     },
     getters: {
@@ -76884,7 +77469,9 @@ BridgedClass _createRenderSliverFillViewportBridge() {
       'lastChild': (visitor, target) => D4.validateTarget<$flutter_70.RenderSliverFillViewport>(target, 'RenderSliverFillViewport').lastChild,
       'itemExtent': (visitor, target) => D4.validateTarget<$flutter_70.RenderSliverFillViewport>(target, 'RenderSliverFillViewport').itemExtent,
       'itemExtentBuilder': (visitor, target) => D4.validateTarget<$flutter_70.RenderSliverFillViewport>(target, 'RenderSliverFillViewport').itemExtentBuilder,
+      'layoutDimensions': (visitor, target) => D4.validateTarget<$flutter_70.RenderSliverFillViewport>(target, 'RenderSliverFillViewport').layoutDimensions,
       'viewportFraction': (visitor, target) => D4.validateTarget<$flutter_70.RenderSliverFillViewport>(target, 'RenderSliverFillViewport').viewportFraction,
+      'allowImplicitScrolling': (visitor, target) => D4.validateTarget<$flutter_70.RenderSliverFillViewport>(target, 'RenderSliverFillViewport').allowImplicitScrolling,
     },
     setters: {
       'parentData': (visitor, target, value) => 
@@ -76899,6 +77486,8 @@ BridgedClass _createRenderSliverFillViewportBridge() {
         D4.validateTarget<$flutter_70.RenderSliverFillViewport>(target, 'RenderSliverFillViewport').debugChildIntegrityEnabled = D4.extractBridgedArg<bool>(value, 'debugChildIntegrityEnabled'),
       'viewportFraction': (visitor, target, value) => 
         D4.validateTarget<$flutter_70.RenderSliverFillViewport>(target, 'RenderSliverFillViewport').viewportFraction = D4.extractBridgedArg<double>(value, 'viewportFraction'),
+      'allowImplicitScrolling': (visitor, target, value) => 
+        D4.validateTarget<$flutter_70.RenderSliverFillViewport>(target, 'RenderSliverFillViewport').allowImplicitScrolling = D4.extractBridgedArg<bool>(value, 'allowImplicitScrolling'),
     },
     methods: {
       'reassemble': (visitor, target, positional, named, typeArgs) {
@@ -77299,6 +77888,10 @@ BridgedClass _createRenderSliverFillViewportBridge() {
         final t = D4.validateTarget<$flutter_70.RenderSliverFillViewport>(target, 'RenderSliverFillViewport');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_70.RenderSliverFillViewport>(target, 'RenderSliverFillViewport');
+        return t.getMaxPaintRect();
+      },
       'insert': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_70.RenderSliverFillViewport>(target, 'RenderSliverFillViewport');
         D4.requireMinArgs(positional, 1, 'insert');
@@ -77474,7 +78067,7 @@ BridgedClass _createRenderSliverFillViewportBridge() {
       },
     },
     constructorSignatures: {
-      '': 'RenderSliverFillViewport({required RenderSliverBoxChildManager childManager, double viewportFraction = 1.0})',
+      '': 'RenderSliverFillViewport({required RenderSliverBoxChildManager childManager, double viewportFraction = 1.0, bool allowImplicitScrolling = true})',
     },
     methodSignatures: {
       'reassemble': 'void reassemble()',
@@ -77538,6 +78131,7 @@ BridgedClass _createRenderSliverFillViewportBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'insert': 'void insert(RenderBox child, {RenderBox? after})',
       'move': 'void move(RenderBox child, {RenderBox? after})',
       'remove': 'void remove(RenderBox child)',
@@ -77602,7 +78196,9 @@ BridgedClass _createRenderSliverFillViewportBridge() {
       'lastChild': 'RenderBox get lastChild',
       'itemExtent': 'double get itemExtent',
       'itemExtentBuilder': 'ItemExtentBuilder? get itemExtentBuilder',
+      'layoutDimensions': 'SliverLayoutDimensions get layoutDimensions',
       'viewportFraction': 'double get viewportFraction',
+      'allowImplicitScrolling': 'bool get allowImplicitScrolling',
     },
     setterSignatures: {
       'parentData': 'set parentData(ParentData? value)',
@@ -77611,6 +78207,7 @@ BridgedClass _createRenderSliverFillViewportBridge() {
       'geometry': 'set geometry(SliverGeometry? value)',
       'debugChildIntegrityEnabled': 'set debugChildIntegrityEnabled(bool value)',
       'viewportFraction': 'set viewportFraction(double value)',
+      'allowImplicitScrolling': 'set allowImplicitScrolling(bool value)',
     },
   );
 }
@@ -78075,6 +78672,10 @@ BridgedClass _createRenderSliverFillRemainingWithScrollableBridge() {
         final t = D4.validateTarget<$flutter_70.RenderSliverFillRemainingWithScrollable>(target, 'RenderSliverFillRemainingWithScrollable');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_70.RenderSliverFillRemainingWithScrollable>(target, 'RenderSliverFillRemainingWithScrollable');
+        return t.getMaxPaintRect();
+      },
       'setChildParentData': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_70.RenderSliverFillRemainingWithScrollable>(target, 'RenderSliverFillRemainingWithScrollable');
         D4.requireMinArgs(positional, 3, 'setChildParentData');
@@ -78173,6 +78774,7 @@ BridgedClass _createRenderSliverFillRemainingWithScrollableBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'setChildParentData': 'void setChildParentData(RenderObject child, SliverConstraints constraints, SliverGeometry geometry)',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
       'hitTestBoxChild': 'bool hitTestBoxChild(BoxHitTestResult result, RenderBox child, {required double mainAxisPosition, required double crossAxisPosition})',
@@ -78681,6 +79283,10 @@ BridgedClass _createRenderSliverFillRemainingBridge() {
         final t = D4.validateTarget<$flutter_70.RenderSliverFillRemaining>(target, 'RenderSliverFillRemaining');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_70.RenderSliverFillRemaining>(target, 'RenderSliverFillRemaining');
+        return t.getMaxPaintRect();
+      },
       'setChildParentData': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_70.RenderSliverFillRemaining>(target, 'RenderSliverFillRemaining');
         D4.requireMinArgs(positional, 3, 'setChildParentData');
@@ -78779,6 +79385,7 @@ BridgedClass _createRenderSliverFillRemainingBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'setChildParentData': 'void setChildParentData(RenderObject child, SliverConstraints constraints, SliverGeometry geometry)',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
       'hitTestBoxChild': 'bool hitTestBoxChild(BoxHitTestResult result, RenderBox child, {required double mainAxisPosition, required double crossAxisPosition})',
@@ -79287,6 +79894,10 @@ BridgedClass _createRenderSliverFillRemainingAndOverscrollBridge() {
         final t = D4.validateTarget<$flutter_70.RenderSliverFillRemainingAndOverscroll>(target, 'RenderSliverFillRemainingAndOverscroll');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_70.RenderSliverFillRemainingAndOverscroll>(target, 'RenderSliverFillRemainingAndOverscroll');
+        return t.getMaxPaintRect();
+      },
       'setChildParentData': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_70.RenderSliverFillRemainingAndOverscroll>(target, 'RenderSliverFillRemainingAndOverscroll');
         D4.requireMinArgs(positional, 3, 'setChildParentData');
@@ -79385,6 +79996,7 @@ BridgedClass _createRenderSliverFillRemainingAndOverscrollBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'setChildParentData': 'void setChildParentData(RenderObject child, SliverConstraints constraints, SliverGeometry geometry)',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
       'hitTestBoxChild': 'bool hitTestBoxChild(BoxHitTestResult result, RenderBox child, {required double mainAxisPosition, required double crossAxisPosition})',
@@ -79484,6 +80096,7 @@ BridgedClass _createRenderSliverFixedExtentBoxAdaptorBridge() {
       'lastChild': (visitor, target) => D4.validateTarget<$flutter_71.RenderSliverFixedExtentBoxAdaptor>(target, 'RenderSliverFixedExtentBoxAdaptor').lastChild,
       'itemExtent': (visitor, target) => D4.validateTarget<$flutter_71.RenderSliverFixedExtentBoxAdaptor>(target, 'RenderSliverFixedExtentBoxAdaptor').itemExtent,
       'itemExtentBuilder': (visitor, target) => D4.validateTarget<$flutter_71.RenderSliverFixedExtentBoxAdaptor>(target, 'RenderSliverFixedExtentBoxAdaptor').itemExtentBuilder,
+      'layoutDimensions': (visitor, target) => D4.validateTarget<$flutter_71.RenderSliverFixedExtentBoxAdaptor>(target, 'RenderSliverFixedExtentBoxAdaptor').layoutDimensions,
     },
     setters: {
       'parentData': (visitor, target, value) => 
@@ -79896,6 +80509,10 @@ BridgedClass _createRenderSliverFixedExtentBoxAdaptorBridge() {
         final t = D4.validateTarget<$flutter_71.RenderSliverFixedExtentBoxAdaptor>(target, 'RenderSliverFixedExtentBoxAdaptor');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_71.RenderSliverFixedExtentBoxAdaptor>(target, 'RenderSliverFixedExtentBoxAdaptor');
+        return t.getMaxPaintRect();
+      },
       'insert': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_71.RenderSliverFixedExtentBoxAdaptor>(target, 'RenderSliverFixedExtentBoxAdaptor');
         D4.requireMinArgs(positional, 1, 'insert');
@@ -80132,6 +80749,7 @@ BridgedClass _createRenderSliverFixedExtentBoxAdaptorBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'insert': 'void insert(RenderBox child, {RenderBox? after})',
       'move': 'void move(RenderBox child, {RenderBox? after})',
       'remove': 'void remove(RenderBox child)',
@@ -80196,6 +80814,7 @@ BridgedClass _createRenderSliverFixedExtentBoxAdaptorBridge() {
       'lastChild': 'RenderBox get lastChild',
       'itemExtent': 'double? get itemExtent',
       'itemExtentBuilder': 'ItemExtentBuilder? get itemExtentBuilder',
+      'layoutDimensions': 'SliverLayoutDimensions get layoutDimensions',
     },
     setterSignatures: {
       'parentData': 'set parentData(ParentData? value)',
@@ -80262,6 +80881,7 @@ BridgedClass _createRenderSliverFixedExtentListBridge() {
       'lastChild': (visitor, target) => D4.validateTarget<$flutter_71.RenderSliverFixedExtentList>(target, 'RenderSliverFixedExtentList').lastChild,
       'itemExtent': (visitor, target) => D4.validateTarget<$flutter_71.RenderSliverFixedExtentList>(target, 'RenderSliverFixedExtentList').itemExtent,
       'itemExtentBuilder': (visitor, target) => D4.validateTarget<$flutter_71.RenderSliverFixedExtentList>(target, 'RenderSliverFixedExtentList').itemExtentBuilder,
+      'layoutDimensions': (visitor, target) => D4.validateTarget<$flutter_71.RenderSliverFixedExtentList>(target, 'RenderSliverFixedExtentList').layoutDimensions,
     },
     setters: {
       'parentData': (visitor, target, value) => 
@@ -80676,6 +81296,10 @@ BridgedClass _createRenderSliverFixedExtentListBridge() {
         final t = D4.validateTarget<$flutter_71.RenderSliverFixedExtentList>(target, 'RenderSliverFixedExtentList');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_71.RenderSliverFixedExtentList>(target, 'RenderSliverFixedExtentList');
+        return t.getMaxPaintRect();
+      },
       'insert': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_71.RenderSliverFixedExtentList>(target, 'RenderSliverFixedExtentList');
         D4.requireMinArgs(positional, 1, 'insert');
@@ -80915,6 +81539,7 @@ BridgedClass _createRenderSliverFixedExtentListBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'insert': 'void insert(RenderBox child, {RenderBox? after})',
       'move': 'void move(RenderBox child, {RenderBox? after})',
       'remove': 'void remove(RenderBox child)',
@@ -80979,6 +81604,7 @@ BridgedClass _createRenderSliverFixedExtentListBridge() {
       'lastChild': 'RenderBox get lastChild',
       'itemExtent': 'double get itemExtent',
       'itemExtentBuilder': 'ItemExtentBuilder? get itemExtentBuilder',
+      'layoutDimensions': 'SliverLayoutDimensions get layoutDimensions',
     },
     setterSignatures: {
       'parentData': 'set parentData(ParentData? value)',
@@ -81049,6 +81675,7 @@ BridgedClass _createRenderSliverVariedExtentListBridge() {
       'lastChild': (visitor, target) => D4.validateTarget<$flutter_71.RenderSliverVariedExtentList>(target, 'RenderSliverVariedExtentList').lastChild,
       'itemExtent': (visitor, target) => D4.validateTarget<$flutter_71.RenderSliverVariedExtentList>(target, 'RenderSliverVariedExtentList').itemExtent,
       'itemExtentBuilder': (visitor, target) => D4.validateTarget<$flutter_71.RenderSliverVariedExtentList>(target, 'RenderSliverVariedExtentList').itemExtentBuilder,
+      'layoutDimensions': (visitor, target) => D4.validateTarget<$flutter_71.RenderSliverVariedExtentList>(target, 'RenderSliverVariedExtentList').layoutDimensions,
     },
     setters: {
       'parentData': (visitor, target, value) => 
@@ -81465,6 +82092,10 @@ BridgedClass _createRenderSliverVariedExtentListBridge() {
         final t = D4.validateTarget<$flutter_71.RenderSliverVariedExtentList>(target, 'RenderSliverVariedExtentList');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_71.RenderSliverVariedExtentList>(target, 'RenderSliverVariedExtentList');
+        return t.getMaxPaintRect();
+      },
       'insert': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_71.RenderSliverVariedExtentList>(target, 'RenderSliverVariedExtentList');
         D4.requireMinArgs(positional, 1, 'insert');
@@ -81704,6 +82335,7 @@ BridgedClass _createRenderSliverVariedExtentListBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'insert': 'void insert(RenderBox child, {RenderBox? after})',
       'move': 'void move(RenderBox child, {RenderBox? after})',
       'remove': 'void remove(RenderBox child)',
@@ -81768,6 +82400,7 @@ BridgedClass _createRenderSliverVariedExtentListBridge() {
       'lastChild': 'RenderBox get lastChild',
       'itemExtent': 'double? get itemExtent',
       'itemExtentBuilder': 'ItemExtentBuilder get itemExtentBuilder',
+      'layoutDimensions': 'SliverLayoutDimensions get layoutDimensions',
     },
     setterSignatures: {
       'parentData': 'set parentData(ParentData? value)',
@@ -82649,6 +83282,10 @@ BridgedClass _createRenderSliverGridBridge() {
         final t = D4.validateTarget<$flutter_72.RenderSliverGrid>(target, 'RenderSliverGrid');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_72.RenderSliverGrid>(target, 'RenderSliverGrid');
+        return t.getMaxPaintRect();
+      },
       'insert': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_72.RenderSliverGrid>(target, 'RenderSliverGrid');
         D4.requireMinArgs(positional, 1, 'insert');
@@ -82850,6 +83487,7 @@ BridgedClass _createRenderSliverGridBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'insert': 'void insert(RenderBox child, {RenderBox? after})',
       'move': 'void move(RenderBox child, {RenderBox? after})',
       'remove': 'void remove(RenderBox child)',
@@ -83379,6 +84017,10 @@ BridgedClass _createRenderSliverCrossAxisGroupBridge() {
         final t = D4.validateTarget<$flutter_73.RenderSliverCrossAxisGroup>(target, 'RenderSliverCrossAxisGroup');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_73.RenderSliverCrossAxisGroup>(target, 'RenderSliverCrossAxisGroup');
+        return t.getMaxPaintRect();
+      },
       'debugValidateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_73.RenderSliverCrossAxisGroup>(target, 'RenderSliverCrossAxisGroup');
         D4.requireMinArgs(positional, 1, 'debugValidateChild');
@@ -83508,6 +84150,7 @@ BridgedClass _createRenderSliverCrossAxisGroupBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
       'insert': 'void insert(RenderSliver child, {RenderSliver? after})',
       'add': 'void add(RenderSliver child)',
@@ -84021,6 +84664,10 @@ BridgedClass _createRenderSliverMainAxisGroupBridge() {
         final t = D4.validateTarget<$flutter_73.RenderSliverMainAxisGroup>(target, 'RenderSliverMainAxisGroup');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_73.RenderSliverMainAxisGroup>(target, 'RenderSliverMainAxisGroup');
+        return t.getMaxPaintRect();
+      },
       'debugValidateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_73.RenderSliverMainAxisGroup>(target, 'RenderSliverMainAxisGroup');
         D4.requireMinArgs(positional, 1, 'debugValidateChild');
@@ -84150,6 +84797,7 @@ BridgedClass _createRenderSliverMainAxisGroupBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
       'insert': 'void insert(RenderSliver child, {RenderSliver? after})',
       'add': 'void add(RenderSliver child)',
@@ -84668,6 +85316,10 @@ BridgedClass _createRenderSliverListBridge() {
         final t = D4.validateTarget<$flutter_74.RenderSliverList>(target, 'RenderSliverList');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_74.RenderSliverList>(target, 'RenderSliverList');
+        return t.getMaxPaintRect();
+      },
       'insert': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_74.RenderSliverList>(target, 'RenderSliverList');
         D4.requireMinArgs(positional, 1, 'insert');
@@ -84869,6 +85521,7 @@ BridgedClass _createRenderSliverListBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'insert': 'void insert(RenderBox child, {RenderBox? after})',
       'move': 'void move(RenderBox child, {RenderBox? after})',
       'remove': 'void remove(RenderBox child)',
@@ -85557,6 +86210,10 @@ BridgedClass _createRenderSliverMultiBoxAdaptorBridge() {
         final t = D4.validateTarget<$flutter_75.RenderSliverMultiBoxAdaptor>(target, 'RenderSliverMultiBoxAdaptor');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_75.RenderSliverMultiBoxAdaptor>(target, 'RenderSliverMultiBoxAdaptor');
+        return t.getMaxPaintRect();
+      },
       'insert': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_75.RenderSliverMultiBoxAdaptor>(target, 'RenderSliverMultiBoxAdaptor');
         D4.requireMinArgs(positional, 1, 'insert');
@@ -85755,6 +86412,7 @@ BridgedClass _createRenderSliverMultiBoxAdaptorBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'insert': 'void insert(RenderBox child, {RenderBox? after})',
       'move': 'void move(RenderBox child, {RenderBox? after})',
       'remove': 'void remove(RenderBox child)',
@@ -86020,6 +86678,10 @@ BridgedClass _createRenderSliverWithKeepAliveMixinBridge() {
       'getAbsoluteSize': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_75.RenderSliverWithKeepAliveMixin>(target, 'RenderSliverWithKeepAliveMixin');
         return t.getAbsoluteSize();
+      },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_75.RenderSliverWithKeepAliveMixin>(target, 'RenderSliverWithKeepAliveMixin');
+        return t.getMaxPaintRect();
       },
       'debugPaint': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_75.RenderSliverWithKeepAliveMixin>(target, 'RenderSliverWithKeepAliveMixin');
@@ -86342,6 +87004,7 @@ BridgedClass _createRenderSliverWithKeepAliveMixinBridge() {
       'applyPaintTransform': 'void applyPaintTransform(RenderObject child, Matrix4 transform)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'debugPaint': 'void debugPaint(PaintingContext context, Offset offset)',
       'handleEvent': 'void handleEvent(PointerEvent event, SliverHitTestEntry entry)',
       'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
@@ -86892,6 +87555,10 @@ BridgedClass _createRenderSliverEdgeInsetsPaddingBridge() {
         final t = D4.validateTarget<$flutter_76.RenderSliverEdgeInsetsPadding>(target, 'RenderSliverEdgeInsetsPadding');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_76.RenderSliverEdgeInsetsPadding>(target, 'RenderSliverEdgeInsetsPadding');
+        return t.getMaxPaintRect();
+      },
       'debugValidateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_76.RenderSliverEdgeInsetsPadding>(target, 'RenderSliverEdgeInsetsPadding');
         D4.requireMinArgs(positional, 1, 'debugValidateChild');
@@ -86961,6 +87628,7 @@ BridgedClass _createRenderSliverEdgeInsetsPaddingBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
     },
     getterSignatures: {
@@ -87484,6 +88152,10 @@ BridgedClass _createRenderSliverPaddingBridge() {
         final t = D4.validateTarget<$flutter_76.RenderSliverPadding>(target, 'RenderSliverPadding');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_76.RenderSliverPadding>(target, 'RenderSliverPadding');
+        return t.getMaxPaintRect();
+      },
       'debugValidateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_76.RenderSliverPadding>(target, 'RenderSliverPadding');
         D4.requireMinArgs(positional, 1, 'debugValidateChild');
@@ -87556,6 +88228,7 @@ BridgedClass _createRenderSliverPaddingBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
     },
     getterSignatures: {
@@ -88128,6 +88801,10 @@ BridgedClass _createRenderSliverPersistentHeaderBridge() {
         final t = D4.validateTarget<$flutter_77.RenderSliverPersistentHeader>(target, 'RenderSliverPersistentHeader');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_77.RenderSliverPersistentHeader>(target, 'RenderSliverPersistentHeader');
+        return t.getMaxPaintRect();
+      },
       'updateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_77.RenderSliverPersistentHeader>(target, 'RenderSliverPersistentHeader');
         D4.requireMinArgs(positional, 2, 'updateChild');
@@ -88231,6 +88908,7 @@ BridgedClass _createRenderSliverPersistentHeaderBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'updateChild': 'void updateChild(double shrinkOffset, bool overlapsContent)',
       'layoutChild': 'void layoutChild(double scrollOffset, double maxExtent, {bool overlapsContent = false})',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
@@ -88745,6 +89423,10 @@ BridgedClass _createRenderSliverScrollingPersistentHeaderBridge() {
         final t = D4.validateTarget<$flutter_77.RenderSliverScrollingPersistentHeader>(target, 'RenderSliverScrollingPersistentHeader');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_77.RenderSliverScrollingPersistentHeader>(target, 'RenderSliverScrollingPersistentHeader');
+        return t.getMaxPaintRect();
+      },
       'updateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_77.RenderSliverScrollingPersistentHeader>(target, 'RenderSliverScrollingPersistentHeader');
         D4.requireMinArgs(positional, 2, 'updateChild');
@@ -88852,6 +89534,7 @@ BridgedClass _createRenderSliverScrollingPersistentHeaderBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'updateChild': 'void updateChild(double shrinkOffset, bool overlapsContent)',
       'layoutChild': 'void layoutChild(double scrollOffset, double maxExtent, {bool overlapsContent = false})',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
@@ -89370,6 +90053,10 @@ BridgedClass _createRenderSliverPinnedPersistentHeaderBridge() {
         final t = D4.validateTarget<$flutter_77.RenderSliverPinnedPersistentHeader>(target, 'RenderSliverPinnedPersistentHeader');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_77.RenderSliverPinnedPersistentHeader>(target, 'RenderSliverPinnedPersistentHeader');
+        return t.getMaxPaintRect();
+      },
       'updateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_77.RenderSliverPinnedPersistentHeader>(target, 'RenderSliverPinnedPersistentHeader');
         D4.requireMinArgs(positional, 2, 'updateChild');
@@ -89473,6 +90160,7 @@ BridgedClass _createRenderSliverPinnedPersistentHeaderBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'updateChild': 'void updateChild(double shrinkOffset, bool overlapsContent)',
       'layoutChild': 'void layoutChild(double scrollOffset, double maxExtent, {bool overlapsContent = false})',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
@@ -90028,6 +90716,10 @@ BridgedClass _createRenderSliverFloatingPersistentHeaderBridge() {
         final t = D4.validateTarget<$flutter_77.RenderSliverFloatingPersistentHeader>(target, 'RenderSliverFloatingPersistentHeader');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_77.RenderSliverFloatingPersistentHeader>(target, 'RenderSliverFloatingPersistentHeader');
+        return t.getMaxPaintRect();
+      },
       'updateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_77.RenderSliverFloatingPersistentHeader>(target, 'RenderSliverFloatingPersistentHeader');
         D4.requireMinArgs(positional, 2, 'updateChild');
@@ -90156,6 +90848,7 @@ BridgedClass _createRenderSliverFloatingPersistentHeaderBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'updateChild': 'void updateChild(double shrinkOffset, bool overlapsContent)',
       'layoutChild': 'void layoutChild(double scrollOffset, double maxExtent, {bool overlapsContent = false})',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
@@ -90689,6 +91382,10 @@ BridgedClass _createRenderSliverFloatingPinnedPersistentHeaderBridge() {
         final t = D4.validateTarget<$flutter_77.RenderSliverFloatingPinnedPersistentHeader>(target, 'RenderSliverFloatingPinnedPersistentHeader');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_77.RenderSliverFloatingPinnedPersistentHeader>(target, 'RenderSliverFloatingPinnedPersistentHeader');
+        return t.getMaxPaintRect();
+      },
       'updateChild': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_77.RenderSliverFloatingPinnedPersistentHeader>(target, 'RenderSliverFloatingPinnedPersistentHeader');
         D4.requireMinArgs(positional, 2, 'updateChild');
@@ -90817,6 +91514,7 @@ BridgedClass _createRenderSliverFloatingPinnedPersistentHeaderBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'updateChild': 'void updateChild(double shrinkOffset, bool overlapsContent)',
       'layoutChild': 'void layoutChild(double scrollOffset, double maxExtent, {bool overlapsContent = false})',
       'debugValidateChild': 'bool debugValidateChild(RenderObject child)',
@@ -91060,6 +91758,7 @@ BridgedClass _createRenderTreeSliverBridge() {
       'lastChild': (visitor, target) => D4.validateTarget<$flutter_78.RenderTreeSliver>(target, 'RenderTreeSliver').lastChild,
       'itemExtent': (visitor, target) => D4.validateTarget<$flutter_78.RenderTreeSliver>(target, 'RenderTreeSliver').itemExtent,
       'itemExtentBuilder': (visitor, target) => D4.validateTarget<$flutter_78.RenderTreeSliver>(target, 'RenderTreeSliver').itemExtentBuilder,
+      'layoutDimensions': (visitor, target) => D4.validateTarget<$flutter_78.RenderTreeSliver>(target, 'RenderTreeSliver').layoutDimensions,
       'activeAnimations': (visitor, target) => D4.validateTarget<$flutter_78.RenderTreeSliver>(target, 'RenderTreeSliver').activeAnimations,
       'indentation': (visitor, target) => D4.validateTarget<$flutter_78.RenderTreeSliver>(target, 'RenderTreeSliver').indentation,
     },
@@ -91480,6 +92179,10 @@ BridgedClass _createRenderTreeSliverBridge() {
         final t = D4.validateTarget<$flutter_78.RenderTreeSliver>(target, 'RenderTreeSliver');
         return t.getAbsoluteSize();
       },
+      'getMaxPaintRect': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_78.RenderTreeSliver>(target, 'RenderTreeSliver');
+        return t.getMaxPaintRect();
+      },
       'insert': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_78.RenderTreeSliver>(target, 'RenderTreeSliver');
         D4.requireMinArgs(positional, 1, 'insert');
@@ -91719,6 +92422,7 @@ BridgedClass _createRenderTreeSliverBridge() {
       'childScrollOffset': 'double? childScrollOffset(RenderObject child)',
       'getAbsoluteSizeRelativeToOrigin': 'Size getAbsoluteSizeRelativeToOrigin()',
       'getAbsoluteSize': 'Size getAbsoluteSize()',
+      'getMaxPaintRect': 'Rect getMaxPaintRect()',
       'insert': 'void insert(RenderBox child, {RenderBox? after})',
       'move': 'void move(RenderBox child, {RenderBox? after})',
       'remove': 'void remove(RenderBox child)',
@@ -91783,6 +92487,7 @@ BridgedClass _createRenderTreeSliverBridge() {
       'lastChild': 'RenderBox get lastChild',
       'itemExtent': 'double? get itemExtent',
       'itemExtentBuilder': 'ItemExtentBuilder get itemExtentBuilder',
+      'layoutDimensions': 'SliverLayoutDimensions get layoutDimensions',
       'activeAnimations': 'Map<UniqueKey, ({int fromIndex, int toIndex, double value})> get activeAnimations',
       'indentation': 'double get indentation',
     },
@@ -96777,6 +97482,42 @@ BridgedClass _createRenderViewBridge() {
 }
 
 // =============================================================================
+// ScrollCacheExtent Bridge
+// =============================================================================
+
+BridgedClass _createScrollCacheExtentBridge() {
+  return BridgedClass(
+    nativeType: $flutter_85.ScrollCacheExtent,
+    name: 'ScrollCacheExtent',
+    isAssignable: (v) => v is $flutter_85.ScrollCacheExtent,
+    constructors: {
+      'pixels': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'ScrollCacheExtent');
+        final pixels = D4.getRequiredArg<double>(positional, 0, 'pixels', 'ScrollCacheExtent');
+        return $flutter_85.ScrollCacheExtent.pixels(pixels);
+      },
+      'viewport': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'ScrollCacheExtent');
+        final value = D4.getRequiredArg<double>(positional, 0, 'value', 'ScrollCacheExtent');
+        return $flutter_85.ScrollCacheExtent.viewport(value);
+      },
+    },
+    getters: {
+      'style': (visitor, target) => D4.validateTarget<$flutter_85.ScrollCacheExtent>(target, 'ScrollCacheExtent').style,
+      'value': (visitor, target) => D4.validateTarget<$flutter_85.ScrollCacheExtent>(target, 'ScrollCacheExtent').value,
+    },
+    constructorSignatures: {
+      'pixels': 'const factory ScrollCacheExtent.pixels(double pixels)',
+      'viewport': 'const factory ScrollCacheExtent.viewport(double value)',
+    },
+    getterSignatures: {
+      'style': 'CacheExtentStyle get style',
+      'value': 'double get value',
+    },
+  );
+}
+
+// =============================================================================
 // RenderAbstractViewport Bridge
 // =============================================================================
 
@@ -97375,6 +98116,7 @@ BridgedClass _createRenderViewportBaseBridge() {
       'axis': (visitor, target) => D4.validateTarget<$flutter_85.RenderViewportBase>(target, 'RenderViewportBase').axis,
       'offset': (visitor, target) => D4.validateTarget<$flutter_85.RenderViewportBase>(target, 'RenderViewportBase').offset,
       'cacheExtent': (visitor, target) => D4.validateTarget<$flutter_85.RenderViewportBase>(target, 'RenderViewportBase').cacheExtent,
+      'scrollCacheExtent': (visitor, target) => D4.validateTarget<$flutter_85.RenderViewportBase>(target, 'RenderViewportBase').scrollCacheExtent,
       'cacheExtentStyle': (visitor, target) => D4.validateTarget<$flutter_85.RenderViewportBase>(target, 'RenderViewportBase').cacheExtentStyle,
       'paintOrder': (visitor, target) => D4.validateTarget<$flutter_85.RenderViewportBase>(target, 'RenderViewportBase').paintOrder,
       'clipBehavior': (visitor, target) => D4.validateTarget<$flutter_85.RenderViewportBase>(target, 'RenderViewportBase').clipBehavior,
@@ -97403,6 +98145,8 @@ BridgedClass _createRenderViewportBaseBridge() {
         D4.validateTarget<$flutter_85.RenderViewportBase>(target, 'RenderViewportBase').offset = D4.extractBridgedArg<$flutter_86.ViewportOffset>(value, 'offset'),
       'cacheExtent': (visitor, target, value) => 
         D4.validateTarget<$flutter_85.RenderViewportBase>(target, 'RenderViewportBase').cacheExtent = D4.extractBridgedArgOrNull<double>(value, 'cacheExtent'),
+      'scrollCacheExtent': (visitor, target, value) => 
+        D4.validateTarget<$flutter_85.RenderViewportBase>(target, 'RenderViewportBase').scrollCacheExtent = D4.extractBridgedArgOrNull<$flutter_85.ScrollCacheExtent>(value, 'scrollCacheExtent'),
       'cacheExtentStyle': (visitor, target, value) => 
         D4.validateTarget<$flutter_85.RenderViewportBase>(target, 'RenderViewportBase').cacheExtentStyle = D4.extractBridgedArg<$flutter_85.CacheExtentStyle>(value, 'cacheExtentStyle'),
       'paintOrder': (visitor, target, value) => 
@@ -98183,6 +98927,7 @@ BridgedClass _createRenderViewportBaseBridge() {
       'axis': 'Axis get axis',
       'offset': 'ViewportOffset get offset',
       'cacheExtent': 'double? get cacheExtent',
+      'scrollCacheExtent': 'ScrollCacheExtent get scrollCacheExtent',
       'cacheExtentStyle': 'CacheExtentStyle get cacheExtentStyle',
       'paintOrder': 'SliverPaintOrder get paintOrder',
       'clipBehavior': 'Clip get clipBehavior',
@@ -98203,6 +98948,7 @@ BridgedClass _createRenderViewportBaseBridge() {
       'crossAxisDirection': 'set crossAxisDirection(AxisDirection value)',
       'offset': 'set offset(ViewportOffset value)',
       'cacheExtent': 'set cacheExtent(double? value)',
+      'scrollCacheExtent': 'set scrollCacheExtent(ScrollCacheExtent? value)',
       'cacheExtentStyle': 'set cacheExtentStyle(CacheExtentStyle value)',
       'paintOrder': 'set paintOrder(SliverPaintOrder value)',
       'clipBehavior': 'set clipBehavior(Clip value)',
@@ -98233,9 +98979,10 @@ BridgedClass _createRenderViewportBridge() {
         final center = D4.getOptionalNamedArg<$flutter_69.RenderSliver?>(named, 'center');
         final cacheExtent = D4.getOptionalNamedArg<double?>(named, 'cacheExtent');
         final cacheExtentStyle = D4.getNamedArgWithDefault<$flutter_85.CacheExtentStyle>(named, 'cacheExtentStyle', $flutter_85.CacheExtentStyle.pixel);
+        final scrollCacheExtent = D4.getOptionalNamedArg<$flutter_85.ScrollCacheExtent?>(named, 'scrollCacheExtent');
         final paintOrder = D4.getNamedArgWithDefault<$flutter_85.SliverPaintOrder>(named, 'paintOrder', $flutter_85.SliverPaintOrder.firstIsTop);
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
-        return $flutter_85.RenderViewport(axisDirection: axisDirection, crossAxisDirection: crossAxisDirection, offset: offset, anchor: anchor, children: children, center: center, cacheExtent: cacheExtent, cacheExtentStyle: cacheExtentStyle, paintOrder: paintOrder, clipBehavior: clipBehavior);
+        return $flutter_85.RenderViewport(axisDirection: axisDirection, crossAxisDirection: crossAxisDirection, offset: offset, anchor: anchor, children: children, center: center, cacheExtent: cacheExtent, cacheExtentStyle: cacheExtentStyle, scrollCacheExtent: scrollCacheExtent, paintOrder: paintOrder, clipBehavior: clipBehavior);
       },
     },
     getters: {
@@ -98273,6 +99020,7 @@ BridgedClass _createRenderViewportBridge() {
       'axis': (visitor, target) => D4.validateTarget<$flutter_85.RenderViewport>(target, 'RenderViewport').axis,
       'offset': (visitor, target) => D4.validateTarget<$flutter_85.RenderViewport>(target, 'RenderViewport').offset,
       'cacheExtent': (visitor, target) => D4.validateTarget<$flutter_85.RenderViewport>(target, 'RenderViewport').cacheExtent,
+      'scrollCacheExtent': (visitor, target) => D4.validateTarget<$flutter_85.RenderViewport>(target, 'RenderViewport').scrollCacheExtent,
       'cacheExtentStyle': (visitor, target) => D4.validateTarget<$flutter_85.RenderViewport>(target, 'RenderViewport').cacheExtentStyle,
       'paintOrder': (visitor, target) => D4.validateTarget<$flutter_85.RenderViewport>(target, 'RenderViewport').paintOrder,
       'clipBehavior': (visitor, target) => D4.validateTarget<$flutter_85.RenderViewport>(target, 'RenderViewport').clipBehavior,
@@ -98303,6 +99051,8 @@ BridgedClass _createRenderViewportBridge() {
         D4.validateTarget<$flutter_85.RenderViewport>(target, 'RenderViewport').offset = D4.extractBridgedArg<$flutter_86.ViewportOffset>(value, 'offset'),
       'cacheExtent': (visitor, target, value) => 
         D4.validateTarget<$flutter_85.RenderViewport>(target, 'RenderViewport').cacheExtent = D4.extractBridgedArgOrNull<double>(value, 'cacheExtent'),
+      'scrollCacheExtent': (visitor, target, value) => 
+        D4.validateTarget<$flutter_85.RenderViewport>(target, 'RenderViewport').scrollCacheExtent = D4.extractBridgedArgOrNull<$flutter_85.ScrollCacheExtent>(value, 'scrollCacheExtent'),
       'cacheExtentStyle': (visitor, target, value) => 
         D4.validateTarget<$flutter_85.RenderViewport>(target, 'RenderViewport').cacheExtentStyle = D4.extractBridgedArg<$flutter_85.CacheExtentStyle>(value, 'cacheExtentStyle'),
       'paintOrder': (visitor, target, value) => 
@@ -98956,7 +99706,7 @@ BridgedClass _createRenderViewportBridge() {
       'excludeFromScrolling': (visitor) => $flutter_85.RenderViewport.excludeFromScrolling,
     },
     constructorSignatures: {
-      '': 'RenderViewport({AxisDirection axisDirection = AxisDirection.down, required AxisDirection crossAxisDirection, required ViewportOffset offset, double anchor = 0.0, List<RenderSliver>? children, RenderSliver? center, double? cacheExtent, CacheExtentStyle cacheExtentStyle = CacheExtentStyle.pixel, SliverPaintOrder paintOrder = SliverPaintOrder.firstIsTop, Clip clipBehavior = Clip.hardEdge})',
+      '': 'RenderViewport({AxisDirection axisDirection = AxisDirection.down, required AxisDirection crossAxisDirection, required ViewportOffset offset, double anchor = 0.0, List<RenderSliver>? children, RenderSliver? center, double? cacheExtent, CacheExtentStyle cacheExtentStyle = CacheExtentStyle.pixel, ScrollCacheExtent? scrollCacheExtent, SliverPaintOrder paintOrder = SliverPaintOrder.firstIsTop, Clip clipBehavior = Clip.hardEdge})',
     },
     methodSignatures: {
       'reassemble': 'void reassemble()',
@@ -99090,6 +99840,7 @@ BridgedClass _createRenderViewportBridge() {
       'axis': 'Axis get axis',
       'offset': 'ViewportOffset get offset',
       'cacheExtent': 'double? get cacheExtent',
+      'scrollCacheExtent': 'ScrollCacheExtent get scrollCacheExtent',
       'cacheExtentStyle': 'CacheExtentStyle get cacheExtentStyle',
       'paintOrder': 'SliverPaintOrder get paintOrder',
       'clipBehavior': 'Clip get clipBehavior',
@@ -99112,6 +99863,7 @@ BridgedClass _createRenderViewportBridge() {
       'crossAxisDirection': 'set crossAxisDirection(AxisDirection value)',
       'offset': 'set offset(ViewportOffset value)',
       'cacheExtent': 'set cacheExtent(double? value)',
+      'scrollCacheExtent': 'set scrollCacheExtent(ScrollCacheExtent? value)',
       'cacheExtentStyle': 'set cacheExtentStyle(CacheExtentStyle value)',
       'paintOrder': 'set paintOrder(SliverPaintOrder value)',
       'clipBehavior': 'set clipBehavior(Clip value)',
@@ -99142,8 +99894,9 @@ BridgedClass _createRenderShrinkWrappingViewportBridge() {
         final offset = D4.getRequiredNamedArg<$flutter_86.ViewportOffset>(named, 'offset', 'RenderShrinkWrappingViewport');
         final paintOrder = D4.getNamedArgWithDefault<$flutter_85.SliverPaintOrder>(named, 'paintOrder', $flutter_85.SliverPaintOrder.firstIsTop);
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
+        final scrollCacheExtent = D4.getOptionalNamedArg<$flutter_85.ScrollCacheExtent?>(named, 'scrollCacheExtent');
         final children = D4.coerceListOrNull<$flutter_69.RenderSliver>(named['children'], 'children');
-        return $flutter_85.RenderShrinkWrappingViewport(axisDirection: axisDirection, crossAxisDirection: crossAxisDirection, offset: offset, paintOrder: paintOrder, clipBehavior: clipBehavior, children: children);
+        return $flutter_85.RenderShrinkWrappingViewport(axisDirection: axisDirection, crossAxisDirection: crossAxisDirection, offset: offset, paintOrder: paintOrder, clipBehavior: clipBehavior, scrollCacheExtent: scrollCacheExtent, children: children);
       },
     },
     getters: {
@@ -99181,6 +99934,7 @@ BridgedClass _createRenderShrinkWrappingViewportBridge() {
       'axis': (visitor, target) => D4.validateTarget<$flutter_85.RenderShrinkWrappingViewport>(target, 'RenderShrinkWrappingViewport').axis,
       'offset': (visitor, target) => D4.validateTarget<$flutter_85.RenderShrinkWrappingViewport>(target, 'RenderShrinkWrappingViewport').offset,
       'cacheExtent': (visitor, target) => D4.validateTarget<$flutter_85.RenderShrinkWrappingViewport>(target, 'RenderShrinkWrappingViewport').cacheExtent,
+      'scrollCacheExtent': (visitor, target) => D4.validateTarget<$flutter_85.RenderShrinkWrappingViewport>(target, 'RenderShrinkWrappingViewport').scrollCacheExtent,
       'cacheExtentStyle': (visitor, target) => D4.validateTarget<$flutter_85.RenderShrinkWrappingViewport>(target, 'RenderShrinkWrappingViewport').cacheExtentStyle,
       'paintOrder': (visitor, target) => D4.validateTarget<$flutter_85.RenderShrinkWrappingViewport>(target, 'RenderShrinkWrappingViewport').paintOrder,
       'clipBehavior': (visitor, target) => D4.validateTarget<$flutter_85.RenderShrinkWrappingViewport>(target, 'RenderShrinkWrappingViewport').clipBehavior,
@@ -99209,6 +99963,8 @@ BridgedClass _createRenderShrinkWrappingViewportBridge() {
         D4.validateTarget<$flutter_85.RenderShrinkWrappingViewport>(target, 'RenderShrinkWrappingViewport').offset = D4.extractBridgedArg<$flutter_86.ViewportOffset>(value, 'offset'),
       'cacheExtent': (visitor, target, value) => 
         D4.validateTarget<$flutter_85.RenderShrinkWrappingViewport>(target, 'RenderShrinkWrappingViewport').cacheExtent = D4.extractBridgedArgOrNull<double>(value, 'cacheExtent'),
+      'scrollCacheExtent': (visitor, target, value) => 
+        D4.validateTarget<$flutter_85.RenderShrinkWrappingViewport>(target, 'RenderShrinkWrappingViewport').scrollCacheExtent = D4.extractBridgedArgOrNull<$flutter_85.ScrollCacheExtent>(value, 'scrollCacheExtent'),
       'cacheExtentStyle': (visitor, target, value) => 
         D4.validateTarget<$flutter_85.RenderShrinkWrappingViewport>(target, 'RenderShrinkWrappingViewport').cacheExtentStyle = D4.extractBridgedArg<$flutter_85.CacheExtentStyle>(value, 'cacheExtentStyle'),
       'paintOrder': (visitor, target, value) => 
@@ -99848,7 +100604,7 @@ BridgedClass _createRenderShrinkWrappingViewportBridge() {
       },
     },
     constructorSignatures: {
-      '': 'RenderShrinkWrappingViewport({AxisDirection axisDirection = AxisDirection.down, required AxisDirection crossAxisDirection, required ViewportOffset offset, SliverPaintOrder paintOrder = SliverPaintOrder.firstIsTop, Clip clipBehavior = Clip.hardEdge, List<RenderSliver>? children})',
+      '': 'RenderShrinkWrappingViewport({AxisDirection axisDirection = AxisDirection.down, required AxisDirection crossAxisDirection, required ViewportOffset offset, SliverPaintOrder paintOrder = SliverPaintOrder.firstIsTop, Clip clipBehavior = Clip.hardEdge, ScrollCacheExtent? scrollCacheExtent, List<RenderSliver>? children})',
     },
     methodSignatures: {
       'reassemble': 'void reassemble()',
@@ -99981,6 +100737,7 @@ BridgedClass _createRenderShrinkWrappingViewportBridge() {
       'axis': 'Axis get axis',
       'offset': 'ViewportOffset get offset',
       'cacheExtent': 'double? get cacheExtent',
+      'scrollCacheExtent': 'ScrollCacheExtent get scrollCacheExtent',
       'cacheExtentStyle': 'CacheExtentStyle get cacheExtentStyle',
       'paintOrder': 'SliverPaintOrder get paintOrder',
       'clipBehavior': 'Clip get clipBehavior',
@@ -100001,6 +100758,7 @@ BridgedClass _createRenderShrinkWrappingViewportBridge() {
       'crossAxisDirection': 'set crossAxisDirection(AxisDirection value)',
       'offset': 'set offset(ViewportOffset value)',
       'cacheExtent': 'set cacheExtent(double? value)',
+      'scrollCacheExtent': 'set scrollCacheExtent(ScrollCacheExtent? value)',
       'cacheExtentStyle': 'set cacheExtentStyle(CacheExtentStyle value)',
       'paintOrder': 'set paintOrder(SliverPaintOrder value)',
       'clipBehavior': 'set clipBehavior(Clip value)',

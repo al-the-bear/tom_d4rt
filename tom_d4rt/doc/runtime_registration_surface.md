@@ -8,10 +8,12 @@ restate it — read the canonical reference:
 
 That covers the nine `D4.register*` sinks, the `BridgedClass` supertype
 mechanism + transitive walk + last-match-wins proxy filter, the
-`extractBridgedArg<T>` resolution order, and the RC-9 State-proxy field
-fallbacks — all of which exist identically here (in
-`lib/src/generator/d4.dart`, `lib/src/bridge/bridged_types.dart`, and
-`lib/src/runtime_types.dart`), offset only by a constant comment-block delta.
+`extractBridgedArg<T>` resolution order, the RC-9 State-proxy field
+fallbacks, and the process-global **package pool + warm parent**
+(`providePackage`, § 5) — all of which exist identically here (in
+`lib/src/generator/d4.dart`, `lib/src/bridge/bridged_types.dart`,
+`lib/src/runtime_types.dart`, and `lib/src/d4rt_base.dart` for the pool),
+offset only by a constant comment-block delta.
 
 ## VM-only specifics
 

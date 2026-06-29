@@ -249,12 +249,28 @@ void main() {
     // now-orphaned const declaration + its doc comment were removed too
     // (mirror of the C.131/C.138 cleanups). Defaults apply (25 s
     // httpBuildTimeout + 30 s dart-test timeout).
-    test('retest: rendering/render_android_view_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'retest/rendering/render_android_view_test.dart',
-      );
-      expectSuccess(result);
-    });
+    test(
+      'retest: rendering/render_android_view_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'retest/rendering/render_android_view_test.dart',
+        );
+        expectSuccess(result);
+      },
+      skip: Platform.isAndroid
+          // This script builds an AndroidView PlatformView with the view type
+          // `demo/native-map`. On any non-Android host the Flutter embedder's
+          // platform-view channel does not just return a catchable Dart
+          // `PlatformException` — on macOS `-[FlutterPlatformViewController
+          // handleMethodCall:result:]` throws an uncatchable native
+          // `NSInvalidArgumentException` that terminates the whole companion
+          // app ("Lost connection to device"). The app death then fails the
+          // NEXT test's `/clear` with `httpStatus=-1` (collateral damage), so a
+          // single Android-only test takes a sibling down with it. AndroidView
+          // is meaningful only on Android, so gate the retest accordingly.
+          ? null
+          : 'AndroidView PlatformView crashes the embedder on non-Android hosts',
+    );
 
     test('retest: widgets/nested_scroll_view_state_test.dart', () async {
       final result = await SendTestRunner.send(

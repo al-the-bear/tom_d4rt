@@ -977,7 +977,9 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
               onChangeEnd: (_) => _resolveStackTag(),
             ),
             const Divider(height: 22),
-            SwitchListTile(
+            Material(
+              type: MaterialType.transparency,
+              child: SwitchListTile(
               value: _showTopLayer,
               title: const Text('Show Top Layer'),
               subtitle: const Text('Highest precedence candidate'),
@@ -986,7 +988,10 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                 _resolveStackTag();
               },
             ),
-            SwitchListTile(
+            ),
+            Material(
+              type: MaterialType.transparency,
+              child: SwitchListTile(
               value: _showMiddleLayer,
               title: const Text('Show Middle Layer'),
               subtitle: const Text('Mid precedence candidate'),
@@ -995,7 +1000,10 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                 _resolveStackTag();
               },
             ),
-            SwitchListTile(
+            ),
+            Material(
+              type: MaterialType.transparency,
+              child: SwitchListTile(
               value: _showBottomLayer,
               title: const Text('Show Bottom Layer'),
               subtitle: const Text('Fallback precedence candidate'),
@@ -1004,8 +1012,11 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                 _resolveStackTag();
               },
             ),
+            ),
             const Divider(height: 22),
-            CheckboxListTile(
+            Material(
+              type: MaterialType.transparency,
+              child: CheckboxListTile(
               value: _topSized,
               title: const Text('Top layer sized=true'),
               contentPadding: EdgeInsets.zero,
@@ -1017,7 +1028,10 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                 _resolveStackTag();
               },
             ),
-            CheckboxListTile(
+            ),
+            Material(
+              type: MaterialType.transparency,
+              child: CheckboxListTile(
               value: _middleSized,
               title: const Text('Middle layer sized=true'),
               contentPadding: EdgeInsets.zero,
@@ -1029,7 +1043,10 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                 _resolveStackTag();
               },
             ),
-            CheckboxListTile(
+            ),
+            Material(
+              type: MaterialType.transparency,
+              child: CheckboxListTile(
               value: _bottomSized,
               title: const Text('Bottom layer sized=true'),
               contentPadding: EdgeInsets.zero,
@@ -1040,6 +1057,7 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                 });
                 _resolveStackTag();
               },
+            ),
             ),
             const SizedBox(height: 8),
             Text(
@@ -1601,13 +1619,16 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: scheme.outlineVariant),
                     ),
-                    child: ListTile(
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: scheme.primaryContainer,
                         child: Text(stamp.substring(stamp.length - 2), style: TextStyle(color: scheme.onPrimaryContainer)),
                       ),
                       title: Text(event.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
                       subtitle: Text('$stamp  |  ${event.message}', style: TextStyle(color: scheme.onSurfaceVariant)),
+                    ),
                     ),
                   );
                 }).toList(),

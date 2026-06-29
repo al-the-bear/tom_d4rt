@@ -1,3 +1,103 @@
+## 1.11.0
+
+### Added — static method dispatch on bridged enums (GitHub issue #2)
+
+- `BridgedEnumDefinition` and `BridgedEnum` gained a `staticMethods` map
+  (`Map<String, BridgedStaticMethodAdapter>`), wired through
+  `buildBridgedEnum()`, plus `BridgedEnum.findStaticMethodAdapter(name)`.
+- `visitMethodInvocation` now dispatches a static method call where the target
+  is a bridged enum **type** (e.g. `PageFormat.fromString('A4')`). Previously
+  only instance methods on enum *values* were reachable, so static factory
+  helpers threw *"Undefined property or method '…' on BridgedEnum"*.
+- Backward compatible: `staticMethods` defaults to an empty map; existing enum
+  bridges are unaffected. Twin of `tom_d4rt_ast` 0.1.11.
+
+## 1.10.1
+
+### Fixed — native→bridge resolution: precise match must beat fuzzy prefix across scopes
+
+- `Environment.toBridgedClass` now resolves a native runtime type in **two
+  chain walks** instead of one strategy-cascade per frame:
+  1. **Pass A (precise)** walks the whole enclosing-scope chain trying exact
+     `Type` lookup, `_FooImpl → Foo` canonicalization, generic-base `name` /
+     `nativeNames` match, suffix match, name-exact, and longest-`nativeName`
+     prefix — every strategy anchored on a declared bridge identity.
+  2. **Pass B (fuzzy fallback)** walks the whole chain trying the loose
+     G-DCLI-05 `name`-is-a-prefix-of-the-type match (e.g. `ProgressBothImpl`
+     → `Progress`).
+
+  Previously both passes ran interleaved within a single frame and returned on
+  the first hit, so a fuzzy prefix match in a **nearer** frame short-circuited a
+  more-correct precise match still waiting in an **enclosing** frame.
+
+  Concrete failure surfaced by the lazy-bridge substrate (import-optimization
+  steps #17/#19): a `MappedListIterable<…>` returned by
+  `List.map(...).toList()` carries its precise `nativeNames` entry on the stdlib
+  `Iterable` bridge, which under the warm-parent / per-module split lives in an
+  enclosing frame. A nearer module frame held the `Map` bridge but not
+  `Iterable`, and `"MappedListIterable".startsWith("Map")` made the fuzzy
+  fallback wrap it as `Map` — so `.toList()` failed with `Bridged class 'Map'
+  has no instance method named 'toList'`. The two-pass walk now resolves it to
+  `Iterable` (precise) regardless of frame distance. Mirrored in
+  `tom_d4rt_ast`'s `Environment.toBridgedClass`.
+
+## 1.10.0
+
+### Added — lazy bridge registration (import-optimization, additive)
+
+- `D4rt.registerBridgedClassLazy(String name, Type nativeType, BridgedClass Function() thunk, String library, {String? sourceUri})`
+  — registers a bridged class by **deferred thunk**: the `BridgedClass` body
+  (member maps + adapter closures) is built and memoized only when the class
+  is first resolved by name or native type during interpretation. This is the
+  runtime substrate the generator's lazy bridge emission targets (plan step
+  #17): a script that touches N of a package's classes builds ≈N bridges
+  rather than all of them.
+- `D4rt.registerBridgedClass(...)` now delegates to `registerBridgedClassLazy`
+  by wrapping the already-built definition as a trivial `() => definition`
+  thunk — behaviour is unchanged for eager callers; the lazy path simply
+  memoizes on first lookup.
+
+This method was introduced in-tree alongside the generator's thunk emission
+(commit `2d341b786`) after 1.9.0 was published, so 1.9.0 carried the
+`providePackage` / `finalizeBridges` pool API but not the lazy registrar that
+generated `*.b.dart` bridges call. 1.10.0 publishes the missing public method
+so downstream bridge packages (e.g. `tom_d4rt_flutter`) compile against a
+released `tom_d4rt`.
+
+## 1.9.0
+
+### Added — import-optimization API (additive, backward compatible)
+
+- `D4rt.providePackage(String)` — process-global package pool gate: returns
+  `false` the first time a package is seen (caller registers its bridges) and
+  `true` once pooled (caller skips registration and reuses the pooled
+  definitions). The granted set is the instance's security whitelist, exposed
+  read-only via `allowedPackages`.
+- `D4rt.registerExtensions(String package, void Function() callback)` /
+  `finalizeBridges()` — queued bridge-package extension hooks that fire
+  **exactly once per package per process** (at pool population), replacing the
+  old once-per-instance firing.
+- Warm-parent reuse: each execute runs in a fresh child `Environment` chained
+  off a shared warm parent built at most once per allowed-set signature
+  (migrated instances) or per instance (legacy) — script declarations never
+  leak across executes or instances. The warm parent registers only the bridge
+  *type* lookup (`registerBridgeType`); the analyzer `ModuleLoader` owns
+  per-module name registration at import time for module isolation
+  (GEN-100/107).
+- Test/diagnostic introspection: `debugPooledPackages`, `debugPooledClassCount`,
+  `debugWarmParentCacheSize`, `debugResetPool`.
+
+## 1.8.25
+
+- **Analyzer 10 migration (publish).** Widened the `analyzer` constraint from
+  `^8.0.0` to `^10.0.0` and applied the analyzer-10 API renames
+  (`NamedType`/`LibraryDirective` `.name2` → `.name`; `ErrorSeverity` →
+  `DiagnosticSeverity`; `errorCode.errorSeverity` → `diagnosticCode.severity`).
+  The source change itself shipped earlier but was never published — the prior
+  `1.8.24` on pub.dev still carried `analyzer: ^8.0.0`. This release publishes
+  the analyzer-10 build so hosted consumers (notably `tom_d4rt_generator`) can
+  resolve it. No behavioural change.
+
 ## 1.8.24
 
 ### Fixes

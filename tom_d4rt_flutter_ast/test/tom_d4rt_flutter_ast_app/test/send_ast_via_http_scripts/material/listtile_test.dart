@@ -114,7 +114,7 @@ Widget _tileCard(Widget tile, Color tint) {
     ),
     child: ClipRRect(
       borderRadius: BorderRadius.circular(8.0),
-      child: tile,
+      child: Material(type: MaterialType.transparency, child: tile),
     ),
   );
 }
@@ -182,8 +182,11 @@ Widget _recipeCard(String title, String description, Color accent,
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(color: Color(0xFFE0E0E0), width: 1.0),
           ),
-          child: Column(
-            children: tiles,
+          child: Material(
+            type: MaterialType.transparency,
+            child: Column(
+              children: tiles,
+            ),
           ),
         ),
       ],
@@ -627,7 +630,9 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8.0),
       ),
     ),
-    child: Column(
+    child: Material(
+      type: MaterialType.transparency,
+      child: Column(
       children: [
         ListTile(
           leading: Icon(Icons.brush),
@@ -648,6 +653,7 @@ dynamic build(BuildContext context) {
           subtitle: Text('Picks up selectedTileColor & selectedColor'),
         ),
       ],
+    ),
     ),
   );
 

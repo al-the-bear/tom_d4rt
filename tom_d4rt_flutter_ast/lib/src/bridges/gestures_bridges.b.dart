@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-06-17T19:05:00.377023
+// Generated: 2026-06-28T14:30:30.660541
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
 import 'package:tom_d4rt_ast/d4rt.dart';
 import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
@@ -52,6 +52,10 @@ import 'package:vector_math/vector_math_64.dart' as $vector_math_1;
 /// Bridge class for flutter_gestures module.
 class FlutterGesturesBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createGestureArenaMemberBridge(),
@@ -148,6 +152,209 @@ class FlutterGesturesBridge {
       _createTapAndHorizontalDragGestureRecognizerBridge(),
       _createTapAndPanGestureRecognizerBridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'GestureArenaMember': _createGestureArenaMemberBridge,
+      'GestureArenaEntry': _createGestureArenaEntryBridge,
+      'GestureArenaManager': _createGestureArenaManagerBridge,
+      'Matrix4': _createMatrix4Bridge,
+      'DeviceGestureSettings': _createDeviceGestureSettingsBridge,
+      'PointerEvent': _createPointerEventBridge,
+      'PointerAddedEvent': _createPointerAddedEventBridge,
+      'PointerRemovedEvent': _createPointerRemovedEventBridge,
+      'PointerHoverEvent': _createPointerHoverEventBridge,
+      'PointerEnterEvent': _createPointerEnterEventBridge,
+      'PointerExitEvent': _createPointerExitEventBridge,
+      'PointerDownEvent': _createPointerDownEventBridge,
+      'PointerMoveEvent': _createPointerMoveEventBridge,
+      'PointerUpEvent': _createPointerUpEventBridge,
+      'PointerSignalEvent': _createPointerSignalEventBridge,
+      'PointerScrollEvent': _createPointerScrollEventBridge,
+      'PointerScrollInertiaCancelEvent': _createPointerScrollInertiaCancelEventBridge,
+      'PointerScaleEvent': _createPointerScaleEventBridge,
+      'PointerPanZoomStartEvent': _createPointerPanZoomStartEventBridge,
+      'PointerPanZoomUpdateEvent': _createPointerPanZoomUpdateEventBridge,
+      'PointerPanZoomEndEvent': _createPointerPanZoomEndEventBridge,
+      'PointerCancelEvent': _createPointerCancelEventBridge,
+      'HitTestable': _createHitTestableBridge,
+      'HitTestDispatcher': _createHitTestDispatcherBridge,
+      'HitTestTarget': _createHitTestTargetBridge,
+      'HitTestEntry': _createHitTestEntryBridge,
+      'HitTestResult': _createHitTestResultBridge,
+      'PointerRouter': _createPointerRouterBridge,
+      'PointerSignalResolver': _createPointerSignalResolverBridge,
+      'SamplingClock': _createSamplingClockBridge,
+      'FlutterErrorDetailsForPointerEventDispatcher': _createFlutterErrorDetailsForPointerEventDispatcherBridge,
+      'GestureBinding': _createGestureBindingBridge,
+      'PointerEventConverter': _createPointerEventConverterBridge,
+      'Velocity': _createVelocityBridge,
+      'VelocityEstimate': _createVelocityEstimateBridge,
+      'VelocityTracker': _createVelocityTrackerBridge,
+      'IOSScrollViewFlingVelocityTracker': _createIOSScrollViewFlingVelocityTrackerBridge,
+      'MacOSScrollViewFlingVelocityTracker': _createMacOSScrollViewFlingVelocityTrackerBridge,
+      'DragDownDetails': _createDragDownDetailsBridge,
+      'DragStartDetails': _createDragStartDetailsBridge,
+      'DragUpdateDetails': _createDragUpdateDetailsBridge,
+      'DragEndDetails': _createDragEndDetailsBridge,
+      'Drag': _createDragBridge,
+      'EagerGestureRecognizer': _createEagerGestureRecognizerBridge,
+      'ForcePressDetails': _createForcePressDetailsBridge,
+      'ForcePressGestureRecognizer': _createForcePressGestureRecognizerBridge,
+      'PositionedGestureDetails': _createPositionedGestureDetailsBridge,
+      'LongPressDownDetails': _createLongPressDownDetailsBridge,
+      'LongPressStartDetails': _createLongPressStartDetailsBridge,
+      'LongPressMoveUpdateDetails': _createLongPressMoveUpdateDetailsBridge,
+      'LongPressEndDetails': _createLongPressEndDetailsBridge,
+      'LongPressGestureRecognizer': _createLongPressGestureRecognizerBridge,
+      'PolynomialFit': _createPolynomialFitBridge,
+      'LeastSquaresSolver': _createLeastSquaresSolverBridge,
+      'GestureArenaTeam': _createGestureArenaTeamBridge,
+      'GestureRecognizer': _createGestureRecognizerBridge,
+      'OneSequenceGestureRecognizer': _createOneSequenceGestureRecognizerBridge,
+      'PrimaryPointerGestureRecognizer': _createPrimaryPointerGestureRecognizerBridge,
+      'OffsetPair': _createOffsetPairBridge,
+      'DragGestureRecognizer': _createDragGestureRecognizerBridge,
+      'VerticalDragGestureRecognizer': _createVerticalDragGestureRecognizerBridge,
+      'HorizontalDragGestureRecognizer': _createHorizontalDragGestureRecognizerBridge,
+      'PanGestureRecognizer': _createPanGestureRecognizerBridge,
+      'MultiDragPointerState': _createMultiDragPointerStateBridge,
+      'MultiDragGestureRecognizer': _createMultiDragGestureRecognizerBridge,
+      'ImmediateMultiDragGestureRecognizer': _createImmediateMultiDragGestureRecognizerBridge,
+      'HorizontalMultiDragGestureRecognizer': _createHorizontalMultiDragGestureRecognizerBridge,
+      'VerticalMultiDragGestureRecognizer': _createVerticalMultiDragGestureRecognizerBridge,
+      'DelayedMultiDragGestureRecognizer': _createDelayedMultiDragGestureRecognizerBridge,
+      'TapDownDetails': _createTapDownDetailsBridge,
+      'TapUpDetails': _createTapUpDetailsBridge,
+      'TapMoveDetails': _createTapMoveDetailsBridge,
+      'BaseTapGestureRecognizer': _createBaseTapGestureRecognizerBridge,
+      'TapGestureRecognizer': _createTapGestureRecognizerBridge,
+      'DoubleTapGestureRecognizer': _createDoubleTapGestureRecognizerBridge,
+      'MultiTapGestureRecognizer': _createMultiTapGestureRecognizerBridge,
+      'SerialTapDownDetails': _createSerialTapDownDetailsBridge,
+      'SerialTapCancelDetails': _createSerialTapCancelDetailsBridge,
+      'SerialTapUpDetails': _createSerialTapUpDetailsBridge,
+      'SerialTapGestureRecognizer': _createSerialTapGestureRecognizerBridge,
+      'PointerEventResampler': _createPointerEventResamplerBridge,
+      'ScaleStartDetails': _createScaleStartDetailsBridge,
+      'ScaleUpdateDetails': _createScaleUpdateDetailsBridge,
+      'ScaleEndDetails': _createScaleEndDetailsBridge,
+      'ScaleGestureRecognizer': _createScaleGestureRecognizerBridge,
+      'TapDragDownDetails': _createTapDragDownDetailsBridge,
+      'TapDragUpDetails': _createTapDragUpDetailsBridge,
+      'TapDragStartDetails': _createTapDragStartDetailsBridge,
+      'TapDragUpdateDetails': _createTapDragUpdateDetailsBridge,
+      'TapDragEndDetails': _createTapDragEndDetailsBridge,
+      'BaseTapAndDragGestureRecognizer': _createBaseTapAndDragGestureRecognizerBridge,
+      'TapAndHorizontalDragGestureRecognizer': _createTapAndHorizontalDragGestureRecognizerBridge,
+      'TapAndPanGestureRecognizer': _createTapAndPanGestureRecognizerBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'GestureArenaMember': $flutter_5.GestureArenaMember,
+      'GestureArenaEntry': $flutter_5.GestureArenaEntry,
+      'GestureArenaManager': $flutter_5.GestureArenaManager,
+      'Matrix4': $vector_math_1.Matrix4,
+      'DeviceGestureSettings': $flutter_16.DeviceGestureSettings,
+      'PointerEvent': $flutter_13.PointerEvent,
+      'PointerAddedEvent': $flutter_13.PointerAddedEvent,
+      'PointerRemovedEvent': $flutter_13.PointerRemovedEvent,
+      'PointerHoverEvent': $flutter_13.PointerHoverEvent,
+      'PointerEnterEvent': $flutter_13.PointerEnterEvent,
+      'PointerExitEvent': $flutter_13.PointerExitEvent,
+      'PointerDownEvent': $flutter_13.PointerDownEvent,
+      'PointerMoveEvent': $flutter_13.PointerMoveEvent,
+      'PointerUpEvent': $flutter_13.PointerUpEvent,
+      'PointerSignalEvent': $flutter_13.PointerSignalEvent,
+      'PointerScrollEvent': $flutter_13.PointerScrollEvent,
+      'PointerScrollInertiaCancelEvent': $flutter_13.PointerScrollInertiaCancelEvent,
+      'PointerScaleEvent': $flutter_13.PointerScaleEvent,
+      'PointerPanZoomStartEvent': $flutter_13.PointerPanZoomStartEvent,
+      'PointerPanZoomUpdateEvent': $flutter_13.PointerPanZoomUpdateEvent,
+      'PointerPanZoomEndEvent': $flutter_13.PointerPanZoomEndEvent,
+      'PointerCancelEvent': $flutter_13.PointerCancelEvent,
+      'HitTestable': $flutter_17.HitTestable,
+      'HitTestDispatcher': $flutter_17.HitTestDispatcher,
+      'HitTestTarget': $flutter_17.HitTestTarget,
+      'HitTestEntry': $flutter_17.HitTestEntry,
+      'HitTestResult': $flutter_17.HitTestResult,
+      'PointerRouter': $flutter_23.PointerRouter,
+      'PointerSignalResolver': $flutter_24.PointerSignalResolver,
+      'SamplingClock': $flutter_6.SamplingClock,
+      'FlutterErrorDetailsForPointerEventDispatcher': $flutter_6.FlutterErrorDetailsForPointerEventDispatcher,
+      'GestureBinding': $flutter_6.GestureBinding,
+      'PointerEventConverter': $flutter_8.PointerEventConverter,
+      'Velocity': $flutter_31.Velocity,
+      'VelocityEstimate': $flutter_31.VelocityEstimate,
+      'VelocityTracker': $flutter_31.VelocityTracker,
+      'IOSScrollViewFlingVelocityTracker': $flutter_31.IOSScrollViewFlingVelocityTracker,
+      'MacOSScrollViewFlingVelocityTracker': $flutter_31.MacOSScrollViewFlingVelocityTracker,
+      'DragDownDetails': $flutter_11.DragDownDetails,
+      'DragStartDetails': $flutter_11.DragStartDetails,
+      'DragUpdateDetails': $flutter_11.DragUpdateDetails,
+      'DragEndDetails': $flutter_11.DragEndDetails,
+      'Drag': $flutter_10.Drag,
+      'EagerGestureRecognizer': $flutter_12.EagerGestureRecognizer,
+      'ForcePressDetails': $flutter_14.ForcePressDetails,
+      'ForcePressGestureRecognizer': $flutter_14.ForcePressGestureRecognizer,
+      'PositionedGestureDetails': $flutter_15.PositionedGestureDetails,
+      'LongPressDownDetails': $flutter_18.LongPressDownDetails,
+      'LongPressStartDetails': $flutter_18.LongPressStartDetails,
+      'LongPressMoveUpdateDetails': $flutter_18.LongPressMoveUpdateDetails,
+      'LongPressEndDetails': $flutter_18.LongPressEndDetails,
+      'LongPressGestureRecognizer': $flutter_18.LongPressGestureRecognizer,
+      'PolynomialFit': $flutter_19.PolynomialFit,
+      'LeastSquaresSolver': $flutter_19.LeastSquaresSolver,
+      'GestureArenaTeam': $flutter_30.GestureArenaTeam,
+      'GestureRecognizer': $flutter_25.GestureRecognizer,
+      'OneSequenceGestureRecognizer': $flutter_25.OneSequenceGestureRecognizer,
+      'PrimaryPointerGestureRecognizer': $flutter_25.PrimaryPointerGestureRecognizer,
+      'OffsetPair': $flutter_25.OffsetPair,
+      'DragGestureRecognizer': $flutter_20.DragGestureRecognizer,
+      'VerticalDragGestureRecognizer': $flutter_20.VerticalDragGestureRecognizer,
+      'HorizontalDragGestureRecognizer': $flutter_20.HorizontalDragGestureRecognizer,
+      'PanGestureRecognizer': $flutter_20.PanGestureRecognizer,
+      'MultiDragPointerState': $flutter_21.MultiDragPointerState,
+      'MultiDragGestureRecognizer': $flutter_21.MultiDragGestureRecognizer,
+      'ImmediateMultiDragGestureRecognizer': $flutter_21.ImmediateMultiDragGestureRecognizer,
+      'HorizontalMultiDragGestureRecognizer': $flutter_21.HorizontalMultiDragGestureRecognizer,
+      'VerticalMultiDragGestureRecognizer': $flutter_21.VerticalMultiDragGestureRecognizer,
+      'DelayedMultiDragGestureRecognizer': $flutter_21.DelayedMultiDragGestureRecognizer,
+      'TapDownDetails': $flutter_28.TapDownDetails,
+      'TapUpDetails': $flutter_28.TapUpDetails,
+      'TapMoveDetails': $flutter_28.TapMoveDetails,
+      'BaseTapGestureRecognizer': $flutter_28.BaseTapGestureRecognizer,
+      'TapGestureRecognizer': $flutter_28.TapGestureRecognizer,
+      'DoubleTapGestureRecognizer': $flutter_22.DoubleTapGestureRecognizer,
+      'MultiTapGestureRecognizer': $flutter_22.MultiTapGestureRecognizer,
+      'SerialTapDownDetails': $flutter_22.SerialTapDownDetails,
+      'SerialTapCancelDetails': $flutter_22.SerialTapCancelDetails,
+      'SerialTapUpDetails': $flutter_22.SerialTapUpDetails,
+      'SerialTapGestureRecognizer': $flutter_22.SerialTapGestureRecognizer,
+      'PointerEventResampler': $flutter_26.PointerEventResampler,
+      'ScaleStartDetails': $flutter_27.ScaleStartDetails,
+      'ScaleUpdateDetails': $flutter_27.ScaleUpdateDetails,
+      'ScaleEndDetails': $flutter_27.ScaleEndDetails,
+      'ScaleGestureRecognizer': $flutter_27.ScaleGestureRecognizer,
+      'TapDragDownDetails': $flutter_29.TapDragDownDetails,
+      'TapDragUpDetails': $flutter_29.TapDragUpDetails,
+      'TapDragStartDetails': $flutter_29.TapDragStartDetails,
+      'TapDragUpdateDetails': $flutter_29.TapDragUpdateDetails,
+      'TapDragEndDetails': $flutter_29.TapDragEndDetails,
+      'BaseTapAndDragGestureRecognizer': $flutter_29.BaseTapAndDragGestureRecognizer,
+      'TapAndHorizontalDragGestureRecognizer': $flutter_29.TapAndHorizontalDragGestureRecognizer,
+      'TapAndPanGestureRecognizer': $flutter_29.TapAndPanGestureRecognizer,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -559,11 +766,20 @@ class FlutterGesturesBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // MCI#1 / A1: Register the flattened native supertype table so

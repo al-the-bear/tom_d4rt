@@ -193,7 +193,9 @@ dynamic build(BuildContext context) {
           iconColor: heroAccent,
         ),
       ),
-      child: ListTile(
+      child: Material(
+        type: MaterialType.transparency,
+        child: ListTile(
         titleAlignment: ListTileTitleAlignment.center,
         leading: const CircleAvatar(
           backgroundColor: heroAccent,
@@ -206,6 +208,7 @@ dynamic build(BuildContext context) {
           'leading + trailing pin to the vertical center of the tile.',
         ),
         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+      ),
       ),
     ),
   );
@@ -340,7 +343,9 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          ListTile(
+          Material(
+            type: MaterialType.transparency,
+            child: ListTile(
             titleAlignment: value,
             leading: CircleAvatar(
               backgroundColor: perValueAccent,
@@ -362,6 +367,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(color: perValueFg.withOpacity(0.85)),
             ),
             trailing: Icon(Icons.chevron_right, color: perValueAccent),
+          ),
           ),
         ],
       ),
@@ -457,7 +463,9 @@ dynamic build(BuildContext context) {
               ),
             ),
             Expanded(
-              child: ListTile(
+              child: Material(
+                type: MaterialType.transparency,
+                child: ListTile(
                 titleAlignment: value,
                 leading: Icon(Icons.bookmark_border, color: sweepAccent),
                 title: Text(
@@ -471,6 +479,7 @@ dynamic build(BuildContext context) {
                   style: TextStyle(color: sweepFg.withOpacity(0.85)),
                 ),
                 trailing: Icon(Icons.more_vert, color: sweepAccent),
+              ),
               ),
             ),
           ],
@@ -579,7 +588,9 @@ dynamic build(BuildContext context) {
               color: subSoft.withOpacity(0.4),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: ListTile(
+            child: Material(
+              type: MaterialType.transparency,
+              child: ListTile(
               titleAlignment: alignment,
               leading: Icon(Icons.short_text, color: subAccent),
               title: Text('1-line subtitle',
@@ -589,6 +600,7 @@ dynamic build(BuildContext context) {
                   style: TextStyle(color: subFg.withOpacity(0.85))),
               trailing: Icon(Icons.east, color: subAccent),
             ),
+            ),
           ),
           const SizedBox(height: 8),
           Container(
@@ -596,7 +608,9 @@ dynamic build(BuildContext context) {
               color: subSoft.withOpacity(0.4),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: ListTile(
+            child: Material(
+              type: MaterialType.transparency,
+              child: ListTile(
               titleAlignment: alignment,
               leading: Icon(Icons.notes, color: subAccent),
               title: Text('3-line subtitle',
@@ -606,6 +620,7 @@ dynamic build(BuildContext context) {
                   style: TextStyle(color: subFg.withOpacity(0.85))),
               trailing: Icon(Icons.east, color: subAccent),
             ),
+            ),
           ),
           const SizedBox(height: 8),
           Container(
@@ -613,7 +628,9 @@ dynamic build(BuildContext context) {
               color: subSoft.withOpacity(0.4),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: ListTile(
+            child: Material(
+              type: MaterialType.transparency,
+              child: ListTile(
               titleAlignment: alignment,
               leading: Icon(Icons.subject, color: subAccent),
               title: Text('6-line subtitle',
@@ -622,6 +639,7 @@ dynamic build(BuildContext context) {
               subtitle: Text(sixLines(),
                   style: TextStyle(color: subFg.withOpacity(0.85))),
               trailing: Icon(Icons.east, color: subAccent),
+            ),
             ),
           ),
         ],
@@ -719,7 +737,9 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          ListTile(
+          Material(
+            type: MaterialType.transparency,
+            child: ListTile(
             titleAlignment: alignment,
             leading: leading,
             title: Text(
@@ -734,6 +754,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(color: leadFg.withOpacity(0.85)),
             ),
             trailing: Icon(Icons.chevron_right, color: leadAccent),
+          ),
           ),
         ],
       ),
@@ -893,7 +914,9 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          ListTile(
+          Material(
+            type: MaterialType.transparency,
+            child: ListTile(
             isThreeLine: isThreeLine,
             titleAlignment: alignment,
             leading: CircleAvatar(
@@ -911,6 +934,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(color: triFg.withOpacity(0.85)),
             ),
             trailing: Icon(Icons.adjust, color: triAccent),
+          ),
           ),
         ],
       ),
@@ -997,7 +1021,9 @@ dynamic build(BuildContext context) {
               textColor: themedFg,
               tileColor: themedSoft.withOpacity(0.35),
             ),
-            child: Column(
+            child: Material(
+              type: MaterialType.transparency,
+              child: Column(
               children: [
                 ListTile(
                   leading: const Icon(Icons.cloud),
@@ -1028,6 +1054,7 @@ dynamic build(BuildContext context) {
                   trailing: const Icon(Icons.chevron_right),
                 ),
               ],
+            ),
             ),
           ),
         ],
@@ -1089,7 +1116,9 @@ dynamic build(BuildContext context) {
     required Color avatarColor,
     bool unread = false,
   }) {
-    return ListTile(
+    return Material(
+      type: MaterialType.transparency,
+      child: ListTile(
       titleAlignment: ListTileTitleAlignment.titleHeight,
       leading: CircleAvatar(
         backgroundColor: avatarColor,
@@ -1131,6 +1160,7 @@ dynamic build(BuildContext context) {
               ),
             )
           : const SizedBox(width: 10),
+    ),
     );
   }
 
@@ -1139,7 +1169,9 @@ dynamic build(BuildContext context) {
     required String role,
     required String avatar,
   }) {
-    return ListTile(
+    return Material(
+      type: MaterialType.transparency,
+      child: ListTile(
       titleAlignment: ListTileTitleAlignment.center,
       leading: CircleAvatar(
         radius: 24,
@@ -1160,6 +1192,7 @@ dynamic build(BuildContext context) {
           Icon(Icons.message, color: recipeAccent),
         ],
       ),
+    ),
     );
   }
 
@@ -1168,7 +1201,9 @@ dynamic build(BuildContext context) {
     required String title,
     required String description,
   }) {
-    return ListTile(
+    return Material(
+      type: MaterialType.transparency,
+      child: ListTile(
       titleAlignment: ListTileTitleAlignment.top,
       leading: Container(
         width: 40,
@@ -1186,6 +1221,7 @@ dynamic build(BuildContext context) {
       subtitle: Text(description,
           style: TextStyle(color: recipeFg.withOpacity(0.85))),
       trailing: Icon(Icons.chevron_right, color: recipeAccent),
+    ),
     );
   }
 

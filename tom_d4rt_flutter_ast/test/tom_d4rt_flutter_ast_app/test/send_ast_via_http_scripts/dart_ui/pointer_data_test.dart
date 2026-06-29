@@ -745,7 +745,9 @@ dynamic build(BuildContext context) {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: CheckboxListTile(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: CheckboxListTile(
                           value: synthesized,
                           dense: true,
                           title: const Text('Synthesized'),
@@ -756,9 +758,12 @@ dynamic build(BuildContext context) {
                             });
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: CheckboxListTile(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: CheckboxListTile(
                           value: obscured,
                           dense: true,
                           title: const Text('Obscured'),
@@ -768,6 +773,7 @@ dynamic build(BuildContext context) {
                               obscured = value ?? false;
                             });
                           },
+                        ),
                         ),
                       ),
                     ],

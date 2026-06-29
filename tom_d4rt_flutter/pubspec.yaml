@@ -1,6 +1,6 @@
 name: tom_d4rt_flutter
 description: "Source-based D4rt interpreter with the full Flutter Material bridge surface (SourceFlutterD4rt), plus the bridge conformance test suite and HTTP test harness."
-version: 1.0.1
+version: 1.1.0
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_flutter
 
@@ -10,7 +10,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  tom_d4rt: ^1.8.22
+  # 1.10.0 adds the public `registerBridgedClassLazy` registrar that the
+  # generated lazy bridges (registerBridges → registerBridgedClassLazy) call.
+  # 1.9.0 carried the providePackage/finalizeBridges pool API but not this
+  # registrar, so generated bridges would not compile against it.
+  # 1.10.1 fixes Environment.toBridgedClass to resolve a native runtime type by
+  # a PRECISE match across the whole scope chain before any fuzzy name-prefix
+  # fallback — without it, a MappedListIterable from `List.map(...).toList()`
+  # under the lazy warm-parent split wrongly resolved to the `Map` bridge.
+  tom_d4rt: ^1.10.1
   path: ^1.9.0
   # A.4: opt-in vector_math_64 bridge surface (Quad / Vector3 / Vector4 / …).
   # Direct dependency required so the generated vector_math_bridges.b.dart can
@@ -25,7 +33,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  tom_d4rt_generator: ^1.9.3
+  # Bridge regeneration (tool/regenerate_bridges.dart). 1.11.0 is analyzer-10
+  # (matching tom_d4rt's analyzer ^10) and emits the lazy bridge-factory thunks
+  # (bridgeClassThunks/bridgeClassTypes) the import-optimization guard pairs
+  # with. The earlier analyzer-8 conflict that deferred regen is resolved.
+  tom_d4rt_generator: ^1.11.0
 
 flutter:
   uses-material-design: true

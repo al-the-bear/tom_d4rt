@@ -1298,7 +1298,9 @@ class _ListTileAnatomySection extends StatelessWidget {
                 width: 1.4,
               ),
             ),
-            child: ListTile(
+            child: Material(
+              type: MaterialType.transparency,
+              child: ListTile(
               leading: Container(
                 width: 40,
                 height: 40,
@@ -1328,6 +1330,7 @@ class _ListTileAnatomySection extends StatelessWidget {
                 ),
               ),
               trailing: Icon(Icons.chevron_right, color: _Palette.warm),
+            ),
             ),
           ),
           SizedBox(height: 12),
@@ -1483,7 +1486,9 @@ class _PaddingSample extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: _Palette.slateSoft, width: 0.6),
             ),
-            child: ListTile(
+            child: Material(
+              type: MaterialType.transparency,
+              child: ListTile(
               contentPadding: padding,
               leading: Icon(Icons.tune, color: _Palette.accent),
               title: Text(
@@ -1492,6 +1497,7 @@ class _PaddingSample extends StatelessWidget {
               ),
               subtitle: Text('contentPadding controls outer slot insets.'),
               trailing: Icon(Icons.more_vert, color: _Palette.inkMute),
+            ),
             ),
           ),
         ],
@@ -1528,7 +1534,9 @@ class _DensitySample extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: _Palette.slateSoft, width: 0.6),
             ),
-            child: ListTile(
+            child: Material(
+              type: MaterialType.transparency,
+              child: ListTile(
               visualDensity: density,
               leading: Icon(Icons.density_medium, color: _Palette.cool),
               title: Text(
@@ -1537,6 +1545,7 @@ class _DensitySample extends StatelessWidget {
               ),
               subtitle: Text('visualDensity shrinks vertical rhythm.'),
               trailing: Icon(Icons.unfold_more, color: _Palette.inkMute),
+            ),
             ),
           ),
         ],
@@ -1720,7 +1729,9 @@ class _StateRow extends StatelessWidget {
                 border: border,
                 color: _Palette.paperSoft,
               ),
-              child: ListTile(
+              child: Material(
+                type: MaterialType.transparency,
+                child: ListTile(
                 tileColor: tileColor,
                 selected: selected,
                 enabled: enabled,
@@ -1737,6 +1748,7 @@ class _StateRow extends StatelessWidget {
                   style: TextStyle(color: subtitleColor),
                 ),
                 trailing: Icon(Icons.chevron_right, color: iconColor),
+              ),
               ),
             ),
           ),
@@ -1933,7 +1945,8 @@ class _VariantGroup extends StatelessWidget {
               ),
             ),
           ),
-          ...tiles,
+          for (final tile in tiles)
+            Material(type: MaterialType.transparency, child: tile),
         ],
       ),
     );
@@ -2002,17 +2015,23 @@ class _ListPatternSection extends StatelessWidget {
             tone: _Palette.violet,
             children: [
               _GroupHeader(label: 'WORKSPACE', tone: _Palette.violet),
-              ListTile(
+              Material(
+                type: MaterialType.transparency,
+                child: ListTile(
                 leading: Icon(Icons.folder, color: _Palette.violet),
                 title: Text('tom_agent_container'),
                 subtitle: Text('top-level workspace'),
                 trailing: Icon(Icons.chevron_right),
               ),
-              ListTile(
+              ),
+              Material(
+                type: MaterialType.transparency,
+                child: ListTile(
                 leading: Icon(Icons.folder_open, color: _Palette.violet),
                 title: Text('tom_ai'),
                 subtitle: Text('AI build + bridge ecosystem'),
                 trailing: Icon(Icons.chevron_right),
+              ),
               ),
               Divider(
                 height: 1,
@@ -2020,17 +2039,23 @@ class _ListPatternSection extends StatelessWidget {
                 color: _Palette.violet.withValues(alpha: 0.5),
               ),
               _GroupHeader(label: 'QUESTS', tone: _Palette.accent),
-              ListTile(
+              Material(
+                type: MaterialType.transparency,
+                child: ListTile(
                 leading: Icon(Icons.flag, color: _Palette.accent),
                 title: Text('d4rt'),
                 subtitle: Text('interpreter + bridges'),
                 trailing: Icon(Icons.chevron_right),
               ),
-              ListTile(
+              ),
+              Material(
+                type: MaterialType.transparency,
+                child: ListTile(
                 leading: Icon(Icons.flag_outlined, color: _Palette.accent),
                 title: Text('flutter_ui'),
                 subtitle: Text('reusable widgets'),
                 trailing: Icon(Icons.chevron_right),
+              ),
               ),
               Divider(
                 height: 1,
@@ -2038,17 +2063,23 @@ class _ListPatternSection extends StatelessWidget {
                 color: _Palette.violet.withValues(alpha: 0.5),
               ),
               _GroupHeader(label: 'TOOLS', tone: _Palette.warm),
-              ListTile(
+              Material(
+                type: MaterialType.transparency,
+                child: ListTile(
                 leading: Icon(Icons.terminal, color: _Palette.warm),
                 title: Text('testkit'),
                 subtitle: Text('test tracking and baselines'),
                 trailing: Icon(Icons.chevron_right),
               ),
-              ListTile(
+              ),
+              Material(
+                type: MaterialType.transparency,
+                child: ListTile(
                 leading: Icon(Icons.build, color: _Palette.warm),
                 title: Text('tom_build'),
                 subtitle: Text('end-to-end build orchestration'),
                 trailing: Icon(Icons.chevron_right),
+              ),
               ),
             ],
           ),
@@ -2059,35 +2090,50 @@ class _ListPatternSection extends StatelessWidget {
 
   List<Widget> _buildRawTiles() {
     return [
-      ListTile(
+      Material(
+        type: MaterialType.transparency,
+        child: ListTile(
         leading: Icon(Icons.inbox_outlined, color: _Palette.cool),
         title: Text('Inbox'),
         subtitle: Text('12 new items'),
         trailing: Icon(Icons.chevron_right, color: _Palette.inkMute),
       ),
-      ListTile(
+      ),
+      Material(
+        type: MaterialType.transparency,
+        child: ListTile(
         leading: Icon(Icons.send_outlined, color: _Palette.cool),
         title: Text('Sent'),
         subtitle: Text('synced 3m ago'),
         trailing: Icon(Icons.chevron_right, color: _Palette.inkMute),
       ),
-      ListTile(
+      ),
+      Material(
+        type: MaterialType.transparency,
+        child: ListTile(
         leading: Icon(Icons.drafts_outlined, color: _Palette.cool),
         title: Text('Drafts'),
         subtitle: Text('4 unfinished'),
         trailing: Icon(Icons.chevron_right, color: _Palette.inkMute),
       ),
-      ListTile(
+      ),
+      Material(
+        type: MaterialType.transparency,
+        child: ListTile(
         leading: Icon(Icons.archive_outlined, color: _Palette.cool),
         title: Text('Archive'),
         subtitle: Text('older than 90 days'),
         trailing: Icon(Icons.chevron_right, color: _Palette.inkMute),
       ),
-      ListTile(
+      ),
+      Material(
+        type: MaterialType.transparency,
+        child: ListTile(
         leading: Icon(Icons.delete_outline, color: _Palette.cool),
         title: Text('Trash'),
         subtitle: Text('auto-purged after 30 days'),
         trailing: Icon(Icons.chevron_right, color: _Palette.inkMute),
+      ),
       ),
     ];
   }
@@ -2228,11 +2274,14 @@ class _ListTileThemeChainSection extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  ListTile(
+                  Material(
+                    type: MaterialType.transparency,
+                    child: ListTile(
                     leading: Icon(Icons.bookmark),
                     title: Text('Outer-themed tile A'),
                     subtitle: Text('inherits violet text + icon.'),
                     trailing: Icon(Icons.chevron_right),
+                  ),
                   ),
                   SizedBox(height: 6),
                   _ThemeLevel(
@@ -2245,12 +2294,15 @@ class _ListTileThemeChainSection extends StatelessWidget {
                           _Palette.warmSoft.withValues(alpha: 0.5),
                       child: Column(
                         children: [
-                          ListTile(
+                          Material(
+                            type: MaterialType.transparency,
+                            child: ListTile(
                             leading: Icon(Icons.flash_on),
                             title: Text('Inner-themed tile B'),
                             subtitle: Text(
                                 'overrides icon+text+tile, inherits shape.'),
                             trailing: Icon(Icons.chevron_right),
+                          ),
                           ),
                           SizedBox(height: 6),
                           _ThemeLevel(
@@ -2261,13 +2313,16 @@ class _ListTileThemeChainSection extends StatelessWidget {
                               textColor: _Palette.cool,
                               tileColor: _Palette.coolSoft
                                   .withValues(alpha: 0.55),
-                              child: ListTile(
+                              child: Material(
+                                type: MaterialType.transparency,
+                                child: ListTile(
                                 leading: Icon(Icons.eco),
                                 title: Text('Deepest-themed tile C'),
                                 subtitle: Text(
                                     'inherits shape from level 1, '
                                     'colors from level 3.'),
                                 trailing: Icon(Icons.chevron_right),
+                              ),
                               ),
                             ),
                           ),
@@ -2397,7 +2452,9 @@ class _PitfallsSection extends StatelessWidget {
                 border:
                     Border.all(color: _Palette.danger.withValues(alpha: 0.6)),
               ),
-              child: ListTile(
+              child: Material(
+                type: MaterialType.transparency,
+                child: ListTile(
                 selected: true,
                 tileColor: Colors.transparent,
                 title: Text(
@@ -2408,6 +2465,7 @@ class _PitfallsSection extends StatelessWidget {
                 leading: Icon(Icons.cancel_outlined, color: _Palette.danger),
                 trailing: Icon(Icons.chevron_right),
               ),
+              ),
             ),
             right: Container(
               decoration: BoxDecoration(
@@ -2416,7 +2474,9 @@ class _PitfallsSection extends StatelessWidget {
                 border:
                     Border.all(color: _Palette.leaf.withValues(alpha: 0.6)),
               ),
-              child: ListTile(
+              child: Material(
+                type: MaterialType.transparency,
+                child: ListTile(
                 selected: true,
                 selectedTileColor:
                     _Palette.accent.withValues(alpha: 0.14),
@@ -2429,6 +2489,7 @@ class _PitfallsSection extends StatelessWidget {
                 leading: Icon(Icons.check_circle_outline,
                     color: _Palette.accent),
                 trailing: Icon(Icons.chevron_right),
+              ),
               ),
             ),
           ),
@@ -2448,7 +2509,9 @@ class _PitfallsSection extends StatelessWidget {
                 border:
                     Border.all(color: _Palette.danger.withValues(alpha: 0.6)),
               ),
-              child: ListTile(
+              child: Material(
+                type: MaterialType.transparency,
+                child: ListTile(
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 2, vertical: 0),
                 visualDensity:
@@ -2461,6 +2524,7 @@ class _PitfallsSection extends StatelessWidget {
                 subtitle: Text('hit target too small for fingers.'),
                 trailing: Icon(Icons.chevron_right),
               ),
+              ),
             ),
             right: Container(
               decoration: BoxDecoration(
@@ -2469,7 +2533,9 @@ class _PitfallsSection extends StatelessWidget {
                 border:
                     Border.all(color: _Palette.leaf.withValues(alpha: 0.6)),
               ),
-              child: ListTile(
+              child: Material(
+                type: MaterialType.transparency,
+                child: ListTile(
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 visualDensity: VisualDensity.standard,
@@ -2480,6 +2546,7 @@ class _PitfallsSection extends StatelessWidget {
                 ),
                 subtitle: Text('comfortable, accessible target.'),
                 trailing: Icon(Icons.chevron_right),
+              ),
               ),
             ),
           ),
@@ -2499,7 +2566,9 @@ class _PitfallsSection extends StatelessWidget {
                 border:
                     Border.all(color: _Palette.danger.withValues(alpha: 0.6)),
               ),
-              child: Column(
+              child: Material(
+                type: MaterialType.transparency,
+                child: Column(
                 children: [
                   ListTile(
                     leading: Icon(Icons.brightness_low),
@@ -2520,6 +2589,7 @@ class _PitfallsSection extends StatelessWidget {
                   ),
                 ],
               ),
+              ),
             ),
             right: Container(
               decoration: BoxDecoration(
@@ -2528,7 +2598,9 @@ class _PitfallsSection extends StatelessWidget {
                 border:
                     Border.all(color: _Palette.leaf.withValues(alpha: 0.6)),
               ),
-              child: Column(
+              child: Material(
+                type: MaterialType.transparency,
+                child: Column(
                 children: [
                   ListTile(
                     leading: Icon(Icons.brightness_low,
@@ -2551,6 +2623,7 @@ class _PitfallsSection extends StatelessWidget {
                         style: TextStyle(fontWeight: FontWeight.w700)),
                   ),
                 ],
+              ),
               ),
             ),
           ),

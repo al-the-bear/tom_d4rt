@@ -1,3 +1,12 @@
+## 0.2.0
+
+- Add `FlutterD4rt.warmup()` — forwards to `D4rtRunner.warmup()` so embedders
+  can pay the residual eager warm-up cost (warm-parent `Environment`, stdlib)
+  off the first frame instead of stalling the first script build. The
+  recommended call site is a post-first-frame callback:
+  `WidgetsBinding.instance.addPostFrameCallback((_) => d4rt.warmup())`.
+  Idempotent and script-neutral.
+
 ## 0.1.1
 
 - Housekeeping: test artifacts now live in a gitignored `testlog/` folder; `doc/` no longer ships machine-generated baselines or last_testrun.json. No code changes.

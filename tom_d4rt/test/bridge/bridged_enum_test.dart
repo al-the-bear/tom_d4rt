@@ -18,7 +18,92 @@ enum ComplexEnum {
   bool isItemA() => this == ComplexEnum.itemA;
 }
 
+// 3. Enum with operator overloads (`&`, `|`, `~`). Mirrors Flutter's
+// `WidgetState`, which gains `&`/`|`/`~` from the `WidgetStateOperators` mixin
+// and is bridged as an enum carrying operator adapters. The operators return a
+// String representation so the result is inspectable from interpreted code
+// without a separate bridged result class.
+enum FlagState {
+  alpha,
+  beta,
+  gamma;
+
+  String operator &(Object other) => '($name & ${_repr(other)})';
+  String operator |(Object other) => '($name | ${_repr(other)})';
+  String operator ~() => '(~$name)';
+
+  static String _repr(Object other) =>
+      other is FlagState ? other.name : other.toString();
+}
+
+// 4. Enum with a STATIC factory method. Mirrors the `PageFormat.fromString`
+// shape from GitHub issue #2: a `static PageFormat fromString(String name)`
+// on the enum must be reachable as `EnumType.fromString(args)` from
+// interpreted code.
+enum SizeEnum {
+  small,
+  medium,
+  large;
+
+  static SizeEnum fromString(String name) =>
+      SizeEnum.values.firstWhere((e) => e.name == name,
+          orElse: () => SizeEnum.small);
+
+  static SizeEnum get largest => SizeEnum.large;
+}
+
 void main() {
+  group('Bridged Enum Tests - Static methods (issue #2)', () {
+    late D4rt interpreter;
+
+    setUp(() {
+      interpreter = D4rt();
+      final sizeDefinition = BridgedEnumDefinition<SizeEnum>(
+        name: 'SizeEnum',
+        values: SizeEnum.values,
+        staticMethods: {
+          'fromString': (visitor, positional, named, typeArgs) =>
+              SizeEnum.fromString(positional[0] as String),
+        },
+        staticGetters: {
+          'largest': () => SizeEnum.largest,
+        },
+      );
+      interpreter.registerBridgedEnum(
+          sizeDefinition, 'package:test/size.dart');
+    });
+
+    test('I-ENUM-STATIC-1: call static method on bridged enum', () {
+      final code = '''
+        import 'package:test/size.dart';
+        main() => SizeEnum.fromString('medium');
+      ''';
+      final result = interpreter.execute(source: code);
+      expect(result, equals(SizeEnum.medium));
+    });
+
+    test('I-ENUM-STATIC-2: static method result feeds back into script', () {
+      final code = '''
+        import 'package:test/size.dart';
+        main() {
+          var s = SizeEnum.fromString('large');
+          return s.index;
+        }
+      ''';
+      final result = interpreter.execute(source: code);
+      expect(result, equals(2));
+    });
+
+    test('I-ENUM-STATIC-3: static getter still resolves alongside methods', () {
+      final code = '''
+        import 'package:test/size.dart';
+        main() => SizeEnum.largest;
+      ''';
+      final result = interpreter.execute(source: code);
+      expect(result, equals(SizeEnum.large));
+    });
+  });
+
   group('Bridged Enum Tests - Simple', () {
     late D4rt interpreter;
 
@@ -351,6 +436,76 @@ void main() {
           () => interpreter.execute(source: code),
           throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
               contains('Error executing bridged method "multiply"'))));
+    });
+  });
+
+  group('Bridged Enum Tests - Operator overloads (GEN-WidgetState)', () {
+    late D4rt interpreter;
+
+    setUp(() {
+      interpreter = D4rt();
+      final flagDefinition = BridgedEnumDefinition<FlagState>(
+        name: 'FlagState',
+        values: FlagState.values,
+        methods: {
+          '&': (visitor, target, positional, named, typeArgs) =>
+              (target as FlagState) & positional[0]!,
+          '|': (visitor, target, positional, named, typeArgs) =>
+              (target as FlagState) | positional[0]!,
+          '~': (visitor, target, positional, named, typeArgs) =>
+              ~(target as FlagState),
+        },
+      );
+      interpreter.registerBridgedEnum(
+          flagDefinition, 'package:test/flag.dart');
+    });
+
+    test('I-ENUM-OP-1: binary & on two bridged enum values', () {
+      final code = '''
+        import 'package:test/flag.dart';
+        main() => FlagState.alpha & FlagState.beta;
+      ''';
+      expect(interpreter.execute(source: code), equals('(alpha & beta)'));
+    });
+
+    test('I-ENUM-OP-2: binary | on two bridged enum values', () {
+      final code = '''
+        import 'package:test/flag.dart';
+        main() => FlagState.alpha | FlagState.gamma;
+      ''';
+      expect(interpreter.execute(source: code), equals('(alpha | gamma)'));
+    });
+
+    test('I-ENUM-OP-3: unary ~ on a bridged enum value', () {
+      final code = '''
+        import 'package:test/flag.dart';
+        main() => ~FlagState.beta;
+      ''';
+      expect(interpreter.execute(source: code), equals('(~beta)'));
+    });
+
+    test('I-ENUM-OP-4: combined & with unary ~ right operand', () {
+      final code = '''
+        import 'package:test/flag.dart';
+        main() => FlagState.alpha & ~FlagState.beta;
+      ''';
+      expect(interpreter.execute(source: code), equals('(alpha & (~beta))'));
+    });
+
+    test('I-ENUM-OP-5: bitwise operators as Map literal keys', () {
+      // The exact failing shape from flutter_extended_20: WidgetStateMapper
+      // builds `<WidgetStatesConstraint, T>{ WidgetState.x & y: ... }`.
+      final code = '''
+        import 'package:test/flag.dart';
+        main() {
+          final m = {
+            FlagState.alpha & FlagState.beta: 'first',
+            ~FlagState.gamma: 'second',
+          };
+          return m.values.toList();
+        }
+      ''';
+      expect(interpreter.execute(source: code), equals(['first', 'second']));
     });
   });
 }

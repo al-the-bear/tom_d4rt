@@ -7,6 +7,10 @@ environment:
   sdk: ^3.10.4
 
 dependencies:
+  # Path source (not a hosted ^x.y.z floor): d4_example is itself consumed as a
+  # path dependency by d4_test_scripts, which also pins tom_d4rt from path — a
+  # hosted constraint here would clash sources (pubspec_overrides.yaml does not
+  # apply to path-dependency targets). Resolves in-tree to 1.10.1.
   tom_d4rt:
     path: ../../../tom_d4rt
   path: ^1.9.0

@@ -308,7 +308,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final value = node.expression.accept<Object?>(this);
     final typeNode = node.type;
     if (typeNode is NamedType) {
-      final typeName = typeNode.name2.lexeme;
+      final typeName = typeNode.name.lexeme;
       // G-DOV2-1 FIX: Handle nullable types (e.g., String?, int?)
       // If the type is nullable (has a '?' suffix), then null is always allowed
       final isNullable = typeNode.question != null;
@@ -1678,6 +1678,24 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               "Native error during bridged operator '$operatorName' on ${bridgedClass.name}: $e", originalException: e);
         }
       }
+    }
+
+    // Bridged enum operator methods (e.g. the `&`, `|`, `^` overloads Flutter's
+    // `WidgetState` gains from the `WidgetStateOperators` mixin). `WidgetState`
+    // is bridged as an enum whose definition carries operator adapters, so a
+    // `WidgetState.hovered & ~WidgetState.disabled` expression has a
+    // BridgedEnumValue left operand. Dispatch to the bridged operator adapter
+    // before the built-in switch (which only knows int/BigInt) so these don't
+    // fall through to "Unsupported binary operator".
+    if (leftOperandValue is BridgedEnumValue &&
+        leftOperandValue.hasMethod(operatorName)) {
+      // Unwrap a BridgedEnumValue right operand to its native value so the
+      // native operator receives the type it expects (e.g. a
+      // WidgetStatesConstraint rather than the interpreter's wrapper).
+      final rightArg = rightOperandValue is BridgedEnumValue
+          ? rightOperandValue.nativeValue
+          : rightOperandValue;
+      return leftOperandValue.invoke(this, operatorName, [rightArg], {});
     }
 
     // Only try extension immediately for operators where standard checks might bypass it
@@ -3748,6 +3766,45 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               "[visitMethodInvocation] Native exception during bridged enum method call '$targetValue.$methodName': $e\n$s");
           throw RuntimeD4rtException(
               "Native error during bridged enum method call '$methodName' on $targetValue: $e", originalException: e);
+        }
+      } else if (targetValue is BridgedEnum) {
+        // Static method call on a bridged enum type, e.g.
+        // `PageFormat.fromString('A4')` (GitHub issue #2). Instance methods go
+        // through the BridgedEnumValue branch above; this branch handles the
+        // enum TYPE as the target.
+        final staticMethodAdapter =
+            targetValue.findStaticMethodAdapter(methodName);
+        if (staticMethodAdapter == null) {
+          throw RuntimeD4rtException(
+              "Undefined static method '$methodName' on bridged enum '${targetValue.name}'.");
+        }
+        final evaluationResult = _evaluateArgumentsAsync(node.argumentList);
+        if (evaluationResult is AsyncSuspensionRequest) {
+          return evaluationResult; // Propagate suspension
+        }
+        final (positionalArgs, namedArgs) =
+            evaluationResult as (List<Object?>, Map<String, Object?>);
+        List<RuntimeType>? evaluatedTypeArguments;
+        final typeArgsNode = node.typeArguments;
+        if (typeArgsNode != null) {
+          evaluatedTypeArguments = typeArgsNode.arguments
+              .map((typeNode) => _resolveTypeAnnotation(typeNode))
+              .toList();
+        }
+        try {
+          return D4.withActiveVisitor(
+            this,
+            () => staticMethodAdapter(
+                this, positionalArgs, namedArgs, evaluatedTypeArguments),
+          );
+        } on RuntimeD4rtException {
+          rethrow;
+        } catch (e, s) {
+          Logger.error(
+              "[visitMethodInvocation] Native exception during bridged enum static method '${targetValue.name}.$methodName': $e\n$s");
+          throw RuntimeD4rtException(
+              "Native error during bridged enum static method '$methodName' on '${targetValue.name}': $e",
+              originalException: e);
         }
       } else if (targetValue is BridgedClass) {
         // This is a method call on a bridged class (bridged constructor or static method)
@@ -7261,6 +7318,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // No class operator found, try extensions
         }
 
+        // Bridged enum unary operator `~` (e.g. `~WidgetState.disabled`, where
+        // WidgetState is bridged as an enum with a `~` operator adapter).
+        if (operandValue is BridgedEnumValue && operandValue.hasMethod('~')) {
+          return operandValue.invoke(this, '~', const [], const {});
+        }
+
         // Check for bridged operator methods (unary ~)
         if (toBridgedInstance(operandValue).$2) {
           final bridgedInstance = toBridgedInstance(operandValue).$1!;
@@ -8178,7 +8241,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // Superclass lookup
     // InterpretedClass? superclass; // Keep this commented or remove
     if (node.extendsClause != null) {
-      final superclassName = node.extendsClause!.superclass.name2.lexeme;
+      final superclassName = node.extendsClause!.superclass.name.lexeme;
       Logger.debug(
           "[Visitor.visitClassDeclaration]   Trying to get superclass '$superclassName' from env: ${environment.hashCode}");
       Object? potentialSuperclass;
@@ -8230,7 +8293,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         if (superTypeArgs != null && superTypeArgs.isNotEmpty) {
           klass.bridgedSuperTypeArgNames = superTypeArgs
               .map((arg) =>
-                  arg is NamedType ? (arg.name2.lexeme) : '')
+                  arg is NamedType ? (arg.name.lexeme) : '')
               .toList();
         }
 
@@ -8247,7 +8310,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       Logger.debug(
           "[Visitor.visitClassDeclaration] Processing 'implements' clause for '$className' in env: ${environment.hashCode}");
       for (final interfaceType in node.implementsClause!.interfaces) {
-        final interfaceName = interfaceType.name2.lexeme;
+        final interfaceName = interfaceType.name.lexeme;
         Logger.debug(
             "[Visitor.visitClassDeclaration]   Trying to get interface '$interfaceName' from env: ${environment.hashCode}");
         try {
@@ -8286,7 +8349,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       Logger.debug(
           "[Visitor.visitClassDeclaration] Processing 'with' clause for '$className' in env: ${environment.hashCode}");
       for (final mixinType in node.withClause!.mixinTypes) {
-        final mixinName = mixinType.name2.lexeme;
+        final mixinName = mixinType.name.lexeme;
         Logger.debug(
             "[Visitor.visitClassDeclaration]   Trying to get mixin '$mixinName' from env: ${environment.hashCode}");
 
@@ -8597,7 +8660,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     if (node.onClause != null) {
       mixinClass.onClauseTypes.clear(); // Clear existing before populating
       for (final typeNode in node.onClause!.superclassConstraints) {
-        final typeName = typeNode.name2.lexeme;
+        final typeName = typeNode.name.lexeme;
         try {
           final potentialType = environment.get(typeName);
           if (potentialType is InterpretedClass ||
@@ -8629,7 +8692,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       Logger.debug(
           "[Visitor.visitMixinDeclaration] Processing 'implements' clause for '$mixinName' in env: ${environment.hashCode}");
       for (final interfaceType in node.implementsClause!.interfaces) {
-        final interfaceName = interfaceType.name2.lexeme;
+        final interfaceName = interfaceType.name.lexeme;
         try {
           final potentialInterface = environment.get(interfaceName);
           if (potentialInterface is InterpretedClass) {
@@ -8735,7 +8798,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       Logger.debug(
           "[Visitor.visitEnumDeclaration] Processing 'with' clause for '$enumName'");
       for (final mixinType in node.withClause!.mixinTypes) {
-        final mixinName = mixinType.name2.lexeme;
+        final mixinName = mixinType.name.lexeme;
         Logger.debug(
             "[Visitor.visitEnumDeclaration]   Trying to get mixin '$mixinName'");
 
@@ -9203,7 +9266,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       return true;
     }
 
-    final typeName = typeNode.name2.lexeme;
+    final typeName = typeNode.name.lexeme;
 
     // Handle nullable types
     if (typeNode.question != null && value == null) {
@@ -9357,7 +9420,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         } else {
           final typeNode = clause.exceptionType!;
           if (typeNode is NamedType) {
-            targetCatchTypeName = typeNode.name2.lexeme;
+            targetCatchTypeName = typeNode.name.lexeme;
             Logger.debug(
                 "[TryStatement] Checking catch clause for type: $targetCatchTypeName");
 
@@ -9684,7 +9747,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     bool result = false;
 
     if (typeNode is NamedType) {
-      final bareTypeName = typeNode.name2.lexeme;
+      final bareTypeName = typeNode.name.lexeme;
       // GEN-100c: Prefixed type-tests (e.g. `attribute is ui.LocaleStringAttribute`)
       // need to resolve the right-hand side via the prefixed import environment,
       // not as the bare identifier. Mirrors the same fix in
@@ -9979,7 +10042,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               .replaceAll('?', '')
               .substringAfter('<')
               .substringBeforeLast('>')
-          : typeNode.name2.lexeme;
+          : typeNode.name.lexeme;
       if (typeName.contains('<') && typeName.contains('>')) {
         typeName = typeName.substring(0, typeName.indexOf('<'));
       }
@@ -10042,7 +10105,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // Resolve class name and named constructor, handling unresolved AST
     // ambiguity where the parser can't distinguish ClassName.namedCtor(...)
     // from importPrefix.ClassName(...). In unresolved AST, ClassName goes
-    // into NamedType.importPrefix and namedCtor goes into NamedType.name2,
+    // into NamedType.importPrefix and namedCtor goes into NamedType.name,
     // with ConstructorName.name being null.
     //
     // Mirrors tom_d4rt_ast's visitInstanceCreationExpression: the
@@ -10055,9 +10118,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     String? resolvedImportPrefix; // Real library prefix for prefix.ClassName()
 
     if (node.constructorName.name != null) {
-      // Resolved form: type.name2 = class, constructorName.name = named ctor
+      // Resolved form: type.name = class, constructorName.name = named ctor
       // May also have importPrefix for prefix.ClassName.namedCtor() calls
-      constructorName = constructorNameNode.name2.lexeme;
+      constructorName = constructorNameNode.name.lexeme;
       namedConstructorPart = node.constructorName.name!.name;
       if (constructorNameNode.importPrefix != null) {
         resolvedImportPrefix = constructorNameNode.importPrefix!.name.lexeme;
@@ -10074,18 +10137,18 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         possibleType = null;
       }
       if (possibleType is InterpretedClass || possibleType is BridgedClass) {
-        // importPrefix was actually the class name, name2 is the named ctor.
+        // importPrefix was actually the class name, name is the named ctor.
         constructorName = possibleClassName;
-        namedConstructorPart = constructorNameNode.name2.lexeme;
+        namedConstructorPart = constructorNameNode.name.lexeme;
       } else {
         // It really is a prefix.ClassName() call (e.g. ui.PointerData()).
-        constructorName = constructorNameNode.name2.lexeme;
+        constructorName = constructorNameNode.name.lexeme;
         resolvedImportPrefix = constructorNameNode.importPrefix!.name.lexeme;
         namedConstructorPart = null;
       }
     } else {
       // Simple: ClassName() with no prefix, no named constructor
-      constructorName = constructorNameNode.name2.lexeme;
+      constructorName = constructorNameNode.name.lexeme;
       namedConstructorPart = null;
     }
 
@@ -10654,7 +10717,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final constructorLookupName = constructorId?.name ?? '';
 
     // Resolve the class type
-    final className = typeNode.name2.lexeme;
+    final className = typeNode.name.lexeme;
     Object? classValue;
     try {
       classValue = environment.get(className);
@@ -11363,11 +11426,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       // Handles: ClassName(field1: pattern1, field2: pattern2)
       if (Logger.isDebug) {
         Logger.debug(
-            '[_matchAndBind] Matching object pattern ${pattern.type.name2.lexeme} against value ${value?.runtimeType}');
+            '[_matchAndBind] Matching object pattern ${pattern.type.name.lexeme} against value ${value?.runtimeType}');
       }
 
       // Get the expected type name
-      final expectedTypeName = pattern.type.name2.lexeme;
+      final expectedTypeName = pattern.type.name.lexeme;
 
       // Check if the value is of the expected type
       bool typeMatches = false;
@@ -11583,7 +11646,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       // Create a synthetic AsExpression node to evaluate the cast
       bool castSucceeds = false;
       if (targetType is NamedType) {
-        final typeName = targetType.name2.lexeme;
+        final typeName = targetType.name.lexeme;
         final isNullable = targetType.question != null;
 
         // Check if the cast would succeed
@@ -11773,7 +11836,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     String onTypeName;
     bool isOnNullableType = false; // G-DOV-10/11: Track nullable on-type
     if (onTypeNode is NamedType) {
-      onTypeName = onTypeNode.name2.lexeme;
+      onTypeName = onTypeNode.name.lexeme;
       isOnNullableType = onTypeNode.question != null; // Check for 'T?' syntax
     } else {
       Logger.warn(
@@ -11954,7 +12017,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // Resolve the representation type
     RuntimeType? representationType;
     if (representationTypeNode is NamedType) {
-      final representationTypeName = representationTypeNode.name2.lexeme;
+      final representationTypeName = representationTypeNode.name.lexeme;
       try {
         final typeValue = environment.get(representationTypeName);
         if (typeValue is RuntimeType) {

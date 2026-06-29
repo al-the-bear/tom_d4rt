@@ -66,6 +66,21 @@ class AstModuleLoader implements ModuleContext {
   /// Tracks which bridged library URIs have been processed.
   final Set<String> _registeredBridgeUris = {};
 
+  /// Step #3 (retention) — number of bundle modules currently loaded and cached
+  /// in [_moduleCache] (each holds an [SCompilationUnit] AST). Read-only
+  /// introspection so [D4rtRunner] can assert prior runs' ASTs are not
+  /// accumulated. Bridged-module envs (no user AST) are not counted.
+  int get loadedModuleCount => _moduleCache.length;
+
+  /// Step #3 (retention) — drops the per-loader parsed-module cache so a
+  /// finished run's [SCompilationUnit] graph becomes collectable. Only the
+  /// per-loader [_moduleCache] is cleared; the process-global shared bridge
+  /// caches ([sharedBridgedModuleEnvironments] et al.) are untouched. A
+  /// subsequent execute rebuilds the loader and re-populates the cache.
+  void releaseLoadedModules() {
+    _moduleCache.clear();
+  }
+
   /// Creates an [AstModuleLoader] for resolving imports from a bundle.
   ///
   /// - [modules] — the module map from [AstBundle.modules]
@@ -75,7 +90,28 @@ class AstModuleLoader implements ModuleContext {
     required this.modules,
     required this.globalEnvironment,
     required this.runner,
+    this.sharedBridgedModuleEnvironments,
+    this.sharedModuleEnclosing,
+    this.onBridgedModuleEnvBuilt,
   });
+
+  /// Optional process-global cache of bridged-module environments keyed by
+  /// module URI, shared across every execution that has the same allowed-set
+  /// signature (PERF step #2). When supplied, [_tryLoadBridgedModule] reuses an
+  /// already-built module env instead of re-registering the ~982-class flutter
+  /// bridge surface on every run. `null` for legacy (empty allowed-set)
+  /// instances, which keep the per-loader [_bridgedModuleEnvironments] cache.
+  final Map<String, Environment>? sharedBridgedModuleEnvironments;
+
+  /// Enclosing environment for entries built into
+  /// [sharedBridgedModuleEnvironments]. Must be the shared warm parent (not the
+  /// per-execution global environment), so a cached module env is safe to reuse
+  /// across executions. `null` falls back to [globalEnvironment].
+  final Environment? sharedModuleEnclosing;
+
+  /// Invoked once each time a bridged-module env is actually built (cache miss).
+  /// Lets the runner expose a debug build counter for the reuse unit test.
+  final void Function()? onBridgedModuleEnvBuilt;
 
   @override
   bool checkPermission(dynamic operation) {
@@ -280,21 +316,28 @@ class AstModuleLoader implements ModuleContext {
     // The environment encloses globalEnvironment so standard library and other
     // pre-registered symbols are still accessible, but this module's bridges
     // are isolated in its own environment.
+    // PERF step #2: when a process-global cache is provided (migrated
+    // allowed-set instances), reuse module envs across executions. The env is
+    // built under the shared warm parent so it is safe to share. Legacy
+    // instances keep the per-loader cache enclosed by globalEnvironment.
+    final cache = sharedBridgedModuleEnvironments ?? _bridgedModuleEnvironments;
+    final moduleEnclosing = sharedModuleEnclosing ?? globalEnvironment;
     Environment moduleEnv;
-    if (_bridgedModuleEnvironments.containsKey(uriString)) {
-      moduleEnv = _bridgedModuleEnvironments[uriString]!;
+    if (cache.containsKey(uriString)) {
+      moduleEnv = cache[uriString]!;
     } else {
       // GEN-100 FIX: Build the module env with show=null/hide=null so it
       // contains ALL symbols the module transitively exports.  The per-import
       // show/hide filter is applied later in importEnvironment() at the call
       // site — it must NOT be baked into the cached module env, which is
       // shared across every import of this URI.
-      moduleEnv = Environment(enclosing: globalEnvironment);
+      moduleEnv = Environment(enclosing: moduleEnclosing);
       _registerBridgesForUriInto(uriString, null, null, moduleEnv);
       // GEN-107: Merge re-exported libraries into this module's environment.
       _mergeReExports(uriString, moduleEnv, null, null, <String, Set<String>?>{});
-      _bridgedModuleEnvironments[uriString] = moduleEnv;
+      cache[uriString] = moduleEnv;
       _registeredBridgeUris.add(uriString);
+      onBridgedModuleEnvBuilt?.call();
     }
 
     // Return module with its own environment as exportedEnvironment
@@ -309,19 +352,18 @@ class AstModuleLoader implements ModuleContext {
   }
 
   /// Checks if the runner has any bridged content for the given URI.
+  ///
+  /// Step 1 (import-optimization plan): the registries are now URI-keyed,
+  /// so this is an O(1) `containsKey` per registry instead of scanning the
+  /// whole list.
   bool _hasBridgedContent(String uriString) {
-    return _anyEntryMatches(runner.bridgedEnumDefinitions, uriString) ||
-        _anyEntryMatches(runner.bridgedClasses, uriString) ||
-        _anyEntryMatches(runner.bridgedExtensions, uriString) ||
-        _anyEntryMatches(runner.libraryFunctions, uriString) ||
-        _anyEntryMatches(runner.libraryVariables, uriString) ||
-        _anyEntryMatches(runner.libraryGetters, uriString) ||
-        _anyEntryMatches(runner.librarySetters, uriString);
-  }
-
-  /// Checks if any map entry in a list has the given key.
-  bool _anyEntryMatches<T>(List<Map<String, T>> entries, String key) {
-    return entries.any((m) => m.containsKey(key));
+    return runner.bridgedEnumDefinitions.containsKey(uriString) ||
+        runner.bridgedClasses.containsKey(uriString) ||
+        runner.bridgedExtensions.containsKey(uriString) ||
+        runner.libraryFunctions.containsKey(uriString) ||
+        runner.libraryVariables.containsKey(uriString) ||
+        runner.libraryGetters.containsKey(uriString) ||
+        runner.librarySetters.containsKey(uriString);
   }
 
   /// Registers all bridged definitions for a URI into a target environment.
@@ -334,30 +376,33 @@ class AstModuleLoader implements ModuleContext {
     Set<String>? hideNames,
     Environment targetEnvironment,
   ) {
-    // Register bridged enums
-    for (final entry in runner.bridgedEnumDefinitions) {
-      final libEnum = entry[uriString];
-      if (libEnum == null) continue;
+    // Register bridged enums (Step 1: direct O(matched) URI lookup).
+    for (final libEnum
+        in runner.bridgedEnumDefinitions[uriString]?.values ??
+            const <LibraryEnum>[]) {
       final name = libEnum.enumDefinition.name;
       if (!_shouldInclude(name, showNames, hideNames)) continue;
 
       final bridgedEnum = libEnum.enumDefinition.buildBridgedEnum();
       targetEnvironment.defineBridgedEnum(bridgedEnum);
-      Logger.debug(
-        '[AstModuleLoader] Registered bridged enum: $name from $uriString',
+      Logger.debugLazy(
+        () => '[AstModuleLoader] Registered bridged enum: $name from $uriString',
       );
     }
 
-    // Register bridged classes
-    for (final entry in runner.bridgedClasses) {
-      final libClass = entry[uriString];
-      if (libClass == null) continue;
-      final name = libClass.bridgedClass.name;
+    // Register bridged classes (Step 1: direct O(matched) URI lookup).
+    for (final libClass
+        in runner.bridgedClasses[uriString]?.values ??
+            const <LibraryClass>[]) {
+      final name = libClass.name;
       if (!_shouldInclude(name, showNames, hideNames)) continue;
 
-      targetEnvironment.defineBridge(libClass.bridgedClass);
-      Logger.debug(
-        '[AstModuleLoader] Registered bridged class: $name from $uriString',
+      // Step #17 — transfer the deferred thunk so the BridgedClass is only
+      // built if the importing module actually resolves the class.
+      targetEnvironment.defineBridgeLazy(
+          libClass.name, libClass.nativeType, libClass.thunk);
+      Logger.debugLazy(
+        () => '[AstModuleLoader] Registered bridged class: $name from $uriString',
       );
     }
 
@@ -368,9 +413,9 @@ class AstModuleLoader implements ModuleContext {
       if (!_shouldInclude(alias.aliasName, showNames, hideNames)) continue;
 
       targetEnvironment.defineBridgeAlias(alias.aliasName, alias.targetName);
-      Logger.debug(
-        '[AstModuleLoader] Registered class alias: '
-        '${alias.aliasName} -> ${alias.targetName} from $uriString',
+      Logger.debugLazy(
+        () => '[AstModuleLoader] Registered class alias: '
+            '${alias.aliasName} -> ${alias.targetName} from $uriString',
       );
     }
 
@@ -383,9 +428,9 @@ class AstModuleLoader implements ModuleContext {
       targetEnvironment.defineBridge(
         BridgedClass(nativeType: Function, name: typedef.name),
       );
-      Logger.debug(
-        '[AstModuleLoader] Registered function typedef: '
-        '${typedef.name} from $uriString',
+      Logger.debugLazy(
+        () => '[AstModuleLoader] Registered function typedef: '
+            '${typedef.name} from $uriString',
       );
     }
 
@@ -405,9 +450,9 @@ class AstModuleLoader implements ModuleContext {
     // BridgedExtensionDefinition.buildInterpretedExtension, and register it
     // in the target environment (named extensions also get a value entry
     // so explicit `MyExt(value).method()` syntax can resolve them).
-    for (final entry in runner.bridgedExtensions) {
-      final libExt = entry[uriString];
-      if (libExt == null) continue;
+    for (final libExt
+        in runner.bridgedExtensions[uriString] ??
+            const <LibraryExtension>[]) {
       final extDef = libExt.extensionDefinition;
       final name = extDef.name;
       if (name != null && !_shouldInclude(name, showNames, hideNames)) continue;
@@ -443,51 +488,51 @@ class AstModuleLoader implements ModuleContext {
       if (name != null) {
         targetEnvironment.define(name, interpretedExt);
       }
-      Logger.debug(
-        '[AstModuleLoader] Registered bridged extension '
-        "'${name ?? '<unnamed>'}' on ${extDef.onTypeName} from $uriString",
+      Logger.debugLazy(
+        () => '[AstModuleLoader] Registered bridged extension '
+            "'${name ?? '<unnamed>'}' on ${extDef.onTypeName} from $uriString",
       );
     }
 
-    // Register library functions
-    for (final entry in runner.libraryFunctions) {
-      final libFunc = entry[uriString];
-      if (libFunc == null) continue;
+    // Register library functions (Step 1: direct O(matched) URI lookup).
+    for (final libFunc
+        in runner.libraryFunctions[uriString]?.values ??
+            const <LibraryFunction>[]) {
       final name = libFunc.function.name;
       if (name == '<native>') continue; // Skip unnamed functions
       if (!_shouldInclude(name, showNames, hideNames)) continue;
 
       targetEnvironment.define(name, libFunc.function);
-      Logger.debug(
-        '[AstModuleLoader] Registered library function: $name from $uriString',
+      Logger.debugLazy(
+        () =>
+            '[AstModuleLoader] Registered library function: $name from $uriString',
       );
     }
 
-    // Register library variables
-    for (final entry in runner.libraryVariables) {
-      final libVar = entry[uriString];
-      if (libVar == null) continue;
+    // Register library variables (Step 1: direct O(matched) URI lookup).
+    for (final libVar
+        in runner.libraryVariables[uriString]?.values ??
+            const <LibraryVariable>[]) {
       if (!_shouldInclude(libVar.name, showNames, hideNames)) continue;
 
       targetEnvironment.define(libVar.name, libVar.value);
-      Logger.debug(
-        '[AstModuleLoader] Registered library variable: '
-        '${libVar.name} from $uriString',
+      Logger.debugLazy(
+        () => '[AstModuleLoader] Registered library variable: '
+            '${libVar.name} from $uriString',
       );
     }
 
     // Register library getters (paired with optional setters)
     final settersByName = <String, LibrarySetter>{};
-    for (final entry in runner.librarySetters) {
-      final libSetter = entry[uriString];
-      if (libSetter != null) {
-        settersByName[libSetter.name] = libSetter;
-      }
+    for (final libSetter
+        in runner.librarySetters[uriString]?.values ??
+            const <LibrarySetter>[]) {
+      settersByName[libSetter.name] = libSetter;
     }
 
-    for (final entry in runner.libraryGetters) {
-      final libGetter = entry[uriString];
-      if (libGetter == null) continue;
+    for (final libGetter
+        in runner.libraryGetters[uriString]?.values ??
+            const <LibraryGetter>[]) {
       if (!_shouldInclude(libGetter.name, showNames, hideNames)) continue;
 
       final setter = settersByName.remove(libGetter.name);
@@ -495,9 +540,9 @@ class AstModuleLoader implements ModuleContext {
         libGetter.name,
         GlobalGetter(libGetter.getter, setter: setter?.setter),
       );
-      Logger.debug(
-        '[AstModuleLoader] Registered library getter: '
-        '${libGetter.name} from $uriString',
+      Logger.debugLazy(
+        () => '[AstModuleLoader] Registered library getter: '
+            '${libGetter.name} from $uriString',
       );
     }
 

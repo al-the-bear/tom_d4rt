@@ -1458,7 +1458,9 @@ dynamic build(BuildContext context) {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: isScrollable,
                           title: const Text('Scrollable tabs'),
@@ -1471,9 +1473,12 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Scrollable mode enabled.' : 'Scrollable mode disabled.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: rtl,
                           title: const Text('RTL direction'),
@@ -1486,13 +1491,16 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'RTL enabled.' : 'RTL disabled.');
                           },
                         ),
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showDivider,
                           title: const Text('Show divider'),
@@ -1505,9 +1513,12 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Divider enabled.' : 'Divider disabled.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: useIcons,
                           title: const Text('Icon + text tabs'),
@@ -1520,13 +1531,16 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Icon tabs enabled.' : 'Icon tabs disabled.');
                           },
                         ),
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: denseMode,
                           title: const Text('Dense mode'),
@@ -1542,9 +1556,12 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Dense mode enabled.' : 'Dense mode disabled.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: highContrast,
                           title: const Text('High contrast'),
@@ -1557,13 +1574,16 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'High contrast enabled.' : 'High contrast disabled.');
                           },
                         ),
+                        ),
                       ),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showThirdBoard,
                           title: const Text('Show third board'),
@@ -1575,9 +1595,12 @@ dynamic build(BuildContext context) {
                             addLog(value ? 'Third board shown.' : 'Third board hidden.');
                           },
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: SwitchListTile.adaptive(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
                           contentPadding: EdgeInsets.zero,
                           value: showHeatmap,
                           title: const Text('Show indicator painter'),
@@ -1588,6 +1611,7 @@ dynamic build(BuildContext context) {
                             });
                             addLog(value ? 'Indicator painter shown.' : 'Indicator painter hidden.');
                           },
+                        ),
                         ),
                       ),
                     ],

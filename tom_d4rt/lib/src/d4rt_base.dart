@@ -20,6 +20,7 @@ import 'package:tom_d4rt/src/stdlib/stdlib.dart';
 import 'package:tom_d4rt/src/bridge/registration.dart';
 import 'package:tom_d4rt/src/security/permissions.dart';
 import 'package:tom_d4rt/src/introspection.dart';
+import 'package:tom_d4rt/src/profiler.dart';
 
 /// Wrapper class for library-scoped variables.
 /// Stores a variable name, its value, and optionally its canonical source URI
@@ -90,17 +91,44 @@ class LibraryFunction {
 
 /// Wrapper class for library-scoped bridged classes.
 /// Stores a bridged class with its canonical source URI for deduplication.
+///
+/// Step #17 (import-optimization): the wrapped [BridgedClass] is built lazily
+/// via a deferred [thunk] and memoized on first access to [bridgedClass]. The
+/// [name] and [nativeType] are stored up front so registration / lookup
+/// filtering / warm-parent type seeding can run **without** forcing the heavy
+/// member-map + adapter-closure build. The eager constructor wraps an
+/// already-built class as a trivial `() => obj` thunk (behaviour unchanged).
 class LibraryClass {
-  final BridgedClass bridgedClass;
+  /// The class name — always available without building the bridge.
+  final String name;
+
+  /// The native Dart type the bridge wraps — available without building.
+  final Type nativeType;
 
   /// The canonical source URI where this class is defined.
   /// See [LibraryVariable.sourceUri] for details.
   final String? sourceUri;
 
-  const LibraryClass(this.bridgedClass, {this.sourceUri});
+  final BridgedClass Function() _thunk;
+  BridgedClass? _built;
 
-  /// Convenience getter for the class name.
-  String get name => bridgedClass.name;
+  /// Eager wrapper: [bridgedClass] is already built.
+  LibraryClass(BridgedClass bridgedClass, {this.sourceUri})
+      : name = bridgedClass.name,
+        nativeType = bridgedClass.nativeType,
+        _built = bridgedClass,
+        _thunk = (() => bridgedClass);
+
+  /// Lazy wrapper: [thunk] builds the bridge on first access to [bridgedClass].
+  LibraryClass.lazy(this.name, this.nativeType, this._thunk, {this.sourceUri});
+
+  /// The bridged class, built (and memoized) on first access.
+  BridgedClass get bridgedClass => _built ??= _thunk();
+
+  /// A deferred thunk that resolves (and memoizes) [bridgedClass] on call —
+  /// lets callers forward laziness onward without building now (e.g.
+  /// module-loader / warm-parent transfers register `libClass.thunk`).
+  BridgedClass Function() get thunk => () => bridgedClass;
 }
 
 /// Wrapper class for library-scoped bridged enums.
@@ -133,6 +161,53 @@ class LibraryExtension {
   String? get name => extensionDefinition.name;
 }
 
+/// Step 7 (import-optimization plan) — process-global registration payload
+/// for a single bridge package.
+///
+/// Holds the same per-URI registries the [D4rt] instance fields hold today,
+/// but keyed once per package name in the static [D4rt._packagePool] so the
+/// (expensive) bridge registration for a package is paid at most once per
+/// process and can be reused across every interpreter instance and every
+/// `execute*` call.
+///
+/// The shapes here are intentionally identical to the per-instance fields so
+/// that building the warm parent (step 8) and the per-module registries for a
+/// migrated instance is a mechanical merge rather than a re-modelling. Mirror
+/// of `_PackageBridgeBundle` on [D4rtRunner] in `tom_d4rt_ast`.
+class _PackageBridgeBundle {
+  final Map<String, Map<String, LibraryEnum>> bridgedEnumDefinitions = {};
+  final Map<String, Map<String, LibraryClass>> bridgedClasses = {};
+  final Map<String, List<LibraryExtension>> bridgedExtensions = {};
+  final List<({String aliasName, String targetName, String library})>
+      classAliases = [];
+  final List<({String name, String library})> functionTypedefs = [];
+  final Map<String, Map<String, LibraryFunction>> libraryFunctions = {};
+  final Map<String, Map<String, LibraryVariable>> libraryVariables = {};
+  final Map<String, Map<String, LibraryGetter>> libraryGetters = {};
+  final Map<String, Map<String, LibrarySetter>> librarySetters = {};
+  // Step #17 — thunk-backed so a pooled package's native-type lookup is stored
+  // deferred (built on first wrap), not materialized at registration time.
+  final LazyBridgeRegistry<Type> bridgedDefLookupByType = LazyBridgeRegistry();
+  final Map<String,
+          List<({String uri, Set<String>? show, Set<String>? hide})>>
+      libraryReExports = {};
+
+  /// The single extension callback registered for this package via
+  /// [D4rt.registerExtensions]. One callback per package name (idempotent
+  /// overwrite). Fired by [D4rt.finalizeBridges].
+  void Function()? extensionCallback;
+
+  /// Step 11 — whether [extensionCallback] has already been fired in this
+  /// process. The bundle lives in the process-global `_packagePool`, so this
+  /// flag enforces the once-per-package-per-process firing contract:
+  /// [D4rt.finalizeBridges] fires the callback only when this is `false`,
+  /// then sets it `true`. A second interpreter whose [finalizeBridges]
+  /// encounters the same (already-fired) pooled package skips it — the
+  /// callback's static D4 / BridgedClass side effects are already in place.
+  /// Reset together with the pool by `debugResetPool`.
+  bool extensionFired = false;
+}
+
 /// The main D4rt interpreter class.
 ///
 /// This class provides the primary interface for executing Dart code at runtime.
@@ -154,9 +229,40 @@ class LibraryExtension {
 /// ''');
 /// ```
 class D4rt {
-  final List<Map<String, LibraryEnum>> _bridgedEnumDefinitions = [];
-  final List<Map<String, LibraryClass>> _bridgedClases = [];
-  final List<Map<String, LibraryExtension>> _bridgedExtensions = [];
+  /// Creates an interpreter.
+  ///
+  /// [reuseAcrossRuns] controls the cross-run performance caches (the warm
+  /// parent and the per-bridged-module environments). When `true` (the
+  /// default) those caches are kept alive across repeated `execute*` calls so
+  /// the expensive bridge-binding surface is built once and reused — this is
+  /// the fast path and is safe for the overwhelming majority of callers, since
+  /// generated bridges hold no per-run state and cannot leak between runs.
+  ///
+  /// Set it to `false` only when you need full isolation between successive
+  /// `execute*` runs on the **same** instance: the warm parent and bridged
+  /// module environments are then rebuilt fresh on every run, so nothing an
+  /// earlier run touched can be observed by a later one. Migrated instances
+  /// (those using [providePackage]) still never share state *across instances*
+  /// regardless of this flag — it governs reuse *within* an instance and, for
+  /// migrated instances, participation in the process-global caches.
+  D4rt({this.reuseAcrossRuns = true});
+
+  /// Whether the cross-run bridge caches are reused between `execute*` calls.
+  /// See the constructor. `false` forces a fresh warm parent and fresh bridged
+  /// module environments on every run for full inter-run isolation.
+  final bool reuseAcrossRuns;
+
+  // Step #2 (import-optimization): registries are keyed by library URI so that
+  // registering or looking up one URI touches only that URI's bucket
+  // (O(matched)) instead of scanning a list of single-entry maps per URI.
+  // Top-level declaration names are unique per library, so the inner map is
+  // keyed by name. Extensions are the exception (nullable / duplicate unnamed
+  // names) and use a per-URI List. Mirrors D4rtRunner in tom_d4rt_ast.
+  final Map<String /*uri*/, Map<String /*name*/, LibraryEnum>>
+      _bridgedEnumDefinitions = {};
+  final Map<String /*uri*/, Map<String /*name*/, LibraryClass>> _bridgedClases =
+      {};
+  final Map<String /*uri*/, List<LibraryExtension>> _bridgedExtensions = {};
 
   /// GEN-074: Class aliases - (aliasName, targetName, library) tuples
   final List<({String aliasName, String targetName, String library})>
@@ -177,28 +283,135 @@ class D4rt {
   /// Mirror of the same field on [D4rtRunner] in tom_d4rt_ast — kept in
   /// lockstep so generated bridge code calling `registerLibraryReExport`
   /// works against either interpreter.
-  final Map<String,
-          List<({String uri, Set<String>? show, Set<String>? hide})>>
+  final Map<String, List<({String uri, Set<String>? show, Set<String>? hide})>>
       _libraryReExports = {};
 
   InterpretedInstance? _interpretedInstance;
   InterpreterVisitor? _visitor;
-  final Map<Type, BridgedClass> _bridgedDefLookupByType = {};
+  // Step #17 — thunk-backed native-type lookup. A registration stores a
+  // `Type → thunk` entry without building the BridgedClass; the body is built
+  // (and memoized) only when a native value of that type is first wrapped.
+  final LazyBridgeRegistry<Type> _bridgedDefLookupByType = LazyBridgeRegistry();
   final Set<Permission> _grantedPermissions = {};
 
-  /// Step 6: extension callbacks registered by bridge packages, keyed by
-  /// package name. Insertion order is preserved (Dart `Map` literals are
-  /// `LinkedHashMap`) so [finalizeBridges] runs callbacks deterministically.
+  // ===========================================================================
+  // Step 7 (import-optimization plan) — process-global package pool.
+  //
+  // The pool pays each bridge package's registration cost at most once per
+  // process and keys it by the package name passed to [providePackage], so a
+  // second interpreter instance for the same package reuses the pooled
+  // definitions instead of rebuilding them. Security is enforced per instance
+  // via the [_allowedPackages] whitelist: an instance only ever sees the
+  // packages it explicitly provided (plus the synthetic [_defaultPackage] used
+  // by unmigrated callers, which is never shared into a migrated instance).
+  //
+  // Mirror of the same machinery on [D4rtRunner] in tom_d4rt_ast — kept in
+  // lockstep so embedders that switch between the analyzer-based and
+  // analyzer-free entry points see the same `providePackage` surface.
+  // ===========================================================================
+
+  /// Synthetic package name for [register*] calls made without an active
+  /// [providePackage] context (legacy / unmigrated callers). Every instance
+  /// is implicitly allowed this package so today's "everything is exposed"
+  /// behaviour is preserved for consumers that have not adopted the
+  /// `providePackage`-guarded registration idiom.
+  static const String _defaultPackage = '<default>';
+
+  /// Process-global pool of per-package registration payloads, keyed by the
+  /// package name passed to [providePackage] (or [_defaultPackage] for
+  /// unmigrated callers). Built once per package per process.
+  static final Map<String, _PackageBridgeBundle> _packagePool = {};
+
+  /// Per-instance security whitelist: the set of packages this instance has
+  /// been granted via [providePackage]. Consumed by the warm-parent build and
+  /// the per-module registry merge below.
+  final Set<String> _allowedPackages = {};
+
+  /// The package whose bridges are currently being registered, set by
+  /// [providePackage] when it returns `false`. [register*] calls accumulate
+  /// into [_packagePool] under this package until the next [providePackage]
+  /// call (or `null`, in which case they fall back to [_defaultPackage]).
+  String? _currentProvidingPackage;
+
+  /// Step 8 — process-global cache of warm parent [Environment]s for
+  /// **migrated** instances, keyed by the sorted allowed-set signature
+  /// (`(_allowedPackages.toList()..sort()).join('|')`). Two instances granted
+  /// the same set of packages share one warm parent: stdlib + the pooled
+  /// bridge type baseline for those packages, built once per signature per
+  /// process. Cleared together with [_packagePool] by [debugResetPool].
+  static final Map<String, Environment> _warmParentCache = {};
+
+  /// Step 8 — per-instance warm parent for **legacy** instances (those with an
+  /// empty [_allowedPackages]). Built from this instance's per-instance
+  /// registration maps and cached *here*, not in [_warmParentCache]: legacy
+  /// registrations all land under [_defaultPackage], so a process-global cache
+  /// keyed on the (empty) signature would leak one instance's bridges into
+  /// another and collide on same-named classes across tests. A per-instance
+  /// field keeps each legacy interpreter's warm parent private while still
+  /// building it at most once for that instance.
+  Environment? _instanceWarmParent;
+
+  /// Per-instance analogue of [_bridgedModuleEnvCache] for **legacy** instances
+  /// (empty [_allowedPackages]) and for the cross-run reuse that
+  /// [reuseAcrossRuns] enables by default. A process-global cache cannot be
+  /// used for legacy instances — their bridges collapse onto [_defaultPackage],
+  /// so the empty signature would substitute one instance's module envs into
+  /// another. This per-instance map keeps the bound bridged-module environments
+  /// private to the instance while still letting repeated `execute*` calls on
+  /// the same instance reuse them. Invalidated by [_bundleFor] whenever a new
+  /// registration arrives, so a register-after-execute sequence rebinds. `null`
+  /// when [reuseAcrossRuns] is `false` (every run rebuilds for isolation).
+  Map<String, Environment>? _instanceBridgedModuleEnvCache;
+
+  /// Step #2 (import-binding optimization) — process-global cache of the
+  /// per-bridged-module [Environment]s for **migrated** instances, keyed first
+  /// by the sorted allowed-set signature (the same key as [_warmParentCache])
+  /// and then by module URI string.
   ///
-  /// Re-registering with the same `packageName` overwrites the previous
-  /// body — the contract is one extension callback per bridge package,
-  /// which makes the call idempotent if a process spins up multiple
-  /// runners that each fire the same package's `register*` shape.
+  /// Building a bridged module's environment (binding its whole transitive
+  /// re-export surface — e.g. `package:flutter/material.dart` pulls in ~982
+  /// classes) is the dominant `pass2Setup` cost. Before this cache it was
+  /// rebuilt on **every** `execute*` because the [ModuleLoader] (and its
+  /// per-loader `_bridgedModuleEnvironments`) is recreated each run. The bound
+  /// definitions all come from the immutable process-global [_packagePool], so
+  /// a module env is identical across executes that share an allowed-set and is
+  /// safe to share. It is built with the shared warm parent
+  /// ([_warmParentCache] entry) as its `enclosing`, so it carries no
+  /// per-execution state. Cleared together with [_packagePool] /
+  /// [_warmParentCache] by [debugResetPool].
   ///
-  /// Mirror of the same field on [D4rtRunner] in tom_d4rt_ast — kept in
-  /// lockstep so embedders that switch between the analyzer-based and
-  /// analyzer-free entry points see the same hook surface.
-  final Map<String, void Function()> _extensionCallbacks = {};
+  /// Legacy instances (empty [_allowedPackages]) are intentionally excluded:
+  /// like the warm parent, their bridges collapse onto [_defaultPackage], so a
+  /// process-global cache keyed on the empty signature would leak one
+  /// interpreter's bridges into another. They keep the per-loader, per-execute
+  /// behavior.
+  static final Map<String, Map<String, Environment>> _bridgedModuleEnvCache =
+      {};
+
+  /// Step #2 diagnostics — incremented each time a bridged module environment
+  /// is *built* (a cache miss in [_bridgedModuleEnvCache]). A reuse leaves it
+  /// unchanged. Lets tests assert the cache is hit across executes that share
+  /// an allowed-set and rebuilt for a different one.
+  static int _debugBridgedModuleEnvBuilds = 0;
+
+  /// Step #2 diagnostics — number of bridged module environments built so far
+  /// (process-wide). See [_debugBridgedModuleEnvBuilds].
+  static int get debugBridgedModuleEnvBuildCount => _debugBridgedModuleEnvBuilds;
+
+  /// Per-instance, insertion-ordered set of package names for which this
+  /// instance registered an extension callback via [registerExtensions].
+  /// [finalizeBridges] fires the pooled callbacks for these packages in
+  /// registration order, skipping any whose pooled bundle has already fired
+  /// in this process (step 11 once-per-package-per-process firing, guarded by
+  /// `_PackageBridgeBundle.extensionFired`).
+  final Set<String> _extensionPackages = {};
+
+  /// Step 8/9 — cached merged per-module registries for the migrated path,
+  /// keyed by the sorted allowed-set signature. Rebuilt when the signature
+  /// changes (i.e. a new package is granted between executes). `null` for the
+  /// legacy path (which passes the per-instance maps directly).
+  String? _mergedRegistriesKey;
+  _PackageBridgeBundle? _mergedRegistries;
 
   /// Step 6: whether [finalizeBridges] has run on this runner.
   bool _bridgesFinalized = false;
@@ -223,10 +436,14 @@ class D4rt {
   // Structure matches classes/enums: List of {libraryPath: definition}
   // For functions: use LibraryFunction wrapper that includes sourceUri for deduplication
   // For variables/getters: wrapper classes contain name, value/getter, and sourceUri
-  final List<Map<String, LibraryFunction>> _libraryFunctions = [];
-  final List<Map<String, LibraryVariable>> _libraryVariables = [];
-  final List<Map<String, LibraryGetter>> _libraryGetters = [];
-  final List<Map<String, LibrarySetter>> _librarySetters = [];
+  final Map<String /*uri*/, Map<String /*name*/, LibraryFunction>>
+      _libraryFunctions = {};
+  final Map<String /*uri*/, Map<String /*name*/, LibraryVariable>>
+      _libraryVariables = {};
+  final Map<String /*uri*/, Map<String /*name*/, LibraryGetter>>
+      _libraryGetters = {};
+  final Map<String /*uri*/, Map<String /*name*/, LibrarySetter>>
+      _librarySetters = {};
 
   late ModuleLoader _moduleLoader;
   bool _hasExecutedOnce = false;
@@ -246,6 +463,194 @@ class D4rt {
   /// `null` until the first [_initModule] call.
   Set<String>? _baselineValueKeys;
 
+  /// Step 7 — Grants [packageName] to this instance and reports whether its
+  /// bridge definitions are already in the process-global pool.
+  ///
+  /// Returns `true`  → already pooled; the caller should **skip** registration
+  ///                   and the pooled definitions are reused for this instance.
+  /// Returns `false` → not pooled; the caller **must** register the package's
+  ///                   bridges now. Those `register*` calls accumulate into the
+  ///                   pool under [packageName] (because this call sets
+  ///                   [_currentProvidingPackage]), so the next instance in the
+  ///                   process gets `true`.
+  ///
+  /// Either way [packageName] is added to this instance's [_allowedPackages]
+  /// whitelist — only allowed packages are exposed in the interpreter
+  /// environment (consumed by the warm-parent build and the per-module
+  /// registry merge).
+  ///
+  /// Idempotent on [packageName]: calling it again for an already-provided
+  /// package returns `true` (it is now pooled) and leaves the grant in place.
+  ///
+  /// Mirror of [D4rtRunner.providePackage] in tom_d4rt_ast. Canonical call
+  /// site:
+  /// ```dart
+  /// if (d4rt.providePackage('tom_d4rt_flutter') == false) {
+  ///   FlutterMaterialBridges.register(d4rt); // first instance pays the cost
+  ///   d4rt.registerExtensions('tom_d4rt_flutter', registerOverrides);
+  /// }
+  /// // here the package is registered AND allowed in this instance
+  /// ```
+  bool providePackage(String packageName) {
+    _allowedPackages.add(packageName);
+    // Granting a new package changes the merged-registry / warm-parent
+    // signature; drop the per-instance merge cache so it rebuilds.
+    _mergedRegistries = null;
+    _mergedRegistriesKey = null;
+    final alreadyPooled = _packagePool.containsKey(packageName);
+    if (alreadyPooled) {
+      // Pooled already — the caller skips registration, so no package context
+      // is opened. Clear any stale context from a prior provide call.
+      _currentProvidingPackage = null;
+      Logger.debug(
+          '[D4rt.providePackage] "$packageName" already pooled — reusing '
+          'pooled definitions.');
+      return true;
+    }
+    // First time this package is seen in the process: open the registration
+    // context so the caller's register* calls land in the pool under this
+    // package, and create the (empty) bundle now so an extension-only package
+    // still has a home.
+    _currentProvidingPackage = packageName;
+    _bundleFor(packageName);
+    Logger.debug(
+        '[D4rt.providePackage] "$packageName" not pooled — caller must '
+        'register; subsequent register* route into the pool.');
+    return false;
+  }
+
+  /// Returns the pooled bundle for the currently-providing package, creating
+  /// it on first use. Falls back to [_defaultPackage] for `register*` calls
+  /// made without an active [providePackage] context (legacy callers).
+  ///
+  /// This is the single choke point for *every* `register*` call, so it is also
+  /// where the per-instance cross-run caches are invalidated: a new
+  /// registration may change what the warm parent or a bridged module env
+  /// should bind, so any previously-built per-instance caches are stale and
+  /// must be rebuilt on the next run. (No-op for the process-global migrated
+  /// caches, which are keyed by the immutable pool signature; clearing
+  /// per-instance fields here also fixes a latent [_instanceWarmParent]
+  /// register-after-execute staleness bug.)
+  _PackageBridgeBundle _bundleFor([String? package]) {
+    _instanceWarmParent = null;
+    _instanceBridgedModuleEnvCache = null;
+    return _packagePool.putIfAbsent(
+      package ?? _currentProvidingPackage ?? _defaultPackage,
+      _PackageBridgeBundle.new,
+    );
+  }
+
+  /// The packages this instance has been granted via [providePackage]
+  /// (its security whitelist). Read-only snapshot.
+  Set<String> get allowedPackages => Set.unmodifiable(_allowedPackages);
+
+  /// Diagnostics / test introspection — the set of package names currently in
+  /// the process-global pool (including the synthetic [_defaultPackage] once a
+  /// legacy `register*` call has run). Read-only; does not expose the bundles.
+  static Set<String> get debugPooledPackages => _packagePool.keys.toSet();
+
+  /// Diagnostics / test introspection — the number of bridged classes pooled
+  /// under [packageName] across all source URIs (0 if not pooled).
+  static int debugPooledClassCount(String packageName) {
+    final bundle = _packagePool[packageName];
+    if (bundle == null) return 0;
+    var count = 0;
+    for (final byName in bundle.bridgedClasses.values) {
+      count += byName.length;
+    }
+    return count;
+  }
+
+  /// Diagnostics / test introspection — clears the process-global pool and the
+  /// step-8 warm-parent cache (the migrated-instance parents are keyed on pool
+  /// contents, so they must be evicted together to stay consistent). Used only
+  /// by tests that need a pristine pool. Not part of the normal runtime
+  /// contract.
+  static void debugResetPool() {
+    _packagePool.clear();
+    _warmParentCache.clear();
+    // Step #2 — the cached bridged module envs are keyed on the same allowed-set
+    // signatures and built against the (now-cleared) warm parents, so evict
+    // them together to stay consistent.
+    _bridgedModuleEnvCache.clear();
+    _debugBridgedModuleEnvBuilds = 0;
+  }
+
+  /// Diagnostics / test introspection — how many warm parents are currently
+  /// cached for migrated instances (step 8).
+  static int get debugWarmParentCacheSize => _warmParentCache.length;
+
+  /// Step #3 (retention) — number of source modules whose parsed
+  /// [CompilationUnit] this instance currently retains (via the live
+  /// [_moduleLoader]'s per-loader cache). `0` before the first execute or after
+  /// [dispose]. Because every `execute*` builds a fresh [_moduleLoader], this
+  /// reflects only the *current* run, never an accumulation of prior runs'
+  /// ASTs — the test asserts it stays bounded across N sequential executes.
+  int get debugLoadedModuleCount =>
+      _hasExecutedOnce ? _moduleLoader.loadedModuleCount : 0;
+
+  /// Step 9 — returns the merged per-module registry bundle for a **migrated**
+  /// instance (one that has called [providePackage] at least once), or `null`
+  /// for the **legacy** path (which reads the per-instance maps directly).
+  ///
+  /// Unlike `tom_d4rt_ast`, the analyzer-based [ModuleLoader] reads its bridge
+  /// registries by reference (passed at construction) and registers names
+  /// per-module at import time. A migrated instance that got `true` from
+  /// [providePackage] skipped its own `register*` calls, so its per-instance
+  /// maps are incomplete — the authoritative definitions live only in the
+  /// pooled bundles. This merges the pooled bundles for the granted packages
+  /// (sorted, deterministic) into one combined bundle the [ModuleLoader] and
+  /// the [classAliases] / [functionTypedefs] / [libraryReExports] getters read
+  /// from. The synthetic [_defaultPackage] is intentionally excluded — the
+  /// allowed-set is the security boundary.
+  ///
+  /// Cached per-instance keyed on the allowed-set signature so it is built at
+  /// most once per signature (rebuilt only when [providePackage] grants a new
+  /// package between executes).
+  _PackageBridgeBundle? _mergedBundleOrNull() {
+    if (_allowedPackages.isEmpty) return null;
+    final key = (_allowedPackages.toList()..sort()).join('|');
+    if (_mergedRegistries != null && _mergedRegistriesKey == key) {
+      return _mergedRegistries;
+    }
+    final merged = _PackageBridgeBundle();
+    for (final packageName in _allowedPackages.toList()..sort()) {
+      final bundle = _packagePool[packageName];
+      if (bundle != null) _mergeBundleInto(merged, bundle);
+    }
+    _mergedRegistries = merged;
+    _mergedRegistriesKey = key;
+    return merged;
+  }
+
+  /// Step 9 — merges every registry slice of [source] into [target]. Inner
+  /// per-URI maps are combined name-by-name (last-write-wins, matching the
+  /// per-instance registration behaviour); per-URI extension lists are
+  /// appended.
+  void _mergeBundleInto(
+      _PackageBridgeBundle target, _PackageBridgeBundle source) {
+    source.bridgedEnumDefinitions.forEach((uri, byName) =>
+        (target.bridgedEnumDefinitions[uri] ??= {}).addAll(byName));
+    source.bridgedClasses.forEach(
+        (uri, byName) => (target.bridgedClasses[uri] ??= {}).addAll(byName));
+    source.bridgedExtensions.forEach(
+        (uri, list) => (target.bridgedExtensions[uri] ??= []).addAll(list));
+    target.classAliases.addAll(source.classAliases);
+    target.functionTypedefs.addAll(source.functionTypedefs);
+    source.libraryFunctions.forEach(
+        (uri, byName) => (target.libraryFunctions[uri] ??= {}).addAll(byName));
+    source.libraryVariables.forEach(
+        (uri, byName) => (target.libraryVariables[uri] ??= {}).addAll(byName));
+    source.libraryGetters.forEach(
+        (uri, byName) => (target.libraryGetters[uri] ??= {}).addAll(byName));
+    source.librarySetters.forEach(
+        (uri, byName) => (target.librarySetters[uri] ??= {}).addAll(byName));
+    // Step #17 — preserve deferred thunks across the bundle merge.
+    target.bridgedDefLookupByType.addThunksFrom(source.bridgedDefLookupByType);
+    source.libraryReExports.forEach(
+        (uri, list) => (target.libraryReExports[uri] ??= []).addAll(list));
+  }
+
   /// Registers a bridged enum definition for use in interpreted code.
   ///
   /// [definition] The enum definition containing the native enum type and its values.
@@ -255,7 +660,11 @@ class D4rt {
   void registerBridgedEnum(BridgedEnumDefinition definition, String library,
       {String? sourceUri}) {
     final libEnum = LibraryEnum(definition, sourceUri: sourceUri);
-    _bridgedEnumDefinitions.add({library: libEnum});
+    (_bridgedEnumDefinitions[library] ??= {})[libEnum.name] = libEnum;
+    // Step 7: dual-write into the process-global pool for the current package
+    // (or '<default>' for unmigrated callers).
+    final bundle = _bundleFor();
+    (bundle.bridgedEnumDefinitions[library] ??= {})[libEnum.name] = libEnum;
   }
 
   /// Registers a bridged class definition for use in interpreted code.
@@ -270,9 +679,33 @@ class D4rt {
   ///   Used for deduplication when the same class is exported through multiple barrels.
   void registerBridgedClass(BridgedClass definition, String library,
       {String? sourceUri}) {
-    final libClass = LibraryClass(definition, sourceUri: sourceUri);
-    _bridgedClases.add({library: libClass});
-    _bridgedDefLookupByType[definition.nativeType] = definition;
+    // Eager registration wraps the already-built [definition] as a trivial
+    // thunk; the lazy path memoizes it on first lookup (behaviour unchanged).
+    registerBridgedClassLazy(
+        definition.name, definition.nativeType, () => definition, library,
+        sourceUri: sourceUri);
+  }
+
+  /// Lazily registers a bridged class: stores [name] / [nativeType] / the
+  /// deferred [thunk] without building the [BridgedClass]. The body (member
+  /// maps + adapter closures) is built (and memoized) only when [name] or
+  /// [nativeType] is first resolved during interpretation.
+  ///
+  /// This is the substrate the generator's lazy bridge emission targets
+  /// (import-optimization plan step #17): a script that touches N of a
+  /// package's classes builds ≈N bridges, not all of them. Eager callers go
+  /// through [registerBridgedClass], which wraps a built class as `() => obj`.
+  void registerBridgedClassLazy(String name, Type nativeType,
+      BridgedClass Function() thunk, String library,
+      {String? sourceUri}) {
+    final libClass =
+        LibraryClass.lazy(name, nativeType, thunk, sourceUri: sourceUri);
+    (_bridgedClases[library] ??= {})[name] = libClass;
+    _bridgedDefLookupByType.putThunk(nativeType, thunk);
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    final bundle = _bundleFor();
+    (bundle.bridgedClasses[library] ??= {})[name] = libClass;
+    bundle.bridgedDefLookupByType.putThunk(nativeType, thunk);
   }
 
   /// GEN-074: Registers a type alias for a bridged class.
@@ -286,8 +719,11 @@ class D4rt {
   ///
   /// The alias is registered with the module loader's global environment.
   void registerClassAlias(String aliasName, String targetName, String library) {
-    _classAliases
-        .add((aliasName: aliasName, targetName: targetName, library: library));
+    final alias =
+        (aliasName: aliasName, targetName: targetName, library: library);
+    _classAliases.add(alias);
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    _bundleFor().classAliases.add(alias);
   }
 
   /// GEN-079: Registers a function typedef so it can be resolved as a type.
@@ -301,7 +737,10 @@ class D4rt {
   /// [name] The typedef name (e.g., 'VoidCallback').
   /// [library] The library path where this typedef is exported from.
   void registerFunctionTypedef(String name, String library) {
-    _functionTypedefs.add((name: name, library: library));
+    final typedef = (name: name, library: library);
+    _functionTypedefs.add(typedef);
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    _bundleFor().functionTypedefs.add(typedef);
   }
 
   /// GEN-100: Registered class aliases for module-env registration.
@@ -310,14 +749,16 @@ class D4rt {
   /// aliases (e.g. MaterialStateProperty → WidgetStateProperty) into
   /// per-module environments.  Mirrors [D4rtRunner.classAliases].
   List<({String aliasName, String targetName, String library})>
-      get classAliases => _classAliases;
+      get classAliases =>
+          _mergedBundleOrNull()?.classAliases ?? _classAliases;
 
   /// GEN-100: Registered function typedefs for module-env registration.
   ///
   /// Exposed so [ModuleLoader._registerBridgesForUriInto] can register
   /// function typedef names (e.g. VoidCallback) into per-module environments.
   /// Mirrors [D4rtRunner.functionTypedefs].
-  List<({String name, String library})> get functionTypedefs => _functionTypedefs;
+  List<({String name, String library})> get functionTypedefs =>
+      _mergedBundleOrNull()?.functionTypedefs ?? _functionTypedefs;
 
   /// GEN-107: Registered library re-exports keyed by source library URI.
   ///
@@ -325,7 +766,8 @@ class D4rt {
   /// full contract. Exposed so the module loader can merge re-export
   /// targets into the source library's per-module environment.
   Map<String, List<({String uri, Set<String>? show, Set<String>? hide})>>
-      get libraryReExports => _libraryReExports;
+      get libraryReExports =>
+          _mergedBundleOrNull()?.libraryReExports ?? _libraryReExports;
 
   /// GEN-107: Registers a re-export from one library to another.
   ///
@@ -354,11 +796,10 @@ class D4rt {
     Set<String>? show,
     Set<String>? hide,
   }) {
-    _libraryReExports.putIfAbsent(sourceUri, () => []).add((
-      uri: targetUri,
-      show: show,
-      hide: hide,
-    ));
+    final reExport = (uri: targetUri, show: show, hide: hide);
+    _libraryReExports.putIfAbsent(sourceUri, () => []).add(reExport);
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    _bundleFor().libraryReExports.putIfAbsent(sourceUri, () => []).add(reExport);
   }
 
   /// Registers a bridged extension for use in interpreted code.
@@ -374,7 +815,9 @@ class D4rt {
       BridgedExtensionDefinition definition, String library,
       {String? sourceUri}) {
     final libExt = LibraryExtension(definition, sourceUri: sourceUri);
-    _bridgedExtensions.add({library: libExt});
+    (_bridgedExtensions[library] ??= []).add(libExt);
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    (_bundleFor().bridgedExtensions[library] ??= []).add(libExt);
   }
 
   /// Registers a top-level native function for use in interpreted code.
@@ -392,7 +835,9 @@ class D4rt {
     final nativeFunc = NativeFunction(function, name: name, arity: 0);
     final libFunc =
         LibraryFunction(nativeFunc, sourceUri: sourceUri, signature: signature);
-    _libraryFunctions.add({library: libFunc});
+    (_libraryFunctions[library] ??= {})[libFunc.name] = libFunc;
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    (_bundleFor().libraryFunctions[library] ??= {})[libFunc.name] = libFunc;
   }
 
   /// Registers a global variable for use in interpreted code.
@@ -415,8 +860,10 @@ class D4rt {
   /// ```
   void registerGlobalVariable(String name, Object? value, String library,
       {String? sourceUri}) {
-    _libraryVariables
-        .add({library: LibraryVariable(name, value, sourceUri: sourceUri)});
+    final libVar = LibraryVariable(name, value, sourceUri: sourceUri);
+    (_libraryVariables[library] ??= {})[name] = libVar;
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    (_bundleFor().libraryVariables[library] ??= {})[name] = libVar;
   }
 
   /// Registers a global getter for use in interpreted code.
@@ -441,8 +888,10 @@ class D4rt {
   void registerGlobalGetter(
       String name, Object? Function() getter, String library,
       {String? sourceUri}) {
-    _libraryGetters
-        .add({library: LibraryGetter(name, getter, sourceUri: sourceUri)});
+    final libGetter = LibraryGetter(name, getter, sourceUri: sourceUri);
+    (_libraryGetters[library] ??= {})[name] = libGetter;
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    (_bundleFor().libraryGetters[library] ??= {})[name] = libGetter;
   }
 
   /// Registers a global setter for a top-level setter in a specific library.
@@ -468,57 +917,193 @@ class D4rt {
   void registerGlobalSetter(
       String name, void Function(Object?) setter, String library,
       {String? sourceUri}) {
-    _librarySetters
-        .add({library: LibrarySetter(name, setter, sourceUri: sourceUri)});
+    final libSetter = LibrarySetter(name, setter, sourceUri: sourceUri);
+    (_librarySetters[library] ??= {})[name] = libSetter;
+    // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
+    (_bundleFor().librarySetters[library] ??= {})[name] = libSetter;
   }
 
   ModuleLoader _initModule(Map<String, String>? sources,
       {String? basePath,
       bool allowFileSystemImports = false,
       bool collectRegistrationErrors = false}) {
-    final moduleLoader = ModuleLoader(
-      Environment(),
-      sources ?? {},
-      _bridgedEnumDefinitions,
-      _bridgedClases,
-      libraryFunctions: _libraryFunctions,
-      libraryVariables: _libraryVariables,
-      libraryGetters: _libraryGetters,
-      librarySetters: _librarySetters,
-      bridgedExtensions: _bridgedExtensions,
-      d4rt: this,
-      collectRegistrationErrors: collectRegistrationErrors,
-    );
-    _visitor = InterpreterVisitor(
-        globalEnvironment: moduleLoader.globalEnvironment,
-        moduleLoader: moduleLoader);
-    Stdlib(moduleLoader.globalEnvironment).register();
-
-    // Pre-populate globalEnvironment type map so that toBridgedInstance() can
-    // resolve native objects returned by bridge methods (e.g. the native
-    // GestureSettings returned by GestureSettings.copyWith()) even before the
-    // script's import directives are processed.  Only the type entry is
-    // registered here — name-based scope registration is handled per-module by
-    // ModuleLoader._registerBridgesForUriInto at import time.
-    // Mirrors D4rtRunner._registerBridgedDefinitions (type-only variant).
-    final globalEnv = moduleLoader.globalEnvironment;
-    for (final entry in _bridgedClases) {
-      for (final libClass in entry.values) {
-        globalEnv.registerBridgeType(libClass.bridgedClass);
-      }
+    // Step 9 — finalize extensions BEFORE the merged registries and the warm
+    // parent are built. Both are snapshots/caches: the migrated path feeds the
+    // [ModuleLoader] a cached merged-pool *snapshot* and the warm parent is
+    // cached process-wide, so any bridges an extension callback registers must
+    // already be in the pool/per-instance maps when we read them here.
+    // [finalizeBridges] is idempotent — the later call in [_executeInEnvironment]
+    // (and any explicit embedder call) becomes a no-op. Divergence from
+    // tom_d4rt_ast, whose `_initEnvironment` does not finalize because its
+    // canonical embedder (FlutterD4rt) finalizes via `warmup` before the first
+    // execute; tom_d4rt makes the implicit path correct without that
+    // requirement.
+    final swFinalize = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
+    finalizeBridges();
+    if (D4rtProfiler.enabled) {
+      D4rtProfiler.record(
+          '_initModule.finalizeBridges', swFinalize!.elapsedMicroseconds);
     }
 
-    // §U28 / TODO #14 — capture the post-stdlib baseline of `_values`
-    // keys for [resetScriptDeclarations]. Per-library bridge entries
-    // (functions, variables, getters) land in `_values` later when the
-    // ModuleLoader processes import directives, so the baseline
-    // intentionally does NOT include them — a reset between executes
-    // therefore wipes prior-execute imports too. That is safe because
-    // the next `execute*` call always re-runs `_initModule`, which
-    // re-registers everything from scratch.
-    _baselineValueKeys = globalEnv.values.keys.toSet();
+    // Step 9 — pick the registries the [ModuleLoader] reads from. Legacy
+    // instances pass their per-instance maps directly; migrated instances
+    // (those that called [providePackage]) pass the merged pooled bundle,
+    // because their own per-instance maps are empty when `providePackage`
+    // returned `true`.
+    final merged = _mergedBundleOrNull();
+    if (merged != null) {
+      // Mirror the pooled native-type lookup into the per-instance map so
+      // [_bridgeNativeValueToInterpreter] (which reads `_bridgedDefLookupByType`
+      // directly) can resolve native types from pooled packages too.
+      _bridgedDefLookupByType.addThunksFrom(merged.bridgedDefLookupByType);
+    }
+
+    // Step 8 — the stdlib baseline and the type-only bridge lookup live on a
+    // shared, immutable warm parent built at most once (see [_warmParent]).
+    // Each execute gets a fresh child chained off that parent; name / bridge
+    // lookups that miss in the child chain up to the parent.
+    final swWarm = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
+    final warmParent = _warmParent();
+    final child = Environment(enclosing: warmParent);
+    if (D4rtProfiler.enabled) {
+      D4rtProfiler.record(
+          '_initModule.warmParent', swWarm!.elapsedMicroseconds);
+    }
+
+    // Step #2 — bridged-module environments are bound once and reused across
+    // runs, the single biggest `pass2Setup` win: the transitive bridge surface
+    // (e.g. ~982 classes for `package:flutter/material.dart`) is bound once
+    // instead of on every execute. Two reuse regimes, both gated by
+    // [reuseAcrossRuns]:
+    //  * Migrated instances (non-empty allowed-set) share their module envs
+    //    process-wide via [_bridgedModuleEnvCache], keyed by the allowed-set
+    //    signature — safe to share because the bound definitions come from the
+    //    immutable process-global pool.
+    //  * Legacy instances (empty allowed-set) reuse a *per-instance*
+    //    [_instanceBridgedModuleEnvCache] — never shared across instances, so
+    //    their `<default>`-package bridges cannot substitute into another
+    //    interpreter, while repeated `execute*` on the same instance still
+    //    reuse the bound surface.
+    // When [reuseAcrossRuns] is false both stay null → the loader rebuilds the
+    // module envs fresh every run for full inter-run isolation.
+    Map<String, Environment>? sharedBridgedModuleEnvs;
+    Environment? sharedModuleEnclosing;
+    if (reuseAcrossRuns) {
+      if (_allowedPackages.isNotEmpty) {
+        final key = (_allowedPackages.toList()..sort()).join('|');
+        sharedBridgedModuleEnvs =
+            _bridgedModuleEnvCache.putIfAbsent(key, () => {});
+      } else {
+        sharedBridgedModuleEnvs = _instanceBridgedModuleEnvCache ??= {};
+      }
+      sharedModuleEnclosing = warmParent;
+    }
+
+    final swLoader = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
+    final moduleLoader = ModuleLoader(
+      child,
+      sources ?? {},
+      merged?.bridgedEnumDefinitions ?? _bridgedEnumDefinitions,
+      merged?.bridgedClasses ?? _bridgedClases,
+      libraryFunctions: merged?.libraryFunctions ?? _libraryFunctions,
+      libraryVariables: merged?.libraryVariables ?? _libraryVariables,
+      libraryGetters: merged?.libraryGetters ?? _libraryGetters,
+      librarySetters: merged?.librarySetters ?? _librarySetters,
+      bridgedExtensions: merged?.bridgedExtensions ?? _bridgedExtensions,
+      d4rt: this,
+      collectRegistrationErrors: collectRegistrationErrors,
+      sharedBridgedModuleEnvironments: sharedBridgedModuleEnvs,
+      sharedModuleEnclosing: sharedModuleEnclosing,
+      onBridgedModuleEnvBuilt: () => _debugBridgedModuleEnvBuilds++,
+    );
+    if (D4rtProfiler.enabled) {
+      D4rtProfiler.record(
+          '_initModule.moduleLoader', swLoader!.elapsedMicroseconds);
+    }
+    _visitor = InterpreterVisitor(
+        globalEnvironment: child, moduleLoader: moduleLoader);
+
+    // §U28 / TODO #14 — capture the baseline of the child's `_values` keys for
+    // [resetScriptDeclarations]. With the step-8 split the child starts empty
+    // (stdlib + bridge type baseline live on the immutable parent), so the
+    // baseline is effectively empty and a reset evicts every script-declared /
+    // per-import entry the script added to the child.
+    _baselineValueKeys = child.values.keys.toSet();
 
     return moduleLoader;
+  }
+
+  /// Step 8 — returns this instance's warm parent [Environment], building it at
+  /// most once.
+  ///
+  /// Two cache regimes, selected by whether the instance has been migrated to
+  /// the `providePackage` idiom:
+  ///
+  ///  * **Migrated** (`_allowedPackages` non-empty): the parent is keyed on the
+  ///    sorted allowed-set signature and shared process-wide via
+  ///    [_warmParentCache]. It is built from the pooled bridge bundles for the
+  ///    granted packages only — the security boundary is the allowed-set.
+  ///  * **Legacy** (`_allowedPackages` empty): the parent is built from this
+  ///    instance's per-instance registration maps and cached per-instance
+  ///    ([_instanceWarmParent]). It is *not* shared, because legacy
+  ///    registrations all collapse onto [_defaultPackage]; a process-global
+  ///    cache would leak one instance's bridges into another and collide on
+  ///    same-named classes across tests.
+  ///
+  /// Mirror of [D4rtRunner._warmParent] in tom_d4rt_ast, with one deliberate
+  /// divergence: tom_d4rt registers only the **type** lookup on the parent
+  /// (`registerBridgeType`), not full name bindings (`defineBridge`). The
+  /// analyzer-based [ModuleLoader] owns per-module name registration at import
+  /// time to preserve module isolation (GEN-100/107); the parent only needs to
+  /// answer `toBridgedInstance` type queries for native values returned by
+  /// bridge methods before imports are processed.
+  Environment _warmParent() {
+    // Full inter-run isolation: build a throwaway warm parent every run so no
+    // cached state survives between `execute*` calls on this instance.
+    if (!reuseAcrossRuns) {
+      return _allowedPackages.isEmpty
+          ? _buildWarmParentFromInstanceMaps()
+          : _buildWarmParentFromPool();
+    }
+    if (_allowedPackages.isEmpty) {
+      return _instanceWarmParent ??= _buildWarmParentFromInstanceMaps();
+    }
+    final key = (_allowedPackages.toList()..sort()).join('|');
+    return _warmParentCache.putIfAbsent(key, _buildWarmParentFromPool);
+  }
+
+  /// Builds a warm parent from this instance's per-instance registration maps
+  /// (legacy path). Stdlib + the type-only bridge lookup baseline.
+  Environment _buildWarmParentFromInstanceMaps() {
+    final parent = Environment();
+    Stdlib(parent).register();
+    for (final byName in _bridgedClases.values) {
+      for (final libClass in byName.values) {
+        // Step #17 — seed the type baseline deferred; the bridge body is built
+        // only if a native value of this type is actually wrapped at runtime.
+        parent.registerBridgeTypeLazy(libClass.nativeType, libClass.thunk);
+      }
+    }
+    return parent;
+  }
+
+  /// Builds a warm parent from the pooled bridge bundles for this instance's
+  /// granted packages (migrated path). Stdlib + the type-only bridge lookup of
+  /// the allowed packages only, in sorted package order for determinism.
+  Environment _buildWarmParentFromPool() {
+    final parent = Environment();
+    Stdlib(parent).register();
+    for (final packageName in _allowedPackages.toList()..sort()) {
+      final bundle = _packagePool[packageName];
+      if (bundle == null) continue;
+      for (final byName in bundle.bridgedClasses.values) {
+        for (final libClass in byName.values) {
+          // Step #17 — deferred type baseline (see _buildWarmParentFromInstanceMaps).
+          parent.registerBridgeTypeLazy(libClass.nativeType, libClass.thunk);
+        }
+      }
+    }
+    return parent;
   }
 
   /// §U28 / TODO #14 — Evict script-declared entries from the current
@@ -579,6 +1164,38 @@ class D4rt {
       "script-declared entries; ${env.values.length} stdlib entries "
       "preserved; native accumulator cleared.",
     );
+  }
+
+  /// Step #3 (retention) — releases the interpreter artifacts retained from the
+  /// most recent run so a finished run's parsed [CompilationUnit], interpreted
+  /// declarations, and per-run environment become collectable while this
+  /// instance is kept alive but idle.
+  ///
+  /// This addresses the baseline's per-instance AST/`BridgedClass` retention:
+  /// an embedder that creates one [D4rt] per script (the pattern that produced
+  /// ~88 retained `CompilationUnitImpl` generations) can call [dispose] after a
+  /// run to drop that run's AST graph instead of pinning it for the instance's
+  /// whole lifetime. (Reusing a *single* instance across scripts is now cheap —
+  /// step #2 shares the ~982-class bridge surface process-wide — and is the
+  /// preferred pattern; [dispose] covers the per-instance case.)
+  ///
+  /// What it releases (per-run state only):
+  ///  * the script-declared environment entries and the cross-build native
+  ///    accumulator, via [resetScriptDeclarations];
+  ///  * the parsed-module cache holding this run's [CompilationUnit]s, via
+  ///    [ModuleLoader.releaseLoadedModules];
+  ///  * the [InterpreterVisitor] ([_visitor]).
+  ///
+  /// What it preserves (process-global, no per-run state): the package pool,
+  /// warm-parent cache, and shared bridged-module env cache. A subsequent
+  /// `execute*` rebuilds the per-run loader/visitor via [_initModule] as usual,
+  /// so [dispose] is non-destructive — the instance remains fully usable.
+  void dispose() {
+    resetScriptDeclarations();
+    if (_hasExecutedOnce) {
+      _moduleLoader.releaseLoadedModules();
+    }
+    _visitor = null;
   }
 
   /// Validates all bridge registrations by running the given init script
@@ -720,7 +1337,15 @@ class D4rt {
         'explicitly after the last registerExtensions).',
       );
     }
-    _extensionCallbacks[packageName] = body;
+    // Step 7/11: the body is stored on the package's pooled bundle rather than
+    // an instance map, and this instance records the package in
+    // [_extensionPackages] (in registration order) so [finalizeBridges] knows
+    // which pooled callbacks to fire and when. Firing is once per package per
+    // process — the first interpreter to finalize the package fires it, later
+    // interpreters (and later instances granted the already-pooled package)
+    // skip it.
+    _bundleFor(packageName).extensionCallback = body;
+    _extensionPackages.add(packageName);
   }
 
   /// Runs every extension callback registered via [registerExtensions]
@@ -733,17 +1358,43 @@ class D4rt {
   /// of a Flutter helper that touches bridges before the first script
   /// runs).
   ///
-  /// **Idempotent:** repeat calls return without re-running any
-  /// callback — the contract is "run once, then frozen". After this
-  /// call returns, [registerExtensions] throws [StateError].
+  /// **Idempotent per instance:** repeat calls on the same interpreter
+  /// return without re-running any callback — the contract is "run once,
+  /// then frozen". After this call returns, [registerExtensions] throws
+  /// [StateError].
+  ///
+  /// **Step 11 — once per package per process.** Extension callbacks live
+  /// on the process-global pooled bundles (`_packagePool`). A callback is
+  /// fired only the first time *any* interpreter finalizes the package,
+  /// guarded by `_PackageBridgeBundle.extensionFired`. A second interpreter
+  /// granted the same (already-pooled) package — e.g. via the canonical
+  /// `if (providePackage(name) == false) { register…; registerExtensions… }`
+  /// idiom, where the second instance skips both — never re-fires it.
+  /// Because the callback's effects (relaxers, interface proxies, generic
+  /// constructors) land in *static* D4 / BridgedClass registries shared
+  /// across instances, firing once is correct and sufficient.
   void finalizeBridges() {
     if (_bridgesFinalized) return;
     _bridgesFinalized = true;
-    for (final entry in _extensionCallbacks.entries) {
+    // Callbacks live on the pooled bundles; fire this instance's registered
+    // packages in registration order, but only those not yet fired anywhere
+    // in the process (step 11 once-per-package-per-process guard).
+    for (final packageName in _extensionPackages) {
+      final bundle = _packagePool[packageName];
+      final callback = bundle?.extensionCallback;
+      if (callback == null) continue;
+      if (bundle!.extensionFired) {
+        Logger.debugLazy(
+          () => '[D4rt.finalizeBridges] Extensions for "$packageName" already '
+              'fired in this process — skipping.',
+        );
+        continue;
+      }
+      bundle.extensionFired = true;
       Logger.debug(
-        '[D4rt.finalizeBridges] Running extensions for "${entry.key}"',
+        '[D4rt.finalizeBridges] Running extensions for "$packageName"',
       );
-      entry.value();
+      callback();
     }
     _maybeEnableUsageLogFromEnv();
   }
@@ -766,8 +1417,12 @@ class D4rt {
   /// before the first real build. Mirrors `D4rtRunner.warmup` /
   /// `D4rt.warmup` in `tom_d4rt_ast` / `tom_d4rt_exec`.
   void warmup() {
+    final swWarmup = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     finalizeBridges();
     execute(source: 'int main() => 0;');
+    if (D4rtProfiler.enabled) {
+      D4rtProfiler.record('warmup', swWarmup!.elapsedMicroseconds);
+    }
   }
 
   /// P&R#1: enable [D4.usageLogEnabled] when `D4RT_LOG_RELAXER_USAGE` is set to
@@ -819,7 +1474,8 @@ class D4rt {
   void registerRelaxerFactory(
     String baseTypeName,
     GenericTypeWrapperFactory factory,
-  ) => D4.registerGenericTypeWrapper(baseTypeName, factory);
+  ) =>
+      D4.registerGenericTypeWrapper(baseTypeName, factory);
 
   /// Registers an interface-proxy factory for [bridgedTypeName].
   ///
@@ -832,7 +1488,8 @@ class D4rt {
   void registerInterfaceProxy(
     String bridgedTypeName,
     InterfaceProxyFactory factory,
-  ) => D4.registerInterfaceProxy(bridgedTypeName, factory);
+  ) =>
+      D4.registerInterfaceProxy(bridgedTypeName, factory);
 
   /// Registers a generic-constructor factory for [className].[constructorName].
   ///
@@ -847,7 +1504,8 @@ class D4rt {
     String className,
     String constructorName,
     GenericConstructorFactory factory,
-  ) => D4.registerGenericConstructor(className, constructorName, factory);
+  ) =>
+      D4.registerGenericConstructor(className, constructorName, factory);
 
   /// Checks if a specific permission is granted.
   ///
@@ -891,10 +1549,9 @@ class D4rt {
     final importsMap = <String, ImportConfiguration>{};
 
     // Process bridged classes
-    for (final entry in _bridgedClases) {
-      for (final MapEntry(:key, :value) in entry.entries) {
-        final importPath = key;
-        final libClass = value;
+    for (final MapEntry(key: importPath, value: byName)
+        in _bridgedClases.entries) {
+      for (final libClass in byName.values) {
         final bridgedClass = libClass.bridgedClass;
 
         final classInfo = BridgedClassInfo(
@@ -934,10 +1591,9 @@ class D4rt {
     }
 
     // Process bridged enums
-    for (final entry in _bridgedEnumDefinitions) {
-      for (final MapEntry(:key, :value) in entry.entries) {
-        final importPath = key;
-        final libEnum = value;
+    for (final MapEntry(key: importPath, value: byName)
+        in _bridgedEnumDefinitions.entries) {
+      for (final libEnum in byName.values) {
         final enumDef = libEnum.enumDefinition;
 
         final enumInfo = BridgedEnumInfo(
@@ -972,8 +1628,9 @@ class D4rt {
 
     // Build global variables list from library-scoped variables
     final globalVariables = <GlobalVariableInfo>[];
-    for (final entry in _libraryVariables) {
-      for (final MapEntry(key: libraryUri, value: variable) in entry.entries) {
+    for (final MapEntry(key: libraryUri, value: byName)
+        in _libraryVariables.entries) {
+      for (final variable in byName.values) {
         globalVariables.add(GlobalVariableInfo(
           name: variable.name,
           valueType: variable.value?.runtimeType.toString() ?? 'Null',
@@ -984,8 +1641,9 @@ class D4rt {
 
     // Build global getters list from library-scoped getters
     final globalGetters = <GlobalGetterInfo>[];
-    for (final entry in _libraryGetters) {
-      for (final MapEntry(key: libraryUri, value: getter) in entry.entries) {
+    for (final MapEntry(key: libraryUri, value: byName)
+        in _libraryGetters.entries) {
+      for (final getter in byName.values) {
         globalGetters.add(GlobalGetterInfo(
           name: getter.name,
           libraryUri: libraryUri,
@@ -996,8 +1654,9 @@ class D4rt {
     // Build global functions list from library-scoped functions
     final globalFunctions = <GlobalFunctionInfo>[];
     final seenFunctions = <String>{};
-    for (final entry in _libraryFunctions) {
-      for (final MapEntry(key: libraryUri, value: func) in entry.entries) {
+    for (final MapEntry(key: libraryUri, value: byName)
+        in _libraryFunctions.entries) {
+      for (final func in byName.values) {
         final name = func.name;
         if (name != '<native>' && !seenFunctions.contains(name)) {
           seenFunctions.add(name);
@@ -1155,11 +1814,19 @@ class D4rt {
     }
 
     // Initialize a fresh module loader (resets global environment)
+    final swInit = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     _moduleLoader = _initModule(sources,
         basePath: basePath, allowFileSystemImports: allowFileSystemImports);
+    if (D4rtProfiler.enabled) {
+      D4rtProfiler.record('execute._initModule', swInit!.elapsedMicroseconds);
+    }
 
     // Parse the source
+    final swParse = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     final compilationUnit = _parseSource(source: source, library: library);
+    if (D4rtProfiler.enabled) {
+      D4rtProfiler.record('execute._parseSource', swParse!.elapsedMicroseconds);
+    }
 
     // Library-scoped globals are registered via ModuleLoader when imports are processed
     final executionEnvironment = _moduleLoader.globalEnvironment;
@@ -1301,7 +1968,7 @@ class D4rt {
       );
 
       final errors = result.errors
-          .where((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR)
+          .where((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR)
           .toList();
       if (errors.isNotEmpty) {
         final errorMessages = errors.map((e) {
@@ -1334,12 +2001,18 @@ class D4rt {
     // if the embedder already called [finalizeBridges] explicitly.
     finalizeBridges();
     Logger.debug("[_executeInEnvironment] Starting Pass 1: Declaration");
+    final swPass1 = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     final declarationVisitor = DeclarationVisitor(executionEnvironment);
     for (final declaration in compilationUnit.declarations) {
       declaration.accept<void>(declarationVisitor);
     }
+    if (D4rtProfiler.enabled) {
+      D4rtProfiler.record(
+          '_executeInEnvironment.pass1', swPass1!.elapsedMicroseconds);
+    }
     Logger.debug("[_executeInEnvironment] Finished Pass 1: Declaration");
 
+    final swResolve = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     _visitor = InterpreterVisitor(
         globalEnvironment: executionEnvironment,
         moduleLoader: _moduleLoader,
@@ -1349,8 +2022,16 @@ class D4rt {
     // visitSimpleIdentifier can validate the scope model. No effect in
     // release builds beyond the (cheap) resolver walk.
     _visitor!.resolveStaticCoordinates(compilationUnit.declarations);
+    if (D4rtProfiler.enabled) {
+      D4rtProfiler.record('_executeInEnvironment.visitorBuild',
+          swResolve!.elapsedMicroseconds);
+    }
     Object? functionResult;
     try {
+      // Profiler: time the declaration-registration setup (directives +
+      // enum/class/extension/function/variable passes) that prepares the
+      // environment, ending right before the actual `main()` interpretation.
+      final swPass2 = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
       Logger.debug("[_executeInEnvironment] Starting Pass 2: Interpretation");
       Logger.debug(
           "[_executeInEnvironment] Processing directives (imports, exports, etc.)...");
@@ -1426,6 +2107,10 @@ class D4rt {
         }
       }
       Logger.debug("[_executeInEnvironment] Finished processing declarations");
+      if (D4rtProfiler.enabled) {
+        D4rtProfiler.record(
+            '_executeInEnvironment.pass2Setup', swPass2!.elapsedMicroseconds);
+      }
       Logger.debug("[_executeInEnvironment] Looking for $name function");
       final functionCallable = executionEnvironment.get(name);
       if (functionCallable is Callable) {
@@ -1599,7 +2284,7 @@ class D4rt {
       );
 
       final errors = result.errors
-          .where((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR)
+          .where((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR)
           .toList();
       if (errors.isNotEmpty) {
         final errorMessages = errors.map((e) {
@@ -1832,7 +2517,7 @@ class D4rt {
     );
 
     final errors = parseResult.errors
-        .where((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR)
+        .where((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR)
         .toList();
     if (errors.isNotEmpty) {
       final errorMessages = errors.map((e) {
@@ -1935,7 +2620,7 @@ class D4rt {
 
     // Check if it parses as valid declaration(s)
     final declErrors = declarationParseResult.errors
-        .where((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR)
+        .where((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR)
         .toList();
 
     if (declErrors.isEmpty &&

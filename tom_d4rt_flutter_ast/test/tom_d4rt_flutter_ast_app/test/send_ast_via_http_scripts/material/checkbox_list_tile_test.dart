@@ -707,7 +707,9 @@ class _SectionTwoVariantGallery extends StatelessWidget {
                             border:
                                 Border.all(color: scheme.outlineVariant),
                           ),
-                          child: spec.tile,
+                          child: Material(
+                              type: MaterialType.transparency,
+                              child: spec.tile),
                         ),
                       ],
                     ),
@@ -864,7 +866,9 @@ class _SectionThreeTristate extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: CheckboxListTile(
+            child: Material(
+              type: MaterialType.transparency,
+              child: CheckboxListTile(
               value: step.value,
               tristate: true,
               onChanged: _noopBool,
@@ -872,6 +876,7 @@ class _SectionThreeTristate extends StatelessWidget {
                   style: const TextStyle(fontWeight: FontWeight.w600)),
               subtitle: Text(step.narrative),
               activeColor: step.color,
+            ),
             ),
           ),
         ],
@@ -1403,7 +1408,7 @@ class _SectionSixComparison extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
                 border: Border.all(color: scheme.outlineVariant),
               ),
-              child: tile,
+              child: Material(type: MaterialType.transparency, child: tile),
             ),
           ],
         ),
@@ -1486,7 +1491,9 @@ class _SectionSevenRecipes extends StatelessWidget {
               color: scheme.surfaceContainerLowest,
               borderRadius: BorderRadius.circular(10.0),
             ),
-            child: const CheckboxListTile(
+            child: const Material(
+              type: MaterialType.transparency,
+              child: CheckboxListTile(
               value: false,
               onChanged: _noopBool,
               controlAffinity: ListTileControlAffinity.trailing,
@@ -1497,6 +1504,7 @@ class _SectionSevenRecipes extends StatelessWidget {
                 'accept the conditions described in the linked document.',
               ),
               secondary: Icon(Icons.gavel_outlined),
+            ),
             ),
           ),
         ),
@@ -1656,7 +1664,7 @@ class _SectionSevenRecipes extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
                 border: Border.all(color: scheme.outlineVariant),
               ),
-              child: body,
+              child: Material(type: MaterialType.transparency, child: body),
             ),
           ],
         ),

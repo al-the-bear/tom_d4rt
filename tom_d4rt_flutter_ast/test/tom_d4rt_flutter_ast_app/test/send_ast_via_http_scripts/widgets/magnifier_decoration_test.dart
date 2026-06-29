@@ -200,33 +200,45 @@ class _ControlDeck extends StatelessWidget {
                 spacing: 8,
                 runSpacing: 4,
                 children: [
-                  tile(SwitchListTile(
-                    value: compact,
-                    onChanged: onCompactChanged,
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    title: const Text('Compact scenes', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  tile(Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
+                      value: compact,
+                      onChanged: onCompactChanged,
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text('Compact scenes', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                    ),
                   )),
-                  tile(SwitchListTile(
-                    value: guide,
-                    onChanged: onGuideChanged,
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    title: const Text('Guide overlays', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  tile(Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
+                      value: guide,
+                      onChanged: onGuideChanged,
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text('Guide overlays', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                    ),
                   )),
-                  tile(SwitchListTile(
-                    value: notes,
-                    onChanged: onNotesChanged,
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    title: const Text('Instruction notes', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  tile(Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
+                      value: notes,
+                      onChanged: onNotesChanged,
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text('Instruction notes', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                    ),
                   )),
-                  tile(SwitchListTile(
-                    value: rtl,
-                    onChanged: onRtlChanged,
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    title: const Text('RTL mode', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  tile(Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
+                      value: rtl,
+                      onChanged: onRtlChanged,
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text('RTL mode', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                    ),
                   )),
                 ],
               );
@@ -393,19 +405,25 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                       _SliderLine(label: 'Corner radius', value: _radius, min: 0, max: 42, onChanged: (v) => setState(() => _radius = v)),
                       _SliderLine(label: 'Border width', value: _borderWidth, min: 0, max: 6, onChanged: (v) => setState(() => _borderWidth = v)),
                       _SliderLine(label: 'Opacity', value: _opacity, min: 0.2, max: 1, onChanged: (v) => setState(() => _opacity = v)),
-                      SwitchListTile(
-                        value: _shadowsOn,
-                        onChanged: (v) => setState(() => _shadowsOn = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('Enable balanced shadows'),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
+                          value: _shadowsOn,
+                          onChanged: (v) => setState(() => _shadowsOn = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Enable balanced shadows'),
+                        ),
                       ),
-                      SwitchListTile(
-                        value: _overlay,
-                        onChanged: (v) => setState(() => _overlay = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('Show lens center overlay'),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
+                          value: _overlay,
+                          onChanged: (v) => setState(() => _overlay = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Show lens center overlay'),
+                        ),
                       ),
                       const SizedBox(height: 8),
                       FilledButton.tonal(
@@ -690,12 +708,15 @@ class _ShadowSceneState extends State<_ShadowScene> {
                       _SliderLine(label: 'Lens opacity', value: _opacity, min: 0.2, max: 1, onChanged: (v) => setState(() => _opacity = v)),
                       _SliderLine(label: 'Blur boost', value: _blurBoost, min: 0, max: 20, onChanged: (v) => setState(() => _blurBoost = v)),
                       _SliderLine(label: 'Vertical offset', value: _offsetY, min: -2, max: 20, onChanged: (v) => setState(() => _offsetY = v)),
-                      SwitchListTile(
-                        value: _enabled,
-                        onChanged: (v) => setState(() => _enabled = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('Enable shadows'),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
+                          value: _enabled,
+                          onChanged: (v) => setState(() => _enabled = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Enable shadows'),
+                        ),
                       ),
                       const SizedBox(height: 8),
                       FilledButton.tonal(

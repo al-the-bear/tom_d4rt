@@ -5,6 +5,33 @@
 #include "flutter_window.h"
 #include "utils.h"
 
+// Windows equivalent of the macOS App-Nap suppression (see
+// macos/Runner/AppDelegate.swift). Keeps this test harness responsive while it
+// runs backgrounded / occluded so the HTTP-driven /build loop does not stall:
+//
+//  * SetThreadExecutionState(ES_SYSTEM_REQUIRED | ES_DISPLAY_REQUIRED) keeps
+//    the system and display awake during long unattended runs so the DWM
+//    keeps presenting and the Dart forced-frame keep-alive timer (see the test
+//    app's _startFrameKeepAlive) keeps getting serviced.
+//  * SetProcessInformation(ProcessPowerThrottling, …) opts the process out of
+//    EcoQoS / "Efficiency mode" CPU throttling, which Windows otherwise applies
+//    to background processes and which slows timers and frame production.
+//
+// Both are best-effort: failures (older Windows without ProcessPowerThrottling)
+// are ignored — the Dart-side forced-frame keep-alive still degrades
+// gracefully. Released implicitly when the process exits.
+static void KeepHarnessResponsiveInBackground() {
+  ::SetThreadExecutionState(ES_CONTINUOUS | ES_SYSTEM_REQUIRED |
+                            ES_DISPLAY_REQUIRED);
+
+  PROCESS_POWER_THROTTLING_STATE power_throttling = {};
+  power_throttling.Version = PROCESS_POWER_THROTTLING_CURRENT_VERSION;
+  power_throttling.ControlMask = PROCESS_POWER_THROTTLING_EXECUTION_SPEED;
+  power_throttling.StateMask = 0;  // 0 = disable execution-speed throttling.
+  ::SetProcessInformation(::GetCurrentProcess(), ProcessPowerThrottling,
+                          &power_throttling, sizeof(power_throttling));
+}
+
 int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
                       _In_ wchar_t *command_line, _In_ int show_command) {
   // Attach to console when present (e.g., 'flutter run') or create a
@@ -12,6 +39,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   if (!::AttachConsole(ATTACH_PARENT_PROCESS) && ::IsDebuggerPresent()) {
     CreateAndAttachConsole();
   }
+
+  KeepHarnessResponsiveInBackground();
 
   // Initialize COM, so that it is available for use in the library and/or
   // plugins.

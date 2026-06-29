@@ -36,7 +36,10 @@ class D4rt {
       _classAliases = [];
   InterpretedInstance? _interpretedInstance;
   InterpreterVisitor? _visitor;
-  final Map<Type, BridgedClass> _bridgedDefLookupByType = {};
+  // Step #17 — thunk-backed native-type lookup (see LazyBridgeRegistry). The
+  // exact-type `operator[]` path builds at most one class on demand; the
+  // isAssignable supertype fallback (rare) still iterates `.entries`.
+  final LazyBridgeRegistry<Type> _bridgedDefLookupByType = LazyBridgeRegistry();
   final Set<Permission> _grantedPermissions = {};
 
   /// Internal AST converter for parsing source code.
@@ -110,7 +113,7 @@ class D4rt {
 
     // Check for parse errors
     final hasErrors = result.errors
-        .any((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR);
+        .any((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR);
 
     // Convert analyzer AST to serializable AST
     final cu = _converter.convertCompilationUnit(result.unit);
@@ -155,10 +158,33 @@ class D4rt {
   ///   Used for deduplication when the same class is exported through multiple barrels.
   void registerBridgedClass(BridgedClass definition, String library,
       {String? sourceUri}) {
-    final libClass = LibraryClass(definition, sourceUri: sourceUri);
+    registerBridgedClassLazy(
+      definition.name,
+      definition.nativeType,
+      () => definition,
+      library,
+      sourceUri: sourceUri,
+    );
+  }
+
+  /// Step #17 — registers a bridged class via a deferred factory [thunk].
+  ///
+  /// Forwards the thunk to the inner [_runner] (the measured analyzer-free
+  /// path) and stores it lazily in the wrapper's local registries so the
+  /// [BridgedClass] is built only when first resolved by name or native type.
+  void registerBridgedClassLazy(
+    String name,
+    Type nativeType,
+    BridgedClass Function() thunk,
+    String library, {
+    String? sourceUri,
+  }) {
+    final libClass =
+        LibraryClass.lazy(name, nativeType, thunk, sourceUri: sourceUri);
     _bridgedClases.add({library: libClass});
-    _bridgedDefLookupByType[definition.nativeType] = definition;
-    _runner.registerBridgedClass(definition, library, sourceUri: sourceUri);
+    _bridgedDefLookupByType.putThunk(nativeType, thunk);
+    _runner.registerBridgedClassLazy(name, nativeType, thunk, library,
+        sourceUri: sourceUri);
     _bridgedLibraryUris.add(library);
   }
 
@@ -574,6 +600,71 @@ class D4rt {
   /// the D4rt host (or open a follow-up issue if that becomes a
   /// real use case).
   void resetScriptDeclarations() => _runner.resetScriptDeclarations();
+
+  // ============================================================================
+  // Step 7/8 — package pool + warm parent (forwards to inner D4rtRunner)
+  // ============================================================================
+
+  /// Declares that the bridges for [packageName] are about to be (or have
+  /// already been) registered, and reports whether the caller may **skip**
+  /// re-registering them. Steps 7–8.
+  ///
+  /// Pure forward to [D4rtRunner.providePackage] — the inner runner owns the
+  /// process-global package pool, the per-instance allowed-set, and the
+  /// warm-parent cache. Keeping a single source of truth on the runner avoids
+  /// a divergent second pool on this wrapper.
+  ///
+  /// Returns `false` the first time [packageName] is seen in the process (the
+  /// caller must register its bridges) and `true` once the package is pooled
+  /// (the caller may skip registration). Either way [packageName] is added to
+  /// this instance's allowed-set.
+  ///
+  /// ```dart
+  /// if (d4rt.providePackage('tom_d4rt_flutter') == false) {
+  ///   registerFlutterBridges(d4rt); // first instance only
+  /// }
+  /// ```
+  ///
+  /// **Caveat — classic `execute()` path is not pool-backed.** The pool and
+  /// warm-parent reuse only benefit the [executeBundle] path (the canonical
+  /// [FlutterD4rt] path), which runs entirely against the inner runner. This
+  /// wrapper's classic [execute] path uses *per-instance* local registries
+  /// ([registerBridgedClass] et al. dual-write to those local lists). A
+  /// migrated second instance that calls `providePackage` and then skips
+  /// registration would leave those local lists empty — so consumers that
+  /// rely on the classic [execute] path must register their bridges
+  /// unconditionally (ignore the skip), or use [executeBundle].
+  bool providePackage(String packageName) =>
+      _runner.providePackage(packageName);
+
+  /// The packages this instance has been granted via [providePackage]
+  /// (process-global pool membership is independent). Step 7.
+  ///
+  /// Forwards to [D4rtRunner.allowedPackages].
+  Set<String> get allowedPackages => _runner.allowedPackages;
+
+  /// The names of every package currently pooled process-wide. Step 7.
+  ///
+  /// Forwards to [D4rtRunner.debugPooledPackages]. Test/diagnostic only.
+  static Set<String> get debugPooledPackages => D4rtRunner.debugPooledPackages;
+
+  /// The number of bridged classes pooled under [packageName]. Step 7.
+  ///
+  /// Forwards to [D4rtRunner.debugPooledClassCount]. Test/diagnostic only.
+  static int debugPooledClassCount(String packageName) =>
+      D4rtRunner.debugPooledClassCount(packageName);
+
+  /// The number of distinct warm parents cached for migrated instances. Step 8.
+  ///
+  /// Forwards to [D4rtRunner.debugWarmParentCacheSize]. Test/diagnostic only.
+  static int get debugWarmParentCacheSize =>
+      D4rtRunner.debugWarmParentCacheSize;
+
+  /// Clears the process-global package pool and warm-parent cache. Step 7/8.
+  ///
+  /// Forwards to [D4rtRunner.debugResetPool]. Test/diagnostic only — call in
+  /// `setUp`/`tearDown` to keep pool-size assertions order-independent.
+  static void debugResetPool() => D4rtRunner.debugResetPool();
 
   /// Returns a complete configuration snapshot of this interpreter instance.
   ///

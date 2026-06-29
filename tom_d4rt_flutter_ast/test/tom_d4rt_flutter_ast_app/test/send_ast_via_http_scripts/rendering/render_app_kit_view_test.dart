@@ -1056,15 +1056,21 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
             const SizedBox(height: 8),
             Text(_clipPresets[_clipIndex].note, style: TextStyle(color: scheme.onSurfaceVariant)),
             const Divider(height: 22),
-            SwitchListTile(
+            Material(
+              type: MaterialType.transparency,
+              child: SwitchListTile(
               value: _showTransform,
               title: const Text('Enable Transform Wrappers'),
               onChanged: (bool v) => setState(() => _showTransform = v),
             ),
-            SwitchListTile(
+            ),
+            Material(
+              type: MaterialType.transparency,
+              child: SwitchListTile(
               value: _showOpacityWrap,
               title: const Text('Enable Opacity Wrapper'),
               onChanged: (bool v) => setState(() => _showOpacityWrap = v),
+            ),
             ),
           ],
         ),
@@ -1159,23 +1165,32 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
             ),
             const Divider(height: 22),
             Text('Gesture Recognizers', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
-            CheckboxListTile(
+            Material(
+              type: MaterialType.transparency,
+              child: CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _enableTapRecognizer,
               title: const Text('Tap Recognizer'),
               onChanged: (bool? v) => setState(() => _enableTapRecognizer = v ?? true),
             ),
-            CheckboxListTile(
+            ),
+            Material(
+              type: MaterialType.transparency,
+              child: CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _enablePanRecognizer,
               title: const Text('Pan Recognizer'),
               onChanged: (bool? v) => setState(() => _enablePanRecognizer = v ?? false),
             ),
-            CheckboxListTile(
+            ),
+            Material(
+              type: MaterialType.transparency,
+              child: CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _enableLongPressRecognizer,
               title: const Text('Long Press Recognizer'),
               onChanged: (bool? v) => setState(() => _enableLongPressRecognizer = v ?? false),
+            ),
             ),
             const Divider(height: 22),
             Row(
@@ -1224,10 +1239,13 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: scheme.outlineVariant),
                 ),
-                child: ListTile(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: ListTile(
                   dense: true,
                   title: Text(e.key, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
                   subtitle: Text('${e.value}', style: TextStyle(color: scheme.onSurfaceVariant)),
+                ),
                 ),
               );
             }),
@@ -1445,13 +1463,16 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: scheme.outlineVariant),
                     ),
-                    child: ListTile(
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: scheme.primaryContainer,
                         child: Text(stamp.substring(stamp.length - 2), style: TextStyle(color: scheme.onPrimaryContainer)),
                       ),
                       title: Text(e.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
                       subtitle: Text('$stamp  |  ${e.message}', style: TextStyle(color: scheme.onSurfaceVariant)),
+                    ),
                     ),
                   );
                 }).toList(),

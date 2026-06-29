@@ -13,22 +13,25 @@ environment:
   sdk: ^3.10.4
 
 dependencies:
-  analyzer: ^8.0.0
+  analyzer: ^10.0.0
   args: ^2.4.2
   glob: ^2.1.2
   path: ^1.9.1
   yaml: ^3.1.2
-  tom_d4rt_ast: ^0.1.5
+  # Floor raised to 0.1.10 for the import-optimization Phase 6 publish walk
+  # (precise-before-fuzzy twin fix); resolves hosted from pub.dev.
+  tom_d4rt_ast: ^0.1.10
   tom_ast_model: ^0.1.1
   tom_build_base: ^2.6.21
 
 dev_dependencies:
-  tom_d4rt_generator: ^1.9.0
   lints: ^6.0.0
   test: ^1.25.6
-  # tom_d4rt_exec is used by the cross-package integration tests in
-  # test/generator_tests/ but creates a publish-time runtime cycle
-  # (tom_d4rt_exec depends on this package). The committed
-  # pubspec_overrides.yaml supplies it from local path for dev and publish
-  # resolution; consumers ignore dev_dependencies, so the constraint is inert.
-  tom_d4rt_exec: ^1.8.2
+  # analyzer-10 migration: tom_d4rt_generator (still analyzer ^8.4.1) and the
+  # generator-driven cross-package tests in test/generator_tests/ are deferred
+  # to the cli_tools-quest generator migration. They cannot share a resolution
+  # with this package's analyzer ^10 constraint, so the dev_deps below and the
+  # test/generator_tests/ suite are temporarily disabled (see analysis_options
+  # exclude). Re-enable once tom_d4rt_generator + tom_d4rt_exec are on analyzer 10.
+  # tom_d4rt_generator: ^1.9.0
+  # tom_d4rt_exec: ^1.8.2

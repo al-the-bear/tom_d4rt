@@ -1,0 +1,923 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (104.0.0 available)
+  analyzer 10.2.0 (14.0.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.1.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.18.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.11 (0.7.12 available)
+! tom_ast_generator 0.1.3 from path ../tom_ast_generator (overridden in ./pubspec_overrides.yaml)
+! tom_ast_model 0.1.3 from path ../tom_ast_model (overridden in ./pubspec_overrides.yaml)
+  tom_build_base 2.6.21 (2.6.25 available)
+! tom_d4rt_ast 0.1.10 from path ../tom_d4rt_ast (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt_exec 1.9.0 from path ../tom_d4rt_exec (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt_generator 1.11.0 from path ../tom_d4rt_generator (overridden in ./pubspec_overrides.yaml)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+19 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_extended_22_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+[test-app] waiting for /health on port 4247 (15s elapsed, 31 probes)…
+[test-app] waiting for /health on port 4247 (18s elapsed, 37 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:64587/r2qyl5G1EuY=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:64587/r2qyl5G1EuY=/devtools/?uri=ws://127.0.0.1:64587/r2qyl5G1EuY=/ws
+=================================================================
+00:23 +0: Test App Health app is running
+00:23 +1: Section 2 - Bridge Generator Issues (80) widgets/slidetransition_test.dart
+[METRIC] script=widgets/slidetransition_test.dart testFile=flutter_extended_22_test.dart sourceBytes=45904 sourceChars=45777 bundleJsonBytes=539388 clearMs=216 readMs=4 bundleMs=227 httpMs=1372 totalMs=1822 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=15 appParseMs=55 appSetStateMs=56 appInterpretStartMs=60 appInterpretEndMs=1014 appFirstFrameMs=1157 appPumpEndMs=1358
+00:25 +2: Section 2 - Bridge Generator Issues (80) widgets/nestedscrollview_test.dart
+[METRIC] script=widgets/nestedscrollview_test.dart testFile=flutter_extended_22_test.dart sourceBytes=70748 sourceChars=70655 bundleJsonBytes=564588 clearMs=216 readMs=5 bundleMs=78 httpMs=633 totalMs=933 status=success httpStatus=200 outputLines=6 frameworkErrors=0 appBodyMs=1 appParseMs=22 appSetStateMs=22 appInterpretStartMs=23 appInterpretEndMs=401 appFirstFrameMs=427 appPumpEndMs=628
+00:26 +3: Section 2 - Bridge Generator Issues (80) animation/tweensequence_test.dart
+[METRIC] script=animation/tweensequence_test.dart testFile=flutter_extended_22_test.dart sourceBytes=37385 sourceChars=37319 bundleJsonBytes=492384 clearMs=218 readMs=1 bundleMs=46 httpMs=917 totalMs=1183 status=success httpStatus=200 outputLines=99 frameworkErrors=0 appBodyMs=1 appParseMs=13 appSetStateMs=13 appInterpretStartMs=20 appInterpretEndMs=604 appFirstFrameMs=709 appPumpEndMs=910
+00:27 +4: Section 2 - Bridge Generator Issues (80) services/codecs_test.dart
+[METRIC] script=services/codecs_test.dart testFile=flutter_extended_22_test.dart sourceBytes=59931 sourceChars=59865 bundleJsonBytes=807602 clearMs=221 readMs=6 bundleMs=118 httpMs=1222 totalMs=1569 status=success httpStatus=200 outputLines=44 frameworkErrors=0 appBodyMs=2 appParseMs=30 appSetStateMs=30 appInterpretStartMs=36 appInterpretEndMs=702 appFirstFrameMs=1014 appPumpEndMs=1216
+00:29 +5: Section 2 - Bridge Generator Issues (80) services/channels_test.dart
+[METRIC] script=services/channels_test.dart testFile=flutter_extended_22_test.dart sourceBytes=58390 sourceChars=58390 bundleJsonBytes=678256 clearMs=222 readMs=2 bundleMs=43 httpMs=755 totalMs=1024 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=11 appSetStateMs=11 appInterpretStartMs=14 appInterpretEndMs=441 appFirstFrameMs=548 appPumpEndMs=749
+00:30 +6: Section 2 - Bridge Generator Issues (80) semantics/semantics_config_test.dart
+[METRIC] script=semantics/semantics_config_test.dart testFile=flutter_extended_22_test.dart sourceBytes=79435 sourceChars=78883 bundleJsonBytes=1023069 clearMs=222 readMs=1 bundleMs=70 httpMs=875 totalMs=1169 status=success httpStatus=200 outputLines=68 frameworkErrors=0 appBodyMs=2 appParseMs=27 appSetStateMs=27 appInterpretStartMs=34 appInterpretEndMs=497 appFirstFrameMs=668 appPumpEndMs=868
+00:31 +7: Section 2 - Bridge Generator Issues (80) widgets/layout_builder_adv_test.dart
+[METRIC] script=widgets/layout_builder_adv_test.dart testFile=flutter_extended_22_test.dart sourceBytes=46199 sourceChars=46199 bundleJsonBytes=559649 clearMs=203 readMs=1 bundleMs=47 httpMs=656 totalMs=909 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=0 appParseMs=9 appSetStateMs=9 appInterpretStartMs=10 appInterpretEndMs=327 appFirstFrameMs=449 appPumpEndMs=649
+00:32 +8: Section 2 - Bridge Generator Issues (80) material/scaffold_messenger_test.dart
+[METRIC] script=material/scaffold_messenger_test.dart testFile=flutter_extended_22_test.dart sourceBytes=36533 sourceChars=36533 bundleJsonBytes=489888 clearMs=222 readMs=4 bundleMs=37 httpMs=573 totalMs=838 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=8 appSetStateMs=8 appInterpretStartMs=8 appInterpretEndMs=280 appFirstFrameMs=367 appPumpEndMs=568
+00:33 +9: Section 2 - Bridge Generator Issues (80) rendering/box_hit_test_result_test.dart
+[METRIC] script=rendering/box_hit_test_result_test.dart testFile=flutter_extended_22_test.dart sourceBytes=53094 sourceChars=49078 bundleJsonBytes=540021 clearMs=219 readMs=1 bundleMs=26 httpMs=722 totalMs=970 status=success httpStatus=200 outputLines=6 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=15 appInterpretEndMs=378 appFirstFrameMs=516 appPumpEndMs=718
+00:34 +10: Section 2 - Bridge Generator Issues (80) rendering/custom_painter_semantics_test.dart
+[METRIC] script=rendering/custom_painter_semantics_test.dart testFile=flutter_extended_22_test.dart sourceBytes=41024 sourceChars=39718 bundleJsonBytes=465320 clearMs=202 readMs=1 bundleMs=41 httpMs=648 totalMs=894 status=success httpStatus=200 outputLines=10 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=10 appInterpretEndMs=388 appFirstFrameMs=442 appPumpEndMs=644
+00:34 +11: Section 2 - Bridge Generator Issues (80) rendering/relayout_when_system_fonts_change_mixin_test.dart
+[METRIC] script=rendering/relayout_when_system_fonts_change_mixin_test.dart testFile=flutter_extended_22_test.dart sourceBytes=60088 sourceChars=60082 bundleJsonBytes=837321 clearMs=203 readMs=1 bundleMs=59 httpMs=1672 totalMs=1936 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=17 appSetStateMs=17 appInterpretStartMs=19 appInterpretEndMs=386 appFirstFrameMs=1465 appPumpEndMs=1667
+00:36 +12: Section 2 - Bridge Generator Issues (80) rendering/render_absorb_pointer_test.dart
+[METRIC] script=rendering/render_absorb_pointer_test.dart testFile=flutter_extended_22_test.dart sourceBytes=58216 sourceChars=58210 bundleJsonBytes=848267 clearMs=245 readMs=1 bundleMs=33 httpMs=737 totalMs=1018 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=17 appSetStateMs=17 appInterpretStartMs=19 appInterpretEndMs=381 appFirstFrameMs=530 appPumpEndMs=730
+00:37 +13: Section 2 - Bridge Generator Issues (80) rendering/render_aligning_shifted_box_test.dart
+[METRIC] script=rendering/render_aligning_shifted_box_test.dart testFile=flutter_extended_22_test.dart sourceBytes=51396 sourceChars=51396 bundleJsonBytes=745822 clearMs=246 readMs=1 bundleMs=27 httpMs=976 totalMs=1251 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=10 appSetStateMs=10 appInterpretStartMs=11 appInterpretEndMs=373 appFirstFrameMs=765 appPumpEndMs=967
+00:39 +14: Section 2 - Bridge Generator Issues (80) rendering/render_shrink_wrapping_viewport_test.dart
+[METRIC] script=rendering/render_shrink_wrapping_viewport_test.dart testFile=flutter_extended_22_test.dart sourceBytes=64567 sourceChars=64561 bundleJsonBytes=759009 clearMs=222 readMs=3 bundleMs=25 httpMs=649 totalMs=900 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=4 appParseMs=14 appSetStateMs=14 appInterpretStartMs=16 appInterpretEndMs=370 appFirstFrameMs=442 appPumpEndMs=643
+00:40 +15: Section 2 - Bridge Generator Issues (80) widgets/android_view_test.dart
+  Skip: AndroidView only renders on Android
+00:40 +15 ~1: Section 2 - Bridge Generator Issues (80) widgets/animated_cross_fade_test.dart
+[METRIC] script=widgets/animated_cross_fade_test.dart testFile=flutter_extended_22_test.dart sourceBytes=58164 sourceChars=53052 bundleJsonBytes=607548 clearMs=221 readMs=1 bundleMs=37 httpMs=761 totalMs=1021 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=12 appSetStateMs=12 appInterpretStartMs=20 appInterpretEndMs=298 appFirstFrameMs=556 appPumpEndMs=757
+00:41 +16 ~1: Section 2 - Bridge Generator Issues (80) widgets/autofill_group_test.dart
+[METRIC] script=widgets/autofill_group_test.dart testFile=flutter_extended_22_test.dart sourceBytes=66941 sourceChars=66941 bundleJsonBytes=928825 clearMs=203 readMs=2 bundleMs=31 httpMs=1230 totalMs=1467 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=12 appSetStateMs=12 appInterpretStartMs=19 appInterpretEndMs=349 appFirstFrameMs=1024 appPumpEndMs=1224
+00:42 +17 ~1: Section 2 - Bridge Generator Issues (80) widgets/backdrop_filter_test.dart
+[METRIC] script=widgets/backdrop_filter_test.dart testFile=flutter_extended_22_test.dart sourceBytes=48840 sourceChars=44020 bundleJsonBytes=476356 clearMs=221 readMs=1 bundleMs=15 httpMs=717 totalMs=956 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=10 appInterpretEndMs=284 appFirstFrameMs=510 appPumpEndMs=712
+00:43 +18 ~1: Section 2 - Bridge Generator Issues (80) widgets/composited_transform_follower_test.dart
+[METRIC] script=widgets/composited_transform_follower_test.dart testFile=flutter_extended_22_test.dart sourceBytes=66306 sourceChars=63812 bundleJsonBytes=748632 clearMs=221 readMs=1 bundleMs=21 httpMs=579 totalMs=824 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=18 appSetStateMs=18 appInterpretStartMs=24 appInterpretEndMs=295 appFirstFrameMs=374 appPumpEndMs=574
+00:44 +19 ~1: Section 2 - Bridge Generator Issues (80) widgets/fixed_extent_metrics_test.dart
+[METRIC] script=widgets/fixed_extent_metrics_test.dart testFile=flutter_extended_22_test.dart sourceBytes=48899 sourceChars=48313 bundleJsonBytes=474309 clearMs=203 readMs=1 bundleMs=13 httpMs=607 totalMs=826 status=success httpStatus=200 outputLines=28 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=15 appInterpretEndMs=347 appFirstFrameMs=402 appPumpEndMs=603
+00:45 +20 ~1: Section 2 - Bridge Generator Issues (80) widgets/glowing_overscroll_indicator_test.dart
+[METRIC] script=widgets/glowing_overscroll_indicator_test.dart testFile=flutter_extended_22_test.dart sourceBytes=52718 sourceChars=52718 bundleJsonBytes=678243 clearMs=223 readMs=1 bundleMs=22 httpMs=729 totalMs=977 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=14 appSetStateMs=14 appInterpretStartMs=15 appInterpretEndMs=289 appFirstFrameMs=523 appPumpEndMs=724
+00:46 +21 ~1: Section 2 - Bridge Generator Issues (80) widgets/html_element_view_test.dart
+[METRIC] script=widgets/html_element_view_test.dart testFile=flutter_extended_22_test.dart sourceBytes=59882 sourceChars=59882 bundleJsonBytes=790506 clearMs=204 readMs=1 bundleMs=36 httpMs=862 totalMs=1105 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=18 appSetStateMs=18 appInterpretStartMs=24 appInterpretEndMs=383 appFirstFrameMs=654 appPumpEndMs=857
+00:47 +22 ~1: Section 2 - Bridge Generator Issues (80) widgets/image_filtered_test.dart
+[METRIC] script=widgets/image_filtered_test.dart testFile=flutter_extended_22_test.dart sourceBytes=89405 sourceChars=89398 bundleJsonBytes=1286821 clearMs=220 readMs=1 bundleMs=62 httpMs=921 totalMs=1205 status=success httpStatus=200 outputLines=0 frameworkErrors=11 appBodyMs=1 appParseMs=23 appSetStateMs=23 appInterpretStartMs=31 appInterpretEndMs=316 appFirstFrameMs=713 appPumpEndMs=914
+
+  ⚠️  FRAMEWORK ERROR in widgets/image_filtered_test.dart (11 error(s)):
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+00:48 +22 ~1 -1: Section 2 - Bridge Generator Issues (80) widgets/image_filtered_test.dart [E]
+  Expected: true
+    Actual: <false>
+  ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_extended_22_test.dart 390:3            expectSuccess
+  test/flutter_extended_22_test.dart 230:7            main.<fn>.<fn>
+  
+00:48 +22 ~1 -1: Section 2 - Bridge Generator Issues (80) widgets/indexed_stack_test.dart
+[METRIC] script=widgets/indexed_stack_test.dart testFile=flutter_extended_22_test.dart sourceBytes=82895 sourceChars=82895 bundleJsonBytes=1200984 clearMs=207 readMs=1 bundleMs=34 httpMs=1333 totalMs=1577 status=success httpStatus=200 outputLines=0 frameworkErrors=78 appBodyMs=1 appParseMs=17 appSetStateMs=17 appInterpretStartMs=25 appInterpretEndMs=313 appFirstFrameMs=1121 appPumpEndMs=1322
+
+  ⚠️  FRAMEWORK ERROR in widgets/indexed_stack_test.dart (78 error(s)):
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+00:50 +22 ~1 -2: Section 2 - Bridge Generator Issues (80) widgets/indexed_stack_test.dart [E]
+  Expected: true
+    Actual: <false>
+  ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_extended_22_test.dart 390:3            expectSuccess
+  test/flutter_extended_22_test.dart 238:7            main.<fn>.<fn>
+  
+00:50 +22 ~1 -2: Section 2 - Bridge Generator Issues (80) widgets/inherited_theme_test.dart
+[METRIC] script=widgets/inherited_theme_test.dart testFile=flutter_extended_22_test.dart sourceBytes=93998 sourceChars=93998 bundleJsonBytes=1427552 clearMs=206 readMs=1 bundleMs=64 httpMs=1001 totalMs=1273 status=success httpStatus=200 outputLines=0 frameworkErrors=23 appBodyMs=1 appParseMs=27 appSetStateMs=27 appInterpretStartMs=32 appInterpretEndMs=306 appFirstFrameMs=792 appPumpEndMs=993
+
+  ⚠️  FRAMEWORK ERROR in widgets/inherited_theme_test.dart (23 error(s)):
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+00:51 +22 ~1 -3: Section 2 - Bridge Generator Issues (80) widgets/inherited_theme_test.dart [E]
+  Expected: true
+    Actual: <false>
+  ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_extended_22_test.dart 390:3            expectSuccess
+  test/flutter_extended_22_test.dart 246:7            main.<fn>.<fn>
+  
+00:51 +22 ~1 -3: Section 2 - Bridge Generator Issues (80) widgets/inherited_widget_test.dart
+[METRIC] script=widgets/inherited_widget_test.dart testFile=flutter_extended_22_test.dart sourceBytes=88375 sourceChars=88375 bundleJsonBytes=1343547 clearMs=210 readMs=1 bundleMs=43 httpMs=1721 totalMs=1977 status=success httpStatus=200 outputLines=0 frameworkErrors=8 appBodyMs=1 appParseMs=17 appSetStateMs=18 appInterpretStartMs=22 appInterpretEndMs=292 appFirstFrameMs=1514 appPumpEndMs=1714
+
+  ⚠️  FRAMEWORK ERROR in widgets/inherited_widget_test.dart (8 error(s)):
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+00:53 +22 ~1 -4: Section 2 - Bridge Generator Issues (80) widgets/inherited_widget_test.dart [E]
+  Expected: true
+    Actual: <false>
+  ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_extended_22_test.dart 390:3            expectSuccess
+  test/flutter_extended_22_test.dart 254:7            main.<fn>.<fn>
+  
+00:53 +22 ~1 -4: Section 2 - Bridge Generator Issues (80) widgets/list_wheel_scroll_view_test.dart
+[METRIC] script=widgets/list_wheel_scroll_view_test.dart testFile=flutter_extended_22_test.dart sourceBytes=63176 sourceChars=63169 bundleJsonBytes=850416 clearMs=215 readMs=1 bundleMs=43 httpMs=842 totalMs=1103 status=success httpStatus=200 outputLines=0 frameworkErrors=2 appBodyMs=0 appParseMs=12 appSetStateMs=12 appInterpretStartMs=16 appInterpretEndMs=293 appFirstFrameMs=636 appPumpEndMs=837
+
+  ⚠️  FRAMEWORK ERROR in widgets/list_wheel_scroll_view_test.dart (2 error(s)):
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+00:54 +22 ~1 -5: Section 2 - Bridge Generator Issues (80) widgets/list_wheel_scroll_view_test.dart [E]
+  Expected: true
+    Actual: <false>
+  ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_extended_22_test.dart 390:3            expectSuccess
+  test/flutter_extended_22_test.dart 262:7            main.<fn>.<fn>
+  
+00:54 +22 ~1 -5: Section 2 - Bridge Generator Issues (80) widgets/list_wheel_viewport_test.dart
+[METRIC] script=widgets/list_wheel_viewport_test.dart testFile=flutter_extended_22_test.dart sourceBytes=65658 sourceChars=65657 bundleJsonBytes=870231 clearMs=214 readMs=3 bundleMs=29 httpMs=806 totalMs=1053 status=success httpStatus=200 outputLines=0 frameworkErrors=2 appBodyMs=0 appParseMs=12 appSetStateMs=12 appInterpretStartMs=17 appInterpretEndMs=292 appFirstFrameMs=600 appPumpEndMs=800
+
+  ⚠️  FRAMEWORK ERROR in widgets/list_wheel_viewport_test.dart (2 error(s)):
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+00:55 +22 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/list_wheel_viewport_test.dart [E]
+  Expected: true
+    Actual: <false>
+  ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_extended_22_test.dart 390:3            expectSuccess
+  test/flutter_extended_22_test.dart 270:7            main.<fn>.<fn>
+  
+00:55 +22 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/magnifier_decoration_test.dart
+[METRIC] script=widgets/magnifier_decoration_test.dart testFile=flutter_extended_22_test.dart sourceBytes=60369 sourceChars=60367 bundleJsonBytes=839320 clearMs=220 readMs=1 bundleMs=21 httpMs=860 totalMs=1104 status=success httpStatus=200 outputLines=0 frameworkErrors=3 appBodyMs=0 appParseMs=12 appSetStateMs=12 appInterpretStartMs=16 appInterpretEndMs=289 appFirstFrameMs=653 appPumpEndMs=855
+
+  ⚠️  FRAMEWORK ERROR in widgets/magnifier_decoration_test.dart (3 error(s)):
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+00:56 +22 ~1 -7: Section 2 - Bridge Generator Issues (80) widgets/magnifier_decoration_test.dart [E]
+  Expected: true
+    Actual: <false>
+  ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_extended_22_test.dart 390:3            expectSuccess
+  test/flutter_extended_22_test.dart 278:7            main.<fn>.<fn>
+  
+00:56 +22 ~1 -7: Section 2 - Bridge Generator Issues (80) widgets/navigation_toolbar_test.dart
+[METRIC] script=widgets/navigation_toolbar_test.dart testFile=flutter_extended_22_test.dart sourceBytes=65128 sourceChars=65045 bundleJsonBytes=832297 clearMs=210 readMs=1 bundleMs=22 httpMs=750 totalMs=985 status=success httpStatus=200 outputLines=0 frameworkErrors=11 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=23 appInterpretEndMs=298 appFirstFrameMs=543 appPumpEndMs=745
+
+  ⚠️  FRAMEWORK ERROR in widgets/navigation_toolbar_test.dart (11 error(s)):
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+00:57 +22 ~1 -8: Section 2 - Bridge Generator Issues (80) widgets/navigation_toolbar_test.dart [E]
+  Expected: true
+    Actual: <false>
+  ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_extended_22_test.dart 390:3            expectSuccess
+  test/flutter_extended_22_test.dart 286:7            main.<fn>.<fn>
+  
+00:57 +22 ~1 -8: Section 2 - Bridge Generator Issues (80) widgets/overflow_bar_test.dart
+[METRIC] script=widgets/overflow_bar_test.dart testFile=flutter_extended_22_test.dart sourceBytes=70015 sourceChars=70015 bundleJsonBytes=925948 clearMs=212 readMs=1 bundleMs=26 httpMs=794 totalMs=1034 status=success httpStatus=200 outputLines=0 frameworkErrors=9 appBodyMs=0 appParseMs=17 appSetStateMs=17 appInterpretStartMs=21 appInterpretEndMs=301 appFirstFrameMs=587 appPumpEndMs=788
+
+  ⚠️  FRAMEWORK ERROR in widgets/overflow_bar_test.dart (9 error(s)):
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+00:58 +22 ~1 -9: Section 2 - Bridge Generator Issues (80) widgets/overflow_bar_test.dart [E]
+  Expected: true
+    Actual: <false>
+  ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_extended_22_test.dart 390:3            expectSuccess
+  test/flutter_extended_22_test.dart 294:7            main.<fn>.<fn>
+  
+00:58 +22 ~1 -9: Section 2 - Bridge Generator Issues (80) widgets/overflow_box_test.dart
+[METRIC] script=widgets/overflow_box_test.dart testFile=flutter_extended_22_test.dart sourceBytes=75480 sourceChars=75480 bundleJsonBytes=1018603 clearMs=216 readMs=1 bundleMs=25 httpMs=734 totalMs=978 status=success httpStatus=200 outputLines=0 frameworkErrors=6 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=22 appInterpretEndMs=293 appFirstFrameMs=525 appPumpEndMs=727
+
+  ⚠️  FRAMEWORK ERROR in widgets/overflow_box_test.dart (6 error(s)):
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+00:59 +22 ~1 -10: Section 2 - Bridge Generator Issues (80) widgets/overflow_box_test.dart [E]
+  Expected: true
+    Actual: <false>
+  ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_extended_22_test.dart 390:3            expectSuccess
+  test/flutter_extended_22_test.dart 302:7            main.<fn>.<fn>
+  
+00:59 +22 ~1 -10: Section 2 - Bridge Generator Issues (80) widgets/page_storage_bucket_test.dart
+[METRIC] script=widgets/page_storage_bucket_test.dart testFile=flutter_extended_22_test.dart sourceBytes=84402 sourceChars=84402 bundleJsonBytes=1076311 clearMs=211 readMs=1 bundleMs=43 httpMs=841 totalMs=1098 status=success httpStatus=200 outputLines=0 frameworkErrors=1 appBodyMs=0 appParseMs=14 appSetStateMs=14 appInterpretStartMs=20 appInterpretEndMs=298 appFirstFrameMs=633 appPumpEndMs=835
+
+  ⚠️  FRAMEWORK ERROR in widgets/page_storage_bucket_test.dart (1 error(s)):
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+01:00 +22 ~1 -11: Section 2 - Bridge Generator Issues (80) widgets/page_storage_bucket_test.dart [E]
+  Expected: true
+    Actual: <false>
+  ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_extended_22_test.dart 390:3            expectSuccess
+  test/flutter_extended_22_test.dart 310:7            main.<fn>.<fn>
+  
+01:00 +22 ~1 -11: Section 2 - Bridge Generator Issues (80) widgets/page_storage_test.dart
+[METRIC] script=widgets/page_storage_test.dart testFile=flutter_extended_22_test.dart sourceBytes=77358 sourceChars=77358 bundleJsonBytes=1089699 clearMs=212 readMs=1 bundleMs=30 httpMs=835 totalMs=1079 status=success httpStatus=200 outputLines=0 frameworkErrors=6 appBodyMs=1 appParseMs=16 appSetStateMs=16 appInterpretStartMs=23 appInterpretEndMs=292 appFirstFrameMs=627 appPumpEndMs=829
+
+  ⚠️  FRAMEWORK ERROR in widgets/page_storage_test.dart (6 error(s)):
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+01:01 +22 ~1 -12: Section 2 - Bridge Generator Issues (80) widgets/page_storage_test.dart [E]
+  Expected: true
+    Actual: <false>
+  ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.; ListTile background color or ink splashes may be invisible.
+  The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the nearest Material ancestor, this DecoratedBox will hide those effects.
+  To fix this, wrap the ListTile in its own Material widget, or remove the background color from the intermediate DecoratedBox.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/flutter_extended_22_test.dart 390:3            expectSuccess
+  test/flutter_extended_22_test.dart 318:7            main.<fn>.<fn>
+  
+01:01 +22 ~1 -12: Section 2 - Bridge Generator Issues (80) widgets/parent_data_widget_test.dart
+[METRIC] script=widgets/parent_data_widget_test.dart testFile=flutter_extended_22_test.dart sourceBytes=62828 sourceChars=51226 bundleJsonBytes=498100 clearMs=210 readMs=2 bundleMs=13 httpMs=547 totalMs=774 status=success httpStatus=200 outputLines=456 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=10 appInterpretEndMs=309 appFirstFrameMs=341 appPumpEndMs=543
+01:02 +23 ~1 -12: Section 2 - Bridge Generator Issues (80) widgets/physical_model_test.dart
+[METRIC] script=widgets/physical_model_test.dart testFile=flutter_extended_22_test.dart sourceBytes=53034 sourceChars=47920 bundleJsonBytes=541567 clearMs=217 readMs=2 bundleMs=28 httpMs=622 totalMs=870 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=11 appInterpretEndMs=282 appFirstFrameMs=416 appPumpEndMs=617
+01:03 +24 ~1 -12: Section 2 - Bridge Generator Issues (80) widgets/render_object_element_test.dart
+[METRIC] script=widgets/render_object_element_test.dart testFile=flutter_extended_22_test.dart sourceBytes=37302 sourceChars=36294 bundleJsonBytes=382453 clearMs=202 readMs=1 bundleMs=12 httpMs=681 totalMs=898 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=1 appParseMs=7 appSetStateMs=7 appInterpretStartMs=14 appInterpretEndMs=380 appFirstFrameMs=475 appPumpEndMs=677
+01:04 +25 ~1 -12: Section 2 - Bridge Generator Issues (80) widgets/render_object_widget_test.dart
+[METRIC] script=widgets/render_object_widget_test.dart testFile=flutter_extended_22_test.dart sourceBytes=33947 sourceChars=32809 bundleJsonBytes=421479 clearMs=219 readMs=2 bundleMs=11 httpMs=648 totalMs=882 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=14 appInterpretEndMs=381 appFirstFrameMs=444 appPumpEndMs=645
+01:05 +26 ~1 -12: Section 2 - Bridge Generator Issues (80) widgets/restorable_enum_test.dart
+[METRIC] script=widgets/restorable_enum_test.dart testFile=flutter_extended_22_test.dart sourceBytes=69409 sourceChars=67101 bundleJsonBytes=744339 clearMs=217 readMs=1 bundleMs=18 httpMs=555 totalMs=793 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=1 appParseMs=20 appSetStateMs=20 appInterpretStartMs=24 appInterpretEndMs=297 appFirstFrameMs=350 appPumpEndMs=550
+01:06 +27 ~1 -12: Section 2 - Bridge Generator Issues (80) widgets/restorable_text_editing_controller_test.dart
+[METRIC] script=widgets/restorable_text_editing_controller_test.dart testFile=flutter_extended_22_test.dart sourceBytes=52812 sourceChars=50810 bundleJsonBytes=571543 clearMs=204 readMs=2 bundleMs=14 httpMs=530 totalMs=751 status=success httpStatus=200 outputLines=1 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=20 appInterpretEndMs=279 appFirstFrameMs=324 appPumpEndMs=526
+01:06 +28 ~1 -12: Section 2 - Bridge Generator Issues (80) widgets/root_widget_test.dart
+[METRIC] script=widgets/root_widget_test.dart testFile=flutter_extended_22_test.dart sourceBytes=39627 sourceChars=38283 bundleJsonBytes=452218 clearMs=217 readMs=2 bundleMs=28 httpMs=540 totalMs=788 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=14 appInterpretEndMs=288 appFirstFrameMs=334 appPumpEndMs=535
+01:07 +29 ~1 -12: Section 2 - Bridge Generator Issues (80) widgets/stateful_element_test.dart
+[METRIC] script=widgets/stateful_element_test.dart testFile=flutter_extended_22_test.dart sourceBytes=35605 sourceChars=34474 bundleJsonBytes=423180 clearMs=218 readMs=2 bundleMs=16 httpMs=601 totalMs=838 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=1 appParseMs=8 appSetStateMs=8 appInterpretStartMs=9 appInterpretEndMs=291 appFirstFrameMs=396 appPumpEndMs=597
+01:08 +30 ~1 -12: (tearDownAll)
+01:09 +30 ~1 -12: Some tests failed.
+
+Failing tests:
+  /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_extended_22_test.dart: Section 2 - Bridge Generator Issues (80) widgets/image_filtered_test.dart
+  /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_extended_22_test.dart: Section 2 - Bridge Generator Issues (80) widgets/indexed_stack_test.dart
+  /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_extended_22_test.dart: Section 2 - Bridge Generator Issues (80) widgets/inherited_theme_test.dart
+  /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_extended_22_test.dart: Section 2 - Bridge Generator Issues (80) widgets/inherited_widget_test.dart
+  ... and 8 more

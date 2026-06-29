@@ -21,8 +21,17 @@ class BridgedEnum implements RuntimeType {
   /// E.g. `WidgetState.any` which returns a `WidgetStatesConstraint`.
   Map<String, Object? Function()> staticGetters = {};
 
+  /// Static method adapters for static factory/helper members.
+  /// E.g. `PageFormat.fromString(name)`, invoked as `EnumType.method(args)`.
+  Map<String, BridgedStaticMethodAdapter> staticMethods = {};
+
   /// Creates a definition for a bridged enum.
   BridgedEnum(this.name, this.values);
+
+  /// Resolves a static method adapter by [methodName], or `null` if the enum
+  /// declares no such static method.
+  BridgedStaticMethodAdapter? findStaticMethodAdapter(String methodName) =>
+      staticMethods[methodName];
 
   @override
   String toString() => 'BridgedEnum($name)';
@@ -147,7 +156,7 @@ class BridgedEnumValue implements RuntimeValue {
               return methodAdapter(
                   InterpreterVisitor(
                       globalEnvironment: Environment(),
-                      moduleLoader: ModuleLoader(Environment(), {}, [], [])),
+                      moduleLoader: ModuleLoader(Environment(), {}, {}, {})),
                   nativeValue,
                   [],
                   {},
@@ -175,6 +184,14 @@ class BridgedEnumValue implements RuntimeValue {
     throw RuntimeD4rtException(
         'Cannot set property "$identifier" on enum value ${enumType.name}.$name');
   }
+
+  /// Whether this enum value defines a bridged instance method (or operator)
+  /// named [method]. Mirrors the lookup order used by [invoke] so callers (e.g.
+  /// the interpreter's binary/unary operator dispatch) can probe for a bridged
+  /// operator method — such as the `&`, `|`, `~` overloads on Flutter's
+  /// `WidgetState` — before falling back to the built-in operator handling.
+  bool hasMethod(String method) =>
+      _methods.containsKey(method) || enumType.methods.containsKey(method);
 
   Object? invoke(InterpreterVisitor visitor, String method, List<Object?> args,
       Map<String, Object?> namedArgs) {
@@ -215,7 +232,7 @@ class BridgedEnumValue implements RuntimeValue {
         return toStringAdapter(
             InterpreterVisitor(
                 globalEnvironment: Environment(),
-                moduleLoader: ModuleLoader(Environment(), {}, [], [])),
+                moduleLoader: ModuleLoader(Environment(), {}, {}, {})),
             nativeValue,
             [],
             {},

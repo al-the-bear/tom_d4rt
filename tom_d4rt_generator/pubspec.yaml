@@ -1,6 +1,6 @@
 name: tom_d4rt_generator
 description: D4rt bridge generator for creating BridgedClass implementations from Dart source. Supports per-package generation, deduplication, and cross-package bridging.
-version: 1.9.9
+version: 1.12.0
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_generator
 topics:
@@ -16,7 +16,7 @@ environment:
 # The generator uses the analyzer to parse Dart source files.
 dependencies:
   # Analyzer for parsing Dart source files
-  analyzer: ^8.4.1
+  analyzer: ^10.0.0
 
   # CLI argument parsing
   args: ^2.7.0
@@ -35,13 +35,19 @@ dependencies:
   # Shared build utilities
   tom_build_base: ^2.6.21
 
-  # D4rt runtime (used by testing library)
-  tom_d4rt: ^1.8.21
+  # D4rt runtime (used by testing library). 1.9.0 ships the import-optimization
+  # API the generated `registerBridges` now targets (`registerBridgedClassLazy`);
+  # earlier 1.8.x lack it. 1.9.0 is also analyzer-10 (1.8.25 was the first such
+  # build; earlier 1.8.x carry analyzer ^8 and would conflict). Floor raised to
+  # 1.11.0: generated enum bridges now emit the `staticMethods:` parameter on
+  # `BridgedEnumDefinition` (GitHub issue #2 — static enum method dispatch),
+  # which earlier 1.10.x do not accept.
+  tom_d4rt: ^1.11.0
 
   # Shared analyzer summary caching — same cache directory as
   # tom_reflection_generator so sibling generators can reuse each
   # other's cached summaries. See _copilot_guidelines/d4rt/.
-  tom_analyzer_shared: ^0.3.0
+  tom_analyzer_shared: ^0.4.0
 
 executables:
   d4rtgen: d4rtgen

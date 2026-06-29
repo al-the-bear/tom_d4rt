@@ -1,0 +1,166 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (104.0.0 available)
+  analyzer 10.2.0 (14.0.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.1.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.18.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.11 (0.7.12 available)
+! tom_ast_generator 0.1.3 from path ../tom_ast_generator (overridden in ./pubspec_overrides.yaml)
+! tom_ast_model 0.1.3 from path ../tom_ast_model (overridden in ./pubspec_overrides.yaml)
+  tom_build_base 2.6.21 (2.6.25 available)
+! tom_d4rt_ast 0.1.10 from path ../tom_d4rt_ast (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt_exec 1.9.0 from path ../tom_d4rt_exec (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt_generator 1.11.0 from path ../tom_d4rt_generator (overridden in ./pubspec_overrides.yaml)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+19 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_extended_05_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:59680/uMpKL8-c1FY=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:59680/uMpKL8-c1FY=/devtools/?uri=ws://127.0.0.1:59680/uMpKL8-c1FY=/ws
+=================================================================
+00:16 +0: Test App Health app is running
+00:16 +1: material/ adaptation_test.dart
+[METRIC] script=material/adaptation_test.dart testFile=flutter_extended_05_test.dart sourceBytes=30434 sourceChars=30434 bundleJsonBytes=362367 clearMs=208 readMs=1 bundleMs=153 httpMs=1300 totalMs=1664 status=success httpStatus=200 outputLines=9 frameworkErrors=0 appBodyMs=5 appParseMs=39 appSetStateMs=39 appInterpretStartMs=43 appInterpretEndMs=959 appFirstFrameMs=1090 appPumpEndMs=1291
+00:18 +2: material/ animated_theme_test.dart
+[METRIC] script=material/animated_theme_test.dart testFile=flutter_extended_05_test.dart sourceBytes=26047 sourceChars=26047 bundleJsonBytes=307943 clearMs=203 readMs=1 bundleMs=21 httpMs=1208 totalMs=1434 status=success httpStatus=200 outputLines=11 frameworkErrors=0 appBodyMs=0 appParseMs=10 appSetStateMs=10 appInterpretStartMs=14 appInterpretEndMs=377 appFirstFrameMs=1001 appPumpEndMs=1203
+00:19 +3: material/ autocomplete_test.dart
+[METRIC] script=material/autocomplete_test.dart testFile=flutter_extended_05_test.dart sourceBytes=24340 sourceChars=24340 bundleJsonBytes=287751 clearMs=221 readMs=1 bundleMs=21 httpMs=567 totalMs=812 status=success httpStatus=200 outputLines=3 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=8 appInterpretEndMs=303 appFirstFrameMs=361 appPumpEndMs=563
+00:20 +4: material/ back_button_icon_test.dart
+[METRIC] script=material/back_button_icon_test.dart testFile=flutter_extended_05_test.dart sourceBytes=24110 sourceChars=24110 bundleJsonBytes=287761 clearMs=224 readMs=1 bundleMs=15 httpMs=572 totalMs=814 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=5 appInterpretEndMs=309 appFirstFrameMs=367 appPumpEndMs=568
+00:21 +5: material/ back_button_test.dart
+[METRIC] script=material/back_button_test.dart testFile=flutter_extended_05_test.dart sourceBytes=27206 sourceChars=27206 bundleJsonBytes=312528 clearMs=217 readMs=1 bundleMs=29 httpMs=603 totalMs=851 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=0 appParseMs=5 appSetStateMs=5 appInterpretStartMs=7 appInterpretEndMs=300 appFirstFrameMs=399 appPumpEndMs=599
+00:22 +6: material/ bottom_navigation_bar_landscape_layout_test.dart
+[METRIC] script=material/bottom_navigation_bar_landscape_layout_test.dart testFile=flutter_extended_05_test.dart sourceBytes=83438 sourceChars=83438 bundleJsonBytes=845566 clearMs=204 readMs=1 bundleMs=68 httpMs=700 totalMs=976 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=0 appParseMs=15 appSetStateMs=15 appInterpretStartMs=16 appInterpretEndMs=358 appFirstFrameMs=492 appPumpEndMs=693
+00:23 +7: material/ bottom_navigation_bar_theme_data_test.dart
+[METRIC] script=material/bottom_navigation_bar_theme_data_test.dart testFile=flutter_extended_05_test.dart sourceBytes=22964 sourceChars=22964 bundleJsonBytes=265349 clearMs=218 readMs=2 bundleMs=12 httpMs=657 totalMs=890 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=6 appInterpretEndMs=313 appFirstFrameMs=452 appPumpEndMs=653
+00:24 +8: material/ bottom_navigation_bar_theme_test.dart
+[METRIC] script=material/bottom_navigation_bar_theme_test.dart testFile=flutter_extended_05_test.dart sourceBytes=28106 sourceChars=28106 bundleJsonBytes=342642 clearMs=218 readMs=1 bundleMs=13 httpMs=609 totalMs=843 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=5 appSetStateMs=5 appInterpretStartMs=11 appInterpretEndMs=300 appFirstFrameMs=404 appPumpEndMs=604
+00:24 +9: material/ bottom_navigation_bar_type_test.dart
+[METRIC] script=material/bottom_navigation_bar_type_test.dart testFile=flutter_extended_05_test.dart sourceBytes=62976 sourceChars=62876 bundleJsonBytes=655780 clearMs=203 readMs=3 bundleMs=50 httpMs=631 totalMs=889 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=5 appParseMs=31 appSetStateMs=31 appInterpretStartMs=32 appInterpretEndMs=313 appFirstFrameMs=426 appPumpEndMs=626
+00:25 +10: material/ button_bar_layout_behavior_test.dart
+[METRIC] script=material/button_bar_layout_behavior_test.dart testFile=flutter_extended_05_test.dart sourceBytes=54803 sourceChars=54742 bundleJsonBytes=606593 clearMs=204 readMs=5 bundleMs=19 httpMs=716 totalMs=946 status=success httpStatus=200 outputLines=6 frameworkErrors=0 appBodyMs=5 appParseMs=16 appSetStateMs=16 appInterpretStartMs=21 appInterpretEndMs=385 appFirstFrameMs=510 appPumpEndMs=712
+00:26 +11: material/ button_bar_test.dart
+[METRIC] script=material/button_bar_test.dart testFile=flutter_extended_05_test.dart sourceBytes=23842 sourceChars=23842 bundleJsonBytes=296179 clearMs=217 readMs=1 bundleMs=8 httpMs=583 totalMs=810 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=9 appInterpretEndMs=291 appFirstFrameMs=378 appPumpEndMs=579
+00:27 +12: material/ button_bar_theme_data_test.dart
+[METRIC] script=material/button_bar_theme_data_test.dart testFile=flutter_extended_05_test.dart sourceBytes=23005 sourceChars=23005 bundleJsonBytes=307460 clearMs=202 readMs=1 bundleMs=35 httpMs=694 totalMs=932 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=9 appInterpretEndMs=388 appFirstFrameMs=488 appPumpEndMs=690
+00:28 +13: material/ button_bar_theme_test.dart
+[METRIC] script=material/button_bar_theme_test.dart testFile=flutter_extended_05_test.dart sourceBytes=33511 sourceChars=33481 bundleJsonBytes=321423 clearMs=220 readMs=1 bundleMs=11 httpMs=609 totalMs=842 status=success httpStatus=200 outputLines=9 frameworkErrors=0 appBodyMs=1 appParseMs=6 appSetStateMs=6 appInterpretStartMs=13 appInterpretEndMs=287 appFirstFrameMs=404 appPumpEndMs=605
+00:29 +14: material/ button_text_theme_test.dart
+[METRIC] script=material/button_text_theme_test.dart testFile=flutter_extended_05_test.dart sourceBytes=51180 sourceChars=51180 bundleJsonBytes=586369 clearMs=204 readMs=1 bundleMs=36 httpMs=614 totalMs=856 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=0 appParseMs=8 appSetStateMs=8 appInterpretStartMs=9 appInterpretEndMs=320 appFirstFrameMs=409 appPumpEndMs=610
+00:30 +15: material/ carousel_controller_test.dart
+[METRIC] script=material/carousel_controller_test.dart testFile=flutter_extended_05_test.dart sourceBytes=57526 sourceChars=57526 bundleJsonBytes=410189 clearMs=203 readMs=1 bundleMs=12 httpMs=610 totalMs=827 status=success httpStatus=200 outputLines=31 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=8 appInterpretEndMs=299 appFirstFrameMs=404 appPumpEndMs=606
+00:31 +16: material/ carousel_scroll_physics_test.dart
+[METRIC] script=material/carousel_scroll_physics_test.dart testFile=flutter_extended_05_test.dart sourceBytes=44167 sourceChars=44167 bundleJsonBytes=445748 clearMs=218 readMs=2 bundleMs=14 httpMs=614 totalMs=849 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=0 appParseMs=5 appSetStateMs=5 appInterpretStartMs=6 appInterpretEndMs=326 appFirstFrameMs=408 appPumpEndMs=610
+00:31 +17: material/ carousel_view_test.dart
+[METRIC] script=material/carousel_view_test.dart testFile=flutter_extended_05_test.dart sourceBytes=34722 sourceChars=34722 bundleJsonBytes=371120 clearMs=217 readMs=1 bundleMs=9 httpMs=630 totalMs=858 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=7 appInterpretEndMs=287 appFirstFrameMs=426 appPumpEndMs=626
+00:32 +18: material/ carousel_view_theme_data_test.dart
+[METRIC] script=material/carousel_view_theme_data_test.dart testFile=flutter_extended_05_test.dart sourceBytes=33413 sourceChars=33413 bundleJsonBytes=335608 clearMs=203 readMs=1 bundleMs=8 httpMs=628 totalMs=842 status=success httpStatus=200 outputLines=6 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=11 appInterpretEndMs=291 appFirstFrameMs=423 appPumpEndMs=624
+00:33 +19: material/ carousel_view_theme_test.dart
+[METRIC] script=material/carousel_view_theme_test.dart testFile=flutter_extended_05_test.dart sourceBytes=39516 sourceChars=39516 bundleJsonBytes=376416 clearMs=217 readMs=1 bundleMs=9 httpMs=567 totalMs=796 status=success httpStatus=200 outputLines=5 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=10 appInterpretEndMs=294 appFirstFrameMs=362 appPumpEndMs=563
+00:34 +20: material/ checked_popup_menu_item_test.dart
+[METRIC] script=material/checked_popup_menu_item_test.dart testFile=flutter_extended_05_test.dart sourceBytes=26970 sourceChars=26970 bundleJsonBytes=282605 clearMs=202 readMs=1 bundleMs=7 httpMs=554 totalMs=765 status=success httpStatus=200 outputLines=6 frameworkErrors=0 appBodyMs=0 appParseMs=3 appSetStateMs=3 appInterpretStartMs=12 appInterpretEndMs=301 appFirstFrameMs=349 appPumpEndMs=550
+00:35 +21: material/ class_test.dart
+[METRIC] script=material/class_test.dart testFile=flutter_extended_05_test.dart sourceBytes=33978 sourceChars=33978 bundleJsonBytes=362602 clearMs=217 readMs=1 bundleMs=8 httpMs=552 totalMs=780 status=success httpStatus=200 outputLines=6 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=11 appInterpretEndMs=301 appFirstFrameMs=347 appPumpEndMs=548
+00:36 +22: material/ close_button_icon_test.dart
+[METRIC] script=material/close_button_icon_test.dart testFile=flutter_extended_05_test.dart sourceBytes=29835 sourceChars=29835 bundleJsonBytes=391461 clearMs=218 readMs=1 bundleMs=8 httpMs=563 totalMs=792 status=success httpStatus=200 outputLines=6 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=5 appInterpretEndMs=295 appFirstFrameMs=357 appPumpEndMs=559
+00:36 +23: material/ close_button_test.dart
+[METRIC] script=material/close_button_test.dart testFile=flutter_extended_05_test.dart sourceBytes=29525 sourceChars=29525 bundleJsonBytes=307820 clearMs=215 readMs=1 bundleMs=7 httpMs=566 totalMs=790 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=12 appInterpretEndMs=285 appFirstFrameMs=362 appPumpEndMs=562
+00:37 +24: material/ collapse_mode_test.dart
+[METRIC] script=material/collapse_mode_test.dart testFile=flutter_extended_05_test.dart sourceBytes=60386 sourceChars=60334 bundleJsonBytes=718354 clearMs=204 readMs=1 bundleMs=34 httpMs=732 totalMs=972 status=success httpStatus=200 outputLines=14 frameworkErrors=0 appBodyMs=2 appParseMs=15 appSetStateMs=15 appInterpretStartMs=15 appInterpretEndMs=393 appFirstFrameMs=523 appPumpEndMs=725
+00:38 +25: material/ cupertino_based_material_theme_data_test.dart
+[METRIC] script=material/cupertino_based_material_theme_data_test.dart testFile=flutter_extended_05_test.dart sourceBytes=37397 sourceChars=28379 bundleJsonBytes=263525 clearMs=218 readMs=1 bundleMs=8 httpMs=800 totalMs=1029 status=success httpStatus=200 outputLines=211 frameworkErrors=0 appBodyMs=0 appParseMs=5 appSetStateMs=5 appInterpretStartMs=8 appInterpretEndMs=544 appFirstFrameMs=591 appPumpEndMs=791
+00:39 +26: material/ date_picker_entry_mode_test.dart
+[METRIC] script=material/date_picker_entry_mode_test.dart testFile=flutter_extended_05_test.dart sourceBytes=43423 sourceChars=43125 bundleJsonBytes=459739 clearMs=216 readMs=5 bundleMs=46 httpMs=581 totalMs=850 status=success httpStatus=200 outputLines=9 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=10 appInterpretEndMs=273 appFirstFrameMs=375 appPumpEndMs=577
+00:40 +27: material/ date_picker_mode_test.dart
+[METRIC] script=material/date_picker_mode_test.dart testFile=flutter_extended_05_test.dart sourceBytes=54304 sourceChars=54009 bundleJsonBytes=584574 clearMs=202 readMs=1 bundleMs=23 httpMs=578 totalMs=806 status=success httpStatus=200 outputLines=10 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=14 appInterpretEndMs=274 appFirstFrameMs=374 appPumpEndMs=574
+00:41 +28: material/ day_period_test.dart
+[METRIC] script=material/day_period_test.dart testFile=flutter_extended_05_test.dart sourceBytes=53059 sourceChars=53055 bundleJsonBytes=669529 clearMs=202 readMs=1 bundleMs=40 httpMs=635 totalMs=880 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=15 appSetStateMs=15 appInterpretStartMs=22 appInterpretEndMs=279 appFirstFrameMs=430 appPumpEndMs=630
+00:42 +29: material/ dialog_route_test.dart
+[METRIC] script=material/dialog_route_test.dart testFile=flutter_extended_05_test.dart sourceBytes=26623 sourceChars=26623 bundleJsonBytes=464694 clearMs=205 readMs=1 bundleMs=15 httpMs=598 totalMs=820 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=12 appInterpretEndMs=346 appFirstFrameMs=393 appPumpEndMs=594
+00:42 +30: material/ drawer_alignment_test.dart
+[METRIC] script=material/drawer_alignment_test.dart testFile=flutter_extended_05_test.dart sourceBytes=49465 sourceChars=49449 bundleJsonBytes=554669 clearMs=216 readMs=1 bundleMs=16 httpMs=556 totalMs=791 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=18 appInterpretEndMs=278 appFirstFrameMs=350 appPumpEndMs=552
+00:43 +31: material/ drawer_button_icon_test.dart
+[METRIC] script=material/drawer_button_icon_test.dart testFile=flutter_extended_05_test.dart sourceBytes=25866 sourceChars=25866 bundleJsonBytes=355188 clearMs=204 readMs=1 bundleMs=12 httpMs=578 totalMs=796 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=8 appInterpretEndMs=331 appFirstFrameMs=372 appPumpEndMs=574
+00:44 +32: material/ drawer_button_test.dart
+[METRIC] script=material/drawer_button_test.dart testFile=flutter_extended_05_test.dart sourceBytes=62512 sourceChars=62512 bundleJsonBytes=757593 clearMs=218 readMs=1 bundleMs=23 httpMs=729 totalMs=973 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=9 appSetStateMs=10 appInterpretStartMs=16 appInterpretEndMs=275 appFirstFrameMs=522 appPumpEndMs=724
+00:45 +33: material/ drawer_controller_state_test.dart
+[METRIC] script=material/drawer_controller_state_test.dart testFile=flutter_extended_05_test.dart sourceBytes=74747 sourceChars=74747 bundleJsonBytes=533648 clearMs=215 readMs=2 bundleMs=24 httpMs=635 totalMs=877 status=success httpStatus=200 outputLines=11 frameworkErrors=0 appBodyMs=0 appParseMs=7 appSetStateMs=7 appInterpretStartMs=10 appInterpretEndMs=325 appFirstFrameMs=429 appPumpEndMs=631
+00:46 +34: material/ drawer_controller_test.dart
+[METRIC] script=material/drawer_controller_test.dart testFile=flutter_extended_05_test.dart sourceBytes=29159 sourceChars=29159 bundleJsonBytes=425173 clearMs=202 readMs=2 bundleMs=18 httpMs=546 totalMs=770 status=success httpStatus=200 outputLines=14 frameworkErrors=0 appBodyMs=0 appParseMs=5 appSetStateMs=5 appInterpretStartMs=7 appInterpretEndMs=283 appFirstFrameMs=342 appPumpEndMs=542
+00:47 +35: material/ drop_range_slider_value_indicator_shape_test.dart
+[METRIC] script=material/drop_range_slider_value_indicator_shape_test.dart testFile=flutter_extended_05_test.dart sourceBytes=68918 sourceChars=68848 bundleJsonBytes=741213 clearMs=204 readMs=1 bundleMs=22 httpMs=608 totalMs=838 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=14 appSetStateMs=14 appInterpretStartMs=24 appInterpretEndMs=273 appFirstFrameMs=402 appPumpEndMs=603
+00:48 +36: material/ drop_slider_value_indicator_shape_test.dart
+[METRIC] script=material/drop_slider_value_indicator_shape_test.dart testFile=flutter_extended_05_test.dart sourceBytes=25821 sourceChars=25821 bundleJsonBytes=349867 clearMs=218 readMs=1 bundleMs=10 httpMs=543 totalMs=774 status=success httpStatus=200 outputLines=13 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=5 appInterpretEndMs=276 appFirstFrameMs=337 appPumpEndMs=539
+00:48 +37: material/ dropdown_button_hide_underline_test.dart
+[METRIC] script=material/dropdown_button_hide_underline_test.dart testFile=flutter_extended_05_test.dart sourceBytes=25791 sourceChars=25785 bundleJsonBytes=341757 clearMs=203 readMs=1 bundleMs=8 httpMs=1099 totalMs=1313 status=success httpStatus=200 outputLines=14 frameworkErrors=0 appBodyMs=1 appParseMs=6 appSetStateMs=6 appInterpretStartMs=13 appInterpretEndMs=831 appFirstFrameMs=893 appPumpEndMs=1096
+00:50 +38: material/ dropdown_menu_close_behavior_test.dart
+[METRIC] script=material/dropdown_menu_close_behavior_test.dart testFile=flutter_extended_05_test.dart sourceBytes=64717 sourceChars=64717 bundleJsonBytes=572558 clearMs=222 readMs=1 bundleMs=15 httpMs=1199 totalMs=1439 status=success httpStatus=200 outputLines=4 frameworkErrors=0 appBodyMs=0 appParseMs=8 appSetStateMs=8 appInterpretStartMs=10 appInterpretEndMs=283 appFirstFrameMs=991 appPumpEndMs=1193
+00:51 +39: material/ dropdown_menu_entry_test.dart
+[METRIC] script=material/dropdown_menu_entry_test.dart testFile=flutter_extended_05_test.dart sourceBytes=25059 sourceChars=25055 bundleJsonBytes=363345 clearMs=221 readMs=1 bundleMs=9 httpMs=591 totalMs=823 status=success httpStatus=200 outputLines=11 frameworkErrors=0 appBodyMs=1 appParseMs=6 appSetStateMs=6 appInterpretStartMs=12 appInterpretEndMs=306 appFirstFrameMs=387 appPumpEndMs=587
+00:52 +40: material/ dropdown_menu_form_field_test.dart
+[METRIC] script=material/dropdown_menu_form_field_test.dart testFile=flutter_extended_05_test.dart sourceBytes=26502 sourceChars=26502 bundleJsonBytes=355909 clearMs=203 readMs=1 bundleMs=7 httpMs=651 totalMs=865 status=success httpStatus=200 outputLines=16 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=5 appInterpretEndMs=302 appFirstFrameMs=446 appPumpEndMs=647
+00:53 +41: material/ dropdown_menu_item_test.dart
+[METRIC] script=material/dropdown_menu_item_test.dart testFile=flutter_extended_05_test.dart sourceBytes=25807 sourceChars=25807 bundleJsonBytes=399949 clearMs=203 readMs=1 bundleMs=9 httpMs=565 totalMs=780 status=success httpStatus=200 outputLines=21 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=12 appInterpretEndMs=321 appFirstFrameMs=361 appPumpEndMs=562
+00:54 +42: material/ durations_test.dart
+[METRIC] script=material/durations_test.dart testFile=flutter_extended_05_test.dart sourceBytes=24114 sourceChars=24114 bundleJsonBytes=390930 clearMs=203 readMs=1 bundleMs=9 httpMs=616 totalMs=831 status=success httpStatus=200 outputLines=37 frameworkErrors=0 appBodyMs=0 appParseMs=5 appSetStateMs=5 appInterpretStartMs=12 appInterpretEndMs=364 appFirstFrameMs=410 appPumpEndMs=612
+00:54 +43: material/ dynamic_scheme_variant_test.dart
+[METRIC] script=material/dynamic_scheme_variant_test.dart testFile=flutter_extended_05_test.dart sourceBytes=58328 sourceChars=58318 bundleJsonBytes=654583 clearMs=203 readMs=2 bundleMs=16 httpMs=890 totalMs=1113 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=12 appSetStateMs=12 appInterpretStartMs=20 appInterpretEndMs=284 appFirstFrameMs=684 appPumpEndMs=886
+00:55 +44: material/ easing_test.dart
+[METRIC] script=material/easing_test.dart testFile=flutter_extended_05_test.dart sourceBytes=20063 sourceChars=20063 bundleJsonBytes=300289 clearMs=217 readMs=1 bundleMs=9 httpMs=645 totalMs=873 status=success httpStatus=200 outputLines=30 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=8 appInterpretEndMs=375 appFirstFrameMs=440 appPumpEndMs=641
+00:56 +45: material/ elevation_overlay_test.dart
+[METRIC] script=material/elevation_overlay_test.dart testFile=flutter_extended_05_test.dart sourceBytes=19901 sourceChars=19901 bundleJsonBytes=313293 clearMs=204 readMs=1 bundleMs=7 httpMs=606 totalMs=819 status=success httpStatus=200 outputLines=37 frameworkErrors=0 appBodyMs=0 appParseMs=4 appSetStateMs=4 appInterpretStartMs=5 appInterpretEndMs=367 appFirstFrameMs=400 appPumpEndMs=602
+00:57 +46: material/ end_drawer_button_icon_test.dart
+[METRIC] script=material/end_drawer_button_icon_test.dart testFile=flutter_extended_05_test.dart sourceBytes=28012 sourceChars=28005 bundleJsonBytes=402374 clearMs=217 readMs=1 bundleMs=8 httpMs=565 totalMs=793 status=success httpStatus=200 outputLines=21 frameworkErrors=0 appBodyMs=1 appParseMs=7 appSetStateMs=7 appInterpretStartMs=11 appInterpretEndMs=321 appFirstFrameMs=361 appPumpEndMs=561
+00:58 +47: material/ end_drawer_button_test.dart
+[METRIC] script=material/end_drawer_button_test.dart testFile=flutter_extended_05_test.dart sourceBytes=53648 sourceChars=53648 bundleJsonBytes=508198 clearMs=203 readMs=1 bundleMs=12 httpMs=598 totalMs=817 status=success httpStatus=200 outputLines=3 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=8 appInterpretEndMs=284 appFirstFrameMs=393 appPumpEndMs=594
+00:59 +48: material/ expand_icon_test.dart
+[METRIC] script=material/expand_icon_test.dart testFile=flutter_extended_05_test.dart sourceBytes=31324 sourceChars=31324 bundleJsonBytes=525818 clearMs=203 readMs=1 bundleMs=11 httpMs=520 totalMs=737 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=8 appInterpretEndMs=274 appFirstFrameMs=316 appPumpEndMs=516
+01:00 +49: material/ expansion_panel_radio_test.dart
+[METRIC] script=material/expansion_panel_radio_test.dart testFile=flutter_extended_05_test.dart sourceBytes=39339 sourceChars=39339 bundleJsonBytes=554292 clearMs=203 readMs=1 bundleMs=12 httpMs=529 totalMs=747 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=0 appParseMs=9 appSetStateMs=9 appInterpretStartMs=17 appInterpretEndMs=282 appFirstFrameMs=324 appPumpEndMs=525
+01:00 +50: material/ fab_center_offset_x_test.dart
+[METRIC] script=material/fab_center_offset_x_test.dart testFile=flutter_extended_05_test.dart sourceBytes=36872 sourceChars=36872 bundleJsonBytes=552458 clearMs=203 readMs=2 bundleMs=11 httpMs=515 totalMs=732 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=10 appInterpretEndMs=274 appFirstFrameMs=311 appPumpEndMs=511
+01:01 +51: material/ fab_contained_offset_y_test.dart
+[METRIC] script=material/fab_contained_offset_y_test.dart testFile=flutter_extended_05_test.dart sourceBytes=43395 sourceChars=43395 bundleJsonBytes=620402 clearMs=204 readMs=1 bundleMs=12 httpMs=524 totalMs=743 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=0 appParseMs=7 appSetStateMs=7 appInterpretStartMs=8 appInterpretEndMs=282 appFirstFrameMs=319 appPumpEndMs=520
+01:02 +52: material/ fab_docked_offset_y_test.dart
+[METRIC] script=material/fab_docked_offset_y_test.dart testFile=flutter_extended_05_test.dart sourceBytes=46004 sourceChars=46004 bundleJsonBytes=560853 clearMs=217 readMs=1 bundleMs=11 httpMs=545 totalMs=776 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=0 appParseMs=10 appSetStateMs=10 appInterpretStartMs=16 appInterpretEndMs=296 appFirstFrameMs=339 appPumpEndMs=541
+01:03 +53: material/ fab_end_offset_x_test.dart
+[METRIC] script=material/fab_end_offset_x_test.dart testFile=flutter_extended_05_test.dart sourceBytes=46168 sourceChars=46168 bundleJsonBytes=571228 clearMs=204 readMs=1 bundleMs=12 httpMs=534 totalMs=752 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=0 appParseMs=9 appSetStateMs=9 appInterpretStartMs=17 appInterpretEndMs=288 appFirstFrameMs=329 appPumpEndMs=531
+01:03 +54: material/ fab_float_offset_y_test.dart
+[METRIC] script=material/fab_float_offset_y_test.dart testFile=flutter_extended_05_test.dart sourceBytes=46932 sourceChars=46932 bundleJsonBytes=570505 clearMs=220 readMs=1 bundleMs=12 httpMs=522 totalMs=756 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=7 appInterpretEndMs=278 appFirstFrameMs=315 appPumpEndMs=517
+01:04 +55: material/ fab_mini_offset_adjustment_test.dart
+[METRIC] script=material/fab_mini_offset_adjustment_test.dart testFile=flutter_extended_05_test.dart sourceBytes=38723 sourceChars=38723 bundleJsonBytes=502174 clearMs=220 readMs=1 bundleMs=14 httpMs=522 totalMs=758 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=7 appInterpretEndMs=278 appFirstFrameMs=314 appPumpEndMs=515
+01:05 +56: material/ fab_start_offset_x_test.dart
+[METRIC] script=material/fab_start_offset_x_test.dart testFile=flutter_extended_05_test.dart sourceBytes=49194 sourceChars=49194 bundleJsonBytes=598332 clearMs=214 readMs=1 bundleMs=12 httpMs=524 totalMs=753 status=success httpStatus=200 outputLines=12 frameworkErrors=0 appBodyMs=0 appParseMs=9 appSetStateMs=9 appInterpretStartMs=14 appInterpretEndMs=283 appFirstFrameMs=318 appPumpEndMs=519
+01:06 +57: material/ fab_top_offset_y_test.dart
+[METRIC] script=material/fab_top_offset_y_test.dart testFile=flutter_extended_05_test.dart sourceBytes=49109 sourceChars=49109 bundleJsonBytes=609795 clearMs=217 readMs=1 bundleMs=13 httpMs=532 totalMs=764 status=success httpStatus=200 outputLines=27 frameworkErrors=0 appBodyMs=0 appParseMs=7 appSetStateMs=7 appInterpretStartMs=14 appInterpretEndMs=292 appFirstFrameMs=327 appPumpEndMs=528
+01:06 +58: material/ fade_forwards_page_transitions_builder_test.dart
+[METRIC] script=material/fade_forwards_page_transitions_builder_test.dart testFile=flutter_extended_05_test.dart sourceBytes=77793 sourceChars=77773 bundleJsonBytes=749641 clearMs=217 readMs=1 bundleMs=17 httpMs=680 totalMs=917 status=success httpStatus=200 outputLines=15 frameworkErrors=0 appBodyMs=2 appParseMs=14 appSetStateMs=14 appInterpretStartMs=17 appInterpretEndMs=361 appFirstFrameMs=474 appPumpEndMs=676
+01:07 +59: material/ flexible_space_bar_settings_test.dart
+[METRIC] script=material/flexible_space_bar_settings_test.dart testFile=flutter_extended_05_test.dart sourceBytes=36768 sourceChars=36768 bundleJsonBytes=467908 clearMs=204 readMs=1 bundleMs=10 httpMs=529 totalMs=745 status=success httpStatus=200 outputLines=40 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=10 appInterpretEndMs=279 appFirstFrameMs=323 appPumpEndMs=525
+01:08 +60: material/ floating_label_alignment_test.dart
+[METRIC] script=material/floating_label_alignment_test.dart testFile=flutter_extended_05_test.dart sourceBytes=63702 sourceChars=63702 bundleJsonBytes=767739 clearMs=216 readMs=1 bundleMs=17 httpMs=639 totalMs=874 status=success httpStatus=200 outputLines=14 frameworkErrors=0 appBodyMs=0 appParseMs=14 appSetStateMs=14 appInterpretStartMs=18 appInterpretEndMs=284 appFirstFrameMs=432 appPumpEndMs=634
+01:09 +61: (tearDownAll)
+01:10 +61: All tests passed!

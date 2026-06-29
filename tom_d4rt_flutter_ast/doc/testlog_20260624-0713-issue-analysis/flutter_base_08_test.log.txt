@@ -1,0 +1,147 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (104.0.0 available)
+  analyzer 10.2.0 (14.0.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.1.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.18.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.11 (0.7.12 available)
+! tom_ast_generator 0.1.3 from path ../tom_ast_generator (overridden in ./pubspec_overrides.yaml)
+! tom_ast_model 0.1.3 from path ../tom_ast_model (overridden in ./pubspec_overrides.yaml)
+  tom_build_base 2.6.21 (2.6.25 available)
+! tom_d4rt_ast 0.1.10 from path ../tom_d4rt_ast (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt_exec 1.9.0 from path ../tom_d4rt_exec (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt_generator 1.11.0 from path ../tom_d4rt_generator (overridden in ./pubspec_overrides.yaml)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+19 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_base_08_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+[test-app] waiting for /health on port 4247 (15s elapsed, 31 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:55601/SX9OvAbOc7Y=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:55601/SX9OvAbOc7Y=/devtools/?uri=ws://127.0.0.1:55601/SX9OvAbOc7Y=/ws
+=================================================================
+00:19 +0: Test App Health app is running
+00:19 +1: dart_ui/ individual accessibility_features_test.dart
+[METRIC] script=dart_ui/accessibility_features_test.dart testFile=flutter_base_08_test.dart sourceBytes=76388 sourceChars=76388 bundleJsonBytes=851983 clearMs=223 readMs=1 bundleMs=247 httpMs=1302 totalMs=1776 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=6 appParseMs=52 appSetStateMs=52 appInterpretStartMs=61 appInterpretEndMs=446 appFirstFrameMs=1090 appPumpEndMs=1292
+00:21 +2: dart_ui/ individual brightness_test.dart
+[METRIC] script=dart_ui/brightness_test.dart testFile=flutter_base_08_test.dart sourceBytes=22346 sourceChars=19336 bundleJsonBytes=212292 clearMs=203 readMs=3 bundleMs=18 httpMs=563 totalMs=789 status=success httpStatus=200 outputLines=32 frameworkErrors=0 appBodyMs=3 appParseMs=13 appSetStateMs=13 appInterpretStartMs=16 appInterpretEndMs=316 appFirstFrameMs=355 appPumpEndMs=557
+00:21 +3: dart_ui/ individual codec_test.dart
+[METRIC] script=dart_ui/codec_test.dart testFile=flutter_base_08_test.dart sourceBytes=29882 sourceChars=27872 bundleJsonBytes=325734 clearMs=203 readMs=3 bundleMs=23 httpMs=572 totalMs=803 status=success httpStatus=200 outputLines=27 frameworkErrors=0 appBodyMs=4 appParseMs=10 appSetStateMs=10 appInterpretStartMs=18 appInterpretEndMs=319 appFirstFrameMs=368 appPumpEndMs=569
+00:22 +4: dart_ui/ individual display_test.dart
+[METRIC] script=dart_ui/display_test.dart testFile=flutter_base_08_test.dart sourceBytes=33413 sourceChars=31574 bundleJsonBytes=324990 clearMs=203 readMs=4 bundleMs=20 httpMs=544 totalMs=773 status=success httpStatus=200 outputLines=28 frameworkErrors=0 appBodyMs=2 appParseMs=8 appSetStateMs=8 appInterpretStartMs=13 appInterpretEndMs=293 appFirstFrameMs=339 appPumpEndMs=539
+00:23 +5: dart_ui/ individual flutter_view_test.dart
+[METRIC] script=dart_ui/flutter_view_test.dart testFile=flutter_base_08_test.dart sourceBytes=29921 sourceChars=27921 bundleJsonBytes=277754 clearMs=204 readMs=2 bundleMs=11 httpMs=509 totalMs=728 status=success httpStatus=200 outputLines=28 frameworkErrors=0 appBodyMs=0 appParseMs=5 appSetStateMs=5 appInterpretStartMs=5 appInterpretEndMs=262 appFirstFrameMs=305 appPumpEndMs=506
+00:24 +6: dart_ui/ individual frame_data_test.dart
+[METRIC] script=dart_ui/frame_data_test.dart testFile=flutter_base_08_test.dart sourceBytes=29352 sourceChars=27512 bundleJsonBytes=302804 clearMs=216 readMs=1 bundleMs=11 httpMs=545 totalMs=774 status=success httpStatus=200 outputLines=16 frameworkErrors=0 appBodyMs=0 appParseMs=5 appSetStateMs=5 appInterpretStartMs=8 appInterpretEndMs=280 appFirstFrameMs=341 appPumpEndMs=541
+00:24 +7: dart_ui/ individual frame_info_test.dart
+[METRIC] script=dart_ui/frame_info_test.dart testFile=flutter_base_08_test.dart sourceBytes=29929 sourceChars=28061 bundleJsonBytes=316693 clearMs=203 readMs=1 bundleMs=11 httpMs=530 totalMs=747 status=success httpStatus=200 outputLines=21 frameworkErrors=0 appBodyMs=1 appParseMs=6 appSetStateMs=6 appInterpretStartMs=10 appInterpretEndMs=279 appFirstFrameMs=326 appPumpEndMs=526
+00:25 +8: dart_ui/ individual frame_timing_test.dart
+[METRIC] script=dart_ui/frame_timing_test.dart testFile=flutter_base_08_test.dart sourceBytes=28901 sourceChars=27361 bundleJsonBytes=326792 clearMs=203 readMs=1 bundleMs=14 httpMs=548 totalMs=769 status=success httpStatus=200 outputLines=13 frameworkErrors=0 appBodyMs=1 appParseMs=7 appSetStateMs=7 appInterpretStartMs=14 appInterpretEndMs=289 appFirstFrameMs=344 appPumpEndMs=544
+00:26 +9: dart_ui/ individual gesture_settings_test.dart
+[METRIC] script=dart_ui/gesture_settings_test.dart testFile=flutter_base_08_test.dart sourceBytes=23069 sourceChars=20057 bundleJsonBytes=227035 clearMs=221 readMs=1 bundleMs=15 httpMs=512 totalMs=749 status=success httpStatus=200 outputLines=14 frameworkErrors=0 appBodyMs=0 appParseMs=3 appSetStateMs=3 appInterpretStartMs=9 appInterpretEndMs=278 appFirstFrameMs=306 appPumpEndMs=508
+00:27 +10: dart_ui/ individual image_descriptor_test.dart
+[METRIC] script=dart_ui/image_descriptor_test.dart testFile=flutter_base_08_test.dart sourceBytes=25873 sourceChars=25873 bundleJsonBytes=385257 clearMs=215 readMs=1 bundleMs=25 httpMs=563 totalMs=807 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=9 appInterpretEndMs=243 appFirstFrameMs=358 appPumpEndMs=559
+00:28 +11: dart_ui/ individual immutable_buffer_test.dart
+[METRIC] script=dart_ui/immutable_buffer_test.dart testFile=flutter_base_08_test.dart sourceBytes=24336 sourceChars=24336 bundleJsonBytes=382637 clearMs=204 readMs=2 bundleMs=17 httpMs=1103 totalMs=1327 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=5 appSetStateMs=5 appInterpretStartMs=6 appInterpretEndMs=241 appFirstFrameMs=899 appPumpEndMs=1099
+00:29 +12: dart_ui/ individual key_data_test.dart
+[METRIC] script=dart_ui/key_data_test.dart testFile=flutter_base_08_test.dart sourceBytes=37062 sourceChars=37062 bundleJsonBytes=588971 clearMs=221 readMs=1 bundleMs=20 httpMs=597 totalMs=840 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=11 appInterpretEndMs=250 appFirstFrameMs=391 appPumpEndMs=592
+00:30 +13: dart_ui/ individual locale_string_attribute_test.dart
+[METRIC] script=dart_ui/locale_string_attribute_test.dart testFile=flutter_base_08_test.dart sourceBytes=36948 sourceChars=36936 bundleJsonBytes=599523 clearMs=218 readMs=1 bundleMs=27 httpMs=530 totalMs=778 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=12 appInterpretEndMs=246 appFirstFrameMs=324 appPumpEndMs=526
+00:30 +14: dart_ui/ individual offset_base_test.dart
+[METRIC] script=dart_ui/offset_base_test.dart testFile=flutter_base_08_test.dart sourceBytes=36872 sourceChars=34723 bundleJsonBytes=462847 clearMs=219 readMs=1 bundleMs=21 httpMs=544 totalMs=786 status=success httpStatus=200 outputLines=45 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=14 appInterpretEndMs=288 appFirstFrameMs=340 appPumpEndMs=540
+00:31 +15: dart_ui/ individual path_metric_iterator_test.dart
+[METRIC] script=dart_ui/path_metric_iterator_test.dart testFile=flutter_base_08_test.dart sourceBytes=33496 sourceChars=33496 bundleJsonBytes=561522 clearMs=204 readMs=1 bundleMs=18 httpMs=537 totalMs=761 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=7 appSetStateMs=7 appInterpretStartMs=9 appInterpretEndMs=247 appFirstFrameMs=332 appPumpEndMs=533
+00:32 +16: dart_ui/ individual path_metric_test.dart
+[METRIC] script=dart_ui/path_metric_test.dart testFile=flutter_base_08_test.dart sourceBytes=37488 sourceChars=35946 bundleJsonBytes=534405 clearMs=217 readMs=1 bundleMs=22 httpMs=529 totalMs=771 status=success httpStatus=200 outputLines=21 frameworkErrors=0 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=19 appInterpretEndMs=287 appFirstFrameMs=323 appPumpEndMs=524
+00:33 +17: dart_ui/ individual path_metrics_test.dart
+[METRIC] script=dart_ui/path_metrics_test.dart testFile=flutter_base_08_test.dart sourceBytes=27950 sourceChars=27950 bundleJsonBytes=514677 clearMs=220 readMs=1 bundleMs=16 httpMs=528 totalMs=766 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=12 appSetStateMs=12 appInterpretStartMs=16 appInterpretEndMs=247 appFirstFrameMs=323 appPumpEndMs=524
+00:34 +18: dart_ui/ individual platform_dispatcher_test.dart
+[METRIC] script=dart_ui/platform_dispatcher_test.dart testFile=flutter_base_08_test.dart sourceBytes=34333 sourceChars=34333 bundleJsonBytes=558774 clearMs=203 readMs=1 bundleMs=16 httpMs=555 totalMs=778 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=6 appSetStateMs=6 appInterpretStartMs=12 appInterpretEndMs=257 appFirstFrameMs=350 appPumpEndMs=551
+00:34 +19: dart_ui/ individual pointer_data_packet_test.dart
+[METRIC] script=dart_ui/pointer_data_packet_test.dart testFile=flutter_base_08_test.dart sourceBytes=36636 sourceChars=33896 bundleJsonBytes=446748 clearMs=216 readMs=1 bundleMs=12 httpMs=552 totalMs=784 status=success httpStatus=200 outputLines=41 frameworkErrors=0 appBodyMs=1 appParseMs=8 appSetStateMs=8 appInterpretStartMs=14 appInterpretEndMs=301 appFirstFrameMs=346 appPumpEndMs=548
+00:35 +20: dart_ui/ individual pointer_data_test.dart
+[METRIC] script=dart_ui/pointer_data_test.dart testFile=flutter_base_08_test.dart sourceBytes=56159 sourceChars=56153 bundleJsonBytes=667102 clearMs=203 readMs=1 bundleMs=32 httpMs=1217 totalMs=1456 status=success httpStatus=200 outputLines=0 frameworkErrors=2 appBodyMs=1 appParseMs=11 appSetStateMs=11 appInterpretStartMs=13 appInterpretEndMs=259 appFirstFrameMs=1011 appPumpEndMs=1213
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/pointer_data_test.dart (2 error(s)):
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+       ListTile background color or ink splashes may be invisible.
+The ListTile is wrapped in a DecoratedBox that has a background color. Because ListTile paints its background and ink splashes on the neares…
+00:37 +21: dart_ui/ individual r_superellipse_test.dart
+[METRIC] script=dart_ui/r_superellipse_test.dart testFile=flutter_base_08_test.dart sourceBytes=38054 sourceChars=35926 bundleJsonBytes=463827 clearMs=217 readMs=1 bundleMs=18 httpMs=533 totalMs=771 status=success httpStatus=200 outputLines=46 frameworkErrors=0 appBodyMs=1 appParseMs=8 appSetStateMs=8 appInterpretStartMs=16 appInterpretEndMs=283 appFirstFrameMs=327 appPumpEndMs=529
+00:37 +22: dart_ui/ individual scene_builder_test.dart
+[METRIC] script=dart_ui/scene_builder_test.dart testFile=flutter_base_08_test.dart sourceBytes=37029 sourceChars=34295 bundleJsonBytes=466967 clearMs=218 readMs=1 bundleMs=17 httpMs=535 totalMs=772 status=success httpStatus=200 outputLines=22 frameworkErrors=0 appBodyMs=1 appParseMs=8 appSetStateMs=8 appInterpretStartMs=10 appInterpretEndMs=280 appFirstFrameMs=329 appPumpEndMs=531
+00:38 +23: dart_ui/ individual scene_test.dart
+[METRIC] script=dart_ui/scene_test.dart testFile=flutter_base_08_test.dart sourceBytes=88420 sourceChars=88264 bundleJsonBytes=798751 clearMs=220 readMs=2 bundleMs=22 httpMs=789 totalMs=1034 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=14 appSetStateMs=14 appInterpretStartMs=17 appInterpretEndMs=509 appFirstFrameMs=583 appPumpEndMs=784
+00:39 +24: dart_ui/ individual semantics_action_event_test.dart
+[METRIC] script=dart_ui/semantics_action_event_test.dart testFile=flutter_base_08_test.dart sourceBytes=85211 sourceChars=85095 bundleJsonBytes=871351 clearMs=203 readMs=2 bundleMs=26 httpMs=580 totalMs=812 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=17 appSetStateMs=17 appInterpretStartMs=19 appInterpretEndMs=305 appFirstFrameMs=373 appPumpEndMs=575
+00:40 +25: dart_ui/ individual semantics_flag_test.dart
+[METRIC] script=dart_ui/semantics_flag_test.dart testFile=flutter_base_08_test.dart sourceBytes=47773 sourceChars=47729 bundleJsonBytes=580107 clearMs=219 readMs=1 bundleMs=14 httpMs=597 totalMs=833 status=success httpStatus=200 outputLines=36 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=18 appInterpretEndMs=301 appFirstFrameMs=392 appPumpEndMs=593
+00:41 +26: dart_ui/ individual semantics_flags_test.dart
+[METRIC] script=dart_ui/semantics_flags_test.dart testFile=flutter_base_08_test.dart sourceBytes=63021 sourceChars=63021 bundleJsonBytes=693268 clearMs=204 readMs=1 bundleMs=16 httpMs=633 totalMs=855 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=7 appSetStateMs=7 appInterpretStartMs=13 appInterpretEndMs=321 appFirstFrameMs=426 appPumpEndMs=628
+00:42 +27: dart_ui/ individual semantics_update_builder_test.dart
+[METRIC] script=dart_ui/semantics_update_builder_test.dart testFile=flutter_base_08_test.dart sourceBytes=32410 sourceChars=29682 bundleJsonBytes=382794 clearMs=216 readMs=1 bundleMs=12 httpMs=514 totalMs=744 status=success httpStatus=200 outputLines=28 frameworkErrors=0 appBodyMs=1 appParseMs=7 appSetStateMs=7 appInterpretStartMs=14 appInterpretEndMs=277 appFirstFrameMs=308 appPumpEndMs=510
+00:42 +28: dart_ui/ individual semantics_update_test.dart
+[METRIC] script=dart_ui/semantics_update_test.dart testFile=flutter_base_08_test.dart sourceBytes=45014 sourceChars=45008 bundleJsonBytes=614336 clearMs=202 readMs=2 bundleMs=45 httpMs=588 totalMs=838 status=success httpStatus=200 outputLines=48 frameworkErrors=0 appBodyMs=0 appParseMs=10 appSetStateMs=10 appInterpretStartMs=13 appInterpretEndMs=316 appFirstFrameMs=382 appPumpEndMs=583
+00:43 +29: dart_ui/ individual spell_out_string_attribute_test.dart
+[METRIC] script=dart_ui/spell_out_string_attribute_test.dart testFile=flutter_base_08_test.dart sourceBytes=72858 sourceChars=72858 bundleJsonBytes=832452 clearMs=203 readMs=1 bundleMs=57 httpMs=586 totalMs=849 status=success httpStatus=200 outputLines=23 frameworkErrors=0 appBodyMs=3 appParseMs=17 appSetStateMs=17 appInterpretStartMs=18 appInterpretEndMs=312 appFirstFrameMs=379 appPumpEndMs=581
+00:44 +30: dart_ui/ individual string_attribute_test.dart
+[METRIC] script=dart_ui/string_attribute_test.dart testFile=flutter_base_08_test.dart sourceBytes=86398 sourceChars=86294 bundleJsonBytes=979392 clearMs=218 readMs=2 bundleMs=49 httpMs=818 totalMs=1088 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=21 appSetStateMs=21 appInterpretStartMs=25 appInterpretEndMs=526 appFirstFrameMs=611 appPumpEndMs=812
+00:45 +31: dart_ui/ individual system_color_test.dart
+[METRIC] script=dart_ui/system_color_test.dart testFile=flutter_base_08_test.dart sourceBytes=36072 sourceChars=33644 bundleJsonBytes=404770 clearMs=202 readMs=1 bundleMs=18 httpMs=503 totalMs=726 status=success httpStatus=200 outputLines=55 frameworkErrors=0 appBodyMs=1 appParseMs=7 appSetStateMs=7 appInterpretStartMs=8 appInterpretEndMs=269 appFirstFrameMs=297 appPumpEndMs=499
+00:46 +32: dart_ui/ individual target_image_size_test.dart
+[METRIC] script=dart_ui/target_image_size_test.dart testFile=flutter_base_08_test.dart sourceBytes=72110 sourceChars=71939 bundleJsonBytes=833764 clearMs=215 readMs=1 bundleMs=21 httpMs=793 totalMs=1032 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=14 appSetStateMs=14 appInterpretStartMs=17 appInterpretEndMs=507 appFirstFrameMs=581 appPumpEndMs=783
+00:47 +33: dart_ui/ individual view_constraints_test.dart
+[METRIC] script=dart_ui/view_constraints_test.dart testFile=flutter_base_08_test.dart sourceBytes=47097 sourceChars=47069 bundleJsonBytes=642816 clearMs=203 readMs=1 bundleMs=20 httpMs=541 totalMs=767 status=success httpStatus=200 outputLines=32 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=16 appInterpretEndMs=286 appFirstFrameMs=335 appPumpEndMs=536
+00:48 +34: dart_ui/ individual view_focus_event_test.dart
+[METRIC] script=dart_ui/view_focus_event_test.dart testFile=flutter_base_08_test.dart sourceBytes=55810 sourceChars=55810 bundleJsonBytes=695662 clearMs=202 readMs=1 bundleMs=17 httpMs=524 totalMs=745 status=success httpStatus=200 outputLines=26 frameworkErrors=0 appBodyMs=0 appParseMs=8 appSetStateMs=8 appInterpretStartMs=10 appInterpretEndMs=277 appFirstFrameMs=319 appPumpEndMs=519
+00:48 +35: foundation/ individual aggregated_timed_block_test.dart
+[METRIC] script=foundation/aggregated_timed_block_test.dart testFile=flutter_base_08_test.dart sourceBytes=67255 sourceChars=67179 bundleJsonBytes=697955 clearMs=203 readMs=2 bundleMs=21 httpMs=600 totalMs=827 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=15 appSetStateMs=15 appInterpretStartMs=23 appInterpretEndMs=291 appFirstFrameMs=394 appPumpEndMs=596
+00:49 +36: foundation/ individual aggregated_timings_test.dart
+[METRIC] script=foundation/aggregated_timings_test.dart testFile=flutter_base_08_test.dart sourceBytes=60232 sourceChars=60232 bundleJsonBytes=752024 clearMs=219 readMs=1 bundleMs=24 httpMs=567 totalMs=813 status=success httpStatus=200 outputLines=33 frameworkErrors=0 appBodyMs=0 appParseMs=10 appSetStateMs=10 appInterpretStartMs=16 appInterpretEndMs=295 appFirstFrameMs=362 appPumpEndMs=563
+00:50 +37: foundation/ individual bit_field_test.dart
+[METRIC] script=foundation/bit_field_test.dart testFile=flutter_base_08_test.dart sourceBytes=65552 sourceChars=65509 bundleJsonBytes=743119 clearMs=220 readMs=1 bundleMs=35 httpMs=582 totalMs=840 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=13 appSetStateMs=13 appInterpretStartMs=21 appInterpretEndMs=306 appFirstFrameMs=375 appPumpEndMs=577
+00:51 +38: foundation/ individual flutter_timeline_test.dart
+[METRIC] script=foundation/flutter_timeline_test.dart testFile=flutter_base_08_test.dart sourceBytes=49610 sourceChars=49534 bundleJsonBytes=541005 clearMs=216 readMs=2 bundleMs=24 httpMs=578 totalMs=821 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=9 appSetStateMs=9 appInterpretStartMs=11 appInterpretEndMs=307 appFirstFrameMs=372 appPumpEndMs=574
+00:52 +39: foundation/ individual partial_stack_frame_test.dart
+[METRIC] script=foundation/partial_stack_frame_test.dart testFile=flutter_base_08_test.dart sourceBytes=62793 sourceChars=62773 bundleJsonBytes=748900 clearMs=217 readMs=2 bundleMs=26 httpMs=534 totalMs=781 status=success httpStatus=200 outputLines=58 frameworkErrors=0 appBodyMs=1 appParseMs=14 appSetStateMs=14 appInterpretStartMs=16 appInterpretEndMs=285 appFirstFrameMs=329 appPumpEndMs=530
+00:53 +40: foundation/ individual persistent_hash_map_test.dart
+[METRIC] script=foundation/persistent_hash_map_test.dart testFile=flutter_base_08_test.dart sourceBytes=58596 sourceChars=58544 bundleJsonBytes=719937 clearMs=217 readMs=1 bundleMs=34 httpMs=643 totalMs=896 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=1 appParseMs=12 appSetStateMs=12 appInterpretStartMs=18 appInterpretEndMs=279 appFirstFrameMs=436 appPumpEndMs=638
+00:53 +41: foundation/ individual read_buffer_test.dart
+[METRIC] script=foundation/read_buffer_test.dart testFile=flutter_base_08_test.dart sourceBytes=59200 sourceChars=59124 bundleJsonBytes=746848 clearMs=202 readMs=2 bundleMs=23 httpMs=694 totalMs=923 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=16 appSetStateMs=16 appInterpretStartMs=19 appInterpretEndMs=409 appFirstFrameMs=487 appPumpEndMs=689
+00:54 +42: foundation/ individual repetitive_stack_frame_filter_test.dart
+[METRIC] script=foundation/repetitive_stack_frame_filter_test.dart testFile=flutter_base_08_test.dart sourceBytes=52356 sourceChars=52356 bundleJsonBytes=576911 clearMs=202 readMs=1 bundleMs=19 httpMs=587 totalMs=811 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=0 appParseMs=7 appSetStateMs=7 appInterpretStartMs=8 appInterpretEndMs=295 appFirstFrameMs=382 appPumpEndMs=582
+00:55 +43: foundation/ individual stack_filter_test.dart
+[METRIC] script=foundation/stack_filter_test.dart testFile=flutter_base_08_test.dart sourceBytes=64108 sourceChars=64054 bundleJsonBytes=553446 clearMs=204 readMs=1 bundleMs=24 httpMs=580 totalMs=811 status=success httpStatus=200 outputLines=29 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=11 appInterpretEndMs=319 appFirstFrameMs=374 appPumpEndMs=575
+00:56 +44: foundation/ individual stack_frame_test.dart
+[METRIC] script=foundation/stack_frame_test.dart testFile=flutter_base_08_test.dart sourceBytes=43518 sourceChars=43508 bundleJsonBytes=532385 clearMs=217 readMs=1 bundleMs=14 httpMs=545 totalMs=779 status=success httpStatus=200 outputLines=29 frameworkErrors=0 appBodyMs=1 appParseMs=10 appSetStateMs=10 appInterpretStartMs=11 appInterpretEndMs=294 appFirstFrameMs=339 appPumpEndMs=541
+00:57 +45: foundation/ individual timed_block_test.dart
+[METRIC] script=foundation/timed_block_test.dart testFile=flutter_base_08_test.dart sourceBytes=55885 sourceChars=55860 bundleJsonBytes=701004 clearMs=202 readMs=1 bundleMs=22 httpMs=583 totalMs=809 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=13 appSetStateMs=13 appInterpretStartMs=21 appInterpretEndMs=276 appFirstFrameMs=377 appPumpEndMs=578
+00:58 +46: foundation/ individual unicode_test.dart
+[METRIC] script=foundation/unicode_test.dart testFile=flutter_base_08_test.dart sourceBytes=67769 sourceChars=67767 bundleJsonBytes=777124 clearMs=217 readMs=2 bundleMs=19 httpMs=596 totalMs=837 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=4 appParseMs=15 appSetStateMs=15 appInterpretStartMs=20 appInterpretEndMs=300 appFirstFrameMs=390 appPumpEndMs=592
+00:58 +47: foundation/ individual write_buffer_test.dart
+[METRIC] script=foundation/write_buffer_test.dart testFile=flutter_base_08_test.dart sourceBytes=77792 sourceChars=77667 bundleJsonBytes=956591 clearMs=218 readMs=2 bundleMs=25 httpMs=875 totalMs=1121 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=2 appParseMs=20 appSetStateMs=20 appInterpretStartMs=24 appInterpretEndMs=327 appFirstFrameMs=668 appPumpEndMs=870
+01:00 +48: (tearDownAll)
+01:01 +48: All tests passed!

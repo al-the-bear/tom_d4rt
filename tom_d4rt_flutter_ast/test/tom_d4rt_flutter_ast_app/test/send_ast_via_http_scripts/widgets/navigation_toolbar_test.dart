@@ -190,39 +190,51 @@ class _GlobalDeck extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: SwitchListTile(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
                   value: compact,
                   onChanged: onCompactChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Compact scenes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
+                ),
               ),
               Expanded(
-                child: SwitchListTile(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
                   value: guides,
                   onChanged: onGuidesChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Guide overlays', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
+                ),
               ),
               Expanded(
-                child: SwitchListTile(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
                   value: notes,
                   onChanged: onNotesChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Instruction notes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                 ),
+                ),
               ),
               Expanded(
-                child: SwitchListTile(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
                   value: rtl,
                   onChanged: onRtlChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: const Text('RTL mode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                ),
                 ),
               ),
             ],
@@ -346,33 +358,45 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                     children: [
                       const Text('Fundamentals controls', style: TextStyle(fontWeight: FontWeight.w800)),
                       const SizedBox(height: 8),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _centerMiddle,
                         onChanged: (v) => setState(() => _centerMiddle = v),
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('centerMiddle'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _showLeading,
                         onChanged: (v) => setState(() => _showLeading = v),
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Show leading'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _showMiddle,
                         onChanged: (v) => setState(() => _showMiddle = v),
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Show middle'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _showTrailing,
                         onChanged: (v) => setState(() => _showTrailing = v),
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Show trailing'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       _MiniSlider(
@@ -870,19 +894,25 @@ class _ResponsiveSceneState extends State<_ResponsiveScene> {
                         max: 680,
                         onChanged: (v) => setState(() => _frameWidth = v),
                       ),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _denseActions,
                         onChanged: (v) => setState(() => _denseActions = v),
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Dense trailing actions'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _centerMiddle,
                         onChanged: (v) => setState(() => _centerMiddle = v),
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('centerMiddle'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       _DataTableCard(
@@ -1049,19 +1079,25 @@ class _DirectionalitySceneState extends State<_DirectionalityScene> {
                     children: [
                       const Text('Directionality controls', style: TextStyle(fontWeight: FontWeight.w800)),
                       const SizedBox(height: 8),
-                      SwitchListTile(
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _rtlLocal,
                         onChanged: (v) => setState(() => _rtlLocal = v),
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('Use RTL for this scene'),
                       ),
-                      SwitchListTile(
+                      ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
                         value: _centerMiddle,
                         onChanged: (v) => setState(() => _centerMiddle = v),
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         title: const Text('centerMiddle'),
+                      ),
                       ),
                       const SizedBox(height: 8),
                       _DataTableCard(
@@ -1450,7 +1486,9 @@ class _PracticalModuleState extends State<_PracticalModule> {
             ),
           ),
           const SizedBox(height: 6),
-          SwitchListTile(
+          Material(
+            type: MaterialType.transparency,
+            child: SwitchListTile(
             value: _centerMiddle,
             onChanged: (v) {
               setState(() => _centerMiddle = v);
@@ -1459,6 +1497,7 @@ class _PracticalModuleState extends State<_PracticalModule> {
             dense: true,
             contentPadding: EdgeInsets.zero,
             title: const Text('centerMiddle', style: TextStyle(fontSize: 12)),
+          ),
           ),
           _MiniSlider(
             label: 'spacing',

@@ -1175,7 +1175,10 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(10.0),
             border: Border.all(color: kPaletteCloud, width: 1.0),
           ),
-          child: Column(children: checkboxTiles),
+          child: Material(
+            type: MaterialType.transparency,
+            child: Column(children: checkboxTiles),
+          ),
         ),
       ],
     ),
@@ -1287,7 +1290,10 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(10.0),
             border: Border.all(color: kPaletteCloud, width: 1.0),
           ),
-          child: radioTiles,
+          child: Material(
+            type: MaterialType.transparency,
+            child: radioTiles,
+          ),
         ),
       ],
     ),
@@ -1408,7 +1414,10 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(10.0),
             border: Border.all(color: kPaletteCloud, width: 1.0),
           ),
-          child: switchTiles,
+          child: Material(
+            type: MaterialType.transparency,
+            child: switchTiles,
+          ),
         ),
       ],
     ),
@@ -1950,7 +1959,9 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(color: kPaletteCloud, width: 1.0),
     ),
-    child: Column(
+    child: Material(
+      type: MaterialType.transparency,
+      child: Column(
       children: <Widget>[
         CheckboxListTile(
           value: true,
@@ -1975,6 +1986,7 @@ dynamic build(BuildContext context) {
         ),
       ],
     ),
+    ),
   );
 
   final Widget bookRadioGroup = Container(
@@ -1983,7 +1995,9 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(color: kPaletteCloud, width: 1.0),
     ),
-    child: RadioGroup<String>(
+    child: Material(
+      type: MaterialType.transparency,
+      child: RadioGroup<String>(
       groupValue: 'standard',
       onChanged: (_) {},
       child: const Column(
@@ -2009,6 +2023,7 @@ dynamic build(BuildContext context) {
         ],
       ),
     ),
+    ),
   );
 
   final Widget bookSwitches = Container(
@@ -2017,7 +2032,9 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(color: kPaletteCloud, width: 1.0),
     ),
-    child: Column(
+    child: Material(
+      type: MaterialType.transparency,
+      child: Column(
       children: <Widget>[
         SwitchListTile(
           value: true,
@@ -2041,6 +2058,7 @@ dynamic build(BuildContext context) {
           activeThumbColor: kPaletteGreen,
         ),
       ],
+    ),
     ),
   );
 

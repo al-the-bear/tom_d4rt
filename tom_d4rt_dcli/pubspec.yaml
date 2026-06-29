@@ -13,8 +13,10 @@ environment:
   sdk: ^3.10.4
 
 dependencies:
-  # D4rt runtime
-  tom_d4rt: ^1.8.20
+  # D4rt runtime. Floor raised to 1.10.1 (import-optimization Phase 6;
+  # precise-before-fuzzy Environment.toBridgedClass fix). Override-pinned to
+  # ../tom_d4rt in-tree via pubspec_overrides.yaml, so the bump is cosmetic.
+  tom_d4rt: ^1.10.1
 
   # VS Code scripting API (for bridge support)
   tom_vscode_scripting_api: ^1.0.1
@@ -44,4 +46,8 @@ dev_dependencies:
   build_runner: ^2.4.15
   lints: ^6.0.0
   test: ^1.25.6
-  tom_d4rt_generator: ^1.9.0
+  # analyzer-10 migration: tom_d4rt_generator (still analyzer ^8.4.1) cannot
+  # share a resolution with tom_d4rt's analyzer ^10. Bridge regeneration is
+  # deferred to the cli_tools-quest generator migration; committed *.b.dart
+  # bridges are used as-is in the meantime.
+  # tom_d4rt_generator: ^1.9.0

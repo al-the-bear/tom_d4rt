@@ -202,6 +202,40 @@ void main() {
       });
     });
 
+    group('Inherited Iterable<E> argument erasure (issue #4)', () {
+      test(
+        'G-TE-16: Inherited Iterable<E> method arg keeps element type. '
+        '[2026-06-28] (PASS)',
+        () {
+          // EntityList<E extends BaseEntity> extends Iterable<E>, inheriting
+          // followedBy(Iterable<E> other). The argument must NOT be extracted
+          // as a bare `Iterable` (= Iterable<dynamic>) — that does not assign
+          // to the native Iterable<BaseEntity> parameter. The element type
+          // (E -> BaseEntity) must survive so the coerceList path fires.
+          expect(
+            generatedCode,
+            contains("'followedBy'"),
+            reason: 'Inherited followedBy should be bridged on EntityList',
+          );
+          expect(
+            generatedCode,
+            isNot(contains("D4.getRequiredArg<Iterable>(positional, 0, "
+                "'other', 'followedBy')")),
+            reason:
+                'Issue #4: argument of inherited Iterable<E>.followedBy must '
+                'not be erased to a bare Iterable',
+          );
+          expect(
+            generatedCode,
+            contains(r"D4.coerceList<$test_package_1.BaseEntity>"),
+            reason:
+                'Iterable<E> with E extends BaseEntity must extract via '
+                'coerceList<BaseEntity>',
+          );
+        },
+      );
+    });
+
     group('Recursive Type Bounds', () {
       test('G-TE-8: Recursive type bound T extends Comparable<T> is handled without stack overflow. [2026-02-10 06:37] (PASS)', () {
         // sortItems<T extends Comparable<T>> should compile without issues

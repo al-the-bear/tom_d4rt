@@ -150,6 +150,28 @@ Map<K, V> buildEntityMap<K extends Comparable, V extends BaseEntity>(
 }
 
 // =============================================================================
+// Issue #4: inherited Iterable<E> method argument erasure
+// =============================================================================
+
+/// Reproduces GitHub issue #4 (mirrors `TomList<E extends TomObject>`):
+/// a class parameterised by `E extends BaseEntity` that **extends**
+/// `Iterable<E>`. It therefore inherits concrete `Iterable<E>` members such
+/// as `followedBy(Iterable<E> other)`. After erasing `E` to its bound the
+/// native signature is `Iterable<BaseEntity> followedBy(Iterable<BaseEntity>)`.
+/// The generated bridge must keep the element type on the argument (so the
+/// existing `coerceList` / `_isListType` path fires) rather than dropping it
+/// to a bare `Iterable` (= `Iterable<dynamic>`), which would not be assignable
+/// to the native `Iterable<BaseEntity>` parameter.
+class EntityList<E extends BaseEntity> extends Iterable<E> {
+  final List<E> _items = [];
+
+  void add(E item) => _items.add(item);
+
+  @override
+  Iterator<E> get iterator => _items.iterator;
+}
+
+// =============================================================================
 // Recursive Type Bounds (T extends Comparable<T>)
 // =============================================================================
 

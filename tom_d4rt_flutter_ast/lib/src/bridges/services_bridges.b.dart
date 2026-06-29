@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 45 files
-// Generated: 2026-06-17T19:04:59.913031
+// Generated: 2026-06-28T14:30:30.201557
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
 import 'package:tom_d4rt_ast/d4rt.dart';
 import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
@@ -74,6 +74,10 @@ import 'package:vector_math/vector_math_64.dart' as $vector_math_1;
 /// Bridge class for flutter_services module.
 class FlutterServicesBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createAssetBundleBridge(),
@@ -95,6 +99,7 @@ class FlutterServicesBridge {
       _createTextEditingValueBridge(),
       _createScribbleClientBridge(),
       _createSelectionRectBridge(),
+      _createTextInputStyleBridge(),
       _createTextInputConnectionBridge(),
       _createTextInputBridge(),
       _createSystemContextMenuControllerBridge(),
@@ -205,6 +210,277 @@ class FlutterServicesBridge {
     ];
   }
 
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'AssetBundle': _createAssetBundleBridge,
+      'NetworkAssetBundle': _createNetworkAssetBundleBridge,
+      'CachingAssetBundle': _createCachingAssetBundleBridge,
+      'PlatformAssetBundle': _createPlatformAssetBundleBridge,
+      'AssetManifest': _createAssetManifestBridge,
+      'AssetMetadata': _createAssetMetadataBridge,
+      'Matrix4': _createMatrix4Bridge,
+      'AutofillHints': _createAutofillHintsBridge,
+      'AutofillConfiguration': _createAutofillConfigurationBridge,
+      'AutofillClient': _createAutofillClientBridge,
+      'AutofillScope': _createAutofillScopeBridge,
+      'AutofillScopeMixin': _createAutofillScopeMixinBridge,
+      'TextSelection': _createTextSelectionBridge,
+      'TextInputType': _createTextInputTypeBridge,
+      'TextInputConfiguration': _createTextInputConfigurationBridge,
+      'RawFloatingCursorPoint': _createRawFloatingCursorPointBridge,
+      'TextEditingValue': _createTextEditingValueBridge,
+      'ScribbleClient': _createScribbleClientBridge,
+      'SelectionRect': _createSelectionRectBridge,
+      'TextInputStyle': _createTextInputStyleBridge,
+      'TextInputConnection': _createTextInputConnectionBridge,
+      'TextInput': _createTextInputBridge,
+      'SystemContextMenuController': _createSystemContextMenuControllerBridge,
+      'IOSSystemContextMenuItemData': _createIOSSystemContextMenuItemDataBridge,
+      'IOSSystemContextMenuItemDataCopy': _createIOSSystemContextMenuItemDataCopyBridge,
+      'IOSSystemContextMenuItemDataCut': _createIOSSystemContextMenuItemDataCutBridge,
+      'IOSSystemContextMenuItemDataPaste': _createIOSSystemContextMenuItemDataPasteBridge,
+      'IOSSystemContextMenuItemDataSelectAll': _createIOSSystemContextMenuItemDataSelectAllBridge,
+      'IOSSystemContextMenuItemDataLookUp': _createIOSSystemContextMenuItemDataLookUpBridge,
+      'IOSSystemContextMenuItemDataSearchWeb': _createIOSSystemContextMenuItemDataSearchWebBridge,
+      'IOSSystemContextMenuItemDataShare': _createIOSSystemContextMenuItemDataShareBridge,
+      'IOSSystemContextMenuItemDataLiveText': _createIOSSystemContextMenuItemDataLiveTextBridge,
+      'IOSSystemContextMenuItemDataCustom': _createIOSSystemContextMenuItemDataCustomBridge,
+      'TextSelectionDelegate': _createTextSelectionDelegateBridge,
+      'TextInputClient': _createTextInputClientBridge,
+      'DeltaTextInputClient': _createDeltaTextInputClientBridge,
+      'TextInputControl': _createTextInputControlBridge,
+      'TextEditingDelta': _createTextEditingDeltaBridge,
+      'TextEditingDeltaInsertion': _createTextEditingDeltaInsertionBridge,
+      'TextEditingDeltaDeletion': _createTextEditingDeltaDeletionBridge,
+      'TextEditingDeltaReplacement': _createTextEditingDeltaReplacementBridge,
+      'TextEditingDeltaNonTextUpdate': _createTextEditingDeltaNonTextUpdateBridge,
+      'BinaryMessenger': _createBinaryMessengerBridge,
+      'KeyboardKey': _createKeyboardKeyBridge,
+      'LogicalKeyboardKey': _createLogicalKeyboardKeyBridge,
+      'PhysicalKeyboardKey': _createPhysicalKeyboardKeyBridge,
+      'KeyEvent': _createKeyEventBridge,
+      'KeyDownEvent': _createKeyDownEventBridge,
+      'KeyUpEvent': _createKeyUpEventBridge,
+      'KeyRepeatEvent': _createKeyRepeatEventBridge,
+      'HardwareKeyboard': _createHardwareKeyboardBridge,
+      'RestorationManager': _createRestorationManagerBridge,
+      'RestorationBucket': _createRestorationBucketBridge,
+      'ServicesBinding': _createServicesBindingBridge,
+      'SystemContextMenuClient': _createSystemContextMenuClientBridge,
+      'BrowserContextMenu': _createBrowserContextMenuBridge,
+      'ClipboardData': _createClipboardDataBridge,
+      'Clipboard': _createClipboardBridge,
+      'DeferredComponent': _createDeferredComponentBridge,
+      'FlutterVersion': _createFlutterVersionBridge,
+      'FontLoader': _createFontLoaderBridge,
+      'HapticFeedback': _createHapticFeedbackBridge,
+      'KeyboardInsertedContent': _createKeyboardInsertedContentBridge,
+      'LiveText': _createLiveTextBridge,
+      'MessageCodec': _createMessageCodecBridge,
+      'MethodCall': _createMethodCallBridge,
+      'MethodCodec': _createMethodCodecBridge,
+      'PlatformException': _createPlatformExceptionBridge,
+      'MissingPluginException': _createMissingPluginExceptionBridge,
+      'BinaryCodec': _createBinaryCodecBridge,
+      'StringCodec': _createStringCodecBridge,
+      'JSONMessageCodec': _createJSONMessageCodecBridge,
+      'JSONMethodCodec': _createJSONMethodCodecBridge,
+      'StandardMessageCodec': _createStandardMessageCodecBridge,
+      'StandardMethodCodec': _createStandardMethodCodecBridge,
+      'PointerEvent': _createPointerEventBridge,
+      'MouseCursorManager': _createMouseCursorManagerBridge,
+      'MouseCursorSession': _createMouseCursorSessionBridge,
+      'MouseCursor': _createMouseCursorBridge,
+      'SystemMouseCursor': _createSystemMouseCursorBridge,
+      'SystemMouseCursors': _createSystemMouseCursorsBridge,
+      'MouseTrackerAnnotation': _createMouseTrackerAnnotationBridge,
+      'BasicMessageChannel': _createBasicMessageChannelBridge,
+      'MethodChannel': _createMethodChannelBridge,
+      'OptionalMethodChannel': _createOptionalMethodChannelBridge,
+      'EventChannel': _createEventChannelBridge,
+      'PlatformViewsRegistry': _createPlatformViewsRegistryBridge,
+      'PlatformViewsService': _createPlatformViewsServiceBridge,
+      'AndroidPointerProperties': _createAndroidPointerPropertiesBridge,
+      'AndroidPointerCoords': _createAndroidPointerCoordsBridge,
+      'AndroidMotionEvent': _createAndroidMotionEventBridge,
+      'AndroidViewController': _createAndroidViewControllerBridge,
+      'SurfaceAndroidViewController': _createSurfaceAndroidViewControllerBridge,
+      'ExpensiveAndroidViewController': _createExpensiveAndroidViewControllerBridge,
+      'HybridAndroidViewController': _createHybridAndroidViewControllerBridge,
+      'TextureAndroidViewController': _createTextureAndroidViewControllerBridge,
+      'DarwinPlatformViewController': _createDarwinPlatformViewControllerBridge,
+      'UiKitViewController': _createUiKitViewControllerBridge,
+      'AppKitViewController': _createAppKitViewControllerBridge,
+      'PlatformViewController': _createPlatformViewControllerBridge,
+      'PredictiveBackEvent': _createPredictiveBackEventBridge,
+      'ProcessTextAction': _createProcessTextActionBridge,
+      'ProcessTextService': _createProcessTextServiceBridge,
+      'DefaultProcessTextService': _createDefaultProcessTextServiceBridge,
+      'Scribe': _createScribeBridge,
+      'SensitiveContentService': _createSensitiveContentServiceBridge,
+      'SuggestionSpan': _createSuggestionSpanBridge,
+      'SpellCheckResults': _createSpellCheckResultsBridge,
+      'SpellCheckService': _createSpellCheckServiceBridge,
+      'DefaultSpellCheckService': _createDefaultSpellCheckServiceBridge,
+      'SystemChannels': _createSystemChannelsBridge,
+      'ApplicationSwitcherDescription': _createApplicationSwitcherDescriptionBridge,
+      'SystemUiOverlayStyle': _createSystemUiOverlayStyleBridge,
+      'SystemChrome': _createSystemChromeBridge,
+      'SystemNavigator': _createSystemNavigatorBridge,
+      'SystemSound': _createSystemSoundBridge,
+      'TextBoundary': _createTextBoundaryBridge,
+      'CharacterBoundary': _createCharacterBoundaryBridge,
+      'LineBoundary': _createLineBoundaryBridge,
+      'ParagraphBoundary': _createParagraphBoundaryBridge,
+      'DocumentBoundary': _createDocumentBoundaryBridge,
+      'TextInputFormatter': _createTextInputFormatterBridge,
+      'FilteringTextInputFormatter': _createFilteringTextInputFormatterBridge,
+      'LengthLimitingTextInputFormatter': _createLengthLimitingTextInputFormatterBridge,
+      'TextLayoutMetrics': _createTextLayoutMetricsBridge,
+      'UndoManager': _createUndoManagerBridge,
+      'UndoManagerClient': _createUndoManagerClientBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'AssetBundle': $flutter_10.AssetBundle,
+      'NetworkAssetBundle': $flutter_10.NetworkAssetBundle,
+      'CachingAssetBundle': $flutter_10.CachingAssetBundle,
+      'PlatformAssetBundle': $flutter_10.PlatformAssetBundle,
+      'AssetManifest': $flutter_11.AssetManifest,
+      'AssetMetadata': $flutter_11.AssetMetadata,
+      'Matrix4': $vector_math_1.Matrix4,
+      'AutofillHints': $flutter_12.AutofillHints,
+      'AutofillConfiguration': $flutter_12.AutofillConfiguration,
+      'AutofillClient': $flutter_12.AutofillClient,
+      'AutofillScope': $flutter_12.AutofillScope,
+      'AutofillScopeMixin': $flutter_12.AutofillScopeMixin,
+      'TextSelection': $flutter_47.TextSelection,
+      'TextInputType': $flutter_50.TextInputType,
+      'TextInputConfiguration': $flutter_50.TextInputConfiguration,
+      'RawFloatingCursorPoint': $flutter_50.RawFloatingCursorPoint,
+      'TextEditingValue': $flutter_50.TextEditingValue,
+      'ScribbleClient': $flutter_50.ScribbleClient,
+      'SelectionRect': $flutter_50.SelectionRect,
+      'TextInputStyle': $flutter_50.TextInputStyle,
+      'TextInputConnection': $flutter_50.TextInputConnection,
+      'TextInput': $flutter_50.TextInput,
+      'SystemContextMenuController': $flutter_50.SystemContextMenuController,
+      'IOSSystemContextMenuItemData': $flutter_50.IOSSystemContextMenuItemData,
+      'IOSSystemContextMenuItemDataCopy': $flutter_50.IOSSystemContextMenuItemDataCopy,
+      'IOSSystemContextMenuItemDataCut': $flutter_50.IOSSystemContextMenuItemDataCut,
+      'IOSSystemContextMenuItemDataPaste': $flutter_50.IOSSystemContextMenuItemDataPaste,
+      'IOSSystemContextMenuItemDataSelectAll': $flutter_50.IOSSystemContextMenuItemDataSelectAll,
+      'IOSSystemContextMenuItemDataLookUp': $flutter_50.IOSSystemContextMenuItemDataLookUp,
+      'IOSSystemContextMenuItemDataSearchWeb': $flutter_50.IOSSystemContextMenuItemDataSearchWeb,
+      'IOSSystemContextMenuItemDataShare': $flutter_50.IOSSystemContextMenuItemDataShare,
+      'IOSSystemContextMenuItemDataLiveText': $flutter_50.IOSSystemContextMenuItemDataLiveText,
+      'IOSSystemContextMenuItemDataCustom': $flutter_50.IOSSystemContextMenuItemDataCustom,
+      'TextSelectionDelegate': $flutter_50.TextSelectionDelegate,
+      'TextInputClient': $flutter_50.TextInputClient,
+      'DeltaTextInputClient': $flutter_50.DeltaTextInputClient,
+      'TextInputControl': $flutter_50.TextInputControl,
+      'TextEditingDelta': $flutter_48.TextEditingDelta,
+      'TextEditingDeltaInsertion': $flutter_48.TextEditingDeltaInsertion,
+      'TextEditingDeltaDeletion': $flutter_48.TextEditingDeltaDeletion,
+      'TextEditingDeltaReplacement': $flutter_48.TextEditingDeltaReplacement,
+      'TextEditingDeltaNonTextUpdate': $flutter_48.TextEditingDeltaNonTextUpdate,
+      'BinaryMessenger': $flutter_13.BinaryMessenger,
+      'KeyboardKey': $flutter_25.KeyboardKey,
+      'LogicalKeyboardKey': $flutter_25.LogicalKeyboardKey,
+      'PhysicalKeyboardKey': $flutter_25.PhysicalKeyboardKey,
+      'KeyEvent': $flutter_23.KeyEvent,
+      'KeyDownEvent': $flutter_23.KeyDownEvent,
+      'KeyUpEvent': $flutter_23.KeyUpEvent,
+      'KeyRepeatEvent': $flutter_23.KeyRepeatEvent,
+      'HardwareKeyboard': $flutter_23.HardwareKeyboard,
+      'RestorationManager': $flutter_37.RestorationManager,
+      'RestorationBucket': $flutter_37.RestorationBucket,
+      'ServicesBinding': $flutter_14.ServicesBinding,
+      'SystemContextMenuClient': $flutter_14.SystemContextMenuClient,
+      'BrowserContextMenu': $flutter_15.BrowserContextMenu,
+      'ClipboardData': $flutter_16.ClipboardData,
+      'Clipboard': $flutter_16.Clipboard,
+      'DeferredComponent': $flutter_18.DeferredComponent,
+      'FlutterVersion': $flutter_20.FlutterVersion,
+      'FontLoader': $flutter_21.FontLoader,
+      'HapticFeedback': $flutter_22.HapticFeedback,
+      'KeyboardInsertedContent': $flutter_24.KeyboardInsertedContent,
+      'LiveText': $flutter_27.LiveText,
+      'MessageCodec': $flutter_28.MessageCodec,
+      'MethodCall': $flutter_28.MethodCall,
+      'MethodCodec': $flutter_28.MethodCodec,
+      'PlatformException': $flutter_28.PlatformException,
+      'MissingPluginException': $flutter_28.MissingPluginException,
+      'BinaryCodec': $flutter_29.BinaryCodec,
+      'StringCodec': $flutter_29.StringCodec,
+      'JSONMessageCodec': $flutter_29.JSONMessageCodec,
+      'JSONMethodCodec': $flutter_29.JSONMethodCodec,
+      'StandardMessageCodec': $flutter_29.StandardMessageCodec,
+      'StandardMethodCodec': $flutter_29.StandardMethodCodec,
+      'PointerEvent': $flutter_7.PointerEvent,
+      'MouseCursorManager': $flutter_30.MouseCursorManager,
+      'MouseCursorSession': $flutter_30.MouseCursorSession,
+      'MouseCursor': $flutter_30.MouseCursor,
+      'SystemMouseCursor': $flutter_30.SystemMouseCursor,
+      'SystemMouseCursors': $flutter_30.SystemMouseCursors,
+      'MouseTrackerAnnotation': $flutter_31.MouseTrackerAnnotation,
+      'BasicMessageChannel': $flutter_32.BasicMessageChannel,
+      'MethodChannel': $flutter_32.MethodChannel,
+      'OptionalMethodChannel': $flutter_32.OptionalMethodChannel,
+      'EventChannel': $flutter_32.EventChannel,
+      'PlatformViewsRegistry': $flutter_33.PlatformViewsRegistry,
+      'PlatformViewsService': $flutter_33.PlatformViewsService,
+      'AndroidPointerProperties': $flutter_33.AndroidPointerProperties,
+      'AndroidPointerCoords': $flutter_33.AndroidPointerCoords,
+      'AndroidMotionEvent': $flutter_33.AndroidMotionEvent,
+      'AndroidViewController': $flutter_33.AndroidViewController,
+      'SurfaceAndroidViewController': $flutter_33.SurfaceAndroidViewController,
+      'ExpensiveAndroidViewController': $flutter_33.ExpensiveAndroidViewController,
+      'HybridAndroidViewController': $flutter_33.HybridAndroidViewController,
+      'TextureAndroidViewController': $flutter_33.TextureAndroidViewController,
+      'DarwinPlatformViewController': $flutter_33.DarwinPlatformViewController,
+      'UiKitViewController': $flutter_33.UiKitViewController,
+      'AppKitViewController': $flutter_33.AppKitViewController,
+      'PlatformViewController': $flutter_33.PlatformViewController,
+      'PredictiveBackEvent': $flutter_34.PredictiveBackEvent,
+      'ProcessTextAction': $flutter_35.ProcessTextAction,
+      'ProcessTextService': $flutter_35.ProcessTextService,
+      'DefaultProcessTextService': $flutter_35.DefaultProcessTextService,
+      'Scribe': $flutter_38.Scribe,
+      'SensitiveContentService': $flutter_39.SensitiveContentService,
+      'SuggestionSpan': $flutter_41.SuggestionSpan,
+      'SpellCheckResults': $flutter_41.SpellCheckResults,
+      'SpellCheckService': $flutter_41.SpellCheckService,
+      'DefaultSpellCheckService': $flutter_41.DefaultSpellCheckService,
+      'SystemChannels': $flutter_42.SystemChannels,
+      'ApplicationSwitcherDescription': $flutter_43.ApplicationSwitcherDescription,
+      'SystemUiOverlayStyle': $flutter_43.SystemUiOverlayStyle,
+      'SystemChrome': $flutter_43.SystemChrome,
+      'SystemNavigator': $flutter_44.SystemNavigator,
+      'SystemSound': $flutter_45.SystemSound,
+      'TextBoundary': $flutter_46.TextBoundary,
+      'CharacterBoundary': $flutter_46.CharacterBoundary,
+      'LineBoundary': $flutter_46.LineBoundary,
+      'ParagraphBoundary': $flutter_46.ParagraphBoundary,
+      'DocumentBoundary': $flutter_46.DocumentBoundary,
+      'TextInputFormatter': $flutter_49.TextInputFormatter,
+      'FilteringTextInputFormatter': $flutter_49.FilteringTextInputFormatter,
+      'LengthLimitingTextInputFormatter': $flutter_49.LengthLimitingTextInputFormatter,
+      'TextLayoutMetrics': $flutter_51.TextLayoutMetrics,
+      'UndoManager': $flutter_52.UndoManager,
+      'UndoManagerClient': $flutter_52.UndoManagerClient,
+    };
+  }
+
   /// Returns a map of class names to their canonical source URIs.
   ///
   /// Used for deduplication when the same class is exported through
@@ -230,6 +506,7 @@ class FlutterServicesBridge {
       'TextEditingValue': 'package:flutter/src/services/text_input.dart',
       'ScribbleClient': 'package:flutter/src/services/text_input.dart',
       'SelectionRect': 'package:flutter/src/services/text_input.dart',
+      'TextInputStyle': 'package:flutter/src/services/text_input.dart',
       'TextInputConnection': 'package:flutter/src/services/text_input.dart',
       'TextInput': 'package:flutter/src/services/text_input.dart',
       'SystemContextMenuController': 'package:flutter/src/services/text_input.dart',
@@ -354,6 +631,7 @@ class FlutterServicesBridge {
       'PlatformAssetBundle': ['CachingAssetBundle', 'AssetBundle'],
       'AutofillScopeMixin': ['AutofillScope'],
       'TextSelection': ['TextRange'],
+      'TextInputStyle': ['Diagnosticable'],
       'SystemContextMenuController': ['SystemContextMenuClient', 'Diagnosticable'],
       'IOSSystemContextMenuItemDataCopy': ['IOSSystemContextMenuItemData'],
       'IOSSystemContextMenuItemDataCut': ['IOSSystemContextMenuItemData'],
@@ -834,11 +1112,20 @@ class FlutterServicesBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // MCI#1 / A1: Register the flattened native supertype table so
@@ -3170,7 +3457,8 @@ BridgedClass _createTextInputConfigurationBridge() {
         final hintLocales = named.containsKey('hintLocales') && named['hintLocales'] != null
             ? D4.coerceListOrNull<Locale>(named['hintLocales'], 'hintLocales')
             : const <Locale>[];
-        return $flutter_50.TextInputConfiguration(viewId: viewId, inputType: inputType, readOnly: readOnly, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, enableInteractiveSelection: enableInteractiveSelection, actionLabel: actionLabel, inputAction: inputAction, keyboardAppearance: keyboardAppearance, textCapitalization: textCapitalization, autofillConfiguration: autofillConfiguration, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, allowedMimeTypes: allowedMimeTypes, enableDeltaModel: enableDeltaModel, hintLocales: hintLocales);
+        final enableInlinePrediction = D4.getOptionalNamedArg<bool?>(named, 'enableInlinePrediction');
+        return $flutter_50.TextInputConfiguration(viewId: viewId, inputType: inputType, readOnly: readOnly, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, enableInteractiveSelection: enableInteractiveSelection, actionLabel: actionLabel, inputAction: inputAction, keyboardAppearance: keyboardAppearance, textCapitalization: textCapitalization, autofillConfiguration: autofillConfiguration, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, allowedMimeTypes: allowedMimeTypes, enableDeltaModel: enableDeltaModel, hintLocales: hintLocales, enableInlinePrediction: enableInlinePrediction);
       },
     },
     getters: {
@@ -3191,6 +3479,7 @@ BridgedClass _createTextInputConfigurationBridge() {
       'enableIMEPersonalizedLearning': (visitor, target) => D4.validateTarget<$flutter_50.TextInputConfiguration>(target, 'TextInputConfiguration').enableIMEPersonalizedLearning,
       'allowedMimeTypes': (visitor, target) => D4.validateTarget<$flutter_50.TextInputConfiguration>(target, 'TextInputConfiguration').allowedMimeTypes,
       'hintLocales': (visitor, target) => D4.validateTarget<$flutter_50.TextInputConfiguration>(target, 'TextInputConfiguration').hintLocales,
+      'enableInlinePrediction': (visitor, target) => D4.validateTarget<$flutter_50.TextInputConfiguration>(target, 'TextInputConfiguration').enableInlinePrediction,
       'enableDeltaModel': (visitor, target) => D4.validateTarget<$flutter_50.TextInputConfiguration>(target, 'TextInputConfiguration').enableDeltaModel,
       'hashCode': (visitor, target) => D4.validateTarget<$flutter_50.TextInputConfiguration>(target, 'TextInputConfiguration').hashCode,
     },
@@ -3215,7 +3504,8 @@ BridgedClass _createTextInputConfigurationBridge() {
         final autofillConfiguration = D4.getOptionalNamedArg<$flutter_12.AutofillConfiguration?>(named, 'autofillConfiguration');
         final enableDeltaModel = D4.getOptionalNamedArg<bool?>(named, 'enableDeltaModel');
         final hintLocales = D4.coerceListOrNull<Locale>(named['hintLocales'], 'hintLocales');
-        return t.copyWith(viewId: viewId, inputType: inputType, readOnly: readOnly, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, enableInteractiveSelection: enableInteractiveSelection, actionLabel: actionLabel, inputAction: inputAction, keyboardAppearance: keyboardAppearance, textCapitalization: textCapitalization, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, allowedMimeTypes: allowedMimeTypes, autofillConfiguration: autofillConfiguration, enableDeltaModel: enableDeltaModel, hintLocales: hintLocales);
+        final enableInlinePrediction = D4.getOptionalNamedArg<bool?>(named, 'enableInlinePrediction');
+        return t.copyWith(viewId: viewId, inputType: inputType, readOnly: readOnly, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, enableInteractiveSelection: enableInteractiveSelection, actionLabel: actionLabel, inputAction: inputAction, keyboardAppearance: keyboardAppearance, textCapitalization: textCapitalization, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, allowedMimeTypes: allowedMimeTypes, autofillConfiguration: autofillConfiguration, enableDeltaModel: enableDeltaModel, hintLocales: hintLocales, enableInlinePrediction: enableInlinePrediction);
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.TextInputConfiguration>(target, 'TextInputConfiguration');
@@ -3234,10 +3524,10 @@ BridgedClass _createTextInputConfigurationBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const TextInputConfiguration({int? viewId, TextInputType inputType = TextInputType.text, bool readOnly = false, bool obscureText = false, bool autocorrect = true, SmartDashesType? smartDashesType, SmartQuotesType? smartQuotesType, bool enableSuggestions = true, bool enableInteractiveSelection = true, String? actionLabel, TextInputAction inputAction = TextInputAction.done, Brightness keyboardAppearance = Brightness.light, TextCapitalization textCapitalization = TextCapitalization.none, AutofillConfiguration autofillConfiguration = AutofillConfiguration.disabled, bool enableIMEPersonalizedLearning = true, List<String> allowedMimeTypes = const <String>[], bool enableDeltaModel = false, List<Locale>? hintLocales = const <Locale>[]})',
+      '': 'const TextInputConfiguration({int? viewId, TextInputType inputType = TextInputType.text, bool readOnly = false, bool obscureText = false, bool autocorrect = true, SmartDashesType? smartDashesType, SmartQuotesType? smartQuotesType, bool enableSuggestions = true, bool enableInteractiveSelection = true, String? actionLabel, TextInputAction inputAction = TextInputAction.done, Brightness keyboardAppearance = Brightness.light, TextCapitalization textCapitalization = TextCapitalization.none, AutofillConfiguration autofillConfiguration = AutofillConfiguration.disabled, bool enableIMEPersonalizedLearning = true, List<String> allowedMimeTypes = const <String>[], bool enableDeltaModel = false, List<Locale>? hintLocales = const <Locale>[], bool? enableInlinePrediction})',
     },
     methodSignatures: {
-      'copyWith': 'TextInputConfiguration copyWith({int? viewId, TextInputType? inputType, bool? readOnly, bool? obscureText, bool? autocorrect, SmartDashesType? smartDashesType, SmartQuotesType? smartQuotesType, bool? enableSuggestions, bool? enableInteractiveSelection, String? actionLabel, TextInputAction? inputAction, Brightness? keyboardAppearance, TextCapitalization? textCapitalization, bool? enableIMEPersonalizedLearning, List<String>? allowedMimeTypes, AutofillConfiguration? autofillConfiguration, bool? enableDeltaModel, List<Locale>? hintLocales})',
+      'copyWith': 'TextInputConfiguration copyWith({int? viewId, TextInputType? inputType, bool? readOnly, bool? obscureText, bool? autocorrect, SmartDashesType? smartDashesType, SmartQuotesType? smartQuotesType, bool? enableSuggestions, bool? enableInteractiveSelection, String? actionLabel, TextInputAction? inputAction, Brightness? keyboardAppearance, TextCapitalization? textCapitalization, bool? enableIMEPersonalizedLearning, List<String>? allowedMimeTypes, AutofillConfiguration? autofillConfiguration, bool? enableDeltaModel, List<Locale>? hintLocales, bool? enableInlinePrediction})',
       'toJson': 'Map<String, dynamic> toJson()',
       'toString': 'String toString()',
     },
@@ -3259,6 +3549,7 @@ BridgedClass _createTextInputConfigurationBridge() {
       'enableIMEPersonalizedLearning': 'bool get enableIMEPersonalizedLearning',
       'allowedMimeTypes': 'List<String> get allowedMimeTypes',
       'hintLocales': 'List<Locale>? get hintLocales',
+      'enableInlinePrediction': 'bool? get enableInlinePrediction',
       'enableDeltaModel': 'bool get enableDeltaModel',
       'hashCode': 'int get hashCode',
     },
@@ -3486,6 +3777,99 @@ BridgedClass _createSelectionRectBridge() {
 }
 
 // =============================================================================
+// TextInputStyle Bridge
+// =============================================================================
+
+BridgedClass _createTextInputStyleBridge() {
+  return BridgedClass(
+    nativeType: $flutter_50.TextInputStyle,
+    name: 'TextInputStyle',
+    isAssignable: (v) => v is $flutter_50.TextInputStyle,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        final fontFamily = D4.getOptionalNamedArg<String?>(named, 'fontFamily');
+        final fontSize = D4.getOptionalNamedArg<double?>(named, 'fontSize');
+        final fontWeight = D4.getOptionalNamedArg<FontWeight?>(named, 'fontWeight');
+        final textDirection = D4.getRequiredNamedArg<TextDirection>(named, 'textDirection', 'TextInputStyle');
+        final textAlign = D4.getRequiredNamedArg<TextAlign>(named, 'textAlign', 'TextInputStyle');
+        final letterSpacing = D4.getOptionalNamedArg<double?>(named, 'letterSpacing');
+        final wordSpacing = D4.getOptionalNamedArg<double?>(named, 'wordSpacing');
+        final lineHeight = D4.getOptionalNamedArg<double?>(named, 'lineHeight');
+        return $flutter_50.TextInputStyle(fontFamily: fontFamily, fontSize: fontSize, fontWeight: fontWeight, textDirection: textDirection, textAlign: textAlign, letterSpacing: letterSpacing, wordSpacing: wordSpacing, lineHeight: lineHeight);
+      },
+    },
+    getters: {
+      'fontFamily': (visitor, target) => D4.validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle').fontFamily,
+      'fontSize': (visitor, target) => D4.validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle').fontSize,
+      'fontWeight': (visitor, target) => D4.validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle').fontWeight,
+      'textDirection': (visitor, target) => D4.validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle').textDirection,
+      'textAlign': (visitor, target) => D4.validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle').textAlign,
+      'letterSpacing': (visitor, target) => D4.validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle').letterSpacing,
+      'wordSpacing': (visitor, target) => D4.validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle').wordSpacing,
+      'lineHeight': (visitor, target) => D4.validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle').lineHeight,
+      'hashCode': (visitor, target) => D4.validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle').hashCode,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle');
+        return t.toJson();
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_4.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_4.DiagnosticLevel>(named, 'minLevel', $flutter_4.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_4.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      '==': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_50.TextInputStyle>(target, 'TextInputStyle');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
+        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        return t == other;
+      },
+    },
+    constructorSignatures: {
+      '': 'const TextInputStyle({String? fontFamily, double? fontSize, FontWeight? fontWeight, required TextDirection textDirection, required TextAlign textAlign, double? letterSpacing, double? wordSpacing, double? lineHeight})',
+    },
+    methodSignatures: {
+      'toJson': 'Map<String, dynamic> toJson()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+    },
+    getterSignatures: {
+      'fontFamily': 'String? get fontFamily',
+      'fontSize': 'double? get fontSize',
+      'fontWeight': 'FontWeight? get fontWeight',
+      'textDirection': 'TextDirection get textDirection',
+      'textAlign': 'TextAlign get textAlign',
+      'letterSpacing': 'double? get letterSpacing',
+      'wordSpacing': 'double? get wordSpacing',
+      'lineHeight': 'double? get lineHeight',
+      'hashCode': 'int get hashCode',
+    },
+  );
+}
+
+// =============================================================================
 // TextInputConnection Bridge
 // =============================================================================
 
@@ -3567,6 +3951,13 @@ BridgedClass _createTextInputConnectionBridge() {
         t.setStyle(fontFamily: fontFamily, fontSize: fontSize, fontWeight: fontWeight, textDirection: textDirection, textAlign: textAlign);
         return null;
       },
+      'updateStyle': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_50.TextInputConnection>(target, 'TextInputConnection');
+        D4.requireMinArgs(positional, 1, 'updateStyle');
+        final style = D4.getRequiredArg<$flutter_50.TextInputStyle>(positional, 0, 'style', 'updateStyle');
+        t.updateStyle(style);
+        return null;
+      },
       'close': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.TextInputConnection>(target, 'TextInputConnection');
         t.close();
@@ -3594,6 +3985,7 @@ BridgedClass _createTextInputConnectionBridge() {
       'setCaretRect': 'void setCaretRect(Rect rect)',
       'setSelectionRects': 'void setSelectionRects(List<SelectionRect> selectionRects)',
       'setStyle': 'void setStyle({required String? fontFamily, required double? fontSize, required FontWeight? fontWeight, required TextDirection textDirection, required TextAlign textAlign})',
+      'updateStyle': 'void updateStyle(TextInputStyle style)',
       'close': 'void close()',
       'connectionClosedReceived': 'void connectionClosedReceived()',
     },
@@ -4450,6 +4842,10 @@ BridgedClass _createTextInputClientBridge() {
         t.showAutocorrectionPromptRect(start, end);
         return null;
       },
+      'onFocusReceived': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_50.TextInputClient>(target, 'TextInputClient');
+        return t.onFocusReceived();
+      },
       'connectionClosed': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.TextInputClient>(target, 'TextInputClient');
         t.connectionClosed();
@@ -4495,6 +4891,7 @@ BridgedClass _createTextInputClientBridge() {
       'performPrivateCommand': 'void performPrivateCommand(String action, Map<String, dynamic> data)',
       'updateFloatingCursor': 'void updateFloatingCursor(RawFloatingCursorPoint point)',
       'showAutocorrectionPromptRect': 'void showAutocorrectionPromptRect(int start, int end)',
+      'onFocusReceived': 'bool onFocusReceived()',
       'connectionClosed': 'void connectionClosed()',
       'didChangeInputControl': 'void didChangeInputControl(TextInputControl? oldControl, TextInputControl? newControl)',
       'showToolbar': 'void showToolbar()',
@@ -4585,6 +4982,10 @@ BridgedClass _createDeltaTextInputClientBridge() {
         t.showAutocorrectionPromptRect(start, end);
         return null;
       },
+      'onFocusReceived': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_50.DeltaTextInputClient>(target, 'DeltaTextInputClient');
+        return t.onFocusReceived();
+      },
       'connectionClosed': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.DeltaTextInputClient>(target, 'DeltaTextInputClient');
         t.connectionClosed();
@@ -4631,6 +5032,7 @@ BridgedClass _createDeltaTextInputClientBridge() {
       'performPrivateCommand': 'void performPrivateCommand(String action, Map<String, dynamic> data)',
       'updateFloatingCursor': 'void updateFloatingCursor(RawFloatingCursorPoint point)',
       'showAutocorrectionPromptRect': 'void showAutocorrectionPromptRect(int start, int end)',
+      'onFocusReceived': 'bool onFocusReceived()',
       'connectionClosed': 'void connectionClosed()',
       'didChangeInputControl': 'void didChangeInputControl(TextInputControl? oldControl, TextInputControl? newControl)',
       'showToolbar': 'void showToolbar()',
@@ -4740,6 +5142,13 @@ BridgedClass _createTextInputControlBridge() {
         t.setStyle(fontFamily: fontFamily, fontSize: fontSize, fontWeight: fontWeight, textDirection: textDirection, textAlign: textAlign);
         return null;
       },
+      'updateStyle': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_50.TextInputControl>(target, 'TextInputControl');
+        D4.requireMinArgs(positional, 1, 'updateStyle');
+        final style = D4.getRequiredArg<$flutter_50.TextInputStyle>(positional, 0, 'style', 'updateStyle');
+        t.updateStyle(style);
+        return null;
+      },
       'requestAutofill': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.TextInputControl>(target, 'TextInputControl');
         t.requestAutofill();
@@ -4764,6 +5173,7 @@ BridgedClass _createTextInputControlBridge() {
       'setCaretRect': 'void setCaretRect(Rect rect)',
       'setSelectionRects': 'void setSelectionRects(List<SelectionRect> selectionRects)',
       'setStyle': 'void setStyle({required String? fontFamily, required double? fontSize, required FontWeight? fontWeight, required TextDirection textDirection, required TextAlign textAlign})',
+      'updateStyle': 'void updateStyle(TextInputStyle style)',
       'requestAutofill': 'void requestAutofill()',
       'finishAutofillContext': 'void finishAutofillContext({bool shouldSave = true})',
     },
@@ -8397,7 +8807,7 @@ BridgedClass _createLiveTextBridge() {
     },
     staticMethodSignatures: {
       'isLiveTextInputAvailable': 'Future<bool> isLiveTextInputAvailable()',
-      'startLiveTextInput': 'void startLiveTextInput()',
+      'startLiveTextInput': 'Future<void> startLiveTextInput()',
     },
   );
 }

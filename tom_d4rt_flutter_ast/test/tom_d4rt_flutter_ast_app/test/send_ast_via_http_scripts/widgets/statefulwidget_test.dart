@@ -1668,16 +1668,19 @@ dynamic build(BuildContext context) {
               ),
             ],
           ),
-          SwitchListTile(
-            title: const Text('Remote position'),
-            subtitle: const Text('Work from anywhere'),
-            value: remote,
-            activeThumbColor: paletteAccent,
-            onChanged: (bool v) {
-              setState(() {
-                formState['remote'] = v;
-              });
-            },
+          Material(
+            type: MaterialType.transparency,
+            child: SwitchListTile(
+              title: const Text('Remote position'),
+              subtitle: const Text('Work from anywhere'),
+              value: remote,
+              activeThumbColor: paletteAccent,
+              onChanged: (bool v) {
+                setState(() {
+                  formState['remote'] = v;
+                });
+              },
+            ),
           ),
           const SizedBox(height: 8.0),
           Container(
@@ -3031,16 +3034,19 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            CheckboxListTile(
-              value: consent,
-              onChanged: (bool? v) {
-                setState(() {
-                  wizardState['consent'] = v ?? false;
-                });
-              },
-              title: const Text('I agree to the terms of service'),
-              activeColor: paletteAccent,
-              controlAffinity: ListTileControlAffinity.leading,
+            Material(
+              type: MaterialType.transparency,
+              child: CheckboxListTile(
+                value: consent,
+                onChanged: (bool? v) {
+                  setState(() {
+                    wizardState['consent'] = v ?? false;
+                  });
+                },
+                title: const Text('I agree to the terms of service'),
+                activeColor: paletteAccent,
+                controlAffinity: ListTileControlAffinity.leading,
+              ),
             ),
           ],
         );
@@ -3300,38 +3306,47 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 8.0),
-          SwitchListTile(
-            title: const Text('Sync over Wi-Fi only'),
-            subtitle: const Text('Avoid using mobile data for backups'),
-            value: syncWifiOnly,
-            activeThumbColor: paletteAccent,
-            onChanged: (bool v) {
-              setState(() {
-                settingsState['syncWifiOnly'] = v;
-              });
-            },
+          Material(
+            type: MaterialType.transparency,
+            child: SwitchListTile(
+              title: const Text('Sync over Wi-Fi only'),
+              subtitle: const Text('Avoid using mobile data for backups'),
+              value: syncWifiOnly,
+              activeThumbColor: paletteAccent,
+              onChanged: (bool v) {
+                setState(() {
+                  settingsState['syncWifiOnly'] = v;
+                });
+              },
+            ),
           ),
-          SwitchListTile(
-            title: const Text('Biometric unlock'),
-            subtitle: const Text('Use fingerprint or face recognition'),
-            value: biometric,
-            activeThumbColor: paletteAccent,
-            onChanged: (bool v) {
-              setState(() {
-                settingsState['biometric'] = v;
-              });
-            },
+          Material(
+            type: MaterialType.transparency,
+            child: SwitchListTile(
+              title: const Text('Biometric unlock'),
+              subtitle: const Text('Use fingerprint or face recognition'),
+              value: biometric,
+              activeThumbColor: paletteAccent,
+              onChanged: (bool v) {
+                setState(() {
+                  settingsState['biometric'] = v;
+                });
+              },
+            ),
           ),
-          SwitchListTile(
-            title: const Text('Auto-update'),
-            subtitle: const Text('Install updates automatically when ready'),
-            value: autoUpdate,
-            activeThumbColor: paletteAccent,
-            onChanged: (bool v) {
-              setState(() {
-                settingsState['autoUpdate'] = v;
-              });
-            },
+          Material(
+            type: MaterialType.transparency,
+            child: SwitchListTile(
+              title: const Text('Auto-update'),
+              subtitle: const Text('Install updates automatically when ready'),
+              value: autoUpdate,
+              activeThumbColor: paletteAccent,
+              onChanged: (bool v) {
+                setState(() {
+                  settingsState['autoUpdate'] = v;
+                });
+              },
+            ),
           ),
           const SizedBox(height: 8.0),
           const Text(

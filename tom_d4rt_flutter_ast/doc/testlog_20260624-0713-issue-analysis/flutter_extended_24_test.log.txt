@@ -1,0 +1,66 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (104.0.0 available)
+  analyzer 10.2.0 (14.0.0 available)
+  chalkdart 2.4.0 (3.1.0 available)
+  circular_buffer 0.12.0 (0.13.0 available)
+  csv 6.0.0 (8.0.0 available)
+  dart_console 4.1.4 (5.1.0 available)
+  dcli 8.4.2 (9.0.0 available)
+  dcli_common 8.4.2 (9.0.0 available)
+  dcli_core 8.4.2 (9.0.0 available)
+  dcli_terminal 8.4.2 (9.0.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  meta 1.18.0 (1.18.3 available)
+  package_config 2.2.0 (3.0.0 available)
+  pubspec_manager 3.2.1 (4.0.1 available)
+  sum_types 0.3.5 (0.4.0 available)
+  test_api 0.7.11 (0.7.12 available)
+! tom_ast_generator 0.1.3 from path ../tom_ast_generator (overridden in ./pubspec_overrides.yaml)
+! tom_ast_model 0.1.3 from path ../tom_ast_model (overridden in ./pubspec_overrides.yaml)
+  tom_build_base 2.6.21 (2.6.25 available)
+! tom_d4rt_ast 0.1.10 from path ../tom_d4rt_ast (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt_exec 1.9.0 from path ../tom_d4rt_exec (overridden in ./pubspec_overrides.yaml)
+! tom_d4rt_generator 1.11.0 from path ../tom_d4rt_generator (overridden in ./pubspec_overrides.yaml)
+  vector_math 2.2.0 (2.4.0 available)
+  win32 5.15.0 (6.3.0 available)
+Got dependencies!
+19 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutter_ast/test/flutter_extended_24_test.dart
+00:00 +0: (setUpAll)
+[test-app] waiting for /health on port 4247 (3s elapsed, 7 probes)…
+[test-app] waiting for /health on port 4247 (6s elapsed, 13 probes)…
+[test-app] waiting for /health on port 4247 (9s elapsed, 19 probes)…
+[test-app] waiting for /health on port 4247 (12s elapsed, 25 probes)…
+[test-app] waiting for /health on port 4247 (15s elapsed, 31 probes)…
+[test-app] waiting for /health on port 4247 (18s elapsed, 37 probes)…
+
+=================================================================
+[D4RT_PROFILE] Dart VM Service: http://127.0.0.1:65373/VXtD9QAwXNI=/
+=================================================================
+
+=================================================================
+[D4RT_PROFILE] Flutter DevTools: http://127.0.0.1:65373/VXtD9QAwXNI=/devtools/?uri=ws://127.0.0.1:65373/VXtD9QAwXNI=/ws
+=================================================================
+00:22 +0: Test App Health app is running
+00:23 +1: Interactive tests showDialog static demo — taps rendered Cancel label
+[METRIC] script=material/showdialog_test.dart testFile=flutter_extended_24_test.dart sourceBytes=73953 sourceChars=73953 bundleJsonBytes=779532 clearMs=218 readMs=5 bundleMs=212 httpMs=1410 totalMs=1846 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=7 appParseMs=61 appSetStateMs=61 appInterpretStartMs=69 appInterpretEndMs=1020 appFirstFrameMs=1197 appPumpEndMs=1399
+Interaction result: InteractResult(success, output: [])
+00:25 +2: Interactive tests showBottomSheet static demo — taps the rendered Share ListTile
+[METRIC] script=material/showbottomsheet_test.dart testFile=flutter_extended_24_test.dart sourceBytes=84327 sourceChars=84246 bundleJsonBytes=924885 clearMs=204 readMs=3 bundleMs=114 httpMs=983 totalMs=1306 status=success httpStatus=200 outputLines=7 frameworkErrors=0 appBodyMs=5 appParseMs=30 appSetStateMs=30 appInterpretStartMs=34 appInterpretEndMs=657 appFirstFrameMs=777 appPumpEndMs=978
+Interaction result: InteractResult(success, output: [])
+00:27 +3: Interactive tests showMenu static demo — taps Edit menu item
+[METRIC] script=material/showmenu_test.dart testFile=flutter_extended_24_test.dart sourceBytes=96446 sourceChars=96398 bundleJsonBytes=1008956 clearMs=203 readMs=5 bundleMs=71 httpMs=776 totalMs=1056 status=success httpStatus=200 outputLines=0 frameworkErrors=0 appBodyMs=20 appParseMs=37 appSetStateMs=37 appInterpretStartMs=42 appInterpretEndMs=338 appFirstFrameMs=567 appPumpEndMs=767
+Interaction result: InteractResult(success, output: [])
+00:29 +4: Interactive tests interaction - dismiss modal via barrier tap
+[METRIC] script=material/showdialog_test.dart testFile=flutter_extended_24_test.dart sourceBytes=73953 sourceChars=73953 bundleJsonBytes=779532 clearMs=205 readMs=3 bundleMs=34 httpMs=653 totalMs=897 status=success httpStatus=200 outputLines=2 frameworkErrors=0 appBodyMs=0 appParseMs=10 appSetStateMs=10 appInterpretStartMs=14 appInterpretEndMs=344 appFirstFrameMs=444 appPumpEndMs=646
+Dismiss result: InteractResult(success, output: [])
+00:31 +5: Interactive tests showDatePicker static demo — taps rendered CANCEL label
+[METRIC] script=material/showdatepicker_test.dart testFile=flutter_extended_24_test.dart sourceBytes=71543 sourceChars=71430 bundleJsonBytes=882398 clearMs=204 readMs=1 bundleMs=49 httpMs=677 totalMs=932 status=success httpStatus=200 outputLines=73 frameworkErrors=0 appBodyMs=2 appParseMs=20 appSetStateMs=20 appInterpretStartMs=28 appInterpretEndMs=368 appFirstFrameMs=467 appPumpEndMs=669
+Interaction result: InteractResult(success, output: [])
+00:33 +6: Interactive tests showTimePicker static demo — taps rendered DISMISS label
+[METRIC] script=material/showtimepicker_test.dart testFile=flutter_extended_24_test.dart sourceBytes=77272 sourceChars=77141 bundleJsonBytes=944326 clearMs=203 readMs=6 bundleMs=46 httpMs=665 totalMs=922 status=success httpStatus=200 outputLines=41 frameworkErrors=0 appBodyMs=2 appParseMs=21 appSetStateMs=21 appInterpretStartMs=26 appInterpretEndMs=354 appFirstFrameMs=459 appPumpEndMs=660
+Interaction result: InteractResult(success, output: [])
+00:35 +7: (tearDownAll)
+00:35 +7: All tests passed!

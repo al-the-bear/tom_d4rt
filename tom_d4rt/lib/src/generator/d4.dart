@@ -139,6 +139,28 @@ class D4 {
     }
   }
 
+  /// Sets [visitor] as the active visitor and returns the previously-active
+  /// one.
+  ///
+  /// Hot-path companion to [withActiveVisitor] for callers that already own a
+  /// `try`/`finally` — most importantly [InterpretedFunction.call], which runs
+  /// on every interpreted function call. Pairing [pushActiveVisitor] with
+  /// [popActiveVisitor] gives identical save/set/restore semantics (nesting
+  /// included) without allocating the `T Function()` closure that
+  /// [withActiveVisitor] requires per invocation.
+  static InterpreterVisitor? pushActiveVisitor(InterpreterVisitor visitor) {
+    final previous = _activeVisitor;
+    _activeVisitor = visitor;
+    return previous;
+  }
+
+  /// Restores the active visitor saved by [pushActiveVisitor]. Always call this
+  /// from a `finally` so the active visitor unwinds correctly on every exit
+  /// path (including exceptions).
+  static void popActiveVisitor(InterpreterVisitor? previous) {
+    _activeVisitor = previous;
+  }
+
   // ==========================================================================
   // GEN-079: Generic Type Wrapper Registration
   // ==========================================================================

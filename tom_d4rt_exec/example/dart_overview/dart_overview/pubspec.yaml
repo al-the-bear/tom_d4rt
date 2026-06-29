@@ -8,7 +8,9 @@ environment:
 
 dependencies:
   path: ^1.9.0
-  tom_d4rt:
+  # Floor set to the freshly-published runtime (import-optimization Phase 6);
+  # resolves hosted from pub.dev.
+  tom_d4rt: ^1.10.1
 
 dev_dependencies:
   lints: ^5.0.0

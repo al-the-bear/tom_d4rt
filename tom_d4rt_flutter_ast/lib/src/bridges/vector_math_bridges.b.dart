@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /Users/alexiskyaw/.pub-cache/hosted/pub.dev/vector_math-2.2.0/lib/vector_math_64.dart
-// Generated: 2026-06-17T19:05:17.501635
+// Generated: 2026-06-28T14:30:55.480851
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
 import 'package:tom_d4rt_ast/d4rt.dart';
 import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
@@ -20,6 +20,10 @@ import 'package:vector_math/vector_math_64.dart' as $vector_math_1;
 /// Bridge class for vector_math_64 module.
 class VectorMath64Bridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createAabb2Bridge(),
@@ -42,6 +46,61 @@ class VectorMath64Bridge {
       _createVector3Bridge(),
       _createVector4Bridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'Aabb2': _createAabb2Bridge,
+      'Aabb3': _createAabb3Bridge,
+      'Colors': _createColorsBridge,
+      'Frustum': _createFrustumBridge,
+      'IntersectionResult': _createIntersectionResultBridge,
+      'Matrix2': _createMatrix2Bridge,
+      'Matrix3': _createMatrix3Bridge,
+      'Matrix4': _createMatrix4Bridge,
+      'Obb3': _createObb3Bridge,
+      'Plane': _createPlaneBridge,
+      'Quad': _createQuadBridge,
+      'Quaternion': _createQuaternionBridge,
+      'Ray': _createRayBridge,
+      'Sphere': _createSphereBridge,
+      'Triangle': _createTriangleBridge,
+      'Vector': _createVectorBridge,
+      'Vector2': _createVector2Bridge,
+      'Vector3': _createVector3Bridge,
+      'Vector4': _createVector4Bridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'Aabb2': $vector_math_1.Aabb2,
+      'Aabb3': $vector_math_1.Aabb3,
+      'Colors': $vector_math_1.Colors,
+      'Frustum': $vector_math_1.Frustum,
+      'IntersectionResult': $vector_math_1.IntersectionResult,
+      'Matrix2': $vector_math_1.Matrix2,
+      'Matrix3': $vector_math_1.Matrix3,
+      'Matrix4': $vector_math_1.Matrix4,
+      'Obb3': $vector_math_1.Obb3,
+      'Plane': $vector_math_1.Plane,
+      'Quad': $vector_math_1.Quad,
+      'Quaternion': $vector_math_1.Quaternion,
+      'Ray': $vector_math_1.Ray,
+      'Sphere': $vector_math_1.Sphere,
+      'Triangle': $vector_math_1.Triangle,
+      'Vector': $vector_math_1.Vector,
+      'Vector2': $vector_math_1.Vector2,
+      'Vector3': $vector_math_1.Vector3,
+      'Vector4': $vector_math_1.Vector4,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -148,11 +207,20 @@ class VectorMath64Bridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // MCI#1 / A1: Register the flattened native supertype table so

@@ -583,21 +583,27 @@ class _ScopePaneBodyState extends State<_ScopePaneBody> {
           Row(
             children: [
               Expanded(
-                child: SwitchListTile(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
                   value: _flagA,
                   onChanged: (v) => setState(() => _flagA = v),
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Flag A'),
                 ),
+                ),
               ),
               Expanded(
-                child: SwitchListTile(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
                   value: _flagB,
                   onChanged: (v) => setState(() => _flagB = v),
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Flag B'),
+                ),
                 ),
               ),
             ],
@@ -1499,12 +1505,15 @@ class _LifecyclePaneState extends State<_LifecyclePane> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                SwitchListTile(
+                Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
                   value: _flag,
                   onChanged: (v) => setState(() => _flag = v),
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Enable lane context flag'),
+                ),
                 ),
                 const SizedBox(height: 8),
                 _LifecycleTile(tone: tone, title: '$name item 1', body: 'Simulated route section with persistent scroll key.'),
@@ -1805,7 +1814,9 @@ class _DraftsModuleState extends State<_DraftsModule> {
             onChanged: (_) => widget.onLog('details changed'),
           ),
           const SizedBox(height: 8),
-          SwitchListTile(
+          Material(
+            type: MaterialType.transparency,
+            child: SwitchListTile(
             value: _ready,
             onChanged: (v) {
               setState(() => _ready = v);
@@ -1814,6 +1825,7 @@ class _DraftsModuleState extends State<_DraftsModule> {
             dense: true,
             contentPadding: EdgeInsets.zero,
             title: const Text('Ready for review'),
+          ),
           ),
           const SizedBox(height: 8),
           Expanded(

@@ -221,6 +221,51 @@ class PublicClass {
       expect(code, isNot(contains('_PrivateEnum')));
     });
 
+    test('G-ENM-STATIC-1: Emits staticMethods block for enum static methods (issue #2).', () async {
+      final staticMethodFile =
+          File(p.join(tempOutputDir, 'static_method_enum.dart'));
+      await staticMethodFile.writeAsString('''
+enum PageFormat {
+  a4,
+  letter;
+
+  static PageFormat fromString(String name) =>
+      PageFormat.values.firstWhere((e) => e.name == name,
+          orElse: () => PageFormat.a4);
+}
+
+class DummyHolder {
+  final String name;
+  DummyHolder(this.name);
+}
+''');
+
+      final generator = BridgeGenerator(
+        workspacePath: tempOutputDir,
+        skipPrivate: true,
+        helpersImport: 'package:tom_d4rt/tom_d4rt.dart',
+        packageName: 'test_package',
+        verbose: false,
+      );
+
+      final result = await generator.generateBridges(
+        sourceFiles: [staticMethodFile.path],
+        outputPath: p.join(tempOutputDir, 'static_method_enum_bridge.dart'),
+        moduleName: 'test',
+      );
+
+      expect(result.errors, isEmpty);
+      final code = await File(result.outputFiles.first).readAsString();
+
+      // The static method must be emitted into a staticMethods: block,
+      // dispatched on the enum TYPE (not an instance receiver `t`).
+      expect(code, contains('staticMethods: {'),
+          reason: 'static enum methods must be emitted (issue #2)');
+      expect(code, contains("'fromString': (visitor, positional, named, typeArgs) {"));
+      expect(code, contains('PageFormat.fromString'),
+          reason: 'static call must target the enum type');
+    });
+
     test('G-ENM-9: Handles single-value enum. [2026-02-10 06:37] (PASS)', () async {
       final singleValueFile = File(p.join(tempOutputDir, 'single_value.dart'));
       await singleValueFile.writeAsString('''

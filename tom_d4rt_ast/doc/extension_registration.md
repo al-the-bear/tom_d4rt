@@ -81,6 +81,18 @@ queued extension callbacks fire once, in registration order, before
 the script body runs. The unwrap step is the only difference between
 the raw `executeBundle` and the typed `executeBundleAs<T>`:
 
+> **Pool interaction (once per package per process).** Under the
+> process-global **package pool** (`providePackage`; see
+> `runtime_registration_surface.md` § 5), a package's `register*` calls
+> — including the `registerExtensions` callbacks queued here — accumulate
+> into the pool the *first* time the package is provided, and fire **once
+> per package per process** at pool population, not once per
+> `D4rtRunner` instance. A later instance that provides the same package
+> hits the pool (`providePackage` returns `true`), skips re-registration,
+> and reuses the already-fired bundle. So `finalizeBridges` is cheap on
+> every instance after the first, and the "fires exactly once" contract
+> below is enforced at *process* scope, not merely per-runner.
+
 | Call | Returns | Notes |
 |------|---------|-------|
 | `executeBundle(bundle, …)` | `Object?` (raw) | caller deals with the wrapper |

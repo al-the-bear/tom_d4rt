@@ -42,29 +42,67 @@ class FlutterD4rt {
   }
 
   void _registerBridges() {
-    // Pre-material: user-bridge relaxers and runtime extensions must
-    // register their generic-constructor factories BEFORE material so
-    // material's auto-gen factory ends up on top of the
-    // newest-first chain. Putting them after material flips the chain
-    // and breaks scripts like `ValueNotifier<int>(0)` (the user-bridge
-    // factory hard-casts to `double?`).
-    registerRelaxers();
-    registerD4rtRuntimeExtensions();
-    FlutterMaterialBridges.register(_interpreter);
-    // Post-material: `registerD4rtInterfaceProxyOverrides` rewrites a
-    // handful of `<dynamic>`-parameterised proxies with concrete type
-    // arguments and depends on material's proxy registrations being in
-    // place. The extension hook fires it after material at finalize
-    // time (explicit below, or implicitly on the first execute).
-    _interpreter.registerExtensions(
-      'tom_d4rt_flutter_ast',
-      registerD4rtInterfaceProxyOverrides,
-    );
+    // Import-optimization step #20: pay the expensive bridge-registration cost
+    // only the first time this package is seen in the process. `providePackage`
+    // returns `false` on first sight (and opens the registration context so the
+    // `register*` calls below land in the package pool) and `true` on later
+    // instances, which reuse the pooled definitions. Every registration here
+    // targets process-global tables — relaxers and interface proxies land in
+    // static `D4` maps, the material bridges register lazy thunks into the
+    // pooled bundle, and the extension callback is once-per-package-per-process
+    // — so running this block exactly once is correct and sufficient.
+    if (_interpreter.providePackage('tom_d4rt_flutter_ast') == false) {
+      // Pre-material: user-bridge relaxers and runtime extensions must
+      // register their generic-constructor factories BEFORE material so
+      // material's auto-gen factory ends up on top of the
+      // newest-first chain. Putting them after material flips the chain
+      // and breaks scripts like `ValueNotifier<int>(0)` (the user-bridge
+      // factory hard-casts to `double?`).
+      registerRelaxers();
+      registerD4rtRuntimeExtensions();
+      FlutterMaterialBridges.register(_interpreter);
+      // Post-material: `registerD4rtInterfaceProxyOverrides` rewrites a
+      // handful of `<dynamic>`-parameterised proxies with concrete type
+      // arguments and depends on material's proxy registrations being in
+      // place. The extension hook fires it after material at finalize
+      // time (explicit below, or implicitly on the first execute).
+      _interpreter.registerExtensions(
+        'tom_d4rt_flutter_ast',
+        registerD4rtInterfaceProxyOverrides,
+      );
+    }
+    // `finalizeBridges()` runs on every instance: it builds this instance's
+    // warm parent from the pooled definitions and fires any not-yet-fired
+    // extension callbacks. It is cheap on later instances (its own
+    // `_bridgesFinalized` / once-per-process guards short-circuit the work).
     _interpreter.finalizeBridges();
   }
 
   /// The underlying [D4rt] interpreter.
   D4rt get interpreter => _interpreter;
+
+  /// Import-optimization step #21 — pay the residual per-instance warm cost
+  /// off the first frame.
+  ///
+  /// Construction already registers the (process-global) bridge surface, but
+  /// the per-instance **warm parent** — the immutable `Environment` every
+  /// [build] / [execute] chains a fresh child off — plus the stdlib
+  /// registration are built lazily on the **first** real build, adding that
+  /// one-time cost to the first on-screen frame. Calling [warmup] once after
+  /// construction moves that cost off-frame so the first script build renders
+  /// without the warm-up stall. The idiomatic call site is a post-first-frame
+  /// callback (or a splash-screen / background microtask):
+  ///
+  /// ```dart
+  /// final d4rt = FlutterD4rt();
+  /// WidgetsBinding.instance.addPostFrameCallback((_) => d4rt.warmup());
+  /// ```
+  ///
+  /// Idempotent and script-neutral: the warm-up environment is discarded and
+  /// leaves no script declarations behind, and repeat calls short-circuit on
+  /// the runner's own finalize / warm-parent-cache guards. Forwards to
+  /// [D4rt.warmup].
+  void warmup() => _interpreter.warmup();
 
   /// Execute a D4rt bundle and extract the result as type [T].
   ///

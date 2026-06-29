@@ -282,13 +282,16 @@ dynamic build(BuildContext context) {
     for (int i = 0; i < tileItems.length; i++) {
       final it = tileItems[i];
       widgets.add(
-        ListTile(
+        Material(
+          type: MaterialType.transparency,
+          child: ListTile(
           leading: Icon(it['icon'] as IconData),
           title: Text(it['title'] as String),
           subtitle: Text(it['sub'] as String),
           trailing: Icon(Icons.chevron_right),
           selected: selectIndex2 && i == 1,
           onTap: () {},
+        ),
         ),
       );
       if (i != tileItems.length - 1) {

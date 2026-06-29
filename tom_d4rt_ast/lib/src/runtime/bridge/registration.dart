@@ -83,12 +83,18 @@ class BridgedEnumDefinition<T extends Enum> {
   /// These are non-constant static members like `WidgetState.any`.
   final Map<String, Object? Function()> staticGetters;
 
+  /// Adapters for static methods on the enum type itself.
+  /// These are static factory/helper methods like `PageFormat.fromString(name)`,
+  /// invoked as `EnumType.staticMethod(args)` from interpreted code.
+  final Map<String, BridgedStaticMethodAdapter> staticMethods;
+
   BridgedEnumDefinition({
     required this.name,
     required this.values,
     this.getters = const {},
     this.methods = const {},
     this.staticGetters = const {},
+    this.staticMethods = const {},
   }) {
     // Validation: Ensure the value list is not empty
     if (values.isEmpty) {
@@ -96,8 +102,24 @@ class BridgedEnumDefinition<T extends Enum> {
     }
   }
 
+  /// Memoized result of [buildBridgedEnum]. A [BridgedEnum] is effectively
+  /// immutable once built (its adapter maps are populated only during
+  /// construction), so a single instance can be safely shared across every
+  /// environment and `execute()` call. Building it is non-trivial — it
+  /// constructs a [BridgedEnumValue] per enum value twice — and was previously
+  /// repeated on each lookup (twice per `execute()`). Caching it makes the
+  /// build happen at most once per process.
+  BridgedEnum? _builtEnum;
+
   /// Builds the [BridgedEnum] object from this definition.
+  ///
+  /// The first call constructs and memoizes the enum; subsequent calls return
+  /// the same cached instance.
   BridgedEnum buildBridgedEnum() {
+    final cached = _builtEnum;
+    if (cached != null) {
+      return cached;
+    }
     // Placeholder for the main enum, will be replaced by the real instance after creation.
     // This is necessary because BridgedEnumValue needs a reference to its type,
     // but the full type (BridgedEnum) needs the value list.
@@ -133,6 +155,7 @@ class BridgedEnumDefinition<T extends Enum> {
     bridgedEnum.getters = getters;
     bridgedEnum.methods = methods;
     bridgedEnum.staticGetters = staticGetters;
+    bridgedEnum.staticMethods = staticMethods;
 
     final finalBridgedValues = <String, BridgedEnumValue>{};
     for (final nativeValue in values) {
@@ -152,7 +175,7 @@ class BridgedEnumDefinition<T extends Enum> {
     bridgedEnum.values.clear();
     bridgedEnum.values.addAll(finalBridgedValues);
 
-    return bridgedEnum;
+    return _builtEnum = bridgedEnum;
   }
 }
 

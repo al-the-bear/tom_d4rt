@@ -1,10 +1,87 @@
-## 1.9.9
+## 1.12.0
 
-- Upgraded `tom_analyzer_shared` to `^0.3.0`. Analyzer summaries are now stored
-  in the shared Tom tool-cache directory (resolved via `ToolCacheLocator`:
-  `TOM_TOOL_CACHE` → ancestor `.tom/tom_tool_cache` → Dart tool dir) instead of
-  a fixed `<workspace>/.tom/analyzer-cache`, so the same hosted-package summary
-  is reused across projects and sibling generators. No API change.
+### Added — emit static enum methods into `BridgedEnumDefinition` (GitHub issue #2)
+
+- The enum extractor now collects an enum's **public static** methods (these
+  were previously dropped) and emits them into a `staticMethods:` block on the
+  generated `BridgedEnumDefinition`, dispatched on the enum **type** (not an
+  instance receiver). This makes static factory/helper methods like
+  `PageFormat.fromString(name)` reachable from interpreted code.
+- Collection-typed static parameters reuse the existing coercion path via a
+  parameterized receiver, so `D4.coerceList`/map coercion applies the same way
+  it does for instance methods.
+- Requires `tom_d4rt` `^1.11.0` (which accepts the new `staticMethods`
+  parameter); the floor was raised accordingly.
+
+## 1.11.0
+
+### Lazy bridge factories (import-optimization)
+
+- Generated per-package bridges now emit **factory thunks** instead of a
+  pre-built `List<BridgedClass>`:
+  - `static Map<String, BridgedClass Function()> bridgeClassThunks()` — class
+    name → deferred factory that builds one class's member maps + adapter
+    closures on demand.
+  - `static Map<String, Type> bridgeClassTypes()` — class name → native `Type`,
+    so the same thunk registers into both the name-keyed and type-keyed
+    registries with the correct `sourceUri`.
+  - `registerBridges` now loops the thunks through the interpreter's
+    `registerBridgedClassLazy(name, type, thunk, importPath, sourceUri:)`
+    instead of constructing every `BridgedClass` eagerly. A script that uses
+    N of M generated classes materializes ≈N objects, not M.
+  - `bridgeClasses()` is retained (eager, diagnostic) for callers that still
+    want the full materialized list.
+- The aggregator barrel (`per_package_orchestrator`) now spreads
+  `bridgeClassThunks()` / `bridgeClassTypes()` from each per-package bridge.
+- Bumped `tom_d4rt` constraint to `^1.9.0`: the generated `registerBridges`
+  targets the import-optimization API (`registerBridgedClassLazy`) introduced
+  in `tom_d4rt` 1.9.0 / `tom_d4rt_ast` 0.1.9.
+
+## 1.10.0
+
+### Analyzer 10 migration
+
+- Upgraded `analyzer` to `^10.0.0` (from `^8.4.1`). Applied the analyzer-10 API
+  renames the generator relied on:
+  - `AnalysisContextCollectionImpl(..., packagesFile: …)` →
+    `packageConfigFile: …` (constructor parameter rename) in
+    `bridge_generator.dart`.
+  - `NamedType.name2` → `NamedType.name` in `corpus_type_scanner.dart`.
+  - Tidied a now-flagged null-aware spread (`...?externalClassLookup`) in
+    `bridge_generator.dart`.
+  `Element.isSynthetic` remains deprecated-but-functional under analyzer 10; it
+  is left in place because this package already sets
+  `deprecated_member_use: ignore` project-wide, so no per-call migration was
+  needed.
+- Bumped `tom_d4rt` to `^1.8.25` (first analyzer-10 build on pub.dev; earlier
+  `1.8.x` carry `analyzer ^8` and would conflict) and `tom_analyzer_shared` to
+  `^0.4.0`.
+- Stale analyzer-8 `.sum` summary bundles under `example/d4/.tom/analyzer-cache/`
+  are undecodable by analyzer 10's `bundle_reader` (`RangeError` in
+  `_decodeVariance`) and were poisoning the test suites. Added a `.gitignore`
+  for `**/.tom/analyzer-cache/` and untracked the 92 regenerable bundles; they
+  rebuild on demand under the active analyzer.
+
+> **Incorporates 1.9.9** (published out-of-band, skipping local's 1.9.8): the
+> `tom_analyzer_shared ^0.3.0` shared-tool-cache change (analyzer summaries
+> resolved via `ToolCacheLocator` into the shared Tom tool-cache directory) is
+> superseded here by the `^0.4.0` constraint, so its behaviour is retained. This
+> release also carries the 1.9.8 const-arg suppression that 1.9.9 omitted.
+
+## 1.9.8
+
+### Generation quality (suppress unavoidable const-arg warning)
+
+- Bridge `.b.dart` files emit constructor calls that forward script-supplied
+  runtime values into `const` constructors (e.g. `IconData(codePoint, …)`).
+  Because those arguments are only known at run time they can never be const,
+  so the analyzer reports `non_const_argument_for_const_parameter` — an
+  unavoidable, cosmetic warning for bridged code. Added
+  `non_const_argument_for_const_parameter` to the generated
+  `// ignore_for_file:` directive so regenerated bridge surfaces analyze
+  cleanly (previously surfaced as 3 warnings against `IconData` in
+  `widgets_bridges.b.dart` for both `tom_d4rt_flutter` and
+  `tom_d4rt_flutter_ast`).
 
 ## 1.9.7
 

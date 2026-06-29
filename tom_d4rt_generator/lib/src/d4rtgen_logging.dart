@@ -1,14 +1,28 @@
 /// D4rtgen invocation logging for debugging test runs.
 ///
-/// Logs all d4rtgen invocations (CLI and API) to a fixed file.
+/// Logging is **opt-in** and disabled by default. Set the
+/// `D4RTGEN_INVOCATION_LOG` environment variable to an absolute file path to
+/// append invocation records there. When the variable is unset (the normal
+/// case), every function in this file is a no-op — so the generator never
+/// writes to a developer-specific path on other machines (issue #3 class of
+/// defect; the previous build baked in a hardcoded absolute developer path
+/// that failed and printed a warning on every other host).
 library;
 
 import 'dart:io';
 
-/// Fixed log file path in workspace root.
-const String _logFilePath = '/Users/alexiskyaw/Desktop/Code/tom2/d4rtgen_invocations.log';
+/// Name of the environment variable that enables invocation logging and names
+/// the target file. Unset → logging disabled.
+const String _logPathEnvVar = 'D4RTGEN_INVOCATION_LOG';
 
-/// Logs a d4rtgen invocation.
+/// Returns the configured log file path, or `null` when logging is disabled.
+String? _resolveLogFilePath() {
+  final configured = Platform.environment[_logPathEnvVar];
+  if (configured == null || configured.trim().isEmpty) return null;
+  return configured.trim();
+}
+
+/// Logs a d4rtgen invocation when [_logPathEnvVar] is set; otherwise a no-op.
 ///
 /// [source] - Either 'CLI' or 'API'
 /// [details] - Additional context about the invocation
@@ -18,13 +32,15 @@ void logD4rtgenInvocation({
   required String details,
   bool includeStackTrace = false,
 }) {
+  final logFilePath = _resolveLogFilePath();
+  if (logFilePath == null) return;
   try {
     final timestamp = DateTime.now().toIso8601String();
     final buffer = StringBuffer();
     buffer.writeln('='.padRight(80, '='));
     buffer.writeln('[$timestamp] D4RTGEN INVOCATION: $source');
     buffer.writeln('Details: $details');
-    
+
     if (includeStackTrace) {
       buffer.writeln('Stack trace:');
       final trace = StackTrace.current.toString();
@@ -34,10 +50,10 @@ void logD4rtgenInvocation({
         buffer.writeln('  $line');
       }
     }
-    
+
     buffer.writeln();
-    
-    final file = File(_logFilePath);
+
+    final file = File(logFilePath);
     file.writeAsStringSync(buffer.toString(), mode: FileMode.append);
   } catch (e) {
     // Silently ignore logging errors to not break the tool
@@ -45,10 +61,12 @@ void logD4rtgenInvocation({
   }
 }
 
-/// Clears the d4rtgen invocation log.
+/// Clears the d4rtgen invocation log when logging is enabled; otherwise a no-op.
 void clearD4rtgenLog() {
+  final logFilePath = _resolveLogFilePath();
+  if (logFilePath == null) return;
   try {
-    final file = File(_logFilePath);
+    final file = File(logFilePath);
     if (file.existsSync()) {
       file.deleteSync();
     }
@@ -59,16 +77,23 @@ void clearD4rtgenLog() {
 
 /// Returns summary of d4rtgen invocations from the log.
 String getD4rtgenLogSummary() {
+  final logFilePath = _resolveLogFilePath();
+  if (logFilePath == null) {
+    return 'D4rtgen invocation logging is disabled '
+        '(set $_logPathEnvVar to enable).';
+  }
   try {
-    final file = File(_logFilePath);
+    final file = File(logFilePath);
     if (!file.existsSync()) {
       return 'No d4rtgen invocations logged.';
     }
-    
+
     final content = file.readAsStringSync();
-    final cliCount = RegExp(r'D4RTGEN INVOCATION: CLI').allMatches(content).length;
-    final apiCount = RegExp(r'D4RTGEN INVOCATION: API').allMatches(content).length;
-    
+    final cliCount =
+        RegExp(r'D4RTGEN INVOCATION: CLI').allMatches(content).length;
+    final apiCount =
+        RegExp(r'D4RTGEN INVOCATION: API').allMatches(content).length;
+
     return '''
 D4rtgen Invocation Summary:
   CLI invocations: $cliCount

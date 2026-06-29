@@ -1,0 +1,13 @@
+# Local multi-package dev overrides.
+#
+# Standard local multi-package dev pattern — not an API-shim override. Both the
+# interpreter (tom_d4rt) and the bridge generator (tom_d4rt_generator) resolve
+# from their in-tree checkouts so `tool/regenerate_bridges.dart` runs against
+# the exact sources that produced the published 1.10.1 / 1.11.0 artifacts,
+# without waiting on pub.dev propagation. pubspec.yaml carries the publish-time
+# floors (tom_d4rt ^1.10.1, tom_d4rt_generator ^1.11.0).
+dependency_overrides:
+  tom_d4rt:
+    path: ../tom_d4rt
+  tom_d4rt_generator:
+    path: ../tom_d4rt_generator
