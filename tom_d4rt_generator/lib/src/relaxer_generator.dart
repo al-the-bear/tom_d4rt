@@ -504,9 +504,9 @@ List<_RelaxerTarget> _buildRelaxerTargets(
     final baseTypeName = entry.key;
     final moduleTypeArgs = entry.value;
 
-    // Skip Dart core collection types — these are handled by .cast() in the
-    // bridge generator, not by relaxer wrappers.
-    if (_dartCoreGenericTypes.contains(baseTypeName)) continue;
+    // Skip SDK generics (dart:core collections + dart:async types) — these are
+    // handled by .cast() / stdlib bridges, not by relaxer wrappers.
+    if (_sdkGenericTypesWithoutRelaxers.contains(baseTypeName)) continue;
 
     final classInfo = globalClassLookup[baseTypeName];
     if (classInfo == null) {
@@ -554,7 +554,7 @@ List<_RelaxerTarget> _buildRelaxerTargets(
 
   for (final className in gen075Classes) {
     if (existingTargetNames.contains(className)) continue;
-    if (_dartCoreGenericTypes.contains(className)) continue;
+    if (_sdkGenericTypesWithoutRelaxers.contains(className)) continue;
 
     final classInfo = globalClassLookup[className];
     if (classInfo == null) continue;
@@ -650,7 +650,7 @@ List<_RelaxerTarget> _buildRelaxerTargets(
 
         // Extract the nested base type (e.g., Animatable<T> → Animatable)
         final nestedBaseType = pType.substring(0, pType.indexOf('<'));
-        if (_dartCoreGenericTypes.contains(nestedBaseType)) continue;
+        if (_sdkGenericTypesWithoutRelaxers.contains(nestedBaseType)) continue;
 
         final existingTarget = targetByName[nestedBaseType];
         if (existingTarget == null) continue;
@@ -695,17 +695,43 @@ List<_RelaxerTarget> _buildRelaxerTargets(
   return targets;
 }
 
-/// Dart core generic types that the bridge generator already handles with
-/// `.cast()` conversions rather than relaxer wrappers.
-const _dartCoreGenericTypes = {
+/// SDK generic base types that never get a GEN-079 relaxer wrapper.
+///
+/// Relaxer wrappers only apply to *application-package* generics scanned from
+/// module barrels. Two families of SDK generic are handled elsewhere and must
+/// be skipped here — silently, since there is no scanned `ClassInfo` for an SDK
+/// type and attempting a wrapper is impossible:
+///
+///  * **`dart:core` collections** (`List`, `Set`, `Map`, `Iterable`,
+///    `Iterator`, `Comparable`) — relaxed by the bridge generator via `.cast()`
+///    conversions instead of wrapper classes.
+///  * **`dart:async` generics** (`Future`, `Stream`, `FutureOr`,
+///    `StreamSubscription`, `StreamConsumer`, `StreamTransformer`, `EventSink`,
+///    `StreamSink`) — provided by D4rt's stdlib bridges
+///    (`tom_d4rt/lib/src/stdlib/async/`), so no application-level relaxer is
+///    needed. `FutureOr` is a union type (`Future<T> | T`), not a class, and can
+///    never be wrapped at all.
+///
+/// Listing these by name keeps the relaxer output free of spurious
+/// "No ClassInfo for generic base type" / "skipping wrapper" warnings for SDK
+/// generics that appear in bridged method signatures.
+const _sdkGenericTypesWithoutRelaxers = {
+  // dart:core collections — relaxed via .cast().
   'List',
   'Set',
   'Map',
   'Iterable',
   'Iterator',
+  'Comparable',
+  // dart:async generics — provided by stdlib bridges.
   'Future',
   'Stream',
-  'Comparable',
+  'FutureOr',
+  'StreamSubscription',
+  'StreamConsumer',
+  'StreamTransformer',
+  'EventSink',
+  'StreamSink',
 };
 
 // =============================================================================

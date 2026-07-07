@@ -1,3 +1,22 @@
+## 1.12.4
+
+### Fixed — silence GEN-079 warnings for `dart:async` SDK generics
+
+- The relaxer generator only builds type-relaxing wrappers for *application-
+  package* generics scanned from module barrels. `dart:core` collections
+  (`List`/`Set`/`Map`/…) were already skipped silently, but the `dart:async`
+  SDK generics that appear in bridged signatures — `FutureOr`,
+  `StreamSubscription`, `StreamConsumer`, `StreamTransformer`, `EventSink`,
+  `StreamSink` — were not, so each produced a noisy
+  `No ClassInfo for generic base type "…"` / `… — skipping wrapper` warning
+  even though the outcome (no wrapper) was correct and expected. These types are
+  provided by D4rt's stdlib bridges (`tom_d4rt/lib/src/stdlib/async/`), not by
+  relaxer wrappers; `FutureOr` is a union type, not a class, and can never be
+  wrapped at all. The relaxer skip-set (renamed `_dartCoreGenericTypes` →
+  `_sdkGenericTypesWithoutRelaxers`) now covers both families, so these SDK
+  generics are skipped silently. No change to generated output. New regression
+  coverage: `relaxer_sdk_generic_skip_test.dart`.
+
 ## 1.12.3
 
 ### Fixed — escape `$`-prefixed member names in *all* generated bridge maps
