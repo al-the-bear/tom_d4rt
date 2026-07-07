@@ -1,3 +1,18 @@
+## 1.12.3
+
+### Fixed — escape `$`-prefixed member names in *all* generated bridge maps
+
+- Completes 1.12.2: the `$`-escaping was applied to the getter/setter function
+  maps but not to the **signature maps** (`getterSignatures`, `setterSignatures`,
+  `methodSignatures`, `constructor`/`static*` variants) nor the instance/static
+  **method** and **static getter/setter** function-map keys. Those still emitted
+  a raw `'$sectionId'` key (the signature *value* was already escaped), so a
+  bridge for a class exposing a `$`-prefixed member still failed to compile with
+  "Undefined name 'sectionId'". Every member-name map **key** now routes through
+  `_escapeString`. Regression coverage added: G-CLS-7d (getter/setter signature
+  keys) and G-CLS-7e (method map + signature keys) over a new `$compute()` method
+  on the fixture.
+
 ## 1.12.2
 
 ### Fixed — escape `$`-prefixed member names in generated bridges

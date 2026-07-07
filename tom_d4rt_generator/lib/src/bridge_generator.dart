@@ -8500,13 +8500,16 @@ class BridgeGenerator {
 
       // Regular methods
       for (final method in instanceMethods) {
+        // The map key is a single-quoted string literal, so a `$`-prefixed
+        // method name must be escaped; the member access stays raw.
+        final methodKey = _escapeString(method.name);
         // Check for method override (including operators)
         final methodOverride =
             userBridge?.getMethodOverride(method.name) ??
             userBridge?.getOperatorOverride(method.name);
         if (methodOverride != null) {
           buffer.writeln(
-            "      '${method.name}': $prefixedUserBridge.$methodOverride,",
+            "      '$methodKey': $prefixedUserBridge.$methodOverride,",
           );
           continue;
         }
@@ -8514,7 +8517,7 @@ class BridgeGenerator {
         // Try generating into temp buffer first
         final tempBuffer = StringBuffer();
         tempBuffer.writeln(
-          "      '${method.name}': (visitor, target, positional, named, typeArgs) {",
+          "      '$methodKey': (visitor, target, positional, named, typeArgs) {",
         );
         if (_generateMethodBody(tempBuffer, cls, method, warnings: warnings)) {
           tempBuffer.writeln('      },');
@@ -8564,18 +8567,20 @@ class BridgeGenerator {
     if (staticGetters.isNotEmpty) {
       buffer.writeln('    staticGetters: {');
       for (final getter in staticGetters) {
+        // Map key is a single-quoted literal; escape `$`-prefixed names.
+        final getterKey = _escapeString(getter.name);
         // Check for static getter override
         final staticGetterOverride = userBridge?.getStaticGetterOverride(
           getter.name,
         );
         if (staticGetterOverride != null) {
           buffer.writeln(
-            "      '${getter.name}': $prefixedUserBridge.$staticGetterOverride,",
+            "      '$getterKey': $prefixedUserBridge.$staticGetterOverride,",
           );
         } else {
           // Use prefixedName for static access
           buffer.writeln(
-            "      '${getter.name}': (visitor) => "
+            "      '$getterKey': (visitor) => "
             "$prefixedName.${getter.name},",
           );
         }
@@ -8587,13 +8592,15 @@ class BridgeGenerator {
     if (staticMethods.isNotEmpty) {
       buffer.writeln('    staticMethods: {');
       for (final method in staticMethods) {
+        // Map key is a single-quoted literal; escape `$`-prefixed names.
+        final methodKey = _escapeString(method.name);
         // Check for static method override
         final staticMethodOverride = userBridge?.getStaticMethodOverride(
           method.name,
         );
         if (staticMethodOverride != null) {
           buffer.writeln(
-            "      '${method.name}': $prefixedUserBridge.$staticMethodOverride,",
+            "      '$methodKey': $prefixedUserBridge.$staticMethodOverride,",
           );
           continue;
         }
@@ -8601,7 +8608,7 @@ class BridgeGenerator {
         // Try generating into temp buffer first
         final tempBuffer = StringBuffer();
         tempBuffer.writeln(
-          "      '${method.name}': (visitor, positional, named, typeArgs) {",
+          "      '$methodKey': (visitor, positional, named, typeArgs) {",
         );
         if (_generateStaticMethodBody(
           tempBuffer,
@@ -8622,6 +8629,9 @@ class BridgeGenerator {
     if (staticSetters.isNotEmpty) {
       buffer.writeln('    staticSetters: {');
       for (final setter in staticSetters) {
+        // Map key / extract arg-name land in single-quoted literals; escape
+        // `$`-prefixed names.
+        final setterKey = _escapeString(setter.name);
         // GEN-083 (mirror): typedef-alias fallback for static setters.
         FunctionTypeInfo? effectiveFuncInfo = setter.functionTypeInfo;
         if (effectiveFuncInfo == null) {
@@ -8645,9 +8655,9 @@ class BridgeGenerator {
             classTypeParams: cls.typeParameters,
             sourceFilePath: cls.sourceFile,
           );
-          buffer.writeln("      '${setter.name}': (visitor, value) {");
+          buffer.writeln("      '$setterKey': (visitor, value) {");
           buffer.writeln(
-            "        final $rawVarName = D4.extractBridgedArgOrNull<dynamic>(value, '${setter.name}');",
+            "        final $rawVarName = D4.extractBridgedArgOrNull<dynamic>(value, '$setterKey');",
           );
           buffer.writeln(
             "        $prefixedName.${setter.name} = $wrapperExpr;",
@@ -8674,11 +8684,11 @@ class BridgeGenerator {
             if (valueFuncInfo != null) {
               final localName = '${_getSafeLocalName(setter.name)}Map';
               final isNullable = setter.returnType.endsWith('?');
-              buffer.writeln("      '${setter.name}': (visitor, value) {");
+              buffer.writeln("      '$setterKey': (visitor, value) {");
               if (!isNullable) {
                 buffer.writeln("        if (value == null) {");
                 buffer.writeln(
-                  "          throw ArgumentError('${cls.name}.${setter.name}: non-nullable map value cannot be null');",
+                  "          throw ArgumentError('${cls.name}.$setterKey: non-nullable map value cannot be null');",
                 );
                 buffer.writeln("        }");
               }
@@ -8717,7 +8727,7 @@ class BridgeGenerator {
           classTypeParams: cls.typeParameters,
           sourceFilePath: cls.sourceFile,
         );
-        buffer.writeln("      '${setter.name}': (visitor, value) => ");
+        buffer.writeln("      '$setterKey': (visitor, value) => ");
         buffer.writeln(
           "        $prefixedName.${setter.name} = $castExpression,",
         );
@@ -8744,9 +8754,11 @@ class BridgeGenerator {
       if (validCtors.isNotEmpty) {
         buffer.writeln('    constructorSignatures: {');
         for (final ctor in validCtors) {
-          final ctorName = ctor.name ?? '';
+          // Key and value both land in single-quoted (interpolating) literals,
+          // so a `$`-prefixed name must be escaped on both sides.
+          final ctorKey = _escapeString(ctor.name ?? '');
           final sig = _escapeString(_getConstructorSignature(cls, ctor));
-          buffer.writeln("      '$ctorName': '$sig',");
+          buffer.writeln("      '$ctorKey': '$sig',");
         }
         buffer.writeln('    },');
       }
@@ -8757,8 +8769,9 @@ class BridgeGenerator {
     if (instanceMethods.isNotEmpty) {
       buffer.writeln('    methodSignatures: {');
       for (final method in instanceMethods) {
+        final methodKey = _escapeString(method.name);
         final sig = _escapeString(_getMethodSignature(method));
-        buffer.writeln("      '${method.name}': '$sig',");
+        buffer.writeln("      '$methodKey': '$sig',");
       }
       buffer.writeln('    },');
     }
@@ -8768,8 +8781,9 @@ class BridgeGenerator {
     if (instanceGetters.isNotEmpty) {
       buffer.writeln('    getterSignatures: {');
       for (final getter in instanceGetters) {
+        final getterKey = _escapeString(getter.name);
         final sig = _escapeString(_getMethodSignature(getter));
-        buffer.writeln("      '${getter.name}': '$sig',");
+        buffer.writeln("      '$getterKey': '$sig',");
       }
       buffer.writeln('    },');
     }
@@ -8779,8 +8793,9 @@ class BridgeGenerator {
     if (instanceSetters.isNotEmpty) {
       buffer.writeln('    setterSignatures: {');
       for (final setter in instanceSetters) {
+        final setterKey = _escapeString(setter.name);
         final sig = _escapeString(_getMethodSignature(setter));
-        buffer.writeln("      '${setter.name}': '$sig',");
+        buffer.writeln("      '$setterKey': '$sig',");
       }
       buffer.writeln('    },');
     }
@@ -8790,8 +8805,9 @@ class BridgeGenerator {
     if (staticMethods.isNotEmpty) {
       buffer.writeln('    staticMethodSignatures: {');
       for (final method in staticMethods) {
+        final methodKey = _escapeString(method.name);
         final sig = _escapeString(_getMethodSignature(method));
-        buffer.writeln("      '${method.name}': '$sig',");
+        buffer.writeln("      '$methodKey': '$sig',");
       }
       buffer.writeln('    },');
     }
@@ -8801,8 +8817,9 @@ class BridgeGenerator {
     if (staticGetters.isNotEmpty) {
       buffer.writeln('    staticGetterSignatures: {');
       for (final getter in staticGetters) {
+        final getterKey = _escapeString(getter.name);
         final sig = _escapeString(_getMethodSignature(getter));
-        buffer.writeln("      '${getter.name}': '$sig',");
+        buffer.writeln("      '$getterKey': '$sig',");
       }
       buffer.writeln('    },');
     }
@@ -8812,8 +8829,9 @@ class BridgeGenerator {
     if (staticSetters.isNotEmpty) {
       buffer.writeln('    staticSetterSignatures: {');
       for (final setter in staticSetters) {
+        final setterKey = _escapeString(setter.name);
         final sig = _escapeString(_getMethodSignature(setter));
-        buffer.writeln("      '${setter.name}': '$sig',");
+        buffer.writeln("      '$setterKey': '$sig',");
       }
       buffer.writeln('    },');
     }

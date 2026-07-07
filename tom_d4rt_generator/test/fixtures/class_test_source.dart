@@ -124,6 +124,10 @@ class PropertyClass {
   String get $sectionId => _name;
 
   set $sectionId(String value) => _name = value;
+
+  /// A deliberately `$`-prefixed *method*: its map key (in both the methods map
+  /// and the methodSignatures map) must be escaped too.
+  String $compute() => _name;
 }
 
 // =============================================================================

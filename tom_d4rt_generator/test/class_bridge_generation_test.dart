@@ -166,6 +166,18 @@ void main() {
       test('G-CLS-7c: Escapes `\$`-prefixed setter map key. [2026-07-07 00:00] (PASS)', () {
         expect(generatedCode, contains(r"'\$sectionId': (visitor, target, value)"));
       });
+
+      test('G-CLS-7d: Escapes `\$`-prefixed keys in getter/setter signature maps. [2026-07-07 00:00] (PASS)', () {
+        // The signature *value* was already escaped; the regression was the map
+        // *key* in getterSignatures / setterSignatures being emitted raw.
+        expect(generatedCode, contains(r"'\$sectionId': 'String get \$sectionId'"));
+        expect(generatedCode, contains(r"'\$sectionId': 'set \$sectionId(String value)'"));
+      });
+
+      test('G-CLS-7e: Escapes `\$`-prefixed method map + signature keys. [2026-07-07 00:00] (PASS)', () {
+        expect(generatedCode, contains(r"'\$compute': (visitor, target, positional, named, typeArgs)"));
+        expect(generatedCode, contains(r"'\$compute': 'String \$compute()'"));
+      });
     });
 
     group('Methods', () {
