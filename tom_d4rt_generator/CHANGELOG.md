@@ -1,3 +1,34 @@
+## 1.12.3
+
+### Fixed — escape `$`-prefixed member names in *all* generated bridge maps
+
+- Completes 1.12.2: the `$`-escaping was applied to the getter/setter function
+  maps but not to the **signature maps** (`getterSignatures`, `setterSignatures`,
+  `methodSignatures`, `constructor`/`static*` variants) nor the instance/static
+  **method** and **static getter/setter** function-map keys. Those still emitted
+  a raw `'$sectionId'` key (the signature *value* was already escaped), so a
+  bridge for a class exposing a `$`-prefixed member still failed to compile with
+  "Undefined name 'sectionId'". Every member-name map **key** now routes through
+  `_escapeString`. Regression coverage added: G-CLS-7d (getter/setter signature
+  keys) and G-CLS-7e (method map + signature keys) over a new `$compute()` method
+  on the fixture.
+
+## 1.12.2
+
+### Fixed — escape `$`-prefixed member names in generated bridges
+
+- Members whose name begins with `$` (e.g. a structural accessor deliberately
+  named `$sectionId` to avoid colliding with a model field literally called
+  `sectionId`) were emitted verbatim into the single-quoted, *interpolating*
+  Dart string literals the bridge uses for its getter/setter/signature map keys
+  and for the arg-name passed to `D4.extractBridgedArg*`. The unescaped `'$sectionId'`
+  was read by the analyzer as an interpolation and failed to compile with
+  "Undefined name 'sectionId'". `_escapeString` now escapes `$` (and the
+  getter/setter map-key and setter-cast arg-name sites route their names through
+  it), so the key is emitted as `'\$sectionId'` while the member *access* stays
+  the raw identifier `.$sectionId`. Regression coverage: `class_bridge_generation_test`
+  G-CLS-7a/7b/7c.
+
 ## 1.12.1
 
 - Track our latest published components: `tom_analyzer_shared` floor raised to

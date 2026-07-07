@@ -117,6 +117,17 @@ class PropertyClass {
 
   /// Derived property.
   bool get isEmpty => _name.isEmpty && _count == 0;
+
+  /// A deliberately `$`-prefixed member (mirrors `SomNode.$sectionId`): its
+  /// name must be escaped when emitted as a single-quoted map key, but the
+  /// member *access* stays the raw identifier.
+  String get $sectionId => _name;
+
+  set $sectionId(String value) => _name = value;
+
+  /// A deliberately `$`-prefixed *method*: its map key (in both the methods map
+  /// and the methodSignatures map) must be escaped too.
+  String $compute() => _name;
 }
 
 // =============================================================================

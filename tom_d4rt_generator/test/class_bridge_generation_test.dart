@@ -148,6 +148,36 @@ void main() {
           contains(r'D4.validateTarget<$test_package_1.PropertyClass>'),
         );
       });
+
+      test('G-CLS-7a: Escapes `\$`-prefixed getter map key. [2026-07-07 00:00] (PASS)', () {
+        // A member named `$sectionId` (see SomNode) must be emitted as an
+        // escaped key `'\$sectionId'` inside the single-quoted map-key literal;
+        // an unescaped `'$sectionId'` would interpolate and fail to compile
+        // with "Undefined name 'sectionId'".
+        expect(generatedCode, contains(r"'\$sectionId': (visitor, target) =>"));
+        expect(generatedCode, isNot(contains("'\$sectionId': (visitor, target) =>")));
+      });
+
+      test('G-CLS-7b: Keeps raw identifier for `\$`-prefixed getter access. [2026-07-07 00:00] (PASS)', () {
+        // The member *access* must stay the raw Dart identifier `.$sectionId`.
+        expect(generatedCode, contains(r'.$sectionId,'));
+      });
+
+      test('G-CLS-7c: Escapes `\$`-prefixed setter map key. [2026-07-07 00:00] (PASS)', () {
+        expect(generatedCode, contains(r"'\$sectionId': (visitor, target, value)"));
+      });
+
+      test('G-CLS-7d: Escapes `\$`-prefixed keys in getter/setter signature maps. [2026-07-07 00:00] (PASS)', () {
+        // The signature *value* was already escaped; the regression was the map
+        // *key* in getterSignatures / setterSignatures being emitted raw.
+        expect(generatedCode, contains(r"'\$sectionId': 'String get \$sectionId'"));
+        expect(generatedCode, contains(r"'\$sectionId': 'set \$sectionId(String value)'"));
+      });
+
+      test('G-CLS-7e: Escapes `\$`-prefixed method map + signature keys. [2026-07-07 00:00] (PASS)', () {
+        expect(generatedCode, contains(r"'\$compute': (visitor, target, positional, named, typeArgs)"));
+        expect(generatedCode, contains(r"'\$compute': 'String \$compute()'"));
+      });
     });
 
     group('Methods', () {
