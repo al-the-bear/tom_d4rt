@@ -11,7 +11,7 @@ dependencies:
     path: ../../../tom_d4rt_exec
   tom_ast_generator:
     path: ../../../tom_ast_generator
-  analyzer: ^8.4.1
+  analyzer: ^10.0.0
   path: ^1.9.0
   dcli: ^8.4.2
   dcli_core: ^8.2.8
