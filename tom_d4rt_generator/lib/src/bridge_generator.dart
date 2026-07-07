@@ -5922,7 +5922,15 @@ class BridgeGenerator {
   /// Escapes a string for use in generated code.
   /// Escapes single quotes and backslashes.
   String _escapeString(String s) {
-    return s.replaceAll(r'\', r'\\').replaceAll("'", r"\'");
+    // The generated bridge writes these into single-quoted Dart string
+    // literals, which interpolate. A `$` must be escaped or the analyzer reads
+    // it as an interpolation (e.g. a member deliberately named `$sectionId`
+    // would emit `'$sectionId'` and fail with "Undefined name 'sectionId'").
+    // Backslash first so the escapes we add below are not themselves doubled.
+    return s
+        .replaceAll(r'\', r'\\')
+        .replaceAll(r'$', r'\$')
+        .replaceAll("'", r"\'");
   }
 
   /// Sanitizes a parameter name for use as a local variable.
@@ -8316,22 +8324,26 @@ class BridgeGenerator {
     if (instanceGetters.isNotEmpty) {
       buffer.writeln('    getters: {');
       for (final getter in instanceGetters) {
+        // The map key is a single-quoted string literal in the output, so a
+        // `$`-prefixed member (e.g. `$sectionId`) must be escaped; the member
+        // *access* below stays the raw identifier.
+        final getterKey = _escapeString(getter.name);
         // Check for getter override
         final getterOverride = userBridge?.getGetterOverride(getter.name);
         if (getterOverride != null) {
           buffer.writeln(
-            "      '${getter.name}': $prefixedUserBridge.$getterOverride,",
+            "      '$getterKey': $prefixedUserBridge.$getterOverride,",
           );
         } else {
           if (_requiresDynamicMemberDispatch(getter.name)) {
             buffer.writeln(
-              "      '${getter.name}': (visitor, target) => "
+              "      '$getterKey': (visitor, target) => "
               "(D4.validateTarget<$prefixedName>(target, '${cls.name}') as dynamic).${getter.name},",
             );
             continue;
           }
           buffer.writeln(
-            "      '${getter.name}': (visitor, target) => "
+            "      '$getterKey': (visitor, target) => "
             "D4.validateTarget<$prefixedName>(target, '${cls.name}').${getter.name},",
           );
         }
@@ -8344,11 +8356,15 @@ class BridgeGenerator {
     if (!readOnly && instanceSetters.isNotEmpty) {
       buffer.writeln('    setters: {');
       for (final setter in instanceSetters) {
+        // The map key is a single-quoted string literal in the output, so a
+        // `$`-prefixed member (e.g. `$sectionId`) must be escaped; the member
+        // *access* below stays the raw identifier.
+        final setterKey = _escapeString(setter.name);
         // Check for setter override
         final setterOverride = userBridge?.getSetterOverride(setter.name);
         if (setterOverride != null) {
           buffer.writeln(
-            "      '${setter.name}': $prefixedUserBridge.$setterOverride,",
+            "      '$setterKey': $prefixedUserBridge.$setterOverride,",
           );
         } else {
           // GEN-083: when the analyzer-derived functionTypeInfo is null
@@ -8371,7 +8387,7 @@ class BridgeGenerator {
           }
           if (_requiresDynamicMemberDispatch(setter.name)) {
             buffer.writeln(
-              "      '${setter.name}': (visitor, target, value) => ",
+              "      '$setterKey': (visitor, target, value) => ",
             );
             buffer.writeln(
               "        (D4.validateTarget<$prefixedName>(target, '${cls.name}') as dynamic).${setter.name} = value,",
@@ -8393,10 +8409,10 @@ class BridgeGenerator {
               sourceFilePath: cls.sourceFile,
             );
             buffer.writeln(
-              "      '${setter.name}': (visitor, target, value) {",
+              "      '$setterKey': (visitor, target, value) {",
             );
             buffer.writeln(
-              "        final $rawVarName = D4.extractBridgedArgOrNull<dynamic>(value, '${setter.name}');",
+              "        final $rawVarName = D4.extractBridgedArgOrNull<dynamic>(value, '$setterKey');",
             );
             buffer.writeln(
               "        D4.validateTarget<$prefixedName>(target, '${cls.name}').${setter.name} = $wrapperExpr;",
@@ -8421,12 +8437,12 @@ class BridgeGenerator {
                 final localName = '${_getSafeLocalName(setter.name)}Map';
                 final isNullable = setter.returnType.endsWith('?');
                 buffer.writeln(
-                  "      '${setter.name}': (visitor, target, value) {",
+                  "      '$setterKey': (visitor, target, value) {",
                 );
                 if (!isNullable) {
                   buffer.writeln("        if (value == null) {");
                   buffer.writeln(
-                    "          throw ArgumentError('${cls.name}.${setter.name}: non-nullable map value cannot be null');",
+                    "          throw ArgumentError('${cls.name}.$setterKey: non-nullable map value cannot be null');",
                   );
                   buffer.writeln("        }");
                 }
@@ -8465,7 +8481,7 @@ class BridgeGenerator {
               sourceFilePath: cls.sourceFile,
             );
             buffer.writeln(
-              "      '${setter.name}': (visitor, target, value) => ",
+              "      '$setterKey': (visitor, target, value) => ",
             );
             buffer.writeln(
               "        D4.validateTarget<$prefixedName>(target, '${cls.name}').${setter.name} = $castExpression,",
@@ -12132,6 +12148,11 @@ class BridgeGenerator {
     Map<String, String?> classTypeParams = const {},
     String? sourceFilePath,
   }) {
+    // `paramName` is only ever written into single-quoted string literals here
+    // (the arg-name passed to `D4.extractBridgedArg*` / `D4.coerce*`), so a
+    // `$`-prefixed member name (e.g. `$sectionId`) must be escaped to avoid
+    // interpolation in the generated code.
+    paramName = _escapeString(paramName);
     // Handle nullable types first
     var baseType = type;
     final isNullable = baseType.endsWith('?');
