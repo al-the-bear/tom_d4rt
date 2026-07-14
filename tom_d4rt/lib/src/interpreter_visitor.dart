@@ -10534,6 +10534,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             MapEntry(wrapNativeReturnValue(key), wrapNativeReturnValue(value)),
       );
     }
+    // RCC7: Re-wrap native enum values as their bridged counterparts before
+    // falling back to [toBridgedInstance] (which would mint a generic
+    // BridgedInstance for the enum). This makes native->script enum returns
+    // wrap consistently regardless of indirection depth — an enum stored in
+    // native static state and returned through a second native call still
+    // compares equal to the script's enum literal.
+    if (nativeValue is Enum) {
+      final bridgedEnum = environment.getBridgedEnumValue(nativeValue) ??
+          globalEnvironment.getBridgedEnumValue(nativeValue);
+      if (bridgedEnum != null) return bridgedEnum;
+    }
     // Try to find a bridge for this native value
     final result = toBridgedInstance(nativeValue);
     if (result.$2) {

@@ -1375,7 +1375,16 @@ class D4 {
     String paramName,
     InterpreterVisitor? visitor,
   ) {
-    final unwrapped = v is BridgedInstance ? v.nativeObject : v;
+    // RCC7: Unwrap bridged enum values just like [_coerceMapKey] does, so a
+    // script-supplied `Map<String, Enum>` (e.g.
+    // `{'owner': TomAuthState.full}`) converts to a native `Map<String, Enum>`.
+    // Without this, the closing `unwrapped as V` cast throws
+    // "type BridgedEnumValue is not a subtype of type <Enum> in type cast".
+    final unwrapped = v is BridgedInstance
+        ? v.nativeObject
+        : v is BridgedEnumValue
+            ? v.nativeValue
+            : v;
 
     // InterpretedInstance → native via bridgedSuperObject or interface proxy
     if (v is InterpretedInstance) {
