@@ -6406,7 +6406,7 @@ class BridgeGenerator {
     );
     buffer.writeln('    return {');
     for (final cls in classes) {
-      buffer.writeln("      '${cls.name}': _create${cls.name}Bridge,");
+      buffer.writeln("      '${_escapeString(cls.name)}': _create${cls.name}Bridge,");
     }
     buffer.writeln('    };');
     buffer.writeln('  }');
@@ -6426,7 +6426,7 @@ class BridgeGenerator {
     buffer.writeln('    return {');
     for (final cls in classes) {
       final prefixedName = _getPrefixedClassName(cls.name, cls.sourceFile);
-      buffer.writeln("      '${cls.name}': $prefixedName,");
+      buffer.writeln("      '${_escapeString(cls.name)}': $prefixedName,");
     }
     buffer.writeln('    };');
     buffer.writeln('  }');
@@ -6447,7 +6447,7 @@ class BridgeGenerator {
     buffer.writeln('    return {');
     for (final cls in classes) {
       final sourceUri = _getPackageUri(cls.sourceFile);
-      buffer.writeln("      '${cls.name}': '$sourceUri',");
+      buffer.writeln("      '${_escapeString(cls.name)}': '$sourceUri',");
     }
     buffer.writeln('    };');
     buffer.writeln('  }');
@@ -6488,7 +6488,7 @@ class BridgeGenerator {
     for (final cls in classes) {
       if (cls.allSupertypeNames.isEmpty) continue;
       final supers = cls.allSupertypeNames.map((s) => "'$s'").join(', ');
-      buffer.writeln("      '${cls.name}': [$supers],");
+      buffer.writeln("      '${_escapeString(cls.name)}': [$supers],");
     }
     buffer.writeln('    };');
     buffer.writeln('  }');
@@ -8237,7 +8237,7 @@ class BridgeGenerator {
     buffer.writeln('BridgedClass _create${cls.name}Bridge() {');
     buffer.writeln('  return BridgedClass(');
     buffer.writeln('    nativeType: $prefixedName,');
-    buffer.writeln("    name: '${cls.name}',");
+    buffer.writeln("    name: '${_escapeString(cls.name)}',");
     // GEN-079 reverted: isAssignable enables supertype bridge lookup for private subclasses
     // e.g., Curves.linear returns _Linear which should use Curve bridge
     buffer.writeln('    isAssignable: (v) => v is $prefixedName,');
@@ -8338,13 +8338,13 @@ class BridgeGenerator {
           if (_requiresDynamicMemberDispatch(getter.name)) {
             buffer.writeln(
               "      '$getterKey': (visitor, target) => "
-              "(D4.validateTarget<$prefixedName>(target, '${cls.name}') as dynamic).${getter.name},",
+              "(D4.validateTarget<$prefixedName>(target, '${_escapeString(cls.name)}') as dynamic).${getter.name},",
             );
             continue;
           }
           buffer.writeln(
             "      '$getterKey': (visitor, target) => "
-            "D4.validateTarget<$prefixedName>(target, '${cls.name}').${getter.name},",
+            "D4.validateTarget<$prefixedName>(target, '${_escapeString(cls.name)}').${getter.name},",
           );
         }
       }
@@ -8390,7 +8390,7 @@ class BridgeGenerator {
               "      '$setterKey': (visitor, target, value) => ",
             );
             buffer.writeln(
-              "        (D4.validateTarget<$prefixedName>(target, '${cls.name}') as dynamic).${setter.name} = value,",
+              "        (D4.validateTarget<$prefixedName>(target, '${_escapeString(cls.name)}') as dynamic).${setter.name} = value,",
             );
           } else if (effectiveFuncInfo != null) {
             // ENG-003: Function-typed setters need callback wrapping.
@@ -8415,7 +8415,7 @@ class BridgeGenerator {
               "        final $rawVarName = D4.extractBridgedArgOrNull<dynamic>(value, '$setterKey');",
             );
             buffer.writeln(
-              "        D4.validateTarget<$prefixedName>(target, '${cls.name}').${setter.name} = $wrapperExpr;",
+              "        D4.validateTarget<$prefixedName>(target, '${_escapeString(cls.name)}').${setter.name} = $wrapperExpr;",
             );
             buffer.writeln("      },");
           } else if (_isMapType(setter.returnType)) {
@@ -8442,7 +8442,7 @@ class BridgeGenerator {
                 if (!isNullable) {
                   buffer.writeln("        if (value == null) {");
                   buffer.writeln(
-                    "          throw ArgumentError('${cls.name}.$setterKey: non-nullable map value cannot be null');",
+                    "          throw ArgumentError('${_escapeString(cls.name)}.$setterKey: non-nullable map value cannot be null');",
                   );
                   buffer.writeln("        }");
                 }
@@ -8463,7 +8463,7 @@ class BridgeGenerator {
                   buffer.writeln(line);
                 }
                 buffer.writeln(
-                  "        D4.validateTarget<$prefixedName>(target, '${cls.name}').${setter.name} = $localName;",
+                  "        D4.validateTarget<$prefixedName>(target, '${_escapeString(cls.name)}').${setter.name} = $localName;",
                 );
                 buffer.writeln("      },");
                 continue;
@@ -8484,7 +8484,7 @@ class BridgeGenerator {
               "      '$setterKey': (visitor, target, value) => ",
             );
             buffer.writeln(
-              "        D4.validateTarget<$prefixedName>(target, '${cls.name}').${setter.name} = $castExpression,",
+              "        D4.validateTarget<$prefixedName>(target, '${_escapeString(cls.name)}').${setter.name} = $castExpression,",
             );
           }
         }
@@ -8688,7 +8688,7 @@ class BridgeGenerator {
               if (!isNullable) {
                 buffer.writeln("        if (value == null) {");
                 buffer.writeln(
-                  "          throw ArgumentError('${cls.name}.$setterKey: non-nullable map value cannot be null');",
+                  "          throw ArgumentError('${_escapeString(cls.name)}.$setterKey: non-nullable map value cannot be null');",
                 );
                 buffer.writeln("        }");
               }
@@ -8986,7 +8986,7 @@ class BridgeGenerator {
         // We use getRequiredArg because we know it exists at this index
         final sanitizedName = _sanitizeLocalVarName(param.name);
         buffer.writeln(
-          "          final $sanitizedName = D4.getRequiredArg<$resolvedType>(positional, $i, '${param.name}', '$contextName');",
+          "          final $sanitizedName = D4.getRequiredArg<$resolvedType>(positional, $i, '${param.name}', '${_escapeString(contextName)}');",
         );
         callArgs.add(sanitizedName);
       }
@@ -9006,7 +9006,7 @@ class BridgeGenerator {
     }
     // Add unreachable fallback - the conditions above are exhaustive but analyzer can't prove it
     buffer.writeln(
-      "        throw ArgumentError('Invalid argument count for $contextName');",
+      "        throw ArgumentError('Invalid argument count for ${_escapeString(contextName)}');",
     );
   }
 
@@ -9106,7 +9106,7 @@ class BridgeGenerator {
                 classTypeParams: typeParams,
               );
               buffer.writeln(
-                "          final $localName = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '$contextName');",
+                "          final $localName = D4.getRequiredNamedArg<$resolvedType>(named, '${param.name}', '${_escapeString(contextName)}');",
               );
             }
           }
@@ -9154,7 +9154,7 @@ class BridgeGenerator {
     final requiredCount = positionalParams.where((p) => p.isRequired).length;
     if (requiredCount > 0) {
       buffer.writeln(
-        "        D4.requireMinArgs(positional, $requiredCount, '${cls.name}');",
+        "        D4.requireMinArgs(positional, $requiredCount, '${_escapeString(cls.name)}');",
       );
     }
 
@@ -9831,7 +9831,7 @@ class BridgeGenerator {
       if (param.isRequired) {
         buffer.writeln("            if (positional.length <= $index) {");
         buffer.writeln(
-          "              throw ArgumentError('$contextName: Missing required argument \"${param.name}\" at position $index');",
+          "              throw ArgumentError('${_escapeString(contextName)}: Missing required argument \"${param.name}\" at position $index');",
         );
         buffer.writeln("            }");
         buffer.writeln("            final $rawVarName = positional[$index];");
@@ -9862,7 +9862,7 @@ class BridgeGenerator {
       );
       if (param.isRequired) {
         buffer.writeln(
-          "            final $localName = D4.getRequiredArg<$typeArg>(positional, $index, '${param.name}', '$contextName');",
+          "            final $localName = D4.getRequiredArg<$typeArg>(positional, $index, '${param.name}', '${_escapeString(contextName)}');",
         );
       } else if (param.defaultValue != null) {
         if (_isWrappableDefault(
@@ -9882,7 +9882,7 @@ class BridgeGenerator {
         } else {
           // Non-wrappable default - require explicit value
           buffer.writeln(
-            "            final $localName = D4.getRequiredArg<$typeArg>(positional, $index, '${param.name}', '$contextName');",
+            "            final $localName = D4.getRequiredArg<$typeArg>(positional, $index, '${param.name}', '${_escapeString(contextName)}');",
           );
         }
       } else {
@@ -9946,7 +9946,7 @@ class BridgeGenerator {
       );
       if (param.isRequired) {
         buffer.writeln(
-          "            final $localName = D4.getRequiredNamedArg<$typeArg>(named, '${param.name}', '$contextName');",
+          "            final $localName = D4.getRequiredNamedArg<$typeArg>(named, '${param.name}', '${_escapeString(contextName)}');",
         );
       } else if (param.defaultValue != null) {
         if (_isWrappableDefault(
@@ -9976,7 +9976,7 @@ class BridgeGenerator {
             "            // TODO: Non-wrappable default: ${param.defaultValue}",
           );
           buffer.writeln(
-            "            final $localName = D4.getRequiredNamedArgTodoDefault<$typeArg>(named, '${param.name}', '$contextName', '${_escapeString(param.defaultValue!)}');",
+            "            final $localName = D4.getRequiredNamedArgTodoDefault<$typeArg>(named, '${param.name}', '${_escapeString(contextName)}', '${_escapeString(param.defaultValue!)}');",
           );
         }
       } else {
@@ -9986,7 +9986,7 @@ class BridgeGenerator {
           );
         } else {
           buffer.writeln(
-            "            final $localName = D4.getRequiredNamedArgTodoDefault<$typeArg>(named, '${param.name}', '$contextName', '<default unavailable>');",
+            "            final $localName = D4.getRequiredNamedArgTodoDefault<$typeArg>(named, '${param.name}', '${_escapeString(contextName)}', '<default unavailable>');",
           );
         }
       }
@@ -10063,7 +10063,7 @@ class BridgeGenerator {
     }
 
     buffer.writeln(
-      "        final t = D4.validateTarget<$prefixedName>(target, '${cls.name}');",
+      "        final t = D4.validateTarget<$prefixedName>(target, '${_escapeString(cls.name)}');",
     );
 
     final positionalParams = method.parameters
@@ -10253,7 +10253,7 @@ class BridgeGenerator {
       "      '$operatorName': (visitor, target, positional, named, typeArgs) {",
     );
     buffer.writeln(
-      "        final t = D4.validateTarget<$prefixedName>(target, '${cls.name}');",
+      "        final t = D4.validateTarget<$prefixedName>(target, '${_escapeString(cls.name)}');",
     );
 
     // Handle different operator arities
@@ -10358,7 +10358,7 @@ class BridgeGenerator {
       "      '$operatorName': (visitor, target, positional, named, typeArgs) {",
     );
     buffer.writeln(
-      "        final t = D4.validateTarget<$prefixedName>(target, '${cls.name}');",
+      "        final t = D4.validateTarget<$prefixedName>(target, '${_escapeString(cls.name)}');",
     );
 
     // Sort by arity - unary first (0 params), then binary (1+ params)
@@ -10636,7 +10636,7 @@ class BridgeGenerator {
           "        // TODO: Unbridgeable function type List<$rawElementType>",
         );
         buffer.writeln(
-          "        throw UnimplementedError('$contextName: Parameter \"${param.name}\" has unbridgeable function type List<$rawElementType>. Bridge cannot handle function types in collections.');",
+          "        throw UnimplementedError('${_escapeString(contextName)}: Parameter \"${param.name}\" has unbridgeable function type List<$rawElementType>. Bridge cannot handle function types in collections.');",
         );
         // Define dummy variable so code compiles (unreachable due to throw)
         // ignore: dead_code
@@ -10651,7 +10651,7 @@ class BridgeGenerator {
           "        if (${_lengthCheckLessThanOrEqual('positional', index)}) {",
         );
         buffer.writeln(
-          "          throw ArgumentError('$contextName: Missing required argument \"${param.name}\" at position $index');",
+          "          throw ArgumentError('${_escapeString(contextName)}: Missing required argument \"${param.name}\" at position $index');",
         );
         buffer.writeln("        }");
         buffer.writeln(
@@ -10691,7 +10691,7 @@ class BridgeGenerator {
             "        if (${_lengthCheckLessThanOrEqual('positional', index)} || positional[$index] == null) {",
           );
           buffer.writeln(
-            "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
+            "          throw ArgumentError('${_escapeString(contextName)}: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
           );
           buffer.writeln("        }");
           buffer.writeln(
@@ -10737,7 +10737,7 @@ class BridgeGenerator {
           "        if (${_lengthCheckLessThanOrEqual('positional', index)}) {",
         );
         buffer.writeln(
-          "          throw ArgumentError('$contextName: Missing required argument \"${param.name}\" at position $index');",
+          "          throw ArgumentError('${_escapeString(contextName)}: Missing required argument \"${param.name}\" at position $index');",
         );
         buffer.writeln("        }");
         buffer.writeln(
@@ -10776,7 +10776,7 @@ class BridgeGenerator {
             "        if (${_lengthCheckLessThanOrEqual('positional', index)} || positional[$index] == null) {",
           );
           buffer.writeln(
-            "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
+            "          throw ArgumentError('${_escapeString(contextName)}: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
           );
           buffer.writeln("        }");
           buffer.writeln(
@@ -10832,7 +10832,7 @@ class BridgeGenerator {
               "        if (${_lengthCheckLessThanOrEqual('positional', index)}) {",
             );
             buffer.writeln(
-              "          throw ArgumentError('$contextName: Missing required argument \"${param.name}\" at position $index');",
+              "          throw ArgumentError('${_escapeString(contextName)}: Missing required argument \"${param.name}\" at position $index');",
             );
             buffer.writeln("        }");
             final lines = _generateInlineFunctionMapConversion(
@@ -10908,7 +10908,7 @@ class BridgeGenerator {
                 "        if (${_lengthCheckLessThanOrEqual('positional', index)} || positional[$index] == null) {",
               );
               buffer.writeln(
-                "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default. Value must be specified.');",
+                "          throw ArgumentError('${_escapeString(contextName)}: Parameter \"${param.name}\" has non-wrappable default. Value must be specified.');",
               );
               buffer.writeln("        }");
               final lines = _generateInlineFunctionMapConversion(
@@ -10975,7 +10975,7 @@ class BridgeGenerator {
           "        if (${_lengthCheckLessThanOrEqual('positional', index)}) {",
         );
         buffer.writeln(
-          "          throw ArgumentError('$contextName: Missing required argument \"${param.name}\" at position $index');",
+          "          throw ArgumentError('${_escapeString(contextName)}: Missing required argument \"${param.name}\" at position $index');",
         );
         buffer.writeln("        }");
         buffer.writeln(
@@ -11016,7 +11016,7 @@ class BridgeGenerator {
             "        if (${_lengthCheckLessThanOrEqual('positional', index)} || positional[$index] == null) {",
           );
           buffer.writeln(
-            "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
+            "          throw ArgumentError('${_escapeString(contextName)}: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
           );
           buffer.writeln("        }");
           buffer.writeln(
@@ -11075,7 +11075,7 @@ class BridgeGenerator {
           "        if (${_lengthCheckLessThanOrEqual('positional', index)}) {",
         );
         buffer.writeln(
-          "          throw ArgumentError('$contextName: Missing required argument \"${param.name}\" at position $index');",
+          "          throw ArgumentError('${_escapeString(contextName)}: Missing required argument \"${param.name}\" at position $index');",
         );
         buffer.writeln("        }");
         buffer.writeln("        final $rawVarName = positional[$index];");
@@ -11127,7 +11127,7 @@ class BridgeGenerator {
     if (param.isRequired) {
       buffer.writeln(
         "        final $localName = D4.getRequiredArg<$typeArg>"
-        "(positional, $index, '${param.name}', '$contextName');",
+        "(positional, $index, '${param.name}', '${_escapeString(contextName)}');",
       );
     } else if (param.defaultValue != null) {
       final prefixedDefault = _prefixDefaultValue(
@@ -11154,7 +11154,7 @@ class BridgeGenerator {
         );
         buffer.writeln(
           "        final $localName = D4.getRequiredArgTodoDefault<$typeArg>"
-          "(positional, $index, '${param.name}', '$contextName', '${_escapeString(param.defaultValue!)}');",
+          "(positional, $index, '${param.name}', '${_escapeString(contextName)}', '${_escapeString(param.defaultValue!)}');",
         );
       }
     } else {
@@ -11352,7 +11352,7 @@ class BridgeGenerator {
           "        // TODO: Unbridgeable function type List<$rawElementType>",
         );
         buffer.writeln(
-          "        throw UnimplementedError('$contextName: Parameter \"${param.name}\" has unbridgeable function type List<$rawElementType>. Bridge cannot handle function types in collections.');",
+          "        throw UnimplementedError('${_escapeString(contextName)}: Parameter \"${param.name}\" has unbridgeable function type List<$rawElementType>. Bridge cannot handle function types in collections.');",
         );
         // Define dummy variable so code compiles (unreachable due to throw)
         buffer.writeln("        // ignore: dead_code");
@@ -11377,7 +11377,7 @@ class BridgeGenerator {
             : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
         buffer.writeln("        if ($requiredCheck) {");
         buffer.writeln(
-          "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
+          "          throw ArgumentError('${_escapeString(contextName)}: Missing required named argument \"${param.name}\"');",
         );
         buffer.writeln("        }");
         buffer.writeln(
@@ -11420,7 +11420,7 @@ class BridgeGenerator {
               : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
           buffer.writeln("        if ($requiredCheck) {");
           buffer.writeln(
-            "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
+            "          throw ArgumentError('${_escapeString(contextName)}: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
           );
           buffer.writeln("        }");
           buffer.writeln(
@@ -11452,7 +11452,7 @@ class BridgeGenerator {
             : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
         buffer.writeln("        if ($requiredCheck) {");
         buffer.writeln(
-          "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
+          "          throw ArgumentError('${_escapeString(contextName)}: Missing required named argument \"${param.name}\"');",
         );
         buffer.writeln("        }");
         buffer.writeln(
@@ -11492,7 +11492,7 @@ class BridgeGenerator {
               : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
           buffer.writeln("        if ($requiredCheck) {");
           buffer.writeln(
-            "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
+            "          throw ArgumentError('${_escapeString(contextName)}: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
           );
           buffer.writeln("        }");
           buffer.writeln(
@@ -11537,7 +11537,7 @@ class BridgeGenerator {
             : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
         buffer.writeln("        if ($requiredCheck) {");
         buffer.writeln(
-          "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
+          "          throw ArgumentError('${_escapeString(contextName)}: Missing required named argument \"${param.name}\"');",
         );
         buffer.writeln("        }");
         buffer.writeln("        final $rawVarName = named['${param.name}'];");
@@ -11593,7 +11593,7 @@ class BridgeGenerator {
                 : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
             buffer.writeln("        if ($requiredCheck) {");
             buffer.writeln(
-              "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
+              "          throw ArgumentError('${_escapeString(contextName)}: Missing required named argument \"${param.name}\"');",
             );
             buffer.writeln("        }");
             final lines = _generateInlineFunctionMapConversion(
@@ -11671,7 +11671,7 @@ class BridgeGenerator {
                   : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
               buffer.writeln("        if ($requiredCheck) {");
               buffer.writeln(
-                "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default. Value must be specified.');",
+                "          throw ArgumentError('${_escapeString(contextName)}: Parameter \"${param.name}\" has non-wrappable default. Value must be specified.');",
               );
               buffer.writeln("        }");
               final lines = _generateInlineFunctionMapConversion(
@@ -11740,7 +11740,7 @@ class BridgeGenerator {
             : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
         buffer.writeln("        if ($requiredCheck) {");
         buffer.writeln(
-          "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
+          "          throw ArgumentError('${_escapeString(contextName)}: Missing required named argument \"${param.name}\"');",
         );
         buffer.writeln("        }");
         buffer.writeln(
@@ -11783,7 +11783,7 @@ class BridgeGenerator {
               : "!named.containsKey('${param.name}') || named['${param.name}'] == null";
           buffer.writeln("        if ($requiredCheck) {");
           buffer.writeln(
-            "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
+            "          throw ArgumentError('${_escapeString(contextName)}: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
           );
           buffer.writeln("        }");
           buffer.writeln(
@@ -11844,7 +11844,7 @@ class BridgeGenerator {
         if (param.isRequired && !isNullable) {
           buffer.writeln("        if (${localName}Raw == null) {");
           buffer.writeln(
-            "          throw ArgumentError('$contextName: Missing required named argument \"${param.name}\"');",
+            "          throw ArgumentError('${_escapeString(contextName)}: Missing required named argument \"${param.name}\"');",
           );
           buffer.writeln("        }");
           buffer.writeln(
@@ -11878,7 +11878,7 @@ class BridgeGenerator {
             );
             buffer.writeln("        if (${localName}Raw == null) {");
             buffer.writeln(
-              "          throw ArgumentError('$contextName: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
+              "          throw ArgumentError('${_escapeString(contextName)}: Parameter \"${param.name}\" has non-wrappable default (${_escapeString(param.defaultValue!)}). Value must be specified but was null.');",
             );
             buffer.writeln("        }");
             buffer.writeln(
@@ -11951,19 +11951,19 @@ class BridgeGenerator {
         );
         buffer.writeln(
           "        final $localName = D4.getRequiredNamedArgTodoDefault<$typeArg>"
-          "(named, '${param.name}', '$contextName', '${_escapeString(param.defaultValue!)}');",
+          "(named, '${param.name}', '${_escapeString(contextName)}', '${_escapeString(param.defaultValue!)}');",
         );
       }
     } else {
       if (!param.isRequired && !param.type.endsWith('?')) {
         buffer.writeln(
           "        final $localName = D4.getRequiredNamedArgTodoDefault<$typeArg>"
-          "(named, '${param.name}', '$contextName', '<default unavailable>');",
+          "(named, '${param.name}', '${_escapeString(contextName)}', '<default unavailable>');",
         );
       } else {
         buffer.writeln(
           "        final $localName = $helperMethod<$typeArg>"
-          "(named, '${param.name}'${param.isRequired ? ", '$contextName'" : ''});",
+          "(named, '${param.name}'${param.isRequired ? ", '${_escapeString(contextName)}'" : ''});",
         );
       }
     }
