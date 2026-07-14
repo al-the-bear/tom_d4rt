@@ -1,3 +1,18 @@
+## 1.12.0
+
+### Fixed — enum bridging for `Map<String, Enum>` args and native-stored round-trips (RCC7)
+
+- A script `Map` whose **values** are bridged enums now coerces to a native
+  `Map<String, Enum>`. `D4._coerceMapValue` unwraps `BridgedEnumValue` to its
+  `.nativeValue`, mirroring the existing `_coerceMapKey` handling. Previously a
+  `registerAll({...})`-style call with bridged-enum values threw
+  `"BridgedEnumValue is not a subtype of type <Enum>"` while the scalar
+  `register(key, enum)` path worked (it unwrapped via `extractBridgedArg`).
+- `wrapNativeReturnValue` now re-wraps a native `Enum` as its `BridgedEnumValue`
+  before the `toBridgedInstance` fallback, so a native-stored enum returned to a
+  script round-trips to the same `BridgedEnumValue` and compares equal with `==`
+  (and resolves custom getters) rather than needing a `.name`-string workaround.
+
 ## 1.11.0
 
 ### Added — static method dispatch on bridged enums (GitHub issue #2)

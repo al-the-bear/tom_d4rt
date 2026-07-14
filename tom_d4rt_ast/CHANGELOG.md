@@ -1,3 +1,14 @@
+## 0.1.12
+
+### Fixed — enum bridging for `Map<String, Enum>` args and native-stored round-trips (RCC7)
+
+- Keeps the analyzer-free runtime in sync with `tom_d4rt` 1.12.0. A script `Map`
+  whose **values** are bridged enums now coerces to a native `Map<String, Enum>`
+  (`D4._coerceMapValue` unwraps `BridgedEnumValue.nativeValue`, mirroring
+  `_coerceMapKey`), and `wrapNativeReturnValue` re-wraps a native `Enum` as its
+  `BridgedEnumValue` so a native-stored enum round-trips and compares equal with
+  `==`.
+
 ## 0.1.11
 
 ### Added — static method dispatch on bridged enums (GitHub issue #2)
