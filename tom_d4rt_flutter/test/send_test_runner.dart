@@ -442,10 +442,30 @@ class SendTestRunner {
       );
     }
 
+    // RCJ13: the companion app is a REAL GUI Flutter app, spawned as a child of
+    // the `flutter test` harness. `flutter test` injects a font-isolation
+    // environment — FONTCONFIG_FILE points at a stripped test-only `fonts.conf`
+    // (no system fonts, just the deterministic test font), plus FC_FONTATIONS /
+    // FLUTTER_TEST / UNIT_TEST_ASSETS — so widget tests render against a fixed,
+    // empty font set. A child GUI engine that INHERITS those vars renders
+    // text-heavy trees (e.g. services/platform_test.dart) with no usable system
+    // font and the engine dies at the render/text-layout stage: a clean "Lost
+    // connection to device" exit 0 that no Dart-level handler in the app can
+    // catch. Strip the test-injected vars so the child launches exactly like a
+    // standalone `flutter run` against the real system fonts.
+    final childEnvironment = Map<String, String>.from(Platform.environment)
+      ..remove('FONTCONFIG_FILE')
+      ..remove('FONTCONFIG_PATH')
+      ..remove('FC_FONTATIONS')
+      ..remove('FLUTTER_TEST')
+      ..remove('UNIT_TEST_ASSETS');
+
     _testAppProcess = await Process.start(
       flutterExecutable,
       args,
       workingDirectory: appDir,
+      environment: childEnvironment,
+      includeParentEnvironment: false,
     );
 
     _lastTestAppExitCode = null;
@@ -765,7 +785,7 @@ class SendTestRunner {
         ? '&buildBudgetMs=${httpBuildTimeout.inMilliseconds}'
         : '';
     final buildUrl = '/build?filename=$encodedPath$suiteQuery$buildBudgetQuery';
-    late final Map<String, dynamic> response;
+    final Map<String, dynamic> response;
     final httpStopwatch = Stopwatch()..start();
     try {
       response = await _httpPostSource(
@@ -779,16 +799,22 @@ class SendTestRunner {
       httpDuration = httpStopwatch.elapsed;
     } catch (error, stackTrace) {
       httpDuration = httpStopwatch.elapsed;
-      // Bucket-2 cascade fix: set the recycle flag IMMEDIATELY, before any
-      // slow diagnostics work. flutter_test's per-test 30s timeout can fire
-      // while we're collecting diagnostics; setting first guarantees the
-      // next test sees the flag even when our catch handler is racing with
-      // flutter_test's test-level timeout.
+      // A dropped/timed-out connection means either the app's Dart event loop is
+      // wedged on a runaway interpret (server never returns) or the app process
+      // died at the engine level. Either way the process is unusable — surface
+      // it honestly rather than silently retrying (a retry masks real failures
+      // and the deferred `_appNeedsRecycle` already recovers the next test).
+      //
+      // Bucket-2 cascade fix: set the recycle flag IMMEDIATELY, before any slow
+      // diagnostics work. flutter_test's per-test 30s timeout can fire while
+      // we're collecting diagnostics; setting first guarantees the next test
+      // sees the flag even when our catch handler is racing with flutter_test's
+      // test-level timeout.
       _appNeedsRecycle = true;
-      // A client-side /build timeout means the app is still churning the
-      // runaway interpret (the server hasn't returned). Same wedge as a
-      // server-side build-timeout 400: kill the process NOW so it stops
-      // burning CPU and the /logs probe below fails fast instead of hanging.
+      // A client-side /build timeout means the app is still churning the runaway
+      // interpret (the server hasn't returned). Same wedge as a server-side
+      // build-timeout 400: kill the process NOW so it stops burning CPU and the
+      // /logs probe below fails fast instead of hanging.
       await _killExistingProcess();
       final diagnostics = await _buildSendDiagnostics(
         operation: 'POST $buildUrl',

@@ -757,11 +757,30 @@ class SendTestRunner {
       );
     }
 
+    // RCJ13: the companion app is a REAL GUI Flutter app, spawned as a child of
+    // the `flutter test` harness. `flutter test` injects a font-isolation
+    // environment — FONTCONFIG_FILE points at a stripped test-only `fonts.conf`
+    // (no system fonts, just the deterministic test font), plus FC_FONTATIONS /
+    // FLUTTER_TEST / UNIT_TEST_ASSETS — so widget tests render against a fixed,
+    // empty font set. A child GUI engine that INHERITS those vars renders
+    // text-heavy trees with no usable system font and the engine dies at the
+    // render/text-layout stage: a clean "Lost connection to device" exit 0 that
+    // no Dart-level handler in the app can catch. Strip the test-injected vars
+    // so the child launches exactly like a standalone `flutter run` against the
+    // real system fonts.
+    final childEnvironment = Map<String, String>.from(Platform.environment)
+      ..remove('FONTCONFIG_FILE')
+      ..remove('FONTCONFIG_PATH')
+      ..remove('FC_FONTATIONS')
+      ..remove('FLUTTER_TEST')
+      ..remove('UNIT_TEST_ASSETS');
+
     _testAppProcess = await Process.start(
       flutterExecutable,
       args,
       workingDirectory: appDir,
-      // Don't inherit stdio to avoid crash when killing process
+      environment: childEnvironment,
+      includeParentEnvironment: false,
     );
 
     _lastTestAppExitCode = null;
