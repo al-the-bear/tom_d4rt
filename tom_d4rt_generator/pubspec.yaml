@@ -44,9 +44,11 @@ dependencies:
 
   # Shared analyzer summary caching — same cache directory as
   # tom_reflection_generator so sibling generators can reuse each
-  # other's cached summaries. See _copilot_guidelines/d4rt/. Floor 0.6.0 for the
-  # ToolCacheLocator shared tool-cache root.
-  tom_analyzer_shared: ">=0.6.0"
+  # other's cached summaries. See _copilot_guidelines/d4rt/. Floor 0.7.1 so the
+  # summary cache is partitioned by Dart SDK version, not just analyzer major —
+  # a point-SDK bundle-format drift otherwise crashes the cached `.sum` reader
+  # (RCJ3).
+  tom_analyzer_shared: ">=0.7.1"
 
 executables:
   d4rtgen: d4rtgen
