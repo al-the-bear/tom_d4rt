@@ -192,6 +192,24 @@ void main() {
       expect(result, equals(3)); // red, green, blue
     });
 
+    test('I-ENUM-19: toString() on a bridged enum TYPE via runtimeType. (RCJ12)', () {
+      // Reproduces flutter_extended_23 (dropdown_menu_close_behavior): a script
+      // does `v.runtimeType.toString()` where `v` is a bridged enum value.
+      // `v.runtimeType` yields the enum TYPE (a BridgedEnum), and calling
+      // toString() on the TYPE previously misresolved as a static-method lookup
+      // and threw "Undefined static method 'toString' on bridged enum". Dart's
+      // Type.toString() returns the type name, so this must yield 'BridgedColor'.
+      final code = '''
+        import 'package:test/color.dart';
+        main() {
+          var color = BridgedColor.green;
+          return color.runtimeType.toString();
+        }
+      ''';
+      final result = interpreter.execute(source: code);
+      expect(result, equals('BridgedColor'));
+    });
+
     test('I-ENUM-1: Access .values and index into it. [2026-02-10 06:37] (PASS)', () {
       final code = '''
         import 'package:test/color.dart';

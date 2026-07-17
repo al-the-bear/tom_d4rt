@@ -1,3 +1,17 @@
+## 0.1.13
+
+### Fixed — `toString()` on a bridged enum TYPE (via `runtimeType`) (RCJ12)
+
+- Keeps the analyzer-free runtime in sync with `tom_d4rt` 1.12.1. Calling
+  `.toString()` on a bridged enum **type** — typically reached through
+  `enumValue.runtimeType` — no longer throws
+  `"Undefined static method 'toString' on bridged enum '<Enum>'"`; the
+  `BridgedEnum` method-invocation branch now returns the enum type name for a
+  no-arg `toString`, matching Dart's `Type.toString()`. This is the fix
+  exercised by the `flutter_extended_23` retest
+  (`dropdown_menu_close_behavior`), whose metadata card renders
+  `v.runtimeType.toString()`.
+
 ## 0.1.12
 
 ### Fixed — enum bridging for `Map<String, Enum>` args and native-stored round-trips (RCC7)

@@ -3775,6 +3775,16 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final staticMethodAdapter =
             targetValue.findStaticMethodAdapter(methodName);
         if (staticMethodAdapter == null) {
+          // Cluster-C33 (enum flavour): the enum TYPE reached this branch as a
+          // runtime value — typically via `enumValue.runtimeType`, which yields
+          // the BridgedEnum itself. Object members must then resolve against the
+          // type object rather than a static method. In real Dart
+          // `SomeEnum.toString()` (and `Type.toString()`) returns the type name,
+          // so mirror the InterpretedClass class-as-value fallback above before
+          // reporting an undefined-method error.
+          if (node.argumentList.arguments.isEmpty && methodName == 'toString') {
+            return targetValue.name;
+          }
           throw RuntimeD4rtException(
               "Undefined static method '$methodName' on bridged enum '${targetValue.name}'.");
         }

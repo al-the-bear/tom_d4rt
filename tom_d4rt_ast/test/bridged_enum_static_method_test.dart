@@ -84,6 +84,75 @@ void main() {
     );
   }
 
+  /// Builds an [AstBundle] whose `main` returns
+  /// `SizeEnum.small.runtimeType.toString()`. `SizeEnum.small` is a bridged
+  /// enum VALUE; `.runtimeType` yields the enum TYPE (a BridgedEnum); and
+  /// `.toString()` on that TYPE must return the type name — not misresolve as a
+  /// static-method lookup and throw. Twin of tom_d4rt I-ENUM-19 (RCJ12).
+  AstBundle bundleRuntimeTypeToString() {
+    final importDirective = SImportDirective(
+      offset: 0,
+      length: 0,
+      uri: SSimpleStringLiteral(
+          offset: 0, length: 0, value: 'package:test/size.dart'),
+    );
+    // SizeEnum.small
+    final enumValue = SPrefixedIdentifier(
+      offset: 0,
+      length: 0,
+      prefix: SSimpleIdentifier(offset: 0, length: 8, name: 'SizeEnum'),
+      identifier: SSimpleIdentifier(offset: 0, length: 5, name: 'small'),
+    );
+    // SizeEnum.small.runtimeType
+    final runtimeTypeAccess = SPropertyAccess(
+      offset: 0,
+      length: 0,
+      target: enumValue,
+      operator: '.',
+      propertyName:
+          SSimpleIdentifier(offset: 0, length: 11, name: 'runtimeType'),
+    );
+    // SizeEnum.small.runtimeType.toString()
+    final invocation = SMethodInvocation(
+      offset: 0,
+      length: 0,
+      target: runtimeTypeAccess,
+      methodName: SSimpleIdentifier(offset: 0, length: 8, name: 'toString'),
+      argumentList: SArgumentList(offset: 0, length: 0, arguments: []),
+    );
+    final mainFn = SFunctionDeclaration(
+      offset: 0,
+      length: 0,
+      name: SSimpleIdentifier(offset: 0, length: 4, name: 'main'),
+      functionExpression: SFunctionExpression(
+        offset: 0,
+        length: 0,
+        parameters: SFormalParameterList(offset: 0, length: 0),
+        body: SBlockFunctionBody(
+          offset: 0,
+          length: 0,
+          block: SBlock(
+            offset: 0,
+            length: 0,
+            statements: [
+              SReturnStatement(offset: 0, length: 0, expression: invocation),
+            ],
+          ),
+        ),
+      ),
+    );
+    final unit = SCompilationUnit(
+      offset: 0,
+      length: 0,
+      directives: [importDirective],
+      declarations: [mainFn],
+    );
+    return AstBundle(
+      entryPointUri: 'package:t/main.dart',
+      modules: {'package:t/main.dart': unit},
+    );
+  }
+
   BridgedEnumDefinition<SizeEnum> sizeDefinition() =>
       BridgedEnumDefinition<SizeEnum>(
         name: 'SizeEnum',
@@ -114,6 +183,15 @@ void main() {
 
       final result = runner.executeBundle(bundleCallingStatic('fromString', 'nope'));
       expect(result, equals(SizeEnum.small));
+    });
+
+    test('AST-ENUM-STATIC-3: toString() on enum TYPE via runtimeType (RCJ12)', () {
+      final runner = D4rtRunner();
+      runner.registerBridgedEnum(sizeDefinition(), 'package:test/size.dart',
+          sourceUri: 'package:test/size.dart');
+
+      final result = runner.executeBundle(bundleRuntimeTypeToString());
+      expect(result, equals('SizeEnum'));
     });
   });
 }
