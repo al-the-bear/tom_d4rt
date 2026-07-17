@@ -49,10 +49,20 @@ fi
 # idle + POLL seconds.
 POLL="${IDLE_POLL:-5}"
 
-# Portable "seconds since epoch of file mtime": BSD/macOS `stat -f %m`,
-# GNU/Linux `stat -c %Y`. Falls back to now (treats unreadable file as fresh).
+# Portable "seconds since epoch of file mtime": GNU/Linux `stat -c %Y` first,
+# then BSD/macOS `stat -f %m`. Falls back to now (treats unreadable file as
+# fresh).
+#
+# GNU MUST be tried first: on Linux `stat -f %m FILE` treats `%m` and FILE as
+# two filesystem operands — `%m` errors to stderr (suppressed) while FILE's
+# human-readable filesystem block (starting `  File: "..."`) still prints to
+# *stdout*. That leaked block would be captured by the command substitution
+# alongside any fallback value, so `$((now - mt))` chokes on the word `File`
+# ("File: unbound variable" under `set -u`). Probing the GNU form first avoids
+# the leak entirely on Linux; on macOS `stat -c` fails cleanly to stderr and we
+# fall through to the BSD form.
 _mtime() {
-  stat -f %m "$1" 2>/dev/null || stat -c %Y "$1" 2>/dev/null || date +%s
+  stat -c %Y "$1" 2>/dev/null || stat -f %m "$1" 2>/dev/null || date +%s
 }
 
 # Create/truncate the logfile up front so both the command (append) and the
