@@ -62,7 +62,6 @@ import 'package:path/path.dart' as p;
 
 import '../bridge_api.dart';
 import '../bridge_config.dart';
-import '../file_generators.dart';
 import 'd4rt_test_result.dart';
 
 /// Runs D4rt scripts and evaluations with in-memory bridge generation
@@ -178,7 +177,7 @@ class D4rtTester {
     }
 
     // Step 3: Compile the test runner to a native binary
-    final runnerPath = _resolveRunnerPath(config);
+    final runnerPath = _resolveRunnerPath();
     final compileResult = await Process.run('dart', [
       'compile',
       'exe',
@@ -338,15 +337,17 @@ class D4rtTester {
     return generateBridges(config: effectiveConfig, projectPath: projectPath);
   }
 
-  /// Resolve the test runner path for subprocess invocation.
+  /// Resolve the test runner path for subprocess compilation.
   ///
-  /// If the config already specifies a test runner path, use it.
-  /// Otherwise use the default `bin/<runnerExecutable>.dart`.
-  String _resolveRunnerPath(BridgeConfig config) {
-    final runnerFile = config.testRunnerPath != null
-        ? ensureBDartExtension(config.testRunnerPath!)
-        : 'bin/$runnerExecutable.dart';
-    return p.join(projectPath, runnerFile);
+  /// Must mirror [_generateBridges], which **always** emits the runner at
+  /// `bin/<runnerExecutable>.dart` (overriding any `testRunnerPath` from the
+  /// config). Reading the original `config.testRunnerPath` here would point
+  /// the compile step at a filename that was never generated — e.g. the
+  /// `buildkit.yaml` default `bin/d4rtrun.b.dart` while generation produced
+  /// `bin/d4rtrun_tester.b.dart` for a suite that overrides [runnerExecutable]
+  /// to run in parallel. The runner name is owned by [runnerExecutable].
+  String _resolveRunnerPath() {
+    return p.join(projectPath, 'bin', '$runnerExecutable.dart');
   }
 
   /// Run the compiled binary with arguments and timeout handling.

@@ -21,8 +21,7 @@ dependencies:
   # zero analyzer/dart:io dependency, so the app builds and runs on the web.
   tom_d4rt_flutter_ast:
     path: ../tom_d4rt_flutter_ast
-  tom_d4rt_ast:
-    path: ../tom_d4rt_ast
+  tom_d4rt_ast: ^0.1.13
 
 dev_dependencies:
   flutter_test:
@@ -34,8 +33,7 @@ dev_dependencies:
   # Analyzer-based source→AstBundle compiler. Used ONLY by the build-time
   # tool (tool/compile_samples_to_bundles.dart, run under `flutter test`) —
   # never by lib/ runtime code, so the shipped app stays analyzer-free.
-  tom_ast_generator:
-    path: ../tom_ast_generator
+  tom_ast_generator: ^0.1.4
 
 flutter:
   uses-material-design: true

@@ -25,8 +25,7 @@ dev_dependencies:
   # interpreter counters (call volume / recursion depth) per pump. This is the
   # same analyzer-based interpreter SourceFlutterD4rt drives, so the counters
   # reflect the real per-frame interpreter cost.
-  tom_d4rt:
-    path: ../tom_d4rt
+  tom_d4rt: ^1.12.1
 
 flutter:
   uses-material-design: true

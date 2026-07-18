@@ -1,20 +1,11 @@
+# Only the forked native_semaphores remains as an override: the fork carries a
+# fix not present in the hosted pub.dev release (0.0.5). All d4rt-family
+# siblings (tom_d4rt_exec, tom_d4rt_ast, tom_ast_generator, tom_ast_model) now
+# resolve from their hosted analyzer-10 releases, and tom_build_base resolves
+# from its hosted release (local == hosted); the analyzer-10-migration path
+# overrides were dropped once those siblings published.
 dependency_overrides:
   runtime_native_semaphores:
     git:
       url: https://github.com/al-the-bear/native_semaphores.git
       ref: fork-fix
-  tom_d4rt:
-    path: ../tom_d4rt
-  tom_d4rt_ast:
-    path: ../tom_d4rt_ast
-  tom_d4rt_exec:
-    path: ../tom_d4rt_exec
-  tom_ast_generator:
-    path: ../tom_ast_generator
-  tom_ast_model:
-    path: ../tom_ast_model
-  # tom_d4rt_generator + tom_analyzer_shared overrides removed for analyzer-10
-  # migration (both stay on analyzer ^8.4.1; only reached via the generator,
-  # which is deferred to the cli_tools-quest migration).
-  tom_build_base:
-    path: ../../basics/tom_build_base
