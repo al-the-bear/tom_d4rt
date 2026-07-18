@@ -1,3 +1,15 @@
+## 1.12.5
+
+### Changed — make the `tom_analyzer_shared >=0.7.2` floor authoritative on pub.dev
+
+- RCJ3/RCJ6 bumped the `tom_analyzer_shared` constraint to `>=0.7.2` (SDK-version
+  partitioned summary cache + transitive-dependency bundle invalidation), but the
+  version published on pub.dev (1.12.4) still carried the old `>=0.6.0` floor, so
+  a fresh consumer resolving this generator from pub.dev was only *allowed* — not
+  *required* — to pick a fixed `tom_analyzer_shared`. This patch republish makes
+  the `>=0.7.2` floor the authoritative constraint every downstream consumer
+  inherits. No code change; hardening only. (RCL2)
+
 ## 1.12.4
 
 ### Fixed — silence GEN-079 warnings for `dart:async` SDK generics
