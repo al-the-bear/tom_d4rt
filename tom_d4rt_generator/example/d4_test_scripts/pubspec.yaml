@@ -9,8 +9,9 @@ environment:
 dependencies:
   d4_example:
     path: ../d4
-  tom_d4rt:
-    path: ../../../tom_d4rt
+  # Hosted floor (RCL12): unifies with d4_example + tom_d4rt_generator, both of
+  # which consume tom_d4rt from hosted — no path pin, no override needed.
+  tom_d4rt: ">=1.12.1"
   path: ^1.9.0
   dcli: ^8.4.2
   dcli_core: ^8.2.8

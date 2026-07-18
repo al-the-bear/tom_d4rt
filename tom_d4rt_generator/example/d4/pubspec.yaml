@@ -7,12 +7,11 @@ environment:
   sdk: ^3.10.4
 
 dependencies:
-  # Path source (not a hosted ^x.y.z floor): d4_example is itself consumed as a
-  # path dependency by d4_test_scripts, which also pins tom_d4rt from path — a
-  # hosted constraint here would clash sources (pubspec_overrides.yaml does not
-  # apply to path-dependency targets). Resolves in-tree to 1.10.1.
-  tom_d4rt:
-    path: ../../../tom_d4rt
+  # Hosted floor (RCL12): d4_example, d4_test_scripts, and the dev-dep
+  # tom_d4rt_generator all consume tom_d4rt from hosted, so resolution unifies
+  # on one source with no path-vs-hosted clash — no pubspec_overrides.yaml is
+  # needed. Floor 1.12.1 carries the RCJ12 bridged-enum-type toString() fix.
+  tom_d4rt: ">=1.12.1"
   path: ^1.9.0
   dcli: ^8.4.2
   dcli_core: ^8.2.8
