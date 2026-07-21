@@ -221,6 +221,11 @@ Future<GenerationResult> generateBridges({
         userBridgeScanner: sharedUserBridgeScanner,
         librarySummaryPaths: summaryPaths,
         sdkSummaryPath: sdkSummaryPath,
+        // DGU3: forward the configurable type-mapping escape hatch and any
+        // paired custom imports so buildkit.yaml can resolve awkward types
+        // without patching the generator.
+        typeMappings: bridgeConfig.typeMappings,
+        additionalImports: bridgeConfig.additionalImports,
       );
       lastGenerator = generator;
 

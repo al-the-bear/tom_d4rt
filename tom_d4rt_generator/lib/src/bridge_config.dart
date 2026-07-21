@@ -1098,6 +1098,40 @@ class BridgeConfig {
   /// ```
   final bool yieldVoidCallbacks;
 
+  /// DGU3: Escape hatch mapping an awkward source type to a substitute that is
+  /// emitted verbatim in generated code — the config seam that upholds the
+  /// "fix the generator, not the generated code" rule.
+  ///
+  /// Keys are source type names (`SomeType`) or their exact nullable spelling
+  /// (`SomeType?`); values are the replacement emitted wherever that type would
+  /// appear (parameters, return types, fields, and each type argument inside
+  /// generics). A bare key (`SomeType`) covers both nullable and non-nullable
+  /// occurrences. Lets a downstream package resolve a hard-to-bridge type
+  /// without patching the generator.
+  ///
+  /// Example in buildkit.yaml:
+  /// ```yaml
+  /// d4rtgen:
+  ///   typeMappings:
+  ///     SomeAwkwardType: dynamic
+  ///     SomeSealedBase: Object?
+  /// ```
+  final Map<String, String> typeMappings;
+
+  /// DGU3: Custom `import` directives added to every generated bridge file.
+  ///
+  /// Each entry is a full import URI. Pairs with [typeMappings] when a
+  /// substitute type lives in a package the generator would not otherwise
+  /// import.
+  ///
+  /// Example in buildkit.yaml:
+  /// ```yaml
+  /// d4rtgen:
+  ///   additionalImports:
+  ///     - package:my_pkg/shims.dart
+  /// ```
+  final List<String> additionalImports;
+
   const BridgeConfig({
     required this.name,
     required this.modules,
@@ -1125,6 +1159,8 @@ class BridgeConfig {
     this.genericInterceptors = const [],
     this.genericConstructors = const [],
     this.yieldVoidCallbacks = false,
+    this.typeMappings = const {},
+    this.additionalImports = const [],
   });
 
   factory BridgeConfig.fromJson(Map<String, dynamic> json) {
@@ -1189,6 +1225,12 @@ class BridgeConfig {
               .toList() ??
           const [],
       yieldVoidCallbacks: json['yieldVoidCallbacks'] as bool? ?? false,
+      typeMappings:
+          (json['typeMappings'] as Map?)
+              ?.map((k, v) => MapEntry(k.toString(), v.toString())) ??
+          const {},
+      additionalImports:
+          (json['additionalImports'] as List?)?.cast<String>() ?? const [],
     );
   }
 
@@ -1281,6 +1323,8 @@ class BridgeConfig {
         'genericConstructors':
             genericConstructors.map((g) => g.toJson()).toList(),
       if (yieldVoidCallbacks) 'yieldVoidCallbacks': yieldVoidCallbacks,
+      if (typeMappings.isNotEmpty) 'typeMappings': typeMappings,
+      if (additionalImports.isNotEmpty) 'additionalImports': additionalImports,
     };
   }
 
@@ -1312,6 +1356,8 @@ class BridgeConfig {
     List<GenericInterceptorConfig>? genericInterceptors,
     List<GenericConstructorConfig>? genericConstructors,
     bool? yieldVoidCallbacks,
+    Map<String, String>? typeMappings,
+    List<String>? additionalImports,
   }) {
     return BridgeConfig(
       name: name ?? this.name,
@@ -1341,6 +1387,8 @@ class BridgeConfig {
       genericInterceptors: genericInterceptors ?? this.genericInterceptors,
       genericConstructors: genericConstructors ?? this.genericConstructors,
       yieldVoidCallbacks: yieldVoidCallbacks ?? this.yieldVoidCallbacks,
+      typeMappings: typeMappings ?? this.typeMappings,
+      additionalImports: additionalImports ?? this.additionalImports,
     );
   }
 

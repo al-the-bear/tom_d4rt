@@ -1352,6 +1352,26 @@ class BridgeGenerator {
   /// Example: ['TomInt', 'package:tom_core_kernel/tom_core_kernel.dart:TomDouble']
   List<RecursiveBoundType> recursiveBoundTypes = [];
 
+  /// DGU3: Configurable escape hatch mapping an awkward source type to a
+  /// substitute that is emitted verbatim.
+  ///
+  /// Keyed by source type name (e.g. `SomeAwkwardType`) or its exact nullable
+  /// spelling (e.g. `SomeAwkwardType?`); the value is the replacement type
+  /// emitted in generated code (e.g. `dynamic`, `Object?`). Lets a downstream
+  /// package resolve a hard-to-bridge type through `buildkit.yaml` config
+  /// instead of patching the generator. Applied at the single type-resolution
+  /// chokepoint ([_resolveTypeArgument]), so it covers bare types and each
+  /// type argument inside generics. Empty by default (no substitution).
+  final Map<String, String> typeMappings;
+
+  /// DGU3: Custom `import` directives to add to every generated bridge file.
+  ///
+  /// Each entry is a full import URI (e.g. `package:my_pkg/shims.dart`) emitted
+  /// alongside the standard d4rt/helpers imports. Intended for use with
+  /// [typeMappings] when a substitute type lives in a package the generator
+  /// would not otherwise import. Empty by default.
+  final List<String> additionalImports;
+
   /// Default types for recursive bound dispatch.
   ///
   /// Note: Only types that actually implement Comparable<T> where T is themselves.
@@ -1894,6 +1914,8 @@ class BridgeGenerator {
     this.followPackages = const [],
     this.librarySummaryPaths,
     this.sdkSummaryPath,
+    this.typeMappings = const {},
+    this.additionalImports = const [],
     List<RecursiveBoundType>? recursiveBoundTypes,
     UserBridgeScanner? userBridgeScanner,
   }) : recursiveBoundTypes = _mergeRecursiveBoundTypes(recursiveBoundTypes) {
@@ -6065,6 +6087,18 @@ class BridgeGenerator {
     buffer.writeln("import '$d4rtImport';");
     if (helpersImport != d4rtImport) {
       buffer.writeln("import '$helpersImport';");
+    }
+
+    // DGU3: emit configured additional imports (buildkit `additionalImports`).
+    // These pair with `typeMappings` so a substitute type that lives in a
+    // package the generator would not otherwise import is still resolvable.
+    // Deduplicated against the standard imports already emitted above.
+    for (final extraImport in additionalImports) {
+      if (extraImport == d4rtImport || extraImport == helpersImport) {
+        continue;
+      }
+      buffer.writeln("import '$extraImport';");
+      _importPrefixes.putIfAbsent(extraImport, () => '');
     }
 
     // Register unprefixed imports in _importPrefixes so type resolution
@@ -12305,6 +12339,23 @@ class BridgeGenerator {
     if (baseType.endsWith('?')) {
       baseType = baseType.substring(0, baseType.length - 1);
       isNullable = true;
+    }
+
+    // DGU3: configurable typeMappings escape hatch. A downstream buildkit.yaml
+    // can map an awkward source type to a substitute that is emitted verbatim,
+    // without patching the generator (upholds the "fix the generator, not the
+    // generated code" rule by giving config a seam). An exact match on the raw
+    // type (nullability included) wins; otherwise the non-null base is matched
+    // so a single `Awkward: dynamic` entry covers both `Awkward` and `Awkward?`.
+    // The mapped value is emitted as-is — the user owns its exact spelling and
+    // nullability. `_resolveTypeArgument` is the single chokepoint every type
+    // resolution passes through (via `_getTypeArgument`), so this catches bare
+    // types as well as each type argument inside generics.
+    if (typeMappings.isNotEmpty) {
+      final mapped = typeMappings[type] ?? typeMappings[baseType];
+      if (mapped != null) {
+        return mapped;
+      }
     }
 
     // GEN-065: Guard against InvalidType from the Dart analyzer.

@@ -86,6 +86,27 @@ When all four dormant lists (`recreatorClasses`, `genericInterceptors`,
 `genericConstructors`) are empty and `generateAllRelaxers` keeps its default,
 generated `*.b.dart` output is byte-identical to the historical behaviour.
 
+### Type-mapping escape hatch
+
+| Key | Type | Default | Description |
+|---|---|---|---|
+| `typeMappings` | `Map<String,String>` | `{}` | Substitute an awkward source type with another type at emission time. Keyed by source type name (`SomeType`) or its exact nullable spelling (`SomeType?`); the value is emitted verbatim wherever that type would appear — parameters, fields, return types, and each type argument inside generics. A bare key covers both nullable and non-nullable occurrences. The mapped type's own bridge registration is left intact. |
+| `additionalImports` | `List<String>` | `[]` | Full `import` URIs added to every generated bridge file. Pairs with `typeMappings` when a substitute type lives in a package the generator would not otherwise import. |
+
+This is the config seam behind the "fix the generator, not the generated code"
+rule: a downstream package can resolve a hard-to-bridge type through
+`buildkit.yaml` instead of patching the generator. Both keys default to empty,
+so with no entries generated `*.b.dart` output is byte-identical.
+
+```yaml
+d4rtgen:
+  typeMappings:
+    SomeAwkwardType: dynamic
+    SomeSealedBase: Object?
+  additionalImports:
+    - package:my_pkg/shims.dart
+```
+
 ## Per-module keys (`modules[*]`)
 
 Mirrors `ModuleConfig` in `lib/src/bridge_config.dart`.

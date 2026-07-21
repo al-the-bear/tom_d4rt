@@ -1,3 +1,26 @@
+## 1.13.0
+
+### Added — configurable `typeMappings` escape hatch + `additionalImports` (DGU3)
+
+- New top-level `d4rtgen:` config keys mirroring upstream `GeneratorConfig`:
+  - `typeMappings: Map<String,String>` — substitute an awkward source type with
+    another type at emission time. Keyed by source type name (`SomeType`) or its
+    exact nullable spelling (`SomeType?`); the value is emitted verbatim wherever
+    that type would appear (parameters, fields, return types, and each type
+    argument inside generics). Applied at the single type-resolution chokepoint
+    (`_resolveTypeArgument`), so it covers bare types and generic arguments. The
+    mapped type's own bridge registration is left intact.
+  - `additionalImports: List<String>` — full `import` URIs added to every
+    generated bridge file, pairing with `typeMappings` when a substitute type
+    lives in a package the generator would not otherwise import.
+- This is the config seam behind the "fix the generator, not the generated code"
+  rule: a downstream package can resolve a hard-to-bridge type through
+  `buildkit.yaml` instead of patching the generator. Both keys default to empty,
+  so generated `*.b.dart` output stays byte-identical until a config opts in.
+- Wired through `BridgeConfig` (field + constructor + `fromJson`/`toJson`/
+  `copyWith`), the `BridgeGenerator` constructor, and both executor paths
+  (`bridge_api.dart`, `v2/d4rtgen_executor.dart`).
+
 ## 1.12.5
 
 ### Changed — make the `tom_analyzer_shared >=0.7.2` floor authoritative on pub.dev
