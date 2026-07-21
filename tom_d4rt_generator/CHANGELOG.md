@@ -21,6 +21,19 @@
   `copyWith`), the `BridgeGenerator` constructor, and both executor paths
   (`bridge_api.dart`, `v2/d4rtgen_executor.dart`).
 
+### Added — generated-code-quality regression guards (DGU4)
+
+- Cross-checked upstream 0.2.1's four generated-code-quality fixes against our
+  output. Our analyzer-driven emitter produces **none** of the four
+  anti-patterns (they targeted a heuristic generator): generic collection
+  extraction is already well-formed, abstract classes already strip their
+  generative constructors (GEN-051) and carry `isAbstract: true`, no redundant
+  `?? null` is emitted, and a param named `key` keeps its *declared* type rather
+  than being force-inferred. No production change was needed.
+- Locked those properties in with `test/generated_code_quality_test.dart`
+  (`G-DGU4-1..4`) + fixture so a future emitter change cannot silently
+  reintroduce one.
+
 ## 1.12.5
 
 ### Changed — make the `tom_analyzer_shared >=0.7.2` floor authoritative on pub.dev
