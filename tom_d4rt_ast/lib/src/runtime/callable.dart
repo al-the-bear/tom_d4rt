@@ -872,14 +872,29 @@ class InterpretedFunction implements Callable {
           }
         }
 
+        // DFUB8: an optional super parameter (`[super.x]` / `{super.x}`) that
+        // the caller omits and that carries no default in THIS constructor must
+        // not be forwarded — otherwise we pass an explicit `null` to the parent
+        // constructor and clobber the parent's own default. Skipping the
+        // forward lets the parent apply its declared default (e.g.
+        // `Parent(this.name, [this.value = 0])`). Required super params never
+        // reach here unprovided (they throw above), so this only affects
+        // genuinely omitted optionals.
+        final omittedOptionalSuperParam = isSuperParameter &&
+            !argumentProvided &&
+            defaultValueExpr == null &&
+            !(isRequired || isRequiredNamed);
+
         // Define variable in execution scope OR Initialize field
         if (isSuperParameter) {
           // Bug-96: It's a `super.paramName` parameter. Collect the value
           // to forward to the super constructor call.
-          if (isNamed || isRequiredNamed) {
-            superNamedForwards[paramName] = valueToDefine;
-          } else {
-            superPositionalForwards.add(valueToDefine);
+          if (!omittedOptionalSuperParam) {
+            if (isNamed || isRequiredNamed) {
+              superNamedForwards[paramName] = valueToDefine;
+            } else {
+              superPositionalForwards.add(valueToDefine);
+            }
           }
           // Also define it in the local scope so it can be referenced in the body
           executionEnvironment.define(paramName, valueToDefine);
