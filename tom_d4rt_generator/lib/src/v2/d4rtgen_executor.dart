@@ -289,6 +289,13 @@ Future<void> _generateBridges(
       userBridgeScanner: userBridgeScanner,
       librarySummaryPaths: summaryPaths,
       sdkSummaryPath: sdkSummaryPath,
+      // DGUB2: forward the runtime-dispatch bound-type escape hatch so
+      // buildkit `recursiveBoundTypes:` entries reach generation on the v2
+      // path too (mirrors bridge_api.dart). Without this the v2 executor
+      // silently fell back to the built-in defaults and ignored config.
+      recursiveBoundTypes: config.recursiveBoundTypes.isNotEmpty
+          ? config.recursiveBoundTypes.map(RecursiveBoundType.fromString).toList()
+          : null, // Use defaults if not configured
       // DGU3: forward the configurable type-mapping escape hatch and any
       // paired custom imports so buildkit.yaml can resolve awkward types
       // without patching the generator.
