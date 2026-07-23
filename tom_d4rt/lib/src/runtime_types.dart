@@ -2502,6 +2502,7 @@ class InterpretedExtensionType implements Callable, RuntimeType {
   final Environment definitionEnvironment;
   final Map<String, InterpretedFunction> getters;
   final Map<String, InterpretedFunction> methods;
+  final Map<String, InterpretedFunction> setters;
 
   InterpretedExtensionType(
     this.name,
@@ -2510,6 +2511,7 @@ class InterpretedExtensionType implements Callable, RuntimeType {
     this.definitionEnvironment,
     this.getters,
     this.methods,
+    this.setters,
   );
 
   @override
@@ -2582,8 +2584,16 @@ class InterpretedExtensionTypeInstance implements RuntimeValue {
   String toString() => '<instance of ${extensionType.name}>';
 
   @override
-  void set(String name, Object? value) {
+  void set(String name, Object? value, [InterpreterVisitor? visitor]) {
+    // DFUB4: dispatch to a declared setter. The setter body runs with `this`
+    // bound to this instance and typically mutates the (mutable) representation
+    // object — the representation reference itself is final.
+    final setter = extensionType.setters[name];
+    if (setter != null && visitor != null) {
+      setter.bind(this).call(visitor, [value], {});
+      return;
+    }
     throw RuntimeD4rtException(
-        "Extension type '${extensionType.name}' does not support setting properties");
+        "Extension type '${extensionType.name}' has no setter '$name'");
   }
 }

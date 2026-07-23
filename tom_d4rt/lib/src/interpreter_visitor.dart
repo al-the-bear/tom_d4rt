@@ -666,6 +666,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               "[visitSimpleIdentifier] Returning '$name' = $enumMember (from EnumValue this)");
         }
         return enumMember;
+      } else if (thisInstance is InterpretedExtensionTypeInstance) {
+        // DFUB4: bare member access inside an extension-type method body —
+        // `formatted`, `isValid()` resolve against the bound `this` instance
+        // (representation field, getter or method).
+        Logger.debug(
+            "[visitSimpleIdentifier] Found '$name' via implicit InterpretedExtensionTypeInstance 'this'.");
+        return thisInstance.get(name, this);
       }
       throw RuntimeD4rtException(
           "Undefined variable: $name (this exists as native type ${thisInstance?.runtimeType}");
@@ -2662,6 +2669,18 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 "Native error during compound super assignment to bridged property '$propertyName': $e", originalException: e);
           }
         }
+      } else if (targetValue is InterpretedExtensionTypeInstance) {
+        // DFUB4: assignment to an extension-type setter (property access).
+        if (operatorType == TokenType.EQ) {
+          targetValue.set(propertyName, rhsValue, this);
+          return rhsValue;
+        } else {
+          final currentValue = targetValue.get(propertyName, this);
+          final newValue =
+              computeCompoundValue(currentValue, rhsValue, operatorType);
+          targetValue.set(propertyName, newValue, this);
+          return newValue;
+        }
       } else {
         throw RuntimeD4rtException(
             "Assignment target must be an instance, class, or super property, got ${targetValue?.runtimeType}.");
@@ -2941,6 +2960,18 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // No setter adapter found and no script-defined fallback.
           throw RuntimeD4rtException(
               "Cannot assign to property '$propertyName' on bridged instance of '${bridgedInstance.bridgedClass.name}': No setter adapter found.");
+        }
+      } else if (target is InterpretedExtensionTypeInstance) {
+        // DFUB4: assignment to an extension-type setter (prefixed identifier).
+        if (operatorType == TokenType.EQ) {
+          target.set(propertyName, rhsValue, this);
+          return rhsValue;
+        } else {
+          final currentValue = target.get(propertyName, this);
+          final newValue =
+              computeCompoundValue(currentValue, rhsValue, operatorType);
+          target.set(propertyName, newValue, this);
+          return newValue;
         }
       } else {
         throw RuntimeD4rtException(
@@ -4033,6 +4064,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // This block returns directly or throws an exception
       }
 
+      // DFUB4: extension-type instance method dispatch. The `methods` map and
+      // `get()` binding already exist; recognise the instance here so the shared
+      // callable tail invokes the bound method with the evaluated args.
+      else if (targetValue is InterpretedExtensionTypeInstance) {
+        calleeValue = targetValue.get(methodName, this);
+      }
+
       // Handle Function.call() - all Dart functions have an implicit 'call' method
       else if (targetValue is Callable && methodName == 'call') {
         // Calling .call() on a function is equivalent to invoking the function
@@ -4502,6 +4540,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         throw RuntimeD4rtException(
             "${e.message} (accessing property via PropertyAccess '$propertyName')");
       }
+    } else if (target is InterpretedExtensionTypeInstance) {
+      // DFUB4: property access on an extension-type instance (e.g. chained
+      // `Value(5).double().val`). get() resolves the representation field,
+      // calls a getter, or returns a bound method.
+      return target.get(propertyName, this);
     } else if (target is InterpretedEnumValue) {
       try {
         // Get should execute the getter or return the field/bound method
@@ -12051,9 +12094,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
     }
 
-    // Collect getters and methods from members
+    // Collect getters, methods and setters from members
     final getters = <String, InterpretedFunction>{};
     final methods = <String, InterpretedFunction>{};
+    final setters = <String, InterpretedFunction>{};
 
     // G-DOV3-1 FIX: Create the extension type first so we can pass it as owner
     // to the methods/getters (needed for bind() to work)
@@ -12064,6 +12108,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       environment,
       getters, // Will be populated below
       methods, // Will be populated below
+      setters, // Will be populated below
     );
 
     // Define it in the environment early so methods can reference the type
@@ -12090,7 +12135,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           getters[methodName] = interpretedMethod;
           Logger.debug(
               "[visitExtensionTypeDeclaration]   Added getter: $methodName");
-        } else if (!isSetter) {
+        } else if (isSetter) {
+          // DFUB4: setters were previously dropped. Store them so
+          // InterpretedExtensionTypeInstance.set() can dispatch.
+          setters[methodName] = interpretedMethod;
+          Logger.debug(
+              "[visitExtensionTypeDeclaration]   Added setter: $methodName");
+        } else {
           methods[methodName] = interpretedMethod;
           Logger.debug(
               "[visitExtensionTypeDeclaration]   Added method: $methodName");
