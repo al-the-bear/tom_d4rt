@@ -7,6 +7,175 @@ abstract class RuntimeType {
   bool isSubtypeOf(RuntimeType other, {Object? value});
 }
 
+/// True for the top / bottom-ish type names that behave as wildcards in
+/// structural function/record subtype checks. Treating `dynamic`, `Object` and
+/// `void` as "matches anything" keeps the structural comparison permissive
+/// exactly where Dart's own assignability is permissive, avoiding regressions
+/// on annotations the interpreter can only resolve coarsely.
+bool _isWildcardTypeName(String n) =>
+    n == 'dynamic' || n == 'Object' || n == 'void';
+
+/// Structural field/parameter compatibility used by [FunctionRuntimeType] and
+/// [RecordRuntimeType]. Independent of the concrete [RuntimeType] class so it
+/// works uniformly across bridged classes, named sentinels, and nested
+/// function/record types (where the concrete `isSubtypeOf` implementations do
+/// not know about each other).
+bool _runtimeTypeCompatible(RuntimeType sub, RuntimeType sup) {
+  if (_isWildcardTypeName(sub.name) || _isWildcardTypeName(sup.name)) {
+    return true;
+  }
+  if (sub.name == sup.name) return true;
+  return sub.isSubtypeOf(sup);
+}
+
+/// A minimal, self-contained [RuntimeType] identified purely by name. Used as a
+/// sentinel for `dynamic` return/parameter types when a richer type object is
+/// unavailable, and as a fallback for parameter types the resolver cannot map
+/// to a concrete class.
+class NamedRuntimeType implements RuntimeType {
+  @override
+  final String name;
+
+  const NamedRuntimeType(this.name);
+
+  @override
+  bool isSubtypeOf(RuntimeType other, {Object? value}) {
+    if (_isWildcardTypeName(name) || _isWildcardTypeName(other.name)) {
+      return true;
+    }
+    return name == other.name;
+  }
+
+  @override
+  String toString() => name;
+}
+
+/// Runtime model of a function type such as `int Function(String, [double])` or
+/// `void Function({int count})`. Subtyping is structural: return type
+/// covariant, parameters contravariant, arities and named-parameter shape must
+/// line up.
+class FunctionRuntimeType implements RuntimeType {
+  final RuntimeType returnType;
+  final List<RuntimeType> positionalParameterTypes;
+  final List<RuntimeType> optionalPositionalParameterTypes;
+  final Map<String, RuntimeType> namedParameterTypes;
+
+  const FunctionRuntimeType({
+    required this.returnType,
+    this.positionalParameterTypes = const [],
+    this.optionalPositionalParameterTypes = const [],
+    this.namedParameterTypes = const {},
+  });
+
+  /// A function type with no declared shape — used as the default for callables
+  /// whose parameter/return annotations could not be resolved. It matches any
+  /// other function type.
+  factory FunctionRuntimeType.untyped() =>
+      const FunctionRuntimeType(returnType: NamedRuntimeType('dynamic'));
+
+  bool get _isUntyped =>
+      _isWildcardTypeName(returnType.name) &&
+      positionalParameterTypes.isEmpty &&
+      optionalPositionalParameterTypes.isEmpty &&
+      namedParameterTypes.isEmpty;
+
+  @override
+  String get name {
+    final params = <String>[
+      ...positionalParameterTypes.map((t) => t.name),
+      if (optionalPositionalParameterTypes.isNotEmpty)
+        '[${optionalPositionalParameterTypes.map((t) => t.name).join(', ')}]',
+      if (namedParameterTypes.isNotEmpty)
+        '{${namedParameterTypes.entries.map((e) => '${e.value.name} ${e.key}').join(', ')}}',
+    ];
+    return '${returnType.name} Function(${params.join(', ')})';
+  }
+
+  @override
+  bool isSubtypeOf(RuntimeType other, {Object? value}) {
+    if (other is FunctionRuntimeType) {
+      // An untyped function type matches any function and vice-versa.
+      if (_isUntyped || other._isUntyped) return true;
+      // Return type is covariant.
+      if (!_runtimeTypeCompatible(returnType, other.returnType)) return false;
+      // Required positional parameters must line up 1:1 (contravariant).
+      if (positionalParameterTypes.length !=
+          other.positionalParameterTypes.length) {
+        return false;
+      }
+      for (var i = 0; i < positionalParameterTypes.length; i++) {
+        if (!_runtimeTypeCompatible(
+            other.positionalParameterTypes[i], positionalParameterTypes[i])) {
+          return false;
+        }
+      }
+      // Named parameters: every named parameter the supertype declares must be
+      // present here with a contravariant-compatible type.
+      for (final entry in other.namedParameterTypes.entries) {
+        final mine = namedParameterTypes[entry.key];
+        if (mine == null) return false;
+        if (!_runtimeTypeCompatible(entry.value, mine)) return false;
+      }
+      return true;
+    }
+    // Every function is a `Function` and an `Object`.
+    return _isWildcardTypeName(other.name) || other.name == 'Function';
+  }
+
+  @override
+  String toString() => name;
+}
+
+/// Runtime model of a record type such as `(int, String)` or
+/// `(int, {String label})`. Subtyping requires an identical shape (same
+/// positional arity, same named keys) with each field compatible.
+class RecordRuntimeType implements RuntimeType {
+  final List<RuntimeType> positionalFieldTypes;
+  final Map<String, RuntimeType> namedFieldTypes;
+
+  const RecordRuntimeType({
+    this.positionalFieldTypes = const [],
+    this.namedFieldTypes = const {},
+  });
+
+  @override
+  String get name {
+    final parts = <String>[
+      ...positionalFieldTypes.map((t) => t.name),
+      if (namedFieldTypes.isNotEmpty)
+        '{${namedFieldTypes.entries.map((e) => '${e.value.name} ${e.key}').join(', ')}}',
+    ];
+    return '(${parts.join(', ')})';
+  }
+
+  @override
+  bool isSubtypeOf(RuntimeType other, {Object? value}) {
+    if (other is RecordRuntimeType) {
+      if (positionalFieldTypes.length != other.positionalFieldTypes.length) {
+        return false;
+      }
+      if (namedFieldTypes.length != other.namedFieldTypes.length) return false;
+      for (var i = 0; i < positionalFieldTypes.length; i++) {
+        if (!_runtimeTypeCompatible(
+            positionalFieldTypes[i], other.positionalFieldTypes[i])) {
+          return false;
+        }
+      }
+      for (final entry in other.namedFieldTypes.entries) {
+        final mine = namedFieldTypes[entry.key];
+        if (mine == null) return false;
+        if (!_runtimeTypeCompatible(mine, entry.value)) return false;
+      }
+      return true;
+    }
+    // Every record is a `Record` and an `Object`.
+    return _isWildcardTypeName(other.name) || other.name == 'Record';
+  }
+
+  @override
+  String toString() => name;
+}
+
 /// Common interface for values defined at runtime (interpreted or bridged instances).
 abstract class RuntimeValue {
   /// The runtime type of this value.

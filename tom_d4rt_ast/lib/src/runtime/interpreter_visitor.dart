@@ -389,6 +389,18 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           // For now, we accept all (permissive behavior)
           return value;
       }
+    } else if (typeNode is SGenericFunctionType ||
+        typeNode is SRecordTypeAnnotation) {
+      // DFUB5: `value as int Function(int)` / `value as (int, String)` — accept
+      // when the value's runtime type is compatible with the structural
+      // Function/Record type (or when the value's type can't be determined, to
+      // stay permissive). Upstream 848f03d.
+      final targetType = _resolveTypeAnnotation(typeNode);
+      final valueType = environment.getRuntimeType(value);
+      if (valueType == null ||
+          valueType.isSubtypeOf(targetType, value: value)) {
+        return value;
+      }
     }
     // GEN-094: Improve error message: toString()-based error was always
     // "Instance of 'SNamedType'" because SNamedType doesn't override
@@ -10975,6 +10987,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             );
           }
       }
+    } else if (typeNode is SGenericFunctionType ||
+        typeNode is SRecordTypeAnnotation) {
+      // DFUB5: `is (int, {String label})` / `is int Function(int)` — resolve the
+      // annotation to a structural Function/Record runtime type and compare it
+      // against the value's runtime type (functions expose a
+      // callableRuntimeType; records derive a RecordRuntimeType from their
+      // fields). Upstream 848f03d.
+      final targetType = _resolveTypeAnnotation(typeNode);
+      final valueType = environment.getRuntimeType(expressionValue);
+      result = valueType != null &&
+          valueType.isSubtypeOf(targetType, value: expressionValue);
     } else {
       // Handle FunctionType, etc., later if needed
       throw UnimplementedD4rtException(
@@ -11197,20 +11220,40 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         throw RuntimeD4rtException("Type '$typeName' not found.");
       }
     } else if (typeNode is SRecordTypeAnnotation) {
-      // Handle record type annotations like (int, int) or (int, {String name})
-      // For now, return a placeholder that represents the Record type
-      // D4rt uses Dart's native Record type at runtime
+      // DFUB5: resolve record type annotations like `(int, int)` or
+      // `(int, {String name})` into a structural RecordRuntimeType so `is`/`as`
+      // and return-type checks can compare shape + field types (upstream
+      // 848f03d).
+      //
+      // AST-model limitation: `tom_ast_generator` currently converts each
+      // record-type-annotation field to an opaque `Unknown` node, so the field
+      // types and named-field keys are not recoverable here. We reconstruct the
+      // arity (positional count + named count) with `dynamic` field types as a
+      // best-effort. Full fidelity requires a dedicated record-field S-node —
+      // tracked by dgub8. See tom_d4rt (analyzer tree) for the exact-shape impl.
       Logger.debug(
         "[ResolveType] Resolving SRecordTypeAnnotation: ${typeNode.toString()}",
       );
-      return BridgedClass(nativeType: Record, name: 'Record');
+      final positional = <RuntimeType>[
+        for (var i = 0; i < typeNode.positionalFields.length; i++)
+          const NamedRuntimeType('dynamic')
+      ];
+      final named = <String, RuntimeType>{};
+      for (var i = 0; i < typeNode.namedFields.length; i++) {
+        named['\$named$i'] = const NamedRuntimeType('dynamic');
+      }
+      return RecordRuntimeType(
+          positionalFieldTypes: positional, namedFieldTypes: named);
     } else if (typeNode is SGenericFunctionType) {
-      // Handle function type annotations like int Function(int) or void Function(String, int)
-      // For runtime purposes, we treat all function types as the Function type
+      // DFUB5: resolve function type annotations like `int Function(int)` into a
+      // structural FunctionRuntimeType (upstream 848f03d), replacing the coarse
+      // `Function` placeholder so `is`/return checks compare parameter + return
+      // types.
       Logger.debug(
         "[ResolveType] Resolving SGenericFunctionType: ${typeNode.toString()}",
       );
-      return BridgedClass(nativeType: Function, name: 'Function');
+      return _functionRuntimeTypeFromParts(
+          typeNode.returnType, typeNode.parameters, env);
     } else {
       Logger.error(
         "[ResolveType] Unsupported TypeAnnotation type: ${typeNode.runtimeType}",
@@ -11218,6 +11261,69 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       throw UnimplementedD4rtException(
         "Type resolution for ${typeNode.runtimeType} not implemented yet.",
       );
+    }
+  }
+
+  /// DFUB5: build a [FunctionRuntimeType] from a return-type node and a formal
+  /// parameter list, splitting required-positional / optional-positional /
+  /// named parameters and resolving each parameter type through the shared
+  /// resolver. Used for `SGenericFunctionType` annotations.
+  FunctionRuntimeType _functionRuntimeTypeFromParts(
+      SAstNode? returnTypeNode,
+      SFormalParameterList? parameters,
+      Environment env) {
+    final returnType = _resolveTypeAnnotationWithEnvironment(returnTypeNode, env);
+    final positional = <RuntimeType>[];
+    final optionalPositional = <RuntimeType>[];
+    final named = <String, RuntimeType>{};
+    if (parameters != null) {
+      for (final param in parameters.parameters) {
+        final paramType = _resolveFormalParameterRuntimeType(param, env);
+        if (param.isNamed) {
+          named[_formalParameterName(param) ?? ''] = paramType;
+        } else if (param.isOptional) {
+          optionalPositional.add(paramType);
+        } else {
+          positional.add(paramType);
+        }
+      }
+    }
+    return FunctionRuntimeType(
+        returnType: returnType,
+        positionalParameterTypes: positional,
+        optionalPositionalParameterTypes: optionalPositional,
+        namedParameterTypes: named);
+  }
+
+  /// DFUB5: the declared name of a formal parameter, unwrapping a
+  /// [SDefaultFormalParameter] (which reports a null `parameterName`) to its
+  /// inner normal parameter.
+  String? _formalParameterName(SFormalParameter param) {
+    final normal = param is SDefaultFormalParameter ? param.parameter : param;
+    return normal?.parameterName;
+  }
+
+  /// DFUB5: resolve the declared type of a single formal parameter to a
+  /// [RuntimeType], falling back to `dynamic` when the parameter has no
+  /// annotation or the annotation cannot be resolved.
+  RuntimeType _resolveFormalParameterRuntimeType(
+      SFormalParameter param, Environment env) {
+    final normal = param is SDefaultFormalParameter ? param.parameter : param;
+    STypeAnnotation? typeNode;
+    if (normal is SSimpleFormalParameter) {
+      typeNode = normal.type;
+    } else if (normal is SFieldFormalParameter) {
+      typeNode = normal.type;
+    } else if (normal is SSuperFormalParameter) {
+      typeNode = normal.type;
+    }
+    if (typeNode == null) {
+      return const NamedRuntimeType('dynamic');
+    }
+    try {
+      return _resolveTypeAnnotationWithEnvironment(typeNode, env);
+    } catch (_) {
+      return const NamedRuntimeType('dynamic');
     }
   }
 

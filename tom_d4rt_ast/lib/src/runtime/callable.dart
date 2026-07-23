@@ -210,10 +210,116 @@ class InterpretedFunction implements Callable {
         throw RuntimeD4rtException(
             "Symbol '$typeName' resolved to non-type value: $resolved");
       }
+    } else if (typeNode is SRecordTypeAnnotation) {
+      // DFUB5: structural record type (also usable as a type-parameter bound).
+      //
+      // AST-model limitation: `tom_ast_generator` currently converts each
+      // record-type-annotation field to an opaque `Unknown` node, so the field
+      // types and named-field keys are not recoverable here. We reconstruct the
+      // arity (positional count + named count) with `dynamic` field types as a
+      // best-effort. Full fidelity requires a dedicated record-field S-node —
+      // tracked by dgub8. See tom_d4rt (analyzer tree) for the exact-shape impl.
+      final positional = <RuntimeType>[
+        for (var i = 0; i < typeNode.positionalFields.length; i++)
+          const NamedRuntimeType('dynamic')
+      ];
+      final named = <String, RuntimeType>{};
+      for (var i = 0; i < typeNode.namedFields.length; i++) {
+        named['\$named$i'] = const NamedRuntimeType('dynamic');
+      }
+      return RecordRuntimeType(
+          positionalFieldTypes: positional, namedFieldTypes: named);
+    } else if (typeNode is SGenericFunctionType) {
+      // DFUB5: structural function type.
+      final returnTypeNode = typeNode.returnType;
+      final returnType = returnTypeNode == null
+          ? const NamedRuntimeType('dynamic')
+          : _resolveTypeAnnotationDynamic(returnTypeNode, env);
+      final positional = <RuntimeType>[];
+      final optionalPositional = <RuntimeType>[];
+      final named = <String, RuntimeType>{};
+      final params = typeNode.parameters?.parameters ?? const [];
+      for (final param in params) {
+        final paramType = _paramRuntimeType(param, env);
+        if (param.isNamed) {
+          named[_paramName(param) ?? ''] = paramType;
+        } else if (param.isOptional) {
+          optionalPositional.add(paramType);
+        } else {
+          positional.add(paramType);
+        }
+      }
+      return FunctionRuntimeType(
+          returnType: returnType,
+          positionalParameterTypes: positional,
+          optionalPositionalParameterTypes: optionalPositional,
+          namedParameterTypes: named);
     } else {
       throw RuntimeD4rtException(
           "Unsupported type annotation for constraint: ${typeNode.runtimeType}");
     }
+  }
+
+  /// DFUB5: the declared name of a formal parameter, unwrapping a
+  /// [SDefaultFormalParameter] (which reports a null `parameterName`) to its
+  /// inner normal parameter.
+  static String? _paramName(SFormalParameter param) {
+    final normal = param is SDefaultFormalParameter ? param.parameter : param;
+    return normal?.parameterName;
+  }
+
+  /// DFUB5: resolve a single formal parameter's declared type, falling back to
+  /// `dynamic` when unannotated or unresolvable.
+  static RuntimeType _paramRuntimeType(SFormalParameter param, Environment env) {
+    final normal = param is SDefaultFormalParameter ? param.parameter : param;
+    STypeAnnotation? typeNode;
+    if (normal is SSimpleFormalParameter) {
+      typeNode = normal.type;
+    } else if (normal is SFieldFormalParameter) {
+      typeNode = normal.type;
+    } else if (normal is SSuperFormalParameter) {
+      typeNode = normal.type;
+    }
+    if (typeNode == null) {
+      return const NamedRuntimeType('dynamic');
+    }
+    try {
+      return _resolveTypeAnnotationDynamic(typeNode, env);
+    } catch (_) {
+      return const NamedRuntimeType('dynamic');
+    }
+  }
+
+  // DFUB5: cached structural function type for this function.
+  FunctionRuntimeType? _cachedCallableRuntimeType;
+
+  /// DFUB5: the structural function type of this callable, used by `is`/`as`
+  /// and return-type checks against `T Function(...)` annotations.
+  RuntimeType get callableRuntimeType {
+    final cached = _cachedCallableRuntimeType;
+    if (cached != null) return cached;
+    final returnType = declaredReturnType ?? const NamedRuntimeType('dynamic');
+    final positional = <RuntimeType>[];
+    final optionalPositional = <RuntimeType>[];
+    final named = <String, RuntimeType>{};
+    final params = _parameters?.parameters;
+    if (params != null) {
+      for (final param in params) {
+        final paramType = _paramRuntimeType(param, _closure);
+        if (param.isNamed) {
+          named[_paramName(param) ?? ''] = paramType;
+        } else if (param.isOptional) {
+          optionalPositional.add(paramType);
+        } else {
+          positional.add(paramType);
+        }
+      }
+    }
+    return _cachedCallableRuntimeType = FunctionRuntimeType(
+        returnType: returnType,
+        positionalParameterTypes: positional,
+        optionalPositionalParameterTypes: optionalPositional,
+        namedParameterTypes: named);
   }
 
   // Private constructor for bind

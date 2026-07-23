@@ -1384,6 +1384,29 @@ class Environment {
     if (value is BridgedEnumValue) {
       return value.enumType;
     }
+    // DFUB5: a tear-off / closure carries a structural function type so that
+    // `is FunctionType` checks and function return-type validation compare real
+    // parameter/return shapes instead of collapsing to plain `Function`.
+    if (value is InterpretedFunction) {
+      return value.callableRuntimeType;
+    }
+    // DFUB5: derive a structural record type from the record's live field
+    // values so `is RecordType` and record return-type validation see the real
+    // shape (positional arity + named keys + per-field types).
+    if (value is InterpretedRecord) {
+      final positional = <RuntimeType>[
+        for (final field in value.positionalFields)
+          getRuntimeType(field) ?? const NamedRuntimeType('dynamic'),
+      ];
+      final named = <String, RuntimeType>{};
+      value.namedFields.forEach((key, fieldValue) {
+        named[key] = getRuntimeType(fieldValue) ?? const NamedRuntimeType('dynamic');
+      });
+      return RecordRuntimeType(
+        positionalFieldTypes: positional,
+        namedFieldTypes: named,
+      );
+    }
     // Handle Dart primitive/core types by looking them up in the environment
     // Assumes core types (String, int, bool, List, Map, etc.) are registered as BridgedClass
     String? typeName;

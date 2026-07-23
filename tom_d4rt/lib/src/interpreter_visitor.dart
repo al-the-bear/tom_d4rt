@@ -368,6 +368,18 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // For now, we accept all (permissive behavior)
           return value;
       }
+    } else if (typeNode is GenericFunctionType ||
+        typeNode is RecordTypeAnnotation) {
+      // DFUB5: `value as int Function(int)` / `value as (int, String)` — accept
+      // when the value's runtime type is compatible with the structural
+      // Function/Record type (or when the value's type can't be determined, to
+      // stay permissive). Upstream 848f03d.
+      final targetType = _resolveTypeAnnotation(typeNode);
+      final valueType = environment.getRuntimeType(value);
+      if (valueType == null ||
+          valueType.isSubtypeOf(targetType, value: value)) {
+        return value;
+      }
     }
     // GEN-094: Include actual value type for actionable diagnostics.
     final valueDesc = value?.runtimeType.toString() ?? 'Null';
@@ -9932,8 +9944,18 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 RuntimeD4rtException("Type check failed: ${e.message}"));
           }
       }
+    } else if (typeNode is GenericFunctionType ||
+        typeNode is RecordTypeAnnotation) {
+      // DFUB5: `is (int, {String label})` / `is int Function(int)` — resolve the
+      // annotation to a structural Function/Record runtime type and compare it
+      // against the value's runtime type (functions expose a
+      // callableRuntimeType; records derive a RecordRuntimeType from their
+      // fields). Upstream 848f03d.
+      final targetType = _resolveTypeAnnotation(typeNode);
+      final valueType = environment.getRuntimeType(expressionValue);
+      result = valueType != null &&
+          valueType.isSubtypeOf(targetType, value: expressionValue);
     } else {
-      // Handle FunctionType, etc., later if needed
       throw UnimplementedD4rtException(
           'Type check for ${typeNode.runtimeType} not implemented.');
     }
@@ -10131,23 +10153,98 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         throw RuntimeD4rtException("Type '$typeName' not found.");
       }
     } else if (typeNode is RecordTypeAnnotation) {
-      // Handle record type annotations like (int, int) or (int, {String name})
-      // For now, return a placeholder that represents the Record type
-      // D4rt uses Dart's native Record type at runtime
+      // DFUB5: resolve record type annotations like `(int, int)` or
+      // `(int, {String name})` into a structural RecordRuntimeType so `is`/`as`
+      // and return-type checks can compare shape + field types (upstream
+      // 848f03d). Nested field types resolve recursively through this same
+      // resolver (so import-prefixed field types keep working).
       Logger.debug(
           "[ResolveType] Resolving RecordTypeAnnotation: ${typeNode.toSource()}");
-      return BridgedClass(nativeType: Record, name: 'Record');
+      final positional = <RuntimeType>[
+        for (final field in typeNode.positionalFields)
+          _resolveTypeAnnotationWithEnvironment(field.type, env)
+      ];
+      final named = <String, RuntimeType>{};
+      final namedFields = typeNode.namedFields;
+      if (namedFields != null) {
+        for (final field in namedFields.fields) {
+          named[field.name.lexeme] =
+              _resolveTypeAnnotationWithEnvironment(field.type, env);
+        }
+      }
+      return RecordRuntimeType(
+          positionalFieldTypes: positional, namedFieldTypes: named);
     } else if (typeNode is GenericFunctionType) {
-      // Handle function type annotations like int Function(int) or void Function(String, int)
-      // For runtime purposes, we treat all function types as the Function type
+      // DFUB5: resolve function type annotations like `int Function(int)` into a
+      // structural FunctionRuntimeType (upstream 848f03d), replacing the coarse
+      // `Function` placeholder so `is`/return checks compare parameter + return
+      // types.
       Logger.debug(
           "[ResolveType] Resolving GenericFunctionType: ${typeNode.toSource()}");
-      return BridgedClass(nativeType: Function, name: 'Function');
+      return _functionRuntimeTypeFromParts(
+          typeNode.returnType, typeNode.parameters, env);
     } else {
       Logger.error(
           "[ResolveType] Unsupported TypeAnnotation type: ${typeNode.runtimeType}");
       throw UnimplementedD4rtException(
           "Type resolution for ${typeNode.runtimeType} not implemented yet.");
+    }
+  }
+
+  /// DFUB5: build a [FunctionRuntimeType] from a return-type node and a formal
+  /// parameter list, splitting required-positional / optional-positional /
+  /// named parameters and resolving each parameter type through the shared
+  /// resolver. Used for `GenericFunctionType` annotations.
+  FunctionRuntimeType _functionRuntimeTypeFromParts(
+      TypeAnnotation? returnTypeNode,
+      FormalParameterList? parameters,
+      Environment env) {
+    final returnType = _resolveTypeAnnotationWithEnvironment(returnTypeNode, env);
+    final positional = <RuntimeType>[];
+    final optionalPositional = <RuntimeType>[];
+    final named = <String, RuntimeType>{};
+    if (parameters != null) {
+      for (final param in parameters.parameters) {
+        final paramType = _resolveFormalParameterRuntimeType(param, env);
+        if (param.isNamed) {
+          named[param.name?.lexeme ?? ''] = paramType;
+        } else if (param.isOptionalPositional) {
+          optionalPositional.add(paramType);
+        } else {
+          positional.add(paramType);
+        }
+      }
+    }
+    return FunctionRuntimeType(
+        returnType: returnType,
+        positionalParameterTypes: positional,
+        optionalPositionalParameterTypes: optionalPositional,
+        namedParameterTypes: named);
+  }
+
+  /// DFUB5: resolve the declared type of a single formal parameter to a
+  /// [RuntimeType], falling back to `dynamic` when the parameter has no
+  /// annotation or the annotation cannot be resolved.
+  RuntimeType _resolveFormalParameterRuntimeType(
+      FormalParameter param, Environment env) {
+    final normal = param is DefaultFormalParameter
+        ? param.parameter
+        : param as NormalFormalParameter;
+    TypeAnnotation? typeNode;
+    if (normal is SimpleFormalParameter) {
+      typeNode = normal.type;
+    } else if (normal is FieldFormalParameter) {
+      typeNode = normal.type;
+    } else if (normal is SuperFormalParameter) {
+      typeNode = normal.type;
+    }
+    if (typeNode == null) {
+      return const NamedRuntimeType('dynamic');
+    }
+    try {
+      return _resolveTypeAnnotationWithEnvironment(typeNode, env);
+    } catch (_) {
+      return const NamedRuntimeType('dynamic');
     }
   }
 

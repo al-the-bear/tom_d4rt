@@ -143,10 +143,106 @@ class InterpretedFunction implements Callable {
         throw RuntimeD4rtException(
             "Symbol '$typeName' resolved to non-type value: $resolved");
       }
+    } else if (typeNode is RecordTypeAnnotation) {
+      // DFUB5: structural record type (also usable as a type-parameter bound).
+      final positional = <RuntimeType>[
+        for (final field in typeNode.positionalFields)
+          _resolveTypeAnnotationDynamic(field.type, env)
+      ];
+      final named = <String, RuntimeType>{};
+      final namedFields = typeNode.namedFields;
+      if (namedFields != null) {
+        for (final field in namedFields.fields) {
+          named[field.name.lexeme] =
+              _resolveTypeAnnotationDynamic(field.type, env);
+        }
+      }
+      return RecordRuntimeType(
+          positionalFieldTypes: positional, namedFieldTypes: named);
+    } else if (typeNode is GenericFunctionType) {
+      // DFUB5: structural function type.
+      final returnTypeNode = typeNode.returnType;
+      final returnType = returnTypeNode == null
+          ? const NamedRuntimeType('dynamic')
+          : _resolveTypeAnnotationDynamic(returnTypeNode, env);
+      final positional = <RuntimeType>[];
+      final optionalPositional = <RuntimeType>[];
+      final named = <String, RuntimeType>{};
+      for (final param in typeNode.parameters.parameters) {
+        final paramType = _paramRuntimeType(param, env);
+        if (param.isNamed) {
+          named[param.name?.lexeme ?? ''] = paramType;
+        } else if (param.isOptionalPositional) {
+          optionalPositional.add(paramType);
+        } else {
+          positional.add(paramType);
+        }
+      }
+      return FunctionRuntimeType(
+          returnType: returnType,
+          positionalParameterTypes: positional,
+          optionalPositionalParameterTypes: optionalPositional,
+          namedParameterTypes: named);
     } else {
       throw RuntimeD4rtException(
           "Unsupported type annotation for constraint: ${typeNode.runtimeType}");
     }
+  }
+
+  /// DFUB5: resolve a single formal parameter's declared type, falling back to
+  /// `dynamic` when unannotated or unresolvable.
+  static RuntimeType _paramRuntimeType(FormalParameter param, Environment env) {
+    final normal = param is DefaultFormalParameter
+        ? param.parameter
+        : param as NormalFormalParameter;
+    TypeAnnotation? typeNode;
+    if (normal is SimpleFormalParameter) {
+      typeNode = normal.type;
+    } else if (normal is FieldFormalParameter) {
+      typeNode = normal.type;
+    } else if (normal is SuperFormalParameter) {
+      typeNode = normal.type;
+    }
+    if (typeNode == null) {
+      return const NamedRuntimeType('dynamic');
+    }
+    try {
+      return _resolveTypeAnnotationDynamic(typeNode, env);
+    } catch (_) {
+      return const NamedRuntimeType('dynamic');
+    }
+  }
+
+  // DFUB5: cached structural function type for this function.
+  FunctionRuntimeType? _cachedCallableRuntimeType;
+
+  /// DFUB5: the structural function type of this callable, used by `is`/`as`
+  /// and return-type checks against `T Function(...)` annotations.
+  RuntimeType get callableRuntimeType {
+    final cached = _cachedCallableRuntimeType;
+    if (cached != null) return cached;
+    final returnType = declaredReturnType ?? const NamedRuntimeType('dynamic');
+    final positional = <RuntimeType>[];
+    final optionalPositional = <RuntimeType>[];
+    final named = <String, RuntimeType>{};
+    final params = _parameters;
+    if (params != null) {
+      for (final param in params.parameters) {
+        final paramType = _paramRuntimeType(param, _closure);
+        if (param.isNamed) {
+          named[param.name?.lexeme ?? ''] = paramType;
+        } else if (param.isOptionalPositional) {
+          optionalPositional.add(paramType);
+        } else {
+          positional.add(paramType);
+        }
+      }
+    }
+    return _cachedCallableRuntimeType = FunctionRuntimeType(
+        returnType: returnType,
+        positionalParameterTypes: positional,
+        optionalPositionalParameterTypes: optionalPositional,
+        namedParameterTypes: named);
   }
 
   // Private constructor for bind

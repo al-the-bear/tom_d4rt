@@ -1338,6 +1338,28 @@ class Environment {
     if (value is BridgedEnumValue) {
       return value.enumType;
     }
+    // DFUB5: functions expose a structural FunctionRuntimeType so `is`/return
+    // checks against `T Function(...)` annotations compare parameter + return
+    // types instead of collapsing to bare `Function`.
+    if (value is InterpretedFunction) {
+      return value.callableRuntimeType;
+    }
+    // DFUB5: a record's runtime type is a structural RecordRuntimeType derived
+    // from its field values, so `is (int, {String label})` and record
+    // return-type checks compare shape + field types.
+    if (value is InterpretedRecord) {
+      final positional = <RuntimeType>[
+        for (final field in value.positionalFields)
+          getRuntimeType(field) ?? const NamedRuntimeType('dynamic')
+      ];
+      final named = <String, RuntimeType>{};
+      value.namedFields.forEach((key, fieldValue) {
+        named[key] =
+            getRuntimeType(fieldValue) ?? const NamedRuntimeType('dynamic');
+      });
+      return RecordRuntimeType(
+          positionalFieldTypes: positional, namedFieldTypes: named);
+    }
     // Handle Dart primitive/core types by looking them up in the environment
     // Assumes core types (String, int, bool, List, Map, etc.) are registered as BridgedClass
     String? typeName;
