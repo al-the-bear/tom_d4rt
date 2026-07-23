@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
@@ -35,6 +37,22 @@ class ModuleLoader {
       bridgedEnumDefinitions;
   final Map<String /*uri*/, Map<String /*name*/, LibraryClass>> bridgedClases;
   final D4rt? d4rt; // Reference to D4rt instance for permission checking
+
+  /// DFUB1 — base directory for resolving relative filesystem imports.
+  ///
+  /// When [allowFileSystemImports] is enabled, a scheme-less relative import
+  /// URI is resolved against `Directory(basePath).absolute.uri` before reading
+  /// the module source off disk. `null` disables relative filesystem
+  /// resolution (absolute `file:` URIs still resolve on their own).
+  final String? basePath;
+
+  /// DFUB1 — when true, [_fetchModuleSource] may read a module's source from
+  /// the filesystem (via [_resolveFileSystemUri]) if the URI is not already in
+  /// [sources] and the resolved file exists. Defaults to `false` (sandboxed:
+  /// only preloaded [sources] and bridged/stdlib modules are visible). The
+  /// per-read FilesystemPermission gate is layered on top in DFUB2.
+  final bool allowFileSystemImports;
+
   Uri?
       currentlibrary; // Keep for the initial relative URI resolution in _fetchModuleSource and for relative imports
 
@@ -127,6 +145,8 @@ class ModuleLoader {
   ModuleLoader(this.globalEnvironment, this.sources,
       this.bridgedEnumDefinitions, this.bridgedClases,
       {this.d4rt,
+      this.basePath,
+      this.allowFileSystemImports = false,
       this.libraryFunctions = const {},
       this.libraryVariables = const {},
       this.libraryGetters = const {},
@@ -138,6 +158,28 @@ class ModuleLoader {
       this.onBridgedModuleEnvBuilt}) {
     Logger.debug(
         "[ModuleLoader] Initialized with ${sources.length} preloaded sources.");
+  }
+
+  /// DFUB1 — resolves an import [uri] to a filesystem `file:` URI, or returns
+  /// `null` when it is not a filesystem candidate.
+  ///
+  /// - `file:` URIs resolve to themselves (already absolute on disk).
+  /// - Any other explicit scheme (`dart:`, `package:`, …) returns `null` — not
+  ///   a filesystem import.
+  /// - A scheme-less (relative) URI resolves against
+  ///   `Directory(basePath).absolute.uri`; returns `null` when [basePath] is
+  ///   unset (no base to resolve against).
+  Uri? _resolveFileSystemUri(Uri uri) {
+    if (uri.scheme == 'file') {
+      return uri;
+    }
+    if (uri.scheme.isNotEmpty) {
+      return null;
+    }
+    if (basePath == null) {
+      return null;
+    }
+    return Directory(basePath!).absolute.uri.resolveUri(uri);
   }
 
   /// Checks if the given URI requires special permissions and verifies they are granted.
@@ -908,6 +950,26 @@ class ModuleLoader {
     if (sources.containsKey(uriString)) {
       Logger.debug("[ModuleLoader] Source found for $uriString in sources.");
       return sources[uriString]!;
+    }
+
+    // DFUB1 — when filesystem imports are enabled, a URI not in the preloaded
+    // sources may be read off disk. Resolves relative URIs against basePath;
+    // `file:`/absolute URIs read directly. The per-read FilesystemPermission
+    // gate is layered on in DFUB2 — here the `allowFileSystemImports` opt-in is
+    // the only gate.
+    if (allowFileSystemImports) {
+      final fileUri = _resolveFileSystemUri(uri);
+      if (fileUri != null) {
+        final file = File.fromUri(fileUri);
+        if (file.existsSync()) {
+          Logger.debug(
+              "[ModuleLoader] Source loaded from filesystem for $fileUri.");
+          return file.readAsStringSync();
+        }
+        Logger.debug(
+            "[ModuleLoader] Filesystem import enabled, but no file found at "
+            "${file.absolute.path}.");
+      }
     }
 
     // Then handle the known Dart libraries provided by Stdlib

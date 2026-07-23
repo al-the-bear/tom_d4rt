@@ -1011,6 +1011,11 @@ class D4rt {
       librarySetters: merged?.librarySetters ?? _librarySetters,
       bridgedExtensions: merged?.bridgedExtensions ?? _bridgedExtensions,
       d4rt: this,
+      // DFUB1 — thread the filesystem-import config to the loader. Previously
+      // these arrived at _initModule but were never forwarded, so relative
+      // filesystem imports could not resolve (dead no-op).
+      basePath: basePath,
+      allowFileSystemImports: allowFileSystemImports,
       collectRegistrationErrors: collectRegistrationErrors,
       sharedBridgedModuleEnvironments: sharedBridgedModuleEnvs,
       sharedModuleEnclosing: sharedModuleEnclosing,
@@ -1916,7 +1921,12 @@ class D4rt {
       Logger.debug(
           "[D4rt._parseSource] Attempting to load source via ModuleLoader for URI: $library");
 
-      if (!_moduleLoader.sources.containsKey(library.toString())) {
+      // DFUB1 — when filesystem imports are enabled the root library may live
+      // on disk rather than in the preloaded sources map, so loadModule reads
+      // it via the ModuleLoader's filesystem path. Only require a preloaded
+      // source when filesystem imports are disabled.
+      if (!_moduleLoader.sources.containsKey(library.toString()) &&
+          !_moduleLoader.allowFileSystemImports) {
         final errorMessage =
             "[D4rt._parseSource] The source URI '$library' was not found in sources.";
         Logger.error(errorMessage);
@@ -1949,9 +1959,17 @@ class D4rt {
       }
       Logger.debug(
           "[D4rt._parseSource] Parsing the provided source string directly (no source URI).");
+      // DFUB1 — when a basePath is configured, anchor the parsed unit at
+      // `<basePath>/main.dart` so downstream tooling that inspects the unit's
+      // path resolves relative filesystem imports against the same base the
+      // ModuleLoader uses.
+      final basePath = _moduleLoader.basePath;
       final result = parseString(
         content: source,
         throwIfDiagnostics: false,
+        path: basePath != null
+            ? Directory(basePath).absolute.uri.resolve('main.dart').toFilePath()
+            : null,
         featureSet: FeatureSet.fromEnableFlags2(
           sdkLanguageVersion: Version(3, 10, 0),
           flags: [
@@ -2016,7 +2034,15 @@ class D4rt {
     _visitor = InterpreterVisitor(
         globalEnvironment: executionEnvironment,
         moduleLoader: _moduleLoader,
-        initiallibrary: library != null ? Uri.parse(library) : null);
+        initiallibrary: library != null
+            ? Uri.parse(library)
+            // DFUB1 — with filesystem imports enabled and no explicit library,
+            // seed the initial library to basePath so relative imports in the
+            // root source resolve against it (else "Base URI not defined").
+            : (_moduleLoader.allowFileSystemImports &&
+                    _moduleLoader.basePath != null
+                ? Directory(_moduleLoader.basePath!).absolute.uri
+                : null));
     // S1 (plan_3 §9.1): static lexical resolver pass. Populates the visitor's
     // [staticCoords] side-table so the debug depth-assert in
     // visitSimpleIdentifier can validate the scope model. No effect in
@@ -2314,7 +2340,15 @@ class D4rt {
     _visitor = InterpreterVisitor(
         globalEnvironment: executionEnvironment,
         moduleLoader: _moduleLoader,
-        initiallibrary: library != null ? Uri.parse(library) : null);
+        initiallibrary: library != null
+            ? Uri.parse(library)
+            // DFUB1 — with filesystem imports enabled and no explicit library,
+            // seed the initial library to basePath so relative imports in the
+            // root source resolve against it (else "Base URI not defined").
+            : (_moduleLoader.allowFileSystemImports &&
+                    _moduleLoader.basePath != null
+                ? Directory(_moduleLoader.basePath!).absolute.uri
+                : null));
     Object? functionResult;
     try {
       Logger.debug(" [_executeClassic] Starting Pass 2: Interpretation");
