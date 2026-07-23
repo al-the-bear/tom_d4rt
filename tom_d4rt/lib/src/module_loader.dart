@@ -182,6 +182,58 @@ class ModuleLoader {
     return Directory(basePath!).absolute.uri.resolveUri(uri);
   }
 
+  /// DFUB3 — canonicalizes a module [uri] to a single absolute spelling so the
+  /// URI that flows through source reads, the read-permission gate and nested
+  /// import resolution is always the same absolute `file:` form.
+  ///
+  /// Ports upstream kodjodevf/d4rt 3b8b8ca. Only filesystem candidates (per
+  /// [_resolveFileSystemUri]) are affected; every other URI (`dart:`,
+  /// `package:`, unresolvable relative) is returned unchanged so this is a
+  /// no-op for non-filesystem imports.
+  ///
+  /// This deliberately does NOT resolve symlinks: the returned URI still uses
+  /// the caller's directory spelling, so a [FilesystemPermission] granted on a
+  /// (possibly symlinked) directory keeps matching the read. Symlink/real-path
+  /// identity for cache deduplication is handled separately by
+  /// [_moduleIdentityUri]. (Canonicalizing permission grants to real paths is
+  /// tracked in dgub5.)
+  Uri _canonicalizeModuleUri(Uri uri) {
+    final fileUri = _resolveFileSystemUri(uri);
+    if (fileUri == null) {
+      return uri;
+    }
+    return File.fromUri(fileUri).absolute.uri;
+  }
+
+  /// DFUB3 — computes the deduplication identity for a module [uri] used as the
+  /// [_moduleCache] key, so different spellings of the same underlying file —
+  /// including symlinked directories/files and `..`/`.` segments — collapse to
+  /// a single cached module instance and load exactly once.
+  ///
+  /// For an existing filesystem file this is the real (symlink-resolved) path;
+  /// when the file does not exist or the real-path call fails it falls back to
+  /// the absolute spelling. Non-filesystem URIs (`dart:`, `package:`) are
+  /// returned unchanged.
+  ///
+  /// Kept separate from [_canonicalizeModuleUri] so that reads and the
+  /// read-permission gate operate on the caller's (grant-matching) spelling
+  /// while cache identity still folds symlinks together.
+  Uri _moduleIdentityUri(Uri uri) {
+    final fileUri = _resolveFileSystemUri(uri);
+    if (fileUri == null) {
+      return uri;
+    }
+    final file = File.fromUri(fileUri);
+    if (file.existsSync()) {
+      try {
+        return File(file.resolveSymbolicLinksSync()).uri;
+      } on FileSystemException {
+        // Fall through to the absolute-spelling identity below.
+      }
+    }
+    return file.absolute.uri;
+  }
+
   /// Checks if the given URI requires special permissions and verifies they are granted.
   void _checkModulePermissions(Uri uri) {
     if (d4rt == null) return; // No permission checking if no D4rt instance
@@ -631,6 +683,18 @@ class ModuleLoader {
 
   LoadedModule loadModule(Uri uri,
       {Set<String>? showNames, Set<String>? hideNames}) {
+    // DFUB3 — canonicalize filesystem module URIs to a single absolute spelling
+    // so reads, the read-permission gate and nested import resolution all use
+    // the same (grant-matching) form. No-op for non-filesystem URIs (`dart:`,
+    // `package:`, unresolvable relative).
+    uri = _canonicalizeModuleUri(uri);
+
+    // DFUB3 — the cache is keyed by the symlink-resolved identity so different
+    // spellings of the same underlying file (relative vs absolute, symlinked
+    // directory/file vs real path) dedupe to one cached module and load exactly
+    // once. Reads still use `uri` (the caller's spelling) above.
+    final identityUri = _moduleIdentityUri(uri);
+
     // Check permissions for dangerous modules
     _checkModulePermissions(uri);
 
@@ -640,12 +704,12 @@ class ModuleLoader {
     Logger.debug(
         "[ModuleLoader loadModule for $uri] Setting currentlibrary to: $uri (show: $showNames, hide: $hideNames)");
 
-    if (_moduleCache.containsKey(uri)) {
+    if (_moduleCache.containsKey(identityUri)) {
       Logger.debug(
           "[ModuleLoader loadModule for $uri] Module '${uri.toString()}' found in cache.");
       // Restore the source URI before returning for parent calls
       currentlibrary = previouslibraryForRecursiveLoad;
-      return _moduleCache[uri]!;
+      return _moduleCache[identityUri]!;
     }
     Logger.debug(
         "[ModuleLoader loadModule for $uri] Loading module: ${uri.toString()}");
@@ -913,7 +977,9 @@ class ModuleLoader {
 
     final loadedModule =
         LoadedModule(uri, ast, moduleEnvironment, exportedEnvironment);
-    _moduleCache[uri] = loadedModule;
+    // DFUB3 — key by the symlink-resolved identity so a later load via a
+    // different spelling of the same file hits this cached instance.
+    _moduleCache[identityUri] = loadedModule;
     Logger.debug(
         "[ModuleLoader loadModule for $uri] Module '${uri.toString()}' chargé et mis en cache.");
 
