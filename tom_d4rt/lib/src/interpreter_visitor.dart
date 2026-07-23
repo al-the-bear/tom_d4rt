@@ -12220,7 +12220,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     Uri resolvedUri;
     final importUri = Uri.parse(importUriString);
 
-    if (importUri.isScheme('dart') || importUri.isScheme('package')) {
+    if (importUri.hasScheme) {
+      // DFUB2 — any already-absolute URI (dart:, package:, file:, …) is
+      // self-resolving and needs no base. Resolving an absolute URI against a
+      // base returns the absolute URI unchanged, so this only widens the set of
+      // imports that succeed WITHOUT a base (notably absolute `file:` imports),
+      // matching upstream. The filesystem read + permission gate downstream in
+      // ModuleLoader decides whether such a URI is actually loadable.
       resolvedUri = importUri;
       Logger.debug(
           "[visitImportDirective] Using absolute/unresolvable URI: $resolvedUri");

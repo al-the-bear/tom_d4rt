@@ -954,14 +954,16 @@ class ModuleLoader {
 
     // DFUB1 — when filesystem imports are enabled, a URI not in the preloaded
     // sources may be read off disk. Resolves relative URIs against basePath;
-    // `file:`/absolute URIs read directly. The per-read FilesystemPermission
-    // gate is layered on in DFUB2 — here the `allowFileSystemImports` opt-in is
-    // the only gate.
+    // `file:`/absolute URIs read directly.
+    // DFUB2 — every on-disk read is gated by a per-read FilesystemPermission
+    // check (`_checkFileSystemSourceReadPermission`); an ungranted read throws
+    // before any bytes are read.
     if (allowFileSystemImports) {
       final fileUri = _resolveFileSystemUri(uri);
       if (fileUri != null) {
         final file = File.fromUri(fileUri);
         if (file.existsSync()) {
+          _checkFileSystemSourceReadPermission(fileUri);
           Logger.debug(
               "[ModuleLoader] Source loaded from filesystem for $fileUri.");
           return file.readAsStringSync();
@@ -1458,12 +1460,77 @@ class ModuleLoader {
       }
     }
 
-    // If it's neither explicitly preloaded nor a known Dart library, it's an error.
+    // DFUB2 — the source could not be resolved. Produce a message specific to
+    // WHY it failed so callers get an actionable diagnostic.
     Logger.error(
         "[ModuleLoader] Source not preloaded and not a recognized Dart standard library for URI: $uriString");
-    throw SourceCodeD4rtException(
-        "Module source not preloaded for URI: $uriString, and not a recognized Dart standard library.",
+    throw _missingModuleSourceError(uri);
+  }
+
+  /// DFUB2 — builds a diagnostic for a module source that could not be
+  /// resolved, distinguishing the reason:
+  ///
+  /// - a filesystem candidate with [allowFileSystemImports] disabled → the
+  ///   import is off but the URI names a file (enable the flag or preload it);
+  /// - a filesystem candidate that simply does not exist on disk → include the
+  ///   resolved path so the caller can see where the loader looked;
+  /// - a `package:` URI → package-specific guidance (preload or bridge it);
+  /// - anything else → the generic "not preloaded / not a stdlib" message.
+  ///
+  /// The path-scope canonicalization (`..` traversal) is hardened separately
+  /// in DFUB11; the platform io/web split is DFUB12.
+  SourceCodeD4rtException _missingModuleSourceError(Uri uri) {
+    final uriString = uri.toString();
+    final fileUri = _resolveFileSystemUri(uri);
+
+    if (fileUri != null) {
+      if (!allowFileSystemImports) {
+        return SourceCodeD4rtException(
+            "Module source not preloaded for URI: $uriString. Filesystem "
+            "imports are disabled; enable allowFileSystemImports or preload "
+            "the module source.",
+            uriString);
+      }
+      final resolvedPath = File.fromUri(fileUri).absolute.path;
+      return SourceCodeD4rtException(
+          "Module source not found on filesystem for URI: $uriString "
+          "(resolved path: $resolvedPath).",
+          uriString);
+    }
+
+    if (uri.scheme == 'package') {
+      return SourceCodeD4rtException(
+          "Package module source not preloaded for URI: $uriString. Provide "
+          "it in sources or register a bridge for that package library.",
+          uriString);
+    }
+
+    return SourceCodeD4rtException(
+        "Module source not preloaded for URI: $uriString, and not a "
+        "recognized Dart standard library.",
         uriString);
+  }
+
+  /// DFUB2 — gates a filesystem module-source read behind a
+  /// [FilesystemPermission] read check.
+  ///
+  /// The resolved [fileUri] is normalized to an absolute path and matched
+  /// against the granted permissions via [D4rt.checkPermission]. An ungranted
+  /// read throws a [RuntimeD4rtException] before any bytes are read. No-op when
+  /// there is no owning [D4rt] instance (nothing to enforce against).
+  void _checkFileSystemSourceReadPermission(Uri fileUri) {
+    if (d4rt == null) return;
+
+    final filePath = File.fromUri(fileUri).absolute.path;
+    if (!d4rt!.checkPermission({
+      'type': 'filesystem',
+      'path': filePath,
+      'read': true,
+    })) {
+      throw RuntimeD4rtException(
+          'Reading module source from "$filePath" requires '
+          'FilesystemPermission.');
+    }
   }
 
   /// GEN-056 FIX: Resolve a RuntimeType for an extension's on-type by
