@@ -1873,8 +1873,19 @@ class InterpretedInstance implements RuntimeValue {
   }
 
   // Implémentation de RuntimeValue.valueType (précédemment runtimeType)
+  //
+  // DFUB6: when the instance carries applied generic type arguments (e.g.
+  // `Box<int>`), expose them as an [AppliedRuntimeType] so `is Box<int>` and
+  // generic return-type checks compare the arguments element-wise. Raw / non-
+  // generic instances (no type arguments) keep returning the bare class.
   @override
-  RuntimeType get valueType => klass;
+  RuntimeType get valueType {
+    final args = typeArguments;
+    if (args != null && args.isNotEmpty) {
+      return AppliedRuntimeType(klass, args);
+    }
+    return klass;
+  }
 
   /// Recursion guard for the `==` and `hashCode` overrides below. Keyed by
   /// `identityHashCode` so the guard's own Set does not re-enter our override.

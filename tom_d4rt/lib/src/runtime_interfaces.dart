@@ -176,6 +176,55 @@ class RecordRuntimeType implements RuntimeType {
   String toString() => name;
 }
 
+/// Runtime model of a generic type applied to concrete type arguments, such as
+/// `Box<int>` or `List<String>`. Preserves the applied type arguments at
+/// runtime so `is Box<int>` and generic/collection return-type checks can
+/// compare the arguments element-wise instead of collapsing to the raw base
+/// type. Ports the applied-runtime-types half of upstream 1042fff.
+///
+/// Subtyping is base-then-arguments: the [baseType]s must be compatible
+/// (wildcard / name-equality / base `isSubtypeOf`), then each declared type
+/// argument on [other] is matched against the corresponding argument here. An
+/// `other` argument named `dynamic`/`Object`/`void` acts as a wildcard. When
+/// [other] is not itself an [AppliedRuntimeType] (a raw base type or a
+/// structural function/record type), the comparison falls back to the base type
+/// only — a `Box<int>` is still a `Box`, an `Object`, etc. Differing arities
+/// also stay permissive, so coarsely-resolved (partially-applied) annotations
+/// don't regress.
+class AppliedRuntimeType implements RuntimeType {
+  final RuntimeType baseType;
+  final List<RuntimeType> typeArguments;
+
+  AppliedRuntimeType(this.baseType, List<RuntimeType> typeArguments)
+      : typeArguments = List.unmodifiable(typeArguments);
+
+  @override
+  String get name =>
+      '${baseType.name}<${typeArguments.map((t) => t.name).join(', ')}>';
+
+  @override
+  bool isSubtypeOf(RuntimeType other, {Object? value}) {
+    if (other is AppliedRuntimeType) {
+      if (!_runtimeTypeCompatible(baseType, other.baseType)) return false;
+      // Only compare arguments when both sides declare the same arity; a
+      // mismatch stays permissive so partially-applied annotations don't fail.
+      if (typeArguments.length != other.typeArguments.length) return true;
+      for (var i = 0; i < typeArguments.length; i++) {
+        final theirs = other.typeArguments[i];
+        if (_isWildcardTypeName(theirs.name)) continue;
+        if (!_runtimeTypeCompatible(typeArguments[i], theirs)) return false;
+      }
+      return true;
+    }
+    // Comparing an applied type against a raw base / structural type: match on
+    // the base type only.
+    return _runtimeTypeCompatible(baseType, other);
+  }
+
+  @override
+  String toString() => name;
+}
+
 /// Common interface for values defined at runtime (interpreted or bridged instances).
 abstract class RuntimeValue {
   /// The runtime type of this value.

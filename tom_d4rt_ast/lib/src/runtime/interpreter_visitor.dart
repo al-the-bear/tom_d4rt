@@ -7848,11 +7848,21 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           )
         : _resolveTypeAnnotation(node.returnType, isAsync: isAsync);
 
+    // DFUB6: capture the applied return type (`Box<int>`, `List<String>`) at
+    // declaration time. SAstNode has no parent references, so the return
+    // statement cannot re-read the annotation — it must be stored on the
+    // function. Async/generator return types (`Future<T>` / `Stream<T>` /
+    // `Iterable<T>`) are wrappers over the returned value and are skipped by
+    // the return-time check, so we do not compute them here.
+    final declaredReturnTypeApplied =
+        _resolveAppliedReturnType(node.returnType, resolveEnvironment);
+
     final function = InterpretedFunction.declaration(
       node,
       environment,
       declaredReturnType,
       isNullable,
+      declaredReturnTypeApplied: declaredReturnTypeApplied,
     );
     // Define the function in the current environment
     environment.define(node.name!.name, function);
@@ -7974,6 +7984,25 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             }
           }
         }
+
+        // DFUB6: applied generic return validation. The base subtype check
+        // above treats `Box<String>` / `List<String>` as their raw base type,
+        // so a generic/collection value with mismatched type arguments slips
+        // through. Enforce the arguments element-wise here.
+        //
+        // Skip async/generator functions: their declared return type is a
+        // `Future<T>` / `Stream<T>` / `Iterable<T>` wrapper, but the value in a
+        // `return` statement is the *inner* value (Dart wraps it
+        // automatically). Comparing the inner value against the wrapper's
+        // arguments would spuriously reject e.g. `Future<List<String>> f()
+        // async => [1,2,3]`.
+        final skipAppliedGenericReturn = currentCallable.isAsync ||
+            currentCallable.isGenerator ||
+            currentCallable.isAsyncGenerator;
+        if (!skipAppliedGenericReturn) {
+          _checkAppliedGenericReturn(
+              returnValue, currentCallable, functionName, isNullable);
+        }
       } catch (e) {
         Logger.error(
           "[visitReturnStatement] Error during type check for function '$functionName': $e",
@@ -7987,6 +8016,104 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     // For non-suspended results, throw the exception to unwind the stack.
     throw ReturnException(returnValue);
+  }
+
+  /// DFUB6: build an [AppliedRuntimeType] for a generic return-type annotation
+  /// (`Box<int>`, `List<String>`) captured at declaration time. Returns null
+  /// (permissive) for raw, non-generic, or unresolvable annotations. Because
+  /// SAstNode carries no parent references, the result is stored on the
+  /// [InterpretedFunction] so [visitReturnStatement] can validate against it.
+  AppliedRuntimeType? _resolveAppliedReturnType(
+      SAstNode? returnTypeNode, Environment env) {
+    if (returnTypeNode is! SNamedType) return null;
+    final argNodes = returnTypeNode.typeArguments?.arguments;
+    if (argNodes == null || argNodes.isEmpty) return null;
+    try {
+      final baseType =
+          _resolveTypeAnnotationWithEnvironment(returnTypeNode, env);
+      final declaredArgs = [
+        for (final argNode in argNodes)
+          _resolveTypeAnnotationWithEnvironment(argNode, env)
+      ];
+      return AppliedRuntimeType(baseType, declaredArgs);
+    } catch (_) {
+      return null; // Unresolvable annotation → stay permissive.
+    }
+  }
+
+  /// DFUB6: validate a return value's applied type arguments against the
+  /// declared applied return type, throwing the standard "can't be returned"
+  /// error when the arguments are incompatible. Fires only when both the
+  /// declared return type is a generic `SNamedType` (captured as
+  /// [InterpretedFunction.declaredReturnTypeApplied]) and the value's applied
+  /// arguments can be determined (an interpreted instance carrying type
+  /// arguments, or a homogeneous native List/Set/Map). Empty/heterogeneous
+  /// collections and unresolvable annotations stay permissive.
+  void _checkAppliedGenericReturn(Object? returnValue,
+      InterpretedFunction currentCallable, String functionName, bool isNullable) {
+    final appliedDeclared = currentCallable.declaredReturnTypeApplied;
+    if (appliedDeclared == null) return;
+
+    final appliedValue = _appliedValueType(returnValue);
+    if (appliedValue == null) return;
+
+    if (!appliedValue.isSubtypeOf(appliedDeclared)) {
+      final declaredTypeName =
+          isNullable ? '${appliedDeclared.name}?' : appliedDeclared.name;
+      throw RuntimeD4rtException(
+          "A value of type '${appliedValue.name}' can't be returned from the function '$functionName' because it has a return type of '$declaredTypeName'.");
+    }
+  }
+
+  /// DFUB6: derive an [AppliedRuntimeType] for a runtime value when its applied
+  /// type arguments are determinable — an interpreted instance carrying type
+  /// arguments, or a homogeneous native List/Set/Map. Returns null (permissive)
+  /// for anything else, including empty or heterogeneous collections.
+  AppliedRuntimeType? _appliedValueType(Object? value) {
+    if (value is InterpretedInstance) {
+      final vt = value.valueType;
+      return vt is AppliedRuntimeType ? vt : null;
+    }
+    if (value is List) {
+      final elem = _homogeneousElementType(value);
+      if (elem == null) return null;
+      final base = environment.getRuntimeType(value);
+      if (base == null) return null;
+      return AppliedRuntimeType(base, [elem]);
+    }
+    if (value is Set) {
+      final elem = _homogeneousElementType(value);
+      if (elem == null) return null;
+      final base = environment.getRuntimeType(value);
+      if (base == null) return null;
+      return AppliedRuntimeType(base, [elem]);
+    }
+    if (value is Map) {
+      final keyType = _homogeneousElementType(value.keys);
+      final valType = _homogeneousElementType(value.values);
+      if (keyType == null || valType == null) return null;
+      final base = environment.getRuntimeType(value);
+      if (base == null) return null;
+      return AppliedRuntimeType(base, [keyType, valType]);
+    }
+    return null;
+  }
+
+  /// DFUB6: the shared runtime type of every element in [items], or null when
+  /// the collection is empty, heterogeneous, or an element type is unknown. A
+  /// null result keeps applied-generic checks permissive.
+  RuntimeType? _homogeneousElementType(Iterable<Object?> items) {
+    RuntimeType? common;
+    for (final item in items) {
+      final t = environment.getRuntimeType(item);
+      if (t == null) return null;
+      if (common == null) {
+        common = t;
+      } else if (common.name != t.name) {
+        return null;
+      }
+    }
+    return common;
   }
 
   @override
@@ -10963,8 +11090,24 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               }
             } else if (targetType is InterpretedClass) {
               if (expressionValue is InterpretedInstance) {
-                // Use the new helper method
-                result = expressionValue.klass.isSubtypeOf(targetType);
+                // DFUB6: when the test carries applied type arguments
+                // (`is Box<int>`), compare the value's applied runtime type
+                // against an `AppliedRuntimeType(targetClass, resolvedArgs)`
+                // so the arguments are checked element-wise. Without arguments
+                // (`is Box`) the raw base-class subtype check is used.
+                final typeArgNodes = typeNode.typeArguments?.arguments;
+                if (typeArgNodes != null && typeArgNodes.isNotEmpty) {
+                  final resolvedArgs = <RuntimeType>[
+                    for (final argNode in typeArgNodes)
+                      _resolveTypeAnnotation(argNode)
+                  ];
+                  final appliedTarget =
+                      AppliedRuntimeType(targetType, resolvedArgs);
+                  result =
+                      expressionValue.valueType.isSubtypeOf(appliedTarget);
+                } else {
+                  result = expressionValue.klass.isSubtypeOf(targetType);
+                }
               } else {
                 // A non-instance value cannot be a subtype of a user-defined class
                 result = false;

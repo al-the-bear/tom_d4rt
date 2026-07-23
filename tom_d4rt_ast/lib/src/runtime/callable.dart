@@ -76,6 +76,15 @@ class InterpretedFunction implements Callable {
 
   final RuntimeType? declaredReturnType; // Store the declared type
 
+  /// DFUB6: the declared return type with its applied type arguments preserved
+  /// (e.g. `Box<int>` / `List<String>`), when the return type is a generic
+  /// `SNamedType`. Null for raw / unresolvable / non-generic return types.
+  /// SAstNode has no parent references, so the applied return type must be
+  /// captured here at declaration time — the return statement cannot walk up
+  /// the AST to re-read the annotation. Used by
+  /// `visitReturnStatement._checkAppliedGenericReturn`.
+  final AppliedRuntimeType? declaredReturnTypeApplied;
+
   final bool isNullable; // Store if the return type is nullable
 
   // Store type parameter names from the original declaration
@@ -340,6 +349,7 @@ class InterpretedFunction implements Callable {
     this.isFactory = false,
     this.redirectedFactoryTarget,
     this.declaredReturnType,
+    this.declaredReturnTypeApplied,
     this.isNullable = false,
     this.typeParameterNames = const [],
     this.typeParameterBounds = const {},
@@ -349,7 +359,8 @@ class InterpretedFunction implements Callable {
 
   // Constructor for declared functions (top-level or nested, not methods)
   InterpretedFunction.declaration(SFunctionDeclaration declaration,
-      Environment closure, RuntimeType? declaredReturnType, bool isNullable)
+      Environment closure, RuntimeType? declaredReturnType, bool isNullable,
+      {AppliedRuntimeType? declaredReturnTypeApplied})
       : this._internal(
           declaration.functionExpression?.parameters,
           declaration.functionExpression!.body!,
@@ -368,6 +379,7 @@ class InterpretedFunction implements Callable {
                   _isBodyGenerator(declaration
                       .functionExpression?.body), // Pass async generator flag
           declaredReturnType: declaredReturnType,
+          declaredReturnTypeApplied: declaredReturnTypeApplied,
           isNullable: isNullable,
           typeParameterNames: _extractTypeParameterNames(
               declaration.functionExpression?.typeParameters),
@@ -626,6 +638,7 @@ class InterpretedFunction implements Callable {
       isFactory: isFactory, // Copy the factory flag
       redirectedFactoryTarget: redirectedFactoryTarget, // Copy redirect target
       declaredReturnType: declaredReturnType,
+      declaredReturnTypeApplied: declaredReturnTypeApplied,
       typeParameterNames: typeParameterNames, // Copy type parameter names
       typeParameterBounds: typeParameterBounds, // Copy type parameter bounds
     );
