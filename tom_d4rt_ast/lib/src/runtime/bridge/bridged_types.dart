@@ -228,10 +228,12 @@ class BridgedClass implements RuntimeType {
         return isSubtypeOfFunc!.call(other, value: value);
       }
       if (name == 'num') {
+        // DFUB7: `num` is a subtype of `num` (and, below, of `Object`), but NOT
+        // of its own subtypes `int`/`double`. The downward direction
+        // (int/double <: num) is handled separately further down. Returning
+        // true for int/double here made num a subtype of its subtypes.
         final isSubtype = switch (other.name) {
           'num' => true,
-          'int' => true,
-          'double' => true,
           _ => false,
         };
         return isSubtype;
@@ -397,10 +399,19 @@ class TypeParameter implements RuntimeType {
 
   @override
   bool isSubtypeOf(RuntimeType other, {Object? value}) {
-    // For now, type parameters accept any type as a subtype
-    // This is because we don't have full generic type inference yet
-    // In a real type system, this would be more sophisticated
-    return true;
+    // DFUB7: a type parameter is trivially a subtype of another type parameter.
+    if (other is TypeParameter) return true;
+    // Bounded (`T extends X`): T is a subtype of `other` exactly when its bound
+    // is — e.g. `T extends num` is not a subtype of `String`.
+    if (bound != null) return bound!.isSubtypeOf(other, value: value);
+    // Unbounded (`T`, implicitly `T extends Object?`): only the top types.
+    return _isTopType(other);
+  }
+
+  /// DFUB7: the Dart top types an unbounded type parameter is a subtype of.
+  static bool _isTopType(RuntimeType other) {
+    final n = other.name;
+    return n == 'Object' || n == 'dynamic' || n == 'void';
   }
 
   @override
