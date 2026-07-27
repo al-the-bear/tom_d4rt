@@ -1,3 +1,25 @@
+## 0.6.0
+
+### Added — `LinkedHashSet` and `SplayTreeSet` collection bridges (SC2)
+
+Mirrors `tom_d4rt` 1.14.0 file-for-file — the two trees share one stdlib bridge
+set, so a class present in only one of them is a silent capability difference.
+
+- **`LinkedHashSet`** — insertion-order `Set`. Constructors `()`, `.from`,
+  `.of`, plus the `Set`/`Iterable` surface shared with the `HashSet` bridge.
+- **`SplayTreeSet`** — sorted `Set`. Same member surface, with the optional
+  `compare` function accepted by all three constructors and adapted from an
+  interpreted function into a native `Comparator`.
+
+Registered by `CollectionStdlib`, i.e. resolved lazily on a script's
+`import 'dart:collection'`.
+
+Coverage in this tree is registration-level (`test/runtime/
+stdlib_ordered_sorted_sets_test.dart`); the script-level round-trips that prove
+the iteration-order contracts live in `tom_d4rt`, because `tom_d4rt_exec`
+resolves this package from pub.dev and so cannot execute against unpublished
+local edits.
+
 ## 0.5.0
 
 ### Added — `Stopwatch` and `UriData` core bridges, plus the `Uri.data` getter (SC1, SC10)

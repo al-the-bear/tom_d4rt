@@ -1,3 +1,27 @@
+## 1.14.0
+
+### Added — `LinkedHashSet` and `SplayTreeSet` collection bridges (SC2)
+
+The two ordered `Set` implementations from `dart:collection` are now bridged,
+mirrored file-for-file into `tom_d4rt_ast`. Both were P1 gaps in the SDK audit:
+scripts could already build a `Set`, but had no way to *state* which ordering
+contract they depended on.
+
+- **`LinkedHashSet`** — iteration in insertion order. Constructors `()`,
+  `.from` and `.of`, plus the full `Set`/`Iterable` surface shared with the
+  existing `HashSet` bridge.
+- **`SplayTreeSet`** — iteration in sorted order. Same member surface; the
+  constructors additionally accept the optional `compare` function
+  (`SplayTreeSet(compare)`, `.from(elements, [compare])`,
+  `.of(elements, [compare])`), adapted from an interpreted function into a
+  native `Comparator`.
+
+Both are registered by `CollectionStdlib`, so they resolve on
+`import 'dart:collection'` like their siblings. `LinkedHashSet.isAssignable`
+matches plain set literals — the same overlap the shipping `LinkedHashMap`
+bridge already has with map literals — and the full suite confirms it does not
+change how a bare `{...}` literal dispatches.
+
 ## 1.13.0
 
 ### Added — `Stopwatch` and `UriData` core bridges (SC1, SC10)

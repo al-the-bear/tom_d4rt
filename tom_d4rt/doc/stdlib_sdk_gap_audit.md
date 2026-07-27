@@ -47,8 +47,8 @@ for contrast: error/exception bridges already shipped are
 | Type | Library | Why it matters |
 |------|---------|----------------|
 | ~~`Stopwatch`~~ ✅ bridged | dart:core | Ubiquitous for timing; pure, no I/O, trivial bridge. |
-| `LinkedHashSet` | dart:collection | Insertion-order set; common explicit type. |
-| `SplayTreeSet` | dart:collection | Sorted set; common explicit type. |
+| ~~`LinkedHashSet`~~ ✅ bridged | dart:collection | Insertion-order set; common explicit type. |
+| ~~`SplayTreeSet`~~ ✅ bridged | dart:collection | Sorted set; common explicit type. Its constructors take the optional `compare` function. |
 | `UnmodifiableMapView` | dart:collection | Returned by many APIs; scripts type against it. |
 | `UnmodifiableSetView` | dart:collection | Same. |
 | `StreamConsumer` | dart:async | Appears in bridged signatures (drove GEN-079). |
