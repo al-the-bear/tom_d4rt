@@ -10075,6 +10075,25 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                   targetType.isAssignable != null) {
                 result = targetType.isAssignable!(nativeValue);
               }
+              // SC4: a bridge that declares no `isAssignable` used to make
+              // `is` unconditionally false for an unwrapped native operand,
+              // even when the value's own bridge and the registered supertype
+              // chain both said yes. `StreamController.sink` hit exactly that:
+              // it resolves to the `StreamSink` bridge for member dispatch, so
+              // `sink.close()` worked while `sink is StreamSink` was false.
+              //
+              // Resolving the operand's bridge the same way dispatch does and
+              // re-running the subtype walk closes the gap. Purely additive:
+              // it runs only where the answer was already a hard `false`, and
+              // it adds no `isAssignable` closure, so bridge *selection* in
+              // `Environment.toBridgedInstance` is untouched.
+              if (!result && nativeValue != null) {
+                final nativeRuntimeType =
+                    environment.getRuntimeType(nativeValue);
+                result = nativeRuntimeType != null &&
+                    nativeRuntimeType.isSubtypeOf(targetType,
+                        value: nativeValue);
+              }
             } else if (targetType is InterpretedClass) {
               if (expressionValue is InterpretedInstance) {
                 // DFUB6: when the test carries applied type arguments

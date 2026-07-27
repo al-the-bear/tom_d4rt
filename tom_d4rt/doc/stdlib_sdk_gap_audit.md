@@ -51,7 +51,7 @@ for contrast: error/exception bridges already shipped are
 | ~~`SplayTreeSet`~~ ✅ bridged | dart:collection | Sorted set; common explicit type. Its constructors take the optional `compare` function. |
 | ~~`UnmodifiableMapView`~~ ✅ bridged | dart:collection | Returned by many APIs; scripts type against it. `Map.unmodifiable()` already produced this runtime type, so the mutating members delegate to the native view rather than intercepting — otherwise `on UnsupportedError` would stop catching. |
 | ~~`UnmodifiableSetView`~~ ✅ bridged | dart:collection | Same, including the set algebra (`union`, `intersection`, `difference`). |
-| `StreamConsumer` | dart:async | Appears in bridged signatures (drove GEN-079). |
+| ~~`StreamConsumer`~~ ✅ bridged | dart:async | Appears in bridged signatures (drove GEN-079). Interface only — no constructor. Registration alone was **not** enough: `StreamController.sink` hands out a `_StreamSinkWrapper` that reached no bridge at all, so the `StreamSink` bridge also had to claim that native name and gain the `addStream` it inherits from `StreamConsumer`. The hierarchy is declared through `BridgedClass.registerSupertypes` rather than an `isAssignable` closure, so `is` learns it without disturbing bridge dispatch. |
 | `NoSuchMethodError` | dart:core | Thrown constantly; scripts want to `catch` it by type. |
 | `ConcurrentModificationError` | dart:core | Thrown by collection iteration; catchable. |
 | `IndexError` | dart:core | Subtype of `RangeError`; `RangeError.index` ctor. |
@@ -110,8 +110,8 @@ registered as a subtype of `RangeError` to match the SDK hierarchy.
    error types. Add a round-trip test per new bridge under
    `tom_d4rt/test/stdlib/`.
 2. **P2 opportunistically** when a corpus script or bridged signature
-   demands it (e.g. `StreamConsumer`/`StreamView` already surface in
-   flutter-material signatures).
+   demands it (e.g. `StreamView` surfaces in flutter-material
+   signatures).
 3. **P3: documented but unbuilt** — done; the rationale now lives in
    [d4rt_limitations.md](d4rt_limitations.md#intentionally-unbridged-sdk-classes).
    Several are sandbox-hostile by design and will stay out; the rest wait

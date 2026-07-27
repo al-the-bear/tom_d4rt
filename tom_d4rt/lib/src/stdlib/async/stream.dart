@@ -556,11 +556,55 @@ class StreamSubscriptionAsync {
       );
 }
 
+/// The `StreamConsumer` half of the sink hierarchy.
+///
+/// Abstract interface — no constructor. Scripts never build one; they receive
+/// one (a `StreamController`, its `sink`, or an `IOSink`) and either annotate
+/// against it or type-test it.
+///
+/// Deliberately carries **no `isAssignable`**. That closure is consulted by
+/// [Environment.toBridgedInstance] when deciding which bridge owns a native
+/// object, and `StreamConsumer` is a supertype of both `StreamController` and
+/// `StreamSink`. Claiming assignability here would have entered this bridge
+/// into that contest as an equally-ranked match — every hand-written stdlib
+/// bridge has `hierarchyDepth == 0`, so the tie breaks on registration order —
+/// and could have quietly stolen dispatch from the two concrete bridges.
+/// Instead the hierarchy is declared via [BridgedClass.registerSupertypes] in
+/// [AsyncStreamStdlib.register], which feeds `isSubtypeOf` (so `is` answers
+/// correctly) without touching dispatch.
+class StreamConsumerAsync {
+  static BridgedClass get definition => BridgedClass(
+        nativeType: StreamConsumer,
+        name: 'StreamConsumer',
+        typeParameterCount: 1,
+        constructors: {},
+        methods: {
+          'addStream': (visitor, target, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
+              throw RuntimeD4rtException(
+                  'StreamConsumer.addStream requires a Stream argument.');
+            }
+            return (target as StreamConsumer)
+                .addStream(positionalArgs[0] as Stream);
+          },
+          'close': (visitor, target, positionalArgs, namedArgs, _) =>
+              (target as StreamConsumer).close(),
+        },
+      );
+}
+
 class StreamSinkAsync {
   static BridgedClass get definition => BridgedClass(
         nativeType: StreamSink,
         name: 'StreamSink',
         typeParameterCount: 1,
+        nativeNames: [
+          // What `StreamController.sink` actually hands out, for both the
+          // single-subscription and broadcast flavours. Without this entry the
+          // wrapper reached no bridge at all and every member — including
+          // `close()` — failed as "undefined property or method".
+          '_StreamSinkWrapper',
+        ],
         constructors: {},
         methods: {
           'add': (visitor, target, positionalArgs, namedArgs, _) {
@@ -588,6 +632,16 @@ class StreamSinkAsync {
           },
           'close': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as StreamSink).close(),
+          // Inherited from StreamConsumer in the SDK. Dispatch is per-bridge
+          // rather than hierarchical, so the member has to be present here too
+          // or it is unreachable on the concrete type scripts actually hold.
+          'addStream': (visitor, target, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
+              throw RuntimeD4rtException(
+                  'StreamSink.addStream requires a Stream argument.');
+            }
+            return (target as StreamSink).addStream(positionalArgs[0] as Stream);
+          },
         },
         getters: {
           'done': (visitor, target) => (target as StreamSink).done,
@@ -842,10 +896,27 @@ class AsyncStreamStdlib {
   static void register(Environment environment) {
     environment.defineBridge(StreamAsync.definition);
     environment.defineBridge(StreamSubscriptionAsync.definition);
+    environment.defineBridge(StreamConsumerAsync.definition);
     environment.defineBridge(StreamSinkAsync.definition);
     environment.defineBridge(StreamTransformerAsync.definition);
     environment.defineBridge(StreamIteratorAsync.definition);
     environment.defineBridge(MultiStreamControllerAsync.definition);
     environment.defineBridge(EventSinkAsync.definition);
+
+    // The sink hierarchy, as the SDK declares it:
+    //   abstract class StreamSink<S> implements EventSink<S>, StreamConsumer<S>
+    //   abstract class StreamController<T> implements StreamSink<T>, ...
+    //
+    // `isSubtypeOf` consults this registry, so declaring the edges is what
+    // makes `x is StreamConsumer` true for the concrete types scripts hold.
+    // The `StreamController` edge is declared here rather than next to that
+    // bridge because it only became meaningful once `StreamConsumer` existed;
+    // the registry is keyed by name and the call is idempotent, so it does not
+    // matter which registrar runs first.
+    BridgedClass.registerSupertypes({
+      'StreamSink': ['EventSink', 'StreamConsumer'],
+      'StreamController': ['StreamSink', 'EventSink', 'StreamConsumer'],
+      'MultiStreamController': ['StreamController'],
+    });
   }
 }

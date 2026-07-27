@@ -1,3 +1,33 @@
+## 0.8.0
+
+### Added — `StreamConsumer` bridge and working controller sinks (SC4)
+
+Mirrors `tom_d4rt` 1.16.0 file-for-file — the two trees share one stdlib bridge
+set, so a class present in only one of them is a silent capability difference.
+
+- **`StreamConsumer`** — the dart:async interface, with `addStream(Stream)` and
+  `close()`. No constructor; scripts receive one rather than building it.
+- **`StreamSink`** now claims the private `_StreamSinkWrapper` that
+  `StreamController.sink` hands out (it previously reached no bridge, so every
+  member on a controller sink failed) and gains the inherited `addStream`.
+- The sink supertype edges are registered via `BridgedClass.registerSupertypes`
+  so `isSubtypeOf` knows the hierarchy without an `isAssignable` closure that
+  would have competed for bridge dispatch.
+
+### Fixed — `is` against a bridge with no `isAssignable` was always false
+
+Mirrors the `tom_d4rt` 1.16.0 interpreter fix: an `is` test against a bridged
+target with no `isAssignable` closure returned a hard `false` for an unwrapped
+native operand, even when the operand's own bridge and the supertype chain both
+said yes. The `is` path now resolves the operand's bridge the way dispatch does
+and re-runs the subtype walk. See the `tom_d4rt` 1.16.0 entry for the full
+rationale.
+
+Coverage here is registration-level: `tom_d4rt_exec` — the runner that could
+execute a script against this tree — resolves `tom_d4rt_ast` from pub.dev, so
+it cannot see unpublished local edits. The script-level round trips live in
+`tom_d4rt/test/stdlib/async/stream_consumer_test.dart`.
+
 ## 0.7.0
 
 ### Added — `UnmodifiableMapView` and `UnmodifiableSetView` bridges (SC3)

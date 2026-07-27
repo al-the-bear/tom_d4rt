@@ -1,3 +1,55 @@
+## 1.16.0
+
+### Added — `StreamConsumer` bridge and working controller sinks (SC4)
+
+`StreamConsumer` (dart:async) is now bridged, mirrored into `tom_d4rt_ast`. It
+was the last P1 async gap in the SDK audit: the name did not resolve, so
+`StreamConsumer` annotations and `x is StreamConsumer` tests were both unusable.
+
+Interface only — no constructor. Scripts never build one; they receive one (a
+`StreamController`, its `.sink`, or an `IOSink`) and either annotate against it
+or type-test it. The bridge exposes the two members the interface declares,
+`addStream(Stream)` and `close()`.
+
+### Fixed — `StreamController.sink` was inert
+
+Registering the interface alone would have made the type nameable while leaving
+every value of it unusable. `StreamController.sink` returns a private
+`_StreamSinkWrapper`, which resolved to **no bridge at all** — `add`, `addError`,
+`close`, `done` and `addStream` all failed as "Undefined property or method on
+`_StreamSinkWrapper<dynamic>`". The `StreamSink` bridge now claims that native
+name, and gains the `addStream` it inherits from `StreamConsumer` in the SDK
+(bridge dispatch is per-bridge rather than hierarchical, so an inherited member
+has to be repeated on the concrete bridge or it is unreachable). Both controller
+flavours — single-subscription and broadcast — hand out the same wrapper, so one
+entry covers both.
+
+### Fixed — `is` against a bridge with no `isAssignable` was always false
+
+An `is` test against a bridged type returned a hard `false` for an unwrapped
+native operand whenever the *target* bridge declared no `isAssignable` closure —
+even when the operand's own bridge and the registered supertype chain both said
+yes. `StreamController.sink` hit exactly that: it resolves to the `StreamSink`
+bridge for member dispatch, so `sink.close()` worked while `sink is StreamSink`
+was false. The `is` path now falls back to resolving the operand's bridge the
+same way dispatch does and re-running the subtype walk. Purely additive — it
+runs only where the answer was already a hard `false`, and adds no
+`isAssignable` closure, so bridge selection is untouched.
+
+### Why the hierarchy is declared, not claimed
+
+The sink edges (`StreamSink`/`StreamController` -> `StreamConsumer`, and
+`StreamSink` -> `EventSink`) are registered with
+`BridgedClass.registerSupertypes` rather than by giving the new bridge an
+`isAssignable` predicate. That closure is what `Environment.toBridgedInstance`
+consults when deciding which bridge *owns* a native object, and `StreamConsumer`
+is a supertype of both `StreamController` and `StreamSink`. Claiming
+assignability would have entered the new bridge into that contest as an
+equally-ranked match — every hand-written stdlib bridge has
+`hierarchyDepth == 0`, so the tie breaks on registration order — and could have
+silently stolen dispatch from the two concrete bridges. The supertype registry
+feeds `isSubtypeOf` only, so `is` answers truthfully while dispatch is untouched.
+
 ## 1.15.0
 
 ### Added — `UnmodifiableMapView` and `UnmodifiableSetView` bridges (SC3)
