@@ -68,7 +68,7 @@ for contrast: error/exception bridges already shipped are
 | ~~`AsyncError`~~ ✅ bridged | dart:async | Error+trace pair in stream/zone plumbing. Concrete, so it *can* carry an `isAssignable` without shadowing a more specific bridge — the one dart:async bridge that does. `implements Error` is registered so `on Error catch` sees it. |
 | ~~`StreamTransformerBase`~~ ✅ bridged | dart:async | Base class for custom transformers. Registering it required broadening `Stream.transform` to wrap an interpreted `bind` in `StreamTransformer.fromBind`, and fixing two generic interpreter gaps: `is BridgedX` was hard-false for every interpreted operand, and `implements SomeBridge` was not a subtype edge at all. |
 | ~~`DoubleLinkedQueue`~~ ✅ bridged | dart:collection | Explicit deque type. Its `DoubleLinkedQueueEntry` cursor is bridged alongside — without `firstEntry`/`lastEntry`/`forEachEntry` the type is just a slower `ListQueue` — and the cursor needs `nativeNames: ['_DoubleLinkedQueueElement']`, the private subclass those methods actually return. Registering it also pulled in a `DoubleLinkedQueue`/`ListQueue`/`Queue -> Iterable` supertype block that repaired the **already-shipped** `ListQueue` bridge, where `contains`/`join`/`where`/`map` had all failed outright and `q is Iterable` was false. |
-| `BytesBuilder` | dart:typed_data | Efficient byte accumulation. |
+| ~~`BytesBuilder`~~ ✅ bridged | dart:typed_data | Efficient byte accumulation. Abstract, with a factory that returns one of *two* private implementations — `_CopyingBytesBuilder` by default and `_BytesBuilder` under `copy: false` — so both names sit on `nativeNames`. It is the first bridge where a **constructor argument** selects which private class comes back; listing only the default would leave `BytesBuilder(copy: false)` constructible and broken on its first `addByte`. |
 | `JsonUtf8Encoder` | dart:convert | UTF-8 JSON in one pass. |
 | `ClosableStringSink` | dart:convert | Sink variant. |
 | ~~`UriData`~~ ✅ bridged | dart:core | `data:` URI parsing (`Uri.dataFromString`). Bridging it also surfaced a missing `Uri.data` getter, without which a parsed `data:` URI had no route to its payload. |
@@ -163,6 +163,28 @@ The same treatment is still owed to the map and set bridges: `HashMap`,
 answers `is Iterable` false. Those are separate hierarchies needing their own
 dispatch verification.
 
+## Notes on the typed_data hierarchy
+
+Bridging `BytesBuilder` surfaced the same class of gap one library over, but
+in a milder form that is worth distinguishing. Every typed-data view answers
+its `is` checks wrongly — `Uint8List.fromList([1,2,3]) is List` and
+`is Iterable` are both **false** — and `TypedData` itself is not bridged at
+all, so `d is TypedData` does not fail a type test but throws
+`Undefined variable: TypedData`.
+
+Unlike the queue case, the *members* are fine: each typed-data bridge
+declares its ~40 inherited `List` members explicitly rather than relying on
+a supertype walk, so `contains`, `join`, `where` and indexing all work. Only
+the type tests are wrong. That is why `BytesBuilder` was bridged on its own
+rather than dragging a hierarchy fix along with it — nothing is actively
+broken, the explicit member lists are merely verbose. The proper repair needs
+a `TypedData` bridge to exist first, since it is the shared supertype every
+view would register against, and it is tracked separately.
+
+`BytesBuilder` sits outside that hierarchy in any case: it is not a
+`TypedData`, and its `toBytes`/`takeBytes` results route to the existing
+`Uint8List` bridge unchanged.
+
 ## Recommended next actions
 
 1. **P1 is complete** — the pure classes (`Stopwatch`, the collection
@@ -170,8 +192,8 @@ dispatch verification.
    trees, each with tests under `tom_d4rt/test/stdlib/` and a
    registration-level mirror under `tom_d4rt_ast/test/runtime/`.
 2. **P2 opportunistically** when a corpus script or bridged signature
-   demands it. The three `dart:async` entries and `DoubleLinkedQueue` are
-   now done; the three remaining (`BytesBuilder`, `JsonUtf8Encoder`,
+   demands it. The three `dart:async` entries, `DoubleLinkedQueue` and
+   `BytesBuilder` are now done; the two remaining (`JsonUtf8Encoder`,
    `ClosableStringSink`) still wait for a concrete consumer.
 3. **P3: documented but unbuilt** — done; the rationale now lives in
    [d4rt_limitations.md](d4rt_limitations.md#intentionally-unbridged-sdk-classes).

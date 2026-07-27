@@ -1,3 +1,20 @@
+## 0.12.0
+
+### Added — `BytesBuilder` (SC8)
+
+Mirrors `tom_d4rt` 1.20.0 file-for-file — the two trees share one stdlib bridge
+set, so a class present in only one of them is a silent capability difference.
+
+`BytesBuilder` from `dart:typed_data` is bridged, exposing the constructor with
+its `copy:` flag, `addByte`, `add`, `takeBytes`, `toBytes`, `clear`, `length`,
+`isEmpty` and `isNotEmpty`.
+
+Both of the type's private implementations are on `nativeNames`:
+`_CopyingBytesBuilder` for the default and `_BytesBuilder` for `copy: false`.
+The `copy:` argument is what selects between them, so listing only the default
+would leave the non-copying flavour constructible and broken on its first
+member call.
+
 ## 0.11.0
 
 ### Added — `DoubleLinkedQueue` and its entry cursor (SC7)

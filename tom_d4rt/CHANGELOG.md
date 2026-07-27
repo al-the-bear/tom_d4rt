@@ -1,3 +1,39 @@
+## 1.20.0
+
+### Added — `BytesBuilder` (SC8)
+
+`BytesBuilder` from `dart:typed_data` is now bridged, closing the last
+typed-data entry on the P2 gap list. Scripts can accumulate bytes
+incrementally instead of rebuilding a list on every append:
+
+```dart
+import 'dart:typed_data';
+main() {
+  final b = BytesBuilder();
+  b.addByte(1);
+  b.add([2, 3]);
+  return b.takeBytes();   // Uint8List [1, 2, 3]
+}
+```
+
+The full surface is available: the constructor with its `copy:` flag,
+`addByte`, `add`, `takeBytes`, `toBytes`, `clear`, `length`, `isEmpty` and
+`isNotEmpty`. `toBytes` and `takeBytes` return objects that route to the
+existing `Uint8List` bridge, so indexing and `sublist` work on the result
+without further registration.
+
+**Both private implementations are routed.** `BytesBuilder` is abstract and
+its only constructor is a factory returning `_CopyingBytesBuilder` by default
+or `_BytesBuilder` under `copy: false`. This is the first bridge where a
+*constructor argument* decides which private class comes back, so both names
+are listed on `nativeNames` — with only the default, `BytesBuilder(copy:
+false)` would construct successfully and then fail on its first `addByte`.
+
+Argument mistakes surface as catchable script errors rather than host type
+errors: a positional argument to the constructor (the natural misreading of
+`BytesBuilder({bool copy})`), a non-`int` to `addByte`, and a list carrying a
+non-`int` element to `add` — the last naming the offending element.
+
 ## 1.19.0
 
 ### Added — `DoubleLinkedQueue` and its entry cursor (SC7)
