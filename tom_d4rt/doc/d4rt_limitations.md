@@ -10,6 +10,12 @@ This document provides a comprehensive reference of all known D4rt interpreter l
 > that documents its own project-specific limits and links back here. Do not
 > duplicate the entries below into downstream docs.
 
+> **Looking for a class the interpreter says is undefined?** Interpreter bugs
+> and limitations are tracked below by `Lim-N` / `Bug-N`. SDK classes that are
+> absent *on purpose* — `Zone`, `Expando`, `WeakReference`, `Finalizer`, and the
+> deferred `dart:io` / `dart:math` entries — are not bugs and carry no ID; see
+> [Intentionally-Unbridged SDK Classes](#intentionally-unbridged-sdk-classes).
+
 **Last Updated:** 2026-07-27
 
 ---
@@ -2948,6 +2954,13 @@ cannot honour, or carries a large surface with no demonstrated consumer. They
 are listed here so a script author who hits `Undefined variable: Zone` reads a
 decision rather than a gap.
 
+**Every one of these reports the same way:** `Undefined variable: <name>`, where
+`<name>` is whatever the script wrote — not necessarily the class. A script
+reaches `Zone` by writing `runZoned`, and the `dart:io` compression codecs by
+writing the `gzip` / `zlib` globals. The "Reported as" column below therefore
+lists the identifiers you may actually see in the error, so this section is
+findable by the message rather than only by the class name.
+
 This applies to **both interpreter trees**. `tom_d4rt` (analyzer-based) and
 `tom_d4rt_ast` (analyzer-free) share one stdlib bridge set, mirrored
 file-for-file, so a class missing from one is missing from the other by
@@ -2956,12 +2969,12 @@ construction. The same holds for the runners layered on top
 
 ### Cannot be honoured meaningfully
 
-| Class | Library | Why it stays out |
-|-------|---------|------------------|
-| `Zone` | `dart:async` | Zones are cross-cutting control-flow interception — error handling, scheduling, and `print` all route through the ambient zone. The interpreter owns its own execution and scheduling, so a bridged `Zone` would either be a no-op shell or would have to re-implement the interpreter's control flow. Sandbox isolation is provided by the permission system instead. |
-| `Expando` | `dart:core` | An identity side-table keyed on object identity. Interpreted values do not have a stable one-to-one native identity — a value can cross the bridge more than once — so `Expando` would silently lose entries. |
-| `WeakReference` | `dart:core` | Weakness is a property of the *native* heap. An interpreted value is reachable from interpreter structures the script cannot see, so a `WeakReference` to it would never clear; the API would be technically present and semantically a lie. |
-| `Finalizer` | `dart:core` | Same root cause as `WeakReference`, plus it hands the script a GC-timed callback — a non-deterministic re-entry point into sandboxed code. Sandbox-hostile by design. |
+| Class | Reported as | Library | Why it stays out |
+|-------|-------------|---------|------------------|
+| `Zone` | `Zone`, `runZoned`, `runZonedGuarded` | `dart:async` | Zones are cross-cutting control-flow interception — error handling, scheduling, and `print` all route through the ambient zone. The interpreter owns its own execution and scheduling, so a bridged `Zone` would either be a no-op shell or would have to re-implement the interpreter's control flow. Sandbox isolation is provided by the permission system instead. |
+| `Expando` | `Expando` | `dart:core` | An identity side-table keyed on object identity. Interpreted values do not have a stable one-to-one native identity — a value can cross the bridge more than once — so `Expando` would silently lose entries. |
+| `WeakReference` | `WeakReference` | `dart:core` | Weakness is a property of the *native* heap. An interpreted value is reachable from interpreter structures the script cannot see, so a `WeakReference` to it would never clear; the API would be technically present and semantically a lie. |
+| `Finalizer` | `Finalizer` | `dart:core` | Same root cause as `WeakReference`, plus it hands the script a GC-timed callback — a non-deterministic re-entry point into sandboxed code. Sandbox-hostile by design. |
 
 ### Deferred pending a concrete consumer
 
@@ -2969,12 +2982,12 @@ These carry no semantic obstacle — they are simply unbuilt, and will be bridge
 when a real script or bridged signature needs them. Adding one is a routine
 stdlib change (see the [Bridging Guide](BRIDGING_GUIDE.md)), not a redesign.
 
-| Class | Library | Why it is deferred |
-|-------|---------|--------------------|
-| `Link` | `dart:io` | Symlink manipulation. Would need to sit behind `FilesystemPermission` with the same path-level granularity as `File`/`Directory`; no consumer has asked. |
-| `WebSocket` | `dart:io` | Would sit behind `NetworkPermission`. Large stateful surface (upgrade handshake, ping/pong, close codes) for a use case no current script exercises. |
-| `GZipCodec` / `ZLibCodec` | `dart:io` | Compression codecs. Add on concrete demand; note that gzip **interop** through the bridge boundary is already exercised where it matters. |
-| `MutableRectangle` | `dart:math` | The immutable `Rectangle` is bridged and covers the common case; the mutable variant is rarely written as an explicit type. |
+| Class | Reported as | Library | Why it is deferred |
+|-------|-------------|---------|--------------------|
+| `Link` | `Link` | `dart:io` | Symlink manipulation. Would need to sit behind `FilesystemPermission` with the same path-level granularity as `File`/`Directory`; no consumer has asked. |
+| `WebSocket` | `WebSocket` | `dart:io` | Would sit behind `NetworkPermission`. Large stateful surface (upgrade handshake, ping/pong, close codes) for a use case no current script exercises. |
+| `GZipCodec` / `ZLibCodec` | `gzip`, `zlib`, `GZipCodec`, `ZLibCodec`, `ZLibEncoder`, `ZLibDecoder` | `dart:io` | Compression codecs, reached in practice through the `gzip` / `zlib` top-level globals. Add on concrete demand. **Not** to be confused with the gzip the toolchain already uses: `AstBundle` compresses `.ast` bundles with gzip and pins codec interop in `tom_d4rt_ast/test/runtime/dfub12_gzip_interop_test.dart`, but that is interpreter infrastructure below the bridge boundary — it gives a script no way to compress anything. |
+| `MutableRectangle` | `MutableRectangle` | `dart:math` | The immutable `Rectangle` is bridged and covers the common case; the mutable variant is rarely written as an explicit type. |
 
 For the full inventory of what *is* bridged versus what the SDK offers —
 including the P1/P2 tiers that are actively planned — see the
