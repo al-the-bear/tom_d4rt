@@ -187,3 +187,248 @@ class UnimplementedErrorCore {
         },
       );
 }
+
+class NoSuchMethodErrorCore {
+  static BridgedClass get definition => BridgedClass(
+        nativeType: NoSuchMethodError,
+        name: 'NoSuchMethodError',
+        isAssignable: (v) => v is NoSuchMethodError,
+        typeParameterCount: 0,
+        constructors: {
+          // The SDK's unnamed constructor is deprecated and throws; only
+          // `withInvocation` is a usable entry point.
+          'withInvocation': (visitor, positionalArgs, namedArgs) {
+            return NoSuchMethodError.withInvocation(
+                positionalArgs[0], positionalArgs[1] as Invocation);
+          },
+        },
+        methods: {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
+            return (target as NoSuchMethodError).toString();
+          },
+        },
+        getters: {
+          // No `invocation` getter: the SDK keeps the captured Invocation
+          // private and only surfaces it through `toString()`.
+          'hashCode': (visitor, target) =>
+              (target as NoSuchMethodError).hashCode,
+          'runtimeType': (visitor, target) =>
+              (target as NoSuchMethodError).runtimeType,
+          'stackTrace': (visitor, target) =>
+              (target as NoSuchMethodError).stackTrace,
+        },
+      );
+}
+
+class ConcurrentModificationErrorCore {
+  static BridgedClass get definition => BridgedClass(
+        nativeType: ConcurrentModificationError,
+        name: 'ConcurrentModificationError',
+        isAssignable: (v) => v is ConcurrentModificationError,
+        typeParameterCount: 0,
+        constructors: {
+          '': (visitor, positionalArgs, namedArgs) {
+            return ConcurrentModificationError(
+                positionalArgs.isNotEmpty ? positionalArgs[0] : null);
+          },
+        },
+        methods: {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
+            return (target as ConcurrentModificationError).toString();
+          },
+        },
+        getters: {
+          'modifiedObject': (visitor, target) =>
+              (target as ConcurrentModificationError).modifiedObject,
+          'hashCode': (visitor, target) =>
+              (target as ConcurrentModificationError).hashCode,
+          'runtimeType': (visitor, target) =>
+              (target as ConcurrentModificationError).runtimeType,
+          'stackTrace': (visitor, target) =>
+              (target as ConcurrentModificationError).stackTrace,
+        },
+      );
+}
+
+/// `IndexError` — the `RangeError` subtype the SDK throws for out-of-bounds
+/// indexing.
+///
+/// The subtype edge to `RangeError` is declared in [ErrorHierarchyCore], not
+/// by widening `RangeErrorCore.isAssignable`: `isAssignable` is what decides
+/// which bridge *owns* a native object, so leaving `RangeError`'s closure as
+/// `v is RangeError` (which already answers true for an `IndexError`) while
+/// registering `IndexError` with a narrower closure keeps the more specific
+/// bridge winning dispatch.
+class IndexErrorCore {
+  static BridgedClass get definition => BridgedClass(
+        nativeType: IndexError,
+        name: 'IndexError',
+        isAssignable: (v) => v is IndexError,
+        typeParameterCount: 0,
+        constructors: {
+          'withLength': (visitor, positionalArgs, namedArgs) {
+            return IndexError.withLength(
+              positionalArgs[0] as int,
+              positionalArgs[1] as int,
+              indexable: namedArgs['indexable'],
+              name: namedArgs['name'] as String?,
+              message: namedArgs['message'] as String?,
+            );
+          },
+        },
+        methods: {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
+            return (target as IndexError).toString();
+          },
+        },
+        getters: {
+          'indexable': (visitor, target) => (target as IndexError).indexable,
+          'length': (visitor, target) => (target as IndexError).length,
+          'start': (visitor, target) => (target as IndexError).start,
+          'end': (visitor, target) => (target as IndexError).end,
+          'message': (visitor, target) => (target as IndexError).message,
+          'name': (visitor, target) => (target as IndexError).name,
+          'invalidValue': (visitor, target) =>
+              (target as IndexError).invalidValue,
+          'hashCode': (visitor, target) => (target as IndexError).hashCode,
+          'runtimeType': (visitor, target) => (target as IndexError).runtimeType,
+          'stackTrace': (visitor, target) => (target as IndexError).stackTrace,
+        },
+      );
+}
+
+/// `TypeError` — thrown by failed casts and type checks.
+///
+/// `nativeNames` carries `_TypeError` because that is the private class the
+/// VM actually instantiates; without it a natively-thrown cast failure would
+/// reach no bridge at all.
+class TypeErrorCore {
+  static BridgedClass get definition => BridgedClass(
+        nativeType: TypeError,
+        name: 'TypeError',
+        nativeNames: const ['_TypeError'],
+        isAssignable: (v) => v is TypeError,
+        typeParameterCount: 0,
+        constructors: {
+          '': (visitor, positionalArgs, namedArgs) => TypeError(),
+        },
+        methods: {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
+            return (target as TypeError).toString();
+          },
+        },
+        getters: {
+          'hashCode': (visitor, target) => (target as TypeError).hashCode,
+          'runtimeType': (visitor, target) => (target as TypeError).runtimeType,
+          'stackTrace': (visitor, target) => (target as TypeError).stackTrace,
+        },
+      );
+}
+
+/// `AssertionError` — `nativeNames` carries `_AssertionError`, the private
+/// subclass the VM raises for a failing `assert`.
+class AssertionErrorCore {
+  static BridgedClass get definition => BridgedClass(
+        nativeType: AssertionError,
+        name: 'AssertionError',
+        nativeNames: const ['_AssertionError'],
+        isAssignable: (v) => v is AssertionError,
+        typeParameterCount: 0,
+        constructors: {
+          '': (visitor, positionalArgs, namedArgs) {
+            return AssertionError(
+                positionalArgs.isNotEmpty ? positionalArgs[0] : null);
+          },
+        },
+        methods: {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
+            return (target as AssertionError).toString();
+          },
+        },
+        getters: {
+          'message': (visitor, target) => (target as AssertionError).message,
+          'hashCode': (visitor, target) => (target as AssertionError).hashCode,
+          'runtimeType': (visitor, target) =>
+              (target as AssertionError).runtimeType,
+          'stackTrace': (visitor, target) =>
+              (target as AssertionError).stackTrace,
+        },
+      );
+}
+
+class StackOverflowErrorCore {
+  static BridgedClass get definition => BridgedClass(
+        nativeType: StackOverflowError,
+        name: 'StackOverflowError',
+        isAssignable: (v) => v is StackOverflowError,
+        typeParameterCount: 0,
+        constructors: {
+          '': (visitor, positionalArgs, namedArgs) => StackOverflowError(),
+        },
+        methods: {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
+            return (target as StackOverflowError).toString();
+          },
+        },
+        getters: {
+          'hashCode': (visitor, target) =>
+              (target as StackOverflowError).hashCode,
+          'runtimeType': (visitor, target) =>
+              (target as StackOverflowError).runtimeType,
+          'stackTrace': (visitor, target) =>
+              (target as StackOverflowError).stackTrace,
+        },
+      );
+}
+
+class OutOfMemoryErrorCore {
+  static BridgedClass get definition => BridgedClass(
+        nativeType: OutOfMemoryError,
+        name: 'OutOfMemoryError',
+        isAssignable: (v) => v is OutOfMemoryError,
+        typeParameterCount: 0,
+        constructors: {
+          '': (visitor, positionalArgs, namedArgs) => OutOfMemoryError(),
+        },
+        methods: {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) {
+            return (target as OutOfMemoryError).toString();
+          },
+        },
+        getters: {
+          'hashCode': (visitor, target) =>
+              (target as OutOfMemoryError).hashCode,
+          'runtimeType': (visitor, target) =>
+              (target as OutOfMemoryError).runtimeType,
+          'stackTrace': (visitor, target) =>
+              (target as OutOfMemoryError).stackTrace,
+        },
+      );
+}
+
+/// Declares the `dart:core` error inheritance chain to the subtype registry.
+///
+/// Bridges are registered flat — each `BridgedClass` knows only its own native
+/// type — so without this the interpreter has no way to answer
+/// `indexError is RangeError`. [BridgedClass.registerSupertypes] feeds
+/// `isSubtypeOf` only; it deliberately does not affect which bridge owns a
+/// native object, so declaring the chain cannot disturb member dispatch.
+class ErrorHierarchyCore {
+  static void register() {
+    BridgedClass.registerSupertypes(const {
+      'StateError': ['Error'],
+      'ArgumentError': ['Error'],
+      'RangeError': ['ArgumentError', 'Error'],
+      'IndexError': ['RangeError', 'ArgumentError', 'Error'],
+      'UnsupportedError': ['Error'],
+      // UnimplementedError extends Error and implements UnsupportedError.
+      'UnimplementedError': ['UnsupportedError', 'Error'],
+      'NoSuchMethodError': ['Error'],
+      'ConcurrentModificationError': ['Error'],
+      'TypeError': ['Error'],
+      'AssertionError': ['Error'],
+      'StackOverflowError': ['Error'],
+      'OutOfMemoryError': ['Error'],
+    });
+  }
+}

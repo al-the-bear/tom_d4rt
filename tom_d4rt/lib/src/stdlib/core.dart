@@ -105,6 +105,14 @@ class CoreStdlib {
     environment.defineBridge(RangeErrorCore.definition);
     environment.defineBridge(UnsupportedErrorCore.definition);
     environment.defineBridge(UnimplementedErrorCore.definition);
+    environment.defineBridge(NoSuchMethodErrorCore.definition);
+    environment.defineBridge(ConcurrentModificationErrorCore.definition);
+    environment.defineBridge(IndexErrorCore.definition);
+    environment.defineBridge(TypeErrorCore.definition);
+    environment.defineBridge(AssertionErrorCore.definition);
+    environment.defineBridge(StackOverflowErrorCore.definition);
+    environment.defineBridge(OutOfMemoryErrorCore.definition);
+    ErrorHierarchyCore.register();
     environment.defineBridge(InvocationCore.definition); // Bug-78 FIX
     environment.define(
         'dynamic',

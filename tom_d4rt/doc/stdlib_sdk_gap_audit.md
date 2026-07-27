@@ -1,6 +1,6 @@
 # D4rt stdlib — SDK gap audit
 
-**Date:** 2026-07-07
+**Date:** 2026-07-07 (updated 2026-07-27)
 **Interpreter version:** tom_d4rt (analyzer-based) + tom_d4rt_ast (mirror)
 **SDK reference:** Dart 3.12.2 (package constraint `^3.5.0`)
 **Scope audited:** all stdlib bridge files under
@@ -52,13 +52,13 @@ for contrast: error/exception bridges already shipped are
 | ~~`UnmodifiableMapView`~~ ✅ bridged | dart:collection | Returned by many APIs; scripts type against it. `Map.unmodifiable()` already produced this runtime type, so the mutating members delegate to the native view rather than intercepting — otherwise `on UnsupportedError` would stop catching. |
 | ~~`UnmodifiableSetView`~~ ✅ bridged | dart:collection | Same, including the set algebra (`union`, `intersection`, `difference`). |
 | ~~`StreamConsumer`~~ ✅ bridged | dart:async | Appears in bridged signatures (drove GEN-079). Interface only — no constructor. Registration alone was **not** enough: `StreamController.sink` hands out a `_StreamSinkWrapper` that reached no bridge at all, so the `StreamSink` bridge also had to claim that native name and gain the `addStream` it inherits from `StreamConsumer`. The hierarchy is declared through `BridgedClass.registerSupertypes` rather than an `isAssignable` closure, so `is` learns it without disturbing bridge dispatch. |
-| `NoSuchMethodError` | dart:core | Thrown constantly; scripts want to `catch` it by type. |
-| `ConcurrentModificationError` | dart:core | Thrown by collection iteration; catchable. |
-| `IndexError` | dart:core | Subtype of `RangeError`; `RangeError.index` ctor. |
-| `TypeError` | dart:core | Thrown on failed casts; catchable. |
-| `AssertionError` | dart:core | Thrown by `assert`; catchable. |
-| `StackOverflowError` | dart:core | Recursion guard; catchable. |
-| `OutOfMemoryError` | dart:core | Catchable in principle. |
+| ~~`NoSuchMethodError`~~ ✅ bridged | dart:core | Only `withInvocation` is bridged — the unnamed constructor is deprecated and throws. No `invocation` getter: the SDK keeps the captured Invocation private. |
+| ~~`ConcurrentModificationError`~~ ✅ bridged | dart:core | One of only two entries the interpreter really did already throw SDK-shaped (the native list does the throwing), so registration alone made it catchable. |
+| ~~`IndexError`~~ ✅ bridged | dart:core | The `RangeError` edge is declared via `BridgedClass.registerSupertypes`, not by widening any `isAssignable` — see the note below. |
+| ~~`TypeError`~~ ✅ bridged | dart:core | `nativeNames: ['_TypeError']` — the private class the VM actually raises. The interpreter still reports failed casts as `RuntimeD4rtException`, so the bridge is currently reachable only for explicitly-thrown `TypeError`s. |
+| ~~`AssertionError`~~ ✅ bridged | dart:core | `nativeNames: ['_AssertionError']`. As with `TypeError`, a failing interpreted `assert` still raises `RuntimeD4rtException`. |
+| ~~`StackOverflowError`~~ ✅ bridged | dart:core | Arrives SDK-shaped today — runaway interpreted recursion blows the *host* stack, so the native error escapes. |
+| ~~`OutOfMemoryError`~~ ✅ bridged | dart:core | Construct/catch only; nothing in the interpreter raises it. |
 
 ### P2 — useful, moderate frequency
 
@@ -94,21 +94,50 @@ appears (`Link`, `WebSocket`, `GZipCodec`/`ZLibCodec`, `MutableRectangle`).
 
 ## Notes on the error-type gap
 
-D4rt already **throws** the SDK-shaped errors at runtime (the
-interpreter constructs real Dart error objects), so `catch (e)`
-works today. What's missing is the ability to **catch by concrete
-type** (`on NoSuchMethodError`) or **construct** these in script code,
-because there's no `BridgedClass` registered for them. The P1 error
-entries are therefore low-effort, high-payoff: register the class so
-`on <Type>` clauses and constructors resolve. `IndexError` should be
-registered as a subtype of `RangeError` to match the SDK hierarchy.
+The seven error types above are bridged as of `tom_d4rt` 1.17.0 /
+`tom_d4rt_ast` 0.9.0, so `on <Type> catch (e)` clauses resolve and the
+constructors the SDK exposes publicly work.
+
+Two things the audit assumed turned out to be wrong, and both are worth
+recording because they shape what "bridged" buys you:
+
+**The interpreter does not throw SDK-shaped errors as broadly as assumed.**
+Only `ConcurrentModificationError` and `StackOverflowError` really arrive as
+native SDK errors (the native collection and the host stack do the throwing).
+`list[9]`, a failing cast, a missing method on `dynamic` and a failing `assert`
+all still surface as `RuntimeD4rtException`, so `on IndexError` / `on TypeError`
+/ `on NoSuchMethodError` / `on AssertionError` cannot catch the *natural*
+occurrence of those errors yet — only an explicit `throw`. Closing that is an
+interpreter-side change, not a stdlib one.
+
+**Catch-clause matching had two independent defects.** Both were fixed with the
+bridges and both applied to every bridge, not just the error types:
+
+- A bridged error constructed in script code (`throw StateError('x')`) arrives
+  at the catch matcher as a `BridgedInstance`, while every type test there asks
+  about the *native* type — so `on StateError` failed to catch a `StateError`
+  the same script had just thrown. Matching now runs against an unwrapped
+  native view; the catch variable is still bound to the `BridgedInstance`.
+- Bridged matching compared the thrown value's own bridge against the catch
+  type, an exact-identity test that cannot see that `_TypeError` is a
+  `TypeError` or that an `IndexError` is a `RangeError`. The matcher now asks
+  the catch type's `isAssignable` predicate first.
+
+**Hierarchy is declared, not inferred.** Bridges are registered flat, so
+`ErrorHierarchyCore` feeds the full `dart:core` error chain to
+`BridgedClass.registerSupertypes`. That registry backs `isSubtypeOf` only —
+deliberately not `isAssignable`, which is what `Environment.toBridgedInstance`
+consults to decide which bridge *owns* a native object. Every hand-written
+stdlib bridge carries `hierarchyDepth == 0`, so ties there break on
+registration order, and a supertype claiming assignability for its subtypes
+could quietly steal dispatch from the more specific bridge.
 
 ## Recommended next actions
 
-1. **Batch P1 as one stdlib PR** (both trees, mirrored). Simple pure
-   classes (`Stopwatch`, the collection views/sets) + the catchable
-   error types. Add a round-trip test per new bridge under
-   `tom_d4rt/test/stdlib/`.
+1. **P1 is complete** — the pure classes (`Stopwatch`, the collection
+   views/sets) and all seven catchable error types are bridged in both
+   trees, each with tests under `tom_d4rt/test/stdlib/` and a
+   registration-level mirror under `tom_d4rt_ast/test/runtime/`.
 2. **P2 opportunistically** when a corpus script or bridged signature
    demands it (e.g. `StreamView` surfaces in flutter-material
    signatures).

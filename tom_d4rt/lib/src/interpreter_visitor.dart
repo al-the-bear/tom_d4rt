@@ -9625,8 +9625,22 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       // Use the ORIGINAL value from the internal exception for checks
       final originalThrownValue = caughtInternalException.originalThrownValue;
 
+      // SC5: a bridged error constructed in script code (`throw StateError('x')`)
+      // arrives here as a `BridgedInstance`, not as the native `StateError`.
+      // Every type test below — the hardcoded fast-path switch and the bridge
+      // comparison alike — asks about the *native* type, so an unwrapped view
+      // is what they need. Without it `on StateError` silently failed to catch
+      // a `StateError` the same script had just thrown.
+      //
+      // The catch variable is still bound to `originalThrownValue`: unwrapping
+      // is a matching concern only, and the BridgedInstance is what gives the
+      // handler its member access (`e.message`).
+      final thrownValueForTypeTest = originalThrownValue is BridgedInstance
+          ? originalThrownValue.nativeObject
+          : originalThrownValue;
+
       Logger.debug(
-          "[TryStatement] Looking for catch clauses for thrown value: ${stringify(originalThrownValue)} (type: ${originalThrownValue?.runtimeType})");
+          "[TryStatement] Looking for catch clauses for thrown value: ${stringify(originalThrownValue)} (type: ${thrownValueForTypeTest?.runtimeType})");
 
       for (final clause in node.catchClauses) {
         bool typeMatch = false;
@@ -9644,35 +9658,35 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             Logger.debug(
                 "[TryStatement] Checking catch clause for type: $targetCatchTypeName");
 
-            // Use originalThrownValue for type checking
+            // Match against the unwrapped native view (see above).
             switch (targetCatchTypeName) {
               case 'int':
-                typeMatch = originalThrownValue is int;
+                typeMatch = thrownValueForTypeTest is int;
                 break;
               case 'double':
-                typeMatch = originalThrownValue is double;
+                typeMatch = thrownValueForTypeTest is double;
                 break;
               case 'num':
-                typeMatch = originalThrownValue is num;
+                typeMatch = thrownValueForTypeTest is num;
                 break;
               case 'String':
-                typeMatch = originalThrownValue is String;
+                typeMatch = thrownValueForTypeTest is String;
                 break;
               case 'bool':
-                typeMatch = originalThrownValue is bool;
+                typeMatch = thrownValueForTypeTest is bool;
                 break;
               case 'List':
-                typeMatch = originalThrownValue is List;
+                typeMatch = thrownValueForTypeTest is List;
                 break;
               case 'Null':
                 // This is tricky. 'on Null' might not be common.
-                // Check if the original value is null.
-                typeMatch = originalThrownValue == null;
+                // Check if the thrown value is null.
+                typeMatch = thrownValueForTypeTest == null;
                 break;
               case 'Object':
                 // Everything non-null is an Object?
                 // Dart's 'on Object' catches non-null exceptions.
-                typeMatch = originalThrownValue != null;
+                typeMatch = thrownValueForTypeTest != null;
                 break;
               case 'dynamic': // 'on dynamic' catches everything, like no 'on' clause
                 typeMatch = true;
@@ -9682,29 +9696,29 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 break;
               case 'Exception':
                 // Match any native Exception subtype
-                typeMatch = originalThrownValue is Exception;
+                typeMatch = thrownValueForTypeTest is Exception;
                 break;
               case 'Error':
                 // Match any native Error subtype
-                typeMatch = originalThrownValue is Error;
+                typeMatch = thrownValueForTypeTest is Error;
                 break;
               case 'FormatException':
-                typeMatch = originalThrownValue is FormatException;
+                typeMatch = thrownValueForTypeTest is FormatException;
                 break;
               case 'StateError':
-                typeMatch = originalThrownValue is StateError;
+                typeMatch = thrownValueForTypeTest is StateError;
                 break;
               case 'ArgumentError':
-                typeMatch = originalThrownValue is ArgumentError;
+                typeMatch = thrownValueForTypeTest is ArgumentError;
                 break;
               case 'RangeError':
-                typeMatch = originalThrownValue is RangeError;
+                typeMatch = thrownValueForTypeTest is RangeError;
                 break;
               case 'TypeError':
-                typeMatch = originalThrownValue is TypeError;
+                typeMatch = thrownValueForTypeTest is TypeError;
                 break;
               case 'UnsupportedError':
-                typeMatch = originalThrownValue is UnsupportedError;
+                typeMatch = thrownValueForTypeTest is UnsupportedError;
                 break;
               default:
                 // User-defined type
@@ -9728,10 +9742,22 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                     // When a native exception (e.g., RunException, CopyException) is thrown
                     // and caught with 'on RunException catch (e)', we need to match the
                     // native exception's type against the BridgedClass.
-                    if (originalThrownValue != null) {
+                    if (thrownValueForTypeTest != null &&
+                        targetType.isAssignable != null &&
+                        targetType.isAssignable!(thrownValueForTypeTest)) {
+                      // SC5: ask the *catch type* whether it accepts the value.
+                      // The bridge-identity comparison below is an exact test —
+                      // it cannot see that `_TypeError` is a `TypeError`, or
+                      // that an `IndexError` is a `RangeError`. The bridge's own
+                      // `isAssignable` closure is a real Dart `is`, so it makes
+                      // the match subtype-correct for every bridge.
+                      typeMatch = true;
+                      Logger.debug(
+                          "[TryStatement]   Bridged class '$targetCatchTypeName' isAssignable accepted '${thrownValueForTypeTest.runtimeType}'.");
+                    } else if (thrownValueForTypeTest != null) {
                       try {
                         final thrownBridge = globalEnvironment
-                            .toBridgedClass(originalThrownValue.runtimeType);
+                            .toBridgedClass(thrownValueForTypeTest.runtimeType);
                         // Check if the thrown value's bridge matches the catch type
                         typeMatch =
                             thrownBridge.nativeType == targetType.nativeType ||
@@ -9741,7 +9767,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                       } catch (_) {
                         // Thrown value has no bridge - try runtime type name match
                         final thrownTypeName =
-                            originalThrownValue.runtimeType.toString();
+                            thrownValueForTypeTest.runtimeType.toString();
                         typeMatch = thrownTypeName == targetType.name ||
                             thrownTypeName.startsWith('${targetType.name}<');
                         Logger.debug(

@@ -1,3 +1,27 @@
+## 0.9.0
+
+### Added — the catchable `dart:core` error types (SC5)
+
+Mirrors `tom_d4rt` 1.17.0 file-for-file — the two trees share one stdlib bridge
+set, so a class present in only one of them is a silent capability difference.
+
+`NoSuchMethodError`, `ConcurrentModificationError`, `IndexError`, `TypeError`,
+`AssertionError`, `StackOverflowError` and `OutOfMemoryError` are bridged, with
+`_TypeError` / `_AssertionError` routed to their public bridge via
+`nativeNames`, and the `dart:core` error inheritance chain declared through
+`BridgedClass.registerSupertypes` (`ErrorHierarchyCore`) so `isSubtypeOf` can
+answer `indexError is RangeError` without any bridge claiming assignability for
+its subtypes.
+
+### Fixed — `on <BridgedType> catch` could not see subtypes, or its own throws
+
+Mirrors the `visitTryStatement` fixes in `tom_d4rt` 1.17.0: catch-clause type
+matching now runs against an unwrapped native view of the thrown value (a
+script-thrown bridged error arrives as a `BridgedInstance`, so `on StateError`
+used to miss a `StateError` the script had just thrown), and consults the catch
+type's own `isAssignable` predicate before falling back to the exact
+bridge-identity comparison.
+
 ## 0.8.0
 
 ### Added — `StreamConsumer` bridge and working controller sinks (SC4)

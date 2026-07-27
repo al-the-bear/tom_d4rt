@@ -1,3 +1,55 @@
+## 1.17.0
+
+### Added — the catchable `dart:core` error types (SC5)
+
+Seven SDK error classes had no `BridgedClass`, so their names did not resolve
+at all: `on NoSuchMethodError catch (e)` fell through to the bare clause, and
+`AssertionError('boom')` failed with `Undefined variable: AssertionError`.
+All seven are now bridged and mirrored into `tom_d4rt_ast`:
+
+`NoSuchMethodError`, `ConcurrentModificationError`, `IndexError`, `TypeError`,
+`AssertionError`, `StackOverflowError`, `OutOfMemoryError`.
+
+`TypeError` and `AssertionError` also claim the private VM subclasses
+(`_TypeError`, `_AssertionError`) through `nativeNames` — those are what a
+failing cast and a failing `assert` actually raise, so without the alias the
+value would reach no bridge and `on TypeError` could never see it.
+
+The `dart:core` error inheritance chain is declared through
+`BridgedClass.registerSupertypes` (`ErrorHierarchyCore`), not by widening any
+`isAssignable` closure. `isAssignable` decides which bridge *owns* a native
+object and every hand-written stdlib bridge has `hierarchyDepth == 0`, so ties
+break on registration order — a supertype that claimed assignability for its
+subtypes could quietly steal dispatch. The registry feeds `isSubtypeOf` only,
+so `indexError is RangeError` answers correctly while dispatch stays exact.
+
+### Fixed — `on <BridgedType> catch` could not see subtypes, or its own throws
+
+Two independent defects in `visitTryStatement`, both surfaced while building
+the tests above and both affecting *every* bridge, not just these seven:
+
+- **A script-thrown bridged error was never matched.** `throw StateError('x')`
+  produces a `BridgedInstance`, but every type test in the catch matcher —
+  the hardcoded fast-path switch and the bridge comparison alike — asks about
+  the native type. So `on StateError` failed to catch a `StateError` the same
+  script had just thrown. Matching now runs against an unwrapped native view;
+  the catch variable is still bound to the `BridgedInstance`, so member access
+  in the handler is unchanged.
+- **Bridged matching was exact-identity only.** It compared the thrown value's
+  own bridge against the catch type, which cannot see that `_TypeError` is a
+  `TypeError` or that an `IndexError` is a `RangeError`. The matcher now asks
+  the catch type's own `isAssignable` predicate first — a real Dart `is` — so
+  the match is subtype-correct for every bridge.
+
+### Known gaps (not addressed here, tracked separately)
+
+The audit recorded that the interpreter already throws SDK-shaped errors and
+only the bridge was missing. Probing showed that is true for
+`ConcurrentModificationError` and `StackOverflowError` but not for `list[9]`,
+a failing cast, a missing method on `dynamic`, or a failing `assert` — those
+still surface as `RuntimeD4rtException`. Symbol literals (`#foo`) also
+evaluate to `null`; use `Symbol('foo')` until that is fixed.
+
 ## 1.16.0
 
 ### Added — `StreamConsumer` bridge and working controller sinks (SC4)
