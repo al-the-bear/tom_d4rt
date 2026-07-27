@@ -1648,6 +1648,30 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
     }
 
+    // DFUB9: dispatch a binary operator declared on an extension type before
+    // the native comparison/arithmetic switch (operator methods are stored on
+    // InterpretedExtensionType.methods keyed by the operator lexeme). This must
+    // run early — comparison operators like `>` would otherwise reach
+    // `left as dynamic > right` and throw NoSuchMethodError on the instance.
+    if (leftOperandValue is InterpretedExtensionTypeInstance) {
+      final operatorMethod =
+          leftOperandValue.extensionType.methods[operatorName];
+      if (operatorMethod != null) {
+        Logger.debug(
+            "[BinaryExpression] Found extension-type operator '$operatorName' on ${leftOperandValue.extensionType.name}. Calling...");
+        try {
+          return operatorMethod
+              .bind(leftOperandValue)
+              .call(this, [rightOperandValue], {});
+        } on ReturnException catch (e) {
+          return e.value;
+        } catch (e) {
+          throw RuntimeD4rtException(
+              "Error executing extension-type operator '$operatorName': $e");
+        }
+      }
+    }
+
     // Fix J: Intercept enum equality BEFORE toBridgedInstance wraps them incorrectly
     if ((operatorName == '==' || operatorName == '!=') &&
         (leftOperandValue is Enum ||
@@ -1983,6 +2007,21 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           return e.value;
         } catch (e) {
           throw RuntimeD4rtException("Error executing class operator '[]': $e");
+        }
+      }
+    } else if (targetValue is InterpretedExtensionTypeInstance) {
+      // DFUB9: index operator `[]` declared on an extension type.
+      final operatorMethod = targetValue.extensionType.methods['[]'];
+      if (operatorMethod != null) {
+        Logger.debug(
+            "[visitIndexExpression] Found extension-type operator '[]' on ${targetValue.extensionType.name}. Calling...");
+        try {
+          return operatorMethod.bind(targetValue).call(this, [indexValue], {});
+        } on ReturnException catch (e) {
+          return e.value;
+        } catch (e) {
+          throw RuntimeD4rtException(
+              "Error executing extension-type operator '[]': $e");
         }
       }
     } else if (toBridgedInstance(targetValue).$2) {
@@ -3171,6 +3210,27 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                   'Cannot assign to index on ${targetValue.klass.name}: ${findError.message}');
             }
           }
+        } else if (targetValue is InterpretedExtensionTypeInstance) {
+          // DFUB9: index-set operator `[]=` declared on an extension type.
+          final operatorMethod = targetValue.extensionType.methods['[]='];
+          if (operatorMethod != null) {
+            Logger.debug(
+                "[visitAssignmentExpression-Index] Found extension-type operator '[]=' on ${targetValue.extensionType.name}. Calling...");
+            try {
+              operatorMethod
+                  .bind(targetValue)
+                  .call(this, [indexValue, finalValueToAssign], {});
+              return finalValueToAssign;
+            } on ReturnException catch (_) {
+              return finalValueToAssign;
+            } catch (e) {
+              throw RuntimeD4rtException(
+                  "Error executing extension-type operator '[]=': $e");
+            }
+          }
+          throw RuntimeD4rtException(
+              'Cannot assign to index on extension type '
+              '${targetValue.extensionType.name}: No operator []= found.');
         } else if (toBridgedInstance(targetValue).$2) {
           final bridgedInstance = toBridgedInstance(targetValue).$1!;
           final bridgedClass = bridgedInstance.bridgedClass;
@@ -4322,6 +4382,33 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "'${bridgedClass.name}' is not callable (no default constructor bridge found).");
       }
     } else {
+      // DFUB9: invoke a `call` method declared on an extension type instance,
+      // e.g. `calc(5)` where calc's extension type declares `int call(int x)`.
+      // Without this the callee falls through to the `return calleeValue`
+      // no-op below and the call silently yields the instance itself.
+      if (calleeValue is InterpretedExtensionTypeInstance) {
+        final callMethod = calleeValue.extensionType.methods['call'];
+        if (callMethod != null) {
+          Logger.debug(
+              "[MethodInvoke] Found 'call' method on extension type ${calleeValue.extensionType.name}. Invoking...");
+          final (positionalArgs, namedArgs) =
+              _evaluateArguments(node.argumentList);
+          List<RuntimeType>? evaluatedTypeArguments;
+          final typeArgsNode = node.typeArguments;
+          if (typeArgsNode != null) {
+            evaluatedTypeArguments = typeArgsNode.arguments
+                .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                .toList();
+          }
+          try {
+            return callMethod.bind(calleeValue).call(
+                this, positionalArgs, namedArgs, evaluatedTypeArguments);
+          } on ReturnException catch (e) {
+            return e.value;
+          }
+        }
+      }
+
       // INTER-001 FIX: Check for BridgedInstance with call() method
       final bridgedResult = toBridgedInstance(calleeValue);
       if (bridgedResult.$2) {
@@ -7329,6 +7416,21 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             }
           }
           // No class operator found, try extensions
+        } else if (operandValue is InterpretedExtensionTypeInstance) {
+          // DFUB9: unary operator `-` declared on an extension type.
+          final operatorMethod = operandValue.extensionType.methods['-'];
+          if (operatorMethod != null) {
+            Logger.debug(
+                "[PrefixExpr] Found extension-type operator '-' on ${operandValue.extensionType.name}. Calling...");
+            try {
+              return operatorMethod.bind(operandValue).call(this, [], {});
+            } on ReturnException catch (e) {
+              return e.value;
+            } catch (e) {
+              throw RuntimeD4rtException(
+                  "Error executing extension-type operator '-': $e");
+            }
+          }
         }
 
         // Check for bridged operator methods (unary -)
@@ -7401,6 +7503,21 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             }
           }
           // No class operator found, try extensions
+        } else if (operandValue is InterpretedExtensionTypeInstance) {
+          // DFUB9: unary operator `~` declared on an extension type.
+          final operatorMethod = operandValue.extensionType.methods['~'];
+          if (operatorMethod != null) {
+            Logger.debug(
+                "[PrefixExpr] Found extension-type operator '~' on ${operandValue.extensionType.name}. Calling...");
+            try {
+              return operatorMethod.bind(operandValue).call(this, [], {});
+            } on ReturnException catch (e) {
+              return e.value;
+            } catch (e) {
+              throw RuntimeD4rtException(
+                  "Error executing extension-type operator '~': $e");
+            }
+          }
         }
 
         // Bridged enum unary operator `~` (e.g. `~WidgetState.disabled`, where
@@ -9241,6 +9358,24 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         "[CompoundAssign] Standard op failed for $operatorType. Trying extension operator.");
     final String? operatorName = _mapCompoundToOperatorName(operatorType);
 
+    // DFUB9: dispatch a compound-assignment operator declared on an extension
+    // type (e.g. `c += 5` where c's type declares `operator +`). Uses the
+    // wrapped instance (not the unwrapped representation) as the receiver.
+    if (operatorName != null &&
+        currentValue is InterpretedExtensionTypeInstance) {
+      final operatorMethod =
+          currentValue.extensionType.methods[operatorName];
+      if (operatorMethod != null) {
+        Logger.debug(
+            "[CompoundAssign] Found extension-type operator '$operatorName' on ${currentValue.extensionType.name}. Calling...");
+        try {
+          return operatorMethod.bind(currentValue).call(this, [rhsValue], {});
+        } on ReturnException catch (e) {
+          return e.value;
+        }
+      }
+    }
+
     if (operatorName != null) {
       try {
         final extensionOperator =
@@ -10914,6 +11049,22 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             this, positionalArgs, namedArgs, evaluatedTypeArguments);
       } on ReturnException catch (e) {
         return e.value;
+      }
+    }
+
+    // DFUB9: invoke a `call` method declared on an extension type instance,
+    // e.g. `(calc)(5)` where calc's extension type declares `int call(int x)`.
+    if (calleeValue is InterpretedExtensionTypeInstance) {
+      final callMethod = calleeValue.extensionType.methods['call'];
+      if (callMethod != null) {
+        Logger.debug(
+            "[FuncExprInvoke] Found 'call' method on extension type ${calleeValue.extensionType.name}. Invoking...");
+        try {
+          return callMethod.bind(calleeValue).call(
+              this, positionalArgs, namedArgs, evaluatedTypeArguments);
+        } on ReturnException catch (e) {
+          return e.value;
+        }
       }
     }
 

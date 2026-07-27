@@ -1,3 +1,36 @@
+## 0.1.15
+
+Carries the analyzer-free mirror of the `tom_d4rt` fork-update fix DFUB9, so
+`tom_d4rt_exec` (which consumes the hosted `tom_d4rt_ast`) can exercise it
+end-to-end.
+
+### Added — operator and `call()` dispatch on extension-type instances (DFUB9)
+
+Operator methods declared on an `extension type` were already stored on
+`InterpretedExtensionType.methods`, keyed by the operator lexeme, but no
+dispatch site recognised an `InterpretedExtensionTypeInstance` receiver. Binary
+operators reported `Unsupported operator (PLUS) for types
+InterpretedExtensionTypeInstance…`, unary `-` reported `Operand for unary '-'
+must be a number…`, and invoking an instance silently returned the instance
+itself instead of running its `call` method.
+
+Seven dispatch sites now resolve the operator on the extension type, bind
+`this`, and invoke it:
+
+- `visitBinaryExpression` — `+`, `*`, `>`, `==` and friends. The lookup runs
+  *before* the native comparison/arithmetic switch, because a comparison such
+  as `>` would otherwise reach `left as dynamic > right` and throw a
+  `NoSuchMethodError` on the instance.
+- compound assignment (`+=`, `*=`, …) — dispatches with the *wrapped* instance
+  as the receiver, not the unwrapped representation value.
+- `visitPrefixExpression` — unary `-` and `~`, bound with an empty argument
+  list. A zero-arg `operator -()` and a one-arg binary `operator -` share the
+  `-` key, so only the prefix site may bind it with no arguments.
+- index get `[]` and index set `[]=`.
+- both invocation paths — `visitMethodInvocation` (`calc(5)`) and function
+  expression invocation (`(calc)(5)`) — route to the `call` method, forwarding
+  positional, named, and type arguments.
+
 ## 0.1.14
 
 Upstream-realignment release: carries the analyzer-free mirrors of the
