@@ -228,6 +228,17 @@ class InterpretedFunction implements Callable {
       // arity (positional count + named count) with `dynamic` field types as a
       // best-effort. Full fidelity requires a dedicated record-field S-node —
       // tracked by dgub8. See tom_d4rt (analyzer tree) for the exact-shape impl.
+      //
+      // The synthetic `$namedN` keys are not a harmless placeholder, and the
+      // effect is stronger than "arity-only" suggests: the record VALUE side
+      // derives its RecordRuntimeType from the real `InterpretedRecord` and so
+      // carries the REAL key, which never equals `$namedN`. Measured result
+      // (F-DFUB5-EXEC-5/6/9) — a positional-only record still matches by arity,
+      // but a record with ANY named field matches NOTHING, in either direction.
+      // That is a false negative, i.e. the conservative direction, which is why
+      // it is left as-is rather than "fixed" by ignoring named keys too: that
+      // would trade a restrictive answer for an unsound one. dgub8 removes the
+      // guesswork instead.
       final positional = <RuntimeType>[
         for (var i = 0; i < typeNode.positionalFields.length; i++)
           const NamedRuntimeType('dynamic')
