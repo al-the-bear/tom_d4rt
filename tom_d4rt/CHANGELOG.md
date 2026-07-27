@@ -1,3 +1,49 @@
+## 1.19.0
+
+### Added — `DoubleLinkedQueue` and its entry cursor (SC7)
+
+`DoubleLinkedQueue` is now bridged, together with the `DoubleLinkedQueueEntry`
+cursor that is the type's entire reason to exist. Both are mirrored into
+`tom_d4rt_ast`.
+
+- **The entry type is not optional.** `DoubleLinkedQueue` differs from the
+  already-bridged `ListQueue` in exactly one way: `firstEntry`/`lastEntry`/
+  `forEachEntry` hand out cursors that splice in place. Bridging the queue
+  without the cursor would have shipped a slower `ListQueue` with no reason to
+  exist.
+- **`nativeNames: ['_DoubleLinkedQueueElement']`** on the entry bridge.
+  `firstEntry()` returns that private SDK subclass, not a
+  `DoubleLinkedQueueEntry` — without the routing the entry API would hand back
+  objects that reach no bridge at all. Same pattern as `_TypeError` in 1.17.0.
+
+### Fixed — queues could not reach their inherited `Iterable` surface
+
+Pre-existing breakage, not introduced here. Bridges are registered flat and
+dispatch is per-bridge, so the shipped `ListQueue` bridge could not reach the
+~30 `Iterable` members it inherits: `.where`, `.map`, `.join` and even
+`.contains` failed with "has no instance method named", and `q is Iterable`
+was false. (`contains` is the sharp case — the `Queue` bridge has always
+declared it, but a native `ListQueue` dispatches to the `ListQueue` bridge,
+which did not.)
+
+`QueueHierarchyCollection` declares `DoubleLinkedQueue`/`ListQueue -> Queue`
+and `Queue -> Iterable` to `BridgedClass.registerSupertypes`. One block both
+answers `is` correctly and lets the bridged-supertype walk find the inherited
+members, for every queue type at once, instead of copying thirty adapters onto
+each bridge.
+
+The edges are deliberately **not** expressed by widening any `isAssignable` —
+that predicate decides which bridge *owns* a native object in
+`Environment.toBridgedInstance`, where every hand-written stdlib bridge ties at
+`hierarchyDepth == 0`. Feeding the registry instead lets the resolver's
+most-specific filter *use* the hierarchy to drop supertype matches, so this
+makes dispatch more exact rather than less: a deque is not mistaken for a
+`ListQueue`.
+
+17 script-level tests under
+`test/stdlib/collection/double_linked_queue_test.dart`, mirrored by 15
+registration-level tests in `tom_d4rt_ast`.
+
 ## 1.18.0
 
 ### Added — the P2 `dart:async` types (SC6)

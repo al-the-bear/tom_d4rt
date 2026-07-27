@@ -1,3 +1,32 @@
+## 0.11.0
+
+### Added — `DoubleLinkedQueue` and its entry cursor (SC7)
+
+Mirrors `tom_d4rt` 1.19.0 file-for-file — the two trees share one stdlib bridge
+set, so a class present in only one of them is a silent capability difference.
+
+`DoubleLinkedQueue` and `DoubleLinkedQueueEntry` are bridged. The entry bridge
+carries `nativeNames: ['_DoubleLinkedQueueElement']` because `firstEntry()`
+returns that private SDK subclass; without the routing every accessor on the
+result would reach no bridge at all.
+
+### Fixed — queues could not reach their inherited `Iterable` surface
+
+`QueueHierarchyCollection` declares `DoubleLinkedQueue`/`ListQueue -> Queue`
+and `Queue -> Iterable` to `BridgedClass.registerSupertypes`. This repairs the
+already-shipped `ListQueue` bridge, on which `contains`/`join`/`where`/`map`
+failed outright and `q is Iterable` was false, and it is what makes the new
+deque usable without duplicating thirty `Iterable` adapters onto it.
+
+The edges go through the registry rather than a widened `isAssignable` on
+purpose: `Environment.toBridgedInstance` uses `transitiveSupertypeNames` to
+drop supertype matches, so registering the hierarchy makes dispatch strictly
+more exact — a deque is not mistaken for a `ListQueue`.
+
+15 registration-level tests in
+`test/runtime/stdlib_double_linked_queue_test.dart`, mirroring the 17
+script-level tests on the `tom_d4rt` side.
+
 ## 0.10.0
 
 ### Added — the P2 `dart:async` types (SC6)

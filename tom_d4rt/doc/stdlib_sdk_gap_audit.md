@@ -67,7 +67,7 @@ for contrast: error/exception bridges already shipped are
 | ~~`StreamView`~~ ✅ bridged | dart:async | Base for stream wrappers. Declares **no** `isAssignable`; `'StreamView'` is listed on the `Stream` bridge's `nativeNames` so instances keep the ~60-member `Stream` surface they inherit, with the `StreamView -> Stream` edge in the supertype registry. |
 | ~~`AsyncError`~~ ✅ bridged | dart:async | Error+trace pair in stream/zone plumbing. Concrete, so it *can* carry an `isAssignable` without shadowing a more specific bridge — the one dart:async bridge that does. `implements Error` is registered so `on Error catch` sees it. |
 | ~~`StreamTransformerBase`~~ ✅ bridged | dart:async | Base class for custom transformers. Registering it required broadening `Stream.transform` to wrap an interpreted `bind` in `StreamTransformer.fromBind`, and fixing two generic interpreter gaps: `is BridgedX` was hard-false for every interpreted operand, and `implements SomeBridge` was not a subtype edge at all. |
-| `DoubleLinkedQueue` | dart:collection | Explicit deque type. |
+| ~~`DoubleLinkedQueue`~~ ✅ bridged | dart:collection | Explicit deque type. Its `DoubleLinkedQueueEntry` cursor is bridged alongside — without `firstEntry`/`lastEntry`/`forEachEntry` the type is just a slower `ListQueue` — and the cursor needs `nativeNames: ['_DoubleLinkedQueueElement']`, the private subclass those methods actually return. Registering it also pulled in a `DoubleLinkedQueue`/`ListQueue`/`Queue -> Iterable` supertype block that repaired the **already-shipped** `ListQueue` bridge, where `contains`/`join`/`where`/`map` had all failed outright and `q is Iterable` was false. |
 | `BytesBuilder` | dart:typed_data | Efficient byte accumulation. |
 | `JsonUtf8Encoder` | dart:convert | UTF-8 JSON in one pass. |
 | `ClosableStringSink` | dart:convert | Sink variant. |
@@ -132,6 +132,37 @@ stdlib bridge carries `hierarchyDepth == 0`, so ties there break on
 registration order, and a supertype claiming assignability for its subtypes
 could quietly steal dispatch from the more specific bridge.
 
+## Notes on the queue hierarchy
+
+Bridging `DoubleLinkedQueue` exposed a gap that predated it. Because bridges
+are registered flat and dispatch is per-bridge, a queue could not reach the
+~30-member `Iterable` surface it inherits — and that was already true of the
+shipped `ListQueue` bridge, where `.where`, `.map`, `.join` and even
+`.contains` failed with "has no instance method named" and `q is Iterable`
+was false. `contains` is the sharpest illustration: the `Queue` bridge has
+always declared it, but a native `ListQueue` dispatches to the `ListQueue`
+bridge, which did not.
+
+`QueueHierarchyCollection` declares `DoubleLinkedQueue`/`ListQueue -> Queue`
+and `Queue -> Iterable` to `BridgedClass.registerSupertypes`. That single
+block both answers `is` correctly and lets the bridged-supertype walk find
+the inherited members, instead of copying thirty adapters onto each queue
+bridge.
+
+The edges are deliberately **not** expressed by widening any `isAssignable`.
+Beyond the ownership hazard described above, `Environment.toBridgedInstance`
+collects *all* `isAssignable` matches and then uses
+`transitiveSupertypeNames` to drop the ones that are supertypes of another
+match — so feeding the registry makes dispatch strictly **more** exact. It is
+what breaks the `DoubleLinkedQueue`/`Queue` tie deterministically rather than
+by registration order, and it is why a deque is not mistaken for a
+`ListQueue`.
+
+The same treatment is still owed to the map and set bridges: `HashMap`,
+`LinkedHashMap` and `SplayTreeMap` all answer `is Map` false, and `HashSet`
+answers `is Iterable` false. Those are separate hierarchies needing their own
+dispatch verification.
+
 ## Recommended next actions
 
 1. **P1 is complete** — the pure classes (`Stopwatch`, the collection
@@ -139,8 +170,8 @@ could quietly steal dispatch from the more specific bridge.
    trees, each with tests under `tom_d4rt/test/stdlib/` and a
    registration-level mirror under `tom_d4rt_ast/test/runtime/`.
 2. **P2 opportunistically** when a corpus script or bridged signature
-   demands it. The three `dart:async` entries are now done; the four
-   remaining (`DoubleLinkedQueue`, `BytesBuilder`, `JsonUtf8Encoder`,
+   demands it. The three `dart:async` entries and `DoubleLinkedQueue` are
+   now done; the three remaining (`BytesBuilder`, `JsonUtf8Encoder`,
    `ClosableStringSink`) still wait for a concrete consumer.
 3. **P3: documented but unbuilt** — done; the rationale now lives in
    [d4rt_limitations.md](d4rt_limitations.md#intentionally-unbridged-sdk-classes).
