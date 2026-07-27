@@ -1,3 +1,46 @@
+## 1.11.0
+
+### `basePath` / `allowFileSystemImports` are no longer dead parameters (DGUB3)
+
+**`execute()`, `executeAsync()` and `validateRegistrations()` have always
+ACCEPTED `basePath` and `allowFileSystemImports`, but `_initModule` dropped both
+on the floor** — it never passed them to the `ModuleLoader`, which did not
+declare them. Any filesystem import therefore failed with "Base URI not defined
+in ModuleLoader" no matter what the caller passed. This is the exact
+dead-parameter defect DFUB1 fixed in `tom_d4rt`; it was never mirrored here.
+
+- `ModuleLoader` gains `basePath` + `allowFileSystemImports`, and `D4rt` threads
+  both through. A relative import in an inline `source:` now resolves against
+  `basePath`, and a root `library:` may live on disk rather than in the
+  preloaded `sources` map.
+- Nested relative imports resolve correctly: module URIs are canonicalized to a
+  single absolute `file:` spelling before use (DFUB3's
+  `_canonicalizeModuleUri`), so a module reached relatively resolves its *own*
+  relative imports against its real location rather than against `basePath`. The
+  module cache and the in-flight (cycle) registry are keyed by a
+  symlink-resolved identity, so different spellings of one file load exactly
+  once.
+- **Every on-disk module read is gated by `FilesystemPermission`** (DFUB2's
+  `_checkFileSystemSourceReadPermission`), which throws before any bytes are
+  read.
+- Missing-source errors now name the actual reason instead of blaming the
+  stdlib: filesystem imports disabled, or not found with the *resolved path* the
+  loader looked at. `package:` guidance is unchanged.
+- New conformance suite `test/dgub3_filesystem_import_basepath_test.dart`
+  (7 tests), the exec-side mirror of `dfub1_filesystem_import_basepath_test` and
+  the read-gate half of `dfub2_filesystem_import_permission_test`.
+
+**Known boundary (unchanged, now pinned):** `executeFile()` reaches module
+sources by a different route — `resolveImportsRecursively`, a regex pre-walk in
+`script_execution.dart` that reads every transitive import off disk with **no**
+permission check and folds them into `sources` before the interpreter runs. That
+path predates this change and its reads stay ungated; F-DGUB3-7 pins the
+boundary so the gap stays visible. Closing it is tracked as dguc1.
+
+`AstModuleLoader` in `tom_d4rt_ast` is deliberately untouched — it stays
+lookup-only and free of `dart:io` so it remains usable where there is no
+filesystem.
+
 ## 1.10.0
 
 ### Security — scoped `FilesystemPermission` grants are now actually enforced (DFUB11)

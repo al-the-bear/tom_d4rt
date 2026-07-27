@@ -1,5 +1,15 @@
 // ignore_for_file: implementation_imports
 
+// DGUB3 — filesystem module sources. This loader is the CLI/server-side
+// counterpart of tom_d4rt's ModuleLoader and, like it, may read a module's
+// source off disk when `allowFileSystemImports` is enabled. It is deliberately
+// NOT the zero-dependency `AstModuleLoader` in tom_d4rt_ast, which stays
+// lookup-only so it remains usable where there is no filesystem. Note that
+// `script_execution.dart` (exported from this package's barrel) already
+// imports dart:io, so this adds no platform constraint the package did not
+// already carry.
+import 'dart:io';
+
 import 'package:tom_d4rt_ast/runtime.dart';
 import 'package:tom_d4rt_ast/src/runtime/module_context.dart' as context;
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert.dart';
@@ -71,6 +81,23 @@ class ModuleLoader implements context.ModuleContext {
   final List<Map<String, LibraryClass>> bridgedClases;
   final D4rt? d4rt; // Reference to D4rt instance for permission checking
 
+  /// DGUB3 (mirrors tom_d4rt DFUB1) — base directory for resolving relative
+  /// filesystem imports.
+  ///
+  /// When [allowFileSystemImports] is enabled, a scheme-less relative import
+  /// URI is resolved against `Directory(basePath).absolute.uri` before reading
+  /// the module source off disk. `null` disables relative filesystem
+  /// resolution (absolute `file:` URIs still resolve on their own).
+  final String? basePath;
+
+  /// DGUB3 (mirrors tom_d4rt DFUB1) — when true, [_fetchModuleSource] may read
+  /// a module's source from the filesystem (via [_resolveFileSystemUri]) if the
+  /// URI is not already in [sources] and the resolved file exists. Defaults to
+  /// `false` (sandboxed: only preloaded [sources] and bridged/stdlib modules
+  /// are visible). Every such read is gated by
+  /// [_checkFileSystemSourceReadPermission].
+  final bool allowFileSystemImports;
+
   /// The current library URI for relative import resolution.
   Uri? _currentLibrary;
 
@@ -133,9 +160,160 @@ class ModuleLoader implements context.ModuleContext {
       this.librarySetters = const [],
       this.bridgedExtensions = const [],
       this.collectRegistrationErrors = false,
-      this.parseSourceCallback}) {
+      this.parseSourceCallback,
+      this.basePath,
+      this.allowFileSystemImports = false}) {
     Logger.debug(
         "[ModuleLoader] Initialized with ${sources.length} preloaded sources.");
+  }
+
+  /// DGUB3 (mirrors tom_d4rt DFUB1) — the URI the interpreter should treat as
+  /// the initial library when the root source was supplied inline (no explicit
+  /// `library:`) and filesystem imports are enabled.
+  ///
+  /// Relative imports in the root source are resolved against
+  /// [currentLibrary], which is otherwise `null` for an inline source — so
+  /// without this seed `import './utils.dart'` fails with "Base URI not defined
+  /// in ModuleLoader" no matter what [basePath] says. Returns `null` when there
+  /// is no filesystem base to seed from.
+  Uri? get initialFileSystemLibraryUri =>
+      (allowFileSystemImports && basePath != null)
+          ? Directory(basePath!).absolute.uri
+          : null;
+
+  /// DGUB3 (mirrors tom_d4rt DFUB1) — maps a module [uri] to the `file:` URI it
+  /// would be read from, or `null` when it is not a filesystem candidate.
+  ///
+  /// - `file:` URIs resolve to themselves (already absolute on disk).
+  /// - Any other explicit scheme (`dart:`, `package:`, …) returns `null` — not
+  ///   a filesystem import.
+  /// - A scheme-less (relative) URI resolves against
+  ///   `Directory(basePath).absolute.uri`; returns `null` when [basePath] is
+  ///   unset (no base to resolve against).
+  Uri? _resolveFileSystemUri(Uri uri) {
+    if (uri.scheme == 'file') {
+      return uri;
+    }
+    if (uri.scheme.isNotEmpty) {
+      return null;
+    }
+    if (basePath == null) {
+      return null;
+    }
+    return Directory(basePath!).absolute.uri.resolveUri(uri);
+  }
+
+  /// DGUB3 (mirrors tom_d4rt DFUB3) — canonicalizes a module [uri] to a single
+  /// absolute spelling so the URI that flows through source reads, the
+  /// read-permission gate and nested import resolution is always the same
+  /// absolute `file:` form.
+  ///
+  /// This is load-bearing here, not cosmetic: a nested relative import is
+  /// resolved by the interpreter against [currentLibrary], which this loader
+  /// sets to the URI it is loading. Without canonicalization a module reached
+  /// as `features/feature.dart` would resolve its own `messages/value.dart`
+  /// against that *relative* spelling and miss the file.
+  ///
+  /// Deliberately does NOT resolve symlinks: the returned URI keeps the
+  /// caller's directory spelling, so a [FilesystemPermission] granted on a
+  /// (possibly symlinked) directory keeps matching the read. Symlink identity
+  /// for cache deduplication is [_moduleIdentityUri]'s job.
+  Uri _canonicalizeModuleUri(Uri uri) {
+    final fileUri = _resolveFileSystemUri(uri);
+    if (fileUri == null) {
+      return uri;
+    }
+    return File.fromUri(fileUri).absolute.uri;
+  }
+
+  /// DGUB3 (mirrors tom_d4rt DFUB3) — computes the deduplication identity for a
+  /// module [uri] used as the [_moduleCache] / [_inFlightModules] key, so
+  /// different spellings of the same underlying file — including symlinked
+  /// directories/files and `..`/`.` segments — collapse to a single cached
+  /// module instance and load exactly once.
+  ///
+  /// For an existing filesystem file this is the real (symlink-resolved) path;
+  /// when the file does not exist or the real-path call fails it falls back to
+  /// the absolute spelling. Non-filesystem URIs (`dart:`, `package:`) are
+  /// returned unchanged.
+  Uri _moduleIdentityUri(Uri uri) {
+    final fileUri = _resolveFileSystemUri(uri);
+    if (fileUri == null) {
+      return uri;
+    }
+    final file = File.fromUri(fileUri);
+    if (file.existsSync()) {
+      try {
+        return File(file.resolveSymbolicLinksSync()).uri;
+      } on FileSystemException {
+        // Fall through to the absolute-spelling identity below.
+      }
+    }
+    return file.absolute.uri;
+  }
+
+  /// DGUB3 (mirrors tom_d4rt DFUB2) — gates a filesystem module-source read
+  /// behind a [FilesystemPermission] read check.
+  ///
+  /// The resolved [fileUri] is normalized to an absolute path and matched
+  /// against the granted permissions via [D4rt.checkPermission]. An ungranted
+  /// read throws a [RuntimeD4rtException] before any bytes are read. No-op when
+  /// there is no owning [D4rt] instance (nothing to enforce against).
+  void _checkFileSystemSourceReadPermission(Uri fileUri) {
+    if (d4rt == null) return;
+
+    final filePath = File.fromUri(fileUri).absolute.path;
+    if (!d4rt!.checkPermission({
+      'type': 'filesystem',
+      'path': filePath,
+      'read': true,
+    })) {
+      throw RuntimeD4rtException(
+          'Reading module source from "$filePath" requires '
+          'FilesystemPermission.');
+    }
+  }
+
+  /// DGUB3 (mirrors tom_d4rt DFUB2/DFUB13) — builds the exception for a module
+  /// whose source could not be obtained, choosing the message that names the
+  /// actual reason:
+  ///
+  /// - a filesystem candidate with imports disabled → says so, rather than
+  ///   blaming the stdlib;
+  /// - a filesystem candidate that simply is not there → reports the resolved
+  ///   path so the caller can see where the loader looked;
+  /// - a `package:` URI → package-specific guidance (preload or bridge it);
+  /// - anything else → the generic "not preloaded / not a stdlib" message.
+  SourceCodeD4rtException _missingModuleSourceError(Uri uri) {
+    final uriString = uri.toString();
+    final fileUri = _resolveFileSystemUri(uri);
+
+    if (fileUri != null) {
+      if (!allowFileSystemImports) {
+        return SourceCodeD4rtException(
+            "Module source not preloaded for URI: $uriString. Filesystem "
+            "imports are disabled; enable allowFileSystemImports or preload "
+            "the module source.",
+            uriString);
+      }
+      final resolvedPath = File.fromUri(fileUri).absolute.path;
+      return SourceCodeD4rtException(
+          "Module source not found on filesystem for URI: $uriString "
+          "(resolved path: $resolvedPath).",
+          uriString);
+    }
+
+    if (uri.scheme == 'package') {
+      return SourceCodeD4rtException(
+          "Package module source not preloaded for URI: $uriString. Provide "
+          "it in sources or register a bridge for that package library.",
+          uriString);
+    }
+
+    return SourceCodeD4rtException(
+        "Module source not preloaded for URI: $uriString, and not a "
+        "recognized Dart standard library.",
+        uriString);
   }
 
   @override
@@ -215,13 +393,24 @@ class ModuleLoader implements context.ModuleContext {
       return _loadModuleInternal(uri,
           showNames: showNames, hideNames: hideNames);
     } catch (_) {
-      _inFlightModules.remove(uri);
+      _inFlightModules.remove(_moduleIdentityUri(_canonicalizeModuleUri(uri)));
       rethrow;
     }
   }
 
   LoadedModule _loadModuleInternal(Uri uri,
       {Set<String>? showNames, Set<String>? hideNames}) {
+    // DGUB3 — canonicalize filesystem module URIs to a single absolute spelling
+    // so reads, the read-permission gate and nested import resolution all use
+    // the same (grant-matching) form. No-op for non-filesystem URIs (`dart:`,
+    // `package:`, unresolvable relative).
+    uri = _canonicalizeModuleUri(uri);
+
+    // DGUB3 — the cache is keyed by the symlink-resolved identity so different
+    // spellings of the same underlying file dedupe to one cached module and
+    // load exactly once. Reads still use `uri` (the caller's spelling).
+    final identityUri = _moduleIdentityUri(uri);
+
     // Check permissions for dangerous modules
     _checkModulePermissions(uri);
 
@@ -231,12 +420,12 @@ class ModuleLoader implements context.ModuleContext {
     Logger.debug(
         "[ModuleLoader loadModule for $uri] Setting currentLibrary to: $uri (show: $showNames, hide: $hideNames)");
 
-    if (_moduleCache.containsKey(uri)) {
+    if (_moduleCache.containsKey(identityUri)) {
       Logger.debug(
           "[ModuleLoader loadModule for $uri] Module '${uri.toString()}' found in cache.");
       // Restore the source URI before returning for parent calls
       currentLibrary = previousLibraryForRecursiveLoad;
-      return _moduleCache[uri]!;
+      return _moduleCache[identityUri]!;
     }
 
     // DFUB10 — a cycle: this module is already being loaded further up the
@@ -244,7 +433,7 @@ class ModuleLoader implements context.ModuleContext {
     // partial's environments are the very objects the in-progress frame will
     // finish populating, and any merge taken from an incomplete export set is
     // replayed when that frame completes (see [_mergeFromModule]).
-    final inFlightEntry = _inFlightModules[uri];
+    final inFlightEntry = _inFlightModules[identityUri];
     if (inFlightEntry != null) {
       Logger.debug(
           "[ModuleLoader loadModule for $uri] Module '${uri.toString()}' is already in flight (circular import/export); returning partial module.");
@@ -271,7 +460,7 @@ class ModuleLoader implements context.ModuleContext {
     // Dart and must load; we support the cycle rather than rejecting it.
     final inFlight = _InFlightModule(
         LoadedModule(uri, ast, moduleEnvironment, exportedEnvironment));
-    _inFlightModules[uri] = inFlight;
+    _inFlightModules[identityUri] = inFlight;
 
     // Bug-72 FIX: Process import directives BEFORE declarations
     // This ensures imported classes/mixins are available when class declarations are visited
@@ -518,8 +707,8 @@ class ModuleLoader implements context.ModuleContext {
     // DFUB10 — reuse the very instance the cyclic importers were handed, so
     // every reference to this module (partial or final) is the same object.
     final loadedModule = inFlight.partial;
-    _moduleCache[uri] = loadedModule;
-    _inFlightModules.remove(uri);
+    _moduleCache[identityUri] = loadedModule;
+    _inFlightModules.remove(identityUri);
 
     // DFUB10 — this module's exports are complete now, so replay every merge
     // that was taken from it while it was still incomplete. Replays are
@@ -586,6 +775,29 @@ class ModuleLoader implements context.ModuleContext {
     if (sources.containsKey(uriString)) {
       Logger.debug("[ModuleLoader] Source found for $uriString in sources.");
       return sources[uriString]!;
+    }
+
+    // DGUB3 (mirrors tom_d4rt DFUB1) — when filesystem imports are enabled, a
+    // URI not in the preloaded sources may be read off disk. Relative URIs
+    // resolve against basePath; `file:` URIs read directly.
+    // DGUB3 (mirrors tom_d4rt DFUB2) — every on-disk read is gated by a
+    // per-read FilesystemPermission check, which throws before any bytes are
+    // read. This is checked ahead of the stdlib branch below so a filesystem
+    // module never falls through to "not a recognized Dart standard library".
+    if (allowFileSystemImports) {
+      final fileUri = _resolveFileSystemUri(uri);
+      if (fileUri != null) {
+        final file = File.fromUri(fileUri);
+        if (file.existsSync()) {
+          _checkFileSystemSourceReadPermission(fileUri);
+          Logger.debug(
+              "[ModuleLoader] Source loaded from filesystem for $fileUri.");
+          return file.readAsStringSync();
+        }
+        Logger.debug(
+            "[ModuleLoader] Filesystem import enabled, but no file found at "
+            "${file.absolute.path}.");
+      }
     }
 
     // Then handle the known Dart libraries provided by Stdlib
@@ -1103,23 +1315,11 @@ class ModuleLoader implements context.ModuleContext {
     // If it's neither explicitly preloaded nor a known Dart library, it's an error.
     Logger.error(
         "[ModuleLoader] Source not preloaded and not a recognized Dart standard library for URI: $uriString");
-    // DFUB13 — a `package:` URI gets package-specific guidance, because the
-    // generic "not a recognized Dart standard library" tail is noise for it:
-    // nobody expects `package:foo/bar.dart` to be a stdlib library, and the two
-    // real fixes (supply the source, or bridge the package) go unmentioned.
-    //
-    // Unlike tom_d4rt this loader has no filesystem machinery, so the two
-    // filesystem branches of its `_missingModuleSourceError` have no analogue
-    // here and are deliberately not ported.
-    if (uri.scheme == 'package') {
-      throw SourceCodeD4rtException(
-          "Package module source not preloaded for URI: $uriString. Provide "
-          "it in sources or register a bridge for that package library.",
-          uriString);
-    }
-    throw SourceCodeD4rtException(
-        "Module source not preloaded for URI: $uriString, and not a recognized Dart standard library.",
-        uriString);
+    // DFUB13 / DGUB3 — the reason a module could not be loaded decides the
+    // message: a filesystem candidate reports either the disabled flag or the
+    // path the loader looked at, a `package:` URI gets package-specific
+    // guidance, and only the genuine leftovers get the generic stdlib tail.
+    throw _missingModuleSourceError(uri);
   }
 
   /// GEN-056 FIX: Resolve a RuntimeType for an extension's on-type by

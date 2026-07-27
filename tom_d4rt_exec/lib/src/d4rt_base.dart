@@ -390,6 +390,11 @@ class D4rt {
       collectRegistrationErrors: collectRegistrationErrors,
       parseSourceCallback: (sourceCode, uri) =>
           _parseSourceToAst(sourceCode, path: uri.toString()),
+      // DGUB3 — both were accepted here and then dropped, so `execute()` has
+      // always advertised filesystem imports it could not perform. The loader
+      // is the component that honours them.
+      basePath: basePath,
+      allowFileSystemImports: allowFileSystemImports,
     );
     _visitor = InterpreterVisitor(
         globalEnvironment: moduleLoader.globalEnvironment,
@@ -1040,13 +1045,29 @@ class D4rt {
     );
   }
 
+  /// The URI the interpreter seeds its initial library with, against which
+  /// relative imports in the ROOT source resolve.
+  ///
+  /// An explicit [library] always wins. DGUB3 — otherwise, when filesystem
+  /// imports are enabled, fall back to the loader's basePath so a relative
+  /// import in an inline `source:` has a base to resolve against; `null` when
+  /// there is neither (relative root imports then fail, as before).
+  Uri? _initialLibraryUri(String? library) => library != null
+      ? Uri.parse(library)
+      : _moduleLoader.initialFileSystemLibraryUri;
+
   /// Parse source code into a SCompilationUnit.
   SCompilationUnit _parseSource({String? source, String? library}) {
     if (library != null) {
       Logger.debug(
           "[D4rt._parseSource] Attempting to load source via ModuleLoader for URI: $library");
 
-      if (!_moduleLoader.sources.containsKey(library.toString())) {
+      // DGUB3 (mirrors tom_d4rt DFUB1) — when filesystem imports are enabled
+      // the root library may live on disk rather than in the preloaded sources
+      // map, so loadModule reads it via the ModuleLoader's filesystem path.
+      // Only require a preloaded source when filesystem imports are disabled.
+      if (!_moduleLoader.sources.containsKey(library.toString()) &&
+          !_moduleLoader.allowFileSystemImports) {
         final errorMessage =
             "[D4rt._parseSource] The source URI '$library' was not found in sources.";
         Logger.error(errorMessage);
@@ -1111,7 +1132,7 @@ class D4rt {
     _visitor = InterpreterVisitor(
         globalEnvironment: executionEnvironment,
         moduleContext: _moduleLoader,
-        initialLibrary: library != null ? Uri.parse(library) : null);
+        initialLibrary: _initialLibraryUri(library));
     Object? functionResult;
     try {
       Logger.debug("[_executeInEnvironment] Starting Pass 2: Interpretation");
@@ -1533,7 +1554,7 @@ class D4rt {
     _visitor = InterpreterVisitor(
         globalEnvironment: executionEnvironment,
         moduleContext: _moduleLoader,
-        initialLibrary: library != null ? Uri.parse(library) : null);
+        initialLibrary: _initialLibraryUri(library));
     Object? functionResult;
     try {
       Logger.debug(" [_executeClassic] Starting Pass 2: Interpretation");
