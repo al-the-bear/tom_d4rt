@@ -15,7 +15,7 @@ dependencies:
   # step #20 `_registerBridges` guard calls. 0.1.10 carries the precise-before-
   # fuzzy `Environment.toBridgedClass` fix (MappedListIterable → Iterable, not
   # Map) that the lazy warm-parent substrate the guard activates depends on.
-  tom_d4rt_ast: ">=0.1.15"
+  tom_d4rt_ast: ">=0.1.16"
   archive: ^4.0.9
   # Explicit transitive Flutter deps used in generated bridge code
   characters: ^1.4.0
