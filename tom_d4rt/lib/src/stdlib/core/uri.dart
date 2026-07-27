@@ -147,6 +147,7 @@ class UriCore {
         },
         getters: {
           'scheme': (visitor, target) => (target as Uri).scheme,
+          'data': (visitor, target) => (target as Uri).data,
           'authority': (visitor, target) => (target as Uri).authority,
           'userInfo': (visitor, target) => (target as Uri).userInfo,
           'host': (visitor, target) => (target as Uri).host,
