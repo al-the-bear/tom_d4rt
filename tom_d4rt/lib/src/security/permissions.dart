@@ -96,11 +96,8 @@ class FilesystemPermission extends Permission {
   /// segments away. Without the `..` resolution a grant on `/allowed` would
   /// authorize `/allowed/../etc/passwd`, which is a scope escape.
   ///
-  /// Symlinks are deliberately NOT resolved: `realpath` would make the matcher
-  /// depend on the filesystem's current state (and fail outright for paths
-  /// that do not exist yet, such as the target of a write). Grant and request
-  /// therefore have to be spelled through the same links — see quest todo
-  /// dgub5, which owns symlink-aware matching.
+  /// This step is purely lexical. Symlink resolution is a separate concern and
+  /// lives in [_scopeIdentity], which layers it on top.
   static String _canonicalizePath(String path) {
     final absolutePath = _absolutize(path).replaceAll('\\', '/');
     final driveMatch = RegExp(r'^[A-Za-z]:').firstMatch(absolutePath);
@@ -148,14 +145,31 @@ class FilesystemPermission extends Permission {
     return '${currentDirectoryPath()}/$path';
   }
 
+  /// The single spelling [path] is compared under: lexically canonical AND
+  /// symlink-resolved.
+  ///
+  /// Both steps are needed, in this order. Canonicalizing first makes the path
+  /// absolute so [resolveRealPath] has something well-formed to resolve;
+  /// canonicalizing again afterwards normalizes whatever the platform's
+  /// realpath handed back. Grant and request both pass through here, so they
+  /// are always compared as the same kind of thing.
+  static String _scopeIdentity(String path) =>
+      _canonicalizePath(resolveRealPath(_canonicalizePath(path)));
+
   /// Whether [requestedPath] names [allowedPath] itself or something under it.
   ///
   /// The comparison is on a path-SEGMENT boundary, so a sibling that merely
   /// shares the string prefix (`/allowed_sneaky` against a grant on
   /// `/allowed`) is correctly outside the scope.
+  ///
+  /// It is also on the REAL path, so the two spellings of a symlinked location
+  /// are the same scope. That cuts both ways by design: a grant on
+  /// `/private/var/x` admits a read of `/var/x/...`, and — the security-
+  /// relevant direction — a symlink INSIDE a granted directory that points
+  /// outside it no longer smuggles the location back into scope.
   static bool _isPathWithinScope(String allowedPath, String requestedPath) {
-    final canonicalAllowed = _canonicalizePath(allowedPath);
-    final canonicalRequested = _canonicalizePath(requestedPath);
+    final canonicalAllowed = _scopeIdentity(allowedPath);
+    final canonicalRequested = _scopeIdentity(requestedPath);
     return canonicalRequested == canonicalAllowed ||
         canonicalRequested.startsWith('$canonicalAllowed/');
   }

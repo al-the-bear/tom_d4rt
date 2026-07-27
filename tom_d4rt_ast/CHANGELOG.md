@@ -1,3 +1,33 @@
+## 0.14.0
+
+### Changed — filesystem permission scopes are symlink-aware (DGUB5)
+
+`FilesystemPermission` now compares the grant and the requested path on
+their REAL paths, with symlinks resolved, instead of on their literal
+spellings. Both halves of the old behaviour are corrected:
+
+- **A grant on a resolved path now admits an unresolved spelling of the
+  same location.** This was a routine annoyance on macOS, where
+  `Directory.systemTemp` hands back `/var/folders/...` — itself a symlink
+  to `/private/var/folders/...` — so granting a resolved path and then
+  reading through the unresolved one was denied for no visible reason.
+
+- **A symlink inside a granted directory no longer reaches outside it.**
+  This is the security-relevant half: `<sandbox>/link_to_elsewhere/x`
+  used to satisfy a `<sandbox>` grant because it was lexically in scope,
+  while actually reading from wherever the link pointed.
+
+**This is a tightening, so it can deny operations that previously
+succeeded** — specifically, any access that relied on a symlink to leave
+its granted directory. Grants that name the same location the operation
+really touches are unaffected, whichever way either side is spelled.
+
+Paths that do not exist yet are still matched: resolution walks up to the
+deepest existing ancestor and re-appends the remainder, so a `writePath`
+grant consulted before the file is created behaves as it always did — and
+still notices a symlinked ancestor. Resolution failures (broken links,
+racing deletions) fall back to the literal spelling rather than throwing.
+
 ## 0.13.0
 
 ### Added — `JsonUtf8Encoder` and `ClosableStringSink` (SC9)
