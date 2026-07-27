@@ -21,7 +21,7 @@ dependencies:
   # In-workspace components are pinned to a lower bound only (no upper cap) so
   # `pub upgrade` always tracks our latest published versions during active
   # development.
-  tom_d4rt_ast: ">=0.1.11"
+  tom_d4rt_ast: ">=0.2.0"
   tom_ast_model: ">=0.1.3"
   tom_build_base: ">=2.6.25"
 

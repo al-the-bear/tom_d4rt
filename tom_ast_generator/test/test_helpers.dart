@@ -8,7 +8,7 @@
 import 'dart:convert';
 
 import 'package:analyzer/dart/analysis/utilities.dart' as analyzer;
-import 'package:analyzer/error/error.dart' show ErrorSeverity;
+import 'package:analyzer/error/error.dart' show DiagnosticSeverity;
 import 'package:tom_ast_generator/tom_ast_generator.dart';
 
 /// Parse Dart source code into an [SCompilationUnit] via full AST round-trip.
@@ -29,7 +29,7 @@ SCompilationUnit parseSource(String sourceCode, {String? path}) {
 
   // Check for parse errors
   final hasErrors = result.errors
-      .any((e) => e.errorCode.errorSeverity == ErrorSeverity.ERROR);
+      .any((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR);
 
   // Perform the round-trip: toJson → fromJson
   final json = cu.toJson();
