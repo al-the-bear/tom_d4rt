@@ -7,15 +7,7 @@ import 'package:test/test.dart';
 import '../interpreter_test.dart';
 
 void main() {
-  // SKIP until tom_d4rt_ast is republished with the DFUB4 extension-type
-  // method/setter dispatch mirror and this package's `tom_d4rt_ast` constraint
-  // is bumped to consume it. tom_d4rt_exec depends on the HOSTED (pub.dev)
-  // tom_d4rt_ast, not the local path (path overrides are forbidden by workspace
-  // rules), so the local source mirror is not yet exercised here. Tracked as a
-  // dgub follow-up; flip this `skip` off once the publish + bump lands.
-  group('DFUB4: extension type method dispatch (ast tree)',
-      skip: 'Pending tom_d4rt_ast republish + tom_d4rt_exec constraint bump '
-          '(dgub6).', () {
+  group('DFUB4: extension type method dispatch (ast tree)', () {
     test('F-DFUB4A-1: single method reading representation [2026-07-23] (PASS)',
         () {
       const code = '''
