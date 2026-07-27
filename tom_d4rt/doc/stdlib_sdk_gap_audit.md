@@ -46,7 +46,7 @@ for contrast: error/exception bridges already shipped are
 
 | Type | Library | Why it matters |
 |------|---------|----------------|
-| `Stopwatch` | dart:core | Ubiquitous for timing; pure, no I/O, trivial bridge. |
+| ~~`Stopwatch`~~ ✅ bridged | dart:core | Ubiquitous for timing; pure, no I/O, trivial bridge. |
 | `LinkedHashSet` | dart:collection | Insertion-order set; common explicit type. |
 | `SplayTreeSet` | dart:collection | Sorted set; common explicit type. |
 | `UnmodifiableMapView` | dart:collection | Returned by many APIs; scripts type against it. |
@@ -71,9 +71,15 @@ for contrast: error/exception bridges already shipped are
 | `BytesBuilder` | dart:typed_data | Efficient byte accumulation. |
 | `JsonUtf8Encoder` | dart:convert | UTF-8 JSON in one pass. |
 | `ClosableStringSink` | dart:convert | Sink variant. |
-| `UriData` | dart:core | `data:` URI parsing (`Uri.dataFromString`). |
+| ~~`UriData`~~ ✅ bridged | dart:core | `data:` URI parsing (`Uri.dataFromString`). Bridging it also surfaced a missing `Uri.data` getter, without which a parsed `data:` URI had no route to its payload. |
 
 ### P3 — niche or questionable sandbox fit (audit only, likely skip)
+
+These are recorded as **intentional limitations** with a per-class rationale in
+[d4rt_limitations.md § Intentionally-Unbridged SDK Classes](d4rt_limitations.md#intentionally-unbridged-sdk-classes),
+which distinguishes the ones that *cannot* be honoured (`Zone`, `Expando`,
+`WeakReference`, `Finalizer`) from the ones merely deferred until a consumer
+appears (`Link`, `WebSocket`, `GZipCodec`/`ZLibCodec`, `MutableRectangle`).
 
 | Type | Library | Reason to defer |
 |------|---------|-----------------|
@@ -106,8 +112,10 @@ registered as a subtype of `RangeError` to match the SDK hierarchy.
 2. **P2 opportunistically** when a corpus script or bridged signature
    demands it (e.g. `StreamConsumer`/`StreamView` already surface in
    flutter-material signatures).
-3. **P3: leave documented but unbuilt** until a concrete consumer
-   appears; several are sandbox-hostile by design.
+3. **P3: documented but unbuilt** — done; the rationale now lives in
+   [d4rt_limitations.md](d4rt_limitations.md#intentionally-unbridged-sdk-classes).
+   Several are sandbox-hostile by design and will stay out; the rest wait
+   for a concrete consumer.
 
 ## Method / reproducibility
 
