@@ -445,6 +445,7 @@ void _registerAllFactories() {
     'RecordTypeAnnotation',
     SRecordTypeAnnotation.fromJson,
   );
+  SAstNodeFactory.register('RecordTypeField', SRecordTypeField.fromJson);
 
   // Function-related
   SAstNodeFactory.register(

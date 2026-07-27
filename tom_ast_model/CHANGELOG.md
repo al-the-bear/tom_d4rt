@@ -1,3 +1,17 @@
+## 0.2.0
+
+- **Add `SRecordTypeField`** — the fields of a record type *annotation*
+  (`int` and `String label` in `(int, {String label})`) were previously
+  unrepresentable, so a converter had nowhere to put them and dropped them into
+  an opaque placeholder. The arity survived; the field types and the named-field
+  keys did not, which left the interpreter unable to answer
+  `(42, label: 'answer') is (int, {String label})`.
+- **Breaking:** `SRecordTypeAnnotation.positionalFields` / `.namedFields` are now
+  `List<SRecordTypeField>` instead of `List<SAstNode>`, so a consumer cannot
+  silently receive a field it can read nothing off. Bundles serialised before
+  this version still deserialise — their fields come back typeless and nameless
+  rather than being dropped, which preserves the recorded arity.
+
 ## 0.1.3
 
 - Housekeeping: test artifacts now live in a gitignored `testlog/` folder; `doc/` no longer ships machine-generated baselines or last_testrun.json. No code changes.

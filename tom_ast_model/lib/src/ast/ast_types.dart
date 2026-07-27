@@ -311,14 +311,77 @@ class STypeParameter extends SDeclaration {
 // Record Type
 // ============================================================================
 
+/// A single field of a record type ANNOTATION — `int` or `String label` in
+/// `(int, {String label})`.
+///
+/// The analyzer splits this into `RecordTypeAnnotationPositionalField` and
+/// `RecordTypeAnnotationNamedField`; here one node covers both, because
+/// [SRecordTypeAnnotation] already separates them into two lists. [name] is
+/// therefore non-null exactly for a field in
+/// [SRecordTypeAnnotation.namedFields].
+class SRecordTypeField extends SAstNode {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  /// The declared field type. Null only for malformed source, or for a field
+  /// deserialised from a bundle written before this node existed.
+  final STypeAnnotation? type;
+
+  /// The field name — non-null for a named field, null for a positional one.
+  final SSimpleIdentifier? name;
+
+  SRecordTypeField({
+    required this.offset,
+    required this.length,
+    this.type,
+    this.name,
+  });
+
+  @override
+  String get nodeType => 'RecordTypeField';
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (type != null) 'type': type!.toJson(),
+    if (name != null) 'name': name!.toJson(),
+  };
+
+  factory SRecordTypeField.fromJson(Map<String, dynamic> json) {
+    return SRecordTypeField(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      type:
+          SAstNodeFactory.fromJson(json['type'] as Map<String, dynamic>?)
+              as STypeAnnotation?,
+      name: json['name'] != null
+          ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
+          : null,
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) => visitor.visitRecordTypeField(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    type?.accept(visitor);
+    name?.accept(visitor);
+  }
+}
+
 class SRecordTypeAnnotation extends STypeAnnotation {
   @override
   final int offset;
   @override
   final int length;
 
-  final List<SAstNode> positionalFields;
-  final List<SAstNode> namedFields;
+  final List<SRecordTypeField> positionalFields;
+  final List<SRecordTypeField> namedFields;
   @override
   final bool isNullable;
 
@@ -347,13 +410,21 @@ class SRecordTypeAnnotation extends STypeAnnotation {
     return SRecordTypeAnnotation(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      positionalFields: SAstNodeFactory.listFromJson(
-        json['positionalFields'] as List?,
-      ),
-      namedFields: SAstNodeFactory.listFromJson(json['namedFields'] as List?),
+      positionalFields: _fieldsFromJson(json['positionalFields'] as List?),
+      namedFields: _fieldsFromJson(json['namedFields'] as List?),
       isNullable: json['isNullable'] as bool? ?? false,
     );
   }
+
+  /// Deserialises the field lists directly rather than through
+  /// [SAstNodeFactory], so a bundle written before [SRecordTypeField] existed
+  /// (its fields were opaque placeholders) still yields fields — typeless and
+  /// nameless, i.e. exactly as much as was recorded — instead of dropping them
+  /// and silently changing the record's arity.
+  static List<SRecordTypeField> _fieldsFromJson(List? raw) => [
+    for (final entry in raw ?? const [])
+      SRecordTypeField.fromJson(entry as Map<String, dynamic>),
+  ];
 
   @override
   T? accept<T>(SAstVisitor<T> visitor) =>

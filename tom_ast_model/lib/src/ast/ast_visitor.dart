@@ -303,6 +303,13 @@ abstract class SAstVisitor<T> {
   /// Visit a [SRecordTypeAnnotation].
   T? visitRecordTypeAnnotation(SRecordTypeAnnotation node) => visitNode(node);
 
+  /// Visit a [SRecordTypeField].
+  ///
+  /// A record type field is not itself a type annotation, so
+  /// [GeneralizingSAstVisitor] has no narrower category to route it to — this
+  /// default is the only fallback.
+  T? visitRecordTypeField(SRecordTypeField node) => visitNode(node);
+
   // --------------------------------------------------------------------------
   // Formal parameters
   // --------------------------------------------------------------------------
