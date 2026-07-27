@@ -1,3 +1,37 @@
+## 0.10.0
+
+### Added — the P2 `dart:async` types (SC6)
+
+Mirrors `tom_d4rt` 1.18.0 file-for-file — the two trees share one stdlib bridge
+set, so a class present in only one of them is a silent capability difference.
+
+`StreamView`, `AsyncError` and `StreamTransformerBase` are bridged.
+`StreamView` declares no `isAssignable` and is routed to the `Stream` bridge
+through `nativeNames` so it keeps the ~60-member surface it inherits;
+`AsyncError` is concrete and therefore the one `dart:async` bridge that *does*
+carry an `isAssignable`; `StreamTransformerBase` gets a null-returning default
+constructor so `super()` resolves in an interpreted subclass. The
+`StreamView -> Stream`, `AsyncError -> Error` and
+`StreamTransformerBase -> StreamTransformer` edges are registered through
+`BridgedClass.registerSupertypes`.
+
+`Stream.transform` now accepts a script transformer by wrapping its interpreted
+`bind` in `StreamTransformer.fromBind`.
+
+### Fixed — three generic interpreter gaps
+
+Mirrors the `tom_d4rt` 1.18.0 fixes; none is `dart:async`-specific.
+
+- `visitIsExpression` short-circuited every `InterpretedInstance` operand of
+  `is BridgedX` to `false`, so a script class failed the `is` test against its
+  own declared bridged superclass. It now consults
+  `InterpretedClass.isSubtypeOf`.
+- `InterpretedClass.isSubtypeOf` walked `bridgedSuperclass` and `bridgedMixins`
+  but not `bridgedInterfaces`, so `implements SomeBridge` was not a subtype edge.
+- `visitMethodInvocation` never ran the Cluster-12 `lookupOnBridgedSupertypes`
+  walk, so a method inherited from a registered supertype was unreachable as a
+  call even though its tear-off resolved.
+
 ## 0.9.0
 
 ### Added — the catchable `dart:core` error types (SC5)

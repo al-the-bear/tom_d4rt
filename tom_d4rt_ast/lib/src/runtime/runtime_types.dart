@@ -1047,6 +1047,15 @@ class InterpretedClass implements Callable, RuntimeType {
           if (bridgedMixin.isSubtypeOf(other)) return true;
         }
 
+        // SC6: and bridged interfaces. `class D implements StreamTransformer`
+        // records the bridge in `bridgedInterfaces`, but this walk only ever
+        // looked at `extends` and `with`, so `D() is StreamTransformer` was
+        // false. `implements` is as much a subtype edge as `extends`.
+        for (final bridgedInterface in current.bridgedInterfaces) {
+          if (bridgedInterface.name == other.name) return true;
+          if (bridgedInterface.isSubtypeOf(other)) return true;
+        }
+
         current = current.superclass;
       }
 

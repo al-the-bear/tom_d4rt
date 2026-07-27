@@ -1,3 +1,52 @@
+## 1.18.0
+
+### Added — the P2 `dart:async` types (SC6)
+
+`StreamView`, `AsyncError` and `StreamTransformerBase` are now bridged and
+mirrored into `tom_d4rt_ast`. Each needed a different registration shape, and
+the differences are load-bearing:
+
+- **`StreamView`** is `class StreamView<T> extends Stream<T>` — a wrapper whose
+  entire value is the ~60-member `Stream` surface it inherits. Bridge dispatch
+  is per-bridge rather than hierarchical, so a `StreamView` bridge declaring
+  only its constructor would have left every inherited member unreachable.
+  Instead of duplicating that surface, `'StreamView'` is listed on the `Stream`
+  bridge's `nativeNames` (so instances dispatch there) and the
+  `StreamView -> Stream` edge goes in the supertype registry. The bridge
+  deliberately declares **no** `isAssignable`, which would have contested
+  `Stream`'s ownership of every stream-shaped object.
+- **`AsyncError`** is concrete, so it can carry an `isAssignable` without
+  shadowing a more specific bridge — the one `dart:async` bridge that does. It
+  accepts the SDK-idiomatic one-argument form, and `implements Error` is
+  registered so `on Error catch` sees it.
+- **`StreamTransformerBase`** exists purely to be extended, so it gets a
+  null-returning default constructor (only so `super()` resolves) and the
+  `StreamTransformerBase -> StreamTransformer` edge.
+
+`Stream.transform` was broadened to accept a script transformer. An interpreted
+transformer has no native object at all — its `bind` lives only in the
+interpreter — so the adapter wraps it in `StreamTransformer.fromBind`. Both
+`extends StreamTransformerBase` and `implements StreamTransformer` reach it.
+
+### Fixed — three generic interpreter gaps surfaced by the above
+
+None of these are `dart:async`-specific; all three affect every bridge.
+
+- **`is BridgedX` was hard-false for any interpreted operand.**
+  `visitIsExpression` short-circuited every `InterpretedInstance` to `false` and
+  never consulted `InterpretedClass.isSubtypeOf`, which exists precisely to
+  answer that question (RC-7). A script class failed the `is` test against its
+  own declared bridged superclass — `class Doubler extends StreamTransformerBase`
+  made `Doubler() is StreamTransformerBase` false.
+- **`implements SomeBridge` was not a subtype edge.**
+  `InterpretedClass.isSubtypeOf` walked `bridgedSuperclass` and `bridgedMixins`
+  but skipped `bridgedInterfaces` entirely.
+- **Method invocation never walked the bridged supertype chain.** The Cluster-12
+  `lookupOnBridgedSupertypes` walk was wired into the three property-access
+  paths but not into invocation, so `v.map(...)` on a bridge inheriting `map`
+  from a registered supertype failed with "has no instance method named" even
+  though the `v.map` tear-off resolved.
+
 ## 1.17.0
 
 ### Added — the catchable `dart:core` error types (SC5)

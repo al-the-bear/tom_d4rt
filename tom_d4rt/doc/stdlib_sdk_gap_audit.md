@@ -64,9 +64,9 @@ for contrast: error/exception bridges already shipped are
 
 | Type | Library | Notes |
 |------|---------|-------|
-| `StreamView` | dart:async | Base for stream wrappers. |
-| `AsyncError` | dart:async | Error+trace pair in stream/zone plumbing. |
-| `StreamTransformerBase` | dart:async | Base class for custom transformers. |
+| ~~`StreamView`~~ ✅ bridged | dart:async | Base for stream wrappers. Declares **no** `isAssignable`; `'StreamView'` is listed on the `Stream` bridge's `nativeNames` so instances keep the ~60-member `Stream` surface they inherit, with the `StreamView -> Stream` edge in the supertype registry. |
+| ~~`AsyncError`~~ ✅ bridged | dart:async | Error+trace pair in stream/zone plumbing. Concrete, so it *can* carry an `isAssignable` without shadowing a more specific bridge — the one dart:async bridge that does. `implements Error` is registered so `on Error catch` sees it. |
+| ~~`StreamTransformerBase`~~ ✅ bridged | dart:async | Base class for custom transformers. Registering it required broadening `Stream.transform` to wrap an interpreted `bind` in `StreamTransformer.fromBind`, and fixing two generic interpreter gaps: `is BridgedX` was hard-false for every interpreted operand, and `implements SomeBridge` was not a subtype edge at all. |
 | `DoubleLinkedQueue` | dart:collection | Explicit deque type. |
 | `BytesBuilder` | dart:typed_data | Efficient byte accumulation. |
 | `JsonUtf8Encoder` | dart:convert | UTF-8 JSON in one pass. |
@@ -139,8 +139,9 @@ could quietly steal dispatch from the more specific bridge.
    trees, each with tests under `tom_d4rt/test/stdlib/` and a
    registration-level mirror under `tom_d4rt_ast/test/runtime/`.
 2. **P2 opportunistically** when a corpus script or bridged signature
-   demands it (e.g. `StreamView` surfaces in flutter-material
-   signatures).
+   demands it. The three `dart:async` entries are now done; the four
+   remaining (`DoubleLinkedQueue`, `BytesBuilder`, `JsonUtf8Encoder`,
+   `ClosableStringSink`) still wait for a concrete consumer.
 3. **P3: documented but unbuilt** — done; the rationale now lives in
    [d4rt_limitations.md](d4rt_limitations.md#intentionally-unbridged-sdk-classes).
    Several are sandbox-hostile by design and will stay out; the rest wait

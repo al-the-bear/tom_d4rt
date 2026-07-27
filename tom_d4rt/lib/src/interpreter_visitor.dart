@@ -3711,6 +3711,36 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               }
             }
           }
+          // SC6: walk the registered supertype chain before giving up. The
+          // Cluster-12 walk was wired into the three property-access paths but
+          // not into method INVOCATION, so `v.map(...)` on a bridge that
+          // inherits `map` from a registered supertype failed with
+          // "has no instance method named" even though `v.map` as a tear-off
+          // resolved. Generic: applies to every bridge whose hierarchy is
+          // declared via `BridgedClass.registerSupertypes`, not just the
+          // dart:async ones — bridge dispatch is per-bridge, so inherited
+          // members are only reachable through this walk.
+          final supertypeMatch =
+              lookupOnBridgedSupertypes(bridgedInstance, methodName);
+          if (supertypeMatch.$2 && supertypeMatch.$1 is Callable) {
+            Logger.debug(
+                "[visitMethodInvocation] Resolved '$methodName' via supertype walk on '${bridgedClass.name}'.");
+            final evaluationResult = _evaluateArgumentsAsync(node.argumentList);
+            if (evaluationResult is AsyncSuspensionRequest) {
+              return evaluationResult;
+            }
+            final (positionalArgs, namedArgs) =
+                evaluationResult as (List<Object?>, Map<String, Object?>);
+            List<RuntimeType>? evaluatedTypeArguments;
+            final typeArgsNode = node.typeArguments;
+            if (typeArgsNode != null) {
+              evaluatedTypeArguments = typeArgsNode.arguments
+                  .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                  .toList();
+            }
+            return (supertypeMatch.$1 as Callable)
+                .call(this, positionalArgs, namedArgs, evaluatedTypeArguments);
+          }
           // No adapter found for this method name, try extension methods
           Logger.debug(
               "[visitMethodInvocation] Bridged method '$methodName' not found directly for ${bridgedClass.name}. Trying extensions.");
@@ -10079,7 +10109,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               //                            KeyboardListener.onKeyEvent).
               //                            Defer directly to the bridge's
               //                            `isAssignable` predicate.
-              //   • null / interpreted  — `is BridgedX` is false.
+              //   • InterpretedInstance — an interpreted class may extend or
+              //                            implement a bridged one, so ask
+              //                            its class (RC-7 walks the
+              //                            `bridgedSuperclass` /
+              //                            `bridgedInterfaces` chains).
+              //   • null                — `is BridgedX` is false.
               result = false;
               Object? nativeValue;
               if (expressionValue is BridgedInstance) {
@@ -10088,8 +10123,18 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 } else {
                   nativeValue = expressionValue.nativeObject;
                 }
-              } else if (expressionValue != null &&
-                  expressionValue is! InterpretedInstance) {
+              } else if (expressionValue is InterpretedInstance) {
+                // SC6: `class Doubler extends StreamTransformerBase` made
+                // `Doubler() is StreamTransformer` — and even
+                // `is StreamTransformerBase` — false, because this branch
+                // short-circuited every interpreted operand to `false` and
+                // never consulted `InterpretedClass.isSubtypeOf`. That method
+                // exists precisely to answer this question (RC-7). Generic:
+                // applies to every script class with a bridged super or a
+                // bridged interface, not just the dart:async ones.
+                result = expressionValue.klass.isSubtypeOf(targetType,
+                    value: expressionValue);
+              } else if (expressionValue != null) {
                 nativeValue = expressionValue;
               }
               // `isAssignable` closes over the host's native `v is X`

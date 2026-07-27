@@ -11,12 +11,46 @@ FutureOr<T> _runAction<T>(
   }
 }
 
+/// Coerce a script-supplied transformer to a native [StreamTransformer].
+///
+/// Scripts reach `Stream.transform` from three directions: with a native
+/// transformer built by `StreamTransformer.fromBind` (already native), with a
+/// bridged one, and — the case `StreamTransformerBase` exists to enable — with
+/// an [InterpretedInstance] of a script class that extends
+/// `StreamTransformerBase` or implements `StreamTransformer`. The last shape
+/// has no native object at all; its `bind` lives only in the interpreter, so
+/// the only way to hand it to the SDK is to wrap the interpreted method in
+/// `StreamTransformer.fromBind`.
+///
+/// Returns `null` when the value is not a transformer in any of those senses,
+/// leaving the "what do I throw" decision to the call site.
+StreamTransformer? _asStreamTransformer(
+    InterpreterVisitor visitor, Object? value) {
+  if (value is StreamTransformer) return value;
+  if (value is BridgedInstance && value.nativeObject is StreamTransformer) {
+    return value.nativeObject as StreamTransformer;
+  }
+  if (value is InterpretedInstance) {
+    final bind = value.get('bind', visitor: visitor);
+    if (bind is InterpretedFunction) {
+      return StreamTransformer.fromBind(
+          (stream) => _runAction<Stream>(visitor, bind, [stream]) as Stream);
+    }
+  }
+  return null;
+}
+
 class StreamAsync {
   static BridgedClass get definition => BridgedClass(
         nativeType: Stream,
         name: 'Stream',
         typeParameterCount: 1,
         nativeNames: [
+          // Public, unlike every other entry here: `StreamView` has its own
+          // bridge for the constructor, but its instances must dispatch to
+          // THIS bridge or they lose the whole inherited Stream surface. See
+          // [StreamViewAsync] for the reasoning.
+          'StreamView',
           '_MultiStream',
           '_ControllerStream',
           '_BroadcastStream',
@@ -196,8 +230,9 @@ class StreamAsync {
             });
           },
           'transform': (visitor, target, positionalArgs, namedArgs, _) {
-            final streamTransformer = positionalArgs[0];
-            if (streamTransformer is! StreamTransformer) {
+            final streamTransformer =
+                _asStreamTransformer(visitor, positionalArgs.firstOrNull);
+            if (streamTransformer == null) {
               throw RuntimeD4rtException(
                   'Stream.transform requires a StreamTransformer argument.');
             }
@@ -739,6 +774,75 @@ class StreamIteratorAsync {
       );
 }
 
+/// `StreamView<T>` — the SDK's canonical way to hand out a stream while
+/// keeping its controller private.
+///
+/// Deliberately carries **no `isAssignable`**, and instead registers its native
+/// name on the `Stream` bridge (see [StreamAsync]'s `nativeNames`). The reason
+/// is dispatch: bridge member lookup is per-bridge, not hierarchical, so a
+/// `StreamView` that resolved to *this* bridge would expose only the members
+/// declared here and lose the ~60-method `Stream` surface it inherits. Routing
+/// the native object to the `Stream` bridge gives it that surface for free,
+/// which is what a script wrapping a stream actually wants.
+///
+/// `v is StreamView` survives this anyway: the value's bridge is `Stream`,
+/// which is not a subtype of `StreamView`, but `visitIsExpression` then falls
+/// back to resolving the *native* object's runtime type by name and finds this
+/// bridge. Both directions are pinned by F-SC6-5, because the answer depends on
+/// that fallback rather than on anything declared here.
+class StreamViewAsync {
+  static BridgedClass get definition => BridgedClass(
+        nativeType: StreamView,
+        name: 'StreamView',
+        typeParameterCount: 1,
+        constructors: {
+          '': (visitor, positionalArgs, namedArgs) {
+            if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
+              throw RuntimeD4rtException(
+                  'StreamView constructor requires a Stream argument.');
+            }
+            return StreamView(positionalArgs[0] as Stream);
+          },
+        },
+        methods: {},
+        getters: {},
+      );
+}
+
+/// `StreamTransformerBase<S, T>` — the SDK's base class for user-written
+/// transformers. Abstract and constructor-only in the SDK (`const
+/// StreamTransformerBase()`), its entire purpose is to be extended, so the
+/// bridge exists to make `class X extends StreamTransformerBase<S, T>` legal
+/// rather than to wrap native instances.
+///
+/// No `isAssignable`: nothing native is ever a bare `StreamTransformerBase`
+/// (it is abstract), and claiming assignability would put this bridge into the
+/// dispatch contest against `StreamTransformer` for every native transformer.
+/// The `StreamTransformer` edge is declared in the supertype registry instead,
+/// which is what makes `x is StreamTransformer` answer correctly.
+///
+/// `cast` is the one member the SDK actually implements on this class; `bind`
+/// is left abstract for the subclass, which is why it is absent here.
+class StreamTransformerBaseAsync {
+  static BridgedClass get definition => BridgedClass(
+        nativeType: StreamTransformerBase,
+        name: 'StreamTransformerBase',
+        typeParameterCount: 2,
+        constructors: {
+          // Present so `super()` in an interpreted subclass resolves. The SDK
+          // constructor is const and takes nothing; there is no native object
+          // to build, because the instance the script holds is the
+          // InterpretedInstance of its own subclass.
+          '': (visitor, positionalArgs, namedArgs) => null,
+        },
+        methods: {
+          'cast': (visitor, target, positionalArgs, namedArgs, _) =>
+              (target as StreamTransformerBase).cast(),
+        },
+        getters: {},
+      );
+}
+
 class MultiStreamControllerAsync {
   static BridgedClass get definition => BridgedClass(
         nativeType: MultiStreamController,
@@ -899,7 +1003,9 @@ class AsyncStreamStdlib {
     environment.defineBridge(StreamConsumerAsync.definition);
     environment.defineBridge(StreamSinkAsync.definition);
     environment.defineBridge(StreamTransformerAsync.definition);
+    environment.defineBridge(StreamTransformerBaseAsync.definition);
     environment.defineBridge(StreamIteratorAsync.definition);
+    environment.defineBridge(StreamViewAsync.definition);
     environment.defineBridge(MultiStreamControllerAsync.definition);
     environment.defineBridge(EventSinkAsync.definition);
 
@@ -917,6 +1023,16 @@ class AsyncStreamStdlib {
       'StreamSink': ['EventSink', 'StreamConsumer'],
       'StreamController': ['StreamSink', 'EventSink', 'StreamConsumer'],
       'MultiStreamController': ['StreamController'],
+      // `class StreamView<T> extends Stream<T>`. Recorded for completeness of
+      // the registry even though StreamView instances dispatch to the `Stream`
+      // bridge (so `is Stream` is already true by identity) — a later change
+      // that gives StreamView its own dispatch must not silently lose the edge.
+      'StreamView': ['Stream'],
+      // `abstract class StreamTransformerBase<S, T>
+      //      implements StreamTransformer<S, T>`. This edge is load-bearing:
+      // it is what makes an interpreted `extends StreamTransformerBase`
+      // subclass answer `true` to `is StreamTransformer`.
+      'StreamTransformerBase': ['StreamTransformer'],
     });
   }
 }

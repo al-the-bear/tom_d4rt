@@ -1,4 +1,5 @@
 import 'package:tom_d4rt_ast/src/runtime/environment.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/async/async_error.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/async/completer.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/async/future.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/async/stream.dart';
@@ -6,6 +7,7 @@ import 'package:tom_d4rt_ast/runtime.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/async/stream_controller.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/async/timer.dart';
 
+export 'package:tom_d4rt_ast/src/runtime/stdlib/async/async_error.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/async/completer.dart';
 export 'package:tom_d4rt_ast/src/runtime/environment.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/async/future.dart';
@@ -18,5 +20,6 @@ class AsyncStdlib {
     AsyncStreamStdlib.register(environment);
     TimerStdlib.register(environment);
     AsyncStreamControllerStdlib.register(environment);
+    AsyncErrorStdlib.register(environment);
   }
 }
