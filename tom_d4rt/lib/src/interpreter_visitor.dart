@@ -12702,9 +12702,27 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     Logger.debug(
         "[visitImportDirective] Loading module for resolved URI: $resolvedUri (prefix: $prefixName, show: $showNames, hide: $hideNames)");
 
-    // Pass show/hide to loadModule so bridged content respects the filters
-    LoadedModule loadedModule = moduleLoader.loadModule(resolvedUri,
-        showNames: showNames, hideNames: hideNames);
+    // Pass show/hide to loadModule so bridged content respects the filters.
+    // DFUB13 — this is the TOP-LEVEL directive: the script the user ran, which
+    // has no enclosing module to supply owner context, so it is attached here.
+    // The owner MUST be read before the call: loadModule advances
+    // `currentlibrary` to the module it is loading, so reading it in the catch
+    // would report owner == target.
+    //
+    // It is null for a bare `source:` string, and there the wrap is SKIPPED
+    // rather than filled with a placeholder. Owner context earns its keep by
+    // distinguishing the file holding the directive from the file that could
+    // not be found; with a single anonymous script those coincide, so naming a
+    // synthetic owner would restate the target and leak an internal URI.
+    final ownerUri = moduleLoader.currentlibrary;
+    LoadedModule loadedModule;
+    try {
+      loadedModule = moduleLoader.loadModule(resolvedUri,
+          showNames: showNames, hideNames: hideNames);
+    } on D4rtException catch (e) {
+      if (ownerUri == null) rethrow;
+      throw wrapDirectiveError('import', ownerUri, resolvedUri, e);
+    }
 
     if (prefixName != null) {
       Logger.debug(

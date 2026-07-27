@@ -909,6 +909,12 @@ class ModuleLoader {
         } catch (e, s) {
           Logger.error(
               "[ModuleLoader loadModule for $uri] Error processing import directive for '$importedUriString' from ${uri.toString()}: $e\nStackTrace: $s");
+          // DFUB13 — the log line above has the owner/target context; the
+          // exception the caller actually sees did not. Attach it there too.
+          if (e is D4rtException) {
+            throw wrapDirectiveError(
+                'import', uri, uri.resolve(importedUriString), e);
+          }
           rethrow;
         }
       }
@@ -1070,6 +1076,12 @@ class ModuleLoader {
         } catch (e, s) {
           Logger.error(
               "[ModuleLoader loadModule for $uri] Error processing export directive for '$exportedUriString' from ${uri.toString()}: $e\nStackTrace: $s");
+          // DFUB13 — see the import branch. Barrels are where this matters
+          // most: the failing barrel is rarely the file the user was editing.
+          if (e is D4rtException) {
+            throw wrapDirectiveError(
+                'export', uri, uri.resolve(exportedUriString), e);
+          }
           rethrow;
         }
       }

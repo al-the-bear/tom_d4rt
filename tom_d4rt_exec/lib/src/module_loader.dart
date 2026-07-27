@@ -345,6 +345,12 @@ class ModuleLoader implements context.ModuleContext {
         } catch (e, s) {
           Logger.error(
               "[ModuleLoader loadModule for $uri] Error processing import directive for '$importedUriString' from ${uri.toString()}: $e\nStackTrace: $s");
+          // DFUB13 — the log line above has the owner/target context; the
+          // exception the caller actually sees did not. Attach it there too.
+          if (e is D4rtException) {
+            throw wrapDirectiveError(
+                'import', uri, uri.resolve(importedUriString), e);
+          }
           rethrow;
         }
       }
@@ -487,6 +493,12 @@ class ModuleLoader implements context.ModuleContext {
         } catch (e, s) {
           Logger.error(
               "[ModuleLoader loadModule for $uri] Error processing export directive for '$exportedUriString' from ${uri.toString()}: $e\nStackTrace: $s");
+          // DFUB13 — see the import branch. Barrels are where this matters
+          // most: the failing barrel is rarely the file the user was editing.
+          if (e is D4rtException) {
+            throw wrapDirectiveError(
+                'export', uri, uri.resolve(exportedUriString), e);
+          }
           rethrow;
         }
       }
@@ -1091,6 +1103,20 @@ class ModuleLoader implements context.ModuleContext {
     // If it's neither explicitly preloaded nor a known Dart library, it's an error.
     Logger.error(
         "[ModuleLoader] Source not preloaded and not a recognized Dart standard library for URI: $uriString");
+    // DFUB13 — a `package:` URI gets package-specific guidance, because the
+    // generic "not a recognized Dart standard library" tail is noise for it:
+    // nobody expects `package:foo/bar.dart` to be a stdlib library, and the two
+    // real fixes (supply the source, or bridge the package) go unmentioned.
+    //
+    // Unlike tom_d4rt this loader has no filesystem machinery, so the two
+    // filesystem branches of its `_missingModuleSourceError` have no analogue
+    // here and are deliberately not ported.
+    if (uri.scheme == 'package') {
+      throw SourceCodeD4rtException(
+          "Package module source not preloaded for URI: $uriString. Provide "
+          "it in sources or register a bridge for that package library.",
+          uriString);
+    }
     throw SourceCodeD4rtException(
         "Module source not preloaded for URI: $uriString, and not a recognized Dart standard library.",
         uriString);

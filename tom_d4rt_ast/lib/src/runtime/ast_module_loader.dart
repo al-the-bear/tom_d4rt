@@ -199,6 +199,20 @@ class AstModuleLoader implements ModuleContext {
     }
 
     // 5. Not found
+    //
+    // DFUB13 — a `package:` URI gets the extra hint, because "not in bundle"
+    // has two quite different causes and the fix differs: the package library
+    // was never compiled into the bundle, or it is meant to be supplied
+    // natively by a bridge. The available-modules list stays: in a bundle
+    // (unlike a filesystem loader) the complete set of candidates is known, so
+    // showing it turns a typo into a one-glance fix.
+    if (uri.scheme == 'package') {
+      throw RuntimeD4rtException(
+        'Package module "$uriString" not found in bundle. Include that package '
+        'library when building the bundle, or register a bridge for it. '
+        'Available: ${modules.keys.join(", ")}',
+      );
+    }
     throw RuntimeD4rtException(
       'Module "$uriString" not found in bundle. '
       'Available: ${modules.keys.join(", ")}',
@@ -834,11 +848,19 @@ class AstModuleLoader implements ModuleContext {
         '(prefix: $prefix, show: $showNames, hide: $hideNames)',
       );
 
-      final loaded = loadModule(
-        resolvedUri,
-        showNames: showNames,
-        hideNames: hideNames,
-      );
+      // DFUB13 — name the module that ASKED for this target. Without it the
+      // error only ever names the module that could not be found, which in a
+      // barrel chain is the symptom rather than the file to edit.
+      final LoadedModule loaded;
+      try {
+        loaded = loadModule(
+          resolvedUri,
+          showNames: showNames,
+          hideNames: hideNames,
+        );
+      } on D4rtException catch (e) {
+        throw wrapDirectiveError('import', moduleUri, resolvedUri, e);
+      }
 
       if (prefix != null) {
         // `shallowCopyFiltered` snapshots, so a cyclic import needs the same
@@ -894,7 +916,14 @@ class AstModuleLoader implements ModuleContext {
 
       Logger.debug('[AstModuleLoader] Export: $exportUriString → $resolvedUri');
 
-      final loaded = loadModule(resolvedUri);
+      // DFUB13 — see the import branch. Barrels are where owner context matters
+      // most: the failing barrel is rarely the file the user was editing.
+      final LoadedModule loaded;
+      try {
+        loaded = loadModule(resolvedUri);
+      } on D4rtException catch (e) {
+        throw wrapDirectiveError('export', moduleUri, resolvedUri, e);
+      }
       // Cluster EXPORT (I-MISC-40/41): pass errorOnConflict: true so that a
       // library that re-publishes two different definitions of the same name
       // (local vs re-export, or two re-exports) raises immediately instead of

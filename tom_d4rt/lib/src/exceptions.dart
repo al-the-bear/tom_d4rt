@@ -175,6 +175,20 @@ abstract class D4rtException implements Exception {
   /// tracking was off at construction time or after the error was revoked.
   StackTrace? trackedStackTrace;
 
+  /// Whether [message] already names which module failed to load which target.
+  ///
+  /// DFUB13. `loadModule` recurses, so every frame on the way out could prepend
+  /// its own "Failed to load ..." prefix to the same underlying error. Only the
+  /// innermost frame knows the file that actually contains the bad directive,
+  /// so [wrapDirectiveError] sets this when it adds context and consults it to
+  /// stay silent on every outer frame.
+  ///
+  /// It lives on the base class rather than on one subtype because the two
+  /// module loaders report a missing module with *different* exception types —
+  /// the filesystem loader raises [SourceCodeD4rtException], the bundle loader
+  /// raises [RuntimeD4rtException] — and both need the same once-only rule.
+  bool hasDirectiveContext = false;
+
   /// Creates a [D4rtException] and registers it with the [ErrorReporter].
   D4rtException(this.message) {
     ErrorReporter.reportError(this);
@@ -344,6 +358,45 @@ class SourceCodeD4rtException extends D4rtException {
     }
     return 'SourceCodeException: $message';
   }
+}
+
+/// DFUB13 — names the module that ASKED for a target that failed to load.
+///
+/// The loader's own diagnostic names the module it could not find. That is the
+/// symptom; the file the user has to edit is the one holding the directive, and
+/// in a barrel chain those are rarely the same file. [directiveType] is
+/// `'import'` or `'export'`, [ownerUri] the module containing the directive,
+/// [targetUri] the module it pointed at.
+///
+/// The concrete exception type is preserved so existing `on ...` clauses keep
+/// matching — only the message gains a prefix. A type this function cannot
+/// reconstruct is returned unchanged rather than downgraded to a base type.
+///
+/// Returns [error] unchanged when it already carries context (see
+/// [D4rtException.hasDirectiveContext]) so a deep import chain yields one
+/// prefix rather than one per frame.
+D4rtException wrapDirectiveError(
+  String directiveType,
+  Uri ownerUri,
+  Uri targetUri,
+  D4rtException error,
+) {
+  if (error.hasDirectiveContext) return error;
+  final message =
+      'Failed to load $directiveType "$targetUri" from module "$ownerUri": '
+      '${error.message}';
+  final D4rtException? wrapped = switch (error) {
+    SourceCodeD4rtException e =>
+      SourceCodeD4rtException(message, e.problematicCode),
+    RuntimeD4rtException e =>
+      RuntimeD4rtException(message, originalException: e.originalException),
+    _ => null,
+  };
+  // An unreconstructable type is returned untouched AND unflagged, so an outer
+  // frame that can wrap is still free to do so.
+  if (wrapped == null) return error;
+  wrapped.hasDirectiveContext = true;
+  return wrapped;
 }
 
 /// Internal exception wrapper for user-thrown exceptions.

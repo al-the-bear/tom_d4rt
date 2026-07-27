@@ -1,3 +1,38 @@
+## 0.4.0
+
+### A failed import/export now says which file to edit (DFUB13)
+
+A missing module used to be reported as `Module "package:x/y.dart" not found in
+bundle` — the target, and only the target. In a barrel chain that is the wrong
+half of the information: the missing URI is the symptom, the file holding the
+bad directive is the thing you have to open. That file is now named.
+
+- **Directive context.** `AstModuleLoader` wraps a failure while processing an
+  `import`/`export` as `Failed to load import "<target>" from module "<owner>":
+  <original message>`. `loadModule` recurses, so the wrap is applied **once**,
+  at the innermost frame — the one that knows the file actually containing the
+  directive — rather than once per frame on the way out.
+- **A `package:` URI that is not in the bundle gets actionable guidance.**
+  "Not found in bundle" has two quite different causes with two different fixes:
+  the package library was never compiled into the bundle, or it is meant to be
+  supplied natively by a bridge. Both are now named.
+
+**New public API in `exceptions.dart`:**
+
+- `wrapDirectiveError(directiveType, ownerUri, targetUri, error)` — attaches the
+  owner/target context. It **preserves the concrete exception type** (only the
+  message gains a prefix), so existing `on SourceCodeD4rtException` /
+  `on RuntimeD4rtException` clauses keep matching. A type it cannot reconstruct
+  is returned unchanged rather than downgraded to a base type.
+- `D4rtException.hasDirectiveContext` — the once-only flag consulted by the
+  above. It lives on the base class because the two module loaders report a
+  missing module with *different* types: the filesystem loader in `tom_d4rt`
+  raises `SourceCodeD4rtException`, this package's bundle loader raises
+  `RuntimeD4rtException`, and both need the same suppression rule.
+
+No behaviour changes for code that loads successfully, and no bundle format
+change.
+
 ## 0.3.0
 
 ### Web support — the public barrels no longer pull in `dart:io` (DFUB12)

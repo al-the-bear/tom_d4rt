@@ -2179,7 +2179,11 @@ class D4rt {
         throw e.originalThrownValue!;
       }
     } catch (e) {
-      if (e is RuntimeD4rtException) {
+      // DFUB13 — a SourceCodeD4rtException is an EXPECTED, actionable
+      // diagnostic (missing import, bad URI). Re-wrapping it as "Unexpected
+      // error" discards a message the loader deliberately composed and tells
+      // the user they hit an interpreter bug rather than a typo.
+      if (e is RuntimeD4rtException || e is SourceCodeD4rtException) {
         rethrow;
       } else {
         throw RuntimeD4rtException('Unexpected error: $e');
@@ -2204,7 +2208,11 @@ class D4rt {
           throw e.originalThrownValue!;
         }
       } catch (e) {
-        if (e is RuntimeD4rtException) {
+        // DFUB13 — a SourceCodeD4rtException is an EXPECTED, actionable
+        // diagnostic (missing import, bad URI). Re-wrapping it as "Unexpected
+        // error" discards a message the loader deliberately composed and tells
+        // the user they hit an interpreter bug rather than a typo.
+        if (e is RuntimeD4rtException || e is SourceCodeD4rtException) {
           rethrow;
         } else {
           throw RuntimeD4rtException('Unexpected error: $e');
@@ -2458,7 +2466,11 @@ class D4rt {
         throw e.originalThrownValue!;
       }
     } catch (e) {
-      if (e is RuntimeD4rtException) {
+      // DFUB13 — a SourceCodeD4rtException is an EXPECTED, actionable
+      // diagnostic (missing import, bad URI). Re-wrapping it as "Unexpected
+      // error" discards a message the loader deliberately composed and tells
+      // the user they hit an interpreter bug rather than a typo.
+      if (e is RuntimeD4rtException || e is SourceCodeD4rtException) {
         rethrow;
       } else {
         throw RuntimeD4rtException('Unexpected error: $e');
@@ -2480,7 +2492,11 @@ class D4rt {
           throw e.originalThrownValue!;
         }
       } catch (e) {
-        if (e is RuntimeD4rtException) {
+        // DFUB13 — a SourceCodeD4rtException is an EXPECTED, actionable
+        // diagnostic (missing import, bad URI). Re-wrapping it as "Unexpected
+        // error" discards a message the loader deliberately composed and tells
+        // the user they hit an interpreter bug rather than a typo.
+        if (e is RuntimeD4rtException || e is SourceCodeD4rtException) {
           rethrow;
         } else {
           throw RuntimeD4rtException('Unexpected error: $e');
