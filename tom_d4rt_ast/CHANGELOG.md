@@ -1,3 +1,33 @@
+## 0.1.16
+
+### Fixed — circular module imports and exports blew the stack (DFUB10)
+
+`AstModuleLoader.loadModule` only published a module to `_moduleCache` at the
+very END — after recursing through every import and export directive. A cycle
+`A -> B -> A` therefore re-entered the load of `A` while `A` was still in
+progress, the cache guard missed, and the recursion never bottomed out.
+Circular imports and circular exports are both **legal** Dart and run
+correctly, so this rejected valid programs.
+
+The loader now publishes a *partial* `LoadedModule` under an in-flight map
+before walking any directive, and a cyclic re-entry receives that partial
+instead of recursing. The partial carries the very `Environment` instance that
+later receives the module's own declarations, so importers hold a live
+reference.
+
+Because `Environment.importEnvironment` **copies** bindings at call time rather
+than aliasing the source environment, a merge taken from a still-incomplete
+module would otherwise capture an empty export set and never self-heal. Each
+such merge is therefore recorded and **replayed** once the in-flight module
+finishes. Replays are idempotent — `importEnvironment` skips names already
+bound to the identical value — so they cost nothing and cannot raise a spurious
+conflict. A failed load drops its in-flight registration, so an abandoned
+partial is never handed out on a later execute.
+
+DELIBERATE DIVERGENCE FROM UPSTREAM: upstream `kodjodevf/d4rt` `f6e1257` fixes
+the same crash by *detecting* the cycle and throwing "Circular module
+dependency detected". That rejects valid Dart, so it is not adopted here.
+
 ## 0.1.15
 
 Carries the analyzer-free mirror of the `tom_d4rt` fork-update fix DFUB9, so

@@ -25,10 +25,37 @@ class LoadedModule {
   LoadedModule(this.uri, this.ast, this.environment, this.exportedEnvironment);
 }
 
+/// DFUB10 — a module whose load is still in flight.
+///
+/// Registered before a module's import/export directives are walked, so that a
+/// cyclic re-entry gets this partial entry back instead of recursing forever.
+/// Circular imports and exports are legal Dart and must load, so we support
+/// the cycle rather than rejecting it.
+///
+/// [deferredMerges] exists because [Environment.importEnvironment] copies
+/// bindings at call time rather than aliasing the source environment. A module
+/// that merges from an in-flight module therefore copies an incomplete — often
+/// empty — set of exports. Each such merge is recorded here and replayed once
+/// the in-flight module finishes, at which point its exports are complete. The
+/// replay is idempotent: `importEnvironment` skips names already bound to the
+/// identical value, so re-merging costs nothing and cannot raise a spurious
+/// conflict.
+class _InFlightModule {
+  final LoadedModule partial;
+  final List<void Function()> deferredMerges = [];
+
+  _InFlightModule(this.partial);
+}
+
 class ModuleLoader {
   final Environment globalEnvironment;
   final Map<String, String> sources;
   final Map<Uri, LoadedModule> _moduleCache = {};
+
+  /// DFUB10 — modules currently being loaded, keyed by the same identity URI as
+  /// [_moduleCache]. A URI is present here only between the start of its
+  /// directive processing and its completion.
+  final Map<Uri, _InFlightModule> _inFlightModules = {};
   // Step #2 (import-optimization): URI-keyed registries — see the matching
   // fields on [D4rt] in d4rt_base.dart. Per-URI lookup is O(1); the inner map
   // is keyed by declaration name (unique per library). Extensions use a
@@ -140,6 +167,9 @@ class ModuleLoader {
   /// re-parses and re-populates [_moduleCache] as usual.
   void releaseLoadedModules() {
     _moduleCache.clear();
+    // DFUB10 — nothing may be mid-load at this point; clearing guards against a
+    // previously abandoned partial being handed out on the next execute.
+    _inFlightModules.clear();
   }
 
   ModuleLoader(this.globalEnvironment, this.sources,
@@ -681,7 +711,48 @@ class ModuleLoader {
     return {...?outer, ...?inner};
   }
 
+  /// DFUB10 — the in-flight entry that owns [module], or null when the module
+  /// is fully loaded.
+  ///
+  /// The scan is over the current import-nesting depth (one entry per module on
+  /// the load stack), not over the module cache, so it stays tiny.
+  _InFlightModule? _inFlightFor(LoadedModule module) {
+    for (final entry in _inFlightModules.values) {
+      if (identical(entry.partial, module)) return entry;
+    }
+    return null;
+  }
+
+  /// DFUB10 — runs [merge] now and schedules a replay when [source] is only
+  /// partially loaded.
+  ///
+  /// `Environment.importEnvironment` copies bindings at call time; a merge that
+  /// runs against a module still walking its own directives therefore captures
+  /// an incomplete — often empty — export set and would never self-heal.
+  /// Replaying once [source] finishes fills in the rest.
+  void _mergeFromModule(LoadedModule source, void Function() merge) {
+    merge();
+    _inFlightFor(source)?.deferredMerges.add(merge);
+  }
+
+  /// Loads (or returns the cached) module for [uri].
+  ///
+  /// DFUB10 — the real work lives in [_loadModule]; this wrapper only
+  /// guarantees that a *failed* load drops its in-flight registration. Without
+  /// it a module that threw part-way would stay registered as "in progress"
+  /// forever, and a later `execute()` on the same loader would silently be
+  /// handed that abandoned partial instead of re-loading.
   LoadedModule loadModule(Uri uri,
+      {Set<String>? showNames, Set<String>? hideNames}) {
+    try {
+      return _loadModule(uri, showNames: showNames, hideNames: hideNames);
+    } catch (_) {
+      _inFlightModules.remove(_moduleIdentityUri(_canonicalizeModuleUri(uri)));
+      rethrow;
+    }
+  }
+
+  LoadedModule _loadModule(Uri uri,
       {Set<String>? showNames, Set<String>? hideNames}) {
     // DFUB3 — canonicalize filesystem module URIs to a single absolute spelling
     // so reads, the read-permission gate and nested import resolution all use
@@ -711,6 +782,19 @@ class ModuleLoader {
       currentlibrary = previouslibraryForRecursiveLoad;
       return _moduleCache[identityUri]!;
     }
+
+    // DFUB10 — a cycle: this module is already being loaded further up the
+    // stack. Hand back its partial entry instead of recursing forever. The
+    // partial's environments are the very objects the in-progress frame will
+    // finish populating, and any merge taken from an incomplete export set is
+    // replayed when that frame completes (see [_mergeFromModule]).
+    final inFlightEntry = _inFlightModules[identityUri];
+    if (inFlightEntry != null) {
+      Logger.debug(
+          "[ModuleLoader loadModule for $uri] Module '${uri.toString()}' is already in flight (circular import/export); returning partial module.");
+      currentlibrary = previouslibraryForRecursiveLoad;
+      return inFlightEntry.partial;
+    }
     Logger.debug(
         "[ModuleLoader loadModule for $uri] Loading module: ${uri.toString()}");
 
@@ -737,6 +821,19 @@ class ModuleLoader {
     CompilationUnit ast = _parseSource(uri, sourceCode);
 
     Environment moduleEnvironment = Environment(enclosing: globalEnvironment);
+    // Must also enclose globalEnvironment. DFUB10 — created here rather than
+    // just before the export directives so the partial module published below
+    // carries the SAME Environment instance that later receives this module's
+    // local declarations; a cyclic importer therefore holds a live reference.
+    Environment exportedEnvironment =
+        Environment(enclosing: globalEnvironment);
+
+    // DFUB10 — publish the partial module BEFORE walking any directive, so a
+    // cycle back to this URI terminates. Circular imports and exports are legal
+    // Dart and must load; we support the cycle rather than rejecting it.
+    final inFlight = _InFlightModule(
+        LoadedModule(uri, ast, moduleEnvironment, exportedEnvironment));
+    _inFlightModules[identityUri] = inFlight;
 
     // Bug-72 FIX: Process import directives BEFORE declarations
     // This ensures imported classes/mixins are available when class declarations are visited
@@ -779,21 +876,28 @@ class ModuleLoader {
 
           // Import the environment of the imported module into the current module environment
           if (prefix != null) {
-            // For prefixed imports, create a filtered environment and define it with the prefix
-            Environment prefixedEnv =
-                importedModule.exportedEnvironment.shallowCopyFiltered(
-              showNames: showNames,
-              hideNames: hideNames,
-            );
-            moduleEnvironment.definePrefixedImport(prefix, prefixedEnv);
+            // For prefixed imports, create a filtered environment and define it
+            // with the prefix. `shallowCopyFiltered` snapshots, so a cyclic
+            // import needs the same deferred replay as the plain case.
+            _mergeFromModule(importedModule, () {
+              Environment prefixedEnv =
+                  importedModule.exportedEnvironment.shallowCopyFiltered(
+                showNames: showNames,
+                hideNames: hideNames,
+              );
+              moduleEnvironment.definePrefixedImport(prefix, prefixedEnv);
+            });
             Logger.debug(
                 "[ModuleLoader loadModule for $uri]   Successfully defined prefixed import '$prefix' from ${resolvedImportUri.toString()} into ${uri.toString()} (show: ${showNames?.join(", ")}, hide: ${hideNames?.join(", ")}).");
           } else {
             // For regular imports, import directly into the module environment
-            moduleEnvironment.importEnvironment(
-              importedModule.exportedEnvironment,
-              show: showNames,
-              hide: hideNames,
+            _mergeFromModule(
+              importedModule,
+              () => moduleEnvironment.importEnvironment(
+                importedModule.exportedEnvironment,
+                show: showNames,
+                hide: hideNames,
+              ),
             );
             Logger.debug(
                 "[ModuleLoader loadModule for $uri]   Successfully imported environment from ${resolvedImportUri.toString()} into ${uri.toString()} (show: ${showNames?.join(", ")}, hide: ${hideNames?.join(", ")}).");
@@ -895,9 +999,9 @@ class ModuleLoader {
         "[ModuleLoader loadModule for $uri] Finished InterpreterVisitor pass for initializers.");
 
     // PREPARATION OF THE EXPORTED ENVIRONMENT
-    Environment exportedEnvironment = Environment(
-        enclosing: globalEnvironment); // Must also enclose globalEnvironment
-    // Now, moduleEnvironment should contain the variables with their initialized values.
+    // `exportedEnvironment` was created up-front (DFUB10) so cyclic importers
+    // hold a live reference; here it finally receives this module's own
+    // declarations, now that moduleEnvironment holds their initialized values.
     exportedEnvironment.importEnvironment(moduleEnvironment);
     Logger.debug(
         "[ModuleLoader loadModule for $uri] Initialized exportedEnvironment with local declarations (post-initialization).");
@@ -948,11 +1052,14 @@ class ModuleLoader {
           // library that re-publishes two different definitions of the same
           // name (local vs re-export, or two re-exports) raises immediately
           // instead of silently overwriting.
-          exportedEnvironment.importEnvironment(
-            subModule.exportedEnvironment,
-            show: showNames,
-            hide: hideNames,
-            errorOnConflict: true,
+          _mergeFromModule(
+            subModule,
+            () => exportedEnvironment.importEnvironment(
+              subModule.exportedEnvironment,
+              show: showNames,
+              hide: hideNames,
+              errorOnConflict: true,
+            ),
           );
           Logger.debug(
               "[ModuleLoader loadModule for $uri]   Successfully merged exported environment from ${resolvedExportUri.toString()} into ${uri.toString()} (show: ${showNames?.join(", ")}, hide: ${hideNames?.join(", ")}).");
@@ -975,11 +1082,21 @@ class ModuleLoader {
       // Silently ignore if not found
     }
 
-    final loadedModule =
-        LoadedModule(uri, ast, moduleEnvironment, exportedEnvironment);
+    // DFUB10 — reuse the very instance the cyclic importers were handed, so
+    // every reference to this module (partial or final) is the same object.
+    final loadedModule = inFlight.partial;
     // DFUB3 — key by the symlink-resolved identity so a later load via a
     // different spelling of the same file hits this cached instance.
     _moduleCache[identityUri] = loadedModule;
+    _inFlightModules.remove(identityUri);
+
+    // DFUB10 — this module's exports are complete now, so replay every merge
+    // that was taken from it while it was still incomplete. Replays are
+    // idempotent: `importEnvironment` skips names already bound to the
+    // identical value.
+    for (final replay in inFlight.deferredMerges) {
+      replay();
+    }
     Logger.debug(
         "[ModuleLoader loadModule for $uri] Module '${uri.toString()}' chargé et mis en cache.");
 

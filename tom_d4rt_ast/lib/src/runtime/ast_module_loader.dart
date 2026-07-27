@@ -60,6 +60,11 @@ class AstModuleLoader implements ModuleContext {
   /// Cache of already-loaded modules to avoid reprocessing.
   final Map<Uri, LoadedModule> _moduleCache = {};
 
+  /// DFUB10 — modules currently being loaded, keyed like [_moduleCache]. A URI
+  /// is present here only between the start of its directive processing and its
+  /// completion.
+  final Map<Uri, _InFlightModule> _inFlightModules = {};
+
   /// Tracks which stdlib modules have been registered to avoid duplicates.
   final Set<String> _registeredStdlibs = {};
 
@@ -79,6 +84,9 @@ class AstModuleLoader implements ModuleContext {
   /// subsequent execute rebuilds the loader and re-populates the cache.
   void releaseLoadedModules() {
     _moduleCache.clear();
+    // DFUB10 — nothing may be mid-load at this point; clearing guards against a
+    // previously abandoned partial being handed out on the next execute.
+    _inFlightModules.clear();
   }
 
   /// Creates an [AstModuleLoader] for resolving imports from a bundle.
@@ -118,8 +126,26 @@ class AstModuleLoader implements ModuleContext {
     return runner.checkPermission(operation);
   }
 
+  /// Loads (or returns the cached) module for [uri].
+  ///
+  /// DFUB10 — the real work lives in [_loadModule]; this wrapper only
+  /// guarantees that a *failed* load drops its in-flight registration, so an
+  /// abandoned partial is never handed out on a later execute.
   @override
   LoadedModule loadModule(
+    Uri uri, {
+    Set<String>? showNames,
+    Set<String>? hideNames,
+  }) {
+    try {
+      return _loadModule(uri, showNames: showNames, hideNames: hideNames);
+    } catch (_) {
+      _inFlightModules.remove(uri);
+      rethrow;
+    }
+  }
+
+  LoadedModule _loadModule(
     Uri uri, {
     Set<String>? showNames,
     Set<String>? hideNames,
@@ -128,6 +154,21 @@ class AstModuleLoader implements ModuleContext {
     if (_moduleCache.containsKey(uri)) {
       Logger.debug('[AstModuleLoader] Cache hit for module: $uri');
       return _moduleCache[uri]!;
+    }
+
+    // DFUB10 — a cycle: this module is already being loaded further up the
+    // stack. Hand back its partial entry instead of recursing forever.
+    // Circular imports and exports are legal Dart and must load, so we support
+    // the cycle rather than rejecting it. Any merge taken from an incomplete
+    // export set is replayed when the in-progress frame completes (see
+    // [_mergeFromModule]).
+    final inFlightEntry = _inFlightModules[uri];
+    if (inFlightEntry != null) {
+      Logger.debug(
+        '[AstModuleLoader] Module already in flight (circular '
+        'import/export): $uri — returning partial module',
+      );
+      return inFlightEntry.partial;
     }
 
     Logger.debug(
@@ -695,6 +736,18 @@ class AstModuleLoader implements ModuleContext {
 
     // Module-local environment enclosing global
     final moduleEnv = Environment(enclosing: globalEnvironment);
+    // DFUB10 — created up-front (rather than after interpretation) so the
+    // partial module published below carries the SAME Environment instance that
+    // later receives this module's declarations; a cyclic importer therefore
+    // holds a live reference.
+    final exportedEnv = Environment(enclosing: globalEnvironment);
+
+    // DFUB10 — publish the partial module BEFORE walking any directive, so a
+    // cycle back to this URI terminates.
+    final inFlight = _InFlightModule(
+      LoadedModule(ast: ast, exportedEnvironment: exportedEnv, uri: uri),
+    );
+    _inFlightModules[uri] = inFlight;
 
     // Process import directives first (before declarations)
     _processImports(uri, ast, moduleEnv);
@@ -715,20 +768,27 @@ class AstModuleLoader implements ModuleContext {
     // Order matters: enums → classes/mixins → functions → extensions → variables
     _interpretDeclarations(ast, interpreter);
 
-    // Build exported environment
-    final exportedEnv = Environment(enclosing: globalEnvironment);
+    // Build exported environment. `exportedEnv` was created up-front (DFUB10);
+    // here it finally receives this module's own declarations, now that
+    // moduleEnv holds their initialized values.
     exportedEnv.importEnvironment(moduleEnv);
 
     // Process export directives
     _processExports(uri, ast, exportedEnv);
 
-    // Cache and return
-    final module = LoadedModule(
-      ast: ast,
-      exportedEnvironment: exportedEnv,
-      uri: uri,
-    );
+    // Cache and return. DFUB10 — reuse the very instance the cyclic importers
+    // were handed, so every reference to this module is the same object.
+    final module = inFlight.partial;
     _moduleCache[uri] = module;
+    _inFlightModules.remove(uri);
+
+    // DFUB10 — this module's exports are complete now, so replay every merge
+    // that was taken from it while it was still incomplete. Replays are
+    // idempotent: `importEnvironment` skips names already bound to the
+    // identical value.
+    for (final replay in inFlight.deferredMerges) {
+      replay();
+    }
 
     // Restore previous library context
     currentLibrary = previousLibrary;
@@ -781,16 +841,23 @@ class AstModuleLoader implements ModuleContext {
       );
 
       if (prefix != null) {
-        final filteredEnv = loaded.exportedEnvironment.shallowCopyFiltered(
-          showNames: showNames,
-          hideNames: hideNames,
-        );
-        moduleEnv.definePrefixedImport(prefix, filteredEnv);
+        // `shallowCopyFiltered` snapshots, so a cyclic import needs the same
+        // deferred replay as the plain case (DFUB10).
+        _mergeFromModule(loaded, () {
+          final filteredEnv = loaded.exportedEnvironment.shallowCopyFiltered(
+            showNames: showNames,
+            hideNames: hideNames,
+          );
+          moduleEnv.definePrefixedImport(prefix, filteredEnv);
+        });
       } else {
-        moduleEnv.importEnvironment(
-          loaded.exportedEnvironment,
-          show: showNames,
-          hide: hideNames,
+        _mergeFromModule(
+          loaded,
+          () => moduleEnv.importEnvironment(
+            loaded.exportedEnvironment,
+            show: showNames,
+            hide: hideNames,
+          ),
         );
       }
     }
@@ -832,13 +899,40 @@ class AstModuleLoader implements ModuleContext {
       // library that re-publishes two different definitions of the same name
       // (local vs re-export, or two re-exports) raises immediately instead of
       // silently overwriting.
-      exportedEnv.importEnvironment(
-        loaded.exportedEnvironment,
-        show: showNames,
-        hide: hideNames,
-        errorOnConflict: true,
+      _mergeFromModule(
+        loaded,
+        () => exportedEnv.importEnvironment(
+          loaded.exportedEnvironment,
+          show: showNames,
+          hide: hideNames,
+          errorOnConflict: true,
+        ),
       );
     }
+  }
+
+  /// DFUB10 — the in-flight entry that owns [module], or null when the module
+  /// is fully loaded.
+  ///
+  /// The scan is over the current import-nesting depth (one entry per module on
+  /// the load stack), not over the module cache, so it stays tiny.
+  _InFlightModule? _inFlightFor(LoadedModule module) {
+    for (final entry in _inFlightModules.values) {
+      if (identical(entry.partial, module)) return entry;
+    }
+    return null;
+  }
+
+  /// DFUB10 — runs [merge] now and schedules a replay when [source] is only
+  /// partially loaded.
+  ///
+  /// `Environment.importEnvironment` copies bindings at call time; a merge that
+  /// runs against a module still walking its own directives therefore captures
+  /// an incomplete — often empty — export set and would never self-heal.
+  /// Replaying once [source] finishes fills in the rest.
+  void _mergeFromModule(LoadedModule source, void Function() merge) {
+    merge();
+    _inFlightFor(source)?.deferredMerges.add(merge);
   }
 
   /// Resolves an import/export URI relative to its containing module.
@@ -902,4 +996,26 @@ class AstModuleLoader implements ModuleContext {
       }
     }
   }
+}
+
+/// DFUB10 — a module whose load is still in flight.
+///
+/// Registered before a module's import/export directives are walked, so that a
+/// cyclic re-entry gets this partial entry back instead of recursing forever.
+/// Circular imports and exports are legal Dart and must load, so we support the
+/// cycle rather than rejecting it.
+///
+/// [deferredMerges] exists because [Environment.importEnvironment] copies
+/// bindings at call time rather than aliasing the source environment. A module
+/// that merges from an in-flight module therefore copies an incomplete — often
+/// empty — set of exports. Each such merge is recorded here and replayed once
+/// the in-flight module finishes, at which point its exports are complete. The
+/// replay is idempotent: `importEnvironment` skips names already bound to the
+/// identical value, so re-merging costs nothing and cannot raise a spurious
+/// conflict.
+class _InFlightModule {
+  final LoadedModule partial;
+  final List<void Function()> deferredMerges = [];
+
+  _InFlightModule(this.partial);
 }
