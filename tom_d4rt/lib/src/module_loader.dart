@@ -272,7 +272,11 @@ class ModuleLoader {
 
     // Define dangerous modules that require permissions
     if (uriString == 'dart:io') {
-      if (!d4rt!.checkPermission({'type': 'filesystem'})) {
+      // The import gate asks only "is ANY filesystem access granted?" — it has
+      // no path to check, so it must not be measured against a scoped grant's
+      // path. The per-operation checks in `stdlib/io/` enforce the scope.
+      if (!d4rt!
+          .checkPermission({'type': 'filesystem', 'pathAgnostic': true})) {
         throw RuntimeD4rtException(
             'Access to dart:io requires FilesystemPermission. '
             'Use d4rt.grant(FilesystemPermission.any) to allow filesystem access.');

@@ -27,6 +27,9 @@
 /// ```
 library;
 
+import 'current_directory_io.dart'
+    if (dart.library.html) 'current_directory_web.dart';
+
 /// Base class for all permissions in the d4rt security system.
 abstract class Permission {
   /// The type of permission (e.g., 'filesystem', 'network', 'process').
@@ -86,6 +89,77 @@ class FilesystemPermission extends Permission {
   factory FilesystemPermission.path(String path) =>
       FilesystemPermission._(path, true, true, true);
 
+  /// Reduces [path] to the single spelling used for scope comparison.
+  ///
+  /// Absolutizes against the process working directory, switches to `/`
+  /// separators, lowercases a Windows drive letter, and resolves `.` and `..`
+  /// segments away. Without the `..` resolution a grant on `/allowed` would
+  /// authorize `/allowed/../etc/passwd`, which is a scope escape.
+  ///
+  /// Symlinks are deliberately NOT resolved: `realpath` would make the matcher
+  /// depend on the filesystem's current state (and fail outright for paths
+  /// that do not exist yet, such as the target of a write). Grant and request
+  /// therefore have to be spelled through the same links — see quest todo
+  /// dgub5, which owns symlink-aware matching.
+  static String _canonicalizePath(String path) {
+    final absolutePath = _absolutize(path).replaceAll('\\', '/');
+    final driveMatch = RegExp(r'^[A-Za-z]:').firstMatch(absolutePath);
+
+    String prefix = '';
+    String remainder = absolutePath;
+    if (driveMatch != null) {
+      prefix = driveMatch.group(0)!.toLowerCase();
+      remainder = absolutePath.substring(2);
+    }
+
+    final isAbsolute = remainder.startsWith('/');
+    final normalizedSegments = <String>[];
+
+    for (final rawSegment in remainder.split('/')) {
+      if (rawSegment.isEmpty || rawSegment == '.') {
+        continue;
+      }
+      if (rawSegment == '..') {
+        if (normalizedSegments.isNotEmpty) {
+          normalizedSegments.removeLast();
+        }
+        continue;
+      }
+      normalizedSegments.add(rawSegment);
+    }
+
+    final normalizedPath = normalizedSegments.join('/');
+    final leading = isAbsolute ? '/' : '';
+    return prefix.isNotEmpty
+        ? '$prefix$leading$normalizedPath'
+        : '$leading$normalizedPath';
+  }
+
+  /// Joins [path] onto the working directory when it is relative.
+  ///
+  /// Both the grant and the operation may be spelled relatively (e.g.
+  /// `FilesystemPermission.readPath('build')`), and they only compare
+  /// meaningfully once both are absolute.
+  static String _absolutize(String path) {
+    final isAbsolute = path.startsWith('/') ||
+        path.startsWith(r'\') ||
+        RegExp(r'^[A-Za-z]:').hasMatch(path);
+    if (isAbsolute) return path;
+    return '${currentDirectoryPath()}/$path';
+  }
+
+  /// Whether [requestedPath] names [allowedPath] itself or something under it.
+  ///
+  /// The comparison is on a path-SEGMENT boundary, so a sibling that merely
+  /// shares the string prefix (`/allowed_sneaky` against a grant on
+  /// `/allowed`) is correctly outside the scope.
+  static bool _isPathWithinScope(String allowedPath, String requestedPath) {
+    final canonicalAllowed = _canonicalizePath(allowedPath);
+    final canonicalRequested = _canonicalizePath(requestedPath);
+    return canonicalRequested == canonicalAllowed ||
+        canonicalRequested.startsWith('$canonicalAllowed/');
+  }
+
   @override
   String get description {
     final operations = [];
@@ -118,10 +192,19 @@ class FilesystemPermission extends Permission {
       return false;
     }
 
-    // Check path restrictions
-    if (_path != null && opPath != null) {
-      // Simple path prefix check (could be made more sophisticated)
-      if (!opPath.startsWith(_path)) {
+    // Check path restrictions. An unscoped grant (`_path == null`) means "any
+    // path" and skips this entirely.
+    if (_path != null) {
+      // Some operations have no meaningful path — the `dart:io` import gate,
+      // for instance, asks only "is ANY filesystem access granted?". Those opt
+      // out of the scope check explicitly; note this waives the PATH check
+      // only, never the read/write/execute flags checked above.
+      if (operation['pathAgnostic'] == true) {
+        return true;
+      }
+      // No path and not path-agnostic: the matcher cannot prove the operation
+      // is in scope, so it denies rather than assuming.
+      if (opPath is! String || !_isPathWithinScope(_path, opPath)) {
         return false;
       }
     }

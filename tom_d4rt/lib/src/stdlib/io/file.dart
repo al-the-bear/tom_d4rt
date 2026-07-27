@@ -4,6 +4,8 @@ import 'dart:typed_data';
 
 import 'package:tom_d4rt/d4rt.dart';
 
+import 'filesystem_permission_helper.dart';
+
 /// File mode for opening files
 class FileModeIo {
   static BridgedClass get definition => BridgedClass(
@@ -426,32 +428,66 @@ class FileIo {
           },
         },
         methods: {
-          'exists': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).exists(),
-          'existsSync': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).existsSync(),
-          'readAsString': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).readAsString(
-                  encoding: namedArgs['encoding'] as Encoding? ?? utf8),
-          'readAsStringSync': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).readAsStringSync(
-                  encoding: namedArgs['encoding'] as Encoding? ?? utf8),
-          'readAsBytes': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).readAsBytes(),
-          'readAsBytesSync': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).readAsBytesSync(),
-          'readAsLines': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).readAsLines(
-                  encoding: namedArgs['encoding'] as Encoding? ?? utf8),
-          'readAsLinesSync': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).readAsLinesSync(
-                  encoding: namedArgs['encoding'] as Encoding? ?? utf8),
+          'exists': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'check existence');
+            return file.exists();
+          },
+          'existsSync': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'check existence');
+            return file.existsSync();
+          },
+          'readAsString': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'read file');
+            return file.readAsString(
+                encoding: namedArgs['encoding'] as Encoding? ?? utf8);
+          },
+          'readAsStringSync': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'read file');
+            return file.readAsStringSync(
+                encoding: namedArgs['encoding'] as Encoding? ?? utf8);
+          },
+          'readAsBytes': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'read file');
+            return file.readAsBytes();
+          },
+          'readAsBytesSync': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'read file');
+            return file.readAsBytesSync();
+          },
+          'readAsLines': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'read file');
+            return file.readAsLines(
+                encoding: namedArgs['encoding'] as Encoding? ?? utf8);
+          },
+          'readAsLinesSync': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'read file');
+            return file.readAsLinesSync(
+                encoding: namedArgs['encoding'] as Encoding? ?? utf8);
+          },
           'writeAsString': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeD4rtException(
                   'File.writeAsString requires one String argument (contents).');
             }
+            checkFilesystemWritePermission(visitor, file.path,
+                operation: 'write file');
             return file.writeAsString(
               positionalArgs[0] as String,
               mode: namedArgs['mode'] as FileMode? ?? FileMode.write,
@@ -465,6 +501,8 @@ class FileIo {
               throw RuntimeD4rtException(
                   'File.writeAsStringSync requires one String argument (contents).');
             }
+            checkFilesystemWritePermission(visitor, file.path,
+                operation: 'write file');
             file.writeAsStringSync(
               positionalArgs[0] as String,
               mode: namedArgs['mode'] as FileMode? ?? FileMode.write,
@@ -479,6 +517,8 @@ class FileIo {
               throw RuntimeD4rtException(
                   'File.writeAsBytes requires one List<int> argument (bytes).');
             }
+            checkFilesystemWritePermission(visitor, file.path,
+                operation: 'write file');
             return file.writeAsBytes(
               (positionalArgs[0] as List).cast(),
               mode: namedArgs['mode'] as FileMode? ?? FileMode.write,
@@ -491,6 +531,8 @@ class FileIo {
               throw RuntimeD4rtException(
                   'File.writeAsBytesSync requires one List<int> argument (bytes).');
             }
+            checkFilesystemWritePermission(visitor, file.path,
+                operation: 'write file');
             file.writeAsBytesSync(
               (positionalArgs[0] as List).cast(),
               mode: namedArgs['mode'] as FileMode? ?? FileMode.write,
@@ -498,11 +540,18 @@ class FileIo {
             );
             return null;
           },
-          'delete': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File)
-                  .delete(recursive: namedArgs['recursive'] as bool? ?? false),
+          'delete': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemWritePermission(visitor, file.path,
+                operation: 'delete file');
+            return file.delete(
+                recursive: namedArgs['recursive'] as bool? ?? false);
+          },
           'deleteSync': (visitor, target, positionalArgs, namedArgs, _) {
-            (target as File).deleteSync(
+            final file = target as File;
+            checkFilesystemWritePermission(visitor, file.path,
+                operation: 'delete file');
+            file.deleteSync(
                 recursive: namedArgs['recursive'] as bool? ?? false);
             return null;
           },
@@ -512,7 +561,14 @@ class FileIo {
               throw RuntimeD4rtException(
                   'File.rename requires one String argument (newPath).');
             }
-            return file.rename(positionalArgs[0] as String);
+            final newPath = positionalArgs[0] as String;
+            // A rename mutates BOTH ends: it removes the old path and creates
+            // the new one, so a write grant is needed on each.
+            checkFilesystemWritePermission(visitor, file.path,
+                operation: 'rename file');
+            checkFilesystemWritePermission(visitor, newPath,
+                operation: 'rename file');
+            return file.rename(newPath);
           },
           'renameSync': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
@@ -520,7 +576,12 @@ class FileIo {
               throw RuntimeD4rtException(
                   'File.renameSync requires one String argument (newPath).');
             }
-            return file.renameSync(positionalArgs[0] as String);
+            final newPath = positionalArgs[0] as String;
+            checkFilesystemWritePermission(visitor, file.path,
+                operation: 'rename file');
+            checkFilesystemWritePermission(visitor, newPath,
+                operation: 'rename file');
+            return file.renameSync(newPath);
           },
           'copy': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
@@ -528,7 +589,14 @@ class FileIo {
               throw RuntimeD4rtException(
                   'File.copy requires one String argument (newPath).');
             }
-            return file.copy(positionalArgs[0] as String);
+            final newPath = positionalArgs[0] as String;
+            // Reads the source and creates the target — one grant does not
+            // imply the other.
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'copy file');
+            checkFilesystemWritePermission(visitor, newPath,
+                operation: 'copy file');
+            return file.copy(newPath);
           },
           'copySync': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
@@ -536,93 +604,175 @@ class FileIo {
               throw RuntimeD4rtException(
                   'File.copySync requires one String argument (newPath).');
             }
-            return file.copySync(positionalArgs[0] as String);
+            final newPath = positionalArgs[0] as String;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'copy file');
+            checkFilesystemWritePermission(visitor, newPath,
+                operation: 'copy file');
+            return file.copySync(newPath);
           },
-          'length': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).length(),
-          'lengthSync': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).lengthSync(),
-          'lastAccessed': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).lastAccessed(),
-          'lastAccessedSync': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).lastAccessedSync(),
+          'length': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'read file length');
+            return file.length();
+          },
+          'lengthSync': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'read file length');
+            return file.lengthSync();
+          },
+          'lastAccessed': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'read file timestamp');
+            return file.lastAccessed();
+          },
+          'lastAccessedSync': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'read file timestamp');
+            return file.lastAccessedSync();
+          },
           'setLastAccessed': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! DateTime) {
               throw RuntimeD4rtException(
                   'File.setLastAccessed requires one DateTime argument.');
             }
+            checkFilesystemWritePermission(visitor, file.path,
+                operation: 'set file timestamp');
             return file.setLastAccessed(positionalArgs[0] as DateTime);
           },
-          'setLastAccessedSync': (visitor, target, positionalArgs, namedArgs, _) {
+          'setLastAccessedSync':
+              (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! DateTime) {
               throw RuntimeD4rtException(
                   'File.setLastAccessedSync requires one DateTime argument.');
             }
+            checkFilesystemWritePermission(visitor, file.path,
+                operation: 'set file timestamp');
             file.setLastAccessedSync(positionalArgs[0] as DateTime);
             return null;
           },
-          'lastModified': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).lastModified(),
-          'lastModifiedSync': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).lastModifiedSync(),
+          'lastModified': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'read file timestamp');
+            return file.lastModified();
+          },
+          'lastModifiedSync': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'read file timestamp');
+            return file.lastModifiedSync();
+          },
           'setLastModified': (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! DateTime) {
               throw RuntimeD4rtException(
                   'File.setLastModified requires one DateTime argument.');
             }
+            checkFilesystemWritePermission(visitor, file.path,
+                operation: 'set file timestamp');
             return file.setLastModified(positionalArgs[0] as DateTime);
           },
-          'setLastModifiedSync': (visitor, target, positionalArgs, namedArgs, _) {
+          'setLastModifiedSync':
+              (visitor, target, positionalArgs, namedArgs, _) {
             final file = target as File;
             if (positionalArgs.length != 1 || positionalArgs[0] is! DateTime) {
               throw RuntimeD4rtException(
                   'File.setLastModifiedSync requires one DateTime argument.');
             }
+            checkFilesystemWritePermission(visitor, file.path,
+                operation: 'set file timestamp');
             file.setLastModifiedSync(positionalArgs[0] as DateTime);
             return null;
           },
-          'open': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File)
-                  .open(mode: namedArgs['mode'] as FileMode? ?? FileMode.read),
-          'openSync': (visitor, target, positionalArgs, namedArgs, _) => (target
-                  as File)
-              .openSync(mode: namedArgs['mode'] as FileMode? ?? FileMode.read),
-          'openRead': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).openRead(
-                  positionalArgs.isNotEmpty ? positionalArgs[0] as int? : null,
-                  positionalArgs.length > 1 ? positionalArgs[1] as int? : null),
-          'openWrite': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).openWrite(
-                mode: namedArgs['mode'] as FileMode? ?? FileMode.write,
-                encoding: namedArgs['encoding'] as Encoding? ?? utf8,
-              ),
-          'stat': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).stat(),
-          'statSync': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).statSync(),
+          'open': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            final mode = namedArgs['mode'] as FileMode? ?? FileMode.read;
+            // The returned RandomAccessFile is unchecked from here on, so the
+            // mode decides which grant the whole handle needs.
+            _checkOpenModePermission(visitor, file.path, mode);
+            return file.open(mode: mode);
+          },
+          'openSync': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            final mode = namedArgs['mode'] as FileMode? ?? FileMode.read;
+            _checkOpenModePermission(visitor, file.path, mode);
+            return file.openSync(mode: mode);
+          },
+          'openRead': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'open file');
+            return file.openRead(
+                positionalArgs.isNotEmpty ? positionalArgs[0] as int? : null,
+                positionalArgs.length > 1 ? positionalArgs[1] as int? : null);
+          },
+          'openWrite': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemWritePermission(visitor, file.path,
+                operation: 'open file');
+            return file.openWrite(
+              mode: namedArgs['mode'] as FileMode? ?? FileMode.write,
+              encoding: namedArgs['encoding'] as Encoding? ?? utf8,
+            );
+          },
+          'stat': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'stat file');
+            return file.stat();
+          },
+          'statSync': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'stat file');
+            return file.statSync();
+          },
           'resolveSymbolicLinks':
-              (visitor, target, positionalArgs, namedArgs, _) =>
-                  (target as File).resolveSymbolicLinks(),
+              (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'resolve links');
+            return file.resolveSymbolicLinks();
+          },
           'resolveSymbolicLinksSync':
-              (visitor, target, positionalArgs, namedArgs, _) =>
-                  (target as File).resolveSymbolicLinksSync(),
-          'create': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).create(
-                  recursive: namedArgs['recursive'] as bool? ?? false,
-                  exclusive: namedArgs['exclusive'] as bool? ?? false),
+              (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'resolve links');
+            return file.resolveSymbolicLinksSync();
+          },
+          'create': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemWritePermission(visitor, file.path,
+                operation: 'create file');
+            return file.create(
+                recursive: namedArgs['recursive'] as bool? ?? false,
+                exclusive: namedArgs['exclusive'] as bool? ?? false);
+          },
           'createSync': (visitor, target, positionalArgs, namedArgs, _) {
-            (target as File).createSync(
+            final file = target as File;
+            checkFilesystemWritePermission(visitor, file.path,
+                operation: 'create file');
+            file.createSync(
                 recursive: namedArgs['recursive'] as bool? ?? false,
                 exclusive: namedArgs['exclusive'] as bool? ?? false);
             return null;
           },
-          'watch': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as File).watch(
-                  events: namedArgs['events'] as int? ?? FileSystemEvent.all,
-                  recursive: namedArgs['recursive'] as bool? ?? false),
+          'watch': (visitor, target, positionalArgs, namedArgs, _) {
+            final file = target as File;
+            checkFilesystemReadPermission(visitor, file.path,
+                operation: 'watch file');
+            return file.watch(
+                events: namedArgs['events'] as int? ?? FileSystemEvent.all,
+                recursive: namedArgs['recursive'] as bool? ?? false);
+          },
           'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as File).toString(),
         },
@@ -636,4 +786,17 @@ class FileIo {
           'hashCode': (visitor, target) => (target as File).hashCode,
         },
       );
+}
+
+/// Gates `File.open`/`openSync` according to the requested [mode].
+///
+/// `FileMode.read` is the only mode that leaves the file untouched; every
+/// other mode can write, so it needs a write grant.
+void _checkOpenModePermission(
+    InterpreterVisitor visitor, String path, FileMode mode) {
+  if (mode == FileMode.read) {
+    checkFilesystemReadPermission(visitor, path, operation: 'open file');
+  } else {
+    checkFilesystemWritePermission(visitor, path, operation: 'open file');
+  }
 }

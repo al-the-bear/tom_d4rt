@@ -2,6 +2,8 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:tom_d4rt/d4rt.dart';
 
+import 'filesystem_permission_helper.dart';
+
 class DirectoryIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: Directory,
@@ -35,36 +37,60 @@ class DirectoryIo {
         },
         methods: {
           'exists': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Directory).exists();
+            final directory = target as Directory;
+            checkFilesystemReadPermission(visitor, directory.path,
+                operation: 'check directory existence');
+            return directory.exists();
           },
           'existsSync': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Directory).existsSync();
+            final directory = target as Directory;
+            checkFilesystemReadPermission(visitor, directory.path,
+                operation: 'check directory existence');
+            return directory.existsSync();
           },
           'create': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Directory)
-                .create(recursive: namedArgs['recursive'] as bool? ?? false);
+            final directory = target as Directory;
+            checkFilesystemWritePermission(visitor, directory.path,
+                operation: 'create directory');
+            return directory.create(
+                recursive: namedArgs['recursive'] as bool? ?? false);
           },
           'createSync': (visitor, target, positionalArgs, namedArgs, _) {
-            (target as Directory).createSync(
+            final directory = target as Directory;
+            checkFilesystemWritePermission(visitor, directory.path,
+                operation: 'create directory');
+            directory.createSync(
                 recursive: namedArgs['recursive'] as bool? ?? false);
             return null;
           },
           'delete': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Directory)
-                .delete(recursive: namedArgs['recursive'] as bool? ?? false);
+            final directory = target as Directory;
+            checkFilesystemWritePermission(visitor, directory.path,
+                operation: 'delete directory');
+            return directory.delete(
+                recursive: namedArgs['recursive'] as bool? ?? false);
           },
           'deleteSync': (visitor, target, positionalArgs, namedArgs, _) {
-            (target as Directory).deleteSync(
+            final directory = target as Directory;
+            checkFilesystemWritePermission(visitor, directory.path,
+                operation: 'delete directory');
+            directory.deleteSync(
                 recursive: namedArgs['recursive'] as bool? ?? false);
             return null;
           },
           'list': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Directory).list(
+            final directory = target as Directory;
+            checkFilesystemReadPermission(visitor, directory.path,
+                operation: 'list directory');
+            return directory.list(
                 recursive: namedArgs['recursive'] as bool? ?? false,
                 followLinks: namedArgs['followLinks'] as bool? ?? true);
           },
           'listSync': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Directory).listSync(
+            final directory = target as Directory;
+            checkFilesystemReadPermission(visitor, directory.path,
+                operation: 'list directory');
+            return directory.listSync(
                 recursive: namedArgs['recursive'] as bool? ?? false,
                 followLinks: namedArgs['followLinks'] as bool? ?? true);
           },
@@ -73,44 +99,79 @@ class DirectoryIo {
               throw RuntimeD4rtException(
                   'Directory.rename requires one String argument (newPath).');
             }
-            return (target as Directory).rename(positionalArgs[0] as String);
+            final directory = target as Directory;
+            final newPath = positionalArgs[0] as String;
+            // A rename mutates BOTH ends: it removes the old path and creates
+            // the new one, so a write grant is needed on each.
+            checkFilesystemWritePermission(visitor, directory.path,
+                operation: 'rename directory');
+            checkFilesystemWritePermission(visitor, newPath,
+                operation: 'rename directory');
+            return directory.rename(newPath);
           },
           'renameSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeD4rtException(
                   'Directory.renameSync requires one String argument (newPath).');
             }
-            (target as Directory).renameSync(positionalArgs[0] as String);
+            final directory = target as Directory;
+            final newPath = positionalArgs[0] as String;
+            checkFilesystemWritePermission(visitor, directory.path,
+                operation: 'rename directory');
+            checkFilesystemWritePermission(visitor, newPath,
+                operation: 'rename directory');
+            directory.renameSync(newPath);
             return null;
           },
           'stat': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Directory).stat();
+            final directory = target as Directory;
+            checkFilesystemReadPermission(visitor, directory.path,
+                operation: 'stat directory');
+            return directory.stat();
           },
           'statSync': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Directory).statSync();
+            final directory = target as Directory;
+            checkFilesystemReadPermission(visitor, directory.path,
+                operation: 'stat directory');
+            return directory.statSync();
           },
           'watch': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Directory).watch(
+            final directory = target as Directory;
+            checkFilesystemReadPermission(visitor, directory.path,
+                operation: 'watch directory');
+            return directory.watch(
                 events: namedArgs['events'] as int? ?? FileSystemEvent.all,
                 recursive: namedArgs['recursive'] as bool? ?? false);
           },
-          'resolveSymbolicLinks': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Directory).resolveSymbolicLinks();
+          'resolveSymbolicLinks':
+              (visitor, target, positionalArgs, namedArgs, _) {
+            final directory = target as Directory;
+            checkFilesystemReadPermission(visitor, directory.path,
+                operation: 'resolve links');
+            return directory.resolveSymbolicLinks();
           },
           'resolveSymbolicLinksSync':
               (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Directory).resolveSymbolicLinksSync();
+            final directory = target as Directory;
+            checkFilesystemReadPermission(visitor, directory.path,
+                operation: 'resolve links');
+            return directory.resolveSymbolicLinksSync();
           },
           'createTemp': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Directory).createTemp(positionalArgs.isNotEmpty
+            final directory = target as Directory;
+            checkFilesystemWritePermission(visitor, directory.path,
+                operation: 'create temporary directory');
+            return directory.createTemp(positionalArgs.isNotEmpty
                 ? positionalArgs[0] as String?
                 : null);
           },
           'createTempSync': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Directory).createTempSync(
-                positionalArgs.isNotEmpty
-                    ? positionalArgs[0] as String?
-                    : null);
+            final directory = target as Directory;
+            checkFilesystemWritePermission(visitor, directory.path,
+                operation: 'create temporary directory');
+            return directory.createTempSync(positionalArgs.isNotEmpty
+                ? positionalArgs[0] as String?
+                : null);
           },
           'toString': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Directory).toString(),

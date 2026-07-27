@@ -1,3 +1,57 @@
+## 0.2.0
+
+### Security — scoped `FilesystemPermission` grants are now actually enforced (DFUB11)
+
+**This is a behavioural tightening. Scripts that relied on the previous, laxer
+matching will now be denied — hence the minor bump rather than a patch.**
+
+Two independent sandbox holes are closed (ported from upstream
+kodjodevf/d4rt 861117a).
+
+**1. No per-operation enforcement.** The `dart:io` bridges in
+`stdlib/io/{file,directory,file_system_entity}.dart` carried *zero* permission
+checks. The only gate was at `dart:io` IMPORT time, and it merely required that
+*some* `FilesystemPermission` had been granted. A grant scoped to one directory
+was therefore indistinguishable from `FilesystemPermission.any` once the import
+succeeded — every bridged file and directory operation ran unchecked.
+
+Every read/write entry point now calls
+`checkFilesystemRead/WritePermission` **before** the native operation, so a
+denial cannot leave a side effect behind. Operations are classified by what
+they actually do: `rename` requires write on *both* the old and the new path,
+`copy` requires read on the source *and* write on the target, and
+`File.open`/`openSync` follow the requested `FileMode` (only `FileMode.read`
+counts as a read). `FileStat.stat`/`statSync` are gated too — they take a raw
+path and would otherwise sidestep every `File`/`Directory` gate.
+
+**2. Naive scope matching.** `FilesystemPermission.allows` compared with a raw
+`opPath.startsWith(_path)`. Two consequences: `..` traversal escaped the scope
+(`/allowed/../etc/passwd` was "inside" `/allowed`), and a sibling directory
+whose name merely shares the string prefix (`/allowed_sneaky` against a grant
+on `/allowed`) was treated as inside it.
+
+Matching is now canonical and on a path-*segment* boundary: both sides are
+absolutized, normalized to `/` separators, lowercased on a Windows drive
+letter, and reduced by resolving `.` and `..` away; the request must then
+either equal the scope or start with `scope + '/'`. Symlinks are deliberately
+**not** resolved — `realpath` would make the matcher depend on current
+filesystem state and fail outright for paths that do not exist yet, such as the
+target of a write.
+
+**Pathless operations.** Some checks have no meaningful path — the `dart:io`
+import gate asks only "is *any* filesystem access granted?". Those now pass
+`'pathAgnostic': true`, which waives the PATH check **only**, never the
+read/write/execute flags. Conversely, a scoped grant asked about an operation
+with no path and no `pathAgnostic` flag now **denies**, rather than assuming the
+operation is in scope. Unscoped grants (`FilesystemPermission.any`, `.read`,
+`.write`) are unaffected and remain allow-all.
+
+**Web safety.** Upstream imports `dart:io` into `permissions.dart` to
+absolutize a path. This package must compile for web — it puts all of `dart:io`
+behind a `dart.library.html` conditional — so the process working directory is
+reached through a new `security/current_directory_{io,web}.dart` conditional
+import instead.
+
 ## 0.1.16
 
 ### Fixed — circular module imports and exports blew the stack (DFUB10)

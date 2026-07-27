@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+import 'filesystem_permission_helper.dart';
+
 class FileSystemEntityIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: FileSystemEntity,
@@ -15,6 +17,10 @@ class FileSystemEntityIo {
               throw RuntimeD4rtException(
                   'FileSystemEntity.identical requires two String arguments (path1, path2).');
             }
+            checkFilesystemReadPermission(visitor, positionalArgs[0] as String,
+                operation: 'compare file system entities');
+            checkFilesystemReadPermission(visitor, positionalArgs[1] as String,
+                operation: 'compare file system entities');
             return FileSystemEntity.identical(
                 positionalArgs[0] as String, positionalArgs[1] as String);
           },
@@ -25,6 +31,10 @@ class FileSystemEntityIo {
               throw RuntimeD4rtException(
                   'FileSystemEntity.identicalSync requires two String arguments (path1, path2).');
             }
+            checkFilesystemReadPermission(visitor, positionalArgs[0] as String,
+                operation: 'compare file system entities');
+            checkFilesystemReadPermission(visitor, positionalArgs[1] as String,
+                operation: 'compare file system entities');
             return FileSystemEntity.identicalSync(
                 positionalArgs[0] as String, positionalArgs[1] as String);
           },
@@ -33,6 +43,8 @@ class FileSystemEntityIo {
               throw RuntimeD4rtException(
                   'FileSystemEntity.isDirectory requires one String argument (path).');
             }
+            checkFilesystemReadPermission(visitor, positionalArgs[0] as String,
+                operation: 'inspect path');
             return FileSystemEntity.isDirectory(positionalArgs[0] as String);
           },
           'isDirectorySync': (visitor, positionalArgs, namedArgs, _) {
@@ -40,6 +52,8 @@ class FileSystemEntityIo {
               throw RuntimeD4rtException(
                   'FileSystemEntity.isDirectorySync requires one String argument (path).');
             }
+            checkFilesystemReadPermission(visitor, positionalArgs[0] as String,
+                operation: 'inspect path');
             return FileSystemEntity.isDirectorySync(
                 positionalArgs[0] as String);
           },
@@ -48,6 +62,8 @@ class FileSystemEntityIo {
               throw RuntimeD4rtException(
                   'FileSystemEntity.isFile requires one String argument (path).');
             }
+            checkFilesystemReadPermission(visitor, positionalArgs[0] as String,
+                operation: 'inspect path');
             return FileSystemEntity.isFile(positionalArgs[0] as String);
           },
           'isFileSync': (visitor, positionalArgs, namedArgs, _) {
@@ -55,6 +71,8 @@ class FileSystemEntityIo {
               throw RuntimeD4rtException(
                   'FileSystemEntity.isFileSync requires one String argument (path).');
             }
+            checkFilesystemReadPermission(visitor, positionalArgs[0] as String,
+                operation: 'inspect path');
             return FileSystemEntity.isFileSync(positionalArgs[0] as String);
           },
           'isLink': (visitor, positionalArgs, namedArgs, _) {
@@ -62,6 +80,8 @@ class FileSystemEntityIo {
               throw RuntimeD4rtException(
                   'FileSystemEntity.isLink requires one String argument (path).');
             }
+            checkFilesystemReadPermission(visitor, positionalArgs[0] as String,
+                operation: 'inspect path');
             return FileSystemEntity.isLink(positionalArgs[0] as String);
           },
           'isLinkSync': (visitor, positionalArgs, namedArgs, _) {
@@ -69,6 +89,8 @@ class FileSystemEntityIo {
               throw RuntimeD4rtException(
                   'FileSystemEntity.isLinkSync requires one String argument (path).');
             }
+            checkFilesystemReadPermission(visitor, positionalArgs[0] as String,
+                operation: 'inspect path');
             return FileSystemEntity.isLinkSync(positionalArgs[0] as String);
           },
           'type': (visitor, positionalArgs, namedArgs, _) {
@@ -76,6 +98,8 @@ class FileSystemEntityIo {
               throw RuntimeD4rtException(
                   'FileSystemEntity.type requires one String argument (path).');
             }
+            checkFilesystemReadPermission(visitor, positionalArgs[0] as String,
+                operation: 'inspect path');
             return FileSystemEntity.type(positionalArgs[0] as String,
                 followLinks: namedArgs['followLinks'] as bool? ?? true);
           },
@@ -84,6 +108,8 @@ class FileSystemEntityIo {
               throw RuntimeD4rtException(
                   'FileSystemEntity.typeSync requires one String argument (path).');
             }
+            checkFilesystemReadPermission(visitor, positionalArgs[0] as String,
+                operation: 'inspect path');
             return FileSystemEntity.typeSync(positionalArgs[0] as String,
                 followLinks: namedArgs['followLinks'] as bool? ?? true);
           },
@@ -92,22 +118,36 @@ class FileSystemEntityIo {
               throw RuntimeD4rtException(
                   'FileSystemEntity.parentOf requires one String argument (path).');
             }
+            checkFilesystemReadPermission(visitor, positionalArgs[0] as String,
+                operation: 'inspect path');
             return FileSystemEntity.parentOf(positionalArgs[0] as String);
           },
         },
         methods: {
           'exists': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as FileSystemEntity).exists();
+            final entity = target as FileSystemEntity;
+            checkFilesystemReadPermission(visitor, entity.path,
+                operation: 'check existence');
+            return entity.exists();
           },
           'existsSync': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as FileSystemEntity).existsSync();
+            final entity = target as FileSystemEntity;
+            checkFilesystemReadPermission(visitor, entity.path,
+                operation: 'check existence');
+            return entity.existsSync();
           },
           'delete': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as FileSystemEntity)
-                .delete(recursive: namedArgs['recursive'] as bool? ?? false);
+            final entity = target as FileSystemEntity;
+            checkFilesystemWritePermission(visitor, entity.path,
+                operation: 'delete entity');
+            return entity.delete(
+                recursive: namedArgs['recursive'] as bool? ?? false);
           },
           'deleteSync': (visitor, target, positionalArgs, namedArgs, _) {
-            (target as FileSystemEntity).deleteSync(
+            final entity = target as FileSystemEntity;
+            checkFilesystemWritePermission(visitor, entity.path,
+                operation: 'delete entity');
+            entity.deleteSync(
                 recursive: namedArgs['recursive'] as bool? ?? false);
             return null;
           },
@@ -116,35 +156,61 @@ class FileSystemEntityIo {
               throw RuntimeD4rtException(
                   'FileSystemEntity.rename requires one String argument (newPath).');
             }
-            return (target as FileSystemEntity)
-                .rename(positionalArgs[0] as String);
+            final entity = target as FileSystemEntity;
+            final newPath = positionalArgs[0] as String;
+            checkFilesystemWritePermission(visitor, entity.path,
+                operation: 'rename entity');
+            checkFilesystemWritePermission(visitor, newPath,
+                operation: 'rename entity');
+            return entity.rename(newPath);
           },
           'renameSync': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
               throw RuntimeD4rtException(
                   'FileSystemEntity.renameSync requires one String argument (newPath).');
             }
-            (target as FileSystemEntity)
-                .renameSync(positionalArgs[0] as String);
+            final entity = target as FileSystemEntity;
+            final newPath = positionalArgs[0] as String;
+            checkFilesystemWritePermission(visitor, entity.path,
+                operation: 'rename entity');
+            checkFilesystemWritePermission(visitor, newPath,
+                operation: 'rename entity');
+            entity.renameSync(newPath);
             return null;
           },
           'stat': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as FileSystemEntity).stat();
+            final entity = target as FileSystemEntity;
+            checkFilesystemReadPermission(visitor, entity.path,
+                operation: 'stat entity');
+            return entity.stat();
           },
           'statSync': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as FileSystemEntity).statSync();
+            final entity = target as FileSystemEntity;
+            checkFilesystemReadPermission(visitor, entity.path,
+                operation: 'stat entity');
+            return entity.statSync();
           },
           'watch': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as FileSystemEntity).watch(
+            final entity = target as FileSystemEntity;
+            checkFilesystemReadPermission(visitor, entity.path,
+                operation: 'watch entity');
+            return entity.watch(
                 events: namedArgs['events'] as int? ?? FileSystemEvent.all,
                 recursive: namedArgs['recursive'] as bool? ?? false);
           },
-          'resolveSymbolicLinks': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as FileSystemEntity).resolveSymbolicLinks();
+          'resolveSymbolicLinks':
+              (visitor, target, positionalArgs, namedArgs, _) {
+            final entity = target as FileSystemEntity;
+            checkFilesystemReadPermission(visitor, entity.path,
+                operation: 'resolve links');
+            return entity.resolveSymbolicLinks();
           },
           'resolveSymbolicLinksSync':
               (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as FileSystemEntity).resolveSymbolicLinksSync();
+            final entity = target as FileSystemEntity;
+            checkFilesystemReadPermission(visitor, entity.path,
+                operation: 'resolve links');
+            return entity.resolveSymbolicLinksSync();
           },
         },
         getters: {
@@ -177,6 +243,10 @@ class FileStatIo {
               throw RuntimeD4rtException(
                   'FileStat.stat requires one String argument (path).');
             }
+            // Takes a raw path, so it would otherwise sidestep every gate on
+            // File/Directory/FileSystemEntity.
+            checkFilesystemReadPermission(visitor, positionalArgs[0] as String,
+                operation: 'stat path');
             return FileStat.stat(positionalArgs[0] as String);
           },
           'statSync': (visitor, positionalArgs, namedArgs, _) {
@@ -184,6 +254,8 @@ class FileStatIo {
               throw RuntimeD4rtException(
                   'FileStat.statSync requires one String argument (path).');
             }
+            checkFilesystemReadPermission(visitor, positionalArgs[0] as String,
+                operation: 'stat path');
             return FileStat.statSync(positionalArgs[0] as String);
           },
         },
