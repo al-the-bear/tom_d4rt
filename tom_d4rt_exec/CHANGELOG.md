@@ -1,3 +1,31 @@
+## 1.10.0
+
+### Security — scoped `FilesystemPermission` grants are now actually enforced (DFUB11)
+
+**This is a behavioural tightening. Scripts that relied on the previous, laxer
+matching will now be denied — hence the minor bump rather than a patch.**
+
+- Consume `tom_d4rt_ast >=0.2.0`, which carries the per-operation filesystem
+  gate and the canonical, segment-boundary scope matcher. A grant scoped to one
+  directory used to behave exactly like `FilesystemPermission.any` once
+  `dart:io` was importable: the import gate established only that *some*
+  filesystem permission existed, and no bridged file/directory operation
+  re-checked the path. Every read/write entry point in the `dart:io` bridges now
+  checks the path BEFORE the native call, so a denial leaves the filesystem
+  untouched.
+- Scope matching is canonical: `..` segments are normalized away before the
+  comparison (so `/allowed/../etc/passwd` no longer escapes a `/allowed` grant),
+  and the prefix test lands on a path-segment boundary (so `/allowed_sneaky` is
+  no longer treated as inside `/allowed`).
+- This package's own `dart:io` import gate now asks the path-agnostic question
+  (`{'type': 'filesystem', 'pathAgnostic': true}`). Without this, tightening the
+  matcher would have turned every *scoped* grant into an import denial — the
+  gate has no path to offer, so it must not be measured against a scoped grant's
+  path. `pathAgnostic` waives the PATH check only; the read/write/execute flags
+  are still enforced.
+- New conformance suite `test/dfub11_filesystem_operation_permission_test.dart`
+  (16 tests), the executable twin of the same suite in `tom_d4rt`.
+
 ## 1.9.0
 
 ### Dependencies
