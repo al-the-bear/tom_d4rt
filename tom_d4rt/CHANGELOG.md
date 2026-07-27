@@ -1,3 +1,45 @@
+## 1.15.0
+
+### Added — `UnmodifiableMapView` and `UnmodifiableSetView` bridges (SC3)
+
+The two read-only `dart:collection` views are now bridged, mirrored
+file-for-file into `tom_d4rt_ast`. Both were P1 gaps in the SDK audit and
+completed the set alongside the already-bridged `UnmodifiableListView`.
+
+- **`UnmodifiableMapView`** — wrapping constructor plus the read-only `Map`
+  surface (`[]`, `containsKey`, `containsValue`, `forEach`, `map`, `cast`,
+  `length`, `isEmpty`, `isNotEmpty`, `keys`, `values`, `entries`).
+- **`UnmodifiableSetView`** — wrapping constructor plus the read-only
+  `Set`/`Iterable` surface, including the set algebra (`union`,
+  `intersection`, `difference`, `lookup`, `containsAll`).
+
+Both are *views*, not copies: a later change to the backing collection is
+visible through the wrapper, and the tests pin that rather than only checking
+the initial contents.
+
+### Why the mutators delegate instead of throwing
+
+`Map.unmodifiable(...)` and `Set.unmodifiable(...)` already returned these exact
+runtime types, and the core `Map`/`Set` bridges claimed them by name — so reads
+worked and a mutation attempt surfaced the SDK `UnsupportedError`, catchable
+from script with `on UnsupportedError`. The new bridges therefore **delegate**
+every mutating member to the native view rather than raising a
+`RuntimeD4rtException` of their own. Intercepting would have silently broken
+scripts that catch the SDK error type today.
+
+This differs from the older `UnmodifiableListView` bridge, which does intercept
+and throw `RuntimeD4rtException`. Realigning it is tracked separately, since it
+is a behaviour change to a shipped bridge with its own test impact.
+
+### Known gap (pre-existing, not introduced here)
+
+`x is Map` is `false` for every bridged `dart:collection` map — `HashMap`,
+`SplayTreeMap` and now the map view alike — and likewise `x is List` for
+`UnmodifiableListView`. Supertype `is` checks only work where the core bridge's
+`nativeNames` happens to enumerate the concrete runtime type, which is the case
+for `Set` but not for `Map`/`List`. Characterized by `F-SC3-21` so the day it is
+fixed shows up as a red test rather than going unnoticed.
+
 ## 1.14.0
 
 ### Added — `LinkedHashSet` and `SplayTreeSet` collection bridges (SC2)

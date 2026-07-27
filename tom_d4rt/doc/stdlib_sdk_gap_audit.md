@@ -49,8 +49,8 @@ for contrast: error/exception bridges already shipped are
 | ~~`Stopwatch`~~ ✅ bridged | dart:core | Ubiquitous for timing; pure, no I/O, trivial bridge. |
 | ~~`LinkedHashSet`~~ ✅ bridged | dart:collection | Insertion-order set; common explicit type. |
 | ~~`SplayTreeSet`~~ ✅ bridged | dart:collection | Sorted set; common explicit type. Its constructors take the optional `compare` function. |
-| `UnmodifiableMapView` | dart:collection | Returned by many APIs; scripts type against it. |
-| `UnmodifiableSetView` | dart:collection | Same. |
+| ~~`UnmodifiableMapView`~~ ✅ bridged | dart:collection | Returned by many APIs; scripts type against it. `Map.unmodifiable()` already produced this runtime type, so the mutating members delegate to the native view rather than intercepting — otherwise `on UnsupportedError` would stop catching. |
+| ~~`UnmodifiableSetView`~~ ✅ bridged | dart:collection | Same, including the set algebra (`union`, `intersection`, `difference`). |
 | `StreamConsumer` | dart:async | Appears in bridged signatures (drove GEN-079). |
 | `NoSuchMethodError` | dart:core | Thrown constantly; scripts want to `catch` it by type. |
 | `ConcurrentModificationError` | dart:core | Thrown by collection iteration; catchable. |

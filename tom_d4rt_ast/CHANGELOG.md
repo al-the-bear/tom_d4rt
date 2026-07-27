@@ -1,3 +1,24 @@
+## 0.7.0
+
+### Added — `UnmodifiableMapView` and `UnmodifiableSetView` bridges (SC3)
+
+Mirrors `tom_d4rt` 1.15.0 file-for-file — the two trees share one stdlib bridge
+set, so a class present in only one of them is a silent capability difference.
+
+- **`UnmodifiableMapView`** — wrapping constructor plus the read-only `Map`
+  surface; mutating members delegate to the native view so the SDK
+  `UnsupportedError` reaches the script.
+- **`UnmodifiableSetView`** — wrapping constructor plus the read-only
+  `Set`/`Iterable` surface, including the set algebra.
+
+See the `tom_d4rt` 1.15.0 entry for why the mutators delegate rather than
+raising a `RuntimeD4rtException`.
+
+Coverage here is registration-level: `tom_d4rt_exec` — the runner that could
+execute a script against this tree — resolves `tom_d4rt_ast` from pub.dev, so
+it cannot see unpublished local edits. The script-level round trips live in
+`tom_d4rt/test/stdlib/collection/`.
+
 ## 0.6.0
 
 ### Added — `LinkedHashSet` and `SplayTreeSet` collection bridges (SC2)

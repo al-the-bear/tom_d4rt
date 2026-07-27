@@ -9,6 +9,8 @@ import 'package:tom_d4rt/src/stdlib/collection/queue.dart';
 import 'package:tom_d4rt/src/stdlib/collection/splay_tree_map.dart';
 import 'package:tom_d4rt/src/stdlib/collection/splay_tree_set.dart';
 import 'package:tom_d4rt/src/stdlib/collection/unmodifiable_list_view.dart';
+import 'package:tom_d4rt/src/stdlib/collection/unmodifiable_map_view.dart';
+import 'package:tom_d4rt/src/stdlib/collection/unmodifiable_set_view.dart';
 
 class CollectionStdlib {
   static void register(Environment environment) {
@@ -23,5 +25,7 @@ class CollectionStdlib {
     environment.defineBridge(SplayTreeMapCollection.definition);
     environment.defineBridge(SplayTreeSetCollection.definition);
     environment.defineBridge(UnmodifiableListViewCollection.definition);
+    environment.defineBridge(UnmodifiableMapViewCollection.definition);
+    environment.defineBridge(UnmodifiableSetViewCollection.definition);
   }
 }
