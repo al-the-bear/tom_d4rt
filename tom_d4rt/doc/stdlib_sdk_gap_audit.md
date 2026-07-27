@@ -20,6 +20,12 @@
 - The mirror stdlib in `tom_d4rt_ast` has the **same 100 files and the
   same gaps**, so any additions must land in **both** trees (per the
   "keep tom_d4rt ↔ tom_d4rt_ast in sync" quest rule).
+- **A registered-but-unreachable class is its own failure mode.** Two
+  `dart:convert` bridges had been written and exported but never passed
+  to `defineBridge`, and `JsonUtf8Encoder` was reachable through a
+  shipped `fuse` adapter with nothing registered under its name. Neither
+  shows up as a missing *file* — only as a script that dies on a type it
+  was legitimately handed. See the convert-hierarchy note below.
 
 ## Not a gap: relaxer false-alarms (already fixed)
 
@@ -69,8 +75,8 @@ for contrast: error/exception bridges already shipped are
 | ~~`StreamTransformerBase`~~ ✅ bridged | dart:async | Base class for custom transformers. Registering it required broadening `Stream.transform` to wrap an interpreted `bind` in `StreamTransformer.fromBind`, and fixing two generic interpreter gaps: `is BridgedX` was hard-false for every interpreted operand, and `implements SomeBridge` was not a subtype edge at all. |
 | ~~`DoubleLinkedQueue`~~ ✅ bridged | dart:collection | Explicit deque type. Its `DoubleLinkedQueueEntry` cursor is bridged alongside — without `firstEntry`/`lastEntry`/`forEachEntry` the type is just a slower `ListQueue` — and the cursor needs `nativeNames: ['_DoubleLinkedQueueElement']`, the private subclass those methods actually return. Registering it also pulled in a `DoubleLinkedQueue`/`ListQueue`/`Queue -> Iterable` supertype block that repaired the **already-shipped** `ListQueue` bridge, where `contains`/`join`/`where`/`map` had all failed outright and `q is Iterable` was false. |
 | ~~`BytesBuilder`~~ ✅ bridged | dart:typed_data | Efficient byte accumulation. Abstract, with a factory that returns one of *two* private implementations — `_CopyingBytesBuilder` by default and `_BytesBuilder` under `copy: false` — so both names sit on `nativeNames`. It is the first bridge where a **constructor argument** selects which private class comes back; listing only the default would leave `BytesBuilder(copy: false)` constructible and broken on its first `addByte`. |
-| `JsonUtf8Encoder` | dart:convert | UTF-8 JSON in one pass. |
-| `ClosableStringSink` | dart:convert | Sink variant. |
+| ~~`JsonUtf8Encoder`~~ ✅ bridged | dart:convert | UTF-8 JSON in one pass. Not merely a coverage gap: the SDK **specialises** `JsonEncoder.fuse`, so `JsonEncoder().fuse(Utf8Encoder())` already returned a native `JsonUtf8Encoder` through the long-shipped `fuse` adapter — and then failed with `Undefined property or method 'convert' on JsonUtf8Encoder`. Bridging it closed a live dead end. Public and concrete, so it is the rare recent bridge that needs no `nativeNames`. |
+| ~~`ClosableStringSink`~~ ✅ bridged | dart:convert | Sink variant. Abstract, so both routes to an instance return `_ClosableStringSink`. Reaching it the idiomatic way — `StringConversionSink.asStringSink()` — required registering `StringConversionSink` as well; see the convert-hierarchy note below. |
 | ~~`UriData`~~ ✅ bridged | dart:core | `data:` URI parsing (`Uri.dataFromString`). Bridging it also surfaced a missing `Uri.data` getter, without which a parsed `data:` URI had no route to its payload. |
 
 ### P3 — niche or questionable sandbox fit (audit only, likely skip)
@@ -185,16 +191,64 @@ view would register against, and it is tracked separately.
 `TypedData`, and its `toBytes`/`takeBytes` results route to the existing
 `Uint8List` bridge unchanged.
 
+## Notes on the convert hierarchy
+
+Two findings came out of the `dart:convert` work that are worth recording
+separately from the two classes the P2 row names.
+
+**Two bridges were dead code.** `StringConversionConvert` and
+`ChunkedConversionConvert` were fully written, exported from
+`convert.dart`, and never passed to `defineBridge` — so no script could
+name either one. That is not a cosmetic omission: `StringConversionSink`
+is the argument every `Converter.startChunkedConversion` requires, so
+with no way to construct one, the whole chunked-conversion surface of the
+library was unreachable from interpreted code even though the adapters
+for it had shipped. It is also the only idiomatic route to a
+`ClosableStringSink`, via `asStringSink()`. Both are now registered.
+The *class* of defect — a definition that exists and is exported but is
+never registered — is worth a sweep across the other stdlib registrars.
+
+**Registering the sink root needed hierarchy edges.** Giving
+`ChunkedConversionSink` an `isAssignable` predicate makes it match
+*every* sink in the library, because both `StringConversionSink` and
+`ByteConversionSink` implement it. Since every one of those sinks is
+handed back as a private class — `_StringCallbackSink`,
+`_ByteCallbackSink`, `_ByteAdapterSink`, `_Utf8EncoderSink`,
+`_Utf8StringSinkAdapter`, `_LineSplitterSink` — the direct-`Type` lookup
+never fires and resolution always lands in the `isAssignable` pass, where
+the root promptly swallowed its own subtypes:
+
+    StringConversionSink.withCallback(...).asStringSink()
+    // Bridged class 'ChunkedConversionSink' has no instance method
+    // named 'asStringSink'.
+
+The fix follows the `QueueHierarchyCollection` precedent: declare the
+edges via `BridgedClass.registerSupertypes` (in
+`convert/convert_hierarchy.dart`) so `_filterToMostSpecific` can drop the
+supertype match, and give `ByteConversionSink` a predicate of its own so
+the filter has a specific candidate to keep. This makes dispatch *more*
+exact, not less.
+
+**Still open — the codec/converter type tests.** `json is Codec`,
+`utf8 is Codec`, `JsonEncoder() is Converter` and `utf8 is Encoding` all
+answer `false`, because no edges connect the concrete codecs to their
+abstract roots. Unlike the typed_data case above, the roots `Codec`,
+`Converter` and `Encoding` *are* bridged, so nothing blocks the fix. It
+is deferred on the same reasoning as the typed_data hierarchy: the
+members all work, only the type tests are wrong, so it is filed rather
+than fixed here.
+
 ## Recommended next actions
 
 1. **P1 is complete** — the pure classes (`Stopwatch`, the collection
    views/sets) and all seven catchable error types are bridged in both
    trees, each with tests under `tom_d4rt/test/stdlib/` and a
    registration-level mirror under `tom_d4rt_ast/test/runtime/`.
-2. **P2 opportunistically** when a corpus script or bridged signature
-   demands it. The three `dart:async` entries, `DoubleLinkedQueue` and
-   `BytesBuilder` are now done; the two remaining (`JsonUtf8Encoder`,
-   `ClosableStringSink`) still wait for a concrete consumer.
+2. **P2 is complete** — the three `dart:async` entries,
+   `DoubleLinkedQueue`, `BytesBuilder`, `JsonUtf8Encoder` and
+   `ClosableStringSink` are all bridged in both trees, each with tests
+   under `tom_d4rt/test/stdlib/` and a registration-level mirror under
+   `tom_d4rt_ast/test/runtime/`.
 3. **P3: documented but unbuilt** — done; the rationale now lives in
    [d4rt_limitations.md](d4rt_limitations.md#intentionally-unbridged-sdk-classes).
    Several are sandbox-hostile by design and will stay out; the rest wait

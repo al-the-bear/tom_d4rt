@@ -1,11 +1,23 @@
 import 'dart:convert';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+/// `StringConversionSink` (dart:convert) — the sink half of chunked string
+/// conversion.
+///
+/// This definition existed and was exported for a long time without ever being
+/// passed to `defineBridge`, so it was unreachable from scripts. Registering it
+/// is what makes `Converter.startChunkedConversion` callable at all — a script
+/// had no way to construct the sink argument it requires — and it is also the
+/// route by which real code obtains a [ClosableStringSink], via
+/// `asStringSink()`.
 class StringConversionConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: StringConversionSink,
         name: 'StringConversionSink',
         isAssignable: (v) => v is StringConversionSink,
+        // `withCallback` returns this private implementation; without the
+        // routing the sink constructs and then rejects its first `add`.
+        nativeNames: const ['_StringCallbackSink'],
         typeParameterCount: 0,
         staticMethods: {
           'withCallback': (visitor, positionalArgs, namedArgs, _) {
@@ -56,6 +68,15 @@ class StringConversionConvert {
             }
             (target as StringConversionSink).close();
             return null;
+          },
+          // The idiomatic route to a `ClosableStringSink`: it hands back a
+          // `_ClosableStringSink`, which the ClosableStringSink bridge routes.
+          'asStringSink': (visitor, target, positionalArgs, namedArgs, _) {
+            if (positionalArgs.isNotEmpty || namedArgs.isNotEmpty) {
+              throw RuntimeD4rtException(
+                  'StringConversionSink.asStringSink takes no arguments.');
+            }
+            return (target as StringConversionSink).asStringSink();
           },
           'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as StringConversionSink).toString();

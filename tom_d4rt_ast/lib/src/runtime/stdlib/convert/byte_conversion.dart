@@ -1,10 +1,23 @@
 import 'dart:convert';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+/// `ByteConversionSink` (dart:convert) — the byte half of chunked conversion.
+///
+/// The predicate and [BridgedClass.nativeNames] are what keep this bridge
+/// reachable now that its supertype `ChunkedConversionSink` is registered and
+/// claims assignability for every sink: both factories hand back a private
+/// class, so resolution lands in the `isAssignable` pass and the supertype
+/// edges in [ConvertHierarchyConvert] decide the winner.
 class ByteConversionConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: ByteConversionSink,
         name: 'ByteConversionSink',
+        isAssignable: (v) => v is ByteConversionSink,
+        nativeNames: const [
+          '_ByteCallbackSink',
+          '_ByteAdapterSink',
+          '_Utf8StringSinkAdapter',
+        ],
         typeParameterCount: 0,
         staticMethods: {
           'from': (visitor, positionalArgs, namedArgs, _) {

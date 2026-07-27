@@ -2,13 +2,18 @@ import 'package:tom_d4rt_ast/src/runtime/environment.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert/ascii.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert/base64.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert/byte_conversion.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/convert/chunked_conversion.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/convert/closable_string_sink.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert/codec.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/convert/convert_hierarchy.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert/converter.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert/encoding.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert/html_escape.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert/json.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/convert/json_utf8_encoder.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert/latin1.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert/line_splitter.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/convert/string_conversion.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert/utf.dart';
 import 'dart:convert';
 import 'package:tom_d4rt_ast/src/runtime/callable.dart';
@@ -19,11 +24,14 @@ export 'package:tom_d4rt_ast/src/runtime/stdlib/convert/ascii.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/convert/base64.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/convert/byte_conversion.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/convert/chunked_conversion.dart';
+export 'package:tom_d4rt_ast/src/runtime/stdlib/convert/closable_string_sink.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/convert/codec.dart';
+export 'package:tom_d4rt_ast/src/runtime/stdlib/convert/convert_hierarchy.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/convert/converter.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/convert/encoding.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/convert/html_escape.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/convert/json.dart';
+export 'package:tom_d4rt_ast/src/runtime/stdlib/convert/json_utf8_encoder.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/convert/latin1.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/convert/line_splitter.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/convert/string_conversion.dart';
@@ -44,6 +52,7 @@ class ConvertStdlib {
     environment.defineBridge(JsonCodecConvert.definition);
     environment.defineBridge(JsonEncoderConvert.definition);
     environment.defineBridge(JsonDecoderConvert.definition);
+    environment.defineBridge(JsonUtf8EncoderConvert.definition);
     environment.defineBridge(CodecConvert.definition);
     environment.defineBridge(ConverterConvert.definition);
     environment.defineBridge(Latin1CodecConvert.definition);
@@ -52,6 +61,16 @@ class ConvertStdlib {
     environment.defineBridge(LineSplitterConvert.definition);
     environment.defineBridge(EncodingConvert.definition);
     environment.defineBridge(ByteConversionConvert.definition);
+    // These three were written and exported but never registered, so nothing
+    // could reach them. StringConversionSink in particular is the argument
+    // every `startChunkedConversion` needs, and the route to a
+    // ClosableStringSink via `asStringSink()`.
+    environment.defineBridge(StringConversionConvert.definition);
+    environment.defineBridge(ChunkedConversionConvert.definition);
+    environment.defineBridge(ClosableStringSinkConvert.definition);
+    // Must follow the sink bridges: it declares the edges that let the
+    // resolver keep the specific sink over its newly-assignable root.
+    ConvertHierarchyConvert.register();
 
     // Register global functions
     environment.define(

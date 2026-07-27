@@ -1,10 +1,18 @@
 import 'dart:convert';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+/// `ChunkedConversionSink` (dart:convert) — the generic chunked-conversion
+/// sink.
+///
+/// Like [StringConversionConvert], this definition was written and exported but
+/// never registered, so no script could reach it.
 class ChunkedConversionConvert {
   static BridgedClass get definition => BridgedClass(
         nativeType: ChunkedConversionSink,
         name: 'ChunkedConversionSink',
+        isAssignable: (v) => v is ChunkedConversionSink,
+        // `withCallback` returns this private implementation.
+        nativeNames: const ['_SimpleCallbackSink'],
         typeParameterCount: 1,
         staticMethods: {
           'withCallback': (visitor, positionalArgs, namedArgs, _) {

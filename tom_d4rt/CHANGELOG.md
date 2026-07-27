@@ -1,3 +1,54 @@
+## 1.21.0
+
+### Added — `JsonUtf8Encoder` and `ClosableStringSink` (SC9)
+
+Completes the P2 row of the stdlib SDK gap audit.
+
+- **`JsonUtf8Encoder`** (`dart:convert`) — object to UTF-8 JSON bytes in
+  one pass, with `convert`, `startChunkedConversion`, `fuse`, `bind` and
+  `cast`, and all three optional constructor arguments (`indent`,
+  `toEncodable`, `bufferSize`) read by position so that a `null` indent
+  keeps its meaning.
+
+  This **repairs a live dead end** rather than merely widening coverage.
+  The SDK specialises `JsonEncoder.fuse`, so `JsonEncoder().fuse(
+  Utf8Encoder())` has always returned a native `JsonUtf8Encoder` through
+  the long-shipped `fuse` adapter — and every call on the result then
+  failed with `Undefined property or method 'convert' on
+  JsonUtf8Encoder`.
+
+- **`ClosableStringSink`** (`dart:convert`) — `fromStringSink`, `close`,
+  and the full `StringSink` surface (`write`, `writeln`, `writeCharCode`,
+  `writeAll`) declared explicitly, since bridge dispatch is per-bridge.
+
+### Fixed — two `dart:convert` bridges were unreachable
+
+`StringConversionConvert` and `ChunkedConversionConvert` were fully
+written and exported from `convert.dart` but never passed to
+`defineBridge`, so no script could name either. That left
+`Converter.startChunkedConversion` uncallable across the whole library —
+nothing could construct the sink argument it requires — and made
+`asStringSink()`, the idiomatic route to a `ClosableStringSink`,
+unreachable. Both are now registered, and `StringConversionSink` gains an
+`asStringSink` adapter.
+
+### Fixed — sink dispatch after registering the hierarchy root
+
+Giving `ChunkedConversionSink` an `isAssignable` predicate makes it match
+every sink in the library, and because each is handed back as a private
+class the resolver always lands in the `isAssignable` pass. The root
+therefore swallowed its own subtypes. Following the
+`QueueHierarchyCollection` precedent, the edges are now declared via
+`BridgedClass.registerSupertypes` in `convert/convert_hierarchy.dart`, and
+`ByteConversionSink` carries its own predicate and `nativeNames` so the
+most-specific filter has a candidate to keep.
+
+### Tests
+
+23 script-level tests (`F-SC9-1` … `F-SC9-23`) under
+`test/stdlib/convert/`, mirrored by 15 registration-level tests
+(`F-SC9-AST-*`) in `tom_d4rt_ast`.
+
 ## 1.20.0
 
 ### Added — `BytesBuilder` (SC8)
