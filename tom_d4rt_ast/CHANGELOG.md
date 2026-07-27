@@ -1,3 +1,74 @@
+## 0.1.14
+
+Upstream-realignment release: carries the analyzer-free mirrors of the
+`tom_d4rt` fork-update fixes DFUB2 and DFUB4–DFUB8 into the published package,
+so `tom_d4rt_exec` (which consumes the hosted `tom_d4rt_ast`) can exercise them
+end-to-end.
+
+### Added — instance-method and setter dispatch on extension-type instances (DFUB4)
+
+- `InterpretedExtensionType` gained a `setters` map; assigning to a member of an
+  extension-type instance now binds and invokes the matching setter instead of
+  failing, and `InterpretedExtensionTypeInstance` resolves instance **methods**
+  (not just getters) through `get(name, visitor)` at the method-invocation,
+  implicit-`this` identifier, and property-access sites.
+- Ports upstream `kodjodevf/d4rt` `2f519cd` (Extension Type Support 0.2.2).
+
+### Added — runtime type checks for function types and record types (DFUB5)
+
+- New structural runtime types in `runtime_interfaces.dart`:
+  `FunctionRuntimeType` (covariant return, contravariant parameters, arity and
+  named-parameter shape) and `RecordRuntimeType` (arity, named keys, per-field
+  compatibility), plus the shared `NamedRuntimeType` contract.
+- `is` / `as` against a function type or record type annotation no longer throws
+  "not implemented", and function/record **return-type validation** is now
+  actually enforced. `InterpretedFunction` exposes a cached
+  `callableRuntimeType`.
+- Known limitation: because record type annotations arrive as opaque nodes in
+  the S-AST model, the analyzer-free record resolver is arity-only.
+- Ports upstream `848f03d`.
+
+### Added — applied generic type arguments preserved at runtime (DFUB6)
+
+- New `AppliedRuntimeType` (base type + applied arguments, element-wise
+  subtyping with `dynamic` / `Object` / `void` wildcards) so `is Box<int>`
+  honours the type argument.
+- Generic and typed native-collection returns are validated element-wise. The
+  applied return type is captured at declaration time onto
+  `InterpretedFunction.declaredReturnTypeApplied` and checked in
+  `visitReturnStatement`. Async and generator functions are exempt, since their
+  `Future<T>` / `Stream<T>` / `Iterable<T>` return type wraps the inner value.
+- Ports the applied-runtime-types half of upstream `1042fff`.
+
+### Fixed — `BridgedClass` / `TypeParameter` subtype checks were too permissive (DFUB7)
+
+- `BridgedClass.isSubtypeOf`: the `num` early block returned true for
+  `num <: int` and `num <: double`, making `num` a subtype of its own subtypes.
+  Only `num <: num` is kept; the downward `int` / `double <: num` direction is
+  unaffected.
+- `TypeParameter.isSubtypeOf`: replaces the unconditional `return true` with
+  real rules — another `TypeParameter` is a subtype; a bounded `T extends X`
+  defers to its bound (so `T extends num` is **not** a subtype of `String`); an
+  unbounded `T` is a subtype only of the top types (`Object` / `dynamic` /
+  `void`).
+- Ports the subtype half of upstream `28ca517`.
+
+### Fixed — omitted optional super parameters clobbered the parent's default (DFUB8)
+
+- An optional super parameter (`[super.x]` / `{super.x}`) that the caller omits
+  and that carries no default in the child constructor is no longer forwarded to
+  the parent as an explicit `null`. Skipping the forward lets the parent apply
+  its own declared default, e.g. `Parent(this.name, [this.value = 0])`. Required
+  super parameters are unaffected.
+- Ports the two failing super-parameter cases from upstream `class_test`.
+
+### Fixed — absolute non-`dart:` / non-`package:` import URIs (DFUB2)
+
+- `visitImportDirective` self-resolves any already-absolute URI
+  (`importUri.hasScheme`) rather than only `dart:` and `package:`, so an
+  absolute `file:` import reaches the module loader without a base — matching
+  upstream `resolveModuleUri`.
+
 ## 0.1.13
 
 ### Fixed — `toString()` on a bridged enum TYPE (via `runtimeType`) (RCJ12)
