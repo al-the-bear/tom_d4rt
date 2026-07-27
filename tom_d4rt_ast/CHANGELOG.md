@@ -1,3 +1,18 @@
+## 0.4.1
+
+### Directive context for the entry library's own imports (DFUB13)
+
+0.4.0 attached owner context inside `AstModuleLoader`, which covers every import
+reached *through* another module but not the one written directly in the entry
+library — the visitor loads that one itself. `visitImportDirective` now applies
+the same wrap, so all three interpreter trees behave identically.
+
+The owner is captured *before* the load: `loadModule` advances `currentLibrary`
+to the module it is loading, so reading it in the catch would report owner ==
+target. For a bare `source:` script there is no enclosing library and the wrap is
+skipped rather than filled with a synthetic URI, which would only restate the
+target.
+
 ## 0.4.0
 
 ### A failed import/export now says which file to edit (DFUB13)
