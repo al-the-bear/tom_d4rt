@@ -1,5 +1,29 @@
 ## 0.14.0
 
+### Fixed — record type annotations resolve to their real shape (DGUB8)
+
+The record branch of the type resolver rebuilt the annotation from its
+ARITY alone: every field type became `dynamic`, and every named key became
+a synthetic `$named0`, `$named1`, … That was not a cosmetic placeholder.
+The record VALUE side derives its `RecordRuntimeType` from the actual
+`InterpretedRecord`, so it carries the REAL key — and a real key never
+equals a synthetic one. Three consequences, all measured:
+
+- a record with ANY named field matched nothing in either direction, so
+  `(42, label: 'answer') is (int, {String label})` answered false;
+- a positional-only record matched on arity while IGNORING field types, so
+  `(1, 'a') is (String, int)` answered true — unsound;
+- `as` accepted casts it should have rejected.
+
+`SRecordTypeField` (`tom_ast_model` 0.2.0) makes the field types and named
+keys reachable, and both resolvers (`interpreter_visitor.dart`,
+`callable.dart`) now read them, recursing into nested field types. An
+absent field type — malformed source, or a bundle serialised before the
+field node existed — resolves to `dynamic`, which widens the record type
+rather than making the whole annotation unresolvable.
+
+Requires `tom_ast_model >=0.2.0`.
+
 ### Changed — filesystem permission scopes are symlink-aware (DGUB5)
 
 `FilesystemPermission` now compares the grant and the requested path on

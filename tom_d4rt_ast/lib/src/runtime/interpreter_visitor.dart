@@ -11617,35 +11617,19 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // DFUB5: resolve record type annotations like `(int, int)` or
       // `(int, {String name})` into a structural RecordRuntimeType so `is`/`as`
       // and return-type checks can compare shape + field types (upstream
-      // 848f03d).
-      //
-      // AST-model limitation: `tom_ast_generator` currently converts each
-      // record-type-annotation field to an opaque `Unknown` node, so the field
-      // types and named-field keys are not recoverable here. We reconstruct the
-      // arity (positional count + named count) with `dynamic` field types as a
-      // best-effort. Full fidelity requires a dedicated record-field S-node —
-      // tracked by dgub8. See tom_d4rt (analyzer tree) for the exact-shape impl.
-      //
-      // The synthetic `$namedN` keys are not a harmless placeholder, and the
-      // effect is stronger than "arity-only" suggests: the record VALUE side
-      // derives its RecordRuntimeType from the real `InterpretedRecord` and so
-      // carries the REAL key, which never equals `$namedN`. Measured result
-      // (F-DFUB5-EXEC-5/6/9) — a positional-only record still matches by arity,
-      // but a record with ANY named field matches NOTHING, in either direction.
-      // That is a false negative, i.e. the conservative direction, which is why
-      // it is left as-is rather than "fixed" by ignoring named keys too: that
-      // would trade a restrictive answer for an unsound one. dgub8 removes the
-      // guesswork instead.
+      // 848f03d). Nested field types resolve recursively through this same
+      // resolver (so import-prefixed field types keep working).
       Logger.debug(
         "[ResolveType] Resolving SRecordTypeAnnotation: ${typeNode.toString()}",
       );
       final positional = <RuntimeType>[
-        for (var i = 0; i < typeNode.positionalFields.length; i++)
-          const NamedRuntimeType('dynamic')
+        for (final field in typeNode.positionalFields)
+          _resolveTypeAnnotationWithEnvironment(field.type, env)
       ];
       final named = <String, RuntimeType>{};
-      for (var i = 0; i < typeNode.namedFields.length; i++) {
-        named['\$named$i'] = const NamedRuntimeType('dynamic');
+      for (final field in typeNode.namedFields) {
+        named[field.name?.name ?? ''] =
+            _resolveTypeAnnotationWithEnvironment(field.type, env);
       }
       return RecordRuntimeType(
           positionalFieldTypes: positional, namedFieldTypes: named);

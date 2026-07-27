@@ -221,31 +221,14 @@ class InterpretedFunction implements Callable {
       }
     } else if (typeNode is SRecordTypeAnnotation) {
       // DFUB5: structural record type (also usable as a type-parameter bound).
-      //
-      // AST-model limitation: `tom_ast_generator` currently converts each
-      // record-type-annotation field to an opaque `Unknown` node, so the field
-      // types and named-field keys are not recoverable here. We reconstruct the
-      // arity (positional count + named count) with `dynamic` field types as a
-      // best-effort. Full fidelity requires a dedicated record-field S-node —
-      // tracked by dgub8. See tom_d4rt (analyzer tree) for the exact-shape impl.
-      //
-      // The synthetic `$namedN` keys are not a harmless placeholder, and the
-      // effect is stronger than "arity-only" suggests: the record VALUE side
-      // derives its RecordRuntimeType from the real `InterpretedRecord` and so
-      // carries the REAL key, which never equals `$namedN`. Measured result
-      // (F-DFUB5-EXEC-5/6/9) — a positional-only record still matches by arity,
-      // but a record with ANY named field matches NOTHING, in either direction.
-      // That is a false negative, i.e. the conservative direction, which is why
-      // it is left as-is rather than "fixed" by ignoring named keys too: that
-      // would trade a restrictive answer for an unsound one. dgub8 removes the
-      // guesswork instead.
       final positional = <RuntimeType>[
-        for (var i = 0; i < typeNode.positionalFields.length; i++)
-          const NamedRuntimeType('dynamic')
+        for (final field in typeNode.positionalFields)
+          _resolveRecordFieldTypeDynamic(field, env)
       ];
       final named = <String, RuntimeType>{};
-      for (var i = 0; i < typeNode.namedFields.length; i++) {
-        named['\$named$i'] = const NamedRuntimeType('dynamic');
+      for (final field in typeNode.namedFields) {
+        named[field.name?.name ?? ''] =
+            _resolveRecordFieldTypeDynamic(field, env);
       }
       return RecordRuntimeType(
           positionalFieldTypes: positional, namedFieldTypes: named);
@@ -278,6 +261,20 @@ class InterpretedFunction implements Callable {
       throw RuntimeD4rtException(
           "Unsupported type annotation for constraint: ${typeNode.runtimeType}");
     }
+  }
+
+  /// DGUB8: resolve one record-type-annotation field's declared type.
+  ///
+  /// [SRecordTypeField.type] is nullable — malformed source, or a bundle
+  /// serialised before the field node existed — where the analyzer's own
+  /// `RecordTypeAnnotationField.type` is not. `dynamic` is the neutral element
+  /// for the structural comparison, so an unknown field type widens the record
+  /// type rather than making the whole annotation unresolvable.
+  static RuntimeType _resolveRecordFieldTypeDynamic(
+      SRecordTypeField field, Environment env) {
+    final typeNode = field.type;
+    if (typeNode == null) return const NamedRuntimeType('dynamic');
+    return _resolveTypeAnnotationDynamic(typeNode, env);
   }
 
   /// DFUB5: the declared name of a formal parameter, unwrapping a

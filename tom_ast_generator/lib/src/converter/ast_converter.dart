@@ -177,6 +177,8 @@ class AstConverter {
     if (node is analyzer.TypeParameter) return _convertTypeParameter(node);
     if (node is analyzer.RecordTypeAnnotation)
       return _convertRecordTypeAnnotation(node);
+    if (node is analyzer.RecordTypeAnnotationField)
+      return _convertRecordTypeField(node);
 
     // Parameters
     if (node is analyzer.FormalParameterList)
@@ -1321,31 +1323,28 @@ class AstConverter {
   SRecordTypeAnnotation _convertRecordTypeAnnotation(
     analyzer.RecordTypeAnnotation node,
   ) {
-    final positionalFields = <SAstNode>[];
-    final namedFields = <SAstNode>[];
-
-    for (final field in node.positionalFields) {
-      final converted = convert(field);
-      if (converted != null) {
-        positionalFields.add(converted);
-      }
-    }
-
-    if (node.namedFields != null) {
-      for (final field in node.namedFields!.fields) {
-        final converted = convert(field);
-        if (converted != null) {
-          namedFields.add(converted);
-        }
-      }
-    }
-
     return SRecordTypeAnnotation(
       offset: node.offset,
       length: node.length,
-      positionalFields: positionalFields,
-      namedFields: namedFields,
+      positionalFields:
+          node.positionalFields.map(_convertRecordTypeField).toList(),
+      namedFields:
+          node.namedFields?.fields.map(_convertRecordTypeField).toList() ??
+          const [],
       isNullable: node.question != null,
+    );
+  }
+
+  SRecordTypeField _convertRecordTypeField(
+    analyzer.RecordTypeAnnotationField node,
+  ) {
+    return SRecordTypeField(
+      offset: node.offset,
+      length: node.length,
+      type: _as<STypeAnnotation>(node.type),
+      name: node is analyzer.RecordTypeAnnotationNamedField
+          ? _tokenToIdentifier(node.name)
+          : null,
     );
   }
 

@@ -7,8 +7,9 @@
 // instead of throwing "not implemented", and function/record return types are
 // actually validated. This file is the guard that the ast tree agrees.
 //
-// The function half agrees exactly. The RECORD half does not, and the
-// divergence is pinned rather than skipped — see the group comment below.
+// The function half agrees exactly. The RECORD half does not YET, because this
+// package resolves a PUBLISHED `tom_d4rt_ast` that predates the fix — the
+// divergence is pinned rather than skipped, see the group comment below.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
@@ -85,41 +86,55 @@ int main() {
     });
   });
 
-  // The record cases are KNOWN-DIVERGENT from the analyzer tree. The root cause
-  // is upstream of this interpreter: `tom_ast_generator` drops every
+  // The record cases are KNOWN-DIVERGENT from the analyzer tree, and the
+  // divergence is now a PUBLISH LAG rather than a defect. The root cause was
+  // upstream of this interpreter: `tom_ast_generator` dropped every
   // `RecordTypeAnnotationField` into an opaque `_SUnknownNode`, so a record type
-  // ANNOTATION reaches the ast tree carrying only its arity — no field types and
-  // no named-field keys. `_resolveTypeAnnotationWithEnvironment` therefore
-  // rebuilds it with `dynamic` field types and SYNTHETIC named keys (`$named0`,
-  // `$named1`, ...). That is tracked as dgub8.
+  // ANNOTATION reached the ast tree carrying only its arity — no field types and
+  // no named-field keys — and the resolver rebuilt it with `dynamic` field types
+  // and SYNTHETIC named keys (`$named0`, `$named1`, ...).
   //
-  // MEASURED CONSEQUENCE, which is sharper than "arity-only" and is the reason
-  // these cases are worth pinning at all: the record VALUE side derives its
-  // RecordRuntimeType from the actual `InterpretedRecord`, so it carries the
-  // REAL key (`label`). Comparing `{label: String}` against `{$named0: dynamic}`
-  // fails on the key. So:
+  // That is FIXED in the workspace: `SRecordTypeField` (tom_ast_model 0.2.0)
+  // carries the field type and named key, the converter populates it, and both
+  // `tom_d4rt_ast` resolvers read it. The proof lives in
+  // `tom_d4rt_ast/test/runtime/dgub8_record_type_annotation_test.dart`, which
+  // asserts the tightened answers end-to-end on hand-built bundles.
+  //
+  // This package still sees the OLD behaviour because it compiles against the
+  // PUBLISHED `tom_d4rt_ast`, which predates the fix. Tightening the pins below
+  // therefore has to wait for the publish chain
+  // (dguc9_agñb-publish-d4rt-ast-tighten-exec-record-pins); each case names its
+  // own tightened expectation.
+  //
+  // MEASURED CONSEQUENCE of the published behaviour, which is sharper than
+  // "arity-only" and is the reason these cases are worth pinning at all: the
+  // record VALUE side derives its RecordRuntimeType from the actual
+  // `InterpretedRecord`, so it carries the REAL key (`label`). Comparing
+  // `{label: String}` against `{$named0: dynamic}` fails on the key. So:
   //   * a record with ONLY positional fields matches by arity, ignoring field
   //     types (`(1, 'a') is (String, int)` is true — F-DFUB5-EXEC-9);
   //   * a record with ANY named field NEVER matches, in either direction
   //     (F-DFUB5-EXEC-5 and -6 both answer false).
   // The second is a false NEGATIVE, i.e. the conservative direction, which is
-  // why it is left alone here rather than "fixed" by ignoring named keys too —
-  // that would trade a restrictive answer for an unsound one, and dgub8 removes
-  // the guesswork entirely.
+  // why it was left alone rather than "fixed" by ignoring named keys too — that
+  // would have traded a restrictive answer for an unsound one.
   //
   // These are pinned to the measured behaviour rather than skipped. A skip
   // records nothing and stays silent forever; a pin states exactly how far the
-  // analyzer-free tree currently gets, and goes RED the moment dgub8 lands —
+  // published tree gets, and goes RED the moment the constraint is bumped —
   // precisely when each case should be tightened back to the analyzer-tree
   // expectation quoted on it.
-  group('DFUB5 (exec): record runtime type checks — degraded, see dgub8', () {
+  group(
+      'DFUB5 (exec): record runtime type checks — degraded pending the '
+      'tom_d4rt_ast publish', () {
     test(
         'F-DFUB5-EXEC-5: `is` RecordType cannot yet match a named-field record '
         '[2026-07-27] (PASS)', () {
-      // ANALYZER TREE EXPECTS `[true, 42, 'answer']` (F-DFUB5-5). The ast tree
-      // answers false: annotation key `$named0` vs value key `label`. Field
-      // ACCESS is unaffected — only the type check degrades. Tighten to `true`
-      // when dgub8 lands.
+      // ANALYZER TREE EXPECTS `[true, 42, 'answer']` (F-DFUB5-5). The published
+      // ast tree answers false: annotation key `$named0` vs value key `label`.
+      // Field ACCESS is unaffected — only the type check degrades. TIGHTEN TO
+      // `[true, 42, 'answer']` once the constraint is bumped; the fixed
+      // behaviour is already asserted by F-DGUB8-AST-1.
       const code = '''
 List main() {
   var rec = (42, label: 'answer');
@@ -134,8 +149,9 @@ List main() {
         '(PASS)', () {
       // Agrees with the analyzer tree (F-DFUB5-6) — but for the wrong reason:
       // it is rejected on the synthetic named key, not on the field types. It
-      // must stay `false` once dgub8 lands, so this case is the one record
-      // expectation that does NOT change then.
+      // must STAY `false` after the constraint bump, so this case is the one
+      // record expectation that does NOT change then (F-DGUB8-AST-2 pins the
+      // same answer arrived at for the right reason).
       const code = '''
 bool main() {
   var rec = (42, label: 'answer');
@@ -151,8 +167,9 @@ bool main() {
       // ANALYZER TREE EXPECTS a throw (F-DFUB5-7): `('wrong', 'shape')` is not
       // a `(int, String)`. Both are 2-positional records and the annotation's
       // field types degraded to `dynamic`, which accepts anything — so the
-      // value is returned unchecked. Tighten to
-      // `throwsA(... "can't be returned")` when dgub8 lands.
+      // value is returned unchecked. TIGHTEN TO
+      // `throwsA(... "can't be returned")` once the constraint is bumped;
+      // F-DGUB8-AST-6 already shows the field types being compared.
       const code = '''
 (int, String) makeRecord() {
   return ('wrong', 'shape');
@@ -191,7 +208,8 @@ int main() {
       // separates "record `is` is wholly broken" from "the synthetic named key
       // is what fails". Positional-only annotations carry no keys to synthesize,
       // so they still match — by arity, ignoring field types (hence `(String,
-      // int)` also answering true, which dgub8 must tighten to false).
+      // int)` also answering true). TIGHTEN TO `[true, false, false]` once the
+      // constraint is bumped; F-DGUB8-AST-5/-6/-7 pin all three answers.
       const code = '''
 List main() {
   var r = (1, 'a');

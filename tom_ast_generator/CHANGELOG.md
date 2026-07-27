@@ -1,3 +1,23 @@
+## 0.1.5
+
+### Fixed — record type annotation fields are converted, not dropped (DGUB8)
+
+`_convertRecordTypeAnnotation` called the generic `convert()` on each
+`analyzer.RecordTypeAnnotationField`. That class was never in the dispatch
+chain, so every field fell through to the opaque unknown-node placeholder:
+the mirror annotation reached the interpreter carrying only its ARITY — no
+field types, and no named-field keys. Downstream that made
+`(42, label: 'answer') is (int, {String label})` unanswerable, and let
+`(1, 'a') is (String, int)` answer true.
+
+Fields now convert into `SRecordTypeField` (`tom_ast_model` 0.2.0), keeping
+the declared type — recursively, so a record inside a record survives — and
+the named-field key. `RecordTypeAnnotationField` is also wired into the
+generic dispatch, so no future caller can silently produce a placeholder
+again.
+
+Requires `tom_ast_model >=0.2.0`.
+
 ## 0.1.4
 
 - Publish the analyzer-10 migration. The 0.1.3 release on pub.dev still carried
