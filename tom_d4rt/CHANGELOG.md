@@ -382,6 +382,248 @@ change how a bare `{...}` literal dispatches.
 
 ## 1.13.0
 
+The first release after 1.12.1, carrying two batches: the fork-update
+realignment against upstream `kodjodevf/d4rt` (DFUB1–DFUB13, below) and the
+first stdlib gap-audit bridges (SC1/SC10/SC11, further down). Several of the
+DFUB entries are behaviour **tightenings** — read the DFUB7 and DFUB11 notes
+before upgrading.
+
+DFUB12 is absent by design, not by omission: it split the analyzer-free tree's
+library barrel so a web target can avoid `dart:io`, which is meaningless here —
+this package depends on `analyzer` and never targeted the web.
+
+### Added — relative filesystem imports actually resolve (DFUB1)
+
+`execute()` / `executeAsync()` have long accepted `basePath` and
+`allowFileSystemImports`, and both were dead no-ops: an interpreted script could
+not import a sibling `.dart` file from disk no matter how they were set. They are
+now wired through to `ModuleLoader`, which resolves a relative import against
+`basePath` and reads the file when the flag is enabled.
+
+Nested relative imports resolve without shared state, because `loadModule`
+already resolves per module and saves/restores the current library around each
+load. Upstream's accompanying 453-line mutable→immutable `currentLibrary`
+refactor is deliberately not ported — it is not needed for the fix.
+
+Ports upstream `973feab`.
+
+### Security — filesystem module reads are gated on `FilesystemPermission` (DFUB2)
+
+DFUB1's on-disk reads are checked **before** the read, so enabling
+`allowFileSystemImports` is not by itself permission to read the filesystem: an
+ungranted import now throws `RuntimeD4rtException ... requires
+FilesystemPermission`.
+
+The single terminal "module not found" throw is also replaced by a diagnostic
+that distinguishes the four real causes: filesystem imports disabled, an enabled
+filesystem import whose file is missing (naming the resolved path), a missing
+`package:` import, and a URI that was simply never preloaded.
+
+Separately, `visitImportDirective` now self-resolves any already-absolute URI
+rather than only `dart:` and `package:`, so an absolute `file:` import reaches
+the loader without a base — matching upstream's `resolveModuleUri`.
+
+Ports the read gate and error shapes of upstream `973feab`.
+
+### Fixed — one file imported two ways was loaded twice (DFUB3)
+
+A filesystem module now has ONE identity regardless of how it is spelled. The
+URI that flows through the loader is canonicalized to an absolute `file:` form
+for reads and for the DFUB2 permission gate, and the module cache is keyed by the
+symlink-resolved real path. Relative, absolute, `..`-containing, symlinked-file
+and symlinked-directory spellings of the same file therefore share one module
+instance — previously each spelling produced its own, so top-level state was
+duplicated and identity comparisons across the two copies failed.
+
+Ports upstream `3b8b8ca`.
+
+### Added — instance-method and setter dispatch on extension-type instances (DFUB4)
+
+`InterpretedExtensionType` gained a `setters` map, so assigning to a member of an
+extension-type instance binds and invokes the matching setter instead of failing;
+and `InterpretedExtensionTypeInstance` now resolves instance **methods** — not
+only getters — at the method-invocation, implicit-`this` identifier, and
+property-access sites.
+
+Ports upstream `2f519cd` (Extension Type Support 0.2.2).
+
+### Added — runtime type checks for function types and record types (DFUB5)
+
+`is` / `as` against a function type or a record type annotation no longer throws
+"not implemented", and function/record **return-type validation** is now actually
+enforced.
+
+Two new structural runtime types in `runtime_interfaces.dart`:
+`FunctionRuntimeType` (covariant return, contravariant parameters, arity and
+named-parameter shape) and `RecordRuntimeType` (positional arity, named keys,
+per-field compatibility), alongside the shared `NamedRuntimeType` contract.
+`InterpretedFunction` exposes a cached `callableRuntimeType`.
+
+Ports upstream `848f03d`.
+
+### Added — applied generic type arguments preserved at runtime (DFUB6)
+
+New `AppliedRuntimeType` (a base type plus its applied arguments, with
+element-wise subtyping and `dynamic` / `Object` / `void` treated as wildcards),
+so `is Box<int>` honours the type argument instead of matching any `Box`.
+
+Generic and typed native-collection returns are validated element-wise: the
+applied return type is captured at declaration time onto
+`InterpretedFunction.declaredReturnTypeApplied` and checked in
+`visitReturnStatement`. Async and generator functions are exempt, because their
+`Future<T>` / `Stream<T>` / `Iterable<T>` return type wraps the inner value
+rather than describing it.
+
+Ports the applied-runtime-types half of upstream `1042fff`.
+
+### Fixed — `BridgedClass` / `TypeParameter` subtype checks were too permissive (DFUB7)
+
+**Both halves are tightenings and can turn a previously-true `is` into false.**
+
+- `BridgedClass.isSubtypeOf`: the `num` early block answered true for
+  `num <: int` and `num <: double`, making `num` a subtype of its own subtypes.
+  Only `num <: num` is kept; the downward `int` / `double <: num` direction is
+  unaffected.
+- `TypeParameter.isSubtypeOf`: the unconditional `return true` is replaced by
+  real rules — another `TypeParameter` is a subtype; a bounded `T extends X`
+  defers to its bound, so `T extends num` is **not** a subtype of `String`; an
+  unbounded `T` is a subtype only of the top types (`Object` / `dynamic` /
+  `void`).
+
+Ports the subtype half of upstream `28ca517`.
+
+### Fixed — omitted optional super parameters clobbered the parent's default (DFUB8)
+
+An optional super parameter (`[super.x]` / `{super.x}`) that the caller omits,
+and that carries no default of its own in the child constructor, is no longer
+forwarded to the parent as an explicit `null`. Skipping the forward lets the
+parent apply its declared default, e.g. `Parent(this.name, [this.value = 0])`.
+Required super parameters are unaffected.
+
+Ports the two failing super-parameter cases from upstream `class_test`.
+
+### Added — operator and `call()` dispatch on extension-type instances (DFUB9)
+
+Operator methods declared on an `extension type` were already stored on
+`InterpretedExtensionType.methods`, keyed by the operator lexeme, but no dispatch
+site recognised an `InterpretedExtensionTypeInstance` receiver. Binary operators
+reported `Unsupported operator (PLUS) for types InterpretedExtensionTypeInstance
+…`, unary `-` reported `Operand for unary '-' must be a number …`, and invoking
+an instance silently returned the instance itself instead of running its `call`
+method.
+
+Seven dispatch sites now resolve the operator on the extension type, bind `this`,
+and invoke it:
+
+- `visitBinaryExpression` — `+`, `*`, `>`, `==` and friends. The lookup runs
+  *before* the native comparison/arithmetic switch, because a comparison such as
+  `>` would otherwise reach `left as dynamic > right` and throw a
+  `NoSuchMethodError` on the instance.
+- compound assignment (`+=`, `*=`, …) — dispatches with the *wrapped* instance as
+  the receiver, not the unwrapped representation value.
+- `visitPrefixExpression` — unary `-` and `~`, bound with an empty argument list.
+  A zero-arg `operator -()` and a one-arg binary `operator -` share the `-` key,
+  so only the prefix site may bind it with no arguments.
+- index get `[]` and index set `[]=`.
+- both invocation paths — `visitMethodInvocation` (`calc(5)`) and function
+  expression invocation (`(calc)(5)`) — route to the `call` method, forwarding
+  positional, named and type arguments.
+
+### Fixed — circular module imports and exports blew the stack (DFUB10)
+
+`ModuleLoader.loadModule` only published a module to its cache at the very END,
+after recursing through every import and export directive. A cycle `A -> B -> A`
+therefore re-entered the load of `A` while `A` was still in progress, the cache
+guard missed, and the recursion never bottomed out. Circular imports and circular
+exports are both **legal** Dart and run correctly, so this rejected valid
+programs.
+
+The loader now publishes a *partial* module under an in-flight map before walking
+any directive, and a cyclic re-entry receives that partial instead of recursing.
+The partial carries the very `Environment` instance that later receives the
+module's own declarations, so importers hold a live reference.
+
+Because `Environment.importEnvironment` **copies** bindings at call time rather
+than aliasing the source environment, a merge taken from a still-incomplete
+module would otherwise capture an empty export set and never self-heal. Each such
+merge is recorded and **replayed** once the in-flight module finishes. Replays are
+idempotent — `importEnvironment` skips names already bound to the identical value
+— so they cost nothing and cannot raise a spurious conflict. A failed load drops
+its in-flight registration, so an abandoned partial is never handed out on a
+later execute.
+
+DELIBERATE DIVERGENCE FROM UPSTREAM: `kodjodevf/d4rt` `f6e1257` fixes the same
+crash by *detecting* the cycle and throwing "Circular module dependency
+detected". That rejects valid Dart, so it is not adopted here.
+
+### Security — scoped `FilesystemPermission` grants are now actually enforced (DFUB11)
+
+**This is a behavioural tightening. Scripts that relied on the previous, laxer
+matching will now be denied.**
+
+Two independent sandbox holes are closed (ported from upstream `861117a`).
+
+**1. No per-operation enforcement.** The `dart:io` bridges in
+`stdlib/io/{file,directory,file_system_entity}.dart` carried *zero* permission
+checks. The only gate was at `dart:io` IMPORT time, and it merely required that
+*some* `FilesystemPermission` had been granted. A grant scoped to one directory
+was therefore indistinguishable from `FilesystemPermission.any` once the import
+succeeded — every bridged file and directory operation ran unchecked.
+
+Every read/write entry point now calls
+`checkFilesystemRead/WritePermission` **before** the native operation, so a
+denial cannot leave a side effect behind. Operations are classified by what they
+actually do: `rename` requires write on *both* the old and the new path, `copy`
+requires read on the source *and* write on the target, and
+`File.open`/`openSync` follow the requested `FileMode` (only `FileMode.read`
+counts as a read). `FileStat.stat`/`statSync` are gated too — they take a raw
+path and would otherwise sidestep every `File`/`Directory` gate.
+
+**2. Naive scope matching.** `FilesystemPermission.allows` compared with a raw
+`opPath.startsWith(_path)`. Two consequences: `..` traversal escaped the scope
+(`/allowed/../etc/passwd` was "inside" `/allowed`), and a sibling directory whose
+name merely shares the string prefix (`/allowed_sneaky` against a grant on
+`/allowed`) was treated as inside it.
+
+Matching is now canonical and on a path-*segment* boundary: both sides are
+absolutized, normalized to `/` separators, lowercased on a Windows drive letter,
+and reduced by resolving `.` and `..` away; the request must then either equal the
+scope or start with `scope + '/'`. Symlinks are **not** resolved at this stage —
+see the 1.22.0 entry, which revisits exactly that decision and makes the matcher
+symlink-aware.
+
+**Pathless operations.** Some checks have no meaningful path — the `dart:io`
+import gate asks only "is *any* filesystem access granted?". Those now pass
+`'pathAgnostic': true`, which waives the PATH check **only**, never the
+read/write/execute flags. Conversely, a scoped grant asked about an operation
+with no path and no `pathAgnostic` flag now **denies**, rather than assuming the
+operation is in scope. Unscoped grants (`FilesystemPermission.any`, `.read`,
+`.write`) are unaffected and remain allow-all.
+
+### Fixed — a failed import or export now says which file to edit (DFUB13)
+
+A missing import was one of the least actionable errors the interpreter could
+produce. Three defects conspired:
+
+1. `execute()`'s catch-all relabelled `SourceCodeD4rtException` as "Unexpected
+   error: …", discarding a diagnostic the loader had deliberately composed and
+   telling the user they had hit an interpreter bug rather than mistyped a
+   package name.
+2. A missing `package:` URI got the generic "not a recognized Dart standard
+   library" tail — noise, since nobody expected it to be a stdlib library, and
+   neither real fix (supply the source, bridge the package) was mentioned.
+3. The message named the module that could not be FOUND but never the module that
+   ASKED for it. In a barrel chain that is the wrong half: the missing URI is the
+   symptom, the file holding the directive is what you have to open.
+
+`wrapDirectiveError()` preserves the concrete exception type rather than
+returning a fixed one, because the two loaders report a missing module
+differently — the filesystem loader raises `SourceCodeD4rtException`, the bundle
+loader `RuntimeD4rtException`. The wrap is applied once, at the innermost frame,
+so a deep chain yields one prefix instead of one per frame; and it is skipped for
+a bare `source:` script, where owner and target coincide and a synthetic owner URI
+would only restate the target.
+
 ### Added — `Stopwatch` and `UriData` core bridges (SC1, SC10)
 
 Two `dart:core` classes the SDK gap audit flagged as missing are now bridged,
