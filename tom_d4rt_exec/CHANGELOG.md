@@ -41,6 +41,73 @@ boundary so the gap stays visible. Closing it is tracked as dguc1.
 lookup-only and free of `dart:io` so it remains usable where there is no
 filesystem.
 
+### Record type annotations resolve to their real shape (DGUB8)
+
+Requires `tom_d4rt_ast >=0.14.0` and `tom_ast_generator >=0.1.5`. The fix itself
+is upstream — this package has no record resolver of its own — but the constraint
+bump is what delivers it, and the behaviour change is visible here.
+
+Previously a record type annotation reached the interpreter carrying only its
+ARITY: every field type became `dynamic`, and every named key became a synthetic
+`$named0`, `$named1`, … Because the record VALUE side derives its runtime type
+from the actual record, it carried the real key, so:
+
+- a record with ANY named field matched nothing in either direction —
+  `(42, label: 'answer') is (int, {String label})` answered **false** and now
+  answers **true**;
+- a positional-only record matched on arity while IGNORING field types —
+  `(1, 'a') is (String, int)` answered **true**, unsoundly, and now answers
+  **false**;
+- consequently a record return-type mismatch was accepted unchecked.
+  `(int, String) f() => ('wrong', 'shape');` **now throws** "can't be returned".
+
+**The second and third are tightenings**: code that relied on a record `is` or a
+record return type being accepted where the field types do not actually match
+will start being rejected. Matching records are unaffected.
+
+`test/dfub5_function_record_runtime_type_test.dart`'s five record cases were
+pinned to the degraded answers while the fix was unpublished; they are now
+tightened to the analyzer-tree expectations and the group no longer calls itself
+degraded.
+
+### Filesystem permission scopes are symlink-aware (DGUB5)
+
+Also delivered by the `tom_d4rt_ast >=0.14.0` bump, and also a tightening.
+`FilesystemPermission` now compares the grant and the requested path on their
+REAL paths, with symlinks resolved, instead of on their literal spellings:
+
+- **A grant on a resolved path now admits an unresolved spelling of the same
+  location** — on macOS `Directory.systemTemp` hands back `/var/folders/...`,
+  itself a symlink to `/private/var/folders/...`, so granting one and reading
+  through the other used to be denied for no visible reason.
+- **A symlink inside a granted directory no longer reaches outside it.** This is
+  the security-relevant half: `<sandbox>/link_to_elsewhere/x` used to satisfy a
+  `<sandbox>` grant because it was lexically in scope, while actually reading
+  from wherever the link pointed.
+
+**So this can deny operations that previously succeeded** — specifically, any
+access that relied on a symlink to leave its granted directory. Grants that name
+the location the operation really touches are unaffected, whichever way either
+side is spelled. Paths that do not exist yet are still matched (resolution walks
+up to the deepest existing ancestor and re-appends the remainder), and resolution
+failures fall back to the literal spelling rather than throwing.
+
+### Stdlib bridges from the SDK gap audit (SC1–SC11)
+
+The same bump carries twenty-five previously unbridged `dart:core`,
+`dart:async`, `dart:collection` and `dart:convert` classes, none of which had
+ever been published: `Stopwatch`, `UriData`/`Uri.data`, `LinkedHashSet`,
+`SplayTreeSet`, `UnmodifiableMapView`, `UnmodifiableSetView`, `StreamConsumer`,
+seven catchable `dart:core` error types (`NoSuchMethodError`,
+`ConcurrentModificationError`, `IndexError`, `TypeError`, `AssertionError`,
+`StackOverflowError`, `OutOfMemoryError`), `StreamView`, `AsyncError`,
+`StreamTransformerBase`, `DoubleLinkedQueue`/`DoubleLinkedQueueEntry`,
+`BytesBuilder`, `JsonUtf8Encoder` and `ClosableStringSink`, plus the interpreter
+fixes that made them reachable (`is` without `isAssignable`, catch-clause
+matching against the new error hierarchy, a broadened `Stream.transform`, and a
+queue supertype block that also repairs the already-shipped `ListQueue`). These
+are additions, not tightenings.
+
 ## 1.10.0
 
 ### Security — scoped `FilesystemPermission` grants are now actually enforced (DFUB11)
