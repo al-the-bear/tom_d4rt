@@ -21,7 +21,7 @@ dependencies:
   # zero analyzer/dart:io dependency, so the app builds and runs on the web.
   tom_d4rt_flutter_ast:
     path: ../tom_d4rt_flutter_ast
-  tom_d4rt_ast: ^0.1.13
+  tom_d4rt_ast: ^0.1.15
 
 dev_dependencies:
   flutter_test:
