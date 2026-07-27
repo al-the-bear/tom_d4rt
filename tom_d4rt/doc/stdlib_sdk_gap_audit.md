@@ -238,6 +238,36 @@ is deferred on the same reasoning as the typed_data hierarchy: the
 members all work, only the type tests are wrong, so it is filed rather
 than fixed here.
 
+## Notes on argument guards in hand-written bridges
+
+The interpreter wraps any native failure inside an adapter into a
+`RuntimeD4rtException` that names the class and the member, so a mistyped
+argument already reads acceptably without the bridge doing anything:
+
+```
+Native error during static bridged method call 'parse' on UriData:
+type 'int' is not a subtype of type 'String' in type cast
+```
+
+That wrapping does **not** cover two shapes, both found by probing the
+`UriData` bridge's error surface rather than its happy path:
+
+- **Too few arguments.** An adapter that opens with `positionalArgs[0]`
+  throws a list `RangeError`, and the wrapped message is meaningless to a
+  script author — `UriData.parse()` reports *"RangeError (length): Invalid
+  value: Valid value range is empty: 0"*.
+- **Too many arguments.** `UriData.parse('data:,a', 'extra')` returns the
+  parsed value and silently discards the second argument, so a typo in a
+  script is invisible.
+
+The bridges written for SC5–SC9 guard both (see
+[`byte_conversion.dart`](../lib/src/stdlib/convert/byte_conversion.dart)
+for the style, and the `Timer` "arity guards" group for the test shape);
+older ones largely do not. Nothing that works today breaks — the cost is
+only a poor diagnostic on already-invalid code — and the shape is generic
+to the hand-written stdlib, so the unit of work is a sweep rather than a
+patch to any one bridge.
+
 ## Recommended next actions
 
 1. **P1 is complete** — the pure classes (`Stopwatch`, the collection

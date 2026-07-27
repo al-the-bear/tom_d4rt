@@ -11,17 +11,20 @@
 // Why registration-level and not script-level: driving a script needs a
 // parsed AST, and the analyzer-based front end lives in `tom_d4rt_exec`,
 // which consumes `tom_d4rt_ast` from pub.dev rather than by path — so it
-// cannot see these changes until the package is published. Instance getters
-// take a nullable `InterpreterVisitor`, so they *can* be invoked directly
-// here; constructors and methods require a live visitor and are covered by
-// the script-level suite in `tom_d4rt` (and, after publishing, in
-// `tom_d4rt_exec`).
+// cannot see these changes until the package is published. The adapters
+// themselves are still reachable: instance getters take a nullable visitor,
+// and constructors and methods take one that a test can build directly over
+// an empty module set — so this file drives them rather than settling for
+// asserting that their names are declared.
+
+import 'dart:convert';
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
 
 void main() {
   late Environment env;
+  late InterpreterVisitor visitor;
 
   setUp(() {
     env = Environment();
@@ -29,6 +32,14 @@ void main() {
     // — that is the path the runner uses, so it also pins that the new
     // bridges are reachable from a stock environment.
     Stdlib(env).register();
+    visitor = InterpreterVisitor(
+      globalEnvironment: env,
+      moduleContext: AstModuleLoader(
+        modules: const {},
+        globalEnvironment: env,
+        runner: D4rtRunner(),
+      ),
+    );
   });
 
   group('SC1: Stopwatch core bridge', () {
@@ -120,6 +131,53 @@ void main() {
       expect(bridge.getters['charset']!(null, data), 'utf-8');
       expect(bridge.getters['isBase64']!(null, data), isFalse);
       expect(bridge.getters['uri']!(null, data), isA<Uri>());
+    });
+
+    test('F-SC10-AST-6: the constructor adapters honour their named arguments '
+        '[2026-07-27]', () {
+      // Declaring the constructors is not the same as forwarding their five
+      // optional named arguments; `encoding` in particular is the one value
+      // here that has to cross into native code as an object rather than a
+      // primitive.
+      final ctors = env.findBridgedClassByName('UriData')!.constructors;
+      final latin = ctors['fromString']!(visitor, ['café'],
+          {'mimeType': 'text/plain', 'encoding': latin1}) as UriData;
+      expect(latin.charset, 'iso-8859-1');
+      expect(latin.contentAsString(), 'café');
+
+      final tagged = ctors['fromString']!(visitor, ['x'], {
+        'mimeType': 'text/plain',
+        'parameters': {'a': 'b'},
+        'base64': true,
+      }) as UriData;
+      expect(tagged.isBase64, isTrue);
+      expect(tagged.parameters['a'], 'b');
+
+      // `mimeType` defaults to application/octet-stream here, matching the SDK
+      // constructor rather than leaving the argument null.
+      final bytes = ctors['fromBytes']!(visitor, [
+        [1, 2, 3]
+      ], const {}) as UriData;
+      expect(bytes.mimeType, 'application/octet-stream');
+      expect(bytes.contentAsBytes(), [1, 2, 3]);
+
+      expect(ctors['fromUri']!(visitor, [Uri.parse('data:,round')], const {}),
+          isA<UriData>());
+    });
+
+    test('F-SC10-AST-7: the content methods read through with and without an '
+        'encoding [2026-07-27]', () {
+      final methods = env.findBridgedClassByName('UriData')!.methods;
+      final data = UriData.parse('data:text/plain;charset=iso-8859-1,caf%E9');
+      expect(methods['contentAsString']!(visitor, data, [], const {}, null),
+          'café');
+      expect(
+          methods['contentAsString']!(
+              visitor, data, [], {'encoding': latin1}, null),
+          'café');
+      expect(
+          methods['contentAsBytes']!(visitor, data, [], const {}, null),
+          [0x63, 0x61, 0x66, 0xE9]);
     });
   });
 

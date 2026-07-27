@@ -126,4 +126,88 @@ void main() {
       expect(execute(source), equals('data:,plain'));
     });
   });
+
+  // The bridge accepts five named arguments and a third constructor that the
+  // tests above never reach. They work today — but unguarded behaviour is one
+  // refactor away from silently breaking, and the `encoding:` pair is the only
+  // place in this bridge where a value has to survive the crossing *into*
+  // native code as a bridged object rather than a primitive.
+  group('UriData named-argument surface', () {
+    test('F-SC10-10: fromString honours the encoding argument [2026-07-27]',
+        () {
+      // `latin1` is a dart:convert global, so it reaches the adapter as the
+      // native Encoding the SDK constructor demands.
+      const source = '''
+      import 'dart:convert';
+      main() {
+        final d = UriData.fromString('café', mimeType: 'text/plain',
+            encoding: latin1);
+        return [d.charset, d.contentAsString()];
+      }
+      ''';
+      expect(execute(source), equals(['iso-8859-1', 'café']));
+    });
+
+    test('F-SC10-11: contentAsString honours the encoding argument '
+        '[2026-07-27]', () {
+      const source = '''
+      import 'dart:convert';
+      main() {
+        final d = UriData.parse('data:text/plain;charset=iso-8859-1,caf%E9');
+        return d.contentAsString(encoding: latin1);
+      }
+      ''';
+      expect(execute(source), equals('café'));
+    });
+
+    test('F-SC10-12: custom parameters survive both ways [2026-07-27]', () {
+      const source = '''
+      main() {
+        final d = UriData.fromString('x', mimeType: 'text/plain',
+            parameters: {'a': 'b'});
+        return [d.parameters['a'], UriData.parse(d.toString()).parameters['a']];
+      }
+      ''';
+      expect(execute(source), equals(['b', 'b']));
+    });
+
+    test('F-SC10-13: fromBytes accepts percentEncoded [2026-07-27]', () {
+      // The SDK omits a `text/plain` mime type from the rendered URI — it is
+      // the data-URI default — so `data:,AB` is the correct round trip.
+      const source = '''
+      main() {
+        final d = UriData.fromBytes([65, 66], mimeType: 'text/plain',
+            percentEncoded: true);
+        return [d.toString(), d.contentAsString()];
+      }
+      ''';
+      expect(execute(source), equals(['data:,AB', 'AB']));
+    });
+
+    test('F-SC10-14: fromUri reads a Uri that already carries data '
+        '[2026-07-27]', () {
+      const source = '''
+      main() {
+        final d = UriData.fromUri(Uri.parse('data:text/plain;base64,cGF5bG9hZA=='));
+        return [d.isBase64, d.contentAsString(), d.contentText];
+      }
+      ''';
+      expect(execute(source), equals([true, 'payload', 'cGF5bG9hZA==']));
+    });
+
+    test('F-SC10-15: Uri.data is null when the scheme is not data '
+        '[2026-07-27]', () {
+      // The getter is nullable in the SDK, and a script that treats every URI
+      // as a data URI has to be able to tell.
+      const source = '''
+      main() {
+        return [
+          Uri.parse('https://example.dev/a').data == null,
+          Uri.parse('data:,yes').data == null,
+        ];
+      }
+      ''';
+      expect(execute(source), equals([true, false]));
+    });
+  });
 }
