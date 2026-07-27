@@ -1,3 +1,37 @@
+## 1.13.0
+
+### Added — `Stopwatch` and `UriData` core bridges (SC1, SC10)
+
+Two `dart:core` classes the SDK gap audit flagged as missing are now bridged,
+mirrored file-for-file into `tom_d4rt_ast`:
+
+- **`Stopwatch`** — the default constructor, `start`/`stop`/`reset`/`toString`,
+  and the full getter set (`elapsed`, `elapsedTicks`, `elapsedMilliseconds`,
+  `elapsedMicroseconds`, `frequency`, `isRunning`). A pure monotonic-clock read
+  with no I/O, so it needs no permission gate.
+- **`UriData`** — `fromString` / `fromBytes` / `fromUri`, the static `parse`,
+  `contentAsBytes` / `contentAsString`, and the `uri` / `mimeType` / `charset` /
+  `isBase64` / `parameters` / `contentText` getters. `contentAsString` accepts
+  an `Encoding`, which `dart:convert` already supplies as `utf8` / `latin1` /
+  `ascii`.
+
+### Fixed — the `Uri.data` getter was missing
+
+`Uri.dataFromString` and `Uri.dataFromBytes` were already bridged, but `Uri.data`
+was not — so a script could *build* a `data:` URI and then had no route back to
+its payload. Adding the getter closes that loop, and is what makes the new
+`UriData` bridge reachable from a parsed URI at all.
+
+### Documented — intentionally-unbridged SDK classes
+
+`doc/d4rt_limitations.md` gains an "Intentionally-Unbridged SDK Classes" section
+separating the classes that **cannot** be honoured meaningfully (`Zone`,
+`Expando`, `WeakReference`, `Finalizer` — each would require a guarantee about
+native identity or GC timing that an interpreter cannot make) from those merely
+**deferred** pending a consumer (`Link`, `WebSocket`, `GZipCodec`/`ZLibCodec`,
+`MutableRectangle`). The boundary applies to both interpreter trees, which share
+one mirrored stdlib set.
+
 ## 1.12.1
 
 ### Fixed — `toString()` on a bridged enum TYPE (via `runtimeType`) (RCJ12)

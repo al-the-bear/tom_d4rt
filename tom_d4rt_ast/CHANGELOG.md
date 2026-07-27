@@ -1,3 +1,23 @@
+## 0.5.0
+
+### Added — `Stopwatch` and `UriData` core bridges, plus the `Uri.data` getter (SC1, SC10)
+
+Mirrors `tom_d4rt` 1.13.0 file-for-file — the two trees share one stdlib bridge
+set, so a class present in only one of them is a silent capability difference.
+
+- **`Stopwatch`** — default constructor, `start`/`stop`/`reset`/`toString`, and
+  the `elapsed*` / `frequency` / `isRunning` getters. No I/O, no permission gate.
+- **`UriData`** — `fromString` / `fromBytes` / `fromUri`, static `parse`,
+  `contentAsBytes` / `contentAsString`, and the full getter set.
+- **`Uri.data`** — previously missing, which left a script able to build a
+  `data:` URI but unable to read it back.
+
+Covered by `test/runtime/stdlib_stopwatch_uri_data_test.dart`, which pins the
+registration and drives the instance getters against real native objects.
+Script-level round-trip coverage for the analyzer-free line lands in
+`tom_d4rt_exec` once this version is published — exec consumes this package from
+pub.dev, not by path.
+
 ## 0.4.1
 
 ### Directive context for the entry library's own imports (DFUB13)
