@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
+
+import 'package:archive/archive.dart';
 
 import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_ast/src/runtime/ast_bundle.dart';
@@ -18,6 +19,7 @@ import 'package:tom_d4rt_ast/src/runtime/profiler.dart';
 import 'package:tom_d4rt_ast/src/runtime/runtime_types.dart';
 import 'package:tom_d4rt_ast/src/runtime/security/permissions.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/stdlib.dart';
+import 'package:tom_d4rt_ast/src/runtime/utils/file_access/file_access.dart';
 import 'package:tom_d4rt_ast/src/runtime/utils/logger/logger.dart';
 
 /// Wrapper class for library-scoped variables.
@@ -1059,16 +1061,17 @@ class D4rtRunner {
   ///
   /// Supports both plain .json and gzipped .json.gz files.
   Future<SCompilationUnit> parseJsonFile(String path) async {
-    final file = File(path);
-    if (!file.existsSync()) {
+    if (!fileExistsSync(path)) {
       throw ArgumentD4rtException('AST file not found: $path');
     }
 
-    List<int> bytes = await file.readAsBytes();
+    List<int> bytes = await readFileAsBytes(path);
 
-    // Decompress if gzipped
+    // Decompress if gzipped. `package:archive`'s decoder delegates to the
+    // native dart:io codec on native and to a pure-Dart one on web, so this
+    // library stays importable from web without changing the bytes read here.
     if (path.endsWith('.gz')) {
-      bytes = gzip.decode(bytes);
+      bytes = const GZipDecoder().decodeBytes(bytes);
     }
 
     final jsonString = utf8.decode(bytes);

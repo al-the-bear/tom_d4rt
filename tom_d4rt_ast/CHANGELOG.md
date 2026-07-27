@@ -1,3 +1,41 @@
+## 0.3.0
+
+### Web support — the public barrels no longer pull in `dart:io` (DFUB12)
+
+`d4rt.dart`'s header has always promised that "any consumer that only needs to
+run pre-compiled `AstBundle`s (e.g. a Flutter app, including on web) can depend
+on it without pulling in `dart:io`". That was not true: two libraries the
+barrel re-exports imported `dart:io` unconditionally, so `import
+'package:tom_d4rt_ast/d4rt.dart'` could not build for web. It is true now, and a
+test enforces it.
+
+**Nothing changes on native.** No API was added, removed or renamed, and the
+bundle byte format is unchanged.
+
+- **GZIP now goes through `package:archive` instead of `dart:io`.** This was the
+  larger half of the problem: `dart:io`'s `gzip` codec was used by `toBytes`,
+  `fromBytes`, `toZip` and the per-module decoder — the core bundle paths a web
+  consumer needs — not just by the file helpers. `archive`'s `GZipEncoder` /
+  `GZipDecoder` delegate to the native `GZipCodec` on native and to a pure-Dart
+  ZLib on web, so there is no performance cost off the web and the container is
+  the same gzip either way. Bundles written by earlier versions still load, and
+  bundles written by this version still load in earlier versions — both
+  directions are covered by tests.
+- **File access moved behind a conditional import**
+  (`utils/file_access/{io,web}.dart`, the shape already used by
+  `security/current_directory_io.dart` and the logger). `AstBundle.saveToFile` /
+  `fromFile` and `D4rtRunner.parseJsonFile` / `executeFromJsonFile` keep their
+  signatures and their native behaviour; on web they throw `UnsupportedError`
+  pointing at the byte-level entry points (`AstBundle.fromBytes` / `fromZip`,
+  `D4rtRunner.parseJson`) that a web consumer should use instead.
+- **New regression guard** (`test/web_safety_test.dart`): it walks the
+  transitive import graph of every public library with conditional imports
+  resolved down their `dart.library.html` branch, and fails if `dart:io` is
+  reachable. This is deliberately a static graph walk rather than a web compile
+  — neither `dart compile js` nor `dart compile wasm` rejects a `dart:io`
+  import at compile time on the current SDK, so a compile-based check cannot
+  fail and would be a guard in name only.
+
 ## 0.2.0
 
 ### Security — scoped `FilesystemPermission` grants are now actually enforced (DFUB11)

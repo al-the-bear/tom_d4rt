@@ -1,9 +1,17 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:archive/archive.dart';
 import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_ast/src/runtime/exceptions.dart';
+import 'package:tom_d4rt_ast/src/runtime/utils/file_access/file_access.dart';
+
+// `package:archive`'s GZip codecs delegate to the native `dart:io` GZipCodec
+// on native platforms and to a pure-Dart ZLib on web, so using them instead of
+// `dart:io`'s `gzip` costs nothing on the host and keeps this library — which
+// the public barrel re-exports — importable from web. The bytes are identical
+// either way; this is the same gzip container.
+const _gzipEncoder = GZipEncoder();
+const _gzipDecoder = GZipDecoder();
 
 // =============================================================================
 // Bundle Format Configuration
@@ -316,7 +324,7 @@ class AstBundle {
   /// For file distribution, prefer [toZip] / [saveToFile].
   List<int> toBytes() {
     final jsonString = jsonEncode(toJson());
-    return gzip.encode(utf8.encode(jsonString));
+    return _gzipEncoder.encodeBytes(utf8.encode(jsonString));
   }
 
   /// Deserializes a bundle from gzip-compressed JSON bytes.
@@ -324,7 +332,7 @@ class AstBundle {
   /// Throws [ArgumentD4rtException] if decompression or parsing fails.
   factory AstBundle.fromBytes(List<int> bytes) {
     try {
-      final decompressed = gzip.decode(bytes);
+      final decompressed = _gzipDecoder.decodeBytes(bytes);
       final jsonString = utf8.decode(decompressed);
       final json = jsonDecode(jsonString);
       if (json is! Map<String, dynamic>) {
@@ -396,7 +404,7 @@ class AstBundle {
     for (final entry in modules.entries) {
       final fileName = uriToFileName[entry.key]!;
       final moduleJson = jsonEncode(entry.value.toJson());
-      final compressed = gzip.encode(utf8.encode(moduleJson));
+      final compressed = _gzipEncoder.encodeBytes(utf8.encode(moduleJson));
       // Use noCompress: content is already gzip-compressed
       archive.addFile(
         ArchiveFile.noCompress(fileName, compressed.length, compressed),
@@ -500,9 +508,7 @@ class AstBundle {
   ///
   /// Creates parent directories if they don't exist.
   void saveToFile(String path) {
-    final file = File(path);
-    file.parent.createSync(recursive: true);
-    file.writeAsBytesSync(toZip());
+    writeFileAsBytesSync(path, toZip());
   }
 
   /// Loads a bundle from a file.
@@ -515,12 +521,11 @@ class AstBundle {
   /// Throws [ArgumentD4rtException] if the file doesn't exist,
   /// is empty, or has an unrecognized format.
   factory AstBundle.fromFile(String path) {
-    final file = File(path);
-    if (!file.existsSync()) {
+    if (!fileExistsSync(path)) {
       throw ArgumentD4rtException('Bundle file not found: $path');
     }
 
-    final bytes = file.readAsBytesSync();
+    final bytes = readFileAsBytesSync(path);
     if (bytes.isEmpty) {
       throw ArgumentD4rtException('Bundle file is empty: $path');
     }
@@ -558,7 +563,7 @@ class AstBundle {
   ) {
     var bytes = content;
     if (_startsWith(bytes, AstBundleFormat.gzipMagicBytes)) {
-      bytes = gzip.decode(bytes);
+      bytes = _gzipDecoder.decodeBytes(bytes);
     }
 
     final decoded = jsonDecode(utf8.decode(bytes));
