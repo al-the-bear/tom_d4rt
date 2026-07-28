@@ -1,5 +1,27 @@
 ## 0.15.0
 
+### Fixed — symbol literals (`#foo`) evaluate to a `Symbol` (SCB11)
+
+Mirrors `tom_d4rt` 1.23.0. `SSymbolLiteral` had no handler, so `#foo` fell
+through `GeneralizingSAstVisitor`'s default and evaluated to `null` — silently,
+which is why it surfaced as `type 'Null' is not a subtype of type 'Symbol' in
+type cast` inside a bridge rather than at the literal.
+
+The two trees reach the same answer by different routes, which is the one thing
+to know when keeping them in sync: `tom_ast_generator` already joins the
+analyzer's component tokens with `.` when it builds `SSymbolLiteral.value`, so
+this side reads the finished name, where `tom_d4rt` joins `node.components`
+itself. `#foo.bar.baz` is one library-qualified symbol named `'foo.bar.baz'`,
+not a member access on `#foo`, and the equality is by name — a non-const
+`Symbol` built here is `==` and hash-equal to the SDK's canonicalised literal.
+
+Verified end to end against `tom_d4rt_exec` over the in-tree sources (the two
+implementations agree on all of: plain, dotted, operator, equality, `Map` key,
+`toString`, `Invocation.method`, round-trip and const-context cases). The
+permanent script-level port into `tom_d4rt_exec/test/` is blocked until this
+version publishes, since `tom_d4rt_exec` resolves `tom_d4rt_ast` from pub.dev —
+tracked as SCC34, the same shape as SCB12.
+
 ### Fixed — the interpreter raises the SDK's own error types (SCB10)
 
 Mirrors `tom_d4rt` 1.23.0. Four raise sites stop producing a

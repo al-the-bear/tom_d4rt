@@ -1,5 +1,43 @@
 ## 1.23.0
 
+### Fixed — symbol literals (`#foo`) evaluate to a `Symbol` (SCB11)
+
+`#foo` evaluated to `null`. There was no `visitSymbolLiteral` in either
+interpreter, so `SymbolLiteral` fell through `GeneralizingAstVisitor`'s default
+and produced nothing — silently, with no "unsupported node" error to point at
+the literal. The cost was paid downstream: `Invocation.method(#foo, [])` died
+several frames later with `type 'Null' is not a subtype of type 'Symbol' in type
+cast`, an error that accuses the bridge rather than the literal. SC5's tests
+spell out `Symbol('foo')` throughout for exactly this reason.
+
+Both interpreters now build a `Symbol` from the literal. Two details are worth
+stating because they are easy to get wrong:
+
+- **The dotted form is one name, not a path.** `#foo.bar.baz` is a single
+  library-qualified symbol named `'foo.bar.baz'`; it is not a member access on
+  `#foo`. The components are joined with `.`, never resolved.
+- **A non-const `Symbol` is sufficient.** Real Dart canonicalises `#foo` at
+  compile time, but `Symbol` compares by name, so a freshly built `Symbol('foo')`
+  is `==` and hash-equal to the canonical one. That is what lets a script mix the
+  two spellings freely, including as `Map` keys.
+
+Operator symbols (`#+`, `#[]`, `#==`) work; they arrive as a single component
+and need no special handling.
+
+**Known limitation, unchanged and not caused by this fix:** interpreted
+`Symbol('foo')` evaluates to a `BridgedInstance` wrapper whose `hashCode` is the
+wrapper's identity hash, so `{#a: 1}[Symbol('a')]` still misses. This affects
+every bridged value type equally — `{Duration(seconds: 1): 1}[Duration(seconds:
+1)]` is `null` for the same reason — and is tracked separately as SCC32.
+`containsKey` takes the bridge-call path, which does unwrap, and therefore does
+agree across both spellings.
+
+A companion audit walked all 45 `Expression` node types through the
+`GeneralizingAstVisitor` chain in both trees: `SymbolLiteral` was the only one
+without a handler. The *mechanism* survives, though — `visitNode` still answers
+`null` for anything unhandled, so the next node the language grows will fail just
+as quietly. Closing that is tracked as SCC33.
+
 ### Fixed — the interpreter raises the SDK's own error types (SCB10)
 
 SC5 made seven `dart:core` error classes nameable and catchable, on the premise

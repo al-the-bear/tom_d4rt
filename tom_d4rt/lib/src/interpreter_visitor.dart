@@ -466,6 +466,20 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   }
 
   @override
+  Object? visitSymbolLiteral(SymbolLiteral node) {
+    // `#foo.bar.baz` is ONE library-qualified symbol named 'foo.bar.baz', not a
+    // member access on `#foo` — so the components are joined, never resolved.
+    // Operator symbols (`#+`, `#[]`) arrive as a single component and need no
+    // special handling.
+    //
+    // A non-const `Symbol` is correct even though the literal is a compile-time
+    // constant in real Dart: `Symbol` compares by name, so the value this builds
+    // is `==` (and hash-equal) to the SDK's canonicalised `#foo`. That is what
+    // lets a script mix `#foo` and `Symbol('foo')` freely, including as Map keys.
+    return Symbol(node.components.map((t) => t.lexeme).join('.'));
+  }
+
+  @override
   Object? visitSimpleIdentifier(SimpleIdentifier node) {
     final name = node.name;
 
