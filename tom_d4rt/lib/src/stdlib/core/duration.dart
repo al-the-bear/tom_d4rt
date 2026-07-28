@@ -18,21 +18,55 @@ class DurationCore {
             );
           },
         },
+        // All sixteen unit constants, not a subset. Six were registered and ten
+        // were not, which made the class look covered to any check that landed
+        // on a working one — `Duration.secondsPerMinute` resolved while
+        // `Duration.microsecondsPerDay` did not.
         staticGetters: {
-          'hoursPerDay': (visitor) {
-            return Duration.hoursPerDay;
+          'microsecondsPerMillisecond': (visitor) {
+            return Duration.microsecondsPerMillisecond;
           },
           'microsecondsPerSecond': (visitor) {
             return Duration.microsecondsPerSecond;
           },
+          'microsecondsPerMinute': (visitor) {
+            return Duration.microsecondsPerMinute;
+          },
+          'microsecondsPerHour': (visitor) {
+            return Duration.microsecondsPerHour;
+          },
+          'microsecondsPerDay': (visitor) {
+            return Duration.microsecondsPerDay;
+          },
           'millisecondsPerSecond': (visitor) {
             return Duration.millisecondsPerSecond;
+          },
+          'millisecondsPerMinute': (visitor) {
+            return Duration.millisecondsPerMinute;
+          },
+          'millisecondsPerHour': (visitor) {
+            return Duration.millisecondsPerHour;
+          },
+          'millisecondsPerDay': (visitor) {
+            return Duration.millisecondsPerDay;
           },
           'secondsPerMinute': (visitor) {
             return Duration.secondsPerMinute;
           },
           'secondsPerHour': (visitor) {
             return Duration.secondsPerHour;
+          },
+          'secondsPerDay': (visitor) {
+            return Duration.secondsPerDay;
+          },
+          'minutesPerHour': (visitor) {
+            return Duration.minutesPerHour;
+          },
+          'minutesPerDay': (visitor) {
+            return Duration.minutesPerDay;
+          },
+          'hoursPerDay': (visitor) {
+            return Duration.hoursPerDay;
           },
           'zero': (visitor) {
             return Duration.zero;

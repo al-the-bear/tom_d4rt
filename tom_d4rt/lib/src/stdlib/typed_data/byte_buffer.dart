@@ -34,6 +34,33 @@ class ByteBufferTypedData {
             throw RuntimeD4rtException(
                 "Target is not a ByteBuffer for asUint8List");
           },
+          // The sole missing member of the asXxxList family — a buffer could be
+          // reinterpreted as every typed list except this one.
+          'asUint8ClampedList': (visitor, target, positionalArgs, namedArgs, _) {
+            if (target is ByteBuffer) {
+              int offsetInBytes = 0;
+              int? length;
+              if (positionalArgs.isNotEmpty) {
+                if (positionalArgs[0] is int) {
+                  offsetInBytes = positionalArgs[0] as int;
+                } else {
+                  throw RuntimeD4rtException(
+                      "asUint8ClampedList: offsetInBytes must be an int.");
+                }
+              }
+              if (positionalArgs.length > 1) {
+                if (positionalArgs[1] is int?) {
+                  length = positionalArgs[1] as int?;
+                } else if (positionalArgs[1] != null) {
+                  throw RuntimeD4rtException(
+                      "asUint8ClampedList: length must be an int or null.");
+                }
+              }
+              return target.asUint8ClampedList(offsetInBytes, length);
+            }
+            throw RuntimeD4rtException(
+                "Target is not a ByteBuffer for asUint8ClampedList");
+          },
           'asByteData': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteBuffer) {
               int offsetInBytes = 0;

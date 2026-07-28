@@ -2,6 +2,8 @@ import 'dart:collection';
 
 import 'package:tom_d4rt/d4rt.dart';
 
+import 'set_algebra_methods.dart';
+
 /// Narrows [target] to the native view, or reports which member was reached
 /// with the wrong receiver.
 ///
@@ -75,30 +77,8 @@ class UnmodifiableSetViewCollection {
           'lookup': (visitor, target, positionalArgs, namedArgs, _) {
             return _view(target, 'lookup').lookup(positionalArgs[0]);
           },
-          'difference': (visitor, target, positionalArgs, namedArgs, _) {
-            final other = positionalArgs[0];
-            if (other is! Set) {
-              throw RuntimeD4rtException(
-                  "Argument to UnmodifiableSetView.difference must be a Set.");
-            }
-            return _view(target, 'difference').difference(other);
-          },
-          'intersection': (visitor, target, positionalArgs, namedArgs, _) {
-            final other = positionalArgs[0];
-            if (other is! Set) {
-              throw RuntimeD4rtException(
-                  "Argument to UnmodifiableSetView.intersection must be a Set.");
-            }
-            return _view(target, 'intersection').intersection(other);
-          },
-          'union': (visitor, target, positionalArgs, namedArgs, _) {
-            final other = positionalArgs[0];
-            if (other is! Set) {
-              throw RuntimeD4rtException(
-                  "Argument to UnmodifiableSetView.union must be a Set.");
-            }
-            return _view(target, 'union').union(other);
-          },
+          ...setAlgebraMethods(
+              'UnmodifiableSetView', (t) => _view(t, 'setAlgebra')),
           'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             final action = _callback(positionalArgs[0], 'forEach');
             for (final element in _view(target, 'forEach')) {

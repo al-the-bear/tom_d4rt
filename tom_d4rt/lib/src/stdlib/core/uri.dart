@@ -62,6 +62,12 @@ class UriCore {
                 base64: namedArgs.get<bool?>('base64') ?? false);
           },
         },
+        // `Uri.base` is the only route to the process's own working directory as
+        // a Uri, and statics get no supertype fallback, so its absence was a
+        // hard failure on an otherwise complete class.
+        staticGetters: {
+          'base': (visitor) => Uri.base,
+        },
         staticMethods: {
           'parse': (visitor, positionalArgs, namedArgs, _) {
             final start = namedArgs['start'] as int? ?? 0;

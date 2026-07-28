@@ -56,6 +56,15 @@ class ByteDataTypedData {
           },
         },
         methods: {
+          // Handing a read-only view to untrusted code is the one way to share
+          // a buffer without also granting write access, so its absence had a
+          // security shape as well as a coverage one.
+          'asUnmodifiableView': (visitor, target, positionalArgs, namedArgs, _) {
+            if (target is ByteData) return target.asUnmodifiableView();
+            throw RuntimeD4rtException(
+                "Target is not a ByteData for asUnmodifiableView");
+          },
+
           // 8-bit integer methods
           'getInt8': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is ByteData &&

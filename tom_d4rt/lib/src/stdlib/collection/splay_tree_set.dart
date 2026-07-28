@@ -2,6 +2,8 @@ import 'dart:collection';
 
 import 'package:tom_d4rt/d4rt.dart';
 
+import 'set_algebra_methods.dart';
+
 /// Adapts an optional script-supplied `compare` argument into a native
 /// [Comparator], or returns `null` so the native constructor falls back to
 /// [Comparable.compare].
@@ -77,6 +79,9 @@ class SplayTreeSetCollection {
           },
         },
         methods: {
+          // Not reachable through the Set bridge: the interpreter's
+          // supertype fallback for instance methods is not uniform.
+          ...setAlgebraMethods('SplayTreeSet', (t) => t as Set),
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is SplayTreeSet && positionalArgs.length == 1) {
               return target.add(positionalArgs[0]);

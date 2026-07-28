@@ -1,5 +1,7 @@
 import 'package:tom_d4rt_ast/runtime.dart';
 
+import '../collection/set_algebra_methods.dart';
+
 class SetCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: Set,
@@ -65,12 +67,7 @@ class SetCore {
       'containsAll': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as Set).containsAll(positionalArgs[0] as Iterable);
       },
-      'difference': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as Set).difference(positionalArgs[0] as Set);
-      },
-      'intersection': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as Set).intersection(positionalArgs[0] as Set);
-      },
+      ...setAlgebraMethods('Set', (t) => t as Set),
       'lookup': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as Set).lookup(positionalArgs[0]);
       },
@@ -98,9 +95,6 @@ class SetCore {
           return test.call(visitor, [element]) as bool;
         });
         return null;
-      },
-      'union': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as Set).union(positionalArgs[0] as Set);
       },
       'toSet': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as Set).toSet();

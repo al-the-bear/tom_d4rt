@@ -51,6 +51,20 @@ class UriDataCore {
           'contentAsBytes': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as UriData).contentAsBytes();
           },
+          // The three predicates are how a script decides whether a data URI is
+          // the shape it expects before decoding it. Without them the only
+          // option was string-matching `mimeType` / `charset` by hand, which
+          // gets the case- and parameter-normalisation rules wrong.
+          'isMimeType': (visitor, target, positionalArgs, namedArgs, _) {
+            return (target as UriData).isMimeType(positionalArgs[0] as String);
+          },
+          'isCharset': (visitor, target, positionalArgs, namedArgs, _) {
+            return (target as UriData).isCharset(positionalArgs[0] as String);
+          },
+          'isEncoding': (visitor, target, positionalArgs, namedArgs, _) {
+            return (target as UriData)
+                .isEncoding(positionalArgs[0] as Encoding);
+          },
           'contentAsString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as UriData).contentAsString(
               encoding: namedArgs.get<Encoding?>('encoding'),

@@ -2,6 +2,8 @@ import 'dart:collection';
 
 import 'package:tom_d4rt/d4rt.dart';
 
+import 'set_algebra_methods.dart';
+
 /// Bridge for `dart:collection`'s [LinkedHashSet] — a [Set] whose iteration
 /// order is the order in which elements were first inserted.
 ///
@@ -47,6 +49,9 @@ class LinkedHashSetCollection {
           },
         },
         methods: {
+          // Not reachable through the Set bridge: the interpreter's
+          // supertype fallback for instance methods is not uniform.
+          ...setAlgebraMethods('LinkedHashSet', (t) => t as Set),
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashSet && positionalArgs.length == 1) {
               return target.add(positionalArgs[0]);

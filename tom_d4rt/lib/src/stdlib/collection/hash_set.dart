@@ -2,6 +2,8 @@ import 'dart:collection';
 
 import 'package:tom_d4rt/d4rt.dart';
 
+import 'set_algebra_methods.dart';
+
 class HashSetCollection {
   static BridgedClass get definition => BridgedClass(
         nativeType: HashSet,
@@ -29,6 +31,9 @@ class HashSetCollection {
           },
         },
         methods: {
+          // Not reachable through the Set bridge: the interpreter's
+          // supertype fallback for instance methods is not uniform.
+          ...setAlgebraMethods('HashSet', (t) => t as Set),
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashSet && positionalArgs.length == 1) {
               return target.add(positionalArgs[0]);
