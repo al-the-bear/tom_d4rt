@@ -11,11 +11,12 @@ sees is the SDK's own `UnsupportedError`.
 
 Two things this fixes:
 
-- **The failure is catchable from script.** `on UnsupportedError` is how
-  the `dart:collection` contract says to catch a mutation attempt, and it
-  now works. The intercepted exception was not merely the wrong type — it
-  was not catchable at all: it escaped even a bare `catch (e)` and
-  propagated out of `execute()` to the host.
+- **The failure is catchable by the type the contract names.**
+  `on UnsupportedError` is how `dart:collection` says to catch a mutation
+  attempt, and it now works. The intercepted exception was catchable — a
+  bare `catch (e)` saw it — but only by that broadest handler, so a script
+  could not distinguish a rejected mutation from any other bridge error,
+  and a typed handler missed it entirely.
 
 - **It matches the sibling bridges.** `UnmodifiableMapView` and
   `UnmodifiableSetView` have delegated since they were added, so the three
