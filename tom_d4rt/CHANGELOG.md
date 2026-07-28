@@ -1,3 +1,41 @@
+## 1.26.0
+
+### Fixed — the `dart:convert` codec/converter half had no hierarchy, and `Encoding.decodeStream` was unreachable (SCB23)
+
+`convert_hierarchy.dart` covered the SINK half of `dart:convert` only. The half
+scripts actually touch — codecs, encodings and converters — had no supertype
+edges at all, so every type test over it silently answered `false`:
+`utf8 is Codec`, `utf8 is Encoding`, `JsonEncoder() is Converter`,
+`LineSplitter() is StreamTransformer`. Twenty edges are now declared.
+
+**`decodeStream` was a real member loss, not a cosmetic type-test loss.** It is
+declared on `Encoding` and on none of the three character encodings, so
+`utf8.decodeStream(...)` threw `Undefined property or method`. The edge alone
+does not fix that — the `Encoding` bridge declared no `decodeStream` adapter
+either — so the adapter is added here as well. The two halves are one change:
+the edge routes the lookup, the adapter answers it. The adapter casts each
+chunk in turn rather than calling `Stream.cast<List<int>>()`, because the
+interpreter hands over a stream of `List<Object?>` and casting the *element*
+fails on the first chunk.
+
+**`LineSplitter` is deliberately NOT a `Converter`.** The SDK declares
+`final class LineSplitter extends StreamTransformerBase<String, String>`. It
+carries `convert` and `startChunkedConversion` of its own, which is what makes
+the wrong edge tempting; it gets the two stream-transformer edges and no more.
+`JsonCodec` and `Base64Codec` likewise extend `Codec` directly and are **not**
+`Encoding`s. Both negatives are pinned by tests.
+
+**The edge lists are written out flat, and that is load-bearing.**
+`BridgedClass.isSubtypeOf` consults the registry for a class's direct
+supertypes and ONE further hop, while the member walk
+(`transitiveSupertypeNames`) is fully transitive. A minimal edge set would
+therefore give correct member resolution and wrong type tests — so the
+transitive closure is declared explicitly.
+
+No dispatch changed: `Codec`, `Converter` and `Encoding` declare no
+`isAssignable`, so they never enter `Environment._filterToMostSpecific`'s match
+list and cannot steal or lose ownership of a native value.
+
 ## 1.25.0
 
 ### Fixed — `is TypedData` threw, and the typed_data views had no hierarchy (SCB20)

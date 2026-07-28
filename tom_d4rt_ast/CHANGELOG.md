@@ -1,3 +1,30 @@
+## 0.18.0
+
+### Fixed — the `dart:convert` codec/converter half had no hierarchy, and `Encoding.decodeStream` was unreachable (SCB23)
+
+Mirrors `tom_d4rt` 1.26.0.
+
+- Twenty supertype edges declared for the codec/converter half of
+  `dart:convert`. Previously `utf8 is Codec`, `utf8 is Encoding`,
+  `JsonEncoder() is Converter` and `LineSplitter() is StreamTransformer` all
+  answered `false`.
+- `Encoding.decodeStream` is now reachable. It is declared on `Encoding` alone,
+  and the `Encoding` bridge had no adapter for it — so the edge and the adapter
+  are one change. The adapter casts each chunk with `cast<int>()` rather than
+  casting the stream element, since the interpreter supplies `List<Object?>`
+  chunks.
+- `LineSplitter` gets `-> StreamTransformerBase, StreamTransformer` and
+  deliberately **no** `-> Converter`: the SDK declares it
+  `extends StreamTransformerBase<String, String>`. `JsonCodec` and
+  `Base64Codec` extend `Codec` directly and are not `Encoding`s. Both negatives
+  are pinned by tests.
+- The edge lists are flattened deliberately: `isSubtypeOf` walks two hops while
+  the member lookup is fully transitive, so a minimal set would give correct
+  members and wrong type tests.
+
+Dispatch is unchanged — `Codec`, `Converter` and `Encoding` declare no
+`isAssignable`, so they never compete for ownership of a native value.
+
 ## 0.17.0
 
 ### Fixed — `is TypedData` threw, and the typed_data views had no hierarchy (SCB20)

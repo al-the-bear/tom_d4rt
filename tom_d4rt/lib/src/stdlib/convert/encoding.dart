@@ -35,6 +35,33 @@ class EncodingConvert {
           'inverted': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Encoding).inverted;
           },
+          // SCB23: the one member of this bridge that the three character
+          // encodings cannot declare for themselves — the SDK puts it on
+          // `Encoding` only. It is reachable on `utf8`/`ascii`/`latin1` through
+          // the supertype walk, which is why the edges in
+          // `ConvertHierarchyConvert` and this adapter are one change.
+          'decodeStream': (visitor, target, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
+              throw RuntimeD4rtException(
+                  'Encoding.decodeStream requires one Stream<List<int>> argument.');
+            }
+            // `Stream.cast<List<int>>()` is NOT enough: the interpreter hands
+            // over a `Stream` of `List<Object?>` chunks, and casting the
+            // ELEMENT to `List<int>` fails on the first chunk. Each chunk has
+            // to be cast in turn, which is the same thing `decode` above does
+            // to its single list.
+            final byteStream = (positionalArgs[0] as Stream).map<List<int>>(
+              (chunk) {
+                if (chunk is! List) {
+                  throw RuntimeD4rtException(
+                      'Encoding.decodeStream requires a Stream of List<int> '
+                      'chunks; got ${chunk.runtimeType}.');
+                }
+                return chunk.cast<int>();
+              },
+            );
+            return (target as Encoding).decodeStream(byteStream);
+          },
           'fuse': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 ||
                 positionalArgs[0] is! Codec<List<int>, dynamic>) {

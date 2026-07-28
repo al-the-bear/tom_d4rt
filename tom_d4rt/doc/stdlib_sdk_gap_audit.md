@@ -19,9 +19,11 @@ Class-level coverage is audited by hand; **member-level** and
   once, makes `is` and `on` answer wrongly, and is one line to fix rather
   than N adapters — `LinkedList` fell from 27 unreachable members to 2 when
   its `-> Iterable` edge was declared. A mechanical cross-reference over all
-  180 classes (`--hierarchy`) confirms **35 missing edges across 23
-  classes**, concentrated in `dart:convert`. Read the hierarchy audit before
-  treating any member-gap count as a work estimate.
+  180 classes (`--hierarchy`) opened at **35 missing edges across 23
+  classes**, concentrated in `dart:convert`; the `dart:typed_data` and
+  `dart:convert` blocks are now declared and the count stands at **4 edges
+  across 3 classes** (`String`, `Duration`, `StreamController`). Read the
+  hierarchy audit before treating any member-gap count as a work estimate.
 - **Gaps are member-level as well as class-level.** A mechanical member
   diff over all 180 registered classes
   (`tool/stdlib_member_diff.dart`) confirms **163 unreachable members
@@ -195,46 +197,52 @@ every edge.
 **Candidates are then verified**, for the same reason the member diff
 verifies its own: a static cross-reference over-reports badly. Each candidate
 is driven through the interpreter as `o is Supertype` and kept only if the
-answer is actually `false`. Measured 2026-07-28:
+answer is actually `false`. Measured 2026-07-28, after the convert
+codec/converter edges were declared:
 
 | Metric | Count |
 |--------|-------|
 | Bridged classes examined | 181 |
 | … declaring `isAssignable` | 155 |
-| … with ≥ 1 registered edge | 49 |
-| Candidate edges from the cross-reference | 115 |
+| … with ≥ 1 registered edge | 69 |
+| Candidate edges from the cross-reference | 66 |
 | … satisfied anyway via `isAssignable` | 0 |
-| … unverified (no instance recipe) | 91 |
-| **CONFIRMED missing edges** | **24** |
-| Classes with ≥ 1 confirmed gap | 12 |
+| … unverified (no instance recipe) | 62 |
+| **CONFIRMED missing edges** | **4** |
+| Classes with ≥ 1 confirmed gap | 3 |
 
-The first measurement of this table, before the typed_data hierarchy was
-declared, read 137 candidates → 35 confirmed edges across 23 classes, with 11
-"satisfied anyway". All three differences have the same cause and are worth
-separating, because only one of them is a fix:
+This table has now been measured three times, and the movement is worth
+keeping because each step separates a *repair* from a change in what the audit
+can see:
 
-- **35 → 24 confirmed.** The eleven typed-data `-> Iterable` edges are now
-  declared. This is the actual repair.
-- **137 → 115 candidates.** The eleven typed-data `-> List` and eleven
-  `-> TypedData` pairs stopped being *candidates* — the cross-reference only
-  proposes an edge that is not already registered.
+| Measurement | Candidates | Satisfied anyway | Unverified | Confirmed | Classes |
+| --- | --- | --- | --- | --- | --- |
+| Before the typed_data edges | 137 | 11 | 91 | 35 | 23 |
+| After typed_data (SCB20 / SCC55) | 115 | 0 | 91 | 24 | 12 |
+| After convert codecs (SCB23) | 66 | 0 | 62 | **4** | 3 |
+
+- **35 → 24 confirmed** was the eleven typed-data `-> Iterable` edges;
+  **24 → 4** is the twenty convert codec/converter edges. Those are the repairs.
+- **Candidates fall faster than confirmed gaps** at each step, because the
+  cross-reference only proposes an edge that is not already registered — so
+  declaring an edge that was *already true by fallback*, or one that was merely
+  *unverified*, also removes it from the candidate set. The 115 → 66 drop is 20
+  confirmed plus 29 previously-unverified encoder/decoder edges that the same
+  block covered.
 - **11 → 0 satisfied-anyway.** Those eleven were exactly the typed lists'
   `-> List`: true via the `isAssignable` fallback, with no edge behind them.
   They are now backed by a declared edge, so they leave the candidate set by
   the previous bullet rather than by being counted here.
 
-That middle bucket was the argument for running a verification pass at all:
-published unverified, those eleven would have sent someone to fix behaviour
-that already worked. It is empty now only because the edges were declared for
-readability — the fallback that made them true is untouched.
+That satisfied-anyway bucket was the argument for running a verification pass
+at all: published unverified, those eleven would have sent someone to fix
+behaviour that already worked. It is empty now only because the edges were
+declared for readability — the fallback that made them true is untouched.
 
 ### Confirmed gaps, by hierarchy
 
 | Hierarchy | Classes | Missing edges | Members also lost? |
 | --- | --- | --- | --- |
-| `dart:convert` codecs | `Utf8Codec`, `AsciiCodec`, `Latin1Codec` | `-> Codec`, `-> Encoding` | Yes — `decodeStream` |
-| `dart:convert` converters | `JsonEncoder`, `JsonDecoder`, `HtmlEscape`, `LineSplitter`, `Converter` | `-> Converter`, `-> StreamTransformer`, `-> StreamTransformerBase` | No |
-| `dart:convert` root | `Encoding` | `-> Codec` | No |
 | `dart:core` comparables | `String`, `Duration` | `-> Comparable`, `-> Pattern` | Yes — `String.matchAsPrefix` |
 | `dart:async` sinks | `StreamController` | `-> Sink` | No |
 
@@ -244,15 +252,29 @@ readability — the fallback that made them true is untouched.
 hierarchy declares the edges the failing test needed, and the rest stay
 missing until something else trips over them.
 
-### The 91 unverified edges are the audit's own blind spot
+The three `dart:convert` rows this table used to carry — codecs, converters
+and the `Encoding` root — were closed by SCB23; see *Notes on the convert
+hierarchy* below for what the fix had to get right beyond declaring the edges.
 
-48 further classes carry candidate edges that could not be tested because
+### The 62 unverified edges are the audit's own blind spot
+
+Further classes carry candidate edges that could not be tested because
 `_instanceRecipes` has no entry for them — most of `dart:io` (`Socket`,
-`Stdout`, `IOSink`, `File`, `Directory`, the `FileSystemException` family),
-the `dart:convert` encoder/decoder pairs, and the numeric tower
-(`int`/`double`/`num`/`BigInt` `-> Comparable`). They are reported as their
-own bucket rather than folded into either answer, because both readings would
-be a guess.
+`Stdout`, `IOSink`, `File`, `Directory`, the `FileSystemException` family)
+and the numeric tower (`int`/`double`/`num`/`BigInt` `-> Comparable`). They
+are reported as their own bucket rather than folded into either answer,
+because both readings would be a guess.
+
+The `dart:convert` encoder/decoder pairs used to be the largest group here,
+and their fate is the argument for keeping the bucket separate rather than
+resolving it by guess. SCB23 probed all eleven directly (they construct with
+a no-argument constructor, which the audit's recipe table simply did not
+know) and every one was missing its `-> Converter` edge, exactly as the same
+shape suggested. But `LineSplitter` — in the same group, the same shape,
+listed alongside them — is `extends StreamTransformerBase`, not a `Converter`
+at all. Folding the bucket into "confirmed" would have declared one wrong
+edge in twelve, which is a worse outcome than the gap: a false `is` answer
+that becomes a confidently wrong `true`.
 
 Closing that bucket means extending the recipe table, not writing probes —
 the same rule the member diff follows. Some entries are deliberately hard:
@@ -541,21 +563,58 @@ supertype match, and give `ByteConversionSink` a predicate of its own so
 the filter has a specific candidate to keep. This makes dispatch *more*
 exact, not less.
 
-**Still open — the codec/converter type tests.** `utf8 is Codec`,
-`utf8 is Encoding` and `JsonEncoder() is Converter` all answer `false`,
-because no edges connect the concrete codecs to their abstract roots.
-The roots `Codec`, `Converter` and `Encoding` *are* bridged, so this needs
-only the edges — there is no missing-root step of the kind typed_data
-required.
+**The codec/converter half is now declared too.** `convert_hierarchy.dart`
+originally covered only the **sink** half of the library, so `utf8 is Codec`,
+`utf8 is Encoding` and `JsonEncoder() is Converter` all answered `false` —
+20 confirmed edges across nine classes, plus 29 unverified across eleven
+encoder/decoder/codec classes, the largest single block the hierarchy audit
+found. All 49 are declared; the audit's confirmed count fell 24 → 4 and the
+`dart:convert` rows left the by-hierarchy table. Three things about that fix
+are not obvious from the diff.
 
-`convert_hierarchy.dart` covers only the **sink** half of the library.
-The codec/converter half is now the largest single block in the hierarchy
-audit above — 20 confirmed edges across nine classes, plus a further 29
-unverified across eleven encoder/decoder/codec classes — and unlike the
-typed_data hierarchy it is not purely cosmetic: the three encodings lose
-`decodeStream` with their `-> Encoding` edge. That makes it the one
-remaining block where the missing edges cost real API surface rather than
-only type tests.
+**The edge alone did not restore `decodeStream`.** This was the block's one
+real member loss — unlike the typed_data hierarchy, which was purely cosmetic
+because every view declares its inherited `List` surface explicitly. But
+`Encoding` is declared on `Encoding` in the SDK *and the `Encoding` bridge did
+not declare an adapter for it either*, so giving `Utf8Codec` its `-> Encoding`
+edge would have made the supertype walk find nothing. The edge and the new
+`EncodingConvert` adapter are one change, and each is useless alone.
+
+That adapter also has to cast per chunk. `Stream.cast<List<int>>()` looks like
+the obvious conversion and is wrong: the interpreter hands over a `Stream`
+whose elements are `List<Object?>`, and casting the *element* to `List<int>`
+throws on the first chunk. Each chunk needs its own `cast<int>()`, which is
+what the single-shot `decode` adapter beside it already does to its one list.
+
+**The edges are written as a flattened closure, and that is load-bearing.**
+`BridgedClass.isSubtypeOf` consults the registry for a class's direct
+supertypes and **one further hop**, not the full transitive closure. So
+`JsonEncoder -> Converter`, `Converter -> StreamTransformerBase` and
+`StreamTransformerBase -> StreamTransformer` (the last already declared by
+`dart:async`) would still answer `JsonEncoder() is StreamTransformer` =>
+`false` at three hops. The member walk, `transitiveSupertypeNames`, *is* fully
+transitive. The two mechanisms therefore disagree about depth, and a minimal
+edge set gives correct member resolution with wrong type tests — the failure
+mode hardest to spot by reading the registry, since the block looks complete.
+Every existing hierarchy block flattens for this reason; unifying `isSubtypeOf`
+on `transitiveSupertypeNames` would remove the requirement and is tracked
+separately.
+
+**`LineSplitter` is not a `Converter`.** The SDK declares
+`final class LineSplitter extends StreamTransformerBase<String, String>`. It
+carries `convert` and `startChunkedConversion` of its own, which is what makes
+the wrong edge tempting, and the todo that commissioned this work listed it
+among the classes needing `-> Converter`. The mechanical `--hierarchy` audit
+had it right and the hand-written list did not — a standing argument for
+letting the tool, not a reading of the library, decide the edge set.
+
+**Dispatch was checked and could not have moved here.** Each hierarchy needs
+its own verification because adding edges changes which bridge *owns* a native
+(the SC7 queue case). For this block the answer is structural rather than
+empirical: `Codec`, `Converter` and `Encoding` declare no `isAssignable`, so
+they never enter `_filterToMostSpecific`'s match list in the first place and
+cannot lose or steal a dispatch. The full `dart:convert` suite and the SC9
+sink-routing cases are green regardless.
 
 ## Notes on the `dart:io` re-export surface
 
@@ -661,16 +720,22 @@ patch to any one bridge.
    [d4rt_limitations.md](d4rt_limitations.md#intentionally-unbridged-sdk-classes).
    Several are sandbox-hostile by design and will stay out; the rest wait
    for a concrete consumer.
-4. **The hierarchy gaps are the largest remaining block** — 24 confirmed
-   missing edges, of which 20 are the `dart:convert` codec/converter chain.
-   Filed per hierarchy rather than as one change, because each alters
-   bridge *ownership* and needs its own dispatch verification. The
-   `dart:typed_data` block (11 edges) is closed; `dart:convert` is the one
-   that also costs members, so it is the next one worth taking.
-5. **Close the audit's blind spot** — 91 candidate edges and 265 candidate
+4. **The hierarchy gaps are nearly closed** — 4 confirmed missing edges
+   remain, none of them in `dart:convert`. The blocks were filed per
+   hierarchy rather than as one change, because each alters bridge
+   *ownership* and needs its own dispatch verification; `dart:typed_data`
+   (11 edges) and `dart:convert` (20 edges, plus the `Encoding.decodeStream`
+   adapter) are both closed. What is left is three unrelated singletons:
+   `String -> Comparable, Pattern`, `Duration -> Comparable`, and
+   `StreamController -> Sink`. Small enough to take as one change, but the
+   dispatch check still applies per class.
+5. **Close the audit's blind spot** — 62 candidate edges and 265 candidate
    members sit UNVERIFIED for want of an instance recipe, most of
    `dart:io` among them. Until that table is extended, "confirmed" is a
-   lower bound on both audits, not a total.
+   lower bound on both audits, not a total. `dart:convert` is the worked
+   example of why this matters in both directions: SCB23 probed eleven
+   unverified encoder/decoder pairs by hand and every one was a real gap —
+   but the twelfth candidate of the same shape, `LineSplitter`, was not.
 6. **`dart:io`'s re-export surface is 19 names short** — the whole
    `dart:_http` server/WebSocket block plus `HttpStatus`, none of them
    bridged anywhere. Highest value per unit of work is `HttpException` +
