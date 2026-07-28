@@ -175,19 +175,12 @@ class LinkedHashMapCollection {
             }
             throw RuntimeD4rtException("Invalid arguments for LinkedHashMap.updateAll");
           },
-          'addEntries': (visitor, target, positionalArgs, namedArgs, _) {
-            if (target is LinkedHashMap && positionalArgs.length == 1) {
-              final newEntries = positionalArgs[0];
-              if (newEntries is Iterable) {
-                target.addEntries(newEntries.cast());
-                return null;
-              }
-              throw RuntimeD4rtException(
-                  "Argument to LinkedHashMap.addEntries must be an Iterable.");
-            }
-            throw RuntimeD4rtException(
-                "Invalid arguments for LinkedHashMap.addEntries");
-          },
+          // No `addEntries` here on purpose — inherited from `MapCore` via the
+          // `LinkedHashMap -> Map` edge. See the note in `hash_map.dart`. This
+          // one mattered more: a `<String, int>{}` literal IS a
+          // `LinkedHashMap`, so the shadowing copy broke `addEntries` for
+          // ordinary map literals too, not only for explicitly constructed
+          // `LinkedHashMap`s.
           'cast': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedHashMap) {
               return target.cast<dynamic, dynamic>();

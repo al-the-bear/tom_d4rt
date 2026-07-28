@@ -14,6 +14,10 @@ class IterableCore {
           '_CompactValuesIterable',
           '_SplayTreeKeyIterable',
           '_SplayTreeValueIterable',
+          // `SplayTreeMap.entries` — the key and value views were listed but
+          // the entry view was not, so `.entries` was unusable on a
+          // `SplayTreeMap` while it worked on every other map.
+          '_SplayTreeMapEntryIterable',
           '_AllMatchesIterable',
           '_SyncGeneratorIterable', // D4rt interpreter sync* generator
           '_SyncStarIterable', // Dart SDK sync* generator (from bridged code)

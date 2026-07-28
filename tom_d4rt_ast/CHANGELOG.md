@@ -1,3 +1,34 @@
+## 0.16.0
+
+### Fixed — `.iterator`, `SplayTreeMap.entries`, and `Map.addEntries` (SCB17)
+
+Mirrors `tom_d4rt` 1.24.0. Three defects on the map/set surface:
+
+- The `Iterator` bridge's `nativeNames` listed three implementations, so
+  `.iterator` was claimed by no bridge for anything but a `List` — including a
+  bare `<int>{}` literal and every map key/value/entry view. Eleven names
+  added, enumerated from the SDK rather than guessed.
+- `_SplayTreeMapEntryIterable` was missing from the `Iterable` bridge, making
+  `SplayTreeMap.entries` unusable while every other map's view worked.
+- `HashMap` and `LinkedHashMap` each carried a local `addEntries` doing
+  `newEntries.cast()`, which cannot unwrap a `BridgedInstance<MapEntry>`.
+  `MapCore`'s copy does; `SplayTreeMap`, with no local copy, already worked by
+  inheriting it. The two duplicates are deleted rather than a third correct
+  copy added. Because a `<String, int>{}` literal *is* a `LinkedHashMap`, this
+  broke `addEntries` on ordinary map literals too.
+
+The map/set *hierarchy* — SCB17's stated subject — was already correct;
+`CollectionHierarchyCollection` registers those edges and SCB7 closed that
+gap. Verifying the premise is what redirected the work.
+
+Coverage here is **registration-level**
+(`test/runtime/stdlib_map_set_inherited_surface_test.dart`) rather than
+script-level, for the reason the SC5/SC6/SC7 mirrors give: `tom_d4rt_exec`,
+the only runner that could execute a script against this tree, resolves
+`tom_d4rt_ast` from pub.dev and so cannot see unpublished local edits. The
+script-level equivalent is
+`tom_d4rt/test/scb17_map_set_inherited_surface_test.dart`.
+
 ## 0.15.0
 
 ### Fixed — `await` in receiver position, e.g. `(await f).join(',')` (SCB14)

@@ -170,18 +170,16 @@ class HashMapCollection {
             }
             throw RuntimeD4rtException("Invalid arguments for HashMap.updateAll");
           },
-          'addEntries': (visitor, target, positionalArgs, namedArgs, _) {
-            if (target is HashMap && positionalArgs.length == 1) {
-              final newEntries = positionalArgs[0];
-              if (newEntries is Iterable) {
-                target.addEntries(newEntries.cast());
-                return null;
-              }
-              throw RuntimeD4rtException(
-                  "Argument to HashMap.addEntries must be an Iterable.");
-            }
-            throw RuntimeD4rtException("Invalid arguments for HashMap.addEntries");
-          },
+          // No `addEntries` here on purpose. It is inherited from `MapCore` via
+          // the `HashMap -> Map` edge in `CollectionHierarchyCollection`, and
+          // that copy is the correct one: it unwraps a `BridgedInstance<MapEntry>`
+          // (which is what interpreted `MapEntry("a", 1)` produces) before
+          // handing the entries to the native map. The copy that used to live
+          // here did `newEntries.cast()`, which does not unwrap, so every
+          // interpreted MapEntry failed with "type 'BridgedInstance<Object>' is
+          // not a subtype of type 'MapEntry'". `SplayTreeMap` never had a local
+          // copy and was therefore already correct — that asymmetry is what
+          // identified this as shadowing rather than a missing feature.
           'cast': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is HashMap) {
               return target.cast<dynamic, dynamic>();

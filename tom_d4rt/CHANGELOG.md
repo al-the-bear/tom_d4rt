@@ -1,3 +1,48 @@
+## 1.24.0
+
+### Fixed — `.iterator`, `SplayTreeMap.entries`, and `Map.addEntries` (SCB17)
+
+Three defects on the map/set surface, all found by walking every member of
+every bridged collection rather than by following a bug report.
+
+**`.iterator` was a dead end for everything but a `List`.** The `Iterator`
+bridge's `nativeNames` listed three implementations. The SDK's iterators are
+all private types, so a name that is not listed is not claimed by any bridge,
+and `for (final x in someSet.iterator ...)` — or any explicit `.moveNext()` —
+answered `Undefined property or method 'moveNext' on _CompactIterator`. That
+covered `LinkedHashSet`, `SplayTreeSet`, `UnmodifiableSetView`, every map
+key/value/entry view, and even a bare `<int>{}` literal (which *is* a
+`LinkedHashSet`). Eleven names added, enumerated by asking the SDK for the
+runtime type of `.iterator` on each bridged collection.
+
+**`SplayTreeMap.entries` was unusable** while every other map's worked: the
+`Iterable` bridge listed `_SplayTreeKeyIterable` and `_SplayTreeValueIterable`
+but not `_SplayTreeMapEntryIterable`.
+
+**`HashMap.addEntries` / `LinkedHashMap.addEntries` rejected an interpreted
+`MapEntry`.** Both bridges carried a *local* `addEntries` doing
+`newEntries.cast()`, which cannot unwrap the `BridgedInstance<MapEntry>` that
+interpreted `MapEntry('a', 1)` produces — it failed with `type
+'BridgedInstance<Object>' is not a subtype of type 'MapEntry'`. `MapCore`'s
+copy unwraps correctly, and `SplayTreeMap` — which never had a local copy —
+already worked by inheriting it through the `-> Map` edge. That asymmetry is
+what identified this as **shadowing**, not a missing feature, so the fix
+deletes the two duplicates rather than adding a third correct one.
+
+**What this change is not.** SCB17 was filed against the map/set *hierarchy*,
+on the assumption it had the same gap SCB7 fixed for queues. It does not —
+`CollectionHierarchyCollection` already registers those edges, every `is`
+answer is correct, and leaf dispatch is intact. Verifying the premise is what
+redirected the work to the three defects above.
+
+The `nativeNames` allowlist remains structurally wrong: it can only ever be as
+complete as its last update. The structural alternative — a native
+`is Iterator` fallback in `Environment.toBridgedInstance` — is deliberately
+not taken here, because that predicate decides which bridge *owns* an object
+and a blanket claim could steal dispatch from a more specific bridge, the
+exact hazard `CollectionHierarchyCollection` exists to avoid. Tracked
+separately.
+
 ## 1.23.0
 
 ### Fixed — `await` in receiver position, e.g. `(await f).join(',')` (SCB14)
