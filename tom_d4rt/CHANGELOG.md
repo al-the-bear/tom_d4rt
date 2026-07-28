@@ -1,5 +1,41 @@
 ## 1.23.0
 
+### Fixed — `await` in receiver position, e.g. `(await f).join(',')` (SCB14)
+
+`visitMethodInvocation` evaluated its target and used the result without ever
+checking for `AsyncSuspensionRequest` — the sentinel the interpreter returns
+when an `await` hits an unresolved future. Every intermediate site is obliged to
+propagate that sentinel upward so the statement machine can suspend and re-enter
+the statement once the future completes. The argument lists in this same method
+all did (~25 `_evaluateArgumentsAsync` sites, each with the check); the receiver
+slot did not. The sentinel was therefore treated as an ordinary receiver, and
+the failure surfaced as `Undefined property or method '<x>' on
+AsyncSuspensionRequest` — an error naming an internal type the script author has
+never heard of. The fix is the same one-line propagation `visitIndexExpression`
+has always carried.
+
+**The blast radius is smaller than the symptom suggests, and only the tests
+established that.** `(await f)[0]` and `(await f).length` were already correct —
+the index and property-access paths both had the check. `visitMethodInvocation`
+was the single gap, so writing each receiver shape as its own test is what
+separated the one real defect from two assumed ones.
+
+Two further async defects were isolated while fixing this and are deliberately
+**not** addressed here — they are pre-existing, independently reproducible, and
+outside "await in receiver position". Both have skipped reproductions in
+`test/scb14_await_receiver_position_test.dart` naming their follow-up todos:
+
+- **Multiple `await`s in one statement return the first future's value.** An
+  async frame has a single `lastAwaitResult` slot which every
+  `visitAwaitExpression` reads on resumption, so `(await a) + (await b)`
+  evaluates to `'AA'`. This involves no receiver at all, which is what proves it
+  independent of the fix above. It is a silent wrong answer rather than a
+  crash — the more dangerous of the two.
+- **Resumption loses the enclosing block scope.** An `await` in argument
+  position whose invocation target is a local (`out.addAll(await f)`) re-enters
+  with `out` undefined. Its error text is byte-identical before and after this
+  fix.
+
 ### Fixed — symbol literals (`#foo`) evaluate to a `Symbol` (SCB11)
 
 `#foo` evaluated to `null`. There was no `visitSymbolLiteral` in either

@@ -1,5 +1,29 @@
 ## 0.15.0
 
+### Fixed — `await` in receiver position, e.g. `(await f).join(',')` (SCB14)
+
+Mirrors `tom_d4rt` 1.23.0. `visitMethodInvocation` evaluated its target without
+checking for the `AsyncSuspensionRequest` sentinel, so when the receiver itself
+suspended, the sentinel was treated as an ordinary object and surfaced as
+`Undefined property or method '<x>' on AsyncSuspensionRequest`. Every argument
+list in the same method already propagated the sentinel; only the receiver slot
+did not. The fix is the one-line propagation `visitIndexExpression` has always
+had.
+
+Scope is narrower than it looks, and the tests are what established that:
+`(await f)[0]` and `(await f).length` were **already correct** — the index and
+property-access paths carried the check. `visitMethodInvocation` was the sole
+gap.
+
+Two pre-existing async bugs sit adjacent to this one and are *not* fixed here;
+the reproductions live in `tom_d4rt/test/scb14_await_receiver_position_test.dart`
+as skipped tests naming their todos. (1) A frame has a single
+`lastAwaitResult` slot, so the second and later `await`s in one statement all
+resolve to the first future's value — `(await a) + (await b)` yields `'AA'`,
+with no receiver involved at all. (2) Resumption of an `await` in argument
+position whose invocation target is a local re-enters without the enclosing
+block scope, so the local reads as undefined.
+
 ### Fixed — symbol literals (`#foo`) evaluate to a `Symbol` (SCB11)
 
 Mirrors `tom_d4rt` 1.23.0. `SSymbolLiteral` had no handler, so `#foo` fell

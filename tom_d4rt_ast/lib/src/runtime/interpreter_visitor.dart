@@ -3767,6 +3767,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     } else {
       // Property/Method call on a target (instance or class)
       targetValue = node.target!.accept<Object?>(this);
+
+      // SCB14 — `await` in RECEIVER position, e.g. `(await f).join(',')`.
+      // Why: evaluating the target can suspend, and the sentinel must travel
+      // back up to the statement machine so it can re-enter this statement once
+      // the future completes. Without this the sentinel is treated as an
+      // ordinary receiver and surfaces as "Undefined property or method '<x>'
+      // on AsyncSuspensionRequest". The argument lists below already propagate
+      // (see the `_evaluateArgumentsAsync` sites); the receiver slot did not.
+      // Matches the idiom used by visitIndexExpression.
+      if (targetValue is AsyncSuspensionRequest) return targetValue;
+
       final methodName = node.methodName!.name;
 
       // Null safety support: if the target is null and the call is null-aware, return null
