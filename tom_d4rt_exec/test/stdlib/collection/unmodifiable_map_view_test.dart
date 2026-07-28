@@ -14,6 +14,14 @@ import 'package:tom_d4rt_exec/d4rt.dart';
 /// `RuntimeD4rtException` message: the bridge must keep *delegating* mutators to
 /// the native view instead of intercepting them, or scripts that catch the SDK
 /// error type today would silently stop catching it.
+///
+/// **`F-SC3-21` still characterizes `is Map` as a gap here, and must not be
+/// flipped yet.** The supertype `is` fix landed in `tom_d4rt` and in the
+/// `tom_d4rt_ast` working tree, but this package resolves `tom_d4rt_ast` from
+/// pub.dev, so the fix does not reach it until that package is republished and
+/// the constraint bumped. Flipping the assertion before then turns a working
+/// suite red for a reason that has nothing to do with this bridge. The flip is
+/// tracked as a step on the follow-up that owns the republish.
 void main() {
   final d4rt = D4rt();
 

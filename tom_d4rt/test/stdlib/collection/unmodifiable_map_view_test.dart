@@ -137,25 +137,9 @@ void main() {
     test('F-SC3-9: an unmodifiable view is type-testable [2026-07-27]', () {
       final result = d4rt.execute(
         source: viewSource("{'a': 1}",
-            'return [view is UnmodifiableMapView, source is UnmodifiableMapView];'),
+            'return [view is UnmodifiableMapView, view is Map, source is UnmodifiableMapView];'),
       ) as List;
-      expect(result, orderedEquals([true, false]));
-    });
-
-    test('F-SC3-21: `is Map` on a bridged map subtype is a known gap [2026-07-27]',
-        () {
-      // Characterization, not endorsement. `x is Map` is false for *every*
-      // bridged `dart:collection` map — `HashMap`, `SplayTreeMap` and
-      // `Map.unmodifiable(...)` all behave this way, and did so before this
-      // bridge existed, so it is not something SC3 introduced or can fix
-      // locally. (The `Set` side works only because `SetCore.nativeNames`
-      // enumerates the concrete runtime type names.) Tracked as a follow-up;
-      // when supertype checks start working this test goes red and should be
-      // folded back into F-SC3-9.
-      final result = d4rt.execute(
-        source: viewSource("{'a': 1}", 'return view is Map;'),
-      );
-      expect(result, isFalse);
+      expect(result, orderedEquals([true, true, false]));
     });
 
     test('F-SC3-10: Map.unmodifiable() results are the same bridged type [2026-07-27]',

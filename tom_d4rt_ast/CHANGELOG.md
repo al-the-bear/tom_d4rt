@@ -1,5 +1,37 @@
 ## 0.15.0
 
+### Fixed — `is` and `on` see a bridged collection's supertypes (SCB7)
+
+`x is Map` was `false` for every bridged `dart:collection` map, `x is List`
+likewise for `UnmodifiableListView`, and `x is Iterable` for most bridged sets.
+Two independent defects were responsible:
+
+- **The type-test switch tested the wrapper, not the value.**
+  `visitIsExpression` special-cases the shape types (`int`, `double`, `num`,
+  `String`, `bool`, `List`, `Map`) and answered them with a native `is` on the
+  operand as it arrived. A bridged value arrives as a `BridgedInstance`, which
+  is neither a `List` nor a `Map`. The shape cases now test the underlying
+  native object. `Set` and `Iterable` are not in that switch and already went
+  down the bridged-subtype path, which is why the `Set` side looked healthy.
+
+- **Nothing declared the `dart:collection` supertype graph.** The new
+  `CollectionHierarchyCollection` registers the map, set, list-view, queue and
+  `LinkedList` edges with `BridgedClass.registerSupertypes`. It absorbs the
+  queue-only block that previously lived in the `DoubleLinkedQueue` bridge —
+  one declaration of the library's hierarchy rather than one per file.
+
+Also fixed: catch-clause type matching is a separate implementation with its
+own type switch, and it consulted only exact tests, so `on Iterable` missed a
+thrown bridged collection that `x is Iterable` matched. It now falls back to
+the thrown value's own bridge and the supertype walk.
+
+Registry edges rather than a widened `isAssignable`: that predicate decides
+which bridge *owns* a native object in `Environment.toBridgedInstance`, so a
+supertype claiming assignability could steal dispatch. The generic-argument
+checks (`is List<int>`, `is Map<String, int>`) are preserved.
+
+Mirrors `tom_d4rt` 1.23.0.
+
 ### Changed — `UnmodifiableListView` mutators raise the SDK's `UnsupportedError` (SCB6)
 
 **This is a behaviour change to a shipped bridge.** A mutation attempt on

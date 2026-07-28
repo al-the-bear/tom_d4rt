@@ -1,4 +1,5 @@
 import 'package:tom_d4rt/src/environment.dart';
+import 'package:tom_d4rt/src/stdlib/collection/collection_hierarchy.dart';
 import 'package:tom_d4rt/src/stdlib/collection/double_linked_queue.dart';
 import 'package:tom_d4rt/src/stdlib/collection/hash_map.dart';
 import 'package:tom_d4rt/src/stdlib/collection/hash_set.dart';
@@ -32,6 +33,6 @@ class CollectionStdlib {
     environment.defineBridge(UnmodifiableSetViewCollection.definition);
     // After the bridges: the registry keys on NAME, so the edges are only
     // useful once the classes they name are registered.
-    QueueHierarchyCollection.register();
+    CollectionHierarchyCollection.register();
   }
 }

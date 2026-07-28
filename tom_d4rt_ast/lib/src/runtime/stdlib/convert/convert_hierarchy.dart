@@ -21,7 +21,7 @@ import 'package:tom_d4rt_ast/runtime.dart';
 /// thing that can tell a byte sink from a string sink.
 ///
 /// Expressed as registry edges rather than by narrowing any `isAssignable`,
-/// for the reason spelled out on `QueueHierarchyCollection`: the predicate
+/// for the reason spelled out on `CollectionHierarchyCollection`: the predicate
 /// decides *ownership*, and every hand-written stdlib bridge has
 /// `hierarchyDepth == 0`, so feeding the registry lets
 /// `Environment._filterToMostSpecific` drop supertype matches — making

@@ -10956,6 +10956,26 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                     } else {
                       typeMatch = false;
                     }
+                    // SCB7: every attempt above is exact — `isAssignable` is a
+                    // native `is` the catch type may not declare, and the
+                    // comparisons after it test bridge identity. None can see
+                    // that an `UnmodifiableSetView` is an `Iterable`, so
+                    // `on Iterable` missed a thrown bridged collection that
+                    // `x is Iterable` matched. Resolving the thrown value's own
+                    // bridge and asking it about the catch type closes the gap,
+                    // the same way `visitIsExpression`'s bridged path does.
+                    // Additive: it runs only where the answer was already false.
+                    if (!typeMatch && thrownValueForTypeTest != null) {
+                      final thrownRuntimeType = environment.getRuntimeType(
+                        thrownValueForTypeTest,
+                      );
+                      typeMatch =
+                          thrownRuntimeType != null &&
+                          thrownRuntimeType.isSubtypeOf(
+                            targetType,
+                            value: thrownValueForTypeTest,
+                          );
+                    }
                   } else {
                     // Target type name resolved, but it's not an InterpretedClass or BridgedClass
                     typeMatch = false;
@@ -11204,25 +11224,41 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           ? '${typeNode.importPrefix!.name}.$rawTypeName'
           : rawTypeName;
 
+      // SCB7: the cases below answer with the host's own `is` operator, so
+      // they need the underlying native object. A bridged value arrives as a
+      // `BridgedInstance` wrapper, which is neither a `List` nor a `Map` — so
+      // `UnmodifiableListView(...) is List` and `HashMap() is Map` were false
+      // for every bridged `dart:collection` type. `Set` and `Iterable` are not
+      // in this switch, fall through to `default`, and were therefore already
+      // answered correctly by the bridged-subtype path, which is why the Set
+      // side looked healthy while the Map and List sides did not.
+      //
+      // Only the shape cases use this; `Null` / `Object` / `dynamic` / `void`
+      // and the `default` branch keep the operand as it arrived, because they
+      // ask about the value's identity or its bridge, not its native shape.
+      final shapeValue = expressionValue is BridgedInstance
+          ? expressionValue.nativeObject
+          : expressionValue;
+
       // Handle built-in types first
       switch (typeName) {
         case 'int':
-          result = expressionValue is int;
+          result = shapeValue is int;
           break;
         case 'double':
-          result = expressionValue is double;
+          result = shapeValue is double;
           break;
         case 'num':
-          result = expressionValue is num;
+          result = shapeValue is num;
           break;
         case 'String':
-          result = expressionValue is String;
+          result = shapeValue is String;
           break;
         case 'bool':
-          result = expressionValue is bool;
+          result = shapeValue is bool;
           break;
         case 'List':
-          if (expressionValue is! List) {
+          if (shapeValue is! List) {
             result = false;
           } else if (typeNode.typeArguments == null ||
               typeNode.typeArguments!.arguments.isEmpty) {
@@ -11231,13 +11267,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           } else {
             // Check generic type arguments
             result = _checkGenericListType(
-              expressionValue,
+              shapeValue,
               typeNode.typeArguments!.arguments[0],
             );
           }
           break;
         case 'Map':
-          if (expressionValue is! Map) {
+          if (shapeValue is! Map) {
             result = false;
           } else if (typeNode.typeArguments == null ||
               typeNode.typeArguments!.arguments.isEmpty) {
@@ -11248,7 +11284,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             final typeArgs = typeNode.typeArguments!.arguments;
             if (typeArgs.length >= 2) {
               result = _checkGenericMapType(
-                expressionValue,
+                shapeValue,
                 typeArgs[0],
                 typeArgs[1],
               );

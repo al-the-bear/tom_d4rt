@@ -14,7 +14,7 @@ Object? _runCallback(
 /// `forEachEntry` hand out [DoubleLinkedQueueEntry] cursors that can splice in
 /// place. Bridging the queue without the entry type would have produced a
 /// slower `ListQueue` with no distinguishing surface, so both are registered
-/// here and [QueueHierarchyCollection] wires the inherited surface.
+/// here and `CollectionHierarchyCollection` wires the inherited surface.
 class DoubleLinkedQueueCollection {
   static BridgedClass get definition => BridgedClass(
         nativeType: DoubleLinkedQueue,
@@ -22,7 +22,7 @@ class DoubleLinkedQueueCollection {
         // Concrete and a leaf, so a predicate here cannot shadow a more
         // specific bridge. It still *ties* with `Queue`'s predicate in
         // `Environment.toBridgedInstance`; the `DoubleLinkedQueue -> Queue`
-        // edge registered by [QueueHierarchyCollection] is what breaks that
+        // edge registered by `CollectionHierarchyCollection` is what breaks that
         // tie in favour of this bridge rather than registration order.
         isAssignable: (v) => v is DoubleLinkedQueue,
         typeParameterCount: 1,
@@ -243,33 +243,6 @@ class DoubleLinkedQueueEntryCollection {
       );
 }
 
-/// Declares the `dart:collection` queue hierarchy to [BridgedClass].
-///
-/// Bridges are registered flat, so nothing else tells the interpreter that a
-/// `ListQueue` is a `Queue` is an `Iterable`. Two things depend on this:
-///
-///   * `isSubtypeOf`, so `q is Iterable` answers truthfully;
-///   * the bridged-supertype walk, which is how a queue reaches the ~30-member
-///     `Iterable` surface it inherits. Before this block, `ListQueue.where`,
-///     `.join`, `.map` and even `.contains` all failed with "has no instance
-///     method named" — the `ListQueue` bridge simply does not declare them, and
-///     bridge dispatch is per-bridge rather than hierarchical. Registering the
-///     edges recovers the whole surface for every queue type at once instead of
-///     copying thirty adapters onto each.
-///
-/// Deliberately NOT expressed by widening any `isAssignable`: that predicate is
-/// what `Environment.toBridgedInstance` consults to decide which bridge *owns*
-/// a native object, and every hand-written stdlib bridge carries
-/// `hierarchyDepth == 0`, so a supertype claiming assignability for its
-/// subtypes could quietly steal dispatch. Feeding the registry instead lets the
-/// `_filterToMostSpecific` pass *use* the hierarchy to drop supertype matches —
-/// so this makes dispatch more exact, not less.
-class QueueHierarchyCollection {
-  static void register() {
-    BridgedClass.registerSupertypes(const {
-      'DoubleLinkedQueue': ['Queue', 'Iterable'],
-      'ListQueue': ['Queue', 'Iterable'],
-      'Queue': ['Iterable'],
-    });
-  }
-}
+// The queue supertype edges live with the rest of the `dart:collection`
+// hierarchy in `CollectionHierarchyCollection` (collection_hierarchy.dart) —
+// one declaration of the library's supertype graph rather than one per file.

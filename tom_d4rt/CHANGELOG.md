@@ -1,5 +1,56 @@
 ## 1.23.0
 
+### Fixed — `is` and `on` see a bridged collection's supertypes (SCB7)
+
+`x is Map` was `false` for every bridged `dart:collection` map — `HashMap`,
+`LinkedHashMap`, `SplayTreeMap`, `UnmodifiableMapView`, `Map.unmodifiable(...)`
+— and `x is List` likewise for `UnmodifiableListView`. `x is Iterable` was
+`false` for most bridged sets and for the list view. Two independent defects
+were responsible:
+
+- **The type-test switch tested the wrapper, not the value.**
+  `visitIsExpression` special-cases the shape types (`int`, `double`, `num`,
+  `String`, `bool`, `List`, `Map`) and answered them with the host's own `is`
+  operator applied to the operand as it arrived. A bridged value arrives as a
+  `BridgedInstance`, which is neither a `List` nor a `Map`, so the answer was
+  always `false`. The shape cases now test the underlying native object. `Set`
+  and `Iterable` are not in that switch, fell through to the bridged-subtype
+  path, and were therefore already answered correctly — which is why the `Set`
+  side looked healthy while the `Map` and `List` sides did not.
+
+- **Nothing declared the `dart:collection` supertype graph.** The new
+  `CollectionHierarchyCollection` registers the map, set, list-view, queue and
+  `LinkedList` edges with `BridgedClass.registerSupertypes`, so the bridged
+  subtype walk can reach `Set`, `List`, `Map` and `Iterable`. It absorbs the
+  queue-only block that previously lived in the `DoubleLinkedQueue` bridge —
+  one declaration of the library's hierarchy rather than one per file.
+
+Also fixed: catch-clause type matching is a **separate** implementation from
+`is`, with its own type switch, and it consulted only exact tests — the catch
+type's `isAssignable` predicate and bridge identity. Neither can see that an
+`UnmodifiableSetView` is an `Iterable`, so `on Iterable` missed a thrown
+bridged collection that `x is Iterable` matched. It now falls back to the
+thrown value's own bridge and the supertype walk, the way the `is` path does.
+
+Expressed as registry edges and deliberately **not** by widening any
+`isAssignable`: that predicate is what `Environment.toBridgedInstance` consults
+to decide which bridge *owns* a native object, and every hand-written stdlib
+bridge carries `hierarchyDepth == 0`, so a supertype claiming assignability for
+its subtypes could quietly steal dispatch. Feeding the registry instead lets
+`_filterToMostSpecific` use the hierarchy to drop supertype matches, making
+dispatch more exact rather than less.
+
+The generic-argument checks the `List` / `Map` cases carry
+(`is List<int>`, `is Map<String, int>`) are preserved and now reachable for
+bridged operands too.
+
+**Still open, and unrelated to bridged collections:** pattern matching is a
+third copy of the type test, and it does not evaluate its type at all. A bare
+typed pattern (`case int _`, `case Map m`) matches unconditionally, so the
+first arm of a `switch` statement, `switch` expression or `if-case` always
+wins — for `int` and `String` just as much as for a collection. Constant
+patterns and destructuring patterns are unaffected. Tracked separately.
+
 ### Changed — `UnmodifiableListView` mutators raise the SDK's `UnsupportedError` (SCB6)
 
 **This is a behaviour change to a shipped bridge.** A mutation attempt on
@@ -380,14 +431,18 @@ This differs from the older `UnmodifiableListView` bridge, which does intercept
 and throw `RuntimeD4rtException`. Realigning it is tracked separately, since it
 is a behaviour change to a shipped bridge with its own test impact.
 
-### Known gap (pre-existing, not introduced here)
+### Known gap (pre-existing, not introduced here) — fixed in 1.23.0
 
 `x is Map` is `false` for every bridged `dart:collection` map — `HashMap`,
 `SplayTreeMap` and now the map view alike — and likewise `x is List` for
-`UnmodifiableListView`. Supertype `is` checks only work where the core bridge's
-`nativeNames` happens to enumerate the concrete runtime type, which is the case
-for `Set` but not for `Map`/`List`. Characterized by `F-SC3-21` so the day it is
-fixed shows up as a red test rather than going unnoticed.
+`UnmodifiableListView`. Characterized by `F-SC3-21` so the day it is fixed shows
+up as a red test rather than going unnoticed.
+
+The cause given here originally — that supertype `is` works only where a core
+bridge's `nativeNames` enumerates the concrete runtime type, "which is the case
+for `Set` but not for `Map`/`List`" — was wrong. `MapCore` enumerates concrete
+names and declares `isAssignable` exactly as `SetCore` does. See 1.23.0 for the
+two defects that were actually responsible.
 
 ## 1.14.0
 
