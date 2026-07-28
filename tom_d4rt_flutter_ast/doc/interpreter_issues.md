@@ -3490,6 +3490,83 @@ honour explicit type arguments correctly.
 
 ---
 
+## Verification runs
+
+Corpus runs made to certify an interpreter change rather than to
+discover new clusters. Each entry records what was measured, against
+which resolved package versions, and what moved.
+
+### 2026-07-28 — SC6 `is BridgedX` widening (tom_d4rt 1.18.0 / tom_d4rt_ast 0.10.0)
+
+**What was verified.** The SC6 widening made three every-bridge changes
+to type testing: `is BridgedX` against an `InterpretedInstance` now
+consults `InterpretedClass.isSubtypeOf` instead of answering a hard
+`false`; `implements SomeBridge` counts as a subtype edge
+(`isSubtypeOf` previously walked `bridgedSuperclass` / `bridgedMixins`
+but skipped `bridgedInterfaces`); and method invocation walks the
+bridged supertype chain via `lookupOnBridgedSupertypes`. A widening of
+`is` can only break a script that *relied on the old wrong answer*, so
+the corpus is the instrument that decides whether such scripts exist.
+
+**Resolved versions under test.** `tom_d4rt_flutter` → tom_d4rt 1.22.0.
+`tom_d4rt_flutter_ast` → tom_d4rt_ast **0.14.0**, reached only after a
+`flutter pub upgrade`: the package's lock was frozen at **0.4.1** —
+ten minor versions stale, predating every SC1–SC10 change — because the
+constraint is lower-bound-only and `pub get` is lock-preserving. Any
+run made before that upgrade would have measured an interpreter without
+the widening in it and reported a meaningless green. See
+`scc45_agñg-lower-bound-constraint-freezes-consumer-locks`.
+
+**Scope run.** Both twins, serially: the full base subset
+(`run_base_tests.sh`, `flutter_base_01..17`) plus the seven extended
+files that carry `is <FlutterType>` guards
+(`flutter_extended_01, 02, 03, 11, 16, 22, 23`). The base subset alone
+was insufficient — of the 53 `is <FlutterType>` guards across 17 corpus
+scripts, the three densest (`services/class_test.dart` 24,
+`foundation/class_test.dart` 13, `animation/class_test.dart` 10 —
+47 of ~67 occurrences) are extended-only, so base-only would have left
+roughly 70 % of the type-test surface unexercised.
+
+**Result — no regressions in either twin.**
+
+| Suite | Baseline | 2026-07-28 |
+| --- | --- | --- |
+| base 01–17 (src) | 927 pass / 1 skip / 0 fail | identical |
+| base 01–17 (ast) | 927 pass / 1 skip / 0 fail | identical |
+| ext 01, 02, 03, 11, 16 | `+47`, `+60 ~1`, `+54`, `+61`, `+47` | identical |
+| ext 22 | `+30 ~1 -12` | **`+42 ~1`** (12 recovered) |
+| ext 23 | `+44 ~1 -1` | **`+44 ~2`** (fail → skip) |
+
+Base baselines are `basetestlog_20260628-step2-{src,ast}/metrics.txt`
+(byte-identical between twins); extended baselines are
+`testlog_20260624-0713-issue-analysis/metrics.txt`. This run's outputs
+are in `basetestlog_20260728-scb16-{src,ast}/` and
+`extlog_20260728-scb16/` in each twin.
+
+**Neither improvement is attributable to the widening.** The 12
+ext_22 recoveries are a single contiguous alphabetical block
+(`widgets/image_filtered_test.dart` … `widgets/page_storage_test.dart`)
+that resumes passing at `widgets/parent_data_widget_test.dart` — a
+leaked-framework-error cascade, not 12 independent defects. The leaked
+text is a Material layout advisory ("ListTile background color or ink
+splashes may be invisible… wrapped in a DecoratedBox"), which has
+nothing to do with type testing; its source was fixed by other cluster
+work between the 2026-06-24 baseline and now. ext_23's `-1` became a
+**skip**, not a pass: the file now reports two skips
+(`dart_ui/system_color_palette_test.dart`,
+`rendering/render_android_view_test.dart`) where the baseline had one.
+
+**Conclusion.** No corpus script depended on the old hard-`false`
+answer from `is BridgedX`, and the widening produced no over-widening
+failures. The two deltas are pre-existing improvements from unrelated
+work.
+
+**Caveat.** Seventeen extended files were not run (they carry no
+`is <FlutterType>` guard and so cannot exercise the widening). A
+completeness pass over the full corpus is tracked separately.
+
+---
+
 ## How clusters were derived
 
 `generator_interpreter_issues_test.dart` was run end-to-end. Its
