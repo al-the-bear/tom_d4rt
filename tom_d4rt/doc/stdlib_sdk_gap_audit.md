@@ -6,16 +6,26 @@
 **Scope audited:** all stdlib bridge files under
 `tom_d4rt/lib/src/stdlib/` (114 files) and the mirror set under
 `tom_d4rt_ast/lib/src/runtime/stdlib/` (114 files — **identical gaps**).
-Class-level coverage is audited by hand; **member-level** coverage is
-measured mechanically by `tom_d4rt/tool/stdlib_member_diff.dart` — see
-"Member-level gaps" below.
+Class-level coverage is audited by hand; **member-level** and
+**hierarchy-level** coverage are both measured mechanically by
+`tom_d4rt/tool/stdlib_member_diff.dart` — see "Member-level gaps" and
+"Hierarchy gaps" below.
 
 ## TL;DR
 
+- **Gaps come at three levels: class, member, and hierarchy.** A missing
+  supertype *edge* is its own defect, distinct from a missing member and
+  invisible to the member diff. It costs the entire inherited surface at
+  once, makes `is` and `on` answer wrongly, and is one line to fix rather
+  than N adapters — `LinkedList` fell from 27 unreachable members to 2 when
+  its `-> Iterable` edge was declared. A mechanical cross-reference over all
+  180 classes (`--hierarchy`) confirms **35 missing edges across 23
+  classes**, concentrated in `dart:convert`. Read the hierarchy audit before
+  treating any member-gap count as a work estimate.
 - **Gaps are member-level as well as class-level.** A mechanical member
   diff over all 180 registered classes
-  (`tool/stdlib_member_diff.dart`) confirms **197 unreachable members
-  spread across 39 classes** that this audit otherwise counts as
+  (`tool/stdlib_member_diff.dart`) confirms **163 unreachable members
+  spread across 38 classes** that this audit otherwise counts as
   bridged. Member-level coverage must therefore be measured, not
   spot-checked: a spot-check cannot distinguish a fully registered class
   from a **partially** registered one, because it passes as soon as it
@@ -114,28 +124,40 @@ silently counted either way. Closing that bucket means adding recipes to
 
 ### Current measured state
 
+Measured 2026-07-28.
+
 | Metric | Count |
 |--------|-------|
 | Bridged classes examined | 180 |
-| Raw candidates from the map diff | 618 |
-| … reachable anyway via instance fallback | 156 |
+| Raw candidates from the map diff | 620 |
+| … reachable anyway via instance fallback | 192 |
 | … unverified (no instance recipe) | 265 |
-| **CONFIRMED unreachable** | **197** |
-| Classes with ≥ 1 confirmed gap | 39 |
+| **CONFIRMED unreachable** | **163** |
+| Classes with ≥ 1 confirmed gap | 38 |
 
 | Class | Confirmed | Instance | Static | Assessment |
 | --- | --- | --- | --- | --- |
-| `LinkedList` | 27 | 27 | 0 | Genuine gap — the whole `Iterable` surface is missing; only 9 of 36 members bridged. Highest-value remaining item. |
 | 10 × shared typed lists | 12 each | 12 | 0 | **Not a gap** — these are the length-*changing* `List` mutators (`add`, `insert`, `remove`, `clear`, …). A fixed-length list must refuse them. See the note below on the *error type*. |
-| `SplayTreeMap` | 8 | 8 | 0 | Genuine gap — `update`, `updateAll`, `addEntries`, `map`, `cast`, `removeWhere`, plus the type's distinguishing `firstKeyAfter`/`lastKeyBefore`. |
-| `Queue` / `ListQueue` | 4 / 2 | 3 / 2 | 1 / 0 | Genuine gap — the `removeWhere`/`retainWhere`/`remove` mutators. |
+| `Queue` / `ListQueue` | 4 / 2 | 3 / 2 | 1 / 0 | Genuine gap — the `remove`/`removeWhere`/`retainWhere` mutators, plus `Queue.castFrom`. |
 | `RangeError`, `ArgumentError`, `IndexError`, `Error` | 4, 1, 1, 1 | 0 | all | Genuine gap — the static validation helpers (`checkValidRange`, `checkNotNull`, `throwWithStackTrace`, …). |
-| `Iterable`, `Queue`, `Map`, `Set`, `Converter`, `LineSplitter` | 1–3 | 0 | all | The `castFrom` family plus `iterableToShortString`/`iterableToFullString`. Low traffic. |
+| `Iterable`, `Map`, `Set`, `Converter`, `LineSplitter` | 1–3 | 0 | all | The `castFrom` family plus `iterableToShortString`/`iterableToFullString`. Low traffic. |
 | `ByteBuffer` | 3 | 3 | 0 | The three SIMD views (`asFloat32x4List`, `asInt32x4List`, `asFloat64x2List`). Blocked on `Float32x4`/`Int32x4` themselves not being bridged. |
-| `UnmodifiableListView` | 3 | 3 | 0 | Genuine gap — `indexWhere`, `lastIndexWhere`, `whereType`. |
+| `LinkedList` | 2 | 2 | 0 | `addAll`, `addFirst`. Was 27 before the `-> Iterable` edge existed; see below. |
+| `SplayTreeMap` | 2 | 2 | 0 | `firstKeyAfter`, `lastKeyBefore` — the type's distinguishing ordered-navigation pair. |
 | 4 × `Codec` (`Utf8`, `Ascii`, `Latin1`, `Encoding`) | 1 each | 1 | 0 | `decodeStream` — needs a `Stream<List<int>>`. |
 | `Enum`, `Symbol`, `ProcessStartMode`, `String`, … | 1–2 | mixed | mixed | Long tail: `compareByIndex`/`compareByName`, `Symbol.empty`, `values`, `matchAsPrefix`. |
 | `unawaited`, `FileSystemEntityType.NOT_FOUND` | 1 each | — | — | **Tool artifacts.** `unawaited` is a function, not a class, so its `Function` surface is diffed; `NOT_FOUND` is a deprecated SDK alias. |
+
+**A supertype edge is worth ~25 adapters.** The three largest en-bloc
+entries in the previous revision of this table are gone, and none of them was
+fixed by writing adapters. `LinkedList` fell from 27 confirmed gaps to 2, and
+`SplayTreeMap` from 8 to 2, when `CollectionHierarchyCollection` gained their
+`-> Iterable` and `-> Map` edges; `UnmodifiableListView` fell from 3 to 0 the
+same way. That is the quantified case for auditing the hierarchy *before*
+reading a member-gap count as a work estimate — a missing edge inflates the
+member table by the whole inherited surface, and reading those rows as
+"members to write" would have prescribed roughly 38 adapters where three
+lines of registry were the actual fix.
 
 **The typed-list residue is a wrong-error-type problem, not a gap.** The
 120 entries are correct to fail — but they currently fail with
@@ -145,6 +167,94 @@ than the SDK's `UnsupportedError`. A script that defensively writes
 is the same one the `UnmodifiableMapView` note below describes: register
 the member and let the native list raise, rather than leaving it
 unregistered.
+
+## Hierarchy gaps — the supertype-edge audit
+
+A missing supertype edge is a different defect from a missing member, and the
+member diff cannot see it. It costs the *whole* inherited surface at once, it
+makes `is` and `on` answer wrongly, and it is one line to fix rather than N
+adapters. It also hides from the member diff entirely whenever the class has
+no instance recipe. So it is asked directly:
+
+```bash
+dart run tool/stdlib_member_diff.dart --hierarchy
+dart run tool/stdlib_member_diff.dart --hierarchy --no-verify   # static only, ~8 s
+```
+
+**Method.** For every bridged class, `dart:mirrors` walks the native type's
+superclass chain and superinterfaces; each supertype that is *itself bridged*
+is cross-referenced against `BridgedClass.transitiveSupertypeNames`. Anything
+the SDK declares and the registry does not know is a candidate. Supertypes
+with no bridge are skipped — the registry keys on a bridge name, so such an
+edge would be unrepresentable, and a missing bridge is a different finding.
+Comparison is by `originalDeclaration` mirror, not by raw `Type`: bridges
+carry instantiated natives (`Queue<dynamic>`) while `superinterfaces` yields
+whatever the declaration site wrote, and matching raw types would miss nearly
+every edge.
+
+**Candidates are then verified**, for the same reason the member diff
+verifies its own: a static cross-reference over-reports badly. Each candidate
+is driven through the interpreter as `o is Supertype` and kept only if the
+answer is actually `false`. Measured 2026-07-28:
+
+| Metric | Count |
+|--------|-------|
+| Bridged classes examined | 180 |
+| … declaring `isAssignable` | 155 |
+| … with ≥ 1 registered edge | 37 |
+| Candidate edges from the cross-reference | 137 |
+| … satisfied anyway via `isAssignable` | 11 |
+| … unverified (no instance recipe) | 91 |
+| **CONFIRMED missing edges** | **35** |
+| Classes with ≥ 1 confirmed gap | 23 |
+
+The 11 satisfied-anyway are exactly the typed lists' `-> List`, and they are
+the argument for the verification pass: published unverified, they would have
+sent someone to fix behaviour that already works.
+
+### Confirmed gaps, by hierarchy
+
+| Hierarchy | Classes | Missing edges | Members also lost? |
+| --- | --- | --- | --- |
+| `dart:convert` codecs | `Utf8Codec`, `AsciiCodec`, `Latin1Codec` | `-> Codec`, `-> Encoding` | Yes — `decodeStream` |
+| `dart:convert` converters | `JsonEncoder`, `JsonDecoder`, `HtmlEscape`, `LineSplitter`, `Converter` | `-> Converter`, `-> StreamTransformer`, `-> StreamTransformerBase` | No |
+| `dart:convert` root | `Encoding` | `-> Codec` | No |
+| `dart:typed_data` views | all 11 | `-> Iterable` | No |
+| `dart:core` comparables | `String`, `Duration` | `-> Comparable`, `-> Pattern` | Yes — `String.matchAsPrefix` |
+| `dart:async` sinks | `StreamController` | `-> Sink` | No |
+
+`StreamController` is the instructive row: it already carries
+`-> EventSink`, `-> StreamConsumer` and `-> StreamSink`, and is missing only
+`-> Sink`. Partial edge sets are the normal failure mode — whoever adds a
+hierarchy declares the edges the failing test needed, and the rest stay
+missing until something else trips over them.
+
+### The 91 unverified edges are the audit's own blind spot
+
+48 further classes carry candidate edges that could not be tested because
+`_instanceRecipes` has no entry for them — most of `dart:io` (`Socket`,
+`Stdout`, `IOSink`, `File`, `Directory`, the `FileSystemException` family),
+the `dart:convert` encoder/decoder pairs, and the numeric tower
+(`int`/`double`/`num`/`BigInt` `-> Comparable`). They are reported as their
+own bucket rather than folded into either answer, because both readings would
+be a guess.
+
+Closing that bucket means extending the recipe table, not writing probes —
+the same rule the member diff follows. Some entries are deliberately hard:
+the `dart:io` sockets and servers are omitted on purpose rather than have the
+audit open listening ports, so those need a recipe that constructs without
+binding, or an explicit "not auditable" marker.
+
+### Why these are filed rather than fixed here
+
+Each hierarchy needs its own dispatch verification — the SC7 queue case
+showed that adding edges changes which bridge *owns* a native, and
+`_filterToMostSpecific` can newly drop a match that used to win. Six
+hierarchies across four libraries is not one change, and the edges must land
+in both trees (`CollectionHierarchyCollection` and `ConvertHierarchyConvert`
+are byte-identical between `tom_d4rt` and `tom_d4rt_ast` today; any new
+registrar must stay that way). The audit's job is to make the list complete
+and repeatable; the fixes are tracked separately.
 
 ## Not a gap: relaxer false-alarms (already fixed)
 
@@ -291,11 +401,11 @@ was false. `contains` is the sharpest illustration: the `Queue` bridge has
 always declared it, but a native `ListQueue` dispatches to the `ListQueue`
 bridge, which did not.
 
-`QueueHierarchyCollection` declares `DoubleLinkedQueue`/`ListQueue -> Queue`
-and `Queue -> Iterable` to `BridgedClass.registerSupertypes`. That single
-block both answers `is` correctly and lets the bridged-supertype walk find
-the inherited members, instead of copying thirty adapters onto each queue
-bridge.
+`CollectionHierarchyCollection` declares `DoubleLinkedQueue`/`ListQueue ->
+Queue` and `Queue -> Iterable` to `BridgedClass.registerSupertypes`. That
+single block both answers `is` correctly and lets the bridged-supertype walk
+find the inherited members, instead of copying thirty adapters onto each
+queue bridge.
 
 The edges are deliberately **not** expressed by widening any `isAssignable`.
 Beyond the ownership hazard described above, `Environment.toBridgedInstance`
@@ -306,19 +416,34 @@ what breaks the `DoubleLinkedQueue`/`Queue` tie deterministically rather than
 by registration order, and it is why a deque is not mistaken for a
 `ListQueue`.
 
-The same treatment is still owed to the map and set bridges: `HashMap`,
-`LinkedHashMap` and `SplayTreeMap` all answer `is Map` false, and `HashSet`
-answers `is Iterable` false. Those are separate hierarchies needing their own
-dispatch verification.
+The same treatment was subsequently extended to the rest of `dart:collection`,
+which is why the registrar is named for the library rather than for queues:
+the maps (`-> Map`), the four set types (`-> Set, Iterable`),
+`UnmodifiableListView` (`-> List, Iterable`), `Set`/`List`/`Queue`
+(`-> Iterable`) and `LinkedList` (`-> Iterable`) all carry edges now. The
+mechanical hierarchy audit below finds no remaining `dart:collection` gap.
 
 ## Notes on the typed_data hierarchy
 
 Bridging `BytesBuilder` surfaced the same class of gap one library over, but
-in a milder form that is worth distinguishing. Every typed-data view answers
-its `is` checks wrongly — `Uint8List.fromList([1,2,3]) is List` and
-`is Iterable` are both **false** — and `TypedData` itself is not bridged at
-all, so `d is TypedData` does not fail a type test but throws
+in a milder form that is worth distinguishing. The typed-data views answer
+`is Iterable` **false**, and `TypedData` itself is not bridged at all, so
+`d is TypedData` does not fail a type test but throws
 `Undefined variable: TypedData`.
+
+`is List`, by contrast, answers **true** — measured, all eleven views. Not
+through any registered edge: `BridgedClass.isSubtypeOf` falls back to the
+*target's* `isAssignable` against the native value (GEN-075), and a
+`Uint8List` genuinely satisfies the `List` bridge's `(v) => v is List`.
+`Iterable` carries no predicate at all, which is precisely why the two
+answers differ.
+
+An earlier revision of this section reported both as false. That was not a
+case of the code moving underneath the document: the fallback shipped in
+GEN-081 (2026-03-02) and the `List` predicate in GEN-C3c (2026-05-04), both
+well before the reading was recorded, in both trees. It was simply wrong when
+written — which is the argument for the mechanical audit below over a hand
+spot-check.
 
 Unlike the queue case, the *members* are fine: each typed-data bridge
 declares its ~40 inherited `List` members explicitly rather than relying on
@@ -364,21 +489,25 @@ the root promptly swallowed its own subtypes:
     // Bridged class 'ChunkedConversionSink' has no instance method
     // named 'asStringSink'.
 
-The fix follows the `QueueHierarchyCollection` precedent: declare the
-edges via `BridgedClass.registerSupertypes` (in
+The fix follows the `CollectionHierarchyCollection` precedent: declare
+the edges via `BridgedClass.registerSupertypes` (in
 `convert/convert_hierarchy.dart`) so `_filterToMostSpecific` can drop the
 supertype match, and give `ByteConversionSink` a predicate of its own so
 the filter has a specific candidate to keep. This makes dispatch *more*
 exact, not less.
 
-**Still open — the codec/converter type tests.** `json is Codec`,
-`utf8 is Codec`, `JsonEncoder() is Converter` and `utf8 is Encoding` all
-answer `false`, because no edges connect the concrete codecs to their
-abstract roots. Unlike the typed_data case above, the roots `Codec`,
-`Converter` and `Encoding` *are* bridged, so nothing blocks the fix. It
-is deferred on the same reasoning as the typed_data hierarchy: the
-members all work, only the type tests are wrong, so it is filed rather
-than fixed here.
+**Still open — the codec/converter type tests.** `utf8 is Codec`,
+`utf8 is Encoding` and `JsonEncoder() is Converter` all answer `false`,
+because no edges connect the concrete codecs to their abstract roots.
+Unlike the typed_data case above, the roots `Codec`, `Converter` and
+`Encoding` *are* bridged, so nothing blocks the fix.
+
+`convert_hierarchy.dart` covers only the **sink** half of the library.
+The codec/converter half is the largest single block in the hierarchy
+audit above — 20 confirmed edges across nine classes, plus a further 29
+unverified across eleven encoder/decoder/codec classes — and unlike the typed_data
+hierarchy it is not purely cosmetic: the three encodings lose
+`decodeStream` with their `-> Encoding` edge.
 
 ## Notes on argument guards in hand-written bridges
 
@@ -425,12 +554,43 @@ patch to any one bridge.
    [d4rt_limitations.md](d4rt_limitations.md#intentionally-unbridged-sdk-classes).
    Several are sandbox-hostile by design and will stay out; the rest wait
    for a concrete consumer.
+4. **The hierarchy gaps are the largest remaining block** — 35 confirmed
+   missing edges, of which 14 are the `dart:convert` codec/converter chain.
+   Filed per hierarchy rather than as one change, because each alters
+   bridge *ownership* and needs its own dispatch verification.
+5. **Close the audit's blind spot** — 91 candidate edges and 265 candidate
+   members sit UNVERIFIED for want of an instance recipe, most of
+   `dart:io` among them. Until that table is extended, "confirmed" is a
+   lower bound on both audits, not a total.
 
 ## Method / reproducibility
 
-- Class inventory: `grep -rhoE "name: '[A-Za-z]+'"` across
-  `stdlib/` gives every bridged class name.
-- Gap probe: for each candidate SDK type `T`,
-  `grep -rl "name: 'T'" stdlib/` — no hit ⇒ missing.
-- Mirror parity: same probe under
-  `tom_d4rt_ast/lib/src/runtime/stdlib/` returned identical results.
+Both audits are mechanical and share one entry point. Neither reads the
+bridge *sources*: they read a live `Environment` after every
+`*Stdlib.register()`, so lazily-built and aliased registrations are counted
+exactly as a script would see them.
+
+```bash
+# Member-level gaps — which members can no script reach? (~2 min)
+dart run tool/stdlib_member_diff.dart [--json out.json] [--no-verify]
+
+# Hierarchy gaps — which bridged supertype has nobody declared? (~2 min)
+dart run tool/stdlib_member_diff.dart --hierarchy [--json out.json] [--no-verify]
+```
+
+`--no-verify` skips the interpreter pass and prints raw candidates. It is
+fast (~8 s) and useful while iterating, but its numbers are **not** gap
+counts — 137 candidate edges verify down to 35, and 620 candidate members to
+163. Never publish a `--no-verify` figure.
+
+Coverage is bounded by `_instanceRecipes` in the tool: a class with no recipe
+is reported UNVERIFIED, never as a gap. Extend that table rather than writing
+one-off probes — that is what makes the next bridge covered automatically.
+
+- **Class inventory**, if a source-level list is wanted rather than the live
+  registry: `grep -rhoE "name: '[A-Za-z]+'"` across `stdlib/`.
+- **Mirror parity**: the tool is `tom_d4rt`-only, since it needs
+  `dart:mirrors` and `tom_d4rt_ast` must stay dependency-free. Parity is
+  checked by diffing the registrars directly — `collection_hierarchy.dart`
+  and `convert_hierarchy.dart` are byte-identical between the trees apart
+  from the import line, so the findings transfer.

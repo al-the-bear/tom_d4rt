@@ -51,7 +51,23 @@
 // gaps, and classes with no instance recipe are reported as UNVERIFIED rather
 // than silently counted either way.
 //
+// A second, independent audit shares this tool's environment and mirror walk:
+// `--hierarchy` answers SCB19's question instead of the member-gap one. Where
+// the member diff asks "which members of this class can no script reach?", the
+// hierarchy audit asks "which of this class's BRIDGED supertypes has nobody
+// declared to the registry?" — the SC7 defect, where `ListQueue` shipped
+// without a `-> Iterable` edge and lost its whole inherited surface, `.contains`
+// included. That failure is invisible to the member diff whenever the class has
+// no instance recipe, and it is a single missing line rather than N missing
+// adapters, so it is worth asking directly.
+//
+// Both live here rather than in two tools because they need the same fully
+// registered environment and the same mirror hierarchy walk, and because the
+// question a maintainer actually has is "audit the stdlib bridges", not one of
+// the two halves.
+//
 // Run: dart run tool/stdlib_member_diff.dart [--json out.json] [--no-verify]
+//      dart run tool/stdlib_member_diff.dart --hierarchy [--json out.json]
 
 import 'dart:convert';
 import 'dart:io';
@@ -494,8 +510,300 @@ void verify(ClassDiff diff) {
   diff.verified = true;
 }
 
+// =============================================================================
+// Hierarchy audit — SCB19
+// =============================================================================
+
+/// One bridged class's supertype-registry state.
+class HierarchyGap {
+  HierarchyGap(this.name, this.nativeTypeName, this.hasIsAssignable);
+
+  final String name;
+  final String nativeTypeName;
+
+  /// Whether the bridge declares an `isAssignable` predicate. SCB19 framed the
+  /// defect around this flag, and it does raise the stakes — a predicate with no
+  /// edges lets the bridge claim ownership of natives it cannot fully serve.
+  /// But it is reported rather than filtered on: the edges are what carry the
+  /// inherited surface, so a bridge without a predicate that is missing edges is
+  /// just as broken for `is` and for inherited members.
+  final bool hasIsAssignable;
+
+  /// Bridged supertypes the SDK says this type has, which the registry does not
+  /// know about — transitively, so an edge reachable via an intermediate hop
+  /// counts as present.
+  ///
+  /// After [verifyHierarchy] these are only the edges whose absence a script can
+  /// OBSERVE, i.e. where `o is Supertype` actually answered false. Before it
+  /// they are candidates.
+  final missingEdges = <String>[];
+
+  /// Candidate edges where `is` answered true anyway. The registry is not the
+  /// only path: `BridgedClass.isSubtypeOf` also consults the target's
+  /// `isAssignable` against the native value (GEN-075), and the interpreter
+  /// special-cases the primitives. Kept in the report because their number is
+  /// the evidence that the raw cross-reference must not be published as a
+  /// defect list.
+  final satisfiedAnyway = <String>[];
+
+  /// Candidates left untested for want of an instance recipe — reported as
+  /// their own bucket rather than folded into either answer.
+  final unverifiedEdges = <String>[];
+
+  /// What the registry does know, for context in the report.
+  final registeredEdges = <String>[];
+
+  bool verified = false;
+  bool recipeUsable = false;
+
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'nativeType': nativeTypeName,
+        'hasIsAssignable': hasIsAssignable,
+        'verified': verified,
+        'recipeUsable': recipeUsable,
+        'missingEdges': missingEdges,
+        'satisfiedAnyway': satisfiedAnyway,
+        'unverifiedEdges': unverifiedEdges,
+        'registeredEdges': registeredEdges,
+      };
+}
+
+/// The `dart:` library that declares [type], as an import directive.
+///
+/// Read from the mirror's own owner rather than guessed from a name table: the
+/// probe needs the supertype in scope, and a wrong guess would make a present
+/// edge look absent. Returns null for `dart:core` (always in scope) and for
+/// anything not reflectable.
+String? _importForType(Type type) {
+  try {
+    final t = reflectType(type);
+    if (t is! ClassMirror) return null;
+    final owner = t.owner;
+    if (owner is! LibraryMirror) return null;
+    final uri = owner.uri.toString();
+    if (!uri.startsWith('dart:') || uri == 'dart:core') return null;
+    return "import '$uri';";
+  } catch (_) {
+    return null;
+  }
+}
+
+/// Every supertype of [type] the SDK declares — superclass chain plus
+/// superinterfaces, transitively.
+///
+/// Returned as `originalDeclaration` mirrors so that `Queue<dynamic>` and
+/// `Queue<int>` compare equal: bridges carry instantiated native types
+/// (`Queue<dynamic>`), while `superinterfaces` yields whatever the declaration
+/// site wrote, and matching on the raw `Type` would miss nearly every edge.
+Set<ClassMirror> _sdkSupertypeDeclarations(Type type) {
+  final result = <ClassMirror>{};
+  final ClassMirror root;
+  try {
+    final t = reflectType(type);
+    if (t is! ClassMirror) return result;
+    root = t;
+  } catch (_) {
+    return result;
+  }
+
+  final seen = <ClassMirror>{};
+  final queue = <ClassMirror>[root];
+  while (queue.isNotEmpty) {
+    final cm = queue.removeAt(0);
+    if (!seen.add(cm)) continue;
+    if (!identical(cm, root)) result.add(cm.originalDeclaration as ClassMirror);
+    try {
+      final sup = cm.superclass;
+      if (sup != null && sup.reflectedType != Object) queue.add(sup);
+      queue.addAll(cm.superinterfaces);
+    } catch (_) {
+      // Partly-reflectable SDK class — keep whatever the rest of the walk found.
+    }
+  }
+  return result;
+}
+
+/// Cross-references every bridge's SDK supertypes against the supertype
+/// registry, and reports the bridged ones nobody declared.
+///
+/// Only BRIDGED supertypes are reported. An edge to an unbridged type would be
+/// unrepresentable — the registry keys on the name of a bridge — so listing
+/// those would be noise rather than a defect list. Types the SDK reaches that
+/// have no bridge are a different finding (a missing bridge), and the member
+/// diff is not the place to raise it either.
+List<HierarchyGap> auditHierarchy(Environment env) {
+  final names = env.bridgedClassNames..sort();
+
+  // Declaration mirror -> the bridge names registered for it. A list because
+  // aliases exist: two names can share one native type.
+  final byDeclaration = <ClassMirror, List<String>>{};
+  for (final name in names) {
+    final bc = env.findBridgedClassByName(name);
+    if (bc == null) continue;
+    try {
+      final t = reflectType(bc.nativeType);
+      if (t is! ClassMirror) continue;
+      byDeclaration
+          .putIfAbsent(t.originalDeclaration as ClassMirror, () => [])
+          .add(name);
+    } catch (_) {
+      // Not reflectable (`Never`); it cannot participate either way.
+    }
+  }
+
+  final gaps = <HierarchyGap>[];
+  for (final name in names) {
+    final bc = env.findBridgedClassByName(name);
+    if (bc == null) continue;
+
+    final registered =
+        BridgedClass.transitiveSupertypeNames(name).toSet();
+    final gap = HierarchyGap(
+        name, bc.nativeType.toString(), bc.isAssignable != null)
+      ..registeredEdges.addAll(registered.toList()..sort());
+
+    for (final decl in _sdkSupertypeDeclarations(bc.nativeType)) {
+      final bridgeNames = byDeclaration[decl];
+      if (bridgeNames == null) continue;
+      for (final supertypeName in bridgeNames) {
+        if (supertypeName == name) continue;
+        if (registered.contains(supertypeName)) continue;
+        gap.missingEdges.add(supertypeName);
+      }
+    }
+    gap.missingEdges.sort();
+    gaps.add(gap);
+  }
+
+  gaps.sort((a, b) {
+    final byCount = b.missingEdges.length.compareTo(a.missingEdges.length);
+    return byCount != 0 ? byCount : a.name.compareTo(b.name);
+  });
+  return gaps;
+}
+
+/// Drives `o is Supertype` through the interpreter for each candidate edge.
+///
+/// The parallel of the member diff's phase 2, and for the same reason: a static
+/// cross-reference is a candidate generator. `int`'s missing `-> num` edge is
+/// the clearest case — the registry has nothing, yet `1 is num` is true, because
+/// the interpreter never routes a primitive through the bridge registry at all.
+/// Publishing that as a defect would send someone to fix working code.
+void verifyHierarchy(HierarchyGap gap, Environment env) {
+  gap.verified = true;
+  final recipe = _instanceRecipes[gap.name];
+  if (recipe == null || !recipeWorks(gap.name)) {
+    gap.unverifiedEdges
+      ..addAll(gap.missingEdges)
+      ..sort();
+    gap.missingEdges.clear();
+    return;
+  }
+  gap.recipeUsable = true;
+
+  final (recipeImport, expr) = recipe;
+  final confirmed = <String>[];
+  for (final supertype in gap.missingEdges) {
+    final bc = env.findBridgedClassByName(supertype);
+    final supertypeImport =
+        bc == null ? null : _importForType(bc.nativeType);
+    final imports = <String>{
+      if (recipeImport.isNotEmpty) recipeImport,
+      if (supertypeImport != null) supertypeImport,
+    }.join(' ');
+
+    final source = '$imports main() { final o = $expr; return o is $supertype; }';
+    final interpreter = D4rt()..setDebug(false);
+    interpreter.grant(FilesystemPermission.any);
+    Object? result;
+    try {
+      result = interpreter.execute(
+        library: 'package:audit/main.dart',
+        sources: {'package:audit/main.dart': source},
+      );
+    } catch (_) {
+      // A throwing `is` (an unbridged or out-of-scope supertype name) is not
+      // the same finding as a false one; do not count it as a missing edge.
+      gap.unverifiedEdges.add(supertype);
+      continue;
+    }
+    if (result == false) {
+      confirmed.add(supertype);
+    } else {
+      gap.satisfiedAnyway.add(supertype);
+    }
+  }
+  gap.missingEdges
+    ..clear()
+    ..addAll(confirmed);
+  gap.unverifiedEdges.sort();
+  gap.satisfiedAnyway.sort();
+}
+
+void runHierarchyAudit(Environment env, List<String> args) {
+  final gaps = auditHierarchy(env);
+  final candidateEdges =
+      gaps.fold<int>(0, (s, g) => s + g.missingEdges.length);
+
+  if (!args.contains('--no-verify')) {
+    stderr.writeln('Verifying $candidateEdges candidate edges against the '
+        'interpreter...');
+    for (final g in gaps) {
+      verifyHierarchy(g, env);
+    }
+    gaps.sort((a, b) {
+      final byCount = b.missingEdges.length.compareTo(a.missingEdges.length);
+      return byCount != 0 ? byCount : a.name.compareTo(b.name);
+    });
+  }
+
+  final withGaps = gaps.where((g) => g.missingEdges.isNotEmpty).toList();
+  final totalEdges = withGaps.fold<int>(0, (s, g) => s + g.missingEdges.length);
+  final assignableWithGaps =
+      withGaps.where((g) => g.hasIsAssignable).length;
+
+  stdout.writeln('Bridged classes examined:            ${gaps.length}');
+  stdout.writeln('  ... with >=1 registered edge:      '
+      '${gaps.where((g) => g.registeredEdges.isNotEmpty).length}');
+  stdout.writeln('  ... declaring isAssignable:        '
+      '${gaps.where((g) => g.hasIsAssignable).length}');
+  stdout.writeln('Candidate edges from cross-reference: $candidateEdges');
+  stdout.writeln('  ... satisfied anyway (isAssignable): '
+      '${gaps.fold<int>(0, (s, g) => s + g.satisfiedAnyway.length)}');
+  stdout.writeln('  ... unverified (no instance recipe): '
+      '${gaps.fold<int>(0, (s, g) => s + g.unverifiedEdges.length)}');
+  stdout.writeln('CONFIRMED missing edges:             $totalEdges');
+  stdout.writeln('Classes with >=1 confirmed gap:      ${withGaps.length}');
+  stdout.writeln('  ... of those, with isAssignable:   $assignableWithGaps');
+  stdout.writeln('');
+  stdout.writeln('| Class | Native type | isAssignable | Confirmed missing | Registered |');
+  stdout.writeln('| --- | --- | --- | --- | --- |');
+  for (final g in withGaps) {
+    stdout.writeln('| ${g.name} | ${g.nativeTypeName} '
+        '| ${g.hasIsAssignable ? 'yes' : 'no'} '
+        '| ${g.missingEdges.join(', ')} '
+        '| ${g.registeredEdges.isEmpty ? '—' : g.registeredEdges.join(', ')} |');
+  }
+
+  final jsonIndex = args.indexOf('--json');
+  if (jsonIndex >= 0 && jsonIndex + 1 < args.length) {
+    final out = File(args[jsonIndex + 1]);
+    out.parent.createSync(recursive: true);
+    out.writeAsStringSync(const JsonEncoder.withIndent('  ')
+        .convert(gaps.map((g) => g.toJson()).toList()));
+    stdout.writeln('\nJSON written to ${out.path}');
+  }
+}
+
 void main(List<String> args) {
   final env = buildFullyRegisteredEnvironment();
+
+  if (args.contains('--hierarchy')) {
+    runHierarchyAudit(env, args);
+    return;
+  }
+
   final names = env.bridgedClassNames..sort();
 
   final diffs = <ClassDiff>[];
