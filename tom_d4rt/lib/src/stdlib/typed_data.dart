@@ -14,9 +14,12 @@ import 'typed_data/uint64_list.dart';
 import 'typed_data/uint8_clamped_list.dart';
 import 'typed_data/float32_list.dart';
 import 'typed_data/float64_list.dart';
+import 'typed_data/typed_data.dart';
+import 'typed_data/typed_data_hierarchy.dart';
 
 class TypedDataStdlib {
   static void register(Environment environment) {
+    environment.defineBridge(TypedDataTypedData.definition);
     environment.defineBridge(BytesBuilderTypedData.definition);
     environment.defineBridge(EndianTypedData.definition);
     environment.defineBridge(ByteBufferTypedData.definition);
@@ -32,5 +35,9 @@ class TypedDataStdlib {
     environment.defineBridge(Uint8ClampedListTypedData.definition);
     environment.defineBridge(Float32ListTypedData.definition);
     environment.defineBridge(Float64ListTypedData.definition);
+    // Edges last: the registry keys on name, so every bridge above must be
+    // defined before the hierarchy that refers to them. `List` and `Iterable`
+    // come from `CoreStdlib`, which `Stdlib.register` runs first.
+    TypedDataHierarchyTypedData.register();
   }
 }

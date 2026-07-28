@@ -1,3 +1,25 @@
+## 0.17.0
+
+### Fixed — `is TypedData` threw, and the typed_data views had no hierarchy (SCB20)
+
+Mirrors `tom_d4rt` 1.25.0.
+
+- `TypedData` was not bridged at all, so `d is TypedData` raised
+  `Undefined variable: TypedData` rather than answering. It is now the bridged
+  root of the hierarchy, carrying the four interface getters (`buffer`,
+  `lengthInBytes`, `offsetInBytes`, `elementSizeInBytes`) and — deliberately —
+  no `isAssignable`, since that predicate decides bridge *ownership* and a root
+  claiming it would compete with the twelve implementors for every typed buffer.
+- Supertype edges declared for the eleven list views (`-> TypedData`, `-> List`,
+  `-> Iterable`) and for `ByteData` (`-> TypedData` only; it is not a `List`).
+  `is Iterable` previously answered false on every view.
+- `is List` already worked, via the `isAssignable` fallback plus the `List`
+  bridge's predicate, and is unchanged. The `-> List` edge is declared anyway so
+  the hierarchy no longer depends on `List` keeping that predicate.
+
+No member was lost or gained — the views declare their inherited `List` surface
+explicitly — so this corrects type tests only.
+
 ## 0.16.0
 
 ### Fixed — `.iterator`, `SplayTreeMap.entries`, and `Map.addEntries` (SCB17)

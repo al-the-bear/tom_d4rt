@@ -1,3 +1,44 @@
+## 1.25.0
+
+### Fixed — `is TypedData` threw, and the typed_data views had no hierarchy (SCB20)
+
+`dart:typed_data` was registered as twelve unrelated bridges. Two consequences,
+one of which was worse than a wrong answer:
+
+**`d is TypedData` did not answer — it threw.** `TypedData`, the interface every
+view implements, was never bridged, so the type test raised
+`Undefined variable: TypedData`. A type test that throws is worse than one that
+answers wrongly, because `is` is total in Dart and scripts reasonably assume it
+cannot fail. `TypedData` is now bridged as the root of the hierarchy, with its
+four interface getters (`buffer`, `lengthInBytes`, `offsetInBytes`,
+`elementSizeInBytes`).
+
+**`is Iterable` answered false** on all eleven list views. Supertype edges are
+now declared for the eleven views (`-> TypedData`, `-> List`, `-> Iterable`) and
+for `ByteData` (`-> TypedData`, which is not a `List`).
+
+**`is List` already worked and is unchanged.** The original report recorded it as
+broken; it was not. `BridgedClass.isSubtypeOf` falls back to asking the target's
+`isAssignable` about the native value (GEN-075 / GEN-081), and the `List` bridge
+carries `isAssignable: (v) => v is List` (GEN-C3c) — a native `Uint8List` is a
+native `List`, so the fallback answered true with no edge present. `Iterable`'s
+bridge has no predicate, which is the whole reason the two behaved differently.
+The `-> List` edge is now declared anyway, so the hierarchy reads correctly
+instead of depending on `List` keeping a predicate it is under no obligation to
+keep.
+
+No member was lost or gained: every view already declared its ~40 inherited
+`List` members explicitly, so `sort`, `where` and indexing worked throughout.
+This release corrects type tests only. The `TypedData` bridge deliberately
+carries **no** `isAssignable` — that predicate decides which bridge *owns* a
+native object, so a root claiming it would compete with the twelve implementors
+for every typed buffer; the subtype answers come from the registry instead.
+
+Found by the mechanical hierarchy audit added in SCB19
+(`tool/stdlib_member_diff.dart --hierarchy`), which reports the fix
+independently: confirmed missing edges fell from 35 across 23 classes to 24
+across 12.
+
 ## 1.24.0
 
 ### Fixed — `.iterator`, `SplayTreeMap.entries`, and `Map.addEntries` (SCB17)

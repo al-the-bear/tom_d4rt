@@ -199,18 +199,34 @@ answer is actually `false`. Measured 2026-07-28:
 
 | Metric | Count |
 |--------|-------|
-| Bridged classes examined | 180 |
+| Bridged classes examined | 181 |
 | … declaring `isAssignable` | 155 |
-| … with ≥ 1 registered edge | 37 |
-| Candidate edges from the cross-reference | 137 |
-| … satisfied anyway via `isAssignable` | 11 |
+| … with ≥ 1 registered edge | 49 |
+| Candidate edges from the cross-reference | 115 |
+| … satisfied anyway via `isAssignable` | 0 |
 | … unverified (no instance recipe) | 91 |
-| **CONFIRMED missing edges** | **35** |
-| Classes with ≥ 1 confirmed gap | 23 |
+| **CONFIRMED missing edges** | **24** |
+| Classes with ≥ 1 confirmed gap | 12 |
 
-The 11 satisfied-anyway are exactly the typed lists' `-> List`, and they are
-the argument for the verification pass: published unverified, they would have
-sent someone to fix behaviour that already works.
+The first measurement of this table, before the typed_data hierarchy was
+declared, read 137 candidates → 35 confirmed edges across 23 classes, with 11
+"satisfied anyway". All three differences have the same cause and are worth
+separating, because only one of them is a fix:
+
+- **35 → 24 confirmed.** The eleven typed-data `-> Iterable` edges are now
+  declared. This is the actual repair.
+- **137 → 115 candidates.** The eleven typed-data `-> List` and eleven
+  `-> TypedData` pairs stopped being *candidates* — the cross-reference only
+  proposes an edge that is not already registered.
+- **11 → 0 satisfied-anyway.** Those eleven were exactly the typed lists'
+  `-> List`: true via the `isAssignable` fallback, with no edge behind them.
+  They are now backed by a declared edge, so they leave the candidate set by
+  the previous bullet rather than by being counted here.
+
+That middle bucket was the argument for running a verification pass at all:
+published unverified, those eleven would have sent someone to fix behaviour
+that already worked. It is empty now only because the edges were declared for
+readability — the fallback that made them true is untouched.
 
 ### Confirmed gaps, by hierarchy
 
@@ -219,7 +235,6 @@ sent someone to fix behaviour that already works.
 | `dart:convert` codecs | `Utf8Codec`, `AsciiCodec`, `Latin1Codec` | `-> Codec`, `-> Encoding` | Yes — `decodeStream` |
 | `dart:convert` converters | `JsonEncoder`, `JsonDecoder`, `HtmlEscape`, `LineSplitter`, `Converter` | `-> Converter`, `-> StreamTransformer`, `-> StreamTransformerBase` | No |
 | `dart:convert` root | `Encoding` | `-> Codec` | No |
-| `dart:typed_data` views | all 11 | `-> Iterable` | No |
 | `dart:core` comparables | `String`, `Duration` | `-> Comparable`, `-> Pattern` | Yes — `String.matchAsPrefix` |
 | `dart:async` sinks | `StreamController` | `-> Sink` | No |
 
@@ -425,38 +440,68 @@ mechanical hierarchy audit below finds no remaining `dart:collection` gap.
 
 ## Notes on the typed_data hierarchy
 
-Bridging `BytesBuilder` surfaced the same class of gap one library over, but
-in a milder form that is worth distinguishing. The typed-data views answer
-`is Iterable` **false**, and `TypedData` itself is not bridged at all, so
-`d is TypedData` does not fail a type test but throws
-`Undefined variable: TypedData`.
+**Closed in `tom_d4rt` 1.25.0 / `tom_d4rt_ast` 0.17.0.** The section is kept
+because the three symptoms behaved differently from one another, and the
+reason they did is the clearest worked example of how `isSubtypeOf` actually
+resolves.
 
-`is List`, by contrast, answers **true** — measured, all eleven views. Not
-through any registered edge: `BridgedClass.isSubtypeOf` falls back to the
-*target's* `isAssignable` against the native value (GEN-075), and a
-`Uint8List` genuinely satisfies the `List` bridge's `(v) => v is List`.
-`Iterable` carries no predicate at all, which is precisely why the two
-answers differ.
+Bridging `BytesBuilder` surfaced the same class of gap one library over.
+Measured before the fix, across all eleven views:
 
-An earlier revision of this section reported both as false. That was not a
-case of the code moving underneath the document: the fallback shipped in
-GEN-081 (2026-03-02) and the `List` predicate in GEN-C3c (2026-05-04), both
-well before the reading was recorded, in both trees. It was simply wrong when
-written — which is the argument for the mechanical audit below over a hand
+| Type test | Answer before | Why |
+| --- | --- | --- |
+| `d is TypedData` | **threw** | `TypedData` was not bridged at all — `Undefined variable: TypedData` |
+| `d is Iterable` | **false** | no registered edge, and `Iterable`'s bridge carries no predicate |
+| `d is List` | **true** | no edge either, but the `isAssignable` fallback answered it |
+
+The third row is the instructive one. `BridgedClass.isSubtypeOf` falls back to
+asking the *target's* `isAssignable` about the native value (GEN-075), and a
+`Uint8List` genuinely satisfies the `List` bridge's `(v) => v is List`
+(GEN-C3c). `Iterable` carries no predicate at all, which is the entire reason
+the two answers differed.
+
+The first row is worse than a wrong answer. `is` is total in Dart, so a script
+may reasonably assume the question cannot fail; a throw from a type test is a
+different failure mode from `false`, and it is why the root had to be bridged
+before any edge could be declared.
+
+An earlier revision of this section reported `is List` as false too. That was
+not the code moving underneath the document: the fallback shipped in GEN-081
+(2026-03-02) and the `List` predicate in GEN-C3c (2026-05-04), both well
+before the reading was recorded, in both trees. It was simply wrong when
+written — which is the argument for the mechanical audit above over a hand
 spot-check.
 
-Unlike the queue case, the *members* are fine: each typed-data bridge
-declares its ~40 inherited `List` members explicitly rather than relying on
-a supertype walk, so `contains`, `join`, `where` and indexing all work. Only
-the type tests are wrong. That is why `BytesBuilder` was bridged on its own
-rather than dragging a hierarchy fix along with it — nothing is actively
-broken, the explicit member lists are merely verbose. The proper repair needs
-a `TypedData` bridge to exist first, since it is the shared supertype every
-view would register against, and it is tracked separately.
+**The repair.** `TypedDataTypedData` bridges the root, and
+`TypedDataHierarchyTypedData` declares `-> TypedData, List, Iterable` on the
+eleven views and `-> TypedData` on `ByteData`. Two decisions in it are worth
+carrying forward:
 
-`BytesBuilder` sits outside that hierarchy in any case: it is not a
+- **The root deliberately has no `isAssignable`.** That predicate decides
+  which bridge *owns* a native in `Environment.toBridgedInstance`, and every
+  hand-written stdlib bridge sits at `hierarchyDepth == 0` — a root claiming
+  `(v) => v is TypedData` would compete with the eleven views and `ByteData`
+  for every typed buffer in the system. The registry walk answers
+  `is TypedData` without it. `Iterable` is bridged the same way and for the
+  same reason; `Queue` carries a predicate only because it is also directly
+  constructible.
+- **`-> List` is declared even though it already answered true.** It changes
+  no behaviour. It means the hierarchy reads correctly on its own terms
+  instead of depending on the `List` bridge keeping a predicate it is under
+  no obligation to keep.
+
+The *members* were never affected: each typed-data bridge declares its ~40
+inherited `List` members explicitly rather than relying on a supertype walk,
+so `contains`, `join`, `where` and indexing all worked throughout. Only the
+type tests were wrong. That is why `BytesBuilder` was bridged on its own
+rather than dragging a hierarchy fix along with it. Now that the edges exist
+those explicit lists are redundant, but pruning them is a separate change with
+its own dispatch verification — they are what makes the surface work today.
+
+`BytesBuilder` sits outside the hierarchy in any case: it is not a
 `TypedData`, and its `toBytes`/`takeBytes` results route to the existing
-`Uint8List` bridge unchanged.
+`Uint8List` bridge unchanged. `ByteBuffer` is likewise absent — both look like
+they belong, and neither implements the interface.
 
 ## Notes on the convert hierarchy
 
@@ -499,15 +544,18 @@ exact, not less.
 **Still open — the codec/converter type tests.** `utf8 is Codec`,
 `utf8 is Encoding` and `JsonEncoder() is Converter` all answer `false`,
 because no edges connect the concrete codecs to their abstract roots.
-Unlike the typed_data case above, the roots `Codec`, `Converter` and
-`Encoding` *are* bridged, so nothing blocks the fix.
+The roots `Codec`, `Converter` and `Encoding` *are* bridged, so this needs
+only the edges — there is no missing-root step of the kind typed_data
+required.
 
 `convert_hierarchy.dart` covers only the **sink** half of the library.
-The codec/converter half is the largest single block in the hierarchy
+The codec/converter half is now the largest single block in the hierarchy
 audit above — 20 confirmed edges across nine classes, plus a further 29
-unverified across eleven encoder/decoder/codec classes — and unlike the typed_data
-hierarchy it is not purely cosmetic: the three encodings lose
-`decodeStream` with their `-> Encoding` edge.
+unverified across eleven encoder/decoder/codec classes — and unlike the
+typed_data hierarchy it is not purely cosmetic: the three encodings lose
+`decodeStream` with their `-> Encoding` edge. That makes it the one
+remaining block where the missing edges cost real API surface rather than
+only type tests.
 
 ## Notes on argument guards in hand-written bridges
 
@@ -554,10 +602,12 @@ patch to any one bridge.
    [d4rt_limitations.md](d4rt_limitations.md#intentionally-unbridged-sdk-classes).
    Several are sandbox-hostile by design and will stay out; the rest wait
    for a concrete consumer.
-4. **The hierarchy gaps are the largest remaining block** — 35 confirmed
-   missing edges, of which 14 are the `dart:convert` codec/converter chain.
+4. **The hierarchy gaps are the largest remaining block** — 24 confirmed
+   missing edges, of which 20 are the `dart:convert` codec/converter chain.
    Filed per hierarchy rather than as one change, because each alters
-   bridge *ownership* and needs its own dispatch verification.
+   bridge *ownership* and needs its own dispatch verification. The
+   `dart:typed_data` block (11 edges) is closed; `dart:convert` is the one
+   that also costs members, so it is the next one worth taking.
 5. **Close the audit's blind spot** — 91 candidate edges and 265 candidate
    members sit UNVERIFIED for want of an instance recipe, most of
    `dart:io` among them. Until that table is extended, "confirmed" is a
@@ -580,7 +630,7 @@ dart run tool/stdlib_member_diff.dart --hierarchy [--json out.json] [--no-verify
 
 `--no-verify` skips the interpreter pass and prints raw candidates. It is
 fast (~8 s) and useful while iterating, but its numbers are **not** gap
-counts — 137 candidate edges verify down to 35, and 620 candidate members to
+counts — 115 candidate edges verify down to 24, and 620 candidate members to
 163. Never publish a `--no-verify` figure.
 
 Coverage is bounded by `_instanceRecipes` in the tool: a class with no recipe
@@ -591,6 +641,6 @@ one-off probes — that is what makes the next bridge covered automatically.
   registry: `grep -rhoE "name: '[A-Za-z]+'"` across `stdlib/`.
 - **Mirror parity**: the tool is `tom_d4rt`-only, since it needs
   `dart:mirrors` and `tom_d4rt_ast` must stay dependency-free. Parity is
-  checked by diffing the registrars directly — `collection_hierarchy.dart`
-  and `convert_hierarchy.dart` are byte-identical between the trees apart
-  from the import line, so the findings transfer.
+  checked by diffing the registrars directly — `collection_hierarchy.dart`,
+  `convert_hierarchy.dart` and `typed_data_hierarchy.dart` are byte-identical
+  between the trees apart from the import line, so the findings transfer.
