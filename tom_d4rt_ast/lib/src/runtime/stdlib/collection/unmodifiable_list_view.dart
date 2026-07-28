@@ -1,5 +1,43 @@
 import 'dart:collection';
+import 'dart:math';
+
 import 'package:tom_d4rt_ast/runtime.dart';
+
+/// Narrows [target] to the native view, or reports which member was reached
+/// with the wrong receiver.
+///
+/// Every mutating adapter below needs this guard, so it lives here rather than
+/// being re-inlined twenty times.
+UnmodifiableListView _view(Object? target, String member) {
+  if (target is UnmodifiableListView) return target;
+  throw RuntimeD4rtException(
+      "Target is not an UnmodifiableListView for '$member'");
+}
+
+/// Narrows a script-supplied argument to an `int`, naming the member and
+/// parameter so the script author knows which argument to fix.
+int _int(Object? argument, String member, String parameter) {
+  if (argument is int) return argument;
+  throw RuntimeD4rtException(
+      "Argument '$parameter' of UnmodifiableListView.$member must be an int.");
+}
+
+/// Narrows a script-supplied argument to an [Iterable].
+Iterable _iterable(Object? argument, String member, String parameter) {
+  if (argument is Iterable) return argument;
+  throw RuntimeD4rtException(
+      "Argument '$parameter' of UnmodifiableListView.$member must be an Iterable.");
+}
+
+/// Narrows a script-supplied argument to a callable.
+///
+/// Accepts any [Callable], not just [InterpretedFunction], so a bridged or
+/// native function is as acceptable here as an interpreted closure.
+Callable _callback(Object? argument, String member) {
+  if (argument is Callable) return argument;
+  throw RuntimeD4rtException(
+      "Argument to UnmodifiableListView.$member must be a function.");
+}
 
 class UnmodifiableListViewCollection {
   static BridgedClass get definition => BridgedClass(
@@ -29,77 +67,200 @@ class UnmodifiableListViewCollection {
             throw RuntimeD4rtException(
                 "Invalid arguments for UnmodifiableListView[] getter");
           },
+          // --- Mutating members -------------------------------------------
+          // These delegate so the native view raises the SDK
+          // `UnsupportedError` rather than a D4rt-specific exception. That is
+          // what makes a mutation attempt catchable from script with
+          // `on UnsupportedError`, matching the dart:collection contract and
+          // the sibling map/set view bridges. Arguments are still checked
+          // first, so a malformed call reports the argument problem instead of
+          // the (equally true, but less useful) unsupported-operation error.
+          //
+          // The native view rejects every one of these before touching the
+          // backing list, so the callbacks narrowed below are never actually
+          // invoked; they are validated because an unmodifiable view is still
+          // entitled to complain about a nonsensical call.
           '[]=': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            if (positionalArgs.length != 2) {
+              throw RuntimeD4rtException(
+                  "Invalid arguments for UnmodifiableListView[]=");
+            }
+            final index = _int(positionalArgs[0], '[]=', 'index');
+            _view(target, '[]=')[index] = positionalArgs[1];
+            return positionalArgs[1];
           },
           'add': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            if (positionalArgs.length != 1) {
+              throw RuntimeD4rtException(
+                  "Invalid arguments for UnmodifiableListView.add");
+            }
+            _view(target, 'add').add(positionalArgs[0]);
+            return null;
           },
           'addAll': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            if (positionalArgs.length != 1) {
+              throw RuntimeD4rtException(
+                  "Invalid arguments for UnmodifiableListView.addAll");
+            }
+            _view(target, 'addAll')
+                .addAll(_iterable(positionalArgs[0], 'addAll', 'iterable'));
+            return null;
           },
           'clear': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            _view(target, 'clear').clear();
+            return null;
           },
           'insert': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            if (positionalArgs.length != 2) {
+              throw RuntimeD4rtException(
+                  "Invalid arguments for UnmodifiableListView.insert");
+            }
+            final index = _int(positionalArgs[0], 'insert', 'index');
+            _view(target, 'insert').insert(index, positionalArgs[1]);
+            return null;
           },
           'insertAll': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            if (positionalArgs.length != 2) {
+              throw RuntimeD4rtException(
+                  "Invalid arguments for UnmodifiableListView.insertAll");
+            }
+            final index = _int(positionalArgs[0], 'insertAll', 'index');
+            _view(target, 'insertAll').insertAll(
+                index, _iterable(positionalArgs[1], 'insertAll', 'iterable'));
+            return null;
           },
           'remove': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            if (positionalArgs.length != 1) {
+              throw RuntimeD4rtException(
+                  "Invalid arguments for UnmodifiableListView.remove");
+            }
+            return _view(target, 'remove').remove(positionalArgs[0]);
           },
           'removeAt': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            if (positionalArgs.length != 1) {
+              throw RuntimeD4rtException(
+                  "Invalid arguments for UnmodifiableListView.removeAt");
+            }
+            final index = _int(positionalArgs[0], 'removeAt', 'index');
+            return _view(target, 'removeAt').removeAt(index);
           },
           'removeLast': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            return _view(target, 'removeLast').removeLast();
           },
           'removeRange': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            if (positionalArgs.length != 2) {
+              throw RuntimeD4rtException(
+                  "Invalid arguments for UnmodifiableListView.removeRange");
+            }
+            _view(target, 'removeRange').removeRange(
+                _int(positionalArgs[0], 'removeRange', 'start'),
+                _int(positionalArgs[1], 'removeRange', 'end'));
+            return null;
           },
           'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            if (positionalArgs.length != 1) {
+              throw RuntimeD4rtException(
+                  "Invalid arguments for UnmodifiableListView.removeWhere");
+            }
+            final test = _callback(positionalArgs[0], 'removeWhere');
+            _view(target, 'removeWhere').removeWhere((e) {
+              final result = test.call(visitor, [e]);
+              return result is bool && result;
+            });
+            return null;
           },
           'replaceRange': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            if (positionalArgs.length != 3) {
+              throw RuntimeD4rtException(
+                  "Invalid arguments for UnmodifiableListView.replaceRange");
+            }
+            _view(target, 'replaceRange').replaceRange(
+                _int(positionalArgs[0], 'replaceRange', 'start'),
+                _int(positionalArgs[1], 'replaceRange', 'end'),
+                _iterable(positionalArgs[2], 'replaceRange', 'replacements'));
+            return null;
           },
           'retainWhere': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            if (positionalArgs.length != 1) {
+              throw RuntimeD4rtException(
+                  "Invalid arguments for UnmodifiableListView.retainWhere");
+            }
+            final test = _callback(positionalArgs[0], 'retainWhere');
+            _view(target, 'retainWhere').retainWhere((e) {
+              final result = test.call(visitor, [e]);
+              return result is bool && result;
+            });
+            return null;
           },
           'fillRange': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            if (positionalArgs.length < 2 || positionalArgs.length > 3) {
+              throw RuntimeD4rtException(
+                  "Invalid arguments for UnmodifiableListView.fillRange");
+            }
+            _view(target, 'fillRange').fillRange(
+                _int(positionalArgs[0], 'fillRange', 'start'),
+                _int(positionalArgs[1], 'fillRange', 'end'),
+                positionalArgs.length > 2 ? positionalArgs[2] : null);
+            return null;
           },
           'setAll': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            if (positionalArgs.length != 2) {
+              throw RuntimeD4rtException(
+                  "Invalid arguments for UnmodifiableListView.setAll");
+            }
+            _view(target, 'setAll').setAll(
+                _int(positionalArgs[0], 'setAll', 'index'),
+                _iterable(positionalArgs[1], 'setAll', 'iterable'));
+            return null;
           },
           'setRange': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            if (positionalArgs.length < 3 || positionalArgs.length > 4) {
+              throw RuntimeD4rtException(
+                  "Invalid arguments for UnmodifiableListView.setRange");
+            }
+            _view(target, 'setRange').setRange(
+                _int(positionalArgs[0], 'setRange', 'start'),
+                _int(positionalArgs[1], 'setRange', 'end'),
+                _iterable(positionalArgs[2], 'setRange', 'iterable'),
+                positionalArgs.length > 3
+                    ? _int(positionalArgs[3], 'setRange', 'skipCount')
+                    : 0);
+            return null;
           },
           'shuffle': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            if (positionalArgs.length > 1) {
+              throw RuntimeD4rtException(
+                  "Invalid arguments for UnmodifiableListView.shuffle");
+            }
+            Random? random;
+            if (positionalArgs.length == 1 && positionalArgs[0] != null) {
+              final candidate = positionalArgs[0];
+              if (candidate is! Random) {
+                throw RuntimeD4rtException(
+                    "Argument to UnmodifiableListView.shuffle must be a Random.");
+              }
+              random = candidate;
+            }
+            _view(target, 'shuffle').shuffle(random);
+            return null;
           },
           'sort': (visitor, target, positionalArgs, namedArgs, _) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            if (positionalArgs.length > 1) {
+              throw RuntimeD4rtException(
+                  "Invalid arguments for UnmodifiableListView.sort");
+            }
+            int Function(dynamic, dynamic)? compare;
+            if (positionalArgs.length == 1 && positionalArgs[0] != null) {
+              final comparator = _callback(positionalArgs[0], 'sort');
+              compare = (a, b) {
+                final result = comparator.call(visitor, [a, b]);
+                if (result is int) return result;
+                throw RuntimeD4rtException(
+                    "Comparator for 'sort' must return an int.");
+              };
+            }
+            _view(target, 'sort').sort(compare);
+            return null;
           },
           'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
             final t = target as UnmodifiableListView;
@@ -501,18 +662,17 @@ class UnmodifiableListViewCollection {
                 "Target is not an UnmodifiableListView for getter 'runtimeType'");
           },
         },
+        // The mutating setters delegate for the same reason as the mutating
+        // methods above: the SDK's `UnsupportedError` has to reach the script.
         setters: {
           'length': (visitor, target, value) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            _view(target, 'length=').length = _int(value, 'length=', 'value');
           },
           'first': (visitor, target, value) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            _view(target, 'first=').first = value;
           },
           'last': (visitor, target, value) {
-            throw RuntimeD4rtException(
-                "Unsupported operation: Cannot modify an unmodifiable list");
+            _view(target, 'last=').last = value;
           },
         },
       );

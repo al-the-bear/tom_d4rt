@@ -1,3 +1,35 @@
+## 1.23.0
+
+### Changed — `UnmodifiableListView` mutators raise the SDK's `UnsupportedError` (SCB6)
+
+**This is a behaviour change to a shipped bridge.** A mutation attempt on
+an `UnmodifiableListView` used to be intercepted by the bridge, which
+raised `RuntimeD4rtException("Unsupported operation: Cannot modify an
+unmodifiable list")`. All 18 mutating methods and the `length` / `first` /
+`last` setters now delegate to the native view, so the failure a script
+sees is the SDK's own `UnsupportedError`.
+
+Two things this fixes:
+
+- **The failure is catchable from script.** `on UnsupportedError` is how
+  the `dart:collection` contract says to catch a mutation attempt, and it
+  now works. The intercepted exception was not merely the wrong type — it
+  was not catchable at all: it escaped even a bare `catch (e)` and
+  propagated out of `execute()` to the host.
+
+- **It matches the sibling bridges.** `UnmodifiableMapView` and
+  `UnmodifiableSetView` have delegated since they were added, so the three
+  unmodifiable views no longer disagree about how a mutation surfaces.
+
+Arguments are still validated before delegating, so a malformed call
+reports the argument problem rather than the equally-true-but-less-useful
+unsupported-operation error.
+
+**Migration:** a script that catches `RuntimeD4rtException` around a
+mutation of an unmodifiable list will no longer see it — catch
+`UnsupportedError` instead. Read-only members, and scripts that do not
+attempt mutation, are unaffected.
+
 ## 1.22.0
 
 ### Changed — filesystem permission scopes are symlink-aware (DGUB5)

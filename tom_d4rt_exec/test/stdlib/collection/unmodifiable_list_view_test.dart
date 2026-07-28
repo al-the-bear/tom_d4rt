@@ -1,6 +1,25 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
+/// This file is DELIBERATELY one revision behind its tom_d4rt twin.
+///
+/// The bridge's mutating members were changed to delegate to the native view so
+/// that a mutation attempt raises the SDK's own `UnsupportedError` and a script
+/// can catch it with `on UnsupportedError` — matching the map/set view bridges
+/// and the `dart:collection` contract. The tom_d4rt copy of this suite already
+/// asserts that shape.
+///
+/// This copy still asserts the OLD shape (a `RuntimeD4rtException` whose message
+/// mentions the unsupported operation) because tom_d4rt_exec resolves
+/// tom_d4rt_ast from pub.dev rather than from the sibling checkout, and the
+/// published version still intercepts. Rewriting these assertions before that
+/// republish would leave them failing against a bridge that has not changed yet,
+/// and the failure would read as a bad fix rather than a stale dependency.
+///
+/// WHEN tom_d4rt_ast IS REPUBLISHED and the constraint here is bumped, these 21
+/// mutation tests go red. That is expected: at that point port the tom_d4rt
+/// version of this file (helper included) rather than repairing the assertions
+/// one by one.
 void main() {
   final d4rt = D4rt();
 

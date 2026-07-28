@@ -1,3 +1,28 @@
+## 0.15.0
+
+### Changed — `UnmodifiableListView` mutators raise the SDK's `UnsupportedError` (SCB6)
+
+**This is a behaviour change to a shipped bridge.** A mutation attempt on
+an `UnmodifiableListView` used to be intercepted by the bridge, which
+raised `RuntimeD4rtException("Unsupported operation: Cannot modify an
+unmodifiable list")`. All 18 mutating methods and the `length` / `first` /
+`last` setters now delegate to the native view, so the failure a script
+sees is the SDK's own `UnsupportedError` — catchable with
+`on UnsupportedError`, as the `dart:collection` contract says it should
+be, and matching the `UnmodifiableMapView` / `UnmodifiableSetView` bridges
+which have delegated since they were added.
+
+Arguments are still validated before delegating, so a malformed call
+reports the argument problem rather than the equally-true-but-less-useful
+unsupported-operation error.
+
+**Migration:** a script that catches `RuntimeD4rtException` around a
+mutation of an unmodifiable list will no longer see it — catch
+`UnsupportedError` instead. Read-only members, and scripts that do not
+attempt mutation, are unaffected.
+
+Mirrors `tom_d4rt` 1.23.0.
+
 ## 0.14.0
 
 ### Fixed — record type annotations resolve to their real shape (DGUB8)
