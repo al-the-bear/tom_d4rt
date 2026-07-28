@@ -3,6 +3,8 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:tom_d4rt/d4rt.dart';
 
+import '../error_handler_args.dart';
+
 class HttpClientIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: HttpClient,
@@ -86,7 +88,8 @@ class HttpClientIo {
             if (positionalArgs.length != 2 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! Uri) {
-              throw RuntimeD4rtException('openUrl requires method and Uri arguments.');
+              throw RuntimeD4rtException(
+                  'openUrl requires method and Uri arguments.');
             }
             return (target as HttpClient).openUrl(
               positionalArgs[0] as String,
@@ -192,7 +195,8 @@ class HttpClientIo {
             );
             return null;
           },
-          'addProxyCredentials': (visitor, target, positionalArgs, namedArgs, _) {
+          'addProxyCredentials':
+              (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 4 ||
                 positionalArgs[0] is! String ||
                 positionalArgs[1] is! int ||
@@ -392,8 +396,8 @@ class HttpServerIo {
               (request) => onData.call(visitor, [request]),
               onError: onError == null
                   ? null
-                  : (error, stackTrace) =>
-                      onError.call(visitor, [error, stackTrace]),
+                  : (error, stackTrace) => onError.call(
+                      visitor, errorHandlerArgs(onError, error, stackTrace)),
               onDone: onDone == null ? null : () => onDone.call(visitor, []),
               cancelOnError: cancelOnError,
             );
@@ -458,7 +462,8 @@ class HttpClientRequestIo {
           },
           'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! Iterable) {
-              throw RuntimeD4rtException('writeAll requires an Iterable argument.');
+              throw RuntimeD4rtException(
+                  'writeAll requires an Iterable argument.');
             }
             (target as HttpClientRequest).writeAll(
               positionalArgs[0] as Iterable<dynamic>,
@@ -582,8 +587,8 @@ class HttpClientResponseIo {
               (data) => onData.call(visitor, [data]),
               onError: onError == null
                   ? null
-                  : (error, stackTrace) =>
-                      onError.call(visitor, [error, stackTrace]),
+                  : (error, stackTrace) => onError.call(
+                      visitor, errorHandlerArgs(onError, error, stackTrace)),
               onDone: onDone == null ? null : () => onDone.call(visitor, []),
               cancelOnError: cancelOnError,
             );
@@ -664,7 +669,8 @@ class HttpHeadersIo {
         methods: {
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
-              throw RuntimeD4rtException('add requires name and value arguments.');
+              throw RuntimeD4rtException(
+                  'add requires name and value arguments.');
             }
             (target as HttpHeaders).add(
               positionalArgs[0] as String,
@@ -676,7 +682,8 @@ class HttpHeadersIo {
           },
           'set': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
-              throw RuntimeD4rtException('set requires name and value arguments.');
+              throw RuntimeD4rtException(
+                  'set requires name and value arguments.');
             }
             (target as HttpHeaders).set(
               positionalArgs[0] as String,
@@ -688,7 +695,8 @@ class HttpHeadersIo {
           },
           'remove': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length < 2) {
-              throw RuntimeD4rtException('remove requires name and value arguments.');
+              throw RuntimeD4rtException(
+                  'remove requires name and value arguments.');
             }
             (target as HttpHeaders).remove(
               positionalArgs[0] as String,
@@ -712,7 +720,8 @@ class HttpHeadersIo {
           'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeD4rtException('forEach requires a function argument.');
+              throw RuntimeD4rtException(
+                  'forEach requires a function argument.');
             }
             final callback = positionalArgs[0] as InterpretedFunction;
             (target as HttpHeaders).forEach((name, values) {

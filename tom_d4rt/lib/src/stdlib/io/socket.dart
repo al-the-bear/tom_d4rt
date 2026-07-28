@@ -4,6 +4,8 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:tom_d4rt/d4rt.dart';
 
+import '../error_handler_args.dart';
+
 T? _runAction<T>(InterpreterVisitor visitor, InterpretedFunction? function,
     List<Object?> args) {
   if (function == null) return null;
@@ -90,7 +92,8 @@ class SocketIo {
           },
           'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentD4rtException('Socket.writeCharCode requires charCode');
+              throw ArgumentD4rtException(
+                  'Socket.writeCharCode requires charCode');
             }
             (target as Socket).writeCharCode(positionalArgs[0] as int);
             return null;
@@ -107,7 +110,8 @@ class SocketIo {
           },
           'getRawOption': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentD4rtException('Socket.getRawOption requires option');
+              throw ArgumentD4rtException(
+                  'Socket.getRawOption requires option');
             }
             return (target as Socket)
                 .getRawOption(positionalArgs[0] as RawSocketOption);
@@ -240,8 +244,10 @@ class SocketIo {
                 _runAction<void>(visitor, onData!, [data]);
             Function? onErrorWrapper = onError == null
                 ? null
-                : (Object error, [StackTrace? stackTrace]) =>
-                    _runAction<void>(visitor, onError, [error, stackTrace]);
+                : (Object error, [StackTrace? stackTrace]) => _runAction<void>(
+                    visitor,
+                    onError,
+                    errorHandlerArgs(onError, error, stackTrace));
             void Function()? onDoneWrapper = onDone == null
                 ? null
                 : () => _runAction<void>(visitor, onDone, []);
@@ -287,8 +293,8 @@ class SocketIo {
             final onError = positionalArgs[0] as InterpretedFunction;
             final test = namedArgs['test'] as InterpretedFunction?;
             return (target as Socket).handleError(
-              (error, stackTrace) =>
-                  _runAction<void>(visitor, onError, [error, stackTrace]),
+              (error, stackTrace) => _runAction<void>(visitor, onError,
+                  errorHandlerArgs(onError, error, stackTrace)),
               test: test == null
                   ? null
                   : (error) => _runAction<bool>(visitor, test, [error]) == true,
@@ -452,7 +458,8 @@ class InternetAddressIo {
         staticMethods: {
           'lookup': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentD4rtException('InternetAddress.lookup requires host');
+              throw ArgumentD4rtException(
+                  'InternetAddress.lookup requires host');
             }
 
             // Check network permission
@@ -476,7 +483,8 @@ class InternetAddressIo {
           },
           'tryParse': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw ArgumentD4rtException('InternetAddress.tryParse requires adresse');
+              throw ArgumentD4rtException(
+                  'InternetAddress.tryParse requires adresse');
             }
             final adresse = positionalArgs[0] as String;
             return InternetAddress.tryParse(adresse);
@@ -525,7 +533,8 @@ class InternetAddressIo {
 
     // Check for NetworkPermission
     if (!d4rt.checkPermission({'type': 'network', 'connect': true})) {
-      throw RuntimeD4rtException('Network operations require NetworkPermission. '
+      throw RuntimeD4rtException(
+          'Network operations require NetworkPermission. '
           'Use d4rt.grant(NetworkPermission.any) to allow network access.');
     }
   }
@@ -580,8 +589,10 @@ class ServerSocketIo {
                 _runAction<void>(visitor, onData, [socket]);
             Function? onErrorWrapper = onError == null
                 ? null
-                : (Object error, [StackTrace? stackTrace]) =>
-                    _runAction<void>(visitor, onError, [error, stackTrace]);
+                : (Object error, [StackTrace? stackTrace]) => _runAction<void>(
+                    visitor,
+                    onError,
+                    errorHandlerArgs(onError, error, stackTrace));
             void Function()? onDoneWrapper = onDone == null
                 ? null
                 : () => _runAction<void>(visitor, onDone, []);
@@ -772,8 +783,10 @@ class RawSocketIo {
                 _runAction<void>(visitor, onData, [event]);
             Function? onErrorWrapper = onError == null
                 ? null
-                : (Object error, [StackTrace? stackTrace]) =>
-                    _runAction<void>(visitor, onError, [error, stackTrace]);
+                : (Object error, [StackTrace? stackTrace]) => _runAction<void>(
+                    visitor,
+                    onError,
+                    errorHandlerArgs(onError, error, stackTrace));
             void Function()? onDoneWrapper = onDone == null
                 ? null
                 : () => _runAction<void>(visitor, onDone, []);
@@ -854,8 +867,10 @@ class RawServerSocketIo {
                 _runAction<void>(visitor, onData, [socket]);
             Function? onErrorWrapper = onError == null
                 ? null
-                : (Object error, [StackTrace? stackTrace]) =>
-                    _runAction<void>(visitor, onError, [error, stackTrace]);
+                : (Object error, [StackTrace? stackTrace]) => _runAction<void>(
+                    visitor,
+                    onError,
+                    errorHandlerArgs(onError, error, stackTrace));
             void Function()? onDoneWrapper = onDone == null
                 ? null
                 : () => _runAction<void>(visitor, onDone, []);
@@ -1060,8 +1075,10 @@ class RawDatagramSocketIo {
                 _runAction<void>(visitor, onData, [event]);
             Function? onErrorWrapper = onError == null
                 ? null
-                : (Object error, [StackTrace? stackTrace]) =>
-                    _runAction<void>(visitor, onError, [error, stackTrace]);
+                : (Object error, [StackTrace? stackTrace]) => _runAction<void>(
+                    visitor,
+                    onError,
+                    errorHandlerArgs(onError, error, stackTrace));
             void Function()? onDoneWrapper = onDone == null
                 ? null
                 : () => _runAction<void>(visitor, onDone, []);

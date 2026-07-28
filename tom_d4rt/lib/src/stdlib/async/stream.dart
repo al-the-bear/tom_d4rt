@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:tom_d4rt/d4rt.dart';
 
+import '../error_handler_args.dart';
+
 // Helper function for running interpreted functions
 FutureOr<T> _runAction<T>(
     InterpreterVisitor visitor, InterpretedFunction? func, List<dynamic> args) {
@@ -62,6 +64,11 @@ class StreamAsync {
           '_PeriodicStream',
           '_FromIterableStream',
           '_ForwardingStream',
+          // The stream `handleError` returns. Absent until SCB9, which made
+          // every member of a handleError result fail with "Undefined property
+          // or method ... on _HandleErrorStream" — and is why handleError's
+          // own arity handling had never been exercised by a test.
+          '_HandleErrorStream',
           '_AsBroadcastStream',
           '_StreamHandlerTransformer',
           '_BoundSinkStream',
@@ -91,7 +98,8 @@ class StreamAsync {
             }
             final error = positionalArgs[0];
             if (error == null) {
-              throw RuntimeD4rtException('Stream.error requires a non-null error.');
+              throw RuntimeD4rtException(
+                  'Stream.error requires a non-null error.');
             }
             final stackTrace = positionalArgs.length > 1
                 ? positionalArgs[1] as StackTrace?
@@ -141,7 +149,8 @@ class StreamAsync {
           'multi': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeD4rtException('Stream.multi requires an onListen function.');
+              throw RuntimeD4rtException(
+                  'Stream.multi requires an onListen function.');
             }
             final onListen = positionalArgs[0] as InterpretedFunction;
             final isBroadcast = namedArgs['isBroadcast'] as bool? ?? false;
@@ -167,7 +176,8 @@ class StreamAsync {
           },
           'castFrom': (visitor, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeD4rtException('Stream.castFrom requires a source stream.');
+              throw RuntimeD4rtException(
+                  'Stream.castFrom requires a source stream.');
             }
             return Stream.castFrom(positionalArgs[0] as Stream);
           },
@@ -185,8 +195,10 @@ class StreamAsync {
                 _runAction<void>(visitor, onData!, [data]);
             Function? onErrorWrapper = onError == null
                 ? null
-                : (Object error, [StackTrace? stackTrace]) =>
-                    _runAction<void>(visitor, onError, [error, stackTrace]);
+                : (Object error, [StackTrace? stackTrace]) => _runAction<void>(
+                    visitor,
+                    onError,
+                    errorHandlerArgs(onError, error, stackTrace));
             void Function()? onDoneWrapper = onDone == null
                 ? null
                 : () => _runAction<void>(visitor, onDone, []);
@@ -418,26 +430,24 @@ class StreamAsync {
             }
             final onError = positionalArgs[0] as InterpretedFunction;
             final test = namedArgs['test'] as InterpretedFunction?;
-            // Dart's handleError callback can take 1 or 2 arguments
-            // Check the callback arity to pass the correct number of args
-            final callbackArity = onError.arity;
             return (target as Stream).handleError(
               (error, stackTrace) {
                 // Unwrap InternalInterpreterException to get the original thrown value
                 final actualError = error is InternalInterpreterD4rtException
                     ? error.originalThrownValue
                     : error;
-                return callbackArity >= 2
-                    ? _runAction<void>(visitor, onError, [actualError, stackTrace])
-                    : _runAction<void>(visitor, onError, [actualError]);
+                return _runAction<void>(visitor, onError,
+                    errorHandlerArgs(onError, actualError, stackTrace));
               },
               test: test == null
                   ? null
                   : (error) {
-                      final actualError = error is InternalInterpreterD4rtException
-                          ? error.originalThrownValue
-                          : error;
-                      return _runAction<bool>(visitor, test, [actualError]) == true;
+                      final actualError =
+                          error is InternalInterpreterD4rtException
+                              ? error.originalThrownValue
+                              : error;
+                      return _runAction<bool>(visitor, test, [actualError]) ==
+                          true;
                     },
             );
           },
@@ -457,7 +467,8 @@ class StreamAsync {
           'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeD4rtException('Stream.firstWhere requires a test function.');
+              throw RuntimeD4rtException(
+                  'Stream.firstWhere requires a test function.');
             }
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
@@ -470,7 +481,8 @@ class StreamAsync {
           'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
-              throw RuntimeD4rtException('Stream.lastWhere requires a test function.');
+              throw RuntimeD4rtException(
+                  'Stream.lastWhere requires a test function.');
             }
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
@@ -496,7 +508,8 @@ class StreamAsync {
           },
           'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty || positionalArgs[0] is! int) {
-              throw RuntimeD4rtException('Stream.elementAt requires an int index.');
+              throw RuntimeD4rtException(
+                  'Stream.elementAt requires an int index.');
             }
             return (target as Stream).elementAt(positionalArgs[0] as int);
           },
@@ -572,8 +585,8 @@ class StreamSubscriptionAsync {
             (target as StreamSubscription).onError(
               callback == null
                   ? null
-                  : (error, stackTrace) =>
-                      _runAction<void>(visitor!, callback, [error, stackTrace]),
+                  : (error, stackTrace) => _runAction<void>(visitor!, callback,
+                      errorHandlerArgs(callback, error, stackTrace)),
             );
             return;
           },
@@ -644,7 +657,8 @@ class StreamSinkAsync {
         methods: {
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeD4rtException('StreamSink.add requires an event argument.');
+              throw RuntimeD4rtException(
+                  'StreamSink.add requires an event argument.');
             }
             (target as StreamSink).add(positionalArgs[0]);
             return null;
@@ -675,7 +689,8 @@ class StreamSinkAsync {
               throw RuntimeD4rtException(
                   'StreamSink.addStream requires a Stream argument.');
             }
-            return (target as StreamSink).addStream(positionalArgs[0] as Stream);
+            return (target as StreamSink)
+                .addStream(positionalArgs[0] as Stream);
           },
         },
         getters: {
@@ -969,7 +984,8 @@ class EventSinkAsync {
         methods: {
           'add': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty) {
-              throw RuntimeD4rtException('EventSink.add requires a value argument.');
+              throw RuntimeD4rtException(
+                  'EventSink.add requires a value argument.');
             }
             (target as EventSink).add(positionalArgs[0]);
             return null;

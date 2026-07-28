@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+import '../error_handler_args.dart';
+
 class FutureAsync {
   static BridgedClass get definition => BridgedClass(
         nativeType: Future,
@@ -151,7 +153,9 @@ class FutureAsync {
                 onError: onError == null
                     ? null
                     : (error, stackTrace) =>
-                        onError.call(visitor, [error, stackTrace]));
+                        onError.call(
+                            visitor,
+                            errorHandlerArgs(onError, error, stackTrace)));
           },
           'catchError': (visitor, target, positionalArgs, namedArgs, _) {
             final onError = positionalArgs[0];
@@ -162,7 +166,8 @@ class FutureAsync {
             }
             return (target as Future).catchError(
                 (error, stackTrace) =>
-                    onError.call(visitor, [error, stackTrace]),
+                    onError.call(
+                        visitor, errorHandlerArgs(onError, error, stackTrace)),
                 test: test == null
                     ? null
                     : (error) => test.call(visitor, [error]) as bool);
@@ -197,7 +202,9 @@ class FutureAsync {
             }
             return (target as Future).catchError(
               (error, stackTrace) =>
-                  handleError.call(visitor, [error, stackTrace]),
+                  handleError.call(
+                      visitor,
+                      errorHandlerArgs(handleError, error, stackTrace)),
               test: test == null
                   ? null
                   : (error) => test.call(visitor, [error]) as bool,

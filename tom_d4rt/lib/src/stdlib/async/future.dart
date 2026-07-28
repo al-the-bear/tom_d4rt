@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:tom_d4rt/d4rt.dart';
 
+import '../error_handler_args.dart';
+
 class FutureAsync {
   static BridgedClass get definition => BridgedClass(
         nativeType: Future,
@@ -13,7 +15,8 @@ class FutureAsync {
               final computation = positionalArgs[0] as InterpretedFunction;
               return Future(() => computation.call(visitor, []));
             }
-            throw RuntimeD4rtException('Invalid arguments for Future constructor.');
+            throw RuntimeD4rtException(
+                'Invalid arguments for Future constructor.');
           },
           // Named factory constructors. Dart's `Future.delayed`/`Future.value`/
           // `Future.error`/`Future.microtask`/`Future.sync` are factory
@@ -81,7 +84,8 @@ class FutureAsync {
           'microtask': (visitor, positionalArgs, namedArgs, _) {
             final computation = positionalArgs[0];
             if (computation is! InterpretedFunction) {
-              throw RuntimeD4rtException('Future.microtask requires an Function.');
+              throw RuntimeD4rtException(
+                  'Future.microtask requires an Function.');
             }
             return Future.microtask(() => computation.call(visitor, []));
           },
@@ -150,8 +154,8 @@ class FutureAsync {
                 (value) => onValue.call(visitor, [value]),
                 onError: onError == null
                     ? null
-                    : (error, stackTrace) =>
-                        onError.call(visitor, [error, stackTrace]));
+                    : (error, stackTrace) => onError.call(
+                        visitor, errorHandlerArgs(onError, error, stackTrace)));
           },
           'catchError': (visitor, target, positionalArgs, namedArgs, _) {
             final onError = positionalArgs[0];
@@ -161,8 +165,8 @@ class FutureAsync {
                   'Future.catchError requires an Function for onError.');
             }
             return (target as Future).catchError(
-                (error, stackTrace) =>
-                    onError.call(visitor, [error, stackTrace]),
+                (error, stackTrace) => onError.call(
+                    visitor, errorHandlerArgs(onError, error, stackTrace)),
                 test: test == null
                     ? null
                     : (error) => test.call(visitor, [error]) as bool);
@@ -196,8 +200,8 @@ class FutureAsync {
                   'Future.onError requires a Function for handleError.');
             }
             return (target as Future).catchError(
-              (error, stackTrace) =>
-                  handleError.call(visitor, [error, stackTrace]),
+              (error, stackTrace) => handleError.call(
+                  visitor, errorHandlerArgs(handleError, error, stackTrace)),
               test: test == null
                   ? null
                   : (error) => test.call(visitor, [error]) as bool,

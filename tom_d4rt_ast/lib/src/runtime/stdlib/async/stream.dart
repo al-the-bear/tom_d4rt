@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+import '../error_handler_args.dart';
+
 // Helper function for running interpreted functions
 FutureOr<T> _runAction<T>(
     InterpreterVisitor visitor, InterpretedFunction? func, List<dynamic> args) {
@@ -62,6 +64,11 @@ class StreamAsync {
           '_PeriodicStream',
           '_FromIterableStream',
           '_ForwardingStream',
+          // The stream `handleError` returns. Absent until SCB9, which made
+          // every member of a handleError result fail with "Undefined property
+          // or method ... on _HandleErrorStream" — and is why handleError's
+          // own arity handling had never been exercised by a test.
+          '_HandleErrorStream',
           '_AsBroadcastStream',
           '_StreamHandlerTransformer',
           '_BoundSinkStream',
@@ -186,7 +193,10 @@ class StreamAsync {
             Function? onErrorWrapper = onError == null
                 ? null
                 : (Object error, [StackTrace? stackTrace]) =>
-                    _runAction<void>(visitor, onError, [error, stackTrace]);
+                    _runAction<void>(
+                        visitor,
+                        onError,
+                        errorHandlerArgs(onError, error, stackTrace));
             void Function()? onDoneWrapper = onDone == null
                 ? null
                 : () => _runAction<void>(visitor, onDone, []);
@@ -418,18 +428,14 @@ class StreamAsync {
             }
             final onError = positionalArgs[0] as InterpretedFunction;
             final test = namedArgs['test'] as InterpretedFunction?;
-            // Dart's handleError callback can take 1 or 2 arguments
-            // Check the callback arity to pass the correct number of args
-            final callbackArity = onError.arity;
             return (target as Stream).handleError(
               (error, stackTrace) {
                 // Unwrap InternalInterpreterException to get the original thrown value
                 final actualError = error is InternalInterpreterD4rtException
                     ? error.originalThrownValue
                     : error;
-                return callbackArity >= 2
-                    ? _runAction<void>(visitor, onError, [actualError, stackTrace])
-                    : _runAction<void>(visitor, onError, [actualError]);
+                return _runAction<void>(visitor, onError,
+                    errorHandlerArgs(onError, actualError, stackTrace));
               },
               test: test == null
                   ? null
@@ -573,7 +579,8 @@ class StreamSubscriptionAsync {
               callback == null
                   ? null
                   : (error, stackTrace) =>
-                      _runAction<void>(visitor!, callback, [error, stackTrace]),
+                      _runAction<void>(visitor!, callback,
+                      errorHandlerArgs(callback, error, stackTrace)),
             );
             return;
           },

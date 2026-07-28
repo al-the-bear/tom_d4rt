@@ -475,8 +475,17 @@ class InterpretedFunction implements Callable {
     }).length;
   }
 
-  // Calculate total positional parameters (required + optional)
-  int get _totalPositionalArity {
+  /// The number of positional parameters this function *can* accept — required
+  /// and optional together.
+  ///
+  /// Distinct from [arity], which counts only the **required** positional
+  /// parameters. For `(Object e, [StackTrace? st])` [arity] is 1 while this is
+  /// 2, and the difference matters whenever a caller must decide how many
+  /// arguments to supply: native Dart passes both arguments to that closure,
+  /// because `Function(Object, [StackTrace])` is a subtype of
+  /// `Function(Object, StackTrace)`. Selecting on [arity] would drop the second
+  /// argument for the optional form. See `errorHandlerArgs`.
+  int get maxPositionalArity {
     final params = _parameters?.parameters;
     if (params == null) return 0;
     return params.where((p) {
@@ -942,7 +951,7 @@ class InterpretedFunction implements Callable {
       // Final Validation
       if (positionalArgIndex < positionalArguments.length) {
         throw RuntimeD4rtException(
-            "Too many positional arguments. Expected at most $_totalPositionalArity, got ${positionalArguments.length}.");
+            "Too many positional arguments. Expected at most $maxPositionalArity, got ${positionalArguments.length}.");
       }
       for (final providedName in providedNamedArgs.keys) {
         if (!processedParamNames.contains(providedName)) {

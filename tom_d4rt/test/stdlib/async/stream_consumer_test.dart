@@ -144,13 +144,15 @@ void main() {
         main() async {
           final c = StreamController();
           final seen = [];
-          // The binary `onError` is not a style choice: d4rt's `Stream.listen`
-          // bridge always invokes onError with (error, stackTrace), so the
-          // unary form the SDK also accepts throws "Too many positional
-          // arguments". Unrelated to the sink hierarchy — tracked separately.
+          // The unary `onError` deliberately: when SC4 was written this had to
+          // be binary, because d4rt's `Stream.listen` bridge hardcoded the
+          // two-argument call and the unary form the SDK also accepts threw
+          // "Too many positional arguments". SCB9 fixed that, so this now
+          // doubles as a second guard on the arity handling from a test that
+          // is not about arity at all.
           c.stream.listen(
             (v) => seen.add('data:\$v'),
-            onError: (e, st) => seen.add('error:\$e'),
+            onError: (e) => seen.add('error:\$e'),
           );
           c.sink.add(1);
           c.sink.addError(StateError('boom'));

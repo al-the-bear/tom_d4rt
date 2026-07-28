@@ -4,6 +4,8 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+import '../error_handler_args.dart';
+
 T? _runAction<T>(
   InterpreterVisitor visitor,
   InterpretedFunction? function,
@@ -255,8 +257,11 @@ class SocketIo {
             _runAction<void>(visitor, onData!, [data]);
         Function? onErrorWrapper = onError == null
             ? null
-            : (Object error, [StackTrace? stackTrace]) =>
-                  _runAction<void>(visitor, onError, [error, stackTrace]);
+            : (Object error, [StackTrace? stackTrace]) => _runAction<void>(
+                visitor,
+                onError,
+                errorHandlerArgs(onError, error, stackTrace),
+              );
         void Function()? onDoneWrapper = onDone == null
             ? null
             : () => _runAction<void>(visitor, onDone, []);
@@ -303,8 +308,11 @@ class SocketIo {
         final onError = positionalArgs[0] as InterpretedFunction;
         final test = namedArgs['test'] as InterpretedFunction?;
         return (target as Socket).handleError(
-          (error, stackTrace) =>
-              _runAction<void>(visitor, onError, [error, stackTrace]),
+          (error, stackTrace) => _runAction<void>(
+            visitor,
+            onError,
+            errorHandlerArgs(onError, error, stackTrace),
+          ),
           test: test == null
               ? null
               : (error) => _runAction<bool>(visitor, test, [error]) == true,
@@ -602,8 +610,11 @@ class ServerSocketIo {
             _runAction<void>(visitor, onData, [socket]);
         Function? onErrorWrapper = onError == null
             ? null
-            : (Object error, [StackTrace? stackTrace]) =>
-                  _runAction<void>(visitor, onError, [error, stackTrace]);
+            : (Object error, [StackTrace? stackTrace]) => _runAction<void>(
+                visitor,
+                onError,
+                errorHandlerArgs(onError, error, stackTrace),
+              );
         void Function()? onDoneWrapper = onDone == null
             ? null
             : () => _runAction<void>(visitor, onDone, []);
@@ -809,8 +820,11 @@ class RawSocketIo {
             _runAction<void>(visitor, onData, [event]);
         Function? onErrorWrapper = onError == null
             ? null
-            : (Object error, [StackTrace? stackTrace]) =>
-                  _runAction<void>(visitor, onError, [error, stackTrace]);
+            : (Object error, [StackTrace? stackTrace]) => _runAction<void>(
+                visitor,
+                onError,
+                errorHandlerArgs(onError, error, stackTrace),
+              );
         void Function()? onDoneWrapper = onDone == null
             ? null
             : () => _runAction<void>(visitor, onDone, []);
@@ -893,8 +907,11 @@ class RawServerSocketIo {
             _runAction<void>(visitor, onData, [socket]);
         Function? onErrorWrapper = onError == null
             ? null
-            : (Object error, [StackTrace? stackTrace]) =>
-                  _runAction<void>(visitor, onError, [error, stackTrace]);
+            : (Object error, [StackTrace? stackTrace]) => _runAction<void>(
+                visitor,
+                onError,
+                errorHandlerArgs(onError, error, stackTrace),
+              );
         void Function()? onDoneWrapper = onDone == null
             ? null
             : () => _runAction<void>(visitor, onDone, []);
@@ -1106,8 +1123,11 @@ class RawDatagramSocketIo {
             _runAction<void>(visitor, onData, [event]);
         Function? onErrorWrapper = onError == null
             ? null
-            : (Object error, [StackTrace? stackTrace]) =>
-                  _runAction<void>(visitor, onError, [error, stackTrace]);
+            : (Object error, [StackTrace? stackTrace]) => _runAction<void>(
+                visitor,
+                onError,
+                errorHandlerArgs(onError, error, stackTrace),
+              );
         void Function()? onDoneWrapper = onDone == null
             ? null
             : () => _runAction<void>(visitor, onDone, []);

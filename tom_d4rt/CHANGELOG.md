@@ -1,5 +1,43 @@
 ## 1.23.0
 
+### Fixed — error handlers are called with the arity they declare (SCB9)
+
+The SDK accepts an error handler in either arity — `void Function(Object error)`
+or `void Function(Object error, StackTrace stackTrace)` — and inspects the
+callback to decide which to use. Every d4rt adapter hardcoded the two-argument
+call, so the unary form, the one most scripts reach for first, died with `Too
+many positional arguments. Expected at most 1, got 2.` The message named
+argument counts rather than the callback the author had written, so it read as
+an interpreter bug rather than a signature mismatch.
+
+**Fourteen sites, not one.** The adapter had been copy-pasted: `Stream.listen`,
+the `StreamSubscription.onError` setter, `Future.then`'s `onError`,
+`Future.catchError`, the `FutureExtensions.onError` extension, and nine more
+across `dart:io` (`Socket`, `HttpClient`, `Stdin`) — `io/socket.dart`'s listen
+adapter is byte-identical to `async/stream.dart`'s, wrapper names included. All
+now route through a single `errorHandlerArgs` helper.
+
+**The selection uses total positional arity, not `arity`.** `arity` counts only
+*required* positional parameters, so it reports 1 for `(e, [st])` — and native
+Dart passes both arguments to that closure, because
+`Function(Object, [StackTrace])` is a subtype of `Function(Object, StackTrace)`.
+`Stream.handleError` already selected on `arity` and consequently dropped the
+stack trace for the optional form; it now uses the new public
+`InterpretedFunction.maxPositionalArity` like every other site.
+
+`StreamTransformer.fromHandlers`' `handleError` is deliberately excluded: its
+SDK signature is a fixed `(error, stackTrace, sink)` with no arity variance.
+The change is confined to error handlers — argument checking elsewhere is
+untouched, so a handler with a genuinely wrong signature is still reported
+rather than silently accepted.
+
+Also fixed: `_HandleErrorStream` was missing from the `Stream` bridge's
+`nativeNames`, so every member of a `handleError()` result failed with
+"Undefined property or method 'toList' on `_HandleErrorStream`" — the same
+defect SC4 fixed for `_StreamSinkWrapper`, one method away in the same file,
+and the reason `handleError`'s arity handling had never been exercised by a
+test.
+
 ### Fixed — `is` and `on` see a bridged collection's supertypes (SCB7)
 
 `x is Map` was `false` for every bridged `dart:collection` map — `HashMap`,

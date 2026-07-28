@@ -2,6 +2,8 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:tom_d4rt/d4rt.dart';
 
+import '../error_handler_args.dart';
+
 class StdinIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: Stdin,
@@ -32,8 +34,8 @@ class StdinIo {
               (data) => onData.call(visitor, [data]),
               onError: onError == null
                   ? null
-                  : (error, stackTrace) =>
-                      onError.call(visitor, [error, stackTrace]),
+                  : (error, stackTrace) => onError.call(
+                      visitor, errorHandlerArgs(onError, error, stackTrace)),
               onDone: onDone == null ? null : () => onDone.call(visitor, []),
               cancelOnError: cancelOnError,
             );
@@ -69,7 +71,8 @@ class StdoutIo {
           'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
             final stdout = target as Stdout;
             if (positionalArgs.isEmpty || positionalArgs[0] is! Iterable) {
-              throw RuntimeD4rtException('writeAll requires an Iterable argument.');
+              throw RuntimeD4rtException(
+                  'writeAll requires an Iterable argument.');
             }
             stdout.writeAll(
               positionalArgs[0] as Iterable<dynamic>,

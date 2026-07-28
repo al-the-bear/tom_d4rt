@@ -2,6 +2,8 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+import '../error_handler_args.dart';
+
 class StdinIo {
   static BridgedClass get definition => BridgedClass(
         nativeType: Stdin,
@@ -33,7 +35,9 @@ class StdinIo {
               onError: onError == null
                   ? null
                   : (error, stackTrace) =>
-                      onError.call(visitor, [error, stackTrace]),
+                      onError.call(
+                          visitor,
+                          errorHandlerArgs(onError, error, stackTrace)),
               onDone: onDone == null ? null : () => onDone.call(visitor, []),
               cancelOnError: cancelOnError,
             );

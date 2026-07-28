@@ -1,5 +1,29 @@
 ## 0.15.0
 
+### Fixed — error handlers are called with the arity they declare (SCB9)
+
+The SDK accepts an error handler in either arity — `void Function(Object error)`
+or `void Function(Object error, StackTrace stackTrace)` — and inspects the
+callback to decide which to use. Every d4rt adapter hardcoded the two-argument
+call, so the unary form died with `Too many positional arguments. Expected at
+most 1, got 2.`
+
+Fourteen copy-pasted sites now route through one `errorHandlerArgs` helper:
+`Stream.listen`, the `StreamSubscription.onError` setter, `Future.then`'s
+`onError`, `Future.catchError`, `FutureExtensions.onError`, and nine more across
+`dart:io`. The selection uses the new public
+`InterpretedFunction.maxPositionalArity` rather than `arity`, which counts only
+*required* positional parameters and so reports 1 for `(e, [st])` — a signature
+native Dart passes both arguments to. `Stream.handleError` had selected on
+`arity` and dropped the stack trace for that form.
+
+`StreamTransformer.fromHandlers`' `handleError` is deliberately excluded: its
+SDK signature is a fixed `(error, stackTrace, sink)` with no arity variance.
+
+Also fixed: `_HandleErrorStream` was missing from the `Stream` bridge's
+`nativeNames`, so every member of a `handleError()` result failed with
+"Undefined property or method 'toList' on `_HandleErrorStream`".
+
 ### Fixed — `is` and `on` see a bridged collection's supertypes (SCB7)
 
 `x is Map` was `false` for every bridged `dart:collection` map, `x is List`
