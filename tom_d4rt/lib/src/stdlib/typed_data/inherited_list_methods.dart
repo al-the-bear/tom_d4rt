@@ -1,3 +1,5 @@
+import 'dart:math' show Random;
+
 import 'package:tom_d4rt/d4rt.dart';
 
 /// Returns a map of methods that are inherited from `Iterable<E>` and the
@@ -19,13 +21,48 @@ import 'package:tom_d4rt/d4rt.dart';
 /// `List<E>`, so the resulting object exposes the full read-only
 /// `List<E>` surface natively.
 ///
-/// Mutating `List<E>` operations (`add`, `remove`, `insert`, `sort`, …)
-/// are *not* included here because typed-data lists are fixed-length
-/// and would throw `UnsupportedError` at runtime.
+/// Length-*changing* `List<E>` operations (`add`, `insert`, `remove`,
+/// `clear`, …) are *not* included here: typed-data lists are
+/// fixed-length and those genuinely throw `UnsupportedError`.
+///
+/// In-place reordering, however, *is* included. `sort` and `shuffle`
+/// permute the existing elements without changing the length, so the
+/// SDK supports them on every typed-data variant. They were once
+/// excluded here on the mistaken grounds that all "mutating" operations
+/// throw — which conflated fixed-*length* with immutable, and left nine
+/// of the ten shared variants unable to sort while `Uint8List` (which
+/// hand-rolls its own adapter map) could.
+///
+/// [unmodifiableView] is required rather than optional because
+/// `asUnmodifiableView` is declared on each concrete typed-data class,
+/// not on `List<E>`, so it cannot be expressed through [coerce]. Making
+/// it required means a newly added variant cannot silently omit it.
 Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
-  List<E> Function(Object target) coerce,
-) {
+  List<E> Function(Object target) coerce, {
+  required Object Function(Object target) unmodifiableView,
+}) {
   return {
+    // List<E> — in-place reordering (length-preserving, so supported).
+    'sort': (visitor, target, positionalArgs, namedArgs, _) {
+      if (positionalArgs.isEmpty || positionalArgs[0] == null) {
+        coerce(target).sort();
+        return null;
+      }
+      final compare = positionalArgs[0] as Callable;
+      coerce(target).sort((a, b) => compare.call(visitor, [a, b]) as int);
+      return null;
+    },
+    'shuffle': (visitor, target, positionalArgs, namedArgs, _) {
+      final random = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
+      coerce(target).shuffle(random as Random?);
+      return null;
+    },
+
+    // Declared per concrete variant, so it arrives via the callback.
+    'asUnmodifiableView': (visitor, target, positionalArgs, namedArgs, _) {
+      return unmodifiableView(target);
+    },
+
     // Iterable<E> — collection conversion.
     'toList': (visitor, target, positionalArgs, namedArgs, _) {
       final growable = namedArgs['growable'] as bool? ?? true;
@@ -202,5 +239,21 @@ Map<String, BridgedInstanceGetterAdapter> inheritedListGetters<E>(
     'single': (visitor, target) => coerce(target).single,
     'iterator': (visitor, target) => coerce(target).iterator,
     'reversed': (visitor, target) => coerce(target).reversed,
+  };
+}
+
+/// Static members shared by every typed-data list variant.
+///
+/// `bytesPerElement` is a `static const int` on each concrete class, so it
+/// cannot be reached through the instance maps or through any supertype
+/// fallback — the interpreter does not walk the chain for statics at all.
+/// Pass the SDK constant itself (`typedListStaticGetters(Float32List
+/// .bytesPerElement)`) rather than a literal, so the bridged value cannot
+/// drift from the platform's.
+Map<String, BridgedStaticGetterAdapter> typedListStaticGetters(
+  int bytesPerElement,
+) {
+  return {
+    'bytesPerElement': (visitor) => bytesPerElement,
   };
 }

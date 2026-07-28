@@ -144,8 +144,10 @@ class Float64ListTypedData {
           // See inherited_list_methods.dart — the interpreter resolves
           // bridged methods without walking the supertype chain, so each
           // typed-data variant must declare these directly.
-          ...inheritedListMethods<double>((t) => t as Float64List),
+          ...inheritedListMethods<double>((t) => t as Float64List,
+              unmodifiableView: (t) => (t as Float64List).asUnmodifiableView()),
         },
+        staticGetters: typedListStaticGetters(Float64List.bytesPerElement),
         getters: {
           'length': (visitor, target) {
             if (target is Float64List) return target.length;

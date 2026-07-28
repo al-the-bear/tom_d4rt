@@ -143,8 +143,10 @@ class Int8ListTypedData {
           // See inherited_list_methods.dart — the interpreter resolves
           // bridged methods without walking the supertype chain, so each
           // typed-data variant must declare these directly.
-          ...inheritedListMethods<int>((t) => t as Int8List),
+          ...inheritedListMethods<int>((t) => t as Int8List,
+              unmodifiableView: (t) => (t as Int8List).asUnmodifiableView()),
         },
+        staticGetters: typedListStaticGetters(Int8List.bytesPerElement),
         getters: {
           'length': (visitor, target) {
             if (target is Int8List) return target.length;

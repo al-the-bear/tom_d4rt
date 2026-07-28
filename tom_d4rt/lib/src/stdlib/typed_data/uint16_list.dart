@@ -143,8 +143,10 @@ class Uint16ListTypedData {
           // See inherited_list_methods.dart — the interpreter resolves
           // bridged methods without walking the supertype chain, so each
           // typed-data variant must declare these directly.
-          ...inheritedListMethods<int>((t) => t as Uint16List),
+          ...inheritedListMethods<int>((t) => t as Uint16List,
+              unmodifiableView: (t) => (t as Uint16List).asUnmodifiableView()),
         },
+        staticGetters: typedListStaticGetters(Uint16List.bytesPerElement),
         getters: {
           'length': (visitor, target) {
             if (target is Uint16List) return target.length;

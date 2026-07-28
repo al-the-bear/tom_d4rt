@@ -143,8 +143,10 @@ class Int32ListTypedData {
           // See inherited_list_methods.dart — the interpreter resolves
           // bridged methods without walking the supertype chain, so each
           // typed-data variant must declare these directly.
-          ...inheritedListMethods<int>((t) => t as Int32List),
+          ...inheritedListMethods<int>((t) => t as Int32List,
+              unmodifiableView: (t) => (t as Int32List).asUnmodifiableView()),
         },
+        staticGetters: typedListStaticGetters(Int32List.bytesPerElement),
         getters: {
           'length': (visitor, target) {
             if (target is Int32List) return target.length;

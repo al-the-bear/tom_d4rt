@@ -2,6 +2,8 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:tom_d4rt_ast/runtime.dart';
 
+import 'inherited_list_methods.dart';
+
 // Helper function to run interpreted functions
 T? _runAction<T>(InterpreterVisitor visitor, InterpretedFunction? function,
     List<Object?> args) {
@@ -355,6 +357,9 @@ class Uint8ListTypedData {
             return (target as Uint8List) == positionalArgs[0];
           },
         },
+        // Uint8List hand-rolls its instance maps rather than sharing
+        // inheritedListMethods, but the static is the same for every variant.
+        staticGetters: typedListStaticGetters(Uint8List.bytesPerElement),
         getters: {
           'length': (visitor, target) => (target as Uint8List).length,
           'elementSizeInBytes': (visitor, target) =>

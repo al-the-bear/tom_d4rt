@@ -143,8 +143,10 @@ class Uint64ListTypedData {
           // See inherited_list_methods.dart — the interpreter resolves
           // bridged methods without walking the supertype chain, so each
           // typed-data variant must declare these directly.
-          ...inheritedListMethods<int>((t) => t as Uint64List),
+          ...inheritedListMethods<int>((t) => t as Uint64List,
+              unmodifiableView: (t) => (t as Uint64List).asUnmodifiableView()),
         },
+        staticGetters: typedListStaticGetters(Uint64List.bytesPerElement),
         getters: {
           'length': (visitor, target) {
             if (target is Uint64List) return target.length;
