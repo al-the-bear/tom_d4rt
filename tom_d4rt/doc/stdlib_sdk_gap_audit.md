@@ -557,6 +557,65 @@ typed_data hierarchy it is not purely cosmetic: the three encodings lose
 remaining block where the missing edges cost real API surface rather than
 only type tests.
 
+## Notes on the `dart:io` re-export surface
+
+`dart:io` is unusual among the bridged libraries: it does not only declare
+its own classes, it **re-exports 32 names** it does not own —
+30 from `dart:_http`, plus `BytesBuilder` and `HttpStatus` from
+`dart:_internal` (SDK `sdk/lib/io/io.dart`). Those names are part of what
+`import 'dart:io'` promises a script, so they belong in this audit even
+though no `dart:io` class declares them.
+
+**How name visibility actually works here**, because it is easy to assume
+otherwise: bridges live in **one flat environment**. An `import` decides
+whether a *registrar runs* — it does not scope which names a script may
+then see. So there is no per-library aliasing step in which a re-export
+could be lost, and no re-export table to build. Once `TypedDataStdlib` has
+run, `Uint8List` is visible whether the script imported `dart:typed_data`,
+`dart:io`, or nothing at all. Imports still gate the **lazy** registrars
+(collection, convert, math, io, isolate), which is why
+`import 'dart:io'; LineSplitter()` correctly fails — matching real Dart,
+which imports but does not re-export `dart:convert`. `CoreStdlib`,
+`AsyncStdlib` and `TypedDataStdlib` are eager (see GEN-106), so their names
+need no import.
+
+Measured against a live environment, the 32 names split three ways:
+
+| Shape | Count | Names |
+| ----- | ----- | ----- |
+| Bridged as a real type | 9 | `HttpClient`, `HttpClientRequest`, `HttpClientResponse`, `HttpServer`, `HttpHeaders`, `HeaderValue`, `ContentType`, `Cookie`, `BytesBuilder` |
+| Resolves as a callable, not a type | 4 | `HttpClientCredentials`, `HttpClientBasicCredentials`, `HttpClientBearerCredentials`, `HttpClientDigestCredentials` |
+| Not reachable at all | 19 | `HttpDate`, `BadCertificateCallback`, `HttpOverrides`, `WebSocketStatus`, `CompressionOptions`, `WebSocketTransformer`, `WebSocket`, `WebSocketException`, `HttpConnectionsInfo`, `HttpSession`, `SameSite`, `HttpRequest`, `HttpResponse`, `HttpClientResponseCompressionState`, `HttpConnectionInfo`, `RedirectInfo`, `HttpException`, `RedirectException`, `HttpStatus` |
+
+The 19 are a **bridging** gap, not a re-export gap — those classes are
+bridged nowhere in either tree. Two consequences are worth naming because
+they are worse than a plain missing name:
+
+- **`HttpServer` yields values a script cannot name.** The server is
+  bridged; `HttpRequest` and `HttpResponse` are not. A script can start a
+  server but has no type for what it hands back.
+- **`on HttpException catch` fails silently.** An unresolved type in a
+  catch clause does not raise — the clause simply never matches, so the
+  handler is dead code that looks correct.
+
+The four callable-shaped credentials are registered with
+`environment.define(..., NativeFunction(...))` rather than `defineBridge`.
+Calling them works, which is the common script use (hand credentials to an
+`HttpClient`). Using them as *types* does not: `x is
+HttpClientBasicCredentials` **invokes** the callable and throws *"requires
+username and password arguments"*, while the zero-arity
+`HttpClientCredentials` answers a silent, always-wrong `false`. An audit
+that probes reachability with `.toString()` cannot see any of this — every
+name in scope answers `toString()` — which is why the counts above are
+taken from registration shape and `is`, not from name resolution.
+
+Pinned by [`io_reexport_visibility_test.dart`](../test/stdlib/io/io_reexport_visibility_test.dart)
+and its registration-level mirror
+`tom_d4rt_ast/test/runtime/stdlib_io_reexport_visibility_test.dart`. Both
+deliberately pin only the working surface: asserting today's behaviour for
+the 19 missing names or the broken `is` would create assertions to delete
+rather than repair once they are fixed.
+
 ## Notes on argument guards in hand-written bridges
 
 The interpreter wraps any native failure inside an adapter into a
@@ -612,6 +671,14 @@ patch to any one bridge.
    members sit UNVERIFIED for want of an instance recipe, most of
    `dart:io` among them. Until that table is extended, "confirmed" is a
    lower bound on both audits, not a total.
+6. **`dart:io`'s re-export surface is 19 names short** — the whole
+   `dart:_http` server/WebSocket block plus `HttpStatus`, none of them
+   bridged anywhere. Highest value per unit of work is `HttpException` +
+   `HttpStatus` (small, and `on HttpException catch` currently fails
+   *silently*); the `HttpRequest`/`HttpResponse`/`HttpSession` block is
+   what makes the already-bridged `HttpServer` usable. Separately, the
+   four credentials names need converting from `NativeFunction` to real
+   bridges so they work as types.
 
 ## Method / reproducibility
 
