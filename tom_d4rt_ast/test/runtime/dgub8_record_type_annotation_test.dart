@@ -338,12 +338,18 @@ void main() {
       () {
         // `(1, 'a') as (String, int)` used to return the record untouched,
         // because both sides degraded to two `dynamic` fields.
+        //
+        // SCB10 CONTRACT CHANGE: a failing `as` now raises `TypeError` rather
+        // than `RuntimeD4rtException`, matching what real Dart raises. This
+        // test's subject is *that the cast throws at all*, so the assertion is
+        // retargeted at the type the cast site raises today, not relaxed to
+        // `isA<Object>()`.
         expect(
           () => runAs(
             recordLiteral(positional: [intLit(1), strLit('a')]),
             recordType(positional: [namedType('String'), namedType('int')]),
           ),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<TypeError>()),
         );
       },
     );

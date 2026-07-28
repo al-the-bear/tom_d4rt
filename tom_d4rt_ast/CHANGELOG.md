@@ -1,5 +1,36 @@
 ## 0.15.0
 
+### Fixed — the interpreter raises the SDK's own error types (SCB10)
+
+Mirrors `tom_d4rt` 1.23.0. Four raise sites stop producing a
+`RuntimeD4rtException` and produce the type real Dart produces, so an `on`
+clause in interpreted code can match the operation that failed: `TypeError` for
+a failing `as` cast and for `!` on null, `NoSuchMethodError` for a final
+member-lookup failure, `AssertionError` for a failing `assert` (statement or
+constructor initializer), and `RangeError` for a list index out of range.
+
+`list[9]` raises a plain `RangeError`, **not** `IndexError` — measured against
+the platform, whose `List.[]` does not use `IndexError`, so `on IndexError` does
+not catch an out-of-range list access. Raising it here would make d4rt strictly
+more catchable than Dart.
+
+New `src/runtime/sdk_errors.dart` (exported from `runtime.dart`) holds
+`D4rtTypeError`, `D4rtNoSuchMethodError`, `indexRangeError` and
+`isSdkShapedError`. The two error classes `implement` rather than `extend` their
+SDK counterparts: neither SDK type accepts a message, so using them directly
+would discard the diagnostics that name the receiver and the member.
+`implements` keeps `value is TypeError` true — which is what the SC5 bridges'
+`isAssignable` predicates consult — while `toString()` still returns d4rt's own
+text. No message assertion changed as a result; the only retargeted test is the
+DGUB8 record cast, now asserting `TypeError`.
+
+The interpreter's *intermediate* member-lookup failures deliberately stay
+`RuntimeD4rtException`: nine sites branch on the `"Undefined property '<name>'"`
+substring to decide whether to attempt extension lookup, so that text is control
+flow. `isSdkShapedError` has no call site in this package — `D4rtRunner` never
+had `tom_d4rt`'s `Unexpected error:` catch-all — and is present so the two trees'
+copies of the file stay diffable.
+
 ### Fixed — error handlers are called with the arity they declare (SCB9)
 
 The SDK accepts an error handler in either arity — `void Function(Object error)`

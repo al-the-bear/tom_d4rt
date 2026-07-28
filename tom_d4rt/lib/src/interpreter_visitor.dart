@@ -7,6 +7,7 @@ import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/src/bridge/bridged_enum.dart';
 import 'package:tom_d4rt/src/utils/extensions/string.dart';
 import 'package:tom_d4rt/src/module_loader.dart';
+import 'package:tom_d4rt/src/sdk_errors.dart';
 
 /// Main visitor that walks the AST and interprets the code.
 /// Uses a two-pass approach (DeclarationVisitor first).
@@ -383,7 +384,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     }
     // GEN-094: Include actual value type for actionable diagnostics.
     final valueDesc = value?.runtimeType.toString() ?? 'Null';
-    throw RuntimeD4rtException(
+    throw D4rtTypeError(
         "Cast failed with 'as' : value of type $valueDesc cannot be cast to ${typeNode.toSource()}");
   }
 
@@ -1254,7 +1255,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           );
       }
 
-      throw RuntimeD4rtException(
+      throw D4rtNoSuchMethodError(
           "Undefined property or method '$memberName' on bridged instance of '${bridgedInstance.bridgedClass.name}'.");
     } else if (prefixValue is InterpretedRecord) {
       // Accessing field of a record
@@ -1989,7 +1990,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     } else if (targetValue is List) {
       if (indexValue is int) {
         if (indexValue < 0 || indexValue >= targetValue.length) {
-          throw RuntimeD4rtException('Index out of range: $indexValue');
+          throw indexRangeError(indexValue, targetValue.length);
         }
         return targetValue[indexValue];
       } else {
@@ -3049,8 +3050,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             currentValue = targetValue[indexValue];
           } else if (targetValue is List && indexValue is int) {
             if (indexValue < 0 || indexValue >= targetValue.length) {
-              throw RuntimeD4rtException(
-                  'Index out of range for compound assignment read: $indexValue');
+              throw indexRangeError(indexValue, targetValue.length);
             }
             currentValue = targetValue[indexValue];
           } else if (targetValue is InterpretedInstance) {
@@ -3155,8 +3155,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           return finalValueToAssign;
         } else if (targetValue is List && indexValue is int) {
           if (indexValue < 0 || indexValue >= targetValue.length) {
-            throw RuntimeD4rtException(
-                'Index out of range for assignment: $indexValue');
+            throw indexRangeError(indexValue, targetValue.length);
           }
           targetValue[indexValue] = finalValueToAssign;
           return finalValueToAssign;
@@ -3437,7 +3436,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                   }
                 }
 
-                throw RuntimeD4rtException(
+                throw D4rtNoSuchMethodError(
                     "Instance of '${targetValue.klass.name}' has no method named '$methodName' and no suitable extension method found. Original error: (${e.message})");
               }
             } on RuntimeD4rtException catch (findError) {
@@ -3536,7 +3535,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 }
                 Logger.debug(
                     "[MethodInvocation] Extension method '$methodName' for enum value not found or not applicable. Rethrowing original error.");
-                throw RuntimeD4rtException(
+                throw D4rtNoSuchMethodError(
                     "Enum value '$targetValue' has no method named '$methodName' and no suitable extension method found. Original error: (${e.message})");
               }
             } on RuntimeD4rtException catch (findError) {
@@ -3762,7 +3761,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               extensionArgs.addAll(positionalArgs);
               return extensionMethod.call(this, extensionArgs, namedArgs);
             } else {
-              throw RuntimeD4rtException(
+              throw D4rtNoSuchMethodError(
                   "Bridged class '${bridgedClass.name}' has no instance method named '$methodName'.");
             }
           } on RuntimeD4rtException catch (findError) {
@@ -6462,8 +6461,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     if (targetValue is List) {
       if (indexValue is int) {
         if (indexValue < 0 || indexValue >= targetValue.length) {
-          throw RuntimeD4rtException(
-              'Index out of range in cascade: $indexValue');
+          throw indexRangeError(indexValue, targetValue.length);
         }
         return targetValue[indexValue];
       } else {
@@ -6631,7 +6629,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             throw RuntimeD4rtException('List index must be int.');
           }
           if (indexValue < 0 || indexValue >= indexTarget.length) {
-            throw RuntimeD4rtException('Index out of range.');
+            throw indexRangeError(indexValue, indexTarget.length);
           }
           currentValue = indexTarget[indexValue];
         } else if (indexTarget is Map) {
@@ -6667,7 +6665,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           throw RuntimeD4rtException('List index must be int.');
         }
         if (indexValue < 0 || indexValue >= indexTarget.length) {
-          throw RuntimeD4rtException('Index out of range.');
+          throw indexRangeError(indexValue, indexTarget.length);
         }
         indexTarget[indexValue] = newValue;
       } else if (indexTarget is Map) {
@@ -7967,7 +7965,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     if (operatorType == TokenType.BANG) {
       final operandValue = node.operand.accept<Object?>(this);
       if (operandValue == null) {
-        throw RuntimeD4rtException(
+        // Real Dart raises TypeError here, the same type a failing cast raises.
+        throw D4rtTypeError(
             "Null check operator used on a null value at ${node.toString()}");
       }
       return operandValue;
@@ -8856,14 +8855,16 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     }
 
     if (!conditionResult) {
-      // Condition is false, evaluate the message and throw.
-      String assertionMessage = "Assertion failed";
+      // Condition is false, evaluate the message and throw. The SDK's own
+      // AssertionError is used rather than a d4rt one, because it is the rare
+      // case where the SDK constructor DOES take the message — so `e.message`
+      // returns the script's raw message object, as it would natively, instead
+      // of a string we pre-formatted.
+      Object? assertionMessage;
       if (node.message != null) {
-        final messageValue = node.message!.accept<Object?>(this);
-        assertionMessage = "Assertion failed: ${stringify(messageValue)}";
+        assertionMessage = node.message!.accept<Object?>(this);
       }
-      // Mimic Dart's AssertionError by throwing a RuntimeError.
-      throw RuntimeD4rtException(assertionMessage);
+      throw AssertionError(assertionMessage);
     }
 
     return null; // Assert statements don't produce a value.

@@ -1271,7 +1271,11 @@ class InterpretedFunction implements Callable {
                   }
                   messageValue = msgResult?.toString();
                 }
-                throw RuntimeD4rtException(messageValue ??
+                // Escapes the `on RuntimeD4rtException` re-wrap in
+                // RuntimeType.instantiate ("Error during constructor execution
+                // for class 'X': ...") precisely because it is no longer one —
+                // so the AssertionError reaches the script intact.
+                throw AssertionError(messageValue ??
                     "Assertion failed in constructor initializer");
               }
             } else {

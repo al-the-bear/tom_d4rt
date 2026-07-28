@@ -2839,14 +2839,25 @@ void main() {
 
     test('I-MISC-169: AssertStatement. [2026-02-10 06:37] (PASS)', () {
       expect(() => execute('main() { assert(true); }'), returnsNormally);
+      // SCB10 CONTRACT CHANGE: a failing assert now raises the SDK's own
+      // `AssertionError` instead of a `RuntimeD4rtException`, so
+      // `on AssertionError` in interpreted code matches the statement that
+      // produced it. Two consequences are asserted here rather than avoided:
+      //  - `message` is now the script's *raw* message object, not a string
+      //    d4rt pre-formatted — which is what makes it useful to a handler.
+      //  - `toString()` therefore quotes a String message exactly as the SDK
+      //    does. The no-message text is byte-identical to the old one.
       expect(
           () => execute('main() { assert(false); }'),
-          throwsA(isA<RuntimeD4rtException>()
-              .having((e) => e.message, 'message', 'Assertion failed')));
+          throwsA(isA<AssertionError>()
+              .having((e) => e.message, 'message', isNull)
+              .having((e) => e.toString(), 'toString', 'Assertion failed')));
       expect(
           () => execute('main() { assert(1 == 2, "Math is broken"); }'),
-          throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
-              'Assertion failed: Math is broken')));
+          throwsA(isA<AssertionError>()
+              .having((e) => e.message, 'message', 'Math is broken')
+              .having((e) => e.toString(), 'toString',
+                  'Assertion failed: "Math is broken"')));
       expect(() => execute('main() { var x = 5; assert(x > 0); }'),
           returnsNormally);
     });

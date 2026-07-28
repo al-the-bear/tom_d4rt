@@ -616,12 +616,18 @@ void main() {
            return c.nonExistentMember;
          }
        ''';
-      // This error comes from the fallback mechanism after bridge check fails
+      // This error comes from the fallback mechanism after bridge check fails.
+      // SCB10 CONTRACT CHANGE: the *type* is now `NoSuchMethodError`, which is
+      // what real Dart raises for a missing member and what makes
+      // `on NoSuchMethodError` usable in interpreted code. The message is
+      // unchanged — d4rt's diagnostic is carried on the SDK-shaped error rather
+      // than replaced by the SDK's own terser text, so this assertion still
+      // pins the same string.
       expect(
           () => interpreter.execute(source: code),
-          throwsA(isA<RuntimeD4rtException>().having(
-              (e) => e.message,
-              'message',
+          throwsA(isA<NoSuchMethodError>().having(
+              (e) => e.toString(),
+              'toString',
               contains(
                   "Undefined property or method 'nonExistentMember' on bridged instance of 'Counter'"))));
     });
@@ -634,11 +640,16 @@ void main() {
            return c.nonExistentMethod();
          }
        ''';
+      // SCB10 CONTRACT CHANGE: type is now `NoSuchMethodError` (see I-CLASS-24).
+      // The doubled, self-referential message this site used to produce — the
+      // extension-lookup handler caught its own sentinel and appended it to
+      // itself — is gone as a side effect: a non-`RuntimeD4rtException` escapes
+      // that handler instead of being re-wrapped by it.
       expect(
           () => interpreter.execute(source: code),
-          throwsA(isA<RuntimeD4rtException>().having(
-              (e) => e.message,
-              'message',
+          throwsA(isA<NoSuchMethodError>().having(
+              (e) => e.toString(),
+              'toString',
               contains(
                   "Bridged class 'Counter' has no instance method named 'nonExistentMethod'"))));
     });

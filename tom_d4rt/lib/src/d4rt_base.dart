@@ -12,6 +12,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:tom_d4rt/src/environment.dart';
 import 'package:tom_d4rt/src/interpreter_visitor.dart';
 import 'package:tom_d4rt/src/module_loader.dart';
+import 'package:tom_d4rt/src/sdk_errors.dart';
 import 'package:tom_d4rt/src/exceptions.dart';
 import 'package:tom_d4rt/src/callable.dart';
 import 'package:tom_d4rt/src/declaration_visitor.dart';
@@ -2183,7 +2184,9 @@ class D4rt {
       // diagnostic (missing import, bad URI). Re-wrapping it as "Unexpected
       // error" discards a message the loader deliberately composed and tells
       // the user they hit an interpreter bug rather than a typo.
-      if (e is RuntimeD4rtException || e is SourceCodeD4rtException) {
+      if (e is RuntimeD4rtException ||
+          e is SourceCodeD4rtException ||
+          isSdkShapedError(e)) {
         rethrow;
       } else {
         throw RuntimeD4rtException('Unexpected error: $e');
@@ -2212,7 +2215,9 @@ class D4rt {
         // diagnostic (missing import, bad URI). Re-wrapping it as "Unexpected
         // error" discards a message the loader deliberately composed and tells
         // the user they hit an interpreter bug rather than a typo.
-        if (e is RuntimeD4rtException || e is SourceCodeD4rtException) {
+        if (e is RuntimeD4rtException ||
+            e is SourceCodeD4rtException ||
+            isSdkShapedError(e)) {
           rethrow;
         } else {
           throw RuntimeD4rtException('Unexpected error: $e');

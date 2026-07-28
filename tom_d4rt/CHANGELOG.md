@@ -1,5 +1,63 @@
 ## 1.23.0
 
+### Fixed — the interpreter raises the SDK's own error types (SCB10)
+
+SC5 made seven `dart:core` error classes nameable and catchable, on the premise
+that d4rt already *threw* SDK-correct shapes and only the `BridgedClass` was
+missing. That premise held for two of them. Everything the interpreter raised
+itself was a `RuntimeD4rtException`, so no `on TypeError` / `on NoSuchMethodError`
+/ `on AssertionError` clause could ever match the operation that should have
+produced it, no matter which bridges were registered. Four raise sites now throw
+the real thing:
+
+- a failing `as` cast, and `!` on null → `TypeError`
+- a final member-lookup failure → `NoSuchMethodError`
+- a failing `assert`, in a statement or a constructor initializer →
+  `AssertionError`
+- a list index out of range → `RangeError`
+
+**`list[9]` raises a plain `RangeError`, not `IndexError`.** Measured against the
+platform, which contradicts the obvious reading: `IndexError` is a `RangeError`
+subtype and looks like the better fit, but the VM's `List.[]` does not use it and
+`on IndexError` does **not** catch an out-of-range list access. Raising
+`IndexError` would have made d4rt strictly *more* catchable than Dart, so a
+script written against d4rt would break once compiled.
+
+**Which contract moved: the type, not the message.** `D4rtTypeError` and
+`D4rtNoSuchMethodError` `implement` rather than `extend` their SDK counterparts,
+because neither SDK type offers a constructor that accepts a message — using
+them directly would have discarded the diagnostics that name the receiver, the
+member and the failed extension-method lookup. `implements` keeps
+`value is TypeError` true, so the SC5 bridges claim these instances and `on`
+clauses match, while `toString()` still returns d4rt's own text verbatim. The
+SDK does the same thing for the same reason (`_TypeError`, `_AssertionError`).
+Consequently no existing message assertion needed rewriting; the five tests that
+changed were retargeted at the new *type* and still pin the same strings. The one
+genuine text change is `assert`: its message is now the script's raw message
+object carried on `AssertionError.message`, rather than a string d4rt
+pre-formatted, so `toString()` quotes a String message exactly as the SDK does
+(`Assertion failed: "boom"`). The no-message text is unchanged.
+
+Uncaught, these now reach the *host* unwrapped too. `execute()`'s catch-all
+re-labels anything it does not recognise as `Unexpected error: ...`, a message
+that tells the caller they hit an interpreter bug — wrong for a script whose own
+assert failed. Without that carve-out the shape made catchable inside a script
+would have been destroyed on the way out of one.
+
+Deliberately not included: the interpreter's *intermediate* member-lookup
+failures still raise `RuntimeD4rtException`, because nine call sites branch on
+`e.message.contains("Undefined property '<name>'")` to decide whether to attempt
+extension lookup — that string is load-bearing control flow, and replacing it
+with a typed signal is tracked separately. Genuine interpreter failures keep
+raising `RuntimeD4rtException`, as they should.
+
+Fixed as a side effect: the bridged-method lookup site's `throw` sat inside the
+`try` whose own `on RuntimeD4rtException` handler caught it, appending the
+message to itself ("… has no instance method named 'wibble'. Error during
+extension lookup: … has no instance method named 'wibble'."). A
+non-`RuntimeD4rtException` escapes that handler instead of being re-wrapped by
+it.
+
 ### Fixed — error handlers are called with the arity they declare (SCB9)
 
 The SDK accepts an error handler in either arity — `void Function(Object error)`

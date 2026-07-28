@@ -18,6 +18,7 @@ export 'package:tom_d4rt_ast/ast.dart';
 
 // Core exceptions
 export 'src/runtime/exceptions.dart';
+export 'src/runtime/sdk_errors.dart';
 
 // Environment and variable management
 export 'src/runtime/environment.dart';
