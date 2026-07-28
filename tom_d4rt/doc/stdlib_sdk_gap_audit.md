@@ -223,17 +223,40 @@ The seven error types above are bridged as of `tom_d4rt` 1.17.0 /
 `tom_d4rt_ast` 0.9.0, so `on <Type> catch (e)` clauses resolve and the
 constructors the SDK exposes publicly work.
 
-Two things the audit assumed turned out to be wrong, and both are worth
+Several things the audit assumed turned out to be wrong, and all are worth
 recording because they shape what "bridged" buys you:
 
-**The interpreter does not throw SDK-shaped errors as broadly as assumed.**
-Only `ConcurrentModificationError` and `StackOverflowError` really arrive as
-native SDK errors (the native collection and the host stack do the throwing).
-`list[9]`, a failing cast, a missing method on `dynamic` and a failing `assert`
-all still surface as `RuntimeD4rtException`, so `on IndexError` / `on TypeError`
-/ `on NoSuchMethodError` / `on AssertionError` cannot catch the *natural*
-occurrence of those errors yet — only an explicit `throw`. Closing that is an
-interpreter-side change, not a stdlib one.
+**The interpreter did not throw SDK-shaped errors as broadly as assumed.**
+Only `ConcurrentModificationError` and `StackOverflowError` arrived as native SDK
+errors from the bridges alone (the native collection and the host stack do the
+throwing). `list[9]`, a failing cast, a missing method on `dynamic` and a failing
+`assert` surfaced as `RuntimeD4rtException`, so `on TypeError` /
+`on NoSuchMethodError` / `on AssertionError` could not catch the *natural*
+occurrence of those errors — only an explicit `throw`. That was an
+interpreter-side gap, not a stdlib one, and it is closed as of `tom_d4rt` 1.23.0
+/ `tom_d4rt_ast` 0.15.0: the raise sites now produce `TypeError` (a failing `as`,
+and `!` on null), `NoSuchMethodError` (a final member-lookup failure),
+`AssertionError` (a failing `assert`, statement or constructor initializer) and
+`RangeError` (a list index out of range).
+
+**A list index raises `RangeError`, not `IndexError`** — measured against the
+platform while closing the gap above, and it contradicts the obvious reading of
+the P1 table. `IndexError` is a `RangeError` subtype and looks like the better
+fit, but the VM's `List.[]` does not use it and `on IndexError` does **not**
+catch an out-of-range list access. Raising `IndexError` would make d4rt strictly
+*more* catchable than Dart, so a script written against d4rt with `on IndexError`
+would break once compiled. The `IndexError` bridge is still needed — a script can
+name the type and `IndexError.withLength(...)` works — but it is not what an
+interpreted `list[9]` produces, and the `IndexError -> RangeError` supertype
+registration is what makes `on RangeError` catch what the index sites raise.
+
+**Errors thrown by a native callee were already fine.** `'abc'[9]`, `[].first`,
+`int.parse('zz')` and `sublist(0, 9)` were catchable by `on RangeError` /
+`on StateError` / `on FormatException` inside a script before any of this work —
+the interpreter does not wrap what a native callee throws. The wrapping is
+confined to the *host* boundary, where `execute()`'s catch-all still relabels a
+native SDK exception as `Unexpected error: ...`; that remaining asymmetry is
+tracked as SCC27.
 
 **Catch-clause matching had two independent defects.** Both were fixed with the
 bridges and both applied to every bridge, not just the error types:

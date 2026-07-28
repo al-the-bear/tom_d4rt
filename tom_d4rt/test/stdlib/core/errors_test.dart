@@ -30,9 +30,17 @@ import '../../interpreter_test.dart' show execute;
 /// What is deliberately *not* asserted here: that the interpreter throws
 /// SDK-shaped errors for the operations that produce them in real Dart
 /// (`list[9]`, a failing cast, a missing method on `dynamic`, a failing
-/// `assert`). Probing shows those still surface as `RuntimeD4rtException`,
-/// which is an interpreter-side gap tracked separately — SC5 is about making
-/// the types nameable, catchable and constructible.
+/// `assert`). SC5 is about making the types nameable, catchable and
+/// constructible; the shapes the interpreter *raises* are SCB10's subject and
+/// live in `test/scb10_sdk_shaped_errors_test.dart`.
+///
+/// One SC5 assumption did not survive that work: `list[9]` raises a plain
+/// `RangeError`, **not** an `IndexError`. The VM's `List.[]` does not use
+/// `IndexError` and `on IndexError` does not catch an out-of-range access, so
+/// the `IndexError` bridge below is still needed for naming and construction but
+/// is not what an interpreted `list[9]` produces. The `IndexError -> RangeError`
+/// supertype registration is what earns its keep there — it is why `on
+/// RangeError` catches what the index sites raise.
 void main() {
   group('SC5: catchable dart:core error types', () {
     test('F-SC5-1: NoSuchMethodError is catchable by concrete type [2026-07-27]',
