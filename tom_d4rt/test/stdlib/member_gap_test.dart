@@ -1,19 +1,20 @@
 // SCB3: member-level gaps found by the mechanical adapter-map diff.
 //
-// Every case here is a member missing from a class that is otherwise fully
-// bridged, which is exactly the failure mode the SDK gap audit had concluded
-// did not exist ("the gaps are whole missing classes, not missing members on
-// existing bridges"). They are grouped by the reason a spot-check missed them:
+// Every case here is a member on a class that is otherwise fully bridged — the
+// failure mode a class-granularity check cannot see, because the class is
+// present and most of its members work. Grouped by the reason a spot-check on
+// the class passes even while the member is unreachable:
 //
-//  * PARTIAL CONSTANT SETS — `Duration` exposed 6 of its 16 unit constants.
-//    `Duration.secondsPerMinute` worked, so any spot-check on the class passed
-//    while `Duration.microsecondsPerDay` did not resolve.
+//  * PARTIAL CONSTANT SETS — `Duration` carries 16 unit constants. A spot-check
+//    landing on `secondsPerMinute` says nothing about `microsecondsPerDay`, so
+//    all sixteen are asserted as one list.
 //  * MISSING STATICS ON A WORKING CLASS — statics get no supertype fallback in
-//    the interpreter, so a missing one is always a hard failure.
-//  * MISSING MEMBERS ON CONCRETE SUBTYPES — `Set` operations resolved on the
-//    literal `Set` bridge but not on `HashSet` / `LinkedHashSet` /
-//    `SplayTreeSet`, because instance fallback through the supertype chain is
-//    not uniform.
+//    the interpreter at all, so an unregistered static is always a hard
+//    failure regardless of how complete the rest of the class is.
+//  * MISSING MEMBERS ON CONCRETE SUBTYPES — instance fallback through the
+//    supertype chain is *not* uniform, so `Set` algebra resolving on a set
+//    literal does not imply it resolves on `HashSet` / `LinkedHashSet` /
+//    `SplayTreeSet`. Each concrete type is exercised separately.
 
 import '../interpreter_test.dart';
 import 'package:test/test.dart';
