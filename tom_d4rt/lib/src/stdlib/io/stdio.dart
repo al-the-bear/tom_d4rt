@@ -147,11 +147,23 @@ class StdioTypeIo {
         name: 'StdioType',
         isAssignable: (v) => v is StdioType,
         typeParameterCount: 0,
+        // These are `static const` on the SDK type. They were registered as
+        // instance getters, so `StdioType.terminal` could not resolve — leaving
+        // `stdioType()` returning a value no script could compare against.
+        staticGetters: {
+          'terminal': (visitor) => StdioType.terminal,
+          'pipe': (visitor) => StdioType.pipe,
+          'file': (visitor) => StdioType.file,
+          'other': (visitor) => StdioType.other,
+        },
+        methods: {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
+              (target as StdioType).toString(),
+        },
         getters: {
-          'terminal': (visitor, target) => StdioType.terminal,
-          'pipe': (visitor, target) => StdioType.pipe,
-          'file': (visitor, target) => StdioType.file,
-          'other': (visitor, target) => StdioType.other,
+          'name': (visitor, target) => (target as StdioType).name,
+          'hashCode': (visitor, target) => (target as StdioType).hashCode,
+          'runtimeType': (visitor, target) => (target as StdioType).runtimeType,
         },
       );
 }
@@ -165,5 +177,17 @@ class IoStdioStdlib {
     environment.define('stdin', stdin);
     environment.define('stdout', stdout);
     environment.define('stderr', stderr);
+
+    // `stdioType` is the only way to obtain a StdioType, so registering the
+    // class without it left the type inert — nothing could produce a value.
+    environment.define(
+        'stdioType',
+        NativeFunction((visitor, arguments, namedArguments, typeArguments) {
+          if (arguments.length != 1) {
+            throw RuntimeD4rtException(
+                'stdioType requires exactly one argument.');
+          }
+          return stdioType(arguments[0]);
+        }, arity: 1, name: 'stdioType'));
   }
 }

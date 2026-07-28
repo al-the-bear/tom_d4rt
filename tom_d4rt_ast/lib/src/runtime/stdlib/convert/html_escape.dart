@@ -55,6 +55,10 @@ class HtmlEscapeConvert {
           },
         },
         getters: {
+          // Without `mode` a script can build an escaper but never inspect the
+          // mode it was built with — the read half of a round trip the
+          // constructor already advertises.
+          'mode': (visitor, target) => (target as HtmlEscape).mode,
           'hashCode': (visitor, target) => (target as HtmlEscape).hashCode,
           'runtimeType': (visitor, target) =>
               (target as HtmlEscape).runtimeType,
@@ -76,11 +80,34 @@ class HtmlEscapeConvert {
                 escapeSlash: namedArgs['escapeSlash'] as bool? ?? false);
           },
         },
-        methods: {},
+        methods: {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
+              (target as HtmlEscapeMode).toString(),
+        },
+        // The four named modes are `static const` on the SDK type, so they
+        // belong in staticGetters. They previously sat in the instance `getters`
+        // map, which made `HtmlEscapeMode.element` unresolvable and left the
+        // HtmlEscape constructor taking a value no script could name.
+        staticGetters: {
+          'attribute': (visitor) => HtmlEscapeMode.attribute,
+          'element': (visitor) => HtmlEscapeMode.element,
+          'sqAttribute': (visitor) => HtmlEscapeMode.sqAttribute,
+          'unknown': (visitor) => HtmlEscapeMode.unknown,
+        },
         getters: {
-          'attribute': (visitor, target) => HtmlEscapeMode.attribute,
-          'element': (visitor, target) => HtmlEscapeMode.element,
-          'unknown': (visitor, target) => HtmlEscapeMode.unknown,
+          // The escape flags are the whole of the type's public instance
+          // surface (the name field is private — `toString` is the only read).
+          'escapeQuot': (visitor, target) =>
+              (target as HtmlEscapeMode).escapeQuot,
+          'escapeApos': (visitor, target) =>
+              (target as HtmlEscapeMode).escapeApos,
+          'escapeLtGt': (visitor, target) =>
+              (target as HtmlEscapeMode).escapeLtGt,
+          'escapeSlash': (visitor, target) =>
+              (target as HtmlEscapeMode).escapeSlash,
+          'hashCode': (visitor, target) => (target as HtmlEscapeMode).hashCode,
+          'runtimeType': (visitor, target) =>
+              (target as HtmlEscapeMode).runtimeType,
         },
       );
 
