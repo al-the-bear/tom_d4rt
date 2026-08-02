@@ -516,7 +516,7 @@ void registerD4rtInterfaceProxyOverrides() {
   // `CustomClipper<Path>` proxy — the static check at the bridge boundary
   // accepts it, but Flutter's downstream cast in
   // `_RenderCustomClip<RRect>._clip = clipper.getClip(size)` fails with
-  // `_NativePath is not a subtype of RRect`. See Cluster H item #22.
+  // `_NativePath is not a subtype of RRect`.
   D4.registerInterfaceProxy('CustomClipper', (visitor, instance) {
     final typeArgNames = instance.klass.bridgedSuperTypeArgNames;
     final firstArg =

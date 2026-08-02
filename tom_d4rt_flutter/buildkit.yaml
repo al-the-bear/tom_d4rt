@@ -49,13 +49,12 @@ d4rtgen:
     # (`T extends ThemeExtension<T>`); both fall out of the auto-proxy template
     # and are deferred to a follow-up cluster.
     - TransitionDelegate
-    # Cluster-18 (bucket #8): GradientTransform is an abstract painting class
-    # with a single overridable method `transform(Rect, {TextDirection?}) ->
+    # GradientTransform is an abstract painting class with a single
+    # overridable method `transform(Rect, {TextDirection?}) ->
     # Matrix4?`. Scripts subclass it to build animated gradient effects (see
     # widgets/shader_mask_test.dart). Without an interpreter proxy, instances
     # of script subclasses cannot be passed to `LinearGradient(transform: …)`.
     - GradientTransform
-    # Cluster `20260503-0948-issue-analysis` priority 1:
     # SliderComponentShape is the abstract base class used by Slider and
     # RangeSlider for every painted spot (thumb, tick, overlay, value
     # indicator). Scripts subclass it to provide custom thumb shapes
@@ -65,14 +64,12 @@ d4rtgen:
     # Without a proxy, SliderThemeData(thumbShape: …) rejects the
     # InterpretedInstance.
     - SliderComponentShape
-    # Cluster `20260503-0948-issue-analysis` priority 1:
     # SpellCheckService is a single-method abstract service that
     # SpellCheckConfiguration accepts. Scripts mock it for spell-check
     # plumbing tests (see services/spell_check_service_test.dart).
     # One abstract method:
     #   fetchSpellCheckSuggestions(Locale, String) -> Future<List<SuggestionSpan>?>
     - SpellCheckService
-    # Cluster B (testlog_20260522-1328-issue-analysis) item #5:
     # Decoration is the abstract painting base class. Scripts subclass it
     # to build custom decorations and pass instances to
     # `DecoratedBox(decoration: ...)`, `Container(decoration: ...)`, etc.
@@ -82,7 +79,6 @@ d4rtgen:
     # `hitTest`, `getClipPath`, `debugAssertIsValid`) are concrete and
     # become overridable callbacks.
     - Decoration
-    # Cluster B (testlog_20260522-1328-issue-analysis) item #5:
     # BoxPainter is the abstract painter returned by
     # `Decoration.createBoxPainter`. Scripts subclass it (typically as a
     # companion to a `Decoration` subclass) to paint into the canvas.
@@ -93,7 +89,6 @@ d4rtgen:
     # → return InterpretedInstance(_BoxPainterSubclass)) can coerce the
     # returned instance back to the native BoxPainter contract.
     - BoxPainter
-    # Cluster B (testlog_20260522-1328-issue-analysis) item #6:
     # RouteInformationParser<T> is the abstract router parser scripts
     # subclass to drive `MaterialApp.router(routeInformationParser: ...)`.
     # Single non-bounded type param; one effective abstract method
@@ -101,11 +96,10 @@ d4rtgen:
     # (`parseRouteInformationWithDependencies`, `restoreRouteInformation`).
     # Without a proxy, `MaterialApp.router(routeInformationParser:)`
     # rejects the InterpretedInstance.
-    # 20260524 §6/todo #8 (F3): back-ported from
+    # Back-ported from
     # tom_d4rt_flutter_ast/buildkit.yaml so the source-based runner's
     # bridges receive the same proxy registration as the AST runner.
     - RouteInformationParser
-    # Cluster B (testlog_20260522-1328-issue-analysis) item #6:
     # RouterDelegate<T> extends Listenable. Scripts subclass it (often
     # with ChangeNotifier and PopNavigatorRouterDelegateMixin) to drive
     # `MaterialApp.router(routerDelegate: ...)`. Required so the

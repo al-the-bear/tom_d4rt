@@ -149,7 +149,7 @@ downstream manual registration files
 
 | Divergence | Status |
 |------------|--------|
-| `_InterpretedKeepAliveState` (`AutomaticKeepAliveClientMixin`) + its walk/dispatch — **non-AST only** | **accidental drift** — the web twin is missing keep-alive State support; tracked to converge under MCI item 3 (`mixinVariants:` State family) |
-| `RouterDelegate<Object>` (non-AST) vs `RouterDelegate<dynamic>` (AST) | **suspected drift** — one is wrong; reconcile under MCI item 2 |
+| `_InterpretedKeepAliveState` (`AutomaticKeepAliveClientMixin`) + its walk/dispatch — **non-AST only** | **accidental drift** — the web twin is missing keep-alive State support; tracked to converge via the generator's `mixinVariants:` State family |
+| `RouterDelegate<Object>` (non-AST) vs `RouterDelegate<dynamic>` (AST) | **suspected drift** — one is wrong; the two must be reconciled |
 | narrow `src/runtime/...` imports (AST) vs single `package:tom_d4rt/d4rt.dart` barrel (non-AST) | **legitimate** — the AST barrel does not re-export the same internal symbols |
 | `scene_builder_user_bridge.dart` — **AST only** | **legitimate web-only artifact** (VM↔web `SceneBuilder` skew) |

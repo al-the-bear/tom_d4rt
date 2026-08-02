@@ -23,6 +23,7 @@ The only functional differences are in the downstream manual registration file
 - **`_InterpretedKeepAliveState`** (`with AutomaticKeepAliveClientMixin`) and
   its `_usesAutomaticKeepAliveClientMixin` walk + proxy-factory dispatch are
   present here but **absent in `tom_d4rt_flutter_ast`**. This is accidental
-  drift (the web twin is behind), tracked to converge under MCI item 3.
+  drift (the web twin is behind), tracked to converge via the generator's
+  `mixinVariants:` State family.
 - **`RouterDelegate<Object>`** is used here, where the web twin uses
-  `RouterDelegate<dynamic>`. One is wrong; reconcile under MCI item 2.
+  `RouterDelegate<dynamic>`. One is wrong; the two must be reconciled.

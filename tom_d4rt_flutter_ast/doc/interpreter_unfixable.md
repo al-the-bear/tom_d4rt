@@ -53,10 +53,10 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [U9 — Script-defined `RouteAware` cannot be subscribed to a native `RouteObserver`](#u9--script-defined-routeaware-cannot-be-subscribed-to-a-native-routeobserver-interpreter-limitation) | Interpreter limitation. The bridged `RouteObserver.subscribe(RouteAware aware, R route)` validates `aware` with `D4.getRequiredArg<RouteAware>`, which rejects a d4rt `InterpretedInstance` even when the script class declares `with RouteAware` (or `implements RouteAware`). Same architectural family as U3 (`Curve`), U5 (`NotchedShape` / `FloatingActionButtonLocation`), and U8 (`Enum`): a script-defined subtype of a bridged native abstract / mixin type cannot cross the d4rt → native boundary as that native type. There is no framework-provided `RouteAware` concrete subclass to substitute, because `RouteAware` is intended to be mixed into application-side `State` objects. Mandatory script-side workaround: use a script-side stand-in observer that mirrors the native `subscribe` / `unsubscribe` / `didPush` / `didPop` / `didReplace` protocol over `Map<Route, List<_LoggingRouteAware>>`, so the demo's call-order timeline is produced without crossing the d4rt → native boundary. The native `RouteObserver` instance can still be constructed (the constructor itself is safe — no script-defined `RouteAware` argument is involved) to demonstrate the type exists. | `widgets/route_observer_test.dart` (C22 closed 2026-05-17 — `_LoggingRouteAware with RouteAware` × 4 subscribed via `routeObserver.subscribe(...)`) |
 | [U11 — Script-defined `HitTestTarget` rejected by `HitTestEntry(target)` constructor](#u11--script-defined-hittesttarget-rejected-by-hittestentrytarget-constructor-interpreter-limitation) | Interpreter limitation. The bridged `HitTestEntry(HitTestTarget target)` constructor validates `target` via `D4.getRequiredArg<HitTestTarget>`, which rejects an `InterpretedInstance` even when the script class declares `implements HitTestTarget`. Same architectural family as U3 (`Curve`), U5 (`NotchedShape`), U8 (`Enum`), U9 (`RouteAware`), U10 (`Diagnosticable*`). There is no framework-provided concrete `HitTestTarget` the script can substitute without standing up a full render tree, which is out of scope for a static teaching demo. Mandatory script-side workaround: keep the `_FakeTarget implements HitTestTarget` class declaration as a teaching reference but do not instantiate it; substitute a pure script-side `_DemoHitEntry(label, runtimeTypeStr)` for the anatomy-panel display. Native `HitTestResult()` and `BoxHitTestResult()` constructors still execute successfully — only the `HitTestEntry(<script HitTestTarget>)` boundary crossing is skipped. | `gestures/hit_testable_test.dart` (C39 closed 2026-05-18 — `_FakeTarget implements HitTestTarget` × 3 fed into `HitTestEntry(target)` for the sample `HitTestResult.path`) |
 | [U12 — `@Deprecated`-annotated SDK symbols are filtered out of the bridge surface by design](#u12--deprecated-annotated-sdk-symbols-are-filtered-out-of-the-bridge-surface-by-design-generator-policy) | Generator policy (intentional). `ElementModeExtractor.generateDeprecatedElements = false` skips every `@Deprecated`-annotated enum/class/member/typedef during bridge generation so the bridge surface stays aligned with Flutter's non-deprecated API. Two workaround variants: **(A) local stand-in** for symbols with no bridged equivalent (declare a private `_<Name>` mirroring the SDK shape); **(B) modern-name swap** for typedef-renames pointing at a still-bridged modern symbol (use the modern name in code positions, preserve the alias in strings/comments). | `services/key_data_transit_mode_test.dart` (C44 closed 2026-05-18 — variant A, `_KeyDataTransitMode`); `services/keyboard_side_test.dart` (C45 closed 2026-05-18 — variant A, dual-enum `_KeyboardSide` + `_ModifierKey`); `services/mouse_tracker_annotation_test.dart` (test-driver C46 closed 2026-05-18 — variant B, `MaterialState*` → `WidgetState*`); pattern expected for C49/C50 (`RawKeyEventDataWeb`, `RawKeyEventDataLinux`) |
-| [U14 — `Center > ConstrainedBox(maxWidth)` in `SingleChildScrollView`, or `Expanded` inside `Column(mainAxisSize.min)` in `GridView.count` cell, leaks `maxHeight: infinity` down to `RenderConstrainedBox`](#u14--center--constrainedboxmaxwidth-inside-singlechildscrollview-or-expanded-inside-columnmainaxissizemin-inside-gridviewcount-cell-leaks-maxheight-infinity-down-to-renderconstrainedbox-bridgeinterpreter-constraints-propagation-gap) | ~~Bridge/interpreter constraints-propagation gap (non-fatal).~~ ~~No script-side fix possible — accept the banner and defer.~~ → **FIXED 2026-05-23 (entry #19).** Section-level bisection localised the source to a different construct entirely — two `Row(crossAxisAlignment.stretch)` blocks in `_PrivateConstructorCards`. Wrapping each in `IntrinsicHeight` clears the assertion. The U14 entry's "Center/ConstrainedBox + GridView.count" diagnostic was a red herring; the entry is retained as a cautionary tale for future bisection-first investigation. The interpreter-side propagation gap remains a theoretical concern for genuine `Center > ConstrainedBox > SCV` cases not yet observed in the corpus. | ~~`animation/cubic_test.dart` (item 1 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — 4 script-rewrite attempts reverted 2026-05-19)~~ → FIXED entry #19 (IntrinsicHeight on Row(stretch)) |
-| [U15 — `RenderFlex overflowed by 2.0 pixels on the right` inside a bridged Cupertino layout the script cannot identify](#u15--renderflex-overflowed-by-20-pixels-on-the-right-inside-a-bridged-cupertino-layout-the-script-cannot-identify-bridge-layout-rounding-gap) | Bridge layout-rounding gap (non-fatal). On the 800-pixel test viewport, a Cupertino-flavoured deep-demo page produces two identical `RenderFlex overflowed by 2.0 pixels on the right.` assertions per frame. Four script-level workarounds (three independent `Row → Wrap` conversions on hero chips and boxed/sliding label rows, plus shrinking `CupertinoNavigationBar.middle`'s `SizedBox(width: 220) → 180`) all failed to clear the banner because the offending `RenderFlex` is synthesised internally by a bridged Cupertino widget the script does not own (CupertinoNavigationBar internals, sliding-segmented-control thumb track, etc.). Test passes throughout (`frameworkErrors=2 status=success`); banner is cosmetic only. **No script-side fix possible — accept the banner and defer.** | `cupertino/cupertino_nav_segmented_test.dart` (item 2 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — 4 script-rewrite attempts reverted 2026-05-19) |
-| [U16 — `Text('')` (empty-string `Text` widget) triggers a NaN `Offset` assertion in `dart:ui` paragraph painting](#u16--text-empty-string-text-widget-triggers-a-nan-offset-assertion-in-dartui-paragraph-painting-bridgeinterpreter-text-layout-gap) | Bridge/interpreter text-layout gap (non-fatal). Rendering a `Text` widget whose `data` is the empty string `''` through the bridged Flutter pipeline emits `Offset argument contained a NaN value.` (dart:ui/painting.dart line 41). The native Flutter pipeline short-circuits empty paragraphs to `Offset.zero`; the bridged painter computes a NaN baseline instead. Test passes (`status=success`) but a framework-error banner is emitted. **Script-side workaround:** guard every `Text(...)` site that may receive an empty string and substitute a single space (`' '`). Visual result is indistinguishable in a blank-line role. | `cupertino/restorable_cupertino_tab_controller_test.dart` (item 5 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — fixed script-side 2026-05-19 by guarding the composed text in `_CodeBlock.build`; underlying bridge bug remains) |
-| [U17 — `ConstraintsTransformBox` teaching script is intrinsically incompatible with `frameworkErrors=0`](#u17--constraintstransformbox-teaching-script-render_constraints_transform_box_testdart-is-intrinsically-incompatible-with-frameworkerrors0-script-design) | Truly unfixable (script design). `render_constraints_transform_box_test.dart` is a deep-demo script whose purpose is to feed pathological inputs to `ConstraintsTransformBox` and observe Flutter's debug-mode assertions / overflow banners. The visible `frameworkErrors=1` (NOT NORMALIZED, from a user-defined `kHalveMaxWidth` transform on a tight-width input) is the *first* of a cascade — pre-normalising it immediately surfaces `RenderConstraintsTransformBox overflowed by 30/15/15/30` from section 7's intentional clipBehavior showcase, and behind that further banners from sections 4 and 8. Any workaround that suppresses one tile erases the teaching content of that tile. **No script-side fix possible — accept the banner and defer.** | `rendering/render_constraints_transform_box_test.dart` (item 71 of `testlog_20260519-1247-flutter-suites-fixes` fix plan — kHalveMaxWidth normalize fix attempted and reverted 2026-05-20) |
+| [U14 — `Center > ConstrainedBox(maxWidth)` in `SingleChildScrollView`, or `Expanded` inside `Column(mainAxisSize.min)` in `GridView.count` cell, leaks `maxHeight: infinity` down to `RenderConstrainedBox`](#u14--center--constrainedboxmaxwidth-inside-singlechildscrollview-or-expanded-inside-columnmainaxissizemin-inside-gridviewcount-cell-leaks-maxheight-infinity-down-to-renderconstrainedbox-bridgeinterpreter-constraints-propagation-gap) | ~~Bridge/interpreter constraints-propagation gap (non-fatal).~~ ~~No script-side fix possible — accept the banner and defer.~~ → **FIXED 2026-05-23 (entry #19).** Section-level bisection localised the source to a different construct entirely — two `Row(crossAxisAlignment.stretch)` blocks in `_PrivateConstructorCards`. Wrapping each in `IntrinsicHeight` clears the assertion. The U14 entry's "Center/ConstrainedBox + GridView.count" diagnostic was a red herring; the entry is retained as a cautionary tale for future bisection-first investigation. The interpreter-side propagation gap remains a theoretical concern for genuine `Center > ConstrainedBox > SCV` cases not yet observed in the corpus. | ~~`animation/cubic_test.dart` (4 script-rewrite attempts reverted 2026-05-19)~~ → FIXED entry #19 (IntrinsicHeight on Row(stretch)) |
+| [U15 — `RenderFlex overflowed by 2.0 pixels on the right` inside a bridged Cupertino layout the script cannot identify](#u15--renderflex-overflowed-by-20-pixels-on-the-right-inside-a-bridged-cupertino-layout-the-script-cannot-identify-bridge-layout-rounding-gap) | Bridge layout-rounding gap (non-fatal). On the 800-pixel test viewport, a Cupertino-flavoured deep-demo page produces two identical `RenderFlex overflowed by 2.0 pixels on the right.` assertions per frame. Four script-level workarounds (three independent `Row → Wrap` conversions on hero chips and boxed/sliding label rows, plus shrinking `CupertinoNavigationBar.middle`'s `SizedBox(width: 220) → 180`) all failed to clear the banner because the offending `RenderFlex` is synthesised internally by a bridged Cupertino widget the script does not own (CupertinoNavigationBar internals, sliding-segmented-control thumb track, etc.). Test passes throughout (`frameworkErrors=2 status=success`); banner is cosmetic only. **No script-side fix possible — accept the banner and defer.** | `cupertino/cupertino_nav_segmented_test.dart` (4 script-rewrite attempts reverted 2026-05-19) |
+| [U16 — `Text('')` (empty-string `Text` widget) triggers a NaN `Offset` assertion in `dart:ui` paragraph painting](#u16--text-empty-string-text-widget-triggers-a-nan-offset-assertion-in-dartui-paragraph-painting-bridgeinterpreter-text-layout-gap) | Bridge/interpreter text-layout gap (non-fatal). Rendering a `Text` widget whose `data` is the empty string `''` through the bridged Flutter pipeline emits `Offset argument contained a NaN value.` (dart:ui/painting.dart line 41). The native Flutter pipeline short-circuits empty paragraphs to `Offset.zero`; the bridged painter computes a NaN baseline instead. Test passes (`status=success`) but a framework-error banner is emitted. **Script-side workaround:** guard every `Text(...)` site that may receive an empty string and substitute a single space (`' '`). Visual result is indistinguishable in a blank-line role. | `cupertino/restorable_cupertino_tab_controller_test.dart` (fixed script-side 2026-05-19 by guarding the composed text in `_CodeBlock.build`; underlying bridge bug remains) |
+| [U17 — `ConstraintsTransformBox` teaching script is intrinsically incompatible with `frameworkErrors=0`](#u17--constraintstransformbox-teaching-script-render_constraints_transform_box_testdart-is-intrinsically-incompatible-with-frameworkerrors0-script-design) | Truly unfixable (script design). `render_constraints_transform_box_test.dart` is a deep-demo script whose purpose is to feed pathological inputs to `ConstraintsTransformBox` and observe Flutter's debug-mode assertions / overflow banners. The visible `frameworkErrors=1` (NOT NORMALIZED, from a user-defined `kHalveMaxWidth` transform on a tight-width input) is the *first* of a cascade — pre-normalising it immediately surfaces `RenderConstraintsTransformBox overflowed by 30/15/15/30` from section 7's intentional clipBehavior showcase, and behind that further banners from sections 4 and 8. Any workaround that suppresses one tile erases the teaching content of that tile. **No script-side fix possible — accept the banner and defer.** | `rendering/render_constraints_transform_box_test.dart` (kHalveMaxWidth normalize fix attempted and reverted 2026-05-20) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -4288,8 +4288,7 @@ host-side `expect()`s pass. It surfaces only via the test
 runner's framework-error banner
 (`frameworkErrors=1 status=success`).
 
-**Reproducer.** `animation/cubic_test.dart` (item 1 of the
-`testlog_20260519-1247-flutter-suites-fixes` fix plan). The
+**Reproducer.** `animation/cubic_test.dart`. The
 script's `build` is shaped as:
 
 ```dart
@@ -4439,7 +4438,7 @@ the script is not fixable at the script level.
 
 | Script | Sites | Notes |
 |--------|-------|-------|
-| `animation/cubic_test.dart` | Section 3 (`_PrivateGalleryCard` — `GridView.count(childAspectRatio: 1.05)` with `_PrivateGalleryTile` containing `Expanded(CustomPaint)` inside `Column(mainAxisSize.min)`), and Section 6 (`_PrivateSiblingCurveCard` — `GridView.count(childAspectRatio: 1.25)` with `_PrivateSiblingCurveTile` using the same pattern). The top-level `Center > ConstrainedBox(maxWidth: 1080)` wrapping the body is a third contributor but not individually sufficient. | Item 1 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Four script-rewrite attempts (P1 `SizedBox(800)`, `Center(heightFactor:1.0)`, `Row` sidestep, `Expanded → SizedBox(60)` inside both gallery tiles) all reverted on 2026-05-19 — banner persists in every variant. Test passes throughout (`expect(result.success, isTrue)` succeeds, all 2 tests "All tests passed!", `frameworkErrors=1 status=success` only). Marked as U14 and deferred. |
+| `animation/cubic_test.dart` | Section 3 (`_PrivateGalleryCard` — `GridView.count(childAspectRatio: 1.05)` with `_PrivateGalleryTile` containing `Expanded(CustomPaint)` inside `Column(mainAxisSize.min)`), and Section 6 (`_PrivateSiblingCurveCard` — `GridView.count(childAspectRatio: 1.25)` with `_PrivateSiblingCurveTile` using the same pattern). The top-level `Center > ConstrainedBox(maxWidth: 1080)` wrapping the body is a third contributor but not individually sufficient. | Four script-rewrite attempts (P1 `SizedBox(800)`, `Center(heightFactor:1.0)`, `Row` sidestep, `Expanded → SizedBox(60)` inside both gallery tiles) all reverted on 2026-05-19 — banner persists in every variant. Test passes throughout (`expect(result.success, isTrue)` succeeds, all 2 tests "All tests passed!", `frameworkErrors=1 status=success` only). Marked as U14 and deferred. |
 
 ### What a real fix would look like
 
@@ -4509,9 +4508,8 @@ we cannot, from the captured output alone, distinguish which
 `RenderFlex` is the offender. Likely candidates rejected below by
 trial.
 
-**Reproducer.** `cupertino/cupertino_nav_segmented_test.dart`
-(item 2 of the `testlog_20260519-1247-flutter-suites-fixes`
-fix plan). The script renders a long `SingleChildScrollView` of
+**Reproducer.** `cupertino/cupertino_nav_segmented_test.dart`.
+The script renders a long `SingleChildScrollView` of
 `_PrivateSection` cards demonstrating
 `CupertinoSegmentedControl<T>` and
 `CupertinoSlidingSegmentedControl<T>` side by side, plus a
@@ -4602,7 +4600,7 @@ Accept the banner; the script is not fixable at the script level.
 
 | Script | Sites | Notes |
 |--------|-------|-------|
-| `cupertino/cupertino_nav_segmented_test.dart` | Two unidentifiable internal `RenderFlex`s in the Cupertino subtree (likely `CupertinoNavigationBar` middle/leading/trailing row, `CupertinoSlidingSegmentedControl` thumb track, or `CupertinoButton` content row). | Item 2 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Four script-rewrite attempts (P3: 3× `Row → Wrap` on boxed-default labels, sliding-default labels, and hero chips; plus P1: `SizedBox(width: 220) → 180` on the navbar middle slot) all reverted on 2026-05-19 — banner persists at 2 in every variant. Test passes throughout (`All tests passed!`, `frameworkErrors=2 status=success` only). Marked as U15 and deferred. |
+| `cupertino/cupertino_nav_segmented_test.dart` | Two unidentifiable internal `RenderFlex`s in the Cupertino subtree (likely `CupertinoNavigationBar` middle/leading/trailing row, `CupertinoSlidingSegmentedControl` thumb track, or `CupertinoButton` content row). | Four script-rewrite attempts (P3: 3× `Row → Wrap` on boxed-default labels, sliding-default labels, and hero chips; plus P1: `SizedBox(width: 220) → 180` on the navbar middle slot) all reverted on 2026-05-19 — banner persists at 2 in every variant. Test passes throughout (`All tests passed!`, `frameworkErrors=2 status=success` only). Marked as U15 and deferred. |
 
 ### What a real fix would look like
 
@@ -4671,8 +4669,7 @@ The test runner records this as `frameworkErrors=1` but reports
 preserved.
 
 **Reproducer.**
-`cupertino/restorable_cupertino_tab_controller_test.dart` (item 5
-of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`).
+`cupertino/restorable_cupertino_tab_controller_test.dart`.
 The `_CodeBlock` widget in `_buildCodeSnippetSection` paints a
 30-line source listing via a `Column` of per-line
 `Row(SizedBox(width: 28, Text('<line-no>')), Text('<source>'))`
@@ -4793,8 +4790,8 @@ this variant.
 
 | Script | Sites | Notes |
 |--------|-------|-------|
-| `cupertino/restorable_cupertino_tab_controller_test.dart` | Six empty-`_CodeLine` entries fed into `Text('${' ' * indent}${text}')` inside `_CodeBlock`. | Item 5 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Fixed at the script level on 2026-05-19 by guarding the composed text with `composed.isEmpty ? ' ' : composed` in `_CodeBlock.build`. Verified `frameworkErrors=0 status=success` (was 1). Underlying bridge bug remains and is documented here for future scripts that hit the same shape. |
-| `gestures/velocity_test.dart` | One blank `_CodeLine('')` separator inside the equality-section bordered code block, descendant of `_SectionCard`'s `IntrinsicHeight > Row(stretch)` chrome (chrome itself added as part of the item-35 P1 fix). | Item 35 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Same underlying bug shape as U16 but surfaces with a different banner — `BoxConstraints forces an infinite height` on `RenderFlex.layout()` rather than the NaN-Offset paint banner. Under an `IntrinsicHeight` ancestor the empty `Text` propagates an unbounded intrinsic height instead of a NaN paint origin; both stem from the bridge's empty-paragraph metric path. Fixed at the script level on 2026-05-19 by replacing the blank `_CodeLine('')` separator with `SizedBox(height: 14)` (idiomatic for a fixed vertical gap inside the code-listing Column). Verified `frameworkErrors=0 status=success` (was 1). |
+| `cupertino/restorable_cupertino_tab_controller_test.dart` | Six empty-`_CodeLine` entries fed into `Text('${' ' * indent}${text}')` inside `_CodeBlock`. | Fixed at the script level on 2026-05-19 by guarding the composed text with `composed.isEmpty ? ' ' : composed` in `_CodeBlock.build`. Verified `frameworkErrors=0 status=success` (was 1). Underlying bridge bug remains and is documented here for future scripts that hit the same shape. |
+| `gestures/velocity_test.dart` | One blank `_CodeLine('')` separator inside the equality-section bordered code block, descendant of `_SectionCard`'s `IntrinsicHeight > Row(stretch)` chrome (chrome itself added as part of the P1 `IntrinsicHeight` fix). | Same underlying bug shape as U16 but surfaces with a different banner — `BoxConstraints forces an infinite height` on `RenderFlex.layout()` rather than the NaN-Offset paint banner. Under an `IntrinsicHeight` ancestor the empty `Text` propagates an unbounded intrinsic height instead of a NaN paint origin; both stem from the bridge's empty-paragraph metric path. Fixed at the script level on 2026-05-19 by replacing the blank `_CodeLine('')` separator with `SizedBox(height: 14)` (idiomatic for a fixed vertical gap inside the code-listing Column). Verified `frameworkErrors=0 status=success` (was 1). |
 
 ### What a real fix would look like
 
@@ -4920,8 +4917,7 @@ shrinks the inputs (erasing the demo) or pushes the failure to
 the next intentional demo in the same script.
 
 **Reproducer.**
-`rendering/render_constraints_transform_box_test.dart` (item 71
-of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`).
+`rendering/render_constraints_transform_box_test.dart`.
 Reported once each in `secondary_classes_test` and
 `timeout_tests_test` (two host suites driving the same script,
 hence the plan-doc note "B-layout/BoxConstraints — infinite
@@ -4989,9 +4985,7 @@ demonstrate `clipBehavior` semantics:
 
 In short, **the script's purpose *is* to feed pathological inputs to `ConstraintsTransformBox` and observe Flutter's debug banners**. The 1 banner that survives to `frameworkErrors=1` is the first of a stack; any "fix" peels back one layer at the cost of exposing the next intentional one underneath.
 
-**Decision (2026-05-20).** Item 71 is marked
-**reverted/deferred** in
-`testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`.
+**Decision (2026-05-20).** Marked **reverted/deferred**.
 The kHalveMaxWidth normalize fix was applied and verified (the
 first banner cleared), then reverted when the section-7 follow-up
 banner surfaced and inspection revealed the cascade.
@@ -5078,7 +5072,7 @@ None of these belong in the per-item fix sweep — they are
 
 | Script | Host suites | Sites | Notes |
 |--------|-------------|-------|-------|
-| `rendering/render_constraints_transform_box_test.dart` | `secondary_classes_test` (1/1), `timeout_tests_test` (1/1) | ~~kHalveMaxWidth produces non-normalized~~ (fixed entry #21 — minWidth clamped to halved maxWidth, see U17 §"2026-05-23 update"); sections 4 / 7 / 8 deliberately overflow CTBs for `clipBehavior` and pre-defined-transform demos (intentional, by design). | Item 71 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. **2026-05-23 entry #21 update:** kHalveMaxWidth correctness fix retained; fwErr count unchanged at 1 (banner source shifted from real bug to section 7's intentional `clipBehavior` overflow). U17 still deferred by design. |
+| `rendering/render_constraints_transform_box_test.dart` | `secondary_classes_test` (1/1), `timeout_tests_test` (1/1) | ~~kHalveMaxWidth produces non-normalized~~ (fixed entry #21 — minWidth clamped to halved maxWidth, see U17 §"2026-05-23 update"); sections 4 / 7 / 8 deliberately overflow CTBs for `clipBehavior` and pre-defined-transform demos (intentional, by design). | **2026-05-23 entry #21 update:** kHalveMaxWidth correctness fix retained; fwErr count unchanged at 1 (banner source shifted from real bug to section 7's intentional `clipBehavior` overflow). U17 still deferred by design. |
 
 ---
 
@@ -5095,8 +5089,7 @@ the flutter_test stderr and "HttpException: Connection closed
 before full header was received" on the POST `/build` call). The
 crash is worse than the baseline error.
 
-**Reproducer.** `services/platform_test.dart` (item 93 of
-`testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`).
+**Reproducer.** `services/platform_test.dart`.
 Surfaces in `important_classes_test` (1/1 in the
 `20260519-1247-flutter-suites-fixes` baseline). The banner shape:
 
@@ -5204,9 +5197,7 @@ argument crashed the test app, there is no reason to expect that
 wrapping the children in `SizedBox` will survive transport.
 Deferred until the underlying transport-cliff is understood.
 
-**Decision (2026-05-20).** Item 93 is marked **reverted/deferred**
-in
-`testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`.
+**Decision (2026-05-20).** Marked **reverted/deferred**.
 The recoverable `frameworkErrors=1` baseline is the steady state
 for this script until the interpreter / bridge can be
 instrumented to surface the actual crash trigger.
@@ -5257,7 +5248,7 @@ in "What a real fix would look like" item 1 remains the path.
 
 | Script | Host suites | Sites | Notes |
 |--------|-------------|-------|-------|
-| ~~`services/platform_test.dart`~~ | ~~`important_classes_test` (1/1)~~ | ~~`_defaultVsThemeCard` Row(stretch)+Expanded(_twinCard); page has no bounded-h ancestor.~~ | ~~Item 93 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Marked reverted/deferred 2026-05-20 — see U18 root-cause analysis above.~~ → **FIXED 2026-05-23 (entry #20)** — re-attempted IntrinsicHeight wrap on the Row (transport-cliff did not reproduce this time), then wrapped the page body in `SingleChildScrollView` to clear the unmasked 7257-px overflow. `fwErr 1→0` on both projects. See U18 §"2026-05-23 update" above. |
+| ~~`services/platform_test.dart`~~ | ~~`important_classes_test` (1/1)~~ | ~~`_defaultVsThemeCard` Row(stretch)+Expanded(_twinCard); page has no bounded-h ancestor.~~ | ~~Reverted/deferred. Marked reverted/deferred 2026-05-20 — see U18 root-cause analysis above.~~ → **FIXED 2026-05-23 (entry #20)** — re-attempted IntrinsicHeight wrap on the Row (transport-cliff did not reproduce this time), then wrapped the page body in `SingleChildScrollView` to clear the unmasked 7257-px overflow. `fwErr 1→0` on both projects. See U18 §"2026-05-23 update" above. |
 
 ---
 
@@ -5313,8 +5304,7 @@ per offending `RichText` paint with `status=success` — the
 script's "All tests passed!" outcome is preserved.
 
 **Reproducer.**
-`services/text_editing_delta_non_text_update_test.dart` (item 99
-of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`).
+`services/text_editing_delta_non_text_update_test.dart`.
 The `_frozenFrame` widget visualises a `TextEditingValue` snapshot
 by splitting the displayed text into per-character `TextSpan`s
 (loop `for (int i = 0; i < text.length; i++) spans.add(TextSpan(text: text[i], …))`)
@@ -5357,7 +5347,7 @@ The trigger does not depend on:
 
 - `TextDecorationStyle.dashed` vs `.solid` — both reproduce the
   banner identically (empirically verified by swapping
-  `TextDecorationStyle.dashed` for `.solid` in the item-99
+  `TextDecorationStyle.dashed` for `.solid` in the reproducer
   script: error count stays at 4).
 - the `WidgetSpan(PlaceholderAlignment.middle)` caret marker —
   removing it does not clear the banner (the same Japanese run
@@ -5449,7 +5439,7 @@ construction over non-Latin text and substitute as described.
 
 | Script | Sites | Notes |
 |--------|-------|-------|
-| `services/text_editing_delta_non_text_update_test.dart` | `_frozenFrame` called from `_renderExampleCard` for worked examples `e)` and `f)` (`greet = 'こんにちは'`, beforeComposing/afterComposing both non-empty). 4 paint invocations → 4 banners. | Item 99 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Fixed at the script level on 2026-05-20 by changing `greet` from `'こんにちは'` to `'aiueo'`; the Japanese form is retained in the example `story` prose. Verified `frameworkErrors=0 status=success` (was 4). Underlying bridge bug remains and is documented here for future scripts that hit the same shape. |
+| `services/text_editing_delta_non_text_update_test.dart` | `_frozenFrame` called from `_renderExampleCard` for worked examples `e)` and `f)` (`greet = 'こんにちは'`, beforeComposing/afterComposing both non-empty). 4 paint invocations → 4 banners. | Fixed at the script level on 2026-05-20 by changing `greet` from `'こんにちは'` to `'aiueo'`; the Japanese form is retained in the example `story` prose. Verified `frameworkErrors=0 status=success` (was 4). Underlying bridge bug remains and is documented here for future scripts that hit the same shape. |
 
 ### What a real fix would look like
 
@@ -5507,8 +5497,7 @@ row height ≥ 0`. So the assertion should never fire — yet it
 (`FlexColumnWidth`, `IntrinsicColumnWidth`, fixed widths all
 behave the same), row decoration, or cell content.
 
-Bisect (item 107 of
-`testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`):
+Bisect:
 removing only the `border: TableBorder.all(...)` parameter
 from all seven Tables in
 `widgets/editable_text_misc_test.dart` drops `frameworkErrors`
@@ -5559,7 +5548,7 @@ The underlying cause is not yet pinned down. Possibilities:
 
 | Script | Sites | Notes |
 |--------|-------|-------|
-| `widgets/editable_text_misc_test.dart` | Seven `Table(border: TableBorder.all(...))` calls (`paletteTable`, `enumTable`, `smartTable`, `pitfallTable`, `glossaryTable`, `comparisonTable`, `cheatTable`). Six use `brassEdge` at width `0.6`, one (`pitfallTable`) uses `oxblood` at width `0.6`. | Item 107 of `testlog_20260519-1247-flutter-suites-fixes/framework_error_fix_plan.md`. Fixed at the script level on 2026-05-20 by dropping the `border:` parameter from all seven Tables; each Table remains framed by `cardShell`'s outer `Border.all(color: brassEdge, width: 1.2)`, so the bordered-card look is preserved at the cost of the interior brass grid lines. Verified `frameworkErrors=0 status=success` (was 1; Flutter dedupes the seven assertion banners to one). |
+| `widgets/editable_text_misc_test.dart` | Seven `Table(border: TableBorder.all(...))` calls (`paletteTable`, `enumTable`, `smartTable`, `pitfallTable`, `glossaryTable`, `comparisonTable`, `cheatTable`). Six use `brassEdge` at width `0.6`, one (`pitfallTable`) uses `oxblood` at width `0.6`. | Fixed at the script level on 2026-05-20 by dropping the `border:` parameter from all seven Tables; each Table remains framed by `cardShell`'s outer `Border.all(color: brassEdge, width: 1.2)`, so the bordered-card look is preserved at the cost of the interior brass grid lines. Verified `frameworkErrors=0 status=success` (was 1; Flutter dedupes the seven assertion banners to one). |
 
 ### What a real fix would look like
 
@@ -5748,8 +5737,8 @@ propagation gap):
    the family root cause spanning U3 / U5 / U9 / U10 / U11. A
    script-defined `extends CompoundAnimation<double>` (in this
    case) needs the same hand-written proxy treatment as
-   `CustomClipper` got under item #22 (`tom_d4rt` /
-   `tom_d4rt_ast` `d4rt_runtime_registrations.dart`). The
+   `CustomClipper` got in `tom_d4rt` /
+   `tom_d4rt_ast` `d4rt_runtime_registrations.dart`. The
    alternative is a general "auto-generate adapter proxies for
    any bridged abstract class with N constructor variants"
    pass — captured as E12 in `error_analysis.md` for tom_d4rt.
@@ -5761,7 +5750,7 @@ propagation gap):
 | ~~`material/dropdown_test.dart`~~ | ~~Reverted to original `colorChoices.map<Widget>((name) {...}).toList()` after four script-side variants all surfaced the same `List<Widget>` coercion error.~~ → **FIXED entry #17** (omit `selectedItemBuilder` entirely; default `DropdownButton` renders `items` widget for selected display). Underlying typed-collection coercion gap unchanged. |
 | ~~`widgets/animation_test.dart`~~ | ~~`_MeanAnimation extends CompoundAnimation<double>` construction silently fails; `_meanAnim` stays unassigned.~~ → **FIXED entry #16** (remove _MeanAnimation; synthesise mean inline via Listenable.merge(min,max) + AnimatedBuilder) |
 | ~~`widgets/slotted_multi_child_render_object_widget_test.dart`~~ | ~~`_accent.r` access in `_PrivateContentReporter._report`; root null source not yet pinned down.~~ → **FIXED entry #14** (log accent INDEX instead of resolved Color channels) |
-| ~~`retest/widgets/app_kit_view_test.dart`~~ | ~~`Set<Factory<OneSequenceGestureRecognizer>>` coercion at the bridged `AppKitView` constructor. Expected to be cleared by Cluster B item 4.~~ → **FIXED entry #15** (boot-status placeholder guard) |
+| ~~`retest/widgets/app_kit_view_test.dart`~~ | ~~`Set<Factory<OneSequenceGestureRecognizer>>` coercion at the bridged `AppKitView` constructor. Expected to be cleared by the bridged-Set coercion work.~~ → **FIXED entry #15** (boot-status placeholder guard) |
 | ~~`material/dropdownform_test.dart`~~ | ~~Internal `InputDecorator` from a bridged dropdown variant — no externally visible call site identified. Same family as U14.~~ → **FIXED entry #18** — script-side authoring bug, not a bridge-internal issue. Bare DDFF in a Row (no flex wrapper, no isExpanded) gave unbounded width to the internal InputDecorator. Fix: wrap in `SizedBox(width: 220)` in `_buildSection06`. Follow-up: collapsed 2-line per-item children in `_buildSection01` to single-line layout to clear a previously-masked 22-px overflow. |
 
 ---
@@ -8106,7 +8095,7 @@ than script-correlated.
   `RenderTable._rowTops` (monotonically non-decreasing because
   every `rowHeight` is `math.max(0, child.size.height)`), yet
   the assertion *does* fire for every `Table` in
-  `widgets/editable_text_misc_test.dart` (item 107) that
+  `widgets/editable_text_misc_test.dart` that
   carries a non-empty `TableBorder` — bisect confirmed by
   removing only the `border:` parameter from all seven Tables
   (drops `frameworkErrors` from 1 to 0). Underlying cause not
@@ -8167,8 +8156,7 @@ than script-correlated.
   height` thrown by `RenderFlex.layout()` instead of the NaN
   Offset paint banner. Same root cause (bridged empty-paragraph
   metric path), different layout vs paint failure mode. Surfaced
-  while working item 35 of
-  `testlog_20260519-1247-flutter-suites-fixes` — the P1
+  when the P1
   `IntrinsicHeight` fix at `_SectionCard` exposed the previously
   masked empty-`Text` intrinsic-height path. Fixed script-side by
   replacing the blank `_CodeLine('')` separator in
@@ -8176,9 +8164,8 @@ than script-correlated.
 - 2026-05-19: **Add U16** — `Text('')` (empty-string `Text`
   widget) triggers a NaN `Offset` assertion in
   `dart:ui/painting.dart` line 41 through the bridged Flutter
-  paragraph painter. Identified while working item 5 of
-  `testlog_20260519-1247-flutter-suites-fixes` fix plan
-  (`cupertino/restorable_cupertino_tab_controller_test.dart`),
+  paragraph painter. Identified in
+  `cupertino/restorable_cupertino_tab_controller_test.dart`,
   via bisection of `_CodeBlock` (the `_buildCodeSnippetSection`
   body) down to a `Column` of `Text(lines[i].text)` — the banner
   reproduces with empty `text`, clears the instant any candidate
@@ -8190,9 +8177,8 @@ than script-correlated.
   `Offset.zero`; the bridged painter computes a NaN baseline).
 - 2026-05-19: **Add U15** — `RenderFlex overflowed by 2.0 pixels
   on the right` inside a bridged Cupertino layout the script
-  cannot identify. Identified while working item 2 of
-  `testlog_20260519-1247-flutter-suites-fixes` fix plan
-  (`cupertino/cupertino_nav_segmented_test.dart`). Four script-
+  cannot identify. Identified in
+  `cupertino/cupertino_nav_segmented_test.dart`. Four script-
   level workarounds attempted (`Row → Wrap` on three independent
   candidate Rows in `_buildBoxedDefault`, `_buildSlidingDefault`,
   and `_buildHero`; plus shrinking `CupertinoNavigationBar`'s
@@ -8205,8 +8191,7 @@ than script-correlated.
   `SingleChildScrollView`, or `Expanded` inside
   `Column(mainAxisSize.min)` in a `GridView.count` cell, leaks
   `maxHeight: infinity` down to `RenderConstrainedBox`. Identified
-  while working item 1 of `testlog_20260519-1247-flutter-suites-fixes`
-  fix plan (`animation/cubic_test.dart`). Four script-level
+  in `animation/cubic_test.dart`. Four script-level
   workarounds attempted (`heightFactor:1.0`, `Row > Flexible >
   Column`, `SizedBox(width:800)` replacing the top-level
   `Center>ConstrainedBox`, `Expanded → SizedBox(height:60)` inside

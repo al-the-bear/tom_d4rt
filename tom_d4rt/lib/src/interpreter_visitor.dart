@@ -3621,8 +3621,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // Native calls shouldn't throw ReturnException directly, but handle defensively
             return e.value;
           } catch (e, s) {
-            // 1944 TODO A.8 (2026-05-31): the historical Cluster B item
-            // #4+#5 (TODO 20260525-1059) `findRenderObject` /
+            // The historical `findRenderObject` /
             // `'Cannot get renderObject of inactive element'` catch that
             // returned `null` instead of rethrowing has been REMOVED.
             // Discovery sweep across both projects' full test corpora
@@ -6408,7 +6407,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
     final propertyName = node.propertyName.name;
 
-    // Cluster A item #1+#2 (TODO 20260525-1059) — Cascade target unwrap.
+    // Cascade target unwrap.
     //
     // When the cascade target is a native proxy registered by
     // `D4.registerInterfaceProxy` (e.g. `_InterpretedRenderBox` wrapping a
@@ -6514,7 +6513,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final operatorType = node.operator.type;
     final lhs = node.leftHandSide;
 
-    // Cluster A item #1+#2 (TODO 20260525-1059) — see
+    // Cascade target unwrap — see
     // [_cascadeInterpretedTarget] for the rationale. When the cascade
     // target is a registered native proxy (e.g. `_InterpretedRenderBox`
     // wrapping a script's `RenderBox` subclass), the script-defined
@@ -6721,7 +6720,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       // Cascade assignment like: target..property = value or target..property += value
       // Note: targetValue is the original cascade target, NOT lhs.target
       //
-      // Cluster A item #1+#2 (TODO 20260525-1059) — same unwrap as the
+      // Cascade target unwrap — same unwrap as the
       // SimpleIdentifier branch above. The Dart analyzer wraps the LHS of
       // a property-assignment cascade section in a PropertyAccess whose
       // target is the implicit cascade reference; that's the common shape

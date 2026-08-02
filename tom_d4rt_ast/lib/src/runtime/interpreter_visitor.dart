@@ -4117,8 +4117,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             // Native calls shouldn't throw ReturnException directly, but handle defensively
             return e.value;
           } catch (e, s) {
-            // 1944 TODO A.8 (2026-05-31): mirror of tom_d4rt removal.
-            // The historical Cluster B item #4+#5 `findRenderObject` /
+            // Mirror of the tom_d4rt removal.
+            // The historical `findRenderObject` /
             // `'Cannot get renderObject of inactive element'` catch
             // that returned `null` has been REMOVED. Discovery sweep
             // across both projects' full corpora found ZERO
@@ -7221,7 +7221,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     final propertyName = node.propertyName!.name;
 
-    // Cluster A item #1+#2 (TODO 20260525-1059) — Cascade target unwrap.
+    // Cascade target unwrap.
     // Mirror of tom_d4rt/interpreter_visitor.dart::_executeCascadePropertyAccess.
     // See [_cascadeInterpretedTarget] there for the full rationale.
     final interpreted = _cascadeInterpretedTarget(targetValue);
@@ -7322,7 +7322,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final operatorType = node.operator;
     final lhs = node.leftHandSide;
 
-    // Cluster A item #1+#2 (TODO 20260525-1059) — Cascade target unwrap.
+    // Cascade target unwrap.
     // Mirror of tom_d4rt/interpreter_visitor.dart::_executeCascadeAssignment.
     // See [_cascadeInterpretedTarget] there for the full rationale.
     final interpreted = _cascadeInterpretedTarget(targetValue);
@@ -7513,7 +7513,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // Cascade assignment like: target..property = value or target..property += value
       // Note: targetValue is the original cascade target, NOT lhs.target
       //
-      // Cluster A item #1+#2 (TODO 20260525-1059) — mirror of tom_d4rt's
+      // Cascade target unwrap — mirror of tom_d4rt's
       // PropertyAccess branch fix. See [_cascadeInterpretedTarget] for
       // the full rationale.
       final interpretedP = _cascadeInterpretedTarget(targetValue);
