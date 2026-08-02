@@ -15,10 +15,69 @@ live here:
    already applies; specific scripts that hit it remain failing
    until the architectural work lands.
 
-Cases that *can* be worked around at the script level are tracked
-separately in `script_rewrites.md`. When you read this file and
-think "I could fix this by changing the script", that's a sign
-the entry belongs in `script_rewrites.md` — please move it.
+Where an entry has a script-level workaround, that workaround is
+recorded **inline in the entry itself**, under its own
+"Script-side workaround" heading — this file is the single home
+for both the limitation and the way around it. An entry that
+turns out to be *entirely* script-side — a script authoring bug
+with no interpreter or generator gap behind it — does not stay
+here as an open limitation: fix the script, strike the entry
+through, and record the closure in the changelog at the foot of
+this file.
+
+---
+
+## Provenance of the `entry #N` / `TODO #N` numbering
+
+Many entries below cite an `entry #N`, `TODO #N`, `E<n>` or a
+cluster letter, and some are dated by the fix pass that produced
+them ("the 2026-05-23 pass"). **Those numbers are labels owned by
+this document, not references to another one.**
+
+- **`entry #10` – `entry #22`** each have their own dated
+  heading in the changelog at the foot of this file
+  (`- 2026-05-23: **Update U17 (entry #21)** — …`). Those
+  headings are the definitions; a citation resolves there.
+- **`entry #6`, `#8`, `#9`, `#23`** and every **`TODO #N`** are
+  pass labels with no changelog heading of their own. Each is
+  cited with its substance stated in full at the citing site
+  (`entry #9` is the script-side alpha clamp on
+  `painting/textstyle_test.dart`, and so on), so the label
+  carries provenance, not information you would have to fetch.
+
+Either way, no external lookup is needed — or possible.
+
+The reason is a deliberate retention policy. Each fix pass wrote
+a working analysis under `doc/testlog_<date>-issue-analysis/`
+alongside hundreds of megabytes of machine-generated run logs.
+Those folders are **pruned once the pass they belong to is
+superseded** — commit `11a596ab3` deleted the tracked ones and
+commit `887403ce3` moved machine-generated test output to a
+gitignored `testlog/` tree next to `doc/`. Only the *current*
+pass's analysis is kept in `doc/`. A pass analysis is therefore a
+working document with a lifetime of one pass, and a permanent
+document may not depend on one surviving.
+
+So this file names a past pass **by its date and subject**, never
+by a path into a pruned folder.
+
+A bare run id of the form `testlog_<date>-<slug>` (for example
+`testlog_20260517-0914`) is likewise **the name of a pass**, and
+is used below to say *which* run an observation comes from. It
+is not a path; the folder it was once produced in is gone under
+the same policy. Cluster letters (`C09`, `E14`, `H23`, `Fa1-N1`,
+…) are that pass's internal grouping, quoted here because the
+entries carry them in their own titles.
+
+Two further working documents this file used to hand work off to
+have since been dropped as obsolete: `script_rewrites.md`
+(script-level workarounds — now recorded inline per entry, see
+above; deleted in `41e4d97fb`) and the `clean_todos.md` task
+list. Their **numbering did survive**, in
+`_ai/quests/d4rt/todo_impossible.md`, whose sections are titled
+`clean_todos.md #N` and which records what is blocked and why.
+A `clean_todos #N` citation below therefore resolves — to that
+section of `todo_impossible.md`.
 
 ---
 
@@ -30,7 +89,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [`gir` W1–W5 transport cascade — structural](#cluster-r--gir-w1-w5-transport-cascade-test-app-structural) | Truly unfixable (test-app transport layer) | W1–W5 wedgers (all 5 pass in isolation, see `test/blocking_tests_test.dart`) |
 | [E3 — `findAncestorStateOfType<T>()` ignores type argument](#e3--findancestorstateoftypet-ignores-type-argument) | Interpreter limitation (bridge generator drops `T`; script-side rewrite supplied) | `widgets/scroll_position_with_single_context_test.dart` |
 | [E6 — Native Dart Record named-field access](#e6--native-dart-record-named-field-access-interpreter-limitation) | Interpreter limitation (no reflection for named fields without `dart:mirrors`; positional access works, named access requires destructuring or class wrapper) | E6 partial closure (`widgets/platform_menu_widgets_test.dart` only used positional access; named-field consumers must use the workarounds) |
-| [E7 — `Iterable.whereType<T>()` drops generic argument](#e7--iterablewheretypet-drops-generic-argument-interpreter-limitation) | Interpreter limitation (stdlib `whereType`/`cast` adapters discard `T`; same family as E3 generic-erasure). Script-side rewrite supplied in `script_rewrites.md`. | `widgets/restorable_double_n_test.dart` |
+| [E7 — `Iterable.whereType<T>()` drops generic argument](#e7--iterablewheretypet-drops-generic-argument-interpreter-limitation) | Interpreter limitation (stdlib `whereType`/`cast` adapters discard `T`; same family as E3 generic-erasure). Script-side rewrite supplied inline, see the entry's Workaround section. | `widgets/restorable_double_n_test.dart` |
 | [E8 — `ScrollController` state field passed through a `StatelessWidget` chain to a `Scrollable`](#e8--scrollcontroller-state-field-passed-through-statelesswidget-chain-to-a-scrollable-interpreter-limitation) | Interpreter limitation (scaling: each leaf `Scrollable` that receives the propagated controller produces exactly one null-check; locally-constructed controllers do not exhibit it). Layout-cascade fix already lands script-side (8→2); residual 2 errors deferred. | `widgets/scroll_deceleration_rate_test.dart` (E8 partial closure) |
 | [Fa1-N1 — Layout-cascade FE residuals on 6 deep-demo scripts](#fa1-n1--layout-cascade-fe-residuals-on-6-deep-demo-scripts-script-side-annotation-deferred) | Script-side limitation (cosmetic only; zero test failures). Closing route documented per sub-pocket; deferred via `D4RT-SCRIPT-LIMITATION: layout cascade` annotations. Sentinel: `test/fa1_bisect_test.dart [fa1-2250-sentinel]`. **Small-overflow + EditableText + C3 sub-pockets all closed 2026-04-29** (see Fa1-N1 §Affected scripts and §Small-overflow pocket — empirical findings 2026-04-29). | ~~`snapshot_mode_test.dart` (small-overflow, 1 FE)~~ closed, ~~`restorable_double_test.dart` (small-overflow, 1 FE)~~ closed, ~~`select_all_text_intent_test.dart` / `transpose_characters_intent_test.dart` / `restoration_mixin_test.dart` (EditableText, 3+2+3 FE)~~ closed, ~~`widget_state_color_test.dart` / `text_magnifier_configuration_test.dart` (C3 sliver-row, 9+6 FE)~~ closed |
 | [N2 — Bridged `RestorableProperty` proxy: late-`_value` + cross-script `for-in BridgedInstance<Object>`](#n2--bridged-restorableproperty-proxy-script-side-eager-init--defensive-iteration) | Same architectural limitation as D3/D4 (bridged `RestorationMixin` lifecycle dispatch under cross-script ordering); script-side workaround supplied: eager-init `_value` from constructor + `_favoritesSnapshot()` defensive iteration. | `widgets/restorable_property_test.dart` (closed 2026-04-29) |
@@ -58,11 +117,11 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [U16 — `Text('')` (empty-string `Text` widget) triggers a NaN `Offset` assertion in `dart:ui` paragraph painting](#u16--text-empty-string-text-widget-triggers-a-nan-offset-assertion-in-dartui-paragraph-painting-bridgeinterpreter-text-layout-gap) | Bridge/interpreter text-layout gap (non-fatal). Rendering a `Text` widget whose `data` is the empty string `''` through the bridged Flutter pipeline emits `Offset argument contained a NaN value.` (dart:ui/painting.dart line 41). The native Flutter pipeline short-circuits empty paragraphs to `Offset.zero`; the bridged painter computes a NaN baseline instead. Test passes (`status=success`) but a framework-error banner is emitted. **Script-side workaround:** guard every `Text(...)` site that may receive an empty string and substitute a single space (`' '`). Visual result is indistinguishable in a blank-line role. | `cupertino/restorable_cupertino_tab_controller_test.dart` (fixed script-side 2026-05-19 by guarding the composed text in `_CodeBlock.build`; underlying bridge bug remains) |
 | [U17 — `ConstraintsTransformBox` teaching script is intrinsically incompatible with `frameworkErrors=0`](#u17--constraintstransformbox-teaching-script-render_constraints_transform_box_testdart-is-intrinsically-incompatible-with-frameworkerrors0-script-design) | Truly unfixable (script design). `render_constraints_transform_box_test.dart` is a deep-demo script whose purpose is to feed pathological inputs to `ConstraintsTransformBox` and observe Flutter's debug-mode assertions / overflow banners. The visible `frameworkErrors=1` (NOT NORMALIZED, from a user-defined `kHalveMaxWidth` transform on a tight-width input) is the *first* of a cascade — pre-normalising it immediately surfaces `RenderConstraintsTransformBox overflowed by 30/15/15/30` from section 7's intentional clipBehavior showcase, and behind that further banners from sections 4 and 8. Any workaround that suppresses one tile erases the teaching content of that tile. **No script-side fix possible — accept the banner and defer.** | `rendering/render_constraints_transform_box_test.dart` (kHalveMaxWidth normalize fix attempted and reverted 2026-05-20) |
 
-Entries that previously lived here but have **suggested
-interpreter / generator fixes** have been moved to
-`testlog_20260428-1333-issue-analysis/error_analysis.md` for the
-next round of work — see the migration log at the bottom of this
-file.
+Entries that previously lived here but carried **suggested
+interpreter / generator fixes** were moved out into the
+2026-04-28 pass's fix-tracking analysis under the E-numbering
+(E9–E12) — see the migration log at the bottom of this file,
+which records what each became.
 
 ---
 
@@ -196,7 +255,7 @@ process having accumulated state from a long preceding suite —
 W4's `HttpException` only fires on `POST /build` when the app has
 been alive for ~13 minutes of prior tests, not in a fresh
 process. The fix-cluster work F1–F5 in
-`testlog_20260428-1333-issue-analysis/error_analysis.md` is
+the 2026-04-28 pass analysis is
 therefore *unnecessary as per-script investigations*; the only
 durable lever is the META watchdog.
 
@@ -442,8 +501,21 @@ fix the common cases (`whereType<double>`, `whereType<Widget>`,
 
 **Workaround at the script level.** Replace
 `.map(...).whereType<T>()` with explicit accumulation that
-null-checks (or type-checks) inline. See the E7 entry in
-`script_rewrites.md` for the canonical rewrite.
+null-checks (or type-checks) inline — the filter then happens in
+script code, where the type argument is known, instead of at the
+bridge boundary, where it is not:
+
+```dart
+// Instead of: source.map(convert).whereType<double>().toList()
+final out = <double>[];
+for (final e in source) {
+  final v = convert(e);
+  if (v is double) out.add(v);
+}
+```
+
+This is the rewrite applied to
+`widgets/restorable_double_n_test.dart`.
 
 **Documented.** 2026-04-28 alongside the E7 script-side closure
 of `widgets/restorable_double_n_test.dart`.
@@ -557,15 +629,16 @@ explicit `SizedBox(height: 420)` (matches the C3 closing recipe
 Column.stretch operates on the bounded horizontal axis from the
 surrounding `Expanded`. No latent C3 / Fa1 pocket present. The
 E8/Fa2 fix from 2026-04-28 fully addresses this script's only
-historical FE source. Logs:
-`doc/testlog_scroll_deceleration_fix/{baseline,hr5_full,fa1c3_baseline}.log.txt`.
+historical FE source. Logs were captured under the
+`scroll_deceleration_fix` run (baseline, hr5_full, fa1c3_baseline)
+and pruned with that pass.
 
 ---
 
 ## Fa1-N1 — Layout-cascade FE residuals on 6 deep-demo scripts (script-side, annotation-deferred)
 
-**Cluster reference.** `error_analysis.md` cluster N1 / Fa1
-(`testlog_20260428-2250-issue-analysis`).
+**Cluster reference.** Cluster N1 / Fa1 of the 2026-04-28 (2250)
+pass analysis.
 
 **Severity.** Cosmetic only — every affected script passes at the
 suite level (zero test failures). The framework errors are
@@ -1516,7 +1589,7 @@ directly) is a small change in principle, but:
   script-side path is uncomplicated and produces fewer surprises
   for future contributors.
 - The cluster description in
-  `testlog_20260503-0948-issue-analysis/error_analysis.md`
+  the 2026-05-03 (0948) pass analysis
   explicitly suggests a script-side or interpreter null-check —
   i.e. a script-side rewrite is acceptable.
 
@@ -1568,8 +1641,8 @@ important / secondary regression suite:
 | `material/time_of_day_format_test.dart` | `tom_d4rt_flutter_ast` | **PASS** (was the hr2 failure in §2.4) |
 | `material/time_of_day_format_test.dart` | `tom_d4rt_flutter_test` | **PASS** |
 
-Captured in
-`tom_d4rt_flutter_test/doc/testlog_20260503-0948-issue-analysis/cluster4_individual/`.
+Captured in the `cluster4_individual` run of the 2026-05-03
+(0948) pass on `tom_d4rt_flutter_test`.
 
 ### Re-opening trigger
 
@@ -1737,8 +1810,8 @@ the essential, important, and secondary suites:
 
 | Script | Driver | Result |
 |--------|--------|--------|
-| `cupertino/textfield_test.dart` (individual, reverted form) | `tom_d4rt_flutter_test` | ✅ pass (`testlog_20260504-g1fix-verify/textfield_individual.*`) |
-| `cupertino/cupertino_text_selection_handle_controls_test.dart` (individual, reverted form) | `tom_d4rt_flutter_test` | ✅ pass (`testlog_20260504-g1fix-verify/handle_controls_individual.*`) |
+| `cupertino/textfield_test.dart` (individual, reverted form) | `tom_d4rt_flutter_test` | ✅ pass (`g1fix-verify` run, 2026-05-04) |
+| `cupertino/cupertino_text_selection_handle_controls_test.dart` (individual, reverted form) | `tom_d4rt_flutter_test` | ✅ pass (`g1fix-verify` run, 2026-05-04) |
 | `essential_classes_test.dart` | `tom_d4rt_flutter_test` | ✅ 108/108 pass |
 | `important_classes_test.dart` | `tom_d4rt_flutter_test` | ✅ 164/164 pass |
 | `secondary_classes_test.dart` | `tom_d4rt_flutter_test` | ✅ 653 pass / 1 skip |
@@ -1967,7 +2040,7 @@ ChangeNotifier`, and `ChangeNotifier implements Listenable`, so the
 script-defined class is statically and dynamically a `Listenable`.
 
 The trigger appeared in
-`testlog_20260503-2009-issue-analysis/error_analysis.md` cluster
+the 2026-05-03 (2009) pass analysis cluster
 **C2** for `widgets/windowing_owner_mac_o_s_test.dart`, with 11
 failure events of:
 
@@ -2943,7 +3016,7 @@ RichText(
 ```
 
 Equivalence cases verified during bisection (see C15 entry in
-`testlog_20260517-0914-test_analysis/error_analysis.md` for the
+the 2026-05-17 pass analysis for the
 full bisect trail and probe-log filenames):
 
 | children layout | result |
@@ -3623,7 +3696,7 @@ expected Enum?, got InterpretedEnumValue
 
 In the baseline `testlog_20260518-1449` this defect was masked:
 mixin dispatch via `DiagnosticableTreeMixin` fell through earlier
-(see Step 3 of the 1449 fix-plan / `error_analysis.md`), so
+(Step 3 of the 1449 fix-plan, 2026-05-18 pass), so
 `debugFillProperties` never ran and `EnumProperty` was never
 reached. Once Step 3 fixed mixin dispatch the previously-dead
 code path executes and U8(1) re-surfaces at the EnumProperty
@@ -4993,7 +5066,7 @@ banner surfaced and inspection revealed the cascade.
 **2026-05-23 update — kHalveMaxWidth fix RETAINED; cascade
 re-confirmed; U17 status unchanged at "by design / deferred"
 (entry #21).** Re-probed the cascade for entry #21 of
-`testlog_20260523-1056-issue-analysis/error_analysis.md`. Result
+the 2026-05-23 pass analysis. Result
 matches the 2026-05-20 finding exactly:
 1. Original baseline: `BoxConstraints(616.8<=w<=308.4, h=182.0;
    NOT NORMALIZED) is not normalized` — kHalveMaxWidth produces
@@ -5677,22 +5750,22 @@ Two patterns cover all known sites:
 
 ### Affected scripts
 
-- `widgets/interactiveviewer_test.dart` — used both patterns: `m.getTranslation().x/.y` in `_DefaultViewer` and `_ControlledViewer`, plus the `InteractiveViewer.builder` callback receiving `Quad`. Rewritten under Option B on 2026-05-22 (Cluster C in `testlog_20260522-1328-issue-analysis/error_analysis.md`).
+- `widgets/interactiveviewer_test.dart` — used both patterns: `m.getTranslation().x/.y` in `_DefaultViewer` and `_ControlledViewer`, plus the `InteractiveViewer.builder` callback receiving `Quad`. Rewritten under Option B on 2026-05-22 (Cluster C in the 2026-05-22 pass analysis).
 
 ---
 
 ## U22 — H23 single-event scripts deferred to interpreter-level work
 
-The H23 cluster (`testlog_20260522-1328-issue-analysis/error_analysis.md`
-entry #23, twelve scripts each reporting exactly one framework
+The H23 cluster (2026-05-22 pass analysis, entry #23 — twelve
+scripts each reporting exactly one framework
 error) was originally classified as a homogeneous "one-event
 overflow" batch needing `Flexible` / `Expanded` / `SizedBox`
 adjustments. Reproduction showed the errors are diverse, and
 several map to script-side / interpreter-level patterns already
 documented elsewhere in this file or to new interpreter-level
 gaps. The following table summarises the deferred-as-unfixable
-items; the rest of the batch was fixed script-side under H23 and
-is summarised in `error_analysis.md` entry #23.
+items; the rest of the batch was fixed script-side under H23 —
+see the 2026-05-23 "Add U22" entry in the changelog below.
 
 | Script | Error | Status |
 |--------|-------|--------|
@@ -5741,7 +5814,9 @@ propagation gap):
    `tom_d4rt_ast` `d4rt_runtime_registrations.dart`. The
    alternative is a general "auto-generate adapter proxies for
    any bridged abstract class with N constructor variants"
-   pass — captured as E12 in `error_analysis.md` for tom_d4rt.
+   pass — carried as E12 for tom_d4rt, since **FIXED** by
+   `Diagnosticable*` proxy auto-generation in `3a068fd8` (see the
+   Abstract Class Inheritance entry).
 
 ### Affected scripts
 
@@ -5758,7 +5833,7 @@ propagation gap):
 ## U23 — 20260523-1056 H-5 follow-up: 7 single-event scripts deferred (small layout-rounding overflows + bridge SDK assertion)
 
 The H-5 batch (entry #18 of
-`testlog_20260523-1056-issue-analysis/error_analysis.md`)
+the 2026-05-23 pass analysis)
 contains 19 single-event framework-error scripts. After the
 2026-05-23 follow-up pass (entries #6 and #8), the script-side
 fixable items were cleared:
@@ -6174,7 +6249,7 @@ falls in the 30 s–50 s gap. Tracked outside this entry.
 > type argument didn't match. Hypothesis #1 (mixin chain) and #3
 > (nullable check ordering) were red herrings.
 >
-> See `testlog_20260525-1059-issue-analysis/error_analysis.md`
+> See the 2026-05-25 pass analysis
 > cluster D + TODO #9 for the fix commit and regression results.
 
 ### Original investigation (pre-fix, retained for reference)
@@ -6194,7 +6269,7 @@ code paths look identical.
 
 **Reproducer.** `essential_classes_test.dart` group `material`
 script `material/materialapp_test.dart` (the §6/F3 entry from
-`testlog_20260523-1056-issue-analysis/error_analysis.md`). The
+the 2026-05-23 pass analysis). The
 script defines:
 
 ```dart
@@ -6280,7 +6355,7 @@ unsupported on the source-based runner for script-defined
 `RouterDelegate` subclasses. The ast-based runner is the
 operational verification surface for any script that exercises
 this constructor. Marked **PARTIAL** in
-`testlog_20260523-1056-issue-analysis/error_analysis.md` §6 todo #8:
+the 2026-05-23 pass analysis §6 todo #8:
 `RouteInformationParser` side fixed (buildkit gap), `RouterDelegate`
 side deferred to this U26.
 
@@ -6739,7 +6814,7 @@ it — the accumulation isn't bounded, and the budget would have to
 grow with every script added to the corpus. Recycling between
 heavy-bundle tests bounds the per-test work and remains stable as
 the corpus grows. The 30 s budget is intentionally tight (a healthy
-build is 1–3 s; see §1 of `error_analysis.md` re: cluster E framing)
+build is 1–3 s — that figure is what cluster E was framed against)
 and should stay that way to keep the cluster-E bisection signal
 clean.
 
@@ -6773,9 +6848,9 @@ unnecessary.
 ### TODO #20 follow-up (2026‑05‑25): serial-sweep evidence + failed proactive-recycle workaround
 
 Investigation under TODO #20 of
-`testlog_20260525-1059-issue-analysis/error_analysis.md` (section 6,
-cluster E) extended the U28 evidence base. Captured in
-`testlog_20260525-2330-todo20-sample/`:
+the 2026-05-25 pass analysis (section 6,
+cluster E) extended the U28 evidence base. Captured in the
+2026-05-25 (2330) `todo20-sample` run:
 
 **Serial-sweep wedge rate (flutter_ast, no parallel pressure):**
 
@@ -6848,7 +6923,7 @@ TODO #20 closure defers cluster-E to that future investigation.
 
 ### 2026‑05‑28 update — `resetScriptDeclarations` API landed; original hypothesis architecturally invalidated
 
-TODO #14 of `testlog_20260526-1401-issue-analysis/error_analysis.md`
+TODO #14 of the 2026-05-26 pass analysis
 designed a three-layer "U28 deep fix": a `resetScriptDeclarations`
 API on both `D4rt` (analyzer-based, `tom_d4rt`) and `D4rtRunner` /
 `D4rt` (AST-based, `tom_d4rt_ast` / `tom_d4rt_exec`), a `resetScript`
@@ -6988,7 +7063,7 @@ can be reconsidered.
 
 ### 2026-05-29 update — D4 instrumentation probe disproves the §U28 architectural hypothesis
 
-`testlog_20260528-2206-issue-analysis/error_analysis.md` TODO #3
+the 2026-05-28 pass analysis TODO #3
 called for instrumenting per-`/clear` counters on
 `D4._nativeToInterpreted` and the D4 static caches, then re-running
 the affected subsuites to identify which counter grows monotonically.
@@ -7401,7 +7476,8 @@ sweep produces a non-zero `'check that it really is our descendant'`
 count; the deep fix in the "Real fix (deferred)" section below remains
 the path forward in that scenario.
 
-**2026-06-05 — OPEN B.13 guard added (cleanup_todos #12).** The
+**2026-06-05 — OPEN B.13 guard added** (see
+`interpreter_generator_open_issues.md` §B.13)**.** The
 suppression-removal that closed §U30 is now pinned by a source-level guard
 test in both flutter packages:
 `tom_d4rt_flutter/test/b13_inherited_dependent_leak_test.dart` and
@@ -7501,7 +7577,7 @@ interpreter never sees the call, so the bridge-level catch can't
 intercept it.
 
 The TODO #9 body in
-`testlog_20260526-1401-issue-analysis/error_analysis.md` framed
+the 2026-05-26 pass analysis framed
 this as "broaden cluster-B's catch to cover other `RenderObject?`
 accessors". That framing was wrong: this is **not** a
 RenderObject-accessor failure. It's an InheritedWidget dependency-map
@@ -7738,7 +7814,7 @@ than script-correlated.
   on the analyzer-based interpreter's coercion walk for the
   `RouterDelegate` (likely `Listenable` super-class) parameter.
   Marked **PARTIAL** in
-  `testlog_20260523-1056-issue-analysis/error_analysis.md` §6
+  the 2026-05-23 pass analysis §6
   todo #8; §6 todo #9 (F4 Decoration / DecoratedBox) closes as a
   side benefit and is marked **FIXED**.
 - 2026-05-24: **Extend U25 to cover E5
@@ -7750,7 +7826,7 @@ than script-correlated.
   bump 25 s → 50 s does **not** help: the server fires at 30 s
   before the caller cap. Reverted the caller-side change (no
   net diff vs baseline). Marked **DEFERRED** in
-  `testlog_20260523-1056-issue-analysis/error_analysis.md` §1.3/E5.
+  the 2026-05-23 pass analysis §1.3/E5.
   Updates the U25 affected-scripts table; widens U25's scope to
   include the build/execute warm-up cost in addition to the
   source parse warm-up cost.
@@ -7764,7 +7840,7 @@ than script-correlated.
   (30 s → 50 s in both `main.dart` files) was attempted and
   reverted — the build does not complete within the new window
   either. Marked **partial** in
-  `testlog_20260523-1056-issue-analysis/error_analysis.md` §1.3/E3:
+  the 2026-05-23 pass analysis §1.3/E3:
   ast variant fixed, flutter_test variant deferred to a future
   interpreter perf pass (likely needs an app-startup warm-up of
   the d4rt parser / declaration visitor / Environment).
@@ -7775,7 +7851,7 @@ than script-correlated.
   catches not matching; U24 documents that even the untyped
   `catch (e)` arm is bypassed). Reproducer:
   `retest/dart_ui/system_color_palette_test.dart` (F1 from
-  `testlog_20260523-1056-issue-analysis/error_analysis.md`).
+  the 2026-05-23 pass analysis).
   Investigation: full essential + important sweeps post-entry-21
   confirmed the corpus is otherwise framework-error clean — only
   transport timeouts remain (test-app degradation under long
@@ -8043,7 +8119,7 @@ than script-correlated.
   stays U23 deferred. U23 now lists 4 deferred scripts (down from 6).
 - 2026-05-23: **Update U23** — `painting/textstyle_test.dart`
   removed from deferred list and marked FIXED in entry #9 of
-  `testlog_20260523-1056-issue-analysis/error_analysis.md`. Root
+  the 2026-05-23 pass analysis. Root
   cause was script-side (alpha computation `0.18 * (7 - i)` at
   `i=1` evaluates to `1.08`, exceeding the SDK's
   `assert(opacity >= 0.0 && opacity <= 1.0)`), not a bridge gap.
@@ -8062,7 +8138,7 @@ than script-correlated.
   `MaterialColor.withOpacity`, 1 infinite-height under U14
   family). Documents script-side and bridge-side fix paths.
 - 2026-05-23: **Add U22** — H23 single-event scripts deferred to
-  interpreter-level work. Summarises the H23 cluster (`testlog_20260522-1328-issue-analysis/error_analysis.md`
+  interpreter-level work. Summarises the H23 cluster (the 2026-05-22 pass analysis
   entry #23) split: 5 scripts fixed script-side (mergeable_test,
   ticker_test, progress_test, dropdown_test cross-ref already U17/U18/U14, and
   diagnosticable_tree_mixin_test via the U10 sparse fallback), and 5 deferred
@@ -8085,7 +8161,7 @@ than script-correlated.
   false, child: SizedBox(Stack(allTiles)))` instead of
   `InteractiveViewer.builder(builder: (ctx, Quad q) {...})`).
   Closes Cluster C #7 of
-  `testlog_20260522-1328-issue-analysis/error_analysis.md`.
+  the 2026-05-22 pass analysis.
 - 2026-05-20: **Add U20** — `Table(border: TableBorder.all(...))`
   triggers a Flutter framework assertion in
   `table_border.dart` line 289 (`'rows.isEmpty || (rows.first
@@ -8199,8 +8275,8 @@ than script-correlated.
   failed to clear the framework-error banner; all reverted. Test
   passes throughout. Marked deferred (not fixable at script level
   for this widget tree). The real fix belongs in the bridge.
-- 2026-05-19: **Step 10 verification follow-up (`error_analysis.md`
-  of `testlog_20260518-1449-flutter-suites`).** Running the four
+- 2026-05-19: **Step 10 verification follow-up (2026-05-18
+  flutter-suites pass).** Running the four
   anchor suites serially (essential, important, secondary, and
   the `hardly_relevant_classes_1` anchor for Step 9) surfaced two
   errors. (1) `foundation/diagnostics_serialization_delegate_test.dart`
@@ -8825,7 +8901,7 @@ than script-correlated.
   documented as an interpreter architectural limitation with a
   script-side `PreferredSize(preferredSize: …, child: AppBar(…))`
   workaround.
-- 2026-04-28 (latest): **Close E9 in `error_analysis.md` —
+- 2026-04-28 (latest): **Close E9 —
   `clampDouble` class is empty.** Sweep of essential, important,
   secondary, hr5, and gii suites recorded zero
   `dart:ui/math.dart` line-14 `<optimized out>` triggers. The
@@ -8834,7 +8910,7 @@ than script-correlated.
   reaching the engine; no residual call sites remain. The
   `D4RT_TRACE_NUMERIC_ARGS=1` instrumentation and
   `D4.checkFiniteNumeric` bridge guard are kept as a future
-  tripwire only. See `doc/testlog_20260428-e9-fix/`.
+  tripwire only. Verified by the 2026-04-28 `e9-fix` sweep.
 - 2026-04-28: **Add E8 entry — `ScrollController`
   state-field-through-StatelessWidget-chain.** Cluster E8
   closed partial (8→2). Layout-cascade fix (drop `stretch`
@@ -8851,11 +8927,11 @@ than script-correlated.
   classification in this doc claimed the entry as "truly
   unfixable" without a debug-build bisect to confirm — that
   framing was speculative, and a script-side workaround is
-  available. Tracked in `script_rewrites.md` until / unless a
+  available. Reclassified as script-side; reopen here only if a
   debug-build bisect proves otherwise.
 - 2026-04-28 (close-out, E14): Cluster **E14 — `SystemColor`
   platform guard on Linux** in
-  `testlog_20260428-1333-issue-analysis/error_analysis.md`
+  the 2026-04-28 pass analysis
   closed as deferred-pending-platform-support. No interpreter
   or generator change is possible: the Linux desktop test
   harness does not expose Flutter's `SystemColor` platform
@@ -8868,27 +8944,30 @@ than script-correlated.
   `ui.SystemColor.dark` with a fallback UI in
   `retest/dart_ui/system_color_palette_test.dart` (lines
   831-842, marked with a `D4RT-LIMITATION` comment), and
-  (3) the canonical write-up in `script_rewrites.md` under
-  "Platform capability guard — `SystemColor` on Linux"
-  (lines 79-100). Reopen and drop the skip if Linux gains
-  `SystemColor` support upstream.
-- 2026-04-28 (later evening): **Move suggested-fix entries to
-  `error_analysis.md`.** Three sections that previously lived
+  (3) the U24 entry above, which owns the write-up of the
+  platform-capability guard and of why the script-side
+  `try/catch` is not sufficient on its own. Reopen and drop the
+  skip if Linux gains `SystemColor` support upstream.
+- 2026-04-28 (later evening): **Move suggested-fix entries out
+  of this catalogue.** Three sections that previously lived
   here had concrete interpreter / generator fix proposals
-  attached, and therefore belong in the active fix-tracking doc
-  rather than the unfixable-issue catalogue:
-  - "Residual `dart:ui/math.dart:14` `clampDouble` assertion" —
-    moved to error_analysis.md as **E9** (numeric-arg
-    passthrough audit).
-  - "gir TID=31 `render_animated_size_state` 2.0 px overflow" —
-    moved to error_analysis.md as **E10** (intrinsic-pass audit
-    in `_InterpretedSlottedRenderBox`).
-  - "gir TID=37 `back_button_listener` Router routerDelegate
-    coercion" — moved to error_analysis.md as **E11**
-    (`RouterDelegate` adapter proxy registration).
+  attached, and therefore belonged in the pass's active
+  fix-tracking analysis rather than the unfixable-issue
+  catalogue. They were carried there under the E-numbering:
+  - **E9** — "Residual `dart:ui/math.dart:14` `clampDouble`
+    assertion" (numeric-arg passthrough audit). Closed
+    2026-04-28, see the close-out entry above.
+  - **E10** — "gir TID=31 `render_animated_size_state` 2.0 px
+    overflow" (intrinsic-pass audit in
+    `_InterpretedSlottedRenderBox`).
+  - **E11** — "gir TID=37 `back_button_listener` Router
+    routerDelegate coercion" (`RouterDelegate` adapter proxy
+    registration).
   An exploratory section on auto-generating abstract-class
   adapters across the bridge generator's scanned codebase was
-  added as **E12** in `error_analysis.md`.
+  carried as **E12**; it landed as `Diagnosticable*` proxy
+  auto-generation in `3a068fd8` (see the Abstract Class
+  Inheritance entry).
 - 2026-04-28 (evening): Restructure into "truly unfixable" vs
   "interpreter architectural limitation"; move script-rewriteable
   cases (enum exhaustiveness, system_color_palette platform
