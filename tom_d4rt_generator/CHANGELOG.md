@@ -1,3 +1,49 @@
+## 1.15.0
+
+### Fixed — an extension declared in a `part of` file was registered twice (GEN-120)
+
+`tom_dist_ledger`'s generated bridge carried
+
+```dart
+static Map<String, String> extensionSourceUris() {
+  return {
+    'DLLogLevelExtension': 'package:tom_dist_ledger/src/ledger_api/call_callback.dart',
+    'DLLogLevelExtension': 'package:tom_dist_ledger/src/ledger_api/ledger_api.dart',
+    ...
+```
+
+`DLLogLevelExtension` is declared in `call_callback.dart`, which is
+`part of 'ledger_api.dart'`. The analyzer flags the duplicate map key
+(`equal_keys_in_map`), but that is only the visible half: `bridgedExtensions()`
+emitted the same extension twice as two complete
+`BridgedExtensionDefinition` entries, and a duplicate element in a list literal
+is perfectly legal Dart — nothing complained at all. Deduplicating the map alone
+would have silenced the warning and left the double registration in place, so
+the fix is at collection time.
+
+The extension arrives by two routes that tag it with different URIs. The local
+extractor sees it while extracting the parent library and tags it with the
+parent's path; GEN-049 import discovery sees it again while extracting a file
+that *imports* the parent, and tags it with
+`extElement.firstFragment.libraryFragment.source.uri` — which for a
+part-declared extension is the **part's** URI, not the library's. GEN-064's
+dedupe key was `name|sourceUri`, so the two spellings read as two distinct
+extensions and both survived.
+
+The dedupe now canonicalises the URI through the `part of` → parent-library
+resolver before keying on it, and pins that canonical URI onto the survivor.
+The parent library is the only correct answer: a part file is not
+independently importable, so its URI is useless to any consumer acting on it.
+
+Deduplication also now prefers the copy carrying full `MemberInfo`. Import
+discovery populates only `methodNames`, never `methods`, so keeping whichever
+copy happened to arrive first could silently degrade callback wrapping
+(GEN-052) depending on source-file ordering.
+
+`test/gen120_part_declared_extension_test.dart` pins all of it, including an
+anti-vacuity guard — "exactly one" passes just as happily when the extension
+was dropped entirely as when it was correctly deduplicated.
+
 ## 1.14.0
 
 ### Fixed — auxiliary imports could be emitted as bare file paths (GEN-119)

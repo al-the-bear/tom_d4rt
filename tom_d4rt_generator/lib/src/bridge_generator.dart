@@ -592,6 +592,25 @@ class ExtensionInfo {
     this.methodNames = const [],
     this.methods = const [],
   });
+
+  /// Returns a copy of this extension tagged with [sourceFile].
+  ///
+  /// GEN-120: an extension declared in a `part of` file is collected under two
+  /// different URIs — the part's own URI and its parent library's. Only the
+  /// parent is importable, so deduplication rewrites the survivor's source
+  /// file to the canonical parent before it reaches `extensionSourceUris()`.
+  ExtensionInfo withSourceFile(String sourceFile) => ExtensionInfo(
+    name: name,
+    onTypeName: onTypeName,
+    onTypeFullName: onTypeFullName,
+    onTypeArgUris: onTypeArgUris,
+    onTypeUri: onTypeUri,
+    sourceFile: sourceFile,
+    getterNames: getterNames,
+    setterNames: setterNames,
+    methodNames: methodNames,
+    methods: methods,
+  );
 }
 
 /// Information about a function type signature.
@@ -3148,23 +3167,55 @@ class BridgeGenerator {
       // GEN-064: Filter out duplicate extensions (keep first occurrence)
       // Extensions can appear multiple times when imported through different
       // barrel re-exports. Deduplicate by name+sourceFile.
+      //
+      // GEN-120: the source URI has to be canonicalised to the parent library
+      // before it can act as a key. An extension declared inside a `part of`
+      // file arrives twice by two different routes: the local extractor tags it
+      // with the library it extracted (the parent), while GEN-049 import
+      // discovery tags it with the declaring *fragment*, which for a part is
+      // the part's own URI. Keyed on the raw URI those read as two distinct
+      // extensions, so both survived — emitting a duplicate key in
+      // `extensionSourceUris()` and, less visibly, registering the extension
+      // twice in `bridgedExtensions()`.
       {
-        final seenExtensions = <String>{};
-        filteredExtensions = filteredExtensions.where((e) {
+        final indexByKey = <String, int>{};
+        final deduped = <ExtensionInfo>[];
+
+        // Only entries the part-of resolver actually moves get rewritten.
+        // `sourceFile` also feeds `allSourceFiles`, which drives import
+        // generation, so normalising every entry to a `package:` URI would
+        // churn the emitted imports of packages that have no part files at
+        // all. Rewrite the exceptional case, leave the common one alone.
+        ExtensionInfo canonicalise(ExtensionInfo e) {
+          final rawUri = _getPackageUri(e.sourceFile);
+          final parentUri = _resolvePartOfToParent(rawUri);
+          return parentUri == rawUri ? e : e.withSourceFile(parentUri);
+        }
+
+        for (final e in filteredExtensions) {
+          final canonical = canonicalise(e);
           final key =
-              '${e.name ?? '<unnamed>'}|${_getPackageUri(e.sourceFile)}';
-          if (seenExtensions.contains(key)) {
-            final extName = e.name ?? e.onTypeName;
+              '${e.name ?? '<unnamed>'}|${_getPackageUri(canonical.sourceFile)}';
+          final existingIndex = indexByKey[key];
+          if (existingIndex != null) {
+            // Import discovery populates only `methodNames`, never `methods`,
+            // so whichever copy arrives first is not necessarily the useful
+            // one. Callback wrapping (GEN-052) needs the full `MemberInfo`, so
+            // prefer the richer copy rather than relying on source ordering.
+            if (deduped[existingIndex].methods.isEmpty && e.methods.isNotEmpty) {
+              deduped[existingIndex] = canonical;
+            }
             _recordSkip(
               'extension',
-              extName,
+              e.name ?? e.onTypeName,
               'duplicate (already seen from another import)',
             );
-            return false;
+            continue;
           }
-          seenExtensions.add(key);
-          return true;
-        }).toList();
+          indexByKey[key] = deduped.length;
+          deduped.add(canonical);
+        }
+        filteredExtensions = deduped;
       }
 
       // GEN-057: Post-process global functions to fix up missing return type URIs
