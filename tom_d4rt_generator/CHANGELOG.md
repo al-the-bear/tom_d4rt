@@ -1,5 +1,52 @@
 ## 1.15.0
 
+### Added — the generated bridge is now really analysed, not proxied (GEN-121)
+
+`test/gen121_generated_output_analyze_gate_test.dart` generates a bridge into a
+throwaway package and runs `dart analyze` on it, with no
+`analysis_options.yaml` in a position to exclude the output.
+
+This replaces a standing compromise. The GEN-119 smoke gate asserts a *property*
+of the emitted file — every import URI must be absolute — because analysing an
+emitted file standalone appeared unviable: without a package config, every
+`package:` import fails too and the report is all noise (measured: 38 issues,
+every one of them downstream of a missing import). The proxy caught the defect
+that shipped, but GEN-120 then walked straight past it, so the gap was not
+hypothetical.
+
+Two things turn that noise into signal, and only the first is obvious:
+
+- A synthesised `.dart_tool/package_config.json` beside the output. It is built
+  by copying the generator's own resolved config — whose entries carry absolute
+  `file://` roots and so stay valid anywhere — and appending the fixture package.
+- A fixture that is a *real package*. The corpus under `test/fixtures/` is not:
+  those files live outside any package `lib/`, so the generator cannot emit an
+  import for the very types it bridges and no package config can rescue the
+  output.
+
+The fixture is created in `Directory.systemTemp`, and that is load-bearing
+rather than tidiness: an ancestor `pubspec.yaml` in the workspace tree hijacks
+resolution for anything nested under it. The identical fixture reports four
+`URI_DOES_NOT_EXIST` errors under `<ws-root>/ztmp/` and zero in the system temp
+directory, so a gate placed inside the tree would have been permanently and
+invisibly red.
+
+**Warnings fail the gate unless explicitly allowlisted.** `equal_keys_in_map` —
+the GEN-120 defect — is a warning, not an error, so a gate that failed only on
+errors would have been blind to the defect class that motivated it. The
+allowlist is currently empty; the fixture analyses completely clean.
+
+Two of the four tests assert that the gate *detects*, by feeding it known-bad
+output: a bare-path import must be reported (`URI_DOES_NOT_EXIST`, the GEN-119
+shape) and a duplicate map key must be reported (`EQUAL_KEYS_IN_MAP`, the
+GEN-120 shape). Without them a silently-neutered gate would keep reporting green.
+Verified against a real regression, not just injected strings: reverting the
+GEN-120 fix in `bridge_generator.dart` turns the gate red, while the GEN-119
+property suite stays green at 9/9 — the gap, demonstrated.
+
+The GEN-119 property assertions are **kept**. They are cheap enough to run over
+the whole fixture corpus; the analyze gate is heavier and runs on one fixture.
+
 ### Fixed — an extension declared in a `part of` file was registered twice (GEN-120)
 
 `tom_dist_ledger`'s generated bridge carried
