@@ -237,13 +237,35 @@ d4rtgen
 
 ### Generate for Specific Project
 
+`--project` selects by project **name** or workspace-relative **id**, not by
+filesystem path — see [Selecting projects](#selecting-projects-project-vs-scan)
+below.
+
 ```bash
-# Process a specific project directory
+# Process a project by name
+d4rtgen --project=user_reference
+
+# ...or by its full workspace-relative id
 d4rtgen --project=example/user_reference
 
 # With verbose output
-d4rtgen -p example/user_reference -v
+d4rtgen -p user_reference -v
+
+# When you have a path rather than a name, scan it instead
+d4rtgen --scan=example/user_reference --not-recursive
 ```
+
+### Selecting projects: `--project` vs `--scan`
+
+`--scan=<path>` says *where to look* and takes a directory (default: the
+current directory). `--project=<pattern>` says *what to pick* out of that tree
+and takes names and workspace-relative ids, with globs.
+
+A selector that matches nothing is not an error: the generator selects zero
+projects, does nothing, and **exits 0**. That makes the two common mistakes —
+passing an absolute path, or passing a partial id such as
+`core/tom_core_d4rt` instead of the full `tom_ai/core/tom_core_d4rt` — look
+like successful runs. If you are holding a path, use `--scan`.
 
 ### Use Explicit Config File
 
@@ -261,8 +283,9 @@ d4rtgen --project='tom_*'
 # Process multiple patterns (comma-separated)
 d4rtgen --project='apps/*,packages/*'
 
-# Process all projects in current directory
-d4rtgen --project='./*'
+# Process all projects in the current directory tree. This is a --scan job,
+# not a --project one: './*' is a path glob and matches no project id.
+d4rtgen --scan=. --recursive
 ```
 
 ### Scan Workspace for Projects

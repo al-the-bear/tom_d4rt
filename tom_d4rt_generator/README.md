@@ -104,8 +104,10 @@ Using the `d4rtgen` CLI (recommended):
 # Generate for the project in the current directory
 dart run tom_d4rt_generator:d4rtgen --project=.
 
-# Generate for a specific path
-dart run tom_d4rt_generator:d4rtgen --project=/path/to/my_package
+# Generate for a project at a known path — select it with --scan, not
+# --project. See "Selecting projects" below: --project takes NAMES, and an
+# absolute path matches no name, so it would silently generate nothing.
+dart run tom_d4rt_generator:d4rtgen --scan=/path/to/my_package --not-recursive
 
 # Generate for multiple projects via comma-separated list or glob
 dart run tom_d4rt_generator:d4rtgen --project=tom_*_bridges,devops/tom_build_cli
@@ -119,6 +121,25 @@ dart run tom_d4rt_generator:d4rtgen --scan=. --list
 # Verbose output showing per-class progress
 dart run tom_d4rt_generator:d4rtgen --project=. --verbose
 ```
+
+#### Selecting projects: `--project` vs `--scan`
+
+The two options answer different questions, and mixing them up fails quietly.
+
+- **`--scan=<path>`** sets *where to look*. It takes a directory. It defaults
+  to the current directory, so a `--project` selector can only ever match
+  something inside the tree you are standing in.
+- **`--project=<pattern>`** filters *what to pick* out of that tree. It takes
+  project **names** and workspace-relative **ids** (globs allowed) — for
+  example `tom_core_d4rt`, `tom_ai/core/tom_core_d4rt`, or `tom_*_bridges`.
+  `.` is accepted as a shorthand for the project in the current directory.
+
+`--project` does **not** take filesystem paths. An absolute path matches no
+name and no id, and a partial id (`core/tom_core_d4rt` rather than the full
+`tom_ai/core/tom_core_d4rt`) matches nothing either. In both cases the
+generator selects zero projects, does nothing, and **exits 0** — so the
+mistake looks like a successful run. When you have a path rather than a name,
+select it with `--scan=<path> --not-recursive`.
 
 Or via `build_runner` (useful for continuous watch mode):
 
