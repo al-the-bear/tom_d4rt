@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 10 files
-// Generated: 2026-06-28T14:29:56.441711
+// Generated: 2026-08-03T11:40:46.381
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -158,7 +158,7 @@ class CliApiBridge {
   /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
   /// of bridged classes pass `is`/subtype checks against bridged
   /// ancestors and the interface-proxy supertype walk resolves up the
-  /// chain (MCI#1 / A1).
+  /// chain.
   static Map<String, List<String>> classSupertypes() {
     return {
       'D4rtCliController': ['D4rtCliApi'],
@@ -272,7 +272,7 @@ class CliApiBridge {
       );
     }
 
-    // MCI#1 / A1: Register the flattened native supertype table so
+    // Register the flattened native supertype table so
     // interpreted subclasses pass subtype checks against bridged
     // ancestors. Idempotent — safe to call per barrel.
     BridgedClass.registerSupertypes(classSupertypes());
@@ -1306,10 +1306,13 @@ BridgedClass _createCliExceptionBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.CliException>(target, 'CliException').stackTrace,
       'message': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.CliException>(target, 'CliException').message,
       'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.CliException>(target, 'CliException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.CliException>(target, 'CliException').hasDirectiveContext,
     },
     setters: {
       'trackedStackTrace': (visitor, target, value) => 
         D4.validateTarget<$tom_dcli_exec_4.CliException>(target, 'CliException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_dcli_exec_4.CliException>(target, 'CliException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1333,9 +1336,11 @@ BridgedClass _createCliExceptionBridge() {
       'stackTrace': 'StackTrace? get stackTrace',
       'message': 'String get message',
       'trackedStackTrace': 'StackTrace? get trackedStackTrace',
+      'hasDirectiveContext': 'bool get hasDirectiveContext',
     },
     setterSignatures: {
       'trackedStackTrace': 'set trackedStackTrace(StackTrace? value)',
+      'hasDirectiveContext': 'set hasDirectiveContext(bool value)',
     },
   );
 }
@@ -1362,11 +1367,14 @@ BridgedClass _createCliFileNotFoundExceptionBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').stackTrace,
       'message': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').message,
       'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').hasDirectiveContext,
       'path': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').path,
     },
     setters: {
       'trackedStackTrace': (visitor, target, value) => 
         D4.validateTarget<$tom_dcli_exec_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_dcli_exec_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1390,10 +1398,12 @@ BridgedClass _createCliFileNotFoundExceptionBridge() {
       'stackTrace': 'StackTrace? get stackTrace',
       'message': 'String get message',
       'trackedStackTrace': 'StackTrace? get trackedStackTrace',
+      'hasDirectiveContext': 'bool get hasDirectiveContext',
       'path': 'String get path',
     },
     setterSignatures: {
       'trackedStackTrace': 'set trackedStackTrace(StackTrace? value)',
+      'hasDirectiveContext': 'set hasDirectiveContext(bool value)',
     },
   );
 }
@@ -1420,11 +1430,14 @@ BridgedClass _createDirectoryNotFoundExceptionBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').stackTrace,
       'message': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').message,
       'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').hasDirectiveContext,
       'path': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').path,
     },
     setters: {
       'trackedStackTrace': (visitor, target, value) => 
         D4.validateTarget<$tom_dcli_exec_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_dcli_exec_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1448,10 +1461,12 @@ BridgedClass _createDirectoryNotFoundExceptionBridge() {
       'stackTrace': 'StackTrace? get stackTrace',
       'message': 'String get message',
       'trackedStackTrace': 'StackTrace? get trackedStackTrace',
+      'hasDirectiveContext': 'bool get hasDirectiveContext',
       'path': 'String get path',
     },
     setterSignatures: {
       'trackedStackTrace': 'set trackedStackTrace(StackTrace? value)',
+      'hasDirectiveContext': 'set hasDirectiveContext(bool value)',
     },
   );
 }
@@ -1480,10 +1495,13 @@ BridgedClass _createExecutionExceptionBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.ExecutionException>(target, 'ExecutionException').stackTrace,
       'message': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.ExecutionException>(target, 'ExecutionException').message,
       'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.ExecutionException>(target, 'ExecutionException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.ExecutionException>(target, 'ExecutionException').hasDirectiveContext,
     },
     setters: {
       'trackedStackTrace': (visitor, target, value) => 
         D4.validateTarget<$tom_dcli_exec_4.ExecutionException>(target, 'ExecutionException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_dcli_exec_4.ExecutionException>(target, 'ExecutionException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1507,9 +1525,11 @@ BridgedClass _createExecutionExceptionBridge() {
       'stackTrace': 'StackTrace? get stackTrace',
       'message': 'String get message',
       'trackedStackTrace': 'StackTrace? get trackedStackTrace',
+      'hasDirectiveContext': 'bool get hasDirectiveContext',
     },
     setterSignatures: {
       'trackedStackTrace': 'set trackedStackTrace(StackTrace? value)',
+      'hasDirectiveContext': 'set hasDirectiveContext(bool value)',
     },
   );
 }
@@ -1538,6 +1558,7 @@ BridgedClass _createReplayExceptionBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.ReplayException>(target, 'ReplayException').stackTrace,
       'message': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.ReplayException>(target, 'ReplayException').message,
       'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.ReplayException>(target, 'ReplayException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.ReplayException>(target, 'ReplayException').hasDirectiveContext,
       'file': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.ReplayException>(target, 'ReplayException').file,
       'line': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.ReplayException>(target, 'ReplayException').line,
       'cause': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.ReplayException>(target, 'ReplayException').cause,
@@ -1545,6 +1566,8 @@ BridgedClass _createReplayExceptionBridge() {
     setters: {
       'trackedStackTrace': (visitor, target, value) => 
         D4.validateTarget<$tom_dcli_exec_4.ReplayException>(target, 'ReplayException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_dcli_exec_4.ReplayException>(target, 'ReplayException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1568,12 +1591,14 @@ BridgedClass _createReplayExceptionBridge() {
       'stackTrace': 'StackTrace? get stackTrace',
       'message': 'String get message',
       'trackedStackTrace': 'StackTrace? get trackedStackTrace',
+      'hasDirectiveContext': 'bool get hasDirectiveContext',
       'file': 'String get file',
       'line': 'int get line',
       'cause': 'CliException get cause',
     },
     setterSignatures: {
       'trackedStackTrace': 'set trackedStackTrace(StackTrace? value)',
+      'hasDirectiveContext': 'set hasDirectiveContext(bool value)',
     },
   );
 }
@@ -1600,12 +1625,15 @@ BridgedClass _createInvalidMultilineModeExceptionBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').stackTrace,
       'message': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').message,
       'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').hasDirectiveContext,
       'currentMode': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').currentMode,
       'attemptedMethod': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').attemptedMethod,
     },
     setters: {
       'trackedStackTrace': (visitor, target, value) => 
         D4.validateTarget<$tom_dcli_exec_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_dcli_exec_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1629,11 +1657,13 @@ BridgedClass _createInvalidMultilineModeExceptionBridge() {
       'stackTrace': 'StackTrace? get stackTrace',
       'message': 'String get message',
       'trackedStackTrace': 'StackTrace? get trackedStackTrace',
+      'hasDirectiveContext': 'bool get hasDirectiveContext',
       'currentMode': 'String get currentMode',
       'attemptedMethod': 'String get attemptedMethod',
     },
     setterSignatures: {
       'trackedStackTrace': 'set trackedStackTrace(StackTrace? value)',
+      'hasDirectiveContext': 'set hasDirectiveContext(bool value)',
     },
   );
 }
@@ -1660,11 +1690,14 @@ BridgedClass _createMaxNestingDepthExceptionBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').stackTrace,
       'message': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').message,
       'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').hasDirectiveContext,
       'maxDepth': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').maxDepth,
     },
     setters: {
       'trackedStackTrace': (visitor, target, value) => 
         D4.validateTarget<$tom_dcli_exec_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_dcli_exec_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1688,10 +1721,12 @@ BridgedClass _createMaxNestingDepthExceptionBridge() {
       'stackTrace': 'StackTrace? get stackTrace',
       'message': 'String get message',
       'trackedStackTrace': 'StackTrace? get trackedStackTrace',
+      'hasDirectiveContext': 'bool get hasDirectiveContext',
       'maxDepth': 'int get maxDepth',
     },
     setterSignatures: {
       'trackedStackTrace': 'set trackedStackTrace(StackTrace? value)',
+      'hasDirectiveContext': 'set hasDirectiveContext(bool value)',
     },
   );
 }
@@ -1716,10 +1751,13 @@ BridgedClass _createCliNotInitializedExceptionBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.CliNotInitializedException>(target, 'CliNotInitializedException').stackTrace,
       'message': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.CliNotInitializedException>(target, 'CliNotInitializedException').message,
       'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.CliNotInitializedException>(target, 'CliNotInitializedException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_dcli_exec_4.CliNotInitializedException>(target, 'CliNotInitializedException').hasDirectiveContext,
     },
     setters: {
       'trackedStackTrace': (visitor, target, value) => 
         D4.validateTarget<$tom_dcli_exec_4.CliNotInitializedException>(target, 'CliNotInitializedException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_dcli_exec_4.CliNotInitializedException>(target, 'CliNotInitializedException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1743,9 +1781,11 @@ BridgedClass _createCliNotInitializedExceptionBridge() {
       'stackTrace': 'StackTrace? get stackTrace',
       'message': 'String get message',
       'trackedStackTrace': 'StackTrace? get trackedStackTrace',
+      'hasDirectiveContext': 'bool get hasDirectiveContext',
     },
     setterSignatures: {
       'trackedStackTrace': 'set trackedStackTrace(StackTrace? value)',
+      'hasDirectiveContext': 'set hasDirectiveContext(bool value)',
     },
   );
 }

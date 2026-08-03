@@ -31,7 +31,7 @@ dev_dependencies:
   # matching tom_d4rt_exec / tom_ast_generator (also analyzer ^10), so the
   # earlier analyzer-8-vs-10 conflict that deferred regen is resolved — the
   # generator now shares a single resolution with the rest of the toolchain.
-  tom_d4rt_generator: ">=1.12.1"
+  tom_d4rt_generator: ">=1.14.0"
   # Analyzer front-end + 1:1 AST copier. Used ONLY by the bridge
   # regeneration tool (tool/regenerate_bridges.dart) and the test
   # driver — never by lib/ runtime code. The bridges and FlutterD4rt

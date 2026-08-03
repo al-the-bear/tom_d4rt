@@ -56,4 +56,4 @@ dev_dependencies:
   # analyzer-10: tom_d4rt_generator 1.10.0 is the analyzer-10 build (cli_tools
   # quest, migration plan Phase 4), so it now shares this package's analyzer ^10
   # resolution and bridge regeneration via build_runner is available again.
-  tom_d4rt_generator: ">=1.12.1"
+  tom_d4rt_generator: ">=1.14.0"

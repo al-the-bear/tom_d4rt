@@ -61,7 +61,7 @@ class TomChattoolsBridge {
   /// Fed to `BridgedClass.registerSupertypes` so interpreted subclasses
   /// of bridged classes pass `is`/subtype checks against bridged
   /// ancestors and the interface-proxy supertype walk resolves up the
-  /// chain (MCI#1 / A1).
+  /// chain.
   static Map<String, List<String>> classSupertypes() {
     return {
       'TelegramChatConfig': ['ChatConfig'],
@@ -167,7 +167,7 @@ class TomChattoolsBridge {
       interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
     }
 
-    // MCI#1 / A1: Register the flattened native supertype table so
+    // Register the flattened native supertype table so
     // interpreted subclasses pass subtype checks against bridged
     // ancestors. Idempotent — safe to call per barrel.
     BridgedClass.registerSupertypes(classSupertypes());

@@ -32,5 +32,5 @@ dev_dependencies:
   # the generator-driven cross-package tests in test/generator_tests/ can again
   # share a resolution with this package's analyzer ^10 constraint. Lower-bound
   # only (no upper cap) to track our latest published components.
-  tom_d4rt_generator: ">=1.12.1"
+  tom_d4rt_generator: ">=1.14.0"
   tom_d4rt_exec: ">=1.9.0"

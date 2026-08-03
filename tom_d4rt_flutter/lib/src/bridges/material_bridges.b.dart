@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for flutter_material_bridges
-// Generated: 2026-07-16T15:56:46.465879
+// Generated: 2026-08-03T11:48:31.543174
 
 /// D4rt Bridge Registration for flutter_material_bridges
 library;

@@ -37,7 +37,7 @@ dev_dependencies:
   # (matching tom_d4rt's analyzer ^10) and emits the lazy bridge-factory thunks
   # (bridgeClassThunks/bridgeClassTypes) the import-optimization guard pairs
   # with. The earlier analyzer-8 conflict that deferred regen is resolved.
-  tom_d4rt_generator: ">=1.12.4"
+  tom_d4rt_generator: ">=1.14.0"
 
 flutter:
   uses-material-design: true
