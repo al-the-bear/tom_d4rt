@@ -1,9 +1,8 @@
-/// Tests for the P&R#1 relaxer/proxy/ctor usage log on [D4]
+/// Tests for the relaxer/proxy/ctor usage log on [D4]
 /// (`D4.usageLogEnabled`, `recordUsageHit`, `recordUsageMiss`,
 /// `usageLogSummary`, `resetUsageLog`).
 ///
-/// The usage log drives the mass-generation reduction work (P&R steps 4–5):
-/// it records which generated relaxer / proxy / coercion / generic-constructor
+/// The usage log drives the mass-generation reduction work: it records which generated relaxer / proxy / coercion / generic-constructor
 /// cases real scripts actually exercise, plus the unresolved misses. Mirrors
 /// the analyzer-free twin — see
 /// `tom_d4rt_ast/test/runtime/usage_log_test.dart`.

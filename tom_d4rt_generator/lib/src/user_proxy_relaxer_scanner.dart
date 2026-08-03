@@ -1,4 +1,4 @@
-/// Annotation-driven user proxy / relaxer scanner (P&R #6, sub-steps b + c).
+/// Annotation-driven user proxy / relaxer scanner.
 ///
 /// Discovers downstream `@D4rtUserProxy` / `@D4rtUserRelaxer` directive classes
 /// — exactly as [UserBridgeScanner] discovers `@D4rtUserBridge` classes — and

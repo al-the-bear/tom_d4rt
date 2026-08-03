@@ -7,8 +7,8 @@ editing `buildkit.yaml`. They mirror the `@D4rtUserBridge` convention: a const
 annotation carrying string-syntax arguments, applied to a class extending a
 marker base (`D4UserProxy` / `D4UserRelaxer`) that the generator pre-scans.
 
-This doc covers the **directive-discovery + variant-expansion core** (P&R #6
-sub-steps a–d): how the annotations are parsed into concrete generic
+This doc covers the **directive-discovery + variant-expansion core**: how the
+annotations are parsed into concrete generic
 instantiations. The live wiring into `generateProxies` / `generateRelaxers` and
 the `lib/src/d4rt_user_proxies/` + `…_user_relaxers/` folder pre-scan is the
 deferred tail (see *Status* below).
@@ -193,7 +193,7 @@ Directive classes belong in `lib/src/d4rt_user_proxies/` (proxy) and
 
 ## Status — shipped core vs. deferred tail
 
-**Shipped (P&R #6 a–d):** the variant-pattern engine, the annotations + marker
+**Shipped:** the variant-pattern engine, the annotations + marker
 bases, the directive core (`UserVariantDirective` parse / expand / render), the
 instantiation-block emitter, and the `UserProxyRelaxerScanner` element-walker —
 all with unit + resolution tests. None of this touches a live `*.b.dart` or any
@@ -203,15 +203,15 @@ generation entry point.
 
 - Wiring the scanner into `bridge_api.dart` / `per_package_orchestrator.dart`
   folder pre-scan and excluding directive classes from normal generation
-  (P&R #6 b-wiring).
+  in the pre-scan.
 - Splicing the expanded instantiations into live `generateProxies` /
   `generateRelaxers` output, including the genuinely new multi-type-parameter
-  relaxer generation (P&R #6 c-emission).
-- Component golden of a real generated proxy/relaxer file from a fixture project
-  (P&R #6 e).
-- Both-twin regeneration + serial `flutter test` base-test gate (P&R #6 f).
+  relaxer generation — the **emission** half.
+- Component golden of a real generated proxy/relaxer file from a fixture
+  project.
+- Both-twin regeneration + serial `flutter test` base-test gate.
 - End-to-end integration of a `TomFormList<TElement, TForm>` script and a
-  wildcard-pattern case (P&R #6 g).
+  wildcard-pattern case.
 
 The still-required manual interventions and what the generator now automates
 are catalogued in `../../tom_d4rt/doc/manual_bridge_interventions.md`.

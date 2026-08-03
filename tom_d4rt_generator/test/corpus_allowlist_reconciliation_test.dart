@@ -1,7 +1,7 @@
-/// Static reconciliation for the committed corpus relaxer allowlist (P&R#5 c
-/// — the static half).
+/// Static reconciliation for the committed corpus relaxer allowlist (the
+/// static half).
 ///
-/// P&R#5 step 3 ("Verify") asks for **zero relaxer/ctor misses** once
+/// The reduction work requires **zero relaxer/ctor misses** once
 /// `generateAllRelaxers: false` gates the combinatorial B/C switch families to
 /// `genericExtractionSites ∪ relaxerClasses ∪ additionalRelaxerTypes`. The
 /// `additionalRelaxerTypes` allowlist is the committed
@@ -69,7 +69,7 @@ Set<String> _readCommittedAllowlist(String path) {
 }
 
 void main() {
-  group('Corpus allowlist reconciliation (P&R#5 c — static)', () {
+  group('Corpus allowlist reconciliation (static)', () {
     final corpusPath = _fromPackageRoot(_corpusRelative);
     final allowlistPath = _fromPackageRoot(_allowlistRelative);
 

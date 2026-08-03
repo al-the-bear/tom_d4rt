@@ -1,4 +1,4 @@
-/// Tests for the MCI#1 / A1 generated supertype table.
+/// Tests for the generated supertype table.
 ///
 /// Verifies that `BridgeGenerator` emits a `classSupertypes()` method whose
 /// entries match the analyzer's flattened (transitive) `allSupertypes` set for
@@ -72,7 +72,7 @@ void main() {
         .toSet();
   }
 
-  group('Generated supertype table (MCI#1 / A1)', () {
+  group('Generated supertype table', () {
     test('GEN-A1-1: emits a classSupertypes() method', () {
       expect(generatedCode, contains('classSupertypes()'));
       expect(

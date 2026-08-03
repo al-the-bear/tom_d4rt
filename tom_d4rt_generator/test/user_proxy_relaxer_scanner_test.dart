@@ -1,5 +1,5 @@
 /// Resolution-based tests for the annotation-driven proxy/relaxer element-walker
-/// (P&R #6, sub-step b).
+/// element-walker.
 ///
 /// These resolve the `user_proxy_relaxer_source.dart` fixture to a real
 /// [LibraryElement] — exactly as `_preScanUserBridges` does in `bridge_api.dart`
@@ -18,7 +18,7 @@ import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 
 void main() {
-  group('UserProxyRelaxerScanner (P&R#6)', () {
+  group('UserProxyRelaxerScanner', () {
     late UserProxyRelaxerScanner scanner;
     late List<String> warnings;
 

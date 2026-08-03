@@ -413,9 +413,9 @@ registration-facade / annotation-directive surfaces — is in
 | `generateAllRelaxers` | `bool` | `true` | When `false`, restrict the combinatorial relaxer/RC-2 surface to discovered sites + `relaxerClasses` + `additionalRelaxerTypes` (collapses output size) |
 | `relaxerClasses` | `List` | `[]` | Extra classes kept eligible as relaxer/RC-2 type-args when `generateAllRelaxers: false` |
 | `additionalRelaxerTypes` | `List<String>` | `[]` | Extra type names kept eligible when `generateAllRelaxers: false` (emitted by the corpus scanner) |
-| `recreatorClasses` | `List` | `[]` | Single-type-param widgets to emit `registerGenericTypeWrapper` re-creators for (MCI#5) |
-| `genericInterceptors` | `List` | `[]` | Type-arg-keyed re-dispatch interceptors (MCI#8 — e.g. `RadioGroup.maybeOf<T>`); dormant when empty |
-| `genericConstructors` | `List` | `[]` | Templated RC-2 generic constructor factories (MCI#6 — e.g. `GlobalKey<NavigatorState>()`); dormant when empty |
+| `recreatorClasses` | `List` | `[]` | Single-type-param widgets to emit `registerGenericTypeWrapper` re-creators for |
+| `genericInterceptors` | `List` | `[]` | Type-arg-keyed re-dispatch interceptors (e.g. `RadioGroup.maybeOf<T>`); dormant when empty |
+| `genericConstructors` | `List` | `[]` | Templated RC-2 generic constructor factories (e.g. `GlobalKey<NavigatorState>()`); dormant when empty |
 | `yieldVoidCallbacks` | `bool` | `false` | Wrap void bridged callbacks in an `async` closure that yields to the event loop (`tom_d4rt_flutter*` only) |
 
 See [doc/tom_d4rt_generator_configuration.md](doc/tom_d4rt_generator_configuration.md)

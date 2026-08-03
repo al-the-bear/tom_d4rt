@@ -1,4 +1,4 @@
-// Fixture for the MCI#4 / A6 premise-lock-in test.
+// Fixture for the @protected-emission premise-lock-in test.
 //
 // A6 proposed automating "@protected supplementary adapters" on the assumption
 // that the generator *skips* @protected / @visibleForTesting members. That

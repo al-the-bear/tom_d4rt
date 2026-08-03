@@ -117,7 +117,7 @@ any `D4UnwrapException` as `FlutterD4rtException` to keep its public
 exception contract. See
 `tom_d4rt_flutter_ast/doc/tom_d4rt_flutter_ast_user_guide.md` §2.
 
-## User-registration facade (P&R#3)
+## User-registration facade
 
 The runner also exposes three thin delegates onto the static `D4`
 registries so an embedder or bridge package can register its **own**
@@ -173,14 +173,14 @@ They may also be called directly before the first
 generic-type-wrapper registry when `T` is itself parameterized (its
 string form contains `<…>`). A relaxer registered for a **non-generic**
 user type — the common case here — would otherwise never be reached.
-P&R#3 adds a strictly-additive last-resort lookup that runs immediately
+The runner adds a strictly-additive last-resort lookup that runs immediately
 before `extractBridgedArg` throws: it resolves the base type name
 against the relaxer registry (passing an empty inner type argument) and
 returns the first factory result that satisfies `T`. Because it only
 runs on the about-to-throw path, it can turn a previous failure into a
 success but can never change the result of an argument that already
 resolved. An unrelated, unregistered miss still throws the enriched
-P&R#2 diagnostic.
+diagnostic.
 
 Contracts pinned by
 `tom_d4rt_ast/test/runtime/facade_user_registration_test.dart` (and its

@@ -57,7 +57,7 @@ class ElementModeExtractor {
   /// Empty by default ⇒ fully inert (no symbols opted in).
   final Set<String> deprecatedAllowlist;
 
-  /// Plan Phase 1 / B4: when true, declared class members are emitted in
+  /// When true, declared class members are emitted in
   /// source order (sorted by `firstFragment.nameOffset`) before inherited
   /// members are appended. OFF by default — the emitter and signature-maps
   /// don't depend on source order in Phase 2. Flip on in Phase 3 if bridge
@@ -155,7 +155,7 @@ class ElementModeExtractor {
       // fall through
     }
 
-    // Plan Phase 1 / W1+W2+B3: the analyzer's element flags
+    // The analyzer's element flags
     // (`annotation.isInternal` / `.isMustBeOverridden` /
     // `.isVisibleForOverriding`) are the canonical source. The AST twin's
     // `toSource()` string-compare fallback is redundant here — element
@@ -354,7 +354,7 @@ class ElementModeExtractor {
     );
   }
 
-  /// Plan Phase 1 / W6: renders a [DartType] to Dart source-like text while
+  /// Renders a [DartType] to Dart source-like text while
   /// preserving *function-typedef* aliases (e.g. `VoidCallback`, `ValueChanged<T>`).
   ///
   /// Phase 4 extracted the rendering rules into the shared
@@ -476,7 +476,7 @@ class ElementModeExtractor {
   void _processTypeAlias(TypeAliasElement alias) {
     final name = alias.name;
     if (name == null) return;
-    // Plan Phase 1 / Private-typedef parity: the AST twin historically leaked
+    // Private-typedef parity: the AST twin historically leaked
     // private typedefs (e.g. `_PerformanceModeCleanupCallback`) into generated
     // bridges because `_hasPrivateIdentifierName` was only applied to classes.
     // The element path treats a leading underscore as private — if
@@ -689,7 +689,7 @@ class ElementModeExtractor {
     }
 
     final extendedType = ext.extendedType;
-    // Plan Phase 1 / W5: extensions with generic on-types are skipped today.
+    // Extensions with generic on-types are skipped today.
     // AST path used `onTypeName.contains('<')`; the element API lets us check
     // directly via `InterfaceType.typeArguments.isNotEmpty`.
     if (extendedType is InterfaceType &&
@@ -922,7 +922,7 @@ class ElementModeExtractor {
     }
 
     // Declared members. Collected as (member, element) pairs so we can
-    // optionally apply Plan Phase 1 / B4 source-order sorting by
+    // optionally apply source-order sorting by
     // `firstFragment.nameOffset` before handing off to the emitter.
     final declaredPairs = <({MemberInfo member, Element element})>[];
 
@@ -1142,7 +1142,7 @@ class ElementModeExtractor {
     );
   }
 
-  /// Plan Phase 1 / B4: sorts declared class members by source-order offset
+  /// Sorts declared class members by source-order offset
   /// (ascending). The offset is read from each element's
   /// `firstFragment.nameOffset`; elements without a resolvable offset sort
   /// last. Stable sort — pairs with identical offsets keep insertion order
@@ -1534,7 +1534,7 @@ class ElementModeExtractor {
         type: paramType,
         isRequired: p.isRequired,
         isNamed: p.isNamed,
-        // Plan Phase 1 / B2: prefer `constantInitializer.toSource()` (works
+        // Prefer `constantInitializer.toSource()` (works
         // for summary-backed params) over `defaultValueCode` (AST-only).
         defaultValue: _defaultValueSource(p),
         typeImportUris: paramTypeImportUris,

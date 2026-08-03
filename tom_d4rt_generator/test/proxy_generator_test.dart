@@ -1,10 +1,10 @@
 /// Golden lock-in for the A2 abstract-interface forwarding-proxy template
 /// (`generateProxies`, `proxy_generator.dart`).
 ///
-/// Quest d4rt / cleanup_todos #19 (MCI#2 / OPEN C.1): the generator already
+/// Quest d4rt (OPEN C.1): the generator already
 /// emits the forwarding-proxy template into `flutter_proxies.b.dart` on both
 /// flutter twins (15 live proxies). Before this file there was **no** generator
-/// unit test exercising proxy generation at all — sub-step (a) of the MCI#2
+/// unit test exercising proxy generation at all — the first sub-step of the
 /// backlog ("golden the emitted proxy for a fixture abstract class with
 /// abstract methods of varied return types") was unpinned.
 ///
@@ -101,7 +101,7 @@ void main() {
     });
   });
 
-  /// Quest d4rt / cleanup_todos #8 (MCI#2 (c/d) / OPEN C.1): per-target
+  /// Quest d4rt (OPEN C.1 c/d): per-target
   /// interface-proxy coverage expansion. Four of the five C.1 activation
   /// targets — `RouteAware` (didPush/didPop/…), `HitTestTarget` (handleEvent),
   /// `NotchedShape`/`FloatingActionButtonLocation` (single-method) — forward

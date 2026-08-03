@@ -1,4 +1,4 @@
-# Per-symbol `@Deprecated` allowlist (A.5 / MCI#32)
+# Per-symbol `@Deprecated` allowlist (open issue A.5)
 
 By default the bridge generator **skips every `@Deprecated` element** so the
 bridge surface stays aligned with the non-deprecated API
@@ -128,5 +128,7 @@ All pass under `dart test test/deprecated_allowlist_test.dart`.
 | Both-twin byte-identical regen (proving the default changes no committed `.b.dart`) | **Deferred** — entangled with the stale committed `.b.dart` baseline that already churns ~16 files on a no-op regen of `tom_d4rt_flutter_ast`; a clean scoped diff is blocked until that baseline is reconciled under the serial base-test gate. |
 | End-to-end integration of one allowlisted deprecated symbol + serial flutter base-test gate | **Deferred** — `flutter test` in the twins must run serially (shared HTTP companion app); the activating script must run green under both runtimes before the symbol's allowlisting can be committed. |
 
-The deferred tail is tracked in `_ai/quests/d4rt/todo_impossible.md` (#10) and
-`_ai/quests/d4rt/completion_steps.d4rt.md` (OPEN A.5).
+The deferred tail is tracked in `_ai/quests/d4rt/todo_impossible.md` (#10) and,
+as a live entry, in `_ai/quests/d4rt/todos.d4rt.todo.yaml`. The open issue
+itself is **A.5** in
+`tom_d4rt_flutter_ast/doc/interpreter_generator_open_issues.md`.

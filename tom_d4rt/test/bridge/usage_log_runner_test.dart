@@ -1,4 +1,4 @@
-/// Integration test for the P&R#1 usage log (sub-step c): drive a real script
+/// Integration test for the usage log: drive a real script
 /// through [D4rt.execute] with logging enabled and assert the instrumentation
 /// fires and the end-of-run summary reflects it.
 ///

@@ -1,5 +1,5 @@
 #!/usr/bin/env dart
-/// Corpus type-combination scanner CLI (P&R step 5 / request b).
+/// Corpus type-combination scanner CLI.
 ///
 /// Scans a directory of D4rt test scripts for the concrete type arguments used
 /// in generic instantiations and emits an allowlist consumable by

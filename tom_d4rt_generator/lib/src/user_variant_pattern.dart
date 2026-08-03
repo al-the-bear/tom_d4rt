@@ -1,5 +1,5 @@
 /// Pure type-argument variant expansion engine for `@D4rtUserProxy` /
-/// `@D4rtUserRelaxer` (cleanup_todos #27 / P&R #6, sub-steps a + c).
+/// `@D4rtUserRelaxer`.
 ///
 /// This module is deliberately analyzer-free and side-effect-free: it parses
 /// the declarative variant strings carried by the user annotations and expands

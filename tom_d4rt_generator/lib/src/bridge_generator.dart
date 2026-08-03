@@ -6487,7 +6487,7 @@ class BridgeGenerator {
     buffer.writeln('  }');
     buffer.writeln();
 
-    // MCI#1 / A1: Generate classSupertypes method — the flattened (transitive)
+    // Generate the classSupertypes method — the flattened (transitive)
     // native supertype table. Replaces the hand-written
     // `BridgedClass.registerSupertypes({...})` block in
     // `d4rt_runtime_registrations.dart`. The interpreter feeds this to
@@ -6516,7 +6516,7 @@ class BridgeGenerator {
     buffer.writeln(
       '  /// ancestors and the interface-proxy supertype walk resolves up the',
     );
-    buffer.writeln('  /// chain (MCI#1 / A1).');
+    buffer.writeln('  /// chain.');
     buffer.writeln('  static Map<String, List<String>> classSupertypes() {');
     buffer.writeln('    return {');
     for (final cls in classes) {
@@ -6930,7 +6930,7 @@ class BridgeGenerator {
     buffer.writeln('    }');
     buffer.writeln();
     buffer.writeln(
-      '    // MCI#1 / A1: Register the flattened native supertype table so',
+      '    // Register the flattened native supertype table so',
     );
     buffer.writeln(
       '    // interpreted subclasses pass subtype checks against bridged',

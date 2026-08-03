@@ -1,9 +1,9 @@
-/// Tests for the P&R#5 corpus type-combination scanner.
+/// Tests for the corpus type-combination scanner.
 ///
 /// The scanner ([CorpusTypeScanner]) statically walks D4rt test scripts and
 /// collects the bare names of every type that appears as a type argument in a
 /// generic instantiation — at any nesting depth — so the reduced relaxer/RC-2
-/// generation (P&R#4) can enumerate only the type-args the corpus actually
+/// generation can enumerate only the type-args the corpus actually
 /// exercises. Parsing runs in recovery mode (`throwIfDiagnostics: false`), so
 /// scripts that don't type-check in isolation still yield their type-args.
 ///
@@ -17,7 +17,7 @@ import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 
 void main() {
-  group('CorpusTypeScanner.scanSource (P&R#5)', () {
+  group('CorpusTypeScanner.scanSource', () {
     const scanner = CorpusTypeScanner();
 
     test('G-CTS-1: flat generic instantiation collects each type-arg', () {
@@ -113,7 +113,7 @@ void main() {
     });
   });
 
-  group('CorpusTypeScanner emitters (P&R#5)', () {
+  group('CorpusTypeScanner emitters', () {
     const scanner = CorpusTypeScanner();
 
     CorpusTypeScanResult resultOf(Map<String, int> counts) =>

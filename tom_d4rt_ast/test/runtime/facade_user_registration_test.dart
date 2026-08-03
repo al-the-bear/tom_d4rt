@@ -1,4 +1,4 @@
-/// Tests for the P&R#3 public user-registration API (requests c, e).
+/// Tests for the public user-registration API.
 ///
 /// The [D4rtRunner] facade exposes thin delegates onto the static [D4] sinks —
 /// `registerRelaxerFactory`, `registerInterfaceProxy`, `registerGeneric
@@ -27,7 +27,7 @@ class _Widgetish {
 class _NeverRegistered {}
 
 void main() {
-  group('D4rtRunner P&R#3 user-registration facade', () {
+  group('D4rtRunner user-registration facade', () {
     test('registerInterfaceProxy delegates to the D4 proxy sink', () {
       final runner = D4rtRunner();
       expect(D4.hasInterfaceProxy('_FacadeProxyType'), isFalse);

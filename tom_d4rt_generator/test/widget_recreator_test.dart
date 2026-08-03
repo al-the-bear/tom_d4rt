@@ -1,4 +1,4 @@
-/// Tests for the MCI#5 / A5 generic-widget re-creator emitter
+/// Tests for the generic-widget re-creator emitter (`recreatorClasses`)
 /// ([generateWidgetReCreator]).
 ///
 /// Some immutable Flutter widgets (`DropdownMenuItem<T>`,
@@ -21,7 +21,7 @@ import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 
 void main() {
-  group('generateWidgetReCreator (MCI#5)', () {
+  group('generateWidgetReCreator', () {
     /// Builds a single-type-parameter widget [ClassInfo] with a default
     /// constructor and a matching instance getter for every parameter.
     ClassInfo widget(

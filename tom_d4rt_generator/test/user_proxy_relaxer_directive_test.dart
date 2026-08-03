@@ -1,5 +1,5 @@
 /// Pure (analyzer-free) tests for the annotation-driven proxy/relaxer directive
-/// core (P&R #6, sub-steps b + c).
+/// core.
 ///
 /// These pin the new multi-type-parameter + wildcard-pattern *expansion-to-
 /// source* logic in [UserVariantDirective] and
@@ -25,7 +25,7 @@ UserVariantDirective directive({
     );
 
 void main() {
-  group('UserVariantDirective.parse (P&R#6)', () {
+  group('UserVariantDirective.parse', () {
     test('G-UPR-1: explicit single-param variant parses with arity 1', () {
       final d = directive(baseClass: 'ValueNotifier', variants: ['Color']);
       expect(d.arity, 1);
@@ -77,7 +77,7 @@ void main() {
     });
   });
 
-  group('UserVariantDirective.expand (P&R#6)', () {
+  group('UserVariantDirective.expand', () {
     test('G-UPR-8: explicit multi-param variants ignore candidates', () {
       final d = directive(variants: [
         'Customer, CustomerDetailForm',
@@ -121,7 +121,7 @@ void main() {
     });
   });
 
-  group('UserVariantDirective.renderInstantiations (P&R#6)', () {
+  group('UserVariantDirective.renderInstantiations', () {
     test('G-UPR-12: renders multi-param concrete generic instantiations', () {
       final d = directive(variants: ['Customer, CustomerDetailForm']);
       expect(
@@ -147,7 +147,7 @@ void main() {
     });
   });
 
-  group('renderUserVariantInstantiationBlock (P&R#6 golden)', () {
+  group('renderUserVariantInstantiationBlock golden', () {
     test('G-UPR-15: golden block groups directives with kind/base headers', () {
       final directives = [
         directive(

@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 /// Copy-generator pilot for the AST/non-AST `d4rt_user_bridges/`
-/// de-duplication (MCI#9 / clean_todos #6, step 2 — low-risk pilot).
+/// de-duplication.
 ///
 /// The three shared user-bridge files
 /// (`basic_message_channel_user_bridge.dart`, `state_user_bridge.dart`,

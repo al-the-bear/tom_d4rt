@@ -1,5 +1,5 @@
 /// Test fixture for the annotation-driven proxy / relaxer directive scanner
-/// (P&R #6, sub-step b).
+/// scanner.
 ///
 /// Declares `@D4rtUserProxy` / `@D4rtUserRelaxer` directive classes — extending
 /// the `D4UserProxy` / `D4UserRelaxer` marker bases — exactly as a downstream

@@ -256,7 +256,7 @@ class ProxyClassConfig {
   final String? proxyName;
 
   /// Bridged mixin names for which a *declared-variant* native proxy class
-  /// should be generated in addition to the plain proxy (MCI#3 / A3+A4).
+  /// should be generated in addition to the plain proxy.
   ///
   /// Some bridged base classes (notably `State` and `RenderBox`) need a
   /// native proxy that *actually mixes in* a real Flutter mixin
@@ -284,7 +284,7 @@ class ProxyClassConfig {
   /// Generic type-argument variants for which a typed native proxy class
   /// should be generated, plus a `registerInterfaceProxy` selector switch
   /// that picks the variant matching the script's reified bridged-super type
-  /// argument (MCI#6 / B1).
+  /// argument.
   ///
   /// An invariant generic delegate such as `CustomClipper<T>` cannot be
   /// satisfied by a single `CustomClipper<Path>` proxy: Flutter's downstream
@@ -313,7 +313,7 @@ class ProxyClassConfig {
   final List<TypeArgProxyVariant> typeArgVariants;
 
   /// Default value expressions for *required* super-constructor formals, keyed
-  /// by formal name (MCI#7 / B2).
+  /// by formal name.
   ///
   /// Some bridged base classes (`BoxScrollView`, `TwoDimensionalScrollView`,
   /// `TwoDimensionalViewport`, `RenderTwoDimensionalViewport`) have **required**
@@ -398,7 +398,7 @@ class ProxyClassConfig {
 /// A single generic type-argument variant of a [ProxyClassConfig].
 ///
 /// Drives one typed native proxy class (e.g. `_InterpretedCustomClipperRRect`)
-/// and one arm of the `registerInterfaceProxy` selector switch (MCI#6 / B1).
+/// and one arm of the `registerInterfaceProxy` selector switch.
 class TypeArgProxyVariant {
   /// The concrete type argument this variant specialises for (e.g. `RRect`).
   /// Analyzer-validatable — must name a real type reachable from the proxy
@@ -444,7 +444,7 @@ class TypeArgProxyVariant {
 }
 
 /// Declarative spec for a generic method/static interceptor whose adapter drops
-/// the script-supplied `<T>` at the bridge boundary (MCI#8 / B4 — R4).
+/// the script-supplied `<T>` at the bridge boundary.
 ///
 /// A handful of Flutter lookups (e.g. `RadioGroup.maybeOf<T>(context)`,
 /// `ThemeData.extension<T>()`) are keyed by the *exact* reified type argument.
@@ -463,9 +463,9 @@ class TypeArgProxyVariant {
 /// };
 /// ```
 ///
-/// This config templates exactly that re-dispatch half. The R5 ancestor-walk
-/// fallback for script-defined `<T>` stays hand-written (retired later by
-/// MCI#11): when [fallbackExpr] is supplied the generated body ends with
+/// This config templates exactly that re-dispatch half. The ancestor-walk
+/// fallback for script-defined `<T>` stays hand-written: when [fallbackExpr]
+/// is supplied the generated body ends with
 /// `if (byType != null) return byType;` followed by `return $fallbackExpr;`,
 /// otherwise it simply returns the switch result.
 ///
@@ -509,7 +509,7 @@ class GenericInterceptorConfig {
   final String contextArgType;
 
   /// Optional hand-written fallback expression evaluated when the re-dispatch
-  /// switch returns null (the R5 ancestor-walk half kept until MCI#11). When
+  /// switch returns null (the hand-written ancestor-walk half). When
   /// null the generated body returns the switch result directly.
   final String? fallbackExpr;
 
@@ -567,8 +567,8 @@ class GenericInterceptorConfig {
       };
 }
 
-/// Which generated body shape a [GenericConstructorConfig] templates (MCI#6 /
-/// B3). The two real shapes in the flutter-material corpus diverge enough that
+/// Which generated body shape a [GenericConstructorConfig] templates.
+/// The two real shapes in the flutter-material corpus diverge enough that
 /// a single template can't cover both without a discriminator.
 enum GenericConstructorKind {
   /// Forwards a fixed set of named arguments to `Class<T>(named…)` for each
@@ -610,7 +610,7 @@ class GenericCtorNamedArg {
   Map<String, dynamic> toJson() => {'name': name, 'type': type};
 }
 
-/// Configuration for a templated RC-2 generic constructor factory (MCI#6 / B3).
+/// Configuration for a templated RC-2 generic constructor factory.
 ///
 /// Reifies a script's explicit type argument (`GlobalKey<NavigatorState>()`,
 /// `ValueKey<String>('k')`) into a concrete native generic, which the
@@ -776,7 +776,7 @@ class RelaxerClassConfig {
 /// Each entry lists the [className] and the concrete [innerTypes] for which a
 /// `switch` arm is emitted (in addition to the always-present
 /// `dynamic`/`Object` arm). Used by the relaxer generator's re-creator
-/// emitter (MCI#5 / A5).
+/// emitter (`recreatorClasses`).
 ///
 /// Example in buildkit.yaml:
 /// ```yaml
@@ -1028,12 +1028,12 @@ class BridgeConfig {
   /// Each entry may be a bare type name (`'Duration'`) or a package-qualified
   /// `'package:my_pkg/types.dart:MyType'` form (the bare type name after the
   /// final `:` is used for matching), mirroring [recursiveBoundTypes]. This is
-  /// the field the corpus scanner (P&R step 5) emits an allowlist into.
+  /// the field the corpus type-combination scanner emits an allowlist into.
   /// Ignored when [generateAllRelaxers] is `true`.
   final List<String> additionalRelaxerTypes;
 
   /// Single-type-parameter widgets to emit `D4.registerGenericTypeWrapper`
-  /// re-creators for (MCI#5 / A5).
+  /// re-creators for.
   ///
   /// Unlike relaxer wrappers, these are immutable widgets reconstructed with
   /// the script's `<T>` by reading constructor params back from same-named
@@ -1042,7 +1042,7 @@ class BridgeConfig {
   /// classes.
   final List<RecreatorClassConfig> recreatorClasses;
 
-  /// MCI#8 / B4: generic re-dispatch interceptors templated from
+  /// Generic re-dispatch interceptors templated from
   /// [GenericInterceptorConfig].
   ///
   /// Each entry templates the **re-dispatch half** of a type-arg-keyed Flutter
@@ -1050,14 +1050,14 @@ class BridgeConfig {
   /// over a declared type-arg allow-list that the type-erased bridge boundary
   /// would otherwise collapse to `<dynamic>`. The generated registrations are
   /// emitted inline into the relaxer file's `registerRelaxers()` (alongside the
-  /// MCI#5 re-creators), so they are wired up during normal bridge setup.
+  /// the re-creators), so they are wired up during normal bridge setup.
   ///
   /// Dormant by default: with an empty list nothing is emitted and committed
   /// `*.b.dart` output is byte-identical. See [GenericInterceptorConfig] for the
   /// per-entry shape and `generic_interceptor_generator.dart` for the emitter.
   final List<GenericInterceptorConfig> genericInterceptors;
 
-  /// MCI#6 / B3: templated RC-2 generic constructor factories, one per
+  /// Templated RC-2 generic constructor factories, one per
   /// [GenericConstructorConfig].
   ///
   /// Each reifies a script's explicit type argument (`GlobalKey<NavigatorState>()`,

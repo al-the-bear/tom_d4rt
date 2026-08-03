@@ -1,11 +1,11 @@
-/// Corpus type-combination scanner (P&R step 5 / request b).
+/// Corpus type-combination scanner.
 ///
 /// Statically scans a directory of D4rt test scripts for the concrete type
 /// arguments that appear in generic instantiations — e.g. `Tween<double>`,
 /// `ValueNotifier<int>`, `<String, List<Color>>{}`, `foo<Bar>()` — and emits
 /// the de-duplicated set of those type-argument names.
 ///
-/// The output feeds `BridgeConfig.additionalRelaxerTypes` (P&R step 4): once
+/// The output feeds `BridgeConfig.additionalRelaxerTypes`: once
 /// `generateAllRelaxers` is flipped to `false`, the relaxer/RC-2 switch
 /// families enumerate only the type-args the corpus actually exercises (plus
 /// the ones discovered from real extraction sites), instead of every concrete

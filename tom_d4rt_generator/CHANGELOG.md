@@ -266,7 +266,7 @@ test.
 
 ### Documentation
 - Consolidated proxy/relaxer manual-intervention guidance into
-  `doc/user_proxy_relaxer_annotations.md` and the MCI baseline docs; README
+  `doc/user_proxy_relaxer_annotations.md` and the baseline docs; README
   aligned with the source-primary documentation reframe.
 
 ## 1.9.2

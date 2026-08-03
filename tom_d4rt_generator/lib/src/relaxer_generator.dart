@@ -206,7 +206,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
     }
   }
 
-  // P&R#4 reduction knob: when `generateAllRelaxers` is false, restrict the
+  // Reduction knob: when `generateAllRelaxers` is false, restrict the
   // combinatorial `allConcreteBridgedTypes`/`allBridgedTypes` enumerations
   // (Categories B and C) to the union of the type-args discovered from real
   // extraction sites, the explicit `relaxerClasses`, and
@@ -345,7 +345,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
     }
   }
 
-  // MCI#5 / A5: build generic-widget re-creator blocks for the configured
+  // Build generic-widget re-creator blocks for the configured
   // `recreatorClasses`. These reconstruct immutable widgets with the script's
   // <T> (instead of relaxer-wrapping them). Independent of generateAllRelaxers.
   final recreatorBlocks = <String>[];
@@ -368,7 +368,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
     if (block != null) recreatorBlocks.add(block);
   }
 
-  // MCI#8 / B4: build generic re-dispatch interceptor blocks for the configured
+  // Build generic re-dispatch interceptor blocks for the configured
   // `genericInterceptors`. Each templates the `switch (typeName)` re-dispatch
   // half of a type-arg-keyed lookup (e.g. `RadioGroup.maybeOf<T>(context)`),
   // emitted inline into `registerRelaxers()` alongside the re-creators. Dormant
@@ -538,7 +538,7 @@ List<_RelaxerTarget> _buildRelaxerTargets(
   final existingTargetNames = targets.map((t) => t.baseTypeName).toSet();
   // GEN-095: Restrict type args to classes reachable via the barrel
   // imports (excludes `package:<pkg>/src/` private types).
-  // P&R#4: when reduced, restrict the injected candidate type-args to the
+  // When reduced, restrict the injected candidate type-args to the
   // allowlist (discovered extraction sites ∪ relaxerClasses ∪
   // additionalRelaxerTypes). Null allowlist ⇒ generate-everything (default).
   final allConcreteBridgedTypes =
@@ -1665,7 +1665,7 @@ void _writeRegistrationFunction(
     }
   }
 
-  // MCI#5 / A5: generic-widget re-creators (immutable widgets reconstructed
+  // Generic-widget re-creators (immutable widgets reconstructed
   // with the script's <T> rather than relaxer-wrapped). Emitted inline inside
   // the registration body, after the factory registrations.
   for (final block in recreatorBlocks) {
@@ -1673,7 +1673,7 @@ void _writeRegistrationFunction(
     buffer.write(block);
   }
 
-  // MCI#8 / B4: generic re-dispatch interceptors (templated from
+  // Generic re-dispatch interceptors (templated from
   // `BridgeConfig.genericInterceptors`). Each block is a single
   // `D4.registerBridged{,Static}MethodInterceptor(...)` statement, 2-space
   // indented and ready to drop inside the registration body — emitted after the
@@ -1688,7 +1688,7 @@ void _writeRegistrationFunction(
 }
 
 /// Emits a `D4.registerGenericTypeWrapper` re-creator block for a single
-/// type-parameter immutable widget [className] (MCI#5 / A5).
+/// type-parameter immutable widget [className] (`recreatorClasses`).
 ///
 /// Some Flutter widgets (`DropdownMenuItem<T>`, `DropdownMenuEntry<T>`,
 /// `ButtonSegment<T>`) cannot be wrapped by a `$Relaxed` subclass — they are
@@ -2161,7 +2161,7 @@ int _writeGenericConstructorSection(
   bool yieldVoidCallbacks = false,
   List<GenericConstructorConfig> genericConstructors = const [],
 }) {
-  // MCI#6 / B3: templated RC-2 generic-constructor reifiers for the configured
+  // Templated RC-2 generic-constructor reifiers for the configured
   // `genericConstructors`. Each emits a `switch (typeName)` that reifies a
   // script-supplied `<T>` into a concrete native generic over a declared
   // type-arg allow-list (e.g. `GlobalKey<NavigatorState>()`). Dormant by
@@ -2197,7 +2197,7 @@ int _writeGenericConstructorSection(
   // Collect all concrete bridged class names for type dispatches.
   // GEN-095: Exclude types from a package's private `lib/src/` (not reachable
   // via the barrel import) and types from packages not imported at all.
-  // P&R#4: reduce the per-factory case enumeration to the allowlist when
+  // Reduce the per-factory case enumeration to the allowlist when
   // `generateAllRelaxers` is false. Null allowlist ⇒ generate-everything.
   final allBridgedTypes =
       globalClassLookup.entries
@@ -2277,7 +2277,7 @@ int _writeGenericConstructorSection(
       "  D4.registerGenericConstructor('${r.className}', '${r.ctorName}', ${r.funcName});",
     );
   }
-  // MCI#6 / B3: emit the templated reifier switches after the auto-generated
+  // Emit the templated reifier switches after the auto-generated
   // factory registrations. Each block is a self-contained
   // `D4.registerGenericConstructor(class, '', (…) {…})` statement.
   for (var i = 0; i < templatedBlocks.length; i++) {

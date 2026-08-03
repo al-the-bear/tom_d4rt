@@ -1,4 +1,4 @@
-/// Tests for the P&R#2 enriched missing-relaxer/proxy error message
+/// Tests for the enriched missing-relaxer/proxy error message
 /// (request g). When [D4.extractBridgedArg] cannot resolve an argument it now
 /// throws an [ArgumentD4rtException] whose message names the base type, the
 /// unmatched type-argument, the registration state (is a relaxer / proxy /
@@ -24,7 +24,7 @@ class _RegBox<T> {
 }
 
 void main() {
-  group('D4.extractBridgedArg enriched diagnostics (P&R#2)', () {
+  group('D4.extractBridgedArg enriched diagnostics', () {
     test('legacy "Invalid parameter" prefix is preserved', () {
       expect(
         () => D4.extractBridgedArg<_UnregThing>(42, 'thing'),

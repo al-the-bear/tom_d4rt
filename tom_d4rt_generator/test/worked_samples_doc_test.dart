@@ -1,4 +1,4 @@
-/// Byte-safe drift guard for the worked-samples catalog (P&R #7 b/c).
+/// Byte-safe drift guard for the worked-samples catalog.
 ///
 /// `doc/worked_samples.md` maps the runnable multi-file sample apps under
 /// `tom_d4rt_flutter_test/example/` to the generation mechanisms they exercise.
@@ -57,7 +57,7 @@ Set<String> _catalogSamples(String markdown) {
 }
 
 void main() {
-  group('worked_samples.md drift guard (P&R#7)', () {
+  group('worked_samples.md drift guard', () {
     late String markdown;
     late Set<String> samples;
     late String exampleRoot;
@@ -69,7 +69,7 @@ void main() {
       exampleRoot = _fromPackageRoot(_exampleRootRelative);
     });
 
-    test('G-WSD-1: the catalog names at least the five P&R#7 samples', () {
+    test('G-WSD-1: the catalog names at least the five worked samples', () {
       expect(
         samples,
         containsAll(<String>{

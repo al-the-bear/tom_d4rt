@@ -987,7 +987,7 @@ class D4rtRunner {
   }
 
   // =========================================================================
-  // P&R#3 — Public user-registration API
+  // Public user-registration API
   //
   // Thin facade delegates onto the static [D4] sinks, exposed so embedders
   // and bridge packages can register relaxers, interface proxies, and generic

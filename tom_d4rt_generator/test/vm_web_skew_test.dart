@@ -1,4 +1,4 @@
-// B5/R6: VM↔web signature-skew coercion table (MCI#10 / cleanup_todos #38).
+// VM↔web signature-skew coercion table (`enableVmWebSkewCoercion`).
 //
 // Some Flutter `dart:ui` members declare a named parameter nullable on the VM
 // but non-nullable on web. The generator reads VM analyzer summaries, so the

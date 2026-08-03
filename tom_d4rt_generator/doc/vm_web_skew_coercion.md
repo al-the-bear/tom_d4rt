@@ -1,4 +1,4 @@
-# VM↔web signature-skew coercion (B5 / R6 / MCI#10)
+# VM↔web signature-skew coercion (`enableVmWebSkewCoercion`)
 
 Some Flutter `dart:ui` members declare a named parameter **nullable on the VM
 SDK but non-nullable on web** (dart2js). The bridge generator reads the VM
@@ -183,5 +183,5 @@ Both pass under `dart test test/vm_web_skew_test.dart`.
 | Deleting `SceneBuilderUserBridge.overrideMethodPushOpacity` | **Deferred** — depends on the gate-on regen landing first (removing it before the generated adapter is web-safe would regress `SceneBuilder.pushOpacity`). |
 | Serial base-test gate + dart2js/web smoke | **Deferred** — `flutter test` in the twins must run serially (shared HTTP companion app); the full 14-file corpus across both twins is a multi-hour sweep, run via `tom_d4rt_flutter_ast/tool/sweep_both_projects.sh`. |
 
-The deferred tail is tracked in `_ai/quests/d4rt/todo_impossible.md` (#7) and
-`_ai/quests/d4rt/completion_steps.d4rt.md` (MCI#10 / item-38).
+The deferred tail is tracked in `_ai/quests/d4rt/todo_impossible.md` (#7) and,
+as a live entry, in `_ai/quests/d4rt/todos.d4rt.todo.yaml`.

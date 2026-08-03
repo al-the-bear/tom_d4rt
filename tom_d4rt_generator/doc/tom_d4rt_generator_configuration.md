@@ -77,9 +77,9 @@ Mirrors `BridgeConfig` in `lib/src/bridge_config.dart`.
 | `generateAllRelaxers` | `bool` | `true` | When `true`, enumerate *every* bridged class as a candidate generic type-arg (full combinatorial B/C surface — large output). When `false`, restrict to discovered sites + `relaxerClasses` + `additionalRelaxerTypes`. |
 | `relaxerClasses` | `List` | `[]` | Extra classes kept eligible as relaxer/RC-2 type-args when `generateAllRelaxers: false`. |
 | `additionalRelaxerTypes` | `List<String>` | `[]` | Extra type names kept eligible when `generateAllRelaxers: false` (this is what the `scan_corpus_types` corpus scanner emits into `corpus_relaxer_allowlist.yaml`). |
-| `recreatorClasses` | `List` | `[]` | Single-type-param widgets to emit `registerGenericTypeWrapper` re-creators for (MCI#5 / A5). |
-| `genericInterceptors` | `List` | `[]` | Type-arg-keyed re-dispatch interceptors (MCI#8 / B4 — e.g. `RadioGroup.maybeOf<T>`). Dormant when empty. |
-| `genericConstructors` | `List` | `[]` | Templated RC-2 generic constructor factories (MCI#6 / B3 — e.g. `GlobalKey<NavigatorState>()`). Dormant when empty. |
+| `recreatorClasses` | `List` | `[]` | Single-type-param widgets to emit `registerGenericTypeWrapper` re-creators for. |
+| `genericInterceptors` | `List` | `[]` | Type-arg-keyed re-dispatch interceptors (e.g. `RadioGroup.maybeOf<T>`). Dormant when empty. |
+| `genericConstructors` | `List` | `[]` | Templated RC-2 generic constructor factories (e.g. `GlobalKey<NavigatorState>()`). Dormant when empty. |
 | `yieldVoidCallbacks` | `bool` | `false` | Wrap every *void* bridged callback in an `async` closure that yields ~1 ms after invoking the interpreted callback, handing a slice of the event loop back. For `tom_d4rt_flutter*` configs only — keep `false` for CLI/build scripting. Non-void callbacks are left untouched. |
 
 When all four dormant lists (`recreatorClasses`, `genericInterceptors`,
@@ -148,12 +148,12 @@ d4rtgen:
     - CustomPainter                      # simple: D4rtCustomPainter
     - className: CustomClipper
       proxyName: D4rtCustomClipper       # custom proxy name
-      typeArgVariants:                   # MCI#6/B1: one typed proxy per T
+      typeArgVariants:                   # one typed proxy per T
         - typeArg: Path                  #   first entry is the default arm
           defaultExpr: Path()
         - typeArg: Rect
           defaultExpr: Offset.zero & size
-    - className: State                   # MCI#3/A3+A4: mixin-bearing variants
+    - className: State                   # mixin-bearing variants
       mixinVariants:
         - SingleTickerProviderStateMixin
         - RestorationMixin
@@ -169,8 +169,8 @@ The three map keys on a proxy entry are independent and may be combined:
 | Proxy key | Type | Purpose |
 |-----------|------|---------|
 | `proxyName` | `String` | Override the generated proxy class name (default `D4rt<ClassName>`). |
-| `mixinVariants` | `List<String>` | Emit one proxy variant per mixin so an interpreted subclass can mix in `SingleTickerProviderStateMixin` etc. (MCI#3 / A3+A4). |
-| `typeArgVariants` | `List<{typeArg, defaultExpr}>` | Emit one typed proxy per type argument; the first entry is the default arm (MCI#6 / B1). |
+| `mixinVariants` | `List<String>` | Emit one proxy variant per mixin so an interpreted subclass can mix in `SingleTickerProviderStateMixin` etc. |
+| `typeArgVariants` | `List<{typeArg, defaultExpr}>` | Emit one typed proxy per type argument; the first entry is the default arm. |
 | `superArgDefaults` | `Map<String,String>` | Default expressions for the **required** super-formal parameters of the abstract base the proxy extends, so the generated proxy can call `super(...)` without the script supplying them. Keys are parameter names; values are Dart expressions (quote bare literals like `'false'`). |
 
 ### Generic constructor entries

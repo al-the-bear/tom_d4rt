@@ -450,15 +450,15 @@ class D4 {
   }
 
   // ==========================================================================
-  // Usage logging + miss-tracking (P&R#1 / request h)
+  // Usage logging + miss-tracking
   // ==========================================================================
 
   /// Opt-in instrumentation toggle. When `true`, [extractBridgedArg] and the
   /// interpreter's generic-constructor path record each relaxer /
   /// interface-proxy / type-coercion / generic-constructor *hit* and each
   /// unresolved *miss*, keyed by category + base type + type-argument. The
-  /// accumulated data drives the mass-generation reduction work (P&R steps
-  /// 4–5): it reveals which generated cases real scripts actually exercise.
+  /// accumulated data drives the mass-generation reduction work: it reveals
+  /// which generated cases real scripts actually exercise.
   ///
   /// Defaults to `false`. Every instrumentation call site guards on this flag
   /// *before* composing any log key, so the log is completely silent and
@@ -568,7 +568,7 @@ class D4 {
   }
 
   /// Build an enriched diagnostic message for an unresolved
-  /// [extractBridgedArg] resolution (P&R#2 / request g).
+  /// [extractBridgedArg] resolution.
   ///
   /// Beyond the bare "expected/got" line, it reports:
   /// - the **base type** (`expectedType` stripped of nullability + type args),
@@ -1043,7 +1043,7 @@ class D4 {
     return null;
   }
 
-  /// P&R#3: Last-resort user-factory resolution, tried immediately before
+  /// Last-resort user-factory resolution, tried immediately before
   /// [extractBridgedArg] gives up and throws.
   ///
   /// The inlined relaxer lookup inside [extractBridgedArg] only consults
@@ -1987,7 +1987,7 @@ class D4 {
       }
     }
 
-    // P&R#3: last-resort lookup against user-registered relaxer factories,
+    // Last-resort lookup against user-registered relaxer factories,
     // covering non-generic target types the inlined relaxer path skips. Runs
     // only here on the about-to-throw path, so it is strictly additive.
     final userResolved = _tryUserFactoryResolution<T>(unwrapped);

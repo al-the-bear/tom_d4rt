@@ -486,8 +486,8 @@ dart run tom_d4rt_generator:d4rtgen
 
 The flutter-material twins ship 15+ live proxies. Five further abstract
 bases surfaced as activation candidates from the
-`interpreter_unfixable.md` triage (the **C.1** targets, OPEN C.1 b/c/d ≡
-MCI #2 c/d). They are listed here with a templatability verdict so a
+`interpreter_unfixable.md` triage (the **C.1** targets, OPEN C.1 b/c/d).
+They are listed here with a templatability verdict so a
 future activation pass can add them to `proxyClasses:` **one cluster at a
 time** without re-deriving the analysis. The verdicts are grounded in the
 generator's current member-selection behaviour (GEN-118 inherited-abstract
@@ -500,7 +500,7 @@ by the goldens in `test/proxy_generator_test.dart`.
 | `FloatingActionButtonLocation` | U5 | `Offset getOffset(ScaffoldPrelayoutGeometry g)` (single, non-void) | **Clean-templatable** — same single-method non-void shape as `NotchedShape`. |
 | `RouteAware` | U9 | `void didPush()`, `void didPop()`, `void didPushNext()`, `void didPopNext()` (all void, no args) | **Clean-templatable** — pure void-forwarding; pinned by the `Sink<T>` void golden (`PROXY-A2-06..09`, the `void close()` no-arg shape). |
 | `HitTestTarget` | U11 | `void handleEvent(PointerEvent e, HitTestEntry entry)` (void, with args) | **Clean-templatable** — void-with-args forwarding; pinned by the `Sink<T>` golden's `void add(T data)` arm. |
-| `Curve` | U3 | `double transformInternal(double t)` (inherited-abstract from `ParametricCurve`, `@protected`, non-void) | **Likely templatable now.** U3 documents the *old hand-written* proxy as broken because it omitted the inherited `transformInternal`. GEN-118 collects inherited-abstract methods, and the generator does **not** filter `@protected` (consistent with MCI#4), so the template would now emit the `onTransformInternal` callback the hand-written proxy lacked. Verify against U3's fix sketch before marking U3 closed. |
+| `Curve` | U3 | `double transformInternal(double t)` (inherited-abstract from `ParametricCurve`, `@protected`, non-void) | **Likely templatable now.** U3 documents the *old hand-written* proxy as broken because it omitted the inherited `transformInternal`. GEN-118 collects inherited-abstract methods, and the generator does **not** filter `@protected`, so the template would now emit the `onTransformInternal` callback the hand-written proxy lacked. Verify against U3's fix sketch before marking U3 closed. |
 | `Enum` | U8 | — | **N/A — not subclassable.** `dart:core`'s `Enum` is the implicit superclass of every `enum` declaration and cannot be extended by a generated proxy. No proxy entry applies; scripts needing enum behaviour use a different mechanism. |
 
 Ready-to-paste `proxyClasses:` entries (match the existing buildkit

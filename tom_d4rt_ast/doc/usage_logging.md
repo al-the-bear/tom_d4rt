@@ -1,11 +1,11 @@
-# Relaxer / proxy / ctor usage logging (P&R#1)
+# Relaxer / proxy / ctor usage logging
 
 Opt-in instrumentation on `D4` that records which generated
 **relaxer**, **interface-proxy**, **type-coercion**, and
 **generic-constructor** cases a real script exercises at runtime — plus
 the unresolved **misses**. The accumulated data is the empirical
-"actually used" evidence that drives the mass-generation reduction work
-(P&R steps 4–5): it shows which of the ~181k lines of combinatorial
+"actually used" evidence that drives the mass-generation reduction work:
+it shows which of the ~181k lines of combinatorial
 `_relaxX$module` / `_rc2…` switch arms scripts ever hit, so the rest can
 be pruned with confidence.
 

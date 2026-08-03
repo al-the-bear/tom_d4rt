@@ -417,7 +417,7 @@ class D4rt {
   /// Step 6: whether [finalizeBridges] has run on this runner.
   bool _bridgesFinalized = false;
 
-  /// P&R#1: set when the `D4RT_LOG_RELAXER_USAGE` environment variable enabled
+  /// Set when the `D4RT_LOG_RELAXER_USAGE` environment variable enabled
   /// [D4.usageLogEnabled] at finalize time. Gates the automatic end-of-run
   /// summary so embedders that flip the flag programmatically manage their own
   /// reporting. This env-var convenience is the VM-only twin divergence — the
@@ -1431,7 +1431,7 @@ class D4rt {
     }
   }
 
-  /// P&R#1: enable [D4.usageLogEnabled] when `D4RT_LOG_RELAXER_USAGE` is set to
+  /// Enable [D4.usageLogEnabled] when `D4RT_LOG_RELAXER_USAGE` is set to
   /// a truthy value (`1`, `true`, `yes`, `on`, case-insensitive). Resets the
   /// log so each process run starts fresh, and arms the automatic end-of-run
   /// summary. No-op if the env var is unset or the flag is already on.
@@ -1446,7 +1446,7 @@ class D4rt {
     _usageLogFromEnv = true;
   }
 
-  /// P&R#1: print the [D4.usageLogSummary] at run end when the usage log was
+  /// Print the [D4.usageLogSummary] at run end when the usage log was
   /// auto-enabled via the environment variable. Embedders that enable the flag
   /// programmatically do their own reporting and are not affected.
   void _maybeEmitUsageLog() {
@@ -1456,7 +1456,7 @@ class D4rt {
   }
 
   // =========================================================================
-  // P&R#3 — Public user-registration API
+  // Public user-registration API
   //
   // Thin facade delegates onto the static [D4] sinks, exposed so embedders
   // and bridge packages can register relaxers, interface proxies, and generic

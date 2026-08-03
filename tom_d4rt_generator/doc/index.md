@@ -5,7 +5,7 @@ files, and emits `*.b.dart` bridge registrations (plus relaxer wrappers,
 generic-constructor factories, and proxy classes) that let the `tom_d4rt`
 interpreter call native Dart code. This index is the navigable entry point to
 the generator's documentation, organized by the four mechanism areas that the
-proxy/relaxer optimization work (quest `d4rt`, P&R campaign) consolidated.
+proxy/relaxer optimization work (quest `d4rt`) consolidated.
 
 > Maintenance note: the generator is the **single source of truth** for every
 > `*.b.dart`. Never hand-edit generated files — fix the generator and
@@ -81,14 +81,14 @@ knobs let a consumer trade generate-everything for a scanned allowlist.
   the `UserProxyRelaxerScanner` element-walker, the unit/resolution tests
   (`G-UVP-*`, `G-UPR-*`, `G-UPS-*`), and the deferred emission/regen/integration
   tail. The parsing/expansion engine (`lib/src/user_variant_pattern.dart`),
-  annotations, directive core, and scanner shipped under P&R#6 / MCI#3 / MCI#6;
-  the **annotation-driven emission** is part of the deferred tail (see Status
-  below).
+  annotations, directive core, and scanner shipped alongside `mixinVariants`
+  and `typeArgVariants`; the **annotation-driven emission** is part of the
+  deferred tail (see Status below).
 
 ### Deprecated-symbol allowlist (`@Deprecated` opt-in)
 
 - [deprecated_allowlist.md](deprecated_allowlist.md) — the per-symbol
-  `ModuleConfig.deprecatedAllowlist` knob (A.5 / MCI#32). The generator skips
+  `ModuleConfig.deprecatedAllowlist` knob. The generator skips
   every `@Deprecated` element by default; this list opts **one** deprecated
   top-level symbol back in by simple name without flipping the whole module to
   `generateDeprecatedElements: true`. The doc covers the config knob, the
@@ -103,7 +103,7 @@ knobs let a consumer trade generate-everything for a scanned allowlist.
   are nullable on the VM SDK but non-nullable on web (dart2js), so the
   generator can emit a `?? default` coercion. Seeded with
   `SceneBuilder.pushOpacity.offset`. Gated behind the default-off
-  `enableVmWebSkewCoercion` flag (B5/R6, MCI#10 / cleanup_todos #38). The doc
+  `enableVmWebSkewCoercion` flag. The doc
   covers the mechanism (registry / gate / integration site), the
   extend-the-registry recipe, the interim `SceneBuilderUserBridge` override and
   its retirement, the unit tests, and the deferred both-twin regen tail.
@@ -112,15 +112,12 @@ knobs let a consumer trade generate-everything for a scanned allowlist.
 
 ## Status — shipped cores vs. deferred tails
 
-The P&R / MCI campaign shipped each mechanism's **analyzer-free / config core
-with unit tests** while deferring the heavyweight tails (annotation-driven
-emission, both-twin regeneration, serial `flutter test` + dart2js/web smoke,
-and obsolete-code removal). The authoritative live status is in the quest:
-
-- `_ai/quests/d4rt/cleanup_todos.md` — the ordered backlog with per-item
-  DONE / DEFERRED status.
-- `_ai/quests/d4rt/completion_steps.d4rt.md` — the deferred regen / integration
-  tails, including the worked-samples + executable-docs harness (P&R#7 b/c).
+The proxy/relaxer optimization work shipped each mechanism's **analyzer-free /
+config core with unit tests** while deferring the heavyweight tails
+(annotation-driven emission, both-twin regeneration, serial `flutter test` +
+dart2js/web smoke, and obsolete-code removal). The authoritative live status is
+`_ai/quests/d4rt/todos.d4rt.todo.yaml` — the quest's todo file, which carries
+each deferred tail as its own entry.
 
 The worked-sample apps live under `tom_d4rt_flutter_test/example/` (calculator,
 clock_face, counter_app, stopwatch_laps, tip_calculator) — **not** `lib/`, as
@@ -128,8 +125,8 @@ some older prose states. [worked_samples.md](worked_samples.md) catalogs them
 against the mechanisms they exercise and points at the in-tester runner harness
 (`sample_apps_in_tester_test.dart`); the `G-WSD-*` drift guard keeps the
 catalog's sample references from rotting. The purpose-built per-fix-path samples
-(missing-relaxer error + the step-4/step-6 fix paths) remain deferred — they
-need the annotation-driven emission (P&R#6 c) live first.
+(missing-relaxer error + the reduction-knob/user-annotation fix paths) remain
+deferred — they need the annotation-driven emission live first.
 
 ---
 

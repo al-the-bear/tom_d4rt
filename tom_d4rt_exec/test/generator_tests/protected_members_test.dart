@@ -63,7 +63,7 @@ void main() {
     } catch (_) {}
   });
 
-  group('Generator @protected emission policy (MCI#4 / A6 lock-in)', () {
+  group('Generator @protected emission policy (lock-in)', () {
     test('GEN-A6-1: the public member is emitted', () {
       expect(generatedCode, contains("'addObserver'"));
     });

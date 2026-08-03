@@ -1,5 +1,5 @@
 // Unit tests for the @D4rtUserProxy / @D4rtUserRelaxer variant-pattern engine
-// (cleanup_todos #27 / P&R #6, sub-steps a + c + d).
+// engine.
 //
 // Test IDs: G-UVP-N (Generator — User Variant Pattern).
 

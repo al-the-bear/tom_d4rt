@@ -132,7 +132,7 @@ final Set<String> _warnedIntentProxyClasses = {};
 ///
 /// Call this once during bridge setup, alongside [registerRelaxers].
 void registerD4rtRuntimeExtensions() {
-  // MCI#1 / A1: The bridged supertype table is now generated and registered
+  // The bridged supertype table is now generated and registered
   // by each per-package bridge's `registerBridges` (via
   // `BridgedClass.registerSupertypes(classSupertypes())`). The former
   // hand-written `_registerBridgedSupertypes()` block was removed.
@@ -2056,7 +2056,7 @@ class _InterpretedKeepAliveState extends State<_InterpretedStatefulWidget>
 /// Register supplementary method adapters that fill genuine interpreter-glue
 /// gaps for interpreted subclasses of bridged classes.
 ///
-/// MCI#4 / A6 correction: the bridge generator does **not** skip `@protected` /
+/// Note: the bridge generator does **not** skip `@protected` /
 /// `@visibleForTesting` members — it emits them into the bridge `methods` /
 /// `getters` maps, and the runtime dispatch (`Instance.get` in
 /// `runtime_types.dart`) consults the generated bridge adapter *before* this

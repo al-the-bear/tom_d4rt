@@ -1,5 +1,5 @@
 /// Tests for the AST/non-AST user-bridge copy-generator pilot
-/// (`tool/sync_shared_user_bridges.dart`, MCI#9 / clean_todos #6 step 2).
+/// (`tool/sync_shared_user_bridges.dart`).
 ///
 /// Pin: the import-prefix rewrite is narrow (only `package:tom_d4rt_ast/` is
 /// touched, never the `tom_d4rt_flutter_ast/doc/...` doc reference); the rewrite
@@ -19,7 +19,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../tool/sync_shared_user_bridges.dart';
 
 void main() {
-  group('syncAstSourceToNonAst (MCI#9 user-bridge pilot)', () {
+  group('syncAstSourceToNonAst (shared user-bridge pilot)', () {
     test('SYNC-UB-1: rewrites the interpreter-package import prefix. [2026-06-07 00:00] (PASS)', () {
       const ast = "import 'package:tom_d4rt_ast/d4rt.dart';\n";
       expect(
@@ -54,7 +54,7 @@ void main() {
     });
   });
 
-  group('checkInSync against the committed files (MCI#9 user-bridge pilot)', () {
+  group('checkInSync against the committed files (shared user-bridge pilot)', () {
     test('SYNC-UB-5: the committed non-AST copies reproduce byte-for-byte from the AST source. [2026-06-07 00:00] (PASS)', () {
       // Under `flutter test`, CWD is the package root (tom_d4rt_flutter_ast).
       final astRoot = Directory.current.path;

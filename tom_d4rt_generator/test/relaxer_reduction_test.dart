@@ -1,4 +1,4 @@
-/// Tests for the P&R#4 relaxer/RC-2 generation reduction knob.
+/// Tests for the relaxer/RC-2 generation reduction knob.
 ///
 /// `BridgeConfig.generateAllRelaxers` (default `true`) controls whether the
 /// combinatorial relaxer-factory / RC-2 generic-constructor switches enumerate
@@ -18,7 +18,7 @@ import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 
 void main() {
-  group('Relaxer reduction knob (P&R#4)', () {
+  group('Relaxer reduction knob', () {
     const barrel = 'package:fake_pkg/fake_pkg.dart';
 
     ClassInfo concrete(String name) =>

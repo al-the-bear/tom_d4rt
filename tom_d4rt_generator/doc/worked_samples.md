@@ -4,8 +4,8 @@ The generator's output is only as good as the scripts it lets the interpreter
 run. This catalog maps the **multi-file sample apps** under
 `tom_d4rt_flutter_test/example/` to the generation mechanisms (categories A–D,
 see [index.md](index.md)) and interpreter behaviours they exercise, and points
-at the harness that runs them. It is the worked-samples reference for P&R #7 —
-the prose half that does not depend on the deferred annotation-driven emission.
+at the harness that runs them. It is the worked-samples reference — the prose
+half that does not depend on the deferred annotation-driven emission.
 
 > The samples are **interpreted Dart**: the host registers the flutter-material
 > bridges (`SourceFlutterD4rt`), then `buildMultiFile` interprets
@@ -55,11 +55,11 @@ the worked samples for those paths.
 
 ## What is NOT yet demonstrated here (pending live emission)
 
-P&R #7 b also calls for samples that demonstrate the **missing-relaxer error**
-(step 2) and the **type-relaxation / annotation-driven** fix paths (steps 4 and
-6). None of the catalogued samples exercise a multi-type-parameter generic or a
+Samples that demonstrate the **missing-relaxer error** and the
+**type-relaxation / annotation-driven** fix paths are still missing. None of
+the catalogued samples exercise a multi-type-parameter generic or a
 wildcard-relaxer variant, because the **annotation-driven proxy/relaxer
-emission (P&R #6 c) is not wired into live generation yet** — there is no
+emission is not wired into live generation yet** — there is no
 generated `TomFormList<TElement, TForm>` relaxer for a sample to call. Authoring
 those purpose-built samples, and embedding their scripts as runnable snippets in
 the docs, is the deferred tail (see *Status* below). The directive core that
@@ -74,12 +74,11 @@ those samples will eventually drive is documented in
 samples + the in-tester harness) and the `G-WSD-*` drift guard that pins the
 doc's sample references to real files.
 
-**Deferred (flutter-gated, blocked on P&R #6 c emission — see
+**Deferred (flutter-gated, blocked on the annotation-driven emission — see
 `todo_impossible.md` #16):**
 
-- Purpose-built worked samples demonstrating the step-2 missing-relaxer error
-  and the step-4 (reduction-config) / step-6 (annotation-driven variant)
-  fix paths — they need the emission live so the "fixed" path actually
+- Purpose-built worked samples demonstrating the missing-relaxer error and the
+  reduction-config / annotation-driven-variant fix paths — they need the emission live so the "fixed" path actually
   generates a relaxer/proxy a sample can call.
 - The docs-embedded executable-script check that runs each documented snippet
   through the runner — the in-process runner is `SourceFlutterD4rt`, so the

@@ -1,4 +1,4 @@
-/// Test fixtures for the MCI#1 / A1 generated supertype table.
+/// Test fixtures for the generated supertype table.
 ///
 /// Exercises every edge the `classSupertypes()` emission must cover:
 /// - a plain root class (no bridged supertype → omitted from the table),

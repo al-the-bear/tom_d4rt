@@ -281,7 +281,7 @@ void main() {
     });
   });
 
-  group('BridgeConfig relaxer reduction knobs (P&R#4)', () {
+  group('BridgeConfig relaxer reduction knobs', () {
     Map<String, dynamic> baseJson() => {
           'name': 'reduction_project',
           'modules': [
@@ -437,7 +437,7 @@ void main() {
     });
   });
 
-  group('BridgeConfig.recreatorClasses (MCI#5)', () {
+  group('BridgeConfig.recreatorClasses', () {
     Map<String, dynamic> baseJson() => {
           'name': 'recreator_project',
           'modules': [
