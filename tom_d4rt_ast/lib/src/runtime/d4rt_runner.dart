@@ -1341,17 +1341,26 @@ class D4rtRunner {
 
     // Register bridged classes (Step #17 — lazily, so the class's member maps
     // + adapter closures are only built when the env first resolves it).
-    for (final byName in classes.values) {
+    // The declaring source URI travels with each registration: it is what a
+    // same-name collision is reported against and what the `<package>.Name`
+    // qualifier is derived from (see [Environment.defineBridgeLazy]).
+    classes.forEach((uri, byName) {
       for (final libClass in byName.values) {
-        env.defineBridgeLazy(libClass.name, libClass.nativeType, libClass.thunk);
+        env.defineBridgeLazy(
+          libClass.name,
+          libClass.nativeType,
+          libClass.thunk,
+          sourceUri: libClass.sourceUri ?? uri,
+        );
       }
-    }
+    });
 
     // Register function typedefs as BridgedClass(nativeType: Function)
     // so they can be resolved in type annotations and type arguments.
     for (final typedef in functionTypedefs) {
       env.defineBridge(
         BridgedClass(nativeType: Function, name: typedef.name),
+        sourceUri: typedef.library,
       );
     }
 

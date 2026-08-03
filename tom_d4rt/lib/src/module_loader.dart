@@ -453,7 +453,8 @@ class ModuleLoader {
         // Step #17 — transfer the deferred thunk so the BridgedClass is only
         // built if the importing module actually resolves the class.
         targetEnvironment.defineBridgeLazy(
-            libClass.name, libClass.nativeType, libClass.thunk);
+            libClass.name, libClass.nativeType, libClass.thunk,
+            sourceUri: libClass.sourceUri ?? uriString);
         Logger.debugLazy(() =>
             ' [ModuleLoader] GEN-100: Registered bridged class: $name from $uriString');
       } catch (e) {
@@ -488,7 +489,8 @@ class ModuleLoader {
         }
         try {
           targetEnvironment.defineBridge(
-              BridgedClass(nativeType: Function, name: typedef.name));
+              BridgedClass(nativeType: Function, name: typedef.name),
+              sourceUri: uriString);
           Logger.debugLazy(() =>
               ' [ModuleLoader] GEN-100: Registered function typedef: ${typedef.name} from $uriString');
         } catch (e) {
@@ -615,9 +617,9 @@ class ModuleLoader {
         if (definition.name != null) {
           targetEnvironment.define(definition.name!, interpretedExt);
         }
-        Logger.debugLazy(() =>
-            ' [ModuleLoader] GEN-100: Registered extension "$extName" on '
-            '${definition.onTypeName} from $uriString');
+        Logger.debugLazy(
+            () => ' [ModuleLoader] GEN-100: Registered extension "$extName" on '
+                '${definition.onTypeName} from $uriString');
       } catch (e) {
         Logger.error("registering extension '$extName' into module env: $e");
       }
@@ -829,8 +831,7 @@ class ModuleLoader {
     // just before the export directives so the partial module published below
     // carries the SAME Environment instance that later receives this module's
     // local declarations; a cyclic importer therefore holds a live reference.
-    Environment exportedEnvironment =
-        Environment(enclosing: globalEnvironment);
+    Environment exportedEnvironment = Environment(enclosing: globalEnvironment);
 
     // DFUB10 — publish the partial module BEFORE walking any directive, so a
     // cycle back to this URI terminates. Circular imports and exports are legal
@@ -1312,24 +1313,29 @@ class ModuleLoader {
                 " [execute] Skipping duplicate class '$className' from same source: $sourceUri");
             continue;
           }
-          // B2 MarkdownParser clash: two different libraries declare a
-          // same-name bridge. Do NOT error — register this one too. The
-          // import wins as the primary; defineBridge records the displaced
-          // sibling as a shadow so static/constructor lookups can fall back
-          // to whichever bridge actually declares the requested member.
-          // Matches the tolerant per-module behaviour of the GEN-100 path.
-          Logger.debugLazy(() =>
-              " [execute] Same-name class '$className' from a different "
-              "source ($existingSourceUri vs $sourceUri); registering both "
-              "with shadow fallback.");
+          // Two different libraries declare a same-name bridge. Do NOT error
+          // here: registration mirrors Dart's *import*, and importing two
+          // libraries that both export `Foo` is legal. What is illegal is
+          // *referring* to the bare `Foo` afterwards, so the environment
+          // records the ambiguity (keyed by source URI) and reports it at the
+          // reference — see [Environment.defineBridgeLazy] and the
+          // AmbiguousBridgedNameException thrown from [Environment.lookup].
+          // Both classes stay reachable as `<package>.Foo`.
+          Logger.debugLazy(
+              () => " [execute] Same-name class '$className' from a different "
+                  "source ($existingSourceUri vs $sourceUri); the bare name "
+                  "becomes ambiguous and must be qualified.");
         }
 
         _registeredClasses[className] = sourceUri;
 
         try {
           // Step #17 — transfer the deferred thunk (build on first resolve).
+          // The source URI travels with it: it is what the ambiguity report
+          // and the `<package>.Name` qualifier are derived from.
           globalEnvironment.defineBridgeLazy(
-              libClass.name, libClass.nativeType, libClass.thunk);
+              libClass.name, libClass.nativeType, libClass.thunk,
+              sourceUri: sourceUri);
           Logger.debugLazy(() =>
               " [execute] Registered bridged class: $className from $sourceUri");
         } catch (e) {

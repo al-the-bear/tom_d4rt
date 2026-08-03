@@ -117,14 +117,14 @@ String main() {
     });
 
     test(
-        'B2-CLASH-3: when BOTH same-name libraries are imported, each static '
-        'still resolves to the library that declared it [2026-06-17]', () {
+        'B2-CLASH-3: when BOTH same-name libraries are imported the bare name '
+        'is rejected, as in Dart [2026-06-17]', () {
       // This mirrors the REPL/replay scenario: the init source imports every
       // registered bridge library, so both MarkdownParser bridges land in one
-      // environment. A bare `MarkdownParser.generateId(...)` then resolves by
-      // simple name — last-wins shadowing makes the doc_scanner static
-      // disappear. With sourceUri-qualified resolution, both statics must
-      // remain reachable through their declaring library.
+      // environment unprefixed. Dart rejects such a reference and asks for a
+      // prefix, and so does d4rt — the earlier behaviour of picking whichever
+      // bridge happened to declare the requested member bound the name to a
+      // class the author never named.
       interpreter.registerBridgedClass(
         docScannerParser(),
         'package:tom_doc_scanner/tom_doc_scanner.dart',
@@ -145,8 +145,43 @@ String main() {
 }
 ''';
 
-      final result = interpreter.execute(source: source);
-      expect(result, 'doc-scanner-id:Hello World');
+      expect(
+          () => interpreter.execute(source: source),
+          throwsA(isA<AmbiguousBridgedNameException>().having(
+              (e) => e.candidatesByQualifier.keys,
+              'qualifiers',
+              containsAll(<String>['tom_doc_scanner', 'tom_md2latex']))));
+    });
+
+    test(
+        'B2-CLASH-4: qualifying by package name reaches each declaring library '
+        '[2026-08-03]', () {
+      // The escape hatch the ambiguity error points at. Both classes stay
+      // reachable — nothing is lost by refusing the bare name.
+      interpreter.registerBridgedClass(
+        docScannerParser(),
+        'package:tom_doc_scanner/tom_doc_scanner.dart',
+        sourceUri: 'package:tom_doc_scanner/src/markdown_parser.dart',
+      );
+      interpreter.registerBridgedClass(
+        md2latexParser(),
+        'package:tom_md2latex/tom_md2latex.dart',
+        sourceUri: 'package:tom_md2latex/src/markdown_parser.dart',
+      );
+
+      const source = '''
+import 'package:tom_doc_scanner/tom_doc_scanner.dart';
+import 'package:tom_md2latex/tom_md2latex.dart';
+
+String main() {
+  return tom_doc_scanner.MarkdownParser.generateId('Hello World') +
+      '|' +
+      tom_md2latex.MarkdownParser.toLatex('Hello World');
+}
+''';
+
+      expect(interpreter.execute(source: source),
+          'doc-scanner-id:Hello World|latex:Hello World');
     });
   });
 }

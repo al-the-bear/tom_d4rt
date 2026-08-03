@@ -1,3 +1,45 @@
+## 1.27.0
+
+### Fixed — two packages declaring the same class name resolved to whichever registered last (tcca19)
+
+`package:tom_doc_scanner` and `package:tom_md2latex` each declare a
+`MarkdownParser`. Both barrels are registered into one interpreter, and the
+registry keyed bridged classes by *simple name* only — so the second
+registration silently shadowed the first and a script naming `MarkdownParser`
+got an arbitrary one of the two. The interpreter then papered over the
+consequences by scavenging sibling same-name bridges for the requested member,
+which bound the name to a class the author never named.
+
+The registry now carries the declaring library's source URI through
+registration, and applies Dart's own rule:
+
+- **One class under a name resolves as before.** The same class arriving twice
+  through two barrels (a re-export) is not an ambiguity — sameness is decided by
+  `nativeType`, not by URI.
+- **Two different classes under one name make the bare name an error.** The new
+  `AmbiguousBridgedNameException` names both declaring URIs and the qualified
+  forms that work. It is raised at the *reference*, not at registration, exactly
+  as Dart reports an ambiguous import — the host registers every barrel up
+  front, so failing at registration would break scripts that never mention the
+  name.
+- **`<package>.Name` reaches each declaring library.** No import prefix
+  directive is required, which matters for `.d4rt` replay files (they cannot
+  carry import directives).
+- **An ambiguity is only raised when the script has a remedy.** If the colliding
+  registrations cannot be told apart by package qualifier, last-wins stands and
+  a warning is logged; an error with no available fix would be worse than the
+  arbitrary pick it replaces.
+
+**Behaviour change.** A script that referenced a bare name while *both*
+declaring libraries were in scope previously got one of the two silently; it now
+throws and must qualify. `B2-CLASH-3` was rewritten to assert the new contract.
+Import-over-ambient (GEN-100, e.g. `painting.TextStyle` overriding the ambient
+`dart:ui` one) is unaffected — that is import-vs-ambient, and only
+import-vs-import is ambiguous.
+
+The rule is documented in
+`tom_d4rt_generator/_copilot_guidelines/same_name_class_resolution.md`.
+
 ## 1.26.0
 
 ### Fixed — the `dart:convert` codec/converter half had no hierarchy, and `Encoding.decodeStream` was unreachable (SCB23)

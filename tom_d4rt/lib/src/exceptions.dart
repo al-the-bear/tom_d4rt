@@ -61,7 +61,7 @@ class D4rtDiag {
 ///
 /// This is used primarily in test modes to detect errors that occurred
 /// during script execution.
-/// 
+///
 /// Errors can be revoked if they are caught and handled gracefully,
 /// preventing them from causing test failures.
 class ErrorReporter {
@@ -160,7 +160,7 @@ class ErrorReporter {
 }
 
 /// Base class for all D4rt-specific exceptions that should be tracked.
-/// 
+///
 /// All exceptions are automatically registered with [ErrorReporter] on creation.
 /// If an exception is caught and handled gracefully, call [revoke()] to prevent
 /// it from causing test failures.
@@ -195,13 +195,13 @@ abstract class D4rtException implements Exception {
   }
 
   /// Revokes this error from the ErrorReporter.
-  /// 
+  ///
   /// Call this when the exception has been caught and handled gracefully,
   /// and should not count as a test failure.
-  /// 
+  ///
   /// Returns true if the error was successfully revoked, false if it was
   /// not found in the reporter (possibly already revoked).
-  /// 
+  ///
   /// Example:
   /// ```dart
   /// try {
@@ -244,6 +244,49 @@ class RuntimeD4rtException extends D4rtException {
 
   @override
   String toString() => 'Runtime Error: $message';
+}
+
+/// Thrown when a script names a bridged class by its simple name and two
+/// different libraries in scope declare a class under that name.
+///
+/// This mirrors Dart's own ambiguous-import rule. Once
+/// `package:tom_doc_scanner/…` and `package:tom_md2latex/…` are both imported
+/// unprefixed, the bare name `MarkdownParser` designates nothing in
+/// particular; Dart rejects the reference and asks for a prefix. D4rt does the
+/// same, because the alternative — binding the name to whichever bridge
+/// happened to register last — silently picks a class the author never named,
+/// and the script then fails somewhere else (or, worse, succeeds against the
+/// wrong implementation).
+///
+/// [candidatesByQualifier] maps each qualifier a script can use (the package
+/// name of the declaring library) to the source URI that qualifier resolves
+/// to. Writing `tom_doc_scanner.MarkdownParser` selects one unambiguously.
+class AmbiguousBridgedNameException extends D4rtException {
+  /// The simple name that resolves to more than one bridged class.
+  final String name;
+
+  /// Qualifier → source URI, for every candidate reachable by qualification.
+  final Map<String, String> candidatesByQualifier;
+
+  /// Creates the ambiguity error for [name] over [candidatesByQualifier].
+  AmbiguousBridgedNameException(this.name, this.candidatesByQualifier)
+      : super(_buildMessage(name, candidatesByQualifier));
+
+  static String _buildMessage(
+      String name, Map<String, String> candidatesByQualifier) {
+    final buffer = StringBuffer()
+      ..write("The name '$name' is declared by more than one library in "
+          "scope, so it cannot be used unqualified. Candidates:");
+    candidatesByQualifier.forEach((qualifier, sourceUri) {
+      buffer.write("\n  $qualifier.$name  ($sourceUri)");
+    });
+    buffer.write("\nQualify the reference with the package name shown above, "
+        "e.g. '${candidatesByQualifier.keys.first}.$name'.");
+    return buffer.toString();
+  }
+
+  @override
+  String toString() => 'Ambiguous Name Error: $message';
 }
 
 /// Exception for state-related errors in D4rt components.

@@ -33,6 +33,7 @@ See [sync_with_tom_d4rt.md](sync_with_tom_d4rt.md) for details. Both packages mu
 | File | Description |
 |------|-------------|
 | [sync_with_tom_d4rt.md](sync_with_tom_d4rt.md) | 🚨 **CRITICAL** D4 class synchronization with tom_d4rt |
+| [same_name_class_resolution.md](../../tom_d4rt_generator/_copilot_guidelines/same_name_class_resolution.md) | Resolution rule for two packages declaring the same class name (implemented identically here and in `tom_d4rt`; canonical doc lives with the generator) |
 
 ## Quick Reference
 

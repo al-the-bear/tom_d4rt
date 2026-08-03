@@ -1,3 +1,24 @@
+## 0.19.0
+
+### Fixed — two packages declaring the same class name resolved to whichever registered last (tcca19)
+
+Mirrors `tom_d4rt` 1.27.0.
+
+- Bridged-class registration now carries the declaring library's source URI
+  (`Environment.defineBridge` / `defineBridgeLazy`, `AstModuleLoader`,
+  `D4rtRunner._registerDefsInto`).
+- Two *different* native classes under one simple name make the bare name an
+  error: `AmbiguousBridgedNameException`, raised at the reference from
+  `Environment.lookup`, naming both declaring URIs. The same class arriving
+  twice through two barrels is still not an ambiguity.
+- `<package>.Name` reaches each declaring library, with no import prefix
+  directive needed.
+- A collision that cannot be told apart by package qualifier keeps the legacy
+  last-wins behaviour with a warning, so no script is left without a remedy.
+- The same-name scavenging fallback in `visitMethodInvocation` is removed: it
+  bound the name to whichever same-name bridge happened to declare the requested
+  member.
+
 ## 0.18.0
 
 ### Fixed — the `dart:convert` codec/converter half had no hierarchy, and `Encoding.decodeStream` was unreachable (SCB23)

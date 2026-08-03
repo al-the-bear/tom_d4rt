@@ -100,6 +100,114 @@ void main() {
     });
   });
 
+  group('AMBIG: same simple name declared by two libraries', () {
+    // The bridge corpus imports every package barrel unprefixed, so two
+    // packages that each declare a `MarkdownParser` put one name on two
+    // classes. Dart's answer is to reject the bare name and demand a prefix;
+    // these tests pin that answer down for the bridge registry.
+    const scannerUri = 'package:tom_doc_scanner/src/markdown_parser.dart';
+    const latexUri = 'package:tom_md2latex/src/markdown_parser.dart';
+
+    Environment envWithBothParsers() {
+      final env = Environment();
+      env.defineBridge(
+        BridgedClass(nativeType: _Widget, name: 'MarkdownParser'),
+        sourceUri: scannerUri,
+      );
+      env.defineBridge(
+        BridgedClass(nativeType: _OtherWidget, name: 'MarkdownParser'),
+        sourceUri: latexUri,
+      );
+      return env;
+    }
+
+    test('AMBIG-1: both classes stay reachable, each under its package name',
+        () {
+      final env = envWithBothParsers();
+
+      final scanner = env.get('tom_doc_scanner.MarkdownParser');
+      final latex = env.get('tom_md2latex.MarkdownParser');
+
+      expect(scanner, isA<BridgedClass>());
+      expect(latex, isA<BridgedClass>());
+      expect((scanner as BridgedClass).nativeType, _Widget);
+      expect((latex as BridgedClass).nativeType, _OtherWidget);
+    });
+
+    test('AMBIG-2: the bare name is an error, not an arbitrary pick', () {
+      final env = envWithBothParsers();
+
+      expect(
+        () => env.get('MarkdownParser'),
+        throwsA(
+          isA<AmbiguousBridgedNameException>().having(
+            (e) => e.candidatesByQualifier.keys,
+            'qualifiers',
+            containsAll(<String>['tom_doc_scanner', 'tom_md2latex']),
+          ),
+        ),
+      );
+    });
+
+    test('AMBIG-3: the error names both candidates and how to qualify', () {
+      final env = envWithBothParsers();
+
+      expect(
+        () => env.get('MarkdownParser'),
+        throwsA(
+          isA<AmbiguousBridgedNameException>()
+              .having((e) => e.message, 'message', contains(scannerUri))
+              .having((e) => e.message, 'message', contains(latexUri))
+              .having(
+                (e) => e.message,
+                'message',
+                contains('tom_md2latex.MarkdownParser'),
+              ),
+        ),
+      );
+    });
+
+    test(
+        'AMBIG-4: the same class re-registered via a second barrel is not '
+        'ambiguous', () {
+      // A re-export delivers one class twice. Same nativeType ⇒ one class ⇒
+      // the bare name still designates exactly what the author expects.
+      final env = Environment();
+      env.defineBridge(
+        BridgedClass(nativeType: _Widget, name: 'Widget'),
+        sourceUri: 'package:tom_basics/src/widget.dart',
+      );
+      env.defineBridge(
+        BridgedClass(nativeType: _Widget, name: 'Widget'),
+        sourceUri: 'package:tom_basics/src/widget.dart',
+      );
+
+      expect(env.get('Widget'), isA<BridgedClass>());
+    });
+
+    test('AMBIG-5: a collision that cannot be qualified keeps last-wins', () {
+      // No source URIs ⇒ no qualifier ⇒ no remedy. Rejecting the name here
+      // would strand the script, so the legacy behaviour stands.
+      final env = Environment();
+      final first = BridgedClass(nativeType: _Widget, name: 'Widget');
+      final second = BridgedClass(nativeType: _OtherWidget, name: 'Widget');
+      env.defineBridge(first);
+      env.defineBridge(second);
+
+      expect(identical(env.get('Widget'), second), isTrue);
+    });
+
+    test('AMBIG-6: ambiguity survives an import into another environment', () {
+      final target = Environment()..importEnvironment(envWithBothParsers());
+
+      expect(
+        () => target.get('MarkdownParser'),
+        throwsA(isA<AmbiguousBridgedNameException>()),
+      );
+      expect(target.get('tom_doc_scanner.MarkdownParser'), isA<BridgedClass>());
+    });
+  });
+
   group('IMP-OPT-17: N-of-M lazy materialization (build counter)', () {
     test(
         'IMP-OPT-17a: resolving N of M registered thunks builds exactly N',

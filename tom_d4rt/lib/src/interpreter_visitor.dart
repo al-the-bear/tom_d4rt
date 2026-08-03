@@ -671,8 +671,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // Cluster-12 (priority 3): Walk the registered supertype chain when
         // the leaf bridge has no matching getter/method. See
         // [InterpreterVisitorExtension.lookupOnBridgedSupertypes].
-        final supertypeMatch =
-            lookupOnBridgedSupertypes(bridgedInstance, name);
+        final supertypeMatch = lookupOnBridgedSupertypes(bridgedInstance, name);
         if (supertypeMatch.$2) {
           Logger.debug(
               "[visitSimpleIdentifier]   Resolved '$name' via supertype walk on '${bridgedInstance.bridgedClass.name}'.");
@@ -1228,8 +1227,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // env where ModuleLoader registered the BridgedEnum). The global env
         // does not hold bridged enums — only classes are pre-populated there
         // by D4rt._initModule.
-        final bridgedEnumValue =
-            environment.getBridgedEnumValue(enumObj) ??
+        final bridgedEnumValue = environment.getBridgedEnumValue(enumObj) ??
             globalEnvironment.getBridgedEnumValue(enumObj);
         if (bridgedEnumValue != null) {
           try {
@@ -1363,7 +1361,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         Logger.error(
             "[PrefixedIdentifier] Native exception during bridged enum property get '$bridgedEnumValue.$memberName': $e\n$s");
         throw RuntimeD4rtException(
-            "Native error during bridged enum property get '$memberName' on $bridgedEnumValue: $e", originalException: e);
+            "Native error during bridged enum property get '$memberName' on $bridgedEnumValue: $e",
+            originalException: e);
       }
     } else if (prefixValue is Callable) {
       // Handle property access on function types (InterpretedFunction, NativeFunction, etc.)
@@ -1551,11 +1550,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // numeric arithmetic is done inline below, and primitives never dispatch
     // through a bridged-operator adapter. `(null, false)` is identical in
     // effect to the wrapped-then-unwrapped result.
-    final leftBridgedInstance =
-        (leftOperandValue is num || leftOperandValue is String ||
-                leftOperandValue is bool)
-            ? (null, false)
-            : toBridgedInstance(leftOperandValue);
+    final leftBridgedInstance = (leftOperandValue is num ||
+            leftOperandValue is String ||
+            leftOperandValue is bool)
+        ? (null, false)
+        : toBridgedInstance(leftOperandValue);
     // GEN-095 (D8f): an InterpretedFunction is a *function value*, not a
     // thunk. Auto-invoking it here corrupts equality / null-check semantics
     // for callbacks (e.g. `onHorizontalDrag == null` would invoke the
@@ -1568,11 +1567,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 leftOperandValue.canCallWithoutArgs)
             ? leftOperandValue.call(this, [])
             : leftOperandValue;
-    final rightBridgedInstance =
-        (rightOperandValue is num || rightOperandValue is String ||
-                rightOperandValue is bool)
-            ? (null, false)
-            : toBridgedInstance(rightOperandValue);
+    final rightBridgedInstance = (rightOperandValue is num ||
+            rightOperandValue is String ||
+            rightOperandValue is bool)
+        ? (null, false)
+        : toBridgedInstance(rightOperandValue);
     final right = rightBridgedInstance.$2
         ? rightBridgedInstance.$1!.nativeObject
         : (rightOperandValue is InterpretedFunction &&
@@ -1597,8 +1596,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // its existing `'$left$right'` stringify fallback (`'foo' + null`
     // continues to produce `'foonull'`).
     const nullPropagatingOps = <String>{
-      '*', '/', '~/', '%', '-',
-      '&', '|', '^', '<<', '>>', '>>>',
+      '*',
+      '/',
+      '~/',
+      '%',
+      '-',
+      '&',
+      '|',
+      '^',
+      '<<',
+      '>>',
+      '>>>',
     };
     if (nullPropagatingOps.contains(operator.lexeme) &&
         (left == null || right == null)) {
@@ -1733,7 +1741,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           Logger.error(
               "[BinaryExpression] Native exception during bridged operator '$operatorName' on ${bridgedClass.name}: $e\\n$s");
           throw RuntimeD4rtException(
-              "Native error during bridged operator '$operatorName' on ${bridgedClass.name}: $e", originalException: e);
+              "Native error during bridged operator '$operatorName' on ${bridgedClass.name}: $e",
+              originalException: e);
         }
       }
     }
@@ -1994,9 +2003,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     if (targetValue is Map) {
       // Unwrap BridgedEnumValue keys to nativeValue so lookups work
       // regardless of whether the map was built with native or wrapped keys.
-      final key = indexValue is BridgedEnumValue
-          ? indexValue.nativeValue
-          : indexValue;
+      final key =
+          indexValue is BridgedEnumValue ? indexValue.nativeValue : indexValue;
       return targetValue[key];
     }
     if (targetValue is String && indexValue is int) {
@@ -2057,7 +2065,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           Logger.error(
               "[visitIndexExpression] Native exception during bridged operator '$operatorName' on ${bridgedClass.name}: $e\\n$s");
           throw RuntimeD4rtException(
-              "Native error during bridged operator '$operatorName' on ${bridgedClass.name}: $e", originalException: e);
+              "Native error during bridged operator '$operatorName' on ${bridgedClass.name}: $e",
+              originalException: e);
         }
       }
       Logger.debug(
@@ -2278,8 +2287,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                     "[Assignment] Assigning to bridged 'this'.$variableName via setter adapter.");
                 D4.withActiveVisitor<void>(
                   this,
-                  () => setterAdapter(
-                      this, thisInstance.nativeObject, rhsValue),
+                  () =>
+                      setterAdapter(this, thisInstance.nativeObject, rhsValue),
                 );
                 return rhsValue; // Simple assignment returns RHS value
               } else {
@@ -2301,8 +2310,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                     "[Assignment] Compound assigning to bridged 'this'.$variableName via setter adapter.");
                 D4.withActiveVisitor<void>(
                   this,
-                  () => setterAdapter(
-                      this, thisInstance.nativeObject, newValue),
+                  () =>
+                      setterAdapter(this, thisInstance.nativeObject, newValue),
                 );
                 return newValue; // Compound assignment returns new value
               }
@@ -2577,8 +2586,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // visitor for interface proxy creation when coercing args.
             D4.withActiveVisitor<void>(
               this,
-              () => setterAdapter(
-                  this, bridgedInstance.nativeObject, rhsValue),
+              () => setterAdapter(this, bridgedInstance.nativeObject, rhsValue),
             );
             return rhsValue; // Simple assignment returns RHS value
           } else {
@@ -2602,8 +2610,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // visitor for interface proxy creation when coercing args.
             D4.withActiveVisitor<void>(
               this,
-              () => setterAdapter(
-                  this, bridgedInstance.nativeObject, newValue),
+              () => setterAdapter(this, bridgedInstance.nativeObject, newValue),
             );
             return newValue; // Compound assignment returns new value
           }
@@ -2625,25 +2632,21 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             if (scriptSetter != null || hasField) {
               if (operatorType == TokenType.EQ) {
                 if (scriptSetter != null) {
-                  scriptSetter
-                      .bind(interpretedObj)
-                      .call(this, [rhsValue], {});
+                  scriptSetter.bind(interpretedObj).call(this, [rhsValue], {});
                 } else {
                   interpretedObj.set(propertyName, rhsValue, this);
                 }
                 return rhsValue;
               } else {
-                final getter = interpretedObj.klass
-                    .findInstanceGetter(propertyName);
+                final getter =
+                    interpretedObj.klass.findInstanceGetter(propertyName);
                 final Object? currentValue = getter != null
                     ? getter.bind(interpretedObj).call(this, [], {})
                     : interpretedObj.get(propertyName);
-                final Object? newValue = computeCompoundValue(
-                    currentValue, rhsValue, operatorType);
+                final Object? newValue =
+                    computeCompoundValue(currentValue, rhsValue, operatorType);
                 if (scriptSetter != null) {
-                  scriptSetter
-                      .bind(interpretedObj)
-                      .call(this, [newValue], {});
+                  scriptSetter.bind(interpretedObj).call(this, [newValue], {});
                 } else {
                   interpretedObj.set(propertyName, newValue, this);
                 }
@@ -2692,7 +2695,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               Logger.error(
                   "Native exception during super assignment to bridged setter '${bridgedSuper.name}.$propertyName': $e\\n$s");
               throw RuntimeD4rtException(
-                  "Native error during super assignment to bridged setter '$propertyName': $e", originalException: e);
+                  "Native error during super assignment to bridged setter '$propertyName': $e",
+                  originalException: e);
             }
           } else {
             // No setter found
@@ -2732,7 +2736,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             Logger.error(
                 "Native exception during compound super assignment to bridged property '${bridgedSuper.name}.$propertyName': $e\\n$s");
             throw RuntimeD4rtException(
-                "Native error during compound super assignment to bridged property '$propertyName': $e", originalException: e);
+                "Native error during compound super assignment to bridged property '$propertyName': $e",
+                originalException: e);
           }
         }
       } else if (targetValue is InterpretedExtensionTypeInstance) {
@@ -2949,8 +2954,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // visitor for interface proxy creation when coercing args.
             D4.withActiveVisitor<void>(
               this,
-              () => setterAdapter(
-                  this, bridgedInstance.nativeObject, rhsValue),
+              () => setterAdapter(this, bridgedInstance.nativeObject, rhsValue),
             );
             return rhsValue; // Simple assignment returns RHS value
           } else {
@@ -2974,8 +2978,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // visitor for interface proxy creation when coercing args.
             D4.withActiveVisitor<void>(
               this,
-              () => setterAdapter(
-                  this, bridgedInstance.nativeObject, newValue),
+              () => setterAdapter(this, bridgedInstance.nativeObject, newValue),
             );
             return newValue; // Compound assignment returns new value
           }
@@ -2997,25 +3000,21 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             if (scriptSetter != null || hasField) {
               if (operatorType == TokenType.EQ) {
                 if (scriptSetter != null) {
-                  scriptSetter
-                      .bind(interpretedObj)
-                      .call(this, [rhsValue], {});
+                  scriptSetter.bind(interpretedObj).call(this, [rhsValue], {});
                 } else {
                   interpretedObj.set(propertyName, rhsValue, this);
                 }
                 return rhsValue;
               } else {
-                final getter = interpretedObj.klass
-                    .findInstanceGetter(propertyName);
+                final getter =
+                    interpretedObj.klass.findInstanceGetter(propertyName);
                 final Object? currentValue = getter != null
                     ? getter.bind(interpretedObj).call(this, [], {})
                     : interpretedObj.get(propertyName);
-                final Object? newValue = computeCompoundValue(
-                    currentValue, rhsValue, operatorType);
+                final Object? newValue =
+                    computeCompoundValue(currentValue, rhsValue, operatorType);
                 if (scriptSetter != null) {
-                  scriptSetter
-                      .bind(interpretedObj)
-                      .call(this, [newValue], {});
+                  scriptSetter.bind(interpretedObj).call(this, [newValue], {});
                 } else {
                   interpretedObj.set(propertyName, newValue, this);
                 }
@@ -3125,7 +3124,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 Logger.error(
                     "[visitAssignmentExpression-Index] Native exception during bridged operator '$operatorName' read on ${bridgedClass.name}: $e\\n$s");
                 throw RuntimeD4rtException(
-                    "Native error during bridged operator '$operatorName' read on ${bridgedClass.name}: $e", originalException: e);
+                    "Native error during bridged operator '$operatorName' read on ${bridgedClass.name}: $e",
+                    originalException: e);
               }
             } else {
               throw RuntimeD4rtException(
@@ -3241,8 +3241,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                   "Error executing extension-type operator '[]=': $e");
             }
           }
-          throw RuntimeD4rtException(
-              'Cannot assign to index on extension type '
+          throw RuntimeD4rtException('Cannot assign to index on extension type '
               '${targetValue.extensionType.name}: No operator []= found.');
         } else if (toBridgedInstance(targetValue).$2) {
           final bridgedInstance = toBridgedInstance(targetValue).$1!;
@@ -3262,7 +3261,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               Logger.error(
                   "[visitAssignmentExpression-Index] Native exception during bridged operator '$operatorName' on ${bridgedClass.name}: $e\\n$s");
               throw RuntimeD4rtException(
-                  "Native error during bridged operator '$operatorName' on ${bridgedClass.name}: $e", originalException: e);
+                  "Native error during bridged operator '$operatorName' on ${bridgedClass.name}: $e",
+                  originalException: e);
             }
           }
           throw RuntimeD4rtException(
@@ -3647,7 +3647,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             Logger.log("Native Error Stack Trace: $s"); // Print stack trace
             // Catch potential errors from the native code/adapter
             throw RuntimeD4rtException(
-                "Native error during bridged method call '$methodName' on ${bridgedClass.name}: $e", originalException: e);
+                "Native error during bridged method call '$methodName' on ${bridgedClass.name}: $e",
+                originalException: e);
           }
         } else {
           // C13 follow-up: before falling back to extensions, try a getter
@@ -3716,8 +3717,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                   if (evaluationResult is AsyncSuspensionRequest) {
                     return evaluationResult;
                   }
-                  final (positionalArgs, namedArgs) = evaluationResult
-                      as (List<Object?>, Map<String, Object?>);
+                  final (positionalArgs, namedArgs) =
+                      evaluationResult as (List<Object?>, Map<String, Object?>);
                   List<RuntimeType>? evaluatedTypeArguments;
                   final typeArgsNode = node.typeArguments;
                   if (typeArgsNode != null) {
@@ -3725,8 +3726,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                         .map((typeNode) => _resolveTypeAnnotation(typeNode))
                         .toList();
                   }
-                  return bound.call(this, positionalArgs, namedArgs,
-                      evaluatedTypeArguments);
+                  return bound.call(
+                      this, positionalArgs, namedArgs, evaluatedTypeArguments);
                 }
               } on RuntimeD4rtException {
                 // Method not found on the inner interpreted instance —
@@ -3921,7 +3922,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           Logger.error(
               "[visitMethodInvocation] Native exception during bridged enum method call '$targetValue.$methodName': $e\n$s");
           throw RuntimeD4rtException(
-              "Native error during bridged enum method call '$methodName' on $targetValue: $e", originalException: e);
+              "Native error during bridged enum method call '$methodName' on $targetValue: $e",
+              originalException: e);
         }
       } else if (targetValue is BridgedEnum) {
         // Static method call on a bridged enum type, e.g.
@@ -3975,24 +3977,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       } else if (targetValue is BridgedClass) {
         // This is a method call on a bridged class (bridged constructor or static method)
         final methodName = node.methodName.name;
-        // Same-name bridge disambiguation: with last-wins registration the
-        // resolved bridge may be a different package's identically named class
-        // (e.g. two libraries each export a `MarkdownParser`). If it declares
-        // neither this constructor nor this static method, fall back to a
-        // sibling same-name bridge that does.
-        var bridgedClass = targetValue;
-        if (bridgedClass.findConstructorAdapter(methodName) == null &&
-            bridgedClass.findStaticMethodAdapter(methodName) == null) {
-          for (final alt
-              in environment.findAllBridgedClassesByName(targetValue.name)) {
-            if (identical(alt, targetValue)) continue;
-            if (alt.findConstructorAdapter(methodName) != null ||
-                alt.findStaticMethodAdapter(methodName) != null) {
-              bridgedClass = alt;
-              break;
-            }
-          }
-        }
+        // No same-name scavenging here: when two libraries in scope each
+        // declare a class under this name, the bare name never resolves —
+        // Environment.lookup throws AmbiguousBridgedNameException and the
+        // script must write `<package>.Name`. So the bridge we hold is the one
+        // the author actually named, and a missing member is a real error
+        // rather than a hint to try a sibling.
+        final bridgedClass = targetValue;
         Logger.debug(
             "[visitMethodInvocation] Target is BridgedClass: '$methodName' on '${bridgedClass.name}'");
 
@@ -4043,7 +4034,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             Logger.error(
                 "[visitMethodInvocation] Native exception during bridged constructor '${bridgedClass.name}.$methodName': $e\n$s");
             throw RuntimeD4rtException(
-                "Native error during bridged constructor '$methodName' for class '${bridgedClass.name}': $e", originalException: e);
+                "Native error during bridged constructor '$methodName' for class '${bridgedClass.name}': $e",
+                originalException: e);
           }
         } else {
           final staticMethodAdapter =
@@ -4091,7 +4083,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               Logger.warn(
                   "[visitMethodInvocation] Native exception during static bridged method call '${bridgedClass.name}.$methodName': $e\n$s");
               throw RuntimeD4rtException(
-                  "Native error during static bridged method call '$methodName' on ${bridgedClass.name}: $e", originalException: e);
+                  "Native error during static bridged method call '$methodName' on ${bridgedClass.name}: $e",
+                  originalException: e);
             }
           } else {
             // Cluster C32: class-as-value (Type literal) semantics. A script
@@ -4180,7 +4173,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             Logger.error(
                 "Native exception during super call to bridged method '${bridgedSuper.name}.$methodName': $e\n$s");
             throw RuntimeD4rtException(
-                "Native error during super call to bridged method '$methodName': $e", originalException: e);
+                "Native error during super call to bridged method '$methodName': $e",
+                originalException: e);
           }
         } else {
           throw RuntimeD4rtException(
@@ -4365,7 +4359,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               D4.recordUsageHit(
                 'ctor',
                 bridgedClass.name,
-                evaluatedTypeArguments?.map((t) => t.toString()).join(',') ?? '',
+                evaluatedTypeArguments?.map((t) => t.toString()).join(',') ??
+                    '',
               );
             }
             final bridgedInstance = BridgedInstance(bridgedClass, nativeObject);
@@ -4427,7 +4422,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           Logger.error(
               "[visitMethodInvocation] Native exception during default bridged constructor '${bridgedClass.name}': $e\n$s");
           throw RuntimeD4rtException(
-              "Native error during default bridged constructor for '${bridgedClass.name}': $e", originalException: e);
+              "Native error during default bridged constructor for '${bridgedClass.name}': $e",
+              originalException: e);
         }
       } else {
         // If we have a BridgedClass but no default constructor ''
@@ -4454,8 +4450,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 .toList();
           }
           try {
-            return callMethod.bind(calleeValue).call(
-                this, positionalArgs, namedArgs, evaluatedTypeArguments);
+            return callMethod
+                .bind(calleeValue)
+                .call(this, positionalArgs, namedArgs, evaluatedTypeArguments);
           } on ReturnException catch (e) {
             return e.value;
           }
@@ -4998,8 +4995,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // env where ModuleLoader registered the BridgedEnum). The global env
         // does not hold bridged enums — only classes are pre-populated there
         // by D4rt._initModule.
-        final bridgedEnumValue =
-            environment.getBridgedEnumValue(enumObj) ??
+        final bridgedEnumValue = environment.getBridgedEnumValue(enumObj) ??
             globalEnvironment.getBridgedEnumValue(enumObj);
         if (bridgedEnumValue != null) {
           try {
@@ -5113,7 +5109,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           Logger.error(
               "Native exception during super access to bridged getter '${bridgedSuper.name}.$propertyName': $e\n$s");
           throw RuntimeD4rtException(
-              "Native error during super access to bridged getter '$propertyName': $e", originalException: e);
+              "Native error during super access to bridged getter '$propertyName': $e",
+              originalException: e);
         }
       }
 
@@ -5617,8 +5614,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             }
             rethrow;
           } on ContinueException catch (e) {
-            if (e.label != null &&
-                !_currentStatementLabels.contains(e.label)) {
+            if (e.label != null && !_currentStatementLabels.contains(e.label)) {
               rethrow;
             }
             // Fall through to updaters.
@@ -6552,7 +6548,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             currentValue = getter.bind(interpreted).call(this, [], {});
             resolvedCurrent = true;
           } else if (!isProxyTarget ||
-              interpreted.klass.getInstanceFieldNames().contains(propertyName)) {
+              interpreted.klass
+                  .getInstanceFieldNames()
+                  .contains(propertyName)) {
             // For a genuine InterpretedInstance (or a proxy target whose
             // interpreted class actually declares the field) mirror the
             // pre-fix behaviour: read whatever `.get` returns.
@@ -6662,8 +6660,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // C13: bridged operator[] for compound assignment in cascade
           // (e.g. dart:foundation BitField<T>).
           final bridgedInstance = toBridgedInstance(indexTarget).$1!;
-          final getAdapter = bridgedInstance.bridgedClass
-              .findInstanceMethodAdapter('[]');
+          final getAdapter =
+              bridgedInstance.bridgedClass.findInstanceMethodAdapter('[]');
           if (getAdapter == null) {
             throw RuntimeD4rtException(
                 "No operator '[]' on ${bridgedInstance.bridgedClass.name} "
@@ -6698,8 +6696,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // C13: bridged operator[]= in cascade (e.g. dart:foundation
         // BitField<T> used via `..[key] = value`).
         final bridgedInstance = toBridgedInstance(indexTarget).$1!;
-        final setAdapter = bridgedInstance.bridgedClass
-            .findInstanceMethodAdapter('[]=');
+        final setAdapter =
+            bridgedInstance.bridgedClass.findInstanceMethodAdapter('[]=');
         if (setAdapter == null) {
           throw RuntimeD4rtException(
               "No operator '[]=' on ${bridgedInstance.bridgedClass.name} "
@@ -6744,7 +6742,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             currentValue = getter.bind(interpretedP).call(this, [], {});
             resolvedCurrent = true;
           } else if (!isProxyTargetP ||
-              interpretedP.klass.getInstanceFieldNames().contains(propertyName)) {
+              interpretedP.klass
+                  .getInstanceFieldNames()
+                  .contains(propertyName)) {
             currentValue = interpretedP.get(propertyName);
             resolvedCurrent = true;
           }
@@ -7382,10 +7382,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // Comparing the inner value's applied type against the wrapper's
         // arguments would spuriously reject e.g. `Future<List<String>> f()
         // async => [1,2,3]`, so leave the wrapper case to the base check.
-        final skipAppliedGenericReturn = currentCallable is InterpretedFunction &&
-            (currentCallable.isAsync ||
-                currentCallable.isGenerator ||
-                currentCallable.isAsyncGenerator);
+        final skipAppliedGenericReturn =
+            currentCallable is InterpretedFunction &&
+                (currentCallable.isAsync ||
+                    currentCallable.isGenerator ||
+                    currentCallable.isAsyncGenerator);
         if (!skipAppliedGenericReturn) {
           _checkAppliedGenericReturn(
               returnValue, eDecl, functionName, isNullable);
@@ -7501,7 +7502,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               Logger.error(
                   "[PrefixExpr] Native exception during bridged unary operator '-' on ${bridgedClass.name}: $e\\n$s");
               throw RuntimeD4rtException(
-                  "Native error during bridged unary operator '-' on ${bridgedClass.name}: $e", originalException: e);
+                  "Native error during bridged unary operator '-' on ${bridgedClass.name}: $e",
+                  originalException: e);
             }
           }
         }
@@ -7594,7 +7596,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               Logger.error(
                   "[PrefixExpr] Native exception during bridged unary operator '~' on ${bridgedClass.name}: $e\\n$s");
               throw RuntimeD4rtException(
-                  "Native error during bridged unary operator '~' on ${bridgedClass.name}: $e", originalException: e);
+                  "Native error during bridged unary operator '~' on ${bridgedClass.name}: $e",
+                  originalException: e);
             }
           }
         }
@@ -8547,8 +8550,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             node.extendsClause!.superclass.typeArguments?.arguments;
         if (superTypeArgs != null && superTypeArgs.isNotEmpty) {
           klass.bridgedSuperTypeArgNames = superTypeArgs
-              .map((arg) =>
-                  arg is NamedType ? (arg.name.lexeme) : '')
+              .map((arg) => arg is NamedType ? (arg.name.lexeme) : '')
               .toList();
         }
 
@@ -9418,8 +9420,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // wrapped instance (not the unwrapped representation) as the receiver.
     if (operatorName != null &&
         currentValue is InterpretedExtensionTypeInstance) {
-      final operatorMethod =
-          currentValue.extensionType.methods[operatorName];
+      final operatorMethod = currentValue.extensionType.methods[operatorName];
       if (operatorMethod != null) {
         Logger.debug(
             "[CompoundAssign] Found extension-type operator '$operatorName' on ${currentValue.extensionType.name}. Calling...");
@@ -10072,9 +10073,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       // Built-in primitives (`int`, `String`, …) are never prefixed, so a
       // non-null `importPrefix` always routes to the user-type lookup.
       final typePrefix = typeNode.importPrefix?.name.lexeme;
-      final typeName = typePrefix != null
-          ? '$typePrefix.$bareTypeName'
-          : bareTypeName;
+      final typeName =
+          typePrefix != null ? '$typePrefix.$bareTypeName' : bareTypeName;
 
       // SCB7: the cases below answer with the host's own `is` operator, so
       // they need the underlying native object. A bridged value arrives as a
@@ -10189,8 +10189,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 // exists precisely to answer this question (RC-7). Generic:
                 // applies to every script class with a bridged super or a
                 // bridged interface, not just the dart:async ones.
-                result = expressionValue.klass.isSubtypeOf(targetType,
-                    value: expressionValue);
+                result = expressionValue.klass
+                    .isSubtypeOf(targetType, value: expressionValue);
               } else if (expressionValue != null) {
                 nativeValue = expressionValue;
               }
@@ -10237,8 +10237,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                   ];
                   final appliedTarget =
                       AppliedRuntimeType(targetType, resolvedArgs);
-                  result =
-                      expressionValue.valueType.isSubtypeOf(appliedTarget);
+                  result = expressionValue.valueType.isSubtypeOf(appliedTarget);
                 } else {
                   result = expressionValue.klass.isSubtypeOf(targetType);
                 }
@@ -10517,7 +10516,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       TypeAnnotation? returnTypeNode,
       FormalParameterList? parameters,
       Environment env) {
-    final returnType = _resolveTypeAnnotationWithEnvironment(returnTypeNode, env);
+    final returnType =
+        _resolveTypeAnnotationWithEnvironment(returnTypeNode, env);
     final positional = <RuntimeType>[];
     final optionalPositional = <RuntimeType>[];
     final named = <String, RuntimeType>{};
@@ -10941,8 +10941,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             try {
               final nativeObject = D4.withActiveVisitor(
                 this,
-                () => staticAdapter(this, positionalArgs, namedArgs,
-                    evaluatedTypeArguments),
+                () => staticAdapter(
+                    this, positionalArgs, namedArgs, evaluatedTypeArguments),
               );
               if (nativeObject == null) {
                 throw RuntimeD4rtException(
@@ -11008,7 +11008,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "[InstanceCreation] Native exception during bridged constructor '$constructorName.$constructorLookupName': \$e\\n\$s");
         // Encapsulate the native error in a RuntimeError for propagation
         throw RuntimeD4rtException(
-            "Native error during bridged constructor '$constructorLookupName' for class '$constructorName': $e", originalException: e);
+            "Native error during bridged constructor '$constructorLookupName' for class '$constructorName': $e",
+            originalException: e);
       }
     } else {
       // CASE 3: The resolved type is neither InterpretedClass nor BridgedClass
@@ -11207,8 +11208,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         Logger.debug(
             "[FuncExprInvoke] Found 'call' method on extension type ${calleeValue.extensionType.name}. Invoking...");
         try {
-          return callMethod.bind(calleeValue).call(
-              this, positionalArgs, namedArgs, evaluatedTypeArguments);
+          return callMethod
+              .bind(calleeValue)
+              .call(this, positionalArgs, namedArgs, evaluatedTypeArguments);
         } on ReturnException catch (e) {
           return e.value;
         }
@@ -12193,7 +12195,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       try {
         _matchAndBind(pattern.leftOperand, value, environment);
         if (Logger.isDebug) {
-          Logger.debug("[_matchAndBind] LogicalOrPattern: left operand matched");
+          Logger.debug(
+              "[_matchAndBind] LogicalOrPattern: left operand matched");
         }
         return; // Left matched, done
       } on PatternMatchD4rtException {
@@ -12204,7 +12207,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
         _matchAndBind(pattern.rightOperand, value, environment);
         if (Logger.isDebug) {
-          Logger.debug("[_matchAndBind] LogicalOrPattern: right operand matched");
+          Logger.debug(
+              "[_matchAndBind] LogicalOrPattern: right operand matched");
         }
         // If right also throws, the exception propagates up
       }
@@ -12222,7 +12226,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
       _matchAndBind(pattern.rightOperand, value, environment);
       if (Logger.isDebug) {
-        Logger.debug("[_matchAndBind] LogicalAndPattern: both operands matched");
+        Logger.debug(
+            "[_matchAndBind] LogicalAndPattern: both operands matched");
       }
     } else if (pattern is CastPattern) {
       // G-DOV2-5 FIX: Handle cast patterns (var x as Type)
@@ -12773,7 +12778,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       Logger.error(
           "Native exception during super constructor call to '${bridgedSuper.name}.$constructorName': $e\n$s");
       throw RuntimeD4rtException(
-          "Native error during super constructor call '$constructorName': $e", originalException: e);
+          "Native error during super constructor call '$constructorName': $e",
+          originalException: e);
     }
 
     // 7. Store the returned native object on the 'this' instance.
@@ -13085,8 +13091,7 @@ class _BridgedConstructorTearOff implements Callable {
     Map<String, Object?>? namedArguments,
     List<RuntimeType>? explicitTypeArguments,
   ]) {
-    Logger.debug(
-        "[_BridgedConstructorTearOff] Invoking '${_bridgedClass.name}"
+    Logger.debug("[_BridgedConstructorTearOff] Invoking '${_bridgedClass.name}"
         "${_constructorName.isEmpty ? '' : '.$_constructorName'}'");
     return _adapter(visitor, positionalArguments, namedArguments ?? const {});
   }

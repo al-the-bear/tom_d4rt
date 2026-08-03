@@ -455,7 +455,11 @@ class AstModuleLoader implements ModuleContext {
       // Step #17 — transfer the deferred thunk so the BridgedClass is only
       // built if the importing module actually resolves the class.
       targetEnvironment.defineBridgeLazy(
-          libClass.name, libClass.nativeType, libClass.thunk);
+        libClass.name,
+        libClass.nativeType,
+        libClass.thunk,
+        sourceUri: libClass.sourceUri ?? uriString,
+      );
       Logger.debugLazy(
         () => '[AstModuleLoader] Registered bridged class: $name from $uriString',
       );
@@ -482,6 +486,7 @@ class AstModuleLoader implements ModuleContext {
 
       targetEnvironment.defineBridge(
         BridgedClass(nativeType: Function, name: typedef.name),
+        sourceUri: uriString,
       );
       Logger.debugLazy(
         () => '[AstModuleLoader] Registered function typedef: '

@@ -195,11 +195,28 @@ class Environment {
   // Same-name bridge overflow: when two distinct bridges register under the
   // same simple name (e.g. `tom_doc_scanner` and `tom_md2latex` both export a
   // `MarkdownParser`), `_bridgedClasses` keeps only the last-registered one.
-  // The bridges it displaced are stashed here so static/constructor resolution
-  // can fall back to a sibling that declares a member the primary lacks. Null
-  // until a genuine name collision occurs — the common one-bridge-per-name case
-  // allocates nothing.
+  // The bridges it displaced are stashed here so callers that enumerate every
+  // candidate (`findAllBridgedClassesByName`, the ambiguity report) can still
+  // see them. Null until a genuine name collision occurs — the common
+  // one-bridge-per-name case allocates nothing.
   Map<String, List<BridgedClass>>? _shadowedBridgesRaw;
+  // Declaring source URI per registered simple name, needed to derive the
+  // qualifier a script uses to disambiguate. Written only for registrations
+  // that supply a source URI (the generated bridge modules all do).
+  Map<String, String>? _bridgeSourceUrisRaw;
+  // Simple names declared by two or more DIFFERENT native classes that are in
+  // scope unprefixed — Dart's ambiguous-import situation. Maps the name to
+  // `qualifier → source URI` for every candidate, which is both the error
+  // report and the set of `qualifier.Name` aliases registered in
+  // [_prefixedImports]. Null until a genuine ambiguity arises, which is the
+  // overwhelmingly common case (one collision in ~1000 bridged names across
+  // the whole Tom bridge corpus).
+  Map<String, Map<String, String>>? _ambiguousBridgeNamesRaw;
+  // Names whose bridge arrived through an `import` merge rather than ambient
+  // pre-registration. Dart's rules differ for the two: an import overrides an
+  // ambient definition, but two imports that disagree make the name ambiguous.
+  // See the conflict branch of [importEnvironment].
+  Set<String>? _importedBridgeNamesRaw;
   LazyBridgeRegistry<Type>? _bridgedClassesLookupByTypeRaw;
   // GEN-115 Phase 2 — runtimeType→bridge resolution cache. Populated by
   // [toBridgedInstance] after a non-trivial step-2 / step-3 walk so that
@@ -231,8 +248,7 @@ class Environment {
       _bridgedClassesLookupByTypeRaw ?? const <Type, BridgedClass>{};
   Map<Type, BridgedClass> get _resolvedTypeCache =>
       _resolvedTypeCacheRaw ?? const <Type, BridgedClass>{};
-  Set<Type> get _unbridgedTypeCache =>
-      _unbridgedTypeCacheRaw ?? const <Type>{};
+  Set<Type> get _unbridgedTypeCache => _unbridgedTypeCacheRaw ?? const <Type>{};
   Map<String, BridgedEnum> get _bridgedEnums =>
       _bridgedEnumsRaw ?? const <String, BridgedEnum>{};
   List<InterpretedExtension> get _unnamedExtensions =>
@@ -245,6 +261,12 @@ class Environment {
       _bridgedClassesRaw ??= LazyBridgeRegistry<String>();
   Map<String, List<BridgedClass>> get _shadowedBridgesOrNew =>
       _shadowedBridgesRaw ??= {};
+  Map<String, String> get _bridgeSourceUrisOrNew => _bridgeSourceUrisRaw ??= {};
+  Map<String, Map<String, String>> get _ambiguousBridgeNamesOrNew =>
+      _ambiguousBridgeNamesRaw ??= {};
+  Set<String> get _importedBridgeNames =>
+      _importedBridgeNamesRaw ?? const <String>{};
+  Set<String> get _importedBridgeNamesOrNew => _importedBridgeNamesRaw ??= {};
   LazyBridgeRegistry<Type> get _bridgedClassesLookupByTypeOrNew =>
       _bridgedClassesLookupByTypeRaw ??= LazyBridgeRegistry<Type>();
   Map<Type, BridgedClass> get _resolvedTypeCacheOrNew =>
@@ -363,12 +385,13 @@ class Environment {
   ///
   /// This makes the native class available for use in interpreted code
   /// under the name specified by the bridged class definition.
-  void defineBridge(BridgedClass bridgedClass) {
+  void defineBridge(BridgedClass bridgedClass, {String? sourceUri}) {
     // An already-built class registers as a trivial `() => obj` thunk; the
     // lazy substrate resolves it on first lookup and memoizes (behaviour
     // unchanged for eager callers). See [defineBridgeLazy].
     defineBridgeLazy(
-        bridgedClass.name, bridgedClass.nativeType, () => bridgedClass);
+        bridgedClass.name, bridgedClass.nativeType, () => bridgedClass,
+        sourceUri: sourceUri);
   }
 
   /// Registers a bridged class as a **deferred thunk** keyed by [name], plus a
@@ -380,28 +403,144 @@ class Environment {
   /// In the common no-collision case the thunk is stored without building. A
   /// genuine same-name collision (another bridge / enum / value already holds
   /// [name]) resolves the new thunk eagerly so the displaced bridge can be
-  /// preserved for static/constructor fallback and the shadow list shares the
-  /// same instance the memo will serve. Collisions are rare, so this does not
+  /// preserved for candidate enumeration and the shadow list shares the same
+  /// instance the memo will serve. Collisions are rare, so this does not
   /// regress the common lazy path.
+  ///
+  /// [sourceUri] is the URI of the library that *declares* the class (not the
+  /// barrel it was imported through). It is what makes two same-named bridges
+  /// distinguishable: when a second, different [nativeType] registers under an
+  /// already-taken [name], the name becomes ambiguous — see
+  /// [_markAmbiguousBridgeName].
   void defineBridgeLazy(
-      String name, Type nativeType, BridgedClass Function() thunk) {
+      String name, Type nativeType, BridgedClass Function() thunk,
+      {String? sourceUri}) {
+    final priorBridge = _bridgedClassesRaw?[name];
     final collides = _values.containsKey(name) ||
-        (_bridgedClassesRaw?.containsKey(name) ?? false) ||
+        priorBridge != null ||
         _bridgedEnums.containsKey(name);
     if (collides) {
       // CHECK: Also collides with bridged enums / values.
       Logger.warn(
           "Redefining bridged class or colliding with existing definition: $name");
-      // Preserve a displaced same-name bridge so static/constructor resolution
-      // can fall back to it (two packages exporting an identically named class).
+      // Preserve a displaced same-name bridge so every candidate stays
+      // enumerable (two packages exporting an identically named class).
       final built = thunk();
-      _recordShadowedBridge(name, _bridgedClassesRaw?[name], built);
+      _recordShadowedBridge(name, priorBridge, built);
       thunk = () => built;
+      // Two DIFFERENT native classes under one simple name is Dart's
+      // ambiguous-import case: the bare name stops resolving and the script
+      // must qualify. Same nativeType means the same class arriving through a
+      // second barrel — a re-export, not an ambiguity.
+      if (priorBridge != null && priorBridge.nativeType != nativeType) {
+        _markAmbiguousBridgeName(name, priorBridge, built, sourceUri);
+      }
     }
+    if (sourceUri != null) _bridgeSourceUrisOrNew[name] = sourceUri;
     _bridgedClassesOrNew.putThunk(name, thunk);
     _bridgedClassesLookupByTypeOrNew.putThunk(nativeType, thunk);
     _invalidateResolutionCache();
     Logger.debugLazy(() => "[Environment] Defined bridge for class: $name");
+  }
+
+  /// Records that [name] now designates two different classes, and registers a
+  /// `qualifier.`[name] alias for each so a script can still say which one it
+  /// means.
+  ///
+  /// The qualifier is the declaring library's package name — the same token a
+  /// prefixed `import` would conventionally use — so
+  /// `tom_doc_scanner.MarkdownParser` reads like ordinary Dart even though a
+  /// replay script has no import directive to hang a prefix on.
+  ///
+  /// **The name is only rejected when the script has a way to say what it
+  /// meant.** Two candidates that yield no qualifier, or the same one — bridges
+  /// registered directly by an embedder without a source URI, or two libraries
+  /// of one package — leave the legacy last-wins behaviour in place and log a
+  /// warning instead. An error whose remedy does not exist would be worse than
+  /// the arbitrary pick it replaces; every generated bridge module supplies a
+  /// source URI, which is the case this rule exists for.
+  void _markAmbiguousBridgeName(String name, BridgedClass prior,
+      BridgedClass replacement, String? replacementSourceUri) {
+    final qualified = <String, ({String sourceUri, BridgedClass bridge})>{};
+    _collectAmbiguityCandidate(qualified, prior, _bridgeSourceUrisRaw?[name]);
+    _collectAmbiguityCandidate(qualified, replacement, replacementSourceUri);
+    if (qualified.length < 2) {
+      Logger.warn(
+          "Bridged name '$name' is declared by more than one class, but the "
+          "declarations cannot be told apart by package qualifier; the last "
+          "registration wins.");
+      return;
+    }
+    final candidates = _ambiguousBridgeNamesOrNew.putIfAbsent(name, () => {});
+    qualified.forEach((qualifier, candidate) {
+      candidates[qualifier] = candidate.sourceUri;
+      _bindQualifierAlias(
+          qualifier, name, candidate.bridge, candidate.sourceUri);
+    });
+    Logger.warn("Bridged name '$name' is declared by more than one library; "
+        "unqualified use is now an error. Qualify it as "
+        "${candidates.keys.map((q) => '$q.$name').join(' or ')}.");
+  }
+
+  /// Marks [name] as imported and carries its declaring source URI across from
+  /// the exporting environment, so a later import of a different class under
+  /// the same name can be recognised as an ambiguity and reported with both
+  /// qualifiers.
+  void _noteImportedBridge(String name, Map<String, String>? sourceUris) {
+    _importedBridgeNamesOrNew.add(name);
+    final sourceUri = sourceUris?[name];
+    if (sourceUri != null) _bridgeSourceUrisOrNew[name] = sourceUri;
+  }
+
+  /// Records one candidate under the qualifier derived from its source URI.
+  /// Skips candidates with no derivable qualifier, and keeps the first claimant
+  /// when two candidates map to the same qualifier — a qualifier that resolves
+  /// to two classes disambiguates nothing.
+  void _collectAmbiguityCandidate(
+      Map<String, ({String sourceUri, BridgedClass bridge})> qualified,
+      BridgedClass bridge,
+      String? sourceUri) {
+    if (sourceUri == null) return;
+    final qualifier = _qualifierForSourceUri(sourceUri);
+    if (qualifier == null) return;
+    qualified.putIfAbsent(
+        qualifier, () => (sourceUri: sourceUri, bridge: bridge));
+  }
+
+  /// Makes `qualifier.`[name] resolve to [bridge], reusing the existing alias
+  /// environment for [qualifier] when one is already bound (several ambiguous
+  /// names can share a package).
+  void _bindQualifierAlias(
+      String qualifier, String name, BridgedClass bridge, String sourceUri) {
+    final existing = _prefixedImportsOrNew[qualifier];
+    if (existing == null) {
+      _prefixedImportsOrNew[qualifier] = Environment()
+        ..defineBridge(bridge, sourceUri: sourceUri);
+      return;
+    }
+    if (existing.findBridgedClassByName(name) == null) {
+      existing.defineBridge(bridge, sourceUri: sourceUri);
+    }
+  }
+
+  /// Derives the qualifier a script writes from a declaring library URI:
+  /// `package:tom_md2latex/src/markdown_parser.dart` → `tom_md2latex`,
+  /// `dart:convert` → `convert`. Returns null when the URI yields nothing that
+  /// is a legal identifier (a bare file path, say), in which case the class is
+  /// simply not reachable by qualification.
+  static String? _qualifierForSourceUri(String sourceUri) {
+    String? candidate;
+    if (sourceUri.startsWith('package:')) {
+      final rest = sourceUri.substring('package:'.length);
+      final slash = rest.indexOf('/');
+      candidate = slash < 0 ? rest : rest.substring(0, slash);
+    } else if (sourceUri.startsWith('dart:')) {
+      candidate = sourceUri.substring('dart:'.length);
+    }
+    if (candidate == null || candidate.isEmpty) return null;
+    return RegExp(r'^[A-Za-z_$][A-Za-z0-9_$]*$').hasMatch(candidate)
+        ? candidate
+        : null;
   }
 
   /// Clears the [_resolvedTypeCache]. Called from every site that mutates
@@ -1058,6 +1197,17 @@ class Environment {
       // at every such intermediate level.
       if (env._bridgedClasses.isNotEmpty &&
           env._bridgedClasses.containsKey(name)) {
+        // Ambiguity is reported at the READ, not at registration — exactly as
+        // Dart reports an ambiguous import at the reference site. The whole
+        // bridge corpus is imported unprefixed into every script, so erroring
+        // when the second declaration registers would break every script;
+        // erroring here affects only scripts that actually name the ambiguous
+        // symbol. The map is null until a genuine collision occurs, so the
+        // guard is a null-read on the hot path.
+        final ambiguous = env._ambiguousBridgeNamesRaw?[name];
+        if (ambiguous != null) {
+          throw AmbiguousBridgedNameException(name, ambiguous);
+        }
         if (Logger.isDebug) {
           Logger.debug(
               " [Env.get] Found bridged class '$name' locally in env: ${env.hashCode}");
@@ -1487,6 +1637,20 @@ class Environment {
         newEnv._bridgedClassesOrNew[name] = bridgedClass;
         newEnv._bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] =
             bridgedClass;
+        final sourceUri = _bridgeSourceUrisRaw?[name];
+        if (sourceUri != null) newEnv._bridgeSourceUrisOrNew[name] = sourceUri;
+        // An ambiguous name stays ambiguous in the copy: show/hide filters by
+        // simple name, so a filter that keeps the name keeps every candidate
+        // behind it. Carry the `<package>.Name` aliases across with it —
+        // ambiguity without its escape hatch would make the name unusable.
+        final candidates = _ambiguousBridgeNamesRaw?[name];
+        if (candidates != null) {
+          newEnv._ambiguousBridgeNamesOrNew[name] = Map.of(candidates);
+          for (final qualifier in candidates.keys) {
+            final alias = _prefixedImports[qualifier];
+            if (alias != null) newEnv._prefixedImportsOrNew[qualifier] = alias;
+          }
+        }
       }
     });
 
@@ -1611,12 +1775,25 @@ class Environment {
         Logger.debug(
             "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
             "bridged class '$name' with imported version");
-        // Preserve the displaced same-name bridge (e.g. tom_doc_scanner's
-        // MarkdownParser shadowed by tom_md2latex's) so static/constructor
-        // resolution can fall back to it.
-        _recordShadowedBridge(name, _bridgedClassesRaw?[name], bridgedClass);
+        // Preserve the displaced same-name bridge so every candidate stays
+        // enumerable.
+        final displaced = _bridgedClassesRaw?[name];
+        _recordShadowedBridge(name, displaced, bridgedClass);
+        // ...but "import wins" only settles import-vs-AMBIENT. Two *imports*
+        // that each bring a different class under one name are peers, and Dart
+        // rejects the bare name rather than picking one. [_importedBridgeNames]
+        // is what tells the two situations apart: the displaced binding is
+        // listed there only if it too arrived through an import.
+        if (displaced != null &&
+            displaced.nativeType != bridgedClass.nativeType &&
+            _importedBridgeNames.contains(name)) {
+          _markAmbiguousBridgeName(name, displaced, bridgedClass,
+              sourceEnvToImportFrom._bridgeSourceUrisRaw?[name]);
+        }
         _bridgedClassesOrNew[name] = bridgedClass;
-        _bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] = bridgedClass;
+        _bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] =
+            bridgedClass;
+        _noteImportedBridge(name, sourceEnvToImportFrom._bridgeSourceUrisRaw);
         _invalidateResolutionCache();
         return;
       }
@@ -1640,6 +1817,7 @@ class Environment {
       }
       _bridgedClassesOrNew[name] = bridgedClass;
       _bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] = bridgedClass;
+      _noteImportedBridge(name, sourceEnvToImportFrom._bridgeSourceUrisRaw);
       _invalidateResolutionCache();
     });
 
@@ -1652,6 +1830,19 @@ class Environment {
         final shadowed = _shadowedBridgesOrNew.putIfAbsent(name, () => []);
         if (!shadowed.any((b) => identical(b, bridge))) shadowed.add(bridge);
       }
+    });
+
+    // Ambiguity travels with the names it describes. A module environment that
+    // imports a scope in which `Foo` was ambiguous inherits the ambiguity —
+    // otherwise the same bare name would resolve silently one hop away from
+    // where it was rejected. The matching `<package>.Foo` aliases come across
+    // with `_prefixedImports` below, so the qualified escape stays available.
+    // Both maps are null in the overwhelmingly common no-collision case.
+    sourceEnvToImportFrom._bridgeSourceUrisRaw?.forEach((name, sourceUri) {
+      _bridgeSourceUrisOrNew.putIfAbsent(name, () => sourceUri);
+    });
+    sourceEnvToImportFrom._ambiguousBridgeNamesRaw?.forEach((name, candidates) {
+      _ambiguousBridgeNamesOrNew.putIfAbsent(name, () => {}).addAll(candidates);
     });
 
     sourceEnvToImportFrom._bridgedEnums.forEach((name, bridgedEnum) {

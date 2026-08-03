@@ -2183,9 +2183,12 @@ class D4rt {
       // DFUB13 — a SourceCodeD4rtException is an EXPECTED, actionable
       // diagnostic (missing import, bad URI). Re-wrapping it as "Unexpected
       // error" discards a message the loader deliberately composed and tells
-      // the user they hit an interpreter bug rather than a typo.
+      // the user they hit an interpreter bug rather than a typo. An
+      // AmbiguousBridgedNameException is the same kind of deliberate
+      // diagnostic: it names both candidates and the qualifier to use.
       if (e is RuntimeD4rtException ||
           e is SourceCodeD4rtException ||
+          e is AmbiguousBridgedNameException ||
           isSdkShapedError(e)) {
         rethrow;
       } else {

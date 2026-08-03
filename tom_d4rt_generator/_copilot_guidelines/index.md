@@ -28,6 +28,7 @@ This package is published to pub.dev. See [Project Republishing](/_copilot_guide
 | [running_d4rtgen.md](running_d4rtgen.md) | How to run the d4rtgen CLI tool (SDK path configuration) |
 | [implementation_hints.md](implementation_hints.md) | tom_build_base integration and CLI infrastructure |
 | [generator_strategies.md](generator_strategies.md) | key concept for generator class/import/export traversal |
+| [same_name_class_resolution.md](same_name_class_resolution.md) | How two packages declaring the same class name resolve: source-URI qualification, `<package>.Name`, and what the generator must emit |
 | [example.md](example.md) | Guidelines for creating and maintaining example files |
 | [documentation.md](documentation.md) | Documentation standards for this package |
 | [build.md](build.md) | Build, test, and publishing guidelines |
