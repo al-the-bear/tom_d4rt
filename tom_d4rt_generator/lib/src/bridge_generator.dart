@@ -1555,11 +1555,16 @@ class BridgeGenerator {
                 rootUri = Uri.parse(rootUri).toFilePath();
               } else {
                 // rootUri is relative to the .dart_tool directory.
-                rootUri = p.normalize(
-                  p.join(workspacePath, '.dart_tool', rootUri),
-                );
+                rootUri = p.join(workspacePath, '.dart_tool', rootUri);
               }
-              roots[name] = rootUri;
+              // GEN-119: the root MUST be absolute. d4rtgen is invoked as
+              // `d4rtgen -s .`, so `workspacePath` is routinely relative and
+              // the own package's `rootUri` (`../`) collapses to `.`. Every
+              // path derived from such a root starts with `lib/` rather than
+              // containing `/lib/`, which `_getPackageUri` cannot map back to
+              // a package URI — it falls through to its pass-the-path-along
+              // branch and a bare path leaks into the generated imports.
+              roots[name] = p.normalize(p.absolute(rootUri));
             }
           }
         } catch (e) {
@@ -5469,6 +5474,24 @@ class BridgeGenerator {
         }
       }
 
+      // GEN-119: `_getPackageUri` returns its input unchanged when it cannot
+      // map the path back to a package, so a failed resolution yields a bare
+      // file path. Emitting that as an import produces a line that resolves
+      // against the *generated file's* directory and points nowhere. A part
+      // file is always importable through its own `package:` URI, so falling
+      // back to the original URI is both safe and correct.
+      if (parentUri != null &&
+          !parentUri.startsWith('package:') &&
+          !parentUri.startsWith('dart:')) {
+        if (verbose) {
+          print(
+            'GEN-119 WARNING: part-of parent for $uri did not resolve to a '
+            'package URI ($parentUri) — keeping the original URI.',
+          );
+        }
+        parentUri = null;
+      }
+
       if (parentUri != null && parentUri != uri) {
         // Cache the mapping
         _partOfToParent[uri] = parentUri;
@@ -6388,6 +6411,22 @@ class BridgeGenerator {
         final existingPrefix = _importPrefixes[importUri];
         // Skip if URI already imported (with any prefix) — no need for auxiliary
         if (existingPrefix != null) {
+          continue;
+        }
+        // GEN-119: never emit a non-absolute import. A bare file path here
+        // resolves against the *generated file's* directory, not the package
+        // root, so it always points at a file that does not exist. Dropping
+        // the line degrades loudly (an undefined prefix is a compile error at
+        // the use site) instead of silently shipping a broken import — and if
+        // the type was never actually referenced, as in the tom_dist_ledger
+        // case that surfaced this, nothing is lost at all.
+        if (!importUri.startsWith('package:') &&
+            !importUri.startsWith('dart:')) {
+          print(
+            'GEN-119 WARNING: dropped auxiliary import with a non-package '
+            "URI '$importUri' (prefix $auxPrefix). Auxiliary imports must "
+            'resolve to a package: or dart: URI.',
+          );
           continue;
         }
         _importPrefixes[importUri] = auxPrefix;
@@ -8209,6 +8248,21 @@ class BridgeGenerator {
   /// regression-prone Windows defect, so it is exposed for unit testing.
   @visibleForTesting
   String packageUriForTesting(String sourceFile) => _getPackageUri(sourceFile);
+
+  /// Test-only accessor for [_packageRootSync].
+  ///
+  /// Package roots must be absolute regardless of how [workspacePath] was
+  /// spelled — see GEN-119.
+  @visibleForTesting
+  String? packageRootForTesting(String packageName) =>
+      _packageRootSync(packageName);
+
+  /// Test-only accessor for [_resolvePartOfToParent].
+  ///
+  /// The parent library of a `part of` file must resolve to a `package:` URI,
+  /// never to a bare file path — see GEN-119.
+  @visibleForTesting
+  String partOfParentUriForTesting(String uri) => _resolvePartOfToParent(uri);
 
   /// Detects the package name from a file path by looking at pubspec.yaml.
   ///

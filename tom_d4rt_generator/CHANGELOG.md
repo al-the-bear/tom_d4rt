@@ -1,3 +1,57 @@
+## 1.14.0
+
+### Fixed — auxiliary imports could be emitted as bare file paths (GEN-119)
+
+`tom_dist_ledger`'s generated bridge carried
+
+```dart
+import 'lib/src/ledger_api/ledger_api.dart' as $aux_aux;
+```
+
+a project-relative path where a `package:` URI belongs. It resolves against the
+*generated file's* directory, so it pointed at a file that does not exist —
+while the very same library was correctly emitted as
+`package:tom_dist_ledger/src/ledger_api/ledger_api.dart` a few lines above.
+The `$aux_aux` prefix is the fingerprint: both prefix factories derive their
+base name from a `package:` URI and fall back to the literal `aux` otherwise,
+so a doubled token proves a non-package URI reached the factory.
+
+The chain: `d4rtgen` is invoked as `d4rtgen -s .`, so `workspacePath` is
+relative. The own package's `rootUri` in `.dart_tool/package_config.json` is
+`../`, which normalised against a relative workspace path collapses to `.`.
+`_getFilePathForPackageUri` therefore returned a relative path, and when the
+requested type lived in a `part of` file (`DLLogLevel` in `call_callback.dart`)
+the part-of resolver derived the parent path relatively too. `_getPackageUri`
+maps a path back to a package by scanning for a `/lib/` segment — which a path
+that *starts* with `lib/` does not have — and returns its input unchanged when
+it cannot, so a bare path entered the auxiliary-import map and was written
+verbatim.
+
+Fixed in three layers:
+
+- **Root cause** — `_packageRootSync` now returns an absolute path regardless of
+  how `workspacePath` was spelled.
+- **Guard** — the `part of` → parent-library resolver keeps the part file's own
+  (importable) `package:` URI when the parent cannot be expressed as one,
+  instead of propagating a bare path.
+- **Last resort** — the auxiliary-import writer drops any import whose URI is
+  neither `package:` nor `dart:`, with a warning. Dropping degrades loudly (an
+  undefined prefix is a compile error at the use site) rather than silently
+  shipping an import that resolves nowhere.
+
+### Added — regen smoke gate for emitted import URIs
+
+`test/gen119_auxiliary_import_uri_test.dart` regenerates five fixtures into a
+temp directory and asserts that **every** emitted import URI is absolute
+(`package:` or `dart:`). Analysing an emitted file standalone is not viable —
+without a `package_config.json` every `package:` import would fail too — so the
+gate asserts the property that actually separates good output from bad. The
+defect shipped precisely because the consumer's `analysis_options.yaml` excludes
+`lib/src/d4rt_bridges/**`, so `dart analyze` reported the project clean.
+
+`G-GEN119-05` pins that `user_proxy_relaxer_source.dart` still drives the
+auxiliary-import writer, so the gate cannot quietly become vacuous.
+
 ## 1.13.0
 
 ### Added — configurable `typeMappings` escape hatch + `additionalImports` (DGU3)
