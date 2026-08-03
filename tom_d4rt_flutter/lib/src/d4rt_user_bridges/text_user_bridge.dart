@@ -18,7 +18,7 @@
 /// NOTE — this is a CANDIDATE and is INERT until the bridges are regenerated.
 /// It MUST be validated against a live render before the script-side workarounds
 /// and banner-suppression are removed (see todo_impossible.md #12 and
-/// completion_steps.d4rt.md A.7 tail). U19 (per-character non-Latin `TextSpan`
+/// deferred.d4rt.md A.7 tail). U19 (per-character non-Latin `TextSpan`
 /// NaN) is NOT addressed here — a `Text`-level override cannot reach a
 /// `RichText`/`TextSpan` tree; that needs `TextSpan`/`RichText` normalization.
 ///

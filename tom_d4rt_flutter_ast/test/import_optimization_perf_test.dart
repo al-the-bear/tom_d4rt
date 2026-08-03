@@ -201,7 +201,7 @@ int main() {
     // the runner infrastructure is reused, but this residual O(surface)
     // import-resolution cost remains. Follow-up: hoist the per-URI bridged-
     // module environments to runner scope so they are built once per process.
-    // See completion_steps.d4rt.md — "Hoist per-URI bridged-module environments
+    // See deferred.d4rt.md — "Hoist per-URI bridged-module environments
     // to runner scope (residual Cost B)".
   });
 }

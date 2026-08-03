@@ -22,7 +22,7 @@
 /// can be golden-pinned in unit tests. It is dormant by default
 /// ([ProxyClassConfig.mixinVariants] defaults empty); wiring the regenerated
 /// output into the twins and removing the hand-written classes is a separate,
-/// serially-gated step (see `completion_steps.d4rt.md`).
+/// serially-gated step (see `deferred.d4rt.md`).
 library;
 
 import 'bridge_config.dart' show ProxyClassConfig;

@@ -139,7 +139,7 @@ allowed — preserving the pre-pool "everything is exposed" behaviour.
 > still reassembles a package's per-import module environment each
 > `executeBundle` (fresh `AstModuleLoader` per call). Follow-up: hoist the
 > per-URI bridged-module environments to runner scope — see
-> `_ai/quests/d4rt/completion_steps.d4rt.md`.
+> `_ai/quests/d4rt/deferred.d4rt.md`.
 
 ## 6. Web-divergence map (where the twins legitimately differ)
 

@@ -4705,7 +4705,7 @@ thumb-positioning maths.
 > root-cause and the fix (candidate: a `@D4rtUserBridge` for `Text` normalising
 > the degenerate input, validated against the live render — not shipped as an
 > unverified mask) are deferred to a serial interpreter+flutter run; see
-> `_ai/quests/d4rt/completion_steps.d4rt.md` (A.7 tail).
+> `_ai/quests/d4rt/deferred.d4rt.md` (A.7 tail).
 >
 > **2026-06-07 — candidate override shipped INERT (clean_todos #12).** A
 > `@D4rtUserBridge('package:flutter/src/widgets/text.dart', 'Text')` override
@@ -5336,7 +5336,7 @@ in "What a real fix would look like" item 1 remains the path.
 > reach a `RichText`/`TextSpan` tree, so the fix here likely needs a
 > `TextSpan`/`RichText` normalisation or a deeper bridged-paragraph trace.
 > Deferred to a serial interpreter+flutter root-cause run; see
-> `_ai/quests/d4rt/completion_steps.d4rt.md` (A.7 tail).
+> `_ai/quests/d4rt/deferred.d4rt.md` (A.7 tail).
 >
 > **2026-06-07 — still open after clean_todos #12.** The `Text` candidate
 > override shipped for §U16 (`text_user_bridge.dart`) deliberately does **not**
