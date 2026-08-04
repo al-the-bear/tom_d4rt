@@ -1,3 +1,26 @@
+## 1.29.0
+
+### Fixed — the stdlib on-type probe was still reported as an error (tccc5)
+
+1.28.0 fixed the on-type probe that runs *before* the stdlib fallback. The probe
+*inside* it is a second call site with the same defect, and it is the noisier of
+the two: `_resolveTypeForExtension` registers one stdlib module at a time and
+asks whether the on-type has appeared, so every module that does not carry it
+misses by construction, and an on-type that resolves nowhere misses in all of
+them. It used the throwing `Environment.get` inside a `try`/`on
+RuntimeD4rtException` that discarded the exception — but constructing one
+already registers it with the `ErrorReporter`, so each miss left an `Undefined
+variable: <Type>` behind.
+
+An unresolvable on-type is not a runtime error: the loader's contract is to warn
+and skip the extension (and, under `validateRegistrations`, return one collected
+message). Importing a bridge library whose on-type is not itself bridged — a
+crypto package's `Digest` — was therefore enough to fail a REPL `-test` run with
+four errors while every assertion in it passed.
+
+The probe now uses the non-throwing `Environment.lookup` and the `try`/`catch`
+is gone: there is no longer an exception to swallow.
+
 ## 1.28.0
 
 ### Fixed — a handled on-type lookup miss was still reported as an error (tccc5)

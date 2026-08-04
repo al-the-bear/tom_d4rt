@@ -1373,16 +1373,17 @@ class ModuleLoader implements context.ModuleContext {
       entry.value();
       _autoLoadedStdlibs.add(entry.key);
 
-      // Check if the type is now available
-      try {
-        final typeObj = globalEnvironment.get(typeName);
-        if (typeObj is RuntimeType) {
-          Logger.debug(
-              "[ModuleLoader] Auto-loaded stdlib '${entry.key}' to resolve extension on-type '$typeName'");
-          return typeObj;
-        }
-      } on RuntimeD4rtException {
-        // Not in this module, try next
+      // Check if the type is now available. `lookup`, not `get`: missing here
+      // is the loop's normal outcome — every module that does not carry the
+      // type misses, and a type that resolves nowhere misses in all of them,
+      // which the caller handles by warning and skipping the extension. The
+      // throwing `get` left one reported `Undefined variable` behind per miss,
+      // failing any host that reads the ErrorReporter as its pass/fail signal.
+      final typeObj = globalEnvironment.lookup(typeName);
+      if (typeObj is RuntimeType) {
+        Logger.debug(
+            "[ModuleLoader] Auto-loaded stdlib '${entry.key}' to resolve extension on-type '$typeName'");
+        return typeObj;
       }
     }
 
