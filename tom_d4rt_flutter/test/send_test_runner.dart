@@ -2,8 +2,9 @@
 /// tom_d4rt_flutter_test_app via HTTP for execution by the source-based
 /// [SourceFlutterD4rt] interpreter.
 ///
-/// Scripts live in:
-///   test/tom_d4rt_flutter_test_app/test/send_source_via_http_scripts/
+/// Scripts live in the shared corpus, outside this package — see
+/// [SendTestRunner.scriptsPath]. The AST and source-direct suites deliberately
+/// run the *same* script files, so neither package keeps a private copy.
 ///
 /// Each script must contain a `dynamic build(BuildContext context)` function
 /// that returns a Widget.
