@@ -6,6 +6,13 @@
 `tom_ai/d4rt` source + commit history (HEAD `2e38dd0b`). Items fixed in the
 meantime are **excluded** (listed in §1 for traceability).
 
+**2026-08-04 re-verification:** the corpus was run again against both runtimes.
+The red set is now **A.2, A.3, A.5, C.1 (U3 + U5)** — identical on both, as in
+June. **B.1, B.5 and B.9 no longer reproduce** and moved to §1; each of their
+reproduction scripts was re-read first to confirm it still exercises the defect
+(B.5 and B.9 throw explicitly when reproduced), so the green result reflects an
+interpreter fix rather than a neutered script.
+
 **2026-06-04 re-verification:** the `open_issues/` reproduction corpus was run
 against **both** runtimes — source-direct (`tom_d4rt`, via `tom_d4rt_flutter`)
 and analyzer-free AST (`tom_d4rt_ast`, via `tom_d4rt_flutter_ast`). The two
@@ -15,7 +22,7 @@ runtime; they are recorded in §1 and their numbering is **not** reused.
 **2 entries narrowed** (C.5, C.6) — the verified-fixed sub-parts (C.5
 `semanticsBuilder`/idx 310, C.6 `EagerGestureRecognizer.new`/idx 77·79·329) are
 recorded in §1, but each entry **stays open** for the still-uncovered sub-parts.
-The still-open reproductions are A.2, A.3, A.5, B.1, B.5, B.9, C.1 (plus
+The still-open reproductions are A.2, A.3, A.5, C.1 (plus
 the narrowed C.5/C.6 remainders). **A.6 no longer reproduces** — the inline PNG
 literals were malformed, not a bridge bug; corrected to valid PNGs + the live
 ImageIcon case flipped back to `MemoryImage` (see A.6 below / `todo_impossible.md`
@@ -64,6 +71,9 @@ Do not re-file these; evidence in parentheses.
 | C.2 — proxies emitted with `<dynamic>` type args | **FIXED** (generator) | 2026-06-04 both runtimes; `LeafRenderObjectWidget` subclass crosses to native. Repro `open_issues/c2_typed_proxy_emission_test.dart` |
 | C.5 (partial) — nullable callback param coercion (`semanticsBuilder`, idx 310) | **FIXED** (generator) | 2026-06-04 both runtimes; nullable function-typed param crosses the bridge. Repro `open_issues/c5_nullable_callback_param_coercion_test.dart`. **C.5 stays open** for the generic-`T` callback signature + `VoidCallback?` (idx 290) parts, which are not yet covered by a repro |
 | C.6 (partial) — static constructor tearoff (`EagerGestureRecognizer.new`, idx 77/79/329) | **FIXED** (generator) | 2026-06-04 both runtimes; static constructor tearoff resolves. Repro `open_issues/c6_eager_gesture_recognizer_tearoff_test.dart`. **C.6 stays open** for `Key.label` (idx 14) and `ByteData` symbol resolution (idx 279), not yet covered by a repro |
+| B.1 — redirecting factory `factory X() = Y` not implemented (R1) | **FIXED** (interpreter) | 2026-08-04 both runtimes; `factory _Shape() = _Circle` resolves and the redirected class instantiates. Repro `open_issues/b1_redirecting_factory_test.dart` |
+| B.5 — bridge-wrapped exceptions escape typed `on` / bare `catch` (U13, U24) | **FIXED** (interpreter) | 2026-08-04 both runtimes; the native `FormatException` from `int.parse` is matched by a typed `on FormatException` clause. Repro `open_issues/b5_bridge_wrapped_exception_typed_catch_test.dart` |
+| B.9 — static-field write from a sibling static method not persisting | **FIXED** (interpreter) | 2026-08-04 both runtimes; two `bump()` calls leave the static slot at 2. Repro `open_issues/b9_static_field_write_sibling_method_test.dart` |
 
 ---
 
@@ -219,27 +229,14 @@ non-Latin `TextSpan` construction.
 ## 3. B — Interpreter-fixable issues
 
 Real interpreter-semantics gaps; fix in the interpreter and **mirror tom_d4rt ↔
-tom_d4rt_ast** per the quest rule. None has a landed code fix — all are currently
-script-side worked around only.
+tom_d4rt_ast** per the quest rule.
 
-### B.1 — Redirecting factory `factory X() = Y` not implemented (R1)
-Redirecting-factory constructors aren't resolved. *Workaround:* instantiate the
-redirected concrete subclass directly. *Fix:* implement redirecting-factory
-resolution in the constructor evaluator. (Closed script-side in `7b6aed97`, no
-interpreter change.)
-
-### B.5 — Bridge-wrapped exceptions escape typed `on` / bare `catch` (U13, U24)
-A native throw is wrapped in `RuntimeError`, discarding the original type, so
-`on PlatformException` never matches (U13); some bridged static getters that
-throw bypass even an untyped `catch` (U24). *Workaround:* pre-check
-preconditions; don't rely on typed catch across the bridge. *Fix:* preserve the
-original native exception type through the wrap so `on`/`catch` clauses match.
-
-### B.9 — Static-field write from a sibling static method not persisting (step-7 sidebar b)
-A static-field write performed inside a sibling static method does not survive
-across calls. Distinct from initializer-ordering (`2b836ca6`). *Workaround:*
-top-level mutable variable. *Fix:* ensure static-field stores from any static
-member persist to the class's static slot.
+The three entries that were purely semantic gaps — B.1 (redirecting factory),
+B.5 (typed catch across the bridge) and B.9 (static-field write from a sibling
+static method) — no longer reproduce on either runtime and moved to §1 on
+2026-08-04. What remains in this section is not the same kind of problem: B.11
+and B.14 are timing/scheduling behaviours rather than evaluator bugs, and B.12
+and B.13 already carry their resolution inline.
 
 ### B.11 — No app-startup / parser warmup (cold-start flakiness) (U25)
 The first script after `setUpAll` flakes under host load because the parser +
