@@ -590,13 +590,15 @@ class ModuleLoader {
         continue;
       }
       try {
-        RuntimeType? onType;
-        try {
-          final typeObj = targetEnvironment.get(definition.onTypeName);
-          if (typeObj is RuntimeType) onType = typeObj;
-        } on RuntimeD4rtException {
-          onType = null;
-        }
+        // `lookup`, not `get`: this probe misses by design whenever the
+        // importing script does not also import the on-type's own library
+        // (the `_resolveTypeForExtension` fallback below is what handles that
+        // case). The throwing `get` turned every such routine miss into a
+        // reported `Undefined variable` error that nothing ever revoked, so a
+        // host collecting reported errors as its pass/fail signal — the REPL
+        // in `-test` mode — failed runs in which nothing went wrong.
+        final typeObj = targetEnvironment.lookup(definition.onTypeName);
+        var onType = typeObj is RuntimeType ? typeObj : null;
         onType ??= _resolveTypeForExtension(definition.onTypeName);
         if (onType == null) {
           Logger.warn(' [ModuleLoader] GEN-100: Could not resolve type '

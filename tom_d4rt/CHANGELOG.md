@@ -1,3 +1,23 @@
+## 1.28.0
+
+### Fixed — a handled on-type lookup miss was still reported as an error (tccc5)
+
+Registering a bridged extension probes the target environment for its on-type,
+and falls back to `_resolveTypeForExtension` when the importing script has not
+also imported the on-type's own library. That fallback is the normal path — but
+the probe used the throwing `Environment.get`, and constructing a
+`RuntimeD4rtException` registers it with the `ErrorReporter`. The loader caught
+the exception and never revoked it, so every routine miss left a phantom
+`Undefined variable: <Type>` behind.
+
+Nothing failed at runtime, but any host that treats reported errors as its
+pass/fail signal counted them. The dcli/d4rt REPL in `-test` mode is one:
+importing a bridge library with N such extensions failed the run with N errors
+while every assertion in it passed.
+
+The probe now uses the non-throwing `Environment.lookup`, as that method's own
+doc comment prescribes for callers that fall back on a miss.
+
 ## 1.27.0
 
 ### Fixed — two packages declaring the same class name resolved to whichever registered last (tcca19)

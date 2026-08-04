@@ -1,3 +1,18 @@
+## 1.12.0
+
+### Fixed — a handled on-type lookup miss was still reported as an error (tccc5)
+
+Mirrors the `tom_d4rt` 1.28.0 fix. Registering a bridged extension probes the
+global environment for its on-type and falls back to
+`_resolveTypeForExtension` when the importing script has not also imported the
+on-type's own library. The probe used the throwing `Environment.get`, whose
+exception registers itself with the `ErrorReporter`; the loader caught it and
+never revoked it, so every routine miss left a phantom
+`Undefined variable: <Type>` behind and failed hosts that treat reported errors
+as their pass/fail signal.
+
+The probe now uses the non-throwing `Environment.lookup`.
+
 ## 1.11.0
 
 ### `basePath` / `allowFileSystemImports` are no longer dead parameters (DGUB3)

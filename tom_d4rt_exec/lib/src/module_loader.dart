@@ -1231,16 +1231,18 @@ class ModuleLoader implements context.ModuleContext {
           _registeredExtensions[deduplicationKey] = sourceUri;
 
           try {
-            // Resolve the onType from the environment
-            RuntimeType? onType;
-            try {
-              final typeObj = globalEnvironment.get(definition.onTypeName);
-              if (typeObj is RuntimeType) {
-                onType = typeObj;
-              }
-            } on RuntimeD4rtException {
-              // Type not found yet — try fallbacks
-            }
+            // Resolve the onType from the environment.
+            //
+            // `lookup`, not `get`: this probe misses by design whenever the
+            // importing script does not also import the on-type's own library
+            // (the `_resolveTypeForExtension` fallback below is what handles
+            // that case). The throwing `get` turned every such routine miss
+            // into a reported `Undefined variable` error that nothing ever
+            // revoked, so a host collecting reported errors as its pass/fail
+            // signal — the REPL in `-test` mode — failed runs in which nothing
+            // went wrong.
+            final typeObj = globalEnvironment.lookup(definition.onTypeName);
+            var onType = typeObj is RuntimeType ? typeObj : null;
 
             // GEN-056 FIX: If the type isn't found in the environment, try
             // resolving it from registered bridge classes and stdlib modules.
