@@ -12,6 +12,7 @@ import 'dart:io';
 
 import 'package:tom_d4rt/tom_d4rt.dart';
 
+import '../cli/repl_base.dart' show prepareProgramSource;
 import 'cli_api.dart';
 import 'cli_exceptions.dart';
 import 'cli_result_types.dart';
@@ -721,7 +722,13 @@ $code
   @override
   Future<ExecuteResult> execute(String source, {String? basePath}) async {
     try {
-      final result = await _d4rt.execute(source: source);
+      // `execute` means "run as a fresh program", and `_d4rt.execute` parses
+      // its argument as a compilation unit — so a bare statement list has to be
+      // wrapped in a `main` first. No import block: unlike the REPL, this tier
+      // does not own the bridge registration, so it must not inject imports.
+      final result = await _d4rt.execute(
+        source: prepareProgramSource(source, importBlock: ''),
+      );
       return ExecuteResult.success(result);
     } catch (e, st) {
       return ExecuteResult.failure(e.toString(), stackTrace: st);

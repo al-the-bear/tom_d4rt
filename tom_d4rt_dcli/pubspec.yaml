@@ -1,6 +1,6 @@
 name: tom_d4rt_dcli
 description: Base D4rt CLI with dcli bridges. Extensible foundation for D4rt tools.
-version: 1.1.6
+version: 1.2.0
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_dcli
 topics:
@@ -13,10 +13,13 @@ environment:
   sdk: ^3.10.4
 
 dependencies:
-  # D4rt runtime. Floor raised to 1.10.1 (import-optimization Phase 6;
-  # precise-before-fuzzy Environment.toBridgedClass fix). Override-pinned to
-  # ../tom_d4rt in-tree via pubspec_overrides.yaml, so the bump is cosmetic.
-  tom_d4rt: ">=1.11.0"
+  # D4rt runtime, resolved from pub.dev (there is no pubspec_overrides.yaml —
+  # what is published here is what runs). Floor 1.29.0: registering a bridged
+  # extension no longer leaves a phantom `Undefined variable: <Type>` in the
+  # ErrorReporter, neither when its on-type resolves through the fallback
+  # (1.28.0) nor while that fallback probes the stdlib modules (1.29.0). The
+  # REPL's `-test` mode counts those as failures.
+  tom_d4rt: ">=1.29.0"
 
   # VS Code scripting API (for bridge support)
   tom_vscode_scripting_api: ">=1.1.0"

@@ -847,7 +847,10 @@ void main() {}
     }
 
     // Smart source preprocessing
-    final preprocessed = _preprocessStdinSource(source);
+    final preprocessed = prepareProgramSource(
+      source,
+      importBlock: getImportBlock(),
+    );
 
     try {
 
@@ -883,52 +886,6 @@ void main() {}
       }
       exit(2);
     }
-  }
-
-  /// Detect whether [source] contains `import` directives.
-  bool _sourceHasImports(String source) {
-    return RegExp(r"^\s*import\s+'", multiLine: true).hasMatch(source) ||
-        RegExp(r'^\s*import\s+"', multiLine: true).hasMatch(source);
-  }
-
-  /// Detect whether [source] defines a `main` function.
-  bool _sourceHasMain(String source) {
-    // Match common main signatures:
-    //   void main() / main() / Object main(...) / Future<void> main(...) etc.
-    return RegExp(
-      r'^\s*(?:\w+(?:<[\w<>, ]+>)?\s+)?main\s*\(',
-      multiLine: true,
-    ).hasMatch(source);
-  }
-
-  /// Preprocess stdin source by auto-prefixing imports and/or wrapping in main.
-  ///
-  /// Three cases:
-  /// 1. Source has imports AND main → return as-is
-  /// 2. Source has main but NO imports → prefix bridge imports
-  /// 3. Source has neither main → prefix imports AND wrap in main
-  String _preprocessStdinSource(String source) {
-    final hasImports = _sourceHasImports(source);
-    final hasMain = _sourceHasMain(source);
-
-    // Case 1: Complete script — execute as-is
-    if (hasImports && hasMain) {
-      return source;
-    }
-
-    final importBlock = getImportBlock();
-
-    // Case 2: Has main but no imports — prefix imports
-    if (hasMain) {
-      return '$importBlock\n$source';
-    }
-
-    // Case 3: Bare statements — prefix imports and wrap in main
-    return '''$importBlock
-Object? main(List<String> args) {
-$source
-}
-''';
   }
 
   /// Execute a replay file and exit.
@@ -1395,7 +1352,21 @@ $source
             freshD4rt.grant(IsolatePermission.any);
             freshD4rt.grant(DangerousPermission.any);
             registerBridges(freshD4rt);
-            final result = freshD4rt.execute(source: code);
+            // `.start-execute` means "run this as a fresh program", so the
+            // block goes through the same rule as stdin: a bare statement list
+            // is not a compilation unit and has to be wrapped in a `main`.
+            //
+            // The import block is prefixed for the same reason as on stdin:
+            // `registerBridges` puts bridged *classes* in scope, but a bridged
+            // library's top-level functions (`verify`, `verifyEquals`, …) only
+            // become visible through its import.
+            var result = freshD4rt.execute(
+              source: prepareProgramSource(
+                code,
+                importBlock: getImportBlock(),
+              ),
+            );
+            if (result is Future) result = await result;
             if (result != null && !silent) {
               printResult(result);
             }
@@ -2288,11 +2259,14 @@ Object? __repl_expr__() {
       freshD4rt.grant(DangerousPermission.any);
       registerBridges(freshD4rt);
       
-      // Combine all imports (stdlib + registered bridges) with user code
-      // This allows scripts to use all available classes without explicit imports
-      final imports = getImportBlock();
-      final fullSource = '$imports\n$code';
-      
+      // Prefix all imports (stdlib + registered bridges) so scripts can use
+      // every available class without explicit imports, and wrap bare
+      // statements in a `main` so they form a runnable compilation unit.
+      final fullSource = prepareProgramSource(
+        code,
+        importBlock: getImportBlock(),
+      );
+
       // Execute the complete program
       var result = freshD4rt.execute(source: fullSource);
       if (result is Future) {
@@ -3090,6 +3064,82 @@ bool Function(String)? parseSearchFilter(String query) {
   final filter = parseSearchFilterDetails(query);
   if (filter == null) return null;
   return filter.matches;
+}
+
+/// Does [source] contain an `import` directive of its own?
+final _importDirectivePattern = RegExp('^\\s*import\\s+[\'"]', multiLine: true);
+
+/// Does [source] *declare* a top-level `main`?
+///
+/// The body (`{` or `=>`) is part of the pattern on purpose: `main();` is a
+/// call, not a declaration, and treating it as one would hand `execute` a
+/// compilation unit whose only top-level member is invalid.
+///
+/// The declaration is looked for after a line start *or* a `;`/`{`/`}`, not at
+/// a line start alone: `var x = 42; void main() {}` is a complete program on
+/// one line, and wrapping it in a second `main` would make `x` a local that no
+/// later `eval` can see.
+final _mainDeclarationPattern = RegExp(
+  r'(?:^|[;{}])\s*(?:\w+(?:<[^>]*>)?\??\s+)?main\s*\([^)]*\)\s*(?:async\s*\*?\s*)?(?:\{|=>)',
+  multiLine: true,
+);
+
+final _awaitPattern = RegExp(r'\bawait\b');
+
+/// String literals and comments, so that the word `await` occurring inside one
+/// does not decide whether the generated wrapper is async.
+final _stringOrCommentPattern = RegExp(
+  r'''"""[\s\S]*?"""|'''
+  r"""'''[\s\S]*?'''|"""
+  r'''"(?:\\.|[^"\\\n])*"|'''
+  r"""'(?:\\.|[^'\\\n])*'|"""
+  r'//[^\n]*|/\*[\s\S]*?\*/',
+);
+
+/// Do the statements in [source] contain a real `await` expression?
+///
+/// Literals carrying an interpolation are kept, because `'${await f()}'` does
+/// await; every other literal and every comment is dropped first.
+bool _awaitsSomething(String source) {
+  final code = source.replaceAllMapped(
+    _stringOrCommentPattern,
+    (m) => m[0]!.contains(r'${') ? m[0]! : '',
+  );
+  return _awaitPattern.hasMatch(code);
+}
+
+/// Returns [source] in a shape that `D4rt.execute(source:)` can run.
+///
+/// `execute` parses its argument as a *compilation unit* and calls the
+/// top-level `main`, so the three shapes a user can hand a "run as a fresh
+/// program" entry point each need different treatment:
+///
+/// 1. imports + `main` — already a complete program; returned unchanged.
+/// 2. `main` without imports — [importBlock] is prefixed so the registered
+///    bridges resolve.
+/// 3. bare statements — prefixed *and* wrapped in a generated `main`. Without
+///    the wrapper `var x = 1; f(x);` parses as a top-level variable followed by
+///    a function declaration with no body, which is why an unwrapped block
+///    fails with "Expected to find ')'" / "A function body must be provided".
+///
+/// The generated wrapper is `async` when the statements await — a synchronous
+/// wrapper would turn a working script into a parse error about `await`
+/// outside an async function.
+///
+/// Every entry point that means "run this as a fresh program" — stdin, the
+/// `exec` command and `.start-execute` — applies this rule, which is why it
+/// lives here rather than at each call site.
+String prepareProgramSource(String source, {required String importBlock}) {
+  final prefix = importBlock.isEmpty ? '' : '$importBlock\n';
+
+  if (_mainDeclarationPattern.hasMatch(source)) {
+    return _importDirectivePattern.hasMatch(source) ? source : '$prefix$source';
+  }
+
+  final signature = _awaitsSomething(source)
+      ? 'Future<Object?> main(List<String> args) async'
+      : 'Object? main(List<String> args)';
+  return '$prefix$signature {\n$source\n}\n';
 }
 
 /// Stdout/Stderr capture wrapper for bot mode output capture.
