@@ -13,6 +13,8 @@ import 'package:tom_build_base/tom_build_base_v2.dart';
 import 'package:tom_d4rt_generator/src/v2/d4rtgen_tool.dart';
 import 'package:tom_d4rt_generator/src/v2/d4rtgen_executor.dart';
 
+import '../../scan_fixtures.dart';
+
 // =============================================================================
 // Test Helpers
 // =============================================================================
@@ -205,11 +207,11 @@ d4rtgen:
         output: output,
       );
 
-      final tempDir = await Directory.systemTemp.createTemp('d4rtgen_list_');
+      final tempDir = await createInWorkspaceTempDir('d4rtgen_list_');
       try {
         final result = await runner
             .run(['--list', '--scan', tempDir.path, '--not-recursive']);
-        expect(result.success, isTrue);
+        expect(result.success, isTrue, reason: output.toString());
       } finally {
         await tempDir.delete(recursive: true);
       }
@@ -223,11 +225,11 @@ d4rtgen:
         output: output,
       );
 
-      final tempDir = await Directory.systemTemp.createTemp('d4rtgen_dump_');
+      final tempDir = await createInWorkspaceTempDir('d4rtgen_dump_');
       try {
         final result = await runner
             .run(['--dump-config', '--scan', tempDir.path, '--not-recursive']);
-        expect(result.success, isTrue);
+        expect(result.success, isTrue, reason: output.toString());
       } finally {
         await tempDir.delete(recursive: true);
       }

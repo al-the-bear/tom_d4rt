@@ -13,6 +13,8 @@ import 'package:tom_build_base/tom_build_base_v2.dart';
 import 'package:tom_ast_generator/src/v2/astgen_tool.dart';
 import 'package:tom_ast_generator/src/v2/astgen_executor.dart';
 
+import '../scan_fixtures.dart';
+
 // =============================================================================
 // Test Helpers
 // =============================================================================
@@ -196,11 +198,11 @@ astgen:
         output: output,
       );
 
-      final tempDir = await Directory.systemTemp.createTemp('astgen_list_');
+      final tempDir = await createInWorkspaceTempDir('astgen_list_');
       try {
         final result = await runner
             .run(['--list', '--scan', tempDir.path, '--not-recursive']);
-        expect(result.success, isTrue);
+        expect(result.success, isTrue, reason: output.toString());
       } finally {
         await tempDir.delete(recursive: true);
       }
@@ -214,11 +216,11 @@ astgen:
         output: output,
       );
 
-      final tempDir = await Directory.systemTemp.createTemp('astgen_dry_');
+      final tempDir = await createInWorkspaceTempDir('astgen_dry_');
       try {
         final result = await runner
             .run(['--dry-run', '--scan', tempDir.path, '--not-recursive']);
-        expect(result.success, isTrue);
+        expect(result.success, isTrue, reason: output.toString());
       } finally {
         await tempDir.delete(recursive: true);
       }
