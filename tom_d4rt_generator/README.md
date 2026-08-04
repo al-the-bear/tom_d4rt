@@ -106,7 +106,7 @@ dart run tom_d4rt_generator:d4rtgen --project=.
 
 # Generate for a project at a known path — select it with --scan, not
 # --project. See "Selecting projects" below: --project takes NAMES, and an
-# absolute path matches no name, so it would silently generate nothing.
+# absolute path matches no name, so it fails the run instead of generating.
 dart run tom_d4rt_generator:d4rtgen --scan=/path/to/my_package --not-recursive
 
 # Generate for multiple projects via comma-separated list or glob
@@ -124,7 +124,7 @@ dart run tom_d4rt_generator:d4rtgen --project=. --verbose
 
 #### Selecting projects: `--project` vs `--scan`
 
-The two options answer different questions, and mixing them up fails quietly.
+The two options answer different questions, and mixing them up fails the run.
 
 - **`--scan=<path>`** sets *where to look*. It takes a directory. It defaults
   to the current directory, so a `--project` selector can only ever match
@@ -136,10 +136,12 @@ The two options answer different questions, and mixing them up fails quietly.
 
 `--project` does **not** take filesystem paths. An absolute path matches no
 name and no id, and a partial id (`core/tom_core_d4rt` rather than the full
-`tom_ai/core/tom_core_d4rt`) matches nothing either. In both cases the
-generator selects zero projects, does nothing, and **exits 0** — so the
-mistake looks like a successful run. When you have a path rather than a name,
-select it with `--scan=<path> --not-recursive`.
+`tom_ai/core/tom_core_d4rt`) matches nothing either. A selector that matches
+nothing **fails the run**, naming the selector and the root it was searched
+under, so the mistake reports itself rather than passing for a successful run.
+When you have a path rather than a name, select it with
+`--scan=<path> --not-recursive`; when matching nothing is genuinely intended,
+pass `--allow-empty`.
 
 Or via `build_runner` (useful for continuous watch mode):
 

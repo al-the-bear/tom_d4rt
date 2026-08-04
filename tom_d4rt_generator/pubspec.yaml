@@ -34,8 +34,10 @@ dependencies:
 
   # In-workspace components: lower-bound only (no upper cap) so `pub upgrade`
   # always tracks our latest published versions during active development.
-  # Shared build utilities.
-  tom_build_base: ">=2.6.25"
+  # Shared build utilities. Floor 2.7.1: a `--project` selector that matches no
+  # project fails the run instead of silently generating nothing and exiting 0
+  # (2.7.1 extends that to pipeline `shell-scan` steps).
+  tom_build_base: ">=2.7.1"
 
   # D4rt runtime (used by testing library). Floor 1.11.0: generated enum bridges
   # emit the `staticMethods:` parameter on `BridgedEnumDefinition` (GitHub issue

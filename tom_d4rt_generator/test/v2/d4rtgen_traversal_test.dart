@@ -29,6 +29,15 @@ CommandContext createTestContext({
   );
 }
 
+/// Create an empty temporary directory to point `--scan` at.
+///
+/// Anchored in the package directory rather than the system temp dir, because
+/// tom_build_base rejects a `--scan` path outside the workspace root before
+/// traversal starts — a scan target under `/tmp` never reaches the scanner and
+/// so cannot exercise "scans an empty directory".
+Future<Directory> createEmptyScanDir(String prefix) =>
+    Directory.current.createTemp(prefix);
+
 /// Create a temporary project directory with optional buildkit.yaml.
 Future<Directory> createTempProject({
   String? d4rtgenConfig,
@@ -266,7 +275,7 @@ class CoreType {
         output: output,
       );
 
-      final tempDir = await Directory.systemTemp.createTemp('d4rtgen_list_');
+      final tempDir = await createEmptyScanDir('d4rtgen_list_');
       try {
         final result = await runner.run([
           '--list',
@@ -288,7 +297,7 @@ class CoreType {
         output: output,
       );
 
-      final tempDir = await Directory.systemTemp.createTemp('d4rtgen_dump_');
+      final tempDir = await createEmptyScanDir('d4rtgen_dump_');
       try {
         final result = await runner.run([
           '--dump-config',

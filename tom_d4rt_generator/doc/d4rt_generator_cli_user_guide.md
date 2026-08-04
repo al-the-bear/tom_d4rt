@@ -99,11 +99,20 @@ The `--project` option supports multiple ways to specify projects:
 - **Single project**: `--project=my_app`
 - **Comma-separated**: `--project='project1,project2,project3'`
 - **Glob patterns**: `--project='tom_*'` (matches projects starting with `tom_`)
-- **Path globs**: `--project='xternal/tom_module_d4rt/*'`
-- **Current directory children**: `--project='./*'`
-- **Recursive from current directory**: `--project='./**/*'`
+- **Workspace-relative id globs**: `--project='xternal/tom_module_d4rt/*'`
 
 Multiple patterns can be combined: `--project='tom_*_builder,tom_d4rt_*'`
+
+A pattern is matched against each scanned project's id, name, folder name and
+workspace-relative path — never against the filesystem as a shell would. So
+`./*` and `./**/*` select nothing: the leading `./` is part of the pattern and
+no project id starts with it. Use `--scan` to widen *where* the tool looks and
+leave `--project` to say *which* of the projects found there to process; see
+[Selecting projects](#selecting-projects-project-vs-scan).
+
+A selector that matches no project fails the run (exit non-zero) rather than
+generating nothing and reporting success — pass `--allow-empty` if matching
+nothing is intended.
 
 ### Version Information
 
@@ -261,11 +270,20 @@ d4rtgen --scan=example/user_reference --not-recursive
 current directory). `--project=<pattern>` says *what to pick* out of that tree
 and takes names and workspace-relative ids, with globs.
 
-A selector that matches nothing is not an error: the generator selects zero
-projects, does nothing, and **exits 0**. That makes the two common mistakes —
-passing an absolute path, or passing a partial id such as
-`core/tom_core_d4rt` instead of the full `tom_ai/core/tom_core_d4rt` — look
-like successful runs. If you are holding a path, use `--scan`.
+A selector that matches nothing is an error: the run exits non-zero and names
+both the selector and the root it was searched under, so the two common
+mistakes — passing an absolute path, or passing a partial id such as
+`core/tom_core_d4rt` instead of the full `tom_ai/core/tom_core_d4rt` — report
+themselves instead of looking like successful runs.
+
+```text
+Error: --project selector matched no project: 'core/tom_core_d4rt' (scanned /ws)
+Use --allow-empty if matching nothing is intended.
+```
+
+If you are holding a path, use `--scan`. If a selector is deliberately used as
+an "if present" filter — a shared script run across workspaces that do not all
+contain the project — pass `--allow-empty`.
 
 ### Use Explicit Config File
 
