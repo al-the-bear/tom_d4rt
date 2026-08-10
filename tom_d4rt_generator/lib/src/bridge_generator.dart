@@ -1255,6 +1255,19 @@ class BridgeGenerator {
           List<({String uri, Set<String>? show, Set<String>? hide})>>
       _sourceFileReExports = {};
 
+  /// The canonical key under which per-source-file state
+  /// ([_sourceFileImports], [_sourceFileReExports]) is stored and read.
+  ///
+  /// Source files reach the generator spelled either way: `barrelFiles` in
+  /// `buildkit.yaml` are written relative to the project directory for
+  /// `path:` dependencies, while the barrel walk reaches hosted packages
+  /// through an absolute `~/.pub-cache/…` path. Both spellings must land on
+  /// the same entry — otherwise a whole library's state is silently
+  /// unreachable at emission time (GEN-122).
+  String _sourceFileKey(String path) => p.normalize(
+        p.isAbsolute(path) ? path : p.join(Directory.current.path, path),
+      );
+
   /// Map of typedef names to their expanded function type signatures.
   /// Used to fall back to the definition when a typedef is not exported from the barrel.
   /// Key is the typedef name, value is the expanded signature (e.g., 'Object? Function(Object?)').
@@ -5246,13 +5259,7 @@ class BridgeGenerator {
   ///
   /// Returns the import URI if the type can be resolved, null otherwise.
   String? _resolveTypeFromSourceImports(String typeName, String sourceFile) {
-    final normalizedPath = p.normalize(
-      p.isAbsolute(sourceFile)
-          ? sourceFile
-          : p.join(Directory.current.path, sourceFile),
-    );
-    final imports =
-        _sourceFileImports[normalizedPath] ?? _sourceFileImports[sourceFile];
+    final imports = _sourceFileImports[_sourceFileKey(sourceFile)];
     if (imports == null) return null;
     return imports[typeName];
   }
@@ -5690,7 +5697,7 @@ class BridgeGenerator {
       }
     }
 
-    _sourceFileImports[filePath] = typeToUri;
+    _sourceFileImports[_sourceFileKey(filePath)] = typeToUri;
   }
 
   /// GEN-107 Phase 2: Collects `export …` directives declared by
@@ -5737,7 +5744,7 @@ class BridgeGenerator {
     }
 
     if (reExports.isNotEmpty) {
-      _sourceFileReExports[filePath] = reExports;
+      _sourceFileReExports[_sourceFileKey(filePath)] = reExports;
     }
   }
 
@@ -6937,7 +6944,7 @@ class BridgeGenerator {
     final reExportEntries =
         <({String source, String target, Set<String>? show, Set<String>? hide})>[];
     for (final filePath in reExportLookupFiles) {
-      final entries = _sourceFileReExports[filePath];
+      final entries = _sourceFileReExports[_sourceFileKey(filePath)];
       if (entries == null || entries.isEmpty) continue;
       final sourceUri = _getPackageUri(filePath);
       for (final entry in entries) {
