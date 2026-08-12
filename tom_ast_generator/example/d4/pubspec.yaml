@@ -9,8 +9,12 @@ environment:
 dependencies:
   tom_d4rt_exec:
     path: ../../../tom_d4rt_exec
-  tom_d4rt_ast:
-    path: ../../../tom_d4rt_ast
+  # No path dep on tom_d4rt_ast: nothing here imports it (the only mentions
+  # are comments inside generated bridges), while tom_d4rt_exec depends on
+  # the *hosted* package. Declaring two sources for one package is a
+  # resolution conflict, which is why `pub get` failed here and left the
+  # example pinned to a package_config referencing analyzer 8.4.1 — long
+  # gone from pub-cache — so every AOT compile in the tests failed.
   path: ^1.9.0
   dcli: ^8.4.2
   dcli_core: ^8.2.8
