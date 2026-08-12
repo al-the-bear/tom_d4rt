@@ -1,3 +1,16 @@
+## 0.3.0
+
+- Add `ProfilingMetrics` (exported from `tom_d4rt_flutter_ast.dart`) — a single
+  compile-time switch mirroring the interpreter's `D4rtProfiler.enabled`, plus
+  `snapshot()`, `report()` and `reset()`. The test app and the test drivers now
+  read one source of truth for whether D4rt's init-path profiler is compiled
+  in. The published default is off, so every profiling branch behind it is
+  dead-code-eliminated at zero runtime cost.
+- Regenerate all 15 Flutter bridge files under the upgraded Flutter SDK on
+  `tom_d4rt_generator` 1.14.0. The visible surface change is that bridged enums
+  now carry their static methods — e.g. `KeyboardLockMode.findLockByLogicalKey`
+  is callable from interpreted code.
+
 ## 0.2.0
 
 - Add `FlutterD4rt.warmup()` — forwards to `D4rtRunner.warmup()` so embedders

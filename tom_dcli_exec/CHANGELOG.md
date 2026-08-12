@@ -1,3 +1,17 @@
+## 1.2.1
+
+### Fixed — barrel re-exports were registered under an unmatched key (GEN-125)
+
+`bridgeReExports()` recorded its `source` as `lib/tom_d4rt_cli_api.dart`
+instead of `package:tom_dcli_exec/tom_d4rt_cli_api.dart`, because the bridge
+generator failed to root a relative source path before mapping it to a package
+URI. `registerLibraryReExport` matches that key against a script's `import`,
+which is always a `package:` URI — so every symbol reached only through a
+re-export of the CLI API barrel was invisible to interpreted scripts.
+
+Fixed upstream in `tom_d4rt_generator` 1.15.3 and picked up here by
+regeneration; no hand edits to any `*.b.dart`.
+
 ## 1.2.0
 
 ### Fixed — `.start-execute` blocks of bare statements failed to parse (tccc5)

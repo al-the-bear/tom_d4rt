@@ -1,6 +1,6 @@
 name: tom_d4rt_flutter
 description: "Source-based D4rt interpreter with the full Flutter Material bridge surface (SourceFlutterD4rt), plus the bridge conformance test suite and HTTP test harness."
-version: 1.1.0
+version: 1.2.0
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_flutter
 
@@ -37,7 +37,10 @@ dev_dependencies:
   # (matching tom_d4rt's analyzer ^10) and emits the lazy bridge-factory thunks
   # (bridgeClassThunks/bridgeClassTypes) the import-optimization guard pairs
   # with. The earlier analyzer-8 conflict that deferred regen is resolved.
-  tom_d4rt_generator: ">=1.14.0"
+  # Floor 1.15.3: below it, a regeneration from a relative scan root writes
+  # `bridgeReExports()` source keys as `lib/…` instead of `package:…`, which no
+  # script import can ever match (GEN-125).
+  tom_d4rt_generator: ">=1.15.3"
 
 flutter:
   uses-material-design: true

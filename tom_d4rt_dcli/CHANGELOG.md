@@ -1,3 +1,27 @@
+## 1.3.0
+
+### Added — the full VS Code scripting API bridge surface
+
+`lib/src/bridges/tom_vscode_scripting_api_bridges.b.dart` was regenerated
+against the current `tom_vscode_scripting_api` and grew from a partial surface
+to the complete one (~9 000 lines of additional bridged members). Scripts that
+previously hit `Undefined member` on a VS Code scripting call now resolve it.
+
+The remaining bridge files (`cli_api`, `dcli`, `path`, `tom_chattools`) were
+regenerated in the same pass; their content is unchanged.
+
+### Fixed — barrel re-exports were registered under an unmatched key (GEN-125)
+
+`bridgeReExports()` recorded its `source` as `lib/tom_d4rt_cli_api.dart`
+instead of `package:tom_d4rt_dcli/tom_d4rt_cli_api.dart`, because the bridge
+generator failed to root a relative source path before mapping it to a package
+URI. `registerLibraryReExport` matches that key against a script's `import`,
+which is always a `package:` URI — so every symbol reached only through a
+re-export of the CLI API barrel was invisible to interpreted scripts.
+
+Fixed upstream in `tom_d4rt_generator` 1.15.3 and picked up here by
+regeneration; no hand edits to any `*.b.dart`.
+
 ## 1.2.0
 
 ### Fixed — `.start-execute` blocks of bare statements failed to parse (tccc5)

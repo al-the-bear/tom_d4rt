@@ -1,6 +1,6 @@
 name: tom_dcli_exec
 description: Base D4rt CLI with dcli bridges using tom_d4rt_exec (analyzer-free). Extensible foundation for D4rt tools.
-version: 1.2.0
+version: 1.2.1
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_dcli_exec
 topics:
@@ -59,4 +59,7 @@ dev_dependencies:
   # analyzer-10: tom_d4rt_generator 1.10.0 is the analyzer-10 build (cli_tools
   # quest, migration plan Phase 4), so it now shares this package's analyzer ^10
   # resolution and bridge regeneration via build_runner is available again.
-  tom_d4rt_generator: ">=1.14.0"
+  # Floor 1.15.3: below it, a regeneration from a relative scan root writes
+  # `bridgeReExports()` source keys as `lib/…` instead of `package:…`, which no
+  # script import can ever match (GEN-125).
+  tom_d4rt_generator: ">=1.15.3"
