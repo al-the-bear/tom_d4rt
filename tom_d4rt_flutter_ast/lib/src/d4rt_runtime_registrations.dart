@@ -49,7 +49,6 @@ import 'package:flutter/rendering.dart'
         BoxConstraints,
         BoxHitTestResult,
         BoxParentData,
-        CacheExtentStyle,
         ContainerBoxParentData,
         ContainerRenderObjectMixin,
         CustomClipper,
@@ -62,6 +61,7 @@ import 'package:flutter/rendering.dart'
         RenderBox,
         RenderBoxContainerDefaultsMixin,
         RenderObject,
+        ScrollCacheExtent,
         SingleChildLayoutDelegate,
         ViewportOffset;
 import 'package:flutter/scheduler.dart' show Ticker, TickerProvider;
@@ -3911,8 +3911,7 @@ class _InterpretedTwoDimensionalScrollView extends TwoDimensionalScrollView {
     super.verticalDetails,
     super.horizontalDetails,
     required super.delegate,
-    super.cacheExtent,
-    super.cacheExtentStyle,
+    super.scrollCacheExtent,
     super.diagonalDragBehavior,
     super.dragStartBehavior,
     super.keyboardDismissBehavior,
@@ -3946,9 +3945,8 @@ class _InterpretedTwoDimensionalScrollView extends TwoDimensionalScrollView {
               instance, 'horizontalDetails', visitor) ??
           const ScrollableDetails.horizontal(),
       delegate: delegate,
-      cacheExtent: _readSuperArg<double>(instance, 'cacheExtent', visitor),
-      cacheExtentStyle: _readSuperArg<CacheExtentStyle>(
-          instance, 'cacheExtentStyle', visitor),
+      scrollCacheExtent: _readSuperArg<ScrollCacheExtent>(
+          instance, 'scrollCacheExtent', visitor),
       diagonalDragBehavior: _readSuperArg<DiagonalDragBehavior>(
               instance, 'diagonalDragBehavior', visitor) ??
           DiagonalDragBehavior.none,
@@ -4083,8 +4081,7 @@ class _InterpretedTwoDimensionalViewport extends TwoDimensionalViewport {
     required super.horizontalAxisDirection,
     required super.delegate,
     required super.mainAxis,
-    super.cacheExtent,
-    super.cacheExtentStyle,
+    super.scrollCacheExtent,
     super.clipBehavior,
   });
 
@@ -4126,9 +4123,8 @@ class _InterpretedTwoDimensionalViewport extends TwoDimensionalViewport {
       horizontalAxisDirection: horizontalAxisDirection,
       delegate: delegate,
       mainAxis: mainAxis,
-      cacheExtent: _readSuperArg<double>(instance, 'cacheExtent', visitor),
-      cacheExtentStyle: _readSuperArg<CacheExtentStyle>(
-          instance, 'cacheExtentStyle', visitor),
+      scrollCacheExtent: _readSuperArg<ScrollCacheExtent>(
+          instance, 'scrollCacheExtent', visitor),
       clipBehavior:
           _readSuperArg<Clip>(instance, 'clipBehavior', visitor) ??
               Clip.hardEdge,
@@ -4182,8 +4178,7 @@ class _InterpretedRenderTwoDimensionalViewport
     required super.delegate,
     required super.mainAxis,
     required super.childManager,
-    super.cacheExtent,
-    super.cacheExtentStyle,
+    super.scrollCacheExtent,
     super.clipBehavior,
   });
 
@@ -4225,9 +4220,8 @@ class _InterpretedRenderTwoDimensionalViewport
       delegate: delegate,
       mainAxis: mainAxis,
       childManager: childManager,
-      cacheExtent: _readSuperArg<double>(instance, 'cacheExtent', visitor),
-      cacheExtentStyle: _readSuperArg<CacheExtentStyle>(
-          instance, 'cacheExtentStyle', visitor),
+      scrollCacheExtent: _readSuperArg<ScrollCacheExtent>(
+          instance, 'scrollCacheExtent', visitor),
       clipBehavior:
           _readSuperArg<Clip>(instance, 'clipBehavior', visitor) ??
               Clip.hardEdge,

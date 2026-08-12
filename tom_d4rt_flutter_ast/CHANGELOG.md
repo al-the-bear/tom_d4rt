@@ -1,5 +1,10 @@
 ## 0.3.0
 
+- Migrate the `TwoDimensionalChildDelegate` proxies to `ScrollCacheExtent`,
+  following the Flutter SDK's replacement of the raw cache-extent doubles
+  (RCK22). The source twin `tom_d4rt_flutter` took this in its own 1.2.0; this
+  release closes the resulting divergence, so both twins again expose the same
+  constructor surface to interpreted subclasses.
 - Add `ProfilingMetrics` (exported from `tom_d4rt_flutter_ast.dart`) — a single
   compile-time switch mirroring the interpreter's `D4rtProfiler.enabled`, plus
   `snapshot()`, `report()` and `reset()`. The test app and the test drivers now
