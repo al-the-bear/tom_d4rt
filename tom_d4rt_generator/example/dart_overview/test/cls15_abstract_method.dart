@@ -10,7 +10,9 @@ void main() {
   var moto = Motorcycle();
   var result = moto.move();
   if (result != 'Motorcycle is riding') {
-    errors.add('Motorcycle.move() expected "Motorcycle is riding", got "$result"');
+    errors.add(
+      'Motorcycle.move() expected "Motorcycle is riding", got "$result"',
+    );
   }
 
   // Car is another concrete subclass

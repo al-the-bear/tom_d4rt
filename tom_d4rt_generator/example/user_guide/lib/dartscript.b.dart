@@ -18,10 +18,7 @@ class UserGuideExampleBridges {
       d4rt,
       'package:user_guide_example/user_guide_example.dart',
     );
-    all_bridges.AllBridge.registerBridges(
-      d4rt,
-      'lib/user_guide_example.dart',
-    );
+    all_bridges.AllBridge.registerBridges(d4rt, 'lib/user_guide_example.dart');
     // Register under sub-package barrels for direct imports
     for (final barrel in all_bridges.AllBridge.subPackageBarrels()) {
       all_bridges.AllBridge.registerBridges(d4rt, barrel);

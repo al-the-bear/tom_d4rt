@@ -8,7 +8,9 @@ void main() async {
   // fetchGreeting returns Future<String>
   var greeting = await fetchGreeting('D4rt');
   if (greeting != 'Hello, D4rt!') {
-    errors.add('fetchGreeting("D4rt") expected "Hello, D4rt!", got "$greeting"');
+    errors.add(
+      'fetchGreeting("D4rt") expected "Hello, D4rt!", got "$greeting"',
+    );
   }
 
   // computeSum returns Future<int>

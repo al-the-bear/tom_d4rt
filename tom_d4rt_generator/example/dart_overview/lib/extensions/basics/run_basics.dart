@@ -196,9 +196,11 @@ extension MapExtension<K, V> on Map<K, V> {
 
 // Extension on DateTime
 extension DateTimeExtension on DateTime {
-  String get formatted => '$year-${month.toString().padLeft(2, '0')}-${day.toString().padLeft(2, '0')}';
+  String get formatted =>
+      '$year-${month.toString().padLeft(2, '0')}-${day.toString().padLeft(2, '0')}';
 
-  bool get isWeekend => weekday == DateTime.saturday || weekday == DateTime.sunday;
+  bool get isWeekend =>
+      weekday == DateTime.saturday || weekday == DateTime.sunday;
 
   DateTime get tomorrow => add(const Duration(days: 1));
   DateTime get yesterday => subtract(const Duration(days: 1));

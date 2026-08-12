@@ -47,11 +47,7 @@ void main() {
   // Const collections
   print('\n--- Const Collections ---');
   const numbers = [1, 2, 3, 4, 5];
-  const config = {
-    'debug': false,
-    'version': '1.0.0',
-    'maxConnections': 100,
-  };
+  const config = {'debug': false, 'version': '1.0.0', 'maxConnections': 100};
   const coordinates = {Point(0, 0), Point(1, 1), Point(2, 2)};
 
   print('const list: $numbers');

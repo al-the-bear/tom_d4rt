@@ -26,8 +26,10 @@ Future<void> main() async {
   // Stream.periodic
   print('');
   print('--- Stream.periodic ---');
-  var periodicStream =
-      Stream.periodic(Duration(milliseconds: 50), (i) => i).take(5);
+  var periodicStream = Stream.periodic(
+    Duration(milliseconds: 50),
+    (i) => i,
+  ).take(5);
   print('Periodic values:');
   await for (var value in periodicStream) {
     print('  Tick: $value');
@@ -105,9 +107,13 @@ Future<void> main() async {
   print('--- Broadcast Stream ---');
   var broadcastController = StreamController<int>.broadcast();
 
-  var sub1 = broadcastController.stream.listen((n) => print('  Listener 1: $n'));
+  var sub1 = broadcastController.stream.listen(
+    (n) => print('  Listener 1: $n'),
+  );
 
-  var sub2 = broadcastController.stream.listen((n) => print('  Listener 2: $n'));
+  var sub2 = broadcastController.stream.listen(
+    (n) => print('  Listener 2: $n'),
+  );
 
   broadcastController.add(1);
   broadcastController.add(2);
@@ -151,8 +157,9 @@ Future<void> main() async {
   print('');
   print('--- asyncMap ---');
   var ids = Stream.fromIterable([1, 2, 3]);
-  var users =
-      ids.asyncMap((id) => Future.delayed(Duration(milliseconds: 10), () => 'User$id'));
+  var users = ids.asyncMap(
+    (id) => Future.delayed(Duration(milliseconds: 10), () => 'User$id'),
+  );
   print('asyncMap results: ${await users.toList()}');
 
   // take and skip

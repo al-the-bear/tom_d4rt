@@ -10,17 +10,17 @@ class Matrix2x2 {
 
   /// Create a matrix from four values: [[a, b], [c, d]].
   Matrix2x2(double a, double b, double c, double d)
-      : _data = [
-          [a, b],
-          [c, d],
-        ];
+    : _data = [
+        [a, b],
+        [c, d],
+      ];
 
   /// Create an identity matrix.
   Matrix2x2.identity()
-      : _data = [
-          [1, 0],
-          [0, 1],
-        ];
+    : _data = [
+        [1, 0],
+        [0, 1],
+      ];
 
   /// Get element at [row, col].
   double operator [](List<int> indices) {

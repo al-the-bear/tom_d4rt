@@ -41,11 +41,7 @@ void main() {
   // Custom class with bounds
   print('');
   print('--- Custom Class with Bounds ---');
-  var people = [
-    Person('Charlie', 30),
-    Person('Alice', 25),
-    Person('Bob', 35),
-  ];
+  var people = [Person('Charlie', 30), Person('Alice', 25), Person('Bob', 35)];
 
   var sortedPeople = SortedList<Person>()..addAll(people);
   print('Sorted people: ${sortedPeople.items}');

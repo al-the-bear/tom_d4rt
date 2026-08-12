@@ -74,19 +74,24 @@ void main() {
     final allowlistPath = _fromPackageRoot(_allowlistRelative);
 
     test('G-RCN-1: committed allowlist file exists and parses', () {
-      expect(File(allowlistPath).existsSync(), isTrue,
-          reason: 'missing committed allowlist at $allowlistPath');
+      expect(
+        File(allowlistPath).existsSync(),
+        isTrue,
+        reason: 'missing committed allowlist at $allowlistPath',
+      );
       final names = _readCommittedAllowlist(allowlistPath);
       expect(names, isNotEmpty);
     });
 
     test('G-RCN-2: corpus directory is present', () {
-      expect(Directory(corpusPath).existsSync(), isTrue,
-          reason: 'corpus not found at $corpusPath');
+      expect(
+        Directory(corpusPath).existsSync(),
+        isTrue,
+        reason: 'corpus not found at $corpusPath',
+      );
     });
 
-    test(
-        'G-RCN-3: committed allowlist is a superset of a fresh corpus scan '
+    test('G-RCN-3: committed allowlist is a superset of a fresh corpus scan '
         '(zero-miss for syntactically-written type-args)', () {
       const scanner = CorpusTypeScanner();
       final fresh = scanner.scanDirectory(corpusPath);
@@ -98,7 +103,8 @@ void main() {
       expect(
         missing,
         isEmpty,
-        reason: 'These type-args appear in the corpus but are absent from the '
+        reason:
+            'These type-args appear in the corpus but are absent from the '
             'committed allowlist — reduced generation would drop their switch '
             'cases. Regenerate doc/corpus_relaxer_allowlist.yaml via '
             '`dart run tom_d4rt_generator:scan_corpus_types`:\n'
@@ -106,8 +112,7 @@ void main() {
       );
     });
 
-    test(
-        'G-RCN-4: committed allowlist matches a fresh scan exactly '
+    test('G-RCN-4: committed allowlist matches a fresh scan exactly '
         '(no stale extras either)', () {
       const scanner = CorpusTypeScanner();
       final fresh = scanner.scanDirectory(corpusPath);
@@ -121,7 +126,8 @@ void main() {
       expect(
         scanned,
         equals(committed),
-        reason: 'Committed allowlist diverged from a fresh scan. '
+        reason:
+            'Committed allowlist diverged from a fresh scan. '
             'Regenerate doc/corpus_relaxer_allowlist.yaml.\n'
             'Only-in-corpus: ${(scanned.difference(committed).toList()..sort())}\n'
             'Only-in-allowlist: '
@@ -135,11 +141,18 @@ void main() {
       // The committed artifact header records "Files scanned: 2083"; a large
       // drift signals the corpus moved or the path is wrong, which would make
       // the reconciliation above vacuous.
-      expect(fresh.filesScanned, greaterThan(1500),
-          reason: 'unexpectedly few corpus files scanned '
-              '(${fresh.filesScanned}) — corpus path may be wrong');
-      expect(fresh.readFailures, isEmpty,
-          reason: 'corpus files failed to read: ${fresh.readFailures}');
+      expect(
+        fresh.filesScanned,
+        greaterThan(1500),
+        reason:
+            'unexpectedly few corpus files scanned '
+            '(${fresh.filesScanned}) — corpus path may be wrong',
+      );
+      expect(
+        fresh.readFailures,
+        isEmpty,
+        reason: 'corpus files failed to read: ${fresh.readFailures}',
+      );
     });
   });
 }

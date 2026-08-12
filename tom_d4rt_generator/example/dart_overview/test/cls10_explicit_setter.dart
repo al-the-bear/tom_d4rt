@@ -9,19 +9,27 @@ void main() {
   rect.scale = 2.0;
 
   if (rect.width != 8.0) {
-    errors.add('Rectangle.width after scale=2.0 expected 8.0, got ${rect.width}');
+    errors.add(
+      'Rectangle.width after scale=2.0 expected 8.0, got ${rect.width}',
+    );
   }
   if (rect.height != 4.0) {
-    errors.add('Rectangle.height after scale=2.0 expected 4.0, got ${rect.height}');
+    errors.add(
+      'Rectangle.height after scale=2.0 expected 4.0, got ${rect.height}',
+    );
   }
 
   // Test scale again
   rect.scale = 0.5;
   if (rect.width != 4.0) {
-    errors.add('Rectangle.width after scale=0.5 expected 4.0, got ${rect.width}');
+    errors.add(
+      'Rectangle.width after scale=0.5 expected 4.0, got ${rect.width}',
+    );
   }
   if (rect.height != 2.0) {
-    errors.add('Rectangle.height after scale=0.5 expected 2.0, got ${rect.height}');
+    errors.add(
+      'Rectangle.height after scale=0.5 expected 2.0, got ${rect.height}',
+    );
   }
 
   if (errors.isEmpty) {

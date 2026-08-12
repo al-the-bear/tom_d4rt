@@ -1,5 +1,5 @@
 /// Operator and indexer examples for bridge generation testing.
-/// 
+///
 /// This file demonstrates operator bridging capabilities:
 /// - Arithmetic operators (+, -, *, /)
 /// - Comparison operators (==, <, >, <=, >=)
@@ -14,9 +14,7 @@ class Vector2D {
 
   const Vector2D(this.x, this.y);
 
-  const Vector2D.zero()
-      : x = 0,
-        y = 0;
+  const Vector2D.zero() : x = 0, y = 0;
 
   /// Addition operator.
   Vector2D operator +(Vector2D other) => Vector2D(x + other.x, y + other.y);
@@ -66,13 +64,13 @@ class Matrix {
   final int cols;
 
   Matrix(this.rows, this.cols)
-      : _data = List.generate(rows, (_) => List.filled(cols, 0.0));
+    : _data = List.generate(rows, (_) => List.filled(cols, 0.0));
 
   /// Create matrix from 2D list.
   Matrix.fromList(List<List<double>> data)
-      : rows = data.length,
-        cols = data.isEmpty ? 0 : data[0].length,
-        _data = data.map((row) => List<double>.from(row)).toList();
+    : rows = data.length,
+      cols = data.isEmpty ? 0 : data[0].length,
+      _data = data.map((row) => List<double>.from(row)).toList();
 
   /// Identity matrix.
   factory Matrix.identity(int size) {
@@ -123,7 +121,7 @@ class Matrix {
   }
 }
 
-// Note: ComparableValue with recursive bound (T extends Comparable<T>) is an 
+// Note: ComparableValue with recursive bound (T extends Comparable<T>) is an
 // advanced case that requires special bridge handling. Removed for simplicity.
 
 /// A map-like container with index operators.

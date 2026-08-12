@@ -66,11 +66,7 @@ void main() {
   // For-in with patterns
   print('');
   print('--- For-In with Patterns ---');
-  var pairs = [
-    (1, 'one'),
-    (2, 'two'),
-    (3, 'three')
-  ];
+  var pairs = [(1, 'one'), (2, 'two'), (3, 'three')];
 
   print('Pairs:');
   for (var (num, word) in pairs) {
@@ -126,11 +122,10 @@ void main() {
     right: Node('right'),
   );
 
-  if (tree
-      case Node(
-        value: var root,
-        left: Node(value: var left, left: Node(value: var leftLeft))
-      )) {
+  if (tree case Node(
+    value: var root,
+    left: Node(value: var left, left: Node(value: var leftLeft)),
+  )) {
     print('Tree path: $root -> $left -> $leftLeft');
   }
 

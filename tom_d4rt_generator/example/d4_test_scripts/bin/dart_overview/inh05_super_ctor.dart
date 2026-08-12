@@ -14,7 +14,9 @@ void main() {
     errors.add('Employee.age expected 30, got ${emp.age}');
   }
   if (emp.department != 'Engineering') {
-    errors.add('Employee.department expected "Engineering", got "${emp.department}"');
+    errors.add(
+      'Employee.department expected "Engineering", got "${emp.department}"',
+    );
   }
 
   // Manager uses super.name, super.age (Dart 3 super params)

@@ -10,7 +10,9 @@ void main() {
     errors.add('User.fromMap name expected "Bob", got "${user.name}"');
   }
   if (user.email != 'bob@test.com') {
-    errors.add('User.fromMap email expected "bob@test.com", got "${user.email}"');
+    errors.add(
+      'User.fromMap email expected "bob@test.com", got "${user.email}"',
+    );
   }
 
   // Test with different values
@@ -19,7 +21,9 @@ void main() {
     errors.add('User.fromMap name expected "Charlie", got "${user2.name}"');
   }
   if (user2.email != 'charlie@example.com') {
-    errors.add('User.fromMap email expected "charlie@example.com", got "${user2.email}"');
+    errors.add(
+      'User.fromMap email expected "charlie@example.com", got "${user2.email}"',
+    );
   }
 
   if (errors.isEmpty) {

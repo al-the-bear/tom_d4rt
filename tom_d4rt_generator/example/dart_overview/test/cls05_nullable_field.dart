@@ -44,7 +44,9 @@ void main() {
   // Constructor with named params
   var nf2 = NullableFields(name: 'Bob', age: 25);
   if (nf2.name != 'Bob') {
-    errors.add('NullableFields(name: "Bob").name expected "Bob", got ${nf2.name}');
+    errors.add(
+      'NullableFields(name: "Bob").name expected "Bob", got ${nf2.name}',
+    );
   }
 
   // Also test top-level nullable (currentUser is String?)

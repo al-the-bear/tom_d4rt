@@ -116,13 +116,11 @@ class Point {
   Point(this.x, this.y);
 
   // Named constructors
-  Point.origin()
-      : x = 0,
-        y = 0;
+  Point.origin() : x = 0, y = 0;
 
   Point.fromJson(Map<String, dynamic> json)
-      : x = json['x'] as int,
-        y = json['y'] as int;
+    : x = json['x'] as int,
+      y = json['y'] as int;
 }
 
 // Initializer list

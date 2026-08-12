@@ -10,7 +10,9 @@ void main() {
   var moto = Motorcycle();
   var moveResult = moto.move();
   if (moveResult != 'Motorcycle is riding') {
-    errors.add('Motorcycle.move() expected "Motorcycle is riding", got "$moveResult"');
+    errors.add(
+      'Motorcycle.move() expected "Motorcycle is riding", got "$moveResult"',
+    );
   }
 
   // Car also extends abstract Vehicle

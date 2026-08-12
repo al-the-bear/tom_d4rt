@@ -141,7 +141,9 @@ void main() {
   print('');
   print('--- Map Transformations ---');
   var original = {'a': 1, 'b': 2, 'c': 3};
-  var mapped = original.map((key, value) => MapEntry(key.toUpperCase(), value * 10));
+  var mapped = original.map(
+    (key, value) => MapEntry(key.toUpperCase(), value * 10),
+  );
   print('original: $original');
   print('mapped: $mapped');
 

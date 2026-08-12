@@ -8,7 +8,9 @@ void main() async {
   // Test calling async function and awaiting result
   var result1 = await fetchGreeting('World');
   if (result1 != 'Hello, World!') {
-    errors.add('fetchGreeting("World") expected "Hello, World!", got "$result1"');
+    errors.add(
+      'fetchGreeting("World") expected "Hello, World!", got "$result1"',
+    );
   }
 
   // Test chaining async calls

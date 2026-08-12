@@ -1,4 +1,5 @@
 #!/usr/bin/env dart
+
 /// Master script to generate bridges and run examples.
 ///
 /// This script:
@@ -65,9 +66,15 @@ Future<void> main(List<String> args) async {
     print('║                    ✓ All steps completed                   ║');
     print('╚════════════════════════════════════════════════════════════╝');
   } else {
-    stderr.writeln('╔════════════════════════════════════════════════════════════╗');
-    stderr.writeln('║               ❌ Some examples failed                       ║');
-    stderr.writeln('╚════════════════════════════════════════════════════════════╝');
+    stderr.writeln(
+      '╔════════════════════════════════════════════════════════════╗',
+    );
+    stderr.writeln(
+      '║               ❌ Some examples failed                       ║',
+    );
+    stderr.writeln(
+      '╚════════════════════════════════════════════════════════════╝',
+    );
   }
 
   exit(exampleResult);

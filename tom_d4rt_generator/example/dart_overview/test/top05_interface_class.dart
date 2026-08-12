@@ -9,13 +9,17 @@ void main() {
   var json = JsonDataSource();
   var jsonResult = json.fetch();
   if (jsonResult != 'JSON data from API') {
-    errors.add('JsonDataSource.fetch() expected "JSON data from API", got "$jsonResult"');
+    errors.add(
+      'JsonDataSource.fetch() expected "JSON data from API", got "$jsonResult"',
+    );
   }
 
   var xml = XmlDataSource();
   var xmlResult = xml.fetch();
   if (xmlResult != 'XML data from file') {
-    errors.add('XmlDataSource.fetch() expected "XML data from file", got "$xmlResult"');
+    errors.add(
+      'XmlDataSource.fetch() expected "XML data from file", got "$xmlResult"',
+    );
   }
 
   if (errors.isEmpty) {

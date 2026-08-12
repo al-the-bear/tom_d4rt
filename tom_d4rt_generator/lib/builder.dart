@@ -127,9 +127,7 @@ class D4rtBridgeBuilder implements Builder {
       for (final module in config!.modules) {
         outputFiles.add(module.outputPath);
       }
-      log.info(
-        '  Generated ${config!.modules.length} delegating barrel files',
-      );
+      log.info('  Generated ${config!.modules.length} delegating barrel files');
 
       // RC-2 / GEN-079: Generate the relaxer file. The dartscript.b.dart
       // template unconditionally imports `relaxers.b.dart` and calls
@@ -171,7 +169,9 @@ class D4rtBridgeBuilder implements Builder {
 
       // Generate dartscript file if requested
       if (config!.generateDartscript && config!.dartscriptPath != null) {
-        final normalizedDartscriptPath = ensureBDartExtension(config!.dartscriptPath!);
+        final normalizedDartscriptPath = ensureBDartExtension(
+          config!.dartscriptPath!,
+        );
         final dartscriptContent = generateDartscriptFileContent(
           config!,
           dartscriptPath: normalizedDartscriptPath,
@@ -185,7 +185,9 @@ class D4rtBridgeBuilder implements Builder {
 
       // Generate test runner file if requested
       if (config!.generateTestRunner && config!.testRunnerPath != null) {
-        final normalizedTestRunnerPath = ensureBDartExtension(config!.testRunnerPath!);
+        final normalizedTestRunnerPath = ensureBDartExtension(
+          config!.testRunnerPath!,
+        );
         final testRunnerContent = generateTestRunnerContent(
           config!,
           testRunnerPath: normalizedTestRunnerPath,
@@ -201,7 +203,8 @@ class D4rtBridgeBuilder implements Builder {
       // Write a trigger file to the source tree that can be deleted to force regeneration
       // This is necessary because build_runner doesn't detect changes in external packages
       final triggerPath = '$libraryPath/bridges_trigger.b.dart';
-      final triggerContent = '''
+      final triggerContent =
+          '''
 // GENERATED FILE - DO NOT EDIT
 // This file triggers bridge regeneration when deleted before build_runner.
 // Delete this file to force all bridges to be regenerated.
@@ -229,7 +232,8 @@ class BridgesTrigger {
       outputFiles.add(triggerPath);
 
       // Write a marker file to track that generation completed
-      final markerContent = '''
+      final markerContent =
+          '''
 // D4rt bridge generation marker
 // Generated: ${DateTime.now().toIso8601String()}
 // Classes: $totalClasses
@@ -242,7 +246,8 @@ class BridgesTrigger {
       );
 
       log.info(
-          '✓ Generated $totalClasses classes across ${config!.modules.length} modules');
+        '✓ Generated $totalClasses classes across ${config!.modules.length} modules',
+      );
     } catch (e, stackTrace) {
       log.severe('Error generating D4rt bridges', e, stackTrace);
       rethrow;
@@ -259,9 +264,7 @@ Builder d4rtBridgeBuilder(BuilderOptions options) {
   if (options.config.isNotEmpty) {
     try {
       // Convert config map to BridgeConfig, handling nested YamlMaps
-      config = BridgeConfig.fromJson(
-        _deepConvertMap(options.config),
-      );
+      config = BridgeConfig.fromJson(_deepConvertMap(options.config));
     } catch (e) {
       log.warning('Failed to parse D4rt bridge config: $e');
     }

@@ -11,7 +11,7 @@ mixin Printable {
   void printFormatted() {
     print('Printable: $this');
   }
-  
+
   /// Get a string representation
   String get displayString => toString();
 }
@@ -20,7 +20,7 @@ mixin Printable {
 mixin JsonSerializable on Object {
   /// Convert to JSON map
   Map<String, dynamic> toMap() => {};
-  
+
   /// Convert to JSON string
   String toJsonString() => '{}';
 }
@@ -29,7 +29,7 @@ mixin JsonSerializable on Object {
 mixin Comparable<T> {
   /// Compare with another value
   int compareTo(T other);
-  
+
   /// Check if greater than
   bool isGreaterThan(T other) => compareTo(other) > 0;
 }
@@ -37,10 +37,10 @@ mixin Comparable<T> {
 /// A mixin with getters and setters
 mixin Nameable {
   String _name = '';
-  
+
   /// Get the name
   String get name => _name;
-  
+
   /// Set the name
   set name(String value) => _name = value;
 }
@@ -53,9 +53,9 @@ mixin _PrivateMixin {
 /// A class that uses multiple mixins
 class TestEntity with Printable, Nameable {
   final int id;
-  
+
   TestEntity(this.id);
-  
+
   @override
   String toString() => 'TestEntity($id)';
 }

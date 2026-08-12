@@ -25,7 +25,9 @@ void main() {
   // Alice (30) vs Charlie (30) — same age, compare by name: A < C
   var cmp3 = alice.compareTo(charlie);
   if (cmp3 >= 0) {
-    errors.add('Alice(30).compareTo(Charlie(30)) expected negative (A < C), got $cmp3');
+    errors.add(
+      'Alice(30).compareTo(Charlie(30)) expected negative (A < C), got $cmp3',
+    );
   }
 
   if (errors.isEmpty) {

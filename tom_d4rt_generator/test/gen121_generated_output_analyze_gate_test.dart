@@ -135,7 +135,8 @@ Future<List<Diagnostic>> analyzeDirectory(String directory) async {
 List<Diagnostic> fatalDiagnostics(List<Diagnostic> all) => all
     .where((d) => !_nonFatalSeverities.contains(d.severity))
     .where(
-      (d) => !(d.severity == 'WARNING' && _allowedWarningCodes.contains(d.code)),
+      (d) =>
+          !(d.severity == 'WARNING' && _allowedWarningCodes.contains(d.code)),
     )
     .toList();
 
@@ -293,59 +294,52 @@ void main() {
   });
 
   group('GEN-121: the generated bridge analyses clean', () {
-    test(
-      'G-GEN121-01: dart analyze reports no fatal diagnostic for the '
-      'generated output [2026-08-03] (PASS)',
-      () async {
-        final fatal = fatalDiagnostics(await analyzeDirectory(gate.root.path));
-        expect(
-          fatal,
-          isEmpty,
-          reason:
-              'The generated file must analyse clean when it is analysed '
-              'directly, with no analysis_options.yaml able to exclude it. '
-              'Offenders:\n${fatal.join('\n')}',
-        );
-      },
-      timeout: const Timeout(Duration(minutes: 5)),
-    );
+    test('G-GEN121-01: dart analyze reports no fatal diagnostic for the '
+        'generated output [2026-08-03] (PASS)', () async {
+      final fatal = fatalDiagnostics(await analyzeDirectory(gate.root.path));
+      expect(
+        fatal,
+        isEmpty,
+        reason:
+            'The generated file must analyse clean when it is analysed '
+            'directly, with no analysis_options.yaml able to exclude it. '
+            'Offenders:\n${fatal.join('\n')}',
+      );
+    }, timeout: const Timeout(Duration(minutes: 5)));
 
-    test(
-      'G-GEN121-02: the fixture exercises the emission paths that have '
-      'shipped defects [2026-08-03] (PASS)',
-      () {
-        // Anti-vacuity guard. G-GEN121-01 passes just as happily over a file
-        // that emitted nothing at all, so pin the payload it is meant to be
-        // covering.
-        expect(
-          pristineSource,
-          contains('extensionSourceUris'),
-          reason: 'the GEN-120 defect lived in this map',
-        );
-        expect(
-          pristineSource,
-          contains("'ZomLevelExtension'"),
-          reason: 'the part-declared extension must reach the output',
-        );
-        expect(
-          pristineSource,
-          contains('package:zom_analyzegate/model.dart'),
-          reason:
-              'cross-file package imports are the GEN-119 emission path; '
-              'without one, G-GEN121-03 would prove nothing',
-        );
-        expect(
-          pristineSource,
-          contains("name: 'Counter'"),
-          reason: 'a class bridge must be emitted',
-        );
-        expect(
-          pristineSource,
-          contains("'ZomLevel'"),
-          reason: 'an enum bridge must be emitted',
-        );
-      },
-    );
+    test('G-GEN121-02: the fixture exercises the emission paths that have '
+        'shipped defects [2026-08-03] (PASS)', () {
+      // Anti-vacuity guard. G-GEN121-01 passes just as happily over a file
+      // that emitted nothing at all, so pin the payload it is meant to be
+      // covering.
+      expect(
+        pristineSource,
+        contains('extensionSourceUris'),
+        reason: 'the GEN-120 defect lived in this map',
+      );
+      expect(
+        pristineSource,
+        contains("'ZomLevelExtension'"),
+        reason: 'the part-declared extension must reach the output',
+      );
+      expect(
+        pristineSource,
+        contains('package:zom_analyzegate/model.dart'),
+        reason:
+            'cross-file package imports are the GEN-119 emission path; '
+            'without one, G-GEN121-03 would prove nothing',
+      );
+      expect(
+        pristineSource,
+        contains("name: 'Counter'"),
+        reason: 'a class bridge must be emitted',
+      );
+      expect(
+        pristineSource,
+        contains("'ZomLevel'"),
+        reason: 'an enum bridge must be emitted',
+      );
+    });
   });
 
   // These two tests are the reason the gate is worth its runtime. They assert
@@ -353,68 +347,60 @@ void main() {
   // silently-neutered gate — a package config that stopped resolving, a parse
   // change in the machine format — would keep reporting green forever.
   group('GEN-121: the gate detects the defects it exists to catch', () {
-    test(
-      'G-GEN121-03: a bare-path import is reported as an error [2026-08-03] '
-      '(PASS)',
-      () async {
-        final broken = pristineSource.replaceFirst(
-          RegExp(r"import 'package:zom_analyzegate/model\.dart'( as \$\w+)?;"),
-          r"import 'lib/model.dart' as $aux_aux;",
-        );
-        expect(
-          broken,
-          isNot(equals(pristineSource)),
-          reason:
-              'the injection must actually apply — a no-op mutation would '
-              'make this test assert nothing',
-        );
-        gate.writeGenerated(broken);
+    test('G-GEN121-03: a bare-path import is reported as an error [2026-08-03] '
+        '(PASS)', () async {
+      final broken = pristineSource.replaceFirst(
+        RegExp(r"import 'package:zom_analyzegate/model\.dart'( as \$\w+)?;"),
+        r"import 'lib/model.dart' as $aux_aux;",
+      );
+      expect(
+        broken,
+        isNot(equals(pristineSource)),
+        reason:
+            'the injection must actually apply — a no-op mutation would '
+            'make this test assert nothing',
+      );
+      gate.writeGenerated(broken);
 
-        final fatal = fatalDiagnostics(await analyzeDirectory(gate.root.path));
-        expect(
-          fatal.map((d) => d.code),
-          contains('URI_DOES_NOT_EXIST'),
-          reason:
-              'This is the GEN-119 defect exactly: a project-relative path '
-              "resolving against the generated file's own directory. The "
-              'import-URI property assertions in the GEN-119 suite catch it '
-              'too — this pins that the analyze gate independently does.',
-        );
-      },
-      timeout: const Timeout(Duration(minutes: 5)),
-    );
+      final fatal = fatalDiagnostics(await analyzeDirectory(gate.root.path));
+      expect(
+        fatal.map((d) => d.code),
+        contains('URI_DOES_NOT_EXIST'),
+        reason:
+            'This is the GEN-119 defect exactly: a project-relative path '
+            "resolving against the generated file's own directory. The "
+            'import-URI property assertions in the GEN-119 suite catch it '
+            'too — this pins that the analyze gate independently does.',
+      );
+    }, timeout: const Timeout(Duration(minutes: 5)));
 
-    test(
-      'G-GEN121-04: a duplicate map key is reported, proving warnings are '
-      'fatal by default [2026-08-03] (PASS)',
-      () async {
-        const anchor = "'ZomLevelExtension':";
-        final at = pristineSource.indexOf(anchor);
-        expect(
-          at,
-          isNot(-1),
-          reason: 'fixture must emit the extension source URI map',
-        );
-        final broken =
-            '${pristineSource.substring(0, at)}'
-            "'ZomLevelExtension': "
-            "'package:zom_analyzegate/level_part.dart',\n      "
-            '${pristineSource.substring(at)}';
-        gate.writeGenerated(broken);
+    test('G-GEN121-04: a duplicate map key is reported, proving warnings are '
+        'fatal by default [2026-08-03] (PASS)', () async {
+      const anchor = "'ZomLevelExtension':";
+      final at = pristineSource.indexOf(anchor);
+      expect(
+        at,
+        isNot(-1),
+        reason: 'fixture must emit the extension source URI map',
+      );
+      final broken =
+          '${pristineSource.substring(0, at)}'
+          "'ZomLevelExtension': "
+          "'package:zom_analyzegate/level_part.dart',\n      "
+          '${pristineSource.substring(at)}';
+      gate.writeGenerated(broken);
 
-        final all = await analyzeDirectory(gate.root.path);
-        final fatal = fatalDiagnostics(all);
-        expect(
-          fatal.map((d) => d.code),
-          contains('EQUAL_KEYS_IN_MAP'),
-          reason:
-              'This is the GEN-120 defect, and the analyzer classes it as a '
-              'WARNING rather than an error. If the gate ever stops failing '
-              'on unallowlisted warnings it goes blind to the exact defect '
-              'class that motivated it. All diagnostics:\n${all.join('\n')}',
-        );
-      },
-      timeout: const Timeout(Duration(minutes: 5)),
-    );
+      final all = await analyzeDirectory(gate.root.path);
+      final fatal = fatalDiagnostics(all);
+      expect(
+        fatal.map((d) => d.code),
+        contains('EQUAL_KEYS_IN_MAP'),
+        reason:
+            'This is the GEN-120 defect, and the analyzer classes it as a '
+            'WARNING rather than an error. If the gate ever stops failing '
+            'on unallowlisted warnings it goes blind to the exact defect '
+            'class that motivated it. All diagnostics:\n${all.join('\n')}',
+      );
+    }, timeout: const Timeout(Duration(minutes: 5)));
   });
 }

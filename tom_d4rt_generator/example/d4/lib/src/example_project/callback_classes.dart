@@ -1,5 +1,5 @@
 /// Callback and async examples for bridge generation testing.
-/// 
+///
 /// This file demonstrates callback and async bridging capabilities:
 /// - Methods accepting function callbacks
 /// - Async methods (Future return types)
@@ -94,9 +94,7 @@ class AsyncService {
   }
 
   /// Async method with callback for progress.
-  Future<String> fetchWithProgress(
-    void Function(int) onProgress,
-  ) async {
+  Future<String> fetchWithProgress(void Function(int) onProgress) async {
     for (var i = 0; i <= 100; i += 25) {
       await Future.delayed(Duration(milliseconds: _delayMs ~/ 5));
       onProgress(i);

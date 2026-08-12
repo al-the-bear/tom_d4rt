@@ -1,5 +1,5 @@
 /// Global function and variable examples for bridge generation testing.
-/// 
+///
 /// This file demonstrates global member bridging capabilities:
 /// - Global functions (top-level functions)
 /// - Global variables and constants

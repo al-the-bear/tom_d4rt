@@ -120,15 +120,21 @@ void main() {
   var squares = [for (var i = 1; i <= 5; i++) i * i];
   print('squares: $squares');
 
-  var evens = [for (var i = 1; i <= 10; i++) if (i % 2 == 0) i];
+  var evens = [
+    for (var i = 1; i <= 10; i++)
+      if (i % 2 == 0) i,
+  ];
   print('evens 1-10: $evens');
 
   var matrix = [
     [1, 2, 3],
     [4, 5, 6],
-    [7, 8, 9]
+    [7, 8, 9],
   ];
-  var flattened = [for (var row in matrix) for (var cell in row) cell];
+  var flattened = [
+    for (var row in matrix)
+      for (var cell in row) cell,
+  ];
   print('flattened matrix: $flattened');
 
   // Spread operator

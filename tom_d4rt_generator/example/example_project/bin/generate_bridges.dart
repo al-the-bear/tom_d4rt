@@ -1,4 +1,5 @@
 #!/usr/bin/env dart
+
 /// Script to generate D4rt bridges for the example test classes.
 ///
 /// Run with:
@@ -23,7 +24,7 @@ Future<void> main() async {
   if (p.basename(scriptDir) == 'bin') {
     exampleDir = p.dirname(scriptDir);
   }
-  
+
   final testClassesDir = p.join(exampleDir, 'lib', 'test_classes');
   final outputDir = p.join(exampleDir, 'lib', 'd4rt_bridges');
 
@@ -40,7 +41,9 @@ Future<void> main() async {
   final sourceFiles = <String>[];
   final testClassesDirObj = Directory(testClassesDir);
   if (!testClassesDirObj.existsSync()) {
-    stderr.writeln('Error: test_classes directory not found at $testClassesDir');
+    stderr.writeln(
+      'Error: test_classes directory not found at $testClassesDir',
+    );
     exit(1);
   }
 

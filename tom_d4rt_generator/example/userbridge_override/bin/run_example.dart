@@ -1,4 +1,5 @@
 #!/usr/bin/env dart
+
 /// UserBridge Override Example - D4rt Script Runner
 ///
 /// This script demonstrates how generated bridges work with

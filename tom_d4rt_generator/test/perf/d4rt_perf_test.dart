@@ -42,14 +42,23 @@ void main() {
         results.add(result);
 
         // Regression guard: the script must have run cleanly...
-        expect(result.success, isTrue,
-            reason: 'benchmark ${entry.name} failed: ${result.error}');
+        expect(
+          result.success,
+          isTrue,
+          reason: 'benchmark ${entry.name} failed: ${result.error}',
+        );
         // ...completed at least one measured call...
-        expect(result.calls, greaterThan(0),
-            reason: '${entry.name} produced no measured calls');
+        expect(
+          result.calls,
+          greaterThan(0),
+          reason: '${entry.name} produced no measured calls',
+        );
         // ...and returned a non-null checksum (proves compute() ran a body).
-        expect(result.checksum, isNotNull,
-            reason: '${entry.name} returned a null checksum');
+        expect(
+          result.checksum,
+          isNotNull,
+          reason: '${entry.name} returned a null checksum',
+        );
       });
     }
 
@@ -62,8 +71,10 @@ void main() {
       for (final r in results) {
         buffer.writeln(formatResultRow(r));
       }
-      buffer.writeln('Note: quick budget — relative comparison only. '
-          'Use run_profile.sh for full-budget numbers and CPU samples.');
+      buffer.writeln(
+        'Note: quick budget — relative comparison only. '
+        'Use run_profile.sh for full-budget numbers and CPU samples.',
+      );
       // Use printOnFailure-independent stdout: a plain print is fine here.
       // ignore: avoid_print
       print(buffer.toString());

@@ -26,31 +26,31 @@ void main() {
     // relaxer generation proceeds normally and produces a wrapper — proving the
     // SDK types are the *only* thing being silently skipped.
     Map<String, ClassInfo> buildLookup() => {
-          'Box': ClassInfo(
-            name: 'Box',
-            sourceFile: barrel,
-            typeParameters: const {'T': null},
-            constructors: const [
-              ConstructorInfo(
-                parameters: [ParameterInfo(name: 'value', type: 'T')],
-              ),
-            ],
+      'Box': ClassInfo(
+        name: 'Box',
+        sourceFile: barrel,
+        typeParameters: const {'T': null},
+        constructors: const [
+          ConstructorInfo(
+            parameters: [ParameterInfo(name: 'value', type: 'T')],
           ),
-          'Apple': ClassInfo(name: 'Apple', sourceFile: barrel),
-        };
+        ],
+      ),
+      'Apple': ClassInfo(name: 'Apple', sourceFile: barrel),
+    };
 
     BridgeConfig configFor(String outputPath) => BridgeConfig(
-          name: 'fake_pkg',
-          modules: const [
-            ModuleConfig(
-              name: 'fake',
-              barrelFiles: ['lib/fake_pkg.dart'],
-              outputPath: 'lib/src/fake.b.dart',
-              barrelImport: barrel,
-            ),
-          ],
-          relaxerOutputPath: outputPath,
-        );
+      name: 'fake_pkg',
+      modules: const [
+        ModuleConfig(
+          name: 'fake',
+          barrelFiles: ['lib/fake_pkg.dart'],
+          outputPath: 'lib/src/fake.b.dart',
+          barrelImport: barrel,
+        ),
+      ],
+      relaxerOutputPath: outputPath,
+    );
 
     late Directory tempDir;
 
@@ -73,45 +73,51 @@ void main() {
       'StreamSink',
     ];
 
-    test('no "No ClassInfo" / "skipping wrapper" warning for SDK async generics',
-        () async {
-      final config = configFor('${tempDir.path}/relaxers.b.dart');
-      final result = await generateRelaxers(
-        config: config,
-        projectPath: tempDir.path,
-        globalClassLookup: buildLookup(),
-        genericExtractionSites: [
-          // A real, wrappable application generic.
-          const GenericExtractionSite(
-            baseTypeName: 'Box',
-            typeArg: 'Apple',
-            moduleName: 'fake',
-          ),
-          // SDK async generics — must be skipped silently.
-          for (final t in sdkAsyncGenerics)
-            GenericExtractionSite(
-              baseTypeName: t,
+    test(
+      'no "No ClassInfo" / "skipping wrapper" warning for SDK async generics',
+      () async {
+        final config = configFor('${tempDir.path}/relaxers.b.dart');
+        final result = await generateRelaxers(
+          config: config,
+          projectPath: tempDir.path,
+          globalClassLookup: buildLookup(),
+          genericExtractionSites: [
+            // A real, wrappable application generic.
+            const GenericExtractionSite(
+              baseTypeName: 'Box',
               typeArg: 'Apple',
               moduleName: 'fake',
             ),
-        ],
-      );
-
-      for (final t in sdkAsyncGenerics) {
-        expect(
-          result.warnings,
-          isNot(contains(contains(t))),
-          reason: 'SDK async generic "$t" should be skipped without a warning, '
-              'but a warning mentioning it was emitted: '
-              '${result.warnings.where((w) => w.contains(t)).toList()}',
+            // SDK async generics — must be skipped silently.
+            for (final t in sdkAsyncGenerics)
+              GenericExtractionSite(
+                baseTypeName: t,
+                typeArg: 'Apple',
+                moduleName: 'fake',
+              ),
+          ],
         );
-      }
 
-      // The real application relaxer must still be generated.
-      expect(result.outputFile, isNotNull);
-      final code = File(result.outputFile!).readAsStringSync();
-      expect(code, contains(r'$RelaxedBox'),
-          reason: 'the real Box<T> relaxer wrapper should still be generated');
-    });
+        for (final t in sdkAsyncGenerics) {
+          expect(
+            result.warnings,
+            isNot(contains(contains(t))),
+            reason:
+                'SDK async generic "$t" should be skipped without a warning, '
+                'but a warning mentioning it was emitted: '
+                '${result.warnings.where((w) => w.contains(t)).toList()}',
+          );
+        }
+
+        // The real application relaxer must still be generated.
+        expect(result.outputFile, isNotNull);
+        final code = File(result.outputFile!).readAsStringSync();
+        expect(
+          code,
+          contains(r'$RelaxedBox'),
+          reason: 'the real Box<T> relaxer wrapper should still be generated',
+        );
+      },
+    );
   });
 }

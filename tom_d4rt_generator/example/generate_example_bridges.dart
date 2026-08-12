@@ -1,4 +1,5 @@
 #!/usr/bin/env dart
+
 /// Generate bridges for all example projects.
 ///
 /// This script runs the D4rt bridge generator CLI (`bin/d4rtgen.dart`) for
@@ -29,10 +30,7 @@ class ExampleBridgeConfig {
 
 /// All example projects that have bridge generation configs.
 const exampleProjects = [
-  ExampleBridgeConfig(
-    name: 'User Guide',
-    directory: 'example/user_guide',
-  ),
+  ExampleBridgeConfig(name: 'User Guide', directory: 'example/user_guide'),
   ExampleBridgeConfig(
     name: 'User Reference',
     directory: 'example/user_reference',
@@ -92,8 +90,11 @@ Future<void> main(List<String> args) async {
   if (listOnly) {
     print('Example projects with bridge configs:');
     for (final project in exampleProjects) {
-      final configPath =
-          p.join(packageRoot, project.directory, project.configFile);
+      final configPath = p.join(
+        packageRoot,
+        project.directory,
+        project.configFile,
+      );
       final exists = File(configPath).existsSync();
       final icon = exists ? '✓' : '✗';
       print('  $icon ${project.name} (${project.directory})');
@@ -104,71 +105,77 @@ Future<void> main(List<String> args) async {
   final results = <GenerationResult>[];
 
   for (final project in exampleProjects) {
-    final configPath =
-        p.join(packageRoot, project.directory, project.configFile);
+    final configPath = p.join(
+      packageRoot,
+      project.directory,
+      project.configFile,
+    );
 
     if (!File(configPath).existsSync()) {
       print('⚠  ${project.name}: config not found at ${project.configFile}');
-      results.add(GenerationResult(
-        project: project.name,
-        passed: false,
-        exitCode: -1,
-        stdout: '',
-        stderr: 'Config not found: $configPath',
-        duration: Duration.zero,
-      ));
+      results.add(
+        GenerationResult(
+          project: project.name,
+          passed: false,
+          exitCode: -1,
+          stdout: '',
+          stderr: 'Config not found: $configPath',
+          duration: Duration.zero,
+        ),
+      );
       continue;
     }
 
     print('━━━ ${project.name} ━━━');
 
     // Run pub get first to ensure dependencies are resolved
-    final pubGetResult = await Process.run(
-      'dart',
-      ['pub', 'get'],
-      workingDirectory: p.join(packageRoot, project.directory),
-    );
+    final pubGetResult = await Process.run('dart', [
+      'pub',
+      'get',
+    ], workingDirectory: p.join(packageRoot, project.directory));
     if (pubGetResult.exitCode != 0) {
       print('  ✗ pub get failed');
       if (verbose) {
         _printOutput(
-            pubGetResult.stdout.toString(), pubGetResult.stderr.toString());
+          pubGetResult.stdout.toString(),
+          pubGetResult.stderr.toString(),
+        );
       }
-      results.add(GenerationResult(
-        project: project.name,
-        passed: false,
-        exitCode: pubGetResult.exitCode,
-        stdout: pubGetResult.stdout.toString(),
-        stderr: pubGetResult.stderr.toString(),
-        duration: Duration.zero,
-      ));
+      results.add(
+        GenerationResult(
+          project: project.name,
+          passed: false,
+          exitCode: pubGetResult.exitCode,
+          stdout: pubGetResult.stdout.toString(),
+          stderr: pubGetResult.stderr.toString(),
+          duration: Duration.zero,
+        ),
+      );
       continue;
     }
 
     // Run the generator CLI with --config pointing to the project's config
     final sw = Stopwatch()..start();
-    final result = await Process.run(
-      'dart',
-      [
-        'run',
-        generatorCli,
-        '--config',
-        configPath,
-        if (verbose) '--verbose',
-      ],
-      workingDirectory: packageRoot,
-    );
+    final result = await Process.run('dart', [
+      'run',
+      generatorCli,
+      '--config',
+      configPath,
+      if (verbose) '--verbose',
+    ], workingDirectory: packageRoot);
     sw.stop();
 
     final passed = result.exitCode == 0;
-    results.add(GenerationResult(
-      project: project.name,
-      passed: passed,
-      exitCode: result.exitCode,
-      stdout: result.stdout.toString(),
-      stderr: result.stderr.toString(),
-      duration: sw.elapsed,
-    ));
+    results.add(
+      GenerationResult(
+        project: project.name,
+        passed: passed,
+        exitCode: result.exitCode,
+        stdout: result.stdout.toString(),
+        stderr: result.stderr.toString(),
+        duration: sw.elapsed,
+      ),
+    );
 
     final icon = passed ? '✓' : '✗';
     print('  $icon Generated  (${sw.elapsed.inMilliseconds}ms)');
@@ -182,13 +189,16 @@ Future<void> main(List<String> args) async {
   final passed = results.where((r) => r.passed).length;
   final failed = results.where((r) => !r.passed).length;
   final total = results.length;
-  final totalTime =
-      results.fold<Duration>(Duration.zero, (sum, r) => sum + r.duration);
+  final totalTime = results.fold<Duration>(
+    Duration.zero,
+    (sum, r) => sum + r.duration,
+  );
 
   print('══════════════════════════════════════════════════════════════');
   print('');
   print(
-      'Summary: $passed/$total generated  ($failed failed)  ${totalTime.inSeconds}s');
+    'Summary: $passed/$total generated  ($failed failed)  ${totalTime.inSeconds}s',
+  );
   print('');
 
   if (failed > 0) {

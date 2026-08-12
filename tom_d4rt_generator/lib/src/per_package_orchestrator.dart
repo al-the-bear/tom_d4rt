@@ -221,7 +221,7 @@ class PerPackageBridgeOrchestrator {
       final normalizedProjectRoot = analysisIncludedPath(projectRoot);
       final hasSummaries =
           (librarySummaryPaths != null && librarySummaryPaths!.isNotEmpty) ||
-              sdkSummaryPath != null;
+          sdkSummaryPath != null;
       final AnalysisContextCollection collection = hasSummaries
           ? AnalysisContextCollectionImpl(
               includedPaths: [normalizedProjectRoot],
@@ -613,8 +613,7 @@ class PerPackageBridgeOrchestrator {
   String generateDelegatingBarrelContentForTest(
     BarrelPackageMapping mapping,
     Map<String, String> packageFiles,
-  ) =>
-      _generateDelegatingBarrelContent(mapping, packageFiles);
+  ) => _generateDelegatingBarrelContent(mapping, packageFiles);
 
   /// Generates content for a delegating barrel file.
   String _generateDelegatingBarrelContent(
@@ -678,7 +677,9 @@ class PerPackageBridgeOrchestrator {
 
     // Step #17 — bridgeClassThunks(): aggregated deferred factory thunks.
     buffer.writeln('  /// Returns deferred factory thunks keyed by class name');
-    buffer.writeln('  /// (Step #17), aggregated across the required packages.');
+    buffer.writeln(
+      '  /// (Step #17), aggregated across the required packages.',
+    );
     buffer.writeln(
       '  static Map<String, BridgedClass Function()> bridgeClassThunks() {',
     );
@@ -695,7 +696,9 @@ class PerPackageBridgeOrchestrator {
     buffer.writeln();
 
     // Step #17 — bridgeClassTypes(): aggregated native types keyed by name.
-    buffer.writeln('  /// Returns native [Type]s keyed by class name (Step #17),');
+    buffer.writeln(
+      '  /// Returns native [Type]s keyed by class name (Step #17),',
+    );
     buffer.writeln('  /// parallel to [bridgeClassThunks].');
     buffer.writeln('  static Map<String, Type> bridgeClassTypes() {');
     buffer.writeln('    return {');
@@ -797,12 +800,14 @@ class PerPackageBridgeOrchestrator {
     // bridged content (every package other than the module's primary package),
     // mirroring the standalone path so registration behaviour is identical.
     final primaryPackage = _packageNameFromBarrelUri(mapping.barrelImport);
-    final subPackageBarrels = sortedPackages
-        .where((pkg) =>
-            packageFiles.containsKey(pkg) && pkg != primaryPackage)
-        .map((pkg) => 'package:$pkg/$pkg.dart')
-        .toList()
-      ..sort();
+    final subPackageBarrels =
+        sortedPackages
+            .where(
+              (pkg) => packageFiles.containsKey(pkg) && pkg != primaryPackage,
+            )
+            .map((pkg) => 'package:$pkg/$pkg.dart')
+            .toList()
+          ..sort();
     buffer.writeln(
       '  /// Returns barrel import URIs for sub-packages with bridged content.',
     );

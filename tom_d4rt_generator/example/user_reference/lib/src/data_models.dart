@@ -114,8 +114,7 @@ class Order {
   int get itemCount => items.length;
 
   /// Get the total price in cents.
-  int get totalPriceInCents =>
-      items.fold(0, (sum, p) => sum + p.priceInCents);
+  int get totalPriceInCents => items.fold(0, (sum, p) => sum + p.priceInCents);
 
   /// Get the total price formatted.
   String get formattedTotal {

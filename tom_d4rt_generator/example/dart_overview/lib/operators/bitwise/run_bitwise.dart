@@ -119,7 +119,9 @@ void main() {
   // Pack bytes into int
   int red2 = 255, green2 = 128, blue2 = 64;
   int packed = (red2 << 16) | (green2 << 8) | blue2;
-  print('\nPacked RGB($red2, $green2, $blue2) = 0x${packed.toRadixString(16).toUpperCase()}');
+  print(
+    '\nPacked RGB($red2, $green2, $blue2) = 0x${packed.toRadixString(16).toUpperCase()}',
+  );
 
   // Check if power of 2
   bool isPowerOf2(int n) => n > 0 && (n & (n - 1)) == 0;

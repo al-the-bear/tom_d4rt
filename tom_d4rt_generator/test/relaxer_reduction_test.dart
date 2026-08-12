@@ -25,42 +25,41 @@ void main() {
         ClassInfo(name: name, sourceFile: barrel);
 
     Map<String, ClassInfo> buildLookup() => {
-          'Box': ClassInfo(
-            name: 'Box',
-            sourceFile: barrel,
-            typeParameters: const {'T': null},
-            constructors: const [
-              ConstructorInfo(
-                parameters: [ParameterInfo(name: 'value', type: 'T')],
-              ),
-            ],
+      'Box': ClassInfo(
+        name: 'Box',
+        sourceFile: barrel,
+        typeParameters: const {'T': null},
+        constructors: const [
+          ConstructorInfo(
+            parameters: [ParameterInfo(name: 'value', type: 'T')],
           ),
-          'Apple': concrete('Apple'),
-          'Banana': concrete('Banana'),
-          'Cherry': concrete('Cherry'),
-        };
+        ],
+      ),
+      'Apple': concrete('Apple'),
+      'Banana': concrete('Banana'),
+      'Cherry': concrete('Cherry'),
+    };
 
     BridgeConfig configFor(
       String outputPath, {
       bool generateAllRelaxers = true,
       List<RelaxerClassConfig> relaxerClasses = const [],
       List<String> additionalRelaxerTypes = const [],
-    }) =>
-        BridgeConfig(
-          name: 'fake_pkg',
-          modules: const [
-            ModuleConfig(
-              name: 'fake',
-              barrelFiles: ['lib/fake_pkg.dart'],
-              outputPath: 'lib/src/fake.b.dart',
-              barrelImport: barrel,
-            ),
-          ],
-          relaxerOutputPath: outputPath,
-          generateAllRelaxers: generateAllRelaxers,
-          relaxerClasses: relaxerClasses,
-          additionalRelaxerTypes: additionalRelaxerTypes,
-        );
+    }) => BridgeConfig(
+      name: 'fake_pkg',
+      modules: const [
+        ModuleConfig(
+          name: 'fake',
+          barrelFiles: ['lib/fake_pkg.dart'],
+          outputPath: 'lib/src/fake.b.dart',
+          barrelImport: barrel,
+        ),
+      ],
+      relaxerOutputPath: outputPath,
+      generateAllRelaxers: generateAllRelaxers,
+      relaxerClasses: relaxerClasses,
+      additionalRelaxerTypes: additionalRelaxerTypes,
+    );
 
     late Directory tempDir;
 
@@ -85,73 +84,84 @@ void main() {
           ),
         ],
       );
-      expect(result.outputFile, isNotNull,
-          reason: 'generation should have produced an output file');
+      expect(
+        result.outputFile,
+        isNotNull,
+        reason: 'generation should have produced an output file',
+      );
       return File(result.outputFile!).readAsStringSync();
     }
 
-    test('G-RDX-1: default (generateAllRelaxers true) enumerates every concrete type. [2026-06-07 00:00] (PASS)',
-        () async {
-      final output = await runAndRead(
-        configFor('${tempDir.path}/relaxers_full.b.dart'),
-      );
+    test(
+      'G-RDX-1: default (generateAllRelaxers true) enumerates every concrete type. [2026-06-07 00:00] (PASS)',
+      () async {
+        final output = await runAndRead(
+          configFor('${tempDir.path}/relaxers_full.b.dart'),
+        );
 
-      // All three concrete types are emitted as switch cases even though only
-      // Box<Apple> is referenced by a real extraction site — this is the
-      // combinatorial surface the knob is designed to cap.
-      expect(output, contains("'Apple'"));
-      expect(output, contains("'Banana'"));
-      expect(output, contains("'Cherry'"));
-    });
+        // All three concrete types are emitted as switch cases even though only
+        // Box<Apple> is referenced by a real extraction site — this is the
+        // combinatorial surface the knob is designed to cap.
+        expect(output, contains("'Apple'"));
+        expect(output, contains("'Banana'"));
+        expect(output, contains("'Cherry'"));
+      },
+    );
 
-    test('G-RDX-2: reduced mode keeps discovered + additionalRelaxerTypes only. [2026-06-07 00:00] (PASS)',
-        () async {
-      // Allowlist = {Apple (from extraction site)} ∪ {Banana (additional)}.
-      final output = await runAndRead(
-        configFor(
-          '${tempDir.path}/relaxers_reduced_add.b.dart',
-          generateAllRelaxers: false,
-          additionalRelaxerTypes: const ['Banana'],
-        ),
-      );
+    test(
+      'G-RDX-2: reduced mode keeps discovered + additionalRelaxerTypes only. [2026-06-07 00:00] (PASS)',
+      () async {
+        // Allowlist = {Apple (from extraction site)} ∪ {Banana (additional)}.
+        final output = await runAndRead(
+          configFor(
+            '${tempDir.path}/relaxers_reduced_add.b.dart',
+            generateAllRelaxers: false,
+            additionalRelaxerTypes: const ['Banana'],
+          ),
+        );
 
-      expect(output, contains("'Apple'"));
-      expect(output, contains("'Banana'"));
-      expect(output, isNot(contains('Cherry')));
-    });
+        expect(output, contains("'Apple'"));
+        expect(output, contains("'Banana'"));
+        expect(output, isNot(contains('Cherry')));
+      },
+    );
 
-    test('G-RDX-3: reduced mode keeps discovered + relaxerClasses only. [2026-06-07 00:00] (PASS)',
-        () async {
-      // Allowlist = {Apple (from extraction site)} ∪ {Cherry (relaxerClasses)}.
-      final output = await runAndRead(
-        configFor(
-          '${tempDir.path}/relaxers_reduced_classes.b.dart',
-          generateAllRelaxers: false,
-          relaxerClasses: const [RelaxerClassConfig(className: 'Cherry')],
-        ),
-      );
+    test(
+      'G-RDX-3: reduced mode keeps discovered + relaxerClasses only. [2026-06-07 00:00] (PASS)',
+      () async {
+        // Allowlist = {Apple (from extraction site)} ∪ {Cherry (relaxerClasses)}.
+        final output = await runAndRead(
+          configFor(
+            '${tempDir.path}/relaxers_reduced_classes.b.dart',
+            generateAllRelaxers: false,
+            relaxerClasses: const [RelaxerClassConfig(className: 'Cherry')],
+          ),
+        );
 
-      expect(output, contains("'Apple'"));
-      expect(output, contains("'Cherry'"));
-      expect(output, isNot(contains('Banana')));
-    });
+        expect(output, contains("'Apple'"));
+        expect(output, contains("'Cherry'"));
+        expect(output, isNot(contains('Banana')));
+      },
+    );
 
-    test('G-RDX-4: package-qualified additionalRelaxerTypes resolve to bare name. [2026-06-07 00:00] (PASS)',
-        () async {
-      // 'package:fake_pkg/fake_pkg.dart:Banana' → bare 'Banana' for matching.
-      final output = await runAndRead(
-        configFor(
-          '${tempDir.path}/relaxers_reduced_qualified.b.dart',
-          generateAllRelaxers: false,
-          additionalRelaxerTypes: const [
-            'package:fake_pkg/fake_pkg.dart:Banana',
-          ],
-        ),
-      );
+    test(
+      'G-RDX-4: package-qualified additionalRelaxerTypes resolve to bare name. [2026-06-07 00:00] (PASS)',
+      () async {
+        // 'package:fake_pkg/fake_pkg.dart:Banana' → bare 'Banana' for matching.
+        final output = await runAndRead(
+          configFor(
+            '${tempDir.path}/relaxers_reduced_qualified.b.dart',
+            generateAllRelaxers: false,
+            additionalRelaxerTypes: const [
+              'package:fake_pkg/fake_pkg.dart:Banana',
+            ],
+          ),
+        );
 
-      expect(output, contains("'Apple'"));
-      expect(output, contains("'Banana'"));
-      expect(output, isNot(contains('Cherry')));
-    });
+        expect(output, contains("'Apple'"));
+        expect(output, contains("'Banana'"));
+        expect(output, isNot(contains('Cherry')));
+      },
+    );
   });
 }

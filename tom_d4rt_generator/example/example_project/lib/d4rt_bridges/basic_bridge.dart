@@ -26,16 +26,18 @@ class BasicBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> classSourceUris() {
     return {
-      'Person': 'package:d4rt_generator_example/test_classes/basic_classes.dart',
-      'Calculator': 'package:d4rt_generator_example/test_classes/basic_classes.dart',
-      'MathUtils': 'package:d4rt_generator_example/test_classes/basic_classes.dart',
+      'Person':
+          'package:d4rt_generator_example/test_classes/basic_classes.dart',
+      'Calculator':
+          'package:d4rt_generator_example/test_classes/basic_classes.dart',
+      'MathUtils':
+          'package:d4rt_generator_example/test_classes/basic_classes.dart',
     };
   }
 
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns a map of enum names to their canonical source URIs.
@@ -43,8 +45,7 @@ class BasicBridge {
   /// Used for deduplication when the same enum is exported through
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
-    return {
-    };
+    return {};
   }
 
   /// Registers all bridges with an interpreter.
@@ -56,7 +57,11 @@ class BasicBridge {
     final classes = bridgeClasses();
     final classSources = classSourceUris();
     for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+      interpreter.registerBridgedClass(
+        bridge,
+        importPath,
+        sourceUri: classSources[bridge.name],
+      );
     }
   }
 
@@ -81,9 +86,7 @@ class BasicBridge {
   /// used for deduplication when the same libraries are exported through
   /// multiple barrels.
   static List<String> sourceLibraries() {
-    return [
-      'package:d4rt_generator_example/test_classes/basic_classes.dart',
-    ];
+    return ['package:d4rt_generator_example/test_classes/basic_classes.dart'];
   }
 
   /// Returns the import statement needed for D4rt scripts.
@@ -93,7 +96,6 @@ class BasicBridge {
   static String getImportBlock() {
     return "import 'package:d4rt_generator_example/test_classes.dart';";
   }
-
 }
 
 // =============================================================================
@@ -126,12 +128,14 @@ BridgedClass _createPersonBridge() {
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.Person>(target, 'Person').name,
-      'age': (visitor, target) => D4.validateTarget<$pkg.Person>(target, 'Person').age,
+      'name': (visitor, target) =>
+          D4.validateTarget<$pkg.Person>(target, 'Person').name,
+      'age': (visitor, target) =>
+          D4.validateTarget<$pkg.Person>(target, 'Person').age,
     },
     setters: {
-      'age': (visitor, target, value) => 
-        D4.validateTarget<$pkg.Person>(target, 'Person').age = value as int,
+      'age': (visitor, target, value) =>
+          D4.validateTarget<$pkg.Person>(target, 'Person').age = value as int,
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
@@ -144,9 +148,7 @@ BridgedClass _createPersonBridge() {
         return t.greetWith(prefix: prefix);
       },
     },
-    staticGetters: {
-      'instanceCount': (visitor) => $pkg.Person.instanceCount,
-    },
+    staticGetters: {'instanceCount': (visitor) => $pkg.Person.instanceCount},
     staticMethods: {
       'createDefault': (visitor, positional, named, typeArgs) {
         return $pkg.Person.createDefault();
@@ -162,19 +164,10 @@ BridgedClass _createPersonBridge() {
       'greet': 'String greet()',
       'greetWith': 'String greetWith({String prefix = \'Hi\'})',
     },
-    getterSignatures: {
-      'name': 'String get name',
-      'age': 'int get age',
-    },
-    setterSignatures: {
-      'age': 'set age(dynamic value)',
-    },
-    staticMethodSignatures: {
-      'createDefault': 'Person createDefault()',
-    },
-    staticGetterSignatures: {
-      'instanceCount': 'int get instanceCount',
-    },
+    getterSignatures: {'name': 'String get name', 'age': 'int get age'},
+    setterSignatures: {'age': 'set age(dynamic value)'},
+    staticMethodSignatures: {'createDefault': 'Person createDefault()'},
+    staticGetterSignatures: {'instanceCount': 'int get instanceCount'},
     staticSetterSignatures: {
       'instanceCount': 'set instanceCount(dynamic value)',
     },
@@ -191,12 +184,18 @@ BridgedClass _createCalculatorBridge() {
     name: 'Calculator',
     constructors: {
       '': (visitor, positional, named) {
-        final precision = D4.getOptionalArgWithDefault<int>(positional, 0, 'precision', 2);
+        final precision = D4.getOptionalArgWithDefault<int>(
+          positional,
+          0,
+          'precision',
+          2,
+        );
         return $pkg.Calculator(precision);
       },
     },
     getters: {
-      'precision': (visitor, target) => D4.validateTarget<$pkg.Calculator>(target, 'Calculator').precision,
+      'precision': (visitor, target) =>
+          D4.validateTarget<$pkg.Calculator>(target, 'Calculator').precision,
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
@@ -216,30 +215,40 @@ BridgedClass _createCalculatorBridge() {
       },
       'calculate': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Calculator>(target, 'Calculator');
-        final value = D4.getRequiredNamedArg<double>(named, 'value', 'calculate');
-        final multiplier = D4.getNamedArgWithDefault<double>(named, 'multiplier', 1.0);
+        final value = D4.getRequiredNamedArg<double>(
+          named,
+          'value',
+          'calculate',
+        );
+        final multiplier = D4.getNamedArgWithDefault<double>(
+          named,
+          'multiplier',
+          1.0,
+        );
         return t.calculate(value: value, multiplier: multiplier);
       },
     },
     staticMethods: {
       'format': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'format');
-        final value = D4.getRequiredArg<double>(positional, 0, 'value', 'format');
+        final value = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'value',
+          'format',
+        );
         final decimals = D4.getOptionalNamedArg<int?>(named, 'decimals');
         return $pkg.Calculator.format(value, decimals: decimals);
       },
     },
-    constructorSignatures: {
-      '': 'Calculator([int precision = 2])',
-    },
+    constructorSignatures: {'': 'Calculator([int precision = 2])'},
     methodSignatures: {
       'add': 'int add(int a, int b)',
       'addOptional': 'int addOptional(int a, [int b = 0, int c = 0])',
-      'calculate': 'double calculate({required double value, double multiplier = 1.0})',
+      'calculate':
+          'double calculate({required double value, double multiplier = 1.0})',
     },
-    getterSignatures: {
-      'precision': 'int get precision',
-    },
+    getterSignatures: {'precision': 'int get precision'},
     staticMethodSignatures: {
       'format': 'String format(double value, {int? decimals})',
     },
@@ -254,8 +263,7 @@ BridgedClass _createMathUtilsBridge() {
   return BridgedClass(
     nativeType: $pkg.MathUtils,
     name: 'MathUtils',
-    constructors: {
-    },
+    constructors: {},
     staticGetters: {
       'pi': (visitor) => $pkg.MathUtils.pi,
       'e': (visitor) => $pkg.MathUtils.e,
@@ -263,7 +271,12 @@ BridgedClass _createMathUtilsBridge() {
     staticMethods: {
       'circleArea': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'circleArea');
-        final radius = D4.getRequiredArg<double>(positional, 0, 'radius', 'circleArea');
+        final radius = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'radius',
+          'circleArea',
+        );
         return $pkg.MathUtils.circleArea(radius);
       },
       'square': (visitor, positional, named, typeArgs) {
@@ -282,10 +295,6 @@ BridgedClass _createMathUtilsBridge() {
       'square': 'double square(double x)',
       'cube': 'double cube(double x)',
     },
-    staticGetterSignatures: {
-      'pi': 'double get pi',
-      'e': 'double get e',
-    },
+    staticGetterSignatures: {'pi': 'double get pi', 'e': 'double get e'},
   );
 }
-

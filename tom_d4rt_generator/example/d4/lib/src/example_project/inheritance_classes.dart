@@ -1,5 +1,5 @@
 /// Inheritance examples for bridge generation testing.
-/// 
+///
 /// This file demonstrates inheritance bridging capabilities:
 /// - Abstract classes
 /// - Class inheritance (extends)
@@ -48,9 +48,7 @@ class Rectangle extends Shape {
   Rectangle(this.width, this.height);
 
   /// Square factory constructor.
-  Rectangle.square(double side)
-      : width = side,
-        height = side;
+  Rectangle.square(double side) : width = side, height = side;
 
   @override
   String get name => 'Rectangle';
@@ -73,7 +71,7 @@ class Rectangle extends Shape {
 /// Interface for objects that can be serialized.
 abstract class Serializable {
   Map<String, dynamic> toJson();
-  
+
   /// Static method to create from JSON - implemented by each class.
   // Note: Can't declare static abstract, but subclasses implement fromJson.
 }
@@ -90,9 +88,7 @@ class Point implements Serializable, Cloneable<Point> {
 
   Point(this.x, this.y);
 
-  Point.origin()
-      : x = 0,
-        y = 0;
+  Point.origin() : x = 0, y = 0;
 
   @override
   Map<String, dynamic> toJson() => {'x': x, 'y': y};
@@ -109,10 +105,7 @@ class Point implements Serializable, Cloneable<Point> {
   Point add(Point other) => Point(x + other.x, y + other.y);
 
   static Point fromJson(Map<String, dynamic> json) {
-    return Point(
-      (json['x'] as num).toDouble(),
-      (json['y'] as num).toDouble(),
-    );
+    return Point((json['x'] as num).toDouble(), (json['y'] as num).toDouble());
   }
 
   @override
@@ -125,15 +118,14 @@ class ColoredRectangle extends Rectangle implements Serializable {
 
   ColoredRectangle(super.width, super.height, this.color);
 
-  ColoredRectangle.red(super.width, super.height)
-      : color = 'red';
+  ColoredRectangle.red(super.width, super.height) : color = 'red';
 
   @override
   Map<String, dynamic> toJson() => {
-        'width': width,
-        'height': height,
-        'color': color,
-      };
+    'width': width,
+    'height': height,
+    'color': color,
+  };
 
   @override
   String describe() => '${super.describe()} in $color';

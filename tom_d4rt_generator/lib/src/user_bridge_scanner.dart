@@ -210,7 +210,7 @@ class UserBridgeScanner {
   /// The key is a tuple of library path and optional class name.
   /// If className is null, the bridge applies to any class from that library.
   final Map<(String libraryPath, String? className), UserBridgeInfo>
-      _userBridges = {};
+  _userBridges = {};
 
   /// Set of class names that extend D4UserBridge (to exclude from generation).
   final Set<String> _d4UserBridgeClasses = {};
@@ -314,8 +314,9 @@ class UserBridgeScanner {
     _d4UserBridgeClasses.add(className);
 
     final annotation = _extractD4rtUserBridgeAnnotation(classElement);
-    final globalsAnnotation =
-        _extractD4rtGlobalsUserBridgeAnnotation(classElement);
+    final globalsAnnotation = _extractD4rtGlobalsUserBridgeAnnotation(
+      classElement,
+    );
 
     if (annotation != null) {
       final (libraryPath, targetClass) = annotation;
@@ -510,8 +511,10 @@ class UserBridgeScanner {
   ) {
     // Global variables: overrideGlobalVariableName
     if (methodName.startsWith('overrideGlobalVariable')) {
-      final memberName =
-          _extractMemberName(methodName, 'overrideGlobalVariable');
+      final memberName = _extractMemberName(
+        methodName,
+        'overrideGlobalVariable',
+      );
       if (memberName.isNotEmpty) {
         globalVariableOverrides[memberName] = methodName;
       }
@@ -529,8 +532,10 @@ class UserBridgeScanner {
 
     // Global functions: overrideGlobalFunctionName
     if (methodName.startsWith('overrideGlobalFunction')) {
-      final memberName =
-          _extractMemberName(methodName, 'overrideGlobalFunction');
+      final memberName = _extractMemberName(
+        methodName,
+        'overrideGlobalFunction',
+      );
       if (memberName.isNotEmpty) {
         globalFunctionOverrides[memberName] = methodName;
       }
@@ -557,8 +562,10 @@ class UserBridgeScanner {
     }
     if (methodName.startsWith('overrideConstructor') &&
         methodName.length > 'overrideConstructor'.length) {
-      final constructorName =
-          _extractMemberName(methodName, 'overrideConstructor');
+      final constructorName = _extractMemberName(
+        methodName,
+        'overrideConstructor',
+      );
       constructorOverrides[constructorName] = methodName;
       return;
     }

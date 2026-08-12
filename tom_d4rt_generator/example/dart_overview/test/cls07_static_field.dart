@@ -11,12 +11,16 @@ void main() {
   // Creating a Counter increments the static field
   Counter();
   if (Counter.instanceCount != initial + 1) {
-    errors.add('Counter.instanceCount after 1 creation expected ${initial + 1}, got ${Counter.instanceCount}');
+    errors.add(
+      'Counter.instanceCount after 1 creation expected ${initial + 1}, got ${Counter.instanceCount}',
+    );
   }
 
   Counter();
   if (Counter.instanceCount != initial + 2) {
-    errors.add('Counter.instanceCount after 2 creations expected ${initial + 2}, got ${Counter.instanceCount}');
+    errors.add(
+      'Counter.instanceCount after 2 creations expected ${initial + 2}, got ${Counter.instanceCount}',
+    );
   }
 
   if (errors.isEmpty) {

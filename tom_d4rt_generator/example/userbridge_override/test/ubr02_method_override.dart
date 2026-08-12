@@ -39,13 +39,15 @@ void main() {
   // ── remove() (auto-generated) ────────────────────────────────────
 
   list.remove(10);
-  if (list.length != 2) errors.add('length after remove expected 2, got ${list.length}');
+  if (list.length != 2)
+    errors.add('length after remove expected 2, got ${list.length}');
 
   // ── clear() (auto-generated) ─────────────────────────────────────
 
   list.clear();
   if (!list.isEmpty) errors.add('isEmpty after clear should be true');
-  if (list.length != 0) errors.add('length after clear expected 0, got ${list.length}');
+  if (list.length != 0)
+    errors.add('length after clear expected 0, got ${list.length}');
 
   // ── Summary ──────────────────────────────────────────────────────
 

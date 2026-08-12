@@ -1,5 +1,5 @@
 /// Generic class examples for bridge generation testing.
-/// 
+///
 /// This file demonstrates generic type bridging capabilities:
 /// - Generic classes with type parameters
 /// - Generic methods with their own type parameters
@@ -98,7 +98,10 @@ class Pair<K, V> {
   Pair<V, K> swap() => Pair<V, K>(second, first);
 
   /// Map both values.
-  Pair<K2, V2> mapBoth<K2, V2>(K2 Function(K) mapFirst, V2 Function(V) mapSecond) {
+  Pair<K2, V2> mapBoth<K2, V2>(
+    K2 Function(K) mapFirst,
+    V2 Function(V) mapSecond,
+  ) {
     return Pair<K2, V2>(mapFirst(first), mapSecond(second));
   }
 

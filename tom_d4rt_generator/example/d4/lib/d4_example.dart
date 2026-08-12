@@ -6,7 +6,7 @@
 /// direct imports:
 ///
 /// - `package:d4_example/example_project.dart` - example_project classes
-/// - `package:d4_example/user_guide.dart` - user_guide classes  
+/// - `package:d4_example/user_guide.dart` - user_guide classes
 /// - `package:d4_example/user_reference.dart` - user_reference classes
 /// - `package:d4_example/userbridge_override.dart` - userbridge_override classes
 /// - `package:d4_example/userbridge_user_guide.dart` - userbridge_user_guide classes

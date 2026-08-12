@@ -1,4 +1,5 @@
 #!/usr/bin/env dart
+
 /// D4 - A minimal D4rt executor for testing extension bridges.
 ///
 /// Run with:
@@ -77,14 +78,14 @@ Future<void> _executeCode(String code, String sourceName) async {
   try {
     // Create the D4rt interpreter with our bridges
     final interpreter = D4rt();
-    
+
     // Grant all permissions for full access (d4 is a development tool)
     interpreter.grant(FilesystemPermission.any);
     interpreter.grant(NetworkPermission.any);
     interpreter.grant(ProcessRunPermission.any);
     interpreter.grant(IsolatePermission.any);
     interpreter.grant(DangerousPermission.any);
-    
+
     // Register bridges
     CoreExtensionsBridge.registerBridges(interpreter, coreExtensionsImport);
     PathBridge.registerBridges(interpreter, pathImport);
@@ -92,7 +93,7 @@ Future<void> _executeCode(String code, String sourceName) async {
 
     // Parse and execute
     final result = await interpreter.execute(source: code);
-    
+
     // Print result if not null/void
     if (result != null) {
       print(result);

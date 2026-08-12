@@ -16,7 +16,9 @@ void main() {
   logLevel = LogSeverity.debug;
   var after = logLevel;
   if (after != LogSeverity.debug) {
-    errors.add('logLevel after set to debug expected LogSeverity.debug, got $after');
+    errors.add(
+      'logLevel after set to debug expected LogSeverity.debug, got $after',
+    );
   }
 
   // Restore

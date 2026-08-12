@@ -9,12 +9,12 @@ void main() {
   print('DCli Utilities Example');
   print('═══════════════════════════════════════════════════════════════');
   print('');
-  
+
   print('** Current Directory **');
   print('');
   var cwd = pwd;
   print('  pwd: $cwd');
-  
+
   print('');
   print('** Path Manipulation **');
   print('');
@@ -25,8 +25,10 @@ void main() {
   print('  p.dirname(testPath):   ${p.dirname(testPath)}');
   print('  p.basename(testPath):  ${p.basename(testPath)}');
   print('  p.extension(testPath): ${p.extension(testPath)}');
-  print('  p.basenameWithoutExtension(testPath): ${p.basenameWithoutExtension(testPath)}');
-  
+  print(
+    '  p.basenameWithoutExtension(testPath): ${p.basenameWithoutExtension(testPath)}',
+  );
+
   print('');
   print('** File Existence Checks **');
   print('');
@@ -34,7 +36,7 @@ void main() {
   print('  exists("nonexistent"):  ${exists('nonexistent')}');
   print('  isFile("pubspec.yaml"): ${isFile('pubspec.yaml')}');
   print('  isDirectory("lib"):     ${isDirectory('lib')}');
-  
+
   print('');
   print('** Temp Directory **');
   print('');
@@ -43,7 +45,7 @@ void main() {
   print('  Exists: ${exists(tempPath)}');
   deleteDir(tempPath);
   print('  Deleted: ${!exists(tempPath)}');
-  
+
   print('');
   print('═══════════════════════════════════════════════════════════════');
   print('Test complete!');

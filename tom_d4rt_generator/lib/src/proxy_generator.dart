@@ -226,8 +226,9 @@ Future<ProxyGenerationResult> generateProxies({
 
   final hasSummaries =
       (librarySummaryPaths != null && librarySummaryPaths.isNotEmpty) ||
-          sdkSummaryPath != null;
-  final AnalysisContextCollection collection = analysisContext ??
+      sdkSummaryPath != null;
+  final AnalysisContextCollection collection =
+      analysisContext ??
       (hasSummaries
           ? AnalysisContextCollectionImpl(
               includedPaths: [absoluteProjectPath],
@@ -318,9 +319,7 @@ Future<ProxyGenerationResult> generateProxies({
   // `tom_d4rt_ast/runtime.dart`) consumers get the right `D4` symbol.
   // Falls back to the legacy `tom_d4rt_ast/runtime.dart` when no import is
   // configured, matching pre-fix behaviour.
-  importUris.add(
-    config.d4rtImport ?? 'package:tom_d4rt_ast/runtime.dart',
-  );
+  importUris.add(config.d4rtImport ?? 'package:tom_d4rt_ast/runtime.dart');
 
   for (final (proxyConfig, element, barrelUri) in proxyEntries) {
     // Determine the best import for this class
@@ -1053,9 +1052,7 @@ void _generateFactoryCallback(
     // Getter callback
     if (isRequired) {
       buffer.writeln('      $callbackName: () {');
-      _generateGetterDelegation(
-        buffer, methodName, erasedExtractionReturnType,
-      );
+      _generateGetterDelegation(buffer, methodName, erasedExtractionReturnType);
       buffer.writeln('      },');
     } else {
       // Overridable getter — only wire if interpreted class has it
@@ -1063,9 +1060,7 @@ void _generateFactoryCallback(
         "      $callbackName: instance.klass.findInstanceGetter('$methodName') != null",
       );
       buffer.writeln('          ? () {');
-      _generateGetterDelegation(
-        buffer, methodName, erasedExtractionReturnType,
-      );
+      _generateGetterDelegation(buffer, methodName, erasedExtractionReturnType);
       buffer.writeln('          }');
       buffer.writeln('          : null,');
     }
@@ -1213,7 +1208,8 @@ String _stripParamName(String chunk) {
 /// `(Size p0)`). Returns the parameter declaration and the call-site arg
 /// list as a tuple.
 ({String params, List<String> argNames}) _buildTypedWrapperParams(
-    List<String> paramTypes) {
+  List<String> paramTypes,
+) {
   final params = <String>[];
   final argNames = <String>[];
   for (int i = 0; i < paramTypes.length; i++) {
@@ -1241,7 +1237,13 @@ void _generateGetterDelegation(
   if (isVoid) {
     buffer.writeln('          return;');
   } else {
-    _emitTypedReturn(buffer, returnType, 'result', getterName, indent: '          ');
+    _emitTypedReturn(
+      buffer,
+      returnType,
+      'result',
+      getterName,
+      indent: '          ',
+    );
   }
   buffer.writeln('        }');
   // Try field access as fallback
@@ -1250,7 +1252,13 @@ void _generateGetterDelegation(
   if (isVoid) {
     buffer.writeln('          return;');
   } else {
-    _emitTypedReturn(buffer, returnType, 'field', getterName, indent: '          ');
+    _emitTypedReturn(
+      buffer,
+      returnType,
+      'field',
+      getterName,
+      indent: '          ',
+    );
   }
   buffer.writeln('        } catch (_) {}');
   buffer.writeln(
@@ -1298,9 +1306,7 @@ void _emitTypedReturn(
   final argList = wp.argNames.join(', ');
   if (fn.returnType == 'void') {
     buffer.writeln('$indent   return ${wp.params} {');
-    buffer.writeln(
-      "$indent     _callable.call(visitor, [$argList], {});",
-    );
+    buffer.writeln("$indent     _callable.call(visitor, [$argList], {});");
     buffer.writeln('$indent   };');
   } else {
     buffer.writeln('$indent   return ${wp.params} {');
@@ -1364,8 +1370,13 @@ void _generateMethodDelegation(
   } else {
     // Bug-47: function-typed return values need typed-wrapper emission;
     // see _emitTypedReturn.
-    _emitTypedReturn(buffer, returnType, 'result', methodName,
-        indent: '          ');
+    _emitTypedReturn(
+      buffer,
+      returnType,
+      'result',
+      methodName,
+      indent: '          ',
+    );
   }
   buffer.writeln('        }');
   buffer.writeln(
@@ -1390,11 +1401,14 @@ String _buildFactoryParamDecl(
   final named = params.where((p) => p.isNamed);
 
   for (final p in positional) {
-    parts.add('${_eraseTypeParams(p.type, typeParameterNames, typeParameterReplacements)} ${p.name}');
+    parts.add(
+      '${_eraseTypeParams(p.type, typeParameterNames, typeParameterReplacements)} ${p.name}',
+    );
   }
   if (optionalPositional.isNotEmpty) {
     final optParts = optionalPositional.map(
-      (p) => '${_eraseTypeParams(p.type, typeParameterNames, typeParameterReplacements)} ${p.name}',
+      (p) =>
+          '${_eraseTypeParams(p.type, typeParameterNames, typeParameterReplacements)} ${p.name}',
     );
     parts.add('[${optParts.join(', ')}]');
   }
@@ -1442,8 +1456,9 @@ String _eraseTypeParams(
   var result = type;
   for (var i = 0; i < typeParamNames.length; i++) {
     final tp = typeParamNames[i];
-    final repl =
-        (replacements != null && i < replacements.length) ? replacements[i] : 'dynamic';
+    final repl = (replacements != null && i < replacements.length)
+        ? replacements[i]
+        : 'dynamic';
     // Use word-boundary matching to only replace standalone type param names,
     // not substrings of other identifiers (e.g., 'Type' should not become
     // 'dynamicype').

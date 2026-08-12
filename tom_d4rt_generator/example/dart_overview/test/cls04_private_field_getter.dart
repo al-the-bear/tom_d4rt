@@ -13,7 +13,9 @@ void main() {
   // Verify balance updates after deposit
   ba.deposit(100.0);
   if (ba.balance != 350.0) {
-    errors.add('BankAccount.balance after deposit(100) expected 350.0, got ${ba.balance}');
+    errors.add(
+      'BankAccount.balance after deposit(100) expected 350.0, got ${ba.balance}',
+    );
   }
 
   if (errors.isEmpty) {

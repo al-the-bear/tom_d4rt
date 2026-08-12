@@ -10,7 +10,9 @@ void main() {
     errors.add('User.guest().name expected "Guest", got "${guest.name}"');
   }
   if (guest.email != 'guest@example.com') {
-    errors.add('User.guest().email expected "guest@example.com", got "${guest.email}"');
+    errors.add(
+      'User.guest().email expected "guest@example.com", got "${guest.email}"',
+    );
   }
 
   // Test Maybe.some() named constructor
@@ -31,13 +33,17 @@ void main() {
   // Test Result.success() named constructor
   var success = Result.success(100);
   if (success.isSuccess != true) {
-    errors.add('Result.success(100).isSuccess expected true, got ${success.isSuccess}');
+    errors.add(
+      'Result.success(100).isSuccess expected true, got ${success.isSuccess}',
+    );
   }
 
   // Test Result.failure() named constructor
   var failure = Result.failure('error');
   if (failure.isSuccess != false) {
-    errors.add('Result.failure("error").isSuccess expected false, got ${failure.isSuccess}');
+    errors.add(
+      'Result.failure("error").isSuccess expected false, got ${failure.isSuccess}',
+    );
   }
 
   if (errors.isEmpty) {

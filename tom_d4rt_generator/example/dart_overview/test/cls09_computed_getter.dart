@@ -22,13 +22,17 @@ void main() {
   // Check circumference approximately 31.4159 (2 * 3.14159 * 5.0)
   var expectedCircumference = 31.4159;
   if ((circle.circumference - expectedCircumference).abs() > 0.001) {
-    errors.add('Circle.circumference expected ~$expectedCircumference, got ${circle.circumference}');
+    errors.add(
+      'Circle.circumference expected ~$expectedCircumference, got ${circle.circumference}',
+    );
   }
 
   // Check circleArea approximately 78.5397 (3.14159 * 25.0)
   var expectedArea = 78.53975;
   if ((circle.circleArea - expectedArea).abs() > 0.001) {
-    errors.add('Circle.circleArea expected ~$expectedArea, got ${circle.circleArea}');
+    errors.add(
+      'Circle.circleArea expected ~$expectedArea, got ${circle.circleArea}',
+    );
   }
 
   if (errors.isEmpty) {

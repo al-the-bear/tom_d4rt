@@ -84,11 +84,10 @@ Future<void> main(List<String> args) async {
 
     // Run pub get first
     print('  📦 Running pub get...');
-    final pubGetResult = await Process.run(
-      'dart',
-      ['pub', 'get'],
-      workingDirectory: exampleDir.path,
-    );
+    final pubGetResult = await Process.run('dart', [
+      'pub',
+      'get',
+    ], workingDirectory: exampleDir.path);
     if (pubGetResult.exitCode != 0) {
       print('  ❌ pub get failed:');
       print(pubGetResult.stderr);
@@ -100,16 +99,12 @@ Future<void> main(List<String> args) async {
     // Generate bridges (unless --run-only)
     if (!runOnly) {
       print('  🔧 Generating bridges...');
-      final generateResult = await Process.run(
-        'dart',
-        [
-          'run',
-          'tom_d4rt_generator:d4rtgen',
-          '--config',
-          example.configFile,
-        ],
-        workingDirectory: exampleDir.path,
-      );
+      final generateResult = await Process.run('dart', [
+        'run',
+        'tom_d4rt_generator:d4rtgen',
+        '--config',
+        example.configFile,
+      ], workingDirectory: exampleDir.path);
 
       if (generateResult.exitCode != 0) {
         print('  ⚠️  Bridge generation had issues:');
@@ -123,11 +118,10 @@ Future<void> main(List<String> args) async {
     // Run the example (unless --generate-only)
     if (!generateOnly) {
       print('  🚀 Running example...');
-      final runResult = await Process.run(
-        'dart',
-        ['run', example.runScript],
-        workingDirectory: exampleDir.path,
-      );
+      final runResult = await Process.run('dart', [
+        'run',
+        example.runScript,
+      ], workingDirectory: exampleDir.path);
 
       if (runResult.exitCode != 0) {
         print('  ❌ Example failed:');

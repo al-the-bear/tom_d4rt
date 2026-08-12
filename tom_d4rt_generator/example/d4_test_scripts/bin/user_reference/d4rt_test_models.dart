@@ -15,7 +15,12 @@ void main() {
   print('User map name: ${map["name"]}');
 
   // Test Product class
-  var product = Product(sku: 'SKU-001', name: 'Widget', priceInCents: 1999, quantity: 10);
+  var product = Product(
+    sku: 'SKU-001',
+    name: 'Widget',
+    priceInCents: 1999,
+    quantity: 10,
+  );
   print('Product: ${product.name}');
   print('Product sku: ${product.sku}');
   print('Product in stock: ${product.isInStock}');

@@ -49,13 +49,14 @@ String renderDartType(DartType type) {
     // analyzer form. This guard restores source-form parity without
     // reaching back into the AST.
     final renderedArgs = args.map(renderDartType).toList();
-    final allDynamic = renderedArgs.isNotEmpty &&
-        renderedArgs.every((a) => a == 'dynamic');
+    final allDynamic =
+        renderedArgs.isNotEmpty && renderedArgs.every((a) => a == 'dynamic');
     final argsText = (renderedArgs.isEmpty || allDynamic)
         ? ''
         : '<${renderedArgs.join(', ')}>';
-    final nullable =
-        type.nullabilitySuffix == NullabilitySuffix.question ? '?' : '';
+    final nullable = type.nullabilitySuffix == NullabilitySuffix.question
+        ? '?'
+        : '';
     return '$baseName$argsText$nullable';
   }
   if (type is FunctionType) {
@@ -64,10 +65,12 @@ String renderDartType(DartType type) {
       final aliasName = alias.element.name;
       if (aliasName != null) {
         final args = alias.typeArguments;
-        final argsText =
-            args.isEmpty ? '' : '<${args.map(renderDartType).join(', ')}>';
-        final nullable =
-            type.nullabilitySuffix == NullabilitySuffix.question ? '?' : '';
+        final argsText = args.isEmpty
+            ? ''
+            : '<${args.map(renderDartType).join(', ')}>';
+        final nullable = type.nullabilitySuffix == NullabilitySuffix.question
+            ? '?'
+            : '';
         return '$aliasName$argsText$nullable';
       }
     }
@@ -95,8 +98,9 @@ String renderDartType(DartType type) {
     // `?` on a function type binds to the whole function type; no outer
     // parens are needed and adding them would make `(X)?` parse as a
     // single-positional record in named-parameter positions in Dart 3.
-    final nullable =
-        type.nullabilitySuffix == NullabilitySuffix.question ? '?' : '';
+    final nullable = type.nullabilitySuffix == NullabilitySuffix.question
+        ? '?'
+        : '';
     return '$returnType Function(${parts.join(', ')})$nullable';
   }
   return type.getDisplayString();
@@ -125,13 +129,14 @@ String renderDartTypeExpanded(DartType type) {
     if (baseName == null) return type.getDisplayString();
     final args = type.typeArguments;
     final renderedArgs = args.map(renderDartTypeExpanded).toList();
-    final allDynamic = renderedArgs.isNotEmpty &&
-        renderedArgs.every((a) => a == 'dynamic');
+    final allDynamic =
+        renderedArgs.isNotEmpty && renderedArgs.every((a) => a == 'dynamic');
     final argsText = (renderedArgs.isEmpty || allDynamic)
         ? ''
         : '<${renderedArgs.join(', ')}>';
-    final nullable =
-        type.nullabilitySuffix == NullabilitySuffix.question ? '?' : '';
+    final nullable = type.nullabilitySuffix == NullabilitySuffix.question
+        ? '?'
+        : '';
     return '$baseName$argsText$nullable';
   }
   if (type is FunctionType) {
@@ -157,8 +162,9 @@ String renderDartTypeExpanded(DartType type) {
     final parts = [...positional];
     if (optional.isNotEmpty) parts.add('[${optional.join(', ')}]');
     if (named.isNotEmpty) parts.add('{${named.join(', ')}}');
-    final nullable =
-        type.nullabilitySuffix == NullabilitySuffix.question ? '?' : '';
+    final nullable = type.nullabilitySuffix == NullabilitySuffix.question
+        ? '?'
+        : '';
     return '$returnType Function(${parts.join(', ')})$nullable';
   }
   return type.getDisplayString();

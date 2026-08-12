@@ -63,7 +63,7 @@ void main() {
   print('Before ??=: value = $value');
   value ??= 'Assigned because null';
   print('After ??=: value = $value');
-  
+
   String? value2 = getName('Already set');
   print('Before second ??=: value2 = $value2');
   value2 ??= 'Not assigned because not null';
@@ -98,6 +98,7 @@ void main() {
     if (s == null) return 'null';
     return 'Length: ${s.length}'; // s is promoted to String
   }
+
   print(getLength('Dart'));
   print(getLength(null));
 

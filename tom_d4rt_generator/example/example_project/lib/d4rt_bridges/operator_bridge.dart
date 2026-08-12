@@ -26,16 +26,18 @@ class OperatorBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> classSourceUris() {
     return {
-      'Vector2D': 'package:d4rt_generator_example/test_classes/operator_classes.dart',
-      'Matrix': 'package:d4rt_generator_example/test_classes/operator_classes.dart',
-      'Dictionary': 'package:d4rt_generator_example/test_classes/operator_classes.dart',
+      'Vector2D':
+          'package:d4rt_generator_example/test_classes/operator_classes.dart',
+      'Matrix':
+          'package:d4rt_generator_example/test_classes/operator_classes.dart',
+      'Dictionary':
+          'package:d4rt_generator_example/test_classes/operator_classes.dart',
     };
   }
 
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns a map of enum names to their canonical source URIs.
@@ -43,8 +45,7 @@ class OperatorBridge {
   /// Used for deduplication when the same enum is exported through
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
-    return {
-    };
+    return {};
   }
 
   /// Registers all bridges with an interpreter.
@@ -56,7 +57,11 @@ class OperatorBridge {
     final classes = bridgeClasses();
     final classSources = classSourceUris();
     for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+      interpreter.registerBridgedClass(
+        bridge,
+        importPath,
+        sourceUri: classSources[bridge.name],
+      );
     }
   }
 
@@ -93,7 +98,6 @@ class OperatorBridge {
   static String getImportBlock() {
     return "import 'package:d4rt_generator_example/test_classes.dart';";
   }
-
 }
 
 // =============================================================================
@@ -116,10 +120,14 @@ BridgedClass _createVector2DBridge() {
       },
     },
     getters: {
-      'x': (visitor, target) => D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D').x,
-      'y': (visitor, target) => D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D').y,
-      'magnitude': (visitor, target) => D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D').magnitude,
-      'hashCode': (visitor, target) => D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D').hashCode,
+      'x': (visitor, target) =>
+          D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D').x,
+      'y': (visitor, target) =>
+          D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D').y,
+      'magnitude': (visitor, target) =>
+          D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D').magnitude,
+      'hashCode': (visitor, target) =>
+          D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D').hashCode,
     },
     methods: {
       'normalize': (visitor, target, positional, named, typeArgs) {
@@ -129,7 +137,12 @@ BridgedClass _createVector2DBridge() {
       'dot': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D');
         D4.requireMinArgs(positional, 1, 'dot');
-        final other = D4.getRequiredArg<$pkg.Vector2D>(positional, 0, 'other', 'dot');
+        final other = D4.getRequiredArg<$pkg.Vector2D>(
+          positional,
+          0,
+          'other',
+          'dot',
+        );
         return t.dot(other);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -138,7 +151,12 @@ BridgedClass _createVector2DBridge() {
       },
       '+': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D');
-        final other = D4.getRequiredArg<$pkg.Vector2D>(positional, 0, 'other', 'operator+');
+        final other = D4.getRequiredArg<$pkg.Vector2D>(
+          positional,
+          0,
+          'other',
+          'operator+',
+        );
         return t + other;
       },
       '-': (visitor, target, positional, named, typeArgs) {
@@ -148,23 +166,43 @@ BridgedClass _createVector2DBridge() {
           return -t;
         } else {
           // Binary operator
-          final other = D4.getRequiredArg<$pkg.Vector2D>(positional, 0, 'other', 'operator-');
+          final other = D4.getRequiredArg<$pkg.Vector2D>(
+            positional,
+            0,
+            'other',
+            'operator-',
+          );
           return t - other;
         }
       },
       '*': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D');
-        final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
+        final other = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'other',
+          'operator*',
+        );
         return t * other;
       },
       '/': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D');
-        final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator/');
+        final other = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'other',
+          'operator/',
+        );
         return t / other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Vector2D>(target, 'Vector2D');
-        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+        final other = D4.getRequiredArg<Object>(
+          positional,
+          0,
+          'other',
+          'operator==',
+        );
         return t == other;
       },
     },
@@ -204,7 +242,9 @@ BridgedClass _createMatrixBridge() {
       'fromList': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Matrix');
         if (positional.isEmpty) {
-          throw ArgumentError('Matrix: Missing required argument "data" at position 0');
+          throw ArgumentError(
+            'Matrix: Missing required argument "data" at position 0',
+          );
         }
         final data = D4.coerceList<List<double>>(positional[0], 'data');
         return $pkg.Matrix.fromList(data);
@@ -216,8 +256,10 @@ BridgedClass _createMatrixBridge() {
       },
     },
     getters: {
-      'rows': (visitor, target) => D4.validateTarget<$pkg.Matrix>(target, 'Matrix').rows,
-      'cols': (visitor, target) => D4.validateTarget<$pkg.Matrix>(target, 'Matrix').cols,
+      'rows': (visitor, target) =>
+          D4.validateTarget<$pkg.Matrix>(target, 'Matrix').rows,
+      'cols': (visitor, target) =>
+          D4.validateTarget<$pkg.Matrix>(target, 'Matrix').cols,
     },
     methods: {
       'get': (visitor, target, positional, named, typeArgs) {
@@ -242,17 +284,32 @@ BridgedClass _createMatrixBridge() {
       },
       '[]': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Matrix>(target, 'Matrix');
-        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'operator[]');
+        final index = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'index',
+          'operator[]',
+        );
         return t[index];
       },
       '+': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Matrix>(target, 'Matrix');
-        final other = D4.getRequiredArg<$pkg.Matrix>(positional, 0, 'other', 'operator+');
+        final other = D4.getRequiredArg<$pkg.Matrix>(
+          positional,
+          0,
+          'other',
+          'operator+',
+        );
         return t + other;
       },
       '*': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Matrix>(target, 'Matrix');
-        final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
+        final other = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'other',
+          'operator*',
+        );
         return t * other;
       },
     },
@@ -266,10 +323,7 @@ BridgedClass _createMatrixBridge() {
       'set': 'void set(int row, int col, double value)',
       'toString': 'String toString()',
     },
-    getterSignatures: {
-      'rows': 'int get rows',
-      'cols': 'int get cols',
-    },
+    getterSignatures: {'rows': 'int get rows', 'cols': 'int get cols'},
   );
 }
 
@@ -287,15 +341,23 @@ BridgedClass _createDictionaryBridge() {
       },
     },
     getters: {
-      'keys': (visitor, target) => D4.validateTarget<$pkg.Dictionary>(target, 'Dictionary').keys,
-      'values': (visitor, target) => D4.validateTarget<$pkg.Dictionary>(target, 'Dictionary').values,
-      'length': (visitor, target) => D4.validateTarget<$pkg.Dictionary>(target, 'Dictionary').length,
+      'keys': (visitor, target) =>
+          D4.validateTarget<$pkg.Dictionary>(target, 'Dictionary').keys,
+      'values': (visitor, target) =>
+          D4.validateTarget<$pkg.Dictionary>(target, 'Dictionary').values,
+      'length': (visitor, target) =>
+          D4.validateTarget<$pkg.Dictionary>(target, 'Dictionary').length,
     },
     methods: {
       'containsKey': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Dictionary>(target, 'Dictionary');
         D4.requireMinArgs(positional, 1, 'containsKey');
-        final key = D4.getRequiredArg<dynamic>(positional, 0, 'key', 'containsKey');
+        final key = D4.getRequiredArg<dynamic>(
+          positional,
+          0,
+          'key',
+          'containsKey',
+        );
         return t.containsKey(key);
       },
       'remove': (visitor, target, positional, named, typeArgs) {
@@ -315,20 +377,33 @@ BridgedClass _createDictionaryBridge() {
       },
       '[]': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Dictionary>(target, 'Dictionary');
-        final index = D4.getRequiredArg<dynamic>(positional, 0, 'index', 'operator[]');
+        final index = D4.getRequiredArg<dynamic>(
+          positional,
+          0,
+          'index',
+          'operator[]',
+        );
         return t[index];
       },
       '[]=': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Dictionary>(target, 'Dictionary');
-        final index = D4.getRequiredArg<dynamic>(positional, 0, 'index', 'operator[]=');
-        final value = D4.getRequiredArg<dynamic>(positional, 1, 'value', 'operator[]=');
+        final index = D4.getRequiredArg<dynamic>(
+          positional,
+          0,
+          'index',
+          'operator[]=',
+        );
+        final value = D4.getRequiredArg<dynamic>(
+          positional,
+          1,
+          'value',
+          'operator[]=',
+        );
         t[index] = value;
         return null;
       },
     },
-    constructorSignatures: {
-      '': 'Dictionary()',
-    },
+    constructorSignatures: {'': 'Dictionary()'},
     methodSignatures: {
       'containsKey': 'bool containsKey(K key)',
       'remove': 'V? remove(K key)',
@@ -342,4 +417,3 @@ BridgedClass _createDictionaryBridge() {
     },
   );
 }
-

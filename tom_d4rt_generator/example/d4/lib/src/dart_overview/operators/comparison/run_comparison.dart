@@ -64,13 +64,17 @@ void main() {
 
   print('\nlist1 == list2: ${list1 == list2}'); // false (different objects)
   print('identical(list1, list2): ${identical(list1, list2)}'); // false
-  print('identical(list1, list3): ${identical(list1, list3)}'); // true (same reference)
+  print(
+    'identical(list1, list3): ${identical(list1, list3)}',
+  ); // true (same reference)
 
   // Identity with const
   print('\n--- Identity with const ---');
   const constList1 = [1, 2, 3];
   const constList2 = [1, 2, 3];
-  print('identical(constList1, constList2): ${identical(constList1, constList2)}'); // true!
+  print(
+    'identical(constList1, constList2): ${identical(constList1, constList2)}',
+  ); // true!
 
   // Comparing with null
   print('\n--- Comparing with null ---');

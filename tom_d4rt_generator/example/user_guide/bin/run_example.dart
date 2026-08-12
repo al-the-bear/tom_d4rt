@@ -1,4 +1,5 @@
 #!/usr/bin/env dart
+
 /// User Guide Example - D4rt Script Runner
 ///
 /// This script demonstrates how to use generated bridges to run D4rt scripts.

@@ -11,9 +11,9 @@ export 'external_extensions.dart';
 class TestClass {
   final String name;
   final int value;
-  
+
   TestClass(this.name, this.value);
-  
+
   /// Use the imported extension to verify it works
   int get doubledValue => value.doubled;
 }

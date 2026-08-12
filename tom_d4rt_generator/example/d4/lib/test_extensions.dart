@@ -13,16 +13,16 @@ library;
 extension StringExtension on String {
   /// Reverses the string.
   String get reversed => split('').reversed.join();
-  
+
   /// Checks if string is blank (empty or only whitespace).
   bool get isBlank => trim().isEmpty;
-  
+
   /// Checks if string is not blank.
   bool get isNotBlank => !isBlank;
-  
+
   /// Wraps the string in parentheses.
   String get inParens => '($this)';
-  
+
   /// Repeats the string n times with separator.
   String repeatWith(int times, {String separator = ''}) {
     if (times <= 0) return '';
@@ -38,17 +38,18 @@ extension StringExtension on String {
 extension IntExtension on int {
   /// Checks if the number is even.
   bool get isEven => this % 2 == 0;
-  
+
   /// Checks if the number is odd.
   bool get isOdd => this % 2 != 0;
-  
+
   /// Returns the factorial of the number.
   int get factorial {
-    if (this < 0) throw ArgumentError('Cannot compute factorial of negative number');
+    if (this < 0)
+      throw ArgumentError('Cannot compute factorial of negative number');
     if (this <= 1) return 1;
     return this * (this - 1).factorial;
   }
-  
+
   /// Clamps the value between min and max.
   int clampTo(int min, int max) {
     if (this < min) return min;
@@ -65,10 +66,10 @@ extension IntExtension on int {
 extension ListExtension<T> on List<T> {
   /// Returns the first element or null if empty.
   T? get firstOrNull => isEmpty ? null : first;
-  
+
   /// Returns the last element or null if empty.
   T? get lastOrNull => isEmpty ? null : last;
-  
+
   /// Returns true if the list has exactly one element.
   bool get isSingle => length == 1;
 }
@@ -79,19 +80,13 @@ extension ListExtension<T> on List<T> {
 
 /// Processes items with a required callback.
 /// Tests non-nullable callback parameter handling.
-List<R> processItems<T, R>(
-  List<T> items,
-  R Function(T item) transform,
-) {
+List<R> processItems<T, R>(List<T> items, R Function(T item) transform) {
   return items.map(transform).toList();
 }
 
 /// Processes items with an optional callback.
 /// Tests nullable callback parameter handling.
-List<T> filterItems<T>(
-  List<T> items, {
-  bool Function(T item)? predicate,
-}) {
+List<T> filterItems<T>(List<T> items, {bool Function(T item)? predicate}) {
   if (predicate == null) return items;
   return items.where(predicate).toList();
 }
@@ -100,7 +95,8 @@ List<T> filterItems<T>(
 /// The customPrompt parameter has a default value but is a function type.
 String promptUser(
   String message, {
-  String Function(String prompt, String? defaultValue, bool required)? customPrompt,
+  String Function(String prompt, String? defaultValue, bool required)?
+  customPrompt,
   String? defaultValue,
   bool required = true,
 }) {
@@ -121,16 +117,16 @@ String promptUser(
 class ItemProcessor<T> {
   /// The transformation function.
   final T Function(T) transform;
-  
+
   /// Creates an ItemProcessor with the given transform function.
   ItemProcessor(this.transform);
-  
+
   /// Creates an ItemProcessor that returns items unchanged.
   ItemProcessor.identity() : transform = ((T x) => x);
-  
+
   /// Processes a single item.
   T process(T item) => transform(item);
-  
+
   /// Processes a list of items.
   List<T> processAll(List<T> items) => items.map(transform).toList();
 }
@@ -144,22 +140,22 @@ class ItemProcessor<T> {
 class TestPoint {
   /// The x coordinate.
   final int x;
-  
+
   /// The y coordinate.
   final int y;
-  
+
   /// Creates a new point.
   const TestPoint(this.x, this.y);
-  
+
   /// Creates the origin point.
   const TestPoint.origin() : x = 0, y = 0;
-  
+
   /// Returns the distance from origin.
   double get distanceFromOrigin => (x * x + y * y).toDouble();
-  
+
   /// Adds another point.
   TestPoint operator +(TestPoint other) => TestPoint(x + other.x, y + other.y);
-  
+
   /// Returns a string representation.
   @override
   String toString() => 'TestPoint($x, $y)';

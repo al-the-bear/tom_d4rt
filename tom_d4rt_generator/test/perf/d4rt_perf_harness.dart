@@ -68,14 +68,14 @@ class BenchResult {
   });
 
   factory BenchResult.failure(String name, String error) => BenchResult(
-        name: name,
-        iterationsPerCall: 0,
-        calls: 0,
-        elapsed: Duration.zero,
-        checksum: null,
-        success: false,
-        error: error,
-      );
+    name: name,
+    iterationsPerCall: 0,
+    calls: 0,
+    elapsed: Duration.zero,
+    checksum: null,
+    success: false,
+    error: error,
+  );
 
   /// Total inner-loop operations executed during measurement.
   int get totalOps => calls * iterationsPerCall;
@@ -85,8 +85,7 @@ class BenchResult {
       totalOps == 0 ? 0 : elapsed.inMicroseconds * 1000 / totalOps;
 
   /// Microseconds per `compute()` call.
-  double get usPerCall =>
-      calls == 0 ? 0 : elapsed.inMicroseconds / calls;
+  double get usPerCall => calls == 0 ? 0 : elapsed.inMicroseconds / calls;
 
   /// Operations per second (one inner-loop iteration = one op).
   double get opsPerSecond =>

@@ -18,10 +18,7 @@ class D4rtGeneratorExampleBridges {
       d4rt,
       'package:d4rt_generator_example/test_classes.dart',
     );
-    all_bridges.AllBridge.registerBridges(
-      d4rt,
-      'lib/test_classes.dart',
-    );
+    all_bridges.AllBridge.registerBridges(d4rt, 'lib/test_classes.dart');
     // Register under sub-package barrels for direct imports
     for (final barrel in all_bridges.AllBridge.subPackageBarrels()) {
       all_bridges.AllBridge.registerBridges(d4rt, barrel);

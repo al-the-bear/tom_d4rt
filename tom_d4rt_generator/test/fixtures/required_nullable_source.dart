@@ -19,10 +19,7 @@ class NullableKeyWidget {
   final String? label;
   final int? priority;
 
-  const NullableKeyWidget({
-    required this.label,
-    required this.priority,
-  });
+  const NullableKeyWidget({required this.label, required this.priority});
 }
 
 /// Static const defaults that cannot be evaluated at generation time
@@ -49,10 +46,7 @@ class PaddedWidget {
   final double padding;
   final Widget child;
 
-  const PaddedWidget({
-    this.padding = _kDefaultPadding,
-    required this.child,
-  });
+  const PaddedWidget({this.padding = _kDefaultPadding, required this.child});
 }
 
 /// Placeholder for Widget type

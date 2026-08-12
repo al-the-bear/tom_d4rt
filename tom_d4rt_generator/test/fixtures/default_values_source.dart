@@ -86,10 +86,7 @@ class ArithmeticPositionalDefault {
 /// error. Covers both the named and positional empty-set paths plus an
 /// already-typed `const <int>{}` default.
 class SetDefaults {
-  SetDefaults({
-    this.flags = const {},
-    this.tags = const <String>{},
-  });
+  SetDefaults({this.flags = const {}, this.tags = const <String>{}});
   final Set<String> flags;
   final Set<String> tags;
 }

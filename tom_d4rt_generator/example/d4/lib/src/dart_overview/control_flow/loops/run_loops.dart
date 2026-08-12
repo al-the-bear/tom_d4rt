@@ -154,7 +154,10 @@ void main() {
   print('Cubes 1-5: $cubes');
 
   // Conditional in collection for
-  var evenSquares = [for (int i = 1; i <= 10; i++) if (i % 2 == 0) i * i];
+  var evenSquares = [
+    for (int i = 1; i <= 10; i++)
+      if (i % 2 == 0) i * i,
+  ];
   print('Even squares 1-10: $evenSquares');
 
   print('');

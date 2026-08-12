@@ -89,10 +89,12 @@ String getD4rtgenLogSummary() {
     }
 
     final content = file.readAsStringSync();
-    final cliCount =
-        RegExp(r'D4RTGEN INVOCATION: CLI').allMatches(content).length;
-    final apiCount =
-        RegExp(r'D4RTGEN INVOCATION: API').allMatches(content).length;
+    final cliCount = RegExp(
+      r'D4RTGEN INVOCATION: CLI',
+    ).allMatches(content).length;
+    final apiCount = RegExp(
+      r'D4RTGEN INVOCATION: API',
+    ).allMatches(content).length;
 
     return '''
 D4rtgen Invocation Summary:

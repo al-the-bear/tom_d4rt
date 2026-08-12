@@ -7,13 +7,19 @@ void main() {
   // Test Season enhanced enum fields
   var spring = Season.spring;
   if (spring.months.length != 3) {
-    errors.add('Season.spring.months.length expected 3, got ${spring.months.length}');
+    errors.add(
+      'Season.spring.months.length expected 3, got ${spring.months.length}',
+    );
   }
   if (spring.months[0] != 'March') {
-    errors.add('Season.spring.months[0] expected "March", got "${spring.months[0]}"');
+    errors.add(
+      'Season.spring.months[0] expected "March", got "${spring.months[0]}"',
+    );
   }
   if (spring.avgTemperature != 15) {
-    errors.add('Season.spring.avgTemperature expected 15, got ${spring.avgTemperature}');
+    errors.add(
+      'Season.spring.avgTemperature expected 15, got ${spring.avgTemperature}',
+    );
   }
 
   // Test HttpStatus enhanced enum fields
@@ -31,7 +37,9 @@ void main() {
     errors.add('HttpStatus.notFound.code expected 404, got ${notFound.code}');
   }
   if (notFound.message != 'Not Found') {
-    errors.add('HttpStatus.notFound.message expected "Not Found", got "${notFound.message}"');
+    errors.add(
+      'HttpStatus.notFound.message expected "Not Found", got "${notFound.message}"',
+    );
   }
 
   if (errors.isEmpty) {

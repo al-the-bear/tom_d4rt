@@ -424,4 +424,3 @@ Future<void> _generateTestRunnerFile(
     ),
   );
 }
-

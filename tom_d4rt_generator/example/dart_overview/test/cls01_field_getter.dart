@@ -22,7 +22,9 @@ void main() {
   // Test BankAccount field getter
   var ba = BankAccount('123', 100.0);
   if (ba.accountNumber != '123') {
-    errors.add('BankAccount.accountNumber expected "123", got "${ba.accountNumber}"');
+    errors.add(
+      'BankAccount.accountNumber expected "123", got "${ba.accountNumber}"',
+    );
   }
 
   if (errors.isEmpty) {

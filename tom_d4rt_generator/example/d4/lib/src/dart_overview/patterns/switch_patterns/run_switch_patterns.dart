@@ -22,7 +22,7 @@ void main() {
     5 => 'Friday',
     6 => 'Saturday',
     7 => 'Sunday',
-    _ => 'Invalid'
+    _ => 'Invalid',
   };
   print('Day $day is $dayName');
 
@@ -35,7 +35,7 @@ void main() {
     String s => 'String: $s',
     List<int> l => 'Int list with ${l.length} elements',
     List l => 'List with ${l.length} elements',
-    _ => 'Unknown type'
+    _ => 'Unknown type',
   };
   print('value: $description');
 
@@ -47,7 +47,7 @@ void main() {
     (status: 'success', code: 200, data: var d) => 'OK: $d',
     (status: 'success', code: var c, data: var d) => 'Success ($c): $d',
     (status: 'error', code: var c, data: _) => 'Error: $c',
-    _ => 'Unknown'
+    _ => 'Unknown',
   };
   print('Response: $response');
 
@@ -60,7 +60,7 @@ void main() {
       var x when x.isEven => '$x is even',
       var x when x == 1 => '$x is one',
       var x when x % 3 == 0 => '$x is divisible by 3',
-      _ => '$n is odd'
+      _ => '$n is odd',
     };
     print(category);
   }
@@ -73,7 +73,7 @@ void main() {
     [1],
     [1, 2],
     [1, 2, 3],
-    [1, 2, 3, 4, 5]
+    [1, 2, 3, 4, 5],
   ];
 
   for (var list in lists) {
@@ -89,17 +89,15 @@ void main() {
   // Object patterns in switch
   print('');
   print('--- Object Patterns in Switch ---');
-  var shapes = <Shape>[
-    Circle(5),
-    Rectangle(4, 3),
-    Triangle(3, 4, 5),
-  ];
+  var shapes = <Shape>[Circle(5), Rectangle(4, 3), Triangle(3, 4, 5)];
 
   for (var shape in shapes) {
     var desc = switch (shape) {
       Circle(radius: var r) => 'Circle with radius $r, area ${3.14 * r * r}',
-      Rectangle(width: var w, height: var h) => 'Rectangle ${w}x$h, area ${w * h}',
-      Triangle(a: var a, b: var b, c: var c) => 'Triangle with sides $a, $b, $c',
+      Rectangle(width: var w, height: var h) =>
+        'Rectangle ${w}x$h, area ${w * h}',
+      Triangle(a: var a, b: var b, c: var c) =>
+        'Triangle with sides $a, $b, $c',
     };
     print(desc);
   }
@@ -107,11 +105,7 @@ void main() {
   // Exhaustiveness with sealed classes
   print('');
   print('--- Exhaustiveness with Sealed Classes ---');
-  var results = <Result>[
-    Success(42),
-    Error('Something went wrong'),
-    Loading(),
-  ];
+  var results = <Result>[Success(42), Error('Something went wrong'), Loading()];
 
   for (var result in results) {
     // Compiler ensures all cases are covered
@@ -129,13 +123,13 @@ void main() {
   var data = {
     'user': {
       'name': 'Alice',
-      'settings': {'theme': 'dark', 'notifications': true}
-    }
+      'settings': {'theme': 'dark', 'notifications': true},
+    },
   };
 
   var theme = switch (data) {
     {'user': {'settings': {'theme': var t}}} => t,
-    _ => 'default'
+    _ => 'default',
   };
   print('Theme: $theme');
 
@@ -180,7 +174,7 @@ void main() {
       200 || 201 => 'Success',
       >= 400 && < 500 => 'Client Error',
       >= 500 => 'Server Error',
-      _ => 'Unknown'
+      _ => 'Unknown',
     };
     print('HTTP $code: $status');
   }

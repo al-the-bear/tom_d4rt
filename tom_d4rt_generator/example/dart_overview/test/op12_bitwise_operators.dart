@@ -11,19 +11,25 @@ void main() {
   // AND
   var andResult = a & b;
   if (andResult.bits != 0x00) {
-    errors.add('0x0F & 0xF0 expected 0x00, got 0x${andResult.bits.toRadixString(16)}');
+    errors.add(
+      '0x0F & 0xF0 expected 0x00, got 0x${andResult.bits.toRadixString(16)}',
+    );
   }
 
   // OR
   var orResult = a | b;
   if (orResult.bits != 0xFF) {
-    errors.add('0x0F | 0xF0 expected 0xFF, got 0x${orResult.bits.toRadixString(16)}');
+    errors.add(
+      '0x0F | 0xF0 expected 0xFF, got 0x${orResult.bits.toRadixString(16)}',
+    );
   }
 
   // XOR
   var xorResult = a ^ b;
   if (xorResult.bits != 0xFF) {
-    errors.add('0x0F ^ 0xF0 expected 0xFF, got 0x${xorResult.bits.toRadixString(16)}');
+    errors.add(
+      '0x0F ^ 0xF0 expected 0xFF, got 0x${xorResult.bits.toRadixString(16)}',
+    );
   }
 
   // NOT

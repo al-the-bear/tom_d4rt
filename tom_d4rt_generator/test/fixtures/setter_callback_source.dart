@@ -162,10 +162,7 @@ class TextStyleMock {
   final String fontFamily;
   final double fontSize;
 
-  TextStyleMock({
-    required this.fontFamily,
-    required this.fontSize,
-  });
+  TextStyleMock({required this.fontFamily, required this.fontSize});
 }
 
 /// Class that accepts nullable TextStyleMock parameters.

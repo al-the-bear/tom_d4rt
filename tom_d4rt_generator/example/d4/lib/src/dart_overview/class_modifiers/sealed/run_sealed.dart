@@ -13,11 +13,7 @@ void main() {
 
   // Basic sealed class
   print('--- Basic Sealed Class ---');
-  var results = [
-    Success('Data loaded'),
-    Failure('Network error'),
-    Loading(),
-  ];
+  var results = [Success('Data loaded'), Failure('Network error'), Loading()];
 
   for (var result in results) {
     print(handleResult(result));
@@ -58,7 +54,11 @@ void main() {
     NumberExpr(42),
     BinaryExpr(NumberExpr(10), '+', NumberExpr(5)),
     BinaryExpr(NumberExpr(20), '*', NumberExpr(3)),
-    BinaryExpr(BinaryExpr(NumberExpr(2), '+', NumberExpr(3)), '*', NumberExpr(4)),
+    BinaryExpr(
+      BinaryExpr(NumberExpr(2), '+', NumberExpr(3)),
+      '*',
+      NumberExpr(4),
+    ),
   ];
 
   for (var expr in expressions) {
@@ -220,7 +220,8 @@ int evaluate(Expression expr) {
     BinaryExpr(left: var l, op: '+', right: var r) => evaluate(l) + evaluate(r),
     BinaryExpr(left: var l, op: '-', right: var r) => evaluate(l) - evaluate(r),
     BinaryExpr(left: var l, op: '*', right: var r) => evaluate(l) * evaluate(r),
-    BinaryExpr(left: var l, op: '/', right: var r) => evaluate(l) ~/ evaluate(r),
+    BinaryExpr(left: var l, op: '/', right: var r) =>
+      evaluate(l) ~/ evaluate(r),
     BinaryExpr() => throw ArgumentError('Unknown operator'),
   };
 }
@@ -255,7 +256,10 @@ String describeEvent(UiEvent event) {
       'Swipe left: ${d}px',
     SwipeEvent(direction: SwipeDirection.right, distance: var d) =>
       'Swipe right: ${d}px',
-    SwipeEvent(direction: SwipeDirection.up || SwipeDirection.down, distance: var d) =>
+    SwipeEvent(
+      direction: SwipeDirection.up || SwipeDirection.down,
+      distance: var d,
+    ) =>
       'Vertical swipe: ${d}px',
   };
 }
@@ -284,7 +288,8 @@ String processLogin(LoginResult result) {
   return switch (result) {
     LoginSuccess(username: var u, role: 'admin') => '$u logged in as ADMIN',
     LoginSuccess(username: var u, role: var r) => '$u logged in with role: $r',
-    LoginFailure(attempts: var a) when a >= 5 => 'Account locked after $a attempts',
+    LoginFailure(attempts: var a) when a >= 5 =>
+      'Account locked after $a attempts',
     LoginFailure(message: var m, attempts: var a) => 'Failed: $m ($a attempts)',
     LoginPending(reason: var r) => 'Pending: $r',
   };

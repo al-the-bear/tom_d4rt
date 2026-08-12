@@ -17,7 +17,7 @@ extension StringAsProcess on String {
       lineAction(line);
     }
   }
-  
+
   /// Method with callback that has return type
   List<String> toList({void Function(String)? progress}) {
     final lines = split('\n');
@@ -28,7 +28,7 @@ extension StringAsProcess on String {
     }
     return lines;
   }
-  
+
   /// Getter - no callback issues
   String get firstLine => split('\n').first;
 }
@@ -52,13 +52,13 @@ Progress captureProgress() {
 /// Internal implementation - NOT exported
 class _ProgressImpl extends Progress {
   final List<String> _lines = [];
-  
+
   @override
   List<String> get lines => _lines;
-  
+
   @override
   int? get exitCode => 0;
-  
+
   @override
   void forEach(void Function(String) action) {
     for (final line in _lines) {
@@ -74,13 +74,13 @@ class _ProgressImpl extends Progress {
 /// Class for find results
 class FindProgress {
   final List<String> _results = [];
-  
+
   void forEach(void Function(String) action) {
     for (final item in _results) {
       action(item);
     }
   }
-  
+
   List<String> toList() => _results;
 }
 
@@ -88,7 +88,7 @@ class FindProgress {
 FindProgress find(
   String pattern, {
   bool recursive = true,
-  Progress? progress,  // Optional and nullable - should NOT be required
+  Progress? progress, // Optional and nullable - should NOT be required
   String workingDirectory = '.',
 }) {
   return FindProgress();
@@ -97,7 +97,7 @@ FindProgress find(
 /// Function with optional callback parameter
 void runCommand(
   String command, {
-  void Function(String)? onLine,  // Optional callback - nullable
+  void Function(String)? onLine, // Optional callback - nullable
   void Function(int)? onExit,
 }) {
   // Implementation
@@ -117,7 +117,7 @@ class ProcessRunner {
     stdout('output');
     stderr?.call('error');
   }
-  
+
   void forEach(void Function(String line) callback) {
     callback('line1');
     callback('line2');

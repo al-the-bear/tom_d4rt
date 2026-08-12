@@ -63,7 +63,11 @@ void main() {
   print('--- Generic Reduce ---');
   var sum = reduce<int>(numbers, 0, (acc, n) => acc + n);
   var product = reduce<int>([1, 2, 3, 4], 1, (acc, n) => acc * n);
-  var concat = reduce<String>(words, '', (acc, s) => acc.isEmpty ? s : '$acc, $s');
+  var concat = reduce<String>(
+    words,
+    '',
+    (acc, s) => acc.isEmpty ? s : '$acc, $s',
+  );
 
   print('Sum of $numbers: $sum');
   print('Product of [1, 2, 3, 4]: $product');
@@ -113,8 +117,12 @@ void main() {
   print('Computing squares with memoization:');
   print('  memoizedCompute(5): ${memoizedCompute(5)} (calls: $callCount)');
   print('  memoizedCompute(3): ${memoizedCompute(3)} (calls: $callCount)');
-  print('  memoizedCompute(5): ${memoizedCompute(5)} (calls: $callCount)'); // Cached
-  print('  memoizedCompute(3): ${memoizedCompute(3)} (calls: $callCount)'); // Cached
+  print(
+    '  memoizedCompute(5): ${memoizedCompute(5)} (calls: $callCount)',
+  ); // Cached
+  print(
+    '  memoizedCompute(3): ${memoizedCompute(3)} (calls: $callCount)',
+  ); // Cached
   print('  memoizedCompute(7): ${memoizedCompute(7)} (calls: $callCount)');
 
   // Compose
@@ -150,7 +158,8 @@ void main() {
 T identity<T>(T value) => value;
 
 // Swap returning record
-({S first, F second}) swap<F, S>(F first, S second) => (first: second, second: first);
+({S first, F second}) swap<F, S>(F first, S second) =>
+    (first: second, second: first);
 
 // First and last
 T first<T>(List<T> items) {
@@ -165,7 +174,10 @@ T last<T>(List<T> items) {
 
 // Filter
 List<T> filter<T>(List<T> items, bool Function(T) predicate) {
-  return [for (var item in items) if (predicate(item)) item];
+  return [
+    for (var item in items)
+      if (predicate(item)) item,
+  ];
 }
 
 // Map
@@ -224,5 +236,6 @@ C Function(A) compose<A, B, C>(C Function(B) f, B Function(A) g) {
 
 // Curry
 R Function(B) Function(A) curry<A, B, R>(R Function(A, B) fn) {
-  return (A a) => (B b) => fn(a, b);
+  return (A a) =>
+      (B b) => fn(a, b);
 }

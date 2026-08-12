@@ -26,7 +26,9 @@ void main() async {
   }
 
   if (countdown.length != 4) {
-    errors.add('staticCountdown(3) expected 4 items (3,2,1,0), got ${countdown.length}');
+    errors.add(
+      'staticCountdown(3) expected 4 items (3,2,1,0), got ${countdown.length}',
+    );
   }
   if (countdown.isNotEmpty && countdown[0] != 3) {
     errors.add('staticCountdown first expected 3, got ${countdown[0]}');

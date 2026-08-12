@@ -19,7 +19,8 @@ library;
 import 'dart:io';
 
 // ignore: implementation_imports
-import 'package:analyzer/src/dart/element/element.dart' show ElementAnnotationImpl;
+import 'package:analyzer/src/dart/element/element.dart'
+    show ElementAnnotationImpl;
 // ignore: implementation_imports
 import 'package:analyzer/src/dart/element/inheritance_manager3.dart'
     show InheritanceManager3, Name;
@@ -532,13 +533,7 @@ class ElementModeExtractor {
       }
     }
 
-    const builtInNames = {
-      'name',
-      'index',
-      'values',
-      'hashCode',
-      'runtimeType',
-    };
+    const builtInNames = {'name', 'index', 'values', 'hashCode', 'runtimeType'};
 
     final getterNames = <String>[];
     final methodDetails = <EnumMethodDetail>[];
@@ -639,7 +634,8 @@ class ElementModeExtractor {
         name: name,
         values: values,
         sourceFile: _currentSourceFile ?? '',
-        hasMembers: enumEl.methods.isNotEmpty ||
+        hasMembers:
+            enumEl.methods.isNotEmpty ||
             enumEl.getters.any((g) => !g.isSynthetic) ||
             enumEl.fields.any((f) => !f.isSynthetic && !f.isEnumConstant),
         getterNames: getterNames,
@@ -998,20 +994,23 @@ class ElementModeExtractor {
       declaredPairs.add((
         member: MemberInfo(
           name: sname,
-          returnType:
-              paramType != null ? _renderDartType(paramType) : 'dynamic',
+          returnType: paramType != null
+              ? _renderDartType(paramType)
+              : 'dynamic',
           returnTypeImportUris: typeInfo.uris,
           returnTypeToUri: typeInfo.typeToUri,
           isSetter: true,
           isStatic: setter.isStatic,
           functionTypeInfo: typeInfo.functionTypeInfo,
           parameters: params
-              .map((p) => ParameterInfo(
-                    name: p.name ?? 'value',
-                    type: _renderDartType(p.type),
-                    isRequired: p.isRequired,
-                    isNamed: p.isNamed,
-                  ))
+              .map(
+                (p) => ParameterInfo(
+                  name: p.name ?? 'value',
+                  type: _renderDartType(p.type),
+                  isRequired: p.isRequired,
+                  isNamed: p.isNamed,
+                ),
+              )
               .toList(),
         ),
         element: setter,
@@ -1059,7 +1058,8 @@ class ElementModeExtractor {
 
       // GEN-042: Synthetic unnamed constructor for non-abstract classes with
       // no explicit constructors.
-      final isAbstract = classElement is ClassElement && classElement.isAbstract;
+      final isAbstract =
+          classElement is ClassElement && classElement.isAbstract;
       if (constructors.isEmpty && !isAbstract) {
         final unnamed = classElement.unnamedConstructor;
         if (unnamed != null && unnamed.isSynthetic) {
@@ -1111,8 +1111,8 @@ class ElementModeExtractor {
     // "Bridged class 'WidgetsBindingObserver' cannot be used as a mixin".
     // Pure mixins (iterated via library.mixins) also need the flag — they
     // come in with isMixin=true, so the OR keeps them covered.
-    final canBeUsedAsMixinResolved = isMixin ||
-        (classElement is ClassElement && classElement.isMixinClass);
+    final canBeUsedAsMixinResolved =
+        isMixin || (classElement is ClassElement && classElement.isMixinClass);
 
     // GEN-093: Append inherited members (from all supertypes) so the renderer
     // sees a complete member list — in particular, inherited setters carry
@@ -1120,8 +1120,10 @@ class ElementModeExtractor {
     // instead of `dynamic`. Mirrors `_collectInheritedMembersFromElement` in
     // bridge_generator.dart.
     final declaredQualifiedNames = _buildQualifiedMemberNames(members);
-    final inherited =
-        _collectInheritedMembers(classElement, declaredQualifiedNames);
+    final inherited = _collectInheritedMembers(
+      classElement,
+      declaredQualifiedNames,
+    );
     members.addAll(inherited);
 
     classes.add(
@@ -1241,8 +1243,10 @@ class ElementModeExtractor {
           if (!isMixinSupertype) continue;
           final existingIndex = memberIndexByName[qualified];
           if (existingIndex == null) continue;
-          final memberInfo =
-              _parseMemberFromGetterElement(getter, typeSubstitution);
+          final memberInfo = _parseMemberFromGetterElement(
+            getter,
+            typeSubstitution,
+          );
           if (memberInfo != null) {
             result[existingIndex] = memberInfo;
           }
@@ -1251,8 +1255,10 @@ class ElementModeExtractor {
 
         if (getter.isSynthetic && supertypeElement is EnumElement) continue;
 
-        final memberInfo =
-            _parseMemberFromGetterElement(getter, typeSubstitution);
+        final memberInfo = _parseMemberFromGetterElement(
+          getter,
+          typeSubstitution,
+        );
         if (memberInfo != null) {
           result.add(memberInfo);
           memberIndexByName[qualified] = result.length - 1;
@@ -1273,16 +1279,20 @@ class ElementModeExtractor {
           if (!isMixinSupertype) continue;
           final existingIndex = memberIndexByName[qualified];
           if (existingIndex == null) continue;
-          final memberInfo =
-              _parseMemberFromSetterElement(setter, typeSubstitution);
+          final memberInfo = _parseMemberFromSetterElement(
+            setter,
+            typeSubstitution,
+          );
           if (memberInfo != null) {
             result[existingIndex] = memberInfo;
           }
           continue;
         }
 
-        final memberInfo =
-            _parseMemberFromSetterElement(setter, typeSubstitution);
+        final memberInfo = _parseMemberFromSetterElement(
+          setter,
+          typeSubstitution,
+        );
         if (memberInfo != null) {
           result.add(memberInfo);
           memberIndexByName[qualified] = result.length - 1;
@@ -1348,8 +1358,10 @@ class ElementModeExtractor {
         final operatorKey = '$mname#${method.formalParameters.length}';
         if (processedNames.contains(operatorKey)) continue;
 
-        final memberInfo =
-            _parseMemberFromMethodElement(method, typeSubstitution);
+        final memberInfo = _parseMemberFromMethodElement(
+          method,
+          typeSubstitution,
+        );
         if (memberInfo != null) {
           result.add(memberInfo);
           processedNames.add(mname);
@@ -1465,8 +1477,8 @@ class ElementModeExtractor {
     final rawParamType = params.isNotEmpty ? params.first.type : null;
     final paramType = rawParamType != null
         ? (typeSubstitution != null && typeSubstitution.isNotEmpty
-            ? _substituteTypeParameters(rawParamType, typeSubstitution)
-            : _renderDartType(rawParamType))
+              ? _substituteTypeParameters(rawParamType, typeSubstitution)
+              : _renderDartType(rawParamType))
         : 'dynamic';
 
     final typeImportUris = <String>{};
@@ -1526,8 +1538,9 @@ class ElementModeExtractor {
           ? _substituteTypeParameters(p.type, typeSubstitution)
           : _renderDartType(p.type);
 
-      final funcTypeInfo =
-          BridgeGenerator.extractFunctionTypeInfoFromDartType(p.type);
+      final funcTypeInfo = BridgeGenerator.extractFunctionTypeInfoFromDartType(
+        p.type,
+      );
 
       return ParameterInfo(
         name: p.name ?? '',
@@ -1550,8 +1563,9 @@ class ElementModeExtractor {
         final bound = typeParam.bound;
         final paramName = typeParam.name;
         if (paramName != null) {
-          methodTypeParams[paramName] =
-              bound != null ? _renderDartType(bound) : null;
+          methodTypeParams[paramName] = bound != null
+              ? _renderDartType(bound)
+              : null;
         }
       }
     }
@@ -1578,8 +1592,9 @@ class ElementModeExtractor {
       final paramTypeImportUris = <String>{};
       final paramTypeToUri = <String, String>{};
       _collectInfoFromDartType(p.type, paramTypeImportUris, paramTypeToUri);
-      final funcTypeInfo =
-          BridgeGenerator.extractFunctionTypeInfoFromDartType(p.type);
+      final funcTypeInfo = BridgeGenerator.extractFunctionTypeInfoFromDartType(
+        p.type,
+      );
       return ParameterInfo(
         name: p.name ?? '',
         type: _renderDartType(p.type),

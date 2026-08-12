@@ -180,13 +180,9 @@ class Maybe<T> {
   final T? _value;
   final bool hasValue;
 
-  Maybe.some(T value)
-      : _value = value,
-        hasValue = true;
+  Maybe.some(T value) : _value = value, hasValue = true;
 
-  Maybe.none()
-      : _value = null,
-        hasValue = false;
+  Maybe.none() : _value = null, hasValue = false;
 
   T get value {
     if (!hasValue) throw StateError('No value present');
@@ -209,15 +205,9 @@ class Result<T, E> {
   final E? _error;
   final bool isSuccess;
 
-  Result.success(T value)
-      : _value = value,
-        _error = null,
-        isSuccess = true;
+  Result.success(T value) : _value = value, _error = null, isSuccess = true;
 
-  Result.failure(E error)
-      : _value = null,
-        _error = error,
-        isSuccess = false;
+  Result.failure(E error) : _value = null, _error = error, isSuccess = false;
 
   R fold<R>(R Function(T) onSuccess, R Function(E) onFailure) {
     if (isSuccess) {

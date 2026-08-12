@@ -1,4 +1,5 @@
 #!/usr/bin/env dart
+
 /// Script to run D4rt example scripts.
 ///
 /// Run with:
@@ -27,14 +28,14 @@ const importPath = 'package:d4rt_generator_example/test_classes.dart';
 
 void main(List<String> args) async {
   final scriptName = args.isEmpty ? 'all' : args.first;
-  
+
   // Find the project root (go up from bin/ to project root)
   var exampleDir = Directory.current.path;
   final scriptDir = p.dirname(Platform.script.toFilePath());
   if (p.basename(scriptDir) == 'bin') {
     exampleDir = p.dirname(scriptDir);
   }
-  
+
   final scriptsDir = p.join(exampleDir, 'scripts');
 
   print('D4rt Example Executor');
@@ -57,10 +58,15 @@ void main(List<String> args) async {
     scriptsToRun = availableScripts;
   } else {
     // Find matching script
-    final matching = availableScripts.where(
-      (s) => s.startsWith(scriptName) || s == scriptName || s == '$scriptName.d4rt'
-    ).toList();
-    
+    final matching = availableScripts
+        .where(
+          (s) =>
+              s.startsWith(scriptName) ||
+              s == scriptName ||
+              s == '$scriptName.d4rt',
+        )
+        .toList();
+
     if (matching.isEmpty) {
       stderr.writeln('Unknown script: $scriptName');
       stderr.writeln('Available scripts:');
@@ -78,7 +84,7 @@ void main(List<String> args) async {
 
   for (final scriptFile in scriptsToRun) {
     final scriptPath = p.join(scriptsDir, scriptFile);
-    
+
     if (!File(scriptPath).existsSync()) {
       print('⚠ Script not found: $scriptFile');
       failures[scriptFile] = 'Script file not found';
@@ -115,7 +121,7 @@ void main(List<String> args) async {
   print('=======');
   print('Passed: $passed');
   print('Failed: $failed');
-  
+
   if (failures.isNotEmpty) {
     print('');
     print('Failures:');
@@ -127,7 +133,7 @@ void main(List<String> args) async {
       }
     }
   }
-  
+
   exit(failed > 0 ? 1 : 0);
 }
 
@@ -135,7 +141,7 @@ void main(List<String> args) async {
 String _formatError(Object error, StackTrace stack) {
   final buffer = StringBuffer();
   buffer.writeln('Error: $error');
-  
+
   // For D4rt errors, the message is usually sufficient
   // For other errors, include a trimmed stack trace
   if (error is! String && error.runtimeType.toString() != 'D4rtError') {
@@ -152,7 +158,7 @@ String _formatError(Object error, StackTrace stack) {
       }
     }
   }
-  
+
   return buffer.toString().trimRight();
 }
 
@@ -174,6 +180,6 @@ D4rt createInterpreter() {
 Future<dynamic> runScript(String scriptPath) async {
   final source = await File(scriptPath).readAsString();
   final interpreter = createInterpreter();
-  
+
   return await interpreter.execute(source: source);
 }
