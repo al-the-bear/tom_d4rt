@@ -8232,6 +8232,17 @@ class BridgeGenerator {
     return '$onTypePrefixed<${resolvedArgs.join(', ')}>';
   }
 
+  /// Matches a URI scheme of two or more characters (`package:`, `dart:`,
+  /// `file:`) while deliberately *not* matching a single-letter Windows drive
+  /// prefix such as `C:`. Used by [_getPackageUri] to tell an already-resolved
+  /// URI from a filesystem path.
+  static final RegExp _uriSchemePattern = RegExp(r'^[a-zA-Z][a-zA-Z0-9+.\-]+:');
+
+  /// Matches a rooted POSIX path (`/x`) or a POSIX-normalised Windows path
+  /// (`C:/x`). Applied after separator normalisation, so it is host-agnostic —
+  /// unlike `p.isAbsolute`, which answers for the *running* platform only.
+  static final RegExp _posixAbsolutePattern = RegExp(r'^(/|[a-zA-Z]:/)');
+
   /// Converts a source file path to a package URI.
   String _getPackageUri(String sourceFile) {
     // Handle file:// URIs by converting to normal path
@@ -8247,6 +8258,30 @@ class BridgeGenerator {
     // `\u`/`\t` sequences corrupt the emitted Dart. Import/source URIs are
     // always POSIX.
     normalizedPath = normalizedPath.replaceAll('\\', '/');
+
+    // GEN-125: root a relative filesystem path before the probes below.
+    //
+    // `d4rtgen -s .` walks a project with relative paths, so a barrel such as
+    // `lib/tom_d4rt_cli_api.dart` arrives unrooted. Every probe below looks
+    // for a *leading-separator* segment (`/lib/`, `/test/`, `/sky_engine/lib/`)
+    // which a relative path can never contain, so it fell through to the raw
+    // fallback and the emitted URI was `lib/foo.dart` rather than
+    // `package:pkg/foo.dart`. This is GEN-123's rule at a second call site:
+    // normalizing is not rooting.
+    //
+    // Only genuine filesystem paths are rooted — several callers pass a URI
+    // that is already resolved (`package:…`, `dart:…`). The scheme test
+    // deliberately requires two or more characters before the colon so a
+    // Windows drive letter (`C:/Code/x`) is read as a path, not a scheme.
+    if (!_uriSchemePattern.hasMatch(normalizedPath) &&
+        !_posixAbsolutePattern.hasMatch(normalizedPath)) {
+      normalizedPath = p.posix.normalize(
+        p.posix.join(
+          Directory.current.path.replaceAll('\\', '/'),
+          normalizedPath,
+        ),
+      );
+    }
 
     // Special handling for sky_engine (dart:ui) files.
     // Paths like .../flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart

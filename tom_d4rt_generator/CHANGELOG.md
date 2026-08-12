@@ -1,3 +1,36 @@
+## 1.15.3
+
+### Fixed — a relative scan root emitted unrooted source URIs (GEN-125)
+
+GEN-123 let `d4rtgen -s .` reach the analyzer; this fixes what it then wrote.
+`_getPackageUri` maps a source file to the URI embedded in the generated
+bridge, and every probe it uses looks for a **leading-separator** segment:
+
+    normalizedPath.indexOf('/lib/')
+    normalizedPath.indexOf('/test/')
+    normalizedPath.contains('/sky_engine/lib/')
+
+A relative path can never contain one, so `lib/tom_d4rt_cli_api.dart` matched
+nothing and fell through to the raw-path fallback. The visible damage was in
+`bridgeReExports()`, whose `source` is the key `registerLibraryReExport` looks
+up when a script imports the barrel:
+
+    - (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', …)
+    + (source: 'lib/tom_d4rt_cli_api.dart', …)
+
+No importer can ever match `lib/…`, so every re-export declared by a barrel
+regenerated from a relative scan root was silently dead.
+
+This is GEN-123's rule at a second call site — *normalizing is not rooting* —
+so the fix is the same shape: root a relative path against
+`Directory.current` before the probes run. Only genuine filesystem paths are
+rooted; callers that pass an already-resolved `package:`/`dart:` URI are left
+alone, and the scheme test requires two or more characters before the colon so
+a Windows drive prefix (`C:/Code/x`) still reads as a path.
+
+Covered by `G-PURI-03` (relative path → package URI) and `G-PURI-04`
+(resolved URIs pass through untouched).
+
 ## 1.15.2
 
 ### Fixed — a relative scan root silently dropped every user bridge (GEN-123)
