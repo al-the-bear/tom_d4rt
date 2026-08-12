@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 10 files
-// Generated: 2026-06-17T19:03:07.159521
+// Generated: 2026-08-12T06:44:39.338267
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -33,6 +33,10 @@ import 'package:tom_d4rt/src/exceptions.dart' as $aux_tom_d4rt;
 /// Bridge class for cli_api module.
 class CliApiBridge {
   /// Returns all bridge class definitions.
+  ///
+  /// Eager — building every class. Prefer [bridgeClassThunks] +
+  /// [bridgeClassTypes] for lazy registration (Step #17); this remains
+  /// for diagnostics and callers that need the full list.
   static List<BridgedClass> bridgeClasses() {
     return [
       _createD4rtCliApiBridge(),
@@ -57,6 +61,65 @@ class CliApiBridge {
       _createContextStackBridge(),
       _createD4rtBridge(),
     ];
+  }
+
+  /// Returns deferred factory thunks keyed by class name.
+  ///
+  /// Each thunk builds one class's [BridgedClass] on demand. Plugs into
+  /// the interpreter's lazy registry via [registerBridges] (Step #17).
+  static Map<String, BridgedClass Function()> bridgeClassThunks() {
+    return {
+      'D4rtCliApi': _createD4rtCliApiBridge,
+      'D4rtCliController': _createD4rtCliControllerBridge,
+      'CliGlobalHolder': _createCliGlobalHolderBridge,
+      'CliException': _createCliExceptionBridge,
+      'CliFileNotFoundException': _createCliFileNotFoundExceptionBridge,
+      'DirectoryNotFoundException': _createDirectoryNotFoundExceptionBridge,
+      'ExecutionException': _createExecutionExceptionBridge,
+      'ReplayException': _createReplayExceptionBridge,
+      'InvalidMultilineModeException': _createInvalidMultilineModeExceptionBridge,
+      'MaxNestingDepthException': _createMaxNestingDepthExceptionBridge,
+      'CliNotInitializedException': _createCliNotInitializedExceptionBridge,
+      'ExecuteResult': _createExecuteResultBridge,
+      'ImportInfo': _createImportInfoBridge,
+      'SymbolInfo': _createSymbolInfoBridge,
+      'CliRuntime': _createCliRuntimeBridge,
+      'CliRuntimeImpl': _createCliRuntimeImplBridge,
+      'CliState': _createCliStateBridge,
+      'VerificationFailure': _createVerificationFailureBridge,
+      'ExecutionContext': _createExecutionContextBridge,
+      'ContextStack': _createContextStackBridge,
+      'D4rt': _createD4rtBridge,
+    };
+  }
+
+  /// Returns native [Type]s keyed by class name, parallel to
+  /// [bridgeClassThunks] (Step #17). Used to register the native-type
+  /// lookup thunk without building the BridgedClass.
+  static Map<String, Type> bridgeClassTypes() {
+    return {
+      'D4rtCliApi': $tom_d4rt_dcli_1.D4rtCliApi,
+      'D4rtCliController': $tom_d4rt_dcli_3.D4rtCliController,
+      'CliGlobalHolder': $tom_d4rt_dcli_3.CliGlobalHolder,
+      'CliException': $tom_d4rt_dcli_4.CliException,
+      'CliFileNotFoundException': $tom_d4rt_dcli_4.CliFileNotFoundException,
+      'DirectoryNotFoundException': $tom_d4rt_dcli_4.DirectoryNotFoundException,
+      'ExecutionException': $tom_d4rt_dcli_4.ExecutionException,
+      'ReplayException': $tom_d4rt_dcli_4.ReplayException,
+      'InvalidMultilineModeException': $tom_d4rt_dcli_4.InvalidMultilineModeException,
+      'MaxNestingDepthException': $tom_d4rt_dcli_4.MaxNestingDepthException,
+      'CliNotInitializedException': $tom_d4rt_dcli_4.CliNotInitializedException,
+      'ExecuteResult': $tom_d4rt_dcli_5.ExecuteResult,
+      'ImportInfo': $tom_d4rt_dcli_5.ImportInfo,
+      'SymbolInfo': $tom_d4rt_dcli_5.SymbolInfo,
+      'CliRuntime': $tom_d4rt_dcli_6.CliRuntime,
+      'CliRuntimeImpl': $tom_d4rt_dcli_6.CliRuntimeImpl,
+      'CliState': $tom_d4rt_dcli_7.CliState,
+      'VerificationFailure': $tom_d4rt_dcli_8.VerificationFailure,
+      'ExecutionContext': $tom_d4rt_dcli_9.ExecutionContext,
+      'ContextStack': $tom_d4rt_dcli_9.ContextStack,
+      'D4rt': $tom_d4rt_4.D4rt,
+    };
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -179,15 +242,15 @@ class CliApiBridge {
   static List<({String source, String target, Set<String>? show, Set<String>? hide})>
   bridgeReExports() {
     return [
-      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_api.dart', show: null, hide: null),
-      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_bridge.dart', show: null, hide: null),
-      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_controller.dart', show: null, hide: null),
-      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_exceptions.dart', show: null, hide: null),
-      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_result_types.dart', show: null, hide: null),
-      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_runtime.dart', show: null, hide: null),
-      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_state.dart', show: null, hide: null),
-      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart', show: null, hide: null),
-      (source: 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/execution_context.dart', show: null, hide: null),
+      (source: 'lib/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_api.dart', show: null, hide: null),
+      (source: 'lib/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_bridge.dart', show: null, hide: null),
+      (source: 'lib/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_controller.dart', show: null, hide: null),
+      (source: 'lib/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_exceptions.dart', show: null, hide: null),
+      (source: 'lib/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_result_types.dart', show: null, hide: null),
+      (source: 'lib/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_runtime.dart', show: null, hide: null),
+      (source: 'lib/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_state.dart', show: null, hide: null),
+      (source: 'lib/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart', show: null, hide: null),
+      (source: 'lib/tom_d4rt_cli_api.dart', target: 'package:tom_d4rt_dcli/src/api/execution_context.dart', show: null, hide: null),
     ];
   }
 
@@ -196,11 +259,20 @@ class CliApiBridge {
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:tom_build/tom.dart').
   static void registerBridges(D4rt interpreter, String importPath) {
-    // Register bridged classes with source URIs for deduplication
-    final classes = bridgeClasses();
+    // Step #17 — register deferred factory thunks (not pre-built
+    // BridgedClass objects): a script touching N of the M classes
+    // materializes ≈N (each thunk builds its class on first resolve).
+    final classThunks = bridgeClassThunks();
+    final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
-    for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+    for (final entry in classThunks.entries) {
+      interpreter.registerBridgedClassLazy(
+        entry.key,
+        classTypes[entry.key]!,
+        entry.value,
+        importPath,
+        sourceUri: classSources[entry.key],
+      );
     }
 
     // Register the flattened native supertype table so
@@ -1237,10 +1309,13 @@ BridgedClass _createCliExceptionBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException').stackTrace,
       'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException').message,
       'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException').hasDirectiveContext,
     },
     setters: {
       'trackedStackTrace': (visitor, target, value) => 
         D4.validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.CliException>(target, 'CliException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1264,9 +1339,11 @@ BridgedClass _createCliExceptionBridge() {
       'stackTrace': 'StackTrace? get stackTrace',
       'message': 'String get message',
       'trackedStackTrace': 'StackTrace? get trackedStackTrace',
+      'hasDirectiveContext': 'bool get hasDirectiveContext',
     },
     setterSignatures: {
       'trackedStackTrace': 'set trackedStackTrace(StackTrace? value)',
+      'hasDirectiveContext': 'set hasDirectiveContext(bool value)',
     },
   );
 }
@@ -1293,11 +1370,14 @@ BridgedClass _createCliFileNotFoundExceptionBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').stackTrace,
       'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').message,
       'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').hasDirectiveContext,
       'path': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').path,
     },
     setters: {
       'trackedStackTrace': (visitor, target, value) => 
         D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.CliFileNotFoundException>(target, 'CliFileNotFoundException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1321,10 +1401,12 @@ BridgedClass _createCliFileNotFoundExceptionBridge() {
       'stackTrace': 'StackTrace? get stackTrace',
       'message': 'String get message',
       'trackedStackTrace': 'StackTrace? get trackedStackTrace',
+      'hasDirectiveContext': 'bool get hasDirectiveContext',
       'path': 'String get path',
     },
     setterSignatures: {
       'trackedStackTrace': 'set trackedStackTrace(StackTrace? value)',
+      'hasDirectiveContext': 'set hasDirectiveContext(bool value)',
     },
   );
 }
@@ -1351,11 +1433,14 @@ BridgedClass _createDirectoryNotFoundExceptionBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').stackTrace,
       'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').message,
       'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').hasDirectiveContext,
       'path': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').path,
     },
     setters: {
       'trackedStackTrace': (visitor, target, value) => 
         D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.DirectoryNotFoundException>(target, 'DirectoryNotFoundException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1379,10 +1464,12 @@ BridgedClass _createDirectoryNotFoundExceptionBridge() {
       'stackTrace': 'StackTrace? get stackTrace',
       'message': 'String get message',
       'trackedStackTrace': 'StackTrace? get trackedStackTrace',
+      'hasDirectiveContext': 'bool get hasDirectiveContext',
       'path': 'String get path',
     },
     setterSignatures: {
       'trackedStackTrace': 'set trackedStackTrace(StackTrace? value)',
+      'hasDirectiveContext': 'set hasDirectiveContext(bool value)',
     },
   );
 }
@@ -1411,10 +1498,13 @@ BridgedClass _createExecutionExceptionBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(target, 'ExecutionException').stackTrace,
       'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(target, 'ExecutionException').message,
       'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(target, 'ExecutionException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(target, 'ExecutionException').hasDirectiveContext,
     },
     setters: {
       'trackedStackTrace': (visitor, target, value) => 
         D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(target, 'ExecutionException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.ExecutionException>(target, 'ExecutionException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1438,9 +1528,11 @@ BridgedClass _createExecutionExceptionBridge() {
       'stackTrace': 'StackTrace? get stackTrace',
       'message': 'String get message',
       'trackedStackTrace': 'StackTrace? get trackedStackTrace',
+      'hasDirectiveContext': 'bool get hasDirectiveContext',
     },
     setterSignatures: {
       'trackedStackTrace': 'set trackedStackTrace(StackTrace? value)',
+      'hasDirectiveContext': 'set hasDirectiveContext(bool value)',
     },
   );
 }
@@ -1469,6 +1561,7 @@ BridgedClass _createReplayExceptionBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').stackTrace,
       'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').message,
       'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').hasDirectiveContext,
       'file': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').file,
       'line': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').line,
       'cause': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').cause,
@@ -1476,6 +1569,8 @@ BridgedClass _createReplayExceptionBridge() {
     setters: {
       'trackedStackTrace': (visitor, target, value) => 
         D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.ReplayException>(target, 'ReplayException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1499,12 +1594,14 @@ BridgedClass _createReplayExceptionBridge() {
       'stackTrace': 'StackTrace? get stackTrace',
       'message': 'String get message',
       'trackedStackTrace': 'StackTrace? get trackedStackTrace',
+      'hasDirectiveContext': 'bool get hasDirectiveContext',
       'file': 'String get file',
       'line': 'int get line',
       'cause': 'CliException get cause',
     },
     setterSignatures: {
       'trackedStackTrace': 'set trackedStackTrace(StackTrace? value)',
+      'hasDirectiveContext': 'set hasDirectiveContext(bool value)',
     },
   );
 }
@@ -1531,12 +1628,15 @@ BridgedClass _createInvalidMultilineModeExceptionBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').stackTrace,
       'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').message,
       'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').hasDirectiveContext,
       'currentMode': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').currentMode,
       'attemptedMethod': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').attemptedMethod,
     },
     setters: {
       'trackedStackTrace': (visitor, target, value) => 
         D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.InvalidMultilineModeException>(target, 'InvalidMultilineModeException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1560,11 +1660,13 @@ BridgedClass _createInvalidMultilineModeExceptionBridge() {
       'stackTrace': 'StackTrace? get stackTrace',
       'message': 'String get message',
       'trackedStackTrace': 'StackTrace? get trackedStackTrace',
+      'hasDirectiveContext': 'bool get hasDirectiveContext',
       'currentMode': 'String get currentMode',
       'attemptedMethod': 'String get attemptedMethod',
     },
     setterSignatures: {
       'trackedStackTrace': 'set trackedStackTrace(StackTrace? value)',
+      'hasDirectiveContext': 'set hasDirectiveContext(bool value)',
     },
   );
 }
@@ -1591,11 +1693,14 @@ BridgedClass _createMaxNestingDepthExceptionBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').stackTrace,
       'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').message,
       'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').hasDirectiveContext,
       'maxDepth': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').maxDepth,
     },
     setters: {
       'trackedStackTrace': (visitor, target, value) => 
         D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.MaxNestingDepthException>(target, 'MaxNestingDepthException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1619,10 +1724,12 @@ BridgedClass _createMaxNestingDepthExceptionBridge() {
       'stackTrace': 'StackTrace? get stackTrace',
       'message': 'String get message',
       'trackedStackTrace': 'StackTrace? get trackedStackTrace',
+      'hasDirectiveContext': 'bool get hasDirectiveContext',
       'maxDepth': 'int get maxDepth',
     },
     setterSignatures: {
       'trackedStackTrace': 'set trackedStackTrace(StackTrace? value)',
+      'hasDirectiveContext': 'set hasDirectiveContext(bool value)',
     },
   );
 }
@@ -1647,10 +1754,13 @@ BridgedClass _createCliNotInitializedExceptionBridge() {
       'stackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(target, 'CliNotInitializedException').stackTrace,
       'message': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(target, 'CliNotInitializedException').message,
       'trackedStackTrace': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(target, 'CliNotInitializedException').trackedStackTrace,
+      'hasDirectiveContext': (visitor, target) => D4.validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(target, 'CliNotInitializedException').hasDirectiveContext,
     },
     setters: {
       'trackedStackTrace': (visitor, target, value) => 
         D4.validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(target, 'CliNotInitializedException').trackedStackTrace = D4.extractBridgedArgOrNull<StackTrace>(value, 'trackedStackTrace'),
+      'hasDirectiveContext': (visitor, target, value) => 
+        D4.validateTarget<$tom_d4rt_dcli_4.CliNotInitializedException>(target, 'CliNotInitializedException').hasDirectiveContext = D4.extractBridgedArg<bool>(value, 'hasDirectiveContext'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -1674,9 +1784,11 @@ BridgedClass _createCliNotInitializedExceptionBridge() {
       'stackTrace': 'StackTrace? get stackTrace',
       'message': 'String get message',
       'trackedStackTrace': 'StackTrace? get trackedStackTrace',
+      'hasDirectiveContext': 'bool get hasDirectiveContext',
     },
     setterSignatures: {
       'trackedStackTrace': 'set trackedStackTrace(StackTrace? value)',
+      'hasDirectiveContext': 'set hasDirectiveContext(bool value)',
     },
   );
 }
@@ -2361,17 +2473,27 @@ BridgedClass _createD4rtBridge() {
     isAssignable: (v) => v is $tom_d4rt_4.D4rt,
     constructors: {
       '': (visitor, positional, named) {
-        return $tom_d4rt_4.D4rt();
+        final reuseAcrossRuns = D4.getNamedArgWithDefault<bool>(named, 'reuseAcrossRuns', true);
+        return $tom_d4rt_4.D4rt(reuseAcrossRuns: reuseAcrossRuns);
       },
     },
     getters: {
+      'reuseAcrossRuns': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').reuseAcrossRuns,
       'visitor': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').visitor,
       'bridgesFinalized': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').bridgesFinalized,
+      'allowedPackages': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').allowedPackages,
+      'debugLoadedModuleCount': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').debugLoadedModuleCount,
       'classAliases': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').classAliases,
       'functionTypedefs': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').functionTypedefs,
       'libraryReExports': (visitor, target) => D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt').libraryReExports,
     },
     methods: {
+      'providePackage': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 1, 'providePackage');
+        final packageName = D4.getRequiredArg<String>(positional, 0, 'packageName', 'providePackage');
+        return t.providePackage(packageName);
+      },
       'registerBridgedEnum': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 2, 'registerBridgedEnum');
@@ -2388,6 +2510,20 @@ BridgedClass _createD4rtBridge() {
         final library = D4.getRequiredArg<String>(positional, 1, 'library', 'registerBridgedClass');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
         t.registerBridgedClass(definition, library, sourceUri: sourceUri);
+        return null;
+      },
+      'registerBridgedClassLazy': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
+        D4.requireMinArgs(positional, 4, 'registerBridgedClassLazy');
+        final name = D4.getRequiredArg<String>(positional, 0, 'name', 'registerBridgedClassLazy');
+        final nativeType = D4.getRequiredArg<Type>(positional, 1, 'nativeType', 'registerBridgedClassLazy');
+        if (positional.length <= 2) {
+          throw ArgumentError('registerBridgedClassLazy: Missing required argument "thunk" at position 2');
+        }
+        final thunkRaw = positional[2];
+        final library = D4.getRequiredArg<String>(positional, 3, 'library', 'registerBridgedClassLazy');
+        final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
+        t.registerBridgedClassLazy(name, nativeType, (() { return D4.extractBridgedArg<$tom_d4rt_1.BridgedClass>(D4.callInterpreterCallback(visitor!, thunkRaw, []), 'callback', visitor) as $tom_d4rt_1.BridgedClass; }) as $tom_d4rt_1.BridgedClass Function(), library, sourceUri: sourceUri);
         return null;
       },
       'registerClassAlias': (visitor, target, positional, named, typeArgs) {
@@ -2479,6 +2615,11 @@ BridgedClass _createD4rtBridge() {
       'resetScriptDeclarations': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         t.resetScriptDeclarations();
+        return null;
+      },
+      'dispose': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
+        (t as dynamic).dispose();
         return null;
       },
       'validateRegistrations': (visitor, target, positional, named, typeArgs) {
@@ -2637,12 +2778,29 @@ BridgedClass _createD4rtBridge() {
         return t.invoke(name, positionalArgs, namedArgs, sources);
       },
     },
+    staticGetters: {
+      'debugBridgedModuleEnvBuildCount': (visitor) => $tom_d4rt_4.D4rt.debugBridgedModuleEnvBuildCount,
+      'debugPooledPackages': (visitor) => $tom_d4rt_4.D4rt.debugPooledPackages,
+      'debugWarmParentCacheSize': (visitor) => $tom_d4rt_4.D4rt.debugWarmParentCacheSize,
+    },
+    staticMethods: {
+      'debugPooledClassCount': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'debugPooledClassCount');
+        final packageName = D4.getRequiredArg<String>(positional, 0, 'packageName', 'debugPooledClassCount');
+        return $tom_d4rt_4.D4rt.debugPooledClassCount(packageName);
+      },
+      'debugResetPool': (visitor, positional, named, typeArgs) {
+        return $tom_d4rt_4.D4rt.debugResetPool();
+      },
+    },
     constructorSignatures: {
-      '': 'D4rt()',
+      '': 'D4rt({bool reuseAcrossRuns = true})',
     },
     methodSignatures: {
+      'providePackage': 'bool providePackage(String packageName)',
       'registerBridgedEnum': 'void registerBridgedEnum(BridgedEnumDefinition<Enum> definition, String library, {String? sourceUri})',
       'registerBridgedClass': 'void registerBridgedClass(BridgedClass definition, String library, {String? sourceUri})',
+      'registerBridgedClassLazy': 'void registerBridgedClassLazy(String name, Type nativeType, BridgedClass Function() thunk, String library, {String? sourceUri})',
       'registerClassAlias': 'void registerClassAlias(String aliasName, String targetName, String library)',
       'registerFunctionTypedef': 'void registerFunctionTypedef(String name, String library)',
       'registerLibraryReExport': 'void registerLibraryReExport(String sourceUri, String targetUri, {Set<String>? show, Set<String>? hide})',
@@ -2652,6 +2810,7 @@ BridgedClass _createD4rtBridge() {
       'registerGlobalGetter': 'void registerGlobalGetter(String name, Object? Function() getter, String library, {String? sourceUri})',
       'registerGlobalSetter': 'void registerGlobalSetter(String name, void Function(Object?) setter, String library, {String? sourceUri})',
       'resetScriptDeclarations': 'void resetScriptDeclarations()',
+      'dispose': 'void dispose()',
       'validateRegistrations': 'List<String> validateRegistrations({required String source, Map<String, String>? sources, String? basePath, bool allowFileSystemImports = false})',
       'setDebug': 'void setDebug(bool enabled)',
       'grant': 'void grant(Permission permission)',
@@ -2673,11 +2832,23 @@ BridgedClass _createD4rtBridge() {
       'invoke': 'dynamic invoke(String name, List<Object?> positionalArgs, [Map<String, Object?> namedArgs = const {}, Map<String, String>? sources])',
     },
     getterSignatures: {
+      'reuseAcrossRuns': 'bool get reuseAcrossRuns',
       'visitor': 'InterpreterVisitor? get visitor',
       'bridgesFinalized': 'bool get bridgesFinalized',
+      'allowedPackages': 'Set<String> get allowedPackages',
+      'debugLoadedModuleCount': 'int get debugLoadedModuleCount',
       'classAliases': 'List<({String aliasName, String library, String targetName})> get classAliases',
       'functionTypedefs': 'List<({String library, String name})> get functionTypedefs',
       'libraryReExports': 'Map<String, List<({Set<String>? hide, Set<String>? show, String uri})>> get libraryReExports',
+    },
+    staticMethodSignatures: {
+      'debugPooledClassCount': 'int debugPooledClassCount(String packageName)',
+      'debugResetPool': 'void debugResetPool()',
+    },
+    staticGetterSignatures: {
+      'debugBridgedModuleEnvBuildCount': 'int get debugBridgedModuleEnvBuildCount',
+      'debugPooledPackages': 'Set<String> get debugPooledPackages',
+      'debugWarmParentCacheSize': 'int get debugWarmParentCacheSize',
     },
   );
 }

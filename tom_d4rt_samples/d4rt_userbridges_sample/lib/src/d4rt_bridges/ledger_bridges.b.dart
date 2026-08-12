@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 4 files
-// Generated: 2026-08-03T11:40:32.740218
+// Generated: 2026-08-12T06:44:50.254825
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -131,14 +131,14 @@ class LedgerBridge {
   static List<({String source, String target, Set<String>? show, Set<String>? hide})>
   bridgeReExports() {
     return [
-      (source: 'package:d4rt_userbridges_sample/d4rt_userbridges_sample.dart', target: 'package:d4rt_userbridges_sample/src/money/money.dart', show: null, hide: null),
-      (source: 'package:d4rt_userbridges_sample/d4rt_userbridges_sample.dart', target: 'package:d4rt_userbridges_sample/src/grid/grid.dart', show: null, hide: null),
-      (source: 'package:d4rt_userbridges_sample/d4rt_userbridges_sample.dart', target: 'package:d4rt_userbridges_sample/src/box/box.dart', show: null, hide: null),
-      (source: 'package:d4rt_userbridges_sample/d4rt_userbridges_sample.dart', target: 'package:d4rt_userbridges_sample/src/config/app_config.dart', show: null, hide: null),
-      (source: 'package:d4rt_userbridges_sample/d4rt_userbridges_sample.dart', target: 'package:d4rt_userbridges_sample/src/d4rt_user_bridges/money_user_bridge.dart', show: null, hide: null),
-      (source: 'package:d4rt_userbridges_sample/d4rt_userbridges_sample.dart', target: 'package:d4rt_userbridges_sample/src/d4rt_user_bridges/grid_user_bridge.dart', show: null, hide: null),
-      (source: 'package:d4rt_userbridges_sample/d4rt_userbridges_sample.dart', target: 'package:d4rt_userbridges_sample/src/d4rt_user_bridges/box_user_bridge.dart', show: null, hide: null),
-      (source: 'package:d4rt_userbridges_sample/d4rt_userbridges_sample.dart', target: 'package:d4rt_userbridges_sample/src/d4rt_user_bridges/app_config_user_bridge.dart', show: null, hide: null),
+      (source: 'lib/d4rt_userbridges_sample.dart', target: 'package:d4rt_userbridges_sample/src/money/money.dart', show: null, hide: null),
+      (source: 'lib/d4rt_userbridges_sample.dart', target: 'package:d4rt_userbridges_sample/src/grid/grid.dart', show: null, hide: null),
+      (source: 'lib/d4rt_userbridges_sample.dart', target: 'package:d4rt_userbridges_sample/src/box/box.dart', show: null, hide: null),
+      (source: 'lib/d4rt_userbridges_sample.dart', target: 'package:d4rt_userbridges_sample/src/config/app_config.dart', show: null, hide: null),
+      (source: 'lib/d4rt_userbridges_sample.dart', target: 'package:d4rt_userbridges_sample/src/d4rt_user_bridges/money_user_bridge.dart', show: null, hide: null),
+      (source: 'lib/d4rt_userbridges_sample.dart', target: 'package:d4rt_userbridges_sample/src/d4rt_user_bridges/grid_user_bridge.dart', show: null, hide: null),
+      (source: 'lib/d4rt_userbridges_sample.dart', target: 'package:d4rt_userbridges_sample/src/d4rt_user_bridges/box_user_bridge.dart', show: null, hide: null),
+      (source: 'lib/d4rt_userbridges_sample.dart', target: 'package:d4rt_userbridges_sample/src/d4rt_user_bridges/app_config_user_bridge.dart', show: null, hide: null),
     ];
   }
 
