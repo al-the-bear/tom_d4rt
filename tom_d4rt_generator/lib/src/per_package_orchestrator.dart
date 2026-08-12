@@ -14,6 +14,7 @@ import 'package:analyzer/src/dart/analysis/analysis_context_collection.dart'
     show AnalysisContextCollectionImpl;
 import 'package:path/path.dart' as p;
 
+import 'analysis_paths.dart' show analysisIncludedPath;
 import 'bridge_config.dart';
 import 'bridge_generator.dart';
 import 'file_generators.dart' show ensureBDartExtension, toImportUri;
@@ -214,10 +215,10 @@ class PerPackageBridgeOrchestrator {
       // tom_d4rt) and `@D4rtUserBridge` resolve against the same `.sum`
       // cache used by the BridgeGenerator instances this orchestrator
       // spawns.
-      // `AnalysisContextCollection*` rejects non-normalized `includedPaths`
-      // ("Only absolute normalized paths are supported") — a forward-slash
-      // absolute path is not normalized on Windows, so normalise it.
-      final normalizedProjectRoot = p.normalize(projectRoot);
+      // GEN-123: `projectRoot` arrives relative whenever d4rtgen is invoked
+      // as `d4rtgen -s .`, and the analyzer requires an absolute normalized
+      // path.
+      final normalizedProjectRoot = analysisIncludedPath(projectRoot);
       final hasSummaries =
           (librarySummaryPaths != null && librarySummaryPaths!.isNotEmpty) ||
               sdkSummaryPath != null;

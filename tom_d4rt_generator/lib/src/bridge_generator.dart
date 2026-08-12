@@ -22,6 +22,7 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
+import 'analysis_paths.dart' show analysisIncludedPath;
 import 'element_mode_extractor.dart';
 import 'file_writer.dart';
 import 'sdk_utils.dart' show getSdkPath;
@@ -1435,19 +1436,11 @@ class BridgeGenerator {
   /// [AnalysisContextCollectionImpl] so it can load those `.sum`
   /// bundles instead of re-scanning dependency sources from disk.
   AnalysisContextCollection _getAnalysisContext() {
-    // Ensure workspacePath is absolute AND normalized for the analyzer.
-    // `AnalysisContextCollection*` rejects non-normalized `includedPaths`
-    // ("Only absolute normalized paths are supported"). On Windows an
-    // already-absolute path like `C:/Code/...` (forward slashes) is NOT
-    // normalized per the host (Windows) path context, so it must be run
-    // through `p.normalize` to become `C:\Code\...`. Skipping this caused
-    // every external file to fail resolution → 0 classes generated → stale
-    // bridge files left in place on Windows.
-    final absoluteWorkspacePath = p.normalize(
-      p.isAbsolute(workspacePath)
-          ? workspacePath
-          : p.join(Directory.current.path, workspacePath),
-    );
+    // Why this matters beyond satisfying the analyzer's argument check: when
+    // the Windows half of the rule was missing, every external file failed to
+    // resolve → 0 classes generated → stale bridge files silently left in
+    // place. See `analysis_paths.dart` for both halves of the contract.
+    final absoluteWorkspacePath = analysisIncludedPath(workspacePath);
     if (_analysisContext != null) return _analysisContext!;
 
     final hasSummaries = (librarySummaryPaths != null &&
@@ -1508,6 +1501,11 @@ class BridgeGenerator {
     // Fallback to the file's parent directory if no package root found
     packageRoot ??= p.dirname(filePath);
 
+    // GEN-123: derived by walking up from [filePath], so it inherits that
+    // path's shape — relative in, relative out. Absolutising here also gives
+    // the context cache a single key per package (cf. GEN-122).
+    packageRoot = analysisIncludedPath(packageRoot);
+
     // Get or create a context for this package root
     if (!_packageAnalysisContexts.containsKey(packageRoot)) {
       // GEN-069: Use the workspace's package_config.json when creating the
@@ -1519,14 +1517,10 @@ class BridgeGenerator {
       // Color, Offset, and Size resolve correctly to dart:ui instead of being
       // reported as InvalidType.
       final wsPackageConfig = File(
-        p.normalize(
-          p.join(
-            p.isAbsolute(workspacePath)
-                ? workspacePath
-                : p.join(Directory.current.path, workspacePath),
-            '.dart_tool',
-            'package_config.json',
-          ),
+        p.join(
+          analysisIncludedPath(workspacePath),
+          '.dart_tool',
+          'package_config.json',
         ),
       );
       final packageConfigFile = wsPackageConfig.existsSync()
@@ -1730,9 +1724,7 @@ class BridgeGenerator {
   /// as the implementation of `dart:ui`. Returns null if the package is
   /// not present or the file can't be read.
   String? _resolveDartUiViaSkyEngine() {
-    final absoluteWorkspacePath = p.isAbsolute(workspacePath)
-        ? workspacePath
-        : p.normalize(p.join(Directory.current.path, workspacePath));
+    final absoluteWorkspacePath = analysisIncludedPath(workspacePath);
     final configFile = File(
       p.join(absoluteWorkspacePath, '.dart_tool', 'package_config.json'),
     );

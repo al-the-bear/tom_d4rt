@@ -25,6 +25,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:path/path.dart' as p;
 
+import 'analysis_paths.dart' show analysisIncludedPath;
 import 'bridge_config.dart';
 import 'file_generators.dart' show ensureBDartExtension;
 import 'sdk_utils.dart' show getSdkPath;
@@ -220,15 +221,8 @@ Future<ProxyGenerationResult> generateProxies({
   final errors = <String>[];
   final proxies = <ProxyGenerationInfo>[];
 
-  // Set up analyzer context for the project. The path must be absolute AND
-  // normalized: `AnalysisContextCollection*` rejects non-normalized
-  // `includedPaths` ("Only absolute normalized paths are supported"), and an
-  // already-absolute forward-slash path is not normalized on Windows.
-  final absoluteProjectPath = p.normalize(
-    p.isAbsolute(projectPath)
-        ? projectPath
-        : p.join(Directory.current.path, projectPath),
-  );
+  // Set up the analyzer context for the project.
+  final absoluteProjectPath = analysisIncludedPath(projectPath);
 
   final hasSummaries =
       (librarySummaryPaths != null && librarySummaryPaths.isNotEmpty) ||

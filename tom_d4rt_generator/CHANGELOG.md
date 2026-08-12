@@ -1,3 +1,70 @@
+## 1.15.2
+
+### Fixed — a relative scan root silently dropped every user bridge (GEN-123)
+
+`d4rtgen -s .` aborted on the one corpus project that carries user bridges:
+
+    Error processing ./d4rt_userbridges_sample: Invalid argument(s):
+      Only absolute normalized paths are supported: d4rt_userbridges_sample
+
+The same command with `-s "$(pwd)"` succeeded, so the defect was never in the
+project — it was that a relative project directory reached the analyzer.
+
+The analyzer requires every path it is given to be **absolute and normalized**.
+That is one rule with two independent halves, and it was written out by hand at
+five call sites. Three of them satisfied only the second half:
+
+    final normalizedProjectDir = p.normalize(projectDir);   // WRONG
+
+`p.normalize` collapses `.` and `..`; it does not make a path absolute. The two
+correct sites additionally joined against `Directory.current.path`. Only a
+project carrying `lib/src/d4rt_user_bridges/` could trip it, because everywhere
+else the context is built from an already-absolutised path.
+
+Fixed by extracting `analysisIncludedPath()` (`lib/src/analysis_paths.dart`),
+which states the whole contract once, and using it at every site. Applying it
+turned up a **sixth** site the audit had missed — the per-package context in
+`bridge_generator.dart`, which derives its root by walking up from a file path
+and so inherits that path's shape.
+
+**The first fix was incomplete, in the more dangerous direction.** Absolutising
+`includedPaths` stopped the crash but merely moved the failure downstream:
+`contextFor` and `getResolvedLibrary` were still handed relative paths, threw
+the same `ArgumentError`, and the throw was swallowed by a `verbose`-gated
+`catch`. A relative-root run then found **0** user bridges where an absolute
+run found 4, and emitted bridges missing every override — no error, no warning,
+wrong output. Three changes close that:
+
+- The scan directories are derived from the *absolutised* root, so every
+  collected file path is absolute by construction rather than by remembering to
+  convert it at three later call sites.
+- Resolution failures are no longer `verbose`-gated. A user-bridge file that
+  exists on disk but does not resolve is a wrong-output condition, not a debug
+  detail.
+- Finding files but registering nothing now warns. Under the previous
+  `> 0`-only reporting that state was indistinguishable from a project with no
+  user bridges at all, which is precisely why the regression was silent.
+
+### Changed — the two user-bridge pre-scans are one function
+
+`bridge_api.dart` and `v2/d4rtgen_executor.dart` each carried their own ~60-line
+copy of the pre-scan, differing only in log wording and in which warnings were
+`verbose`-gated — which is how one copy came to swallow errors the other
+reported. Both now call `preScanUserBridges()`
+(`lib/src/user_bridge_prescan.dart`).
+
+### Tests
+
+`test/gen123_analysis_included_path_test.dart` (6 tests). G-GEN123-01..03 cover
+the helper, including a behavioural check that the analyzer still *rejects*
+`p.normalize(relative)` — so the suite cannot pass for the wrong reason if the
+helper is ever reduced back. G-GEN123-06 pins the property the silent-zero
+violated: a relative and an absolute project dir must find the *same number* of
+user bridges. Asserting "does not throw" would have passed throughout the
+broken window. G-GEN123-04/05 are structural gates: a seventh hand-derived
+`includedPaths` argument, or a bare `p.normalize` on a project path, fails the
+suite.
+
 ## 1.15.0
 
 ### Added — the generated bridge is now really analysed, not proxied (GEN-121)
