@@ -5,13 +5,22 @@ failure pattern hit by demo scripts in `tom_d4rt_flutter_ast_app`. The
 representative scripts under each cluster are useful as starting points
 for a targeted fix and as regression tests once the cluster is closed.
 
-Last refreshed: 2026-04-20, against
-`doc/testlog_20260418-1500-e22671e8/generator_interpreter_issues_test.result.json`
-(rev `bfe0b852`). The file currently runs **45 / 0 / 38**
-(2026-04-19 baseline before cluster work was 27 / 0 / 56; the
-2026-04-16 pre-bisect baseline was 0 / 9 / 74). Six clusters fully
-closed (1–6) plus one partially closed (7); the remaining 38
-failures are organised into clusters 8–12 below.
+Last refreshed: 2026-08-12, against run `20260812-0718-issue-analysis`
+(rev `a1775660a`, Flutter 3.44.6). The full 41-file corpus runs
+**2164 / 5 / 0** (passed / skipped / failed) — **identically in both
+twins**, `tom_d4rt_flutter_ast` and `tom_d4rt_flutter`. See the
+2026-08-12 entry under "Verification runs" and the per-project
+`testlog/testlog_20260812-0718-issue-analysis/error_analysis.md`.
+
+**One open cluster: GEN-124** (native enum value resolves to a
+prefix-matching `BridgedClass`). It produces **no test failure** — it
+surfaces only as 8 captured framework errors on
+`widgets/widget_inspector_service_extensions_test.dart`, in both twins.
+Every earlier cluster is closed.
+
+> **Green corpus ≠ no open clusters.** The corpus does not gate on
+> `frameworkErrors`, so a script can raise interpreter runtime errors and
+> still report `status=success`. Read the logs, not just the exit codes.
 
 When a cluster lands a fix, mark the checkbox, add a `**Resolved:**`
 line with the commit ref, and re-run the suite to confirm. Drop the
@@ -3490,11 +3499,172 @@ honour explicit type arguments correctly.
 
 ---
 
+### [ ] Open (GEN-124) — native enum value resolves to a prefix-matching `BridgedClass`, corrupting applied-generic return checks
+
+**Found:** 2026-08-12, run `20260812-0718-issue-analysis` (rev `a1775660a`),
+in **both** twins simultaneously.
+
+**Symptom**
+
+`widgets/widget_inspector_service_extensions_test.dart` raises 8 identical
+runtime errors per run (captured as framework errors — the test still
+*passes*, so this never surfaced as a failure):
+
+```
+Runtime Error: A value of type 'List<Widget>' can't be returned from the
+function '_membersOf' because it has a return type of
+'List<WidgetInspectorServiceExtensions>'.
+```
+
+The declared return type resolves correctly; the *value's* applied type is
+computed wrongly as `List<Widget>`.
+
+**Root cause**
+
+`Environment.getRuntimeType` has a branch for `BridgedEnumValue` but **none
+for a still-native `Enum` value**, so a native bridged-enum value falls
+through to `toBridgedClass(value.runtimeType)`. That fails PASS A (the enum
+is registered as a `BridgedEnumDefinition`, never as a `BridgedClass`) and
+lands in the **PASS B fuzzy prefix fallback**:
+
+```dart
+return bridgeName.length >= 3 &&
+    nativeTypeNameFull.startsWith(bridgeName) &&
+    nativeTypeNameFull.length > bridgeName.length;
+```
+
+`"WidgetInspectorServiceExtensions".startsWith("Widget")` → **true**, so the
+enum value is typed as the `Widget` bridge. `_homogeneousElementType` then
+reports element type `Widget` and `_appliedValueType` yields `List<Widget>`.
+
+This is the same string-heuristic liability that the GEN-115 entry above
+already earmarks for removal ("Phase 3 will rewrite the string-heuristic
+`toBridgedClass(Type)` to walk the supertype registry by name"). This
+cluster is a concrete, reproducible instance of it.
+
+**Blast radius.** Any bridged enum whose name starts with a ≥3-char
+registered bridge name is mistyped wherever `getRuntimeType` is consulted —
+applied-generic return checks are simply where it became visible.
+
+**Fix**
+
+Resolve a native enum to its bridged enum *before* the `toBridgedClass`
+fallback, using the lookup that already exists:
+
+```dart
+if (value is Enum) {
+  final bridgedEnum = findBridgedEnumForValue(value);
+  if (bridgedEnum != null) return bridgedEnum;
+}
+```
+
+Secondary hardening in the same pass: PASS B uses `firstWhereOrNull`, so
+among several prefix candidates it returns whichever the map yields first,
+with no longest-prefix preference — unlike PASS A, which uses
+`_longestNativeNamePrefixMatch` for exactly this reason. PASS B should
+prefer the longest match too.
+
+**Mirror sites (fix must land in both)**
+
+| Symbol | `tom_d4rt` (`lib/src/`) | `tom_d4rt_ast` (`lib/src/runtime/`) |
+| ------ | ----------------------- | ----------------------------------- |
+| `getRuntimeType` | `environment.dart:1474` | `environment.dart:1546` |
+| `BridgedEnumValue`-only branch | `environment.dart:1248` | `environment.dart:1560` |
+| `findBridgedEnumForValue` | `environment.dart:996` | `environment.dart:1031` |
+| `toBridgedClass` | `environment.dart:845` | `environment.dart:868` |
+| PASS B prefix fallback | `environment.dart:939` | `environment.dart:959–978` |
+| `_checkAppliedGenericReturn` | `interpreter_visitor.dart:10583` | `interpreter_visitor.dart:8196` |
+| `_appliedValueType` | `interpreter_visitor.dart:10619` | `interpreter_visitor.dart:8216` |
+| `_homogeneousElementType` | `interpreter_visitor.dart:10652` | `interpreter_visitor.dart:8249` |
+
+**Representative script**
+
+`test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/widgets/widget_inspector_service_extensions_test.dart`
+
+Note its `_membersOf` already carries a hand-written workaround comment for a
+*different* D4rt limitation; the enum-typing bug is independent of it.
+
+**Verifying the fix.** `frameworkErrors` must go to 0 for that script (today
+it is 8). Because the test passes either way, `+N` counts will not move —
+grep the log for `⚠️  FRAMEWORK ERROR` instead.
+
+---
+
 ## Verification runs
 
 Corpus runs made to certify an interpreter change rather than to
 discover new clusters. Each entry records what was measured, against
 which resolved package versions, and what moved.
+
+### 2026-08-12 — full-corpus issue analysis, both twins (rev `a1775660a`)
+
+**What was measured.** The complete 41-file corpus
+(`flutter_base_01..17` + `flutter_extended_01..24`) run serially in
+`tom_d4rt_flutter_ast` (port 4247, 07:24→08:10) and then, strictly
+afterwards, in `tom_d4rt_flutter` (port 4248, 08:11→08:50). Flutter
+3.44.6 stable. Run ID `20260812-0718-issue-analysis`; logs, per-file
+`.result.json`, `metrics.txt` and `error_analysis.md` under each
+project's `testlog/testlog_<ID>/`. Commissioned to hunt *non-failing*
+log noise (overflow errors, captured framework errors), not just
+failures.
+
+**Result — both twins identical: 41/41 `exit=0`, 2164 passed, 5
+skipped, 0 failed.** All 2123 `[METRIC]` lines `status=success` in each.
+Zero RenderFlex/overflow, zero ListTile "may be invisible", zero
+`[recycle]`, zero "Lost connection", zero idle-kills. The per-file
+`+N ~N` lines match line for line across the twins — the analyzer-free
+line is behaviourally indistinguishable from the analyzer-based line
+across the full corpus.
+
+**Movement vs the 2026-06-24 baseline.** June was 40/41 with one failing
+file: `flutter_extended_23` (`+44 ~1 -1`), caused by a native macOS
+PlatformView crash in `render_android_view_test.dart` that terminated
+the companion app and took the next script's `/clear` down with it.
+That script is now `skip:`-guarded, so the crash is gone and the file
+reads `+44 ~2`. The two surviving PlatformView scripts
+(`render_app_kit_view_test.dart`, `retest/widgets/app_kit_view_test.dart`)
+now raise ordinary catchable `PlatformException`s and the app survives.
+
+**New finding — 14 captured framework errors that do not fail a test**
+(June had none), across 5 scripts, identically in both twins:
+
+| Class | Count | Scripts | Verdict |
+| ----- | ----- | ------- | ------- |
+| PlatformView `unregistered_view_type` | 2 | `rendering/render_app_kit_view_test.dart`, `retest/widgets/app_kit_view_test.dart` | environmental |
+| Scrollbar with no attached `ScrollPosition` | 4 | `widgets/selectable_region_state_test.dart`, `widgets/two_dimensional_child_manager_test.dart` | corpus layout artifact |
+| **Applied-generic return check** | **8** | `widgets/widget_inspector_service_extensions_test.dart` | **interpreter defect → GEN-124** |
+
+GEN-124 (above) was opened from this run. That both twins emitted the
+identical 8 errors is runtime confirmation that the defect is shared,
+matching the code read of `toBridgedClass` PASS B.
+
+**Methodology note — the corpus does not gate on `frameworkErrors`.** A
+script can raise 8 interpreter runtime errors and still report
+`status=success`, which is why GEN-124 survived undetected until a run
+was commissioned to read the logs rather than the exit codes. Worth
+deciding whether nonzero `frameworkErrors` should fail a script, or at
+least be summarised per file by the runner.
+
+**Methodology note — the twins are asymmetric on bridge regeneration.**
+`tom_d4rt_flutter_ast`'s `SendTestRunner.setUp` defaults to
+`regenerateBridges: true`; its 18 bridges were regenerated during the
+run, and 15 changed by exactly one line (the `// Generated:` timestamp),
+confirming the generator is deterministic. `tom_d4rt_flutter`'s
+`setUp` (`test/send_test_runner.dart:287`) has **no `regenerateBridges`
+parameter at all** — 0 of 18 files changed, headers still
+`2026-08-03T11:48:00`. So the source corpus certifies *checked-in*
+bridges, not current generator output. The twins agreed exactly here,
+but that is a result of this run, not a guarantee the harness provides.
+Recommend giving the source twin the same default.
+
+**Methodology note — `IDLE_TIMEOUT` default is too tight.** The runner's
+80 s idle watchdog is shorter than `SendTestRunner.setUp`'s own 120 s
+app-start timeout, so on a cold cache the watchdog kills a file
+(`exit=124 +0`) before the harness can report anything useful. The first
+attempt at this run died that way on `flutter_base_01`/`_02`; it
+completed cleanly at `IDLE_TIMEOUT=300`.
+
+---
 
 ### 2026-07-28 — SC6 `is BridgedX` widening (tom_d4rt 1.18.0 / tom_d4rt_ast 0.10.0)
 
