@@ -22,6 +22,22 @@ class JsonCodecConvert {
                   : (object) => toEncodableArg.call(visitor, [object]),
             );
           },
+          // `JsonCodec.withReviver(dynamic Function(Object?, Object?) reviver)`
+          // — one REQUIRED positional. Unlike the default constructor's
+          // `reviver:` named argument, null is not a legal value here, so this
+          // rejects a missing or non-function argument outright rather than
+          // falling back to a reviver-less codec.
+          'withReviver': (visitor, positionalArgs, namedArgs) {
+            final reviver =
+                positionalArgs.isNotEmpty ? positionalArgs[0] : null;
+            if (reviver is! InterpretedFunction) {
+              throw RuntimeD4rtException(
+                  'JsonCodec.withReviver reviver must be a Function '
+                  '(key, value).');
+            }
+            return JsonCodec.withReviver(
+                (key, value) => reviver.call(visitor, [key, value]));
+          },
         },
         methods: {
           'encode': (visitor, target, positionalArgs, namedArgs, _) {
@@ -75,6 +91,39 @@ class JsonEncoderConvert {
                   : (object) => toEncodableArg.call(visitor, [object]),
             );
           },
+          // `JsonEncoder.withIndent(String? indent,
+          //  [Object? toEncodable(Object?)?])` — the ordinary way to ask for
+          // pretty-printed JSON. `indent` is positionally REQUIRED in the SDK
+          // even though its type is nullable, and passing `null` is meaningful
+          // (it selects compact output). Presence and nullness are therefore
+          // distinct cases and both are checked: a missing argument is an
+          // error, an explicit null is not.
+          'withIndent': (visitor, positionalArgs, namedArgs) {
+            if (positionalArgs.isEmpty) {
+              throw RuntimeD4rtException(
+                  'JsonEncoder.withIndent requires the indent argument '
+                  '(a String, or null for compact output).');
+            }
+            final indent = positionalArgs[0];
+            if (indent != null && indent is! String) {
+              throw RuntimeD4rtException(
+                  'JsonEncoder.withIndent indent must be a String or null.');
+            }
+            final toEncodable =
+                positionalArgs.length > 1 ? positionalArgs[1] : null;
+            if (toEncodable != null && toEncodable is! InterpretedFunction) {
+              throw RuntimeD4rtException(
+                  'JsonEncoder.withIndent toEncodable must be a Function '
+                  'or null.');
+            }
+            return JsonEncoder.withIndent(
+              indent as String?,
+              toEncodable == null
+                  ? null
+                  : (object) => (toEncodable as InterpretedFunction)
+                      .call(visitor, [object]),
+            );
+          },
         },
         methods: {
           'convert': (visitor, target, positionalArgs, namedArgs, _) {
@@ -111,7 +160,13 @@ class JsonEncoderConvert {
             return (target as JsonEncoder).cast<dynamic, String>();
           },
         },
-        getters: {},
+        getters: {
+          // `final String? indent` is public on the SDK class; it was the only
+          // instance field and the bridge exposed no getters at all, so a
+          // script could construct an indented encoder but not ask what its
+          // indent was.
+          'indent': (visitor, target) => (target as JsonEncoder).indent,
+        },
       );
 }
 
