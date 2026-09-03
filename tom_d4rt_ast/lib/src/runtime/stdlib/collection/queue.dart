@@ -117,6 +117,67 @@ class QueueCollection {
             }
             throw RuntimeD4rtException("Invalid arguments for Queue.contains");
           },
+          // These three plus the static `castFrom` below are the members `Queue`
+          // declares itself. Everything else on it arrives through the
+          // `Queue -> Iterable` supertype edge, which is why exactly this set
+          // was missing. Registering them here also reaches `ListQueue` and
+          // `DoubleLinkedQueue`, both of which declare a `-> Queue` edge.
+          'remove': (visitor, target, positionalArgs, namedArgs, _) {
+            if (target is Queue &&
+                positionalArgs.length == 1 &&
+                namedArgs.isEmpty) {
+              return target.remove(positionalArgs[0]);
+            }
+            throw RuntimeD4rtException("Invalid arguments for Queue.remove");
+          },
+          'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
+            if (target is Queue && positionalArgs.length == 1) {
+              final test = positionalArgs[0];
+              if (test is Callable) {
+                target.removeWhere((element) {
+                  final result = test.call(visitor, [element], {});
+                  return result is bool && result;
+                });
+                return null;
+              }
+              throw RuntimeD4rtException(
+                  "Argument to Queue.removeWhere must be a function.");
+            }
+            throw RuntimeD4rtException(
+                "Invalid arguments for Queue.removeWhere");
+          },
+          'retainWhere': (visitor, target, positionalArgs, namedArgs, _) {
+            if (target is Queue && positionalArgs.length == 1) {
+              final test = positionalArgs[0];
+              if (test is Callable) {
+                target.retainWhere((element) {
+                  final result = test.call(visitor, [element], {});
+                  return result is bool && result;
+                });
+                return null;
+              }
+              throw RuntimeD4rtException(
+                  "Argument to Queue.retainWhere must be a function.");
+            }
+            throw RuntimeD4rtException(
+                "Invalid arguments for Queue.retainWhere");
+          },
+        },
+        staticMethods: {
+          // A static is never delivered by a supertype edge — statics are not
+          // inherited — so this has to be registered on Queue itself.
+          'castFrom': (visitor, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length != 1 || namedArgs.isNotEmpty) {
+              throw RuntimeD4rtException(
+                  "Queue.castFrom(source) expects one positional argument.");
+            }
+            final source = positionalArgs[0];
+            if (source is Queue) {
+              return Queue.castFrom<dynamic, dynamic>(source);
+            }
+            throw RuntimeD4rtException(
+                "Argument to Queue.castFrom must be a Queue.");
+          },
         },
         getters: {
           'length': (visitor, target) {

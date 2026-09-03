@@ -180,19 +180,35 @@ class SplayTreeMapCollection {
             }
             throw RuntimeD4rtException("Invalid arguments for SplayTreeMap.remove");
           },
+          // All four key-navigation members are declared `K?` in the SDK and
+          // return null when there is no such key — an empty map for
+          // firstKey/lastKey, no greater/lesser key for the other two. No guard
+          // belongs here: throwing instead would refuse what Dart accepts.
           'firstKey': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is SplayTreeMap && positionalArgs.isEmpty) {
-              if (target.isEmpty) throw RuntimeD4rtException("Map is empty");
               return target.firstKey();
             }
             throw RuntimeD4rtException("Invalid arguments for SplayTreeMap.firstKey");
           },
           'lastKey': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is SplayTreeMap && positionalArgs.isEmpty) {
-              if (target.isEmpty) throw RuntimeD4rtException("Map is empty");
               return target.lastKey();
             }
             throw RuntimeD4rtException("Invalid arguments for SplayTreeMap.lastKey");
+          },
+          'firstKeyAfter': (visitor, target, positionalArgs, namedArgs, _) {
+            if (target is SplayTreeMap && positionalArgs.length == 1) {
+              return target.firstKeyAfter(positionalArgs[0]);
+            }
+            throw RuntimeD4rtException(
+                "Invalid arguments for SplayTreeMap.firstKeyAfter");
+          },
+          'lastKeyBefore': (visitor, target, positionalArgs, namedArgs, _) {
+            if (target is SplayTreeMap && positionalArgs.length == 1) {
+              return target.lastKeyBefore(positionalArgs[0]);
+            }
+            throw RuntimeD4rtException(
+                "Invalid arguments for SplayTreeMap.lastKeyBefore");
           },
         },
         getters: {
