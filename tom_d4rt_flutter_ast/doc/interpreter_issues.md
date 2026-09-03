@@ -3596,6 +3596,50 @@ Corpus runs made to certify an interpreter change rather than to
 discover new clusters. Each entry records what was measured, against
 which resolved package versions, and what moved.
 
+### 2026-09-03 — base corpus, AST twin: tcca19's ambiguity rule regressed 17 scripts, fixed in 0.20.1
+
+**Why this run exists.** Not a cluster hunt. Raising the interpreter
+floors for the 1.30.1 / 0.20.1 release required verifying each consumer,
+and the AST twin's base corpus came back **17 failures against an
+all-green baseline** — the first honest measurement of `tom_d4rt_ast`
+0.19.0/0.20.0 by this corpus, because the companion app's gitignored lock
+had been holding 0.14.0.
+
+**One root cause, all 17.** Every failure was
+`Ambiguous Name Error: The name 'TextStyle' ...`, with `ui.TextStyle
+(dart:ui)` and painting's `TextStyle` as the two candidates. tcca19
+(tom_d4rt 1.27.0 / tom_d4rt_ast 0.19.0) had made two same-named bridged
+classes reject the bare name, and applied that to platform declarations
+too. Dart does not: a `dart:*` name is **silently shadowed** by a
+non-platform one. Confirmed against real Dart — `dart analyze` accepts
+
+```dart
+import 'dart:ui';
+import 'package:flutter/widgets.dart';
+const TextStyle(fontSize: 24.0).copyWith(fontSize: 2.0);
+```
+
+(`copyWith` exists only on painting's `TextStyle`) and merely reports the
+`dart:ui` import as *unnecessary*.
+
+**Detection ignored import scope.** `cupertino/contextmenu_test.dart`
+failed without importing `dart:ui` at all — its imports are cupertino,
+foundation and material. The second candidate came from the ambient
+registry. The 0.20.1 fix restores platform precedence, which clears every
+observed case; it does **not** fix the scope error, which is `scd4_aicv`.
+
+**Result after the fix, run `scc2-ast0201-verify`.** 17/17 files
+`exit=0`, **927 passed / 1 skipped / 0 failed** — `metrics.txt` diffs
+byte-identically against `basetestlog_20260803-1200-base`, and zero
+`Ambiguous Name Error` lines remain in any log. Resolved versions:
+`tom_d4rt_ast 0.20.1`, `tom_d4rt 1.30.1`, companion app re-resolved
+first.
+
+**Methodology consequence.** Both trees' ambiguity tests are
+registration-level and all passed throughout, so nothing but the corpus
+could have caught this — and the corpus was measuring a stale lock. That
+pairing is `scd5_aicv`; the missing runner resolve is `scd3_aicv`.
+
 ### 2026-08-12 — full-corpus issue analysis, both twins (rev `a1775660a`)
 
 **What was measured.** The complete 41-file corpus
