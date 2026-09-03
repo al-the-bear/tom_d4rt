@@ -1,3 +1,69 @@
+## 1.33.0
+
+### Added — `bool` implements `&`, `|`, `^` and their compound forms
+
+Dart declares `& | ^` on `bool` as well as on `int`. They are the
+non-short-circuiting siblings of `&& ||`, and the only form that expresses
+"evaluate both operands regardless" — which is precisely why `&&` cannot stand in
+for them. `flagA & sideEffectingCheck()` threw `Unsupported binary operator
+"AMPERSAND"`, and `flagA &= …` threw the distinct `Compound assignment operator
+AMPERSAND_EQ`: two dispatch sites, two messages, two fixes. Both are now
+implemented for `bool` operands at both sites.
+
+Non-short-circuit evaluation comes for free — the interpreter evaluates both
+operands before reaching the binary switch — and is now pinned by a test, so a
+future "simplification" into `&&` cannot pass silently. Only `bool`-`bool` is
+accepted: `true & 1` is a type error in Dart and remains one here.
+
+### Added — `Queue`'s own surface, and with it `ListQueue`'s
+
+`Queue.remove`, `removeWhere`, `retainWhere` and the static `Queue.castFrom`
+were absent. These are exactly the members `Queue` declares itself; everything
+else on it arrives through its `-> Iterable` supertype edge, which is why the
+gap had this precise shape. Registering the three mutators on `Queue` also
+closed the same two gaps on `ListQueue`, which declares a `-> Queue` edge and so
+inherits them — `list_queue.dart` needed no change. `castFrom` had to be written
+on `Queue` regardless, because statics are never inherited and no supertype edge
+can deliver one.
+
+### Fixed — `SplayTreeMap.firstKey()` on an empty map returns `null`, not a throw
+
+`firstKey()` and `lastKey()` are declared `K?` in the SDK and return `null` when
+there is no such key. Both bridges hand-threw `RuntimeD4rtException("Map is
+empty")` instead, so the idiomatic `if (m.firstKey() == null)` worked as Dart and
+died under d4rt. The invented guards are gone.
+
+`I-COLL-78` asserted the throw, which is why the guard survived every green run
+for as long as it existed. **The test's premise was wrong about Dart**, so the
+case now asserts `null` — a correction of the specification, not a loosened
+assertion.
+
+### Added — `SplayTreeMap.firstKeyAfter` and `lastKeyBefore`
+
+The type's distinguishing ordered-navigation pair. Both return `null` when there
+is no greater/lesser key, matching the SDK.
+
+### Changed — `tool/stdlib_member_diff.dart` verifies operators and universals
+
+The gap oracle diverted operator and universal `Object` members out of the
+candidate list *before* interpreter verification, and excluded them from the
+confirmed count. Those two columns therefore carried unchecked map-diff output,
+and no published number could move when one held a real defect — which is how
+`bool`'s missing operators stayed invisible. Both columns are now verified and
+counted.
+
+Three changes were needed together: an `_operatorProbes` table (operators cannot
+be read as `o.+`, so they are driven as expressions), the operator error wordings
+added to the unreachable-message matcher, and instance recipes for the primitives
+(`bool`, `int`, `double`, `num`, `BigInt`) which had none — leaving the column
+UNVERIFIED for exactly the classes whose operators matter most. `==` is routed to
+the operator probe rather than the member read, whose `o.==` does not parse.
+Unverified operators fell from 19 to 2.
+
+The corrected totals: 610 raw candidates, 365 reachable via fallback, 284
+unverified, **28 confirmed unreachable across 19 classes** (was published as 36
+across 22).
+
 ## 1.32.0
 
 ### Fixed — a list literal is now a valid argument to a typed-data list member

@@ -1,6 +1,41 @@
-## 0.22.0
+## 0.23.0
 
-Mirrors `tom_d4rt` 1.32.0.
+Mirrors `tom_d4rt` 1.33.0.
+
+### Added — `bool` implements `&`, `|`, `^` and their compound forms
+
+Dart declares `& | ^` on `bool` as well as on `int` — the non-short-circuiting
+siblings of `&& ||`, and the only form that expresses "evaluate both operands
+regardless". Neither was implemented, at either dispatch site: `a & b` threw
+`Unsupported binary operator "AMPERSAND"` and `a &= b` threw the distinct
+`Compound assignment operator &=`. Both sites now handle `bool` operands.
+
+Note that this interpreter keys compound operators by **string** (`'&='`) where
+`tom_d4rt` keys them by `TokenType` — searching for `AMPERSAND_EQ` here finds
+nothing, which is worth knowing before mirroring a compound-operator fix.
+
+Only `bool`-`bool` is accepted: `true & 1` is a type error in Dart and remains
+one here. Non-short-circuit evaluation is inherent — both operands are evaluated
+before the binary switch is reached — and is now pinned by a test.
+
+### Added — `Queue`'s own surface, and with it `ListQueue`'s
+
+`Queue.remove`, `removeWhere`, `retainWhere` and the static `Queue.castFrom`.
+These are the members `Queue` declares itself; the rest of its surface arrives
+through the `-> Iterable` supertype edge. Registering the three mutators on
+`Queue` also closed the same gaps on `ListQueue`, which declares a `-> Queue`
+edge — `list_queue.dart` is unchanged. `castFrom` needed writing on `Queue`
+directly, because statics are never inherited.
+
+### Fixed — `SplayTreeMap.firstKey()` on an empty map returns `null`
+
+`firstKey()` and `lastKey()` are declared `K?` and return `null` when there is no
+such key. Both bridges hand-threw `"Map is empty"`, so `if (m.firstKey() ==
+null)` worked as Dart and died here. The invented guards are removed.
+
+### Added — `SplayTreeMap.firstKeyAfter` and `lastKeyBefore`
+
+Both return `null` when there is no greater/lesser key, matching the SDK.
 
 ### Fixed — a list literal is now a valid argument to a typed-data list member
 

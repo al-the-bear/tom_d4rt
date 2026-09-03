@@ -37,8 +37,8 @@ Class-level coverage is audited by hand; **member-level** and
   hierarchy audit before treating any member-gap count as a work estimate.
 - **Gaps are member-level as well as class-level.** A mechanical member
   diff over all 181 registered classes
-  (`tool/stdlib_member_diff.dart`) confirms **36 unreachable members
-  spread across 22 classes** that this audit otherwise counts as
+  (`tool/stdlib_member_diff.dart`) confirms **28 unreachable members
+  spread across 19 classes** that this audit otherwise counts as
   bridged. Member-level coverage must therefore be measured, not
   spot-checked: a spot-check cannot distinguish a fully registered class
   from a **partially** registered one, because it passes as soon as it
@@ -101,19 +101,32 @@ each `BridgedClass` compare its adapter-map keys against the SDK surface
 of its `nativeType`, obtained through `dart:mirrors`.
 
 **Phase 2 — verification.** Ask the *interpreter* whether each candidate
-actually fails, using a per-class instance recipe (46 are defined) and
+actually fails, using a per-class instance recipe (51 are defined) and
 matching the error text against the known "unreachable" wordings
 (`Undefined static member …`, `… has no instance method named …`,
-`Undefined variable: …`, `… has no getter named …`). Anything else means
+`Undefined variable: …`, `… has no getter named …`, `Unsupported binary
+operator …`, `Compound assignment operator …`). Anything else means
 the member **resolved**.
+
+**Operators need their own probe shape, not their own exemption.** A member
+named `+` or `[]` cannot be read as `o.+`, so it is driven through an
+expression instead (`o + o`, `o[0]`, `~o`, `-o`, `o << 1`) from
+`_operatorProbes`. `==` is both a universal `Object` member and an operator,
+and the universal branch is tested first, so it is explicitly routed to the
+operator probe — otherwise its `o.==` read would fail to *parse*, a parse
+failure is not one of the unreachable wordings, and the tool would call it
+reachable whatever the truth. The self-operand shortcut (`o * o` rather than
+`o * 2`) costs precision in the conservative direction: on `String`,
+`'a' * 'a'` is a type error rather than a resolution failure, so the column
+can under-report but cannot invent a gap.
 
 **Why phase 2 cannot be skipped:** adapter-map absence does *not* imply
 unreachable for *instance* members — instance lookups fall back through
 the supertype chain. That fallback is **not uniform**, though
 (`Uint8List.sort` resolved while `HashSet.difference` did not), so the
 static diff cannot predict it either. Only the interpreter is a valid
-oracle. In the current run, **315 of 616** raw candidates turn out to be
-reachable via fallback — a 51 % false-positive rate that a single-phase
+oracle. In the current run, **365 of 610** raw candidates turn out to be
+reachable via fallback — a 60 % false-positive rate that a single-phase
 tool would report as gaps. That share has grown as edges were declared,
 which is the point: every edge added moves candidates from "confirmed
 gap" to "reachable anyway" without a line of adapter code being written.
@@ -130,9 +143,15 @@ a plausible-looking wrong number:
    instance members, and presence in the map is not evidence that the
    adapter *works*. Only executing the member through the interpreter
    settles either question.
+3. **A column that is reported but not verified will be read as verified.**
+   Operators and universal `Object` members used to be split out of the
+   candidate list *before* phase 2 and excluded from `gapCount`, so those two
+   columns carried raw map-diff output that nothing had checked and no
+   published number could ever move. They are now verified and counted like
+   the rest. See [the unverified-column note](#the-unverified-column-hazard).
 
 Members with no usable instance recipe are reported in an explicit
-**UNVERIFIED** bucket (265 in the current run, overwhelmingly `dart:io`
+**UNVERIFIED** bucket (284 in the current run, overwhelmingly `dart:io`
 types that need a live socket or server to instantiate) rather than being
 silently counted either way. Closing that bucket means adding recipes to
 `_instanceRecipes`, not relaxing the classification.
@@ -144,11 +163,15 @@ Measured 2026-09-04.
 | Metric | Count |
 |--------|-------|
 | Bridged classes examined | 181 |
-| Raw candidates from the map diff | 616 |
-| … reachable anyway via instance fallback | 315 |
-| … unverified (no instance recipe) | 265 |
-| **CONFIRMED unreachable** | **36** |
-| Classes with ≥ 1 confirmed gap | 22 |
+| Raw candidates from the map diff | 610 |
+| … reachable anyway via instance fallback | 365 |
+| … unverified (no instance recipe) | 284 |
+| **CONFIRMED unreachable** | **28** |
+| Classes with ≥ 1 confirmed gap | 19 |
+
+Of the 28, **zero** are operators and **zero** are universal `Object`
+members — a statement this audit could not make before those two columns
+were verified rather than merely printed.
 
 The **Disposition** column is not decoration — see
 [the disposition rule](#recommended-next-actions). Every row must name where
@@ -157,11 +180,9 @@ unattributed observation.
 
 | Class | Confirmed | Instance | Static | Assessment | Disposition |
 | --- | --- | --- | --- | --- | --- |
-| `Queue` / `ListQueue` | 4 / 2 | 3 / 2 | 1 / 0 | Genuine gap — the `remove`/`removeWhere`/`retainWhere` mutators, plus `Queue.castFrom`. | SCC10 |
 | `RangeError`, `ArgumentError`, `IndexError`, `Error` | 4, 1, 1, 1 | 0 | all | Genuine gap — the static validation helpers (`checkValidRange`/`checkValidIndex`/`checkNotNegative`/`checkValueInInterval`, `checkNotNull`, `check`, `throwWithStackTrace`). | SCC11 |
-| `Iterable`, `Map`, `Set`, `Converter`, `LineSplitter` | 3, 1, 1, 1, 1 | 0 | all | The `castFrom` family plus `iterableToShortString`/`iterableToFullString` and `LineSplitter.split`. Low traffic. | SCC10 / SCC11 |
+| `Iterable`, `Map`, `Set`, `Converter`, `LineSplitter` | 3, 1, 1, 1, 1 | 0 | all | The `castFrom` family plus `iterableToShortString`/`iterableToFullString` and `LineSplitter.split`. Low traffic. | SCC11 |
 | `ByteBuffer` | 3 | 3 | 0 | The three SIMD views (`asFloat32x4List`, `asInt32x4List`, `asFloat64x2List`). This row **understates the finding** — see [Notes on the SIMD block](#notes-on-the-simd-block); it is nine names, not three. | **Boundary** — [limitations doc](d4rt_limitations.md#intentionally-unbridged-sdk-classes) + `F-SCB29-1..4` |
-| `SplayTreeMap` | 2 | 2 | 0 | `firstKeyAfter`, `lastKeyBefore` — the type's distinguishing ordered-navigation pair. | SCC50 |
 | `Enum`, `Symbol`, `ProcessStartMode` | 2, 2, 1 | 0 | all | Statics: `compareByIndex`/`compareByName`, `Symbol.empty`/`unaryMinus`, `values`. | SCC11 |
 | `String`, `StreamSubscription`, `ProcessSignal`, `InternetAddressType` | 1 each | 1 | 0 | Instance long tail: `matchAsPrefix`, `asFuture`, `signalNumber`, `name`. | SCC11 (`String.matchAsPrefix`: SCC56) |
 | `unawaited`, `FileSystemEntityType.NOT_FOUND` | 1 each | — | — | **Tool artifacts.** `unawaited` is a function, not a class, so its `Function` surface is diffed; `NOT_FOUND` is a deprecated SDK alias. | SCC11 (suppress in the tool) |
@@ -182,6 +203,19 @@ worth finishing by hand, because what survives an edge is exactly the set of
 members the class does **not** inherit — its own. `LinkedList`'s residue was
 `addAll` and `addFirst`, both of which `LinkedList` declares itself, and both
 now bridged; the class measures complete and is no longer in the table.
+
+**`Queue` and `ListQueue` are the cleanest demonstration of both halves.**
+Their combined residue was `remove`, `removeWhere`, `retainWhere` and the
+static `castFrom` — precisely the members `Queue` declares itself, everything
+else arriving through its `-> Iterable` edge. Six hand-written adapters closed
+eight measured gaps across *two* classes, because `ListQueue` already declared
+a `-> Queue` edge and so inherited the three mutators the moment they existed
+on `Queue`. **`list_queue.dart` was deliberately left untouched**, and the
+guard that matters there is the *absence* of duplicate adapters: the tests
+prove the members reachable on `ListQueue` with nothing registered on it.
+`castFrom` had to go on `Queue` by hand regardless — **statics are never
+inherited, so no edge can ever deliver one**, which is why every remaining row
+in the table above is static-heavy.
 
 **The typed-list mutators no longer appear here, and are no longer a
 wrong-error-type problem either.** The 120 length-changing `List` mutators
@@ -208,6 +242,64 @@ list was about to raise. All 28 such cast sites now go through
 cell. The general lesson is the same one that produced SCB3 in the first place:
 **`Uint8List` is the variant most likely to be probed and the variant least
 representative of the others.**
+
+### The unverified-column hazard
+
+**An unverified column published beside verified ones will be read as
+verified.** The tool used to divert operators and universal `Object` members
+out of the candidate list *before* phase-2 verification, and exclude them from
+`gapCount`. Two consequences, and the second is the worse one: those columns
+carried raw map-diff output nothing had checked, and *no published number could
+ever move* when one of them held a real defect. The column was also
+**uncheckable**, not merely unchecked — the unreachable-wording matcher did not
+know `Unsupported binary operator` or `Compound assignment operator`, so even a
+verification pass would have misclassified every operator failure as a success.
+
+The one real entry hiding there was `bool`. Dart declares `& | ^` on `bool` as
+well as on `int` — the non-short-circuiting siblings of `&& ||`, and the only
+form that can express "evaluate both operands" — and neither interpreter
+implemented them, at either dispatch site (`a & b` and `a &= b` are separate
+sites with separate error messages). Both interpreters now do.
+
+Two things had to change together for the column to become trustworthy. The
+matcher had to learn the operator wordings, **and** `_instanceRecipes` had to
+gain entries for the primitives (`bool`, `int`, `double`, `num`, `BigInt`) —
+they had none, so the column was UNVERIFIED for exactly the classes whose
+operators matter most. A literal is the whole recipe; nothing but the absence of
+an operator probe had ever made them look unnecessary. Unverified operators fell
+from 19 to 2 as a result.
+
+**The fix was proven by negative control, not by a green run.** Reporting "0
+confirmed operators" is what the *broken* tool did too. So the `bool` fix was
+reverted and the tool re-run: it reported `bool` with 3 confirmed operators and
+the total rising 28 → 31, where the same interpreter state had reported 0 before.
+Verify a measurement change by making it detect a defect you have deliberately
+reintroduced; a clean run proves nothing about an instrument.
+
+**This is the third instance of the same failure mode in this audit.** SCC8
+found it on `extraBridged` — a column reported as a defect list that was mostly
+correct bridges. SCC9 found it on the typed-list matrix — a one-cell probe
+standing in for 132 cells. Here it was two whole columns excluded from the
+count. The pattern to distrust is any number in this document that is *derived*
+from something other than a run of the interpreter, and any column whose value
+cannot change the headline total.
+
+### A bridge that throws where the SDK returns null
+
+`SplayTreeMap.firstKey()` and `lastKey()` are declared `K?` and return `null`
+on an empty map. Both bridges hand-threw `RuntimeD4rtException("Map is
+empty")`, so the idiomatic `if (m.firstKey() == null)` worked as Dart and died
+under d4rt. **The bridge must not refuse what Dart accepts, and must not accept
+what Dart refuses** — a guard invented at the bridge is as much a defect as a
+missing adapter, and a harder one to see, because the class measures complete.
+
+**A test can enshrine it.** `I-COLL-78` asserted the empty-map throw, which is
+why the guard survived every green run for as long as it existed. Its premise
+was wrong about Dart, so the case was rewritten to assert `null`; that is a
+different act from loosening an assertion and belongs in the commit message as
+such. The invented-guard shape has no general detector yet — this instance was
+found while measuring something else — and sweeping the stdlib for its
+siblings is tracked as its own item.
 
 ### The other half of the diff: `extraBridged`
 
@@ -358,7 +450,7 @@ the `dart:io` sockets and servers are omitted on purpose rather than have the
 audit open listening ports, so those need a recipe that constructs without
 binding, or an explicit "not auditable" marker.
 
-**Disposition:** Tracked — SCC57 for these 62 edges, SCC12 for the 265
+**Disposition:** Tracked — SCC57 for these 62 edges, SCC12 for the 284
 unverified members. Both buckets are measurement debt, not bridging decisions:
 until they close, "confirmed" is a lower bound and no entry inside them can be
 given a Boundary disposition, because nobody has established it is a gap.
@@ -990,7 +1082,7 @@ the six missing *classes* that produced them. It is now Boundary, with
    `String -> Comparable, Pattern`, `Duration -> Comparable`, and
    `StreamController -> Sink`. Small enough to take as one change, but the
    dispatch check still applies per class.
-5. **Close the audit's blind spot** — 62 candidate edges and 265 candidate
+5. **Close the audit's blind spot** — 62 candidate edges and 284 candidate
    members sit UNVERIFIED for want of an instance recipe, most of
    `dart:io` among them. Until that table is extended, "confirmed" is a
    lower bound on both audits, not a total. `dart:convert` is the worked
