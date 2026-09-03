@@ -1,3 +1,67 @@
+## 0.20.1
+
+Mirrors `tom_d4rt` 1.30.1.
+
+### Fixed — a `dart:*` declaration no longer makes a package declaration's bare name ambiguous
+
+0.19.0 (tcca19) made two same-named bridged classes reject the bare name instead
+of silently picking whichever registered last. That rule was too broad: it
+treated a platform (`dart:*`) declaration and a package declaration as peers,
+when Dart does not.
+
+Dart applies **platform-library precedence** — a name from a `dart:*` library is
+shadowed by one from a non-platform library, silently and with no ambiguity. So
+this is legal Dart, and means painting's `TextStyle`:
+
+```dart
+import 'dart:ui';
+import 'package:flutter/widgets.dart';
+
+const TextStyle(fontSize: 24.0).copyWith(fontSize: 2.0);
+```
+
+`copyWith` exists only on painting's `TextStyle`, and `dart analyze` accepts the
+snippet — while reporting the `dart:ui` import as *unnecessary*. `dart:ui` also
+declares a `TextStyle`, so under the 0.19.0 rule d4rt rejected the reference:
+
+```
+Ambiguous Name Error: The name 'TextStyle' is declared by more than one library
+in scope, so it cannot be used unqualified. Candidates:
+  ui.TextStyle       (dart:ui)
+  flutter.TextStyle  (package:flutter/src/painting/text_style.dart)
+```
+
+Any script naming a type that `dart:ui` also declares failed, which is most
+Flutter scripts — `TextStyle` alone accounted for every such failure observed in
+the flutter-material corpus.
+
+The rule is now platform-vs-non-platform aware. When the candidates for a name
+split into platform and non-platform declarations, the non-platform one takes the
+bare name and no ambiguity is recorded. Precedence does not depend on
+registration order: a `dart:*` bridge registering *after* a package bridge no
+longer steals the name, and one registering *before* is displaced as it already
+was.
+
+Unchanged, deliberately:
+
+- **Two package declarations are still ambiguous.** The `MarkdownParser` clash
+  that tcca19 was written for is untouched — peers with no winner still reject
+  the bare name.
+- **Two `dart:*` declarations are still ambiguous with each other.** The rule is
+  platform *versus* non-platform, not `dart:` being unimportant.
+- **The shadowed platform class stays reachable** as `ui.TextStyle`, exactly as a
+  prefixed import addresses it in real Dart. Nothing is lost by preferring the
+  package declaration. Qualifier aliases are now bound whether or not the bare
+  name ends up rejected, which is what makes that guarantee hold in the
+  shadowing case too.
+
+`AMBIG-P1`–`AMBIG-P5` pin the five cases: package-wins-when-second,
+package-wins-when-first, the qualifier escape hatch, two-platform-still-ambiguous,
+and survival across an `importEnvironment`. As everywhere in this tree, the
+assertions are registration-level rather than script-level: a script-level run
+needs `tom_d4rt_exec`, which resolves this package from pub.dev rather than by
+path, so it can only certify a published version.
+
 ## 0.20.0
 
 Mirrors `tom_d4rt` 1.30.0 — four stdlib findings from the SDK gap audit. The

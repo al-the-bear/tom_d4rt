@@ -434,7 +434,15 @@ class Environment {
       // must qualify. Same nativeType means the same class arriving through a
       // second barrel — a re-export, not an ambiguity.
       if (priorBridge != null && priorBridge.nativeType != nativeType) {
-        _markAmbiguousBridgeName(name, priorBridge, built, sourceUri);
+        if (_markAmbiguousBridgeName(name, priorBridge, built, sourceUri)) {
+          // This registration is a `dart:*` declaration that the sitting
+          // non-platform one shadows. It stays reachable by qualifier and by
+          // native type, but must not take the bare name — nor overwrite the
+          // recorded source URI, which still describes the winner.
+          _bridgedClassesLookupByTypeOrNew.putThunk(nativeType, thunk);
+          _invalidateResolutionCache();
+          return;
+        }
       }
     }
     if (sourceUri != null) _bridgeSourceUrisOrNew[name] = sourceUri;
@@ -460,28 +468,76 @@ class Environment {
   /// warning instead. An error whose remedy does not exist would be worse than
   /// the arbitrary pick it replaces; every generated bridge module supplies a
   /// source URI, which is the case this rule exists for.
-  void _markAmbiguousBridgeName(String name, BridgedClass prior,
+  ///
+  /// Returns true when [replacement] is a platform declaration that [prior]
+  /// shadows, meaning the caller must leave the bare [name] bound to [prior]
+  /// — see [_isPlatformSourceUri].
+  bool _markAmbiguousBridgeName(String name, BridgedClass prior,
       BridgedClass replacement, String? replacementSourceUri) {
+    final priorSourceUri = _bridgeSourceUrisRaw?[name];
     final qualified = <String, ({String sourceUri, BridgedClass bridge})>{};
-    _collectAmbiguityCandidate(qualified, prior, _bridgeSourceUrisRaw?[name]);
+    _collectAmbiguityCandidate(qualified, prior, priorSourceUri);
     _collectAmbiguityCandidate(qualified, replacement, replacementSourceUri);
     if (qualified.length < 2) {
       Logger.warn(
           "Bridged name '$name' is declared by more than one class, but the "
           "declarations cannot be told apart by package qualifier; the last "
           "registration wins.");
-      return;
+      return false;
     }
-    final candidates = _ambiguousBridgeNamesOrNew.putIfAbsent(name, () => {});
+    // Every candidate stays addressable as `qualifier.Name` whether or not the
+    // bare name ends up rejected, so bind the aliases before deciding.
     qualified.forEach((qualifier, candidate) {
-      candidates[qualifier] = candidate.sourceUri;
       _bindQualifierAlias(
           qualifier, name, candidate.bridge, candidate.sourceUri);
+    });
+    // Dart's platform-library precedence: a declaration from a `dart:*` library
+    // is shadowed by one from a non-platform library, silently and without
+    // ambiguity. So `dart:ui`'s TextStyle and painting's TextStyle are two
+    // different classes, yet naming `TextStyle` under both imports is legal Dart
+    // and means painting's. Only peers — platform vs platform, or package vs
+    // package — leave the name with no winner.
+    final peers = _peersAfterPlatformPrecedence(qualified);
+    if (peers.length < 2) {
+      Logger.debugLazy(() =>
+          "[Environment] Bridged name '$name' is declared by a platform and a "
+          "non-platform library; the non-platform declaration wins the bare "
+          "name (Dart platform precedence).");
+      // The bare name must end up on the non-platform declaration. The caller
+      // binds `replacement`, so it only needs to step aside when `replacement`
+      // is the platform one.
+      return _isPlatformSourceUri(replacementSourceUri) &&
+          !_isPlatformSourceUri(priorSourceUri);
+    }
+    final candidates = _ambiguousBridgeNamesOrNew.putIfAbsent(name, () => {});
+    peers.forEach((qualifier, candidate) {
+      candidates[qualifier] = candidate.sourceUri;
     });
     Logger.warn("Bridged name '$name' is declared by more than one library; "
         "unqualified use is now an error. Qualify it as "
         "${candidates.keys.map((q) => '$q.$name').join(' or ')}.");
+    return false;
   }
+
+  /// Drops the platform (`dart:*`) candidates when at least one non-platform
+  /// candidate is present, leaving the set that genuinely competes for the bare
+  /// name. A set that is all-platform or all-non-platform is returned unchanged.
+  static Map<String, ({String sourceUri, BridgedClass bridge})>
+      _peersAfterPlatformPrecedence(
+          Map<String, ({String sourceUri, BridgedClass bridge})> qualified) {
+    final nonPlatform = <String, ({String sourceUri, BridgedClass bridge})>{};
+    qualified.forEach((qualifier, candidate) {
+      if (!_isPlatformSourceUri(candidate.sourceUri)) {
+        nonPlatform[qualifier] = candidate;
+      }
+    });
+    return nonPlatform.isEmpty ? qualified : nonPlatform;
+  }
+
+  /// Whether [sourceUri] names a platform library, i.e. a `dart:*` import.
+  /// Platform declarations lose a same-name contest to non-platform ones.
+  static bool _isPlatformSourceUri(String? sourceUri) =>
+      sourceUri != null && sourceUri.startsWith('dart:');
 
   /// Marks [name] as imported and carries its declaring source URI across from
   /// the exporting environment, so a later import of a different class under
@@ -1791,8 +1847,16 @@ class Environment {
         if (displaced != null &&
             displaced.nativeType != bridgedClass.nativeType &&
             _importedBridgeNames.contains(name)) {
-          _markAmbiguousBridgeName(name, displaced, bridgedClass,
-              sourceEnvToImportFrom._bridgeSourceUrisRaw?[name]);
+          if (_markAmbiguousBridgeName(name, displaced, bridgedClass,
+              sourceEnvToImportFrom._bridgeSourceUrisRaw?[name])) {
+            // The incoming declaration is a `dart:*` one that the sitting
+            // non-platform declaration shadows: importing `dart:ui` after
+            // `package:flutter/widgets.dart` must not move `TextStyle`.
+            _bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] =
+                bridgedClass;
+            _invalidateResolutionCache();
+            return;
+          }
         }
         _bridgedClassesOrNew[name] = bridgedClass;
         _bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] =

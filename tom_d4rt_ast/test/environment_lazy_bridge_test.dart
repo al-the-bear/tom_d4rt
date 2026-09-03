@@ -208,6 +208,113 @@ void main() {
     });
   });
 
+  group('AMBIG-PLATFORM: a dart: declaration loses to a package: one', () {
+    // Dart's platform-library precedence: when one library is a platform
+    // (`dart:*`) library and the other is not, the non-platform declaration
+    // shadows it silently — the bare name is NOT ambiguous. `dart:ui.TextStyle`
+    // and `package:flutter/src/painting/text_style.dart`'s `TextStyle` are two
+    // different classes, yet this is legal Dart and means painting's:
+    //
+    //   import 'dart:ui';
+    //   import 'package:flutter/widgets.dart';
+    //   const TextStyle(fontSize: 24.0).copyWith(fontSize: 2.0);
+    //
+    // `copyWith` exists only on painting's TextStyle, and `dart analyze`
+    // accepts the snippet while calling the `dart:ui` import *unnecessary*.
+    // Treating the pair as ambiguous rejects every Flutter script that names a
+    // type dart:ui also declares.
+    const uiUri = 'dart:ui';
+    const paintingUri = 'package:flutter/src/painting/text_style.dart';
+
+    test('AMBIG-P1: the package declaration wins when it registers second', () {
+      final env = Environment();
+      final ui = BridgedClass(nativeType: _Widget, name: 'TextStyle');
+      final painting = BridgedClass(
+        nativeType: _OtherWidget,
+        name: 'TextStyle',
+      );
+      env.defineBridge(ui, sourceUri: uiUri);
+      env.defineBridge(painting, sourceUri: paintingUri);
+
+      expect(
+        identical(env.get('TextStyle'), painting),
+        isTrue,
+        reason: 'the non-platform declaration holds the bare name',
+      );
+    });
+
+    test('AMBIG-P2: the package declaration wins when it registers FIRST', () {
+      // Registration order is an accident of how the bridge modules are
+      // enumerated, so precedence must not depend on it.
+      final env = Environment();
+      final painting = BridgedClass(
+        nativeType: _OtherWidget,
+        name: 'TextStyle',
+      );
+      final ui = BridgedClass(nativeType: _Widget, name: 'TextStyle');
+      env.defineBridge(painting, sourceUri: paintingUri);
+      env.defineBridge(ui, sourceUri: uiUri);
+
+      expect(
+        identical(env.get('TextStyle'), painting),
+        isTrue,
+        reason: 'a later dart: registration must not steal the bare name',
+      );
+    });
+
+    test('AMBIG-P3: the shadowed dart: class stays reachable by qualifier', () {
+      // Nothing is lost by preferring the package declaration — the platform
+      // one is still addressable, exactly as `ui.TextStyle` addresses it in
+      // real Dart.
+      final env = Environment();
+      final ui = BridgedClass(nativeType: _Widget, name: 'TextStyle');
+      final painting = BridgedClass(
+        nativeType: _OtherWidget,
+        name: 'TextStyle',
+      );
+      env.defineBridge(ui, sourceUri: uiUri);
+      env.defineBridge(painting, sourceUri: paintingUri);
+
+      final qualified = env.get('ui.TextStyle');
+      expect(qualified, isA<BridgedClass>());
+      expect((qualified as BridgedClass).nativeType, _Widget);
+    });
+
+    test('AMBIG-P4: two dart: libraries remain ambiguous with each other', () {
+      // The rule is platform-vs-non-platform. Two platform libraries are peers,
+      // so the bare name has no winner and must still be rejected.
+      final env = Environment();
+      env.defineBridge(
+        BridgedClass(nativeType: _Widget, name: 'Codec'),
+        sourceUri: 'dart:convert',
+      );
+      env.defineBridge(
+        BridgedClass(nativeType: _OtherWidget, name: 'Codec'),
+        sourceUri: 'dart:ui',
+      );
+
+      expect(
+        () => env.get('Codec'),
+        throwsA(isA<AmbiguousBridgedNameException>()),
+      );
+    });
+
+    test('AMBIG-P5: platform precedence survives an import', () {
+      final source = Environment();
+      final ui = BridgedClass(nativeType: _Widget, name: 'TextStyle');
+      final painting = BridgedClass(
+        nativeType: _OtherWidget,
+        name: 'TextStyle',
+      );
+      source.defineBridge(ui, sourceUri: uiUri);
+      source.defineBridge(painting, sourceUri: paintingUri);
+
+      final target = Environment()..importEnvironment(source);
+
+      expect(identical(target.get('TextStyle'), painting), isTrue);
+    });
+  });
+
   group('IMP-OPT-17: N-of-M lazy materialization (build counter)', () {
     test(
         'IMP-OPT-17a: resolving N of M registered thunks builds exactly N',
