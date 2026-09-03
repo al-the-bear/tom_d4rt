@@ -27,16 +27,18 @@ Class-level coverage is audited by hand; **member-level** and
   invisible to the member diff. It costs the entire inherited surface at
   once, makes `is` and `on` answer wrongly, and is one line to fix rather
   than N adapters — `LinkedList` fell from 27 unreachable members to 2 when
-  its `-> Iterable` edge was declared. A mechanical cross-reference over all
+  its `-> Iterable` edge was declared, and those last two (`addAll`,
+  `addFirst`, the only members that are LinkedList's own) were then written by
+  hand, so the class now measures complete. A mechanical cross-reference over all
   180 classes (`--hierarchy`) opened at **35 missing edges across 23
   classes**, concentrated in `dart:convert`; the `dart:typed_data` and
   `dart:convert` blocks are now declared and the count stands at **4 edges
   across 3 classes** (`String`, `Duration`, `StreamController`). Read the
   hierarchy audit before treating any member-gap count as a work estimate.
 - **Gaps are member-level as well as class-level.** A mechanical member
-  diff over all 180 registered classes
-  (`tool/stdlib_member_diff.dart`) confirms **163 unreachable members
-  spread across 38 classes** that this audit otherwise counts as
+  diff over all 181 registered classes
+  (`tool/stdlib_member_diff.dart`) confirms **36 unreachable members
+  spread across 22 classes** that this audit otherwise counts as
   bridged. Member-level coverage must therefore be measured, not
   spot-checked: a spot-check cannot distinguish a fully registered class
   from a **partially** registered one, because it passes as soon as it
@@ -110,9 +112,11 @@ unreachable for *instance* members — instance lookups fall back through
 the supertype chain. That fallback is **not uniform**, though
 (`Uint8List.sort` resolved while `HashSet.difference` did not), so the
 static diff cannot predict it either. Only the interpreter is a valid
-oracle. In the current run, **156 of 618** raw candidates turn out to be
-reachable via fallback — a 25 % false-positive rate that a single-phase
-tool would report as gaps.
+oracle. In the current run, **315 of 616** raw candidates turn out to be
+reachable via fallback — a 51 % false-positive rate that a single-phase
+tool would report as gaps. That share has grown as edges were declared,
+which is the point: every edge added moves candidates from "confirmed
+gap" to "reachable anyway" without a line of adapter code being written.
 
 Two traps to respect when extending the tool, because either one yields
 a plausible-looking wrong number:
@@ -135,16 +139,16 @@ silently counted either way. Closing that bucket means adding recipes to
 
 ### Current measured state
 
-Measured 2026-07-28.
+Measured 2026-09-04.
 
 | Metric | Count |
 |--------|-------|
-| Bridged classes examined | 180 |
-| Raw candidates from the map diff | 620 |
-| … reachable anyway via instance fallback | 192 |
+| Bridged classes examined | 181 |
+| Raw candidates from the map diff | 616 |
+| … reachable anyway via instance fallback | 315 |
 | … unverified (no instance recipe) | 265 |
-| **CONFIRMED unreachable** | **163** |
-| Classes with ≥ 1 confirmed gap | 38 |
+| **CONFIRMED unreachable** | **36** |
+| Classes with ≥ 1 confirmed gap | 22 |
 
 The **Disposition** column is not decoration — see
 [the disposition rule](#recommended-next-actions). Every row must name where
@@ -153,20 +157,18 @@ unattributed observation.
 
 | Class | Confirmed | Instance | Static | Assessment | Disposition |
 | --- | --- | --- | --- | --- | --- |
-| 10 × shared typed lists | 12 each | 12 | 0 | **Not a gap** — these are the length-*changing* `List` mutators (`add`, `insert`, `remove`, `clear`, …). A fixed-length list must refuse them. See the note below on the *error type*. | SCC9 (error type) |
 | `Queue` / `ListQueue` | 4 / 2 | 3 / 2 | 1 / 0 | Genuine gap — the `remove`/`removeWhere`/`retainWhere` mutators, plus `Queue.castFrom`. | SCC10 |
-| `RangeError`, `ArgumentError`, `IndexError`, `Error` | 4, 1, 1, 1 | 0 | all | Genuine gap — the static validation helpers (`checkValidRange`, `checkNotNull`, `throwWithStackTrace`, …). | SCC11 |
-| `Iterable`, `Map`, `Set`, `Converter`, `LineSplitter` | 1–3 | 0 | all | The `castFrom` family plus `iterableToShortString`/`iterableToFullString`. Low traffic. | SCC10 / SCC11 |
-| `ByteBuffer` | 3 | 3 | 0 | The three SIMD views (`asFloat32x4List`, `asInt32x4List`, `asFloat64x2List`). This row **understated the finding** — see [Notes on the SIMD block](#notes-on-the-simd-block); it is nine names, not three. | **Boundary** — [limitations doc](d4rt_limitations.md#intentionally-unbridged-sdk-classes) + `F-SCB29-1..4` |
-| `LinkedList` | 2 | 2 | 0 | `addAll`, `addFirst`. Was 27 before the `-> Iterable` edge existed; see below. | SCC8 |
+| `RangeError`, `ArgumentError`, `IndexError`, `Error` | 4, 1, 1, 1 | 0 | all | Genuine gap — the static validation helpers (`checkValidRange`/`checkValidIndex`/`checkNotNegative`/`checkValueInInterval`, `checkNotNull`, `check`, `throwWithStackTrace`). | SCC11 |
+| `Iterable`, `Map`, `Set`, `Converter`, `LineSplitter` | 3, 1, 1, 1, 1 | 0 | all | The `castFrom` family plus `iterableToShortString`/`iterableToFullString` and `LineSplitter.split`. Low traffic. | SCC10 / SCC11 |
+| `ByteBuffer` | 3 | 3 | 0 | The three SIMD views (`asFloat32x4List`, `asInt32x4List`, `asFloat64x2List`). This row **understates the finding** — see [Notes on the SIMD block](#notes-on-the-simd-block); it is nine names, not three. | **Boundary** — [limitations doc](d4rt_limitations.md#intentionally-unbridged-sdk-classes) + `F-SCB29-1..4` |
 | `SplayTreeMap` | 2 | 2 | 0 | `firstKeyAfter`, `lastKeyBefore` — the type's distinguishing ordered-navigation pair. | SCC50 |
-| 4 × `Codec` (`Utf8`, `Ascii`, `Latin1`, `Encoding`) | 1 each | 1 | 0 | `decodeStream`. **Stale as printed** — SCB23 added the `EncodingConvert` adapter and the `-> Encoding` edges, and `utf8.decodeStream(...)` was re-probed working on 2026-09-03. The row survives only because the table has not been re-measured since. | Re-measure: SCC12 / SCC13 |
-| `Enum`, `Symbol`, `ProcessStartMode`, `String`, … | 1–2 | mixed | mixed | Long tail: `compareByIndex`/`compareByName`, `Symbol.empty`, `values`, `matchAsPrefix`. | SCC11 (`String.matchAsPrefix`: SCC56) |
+| `Enum`, `Symbol`, `ProcessStartMode` | 2, 2, 1 | 0 | all | Statics: `compareByIndex`/`compareByName`, `Symbol.empty`/`unaryMinus`, `values`. | SCC11 |
+| `String`, `StreamSubscription`, `ProcessSignal`, `InternetAddressType` | 1 each | 1 | 0 | Instance long tail: `matchAsPrefix`, `asFuture`, `signalNumber`, `name`. | SCC11 (`String.matchAsPrefix`: SCC56) |
 | `unawaited`, `FileSystemEntityType.NOT_FOUND` | 1 each | — | — | **Tool artifacts.** `unawaited` is a function, not a class, so its `Function` surface is diffed; `NOT_FOUND` is a deprecated SDK alias. | SCC11 (suppress in the tool) |
 
-**A supertype edge is worth ~25 adapters.** The three largest en-bloc
-entries in the previous revision of this table are gone, and none of them was
-fixed by writing adapters. `LinkedList` fell from 27 confirmed gaps to 2, and
+**A supertype edge is worth ~25 adapters.** The largest en-bloc entries earlier
+revisions of this table carried are gone, and almost none of them was fixed by
+writing adapters. `LinkedList` fell from 27 confirmed gaps to 2, and
 `SplayTreeMap` from 8 to 2, when `CollectionHierarchyCollection` gained their
 `-> Iterable` and `-> Map` edges; `UnmodifiableListView` fell from 3 to 0 the
 same way. That is the quantified case for auditing the hierarchy *before*
@@ -175,14 +177,58 @@ member table by the whole inherited surface, and reading those rows as
 "members to write" would have prescribed roughly 38 adapters where three
 lines of registry were the actual fix.
 
-**The typed-list residue is a wrong-error-type problem, not a gap.** The
-120 entries are correct to fail — but they currently fail with
-*"Bridged class 'Float32List' has no instance method named 'add'"* rather
-than the SDK's `UnsupportedError`. A script that defensively writes
-`try { … } on UnsupportedError { … }` therefore does not catch it. The fix
-is the same one the `UnmodifiableMapView` note below describes: register
-the member and let the native list raise, rather than leaving it
-unregistered.
+The corollary is that a class the edges reduce to a small residue is usually
+worth finishing by hand, because what survives an edge is exactly the set of
+members the class does **not** inherit — its own. `LinkedList`'s residue was
+`addAll` and `addFirst`, both of which `LinkedList` declares itself, and both
+now bridged; the class measures complete and is no longer in the table.
+
+**The typed-list mutators no longer appear here, and are no longer a
+wrong-error-type problem either.** The 120 length-changing `List` mutators
+(`add`, `insert`, `remove`, `clear`, …) on the ten shared typed lists are
+correct to fail, and they now fail correctly: they resolve through the `-> List`
+edge to the native fixed-length list, which raises the SDK's `UnsupportedError`,
+so a script's `on UnsupportedError` catches it. Re-probed 2026-09-04 with
+`Float32List(2).add(1.0)`. That is the resolution the `UnmodifiableMapView` note
+below prescribes — register (or inherit) the member and let the native raise —
+arrived at through the hierarchy edge rather than through 120 adapters.
+
+### The other half of the diff: `extraBridged`
+
+The tool also reports the opposite direction — members the *bridge* offers that
+the mirror of the native type does not declare. **This is not a defect list**,
+and reading it as one would delete correct bridges. Measured 2026-09-04, its 32
+entries across 16 classes fall into three groups, and only the third is wrong:
+
+| Group | Count | Entries | Verdict |
+| --- | --- | --- | --- |
+| Real Dart **extension** members | 15 | `firstOrNull`/`lastOrNull`/`singleOrNull`/`elementAtOrNull`/`indexed` on `Iterable` and `List`, `List.byName`, `Enum.name`, `Future.ignore`/`onError`, `Function.call` | **Correct** — the bridge is right and the oracle is blind |
+| Declared conveniences | 13 | `FileSystemEvent.isCreate`/`isModify`/`isDelete`/`isMove`; `asUint8ListView` on the nine non-`Uint8List` typed lists | **Correct** — each is commented as deliberate at its definition |
+| Fabricated members | 4 | `InternetAddressType.host`/`address`/`type`/`lookup` | **Defect** — see below |
+
+**The oracle cannot see extension members**, because `dart:mirrors` reports
+declarations on the type and an extension declares nothing on it. So every
+extension member a bridge correctly offers arrives in `extraBridged`. Verify
+before acting on an entry: `dart analyze` a one-liner using the member on the
+native type. That is how the 15 above were cleared.
+
+**`InternetAddressType` is the one real finding.** Its four extra members are
+not merely absent from the SDK, they are wired to unrelated `Object` members —
+`host` returns `.name`, `address` returns `.hashCode`, `type` returns
+`.runtimeType`, `lookup` returns `toString()`. A script reading
+`type.address` gets a hash code and no error. See
+`lib/src/stdlib/io/socket.dart`.
+
+**A member the SDK lacks is the one bridge defect no test can catch by
+itself.** It makes every script that uses it pass here and fail to compile as
+Dart, and nothing notices until the script moves. `LinkedList.removeFirst` was
+such an entry — `Queue` has it, `LinkedList` does not — and removing it is why
+the class no longer appears in `extraBridged`. Because deletion cannot be
+protected by a passing assertion, the absence is pinned by a case that asserts
+the `NoSuchMethodError`: `F-SCC8-5` in
+`test/stdlib/collection/linked_list_test.dart`. Do the same for any convenience
+removed from this list, or it will be reinstated by the next reader who assumes
+the omission was an oversight.
 
 ## Hierarchy gaps — the supertype-edge audit
 

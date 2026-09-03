@@ -1,3 +1,22 @@
+## 0.21.0
+
+Mirrors `tom_d4rt` 1.31.0.
+
+### Added — `LinkedList.addAll` and `LinkedList.addFirst`
+
+The last two unreachable members of `LinkedList`, and the only two that had to be
+written by hand — the other 25 arrive through the `LinkedList -> Iterable` edge.
+`addAll` validates and materialises its argument before linking any entry, so a
+lazy iterable derived from the same list cannot mutate what it is iterating and a
+bad element cannot leave a half-applied `addAll`.
+
+### Removed — `LinkedList.removeFirst`, which Dart's `LinkedList` does not have
+
+**Script-visible break.** `list.removeFirst()` now raises a `NoSuchMethodError`.
+The member does not exist on Dart's `LinkedList` (`Queue` has it), so scripts
+using it ran here and would not compile as Dart. Replace it with
+`list.first.unlink()`, which was already bridged.
+
 ## 0.20.1
 
 Mirrors `tom_d4rt` 1.30.1.

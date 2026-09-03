@@ -1,6 +1,20 @@
 import 'dart:collection';
 import 'package:tom_d4rt/d4rt.dart';
 
+/// `LinkedList` bridges only the members that are LinkedList's OWN.
+///
+/// The whole `Iterable` surface — 25 members, from `map` and `where` down to
+/// `iterator` and `toList` — is reachable through the `LinkedList -> Iterable`
+/// edge registered by `CollectionHierarchyCollection`, not through adapters
+/// here. Do not add an adapter for an inherited member: it shadows the
+/// fallback with a second implementation that then has to be kept correct.
+///
+/// `removeFirst` is DELIBERATELY ABSENT. Dart's `LinkedList` has no such
+/// member — `Queue` does, which is where the expectation comes from — and the
+/// portable way to drop the head is `list.first.unlink()`. Bridging it made
+/// scripts that used it run here and fail to compile as Dart, which is the one
+/// class of bridge defect no test can catch by itself; F-SCC8-5 in
+/// `test/stdlib/collection/linked_list_test.dart` pins the absence.
 class LinkedListCollection {
   static BridgedClass get definition => BridgedClass(
         nativeType: LinkedList,
@@ -26,7 +40,50 @@ class LinkedListCollection {
               return null;
             }
             throw RuntimeD4rtException(
-                "Invalid arguments for LinkedList.add. Expected a BridgedLinkedListEntry.");
+                "Invalid arguments for LinkedList.add. Expected a LinkedListEntry.");
+          },
+          'addAll': (visitor, target, positionalArgs, namedArgs, _) {
+            if (target is LinkedList<BridgedLinkedListEntry> &&
+                positionalArgs.length == 1 &&
+                positionalArgs[0] is Iterable &&
+                namedArgs.isEmpty) {
+              // Validate and materialise BEFORE linking anything. Two reasons,
+              // both about the argument being lazy: `LinkedList.addAll` links
+              // each entry as it walks, so an iterable derived from this same
+              // list would mutate what it is iterating; and a bad element part
+              // way in would otherwise leave a half-applied addAll, a state no
+              // program the Dart compiler accepts can reach.
+              final entries = <BridgedLinkedListEntry>[];
+              for (final element in positionalArgs[0] as Iterable) {
+                // Elements INSIDE an interpreted collection arrive wrapped;
+                // single positional arguments do not, which is why `add` and
+                // `addFirst` need no unwrapping and this does.
+                final entry =
+                    element is BridgedInstance ? element.nativeObject : element;
+                if (entry is! BridgedLinkedListEntry) {
+                  throw RuntimeD4rtException(
+                      "Invalid arguments for LinkedList.addAll. Expected an "
+                      "Iterable of LinkedListEntry, found "
+                      "'${entry.runtimeType}'.");
+                }
+                entries.add(entry);
+              }
+              target.addAll(entries);
+              return null;
+            }
+            throw RuntimeD4rtException(
+                "Invalid arguments for LinkedList.addAll. Expected an Iterable of LinkedListEntry.");
+          },
+          'addFirst': (visitor, target, positionalArgs, namedArgs, _) {
+            if (target is LinkedList<BridgedLinkedListEntry> &&
+                positionalArgs.length == 1 &&
+                positionalArgs[0] is BridgedLinkedListEntry &&
+                namedArgs.isEmpty) {
+              target.addFirst(positionalArgs[0] as BridgedLinkedListEntry);
+              return null;
+            }
+            throw RuntimeD4rtException(
+                "Invalid arguments for LinkedList.addFirst. Expected a LinkedListEntry.");
           },
           'remove': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedList<BridgedLinkedListEntry> &&
@@ -36,7 +93,7 @@ class LinkedListCollection {
               return target.remove(positionalArgs[0] as BridgedLinkedListEntry);
             }
             throw RuntimeD4rtException(
-                "Invalid arguments for LinkedList.remove. Expected a BridgedLinkedListEntry.");
+                "Invalid arguments for LinkedList.remove. Expected a LinkedListEntry.");
           },
           'clear': (visitor, target, positionalArgs, namedArgs, _) {
             if (target is LinkedList<BridgedLinkedListEntry> &&
@@ -46,20 +103,6 @@ class LinkedListCollection {
               return null;
             }
             throw RuntimeD4rtException("Invalid arguments for LinkedList.clear");
-          },
-          'removeFirst': (visitor, target, positionalArgs, namedArgs, _) {
-            if (target is LinkedList<BridgedLinkedListEntry> &&
-                positionalArgs.isEmpty &&
-                namedArgs.isEmpty) {
-              if (target.isEmpty) {
-                throw RuntimeD4rtException(
-                    "Cannot removeFirst from an empty LinkedList.");
-              }
-              final firstEntry = target.first;
-              firstEntry.unlink();
-              return firstEntry;
-            }
-            throw RuntimeD4rtException("Invalid arguments for LinkedList.removeFirst");
           },
         },
         getters: {

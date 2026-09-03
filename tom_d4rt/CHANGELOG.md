@@ -1,3 +1,67 @@
+## 1.31.0
+
+### Added — `LinkedList.addAll` and `LinkedList.addFirst`
+
+These were the last two members of `LinkedList` a script could not reach. They
+are also the only two it *had* to be given by hand: everything else on the class
+— all 25 members from `map` and `where` down to `iterator` and `toList` — is
+inherited from `Iterable` and became reachable when
+`CollectionHierarchyCollection` declared the `LinkedList -> Iterable` edge. What
+survives a supertype edge is exactly the set of members the class declares
+itself, and for `LinkedList` that set was `addAll` and `addFirst`.
+
+`addAll` validates and materialises its argument **before** linking anything,
+which matters for two reasons that both come from the argument being lazy:
+
+- `LinkedList.addAll` links each entry as it walks, so an iterable derived from
+  the same list would mutate what it is iterating.
+- A bad element part way in would otherwise leave a half-applied `addAll` — some
+  entries linked, some not. No program the Dart compiler accepts can reach that
+  state, since it rejects a non-`LinkedListEntry` element statically, so
+  validating up front costs nothing and removes the state here too.
+
+### Removed — `LinkedList.removeFirst`, which Dart's `LinkedList` does not have
+
+**This is a script-visible break.** A script calling `list.removeFirst()` now
+gets a `NoSuchMethodError` where it previously worked. That is the point: the
+member does not exist on `LinkedList` in Dart — `Queue` has it, which is where
+the expectation comes from — so every script using it ran here and would not
+compile as Dart. Bridging a member the SDK lacks is the one class of bridge
+defect no passing test can catch, because it makes the wrong script green.
+
+The portable replacement is one call:
+
+```dart
+list.first.unlink();   // instead of list.removeFirst()
+```
+
+`unlink()` is what `dart:collection` documents for detaching an entry, and it
+was already bridged, so the migration is mechanical and needs no new API.
+
+Because a deletion cannot be protected by an assertion that passes, the absence
+is pinned by one that fails on reinstatement: `F-SCC8-5` in
+`test/stdlib/collection/linked_list_test.dart` asserts the `NoSuchMethodError`.
+`I-COLL-42` continues to assert the same head-removal behaviour it always did,
+now through `list.first.unlink()`.
+
+### Documentation — the gap audit's measured state, and what `extraBridged` means
+
+`doc/stdlib_sdk_gap_audit.md` was re-measured (2026-09-04): **36 confirmed
+unreachable members across 22 classes**, down from the 163 across 38 the table
+carried, with `LinkedList` gone from it entirely. Most of that fall is edges
+rather than adapters — 315 of 616 raw candidates now resolve through instance
+fallback, and the 120 typed-list length mutators reach the native fixed-length
+list and raise the SDK's `UnsupportedError`, which a script can catch.
+
+The audit also gained a section on the diff's other direction. `extraBridged` is
+**not** a defect list: of its 32 entries, 15 are real Dart *extension* members
+the mirror-based oracle structurally cannot see (`firstOrNull`, `indexed`,
+`Enum.name`, `Future.ignore`, …) and 13 are conveniences commented as deliberate
+at their definition. Four are genuinely fabricated —
+`InternetAddressType.host`/`address`/`type`/`lookup`, wired to unrelated `Object`
+members, so `type.address` returns a hash code — and are recorded there as an
+open finding.
+
 ## 1.30.1
 
 ### Fixed — a `dart:*` declaration no longer makes a package declaration's bare name ambiguous
