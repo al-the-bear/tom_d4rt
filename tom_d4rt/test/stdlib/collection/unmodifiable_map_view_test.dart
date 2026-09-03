@@ -14,6 +14,13 @@ import 'package:tom_d4rt/d4rt.dart';
 /// `RuntimeD4rtException` message: the bridge must keep *delegating* mutators to
 /// the native view instead of intercepting them, or scripts that catch the SDK
 /// error type today would silently stop catching it.
+///
+/// `F-SC3-9` asserts the `Map` SUPERTYPE as well as the exact type, on the view
+/// and on the plain map it wraps. Supertype `is` is a different mechanism from
+/// exact-type `is` — it resolves through a registered edge in the bridge
+/// hierarchy rather than by matching a name — so a case that only checked
+/// `view is UnmodifiableMapView` passes with every supertype edge missing, which
+/// is the state `dart:collection` was in when this bridge was added.
 void main() {
   final d4rt = D4rt();
 
@@ -135,11 +142,18 @@ void main() {
     });
 
     test('F-SC3-9: an unmodifiable view is type-testable [2026-07-27]', () {
+      // The exact type and the `Map` supertype are both testable. The
+      // supertype half used to be a characterized gap (`is Map` was false for
+      // every bridged `dart:collection` map, `HashMap` and `SplayTreeMap`
+      // included) and is asserted here now that it holds — a view is a `Map`,
+      // and so is the plain map it wraps, while only the view is an
+      // `UnmodifiableMapView`.
       final result = d4rt.execute(
         source: viewSource("{'a': 1}",
-            'return [view is UnmodifiableMapView, view is Map, source is UnmodifiableMapView];'),
+            'return [view is UnmodifiableMapView, source is UnmodifiableMapView, '
+                'view is Map, source is Map];'),
       ) as List;
-      expect(result, orderedEquals([true, true, false]));
+      expect(result, orderedEquals([true, false, true, true]));
     });
 
     test('F-SC3-10: Map.unmodifiable() results are the same bridged type [2026-07-27]',

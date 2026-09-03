@@ -33,11 +33,15 @@
 // existing backlog is a separate, owned remediation, and porting it is how these
 // lists shrink — never by relaxing the comparison.
 //
-// MEASURED 2026-09-03 on mbp: reference 185 test files, exec 171, tom_d4rt_ast
-// 54. Forty-five reference files have no same-path counterpart in exec; 27 are
-// covered elsewhere, 18 are genuinely uncovered (159 cases). Of the 140 files
-// present in both trees, 33 differ by more than the one import line the port
-// recipe legitimately rewrites.
+// MEASURED 2026-09-04 on mbp, after SCC7's ports: reference 185 test files, exec
+// 176, tom_d4rt_ast 54. Forty reference files have no same-path counterpart in
+// exec; 27 are covered elsewhere, 13 are genuinely uncovered (121 cases). Of the
+// 145 files present in both trees, 30 differ by more than the one import line the
+// port recipe legitimately rewrites.
+//
+// Those figures are a snapshot for orientation only — the BASELINES below are the
+// authority, because they are the thing a failing test forces someone to update.
+// A count in a comment is exactly the artifact this guard exists to replace.
 //
 // EQUIVALENCES ARE RECORDED, NEVER INFERRED. A normaliser that matched
 // `dfub1_*` to `dgub3_*` would be right; one that matched `dfub1_*` to nothing
@@ -203,8 +207,18 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// closed by porting, and the case count is the size of the hole. Removing an
 /// entry is only correct once the file has a counterpart; the test then confirms
 /// it. Adding an entry is only correct for a file that genuinely cannot be
-/// ported, and no such file has been found yet — every one of these 18 is
-/// portable in principle.
+/// ported, and no such file has been found yet — every one of these is portable
+/// in principle.
+///
+/// SCC7 closed five entries at once (`html_escape`, `stdio_type`,
+/// `typed_list_inherited_members`, `member_gap` and the
+/// `scb7_bridged_collection_supertype_is` matrix), and the way it did so is the
+/// precondition worth knowing before closing any of the rest: it first confirmed
+/// that the PUBLISHED `tom_d4rt_ast` was byte-identical to the working tree
+/// (`diff -rq ~/.pub-cache/hosted/pub.dev/tom_d4rt_ast-VERSION/lib
+/// ../tom_d4rt_ast/lib`). exec resolves that package from pub.dev (DGUC6), so a
+/// port made while the trees differ certifies a version nobody is running and
+/// fails for reasons that read as migration bugs. Run the diff first.
 const Map<String, int> _uncoveredBaseline = {
   '_conway_perf_probe_test.dart': 1,
   'bridge/bridged_setter_unwrap_test.dart': 3,
@@ -217,13 +231,8 @@ const Map<String, int> _uncoveredBaseline = {
   'scb11_symbol_literal_test.dart': 11,
   'scb14_await_receiver_position_test.dart': 12,
   'scb17_map_set_inherited_surface_test.dart': 7,
-  'scb7_bridged_collection_supertype_is_test.dart': 11,
   'scb9_error_handler_arity_test.dart': 14,
-  'stdlib/convert/html_escape_test.dart': 7,
   'stdlib/convert/json_named_constructors_test.dart': 13,
-  'stdlib/io/stdio_type_test.dart': 5,
-  'stdlib/member_gap_test.dart': 8,
-  'stdlib/typed_data/typed_list_inherited_members_test.dart': 7,
 };
 
 /// Files present in BOTH trees whose content differs by more than the one
@@ -233,11 +242,11 @@ const Map<String, int> _uncoveredBaseline = {
 /// respect: it looks covered. The name is on both sides, both suites are green,
 /// and the two trees are being asserted to behave differently.
 ///
-/// Also a baseline, for the same reason as [_uncoveredBaseline] — 33 files
-/// diverge today and only a handful have a known cause, so failing on all of
-/// them would take the suite red immediately. The value is that number 34 fails.
-/// Each entry is a per-file question — is the reference tree right, or is exec? —
-/// and answering one means deleting its entry, not annotating it.
+/// Also a baseline, for the same reason as [_uncoveredBaseline] — too many files
+/// diverge for a hard failure to be useful, and only a handful have a known
+/// cause. The value is that the NEXT one fails. Each entry is a per-file
+/// question — is the reference tree right, or is exec? — and answering one means
+/// deleting its entry, not annotating it.
 ///
 /// Three causes are known and are NOT defects:
 ///   * `interpreter_test.dart` is each package's own helper over its own
@@ -246,6 +255,16 @@ const Map<String, int> _uncoveredBaseline = {
 ///     which interpreter it exercises.
 ///   * `stdlib/intentionally_unbridged_test.dart` records what each tree
 ///     deliberately does not bridge, which is not the same set.
+///
+/// SCC7 converged three entries and one of them went the UNEXPECTED WAY, which
+/// is worth knowing before assuming the reference tree wins: exec's
+/// `unmodifiable_map_view` asserted MORE than tom_d4rt's — four values including
+/// the `source is Map` supertype edge against tom_d4rt's three — so it was
+/// mirrored UPSTREAM into tom_d4rt rather than overwritten. Two others
+/// (`unmodifiable_list_view`, `async/stream_consumer`) were exec copies
+/// deliberately pinned to pre-publish behaviour and were overwritten from
+/// tom_d4rt once the publish made the newer assertions true. Direction is a
+/// per-file finding, not a rule.
 const Set<String> _divergentBaseline = {
   '_c21_null_short_test.dart',
   '_plan_e2_static_in_closure_test.dart',
@@ -274,9 +293,6 @@ const Set<String> _divergentBaseline = {
   'open_issues/b1_redirecting_factory_test.dart',
   'open_issues/b5_bridged_exception_catch_test.dart',
   'open_issues/b9_static_field_sibling_write_test.dart',
-  'stdlib/async/stream_consumer_test.dart',
-  'stdlib/collection/unmodifiable_list_view_test.dart',
-  'stdlib/collection/unmodifiable_map_view_test.dart',
   'stdlib/intentionally_unbridged_test.dart',
   'stdlib/typed_data/byte_data_test.dart',
   'warm_parent_package_pool_test.dart',

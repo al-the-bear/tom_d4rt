@@ -1,25 +1,6 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
-/// This file is DELIBERATELY one revision behind its tom_d4rt twin.
-///
-/// The bridge's mutating members were changed to delegate to the native view so
-/// that a mutation attempt raises the SDK's own `UnsupportedError` and a script
-/// can catch it with `on UnsupportedError` — matching the map/set view bridges
-/// and the `dart:collection` contract. The tom_d4rt copy of this suite already
-/// asserts that shape.
-///
-/// This copy still asserts the OLD shape (a `RuntimeD4rtException` whose message
-/// mentions the unsupported operation) because tom_d4rt_exec resolves
-/// tom_d4rt_ast from pub.dev rather than from the sibling checkout, and the
-/// published version still intercepts. Rewriting these assertions before that
-/// republish would leave them failing against a bridge that has not changed yet,
-/// and the failure would read as a bad fix rather than a stale dependency.
-///
-/// WHEN tom_d4rt_ast IS REPUBLISHED and the constraint here is bumped, these 21
-/// mutation tests go red. That is expected: at that point port the tom_d4rt
-/// version of this file (helper included) rather than repairing the assertions
-/// one by one.
 void main() {
   final d4rt = D4rt();
 
@@ -32,18 +13,6 @@ void main() {
       return d4rt.execute(source: source);
     }
 
-    void expectUnsupportedError(Function() action) {
-      expect(
-          action,
-          throwsA(isA<RuntimeD4rtException>().having(
-              (e) => e.message,
-              'message',
-              anyOf(contains('Unsupported operation'),
-                  contains('Cannot modify'), contains('Cannot change')))),
-          reason:
-              "Should throw RuntimeError encapsulating an unmodifiable list error");
-    }
-
     String unmodifiableListViewSource(String listContents, String operations) {
       return '''
         import 'dart:collection';
@@ -53,6 +22,35 @@ void main() {
           $operations
         }
       ''';
+    }
+
+    /// Asserts that `mutation` fails with the SDK's own `UnsupportedError`, as
+    /// observed from *inside* the script.
+    ///
+    /// Catchability is the assertion rather than an exception message because
+    /// the bridge delegates mutators to the native view: what a script sees is
+    /// the `dart:collection` contract, and `on UnsupportedError` is how that
+    /// contract says to catch it. Matching on a `RuntimeD4rtException` message
+    /// instead — as this suite used to — passes for a bridge that intercepts
+    /// the mutation and never lets the SDK error escape, which is precisely the
+    /// behaviour that must not come back.
+    ///
+    /// `wrong-type` distinguishes "threw something else" from `no-throw`, so a
+    /// regression says which of the two ways it broke.
+    void expectUnsupportedError(String listContents, String mutation) {
+      final result = d4rt.execute(
+        source: unmodifiableListViewSource(listContents, '''
+          try {
+            $mutation
+          } on UnsupportedError catch (e) {
+            return 'unsupported';
+          } catch (e) {
+            return 'wrong-type';
+          }
+          return 'no-throw';
+        '''),
+      );
+      expect(result, 'unsupported', reason: 'for mutation `$mutation`');
     }
 
     test('I-COLL-105: Constructor and basic getters. [2026-02-10 06:37] (PASS)', () {
@@ -131,121 +129,108 @@ void main() {
     });
 
     test('I-COLL-84: Attempt []= (setter). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable[0] = 100;')));
+      expectUnsupportedError('[1, 2, 3]', 'unmodifiable[0] = 100;');
     });
 
     test('I-COLL-85: Attempt length = (setter). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.length = 5;')));
+      expectUnsupportedError('[1, 2, 3]', 'unmodifiable.length = 5;');
     });
 
     test('I-COLL-86: Attempt first = (setter). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.first = 0;')));
+      expectUnsupportedError('[1, 2, 3]', 'unmodifiable.first = 0;');
     });
 
     test('I-COLL-87: Attempt last = (setter). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.last = 0;')));
+      expectUnsupportedError('[1, 2, 3]', 'unmodifiable.last = 0;');
     });
 
     test('I-COLL-88: Attempt add(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.add(4);')));
+      expectUnsupportedError('[1, 2, 3]', 'unmodifiable.add(4);');
     });
 
     test('I-COLL-89: Attempt addAll(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource(
-              '[1, 2, 3]', 'unmodifiable.addAll([4, 5]);')));
+      expectUnsupportedError('[1, 2, 3]', 'unmodifiable.addAll([4, 5]);');
     });
 
     test('I-COLL-90: Attempt clear(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.clear();')));
+      expectUnsupportedError('[1, 2, 3]', 'unmodifiable.clear();');
     });
 
     test('I-COLL-91: Attempt insert(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource(
-              '[1, 2, 3]', 'unmodifiable.insert(1, 10);')));
+      expectUnsupportedError('[1, 2, 3]', 'unmodifiable.insert(1, 10);');
     });
 
     test('I-COLL-92: Attempt insertAll(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource(
-              '[1, 2, 3]', 'unmodifiable.insertAll(1, [10, 11]);')));
+      expectUnsupportedError('[1, 2, 3]', 'unmodifiable.insertAll(1, [10, 11]);');
     });
 
     test('I-COLL-93: Attempt remove(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource('[1, 2, 3]', 'unmodifiable.remove(2);')));
+      expectUnsupportedError('[1, 2, 3]', 'unmodifiable.remove(2);');
     });
 
     test('I-COLL-94: Attempt removeAt(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource(
-              '[1, 2, 3]', 'unmodifiable.removeAt(0);')));
+      expectUnsupportedError('[1, 2, 3]', 'unmodifiable.removeAt(0);');
     });
 
     test('I-COLL-95: Attempt removeLast(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource(
-              '[1, 2, 3]', 'unmodifiable.removeLast();')));
+      expectUnsupportedError('[1, 2, 3]', 'unmodifiable.removeLast();');
     });
 
     test('I-COLL-96: Attempt removeRange(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource(
-              '[1, 2, 3, 4]', 'unmodifiable.removeRange(1, 3);')));
+      expectUnsupportedError('[1, 2, 3, 4]', 'unmodifiable.removeRange(1, 3);');
     });
 
     test('I-COLL-97: Attempt removeWhere(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource(
-              '[1, 2, 3, 4]', 'unmodifiable.removeWhere((e) => e % 2 == 0);')));
+      expectUnsupportedError(
+          '[1, 2, 3, 4]', 'unmodifiable.removeWhere((e) => e % 2 == 0);');
     });
 
     test('I-COLL-98: Attempt replaceRange(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource(
-              '[1, 2, 3, 4]', 'unmodifiable.replaceRange(1, 3, [8, 9]);')));
+      expectUnsupportedError(
+          '[1, 2, 3, 4]', 'unmodifiable.replaceRange(1, 3, [8, 9]);');
     });
 
     test('I-COLL-99: Attempt retainWhere(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource(
-              '[1, 2, 3, 4]', 'unmodifiable.retainWhere((e) => e % 2 == 0);')));
+      expectUnsupportedError(
+          '[1, 2, 3, 4]', 'unmodifiable.retainWhere((e) => e % 2 == 0);');
     });
 
     test('I-COLL-100: Attempt fillRange(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource(
-              '[1, 2, 3, 4]', 'unmodifiable.fillRange(1, 3, 9);')));
+      expectUnsupportedError('[1, 2, 3, 4]', 'unmodifiable.fillRange(1, 3, 9);');
     });
 
     test('I-COLL-101: Attempt setAll(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource(
-              '[1, 2, 3, 4]', 'unmodifiable.setAll(1, [8,9]);')));
+      expectUnsupportedError('[1, 2, 3, 4]', 'unmodifiable.setAll(1, [8,9]);');
     });
 
     test('I-COLL-102: Attempt setRange(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource(
-              '[1, 2, 3, 4]', 'unmodifiable.setRange(1, 3, [8, 9, 10], 1);')));
+      expectUnsupportedError(
+          '[1, 2, 3, 4]', 'unmodifiable.setRange(1, 3, [8, 9, 10], 1);');
     });
 
     test('I-COLL-103: Attempt shuffle(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource(
-              '[1, 2, 3, 4]', 'unmodifiable.shuffle();')));
+      expectUnsupportedError('[1, 2, 3, 4]', 'unmodifiable.shuffle();');
     });
 
     test('I-COLL-104: Attempt sort(). [2026-02-10 06:37] (PASS)', () {
-      expectUnsupportedError(() => executeAndGetResult(
-          unmodifiableListViewSource('[3, 1, 2]', 'unmodifiable.sort();')));
+      expectUnsupportedError('[3, 1, 2]', 'unmodifiable.sort();');
+    });
+
+    test(
+        'I-COLL-283: a mutation attempt does not disturb the backing list [2026-07-28]',
+        () {
+      // The delegating mutators hand the call to the native view, so this pins
+      // that the SDK rejects the write *before* applying it — an interception
+      // bridge could not get this wrong, but a delegating one that reached for
+      // the wrong receiver could.
+      final result = executeAndGetList(unmodifiableListViewSource('[1, 2, 3]', '''
+          try { unmodifiable.add(4); } on UnsupportedError catch (e) {}
+          try { unmodifiable.clear(); } on UnsupportedError catch (e) {}
+          return [source, unmodifiable.length];
+        '''));
+      expect(result[0], orderedEquals([1, 2, 3]),
+          reason: 'the backing list is untouched');
+      expect(result[1], 3, reason: 'the view still reports the original length');
     });
   });
 }

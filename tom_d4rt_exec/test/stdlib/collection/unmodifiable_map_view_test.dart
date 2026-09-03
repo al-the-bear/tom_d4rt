@@ -15,10 +15,12 @@ import 'package:tom_d4rt_exec/d4rt.dart';
 /// the native view instead of intercepting them, or scripts that catch the SDK
 /// error type today would silently stop catching it.
 ///
-/// `is Map` on a bridged map is asserted as working, in `F-SC3-9`. It was a
-/// characterized gap for as long as this package resolved a `tom_d4rt_ast` that
-/// predated the supertype `is` fix — the fix reaches a consumer here only once
-/// that package is published, never from its working tree (DGUC6).
+/// `F-SC3-9` asserts the `Map` SUPERTYPE as well as the exact type, on the view
+/// and on the plain map it wraps. Supertype `is` is a different mechanism from
+/// exact-type `is` — it resolves through a registered edge in the bridge
+/// hierarchy rather than by matching a name — so a case that only checked
+/// `view is UnmodifiableMapView` passes with every supertype edge missing, which
+/// is the state `dart:collection` was in when this bridge was added.
 void main() {
   final d4rt = D4rt();
 
