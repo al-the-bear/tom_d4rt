@@ -15,13 +15,10 @@ import 'package:tom_d4rt_exec/d4rt.dart';
 /// the native view instead of intercepting them, or scripts that catch the SDK
 /// error type today would silently stop catching it.
 ///
-/// **`F-SC3-21` still characterizes `is Map` as a gap here, and must not be
-/// flipped yet.** The supertype `is` fix landed in `tom_d4rt` and in the
-/// `tom_d4rt_ast` working tree, but this package resolves `tom_d4rt_ast` from
-/// pub.dev, so the fix does not reach it until that package is republished and
-/// the constraint bumped. Flipping the assertion before then turns a working
-/// suite red for a reason that has nothing to do with this bridge. The flip is
-/// tracked as a step on the follow-up that owns the republish.
+/// `is Map` on a bridged map is asserted as working, in `F-SC3-9`. It was a
+/// characterized gap for as long as this package resolved a `tom_d4rt_ast` that
+/// predated the supertype `is` fix — the fix reaches a consumer here only once
+/// that package is published, never from its working tree (DGUC6).
 void main() {
   final d4rt = D4rt();
 
@@ -143,27 +140,18 @@ void main() {
     });
 
     test('F-SC3-9: an unmodifiable view is type-testable [2026-07-27]', () {
+      // The exact type and the `Map` supertype are both testable. The
+      // supertype half used to be a characterized gap (`is Map` was false for
+      // every bridged `dart:collection` map, `HashMap` and `SplayTreeMap`
+      // included) and is asserted here now that it holds — a view is a `Map`,
+      // and so is the plain map it wraps, while only the view is an
+      // `UnmodifiableMapView`.
       final result = d4rt.execute(
         source: viewSource("{'a': 1}",
-            'return [view is UnmodifiableMapView, source is UnmodifiableMapView];'),
+            'return [view is UnmodifiableMapView, source is UnmodifiableMapView, '
+                'view is Map, source is Map];'),
       ) as List;
-      expect(result, orderedEquals([true, false]));
-    });
-
-    test('F-SC3-21: `is Map` on a bridged map subtype is a known gap [2026-07-27]',
-        () {
-      // Characterization, not endorsement. `x is Map` is false for *every*
-      // bridged `dart:collection` map — `HashMap`, `SplayTreeMap` and
-      // `Map.unmodifiable(...)` all behave this way, and did so before this
-      // bridge existed, so it is not something SC3 introduced or can fix
-      // locally. (The `Set` side works only because `SetCore.nativeNames`
-      // enumerates the concrete runtime type names.) Tracked as a follow-up;
-      // when supertype checks start working this test goes red and should be
-      // folded back into F-SC3-9.
-      final result = d4rt.execute(
-        source: viewSource("{'a': 1}", 'return view is Map;'),
-      );
-      expect(result, isFalse);
+      expect(result, orderedEquals([true, false, true, true]));
     });
 
     test('F-SC3-10: Map.unmodifiable() results are the same bridged type [2026-07-27]',
