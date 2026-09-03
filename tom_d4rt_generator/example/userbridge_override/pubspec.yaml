@@ -15,4 +15,7 @@ dependencies:
   path: ^1.9.0
 
 dev_dependencies:
-  tom_d4rt_generator: ">=1.14.0"
+  # Keep in step with this package's own version: an example that resolves
+  # an older published generator than the tree it lives in demonstrates
+  # behaviour the tree no longer has.
+  tom_d4rt_generator: ">=1.16.0"
