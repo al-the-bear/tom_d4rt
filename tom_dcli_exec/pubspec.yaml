@@ -21,9 +21,13 @@ dependencies:
   # stdlib modules (1.13.0). The REPL's `-test` mode counts those as failures.
   tom_d4rt_exec: ">=1.13.0"
   # Mirror-AST interpreter — generated bridges import its runtime directly.
-  tom_d4rt_ast: ">=0.4.1"
+  # Floor 0.20.0: tracks the interpreter this REPL is verified against, and
+  # 0.19.0 is load-bearing (same-name bridged classes resolve by declaring
+  # source URI rather than last-wins, tcca19) for a host that registers the
+  # whole Tom bridge set.
+  tom_d4rt_ast: ">=0.20.0"
   # AST converter (analyzer → mirror AST) for parseSourceCallback
-  tom_ast_generator: ">=0.1.4"
+  tom_ast_generator: ">=0.1.5"
   # Analyzer needed by tom_ast_generator for parsing
   analyzer: ^10.0.0
 

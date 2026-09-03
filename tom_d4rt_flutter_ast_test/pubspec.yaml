@@ -21,7 +21,9 @@ dependencies:
   # zero analyzer/dart:io dependency, so the app builds and runs on the web.
   tom_d4rt_flutter_ast:
     path: ../tom_d4rt_flutter_ast
-  tom_d4rt_ast: ">=0.4.1"
+  # Must not float below the floor tom_d4rt_flutter_ast declares, or the app
+  # would resolve an interpreter its own bridges are not verified against.
+  tom_d4rt_ast: ">=0.20.0"
 
 dev_dependencies:
   flutter_test:

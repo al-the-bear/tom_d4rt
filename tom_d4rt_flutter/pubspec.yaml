@@ -10,15 +10,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # 1.10.0 adds the public `registerBridgedClassLazy` registrar that the
-  # generated lazy bridges (registerBridges → registerBridgedClassLazy) call.
-  # 1.9.0 carried the providePackage/finalizeBridges pool API but not this
-  # registrar, so generated bridges would not compile against it.
-  # 1.10.1 fixes Environment.toBridgedClass to resolve a native runtime type by
-  # a PRECISE match across the whole scope chain before any fuzzy name-prefix
-  # fallback — without it, a MappedListIterable from `List.map(...).toList()`
-  # under the lazy warm-parent split wrongly resolved to the `Map` bridge.
-  tom_d4rt: ">=1.12.0"
+  # The interpreter this package's 18 generated bridges and its cluster corpus
+  # are verified against. Load-bearing floors, oldest first: 1.10.0 for the
+  # public `registerBridgedClassLazy` registrar the generated lazy bridges call
+  # (1.9.0 carried the providePackage/finalizeBridges pool API but not this
+  # registrar, so generated bridges would not compile against it); 1.10.1 for
+  # `Environment.toBridgedClass` resolving a native runtime type by a PRECISE
+  # match across the whole scope chain before any fuzzy name-prefix fallback —
+  # without it a MappedListIterable from `List.map(...).toList()` under the lazy
+  # warm-parent split wrongly resolved to the `Map` bridge; 1.27.0 for resolving
+  # same-name bridged classes by declaring source URI rather than last-wins
+  # (tcca19), which a package registering this many bridge libraries relies on.
+  tom_d4rt: ">=1.30.0"
   path: ^1.9.0
   # A.4: opt-in vector_math_64 bridge surface (Quad / Vector3 / Vector4 / …).
   # Direct dependency required so the generated vector_math_bridges.b.dart can

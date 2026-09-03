@@ -11,11 +11,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # 0.1.9 adds the providePackage/finalizeBridges import-optimization API the
-  # step #20 `_registerBridges` guard calls. 0.1.10 carries the precise-before-
-  # fuzzy `Environment.toBridgedClass` fix (MappedListIterable → Iterable, not
-  # Map) that the lazy warm-parent substrate the guard activates depends on.
-  tom_d4rt_ast: ">=0.4.1"
+  # The interpreter this package's 18 generated bridges and its cluster corpus
+  # are verified against. Load-bearing floors, oldest first: 0.1.9 for the
+  # providePackage/finalizeBridges import-optimization API the step #20
+  # `_registerBridges` guard calls; 0.1.10 for the precise-before-fuzzy
+  # `Environment.toBridgedClass` fix (MappedListIterable → Iterable, not Map)
+  # that the lazy warm-parent substrate depends on; 0.19.0 for resolving
+  # same-name bridged classes by declaring source URI (tcca19), which a package
+  # registering this many bridge libraries relies on to avoid last-wins
+  # displacement.
+  tom_d4rt_ast: ">=0.20.0"
   archive: ^4.0.9
   # Explicit transitive Flutter deps used in generated bridge code
   characters: ^1.4.0
@@ -41,8 +46,8 @@ dev_dependencies:
   # driver — never by lib/ runtime code. The bridges and FlutterD4rt
   # resolve entirely within tom_d4rt_ast, keeping the runtime
   # analyzer-free and web-safe.
-  tom_d4rt_exec: ">=1.9.0"
-  tom_ast_generator: ">=0.1.4"
+  tom_d4rt_exec: ">=1.13.0"
+  tom_ast_generator: ">=0.1.5"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

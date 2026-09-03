@@ -22,7 +22,10 @@ environment:
 dependencies:
   analyzer: ^10.0.0
   pub_semver: ^2.2.0
-  tom_d4rt_ast: ">=0.14.0"
+  # The interpreter this package fronts. Resolved from pub.dev, not by path, so
+  # this floor is also what any exec test suite actually measures (DGUC6) —
+  # raising it is how upstream interpreter work becomes visible here at all.
+  tom_d4rt_ast: ">=0.20.0"
   tom_ast_generator: ">=0.1.5"
 
 dev_dependencies:
@@ -34,4 +37,11 @@ dev_dependencies:
   # analyzer-10: tom_d4rt_generator 1.10.0 is the analyzer-10 build (cli_tools
   # quest, migration plan Phase 4), so it now shares this package's analyzer ^10
   # resolution and the test/generator_tests/ suite runs again.
-  tom_d4rt_generator: ">=1.14.0"
+  # Floor 1.15.3 matches every other consumer in the repo. Below it, a
+  # regeneration from a relative scan root writes `bridgeReExports()` source keys
+  # as `lib/…` instead of `package:…`, which no script import can match
+  # (GEN-125) — load-bearing for test/generator_tests/. It is also what keeps
+  # this package's TRANSITIVE tom_d4rt current: generator is the only path by
+  # which tom_d4rt reaches here, so a stale floor here silently decides which
+  # interpreter the generator suite measures.
+  tom_d4rt_generator: ">=1.15.3"
