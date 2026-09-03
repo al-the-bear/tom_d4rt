@@ -42,7 +42,10 @@ void main() {
           String nonNullable = nullableString!;
           return nonNullable;
         }
-      '''), throwsA(isA<RuntimeD4rtException>()));
+      // SCB10 CONTRACT CHANGE: `!` on null now raises `TypeError` — the same
+      // type real Dart raises, and the same one a failing `as` raises, because
+      // both are null/type-assertion failures.
+      '''), throwsA(isA<TypeError>()));
     });
 
     test('I-MISC-391: Null-aware access operator (?.) returns null for null values. [2026-02-10 06:37] (PASS)', () {

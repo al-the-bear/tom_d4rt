@@ -45,9 +45,12 @@ void main() {
           }
         ''';
 
+        // SCB10 CONTRACT CHANGE: a failing `as` now raises `TypeError`, the type
+        // real Dart raises, so `on TypeError` in interpreted code matches the
+        // cast that failed. The message is carried through unchanged.
         expect(
             () => execute(code),
-            throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
+            throwsA(isA<TypeError>().having((e) => e.toString(), 'toString',
                 contains("Cast failed with 'as'"))));
       });
 
@@ -256,10 +259,14 @@ void main() {
           }
         ''';
 
+        // SCB10 CONTRACT CHANGE: type is now `TypeError` (see I-TYPE-23). This
+        // test's subject is the *message*, which is why it still reads the same
+        // string — the SDK shape was added around d4rt's diagnostic, not in
+        // place of it.
         expect(
             () => execute(code),
-            throwsA(isA<RuntimeD4rtException>()
-                .having((e) => e.message, 'message', contains("Cast failed"))));
+            throwsA(isA<TypeError>().having(
+                (e) => e.toString(), 'toString', contains("Cast failed"))));
       });
     });
 

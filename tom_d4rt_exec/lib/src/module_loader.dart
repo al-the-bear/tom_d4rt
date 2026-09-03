@@ -943,12 +943,11 @@ class ModuleLoader implements context.ModuleContext {
               continue;
             }
             // B2 MarkdownParser clash: two different libraries declare a
-            // same-name bridge. Do NOT error — register this one too. The
-            // import wins as the primary; defineBridge records the displaced
-            // sibling as a shadow so static/constructor lookups can fall back
-            // to whichever bridge actually declares the requested member.
-            // Matches the tolerant per-module behaviour of the tom_d4rt and
-            // tom_d4rt_ast runtimes.
+            // same-name bridge. Do NOT error here — register this one too and
+            // let the environment decide. Two package peers leave the bare
+            // name with no winner and `Environment.lookup` rejects it, while a
+            // platform declaration losing to a package one is silent; either
+            // way both classes stay reachable as `<package>.Foo`.
             Logger.debug(
                 " [execute] Same-name class '$className' from a different "
                 "source ($existingSourceUri vs $sourceUri); registering both "
@@ -959,8 +958,13 @@ class ModuleLoader implements context.ModuleContext {
 
           try {
             // Step #17 — transfer the deferred thunk (build on first resolve).
+            // `sourceUri` is what makes two same-named bridges distinguishable:
+            // without it the environment cannot derive a package qualifier for
+            // either candidate, so it falls back to last-registration-wins and
+            // binds the bare name to a class the script never named.
             globalEnvironment.defineBridgeLazy(
-                libClass.name, libClass.nativeType, libClass.thunk);
+                libClass.name, libClass.nativeType, libClass.thunk,
+                sourceUri: sourceUri);
             Logger.debug(
                 " [execute] Registered bridged class: $className from $sourceUri");
           } catch (e) {
