@@ -19,6 +19,10 @@ class UriDataCore {
         typeParameterCount: 0,
         constructors: {
           'fromString': (visitor, positionalArgs, namedArgs) {
+            if (positionalArgs.length != 1) {
+              throw RuntimeD4rtException(
+                  'UriData.fromString requires exactly one String argument.');
+            }
             return UriData.fromString(
               positionalArgs[0] as String,
               mimeType: namedArgs.get<String?>('mimeType'),
@@ -29,6 +33,10 @@ class UriDataCore {
             );
           },
           'fromBytes': (visitor, positionalArgs, namedArgs) {
+            if (positionalArgs.length != 1) {
+              throw RuntimeD4rtException(
+                  'UriData.fromBytes requires exactly one List<int> argument.');
+            }
             return UriData.fromBytes(
               (positionalArgs[0] as List).cast<int>(),
               mimeType: namedArgs.get<String?>('mimeType') ??
@@ -39,16 +47,28 @@ class UriDataCore {
             );
           },
           'fromUri': (visitor, positionalArgs, namedArgs) {
+            if (positionalArgs.length != 1) {
+              throw RuntimeD4rtException(
+                  'UriData.fromUri requires exactly one Uri argument.');
+            }
             return UriData.fromUri(positionalArgs[0] as Uri);
           },
         },
         staticMethods: {
           'parse': (visitor, positionalArgs, namedArgs, typeArgs) {
+            if (positionalArgs.length != 1) {
+              throw RuntimeD4rtException(
+                  'UriData.parse requires exactly one String argument.');
+            }
             return UriData.parse(positionalArgs[0] as String);
           },
         },
         methods: {
           'contentAsBytes': (visitor, target, positionalArgs, namedArgs, _) {
+            if (positionalArgs.isNotEmpty) {
+              throw RuntimeD4rtException(
+                  'UriData.contentAsBytes takes no positional arguments.');
+            }
             return (target as UriData).contentAsBytes();
           },
           // The three predicates are how a script decides whether a data URI is
@@ -56,21 +76,44 @@ class UriDataCore {
           // option was string-matching `mimeType` / `charset` by hand, which
           // gets the case- and parameter-normalisation rules wrong.
           'isMimeType': (visitor, target, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length != 1) {
+              throw RuntimeD4rtException(
+                  'UriData.isMimeType requires exactly one String argument.');
+            }
             return (target as UriData).isMimeType(positionalArgs[0] as String);
           },
           'isCharset': (visitor, target, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length != 1) {
+              throw RuntimeD4rtException(
+                  'UriData.isCharset requires exactly one String argument.');
+            }
             return (target as UriData).isCharset(positionalArgs[0] as String);
           },
           'isEncoding': (visitor, target, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length != 1) {
+              throw RuntimeD4rtException(
+                  'UriData.isEncoding requires exactly one Encoding argument.');
+            }
             return (target as UriData)
                 .isEncoding(positionalArgs[0] as Encoding);
           },
           'contentAsString': (visitor, target, positionalArgs, namedArgs, _) {
+            // The encoding is a *named* parameter, so any positional argument
+            // here is a mistake -- previously it was silently discarded.
+            if (positionalArgs.isNotEmpty) {
+              throw RuntimeD4rtException(
+                  'UriData.contentAsString takes no positional arguments; '
+                  'pass `encoding:` by name.');
+            }
             return (target as UriData).contentAsString(
               encoding: namedArgs.get<Encoding?>('encoding'),
             );
           },
           'toString': (visitor, target, positionalArgs, namedArgs, _) {
+            if (positionalArgs.isNotEmpty) {
+              throw RuntimeD4rtException(
+                  'UriData.toString takes no positional arguments.');
+            }
             return (target as UriData).toString();
           },
         },

@@ -2063,6 +2063,61 @@ class D4 {
   // Positional Argument Helpers
   // ==========================================================================
 
+  /// SCB28: restate a raw list `RangeError` as a wrong-arity diagnostic.
+  ///
+  /// Most hand-written stdlib bridges read their arguments as
+  /// `positionalArgs[0]`, `positionalArgs[1]`, … without first checking the
+  /// length — a measured 601 of the 1204 adapters that index the list. Calling
+  /// such a bridge with too few arguments therefore surfaces a list
+  /// `RangeError` that names neither the class nor the member:
+  ///
+  ///     Native error during static bridged method call 'parse' on UriData:
+  ///     RangeError (length): Invalid value: Valid value range is empty: 0
+  ///
+  /// Hand-patching 601 adapters across both interpreter trees would be 1202
+  /// copies of the same three lines, so the too-few half is recognised here
+  /// instead and every unguarded adapter is covered at once. The dispatch
+  /// sites in `interpreter_visitor.dart` consult this from the catch-all that
+  /// builds the "Native error during …" message; a non-null result replaces
+  /// that message.
+  ///
+  /// Returns null — meaning "not an arity failure, report it as before" —
+  /// unless [error] is exactly the error shape Dart's `List.[]` raises for an
+  /// out-of-range read on a list whose length equals [positional].length:
+  /// `name == 'length'`, `start == 0`, `end == length - 1`, and an
+  /// `invalidValue` at or past the end. A native `RangeError` from inside the
+  /// call — `[1, 2, 3].sublist(0, 99)` — fails that shape and passes through.
+  ///
+  /// The check is a heuristic over the *reported range*, not over object
+  /// identity, because `List.[]` throws a plain [RangeError] with no
+  /// `indexable` back-reference (unlike [IndexError]). Misattribution would
+  /// require the adapter to index a *different* list of exactly the argument
+  /// count's length out of range; that only ever changes the wording of an
+  /// error that was already being thrown.
+  ///
+  /// [memberDescription] is the `Class.member` the script author called.
+  ///
+  /// Mirrors the analyzer-based twin — see
+  /// `tom_d4rt/lib/src/generator/d4.dart`.
+  static String? describeArityError(
+    Object error,
+    List<Object?> positional,
+    String memberDescription,
+  ) {
+    if (error is! RangeError) return null;
+    if (error.name != 'length') return null;
+    if (error.start != 0) return null;
+    if (error.end != positional.length - 1) return null;
+    final invalidValue = error.invalidValue;
+    if (invalidValue is! int) return null;
+    if (invalidValue < positional.length) return null;
+
+    final required = invalidValue + 1;
+    final plural = required == 1 ? 'argument' : 'arguments';
+    return '$memberDescription expects at least $required positional $plural, '
+        'but was called with ${positional.length}.';
+  }
+
   /// Get a required positional argument with type checking.
   ///
   /// Throws ArgumentError if the argument is missing or has wrong type.

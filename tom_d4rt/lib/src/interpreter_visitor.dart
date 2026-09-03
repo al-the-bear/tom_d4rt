@@ -3646,6 +3646,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // Add the stack trace for debugging
             Logger.log("Native Error Stack Trace: $s"); // Print stack trace
             // Catch potential errors from the native code/adapter
+            // SCB28: an unguarded adapter indexed past the end of the
+            // argument list -- report the arity, not the RangeError.
+            final arityError = D4.describeArityError(
+                e, positionalArgs, '${bridgedClass.name}.$methodName');
+            if (arityError != null) throw RuntimeD4rtException(arityError);
             throw RuntimeD4rtException(
                 "Native error during bridged method call '$methodName' on ${bridgedClass.name}: $e",
                 originalException: e);
@@ -3921,6 +3926,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // Catch other potential errors (ex: from the adapter)
           Logger.error(
               "[visitMethodInvocation] Native exception during bridged enum method call '$targetValue.$methodName': $e\n$s");
+          // SCB28: an unguarded adapter indexed past the end of the
+          // argument list -- report the arity, not the RangeError.
+          final arityError = D4.describeArityError(
+              e, positionalArgs, '$targetValue.$methodName');
+          if (arityError != null) throw RuntimeD4rtException(arityError);
           throw RuntimeD4rtException(
               "Native error during bridged enum method call '$methodName' on $targetValue: $e",
               originalException: e);
@@ -3970,6 +3980,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         } catch (e, s) {
           Logger.error(
               "[visitMethodInvocation] Native exception during bridged enum static method '${targetValue.name}.$methodName': $e\n$s");
+          // SCB28: an unguarded adapter indexed past the end of the
+          // argument list -- report the arity, not the RangeError.
+          final arityError = D4.describeArityError(
+              e, positionalArgs, '${targetValue.name}.$methodName');
+          if (arityError != null) throw RuntimeD4rtException(arityError);
           throw RuntimeD4rtException(
               "Native error during bridged enum static method '$methodName' on '${targetValue.name}': $e",
               originalException: e);
@@ -4033,6 +4048,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // Catch native errors from the adapter/native constructor
             Logger.error(
                 "[visitMethodInvocation] Native exception during bridged constructor '${bridgedClass.name}.$methodName': $e\n$s");
+            // SCB28: an unguarded adapter indexed past the end of the
+            // argument list -- report the arity, not the RangeError.
+            final arityError = D4.describeArityError(
+                e, positionalArgs, '${bridgedClass.name}.$methodName');
+            if (arityError != null) throw RuntimeD4rtException(arityError);
             throw RuntimeD4rtException(
                 "Native error during bridged constructor '$methodName' for class '${bridgedClass.name}': $e",
                 originalException: e);
@@ -4082,6 +4102,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             } catch (e, s) {
               Logger.warn(
                   "[visitMethodInvocation] Native exception during static bridged method call '${bridgedClass.name}.$methodName': $e\n$s");
+              // SCB28: an unguarded adapter indexed past the end of the
+              // argument list -- report the arity, not the RangeError.
+              final arityError = D4.describeArityError(
+                  e, positionalArgs, '${bridgedClass.name}.$methodName');
+              if (arityError != null) throw RuntimeD4rtException(arityError);
               throw RuntimeD4rtException(
                   "Native error during static bridged method call '$methodName' on ${bridgedClass.name}: $e",
                   originalException: e);
@@ -4172,6 +4197,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           } catch (e, s) {
             Logger.error(
                 "Native exception during super call to bridged method '${bridgedSuper.name}.$methodName': $e\n$s");
+            // SCB28: an unguarded adapter indexed past the end of the
+            // argument list -- report the arity, not the RangeError.
+            final arityError = D4.describeArityError(
+                e, positionalArgs, '${bridgedSuper.name}.$methodName');
+            if (arityError != null) throw RuntimeD4rtException(arityError);
             throw RuntimeD4rtException(
                 "Native error during super call to bridged method '$methodName': $e",
                 originalException: e);
@@ -4421,6 +4451,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         } catch (e, s) {
           Logger.error(
               "[visitMethodInvocation] Native exception during default bridged constructor '${bridgedClass.name}': $e\n$s");
+          // SCB28: an unguarded adapter indexed past the end of the
+          // argument list -- report the arity, not the RangeError.
+          final arityError = D4.describeArityError(
+              e, positionalArgs, '${bridgedClass.name}.new');
+          if (arityError != null) throw RuntimeD4rtException(arityError);
           throw RuntimeD4rtException(
               "Native error during default bridged constructor for '${bridgedClass.name}': $e",
               originalException: e);
@@ -11007,6 +11042,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         Logger.error(
             "[InstanceCreation] Native exception during bridged constructor '$constructorName.$constructorLookupName': \$e\\n\$s");
         // Encapsulate the native error in a RuntimeError for propagation
+        // SCB28: an unguarded adapter indexed past the end of the
+        // argument list -- report the arity, not the RangeError.
+        final arityError = D4.describeArityError(
+            e, positionalArgs, '$constructorName.$constructorLookupName');
+        if (arityError != null) throw RuntimeD4rtException(arityError);
         throw RuntimeD4rtException(
             "Native error during bridged constructor '$constructorLookupName' for class '$constructorName': $e",
             originalException: e);
@@ -12777,6 +12817,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     } catch (e, s) {
       Logger.error(
           "Native exception during super constructor call to '${bridgedSuper.name}.$constructorName': $e\n$s");
+      // SCB28: an unguarded adapter indexed past the end of the
+      // argument list -- report the arity, not the RangeError.
+      final arityError = D4.describeArityError(
+          e, positionalArgs, '${bridgedSuper.name}.$constructorName');
+      if (arityError != null) throw RuntimeD4rtException(arityError);
       throw RuntimeD4rtException(
           "Native error during super constructor call '$constructorName': $e",
           originalException: e);
