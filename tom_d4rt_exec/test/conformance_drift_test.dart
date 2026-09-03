@@ -266,15 +266,30 @@ const Map<String, int> _uncoveredBaseline = {
 /// tom_d4rt once the publish made the newer assertions true. Direction is a
 /// per-file finding, not a rule.
 ///
-/// `stdlib/collection/linked_list_test.dart` and
-/// `stdlib/typed_data/typed_list_inherited_members_test.dart` are the newest
-/// instances of that same pinning, and they share one flip condition: the next
-/// `tom_d4rt_ast` publish. The first is pinned because the working-tree
-/// LinkedList bridge dropped `removeFirst` and gained `addAll` / `addFirst`; the
-/// second because the working-tree typed-data bridges coerce their element
-/// argument instead of casting it, so the twin's 45 new cases need a published
-/// interpreter that does the same. Each header names its own flip condition;
-/// unpin it there and remove its entry from this set in the same commit.
+/// Six entries currently share ONE flip condition — the next `tom_d4rt_ast`
+/// publish — because exec resolves that package from pub.dev, so this suite
+/// certifies the PUBLISHED interpreter and not the working tree. Unpin all six
+/// there and remove their entries in the same commit.
+///
+///   * `stdlib/collection/linked_list_test.dart` — the working-tree LinkedList
+///     bridge dropped `removeFirst` and gained `addAll` / `addFirst`.
+///   * `stdlib/typed_data/typed_list_inherited_members_test.dart` — the
+///     working-tree typed-data bridges coerce their element argument instead of
+///     casting it, so the twin's 45 new cases need a published interpreter that
+///     does the same.
+///   * `stdlib/collection/queue_test.dart` and
+///     `stdlib/collection/list_queue_test.dart` — the working-tree Queue bridge
+///     gained `remove` / `removeWhere` / `retainWhere` and the static
+///     `castFrom`; ListQueue reaches two of them through its `-> Queue` edge.
+///   * `stdlib/collection/splay_tree_map_test.dart` — gained `firstKeyAfter` /
+///     `lastKeyBefore`, and its `I-COLL-78` still asserts that `firstKey()` on an
+///     empty map THROWS. That assertion is wrong about Dart but TRUE of the
+///     published interpreter, which still carries the invented guard the working
+///     tree removed. Pinning it is not endorsing it: the corrected case comes
+///     over with the publish.
+///   * `operator_improvements_test.dart` — the working-tree interpreter
+///     implements `bool`'s `& | ^` and `&= |= ^=`; the published one still
+///     throws `Unsupported binary operator`.
 const Set<String> _divergentBaseline = {
   '_c21_null_short_test.dart',
   '_plan_e2_static_in_closure_test.dart',
@@ -303,7 +318,11 @@ const Set<String> _divergentBaseline = {
   'open_issues/b1_redirecting_factory_test.dart',
   'open_issues/b5_bridged_exception_catch_test.dart',
   'open_issues/b9_static_field_sibling_write_test.dart',
+  'operator_improvements_test.dart',
   'stdlib/collection/linked_list_test.dart',
+  'stdlib/collection/list_queue_test.dart',
+  'stdlib/collection/queue_test.dart',
+  'stdlib/collection/splay_tree_map_test.dart',
   'stdlib/intentionally_unbridged_test.dart',
   'stdlib/typed_data/byte_data_test.dart',
   'stdlib/typed_data/typed_list_inherited_members_test.dart',
