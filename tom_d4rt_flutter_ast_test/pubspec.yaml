@@ -23,7 +23,10 @@ dependencies:
     path: ../tom_d4rt_flutter_ast
   # Must not float below the floor tom_d4rt_flutter_ast declares, or the app
   # would resolve an interpreter its own bridges are not verified against.
-  tom_d4rt_ast: ">=0.20.0"
+  # 0.20.1 tracks that package's hard floor: below it, `TextStyle` is rejected
+  # unqualified because `dart:ui` and painting both declare it, and this app
+  # renders widget trees that name it.
+  tom_d4rt_ast: ">=0.20.1"
 
 dev_dependencies:
   flutter_test:

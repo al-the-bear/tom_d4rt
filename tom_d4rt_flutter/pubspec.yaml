@@ -21,7 +21,12 @@ dependencies:
   # warm-parent split wrongly resolved to the `Map` bridge; 1.27.0 for resolving
   # same-name bridged classes by declaring source URI rather than last-wins
   # (tcca19), which a package registering this many bridge libraries relies on.
-  tom_d4rt: ">=1.30.0"
+  #
+  # 1.30.1 is a HARD floor, not a preference: 1.27.0-1.30.0 apply tcca19's
+  # same-name rule to `dart:*` declarations too, so `TextStyle` — declared by
+  # both `dart:ui` and painting — is rejected unqualified and 17 base-corpus
+  # scripts fail. 1.30.1 restores Dart's platform-library precedence.
+  tom_d4rt: ">=1.30.1"
   path: ^1.9.0
   # A.4: opt-in vector_math_64 bridge surface (Quad / Vector3 / Vector4 / …).
   # Direct dependency required so the generated vector_math_bridges.b.dart can
