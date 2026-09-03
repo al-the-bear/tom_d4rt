@@ -1,3 +1,31 @@
+## 0.22.0
+
+Mirrors `tom_d4rt` 1.32.0.
+
+### Fixed — a list literal is now a valid argument to a typed-data list member
+
+The typed-data adapters narrowed their element argument with a bare
+`positionalArgs[n] as Iterable<E>`, and d4rt evaluates a list literal to
+`List<Object?>`. The cast is about the list's type argument rather than its
+contents, so `Float32List.setAll(0, [7.0, 8.0])` failed while the same call with
+a `Float32List` argument passed. A `coerceElements<E>` helper in
+`inherited_list_methods.dart` now unwraps the container and any
+`BridgedInstance` elements at all 28 call sites, widening nothing: an element
+whose type genuinely does not match still fails.
+
+Affected on all eleven variants: `followedBy`, `setAll`, `setRange`,
+`operator+`; additionally on `Uint8List` (which hand-rolls its own adapter map)
+`addAll`, `insertAll`, `replaceRange`. `operator+` also needed the interpreter's
+`List + List` fast path to concatenate element-wise, because `List.+` demands
+`List<E>` for the receiver's element type.
+
+### Fixed — fixed-length typed lists raise a *catchable* `UnsupportedError`
+
+On `Uint8List`, the failed cast threw before the native call, so
+`try { list.addAll(more); } on UnsupportedError { … }` never caught and the
+script died instead of recovering. The other ten variants reach the native list
+through the `-> List` supertype edge and were already correct.
+
 ## 0.21.0
 
 Mirrors `tom_d4rt` 1.31.0.

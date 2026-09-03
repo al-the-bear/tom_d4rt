@@ -96,7 +96,8 @@ class Uint32ListTypedData {
           'setRange': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end = positionalArgs[1] as int;
-            final iterable = positionalArgs[2] as Iterable<int>;
+            final iterable = coerceElements<int>(
+                positionalArgs[2], 'Uint32List.setRange');
             final skipCount =
                 positionalArgs.length > 3 ? positionalArgs[3] as int : 0;
             (target as Uint32List).setRange(start, end, iterable, skipCount);
@@ -104,7 +105,8 @@ class Uint32ListTypedData {
           },
           'setAll': (visitor, target, positionalArgs, namedArgs, _) {
             final at = positionalArgs[0] as int;
-            final iterable = positionalArgs[1] as Iterable<int>;
+            final iterable = coerceElements<int>(
+                positionalArgs[1], 'Uint32List.setAll');
             (target as Uint32List).setAll(at, iterable);
             return null;
           },

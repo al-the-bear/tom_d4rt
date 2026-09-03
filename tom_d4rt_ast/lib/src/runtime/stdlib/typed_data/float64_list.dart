@@ -96,7 +96,8 @@ class Float64ListTypedData {
           'setRange': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end = positionalArgs[1] as int;
-            final iterable = positionalArgs[2] as Iterable<double>;
+            final iterable = coerceElements<double>(
+                positionalArgs[2], 'Float64List.setRange');
             final skipCount =
                 positionalArgs.length > 3 ? positionalArgs[3] as int : 0;
             (target as Float64List).setRange(start, end, iterable, skipCount);
@@ -104,7 +105,8 @@ class Float64ListTypedData {
           },
           'setAll': (visitor, target, positionalArgs, namedArgs, _) {
             final at = positionalArgs[0] as int;
-            final iterable = positionalArgs[1] as Iterable<double>;
+            final iterable = coerceElements<double>(
+                positionalArgs[1], 'Float64List.setAll');
             (target as Float64List).setAll(at, iterable);
             return null;
           },

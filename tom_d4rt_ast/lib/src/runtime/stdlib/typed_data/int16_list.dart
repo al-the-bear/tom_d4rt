@@ -96,7 +96,8 @@ class Int16ListTypedData {
           'setRange': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end = positionalArgs[1] as int;
-            final iterable = positionalArgs[2] as Iterable<int>;
+            final iterable = coerceElements<int>(
+                positionalArgs[2], 'Int16List.setRange');
             final skipCount =
                 positionalArgs.length > 3 ? positionalArgs[3] as int : 0;
             (target as Int16List).setRange(start, end, iterable, skipCount);
@@ -104,7 +105,8 @@ class Int16ListTypedData {
           },
           'setAll': (visitor, target, positionalArgs, namedArgs, _) {
             final at = positionalArgs[0] as int;
-            final iterable = positionalArgs[1] as Iterable<int>;
+            final iterable = coerceElements<int>(
+                positionalArgs[1], 'Int16List.setAll');
             (target as Int16List).setAll(at, iterable);
             return null;
           },

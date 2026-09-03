@@ -36,6 +36,38 @@ const _variants = <String>[
   'Float64List',
 ];
 
+/// The element literal each variant's constructor accepts. Float variants
+/// reject `int` literals, so the source has to be generated per element type
+/// rather than shared.
+String _element(String type, num value) =>
+    type.startsWith('Float') ? '${value.toDouble()}' : '${value.toInt()}';
+
+/// Every `List` operation that changes the length, and a call that genuinely
+/// forces the change.
+///
+/// The forcing matters: `ListMixin` short-circuits several of these before it
+/// ever reaches the length setter — `remove` on an absent element, `addAll([])`
+/// and a `removeWhere` that removes nothing all return without touching the
+/// length, so a careless call passes on a broken bridge. Each entry below
+/// removes or adds at least one element.
+Map<String, String> _lengthChangingCalls(String type) {
+  final e = _element(type, 1);
+  return {
+    'add': 'l.add($e)',
+    'addAll': 'l.addAll([$e])',
+    'clear': 'l.clear()',
+    'insert': 'l.insert(0, $e)',
+    'insertAll': 'l.insertAll(0, [$e])',
+    'remove': 'l.remove(l[0])',
+    'removeAt': 'l.removeAt(0)',
+    'removeLast': 'l.removeLast()',
+    'removeRange': 'l.removeRange(0, 1)',
+    'removeWhere': 'l.removeWhere((e) => true)',
+    'replaceRange': 'l.replaceRange(0, 1, [$e, $e])',
+    'retainWhere': 'l.retainWhere((e) => false)',
+  };
+}
+
 /// `bytesPerElement` is a `static const int` on each variant — a different
 /// value per type, which is the whole point of reading it.
 const _bytesPerElement = <String, int>{
@@ -136,19 +168,126 @@ void main() {
     // The helper's exclusion rationale is corrected, not discarded: growing
     // operations genuinely are unsupported and must keep failing. Without this
     // the fix could over-reach and silently expose broken adapters.
-    test('F-SCB3-18: add() on a fixed-length typed list throws [2026-07-28]',
-        () {
-      const source = '''
-      import 'dart:typed_data';
-      main() {
-        final l = Float32List.fromList([1.0]);
-        var threw = false;
-        try { l.add(2.0); } catch (e) { threw = true; }
-        return threw;
-      }
-      ''';
-      expect(execute(source), isTrue);
-    });
+    //
+    // "Still refuses" is not enough, though. A script that guards a
+    // fixed-length list defensively writes
+    //
+    //     try { list.addAll(more); } on UnsupportedError { … }
+    //
+    // and that only works if the *type* of the error is the SDK's. A bare
+    // `catch (e)` assertion passes just as happily when the bridge raises
+    // `RuntimeD4rtException` ("has no instance method named 'addAll'") or a
+    // `_TypeError` from a failed argument cast — in both of those cases the
+    // script above dies instead of taking its recovery path. So each case
+    // below asserts the error type, not merely that something was thrown.
+    //
+    // One test per variant covering all twelve mutators, rather than 132
+    // separate tests: the result map names the mutator that regressed, which
+    // is the information a per-mutator test would have carried anyway.
+    for (final type in _variants) {
+      test('F-SCB3-18-$type: every length-changing operation raises a '
+          'catchable UnsupportedError [2026-09-04]', () {
+        final calls = _lengthChangingCalls(type);
+        final e = _element(type, 1);
+        final probes = calls.entries.map((entry) => '''
+          try {
+            final l = $type.fromList([$e, $e, $e]);
+            ${entry.value};
+            out['${entry.key}'] = 'NO THROW';
+          } on UnsupportedError catch (_) {
+            out['${entry.key}'] = 'UnsupportedError';
+          } catch (err) {
+            out['${entry.key}'] = 'OTHER: ' + err.runtimeType.toString();
+          }
+''').join();
+        final source = '''
+        import 'dart:typed_data';
+        main() {
+          final out = <String, String>{};
+$probes
+          return out;
+        }
+        ''';
+        expect(
+          execute(source),
+          equals({for (final name in calls.keys) name: 'UnsupportedError'}),
+          reason: 'on $type, each length-changing operation must let the '
+              "native list's UnsupportedError reach the script",
+        );
+      });
+    }
+  });
+
+  group('typed-data lists: an interpreted list literal is a valid argument',
+      () {
+    // d4rt evaluates a list literal to `List<Object?>` — element types are
+    // erased, and elements can arrive as `BridgedInstance` wrappers. An
+    // adapter that writes `positionalArgs[0] as Iterable<int>` therefore
+    // throws `_TypeError` before the native call happens, so
+    //
+    //   * members that should succeed fail outright, and
+    //   * members that should raise `UnsupportedError` raise the wrong error.
+    //
+    // Passing a typed-data list instead of a literal masks the whole class of
+    // bug (`l.followedBy(Uint8List.fromList([9]))` works fine), so every case
+    // here deliberately passes a literal.
+    for (final type in _variants) {
+      test('F-SCB3-20-$type: followedBy() accepts a list literal [2026-09-04]',
+          () {
+        final source = '''
+        import 'dart:typed_data';
+        main() {
+          final l = $type.fromList([${_element(type, 1)}, ${_element(type, 2)}]);
+          return l.followedBy([${_element(type, 9)}]).toList();
+        }
+        ''';
+        expect(execute(source), equals([1, 2, 9]),
+            reason: 'followedBy() must coerce the literal on $type');
+      });
+
+      test('F-SCB3-21-$type: setAll() accepts a list literal [2026-09-04]',
+          () {
+        final source = '''
+        import 'dart:typed_data';
+        main() {
+          final l = $type.fromList(
+              [${_element(type, 1)}, ${_element(type, 2)}, ${_element(type, 3)}]);
+          l.setAll(0, [${_element(type, 7)}, ${_element(type, 8)}]);
+          return l.toList();
+        }
+        ''';
+        expect(execute(source), equals([7, 8, 3]),
+            reason: 'setAll() must coerce the literal on $type');
+      });
+
+      test('F-SCB3-22-$type: setRange() accepts a list literal [2026-09-04]',
+          () {
+        final source = '''
+        import 'dart:typed_data';
+        main() {
+          final l = $type.fromList(
+              [${_element(type, 1)}, ${_element(type, 2)}, ${_element(type, 3)}]);
+          l.setRange(0, 2, [${_element(type, 7)}, ${_element(type, 8)}]);
+          return l.toList();
+        }
+        ''';
+        expect(execute(source), equals([7, 8, 3]),
+            reason: 'setRange() must coerce the literal on $type');
+      });
+
+      test('F-SCB3-23-$type: operator+ accepts a list literal [2026-09-04]',
+          () {
+        final source = '''
+        import 'dart:typed_data';
+        main() {
+          final l = $type.fromList([${_element(type, 1)}, ${_element(type, 2)}]);
+          return (l + [${_element(type, 9)}]).toList();
+        }
+        ''';
+        expect(execute(source), equals([1, 2, 9]),
+            reason: 'operator+ must coerce the literal on $type');
+      });
+    }
   });
 
   group('typed-data lists: sort is not accidentally aliased', () {

@@ -2005,7 +2005,20 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         if (left is String && right is String) return left + right;
         if (left is BigInt && right is BigInt) return left + right;
         if (left is Duration && right is Duration) return left + right;
-        if (left is List && right is List) return left + right;
+        if (left is List && right is List) {
+          // `List.+` demands `List<E>` for the *receiver's* element type, and
+          // d4rt evaluates a list literal to `List<Object?>`. So on a
+          // typed-data receiver `left + right` fails a container cast inside
+          // the SDK even when every element is the right type — the failure is
+          // about the list's type argument, not its contents. Concatenating
+          // element-wise builds the result in the receiver's own element type
+          // and still rejects an element that genuinely does not fit.
+          final combined = left.toList();
+          for (final element in right) {
+            combined.add(element);
+          }
+          return combined;
+        }
       case '-':
         if (left is BigInt && right is BigInt) return left - right;
         if (left is Duration && right is Duration) return left - right;

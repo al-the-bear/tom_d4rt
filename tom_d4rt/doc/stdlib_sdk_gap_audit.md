@@ -186,12 +186,28 @@ now bridged; the class measures complete and is no longer in the table.
 **The typed-list mutators no longer appear here, and are no longer a
 wrong-error-type problem either.** The 120 length-changing `List` mutators
 (`add`, `insert`, `remove`, `clear`, …) on the ten shared typed lists are
-correct to fail, and they now fail correctly: they resolve through the `-> List`
+correct to fail, and they fail correctly: they resolve through the `-> List`
 edge to the native fixed-length list, which raises the SDK's `UnsupportedError`,
-so a script's `on UnsupportedError` catches it. Re-probed 2026-09-04 with
-`Float32List(2).add(1.0)`. That is the resolution the `UnmodifiableMapView` note
-below prescribes — register (or inherit) the member and let the native raise —
-arrived at through the hierarchy edge rather than through 120 adapters.
+so a script's `on UnsupportedError` catches it. That is the resolution the
+`UnmodifiableMapView` note below prescribes — register (or inherit) the member
+and let the native raise — arrived at through the hierarchy edge rather than
+through 120 adapters.
+
+**Measuring one variant would have got that answer wrong.** A single probe
+(`Float32List(2).add(1.0)`) says the whole class of problem is resolved. The full
+matrix — 11 variants × 12 length-changing operations, measured 2026-09-04 — says
+129 of 132 raise a catchable `UnsupportedError` and three do not: `addAll`,
+`insertAll` and `replaceRange`, all on `Uint8List`. `Uint8List` is the variant
+that hand-rolls its whole adapter map instead of sharing
+`inheritedListMethods`, so it was the only one whose adapters ran at all, and its
+adapters narrowed the element argument with `positionalArgs[n] as Iterable<int>`.
+An interpreted list literal is a `List<Object?>`, so that cast threw `_TypeError`
+*before* the native call — pre-empting the `UnsupportedError` the fixed-length
+list was about to raise. All 28 such cast sites now go through
+`coerceElements<E>`, and `F-SCB3-18` covers the whole matrix rather than one
+cell. The general lesson is the same one that produced SCB3 in the first place:
+**`Uint8List` is the variant most likely to be probed and the variant least
+representative of the others.**
 
 ### The other half of the diff: `extraBridged`
 
@@ -871,6 +887,39 @@ be recognised, and the only fix is a per-adapter length check. That half
 remains a sweep (tracked as SCC85) and is genuinely a patch to every bridge.
 Nothing that works today breaks in either case; the cost is a poor diagnostic
 on already-invalid code, and for the too-many half, silence.
+
+### The third shape: a *valid* argument rejected by an over-narrow cast
+
+Both shapes above are about invalid calls getting a poor diagnostic. There is a
+third, which is worse because it rejects a **correct** call:
+`positionalArgs[n] as Iterable<int>` (or `as List<Widget>`, `as Map<String,
+Object>`, …) on an argument the script wrote as a **collection literal**.
+
+d4rt evaluates a collection literal to `List<Object?>` / `Map<Object?, Object?>`
+— the element types are erased regardless of what the elements actually are —
+and elements that came from bridged code arrive as `BridgedInstance` wrappers.
+So the cast is testing the container's *type argument*, which is never going to
+match, rather than its contents, which usually do.
+
+The failure mode is nastier than a wrong message:
+
+- **It looks like a per-member bug, not a class of bug**, because the same
+  member works when given a native collection. `l.followedBy(Uint8List.fromList
+  ([9]))` passes and `l.followedBy([9])` does not, so a spot-check clears the
+  member.
+- **It can substitute a different error for the right one.** If the native call
+  was going to throw — a fixed-length list refusing `addAll`, say — the cast
+  throws first, and a script's `on UnsupportedError` no longer catches. The
+  member's *error contract* changes, silently, and a test that only asserts
+  "something was thrown" stays green.
+
+The remedy is to coerce rather than cast: unwrap the container and any
+`BridgedInstance` elements, then let a genuinely wrong element type fail.
+`D4.coerceList<T>` does this for generated bridges;
+[`coerceElements<E>`](../lib/src/stdlib/typed_data/inherited_list_methods.dart)
+is the typed-data equivalent. Coercing must not *widen*: accepting an argument
+the SDK would reject makes a script green here that cannot compile as Dart,
+which is the one bridge defect no passing test can catch.
 
 ## Recommended next actions
 

@@ -1,3 +1,59 @@
+## 1.32.0
+
+### Fixed — a list literal is now a valid argument to a typed-data list member
+
+`Float32List.setAll(0, [7.0, 8.0])` used to throw
+
+```
+type 'List<Object?>' is not a subtype of type 'Iterable<double>' in type cast
+```
+
+even though both elements really were `double`. d4rt evaluates a list literal to
+`List<Object?>` — the element types are erased — and the typed-data adapters
+narrowed their argument with a bare `positionalArgs[n] as Iterable<E>`. The cast
+is about the list's *type argument*, not its contents, so it failed on every
+literal while passing on a typed-data argument
+(`l.setAll(0, Float32List.fromList([7.0, 8.0]))`). That asymmetry is why the bug
+survived: the natural spot-check uses the typed form.
+
+Affected on all eleven variants: `followedBy`, `setAll`, `setRange` and
+`operator+`; additionally on `Uint8List`, which hand-rolls its whole adapter map,
+`addAll`, `insertAll` and `replaceRange`. A single `coerceElements<E>` helper in
+`inherited_list_methods.dart` now unwraps the container and any
+`BridgedInstance` elements at all 28 call sites. It widens nothing — an element
+whose type genuinely does not match still fails, so `Float32List.setAll(0, [7,
+8])` remains the type error it is in Dart.
+
+`operator+` needed a second fix, one level up: the interpreter's `List + List`
+fast path in `visitBinaryExpression` handed the right operand to the SDK
+unchanged, and `List.+` demands `List<E>` for the *receiver's* element type. It
+now concatenates element-wise, which builds the result in the receiver's own
+element type and still rejects an element that does not fit.
+
+### Fixed — fixed-length typed lists raise a *catchable* `UnsupportedError`
+
+The same cast had a second, quieter consequence. A script that guards a
+fixed-length list defensively writes
+
+```dart
+try { list.addAll(more); } on UnsupportedError { /* recover */ }
+```
+
+and on `Uint8List` the failed cast threw *before* the native call, so the
+`UnsupportedError` the SDK would have raised never happened and the recovery path
+was never taken — the script died instead. Three members were affected
+(`addAll`, `insertAll`, `replaceRange`) and only on `Uint8List`; the other ten
+variants do not declare them and so reach the native list through the `-> List`
+supertype edge, which was already correct.
+
+`F-SCB3-18` used to assert only that `add` on one variant threw *something*,
+which passes just as happily when the error is a `RuntimeD4rtException` or a
+`_TypeError`. It now covers all eleven variants and all twelve length-changing
+operations and asserts the error *type*, and each call is written to genuinely
+force the length change — `ListMixin` short-circuits `remove` on an absent
+element, `addAll([])` and a `removeWhere` that removes nothing before it ever
+reaches the length setter, so a careless call passes on a broken bridge.
+
 ## 1.31.0
 
 ### Added — `LinkedList.addAll` and `LinkedList.addFirst`

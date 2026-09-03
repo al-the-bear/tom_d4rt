@@ -97,8 +97,8 @@ class Uint8ListTypedData {
             return (target as Uint8List).add(positionalArgs[0] as int);
           },
           'addAll': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Uint8List)
-                .addAll(positionalArgs[0] as Iterable<int>);
+            return (target as Uint8List).addAll(
+                coerceElements<int>(positionalArgs[0], 'Uint8List.addAll'));
           },
           'any': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
@@ -159,8 +159,8 @@ class Uint8ListTypedData {
                     _runAction(visitor, combine, [prev, element]));
           },
           'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Uint8List)
-                .followedBy(positionalArgs[0] as Iterable<int>);
+            return (target as Uint8List).followedBy(
+                coerceElements<int>(positionalArgs[0], 'Uint8List.followedBy'));
           },
           'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             final action = positionalArgs[0] as InterpretedFunction;
@@ -195,7 +195,8 @@ class Uint8ListTypedData {
           },
           'insertAll': (visitor, target, positionalArgs, namedArgs, _) {
             final index = positionalArgs[0] as int;
-            final iterable = positionalArgs[1] as Iterable<int>;
+            final iterable = coerceElements<int>(
+                positionalArgs[1], 'Uint8List.insertAll');
             return (target as Uint8List).insertAll(index, iterable);
           },
           'join': (visitor, target, positionalArgs, namedArgs, _) {
@@ -263,7 +264,8 @@ class Uint8ListTypedData {
           'replaceRange': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end = positionalArgs[1] as int;
-            final replacements = positionalArgs[2] as Iterable<int>;
+            final replacements = coerceElements<int>(
+                positionalArgs[2], 'Uint8List.replaceRange');
             return (target as Uint8List).replaceRange(start, end, replacements);
           },
           'retainWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -273,13 +275,15 @@ class Uint8ListTypedData {
           },
           'setAll': (visitor, target, positionalArgs, namedArgs, _) {
             final index = positionalArgs[0] as int;
-            final iterable = positionalArgs[1] as Iterable<int>;
+            final iterable =
+                coerceElements<int>(positionalArgs[1], 'Uint8List.setAll');
             return (target as Uint8List).setAll(index, iterable);
           },
           'setRange': (visitor, target, positionalArgs, namedArgs, _) {
             final start = positionalArgs[0] as int;
             final end = positionalArgs[1] as int;
-            final iterable = positionalArgs[2] as Iterable<int>;
+            final iterable =
+                coerceElements<int>(positionalArgs[2], 'Uint8List.setRange');
             final skipCount =
                 positionalArgs.length > 3 ? positionalArgs[3] as int : 0;
             return (target as Uint8List)
@@ -351,7 +355,8 @@ class Uint8ListTypedData {
 
           // Operators
           '+': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Uint8List) + (positionalArgs[0] as List<int>);
+            return (target as Uint8List) +
+                coerceElements<int>(positionalArgs[0], 'Uint8List +');
           },
           '==': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Uint8List) == positionalArgs[0];
