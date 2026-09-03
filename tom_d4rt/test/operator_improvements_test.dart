@@ -138,4 +138,95 @@ void main() {
       expect(result, equals("Complex operations successful"));
     });
   });
+
+  // FOUND BY SCC10, and not where it was looking. The stdlib member-diff oracle
+  // reports a `missingOperators` column, but diverts operators out of the
+  // candidate list BEFORE the phase-2 interpreter verification that every other
+  // column goes through — so the column had never been checked against the
+  // interpreter and was assumed to be noise. Probing it found `bool` listed
+  // alongside obvious false positives like `int <` and `String +`, and `bool`
+  // turned out to be real: `&`, `|` and `^` were unimplemented for booleans
+  // while the same three worked for `int` (see 'Bitwise operators' above).
+  //
+  // These are not exotic. `a & b` is the non-short-circuiting sibling of
+  // `a && b`, which is exactly what you want when both operands have side
+  // effects that must both happen — the one case `&&` cannot express.
+  group('bool bitwise operators', () {
+    test('F-SCC10-13: & is logical AND over booleans [2026-09-04]', () {
+      final result = execute('''
+        main() {
+          return [true & true, true & false, false & true, false & false];
+        }
+      ''');
+      // The full truth table, not a spot value: an implementation that returned
+      // the left operand would pass `true & true` and `false & false`.
+      expect(result, equals([true, false, false, false]));
+    });
+
+    test('F-SCC10-14: | is logical OR over booleans [2026-09-04]', () {
+      final result = execute('''
+        main() {
+          return [true | true, true | false, false | true, false | false];
+        }
+      ''');
+      expect(result, equals([true, true, true, false]));
+    });
+
+    test('F-SCC10-15: ^ is logical XOR over booleans [2026-09-04]', () {
+      final result = execute('''
+        main() {
+          return [true ^ true, true ^ false, false ^ true, false ^ false];
+        }
+      ''');
+      // XOR is the one of the three that cannot be mistaken for AND or OR on any
+      // row, so it is the case that proves the three are separately implemented.
+      expect(result, equals([false, true, true, false]));
+    });
+
+    test('F-SCC10-16: & and | do NOT short-circuit [2026-09-04]', () {
+      // This is the entire reason these operators exist rather than being
+      // spelled `&&` / `||`. An implementation that forwarded to the logical
+      // operators would pass every truth-table case above and fail here.
+      final result = execute('''
+        main() {
+          var calls = 0;
+          bool sideEffect(bool value) { calls++; return value; }
+          final a = false & sideEffect(true);
+          final afterAnd = calls;
+          final b = true | sideEffect(false);
+          return [a, afterAnd, b, calls];
+        }
+      ''');
+      expect(result, equals([false, 1, true, 2]),
+          reason: 'the right operand must be evaluated even when the left '
+              'already determines the result');
+    });
+
+    test('F-SCC10-17: the compound forms &= |= ^= assign [2026-09-04]', () {
+      final result = execute('''
+        main() {
+          bool a = true;  a &= false;
+          bool b = false; b |= true;
+          bool c = true;  c ^= true;
+          return [a, b, c];
+        }
+      ''');
+      // These failed with a different error than the binary forms
+      // ("Compound assignment operator AMPERSAND_EQ" vs "Unsupported binary
+      // operator AMPERSAND"), so they are a separate code path and need their
+      // own case rather than being assumed to follow.
+      expect(result, equals([false, true, false]));
+    });
+
+    test('F-SCC10-18: a non-bool operand is still rejected [2026-09-04]', () {
+      // The fix must not widen into "anything goes". `true & 1` is a type error
+      // in Dart and has to stay one here, or a script that passes under d4rt
+      // stops being compilable Dart.
+      expect(
+        () => execute('main() { return true & 1; }'),
+        throwsA(anything),
+        reason: 'mixing bool and int operands is not valid Dart',
+      );
+    });
+  });
 }

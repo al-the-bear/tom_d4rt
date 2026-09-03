@@ -1926,16 +1926,24 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         return left as dynamic > right;
       case '>=':
         return left as dynamic >= right;
+      // `bool` declares `& | ^` as well as `int` does. They are the
+      // non-short-circuiting siblings of `&& ||` — both operands are already
+      // evaluated by the time we get here, which is exactly the semantics Dart
+      // requires and the one case `&&` cannot express. Only bool-bool is
+      // accepted: `true & 1` is a type error in Dart and must stay one here.
       case '^':
         if (left is int && right is int) return left ^ right;
+        if (left is bool && right is bool) return left ^ right;
         if (left is BigInt && right is BigInt) return left ^ right;
         throw RuntimeD4rtException('Unsupported binary operator "$operator"');
       case '&':
         if (left is int && right is int) return left & right;
+        if (left is bool && right is bool) return left & right;
         if (left is BigInt && right is BigInt) return left & right;
         throw RuntimeD4rtException('Unsupported binary operator "$operator"');
       case '|':
         if (left is int && right is int) return left | right;
+        if (left is bool && right is bool) return left | right;
         if (left is BigInt && right is BigInt) return left | right;
         throw RuntimeD4rtException('Unsupported binary operator "$operator"');
       case '>>':
@@ -9413,8 +9421,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         return currentValue; // If left is not null, keep left
       }
     } else if (operatorType == TokenType.AMPERSAND_EQ) {
-      // Bitwise AND assignment (&=)
+      // Bitwise AND assignment (&=). The bool arm mirrors the binary `&` case:
+      // this is a separate dispatch site, so it needs its own bool handling
+      // rather than inheriting it.
       if (left is int && right is int) {
+        return left & right;
+      } else if (left is bool && right is bool) {
         return left & right;
       } else if (left is BigInt && right is BigInt) {
         return left & right;
@@ -9424,6 +9436,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       // Bitwise OR assignment (|=)
       if (left is int && right is int) {
         return left | right;
+      } else if (left is bool && right is bool) {
+        return left | right;
       } else if (left is BigInt && right is BigInt) {
         return left | right;
       }
@@ -9431,6 +9445,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     } else if (operatorType == TokenType.CARET_EQ) {
       // Bitwise XOR assignment (^=)
       if (left is int && right is int) {
+        return left ^ right;
+      } else if (left is bool && right is bool) {
         return left ^ right;
       } else if (left is BigInt && right is BigInt) {
         return left ^ right;
