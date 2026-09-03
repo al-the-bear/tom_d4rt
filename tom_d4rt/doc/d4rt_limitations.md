@@ -2954,12 +2954,18 @@ cannot honour, or carries a large surface with no demonstrated consumer. They
 are listed here so a script author who hits `Undefined variable: Zone` reads a
 decision rather than a gap.
 
-**Every one of these reports the same way:** `Undefined variable: <name>`, where
+**Almost all of these report the same way:** `Undefined variable: <name>`, where
 `<name>` is whatever the script wrote — not necessarily the class. A script
 reaches `Zone` by writing `runZoned`, and the `dart:io` compression codecs by
 writing the `gzip` / `zlib` globals. The "Reported as" column below therefore
 lists the identifiers you may actually see in the error, so this section is
 findable by the message rather than only by the class name.
+
+The one exception is a missing **member** on a class that *is* bridged: the
+three `ByteBuffer` SIMD views report
+`Bridged class 'ByteBuffer' has no instance method named 'asFloat32x4List'`
+instead. If you arrived here from that message rather than from
+`Undefined variable`, the `dart:typed_data` row below is the one you want.
 
 This applies to **both interpreter trees**. `tom_d4rt` (analyzer-based) and
 `tom_d4rt_ast` (analyzer-free) share one stdlib bridge set, mirrored
@@ -2988,10 +2994,15 @@ stdlib change (see the [Bridging Guide](BRIDGING_GUIDE.md)), not a redesign.
 | `WebSocket` | `WebSocket` | `dart:io` | Would sit behind `NetworkPermission`. Large stateful surface (upgrade handshake, ping/pong, close codes) for a use case no current script exercises. |
 | `GZipCodec` / `ZLibCodec` | `gzip`, `zlib`, `GZipCodec`, `ZLibCodec`, `ZLibEncoder`, `ZLibDecoder` | `dart:io` | Compression codecs, reached in practice through the `gzip` / `zlib` top-level globals. Add on concrete demand. **Not** to be confused with the gzip the toolchain already uses: `AstBundle` compresses `.ast` bundles with gzip and pins codec interop in `tom_d4rt_ast/test/runtime/dfub12_gzip_interop_test.dart`, but that is interpreter infrastructure below the bridge boundary — it gives a script no way to compress anything. |
 | `MutableRectangle` | `MutableRectangle` | `dart:math` | The immutable `Rectangle` is bridged and covers the common case; the mutable variant is rarely written as an explicit type. |
+| The SIMD block | `Float32x4`, `Int32x4`, `Float64x2`, `Float32x4List`, `Int32x4List`, `Float64x2List`, and `asFloat32x4List` / `asInt32x4List` / `asFloat64x2List` on `ByteBuffer` | `dart:typed_data` | Nine names: three scalar vector types, the three typed lists built on them, and the three `ByteBuffer` views that return those lists. A bridged version would be *correct* and pointless. SIMD exists to put four lanes through one machine instruction; in the interpreter every lane operation costs a bridge crossing, so a bridged `Float32x4` multiply is slower than the four scalar `double` multiplies it would replace. The eleven non-SIMD typed lists **are** bridged and cover the buffer work scripts actually do. Deferred rather than refused: nothing about the semantics resists bridging, so a consumer that genuinely wants the API rather than the throughput can have it. |
 
 For the full inventory of what *is* bridged versus what the SDK offers —
-including the P1/P2 tiers that are actively planned — see the
-[SDK gap audit](stdlib_sdk_gap_audit.md).
+including the tiers that are actively planned — see the
+[SDK gap audit](stdlib_sdk_gap_audit.md). Every unbridged name that audit
+records carries a **disposition**: it is either tracked as planned work, or it
+appears in one of the two tables above with a case pinning it in
+`test/stdlib/intentionally_unbridged_test.dart`. A name in neither place is a
+defect in the audit, not a silent decision — please report it.
 
 ---
 

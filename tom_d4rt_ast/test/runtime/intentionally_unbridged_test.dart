@@ -19,6 +19,11 @@
 // IF ONE OF THESE FAILS you have probably just bridged the class. That is
 // allowed; the fix is to move the row out of the doc's table and delete the
 // entry here, in the same change — not to loosen the test.
+//
+// SCB29 added the SIMD group. It is the only group here that also checks a
+// *member* map: six of its nine names are absent classes, but the three
+// ByteBuffer views are absent members of a class that IS registered, and at
+// registration level those are two different assertions.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
@@ -89,6 +94,61 @@ void main() {
     test('F-SC11-AST-4: the dart:io registrar really ran [2026-07-27]', () {
       // `File` is the anchor: if this is null the group above proves nothing.
       expect(env.findBridgedClassByName('File'), isNotNull);
+    });
+  });
+
+  group('SCB29: the SIMD block — dart:typed_data', () {
+    // `TypedDataStdlib` is eager (GEN-106), so a stock environment is the right
+    // place to look and no extra registrar call is needed.
+
+    test('F-SCB29-AST-1: none of the six SIMD types are registered '
+        '[2026-09-03]', () {
+      // Three scalars and the three lists built on them. The lists are the
+      // half that reads as an oversight rather than a decision, because they
+      // are typed-data views exactly like the eleven that ARE registered.
+      for (final name in const [
+        'Float32x4',
+        'Int32x4',
+        'Float64x2',
+        'Float32x4List',
+        'Int32x4List',
+        'Float64x2List',
+      ]) {
+        expect(env.findBridgedClassByName(name), isNull,
+            reason: '$name is listed as deferred in d4rt_limitations.md but '
+                'is registered in this tree');
+      }
+    });
+
+    test('F-SCB29-AST-2: ByteBuffer is registered but carries none of the '
+        'three SIMD views [2026-09-03]', () {
+      // The other half of the block, and the reason this group is shaped
+      // differently from the rest of the file: these are missing members on a
+      // present class, so `findBridgedClassByName` would answer isNotNull and
+      // prove nothing.
+      final byteBuffer = env.findBridgedClassByName('ByteBuffer');
+      expect(byteBuffer, isNotNull,
+          reason: 'ByteBuffer must be registered for the member check below '
+              'to mean anything');
+      for (final view in const [
+        'asFloat32x4List',
+        'asInt32x4List',
+        'asFloat64x2List',
+      ]) {
+        expect(byteBuffer!.methods, isNot(contains(view)),
+            reason: 'ByteBuffer.$view is listed as deferred in '
+                'd4rt_limitations.md but is registered in this tree');
+      }
+    });
+
+    test('F-SCB29-AST-3: the non-SIMD typed lists and the other ByteBuffer '
+        'views ARE registered [2026-09-03]', () {
+      // Anchor. Without it every claim above would also hold if
+      // `TypedDataStdlib` had simply not run.
+      expect(env.findBridgedClassByName('Float32List'), isNotNull);
+      expect(env.findBridgedClassByName('Uint8List'), isNotNull);
+      expect(env.findBridgedClassByName('ByteBuffer')!.methods,
+          contains('asUint8List'));
     });
   });
 

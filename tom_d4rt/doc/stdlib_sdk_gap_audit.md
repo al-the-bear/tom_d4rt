@@ -1,6 +1,6 @@
 # D4rt stdlib — SDK gap audit
 
-**Date:** 2026-07-07 (updated 2026-07-28)
+**Date:** 2026-07-07 (updated 2026-09-03)
 **Interpreter version:** tom_d4rt (analyzer-based) + tom_d4rt_ast (mirror)
 **SDK reference:** Dart 3.12.2 (package constraint `^3.5.0`)
 **Scope audited:** all stdlib bridge files under
@@ -13,6 +13,15 @@ Class-level coverage is audited by hand; **member-level** and
 
 ## TL;DR
 
+- **Every gap recorded here carries a disposition, and adding a row means
+  choosing one:** *Tracked* (it will be bridged — name the todo) or *Boundary*
+  (it will not — move it to the
+  [limitations doc](d4rt_limitations.md#intentionally-unbridged-sdk-classes)
+  and pin it in `test/stdlib/intentionally_unbridged_test.dart`). A row with
+  neither is a defect, because it leaves a script author unable to tell
+  "deliberately out of scope" from "nobody has got to it yet". Read
+  [the rule](#the-disposition-rule--read-this-before-adding-a-row) before
+  adding to any table below.
 - **Gaps come at three levels: class, member, and hierarchy.** A missing
   supertype *edge* is its own defect, distinct from a missing member and
   invisible to the member diff. It costs the entire inherited surface at
@@ -137,18 +146,23 @@ Measured 2026-07-28.
 | **CONFIRMED unreachable** | **163** |
 | Classes with ≥ 1 confirmed gap | 38 |
 
-| Class | Confirmed | Instance | Static | Assessment |
-| --- | --- | --- | --- | --- |
-| 10 × shared typed lists | 12 each | 12 | 0 | **Not a gap** — these are the length-*changing* `List` mutators (`add`, `insert`, `remove`, `clear`, …). A fixed-length list must refuse them. See the note below on the *error type*. |
-| `Queue` / `ListQueue` | 4 / 2 | 3 / 2 | 1 / 0 | Genuine gap — the `remove`/`removeWhere`/`retainWhere` mutators, plus `Queue.castFrom`. |
-| `RangeError`, `ArgumentError`, `IndexError`, `Error` | 4, 1, 1, 1 | 0 | all | Genuine gap — the static validation helpers (`checkValidRange`, `checkNotNull`, `throwWithStackTrace`, …). |
-| `Iterable`, `Map`, `Set`, `Converter`, `LineSplitter` | 1–3 | 0 | all | The `castFrom` family plus `iterableToShortString`/`iterableToFullString`. Low traffic. |
-| `ByteBuffer` | 3 | 3 | 0 | The three SIMD views (`asFloat32x4List`, `asInt32x4List`, `asFloat64x2List`). Blocked on `Float32x4`/`Int32x4` themselves not being bridged. |
-| `LinkedList` | 2 | 2 | 0 | `addAll`, `addFirst`. Was 27 before the `-> Iterable` edge existed; see below. |
-| `SplayTreeMap` | 2 | 2 | 0 | `firstKeyAfter`, `lastKeyBefore` — the type's distinguishing ordered-navigation pair. |
-| 4 × `Codec` (`Utf8`, `Ascii`, `Latin1`, `Encoding`) | 1 each | 1 | 0 | `decodeStream` — needs a `Stream<List<int>>`. |
-| `Enum`, `Symbol`, `ProcessStartMode`, `String`, … | 1–2 | mixed | mixed | Long tail: `compareByIndex`/`compareByName`, `Symbol.empty`, `values`, `matchAsPrefix`. |
-| `unawaited`, `FileSystemEntityType.NOT_FOUND` | 1 each | — | — | **Tool artifacts.** `unawaited` is a function, not a class, so its `Function` surface is diffed; `NOT_FOUND` is a deprecated SDK alias. |
+The **Disposition** column is not decoration — see
+[the disposition rule](#recommended-next-actions). Every row must name where
+its resolution lives, so that a row can never sit in the audit as an
+unattributed observation.
+
+| Class | Confirmed | Instance | Static | Assessment | Disposition |
+| --- | --- | --- | --- | --- | --- |
+| 10 × shared typed lists | 12 each | 12 | 0 | **Not a gap** — these are the length-*changing* `List` mutators (`add`, `insert`, `remove`, `clear`, …). A fixed-length list must refuse them. See the note below on the *error type*. | SCC9 (error type) |
+| `Queue` / `ListQueue` | 4 / 2 | 3 / 2 | 1 / 0 | Genuine gap — the `remove`/`removeWhere`/`retainWhere` mutators, plus `Queue.castFrom`. | SCC10 |
+| `RangeError`, `ArgumentError`, `IndexError`, `Error` | 4, 1, 1, 1 | 0 | all | Genuine gap — the static validation helpers (`checkValidRange`, `checkNotNull`, `throwWithStackTrace`, …). | SCC11 |
+| `Iterable`, `Map`, `Set`, `Converter`, `LineSplitter` | 1–3 | 0 | all | The `castFrom` family plus `iterableToShortString`/`iterableToFullString`. Low traffic. | SCC10 / SCC11 |
+| `ByteBuffer` | 3 | 3 | 0 | The three SIMD views (`asFloat32x4List`, `asInt32x4List`, `asFloat64x2List`). This row **understated the finding** — see [Notes on the SIMD block](#notes-on-the-simd-block); it is nine names, not three. | **Boundary** — [limitations doc](d4rt_limitations.md#intentionally-unbridged-sdk-classes) + `F-SCB29-1..4` |
+| `LinkedList` | 2 | 2 | 0 | `addAll`, `addFirst`. Was 27 before the `-> Iterable` edge existed; see below. | SCC8 |
+| `SplayTreeMap` | 2 | 2 | 0 | `firstKeyAfter`, `lastKeyBefore` — the type's distinguishing ordered-navigation pair. | SCC50 |
+| 4 × `Codec` (`Utf8`, `Ascii`, `Latin1`, `Encoding`) | 1 each | 1 | 0 | `decodeStream`. **Stale as printed** — SCB23 added the `EncodingConvert` adapter and the `-> Encoding` edges, and `utf8.decodeStream(...)` was re-probed working on 2026-09-03. The row survives only because the table has not been re-measured since. | Re-measure: SCC12 / SCC13 |
+| `Enum`, `Symbol`, `ProcessStartMode`, `String`, … | 1–2 | mixed | mixed | Long tail: `compareByIndex`/`compareByName`, `Symbol.empty`, `values`, `matchAsPrefix`. | SCC11 (`String.matchAsPrefix`: SCC56) |
+| `unawaited`, `FileSystemEntityType.NOT_FOUND` | 1 each | — | — | **Tool artifacts.** `unawaited` is a function, not a class, so its `Function` surface is diffed; `NOT_FOUND` is a deprecated SDK alias. | SCC11 (suppress in the tool) |
 
 **A supertype edge is worth ~25 adapters.** The three largest en-bloc
 entries in the previous revision of this table are gone, and none of them was
@@ -241,10 +255,10 @@ declared for readability — the fallback that made them true is untouched.
 
 ### Confirmed gaps, by hierarchy
 
-| Hierarchy | Classes | Missing edges | Members also lost? |
-| --- | --- | --- | --- |
-| `dart:core` comparables | `String`, `Duration` | `-> Comparable`, `-> Pattern` | Yes — `String.matchAsPrefix` |
-| `dart:async` sinks | `StreamController` | `-> Sink` | No |
+| Hierarchy | Classes | Missing edges | Members also lost? | Disposition |
+| --- | --- | --- | --- | --- |
+| `dart:core` comparables | `String`, `Duration` | `-> Comparable`, `-> Pattern` | Yes — `String.matchAsPrefix` | SCC56 |
+| `dart:async` sinks | `StreamController` | `-> Sink` | No | SCC58 |
 
 `StreamController` is the instructive row: it already carries
 `-> EventSink`, `-> StreamConsumer` and `-> StreamSink`, and is missing only
@@ -282,6 +296,11 @@ the `dart:io` sockets and servers are omitted on purpose rather than have the
 audit open listening ports, so those need a recipe that constructs without
 binding, or an explicit "not auditable" marker.
 
+**Disposition:** Tracked — SCC57 for these 62 edges, SCC12 for the 265
+unverified members. Both buckets are measurement debt, not bridging decisions:
+until they close, "confirmed" is a lower bound and no entry inside them can be
+given a Boundary disposition, because nobody has established it is a gap.
+
 ### Why these are filed rather than fixed here
 
 Each hierarchy needs its own dispatch verification — the SC7 queue case
@@ -291,7 +310,11 @@ hierarchies across four libraries is not one change, and the edges must land
 in both trees (`CollectionHierarchyCollection` and `ConvertHierarchyConvert`
 are byte-identical between `tom_d4rt` and `tom_d4rt_ast` today; any new
 registrar must stay that way). The audit's job is to make the list complete
-and repeatable; the fixes are tracked separately.
+and repeatable; the fixes are tracked in the **Disposition** column of the
+confirmed-gaps table above — SCC56 for the `dart:core` singletons, SCC58 for
+`StreamController -> Sink`. "Tracked separately" without naming the tracker is
+what [the disposition rule](#the-disposition-rule--read-this-before-adding-a-row)
+now forbids.
 
 ## Not a gap: relaxer false-alarms (already fixed)
 
@@ -351,18 +374,32 @@ These are recorded as **intentional limitations** with a per-class rationale in
 [d4rt_limitations.md § Intentionally-Unbridged SDK Classes](d4rt_limitations.md#intentionally-unbridged-sdk-classes),
 which distinguishes the ones that *cannot* be honoured (`Zone`, `Expando`,
 `WeakReference`, `Finalizer`) from the ones merely deferred until a consumer
-appears (`Link`, `WebSocket`, `GZipCodec`/`ZLibCodec`, `MutableRectangle`).
+appears (`Link`, `WebSocket`, `GZipCodec`/`ZLibCodec`, `MutableRectangle`, the
+SIMD block). Each row is pinned by a case in
+[`intentionally_unbridged_test.dart`](../test/stdlib/intentionally_unbridged_test.dart),
+so the table cannot silently go stale in the "someone bridged it" direction.
 
-| Type | Library | Reason to defer |
-|------|---------|-----------------|
-| `Expando` | dart:core | Identity side-tables; rare in scripts. |
-| `WeakReference` | dart:core | GC semantics; unclear value in interpreter. |
-| `Finalizer` | dart:core | GC callbacks; sandbox-hostile. |
-| `Zone` | dart:async | Full zone API is large and cross-cutting. |
-| `Link` | dart:io | Symlinks — behind `FilesystemPermission`. |
-| `WebSocket` | dart:io | Behind `NetworkPermission`; larger surface. |
-| `GZipCodec` / `ZLibCodec` | dart:io | Compression; add if a consumer needs it. |
-| `MutableRectangle` | dart:math | `Rectangle` present; mutable variant rarely typed. |
+| Type | Library | Reason to defer | Disposition |
+|------|---------|-----------------|-------------|
+| `Expando` | dart:core | Identity side-tables; rare in scripts. | Boundary — cannot be honoured |
+| `WeakReference` | dart:core | GC semantics; unclear value in interpreter. | Boundary — cannot be honoured |
+| `Finalizer` | dart:core | GC callbacks; sandbox-hostile. | Boundary — cannot be honoured |
+| `Zone` | dart:async | Full zone API is large and cross-cutting. | Boundary — cannot be honoured |
+| `Link` | dart:io | Symlinks — behind `FilesystemPermission`. | Deferred |
+| `WebSocket` (+ `WebSocketTransformer`, `WebSocketException`, `WebSocketStatus`, `CompressionOptions`) | dart:io | Behind `NetworkPermission`; larger surface. | Deferred **and** scoped as SCC63 — see below |
+| `GZipCodec` / `ZLibCodec` | dart:io | Compression; add if a consumer needs it. | Deferred |
+| `MutableRectangle` | dart:math | `Rectangle` present; mutable variant rarely typed. | Deferred |
+| The SIMD block (9 names) | dart:typed_data | Correct but pointless through an interpreter — see [Notes on the SIMD block](#notes-on-the-simd-block). | Deferred |
+
+**`WebSocket` is the one name that legitimately carries two records, and that
+is deliberate rather than an oversight.** It sits in the limitations table
+*and* has scoped work in SCC63, because the two serve different readers: a
+script author who hits `Undefined variable: WebSocket` needs to know the
+absence is known, and a developer needs the block's scope and its permission
+posture. The rule below permits this — what it forbids is a name with
+*neither* record. The 2026-09-03 reconciliation also widened the limitations
+row from `WebSocket` alone to all five names in the block, since the other
+four failed identically and pointed the reader nowhere.
 
 ## Notes on the error-type gap
 
@@ -525,6 +562,57 @@ its own dispatch verification — they are what makes the surface work today.
 `Uint8List` bridge unchanged. `ByteBuffer` is likewise absent — both look like
 they belong, and neither implements the interface.
 
+## Notes on the SIMD block
+
+The `ByteBuffer` member row above reads "3 confirmed gaps", and read on its own
+it suggests three missing methods on an otherwise complete class. It is nine
+names, and they are one decision rather than nine oversights.
+
+Measured 2026-09-03, `tom_d4rt` working tree:
+
+| Written by a script | What it reports |
+| --- | --- |
+| `Float32x4(1, 2, 3, 4)` | `Undefined variable: Float32x4` |
+| `Int32x4(1, 2, 3, 4)` | `Undefined variable: Int32x4` |
+| `Float64x2(1, 2)` | `Undefined variable: Float64x2` |
+| `Float32x4List(2)` | `Undefined variable: Float32x4List` |
+| `Int32x4List(2)` | `Undefined variable: Int32x4List` |
+| `Float64x2List(2)` | `Undefined variable: Float64x2List` |
+| `buf.asFloat32x4List()` | `Bridged class 'ByteBuffer' has no instance method named 'asFloat32x4List'.` |
+| `buf.asInt32x4List()` | `Bridged class 'ByteBuffer' has no instance method named 'asInt32x4List'.` |
+| `buf.asFloat64x2List()` | `Bridged class 'ByteBuffer' has no instance method named 'asFloat64x2List'.` |
+
+**Two failure modes, and the split is not arbitrary.** The six classes are not
+registered at all, so they fail in the environment lookup with the same
+`Undefined variable` every unbridged class produces. `ByteBuffer` *is* bridged
+— only these three of its members are absent — so they fail one layer further
+in, as a `D4rtNoSuchMethodError`. A reader who arrives from the second message
+would find nothing by grepping the limitations doc for `Undefined variable`,
+which is why that doc's preamble now names the exception explicitly.
+
+**Why the three lists matter to the count.** The audit previously recorded only
+the scalars, and that is the harder half to notice: `Float32x4List`,
+`Int32x4List` and `Float64x2List` are typed-data views, structurally identical
+to the eleven views that *are* bridged and that the hierarchy section above
+goes to some length to get right. Their absence therefore reads as a hole in
+that set rather than as this decision — the exact ambiguity the disposition
+rule exists to remove.
+
+**Why bridging them is correct and pointless.** SIMD's entire reason to exist
+is throughput: four lanes through one machine instruction. Through the
+interpreter every lane operation is a bridge crossing, so a bridged
+`Float32x4` multiply costs strictly more than the four scalar `double`
+multiplies it would replace. The API would be faithful and every script using
+it would be slower than the code it was written to improve.
+
+**Deferred, not refused.** Nothing in the semantics resists bridging — no
+identity, no GC timing, no sandbox concern, unlike the `Expando`/`Finalizer`
+group. A consumer that wants the *API* (porting existing code that names these
+types) rather than the *throughput* can have it; there is simply no such
+consumer today. The eleven non-SIMD typed lists cover the buffer work scripts
+actually do, which `F-SCB29-4` anchors so the block above reads as a decision
+rather than as `dart:typed_data` being broken.
+
 ## Notes on the convert hierarchy
 
 Two findings came out of the `dart:convert` work that are worth recording
@@ -668,6 +756,17 @@ that probes reachability with `.toString()` cannot see any of this — every
 name in scope answers `toString()` — which is why the counts above are
 taken from registration shape and `is`, not from name resolution.
 
+**Disposition: all 23 names are Tracked**, and the four todos partition the 19
+exactly — no name is in two, none is in none:
+
+| Names | Count | Tracked as |
+| ----- | ----- | ---------- |
+| `HttpException`, `RedirectException`, `HttpStatus` | 3 | SCC61 — the silent-catch failure, so highest priority |
+| `HttpRequest`, `HttpResponse`, `HttpSession`, `HttpConnectionInfo`, `HttpConnectionsInfo`, `SameSite` | 6 | SCC62 — makes the already-bridged `HttpServer` usable |
+| `WebSocket`, `WebSocketTransformer`, `WebSocketException`, `WebSocketStatus`, `CompressionOptions` | 5 | SCC63 — **also** has a limitations row; see the note under [P3](#p3--niche-or-questionable-sandbox-fit-audit-only-likely-skip) |
+| `HttpDate`, `HttpOverrides`, `BadCertificateCallback`, `RedirectInfo`, `HttpClientResponseCompressionState` | 5 | SCC65 — the client-side leftovers |
+| The four credentials names | 4 | SCC64 — registered, but as callables rather than types |
+
 Pinned by [`io_reexport_visibility_test.dart`](../test/stdlib/io/io_reexport_visibility_test.dart)
 and its registration-level mirror
 `tom_d4rt_ast/test/runtime/stdlib_io_reexport_visibility_test.dart`. Both
@@ -700,12 +799,71 @@ That wrapping does **not** cover two shapes, both found by probing the
 The bridges written for SC5–SC9 guard both (see
 [`byte_conversion.dart`](../lib/src/stdlib/convert/byte_conversion.dart)
 for the style, and the `Timer` "arity guards" group for the test shape);
-older ones largely do not. Nothing that works today breaks — the cost is
-only a poor diagnostic on already-invalid code — and the shape is generic
-to the hand-written stdlib, so the unit of work is a sweep rather than a
-patch to any one bridge.
+older ones largely do not.
+
+**The two halves resolved differently, and the reason is worth carrying
+forward.** The too-few half is *recognisable at the dispatch site*: a list
+`RangeError` whose reported range is exactly `0..positional.length - 1` can
+only have come from an adapter indexing its own argument list past the end.
+`D4.describeArityError` tests that shape and returns a real message —
+*"UriData.parse expects at least 1 positional argument, but was called with
+0."* — which the interpreter's catch-all substitutes for the "Native error
+during …" wrapping. One check covers all ~601 unguarded adapters in each
+tree, rather than 1202 copies of the same three lines.
+
+The too-many half has no such signature. Extra arguments produce no error at
+all — the adapter simply never reads them — so nothing reaches a catch-all to
+be recognised, and the only fix is a per-adapter length check. That half
+remains a sweep (tracked as SCC85) and is genuinely a patch to every bridge.
+Nothing that works today breaks in either case; the cost is a poor diagnostic
+on already-invalid code, and for the too-many half, silence.
 
 ## Recommended next actions
+
+### The disposition rule — read this before adding a row
+
+**Every gap this audit records must name where its resolution lives.** A row
+is allowed exactly two kinds of record, and adding a row means choosing one:
+
+- **Tracked** — it will be bridged. Name the todo id in the row's
+  **Disposition** column. The audit's job for that row is done; the todo owns
+  it from there.
+- **Boundary** — it will not be bridged. Move it into the
+  [limitations doc's intentionally-unbridged tables](d4rt_limitations.md#intentionally-unbridged-sdk-classes)
+  with its justification, add a case to
+  `tom_d4rt/test/stdlib/intentionally_unbridged_test.dart`, and cite that case
+  id in the Disposition column.
+
+**A row with neither record is the defect this rule exists to remove**, and it
+is not a hypothetical one. Prose alone cannot catch it: the limitations tests
+pin the list in one direction only — bridge `Expando` and `F-SC11-2` fails,
+forcing the row out of the doc — but nothing fires when a class is examined,
+declined, and simply never written down. The reader who then hits
+`Undefined variable: <it>` cannot tell *deliberately out of scope* from
+*nobody has got to it yet*, which is the entire distinction the limitations
+section exists to draw.
+
+The honest pin would be a test asserting that the unbridged set equals the
+doc's table. There is no enumerable "set of SDK classes" to compare against
+without an analyzer pass over the SDK, and hard-coding the expected set is
+this document again in Dart syntax — it rots identically, and now in two
+places. So the guarantee is procedural: it holds because filling in a
+Disposition is part of adding a row, not because a test catches the omission.
+
+**The rule forbids the empty case, not the double one.** A name may legitimately
+carry both records — see `WebSocket` under P3, which needs a limitations row
+for the script author who hits the error *and* a tracked todo for the developer
+who will build the block. Requiring strict exclusivity would delete the row the
+script author needs the moment work is scheduled, which is exactly backwards.
+
+**Worked example of the failure.** The `dart:typed_data` SIMD block sat
+unbridged, untracked and undocumented — nine names in the "neither" state,
+reachable from no document. It went unmissed because the audit's own
+`ByteBuffer` row recorded three missing *members* and never connected them to
+the six missing *classes* that produced them. It is now Boundary, with
+[its own section](#notes-on-the-simd-block) and `F-SCB29-1..4`.
+
+### Status by tier
 
 1. **P1 is complete** — the pure classes (`Stopwatch`, the collection
    views/sets) and all seven catchable error types are bridged in both
@@ -768,6 +926,14 @@ counts — 115 candidate edges verify down to 24, and 620 candidate members to
 Coverage is bounded by `_instanceRecipes` in the tool: a class with no recipe
 is reported UNVERIFIED, never as a gap. Extend that table rather than writing
 one-off probes — that is what makes the next bridge covered automatically.
+
+**The measurement is repeatable; the transcription into this document is not.**
+Every figure above was produced by a run and then typed here by hand, so a
+bridging fix silently invalidates whichever figures it touched — the four
+`Codec` `decodeStream` rows described a gap that SCB23 had already closed, and
+nothing would have said so. Re-run both modes before trusting a number for
+planning, and treat a row's figures as "true when written" rather than
+"true now". SCC89 tracks giving this a trigger instead of a convention.
 
 - **Class inventory**, if a source-level list is wanted rather than the live
   registry: `grep -rhoE "name: '[A-Za-z]+'"` across `stdlib/`.
