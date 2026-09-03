@@ -7,7 +7,6 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/io/http.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io/process.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io/platform.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io/io_sink.dart';
-import 'package:tom_d4rt_ast/src/runtime/stdlib/io/string_sink.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io/socket.dart';
 
 export 'package:tom_d4rt_ast/src/runtime/environment.dart';
@@ -19,7 +18,6 @@ export 'package:tom_d4rt_ast/src/runtime/stdlib/io/http.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/io/process.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/io/platform.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/io/io_sink.dart';
-export 'package:tom_d4rt_ast/src/runtime/stdlib/io/string_sink.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/io/socket.dart';
 
 class IoStdlib {
@@ -60,8 +58,13 @@ class IoStdlib {
     // Register IOSink bridge
     environment.defineBridge(IOSinkIo.definition);
 
-    // Register StringSink bridge
-    environment.defineBridge(StringSinkIo.definition);
+    // `StringSink` is deliberately NOT registered here. `dart:io` does not
+    // declare it — it re-exports the `dart:core` declaration, which
+    // `CoreStdlib` (always registered eagerly, before this registrar can run)
+    // already owns. A second definition under the same name would displace
+    // that one on last-wins, and because both would carry
+    // `nativeType: StringSink` the collision reads as a benign re-export and
+    // is never flagged as ambiguous. See SCB26.
 
     // Register Socket classes
     environment.defineBridge(SocketIo.definition);
