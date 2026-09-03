@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:tom_d4rt_ast/runtime.dart';
+import 'package:tom_d4rt_ast/src/runtime/unbridged_reasons.dart';
 import 'package:tom_d4rt_ast/src/runtime/utils/extensions/string.dart';
 
 /// A wrapper for lazy-evaluated global getters with optional setter support.
@@ -1119,10 +1120,13 @@ class Environment {
   /// implicit-`this` member access in [InterpreterVisitor.visitSimpleIdentifier])
   /// should call [lookup] directly to avoid the cost of constructing, throwing
   /// and catching an exception — with its stack-trace capture — on every miss.
+  ///
+  /// The message is built by [undefinedVariableMessage], which appends a reason
+  /// when [name] is one of the deliberately-unbridged SDK identifiers (SCB30).
   dynamic get(String name) {
     final value = lookup(name);
     if (identical(value, kNotFound)) {
-      throw RuntimeD4rtException("Undefined variable: $name");
+      throw RuntimeD4rtException(undefinedVariableMessage(name));
     }
     return value;
   }

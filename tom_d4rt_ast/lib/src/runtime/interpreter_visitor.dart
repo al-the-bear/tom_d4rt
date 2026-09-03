@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:tom_d4rt_ast/runtime.dart';
+import 'package:tom_d4rt_ast/src/runtime/unbridged_reasons.dart';
 
 /// Detects whether any `SFunctionExpression` (closure) appears in a subtree.
 /// Used by the classic-for loop optimization (T8/F5) to decide whether a
@@ -659,7 +660,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
 
       // This is the end of the search, the identifier is undefined.
-      throw RuntimeD4rtException("Undefined variable: $name");
+      throw RuntimeD4rtException(undefinedVariableMessage(name));
     }
 
     // 'this' was found, now we try to access the member.
@@ -8987,13 +8988,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             operandValue = thisInstance.get(variableName); // Get from instance
             isInstanceField = true;
           } else {
-            throw RuntimeD4rtException("Undefined variable: $variableName");
+            throw RuntimeD4rtException(
+                undefinedVariableMessage(variableName));
           }
         } on LateInitializationError {
           // Plan H: surface unwrapped — matches native Dart behaviour.
           rethrow;
         } on RuntimeD4rtException {
-          throw RuntimeD4rtException("Undefined variable: $variableName");
+          throw RuntimeD4rtException(undefinedVariableMessage(variableName));
         }
       }
       final bridgedInstance = toBridgedInstance(operandValue);
@@ -10755,7 +10757,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       Logger.debug(
         "[visitIdentifier] Failed to find '$identName' in env: ${environment.hashCode}",
       );
-      throw RuntimeD4rtException("Undefined variable: $identName");
+      throw RuntimeD4rtException(undefinedVariableMessage(identName));
     }
     return value;
   }

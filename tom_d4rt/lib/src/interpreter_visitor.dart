@@ -8,6 +8,7 @@ import 'package:tom_d4rt/src/bridge/bridged_enum.dart';
 import 'package:tom_d4rt/src/utils/extensions/string.dart';
 import 'package:tom_d4rt/src/module_loader.dart';
 import 'package:tom_d4rt/src/sdk_errors.dart';
+import 'package:tom_d4rt/src/unbridged_reasons.dart';
 
 /// Main visitor that walks the AST and interprets the code.
 /// Uses a two-pass approach (DeclarationVisitor first).
@@ -618,7 +619,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
 
       // This is the end of the search, the identifier is undefined.
-      throw RuntimeD4rtException("Undefined variable: $name");
+      throw RuntimeD4rtException(undefinedVariableMessage(name));
     }
 
     // 'this' was found, now we try to access the member.
@@ -8053,13 +8054,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             operandValue = thisInstance.get(variableName); // Get from instance
             isInstanceField = true;
           } else {
-            throw RuntimeD4rtException("Undefined variable: $variableName");
+            throw RuntimeD4rtException(
+                undefinedVariableMessage(variableName));
           }
         } on LateInitializationError {
           // Plan H: surface unwrapped — matches native Dart behaviour.
           rethrow;
         } on RuntimeD4rtException {
-          throw RuntimeD4rtException("Undefined variable: $variableName");
+          throw RuntimeD4rtException(undefinedVariableMessage(variableName));
         }
       }
       final bridgedInstance = toBridgedInstance(operandValue);
@@ -9646,7 +9648,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       // Log environment ID on failure
       Logger.debug(
           "[visitIdentifier] Failed to find '${node.name}' in env: ${environment.hashCode}");
-      throw RuntimeD4rtException("Undefined variable: ${node.name}");
+      throw RuntimeD4rtException(undefinedVariableMessage(node.name));
     }
     return value;
   }
