@@ -1,6 +1,6 @@
 name: tom_d4rt_generator
 description: D4rt bridge generator for creating BridgedClass implementations from Dart source. Supports per-package generation, deduplication, and cross-package bridging.
-version: 1.15.3
+version: 1.16.0
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_generator
 topics:
@@ -39,10 +39,21 @@ dependencies:
   # (2.7.1 extends that to pipeline `shell-scan` steps).
   tom_build_base: ">=2.7.1"
 
-  # D4rt runtime (used by testing library). Floor 1.11.0: generated enum bridges
-  # emit the `staticMethods:` parameter on `BridgedEnumDefinition` (GitHub issue
-  # #2 — static enum method dispatch) which earlier 1.10.x do not accept.
-  tom_d4rt: ">=1.11.0"
+  # D4rt runtime (used by the testing library). Floor 1.30.1 because 1.27.0
+  # through 1.30.0 cannot run a generated bridge set at all: 1.27.0 (tcca19)
+  # made two same-named bridged classes reject the bare name, and applied that
+  # to `dart:*` declarations too — so any script naming a type `dart:ui` also
+  # declares (`TextStyle`, and most Flutter scripts) raised an ambiguity error.
+  # 1.30.1 restores Dart's platform-library precedence. Those three versions are
+  # published, so a lower floor admits them.
+  #
+  # This floor is also the ONLY constraint in the graph deciding which
+  # interpreter tom_d4rt_exec resolves — exec declares no tom_d4rt of its own
+  # and reaches it solely through this dev dependency, so its
+  # test/generator_tests/ conformance suite compares the analyzer-free tree
+  # against whatever version this line admits. Keep it at the current published
+  # interpreter; a stale floor here silently weakens that comparison.
+  tom_d4rt: ">=1.30.1"
 
   # Shared analyzer summary caching — same cache directory as
   # tom_reflection_generator so sibling generators can reuse each

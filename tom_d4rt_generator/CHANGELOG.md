@@ -1,3 +1,44 @@
+## 1.16.0
+
+### Changed — the `tom_d4rt` floor moves from `>=1.11.0` to `>=1.30.1`
+
+Two reasons, and the second is why this is a minor rather than a patch.
+
+**1.27.0 through 1.30.0 cannot run a generated bridge set.** 1.27.0 (tcca19)
+made two same-named bridged classes reject the bare name instead of silently
+picking whichever registered last, and applied that rule to `dart:*`
+declarations as well. Dart does not treat them as peers — it applies
+*platform-library precedence*, under which a `dart:*` name is shadowed by a
+non-platform one with no ambiguity. So under 1.27.0 any script naming a type
+that a `dart:*` library also declares failed:
+
+    Ambiguous Name Error: The name 'TextStyle' is declared by more than one
+    library in scope, so it cannot be used unqualified.
+
+`dart:ui` declares `TextStyle`, which is most Flutter scripts. 1.30.1 restores
+precedence. All three affected versions are published, so a floor below 1.30.1
+admits them.
+
+**The floor is load-bearing for someone else's test suite.** `tom_d4rt_exec`
+declares no `tom_d4rt` of its own; the interpreter reaches it *only*
+transitively, through this package as a dev dependency. So this line is the
+only constraint in that graph with any say over the version, and exec's
+`test/generator_tests/` suite — which exists to compare the analyzer-free tree
+against the analyzer tree — was comparing against whatever this floor admitted.
+At `>=1.11.0` that meant a reference nineteen minors old, weak in exactly the
+direction the suite is meant to be strong: every conformance case the analyzer
+tree changed in between was being checked against the old answer.
+
+The example fixtures under `example/` move to the same floor, so the
+generator's own end-to-end tests measure the interpreter the generator is
+developed against rather than an arbitrary older one.
+
+No generator behaviour changes. Suite: 936 passed / 3 failed at `tom_d4rt`
+1.22.0 before the raise, 939 passed / 0 failed at 1.30.1 after it. Same 939
+tests both times; the three that failed before were 30-second
+`TimeoutException`s under full-suite load, not assertions. So the interpreter
+changes across 1.23.0..1.30.1 are all invisible to this package.
+
 ## 1.15.3
 
 ### Fixed — a relative scan root emitted unrooted source URIs (GEN-125)
