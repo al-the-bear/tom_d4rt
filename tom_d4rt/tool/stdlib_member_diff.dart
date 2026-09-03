@@ -119,6 +119,8 @@ class ClassDiff {
   /// rather than folded into either bucket.
   final unverifiedInstance = <String>[];
   final unverifiedStatic = <String>[];
+  final unverifiedOperators = <String>[];
+  final unverifiedUniversal = <String>[];
 
   /// Adapter keys with no matching SDK member. Mostly extension members that
   /// mirrors cannot see (`firstOrNull` and friends live on `IterableExtensions`,
@@ -134,13 +136,24 @@ class ClassDiff {
   int sdkCount = 0;
   String? error;
 
-  /// Operators are excluded: the interpreter routes most of them through its own
-  /// evaluation path rather than the adapter maps, so a "missing" operator here
-  /// is not reliable evidence of a gap.
-  int get gapCount => missingInstance.length + missingStatic.length;
+  /// Every column that survives verification counts, operators and universal
+  /// Object members included. Excluding them — on the reasoning that the
+  /// interpreter routes operators through its own evaluation path, so a
+  /// map-diff "miss" proves nothing — meant no published number ever moved when
+  /// one of those columns held a real defect. It cost `bool`'s missing
+  /// `& | ^`. Verification is what separates a candidate from a gap; once a
+  /// column goes through it, there is no reason left to discount it.
+  int get gapCount =>
+      missingInstance.length +
+      missingStatic.length +
+      missingOperators.length +
+      missingUniversal.length;
 
   int get unverifiedCount =>
-      unverifiedInstance.length + unverifiedStatic.length;
+      unverifiedInstance.length +
+      unverifiedStatic.length +
+      unverifiedOperators.length +
+      unverifiedUniversal.length;
 
   Map<String, dynamic> toJson() => {
         'name': name,
@@ -157,6 +170,8 @@ class ClassDiff {
         'unverifiedStatic': unverifiedStatic,
         'missingOperators': missingOperators,
         'missingUniversal': missingUniversal,
+        'unverifiedOperators': unverifiedOperators,
+        'unverifiedUniversal': unverifiedUniversal,
         'extraBridged': extraBridged,
         if (error != null) 'error': error,
       };
@@ -359,6 +374,17 @@ const _instanceRecipes = <String, (String imports, String expr)>{
     "import 'dart:typed_data';",
     'Float64List.fromList([1.0, 2.0])'
   ),
+  // The primitives had no recipe at all, which is why the operator column was
+  // UNVERIFIED for precisely the classes whose operators matter most — `bool`'s
+  // missing `& | ^` sat in an unverified bucket on an unverified column. A
+  // literal is the whole recipe; there was never a reason to leave them out
+  // beyond nobody needing an instance probe for them before operators were
+  // verified.
+  'bool': ('', 'true'),
+  'int': ('', '1'),
+  'double': ('', '1.5'),
+  'num': ('', '2'),
+  'BigInt': ('', 'BigInt.from(6)'),
   'Queue': ("import 'dart:collection';", 'Queue<int>()..add(1)'),
   'ListQueue': ("import 'dart:collection';", 'ListQueue<int>()..add(1)'),
   'DoubleLinkedQueue': (
@@ -416,7 +442,50 @@ bool _isUnreachableError(String message) =>
     message.contains('Undefined static member') ||
     message.contains('has no constructor or static method named') ||
     message.contains('has no getter named') ||
-    message.contains('Undefined property or method');
+    message.contains('Undefined property or method') ||
+    // Operator dispatch has its own wording and does not mention a "member" at
+    // all. Without these two the operator column would be verified and then
+    // misclassified wholesale as reachable — which is how `bool & | ^` stayed
+    // invisible: the column was never verified AND could not have been.
+    message.contains('Unsupported binary operator') ||
+    message.contains('Compound assignment operator');
+
+/// How to exercise an operator from interpreted code.
+///
+/// An operator cannot be probed the way a named member can — `o.+` is not an
+/// expression, so the bare-read trick that covers every other column does not
+/// apply. Each entry applies the operator to the recipe instance `o`, using a
+/// second `o` as the right operand where the operator is symmetric and a literal
+/// where the SDK fixes the right-hand type (shifts take an int, index takes a
+/// key).
+///
+/// The self-operand shortcut costs precision: on `String`, `o * o` is
+/// `'a' * 'a'`, a type error rather than a resolution failure, so it classifies
+/// as *reachable* even if `'a' * 2` were broken. That is the conservative
+/// direction — the column may under-report, but it will not invent gaps.
+const _operatorProbes = <String, String>{
+  '+': 'o + o',
+  '-': 'o - o',
+  '*': 'o * o',
+  '/': 'o / o',
+  '~/': 'o ~/ o',
+  '%': 'o % o',
+  '&': 'o & o',
+  '|': 'o | o',
+  '^': 'o ^ o',
+  '<': 'o < o',
+  '<=': 'o <= o',
+  '>': 'o > o',
+  '>=': 'o >= o',
+  '==': 'o == o',
+  '<<': 'o << 1',
+  '>>': 'o >> 1',
+  '>>>': 'o >>> 1',
+  '~': '~o',
+  'unary-': '-o',
+  '[]': 'o[0]',
+  '[]=': 'o[0] = o',
+};
 
 enum Reach { confirmedMissing, reachable, unverified }
 
@@ -463,6 +532,16 @@ Reach verifyInstanceMember(String className, String member) {
   return _probe('$imports main() { final o = $expr; return o.$member; }');
 }
 
+/// Applies [op] to a recipe instance. UNVERIFIED when there is no recipe for the
+/// class or no probe template for the operator, never a gap.
+Reach verifyOperator(String className, String op) {
+  final recipe = _instanceRecipes[className];
+  final probe = _operatorProbes[op];
+  if (recipe == null || probe == null) return Reach.unverified;
+  final (imports, expr) = recipe;
+  return _probe('$imports main() { final o = $expr; return $probe; }');
+}
+
 Reach verifyStaticMember(String className, String member) {
   // Statics need no instance, so every class can be verified. The import is
   // whatever the instance recipe used, when there is one.
@@ -506,6 +585,53 @@ void verify(ClassDiff diff) {
   diff.missingStatic
     ..clear()
     ..addAll(confirmedStatic);
+
+  // Operators and universal Object members go through the same pass as every
+  // other column. They used to skip it, which made both columns raw map-diff
+  // output that nothing had checked — and because `gapCount` excluded them too,
+  // there was no number anywhere that would move when one of them was real. That
+  // is how `bool`'s missing `& | ^` sat in plain sight next to obvious false
+  // positives like `int <` and was dismissed as noise.
+  final confirmedOperators = <String>[];
+  for (final m in diff.missingOperators) {
+    final reach =
+        canProbeInstances ? verifyOperator(diff.name, m) : Reach.unverified;
+    switch (reach) {
+      case Reach.confirmedMissing:
+        confirmedOperators.add(m);
+      case Reach.reachable:
+        diff.reachableViaFallback.add(m);
+      case Reach.unverified:
+        diff.unverifiedOperators.add(m);
+    }
+  }
+  diff.missingOperators
+    ..clear()
+    ..addAll(confirmedOperators);
+
+  final confirmedUniversal = <String>[];
+  for (final m in diff.missingUniversal) {
+    // `==` is both universal and an operator, and the universal check runs
+    // first, so it lands here. It still needs the operator probe: `o.==` does
+    // not parse, and a parse failure is not an unreachable-member error, so the
+    // bare read would have reported it reachable no matter what.
+    final reach = !canProbeInstances
+        ? Reach.unverified
+        : _isOperator(m)
+            ? verifyOperator(diff.name, m)
+            : verifyInstanceMember(diff.name, m);
+    switch (reach) {
+      case Reach.confirmedMissing:
+        confirmedUniversal.add(m);
+      case Reach.reachable:
+        diff.reachableViaFallback.add(m);
+      case Reach.unverified:
+        diff.unverifiedUniversal.add(m);
+    }
+  }
+  diff.missingUniversal
+    ..clear()
+    ..addAll(confirmedUniversal);
 
   diff.verified = true;
 }
@@ -841,12 +967,17 @@ void main(List<String> args) {
   stdout.writeln('CONFIRMED unreachable members:       $totalGaps');
   stdout.writeln('Classes with >=1 confirmed gap:      $withGaps');
   stdout.writeln('');
-  stdout.writeln('| Class | Native type | Confirmed | Instance | Static | Unverified |');
-  stdout.writeln('| --- | --- | --- | --- | --- | --- |');
+  // Operator and Universal are broken out rather than folded into Confirmed:
+  // a row reading `Confirmed 1 | Instance 0 | Static 0` was unreadable, and
+  // these two columns spent long enough being invisible.
+  stdout.writeln('| Class | Native type | Confirmed | Instance | Static '
+      '| Operator | Universal | Unverified |');
+  stdout.writeln('| --- | --- | --- | --- | --- | --- | --- | --- |');
   for (final d in diffs) {
     if (d.gapCount == 0 && d.error == null) continue;
     stdout.writeln('| ${d.name} | ${d.nativeTypeName} | ${d.gapCount} '
         '| ${d.missingInstance.length} | ${d.missingStatic.length} '
+        '| ${d.missingOperators.length} | ${d.missingUniversal.length} '
         '| ${d.unverifiedCount} |${d.error == null ? '' : ' ${d.error}'}');
   }
 
