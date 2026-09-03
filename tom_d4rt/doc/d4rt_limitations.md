@@ -16,7 +16,7 @@ This document provides a comprehensive reference of all known D4rt interpreter l
 > deferred `dart:io` / `dart:math` entries — are not bugs and carry no ID; see
 > [Intentionally-Unbridged SDK Classes](#intentionally-unbridged-sdk-classes).
 
-**Last Updated:** 2026-07-27
+**Last Updated:** 2026-09-03
 
 ---
 
@@ -2961,11 +2961,29 @@ writing the `gzip` / `zlib` globals. The "Reported as" column below therefore
 lists the identifiers you may actually see in the error, so this section is
 findable by the message rather than only by the class name.
 
+**The message names the decision, so you do not have to find this section to
+learn there was one.** For any identifier in the "Reported as" columns the error
+continues past the name:
+
+```text
+Undefined variable: Zone (not bridged: zones intercept the control flow,
+scheduling and error handling the interpreter owns, so a bridged Zone would be
+a no-op shell; see doc/d4rt_limitations.md)
+```
+
+A typo gets the bare `Undefined variable: Zoen` — the presence of the suffix is
+itself the signal that the absence is deliberate. The reasons are held in
+`lib/src/unbridged_reasons.dart` (mirrored in `tom_d4rt_ast`), and the tests
+below assert that its key set is exactly the "Reported as" identifiers on this
+page, so the two cannot drift apart.
+
 The one exception is a missing **member** on a class that *is* bridged: the
 three `ByteBuffer` SIMD views report
 `Bridged class 'ByteBuffer' has no instance method named 'asFloat32x4List'`
-instead. If you arrived here from that message rather than from
-`Undefined variable`, the `dart:typed_data` row below is the one you want.
+instead. That message carries no reason — it does not pass through a variable
+lookup, so it cannot consult the reason map — which is why it is the one case
+where you have to arrive here by searching. If you did, the `dart:typed_data`
+row below is the one you want.
 
 This applies to **both interpreter trees**. `tom_d4rt` (analyzer-based) and
 `tom_d4rt_ast` (analyzer-free) share one stdlib bridge set, mirrored
@@ -2991,7 +3009,7 @@ stdlib change (see the [Bridging Guide](BRIDGING_GUIDE.md)), not a redesign.
 | Class | Reported as | Library | Why it is deferred |
 |-------|-------------|---------|--------------------|
 | `Link` | `Link` | `dart:io` | Symlink manipulation. Would need to sit behind `FilesystemPermission` with the same path-level granularity as `File`/`Directory`; no consumer has asked. |
-| `WebSocket` | `WebSocket` | `dart:io` | Would sit behind `NetworkPermission`. Large stateful surface (upgrade handshake, ping/pong, close codes) for a use case no current script exercises. |
+| The `WebSocket` block | `WebSocket`, `WebSocketTransformer`, `WebSocketException`, `WebSocketStatus`, `CompressionOptions` | `dart:io` | Would sit behind `NetworkPermission`. Large stateful surface (upgrade handshake, ping/pong, close codes) for a use case no current script exercises. The other four names fail identically to `WebSocket` and are listed so the message finds this row: `WebSocketStatus` is the close-code constants holder, `CompressionOptions` configures the per-message-deflate extension, and both are reached only through the socket itself. |
 | `GZipCodec` / `ZLibCodec` | `gzip`, `zlib`, `GZipCodec`, `ZLibCodec`, `ZLibEncoder`, `ZLibDecoder` | `dart:io` | Compression codecs, reached in practice through the `gzip` / `zlib` top-level globals. Add on concrete demand. **Not** to be confused with the gzip the toolchain already uses: `AstBundle` compresses `.ast` bundles with gzip and pins codec interop in `tom_d4rt_ast/test/runtime/dfub12_gzip_interop_test.dart`, but that is interpreter infrastructure below the bridge boundary — it gives a script no way to compress anything. |
 | `MutableRectangle` | `MutableRectangle` | `dart:math` | The immutable `Rectangle` is bridged and covers the common case; the mutable variant is rarely written as an explicit type. |
 | The SIMD block | `Float32x4`, `Int32x4`, `Float64x2`, `Float32x4List`, `Int32x4List`, `Float64x2List`, and `asFloat32x4List` / `asInt32x4List` / `asFloat64x2List` on `ByteBuffer` | `dart:typed_data` | Nine names: three scalar vector types, the three typed lists built on them, and the three `ByteBuffer` views that return those lists. A bridged version would be *correct* and pointless. SIMD exists to put four lanes through one machine instruction; in the interpreter every lane operation costs a bridge crossing, so a bridged `Float32x4` multiply is slower than the four scalar `double` multiplies it would replace. The eleven non-SIMD typed lists **are** bridged and cover the buffer work scripts actually do. Deferred rather than refused: nothing about the semantics resists bridging, so a consumer that genuinely wants the API rather than the throughput can have it. |

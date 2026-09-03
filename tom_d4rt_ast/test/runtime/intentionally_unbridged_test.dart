@@ -24,11 +24,21 @@
 // *member* map: six of its nine names are absent classes, but the three
 // ByteBuffer views are absent members of a class that IS registered, and at
 // registration level those are two different assertions.
+//
+// SCB30 added the last group, which pins the reverse direction. The rest of the
+// file walks a list of names and asserts each is absent; SCB30 walks the
+// `kUnbridgedReasons` map that now supplies the *reason* in the error message
+// and asserts the same thing of every key. That is the pin this tree can hold
+// and the analyzer tree cannot: it needs a fully-registered environment, not a
+// doc. (The doc-to-map equality is pinned on the analyzer side, where the doc
+// lives.) The failure it catches is the one that matters — a class gets bridged
+// and the interpreter carries on explaining why it is not.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/math.dart';
+import 'package:tom_d4rt_ast/src/runtime/unbridged_reasons.dart';
 
 void main() {
   late Environment env;
@@ -168,6 +178,75 @@ void main() {
       // the common case. If Rectangle ever disappeared that reasoning would be
       // gone and the row would need rewriting rather than keeping.
       expect(env.findBridgedClassByName('Rectangle'), isNotNull);
+    });
+  });
+
+  group('SCB30: the reason map agrees with the registry', () {
+    // Register everything the two doc tables span, so a key that IS bridged is
+    // actually visible here. Without the lazy registrars this group would pass
+    // vacuously for the dart:io and dart:math halves — the same trap the file
+    // header describes for the SC11 groups.
+    setUp(() {
+      IoStdlib.register(env);
+      MathStdlib.register(env);
+    });
+
+    test('F-SCB30-AST-1: every name the interpreter explains as unbridged is '
+        'genuinely unbridged [2026-09-03]', () {
+      // The direction that rots: someone bridges `MutableRectangle`, the class
+      // resolves, and the map is simply never consulted — silently stale until
+      // the next reader wonders why the doc lists a class that works. Nothing
+      // else in either tree would notice.
+      for (final name in kUnbridgedReasons.keys) {
+        // `lookup`, not `findBridgedClassByName`: six of the keys — `gzip`,
+        // `zlib` and the `runZoned*` pair among them — are top-level globals
+        // and functions rather than classes, so a class-only check would let
+        // them be registered without noticing. `lookup` is the exact path
+        // `get` takes, which is the path that produces the message.
+        expect(env.lookup(name), same(Environment.kNotFound),
+            reason: '$name now resolves, but kUnbridgedReasons still explains '
+                'why it does not — drop the entry and the doc row together');
+      }
+    });
+
+    test('F-SCB30-AST-2: the lookup failure carries the reason, an ordinary '
+        'miss does not [2026-09-03]', () {
+      // Through `Environment.get`, i.e. the real failure path — not by calling
+      // the message builder, which F-SCB30-AST-3 covers separately.
+      expect(
+        () => env.get('Zone'),
+        throwsA(isA<RuntimeD4rtException>().having(
+          (e) => e.message,
+          'message',
+          allOf(
+            contains('Undefined variable: Zone'),
+            contains('not bridged:'),
+            contains('d4rt_limitations.md'),
+          ),
+        )),
+      );
+      expect(
+        () => env.get('Zoen'),
+        throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
+            equals('Undefined variable: Zoen'))),
+      );
+    });
+
+    test('F-SCB30-AST-3: the prefix is a prefix, so every matcher in this file '
+        'and the analyzer tree still holds [2026-09-03]', () {
+      for (final name in kUnbridgedReasons.keys) {
+        expect(undefinedVariableMessage(name),
+            startsWith('Undefined variable: $name ('),
+            reason: '$name must keep the bare prefix followed by the reason');
+      }
+    });
+
+    test('F-SCB30-AST-4: the registrars really ran, so the absences above are '
+        'per-class [2026-09-03]', () {
+      // Anchor for this group's own setUp, matching F-SC11-AST-4 / -6.
+      expect(env.findBridgedClassByName('File'), isNotNull);
+      expect(env.findBridgedClassByName('Rectangle'), isNotNull);
+      expect(env.findBridgedClassByName('Float32List'), isNotNull);
     });
   });
 }

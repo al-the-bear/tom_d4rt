@@ -19,7 +19,17 @@
 // why it went nine names unmissed. See the audit's "Disposition" rule in
 // doc/stdlib_sdk_gap_audit.md § Recommended next actions.
 
+// SCB30 made the message carry the decision rather than only the absence:
+// `Undefined variable: Zone` now continues with `(not bridged: …; see
+// doc/d4rt_limitations.md)`. The prefix is deliberately unchanged — it is what
+// the cases below match on and what the doc tells readers to grep — so the
+// suffix is purely additive and no existing case needed editing. It is pinned
+// in its own group at the bottom.
+
+import 'dart:io';
+
 import 'package:test/test.dart';
+import 'package:tom_d4rt/src/unbridged_reasons.dart';
 
 import '../interpreter_test.dart';
 
@@ -171,6 +181,106 @@ void main() {
     });
   });
 
+  group('SCB30: the message carries the decision', () {
+    // The point of the change: `Zone` and `Zoen` used to be indistinguishable.
+    // These cases pin the difference, and — more importantly — pin the map's
+    // key set against the doc, because a map that drifts from the doc is the
+    // same rot in Dart syntax.
+
+    test('F-SCB30-1: an unbridged name reports the reason, a typo does not '
+        '[2026-09-03]', () {
+      // The contrast IS the feature. Asserting only the first half would pass
+      // just as well if every undefined name grew a suffix, which would make
+      // the suffix meaningless.
+      expect(
+        () => execute("import 'dart:async';\nmain() => Zone.current;"),
+        throwsRuntimeError(allOf(
+          contains('Undefined variable: Zone'),
+          contains('not bridged:'),
+          contains('doc/d4rt_limitations.md'),
+        )),
+      );
+      expect(
+        () => execute("import 'dart:async';\nmain() => Zoen.current;"),
+        throwsRuntimeError(allOf(
+          contains('Undefined variable: Zoen'),
+          isNot(contains('not bridged:')),
+        )),
+      );
+    });
+
+    test('F-SCB30-2: the prefix is unchanged, so the existing matchers and the '
+        'doc\'s grep advice still hold [2026-09-03]', () {
+      // Every case above this group matches with `contains('Undefined
+      // variable: <name>')`, and interpreter_visitor's extension resolution
+      // inspects the same substring. The reason must be a suffix and nothing
+      // else — no reordering, no reworded prefix.
+      for (final name in kUnbridgedReasons.keys) {
+        expect(undefinedVariableMessage(name),
+            startsWith('Undefined variable: $name ('),
+            reason: '$name must keep the bare prefix followed by the reason');
+      }
+      expect(undefinedVariableMessage('Zoen'),
+          equals('Undefined variable: Zoen'));
+    });
+
+    test('F-SCB30-3: the map keys are exactly the doc\'s "Reported as" '
+        'identifiers [2026-09-03]', () {
+      // This is the case that stops the map rotting. SC11 moved the claim out
+      // of prose and into a test; SCB30 adds a second copy of the same list in
+      // lib/, so the list needs pinning to its source rather than restating.
+      // Derived from the doc, not hard-coded — a hard-coded expectation here
+      // would be a third copy and would rot alongside the other two.
+      final documented = _reportedAsIdentifiers()
+        // These four are in the doc's "Reported as" column because a reader may
+        // arrive from `Bridged class 'ByteBuffer' has no instance method named
+        // 'asFloat32x4List'` — a missing *member* on a class that IS bridged
+        // (F-SCB29-3). That message never passes through a variable lookup, so
+        // the map structurally cannot serve it, and `ByteBuffer` itself must
+        // stay out of the map because it is registered. SCC91 tracks giving the
+        // member path its own reason.
+        ..removeAll(const {
+          'ByteBuffer',
+          'asFloat32x4List',
+          'asInt32x4List',
+          'asFloat64x2List',
+        });
+
+      expect(documented, isNotEmpty,
+          reason: 'the doc parse found no identifiers — the table format '
+              'changed and this test is no longer reading what it thinks');
+      expect(kUnbridgedReasons.keys.toSet(), equals(documented),
+          reason: 'kUnbridgedReasons and the limitations doc disagree: add the '
+              'name to both, or to neither');
+    });
+
+    test('F-SCB30-4: every reason is a single lower-case clause, so the '
+        'assembled message reads as one sentence [2026-09-03]', () {
+      for (final entry in kUnbridgedReasons.entries) {
+        expect(entry.value, isNotEmpty, reason: entry.key);
+        expect(entry.value.endsWith('.'), isFalse,
+            reason: '${entry.key}: the reason is spliced before "; see …", so '
+                'a trailing period reads as a broken sentence');
+        expect(entry.value.contains('\n'), isFalse, reason: entry.key);
+      }
+    });
+
+    test('F-SCB30-5: the worked example in the doc is the message the code '
+        'actually produces [2026-09-03]', () {
+      // The doc quotes a full assembled message as its illustration. An
+      // illustration that has drifted from the code is worse than none, and
+      // this one is quoted in a wrapped code block where a reader would never
+      // notice. Compared with whitespace collapsed, since the wrap points are
+      // presentation and not content.
+      String flat(String s) =>
+          s.replaceAll(RegExp(r'\s+'), ' ').trim();
+      expect(flat(File('doc/d4rt_limitations.md').readAsStringSync()),
+          contains(flat(undefinedVariableMessage('Zone'))),
+          reason: 'the doc\'s example message no longer matches '
+              'undefinedVariableMessage(\'Zone\')');
+    });
+  });
+
   group('SC11: the section is reachable from the message', () {
     test('F-SC11-6: dart:io itself still works, so the absences above are '
         'per-class and not a dead library [2026-07-27]', () {
@@ -183,4 +293,38 @@ void main() {
       expect(execute(source), equals('x'));
     });
   });
+}
+
+/// Every backtick-quoted identifier in the "Reported as" column of the two
+/// tables under `## Intentionally-Unbridged SDK Classes`.
+///
+/// Reading the doc rather than restating it is the whole point: F-SCB30-3 needs
+/// the doc's list as a *source*, and a hard-coded copy here would be a third
+/// place to forget. The parse is deliberately narrow — cell index 1 of pipe
+/// tables inside that one section — so a format change fails loudly on the
+/// `isNotEmpty` guard instead of silently matching nothing.
+Set<String> _reportedAsIdentifiers() {
+  final doc = File('doc/d4rt_limitations.md').readAsLinesSync();
+  final start =
+      doc.indexWhere((l) => l.startsWith('## Intentionally-Unbridged'));
+  if (start < 0) {
+    throw StateError('doc/d4rt_limitations.md has no '
+        '"## Intentionally-Unbridged" section — the pin cannot read its source');
+  }
+  var end = doc.indexWhere((l) => l.startsWith('## '), start + 1);
+  if (end < 0) end = doc.length;
+
+  final identifier = RegExp(r'`([A-Za-z_][A-Za-z0-9_]*)`');
+  final found = <String>{};
+  for (final line in doc.getRange(start, end)) {
+    if (!line.startsWith('|') || !line.endsWith('|')) continue;
+    final cells = line.split('|');
+    // split on a fully-delimited row yields a leading and trailing empty
+    // string, so the "Reported as" column (second) lands at index 2.
+    if (cells.length < 4) continue;
+    for (final m in identifier.allMatches(cells[2])) {
+      found.add(m.group(1)!);
+    }
+  }
+  return found;
 }

@@ -590,6 +590,14 @@ in, as a `D4rtNoSuchMethodError`. A reader who arrives from the second message
 would find nothing by grepping the limitations doc for `Undefined variable`,
 which is why that doc's preamble now names the exception explicitly.
 
+SCB30 widened that split rather than closing it. The lookup half now carries its
+reason inline — `Undefined variable: Float32x4 (not bridged: …; see
+doc/d4rt_limitations.md)` — so those six names no longer need the reader to
+suspect a limitations doc exists. The member half still reports the bare
+`has no instance method named 'asFloat32x4List'`: that failure is keyed on a
+class and a member rather than on a bare identifier, so it cannot consult the
+same map. SCC91 tracks giving it the equivalent.
+
 **Why the three lists matter to the count.** The audit previously recorded only
 the scalars, and that is the harder half to notice: `Float32x4List`,
 `Int32x4List` and `Float64x2List` are typed-data views, structurally identical
