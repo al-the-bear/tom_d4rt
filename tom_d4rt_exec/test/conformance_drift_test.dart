@@ -266,11 +266,15 @@ const Map<String, int> _uncoveredBaseline = {
 /// tom_d4rt once the publish made the newer assertions true. Direction is a
 /// per-file finding, not a rule.
 ///
-/// `stdlib/collection/linked_list_test.dart` is the newest instance of that same
-/// pinning: the working-tree bridge dropped `removeFirst` and gained `addAll` /
-/// `addFirst`, and the published `tom_d4rt_ast` this package resolves has
-/// neither change yet. Its header names the flip condition; unpin it there and
-/// remove it from this set in the same commit.
+/// `stdlib/collection/linked_list_test.dart` and
+/// `stdlib/typed_data/typed_list_inherited_members_test.dart` are the newest
+/// instances of that same pinning, and they share one flip condition: the next
+/// `tom_d4rt_ast` publish. The first is pinned because the working-tree
+/// LinkedList bridge dropped `removeFirst` and gained `addAll` / `addFirst`; the
+/// second because the working-tree typed-data bridges coerce their element
+/// argument instead of casting it, so the twin's 45 new cases need a published
+/// interpreter that does the same. Each header names its own flip condition;
+/// unpin it there and remove its entry from this set in the same commit.
 const Set<String> _divergentBaseline = {
   '_c21_null_short_test.dart',
   '_plan_e2_static_in_closure_test.dart',
@@ -302,6 +306,7 @@ const Set<String> _divergentBaseline = {
   'stdlib/collection/linked_list_test.dart',
   'stdlib/intentionally_unbridged_test.dart',
   'stdlib/typed_data/byte_data_test.dart',
+  'stdlib/typed_data/typed_list_inherited_members_test.dart',
   'warm_parent_package_pool_test.dart',
 };
 

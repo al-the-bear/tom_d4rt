@@ -17,6 +17,27 @@
 //
 // A spot-check would never have caught this: `Uint8List` is by far the most
 // commonly used typed list, and it is the one variant that worked.
+//
+// PINNED TO THE PUBLISHED INTERPRETER — this file is deliberately one revision
+// behind its `tom_d4rt` twin, and it is registered in `_divergentBaseline` in
+// `test/conformance_drift_test.dart` for that reason.
+//
+// `tom_d4rt_exec` resolves `tom_d4rt_ast` from pub.dev, not from the working
+// tree, so this suite measures the PUBLISHED bridge. The twin now asserts that
+// every length-changing operation raises a *catchable* `UnsupportedError` and
+// that `followedBy` / `setAll` / `setRange` / `operator+` accept an interpreted
+// list literal; the published typed-data bridge still casts its element
+// argument (`positionalArgs[n] as Iterable<E>`) and so fails all of those with
+// a `_TypeError`. Measured 2026-09-04: copying the twin over this file gives 66
+// pass / 45 fail, all 45 for that dependency reason rather than an assertion
+// reason — which is the one failure mode that teaches a reader to ignore the
+// suite.
+//
+// FLIP CONDITION: the next `tom_d4rt_ast` publish that carries the coercion
+// fix, plus the constraint bump in this package's `pubspec.yaml`. At that point
+// copy `tom_d4rt/test/stdlib/typed_data/typed_list_inherited_members_test.dart`
+// over this file verbatim, rewrite the interpreter import, and drop the
+// `_divergentBaseline` entry — the port recipe, unchanged.
 
 import '../../interpreter_test.dart';
 import 'package:test/test.dart';
