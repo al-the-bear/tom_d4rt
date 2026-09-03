@@ -1,3 +1,20 @@
+// PINNED TO THE PUBLISHED INTERPRETER — this file is deliberately one revision
+// behind its `tom_d4rt` twin, and it is registered in `_divergentBaseline` in
+// `test/conformance_drift_test.dart` for that reason.
+//
+// `tom_d4rt_exec` resolves `tom_d4rt_ast` from pub.dev, not from the working
+// tree, so this suite measures the PUBLISHED bridge. The published LinkedList
+// bridge still offers `removeFirst` and still lacks `addAll` and `addFirst`;
+// the working tree has the opposite shape. Porting the twin's cases here now
+// would turn them red for a dependency reason rather than an assertion reason,
+// which is the one failure mode that teaches a reader to ignore the suite.
+//
+// FLIP CONDITION: the next `tom_d4rt_ast` publish that carries the LinkedList
+// change, plus the constraint bump in this package's `pubspec.yaml`. At that
+// point copy `tom_d4rt/test/stdlib/collection/linked_list_test.dart` over this
+// file verbatim, rewrite the interpreter import, and drop the
+// `_divergentBaseline` entry — the port recipe, unchanged.
+
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 

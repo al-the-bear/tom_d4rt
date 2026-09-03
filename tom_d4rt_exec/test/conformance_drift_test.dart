@@ -265,6 +265,12 @@ const Map<String, int> _uncoveredBaseline = {
 /// deliberately pinned to pre-publish behaviour and were overwritten from
 /// tom_d4rt once the publish made the newer assertions true. Direction is a
 /// per-file finding, not a rule.
+///
+/// `stdlib/collection/linked_list_test.dart` is the newest instance of that same
+/// pinning: the working-tree bridge dropped `removeFirst` and gained `addAll` /
+/// `addFirst`, and the published `tom_d4rt_ast` this package resolves has
+/// neither change yet. Its header names the flip condition; unpin it there and
+/// remove it from this set in the same commit.
 const Set<String> _divergentBaseline = {
   '_c21_null_short_test.dart',
   '_plan_e2_static_in_closure_test.dart',
@@ -293,6 +299,7 @@ const Set<String> _divergentBaseline = {
   'open_issues/b1_redirecting_factory_test.dart',
   'open_issues/b5_bridged_exception_catch_test.dart',
   'open_issues/b9_static_field_sibling_write_test.dart',
+  'stdlib/collection/linked_list_test.dart',
   'stdlib/intentionally_unbridged_test.dart',
   'stdlib/typed_data/byte_data_test.dart',
   'warm_parent_package_pool_test.dart',
@@ -319,10 +326,10 @@ const Set<String> _divergentBaseline = {
 /// The cost of that choice is that the line counts here are not a measure of
 /// semantic distance. Measured 2026-09-03: `dart format`-ing both sides before
 /// comparing takes `interpreter_test.dart` from 653 differing lines to 46, and
-/// moves `instance_field_shadows_global_test.dart` the other way, 35 to 150. Of
-/// the 33 entries below, 32 still differ after formatting, so the divergence is
-/// real — but do not rank the triage by the raw numbers, because they measure
-/// wrapping as much as they measure assertions.
+/// moves `instance_field_shadows_global_test.dart` the other way, 35 to 150. All
+/// but one entry below still differ after formatting, so the divergence is real —
+/// but do not rank the triage by the raw numbers, because they measure wrapping
+/// as much as they measure assertions.
 String _normalise(String source) => source
     .replaceAll('package:tom_d4rt/d4rt.dart', '@INTERPRETER@')
     .replaceAll('package:tom_d4rt_exec/d4rt.dart', '@INTERPRETER@')
