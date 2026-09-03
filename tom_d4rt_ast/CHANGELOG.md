@@ -1,3 +1,91 @@
+## 0.20.0
+
+Mirrors `tom_d4rt` 1.30.0 — four stdlib findings from the SDK gap audit. The
+`interpreter_visitor.dart` and stdlib diffs are identical to the analyzer tree's;
+the tests differ, because this tree has no source parser (see the note at the
+end).
+
+### Added — `JsonEncoder.withIndent` and `JsonCodec.withReviver` (SCB25)
+
+Pretty-printed JSON was only reachable through `JsonUtf8Encoder` plus a byte
+decode, because the ordinary way to ask for it — the SDK's
+`JsonEncoder.withIndent` — was never declared on the bridge. The class itself
+was registered, so no audit that counts classes could flag it; only the member
+list was short.
+
+Both constructors read their arguments by position rather than by presence,
+because null carries meaning in one of them: a null indent selects compact
+output, so a missing argument and an explicit null are different cases and only
+the first is an error. `JsonCodec.withReviver` is the opposite — its single
+positional is genuinely required — so it rejects both absence and null.
+`JsonEncoder.indent` is now exposed too.
+
+### Fixed — `dart:io` silently narrowed `StringSink` (SCB26)
+
+`StringSink` was registered twice: `StringSinkCore` from the core registrar and
+`StringSinkIo` from the io registrar. Core registers eagerly at construction
+while io registers lazily on a `dart:io` import, so the io copy always landed
+second and displaced the core one under last-wins — and the io copy had drifted
+into a strict subset. **Importing `dart:io` therefore removed `toString`,
+`hashCode` and `runtimeType` from `StringSink`.** Both definitions declared
+`nativeType: StringSink`, so the collision machinery read it as a benign
+re-export and never marked the name ambiguous; the loss surfaced only as a
+`Logger.warn`.
+
+`dart:io` re-exports the `dart:core` `StringSink` rather than declaring its own,
+so the io definition is deleted rather than re-pointed at core's. `StringSinkIo`
+had one consumer (the io barrel, not re-exported from the public surface), so
+this is not a public API break.
+
+### Fixed — wrong-arity bridge calls report the member, not a `RangeError` (SCB28)
+
+Calling a hand-written stdlib bridge with too few arguments surfaced a bare list
+`RangeError` naming neither the class nor the member. A scanner measured **601 of
+the 1203 adapters that index `positionalArgs` doing so with no leading length
+check**, over 53 files, with the two trees agreeing to the adapter — so the
+too-few half is recognised generically rather than guarded ~1200 times by hand.
+`D4.describeArityError` matches the exact field layout Dart's `List.[]` produces
+for an out-of-range read on a list of the argument count's length and restates it
+as:
+
+```
+DateTime.parse expects at least 1 positional argument, but was called with 0.
+```
+
+It is consulted from the nine dispatch catch-alls that receive a
+script-controlled argument list. A native `RangeError` from *inside* the call
+passes through untouched. **Too many arguments cannot be caught generically** —
+the dispatcher holds no arity metadata, so the call succeeds and the extra
+argument is discarded; that stays a per-adapter guard. `UriData` is guarded in
+full; the remaining 52 files are filed with the measurement.
+
+### Changed — an unbridged name says why it is unbridged (SCB30)
+
+A lookup miss on one of the 25 names documented as intentionally unbridged now
+appends the reason:
+
+```
+Undefined variable: Zone (not bridged: zones intercept the control flow,
+scheduling and error handling the interpreter owns, so a bridged Zone would be
+a no-op shell; see doc/d4rt_limitations.md)
+```
+
+**The `Undefined variable: <name>` prefix is unchanged**, so existing matchers
+are unaffected, and an ordinary typo still gets the bare message. This reaches
+lookup failures only — a missing *member* on a class that IS bridged fails one
+layer deeper as `D4rtNoSuchMethodError` and still carries no reason. (The
+referenced document lives in `tom_d4rt`, which is where it is canon; this tree
+pins the same list at registration level.)
+
+### Note on how this tree is tested
+
+The assertions added here are registration-level rather than script-level:
+driving a script needs the analyzer-based front end in `tom_d4rt_exec`, and that
+package resolves `tom_d4rt_ast` **from pub.dev rather than by path**, so no
+script-level runner can reach unpublished local edits (DGUC6). The
+script-level contract for all four items is pinned by the analyzer twin; here the
+adapters and the recogniser are invoked directly.
+
 ## 0.19.0
 
 ### Fixed — two packages declaring the same class name resolved to whichever registered last (tcca19)

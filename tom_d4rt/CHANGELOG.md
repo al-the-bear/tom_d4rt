@@ -1,3 +1,108 @@
+## 1.30.0
+
+Four stdlib findings from the SDK gap audit. One adds bridged API, two change
+what a failing call reports, and one is documentation.
+
+### Added — `JsonEncoder.withIndent` and `JsonCodec.withReviver` (SCB25)
+
+Pretty-printed JSON was only reachable through `JsonUtf8Encoder` plus a byte
+decode, because the ordinary way to ask for it — the SDK's
+`JsonEncoder.withIndent` — was never declared on the bridge. The class itself
+was registered, so no audit that counts classes could flag it; only the member
+list was short.
+
+Both constructors read their arguments by position rather than by presence,
+because null carries meaning in one of them: a null indent selects compact
+output, so a missing argument and an explicit null are different cases and only
+the first is an error. `JsonCodec.withReviver` is the opposite — its single
+positional is genuinely required, unlike the default constructor's
+`reviver:` named argument — so it rejects both absence and null.
+
+`JsonEncoder.indent` is now exposed too; the bridge shipped with `getters: {}`,
+so a script could build an indented encoder and then not ask what its indent
+was. The rest of `dart:convert` was swept and found already correct
+(`Base64Codec.urlSafe`, `Base64Encoder.urlSafe`, `Utf8Codec(allowMalformed:)`,
+`HtmlEscape(mode)` all honour their parameters), but three of those had no test
+at all, so they gain a regression net.
+
+### Fixed — `dart:io` silently narrowed `StringSink` (SCB26)
+
+`StringSink` was registered twice: `StringSinkCore` from the core registrar and
+`StringSinkIo` from the io registrar. `CoreStdlib` registers eagerly at
+construction while `IoStdlib` registers lazily on a `dart:io` import, so the io
+copy always landed second and displaced the core one under last-wins — and the
+two had drifted, with the io copy a strict subset. **Importing `dart:io`
+therefore removed `toString`, `hashCode` and `runtimeType` from `StringSink`.**
+Because both definitions declared `nativeType: StringSink`, the collision
+machinery read it as a benign re-export and never marked the name ambiguous, so
+the loss surfaced only as a `Logger.warn`.
+
+`dart:io` does not declare `StringSink` — it re-exports the `dart:core` one — so
+the io definition is deleted rather than re-pointed at core's. `StringSinkIo`
+had exactly one consumer (the io barrel, which is not re-exported from
+`d4rt.dart`), so this is not a public API break.
+
+### Fixed — wrong-arity bridge calls report the member, not a `RangeError` (SCB28)
+
+Calling a hand-written stdlib bridge with too few arguments surfaced a bare list
+`RangeError` naming neither the class nor the member:
+
+```
+UriData.parse()
+-> Native error during static bridged method call 'parse' on UriData:
+   RangeError (length): Invalid value: Valid value range is empty: 0
+```
+
+A scanner over both trees measured the scope before fixing it: **601 of the 1203
+adapters that index `positionalArgs` do so with no leading length check**, spread
+over 53 files, and the two trees agree to the adapter. Writing that guard out by
+hand would have been ~1200 copies of the same three lines, so the too-few half is
+recognised generically instead. `D4.describeArityError` matches the exact field
+layout Dart's `List.[]` produces for an out-of-range read on a list of the
+argument count's length and restates it as:
+
+```
+DateTime.parse expects at least 1 positional argument, but was called with 0.
+```
+
+It is consulted from the nine dispatch catch-alls that receive a
+script-controlled argument list. A native `RangeError` from *inside* the call —
+`sublist(0, 99)` — fails the shape test and passes through untouched.
+
+**Too many arguments cannot be caught generically**: the dispatcher holds no
+arity metadata for an adapter, so the call succeeds and the extra argument is
+discarded. That stays a per-adapter guard. `UriData` is guarded here in full;
+the remaining 52 files are filed with the measurement rather than half-swept.
+
+### Changed — an unbridged name says why it is unbridged (SCB30)
+
+`Undefined variable: Zone` told you the name did not resolve but not that its
+absence was a decision, so the next step was to guess whether it was a bug, a
+typo, or deliberate. A lookup miss on one of the 25 names that
+`doc/d4rt_limitations.md` documents as intentionally unbridged now appends the
+reason:
+
+```
+Undefined variable: Zone (not bridged: zones intercept the control flow,
+scheduling and error handling the interpreter owns, so a bridged Zone would be
+a no-op shell; see doc/d4rt_limitations.md)
+```
+
+**The `Undefined variable: <name>` prefix is unchanged**, so existing matchers
+and consumers that test for it are unaffected; an ordinary typo still gets the
+bare message. Names absent for no documented reason are untouched.
+
+This reaches lookup failures only. A missing *member* on a class that IS
+bridged — `ByteBuffer.asFloat32x4List` — fails one layer deeper as
+`D4rtNoSuchMethodError` and still carries no reason.
+
+### Documentation
+
+`doc/stdlib_sdk_gap_audit.md` now gives every row an explicit disposition
+(bridged / deferred with a reason / intentionally out of scope) rather than
+leaving unmarked rows to be re-triaged, and the SIMD block is reconciled with
+`doc/d4rt_limitations.md` (SCB29).
+
 ## 1.29.0
 
 ### Fixed — the stdlib on-type probe was still reported as an error (tccc5)
