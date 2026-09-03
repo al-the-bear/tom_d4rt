@@ -5,18 +5,27 @@ failure pattern hit by demo scripts in `tom_d4rt_flutter_ast_app`. The
 representative scripts under each cluster are useful as starting points
 for a targeted fix and as regression tests once the cluster is closed.
 
-Last refreshed: 2026-08-12, against run `20260812-0718-issue-analysis`
-(rev `a1775660a`, Flutter 3.44.6). The full 41-file corpus runs
-**2164 / 5 / 0** (passed / skipped / failed) — **identically in both
-twins**, `tom_d4rt_flutter_ast` and `tom_d4rt_flutter`. See the
-2026-08-12 entry under "Verification runs" and the per-project
-`testlog/testlog_20260812-0718-issue-analysis/error_analysis.md`.
+Last refreshed: 2026-09-03, against runs `scc2-ast0201-verify` and
+`scc2-src1301-verify` (Flutter 3.44.6). The **17-file base corpus** runs
+**927 / 1 / 0** (passed / skipped / failed) — identically in both twins,
+`tom_d4rt_flutter_ast` and `tom_d4rt_flutter` — at `tom_d4rt_ast 0.20.1`
+and `tom_d4rt 1.30.1`. See the 2026-09-03 entry under "Verification
+runs".
+
+**The full 41-file corpus has no current number.** Its last run
+(2026-08-12) measured stale companion-app locks — `tom_d4rt` 1.22.0 and
+`tom_d4rt_ast` 0.14.0 against trees at 1.29.0 and 0.19.0 — so its
+**2164 / 5 / 0** does not describe the interpreters in this tree. The
+extended half (`flutter_extended_01..24`) is therefore unmeasured at
+0.20.1/1.30.1; re-establishing it is `scd6_aicv`.
 
 **One open cluster: GEN-124** (native enum value resolves to a
 prefix-matching `BridgedClass`). It produces **no test failure** — it
 surfaces only as 8 captured framework errors on
-`widgets/widget_inspector_service_extensions_test.dart`, in both twins.
-Every earlier cluster is closed.
+`widgets/widget_inspector_service_extensions_test.dart`. That script is
+in the extended corpus, so GEN-124 was last observed on the stale 1.22.0
+/ 0.14.0 pair and is **unconfirmed at the current interpreter**. Every
+earlier cluster is closed.
 
 > **Green corpus ≠ no open clusters.** The corpus does not gate on
 > `frameworkErrors`, so a script can raise interpreter runtime errors and
@@ -3635,12 +3644,50 @@ byte-identically against `basetestlog_20260803-1200-base`, and zero
 `tom_d4rt_ast 0.20.1`, `tom_d4rt 1.30.1`, companion app re-resolved
 first.
 
+**Source twin, run `scc2-src1301-verify`.** Run strictly after the AST
+twin, never concurrently. Also 17/17 `exit=0`, **927 passed / 1 skipped /
+0 failed**, `metrics.txt` byte-identical to
+`basetestlog_20260803-1200-base`, zero ambiguity lines. This twin never
+exhibited the 17 failures: its companion app's lock held `tom_d4rt`
+1.22.0, which predates tcca19 (1.27.0), so it stepped from before the
+defect straight to after the fix. Its value is different — it is this
+corpus's **first honest measurement** of everything 1.23.0→1.30.1
+accumulated (the SCB25–SCB30 batch, tcca19, and the 0.20.1/1.30.1 fix
+together), and that whole span is regression-free on the base corpus.
+
+The two twins agreeing at 927/1/0 is therefore also the first such
+agreement measured at each tree's own interpreter rather than at two
+stale published ones.
+
 **Methodology consequence.** Both trees' ambiguity tests are
 registration-level and all passed throughout, so nothing but the corpus
 could have caught this — and the corpus was measuring a stale lock. That
 pairing is `scd5_aicv`; the missing runner resolve is `scd3_aicv`.
 
+The gap was not a near-miss. At the 2026-08-12 run (rev `a1775660a`) the
+trees were at `tom_d4rt` **1.29.0** and `tom_d4rt_ast` **0.19.0**, while
+the companion apps' gitignored locks held **1.22.0** and **0.14.0** — a
+seven- and five-minor gap, stale *at the time of that run*, not merely in
+hindsight. tcca19 shipped in 1.27.0/0.19.0, inside both gaps. The corpus
+positioned to catch its regression was not running the code that carried
+it.
+
 ### 2026-08-12 — full-corpus issue analysis, both twins (rev `a1775660a`)
+
+> **Read this run's interpreter conclusions as void.** Both companion
+> apps resolved from stale gitignored locks — `tom_d4rt` **1.22.0** and
+> `tom_d4rt_ast` **0.14.0**, against trees at 1.29.0 and 0.19.0. So the
+> numbers below certify two older *published* interpreters, not the
+> revision named in the heading, and the twin-parity claim compares two
+> versions that were not mirrors of each other. The environmental
+> findings that do not depend on interpreter version — the PlatformView
+> crash and the Scrollbar layout artifact — stand. **GEN-124 does not
+> inherit that exemption**: it is an interpreter defect, observed on
+> 1.22.0/0.14.0, and its only witness script
+> (`widgets/widget_inspector_service_extensions_test.dart`) is in the
+> extended corpus, which has not been run since. Whether it still
+> reproduces at 1.30.1/0.20.1 is unmeasured — see `scd6_aicv`. See also
+> the 2026-09-03 entry.
 
 **What was measured.** The complete 41-file corpus
 (`flutter_base_01..17` + `flutter_extended_01..24`) run serially in
