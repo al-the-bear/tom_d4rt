@@ -273,6 +273,14 @@ const Map<String, int> _uncoveredBaseline = {
   // pretending to measure this one. The analyzer-free line's equivalent has to
   // be built against tom_d4rt_ast's registry, not ported.
   'stdlib/member_coverage_baseline_test.dart': 4,
+  // NOT PORTABLE — SCC17's release-hygiene guard. Its subject is the repo, not
+  // an interpreter: it walks git history and reads the pubspec and CHANGELOG of
+  // all three published packages, *including this one*. A copy here would ask
+  // the same questions about the same three files and answer them identically,
+  // so the second copy could only ever add a duplicate failure. Coverage of
+  // exec's own release hygiene is F-SCC17-1/2/3 `tom_d4rt_exec`, which already
+  // run in the reference tree.
+  'release_hygiene_test.dart': 10,
   // Pinned on the next `tom_d4rt_ast` publish — see the paragraph above. Ported,
   // measured, removed again: the SCC12 fix that makes `await` inside `finally`
   // resume is in the working tree only, and against the published interpreter the
