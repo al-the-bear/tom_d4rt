@@ -15,9 +15,14 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/collection.dart';
 /// live in `tom_d4rt/test/stdlib/collection/`, and `tom_d4rt_exec` (the runner
 /// that could execute a script against *this* tree) resolves `tom_d4rt_ast`
 /// from pub.dev rather than by path, so it cannot see unpublished local edits.
-/// What we can pin here is that both bridges are registered, expose the surface
-/// the script tests exercise, read through to the native view, and let the
-/// native `UnsupportedError` escape from the mutating members.
+/// What we can pin here is that all three bridges are registered, expose the
+/// surface the script tests exercise, read through to the native view, and let
+/// the native `UnsupportedError` escape from the mutating members.
+///
+/// COVERS THE FAMILY, NOT THE CASE THAT PROMPTED IT. This file was added for
+/// the map and set views and its name read as if it covered all three, so the
+/// list view went uncovered for months while the file passed. A suite named
+/// after a family is checked against the family.
 void main() {
   late Environment env;
   late InterpreterVisitor visitor;
@@ -153,16 +158,180 @@ void main() {
       // ... while the read-through members on the same bridge still work.
       expect(bridge.methods['contains']!(visitor, view, [1], {}, []), isTrue);
     });
+  });
 
-    test('F-SC3-AST-10: the two views stay distinct bridges [2026-07-27]', () {
-      // If either bridge captured the other's native type, dispatch would offer
-      // the wrong member surface for whichever type lost.
+  group('SC3: UnmodifiableListView collection bridge', () {
+    test('F-SC3-AST-11: is registered under the name UnmodifiableListView [2026-09-04]',
+        () {
+      final bridge = env.findBridgedClassByName('UnmodifiableListView');
+      expect(bridge, isNotNull);
+      expect(bridge!.nativeType, UnmodifiableListView);
+      expect(bridge.typeParameterCount, 1);
+      expect(bridge.isAssignable?.call(UnmodifiableListView<int>([1])), isTrue);
+      expect(bridge.isAssignable?.call(<int>[1]), isFalse);
+    });
+
+    test('F-SC3-AST-12: exposes the wrapping constructor [2026-09-04]', () {
+      final bridge = env.findBridgedClassByName('UnmodifiableListView')!;
+      expect(bridge.constructors.keys, contains(''));
+    });
+
+    test('F-SC3-AST-13: exposes the read and mutating List surface [2026-09-04]',
+        () {
+      final bridge = env.findBridgedClassByName('UnmodifiableListView')!;
+      expect(
+        bridge.methods.keys,
+        containsAll(<String>[
+          // read-through
+          '[]', 'contains', 'indexOf', 'lastIndexOf', 'elementAt', 'sublist',
+          'getRange', 'forEach', 'map', 'where', 'fold', 'join', 'toList',
+          'toSet', 'cast', 'asMap', 'reversed',
+          // delegated so the native view raises UnsupportedError
+          ..._mutatingListCalls.keys,
+        ]),
+      );
+      expect(bridge.setters.keys, containsAll(_mutatingListSetters.keys));
+    });
+
+    test('F-SC3-AST-14: the getters read through to the backing list [2026-09-04]',
+        () {
+      final bridge = env.findBridgedClassByName('UnmodifiableListView')!;
+      final view = UnmodifiableListView<dynamic>(['a', 'b']);
+      expect(bridge.getters['length']!(null, view), 2);
+      expect(bridge.getters['isEmpty']!(null, view), isFalse);
+      expect(bridge.getters['isNotEmpty']!(null, view), isTrue);
+      expect(bridge.getters['first']!(null, view), 'a');
+      expect(bridge.getters['last']!(null, view), 'b');
+      expect(bridge.getters['reversed']!(null, view), orderedEquals(['b', 'a']));
+    });
+
+    // Asserting the KEY is present would pass for an adapter that was dropped
+    // and re-added as a D4rt-specific throw — the mutation still "fails", so a
+    // test that only checks for failure cannot tell the two apart. Every
+    // mutating member is therefore invoked with arguments that survive its own
+    // validation, so what is pinned is that the call reaches the native view
+    // and the SDK's own error comes back out. That is the scb6 contract.
+    for (final entry in _mutatingListCalls.entries) {
+      test('F-SC3-AST-15/${entry.key}: the mutating method delegates, so the '
+          'SDK error surfaces [2026-09-04]', () {
+        final bridge = env.findBridgedClassByName('UnmodifiableListView')!;
+        final view = UnmodifiableListView<dynamic>(['a', 'b']);
+        expect(
+          () => bridge.methods[entry.key]!(visitor, view, entry.value, {}, []),
+          throwsUnsupportedError,
+          reason: '`${entry.key}` must delegate to the native view, not throw a '
+              'D4rt-specific exception',
+        );
+      });
+    }
+
+    for (final entry in _mutatingListSetters.entries) {
+      test('F-SC3-AST-16/${entry.key}=: the mutating setter delegates, so the '
+          'SDK error surfaces [2026-09-04]', () {
+        final bridge = env.findBridgedClassByName('UnmodifiableListView')!;
+        final view = UnmodifiableListView<dynamic>(['a', 'b']);
+        expect(
+          () => bridge.setters[entry.key]!(visitor, view, entry.value),
+          throwsUnsupportedError,
+          reason: '`${entry.key}=` must delegate to the native view',
+        );
+      });
+    }
+
+    test('F-SC3-AST-17: the read-through members still work on the same bridge '
+        '[2026-09-04]', () {
+      // Guards against "make the mutators throw" being satisfied by a bridge
+      // that throws for everything.
+      final bridge = env.findBridgedClassByName('UnmodifiableListView')!;
+      final view = UnmodifiableListView<dynamic>(['a', 'b']);
+      expect(bridge.methods['[]']!(visitor, view, [1], {}, []), 'b');
+      expect(bridge.methods['contains']!(visitor, view, ['a'], {}, []), isTrue);
+      expect(bridge.methods['indexOf']!(visitor, view, ['b'], {}, []), 1);
+      expect(bridge.methods['join']!(visitor, view, ['-'], {}, []), 'a-b');
+    });
+  });
+
+  group('SC3: the unmodifiable view bridges stay distinct', () {
+    // Cross-family, so it belongs to none of the three groups above.
+    test('F-SC3-AST-10: the three views stay distinct bridges [2026-07-27]', () {
+      // If one bridge captured another's native type, dispatch would offer the
+      // wrong member surface for whichever type lost.
       final mapView = env.findBridgedClassByName('UnmodifiableMapView')!;
       final setView = env.findBridgedClassByName('UnmodifiableSetView')!;
-      expect(mapView.isAssignable!(UnmodifiableSetView<int>({1})), isFalse);
-      expect(
-          setView.isAssignable!(UnmodifiableMapView<String, int>({'a': 1})),
-          isFalse);
+      final listView = env.findBridgedClassByName('UnmodifiableListView')!;
+      final map = UnmodifiableMapView<String, int>({'a': 1});
+      final set = UnmodifiableSetView<int>({1});
+      final list = UnmodifiableListView<int>([1]);
+
+      expect(mapView.isAssignable!(map), isTrue);
+      expect(mapView.isAssignable!(set), isFalse);
+      expect(mapView.isAssignable!(list), isFalse);
+
+      expect(setView.isAssignable!(set), isTrue);
+      expect(setView.isAssignable!(map), isFalse);
+      expect(setView.isAssignable!(list), isFalse);
+
+      expect(listView.isAssignable!(list), isTrue);
+      expect(listView.isAssignable!(map), isFalse);
+      expect(listView.isAssignable!(set), isFalse);
     });
   });
 }
+
+/// A callable the two `*Where` mutators accept, so the call reaches the native
+/// view instead of stopping at their argument narrowing.
+///
+/// The native view rejects the mutation before touching the backing list, so
+/// this is never actually invoked.
+final _alwaysTrue = NativeFunction(
+  (visitor, positional, named, types) => true,
+  arity: 1,
+  name: 'alwaysTrue',
+);
+
+/// The 18 mutating methods scb6 rewrote to delegate, each with arguments that
+/// pass its own validation — otherwise the adapter would report the argument
+/// problem and the delegation would never be reached.
+final Map<String, List<Object?>> _mutatingListCalls = {
+  '[]=': [0, 'z'],
+  'add': ['z'],
+  'addAll': [
+    ['z']
+  ],
+  'clear': [],
+  'insert': [0, 'z'],
+  'insertAll': [
+    0,
+    ['z']
+  ],
+  'remove': ['a'],
+  'removeAt': [0],
+  'removeLast': [],
+  'removeRange': [0, 1],
+  'removeWhere': [_alwaysTrue],
+  'replaceRange': [
+    0,
+    1,
+    ['z']
+  ],
+  'retainWhere': [_alwaysTrue],
+  'fillRange': [0, 1, 'z'],
+  'setAll': [
+    0,
+    ['z']
+  ],
+  'setRange': [
+    0,
+    1,
+    ['z']
+  ],
+  'shuffle': [],
+  'sort': [],
+};
+
+/// The three mutating setters scb6 rewrote alongside the methods.
+final Map<String, Object?> _mutatingListSetters = {
+  'length': 0,
+  'first': 'z',
+  'last': 'z',
+};
