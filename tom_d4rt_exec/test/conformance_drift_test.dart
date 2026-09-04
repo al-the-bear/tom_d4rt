@@ -289,6 +289,15 @@ const Map<String, int> _uncoveredBaseline = {
   // it and reads as a broken machine rather than a pinned expectation. Port it
   // and delete this entry in the same commit as that publish.
   'scc12_await_in_finally_test.dart': 11,
+  // Pinned on the next `tom_d4rt_ast` publish, same as the entries above and
+  // measured the same way: ported, run, removed again. SCC18 taught typed
+  // patterns to evaluate their type, and the fix is in the working tree only —
+  // against the published interpreter 11 of the 12 cases fail, each of them
+  // reporting the very bug the file was written to pin. Keeping it would make
+  // the exec suite red in a way that reads as a migration defect rather than as
+  // a version lag. The one case that passes either way is `F-SCC18-9`, which
+  // asserts that an UNTYPED pattern still matches anything.
+  'scc18_typed_pattern_type_test.dart': 12,
   'stdlib/cast_from_family_test.dart': 6,
   'stdlib/convert/json_named_constructors_test.dart': 13,
   'stdlib/core/error_validation_helpers_test.dart': 18,

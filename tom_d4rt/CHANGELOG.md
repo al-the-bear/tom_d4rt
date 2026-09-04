@@ -1,3 +1,63 @@
+## 1.37.0
+
+### Fixed — a typed pattern never checked its type, so the first arm of every switch won
+
+`case int _` accepted a String. So did `case Map m`, `int _ =>` in a switch
+expression, and `if (x case int _)`. The consequence was not subtle and was not
+confined to bridged types: **the first arm of any switch statement, switch
+expression or if-case was selected regardless of the scrutinee**, for `int` and
+`String` exactly as much as for a `dart:collection` value.
+
+The two branches of `_matchAndBind` that handle these shapes —
+`DeclaredVariablePattern` (`int x`) and `WildcardPattern` (`int _`) — read only
+`pattern.name`. Neither ever touched `pattern.type`, so neither had any code
+path that could signal a mismatch. Both now call `_requireDeclaredType`, which
+is a no-op for an untyped `var x` / `_` (irrefutable, as the language says) and
+otherwise throws the same non-match signal the other branches use.
+
+**Why ~2270 green tests said nothing about it.** Constant patterns compare, and
+destructuring patterns fail to destructure and throw, so both report a non-match
+correctly — and every pattern test in the corpus exercised an arm that was
+*meant* to match. A suite that only ever asks "does the right arm win" cannot
+see a matcher that says yes to everything. The new
+`test/scc18_typed_pattern_type_test.dart` is therefore twelve *negative* cases,
+one per pattern context, because a thirteenth positive one would have added
+nothing.
+
+### Fixed — object patterns matched anything whose type name merely resolved
+
+`case int()` matched the String `'s'`, and `int(isEven: true)` reported `2` as
+odd. The object-pattern branch carried its own type test — a name-equality walk
+over the class hierarchy, a hardcoded ladder for seven builtins, an
+`actualTypeName.endsWith(expectedTypeName)` heuristic, and a final fallback that
+declared a match whenever the *name* resolved to some `RuntimeType`. That last
+clause is the one that made `int()` match a String: `int` resolves, so it
+answered yes without looking at the value.
+
+Field extraction had a matching gap. `int(isEven: true)` reached neither the
+`InterpretedInstance` branch nor the `Map` branch and failed with "field access
+is not supported"; a native operand now reads its member through its bridge —
+getter adapter, then the registered supertype walk — which is the route
+`value.isEven` already takes in an expression, so the two cannot disagree.
+
+### Changed — one type-test predicate instead of four
+
+SCB7 measured that "does this value have this type" was implemented three times
+independently, and paid for it: its unwrap fix reached the `is` operator, missed
+the catch clause, and needed a second edit and a second test. The object-pattern
+copy above was a fourth.
+
+`visitIsExpression`'s body is now `_valueHasType(TypeAnnotation, Object?)`, and
+the `is` operator, typed patterns and object patterns all call it. This is
+deliberately not the whole of the extraction SCC20 describes — the catch-clause
+copy is untouched — but it is the sequencing that todo asks for: fix the missing
+call first, so the refactor arrives with all its call sites already present
+rather than two of them.
+
+One behavioural change falls out of it. `is!` against a `Type`-valued native
+returned early from `visitIsExpression` and so silently answered the *un-negated*
+result; returning from the predicate instead lets the caller apply the negation.
+
 ## 1.36.0
 
 ### The stdlib member-gap audit is now a standing test

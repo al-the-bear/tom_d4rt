@@ -1,3 +1,38 @@
+## 0.26.0
+
+### Fixed — a typed pattern never checked its type, so the first arm of every switch won
+
+`case int _` accepted a String, and so did `case Map m`, `int _ =>` in a switch
+expression and `if (x case int _)` — so the first arm of any switch statement,
+switch expression or if-case was selected regardless of the scrutinee.
+`_matchAndBind`'s `SDeclaredVariablePattern` and `SWildcardPattern` branches read
+only the pattern's name and never `pattern.type`, so neither had a code path
+that could report a mismatch. Both now call `_requireDeclaredType`, a no-op for
+an untyped `var x` / `_`.
+
+### Fixed — object patterns matched anything whose type name merely resolved
+
+`case int()` matched the String `'s'` and `int(isEven: true)` called `2` odd:
+the object-pattern branch ended in "the name resolves to some `RuntimeType`, so
+call it a match". It now asks the `is` predicate. Field extraction reached
+neither the `InterpretedInstance` nor the `Map` branch for a native operand and
+failed outright; it now reads the member through the value's bridge.
+
+### Changed — one type-test predicate instead of four
+
+`visitIsExpression`'s body is now `_valueHasType(STypeAnnotation?, Object?)`,
+called by the `is` operator, typed patterns and object patterns alike. The
+catch-clause copy is deliberately left for SCC20. `is!` against a `Type`-valued
+native previously returned early and answered un-negated; the caller now applies
+the negation.
+
+**The test lives in `tom_d4rt` only for now.** `tom_d4rt_exec` resolves this
+package from pub.dev, so the twelve-case matrix cannot be ported until this
+version is published — it is pinned in that package's conformance-drift
+baseline, to be ported and unpinned in the same commit as the publish.
+
+Mirrors `tom_d4rt` 1.37.0.
+
 ## 0.25.0
 
 Mirrors `tom_d4rt` 1.35.0 — see that CHANGELOG for the full reasoning on each

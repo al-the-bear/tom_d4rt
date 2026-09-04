@@ -11367,8 +11367,23 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitIsExpression(SIsExpression node) {
-    final expressionValue = node.expression!.accept<Object?>(this);
-    final typeNode = node.type;
+    final result =
+        _valueHasType(node.type, node.expression!.accept<Object?>(this));
+    return node.isNot ? !result : result;
+  }
+
+  /// Whether [expressionValue] satisfies the type written as [typeNode] — the
+  /// predicate behind the `is` operator.
+  ///
+  /// SCC18 lifted this out of [visitIsExpression] so that typed *patterns*
+  /// could ask the same question. They previously did not ask at all, and the
+  /// two shapes that did (the object pattern's name heuristic, the catch
+  /// clause's `isAssignable` probe) each answered differently — which is how
+  /// SCB7's unwrap fix reached one copy and not the others. Anything that needs
+  /// "does this value have this type" belongs here; do not grow a private
+  /// switch beside it. The catch-clause copy is the last one still outstanding
+  /// (SCC20).
+  bool _valueHasType(STypeAnnotation? typeNode, Object? expressionValue) {
     bool result = false;
 
     if (typeNode is SNamedType) {
@@ -11557,6 +11572,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                 targetType.call(this, []) is Type) {
               final object = targetType.call(this, []);
 
+              // This early return used to leave `visitIsExpression` directly,
+              // so `is!` against a Type-valued native silently answered the
+              // un-negated result. Returning from the predicate instead lets
+              // the caller apply the negation — a fix that fell out of the
+              // extraction rather than one that was sought.
               return expressionValue.runtimeType == object;
             } else {
               throw RuntimeD4rtException(
@@ -11589,12 +11609,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       );
     }
 
-    // Handle negation (is!)
-    if (node.isNot) {
-      return !result;
-    } else {
-      return result;
-    }
+    return result;
   }
 
   /// Recursively check if a CollectionElement represents a map entry.
@@ -13019,6 +13034,26 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   /// Attempts to match the [pattern] against the [value].
   /// If successful, binds any variables declared in the pattern within the [environment].
   /// Throws [PatternMatchD4rtException] on failure.
+  ///
+  /// Signals a non-match when [typeNode] is written and [value] does not have
+  /// that type. A null [typeNode] is an untyped `var x` / `_`, which is
+  /// irrefutable and must keep matching anything.
+  ///
+  /// SCC18: the two branches that call this — `SDeclaredVariablePattern` and
+  /// `SWildcardPattern` — used to read only the pattern's *name*, so
+  /// `case int _` accepted a String and the first arm of every switch won
+  /// regardless of the scrutinee. Neither branch had any path that could
+  /// throw, which is why a corpus of ~2270 green tests never noticed: every
+  /// one of them exercised an arm that was meant to match.
+  void _requireDeclaredType(STypeAnnotation? typeNode, Object? value) {
+    if (typeNode == null) return;
+    if (_valueHasType(typeNode, value)) return;
+    throw PatternMatchD4rtException(
+      "Pattern type '$typeNode' does not match value of type "
+      "'${value?.runtimeType}'",
+    );
+  }
+
   void _matchAndBind(SAstNode pattern, Object? value, Environment environment) {
     if (Logger.isDebug) {
       Logger.debug(
@@ -13028,6 +13063,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     if (pattern is SDeclaredVariablePattern) {
       // Handles: var x, final T x, int x
+      _requireDeclaredType(pattern.type, value);
       final name = pattern.name;
       if (name == '_') {
         // Wildcard name in declaration: match succeeds, no binding
@@ -13041,7 +13077,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         Logger.debug("[_matchAndBind] Bound variable '$name' = $value");
       }
     } else if (pattern is SWildcardPattern) {
-      // Handles: _ when used as a standalone sub-pattern
+      // Handles: `_` and `T _` when used as a standalone sub-pattern
+      _requireDeclaredType(pattern.type, value);
       if (Logger.isDebug) {
         Logger.debug("[_matchAndBind] Wildcard (sub-pattern) match success.");
       }
@@ -13388,79 +13425,22 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         );
       }
 
-      // Get the expected type name
+      // Get the expected type name (for the diagnostic; the test itself is by
+      // annotation, not by name)
       final expectedTypeName = objTypeName;
 
-      // Check if the value is of the expected type
-      bool typeMatches = false;
-      String actualTypeName = value?.runtimeType.toString() ?? 'null';
-
-      // Handle InterpretedInstance specially - check class hierarchy
-      if (value is InterpretedInstance) {
-        // Check if the instance's class or any of its supertypes match the expected type
-        if (value.klass.name == expectedTypeName) {
-          typeMatches = true;
-        } else {
-          // Check superclass chain
-          InterpretedClass? current = value.klass.superclass;
-          while (current != null && !typeMatches) {
-            if (current.name == expectedTypeName) {
-              typeMatches = true;
-            }
-            current = current.superclass;
-          }
-          // Check interfaces
-          if (!typeMatches) {
-            for (final interface in value.klass.interfaces) {
-              if (interface.name == expectedTypeName) {
-                typeMatches = true;
-                break;
-              }
-            }
-          }
-          // Check mixins
-          if (!typeMatches) {
-            for (final mixin in value.klass.mixins) {
-              if (mixin.name == expectedTypeName) {
-                typeMatches = true;
-                break;
-              }
-            }
-          }
-        }
-        actualTypeName = value.klass.name;
-      } else if (expectedTypeName == 'int' && value is int) {
-        typeMatches = true;
-      } else if (expectedTypeName == 'double' && value is double) {
-        typeMatches = true;
-      } else if (expectedTypeName == 'num' && value is num) {
-        typeMatches = true;
-      } else if (expectedTypeName == 'String' && value is String) {
-        typeMatches = true;
-      } else if (expectedTypeName == 'bool' && value is bool) {
-        typeMatches = true;
-      } else if (expectedTypeName == 'List' && value is List) {
-        typeMatches = true;
-      } else if (expectedTypeName == 'Map' && value is Map) {
-        typeMatches = true;
-      } else if (expectedTypeName == 'Set' && value is Set) {
-        typeMatches = true;
-      } else if (value != null && actualTypeName.endsWith(expectedTypeName)) {
-        // Basic heuristic: if the actual type name ends with expected type name
-        typeMatches = true;
-      } else {
-        // Check if the value has an interpreted class that matches
-        try {
-          final expectedType = environment.get(expectedTypeName);
-          if (expectedType is RuntimeType) {
-            typeMatches = true;
-          }
-        } catch (e) {
-          // Type not found in environment
-        }
-      }
-
-      if (!typeMatches) {
+      // SCC18: this used to be a fourth private type test — a name-equality
+      // walk for interpreted instances, a hardcoded ladder for seven builtins,
+      // an `actualTypeName.endsWith(expectedTypeName)` heuristic, and finally
+      // "the name resolves to *a* RuntimeType, so call it a match". That last
+      // fallback is why `case int()` matched the String 's': `int` resolves, so
+      // it said yes without ever looking at the value. Asking the `is`
+      // predicate answers all four shapes at once and keeps object patterns
+      // consistent with `x is T`.
+      if (!_valueHasType(pattern.type, value)) {
+        final actualTypeName = value is InterpretedInstance
+            ? value.klass.name
+            : value?.runtimeType.toString() ?? 'null';
         throw PatternMatchD4rtException(
           "Object pattern expected type '$expectedTypeName', but got '$actualTypeName'",
         );
@@ -13499,6 +13479,31 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           }
         } else if (value is Map && value.containsKey(fieldNameStr)) {
           fieldValue = value[fieldNameStr];
+        } else if (toBridgedInstance(value).$2) {
+          // SCC18: `int(isEven: true)` and `String(length: 3)` are ordinary
+          // Dart, but a native operand reached neither branch above and the
+          // pattern failed with "field access is not supported". Reading the
+          // member through the value's bridge — getter adapter first, then the
+          // registered supertype walk — is the same route `value.isEven` takes
+          // in an expression, so the two cannot disagree.
+          final bridgedInstance = toBridgedInstance(value).$1!;
+          final getterAdapter = bridgedInstance.bridgedClass
+              .findInstanceGetterAdapter(fieldNameStr);
+          if (getterAdapter != null) {
+            fieldValue = getterAdapter(this, bridgedInstance.nativeObject);
+          } else {
+            final supertypeMatch = lookupOnBridgedSupertypes(
+              bridgedInstance,
+              fieldNameStr,
+            );
+            if (!supertypeMatch.$2) {
+              throw PatternMatchD4rtException(
+                "Object pattern field '$fieldNameStr' not found on "
+                "'${bridgedInstance.bridgedClass.name}'",
+              );
+            }
+            fieldValue = supertypeMatch.$1;
+          }
         } else {
           throw PatternMatchD4rtException(
             "Object pattern field access '$fieldNameStr' is not supported for type '${value?.runtimeType}'",
