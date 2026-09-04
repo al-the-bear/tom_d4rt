@@ -4,15 +4,18 @@ import 'package:tom_d4rt/d4rt.dart';
 dynamic execute(String source, {List<Object?>? args}) {
   final d4rt = D4rt()..setDebug(false);
   return d4rt.execute(
-      library: 'package:test/main.dart',
-      positionalArgs: args,
-      sources: {'package:test/main.dart': source});
+    library: 'package:test/main.dart',
+    positionalArgs: args,
+    sources: {'package:test/main.dart': source},
+  );
 }
 
 void main() {
   group('Advanced Pattern Matching Features', () {
-    test('I-PAT-3: List patterns with rest elements - multiple positions. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-PAT-3: List patterns with rest elements - multiple positions. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         main() {
           var results = [];
           
@@ -41,32 +44,36 @@ void main() {
         }
       ''';
 
-      final result = execute(code);
-      expect(
+        final result = execute(code);
+        expect(
           result,
           equals([
             [
               'end',
               1,
               2,
-              [3, 4, 5]
+              [3, 4, 5],
             ],
             [
               'beginning',
               [10, 20, 30],
-              40
+              40,
             ],
             [
               'middle',
               100,
               [200, 300, 400],
-              500
-            ]
-          ]));
-    });
+              500,
+            ],
+          ]),
+        );
+      },
+    );
 
-    test('I-PAT-6: Map patterns with rest elements. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-PAT-6: Map patterns with rest elements. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         main() {
           var map = {'name': 'John', 'age': 25, 'city': 'NYC', 'country': 'USA'};
           switch (map) {
@@ -78,18 +85,22 @@ void main() {
         }
       ''';
 
-      final result = execute(code);
-      expect(
+        final result = execute(code);
+        expect(
           result,
           equals([
             'John',
             25,
-            {'city': 'NYC', 'country': 'USA'}
-          ]));
-    });
+            {'city': 'NYC', 'country': 'USA'},
+          ]),
+        );
+      },
+    );
 
-    test('I-PAT-7: Nested pattern matching with rest elements. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-PAT-7: Nested pattern matching with rest elements. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         main() {
           var data = [
             {'type': 'user', 'data': [1, 2, 3, 4]},
@@ -105,19 +116,23 @@ void main() {
         }
       ''';
 
-      final result = execute(code);
-      expect(
+        final result = execute(code);
+        expect(
           result,
           equals([
             'user',
             1,
             [2, 3, 4],
-            ['extra']
-          ]));
-    });
+            ['extra'],
+          ]),
+        );
+      },
+    );
 
-    test('I-PAT-1: Anonymous rest elements (no binding). [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-PAT-1: Anonymous rest elements (no binding). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         main() {
           var list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
           switch (list) {
@@ -129,12 +144,15 @@ void main() {
         }
       ''';
 
-      final result = execute(code);
-      expect(result, equals([1, 2, 'has_more']));
-    });
+        final result = execute(code);
+        expect(result, equals([1, 2, 'has_more']));
+      },
+    );
 
-    test('I-PAT-2: Map patterns with anonymous rest. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-PAT-2: Map patterns with anonymous rest. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         main() {
           var config = {
             'enabled': true,
@@ -155,9 +173,10 @@ void main() {
         }
       ''';
 
-      final result = execute(code);
-      expect(result, equals(['enabled_with_timeout', 30]));
-    });
+        final result = execute(code);
+        expect(result, equals(['enabled_with_timeout', 30]));
+      },
+    );
 
     test('I-PAT-4: Empty rest elements. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -184,15 +203,18 @@ void main() {
 
       final result = execute(code);
       expect(
-          result,
-          equals([
-            ['list', 1, 2, []],
-            ['map', 10, 20, {}]
-          ]));
+        result,
+        equals([
+          ['list', 1, 2, []],
+          ['map', 10, 20, {}],
+        ]),
+      );
     });
 
-    test('I-PAT-5: Complex pattern matching with guards (when available). [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-PAT-5: Complex pattern matching with guards (when available). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         main() {
           var data = [
             [1, 2, 3, 4, 5],
@@ -218,16 +240,17 @@ void main() {
         }
       ''';
 
-      // Note: Guards (when clauses) might not be fully implemented yet
-      // This test will verify what we can handle
-      try {
-        final result = execute(code);
-        // If guards work, we should get meaningful results
-        expect(result, isA<List>());
-      } catch (e) {
-        // If guards don't work yet, that's expected
-        expect(e, isA<Exception>());
-      }
-    });
+        // Note: Guards (when clauses) might not be fully implemented yet
+        // This test will verify what we can handle
+        try {
+          final result = execute(code);
+          // If guards work, we should get meaningful results
+          expect(result, isA<List>());
+        } catch (e) {
+          // If guards don't work yet, that's expected
+          expect(e, isA<Exception>());
+        }
+      },
+    );
   });
 }

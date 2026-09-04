@@ -83,9 +83,10 @@ bool _gitAvailable() {
 /// The `version:` value in [package]'s pubspec as of [commit], or null when the
 /// file did not exist there.
 String? _versionAt(String package, String commit) {
-  final result = Process.runSync(
-      'git', ['show', '$commit:${_gitPaths[package]}/pubspec.yaml'],
-      workingDirectory: _repoRoot);
+  final result = Process.runSync('git', [
+    'show',
+    '$commit:${_gitPaths[package]}/pubspec.yaml',
+  ], workingDirectory: _repoRoot);
   if (result.exitCode != 0) return null;
   for (final line in (result.stdout as String).split('\n')) {
     if (line.startsWith('version:')) {
@@ -143,7 +144,9 @@ String _declaredVersion(String package) {
 }
 
 List<String> _changelogVersions(String package) {
-  final changelog = File('${_packages[package]}/CHANGELOG.md').readAsLinesSync();
+  final changelog = File(
+    '${_packages[package]}/CHANGELOG.md',
+  ).readAsLinesSync();
   return [
     for (final line in changelog)
       if (line.startsWith('## ')) line.substring(3).trim(),
@@ -157,64 +160,55 @@ void main() {
   final layoutSkip = siblings
       ? null
       : 'needs the sibling checkouts ../tom_d4rt_ast and ../tom_d4rt_exec; '
-          'this guard is about the repo, not the package, and cannot run from '
-          'a published tom_d4rt on its own';
+            'this guard is about the repo, not the package, and cannot run from '
+            'a published tom_d4rt on its own';
   final gitSkip = haveGit
       ? null
       : (layoutSkip ?? 'needs the git history of the tom_d4rt repo');
 
   group('SCC17: the declared version covers everything that has landed', () {
     for (final package in _packages.keys) {
-      test(
-        'F-SCC17-1/$package: the declared version has a CHANGELOG section '
-        '[2026-09-04] (PASS)',
-        () {
-          final version = _declaredVersion(package);
-          expect(
-            _changelogVersions(package),
-            contains(version),
-            reason: 'pubspec.yaml says $version and CHANGELOG.md has no '
-                '`## $version` heading. Whatever the bump was for is currently '
-                'undocumented — write the section before publishing.',
-          );
-        },
-        skip: layoutSkip,
-      );
+      test('F-SCC17-1/$package: the declared version has a CHANGELOG section '
+          '[2026-09-04] (PASS)', () {
+        final version = _declaredVersion(package);
+        expect(
+          _changelogVersions(package),
+          contains(version),
+          reason:
+              'pubspec.yaml says $version and CHANGELOG.md has no '
+              '`## $version` heading. Whatever the bump was for is currently '
+              'undocumented — write the section before publishing.',
+        );
+      }, skip: layoutSkip);
 
-      test(
-        'F-SCC17-2/$package: the declared version is the newest section '
-        '[2026-09-04] (PASS)',
-        () {
-          final version = _declaredVersion(package);
-          expect(
-            _changelogVersions(package).first,
-            version,
-            reason: 'The topmost CHANGELOG section is not the version being '
-                'shipped. Either the pubspec was bumped and the section was '
-                'written under the old number, or a section was added for a '
-                'version the pubspec never reached.',
-          );
-        },
-        skip: layoutSkip,
-      );
+      test('F-SCC17-2/$package: the declared version is the newest section '
+          '[2026-09-04] (PASS)', () {
+        final version = _declaredVersion(package);
+        expect(
+          _changelogVersions(package).first,
+          version,
+          reason:
+              'The topmost CHANGELOG section is not the version being '
+              'shipped. Either the pubspec was bumped and the section was '
+              'written under the old number, or a section was added for a '
+              'version the pubspec never reached.',
+        );
+      }, skip: layoutSkip);
 
-      test(
-        'F-SCC17-3/$package: no library change has landed since the last '
-        'version bump [2026-09-04] (PASS)',
-        () {
-          final orphans = _libCommitsAfterLastBump(package, 'HEAD');
-          expect(
-            orphans,
-            isEmpty,
-            reason: 'These commits changed $package/lib after the version was '
-                'last set, so they belong to no version and would ship inside '
-                'an already-written section — which is how SCC17 happened. '
-                'Bump the version and add a section describing them:\n'
-                '  ${orphans.join('\n  ')}',
-          );
-        },
-        skip: gitSkip,
-      );
+      test('F-SCC17-3/$package: no library change has landed since the last '
+          'version bump [2026-09-04] (PASS)', () {
+        final orphans = _libCommitsAfterLastBump(package, 'HEAD');
+        expect(
+          orphans,
+          isEmpty,
+          reason:
+              'These commits changed $package/lib after the version was '
+              'last set, so they belong to no version and would ship inside '
+              'an already-written section — which is how SCC17 happened. '
+              'Bump the version and add a section describing them:\n'
+              '  ${orphans.join('\n  ')}',
+        );
+      }, skip: gitSkip);
     }
 
     // The commit SCC17 was filed about: at this point `tom_d4rt` had said
@@ -222,28 +216,27 @@ void main() {
     // commits had landed behind it. The checker must see all three. Pinning the
     // subjects rather than the count is deliberate — a count matches by
     // accident, a subject does not.
-    test(
-      'F-SCC17-4: the check reports the three commits it was written for '
-      '[2026-09-04] (PASS)',
-      () {
-        final probe = Process.runSync(
-            'git', ['cat-file', '-e', 'ccf041f82^{commit}'],
-            workingDirectory: _repoRoot);
-        if (probe.exitCode != 0) {
-          markTestSkipped('history does not reach ccf041f82 (shallow clone)');
-          return;
-        }
-        final orphans = _libCommitsAfterLastBump('tom_d4rt', 'ccf041f82');
-        expect(
-          orphans.map((line) => line.split(' ').first).toList(),
-          ['ccf041f82', '9fca5be33', '9bb876f36'],
-          reason: 'The negative control failed, so F-SCC17-3 is not measuring '
-              'what it claims to. Most likely the anchor commit is being '
-              'resolved wrongly — check _lastVersionBump before trusting a '
-              'green run above.',
-        );
-      },
-      skip: gitSkip,
-    );
+    test('F-SCC17-4: the check reports the three commits it was written for '
+        '[2026-09-04] (PASS)', () {
+      final probe = Process.runSync('git', [
+        'cat-file',
+        '-e',
+        'ccf041f82^{commit}',
+      ], workingDirectory: _repoRoot);
+      if (probe.exitCode != 0) {
+        markTestSkipped('history does not reach ccf041f82 (shallow clone)');
+        return;
+      }
+      final orphans = _libCommitsAfterLastBump('tom_d4rt', 'ccf041f82');
+      expect(
+        orphans.map((line) => line.split(' ').first).toList(),
+        ['ccf041f82', '9fca5be33', '9bb876f36'],
+        reason:
+            'The negative control failed, so F-SCC17-3 is not measuring '
+            'what it claims to. Most likely the anchor commit is being '
+            'resolved wrongly — check _lastVersionBump before trusting a '
+            'green run above.',
+      );
+    }, skip: gitSkip);
   });
 }

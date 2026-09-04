@@ -111,14 +111,12 @@ class User {
   User(this.name, this.email);
 
   // Named constructor - guest user
-  User.guest()
-      : name = 'Guest',
-        email = 'guest@example.com';
+  User.guest() : name = 'Guest', email = 'guest@example.com';
 
   // Named constructor - from map
   User.fromMap(Map<String, dynamic> map)
-      : name = map['name'] as String,
-        email = map['email'] as String;
+    : name = map['name'] as String,
+      email = map['email'] as String;
 
   @override
   String toString() => 'User($name, $email)';

@@ -70,8 +70,7 @@ void main() {
 
   group('DOV: Dart Overview Interpreter Failures', () {
     group('String Interpolation in Adjacent Strings', () {
-      test(
-          'G-DOV-1: Adjacent strings with interpolation. '
+      test('G-DOV-1: Adjacent strings with interpolation. '
           '[2026-02-10 12:00] (FAIL)', () {
         // D4rt throws: "Type de StringLiteral non géré: StringInterpolationImpl"
         // when AdjacentStrings contain StringInterpolation children.
@@ -86,8 +85,7 @@ void main() {
         expect(result, equals('Hello World how are you?'));
       });
 
-      test(
-          'G-DOV-2: Multi-line adjacent string with multiple interpolations. '
+      test('G-DOV-2: Multi-line adjacent string with multiple interpolations. '
           '[2026-02-10 12:00] (FAIL)', () {
         final result = _execute(r'''
           main() {
@@ -108,8 +106,7 @@ void main() {
     // =========================================================================
 
     group('LogicalAndPattern in switch/case', () {
-      test(
-          'G-DOV-3: Relational AND pattern in switch expression. '
+      test('G-DOV-3: Relational AND pattern in switch expression. '
           '[2026-02-10 12:00] (FAIL)', () {
         // D4rt throws: "Pattern type not yet supported: LogicalAndPatternImpl"
         final result = _execute(r'''
@@ -125,8 +122,7 @@ void main() {
         expect(result, equals('in range'));
       });
 
-      test(
-          'G-DOV-4: LogicalAnd pattern in if-case statement. '
+      test('G-DOV-4: LogicalAnd pattern in if-case statement. '
           '[2026-02-10 12:00] (FAIL)', () {
         final result = _execute(r'''
           main() {
@@ -146,8 +142,7 @@ void main() {
     // =========================================================================
 
     group('Constructor Tear-offs', () {
-      test(
-          'G-DOV-5: Constructor tear-off with Class.new. '
+      test('G-DOV-5: Constructor tear-off with Class.new. '
           '[2026-02-10 12:00] (FAIL)', () {
         // D4rt throws: "Undefined static member 'new' on class 'Person'"
         final result = _execute(r'''
@@ -173,8 +168,7 @@ void main() {
     // =========================================================================
 
     group('Abstract Method Inheritance Chain', () {
-      test(
-          'G-DOV-6: Grandchild class inherits abstract method override. '
+      test('G-DOV-6: Grandchild class inherits abstract method override. '
           '[2026-02-10 12:00] (FAIL)', () {
         // D4rt throws: "Missing concrete implementation for inherited
         // abstract method 'move' in class 'AdvancedRobot'"
@@ -201,8 +195,7 @@ void main() {
         expect(result, equals('Robot moving'));
       });
 
-      test(
-          'G-DOV-7: Mixin chain with abstract method inherited from parent. '
+      test('G-DOV-7: Mixin chain with abstract method inherited from parent. '
           '[2026-02-10 12:00] (FAIL)', () {
         // D4rt throws: "Missing concrete implementation for inherited
         // abstract method 'move' in class 'Eagle'"
@@ -238,16 +231,19 @@ void main() {
     // =========================================================================
 
     group('Switch Case Pattern Variable Scoping', () {
-      test(
-          'G-DOV-8: Sealed class switch statement pattern variable scoping. '
+      test('G-DOV-8: Sealed class switch statement pattern variable scoping. '
           '[2026-02-10 12:00] (PASS)', () async {
         // D4rt throws: "Undefined variable: m" when the second switch case
         // in a statement binds a new variable not present in the first case.
         // Only manifests when running the full area file through executeFile.
         final result = _executeArea('class_modifiers');
-        expect(result.success, isTrue,
-            reason: 'class_modifiers area should execute without errors: '
-                '${result.error}');
+        expect(
+          result.success,
+          isTrue,
+          reason:
+              'class_modifiers area should execute without errors: '
+              '${result.error}',
+        );
       });
     });
 
@@ -256,8 +252,7 @@ void main() {
     // =========================================================================
 
     group('Generic Type Bound Checking', () {
-      test(
-          'G-DOV-9: User class implementing Comparable satisfies bound. '
+      test('G-DOV-9: User class implementing Comparable satisfies bound. '
           '[2026-02-10 12:00] (FAIL)', () {
         // D4rt throws: "Type argument 'Person' for type parameter 'T'
         // does not satisfy bound 'Comparable' in class 'SortedList'"
@@ -299,8 +294,7 @@ void main() {
     // =========================================================================
 
     group('Extensions on Nullable Types', () {
-      test(
-          'G-DOV-10: Extension method on nullable List type (on List<T>?). '
+      test('G-DOV-10: Extension method on nullable List type (on List<T>?). '
           '[2026-02-10 12:00] (FAIL)', () {
         // D4rt throws: "Cannot access property 'orEmpty' on target of type null"
         // because it doesn't resolve extensions declared with nullable receiver.
@@ -318,8 +312,7 @@ void main() {
         expect(result, equals([]));
       });
 
-      test(
-          'G-DOV-11: Extension on nullable String. '
+      test('G-DOV-11: Extension on nullable String. '
           '[2026-02-10 12:00] (FAIL)', () {
         final result = _execute(r'''
           extension NullableStringExt on String? {
@@ -341,8 +334,7 @@ void main() {
     // =========================================================================
 
     group('Await-for Loop Variable Declaration', () {
-      test(
-          'G-DOV-12: await for with var declaration in stream loop. '
+      test('G-DOV-12: await for with var declaration in stream loop. '
           '[2026-02-10 12:00] (FAIL)', () async {
         // D4rt throws: "Assigning to undefined variable 'number'"
         // because the loop variable declaration in await-for is not

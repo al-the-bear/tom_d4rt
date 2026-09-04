@@ -65,7 +65,8 @@ int readCounter() => _counter;
         d4rt.grant(FilesystemPermission.readPath(tempRoot.path));
 
         final result = d4rt.execute(
-          source: '''
+          source:
+              '''
 import './helper.dart';
 import '${helperFile.absolute.uri}' as viaReal;
 
@@ -83,30 +84,29 @@ int main() {
       },
     );
 
-    test(
-      'F-DFUB3-2: same file reached via a symlinked file + its real path '
-      'shares one module instance [2026-07-23] (PASS)',
-      () {
-        if (io.Platform.isWindows) {
-          return;
-        }
+    test('F-DFUB3-2: same file reached via a symlinked file + its real path '
+        'shares one module instance [2026-07-23] (PASS)', () {
+      if (io.Platform.isWindows) {
+        return;
+      }
 
-        io.File('${tempRoot.path}/real_helper.dart').writeAsStringSync('''
+      io.File('${tempRoot.path}/real_helper.dart').writeAsStringSync('''
 int _counter = 0;
 void bumpCounter() { _counter = _counter + 1; }
 int readCounter() => _counter;
 ''');
-        io.Link('${tempRoot.path}/linked_helper.dart')
-            .createSync('${tempRoot.path}/real_helper.dart');
+      io.Link(
+        '${tempRoot.path}/linked_helper.dart',
+      ).createSync('${tempRoot.path}/real_helper.dart');
 
-        final d4rt = D4rt();
-        // Grant on the caller's temp path: DFUB3 keeps reads/permissions on the
-        // caller's spelling (only the cache key is symlink-resolved), so a grant
-        // on the non-realpath temp dir still matches.
-        d4rt.grant(FilesystemPermission.readPath(tempRoot.path));
+      final d4rt = D4rt();
+      // Grant on the caller's temp path: DFUB3 keeps reads/permissions on the
+      // caller's spelling (only the cache key is symlink-resolved), so a grant
+      // on the non-realpath temp dir still matches.
+      d4rt.grant(FilesystemPermission.readPath(tempRoot.path));
 
-        final result = d4rt.execute(
-          source: '''
+      final result = d4rt.execute(
+        source: '''
 import './real_helper.dart';
 import './linked_helper.dart' as viaLink;
 
@@ -115,12 +115,11 @@ int main() {
   return viaLink.readCounter();
 }
 ''',
-          basePath: tempRoot.path,
-          allowFileSystemImports: true,
-        );
+        basePath: tempRoot.path,
+        allowFileSystemImports: true,
+      );
 
-        expect(result, equals(1));
-      },
-    );
+      expect(result, equals(1));
+    });
   });
 }

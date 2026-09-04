@@ -13,19 +13,24 @@ void main() {
       expect(await execute(source), equals(42));
     });
 
-    test('I-ASYNC-67: Await Future.delayed. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-ASYNC-67: Await Future.delayed. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
         Future<String> main() async {
           await Future.delayed(Duration(milliseconds: 10));
           return "Done";
         }
       ''';
-      // Check timing roughly? Hard in tests. Just check result.
-      expect(await execute(source), equals("Done"));
-    });
+        // Check timing roughly? Hard in tests. Just check result.
+        expect(await execute(source), equals("Done"));
+      },
+    );
 
-    test('I-ASYNC-73: Assign await result to variable. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-ASYNC-73: Assign await result to variable. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
         Future<int> fetchValue() async {
            await Future.delayed(Duration(milliseconds: 5));
            return 100;
@@ -36,11 +41,14 @@ void main() {
           return x + 5;
         }
       ''';
-      expect(await execute(source), equals(105));
-    });
+        expect(await execute(source), equals(105));
+      },
+    );
 
-    test('I-ASYNC-80: Return await result directly. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-ASYNC-80: Return await result directly. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
         Future<String> fetchMessage() async {
            await Future.delayed(Duration(milliseconds: 5));
            return "Returned Message";
@@ -50,11 +58,14 @@ void main() {
           return await fetchMessage();
         }
       ''';
-      expect(await execute(source), equals("Returned Message"));
-    });
+        expect(await execute(source), equals("Returned Message"));
+      },
+    );
 
-    test('I-ASYNC-85: Multiple awaits in sequence. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-ASYNC-85: Multiple awaits in sequence. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
         Future<int> step1() async {
            await Future.delayed(Duration(milliseconds: 5));
            return 10;
@@ -70,12 +81,15 @@ void main() {
           return r2 + 30;
         }
       ''';
-      // 10 -> 10+20=30 -> 30+30=60
-      expect(await execute(source), equals(60));
-    });
+        // 10 -> 10+20=30 -> 30+30=60
+        expect(await execute(source), equals(60));
+      },
+    );
 
-    test('I-ASYNC-89: Nested async function calls. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-ASYNC-89: Nested async function calls. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
          Future<int> inner() async {
            await Future.delayed(Duration(milliseconds: 1));
            return 50;
@@ -90,12 +104,15 @@ void main() {
           return result + 50;
         }
       ''';
-      // 50 -> 50+50=100 -> 100+50=150
-      expect(await execute(source), equals(150));
-    });
+        // 50 -> 50+50=100 -> 100+50=150
+        expect(await execute(source), equals(150));
+      },
+    );
 
-    test('I-ASYNC-90: Sync code between awaits. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-ASYNC-90: Sync code between awaits. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
         Future<String> part1() async { return "A"; }
         Future<String> part3() async { return "C"; }
 
@@ -106,11 +123,14 @@ void main() {
            return r2 + r3; // Sync operation
         }
       ''';
-      expect(await execute(source), equals("ABC"));
-    });
+        expect(await execute(source), equals("ABC"));
+      },
+    );
 
-    test('I-ASYNC-64: Return non-Future from async function. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-ASYNC-64: Return non-Future from async function. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
         Future<int> getValue() async {
           // No await needed here
           return 99;
@@ -120,11 +140,14 @@ void main() {
           return await getValue();
         }
       ''';
-      expect(await execute(source), equals(99));
-    });
+        expect(await execute(source), equals(99));
+      },
+    );
 
-    test('I-ASYNC-65: Interpreted Async/Await Tests await in if condition. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-65: Interpreted Async/Await Tests await in if condition. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         Future<bool> checkCondition() async {
           await Future.delayed(Duration(milliseconds: 1));
           return true;
@@ -137,12 +160,15 @@ void main() {
           return result;
         }
       ''';
-      final result = await execute(code);
-      expect(result, 'Condition True');
-    });
+        final result = await execute(code);
+        expect(result, 'Condition True');
+      },
+    );
 
-    test('I-ASYNC-66: Interpreted Async/Await Tests await in for loop. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-66: Interpreted Async/Await Tests await in for loop. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         Future<int> processItem(int i) async {
           await Future.delayed(Duration(milliseconds: 1));
           return i * 10;
@@ -155,13 +181,15 @@ void main() {
           return total; // 0*10 + 1*10 + 2*10 = 30
         }
       ''';
-      final result = await execute(code);
-      expect(result, 30);
-    });
+        final result = await execute(code);
+        expect(result, 30);
+      },
+    );
 
-    test('I-ASYNC-68: Interpreted Async/Await Tests await in try/catch (success). [2026-02-10 06:37] (PASS)',
-        () async {
-      final code = '''
+    test(
+      'I-ASYNC-68: Interpreted Async/Await Tests await in try/catch (success). [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         Future<String> successfulFuture() async {
           await Future.delayed(Duration(milliseconds: 1));
           return "Success";
@@ -176,13 +204,15 @@ void main() {
           return result;
         }
       ''';
-      final result = await execute(code);
-      expect(result, 'Success');
-    });
+        final result = await execute(code);
+        expect(result, 'Success');
+      },
+    );
 
-    test('I-ASYNC-69: Interpreted Async/Await Tests await Future.error in try/catch. [2026-02-10 06:37] (PASS)',
-        () async {
-      final code = '''
+    test(
+      'I-ASYNC-69: Interpreted Async/Await Tests await Future.error in try/catch. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         Future<String> failingFuture() async {
           await Future.delayed(Duration(milliseconds: 1));
           throw 'Future Failed';
@@ -198,13 +228,15 @@ void main() {
           return result;
         }
       ''';
-      final result = await execute(code);
-      expect(result, 'Caught: Future Failed');
-    });
+        final result = await execute(code);
+        expect(result, 'Caught: Future Failed');
+      },
+    );
 
-    test('I-ASYNC-70: Interpreted Async/Await Tests await Future.error without try/catch. [2026-02-10 06:37] (PASS)',
-        () async {
-      final code = '''
+    test(
+      'I-ASYNC-70: Interpreted Async/Await Tests await Future.error without try/catch. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         Future<void> failingFuture() async {
           await Future.delayed(Duration(milliseconds: 1));
           throw 'Deliberate Error';
@@ -213,17 +245,20 @@ void main() {
            await failingFuture();
         }
       ''';
-      try {
-        await execute(code);
-        fail('Expected execute to throw an error');
-      } catch (e) {
-        expect(e.toString().contains('Deliberate Error'), isTrue);
-      }
-    });
+        try {
+          await execute(code);
+          fail('Expected execute to throw an error');
+        } catch (e) {
+          expect(e.toString().contains('Deliberate Error'), isTrue);
+        }
+      },
+    );
   });
   group('Async Control Flow Tests', () {
-    test('I-ASYNC-71: Async while loop with await in body. [2026-02-10 06:37] (PASS)', () async {
-      final result = await execute('''
+    test(
+      'I-ASYNC-71: Async while loop with await in body. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await execute('''
         // Define a simple async function to introduce an await point
         Future<void> waitABit() async {
            await Future.value(null); // The simplest await possible
@@ -244,11 +279,14 @@ void main() {
           return counter(5); // Expect 0+1+2+3+4 = 10
         }
       ''');
-      expect(result, equals(10));
-    });
+        expect(result, equals(10));
+      },
+    );
 
-    test('I-ASYNC-72: Async while loop with await in condition. [2026-02-10 06:37] (PASS)', () async {
-      final result = await execute('''
+    test(
+      'I-ASYNC-72: Async while loop with await in condition. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await execute('''
         // Helper async function for condition
         Future<bool> shouldContinue(int currentVal) async {
           await Future.value(null); // Simulate async work
@@ -267,11 +305,14 @@ void main() {
           return looper();
         }
       ''');
-      expect(result, equals(3));
-    });
+        expect(result, equals(3));
+      },
+    );
 
-    test('I-ASYNC-74: Async do-while loop with await in body. [2026-02-10 06:37] (PASS)', () async {
-      final result = await execute('''
+    test(
+      'I-ASYNC-74: Async do-while loop with await in body. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await execute('''
         Future<void> waitABit() async {
           await Future.value(null);
         }
@@ -294,11 +335,14 @@ void main() {
           return looper();
         }
       ''');
-      expect(result, equals(6));
-    });
+        expect(result, equals(6));
+      },
+    );
 
-    test('I-ASYNC-75: Async do-while loop with await in condition. [2026-02-10 06:37] (PASS)', () async {
-      final result = await execute('''
+    test(
+      'I-ASYNC-75: Async do-while loop with await in condition. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await execute('''
         Future<bool> shouldContinue(int currentVal) async {
           await Future.value(null); // Simulate async work
           return currentVal < 3; // Condition based on value
@@ -321,11 +365,14 @@ void main() {
           return looper();
         }
       ''');
-      expect(result, equals(3));
-    });
+        expect(result, equals(3));
+      },
+    );
 
-    test('I-ASYNC-76: Async for loop with await in body. [2026-02-10 06:37] (PASS)', () async {
-      final result = await execute('''
+    test(
+      'I-ASYNC-76: Async for loop with await in body. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await execute('''
         Future<void> waitABit() async {
           await Future.value(null);
         }
@@ -348,11 +395,14 @@ void main() {
           return looper();
         }
       ''');
-      expect(result, equals(6));
-    });
+        expect(result, equals(6));
+      },
+    );
 
-    test('I-ASYNC-77: Async for loop with await in initializer. [2026-02-10 06:37] (PASS)', () async {
-      final result = await execute('''
+    test(
+      'I-ASYNC-77: Async for loop with await in initializer. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await execute('''
         Future<int> getStart() async {
           await Future.delayed(Duration(milliseconds: 1)); // Simulate async work
           return 1;
@@ -375,11 +425,14 @@ void main() {
           return looper();
         }
       ''');
-      expect(result, equals(6));
-    });
+        expect(result, equals(6));
+      },
+    );
 
-    test('I-ASYNC-78: Async for loop with await assignment in body. [2026-02-10 06:37] (PASS)', () async {
-      final result = await execute(r'''
+    test(
+      'I-ASYNC-78: Async for loop with await assignment in body. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await execute(r'''
         Future<int> getValue(int iteration) async {
           await Future.delayed(Duration(milliseconds: 1));
           return iteration * 10;
@@ -403,12 +456,15 @@ void main() {
         }
       ''');
 
-      // Expected result is 3 + 20 = 23
-      expect(result, equals(23));
-    });
+        // Expected result is 3 + 20 = 23
+        expect(result, equals(23));
+      },
+    );
 
-    test('I-ASYNC-79: Async for loop with await in assignment operator. [2026-02-10 06:37] (PASS)', () async {
-      final result = await execute(r'''
+    test(
+      'I-ASYNC-79: Async for loop with await in assignment operator. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await execute(r'''
         Future<int> getValue(int iteration) async {
           await Future.delayed(Duration(milliseconds: 1));
           return iteration * 10;
@@ -430,12 +486,15 @@ void main() {
         }
       ''');
 
-      // Expected result is 0 + 10 + 20 = 30
-      expect(result, equals(30));
-    });
+        // Expected result is 0 + 10 + 20 = 30
+        expect(result, equals(30));
+      },
+    );
 
-    test('I-ASYNC-81: Async for-in loop with await in body. [2026-02-10 06:37] (PASS)', () async {
-      final result = await execute('''
+    test(
+      'I-ASYNC-81: Async for-in loop with await in body. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await execute('''
         Future<int> getValue(int iteration) async {
           await Future.delayed(Duration(milliseconds: 1)); // Simulate async work
           final result = iteration * 10;
@@ -458,14 +517,14 @@ void main() {
         }
       ''');
 
-      expect(
-        result,
-        equals(60),
-      );
-    });
+        expect(result, equals(60));
+      },
+    );
 
-    test('I-ASYNC-82: Async try-catch-finally with await throwing error. [2026-02-10 06:37] (PASS)', () async {
-      final result = await execute('''
+    test(
+      'I-ASYNC-82: Async try-catch-finally with await throwing error. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await execute('''
         Future<String> operationThatThrows() async {
           await Future.delayed(Duration(milliseconds: 1));
           throw Exception('Something went wrong asynchronously');
@@ -493,14 +552,14 @@ void main() {
         }
       ''');
 
-      expect(
-        result,
-        equals("Caught Error:Finally Executed"),
-      );
-    });
+        expect(result, equals("Caught Error:Finally Executed"));
+      },
+    );
 
-    test('I-ASYNC-83: Async if statement with await in condition. [2026-02-10 06:37] (PASS)', () async {
-      final result = await execute(r'''
+    test(
+      'I-ASYNC-83: Async if statement with await in condition. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await execute(r'''
         Future<bool> checkCondition(bool value) async {
           await Future.delayed(Duration(milliseconds: 1));
           return value;
@@ -523,11 +582,14 @@ void main() {
         }
       ''');
 
-      expect(result, equals('Second If False'));
-    });
+        expect(result, equals('Second If False'));
+      },
+    );
 
-    test('I-ASYNC-84: Async try-catch with rethrow and await error. [2026-02-10 06:37] (PASS)', () async {
-      final sourceCode = '''
+    test(
+      'I-ASYNC-84: Async try-catch with rethrow and await error. [2026-02-10 06:37] (PASS)',
+      () async {
+        final sourceCode = '''
         Future<String> operationThatThrows() async {
           await Future.delayed(Duration(milliseconds: 1));
           throw Exception('Something went wrong asynchronously');
@@ -552,15 +614,23 @@ void main() {
         }
       ''';
 
-      expect(
-        () async => await execute(sourceCode),
-        throwsA(isA<Exception>().having((e) => e.toString(), 'toString()',
-            'Exception: Something went wrong asynchronously')),
-      );
-    });
+        expect(
+          () async => await execute(sourceCode),
+          throwsA(
+            isA<Exception>().having(
+              (e) => e.toString(),
+              'toString()',
+              'Exception: Something went wrong asynchronously',
+            ),
+          ),
+        );
+      },
+    );
 
-    test('I-ASYNC-86: Nested for-in loops with list processing. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-ASYNC-86: Nested for-in loops with list processing. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
       main() async {
         List resultList = [];
         for (var element in [
@@ -576,12 +646,14 @@ void main() {
         return resultList;
       }
       ''';
-      expect(await execute(source), equals([1, 2, 3, 4, 5, 6, 7, 8]));
-    });
+        expect(await execute(source), equals([1, 2, 3, 4, 5, 6, 7, 8]));
+      },
+    );
 
-    test('I-ASYNC-87: Nested for loops with list processing using indexed access. [2026-02-10 06:37] (PASS)',
-        () async {
-      const source = '''
+    test(
+      'I-ASYNC-87: Nested for loops with list processing using indexed access. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
       main() async {
         List resultList = [];
         final dddd = [
@@ -597,7 +669,8 @@ void main() {
         return resultList;
       }
       ''';
-      expect(await execute(source), equals([1, 2, 3, 4, 5, 6, 7, 8]));
-    });
+        expect(await execute(source), equals([1, 2, 3, 4, 5, 6, 7, 8]));
+      },
+    );
   });
 }

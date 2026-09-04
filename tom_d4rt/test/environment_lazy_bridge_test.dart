@@ -19,23 +19,24 @@ class _OtherWidget {
 void main() {
   group('IMP-OPT-3: thunk-capable bridge registry', () {
     test(
-        'IMP-OPT-3a: defineBridgeLazy defers construction until first lookup',
-        () {
-      final env = Environment();
-      var builds = 0;
-      env.defineBridgeLazy('Widget', _Widget, () {
-        builds++;
-        return BridgedClass(nativeType: _Widget, name: 'Widget');
-      });
+      'IMP-OPT-3a: defineBridgeLazy defers construction until first lookup',
+      () {
+        final env = Environment();
+        var builds = 0;
+        env.defineBridgeLazy('Widget', _Widget, () {
+          builds++;
+          return BridgedClass(nativeType: _Widget, name: 'Widget');
+        });
 
-      // Registration alone must not build the class.
-      expect(builds, 0, reason: 'thunk must not run at registration time');
+        // Registration alone must not build the class.
+        expect(builds, 0, reason: 'thunk must not run at registration time');
 
-      final resolved = env.findBridgedClassByName('Widget');
-      expect(resolved, isNotNull);
-      expect(resolved!.name, 'Widget');
-      expect(builds, 1, reason: 'first lookup builds the class exactly once');
-    });
+        final resolved = env.findBridgedClassByName('Widget');
+        expect(resolved, isNotNull);
+        expect(resolved!.name, 'Widget');
+        expect(builds, 1, reason: 'first lookup builds the class exactly once');
+      },
+    );
 
     test('IMP-OPT-3b: lookup memoizes — the thunk runs at most once', () {
       final env = Environment();
@@ -70,18 +71,22 @@ void main() {
     });
 
     test(
-        'IMP-OPT-3d: defineBridge (eager API) routes through the thunk + memo',
-        () {
-      final env = Environment();
-      final built = BridgedClass(nativeType: _Widget, name: 'Widget');
-      env.defineBridge(built);
+      'IMP-OPT-3d: defineBridge (eager API) routes through the thunk + memo',
+      () {
+        final env = Environment();
+        final built = BridgedClass(nativeType: _Widget, name: 'Widget');
+        env.defineBridge(built);
 
-      final first = env.findBridgedClassByName('Widget');
-      final second = env.findBridgedClassByName('Widget');
-      expect(identical(first, built), isTrue,
-          reason: 'eager registration serves the same instance');
-      expect(identical(first, second), isTrue);
-    });
+        final first = env.findBridgedClassByName('Widget');
+        final second = env.findBridgedClassByName('Widget');
+        expect(
+          identical(first, built),
+          isTrue,
+          reason: 'eager registration serves the same instance',
+        );
+        expect(identical(first, second), isTrue);
+      },
+    );
 
     test('IMP-OPT-3e: same-name collision preserves the displaced bridge', () {
       final env = Environment();
@@ -108,48 +113,63 @@ void main() {
 
     Environment envWithBothParsers() {
       final env = Environment();
-      env.defineBridge(BridgedClass(nativeType: _Widget, name: 'MarkdownParser'),
-          sourceUri: scannerUri);
       env.defineBridge(
-          BridgedClass(nativeType: _OtherWidget, name: 'MarkdownParser'),
-          sourceUri: latexUri);
+        BridgedClass(nativeType: _Widget, name: 'MarkdownParser'),
+        sourceUri: scannerUri,
+      );
+      env.defineBridge(
+        BridgedClass(nativeType: _OtherWidget, name: 'MarkdownParser'),
+        sourceUri: latexUri,
+      );
       return env;
     }
 
-    test('AMBIG-1: both classes stay reachable, each under its package name',
-        () {
-      final env = envWithBothParsers();
+    test(
+      'AMBIG-1: both classes stay reachable, each under its package name',
+      () {
+        final env = envWithBothParsers();
 
-      final scanner = env.get('tom_doc_scanner.MarkdownParser');
-      final latex = env.get('tom_md2latex.MarkdownParser');
+        final scanner = env.get('tom_doc_scanner.MarkdownParser');
+        final latex = env.get('tom_md2latex.MarkdownParser');
 
-      expect(scanner, isA<BridgedClass>());
-      expect(latex, isA<BridgedClass>());
-      expect((scanner as BridgedClass).nativeType, _Widget);
-      expect((latex as BridgedClass).nativeType, _OtherWidget);
-    });
+        expect(scanner, isA<BridgedClass>());
+        expect(latex, isA<BridgedClass>());
+        expect((scanner as BridgedClass).nativeType, _Widget);
+        expect((latex as BridgedClass).nativeType, _OtherWidget);
+      },
+    );
 
     test('AMBIG-2: the bare name is an error, not an arbitrary pick', () {
       final env = envWithBothParsers();
 
       expect(
-          () => env.get('MarkdownParser'),
-          throwsA(isA<AmbiguousBridgedNameException>().having(
-              (e) => e.candidatesByQualifier.keys,
-              'qualifiers',
-              containsAll(<String>['tom_doc_scanner', 'tom_md2latex']))));
+        () => env.get('MarkdownParser'),
+        throwsA(
+          isA<AmbiguousBridgedNameException>().having(
+            (e) => e.candidatesByQualifier.keys,
+            'qualifiers',
+            containsAll(<String>['tom_doc_scanner', 'tom_md2latex']),
+          ),
+        ),
+      );
     });
 
     test('AMBIG-3: the error names both candidates and how to qualify', () {
       final env = envWithBothParsers();
 
       expect(
-          () => env.get('MarkdownParser'),
-          throwsA(isA<AmbiguousBridgedNameException>()
+        () => env.get('MarkdownParser'),
+        throwsA(
+          isA<AmbiguousBridgedNameException>()
               .having((e) => e.message, 'message', contains(scannerUri))
               .having((e) => e.message, 'message', contains(latexUri))
-              .having((e) => e.message, 'message',
-                  contains('tom_md2latex.MarkdownParser'))));
+              .having(
+                (e) => e.message,
+                'message',
+                contains('tom_md2latex.MarkdownParser'),
+              ),
+        ),
+      );
     });
 
     test('AMBIG-4: the same class re-registered via a second barrel is not '
@@ -157,10 +177,14 @@ void main() {
       // A re-export delivers one class twice. Same nativeType ⇒ one class ⇒
       // the bare name still designates exactly what the author expects.
       final env = Environment();
-      env.defineBridge(BridgedClass(nativeType: _Widget, name: 'Widget'),
-          sourceUri: 'package:tom_basics/src/widget.dart');
-      env.defineBridge(BridgedClass(nativeType: _Widget, name: 'Widget'),
-          sourceUri: 'package:tom_basics/src/widget.dart');
+      env.defineBridge(
+        BridgedClass(nativeType: _Widget, name: 'Widget'),
+        sourceUri: 'package:tom_basics/src/widget.dart',
+      );
+      env.defineBridge(
+        BridgedClass(nativeType: _Widget, name: 'Widget'),
+        sourceUri: 'package:tom_basics/src/widget.dart',
+      );
 
       expect(env.get('Widget'), isA<BridgedClass>());
     });
@@ -180,8 +204,10 @@ void main() {
     test('AMBIG-6: ambiguity survives an import into another environment', () {
       final target = Environment()..importEnvironment(envWithBothParsers());
 
-      expect(() => target.get('MarkdownParser'),
-          throwsA(isA<AmbiguousBridgedNameException>()));
+      expect(
+        () => target.get('MarkdownParser'),
+        throwsA(isA<AmbiguousBridgedNameException>()),
+      );
       expect(target.get('tom_doc_scanner.MarkdownParser'), isA<BridgedClass>());
     });
   });
@@ -207,27 +233,37 @@ void main() {
     test('AMBIG-P1: the package declaration wins when it registers second', () {
       final env = Environment();
       final ui = BridgedClass(nativeType: _Widget, name: 'TextStyle');
-      final painting =
-          BridgedClass(nativeType: _OtherWidget, name: 'TextStyle');
+      final painting = BridgedClass(
+        nativeType: _OtherWidget,
+        name: 'TextStyle',
+      );
       env.defineBridge(ui, sourceUri: uiUri);
       env.defineBridge(painting, sourceUri: paintingUri);
 
-      expect(identical(env.get('TextStyle'), painting), isTrue,
-          reason: 'the non-platform declaration holds the bare name');
+      expect(
+        identical(env.get('TextStyle'), painting),
+        isTrue,
+        reason: 'the non-platform declaration holds the bare name',
+      );
     });
 
     test('AMBIG-P2: the package declaration wins when it registers FIRST', () {
       // Registration order is an accident of how the bridge modules are
       // enumerated, so precedence must not depend on it.
       final env = Environment();
-      final painting =
-          BridgedClass(nativeType: _OtherWidget, name: 'TextStyle');
+      final painting = BridgedClass(
+        nativeType: _OtherWidget,
+        name: 'TextStyle',
+      );
       final ui = BridgedClass(nativeType: _Widget, name: 'TextStyle');
       env.defineBridge(painting, sourceUri: paintingUri);
       env.defineBridge(ui, sourceUri: uiUri);
 
-      expect(identical(env.get('TextStyle'), painting), isTrue,
-          reason: 'a later dart: registration must not steal the bare name');
+      expect(
+        identical(env.get('TextStyle'), painting),
+        isTrue,
+        reason: 'a later dart: registration must not steal the bare name',
+      );
     });
 
     test('AMBIG-P3: the shadowed dart: class stays reachable by qualifier', () {
@@ -236,8 +272,10 @@ void main() {
       // real Dart.
       final env = Environment();
       final ui = BridgedClass(nativeType: _Widget, name: 'TextStyle');
-      final painting =
-          BridgedClass(nativeType: _OtherWidget, name: 'TextStyle');
+      final painting = BridgedClass(
+        nativeType: _OtherWidget,
+        name: 'TextStyle',
+      );
       env.defineBridge(ui, sourceUri: uiUri);
       env.defineBridge(painting, sourceUri: paintingUri);
 
@@ -250,20 +288,28 @@ void main() {
       // The rule is platform-vs-non-platform. Two platform libraries are peers,
       // so the bare name has no winner and must still be rejected.
       final env = Environment();
-      env.defineBridge(BridgedClass(nativeType: _Widget, name: 'Codec'),
-          sourceUri: 'dart:convert');
-      env.defineBridge(BridgedClass(nativeType: _OtherWidget, name: 'Codec'),
-          sourceUri: 'dart:ui');
+      env.defineBridge(
+        BridgedClass(nativeType: _Widget, name: 'Codec'),
+        sourceUri: 'dart:convert',
+      );
+      env.defineBridge(
+        BridgedClass(nativeType: _OtherWidget, name: 'Codec'),
+        sourceUri: 'dart:ui',
+      );
 
-      expect(() => env.get('Codec'),
-          throwsA(isA<AmbiguousBridgedNameException>()));
+      expect(
+        () => env.get('Codec'),
+        throwsA(isA<AmbiguousBridgedNameException>()),
+      );
     });
 
     test('AMBIG-P5: platform precedence survives an import', () {
       final source = Environment();
       final ui = BridgedClass(nativeType: _Widget, name: 'TextStyle');
-      final painting =
-          BridgedClass(nativeType: _OtherWidget, name: 'TextStyle');
+      final painting = BridgedClass(
+        nativeType: _OtherWidget,
+        name: 'TextStyle',
+      );
       source.defineBridge(ui, sourceUri: uiUri);
       source.defineBridge(painting, sourceUri: paintingUri);
 
@@ -274,9 +320,7 @@ void main() {
   });
 
   group('IMP-OPT-17: N-of-M lazy materialization (build counter)', () {
-    test(
-        'IMP-OPT-17a: resolving N of M registered thunks builds exactly N',
-        () {
+    test('IMP-OPT-17a: resolving N of M registered thunks builds exactly N', () {
       // Models the generator's lazy emission: M classes registered as deferred
       // factory thunks, each incrementing a shared build counter when built.
       const total = 2064; // mirrors the flutter-material corpus size
@@ -300,8 +344,11 @@ void main() {
         expect(resolved, isNotNull);
       }
 
-      expect(builds, used,
-          reason: 'only the resolved classes are materialized (≈N of M)');
+      expect(
+        builds,
+        used,
+        reason: 'only the resolved classes are materialized (≈N of M)',
+      );
     });
   });
 }

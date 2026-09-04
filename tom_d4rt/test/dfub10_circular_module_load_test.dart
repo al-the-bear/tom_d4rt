@@ -67,13 +67,14 @@ String main() {
       final d4rt = D4rt();
       expect(
         d4rt.execute(
-            library: 'd4rt-mem:/export_cycle_main.dart', sources: sources),
+          library: 'd4rt-mem:/export_cycle_main.dart',
+          sources: sources,
+        ),
         equals('AB'),
       );
     });
 
-    test('F-DFUB10-3: self-import is a degenerate cycle [2026-07-27]',
-        () {
+    test('F-DFUB10-3: self-import is a degenerate cycle [2026-07-27]', () {
       final sources = {
         'd4rt-mem:/self.dart': '''
 import 'self.dart';
@@ -90,8 +91,7 @@ String main() => greet();
       );
     });
 
-    test('F-DFUB10-4: three-module cycle A->B->C->A resolves [2026-07-27]',
-        () {
+    test('F-DFUB10-4: three-module cycle A->B->C->A resolves [2026-07-27]', () {
       final sources = {
         'd4rt-mem:/tri_a.dart': '''
 import 'tri_b.dart';
@@ -118,8 +118,7 @@ String fromC() => 'C' + fromA();
       );
     });
 
-    test(
-        'F-DFUB10-5: cyclic import of a class, not just a function '
+    test('F-DFUB10-5: cyclic import of a class, not just a function '
         '[2026-07-27]', () {
       final sources = {
         'd4rt-mem:/klass_a.dart': '''

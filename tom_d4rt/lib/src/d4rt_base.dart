@@ -116,10 +116,10 @@ class LibraryClass {
 
   /// Eager wrapper: [bridgedClass] is already built.
   LibraryClass(BridgedClass bridgedClass, {this.sourceUri})
-      : name = bridgedClass.name,
-        nativeType = bridgedClass.nativeType,
-        _built = bridgedClass,
-        _thunk = (() => bridgedClass);
+    : name = bridgedClass.name,
+      nativeType = bridgedClass.nativeType,
+      _built = bridgedClass,
+      _thunk = (() => bridgedClass);
 
   /// Lazy wrapper: [thunk] builds the bridge on first access to [bridgedClass].
   LibraryClass.lazy(this.name, this.nativeType, this._thunk, {this.sourceUri});
@@ -130,7 +130,8 @@ class LibraryClass {
   /// A deferred thunk that resolves (and memoizes) [bridgedClass] on call —
   /// lets callers forward laziness onward without building now (e.g.
   /// module-loader / warm-parent transfers register `libClass.thunk`).
-  BridgedClass Function() get thunk => () => bridgedClass;
+  BridgedClass Function() get thunk =>
+      () => bridgedClass;
 }
 
 /// Wrapper class for library-scoped bridged enums.
@@ -181,7 +182,7 @@ class _PackageBridgeBundle {
   final Map<String, Map<String, LibraryClass>> bridgedClasses = {};
   final Map<String, List<LibraryExtension>> bridgedExtensions = {};
   final List<({String aliasName, String targetName, String library})>
-      classAliases = [];
+  classAliases = [];
   final List<({String name, String library})> functionTypedefs = [];
   final Map<String, Map<String, LibraryFunction>> libraryFunctions = {};
   final Map<String, Map<String, LibraryVariable>> libraryVariables = {};
@@ -190,9 +191,8 @@ class _PackageBridgeBundle {
   // Step #17 — thunk-backed so a pooled package's native-type lookup is stored
   // deferred (built on first wrap), not materialized at registration time.
   final LazyBridgeRegistry<Type> bridgedDefLookupByType = LazyBridgeRegistry();
-  final Map<String,
-          List<({String uri, Set<String>? show, Set<String>? hide})>>
-      libraryReExports = {};
+  final Map<String, List<({String uri, Set<String>? show, Set<String>? hide})>>
+  libraryReExports = {};
 
   /// The single extension callback registered for this package via
   /// [D4rt.registerExtensions]. One callback per package name (idempotent
@@ -261,14 +261,14 @@ class D4rt {
   // keyed by name. Extensions are the exception (nullable / duplicate unnamed
   // names) and use a per-URI List. Mirrors D4rtRunner in tom_d4rt_ast.
   final Map<String /*uri*/, Map<String /*name*/, LibraryEnum>>
-      _bridgedEnumDefinitions = {};
+  _bridgedEnumDefinitions = {};
   final Map<String /*uri*/, Map<String /*name*/, LibraryClass>> _bridgedClases =
       {};
   final Map<String /*uri*/, List<LibraryExtension>> _bridgedExtensions = {};
 
   /// GEN-074: Class aliases - (aliasName, targetName, library) tuples
   final List<({String aliasName, String targetName, String library})>
-      _classAliases = [];
+  _classAliases = [];
 
   /// GEN-079: Function typedefs (e.g., VoidCallback = void Function()) registered
   /// as environment types so they can be resolved in type annotations
@@ -286,7 +286,7 @@ class D4rt {
   /// lockstep so generated bridge code calling `registerLibraryReExport`
   /// works against either interpreter.
   final Map<String, List<({String uri, Set<String>? show, Set<String>? hide})>>
-      _libraryReExports = {};
+  _libraryReExports = {};
 
   InterpretedInstance? _interpretedInstance;
   InterpreterVisitor? _visitor;
@@ -398,7 +398,8 @@ class D4rt {
 
   /// Step #2 diagnostics — number of bridged module environments built so far
   /// (process-wide). See [_debugBridgedModuleEnvBuilds].
-  static int get debugBridgedModuleEnvBuildCount => _debugBridgedModuleEnvBuilds;
+  static int get debugBridgedModuleEnvBuildCount =>
+      _debugBridgedModuleEnvBuilds;
 
   /// Per-instance, insertion-ordered set of package names for which this
   /// instance registered an extension callback via [registerExtensions].
@@ -439,13 +440,13 @@ class D4rt {
   // For functions: use LibraryFunction wrapper that includes sourceUri for deduplication
   // For variables/getters: wrapper classes contain name, value/getter, and sourceUri
   final Map<String /*uri*/, Map<String /*name*/, LibraryFunction>>
-      _libraryFunctions = {};
+  _libraryFunctions = {};
   final Map<String /*uri*/, Map<String /*name*/, LibraryVariable>>
-      _libraryVariables = {};
+  _libraryVariables = {};
   final Map<String /*uri*/, Map<String /*name*/, LibraryGetter>>
-      _libraryGetters = {};
+  _libraryGetters = {};
   final Map<String /*uri*/, Map<String /*name*/, LibrarySetter>>
-      _librarySetters = {};
+  _librarySetters = {};
 
   late ModuleLoader _moduleLoader;
   bool _hasExecutedOnce = false;
@@ -505,8 +506,9 @@ class D4rt {
       // is opened. Clear any stale context from a prior provide call.
       _currentProvidingPackage = null;
       Logger.debug(
-          '[D4rt.providePackage] "$packageName" already pooled — reusing '
-          'pooled definitions.');
+        '[D4rt.providePackage] "$packageName" already pooled — reusing '
+        'pooled definitions.',
+      );
       return true;
     }
     // First time this package is seen in the process: open the registration
@@ -516,8 +518,9 @@ class D4rt {
     _currentProvidingPackage = packageName;
     _bundleFor(packageName);
     Logger.debug(
-        '[D4rt.providePackage] "$packageName" not pooled — caller must '
-        'register; subsequent register* route into the pool.');
+      '[D4rt.providePackage] "$packageName" not pooled — caller must '
+      'register; subsequent register* route into the pool.',
+    );
     return false;
   }
 
@@ -630,27 +633,38 @@ class D4rt {
   /// per-instance registration behaviour); per-URI extension lists are
   /// appended.
   void _mergeBundleInto(
-      _PackageBridgeBundle target, _PackageBridgeBundle source) {
-    source.bridgedEnumDefinitions.forEach((uri, byName) =>
-        (target.bridgedEnumDefinitions[uri] ??= {}).addAll(byName));
+    _PackageBridgeBundle target,
+    _PackageBridgeBundle source,
+  ) {
+    source.bridgedEnumDefinitions.forEach(
+      (uri, byName) =>
+          (target.bridgedEnumDefinitions[uri] ??= {}).addAll(byName),
+    );
     source.bridgedClasses.forEach(
-        (uri, byName) => (target.bridgedClasses[uri] ??= {}).addAll(byName));
+      (uri, byName) => (target.bridgedClasses[uri] ??= {}).addAll(byName),
+    );
     source.bridgedExtensions.forEach(
-        (uri, list) => (target.bridgedExtensions[uri] ??= []).addAll(list));
+      (uri, list) => (target.bridgedExtensions[uri] ??= []).addAll(list),
+    );
     target.classAliases.addAll(source.classAliases);
     target.functionTypedefs.addAll(source.functionTypedefs);
     source.libraryFunctions.forEach(
-        (uri, byName) => (target.libraryFunctions[uri] ??= {}).addAll(byName));
+      (uri, byName) => (target.libraryFunctions[uri] ??= {}).addAll(byName),
+    );
     source.libraryVariables.forEach(
-        (uri, byName) => (target.libraryVariables[uri] ??= {}).addAll(byName));
+      (uri, byName) => (target.libraryVariables[uri] ??= {}).addAll(byName),
+    );
     source.libraryGetters.forEach(
-        (uri, byName) => (target.libraryGetters[uri] ??= {}).addAll(byName));
+      (uri, byName) => (target.libraryGetters[uri] ??= {}).addAll(byName),
+    );
     source.librarySetters.forEach(
-        (uri, byName) => (target.librarySetters[uri] ??= {}).addAll(byName));
+      (uri, byName) => (target.librarySetters[uri] ??= {}).addAll(byName),
+    );
     // Step #17 — preserve deferred thunks across the bundle merge.
     target.bridgedDefLookupByType.addThunksFrom(source.bridgedDefLookupByType);
     source.libraryReExports.forEach(
-        (uri, list) => (target.libraryReExports[uri] ??= []).addAll(list));
+      (uri, list) => (target.libraryReExports[uri] ??= []).addAll(list),
+    );
   }
 
   /// Registers a bridged enum definition for use in interpreted code.
@@ -659,8 +673,11 @@ class D4rt {
   /// [library] The library identifier where this enum should be available.
   /// [sourceUri] The canonical source URI where this enum is defined.
   ///   Used for deduplication when the same enum is exported through multiple barrels.
-  void registerBridgedEnum(BridgedEnumDefinition definition, String library,
-      {String? sourceUri}) {
+  void registerBridgedEnum(
+    BridgedEnumDefinition definition,
+    String library, {
+    String? sourceUri,
+  }) {
     final libEnum = LibraryEnum(definition, sourceUri: sourceUri);
     (_bridgedEnumDefinitions[library] ??= {})[libEnum.name] = libEnum;
     // Step 7: dual-write into the process-global pool for the current package
@@ -679,13 +696,20 @@ class D4rt {
   /// [library] The library identifier where this class should be available.
   /// [sourceUri] The canonical source URI where this class is defined.
   ///   Used for deduplication when the same class is exported through multiple barrels.
-  void registerBridgedClass(BridgedClass definition, String library,
-      {String? sourceUri}) {
+  void registerBridgedClass(
+    BridgedClass definition,
+    String library, {
+    String? sourceUri,
+  }) {
     // Eager registration wraps the already-built [definition] as a trivial
     // thunk; the lazy path memoizes it on first lookup (behaviour unchanged).
     registerBridgedClassLazy(
-        definition.name, definition.nativeType, () => definition, library,
-        sourceUri: sourceUri);
+      definition.name,
+      definition.nativeType,
+      () => definition,
+      library,
+      sourceUri: sourceUri,
+    );
   }
 
   /// Lazily registers a bridged class: stores [name] / [nativeType] / the
@@ -697,11 +721,19 @@ class D4rt {
   /// (import-optimization plan step #17): a script that touches N of a
   /// package's classes builds ≈N bridges, not all of them. Eager callers go
   /// through [registerBridgedClass], which wraps a built class as `() => obj`.
-  void registerBridgedClassLazy(String name, Type nativeType,
-      BridgedClass Function() thunk, String library,
-      {String? sourceUri}) {
-    final libClass =
-        LibraryClass.lazy(name, nativeType, thunk, sourceUri: sourceUri);
+  void registerBridgedClassLazy(
+    String name,
+    Type nativeType,
+    BridgedClass Function() thunk,
+    String library, {
+    String? sourceUri,
+  }) {
+    final libClass = LibraryClass.lazy(
+      name,
+      nativeType,
+      thunk,
+      sourceUri: sourceUri,
+    );
     (_bridgedClases[library] ??= {})[name] = libClass;
     _bridgedDefLookupByType.putThunk(nativeType, thunk);
     // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
@@ -721,8 +753,11 @@ class D4rt {
   ///
   /// The alias is registered with the module loader's global environment.
   void registerClassAlias(String aliasName, String targetName, String library) {
-    final alias =
-        (aliasName: aliasName, targetName: targetName, library: library);
+    final alias = (
+      aliasName: aliasName,
+      targetName: targetName,
+      library: library,
+    );
     _classAliases.add(alias);
     // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
     _bundleFor().classAliases.add(alias);
@@ -751,8 +786,7 @@ class D4rt {
   /// aliases (e.g. MaterialStateProperty → WidgetStateProperty) into
   /// per-module environments.  Mirrors [D4rtRunner.classAliases].
   List<({String aliasName, String targetName, String library})>
-      get classAliases =>
-          _mergedBundleOrNull()?.classAliases ?? _classAliases;
+  get classAliases => _mergedBundleOrNull()?.classAliases ?? _classAliases;
 
   /// GEN-100: Registered function typedefs for module-env registration.
   ///
@@ -768,8 +802,8 @@ class D4rt {
   /// full contract. Exposed so the module loader can merge re-export
   /// targets into the source library's per-module environment.
   Map<String, List<({String uri, Set<String>? show, Set<String>? hide})>>
-      get libraryReExports =>
-          _mergedBundleOrNull()?.libraryReExports ?? _libraryReExports;
+  get libraryReExports =>
+      _mergedBundleOrNull()?.libraryReExports ?? _libraryReExports;
 
   /// GEN-107: Registers a re-export from one library to another.
   ///
@@ -801,7 +835,9 @@ class D4rt {
     final reExport = (uri: targetUri, show: show, hide: hide);
     _libraryReExports.putIfAbsent(sourceUri, () => []).add(reExport);
     // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
-    _bundleFor().libraryReExports.putIfAbsent(sourceUri, () => []).add(reExport);
+    _bundleFor().libraryReExports
+        .putIfAbsent(sourceUri, () => [])
+        .add(reExport);
   }
 
   /// Registers a bridged extension for use in interpreted code.
@@ -814,8 +850,10 @@ class D4rt {
   /// [library] The library identifier where this extension should be available.
   /// [sourceUri] The canonical source URI where this extension is defined.
   void registerBridgedExtension(
-      BridgedExtensionDefinition definition, String library,
-      {String? sourceUri}) {
+    BridgedExtensionDefinition definition,
+    String library, {
+    String? sourceUri,
+  }) {
     final libExt = LibraryExtension(definition, sourceUri: sourceUri);
     (_bridgedExtensions[library] ??= []).add(libExt);
     // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
@@ -832,11 +870,18 @@ class D4rt {
   ///   Used for deduplication when the same function is exported through multiple barrels.
   /// [signature] The full signature of the function as a display string.
   void registertopLevelFunction(
-      String? name, NativeFunctionImpl function, String library,
-      {String? sourceUri, String? signature}) {
+    String? name,
+    NativeFunctionImpl function,
+    String library, {
+    String? sourceUri,
+    String? signature,
+  }) {
     final nativeFunc = NativeFunction(function, name: name, arity: 0);
-    final libFunc =
-        LibraryFunction(nativeFunc, sourceUri: sourceUri, signature: signature);
+    final libFunc = LibraryFunction(
+      nativeFunc,
+      sourceUri: sourceUri,
+      signature: signature,
+    );
     (_libraryFunctions[library] ??= {})[libFunc.name] = libFunc;
     // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
     (_bundleFor().libraryFunctions[library] ??= {})[libFunc.name] = libFunc;
@@ -860,8 +905,12 @@ class D4rt {
   /// interpreter.registerGlobalVariable('config', {'debug': true}, 'package:my_app/my_app.dart');
   /// interpreter.registerGlobalVariable('appName', 'MyApp', 'package:my_app/my_app.dart');
   /// ```
-  void registerGlobalVariable(String name, Object? value, String library,
-      {String? sourceUri}) {
+  void registerGlobalVariable(
+    String name,
+    Object? value,
+    String library, {
+    String? sourceUri,
+  }) {
     final libVar = LibraryVariable(name, value, sourceUri: sourceUri);
     (_libraryVariables[library] ??= {})[name] = libVar;
     // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
@@ -888,8 +937,11 @@ class D4rt {
   /// interpreter.registerGlobalGetter('currentTime', () => DateTime.now(), 'package:my_app/my_app.dart');
   /// ```
   void registerGlobalGetter(
-      String name, Object? Function() getter, String library,
-      {String? sourceUri}) {
+    String name,
+    Object? Function() getter,
+    String library, {
+    String? sourceUri,
+  }) {
     final libGetter = LibraryGetter(name, getter, sourceUri: sourceUri);
     (_libraryGetters[library] ??= {})[name] = libGetter;
     // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
@@ -917,18 +969,23 @@ class D4rt {
   /// interpreter.registerGlobalSetter('counter', (v) => _counter = v as int, 'package:my_app/my_app.dart');
   /// ```
   void registerGlobalSetter(
-      String name, void Function(Object?) setter, String library,
-      {String? sourceUri}) {
+    String name,
+    void Function(Object?) setter,
+    String library, {
+    String? sourceUri,
+  }) {
     final libSetter = LibrarySetter(name, setter, sourceUri: sourceUri);
     (_librarySetters[library] ??= {})[name] = libSetter;
     // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
     (_bundleFor().librarySetters[library] ??= {})[name] = libSetter;
   }
 
-  ModuleLoader _initModule(Map<String, String>? sources,
-      {String? basePath,
-      bool allowFileSystemImports = false,
-      bool collectRegistrationErrors = false}) {
+  ModuleLoader _initModule(
+    Map<String, String>? sources, {
+    String? basePath,
+    bool allowFileSystemImports = false,
+    bool collectRegistrationErrors = false,
+  }) {
     // Step 9 — finalize extensions BEFORE the merged registries and the warm
     // parent are built. Both are snapshots/caches: the migrated path feeds the
     // [ModuleLoader] a cached merged-pool *snapshot* and the warm parent is
@@ -944,7 +1001,9 @@ class D4rt {
     finalizeBridges();
     if (D4rtProfiler.enabled) {
       D4rtProfiler.record(
-          '_initModule.finalizeBridges', swFinalize!.elapsedMicroseconds);
+        '_initModule.finalizeBridges',
+        swFinalize!.elapsedMicroseconds,
+      );
     }
 
     // Step 9 — pick the registries the [ModuleLoader] reads from. Legacy
@@ -969,7 +1028,9 @@ class D4rt {
     final child = Environment(enclosing: warmParent);
     if (D4rtProfiler.enabled) {
       D4rtProfiler.record(
-          '_initModule.warmParent', swWarm!.elapsedMicroseconds);
+        '_initModule.warmParent',
+        swWarm!.elapsedMicroseconds,
+      );
     }
 
     // Step #2 — bridged-module environments are bound once and reused across
@@ -993,8 +1054,10 @@ class D4rt {
     if (reuseAcrossRuns) {
       if (_allowedPackages.isNotEmpty) {
         final key = (_allowedPackages.toList()..sort()).join('|');
-        sharedBridgedModuleEnvs =
-            _bridgedModuleEnvCache.putIfAbsent(key, () => {});
+        sharedBridgedModuleEnvs = _bridgedModuleEnvCache.putIfAbsent(
+          key,
+          () => {},
+        );
       } else {
         sharedBridgedModuleEnvs = _instanceBridgedModuleEnvCache ??= {};
       }
@@ -1025,10 +1088,14 @@ class D4rt {
     );
     if (D4rtProfiler.enabled) {
       D4rtProfiler.record(
-          '_initModule.moduleLoader', swLoader!.elapsedMicroseconds);
+        '_initModule.moduleLoader',
+        swLoader!.elapsedMicroseconds,
+      );
     }
     _visitor = InterpreterVisitor(
-        globalEnvironment: child, moduleLoader: moduleLoader);
+      globalEnvironment: child,
+      moduleLoader: moduleLoader,
+    );
 
     // §U28 / TODO #14 — capture the baseline of the child's `_values` keys for
     // [resetScriptDeclarations]. With the step-8 split the child starts empty
@@ -1242,10 +1309,12 @@ class D4rt {
     bool allowFileSystemImports = false,
   }) {
     // Initialize module loader in error-collecting mode
-    _moduleLoader = _initModule(sources,
-        basePath: basePath,
-        allowFileSystemImports: allowFileSystemImports,
-        collectRegistrationErrors: true);
+    _moduleLoader = _initModule(
+      sources,
+      basePath: basePath,
+      allowFileSystemImports: allowFileSystemImports,
+      collectRegistrationErrors: true,
+    );
 
     try {
       // Parse source — this triggers import processing and registration
@@ -1436,7 +1505,8 @@ class D4rt {
       if (callback == null) continue;
       if (bundle!.extensionFired) {
         Logger.debugLazy(
-          () => '[D4rt.finalizeBridges] Extensions for "$packageName" already '
+          () =>
+              '[D4rt.finalizeBridges] Extensions for "$packageName" already '
               'fired in this process — skipping.',
         );
         continue;
@@ -1525,8 +1595,7 @@ class D4rt {
   void registerRelaxerFactory(
     String baseTypeName,
     GenericTypeWrapperFactory factory,
-  ) =>
-      D4.registerGenericTypeWrapper(baseTypeName, factory);
+  ) => D4.registerGenericTypeWrapper(baseTypeName, factory);
 
   /// Registers an interface-proxy factory for [bridgedTypeName].
   ///
@@ -1539,8 +1608,7 @@ class D4rt {
   void registerInterfaceProxy(
     String bridgedTypeName,
     InterfaceProxyFactory factory,
-  ) =>
-      D4.registerInterfaceProxy(bridgedTypeName, factory);
+  ) => D4.registerInterfaceProxy(bridgedTypeName, factory);
 
   /// Registers a generic-constructor factory for [className].[constructorName].
   ///
@@ -1555,8 +1623,7 @@ class D4rt {
     String className,
     String constructorName,
     GenericConstructorFactory factory,
-  ) =>
-      D4.registerGenericConstructor(className, constructorName, factory);
+  ) => D4.registerGenericConstructor(className, constructorName, factory);
 
   /// Checks if a specific permission is granted.
   ///
@@ -1671,10 +1738,7 @@ class D4rt {
 
     // Build permissions list
     final permissions = _grantedPermissions
-        .map((p) => PermissionInfo(
-              type: p.type,
-              description: p.description,
-            ))
+        .map((p) => PermissionInfo(type: p.type, description: p.description))
         .toList();
 
     // Build global variables list from library-scoped variables
@@ -1682,11 +1746,13 @@ class D4rt {
     for (final MapEntry(key: libraryUri, value: byName)
         in _libraryVariables.entries) {
       for (final variable in byName.values) {
-        globalVariables.add(GlobalVariableInfo(
-          name: variable.name,
-          valueType: variable.value?.runtimeType.toString() ?? 'Null',
-          libraryUri: libraryUri,
-        ));
+        globalVariables.add(
+          GlobalVariableInfo(
+            name: variable.name,
+            valueType: variable.value?.runtimeType.toString() ?? 'Null',
+            libraryUri: libraryUri,
+          ),
+        );
       }
     }
 
@@ -1695,10 +1761,9 @@ class D4rt {
     for (final MapEntry(key: libraryUri, value: byName)
         in _libraryGetters.entries) {
       for (final getter in byName.values) {
-        globalGetters.add(GlobalGetterInfo(
-          name: getter.name,
-          libraryUri: libraryUri,
-        ));
+        globalGetters.add(
+          GlobalGetterInfo(name: getter.name, libraryUri: libraryUri),
+        );
       }
     }
 
@@ -1711,11 +1776,13 @@ class D4rt {
         final name = func.name;
         if (name != '<native>' && !seenFunctions.contains(name)) {
           seenFunctions.add(name);
-          globalFunctions.add(GlobalFunctionInfo(
-            name: name,
-            libraryUri: libraryUri,
-            signature: func.signature,
-          ));
+          globalFunctions.add(
+            GlobalFunctionInfo(
+              name: name,
+              libraryUri: libraryUri,
+              signature: func.signature,
+            ),
+          );
         }
       }
     }
@@ -1758,11 +1825,13 @@ class D4rt {
     // Get all variables from the global environment
     final variables = <EnvironmentVariableInfo>[];
     for (final entry in globalEnv.values.entries) {
-      variables.add(EnvironmentVariableInfo(
-        name: entry.key,
-        valueType: entry.value?.runtimeType.toString() ?? 'Null',
-        isNull: entry.value == null,
-      ));
+      variables.add(
+        EnvironmentVariableInfo(
+          name: entry.key,
+          valueType: entry.value?.runtimeType.toString() ?? 'Null',
+          isNull: entry.value == null,
+        ),
+      );
     }
 
     // Get bridged class names
@@ -1856,18 +1925,23 @@ class D4rt {
     // Handle deprecated args parameter
     if (args != null && positionalArgs != null) {
       throw ArgumentD4rtException(
-          'Cannot use both "args" (deprecated) and "positionalArgs". Use only "positionalArgs".');
+        'Cannot use both "args" (deprecated) and "positionalArgs". Use only "positionalArgs".',
+      );
     }
     if (args != null) {
       Logger.warn(
-          '[D4rt.execute] The "args" parameter is deprecated. Use "positionalArgs" instead.');
+        '[D4rt.execute] The "args" parameter is deprecated. Use "positionalArgs" instead.',
+      );
       positionalArgs = [args];
     }
 
     // Initialize a fresh module loader (resets global environment)
     final swInit = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
-    _moduleLoader = _initModule(sources,
-        basePath: basePath, allowFileSystemImports: allowFileSystemImports);
+    _moduleLoader = _initModule(
+      sources,
+      basePath: basePath,
+      allowFileSystemImports: allowFileSystemImports,
+    );
     if (D4rtProfiler.enabled) {
       D4rtProfiler.record('execute._initModule', swInit!.elapsedMicroseconds);
     }
@@ -1938,11 +2012,13 @@ class D4rt {
   }) {
     if (!_hasExecutedOnce) {
       throw RuntimeD4rtException(
-          'continuedExecute() requires an existing execution context. Call execute() first.');
+        'continuedExecute() requires an existing execution context. Call execute() first.',
+      );
     }
 
     Logger.debug(
-        "[D4rt.continuedExecute] Continuing execution in existing context. library: $library");
+      "[D4rt.continuedExecute] Continuing execution in existing context. library: $library",
+    );
 
     // Parse the source (reuses existing module loader for library resolution)
     final compilationUnit = _parseSource(source: source, library: library);
@@ -1965,7 +2041,8 @@ class D4rt {
   CompilationUnit _parseSource({String? source, String? library}) {
     if (library != null) {
       Logger.debug(
-          "[D4rt._parseSource] Attempting to load source via ModuleLoader for URI: $library");
+        "[D4rt._parseSource] Attempting to load source via ModuleLoader for URI: $library",
+      );
 
       // DFUB1 — when filesystem imports are enabled the root library may live
       // on disk rather than in the preloaded sources map, so loadModule reads
@@ -1981,22 +2058,26 @@ class D4rt {
 
       if (source?.isNotEmpty ?? false) {
         Logger.warn(
-            "[D4rt._parseSource] The 'source' parameter is not empty but 'library' ($library) is used to load from sources. The 'source' string will be ignored.");
+          "[D4rt._parseSource] The 'source' parameter is not empty but 'library' ($library) is used to load from sources. The 'source' string will be ignored.",
+        );
       }
 
       try {
         final loadedRootModule = _moduleLoader.loadModule(Uri.parse(library));
         Logger.debug(
-            "[D4rt._parseSource] Source loaded and parsed successfully via ModuleLoader for $library.");
+          "[D4rt._parseSource] Source loaded and parsed successfully via ModuleLoader for $library.",
+        );
         return loadedRootModule.ast;
       } catch (e) {
         Logger.error(
-            "[D4rt._parseSource] Failed to load source $library via ModuleLoader: $e");
+          "[D4rt._parseSource] Failed to load source $library via ModuleLoader: $e",
+        );
         if (e is SourceCodeD4rtException || e is RuntimeD4rtException) {
           rethrow;
         } else {
           throw RuntimeD4rtException(
-              "Unexpected failure to load initial module $library: $e");
+            "Unexpected failure to load initial module $library: $e",
+          );
         }
       }
     } else {
@@ -2004,7 +2085,8 @@ class D4rt {
         throw RuntimeD4rtException('Source content must be provided');
       }
       Logger.debug(
-          "[D4rt._parseSource] Parsing the provided source string directly (no source URI).");
+        "[D4rt._parseSource] Parsing the provided source string directly (no source URI).",
+      );
       // DFUB1 — when a basePath is configured, anchor the parsed unit at
       // `<basePath>/main.dart` so downstream tooling that inspects the unit's
       // path resolves relative filesystem imports against the same base the
@@ -2035,17 +2117,21 @@ class D4rt {
           .where((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR)
           .toList();
       if (errors.isNotEmpty) {
-        final errorMessages = errors.map((e) {
-          final location = result.lineInfo.getLocation(e.offset);
-          return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
-        }).join("\n");
+        final errorMessages = errors
+            .map((e) {
+              final location = result.lineInfo.getLocation(e.offset);
+              return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
+            })
+            .join("\n");
         Logger.error("Parsing errors for the direct source:\n$errorMessages");
         throw SourceCodeD4rtException(
-            'Fatal parsing errors for the direct source:\n$errorMessages',
-            source);
+          'Fatal parsing errors for the direct source:\n$errorMessages',
+          source,
+        );
       }
       Logger.debug(
-          "[D4rt._parseSource] Direct source string parsed successfully.");
+        "[D4rt._parseSource] Direct source string parsed successfully.",
+      );
       return result.unit;
     }
   }
@@ -2081,25 +2167,25 @@ class D4rt {
   /// error zone is a real change to an embedder's error routing, so it happens
   /// when the embedder asks for it and not otherwise.
   Zone _forkScriptZone() => Zone.current.fork(
-        specification: ZoneSpecification(
-          handleUncaughtError: (self, parent, zone, error, stackTrace) {
-            final scriptError = _unwrapScriptError(error);
-            final hook = onUncaughtError;
-            if (hook == null) {
-              // No embedder hook: behave exactly as before, minus the wrapper.
-              parent.handleUncaughtError(zone, scriptError, stackTrace);
-              return;
-            }
-            try {
-              hook(scriptError, stackTrace);
-            } catch (hookError, hookStack) {
-              // An embedder's hook is ordinary code and can be wrong. Losing
-              // both errors would be the worst available outcome.
-              parent.handleUncaughtError(zone, hookError, hookStack);
-            }
-          },
-        ),
-      );
+    specification: ZoneSpecification(
+      handleUncaughtError: (self, parent, zone, error, stackTrace) {
+        final scriptError = _unwrapScriptError(error);
+        final hook = onUncaughtError;
+        if (hook == null) {
+          // No embedder hook: behave exactly as before, minus the wrapper.
+          parent.handleUncaughtError(zone, scriptError, stackTrace);
+          return;
+        }
+        try {
+          hook(scriptError, stackTrace);
+        } catch (hookError, hookStack) {
+          // An embedder's hook is ordinary code and can be wrong. Losing
+          // both errors would be the worst available outcome.
+          parent.handleUncaughtError(zone, hookError, hookStack);
+        }
+      },
+    ),
+  );
 
   /// Recovers the value the script actually threw from the interpreter's
   /// internal wrapper.
@@ -2130,13 +2216,13 @@ class D4rt {
     String? library,
   }) {
     run() => _executeInEnvironmentInZone(
-          compilationUnit: compilationUnit,
-          executionEnvironment: executionEnvironment,
-          name: name,
-          positionalArgs: positionalArgs,
-          namedArgs: namedArgs,
-          library: library,
-        );
+      compilationUnit: compilationUnit,
+      executionEnvironment: executionEnvironment,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+      library: library,
+    );
 
     // No hook, no zone, no behaviour change of any kind. See [_forkScriptZone]
     // for why this is opt-in rather than always on.
@@ -2153,11 +2239,13 @@ class D4rt {
     // caller's zone. Without this the returned future would hang and the
     // failure would be misreported to [onUncaughtError] as an escape.
     final bridged = Completer<Object?>();
-    zone.run(() => result.then(
-          bridged.complete,
-          onError: (Object error, StackTrace stackTrace) =>
-              bridged.completeError(error, stackTrace),
-        ));
+    zone.run(
+      () => result.then(
+        bridged.complete,
+        onError: (Object error, StackTrace stackTrace) =>
+            bridged.completeError(error, stackTrace),
+      ),
+    );
     return bridged.future;
   }
 
@@ -2182,31 +2270,36 @@ class D4rt {
     }
     if (D4rtProfiler.enabled) {
       D4rtProfiler.record(
-          '_executeInEnvironment.pass1', swPass1!.elapsedMicroseconds);
+        '_executeInEnvironment.pass1',
+        swPass1!.elapsedMicroseconds,
+      );
     }
     Logger.debug("[_executeInEnvironment] Finished Pass 1: Declaration");
 
     final swResolve = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     _visitor = InterpreterVisitor(
-        globalEnvironment: executionEnvironment,
-        moduleLoader: _moduleLoader,
-        initiallibrary: library != null
-            ? Uri.parse(library)
-            // DFUB1 — with filesystem imports enabled and no explicit library,
-            // seed the initial library to basePath so relative imports in the
-            // root source resolve against it (else "Base URI not defined").
-            : (_moduleLoader.allowFileSystemImports &&
+      globalEnvironment: executionEnvironment,
+      moduleLoader: _moduleLoader,
+      initiallibrary: library != null
+          ? Uri.parse(library)
+          // DFUB1 — with filesystem imports enabled and no explicit library,
+          // seed the initial library to basePath so relative imports in the
+          // root source resolve against it (else "Base URI not defined").
+          : (_moduleLoader.allowFileSystemImports &&
                     _moduleLoader.basePath != null
                 ? Directory(_moduleLoader.basePath!).absolute.uri
-                : null));
+                : null),
+    );
     // S1 (plan_3 §9.1): static lexical resolver pass. Populates the visitor's
     // [staticCoords] side-table so the debug depth-assert in
     // visitSimpleIdentifier can validate the scope model. No effect in
     // release builds beyond the (cheap) resolver walk.
     _visitor!.resolveStaticCoordinates(compilationUnit.declarations);
     if (D4rtProfiler.enabled) {
-      D4rtProfiler.record('_executeInEnvironment.visitorBuild',
-          swResolve!.elapsedMicroseconds);
+      D4rtProfiler.record(
+        '_executeInEnvironment.visitorBuild',
+        swResolve!.elapsedMicroseconds,
+      );
     }
     Object? functionResult;
     try {
@@ -2216,15 +2309,18 @@ class D4rt {
       final swPass2 = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
       Logger.debug("[_executeInEnvironment] Starting Pass 2: Interpretation");
       Logger.debug(
-          "[_executeInEnvironment] Processing directives (imports, exports, etc.)...");
+        "[_executeInEnvironment] Processing directives (imports, exports, etc.)...",
+      );
       for (final directive in compilationUnit.directives) {
         if (directive is ImportDirective) {
           Logger.debug(
-              "[_executeInEnvironment]   - Processing ImportDirective: ${directive.uri.stringValue}");
+            "[_executeInEnvironment]   - Processing ImportDirective: ${directive.uri.stringValue}",
+          );
           _visitor!.visitImportDirective(directive);
         } else {
           Logger.debug(
-              "[_executeInEnvironment]   - Skipping directive of type: ${directive.runtimeType}");
+            "[_executeInEnvironment]   - Skipping directive of type: ${directive.runtimeType}",
+          );
         }
       }
       Logger.debug("[_executeInEnvironment] Finished processing directives.");
@@ -2235,7 +2331,8 @@ class D4rt {
       // evaluating top-level variable initializers that may reference them
       // (forward-reference problem: const lists using classes defined later).
       Logger.debug(
-          "[_executeInEnvironment] Processing declarations in dependency order");
+        "[_executeInEnvironment] Processing declarations in dependency order",
+      );
 
       // 1. Enum declarations first (const variables may reference enum values)
       for (final declaration in compilationUnit.declarations) {
@@ -2291,7 +2388,9 @@ class D4rt {
       Logger.debug("[_executeInEnvironment] Finished processing declarations");
       if (D4rtProfiler.enabled) {
         D4rtProfiler.record(
-            '_executeInEnvironment.pass2Setup', swPass2!.elapsedMicroseconds);
+          '_executeInEnvironment.pass2Setup',
+          swPass2!.elapsedMicroseconds,
+        );
       }
       Logger.debug("[_executeInEnvironment] Looking for $name function");
       final functionCallable = executionEnvironment.get(name);
@@ -2309,23 +2408,30 @@ class D4rt {
           // main expects args but none were provided - pass empty list
           interpreterArgs = [<String>[]];
           Logger.debug(
-              "[_executeInEnvironment] 'main' expects arguments but none provided. Passing empty list.");
+            "[_executeInEnvironment] 'main' expects arguments but none provided. Passing empty list.",
+          );
         }
 
         // Validate arity (only for positional args, named args are validated by the function itself)
         if (interpreterArgs.length > expectedArity) {
           throw RuntimeD4rtException(
-              "'$name' function accepts at most $expectedArity positional argument(s), but ${interpreterArgs.length} were provided.");
+            "'$name' function accepts at most $expectedArity positional argument(s), but ${interpreterArgs.length} were provided.",
+          );
         }
 
         Logger.debug(
-            "[_executeInEnvironment] Calling '$name' with positionalArgs: $interpreterArgs, namedArgs: $interpreterNamedArgs");
+          "[_executeInEnvironment] Calling '$name' with positionalArgs: $interpreterArgs, namedArgs: $interpreterNamedArgs",
+        );
 
         functionResult = functionCallable.call(
-            _visitor!, interpreterArgs, interpreterNamedArgs);
+          _visitor!,
+          interpreterArgs,
+          interpreterNamedArgs,
+        );
       } else {
         throw RuntimeD4rtException(
-            "No callable '$name' function found in the test source code.");
+          "No callable '$name' function found in the test source code.",
+        );
       }
       Logger.debug("[_executeInEnvironment] Finished Pass 2: Interpretation");
     } on InternalInterpreterD4rtException catch (e) {
@@ -2412,22 +2518,29 @@ class D4rt {
     // Handle deprecated args parameter
     if (args != null && positionalArgs != null) {
       throw ArgumentD4rtException(
-          'Cannot use both "args" (deprecated) and "positionalArgs". Use only "positionalArgs".');
+        'Cannot use both "args" (deprecated) and "positionalArgs". Use only "positionalArgs".',
+      );
     }
     if (args != null) {
       Logger.warn(
-          '[D4rt._executeClassic] The "args" parameter is deprecated. Use "positionalArgs" instead.');
+        '[D4rt._executeClassic] The "args" parameter is deprecated. Use "positionalArgs" instead.',
+      );
       positionalArgs = [args];
     }
-    _moduleLoader = _initModule(sources,
-        basePath: basePath, allowFileSystemImports: allowFileSystemImports);
+    _moduleLoader = _initModule(
+      sources,
+      basePath: basePath,
+      allowFileSystemImports: allowFileSystemImports,
+    );
     Logger.debug(
-        "[D4rt._executeClassic] Starting execution. library: $library");
+      "[D4rt._executeClassic] Starting execution. library: $library",
+    );
     CompilationUnit compilationUnit;
 
     if (library != null) {
       Logger.debug(
-          "[D4rt._executeClassic] Attempting to load the $name source via ModuleLoader for URI: $library");
+        "[D4rt._executeClassic] Attempting to load the $name source via ModuleLoader for URI: $library",
+      );
 
       if (!_moduleLoader.sources.containsKey(library.toString())) {
         final errorMessage =
@@ -2438,22 +2551,26 @@ class D4rt {
 
       if (source?.isNotEmpty ?? false) {
         Logger.warn(
-            "[D4rt._executeClassic] The 'source' parameter is not empty but 'library' ($library) is used to load from sources. The 'source' string will be ignored.");
+          "[D4rt._executeClassic] The 'source' parameter is not empty but 'library' ($library) is used to load from sources. The 'source' string will be ignored.",
+        );
       }
 
       try {
         final loadedRootModule = _moduleLoader.loadModule(Uri.parse(library));
         compilationUnit = loadedRootModule.ast;
         Logger.debug(
-            "[D4rt._executeClassic] $name source loaded and parsed successfully via ModuleLoader for $library.");
+          "[D4rt._executeClassic] $name source loaded and parsed successfully via ModuleLoader for $library.",
+        );
       } catch (e) {
         Logger.error(
-            "[D4rt._executeClassic] Failed to load $name source $library via ModuleLoader: $e");
+          "[D4rt._executeClassic] Failed to load $name source $library via ModuleLoader: $e",
+        );
         if (e is SourceCodeD4rtException || e is RuntimeD4rtException) {
           rethrow;
         } else {
           throw RuntimeD4rtException(
-              "Unexpected failure to load initial module $library: $e");
+            "Unexpected failure to load initial module $library: $e",
+          );
         }
       }
     } else {
@@ -2461,7 +2578,8 @@ class D4rt {
         throw RuntimeD4rtException('Source content must be provided');
       }
       Logger.debug(
-          "[D4rt._executeClassic] Executing the provided source string directly (no source URI).");
+        "[D4rt._executeClassic] Executing the provided source string directly (no source URI).",
+      );
       final result = parseString(
         content: source,
         throwIfDiagnostics: false,
@@ -2484,18 +2602,22 @@ class D4rt {
           .where((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR)
           .toList();
       if (errors.isNotEmpty) {
-        final errorMessages = errors.map((e) {
-          final location = result.lineInfo.getLocation(e.offset);
-          return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
-        }).join("\n");
+        final errorMessages = errors
+            .map((e) {
+              final location = result.lineInfo.getLocation(e.offset);
+              return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
+            })
+            .join("\n");
         Logger.error("Parsing errors for the direct source:\n$errorMessages");
         throw SourceCodeD4rtException(
-            'Fatal parsing errors for the direct source:\n$errorMessages',
-            source);
+          'Fatal parsing errors for the direct source:\n$errorMessages',
+          source,
+        );
       }
       compilationUnit = result.unit;
       Logger.debug(
-          "[D4rt._executeClassic] Direct source string parsed successfully.");
+        "[D4rt._executeClassic] Direct source string parsed successfully.",
+      );
     }
 
     // Library-scoped globals are registered via ModuleLoader when imports are processed
@@ -2509,30 +2631,34 @@ class D4rt {
     Logger.debug("[_executeClassic] Finished Pass 1: Declaration");
 
     _visitor = InterpreterVisitor(
-        globalEnvironment: executionEnvironment,
-        moduleLoader: _moduleLoader,
-        initiallibrary: library != null
-            ? Uri.parse(library)
-            // DFUB1 — with filesystem imports enabled and no explicit library,
-            // seed the initial library to basePath so relative imports in the
-            // root source resolve against it (else "Base URI not defined").
-            : (_moduleLoader.allowFileSystemImports &&
+      globalEnvironment: executionEnvironment,
+      moduleLoader: _moduleLoader,
+      initiallibrary: library != null
+          ? Uri.parse(library)
+          // DFUB1 — with filesystem imports enabled and no explicit library,
+          // seed the initial library to basePath so relative imports in the
+          // root source resolve against it (else "Base URI not defined").
+          : (_moduleLoader.allowFileSystemImports &&
                     _moduleLoader.basePath != null
                 ? Directory(_moduleLoader.basePath!).absolute.uri
-                : null));
+                : null),
+    );
     Object? functionResult;
     try {
       Logger.debug(" [_executeClassic] Starting Pass 2: Interpretation");
       Logger.debug(
-          " [_executeClassic] Processing directives (imports, exports, etc.)...");
+        " [_executeClassic] Processing directives (imports, exports, etc.)...",
+      );
       for (final directive in compilationUnit.directives) {
         if (directive is ImportDirective) {
           Logger.debug(
-              " [_executeClassic]   - Processing ImportDirective: ${directive.uri.stringValue}");
+            " [_executeClassic]   - Processing ImportDirective: ${directive.uri.stringValue}",
+          );
           _visitor!.visitImportDirective(directive);
         } else {
           Logger.debug(
-              " [_executeClassic]   - Skipping directive of type: ${directive.runtimeType}");
+            " [_executeClassic]   - Skipping directive of type: ${directive.runtimeType}",
+          );
         }
       }
       Logger.debug(" [_executeClassic] Finished processing directives.");
@@ -2540,7 +2666,8 @@ class D4rt {
       // RC-4: Process declarations in dependency order (matching ModuleLoader).
       // See _executeInEnvironment for rationale.
       Logger.debug(
-          " [_executeClassic] Processing declarations in dependency order");
+        " [_executeClassic] Processing declarations in dependency order",
+      );
 
       // 1. Enum declarations first
       for (final declaration in compilationUnit.declarations) {
@@ -2603,23 +2730,30 @@ class D4rt {
           // main expects args but none were provided - pass empty list
           interpreterArgs = [<String>[]];
           Logger.debug(
-              "[_executeClassic] 'main' expects arguments but none provided. Passing empty list.");
+            "[_executeClassic] 'main' expects arguments but none provided. Passing empty list.",
+          );
         }
 
         // Validate arity (only for positional args, named args are validated by the function itself)
         if (interpreterArgs.length > expectedArity) {
           throw RuntimeD4rtException(
-              "'$name' function accepts at most $expectedArity positional argument(s), but ${interpreterArgs.length} were provided.");
+            "'$name' function accepts at most $expectedArity positional argument(s), but ${interpreterArgs.length} were provided.",
+          );
         }
 
         Logger.debug(
-            "[_executeClassic] Calling '$name' with positionalArgs: $interpreterArgs, namedArgs: $interpreterNamedArgs");
+          "[_executeClassic] Calling '$name' with positionalArgs: $interpreterArgs, namedArgs: $interpreterNamedArgs",
+        );
 
         functionResult = functionCallable.call(
-            _visitor!, interpreterArgs, interpreterNamedArgs);
+          _visitor!,
+          interpreterArgs,
+          interpreterNamedArgs,
+        );
       } else {
         throw RuntimeD4rtException(
-            "No callable '$name' function found in the test source code.");
+          "No callable '$name' function found in the test source code.",
+        );
       }
       Logger.debug(" [_executeClassic] Finished Pass 2: Interpretation");
     } on InternalInterpreterD4rtException catch (e) {
@@ -2646,8 +2780,9 @@ class D4rt {
     if (resultValue is Future) {
       try {
         _hasExecutedOnce = true;
-        return resultValue
-            .then((value) => _bridgeInterpreterValueToNative(value));
+        return resultValue.then(
+          (value) => _bridgeInterpreterValueToNative(value),
+        );
       } on InternalInterpreterD4rtException catch (e) {
         if (e.originalThrownValue is RuntimeD4rtException) {
           throw e.originalThrownValue as RuntimeD4rtException;
@@ -2733,10 +2868,12 @@ class D4rt {
         .where((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR)
         .toList();
     if (errors.isNotEmpty) {
-      final errorMessages = errors.map((e) {
-        final location = parseResult.lineInfo.getLocation(e.offset);
-        return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
-      }).join("\n");
+      final errorMessages = errors
+          .map((e) {
+            final location = parseResult.lineInfo.getLocation(e.offset);
+            return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
+          })
+          .join("\n");
       throw SourceCodeD4rtException('Parsing errors:\n$errorMessages', source);
     }
 
@@ -2753,7 +2890,9 @@ class D4rt {
 
     // Pass 2: Process imports and interpret declarations (for variable values)
     _visitor = InterpreterVisitor(
-        globalEnvironment: executionEnvironment, moduleLoader: _moduleLoader);
+      globalEnvironment: executionEnvironment,
+      moduleLoader: _moduleLoader,
+    );
 
     for (final directive in compilationUnit.directives) {
       if (directive is ImportDirective) {
@@ -2806,7 +2945,8 @@ class D4rt {
   dynamic eval(String expression) {
     if (_visitor == null || !_hasExecutedOnce) {
       throw RuntimeD4rtException(
-          'eval() requires an existing execution context. Call execute() first.');
+        'eval() requires an existing execution context. Call execute() first.',
+      );
     }
 
     Logger.debug("[D4rt.eval] Evaluating: $expression");
@@ -2885,7 +3025,8 @@ class D4rt {
 
     // For single expressions, try wrapping with return to get the value
     if (!looksLikeMultiStatement) {
-      final wrappedSource = '''
+      final wrappedSource =
+          '''
         dynamic __eval__() {
           return $expression;
         }
@@ -2940,8 +3081,9 @@ class D4rt {
         Logger.debug("[D4rt.eval] Result: $bridgedResult");
 
         if (bridgedResult is Future) {
-          return bridgedResult
-              .then((value) => _bridgeInterpreterValueToNative(value));
+          return bridgedResult.then(
+            (value) => _bridgeInterpreterValueToNative(value),
+          );
         }
 
         return bridgedResult;
@@ -2950,7 +3092,8 @@ class D4rt {
 
     // Try parsing as statement(s) (no return value expected)
     // This is used for multi-statement code or when expression wrapper fails
-    final statementSource = '''
+    final statementSource =
+        '''
       void __eval__() {
         $expression
       }
@@ -3004,12 +3147,18 @@ class D4rt {
     }
 
     // All parsing attempts failed
-    final errorMessages = declErrors.map((e) {
-      final location = declarationParseResult.lineInfo.getLocation(e.offset);
-      return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
-    }).join("\n");
+    final errorMessages = declErrors
+        .map((e) {
+          final location = declarationParseResult.lineInfo.getLocation(
+            e.offset,
+          );
+          return "- ${e.message} (line ${location.lineNumber}, column ${location.columnNumber})";
+        })
+        .join("\n");
     throw SourceCodeD4rtException(
-        'Failed to parse expression:\n$errorMessages', expression);
+      'Failed to parse expression:\n$errorMessages',
+      expression,
+    );
   }
 
   /// Invoke a property or method on the given instance.
@@ -3029,7 +3178,8 @@ class D4rt {
   ]) {
     if (_interpretedInstance == null) {
       throw RuntimeD4rtException(
-          "No interpreted instance found. Call setInterpretedInstance first.");
+        "No interpreted instance found. Call setInterpretedInstance first.",
+      );
     }
     if (_visitor == null) {
       throw RuntimeD4rtException("No visitor found. Call setVisitor first.");
@@ -3051,13 +3201,22 @@ class D4rt {
             .map((v) => _bridgeNativeValueToInterpreter(v, globalEnv))
             .toList();
 
-        final interpreterNamedArgs = namedArgs.map((key, value) =>
-            MapEntry(key, _bridgeNativeValueToInterpreter(value, globalEnv)));
-        return _tryFunction(() {
-          return interpretedFunction!
-              .bind(instance)
-              .call(_visitor!, interpreterPositionalArgs, interpreterNamedArgs);
-        }, "Error invoking interpreted Method or getter '$name' on '${klass.name}'");
+        final interpreterNamedArgs = namedArgs.map(
+          (key, value) =>
+              MapEntry(key, _bridgeNativeValueToInterpreter(value, globalEnv)),
+        );
+        return _tryFunction(
+          () {
+            return interpretedFunction!
+                .bind(instance)
+                .call(
+                  _visitor!,
+                  interpreterPositionalArgs,
+                  interpreterNamedArgs,
+                );
+          },
+          "Error invoking interpreted Method or getter '$name' on '${klass.name}'",
+        );
       }
 
       final bridgedSuperclass = klass.bridgedSuperclass;
@@ -3067,74 +3226,115 @@ class D4rt {
         final interpreterPositionalArgs = positionalArgs
             .map((v) => _bridgeNativeValueToInterpreter(v, globalEnv))
             .toList();
-        final interpreterNamedArgs = namedArgs.map((key, value) =>
-            MapEntry(key, _bridgeNativeValueToInterpreter(value, globalEnv)));
+        final interpreterNamedArgs = namedArgs.map(
+          (key, value) =>
+              MapEntry(key, _bridgeNativeValueToInterpreter(value, globalEnv)),
+        );
 
         if (nativeSuperObject != null) {
-          final methodAdapter =
-              bridgedSuperclass.findInstanceMethodAdapter(name);
+          final methodAdapter = bridgedSuperclass.findInstanceMethodAdapter(
+            name,
+          );
 
           if (methodAdapter != null) {
-            return _tryFunction(() {
-              return methodAdapter.call(_visitor!, nativeSuperObject,
-                  interpreterPositionalArgs, interpreterNamedArgs, null);
-            }, "Error invoking bridged method '$name' on superclass '${bridgedSuperclass.name}'");
+            return _tryFunction(
+              () {
+                return methodAdapter.call(
+                  _visitor!,
+                  nativeSuperObject,
+                  interpreterPositionalArgs,
+                  interpreterNamedArgs,
+                  null,
+                );
+              },
+              "Error invoking bridged method '$name' on superclass '${bridgedSuperclass.name}'",
+            );
           }
 
-          final getterAdapter =
-              bridgedSuperclass.findInstanceGetterAdapter(name);
+          final getterAdapter = bridgedSuperclass.findInstanceGetterAdapter(
+            name,
+          );
           if (getterAdapter != null) {
-            return _tryFunction(() {
-              return getterAdapter.call(_visitor!, nativeSuperObject);
-            }, "Error invoking bridged getter '$name' on superclass '${bridgedSuperclass.name}'");
+            return _tryFunction(
+              () {
+                return getterAdapter.call(_visitor!, nativeSuperObject);
+              },
+              "Error invoking bridged getter '$name' on superclass '${bridgedSuperclass.name}'",
+            );
           }
-          final setterAdapter =
-              bridgedSuperclass.findInstanceSetterAdapter(name);
+          final setterAdapter = bridgedSuperclass.findInstanceSetterAdapter(
+            name,
+          );
           if (setterAdapter != null) {
-            return _tryFunction(() {
-              setterAdapter.call(
-                  _visitor!, nativeSuperObject, interpreterPositionalArgs[0]);
-              return null;
-            }, "Error invoking bridged setter '$name' on superclass '${bridgedSuperclass.name}'");
+            return _tryFunction(
+              () {
+                setterAdapter.call(
+                  _visitor!,
+                  nativeSuperObject,
+                  interpreterPositionalArgs[0],
+                );
+                return null;
+              },
+              "Error invoking bridged setter '$name' on superclass '${bridgedSuperclass.name}'",
+            );
           }
         }
 
-        final staticMethodAdapter =
-            bridgedSuperclass.findStaticMethodAdapter(name);
+        final staticMethodAdapter = bridgedSuperclass.findStaticMethodAdapter(
+          name,
+        );
         if (staticMethodAdapter != null) {
-          return _tryFunction(() {
-            return staticMethodAdapter.call(_visitor!,
-                interpreterPositionalArgs, interpreterNamedArgs, null);
-          }, "Error invoking bridged static method '$name' on superclass '${bridgedSuperclass.name}'");
+          return _tryFunction(
+            () {
+              return staticMethodAdapter.call(
+                _visitor!,
+                interpreterPositionalArgs,
+                interpreterNamedArgs,
+                null,
+              );
+            },
+            "Error invoking bridged static method '$name' on superclass '${bridgedSuperclass.name}'",
+          );
         }
 
-        final getterStaticAdapter =
-            bridgedSuperclass.findStaticGetterAdapter(name);
+        final getterStaticAdapter = bridgedSuperclass.findStaticGetterAdapter(
+          name,
+        );
         if (getterStaticAdapter != null) {
-          return _tryFunction(() {
-            return getterStaticAdapter.call(_visitor!);
-          }, "Error invoking bridged static getter '$name' on superclass '${bridgedSuperclass.name}'");
+          return _tryFunction(
+            () {
+              return getterStaticAdapter.call(_visitor!);
+            },
+            "Error invoking bridged static getter '$name' on superclass '${bridgedSuperclass.name}'",
+          );
         }
 
-        final staticSetterAdapter =
-            bridgedSuperclass.findStaticSetterAdapter(name);
+        final staticSetterAdapter = bridgedSuperclass.findStaticSetterAdapter(
+          name,
+        );
         if (staticSetterAdapter != null) {
-          return _tryFunction(() {
-            staticSetterAdapter.call(_visitor!, interpreterPositionalArgs[0]);
-            return null;
-          }, "Error invoking bridged staticsetter '$name' on superclass '${bridgedSuperclass.name}'");
+          return _tryFunction(
+            () {
+              staticSetterAdapter.call(_visitor!, interpreterPositionalArgs[0]);
+              return null;
+            },
+            "Error invoking bridged staticsetter '$name' on superclass '${bridgedSuperclass.name}'",
+          );
         }
       }
 
       throw RuntimeD4rtException(
-          'Method or getter "$name" not found on instance of class "${klass.name}" or its bridged superclass.');
+        'Method or getter "$name" not found on instance of class "${klass.name}" or its bridged superclass.',
+      );
     }
 
     return result();
   }
 
   Object? _bridgeNativeValueToInterpreter(
-      Object? nativeValue, Environment globalEnv) {
+    Object? nativeValue,
+    Environment globalEnv,
+  ) {
     if (nativeValue == null ||
         nativeValue is String ||
         nativeValue is num ||
@@ -3147,9 +3347,12 @@ class D4rt {
           .toList();
     }
     if (nativeValue is Map) {
-      return nativeValue.map((key, value) => MapEntry(
+      return nativeValue.map(
+        (key, value) => MapEntry(
           _bridgeNativeValueToInterpreter(key, globalEnv),
-          _bridgeNativeValueToInterpreter(value, globalEnv)));
+          _bridgeNativeValueToInterpreter(value, globalEnv),
+        ),
+      );
     }
 
     final nativeType = nativeValue.runtimeType;
@@ -3161,7 +3364,8 @@ class D4rt {
         return BridgedInstance(bridgedClass, nativeValue);
       } else {
         Logger.warn(
-            "BridgedClass '${bridgedDef.name}' not found in global env during bridging.");
+          "BridgedClass '${bridgedDef.name}' not found in global env during bridging.",
+        );
         return nativeValue;
       }
     }
@@ -3171,7 +3375,8 @@ class D4rt {
     }
 
     Logger.warn(
-        "Passing unknown native type $nativeType directly to interpreter.");
+      "Passing unknown native type $nativeType directly to interpreter.",
+    );
     return nativeValue;
   }
 
@@ -3195,9 +3400,12 @@ class D4rt {
       return interpreterValue.map(_bridgeInterpreterValueToNative).toList();
     }
     if (interpreterValue is Map) {
-      return interpreterValue.map((key, value) => MapEntry(
+      return interpreterValue.map(
+        (key, value) => MapEntry(
           _bridgeInterpreterValueToNative(key),
-          _bridgeInterpreterValueToNative(value)));
+          _bridgeInterpreterValueToNative(value),
+        ),
+      );
     }
     // Convert InterpretedRecord to native Dart records when possible
     // For positional-only records up to 16 elements, we can create native records
@@ -3237,7 +3445,7 @@ class D4rt {
               pos[4],
               pos[5],
               pos[6],
-              pos[7]
+              pos[7],
             );
           case 9:
             return (
@@ -3249,7 +3457,7 @@ class D4rt {
               pos[5],
               pos[6],
               pos[7],
-              pos[8]
+              pos[8],
             );
           case 10:
             return (
@@ -3262,7 +3470,7 @@ class D4rt {
               pos[6],
               pos[7],
               pos[8],
-              pos[9]
+              pos[9],
             );
           case 11:
             return (
@@ -3276,7 +3484,7 @@ class D4rt {
               pos[7],
               pos[8],
               pos[9],
-              pos[10]
+              pos[10],
             );
           case 12:
             return (
@@ -3291,7 +3499,7 @@ class D4rt {
               pos[8],
               pos[9],
               pos[10],
-              pos[11]
+              pos[11],
             );
           case 13:
             return (
@@ -3307,7 +3515,7 @@ class D4rt {
               pos[9],
               pos[10],
               pos[11],
-              pos[12]
+              pos[12],
             );
           case 14:
             return (
@@ -3324,7 +3532,7 @@ class D4rt {
               pos[10],
               pos[11],
               pos[12],
-              pos[13]
+              pos[13],
             );
           case 15:
             return (
@@ -3342,7 +3550,7 @@ class D4rt {
               pos[11],
               pos[12],
               pos[13],
-              pos[14]
+              pos[14],
             );
           case 16:
             return (
@@ -3361,7 +3569,7 @@ class D4rt {
               pos[12],
               pos[13],
               pos[14],
-              pos[15]
+              pos[15],
             );
           default:
             // More than 16 positional fields - return InterpretedRecord with unwrapped values
@@ -3372,8 +3580,9 @@ class D4rt {
       // Has named fields - can't convert to native record, return with unwrapped values
       return InterpretedRecord(
         pos,
-        named.map((key, value) =>
-            MapEntry(key, _bridgeInterpreterValueToNative(value))),
+        named.map(
+          (key, value) => MapEntry(key, _bridgeInterpreterValueToNative(value)),
+        ),
       );
     }
     if (interpreterValue is InterpretedInstance ||

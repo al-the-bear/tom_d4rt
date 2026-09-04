@@ -44,11 +44,7 @@ void main() {
 
   // Register an object
   final config = AppConfig('production', false);
-  d4rt.registerGlobalVariable(
-    'config',
-    config,
-    'package:myapp/globals.dart',
-  );
+  d4rt.registerGlobalVariable('config', config, 'package:myapp/globals.dart');
 
   // Register a global getter (evaluated lazily each time it's accessed)
   // This is essential for singletons that may not be initialized at registration

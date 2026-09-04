@@ -73,19 +73,24 @@ void main() {
       expect(execute(source), equals([false, true]));
     });
 
-    test('I-BOOL-7: Bool.parse with caseSensitive. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-BOOL-7: Bool.parse with caseSensitive. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         bool value1 = bool.parse("TRUE", caseSensitive: false);
         bool value2 = bool.parse("FALSE", caseSensitive: false);
         return [value1, value2];
       }
       ''';
-      expect(execute(source), equals([true, false]));
-    });
+        expect(execute(source), equals([true, false]));
+      },
+    );
 
-    test('I-BOOL-8: Bool.tryParse with caseSensitive. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-BOOL-8: Bool.tryParse with caseSensitive. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         bool? value1 = bool.tryParse("TRUE", caseSensitive: false);
         bool? value2 = bool.tryParse("FALSE", caseSensitive: false);
@@ -93,7 +98,8 @@ void main() {
         return [value1, value2, value3];
       }
       ''';
-      expect(execute(source), equals([true, false, null]));
-    });
+        expect(execute(source), equals([true, false, null]));
+      },
+    );
   });
 }

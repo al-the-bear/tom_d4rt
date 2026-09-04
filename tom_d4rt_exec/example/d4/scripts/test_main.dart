@@ -3,10 +3,10 @@ import 'package:dcli/dcli.dart';
 
 void main() {
   print('Testing d4 with DCli...');
-  
+
   // Test pwd
   print('Current directory: ${pwd}');
-  
+
   // Test exists
   print('Checking if pubspec.yaml exists...');
   if (exists('pubspec.yaml')) {
@@ -14,6 +14,6 @@ void main() {
   } else {
     print('No pubspec.yaml in current dir');
   }
-  
+
   print('Test complete!');
 }

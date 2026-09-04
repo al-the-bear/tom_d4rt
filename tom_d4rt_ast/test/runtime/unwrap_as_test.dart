@@ -200,8 +200,8 @@ void main() {
 /// [BridgedEnum] map; replaced in `setUp` with values bound to the live
 /// enumType once it's created.
 BridgedEnumValue _placeholder() => BridgedEnumValue(
-      BridgedEnum('placeholder', const {}),
-      'placeholder',
-      -1,
-      _NativeAlignment.topLeft,
-    );
+  BridgedEnum('placeholder', const {}),
+  'placeholder',
+  -1,
+  _NativeAlignment.topLeft,
+);

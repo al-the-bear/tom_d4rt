@@ -18,11 +18,13 @@ void main() {
   final objectType = BridgedClass(nativeType: Object, name: 'Object');
 
   group('DFUB7 (exec): bridged/type-parameter subtype tightening', () {
-    test('F-DFUB7-EXEC-1: int/double <: num (downward) stays true [2026-07-27]',
-        () {
-      expect(intType.isSubtypeOf(numType), isTrue);
-      expect(doubleType.isSubtypeOf(numType), isTrue);
-    });
+    test(
+      'F-DFUB7-EXEC-1: int/double <: num (downward) stays true [2026-07-27]',
+      () {
+        expect(intType.isSubtypeOf(numType), isTrue);
+        expect(doubleType.isSubtypeOf(numType), isTrue);
+      },
+    );
 
     test('F-DFUB7-EXEC-2: num is NOT a subtype of int/double [2026-07-27]', () {
       expect(numType.isSubtypeOf(intType), isFalse);
@@ -33,16 +35,14 @@ void main() {
       expect(numType.isSubtypeOf(numType), isTrue);
     });
 
-    test(
-        'F-DFUB7-EXEC-4: bounded `T extends num` defers to bound, so T !<: '
+    test('F-DFUB7-EXEC-4: bounded `T extends num` defers to bound, so T !<: '
         'String [2026-07-27]', () {
       final tBounded = TypeParameter('T', bound: numType);
       expect(tBounded.isSubtypeOf(stringType), isFalse);
       expect(tBounded.isSubtypeOf(numType), isTrue);
     });
 
-    test(
-        'F-DFUB7-EXEC-5: unbounded `T` is a subtype only of top types, so T '
+    test('F-DFUB7-EXEC-5: unbounded `T` is a subtype only of top types, so T '
         '!<: String [2026-07-27]', () {
       final tUnbounded = TypeParameter('T');
       expect(tUnbounded.isSubtypeOf(stringType), isFalse);

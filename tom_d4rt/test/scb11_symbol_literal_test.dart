@@ -46,18 +46,20 @@ import 'interpreter_test.dart' show execute;
 /// at once and needs its own blast-radius pass.
 void main() {
   group('SCB11: symbol literals', () {
-    test('F-SCB11-1: a plain symbol literal is a Symbol, not null [2026-07-28]',
-        () {
-      // The headline regression: this returned `null` and `is Symbol` was
-      // false, with no error raised anywhere.
-      final result = execute('''
+    test(
+      'F-SCB11-1: a plain symbol literal is a Symbol, not null [2026-07-28]',
+      () {
+        // The headline regression: this returned `null` and `is Symbol` was
+        // false, with no error raised anywhere.
+        final result = execute('''
         main() {
           final s = #foo;
           return '\${s != null}|\${s is Symbol}';
         }
       ''');
-      expect(result, 'true|true');
-    });
+        expect(result, 'true|true');
+      },
+    );
 
     test('F-SCB11-2: a symbol literal equals the explicit Symbol form '
         '[2026-07-28]', () {

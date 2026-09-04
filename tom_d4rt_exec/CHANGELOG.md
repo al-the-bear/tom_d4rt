@@ -1,3 +1,21 @@
+## 1.15.1
+
+### Changed — formatted the tree once, at the aligned language version (scc26)
+
+Follows 1.15.0, which raised this package's SDK floor to `^3.10.4`. Raising the
+floor changes what `dart format` produces here, so leaving the tree unformatted
+would have left a latent trap: the next person to format any single file would
+have rewritten it wholesale. Formatting once removes it.
+
+This commit contains the formatter's output and nothing else. That it is inert
+was not assumed — `git diff -w` cannot establish it, because the tall style
+*splits* lines and a whitespace-insensitive diff still counts a moved line
+boundary as a change. What was checked instead is the token stream: strip all
+whitespace and the two revisions of every changed file are either identical
+(153 files) or identical once trailing commas are also stripped (893 files),
+commas being pure formatting punctuation in Dart. Zero files carried an edit
+that survived both passes.
+
 ## 1.15.0
 
 ### Changed — the declared SDK floor now matches the one pub can actually reach (scc26)

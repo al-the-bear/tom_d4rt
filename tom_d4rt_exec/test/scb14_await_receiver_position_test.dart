@@ -15,17 +15,19 @@ import 'interpreter_test.dart';
 /// bridge dependency: this is an interpreter bug, not a dart:async bridging one.
 void main() {
   group('SCB14: await in receiver position', () {
-    test('F-SCB14-1: (await stream.toList()).join() — method call receiver',
-        () async {
-      final result = await executeAsync('''
+    test(
+      'F-SCB14-1: (await stream.toList()).join() — method call receiver',
+      () async {
+        final result = await executeAsync('''
         Future<String> run() async {
           final f = Stream.fromIterable([1, 2, 3]).toList();
           return (await f).join(',');
         }
         main() async => await run();
       ''');
-      expect(result, equals('1,2,3'));
-    });
+        expect(result, equals('1,2,3'));
+      },
+    );
 
     test('F-SCB14-2: two-step spelling still works (control)', () async {
       final result = await executeAsync('''
@@ -133,9 +135,10 @@ void main() {
         'scc40_agñg-multi-await-per-statement-single-slot: second await in a '
         'statement resolves to the first future value';
 
-    test('F-SCB14-9: two awaits in receiver position in one statement',
-        () async {
-      final result = await executeAsync('''
+    test(
+      'F-SCB14-9: two awaits in receiver position in one statement',
+      () async {
+        final result = await executeAsync('''
         Future<String> run() async {
           final a = Stream.fromIterable([1, 2]).toList();
           final b = Stream.fromIterable([3, 4]).toList();
@@ -143,12 +146,15 @@ void main() {
         }
         main() async => await run();
       ''');
-      expect(result, equals('1,2|3,4'));
-    }, skip: bugAskip);
+        expect(result, equals('1,2|3,4'));
+      },
+      skip: bugAskip,
+    );
 
-    test('F-SCB14-11: two awaits via INDEX receivers in one statement',
-        () async {
-      final result = await executeAsync('''
+    test(
+      'F-SCB14-11: two awaits via INDEX receivers in one statement',
+      () async {
+        final result = await executeAsync('''
         Future<String> run() async {
           final a = Stream.fromIterable([1, 2]).toList();
           final b = Stream.fromIterable([3, 4]).toList();
@@ -156,8 +162,10 @@ void main() {
         }
         main() async => await run();
       ''');
-      expect(result, equals('1|3'));
-    }, skip: bugAskip);
+        expect(result, equals('1|3'));
+      },
+      skip: bugAskip,
+    );
 
     test('F-SCB14-12: two awaits with no receiver at all', () async {
       final result = await executeAsync('''
@@ -176,8 +184,10 @@ void main() {
     // second pass. Distinct from Bug A: this is an await in ARGUMENT position
     // whose invocation target is a local. The error text is byte-identical
     // before and after the SCB14 fix, which is what proves it pre-existing.
-    test('F-SCB14-10: await in an argument whose target is a local', () async {
-      final result = await executeAsync('''
+    test(
+      'F-SCB14-10: await in an argument whose target is a local',
+      () async {
+        final result = await executeAsync('''
         Future<int> run() async {
           final f = Stream.fromIterable([5, 6]).toList();
           final out = <int>[];
@@ -186,9 +196,11 @@ void main() {
         }
         main() async => await run();
       ''');
-      expect(result, equals(4));
-    },
-        skip: 'scc41_agñg-await-in-argument-resumption-loses-local: '
-            'resumption drops the enclosing block scope — "Undefined variable"');
+        expect(result, equals(4));
+      },
+      skip:
+          'scc41_agñg-await-in-argument-resumption-loses-local: '
+          'resumption drops the enclosing block scope — "Undefined variable"',
+    );
   });
 }

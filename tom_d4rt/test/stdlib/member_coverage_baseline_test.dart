@@ -131,16 +131,24 @@ void main() {
     // Runs first because the other three are only meaningful if this one holds:
     // they all compare against a measurement, and an empty measurement agrees
     // with an empty baseline.
-    expect(observed.length, greaterThanOrEqualTo(_minClassesExamined),
-        reason: 'The audit examined only ${observed.length} bridged classes. '
-            'That is not a coverage finding — the environment did not come up.');
-    expect(observedMeasured.length, greaterThanOrEqualTo(_minClassesMeasured),
-        reason: 'Only ${observedMeasured.length} classes yielded an instance, so '
-            'almost nothing was probed. Probes run in spawned isolates; if '
-            'spawning fails, every probe reports "no answer" and the audit '
-            'reports no gaps. Check that a plain '
-            '`dart run tool/stdlib_member_diff.dart` works before trusting any '
-            'other result in this file.');
+    expect(
+      observed.length,
+      greaterThanOrEqualTo(_minClassesExamined),
+      reason:
+          'The audit examined only ${observed.length} bridged classes. '
+          'That is not a coverage finding — the environment did not come up.',
+    );
+    expect(
+      observedMeasured.length,
+      greaterThanOrEqualTo(_minClassesMeasured),
+      reason:
+          'Only ${observedMeasured.length} classes yielded an instance, so '
+          'almost nothing was probed. Probes run in spawned isolates; if '
+          'spawning fails, every probe reports "no answer" and the audit '
+          'reports no gaps. Check that a plain '
+          '`dart run tool/stdlib_member_diff.dart` works before trusting any '
+          'other result in this file.',
+    );
   });
 
   test('F-SCC13-1: no member that used to be reachable is unreachable now '
@@ -167,7 +175,8 @@ void main() {
     expect(
       regressions,
       isEmpty,
-      reason: 'These members are unreachable from interpreted code and were '
+      reason:
+          'These members are unreachable from interpreted code and were '
           'not before:\n  ${regressions.join('\n  ')}\n\n'
           'Each one is a member a script can no longer call. Do not regenerate '
           'the baseline to make this pass — that records the breakage as '
@@ -188,35 +197,36 @@ void main() {
     // Between them, "the audit silently stopped probing" cannot present as a
     // pass: wholesale failure trips F-SCC13-0, and one class quietly dropping
     // out trips this.
-    final wentDark =
-        measuredClasses.difference(observedMeasured).toList()..sort();
+    final wentDark = measuredClasses.difference(observedMeasured).toList()
+      ..sort();
 
     // A class the baseline has an opinion about that the registry no longer
     // contains at all. That is a deleted or renamed bridge — every member of it
     // is unreachable, which is the largest regression this file can encounter,
     // and it would otherwise slip past F-SCC13-1: that test walks what was
     // measured, and a class that is gone contributes nothing to walk.
-    final vanished = <String>{...confirmedGaps.keys, ...unmeasurable.keys}
-        .where((c) => !observed.containsKey(c))
-        .toList()
-      ..sort();
+    final vanished = <String>{
+      ...confirmedGaps.keys,
+      ...unmeasurable.keys,
+    }.where((c) => !observed.containsKey(c)).toList()..sort();
 
     expect(
       [...wentDark, ...vanished],
       isEmpty,
-      reason: '${vanished.isEmpty ? '' : 'These classes are no longer bridged at '
-              'all, so nothing about them is being measured:\n'
-              '  ${vanished.join('\n  ')}\n'
-              'A bridge that disappeared is a much larger regression than a '
-              'missing member — check that the registration was not dropped '
-              'before touching the baseline.\n\n'}'
+      reason:
+          '${vanished.isEmpty ? '' : 'These classes are no longer bridged at '
+                    'all, so nothing about them is being measured:\n'
+                    '  ${vanished.join('\n  ')}\n'
+                    'A bridge that disappeared is a much larger regression than a '
+                    'missing member — check that the registration was not dropped '
+                    'before touching the baseline.\n\n'}'
           '${wentDark.isEmpty ? '' : 'The instance recipe for these classes no '
-              'longer yields an instance, so their members are not being '
-              'measured:\n  ${wentDark.join('\n  ')}\n'
-              'Either the recipe broke (fix it in _instanceRecipes) or this '
-              'platform cannot run it — and if it is the platform, record that '
-              'as a reason in _notAuditable rather than shrinking the baseline, '
-              'so the blind spot stays visible.'}',
+                    'longer yields an instance, so their members are not being '
+                    'measured:\n  ${wentDark.join('\n  ')}\n'
+                    'Either the recipe broke (fix it in _instanceRecipes) or this '
+                    'platform cannot run it — and if it is the platform, record that '
+                    'as a reason in _notAuditable rather than shrinking the baseline, '
+                    'so the blind spot stays visible.'}',
     );
   });
 
@@ -261,9 +271,13 @@ void main() {
           case _Now.blind:
             break; // still a blind spot
           case _Now.gap:
-            nowMeasurable.add('${entry.key}.$member (measurable, and a real gap)');
+            nowMeasurable.add(
+              '${entry.key}.$member (measurable, and a real gap)',
+            );
           case _Now.reachable:
-            nowMeasurable.add('${entry.key}.$member (measurable, and reachable)');
+            nowMeasurable.add(
+              '${entry.key}.$member (measurable, and reachable)',
+            );
           case null:
             nowMeasurable.add('${entry.key}.$member (bridged directly now)');
         }
@@ -275,7 +289,8 @@ void main() {
     expect(
       [...closed, ...nowMeasurable],
       isEmpty,
-      reason: 'Good news, and the baseline has not caught up.\n'
+      reason:
+          'Good news, and the baseline has not caught up.\n'
           '${closed.isEmpty ? '' : 'No longer gaps:\n  ${closed.join('\n  ')}\n'}'
           '${nowMeasurable.isEmpty ? '' : 'No longer blind spots:\n  ${nowMeasurable.join('\n  ')}\n'}'
           '\nRegenerate with: '

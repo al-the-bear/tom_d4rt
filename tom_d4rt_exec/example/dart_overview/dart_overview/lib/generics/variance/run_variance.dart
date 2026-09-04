@@ -59,13 +59,14 @@ void main() {
   void printBoxContent<T extends Animal>(Box<T> box) {
     print('Box contains: ${box.value.name}');
   }
+
   printBoxContent(dogBox);
 
   // Covariant keyword
   print('');
   print('--- covariant Keyword ---');
   AnimalHandler animalHandler = DogHandler();
-  animalHandler.handle(Dog('Lucky'));  // Works at runtime
+  animalHandler.handle(Dog('Lucky')); // Works at runtime
 
   // Read-only interfaces
   print('');

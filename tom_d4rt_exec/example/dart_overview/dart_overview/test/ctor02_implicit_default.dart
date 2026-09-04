@@ -8,7 +8,8 @@ void main() {
   try {
     var person = Person();
     // If we get here, verify defaults
-    if (person.name != '') errors.add('Person.name expected "", got "${person.name}"');
+    if (person.name != '')
+      errors.add('Person.name expected "", got "${person.name}"');
     if (person.age != 0) errors.add('Person.age expected 0, got ${person.age}');
   } catch (e) {
     errors.add('Person() threw: $e');

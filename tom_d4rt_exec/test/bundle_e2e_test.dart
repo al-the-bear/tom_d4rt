@@ -120,17 +120,18 @@ int main() => 999;
       }
     });
 
-    test('bundle with bridged enum — serialize + execute on D4rtRunner',
-        () async {
-      final enumDef = BridgedEnumDefinition<Planet>(
-        name: 'Planet',
-        values: Planet.values,
-      );
+    test(
+      'bundle with bridged enum — serialize + execute on D4rtRunner',
+      () async {
+        final enumDef = BridgedEnumDefinition<Planet>(
+          name: 'Planet',
+          values: Planet.values,
+        );
 
-      // Create bundle on D4rt (with analyzer)
-      final d4rt = D4rt();
-      d4rt.registerBridgedEnum(enumDef, 'package:astro/planets.dart');
-      final bundle = await d4rt.createBundleFromSource('''
+        // Create bundle on D4rt (with analyzer)
+        final d4rt = D4rt();
+        d4rt.registerBridgedEnum(enumDef, 'package:astro/planets.dart');
+        final bundle = await d4rt.createBundleFromSource('''
 import 'package:astro/planets.dart';
 String main() {
   final p = Planet.earth;
@@ -138,73 +139,78 @@ String main() {
 }
 ''');
 
-      // Serialize → deserialize → execute on separate D4rtRunner
-      final bytes = bundle.toBytes();
-      final restored = AstBundle.fromBytes(bytes);
+        // Serialize → deserialize → execute on separate D4rtRunner
+        final bytes = bundle.toBytes();
+        final restored = AstBundle.fromBytes(bytes);
 
-      final runner = D4rtRunner();
-      runner.registerBridgedEnum(enumDef, 'package:astro/planets.dart');
-      final result = runner.executeBundle(restored);
-      expect(result, 'earth');
-    });
+        final runner = D4rtRunner();
+        runner.registerBridgedEnum(enumDef, 'package:astro/planets.dart');
+        final result = runner.executeBundle(restored);
+        expect(result, 'earth');
+      },
+    );
 
-    test('bundle with bridged function — serialize + execute on D4rtRunner',
-        () async {
-      dynamic nativeAdd(visitor, args, namedArgs, typeArgs) {
-        return (args[0] as int) + (args[1] as int);
-      }
+    test(
+      'bundle with bridged function — serialize + execute on D4rtRunner',
+      () async {
+        dynamic nativeAdd(visitor, args, namedArgs, typeArgs) {
+          return (args[0] as int) + (args[1] as int);
+        }
 
-      // Create on D4rt
-      final d4rt = D4rt();
-      d4rt.registertopLevelFunction(
-        'nativeAdd',
-        nativeAdd,
-        'package:native/math.dart',
-      );
-      final bundle = await d4rt.createBundleFromSource('''
+        // Create on D4rt
+        final d4rt = D4rt();
+        d4rt.registertopLevelFunction(
+          'nativeAdd',
+          nativeAdd,
+          'package:native/math.dart',
+        );
+        final bundle = await d4rt.createBundleFromSource('''
 import 'package:native/math.dart';
 int main() => nativeAdd(30, 12);
 ''');
 
-      // Serialize → D4rtRunner
-      final zip = bundle.toZip();
-      final restored = AstBundle.fromZip(zip);
+        // Serialize → D4rtRunner
+        final zip = bundle.toZip();
+        final restored = AstBundle.fromZip(zip);
 
-      final runner = D4rtRunner();
-      runner.registerTopLevelFunction(
-        'nativeAdd',
-        nativeAdd,
-        'package:native/math.dart',
-      );
-      final result = runner.executeBundle(restored);
-      expect(result, 42);
-    });
+        final runner = D4rtRunner();
+        runner.registerTopLevelFunction(
+          'nativeAdd',
+          nativeAdd,
+          'package:native/math.dart',
+        );
+        final result = runner.executeBundle(restored);
+        expect(result, 42);
+      },
+    );
 
-    test('bundle with bridged global variable — execute on D4rtRunner',
-        () async {
-      final d4rt = D4rt();
-      d4rt.registerGlobalVariable(
-        'magicNumber',
-        42,
-        'package:config/constants.dart',
-      );
-      final bundle = await d4rt.createBundleFromSource('''
+    test(
+      'bundle with bridged global variable — execute on D4rtRunner',
+      () async {
+        final d4rt = D4rt();
+        d4rt.registerGlobalVariable(
+          'magicNumber',
+          42,
+          'package:config/constants.dart',
+        );
+        final bundle = await d4rt.createBundleFromSource('''
 import 'package:config/constants.dart';
 int main() => magicNumber;
 ''');
 
-      final json = bundle.toJson();
-      final restored = AstBundle.fromJson(json);
+        final json = bundle.toJson();
+        final restored = AstBundle.fromJson(json);
 
-      final runner = D4rtRunner();
-      runner.registerGlobalVariable(
-        'magicNumber',
-        42,
-        'package:config/constants.dart',
-      );
-      final result = runner.executeBundle(restored);
-      expect(result, 42);
-    });
+        final runner = D4rtRunner();
+        runner.registerGlobalVariable(
+          'magicNumber',
+          42,
+          'package:config/constants.dart',
+        );
+        final result = runner.executeBundle(restored);
+        expect(result, 42);
+      },
+    );
 
     test('mirrors architecture doc usage example', () async {
       // This test mirrors the "Create and Distribute Bundle" example
@@ -595,11 +601,12 @@ class User {
 ''');
 
         Directory(p.join(tempDir.path, 'utils')).createSync();
-        File(p.join(tempDir.path, 'utils', 'formatter.dart'))
-            .writeAsStringSync('''
+        File(p.join(tempDir.path, 'utils', 'formatter.dart')).writeAsStringSync(
+          '''
 import '../models/user.dart';
 String formatUser(User u) => '\${u.name} (age \${u.age})';
-''');
+''',
+        );
 
         final bundle = await d4rt.createBundle(
           p.join(tempDir.path, 'main.dart'),
@@ -717,8 +724,9 @@ bool main() => true;
     test('createBundle accepts custom config', () async {
       final tempDir = Directory.systemTemp.createTempSync('d4rt_config_');
       try {
-        File(p.join(tempDir.path, 'main.dart'))
-            .writeAsStringSync('int main() => 1;');
+        File(
+          p.join(tempDir.path, 'main.dart'),
+        ).writeAsStringSync('int main() => 1;');
 
         final d4rt = D4rt();
         final config = AstBundlerConfig(maxImportDepth: 10);
@@ -810,10 +818,7 @@ int main() => 42;
 
     test('AstBundle constructor rejects missing entry point', () {
       expect(
-        () => AstBundle(
-          entryPointUri: 'missing.dart',
-          modules: {},
-        ),
+        () => AstBundle(entryPointUri: 'missing.dart', modules: {}),
         throwsA(isA<ArgumentD4rtException>()),
       );
     });
@@ -1145,24 +1150,26 @@ String main() => getSecret();
       expect(bundle.modules.length, greaterThanOrEqualTo(2));
     });
 
-    test('createBundleFromSource with explicit sources bypasses file check',
-        () async {
-      // Explicit sources are not on disk, so the file access validator
-      // should not block them
-      final d4rt = D4rt();
-      d4rt.grant(FilesystemPermission.readPath('/nonexistent'));
+    test(
+      'createBundleFromSource with explicit sources bypasses file check',
+      () async {
+        // Explicit sources are not on disk, so the file access validator
+        // should not block them
+        final d4rt = D4rt();
+        d4rt.grant(FilesystemPermission.readPath('/nonexistent'));
 
-      final bundle = await d4rt.createBundleFromSource(
-        '''
+        final bundle = await d4rt.createBundleFromSource(
+          '''
 import 'package:util/helper.dart';
 int main() => add(1, 2);
 ''',
-        explicitSources: {
-          'package:util/helper.dart': 'int add(int a, int b) => a + b;',
-        },
-      );
-      expect(bundle.modules, hasLength(2));
-    });
+          explicitSources: {
+            'package:util/helper.dart': 'int add(int a, int b) => a + b;',
+          },
+        );
+        expect(bundle.modules, hasLength(2));
+      },
+    );
 
     test('write-only permission does not allow bundler reads', () async {
       final d4rt = D4rt();

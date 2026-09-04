@@ -5,13 +5,13 @@ import 'package:tom_d4rt_ast/runtime.dart';
 /// always throw or never return.
 class NeverCore {
   static BridgedClass get definition => BridgedClass(
-        nativeType: Never,
-        name: 'Never',
-        isAssignable: (v) => v is Never,
-        typeParameterCount: 0,
-        // Never has no constructors - you can't create an instance of Never
-        constructors: {},
-        methods: {},
-        getters: {},
-      );
+    nativeType: Never,
+    name: 'Never',
+    isAssignable: (v) => v is Never,
+    typeParameterCount: 0,
+    // Never has no constructors - you can't create an instance of Never
+    constructors: {},
+    methods: {},
+    getters: {},
+  );
 }

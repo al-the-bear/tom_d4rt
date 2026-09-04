@@ -21,9 +21,15 @@ void main() {
   late String tempOutputDir;
 
   setUpAll(() {
-    testFixturesDir = p.join(Directory.current.path, 'test', 'generator_tests', 'fixtures');
-    tempOutputDir =
-        Directory.systemTemp.createTempSync('bridge_cross_file_test_').path;
+    testFixturesDir = p.join(
+      Directory.current.path,
+      'test',
+      'generator_tests',
+      'fixtures',
+    );
+    tempOutputDir = Directory.systemTemp
+        .createTempSync('bridge_cross_file_test_')
+        .path;
   });
 
   tearDownAll(() {
@@ -47,10 +53,11 @@ void main() {
       );
 
       // Generate from the file that imports cross-file types
-      final sourceFile =
-          p.join(testFixturesDir, 'cross_file_reference_source.dart');
-      final outputFile =
-          p.join(tempOutputDir, 'cross_file_bridges_test.dart');
+      final sourceFile = p.join(
+        testFixturesDir,
+        'cross_file_reference_source.dart',
+      );
+      final outputFile = p.join(tempOutputDir, 'cross_file_bridges_test.dart');
 
       final result = await generator.generateBridges(
         sourceFiles: [sourceFile],
@@ -73,60 +80,77 @@ void main() {
     });
 
     test(
-        'GEN-055c: BridgeRegistry.register uses correct prefix for Interpreter. [2026-02-14] (FAIL)',
-        () {
-      // The Interpreter type is defined in cross_file_type.dart, not in
-      // cross_file_reference_source.dart. The generated code must NOT use
-      // the source file's prefix for the Interpreter type.
-      //
-      // WRONG: $cross_file_reference_source_1.Interpreter
-      // WRONG: $test_package_1.Interpreter (if source file prefix is test_package_1)
-      //
-      // The correct code should reference Interpreter through whatever prefix
-      // maps to cross_file_type.dart (e.g., $test_package_2 or $cross_file_type_1)
+      'GEN-055c: BridgeRegistry.register uses correct prefix for Interpreter. [2026-02-14] (FAIL)',
+      () {
+        // The Interpreter type is defined in cross_file_type.dart, not in
+        // cross_file_reference_source.dart. The generated code must NOT use
+        // the source file's prefix for the Interpreter type.
+        //
+        // WRONG: $cross_file_reference_source_1.Interpreter
+        // WRONG: $test_package_1.Interpreter (if source file prefix is test_package_1)
+        //
+        // The correct code should reference Interpreter through whatever prefix
+        // maps to cross_file_type.dart (e.g., $test_package_2 or $cross_file_type_1)
 
-      // First verify that Interpreter appears in the generated code
-      expect(generatedCode, contains('Interpreter'),
-          reason: 'Interpreter type should appear in generated code');
+        // First verify that Interpreter appears in the generated code
+        expect(
+          generatedCode,
+          contains('Interpreter'),
+          reason: 'Interpreter type should appear in generated code',
+        );
 
-      // The import for cross_file_type.dart should exist
-      expect(generatedCode, contains('cross_file_type.dart'),
+        // The import for cross_file_type.dart should exist
+        expect(
+          generatedCode,
+          contains('cross_file_type.dart'),
           reason:
-              'cross_file_type.dart should be imported since Interpreter is defined there');
+              'cross_file_type.dart should be imported since Interpreter is defined there',
+        );
 
-      // Find the prefix used for cross_file_type.dart
-      final crossFileImportMatch = RegExp(
-              r"import '.*cross_file_type\.dart' as (\$\w+);")
-          .firstMatch(generatedCode);
-      expect(crossFileImportMatch, isNotNull,
-          reason: 'Should have a prefixed import for cross_file_type.dart');
+        // Find the prefix used for cross_file_type.dart
+        final crossFileImportMatch = RegExp(
+          r"import '.*cross_file_type\.dart' as (\$\w+);",
+        ).firstMatch(generatedCode);
+        expect(
+          crossFileImportMatch,
+          isNotNull,
+          reason: 'Should have a prefixed import for cross_file_type.dart',
+        );
 
-      final correctPrefix = crossFileImportMatch!.group(1)!;
+        final correctPrefix = crossFileImportMatch!.group(1)!;
 
-      // The generated code for BridgeRegistry.register should use the
-      // correct prefix for the Interpreter type parameter
-      expect(generatedCode, contains('$correctPrefix.Interpreter'),
+        // The generated code for BridgeRegistry.register should use the
+        // correct prefix for the Interpreter type parameter
+        expect(
+          generatedCode,
+          contains('$correctPrefix.Interpreter'),
           reason:
-              'Interpreter parameter type should use the cross_file_type.dart prefix ($correctPrefix), not the source file prefix');
-    });
+              'Interpreter parameter type should use the cross_file_type.dart prefix ($correctPrefix), not the source file prefix',
+        );
+      },
+    );
 
     test(
-        'GEN-055d: Worker.initialize uses correct prefix for cross-file params. [2026-02-14] (FAIL)',
-        () {
-      // Worker.initialize(Interpreter interpreter, {RuntimeConfig? config})
-      // Both Interpreter and RuntimeConfig are from cross_file_type.dart
+      'GEN-055d: Worker.initialize uses correct prefix for cross-file params. [2026-02-14] (FAIL)',
+      () {
+        // Worker.initialize(Interpreter interpreter, {RuntimeConfig? config})
+        // Both Interpreter and RuntimeConfig are from cross_file_type.dart
 
-      final crossFileImportMatch = RegExp(
-              r"import '.*cross_file_type\.dart' as (\$\w+);")
-          .firstMatch(generatedCode);
-      expect(crossFileImportMatch, isNotNull);
+        final crossFileImportMatch = RegExp(
+          r"import '.*cross_file_type\.dart' as (\$\w+);",
+        ).firstMatch(generatedCode);
+        expect(crossFileImportMatch, isNotNull);
 
-      final correctPrefix = crossFileImportMatch!.group(1)!;
+        final correctPrefix = crossFileImportMatch!.group(1)!;
 
-      // RuntimeConfig should also use the cross_file_type prefix
-      expect(generatedCode, contains('$correctPrefix.RuntimeConfig'),
+        // RuntimeConfig should also use the cross_file_type prefix
+        expect(
+          generatedCode,
+          contains('$correctPrefix.RuntimeConfig'),
           reason:
-              'RuntimeConfig type should use the cross_file_type.dart prefix');
-    });
+              'RuntimeConfig type should use the cross_file_type.dart prefix',
+        );
+      },
+    );
   });
 }

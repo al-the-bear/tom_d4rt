@@ -6,46 +6,54 @@ import 'package:tom_d4rt/d4rt.dart';
 /// Bridged implementation of dart:io Process functionality
 class ProcessIo {
   static BridgedClass get definition => BridgedClass(
-        nativeType: Process,
-        name: 'Process',
-        isAssignable: (v) => v is Process,
-        typeParameterCount: 0,
-        staticMethods: {
-          'start': (visitor, positionalArgs, namedArgs, _) {
-            _checkProcessPermission(visitor,
-                positionalArgs.isNotEmpty ? positionalArgs[0].toString() : '');
-            return _start(positionalArgs, namedArgs);
-          },
-          'run': (visitor, positionalArgs, namedArgs, _) {
-            _checkProcessPermission(visitor,
-                positionalArgs.isNotEmpty ? positionalArgs[0].toString() : '');
-            return _run(positionalArgs, namedArgs);
-          },
-          'runSync': (visitor, positionalArgs, namedArgs, _) {
-            _checkProcessPermission(visitor,
-                positionalArgs.isNotEmpty ? positionalArgs[0].toString() : '');
-            return _runSync(positionalArgs, namedArgs);
-          },
-          'killPid': (visitor, positionalArgs, namedArgs, _) {
-            _checkProcessPermission(visitor, 'kill');
-            return _killPid(positionalArgs, namedArgs);
-          },
-        },
-        methods: {
-          'kill': (visitor, target, positionalArgs, namedArgs, _) =>
-              _kill(target, positionalArgs, namedArgs),
-        },
-        getters: {
-          'exitCode': (visitor, target) => (target as Process).exitCode,
-          'pid': (visitor, target) => (target as Process).pid,
-          'stdin': (visitor, target) => (target as Process).stdin,
-          'stdout': (visitor, target) => (target as Process).stdout,
-          'stderr': (visitor, target) => (target as Process).stderr,
-        },
-      );
+    nativeType: Process,
+    name: 'Process',
+    isAssignable: (v) => v is Process,
+    typeParameterCount: 0,
+    staticMethods: {
+      'start': (visitor, positionalArgs, namedArgs, _) {
+        _checkProcessPermission(
+          visitor,
+          positionalArgs.isNotEmpty ? positionalArgs[0].toString() : '',
+        );
+        return _start(positionalArgs, namedArgs);
+      },
+      'run': (visitor, positionalArgs, namedArgs, _) {
+        _checkProcessPermission(
+          visitor,
+          positionalArgs.isNotEmpty ? positionalArgs[0].toString() : '',
+        );
+        return _run(positionalArgs, namedArgs);
+      },
+      'runSync': (visitor, positionalArgs, namedArgs, _) {
+        _checkProcessPermission(
+          visitor,
+          positionalArgs.isNotEmpty ? positionalArgs[0].toString() : '',
+        );
+        return _runSync(positionalArgs, namedArgs);
+      },
+      'killPid': (visitor, positionalArgs, namedArgs, _) {
+        _checkProcessPermission(visitor, 'kill');
+        return _killPid(positionalArgs, namedArgs);
+      },
+    },
+    methods: {
+      'kill': (visitor, target, positionalArgs, namedArgs, _) =>
+          _kill(target, positionalArgs, namedArgs),
+    },
+    getters: {
+      'exitCode': (visitor, target) => (target as Process).exitCode,
+      'pid': (visitor, target) => (target as Process).pid,
+      'stdin': (visitor, target) => (target as Process).stdin,
+      'stdout': (visitor, target) => (target as Process).stdout,
+      'stderr': (visitor, target) => (target as Process).stderr,
+    },
+  );
 
   static Future<Process> _start(
-      List<dynamic> positionalArgs, Map<String, dynamic> namedArgs) async {
+    List<dynamic> positionalArgs,
+    Map<String, dynamic> namedArgs,
+  ) async {
     if (positionalArgs.isEmpty) {
       throw ArgumentD4rtException('Process.start requires executable path');
     }
@@ -74,7 +82,9 @@ class ProcessIo {
   }
 
   static Future<ProcessResult> _run(
-      List<dynamic> positionalArgs, Map<String, dynamic> namedArgs) async {
+    List<dynamic> positionalArgs,
+    Map<String, dynamic> namedArgs,
+  ) async {
     if (positionalArgs.isEmpty) {
       throw ArgumentD4rtException('Process.run requires executable path');
     }
@@ -107,7 +117,9 @@ class ProcessIo {
   }
 
   static ProcessResult _runSync(
-      List<dynamic> positionalArgs, Map<String, dynamic> namedArgs) {
+    List<dynamic> positionalArgs,
+    Map<String, dynamic> namedArgs,
+  ) {
     if (positionalArgs.isEmpty) {
       throw ArgumentD4rtException('Process.runSync requires executable path');
     }
@@ -144,7 +156,9 @@ class ProcessIo {
   }
 
   static bool _killPid(
-      List<dynamic> positionalArgs, Map<String, dynamic> namedArgs) {
+    List<dynamic> positionalArgs,
+    Map<String, dynamic> namedArgs,
+  ) {
     if (positionalArgs.isEmpty) {
       throw ArgumentD4rtException('Process.killPid requires pid');
     }
@@ -155,8 +169,11 @@ class ProcessIo {
     return Process.killPid(pid, signal);
   }
 
-  static bool _kill(dynamic instance, List<dynamic> positionalArgs,
-      Map<String, dynamic> namedArgs) {
+  static bool _kill(
+    dynamic instance,
+    List<dynamic> positionalArgs,
+    Map<String, dynamic> namedArgs,
+  ) {
     if (instance is! Process) {
       throw ArgumentD4rtException('Invalid process instance');
     }
@@ -167,14 +184,18 @@ class ProcessIo {
 
   /// Helper method to check if ProcessRunPermission is granted
   static void _checkProcessPermission(
-      InterpreterVisitor visitor, String command) {
+    InterpreterVisitor visitor,
+    String command,
+  ) {
     final d4rt = visitor.moduleLoader.d4rt;
     if (d4rt == null) return;
 
     // Check for ProcessRunPermission
     if (!d4rt.checkPermission({'type': 'process'})) {
-      throw RuntimeD4rtException('Process execution requires ProcessRunPermission. '
-          'Use d4rt.grant(ProcessRunPermission.any) to allow process execution.');
+      throw RuntimeD4rtException(
+        'Process execution requires ProcessRunPermission. '
+        'Use d4rt.grant(ProcessRunPermission.any) to allow process execution.',
+      );
     }
   }
 }
@@ -182,98 +203,97 @@ class ProcessIo {
 /// Bridged implementation of ProcessResult
 class ProcessResultIo {
   static BridgedClass get definition => BridgedClass(
-        nativeType: ProcessResult,
-        name: 'ProcessResult',
-        isAssignable: (v) => v is ProcessResult,
-        typeParameterCount: 0,
-        getters: {
-          'exitCode': (visitor, target) => (target as ProcessResult).exitCode,
-          'pid': (visitor, target) => (target as ProcessResult).pid,
-          'stdout': (visitor, target) => (target as ProcessResult).stdout,
-          'stderr': (visitor, target) => (target as ProcessResult).stderr,
-        },
-      );
+    nativeType: ProcessResult,
+    name: 'ProcessResult',
+    isAssignable: (v) => v is ProcessResult,
+    typeParameterCount: 0,
+    getters: {
+      'exitCode': (visitor, target) => (target as ProcessResult).exitCode,
+      'pid': (visitor, target) => (target as ProcessResult).pid,
+      'stdout': (visitor, target) => (target as ProcessResult).stdout,
+      'stderr': (visitor, target) => (target as ProcessResult).stderr,
+    },
+  );
 }
 
 /// Bridged implementation of ProcessSignal
 class ProcessSignalIo {
   static BridgedClass get definition => BridgedClass(
-        nativeType: ProcessSignal,
-        name: 'ProcessSignal',
-        isAssignable: (v) => v is ProcessSignal,
-        typeParameterCount: 0,
-        staticGetters: {
-          'sighup': (visitor) => ProcessSignal.sighup,
-          'sigint': (visitor) => ProcessSignal.sigint,
-          'sigquit': (visitor) => ProcessSignal.sigquit,
-          'sigill': (visitor) => ProcessSignal.sigill,
-          'sigtrap': (visitor) => ProcessSignal.sigtrap,
-          'sigabrt': (visitor) => ProcessSignal.sigabrt,
-          'sigbus': (visitor) => ProcessSignal.sigbus,
-          'sigfpe': (visitor) => ProcessSignal.sigfpe,
-          'sigkill': (visitor) => ProcessSignal.sigkill,
-          'sigusr1': (visitor) => ProcessSignal.sigusr1,
-          'sigsegv': (visitor) => ProcessSignal.sigsegv,
-          'sigusr2': (visitor) => ProcessSignal.sigusr2,
-          'sigpipe': (visitor) => ProcessSignal.sigpipe,
-          'sigalrm': (visitor) => ProcessSignal.sigalrm,
-          'sigterm': (visitor) => ProcessSignal.sigterm,
-          'sigchld': (visitor) => ProcessSignal.sigchld,
-          'sigcont': (visitor) => ProcessSignal.sigcont,
-          'sigstop': (visitor) => ProcessSignal.sigstop,
-          'sigtstp': (visitor) => ProcessSignal.sigtstp,
-          'sigttin': (visitor) => ProcessSignal.sigttin,
-          'sigttou': (visitor) => ProcessSignal.sigttou,
-          'sigurg': (visitor) => ProcessSignal.sigurg,
-          'sigxcpu': (visitor) => ProcessSignal.sigxcpu,
-          'sigxfsz': (visitor) => ProcessSignal.sigxfsz,
-          'sigvtalrm': (visitor) => ProcessSignal.sigvtalrm,
-          'sigprof': (visitor) => ProcessSignal.sigprof,
-          'sigwinch': (visitor) => ProcessSignal.sigwinch,
-          'sigpoll': (visitor) => ProcessSignal.sigpoll,
-          'sigsys': (visitor) => ProcessSignal.sigsys,
-        },
-        getters: {
-          'name': (visitor, target) => (target as ProcessSignal).name,
-          'signalNumber': (visitor, target) =>
-              (target as ProcessSignal).signalNumber,
-          'runtimeType': (visitor, target) =>
-              (target as ProcessSignal).runtimeType,
-          'hashCode': (visitor, target) => (target as ProcessSignal).hashCode,
-        },
-        methods: {
-          'watch': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as ProcessSignal).watch(),
-          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as ProcessSignal).toString(),
-        },
-      );
+    nativeType: ProcessSignal,
+    name: 'ProcessSignal',
+    isAssignable: (v) => v is ProcessSignal,
+    typeParameterCount: 0,
+    staticGetters: {
+      'sighup': (visitor) => ProcessSignal.sighup,
+      'sigint': (visitor) => ProcessSignal.sigint,
+      'sigquit': (visitor) => ProcessSignal.sigquit,
+      'sigill': (visitor) => ProcessSignal.sigill,
+      'sigtrap': (visitor) => ProcessSignal.sigtrap,
+      'sigabrt': (visitor) => ProcessSignal.sigabrt,
+      'sigbus': (visitor) => ProcessSignal.sigbus,
+      'sigfpe': (visitor) => ProcessSignal.sigfpe,
+      'sigkill': (visitor) => ProcessSignal.sigkill,
+      'sigusr1': (visitor) => ProcessSignal.sigusr1,
+      'sigsegv': (visitor) => ProcessSignal.sigsegv,
+      'sigusr2': (visitor) => ProcessSignal.sigusr2,
+      'sigpipe': (visitor) => ProcessSignal.sigpipe,
+      'sigalrm': (visitor) => ProcessSignal.sigalrm,
+      'sigterm': (visitor) => ProcessSignal.sigterm,
+      'sigchld': (visitor) => ProcessSignal.sigchld,
+      'sigcont': (visitor) => ProcessSignal.sigcont,
+      'sigstop': (visitor) => ProcessSignal.sigstop,
+      'sigtstp': (visitor) => ProcessSignal.sigtstp,
+      'sigttin': (visitor) => ProcessSignal.sigttin,
+      'sigttou': (visitor) => ProcessSignal.sigttou,
+      'sigurg': (visitor) => ProcessSignal.sigurg,
+      'sigxcpu': (visitor) => ProcessSignal.sigxcpu,
+      'sigxfsz': (visitor) => ProcessSignal.sigxfsz,
+      'sigvtalrm': (visitor) => ProcessSignal.sigvtalrm,
+      'sigprof': (visitor) => ProcessSignal.sigprof,
+      'sigwinch': (visitor) => ProcessSignal.sigwinch,
+      'sigpoll': (visitor) => ProcessSignal.sigpoll,
+      'sigsys': (visitor) => ProcessSignal.sigsys,
+    },
+    getters: {
+      'name': (visitor, target) => (target as ProcessSignal).name,
+      'signalNumber': (visitor, target) =>
+          (target as ProcessSignal).signalNumber,
+      'runtimeType': (visitor, target) => (target as ProcessSignal).runtimeType,
+      'hashCode': (visitor, target) => (target as ProcessSignal).hashCode,
+    },
+    methods: {
+      'watch': (visitor, target, positionalArgs, namedArgs, _) =>
+          (target as ProcessSignal).watch(),
+      'toString': (visitor, target, positionalArgs, namedArgs, _) =>
+          (target as ProcessSignal).toString(),
+    },
+  );
 }
 
 /// Bridged implementation of ProcessStartMode
 class ProcessStartModeIo {
   static BridgedClass get definition => BridgedClass(
-        nativeType: ProcessStartMode,
-        name: 'ProcessStartMode',
-        isAssignable: (v) => v is ProcessStartMode,
-        typeParameterCount: 0,
-        staticGetters: {
-          'normal': (visitor) => ProcessStartMode.normal,
-          'inheritStdio': (visitor) => ProcessStartMode.inheritStdio,
-          'detached': (visitor) => ProcessStartMode.detached,
-          'detachedWithStdio': (visitor) => ProcessStartMode.detachedWithStdio,
-          // `values` is a `static const List`, so it belongs beside the
-          // individual constants and not in an instance map.
-          'values': (visitor) => ProcessStartMode.values,
-        },
-        // `ProcessStartMode` is *not* a Dart `enum` — it is a final class with
-        // static const instances, so it has no `name` and no `index`. Its
-        // `toString()` is what yields the declared name, and adding a
-        // synthesised `name` here would let a script write something the SDK
-        // rejects.
-        methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as ProcessStartMode).toString(),
-        },
-      );
+    nativeType: ProcessStartMode,
+    name: 'ProcessStartMode',
+    isAssignable: (v) => v is ProcessStartMode,
+    typeParameterCount: 0,
+    staticGetters: {
+      'normal': (visitor) => ProcessStartMode.normal,
+      'inheritStdio': (visitor) => ProcessStartMode.inheritStdio,
+      'detached': (visitor) => ProcessStartMode.detached,
+      'detachedWithStdio': (visitor) => ProcessStartMode.detachedWithStdio,
+      // `values` is a `static const List`, so it belongs beside the
+      // individual constants and not in an instance map.
+      'values': (visitor) => ProcessStartMode.values,
+    },
+    // `ProcessStartMode` is *not* a Dart `enum` — it is a final class with
+    // static const instances, so it has no `name` and no `index`. Its
+    // `toString()` is what yields the declared name, and adding a
+    // synthesised `name` here would let a script write something the SDK
+    // rejects.
+    methods: {
+      'toString': (visitor, target, positionalArgs, namedArgs, _) =>
+          (target as ProcessStartMode).toString(),
+    },
+  );
 }

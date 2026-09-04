@@ -72,7 +72,9 @@ void main() {
   print('Initial bits: ${bits.toRadixString(2).padLeft(4, '0')} ($bits)');
 
   bits &= 10; // AND with 0b1010
-  print('bits &= 10 (0b1010): ${bits.toRadixString(2).padLeft(4, '0')} ($bits)');
+  print(
+    'bits &= 10 (0b1010): ${bits.toRadixString(2).padLeft(4, '0')} ($bits)',
+  );
 
   bits = 5; // 0b0101
   bits |= 2; // OR with 0b0010

@@ -53,12 +53,14 @@ class IterableCore {
       'castFrom': (visitor, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1 || namedArgs.isNotEmpty) {
           throw RuntimeD4rtException(
-              'Iterable.castFrom(source) expects one positional argument.');
+            'Iterable.castFrom(source) expects one positional argument.',
+          );
         }
         final source = positionalArgs[0];
         if (source is! Iterable) {
           throw RuntimeD4rtException(
-              'The argument to Iterable.castFrom must be an Iterable.');
+            'The argument to Iterable.castFrom must be an Iterable.',
+          );
         }
         return Iterable.castFrom<dynamic, dynamic>(source);
       },
@@ -68,14 +70,16 @@ class IterableCore {
       'iterableToShortString': (visitor, positionalArgs, namedArgs, _) {
         if (positionalArgs.isEmpty || positionalArgs.length > 3) {
           throw RuntimeD4rtException(
-              'Iterable.iterableToShortString(iterable, [leftDelimiter, '
-              'rightDelimiter]) expects one to three positional arguments.');
+            'Iterable.iterableToShortString(iterable, [leftDelimiter, '
+            'rightDelimiter]) expects one to three positional arguments.',
+          );
         }
         final iterable = positionalArgs[0];
         if (iterable is! Iterable) {
           throw RuntimeD4rtException(
-              'The first argument to Iterable.iterableToShortString must '
-              'be an Iterable.');
+            'The first argument to Iterable.iterableToShortString must '
+            'be an Iterable.',
+          );
         }
         return Iterable.iterableToShortString(
           iterable,
@@ -86,14 +90,16 @@ class IterableCore {
       'iterableToFullString': (visitor, positionalArgs, namedArgs, _) {
         if (positionalArgs.isEmpty || positionalArgs.length > 3) {
           throw RuntimeD4rtException(
-              'Iterable.iterableToFullString(iterable, [leftDelimiter, '
-              'rightDelimiter]) expects one to three positional arguments.');
+            'Iterable.iterableToFullString(iterable, [leftDelimiter, '
+            'rightDelimiter]) expects one to three positional arguments.',
+          );
         }
         final iterable = positionalArgs[0];
         if (iterable is! Iterable) {
           throw RuntimeD4rtException(
-              'The first argument to Iterable.iterableToFullString must '
-              'be an Iterable.');
+            'The first argument to Iterable.iterableToFullString must '
+            'be an Iterable.',
+          );
         }
         return Iterable.iterableToFullString(
           iterable,

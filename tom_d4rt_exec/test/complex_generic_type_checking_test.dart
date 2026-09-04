@@ -3,8 +3,10 @@ import 'interpreter_test.dart';
 
 void main() {
   group('Complex Generic Type Checking', () {
-    test('I-TYPE-7: Simple generic List type checking. [2026-02-10 06:37] (PASS)', () {
-      const code = '''
+    test(
+      'I-TYPE-7: Simple generic List type checking. [2026-02-10 06:37] (PASS)',
+      () {
+        const code = '''
 int main() {
   var list = [1, 2, 3];
   
@@ -15,12 +17,15 @@ int main() {
   return 0;
 }
 ''';
-      final result = execute(code);
-      expect(result, equals(1));
-    });
+        final result = execute(code);
+        expect(result, equals(1));
+      },
+    );
 
-    test('I-TYPE-4: Simple generic Map type checking. [2026-02-10 06:37] (PASS)', () {
-      const code = '''
+    test(
+      'I-TYPE-4: Simple generic Map type checking. [2026-02-10 06:37] (PASS)',
+      () {
+        const code = '''
 int main() {
   var map = {'a': 1, 'b': 2};
   
@@ -31,12 +36,15 @@ int main() {
   return 0;
 }
 ''';
-      final result = execute(code);
-      expect(result, equals(1));
-    });
+        final result = execute(code);
+        expect(result, equals(1));
+      },
+    );
 
-    test('I-TYPE-5: Generic List<int> type checking. [2026-02-10 06:37] (PASS)', () {
-      const code = '''
+    test(
+      'I-TYPE-5: Generic List<int> type checking. [2026-02-10 06:37] (PASS)',
+      () {
+        const code = '''
 int main() {
   var list = [1, 2, 3];
   
@@ -47,12 +55,15 @@ int main() {
   return 0;
 }
 ''';
-      final result = execute(code);
-      expect(result, equals(1));
-    });
+        final result = execute(code);
+        expect(result, equals(1));
+      },
+    );
 
-    test('I-TYPE-6: Generic Map<String, int> type checking. [2026-02-10 06:37] (PASS)', () {
-      const code = '''
+    test(
+      'I-TYPE-6: Generic Map<String, int> type checking. [2026-02-10 06:37] (PASS)',
+      () {
+        const code = '''
 int main() {
   var map = {'a': 1, 'b': 2};
   
@@ -63,12 +74,15 @@ int main() {
   return 0;
 }
 ''';
-      final result = execute(code);
-      expect(result, equals(1));
-    });
+        final result = execute(code);
+        expect(result, equals(1));
+      },
+    );
 
-    test('I-TYPE-8: Nested generic Map<String, List<int>> type checking. [2026-02-10 06:37] (PASS)', () {
-      const code = '''
+    test(
+      'I-TYPE-8: Nested generic Map<String, List<int>> type checking. [2026-02-10 06:37] (PASS)',
+      () {
+        const code = '''
 int main() {
   var map = {
     'a': [1, 2, 3],
@@ -82,12 +96,15 @@ int main() {
   return 0;
 }
 ''';
-      final result = execute(code);
-      expect(result, equals(1));
-    });
+        final result = execute(code);
+        expect(result, equals(1));
+      },
+    );
 
-    test('I-TYPE-9: Negative type check - List<String> is not List<int>. [2026-02-10 06:37] (PASS)', () {
-      const code = '''
+    test(
+      'I-TYPE-9: Negative type check - List<String> is not List<int>. [2026-02-10 06:37] (PASS)',
+      () {
+        const code = '''
 int main() {
   var list = ['a', 'b', 'c'];
   
@@ -98,12 +115,15 @@ int main() {
   return 0;
 }
 ''';
-      final result = execute(code);
-      expect(result, equals(1));
-    });
+        final result = execute(code);
+        expect(result, equals(1));
+      },
+    );
 
-    test('I-TYPE-1: Complex nested generic List<Map<String, int>> type checking. [2026-02-10 06:37] (PASS)', () {
-      const code = '''
+    test(
+      'I-TYPE-1: Complex nested generic List<Map<String, int>> type checking. [2026-02-10 06:37] (PASS)',
+      () {
+        const code = '''
 int main() {
   var list = [
     {'a': 1, 'b': 2},
@@ -117,14 +137,15 @@ int main() {
   return 0;
 }
 ''';
-      final result = execute(code);
-      expect(result, equals(1));
-    });
+        final result = execute(code);
+        expect(result, equals(1));
+      },
+    );
 
     test(
-        'I-TYPE-92: Triple nested generic Map<String, List<Map<String, int>>> type checking. [2026-02-12] (PASS)',
-        () {
-      const code = '''
+      'I-TYPE-92: Triple nested generic Map<String, List<Map<String, int>>> type checking. [2026-02-12] (PASS)',
+      () {
+        const code = '''
 int main() {
   var complexMap = {
     'group1': [
@@ -143,12 +164,15 @@ int main() {
   return 0;
 }
 ''';
-      final result = execute(code);
-      expect(result, equals(1));
-    });
+        final result = execute(code);
+        expect(result, equals(1));
+      },
+    );
 
-    test('I-TYPE-2: Type checking with nullable generics. [2026-02-10 06:37] (PASS)', () {
-      const code = '''
+    test(
+      'I-TYPE-2: Type checking with nullable generics. [2026-02-10 06:37] (PASS)',
+      () {
+        const code = '''
 int main() {
   var list = [1, null, 3];
   
@@ -159,12 +183,15 @@ int main() {
   return 0;
 }
 ''';
-      final result = execute(code);
-      expect(result, equals(1));
-    });
+        final result = execute(code);
+        expect(result, equals(1));
+      },
+    );
 
-    test('I-TYPE-3: Generic type mismatch detection. [2026-02-10 06:37] (PASS)', () {
-      const code = '''
+    test(
+      'I-TYPE-3: Generic type mismatch detection. [2026-02-10 06:37] (PASS)',
+      () {
+        const code = '''
 int main() {
   var mapOfStrings = {'a': 'hello', 'b': 'world'};
   
@@ -175,8 +202,9 @@ int main() {
   return 1;
 }
 ''';
-      final result = execute(code);
-      expect(result, equals(1));
-    });
+        final result = execute(code);
+        expect(result, equals(1));
+      },
+    );
   });
 }

@@ -82,8 +82,12 @@ BridgedClass createCircleBridge() {
     name: 'Circle',
     constructors: {
       '': (visitor, positional, named) {
-        final radius =
-            D4.getRequiredArg<double>(positional, 0, 'radius', 'Circle');
+        final radius = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'radius',
+          'Circle',
+        );
         return Circle(radius);
       },
     },
@@ -114,10 +118,18 @@ BridgedClass createRectangleBridge() {
     name: 'Rectangle',
     constructors: {
       '': (visitor, positional, named) {
-        final width =
-            D4.getRequiredArg<double>(positional, 0, 'width', 'Rectangle');
-        final height =
-            D4.getRequiredArg<double>(positional, 1, 'height', 'Rectangle');
+        final width = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'width',
+          'Rectangle',
+        );
+        final height = D4.getRequiredArg<double>(
+          positional,
+          1,
+          'height',
+          'Rectangle',
+        );
         return Rectangle(width, height);
       },
     },
@@ -136,8 +148,12 @@ BridgedClass createRectangleBridge() {
     methods: {
       'scale': (visitor, target, positional, named, typeArgs) {
         final rect = D4.validateTarget<Rectangle>(target, 'Rectangle');
-        final factor =
-            D4.getRequiredArg<double>(positional, 0, 'factor', 'scale');
+        final factor = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'factor',
+          'scale',
+        );
         return rect.scale(factor);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -152,9 +168,7 @@ BridgedClass createCanvasBridge() {
   return BridgedClass(
     nativeType: Canvas,
     name: 'Canvas',
-    constructors: {
-      '': (visitor, positional, named) => Canvas(),
-    },
+    constructors: {'': (visitor, positional, named) => Canvas()},
     getters: {
       'shapes': (visitor, target) =>
           D4.validateTarget<Canvas>(target, 'Canvas').shapes,
@@ -187,9 +201,18 @@ void main() async {
   final d4rt = D4rt();
 
   // Register all shape bridges
-  d4rt.registerBridgedClass(createCircleBridge(), 'package:example/example.dart');
-  d4rt.registerBridgedClass(createRectangleBridge(), 'package:example/example.dart');
-  d4rt.registerBridgedClass(createCanvasBridge(), 'package:example/example.dart');
+  d4rt.registerBridgedClass(
+    createCircleBridge(),
+    'package:example/example.dart',
+  );
+  d4rt.registerBridgedClass(
+    createRectangleBridge(),
+    'package:example/example.dart',
+  );
+  d4rt.registerBridgedClass(
+    createCanvasBridge(),
+    'package:example/example.dart',
+  );
 
   final script = '''
 import 'package:example/example.dart';

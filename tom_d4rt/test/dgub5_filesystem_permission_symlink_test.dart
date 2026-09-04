@@ -58,8 +58,9 @@ String helperValue() => "via-symlink";
           ..createSync(realDir.absolute.path);
 
         final d4rt = D4rt()
-          ..grant(FilesystemPermission.readPath(
-              realDir.resolveSymbolicLinksSync()));
+          ..grant(
+            FilesystemPermission.readPath(realDir.resolveSymbolicLinksSync()),
+          );
 
         final result = d4rt.execute(
           source: '''
@@ -105,41 +106,39 @@ String main() => secretValue();
           ),
           throwsA(
             predicate(
-                (e) => e.toString().contains('requires FilesystemPermission')),
+              (e) => e.toString().contains('requires FilesystemPermission'),
+            ),
           ),
         );
       },
     );
 
-    test(
-      'F-DGUB5-3: a genuine in-sandbox import is still allowed [2026-07-27] '
-      '(PASS)',
-      () {
-        // The anchor for F-DGUB5-2. Tightening the matcher must not make the
-        // ordinary case fail — without this, -2 would pass just as well if
-        // symlink handling denied everything.
-        final sandbox = io.Directory('${tempRoot.path}/sandbox')
-          ..createSync(recursive: true);
-        io.File('${sandbox.path}/ok.dart').writeAsStringSync('''
+    test('F-DGUB5-3: a genuine in-sandbox import is still allowed [2026-07-27] '
+        '(PASS)', () {
+      // The anchor for F-DGUB5-2. Tightening the matcher must not make the
+      // ordinary case fail — without this, -2 would pass just as well if
+      // symlink handling denied everything.
+      final sandbox = io.Directory('${tempRoot.path}/sandbox')
+        ..createSync(recursive: true);
+      io.File('${sandbox.path}/ok.dart').writeAsStringSync('''
 String okValue() => "in-sandbox";
 ''');
 
-        final d4rt = D4rt()
-          ..grant(FilesystemPermission.readPath(sandbox.absolute.path));
+      final d4rt = D4rt()
+        ..grant(FilesystemPermission.readPath(sandbox.absolute.path));
 
-        final result = d4rt.execute(
-          source: '''
+      final result = d4rt.execute(
+        source: '''
 import './ok.dart';
 
 String main() => okValue();
 ''',
-          basePath: sandbox.absolute.path,
-          allowFileSystemImports: true,
-        );
+        basePath: sandbox.absolute.path,
+        allowFileSystemImports: true,
+      );
 
-        expect(result, equals('in-sandbox'));
-      },
-    );
+      expect(result, equals('in-sandbox'));
+    });
   });
 
   group('DGUB5: matcher-level symlink equivalence', () {
@@ -154,22 +153,31 @@ String main() => okValue();
         io.Link('${tempRoot.path}/link').createSync(realDir.absolute.path);
 
         final grantOnReal = FilesystemPermission.readPath(
-            realDir.resolveSymbolicLinksSync());
-        final grantOnLink =
-            FilesystemPermission.readPath('${tempRoot.path}/link');
+          realDir.resolveSymbolicLinksSync(),
+        );
+        final grantOnLink = FilesystemPermission.readPath(
+          '${tempRoot.path}/link',
+        );
 
-        Map<String, dynamic> read(String path) =>
-            {'type': 'filesystem', 'path': path, 'read': true};
+        Map<String, dynamic> read(String path) => {
+          'type': 'filesystem',
+          'path': path,
+          'read': true,
+        };
 
         // Both grants must admit both spellings — that is what "single
         // canonical identity" means, and it has to hold in all four
         // combinations or the matcher is merely lucky.
         expect(read(target.absolute.path), predicate(grantOnReal.allows));
-        expect(read('${tempRoot.path}/link/data.txt'),
-            predicate(grantOnReal.allows));
+        expect(
+          read('${tempRoot.path}/link/data.txt'),
+          predicate(grantOnReal.allows),
+        );
         expect(read(target.absolute.path), predicate(grantOnLink.allows));
-        expect(read('${tempRoot.path}/link/data.txt'),
-            predicate(grantOnLink.allows));
+        expect(
+          read('${tempRoot.path}/link/data.txt'),
+          predicate(grantOnLink.allows),
+        );
       },
     );
 

@@ -1,5 +1,5 @@
 /// Enum examples for bridge generation testing.
-/// 
+///
 /// This file demonstrates enum bridging capabilities:
 /// - Simple enums
 /// - Enhanced enums with values
@@ -8,12 +8,7 @@
 library;
 
 /// Simple status enum.
-enum Status {
-  pending,
-  active,
-  completed,
-  cancelled,
-}
+enum Status { pending, active, completed, cancelled }
 
 /// Priority enum with comparable integer values.
 enum Priority implements Comparable<Priority> {
@@ -100,7 +95,8 @@ enum HttpMethod {
 
   const HttpMethod(this.value);
 
-  bool get isIdempotent => this == get || this == put || this == delete || this == head;
+  bool get isIdempotent =>
+      this == get || this == put || this == delete || this == head;
 
   bool get hasBody => this == post || this == put || this == patch;
 

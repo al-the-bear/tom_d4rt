@@ -25,13 +25,17 @@ void main() {
   // Test Result.success
   var success = Result.success(42);
   if (success.isSuccess != true) {
-    errors.add('Result.success(42).isSuccess expected true, got ${success.isSuccess}');
+    errors.add(
+      'Result.success(42).isSuccess expected true, got ${success.isSuccess}',
+    );
   }
 
   // Test Result.failure
   var failure = Result.failure('err');
   if (failure.isSuccess != false) {
-    errors.add('Result.failure("err").isSuccess expected false, got ${failure.isSuccess}');
+    errors.add(
+      'Result.failure("err").isSuccess expected false, got ${failure.isSuccess}',
+    );
   }
 
   if (errors.isEmpty) {

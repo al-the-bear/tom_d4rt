@@ -64,12 +64,18 @@ void main() {
       bridge(sub).isSubtypeOf(bridge(superName), value: value);
 
   group('SCB23: the encodings reach Encoding and Codec', () {
-    for (final name in const <String>['Utf8Codec', 'AsciiCodec', 'Latin1Codec']) {
-      test('F-SCB23-AST-1-$name: $name is an Encoding and a Codec [2026-07-28]',
-          () {
-        expect(isSub(name, 'Encoding'), isTrue);
-        expect(isSub(name, 'Codec'), isTrue);
-      });
+    for (final name in const <String>[
+      'Utf8Codec',
+      'AsciiCodec',
+      'Latin1Codec',
+    ]) {
+      test(
+        'F-SCB23-AST-1-$name: $name is an Encoding and a Codec [2026-07-28]',
+        () {
+          expect(isSub(name, 'Encoding'), isTrue);
+          expect(isSub(name, 'Codec'), isTrue);
+        },
+      );
     }
 
     test('F-SCB23-AST-2: Encoding is itself a Codec [2026-07-28]', () {
@@ -170,38 +176,46 @@ void main() {
       // `Utf8Codec`'s own bridge does not declare it...
       expect(bridge('Utf8Codec').methods.keys, isNot(contains('decodeStream')));
       // ...so the edge is the only thing that makes `utf8.decodeStream` work.
-      expect(BridgedClass.transitiveSupertypeNames('Utf8Codec'),
-          contains('Encoding'));
+      expect(
+        BridgedClass.transitiveSupertypeNames('Utf8Codec'),
+        contains('Encoding'),
+      );
     });
 
-    test('F-SCB23-AST-10: the adapter decodes a byte stream [2026-07-28]',
-        () async {
-      final adapter = bridge('Encoding').methods['decodeStream']!;
-      // A `Stream` of `List<Object?>` — which is what the interpreter actually
-      // hands over, and the reason a plain `Stream.cast<List<int>>()` is not
-      // enough: that casts the ELEMENT, and a `List<Object?>` is not a
-      // `List<int>`.
-      final chunks = <List<Object?>>[
-        <Object?>[104, 101],
-        <Object?>[108, 108, 111],
-      ];
-      final result = adapter(
-        visitor,
-        utf8,
-        [Stream<List<Object?>>.fromIterable(chunks)],
-        {},
-        [],
-      );
-      expect(await (result as Future), equals('hello'));
-    });
+    test(
+      'F-SCB23-AST-10: the adapter decodes a byte stream [2026-07-28]',
+      () async {
+        final adapter = bridge('Encoding').methods['decodeStream']!;
+        // A `Stream` of `List<Object?>` — which is what the interpreter actually
+        // hands over, and the reason a plain `Stream.cast<List<int>>()` is not
+        // enough: that casts the ELEMENT, and a `List<Object?>` is not a
+        // `List<int>`.
+        final chunks = <List<Object?>>[
+          <Object?>[104, 101],
+          <Object?>[108, 108, 111],
+        ];
+        final result = adapter(
+          visitor,
+          utf8,
+          [Stream<List<Object?>>.fromIterable(chunks)],
+          {},
+          [],
+        );
+        expect(await (result as Future), equals('hello'));
+      },
+    );
 
     test('F-SCB23-AST-11: the adapter rejects a non-Stream argument '
         '[2026-07-28]', () {
       final adapter = bridge('Encoding').methods['decodeStream']!;
-      expect(() => adapter(visitor, utf8, ['not a stream'], {}, []),
-          throwsA(isA<RuntimeD4rtException>()));
-      expect(() => adapter(visitor, utf8, [], {}, []),
-          throwsA(isA<RuntimeD4rtException>()));
+      expect(
+        () => adapter(visitor, utf8, ['not a stream'], {}, []),
+        throwsA(isA<RuntimeD4rtException>()),
+      );
+      expect(
+        () => adapter(visitor, utf8, [], {}, []),
+        throwsA(isA<RuntimeD4rtException>()),
+      );
     });
   });
 }

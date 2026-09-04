@@ -37,8 +37,11 @@ void main() {
       expect(canRead('/allowed/'), isTrue, reason: 'trailing slash is noise');
       expect(canRead('/allowed/./file.txt'), isTrue, reason: '`.` is noise');
 
-      expect(canRead('/allowed_sneaky/file.txt'), isFalse,
-          reason: 'shares the string prefix but not the path prefix');
+      expect(
+        canRead('/allowed_sneaky/file.txt'),
+        isFalse,
+        reason: 'shares the string prefix but not the path prefix',
+      );
       expect(canRead('/allowedx'), isFalse);
       expect(canRead('/other/file.txt'), isFalse);
     });
@@ -66,8 +69,11 @@ void main() {
         reason: 'no meaningful path — e.g. the dart:io import gate',
       );
       expect(
-        readOnly.allows(
-            {'type': 'filesystem', 'pathAgnostic': true, 'write': true}),
+        readOnly.allows({
+          'type': 'filesystem',
+          'pathAgnostic': true,
+          'write': true,
+        }),
         isFalse,
         reason: 'pathAgnostic waives the PATH check, never the WRITE flag',
       );
@@ -78,8 +84,9 @@ void main() {
       // Not path-agnostic and no path supplied: the matcher cannot prove the
       // operation is in scope, so it must deny rather than assume.
       expect(
-        FilesystemPermission.readPath('/allowed')
-            .allows({'type': 'filesystem', 'read': true}),
+        FilesystemPermission.readPath(
+          '/allowed',
+        ).allows({'type': 'filesystem', 'read': true}),
         isFalse,
       );
       // An unscoped grant is unaffected.
@@ -93,13 +100,19 @@ void main() {
       // `_path == null` must keep meaning "any path" — this is what every
       // pre-existing permission test relies on.
       expect(
-        FilesystemPermission.any
-            .allows({'type': 'filesystem', 'path': '/anywhere', 'read': true}),
+        FilesystemPermission.any.allows({
+          'type': 'filesystem',
+          'path': '/anywhere',
+          'read': true,
+        }),
         isTrue,
       );
       expect(
-        FilesystemPermission.any.allows(
-            {'type': 'filesystem', 'path': '/anywhere', 'write': true}),
+        FilesystemPermission.any.allows({
+          'type': 'filesystem',
+          'path': '/anywhere',
+          'write': true,
+        }),
         isTrue,
       );
     });

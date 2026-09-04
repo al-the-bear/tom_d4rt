@@ -103,10 +103,10 @@ bool isEven(int n) => n % 2 == 0;
 List<int> getNumbers() => [1, 2, 3, 4, 5];
 
 Map<String, dynamic> createUser(String name, int age) => {
-      'name': name,
-      'age': age,
-      'createdAt': DateTime.now().toString(),
-    };
+  'name': name,
+  'age': age,
+  'createdAt': DateTime.now().toString(),
+};
 
 // Type inference on return
 inferredReturn() {

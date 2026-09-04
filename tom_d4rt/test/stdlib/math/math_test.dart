@@ -49,21 +49,26 @@ void main() {
   });
 
   group('PointCore tests', () {
-    test('I-MISC-425: Point properties and methods. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-MISC-425: Point properties and methods. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       import 'dart:math';
       main() {
         Point p = Point(3, 4);
         return [p.x, p.y, p.magnitude, p.distanceTo(Point(0, 0))];
       }
       ''';
-      expect(execute(source), equals([3, 4, 5.0, 5.0]));
-    });
+        expect(execute(source), equals([3, 4, 5.0, 5.0]));
+      },
+    );
   });
 
   group('RectangleCore tests', () {
-    test('I-MISC-426: Rectangle properties and methods. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-MISC-426: Rectangle properties and methods. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       import 'dart:math';
       main() {
         Rectangle r = Rectangle(0, 0, 10, 20);
@@ -82,7 +87,7 @@ void main() {
         ];
       }
       ''';
-      expect(
+        expect(
           execute(source),
           equals([
             0,
@@ -94,9 +99,11 @@ void main() {
             true,
             true,
             true,
-            [5, 5, 5, 10]
-          ]));
-    });
+            [5, 5, 5, 10],
+          ]),
+        );
+      },
+    );
   });
 
   group('RandomCore tests', () {

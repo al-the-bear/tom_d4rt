@@ -16,7 +16,10 @@ import 'package:tom_d4rt_ast/runtime.dart';
 void main() {
   /// Builds an [AstBundle] containing a single module whose `main`
   /// function returns the literal [returnValue] as an `int`.
-  AstBundle intBundle(int returnValue, {String entryUri = 'package:t/main.dart'}) {
+  AstBundle intBundle(
+    int returnValue, {
+    String entryUri = 'package:t/main.dart',
+  }) {
     final mainFn = SFunctionDeclaration(
       offset: 0,
       length: 0,
@@ -35,23 +38,19 @@ void main() {
               SReturnStatement(
                 offset: 0,
                 length: 0,
-                expression:
-                    SIntegerLiteral(offset: 0, length: 1, value: returnValue),
+                expression: SIntegerLiteral(
+                  offset: 0,
+                  length: 1,
+                  value: returnValue,
+                ),
               ),
             ],
           ),
         ),
       ),
     );
-    final unit = SCompilationUnit(
-      offset: 0,
-      length: 0,
-      declarations: [mainFn],
-    );
-    return AstBundle(
-      entryPointUri: entryUri,
-      modules: {entryUri: unit},
-    );
+    final unit = SCompilationUnit(offset: 0, length: 0, declarations: [mainFn]);
+    return AstBundle(entryPointUri: entryUri, modules: {entryUri: unit});
   }
 
   group('D4rtRunner.executeBundleAs<T>', () {
@@ -61,8 +60,7 @@ void main() {
       expect(result, 42);
     });
 
-    test('returns null when T is nullable and bundle returns null',
-        () {
+    test('returns null when T is nullable and bundle returns null', () {
       // We can't synthesise a `null`-returning function via an integer
       // literal helper, so we fall back to running a no-statement body
       // (returns null implicitly) and asking for a nullable T.

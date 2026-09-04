@@ -4,15 +4,18 @@ import 'package:tom_d4rt/d4rt.dart';
 dynamic execute(String source, {List<Object?>? args}) {
   final d4rt = D4rt()..setDebug(false);
   return d4rt.execute(
-      library: 'package:test/main.dart',
-      positionalArgs: args,
-      sources: {'package:test/main.dart': source});
+    library: 'package:test/main.dart',
+    positionalArgs: args,
+    sources: {'package:test/main.dart': source},
+  );
 }
 
 void main() {
   group('Improved Generics Validation', () {
-    test('I-TYPE-71: Generic class constraint validation. [2026-02-10 06:37] (PASS)', () {
-      final validCode = '''
+    test(
+      'I-TYPE-71: Generic class constraint validation. [2026-02-10 06:37] (PASS)',
+      () {
+        final validCode = '''
         class NumericContainer<T extends num> {
           T value;
           NumericContainer(this.value);
@@ -26,9 +29,9 @@ void main() {
         }
       ''';
 
-      expect(execute(validCode), equals(42));
+        expect(execute(validCode), equals(42));
 
-      final invalidCode = '''
+        final invalidCode = '''
         class NumericContainer<T extends num> {
           T value;
           NumericContainer(this.value);
@@ -42,18 +45,23 @@ void main() {
         }
       ''';
 
-      expect(
-        () => execute(invalidCode),
-        throwsA(isA<RuntimeD4rtException>().having(
-          (e) => e.message,
-          'message',
-          contains('does not satisfy bound'),
-        )),
-      );
-    });
+        expect(
+          () => execute(invalidCode),
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains('does not satisfy bound'),
+            ),
+          ),
+        );
+      },
+    );
 
-    test('I-TYPE-72: Generic function constraint validation. [2026-02-10 06:37] (PASS)', () {
-      final validCode = '''
+    test(
+      'I-TYPE-72: Generic function constraint validation. [2026-02-10 06:37] (PASS)',
+      () {
+        final validCode = '''
         T addOne<T extends num>(T value) {
           return value + 1;
         }
@@ -63,9 +71,9 @@ void main() {
         }
       ''';
 
-      expect(execute(validCode), equals(6));
+        expect(execute(validCode), equals(6));
 
-      final invalidCode = '''
+        final invalidCode = '''
         T addOne<T extends num>(T value) {
           return value + 1;
         }
@@ -75,18 +83,23 @@ void main() {
         }
       ''';
 
-      expect(
-        () => execute(invalidCode),
-        throwsA(isA<RuntimeD4rtException>().having(
-          (e) => e.message,
-          'message',
-          contains('does not satisfy bound'),
-        )),
-      );
-    });
+        expect(
+          () => execute(invalidCode),
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains('does not satisfy bound'),
+            ),
+          ),
+        );
+      },
+    );
 
-    test('I-TYPE-73: Multiple type parameters with bounds. [2026-02-10 06:37] (PASS)', () {
-      final validCode = '''
+    test(
+      'I-TYPE-73: Multiple type parameters with bounds. [2026-02-10 06:37] (PASS)',
+      () {
+        final validCode = '''
         class Pair<T extends num, U extends String> {
           T first;
           U second;
@@ -99,9 +112,9 @@ void main() {
         }
       ''';
 
-      expect(execute(validCode), isTrue);
+        expect(execute(validCode), isTrue);
 
-      final invalidCode = '''
+        final invalidCode = '''
         class Pair<T extends num, U extends String> {
           T first;
           U second;
@@ -114,18 +127,23 @@ void main() {
         }
       ''';
 
-      expect(
-        () => execute(invalidCode),
-        throwsA(isA<RuntimeD4rtException>().having(
-          (e) => e.message,
-          'message',
-          contains('does not satisfy bound'),
-        )),
-      );
-    });
+        expect(
+          () => execute(invalidCode),
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains('does not satisfy bound'),
+            ),
+          ),
+        );
+      },
+    );
 
-    test('I-TYPE-70: Nested generics constraint validation. [2026-02-10 06:37] (PASS)', () {
-      final validCode = '''
+    test(
+      'I-TYPE-70: Nested generics constraint validation. [2026-02-10 06:37] (PASS)',
+      () {
+        final validCode = '''
         class Container<T extends num> {
           List<T> items = [];
         }
@@ -136,9 +154,9 @@ void main() {
         }
       ''';
 
-      expect(execute(validCode), isTrue);
+        expect(execute(validCode), isTrue);
 
-      final invalidCode = '''
+        final invalidCode = '''
         class Container<T extends num> {
           List<T> items = [];
         }
@@ -149,14 +167,17 @@ void main() {
         }
       ''';
 
-      expect(
-        () => execute(invalidCode),
-        throwsA(isA<RuntimeD4rtException>().having(
-          (e) => e.message,
-          'message',
-          contains('does not satisfy bound'),
-        )),
-      );
-    });
+        expect(
+          () => execute(invalidCode),
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains('does not satisfy bound'),
+            ),
+          ),
+        );
+      },
+    );
   });
 }

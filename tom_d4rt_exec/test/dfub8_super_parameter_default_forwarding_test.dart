@@ -14,14 +14,14 @@ import 'package:tom_d4rt_exec/d4rt.dart';
 dynamic execute(String source) {
   final d4rt = D4rt()..setDebug(false);
   return d4rt.execute(
-      library: 'package:test/main.dart',
-      sources: {'package:test/main.dart': source});
+    library: 'package:test/main.dart',
+    sources: {'package:test/main.dart': source},
+  );
 }
 
 void main() {
   group('DFUB8 (exec): super-parameter default forwarding', () {
-    test(
-        'F-DFUB8-EXEC-1: optional positional super param uses parent default '
+    test('F-DFUB8-EXEC-1: optional positional super param uses parent default '
         '[2026-07-27] (PASS)', () {
       const code = '''
         class Parent {
@@ -43,8 +43,7 @@ void main() {
       expect(execute(code), equals(['test', 0, 'test2', 42]));
     });
 
-    test(
-        'F-DFUB8-EXEC-2: super param with default value in parent '
+    test('F-DFUB8-EXEC-2: super param with default value in parent '
         '[2026-07-27] (PASS)', () {
       const code = '''
         class Parent {

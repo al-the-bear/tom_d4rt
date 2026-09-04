@@ -5,9 +5,9 @@
 /// A simple extension on String with a getter
 extension StringHelpers on String {
   bool get isPalindrome => this == split('').reversed.join();
-  
+
   String get reversed => split('').reversed.join();
-  
+
   String repeat(int times) {
     final sb = StringBuffer();
     for (var i = 0; i < times; i++) {
@@ -15,14 +15,14 @@ extension StringHelpers on String {
     }
     return sb.toString();
   }
-  
+
   String surround(String prefix, String suffix) => '$prefix$this$suffix';
 }
 
 /// An unnamed extension on int
 extension on int {
   int get doubled => this * 2;
-  
+
   int add(int other) => this + other;
 }
 
@@ -46,6 +46,6 @@ class Point {
 /// Extension on a custom class
 extension PointExtensions on Point {
   double get magnitude => (x * x + y * y).toDouble();
-  
+
   Point add(Point other) => Point(x + other.x, y + other.y);
 }

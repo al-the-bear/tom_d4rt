@@ -28,8 +28,7 @@ void main() {
     setUp(D4rtRunner.debugResetPool);
     tearDown(D4rtRunner.debugResetPool);
 
-    test(
-        'IMP-OPT-11a: two runners registering the same package fire the '
+    test('IMP-OPT-11a: two runners registering the same package fire the '
         'callback exactly once', () {
       var fireCount = 0;
 
@@ -44,55 +43,72 @@ void main() {
       second.registerExtensions('shared_pkg', () => fireCount += 100);
       second.finalizeBridges();
 
-      expect(fireCount, 1,
-          reason: 'second runner must NOT re-fire the already-fired package');
+      expect(
+        fireCount,
+        1,
+        reason: 'second runner must NOT re-fire the already-fired package',
+      );
     });
 
     test(
-        'IMP-OPT-11b: canonical providePackage idiom fires extensions once', () {
-      var fireCount = 0;
+      'IMP-OPT-11b: canonical providePackage idiom fires extensions once',
+      () {
+        var fireCount = 0;
 
-      // First instance: providePackage returns false → register + extensions.
-      final first = D4rtRunner();
-      if (first.providePackage('flutter') == false) {
-        first.registerBridgedClass(marker('FWidget'), 'package:f/f.dart',
-            sourceUri: 'package:f/f.dart');
-        first.registerExtensions('flutter', () => fireCount++);
-      }
-      first.finalizeBridges();
-      expect(fireCount, 1);
+        // First instance: providePackage returns false → register + extensions.
+        final first = D4rtRunner();
+        if (first.providePackage('flutter') == false) {
+          first.registerBridgedClass(
+            marker('FWidget'),
+            'package:f/f.dart',
+            sourceUri: 'package:f/f.dart',
+          );
+          first.registerExtensions('flutter', () => fireCount++);
+        }
+        first.finalizeBridges();
+        expect(fireCount, 1);
 
-      // Second instance: providePackage returns true → skips both branches.
-      final second = D4rtRunner();
-      if (second.providePackage('flutter') == false) {
-        // Should NOT enter — already pooled.
-        second.registerExtensions('flutter', () => fireCount += 100);
-      }
-      second.finalizeBridges();
+        // Second instance: providePackage returns true → skips both branches.
+        final second = D4rtRunner();
+        if (second.providePackage('flutter') == false) {
+          // Should NOT enter — already pooled.
+          second.registerExtensions('flutter', () => fireCount += 100);
+        }
+        second.finalizeBridges();
 
-      expect(fireCount, 1,
-          reason: 'second instance skips registration and the extension, and '
-              'the pooled callback is already fired');
-    });
+        expect(
+          fireCount,
+          1,
+          reason:
+              'second instance skips registration and the extension, and '
+              'the pooled callback is already fired',
+        );
+      },
+    );
 
-    test('IMP-OPT-11c: distinct packages each fire once in registration order',
-        () {
-      final order = <String>[];
+    test(
+      'IMP-OPT-11c: distinct packages each fire once in registration order',
+      () {
+        final order = <String>[];
 
-      final first = D4rtRunner();
-      first.registerExtensions('alpha', () => order.add('alpha'));
-      first.registerExtensions('beta', () => order.add('beta'));
-      first.finalizeBridges();
-      expect(order, equals(<String>['alpha', 'beta']));
+        final first = D4rtRunner();
+        first.registerExtensions('alpha', () => order.add('alpha'));
+        first.registerExtensions('beta', () => order.add('beta'));
+        first.finalizeBridges();
+        expect(order, equals(<String>['alpha', 'beta']));
 
-      // A second runner re-registering both fires neither again.
-      final second = D4rtRunner();
-      second.registerExtensions('alpha', () => order.add('alpha2'));
-      second.registerExtensions('beta', () => order.add('beta2'));
-      second.finalizeBridges();
+        // A second runner re-registering both fires neither again.
+        final second = D4rtRunner();
+        second.registerExtensions('alpha', () => order.add('alpha2'));
+        second.registerExtensions('beta', () => order.add('beta2'));
+        second.finalizeBridges();
 
-      expect(order, equals(<String>['alpha', 'beta']),
-          reason: 'both packages already fired once in this process');
-    });
+        expect(
+          order,
+          equals(<String>['alpha', 'beta']),
+          reason: 'both packages already fired once in this process',
+        );
+      },
+    );
   });
 }

@@ -27,7 +27,7 @@ void main() {
     Day.monday => 'Start of work week',
     Day.friday => 'Almost weekend!',
     Day.saturday || Day.sunday => 'Weekend!',
-    _ => 'Regular work day'
+    _ => 'Regular work day',
   };
   print('Activity: $activity');
 
@@ -50,7 +50,9 @@ void main() {
   print('');
   print('All seasons:');
   for (var season in Season.values) {
-    print('  ${season.name}: ${season.months.join(", ")} (${season.avgTemperature}°C)');
+    print(
+      '  ${season.name}: ${season.months.join(", ")} (${season.avgTemperature}°C)',
+    );
   }
 
   // Enum with methods
@@ -80,7 +82,12 @@ void main() {
   // Implementing interfaces
   print('');
   print('--- Enum Implementing Interface ---');
-  var ops = [Operation.add, Operation.subtract, Operation.multiply, Operation.divide];
+  var ops = [
+    Operation.add,
+    Operation.subtract,
+    Operation.multiply,
+    Operation.divide,
+  ];
 
   for (var op in ops) {
     var result = op.execute(10, 3);
@@ -93,7 +100,9 @@ void main() {
   var debug = LogLevel.debug;
   print('Log level: ${debug.name}');
   print('Severity: ${debug.severity}');
-  print('Should log warning for debug level: ${LogLevel.warning.shouldLog(debug)}');
+  print(
+    'Should log warning for debug level: ${LogLevel.warning.shouldLog(debug)}',
+  );
   print('Should log info for debug level: ${LogLevel.info.shouldLog(debug)}');
 
   // Parsing enum
@@ -130,7 +139,12 @@ void main() {
   // Comparable enum
   print('');
   print('--- Comparable Enum ---');
-  var levels = [LogLevel.warning, LogLevel.debug, LogLevel.error, LogLevel.info];
+  var levels = [
+    LogLevel.warning,
+    LogLevel.debug,
+    LogLevel.error,
+    LogLevel.info,
+  ];
   levels.sort((a, b) => a.severity.compareTo(b.severity));
   print('Sorted by severity: ${levels.map((l) => l.name).join(", ")}');
 
@@ -139,15 +153,7 @@ void main() {
 }
 
 // Simple enum
-enum Day {
-  monday,
-  tuesday,
-  wednesday,
-  thursday,
-  friday,
-  saturday,
-  sunday,
-}
+enum Day { monday, tuesday, wednesday, thursday, friday, saturday, sunday }
 
 // Enhanced enum with fields
 enum Season {

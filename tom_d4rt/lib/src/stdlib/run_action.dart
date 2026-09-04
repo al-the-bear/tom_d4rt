@@ -30,5 +30,4 @@ T? runAction<T>(
   InterpreterVisitor visitor,
   InterpretedFunction? function,
   List<Object?> args,
-) =>
-    function?.call(visitor, args) as T?;
+) => function?.call(visitor, args) as T?;

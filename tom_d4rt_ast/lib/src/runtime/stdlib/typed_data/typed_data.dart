@@ -29,16 +29,14 @@ import 'package:tom_d4rt_ast/runtime.dart';
 /// `LinkedList -> Iterable` recovered 25 members in SCB7.
 class TypedDataTypedData {
   static BridgedClass get definition => BridgedClass(
-        nativeType: TypedData,
-        name: 'TypedData',
-        getters: {
-          'buffer': (visitor, target) => (target as TypedData).buffer,
-          'lengthInBytes': (visitor, target) =>
-              (target as TypedData).lengthInBytes,
-          'offsetInBytes': (visitor, target) =>
-              (target as TypedData).offsetInBytes,
-          'elementSizeInBytes': (visitor, target) =>
-              (target as TypedData).elementSizeInBytes,
-        },
-      );
+    nativeType: TypedData,
+    name: 'TypedData',
+    getters: {
+      'buffer': (visitor, target) => (target as TypedData).buffer,
+      'lengthInBytes': (visitor, target) => (target as TypedData).lengthInBytes,
+      'offsetInBytes': (visitor, target) => (target as TypedData).offsetInBytes,
+      'elementSizeInBytes': (visitor, target) =>
+          (target as TypedData).elementSizeInBytes,
+    },
+  );
 }

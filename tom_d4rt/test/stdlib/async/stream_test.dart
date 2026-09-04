@@ -6,7 +6,8 @@ void main() {
   group('Interpreted Stream Bindings Tests', () {
     // Helper to run Interpreted code that involves async operations
     Future<dynamic> runInterpretedStreamTest(String code) async {
-      final fullSource = '''
+      final fullSource =
+          '''
         import 'dart:async';
 
         Future<dynamic> main() async {
@@ -49,13 +50,16 @@ void main() {
         expect(await runInterpretedStreamTest(source), isTrue);
       });
 
-      test('I-ASYNC-123: Stream.fromIterable. [2026-02-10 06:37] (PASS)', () async {
-        const source = '''
+      test(
+        'I-ASYNC-123: Stream.fromIterable. [2026-02-10 06:37] (PASS)',
+        () async {
+          const source = '''
           Stream s = Stream.fromIterable([1, 2, 3]);
           return await s.toList();
         ''';
-        expect(await runInterpretedStreamTest(source), equals([1, 2, 3]));
-      });
+          expect(await runInterpretedStreamTest(source), equals([1, 2, 3]));
+        },
+      );
 
       test('I-ASYNC-124: Stream.periodic. [2026-02-10 06:37] (PASS)', () async {
         const source = '''
@@ -67,29 +71,35 @@ void main() {
         expect(await runInterpretedStreamTest(source), equals([0, 1, 2]));
       });
 
-      test('I-ASYNC-125: Stream.fromFuture. [2026-02-10 06:37] (PASS)', () async {
-        const source = '''
+      test(
+        'I-ASYNC-125: Stream.fromFuture. [2026-02-10 06:37] (PASS)',
+        () async {
+          const source = '''
           Future<String> f = Future.delayed(Duration(milliseconds: 1), () => "done");
           Stream s = Stream.fromFuture(f);
           return await s.toList();
         ''';
-        expect(await runInterpretedStreamTest(source), equals(["done"]));
-      });
+          expect(await runInterpretedStreamTest(source), equals(["done"]));
+        },
+      );
 
-      test('I-ASYNC-126: Stream.fromFutures. [2026-02-10 06:37] (PASS)', () async {
-        const source = '''
+      test(
+        'I-ASYNC-126: Stream.fromFutures. [2026-02-10 06:37] (PASS)',
+        () async {
+          const source = '''
           Future<int> f1 = Future.delayed(Duration(milliseconds: 5), () => 1);
           Future<int> f2 = Future.value(2);
           Future<int> f3 = Future.delayed(Duration(milliseconds: 1), () => 3);
           Stream s = Stream.fromFutures([f1, f2, f3]);
           return await s.toList();
         ''';
-        // Order depends on Future completion, but all should be present
-        List<dynamic> result =
-            await runInterpretedStreamTest(source) as List<dynamic>;
-        expect(result, containsAll([1, 2, 3]));
-        expect(result.length, 3);
-      });
+          // Order depends on Future completion, but all should be present
+          List<dynamic> result =
+              await runInterpretedStreamTest(source) as List<dynamic>;
+          expect(result, containsAll([1, 2, 3]));
+          expect(result.length, 3);
+        },
+      );
     });
 
     group('Stream Instance Methods & Properties', () {
@@ -174,29 +184,37 @@ void main() {
         expect(await runInterpretedStreamTest(source), equals([4, 5]));
       });
 
-      test('I-ASYNC-104: Stream.takeWhile. [2026-02-10 06:37] (PASS)', () async {
-        const source = '''
+      test(
+        'I-ASYNC-104: Stream.takeWhile. [2026-02-10 06:37] (PASS)',
+        () async {
+          const source = '''
                  Stream s = Stream.fromIterable([2, 4, 6, 7, 8]);
                  return await s.takeWhile((n) => n % 2 == 0).toList(); // Take while even
              ''';
-        expect(await runInterpretedStreamTest(source), equals([2, 4, 6]));
-      });
+          expect(await runInterpretedStreamTest(source), equals([2, 4, 6]));
+        },
+      );
 
-      test('I-ASYNC-105: Stream.skipWhile. [2026-02-10 06:37] (PASS)', () async {
-        const source = '''
+      test(
+        'I-ASYNC-105: Stream.skipWhile. [2026-02-10 06:37] (PASS)',
+        () async {
+          const source = '''
                  Stream s = Stream.fromIterable([2, 4, 6, 7, 8]);
                  return await s.skipWhile((n) => n < 5).toList(); // Skip while less than 5
              ''';
-        expect(await runInterpretedStreamTest(source), equals([6, 7, 8]));
-      });
+          expect(await runInterpretedStreamTest(source), equals([6, 7, 8]));
+        },
+      );
 
       test('I-ASYNC-106: Stream.distinct. [2026-02-10 06:37] (PASS)', () async {
         const source = '''
                 Stream s = Stream.fromIterable([1, 2, 2, 3, 1, 3, 4, 2]);
                 return await s.distinct().toList();
             ''';
-        expect(await runInterpretedStreamTest(source),
-            equals([1, 2, 3, 1, 3, 4, 2]));
+        expect(
+          await runInterpretedStreamTest(source),
+          equals([1, 2, 3, 1, 3, 4, 2]),
+        );
 
         // With custom equals (based on first char for strings)
         const sourceCustom = '''
@@ -209,8 +227,10 @@ void main() {
                 Stream s = Stream.fromIterable(["apple", "apricot", "banana", "avocado", "berry"]);
                 return await s.distinct(firstCharEquals).toList();
             ''';
-        expect(await runInterpretedStreamTest(sourceCustom),
-            equals(["apple", "banana", "avocado", "berry"]));
+        expect(
+          await runInterpretedStreamTest(sourceCustom),
+          equals(["apple", "banana", "avocado", "berry"]),
+        );
       });
 
       test('I-ASYNC-107: Stream.toList. [2026-02-10 06:37] (PASS)', () async {
@@ -317,8 +337,10 @@ void main() {
         expect(await runInterpretedStreamTest(source), equals([1, 2.5, 3]));
       });
 
-      test('I-ASYNC-119: Stream.asBroadcastStream. [2026-02-10 06:37] (PASS)', () async {
-        const source = '''
+      test(
+        'I-ASYNC-119: Stream.asBroadcastStream. [2026-02-10 06:37] (PASS)',
+        () async {
+          const source = '''
              StreamController controller = StreamController();
              Stream singleSub = controller.stream;
              Stream broadcast = singleSub.asBroadcastStream();
@@ -337,17 +359,20 @@ void main() {
              // Return results from both listeners
              return [results1, results2];
            ''';
-        List<dynamic> result =
-            await runInterpretedStreamTest(source) as List<dynamic>;
-        expect(result.length, 2);
-        expect(result[0], equals([1, 2]));
-        expect(result[1], equals(["item:1", "item:2"]));
-      });
+          List<dynamic> result =
+              await runInterpretedStreamTest(source) as List<dynamic>;
+          expect(result.length, 2);
+          expect(result[0], equals([1, 2]));
+          expect(result[1], equals(["item:1", "item:2"]));
+        },
+      );
     });
 
     group('Stream Listen & Subscription', () {
-      test('I-ASYNC-120: Listen with onData, onDone. [2026-02-10 06:37] (PASS)', () async {
-        const source = '''
+      test(
+        'I-ASYNC-120: Listen with onData, onDone. [2026-02-10 06:37] (PASS)',
+        () async {
+          const source = '''
             StreamController controller = StreamController();
             List<dynamic> dataReceived = [];
             bool doneCalled = false;
@@ -369,14 +394,17 @@ void main() {
 
             return {'data': dataReceived, 'done': doneCalled};
           ''';
-        Map<dynamic, dynamic> result =
-            await runInterpretedStreamTest(source) as Map<dynamic, dynamic>;
-        expect(result['data'], equals([10, 20]));
-        expect(result['done'], isTrue);
-      });
+          Map<dynamic, dynamic> result =
+              await runInterpretedStreamTest(source) as Map<dynamic, dynamic>;
+          expect(result['data'], equals([10, 20]));
+          expect(result['done'], isTrue);
+        },
+      );
 
-      test('I-ASYNC-121: Listen with onError. [2026-02-10 06:37] (PASS)', () async {
-        const source = '''
+      test(
+        'I-ASYNC-121: Listen with onError. [2026-02-10 06:37] (PASS)',
+        () async {
+          const source = '''
             StreamController controller = StreamController();
             dynamic errorReceived = null;
             Completer errorCompleter = Completer();
@@ -396,8 +424,9 @@ void main() {
 
             return errorReceived;
           ''';
-        expect(await runInterpretedStreamTest(source), equals("Boom!"));
-      });
+          expect(await runInterpretedStreamTest(source), equals("Boom!"));
+        },
+      );
     });
   });
 }

@@ -4,8 +4,10 @@ import '../interpreter_test.dart';
 
 void main() {
   group('Class Tests', () {
-    test('I-CLASS-69: Basic class instantiation (implicit constructor). [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-CLASS-69: Basic class instantiation (implicit constructor). [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         class Simple {
           int x = 10;
         }
@@ -15,11 +17,14 @@ void main() {
           return s.x;
         }
       ''';
-      expect(execute(source), equals(10));
-    });
+        expect(execute(source), equals(10));
+      },
+    );
 
-    test('I-CLASS-47: Class instantiation (explicit default constructor). [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-CLASS-47: Class instantiation (explicit default constructor). [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         class Simple {
           int x = 5;
           Simple() { // Explicit default constructor
@@ -32,8 +37,9 @@ void main() {
           return s.x;
         }
       ''';
-      expect(execute(source), equals(20));
-    });
+        expect(execute(source), equals(20));
+      },
+    );
 
     test('I-CLASS-56: Field access and update. [2026-02-10 06:37] (PASS)', () {
       const source = '''
@@ -52,8 +58,10 @@ void main() {
       expect(execute(source), equals(['initial', 'updated']));
     });
 
-    test('I-CLASS-62: Instance method call (no parameters). [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-CLASS-62: Instance method call (no parameters). [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         class Greeter {
           String greet() {
             return 'Hello!';
@@ -65,11 +73,14 @@ void main() {
           return g.greet();
         }
       ''';
-      expect(execute(source), equals('Hello!'));
-    });
+        expect(execute(source), equals('Hello!'));
+      },
+    );
 
-    test('I-CLASS-70: Instance method call (with parameters). [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-CLASS-70: Instance method call (with parameters). [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         class Adder {
           int add(int a, int b) {
             return a + b;
@@ -81,11 +92,14 @@ void main() {
           return adder.add(5, 3);
         }
       ''';
-      expect(execute(source), equals(8));
-    });
+        expect(execute(source), equals(8));
+      },
+    );
 
-    test('I-CLASS-77: Instance method using instance fields. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-CLASS-77: Instance method using instance fields. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         class Counter {
           int count = 0;
           void increment() {
@@ -103,11 +117,14 @@ void main() {
           return c.getValue();
         }
       ''';
-      expect(execute(source), equals(2));
-    });
+        expect(execute(source), equals(2));
+      },
+    );
 
-    test('I-CLASS-41: Constructor with positional parameters. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-CLASS-41: Constructor with positional parameters. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         class Points {
           int x, y;
           Points(int x_param, int y_param) {
@@ -121,11 +138,14 @@ void main() {
           return [p.x, p.y];
         }
       ''';
-      expect(execute(source), equals([10, 20]));
-    });
+        expect(execute(source), equals([10, 20]));
+      },
+    );
 
-    test('I-CLASS-85: Constructor using \'this.fieldName\' syntax. [2026-02-12] (PASS)', () {
-      const source = '''
+    test(
+      'I-CLASS-85: Constructor using \'this.fieldName\' syntax. [2026-02-12] (PASS)',
+      () {
+        const source = '''
         class Points {
           int x, y;
           Points(this.x, this.y);
@@ -136,8 +156,9 @@ void main() {
           return [p.x, p.y];
         }
       ''';
-      expect(execute(source), equals([3, 4]));
-    });
+        expect(execute(source), equals([3, 4]));
+      },
+    );
 
     test('I-CLASS-43: Named constructor. [2026-02-10 06:37] (PASS)', () {
       const source = '''
@@ -165,8 +186,10 @@ void main() {
     });
 
     group('Inheritance', () {
-      test('I-CLASS-44: Basic inheritance: Accessing superclass members. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-CLASS-44: Basic inheritance: Accessing superclass members. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
           class Animal {
             String name = 'Generic';
             String sound() => '?';
@@ -182,8 +205,9 @@ void main() {
           }
         ''';
 
-        expect(execute(source), equals(['Generic', '?']));
-      });
+          expect(execute(source), equals(['Generic', '?']));
+        },
+      );
 
       test('I-CLASS-45: Method overriding. [2026-02-10 06:37] (PASS)', () {
         const source = '''
@@ -203,8 +227,10 @@ void main() {
         expect(execute(source), equals('Meow'));
       });
 
-      test('I-CLASS-46: Constructor with super call (implicit). [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-CLASS-46: Constructor with super call (implicit). [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
             class Base {
               String id;
               Base() { // Explicit default constructor in base
@@ -220,11 +246,14 @@ void main() {
               return d.id;
             }
           ''';
-        expect(execute(source), equals('base_default'));
-      });
+          expect(execute(source), equals('base_default'));
+        },
+      );
 
-      test('I-CLASS-48: Constructor with explicit super call. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-CLASS-48: Constructor with explicit super call. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
           class Base {
             int value;
             Base(this.value);
@@ -239,9 +268,10 @@ void main() {
             return d.value; // Should be 10 * 2 = 20
           }
         ''';
-        // Requires parsing/execution of SuperConstructorInvocation
-        expect(execute(source), equals(20));
-      });
+          // Requires parsing/execution of SuperConstructorInvocation
+          expect(execute(source), equals(20));
+        },
+      );
     });
 
     group('Getters and Setters', () {
@@ -277,8 +307,10 @@ void main() {
         expect(execute(source), equals(11));
       });
 
-      test('I-CLASS-51: Getter/Setter interaction. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-CLASS-51: Getter/Setter interaction. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
           class Circle {
             num radius = 0;
             num get area => 3.14 * radius * radius;
@@ -293,12 +325,15 @@ void main() {
             return [c.radius, c.diameter, c.area]; 
           }
         ''';
-        // area = 3.14 * 5 * 5 = 78.5
-        expect(execute(source), equals([5, 10, 78.5]));
-      });
+          // area = 3.14 * 5 * 5 = 78.5
+          expect(execute(source), equals([5, 10, 78.5]));
+        },
+      );
     });
-    test('I-CLASS-52: Basic class with constructor. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-CLASS-52: Basic class with constructor. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
         class Person {
           String name;
           int age;
@@ -313,11 +348,14 @@ void main() {
           return person.introduce();
         }
       ''');
-      expect(result, equals('Hello, I am Alice and I am 30 years old'));
-    });
+        expect(result, equals('Hello, I am Alice and I am 30 years old'));
+      },
+    );
 
-    test('I-CLASS-53: Class with named constructor. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-CLASS-53: Class with named constructor. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
         class Points {
           double x;
           double y;
@@ -338,11 +376,14 @@ void main() {
           return [p1.x, p1.y, p2.x, p2.y, p3.x, p3.y];
         }
       ''');
-      expect(result, equals([1, 2, 0, 0, 3, 4]));
-    });
+        expect(result, equals([1, 2, 0, 0, 3, 4]));
+      },
+    );
 
-    test('I-CLASS-54: Class with getters and setters. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-CLASS-54: Class with getters and setters. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
         class Rectangles {
           double _width;
           double _height;
@@ -367,11 +408,14 @@ void main() {
           return [rect.area, rect.perimeter];
         }
       ''');
-      expect(result, equals([72, 36]));
-    });
+        expect(result, equals([72, 36]));
+      },
+    );
 
-    test('I-CLASS-55: Class inheritance with method override. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-CLASS-55: Class inheritance with method override. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
         class Animal {
           String name;
           
@@ -400,11 +444,14 @@ void main() {
           return [dog.speak(), cat.speak()];
         }
       ''');
-      expect(result, equals(['Woof!', 'Meow!']));
-    });
+        expect(result, equals(['Woof!', 'Meow!']));
+      },
+    );
 
-    test('I-CLASS-57: Complex class hierarchy with abstract class. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-CLASS-57: Complex class hierarchy with abstract class. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
         abstract class Shape {
           Shape();
           double get area;
@@ -441,8 +488,9 @@ void main() {
           return [circle.area, circle.perimeter, square.area, square.perimeter];
         }
       ''');
-      expect(result, equals([78.53975, 31.4159, 16, 16]));
-    });
+        expect(result, equals([78.53975, 31.4159, 16, 16]));
+      },
+    );
 
     test('I-CLASS-58: Class with mixin. [2026-02-10 06:37] (PASS)', () {
       final result = execute('''
@@ -469,8 +517,10 @@ void main() {
       ''');
       expect(result, equals(true));
     });
-    test('I-CLASS-59: Named constructor with named parameters. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-CLASS-59: Named constructor with named parameters. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         class Points {
           double? x;
           double? y;
@@ -491,11 +541,14 @@ void main() {
 
       ''';
 
-      expect(execute(source), equals([1, 2, 3, 4]));
-    });
+        expect(execute(source), equals([1, 2, 3, 4]));
+      },
+    );
 
-    test('I-CLASS-60: Complex class interaction. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-CLASS-60: Complex class interaction. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
         class BankAccount {
           String owner;
           double _balance;
@@ -533,8 +586,9 @@ void main() {
           return account.balance;
         }
       ''');
-      expect(result, equals(1365));
-    });
+        expect(result, equals(1365));
+      },
+    );
     test('I-CLASS-61: Simple. [2026-02-10 06:37] (PASS)', () {
       final result = execute('''
         class BankAccount {
@@ -606,8 +660,10 @@ void main() {
         expect(result, equals([true, false]));
       });
 
-      test('I-CLASS-65: Comparison operators (< and >). [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-65: Comparison operators (< and >). [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class Temperature {
             final double celsius;
             Temperature(this.celsius);
@@ -627,11 +683,14 @@ void main() {
             return [t1 < t2, t1 > t2];
           }
         ''');
-        expect(result, equals([true, false]));
-      });
+          expect(result, equals([true, false]));
+        },
+      );
 
-      test('I-CLASS-66: Multiple operators on same class. [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-66: Multiple operators on same class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class Vector {
             final double x;
             final double y;
@@ -664,14 +723,16 @@ void main() {
             ];
           }
         ''');
-        expect(
+          expect(
             result,
             equals([
               [4.0, 6.0],
               [-2.0, -2.0],
-              [2.0, 4.0]
-            ]));
-      });
+              [2.0, 4.0],
+            ]),
+          );
+        },
+      );
     });
 
     group('Index Operators', () {
@@ -694,8 +755,10 @@ void main() {
         expect(result, equals([10, 20, 30]));
       });
 
-      test('I-CLASS-68: Index assignment operator ([]=). [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-68: Index assignment operator ([]=). [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class NumberContainer {
             final List<int> numbers;
             NumberContainer(this.numbers);
@@ -715,11 +778,14 @@ void main() {
             return [container[0], container[1], container[2]];
           }
         ''');
-        expect(result, equals([10, 99, 30]));
-      });
+          expect(result, equals([10, 99, 30]));
+        },
+      );
 
-      test('I-CLASS-71: Compound assignment with index operators. [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-71: Compound assignment with index operators. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class NumberContainer {
             final List<int> numbers;
             NumberContainer(this.numbers);
@@ -741,11 +807,14 @@ void main() {
             return [container[0], container[1], container[2]];
           }
         ''');
-        expect(result, equals([15, 40, 20]));
-      });
+          expect(result, equals([15, 40, 20]));
+        },
+      );
 
-      test('I-CLASS-72: String-keyed container with index operators. [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-72: String-keyed container with index operators. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class StringKeyedContainer {
             final Map<String, String> data = {};
             
@@ -766,11 +835,14 @@ void main() {
             return [container['name'], container['age'], container['unknown']];
           }
         ''');
-        expect(result, equals(['Alice', '30', 'not found']));
-      });
+          expect(result, equals(['Alice', '30', 'not found']));
+        },
+      );
 
-      test('I-CLASS-73: Index operators with inheritance. [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-73: Index operators with inheritance. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class BaseContainer {
             final List<dynamic> items;
             BaseContainer(this.items);
@@ -796,13 +868,16 @@ void main() {
             return [container[0], container[1], container[2]];
           }
         ''');
-        expect(result, equals([100, 2, 3]));
-      });
+          expect(result, equals([100, 2, 3]));
+        },
+      );
     });
 
     group('Unary Operators', () {
-      test('I-CLASS-74: Unary minus operator (-). [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-74: Unary minus operator (-). [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class Vector {
             final double x;
             final double y;
@@ -819,11 +894,14 @@ void main() {
             return [negV.x, negV.y];
           }
         ''');
-        expect(result, equals([-3.0, -4.0]));
-      });
+          expect(result, equals([-3.0, -4.0]));
+        },
+      );
 
-      test('I-CLASS-75: Bitwise NOT operator (~). [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-75: Bitwise NOT operator (~). [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class BitMask {
             final int value;
             BitMask(this.value);
@@ -839,11 +917,14 @@ void main() {
             return inverted.value;
           }
         ''');
-        expect(result, equals(~5)); // -6 in two's complement
-      });
+          expect(result, equals(~5)); // -6 in two's complement
+        },
+      );
 
-      test('I-CLASS-76: Multiple unary operators on same class. [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-76: Multiple unary operators on same class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class SignedNumber {
             final int value;
             SignedNumber(this.value);
@@ -865,11 +946,14 @@ void main() {
             return [negated.value, inverted.value];
           }
         ''');
-        expect(result, equals([-10, ~10])); // [-10, -11]
-      });
+          expect(result, equals([-10, ~10])); // [-10, -11]
+        },
+      );
 
-      test('I-CLASS-78: Unary operators with inheritance. [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-78: Unary operators with inheritance. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class BaseNumber {
             final int value;
             BaseNumber(this.value);
@@ -891,11 +975,14 @@ void main() {
             return negated.value;
           }
         ''');
-        expect(result, equals(-42));
-      });
+          expect(result, equals(-42));
+        },
+      );
 
-      test('I-CLASS-79: Complex unary operator with custom logic. [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-79: Complex unary operator with custom logic. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class ComplexNumber {
             final double real;
             final double imaginary;
@@ -912,11 +999,14 @@ void main() {
             return [negated.real, negated.imaginary];
           }
         ''');
-        expect(result, equals([-3.5, 2.1]));
-      });
+          expect(result, equals([-3.5, 2.1]));
+        },
+      );
 
-      test('I-CLASS-80: Unary operator precedence over extensions. [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-80: Unary operator precedence over extensions. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class CustomInt {
             final int value;
             CustomInt(this.value);
@@ -932,13 +1022,16 @@ void main() {
             return result.value;
           }
         ''');
-        expect(result, equals(-50)); // 5 * -10, not just -5
-      });
+          expect(result, equals(-50)); // 5 * -10, not just -5
+        },
+      );
     });
 
     group('Increment/Decrement Operators', () {
-      test('I-CLASS-81: Prefix increment on property access (++obj.field). [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-81: Prefix increment on property access (++obj.field). [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class Counter {
             int count = 10;
           }
@@ -949,11 +1042,14 @@ void main() {
             return [newValue, counter.count];
           }
         ''');
-        expect(result, equals([11, 11]));
-      });
+          expect(result, equals([11, 11]));
+        },
+      );
 
-      test('I-CLASS-82: Postfix increment on property access (obj.field++). [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-82: Postfix increment on property access (obj.field++). [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class Counter {
             int count = 5;
           }
@@ -964,11 +1060,14 @@ void main() {
             return [oldValue, counter.count];
           }
         ''');
-        expect(result, equals([5, 6]));
-      });
+          expect(result, equals([5, 6]));
+        },
+      );
 
-      test('I-CLASS-83: Prefix decrement on property access (--obj.field). [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-83: Prefix decrement on property access (--obj.field). [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class Counter {
             int count = 20;
           }
@@ -979,11 +1078,14 @@ void main() {
             return [newValue, counter.count];
           }
         ''');
-        expect(result, equals([19, 19]));
-      });
+          expect(result, equals([19, 19]));
+        },
+      );
 
-      test('I-CLASS-84: Postfix decrement on property access (obj.field--). [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-84: Postfix decrement on property access (obj.field--). [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class Counter {
             int count = 15;
           }
@@ -994,45 +1096,56 @@ void main() {
             return [oldValue, counter.count];
           }
         ''');
-        expect(result, equals([15, 14]));
-      });
+          expect(result, equals([15, 14]));
+        },
+      );
 
-      test('I-CLASS-38: Prefix increment on index access (++array[i]). [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-38: Prefix increment on index access (++array[i]). [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           main() {
             var list = [10, 20, 30];
             var newValue = ++list[1];
             return [newValue, list[1], list];
           }
         ''');
-        expect(
+          expect(
             result,
             equals([
               21,
               21,
-              [10, 21, 30]
-            ]));
-      });
+              [10, 21, 30],
+            ]),
+          );
+        },
+      );
 
-      test('I-CLASS-39: Postfix increment on index access (array[i]++). [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-39: Postfix increment on index access (array[i]++). [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           main() {
             var list = [5, 15, 25];
             var oldValue = list[0]++;
             return [oldValue, list[0], list];
           }
         ''');
-        expect(
+          expect(
             result,
             equals([
               5,
               6,
-              [6, 15, 25]
-            ]));
-      });
+              [6, 15, 25],
+            ]),
+          );
+        },
+      );
 
-      test('I-CLASS-40: Increment with custom class operators. [2026-02-10 06:37] (PASS)', () {
-        final result = execute('''
+      test(
+        'I-CLASS-40: Increment with custom class operators. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = execute('''
           class CustomNumber {
             int value;
             CustomNumber(this.value);
@@ -1049,8 +1162,9 @@ void main() {
             return num.value;
           }
         ''');
-        expect(result, equals(11));
-      });
+          expect(result, equals(11));
+        },
+      );
     });
   });
 }

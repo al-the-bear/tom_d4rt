@@ -31,7 +31,7 @@ class LoadedModule {
   final SCompilationUnit ast; // The AST of the module
   final Environment environment; // The environment of this module
   final Environment
-      exportedEnvironment; // The environment of the exported symbols
+  exportedEnvironment; // The environment of the exported symbols
 
   LoadedModule(this.uri, this.ast, this.environment, this.exportedEnvironment);
 
@@ -149,22 +149,27 @@ class ModuleLoader implements context.ModuleContext {
   /// [SCompilationUnit] nodes. When null, the module loader can only
   /// work with pre-parsed AST input.
   final SCompilationUnit Function(String sourceCode, Uri uri)?
-      parseSourceCallback;
+  parseSourceCallback;
 
-  ModuleLoader(this.globalEnvironment, this.sources,
-      this.bridgedEnumDefinitions, this.bridgedClases,
-      {this.d4rt,
-      this.libraryFunctions = const [],
-      this.libraryVariables = const [],
-      this.libraryGetters = const [],
-      this.librarySetters = const [],
-      this.bridgedExtensions = const [],
-      this.collectRegistrationErrors = false,
-      this.parseSourceCallback,
-      this.basePath,
-      this.allowFileSystemImports = false}) {
+  ModuleLoader(
+    this.globalEnvironment,
+    this.sources,
+    this.bridgedEnumDefinitions,
+    this.bridgedClases, {
+    this.d4rt,
+    this.libraryFunctions = const [],
+    this.libraryVariables = const [],
+    this.libraryGetters = const [],
+    this.librarySetters = const [],
+    this.bridgedExtensions = const [],
+    this.collectRegistrationErrors = false,
+    this.parseSourceCallback,
+    this.basePath,
+    this.allowFileSystemImports = false,
+  }) {
     Logger.debug(
-        "[ModuleLoader] Initialized with ${sources.length} preloaded sources.");
+      "[ModuleLoader] Initialized with ${sources.length} preloaded sources.",
+    );
   }
 
   /// DGUB3 (mirrors tom_d4rt DFUB1) — the URI the interpreter should treat as
@@ -178,8 +183,8 @@ class ModuleLoader implements context.ModuleContext {
   /// is no filesystem base to seed from.
   Uri? get initialFileSystemLibraryUri =>
       (allowFileSystemImports && basePath != null)
-          ? Directory(basePath!).absolute.uri
-          : null;
+      ? Directory(basePath!).absolute.uri
+      : null;
 
   /// DGUB3 (mirrors tom_d4rt DFUB1) — maps a module [uri] to the `file:` URI it
   /// would be read from, or `null` when it is not a filesystem candidate.
@@ -269,8 +274,9 @@ class ModuleLoader implements context.ModuleContext {
       'read': true,
     })) {
       throw RuntimeD4rtException(
-          'Reading module source from "$filePath" requires '
-          'FilesystemPermission.');
+        'Reading module source from "$filePath" requires '
+        'FilesystemPermission.',
+      );
     }
   }
 
@@ -291,29 +297,33 @@ class ModuleLoader implements context.ModuleContext {
     if (fileUri != null) {
       if (!allowFileSystemImports) {
         return SourceCodeD4rtException(
-            "Module source not preloaded for URI: $uriString. Filesystem "
-            "imports are disabled; enable allowFileSystemImports or preload "
-            "the module source.",
-            uriString);
+          "Module source not preloaded for URI: $uriString. Filesystem "
+          "imports are disabled; enable allowFileSystemImports or preload "
+          "the module source.",
+          uriString,
+        );
       }
       final resolvedPath = File.fromUri(fileUri).absolute.path;
       return SourceCodeD4rtException(
-          "Module source not found on filesystem for URI: $uriString "
-          "(resolved path: $resolvedPath).",
-          uriString);
+        "Module source not found on filesystem for URI: $uriString "
+        "(resolved path: $resolvedPath).",
+        uriString,
+      );
     }
 
     if (uri.scheme == 'package') {
       return SourceCodeD4rtException(
-          "Package module source not preloaded for URI: $uriString. Provide "
-          "it in sources or register a bridge for that package library.",
-          uriString);
+        "Package module source not preloaded for URI: $uriString. Provide "
+        "it in sources or register a bridge for that package library.",
+        uriString,
+      );
     }
 
     return SourceCodeD4rtException(
-        "Module source not preloaded for URI: $uriString, and not a "
-        "recognized Dart standard library.",
-        uriString);
+      "Module source not preloaded for URI: $uriString, and not a "
+      "recognized Dart standard library.",
+      uriString,
+    );
   }
 
   @override
@@ -333,17 +343,21 @@ class ModuleLoader implements context.ModuleContext {
       // The import gate asks only "is ANY filesystem access granted?" — it has
       // no path to check, so it must not be measured against a scoped grant's
       // path. The per-operation checks in `stdlib/io/` enforce the scope.
-      if (!d4rt!
-          .checkPermission({'type': 'filesystem', 'pathAgnostic': true})) {
+      if (!d4rt!.checkPermission({
+        'type': 'filesystem',
+        'pathAgnostic': true,
+      })) {
         throw RuntimeD4rtException(
-            'Access to dart:io requires FilesystemPermission. '
-            'Use d4rt.grant(FilesystemPermission.any) to allow filesystem access.');
+          'Access to dart:io requires FilesystemPermission. '
+          'Use d4rt.grant(FilesystemPermission.any) to allow filesystem access.',
+        );
       }
     } else if (uriString == 'dart:isolate') {
       if (!d4rt!.checkPermission({'type': 'isolate'})) {
         throw RuntimeD4rtException(
-            'Access to dart:isolate requires IsolatePermission. '
-            'Use d4rt.grant(IsolatePermission.any) to allow isolate operations.');
+          'Access to dart:isolate requires IsolatePermission. '
+          'Use d4rt.grant(IsolatePermission.any) to allow isolate operations.',
+        );
       }
     }
     // Add more dangerous modules as needed
@@ -376,10 +390,16 @@ class ModuleLoader implements context.ModuleContext {
   }
 
   @override
-  context.LoadedModule loadModule(Uri uri,
-      {Set<String>? showNames, Set<String>? hideNames}) {
-    return loadModuleInternal(uri, showNames: showNames, hideNames: hideNames)
-        .toContextLoadedModule();
+  context.LoadedModule loadModule(
+    Uri uri, {
+    Set<String>? showNames,
+    Set<String>? hideNames,
+  }) {
+    return loadModuleInternal(
+      uri,
+      showNames: showNames,
+      hideNames: hideNames,
+    ).toContextLoadedModule();
   }
 
   /// Internal implementation that returns the full LoadedModule with environment.
@@ -387,19 +407,28 @@ class ModuleLoader implements context.ModuleContext {
   /// DFUB10 — the real work lives in [_loadModuleInternal]; this wrapper only
   /// guarantees that a *failed* load drops its in-flight registration, so an
   /// abandoned partial is never handed out on a later execute.
-  LoadedModule loadModuleInternal(Uri uri,
-      {Set<String>? showNames, Set<String>? hideNames}) {
+  LoadedModule loadModuleInternal(
+    Uri uri, {
+    Set<String>? showNames,
+    Set<String>? hideNames,
+  }) {
     try {
-      return _loadModuleInternal(uri,
-          showNames: showNames, hideNames: hideNames);
+      return _loadModuleInternal(
+        uri,
+        showNames: showNames,
+        hideNames: hideNames,
+      );
     } catch (_) {
       _inFlightModules.remove(_moduleIdentityUri(_canonicalizeModuleUri(uri)));
       rethrow;
     }
   }
 
-  LoadedModule _loadModuleInternal(Uri uri,
-      {Set<String>? showNames, Set<String>? hideNames}) {
+  LoadedModule _loadModuleInternal(
+    Uri uri, {
+    Set<String>? showNames,
+    Set<String>? hideNames,
+  }) {
     // DGUB3 — canonicalize filesystem module URIs to a single absolute spelling
     // so reads, the read-permission gate and nested import resolution all use
     // the same (grant-matching) form. No-op for non-filesystem URIs (`dart:`,
@@ -418,11 +447,13 @@ class ModuleLoader implements context.ModuleContext {
     Uri? previousLibraryForRecursiveLoad = currentLibrary;
     currentLibrary = uri;
     Logger.debug(
-        "[ModuleLoader loadModule for $uri] Setting currentLibrary to: $uri (show: $showNames, hide: $hideNames)");
+      "[ModuleLoader loadModule for $uri] Setting currentLibrary to: $uri (show: $showNames, hide: $hideNames)",
+    );
 
     if (_moduleCache.containsKey(identityUri)) {
       Logger.debug(
-          "[ModuleLoader loadModule for $uri] Module '${uri.toString()}' found in cache.");
+        "[ModuleLoader loadModule for $uri] Module '${uri.toString()}' found in cache.",
+      );
       // Restore the source URI before returning for parent calls
       currentLibrary = previousLibraryForRecursiveLoad;
       return _moduleCache[identityUri]!;
@@ -436,15 +467,19 @@ class ModuleLoader implements context.ModuleContext {
     final inFlightEntry = _inFlightModules[identityUri];
     if (inFlightEntry != null) {
       Logger.debug(
-          "[ModuleLoader loadModule for $uri] Module '${uri.toString()}' is already in flight (circular import/export); returning partial module.");
+        "[ModuleLoader loadModule for $uri] Module '${uri.toString()}' is already in flight (circular import/export); returning partial module.",
+      );
       currentLibrary = previousLibraryForRecursiveLoad;
       return inFlightEntry.partial;
     }
     Logger.debug(
-        "[ModuleLoader loadModule for $uri] Loading module: ${uri.toString()}");
-    String sourceCode = _fetchModuleSource(uri,
-        showNames: showNames,
-        hideNames: hideNames); // Pass show/hide to filter bridged registrations
+      "[ModuleLoader loadModule for $uri] Loading module: ${uri.toString()}",
+    );
+    String sourceCode = _fetchModuleSource(
+      uri,
+      showNames: showNames,
+      hideNames: hideNames,
+    ); // Pass show/hide to filter bridged registrations
     SCompilationUnit ast = _parseSource(uri, sourceCode);
 
     Environment moduleEnvironment = Environment(enclosing: globalEnvironment);
@@ -452,20 +487,21 @@ class ModuleLoader implements context.ModuleContext {
     // just before the export directives so the partial module published below
     // carries the SAME Environment instance that later receives this module's
     // local declarations; a cyclic importer therefore holds a live reference.
-    Environment exportedEnvironment =
-        Environment(enclosing: globalEnvironment);
+    Environment exportedEnvironment = Environment(enclosing: globalEnvironment);
 
     // DFUB10 — publish the partial module BEFORE walking any directive, so a
     // cycle back to this URI terminates. Circular imports and exports are legal
     // Dart and must load; we support the cycle rather than rejecting it.
     final inFlight = _InFlightModule(
-        LoadedModule(uri, ast, moduleEnvironment, exportedEnvironment));
+      LoadedModule(uri, ast, moduleEnvironment, exportedEnvironment),
+    );
     _inFlightModules[identityUri] = inFlight;
 
     // Bug-72 FIX: Process import directives BEFORE declarations
     // This ensures imported classes/mixins are available when class declarations are visited
     Logger.debug(
-        "[ModuleLoader loadModule for $uri] Processing import directives first...");
+      "[ModuleLoader loadModule for $uri] Processing import directives first...",
+    );
     for (final directive in ast.directives) {
       if (directive is SImportDirective) {
         final importedUriString = (directive.uri is SSimpleStringLiteral)
@@ -473,16 +509,20 @@ class ModuleLoader implements context.ModuleContext {
             : null;
         if (importedUriString == null) {
           Logger.warn(
-              "[ModuleLoader loadModule for $uri] Import directive with null URI string in ${uri.toString()}");
+            "[ModuleLoader loadModule for $uri] Import directive with null URI string in ${uri.toString()}",
+          );
           continue;
         }
         try {
           Uri resolvedImportUri = uri.resolve(
-              importedUriString); // Resolve relative to the current module's URI
+            importedUriString,
+          ); // Resolve relative to the current module's URI
           Logger.debug(
-              "[ModuleLoader loadModule for $uri]   Importing from ${uri.toString()}: URI '$importedUriString', resolved to '${resolvedImportUri.toString()}'");
+            "[ModuleLoader loadModule for $uri]   Importing from ${uri.toString()}: URI '$importedUriString', resolved to '${resolvedImportUri.toString()}'",
+          );
           LoadedModule importedModule = loadModuleInternal(
-              resolvedImportUri); // Recursive call - this will check permissions
+            resolvedImportUri,
+          ); // Recursive call - this will check permissions
 
           // Get the show/hide combinators and prefix
           Set<String>? showNames;
@@ -494,12 +534,14 @@ class ModuleLoader implements context.ModuleContext {
               showNames ??= {};
               showNames.addAll(combinator.shownNames.map((id) => id.name));
               Logger.debug(
-                  "[ModuleLoader loadModule for $uri]   Import combinator: show ${combinator.shownNames.map((id) => id.name).join(', ')}");
+                "[ModuleLoader loadModule for $uri]   Import combinator: show ${combinator.shownNames.map((id) => id.name).join(', ')}",
+              );
             } else if (combinator is SHideCombinator) {
               hideNames ??= {};
               hideNames.addAll(combinator.hiddenNames.map((id) => id.name));
               Logger.debug(
-                  "[ModuleLoader loadModule for $uri]   Import combinator: hide ${combinator.hiddenNames.map((id) => id.name).join(', ')}");
+                "[ModuleLoader loadModule for $uri]   Import combinator: hide ${combinator.hiddenNames.map((id) => id.name).join(', ')}",
+              );
             }
           }
 
@@ -509,15 +551,16 @@ class ModuleLoader implements context.ModuleContext {
             // with the prefix. `shallowCopyFiltered` snapshots, so a cyclic
             // import needs the same deferred replay as the plain case (DFUB10).
             _mergeFromModule(importedModule, () {
-              Environment prefixedEnv =
-                  importedModule.exportedEnvironment.shallowCopyFiltered(
-                showNames: showNames,
-                hideNames: hideNames,
-              );
+              Environment prefixedEnv = importedModule.exportedEnvironment
+                  .shallowCopyFiltered(
+                    showNames: showNames,
+                    hideNames: hideNames,
+                  );
               moduleEnvironment.definePrefixedImport(prefix, prefixedEnv);
             });
             Logger.debug(
-                "[ModuleLoader loadModule for $uri]   Successfully defined prefixed import '$prefix' from ${resolvedImportUri.toString()} into ${uri.toString()} (show: ${showNames?.join(", ")}, hide: ${hideNames?.join(", ")}).");
+              "[ModuleLoader loadModule for $uri]   Successfully defined prefixed import '$prefix' from ${resolvedImportUri.toString()} into ${uri.toString()} (show: ${showNames?.join(", ")}, hide: ${hideNames?.join(", ")}).",
+            );
           } else {
             // For regular imports, import directly into the module environment
             _mergeFromModule(
@@ -529,26 +572,34 @@ class ModuleLoader implements context.ModuleContext {
               ),
             );
             Logger.debug(
-                "[ModuleLoader loadModule for $uri]   Successfully imported environment from ${resolvedImportUri.toString()} into ${uri.toString()} (show: ${showNames?.join(", ")}, hide: ${hideNames?.join(", ")}).");
+              "[ModuleLoader loadModule for $uri]   Successfully imported environment from ${resolvedImportUri.toString()} into ${uri.toString()} (show: ${showNames?.join(", ")}, hide: ${hideNames?.join(", ")}).",
+            );
           }
         } catch (e, s) {
           Logger.error(
-              "[ModuleLoader loadModule for $uri] Error processing import directive for '$importedUriString' from ${uri.toString()}: $e\nStackTrace: $s");
+            "[ModuleLoader loadModule for $uri] Error processing import directive for '$importedUriString' from ${uri.toString()}: $e\nStackTrace: $s",
+          );
           // DFUB13 — the log line above has the owner/target context; the
           // exception the caller actually sees did not. Attach it there too.
           if (e is D4rtException) {
             throw wrapDirectiveError(
-                'import', uri, uri.resolve(importedUriString), e);
+              'import',
+              uri,
+              uri.resolve(importedUriString),
+              e,
+            );
           }
           rethrow;
         }
       }
     }
     Logger.debug(
-        "[ModuleLoader loadModule for $uri] Finished processing import directives.");
+      "[ModuleLoader loadModule for $uri] Finished processing import directives.",
+    );
 
-    DeclarationVisitor declarationVisitor =
-        DeclarationVisitor(moduleEnvironment);
+    DeclarationVisitor declarationVisitor = DeclarationVisitor(
+      moduleEnvironment,
+    );
     // Only declarations are visited to populate the local environment
     for (var declaration in ast.declarations) {
       declaration.accept(declarationVisitor);
@@ -559,14 +610,15 @@ class ModuleLoader implements context.ModuleContext {
     // It will use moduleEnvironment to resolve types and execute initializers.
     // The moduleLoader is passed for potentially resolved imports by initializers (less common).
     InterpreterVisitor moduleInterpreter = InterpreterVisitor(
-        globalEnvironment:
-            moduleEnvironment, // Important: use the module's local environment as base
-        moduleContext: this, // Pass the current loader as ModuleContext
-        initialLibrary: uri // The URI of the module being interpreted
-        );
+      globalEnvironment:
+          moduleEnvironment, // Important: use the module's local environment as base
+      moduleContext: this, // Pass the current loader as ModuleContext
+      initialLibrary: uri, // The URI of the module being interpreted
+    );
 
     Logger.debug(
-        "[ModuleLoader loadModule for $uri] Executing InterpreterVisitor pass for initializers...");
+      "[ModuleLoader loadModule for $uri] Executing InterpreterVisitor pass for initializers...",
+    );
 
     // First, process enum declarations to populate enum values
     // This must happen before top-level variable declarations in case
@@ -610,7 +662,8 @@ class ModuleLoader implements context.ModuleContext {
       }
     }
     Logger.debug(
-        "[ModuleLoader loadModule for $uri] Finished InterpreterVisitor pass for initializers.");
+      "[ModuleLoader loadModule for $uri] Finished InterpreterVisitor pass for initializers.",
+    );
 
     // PREPARATION OF THE EXPORTED ENVIRONMENT
     // `exportedEnvironment` was created up-front (DFUB10) so cyclic importers
@@ -618,13 +671,15 @@ class ModuleLoader implements context.ModuleContext {
     // declarations, now that moduleEnvironment holds their initialized values.
     exportedEnvironment.importEnvironment(moduleEnvironment);
     Logger.debug(
-        "[ModuleLoader loadModule for $uri] Initialized exportedEnvironment with local declarations (post-initialization).");
+      "[ModuleLoader loadModule for $uri] Initialized exportedEnvironment with local declarations (post-initialization).",
+    );
 
     // Process the export directives of this module to populate its exportedEnvironment
     // Must be done before caching to avoid recursion problems if A exports B and B exports A.
     // The cache is checked at the beginning of the function.
     Logger.debug(
-        "[ModuleLoader loadModule for $uri] Processing export directives for ${uri.toString()}...");
+      "[ModuleLoader loadModule for $uri] Processing export directives for ${uri.toString()}...",
+    );
     for (final directive in ast.directives) {
       if (directive is SExportDirective) {
         final exportedUriString = (directive.uri is SSimpleStringLiteral)
@@ -632,16 +687,20 @@ class ModuleLoader implements context.ModuleContext {
             : null;
         if (exportedUriString == null) {
           Logger.warn(
-              "[ModuleLoader loadModule for $uri] Export directive with null URI string in ${uri.toString()}");
+            "[ModuleLoader loadModule for $uri] Export directive with null URI string in ${uri.toString()}",
+          );
           continue;
         }
         try {
           Uri resolvedExportUri = uri.resolve(
-              exportedUriString); // Resolve relative to the current module's URI
+            exportedUriString,
+          ); // Resolve relative to the current module's URI
           Logger.debug(
-              "[ModuleLoader loadModule for $uri]   Exporting from ${uri.toString()}: URI '$exportedUriString', resolved to '${resolvedExportUri.toString()}'");
-          LoadedModule subModule =
-              loadModuleInternal(resolvedExportUri); // Recursive call
+            "[ModuleLoader loadModule for $uri]   Exporting from ${uri.toString()}: URI '$exportedUriString', resolved to '${resolvedExportUri.toString()}'",
+          );
+          LoadedModule subModule = loadModuleInternal(
+            resolvedExportUri,
+          ); // Recursive call
 
           // Get the show/hide combinators
           Set<String>? showNames;
@@ -651,15 +710,19 @@ class ModuleLoader implements context.ModuleContext {
             if (combinator is SShowCombinator) {
               showNames ??= {}; // Initialize if it's the first show combinator
               showNames.addAll(
-                  combinator.shownNames.map((id) => id.name)); // Use id.name
+                combinator.shownNames.map((id) => id.name),
+              ); // Use id.name
               Logger.debug(
-                  "[ModuleLoader loadModule for $uri]   Export combinator: show ${combinator.shownNames.map((id) => id.name).join(', ')}");
+                "[ModuleLoader loadModule for $uri]   Export combinator: show ${combinator.shownNames.map((id) => id.name).join(', ')}",
+              );
             } else if (combinator is SHideCombinator) {
               hideNames ??= {}; // Initialize if it's the first hide combinator
               hideNames.addAll(
-                  combinator.hiddenNames.map((id) => id.name)); // Use id.name
+                combinator.hiddenNames.map((id) => id.name),
+              ); // Use id.name
               Logger.debug(
-                  "[ModuleLoader loadModule for $uri]   Export combinator: hide ${combinator.hiddenNames.map((id) => id.name).join(', ')}");
+                "[ModuleLoader loadModule for $uri]   Export combinator: hide ${combinator.hiddenNames.map((id) => id.name).join(', ')}",
+              );
             }
           }
 
@@ -678,15 +741,21 @@ class ModuleLoader implements context.ModuleContext {
             ),
           );
           Logger.debug(
-              "[ModuleLoader loadModule for $uri]   Successfully merged exported environment from ${resolvedExportUri.toString()} into ${uri.toString()} (show: ${showNames?.join(", ")}, hide: ${hideNames?.join(", ")}).");
+            "[ModuleLoader loadModule for $uri]   Successfully merged exported environment from ${resolvedExportUri.toString()} into ${uri.toString()} (show: ${showNames?.join(", ")}, hide: ${hideNames?.join(", ")}).",
+          );
         } catch (e, s) {
           Logger.error(
-              "[ModuleLoader loadModule for $uri] Error processing export directive for '$exportedUriString' from ${uri.toString()}: $e\nStackTrace: $s");
+            "[ModuleLoader loadModule for $uri] Error processing export directive for '$exportedUriString' from ${uri.toString()}: $e\nStackTrace: $s",
+          );
           // DFUB13 — see the import branch. Barrels are where this matters
           // most: the failing barrel is rarely the file the user was editing.
           if (e is D4rtException) {
             throw wrapDirectiveError(
-                'export', uri, uri.resolve(exportedUriString), e);
+              'export',
+              uri,
+              uri.resolve(exportedUriString),
+              e,
+            );
           }
           rethrow;
         }
@@ -694,12 +763,14 @@ class ModuleLoader implements context.ModuleContext {
       // Note: SImportDirective is now processed earlier, before declarations
     }
     Logger.debug(
-        "[ModuleLoader loadModule for $uri] Finished processing export directives for ${uri.toString()}.");
+      "[ModuleLoader loadModule for $uri] Finished processing export directives for ${uri.toString()}.",
+    );
 
     try {
       final testGetSymbol = moduleEnvironment.get('getMessage');
       Logger.debug(
-          "[ModuleLoader loadModule for $uri] Test get 'getMessage' from module env for $uri: SUCCESS, value: ${testGetSymbol?.runtimeType}");
+        "[ModuleLoader loadModule for $uri] Test get 'getMessage' from module env for $uri: SUCCESS, value: ${testGetSymbol?.runtimeType}",
+      );
     } catch (e) {
       // Silently ignore if not found
     }
@@ -718,12 +789,14 @@ class ModuleLoader implements context.ModuleContext {
       replay();
     }
     Logger.debug(
-        "[ModuleLoader loadModule for $uri] Module '${uri.toString()}' chargé et mis en cache.");
+      "[ModuleLoader loadModule for $uri] Module '${uri.toString()}' chargé et mis en cache.",
+    );
 
     // Restore the source URI before returning
     currentLibrary = previousLibraryForRecursiveLoad;
     Logger.debug(
-        "[ModuleLoader loadModule for $uri] Restored currentLibrary to: $currentLibrary");
+      "[ModuleLoader loadModule for $uri] Restored currentLibrary to: $currentLibrary",
+    );
     return loadedModule;
   }
 
@@ -752,8 +825,11 @@ class ModuleLoader implements context.ModuleContext {
   }
 
   /// Helper to check if a name should be registered based on show/hide filters.
-  bool _shouldRegisterName(String name,
-      {Set<String>? showNames, Set<String>? hideNames}) {
+  bool _shouldRegisterName(
+    String name, {
+    Set<String>? showNames,
+    Set<String>? hideNames,
+  }) {
     // If hideNames is specified and contains this name, skip it
     if (hideNames != null && hideNames.contains(name)) {
       return false;
@@ -765,11 +841,15 @@ class ModuleLoader implements context.ModuleContext {
     return true;
   }
 
-  String _fetchModuleSource(Uri uri,
-      {Set<String>? showNames, Set<String>? hideNames}) {
+  String _fetchModuleSource(
+    Uri uri, {
+    Set<String>? showNames,
+    Set<String>? hideNames,
+  }) {
     final uriString = uri.toString();
     Logger.debug(
-        "[ModuleLoader] Récupération de la source pour: $uriString depuis sources. (show: $showNames, hide: $hideNames)");
+      "[ModuleLoader] Récupération de la source pour: $uriString depuis sources. (show: $showNames, hide: $hideNames)",
+    );
 
     // First check if the exact URI is in the preloaded sources.
     //
@@ -781,7 +861,8 @@ class ModuleLoader implements context.ModuleContext {
     // source here returned an empty module, leaving every bridged name
     // undefined. There is no legitimate case for the other precedence: a URI
     // cannot be both a native library and an interpreted one.
-    if (sources.containsKey(uriString) && !_hasBridgedContentForUri(uriString)) {
+    if (sources.containsKey(uriString) &&
+        !_hasBridgedContentForUri(uriString)) {
       Logger.debug("[ModuleLoader] Source found for $uriString in sources.");
       return sources[uriString]!;
     }
@@ -800,12 +881,14 @@ class ModuleLoader implements context.ModuleContext {
         if (file.existsSync()) {
           _checkFileSystemSourceReadPermission(fileUri);
           Logger.debug(
-              "[ModuleLoader] Source loaded from filesystem for $fileUri.");
+            "[ModuleLoader] Source loaded from filesystem for $fileUri.",
+          );
           return file.readAsStringSync();
         }
         Logger.debug(
-            "[ModuleLoader] Filesystem import enabled, but no file found at "
-            "${file.absolute.path}.");
+          "[ModuleLoader] Filesystem import enabled, but no file found at "
+          "${file.absolute.path}.",
+        );
       }
     }
 
@@ -819,7 +902,7 @@ class ModuleLoader implements context.ModuleContext {
         'io',
         'collection',
         'typed_data',
-        'isolate'
+        'isolate',
       ];
       if (knownStdlibDartLibs.contains(uri.path)) {
         if (uri.path == 'convert') {
@@ -847,24 +930,29 @@ class ModuleLoader implements context.ModuleContext {
           return '';
         }
         Logger.info(
-            "[ModuleLoader] The Dart library '${uri.toString()}' is provided natively by Stdlib. Returning an empty module.");
+          "[ModuleLoader] The Dart library '${uri.toString()}' is provided natively by Stdlib. Returning an empty module.",
+        );
         return ""; // Empty source to allow the import to succeed
       } else {
         // Not a known stdlib - check if there are bridges for this dart: URI
         if (_hasBridgedContentForUri(uriString)) {
           Logger.info(
-              "[ModuleLoader] Dart library '${uri.toString()}' has bridged content, falling through to bridge registration.");
+            "[ModuleLoader] Dart library '${uri.toString()}' has bridged content, falling through to bridge registration.",
+          );
           // Fall through to bridged content handling below
         } else {
           Logger.error(
-              "[ModuleLoader] Dart library '${uri.toString()}' not supported or recognized by Stdlib.");
+            "[ModuleLoader] Dart library '${uri.toString()}' not supported or recognized by Stdlib.",
+          );
           throw SourceCodeD4rtException(
-              "Dart library '${uri.toString()}' not supported.");
+            "Dart library '${uri.toString()}' not supported.",
+          );
         }
       }
     }
     // Check if this URI has any bridged types or library-scoped globals registered
-    final hasBridgedContent = bridgedClases.isNotEmpty ||
+    final hasBridgedContent =
+        bridgedClases.isNotEmpty ||
         bridgedEnumDefinitions.isNotEmpty ||
         libraryFunctions.isNotEmpty ||
         libraryVariables.isNotEmpty ||
@@ -885,10 +973,14 @@ class ModuleLoader implements context.ModuleContext {
           final enumName = definition.name;
 
           // Check show/hide filters
-          if (!_shouldRegisterName(enumName,
-              showNames: showNames, hideNames: hideNames)) {
+          if (!_shouldRegisterName(
+            enumName,
+            showNames: showNames,
+            hideNames: hideNames,
+          )) {
             Logger.debug(
-                " [execute] Skipping enum '$enumName' due to show/hide filter");
+              " [execute] Skipping enum '$enumName' due to show/hide filter",
+            );
             continue;
           }
 
@@ -900,13 +992,15 @@ class ModuleLoader implements context.ModuleContext {
             if (existingSourceUri == sourceUri) {
               // Same enum from same canonical source - silently skip (re-export case)
               Logger.debug(
-                  " [execute] Skipping duplicate enum '$enumName' from same source: $sourceUri");
+                " [execute] Skipping duplicate enum '$enumName' from same source: $sourceUri",
+              );
               continue;
             } else {
               // Different source - this is an actual duplicate, error
               registrationErrors.add(
-                  "Duplicate enum '$enumName' exists from source '$existingSourceUri' and source '$sourceUri'. "
-                  "These are different enums with the same name.");
+                "Duplicate enum '$enumName' exists from source '$existingSourceUri' and source '$sourceUri'. "
+                "These are different enums with the same name.",
+              );
               continue;
             }
           }
@@ -917,11 +1011,13 @@ class ModuleLoader implements context.ModuleContext {
             final bridgedEnum = definition.buildBridgedEnum();
             globalEnvironment.defineBridgedEnum(bridgedEnum);
             Logger.debug(
-                " [execute] Registered bridged enum: $enumName from $sourceUri");
+              " [execute] Registered bridged enum: $enumName from $sourceUri",
+            );
           } catch (e) {
             Logger.error("registering bridged enum '$enumName': $e");
-            registrationErrors
-                .add("Failed to register bridged enum '$enumName': $e");
+            registrationErrors.add(
+              "Failed to register bridged enum '$enumName': $e",
+            );
           }
         }
       }
@@ -933,10 +1029,14 @@ class ModuleLoader implements context.ModuleContext {
           final className = libClass.name;
 
           // Check show/hide filters
-          if (!_shouldRegisterName(className,
-              showNames: showNames, hideNames: hideNames)) {
+          if (!_shouldRegisterName(
+            className,
+            showNames: showNames,
+            hideNames: hideNames,
+          )) {
             Logger.debug(
-                " [execute] Skipping class '$className' due to show/hide filter");
+              " [execute] Skipping class '$className' due to show/hide filter",
+            );
             continue;
           }
 
@@ -948,7 +1048,8 @@ class ModuleLoader implements context.ModuleContext {
             if (existingSourceUri == sourceUri) {
               // Same class from same canonical source - silently skip (re-export case)
               Logger.debug(
-                  " [execute] Skipping duplicate class '$className' from same source: $sourceUri");
+                " [execute] Skipping duplicate class '$className' from same source: $sourceUri",
+              );
               continue;
             }
             // B2 MarkdownParser clash: two different libraries declare a
@@ -958,9 +1059,10 @@ class ModuleLoader implements context.ModuleContext {
             // platform declaration losing to a package one is silent; either
             // way both classes stay reachable as `<package>.Foo`.
             Logger.debug(
-                " [execute] Same-name class '$className' from a different "
-                "source ($existingSourceUri vs $sourceUri); registering both "
-                "with shadow fallback.");
+              " [execute] Same-name class '$className' from a different "
+              "source ($existingSourceUri vs $sourceUri); registering both "
+              "with shadow fallback.",
+            );
           }
 
           _registeredClasses[className] = sourceUri;
@@ -972,14 +1074,19 @@ class ModuleLoader implements context.ModuleContext {
             // either candidate, so it falls back to last-registration-wins and
             // binds the bare name to a class the script never named.
             globalEnvironment.defineBridgeLazy(
-                libClass.name, libClass.nativeType, libClass.thunk,
-                sourceUri: sourceUri);
+              libClass.name,
+              libClass.nativeType,
+              libClass.thunk,
+              sourceUri: sourceUri,
+            );
             Logger.debug(
-                " [execute] Registered bridged class: $className from $sourceUri");
+              " [execute] Registered bridged class: $className from $sourceUri",
+            );
           } catch (e) {
             Logger.error("registering bridged class '$className': $e");
-            registrationErrors
-                .add("Failed to register bridged class '$className': $e");
+            registrationErrors.add(
+              "Failed to register bridged class '$className': $e",
+            );
           }
         }
       }
@@ -993,10 +1100,14 @@ class ModuleLoader implements context.ModuleContext {
           final funcName = nativeFunc.name;
 
           // Check show/hide filters first
-          if (!_shouldRegisterName(funcName,
-              showNames: showNames, hideNames: hideNames)) {
+          if (!_shouldRegisterName(
+            funcName,
+            showNames: showNames,
+            hideNames: hideNames,
+          )) {
             Logger.debug(
-                " [execute] Skipping function '$funcName' due to show/hide filter");
+              " [execute] Skipping function '$funcName' due to show/hide filter",
+            );
             continue;
           }
 
@@ -1009,13 +1120,15 @@ class ModuleLoader implements context.ModuleContext {
             if (existingSourceUri == sourceUri) {
               // Same function from same canonical source - silently skip (re-export case)
               Logger.debug(
-                  " [execute] Skipping duplicate function '$funcName' from same source: $sourceUri");
+                " [execute] Skipping duplicate function '$funcName' from same source: $sourceUri",
+              );
               continue;
             } else {
               // Different source - this is an actual duplicate, error
               registrationErrors.add(
-                  "Duplicate function '$funcName' exists from source '$existingSourceUri' and source '$sourceUri'. "
-                  "Use import show/hide clauses to resolve the conflict.");
+                "Duplicate function '$funcName' exists from source '$existingSourceUri' and source '$sourceUri'. "
+                "Use import show/hide clauses to resolve the conflict.",
+              );
               continue;
             }
           }
@@ -1024,11 +1137,13 @@ class ModuleLoader implements context.ModuleContext {
             globalEnvironment.define(funcName, nativeFunc);
             _registeredFunctions[funcName] = sourceUri;
             Logger.debug(
-                " [execute] Registered library function: $funcName from $sourceUri");
+              " [execute] Registered library function: $funcName from $sourceUri",
+            );
           } catch (e) {
             Logger.error("registering library function '$funcName': $e");
-            registrationErrors
-                .add("Failed to register function '$funcName': $e");
+            registrationErrors.add(
+              "Failed to register function '$funcName': $e",
+            );
           }
         }
       }
@@ -1041,10 +1156,14 @@ class ModuleLoader implements context.ModuleContext {
           final varName = libVar.name;
 
           // Check show/hide filters first
-          if (!_shouldRegisterName(varName,
-              showNames: showNames, hideNames: hideNames)) {
+          if (!_shouldRegisterName(
+            varName,
+            showNames: showNames,
+            hideNames: hideNames,
+          )) {
             Logger.debug(
-                " [execute] Skipping variable '$varName' due to show/hide filter");
+              " [execute] Skipping variable '$varName' due to show/hide filter",
+            );
             continue;
           }
 
@@ -1057,13 +1176,15 @@ class ModuleLoader implements context.ModuleContext {
             if (existingSourceUri == sourceUri) {
               // Same variable from same canonical source - silently skip (re-export case)
               Logger.debug(
-                  " [execute] Skipping duplicate variable '$varName' from same source: $sourceUri");
+                " [execute] Skipping duplicate variable '$varName' from same source: $sourceUri",
+              );
               continue;
             } else {
               // Different source - this is an actual duplicate, error
               registrationErrors.add(
-                  "Duplicate variable '$varName' exists from source '$existingSourceUri' and source '$sourceUri'. "
-                  "Use import show/hide clauses to resolve the conflict.");
+                "Duplicate variable '$varName' exists from source '$existingSourceUri' and source '$sourceUri'. "
+                "Use import show/hide clauses to resolve the conflict.",
+              );
               continue;
             }
           }
@@ -1072,11 +1193,13 @@ class ModuleLoader implements context.ModuleContext {
             globalEnvironment.define(varName, libVar.value);
             _registeredVariables[varName] = sourceUri;
             Logger.debug(
-                " [execute] Registered library variable: $varName from $sourceUri");
+              " [execute] Registered library variable: $varName from $sourceUri",
+            );
           } catch (e) {
             Logger.error("registering library variable '$varName': $e");
-            registrationErrors
-                .add("Failed to register variable '$varName': $e");
+            registrationErrors.add(
+              "Failed to register variable '$varName': $e",
+            );
           }
         }
       }
@@ -1089,10 +1212,14 @@ class ModuleLoader implements context.ModuleContext {
           final getterName = libGetter.name;
 
           // Check show/hide filters first
-          if (!_shouldRegisterName(getterName,
-              showNames: showNames, hideNames: hideNames)) {
+          if (!_shouldRegisterName(
+            getterName,
+            showNames: showNames,
+            hideNames: hideNames,
+          )) {
             Logger.debug(
-                " [execute] Skipping getter '$getterName' due to show/hide filter");
+              " [execute] Skipping getter '$getterName' due to show/hide filter",
+            );
             continue;
           }
 
@@ -1105,27 +1232,33 @@ class ModuleLoader implements context.ModuleContext {
             if (existingSourceUri == sourceUri) {
               // Same getter from same canonical source - silently skip (re-export case)
               Logger.debug(
-                  " [execute] Skipping duplicate getter '$getterName' from same source: $sourceUri");
+                " [execute] Skipping duplicate getter '$getterName' from same source: $sourceUri",
+              );
               continue;
             } else {
               // Different source - this is an actual duplicate, error
               registrationErrors.add(
-                  "Duplicate getter '$getterName' exists from source '$existingSourceUri' and source '$sourceUri'. "
-                  "Use import show/hide clauses to resolve the conflict.");
+                "Duplicate getter '$getterName' exists from source '$existingSourceUri' and source '$sourceUri'. "
+                "Use import show/hide clauses to resolve the conflict.",
+              );
               continue;
             }
           }
 
           try {
             globalEnvironment.define(
-                getterName, GlobalGetter(libGetter.getter));
+              getterName,
+              GlobalGetter(libGetter.getter),
+            );
             _registeredGetters[getterName] = sourceUri;
             Logger.debug(
-                " [execute] Registered library getter: $getterName from $sourceUri");
+              " [execute] Registered library getter: $getterName from $sourceUri",
+            );
           } catch (e) {
             Logger.error("registering library getter '$getterName': $e");
-            registrationErrors
-                .add("Failed to register getter '$getterName': $e");
+            registrationErrors.add(
+              "Failed to register getter '$getterName': $e",
+            );
           }
         }
       }
@@ -1139,10 +1272,14 @@ class ModuleLoader implements context.ModuleContext {
           final setterName = libSetter.name;
 
           // Check show/hide filters first
-          if (!_shouldRegisterName(setterName,
-              showNames: showNames, hideNames: hideNames)) {
+          if (!_shouldRegisterName(
+            setterName,
+            showNames: showNames,
+            hideNames: hideNames,
+          )) {
             Logger.debug(
-                " [execute] Skipping setter '$setterName' due to show/hide filter");
+              " [execute] Skipping setter '$setterName' due to show/hide filter",
+            );
             continue;
           }
 
@@ -1155,50 +1292,56 @@ class ModuleLoader implements context.ModuleContext {
             if (existingSourceUri == sourceUri) {
               // Same setter from same canonical source - silently skip (re-export case)
               Logger.debug(
-                  " [execute] Skipping duplicate setter '$setterName' from same source: $sourceUri");
+                " [execute] Skipping duplicate setter '$setterName' from same source: $sourceUri",
+              );
               continue;
             } else {
               // Different source - this is an actual duplicate, error
               registrationErrors.add(
-                  "Duplicate setter '$setterName' exists from source '$existingSourceUri' and source '$sourceUri'. "
-                  "Use import show/hide clauses to resolve the conflict.");
+                "Duplicate setter '$setterName' exists from source '$existingSourceUri' and source '$sourceUri'. "
+                "Use import show/hide clauses to resolve the conflict.",
+              );
               continue;
             }
           }
 
           try {
             // Find the corresponding getter and update it to include the setter
-            final existingValue =
-                globalEnvironment.getRawValueIfDefined(setterName);
+            final existingValue = globalEnvironment.getRawValueIfDefined(
+              setterName,
+            );
             if (existingValue is GlobalGetter) {
               // Replace GlobalGetter with one that includes the setter
               globalEnvironment.define(
-                  setterName,
-                  GlobalGetter(
-                    existingValue.getter,
-                    setter: libSetter.setter,
-                  ));
+                setterName,
+                GlobalGetter(existingValue.getter, setter: libSetter.setter),
+              );
               Logger.debug(
-                  " [execute] Added setter to existing getter: $setterName from $sourceUri");
+                " [execute] Added setter to existing getter: $setterName from $sourceUri",
+              );
             } else {
               // No getter yet - create a GlobalGetter that only has a setter
               // This allows assignment to work, but reading will return null
               Logger.warn(
-                  " [execute] Setter '$setterName' registered without corresponding getter");
+                " [execute] Setter '$setterName' registered without corresponding getter",
+              );
               globalEnvironment.define(
-                  setterName,
-                  GlobalGetter(
-                    () => null, // No getter - reading returns null
-                    setter: libSetter.setter,
-                  ));
+                setterName,
+                GlobalGetter(
+                  () => null, // No getter - reading returns null
+                  setter: libSetter.setter,
+                ),
+              );
             }
             _registeredSetters[setterName] = sourceUri;
             Logger.debug(
-                " [execute] Registered library setter: $setterName from $sourceUri");
+              " [execute] Registered library setter: $setterName from $sourceUri",
+            );
           } catch (e) {
             Logger.error("registering library setter '$setterName': $e");
-            registrationErrors
-                .add("Failed to register setter '$setterName': $e");
+            registrationErrors.add(
+              "Failed to register setter '$setterName': $e",
+            );
           }
         }
       }
@@ -1214,10 +1357,14 @@ class ModuleLoader implements context.ModuleContext {
           // Named extensions are subject to show/hide filters;
           // unnamed extensions are always registered since they cannot be hidden by name.
           if (definition.name != null &&
-              !_shouldRegisterName(definition.name!,
-                  showNames: showNames, hideNames: hideNames)) {
+              !_shouldRegisterName(
+                definition.name!,
+                showNames: showNames,
+                hideNames: hideNames,
+              )) {
             Logger.debug(
-                " [execute] Skipping extension '$extName' due to show/hide filter");
+              " [execute] Skipping extension '$extName' due to show/hide filter",
+            );
             continue;
           }
 
@@ -1232,11 +1379,13 @@ class ModuleLoader implements context.ModuleContext {
             final existingSourceUri = _registeredExtensions[deduplicationKey]!;
             if (existingSourceUri == sourceUri) {
               Logger.debug(
-                  " [execute] Skipping duplicate extension '$extName on ${definition.onTypeName}' from same source: $sourceUri");
+                " [execute] Skipping duplicate extension '$extName on ${definition.onTypeName}' from same source: $sourceUri",
+              );
               continue;
             } else {
               registrationErrors.add(
-                  "Duplicate extension '$extName on ${definition.onTypeName}' exists from source '$existingSourceUri' and source '$sourceUri'.");
+                "Duplicate extension '$extName on ${definition.onTypeName}' exists from source '$existingSourceUri' and source '$sourceUri'.",
+              );
               continue;
             }
           }
@@ -1281,11 +1430,13 @@ class ModuleLoader implements context.ModuleContext {
               // list (and only the returned list — collectRegistrationErrors
               // also suppresses the throw below).
               Logger.warn(
-                  " [execute] Could not resolve type '${definition.onTypeName}' for extension '$extName'. "
-                  "Extension will not be registered.");
+                " [execute] Could not resolve type '${definition.onTypeName}' for extension '$extName'. "
+                "Extension will not be registered.",
+              );
               if (collectRegistrationErrors) {
                 registrationErrors.add(
-                    "Could not resolve type '${definition.onTypeName}' for extension '$extName'.");
+                  "Could not resolve type '${definition.onTypeName}' for extension '$extName'.",
+                );
               }
               continue;
             }
@@ -1296,16 +1447,19 @@ class ModuleLoader implements context.ModuleContext {
             if (definition.name != null) {
               globalEnvironment.define(definition.name!, interpretedExt);
               Logger.debug(
-                  " [execute] Registered named bridged extension: ${definition.name} on ${definition.onTypeName} from $sourceUri");
+                " [execute] Registered named bridged extension: ${definition.name} on ${definition.onTypeName} from $sourceUri",
+              );
             } else {
               globalEnvironment.addUnnamedExtension(interpretedExt);
               Logger.debug(
-                  " [execute] Registered unnamed bridged extension on ${definition.onTypeName} from $sourceUri");
+                " [execute] Registered unnamed bridged extension on ${definition.onTypeName} from $sourceUri",
+              );
             }
           } catch (e) {
             Logger.error("registering bridged extension '$extName': $e");
-            registrationErrors
-                .add("Failed to register extension '$extName': $e");
+            registrationErrors.add(
+              "Failed to register extension '$extName': $e",
+            );
           }
         }
       }
@@ -1317,7 +1471,8 @@ class ModuleLoader implements context.ModuleContext {
         } else {
           final errorList = registrationErrors.map((e) => '- $e').join('\n');
           throw RuntimeD4rtException(
-              'Errors during bridge registration:\n$errorList');
+            'Errors during bridge registration:\n$errorList',
+          );
         }
       }
 
@@ -1329,7 +1484,8 @@ class ModuleLoader implements context.ModuleContext {
 
     // If it's neither explicitly preloaded nor a known Dart library, it's an error.
     Logger.error(
-        "[ModuleLoader] Source not preloaded and not a recognized Dart standard library for URI: $uriString");
+      "[ModuleLoader] Source not preloaded and not a recognized Dart standard library for URI: $uriString",
+    );
     // DFUB13 / DGUB3 — the reason a module could not be loaded decides the
     // message: a filesystem candidate reports either the disabled flag or the
     // path the loader looked at, a `package:` URI gets package-specific
@@ -1359,9 +1515,13 @@ class ModuleLoader implements context.ModuleContext {
           // Register the class in globalEnvironment so it's available
           // for extension type matching
           globalEnvironment.defineBridgeLazy(
-              libClass.name, libClass.nativeType, libClass.thunk);
+            libClass.name,
+            libClass.nativeType,
+            libClass.thunk,
+          );
           Logger.debug(
-              "[ModuleLoader] Resolved extension on-type '$typeName' from registered bridge class");
+            "[ModuleLoader] Resolved extension on-type '$typeName' from registered bridge class",
+          );
           return libClass.bridgedClass;
         }
       }
@@ -1395,7 +1555,8 @@ class ModuleLoader implements context.ModuleContext {
       final typeObj = globalEnvironment.lookup(typeName);
       if (typeObj is RuntimeType) {
         Logger.debug(
-            "[ModuleLoader] Auto-loaded stdlib '${entry.key}' to resolve extension on-type '$typeName'");
+          "[ModuleLoader] Auto-loaded stdlib '${entry.key}' to resolve extension on-type '$typeName'",
+        );
         return typeObj;
       }
     }
@@ -1406,13 +1567,16 @@ class ModuleLoader implements context.ModuleContext {
   SCompilationUnit _parseSource(Uri uri, String sourceCode) {
     Logger.debug("[ModuleLoader] Parsing source for module: ${uri.toString()}");
     if (parseSourceCallback == null) {
-      throw StateError('ModuleLoader: no parseSourceCallback provided. '
-          'Cannot parse source code for module ${uri.toString()}. '
-          'Provide a parseSourceCallback to the ModuleLoader constructor.');
+      throw StateError(
+        'ModuleLoader: no parseSourceCallback provided. '
+        'Cannot parse source code for module ${uri.toString()}. '
+        'Provide a parseSourceCallback to the ModuleLoader constructor.',
+      );
     }
     final result = parseSourceCallback!(sourceCode, uri);
     Logger.debug(
-        "[ModuleLoader] Module ${uri.toString()} parsed successfully.");
+      "[ModuleLoader] Module ${uri.toString()} parsed successfully.",
+    );
     return result;
   }
 }

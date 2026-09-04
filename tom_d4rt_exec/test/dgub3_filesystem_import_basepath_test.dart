@@ -42,53 +42,48 @@ void main() {
   });
 
   group('DGUB3: filesystem imports via basePath', () {
-    test(
-      'F-DGUB3-1: direct source can import a relative filesystem module '
-      '[2026-07-27] (PASS)',
-      () {
-        final libDir = io.Directory('${tempRoot.path}/lib')
-          ..createSync(recursive: true);
-        io.File('${libDir.path}/utils.dart').writeAsStringSync('''
+    test('F-DGUB3-1: direct source can import a relative filesystem module '
+        '[2026-07-27] (PASS)', () {
+      final libDir = io.Directory('${tempRoot.path}/lib')
+        ..createSync(recursive: true);
+      io.File('${libDir.path}/utils.dart').writeAsStringSync('''
 String greetFromUtils() {
   return "hello from fs";
 }
 ''');
 
-        final d4rt = D4rt();
-        d4rt.grant(FilesystemPermission.readPath(libDir.path));
+      final d4rt = D4rt();
+      d4rt.grant(FilesystemPermission.readPath(libDir.path));
 
-        final result = d4rt.execute(
-          source: '''
+      final result = d4rt.execute(
+        source: '''
 import './utils.dart';
 
 String main() {
   return greetFromUtils();
 }
 ''',
-          basePath: libDir.path,
-          allowFileSystemImports: true,
-        );
+        basePath: libDir.path,
+        allowFileSystemImports: true,
+      );
 
-        expect(result, equals('hello from fs'));
-      },
-    );
+      expect(result, equals('hello from fs'));
+    });
 
-    test(
-      'F-DGUB3-2: filesystem root library can be loaded when enabled '
-      '[2026-07-27] (PASS)',
-      () {
-        // The root library is not in `sources` at all here, so this also pins
-        // that _parseSource stops requiring a preloaded entry once filesystem
-        // imports are on — the gate that made `library:` file URIs unusable.
-        final appDir = io.Directory('${tempRoot.path}/app')
-          ..createSync(recursive: true);
-        io.File('${appDir.path}/helpers.dart').writeAsStringSync('''
+    test('F-DGUB3-2: filesystem root library can be loaded when enabled '
+        '[2026-07-27] (PASS)', () {
+      // The root library is not in `sources` at all here, so this also pins
+      // that _parseSource stops requiring a preloaded entry once filesystem
+      // imports are on — the gate that made `library:` file URIs unusable.
+      final appDir = io.Directory('${tempRoot.path}/app')
+        ..createSync(recursive: true);
+      io.File('${appDir.path}/helpers.dart').writeAsStringSync('''
 String helperValue() {
   return "from helper";
 }
 ''');
-        final mainFile = io.File('${appDir.path}/main.dart')
-          ..writeAsStringSync('''
+      final mainFile = io.File('${appDir.path}/main.dart')
+        ..writeAsStringSync('''
 import './helpers.dart';
 
 String main() {
@@ -96,18 +91,17 @@ String main() {
 }
 ''');
 
-        final d4rt = D4rt();
-        d4rt.grant(FilesystemPermission.readPath(appDir.path));
+      final d4rt = D4rt();
+      d4rt.grant(FilesystemPermission.readPath(appDir.path));
 
-        final result = d4rt.execute(
-          library: mainFile.absolute.uri.toString(),
-          allowFileSystemImports: true,
-          basePath: appDir.path,
-        );
+      final result = d4rt.execute(
+        library: mainFile.absolute.uri.toString(),
+        allowFileSystemImports: true,
+        basePath: appDir.path,
+      );
 
-        expect(result, equals('from helper'));
-      },
-    );
+      expect(result, equals('from helper'));
+    });
 
     test(
       'F-DGUB3-3: filesystem imports resolve nested relatives without shared '
@@ -119,8 +113,9 @@ String main() {
         // first — resolving it against `basePath` instead would look for
         // <root>/messages/value.dart and miss.
         final rootDir = io.Directory('${tempRoot.path}/nested');
-        io.Directory('${rootDir.path}/features/messages')
-            .createSync(recursive: true);
+        io.Directory(
+          '${rootDir.path}/features/messages',
+        ).createSync(recursive: true);
 
         io.File('${rootDir.path}/main.dart').writeAsStringSync('''
 import 'features/feature.dart';
@@ -132,8 +127,9 @@ import 'messages/value.dart';
 
 String loadMessage() => featureValue();
 ''');
-        io.File('${rootDir.path}/features/messages/value.dart')
-            .writeAsStringSync('''
+        io.File(
+          '${rootDir.path}/features/messages/value.dart',
+        ).writeAsStringSync('''
 String featureValue() => 'nested-ok';
 ''');
 
@@ -156,37 +152,35 @@ String main() => entryMessage();
   });
 
   group('DGUB3: filesystem import permission gate + error shapes', () {
-    test(
-      'F-DGUB3-4: filesystem import without FilesystemPermission is denied '
-      '[2026-07-27] (PASS)',
-      () {
-        final libDir = io.Directory('${tempRoot.path}/lib')
-          ..createSync(recursive: true);
-        io.File('${libDir.path}/secret.dart').writeAsStringSync('''
+    test('F-DGUB3-4: filesystem import without FilesystemPermission is denied '
+        '[2026-07-27] (PASS)', () {
+      final libDir = io.Directory('${tempRoot.path}/lib')
+        ..createSync(recursive: true);
+      io.File('${libDir.path}/secret.dart').writeAsStringSync('''
 String secretValue() => "should-not-read";
 ''');
 
-        // Deliberately grant NO FilesystemPermission. The file exists and
-        // basePath resolves to it, so only the gate can stop this.
-        final d4rt = D4rt();
+      // Deliberately grant NO FilesystemPermission. The file exists and
+      // basePath resolves to it, so only the gate can stop this.
+      final d4rt = D4rt();
 
-        expect(
-          () => d4rt.execute(
-            source: '''
+      expect(
+        () => d4rt.execute(
+          source: '''
 import './secret.dart';
 
 String main() => secretValue();
 ''',
-            basePath: libDir.path,
-            allowFileSystemImports: true,
+          basePath: libDir.path,
+          allowFileSystemImports: true,
+        ),
+        throwsA(
+          predicate(
+            (e) => e.toString().contains('requires FilesystemPermission'),
           ),
-          throwsA(
-            predicate(
-                (e) => e.toString().contains('requires FilesystemPermission')),
-          ),
-        );
-      },
-    );
+        ),
+      );
+    });
 
     test(
       'F-DGUB3-5: filesystem import fails clearly when allowFileSystemImports '
@@ -206,7 +200,8 @@ String main() => secretValue();
         final fileUri = target.absolute.uri.toString();
         expect(
           () => d4rt.execute(
-            source: '''
+            source:
+                '''
 import '$fileUri';
 
 String main() => thingValue();
@@ -215,43 +210,43 @@ String main() => thingValue();
           ),
           throwsA(
             predicate(
-                (e) => e.toString().contains('Filesystem imports are disabled')),
+              (e) => e.toString().contains('Filesystem imports are disabled'),
+            ),
           ),
         );
       },
     );
 
-    test(
-      'F-DGUB3-6: missing filesystem import reports the resolved path '
-      '[2026-07-27] (PASS)',
-      () {
-        final libDir = io.Directory('${tempRoot.path}/lib')
-          ..createSync(recursive: true);
-        // Note: no file is written — the import target does not exist. The
-        // resolved path is what tells the caller WHERE the loader looked, which
-        // is the whole diagnostic value when basePath is wrong.
+    test('F-DGUB3-6: missing filesystem import reports the resolved path '
+        '[2026-07-27] (PASS)', () {
+      final libDir = io.Directory('${tempRoot.path}/lib')
+        ..createSync(recursive: true);
+      // Note: no file is written — the import target does not exist. The
+      // resolved path is what tells the caller WHERE the loader looked, which
+      // is the whole diagnostic value when basePath is wrong.
 
-        final d4rt = D4rt();
-        d4rt.grant(FilesystemPermission.readPath(libDir.path));
+      final d4rt = D4rt();
+      d4rt.grant(FilesystemPermission.readPath(libDir.path));
 
-        expect(
-          () => d4rt.execute(
-            source: '''
+      expect(
+        () => d4rt.execute(
+          source: '''
 import './missing.dart';
 
 String main() => "unreachable";
 ''',
-            basePath: libDir.path,
-            allowFileSystemImports: true,
-          ),
-          throwsA(
-            predicate((e) =>
+          basePath: libDir.path,
+          allowFileSystemImports: true,
+        ),
+        throwsA(
+          predicate(
+            (e) =>
                 e.toString().contains('not found on filesystem') &&
-                e.toString().contains('resolved path:')),
+                e.toString().contains('resolved path:'),
           ),
-        );
-      },
-    );
+        ),
+      );
+    });
   });
 
   group('DGUB3: the gate applies to the loader path only', () {
@@ -282,9 +277,13 @@ String main() => depValue();
         final d4rt = D4rt();
         final result = executeFile(d4rt, mainFile.path);
 
-        expect(result.success, isTrue,
-            reason: 'executeFile pre-walk is ungated today; if this now fails, '
-                'DGUC1 has landed and this test must be inverted');
+        expect(
+          result.success,
+          isTrue,
+          reason:
+              'executeFile pre-walk is ungated today; if this now fails, '
+              'DGUC1 has landed and this test must be inverted',
+        );
         expect(result.result, equals('read-without-grant'));
         expect(result.sourcesLoaded, equals(2));
       },

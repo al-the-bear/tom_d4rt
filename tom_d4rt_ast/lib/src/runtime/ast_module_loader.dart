@@ -1,6 +1,7 @@
 import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart';
-import 'package:tom_d4rt_ast/src/runtime/runtime_interfaces.dart' show RuntimeType;
+import 'package:tom_d4rt_ast/src/runtime/runtime_interfaces.dart'
+    show RuntimeType;
 import 'package:tom_d4rt_ast/src/runtime/d4rt_runner.dart';
 import 'package:tom_d4rt_ast/src/runtime/declaration_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/exceptions.dart';
@@ -389,7 +390,13 @@ class AstModuleLoader implements ModuleContext {
       moduleEnv = Environment(enclosing: moduleEnclosing);
       _registerBridgesForUriInto(uriString, null, null, moduleEnv);
       // GEN-107: Merge re-exported libraries into this module's environment.
-      _mergeReExports(uriString, moduleEnv, null, null, <String, Set<String>?>{});
+      _mergeReExports(
+        uriString,
+        moduleEnv,
+        null,
+        null,
+        <String, Set<String>?>{},
+      );
       cache[uriString] = moduleEnv;
       _registeredBridgeUris.add(uriString);
       onBridgedModuleEnvBuilt?.call();
@@ -441,14 +448,14 @@ class AstModuleLoader implements ModuleContext {
       final bridgedEnum = libEnum.enumDefinition.buildBridgedEnum();
       targetEnvironment.defineBridgedEnum(bridgedEnum);
       Logger.debugLazy(
-        () => '[AstModuleLoader] Registered bridged enum: $name from $uriString',
+        () =>
+            '[AstModuleLoader] Registered bridged enum: $name from $uriString',
       );
     }
 
     // Register bridged classes (Step 1: direct O(matched) URI lookup).
     for (final libClass
-        in runner.bridgedClasses[uriString]?.values ??
-            const <LibraryClass>[]) {
+        in runner.bridgedClasses[uriString]?.values ?? const <LibraryClass>[]) {
       final name = libClass.name;
       if (!_shouldInclude(name, showNames, hideNames)) continue;
 
@@ -461,7 +468,8 @@ class AstModuleLoader implements ModuleContext {
         sourceUri: libClass.sourceUri ?? uriString,
       );
       Logger.debugLazy(
-        () => '[AstModuleLoader] Registered bridged class: $name from $uriString',
+        () =>
+            '[AstModuleLoader] Registered bridged class: $name from $uriString',
       );
     }
 
@@ -473,7 +481,8 @@ class AstModuleLoader implements ModuleContext {
 
       targetEnvironment.defineBridgeAlias(alias.aliasName, alias.targetName);
       Logger.debugLazy(
-        () => '[AstModuleLoader] Registered class alias: '
+        () =>
+            '[AstModuleLoader] Registered class alias: '
             '${alias.aliasName} -> ${alias.targetName} from $uriString',
       );
     }
@@ -489,7 +498,8 @@ class AstModuleLoader implements ModuleContext {
         sourceUri: uriString,
       );
       Logger.debugLazy(
-        () => '[AstModuleLoader] Registered function typedef: '
+        () =>
+            '[AstModuleLoader] Registered function typedef: '
             '${typedef.name} from $uriString',
       );
     }
@@ -511,8 +521,7 @@ class AstModuleLoader implements ModuleContext {
     // in the target environment (named extensions also get a value entry
     // so explicit `MyExt(value).method()` syntax can resolve them).
     for (final libExt
-        in runner.bridgedExtensions[uriString] ??
-            const <LibraryExtension>[]) {
+        in runner.bridgedExtensions[uriString] ?? const <LibraryExtension>[]) {
       final extDef = libExt.extensionDefinition;
       final name = extDef.name;
       if (name != null && !_shouldInclude(name, showNames, hideNames)) continue;
@@ -549,7 +558,8 @@ class AstModuleLoader implements ModuleContext {
         targetEnvironment.define(name, interpretedExt);
       }
       Logger.debugLazy(
-        () => '[AstModuleLoader] Registered bridged extension '
+        () =>
+            '[AstModuleLoader] Registered bridged extension '
             "'${name ?? '<unnamed>'}' on ${extDef.onTypeName} from $uriString",
       );
     }
@@ -577,7 +587,8 @@ class AstModuleLoader implements ModuleContext {
 
       targetEnvironment.define(libVar.name, libVar.value);
       Logger.debugLazy(
-        () => '[AstModuleLoader] Registered library variable: '
+        () =>
+            '[AstModuleLoader] Registered library variable: '
             '${libVar.name} from $uriString',
       );
     }
@@ -601,7 +612,8 @@ class AstModuleLoader implements ModuleContext {
         GlobalGetter(libGetter.getter, setter: setter?.setter),
       );
       Logger.debugLazy(
-        () => '[AstModuleLoader] Registered library getter: '
+        () =>
+            '[AstModuleLoader] Registered library getter: '
             '${libGetter.name} from $uriString',
       );
     }
@@ -709,7 +721,13 @@ class AstModuleLoader implements ModuleContext {
       );
 
       // Recurse for transitive re-exports.
-      _mergeReExports(re.uri, moduleEnv, effectiveShow, effectiveHide, visitedShows);
+      _mergeReExports(
+        re.uri,
+        moduleEnv,
+        effectiveShow,
+        effectiveHide,
+        visitedShows,
+      );
     }
   }
 

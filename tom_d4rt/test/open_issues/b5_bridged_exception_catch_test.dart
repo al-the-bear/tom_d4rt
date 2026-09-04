@@ -45,18 +45,14 @@ D4rt _interpreterWithThrower() {
       '': (visitor, positionalArgs, namedArgs) =>
           NativeFault(positionalArgs.isNotEmpty ? '${positionalArgs[0]}' : ''),
     },
-    getters: {
-      'reason': (visitor, target) => (target as NativeFault).reason,
-    },
+    getters: {'reason': (visitor, target) => (target as NativeFault).reason},
   );
   interpreter.registerBridgedClass(faultClass, 'package:test/fault.dart');
 
   final throwerClass = BridgedClass(
     nativeType: Thrower,
     name: 'Thrower',
-    constructors: {
-      '': (visitor, positionalArgs, namedArgs) => Thrower(),
-    },
+    constructors: {'': (visitor, positionalArgs, namedArgs) => Thrower()},
     methods: {
       'boom': (visitor, target, positionalArgs, namedArgs, typeArgs) =>
           (target as Thrower).boom(),
@@ -65,9 +61,7 @@ D4rt _interpreterWithThrower() {
       'boomStatic': (visitor, positionalArgs, namedArgs, typeArgs) =>
           Thrower.boomStatic(),
     },
-    staticGetters: {
-      'boomGetter': (visitor) => Thrower.boomGetter,
-    },
+    staticGetters: {'boomGetter': (visitor) => Thrower.boomGetter},
   );
   interpreter.registerBridgedClass(throwerClass, 'package:test/thrower.dart');
 
@@ -76,9 +70,11 @@ D4rt _interpreterWithThrower() {
 
 void main() {
   group('OPEN B.5 — bridge-wrapped exceptions stay catchable (VM)', () {
-    test('U13: `on NativeFault` matches a native throw from a bridged method',
-        () async {
-      final result = await _interpreterWithThrower().execute(source: '''
+    test(
+      'U13: `on NativeFault` matches a native throw from a bridged method',
+      () async {
+        final result = await _interpreterWithThrower().execute(
+          source: '''
 import 'package:test/fault.dart';
 import 'package:test/thrower.dart';
 String main() {
@@ -91,13 +87,16 @@ String main() {
     return 'bare:\$e';
   }
 }
-''');
-      expect(result, 'typed:instance method');
-    });
+''',
+        );
+        expect(result, 'typed:instance method');
+      },
+    );
 
     test('U13: `on NativeFault` matches a native throw from a bridged static '
         'method', () async {
-      final result = await _interpreterWithThrower().execute(source: '''
+      final result = await _interpreterWithThrower().execute(
+        source: '''
 import 'package:test/fault.dart';
 import 'package:test/thrower.dart';
 String main() {
@@ -110,13 +109,16 @@ String main() {
     return 'bare:\$e';
   }
 }
-''');
+''',
+      );
       expect(result, 'typed:static method');
     });
 
-    test('U24: a throwing bridged static getter is caught by a bare `catch`',
-        () async {
-      final result = await _interpreterWithThrower().execute(source: '''
+    test(
+      'U24: a throwing bridged static getter is caught by a bare `catch`',
+      () async {
+        final result = await _interpreterWithThrower().execute(
+          source: '''
 import 'package:test/fault.dart';
 import 'package:test/thrower.dart';
 String main() {
@@ -127,13 +129,17 @@ String main() {
     return 'caught';
   }
 }
-''');
-      expect(result, 'caught');
-    });
+''',
+        );
+        expect(result, 'caught');
+      },
+    );
 
-    test('U24: a throwing bridged static getter matches a typed `on` clause',
-        () async {
-      final result = await _interpreterWithThrower().execute(source: '''
+    test(
+      'U24: a throwing bridged static getter matches a typed `on` clause',
+      () async {
+        final result = await _interpreterWithThrower().execute(
+          source: '''
 import 'package:test/fault.dart';
 import 'package:test/thrower.dart';
 String main() {
@@ -144,8 +150,10 @@ String main() {
     return 'typed:\${e.reason}';
   }
 }
-''');
-      expect(result, 'typed:static getter');
-    });
+''',
+        );
+        expect(result, 'typed:static getter');
+      },
+    );
   });
 }

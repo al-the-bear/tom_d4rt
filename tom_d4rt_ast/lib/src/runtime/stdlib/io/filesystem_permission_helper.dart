@@ -20,17 +20,33 @@ import 'dart:io';
 import 'package:tom_d4rt_ast/runtime.dart';
 
 /// Asserts the script may read [path]. Throws otherwise.
-void checkFilesystemReadPermission(InterpreterVisitor visitor, String path,
-    {String operation = 'read'}) {
-  _checkFilesystemPermission(visitor, path,
-      operation: operation, read: true, write: false);
+void checkFilesystemReadPermission(
+  InterpreterVisitor visitor,
+  String path, {
+  String operation = 'read',
+}) {
+  _checkFilesystemPermission(
+    visitor,
+    path,
+    operation: operation,
+    read: true,
+    write: false,
+  );
 }
 
 /// Asserts the script may write [path]. Throws otherwise.
-void checkFilesystemWritePermission(InterpreterVisitor visitor, String path,
-    {String operation = 'write'}) {
-  _checkFilesystemPermission(visitor, path,
-      operation: operation, read: false, write: true);
+void checkFilesystemWritePermission(
+  InterpreterVisitor visitor,
+  String path, {
+  String operation = 'write',
+}) {
+  _checkFilesystemPermission(
+    visitor,
+    path,
+    operation: operation,
+    read: false,
+    write: true,
+  );
 }
 
 void _checkFilesystemPermission(
@@ -55,6 +71,7 @@ void _checkFilesystemPermission(
   if (allowed) return;
 
   throw RuntimeD4rtException(
-      'Filesystem permission denied for $operation on "$path". '
-      'Grant an appropriate FilesystemPermission for this path.');
+    'Filesystem permission denied for $operation on "$path". '
+    'Grant an appropriate FilesystemPermission for this path.',
+  );
 }

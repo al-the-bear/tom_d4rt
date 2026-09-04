@@ -7,17 +7,15 @@
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 
-import 'package:user_guide_example/src/calculator.dart' as $user_guide_example_1;
+import 'package:user_guide_example/src/calculator.dart'
+    as $user_guide_example_1;
 import 'package:user_guide_example/src/greeter.dart' as $user_guide_example_2;
 
 /// Bridge class for all module.
 class AllBridge {
   /// Returns all bridge class definitions.
   static List<BridgedClass> bridgeClasses() {
-    return [
-      _createGreeterBridge(),
-      _createCalculatorBridge(),
-    ];
+    return [_createGreeterBridge(), _createCalculatorBridge()];
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -37,8 +35,7 @@ class AllBridge {
   /// are registered so that code using the alias name can resolve to the
   /// bridged class under its canonical name.
   static Map<String, String> classAliases() {
-    return {
-    };
+    return {};
   }
 
   /// Returns the list of function typedef names declared in this library.
@@ -46,14 +43,12 @@ class AllBridge {
   /// Function typedefs like `typedef VoidCallback = void Function()` are
   /// registered so that they can be used as type arguments in D4rt scripts.
   static List<String> functionTypedefs() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns a map of enum names to their canonical source URIs.
@@ -61,20 +56,17 @@ class AllBridge {
   /// Used for deduplication when the same enum is exported through
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
-    return {
-    };
+    return {};
   }
 
   /// Returns all bridged extension definitions.
   static List<BridgedExtensionDefinition> bridgedExtensions() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns a map of extension identifiers to their canonical source URIs.
   static Map<String, String> extensionSourceUris() {
-    return {
-    };
+    return {};
   }
 
   /// Registers all bridges with an interpreter.
@@ -86,7 +78,11 @@ class AllBridge {
     final classes = bridgeClasses();
     final classSources = classSourceUris();
     for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+      interpreter.registerBridgedClass(
+        bridge,
+        importPath,
+        sourceUri: classSources[bridge.name],
+      );
     }
   }
 
@@ -134,7 +130,6 @@ class AllBridge {
   static List<String> subPackageBarrels() {
     return [];
   }
-
 }
 
 // =============================================================================
@@ -149,7 +144,12 @@ BridgedClass _createGreeterBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Greeter');
-        final greeting = D4.getRequiredArg<String>(positional, 0, 'greeting', 'Greeter');
+        final greeting = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'greeting',
+          'Greeter',
+        );
         return $user_guide_example_2.Greeter(greeting);
       },
       'defaultGreeting': (visitor, positional, named) {
@@ -157,20 +157,30 @@ BridgedClass _createGreeterBridge() {
       },
     },
     getters: {
-      'greeting': (visitor, target) => D4.validateTarget<$user_guide_example_2.Greeter>(target, 'Greeter').greeting,
+      'greeting': (visitor, target) => D4
+          .validateTarget<$user_guide_example_2.Greeter>(target, 'Greeter')
+          .greeting,
     },
     methods: {
       'greet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$user_guide_example_2.Greeter>(target, 'Greeter');
+        final t = D4.validateTarget<$user_guide_example_2.Greeter>(
+          target,
+          'Greeter',
+        );
         D4.requireMinArgs(positional, 1, 'greet');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'greet');
         return t.greet(name);
       },
       'greetAll': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$user_guide_example_2.Greeter>(target, 'Greeter');
+        final t = D4.validateTarget<$user_guide_example_2.Greeter>(
+          target,
+          'Greeter',
+        );
         D4.requireMinArgs(positional, 1, 'greetAll');
         if (positional.isEmpty) {
-          throw ArgumentError('greetAll: Missing required argument "names" at position 0');
+          throw ArgumentError(
+            'greetAll: Missing required argument "names" at position 0',
+          );
         }
         final names = D4.coerceList<String>(positional[0], 'names');
         return t.greetAll(names);
@@ -184,9 +194,7 @@ BridgedClass _createGreeterBridge() {
       'greet': 'String greet(String name)',
       'greetAll': 'String greetAll(List<String> names)',
     },
-    getterSignatures: {
-      'greeting': 'String get greeting',
-    },
+    getterSignatures: {'greeting': 'String get greeting'},
   );
 }
 
@@ -206,28 +214,40 @@ BridgedClass _createCalculatorBridge() {
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$user_guide_example_1.Calculator>(target, 'Calculator');
+        final t = D4.validateTarget<$user_guide_example_1.Calculator>(
+          target,
+          'Calculator',
+        );
         D4.requireMinArgs(positional, 2, 'add');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'add');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'add');
         return t.add(a, b);
       },
       'subtract': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$user_guide_example_1.Calculator>(target, 'Calculator');
+        final t = D4.validateTarget<$user_guide_example_1.Calculator>(
+          target,
+          'Calculator',
+        );
         D4.requireMinArgs(positional, 2, 'subtract');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'subtract');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'subtract');
         return t.subtract(a, b);
       },
       'multiply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$user_guide_example_1.Calculator>(target, 'Calculator');
+        final t = D4.validateTarget<$user_guide_example_1.Calculator>(
+          target,
+          'Calculator',
+        );
         D4.requireMinArgs(positional, 2, 'multiply');
         final a = D4.getRequiredArg<int>(positional, 0, 'a', 'multiply');
         final b = D4.getRequiredArg<int>(positional, 1, 'b', 'multiply');
         return t.multiply(a, b);
       },
       'divide': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$user_guide_example_1.Calculator>(target, 'Calculator');
+        final t = D4.validateTarget<$user_guide_example_1.Calculator>(
+          target,
+          'Calculator',
+        );
         D4.requireMinArgs(positional, 2, 'divide');
         final a = D4.getRequiredArg<double>(positional, 0, 'a', 'divide');
         final b = D4.getRequiredArg<double>(positional, 1, 'b', 'divide');
@@ -243,18 +263,13 @@ BridgedClass _createCalculatorBridge() {
         return $user_guide_example_1.Calculator.quickAdd(a, b);
       },
     },
-    constructorSignatures: {
-      '': 'Calculator()',
-    },
+    constructorSignatures: {'': 'Calculator()'},
     methodSignatures: {
       'add': 'int add(int a, int b)',
       'subtract': 'int subtract(int a, int b)',
       'multiply': 'int multiply(int a, int b)',
       'divide': 'double divide(double a, double b, {int precision = 2})',
     },
-    staticMethodSignatures: {
-      'quickAdd': 'int quickAdd(int a, int b)',
-    },
+    staticMethodSignatures: {'quickAdd': 'int quickAdd(int a, int b)'},
   );
 }
-

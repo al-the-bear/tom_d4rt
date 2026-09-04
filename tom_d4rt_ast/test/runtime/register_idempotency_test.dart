@@ -84,8 +84,7 @@ void main() {
         List<Object?> positional,
         Map<String, Object?> named,
         List<RuntimeType>? typeArgs,
-      ) =>
-          'made';
+      ) => 'made';
 
       D4.registerGenericConstructor(className, ctorName, factory);
       // Pre-condition: identity equals the registered factory.
@@ -102,7 +101,8 @@ void main() {
       expect(
         identical(D4.findGenericConstructor(className, ctorName), factory),
         isTrue,
-        reason: 'Same factory registered twice must not be chained on top '
+        reason:
+            'Same factory registered twice must not be chained on top '
             'of itself.',
       );
 
@@ -124,15 +124,13 @@ void main() {
         List<Object?> positional,
         Map<String, Object?> named,
         List<RuntimeType>? typeArgs,
-      ) =>
-          null;
+      ) => null;
       Object? second(
         InterpreterVisitor visitor,
         List<Object?> positional,
         Map<String, Object?> named,
         List<RuntimeType>? typeArgs,
-      ) =>
-          'fallback';
+      ) => 'fallback';
 
       D4.registerGenericConstructor(className, ctorName, first);
       // After one registration: stored factory is `first` itself.
@@ -172,21 +170,31 @@ void main() {
       const baseType = '_StepFiveTest_TypeWrapper';
       Object? factory(Object value, String innerType) => 'wrapped:$value';
 
-      expect(() => D4.registerGenericTypeWrapper(baseType, factory),
-          returnsNormally);
+      expect(
+        () => D4.registerGenericTypeWrapper(baseType, factory),
+        returnsNormally,
+      );
       // Same factory, same key — must no-op rather than append.
-      expect(() => D4.registerGenericTypeWrapper(baseType, factory),
-          returnsNormally);
-      expect(() => D4.registerGenericTypeWrapper(baseType, factory),
-          returnsNormally);
+      expect(
+        () => D4.registerGenericTypeWrapper(baseType, factory),
+        returnsNormally,
+      );
+      expect(
+        () => D4.registerGenericTypeWrapper(baseType, factory),
+        returnsNormally,
+      );
 
       // A *distinct* factory for the same base type — appended.
       Object? otherFactory(Object value, String innerType) => null;
-      expect(() => D4.registerGenericTypeWrapper(baseType, otherFactory),
-          returnsNormally);
+      expect(
+        () => D4.registerGenericTypeWrapper(baseType, otherFactory),
+        returnsNormally,
+      );
       // Re-registering the distinct factory is also idempotent.
-      expect(() => D4.registerGenericTypeWrapper(baseType, otherFactory),
-          returnsNormally);
+      expect(
+        () => D4.registerGenericTypeWrapper(baseType, otherFactory),
+        returnsNormally,
+      );
     });
   });
 
@@ -201,42 +209,31 @@ void main() {
         List<Object?> positional,
         Map<String, Object?> named,
         List<RuntimeType>? typeArgs,
-      ) =>
-          'A';
+      ) => 'A';
       Object? adapterB(
         InterpreterVisitor visitor,
         Object target,
         List<Object?> positional,
         Map<String, Object?> named,
         List<RuntimeType>? typeArgs,
-      ) =>
-          'B';
+      ) => 'B';
 
       D4.registerSupplementaryMethod(className, methodName, adapterA);
       expect(
-        identical(
-          D4.findSupplementaryMethod(className, methodName),
-          adapterA,
-        ),
+        identical(D4.findSupplementaryMethod(className, methodName), adapterA),
         isTrue,
       );
       // Same adapter, same key — overwrite no-op.
       D4.registerSupplementaryMethod(className, methodName, adapterA);
       expect(
-        identical(
-          D4.findSupplementaryMethod(className, methodName),
-          adapterA,
-        ),
+        identical(D4.findSupplementaryMethod(className, methodName), adapterA),
         isTrue,
       );
       // Different adapter — last write wins (well-defined for an
       // overwrite-by-key registry).
       D4.registerSupplementaryMethod(className, methodName, adapterB);
       expect(
-        identical(
-          D4.findSupplementaryMethod(className, methodName),
-          adapterB,
-        ),
+        identical(D4.findSupplementaryMethod(className, methodName), adapterB),
         isTrue,
       );
     });

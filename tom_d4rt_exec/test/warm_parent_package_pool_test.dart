@@ -49,8 +49,11 @@ void main() {
               SReturnStatement(
                 offset: 0,
                 length: 0,
-                expression:
-                    SIntegerLiteral(offset: 0, length: 1, value: returnValue),
+                expression: SIntegerLiteral(
+                  offset: 0,
+                  length: 1,
+                  value: returnValue,
+                ),
               ),
             ],
           ),
@@ -101,76 +104,122 @@ void main() {
     tearDown(D4rt.debugResetPool);
 
     test(
-        'IMP-OPT-10a: two consecutive executes reuse one warm parent (legacy)',
-        () {
-      final interpreter = D4rt();
+      'IMP-OPT-10a: two consecutive executes reuse one warm parent (legacy)',
+      () {
+        final interpreter = D4rt();
 
-      expect(
-          interpreter.executeBundleAs<int>(bundleWith(1, extraName: 'a1')), 1);
-      final parentAfterFirst = interpreter.visitor!.globalEnvironment.enclosing;
-      expect(parentAfterFirst, isNotNull,
-          reason: 'the per-execute env must be a child chained off the parent');
+        expect(
+          interpreter.executeBundleAs<int>(bundleWith(1, extraName: 'a1')),
+          1,
+        );
+        final parentAfterFirst =
+            interpreter.visitor!.globalEnvironment.enclosing;
+        expect(
+          parentAfterFirst,
+          isNotNull,
+          reason: 'the per-execute env must be a child chained off the parent',
+        );
 
-      expect(
-          interpreter.executeBundleAs<int>(bundleWith(2, extraName: 'a2')), 2);
-      final parentAfterSecond = interpreter.visitor!.globalEnvironment.enclosing;
+        expect(
+          interpreter.executeBundleAs<int>(bundleWith(2, extraName: 'a2')),
+          2,
+        );
+        final parentAfterSecond =
+            interpreter.visitor!.globalEnvironment.enclosing;
 
-      expect(identical(parentAfterFirst, parentAfterSecond), isTrue,
-          reason: 'the warm parent must be built once and reused, not rebuilt');
-    });
-
-    test('IMP-OPT-10b: script state does not leak between executes (legacy)',
-        () {
-      final interpreter = D4rt();
-
-      interpreter.executeBundleAs<int>(bundleWith(1, extraName: 'a1'));
-      final firstChild = interpreter.visitor!.globalEnvironment;
-      expect(firstChild.values.containsKey('a1'), isTrue,
-          reason: "first bundle's top-level fn lands in its own child");
-
-      interpreter.executeBundleAs<int>(bundleWith(2, extraName: 'a2'));
-      final secondChild = interpreter.visitor!.globalEnvironment;
-
-      expect(identical(firstChild, secondChild), isFalse,
-          reason: 'each execute builds a fresh child environment');
-      expect(secondChild.values.containsKey('a2'), isTrue,
-          reason: "second bundle's top-level fn lands in the new child");
-      expect(secondChild.values.containsKey('a1'), isFalse,
-          reason: "first bundle's `a1` must NOT leak into the second child");
-      final parent = secondChild.enclosing!;
-      expect(parent.values.containsKey('a1'), isFalse);
-      expect(parent.values.containsKey('a2'), isFalse);
-    });
-
-    test('IMP-OPT-10c: migrated instances share one warm parent by signature',
-        () {
-      final first = D4rt();
-      expect(first.providePackage('pkg_w'), isFalse,
-          reason: 'first sighting of pkg_w in the process — not pooled yet');
-      first.registerBridgedClass(marker('WClass'), 'package:w/w.dart',
-          sourceUri: 'package:w/w.dart');
-
-      first.executeBundleAs<int>(bundleWith(1, extraName: 'w1'));
-      final parent1 = first.visitor!.globalEnvironment.enclosing;
-      first.executeBundleAs<int>(bundleWith(2, extraName: 'w2'));
-      final parent2 = first.visitor!.globalEnvironment.enclosing;
-      expect(identical(parent1, parent2), isTrue);
-      expect(D4rt.debugWarmParentCacheSize, 1,
-          reason: 'one cached warm parent for the {pkg_w} signature');
-
-      final second = D4rt();
-      expect(second.providePackage('pkg_w'), isTrue,
-          reason: 'pkg_w is already pooled — second wrapper reuses it');
-      second.executeBundleAs<int>(bundleWith(3, extraName: 'w3'));
-      final parent3 = second.visitor!.globalEnvironment.enclosing;
-      expect(identical(parent1, parent3), isTrue,
-          reason: 'same allowed-set signature → same cached warm parent');
-      expect(D4rt.debugWarmParentCacheSize, 1,
-          reason: 'no new parent built for the same signature');
-    });
+        expect(
+          identical(parentAfterFirst, parentAfterSecond),
+          isTrue,
+          reason: 'the warm parent must be built once and reused, not rebuilt',
+        );
+      },
+    );
 
     test(
-        'IMP-OPT-10d: legacy instances do NOT share a warm parent across '
+      'IMP-OPT-10b: script state does not leak between executes (legacy)',
+      () {
+        final interpreter = D4rt();
+
+        interpreter.executeBundleAs<int>(bundleWith(1, extraName: 'a1'));
+        final firstChild = interpreter.visitor!.globalEnvironment;
+        expect(
+          firstChild.values.containsKey('a1'),
+          isTrue,
+          reason: "first bundle's top-level fn lands in its own child",
+        );
+
+        interpreter.executeBundleAs<int>(bundleWith(2, extraName: 'a2'));
+        final secondChild = interpreter.visitor!.globalEnvironment;
+
+        expect(
+          identical(firstChild, secondChild),
+          isFalse,
+          reason: 'each execute builds a fresh child environment',
+        );
+        expect(
+          secondChild.values.containsKey('a2'),
+          isTrue,
+          reason: "second bundle's top-level fn lands in the new child",
+        );
+        expect(
+          secondChild.values.containsKey('a1'),
+          isFalse,
+          reason: "first bundle's `a1` must NOT leak into the second child",
+        );
+        final parent = secondChild.enclosing!;
+        expect(parent.values.containsKey('a1'), isFalse);
+        expect(parent.values.containsKey('a2'), isFalse);
+      },
+    );
+
+    test(
+      'IMP-OPT-10c: migrated instances share one warm parent by signature',
+      () {
+        final first = D4rt();
+        expect(
+          first.providePackage('pkg_w'),
+          isFalse,
+          reason: 'first sighting of pkg_w in the process — not pooled yet',
+        );
+        first.registerBridgedClass(
+          marker('WClass'),
+          'package:w/w.dart',
+          sourceUri: 'package:w/w.dart',
+        );
+
+        first.executeBundleAs<int>(bundleWith(1, extraName: 'w1'));
+        final parent1 = first.visitor!.globalEnvironment.enclosing;
+        first.executeBundleAs<int>(bundleWith(2, extraName: 'w2'));
+        final parent2 = first.visitor!.globalEnvironment.enclosing;
+        expect(identical(parent1, parent2), isTrue);
+        expect(
+          D4rt.debugWarmParentCacheSize,
+          1,
+          reason: 'one cached warm parent for the {pkg_w} signature',
+        );
+
+        final second = D4rt();
+        expect(
+          second.providePackage('pkg_w'),
+          isTrue,
+          reason: 'pkg_w is already pooled — second wrapper reuses it',
+        );
+        second.executeBundleAs<int>(bundleWith(3, extraName: 'w3'));
+        final parent3 = second.visitor!.globalEnvironment.enclosing;
+        expect(
+          identical(parent1, parent3),
+          isTrue,
+          reason: 'same allowed-set signature → same cached warm parent',
+        );
+        expect(
+          D4rt.debugWarmParentCacheSize,
+          1,
+          reason: 'no new parent built for the same signature',
+        );
+      },
+    );
+
+    test('IMP-OPT-10d: legacy instances do NOT share a warm parent across '
         'wrappers', () {
       final first = D4rt();
       final second = D4rt();
@@ -181,22 +230,34 @@ void main() {
       final firstParent = first.visitor!.globalEnvironment.enclosing;
       final secondParent = second.visitor!.globalEnvironment.enclosing;
 
-      expect(identical(firstParent, secondParent), isFalse,
-          reason: 'legacy parents are per-instance — no cross-wrapper sharing');
+      expect(
+        identical(firstParent, secondParent),
+        isFalse,
+        reason: 'legacy parents are per-instance — no cross-wrapper sharing',
+      );
       expect(D4rt.debugWarmParentCacheSize, 0);
     });
 
     test('IMP-OPT-10e: providePackage pools definitions for reuse', () {
       final first = D4rt();
       expect(first.providePackage('pkg_p'), isFalse);
-      first.registerBridgedClass(marker('PClass'), 'package:p/p.dart',
-          sourceUri: 'package:p/p.dart');
-      first.registerBridgedClass(marker('QClass'), 'package:p/p.dart',
-          sourceUri: 'package:p/p.dart');
+      first.registerBridgedClass(
+        marker('PClass'),
+        'package:p/p.dart',
+        sourceUri: 'package:p/p.dart',
+      );
+      first.registerBridgedClass(
+        marker('QClass'),
+        'package:p/p.dart',
+        sourceUri: 'package:p/p.dart',
+      );
 
       expect(D4rt.debugPooledPackages, contains('pkg_p'));
-      expect(D4rt.debugPooledClassCount('pkg_p'), 2,
-          reason: 'both classes registered under pkg_p are pooled');
+      expect(
+        D4rt.debugPooledClassCount('pkg_p'),
+        2,
+        reason: 'both classes registered under pkg_p are pooled',
+      );
 
       final second = D4rt();
       expect(second.providePackage('pkg_p'), isTrue);

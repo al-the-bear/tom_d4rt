@@ -13,10 +13,11 @@ void main() {
 
   group('SC2: LinkedHashSet collection bridge', () {
     test(
-        'F-SC2-1: LinkedHashSet() iterates in insertion order, not sorted order [2026-07-27]',
-        () {
-      final result = d4rt.execute(
-        source: '''
+      'F-SC2-1: LinkedHashSet() iterates in insertion order, not sorted order [2026-07-27]',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final set = LinkedHashSet();
@@ -26,19 +27,25 @@ void main() {
             return [set.toList(), set.length, set.first, set.last];
           }
         ''',
-      ) as List;
-      expect(result[0], orderedEquals(['gamma', 'alpha', 'beta']),
-          reason: 'insertion order preserved');
-      expect(result[1], 3, reason: 'length');
-      expect(result[2], 'gamma', reason: 'first is the first inserted');
-      expect(result[3], 'beta', reason: 'last is the last inserted');
-    });
+                )
+                as List;
+        expect(
+          result[0],
+          orderedEquals(['gamma', 'alpha', 'beta']),
+          reason: 'insertion order preserved',
+        );
+        expect(result[1], 3, reason: 'length');
+        expect(result[2], 'gamma', reason: 'first is the first inserted');
+        expect(result[3], 'beta', reason: 'last is the last inserted');
+      },
+    );
 
     test(
-        'F-SC2-2: re-adding an existing element keeps its original position [2026-07-27]',
-        () {
-      final result = d4rt.execute(
-        source: '''
+      'F-SC2-2: re-adding an existing element keeps its original position [2026-07-27]',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final set = LinkedHashSet();
@@ -49,18 +56,24 @@ void main() {
             return [added, set.toList(), set.length];
           }
         ''',
-      ) as List;
-      expect(result[0], false, reason: 'add() reports the duplicate');
-      expect(result[1], orderedEquals([1, 2, 3]),
-          reason: 're-add must not move the element to the end');
-      expect(result[2], 3, reason: 'length unchanged');
-    });
+                )
+                as List;
+        expect(result[0], false, reason: 'add() reports the duplicate');
+        expect(
+          result[1],
+          orderedEquals([1, 2, 3]),
+          reason: 're-add must not move the element to the end',
+        );
+        expect(result[2], 3, reason: 'length unchanged');
+      },
+    );
 
     test(
-        'F-SC2-3: LinkedHashSet.from() and .of() preserve source order [2026-07-27]',
-        () {
-      final result = d4rt.execute(
-        source: '''
+      'F-SC2-3: LinkedHashSet.from() and .of() preserve source order [2026-07-27]',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final a = LinkedHashSet.from([5, 1, 3, 1, 5]);
@@ -69,18 +82,27 @@ void main() {
             return [a.toList(), b.toList()];
           }
         ''',
-      ) as List;
-      expect(result[0], orderedEquals([5, 1, 3]),
-          reason: 'from() dedups but keeps first-seen order');
-      expect(result[1], orderedEquals(['z', 'y', 'x', 'w']),
-          reason: 'of() then append');
-    });
+                )
+                as List;
+        expect(
+          result[0],
+          orderedEquals([5, 1, 3]),
+          reason: 'from() dedups but keeps first-seen order',
+        );
+        expect(
+          result[1],
+          orderedEquals(['z', 'y', 'x', 'w']),
+          reason: 'of() then append',
+        );
+      },
+    );
 
     test(
-        'F-SC2-4: addAll / remove / contains / clear maintain insertion order [2026-07-27]',
-        () {
-      final result = d4rt.execute(
-        source: '''
+      'F-SC2-4: addAll / remove / contains / clear maintain insertion order [2026-07-27]',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final set = LinkedHashSet();
@@ -93,21 +115,27 @@ void main() {
             return [removed, missing, has30, order, set.isEmpty, set.isNotEmpty];
           }
         ''',
-      ) as List;
-      expect(result[0], true, reason: 'remove existing');
-      expect(result[1], false, reason: 'remove absent');
-      expect(result[2], true, reason: 'contains');
-      expect(result[3], orderedEquals([10, 30, 40]),
-          reason: 'order survives a mid-set removal');
-      expect(result[4], true, reason: 'isEmpty after clear');
-      expect(result[5], false, reason: 'isNotEmpty after clear');
-    });
+                )
+                as List;
+        expect(result[0], true, reason: 'remove existing');
+        expect(result[1], false, reason: 'remove absent');
+        expect(result[2], true, reason: 'contains');
+        expect(
+          result[3],
+          orderedEquals([10, 30, 40]),
+          reason: 'order survives a mid-set removal',
+        );
+        expect(result[4], true, reason: 'isEmpty after clear');
+        expect(result[5], false, reason: 'isNotEmpty after clear');
+      },
+    );
 
     test(
-        'F-SC2-5: forEach / map / where iterate in insertion order [2026-07-27]',
-        () {
-      final result = d4rt.execute(
-        source: '''
+      'F-SC2-5: forEach / map / where iterate in insertion order [2026-07-27]',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final set = LinkedHashSet.from([3, 1, 4, 1, 5, 9]);
@@ -118,16 +146,28 @@ void main() {
             return [seen, doubled, odd];
           }
         ''',
-      ) as List;
-      expect(result[0], orderedEquals([3, 1, 4, 5, 9]), reason: 'forEach order');
-      expect(result[1], orderedEquals([6, 2, 8, 10, 18]), reason: 'map order');
-      expect(result[2], orderedEquals([3, 1, 5, 9]), reason: 'where order');
-    });
+                )
+                as List;
+        expect(
+          result[0],
+          orderedEquals([3, 1, 4, 5, 9]),
+          reason: 'forEach order',
+        );
+        expect(
+          result[1],
+          orderedEquals([6, 2, 8, 10, 18]),
+          reason: 'map order',
+        );
+        expect(result[2], orderedEquals([3, 1, 5, 9]), reason: 'where order');
+      },
+    );
 
-    test('F-SC2-6: set algebra — containsAll / removeAll / retainAll [2026-07-27]',
-        () {
-      final result = d4rt.execute(
-        source: '''
+    test(
+      'F-SC2-6: set algebra — containsAll / removeAll / retainAll [2026-07-27]',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final a = LinkedHashSet.from(['a', 'b', 'c', 'd']);
@@ -141,18 +181,25 @@ void main() {
             return [all, none, afterRemove, b.toList()];
           }
         ''',
-      ) as List;
-      expect(result[0], true, reason: 'containsAll present');
-      expect(result[1], false, reason: 'containsAll with an absent element');
-      expect(result[2], orderedEquals(['b', 'd']), reason: 'after removeAll');
-      expect(result[3], orderedEquals([2, 5]),
-          reason: 'retainAll keeps the receiver order, not the argument order');
-    });
+                )
+                as List;
+        expect(result[0], true, reason: 'containsAll present');
+        expect(result[1], false, reason: 'containsAll with an absent element');
+        expect(result[2], orderedEquals(['b', 'd']), reason: 'after removeAll');
+        expect(
+          result[3],
+          orderedEquals([2, 5]),
+          reason: 'retainAll keeps the receiver order, not the argument order',
+        );
+      },
+    );
 
-    test('F-SC2-7: removeWhere / retainWhere / any / every / fold [2026-07-27]',
-        () {
-      final result = d4rt.execute(
-        source: '''
+    test(
+      'F-SC2-7: removeWhere / retainWhere / any / every / fold [2026-07-27]',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final a = LinkedHashSet.from([1, 2, 3, 4, 5, 6]);
@@ -168,18 +215,21 @@ void main() {
             ];
           }
         ''',
-      ) as List;
-      expect(result[0], orderedEquals([1, 3, 5]), reason: 'removeWhere');
-      expect(result[1], orderedEquals([5, 6]), reason: 'retainWhere');
-      expect(result[2], true, reason: 'any true');
-      expect(result[3], false, reason: 'any false');
-      expect(result[4], true, reason: 'every');
-      expect(result[5], 12, reason: 'fold');
-    });
+                )
+                as List;
+        expect(result[0], orderedEquals([1, 3, 5]), reason: 'removeWhere');
+        expect(result[1], orderedEquals([5, 6]), reason: 'retainWhere');
+        expect(result[2], true, reason: 'any true');
+        expect(result[3], false, reason: 'any false');
+        expect(result[4], true, reason: 'every');
+        expect(result[5], 12, reason: 'fold');
+      },
+    );
 
     test('F-SC2-8: lookup / elementAt / join / take / skip [2026-07-27]', () {
-      final result = d4rt.execute(
-        source: '''
+      final result =
+          d4rt.execute(
+                source: '''
           import 'dart:collection';
           main() {
             final set = LinkedHashSet.from(['one', 'two', 'three']);
@@ -193,44 +243,59 @@ void main() {
             ];
           }
         ''',
-      ) as List;
+              )
+              as List;
       expect(result[0], 'two', reason: 'lookup hit');
       expect(result[1], null, reason: 'lookup miss');
       expect(result[2], 'three', reason: 'elementAt follows insertion order');
-      expect(result[3], 'one-two-three', reason: 'join follows insertion order');
+      expect(
+        result[3],
+        'one-two-three',
+        reason: 'join follows insertion order',
+      );
       expect(result[4], orderedEquals(['one', 'two']), reason: 'take');
       expect(result[5], orderedEquals(['two', 'three']), reason: 'skip');
     });
 
-    test('F-SC2-9: single / first on an empty set raise a D4rt error [2026-07-27]',
-        () {
-      expect(
-        () => d4rt.execute(source: '''
+    test(
+      'F-SC2-9: single / first on an empty set raise a D4rt error [2026-07-27]',
+      () {
+        expect(
+          () => d4rt.execute(
+            source: '''
           import 'dart:collection';
           main() { return LinkedHashSet().first; }
-        '''),
-        throwsA(isA<RuntimeD4rtException>()),
-        reason: 'first on empty',
-      );
-      expect(
-        () => d4rt.execute(source: '''
+        ''',
+          ),
+          throwsA(isA<RuntimeD4rtException>()),
+          reason: 'first on empty',
+        );
+        expect(
+          () => d4rt.execute(
+            source: '''
           import 'dart:collection';
           main() { return LinkedHashSet.from([1, 2]).single; }
-        '''),
-        throwsA(isA<RuntimeD4rtException>()),
-        reason: 'single with more than one element',
-      );
-    });
+        ''',
+          ),
+          throwsA(isA<RuntimeD4rtException>()),
+          reason: 'single with more than one element',
+        );
+      },
+    );
 
-    test('F-SC2-10: LinkedHashSet() rejects positional arguments [2026-07-27]',
-        () {
-      expect(
-        () => d4rt.execute(source: '''
+    test(
+      'F-SC2-10: LinkedHashSet() rejects positional arguments [2026-07-27]',
+      () {
+        expect(
+          () => d4rt.execute(
+            source: '''
           import 'dart:collection';
           main() { return LinkedHashSet([1, 2]); }
-        '''),
-        throwsA(isA<RuntimeD4rtException>()),
-      );
-    });
+        ''',
+          ),
+          throwsA(isA<RuntimeD4rtException>()),
+        );
+      },
+    );
   });
 }

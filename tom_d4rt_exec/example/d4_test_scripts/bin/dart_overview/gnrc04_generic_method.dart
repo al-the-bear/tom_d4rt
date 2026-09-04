@@ -8,7 +8,9 @@ void main() {
   var wrapper = Wrapper(10);
   var transformed = wrapper.transform((x) => x.toString());
   if (transformed.value != '10') {
-    errors.add('Wrapper(10).transform(toString) expected "10", got "${transformed.value}"');
+    errors.add(
+      'Wrapper(10).transform(toString) expected "10", got "${transformed.value}"',
+    );
   }
 
   // Test Maybe.map
@@ -22,7 +24,9 @@ void main() {
   var none = Maybe.none();
   var mappedNone = none.map((x) => x * 2);
   if (mappedNone.hasValue != false) {
-    errors.add('Maybe.none().map() expected hasValue=false, got ${mappedNone.hasValue}');
+    errors.add(
+      'Maybe.none().map() expected hasValue=false, got ${mappedNone.hasValue}',
+    );
   }
 
   if (errors.isEmpty) {

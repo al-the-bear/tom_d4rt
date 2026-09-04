@@ -3,8 +3,10 @@ import '../../interpreter_test.dart';
 
 void main() {
   group('Async* Generator Tests', () {
-    test('I-ASYNC-62: Basic async* generator with yield. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-62: Basic async* generator with yield. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         Stream<int> countAsync() async* {
           yield 1;
           yield 2;
@@ -20,12 +22,15 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(result, equals([1, 2, 3]));
-    });
+        final result = await execute(code);
+        expect(result, equals([1, 2, 3]));
+      },
+    );
 
-    test('I-ASYNC-60: Async* generator with async operations between yields. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-60: Async* generator with async operations between yields. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         Stream<int> delayedCount() async* {
           for (int i = 1; i <= 3; i++) {
             await Future.delayed(Duration(milliseconds: 1));
@@ -42,12 +47,15 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(result, equals([1, 2, 3]));
-    });
+        final result = await execute(code);
+        expect(result, equals([1, 2, 3]));
+      },
+    );
 
-    test('I-ASYNC-61: Async* generator with yield*. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-61: Async* generator with yield*. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         Stream<int> baseStream() async* {
           yield 1;
           yield 2;
@@ -68,12 +76,15 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(result, equals([0, 1, 2, 3]));
-    });
+        final result = await execute(code);
+        expect(result, equals([0, 1, 2, 3]));
+      },
+    );
 
-    test('I-ASYNC-63: Async* generator with early return. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-63: Async* generator with early return. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         Stream<int> conditionalGenerator(bool shouldContinue) async* {
           yield 1;
           if (!shouldContinue) return;
@@ -96,17 +107,21 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(
+        final result = await execute(code);
+        expect(
           result,
           equals([
             [1],
-            [1, 2, 3]
-          ]));
-    });
+            [1, 2, 3],
+          ]),
+        );
+      },
+    );
 
-    test('I-ASYNC-55: Async* generator with exception handling. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-55: Async* generator with exception handling. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         Stream<int> errorGenerator() async* {
           yield 1;
           throw Exception('Test error');
@@ -126,13 +141,16 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(result, contains('Caught:'));
-      expect(result, contains('Test error'));
-    });
+        final result = await execute(code);
+        expect(result, contains('Caught:'));
+        expect(result, contains('Test error'));
+      },
+    );
 
-    test('I-ASYNC-56: Nested async* generators. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-56: Nested async* generators. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         Stream<int> innerGenerator(int start, int count) async* {
           for (int i = 0; i < count; i++) {
             yield start + i;
@@ -153,12 +171,15 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(result, equals([1, 2, 10, 11]));
-    });
+        final result = await execute(code);
+        expect(result, equals([1, 2, 10, 11]));
+      },
+    );
 
-    test('I-ASYNC-57: Async* generator with complex control flow. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-57: Async* generator with complex control flow. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         Stream<int> complexGenerator() async* {
           for (int i = 1; i <= 5; i++) {
             if (i % 2 == 0) {
@@ -182,12 +203,15 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(result, equals([1, 4, 3, 8, 5]));
-    });
+        final result = await execute(code);
+        expect(result, equals([1, 4, 3, 8, 5]));
+      },
+    );
 
-    test('I-ASYNC-58: Multiple async* generators running concurrently. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-58: Multiple async* generators running concurrently. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         Stream<String> generator1() async* {
           for (int i = 1; i <= 3; i++) {
             await Future.delayed(Duration(milliseconds: 1));
@@ -224,17 +248,21 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(
+        final result = await execute(code);
+        expect(
           result,
           equals([
             ['A1', 'A2', 'A3'],
-            ['B1', 'B2', 'B3']
-          ]));
-    });
+            ['B1', 'B2', 'B3'],
+          ]),
+        );
+      },
+    );
 
-    test('I-ASYNC-59: Async* generator yielding complex objects. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-59: Async* generator yielding complex objects. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         Stream<Map<String, dynamic>> dataGenerator() async* {
           yield {'id': 1, 'name': 'First'};
           await Future.delayed(Duration(milliseconds: 1));
@@ -251,14 +279,16 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(
+        final result = await execute(code);
+        expect(
           result,
           equals([
             {'id': 1, 'name': 'First'},
             {'id': 2, 'name': 'Second'},
-            {'id': 3, 'name': 'Third'}
-          ]));
-    });
+            {'id': 3, 'name': 'Third'},
+          ]),
+        );
+      },
+    );
   });
 }

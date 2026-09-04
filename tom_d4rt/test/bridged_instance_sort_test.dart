@@ -44,8 +44,9 @@ void main() {
           'compareTo': (visitor, instance, positionalArgs, namedArgs, _) {
             final target = instance as SortableItem;
             final other = positionalArgs[0];
-            final otherItem =
-                other is BridgedInstance ? other.nativeObject : other;
+            final otherItem = other is BridgedInstance
+                ? other.nativeObject
+                : other;
             return target.compareTo(otherItem as SortableItem);
           },
           'toString': (visitor, instance, positionalArgs, namedArgs, _) {
@@ -55,11 +56,16 @@ void main() {
       );
 
       interpreter.registerBridgedClass(
-          sortableItemBridge, 'package:test/sortable.dart');
+        sortableItemBridge,
+        'package:test/sortable.dart',
+      );
     });
 
-    test('I-BRIDGE-20: Sorting a list of BridgedInstance Comparable elements. [2026-02-10 06:37] (PASS)', () async {
-      final result = await interpreter.execute(source: '''
+    test(
+      'I-BRIDGE-20: Sorting a list of BridgedInstance Comparable elements. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await interpreter.execute(
+          source: '''
         import 'package:test/sortable.dart';
 
         List<int> main() {
@@ -71,13 +77,18 @@ void main() {
           items.sort();
           return [items[0].value, items[1].value, items[2].value];
         }
-      ''');
+      ''',
+        );
 
-      expect(result, equals([1, 2, 3]));
-    });
+        expect(result, equals([1, 2, 3]));
+      },
+    );
 
-    test('I-BRIDGE-21: Sorting preserves wrapper after sort. [2026-02-10 06:37] (PASS)', () async {
-      final result = await interpreter.execute(source: '''
+    test(
+      'I-BRIDGE-21: Sorting preserves wrapper after sort. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await interpreter.execute(
+          source: '''
         import 'package:test/sortable.dart';
 
         String main() {
@@ -89,13 +100,18 @@ void main() {
           // Access the name property to verify wrapper is preserved
           return items[0].name;
         }
-      ''');
+      ''',
+        );
 
-      expect(result, equals('first'));
-    });
+        expect(result, equals('first'));
+      },
+    );
 
-    test('I-BRIDGE-22: Sorting with custom comparator still works. [2026-02-10 06:37] (PASS)', () async {
-      final result = await interpreter.execute(source: '''
+    test(
+      'I-BRIDGE-22: Sorting with custom comparator still works. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await interpreter.execute(
+          source: '''
         import 'package:test/sortable.dart';
 
         List<int> main() {
@@ -108,13 +124,18 @@ void main() {
           items.sort((a, b) => b.value.compareTo(a.value));
           return [items[0].value, items[1].value, items[2].value];
         }
-      ''');
+      ''',
+        );
 
-      expect(result, equals([3, 2, 1]));
-    });
+        expect(result, equals([3, 2, 1]));
+      },
+    );
 
-    test('I-BRIDGE-16: Sorting empty list does not throw. [2026-02-10 06:37] (PASS)', () async {
-      final result = await interpreter.execute(source: '''
+    test(
+      'I-BRIDGE-16: Sorting empty list does not throw. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await interpreter.execute(
+          source: '''
         import 'package:test/sortable.dart';
 
         int main() {
@@ -122,13 +143,18 @@ void main() {
           items.sort();
           return items.length;
         }
-      ''');
+      ''',
+        );
 
-      expect(result, equals(0));
-    });
+        expect(result, equals(0));
+      },
+    );
 
-    test('I-BRIDGE-17: Sorting single element list works. [2026-02-10 06:37] (PASS)', () async {
-      final result = await interpreter.execute(source: '''
+    test(
+      'I-BRIDGE-17: Sorting single element list works. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await interpreter.execute(
+          source: '''
         import 'package:test/sortable.dart';
 
         int main() {
@@ -136,34 +162,46 @@ void main() {
           items.sort();
           return items[0].value;
         }
-      ''');
+      ''',
+        );
 
-      expect(result, equals(42));
-    });
+        expect(result, equals(42));
+      },
+    );
 
-    test('I-BRIDGE-18: Sorting mixed list with integers still works. [2026-02-10 06:37] (PASS)', () async {
-      // Test that native int sorting still works
-      final result = await interpreter.execute(source: '''
+    test(
+      'I-BRIDGE-18: Sorting mixed list with integers still works. [2026-02-10 06:37] (PASS)',
+      () async {
+        // Test that native int sorting still works
+        final result = await interpreter.execute(
+          source: '''
         List<int> main() {
           var items = [3, 1, 2];
           items.sort();
           return items;
         }
-      ''');
+      ''',
+        );
 
-      expect(result, equals([1, 2, 3]));
-    });
+        expect(result, equals([1, 2, 3]));
+      },
+    );
 
-    test('I-BRIDGE-19: Sorting with strings still works. [2026-02-10 06:37] (PASS)', () async {
-      final result = await interpreter.execute(source: '''
+    test(
+      'I-BRIDGE-19: Sorting with strings still works. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await interpreter.execute(
+          source: '''
         List<String> main() {
           var items = ['banana', 'apple', 'cherry'];
           items.sort();
           return items;
         }
-      ''');
+      ''',
+        );
 
-      expect(result, equals(['apple', 'banana', 'cherry']));
-    });
+        expect(result, equals(['apple', 'banana', 'cherry']));
+      },
+    );
   });
 }

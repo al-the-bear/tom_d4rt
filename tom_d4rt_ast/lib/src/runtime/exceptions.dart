@@ -61,7 +61,7 @@ class D4rtDiag {
 ///
 /// This is used primarily in test modes to detect errors that occurred
 /// during script execution.
-/// 
+///
 /// Errors can be revoked if they are caught and handled gracefully,
 /// preventing them from causing test failures.
 class ErrorReporter {
@@ -143,13 +143,15 @@ class ErrorReporter {
   /// Returns a formatted string with all reported errors.
   static String get report {
     if (_errors.isEmpty) return 'No errors reported.';
-    return _errors.map((e) {
-      final stackTrace = e.trackedStackTrace;
-      if (stackTrace != null) {
-        return '$e\nStack trace:\n$stackTrace';
-      }
-      return e.toString();
-    }).join('\n\n');
+    return _errors
+        .map((e) {
+          final stackTrace = e.trackedStackTrace;
+          if (stackTrace != null) {
+            return '$e\nStack trace:\n$stackTrace';
+          }
+          return e.toString();
+        })
+        .join('\n\n');
   }
 
   /// Returns a formatted string with all reported errors (without stack traces).
@@ -160,7 +162,7 @@ class ErrorReporter {
 }
 
 /// Base class for all D4rt-specific exceptions that should be tracked.
-/// 
+///
 /// All exceptions are automatically registered with [ErrorReporter] on creation.
 /// If an exception is caught and handled gracefully, call [revoke()] to prevent
 /// it from causing test failures.
@@ -195,13 +197,13 @@ abstract class D4rtException implements Exception {
   }
 
   /// Revokes this error from the ErrorReporter.
-  /// 
+  ///
   /// Call this when the exception has been caught and handled gracefully,
   /// and should not count as a test failure.
-  /// 
+  ///
   /// Returns true if the error was successfully revoked, false if it was
   /// not found in the reporter (possibly already revoked).
-  /// 
+  ///
   /// Example:
   /// ```dart
   /// try {
@@ -253,8 +255,11 @@ class RuntimeD4rtException extends D4rtException {
   /// [originalException] is supplied, the wrapped native exception stays
   /// catchable by type; supply [originalStackTrace] from the same `catch`
   /// clause so the trace survives the wrapping too.
-  RuntimeD4rtException(super.message,
-      {this.originalException, this.originalStackTrace});
+  RuntimeD4rtException(
+    super.message, {
+    this.originalException,
+    this.originalStackTrace,
+  });
 
   @override
   String toString() => 'Runtime Error: $message';
@@ -449,12 +454,15 @@ D4rtException wrapDirectiveError(
       'Failed to load $directiveType "$targetUri" from module "$ownerUri": '
       '${error.message}';
   final D4rtException? wrapped = switch (error) {
-    SourceCodeD4rtException e =>
-      SourceCodeD4rtException(message, e.problematicCode),
-    RuntimeD4rtException e =>
-      RuntimeD4rtException(message,
-          originalException: e.originalException,
-          originalStackTrace: e.originalStackTrace),
+    SourceCodeD4rtException e => SourceCodeD4rtException(
+      message,
+      e.problematicCode,
+    ),
+    RuntimeD4rtException e => RuntimeD4rtException(
+      message,
+      originalException: e.originalException,
+      originalStackTrace: e.originalStackTrace,
+    ),
     _ => null,
   };
   // An unreconstructable type is returned untouched AND unflagged, so an outer
@@ -477,7 +485,7 @@ class InternalInterpreterD4rtException extends D4rtException {
 
   /// Creates a new internal interpreter exception wrapping the original thrown value.
   InternalInterpreterD4rtException(this.originalThrownValue)
-      : super('External error caught by interpreter');
+    : super('External error caught by interpreter');
 
   @override
   String toString() {

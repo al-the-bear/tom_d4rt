@@ -55,20 +55,17 @@ void main() async {
   var nested = [
     [1, 2],
     [3, 4],
-    [5, 6]
+    [5, 6],
   ];
   print('  ${flatten(nested).toList()}');
 
   // Tree traversal with yield*
   print('');
   print('--- Tree Traversal ---');
-  var tree = TreeNode(
-    1,
-    [
-      TreeNode(2, [TreeNode(4), TreeNode(5)]),
-      TreeNode(3, [TreeNode(6), TreeNode(7)]),
-    ],
-  );
+  var tree = TreeNode(1, [
+    TreeNode(2, [TreeNode(4), TreeNode(5)]),
+    TreeNode(3, [TreeNode(6), TreeNode(7)]),
+  ]);
   print('Tree values (pre-order):');
   print('  ${traverseTree(tree).toList()}');
 

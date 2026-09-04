@@ -174,27 +174,26 @@ class ClassDiff {
       unverifiedUniversal.length;
 
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'nativeType': nativeTypeName,
-        'verified': verified,
-        'recipeUsable': recipeUsable,
-        if (notAuditableReason != null)
-          'notAuditableReason': notAuditableReason,
-        'gapCount': gapCount,
-        'bridgedCount': bridgedCount,
-        'sdkCount': sdkCount,
-        'missingInstance': missingInstance,
-        'missingStatic': missingStatic,
-        'reachableViaFallback': reachableViaFallback,
-        'unverifiedInstance': unverifiedInstance,
-        'unverifiedStatic': unverifiedStatic,
-        'missingOperators': missingOperators,
-        'missingUniversal': missingUniversal,
-        'unverifiedOperators': unverifiedOperators,
-        'unverifiedUniversal': unverifiedUniversal,
-        'extraBridged': extraBridged,
-        if (error != null) 'error': error,
-      };
+    'name': name,
+    'nativeType': nativeTypeName,
+    'verified': verified,
+    'recipeUsable': recipeUsable,
+    if (notAuditableReason != null) 'notAuditableReason': notAuditableReason,
+    'gapCount': gapCount,
+    'bridgedCount': bridgedCount,
+    'sdkCount': sdkCount,
+    'missingInstance': missingInstance,
+    'missingStatic': missingStatic,
+    'reachableViaFallback': reachableViaFallback,
+    'unverifiedInstance': unverifiedInstance,
+    'unverifiedStatic': unverifiedStatic,
+    'missingOperators': missingOperators,
+    'missingUniversal': missingUniversal,
+    'unverifiedOperators': unverifiedOperators,
+    'unverifiedUniversal': unverifiedUniversal,
+    'extraBridged': extraBridged,
+    if (error != null) 'error': error,
+  };
 }
 
 /// Registers every stdlib module into one environment.
@@ -250,7 +249,8 @@ Future<void> verifyAll(
   void Function(String name, int candidates)? onClass,
 }) async {
   for (final d in diffs) {
-    final candidates = d.missingInstance.length +
+    final candidates =
+        d.missingInstance.length +
         d.missingStatic.length +
         d.missingOperators.length +
         d.missingUniversal.length;
@@ -267,10 +267,9 @@ bool _isOperator(String n) =>
     n.isNotEmpty && !RegExp(r'^[A-Za-z_$]').hasMatch(n);
 
 /// Mirrors keys setters as `foo=`; the adapter maps key them as `foo`.
-String _normalizeSetter(String name) =>
-    name.endsWith('=') && !_isOperator(name)
-        ? name.substring(0, name.length - 1)
-        : name;
+String _normalizeSetter(String name) => name.endsWith('=') && !_isOperator(name)
+    ? name.substring(0, name.length - 1)
+    : name;
 
 /// Whether [decl] carries `@Deprecated` (or the bare `@deprecated`).
 ///
@@ -487,13 +486,16 @@ class Recipe {
 /// so each entry is a pointer at work to do rather than a permanent exemption:
 /// fix the defect and the class becomes auditable.
 const _notAuditable = <String, String>{
-  'HttpClientRequest': 'the value `HttpClient.getUrl` yields is bridged as '
+  'HttpClientRequest':
+      'the value `HttpClient.getUrl` yields is bridged as '
       '`IOSink`, its supertype, so every `HttpClientRequest` member reads as '
       'undefined regardless of the adapter map — the recipe would measure the '
       'wrong bridge',
-  'HttpHeaders': 'only reachable via `HttpClientRequest.headers`, which the '
+  'HttpHeaders':
+      'only reachable via `HttpClientRequest.headers`, which the '
       'same `IOSink` misbridging hides',
-  'HttpClientResponse': 'requires a completed HTTP round trip, which does not '
+  'HttpClientResponse':
+      'requires a completed HTTP round trip, which does not '
       'finish inside the interpreter — the probe hangs rather than answering',
 };
 
@@ -509,30 +511,54 @@ const _instanceRecipes = <String, Recipe>{
   'Set': Recipe('{1, 2}'),
   'Iterable': Recipe('[1, 2]'),
   'ByteData': Recipe('ByteData(8)', imports: "import 'dart:typed_data';"),
-  'ByteBuffer':
-      Recipe('Uint8List(8).buffer', imports: "import 'dart:typed_data';"),
-  'Uint8List': Recipe('Uint8List.fromList([1, 2, 3])',
-      imports: "import 'dart:typed_data';"),
-  'Uint8ClampedList': Recipe('Uint8ClampedList.fromList([1, 2, 3])',
-      imports: "import 'dart:typed_data';"),
-  'Uint16List': Recipe('Uint16List.fromList([1, 2])',
-      imports: "import 'dart:typed_data';"),
-  'Uint32List': Recipe('Uint32List.fromList([1, 2])',
-      imports: "import 'dart:typed_data';"),
-  'Uint64List': Recipe('Uint64List.fromList([1, 2])',
-      imports: "import 'dart:typed_data';"),
-  'Int8List':
-      Recipe('Int8List.fromList([1, 2])', imports: "import 'dart:typed_data';"),
-  'Int16List': Recipe('Int16List.fromList([1, 2])',
-      imports: "import 'dart:typed_data';"),
-  'Int32List': Recipe('Int32List.fromList([1, 2])',
-      imports: "import 'dart:typed_data';"),
-  'Int64List': Recipe('Int64List.fromList([1, 2])',
-      imports: "import 'dart:typed_data';"),
-  'Float32List': Recipe('Float32List.fromList([1.0, 2.0])',
-      imports: "import 'dart:typed_data';"),
-  'Float64List': Recipe('Float64List.fromList([1.0, 2.0])',
-      imports: "import 'dart:typed_data';"),
+  'ByteBuffer': Recipe(
+    'Uint8List(8).buffer',
+    imports: "import 'dart:typed_data';",
+  ),
+  'Uint8List': Recipe(
+    'Uint8List.fromList([1, 2, 3])',
+    imports: "import 'dart:typed_data';",
+  ),
+  'Uint8ClampedList': Recipe(
+    'Uint8ClampedList.fromList([1, 2, 3])',
+    imports: "import 'dart:typed_data';",
+  ),
+  'Uint16List': Recipe(
+    'Uint16List.fromList([1, 2])',
+    imports: "import 'dart:typed_data';",
+  ),
+  'Uint32List': Recipe(
+    'Uint32List.fromList([1, 2])',
+    imports: "import 'dart:typed_data';",
+  ),
+  'Uint64List': Recipe(
+    'Uint64List.fromList([1, 2])',
+    imports: "import 'dart:typed_data';",
+  ),
+  'Int8List': Recipe(
+    'Int8List.fromList([1, 2])',
+    imports: "import 'dart:typed_data';",
+  ),
+  'Int16List': Recipe(
+    'Int16List.fromList([1, 2])',
+    imports: "import 'dart:typed_data';",
+  ),
+  'Int32List': Recipe(
+    'Int32List.fromList([1, 2])',
+    imports: "import 'dart:typed_data';",
+  ),
+  'Int64List': Recipe(
+    'Int64List.fromList([1, 2])',
+    imports: "import 'dart:typed_data';",
+  ),
+  'Float32List': Recipe(
+    'Float32List.fromList([1.0, 2.0])',
+    imports: "import 'dart:typed_data';",
+  ),
+  'Float64List': Recipe(
+    'Float64List.fromList([1.0, 2.0])',
+    imports: "import 'dart:typed_data';",
+  ),
   // The primitives had no recipe at all, which is why the operator column was
   // UNVERIFIED for precisely the classes whose operators matter most — `bool`'s
   // missing `& | ^` sat in an unverified bucket on an unverified column. A
@@ -545,38 +571,64 @@ const _instanceRecipes = <String, Recipe>{
   'num': Recipe('2'),
   'BigInt': Recipe('BigInt.from(6)'),
   'Queue': Recipe('Queue<int>()..add(1)', imports: "import 'dart:collection';"),
-  'ListQueue':
-      Recipe('ListQueue<int>()..add(1)', imports: "import 'dart:collection';"),
-  'DoubleLinkedQueue': Recipe('DoubleLinkedQueue<int>()..add(1)',
-      imports: "import 'dart:collection';"),
-  'HashSet':
-      Recipe('HashSet<int>()..add(1)', imports: "import 'dart:collection';"),
-  'LinkedHashSet': Recipe('LinkedHashSet<int>()..add(1)',
-      imports: "import 'dart:collection';"),
-  'SplayTreeSet': Recipe('SplayTreeSet<int>()..add(1)',
-      imports: "import 'dart:collection';"),
-  'SplayTreeMap':
-      Recipe('SplayTreeMap<int, int>()', imports: "import 'dart:collection';"),
-  'HashMap':
-      Recipe('HashMap<int, int>()', imports: "import 'dart:collection';"),
-  'LinkedHashMap':
-      Recipe('LinkedHashMap<int, int>()', imports: "import 'dart:collection';"),
-  'UnmodifiableListView': Recipe('UnmodifiableListView<int>([1, 2])',
-      imports: "import 'dart:collection';"),
+  'ListQueue': Recipe(
+    'ListQueue<int>()..add(1)',
+    imports: "import 'dart:collection';",
+  ),
+  'DoubleLinkedQueue': Recipe(
+    'DoubleLinkedQueue<int>()..add(1)',
+    imports: "import 'dart:collection';",
+  ),
+  'HashSet': Recipe(
+    'HashSet<int>()..add(1)',
+    imports: "import 'dart:collection';",
+  ),
+  'LinkedHashSet': Recipe(
+    'LinkedHashSet<int>()..add(1)',
+    imports: "import 'dart:collection';",
+  ),
+  'SplayTreeSet': Recipe(
+    'SplayTreeSet<int>()..add(1)',
+    imports: "import 'dart:collection';",
+  ),
+  'SplayTreeMap': Recipe(
+    'SplayTreeMap<int, int>()',
+    imports: "import 'dart:collection';",
+  ),
+  'HashMap': Recipe(
+    'HashMap<int, int>()',
+    imports: "import 'dart:collection';",
+  ),
+  'LinkedHashMap': Recipe(
+    'LinkedHashMap<int, int>()',
+    imports: "import 'dart:collection';",
+  ),
+  'UnmodifiableListView': Recipe(
+    'UnmodifiableListView<int>([1, 2])',
+    imports: "import 'dart:collection';",
+  ),
   'LinkedList': Recipe('LinkedList()', imports: "import 'dart:collection';"),
   // The SDK's `LinkedListEntry` is abstract and exists to be subclassed; this
   // bridge models it as a concrete value carrier instead, so `LinkedListEntry(1)`
   // is the recipe the bridge under measurement actually accepts. The divergence
   // is real and tracked separately — measuring the bridge as it is, is the audit's
   // job; changing it is not.
-  'LinkedListEntry':
-      Recipe('LinkedListEntry(1)', imports: "import 'dart:collection';"),
-  'StreamController':
-      Recipe('StreamController<int>()', imports: "import 'dart:async';"),
-  'StreamView': Recipe('StreamView<int>(Stream<int>.fromIterable([1]))',
-      imports: "import 'dart:async';"),
-  'StreamSubscription': Recipe('Stream<int>.fromIterable([1]).listen((e) {})',
-      imports: "import 'dart:async';"),
+  'LinkedListEntry': Recipe(
+    'LinkedListEntry(1)',
+    imports: "import 'dart:collection';",
+  ),
+  'StreamController': Recipe(
+    'StreamController<int>()',
+    imports: "import 'dart:async';",
+  ),
+  'StreamView': Recipe(
+    'StreamView<int>(Stream<int>.fromIterable([1]))',
+    imports: "import 'dart:async';",
+  ),
+  'StreamSubscription': Recipe(
+    'Stream<int>.fromIterable([1]).listen((e) {})',
+    imports: "import 'dart:async';",
+  ),
   'Utf8Codec': Recipe('utf8', imports: "import 'dart:convert';"),
   'AsciiCodec': Recipe('ascii', imports: "import 'dart:convert';"),
   'Latin1Codec': Recipe('latin1', imports: "import 'dart:convert';"),
@@ -585,70 +637,108 @@ const _instanceRecipes = <String, Recipe>{
   'JsonDecoder': Recipe('JsonDecoder()', imports: "import 'dart:convert';"),
   'Converter': Recipe('JsonEncoder()', imports: "import 'dart:convert';"),
   'HtmlEscape': Recipe('HtmlEscape()', imports: "import 'dart:convert';"),
-  'HtmlEscapeMode':
-      Recipe('HtmlEscapeMode.element', imports: "import 'dart:convert';"),
+  'HtmlEscapeMode': Recipe(
+    'HtmlEscapeMode.element',
+    imports: "import 'dart:convert';",
+  ),
   'LineSplitter': Recipe('LineSplitter()', imports: "import 'dart:convert';"),
-  'StreamTransformerBase':
-      Recipe('utf8.decoder', imports: "import 'dart:convert';"),
-  'StringConversionSink': Recipe('StringConversionSink.withCallback((s) {})',
-      imports: "import 'dart:convert';"),
+  'StreamTransformerBase': Recipe(
+    'utf8.decoder',
+    imports: "import 'dart:convert';",
+  ),
+  'StringConversionSink': Recipe(
+    'StringConversionSink.withCallback((s) {})',
+    imports: "import 'dart:convert';",
+  ),
   'Point': Recipe('Point(1, 2)', imports: "import 'dart:math';"),
   'Rectangle': Recipe('Rectangle(0, 0, 2, 2)', imports: "import 'dart:math';"),
-  'ReceivePort': Recipe('ReceivePort()',
-      imports: "import 'dart:isolate';", teardown: 'o.close();'),
-  'SendPort': Recipe('(ReceivePort()..close()).sendPort',
-      imports: "import 'dart:isolate';"),
+  'ReceivePort': Recipe(
+    'ReceivePort()',
+    imports: "import 'dart:isolate';",
+    teardown: 'o.close();',
+  ),
+  'SendPort': Recipe(
+    '(ReceivePort()..close()).sendPort',
+    imports: "import 'dart:isolate';",
+  ),
   'ProcessSignal': Recipe('ProcessSignal.sigint', imports: "import 'dart:io';"),
-  'InternetAddressType':
-      Recipe('InternetAddressType.IPv4', imports: "import 'dart:io';"),
-  'InternetAddress':
-      Recipe('InternetAddress.loopbackIPv4', imports: "import 'dart:io';"),
-  'FileSystemEntityType':
-      Recipe('FileSystemEntityType.file', imports: "import 'dart:io';"),
+  'InternetAddressType': Recipe(
+    'InternetAddressType.IPv4',
+    imports: "import 'dart:io';",
+  ),
+  'InternetAddress': Recipe(
+    'InternetAddress.loopbackIPv4',
+    imports: "import 'dart:io';",
+  ),
+  'FileSystemEntityType': Recipe(
+    'FileSystemEntityType.file',
+    imports: "import 'dart:io';",
+  ),
   'StdioType': Recipe('StdioType.terminal', imports: "import 'dart:io';"),
-  'ProcessStartMode':
-      Recipe('ProcessStartMode.normal', imports: "import 'dart:io';"),
+  'ProcessStartMode': Recipe(
+    'ProcessStartMode.normal',
+    imports: "import 'dart:io';",
+  ),
   'RawSocketEvent': Recipe('RawSocketEvent.read', imports: "import 'dart:io';"),
   'Stdin': Recipe('stdin', imports: "import 'dart:io';"),
   'Stdout': Recipe('stdout', imports: "import 'dart:io';"),
-  'HttpClient': Recipe('HttpClient()',
-      imports: "import 'dart:io';", teardown: 'o.close(force: true);'),
+  'HttpClient': Recipe(
+    'HttpClient()',
+    imports: "import 'dart:io';",
+    teardown: 'o.close(force: true);',
+  ),
   // Port 0 asks the OS for an ephemeral port, so concurrent audit runs — and a
   // developer's own servers — cannot collide with the probe.
-  'ServerSocket': Recipe("ServerSocket.bind('127.0.0.1', 0)",
-      imports: "import 'dart:io';",
-      isAsync: true,
-      teardown: 'await o.close();'),
-  'RawServerSocket': Recipe("RawServerSocket.bind('127.0.0.1', 0)",
-      imports: "import 'dart:io';",
-      isAsync: true,
-      teardown: 'await o.close();'),
-  'RawDatagramSocket': Recipe("RawDatagramSocket.bind('127.0.0.1', 0)",
-      imports: "import 'dart:io';", isAsync: true, teardown: 'o.close();'),
-  'HttpServer': Recipe("HttpServer.bind('127.0.0.1', 0)",
-      imports: "import 'dart:io';",
-      isAsync: true,
-      teardown: 'await o.close(force: true);'),
-  'Socket': Recipe('_auditConnect()',
-      imports: "import 'dart:io';",
-      prelude: 'Future<Socket> _auditConnect() async {'
-          "  final s = await ServerSocket.bind('127.0.0.1', 0);"
-          "  final c = await Socket.connect('127.0.0.1', s.port);"
-          '  await s.close();'
-          '  return c;'
-          '}',
-      isAsync: true,
-      teardown: 'o.destroy();'),
-  'RawSocket': Recipe('_auditConnectRaw()',
-      imports: "import 'dart:io';",
-      prelude: 'Future<RawSocket> _auditConnectRaw() async {'
-          "  final s = await RawServerSocket.bind('127.0.0.1', 0);"
-          "  final c = await RawSocket.connect('127.0.0.1', s.port);"
-          '  await s.close();'
-          '  return c;'
-          '}',
-      isAsync: true,
-      teardown: 'o.close();'),
+  'ServerSocket': Recipe(
+    "ServerSocket.bind('127.0.0.1', 0)",
+    imports: "import 'dart:io';",
+    isAsync: true,
+    teardown: 'await o.close();',
+  ),
+  'RawServerSocket': Recipe(
+    "RawServerSocket.bind('127.0.0.1', 0)",
+    imports: "import 'dart:io';",
+    isAsync: true,
+    teardown: 'await o.close();',
+  ),
+  'RawDatagramSocket': Recipe(
+    "RawDatagramSocket.bind('127.0.0.1', 0)",
+    imports: "import 'dart:io';",
+    isAsync: true,
+    teardown: 'o.close();',
+  ),
+  'HttpServer': Recipe(
+    "HttpServer.bind('127.0.0.1', 0)",
+    imports: "import 'dart:io';",
+    isAsync: true,
+    teardown: 'await o.close(force: true);',
+  ),
+  'Socket': Recipe(
+    '_auditConnect()',
+    imports: "import 'dart:io';",
+    prelude:
+        'Future<Socket> _auditConnect() async {'
+        "  final s = await ServerSocket.bind('127.0.0.1', 0);"
+        "  final c = await Socket.connect('127.0.0.1', s.port);"
+        '  await s.close();'
+        '  return c;'
+        '}',
+    isAsync: true,
+    teardown: 'o.destroy();',
+  ),
+  'RawSocket': Recipe(
+    '_auditConnectRaw()',
+    imports: "import 'dart:io';",
+    prelude:
+        'Future<RawSocket> _auditConnectRaw() async {'
+        "  final s = await RawServerSocket.bind('127.0.0.1', 0);"
+        "  final c = await RawSocket.connect('127.0.0.1', s.port);"
+        '  await s.close();'
+        '  return c;'
+        '}',
+    isAsync: true,
+    teardown: 'o.close();',
+  ),
 };
 
 /// Whether the interpreter said the member does not exist, as opposed to failing
@@ -749,8 +839,9 @@ String _recipeSource(Recipe recipe, String body, {String extraImport = ''}) {
     if (recipe.imports.isNotEmpty) recipe.imports,
     if (extraImport.isNotEmpty) extraImport,
   }.join(' ');
-  final acquire =
-      recipe.isAsync ? 'final o = await ${recipe.expr};' : 'final o = ${recipe.expr};';
+  final acquire = recipe.isAsync
+      ? 'final o = await ${recipe.expr};'
+      : 'final o = ${recipe.expr};';
   final read = 'probed = $body;';
   final guarded = recipe.teardown.isEmpty
       ? read
@@ -768,15 +859,13 @@ String _recipeSource(Recipe recipe, String body, {String extraImport = ''}) {
 /// must not be scored as either.
 class _ProbeOutcome {
   const _ProbeOutcome.completed({required this.isFalse})
-      : error = null,
-        answered = true;
-  const _ProbeOutcome.threw(this.error)
-      : isFalse = false,
-        answered = true;
+    : error = null,
+      answered = true;
+  const _ProbeOutcome.threw(this.error) : isFalse = false, answered = true;
   const _ProbeOutcome.noAnswer()
-      : error = null,
-        isFalse = false,
-        answered = false;
+    : error = null,
+      isFalse = false,
+      answered = false;
 
   /// False when the probe timed out or its isolate died without reporting —
   /// nothing was measured, whatever the caller was hoping to learn.
@@ -858,7 +947,10 @@ Future<_ProbeOutcome> _runProbe(String source) async {
   try {
     // An *idle* timeout, which is the right shape: the probe either answers
     // promptly or is not going to.
-    final answers = port.timeout(_probeTimeout, onTimeout: (sink) => sink.close());
+    final answers = port.timeout(
+      _probeTimeout,
+      onTimeout: (sink) => sink.close(),
+    );
     await for (final message in answers) {
       if (message is List && message.length == 3 && message[0] == _probeTag) {
         outcome = message[1] == 'ok'
@@ -898,9 +990,7 @@ Future<Reach> _probe(String source, {required Reach onTimeout}) async {
   if (!outcome.answered) return onTimeout;
   final error = outcome.error;
   if (error == null) return Reach.reachable;
-  return _isUnreachableError(error)
-      ? Reach.confirmedMissing
-      : Reach.reachable;
+  return _isUnreachableError(error) ? Reach.confirmedMissing : Reach.reachable;
 }
 
 /// Whether [source] evaluated to something other than `false`, or null when it
@@ -927,8 +1017,10 @@ Future<bool> recipeWorks(String className) async {
   final recipe = _instanceRecipes[className];
   if (recipe == null) return false;
   _traceProbe('recipe $className');
-  return await _probe(_recipeSource(recipe, '1'),
-          onTimeout: Reach.unverified) ==
+  return await _probe(
+        _recipeSource(recipe, '1'),
+        onTimeout: Reach.unverified,
+      ) ==
       Reach.reachable;
 }
 
@@ -939,8 +1031,7 @@ Future<Reach> verifyInstanceMember(String className, String member) {
   final recipe = _instanceRecipes[className];
   if (recipe == null) return Future.value(Reach.unverified);
   _traceProbe('$className.$member');
-  return _probe(_recipeSource(recipe, 'o.$member'),
-      onTimeout: Reach.reachable);
+  return _probe(_recipeSource(recipe, 'o.$member'), onTimeout: Reach.reachable);
 }
 
 /// Applies [op] to a recipe instance. UNVERIFIED when there is no recipe for the
@@ -958,8 +1049,10 @@ Future<Reach> verifyStaticMember(String className, String member) {
   // whatever the instance recipe used, when there is one.
   final imports = _instanceRecipes[className]?.imports ?? '';
   _traceProbe('$className.$member (static)');
-  return _probe('$imports main() { return $className.$member; }',
-      onTimeout: Reach.reachable);
+  return _probe(
+    '$imports main() { return $className.$member; }',
+    onTimeout: Reach.reachable,
+  );
 }
 
 Future<void> verify(ClassDiff diff) async {
@@ -1033,8 +1126,8 @@ Future<void> verify(ClassDiff diff) async {
     final reach = !canProbeInstances
         ? Reach.unverified
         : _isOperator(m)
-            ? await verifyOperator(diff.name, m)
-            : await verifyInstanceMember(diff.name, m);
+        ? await verifyOperator(diff.name, m)
+        : await verifyInstanceMember(diff.name, m);
     switch (reach) {
       case Reach.confirmedMissing:
         confirmedUniversal.add(m);
@@ -1098,16 +1191,16 @@ class HierarchyGap {
   bool recipeUsable = false;
 
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'nativeType': nativeTypeName,
-        'hasIsAssignable': hasIsAssignable,
-        'verified': verified,
-        'recipeUsable': recipeUsable,
-        'missingEdges': missingEdges,
-        'satisfiedAnyway': satisfiedAnyway,
-        'unverifiedEdges': unverifiedEdges,
-        'registeredEdges': registeredEdges,
-      };
+    'name': name,
+    'nativeType': nativeTypeName,
+    'hasIsAssignable': hasIsAssignable,
+    'verified': verified,
+    'recipeUsable': recipeUsable,
+    'missingEdges': missingEdges,
+    'satisfiedAnyway': satisfiedAnyway,
+    'unverifiedEdges': unverifiedEdges,
+    'registeredEdges': registeredEdges,
+  };
 }
 
 /// The `dart:` library that declares [type], as an import directive.
@@ -1198,11 +1291,12 @@ List<HierarchyGap> auditHierarchy(Environment env) {
     final bc = env.findBridgedClassByName(name);
     if (bc == null) continue;
 
-    final registered =
-        BridgedClass.transitiveSupertypeNames(name).toSet();
+    final registered = BridgedClass.transitiveSupertypeNames(name).toSet();
     final gap = HierarchyGap(
-        name, bc.nativeType.toString(), bc.isAssignable != null)
-      ..registeredEdges.addAll(registered.toList()..sort());
+      name,
+      bc.nativeType.toString(),
+      bc.isAssignable != null,
+    )..registeredEdges.addAll(registered.toList()..sort());
 
     for (final decl in _sdkSupertypeDeclarations(bc.nativeType)) {
       final bridgeNames = byDeclaration[decl];
@@ -1246,11 +1340,15 @@ Future<void> verifyHierarchy(HierarchyGap gap, Environment env) async {
   final confirmed = <String>[];
   for (final supertype in gap.missingEdges) {
     final bc = env.findBridgedClassByName(supertype);
-    final supertypeImport =
-        bc == null ? null : _importForType(bc.nativeType);
+    final supertypeImport = bc == null ? null : _importForType(bc.nativeType);
 
-    final result = await _probeIsTrue(_recipeSource(recipe, 'o is $supertype',
-        extraImport: supertypeImport ?? ''));
+    final result = await _probeIsTrue(
+      _recipeSource(
+        recipe,
+        'o is $supertype',
+        extraImport: supertypeImport ?? '',
+      ),
+    );
     if (result == null) {
       // A throwing `is` (an unbridged or out-of-scope supertype name) is not
       // the same finding as a false one; do not count it as a missing edge.
@@ -1272,12 +1370,13 @@ Future<void> verifyHierarchy(HierarchyGap gap, Environment env) async {
 
 Future<void> runHierarchyAudit(Environment env, List<String> args) async {
   final gaps = auditHierarchy(env);
-  final candidateEdges =
-      gaps.fold<int>(0, (s, g) => s + g.missingEdges.length);
+  final candidateEdges = gaps.fold<int>(0, (s, g) => s + g.missingEdges.length);
 
   if (!args.contains('--no-verify')) {
-    stderr.writeln('Verifying $candidateEdges candidate edges against the '
-        'interpreter...');
+    stderr.writeln(
+      'Verifying $candidateEdges candidate edges against the '
+      'interpreter...',
+    );
     for (final g in gaps) {
       await verifyHierarchy(g, env);
     }
@@ -1289,38 +1388,52 @@ Future<void> runHierarchyAudit(Environment env, List<String> args) async {
 
   final withGaps = gaps.where((g) => g.missingEdges.isNotEmpty).toList();
   final totalEdges = withGaps.fold<int>(0, (s, g) => s + g.missingEdges.length);
-  final assignableWithGaps =
-      withGaps.where((g) => g.hasIsAssignable).length;
+  final assignableWithGaps = withGaps.where((g) => g.hasIsAssignable).length;
 
   stdout.writeln('Bridged classes examined:            ${gaps.length}');
-  stdout.writeln('  ... with >=1 registered edge:      '
-      '${gaps.where((g) => g.registeredEdges.isNotEmpty).length}');
-  stdout.writeln('  ... declaring isAssignable:        '
-      '${gaps.where((g) => g.hasIsAssignable).length}');
+  stdout.writeln(
+    '  ... with >=1 registered edge:      '
+    '${gaps.where((g) => g.registeredEdges.isNotEmpty).length}',
+  );
+  stdout.writeln(
+    '  ... declaring isAssignable:        '
+    '${gaps.where((g) => g.hasIsAssignable).length}',
+  );
   stdout.writeln('Candidate edges from cross-reference: $candidateEdges');
-  stdout.writeln('  ... satisfied anyway (isAssignable): '
-      '${gaps.fold<int>(0, (s, g) => s + g.satisfiedAnyway.length)}');
-  stdout.writeln('  ... unverified (no instance recipe): '
-      '${gaps.fold<int>(0, (s, g) => s + g.unverifiedEdges.length)}');
+  stdout.writeln(
+    '  ... satisfied anyway (isAssignable): '
+    '${gaps.fold<int>(0, (s, g) => s + g.satisfiedAnyway.length)}',
+  );
+  stdout.writeln(
+    '  ... unverified (no instance recipe): '
+    '${gaps.fold<int>(0, (s, g) => s + g.unverifiedEdges.length)}',
+  );
   stdout.writeln('CONFIRMED missing edges:             $totalEdges');
   stdout.writeln('Classes with >=1 confirmed gap:      ${withGaps.length}');
   stdout.writeln('  ... of those, with isAssignable:   $assignableWithGaps');
   stdout.writeln('');
-  stdout.writeln('| Class | Native type | isAssignable | Confirmed missing | Registered |');
+  stdout.writeln(
+    '| Class | Native type | isAssignable | Confirmed missing | Registered |',
+  );
   stdout.writeln('| --- | --- | --- | --- | --- |');
   for (final g in withGaps) {
-    stdout.writeln('| ${g.name} | ${g.nativeTypeName} '
-        '| ${g.hasIsAssignable ? 'yes' : 'no'} '
-        '| ${g.missingEdges.join(', ')} '
-        '| ${g.registeredEdges.isEmpty ? '—' : g.registeredEdges.join(', ')} |');
+    stdout.writeln(
+      '| ${g.name} | ${g.nativeTypeName} '
+      '| ${g.hasIsAssignable ? 'yes' : 'no'} '
+      '| ${g.missingEdges.join(', ')} '
+      '| ${g.registeredEdges.isEmpty ? '—' : g.registeredEdges.join(', ')} |',
+    );
   }
 
   final jsonIndex = args.indexOf('--json');
   if (jsonIndex >= 0 && jsonIndex + 1 < args.length) {
     final out = File(args[jsonIndex + 1]);
     out.parent.createSync(recursive: true);
-    out.writeAsStringSync(const JsonEncoder.withIndent('  ')
-        .convert(gaps.map((g) => g.toJson()).toList()));
+    out.writeAsStringSync(
+      const JsonEncoder.withIndent(
+        '  ',
+      ).convert(gaps.map((g) => g.toJson()).toList()),
+    );
     stdout.writeln('\nJSON written to ${out.path}');
   }
 }
@@ -1363,16 +1476,14 @@ String renderBaselineSource(List<ClassDiff> diffs) {
       ...d.missingStatic,
       ...d.missingOperators,
       ...d.missingUniversal,
-    }.toList()
-      ..sort();
+    }.toList()..sort();
     if (gaps.isNotEmpty) confirmed[d.name] = gaps;
     final blind = <String>{
       ...d.unverifiedInstance,
       ...d.unverifiedStatic,
       ...d.unverifiedOperators,
       ...d.unverifiedUniversal,
-    }.toList()
-      ..sort();
+    }.toList()..sort();
     if (blind.isNotEmpty) unmeasurable[d.name] = blind;
   }
   measured.sort();
@@ -1457,27 +1568,33 @@ Future<void> main(List<String> args) async {
   final diffs = collectMemberDiffs(env, only: only);
 
   final rawCandidates = diffs.fold<int>(
-      0, (s, d) => s + d.missingInstance.length + d.missingStatic.length);
+    0,
+    (s, d) => s + d.missingInstance.length + d.missingStatic.length,
+  );
 
   if (!args.contains('--no-verify')) {
     // A clean run is around 600 probes in ~7 seconds; it stretches badly when
     // probes wedge, because each one then costs the full idle timeout. That is
     // why the progress lines below exist.
-    stderr.writeln('Verifying $rawCandidates candidates against the '
-        'interpreter...');
+    stderr.writeln(
+      'Verifying $rawCandidates candidates against the '
+      'interpreter...',
+    );
     // Per-class progress on stderr, announced BEFORE the class rather than
     // after. A silent run is indistinguishable from a wedged one, and it does
     // wedge: a bare read of a stream getter on a live socket returns a future
     // that never completes. A line printed on completion cannot name the class
     // that is currently hanging, which is the only line anyone diagnosing the
     // hang wants.
-    await verifyAll(diffs,
-        onClass: (name, candidates) =>
-            stderr.writeln('  $name ($candidates)'));
+    await verifyAll(
+      diffs,
+      onClass: (name, candidates) => stderr.writeln('  $name ($candidates)'),
+    );
   }
 
   if (args.contains('--baseline')) {
-    final path = _optionValue(args, '--baseline-out') ??
+    final path =
+        _optionValue(args, '--baseline-out') ??
         'test/stdlib/member_coverage_baseline.dart';
     File(path).writeAsStringSync(renderBaselineSource(diffs));
     stdout.writeln('Baseline written to $path');
@@ -1491,34 +1608,44 @@ Future<void> main(List<String> args) async {
 
   final totalGaps = diffs.fold<int>(0, (s, d) => s + d.gapCount);
   final withGaps = diffs.where((d) => d.gapCount > 0).length;
-  final fallback = diffs.fold<int>(0, (s, d) => s + d.reachableViaFallback.length);
+  final fallback = diffs.fold<int>(
+    0,
+    (s, d) => s + d.reachableViaFallback.length,
+  );
   final unverified = diffs.fold<int>(0, (s, d) => s + d.unverifiedCount);
 
-  final unverifiedClasses =
-      diffs.where((d) => d.unverifiedCount > 0).toList();
-  final explained =
-      unverifiedClasses.where((d) => d.notAuditableReason != null).toList();
-  final unexplained =
-      unverifiedClasses.where((d) => d.notAuditableReason == null).toList();
+  final unverifiedClasses = diffs.where((d) => d.unverifiedCount > 0).toList();
+  final explained = unverifiedClasses
+      .where((d) => d.notAuditableReason != null)
+      .toList();
+  final unexplained = unverifiedClasses
+      .where((d) => d.notAuditableReason == null)
+      .toList();
 
   stdout.writeln('Bridged classes examined:            ${diffs.length}');
   stdout.writeln('Raw candidates from the map diff:    $rawCandidates');
   stdout.writeln('  ... reachable anyway (fallback):   $fallback');
   stdout.writeln('  ... unverified (not measurable):   $unverified');
-  stdout.writeln('      ... with a stated reason:      '
-      '${explained.fold<int>(0, (s, d) => s + d.unverifiedCount)} '
-      'in ${explained.length} classes');
-  stdout.writeln('      ... no recipe yet (unfinished): '
-      '${unexplained.fold<int>(0, (s, d) => s + d.unverifiedCount)} '
-      'in ${unexplained.length} classes');
+  stdout.writeln(
+    '      ... with a stated reason:      '
+    '${explained.fold<int>(0, (s, d) => s + d.unverifiedCount)} '
+    'in ${explained.length} classes',
+  );
+  stdout.writeln(
+    '      ... no recipe yet (unfinished): '
+    '${unexplained.fold<int>(0, (s, d) => s + d.unverifiedCount)} '
+    'in ${unexplained.length} classes',
+  );
   stdout.writeln('CONFIRMED unreachable members:       $totalGaps');
   stdout.writeln('Classes with >=1 confirmed gap:      $withGaps');
   stdout.writeln('');
   // Operator and Universal are broken out rather than folded into Confirmed:
   // a row reading `Confirmed 1 | Instance 0 | Static 0` was unreadable, and
   // these two columns spent long enough being invisible.
-  stdout.writeln('| Class | Native type | Confirmed | Instance | Static '
-      '| Operator | Universal | Unverified |');
+  stdout.writeln(
+    '| Class | Native type | Confirmed | Instance | Static '
+    '| Operator | Universal | Unverified |',
+  );
   stdout.writeln('| --- | --- | --- | --- | --- | --- | --- | --- |');
   for (final d in diffs) {
     // A class with 38 unverified members and no confirmed gap used to be
@@ -1527,10 +1654,12 @@ Future<void> main(List<String> args) async {
     // invisible-column hazard this audit exists to avoid. Unverified is a
     // reportable state, so it earns a row.
     if (d.gapCount == 0 && d.unverifiedCount == 0 && d.error == null) continue;
-    stdout.writeln('| ${d.name} | ${d.nativeTypeName} | ${d.gapCount} '
-        '| ${d.missingInstance.length} | ${d.missingStatic.length} '
-        '| ${d.missingOperators.length} | ${d.missingUniversal.length} '
-        '| ${d.unverifiedCount} |${d.error == null ? '' : ' ${d.error}'}');
+    stdout.writeln(
+      '| ${d.name} | ${d.nativeTypeName} | ${d.gapCount} '
+      '| ${d.missingInstance.length} | ${d.missingStatic.length} '
+      '| ${d.missingOperators.length} | ${d.missingUniversal.length} '
+      '| ${d.unverifiedCount} |${d.error == null ? '' : ' ${d.error}'}',
+    );
   }
 
   if (unverifiedClasses.isNotEmpty) {
@@ -1540,8 +1669,10 @@ Future<void> main(List<String> args) async {
     stdout.writeln('| Class | Unverified | Reason |');
     stdout.writeln('| --- | --- | --- |');
     for (final d in unverifiedClasses) {
-      stdout.writeln('| ${d.name} | ${d.unverifiedCount} '
-          '| ${d.notAuditableReason ?? '**no recipe written yet**'} |');
+      stdout.writeln(
+        '| ${d.name} | ${d.unverifiedCount} '
+        '| ${d.notAuditableReason ?? '**no recipe written yet**'} |',
+      );
     }
   }
 
@@ -1550,7 +1681,10 @@ Future<void> main(List<String> args) async {
     final out = File(args[jsonIndex + 1]);
     out.parent.createSync(recursive: true);
     out.writeAsStringSync(
-        const JsonEncoder.withIndent('  ').convert(diffs.map((d) => d.toJson()).toList()));
+      const JsonEncoder.withIndent(
+        '  ',
+      ).convert(diffs.map((d) => d.toJson()).toList()),
+    );
     stdout.writeln('\nJSON written to ${out.path}');
   }
 

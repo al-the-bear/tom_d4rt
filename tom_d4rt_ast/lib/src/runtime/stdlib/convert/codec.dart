@@ -3,42 +3,43 @@ import 'package:tom_d4rt_ast/runtime.dart';
 
 class CodecConvert {
   static BridgedClass get definition => BridgedClass(
-        nativeType: Codec,
-        name: 'Codec',
-        typeParameterCount: 2, // Codec<S, T>
-        // `_FusedCodec` is what `Codec.fuse` returns; `_InvertedCodec` is what
-        // `Codec.inverted` returns. SCC24 found the second one missing, which
-        // is also why `inverted` had no test anywhere in the suite: the getter
-        // returned successfully and the result was then inert, so there was
-        // nothing to write a test about.
-        nativeNames: ['_FusedCodec', '_InvertedCodec'],
-        methods: {
-          'encode': (visitor, target, positionalArgs, namedArgs, _) {
-            if (positionalArgs.length != 1) {
-              throw RuntimeD4rtException('Codec.encode requires one argument.');
-            }
-            return (target as Codec).encode(positionalArgs[0]);
-          },
-          'decode': (visitor, target, positionalArgs, namedArgs, _) {
-            if (positionalArgs.length != 1) {
-              throw RuntimeD4rtException('Codec.decode requires one argument.');
-            }
-            return (target as Codec).decode(positionalArgs[0]);
-          },
-          'fuse': (visitor, target, positionalArgs, namedArgs, _) {
-            if (positionalArgs.length != 1 || positionalArgs[0] is! Codec) {
-              throw RuntimeD4rtException(
-                  'Codec.fuse requires another Codec as argument.');
-            }
-            return (target as Codec).fuse(positionalArgs[0] as Codec);
-          },
-        },
-        getters: {
-          'inverted': (visitor, target) => (target as Codec).inverted,
-          'decoder': (visitor, target) => (target as Codec).decoder,
-          'encoder': (visitor, target) => (target as Codec).encoder,
-          'hashCode': (visitor, target) => (target as Codec).hashCode,
-          'runtimeType': (visitor, target) => (target as Codec).runtimeType,
-        },
-      );
+    nativeType: Codec,
+    name: 'Codec',
+    typeParameterCount: 2, // Codec<S, T>
+    // `_FusedCodec` is what `Codec.fuse` returns; `_InvertedCodec` is what
+    // `Codec.inverted` returns. SCC24 found the second one missing, which
+    // is also why `inverted` had no test anywhere in the suite: the getter
+    // returned successfully and the result was then inert, so there was
+    // nothing to write a test about.
+    nativeNames: ['_FusedCodec', '_InvertedCodec'],
+    methods: {
+      'encode': (visitor, target, positionalArgs, namedArgs, _) {
+        if (positionalArgs.length != 1) {
+          throw RuntimeD4rtException('Codec.encode requires one argument.');
+        }
+        return (target as Codec).encode(positionalArgs[0]);
+      },
+      'decode': (visitor, target, positionalArgs, namedArgs, _) {
+        if (positionalArgs.length != 1) {
+          throw RuntimeD4rtException('Codec.decode requires one argument.');
+        }
+        return (target as Codec).decode(positionalArgs[0]);
+      },
+      'fuse': (visitor, target, positionalArgs, namedArgs, _) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Codec) {
+          throw RuntimeD4rtException(
+            'Codec.fuse requires another Codec as argument.',
+          );
+        }
+        return (target as Codec).fuse(positionalArgs[0] as Codec);
+      },
+    },
+    getters: {
+      'inverted': (visitor, target) => (target as Codec).inverted,
+      'decoder': (visitor, target) => (target as Codec).decoder,
+      'encoder': (visitor, target) => (target as Codec).encoder,
+      'hashCode': (visitor, target) => (target as Codec).hashCode,
+      'runtimeType': (visitor, target) => (target as Codec).runtimeType,
+    },
+  );
 }

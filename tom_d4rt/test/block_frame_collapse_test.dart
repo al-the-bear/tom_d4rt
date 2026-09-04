@@ -23,7 +23,8 @@ void main() {
   group('block frame collapse (no-binding blocks)', () {
     test('a bare nested block reassigns the enclosing variable', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 main() {
   int x = 1;
   {
@@ -32,13 +33,15 @@ main() {
   }
   return x;
 }
-''');
+''',
+      );
       expect(result, 42);
     });
 
     test('closure made in a collapsed block captures the outer binding', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 main() {
   int counter = 0;
   late void Function() bump;
@@ -51,13 +54,15 @@ main() {
   bump();
   return counter;
 }
-''');
+''',
+      );
       expect(result, 3);
     });
 
     test('sibling block that declares a local does not leak its shadow', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 main() {
   int x = 10;
   {
@@ -69,14 +74,16 @@ main() {
   }
   return x;
 }
-''');
+''',
+      );
       // inner shadow (99->100) is discarded; outer x: 10 -> 15
       expect(result, 15);
     });
 
     test('deeply nested no-binding blocks still reach the outer variable', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 main() {
   int total = 0;
   {
@@ -88,13 +95,15 @@ main() {
   }
   return total;
 }
-''');
+''',
+      );
       expect(result, 7);
     });
 
     test('labelled break flows through a collapsed block', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 main() {
   int hits = 0;
   outer:
@@ -107,14 +116,16 @@ main() {
   }
   return hits;
 }
-''');
+''',
+      );
       // i = 0,1,2 -> 3 hits then break
       expect(result, 3);
     });
 
     test('continue flows through a collapsed block', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 main() {
   int sum = 0;
   for (int i = 0; i < 5; i = i + 1) {
@@ -125,7 +136,8 @@ main() {
   }
   return sum;
 }
-''');
+''',
+      );
       // 0 + 1 + 3 + 4 = 8 (i == 2 skipped)
       expect(result, 8);
     });
@@ -133,7 +145,8 @@ main() {
     test('slot read resolves when the declaring block is nested in a '
         'collapsed parent', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 main() {
   int acc = 0;
   {
@@ -145,13 +158,15 @@ main() {
   }
   return acc;
 }
-''');
+''',
+      );
       expect(result, 42);
     });
 
     test('a local function declaration keeps its block frame', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 main() {
   int call() {
     int helper() => 21; // function decl -> block keeps frame
@@ -159,13 +174,15 @@ main() {
   }
   return call();
 }
-''');
+''',
+      );
       expect(result, 42);
     });
 
     test('pattern declaration inside a block keeps its frame', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 main() {
   int sum = 0;
   {
@@ -174,7 +191,8 @@ main() {
   }
   return sum;
 }
-''');
+''',
+      );
       expect(result, 7);
     });
 
@@ -182,7 +200,8 @@ main() {
       final d4rt = D4rt();
       // Exercises the per-node cache: the same Block node is visited many
       // times; the collapse decision must be stable and correct each time.
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 int accumulate(int n) {
   int acc = 0;
   for (int i = 0; i < n; i = i + 1) {
@@ -200,7 +219,8 @@ main() {
   }
   return last;
 }
-''');
+''',
+      );
       // sum 0..9 = 45
       expect(result, 45);
     });

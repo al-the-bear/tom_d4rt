@@ -1,5 +1,5 @@
 /// Basic class examples for bridge generation testing.
-/// 
+///
 /// This file demonstrates fundamental bridging capabilities:
 /// - Simple classes with constructors
 /// - Named and factory constructors
@@ -16,9 +16,7 @@ class Person {
   Person(this.name, this.age);
 
   /// Named constructor for creating a guest.
-  Person.guest()
-      : name = 'Guest',
-        age = 0;
+  Person.guest() : name = 'Guest', age = 0;
 
   /// Named constructor with age.
   Person.withAge(this.age) : name = 'Anonymous';

@@ -32,12 +32,16 @@ D4rt _interpreterWithRadians() {
 }
 
 void main() {
-  group('FIX-20260613-1038-C — instance field shadows bridged global fn (AST)',
-      () {
-    test('bare instance field `radians` resolves to the field, not the global '
-        'function', () {
-      final d4rt = _interpreterWithRadians();
-      final result = d4rt.execute(source: '''
+  group(
+    'FIX-20260613-1038-C — instance field shadows bridged global fn (AST)',
+    () {
+      test(
+        'bare instance field `radians` resolves to the field, not the global '
+        'function',
+        () {
+          final d4rt = _interpreterWithRadians();
+          final result = d4rt.execute(
+            source: '''
 import 'package:fixture/math.dart';
 
 class Rotator {
@@ -48,15 +52,22 @@ class Rotator {
 }
 
 main() => Rotator(1.5).readField();
-''');
-      expect(result, 1.5,
-          reason: 'instance field `radians` must win over the bridged global '
-              '`radians(double)` function');
-    });
+''',
+          );
+          expect(
+            result,
+            1.5,
+            reason:
+                'instance field `radians` must win over the bridged global '
+                '`radians(double)` function',
+          );
+        },
+      );
 
-    test('instance field `radians` usable in arithmetic inside a method', () {
-      final d4rt = _interpreterWithRadians();
-      final result = d4rt.execute(source: '''
+      test('instance field `radians` usable in arithmetic inside a method', () {
+        final d4rt = _interpreterWithRadians();
+        final result = d4rt.execute(
+          source: '''
 import 'package:fixture/math.dart';
 
 class Rotator {
@@ -67,29 +78,41 @@ class Rotator {
 }
 
 main() => Rotator(2.0).scaled(3.0);
-''');
-      expect(result, 6.0,
-          reason: '`sign * radians` must multiply two doubles, not a double '
-              'and a NativeFunction');
-    });
+''',
+        );
+        expect(
+          result,
+          6.0,
+          reason:
+              '`sign * radians` must multiply two doubles, not a double '
+              'and a NativeFunction',
+        );
+      });
 
-    test('the bridged global `radians` is still callable where no instance '
-        'member shadows it', () {
-      final d4rt = _interpreterWithRadians();
-      final result = d4rt.execute(source: '''
+      test('the bridged global `radians` is still callable where no instance '
+          'member shadows it', () {
+        final d4rt = _interpreterWithRadians();
+        final result = d4rt.execute(
+          source: '''
 import 'package:fixture/math.dart';
 
 main() => radians(180.0);
-''');
-      expect(result, closeTo(3.141592653589793, 1e-9),
-          reason: 'top-level call site (no `this`) must still reach the '
-              'bridged global function');
-    });
+''',
+        );
+        expect(
+          result,
+          closeTo(3.141592653589793, 1e-9),
+          reason:
+              'top-level call site (no `this`) must still reach the '
+              'bridged global function',
+        );
+      });
 
-    test('a true local named `radians` still shadows both the field and the '
-        'global', () {
-      final d4rt = _interpreterWithRadians();
-      final result = d4rt.execute(source: '''
+      test('a true local named `radians` still shadows both the field and the '
+          'global', () {
+        final d4rt = _interpreterWithRadians();
+        final result = d4rt.execute(
+          source: '''
 import 'package:fixture/math.dart';
 
 class Rotator {
@@ -103,10 +126,16 @@ class Rotator {
 }
 
 main() => Rotator(1.0).withLocal();
-''');
-      expect(result, 9.0,
-          reason: 'a local variable must shadow both the instance field and '
-              'the bridged global');
-    });
-  });
+''',
+        );
+        expect(
+          result,
+          9.0,
+          reason:
+              'a local variable must shadow both the instance field and '
+              'the bridged global',
+        );
+      });
+    },
+  );
 }

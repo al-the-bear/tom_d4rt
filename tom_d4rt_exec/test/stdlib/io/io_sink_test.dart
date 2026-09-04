@@ -3,8 +3,10 @@ import 'package:test/test.dart';
 
 void main() {
   group('IOSink methods - comprehensive', () {
-    test('I-FILE-167: IOSink write and writeln to file. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-167: IOSink write and writeln to file. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      main() async {
         var tempDir = Directory.systemTemp.createTempSync();
@@ -24,12 +26,15 @@ void main() {
         return content;
       }
       ''';
-      final result = await execute(source);
-      expect(result, equals('Hello World\nLine 2'));
-    });
+        final result = await execute(source);
+        expect(result, equals('Hello World\nLine 2'));
+      },
+    );
 
-    test('I-FILE-165: IOSink writeAll method. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-165: IOSink writeAll method. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      main() async {
         var tempDir = Directory.systemTemp.createTempSync();
@@ -46,12 +51,15 @@ void main() {
         return content;
       }
       ''';
-      final result = await execute(source);
-      expect(result, equals('A-B-C'));
-    });
+        final result = await execute(source);
+        expect(result, equals('A-B-C'));
+      },
+    );
 
-    test('I-FILE-166: IOSink writeCharCode method. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-166: IOSink writeCharCode method. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      main() async {
         var tempDir = Directory.systemTemp.createTempSync();
@@ -70,12 +78,15 @@ void main() {
         return content;
       }
       ''';
-      final result = await execute(source);
-      expect(result, equals('ABC'));
-    });
+        final result = await execute(source);
+        expect(result, equals('ABC'));
+      },
+    );
 
-    test('I-FILE-168: IOSink add method with bytes. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-168: IOSink add method with bytes. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      import 'dart:convert';
      main() async {
@@ -94,12 +105,15 @@ void main() {
         return content;
       }
       ''';
-      final result = await execute(source);
-      expect(result, equals('Hello Bytes'));
-    });
+        final result = await execute(source);
+        expect(result, equals('Hello Bytes'));
+      },
+    );
 
-    test('I-FILE-160: IOSink addStream method. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-160: IOSink addStream method. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      import 'dart:convert';
      main() async {
@@ -126,12 +140,15 @@ void main() {
         return content;
       }
       ''';
-      final result = await execute(source);
-      expect(result, equals('Stream Content'));
-    });
+        final result = await execute(source);
+        expect(result, equals('Stream Content'));
+      },
+    );
 
-    test('I-FILE-161: IOSink flush method. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-161: IOSink flush method. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      main() async {
         var tempDir = Directory.systemTemp.createTempSync();
@@ -150,12 +167,15 @@ void main() {
         return content;
       }
       ''';
-      final result = await execute(source);
-      expect(result, equals('Before flush After flush'));
-    });
+        final result = await execute(source);
+        expect(result, equals('Before flush After flush'));
+      },
+    );
 
-    test('I-FILE-162: IOSink addError method. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-162: IOSink addError method. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      main() async {
         var tempDir = Directory.systemTemp.createTempSync();
@@ -179,17 +199,21 @@ void main() {
         }
       }
       ''';
-      final result = await execute(source);
-      expect(
+        final result = await execute(source);
+        expect(
           result,
           anyOf([
             equals('addError method works'),
-            equals('addError called successfully')
-          ]));
-    });
+            equals('addError called successfully'),
+          ]),
+        );
+      },
+    );
 
-    test('I-FILE-163: IOSink encoding parameter. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-163: IOSink encoding parameter. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      import 'dart:convert';
      main() async{
@@ -208,9 +232,10 @@ void main() {
         return content;
       }
       ''';
-      final result = await execute(source);
-      expect(result, equals('UTF8 Content: héllo'));
-    });
+        final result = await execute(source);
+        expect(result, equals('UTF8 Content: héllo'));
+      },
+    );
 
     test('I-FILE-164: IOSink done future. [2026-02-10 06:37] (PASS)', () async {
       const source = '''

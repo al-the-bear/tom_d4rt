@@ -4,7 +4,8 @@ import 'package:test/test.dart';
 void main() {
   test('null-shorting through . after ?. simple', () {
     final d4rt = D4rt();
-    final result = d4rt.execute(source: '''
+    final result = d4rt.execute(
+      source: '''
       class Box {
         Size get size => Size(10, 20);
       }
@@ -17,7 +18,8 @@ void main() {
         Box? a;
         return a?.size.height ?? -1;
       }
-    ''');
+    ''',
+    );
     expect(result, -1);
   });
 }

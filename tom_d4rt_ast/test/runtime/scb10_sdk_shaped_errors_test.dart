@@ -36,8 +36,7 @@ void main() {
   }
 
   group('SCB10/AST: the interpreter raises SDK-shaped errors', () {
-    test(
-        'F-SCB10-AST-1: d4rt error types satisfy the SDK `is` checks an `on` '
+    test('F-SCB10-AST-1: d4rt error types satisfy the SDK `is` checks an `on` '
         'clause compiles to [2026-07-28]', () {
       // `implements` rather than `extends` is what makes these true while
       // `toString()` still returns d4rt's own diagnostic — see sdk_errors.dart.
@@ -52,21 +51,19 @@ void main() {
       expect(nsm.toString(), 'no such member');
     });
 
-    test(
-        'F-SCB10-AST-2: the SC5 bridges claim the d4rt subtypes, so `on` '
+    test('F-SCB10-AST-2: the SC5 bridges claim the d4rt subtypes, so `on` '
         'clauses match them [2026-07-28]', () {
       // The predicate consulted by the catch-clause matcher. A bridge that
       // recognised only the SDK's own private subtype would leave every
       // interpreter-raised error uncatchable by name.
       expect(bridgeOf('TypeError').isAssignable!(D4rtTypeError('x')), isTrue);
       expect(
-          bridgeOf('NoSuchMethodError')
-              .isAssignable!(D4rtNoSuchMethodError('x')),
-          isTrue);
+        bridgeOf('NoSuchMethodError').isAssignable!(D4rtNoSuchMethodError('x')),
+        isTrue,
+      );
     });
 
-    test(
-        'F-SCB10-AST-3: indexRangeError produces a plain RangeError, NOT an '
+    test('F-SCB10-AST-3: indexRangeError produces a plain RangeError, NOT an '
         'IndexError [2026-07-28]', () {
       // Measured against the platform: the VM's `List.[]` raises a plain
       // `RangeError`, and `on IndexError` does not catch it. Raising
@@ -83,8 +80,7 @@ void main() {
       expect(indexRangeError(0, 0).toString(), contains('range is empty'));
     });
 
-    test(
-        'F-SCB10-AST-4: isSdkShapedError covers exactly the deliberately '
+    test('F-SCB10-AST-4: isSdkShapedError covers exactly the deliberately '
         'raised types [2026-07-28]', () {
       expect(isSdkShapedError(AssertionError('m')), isTrue);
       expect(isSdkShapedError(D4rtTypeError('m')), isTrue);

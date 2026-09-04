@@ -20,31 +20,30 @@ void main() {
     late D4rt interpreter;
 
     BridgedClass docScannerParser() => BridgedClass(
-          nativeType: DocScannerMarkdownParser,
-          name: 'MarkdownParser',
-          constructors: {},
-          staticMethods: {
-            'generateId': (visitor, positional, named, typeArgs) =>
-                'doc-scanner-id:${positional.first}',
-          },
-        );
+      nativeType: DocScannerMarkdownParser,
+      name: 'MarkdownParser',
+      constructors: {},
+      staticMethods: {
+        'generateId': (visitor, positional, named, typeArgs) =>
+            'doc-scanner-id:${positional.first}',
+      },
+    );
 
     BridgedClass md2latexParser() => BridgedClass(
-          nativeType: Md2LatexMarkdownParser,
-          name: 'MarkdownParser',
-          constructors: {},
-          staticMethods: {
-            'toLatex': (visitor, positional, named, typeArgs) =>
-                'latex:${positional.first}',
-          },
-        );
+      nativeType: Md2LatexMarkdownParser,
+      name: 'MarkdownParser',
+      constructors: {},
+      staticMethods: {
+        'toLatex': (visitor, positional, named, typeArgs) =>
+            'latex:${positional.first}',
+      },
+    );
 
     setUp(() {
       interpreter = D4rt();
     });
 
-    test(
-        'B2-CLASH-1: importing tom_doc_scanner resolves its MarkdownParser '
+    test('B2-CLASH-1: importing tom_doc_scanner resolves its MarkdownParser '
         'static even when tom_md2latex registered a same-name bridge after it '
         '[2026-06-17]', () {
       interpreter.registerBridgedClass(
@@ -69,8 +68,7 @@ String main() {
       expect(interpreter.execute(source: source), 'doc-scanner-id:Hello World');
     });
 
-    test(
-        'B2-CLASH-3: when BOTH same-name libraries are imported the bare name '
+    test('B2-CLASH-3: when BOTH same-name libraries are imported the bare name '
         'is rejected, as in Dart [2026-06-17]', () {
       // Dart rejects such a reference and asks for a prefix, and so does d4rt —
       // the earlier behaviour of picking whichever bridge happened to declare
@@ -96,30 +94,35 @@ String main() {
 ''';
 
       expect(
-          () => interpreter.execute(source: source),
-          throwsA(isA<AmbiguousBridgedNameException>().having(
-              (e) => e.candidatesByQualifier.keys,
-              'qualifiers',
-              containsAll(<String>['tom_doc_scanner', 'tom_md2latex']))));
+        () => interpreter.execute(source: source),
+        throwsA(
+          isA<AmbiguousBridgedNameException>().having(
+            (e) => e.candidatesByQualifier.keys,
+            'qualifiers',
+            containsAll(<String>['tom_doc_scanner', 'tom_md2latex']),
+          ),
+        ),
+      );
     });
 
     test(
-        'B2-CLASH-4: qualifying by package name reaches each declaring library '
-        '[2026-08-03]', () {
-      // The escape hatch the ambiguity error points at. Both classes stay
-      // reachable — nothing is lost by refusing the bare name.
-      interpreter.registerBridgedClass(
-        docScannerParser(),
-        'package:tom_doc_scanner/tom_doc_scanner.dart',
-        sourceUri: 'package:tom_doc_scanner/src/markdown_parser.dart',
-      );
-      interpreter.registerBridgedClass(
-        md2latexParser(),
-        'package:tom_md2latex/tom_md2latex.dart',
-        sourceUri: 'package:tom_md2latex/src/markdown_parser.dart',
-      );
+      'B2-CLASH-4: qualifying by package name reaches each declaring library '
+      '[2026-08-03]',
+      () {
+        // The escape hatch the ambiguity error points at. Both classes stay
+        // reachable — nothing is lost by refusing the bare name.
+        interpreter.registerBridgedClass(
+          docScannerParser(),
+          'package:tom_doc_scanner/tom_doc_scanner.dart',
+          sourceUri: 'package:tom_doc_scanner/src/markdown_parser.dart',
+        );
+        interpreter.registerBridgedClass(
+          md2latexParser(),
+          'package:tom_md2latex/tom_md2latex.dart',
+          sourceUri: 'package:tom_md2latex/src/markdown_parser.dart',
+        );
 
-      const source = '''
+        const source = '''
 import 'package:tom_doc_scanner/tom_doc_scanner.dart';
 import 'package:tom_md2latex/tom_md2latex.dart';
 
@@ -130,8 +133,11 @@ String main() {
 }
 ''';
 
-      expect(interpreter.execute(source: source),
-          'doc-scanner-id:Hello World|latex:Hello World');
-    });
+        expect(
+          interpreter.execute(source: source),
+          'doc-scanner-id:Hello World|latex:Hello World',
+        );
+      },
+    );
   });
 }

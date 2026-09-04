@@ -26,15 +26,17 @@ void main() {
           name: 'TestMixin',
           canBeUsedAsMixin: true,
           methods: {
-            'mixinMethod': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
-              final input = positionalArgs[0].toString();
-              return 'Mixin called with: $input';
-            },
-            'calculate': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
-              final a = positionalArgs[0] as int;
-              final b = positionalArgs[1] as int;
-              return a + b;
-            },
+            'mixinMethod':
+                (visitor, instance, positionalArgs, namedArgs, typeArgs) {
+                  final input = positionalArgs[0].toString();
+                  return 'Mixin called with: $input';
+                },
+            'calculate':
+                (visitor, instance, positionalArgs, namedArgs, typeArgs) {
+                  final a = positionalArgs[0] as int;
+                  final b = positionalArgs[1] as int;
+                  return a + b;
+                },
           },
           getters: {
             'mixinProperty': (visitor, instance) => 'from bridged mixin',
@@ -44,8 +46,10 @@ void main() {
       );
     });
 
-    test('I-BRIDGE-4: Can use bridged class as mixin. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-BRIDGE-4: Can use bridged class as mixin. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         import 'package:test/mixin.dart';
         
         class MyClass with TestMixin {
@@ -64,16 +68,19 @@ void main() {
         }
       ''';
 
-      final result = await d4rt.execute(
-        library: 'package:test/main.dart',
-        sources: {'package:test/main.dart': code},
-      );
+        final result = await d4rt.execute(
+          library: 'package:test/main.dart',
+          sources: {'package:test/main.dart': code},
+        );
 
-      expect(result, equals('Mixin called with: test input'));
-    });
+        expect(result, equals('Mixin called with: test input'));
+      },
+    );
 
-    test('I-BRIDGE-5: Can access bridged mixin properties. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-BRIDGE-5: Can access bridged mixin properties. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         import 'package:test/mixin.dart';
         
         class MyClass with TestMixin {
@@ -90,16 +97,19 @@ void main() {
         }
       ''';
 
-      final result = await d4rt.execute(
-        library: 'package:test/main.dart',
-        sources: {'package:test/main.dart': code},
-      );
+        final result = await d4rt.execute(
+          library: 'package:test/main.dart',
+          sources: {'package:test/main.dart': code},
+        );
 
-      expect(result, equals('from bridged mixin'));
-    });
+        expect(result, equals('from bridged mixin'));
+      },
+    );
 
-    test('I-BRIDGE-1: Can call bridged mixin methods with multiple arguments. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-BRIDGE-1: Can call bridged mixin methods with multiple arguments. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         import 'package:test/mixin.dart';
         
         class Calculator with TestMixin {
@@ -116,16 +126,19 @@ void main() {
         }
       ''';
 
-      final result = await d4rt.execute(
-        library: 'package:test/main.dart',
-        sources: {'package:test/main.dart': code},
-      );
+        final result = await d4rt.execute(
+          library: 'package:test/main.dart',
+          sources: {'package:test/main.dart': code},
+        );
 
-      expect(result, equals(8));
-    });
+        expect(result, equals(8));
+      },
+    );
 
-    test('I-BRIDGE-2: Bridged mixin combined with interpreted mixin. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-BRIDGE-2: Bridged mixin combined with interpreted mixin. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         import 'package:test/mixin.dart';
         
         mixin LocalMixin {
@@ -146,26 +159,29 @@ void main() {
         }
       ''';
 
-      final result = await d4rt.execute(
-        library: 'package:test/main.dart',
-        sources: {'package:test/main.dart': code},
-      );
+        final result = await d4rt.execute(
+          library: 'package:test/main.dart',
+          sources: {'package:test/main.dart': code},
+        );
 
-      expect(result, equals(['from bridged mixin', 'from local mixin']));
-    });
+        expect(result, equals(['from bridged mixin', 'from local mixin']));
+      },
+    );
 
-    test('I-BRIDGE-3: Throws error when bridged class not marked as mixin. [2026-02-10 06:37] (PASS)', () async {
-      // Register a class without canBeUsedAsMixin=true
-      d4rt.registerBridgedClass(
-        BridgedClass(
-          nativeType: String,
-          name: 'NotAMixin',
-          canBeUsedAsMixin: false, // Explicitly set to false
-        ),
-        'package:test/notmixin.dart',
-      );
+    test(
+      'I-BRIDGE-3: Throws error when bridged class not marked as mixin. [2026-02-10 06:37] (PASS)',
+      () async {
+        // Register a class without canBeUsedAsMixin=true
+        d4rt.registerBridgedClass(
+          BridgedClass(
+            nativeType: String,
+            name: 'NotAMixin',
+            canBeUsedAsMixin: false, // Explicitly set to false
+          ),
+          'package:test/notmixin.dart',
+        );
 
-      const code = '''
+        const code = '''
         import 'package:test/notmixin.dart';
         
         class MyClass with NotAMixin {
@@ -177,17 +193,20 @@ void main() {
         }
       ''';
 
-      expect(
-        () => d4rt.execute(
-          library: 'package:test/main.dart',
-          sources: {'package:test/main.dart': code},
-        ),
-        throwsA(isA<RuntimeD4rtException>().having(
-          (e) => e.message,
-          'message',
-          contains('cannot be used as a mixin'),
-        )),
-      );
-    });
+        expect(
+          () => d4rt.execute(
+            library: 'package:test/main.dart',
+            sources: {'package:test/main.dart': code},
+          ),
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains('cannot be used as a mixin'),
+            ),
+          ),
+        );
+      },
+    );
   });
 }

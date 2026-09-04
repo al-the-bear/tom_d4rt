@@ -22,19 +22,22 @@ Map<String, BridgedMethodAdapter> setAlgebraMethods(
   Set requireSet(Object? argument, String method) {
     if (argument is! Set) {
       throw RuntimeD4rtException(
-          'Argument to $className.$method must be a Set.');
+        'Argument to $className.$method must be a Set.',
+      );
     }
     return argument;
   }
 
   return {
     'difference': (visitor, target, positionalArgs, namedArgs, _) {
-      return coerce(target)
-          .difference(requireSet(positionalArgs[0], 'difference'));
+      return coerce(
+        target,
+      ).difference(requireSet(positionalArgs[0], 'difference'));
     },
     'intersection': (visitor, target, positionalArgs, namedArgs, _) {
-      return coerce(target)
-          .intersection(requireSet(positionalArgs[0], 'intersection'));
+      return coerce(
+        target,
+      ).intersection(requireSet(positionalArgs[0], 'intersection'));
     },
     'union': (visitor, target, positionalArgs, namedArgs, _) {
       return coerce(target).union(requireSet(positionalArgs[0], 'union'));

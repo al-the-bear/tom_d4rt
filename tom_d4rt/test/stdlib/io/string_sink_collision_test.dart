@@ -63,20 +63,32 @@ void main() {
       expect(sink.getters.keys, unorderedEquals(coreGetters));
     });
 
-    test('F-SCB26-2: importing dart:io does not narrow StringSink — the io copy '
-        'was a strict subset and won on last-wins [2026-09-03]', () {
-      final sink = coreThenIo().findBridgedClassByName('StringSink');
-      expect(sink, isNotNull);
-      expect(sink!.methods.keys, unorderedEquals(coreMethods),
-          reason: 'the io definition omitted toString and hashCode');
-      expect(sink.getters.keys, unorderedEquals(coreGetters),
-          reason: 'the io definition declared no getters at all');
-    });
+    test(
+      'F-SCB26-2: importing dart:io does not narrow StringSink — the io copy '
+      'was a strict subset and won on last-wins [2026-09-03]',
+      () {
+        final sink = coreThenIo().findBridgedClassByName('StringSink');
+        expect(sink, isNotNull);
+        expect(
+          sink!.methods.keys,
+          unorderedEquals(coreMethods),
+          reason: 'the io definition omitted toString and hashCode',
+        );
+        expect(
+          sink.getters.keys,
+          unorderedEquals(coreGetters),
+          reason: 'the io definition declared no getters at all',
+        );
+      },
+    );
 
     test('F-SCB26-3: exactly one StringSink definition is registered, so there '
         'is no displaced sibling for resolution to fall back to '
         '[2026-09-03]', () {
-      expect(coreThenIo().findAllBridgedClassesByName('StringSink'), hasLength(1));
+      expect(
+        coreThenIo().findAllBridgedClassesByName('StringSink'),
+        hasLength(1),
+      );
     });
 
     test('F-SCB26-4: the io registrar does not own StringSink at all — dart:io '
@@ -84,9 +96,13 @@ void main() {
         '[2026-09-03]', () {
       final ioOnly = Environment();
       IoStdlib.register(ioOnly);
-      expect(ioOnly.findBridgedClassByName('StringSink'), isNull,
-          reason: 'StringSink belongs to CoreStdlib, which always registers '
-              'first; a second copy here can only displace it');
+      expect(
+        ioOnly.findBridgedClassByName('StringSink'),
+        isNull,
+        reason:
+            'StringSink belongs to CoreStdlib, which always registers '
+            'first; a second copy here can only displace it',
+      );
     });
   });
 }

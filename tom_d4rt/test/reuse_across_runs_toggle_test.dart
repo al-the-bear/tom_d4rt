@@ -42,67 +42,97 @@ void main() {
     setUp(D4rt.debugResetPool);
     tearDown(D4rt.debugResetPool);
 
-    test(
-        'default-on: a legacy instance reuses its per-instance module env '
+    test('default-on: a legacy instance reuses its per-instance module env '
         'across executes', () {
       // No providePackage → legacy instance (empty allowed-set).
       final interpreter = D4rt();
-      interpreter.registerBridgedClass(marker('WClass'), 'package:w/w.dart',
-          sourceUri: 'package:w/w.dart');
+      interpreter.registerBridgedClass(
+        marker('WClass'),
+        'package:w/w.dart',
+        sourceUri: 'package:w/w.dart',
+      );
 
       const src = "import 'package:w/w.dart';\nint main() => 1;";
 
       interpreter.execute(source: src);
       final afterFirst = D4rt.debugBridgedModuleEnvBuildCount;
-      expect(afterFirst, 1,
-          reason: 'the first import builds the per-module env exactly once');
+      expect(
+        afterFirst,
+        1,
+        reason: 'the first import builds the per-module env exactly once',
+      );
 
       interpreter.execute(source: src);
-      expect(D4rt.debugBridgedModuleEnvBuildCount, afterFirst,
-          reason: 'with reuseAcrossRuns on (default) the second execute reuses '
-              'the per-instance cached env — no rebuild');
+      expect(
+        D4rt.debugBridgedModuleEnvBuildCount,
+        afterFirst,
+        reason:
+            'with reuseAcrossRuns on (default) the second execute reuses '
+            'the per-instance cached env — no rebuild',
+      );
     });
 
     test(
-        'opt-out: reuseAcrossRuns:false rebuilds the module env on every run',
-        () {
-      final interpreter = D4rt(reuseAcrossRuns: false);
-      interpreter.registerBridgedClass(marker('WClass'), 'package:w/w.dart',
-          sourceUri: 'package:w/w.dart');
+      'opt-out: reuseAcrossRuns:false rebuilds the module env on every run',
+      () {
+        final interpreter = D4rt(reuseAcrossRuns: false);
+        interpreter.registerBridgedClass(
+          marker('WClass'),
+          'package:w/w.dart',
+          sourceUri: 'package:w/w.dart',
+        );
 
-      const src = "import 'package:w/w.dart';\nint main() => 1;";
+        const src = "import 'package:w/w.dart';\nint main() => 1;";
 
-      interpreter.execute(source: src);
-      expect(D4rt.debugBridgedModuleEnvBuildCount, 1,
-          reason: 'first run builds the module env');
+        interpreter.execute(source: src);
+        expect(
+          D4rt.debugBridgedModuleEnvBuildCount,
+          1,
+          reason: 'first run builds the module env',
+        );
 
-      interpreter.execute(source: src);
-      expect(D4rt.debugBridgedModuleEnvBuildCount, 2,
-          reason: 'with reuseAcrossRuns off every run rebuilds for isolation');
-    });
+        interpreter.execute(source: src);
+        expect(
+          D4rt.debugBridgedModuleEnvBuildCount,
+          2,
+          reason: 'with reuseAcrossRuns off every run rebuilds for isolation',
+        );
+      },
+    );
 
     test(
-        'invalidation: registering after a run drops the per-instance cache',
-        () {
-      final interpreter = D4rt();
-      interpreter.registerBridgedClass(marker('WClass'), 'package:w/w.dart',
-          sourceUri: 'package:w/w.dart');
+      'invalidation: registering after a run drops the per-instance cache',
+      () {
+        final interpreter = D4rt();
+        interpreter.registerBridgedClass(
+          marker('WClass'),
+          'package:w/w.dart',
+          sourceUri: 'package:w/w.dart',
+        );
 
-      const src = "import 'package:w/w.dart';\nint main() => 1;";
-      interpreter.execute(source: src);
-      expect(D4rt.debugBridgedModuleEnvBuildCount, 1);
+        const src = "import 'package:w/w.dart';\nint main() => 1;";
+        interpreter.execute(source: src);
+        expect(D4rt.debugBridgedModuleEnvBuildCount, 1);
 
-      // A new (unrelated) registration must invalidate the per-instance caches
-      // so the next run rebinds even for the *same* URI — fixes the latent
-      // register-after-execute staleness. Without invalidation the cached `w`
-      // env would be reused and the count would stay 1.
-      interpreter.registerBridgedClass(marker('XClass'), 'package:x/x.dart',
-          sourceUri: 'package:x/x.dart');
+        // A new (unrelated) registration must invalidate the per-instance caches
+        // so the next run rebinds even for the *same* URI — fixes the latent
+        // register-after-execute staleness. Without invalidation the cached `w`
+        // env would be reused and the count would stay 1.
+        interpreter.registerBridgedClass(
+          marker('XClass'),
+          'package:x/x.dart',
+          sourceUri: 'package:x/x.dart',
+        );
 
-      interpreter.execute(source: src);
-      expect(D4rt.debugBridgedModuleEnvBuildCount, 2,
-          reason: 'the post-run registration dropped the cache, so re-importing '
-              'the same URI rebuilds');
-    });
+        interpreter.execute(source: src);
+        expect(
+          D4rt.debugBridgedModuleEnvBuildCount,
+          2,
+          reason:
+              'the post-run registration dropped the cache, so re-importing '
+              'the same URI rebuilds',
+        );
+      },
+    );
   });
 }

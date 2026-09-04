@@ -23,7 +23,8 @@ void main() {
   const String testLibPath = 'd4rt-mem:/linked_list_test.dart';
 
   dynamic executeTestScript(String scriptBody) {
-    final fullScript = '''
+    final fullScript =
+        '''
       import 'dart:collection';
 
       main() {
@@ -38,8 +39,10 @@ void main() {
   }
 
   group('LinkedList and LinkedListEntry Tests', () {
-    test('I-COLL-47: Create LinkedList, add entries, check properties. [2026-02-10 06:37] (PASS)', () {
-      final result = executeTestScript('''
+    test(
+      'I-COLL-47: Create LinkedList, add entries, check properties. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = executeTestScript('''
         var list = LinkedList();
         var entry1 = LinkedListEntry('apple');
         var entry2 = LinkedListEntry(123);
@@ -60,17 +63,18 @@ void main() {
           'entry2PrevIsEntry1': entry2.previous == entry1,
         };
       ''');
-      expect(result['length'], 2);
-      expect(result['isEmpty'], false);
-      expect(result['isNotEmpty'], true);
-      expect(result['firstValue'], 'apple');
-      expect(result['lastValue'], 123);
-      expect(result['entry1InList'], true);
-      expect(result['entry2NextIsNull'], true);
-      expect(result['entry1PrevIsNull'], true);
-      expect(result['entry1NextIsEntry2'], true);
-      expect(result['entry2PrevIsEntry1'], true);
-    });
+        expect(result['length'], 2);
+        expect(result['isEmpty'], false);
+        expect(result['isNotEmpty'], true);
+        expect(result['firstValue'], 'apple');
+        expect(result['lastValue'], 123);
+        expect(result['entry1InList'], true);
+        expect(result['entry2NextIsNull'], true);
+        expect(result['entry1PrevIsNull'], true);
+        expect(result['entry1NextIsEntry2'], true);
+        expect(result['entry2PrevIsEntry1'], true);
+      },
+    );
 
     test('I-COLL-48: LinkedListEntry unlink. [2026-02-10 06:37] (PASS)', () {
       final result = executeTestScript('''
@@ -171,43 +175,55 @@ void main() {
       expect(result['entry1ListIsNull'], true);
     });
 
-    test('I-COLL-44: Accessing first/last on empty list throws error. [2026-02-10 06:37] (PASS)', () {
-      expect(
-        () => executeTestScript('var list = LinkedList(); return list.first;'),
-        throwsA(isA<RuntimeD4rtException>()),
-      );
-      expect(
-        () => executeTestScript('var list = LinkedList(); return list.last;'),
-        throwsA(isA<RuntimeD4rtException>()),
-      );
-    });
+    test(
+      'I-COLL-44: Accessing first/last on empty list throws error. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(
+          () =>
+              executeTestScript('var list = LinkedList(); return list.first;'),
+          throwsA(isA<RuntimeD4rtException>()),
+        );
+        expect(
+          () => executeTestScript('var list = LinkedList(); return list.last;'),
+          throwsA(isA<RuntimeD4rtException>()),
+        );
+      },
+    );
 
-    test('I-COLL-45: RemoveFirst on empty list throws error. [2026-02-10 06:37] (PASS)', () {
-      expect(
-        () => executeTestScript('var list = LinkedList(); list.removeFirst();'),
-        throwsA(isA<RuntimeD4rtException>()),
-      );
-    });
+    test(
+      'I-COLL-45: RemoveFirst on empty list throws error. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(
+          () =>
+              executeTestScript('var list = LinkedList(); list.removeFirst();'),
+          throwsA(isA<RuntimeD4rtException>()),
+        );
+      },
+    );
 
-    test('I-COLL-46: Unlink entry not in a list throws error. [2026-02-10 06:37] (PASS)', () {
-      // Unlinking an entry that was never added
-      expect(
-        () => executeTestScript(
-            'var entry = LinkedListEntry(0); entry.unlink();'),
-        throwsA(isA<RuntimeD4rtException>()),
-      );
+    test(
+      'I-COLL-46: Unlink entry not in a list throws error. [2026-02-10 06:37] (PASS)',
+      () {
+        // Unlinking an entry that was never added
+        expect(
+          () => executeTestScript(
+            'var entry = LinkedListEntry(0); entry.unlink();',
+          ),
+          throwsA(isA<RuntimeD4rtException>()),
+        );
 
-      // Unlinking an entry that was already unlinked
-      expect(
-        () => executeTestScript('''
+        // Unlinking an entry that was already unlinked
+        expect(
+          () => executeTestScript('''
           var list = LinkedList();
           var entry = LinkedListEntry(0);
           list.add(entry);
           entry.unlink(); // First unlink
           entry.unlink(); // Second unlink, should throw
         '''),
-        throwsA(isA<RuntimeD4rtException>()),
-      );
-    });
+          throwsA(isA<RuntimeD4rtException>()),
+        );
+      },
+    );
   });
 }

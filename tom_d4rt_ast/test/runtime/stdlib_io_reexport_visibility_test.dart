@@ -53,8 +53,11 @@ void main() {
         // static const fields on an abstract class in the SDK.
         'Endian',
       ]) {
-        expect(env.findBridgedClassByName(name), isNotNull,
-            reason: '$name must be reachable with no import at all');
+        expect(
+          env.findBridgedClassByName(name),
+          isNotNull,
+          reason: '$name must be reachable with no import at all',
+        );
       }
     });
 
@@ -73,8 +76,11 @@ void main() {
         'ByteData',
         'ByteBuffer',
       ]) {
-        expect(env.findBridgedClassByName(name), isNull,
-            reason: '$name comes from TypedDataStdlib, not IoStdlib');
+        expect(
+          env.findBridgedClassByName(name),
+          isNull,
+          reason: '$name comes from TypedDataStdlib, not IoStdlib',
+        );
       }
     });
   });
@@ -161,10 +167,16 @@ void main() {
         'HttpClientBearerCredentials',
         'HttpClientDigestCredentials',
       ]) {
-        expect(env.findBridgedClassByName(name), isNull,
-            reason: '$name is defined as a NativeFunction, not a bridge');
-        expect(env.get(name), isA<NativeFunction>(),
-            reason: '$name must still resolve as a callable value');
+        expect(
+          env.findBridgedClassByName(name),
+          isNull,
+          reason: '$name is defined as a NativeFunction, not a bridge',
+        );
+        expect(
+          env.get(name),
+          isA<NativeFunction>(),
+          reason: '$name must still resolve as a callable value',
+        );
       }
     });
   });

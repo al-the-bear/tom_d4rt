@@ -85,21 +85,23 @@ void main() {
       });
     }
 
-    test('F-SCC20-AST-3: the intermediate hops are the SDK ones [2026-09-04]',
-        () {
-      expect(
-        BridgedClass.transitiveSupertypeNames('PathNotFoundException'),
-        containsAll(<String>[
-          'FileSystemException',
-          'IOException',
-          'Exception',
-        ]),
-      );
-      // `IOException` is declared but not bridged — the edge exists so that the
-      // classes below it reach `Exception` truthfully and so that bridging it
-      // later needs no edge changes.
-      expect(env.findBridgedClassByName('IOException'), isNull);
-    });
+    test(
+      'F-SCC20-AST-3: the intermediate hops are the SDK ones [2026-09-04]',
+      () {
+        expect(
+          BridgedClass.transitiveSupertypeNames('PathNotFoundException'),
+          containsAll(<String>[
+            'FileSystemException',
+            'IOException',
+            'Exception',
+          ]),
+        );
+        // `IOException` is declared but not bridged — the edge exists so that the
+        // classes below it reach `Exception` truthfully and so that bridging it
+        // later needs no edge changes.
+        expect(env.findBridgedClassByName('IOException'), isNull);
+      },
+    );
   });
 
   group('SCC20: the two roots stay disjoint', () {
@@ -113,14 +115,15 @@ void main() {
   });
 
   group('SCC20: the edges do not disturb bridge selection', () {
-    test('F-SCC20-AST-5: FormatException keeps its own members [2026-09-04]',
-        () {
+    test('F-SCC20-AST-5: FormatException keeps its own members [2026-09-04]', () {
       // Why this is registry edges and NOT an `isAssignable` on `Exception`:
       // `isAssignable` decides which bridge OWNS a native object, so one on a
       // root makes the root match every value in its hierarchy and steal member
       // dispatch from its subtypes. The registry feeds `isSubtypeOf` only.
-      expect(bridge('FormatException').getters.keys,
-          containsAll(<String>['message', 'source', 'offset']));
+      expect(
+        bridge('FormatException').getters.keys,
+        containsAll(<String>['message', 'source', 'offset']),
+      );
       expect(bridge('Exception').getters.keys, isNot(contains('message')));
     });
   });

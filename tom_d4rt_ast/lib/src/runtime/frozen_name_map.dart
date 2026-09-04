@@ -50,11 +50,21 @@ class FrozenNameMap<V> extends MapBase<String, V> {
     final entries = builder.entries.toList(growable: false)
       ..sort((a, b) => a.key.hashCode.compareTo(b.key.hashCode));
     final n = entries.length;
-    final hashes = List<int>.generate(n, (i) => entries[i].key.hashCode,
-        growable: false);
-    final names =
-        List<String>.generate(n, (i) => entries[i].key, growable: false);
-    final values = List<V>.generate(n, (i) => entries[i].value, growable: false);
+    final hashes = List<int>.generate(
+      n,
+      (i) => entries[i].key.hashCode,
+      growable: false,
+    );
+    final names = List<String>.generate(
+      n,
+      (i) => entries[i].key,
+      growable: false,
+    );
+    final values = List<V>.generate(
+      n,
+      (i) => entries[i].value,
+      growable: false,
+    );
     _hashes = hashes;
     _names = names;
     _values = values;

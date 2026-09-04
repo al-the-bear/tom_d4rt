@@ -13,7 +13,10 @@ import 'my_list.dart';
 ///
 /// Only override methods that need custom handling (like operators).
 /// All other members will be auto-generated.
-@D4rtUserBridge('package:userbridge_override_example/src/my_list.dart', 'MyList')
+@D4rtUserBridge(
+  'package:userbridge_override_example/src/my_list.dart',
+  'MyList',
+)
 class MyListUserBridge extends D4UserBridge {
   /// Override operator[] for generic type handling.
   ///

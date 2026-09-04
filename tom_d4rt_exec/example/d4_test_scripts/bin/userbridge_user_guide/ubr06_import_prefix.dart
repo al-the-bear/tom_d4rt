@@ -37,7 +37,8 @@ void main() {
   // User bridge operator[]= (references Matrix2x2 type via import prefix)
   m[[1, 1]] = 99.0;
   var updated = m[[1, 1]];
-  if (updated != 99.0) errors.add('m[1,1] after set expected 99.0, got $updated');
+  if (updated != 99.0)
+    errors.add('m[1,1] after set expected 99.0, got $updated');
 
   // ── row() method (auto-generated, also uses import prefix) ───────
 

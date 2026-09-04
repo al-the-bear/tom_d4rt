@@ -3,8 +3,10 @@ import 'interpreter_test.dart' show executeAsync;
 
 void main() {
   group('Complex Await Assignments', () {
-    test('I-ASYNC-45: Await with conditional expression (ternary). [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-45: Await with conditional expression (ternary). [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 Future<int> getFuture(int value) async {
   return value;
 }
@@ -18,12 +20,15 @@ int main() async {
   return result;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals(42));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals(42));
+      },
+    );
 
-    test('I-ASYNC-43: Await with conditional expression - false branch. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-43: Await with conditional expression - false branch. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 Future<int> getFuture(int value) async {
   return value;
 }
@@ -36,12 +41,15 @@ int main() async {
   return result;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals(99));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals(99));
+      },
+    );
 
-    test('I-ASYNC-44: Await with nested conditionals. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-44: Await with nested conditionals. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 Future<int> getFuture(int value) async {
   return value;
 }
@@ -57,12 +65,15 @@ int main() async {
   return result;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals(2));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals(2));
+      },
+    );
 
-    test('I-ASYNC-46: Await with binary expression. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-46: Await with binary expression. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 Future<int> getFuture(int value) async {
   return value;
 }
@@ -77,12 +88,15 @@ int main() async {
   return sum;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals(30));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals(30));
+      },
+    );
 
-    test('I-ASYNC-47: Await in compound assignment with conditional. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-47: Await in compound assignment with conditional. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 Future<int> getFuture(int value) async {
   return value;
 }
@@ -97,12 +111,15 @@ int main() async {
   return result;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals(15));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals(15));
+      },
+    );
 
-    test('I-ASYNC-38: Multiple await expressions in same statement. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-38: Multiple await expressions in same statement. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 Future<int> getFuture(int value) async {
   return value;
 }
@@ -116,12 +133,15 @@ int main() async {
   return result;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals(30));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals(30));
+      },
+    );
 
-    test('I-ASYNC-39: Await with null-coalescing. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-39: Await with null-coalescing. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 Future<int?> getNullableFuture(bool returnNull) async {
   return returnNull ? null : 42;
 }
@@ -133,12 +153,15 @@ int main() async {
   return result;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals(42));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals(42));
+      },
+    );
 
-    test('I-ASYNC-40: Await with null-coalescing - null case. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-40: Await with null-coalescing - null case. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 Future<int?> getNullableFuture(bool returnNull) async {
   return returnNull ? null : 42;
 }
@@ -150,12 +173,15 @@ int main() async {
   return result;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals(99));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals(99));
+      },
+    );
 
-    test('I-ASYNC-41: Await in list literal. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-41: Await in list literal. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 Future<int> getFuture(int value) async {
   return value;
 }
@@ -171,12 +197,15 @@ int main() async {
   return list.length;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals(3));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals(3));
+      },
+    );
 
-    test('I-ASYNC-42: Await in map literal. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-42: Await in map literal. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 Future<String> getStringFuture(String value) async {
   return value;
 }
@@ -195,8 +224,9 @@ int main() async {
   return map.length;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals(2));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals(2));
+      },
+    );
   });
 }

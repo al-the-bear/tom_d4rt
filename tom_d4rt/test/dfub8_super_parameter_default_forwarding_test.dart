@@ -18,8 +18,7 @@ Object? execute(String code) {
 
 void main() {
   group('DFUB8: super-parameter default forwarding', () {
-    test(
-        'F-DFUB8-1: optional positional super param uses parent default '
+    test('F-DFUB8-1: optional positional super param uses parent default '
         '[2026-07-23] (RED)', () {
       const code = '''
         class Parent {
@@ -41,8 +40,7 @@ void main() {
       expect(execute(code), equals(['test', 0, 'test2', 42]));
     });
 
-    test(
-        'F-DFUB8-2: super param with default value in parent '
+    test('F-DFUB8-2: super param with default value in parent '
         '[2026-07-23] (RED)', () {
       const code = '''
         class Parent {

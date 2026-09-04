@@ -21,10 +21,12 @@ void main() {
       // survive execute() as its own type rather than being relabelled as an
       // interpreter bug.
       expect(
-        () => D4rt().execute(source: '''
+        () => D4rt().execute(
+          source: '''
           import 'package:does_not_exist/foo.dart';
           int main() => 1;
-        '''),
+        ''',
+        ),
         throwsA(
           isA<SourceCodeD4rtException>().having(
             (e) => e.toString(),
@@ -41,10 +43,12 @@ void main() {
       // noise for a package: URI — nobody expected it to be a stdlib library,
       // and neither real fix was mentioned.
       expect(
-        () => D4rt().execute(source: '''
+        () => D4rt().execute(
+          source: '''
           import 'package:does_not_exist/foo.dart';
           int main() => 1;
-        '''),
+        ''',
+        ),
         throwsA(
           isA<SourceCodeD4rtException>().having(
             (e) => e.toString(),
@@ -142,11 +146,18 @@ void main() {
         message = e.toString();
       }
 
-      expect(message, contains('package:app/c.dart'),
-          reason: 'the innermost owner is the file with the bad directive');
-      expect('Failed to load'.allMatches(message).length, equals(1),
-          reason: 'one directive-context prefix, not one per frame in the '
-              'import chain. Got:\n$message');
+      expect(
+        message,
+        contains('package:app/c.dart'),
+        reason: 'the innermost owner is the file with the bad directive',
+      );
+      expect(
+        'Failed to load'.allMatches(message).length,
+        equals(1),
+        reason:
+            'one directive-context prefix, not one per frame in the '
+            'import chain. Got:\n$message',
+      );
     });
   });
 }

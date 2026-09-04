@@ -58,13 +58,16 @@ BridgedClass _createCurveBridge() {
       'transform': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<Curve>(target, 'Curve');
         D4.requireMinArgs(positional, 1, 'transform');
-        final value = D4.getRequiredArg<double>(positional, 0, 't', 'transform');
+        final value = D4.getRequiredArg<double>(
+          positional,
+          0,
+          't',
+          'transform',
+        );
         return t.transform(value);
       },
     },
-    methodSignatures: {
-      'transform': 'double transform(double t)',
-    },
+    methodSignatures: {'transform': 'double transform(double t)'},
   );
 }
 
@@ -93,33 +96,39 @@ void main() {
 
     setUp(() {
       d4rt = D4rt();
-      d4rt.registerBridgedClass(_createCurveBridge(), 'package:test/curves.dart');
-      d4rt.registerBridgedClass(_createCurvesBridge(), 'package:test/curves.dart');
+      d4rt.registerBridgedClass(
+        _createCurveBridge(),
+        'package:test/curves.dart',
+      );
+      d4rt.registerBridgedClass(
+        _createCurvesBridge(),
+        'package:test/curves.dart',
+      );
     });
 
-    test(
-      'B-SUP-01: Curves.linear returns a value. [2026-03-01] (PASS)',
-      () {
-        final result = d4rt.execute(source: '''
+    test('B-SUP-01: Curves.linear returns a value. [2026-03-01] (PASS)', () {
+      final result = d4rt.execute(
+        source: '''
           import 'package:test/curves.dart';
           
           main() {
             final curve = Curves.linear;
             return curve;
           }
-        ''');
-        expect(result, isNotNull);
-        // The result should be some kind of Curve instance
-        expect(result, isA<Curve>());
-      },
-    );
+        ''',
+      );
+      expect(result, isNotNull);
+      // The result should be some kind of Curve instance
+      expect(result, isA<Curve>());
+    });
 
     test(
       'B-SUP-02: Can call transform() on Curves.linear result. [2026-03-01] (FAIL)',
       () {
         // This is the key test - calling a method on a private subclass instance
         // should work by finding the method on the public base class bridge.
-        final result = d4rt.execute(source: '''
+        final result = d4rt.execute(
+          source: '''
           import 'package:test/curves.dart';
           
           main() {
@@ -127,7 +136,8 @@ void main() {
             final transformed = curve.transform(0.5);
             return transformed;
           }
-        ''');
+        ''',
+        );
         expect(result, equals(0.5)); // _Linear.transform(t) => t
       },
     );
@@ -135,7 +145,8 @@ void main() {
     test(
       'B-SUP-03: Can call transform() on Curves.decelerate result. [2026-03-01] (FAIL)',
       () {
-        final result = d4rt.execute(source: '''
+        final result = d4rt.execute(
+          source: '''
           import 'package:test/curves.dart';
           
           main() {
@@ -143,7 +154,8 @@ void main() {
             final transformed = curve.transform(0.5);
             return transformed;
           }
-        ''');
+        ''',
+        );
         // _DecelerateCurve.transform(0.5) = 1.0 - (1.0 - 0.5)^2 = 1.0 - 0.25 = 0.75
         expect(result, equals(0.75));
       },
@@ -152,7 +164,8 @@ void main() {
     test(
       'B-SUP-04: Multiple transform calls work correctly. [2026-03-01] (FAIL)',
       () {
-        final result = d4rt.execute(source: '''
+        final result = d4rt.execute(
+          source: '''
           import 'package:test/curves.dart';
           
           main() {
@@ -166,15 +179,15 @@ void main() {
             
             return [r1, r2, r3, r4];
           }
-        ''');
+        ''',
+        );
         expect(result, equals([0.0, 1.0, 0.0, 1.0]));
       },
     );
 
-    test(
-      'B-SUP-05: Curve variable can be reassigned. [2026-03-01] (FAIL)',
-      () {
-        final result = d4rt.execute(source: '''
+    test('B-SUP-05: Curve variable can be reassigned. [2026-03-01] (FAIL)', () {
+      final result = d4rt.execute(
+        source: '''
           import 'package:test/curves.dart';
           
           main() {
@@ -186,9 +199,9 @@ void main() {
             
             return [r1, r2];
           }
-        ''');
-        expect(result, equals([0.5, 0.75]));
-      },
-    );
+        ''',
+      );
+      expect(result, equals([0.5, 0.75]));
+    });
   });
 }

@@ -83,8 +83,7 @@ void main() {
       expect(() => runner.resetScriptDeclarations(), returnsNormally);
     });
 
-    test(
-        'evicts script-declared entries after execute while leaving '
+    test('evicts script-declared entries after execute while leaving '
         'a working interpreter behind', () {
       final runner = D4rtRunner();
       // First execute: `extra` lands in the global environment as a
@@ -95,7 +94,8 @@ void main() {
       // per-execute child; it holds the script declarations (`main`, `extra`),
       // while stdlib/bridges live on the warm parent. So the child's local
       // `_values` is non-empty purely because of script declarations.
-      final preResetValueCount = runner.visitor!.globalEnvironment.values.length;
+      final preResetValueCount =
+          runner.visitor!.globalEnvironment.values.length;
       expect(
         preResetValueCount,
         greaterThan(0),
@@ -143,8 +143,7 @@ void main() {
       );
     });
 
-    test(
-        'a follower executeBundle after reset still works — the '
+    test('a follower executeBundle after reset still works — the '
         'fresh-environment-per-call invariant is preserved', () {
       final runner = D4rtRunner();
       expect(runner.executeBundleAs<int>(bundleWithExtraTopLevelFn(13)), 13);
@@ -159,8 +158,7 @@ void main() {
     // reset accidentally evicts stdlib or bridge entries, subsequent
     // builds will fail with "Undefined name" errors. These cases pin
     // the contract that those classes of entry are preserved.
-    test(
-        'preserves stdlib names — print and Stopwatch survive reset', () {
+    test('preserves stdlib names — print and Stopwatch survive reset', () {
       final runner = D4rtRunner();
       // Bootstrap the global environment by running any bundle.
       expect(runner.executeBundleAs<int>(bundleWithExtraTopLevelFn(1)), 1);
@@ -199,9 +197,7 @@ void main() {
       expect(runner.executeBundleAs<int>(bundleWithExtraTopLevelFn(2)), 2);
     });
 
-    test(
-        'preserves bridge registrations — _bridgedClasses survive reset',
-        () {
+    test('preserves bridge registrations — _bridgedClasses survive reset', () {
       final runner = D4rtRunner();
       // Run any bundle to populate the environment.
       expect(runner.executeBundleAs<int>(bundleWithExtraTopLevelFn(1)), 1);
@@ -234,8 +230,7 @@ void main() {
       );
     });
 
-    test(
-        'preserves bridged enum registrations across reset', () {
+    test('preserves bridged enum registrations across reset', () {
       final runner = D4rtRunner();
       expect(runner.executeBundleAs<int>(bundleWithExtraTopLevelFn(1)), 1);
 

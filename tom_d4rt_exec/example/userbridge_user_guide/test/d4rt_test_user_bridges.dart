@@ -62,8 +62,10 @@ void main() {
   // ── Vector2D.scale() method (auto-generated, no user bridge) ─────
 
   var scaleResult = v1.scale(3.0);
-  if (scaleResult.x != 9.0) errors.add('scale.x should be 9.0, got ${scaleResult.x}');
-  if (scaleResult.y != 12.0) errors.add('scale.y should be 12.0, got ${scaleResult.y}');
+  if (scaleResult.x != 9.0)
+    errors.add('scale.x should be 9.0, got ${scaleResult.x}');
+  if (scaleResult.y != 12.0)
+    errors.add('scale.y should be 12.0, got ${scaleResult.y}');
 
   // ── Vector2D.toString() ──────────────────────────────────────────
 
@@ -85,7 +87,8 @@ void main() {
 
   m[[0, 1]] = 99.0;
   var updated = m[[0, 1]];
-  if (updated != 99.0) errors.add('m[0,1] should be 99.0 after set, got $updated');
+  if (updated != 99.0)
+    errors.add('m[0,1] should be 99.0 after set, got $updated');
 
   // ── Matrix2x2.row() ──────────────────────────────────────────────
 

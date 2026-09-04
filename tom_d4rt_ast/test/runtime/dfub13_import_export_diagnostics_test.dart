@@ -47,15 +47,17 @@ void main() {
 
       expect(
         () => loader.loadModule(Uri.parse('package:nope/missing.dart')),
-        throwsA(isA<RuntimeD4rtException>().having(
-          (e) => e.toString(),
-          'message',
-          allOf(
-            contains('package:nope/missing.dart'),
-            contains('not found in bundle'),
-            contains('register a bridge'),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.toString(),
+            'message',
+            allOf(
+              contains('package:nope/missing.dart'),
+              contains('not found in bundle'),
+              contains('register a bridge'),
+            ),
           ),
-        )),
+        ),
       );
     });
 
@@ -71,15 +73,17 @@ void main() {
 
       expect(
         () => loader.loadModule(Uri.parse('package:app/helper.dart')),
-        throwsA(isA<RuntimeD4rtException>().having(
-          (e) => e.toString(),
-          'message',
-          allOf(
-            contains('Failed to load import'),
-            contains('package:nope/missing.dart'),
-            contains('package:app/helper.dart'),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.toString(),
+            'message',
+            allOf(
+              contains('Failed to load import'),
+              contains('package:nope/missing.dart'),
+              contains('package:app/helper.dart'),
+            ),
           ),
-        )),
+        ),
       );
     });
 
@@ -95,15 +99,17 @@ void main() {
 
       expect(
         () => loader.loadModule(Uri.parse('package:app/barrel.dart')),
-        throwsA(isA<RuntimeD4rtException>().having(
-          (e) => e.toString(),
-          'message',
-          allOf(
-            contains('Failed to load export'),
-            contains('package:nope/gone.dart'),
-            contains('package:app/barrel.dart'),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.toString(),
+            'message',
+            allOf(
+              contains('Failed to load export'),
+              contains('package:nope/gone.dart'),
+              contains('package:app/barrel.dart'),
+            ),
           ),
-        )),
+        ),
       );
     });
 
@@ -133,11 +139,18 @@ void main() {
         message = e.toString();
       }
 
-      expect(message, contains('package:app/c.dart'),
-          reason: 'the innermost owner is the file with the bad directive');
-      expect('Failed to load'.allMatches(message).length, equals(1),
-          reason: 'one directive-context prefix, not one per frame in the '
-              'import chain. Got:\n$message');
+      expect(
+        message,
+        contains('package:app/c.dart'),
+        reason: 'the innermost owner is the file with the bad directive',
+      );
+      expect(
+        'Failed to load'.allMatches(message).length,
+        equals(1),
+        reason:
+            'one directive-context prefix, not one per frame in the '
+            'import chain. Got:\n$message',
+      );
     });
   });
 }

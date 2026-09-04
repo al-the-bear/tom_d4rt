@@ -5,10 +5,10 @@
 extension ImportedIntHelpers on int {
   /// Double the value
   int get doubled => this * 2;
-  
+
   /// Check if even
   bool get isEvenNumber => this % 2 == 0;
-  
+
   /// Add a value
   int plus(int other) => this + other;
 }
@@ -17,7 +17,7 @@ extension ImportedIntHelpers on int {
 extension ImportedListHelpers<T> on List<T> {
   /// Get first or null
   T? get firstOrNull => isEmpty ? null : first;
-  
+
   /// Append and return the list
   List<T> appended(T item) => [...this, item];
 }

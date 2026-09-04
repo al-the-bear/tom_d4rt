@@ -18,40 +18,51 @@ void main() {
       }
       ''';
       expect(
-          execute(source), equals([1, 26, 1590, 95445, 95445500, 95445500250]));
+        execute(source),
+        equals([1, 26, 1590, 95445, 95445500, 95445500250]),
+      );
     });
 
-    test('I-FILE-127: Duration.fromMilliseconds and fromMicroseconds. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-FILE-127: Duration.fromMilliseconds and fromMicroseconds. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
      main() {
         Duration duration1 = Duration(milliseconds: 123456);
         Duration duration2 = Duration(microseconds: 123456789);
         return [duration1.inMilliseconds, duration2.inMicroseconds];
       }
       ''';
-      expect(execute(source), equals([123456, 123456789]));
-    });
+        expect(execute(source), equals([123456, 123456789]));
+      },
+    );
 
-    test('I-FILE-128: Duration addition and subtraction. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-FILE-128: Duration addition and subtraction. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
      main() {
         Duration duration1 = Duration(hours: 1);
         Duration duration2 = Duration(minutes: 30);
         return [(duration1 + duration2).inMinutes, (duration1 - duration2).inMinutes];
       }
       ''';
-      expect(execute(source), equals([90, 30]));
-    });
+        expect(execute(source), equals([90, 30]));
+      },
+    );
 
-    test('I-FILE-129: Duration multiplication and division. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-FILE-129: Duration multiplication and division. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
      main() {
         Duration duration = Duration(minutes: 30);
         return [(duration * 2).inMinutes, (duration ~/ 2).inMinutes];
       }
       ''';
-      expect(execute(source), equals([60, 15]));
-    });
+        expect(execute(source), equals([60, 15]));
+      },
+    );
 
     test('I-FILE-130: Duration comparison. [2026-02-10 06:37] (PASS)', () {
       const source = '''

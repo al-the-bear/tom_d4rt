@@ -12,9 +12,10 @@ void main() {
         name: 'TestMixin',
         canBeUsedAsMixin: true,
         methods: {
-          'mixinMethod': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
-            return 'Mixin called';
-          },
+          'mixinMethod':
+              (visitor, instance, positionalArgs, namedArgs, typeArgs) {
+                return 'Mixin called';
+              },
         },
       ),
       'package:test/mixin.dart',

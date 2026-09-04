@@ -249,8 +249,7 @@ class Environment {
       _bridgedClassesLookupByTypeRaw ?? const <Type, BridgedClass>{};
   Map<Type, BridgedClass> get _resolvedTypeCache =>
       _resolvedTypeCacheRaw ?? const <Type, BridgedClass>{};
-  Set<Type> get _unbridgedTypeCache =>
-      _unbridgedTypeCacheRaw ?? const <Type>{};
+  Set<Type> get _unbridgedTypeCache => _unbridgedTypeCacheRaw ?? const <Type>{};
   Map<String, BridgedEnum> get _bridgedEnums =>
       _bridgedEnumsRaw ?? const <String, BridgedEnum>{};
   List<InterpretedExtension> get _unnamedExtensions =>
@@ -661,7 +660,10 @@ class Environment {
   /// the same instance as [replacement]. Also drops [replacement] from the
   /// shadow list, since it is becoming the primary.
   void _recordShadowedBridge(
-      String name, BridgedClass? prior, BridgedClass replacement) {
+    String name,
+    BridgedClass? prior,
+    BridgedClass replacement,
+  ) {
     if (prior == null || identical(prior, replacement)) return;
     final shadowed = _shadowedBridgesOrNew.putIfAbsent(name, () => []);
     if (!shadowed.any((b) => identical(b, prior))) shadowed.add(prior);
@@ -827,8 +829,9 @@ class Environment {
       // chain, iterating every bridge, or running the name-fallback toString.
       if (current._unbridgedTypeCache.contains(runtimeType)) {
         throw RuntimeD4rtException(
-            'Cannot bridge native object: No registered bridged class found '
-            'for native type $runtimeType.');
+          'Cannot bridge native object: No registered bridged class found '
+          'for native type $runtimeType.',
+        );
       }
       current = current._enclosing;
     }
@@ -1639,7 +1642,8 @@ class Environment {
       ];
       final named = <String, RuntimeType>{};
       value.namedFields.forEach((key, fieldValue) {
-        named[key] = getRuntimeType(fieldValue) ?? const NamedRuntimeType('dynamic');
+        named[key] =
+            getRuntimeType(fieldValue) ?? const NamedRuntimeType('dynamic');
       });
       return RecordRuntimeType(
         positionalFieldTypes: positional,
@@ -1962,7 +1966,8 @@ class Environment {
           }
         }
         _bridgedClassesOrNew[name] = bridgedClass;
-        _bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] = bridgedClass;
+        _bridgedClassesLookupByTypeOrNew[bridgedClass.nativeType] =
+            bridgedClass;
         _noteImportedBridge(name, sourceEnvToImportFrom._bridgeSourceUrisRaw);
         _invalidateResolutionCache();
         return;

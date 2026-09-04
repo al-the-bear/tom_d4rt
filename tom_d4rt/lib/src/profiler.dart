@@ -81,8 +81,10 @@ class D4rtProfiler {
     final buf = StringBuffer()..writeln('$title:');
     for (final e in rows) {
       final ms = (e.totalMicros / 1000.0).toStringAsFixed(3);
-      buf.writeln('  ${e.name.padRight(nameW)}  ${ms.padLeft(10)} ms  '
-          '(${e.count}x)');
+      buf.writeln(
+        '  ${e.name.padRight(nameW)}  ${ms.padLeft(10)} ms  '
+        '(${e.count}x)',
+      );
     }
     return buf.toString().trimRight();
   }

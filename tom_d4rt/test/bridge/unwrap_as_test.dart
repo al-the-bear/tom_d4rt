@@ -187,8 +187,8 @@ void main() {
 }
 
 BridgedEnumValue _placeholder() => BridgedEnumValue(
-      BridgedEnum('placeholder', const {}),
-      'placeholder',
-      -1,
-      _NativeAlignment.topLeft,
-    );
+  BridgedEnum('placeholder', const {}),
+  'placeholder',
+  -1,
+  _NativeAlignment.topLeft,
+);

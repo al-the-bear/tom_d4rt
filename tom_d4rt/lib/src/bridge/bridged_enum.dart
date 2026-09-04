@@ -45,8 +45,7 @@ class BridgedEnum implements RuntimeType {
     // enum value, which mirrors how BridgedClass.isSubtypeOf handles
     // BridgedInstance values.
     if (other is BridgedClass && other.isAssignable != null) {
-      final nativeValue =
-          value is BridgedEnumValue ? value.nativeValue : value;
+      final nativeValue = value is BridgedEnumValue ? value.nativeValue : value;
       if (nativeValue != null && other.isAssignable!(nativeValue)) {
         return true;
       }
@@ -102,12 +101,15 @@ class BridgedEnumValue implements RuntimeValue {
   /// Instance method adapters.
   final Map<String, BridgedMethodAdapter> _methods;
 
-  BridgedEnumValue(this.enumType, this.name, this.index, this.nativeValue,
-      {Map<String, BridgedInstanceGetterAdapter>?
-          getters, // Rendre optionnels ici
-      Map<String, BridgedMethodAdapter>? methods})
-      : _getters = getters ?? {},
-        _methods = methods ?? {};
+  BridgedEnumValue(
+    this.enumType,
+    this.name,
+    this.index,
+    this.nativeValue, {
+    Map<String, BridgedInstanceGetterAdapter>? getters, // Rendre optionnels ici
+    Map<String, BridgedMethodAdapter>? methods,
+  }) : _getters = getters ?? {},
+       _methods = methods ?? {};
 
   // Implement the required getter from RuntimeValue
   @override
@@ -137,7 +139,8 @@ class BridgedEnumValue implements RuntimeValue {
             return getterAdapter(null, nativeValue);
           } catch (e) {
             throw RuntimeD4rtException(
-                'Error executing bridged getter "$identifier" on ${enumType.name}.$name: $e');
+              'Error executing bridged getter "$identifier" on ${enumType.name}.$name: $e',
+            );
           }
         }
 
@@ -154,13 +157,15 @@ class BridgedEnumValue implements RuntimeValue {
             try {
               // Try to call the toString adapter (which should not need args)
               return methodAdapter(
-                  InterpreterVisitor(
-                      globalEnvironment: Environment(),
-                      moduleLoader: ModuleLoader(Environment(), {}, {}, {})),
-                  nativeValue,
-                  [],
-                  {},
-                  null);
+                InterpreterVisitor(
+                  globalEnvironment: Environment(),
+                  moduleLoader: ModuleLoader(Environment(), {}, {}, {}),
+                ),
+                nativeValue,
+                [],
+                {},
+                null,
+              );
             } catch (_) {
               // Fallback if the adapter does not exist or fails
               return '${enumType.name}.$name';
@@ -169,12 +174,14 @@ class BridgedEnumValue implements RuntimeValue {
           // For other methods, we could return a callable function here if needed.
           // For now, throw an error if trying to access a method via get.
           throw RuntimeD4rtException(
-              'Cannot access method "$identifier" as a property on enum value ${enumType.name}.$name. Use call syntax ().');
+            'Cannot access method "$identifier" as a property on enum value ${enumType.name}.$name. Use call syntax ().',
+          );
         }
 
         // 3. If it's neither a standard property, nor a custom getter/method
         throw RuntimeD4rtException(
-            'Property "$identifier" not found on enum value ${enumType.name}.$name');
+          'Property "$identifier" not found on enum value ${enumType.name}.$name',
+        );
     }
   }
 
@@ -182,7 +189,8 @@ class BridgedEnumValue implements RuntimeValue {
   void set(String identifier, Object? value) {
     // Enum values are typically immutable
     throw RuntimeD4rtException(
-        'Cannot set property "$identifier" on enum value ${enumType.name}.$name');
+      'Cannot set property "$identifier" on enum value ${enumType.name}.$name',
+    );
   }
 
   /// Whether this enum value defines a bridged instance method (or operator)
@@ -193,8 +201,12 @@ class BridgedEnumValue implements RuntimeValue {
   bool hasMethod(String method) =>
       _methods.containsKey(method) || enumType.methods.containsKey(method);
 
-  Object? invoke(InterpreterVisitor visitor, String method, List<Object?> args,
-      Map<String, Object?> namedArgs) {
+  Object? invoke(
+    InterpreterVisitor visitor,
+    String method,
+    List<Object?> args,
+    Map<String, Object?> namedArgs,
+  ) {
     final methodAdapter = _methods[method] ?? enumType.methods[method];
     if (methodAdapter == null) {
       // Special case: if calling .toString() and there is no specific adapter,
@@ -203,7 +215,8 @@ class BridgedEnumValue implements RuntimeValue {
         return '${enumType.name}.$name';
       }
       throw RuntimeD4rtException(
-          'Method "$method" not found on enum value ${enumType.name}.$name');
+        'Method "$method" not found on enum value ${enumType.name}.$name',
+      );
     }
 
     try {
@@ -217,7 +230,8 @@ class BridgedEnumValue implements RuntimeValue {
       );
     } catch (e) {
       throw RuntimeD4rtException(
-          'Error executing bridged method "$method" on ${enumType.name}.$name: $e');
+        'Error executing bridged method "$method" on ${enumType.name}.$name: $e',
+      );
     }
   }
 
@@ -230,13 +244,15 @@ class BridgedEnumValue implements RuntimeValue {
       try {
         // Call without specific visitor or argument here, as it's just for representation
         return toStringAdapter(
-            InterpreterVisitor(
-                globalEnvironment: Environment(),
-                moduleLoader: ModuleLoader(Environment(), {}, {}, {})),
-            nativeValue,
-            [],
-            {},
-            null).toString();
+          InterpreterVisitor(
+            globalEnvironment: Environment(),
+            moduleLoader: ModuleLoader(Environment(), {}, {}, {}),
+          ),
+          nativeValue,
+          [],
+          {},
+          null,
+        ).toString();
       } catch (_) {
         // Fallback if the adapter fails
         return '${enumType.name}.$name (native toString failed)';

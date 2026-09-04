@@ -4,15 +4,18 @@ import 'package:tom_d4rt/d4rt.dart';
 dynamic execute(String source, {List<Object?>? args}) {
   final d4rt = D4rt()..setDebug(false);
   return d4rt.execute(
-      library: 'package:test/main.dart',
-      positionalArgs: args,
-      sources: {'package:test/main.dart': source});
+    library: 'package:test/main.dart',
+    positionalArgs: args,
+    sources: {'package:test/main.dart': source},
+  );
 }
 
 void main() {
   group('Operator Improvements', () {
-    test('I-EXPR-36: Generic constraints validation works. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXPR-36: Generic constraints validation works. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class NumericContainer<T extends num> {
           T value;
           NumericContainer(this.value);
@@ -28,12 +31,15 @@ void main() {
         }
       ''';
 
-      final result = execute(code);
-      expect(result, contains("SUCCESS"));
-    });
+        final result = execute(code);
+        expect(result, contains("SUCCESS"));
+      },
+    );
 
-    test('I-EXPR-37: Compound assignment operators work for bitwise operations. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXPR-37: Compound assignment operators work for bitwise operations. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         main() {
           int a = 15;  // 1111 in binary
           int b = 7;   // 0111 in binary
@@ -65,9 +71,10 @@ void main() {
         }
       ''';
 
-      final result = execute(code);
-      expect(result, equals("Bitwise compound assignments work"));
-    });
+        final result = execute(code);
+        expect(result, equals("Bitwise compound assignments work"));
+      },
+    );
 
     test('I-EXPR-38: New typed data types work. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -97,8 +104,10 @@ void main() {
       expect(result, equals("New typed data types work"));
     });
 
-    test('I-EXPR-35: Complex operations with improved features. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXPR-35: Complex operations with improved features. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         import 'dart:typed_data';
         
         class DataProcessor<T extends num> {
@@ -134,9 +143,10 @@ void main() {
         }
       ''';
 
-      final result = execute(code);
-      expect(result, equals("Complex operations successful"));
-    });
+        final result = execute(code);
+        expect(result, equals("Complex operations successful"));
+      },
+    );
   });
 
   // FOUND BY SCC10, and not where it was looking. The stdlib member-diff oracle
@@ -197,9 +207,13 @@ void main() {
           return [a, afterAnd, b, calls];
         }
       ''');
-      expect(result, equals([false, 1, true, 2]),
-          reason: 'the right operand must be evaluated even when the left '
-              'already determines the result');
+      expect(
+        result,
+        equals([false, 1, true, 2]),
+        reason:
+            'the right operand must be evaluated even when the left '
+            'already determines the result',
+      );
     });
 
     test('F-SCC10-17: the compound forms &= |= ^= assign [2026-09-04]', () {

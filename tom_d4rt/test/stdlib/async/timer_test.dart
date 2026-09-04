@@ -13,9 +13,10 @@ import '../../interpreter_test.dart';
 
 void main() {
   group('Timer bridge — static entry points', () {
-    test('Timer.run(callback) — covers Cluster E #9 (foundation/key_test.dart)',
-        () async {
-      const source = '''
+    test(
+      'Timer.run(callback) — covers Cluster E #9 (foundation/key_test.dart)',
+      () async {
+        const source = '''
         import 'dart:async';
         Future<int> main() async {
           var fired = 0;
@@ -25,8 +26,9 @@ void main() {
           return fired;
         }
       ''';
-      expect(await executeAsync(source), equals(42));
-    });
+        expect(await executeAsync(source), equals(42));
+      },
+    );
 
     test('Timer(duration, callback) constructor schedules and fires', () async {
       const source = '''
@@ -80,9 +82,13 @@ void main() {
       ''';
       expect(
         () => execute(source),
-        throwsA(predicate((e) =>
-            e.toString().contains('Timer.run') ||
-            e.toString().contains('callback'))),
+        throwsA(
+          predicate(
+            (e) =>
+                e.toString().contains('Timer.run') ||
+                e.toString().contains('callback'),
+          ),
+        ),
       );
     });
   });

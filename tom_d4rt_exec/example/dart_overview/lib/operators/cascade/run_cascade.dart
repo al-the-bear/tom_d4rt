@@ -38,10 +38,7 @@ void main() {
   print('--- Method Chaining vs Cascade ---');
 
   // Method chaining (methods return this)
-  var builder1 = StringBuilder()
-      .append('Hello')
-      .append(' ')
-      .append('World');
+  var builder1 = StringBuilder().append('Hello').append(' ').append('World');
   print('Method chaining: ${builder1.build()}');
 
   // Cascade (works even if methods return void)
@@ -57,11 +54,12 @@ void main() {
   print('--- Cascade with Final Value ---');
 
   // Get the object after cascading
-  var configured = (Config()
-        ..host = 'localhost'
-        ..port = 8080
-        ..debug = true)
-      .toString(); // Gets the result after cascade
+  var configured =
+      (Config()
+            ..host = 'localhost'
+            ..port = 8080
+            ..debug = true)
+          .toString(); // Gets the result after cascade
   print('Configured: $configured');
 
   // Nested cascade (rare but possible)
@@ -87,7 +85,8 @@ void main() {
 
   maybePerson = getPerson(null);
   maybePerson
-    ?..name = 'Charlie' // None of these execute
+    ?..name =
+        'Charlie' // None of these execute
     ..age = 35
     ..greet();
   print('null person (no cascade executed): $maybePerson');

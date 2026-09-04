@@ -35,21 +35,24 @@ main() => run(() => build(41));
       expect(result, 42);
     });
 
-    test('top-level fn called from a default-callback closure argument',
-        () async {
-      final result = await _run('''
+    test(
+      'top-level fn called from a default-callback closure argument',
+      () async {
+        final result = await _run('''
 int build(int x) => x * 3;
 
 int apply({required int Function(int) cb, required int seed}) => cb(seed);
 
 main() => apply(cb: (n) => build(n), seed: 14);
 ''');
-      expect(result, 42);
-    });
+        expect(result, 42);
+      },
+    );
 
-    test('runApp-style entry point: top-level build(ctx) invoked by harness',
-        () async {
-      final result = await _run('''
+    test(
+      'runApp-style entry point: top-level build(ctx) invoked by harness',
+      () async {
+        final result = await _run('''
 class FakeContext {
   final int seed;
   const FakeContext(this.seed);
@@ -64,8 +67,9 @@ int runHarness(int seed) {
 
 main() => runHarness(7);
 ''');
-      expect(result, 42);
-    });
+        expect(result, 42);
+      },
+    );
 
     test('top-level fn shadowed by local var inside closure does not poison '
         'sibling closures', () async {

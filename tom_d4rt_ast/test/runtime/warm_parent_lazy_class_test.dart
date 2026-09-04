@@ -48,8 +48,11 @@ void main() {
               SReturnStatement(
                 offset: 0,
                 length: 0,
-                expression:
-                    SIntegerLiteral(offset: 0, length: 1, value: returnValue),
+                expression: SIntegerLiteral(
+                  offset: 0,
+                  length: 1,
+                  value: returnValue,
+                ),
               ),
             ],
           ),
@@ -70,8 +73,7 @@ void main() {
     setUp(D4rtRunner.debugResetPool);
     tearDown(D4rtRunner.debugResetPool);
 
-    test(
-        'IMP-OPT-5a: building the warm parent registers the class thunk '
+    test('IMP-OPT-5a: building the warm parent registers the class thunk '
         'without invoking it; resolution builds it exactly once', () {
       var builds = 0;
       BridgedClass buildProbe() {
@@ -80,8 +82,11 @@ void main() {
       }
 
       final runner = D4rtRunner();
-      expect(runner.providePackage('pkg_s5'), isFalse,
-          reason: 'first sighting of pkg_s5 — opens the registration context');
+      expect(
+        runner.providePackage('pkg_s5'),
+        isFalse,
+        reason: 'first sighting of pkg_s5 — opens the registration context',
+      );
       runner.registerBridgedClassLazy(
         'S5Probe',
         _S5Probe,
@@ -96,13 +101,20 @@ void main() {
       // Executing builds the warm parent from the pool (the warmup the plan
       // targets). The class thunk must travel into the warm parent deferred.
       expect(runner.executeBundleAs<int>(bundleReturning(1)), 1);
-      expect(builds, 0,
-          reason: 'warm-parent pool registration must not force class thunks — '
-              'this is what keeps registerBridgedDefinitionsFromPool cheap');
+      expect(
+        builds,
+        0,
+        reason:
+            'warm-parent pool registration must not force class thunks — '
+            'this is what keeps registerBridgedDefinitionsFromPool cheap',
+      );
 
       final parent = runner.visitor!.globalEnvironment.enclosing;
-      expect(parent, isNotNull,
-          reason: 'the per-execute env is a child chained off the warm parent');
+      expect(
+        parent,
+        isNotNull,
+        reason: 'the per-execute env is a child chained off the warm parent',
+      );
 
       // First resolution (by native type) builds the bridge exactly once.
       parent!.toBridgedInstance(_S5Probe());

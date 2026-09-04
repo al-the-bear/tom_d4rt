@@ -2,8 +2,10 @@ import 'package:test/test.dart';
 import 'interpreter_test.dart';
 
 void main() {
-  test('I-CONST-2: Factory constructors should work correctly. [2026-02-10 06:37] (PASS)', () {
-    final source = '''
+  test(
+    'I-CONST-2: Factory constructors should work correctly. [2026-02-10 06:37] (PASS)',
+    () {
+      final source = '''
       class User {
         final String name;
         final String email;
@@ -25,12 +27,15 @@ void main() {
       }
     ''';
 
-    final result = execute(source);
-    expect(result, equals('John Doe'));
-  });
+      final result = execute(source);
+      expect(result, equals('John Doe'));
+    },
+  );
 
-  test('I-CONST-1: Factory constructor with multiple parameters. [2026-02-10 06:37] (PASS)', () {
-    final source = '''
+  test(
+    'I-CONST-1: Factory constructor with multiple parameters. [2026-02-10 06:37] (PASS)',
+    () {
+      final source = '''
       class Person {
         final String firstName;
         final String lastName;
@@ -49,12 +54,15 @@ void main() {
       }
     ''';
 
-    final result = execute(source);
-    expect(result, equals('Jane Smith is 25 years old'));
-  });
+      final result = execute(source);
+      expect(result, equals('Jane Smith is 25 years old'));
+    },
+  );
 
-  test('I-CONST-3: Factory constructor with validation. [2026-02-10 06:37] (PASS)', () {
-    final source = '''
+  test(
+    'I-CONST-3: Factory constructor with validation. [2026-02-10 06:37] (PASS)',
+    () {
+      final source = '''
       class Email {
         final String value;
         
@@ -76,10 +84,11 @@ void main() {
       }
     ''';
 
-    final result = execute(source);
-    expect(result, isA<List>());
-    final list = result as List;
-    expect(list[0], equals('test@domain.com'));
-    expect(list[1], equals('invalid@example.com'));
-  });
+      final result = execute(source);
+      expect(result, isA<List>());
+      final list = result as List;
+      expect(list[0], equals('test@domain.com'));
+      expect(list[1], equals('invalid@example.com'));
+    },
+  );
 }

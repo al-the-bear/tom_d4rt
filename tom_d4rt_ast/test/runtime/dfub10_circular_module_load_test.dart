@@ -26,18 +26,18 @@ void main() {
       SSimpleStringLiteral(offset: 0, length: value.length + 2, value: value);
 
   SImportDirective importDirective(String uri) => SImportDirective(
-        offset: 0,
-        length: 0,
-        uri: strLit(uri),
-        combinators: const [],
-      );
+    offset: 0,
+    length: 0,
+    uri: strLit(uri),
+    combinators: const [],
+  );
 
   SExportDirective exportDirective(String uri) => SExportDirective(
-        offset: 0,
-        length: 0,
-        uri: strLit(uri),
-        combinators: const [],
-      );
+    offset: 0,
+    length: 0,
+    uri: strLit(uri),
+    combinators: const [],
+  );
 
   /// `int name() { return <body>; }`
   SFunctionDeclaration functionDecl(String name, SExpression body) {
@@ -69,22 +69,21 @@ void main() {
 
   /// `callee()`
   SMethodInvocation callTo(String callee) => SMethodInvocation(
-        offset: 0,
-        length: 0,
-        methodName: ident(callee),
-        argumentList: SArgumentList(offset: 0, length: 0),
-      );
+    offset: 0,
+    length: 0,
+    methodName: ident(callee),
+    argumentList: SArgumentList(offset: 0, length: 0),
+  );
 
   SCompilationUnit unit({
     List<SDirective> directives = const [],
     List<SCompilationUnitMember> declarations = const [],
-  }) =>
-      SCompilationUnit(
-        offset: 0,
-        length: 0,
-        directives: directives,
-        declarations: declarations,
-      );
+  }) => SCompilationUnit(
+    offset: 0,
+    length: 0,
+    directives: directives,
+    declarations: declarations,
+  );
 
   AstModuleLoader createLoader(Map<String, SCompilationUnit> modules) {
     final env = Environment();

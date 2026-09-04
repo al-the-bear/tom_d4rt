@@ -38,20 +38,29 @@ void main() {
           ..writeAsStringSync('x');
         io.Link('${tempRoot.path}/link').createSync(realDir.absolute.path);
 
-        final grantOnReal =
-            FilesystemPermission.readPath(realDir.resolveSymbolicLinksSync());
-        final grantOnLink =
-            FilesystemPermission.readPath('${tempRoot.path}/link');
+        final grantOnReal = FilesystemPermission.readPath(
+          realDir.resolveSymbolicLinksSync(),
+        );
+        final grantOnLink = FilesystemPermission.readPath(
+          '${tempRoot.path}/link',
+        );
 
-        Map<String, dynamic> read(String path) =>
-            {'type': 'filesystem', 'path': path, 'read': true};
+        Map<String, dynamic> read(String path) => {
+          'type': 'filesystem',
+          'path': path,
+          'read': true,
+        };
 
         expect(grantOnReal.allows(read(target.absolute.path)), isTrue);
         expect(
-            grantOnReal.allows(read('${tempRoot.path}/link/data.txt')), isTrue);
+          grantOnReal.allows(read('${tempRoot.path}/link/data.txt')),
+          isTrue,
+        );
         expect(grantOnLink.allows(read(target.absolute.path)), isTrue);
         expect(
-            grantOnLink.allows(read('${tempRoot.path}/link/data.txt')), isTrue);
+          grantOnLink.allows(read('${tempRoot.path}/link/data.txt')),
+          isTrue,
+        );
       },
     );
 

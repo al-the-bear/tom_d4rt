@@ -33,13 +33,15 @@ void main() {
   }
 
   group('SCB26: StringSink has a single owning registrar', () {
-    test('F-SCB26-AST-1: dart:core declares the full member set [2026-09-03]',
-        () {
-      final sink = coreOnly().findBridgedClassByName('StringSink');
-      expect(sink, isNotNull);
-      expect(sink!.methods.keys, unorderedEquals(coreMethods));
-      expect(sink.getters.keys, unorderedEquals(coreGetters));
-    });
+    test(
+      'F-SCB26-AST-1: dart:core declares the full member set [2026-09-03]',
+      () {
+        final sink = coreOnly().findBridgedClassByName('StringSink');
+        expect(sink, isNotNull);
+        expect(sink!.methods.keys, unorderedEquals(coreMethods));
+        expect(sink.getters.keys, unorderedEquals(coreGetters));
+      },
+    );
 
     test('F-SCB26-AST-2: registering the io stdlib after core does not narrow '
         'StringSink [2026-09-03]', () {

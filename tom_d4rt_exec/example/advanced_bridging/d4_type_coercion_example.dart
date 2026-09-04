@@ -65,14 +65,17 @@ BridgedClass createItemBridge() {
       '': (visitor, positional, named) {
         // D4.getRequiredArg validates presence and type
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'Item');
-        final quantity =
-            D4.getRequiredArg<int>(positional, 1, 'quantity', 'Item');
+        final quantity = D4.getRequiredArg<int>(
+          positional,
+          1,
+          'quantity',
+          'Item',
+        );
         return Item(name, quantity);
       },
     },
     getters: {
-      'name': (visitor, target) =>
-          D4.validateTarget<Item>(target, 'Item').name,
+      'name': (visitor, target) => D4.validateTarget<Item>(target, 'Item').name,
       'quantity': (visitor, target) =>
           D4.validateTarget<Item>(target, 'Item').quantity,
     },
@@ -88,9 +91,7 @@ BridgedClass createInventoryServiceBridge() {
   return BridgedClass(
     nativeType: InventoryService,
     name: 'InventoryService',
-    constructors: {
-      '': (visitor, positional, named) => InventoryService(),
-    },
+    constructors: {'': (visitor, positional, named) => InventoryService()},
     getters: {
       'items': (visitor, target) =>
           D4.validateTarget<InventoryService>(target, 'InventoryService').items,
@@ -98,8 +99,10 @@ BridgedClass createInventoryServiceBridge() {
     methods: {
       // Example 1: Using D4.coerceList to handle List<Object?> → List<Item>
       'addItems': (visitor, target, positional, named, typeArgs) {
-        final service =
-            D4.validateTarget<InventoryService>(target, 'InventoryService');
+        final service = D4.validateTarget<InventoryService>(
+          target,
+          'InventoryService',
+        );
 
         // D4rt passes a List<Object?> even if all elements are Items
         // Use D4.coerceList to safely convert to List<Item>
@@ -111,8 +114,10 @@ BridgedClass createInventoryServiceBridge() {
 
       // Example 2: Using D4.coerceMap to handle Map<Object?, Object?>
       'addFromConfig': (visitor, target, positional, named, typeArgs) {
-        final service =
-            D4.validateTarget<InventoryService>(target, 'InventoryService');
+        final service = D4.validateTarget<InventoryService>(
+          target,
+          'InventoryService',
+        );
 
         // D4rt passes Map<Object?, Object?> for map literals
         // Use D4.coerceMap to convert to Map<String, int>
@@ -143,7 +148,9 @@ void main() async {
   final d4rt = D4rt();
   d4rt.registerBridgedClass(createItemBridge(), 'package:example/example.dart');
   d4rt.registerBridgedClass(
-      createInventoryServiceBridge(), 'package:example/example.dart');
+    createInventoryServiceBridge(),
+    'package:example/example.dart',
+  );
 
   // Execute script that creates typed collections
   final script = '''

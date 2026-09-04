@@ -20,10 +20,11 @@ import 'package:tom_d4rt_exec/d4rt.dart';
 
 void main() {
   group('OPEN B.1 — redirecting factory constructors (AST)', () {
-    test('unnamed redirect `factory X() = Y` resolves to the subclass',
-        () async {
-      final d4rt = D4rt();
-      final bundle = await d4rt.createBundleFromSource('''
+    test(
+      'unnamed redirect `factory X() = Y` resolves to the subclass',
+      () async {
+        final d4rt = D4rt();
+        final bundle = await d4rt.createBundleFromSource('''
 abstract class Shape {
   factory Shape() = Circle;
   double area();
@@ -37,10 +38,11 @@ double main() {
   return s.area();
 }
 ''');
-      final runner = D4rtRunner();
-      final result = runner.executeBundle(bundle);
-      expect(result, 3.14);
-    });
+        final runner = D4rtRunner();
+        final result = runner.executeBundle(bundle);
+        expect(result, 3.14);
+      },
+    );
 
     test('named redirect `factory X.n(..) = Y.m` forwards arguments', () async {
       final d4rt = D4rt();
@@ -63,10 +65,11 @@ double main() {
       expect(result, 4.0);
     });
 
-    test('redirect to a default unnamed constructor with positional args',
-        () async {
-      final d4rt = D4rt();
-      final bundle = await d4rt.createBundleFromSource('''
+    test(
+      'redirect to a default unnamed constructor with positional args',
+      () async {
+        final d4rt = D4rt();
+        final bundle = await d4rt.createBundleFromSource('''
 abstract class Animal {
   factory Animal(String name) = Dog;
   String describe();
@@ -80,10 +83,11 @@ String main() {
   return Animal('Rex').describe();
 }
 ''');
-      final runner = D4rtRunner();
-      final result = runner.executeBundle(bundle);
-      expect(result, 'Dog: Rex');
-    });
+        final runner = D4rtRunner();
+        final result = runner.executeBundle(bundle);
+        expect(result, 'Dog: Rex');
+      },
+    );
 
     test('generic redirect `factory X() = Y<int>` resolves the type', () async {
       final d4rt = D4rt();

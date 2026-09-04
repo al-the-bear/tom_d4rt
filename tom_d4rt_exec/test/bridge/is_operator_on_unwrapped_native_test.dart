@@ -91,10 +91,14 @@ bool run() {
         },
         name: 'run',
       );
-      expect(result, isTrue,
-          reason: '`Beep.makeRaw()` returns a raw `_Beep`; the script '
-              "must recognise it as `is Beep`. If this fails, the "
-              '`is`-operator BridgedClass branch is regressing.');
+      expect(
+        result,
+        isTrue,
+        reason:
+            '`Beep.makeRaw()` returns a raw `_Beep`; the script '
+            "must recognise it as `is Beep`. If this fails, the "
+            '`is`-operator BridgedClass branch is regressing.',
+      );
     });
 
     test('raw native subtype `is BridgedSubtype` returns true', () {
@@ -137,9 +141,13 @@ bool run() {
         },
         name: 'run',
       );
-      expect(result, isFalse,
-          reason: 'A plain `_Beep` is not a `_Boop`; `is Boop` must be '
-              'false.');
+      expect(
+        result,
+        isFalse,
+        reason:
+            'A plain `_Beep` is not a `_Boop`; `is Boop` must be '
+            'false.',
+      );
     });
 
     test('`is!` negation works on raw native values', () {
@@ -158,8 +166,11 @@ bool run() {
         },
         name: 'run',
       );
-      expect(result, isFalse,
-          reason: '`v is! Beep` must be false for a `_Beep` instance.');
+      expect(
+        result,
+        isFalse,
+        reason: '`v is! Beep` must be false for a `_Beep` instance.',
+      );
     });
 
     test('`null is BridgedX` returns false', () {

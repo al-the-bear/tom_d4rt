@@ -25,24 +25,35 @@ void main() {
   group('DFUB12: gzip codec interop between dart:io and package:archive', () {
     // Deliberately compressible and non-trivial in size — a few bytes would
     // round-trip through almost anything and prove nothing about the framing.
-    final payload = utf8.encode(jsonEncode({
-      'modules': List.generate(
-          50, (i) => {'uri': 'package:x/m$i.dart', 'body': 'a' * 200}),
-    }));
+    final payload = utf8.encode(
+      jsonEncode({
+        'modules': List.generate(
+          50,
+          (i) => {'uri': 'package:x/m$i.dart', 'body': 'a' * 200},
+        ),
+      }),
+    );
 
     test('F-DFUB12-4: archive decodes what dart:io encoded [2026-07-27]', () {
       final legacyBytes = io.gzip.encode(payload);
 
-      expect(const GZipDecoder().decodeBytes(legacyBytes), equals(payload),
-          reason: 'a bundle written by a pre-DFUB12 build must still load');
+      expect(
+        const GZipDecoder().decodeBytes(legacyBytes),
+        equals(payload),
+        reason: 'a bundle written by a pre-DFUB12 build must still load',
+      );
     });
 
     test('F-DFUB12-5: dart:io decodes what archive encoded [2026-07-27]', () {
       final newBytes = const GZipEncoder().encodeBytes(payload);
 
-      expect(io.gzip.decode(newBytes), equals(payload),
-          reason: 'a bundle written by a post-DFUB12 build must still load in '
-              'a consumer pinned to an older tom_d4rt_ast');
+      expect(
+        io.gzip.decode(newBytes),
+        equals(payload),
+        reason:
+            'a bundle written by a post-DFUB12 build must still load in '
+            'a consumer pinned to an older tom_d4rt_ast',
+      );
     });
 
     test('F-DFUB12-6: the gzip magic bytes AstBundle sniffs on are unchanged '
@@ -58,7 +69,9 @@ void main() {
     test('F-DFUB12-7: AstBundle byte round-trip still works end to end '
         '[2026-07-27]', () {
       final bundle = AstBundle(
-        modules: {'package:x/main.dart': SCompilationUnit(offset: 0, length: 0)},
+        modules: {
+          'package:x/main.dart': SCompilationUnit(offset: 0, length: 0),
+        },
         entryPointUri: 'package:x/main.dart',
       );
 
@@ -84,8 +97,10 @@ void main() {
       final restored = AstBundle.fromZip(bundle.toZip());
 
       expect(restored.entryPointUri, equals('package:x/main.dart'));
-      expect(restored.modules.keys,
-          containsAll(['package:x/main.dart', 'package:x/lib.dart']));
+      expect(
+        restored.modules.keys,
+        containsAll(['package:x/main.dart', 'package:x/lib.dart']),
+      );
     });
   });
 }

@@ -1,3 +1,28 @@
+## 1.44.1
+
+### Changed — formatted the tree once, at the aligned language version (scc26)
+
+Follows 1.44.0, which raised the SDK floor to the value pub already enforced.
+The floor is what selects the formatter style, so the tree was still laid out in
+the pre-3.7 style while its mirror twin `tom_d4rt_ast` was in the tall style.
+Formatting once, here, is what actually closes the gap: from this point the
+formatter is idempotent in both packages and running it is harmless.
+
+The effect on the mirror is the point of the exercise. Across the 119 mirrored
+stdlib files, divergence falls from 5012 lines to 670 — and the residue is
+genuine content (the two trees use different AST types), not layout.
+`stdlib/io/socket.dart` alone went from 1926 divergent lines to 23; its two
+copies had been the same file, token for token, the whole time.
+
+This commit contains the formatter's output and nothing else. That it is inert
+was not assumed — `git diff -w` cannot establish it, because the tall style
+*splits* lines and a whitespace-insensitive diff still counts a moved line
+boundary as a change. What was checked instead is the token stream: strip all
+whitespace and the two revisions of every changed file are either identical
+(153 files) or identical once trailing commas are also stripped (893 files),
+commas being pure formatting punctuation in Dart. Zero files carried an edit
+that survived both passes.
+
 ## 1.44.0
 
 ### Changed — the declared SDK floor now matches the one pub can actually reach (scc26)

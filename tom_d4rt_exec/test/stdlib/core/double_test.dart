@@ -47,15 +47,18 @@ void main() {
       expect(execute(source), equals(123.45));
     });
 
-    test('I-INT-20: Double.ceil, floor, round, and truncate. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-INT-20: Double.ceil, floor, round, and truncate. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         double value = 123.45;
         return [value.ceil(), value.floor(), value.round(), value.truncate()];
       }
       ''';
-      expect(execute(source), equals([124, 123, 123, 123]));
-    });
+        expect(execute(source), equals([124, 123, 123, 123]));
+      },
+    );
 
     test('I-INT-22: Double.toInt and toDouble. [2026-02-10 06:37] (PASS)', () {
       const source = '''
@@ -67,8 +70,10 @@ void main() {
       expect(execute(source), equals([123, 123.45]));
     });
 
-    test('I-INT-23: Double.isFinite, isInfinite, isNaN, and isNegative. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-INT-23: Double.isFinite, isInfinite, isNaN, and isNegative. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         double value1 = 123.45;
         double value2 = double.infinity;
@@ -76,8 +81,9 @@ void main() {
         return [value1.isFinite, value2.isInfinite, value3.isNaN, (-value1).isNegative];
       }
       ''';
-      expect(execute(source), equals([true, true, true, true]));
-    });
+        expect(execute(source), equals([true, true, true, true]));
+      },
+    );
 
     test('I-INT-24: Double.clamp. [2026-02-10 06:37] (PASS)', () {
       const source = '''
@@ -100,16 +106,17 @@ void main() {
     });
 
     test(
-        'I-INT-68: double.toStringAsFixed, toStringAsExponential, and toStringAsPrecision. [2026-02-12] (PASS)',
-        () {
-      const source = '''
+      'I-INT-68: double.toStringAsFixed, toStringAsExponential, and toStringAsPrecision. [2026-02-12] (PASS)',
+      () {
+        const source = '''
       main() {
         double value = 123.456789;
         return [value.toStringAsFixed(2), value.toStringAsExponential(2), value.toStringAsPrecision(4)];
       }
       ''';
-      expect(execute(source), equals(['123.46', '1.23e+2', '123.5']));
-    });
+        expect(execute(source), equals(['123.46', '1.23e+2', '123.5']));
+      },
+    );
 
     test('I-INT-15: Double.hashCode. [2026-02-10 06:37] (PASS)', () {
       const source = '''

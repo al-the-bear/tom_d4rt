@@ -116,32 +116,53 @@ class CoreStdlib {
     ExceptionHierarchyCore.register();
     environment.defineBridge(InvocationCore.definition); // Bug-78 FIX
     environment.define(
-        'dynamic',
-        NativeFunction((visitor, arguments, namedArguments, typeArguments) {
+      'dynamic',
+      NativeFunction(
+        (visitor, arguments, namedArguments, typeArguments) {
           return dynamic;
-        }, arity: 0, name: 'dynamic'));
+        },
+        arity: 0,
+        name: 'dynamic',
+      ),
+    );
     environment.define(
-        'print',
-        NativeFunction((visitor, arguments, namedArguments, typeArguments) {
+      'print',
+      NativeFunction(
+        (visitor, arguments, namedArguments, typeArguments) {
           print(arguments[0]);
           return null;
-        }, arity: 1, name: 'print'));
+        },
+        arity: 1,
+        name: 'print',
+      ),
+    );
     environment.define(
-        'identical',
-        NativeFunction((visitor, arguments, namedArguments, typeArguments) {
+      'identical',
+      NativeFunction(
+        (visitor, arguments, namedArguments, typeArguments) {
           if (arguments.length != 2) {
             throw RuntimeD4rtException('identical requires two arguments.');
           }
           return identical(arguments[0], arguments[1]);
-        }, arity: 2, name: 'identical'));
+        },
+        arity: 2,
+        name: 'identical',
+      ),
+    );
     environment.define(
-        'identityHashCode',
-        NativeFunction((visitor, arguments, namedArguments, typeArguments) {
+      'identityHashCode',
+      NativeFunction(
+        (visitor, arguments, namedArguments, typeArguments) {
           if (arguments.length != 1) {
             throw RuntimeD4rtException(
-                'identityHashCode requires one argument.');
+              'identityHashCode requires one argument.',
+            );
           }
           return identityHashCode(arguments[0]);
-        }, arity: 1, name: 'identityHashCode'));
+        },
+        arity: 1,
+        name: 'identityHashCode',
+      ),
+    );
   }
 }

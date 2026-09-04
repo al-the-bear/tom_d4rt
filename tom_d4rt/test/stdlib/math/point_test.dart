@@ -49,8 +49,10 @@ void main() {
       expect(execute(source), equals('Point(3, 4)'));
     });
 
-    test('I-INT-66: Point equality and hashCode. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-INT-66: Point equality and hashCode. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       import 'dart:math';
       main() {
         Point p1 = Point(3, 4);
@@ -59,7 +61,8 @@ void main() {
         return [p1 == p2, p1 == p3, p1.hashCode == p2.hashCode];
       }
       ''';
-      expect(execute(source), equals([true, false, true]));
-    });
+        expect(execute(source), equals([true, false, true]));
+      },
+    );
   });
 }

@@ -23,7 +23,8 @@ void main() {
   group('bound method tear-off cache', () {
     test('a cached tear-off is still callable and correct', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 class Greeter {
   String hello() => 'hi';
 }
@@ -32,13 +33,15 @@ main() {
   final fn = g.hello;
   return fn();
 }
-''');
+''',
+      );
       expect(result, 'hi');
     });
 
     test('tear-off observes live instance state, not a stale snapshot', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 class Counter {
   int value = 0;
   int read() => value;
@@ -51,7 +54,8 @@ main() {
   // value because it is bound to the instance, not a copy of its fields.
   return fn() + 1;
 }
-''');
+''',
+      );
       expect(result, 42);
     });
 
@@ -60,7 +64,8 @@ main() {
       // The cache returns the SAME bound-closure object on repeated access —
       // `identical` is the precise discriminator (pre-cache each access minted
       // a distinct object, so this was false).
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 class A {
   void m() {}
 }
@@ -68,13 +73,15 @@ main() {
   final a = A();
   return identical(a.m, a.m);
 }
-''');
+''',
+      );
       expect(result, isTrue);
     });
 
     test('distinct instances yield distinct tear-off objects', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 class A {
   void m() {}
 }
@@ -84,13 +91,15 @@ main() {
   // Each instance owns its own cache, so the bound closures are distinct.
   return identical(a.m, b.m);
 }
-''');
+''',
+      );
       expect(result, isFalse);
     });
 
     test('superclass-resolved method tears off identically', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 class Base {
   int base() => 7;
 }
@@ -100,13 +109,15 @@ main() {
   final same = identical(d.base, d.base);
   return same && d.base() == 7;
 }
-''');
+''',
+      );
       expect(result, isTrue);
     });
 
     test('mixin-resolved method tears off identically', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 mixin M {
   int fromMixin() => 5;
 }
@@ -116,7 +127,8 @@ main() {
   final same = identical(c.fromMixin, c.fromMixin);
   return same && c.fromMixin() == 5;
 }
-''');
+''',
+      );
       expect(result, isTrue);
     });
 
@@ -128,7 +140,9 @@ main() {
       int closuresForLoop(int n) {
         final d4rt = D4rt();
         D4rtDiag.reset();
-        d4rt.execute(source: '''
+        d4rt.execute(
+          source:
+              '''
 class Worker {
   int step() => 1;
 }
@@ -140,7 +154,8 @@ main() {
   }
   return fn();
 }
-''');
+''',
+        );
         return D4rtDiag.closureAllocs;
       }
 

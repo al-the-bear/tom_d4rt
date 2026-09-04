@@ -76,8 +76,10 @@ void main() {
       expect(result, equals('production'));
     });
 
-    test('I-EXT-60: Multiple static members in extension. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-EXT-60: Multiple static members in extension. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         extension ListUtils on List {
           static int maxSize = 100;
           
@@ -97,17 +99,21 @@ void main() {
           return [list, ListUtils.currentMaxSize];
         }
       ''';
-      final result = execute(source);
-      expect(
+        final result = execute(source);
+        expect(
           result,
           equals([
             [42, 42, 42],
-            100
-          ]));
-    });
+            100,
+          ]),
+        );
+      },
+    );
 
-    test('I-EXT-46: Static method calling another static method. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-EXT-46: Static method calling another static method. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         extension Calculator on num {
           static int add(int a, int b) {
             return a + b;
@@ -126,9 +132,10 @@ void main() {
           return Calculator.calculate(3, 4);
         }
       ''';
-      final result = execute(source);
-      expect(result, equals(14)); // (3 + 4) * 2
-    });
+        final result = execute(source);
+        expect(result, equals(14)); // (3 + 4) * 2
+      },
+    );
 
     test('I-EXT-47: Static field modification. [2026-02-10 06:37] (PASS)', () {
       const source = '''
@@ -147,8 +154,10 @@ void main() {
       expect(result, equals(['guest', 'admin']));
     });
 
-    test('I-EXT-48: Static method with type parameters. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-EXT-48: Static method with type parameters. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         extension TypedUtils on Object {
           static T identity<T>(T value) {
             return value;
@@ -161,12 +170,15 @@ void main() {
           return [str, num];
         }
       ''';
-      final result = execute(source);
-      expect(result, equals(['hello', 42]));
-    });
+        final result = execute(source);
+        expect(result, equals(['hello', 42]));
+      },
+    );
 
-    test('I-EXT-49: Static getter returning computed value. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-EXT-49: Static getter returning computed value. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         extension TimeUtils on DateTime {
           static int callCount = 0;
           
@@ -182,12 +194,15 @@ void main() {
           return TimeUtils.callCount;
         }
       ''';
-      final result = execute(source);
-      expect(result, equals(3));
-    });
+        final result = execute(source);
+        expect(result, equals(3));
+      },
+    );
 
-    test('I-EXT-50: Mix of static and instance members. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-EXT-50: Mix of static and instance members. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         extension StringExt on String {
           static String prefix = 'PREFIX: ';
           
@@ -201,12 +216,15 @@ void main() {
           return result;
         }
       ''';
-      final result = execute(source);
-      expect(result, equals('PREFIX: test'));
-    });
+        final result = execute(source);
+        expect(result, equals('PREFIX: test'));
+      },
+    );
 
-    test('I-EXT-51: Static method with multiple parameters. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-EXT-51: Static method with multiple parameters. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         extension MathOps on int {
           static int sum(int a, int b, int c) {
             return a + b + c;
@@ -223,12 +241,15 @@ void main() {
           return [s, p];
         }
       ''';
-      final result = execute(source);
-      expect(result, equals([6, 24]));
-    });
+        final result = execute(source);
+        expect(result, equals([6, 24]));
+      },
+    );
 
-    test('I-EXT-52: Static field accessed from instance method. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-EXT-52: Static field accessed from instance method. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         extension NumberExt on int {
           static int multiplier = 10;
           
@@ -241,12 +262,15 @@ void main() {
           return 5.scaled();
         }
       ''';
-      final result = execute(source);
-      expect(result, equals(50));
-    });
+        final result = execute(source);
+        expect(result, equals(50));
+      },
+    );
 
-    test('I-EXT-53: Multiple extensions with static members on same type. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-EXT-53: Multiple extensions with static members on same type. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         extension ExtA on String {
           static String prefix = 'A: ';
         }
@@ -259,12 +283,15 @@ void main() {
           return [ExtA.prefix, ExtB.prefix];
         }
       ''';
-      final result = execute(source);
-      expect(result, equals(['A: ', 'B: ']));
-    });
+        final result = execute(source);
+        expect(result, equals(['A: ', 'B: ']));
+      },
+    );
 
-    test('I-EXT-54: Static method returning function. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-EXT-54: Static method returning function. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         extension FunctionUtils on Function {
           static Function makeAdder(int x) {
             return (int y) => x + y;
@@ -276,12 +303,15 @@ void main() {
           return add5(10);
         }
       ''';
-      final result = execute(source);
-      expect(result, equals(15));
-    });
+        final result = execute(source);
+        expect(result, equals(15));
+      },
+    );
 
-    test('I-EXT-56: Unnamed extension with static members. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-EXT-56: Unnamed extension with static members. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         extension on int {
           static int defaultValue = 999;
         }
@@ -292,8 +322,9 @@ void main() {
           return 42;
         }
       ''';
-      final result = execute(source);
-      expect(result, equals(42));
-    });
+        final result = execute(source);
+        expect(result, equals(42));
+      },
+    );
   });
 }

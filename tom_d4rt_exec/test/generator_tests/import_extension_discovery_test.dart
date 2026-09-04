@@ -13,9 +13,15 @@ void main() {
   late String tempOutputDir;
 
   setUpAll(() {
-    testFixturesDir = p.join(Directory.current.path, 'test', 'generator_tests', 'fixtures');
-    tempOutputDir =
-        Directory.systemTemp.createTempSync('bridge_import_extension_test_').path;
+    testFixturesDir = p.join(
+      Directory.current.path,
+      'test',
+      'generator_tests',
+      'fixtures',
+    );
+    tempOutputDir = Directory.systemTemp
+        .createTempSync('bridge_import_extension_test_')
+        .path;
   });
 
   tearDownAll(() {
@@ -39,8 +45,14 @@ void main() {
       );
 
       // Process the file that imports extensions
-      final sourceFile = p.join(testFixturesDir, 'imports_external_extensions.dart');
-      final outputFile = p.join(tempOutputDir, 'import_extension_bridges_test.dart');
+      final sourceFile = p.join(
+        testFixturesDir,
+        'imports_external_extensions.dart',
+      );
+      final outputFile = p.join(
+        tempOutputDir,
+        'import_extension_bridges_test.dart',
+      );
 
       final result = await generator.generateBridges(
         sourceFiles: [sourceFile],
@@ -52,38 +64,70 @@ void main() {
       expect(result.outputFiles, isNotEmpty);
 
       generatedCode = await File(result.outputFiles.first).readAsString();
-      
+
       // Debug: Print generated code for inspection
       // print('Generated code:\n$generatedCode');
     });
 
-    test('G-EXT-14: Discovers ImportedIntHelpers from import. [2026-02-10 06:37] (PASS)', () {
-      expect(generatedCode, contains("name: 'ImportedIntHelpers'"),
-          reason: 'Should discover ImportedIntHelpers from imported file');
-    });
+    test(
+      'G-EXT-14: Discovers ImportedIntHelpers from import. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(
+          generatedCode,
+          contains("name: 'ImportedIntHelpers'"),
+          reason: 'Should discover ImportedIntHelpers from imported file',
+        );
+      },
+    );
 
-    test('G-EXT-15: Discovers ImportedListHelpers from import. [2026-02-10 06:37] (PASS)', () {
-      // Note: Generic extensions like List<T> may be skipped in initial implementation
-      // This test documents the expected behavior
-      expect(generatedCode, contains("name: 'ImportedListHelpers'"),
-          reason: 'Should discover ImportedListHelpers from imported file');
-    });
+    test(
+      'G-EXT-15: Discovers ImportedListHelpers from import. [2026-02-10 06:37] (PASS)',
+      () {
+        // Note: Generic extensions like List<T> may be skipped in initial implementation
+        // This test documents the expected behavior
+        expect(
+          generatedCode,
+          contains("name: 'ImportedListHelpers'"),
+          reason: 'Should discover ImportedListHelpers from imported file',
+        );
+      },
+    );
 
-    test('G-EXT-16: Discovers doubled getter from ImportedIntHelpers. [2026-02-10 06:37] (PASS)', () {
-      expect(generatedCode, contains("'doubled'"),
-          reason: 'Should include doubled getter from imported extension');
-    });
+    test(
+      'G-EXT-16: Discovers doubled getter from ImportedIntHelpers. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(
+          generatedCode,
+          contains("'doubled'"),
+          reason: 'Should include doubled getter from imported extension',
+        );
+      },
+    );
 
-    test('G-EXT-17: Discovers plus method from ImportedIntHelpers. [2026-02-10 06:37] (PASS)', () {
-      expect(generatedCode, contains("'plus'"),
-          reason: 'Should include plus method from imported extension');
-    });
+    test(
+      'G-EXT-17: Discovers plus method from ImportedIntHelpers. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(
+          generatedCode,
+          contains("'plus'"),
+          reason: 'Should include plus method from imported extension',
+        );
+      },
+    );
 
-    test('G-EXT-18: Does not duplicate extensions defined in source file. [2026-02-10 06:37] (PASS)', () {
-      // Count occurrences of ImportedIntHelpers
-      final matches = RegExp(r"name:\s*'ImportedIntHelpers'").allMatches(generatedCode);
-      expect(matches.length, equals(1),
-          reason: 'Should not have duplicate extension definitions');
-    });
+    test(
+      'G-EXT-18: Does not duplicate extensions defined in source file. [2026-02-10 06:37] (PASS)',
+      () {
+        // Count occurrences of ImportedIntHelpers
+        final matches = RegExp(
+          r"name:\s*'ImportedIntHelpers'",
+        ).allMatches(generatedCode);
+        expect(
+          matches.length,
+          equals(1),
+          reason: 'Should not have duplicate extension definitions',
+        );
+      },
+    );
   });
 }

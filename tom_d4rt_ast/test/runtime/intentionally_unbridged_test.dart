@@ -65,9 +65,13 @@ void main() {
     test('F-SC11-AST-1: none of the identity/control-flow classes are '
         'registered [2026-07-27]', () {
       for (final name in cannotHonour) {
-        expect(env.findBridgedClassByName(name), isNull,
-            reason: '$name is listed as intentionally unbridged in '
-                'd4rt_limitations.md but is registered in this tree');
+        expect(
+          env.findBridgedClassByName(name),
+          isNull,
+          reason:
+              '$name is listed as intentionally unbridged in '
+              'd4rt_limitations.md but is registered in this tree',
+        );
       }
     });
 
@@ -95,9 +99,13 @@ void main() {
     test('F-SC11-AST-3: none of the deferred dart:io classes are registered '
         '[2026-07-27]', () {
       for (final name in deferred) {
-        expect(env.findBridgedClassByName(name), isNull,
-            reason: '$name is listed as deferred in d4rt_limitations.md but '
-                'is registered in this tree');
+        expect(
+          env.findBridgedClassByName(name),
+          isNull,
+          reason:
+              '$name is listed as deferred in d4rt_limitations.md but '
+              'is registered in this tree',
+        );
       }
     });
 
@@ -124,9 +132,13 @@ void main() {
         'Int32x4List',
         'Float64x2List',
       ]) {
-        expect(env.findBridgedClassByName(name), isNull,
-            reason: '$name is listed as deferred in d4rt_limitations.md but '
-                'is registered in this tree');
+        expect(
+          env.findBridgedClassByName(name),
+          isNull,
+          reason:
+              '$name is listed as deferred in d4rt_limitations.md but '
+              'is registered in this tree',
+        );
       }
     });
 
@@ -137,17 +149,25 @@ void main() {
       // present class, so `findBridgedClassByName` would answer isNotNull and
       // prove nothing.
       final byteBuffer = env.findBridgedClassByName('ByteBuffer');
-      expect(byteBuffer, isNotNull,
-          reason: 'ByteBuffer must be registered for the member check below '
-              'to mean anything');
+      expect(
+        byteBuffer,
+        isNotNull,
+        reason:
+            'ByteBuffer must be registered for the member check below '
+            'to mean anything',
+      );
       for (final view in const [
         'asFloat32x4List',
         'asInt32x4List',
         'asFloat64x2List',
       ]) {
-        expect(byteBuffer!.methods, isNot(contains(view)),
-            reason: 'ByteBuffer.$view is listed as deferred in '
-                'd4rt_limitations.md but is registered in this tree');
+        expect(
+          byteBuffer!.methods,
+          isNot(contains(view)),
+          reason:
+              'ByteBuffer.$view is listed as deferred in '
+              'd4rt_limitations.md but is registered in this tree',
+        );
       }
     });
 
@@ -157,8 +177,10 @@ void main() {
       // `TypedDataStdlib` had simply not run.
       expect(env.findBridgedClassByName('Float32List'), isNotNull);
       expect(env.findBridgedClassByName('Uint8List'), isNotNull);
-      expect(env.findBridgedClassByName('ByteBuffer')!.methods,
-          contains('asUint8List'));
+      expect(
+        env.findBridgedClassByName('ByteBuffer')!.methods,
+        contains('asUint8List'),
+      );
     });
   });
 
@@ -203,9 +225,13 @@ void main() {
         // and functions rather than classes, so a class-only check would let
         // them be registered without noticing. `lookup` is the exact path
         // `get` takes, which is the path that produces the message.
-        expect(env.lookup(name), same(Environment.kNotFound),
-            reason: '$name now resolves, but kUnbridgedReasons still explains '
-                'why it does not — drop the entry and the doc row together');
+        expect(
+          env.lookup(name),
+          same(Environment.kNotFound),
+          reason:
+              '$name now resolves, but kUnbridgedReasons still explains '
+              'why it does not — drop the entry and the doc row together',
+        );
       }
     });
 
@@ -215,29 +241,38 @@ void main() {
       // the message builder, which F-SCB30-AST-3 covers separately.
       expect(
         () => env.get('Zone'),
-        throwsA(isA<RuntimeD4rtException>().having(
-          (e) => e.message,
-          'message',
-          allOf(
-            contains('Undefined variable: Zone'),
-            contains('not bridged:'),
-            contains('d4rt_limitations.md'),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.message,
+            'message',
+            allOf(
+              contains('Undefined variable: Zone'),
+              contains('not bridged:'),
+              contains('d4rt_limitations.md'),
+            ),
           ),
-        )),
+        ),
       );
       expect(
         () => env.get('Zoen'),
-        throwsA(isA<RuntimeD4rtException>().having((e) => e.message, 'message',
-            equals('Undefined variable: Zoen'))),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.message,
+            'message',
+            equals('Undefined variable: Zoen'),
+          ),
+        ),
       );
     });
 
     test('F-SCB30-AST-3: the prefix is a prefix, so every matcher in this file '
         'and the analyzer tree still holds [2026-09-03]', () {
       for (final name in kUnbridgedReasons.keys) {
-        expect(undefinedVariableMessage(name),
-            startsWith('Undefined variable: $name ('),
-            reason: '$name must keep the bare prefix followed by the reason');
+        expect(
+          undefinedVariableMessage(name),
+          startsWith('Undefined variable: $name ('),
+          reason: '$name must keep the bare prefix followed by the reason',
+        );
       }
     });
 

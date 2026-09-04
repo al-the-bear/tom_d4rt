@@ -6,7 +6,8 @@ void main() {
   const String testLibPath = 'd4rt-mem:/byte_buffer_test.dart';
 
   dynamic executeTestScript(String scriptBody) {
-    final fullScript = '''
+    final fullScript =
+        '''
       import 'dart:typed_data';
       // For Uint8List and ByteBuffer if they are used explicitly in script
       // However, Endian is accessed like a class with static members.
@@ -23,16 +24,19 @@ void main() {
   }
 
   group('ByteBuffer Tests', () {
-    test('I-TYPE-74: Get ByteBuffer from Uint8List and check lengthInBytes. [2026-02-10 06:37] (PASS)', () {
-      final result = executeTestScript('''
+    test(
+      'I-TYPE-74: Get ByteBuffer from Uint8List and check lengthInBytes. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = executeTestScript('''
         var list = new Uint8List(10);
         var buffer = list.buffer;
         return {
           'length': buffer.lengthInBytes,
         };
       ''');
-      expect(result['length'], 10);
-    });
+        expect(result['length'], 10);
+      },
+    );
 
     test('I-TYPE-75: ByteBuffer asUint8List. [2026-02-10 06:37] (PASS)', () {
       final result = executeTestScript('''
@@ -54,8 +58,10 @@ void main() {
       expect(result['viewSum'], 0 + 10 + 20 + 30 + 40);
     });
 
-    test('I-TYPE-76: ByteBuffer asUint8List with offset and length. [2026-02-10 06:37] (PASS)', () {
-      final result = executeTestScript('''
+    test(
+      'I-TYPE-76: ByteBuffer asUint8List with offset and length. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = executeTestScript('''
         var list = new Uint8List(10);
         for (var i = 0; i < 10; i++) { list[i] = i; }
         var buffer = list.buffer;
@@ -71,8 +77,9 @@ void main() {
           'viewValues': values
         };
       ''');
-      expect(result['viewLength'], 3);
-      expect(result['viewValues'], orderedEquals([2, 3, 4]));
-    });
+        expect(result['viewLength'], 3);
+        expect(result['viewValues'], orderedEquals([2, 3, 4]));
+      },
+    );
   });
 }

@@ -17,7 +17,8 @@ void main() {
   test('conway R-pentomino per-generation timing (diagnostic)', () {
     final d4rt = D4rt();
     D4rtDiag.reset();
-    final result = d4rt.execute(source: r'''
+    final result = d4rt.execute(
+      source: r'''
       const int kBoardW = 60;
       const int kBoardH = 40;
 
@@ -84,7 +85,8 @@ void main() {
         }
         return rows;
       }
-    ''');
+    ''',
+    );
 
     final rows = (result as List).cast<List>();
     final gens = rows.length;
@@ -97,17 +99,25 @@ void main() {
     // ignore: avoid_print
     print('total cell-steps (sum alive)   : $totalAlive');
     // ignore: avoid_print
-    print('Environment allocs             : ${D4rtDiag.envAllocs}'
-        '  (~${(D4rtDiag.envAllocs / gens).round()}/gen)');
+    print(
+      'Environment allocs             : ${D4rtDiag.envAllocs}'
+      '  (~${(D4rtDiag.envAllocs / gens).round()}/gen)',
+    );
     // ignore: avoid_print
-    print('closure (InterpretedFunction)  : ${D4rtDiag.closureAllocs}'
-        '  (~${(D4rtDiag.closureAllocs / gens).round()}/gen)');
+    print(
+      'closure (InterpretedFunction)  : ${D4rtDiag.closureAllocs}'
+      '  (~${(D4rtDiag.closureAllocs / gens).round()}/gen)',
+    );
     // ignore: avoid_print
-    print('InterpretedInstance (Cell)     : ${D4rtDiag.instanceAllocs}'
-        '  (~${(D4rtDiag.instanceAllocs / gens).round()}/gen)');
+    print(
+      'InterpretedInstance (Cell)     : ${D4rtDiag.instanceAllocs}'
+      '  (~${(D4rtDiag.instanceAllocs / gens).round()}/gen)',
+    );
     // ignore: avoid_print
-    print('BridgedInstance                : ${D4rtDiag.bridgedAllocs}'
-        '  (~${(D4rtDiag.bridgedAllocs / gens).round()}/gen)');
+    print(
+      'BridgedInstance                : ${D4rtDiag.bridgedAllocs}'
+      '  (~${(D4rtDiag.bridgedAllocs / gens).round()}/gen)',
+    );
     // ignore: avoid_print
     print('gen   alive   micros   micros/alive');
     for (final r in rows) {
@@ -117,10 +127,12 @@ void main() {
       final micros = r[2] as int;
       final perCell = alive == 0 ? 0 : micros / alive;
       // ignore: avoid_print
-      print('${gen.toString().padLeft(3)}  '
-          '${alive.toString().padLeft(5)}  '
-          '${micros.toString().padLeft(7)}  '
-          '${perCell.toStringAsFixed(1)}');
+      print(
+        '${gen.toString().padLeft(3)}  '
+        '${alive.toString().padLeft(5)}  '
+        '${micros.toString().padLeft(7)}  '
+        '${perCell.toStringAsFixed(1)}',
+      );
     }
     expect(rows, isNotEmpty);
   });

@@ -17,35 +17,37 @@ void main() {
       expect(info.hasMembers, isFalse);
     });
 
-    test('G-ENM-17: Creates enum info with members. [2026-02-10 06:37] (PASS)', () {
-      final info = EnumInfo(
-        name: 'Color',
-        values: ['red', 'green', 'blue'],
-        sourceFile: 'colors.dart',
-        hasMembers: true,
-      );
+    test(
+      'G-ENM-17: Creates enum info with members. [2026-02-10 06:37] (PASS)',
+      () {
+        final info = EnumInfo(
+          name: 'Color',
+          values: ['red', 'green', 'blue'],
+          sourceFile: 'colors.dart',
+          hasMembers: true,
+        );
 
-      expect(info.name, equals('Color'));
-      expect(info.hasMembers, isTrue);
-    });
+        expect(info.name, equals('Color'));
+        expect(info.hasMembers, isTrue);
+      },
+    );
 
-    test('G-ENM-18: Creates enum info with single value. [2026-02-10 06:37] (PASS)', () {
-      final info = EnumInfo(
-        name: 'Singleton',
-        values: ['instance'],
-        sourceFile: 'singleton.dart',
-      );
+    test(
+      'G-ENM-18: Creates enum info with single value. [2026-02-10 06:37] (PASS)',
+      () {
+        final info = EnumInfo(
+          name: 'Singleton',
+          values: ['instance'],
+          sourceFile: 'singleton.dart',
+        );
 
-      expect(info.values.length, equals(1));
-      expect(info.values.first, equals('instance'));
-    });
+        expect(info.values.length, equals(1));
+        expect(info.values.first, equals('instance'));
+      },
+    );
 
     test('G-ENM-19: Handles empty source file. [2026-02-10 06:37] (PASS)', () {
-      final info = EnumInfo(
-        name: 'Test',
-        values: ['a', 'b'],
-        sourceFile: '',
-      );
+      final info = EnumInfo(name: 'Test', values: ['a', 'b'], sourceFile: '');
 
       expect(info.sourceFile, isEmpty);
     });

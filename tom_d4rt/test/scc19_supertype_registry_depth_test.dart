@@ -45,8 +45,9 @@ BridgedClass _bc(String name, Type nativeType) =>
 dynamic execute(String source) {
   final d4rt = D4rt()..setDebug(false);
   return d4rt.execute(
-      library: 'package:test/main.dart',
-      sources: {'package:test/main.dart': source});
+    library: 'package:test/main.dart',
+    sources: {'package:test/main.dart': source},
+  );
 }
 
 void main() {
@@ -69,40 +70,34 @@ void main() {
   });
 
   group('SCC19: the registry walk follows the whole chain', () {
-    test(
-        'F-SCC19-1: one and two hops still resolve — the depths that already '
+    test('F-SCC19-1: one and two hops still resolve — the depths that already '
         'worked [2026-09-04] (PASS)', () {
       expect(l0.isSubtypeOf(l1), isTrue, reason: 'direct supertype');
       expect(l0.isSubtypeOf(l2), isTrue, reason: 'one hop past direct');
     });
 
-    test(
-        'F-SCC19-2: THREE hops resolve — the first depth the old walk could '
+    test('F-SCC19-2: THREE hops resolve — the first depth the old walk could '
         'not reach [2026-09-04] (PASS)', () {
       expect(l0.isSubtypeOf(l3), isTrue);
     });
 
-    test(
-        'F-SCC19-3: four hops resolve, so the walk has no depth limit at all '
+    test('F-SCC19-3: four hops resolve, so the walk has no depth limit at all '
         'rather than a larger one [2026-09-04] (PASS)', () {
       expect(l0.isSubtypeOf(l4), isTrue);
     });
 
-    test(
-        'F-SCC19-4: the walk does not over-match — an unregistered name is '
+    test('F-SCC19-4: the walk does not over-match — an unregistered name is '
         'still not a supertype [2026-09-04] (PASS)', () {
       expect(l0.isSubtypeOf(unrelated), isFalse);
     });
 
-    test(
-        'F-SCC19-5: the relation stays directional — a supertype is not a '
+    test('F-SCC19-5: the relation stays directional — a supertype is not a '
         'subtype of its own subtype [2026-09-04] (PASS)', () {
       expect(l4.isSubtypeOf(l0), isFalse);
       expect(l2.isSubtypeOf(l0), isFalse);
     });
 
-    test(
-        'F-SCC19-6: a cycle in the registry terminates instead of hanging — '
+    test('F-SCC19-6: a cycle in the registry terminates instead of hanging — '
         'the registry is caller-populated and nothing prevents one '
         '[2026-09-04] (PASS)', () {
       BridgedClass.registerSupertypes(const {
@@ -113,19 +108,22 @@ void main() {
       final b = _bc('Zscc19CycleB', _N1);
       expect(a.isSubtypeOf(b), isTrue);
       expect(b.isSubtypeOf(a), isTrue);
-      expect(a.isSubtypeOf(unrelated), isFalse,
-          reason: 'the cycle must terminate on a MISS, which is the case that '
-              'loops forever without a seen set');
+      expect(
+        a.isSubtypeOf(unrelated),
+        isFalse,
+        reason:
+            'the cycle must terminate on a MISS, which is the case that '
+            'loops forever without a seen set',
+      );
     });
   });
 
   group('SCC19: the stdlib blocks now declare single-hop edges only', () {
-    test(
-        'F-SCC19-7: `dart:convert` answers at three hops from single-hop '
+    test('F-SCC19-7: `dart:convert` answers at three hops from single-hop '
         'edges — JsonEncoder -> Converter -> StreamTransformerBase -> '
         'StreamTransformer [2026-09-04] (PASS)', () {
       expect(
-          execute('''
+        execute('''
             import 'dart:convert';
             import 'dart:async';
             main() {
@@ -137,14 +135,14 @@ void main() {
               ];
             }
           '''),
-          [true, true, true]);
+        [true, true, true],
+      );
     });
 
-    test(
-        'F-SCC19-8: `dart:collection` answers at two hops from single-hop '
+    test('F-SCC19-8: `dart:collection` answers at two hops from single-hop '
         'edges, for a set, a list view and a queue [2026-09-04] (PASS)', () {
       expect(
-          execute('''
+        execute('''
             import 'dart:collection';
             main() => [
               HashSet() is Iterable,
@@ -152,18 +150,19 @@ void main() {
               ListQueue() is Iterable,
             ];
           '''),
-          [true, true, true]);
+        [true, true, true],
+      );
     });
 
-    test(
-        'F-SCC19-9: an encoding still reaches Codec through Encoding, and a '
+    test('F-SCC19-9: an encoding still reaches Codec through Encoding, and a '
         'non-encoding codec is still not an Encoding [2026-09-04] (PASS)', () {
       expect(
-          execute('''
+        execute('''
             import 'dart:convert';
             main() => [utf8 is Encoding, utf8 is Codec, json is Encoding];
           '''),
-          [true, true, false]);
+        [true, true, false],
+      );
     });
   });
 }

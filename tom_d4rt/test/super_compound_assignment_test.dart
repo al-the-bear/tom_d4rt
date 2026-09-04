@@ -5,8 +5,10 @@ import 'interpreter_test.dart';
 
 void main() {
   group('Compound Assignment on Super', () {
-    test('I-MISC-449: Super.property += value works in interpreted classes. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-MISC-449: Super.property += value works in interpreted classes. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Parent {
           int value = 10;
         }
@@ -52,12 +54,15 @@ void main() {
         }
       ''';
 
-      final result = execute(code);
-      expect(result, equals(6));
-    });
+        final result = execute(code);
+        expect(result, equals(6));
+      },
+    );
 
-    test('I-MISC-448: Super.property with all compound operators. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-MISC-448: Super.property with all compound operators. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Base {
           int number = 100;
           String text = 'Hello';
@@ -87,13 +92,16 @@ void main() {
         }
       ''';
 
-      final result = execute(code) as Map;
-      expect(result['number'], equals(5));
-      expect(result['text'], equals('Hello World'));
-    });
+        final result = execute(code) as Map;
+        expect(result['number'], equals(5));
+        expect(result['text'], equals('Hello World'));
+      },
+    );
 
-    test('I-MISC-450: Compound assignment on super with getters/setters. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-MISC-450: Compound assignment on super with getters/setters. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Parent {
           int _value = 10;
           
@@ -116,12 +124,15 @@ void main() {
         }
       ''';
 
-      final result = execute(code);
-      expect(result, equals(20));
-    });
+        final result = execute(code);
+        expect(result, equals(20));
+      },
+    );
 
-    test('I-MISC-441: Nested super compound assignments. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-MISC-441: Nested super compound assignments. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class GrandParent {
           int value = 5;
         }
@@ -146,12 +157,15 @@ void main() {
         }
       ''';
 
-      final result = execute(code);
-      expect(result, equals(30));
-    });
+        final result = execute(code);
+        expect(result, equals(30));
+      },
+    );
 
-    test('I-MISC-442: Super compound assignment with different types. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-MISC-442: Super compound assignment with different types. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Base {
           double amount = 10.5;
           List<int> items = [1, 2, 3];
@@ -176,46 +190,51 @@ void main() {
         }
       ''';
 
-      final result = execute(code) as Map;
-      expect(result['amount'], equals(32.0));
-      expect(result['itemCount'], equals(5));
-    });
+        final result = execute(code) as Map;
+        expect(result['amount'], equals(32.0));
+        expect(result['itemCount'], equals(5));
+      },
+    );
   });
 
   group('Compound Assignment on Bridged Super', () {
-    test('I-MISC-443: Compound assignments on bridged super properties. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt();
+    test(
+      'I-MISC-443: Compound assignments on bridged super properties. [2026-02-10 06:37] (PASS)',
+      () {
+        final interpreter = D4rt();
 
-      // Create a native Dart class to bridge
-      final bridgedClass = BridgedClass(
-        nativeType: _TestNativeParent,
-        name: 'NativeParent',
-        constructors: {
-          '': (visitor, positionalArgs, namedArgs) {
-            return _TestNativeParent();
+        // Create a native Dart class to bridge
+        final bridgedClass = BridgedClass(
+          nativeType: _TestNativeParent,
+          name: 'NativeParent',
+          constructors: {
+            '': (visitor, positionalArgs, namedArgs) {
+              return _TestNativeParent();
+            },
           },
-        },
-        getters: {
-          'counter': (visitor, instance) =>
-              (instance as _TestNativeParent).counter,
-          'amount': (visitor, instance) =>
-              (instance as _TestNativeParent).amount,
-          'text': (visitor, instance) => (instance as _TestNativeParent).text,
-        },
-        setters: {
-          'counter': (visitor, instance, value) =>
-              (instance as _TestNativeParent).counter = value as int,
-          'amount': (visitor, instance, value) =>
-              (instance as _TestNativeParent).amount = value as double,
-          'text': (visitor, instance, value) =>
-              (instance as _TestNativeParent).text = value as String,
-        },
-      );
+          getters: {
+            'counter': (visitor, instance) =>
+                (instance as _TestNativeParent).counter,
+            'amount': (visitor, instance) =>
+                (instance as _TestNativeParent).amount,
+            'text': (visitor, instance) => (instance as _TestNativeParent).text,
+          },
+          setters: {
+            'counter': (visitor, instance, value) =>
+                (instance as _TestNativeParent).counter = value as int,
+            'amount': (visitor, instance, value) =>
+                (instance as _TestNativeParent).amount = value as double,
+            'text': (visitor, instance, value) =>
+                (instance as _TestNativeParent).text = value as String,
+          },
+        );
 
-      interpreter.registerBridgedClass(
-          bridgedClass, 'package:test/native_parent.dart');
+        interpreter.registerBridgedClass(
+          bridgedClass,
+          'package:test/native_parent.dart',
+        );
 
-      final source = '''
+        final source = '''
         import 'package:test/native_parent.dart';
         
         class Child extends NativeParent {
@@ -250,38 +269,43 @@ void main() {
         }
       ''';
 
-      final result = interpreter.execute(source: source) as Map;
-      expect(result['counter'], equals(30));
-      expect(result['amount'], equals(48.75));
-      expect(result['text'], equals('Hello World'));
-    });
+        final result = interpreter.execute(source: source) as Map;
+        expect(result['counter'], equals(30));
+        expect(result['amount'], equals(48.75));
+        expect(result['text'], equals('Hello World'));
+      },
+    );
 
-    test('I-MISC-444: Compound assignments on bridged super with getter/setter. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt();
+    test(
+      'I-MISC-444: Compound assignments on bridged super with getter/setter. [2026-02-10 06:37] (PASS)',
+      () {
+        final interpreter = D4rt();
 
-      // Create a bridged class with explicit getter/setter
-      final bridgedClass = BridgedClass(
-        nativeType: _TestNativeParent,
-        name: 'NativeBase',
-        constructors: {
-          '': (visitor, positionalArgs, namedArgs) {
-            return _TestNativeParent();
+        // Create a bridged class with explicit getter/setter
+        final bridgedClass = BridgedClass(
+          nativeType: _TestNativeParent,
+          name: 'NativeBase',
+          constructors: {
+            '': (visitor, positionalArgs, namedArgs) {
+              return _TestNativeParent();
+            },
           },
-        },
-        getters: {
-          'value': (visitor, instance) =>
-              (instance as _TestNativeParent).counter,
-        },
-        setters: {
-          'value': (visitor, instance, value) =>
-              (instance as _TestNativeParent).counter = value as int,
-        },
-      );
+          getters: {
+            'value': (visitor, instance) =>
+                (instance as _TestNativeParent).counter,
+          },
+          setters: {
+            'value': (visitor, instance, value) =>
+                (instance as _TestNativeParent).counter = value as int,
+          },
+        );
 
-      interpreter.registerBridgedClass(
-          bridgedClass, 'package:test/native_base.dart');
+        interpreter.registerBridgedClass(
+          bridgedClass,
+          'package:test/native_base.dart',
+        );
 
-      final source = '''
+        final source = '''
         import 'package:test/native_base.dart';
         
         class Derived extends NativeBase {
@@ -304,37 +328,42 @@ void main() {
         }
       ''';
 
-      final result = interpreter.execute(source: source);
-      expect(result, equals(100));
-    });
+        final result = interpreter.execute(source: source);
+        expect(result, equals(100));
+      },
+    );
 
-    test('I-MISC-445: All compound operators on bridged super. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt();
+    test(
+      'I-MISC-445: All compound operators on bridged super. [2026-02-10 06:37] (PASS)',
+      () {
+        final interpreter = D4rt();
 
-      final bridgedClass = BridgedClass(
-        nativeType: _TestNativeParent,
-        name: 'NativeNumber',
-        constructors: {
-          '': (visitor, positionalArgs, namedArgs) {
-            final instance = _TestNativeParent();
-            instance.counter = 100;
-            return instance;
+        final bridgedClass = BridgedClass(
+          nativeType: _TestNativeParent,
+          name: 'NativeNumber',
+          constructors: {
+            '': (visitor, positionalArgs, namedArgs) {
+              final instance = _TestNativeParent();
+              instance.counter = 100;
+              return instance;
+            },
           },
-        },
-        getters: {
-          'value': (visitor, instance) =>
-              (instance as _TestNativeParent).counter,
-        },
-        setters: {
-          'value': (visitor, instance, value) =>
-              (instance as _TestNativeParent).counter = value as int,
-        },
-      );
+          getters: {
+            'value': (visitor, instance) =>
+                (instance as _TestNativeParent).counter,
+          },
+          setters: {
+            'value': (visitor, instance, value) =>
+                (instance as _TestNativeParent).counter = value as int,
+          },
+        );
 
-      interpreter.registerBridgedClass(
-          bridgedClass, 'package:test/native_number.dart');
+        interpreter.registerBridgedClass(
+          bridgedClass,
+          'package:test/native_number.dart',
+        );
 
-      final source = '''
+        final source = '''
         import 'package:test/native_number.dart';
         
         class Calculator extends NativeNumber {
@@ -356,37 +385,42 @@ void main() {
         }
       ''';
 
-      final result = interpreter.execute(source: source);
-      expect(result, equals(5));
-    });
+        final result = interpreter.execute(source: source);
+        expect(result, equals(5));
+      },
+    );
 
-    test('I-MISC-446: Nested inheritance with bridged super compound assignment. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt();
+    test(
+      'I-MISC-446: Nested inheritance with bridged super compound assignment. [2026-02-10 06:37] (PASS)',
+      () {
+        final interpreter = D4rt();
 
-      final bridgedClass = BridgedClass(
-        nativeType: _TestNativeParent,
-        name: 'BridgedGrandParent',
-        constructors: {
-          '': (visitor, positionalArgs, namedArgs) {
-            final instance = _TestNativeParent();
-            instance.counter = 10;
-            return instance;
+        final bridgedClass = BridgedClass(
+          nativeType: _TestNativeParent,
+          name: 'BridgedGrandParent',
+          constructors: {
+            '': (visitor, positionalArgs, namedArgs) {
+              final instance = _TestNativeParent();
+              instance.counter = 10;
+              return instance;
+            },
           },
-        },
-        getters: {
-          'value': (visitor, instance) =>
-              (instance as _TestNativeParent).counter,
-        },
-        setters: {
-          'value': (visitor, instance, value) =>
-              (instance as _TestNativeParent).counter = value as int,
-        },
-      );
+          getters: {
+            'value': (visitor, instance) =>
+                (instance as _TestNativeParent).counter,
+          },
+          setters: {
+            'value': (visitor, instance, value) =>
+                (instance as _TestNativeParent).counter = value as int,
+          },
+        );
 
-      interpreter.registerBridgedClass(
-          bridgedClass, 'package:test/bridged_grand_parent.dart');
+        interpreter.registerBridgedClass(
+          bridgedClass,
+          'package:test/bridged_grand_parent.dart',
+        );
 
-      final source = '''
+        final source = '''
         import 'package:test/bridged_grand_parent.dart';
         
         class InterpretedParent extends BridgedGrandParent {
@@ -413,39 +447,44 @@ void main() {
         }
       ''';
 
-      final result = interpreter.execute(source: source);
-      expect(result, equals(30));
-    });
+        final result = interpreter.execute(source: source);
+        expect(result, equals(30));
+      },
+    );
 
-    test('I-MISC-447: Compound assignment on bridged super with type conversions. [2026-02-10 06:37] (PASS)', () {
-      final interpreter = D4rt();
+    test(
+      'I-MISC-447: Compound assignment on bridged super with type conversions. [2026-02-10 06:37] (PASS)',
+      () {
+        final interpreter = D4rt();
 
-      final bridgedClass = BridgedClass(
-        nativeType: _TestNativeParent,
-        name: 'NativeMixed',
-        constructors: {
-          '': (visitor, positionalArgs, namedArgs) {
-            return _TestNativeParent();
+        final bridgedClass = BridgedClass(
+          nativeType: _TestNativeParent,
+          name: 'NativeMixed',
+          constructors: {
+            '': (visitor, positionalArgs, namedArgs) {
+              return _TestNativeParent();
+            },
           },
-        },
-        getters: {
-          'intValue': (visitor, instance) =>
-              (instance as _TestNativeParent).counter,
-          'doubleValue': (visitor, instance) =>
-              (instance as _TestNativeParent).amount,
-        },
-        setters: {
-          'intValue': (visitor, instance, value) =>
-              (instance as _TestNativeParent).counter = value as int,
-          'doubleValue': (visitor, instance, value) =>
-              (instance as _TestNativeParent).amount = value as double,
-        },
-      );
+          getters: {
+            'intValue': (visitor, instance) =>
+                (instance as _TestNativeParent).counter,
+            'doubleValue': (visitor, instance) =>
+                (instance as _TestNativeParent).amount,
+          },
+          setters: {
+            'intValue': (visitor, instance, value) =>
+                (instance as _TestNativeParent).counter = value as int,
+            'doubleValue': (visitor, instance, value) =>
+                (instance as _TestNativeParent).amount = value as double,
+          },
+        );
 
-      interpreter.registerBridgedClass(
-          bridgedClass, 'package:test/native_mixed.dart');
+        interpreter.registerBridgedClass(
+          bridgedClass,
+          'package:test/native_mixed.dart',
+        );
 
-      final source = '''
+        final source = '''
         import 'package:test/native_mixed.dart';
         
         class Mixed extends NativeMixed {
@@ -477,10 +516,11 @@ void main() {
         }
       ''';
 
-      final result = interpreter.execute(source: source) as Map;
-      expect(result['int'], equals(50));
-      expect(result['double'], equals(49.4));
-    });
+        final result = interpreter.execute(source: source) as Map;
+        expect(result['int'], equals(50));
+        expect(result['double'], equals(49.4));
+      },
+    );
   });
 }
 

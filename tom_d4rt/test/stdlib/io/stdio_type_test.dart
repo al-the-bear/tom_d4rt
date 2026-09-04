@@ -65,8 +65,7 @@ void main() {
         return 'other';
       }
       ''';
-      expect(execute(source),
-          isIn(['tty', 'piped', 'redirected', 'other']));
+      expect(execute(source), isIn(['tty', 'piped', 'redirected', 'other']));
     });
 
     test('F-SCB3-11: toString carries the StdioType prefix [2026-07-28]', () {

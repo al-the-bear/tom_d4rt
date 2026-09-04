@@ -7,7 +7,8 @@ void main() {
   const String testLibPath = 'd4rt-mem:/endian_test.dart';
 
   dynamic executeTestScript(String scriptBody) {
-    final fullScript = '''
+    final fullScript =
+        '''
       import 'dart:typed_data';
       main() {
         $scriptBody
@@ -21,8 +22,10 @@ void main() {
   }
 
   group('Endian Tests', () {
-    test('I-TYPE-83: Access Endian static getters. [2026-02-10 06:37] (PASS)', () {
-      final result = executeTestScript('''
+    test(
+      'I-TYPE-83: Access Endian static getters. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = executeTestScript('''
         return {
           'big': Endian.big,
           'little': Endian.little,
@@ -31,15 +34,18 @@ void main() {
         };
       ''');
 
-      expect(result['big'], equals(Endian.big));
-      expect(result['little'], equals(Endian.little));
-      expect(result['host'], equals(Endian.host));
+        expect(result['big'], equals(Endian.big));
+        expect(result['little'], equals(Endian.little));
+        expect(result['host'], equals(Endian.host));
 
-      expect(result['isBigEndianHost'], Endian.host == Endian.big);
-    });
+        expect(result['isBigEndianHost'], Endian.host == Endian.big);
+      },
+    );
 
-    test('I-TYPE-84: Endian values are distinct. [2026-02-10 06:37] (PASS)', () {
-      final result = executeTestScript('''
+    test(
+      'I-TYPE-84: Endian values are distinct. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = executeTestScript('''
         var isBigDifferentFromLittle = Endian.big != Endian.little;
         var isHostDifferentFromBigOrLittle = (Endian.host == Endian.big && Endian.host != Endian.little) || 
                                          (Endian.host == Endian.little && Endian.host != Endian.big);
@@ -48,8 +54,9 @@ void main() {
           'hostDistinct': isHostDifferentFromBigOrLittle
         };
       ''');
-      expect(result['bigVsLittle'], isTrue);
-      expect(result['hostDistinct'], isTrue);
-    });
+        expect(result['bigVsLittle'], isTrue);
+        expect(result['hostDistinct'], isTrue);
+      },
+    );
   });
 }

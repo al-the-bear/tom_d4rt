@@ -19,15 +19,8 @@
 
 /// Members proven unreachable through the interpreter, per bridged class.
 const confirmedGaps = <String, List<String>>{
-  'ByteBuffer': [
-    r'asFloat32x4List',
-    r'asFloat64x2List',
-    r'asInt32x4List',
-  ],
-  'HttpClient': [
-    r'authenticateProxy',
-    r'connectionFactory',
-  ],
+  'ByteBuffer': [r'asFloat32x4List', r'asFloat64x2List', r'asInt32x4List'],
+  'HttpClient': [r'authenticateProxy', r'connectionFactory'],
   'HttpServer': [
     r'any',
     r'asBroadcastStream',
@@ -66,13 +59,8 @@ const confirmedGaps = <String, List<String>>{
     r'transform',
     r'where',
   ],
-  'LinkedListEntry': [
-    r'insertAfter',
-    r'insertBefore',
-  ],
-  'Object': [
-    r'noSuchMethod',
-  ],
+  'LinkedListEntry': [r'insertAfter', r'insertBefore'],
+  'Object': [r'noSuchMethod'],
   'RawDatagramSocket': [
     r'any',
     r'asBroadcastStream',
@@ -268,14 +256,8 @@ const confirmedGaps = <String, List<String>>{
     r'transform',
     r'where',
   ],
-  'Stdout': [
-    r'lineTerminator',
-    r'nonBlocking',
-    r'writeCharCode',
-  ],
-  'StringConversionSink': [
-    r'asUtf8Sink',
-  ],
+  'Stdout': [r'lineTerminator', r'nonBlocking', r'writeCharCode'],
+  'StringConversionSink': [r'asUtf8Sink'],
 };
 
 /// Candidates that could not be measured, per bridged class. Each of these has a
@@ -283,9 +265,7 @@ const confirmedGaps = <String, List<String>>{
 /// moving out of this bucket is reported as the new information it is, rather
 /// than as a fresh defect.
 const unmeasurable = <String, List<String>>{
-  'HttpClientRequest': [
-    r'writeCharCode',
-  ],
+  'HttpClientRequest': [r'writeCharCode'],
   'HttpClientResponse': [
     r'any',
     r'asBroadcastStream',
@@ -323,9 +303,7 @@ const unmeasurable = <String, List<String>>{
     r'toSet',
     r'where',
   ],
-  'HttpHeaders': [
-    r'[]',
-  ],
+  'HttpHeaders': [r'[]'],
 };
 
 /// Classes whose instance recipe produced a usable instance when the baseline was

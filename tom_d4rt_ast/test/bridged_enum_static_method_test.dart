@@ -21,9 +21,10 @@ enum SizeEnum {
   medium,
   large;
 
-  static SizeEnum fromString(String name) =>
-      SizeEnum.values.firstWhere((e) => e.name == name,
-          orElse: () => SizeEnum.small);
+  static SizeEnum fromString(String name) => SizeEnum.values.firstWhere(
+    (e) => e.name == name,
+    orElse: () => SizeEnum.small,
+  );
 }
 
 void main() {
@@ -35,14 +36,20 @@ void main() {
       offset: 0,
       length: 0,
       uri: SSimpleStringLiteral(
-          offset: 0, length: 0, value: 'package:test/size.dart'),
+        offset: 0,
+        length: 0,
+        value: 'package:test/size.dart',
+      ),
     );
     final invocation = SMethodInvocation(
       offset: 0,
       length: 0,
       target: SSimpleIdentifier(offset: 0, length: 8, name: 'SizeEnum'),
-      methodName:
-          SSimpleIdentifier(offset: 0, length: methodName.length, name: methodName),
+      methodName: SSimpleIdentifier(
+        offset: 0,
+        length: methodName.length,
+        name: methodName,
+      ),
       argumentList: SArgumentList(
         offset: 0,
         length: 0,
@@ -94,7 +101,10 @@ void main() {
       offset: 0,
       length: 0,
       uri: SSimpleStringLiteral(
-          offset: 0, length: 0, value: 'package:test/size.dart'),
+        offset: 0,
+        length: 0,
+        value: 'package:test/size.dart',
+      ),
     );
     // SizeEnum.small
     final enumValue = SPrefixedIdentifier(
@@ -109,8 +119,11 @@ void main() {
       length: 0,
       target: enumValue,
       operator: '.',
-      propertyName:
-          SSimpleIdentifier(offset: 0, length: 11, name: 'runtimeType'),
+      propertyName: SSimpleIdentifier(
+        offset: 0,
+        length: 11,
+        name: 'runtimeType',
+      ),
     );
     // SizeEnum.small.runtimeType.toString()
     final invocation = SMethodInvocation(
@@ -169,29 +182,45 @@ void main() {
 
     test('AST-ENUM-STATIC-1: call static method on bridged enum', () {
       final runner = D4rtRunner();
-      runner.registerBridgedEnum(sizeDefinition(), 'package:test/size.dart',
-          sourceUri: 'package:test/size.dart');
+      runner.registerBridgedEnum(
+        sizeDefinition(),
+        'package:test/size.dart',
+        sourceUri: 'package:test/size.dart',
+      );
 
-      final result = runner.executeBundle(bundleCallingStatic('fromString', 'medium'));
+      final result = runner.executeBundle(
+        bundleCallingStatic('fromString', 'medium'),
+      );
       expect(result, equals(SizeEnum.medium));
     });
 
     test('AST-ENUM-STATIC-2: static method falls back via orElse', () {
       final runner = D4rtRunner();
-      runner.registerBridgedEnum(sizeDefinition(), 'package:test/size.dart',
-          sourceUri: 'package:test/size.dart');
+      runner.registerBridgedEnum(
+        sizeDefinition(),
+        'package:test/size.dart',
+        sourceUri: 'package:test/size.dart',
+      );
 
-      final result = runner.executeBundle(bundleCallingStatic('fromString', 'nope'));
+      final result = runner.executeBundle(
+        bundleCallingStatic('fromString', 'nope'),
+      );
       expect(result, equals(SizeEnum.small));
     });
 
-    test('AST-ENUM-STATIC-3: toString() on enum TYPE via runtimeType (RCJ12)', () {
-      final runner = D4rtRunner();
-      runner.registerBridgedEnum(sizeDefinition(), 'package:test/size.dart',
-          sourceUri: 'package:test/size.dart');
+    test(
+      'AST-ENUM-STATIC-3: toString() on enum TYPE via runtimeType (RCJ12)',
+      () {
+        final runner = D4rtRunner();
+        runner.registerBridgedEnum(
+          sizeDefinition(),
+          'package:test/size.dart',
+          sourceUri: 'package:test/size.dart',
+        );
 
-      final result = runner.executeBundle(bundleRuntimeTypeToString());
-      expect(result, equals('SizeEnum'));
-    });
+        final result = runner.executeBundle(bundleRuntimeTypeToString());
+        expect(result, equals('SizeEnum'));
+      },
+    );
   });
 }

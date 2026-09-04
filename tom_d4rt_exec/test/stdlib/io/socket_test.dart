@@ -3,8 +3,10 @@ import 'package:test/test.dart';
 
 void main() {
   group('Socket methods - comprehensive', () {
-    test('I-FILE-185: Socket.connect to localhost. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-185: Socket.connect to localhost. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      main() async {
         try {
@@ -18,12 +20,15 @@ void main() {
         }
       }
       ''';
-      final result = await execute(source);
-      expect(result, isA<bool>()); // Should return true or false
-    });
+        final result = await execute(source);
+        expect(result, isA<bool>()); // Should return true or false
+      },
+    );
 
-    test('I-FILE-183: InternetAddress.lookup functionality. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-183: InternetAddress.lookup functionality. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      main() async {
         try {
@@ -34,12 +39,15 @@ void main() {
         }
       }
       ''';
-      final result = await execute(source);
-      expect(result, isA<bool>());
-    });
+        final result = await execute(source);
+        expect(result, isA<bool>());
+      },
+    );
 
-    test('I-FILE-184: InternetAddress constants. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-FILE-184: InternetAddress constants. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
      import 'dart:io';
      main() {
         var loopbackIPv4 = InternetAddress.loopbackIPv4.address;
@@ -55,12 +63,15 @@ void main() {
         ];
       }
       ''';
-      final result = execute(source);
-      expect(result, equals([true, true, true, true]));
-    });
+        final result = execute(source);
+        expect(result, equals([true, true, true, true]));
+      },
+    );
 
-    test('I-FILE-186: Socket server and client communication. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-186: Socket server and client communication. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
 import 'dart:convert';
 
@@ -93,23 +104,28 @@ main() async {
 
       ''';
 
-      try {
-        final result = await execute(source);
-        expect(
+        try {
+          final result = await execute(source);
+          expect(
             result,
             anyOf([
               equals('Echo: Hello Server'),
               startsWith(
-                  'Error:') // Accept errors as network tests can be flaky
-            ]));
-      } catch (e) {
-        // Skip test if networking is not available
-        print('Skipping socket server test: $e');
-      }
-    });
+                'Error:',
+              ), // Accept errors as network tests can be flaky
+            ]),
+          );
+        } catch (e) {
+          // Skip test if networking is not available
+          print('Skipping socket server test: $e');
+        }
+      },
+    );
 
-    test('I-FILE-179: Socket write and flush methods. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-179: Socket write and flush methods. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      import 'dart:convert';
      main() async {
@@ -139,17 +155,20 @@ main() async {
         }
       }
       ''';
-      try {
-        final result = await execute(source);
-        expect(result, isA<bool>());
-      } catch (e) {
-        // Skip test if networking is not available
-        print('Skipping HTTP request test: $e');
-      }
-    });
+        try {
+          final result = await execute(source);
+          expect(result, isA<bool>());
+        } catch (e) {
+          // Skip test if networking is not available
+          print('Skipping HTTP request test: $e');
+        }
+      },
+    );
 
-    test('I-FILE-180: Socket add method with bytes. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-180: Socket add method with bytes. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      import 'dart:convert';
      main() async {
@@ -167,17 +186,20 @@ main() async {
         }
       }
       ''';
-      try {
-        final result = await execute(source);
-        expect(result, isA<bool>());
-      } catch (e) {
-        // Skip test if networking is not available
-        print('Skipping socket add test: $e');
-      }
-    });
+        try {
+          final result = await execute(source);
+          expect(result, isA<bool>());
+        } catch (e) {
+          // Skip test if networking is not available
+          print('Skipping socket add test: $e');
+        }
+      },
+    );
 
-    test('I-FILE-181: InternetAddress tryParse method. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-FILE-181: InternetAddress tryParse method. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
      import 'dart:io';
      main() {
         var validIPv4 = InternetAddress.tryParse('192.168.1.1');
@@ -191,12 +213,15 @@ main() async {
         ];
       }
       ''';
-      final result = execute(source);
-      expect(result, equals([true, true, true]));
-    });
+        final result = execute(source);
+        expect(result, equals([true, true, true]));
+      },
+    );
 
-    test('I-FILE-182: InternetAddress type checking. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-FILE-182: InternetAddress type checking. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
      import 'dart:io';
      main() {
         var ipv4 = InternetAddress.tryParse('127.0.0.1');
@@ -210,8 +235,9 @@ main() async {
         ];
       }
       ''';
-      final result = execute(source);
-      expect(result, equals([true, true, true, true]));
-    });
+        final result = execute(source);
+        expect(result, equals([true, true, true, true]));
+      },
+    );
   });
 }

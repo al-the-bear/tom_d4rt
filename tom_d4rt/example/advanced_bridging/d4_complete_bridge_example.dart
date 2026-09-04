@@ -79,7 +79,8 @@ class Task {
   }
 
   @override
-  String toString() => 'Task(#$id: $title, ${priority.name}, '
+  String toString() =>
+      'Task(#$id: $title, ${priority.name}, '
       '${completed ? "✓" : "○"}, tags: $tags)';
 }
 
@@ -184,7 +185,10 @@ BridgedClass createTaskBridge() {
         final title = D4.getRequiredNamedArg<String>(named, 'title', 'Task');
 
         // Optional named arguments
-        final description = D4.getOptionalNamedArg<String?>(named, 'description');
+        final description = D4.getOptionalNamedArg<String?>(
+          named,
+          'description',
+        );
         final priority = D4.getOptionalNamedArg<Priority?>(named, 'priority');
         final completed = D4.getOptionalNamedArg<bool?>(named, 'completed');
         final dueDate = D4.getOptionalNamedArg<DateTime?>(named, 'dueDate');
@@ -227,7 +231,8 @@ BridgedClass createTaskBridge() {
     },
     setters: {
       'description': (visitor, target, value) =>
-          D4.validateTarget<Task>(target, 'Task').description = value as String?,
+          D4.validateTarget<Task>(target, 'Task').description =
+              value as String?,
       'priority': (visitor, target, value) =>
           D4.validateTarget<Task>(target, 'Task').priority = value as Priority,
     },
@@ -255,7 +260,8 @@ BridgedClass createTaskBridge() {
       },
     },
     constructorSignatures: {
-      '': 'Task({required int id, required String title, String? description, '
+      '':
+          'Task({required int id, required String title, String? description, '
           'Priority priority = Priority.medium, bool completed = false, '
           'DateTime? dueDate, List<String>? tags})',
       'fromMap': 'factory Task.fromMap(Map<String, dynamic> map)',
@@ -274,9 +280,7 @@ BridgedClass createTaskManagerBridge() {
   return BridgedClass(
     nativeType: TaskManager,
     name: 'TaskManager',
-    constructors: {
-      '': (visitor, positional, named) => TaskManager(),
-    },
+    constructors: {'': (visitor, positional, named) => TaskManager()},
     getters: {
       'all': (visitor, target) =>
           D4.validateTarget<TaskManager>(target, 'TaskManager').all,
@@ -287,16 +291,16 @@ BridgedClass createTaskManagerBridge() {
     },
     methods: {
       'create': (visitor, target, positional, named, typeArgs) {
-        final manager =
-            D4.validateTarget<TaskManager>(target, 'TaskManager');
+        final manager = D4.validateTarget<TaskManager>(target, 'TaskManager');
 
         // Required named argument
-        final title =
-            D4.getRequiredNamedArg<String>(named, 'title', 'create');
+        final title = D4.getRequiredNamedArg<String>(named, 'title', 'create');
 
         // Optional named arguments
-        final description =
-            D4.getOptionalNamedArg<String?>(named, 'description');
+        final description = D4.getOptionalNamedArg<String?>(
+          named,
+          'description',
+        );
         final priority = D4.getOptionalNamedArg<Priority?>(named, 'priority');
         final dueDate = D4.getOptionalNamedArg<DateTime?>(named, 'dueDate');
 
@@ -315,27 +319,27 @@ BridgedClass createTaskManagerBridge() {
         );
       },
       'byPriority': (visitor, target, positional, named, typeArgs) {
-        final manager =
-            D4.validateTarget<TaskManager>(target, 'TaskManager');
-        final priority =
-            D4.getRequiredArg<Priority>(positional, 0, 'priority', 'byPriority');
+        final manager = D4.validateTarget<TaskManager>(target, 'TaskManager');
+        final priority = D4.getRequiredArg<Priority>(
+          positional,
+          0,
+          'priority',
+          'byPriority',
+        );
         return manager.byPriority(priority);
       },
       'byTag': (visitor, target, positional, named, typeArgs) {
-        final manager =
-            D4.validateTarget<TaskManager>(target, 'TaskManager');
+        final manager = D4.validateTarget<TaskManager>(target, 'TaskManager');
         final tag = D4.getRequiredArg<String>(positional, 0, 'tag', 'byTag');
         return manager.byTag(tag);
       },
       'findById': (visitor, target, positional, named, typeArgs) {
-        final manager =
-            D4.validateTarget<TaskManager>(target, 'TaskManager');
+        final manager = D4.validateTarget<TaskManager>(target, 'TaskManager');
         final id = D4.getRequiredArg<int>(positional, 0, 'id', 'findById');
         return manager.findById(id);
       },
       'completeById': (visitor, target, positional, named, typeArgs) {
-        final manager =
-            D4.validateTarget<TaskManager>(target, 'TaskManager');
+        final manager = D4.validateTarget<TaskManager>(target, 'TaskManager');
         final id = D4.getRequiredArg<int>(positional, 0, 'id', 'completeById');
         return manager.completeById(id);
       },
@@ -346,7 +350,8 @@ BridgedClass createTaskManagerBridge() {
       },
     },
     methodSignatures: {
-      'create': 'Task create({required String title, String? description, '
+      'create':
+          'Task create({required String title, String? description, '
           'Priority priority = Priority.medium, DateTime? dueDate, List<String>? tags})',
       'byPriority': 'List<Task> byPriority(Priority priority)',
       'byTag': 'List<Task> byTag(String tag)',
@@ -368,9 +373,15 @@ void main() async {
   final d4rt = D4rt();
 
   // Register all bridges
-  d4rt.registerBridgedEnum(createPriorityBridge(), 'package:example/example.dart');
+  d4rt.registerBridgedEnum(
+    createPriorityBridge(),
+    'package:example/example.dart',
+  );
   d4rt.registerBridgedClass(createTaskBridge(), 'package:example/example.dart');
-  d4rt.registerBridgedClass(createTaskManagerBridge(), 'package:example/example.dart');
+  d4rt.registerBridgedClass(
+    createTaskManagerBridge(),
+    'package:example/example.dart',
+  );
 
   final script = '''
 import 'package:example/example.dart';

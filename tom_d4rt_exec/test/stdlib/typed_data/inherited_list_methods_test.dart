@@ -17,7 +17,8 @@ void main() {
   const String testLibPath = 'd4rt-mem:/inherited_list_methods_test.dart';
 
   dynamic execute(String scriptBody) {
-    final fullScript = '''
+    final fullScript =
+        '''
       import 'dart:typed_data';
       main() {
         $scriptBody
@@ -31,9 +32,10 @@ void main() {
   }
 
   group('Float64List — inherited methods', () {
-    test('toList() — covers Cluster D (foundation/buffers_misc, read_buffer)',
-        () {
-      final result = execute('''
+    test(
+      'toList() — covers Cluster D (foundation/buffers_misc, read_buffer)',
+      () {
+        final result = execute('''
         var list = Float64List.fromList([1.5, 2.5, 3.5]);
         var copy = list.toList();
         return {
@@ -43,11 +45,12 @@ void main() {
           'val2': copy[2],
         };
       ''');
-      expect(result['isList'], true);
-      expect(result['length'], 3);
-      expect(result['val0'], 1.5);
-      expect(result['val2'], 3.5);
-    });
+        expect(result['isList'], true);
+        expect(result['length'], 3);
+        expect(result['val0'], 1.5);
+        expect(result['val2'], 3.5);
+      },
+    );
 
     test('map() — covers Cluster D (gestures/polynomial_fit)', () {
       final result = execute('''

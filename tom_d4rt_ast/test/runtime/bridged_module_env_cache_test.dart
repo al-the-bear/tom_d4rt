@@ -49,8 +49,11 @@ void main() {
               SReturnStatement(
                 offset: 0,
                 length: 0,
-                expression:
-                    SIntegerLiteral(offset: 0, length: 1, value: returnValue),
+                expression: SIntegerLiteral(
+                  offset: 0,
+                  length: 1,
+                  value: returnValue,
+                ),
               ),
             ],
           ),
@@ -81,33 +84,47 @@ void main() {
     setUp(D4rtRunner.debugResetPool);
     tearDown(D4rtRunner.debugResetPool);
 
-    test(
-        'PERF-2a: re-importing the same bridged URI reuses the cached module '
+    test('PERF-2a: re-importing the same bridged URI reuses the cached module '
         'env across executes', () {
       final runner = D4rtRunner();
       expect(runner.providePackage('pkg_w'), isFalse);
-      runner.registerBridgedClass(marker('WClass'), 'package:w/w.dart',
-          sourceUri: 'package:w/w.dart');
+      runner.registerBridgedClass(
+        marker('WClass'),
+        'package:w/w.dart',
+        sourceUri: 'package:w/w.dart',
+      );
 
       runner.executeBundleAs<int>(
-          bundleImporting('package:w/w.dart', returnValue: 1));
+        bundleImporting('package:w/w.dart', returnValue: 1),
+      );
       final afterFirst = D4rtRunner.debugBridgedModuleEnvBuildCount;
-      expect(afterFirst, 1,
-          reason: 'the first import builds the per-module env exactly once');
+      expect(
+        afterFirst,
+        1,
+        reason: 'the first import builds the per-module env exactly once',
+      );
 
       runner.executeBundleAs<int>(
-          bundleImporting('package:w/w.dart', returnValue: 2));
-      expect(D4rtRunner.debugBridgedModuleEnvBuildCount, afterFirst,
-          reason: 'the second execute reuses the cached env — no rebuild');
+        bundleImporting('package:w/w.dart', returnValue: 2),
+      );
+      expect(
+        D4rtRunner.debugBridgedModuleEnvBuildCount,
+        afterFirst,
+        reason: 'the second execute reuses the cached env — no rebuild',
+      );
     });
 
     test('PERF-2b: a second runner with the same allowed-set reuses it', () {
       final first = D4rtRunner();
       expect(first.providePackage('pkg_w'), isFalse);
-      first.registerBridgedClass(marker('WClass'), 'package:w/w.dart',
-          sourceUri: 'package:w/w.dart');
+      first.registerBridgedClass(
+        marker('WClass'),
+        'package:w/w.dart',
+        sourceUri: 'package:w/w.dart',
+      );
       first.executeBundleAs<int>(
-          bundleImporting('package:w/w.dart', returnValue: 1));
+        bundleImporting('package:w/w.dart', returnValue: 1),
+      );
       expect(D4rtRunner.debugBridgedModuleEnvBuildCount, 1);
 
       // Second runner granted the same package → same signature → shares the
@@ -117,23 +134,37 @@ void main() {
       // importable — the allowed-set signature is still {pkg_w}, so the cached
       // module env from the first runner is reused, not rebuilt.)
       final second = D4rtRunner();
-      expect(second.providePackage('pkg_w'), isTrue,
-          reason: 'pkg_w already pooled — second runner reuses it');
-      second.registerBridgedClass(marker('WClass'), 'package:w/w.dart',
-          sourceUri: 'package:w/w.dart');
+      expect(
+        second.providePackage('pkg_w'),
+        isTrue,
+        reason: 'pkg_w already pooled — second runner reuses it',
+      );
+      second.registerBridgedClass(
+        marker('WClass'),
+        'package:w/w.dart',
+        sourceUri: 'package:w/w.dart',
+      );
       second.executeBundleAs<int>(
-          bundleImporting('package:w/w.dart', returnValue: 2));
-      expect(D4rtRunner.debugBridgedModuleEnvBuildCount, 1,
-          reason: 'same allowed-set signature → cached env reused, no rebuild');
+        bundleImporting('package:w/w.dart', returnValue: 2),
+      );
+      expect(
+        D4rtRunner.debugBridgedModuleEnvBuildCount,
+        1,
+        reason: 'same allowed-set signature → cached env reused, no rebuild',
+      );
     });
 
     test('PERF-2c: a different allowed-set rebuilds the module env', () {
       final first = D4rtRunner();
       expect(first.providePackage('pkg_w'), isFalse);
-      first.registerBridgedClass(marker('WClass'), 'package:w/w.dart',
-          sourceUri: 'package:w/w.dart');
+      first.registerBridgedClass(
+        marker('WClass'),
+        'package:w/w.dart',
+        sourceUri: 'package:w/w.dart',
+      );
       first.executeBundleAs<int>(
-          bundleImporting('package:w/w.dart', returnValue: 1));
+        bundleImporting('package:w/w.dart', returnValue: 1),
+      );
       expect(D4rtRunner.debugBridgedModuleEnvBuildCount, 1);
 
       // A second runner with a DIFFERENT allowed-set imports a different bridged
@@ -141,12 +172,19 @@ void main() {
       // fresh.
       final second = D4rtRunner();
       expect(second.providePackage('pkg_v'), isFalse);
-      second.registerBridgedClass(marker('VClass'), 'package:v/v.dart',
-          sourceUri: 'package:v/v.dart');
+      second.registerBridgedClass(
+        marker('VClass'),
+        'package:v/v.dart',
+        sourceUri: 'package:v/v.dart',
+      );
       second.executeBundleAs<int>(
-          bundleImporting('package:v/v.dart', returnValue: 2));
-      expect(D4rtRunner.debugBridgedModuleEnvBuildCount, 2,
-          reason: 'a different signature rebuilds the env — count advances');
+        bundleImporting('package:v/v.dart', returnValue: 2),
+      );
+      expect(
+        D4rtRunner.debugBridgedModuleEnvBuildCount,
+        2,
+        reason: 'a different signature rebuilds the env — count advances',
+      );
     });
   });
 }

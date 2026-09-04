@@ -26,5 +26,7 @@ void main() {
   //   var penguin = Penguin('Emperor');
   //   penguin.walk(); // "Emperor is walking on the ground"
   //
-  print('GEN045_BLOCKED: Bird/Eagle/Penguin not in barrel (Animal name collision)');
+  print(
+    'GEN045_BLOCKED: Bird/Eagle/Penguin not in barrel (Animal name collision)',
+  );
 }

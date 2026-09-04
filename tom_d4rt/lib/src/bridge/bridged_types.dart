@@ -47,9 +47,7 @@ class BridgedClass implements RuntimeType {
   /// instance after `_relaxersRegistered` is removed).
   static void registerSupertypes(Map<String, List<String>> hierarchy) {
     for (final entry in hierarchy.entries) {
-      _supertypeRegistry
-          .putIfAbsent(entry.key, () => {})
-          .addAll(entry.value);
+      _supertypeRegistry.putIfAbsent(entry.key, () => {}).addAll(entry.value);
     }
     // A new edge can lengthen the closure of a class that is not named in
     // `hierarchy` — anything reaching `entry.key` transitively — so the whole
@@ -93,7 +91,6 @@ class BridgedClass implements RuntimeType {
   final Type nativeType; // Keep nativeType for bridge logic
 
   @override
-
   /// The name of this class as it appears in interpreted code.
   final String name;
 
@@ -213,30 +210,31 @@ class BridgedClass implements RuntimeType {
   Map<String, String> getterSignatures = {};
   Map<String, String> setterSignatures = {};
 
-  BridgedClass(
-      {required this.nativeType,
-      required this.name,
-      this.nativeNames,
-      this.typeParameterCount = 0,
-      this.canBeUsedAsMixin = false,
-      this.isAbstract = false,
-      this.hierarchyDepth = 0,
-      this.isAssignable,
-      this.constructors = const {},
-      this.staticMethods = const {},
-      this.staticGetters = const {},
-      this.staticSetters = const {},
-      this.methods = const {},
-      this.getters = const {},
-      this.setters = const {},
-      this.constructorSignatures = const {},
-      this.methodSignatures = const {},
-      this.staticMethodSignatures = const {},
-      this.staticGetterSignatures = const {},
-      this.staticSetterSignatures = const {},
-      this.getterSignatures = const {},
-      this.setterSignatures = const {},
-      this.isSubtypeOfFunc});
+  BridgedClass({
+    required this.nativeType,
+    required this.name,
+    this.nativeNames,
+    this.typeParameterCount = 0,
+    this.canBeUsedAsMixin = false,
+    this.isAbstract = false,
+    this.hierarchyDepth = 0,
+    this.isAssignable,
+    this.constructors = const {},
+    this.staticMethods = const {},
+    this.staticGetters = const {},
+    this.staticSetters = const {},
+    this.methods = const {},
+    this.getters = const {},
+    this.setters = const {},
+    this.constructorSignatures = const {},
+    this.methodSignatures = const {},
+    this.staticMethodSignatures = const {},
+    this.staticGetterSignatures = const {},
+    this.staticSetterSignatures = const {},
+    this.getterSignatures = const {},
+    this.setterSignatures = const {},
+    this.isSubtypeOfFunc,
+  });
 
   @override
   bool isSubtypeOf(RuntimeType other, {Object? value}) {
@@ -277,8 +275,9 @@ class BridgedClass implements RuntimeType {
       // When the value's native object satisfies the target class's isAssignable,
       // the native type IS a subtype (e.g., Row is a subtype of Widget).
       if (value != null && other.isAssignable != null) {
-        final nativeValue =
-            value is BridgedInstance ? value.nativeObject : value;
+        final nativeValue = value is BridgedInstance
+            ? value.nativeObject
+            : value;
         if (other.isAssignable!(nativeValue)) return true;
       }
 
@@ -345,8 +344,11 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
   final List<RuntimeType> typeArguments;
 
   // Main constructor
-  BridgedInstance(this.bridgedClass, this.nativeObject,
-      {this.typeArguments = const []}) {
+  BridgedInstance(
+    this.bridgedClass,
+    this.nativeObject, {
+    this.typeArguments = const [],
+  }) {
     D4rtDiag.bridgedAllocs++;
   }
 
@@ -378,14 +380,16 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
 
     // 3. If neither method nor getter found, throw an error
     throw RuntimeD4rtException(
-        "Undefined property or method '$name' on bridged instance of '${bridgedClass.name}'");
+      "Undefined property or method '$name' on bridged instance of '${bridgedClass.name}'",
+    );
   }
 
   @override
   void set(String name, Object? value, [InterpreterVisitor? visitor]) {
     // Visitor is optional
     throw UnimplementedD4rtException(
-        "set('$name', ...) not implemented for BridgedInstance of '${bridgedClass.name}'");
+      "set('$name', ...) not implemented for BridgedInstance of '${bridgedClass.name}'",
+    );
   }
 
   @override
@@ -404,7 +408,7 @@ class TypeParameter implements RuntimeType {
   @override
   final String name;
   final RuntimeType?
-      bound; // The extends clause if any (e.g., T extends Object)
+  bound; // The extends clause if any (e.g., T extends Object)
 
   TypeParameter(this.name, {this.bound});
 

@@ -41,17 +41,17 @@ import 'package:tom_d4rt/d4rt.dart';
 
 void main() {
   Object? run(String body) => D4rt().execute(
-        source: '''
+    source:
+        '''
           import 'dart:collection';
           main() {
             $body
           }
         ''',
-      );
+  );
 
   group('SCB17: inherited surface of bridged maps and sets', () {
-    test(
-        'F-SCB17-1: addEntries accepts an interpreted MapEntry on every '
+    test('F-SCB17-1: addEntries accepts an interpreted MapEntry on every '
         'mutable map [2026-07-28]', () {
       for (final ctor in [
         'HashMap<String, int>()',
@@ -60,53 +60,61 @@ void main() {
         '<String, int>{}', // a map literal is a LinkedHashMap
       ]) {
         expect(
-          run('final m = $ctor; '
-              'm.addEntries([MapEntry("a", 1), MapEntry("b", 2)]); '
-              'return m["a"] + m["b"];'),
+          run(
+            'final m = $ctor; '
+            'm.addEntries([MapEntry("a", 1), MapEntry("b", 2)]); '
+            'return m["a"] + m["b"];',
+          ),
           3,
           reason: '$ctor.addEntries should unwrap interpreted MapEntry values',
         );
       }
     });
 
-    test(
-        'F-SCB17-2: addEntries still accepts native entries from another '
+    test('F-SCB17-2: addEntries still accepts native entries from another '
         "map's .entries [2026-07-28]", () {
       // The pre-existing route, which worked before the shadowing adapters
       // were removed. It must keep working.
       expect(
-        run('final m = HashMap<String, int>(); '
-            'm.addEntries(<String, int>{"a": 1}.entries); return m["a"];'),
+        run(
+          'final m = HashMap<String, int>(); '
+          'm.addEntries(<String, int>{"a": 1}.entries); return m["a"];',
+        ),
         1,
       );
     });
 
-    test('F-SCB17-3: `.iterator` is usable on every bridged set [2026-07-28]',
-        () {
-      for (final ctor in [
-        'HashSet<int>()',
-        'LinkedHashSet<int>()',
-        'SplayTreeSet<int>()',
-        '<int>{}', // a set literal is a LinkedHashSet
-      ]) {
-        expect(
-          run('final s = $ctor..addAll([7]); '
-              'final it = s.iterator; '
-              'return it.moveNext() ? it.current : -1;'),
-          7,
-          reason: '$ctor.iterator should be able to move and read',
-        );
-      }
-      expect(
-        run('final s = UnmodifiableSetView<int>(<int>{7}); '
-            'final it = s.iterator; '
-            'return it.moveNext() ? it.current : -1;'),
-        7,
-      );
-    });
-
     test(
-        'F-SCB17-4: `.iterator` is usable on every map key/value/entry view '
+      'F-SCB17-3: `.iterator` is usable on every bridged set [2026-07-28]',
+      () {
+        for (final ctor in [
+          'HashSet<int>()',
+          'LinkedHashSet<int>()',
+          'SplayTreeSet<int>()',
+          '<int>{}', // a set literal is a LinkedHashSet
+        ]) {
+          expect(
+            run(
+              'final s = $ctor..addAll([7]); '
+              'final it = s.iterator; '
+              'return it.moveNext() ? it.current : -1;',
+            ),
+            7,
+            reason: '$ctor.iterator should be able to move and read',
+          );
+        }
+        expect(
+          run(
+            'final s = UnmodifiableSetView<int>(<int>{7}); '
+            'final it = s.iterator; '
+            'return it.moveNext() ? it.current : -1;',
+          ),
+          7,
+        );
+      },
+    );
+
+    test('F-SCB17-4: `.iterator` is usable on every map key/value/entry view '
         '[2026-07-28]', () {
       for (final ctor in [
         'HashMap<String, int>()',
@@ -114,70 +122,87 @@ void main() {
         'SplayTreeMap<String, int>()',
       ]) {
         expect(
-          run('final m = $ctor..addAll({"a": 1}); '
-              'final it = m.keys.iterator; '
-              'return it.moveNext() ? it.current : "none";'),
+          run(
+            'final m = $ctor..addAll({"a": 1}); '
+            'final it = m.keys.iterator; '
+            'return it.moveNext() ? it.current : "none";',
+          ),
           'a',
           reason: '$ctor.keys.iterator should move',
         );
         expect(
-          run('final m = $ctor..addAll({"a": 1}); '
-              'final it = m.values.iterator; '
-              'return it.moveNext() ? it.current : -1;'),
+          run(
+            'final m = $ctor..addAll({"a": 1}); '
+            'final it = m.values.iterator; '
+            'return it.moveNext() ? it.current : -1;',
+          ),
           1,
           reason: '$ctor.values.iterator should move',
         );
         expect(
-          run('final m = $ctor..addAll({"a": 1}); '
-              'final it = m.entries.iterator; '
-              'return it.moveNext() ? it.current.key : "none";'),
+          run(
+            'final m = $ctor..addAll({"a": 1}); '
+            'final it = m.entries.iterator; '
+            'return it.moveNext() ? it.current.key : "none";',
+          ),
           'a',
           reason: '$ctor.entries.iterator should move',
         );
       }
     });
 
-    test('F-SCB17-5: SplayTreeMap.entries is a usable Iterable [2026-07-28]',
-        () {
-      expect(
-        run('final m = SplayTreeMap<String, int>()..addAll({"b": 2, "a": 1}); '
-            'return m.entries.length;'),
-        2,
-      );
-      expect(
-        run('final m = SplayTreeMap<String, int>()..addAll({"b": 2, "a": 1}); '
-            'return m.entries.first.key;'),
-        'a',
-      );
-      expect(
-        run('final m = SplayTreeMap<String, int>()..addAll({"b": 2, "a": 1}); '
-            'return m.entries.map((e) => e.value).toList();'),
-        [1, 2],
-      );
-    });
+    test(
+      'F-SCB17-5: SplayTreeMap.entries is a usable Iterable [2026-07-28]',
+      () {
+        expect(
+          run(
+            'final m = SplayTreeMap<String, int>()..addAll({"b": 2, "a": 1}); '
+            'return m.entries.length;',
+          ),
+          2,
+        );
+        expect(
+          run(
+            'final m = SplayTreeMap<String, int>()..addAll({"b": 2, "a": 1}); '
+            'return m.entries.first.key;',
+          ),
+          'a',
+        );
+        expect(
+          run(
+            'final m = SplayTreeMap<String, int>()..addAll({"b": 2, "a": 1}); '
+            'return m.entries.map((e) => e.value).toList();',
+          ),
+          [1, 2],
+        );
+      },
+    );
 
     test('F-SCB17-6: `.iterator` reaches the end and stops [2026-07-28]', () {
       // Guards against an adapter that returns a fresh iterator per access —
       // the loop would never terminate.
       expect(
-        run('final s = LinkedHashSet<int>()..addAll([1, 2, 3]); '
-            'final it = s.iterator; '
-            'var total = 0; '
-            'while (it.moveNext()) { total += it.current; } '
-            'return total;'),
+        run(
+          'final s = LinkedHashSet<int>()..addAll([1, 2, 3]); '
+          'final it = s.iterator; '
+          'var total = 0; '
+          'while (it.moveNext()) { total += it.current; } '
+          'return total;',
+        ),
         6,
       );
     });
 
-    test(
-        'F-SCB17-7: widening the allowlist does not cost leaf dispatch '
+    test('F-SCB17-7: widening the allowlist does not cost leaf dispatch '
         '[2026-07-28]', () {
       // The SC7 analogue of F-SC7-5. Claiming a native object for a supertype
       // bridge would let the supertype steal dispatch from the concrete one;
       // these are the members that only exist on the leaf.
       expect(
-        run('final m = SplayTreeMap<String, int>()..addAll({"b": 2, "a": 1}); '
-            'return m.firstKey();'),
+        run(
+          'final m = SplayTreeMap<String, int>()..addAll({"b": 2, "a": 1}); '
+          'return m.firstKey();',
+        ),
         'a',
       );
       expect(
@@ -191,8 +216,10 @@ void main() {
       // discrimination test would pass vacuously. That absence is a gap of its
       // own, tracked separately.
       expect(
-        () => run('final s = UnmodifiableSetView<int>(<int>{1}); '
-            'return s.add(2);'),
+        () => run(
+          'final s = UnmodifiableSetView<int>(<int>{1}); '
+          'return s.add(2);',
+        ),
         throwsA(anything),
         reason: 'the unmodifiable view must keep its own rejecting add',
       );

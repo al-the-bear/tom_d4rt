@@ -38,9 +38,12 @@ void main() {
   /// that reports it as a 30-second timeout on an unnamed future is much harder
   /// to read than one that says the program did not answer.
   Future<Object?> run(String source) => executeAsync(source).timeout(
-      const Duration(seconds: 10),
-      onTimeout: () => fail('the interpreted program never completed — the '
-          'suspension raised inside try/finally was swallowed'));
+    const Duration(seconds: 10),
+    onTimeout: () => fail(
+      'the interpreted program never completed — the '
+      'suspension raised inside try/finally was swallowed',
+    ),
+  );
 
   group('SCC12: await inside finally', () {
     test('F-SCC12-3: a finally block may await [2026-09-04]', () async {
@@ -61,12 +64,13 @@ void main() {
       expect(result, orderedEquals(['body', 'finally']));
     });
 
-    test('F-SCC12-4: a value awaited in finally is the awaited value [2026-09-04]',
-        () async {
-      // Propagating the suspension is not enough on its own — the replay has to
-      // feed the recorded result back into the same `await`, so assert on the
-      // value rather than only on completion.
-      final result = await run('''
+    test(
+      'F-SCC12-4: a value awaited in finally is the awaited value [2026-09-04]',
+      () async {
+        // Propagating the suspension is not enough on its own — the replay has to
+        // feed the recorded result back into the same `await`, so assert on the
+        // value rather than only on completion.
+        final result = await run('''
         main() async {
           var seen;
           try {
@@ -77,15 +81,17 @@ void main() {
           return seen;
         }
       ''');
-      expect(result, 9);
-    });
+        expect(result, 9);
+      },
+    );
 
-    test('F-SCC12-5: an awaiting finally still runs when the try body throws [2026-09-04]',
-        () async {
-      // The interesting case for a teardown clause: the probes that matter are
-      // the ones that throw, and a release that only runs on the happy path
-      // leaks exactly when it is most needed.
-      final result = await run('''
+    test(
+      'F-SCC12-5: an awaiting finally still runs when the try body throws [2026-09-04]',
+      () async {
+        // The interesting case for a teardown clause: the probes that matter are
+        // the ones that throw, and a release that only runs on the happy path
+        // leaks exactly when it is most needed.
+        final result = await run('''
         main() async {
           var log = [];
           try {
@@ -101,12 +107,14 @@ void main() {
           return log;
         }
       ''');
-      expect(result, orderedEquals(['released', 'caught:boom']));
-    });
+        expect(result, orderedEquals(['released', 'caught:boom']));
+      },
+    );
 
-    test('F-SCC12-6: an awaiting finally still runs on the way out of a return [2026-09-04]',
-        () async {
-      final result = await run('''
+    test(
+      'F-SCC12-6: an awaiting finally still runs on the way out of a return [2026-09-04]',
+      () async {
+        final result = await run('''
         main() async {
           var log = [];
           Future<dynamic> inner() async {
@@ -122,17 +130,19 @@ void main() {
           return log;
         }
       ''');
-      expect(result, orderedEquals(['released', 'got:value']));
-    });
+        expect(result, orderedEquals(['released', 'got:value']));
+      },
+    );
   });
 
   group('SCC12: a finally runs once when its protected region suspends', () {
-    test('F-SCC12-7: a finally runs once when the try body awaits [2026-09-04]',
-        () async {
-      // The replay hazard. The try body suspends, so the whole try statement is
-      // re-executed after the future completes; if the suspending pass also ran
-      // the finally, the block runs twice and a teardown double-releases.
-      final result = await run('''
+    test(
+      'F-SCC12-7: a finally runs once when the try body awaits [2026-09-04]',
+      () async {
+        // The replay hazard. The try body suspends, so the whole try statement is
+        // re-executed after the future completes; if the suspending pass also ran
+        // the finally, the block runs twice and a teardown double-releases.
+        final result = await run('''
         main() async {
           var count = 0;
           var value;
@@ -144,12 +154,14 @@ void main() {
           return [value, count];
         }
       ''');
-      expect(result, orderedEquals([3, 1]));
-    });
+        expect(result, orderedEquals([3, 1]));
+      },
+    );
 
-    test('F-SCC12-8: a finally runs once when a catch body awaits [2026-09-04]',
-        () async {
-      final result = await run('''
+    test(
+      'F-SCC12-8: a finally runs once when a catch body awaits [2026-09-04]',
+      () async {
+        final result = await run('''
         main() async {
           var count = 0;
           var value;
@@ -163,12 +175,14 @@ void main() {
           return [value, count];
         }
       ''');
-      expect(result, orderedEquals([4, 1]));
-    });
+        expect(result, orderedEquals([4, 1]));
+      },
+    );
 
-    test('F-SCC12-9: a finally runs once when both the body and the finally await [2026-09-04]',
-        () async {
-      final result = await run('''
+    test(
+      'F-SCC12-9: a finally runs once when both the body and the finally await [2026-09-04]',
+      () async {
+        final result = await run('''
         main() async {
           var count = 0;
           var value;
@@ -181,8 +195,9 @@ void main() {
           return [value, count];
         }
       ''');
-      expect(result, orderedEquals([5, 1]));
-    });
+        expect(result, orderedEquals([5, 1]));
+      },
+    );
   });
 
   /// The second defect the same investigation exposed, and the one that made the
@@ -202,15 +217,15 @@ void main() {
   /// each of its async recipes a *missing* member was silently reported as
   /// present. That is the failure mode the whole three-bucket design exists to
   /// prevent, which is why these cases are pinned here.
-  group('SCC12: an error passing through a finally reaches the enclosing catch',
-      () {
-    test('F-SCC12-10: an async function propagates out of a try/finally with no catch [2026-09-04]',
-        () async {
-      // Nothing suspends inside the protected region, and the finally is
-      // synchronous — the mechanism is the async state machine, not `await`.
-      // The synchronous interpreter has always got this right, so a reader who
-      // assumes the two paths agree would not look here.
-      final result = await run('''
+  group('SCC12: an error passing through a finally reaches the enclosing catch', () {
+    test(
+      'F-SCC12-10: an async function propagates out of a try/finally with no catch [2026-09-04]',
+      () async {
+        // Nothing suspends inside the protected region, and the finally is
+        // synchronous — the mechanism is the async state machine, not `await`.
+        // The synchronous interpreter has always got this right, so a reader who
+        // assumes the two paths agree would not look here.
+        final result = await run('''
         main() async {
           var log = [];
           try {
@@ -226,15 +241,17 @@ void main() {
           return log;
         }
       ''');
-      expect(result, orderedEquals(['released', 'caught:boom']));
-    });
+        expect(result, orderedEquals(['released', 'caught:boom']));
+      },
+    );
 
-    test('F-SCC12-11: an empty finally does not swallow the error [2026-09-04]',
-        () async {
-      // An empty finally is not a handler. It used to be treated as one: the
-      // machine jumped to a block with no statements, the state machine ran out
-      // of nodes, and the function's Future never completed at all.
-      final result = await run('''
+    test(
+      'F-SCC12-11: an empty finally does not swallow the error [2026-09-04]',
+      () async {
+        // An empty finally is not a handler. It used to be treated as one: the
+        // machine jumped to a block with no statements, the state machine ran out
+        // of nodes, and the function's Future never completed at all.
+        final result = await run('''
         main() async {
           var log = [];
           try {
@@ -248,22 +265,24 @@ void main() {
           return log;
         }
       ''');
-      expect(result, orderedEquals(['caught:boom']));
-    });
+        expect(result, orderedEquals(['caught:boom']));
+      },
+    );
 
-    test('F-SCC12-12: a failed read throws out through an awaited teardown [2026-09-04]',
-        () async {
-      // The gap oracle's own shape, and the reason this defect corrupted a
-      // measurement rather than merely hanging a tool: `probed` must never be
-      // *returned*. While the error was being dropped, this program completed
-      // normally with `null`, and the oracle read a missing member as present.
-      //
-      // The error here is raised by the interpreter itself (an unresolved
-      // member), not by a `throw` statement — which is what the probes do, and
-      // which travels a different path into the state machine than an explicit
-      // throw does.
-      await expectLater(
-        executeAsync('''
+    test(
+      'F-SCC12-12: a failed read throws out through an awaited teardown [2026-09-04]',
+      () async {
+        // The gap oracle's own shape, and the reason this defect corrupted a
+        // measurement rather than merely hanging a tool: `probed` must never be
+        // *returned*. While the error was being dropped, this program completed
+        // normally with `null`, and the oracle read a missing member as present.
+        //
+        // The error here is raised by the interpreter itself (an unresolved
+        // member), not by a `throw` statement — which is what the probes do, and
+        // which travels a different path into the state machine than an explicit
+        // throw does.
+        await expectLater(
+          executeAsync('''
           class Resource {
             var released = false;
             Future<void> close() async {
@@ -282,19 +301,24 @@ void main() {
             return probed;
           }
         ''').timeout(const Duration(seconds: 10)),
-        throwsA(predicate(
-            (Object? e) => e.toString().contains('noSuchMember'),
-            'an error naming the member that could not be read')),
-      );
-    });
+          throwsA(
+            predicate(
+              (Object? e) => e.toString().contains('noSuchMember'),
+              'an error naming the member that could not be read',
+            ),
+          ),
+        );
+      },
+    );
 
-    test('F-SCC12-13: the awaited teardown runs before the failed read is caught [2026-09-04]',
-        () async {
-      // The other half of the oracle's shape: the teardown must still run, and
-      // it must run *before* the error surfaces. Observed from inside the
-      // script, because the release is only visible to the interpreter — the
-      // ordering is the assertion, so a log rather than a flag.
-      final result = await run('''
+    test(
+      'F-SCC12-13: the awaited teardown runs before the failed read is caught [2026-09-04]',
+      () async {
+        // The other half of the oracle's shape: the teardown must still run, and
+        // it must run *before* the error surfaces. Observed from inside the
+        // script, because the release is only visible to the interpreter — the
+        // ordering is the assertion, so a log rather than a flag.
+        final result = await run('''
         class Resource {
           Future<void> close(List log) async {
             await Future.value(0);
@@ -318,9 +342,14 @@ void main() {
           return log;
         }
       ''');
-      expect(result, orderedEquals(['released', 'caught']),
-          reason: 'the teardown must run, and the read must not be treated as '
-              'having succeeded');
-    });
+        expect(
+          result,
+          orderedEquals(['released', 'caught']),
+          reason:
+              'the teardown must run, and the read must not be treated as '
+              'having succeeded',
+        );
+      },
+    );
   });
 }

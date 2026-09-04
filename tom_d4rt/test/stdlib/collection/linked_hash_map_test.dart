@@ -5,26 +5,34 @@ void main() {
   final d4rt = D4rt();
 
   group('LinkedHashMap Tests', () {
-    test('I-COLL-40: LinkedHashMap() constructor and basic properties. [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(
-        source: '''
+    test(
+      'I-COLL-40: LinkedHashMap() constructor and basic properties. [2026-02-10 06:37] (PASS)',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final map = LinkedHashMap();
             return [map.length, map.isEmpty, map.isNotEmpty, map.keys.toList(), map.values.toList()];
           }
         ''',
-      ) as List;
-      expect(result[0], 0);
-      expect(result[1], true);
-      expect(result[2], false);
-      expect(result[3], []);
-      expect(result[4], []);
-    });
+                )
+                as List;
+        expect(result[0], 0);
+        expect(result[1], true);
+        expect(result[2], false);
+        expect(result[3], []);
+        expect(result[4], []);
+      },
+    );
 
-    test('I-COLL-36: LinkedHashMap.from() constructor and insertion order. [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(
-        source: '''
+    test(
+      'I-COLL-36: LinkedHashMap.from() constructor and insertion order. [2026-02-10 06:37] (PASS)',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final sourceMap = {'b': 2, 'a': 1, 'c': 3}; // Ordre non garanti ici
@@ -36,16 +44,21 @@ void main() {
             return [map.length, map.containsKey('a'), map['a'], map.keys.toList()];
           }
         ''',
-      ) as List;
-      expect(result[0], 4);
-      expect(result[1], true);
-      expect(result[2], 1);
-      expect((result[3] as List).last, 'd');
-    });
+                )
+                as List;
+        expect(result[0], 4);
+        expect(result[1], true);
+        expect(result[2], 1);
+        expect((result[3] as List).last, 'd');
+      },
+    );
 
-    test('I-COLL-37: LinkedHashMap.of() constructor. [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(
-        source: '''
+    test(
+      'I-COLL-37: LinkedHashMap.of() constructor. [2026-02-10 06:37] (PASS)',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final sourceMap = LinkedHashMap.of({'x': 10, 'y': 20});
@@ -55,15 +68,19 @@ void main() {
             return [map.length, map.keys.toList(), map.values.toList()];
           }
         ''',
-      ) as List;
-      expect(result[0], 4);
-      expect(result[1], orderedEquals(['x', 'y', 'z', 'a']));
-      expect(result[2], orderedEquals([10, 20, 30, 40]));
-    });
+                )
+                as List;
+        expect(result[0], 4);
+        expect(result[1], orderedEquals(['x', 'y', 'z', 'a']));
+        expect(result[2], orderedEquals([10, 20, 30, 40]));
+      },
+    );
 
-    test('I-COLL-38: LinkedHashMap.identity() constructor. [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(
-        source: '''
+    test(
+      'I-COLL-38: LinkedHashMap.identity() constructor. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = d4rt.execute(
+          source: '''
           import 'dart:collection';
           main() {
             final map = LinkedHashMap.identity();
@@ -72,13 +89,17 @@ void main() {
             return map.length;
           }
         ''',
-      );
-      expect(result, 2);
-    });
+        );
+        expect(result, 2);
+      },
+    );
 
-    test('I-COLL-39: [] and []= operators, insertion order preserved. [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(
-        source: '''
+    test(
+      'I-COLL-39: [] and []= operators, insertion order preserved. [2026-02-10 06:37] (PASS)',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final map = LinkedHashMap();
@@ -89,16 +110,21 @@ void main() {
             return [map['two'], map.keys.toList(), map.values.toList(), map.length];
           }
         ''',
-      ) as List;
-      expect(result[0], 2);
-      expect(result[1], orderedEquals(['one', 'two', 'three']));
-      expect(result[2], orderedEquals([11, 2, 3]));
-      expect(result[3], 3);
-    });
+                )
+                as List;
+        expect(result[0], 2);
+        expect(result[1], orderedEquals(['one', 'two', 'three']));
+        expect(result[2], orderedEquals([11, 2, 3]));
+        expect(result[3], 3);
+      },
+    );
 
-    test('I-COLL-41: AddAll(), clear(), isEmpty, isNotEmpty. [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(
-        source: '''
+    test(
+      'I-COLL-41: AddAll(), clear(), isEmpty, isNotEmpty. [2026-02-10 06:37] (PASS)',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final map = LinkedHashMap();
@@ -119,22 +145,27 @@ void main() {
             return [keys1, values1, l1, e1, ne1, keys2, values2, l2, e2, ne2];
           }
         ''',
-      ) as List;
-      expect(result[0], orderedEquals(['a', 'b', 'c']));
-      expect(result[1], orderedEquals([1, 2, 3]));
-      expect(result[2], 3);
-      expect(result[3], false);
-      expect(result[4], true);
-      expect(result[5], []);
-      expect(result[6], []);
-      expect(result[7], 0);
-      expect(result[8], true);
-      expect(result[9], false);
-    });
+                )
+                as List;
+        expect(result[0], orderedEquals(['a', 'b', 'c']));
+        expect(result[1], orderedEquals([1, 2, 3]));
+        expect(result[2], 3);
+        expect(result[3], false);
+        expect(result[4], true);
+        expect(result[5], []);
+        expect(result[6], []);
+        expect(result[7], 0);
+        expect(result[8], true);
+        expect(result[9], false);
+      },
+    );
 
-    test('I-COLL-32: ContainsKey(), containsValue(). [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(
-        source: '''
+    test(
+      'I-COLL-32: ContainsKey(), containsValue(). [2026-02-10 06:37] (PASS)',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final map = LinkedHashMap.of({'k1': 'v1', 'k2': 'v2'});
@@ -144,16 +175,21 @@ void main() {
             ];
           }
         ''',
-      ) as List;
-      expect(result[0], true); // containsKey k1
-      expect(result[1], false); // containsKey k3
-      expect(result[2], true); // containsValue v2
-      expect(result[3], false); // containsValue v3
-    });
+                )
+                as List;
+        expect(result[0], true); // containsKey k1
+        expect(result[1], false); // containsKey k3
+        expect(result[2], true); // containsValue v2
+        expect(result[3], false); // containsValue v3
+      },
+    );
 
-    test('I-COLL-33: Remove() and insertion order. [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(
-        source: '''
+    test(
+      'I-COLL-33: Remove() and insertion order. [2026-02-10 06:37] (PASS)',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final map = LinkedHashMap();
@@ -166,16 +202,19 @@ void main() {
             return [removedValue1, keys1, removedValue2, map.length];
           }
         ''',
-      ) as List;
-      expect(result[0], 20);
-      expect(result[1], orderedEquals(['x', 'z']));
-      expect(result[2], null);
-      expect(result[3], 2);
-    });
+                )
+                as List;
+        expect(result[0], 20);
+        expect(result[1], orderedEquals(['x', 'z']));
+        expect(result[2], null);
+        expect(result[3], 2);
+      },
+    );
 
     test('I-COLL-34: ForEach() and entries. [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(
-        source: '''
+      final result =
+          d4rt.execute(
+                source: '''
           import 'dart:collection';
           main() {
             final map = LinkedHashMap.of({'one': 1, 'two': 2, 'three': 3});
@@ -195,7 +234,8 @@ void main() {
             return [iteratedKeys, iteratedValues, entryKeys, entryValues];
           }
         ''',
-      ) as List;
+              )
+              as List;
       expect(result[0], orderedEquals(['one', 'two', 'three']));
       expect(result[1], orderedEquals([1, 2, 3]));
       expect(result[2], orderedEquals(['one', 'two', 'three']));
@@ -203,8 +243,9 @@ void main() {
     });
 
     test('I-COLL-35: PutIfAbsent(). [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(
-        source: '''
+      final result =
+          d4rt.execute(
+                source: '''
           import 'dart:collection';
           main() {
             final map = LinkedHashMap.of({'a': 1});
@@ -213,7 +254,8 @@ void main() {
             return [v1, v2, map['a'], map['b'], map.keys.toList()];
           }
         ''',
-      ) as List;
+              )
+              as List;
       expect(result[0], 1); // v1
       expect(result[1], 20); // v2
       expect(result[2], 1); // map['a']

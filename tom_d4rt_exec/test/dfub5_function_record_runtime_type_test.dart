@@ -23,8 +23,7 @@ import 'interpreter_test.dart';
 
 void main() {
   group('DFUB5 (exec): function runtime type checks', () {
-    test(
-        'F-DFUB5-EXEC-1: `is` FunctionType matches a tear-off [2026-07-27] '
+    test('F-DFUB5-EXEC-1: `is` FunctionType matches a tear-off [2026-07-27] '
         '(PASS)', () {
       const code = '''
 int addOne(int x) => x + 1;
@@ -37,8 +36,7 @@ List main() {
       expect(execute(code), equals([true, 42]));
     });
 
-    test(
-        'F-DFUB5-EXEC-2: `is` FunctionType rejects wrong return [2026-07-27] '
+    test('F-DFUB5-EXEC-2: `is` FunctionType rejects wrong return [2026-07-27] '
         '(PASS)', () {
       const code = '''
 int addOne(int x) => x + 1;
@@ -51,8 +49,7 @@ bool main() {
       expect(execute(code), equals(false));
     });
 
-    test(
-        'F-DFUB5-EXEC-3: function return-type mismatch throws [2026-07-27] '
+    test('F-DFUB5-EXEC-3: function return-type mismatch throws [2026-07-27] '
         '(PASS)', () {
       const code = '''
 String greet(int x) => 'hi';
@@ -67,13 +64,18 @@ int main() {
 }
 ''';
       expect(
-          () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-              (e) => e.message, 'message', contains("can't be returned"))));
+        () => execute(code),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.message,
+            'message',
+            contains("can't be returned"),
+          ),
+        ),
+      );
     });
 
-    test(
-        'F-DFUB5-EXEC-4: matching function return still works [2026-07-27] '
+    test('F-DFUB5-EXEC-4: matching function return still works [2026-07-27] '
         '(PASS)', () {
       const code = '''
 int addOne(int x) => x + 1;
@@ -121,8 +123,7 @@ int main() {
   // anything older these five cases answer `[false, ...]`, `false`,
   // `returnsNormally`, `1`, `[true, true, false]` respectively.
   group('DFUB5 (exec): record runtime type checks', () {
-    test(
-        'F-DFUB5-EXEC-5: `is` RecordType matches a named-field record '
+    test('F-DFUB5-EXEC-5: `is` RecordType matches a named-field record '
         '[2026-07-28] (PASS)', () {
       // Agrees with the analyzer tree (F-DFUB5-5) and with F-DGUB8-AST-1. This
       // is the false-negative half: the annotation's real key `label` is now
@@ -138,8 +139,7 @@ List main() {
       expect(execute(code), equals([true, 42, 'answer']));
     });
 
-    test(
-        'F-DFUB5-EXEC-6: `is` RecordType rejects wrong shape [2026-07-28] '
+    test('F-DFUB5-EXEC-6: `is` RecordType rejects wrong shape [2026-07-28] '
         '(PASS)', () {
       // Agrees with the analyzer tree (F-DFUB5-6) and with F-DGUB8-AST-2. The
       // one record expectation whose ANSWER did not change across the fix — but
@@ -155,8 +155,7 @@ bool main() {
       expect(execute(code), equals(false));
     });
 
-    test(
-        'F-DFUB5-EXEC-7: record return-type mismatch throws [2026-07-28] '
+    test('F-DFUB5-EXEC-7: record return-type mismatch throws [2026-07-28] '
         '(PASS)', () {
       // Agrees with the analyzer tree (F-DFUB5-7); F-DGUB8-AST-6 shows the same
       // field-type comparison at the unit level. This is the unsound half: both
@@ -172,13 +171,18 @@ Object main() {
 }
 ''';
       expect(
-          () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-              (e) => e.message, 'message', contains("can't be returned"))));
+        () => execute(code),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.message,
+            'message',
+            contains("can't be returned"),
+          ),
+        ),
+      );
     });
 
-    test(
-        'F-DFUB5-EXEC-8: matching record return still works [2026-07-28] '
+    test('F-DFUB5-EXEC-8: matching record return still works [2026-07-28] '
         '(PASS)', () {
       // The vacuity anchor for -7: the tightened check must still ACCEPT a
       // genuinely matching record, so -7's throw is not merely "record returns
@@ -196,8 +200,7 @@ int main() {
       expect(execute(code), equals(1));
     });
 
-    test(
-        'F-DFUB5-EXEC-9: positional-only records match on field types, not '
+    test('F-DFUB5-EXEC-9: positional-only records match on field types, not '
         'arity alone [2026-07-28] (PASS)', () {
       // The discriminating case for the unsound half; F-DGUB8-AST-5/-6/-7 pin
       // the same three answers. All three annotations are positional-only, so no

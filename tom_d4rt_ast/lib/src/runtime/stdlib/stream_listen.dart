@@ -60,7 +60,10 @@ StreamSubscription<Object?> bridgedStreamListen(
     onError: onError == null
         ? null
         : (Object error, [StackTrace? stackTrace]) => runAction<void>(
-            visitor, onError, errorHandlerArgs(onError, error, stackTrace)),
+            visitor,
+            onError,
+            errorHandlerArgs(onError, error, stackTrace),
+          ),
     onDone: onDone == null ? null : () => runAction<void>(visitor, onDone, []),
     cancelOnError: cancelOnError,
   );

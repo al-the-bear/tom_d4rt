@@ -16,10 +16,7 @@ void main() {
   print('person.greet(): ${person.greet()}');
 
   // Chained member access
-  var company = Company(
-    'TechCorp',
-    Address('NYC', 'USA'),
-  );
+  var company = Company('TechCorp', Address('NYC', 'USA'));
   print('');
   print('company.name: ${company.name}');
   print('company.address.city: ${company.address.city}');

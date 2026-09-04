@@ -237,8 +237,12 @@ class SocketIo {
         );
       },
       'listen': (visitor, target, positionalArgs, namedArgs, _) =>
-          bridgedStreamListen(visitor, target as Socket, positionalArgs,
-              namedArgs),
+          bridgedStreamListen(
+            visitor,
+            target as Socket,
+            positionalArgs,
+            namedArgs,
+          ),
       'asyncMap': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.isEmpty ||
             positionalArgs[0] is! InterpretedFunction) {
@@ -568,8 +572,12 @@ class ServerSocketIo {
         return (target as ServerSocket).close();
       },
       'listen': (visitor, target, positionalArgs, namedArgs, _) =>
-          bridgedStreamListen(visitor, target as ServerSocket, positionalArgs,
-              namedArgs),
+          bridgedStreamListen(
+            visitor,
+            target as ServerSocket,
+            positionalArgs,
+            namedArgs,
+          ),
       'any': (visitor, target, positionalArgs, namedArgs, _) {
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as ServerSocket).any(
@@ -763,8 +771,12 @@ class RawSocketIo {
         return (target as RawSocket).shutdown(direction);
       },
       'listen': (visitor, target, positionalArgs, namedArgs, _) =>
-          bridgedStreamListen(visitor, target as RawSocket, positionalArgs,
-              namedArgs),
+          bridgedStreamListen(
+            visitor,
+            target as RawSocket,
+            positionalArgs,
+            namedArgs,
+          ),
       'setOption': (visitor, target, positionalArgs, namedArgs, _) {
         final option = positionalArgs[0] as SocketOption;
         final enabled = positionalArgs[1] as bool;
@@ -827,8 +839,12 @@ class RawServerSocketIo {
     typeParameterCount: 0,
     methods: {
       'listen': (visitor, target, positionalArgs, namedArgs, _) =>
-          bridgedStreamListen(visitor, target as RawServerSocket, positionalArgs,
-              namedArgs),
+          bridgedStreamListen(
+            visitor,
+            target as RawServerSocket,
+            positionalArgs,
+            namedArgs,
+          ),
       'close': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as RawServerSocket).close(),
     },
@@ -1020,8 +1036,12 @@ class RawDatagramSocketIo {
       'close': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as RawDatagramSocket).close(),
       'listen': (visitor, target, positionalArgs, namedArgs, _) =>
-          bridgedStreamListen(visitor, target as RawDatagramSocket, positionalArgs,
-              namedArgs),
+          bridgedStreamListen(
+            visitor,
+            target as RawDatagramSocket,
+            positionalArgs,
+            namedArgs,
+          ),
       'joinMulticast': (visitor, target, positionalArgs, namedArgs, _) {
         final group = positionalArgs[0] as InternetAddress;
         return (target as RawDatagramSocket).joinMulticast(group);

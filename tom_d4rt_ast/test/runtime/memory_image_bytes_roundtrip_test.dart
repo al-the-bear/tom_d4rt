@@ -55,17 +55,18 @@ const List<int> _validPngWhite = <int>[
 ];
 
 void main() {
-  group('I-U29: Uint8List bridge byte-preservation (MemoryImage ctor path)',
+  group('I-U29: Uint8List bridge byte-preservation (MemoryImage ctor path)', () {
+    test(
+      'I-U29-1: extractBridgedArg<Uint8List> preserves malformed PNG bytes',
       () {
-    test('I-U29-1: extractBridgedArg<Uint8List> preserves malformed PNG bytes',
-        () {
-      final bytes = Uint8List.fromList(_malformedPngWhite);
-      final extracted = D4.extractBridgedArg<Uint8List>(bytes, 'bytes');
-      expect(extracted, isA<Uint8List>());
-      expect(extracted, orderedEquals(_malformedPngWhite));
-      // Identity: nothing is copied/rebuilt, so no opportunity for corruption.
-      expect(identical(extracted, bytes), isTrue);
-    });
+        final bytes = Uint8List.fromList(_malformedPngWhite);
+        final extracted = D4.extractBridgedArg<Uint8List>(bytes, 'bytes');
+        expect(extracted, isA<Uint8List>());
+        expect(extracted, orderedEquals(_malformedPngWhite));
+        // Identity: nothing is copied/rebuilt, so no opportunity for corruption.
+        expect(identical(extracted, bytes), isTrue);
+      },
+    );
 
     test('I-U29-2: extractBridgedArg<Uint8List> preserves valid PNG bytes', () {
       final bytes = Uint8List.fromList(_validPngWhite);

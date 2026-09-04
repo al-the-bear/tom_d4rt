@@ -7,18 +7,20 @@
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 
-import 'package:userbridge_override_example/src/globals.dart' as $userbridge_override_example_1;
-import 'package:userbridge_override_example/src/globals_user_bridge.dart' as $userbridge_override_example_2;
-import 'package:userbridge_override_example/src/my_list.dart' as $userbridge_override_example_3;
-import 'package:userbridge_override_example/src/my_list_user_bridge.dart' as $userbridge_override_example_4;
+import 'package:userbridge_override_example/src/globals.dart'
+    as $userbridge_override_example_1;
+import 'package:userbridge_override_example/src/globals_user_bridge.dart'
+    as $userbridge_override_example_2;
+import 'package:userbridge_override_example/src/my_list.dart'
+    as $userbridge_override_example_3;
+import 'package:userbridge_override_example/src/my_list_user_bridge.dart'
+    as $userbridge_override_example_4;
 
 /// Bridge class for all module.
 class AllBridge {
   /// Returns all bridge class definitions.
   static List<BridgedClass> bridgeClasses() {
-    return [
-      _createMyListBridge(),
-    ];
+    return [_createMyListBridge()];
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -26,9 +28,7 @@ class AllBridge {
   /// Used for deduplication when the same class is exported through
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> classSourceUris() {
-    return {
-      'MyList': 'package:userbridge_override_example/src/my_list.dart',
-    };
+    return {'MyList': 'package:userbridge_override_example/src/my_list.dart'};
   }
 
   /// Returns a map of type alias names to their target class names.
@@ -37,8 +37,7 @@ class AllBridge {
   /// are registered so that code using the alias name can resolve to the
   /// bridged class under its canonical name.
   static Map<String, String> classAliases() {
-    return {
-    };
+    return {};
   }
 
   /// Returns the list of function typedef names declared in this library.
@@ -46,14 +45,12 @@ class AllBridge {
   /// Function typedefs like `typedef VoidCallback = void Function()` are
   /// registered so that they can be used as type arguments in D4rt scripts.
   static List<String> functionTypedefs() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns a map of enum names to their canonical source URIs.
@@ -61,20 +58,17 @@ class AllBridge {
   /// Used for deduplication when the same enum is exported through
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
-    return {
-    };
+    return {};
   }
 
   /// Returns all bridged extension definitions.
   static List<BridgedExtensionDefinition> bridgedExtensions() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns a map of extension identifiers to their canonical source URIs.
   static Map<String, String> extensionSourceUris() {
-    return {
-    };
+    return {};
   }
 
   /// Registers all bridges with an interpreter.
@@ -86,7 +80,11 @@ class AllBridge {
     final classes = bridgeClasses();
     final classSources = classSourceUris();
     for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+      interpreter.registerBridgedClass(
+        bridge,
+        importPath,
+        sourceUri: classSources[bridge.name],
+      );
     }
 
     // Register global variables
@@ -97,7 +95,13 @@ class AllBridge {
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
-      interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
+      interpreter.registertopLevelFunction(
+        entry.key,
+        entry.value,
+        importPath,
+        sourceUri: funcSources[entry.key],
+        signature: funcSigs[entry.key],
+      );
     }
   }
 
@@ -110,32 +114,61 @@ class AllBridge {
     final errors = <String>[];
 
     try {
-      interpreter.registerGlobalVariable('appName', $userbridge_override_example_2.GlobalsUserBridge.overrideGlobalVariableAppName(), importPath, sourceUri: 'package:userbridge_override_example/src/globals.dart');
+      interpreter.registerGlobalVariable(
+        'appName',
+        $userbridge_override_example_2
+            .GlobalsUserBridge.overrideGlobalVariableAppName(),
+        importPath,
+        sourceUri: 'package:userbridge_override_example/src/globals.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "appName": $e');
     }
     try {
-      interpreter.registerGlobalVariable('maxRetries', $userbridge_override_example_2.GlobalsUserBridge.overrideGlobalVariableMaxRetries(), importPath, sourceUri: 'package:userbridge_override_example/src/globals.dart');
+      interpreter.registerGlobalVariable(
+        'maxRetries',
+        $userbridge_override_example_2
+            .GlobalsUserBridge.overrideGlobalVariableMaxRetries(),
+        importPath,
+        sourceUri: 'package:userbridge_override_example/src/globals.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "maxRetries": $e');
     }
     try {
-      interpreter.registerGlobalVariable('version', $userbridge_override_example_1.version, importPath, sourceUri: 'package:userbridge_override_example/src/globals.dart');
+      interpreter.registerGlobalVariable(
+        'version',
+        $userbridge_override_example_1.version,
+        importPath,
+        sourceUri: 'package:userbridge_override_example/src/globals.dart',
+      );
     } catch (e) {
       errors.add('Failed to register variable "version": $e');
     }
-    interpreter.registerGlobalGetter('currentTime', $userbridge_override_example_2.GlobalsUserBridge.overrideGlobalGetterCurrentTime(), importPath, sourceUri: 'package:userbridge_override_example/src/globals.dart');
+    interpreter.registerGlobalGetter(
+      'currentTime',
+      $userbridge_override_example_2
+          .GlobalsUserBridge.overrideGlobalGetterCurrentTime(),
+      importPath,
+      sourceUri: 'package:userbridge_override_example/src/globals.dart',
+    );
 
     if (errors.isNotEmpty) {
-      throw StateError('Bridge registration errors (all):\n${errors.join("\n")}');
+      throw StateError(
+        'Bridge registration errors (all):\n${errors.join("\n")}',
+      );
     }
   }
 
   /// Returns a map of global function names to their native implementations.
   static Map<String, NativeFunctionImpl> globalFunctions() {
     return {
-      'greet': $userbridge_override_example_2.GlobalsUserBridge.overrideGlobalFunctionGreet,
-      'calculate': $userbridge_override_example_2.GlobalsUserBridge.overrideGlobalFunctionCalculate,
+      'greet': $userbridge_override_example_2
+          .GlobalsUserBridge
+          .overrideGlobalFunctionGreet,
+      'calculate': $userbridge_override_example_2
+          .GlobalsUserBridge
+          .overrideGlobalFunctionCalculate,
     };
   }
 
@@ -187,7 +220,6 @@ class AllBridge {
   static List<String> subPackageBarrels() {
     return [];
   }
-
 }
 
 // =============================================================================
@@ -205,30 +237,57 @@ BridgedClass _createMyListBridge() {
       },
     },
     getters: {
-      'length': (visitor, target) => D4.validateTarget<$userbridge_override_example_3.MyList>(target, 'MyList').length,
-      'isEmpty': (visitor, target) => D4.validateTarget<$userbridge_override_example_3.MyList>(target, 'MyList').isEmpty,
+      'length': (visitor, target) => D4
+          .validateTarget<$userbridge_override_example_3.MyList>(
+            target,
+            'MyList',
+          )
+          .length,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$userbridge_override_example_3.MyList>(
+            target,
+            'MyList',
+          )
+          .isEmpty,
     },
     methods: {
       'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$userbridge_override_example_3.MyList>(target, 'MyList');
+        final t = D4.validateTarget<$userbridge_override_example_3.MyList>(
+          target,
+          'MyList',
+        );
         D4.requireMinArgs(positional, 1, 'add');
         final item = D4.getRequiredArg<dynamic>(positional, 0, 'item', 'add');
         t.add(item);
         return null;
       },
       'remove': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$userbridge_override_example_3.MyList>(target, 'MyList');
+        final t = D4.validateTarget<$userbridge_override_example_3.MyList>(
+          target,
+          'MyList',
+        );
         D4.requireMinArgs(positional, 1, 'remove');
-        final item = D4.getRequiredArg<dynamic>(positional, 0, 'item', 'remove');
+        final item = D4.getRequiredArg<dynamic>(
+          positional,
+          0,
+          'item',
+          'remove',
+        );
         return t.remove(item);
       },
       'clear': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$userbridge_override_example_3.MyList>(target, 'MyList');
+        final t = D4.validateTarget<$userbridge_override_example_3.MyList>(
+          target,
+          'MyList',
+        );
         t.clear();
         return null;
       },
-      '[]': $userbridge_override_example_4.MyListUserBridge.overrideOperatorIndex,
-      '[]=': $userbridge_override_example_4.MyListUserBridge.overrideOperatorIndexAssign,
+      '[]':
+          $userbridge_override_example_4.MyListUserBridge.overrideOperatorIndex,
+      '[]=': $userbridge_override_example_4
+          .MyListUserBridge
+          .overrideOperatorIndexAssign,
     },
     staticMethods: {
       'empty': (visitor, positional, named, typeArgs) {
@@ -237,15 +296,15 @@ BridgedClass _createMyListBridge() {
       'from': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'from');
         if (positional.isEmpty) {
-          throw ArgumentError('from: Missing required argument "items" at position 0');
+          throw ArgumentError(
+            'from: Missing required argument "items" at position 0',
+          );
         }
         final items = D4.coerceList<dynamic>(positional[0], 'items');
         return $userbridge_override_example_3.MyList.from(items);
       },
     },
-    constructorSignatures: {
-      '': 'MyList()',
-    },
+    constructorSignatures: {'': 'MyList()'},
     methodSignatures: {
       'add': 'void add(T item)',
       'remove': 'bool remove(T item)',
@@ -261,4 +320,3 @@ BridgedClass _createMyListBridge() {
     },
   );
 }
-

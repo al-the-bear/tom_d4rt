@@ -44,48 +44,55 @@ void main() {
       expect(result, 'StreamConsumer');
     });
 
-    test('F-SC4-2: a StreamController is a StreamConsumer [2026-07-27]',
-        () async {
-      final result = await executeAsync('''
+    test(
+      'F-SC4-2: a StreamController is a StreamConsumer [2026-07-27]',
+      () async {
+        final result = await executeAsync('''
         import 'dart:async';
         main() {
           final c = StreamController();
           return c is StreamConsumer;
         }
       ''');
-      expect(result, isTrue);
-    });
+        expect(result, isTrue);
+      },
+    );
 
-    test('F-SC4-3: a controller sink is a StreamConsumer [2026-07-27]',
-        () async {
-      final result = await executeAsync('''
+    test(
+      'F-SC4-3: a controller sink is a StreamConsumer [2026-07-27]',
+      () async {
+        final result = await executeAsync('''
         import 'dart:async';
         main() {
           final c = StreamController();
           return c.sink is StreamConsumer;
         }
       ''');
-      expect(result, isTrue);
-    });
+        expect(result, isTrue);
+      },
+    );
 
     test('F-SC4-4: a Stream is not a StreamConsumer [2026-07-27]', () async {
       // Guards the registry edges from being over-broad: `is StreamConsumer`
       // must still discriminate, or F-SC4-2/3 would pass vacuously.
-      final result = await executeAsync('''
+      final result =
+          await executeAsync('''
         import 'dart:async';
         main() {
           final c = StreamController();
           return [c.stream is StreamConsumer, 'x' is StreamConsumer];
         }
-      ''') as List;
+      ''')
+              as List;
       expect(result, orderedEquals([false, false]));
     });
 
-    test('F-SC4-5: a value typed as StreamConsumer accepts addStream then close [2026-07-27]',
-        () async {
-      // The test the todo asks for: a parameter *annotated* StreamConsumer,
-      // exercising both members the interface declares.
-      final result = await executeAsync('''
+    test(
+      'F-SC4-5: a value typed as StreamConsumer accepts addStream then close [2026-07-27]',
+      () async {
+        // The test the todo asks for: a parameter *annotated* StreamConsumer,
+        // exercising both members the interface declares.
+        final result = await executeAsync('''
         import 'dart:async';
 
         Future<void> feed(StreamConsumer sink, Stream source) async {
@@ -100,15 +107,17 @@ void main() {
           return await collected;
         }
       ''');
-      expect(result, orderedEquals([1, 2, 3]));
-    });
+        expect(result, orderedEquals([1, 2, 3]));
+      },
+    );
 
-    test('F-SC4-6: addStream returns an awaitable that completes after the source drains [2026-07-27]',
-        () async {
-      // Pins the *ordering* contract, not just the final contents: if
-      // addStream returned a non-Future (or a Future completing eagerly) the
-      // marker would land before the piped events rather than after them.
-      final result = await executeAsync('''
+    test(
+      'F-SC4-6: addStream returns an awaitable that completes after the source drains [2026-07-27]',
+      () async {
+        // Pins the *ordering* contract, not just the final contents: if
+        // addStream returned a non-Future (or a Future completing eagerly) the
+        // marker would land before the piped events rather than after them.
+        final result = await executeAsync('''
         import 'dart:async';
         main() async {
           final c = StreamController();
@@ -119,27 +128,32 @@ void main() {
           return await collected;
         }
       ''');
-      expect(result, orderedEquals([1, 2, 99]));
-    });
+        expect(result, orderedEquals([1, 2, 99]));
+      },
+    );
   });
 
   group('SC4: StreamSink routing for controller sinks', () {
-    test('F-SC4-7: a controller sink resolves to the StreamSink bridge [2026-07-27]',
-        () async {
-      // `_StreamSinkWrapper` had no route to any bridge before SC4.
-      final result = await executeAsync('''
+    test(
+      'F-SC4-7: a controller sink resolves to the StreamSink bridge [2026-07-27]',
+      () async {
+        // `_StreamSinkWrapper` had no route to any bridge before SC4.
+        final result = await executeAsync('''
         import 'dart:async';
         main() {
           final c = StreamController();
           return c.sink is StreamSink;
         }
       ''');
-      expect(result, isTrue);
-    });
+        expect(result, isTrue);
+      },
+    );
 
-    test('F-SC4-8: add and addError forward to the stream [2026-07-27]',
-        () async {
-      final result = await executeAsync('''
+    test(
+      'F-SC4-8: add and addError forward to the stream [2026-07-27]',
+      () async {
+        final result =
+            await executeAsync('''
         import 'dart:async';
         main() async {
           final c = StreamController();
@@ -161,16 +175,19 @@ void main() {
           await Future.delayed(Duration(milliseconds: 10));
           return seen;
         }
-      ''') as List;
-      expect(result.length, 3);
-      expect(result[0], 'data:1');
-      expect(result[1], contains('boom'));
-      expect(result[2], 'data:2');
-    });
+      ''')
+                as List;
+        expect(result.length, 3);
+        expect(result[0], 'data:1');
+        expect(result[1], contains('boom'));
+        expect(result[2], 'data:2');
+      },
+    );
 
-    test('F-SC4-9: done completes when the sink is closed [2026-07-27]',
-        () async {
-      final result = await executeAsync('''
+    test(
+      'F-SC4-9: done completes when the sink is closed [2026-07-27]',
+      () async {
+        final result = await executeAsync('''
         import 'dart:async';
         main() async {
           final c = StreamController();
@@ -181,15 +198,17 @@ void main() {
           return 'done-completed';
         }
       ''');
-      expect(result, 'done-completed');
-    });
+        expect(result, 'done-completed');
+      },
+    );
 
-    test('F-SC4-10: Stream.pipe into a controller sink still works [2026-07-27]',
-        () async {
-      // Regression guard. `pipe` unwraps to the native object and never went
-      // through the sink bridge, so it worked before SC4 — it must keep
-      // working now that `_StreamSinkWrapper` resolves to StreamSink.
-      final result = await executeAsync('''
+    test(
+      'F-SC4-10: Stream.pipe into a controller sink still works [2026-07-27]',
+      () async {
+        // Regression guard. `pipe` unwraps to the native object and never went
+        // through the sink bridge, so it worked before SC4 — it must keep
+        // working now that `_StreamSinkWrapper` resolves to StreamSink.
+        final result = await executeAsync('''
         import 'dart:async';
         main() async {
           final c = StreamController();
@@ -198,14 +217,17 @@ void main() {
           return await collected;
         }
       ''');
-      expect(result, orderedEquals([1, 2]));
-    });
+        expect(result, orderedEquals([1, 2]));
+      },
+    );
 
-    test('F-SC4-11: a broadcast controller sink resolves the same way [2026-07-27]',
-        () async {
-      // Both controller flavours hand out `_StreamSinkWrapper`, so one
-      // nativeNames entry covers both — assert it rather than assume it.
-      final result = await executeAsync('''
+    test(
+      'F-SC4-11: a broadcast controller sink resolves the same way [2026-07-27]',
+      () async {
+        // Both controller flavours hand out `_StreamSinkWrapper`, so one
+        // nativeNames entry covers both — assert it rather than assume it.
+        final result =
+            await executeAsync('''
         import 'dart:async';
         main() async {
           final c = StreamController.broadcast();
@@ -216,9 +238,11 @@ void main() {
           await Future.delayed(Duration(milliseconds: 10));
           return [c.sink is StreamConsumer, seen];
         }
-      ''') as List;
-      expect(result[0], isTrue);
-      expect(result[1], orderedEquals([1]));
-    });
+      ''')
+                as List;
+        expect(result[0], isTrue);
+        expect(result[1], orderedEquals([1]));
+      },
+    );
   });
 }

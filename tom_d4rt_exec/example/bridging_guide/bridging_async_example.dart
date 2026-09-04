@@ -31,9 +31,7 @@ void main() async {
   final serviceBridge = BridgedClass(
     nativeType: DataService,
     name: 'DataService',
-    constructors: {
-      '': (visitor, positionalArgs, namedArgs) => DataService(),
-    },
+    constructors: {'': (visitor, positionalArgs, namedArgs) => DataService()},
     methods: {
       'fetchData': (visitor, target, positionalArgs, namedArgs, typeArgs) {
         if (positionalArgs.length == 1 && positionalArgs[0] is String) {
@@ -50,7 +48,9 @@ void main() async {
       },
       'logMessage': (visitor, target, positionalArgs, namedArgs, typeArgs) {
         if (positionalArgs.length == 1 && positionalArgs[0] is String) {
-          return (target as DataService).logMessage(positionalArgs[0] as String);
+          return (target as DataService).logMessage(
+            positionalArgs[0] as String,
+          );
         }
         throw ArgumentError('logMessage expects a String');
       },

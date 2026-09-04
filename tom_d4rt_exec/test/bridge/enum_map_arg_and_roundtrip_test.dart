@@ -45,8 +45,7 @@ class _AuthRegistry {
 
   static void register(String role, _Auth state) => _roles[role] = state;
 
-  static void registerAll(Map<String, _Auth> mapping) =>
-      _roles.addAll(mapping);
+  static void registerAll(Map<String, _Auth> mapping) => _roles.addAll(mapping);
 
   static _Auth? stateFor(String role) => _roles[role];
 
@@ -70,9 +69,7 @@ void main() {
       BridgedEnumDefinition<_Auth>(
         name: 'Auth',
         values: _Auth.values,
-        getters: {
-          'label': (visitor, target) => (target as _Auth).label,
-        },
+        getters: {'label': (visitor, target) => (target as _Auth).label},
       ),
       'package:test/auth.dart',
     );
@@ -83,42 +80,53 @@ void main() {
       staticMethods: {
         'register': (visitor, positional, named, typeArgs) {
           final role = D4.getRequiredArg<String>(
-              positional, 0, 'role', 'register');
-          final state =
-              D4.getRequiredArg<_Auth>(positional, 1, 'state', 'register');
+            positional,
+            0,
+            'role',
+            'register',
+          );
+          final state = D4.getRequiredArg<_Auth>(
+            positional,
+            1,
+            'state',
+            'register',
+          );
           _AuthRegistry.register(role, state);
           return null;
         },
         // Mirrors the generated bridge: `coerceMap<String, _Auth>` is the exact
         // call that threw on BridgedEnumValue map values before the RCC7 fix.
         'registerAll': (visitor, positional, named, typeArgs) {
-          final mapping =
-              D4.coerceMap<String, _Auth>(positional[0], 'mapping');
+          final mapping = D4.coerceMap<String, _Auth>(positional[0], 'mapping');
           _AuthRegistry.registerAll(mapping);
           return null;
         },
         'stateFor': (visitor, positional, named, typeArgs) {
           final role = D4.getRequiredArg<String>(
-              positional, 0, 'role', 'stateFor');
+            positional,
+            0,
+            'role',
+            'stateFor',
+          );
           return _AuthRegistry.stateFor(role);
         },
       },
-      staticGetters: {
-        'ownerState': (visitor) => _AuthRegistry.ownerState,
-      },
+      staticGetters: {'ownerState': (visitor) => _AuthRegistry.ownerState},
     );
     interpreter.registerBridgedClass(registry, 'package:test/auth.dart');
   });
 
   group('RCC7 (a): Map<String, Enum> argument coercion', () {
     test('registerAll converts a script Map of bridged-enum values', () {
-      final result = interpreter.execute(source: '''
+      final result = interpreter.execute(
+        source: '''
         import 'package:test/auth.dart';
         main() {
           AuthRegistry.registerAll({'owner': Auth.full, 'guest': Auth.none});
           return AuthRegistry.stateFor('owner').name;
         }
-      ''');
+      ''',
+      );
       expect(result, equals('full'));
       // The native map really received native enum values.
       expect(_AuthRegistry.stateFor('owner'), _Auth.full);
@@ -126,69 +134,83 @@ void main() {
     });
 
     test('registerAll and single register agree on the native value', () {
-      interpreter.execute(source: '''
+      interpreter.execute(
+        source: '''
         import 'package:test/auth.dart';
         main() {
           AuthRegistry.register('a', Auth.read);
           AuthRegistry.registerAll({'b': Auth.read});
         }
-      ''');
+      ''',
+      );
       expect(_AuthRegistry.stateFor('a'), _AuthRegistry.stateFor('b'));
     });
   });
 
   group('RCC7 (b): native-stored enum round-trip', () {
-    test('stored-then-returned enum (static method) equals the enum literal',
-        () {
-      final result = interpreter.execute(source: '''
+    test(
+      'stored-then-returned enum (static method) equals the enum literal',
+      () {
+        final result = interpreter.execute(
+          source: '''
         import 'package:test/auth.dart';
         main() {
           AuthRegistry.register('owner', Auth.full);
           var s = AuthRegistry.stateFor('owner');
           return s == Auth.full;
         }
-      ''');
-      expect(result, isTrue);
-    });
+      ''',
+        );
+        expect(result, isTrue);
+      },
+    );
 
     // Static getters return through `wrapNativeReturnValue`; this is the path
     // that wrapped the native enum as a generic BridgedInstance before the
     // RCC7 fix, so `== Auth.full` was false and callers fell back to `.name`.
-    test('stored-then-returned enum (static getter) equals the enum literal',
-        () {
-      final result = interpreter.execute(source: '''
+    test(
+      'stored-then-returned enum (static getter) equals the enum literal',
+      () {
+        final result = interpreter.execute(
+          source: '''
         import 'package:test/auth.dart';
         main() {
           AuthRegistry.register('owner', Auth.full);
           return AuthRegistry.ownerState == Auth.full;
         }
-      ''');
-      expect(result, isTrue);
-    });
+      ''',
+        );
+        expect(result, isTrue);
+      },
+    );
 
     test('round-tripped enum (static getter) is distinguishable from other '
         'constants', () {
-      final result = interpreter.execute(source: '''
+      final result = interpreter.execute(
+        source: '''
         import 'package:test/auth.dart';
         main() {
           AuthRegistry.registerAll({'owner': Auth.full});
           var s = AuthRegistry.ownerState;
           return [s == Auth.full, s == Auth.none, s != Auth.read];
         }
-      ''');
+      ''',
+      );
       expect(result, equals([true, false, true]));
     });
 
     // A bridged custom getter is only resolvable on a BridgedEnumValue. If the
     // static-getter return leaks a raw native enum (gap b), `.label` throws.
     test('bridged custom getter resolves on a returned enum', () {
-      final result = interpreter.execute(source: '''
+      final result = interpreter.execute(
+        source: '''
         import 'package:test/auth.dart';
         main() {
           AuthRegistry.register('owner', Auth.full);
           return AuthRegistry.ownerState.label;
         }
-      ''');
+      ''',
+      );
       expect(result, equals('Full access'));
     });
   });

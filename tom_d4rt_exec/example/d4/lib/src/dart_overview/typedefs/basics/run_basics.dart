@@ -128,9 +128,7 @@ void main() {
   print('');
   print('--- Typedefs with Classes ---');
 
-  var processor = DataProcessor<int, String>(
-    (input) => 'Processed: $input',
-  );
+  var processor = DataProcessor<int, String>((input) => 'Processed: $input');
   print('Result: ${processor.process(42)}');
 
   var validator = Validator<String>(

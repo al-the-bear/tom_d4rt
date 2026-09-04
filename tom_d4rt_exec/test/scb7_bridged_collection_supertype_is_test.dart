@@ -65,7 +65,8 @@ void main() {
   /// Evaluates `<expr> is <target>` in interpreted code.
   bool isCheck(String expr, String target) {
     final result = d4rt.execute(
-      source: '''
+      source:
+          '''
         import 'dart:collection';
         main() {
           final x = $expr;
@@ -73,41 +74,51 @@ void main() {
         }
       ''',
     );
-    expect(result, isA<bool>(),
-        reason: '`$expr is $target` did not evaluate to a bool');
+    expect(
+      result,
+      isA<bool>(),
+      reason: '`$expr is $target` did not evaluate to a bool',
+    );
     return result as bool;
   }
 
   void expectIs(String expr, String target, {required bool expected}) {
-    expect(isCheck(expr, target), expected,
-        reason: '`$expr is $target` should be $expected');
+    expect(
+      isCheck(expr, target),
+      expected,
+      reason: '`$expr is $target` should be $expected',
+    );
   }
 
   group('SCB7: bridged collection supertype `is` checks', () {
-    test('F-SCB7-1: every bridged map subtype answers `is Map` [2026-07-28]',
-        () {
-      for (final expr in [
-        'HashMap<String, int>()',
-        'LinkedHashMap<String, int>()',
-        'SplayTreeMap<String, int>()',
-        "UnmodifiableMapView({'a': 1})",
-        "Map.unmodifiable({'a': 1})",
-      ]) {
-        expectIs(expr, 'Map', expected: true);
-      }
-    });
+    test(
+      'F-SCB7-1: every bridged map subtype answers `is Map` [2026-07-28]',
+      () {
+        for (final expr in [
+          'HashMap<String, int>()',
+          'LinkedHashMap<String, int>()',
+          'SplayTreeMap<String, int>()',
+          "UnmodifiableMapView({'a': 1})",
+          "Map.unmodifiable({'a': 1})",
+        ]) {
+          expectIs(expr, 'Map', expected: true);
+        }
+      },
+    );
 
-    test('F-SCB7-2: every bridged set subtype answers `is Set` [2026-07-28]',
-        () {
-      for (final expr in [
-        'HashSet<int>()',
-        'LinkedHashSet<int>()',
-        'SplayTreeSet<int>()',
-        'UnmodifiableSetView({1})',
-      ]) {
-        expectIs(expr, 'Set', expected: true);
-      }
-    });
+    test(
+      'F-SCB7-2: every bridged set subtype answers `is Set` [2026-07-28]',
+      () {
+        for (final expr in [
+          'HashSet<int>()',
+          'LinkedHashSet<int>()',
+          'SplayTreeSet<int>()',
+          'UnmodifiableSetView({1})',
+        ]) {
+          expectIs(expr, 'Set', expected: true);
+        }
+      },
+    );
 
     test('F-SCB7-3: UnmodifiableListView answers `is List` [2026-07-28]', () {
       expectIs('UnmodifiableListView([1, 2, 3])', 'List', expected: true);
@@ -160,12 +171,21 @@ void main() {
       // Normalising the operand must keep those reachable rather than route
       // shape checks away from them.
       expectIs('UnmodifiableListView([1, 2, 3])', 'List<int>', expected: true);
-      expectIs('UnmodifiableListView([1, 2, 3])', 'List<String>',
-          expected: false);
-      expectIs("UnmodifiableMapView({'a': 1})", 'Map<String, int>',
-          expected: true);
-      expectIs("UnmodifiableMapView({'a': 1})", 'Map<int, String>',
-          expected: false);
+      expectIs(
+        'UnmodifiableListView([1, 2, 3])',
+        'List<String>',
+        expected: false,
+      );
+      expectIs(
+        "UnmodifiableMapView({'a': 1})",
+        'Map<String, int>',
+        expected: true,
+      );
+      expectIs(
+        "UnmodifiableMapView({'a': 1})",
+        'Map<int, String>',
+        expected: false,
+      );
     });
 
     test('F-SCB7-8: native literals are unaffected [2026-07-28]', () {
@@ -181,8 +201,9 @@ void main() {
     });
 
     test('F-SCB7-9: `is!` is the exact negation [2026-07-28]', () {
-      final result = d4rt.execute(
-        source: '''
+      final result =
+          d4rt.execute(
+                source: '''
           import 'dart:collection';
           main() {
             final m = HashMap<String, int>();
@@ -190,7 +211,8 @@ void main() {
             return [m is! Map, m is! Set, s is! Iterable, s is! Map];
           }
         ''',
-      ) as List;
+              )
+              as List;
       expect(result, orderedEquals([false, true, false, true]));
     });
 
@@ -199,8 +221,9 @@ void main() {
       // The answer has to be usable, not merely correct: flow analysis promotes
       // the operand inside the branch, so the members of the supertype must be
       // reachable there.
-      final result = d4rt.execute(
-        source: '''
+      final result =
+          d4rt.execute(
+                source: '''
           import 'dart:collection';
           main() {
             Object? x = UnmodifiableSetView({1, 2, 3});
@@ -210,7 +233,8 @@ void main() {
             return null;
           }
         ''',
-      ) as List;
+              )
+              as List;
       expect(result, orderedEquals([3, true, 2]));
     });
 
@@ -220,8 +244,9 @@ void main() {
       // `visitIsExpression` — it has its own type switch and its own bridged
       // branch — so the two have to be checked independently. Before this fix
       // `on Iterable` missed a thrown bridged set that `x is Iterable` matched.
-      final result = d4rt.execute(
-        source: '''
+      final result =
+          d4rt.execute(
+                source: '''
           import 'dart:collection';
           String tryCatch(Object thrown) {
             try {
@@ -241,7 +266,8 @@ void main() {
             tryCatch(42),
           ];
         ''',
-      ) as List;
+              )
+              as List;
       expect(result, orderedEquals(['iterable', 'iterable', 'map', 'other']));
     });
   });

@@ -25,9 +25,9 @@ Object? execute(String code) {
 void main() {
   group('DFUB6: applied generic runtime types', () {
     test(
-        'F-DFUB6-5: applied type args preserved for `is` [2026-07-23] (RED)',
-        () {
-      const code = '''
+      'F-DFUB6-5: applied type args preserved for `is` [2026-07-23] (RED)',
+      () {
+        const code = '''
 class Box<T> {
   final T value;
   Box(this.value);
@@ -38,11 +38,11 @@ List main() {
   return [box is Box<int>, box is Box<num>, box is Box<String>];
 }
 ''';
-      expect(execute(code), equals([true, true, false]));
-    });
+        expect(execute(code), equals([true, true, false]));
+      },
+    );
 
-    test(
-        'F-DFUB6-6b: generic return validation throws on mismatch '
+    test('F-DFUB6-6b: generic return validation throws on mismatch '
         '[2026-07-23] (RED)', () {
       const code = '''
 class Box<T> {
@@ -60,15 +60,21 @@ int main() {
 }
 ''';
       expect(
-          () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-              (e) => e.message, 'message', contains("can't be returned"))));
+        () => execute(code),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.message,
+            'message',
+            contains("can't be returned"),
+          ),
+        ),
+      );
     });
 
     test(
-        'F-DFUB6-6c: matching generic return is allowed [2026-07-23] (RED)',
-        () {
-      const code = '''
+      'F-DFUB6-6c: matching generic return is allowed [2026-07-23] (RED)',
+      () {
+        const code = '''
 class Box<T> {
   final T value;
   Box(this.value);
@@ -83,11 +89,11 @@ int main() {
   return b.value;
 }
 ''';
-      expect(execute(code), equals(42));
-    });
+        expect(execute(code), equals(42));
+      },
+    );
 
-    test(
-        'F-DFUB6-7b: typed native collection return throws on mismatch '
+    test('F-DFUB6-7b: typed native collection return throws on mismatch '
         '[2026-07-23] (RED)', () {
       const code = '''
 List<String> numbers() {
@@ -100,13 +106,18 @@ int main() {
 }
 ''';
       expect(
-          () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-              (e) => e.message, 'message', contains("can't be returned"))));
+        () => execute(code),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.message,
+            'message',
+            contains("can't be returned"),
+          ),
+        ),
+      );
     });
 
-    test(
-        'F-DFUB6-7c: matching typed native collection return is allowed '
+    test('F-DFUB6-7c: matching typed native collection return is allowed '
         '[2026-07-23] (RED)', () {
       const code = '''
 List<int> numbers() {
@@ -121,8 +132,7 @@ int main() {
     });
 
     // Bound-constraint guard-rails (already pass — must stay passing).
-    test(
-        'F-DFUB6-B1: class bound `T extends num` rejects String '
+    test('F-DFUB6-B1: class bound `T extends num` rejects String '
         '[2026-07-23] (GREEN)', () {
       const code = '''
 class Box<T extends num> {
@@ -136,13 +146,18 @@ int main() {
 }
 ''';
       expect(
-          () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having((e) => e.message,
-              'message', contains('does not satisfy bound'))));
+        () => execute(code),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.message,
+            'message',
+            contains('does not satisfy bound'),
+          ),
+        ),
+      );
     });
 
-    test(
-        'F-DFUB6-B2: class bound `T extends num` accepts int '
+    test('F-DFUB6-B2: class bound `T extends num` accepts int '
         '[2026-07-23] (GREEN)', () {
       const code = '''
 class Box<T extends num> {
@@ -158,8 +173,7 @@ int main() {
       expect(execute(code), equals(42));
     });
 
-    test(
-        'F-DFUB6-B3: nested bound `T extends num` rejects String '
+    test('F-DFUB6-B3: nested bound `T extends num` rejects String '
         '[2026-07-23] (GREEN)', () {
       const code = '''
 class Box<T extends num> {
@@ -175,8 +189,7 @@ int main() {
       expect(() => execute(code), throwsA(isA<RuntimeD4rtException>()));
     });
 
-    test(
-        'F-DFUB6-B4: bound `T extends num` accepts double '
+    test('F-DFUB6-B4: bound `T extends num` accepts double '
         '[2026-07-23] (GREEN)', () {
       const code = '''
 class Box<T extends num> {

@@ -21,8 +21,7 @@ import '../../interpreter_test.dart' show execute;
 void main() {
   group('SCC11: static argument-validation helpers', () {
     group('RangeError.checkNotNegative', () {
-      test(
-          'F-SCC11-1: returns the value unchanged when it is not negative '
+      test('F-SCC11-1: returns the value unchanged when it is not negative '
           '[2026-09-04]', () {
         final result = execute('''
           main() {
@@ -192,19 +191,21 @@ void main() {
     });
 
     group('IndexError.check', () {
-      test('F-SCC11-13: returns the index when it is in range [2026-09-04]',
-          () {
-        // Note the *named* parameters — `IndexError.check` differs in shape
-        // from every `RangeError.check*` helper, which take positional
-        // optionals. A bridge that read them positionally would compile and
-        // then silently ignore them.
-        final result = execute('''
+      test(
+        'F-SCC11-13: returns the index when it is in range [2026-09-04]',
+        () {
+          // Note the *named* parameters — `IndexError.check` differs in shape
+          // from every `RangeError.check*` helper, which take positional
+          // optionals. A bridge that read them positionally would compile and
+          // then silently ignore them.
+          final result = execute('''
           main() {
             return IndexError.check(1, 3, indexable: [1, 2, 3], name: 'i');
           }
         ''');
-        expect(result, 1);
-      });
+          expect(result, 1);
+        },
+      );
 
       test('F-SCC11-14: throws a catchable IndexError out of range '
           '[2026-09-04]', () {
@@ -223,12 +224,14 @@ void main() {
         expect(result, 'IndexError');
       });
 
-      test('F-SCC11-15: the thrown IndexError is also catchable as a RangeError '
-          '[2026-09-04]', () {
-        // `IndexError implements RangeError` in the SDK, and SC5 registered
-        // that supertype edge. This asserts the helper's thrown value goes
-        // through the real bridge rather than being fabricated.
-        final result = execute('''
+      test(
+        'F-SCC11-15: the thrown IndexError is also catchable as a RangeError '
+        '[2026-09-04]',
+        () {
+          // `IndexError implements RangeError` in the SDK, and SC5 registered
+          // that supertype edge. This asserts the helper's thrown value goes
+          // through the real bridge rather than being fabricated.
+          final result = execute('''
           main() {
             try {
               IndexError.check(9, 3, message: 'oops');
@@ -240,8 +243,9 @@ void main() {
             }
           }
         ''');
-        expect(result, 'RangeError');
-      });
+          expect(result, 'RangeError');
+        },
+      );
     });
 
     group('Error.throwWithStackTrace', () {

@@ -34,10 +34,12 @@ void main() {
       // GAP 1. The loader's diagnostic is expected and actionable, so it must
       // survive execute() as its own type rather than being relabelled.
       expect(
-        () => D4rt().execute(source: '''
+        () => D4rt().execute(
+          source: '''
           import 'package:does_not_exist/foo.dart';
           int main() => 1;
-        '''),
+        ''',
+        ),
         throwsA(
           isA<SourceCodeD4rtException>().having(
             (e) => e.toString(),
@@ -53,10 +55,12 @@ void main() {
       // GAP 2. Landed in tom_d4rt by DFUB2; guarded here because DFUB13's whole
       // point is that this text is what GAP 1 was discarding.
       expect(
-        () => D4rt().execute(source: '''
+        () => D4rt().execute(
+          source: '''
           import 'package:does_not_exist/foo.dart';
           int main() => 1;
-        '''),
+        ''',
+        ),
         throwsA(
           isA<SourceCodeD4rtException>().having(
             (e) => e.toString(),
@@ -83,10 +87,12 @@ void main() {
       // which restates the target and leaks an internal URI at the user. The
       // wrap is skipped instead.
       expect(
-        () => D4rt().execute(source: '''
+        () => D4rt().execute(
+          source: '''
           import 'package:does_not_exist/foo.dart';
           int main() => 1;
-        '''),
+        ''',
+        ),
         throwsA(
           isA<SourceCodeD4rtException>().having(
             (e) => e.toString(),
@@ -175,7 +181,8 @@ void main() {
                 "import 'package:app/a.dart';\nint main() => 1;",
             'package:app/a.dart': "export 'package:app/b.dart';",
             'package:app/b.dart': "export 'package:app/c.dart';",
-            'package:app/c.dart': "import 'package:nope/deep.dart';\nint c() => 3;",
+            'package:app/c.dart':
+                "import 'package:nope/deep.dart';\nint c() => 3;",
           },
           source: '',
         );
@@ -184,11 +191,18 @@ void main() {
         message = e.toString();
       }
 
-      expect(message, contains('package:app/c.dart'),
-          reason: 'the innermost owner is the file with the bad directive');
-      expect('Failed to load'.allMatches(message).length, equals(1),
-          reason: 'one directive-context prefix, not one per frame in the '
-              'import chain. Got:\n$message');
+      expect(
+        message,
+        contains('package:app/c.dart'),
+        reason: 'the innermost owner is the file with the bad directive',
+      );
+      expect(
+        'Failed to load'.allMatches(message).length,
+        equals(1),
+        reason:
+            'one directive-context prefix, not one per frame in the '
+            'import chain. Got:\n$message',
+      );
     });
   });
 }

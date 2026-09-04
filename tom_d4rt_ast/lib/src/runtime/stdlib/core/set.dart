@@ -44,17 +44,20 @@ class SetCore {
       'castFrom': (visitor, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1) {
           throw RuntimeD4rtException(
-              'Set.castFrom(source) expects one positional argument.');
+            'Set.castFrom(source) expects one positional argument.',
+          );
         }
         if (namedArgs.isNotEmpty) {
           throw RuntimeD4rtException(
-              'Set.castFrom does not support the `newSet` argument: it is '
-              'a generic function, which interpreted code cannot express.');
+            'Set.castFrom does not support the `newSet` argument: it is '
+            'a generic function, which interpreted code cannot express.',
+          );
         }
         final source = positionalArgs[0];
         if (source is! Set) {
           throw RuntimeD4rtException(
-              'The argument to Set.castFrom must be a Set.');
+            'The argument to Set.castFrom must be a Set.',
+          );
         }
         return Set.castFrom<dynamic, dynamic>(source);
       },

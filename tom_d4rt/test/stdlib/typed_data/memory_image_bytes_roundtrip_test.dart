@@ -67,7 +67,8 @@ void main() {
       library: testLibPath,
       name: 'main',
       sources: {
-        testLibPath: '''
+        testLibPath:
+            '''
           import 'dart:typed_data';
           main() {
             return Uint8List.fromList(<int>[$literal]);
@@ -93,8 +94,7 @@ void main() {
       expect(out, orderedEquals(_validPngWhite));
     });
 
-    test(
-        'I-U29-3: D4.extractBridgedArg<Uint8List> (the MemoryImage ctor path) '
+    test('I-U29-3: D4.extractBridgedArg<Uint8List> (the MemoryImage ctor path) '
         'preserves bytes', () {
       final bytes = Uint8List.fromList(_malformedPngWhite);
       final extracted = D4.extractBridgedArg<Uint8List>(bytes, 'bytes');

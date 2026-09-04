@@ -63,46 +63,62 @@ void main() {
     if (sandbox.existsSync()) sandbox.deleteSync(recursive: true);
   });
 
-  Matcher throwsPermissionDenied() => throwsA(isA<RuntimeD4rtException>()
-      .having((e) => e.toString(), 'message',
-          contains('Filesystem permission denied')));
+  Matcher throwsPermissionDenied() => throwsA(
+    isA<RuntimeD4rtException>().having(
+      (e) => e.toString(),
+      'message',
+      contains('Filesystem permission denied'),
+    ),
+  );
 
   group('DFUB11: per-operation filesystem permission enforcement', () {
-    test('F-DFUB11-1: scoped read is allowed inside its scope [2026-07-27]',
-        () {
-      final d4rt = D4rt()..grant(FilesystemPermission.readPath(allowedPath));
-      expect(
-        d4rt.execute(source: '''
+    test(
+      'F-DFUB11-1: scoped read is allowed inside its scope [2026-07-27]',
+      () {
+        final d4rt = D4rt()..grant(FilesystemPermission.readPath(allowedPath));
+        expect(
+          d4rt.execute(
+            source:
+                '''
           import 'dart:io';
           String main() => File('$allowedPath/inside.txt').readAsStringSync();
-        '''),
-        equals('inside'),
-      );
-    });
-
-    test('F-DFUB11-2: scoped read is denied outside its scope [2026-07-27]',
-        () {
-      final d4rt = D4rt()..grant(FilesystemPermission.readPath(allowedPath));
-      expect(
-        () => d4rt.execute(source: '''
-          import 'dart:io';
-          String main() => File('$outsidePath/secret.txt').readAsStringSync();
-        '''),
-        throwsPermissionDenied(),
-      );
-    });
+        ''',
+          ),
+          equals('inside'),
+        );
+      },
+    );
 
     test(
-        'F-DFUB11-3: a sibling sharing the scope prefix is outside the scope '
+      'F-DFUB11-2: scoped read is denied outside its scope [2026-07-27]',
+      () {
+        final d4rt = D4rt()..grant(FilesystemPermission.readPath(allowedPath));
+        expect(
+          () => d4rt.execute(
+            source:
+                '''
+          import 'dart:io';
+          String main() => File('$outsidePath/secret.txt').readAsStringSync();
+        ''',
+          ),
+          throwsPermissionDenied(),
+        );
+      },
+    );
+
+    test('F-DFUB11-3: a sibling sharing the scope prefix is outside the scope '
         '[2026-07-27]', () {
       // dgub4's case: `<tmp>/allowed_sneaky` starts with `<tmp>/allowed` as a
       // STRING but is not under it as a PATH.
       final d4rt = D4rt()..grant(FilesystemPermission.readPath(allowedPath));
       expect(
-        () => d4rt.execute(source: '''
+        () => d4rt.execute(
+          source:
+              '''
           import 'dart:io';
           String main() => File('$siblingPath/sneaky.txt').readAsStringSync();
-        '''),
+        ''',
+        ),
         throwsPermissionDenied(),
       );
     });
@@ -110,11 +126,14 @@ void main() {
     test('F-DFUB11-4: `..` traversal cannot escape the scope [2026-07-27]', () {
       final d4rt = D4rt()..grant(FilesystemPermission.readPath(allowedPath));
       expect(
-        () => d4rt.execute(source: '''
+        () => d4rt.execute(
+          source:
+              '''
           import 'dart:io';
           String main() =>
               File('$allowedPath/../top_secret.txt').readAsStringSync();
-        '''),
+        ''',
+        ),
         throwsPermissionDenied(),
       );
     });
@@ -122,12 +141,15 @@ void main() {
     test('F-DFUB11-5: read grant does not authorize a write [2026-07-27]', () {
       final d4rt = D4rt()..grant(FilesystemPermission.readPath(allowedPath));
       expect(
-        () => d4rt.execute(source: '''
+        () => d4rt.execute(
+          source:
+              '''
           import 'dart:io';
           void main() {
             File('$allowedPath/new.txt').writeAsStringSync('nope');
           }
-        '''),
+        ''',
+        ),
         throwsPermissionDenied(),
       );
     });
@@ -136,22 +158,30 @@ void main() {
         '[2026-07-27]', () {
       final d4rt = D4rt()..grant(FilesystemPermission.writePath(allowedPath));
 
-      d4rt.execute(source: '''
+      d4rt.execute(
+        source:
+            '''
         import 'dart:io';
         void main() {
           File('$allowedPath/written.txt').writeAsStringSync('ok');
         }
-      ''');
-      expect(io.File('$allowedPath/written.txt').readAsStringSync(),
-          equals('ok'));
+      ''',
+      );
+      expect(
+        io.File('$allowedPath/written.txt').readAsStringSync(),
+        equals('ok'),
+      );
 
       expect(
-        () => d4rt.execute(source: '''
+        () => d4rt.execute(
+          source:
+              '''
           import 'dart:io';
           void main() {
             File('$outsidePath/written.txt').writeAsStringSync('nope');
           }
-        '''),
+        ''',
+        ),
         throwsPermissionDenied(),
       );
     });
@@ -160,87 +190,109 @@ void main() {
       final d4rt = D4rt()..grant(FilesystemPermission.readPath(allowedPath));
 
       expect(
-        d4rt.execute(source: '''
+        d4rt.execute(
+          source:
+              '''
           import 'dart:io';
           int main() => Directory('$allowedPath').listSync().length;
-        '''),
+        ''',
+        ),
         equals(1),
       );
 
       expect(
-        () => d4rt.execute(source: '''
+        () => d4rt.execute(
+          source:
+              '''
           import 'dart:io';
           int main() => Directory('$outsidePath').listSync().length;
-        '''),
+        ''',
+        ),
         throwsPermissionDenied(),
       );
     });
 
-    test('F-DFUB11-8: existsSync is a read and is scope-checked [2026-07-27]',
-        () {
-      final d4rt = D4rt()..grant(FilesystemPermission.readPath(allowedPath));
+    test(
+      'F-DFUB11-8: existsSync is a read and is scope-checked [2026-07-27]',
+      () {
+        final d4rt = D4rt()..grant(FilesystemPermission.readPath(allowedPath));
 
-      expect(
-        d4rt.execute(source: '''
+        expect(
+          d4rt.execute(
+            source:
+                '''
           import 'dart:io';
           bool main() => File('$allowedPath/inside.txt').existsSync();
-        '''),
-        isTrue,
-      );
+        ''',
+          ),
+          isTrue,
+        );
 
-      expect(
-        () => d4rt.execute(source: '''
+        expect(
+          () => d4rt.execute(
+            source:
+                '''
           import 'dart:io';
           bool main() => File('$outsidePath/secret.txt').existsSync();
-        '''),
-        throwsPermissionDenied(),
-      );
-    });
+        ''',
+          ),
+          throwsPermissionDenied(),
+        );
+      },
+    );
 
-    test('F-DFUB11-9: deleteSync is a write and is scope-checked [2026-07-27]',
-        () {
-      final d4rt = D4rt()..grant(FilesystemPermission.writePath(allowedPath));
-      expect(
-        () => d4rt.execute(source: '''
+    test(
+      'F-DFUB11-9: deleteSync is a write and is scope-checked [2026-07-27]',
+      () {
+        final d4rt = D4rt()..grant(FilesystemPermission.writePath(allowedPath));
+        expect(
+          () => d4rt.execute(
+            source:
+                '''
           import 'dart:io';
           void main() {
             File('$outsidePath/secret.txt').deleteSync();
           }
-        '''),
-        throwsPermissionDenied(),
-      );
-      // The denial must happen BEFORE the operation, not after.
-      expect(io.File('$outsidePath/secret.txt').existsSync(), isTrue);
-    });
+        ''',
+          ),
+          throwsPermissionDenied(),
+        );
+        // The denial must happen BEFORE the operation, not after.
+        expect(io.File('$outsidePath/secret.txt').existsSync(), isTrue);
+      },
+    );
 
-    test(
-        'F-DFUB11-10: `copy` needs read on the source AND write on the target '
+    test('F-DFUB11-10: `copy` needs read on the source AND write on the target '
         '[2026-07-27]', () {
       final d4rt = D4rt()..grant(FilesystemPermission.path(allowedPath));
       expect(
-        () => d4rt.execute(source: '''
+        () => d4rt.execute(
+          source:
+              '''
           import 'dart:io';
           void main() {
             File('$allowedPath/inside.txt').copySync('$outsidePath/copy.txt');
           }
-        '''),
+        ''',
+        ),
         throwsPermissionDenied(),
       );
       expect(io.File('$outsidePath/copy.txt').existsSync(), isFalse);
     });
 
-    test(
-        'F-DFUB11-11: a SCOPED grant still admits the dart:io import '
+    test('F-DFUB11-11: a SCOPED grant still admits the dart:io import '
         '[2026-07-27]', () {
       // The import gate asks for "some filesystem permission" with no path.
       // Tightening the matcher must not turn every scoped grant into a
       // `dart:io` denial — the gate is path-agnostic by construction.
       final d4rt = D4rt()..grant(FilesystemPermission.readPath(allowedPath));
       expect(
-        d4rt.execute(source: '''
+        d4rt.execute(
+          source: '''
           import 'dart:io';
           int main() => 42;
-        '''),
+        ''',
+        ),
         equals(42),
       );
     });
@@ -250,10 +302,13 @@ void main() {
       // pre-existing test in the suite relies on.
       final d4rt = D4rt()..grant(FilesystemPermission.any);
       expect(
-        d4rt.execute(source: '''
+        d4rt.execute(
+          source:
+              '''
           import 'dart:io';
           String main() => File('$outsidePath/secret.txt').readAsStringSync();
-        '''),
+        ''',
+        ),
         equals('secret'),
       );
     });
@@ -273,8 +328,11 @@ void main() {
       expect(canRead('/allowed/'), isTrue, reason: 'trailing slash is noise');
       expect(canRead('/allowed/./file.txt'), isTrue, reason: '`.` is noise');
 
-      expect(canRead('/allowed_sneaky/file.txt'), isFalse,
-          reason: 'shares the string prefix but not the path prefix');
+      expect(
+        canRead('/allowed_sneaky/file.txt'),
+        isFalse,
+        reason: 'shares the string prefix but not the path prefix',
+      );
       expect(canRead('/allowedx'), isFalse);
       expect(canRead('/other/file.txt'), isFalse);
     });
@@ -302,8 +360,11 @@ void main() {
         reason: 'no meaningful path — e.g. the dart:io import gate',
       );
       expect(
-        readOnly.allows(
-            {'type': 'filesystem', 'pathAgnostic': true, 'write': true}),
+        readOnly.allows({
+          'type': 'filesystem',
+          'pathAgnostic': true,
+          'write': true,
+        }),
         isFalse,
         reason: 'pathAgnostic waives the PATH check, never the WRITE flag',
       );
@@ -314,8 +375,9 @@ void main() {
       // Not path-agnostic and no path supplied: the matcher cannot prove the
       // operation is in scope, so it must deny rather than assume.
       expect(
-        FilesystemPermission.readPath('/allowed')
-            .allows({'type': 'filesystem', 'read': true}),
+        FilesystemPermission.readPath(
+          '/allowed',
+        ).allows({'type': 'filesystem', 'read': true}),
         isFalse,
       );
       // An unscoped grant is unaffected.

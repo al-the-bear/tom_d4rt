@@ -115,11 +115,7 @@ class CallbackHolder {
   final ProgressCallback? onProgress;
   final FilterPredicate? filter;
 
-  CallbackHolder({
-    this.onReady,
-    this.onProgress,
-    this.filter,
-  });
+  CallbackHolder({this.onReady, this.onProgress, this.filter});
 
   void initialize() {
     onReady?.call();

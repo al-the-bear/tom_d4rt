@@ -37,9 +37,14 @@ void main() {
         name: 'Box',
         constructors: {
           // Plain (non-generic) fallback constructor.
-          '': (InterpreterVisitor visitor, List<Object?> positionalArgs,
-                  Map<String, Object?> namedArgs) =>
-              _UsageBox<Object?>(positionalArgs.isEmpty ? null : positionalArgs[0]),
+          '':
+              (
+                InterpreterVisitor visitor,
+                List<Object?> positionalArgs,
+                Map<String, Object?> namedArgs,
+              ) => _UsageBox<Object?>(
+                positionalArgs.isEmpty ? null : positionalArgs[0],
+              ),
         },
         getters: {
           'value': (InterpreterVisitor? visitor, Object target) =>
@@ -47,15 +52,18 @@ void main() {
         },
       );
       interpreter.registerBridgedClass(
-          boxDefinition, 'package:test/usage_box.dart');
+        boxDefinition,
+        'package:test/usage_box.dart',
+      );
 
       // RC-2: register the generic constructor factory the interpreter
       // consults when the construction carries type arguments.
       D4.registerGenericConstructor(
         'Box',
         '',
-        (visitor, positionalArgs, namedArgs, typeArgs) =>
-            _UsageBox<Object?>(positionalArgs.isEmpty ? null : positionalArgs[0]),
+        (visitor, positionalArgs, namedArgs, typeArgs) => _UsageBox<Object?>(
+          positionalArgs.isEmpty ? null : positionalArgs[0],
+        ),
       );
 
       const source = '''
@@ -71,10 +79,14 @@ void main() {
 
       // The ctor instrumentation must have recorded a hit for the Box ctor.
       expect(D4.usageHitCount, greaterThan(0));
-      final ctorKeys =
-          D4.usageHits.keys.where((k) => k.startsWith('ctor|Box|'));
-      expect(ctorKeys, isNotEmpty,
-          reason: 'expected a ctor|Box|… hit, got ${D4.usageHits.keys}');
+      final ctorKeys = D4.usageHits.keys.where(
+        (k) => k.startsWith('ctor|Box|'),
+      );
+      expect(
+        ctorKeys,
+        isNotEmpty,
+        reason: 'expected a ctor|Box|… hit, got ${D4.usageHits.keys}',
+      );
 
       // The end-of-run summary reflects the recorded hit.
       final summary = D4.usageLogSummary();

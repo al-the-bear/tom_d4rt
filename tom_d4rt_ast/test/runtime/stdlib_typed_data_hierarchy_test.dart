@@ -40,25 +40,29 @@ void main() {
   /// The eleven list views, each with a native instance to feed `isSubtypeOf`
   /// — the value matters, because the `isAssignable` fallback consults it.
   Map<String, TypedData> views() => <String, TypedData>{
-        'Uint8List': Uint8List.fromList([1, 2, 3]),
-        'Uint8ClampedList': Uint8ClampedList.fromList([1, 2, 3]),
-        'Uint16List': Uint16List.fromList([1, 2, 3]),
-        'Uint32List': Uint32List.fromList([1, 2, 3]),
-        'Uint64List': Uint64List.fromList([1, 2, 3]),
-        'Int8List': Int8List.fromList([1, 2, 3]),
-        'Int16List': Int16List.fromList([1, 2, 3]),
-        'Int32List': Int32List.fromList([1, 2, 3]),
-        'Int64List': Int64List.fromList([1, 2, 3]),
-        'Float32List': Float32List.fromList([1.0, 2.0]),
-        'Float64List': Float64List.fromList([1.0, 2.0]),
-      };
+    'Uint8List': Uint8List.fromList([1, 2, 3]),
+    'Uint8ClampedList': Uint8ClampedList.fromList([1, 2, 3]),
+    'Uint16List': Uint16List.fromList([1, 2, 3]),
+    'Uint32List': Uint32List.fromList([1, 2, 3]),
+    'Uint64List': Uint64List.fromList([1, 2, 3]),
+    'Int8List': Int8List.fromList([1, 2, 3]),
+    'Int16List': Int16List.fromList([1, 2, 3]),
+    'Int32List': Int32List.fromList([1, 2, 3]),
+    'Int64List': Int64List.fromList([1, 2, 3]),
+    'Float32List': Float32List.fromList([1.0, 2.0]),
+    'Float64List': Float64List.fromList([1.0, 2.0]),
+  };
 
   group('SCB20: the TypedData root is bridged', () {
     test('F-SCB20-AST-1: TypedData is registered as a bridge [2026-07-28]', () {
       final bridge = env.findBridgedClassByName('TypedData');
-      expect(bridge, isNotNull,
-          reason: 'without this bridge `is TypedData` throws '
-              '"Undefined variable: TypedData" instead of answering');
+      expect(
+        bridge,
+        isNotNull,
+        reason:
+            'without this bridge `is TypedData` throws '
+            '"Undefined variable: TypedData" instead of answering',
+      );
       expect(bridge!.nativeType, equals(TypedData));
     });
 
@@ -88,17 +92,19 @@ void main() {
   });
 
   group('SCB20: supertype edges resolve through isSubtypeOf', () {
-    test('F-SCB20-AST-4: every view is a subtype of TypedData [2026-07-28]',
-        () {
-      final typedData = bridgeNamed('TypedData');
-      for (final entry in views().entries) {
-        expect(
-          bridgeNamed(entry.key).isSubtypeOf(typedData, value: entry.value),
-          isTrue,
-          reason: '${entry.key} implements TypedData',
-        );
-      }
-    });
+    test(
+      'F-SCB20-AST-4: every view is a subtype of TypedData [2026-07-28]',
+      () {
+        final typedData = bridgeNamed('TypedData');
+        for (final entry in views().entries) {
+          expect(
+            bridgeNamed(entry.key).isSubtypeOf(typedData, value: entry.value),
+            isTrue,
+            reason: '${entry.key} implements TypedData',
+          );
+        }
+      },
+    );
 
     test('F-SCB20-AST-5: every view is a subtype of Iterable [2026-07-28]', () {
       // The edge that had to be declared: `Iterable`'s bridge carries no
@@ -130,19 +136,28 @@ void main() {
       }
     });
 
-    test('F-SCB20-AST-7: ByteData is a TypedData but not a List [2026-07-28]',
-        () {
-      // ByteData is the member of the hierarchy that is not a list, so it is
-      // the case that proves these are real edges rather than the List
-      // fallback in disguise.
-      final byteData = bridgeNamed('ByteData');
-      final value = ByteData(8);
-      expect(byteData.isSubtypeOf(bridgeNamed('TypedData'), value: value),
-          isTrue);
-      expect(byteData.isSubtypeOf(bridgeNamed('List'), value: value), isFalse);
-      expect(
-          byteData.isSubtypeOf(bridgeNamed('Iterable'), value: value), isFalse);
-    });
+    test(
+      'F-SCB20-AST-7: ByteData is a TypedData but not a List [2026-07-28]',
+      () {
+        // ByteData is the member of the hierarchy that is not a list, so it is
+        // the case that proves these are real edges rather than the List
+        // fallback in disguise.
+        final byteData = bridgeNamed('ByteData');
+        final value = ByteData(8);
+        expect(
+          byteData.isSubtypeOf(bridgeNamed('TypedData'), value: value),
+          isTrue,
+        );
+        expect(
+          byteData.isSubtypeOf(bridgeNamed('List'), value: value),
+          isFalse,
+        );
+        expect(
+          byteData.isSubtypeOf(bridgeNamed('Iterable'), value: value),
+          isFalse,
+        );
+      },
+    );
 
     test('F-SCB20-AST-8: ByteBuffer and BytesBuilder are not TypedData '
         '[2026-07-28]', () {
@@ -150,19 +165,23 @@ void main() {
       // they belong in this hierarchy; neither implements the interface.
       final typedData = bridgeNamed('TypedData');
       final buffer = Uint8List.fromList([1, 2]).buffer;
-      expect(bridgeNamed('ByteBuffer').isSubtypeOf(typedData, value: buffer),
-          isFalse);
       expect(
-        bridgeNamed('BytesBuilder')
-            .isSubtypeOf(typedData, value: BytesBuilder()),
+        bridgeNamed('ByteBuffer').isSubtypeOf(typedData, value: buffer),
+        isFalse,
+      );
+      expect(
+        bridgeNamed(
+          'BytesBuilder',
+        ).isSubtypeOf(typedData, value: BytesBuilder()),
         isFalse,
       );
     });
 
     test('F-SCB20-AST-9: a plain List is not a TypedData [2026-07-28]', () {
       expect(
-        bridgeNamed('List')
-            .isSubtypeOf(bridgeNamed('TypedData'), value: <int>[1, 2, 3]),
+        bridgeNamed(
+          'List',
+        ).isSubtypeOf(bridgeNamed('TypedData'), value: <int>[1, 2, 3]),
         isFalse,
       );
     });

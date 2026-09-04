@@ -85,27 +85,37 @@ class LibraryBridgeDefinition {
     // Check for duplicate names
     for (final name in other.classes.keys) {
       if (classes.containsKey(name)) {
-        throw StateD4rtException('Duplicate class "$name" in library $canonicalUri');
+        throw StateD4rtException(
+          'Duplicate class "$name" in library $canonicalUri',
+        );
       }
     }
     for (final name in other.functions.keys) {
       if (functions.containsKey(name)) {
-        throw StateD4rtException('Duplicate function "$name" in library $canonicalUri');
+        throw StateD4rtException(
+          'Duplicate function "$name" in library $canonicalUri',
+        );
       }
     }
     for (final name in other.variables.keys) {
       if (variables.containsKey(name)) {
-        throw StateD4rtException('Duplicate variable "$name" in library $canonicalUri');
+        throw StateD4rtException(
+          'Duplicate variable "$name" in library $canonicalUri',
+        );
       }
     }
     for (final name in other.getters.keys) {
       if (getters.containsKey(name)) {
-        throw StateD4rtException('Duplicate getter "$name" in library $canonicalUri');
+        throw StateD4rtException(
+          'Duplicate getter "$name" in library $canonicalUri',
+        );
       }
     }
     for (final name in other.enums.keys) {
       if (enums.containsKey(name)) {
-        throw StateD4rtException('Duplicate enum "$name" in library $canonicalUri');
+        throw StateD4rtException(
+          'Duplicate enum "$name" in library $canonicalUri',
+        );
       }
     }
 

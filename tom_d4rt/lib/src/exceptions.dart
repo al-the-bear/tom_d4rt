@@ -143,13 +143,15 @@ class ErrorReporter {
   /// Returns a formatted string with all reported errors.
   static String get report {
     if (_errors.isEmpty) return 'No errors reported.';
-    return _errors.map((e) {
-      final stackTrace = e.trackedStackTrace;
-      if (stackTrace != null) {
-        return '$e\nStack trace:\n$stackTrace';
-      }
-      return e.toString();
-    }).join('\n\n');
+    return _errors
+        .map((e) {
+          final stackTrace = e.trackedStackTrace;
+          if (stackTrace != null) {
+            return '$e\nStack trace:\n$stackTrace';
+          }
+          return e.toString();
+        })
+        .join('\n\n');
   }
 
   /// Returns a formatted string with all reported errors (without stack traces).
@@ -253,8 +255,11 @@ class RuntimeD4rtException extends D4rtException {
   /// [originalException] is supplied, the wrapped native exception stays
   /// catchable by type; supply [originalStackTrace] from the same `catch`
   /// clause so the trace survives the wrapping too.
-  RuntimeD4rtException(super.message,
-      {this.originalException, this.originalStackTrace});
+  RuntimeD4rtException(
+    super.message, {
+    this.originalException,
+    this.originalStackTrace,
+  });
 
   @override
   String toString() => 'Runtime Error: $message';
@@ -284,18 +289,24 @@ class AmbiguousBridgedNameException extends D4rtException {
 
   /// Creates the ambiguity error for [name] over [candidatesByQualifier].
   AmbiguousBridgedNameException(this.name, this.candidatesByQualifier)
-      : super(_buildMessage(name, candidatesByQualifier));
+    : super(_buildMessage(name, candidatesByQualifier));
 
   static String _buildMessage(
-      String name, Map<String, String> candidatesByQualifier) {
+    String name,
+    Map<String, String> candidatesByQualifier,
+  ) {
     final buffer = StringBuffer()
-      ..write("The name '$name' is declared by more than one library in "
-          "scope, so it cannot be used unqualified. Candidates:");
+      ..write(
+        "The name '$name' is declared by more than one library in "
+        "scope, so it cannot be used unqualified. Candidates:",
+      );
     candidatesByQualifier.forEach((qualifier, sourceUri) {
       buffer.write("\n  $qualifier.$name  ($sourceUri)");
     });
-    buffer.write("\nQualify the reference with the package name shown above, "
-        "e.g. '${candidatesByQualifier.keys.first}.$name'.");
+    buffer.write(
+      "\nQualify the reference with the package name shown above, "
+      "e.g. '${candidatesByQualifier.keys.first}.$name'.",
+    );
     return buffer.toString();
   }
 
@@ -443,15 +454,19 @@ D4rtException wrapDirectiveError(
       'Failed to load $directiveType "$targetUri" from module "$ownerUri": '
       '${error.message}';
   final D4rtException? wrapped = switch (error) {
-    SourceCodeD4rtException e =>
-      SourceCodeD4rtException(message, e.problematicCode),
+    SourceCodeD4rtException e => SourceCodeD4rtException(
+      message,
+      e.problematicCode,
+    ),
     // The trace is forwarded alongside the value: this function reconstructs
     // the exception rather than mutating it, so anything it forgets to copy is
     // silently lost, and a bridged throw inside an imported module is exactly
     // the case where the trace is worth most.
-    RuntimeD4rtException e => RuntimeD4rtException(message,
-        originalException: e.originalException,
-        originalStackTrace: e.originalStackTrace),
+    RuntimeD4rtException e => RuntimeD4rtException(
+      message,
+      originalException: e.originalException,
+      originalStackTrace: e.originalStackTrace,
+    ),
     _ => null,
   };
   // An unreconstructable type is returned untouched AND unflagged, so an outer
@@ -474,7 +489,7 @@ class InternalInterpreterD4rtException extends D4rtException {
 
   /// Creates a new internal interpreter exception wrapping the original thrown value.
   InternalInterpreterD4rtException(this.originalThrownValue)
-      : super('External error caught by interpreter');
+    : super('External error caught by interpreter');
 
   @override
   String toString() {

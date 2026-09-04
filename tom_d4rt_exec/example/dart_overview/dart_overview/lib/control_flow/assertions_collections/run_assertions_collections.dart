@@ -47,19 +47,11 @@ void main() {
   print('--- Collection if ---');
 
   bool includeAdmin = getBool(true);
-  var users = [
-    'user1',
-    'user2',
-    if (includeAdmin) 'admin',
-  ];
+  var users = ['user1', 'user2', if (includeAdmin) 'admin'];
   print('Users (with admin): $users');
 
   includeAdmin = getBool(false);
-  users = [
-    'user1',
-    'user2',
-    if (includeAdmin) 'admin',
-  ];
+  users = ['user1', 'user2', if (includeAdmin) 'admin'];
   print('Users (without admin): $users');
 
   // Collection if-else
@@ -67,7 +59,10 @@ void main() {
   bool isProduction = getBool(false);
   var config = {
     'name': 'MyApp',
-    if (isProduction) 'apiUrl': 'https://api.example.com' else 'apiUrl': 'http://localhost:3000',
+    if (isProduction)
+      'apiUrl': 'https://api.example.com'
+    else
+      'apiUrl': 'http://localhost:3000',
     if (isProduction) 'debug': false else 'debug': true,
   };
   print('Config (dev): $config');
@@ -75,7 +70,10 @@ void main() {
   isProduction = getBool(true);
   config = {
     'name': 'MyApp',
-    if (isProduction) 'apiUrl': 'https://api.example.com' else 'apiUrl': 'http://localhost:3000',
+    if (isProduction)
+      'apiUrl': 'https://api.example.com'
+    else
+      'apiUrl': 'http://localhost:3000',
     if (isProduction) 'debug': false else 'debug': true,
   };
   print('Config (prod): $config');
@@ -86,10 +84,7 @@ void main() {
   bool isOwner = getBool(false);
   var menuItems = [
     'View',
-    if (hasPermission) ...[
-      'Edit',
-      if (isOwner) 'Delete',
-    ],
+    if (hasPermission) ...['Edit', if (isOwner) 'Delete'],
     'Help',
   ];
   print('Menu (permission, not owner): $menuItems');
@@ -97,10 +92,7 @@ void main() {
   isOwner = getBool(true);
   menuItems = [
     'View',
-    if (hasPermission) ...[
-      'Edit',
-      if (isOwner) 'Delete',
-    ],
+    if (hasPermission) ...['Edit', if (isOwner) 'Delete'],
     'Help',
   ];
   print('Menu (permission, owner): $menuItems');
@@ -112,11 +104,16 @@ void main() {
   var squares = [for (int i = 1; i <= 5; i++) i * i];
   print('Squares: $squares');
 
-  var doubled = [for (var n in [1, 2, 3, 4, 5]) n * 2];
+  var doubled = [
+    for (var n in [1, 2, 3, 4, 5]) n * 2,
+  ];
   print('Doubled: $doubled');
 
   // Collection for with if
-  var evenNumbers = [for (int i = 1; i <= 10; i++) if (i % 2 == 0) i];
+  var evenNumbers = [
+    for (int i = 1; i <= 10; i++)
+      if (i % 2 == 0) i,
+  ];
   print('Even numbers 1-10: $evenNumbers');
 
   // Nested collection for
@@ -128,7 +125,9 @@ void main() {
 
   // Collection for with transformation
   var names = ['alice', 'bob', 'charlie'];
-  var capitalized = [for (var name in names) name[0].toUpperCase() + name.substring(1)];
+  var capitalized = [
+    for (var name in names) name[0].toUpperCase() + name.substring(1),
+  ];
   print('Capitalized: $capitalized');
 
   // Building a Map with collection for
@@ -161,9 +160,12 @@ void main() {
   var nested = [
     [1, 2],
     [3, 4],
-    [5, 6]
+    [5, 6],
   ];
-  var flat = [for (var list in nested) for (var item in list) item];
+  var flat = [
+    for (var list in nested)
+      for (var item in list) item,
+  ];
   print('Flattened: $flat');
 
   // Building query parameters

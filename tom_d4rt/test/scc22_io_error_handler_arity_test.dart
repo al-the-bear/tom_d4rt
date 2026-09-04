@@ -247,15 +247,19 @@ String? _enclosingTopLevelFunction(List<String> lines, int from) {
 List<File> _stdlibFiles(String root) {
   final dir = Directory(root);
   if (!dir.existsSync()) {
-    fail('stdlib root "$root" does not exist — run this from the package root, '
-        'with both packages checked out side by side.');
+    fail(
+      'stdlib root "$root" does not exist — run this from the package root, '
+      'with both packages checked out side by side.',
+    );
   }
   return dir
       .listSync(recursive: true)
       .whereType<File>()
-      .where((f) =>
-          f.path.endsWith('.dart') &&
-          !f.path.endsWith('error_handler_args.dart'))
+      .where(
+        (f) =>
+            f.path.endsWith('.dart') &&
+            !f.path.endsWith('error_handler_args.dart'),
+      )
       .toList()
     ..sort((a, b) => a.path.compareTo(b.path));
 }
@@ -286,8 +290,7 @@ void main() {
       expect(await _socketListen(_binary), orderedEquals(['binary:true']));
     }, timeout: const Timeout(Duration(seconds: 40)));
 
-    test(
-        'F-SCC22-3: a Socket.listen onError with an optional second parameter '
+    test('F-SCC22-3: a Socket.listen onError with an optional second parameter '
         'still receives the stack trace [2026-09-04]', () async {
       // The `maxPositionalArity`-not-`arity` property, at an io site. Selecting
       // on `arity` reports 1 for `(e, [st])` and would drop the stack trace.
@@ -304,11 +307,12 @@ void main() {
       expect(await _socketHandleError(_binary), orderedEquals(['binary:true']));
     }, timeout: const Timeout(Duration(seconds: 40)));
 
-    test(
-        'F-SCC22-6: a Socket.handleError handler with an optional second '
+    test('F-SCC22-6: a Socket.handleError handler with an optional second '
         'parameter still receives the stack trace [2026-09-04]', () async {
       expect(
-          await _socketHandleError(_optional), orderedEquals(['optional:true']));
+        await _socketHandleError(_optional),
+        orderedEquals(['optional:true']),
+      );
     }, timeout: const Timeout(Duration(seconds: 40)));
 
     test('F-SCC22-7: a unary HttpClientResponse.listen onError receives the '
@@ -318,21 +322,27 @@ void main() {
 
     test('F-SCC22-8: a binary HttpClientResponse.listen onError receives both '
         'arguments [2026-09-04]', () async {
-      expect(await _httpResponseListen(_binary), orderedEquals(['binary:true']));
+      expect(
+        await _httpResponseListen(_binary),
+        orderedEquals(['binary:true']),
+      );
     }, timeout: const Timeout(Duration(seconds: 40)));
 
     test(
-        'F-SCC22-9: an HttpClientResponse.listen onError with an optional '
-        'second parameter still receives the stack trace [2026-09-04]',
-        () async {
-      expect(await _httpResponseListen(_optional),
-          orderedEquals(['optional:true']));
-    }, timeout: const Timeout(Duration(seconds: 40)));
+      'F-SCC22-9: an HttpClientResponse.listen onError with an optional '
+      'second parameter still receives the stack trace [2026-09-04]',
+      () async {
+        expect(
+          await _httpResponseListen(_optional),
+          orderedEquals(['optional:true']),
+        );
+      },
+      timeout: const Timeout(Duration(seconds: 40)),
+    );
   });
 
   group('SCC22: the sites no script can reach are guarded structurally', () {
-    test(
-        'F-SCC22-10: the only hardcoded [error, stackTrace] pair in the stdlib '
+    test('F-SCC22-10: the only hardcoded [error, stackTrace] pair in the stdlib '
         'is the one inside errorHandlerArgs [2026-09-04]', () {
       // The regression SCB9 fixed, stated as an invariant. Every adapter used
       // to build this pair itself; the helper is now the only place allowed to,
@@ -343,20 +353,24 @@ void main() {
         for (final file in _stdlibFiles(entry.value)) {
           final lines = file.readAsLinesSync();
           for (var i = 0; i < lines.length; i++) {
-            if (RegExp(r'\[\s*\w*[Ee]rror\w*\s*,\s*\w*[Ss]tack\w*\s*\]')
-                .hasMatch(lines[i])) {
+            if (RegExp(
+              r'\[\s*\w*[Ee]rror\w*\s*,\s*\w*[Ss]tack\w*\s*\]',
+            ).hasMatch(lines[i])) {
               offenders.add('${entry.key}: ${file.path}:${i + 1}');
             }
           }
         }
-        expect(offenders, isEmpty,
-            reason: 'a two-argument error-handler call was hardcoded again — '
-                'route it through errorHandlerArgs instead');
+        expect(
+          offenders,
+          isEmpty,
+          reason:
+              'a two-argument error-handler call was hardcoded again — '
+              'route it through errorHandlerArgs instead',
+        );
       }
     });
 
-    test(
-        'F-SCC22-11: every error-handler adapter still routes through the '
+    test('F-SCC22-11: every error-handler adapter still routes through the '
         'helper, in both trees [2026-09-04]', () {
       // Named per site rather than counted, so a failure says *which* adapter
       // stopped calling the helper.
@@ -370,19 +384,24 @@ void main() {
       // F-SCC22-1..3. That is the substantive gain from the de-duplication: the
       // sites a test cannot reach stopped being separate code.
       for (final entry in _stdlibRoots.entries) {
-        expect(_siteMap(entry.value), equals(_expectedSites),
-            reason: '${entry.key}: the set of adapters calling '
-                'errorHandlerArgs changed');
+        expect(
+          _siteMap(entry.value),
+          equals(_expectedSites),
+          reason:
+              '${entry.key}: the set of adapters calling '
+              'errorHandlerArgs changed',
+        );
       }
     });
 
-    test(
-        'F-SCC22-12: the two trees declare the same sites, so the fix cannot '
+    test('F-SCC22-12: the two trees declare the same sites, so the fix cannot '
         'drift out of one of them [2026-09-04]', () {
       // The mirror rule as an assertion. SCB9 landed in both trees by hand;
       // nothing until now would have noticed a later edit reaching only one.
-      expect(_siteMap(_stdlibRoots['tom_d4rt_ast']!),
-          equals(_siteMap(_stdlibRoots['tom_d4rt']!)));
+      expect(
+        _siteMap(_stdlibRoots['tom_d4rt_ast']!),
+        equals(_siteMap(_stdlibRoots['tom_d4rt']!)),
+      );
     });
   });
 
@@ -392,37 +411,49 @@ void main() {
     // `catchClause.body.statements.firstOrNull` — `null` for an empty body —
     // and a null resume identifier stops the state machine where it stands.
 
-    test('F-SCC22-13: statements after an empty catch still run [2026-09-04]',
-        () async {
-      expect(await executeAsync(r'''
+    test(
+      'F-SCC22-13: statements after an empty catch still run [2026-09-04]',
+      () async {
+        expect(
+          await executeAsync(r'''
         main() async {
           final seen = [];
           try { throw 'x'; } catch (e) {}
           seen.add('after');
           return seen;
         }
-      '''), orderedEquals(['after']));
-    });
+      '''),
+          orderedEquals(['after']),
+        );
+      },
+    );
 
     test(
-        'F-SCC22-14: the same holds when the try block awaited before throwing '
-        '[2026-09-04]', () async {
-      // The suspended route through the state machine, which is the one that
-      // returned the last awaited VALUE (1) rather than null — a different
-      // wrong answer from the same missing branch.
-      expect(await executeAsync(r'''
+      'F-SCC22-14: the same holds when the try block awaited before throwing '
+      '[2026-09-04]',
+      () async {
+        // The suspended route through the state machine, which is the one that
+        // returned the last awaited VALUE (1) rather than null — a different
+        // wrong answer from the same missing branch.
+        expect(
+          await executeAsync(r'''
         main() async {
           final seen = [];
           try { await Future.value(1); throw 'x'; } catch (e) {}
           seen.add('after');
           return seen;
         }
-      '''), orderedEquals(['after']));
-    });
+      '''),
+          orderedEquals(['after']),
+        );
+      },
+    );
 
-    test('F-SCC22-15: an await after an empty catch still resumes [2026-09-04]',
-        () async {
-      expect(await executeAsync(r'''
+    test(
+      'F-SCC22-15: an await after an empty catch still resumes [2026-09-04]',
+      () async {
+        expect(
+          await executeAsync(r'''
         main() async {
           final seen = [];
           try { throw 'x'; } catch (e) {}
@@ -430,15 +461,18 @@ void main() {
           seen.add(v);
           return seen;
         }
-      '''), orderedEquals([7]));
-    });
+      '''),
+          orderedEquals([7]),
+        );
+      },
+    );
 
-    test(
-        'F-SCC22-16: an empty catch runs the finally before continuing '
+    test('F-SCC22-16: an empty catch runs the finally before continuing '
         '[2026-09-04]', () async {
       // The empty-catch branch must reach a `finally` the same way a completed
       // non-empty catch does, not skip past the whole statement.
-      expect(await executeAsync(r'''
+      expect(
+        await executeAsync(r'''
         main() async {
           final seen = [];
           try { await Future.value(1); throw 'x'; }
@@ -447,15 +481,19 @@ void main() {
           seen.add('after');
           return seen;
         }
-      '''), orderedEquals(['finally', 'after']));
+      '''),
+        orderedEquals(['finally', 'after']),
+      );
     });
 
     test(
-        'F-SCC22-17: a non-empty catch is unaffected, and still binds the error '
-        '[2026-09-04]', () async {
-      // The regression guard for the fix itself: the working path is the one a
-      // careless empty-body branch would be most likely to break.
-      expect(await executeAsync(r'''
+      'F-SCC22-17: a non-empty catch is unaffected, and still binds the error '
+      '[2026-09-04]',
+      () async {
+        // The regression guard for the fix itself: the working path is the one a
+        // careless empty-body branch would be most likely to break.
+        expect(
+          await executeAsync(r'''
         main() async {
           final seen = [];
           try { await Future.value(1); throw 'boom'; }
@@ -463,7 +501,10 @@ void main() {
           seen.add('after');
           return seen;
         }
-      '''), orderedEquals(['caught:boom', 'after']));
-    });
+      '''),
+          orderedEquals(['caught:boom', 'after']),
+        );
+      },
+    );
   });
 }

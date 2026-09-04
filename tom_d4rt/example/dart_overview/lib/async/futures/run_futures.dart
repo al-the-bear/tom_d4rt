@@ -92,18 +92,19 @@ Future<void> main() async {
   // Chaining transformations
   print('');
   print('--- Chaining with then ---');
-  var result = await Future.value(5)
-      .then((n) => n * 2)
-      .then((n) => n + 3)
-      .then((n) => 'Result: $n');
+  var result = await Future.value(
+    5,
+  ).then((n) => n * 2).then((n) => n + 3).then((n) => 'Result: $n');
   print(result);
 
   // Timeout
   print('');
   print('--- Timeout ---');
   try {
-    await simulateDelay('Slow operation', Duration(milliseconds: 500))
-        .timeout(Duration(milliseconds: 100));
+    await simulateDelay(
+      'Slow operation',
+      Duration(milliseconds: 500),
+    ).timeout(Duration(milliseconds: 100));
   } on TimeoutException {
     print('Operation timed out');
   }

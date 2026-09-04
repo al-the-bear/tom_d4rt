@@ -66,9 +66,11 @@ void main() {
       //
       // For now, this test verifies the interpreted-only case works.
 
-      test('DCL-RT-SUB-01: Access parent class property on subclass instance [2026-02-11] (OK)', () {
-        // Pure interpreted test - this works, the issue is with bridges
-        final result = execute('''
+      test(
+        'DCL-RT-SUB-01: Access parent class property on subclass instance [2026-02-11] (OK)',
+        () {
+          // Pure interpreted test - this works, the issue is with bridges
+          final result = execute('''
           class Parent {
             List<String> get lines => ['line1', 'line2'];
           }
@@ -82,8 +84,9 @@ void main() {
             return obj.lines.length;
           }
         ''');
-        expect(result, equals(2));
-      });
+          expect(result, equals(2));
+        },
+      );
     });
 
     group('DCL-RT-EXC: Exception type matching', () {
@@ -101,9 +104,11 @@ void main() {
       // The exception is thrown but the catch block is skipped, and the
       // exception propagates as an unhandled error.
 
-      test('DCL-RT-EXC-01: Catch interpreted exception by type [2026-02-11] (OK)', () {
-        // First verify that catching interpreted exceptions works
-        final result = execute('''
+      test(
+        'DCL-RT-EXC-01: Catch interpreted exception by type [2026-02-11] (OK)',
+        () {
+          // First verify that catching interpreted exceptions works
+          final result = execute('''
           class MyException implements Exception {
             final String message;
             MyException(this.message);
@@ -118,12 +123,15 @@ void main() {
             return 'not caught';
           }
         ''');
-        expect(result, equals('caught: test error'));
-      });
+          expect(result, equals('caught: test error'));
+        },
+      );
 
-      test('DCL-RT-EXC-03: Exception properties accessible in catch block [2026-02-11] (OK)', () {
-        // Verify exception properties are accessible
-        final result = execute('''
+      test(
+        'DCL-RT-EXC-03: Exception properties accessible in catch block [2026-02-11] (OK)',
+        () {
+          // Verify exception properties are accessible
+          final result = execute('''
           class DetailedException implements Exception {
             final int code;
             final String reason;
@@ -139,8 +147,9 @@ void main() {
             return 'no exception';
           }
         ''');
-        expect(result, equals('42:test failure'));
-      });
+          expect(result, equals('42:test failure'));
+        },
+      );
     });
 
     group('DCL-RT-OPT: Optional callback parameters', () {
@@ -150,8 +159,10 @@ void main() {
       // This was partially addressed by the hybrid callback wrapping approach,
       // but there may be edge cases where it still fails.
 
-      test('DCL-RT-OPT-01: Optional callback not provided uses default [2026-02-11] (OK)', () {
-        final result = execute('''
+      test(
+        'DCL-RT-OPT-01: Optional callback not provided uses default [2026-02-11] (OK)',
+        () {
+          final result = execute('''
           void process(String data, {void Function(String)? callback}) {
             if (callback != null) {
               callback(data);
@@ -163,23 +174,26 @@ void main() {
             return 'ok';
           }
         ''');
-        expect(result, equals('ok'));
-      });
+          expect(result, equals('ok'));
+        },
+      );
 
-      test('DCL-RT-OPT-02: Function reference as callback receives args [2026-02-11] (OK)', () {
-        // Historical issue: Passing a named function reference as a callback
-        // failed with "Missing required argument for 's' in function
-        // 'captureIt'" — the interpreter wasn't correctly forwarding args
-        // through the callable adapter when a tear-off (not a closure) was
-        // bound to an optional callback parameter.
-        //
-        // Status (2026-05-02): the bug has been fixed by the cumulative
-        // callback-binding improvements across the InterpreterVisitor
-        // (callsite arg propagation through Callable.bind for function
-        // references).  The script now executes and returns 'hello' as
-        // expected.  Test updated from (FAILS) to (OK) to lock in the
-        // fixed behaviour and catch any future regression.
-        final result = execute('''
+      test(
+        'DCL-RT-OPT-02: Function reference as callback receives args [2026-02-11] (OK)',
+        () {
+          // Historical issue: Passing a named function reference as a callback
+          // failed with "Missing required argument for 's' in function
+          // 'captureIt'" — the interpreter wasn't correctly forwarding args
+          // through the callable adapter when a tear-off (not a closure) was
+          // bound to an optional callback parameter.
+          //
+          // Status (2026-05-02): the bug has been fixed by the cumulative
+          // callback-binding improvements across the InterpreterVisitor
+          // (callsite arg propagation through Callable.bind for function
+          // references).  The script now executes and returns 'hello' as
+          // expected.  Test updated from (FAILS) to (OK) to lock in the
+          // fixed behaviour and catch any future regression.
+          final result = execute('''
           var captured = '';
 
           void process(String data, {void Function(String)? callback}) {
@@ -197,9 +211,13 @@ void main() {
             return captured;
           }
         ''');
-        expect(result, equals('hello'),
-            reason: 'Function reference as callback should receive args');
-      });
+          expect(
+            result,
+            equals('hello'),
+            reason: 'Function reference as callback should receive args',
+          );
+        },
+      );
     });
   });
 }

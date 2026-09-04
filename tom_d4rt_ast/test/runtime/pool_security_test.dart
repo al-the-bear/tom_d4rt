@@ -48,8 +48,11 @@ void main() {
               SReturnStatement(
                 offset: 0,
                 length: 0,
-                expression:
-                    SIntegerLiteral(offset: 0, length: 1, value: returnValue),
+                expression: SIntegerLiteral(
+                  offset: 0,
+                  length: 1,
+                  value: returnValue,
+                ),
               ),
             ],
           ),
@@ -95,40 +98,56 @@ void main() {
     setUp(D4rtRunner.debugResetPool);
     tearDown(D4rtRunner.debugResetPool);
 
-    test(
-        'IMP-OPT-12a: providePackage returns false then true across two '
+    test('IMP-OPT-12a: providePackage returns false then true across two '
         'instances', () {
       final first = D4rtRunner();
-      expect(first.providePackage('pkg_a'), isFalse,
-          reason: 'first sighting of pkg_a in the process — not pooled yet');
-      first.registerBridgedClass(marker('AClass'), 'package:a/a.dart',
-          sourceUri: 'package:a/a.dart');
+      expect(
+        first.providePackage('pkg_a'),
+        isFalse,
+        reason: 'first sighting of pkg_a in the process — not pooled yet',
+      );
+      first.registerBridgedClass(
+        marker('AClass'),
+        'package:a/a.dart',
+        sourceUri: 'package:a/a.dart',
+      );
 
       final second = D4rtRunner();
-      expect(second.providePackage('pkg_a'), isTrue,
-          reason: 'pkg_a is now pooled — the second instance reuses it');
+      expect(
+        second.providePackage('pkg_a'),
+        isTrue,
+        reason: 'pkg_a is now pooled — the second instance reuses it',
+      );
       expect(second.allowedPackages, contains('pkg_a'));
     });
 
-    test(
-        'IMP-OPT-12b: a package provided by instance 1 is NOT exposed in '
+    test('IMP-OPT-12b: a package provided by instance 1 is NOT exposed in '
         'instance 2 that did not provide it', () {
       // Instance 1 provides pkg_a and pools AClass under it.
       final first = D4rtRunner();
       expect(first.providePackage('pkg_a'), isFalse);
-      first.registerBridgedClass(marker('AClass'), 'package:a/a.dart',
-          sourceUri: 'package:a/a.dart');
+      first.registerBridgedClass(
+        marker('AClass'),
+        'package:a/a.dart',
+        sourceUri: 'package:a/a.dart',
+      );
       first.executeBundleAs<int>(bundleWith(1, extraName: 'f1'));
 
       // Positive control: instance 1's warm parent DOES expose AClass.
       final firstParent = first.visitor!.globalEnvironment.enclosing!;
-      expect(firstParent.findBridgedClassByName('AClass'), isNotNull,
-          reason: 'the granting instance sees its own pooled class');
+      expect(
+        firstParent.findBridgedClassByName('AClass'),
+        isNotNull,
+        reason: 'the granting instance sees its own pooled class',
+      );
 
       // The class genuinely lives in the process-global pool — so the
       // isolation below is by allowed-set, not by absence from the pool.
-      expect(D4rtRunner.debugPooledClassCount('pkg_a'), greaterThanOrEqualTo(1),
-          reason: 'AClass is pooled process-wide under pkg_a');
+      expect(
+        D4rtRunner.debugPooledClassCount('pkg_a'),
+        greaterThanOrEqualTo(1),
+        reason: 'AClass is pooled process-wide under pkg_a',
+      );
 
       // Instance 2 provides a DIFFERENT package and never provides pkg_a.
       final second = D4rtRunner();
@@ -137,50 +156,72 @@ void main() {
 
       // SECURITY: AClass must NOT be visible in instance 2's warm parent.
       final secondParent = second.visitor!.globalEnvironment.enclosing!;
-      expect(secondParent.findBridgedClassByName('AClass'), isNull,
-          reason: 'instance 2 was not granted pkg_a — AClass is out of scope');
+      expect(
+        secondParent.findBridgedClassByName('AClass'),
+        isNull,
+        reason: 'instance 2 was not granted pkg_a — AClass is out of scope',
+      );
 
       // A legacy instance 3 (no providePackage, no registration) is likewise
       // isolated: its warm parent is built from its own empty maps.
       final third = D4rtRunner();
       third.executeBundleAs<int>(bundleWith(3, extraName: 't1'));
       final thirdParent = third.visitor!.globalEnvironment.enclosing!;
-      expect(thirdParent.findBridgedClassByName('AClass'), isNull,
-          reason: 'a legacy instance never pulls pooled bridges it did not '
-              'register itself');
+      expect(
+        thirdParent.findBridgedClassByName('AClass'),
+        isNull,
+        reason:
+            'a legacy instance never pulls pooled bridges it did not '
+            'register itself',
+      );
     });
 
     test('IMP-OPT-12c: two executes reuse one warm parent', () {
       final first = D4rtRunner();
       expect(first.providePackage('pkg_c'), isFalse);
-      first.registerBridgedClass(marker('CClass'), 'package:c/c.dart',
-          sourceUri: 'package:c/c.dart');
+      first.registerBridgedClass(
+        marker('CClass'),
+        'package:c/c.dart',
+        sourceUri: 'package:c/c.dart',
+      );
 
       first.executeBundleAs<int>(bundleWith(1, extraName: 'c1'));
       final parent1 = first.visitor!.globalEnvironment.enclosing;
       first.executeBundleAs<int>(bundleWith(2, extraName: 'c2'));
       final parent2 = first.visitor!.globalEnvironment.enclosing;
 
-      expect(identical(parent1, parent2), isTrue,
-          reason: 'the warm parent is built once and reused across executes');
-      expect(D4rtRunner.debugWarmParentCacheSize, 1,
-          reason: 'a single cached warm parent for the {pkg_c} signature');
+      expect(
+        identical(parent1, parent2),
+        isTrue,
+        reason: 'the warm parent is built once and reused across executes',
+      );
+      expect(
+        D4rtRunner.debugWarmParentCacheSize,
+        1,
+        reason: 'a single cached warm parent for the {pkg_c} signature',
+      );
     });
 
     test('IMP-OPT-12d: no script-decl leak between executes or instances', () {
       final first = D4rtRunner();
       first.executeBundleAs<int>(bundleWith(1, extraName: 'd1'));
       final firstChild = first.visitor!.globalEnvironment;
-      expect(firstChild.values.containsKey('d1'), isTrue,
-          reason: 'first bundle\'s top-level fn lands in its own child');
+      expect(
+        firstChild.values.containsKey('d1'),
+        isTrue,
+        reason: 'first bundle\'s top-level fn lands in its own child',
+      );
 
       // Second execute on the SAME instance: fresh child, no leak of `d1`.
       first.executeBundleAs<int>(bundleWith(2, extraName: 'd2'));
       final secondChild = first.visitor!.globalEnvironment;
       expect(identical(firstChild, secondChild), isFalse);
       expect(secondChild.values.containsKey('d2'), isTrue);
-      expect(secondChild.values.containsKey('d1'), isFalse,
-          reason: 'first execute\'s `d1` must NOT leak into the second child');
+      expect(
+        secondChild.values.containsKey('d1'),
+        isFalse,
+        reason: 'first execute\'s `d1` must NOT leak into the second child',
+      );
       // The immutable warm parent never receives script declarations.
       final parent = secondChild.enclosing!;
       expect(parent.values.containsKey('d1'), isFalse);
@@ -192,8 +233,11 @@ void main() {
       final otherChild = other.visitor!.globalEnvironment;
       expect(otherChild.values.containsKey('d3'), isTrue);
       expect(otherChild.values.containsKey('d1'), isFalse);
-      expect(otherChild.values.containsKey('d2'), isFalse,
-          reason: 'no script declaration leaks across instances');
+      expect(
+        otherChild.values.containsKey('d2'),
+        isFalse,
+        reason: 'no script declaration leaks across instances',
+      );
     });
   });
 }

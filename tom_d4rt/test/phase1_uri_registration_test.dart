@@ -42,7 +42,8 @@ void main() {
 
   /// Wraps [name] as a URI-keyed [LibraryClass] bucket entry.
   Map<String, Map<String, LibraryClass>> classBuckets(
-      Map<String, String> nameToUri) {
+    Map<String, String> nameToUri,
+  ) {
     final out = <String, Map<String, LibraryClass>>{};
     nameToUri.forEach((name, uri) {
       (out[uri] ??= {})[name] = LibraryClass(marker(name), sourceUri: uri);
@@ -52,62 +53,71 @@ void main() {
 
   group('IMP-OPT-6: Phase-1 registration is O(matched)', () {
     test(
-        'IMP-OPT-6a: registries are URI-keyed with isolated per-URI buckets',
-        () {
-      final uris = List.generate(5, (i) => 'package:lib$i/lib$i.dart');
-      final classes = classBuckets({
-        for (var i = 0; i < uris.length; i++) 'Class$i': uris[i],
-      });
+      'IMP-OPT-6a: registries are URI-keyed with isolated per-URI buckets',
+      () {
+        final uris = List.generate(5, (i) => 'package:lib$i/lib$i.dart');
+        final classes = classBuckets({
+          for (var i = 0; i < uris.length; i++) 'Class$i': uris[i],
+        });
 
-      // One bucket per URI — not a flat list of single-entry maps.
-      expect(classes.length, 5);
+        // One bucket per URI — not a flat list of single-entry maps.
+        expect(classes.length, 5);
 
-      // Each URI's bucket holds exactly that URI's class, nothing else.
-      for (var i = 0; i < uris.length; i++) {
-        expect(classes[uris[i]]!.keys, ['Class$i'],
-            reason: 'bucket for ${uris[i]} is isolated to its own class');
-      }
+        // Each URI's bucket holds exactly that URI's class, nothing else.
+        for (var i = 0; i < uris.length; i++) {
+          expect(
+            classes[uris[i]]!.keys,
+            ['Class$i'],
+            reason: 'bucket for ${uris[i]} is isolated to its own class',
+          );
+        }
 
-      // Resolving one URI is a single keyed bucket read — it never sees
-      // another URI's class (the O(matched) property the loader relies on).
-      final lib3 = classes['package:lib3/lib3.dart']!;
-      expect(lib3.containsKey('Class3'), isTrue);
-      for (var i = 0; i < uris.length; i++) {
-        if (i == 3) continue;
-        expect(lib3.containsKey('Class$i'), isFalse);
-      }
+        // Resolving one URI is a single keyed bucket read — it never sees
+        // another URI's class (the O(matched) property the loader relies on).
+        final lib3 = classes['package:lib3/lib3.dart']!;
+        expect(lib3.containsKey('Class3'), isTrue);
+        for (var i = 0; i < uris.length; i++) {
+          if (i == 3) continue;
+          expect(lib3.containsKey('Class$i'), isFalse);
+        }
 
-      // A URI with no bridges is an O(1) miss — no scan needed.
-      expect(classes.containsKey('package:none/none.dart'), isFalse);
-    });
+        // A URI with no bridges is an O(1) miss — no scan needed.
+        expect(classes.containsKey('package:none/none.dart'), isFalse);
+      },
+    );
 
     test(
-        'IMP-OPT-6b: loading one URI does not register unrelated URIs\' bridges',
-        () {
-      final classes = classBuckets({
-        'AClass': 'package:a/a.dart',
-        'BClass': 'package:b/b.dart',
-      });
+      'IMP-OPT-6b: loading one URI does not register unrelated URIs\' bridges',
+      () {
+        final classes = classBuckets({
+          'AClass': 'package:a/a.dart',
+          'BClass': 'package:b/b.dart',
+        });
 
-      final env = Environment();
-      final loader = ModuleLoader(
-        env,
-        <String, String>{},
-        <String, Map<String, LibraryEnum>>{},
-        classes,
-      );
+        final env = Environment();
+        final loader = ModuleLoader(
+          env,
+          <String, String>{},
+          <String, Map<String, LibraryEnum>>{},
+          classes,
+        );
 
-      final module = loader.loadModule(Uri.parse('package:a/a.dart'));
+        final module = loader.loadModule(Uri.parse('package:a/a.dart'));
 
-      // The imported URI's bridge is present in its module environment.
-      expect(module.exportedEnvironment.findBridgedClassByName('AClass'),
-          isNotNull);
-      // The unrelated URI was never imported, so its bridge must NOT have
-      // been pulled into this module's environment — proving registration is
-      // selective per URI, not a global dump of every registered bridge.
-      expect(module.exportedEnvironment.findBridgedClassByName('BClass'),
-          isNull);
-    });
+        // The imported URI's bridge is present in its module environment.
+        expect(
+          module.exportedEnvironment.findBridgedClassByName('AClass'),
+          isNotNull,
+        );
+        // The unrelated URI was never imported, so its bridge must NOT have
+        // been pulled into this module's environment — proving registration is
+        // selective per URI, not a global dump of every registered bridge.
+        expect(
+          module.exportedEnvironment.findBridgedClassByName('BClass'),
+          isNull,
+        );
+      },
+    );
 
     test('IMP-OPT-6c: buildBridgedEnum is memoized (step #4 cross-check)', () {
       final def = BridgedEnumDefinition<_Phase>(
@@ -116,12 +126,14 @@ void main() {
       );
       final first = def.buildBridgedEnum();
       final second = def.buildBridgedEnum();
-      expect(identical(first, second), isTrue,
-          reason: 'the enum is built once and cached');
+      expect(
+        identical(first, second),
+        isTrue,
+        reason: 'the enum is built once and cached',
+      );
     });
 
-    test(
-        'IMP-OPT-6d: name + type resolution work through the thunk/memo path '
+    test('IMP-OPT-6d: name + type resolution work through the thunk/memo path '
         '(step #3 cross-check)', () {
       final env = Environment();
       var builds = 0;

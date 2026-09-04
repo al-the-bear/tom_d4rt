@@ -22,8 +22,12 @@ class Logger {
 
   static final String _resetColor = '\x1B[0m';
 
-  static void log(String message,
-      {D4LogLevel level = D4LogLevel.info, Object? error, StackTrace? stackTrace}) {
+  static void log(
+    String message, {
+    D4LogLevel level = D4LogLevel.info,
+    Object? error,
+    StackTrace? stackTrace,
+  }) {
     if (!_shouldLog(level)) return;
     final now = DateTime.now();
     final timestamp = now
@@ -47,7 +51,12 @@ class Logger {
   static void info(String message) => log(message, level: D4LogLevel.info);
   static void warn(String message) => log(message, level: D4LogLevel.warning);
   static void error(String message, {Object? error, StackTrace? stackTrace}) =>
-      log(message, level: D4LogLevel.error, error: error, stackTrace: stackTrace);
+      log(
+        message,
+        level: D4LogLevel.error,
+        error: error,
+        stackTrace: stackTrace,
+      );
 
   // Lazy variants — message is built only if logging is actually enabled.
   // Use these when the message interpolates values whose `toString()` may be
@@ -68,11 +77,18 @@ class Logger {
     log(builder(), level: D4LogLevel.warning);
   }
 
-  static void errorLazy(String Function() builder,
-      {Object? error, StackTrace? stackTrace}) {
+  static void errorLazy(
+    String Function() builder, {
+    Object? error,
+    StackTrace? stackTrace,
+  }) {
     if (!_shouldLog(D4LogLevel.error)) return;
-    log(builder(),
-        level: D4LogLevel.error, error: error, stackTrace: stackTrace);
+    log(
+      builder(),
+      level: D4LogLevel.error,
+      error: error,
+      stackTrace: stackTrace,
+    );
   }
 
   /// True when a `Logger.debug(...)` call would actually emit output.

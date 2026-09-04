@@ -11,7 +11,9 @@ void main() {
     errors.add('Maybe.some("hello").hasValue expected true');
   }
   if (some.value != 'hello') {
-    errors.add('Maybe.some("hello").value expected "hello", got "${some.value}"');
+    errors.add(
+      'Maybe.some("hello").value expected "hello", got "${some.value}"',
+    );
   }
 
   var none = Maybe<String>.none();
@@ -21,7 +23,9 @@ void main() {
   // getOrElse with default
   var fallback = none.getOrElse('default');
   if (fallback != 'default') {
-    errors.add('Maybe.none().getOrElse("default") expected "default", got "$fallback"');
+    errors.add(
+      'Maybe.none().getOrElse("default") expected "default", got "$fallback"',
+    );
   }
 
   // Result<T,E> has Result.success(T) and Result.failure(E)

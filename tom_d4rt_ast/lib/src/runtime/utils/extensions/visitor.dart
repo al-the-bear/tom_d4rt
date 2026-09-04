@@ -1,12 +1,16 @@
 import 'package:tom_d4rt_ast/runtime.dart';
 
 extension InterpreterVisitorExtension on InterpreterVisitor {
-  (BridgedInstance?, bool) toBridgedInstance(Object? nativeObject,
-      {String? methodName}) {
+  (BridgedInstance?, bool) toBridgedInstance(
+    Object? nativeObject, {
+    String? methodName,
+  }) {
     //adjustment for the extension method
     if (methodName != null) {
-      final extensionCallable =
-          environment.findExtensionMember(nativeObject, methodName);
+      final extensionCallable = environment.findExtensionMember(
+        nativeObject,
+        methodName,
+      );
       if (extensionCallable is ExtensionMemberCallable) {
         return (null, false);
       }

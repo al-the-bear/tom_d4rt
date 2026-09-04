@@ -7,7 +7,9 @@ void main() {
   // Test BankAccount final field
   var ba = BankAccount('ACC-1', 500.0);
   if (ba.accountNumber != 'ACC-1') {
-    errors.add('BankAccount.accountNumber expected "ACC-1", got "${ba.accountNumber}"');
+    errors.add(
+      'BankAccount.accountNumber expected "ACC-1", got "${ba.accountNumber}"',
+    );
   }
 
   // Test Circle final field

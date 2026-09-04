@@ -5,8 +5,10 @@ import '../../interpreter_test.dart';
 
 void main() {
   group('List stdlib tests', () {
-    test('I-COLL-175: List literal and basic properties. [2026-02-10 06:37] (PASS)', () {
-      final result = execute(r'''
+    test(
+      'I-COLL-175: List literal and basic properties. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute(r'''
         main() {
           List<int> l1 = [1, 2, 3];
           List<dynamic> l2 = [];
@@ -16,11 +18,14 @@ void main() {
           ];
         }
       ''');
-      expect(result, equals([3, false, true, 0, true, false]));
-    });
+        expect(result, equals([3, false, true, 0, true, false]));
+      },
+    );
 
-    test('I-COLL-118: List index access [] and assignment []=. [2026-02-10 06:37] (PASS)', () {
-      final result = execute(r'''
+    test(
+      'I-COLL-118: List index access [] and assignment []=. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute(r'''
         main() {
           List<String> l = ['a', 'b', 'c'];
           var first = l[0];
@@ -28,14 +33,16 @@ void main() {
           return [first, l[1], l];
         }
       ''');
-      expect(
+        expect(
           result,
           equals([
             'a',
             'B',
-            ['a', 'B', 'c']
-          ]));
-    });
+            ['a', 'B', 'c'],
+          ]),
+        );
+      },
+    );
 
     test('I-COLL-136: List add and addAll. [2026-02-10 06:37] (PASS)', () {
       final result = execute(r'''
@@ -49,8 +56,10 @@ void main() {
       expect(result, equals([1, 2, 3, 4]));
     });
 
-    test('I-COLL-148: List remove, removeAt, clear. [2026-02-10 06:37] (PASS)', () {
-      final result = execute(r'''
+    test(
+      'I-COLL-148: List remove, removeAt, clear. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute(r'''
         main() {
           List<String> l = ['x', 'y', 'z', 'y'];
           bool removedY = l.remove('y'); // Removes first 'y'
@@ -59,11 +68,14 @@ void main() {
           return [removedY, removedAt1, l.length, l];
         }
       ''');
-      expect(result, equals([true, 'z', 0, []]));
-    });
+        expect(result, equals([true, 'z', 0, []]));
+      },
+    );
 
-    test('I-COLL-160: List contains, indexOf, lastIndexOf. [2026-02-10 06:37] (PASS)', () {
-      final result = execute(r'''
+    test(
+      'I-COLL-160: List contains, indexOf, lastIndexOf. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute(r'''
         main() {
           List<int> l = [10, 20, 30, 20, 40];
           return [
@@ -75,8 +87,9 @@ void main() {
           ];
         }
       ''');
-      expect(result, equals([true, false, 1, 3, -1]));
-    });
+        expect(result, equals([true, false, 1, 3, -1]));
+      },
+    );
 
     test('I-COLL-177: List join. [2026-02-10 06:37] (PASS)', () {
       final result = execute(r'''
@@ -96,11 +109,12 @@ void main() {
         }
       ''');
       expect(
-          result,
-          equals([
-            [1, 2, 3],
-            [3, 4, 5]
-          ]));
+        result,
+        equals([
+          [1, 2, 3],
+          [3, 4, 5],
+        ]),
+      );
     });
 
     group('List methods', () {
@@ -505,11 +519,12 @@ void main() {
       }
       ''';
         expect(
-            execute(source),
-            equals([
-              [1, 2, 3],
-              [1, 2, 3, 4]
-            ]));
+          execute(source),
+          equals([
+            [1, 2, 3],
+            [1, 2, 3, 4],
+          ]),
+        );
       });
     });
 
@@ -598,16 +613,19 @@ void main() {
         expect(execute(source), equals([1, 2, 3, 4, 5]));
       });
 
-      test('I-COLL-155: InsertAll on List<String>. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-155: InsertAll on List<String>. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<String> items = ['a', 'd'];
           items.insertAll(1, ['b', 'c']);
           return items;
         }
         ''';
-        expect(execute(source), equals(['a', 'b', 'c', 'd']));
-      });
+          expect(execute(source), equals(['a', 'b', 'c', 'd']));
+        },
+      );
 
       test('I-COLL-156: InsertAll on List<int>. [2026-02-10 06:37] (PASS)', () {
         const source = '''
@@ -642,208 +660,265 @@ void main() {
         expect(execute(source), equals([0, 0, 7, 8, 9]));
       });
 
-      test('I-COLL-159: ReplaceRange on List<String>. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-159: ReplaceRange on List<String>. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<String> items = ['a', 'b', 'c', 'd', 'e'];
           items.replaceRange(1, 4, ['X', 'Y']);
           return items;
         }
         ''';
-        expect(execute(source), equals(['a', 'X', 'Y', 'e']));
-      });
+          expect(execute(source), equals(['a', 'X', 'Y', 'e']));
+        },
+      );
 
-      test('I-COLL-161: ReplaceRange on List<int>. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-161: ReplaceRange on List<int>. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<int> nums = [1, 2, 3, 4, 5];
           nums.replaceRange(1, 3, [20, 30, 40]);
           return nums;
         }
         ''';
-        expect(execute(source), equals([1, 20, 30, 40, 4, 5]));
-      });
+          expect(execute(source), equals([1, 20, 30, 40, 4, 5]));
+        },
+      );
 
-      test('I-COLL-162: ReplaceRange with empty replacement. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-162: ReplaceRange with empty replacement. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<String> items = ['a', 'b', 'c', 'd'];
           items.replaceRange(1, 3, []);
           return items;
         }
         ''';
-        expect(execute(source), equals(['a', 'd']));
-      });
+          expect(execute(source), equals(['a', 'd']));
+        },
+      );
 
-      test('I-COLL-163: ReplaceRange with single element. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-163: ReplaceRange with single element. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<String> items = ['a', 'b', 'c'];
           items.replaceRange(1, 2, ['X']);
           return items;
         }
         ''';
-        expect(execute(source), equals(['a', 'X', 'c']));
-      });
+          expect(execute(source), equals(['a', 'X', 'c']));
+        },
+      );
     });
 
     group('Dart 3 extension getters', () {
-      test('I-COLL-164: FirstOrNull on non-empty List<String>. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-164: FirstOrNull on non-empty List<String>. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<String> items = ['a', 'b', 'c'];
           return items.firstOrNull;
         }
         ''';
-        expect(execute(source), equals('a'));
-      });
+          expect(execute(source), equals('a'));
+        },
+      );
 
-      test('I-COLL-165: FirstOrNull on empty List<String>. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-165: FirstOrNull on empty List<String>. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<String> items = [];
           return items.firstOrNull;
         }
         ''';
-        expect(execute(source), isNull);
-      });
+          expect(execute(source), isNull);
+        },
+      );
 
-      test('I-COLL-166: FirstOrNull on List<int>. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-166: FirstOrNull on List<int>. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<int> nums = [10, 20, 30];
           return nums.firstOrNull;
         }
         ''';
-        expect(execute(source), equals(10));
-      });
+          expect(execute(source), equals(10));
+        },
+      );
 
-      test('I-COLL-167: LastOrNull on non-empty List<String>. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-167: LastOrNull on non-empty List<String>. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<String> items = ['a', 'b', 'c'];
           return items.lastOrNull;
         }
         ''';
-        expect(execute(source), equals('c'));
-      });
+          expect(execute(source), equals('c'));
+        },
+      );
 
-      test('I-COLL-168: LastOrNull on empty List<int>. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-168: LastOrNull on empty List<int>. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<int> nums = [];
           return nums.lastOrNull;
         }
         ''';
-        expect(execute(source), isNull);
-      });
+          expect(execute(source), isNull);
+        },
+      );
 
-      test('I-COLL-169: SingleOrNull on single-element list. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-169: SingleOrNull on single-element list. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<String> items = ['only'];
           return items.singleOrNull;
         }
         ''';
-        expect(execute(source), equals('only'));
-      });
+          expect(execute(source), equals('only'));
+        },
+      );
 
-      test('I-COLL-170: SingleOrNull on empty list. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-170: SingleOrNull on empty list. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<int> nums = [];
           return nums.singleOrNull;
         }
         ''';
-        expect(execute(source), isNull);
-      });
+          expect(execute(source), isNull);
+        },
+      );
 
-      test('I-COLL-171: SingleOrNull on multi-element list. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-171: SingleOrNull on multi-element list. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<int> nums = [1, 2];
           return nums.singleOrNull;
         }
         ''';
-        expect(execute(source), isNull);
-      });
+          expect(execute(source), isNull);
+        },
+      );
 
-      test('I-COLL-172: ElementAtOrNull within bounds. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-172: ElementAtOrNull within bounds. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<String> items = ['a', 'b', 'c'];
           return items.elementAtOrNull(1);
         }
         ''';
-        expect(execute(source), equals('b'));
-      });
+          expect(execute(source), equals('b'));
+        },
+      );
 
-      test('I-COLL-173: ElementAtOrNull out of bounds. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-173: ElementAtOrNull out of bounds. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<int> nums = [1, 2, 3];
           return nums.elementAtOrNull(10);
         }
         ''';
-        expect(execute(source), isNull);
-      });
+          expect(execute(source), isNull);
+        },
+      );
 
-      test('I-COLL-174: ElementAtOrNull negative index throws RangeError. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-174: ElementAtOrNull negative index throws RangeError. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<String> items = ['a', 'b'];
           return items.elementAtOrNull(-1);
         }
         ''';
-        // Dart's elementAtOrNull throws RangeError for negative indices
-        expect(() => execute(source), throwsA(isA<RuntimeD4rtException>()));
-      });
+          // Dart's elementAtOrNull throws RangeError for negative indices
+          expect(() => execute(source), throwsA(isA<RuntimeD4rtException>()));
+        },
+      );
     });
 
     group('Iterable extension getters on derived iterables', () {
-      test('I-COLL-176: FirstOrNull on filtered iterable. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-176: FirstOrNull on filtered iterable. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<int> nums = [1, 2, 3, 4, 5];
           var evens = nums.where((n) => n % 2 == 0);
           return evens.firstOrNull;
         }
         ''';
-        expect(execute(source), equals(2));
-      });
+          expect(execute(source), equals(2));
+        },
+      );
 
-      test('I-COLL-178: FirstOrNull on empty filtered iterable. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-178: FirstOrNull on empty filtered iterable. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<int> nums = [1, 3, 5];
           var evens = nums.where((n) => n % 2 == 0);
           return evens.firstOrNull;
         }
         ''';
-        expect(execute(source), isNull);
-      });
+          expect(execute(source), isNull);
+        },
+      );
 
-      test('I-COLL-179: LastOrNull on mapped iterable. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-179: LastOrNull on mapped iterable. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<int> nums = [1, 2, 3];
           var doubled = nums.map((n) => n * 2);
           return doubled.lastOrNull;
         }
         ''';
-        expect(execute(source), equals(6));
-      });
+          expect(execute(source), equals(6));
+        },
+      );
 
-      test('I-COLL-180: SingleOrNull on take(1). [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-180: SingleOrNull on take(1). [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<String> items = ['a', 'b', 'c'];
           var first = items.take(1);
           return first.singleOrNull;
         }
         ''';
-        expect(execute(source), equals('a'));
-      });
+          expect(execute(source), equals('a'));
+        },
+      );
     });
 
     group('Static constructors and methods', () {
@@ -876,7 +951,13 @@ void main() {
           return [original, copy];
         }
         ''';
-        expect(execute(source), equals([[1, 2, 3], [1, 2, 3, 4]]));
+        expect(
+          execute(source),
+          equals([
+            [1, 2, 3],
+            [1, 2, 3, 4],
+          ]),
+        );
       });
 
       test('I-COLL-184: List.of. [2026-02-10 06:37] (PASS)', () {
@@ -901,15 +982,18 @@ void main() {
         expect(execute(source), equals([1]));
       });
 
-      test('I-COLL-186: List.empty non-growable. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-186: List.empty non-growable. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           var empty = List.empty();
           return empty.isEmpty;
         }
         ''';
-        expect(execute(source), isTrue);
-      });
+          expect(execute(source), isTrue);
+        },
+      );
     });
 
     group('Range operations', () {
@@ -959,19 +1043,24 @@ void main() {
     });
 
     group('Mixed type operations', () {
-      test('I-COLL-192: List<dynamic> with mixed types. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-192: List<dynamic> with mixed types. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<dynamic> mixed = [1, 'two', 3.0, true];
           mixed.addAll([null, 'five']);
           return mixed;
         }
         ''';
-        expect(execute(source), equals([1, 'two', 3.0, true, null, 'five']));
-      });
+          expect(execute(source), equals([1, 'two', 3.0, true, null, 'five']));
+        },
+      );
 
-      test('I-COLL-193: List operations returning correct types. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-COLL-193: List operations returning correct types. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         main() {
           List<int> nums = [1, 2, 3, 4, 5];
           var sum = nums.fold(0, (acc, n) => acc + n);
@@ -979,9 +1068,9 @@ void main() {
           return [sum, product];
         }
         ''';
-        expect(execute(source), equals([15, 120]));
-      });
+          expect(execute(source), equals([15, 120]));
+        },
+      );
     });
   });
 }
-

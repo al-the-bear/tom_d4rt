@@ -80,10 +80,10 @@ class LibraryClass {
 
   /// Eager wrapper: [bridgedClass] is already built.
   LibraryClass(BridgedClass bridgedClass, {this.sourceUri})
-      : name = bridgedClass.name,
-        nativeType = bridgedClass.nativeType,
-        _built = bridgedClass,
-        _thunk = (() => bridgedClass);
+    : name = bridgedClass.name,
+      nativeType = bridgedClass.nativeType,
+      _built = bridgedClass,
+      _thunk = (() => bridgedClass);
 
   /// Lazy wrapper: [thunk] builds the bridge on first access to [bridgedClass].
   LibraryClass.lazy(this.name, this.nativeType, this._thunk, {this.sourceUri});
@@ -92,7 +92,8 @@ class LibraryClass {
   BridgedClass get bridgedClass => _built ??= _thunk();
 
   /// A deferred thunk resolving (and memoizing) [bridgedClass] on call.
-  BridgedClass Function() get thunk => () => bridgedClass;
+  BridgedClass Function() get thunk =>
+      () => bridgedClass;
 }
 
 /// Wrapper class for library-scoped bridged enums.
@@ -132,7 +133,7 @@ class _PackageBridgeBundle {
   final Map<String, Map<String, LibraryClass>> bridgedClasses = {};
   final Map<String, List<LibraryExtension>> bridgedExtensions = {};
   final List<({String aliasName, String targetName, String library})>
-      classAliases = [];
+  classAliases = [];
   final List<({String name, String library})> functionTypedefs = [];
   final Map<String, Map<String, LibraryFunction>> libraryFunctions = {};
   final Map<String, Map<String, LibraryVariable>> libraryVariables = {};
@@ -140,9 +141,8 @@ class _PackageBridgeBundle {
   final Map<String, Map<String, LibrarySetter>> librarySetters = {};
   // Step #17 — thunk-backed native-type lookup (see LazyBridgeRegistry).
   final LazyBridgeRegistry<Type> bridgedDefLookupByType = LazyBridgeRegistry();
-  final Map<String,
-          List<({String uri, Set<String>? show, Set<String>? hide})>>
-      libraryReExports = {};
+  final Map<String, List<({String uri, Set<String>? show, Set<String>? hide})>>
+  libraryReExports = {};
 
   /// The single extension callback registered for this package via
   /// [D4rtRunner.registerExtensions]. One callback per package name
@@ -230,9 +230,8 @@ class D4rtRunner {
   /// isolation is in place — the workaround being the historical
   /// `_isolatedStdlibs = {'math'}` band-aid that lets every other stdlib
   /// leak into `globalEnvironment`.
-  final Map<String,
-          List<({String uri, Set<String>? show, Set<String>? hide})>>
-      _libraryReExports = {};
+  final Map<String, List<({String uri, Set<String>? show, Set<String>? hide})>>
+  _libraryReExports = {};
 
   // ===========================================================================
   // Step 7 (import-optimization plan) — process-global package pool.
@@ -434,14 +433,14 @@ class D4rtRunner {
   /// host parser can be any analyzer front-end without coupling the runtime
   /// to it.
   Set<String> get bridgedLibraryUris => <String>{
-        ..._bridgedClasses.keys,
-        ..._bridgedEnumDefinitions.keys,
-        ..._bridgedExtensions.keys,
-        ..._libraryFunctions.keys,
-        ..._libraryVariables.keys,
-        ..._libraryGetters.keys,
-        ..._librarySetters.keys,
-      };
+    ..._bridgedClasses.keys,
+    ..._bridgedEnumDefinitions.keys,
+    ..._bridgedExtensions.keys,
+    ..._libraryFunctions.keys,
+    ..._libraryVariables.keys,
+    ..._libraryGetters.keys,
+    ..._librarySetters.keys,
+  };
 
   // =========================================================================
   // Bridge Registration
@@ -481,7 +480,8 @@ class D4rtRunner {
       // is opened. Clear any stale context from a prior provide call.
       _currentProvidingPackage = null;
       Logger.debugLazy(
-        () => '[D4rtRunner.providePackage] "$packageName" already pooled — '
+        () =>
+            '[D4rtRunner.providePackage] "$packageName" already pooled — '
             'reusing pooled definitions.',
       );
       return true;
@@ -493,7 +493,8 @@ class D4rtRunner {
     _currentProvidingPackage = packageName;
     _bundleFor(packageName);
     Logger.debugLazy(
-      () => '[D4rtRunner.providePackage] "$packageName" not pooled — caller '
+      () =>
+          '[D4rtRunner.providePackage] "$packageName" not pooled — caller '
           'must register; subsequent register* route into the pool.',
     );
     return false;
@@ -613,7 +614,12 @@ class D4rtRunner {
     String library, {
     String? sourceUri,
   }) {
-    final libClass = LibraryClass.lazy(name, nativeType, thunk, sourceUri: sourceUri);
+    final libClass = LibraryClass.lazy(
+      name,
+      nativeType,
+      thunk,
+      sourceUri: sourceUri,
+    );
     (_bridgedClasses[library] ??= {})[name] = libClass;
     _bridgedDefLookupByType.putThunk(nativeType, thunk);
     // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
@@ -672,7 +678,7 @@ class D4rtRunner {
   /// re-exports. The module loader merges each re-exported library's
   /// symbols into the source library's per-module environment.
   Map<String, List<({String uri, Set<String>? show, Set<String>? hide})>>
-      get libraryReExports => _libraryReExports;
+  get libraryReExports => _libraryReExports;
 
   /// GEN-107: Registers a re-export from one library to another.
   ///
@@ -701,7 +707,9 @@ class D4rtRunner {
     final reExport = (uri: targetUri, show: show, hide: hide);
     _libraryReExports.putIfAbsent(sourceUri, () => []).add(reExport);
     // Step 7: dual-write into the process-global pool (see registerBridgedEnum).
-    _bundleFor().libraryReExports.putIfAbsent(sourceUri, () => []).add(reExport);
+    _bundleFor().libraryReExports
+        .putIfAbsent(sourceUri, () => [])
+        .add(reExport);
   }
 
   /// Registers a bridged extension.
@@ -749,14 +757,13 @@ class D4rtRunner {
     String library, {
     String? sourceUri,
     String? signature,
-  }) =>
-      registerTopLevelFunction(
-        name,
-        function,
-        library,
-        sourceUri: sourceUri,
-        signature: signature,
-      );
+  }) => registerTopLevelFunction(
+    name,
+    function,
+    library,
+    sourceUri: sourceUri,
+    signature: signature,
+  );
 
   /// Registers a global variable.
   void registerGlobalVariable(
@@ -968,7 +975,8 @@ class D4rtRunner {
       if (callback == null) continue;
       if (bundle!.extensionFired) {
         Logger.debugLazy(
-          () => '[D4rtRunner.finalizeBridges] Extensions for "$packageName" '
+          () =>
+              '[D4rtRunner.finalizeBridges] Extensions for "$packageName" '
               'already fired in this process — skipping.',
         );
         continue;
@@ -1203,13 +1211,17 @@ class D4rtRunner {
     Stdlib(parent).register();
     if (D4rtProfiler.enabled) {
       D4rtProfiler.record(
-          'warmParent.stdlibRegister', swStdlib!.elapsedMicroseconds);
+        'warmParent.stdlibRegister',
+        swStdlib!.elapsedMicroseconds,
+      );
     }
     final swBridged = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     _registerBridgedDefinitions(parent);
     if (D4rtProfiler.enabled) {
-      D4rtProfiler.record('warmParent.registerBridgedDefinitions',
-          swBridged!.elapsedMicroseconds);
+      D4rtProfiler.record(
+        'warmParent.registerBridgedDefinitions',
+        swBridged!.elapsedMicroseconds,
+      );
     }
     return parent;
   }
@@ -1223,7 +1235,9 @@ class D4rtRunner {
     Stdlib(parent).register();
     if (D4rtProfiler.enabled) {
       D4rtProfiler.record(
-          'warmParent.stdlibRegister', swStdlib!.elapsedMicroseconds);
+        'warmParent.stdlibRegister',
+        swStdlib!.elapsedMicroseconds,
+      );
     }
     final swBridged = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     for (final packageName in _allowedPackages.toList()..sort()) {
@@ -1233,8 +1247,10 @@ class D4rtRunner {
       }
     }
     if (D4rtProfiler.enabled) {
-      D4rtProfiler.record('warmParent.registerBridgedDefinitionsFromPool',
-          swBridged!.elapsedMicroseconds);
+      D4rtProfiler.record(
+        'warmParent.registerBridgedDefinitionsFromPool',
+        swBridged!.elapsedMicroseconds,
+      );
     }
     return parent;
   }
@@ -1330,15 +1346,15 @@ class D4rtRunner {
   /// this eager global dump is only a baseline for name resolution — import
   /// directives later register the authoritative per-module surface.
   void _registerBridgedDefinitions(Environment env) => _registerDefsInto(
-        env,
-        enumDefinitions: _bridgedEnumDefinitions,
-        classes: _bridgedClasses,
-        functionTypedefs: _functionTypedefs,
-        libraryFunctions: _libraryFunctions,
-        libraryVariables: _libraryVariables,
-        libraryGetters: _libraryGetters,
-        librarySetters: _librarySetters,
-      );
+    env,
+    enumDefinitions: _bridgedEnumDefinitions,
+    classes: _bridgedClasses,
+    functionTypedefs: _functionTypedefs,
+    libraryFunctions: _libraryFunctions,
+    libraryVariables: _libraryVariables,
+    libraryGetters: _libraryGetters,
+    librarySetters: _librarySetters,
+  );
 
   /// Step 8 — registers the bridged definitions of a single pooled
   /// [_PackageBridgeBundle] into [env]. The bundle holds the same collection
@@ -1348,17 +1364,16 @@ class D4rtRunner {
   void _registerBridgedDefinitionsFromBundle(
     Environment env,
     _PackageBridgeBundle bundle,
-  ) =>
-      _registerDefsInto(
-        env,
-        enumDefinitions: bundle.bridgedEnumDefinitions,
-        classes: bundle.bridgedClasses,
-        functionTypedefs: bundle.functionTypedefs,
-        libraryFunctions: bundle.libraryFunctions,
-        libraryVariables: bundle.libraryVariables,
-        libraryGetters: bundle.libraryGetters,
-        librarySetters: bundle.librarySetters,
-      );
+  ) => _registerDefsInto(
+    env,
+    enumDefinitions: bundle.bridgedEnumDefinitions,
+    classes: bundle.bridgedClasses,
+    functionTypedefs: bundle.functionTypedefs,
+    libraryFunctions: bundle.libraryFunctions,
+    libraryVariables: bundle.libraryVariables,
+    libraryGetters: bundle.libraryGetters,
+    librarySetters: bundle.librarySetters,
+  );
 
   /// Shared baseline-registration logic for both the per-instance maps
   /// ([_registerBridgedDefinitions]) and the pooled bundles
@@ -1583,7 +1598,9 @@ class D4rtRunner {
     final executionEnvironment = _initEnvironment();
     if (D4rtProfiler.enabled) {
       D4rtProfiler.record(
-          'executeBundle._initEnvironment', swInit!.elapsedMicroseconds);
+        'executeBundle._initEnvironment',
+        swInit!.elapsedMicroseconds,
+      );
     }
 
     // Create AstModuleLoader for import resolution
@@ -1603,8 +1620,10 @@ class D4rtRunner {
     if (reuseAcrossRuns) {
       if (_allowedPackages.isNotEmpty) {
         final key = (_allowedPackages.toList()..sort()).join('|');
-        sharedBridgedModuleEnvs =
-            _bridgedModuleEnvCache.putIfAbsent(key, () => {});
+        sharedBridgedModuleEnvs = _bridgedModuleEnvCache.putIfAbsent(
+          key,
+          () => {},
+        );
       } else {
         sharedBridgedModuleEnvs = _instanceBridgedModuleEnvCache ??= {};
       }
@@ -1624,7 +1643,9 @@ class D4rtRunner {
     _lastModuleLoader = moduleLoader;
     if (D4rtProfiler.enabled) {
       D4rtProfiler.record(
-          'executeBundle.moduleLoader', swLoader!.elapsedMicroseconds);
+        'executeBundle.moduleLoader',
+        swLoader!.elapsedMicroseconds,
+      );
     }
 
     Logger.debug(
@@ -1745,25 +1766,25 @@ class D4rtRunner {
   /// error zone is a real change to an embedder's error routing, so it happens
   /// when the embedder asks for it and not otherwise.
   Zone _forkScriptZone() => Zone.current.fork(
-        specification: ZoneSpecification(
-          handleUncaughtError: (self, parent, zone, error, stackTrace) {
-            final scriptError = _unwrapScriptError(error);
-            final hook = onUncaughtError;
-            if (hook == null) {
-              // No embedder hook: behave exactly as before, minus the wrapper.
-              parent.handleUncaughtError(zone, scriptError, stackTrace);
-              return;
-            }
-            try {
-              hook(scriptError, stackTrace);
-            } catch (hookError, hookStack) {
-              // An embedder's hook is ordinary code and can be wrong. Losing
-              // both errors would be the worst available outcome.
-              parent.handleUncaughtError(zone, hookError, hookStack);
-            }
-          },
-        ),
-      );
+    specification: ZoneSpecification(
+      handleUncaughtError: (self, parent, zone, error, stackTrace) {
+        final scriptError = _unwrapScriptError(error);
+        final hook = onUncaughtError;
+        if (hook == null) {
+          // No embedder hook: behave exactly as before, minus the wrapper.
+          parent.handleUncaughtError(zone, scriptError, stackTrace);
+          return;
+        }
+        try {
+          hook(scriptError, stackTrace);
+        } catch (hookError, hookStack) {
+          // An embedder's hook is ordinary code and can be wrong. Losing
+          // both errors would be the worst available outcome.
+          parent.handleUncaughtError(zone, hookError, hookStack);
+        }
+      },
+    ),
+  );
 
   /// Recovers the value the script actually threw from the interpreter's
   /// internal wrapper.
@@ -1795,13 +1816,13 @@ class D4rtRunner {
     Map<String, Object?>? namedArgs,
   }) {
     run() => _executeInEnvironmentInZone(
-          compilationUnit: compilationUnit,
-          executionEnvironment: executionEnvironment,
-          moduleContext: moduleContext,
-          name: name,
-          positionalArgs: positionalArgs,
-          namedArgs: namedArgs,
-        );
+      compilationUnit: compilationUnit,
+      executionEnvironment: executionEnvironment,
+      moduleContext: moduleContext,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+    );
 
     // No hook, no zone, no behaviour change of any kind. See [_forkScriptZone]
     // for why this is opt-in rather than always on.
@@ -1818,11 +1839,13 @@ class D4rtRunner {
     // caller's zone. Without this the returned future would hang and the
     // failure would be misreported to [onUncaughtError] as an escape.
     final bridged = Completer<Object?>();
-    zone.run(() => result.then(
-          bridged.complete,
-          onError: (Object error, StackTrace stackTrace) =>
-              bridged.completeError(error, stackTrace),
-        ));
+    zone.run(
+      () => result.then(
+        bridged.complete,
+        onError: (Object error, StackTrace stackTrace) =>
+            bridged.completeError(error, stackTrace),
+      ),
+    );
     return bridged.future;
   }
 
@@ -1842,8 +1865,10 @@ class D4rtRunner {
     final swFinalize = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
     finalizeBridges();
     if (D4rtProfiler.enabled) {
-      D4rtProfiler.record('_executeInEnvironment.finalizeBridges',
-          swFinalize!.elapsedMicroseconds);
+      D4rtProfiler.record(
+        '_executeInEnvironment.finalizeBridges',
+        swFinalize!.elapsedMicroseconds,
+      );
     }
     Logger.debug("[_executeInEnvironment] Starting Pass 1: Declaration");
     final swPass1 = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
@@ -1853,7 +1878,9 @@ class D4rtRunner {
     }
     if (D4rtProfiler.enabled) {
       D4rtProfiler.record(
-          '_executeInEnvironment.pass1', swPass1!.elapsedMicroseconds);
+        '_executeInEnvironment.pass1',
+        swPass1!.elapsedMicroseconds,
+      );
     }
     Logger.debug("[_executeInEnvironment] Finished Pass 1: Declaration");
 
@@ -1868,8 +1895,10 @@ class D4rtRunner {
     // every resolved coordinate against the live environment depth.
     _visitor!.resolveStaticCoordinates(compilationUnit.declarations);
     if (D4rtProfiler.enabled) {
-      D4rtProfiler.record('_executeInEnvironment.visitorBuild',
-          swResolve!.elapsedMicroseconds);
+      D4rtProfiler.record(
+        '_executeInEnvironment.visitorBuild',
+        swResolve!.elapsedMicroseconds,
+      );
     }
 
     Object? functionResult;
@@ -1961,7 +1990,9 @@ class D4rtRunner {
       Logger.debug("[_executeInEnvironment] Finished processing declarations");
       if (D4rtProfiler.enabled) {
         D4rtProfiler.record(
-            '_executeInEnvironment.pass2Setup', swPass2!.elapsedMicroseconds);
+          '_executeInEnvironment.pass2Setup',
+          swPass2!.elapsedMicroseconds,
+        );
       }
 
       Logger.debug("[_executeInEnvironment] Looking for $name function");
@@ -2063,9 +2094,12 @@ class D4rtRunner {
       return interpreterValue.map(_bridgeInterpreterValueToNative).toList();
     }
     if (interpreterValue is Map) {
-      return interpreterValue.map((key, value) => MapEntry(
+      return interpreterValue.map(
+        (key, value) => MapEntry(
           _bridgeInterpreterValueToNative(key),
-          _bridgeInterpreterValueToNative(value)));
+          _bridgeInterpreterValueToNative(value),
+        ),
+      );
     }
     // Convert InterpretedRecord to native Dart records when possible.
     // For positional-only records up to 16 elements, we can create native
@@ -2104,7 +2138,7 @@ class D4rtRunner {
               pos[4],
               pos[5],
               pos[6],
-              pos[7]
+              pos[7],
             );
           case 9:
             return (
@@ -2116,7 +2150,7 @@ class D4rtRunner {
               pos[5],
               pos[6],
               pos[7],
-              pos[8]
+              pos[8],
             );
           case 10:
             return (
@@ -2129,7 +2163,7 @@ class D4rtRunner {
               pos[6],
               pos[7],
               pos[8],
-              pos[9]
+              pos[9],
             );
           case 11:
             return (
@@ -2143,7 +2177,7 @@ class D4rtRunner {
               pos[7],
               pos[8],
               pos[9],
-              pos[10]
+              pos[10],
             );
           case 12:
             return (
@@ -2158,7 +2192,7 @@ class D4rtRunner {
               pos[8],
               pos[9],
               pos[10],
-              pos[11]
+              pos[11],
             );
           case 13:
             return (
@@ -2174,7 +2208,7 @@ class D4rtRunner {
               pos[9],
               pos[10],
               pos[11],
-              pos[12]
+              pos[12],
             );
           case 14:
             return (
@@ -2191,7 +2225,7 @@ class D4rtRunner {
               pos[10],
               pos[11],
               pos[12],
-              pos[13]
+              pos[13],
             );
           case 15:
             return (
@@ -2209,7 +2243,7 @@ class D4rtRunner {
               pos[11],
               pos[12],
               pos[13],
-              pos[14]
+              pos[14],
             );
           case 16:
             return (
@@ -2228,7 +2262,7 @@ class D4rtRunner {
               pos[12],
               pos[13],
               pos[14],
-              pos[15]
+              pos[15],
             );
           default:
             // More than 16 positional fields — return InterpretedRecord with
@@ -2241,8 +2275,9 @@ class D4rtRunner {
       // unwrapped values.
       return InterpretedRecord(
         pos,
-        named.map((key, value) =>
-            MapEntry(key, _bridgeInterpreterValueToNative(value))),
+        named.map(
+          (key, value) => MapEntry(key, _bridgeInterpreterValueToNative(value)),
+        ),
       );
     }
     if (interpreterValue is InterpretedInstance ||

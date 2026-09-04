@@ -28,10 +28,15 @@ void main() {
   late String generatedCode;
 
   setUpAll(() async {
-    testFixturesDir =
-        p.join(Directory.current.path, 'test', 'generator_tests', 'fixtures');
-    tempOutputDir =
-        Directory.systemTemp.createTempSync('protected_members_test_').path;
+    testFixturesDir = p.join(
+      Directory.current.path,
+      'test',
+      'generator_tests',
+      'fixtures',
+    );
+    tempOutputDir = Directory.systemTemp
+        .createTempSync('protected_members_test_')
+        .path;
 
     final generator = BridgeGenerator(
       workspacePath: testFixturesDir,

@@ -3,18 +3,17 @@ import 'package:tom_d4rt/d4rt.dart';
 
 class CapabilityIsolate {
   static BridgedClass get definition => BridgedClass(
-        nativeType: Capability,
-        name: 'Capability',
-        isAssignable: (v) => v is Capability,
-        constructors: {
-          '': (visitor, positionalArgs, namedArgs) {
-            return Capability();
-          },
-        },
-        getters: {
-          'hashCode': (visitor, target) => (target as Capability).hashCode,
-          'runtimeType': (visitor, target) =>
-              (target as Capability).runtimeType,
-        },
-      );
+    nativeType: Capability,
+    name: 'Capability',
+    isAssignable: (v) => v is Capability,
+    constructors: {
+      '': (visitor, positionalArgs, namedArgs) {
+        return Capability();
+      },
+    },
+    getters: {
+      'hashCode': (visitor, target) => (target as Capability).hashCode,
+      'runtimeType': (visitor, target) => (target as Capability).runtimeType,
+    },
+  );
 }

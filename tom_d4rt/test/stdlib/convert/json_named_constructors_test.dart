@@ -17,7 +17,8 @@ void main() {
   const String testLibPath = 'd4rt-mem:/json_named_constructors_test.dart';
 
   dynamic run(String scriptBody) {
-    final fullScript = '''
+    final fullScript =
+        '''
       import 'dart:convert';
       main() {
         $scriptBody
@@ -56,17 +57,19 @@ void main() {
       expect(result, '["0:00:01.000000"]');
     });
 
-    test('F-SCB25-4: withIndent indent is exposed as a getter. [2026-09-03]',
-        () {
-      final result = run(r'''
+    test(
+      'F-SCB25-4: withIndent indent is exposed as a getter. [2026-09-03]',
+      () {
+        final result = run(r'''
         return [
           JsonEncoder.withIndent('\t').indent,
           JsonEncoder.withIndent(null).indent,
           JsonEncoder().indent,
         ];
       ''');
-      expect(result, ['\t', null, null]);
-    });
+        expect(result, ['\t', null, null]);
+      },
+    );
 
     test('F-SCB25-5: a non-String indent is rejected. [2026-09-03]', () {
       expect(
@@ -127,48 +130,52 @@ void main() {
       expect(result, '{"a":1}');
     });
 
-    test('F-SCB25-10: withReviver requires a function argument. [2026-09-03]',
-        () {
-      expect(
-        () => run("return JsonCodec.withReviver(42).decode('1');"),
-        throwsA(
-          predicate(
-            (e) => e.toString().contains('reviver must be a Function'),
-            'reports that reviver must be a Function',
+    test(
+      'F-SCB25-10: withReviver requires a function argument. [2026-09-03]',
+      () {
+        expect(
+          () => run("return JsonCodec.withReviver(42).decode('1');"),
+          throwsA(
+            predicate(
+              (e) => e.toString().contains('reviver must be a Function'),
+              'reports that reviver must be a Function',
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   });
 
-  group('Already-shipped convert named constructors (SCB25 regression net)', () {
-    test('F-SCB25-11: Base64Codec.urlSafe uses the URL-safe alphabet. '
-        '[2026-09-03]', () {
-      // 0xFB 0xFF encodes to "-_8=" url-safe and "+/8=" standard, so the two
-      // alphabets are distinguishable from the output alone.
-      final result = run('''
+  group(
+    'Already-shipped convert named constructors (SCB25 regression net)',
+    () {
+      test('F-SCB25-11: Base64Codec.urlSafe uses the URL-safe alphabet. '
+          '[2026-09-03]', () {
+        // 0xFB 0xFF encodes to "-_8=" url-safe and "+/8=" standard, so the two
+        // alphabets are distinguishable from the output alone.
+        final result = run('''
         return [
           Base64Codec.urlSafe().encode([251, 255]),
           Base64Codec().encode([251, 255]),
         ];
       ''');
-      expect(result, ['-_8=', '+/8=']);
-    });
+        expect(result, ['-_8=', '+/8=']);
+      });
 
-    test('F-SCB25-12: Base64Encoder.urlSafe uses the URL-safe alphabet. '
-        '[2026-09-03]', () {
-      final result = run('''
+      test('F-SCB25-12: Base64Encoder.urlSafe uses the URL-safe alphabet. '
+          '[2026-09-03]', () {
+        final result = run('''
         return [
           Base64Encoder.urlSafe().convert([251, 255]),
           Base64Encoder().convert([251, 255]),
         ];
       ''');
-      expect(result, ['-_8=', '+/8=']);
-    });
+        expect(result, ['-_8=', '+/8=']);
+      });
 
-    test('F-SCB25-13: ClosableStringSink.fromStringSink wraps a StringSink. '
-        '[2026-09-03]', () {
-      final result = run('''
+      test('F-SCB25-13: ClosableStringSink.fromStringSink wraps a StringSink. '
+          '[2026-09-03]', () {
+        final result = run('''
         final buffer = StringBuffer();
         final sink = ClosableStringSink.fromStringSink(buffer, () {});
         sink.write('ab');
@@ -176,7 +183,8 @@ void main() {
         sink.close();
         return buffer.toString();
       ''');
-      expect(result, 'abc\n');
-    });
-  });
+        expect(result, 'abc\n');
+      });
+    },
+  );
 }

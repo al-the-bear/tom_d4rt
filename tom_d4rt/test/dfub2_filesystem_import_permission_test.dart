@@ -35,36 +35,34 @@ void main() {
   });
 
   group('DFUB2: filesystem import permission + error shapes', () {
-    test(
-      'F-DFUB2-1: filesystem import without FilesystemPermission is denied '
-      '[2026-07-23] (PASS)',
-      () {
-        final libDir = io.Directory('${tempRoot.path}/lib')
-          ..createSync(recursive: true);
-        io.File('${libDir.path}/secret.dart').writeAsStringSync('''
+    test('F-DFUB2-1: filesystem import without FilesystemPermission is denied '
+        '[2026-07-23] (PASS)', () {
+      final libDir = io.Directory('${tempRoot.path}/lib')
+        ..createSync(recursive: true);
+      io.File('${libDir.path}/secret.dart').writeAsStringSync('''
 String secretValue() => "should-not-read";
 ''');
 
-        // Deliberately grant NO FilesystemPermission.
-        final d4rt = D4rt();
+      // Deliberately grant NO FilesystemPermission.
+      final d4rt = D4rt();
 
-        expect(
-          () => d4rt.execute(
-            source: '''
+      expect(
+        () => d4rt.execute(
+          source: '''
 import './secret.dart';
 
 String main() => secretValue();
 ''',
-            basePath: libDir.path,
-            allowFileSystemImports: true,
+          basePath: libDir.path,
+          allowFileSystemImports: true,
+        ),
+        throwsA(
+          predicate(
+            (e) => e.toString().contains('requires FilesystemPermission'),
           ),
-          throwsA(
-            predicate((e) =>
-                e.toString().contains('requires FilesystemPermission')),
-          ),
-        );
-      },
-    );
+        ),
+      );
+    });
 
     test(
       'F-DFUB2-2: filesystem import fails clearly when allowFileSystemImports '
@@ -82,7 +80,8 @@ String main() => secretValue();
         final fileUri = target.absolute.uri.toString();
         expect(
           () => d4rt.execute(
-            source: '''
+            source:
+                '''
 import '$fileUri';
 
 String main() => thingValue();
@@ -91,62 +90,60 @@ String main() => thingValue();
           ),
           throwsA(
             predicate(
-                (e) => e.toString().contains('Filesystem imports are disabled')),
+              (e) => e.toString().contains('Filesystem imports are disabled'),
+            ),
           ),
         );
       },
     );
 
-    test(
-      'F-DFUB2-3: missing filesystem import reports the resolved path '
-      '[2026-07-23] (PASS)',
-      () {
-        final libDir = io.Directory('${tempRoot.path}/lib')
-          ..createSync(recursive: true);
-        // Note: no file is written — the import target does not exist.
+    test('F-DFUB2-3: missing filesystem import reports the resolved path '
+        '[2026-07-23] (PASS)', () {
+      final libDir = io.Directory('${tempRoot.path}/lib')
+        ..createSync(recursive: true);
+      // Note: no file is written — the import target does not exist.
 
-        final d4rt = D4rt();
-        d4rt.grant(FilesystemPermission.readPath(libDir.path));
+      final d4rt = D4rt();
+      d4rt.grant(FilesystemPermission.readPath(libDir.path));
 
-        expect(
-          () => d4rt.execute(
-            source: '''
+      expect(
+        () => d4rt.execute(
+          source: '''
 import './missing.dart';
 
 String main() => "unreachable";
 ''',
-            basePath: libDir.path,
-            allowFileSystemImports: true,
-          ),
-          throwsA(
-            predicate((e) =>
+          basePath: libDir.path,
+          allowFileSystemImports: true,
+        ),
+        throwsA(
+          predicate(
+            (e) =>
                 e.toString().contains('not found on filesystem') &&
-                e.toString().contains('resolved path:')),
+                e.toString().contains('resolved path:'),
           ),
-        );
-      },
-    );
+        ),
+      );
+    });
 
-    test(
-      'F-DFUB2-4: missing package import reports a package-specific error '
-      '[2026-07-23] (PASS)',
-      () {
-        final d4rt = D4rt();
+    test('F-DFUB2-4: missing package import reports a package-specific error '
+        '[2026-07-23] (PASS)', () {
+      final d4rt = D4rt();
 
-        expect(
-          () => d4rt.execute(
-            source: '''
+      expect(
+        () => d4rt.execute(
+          source: '''
 import 'package:no_such_pkg/foo.dart';
 
 String main() => "unreachable";
 ''',
+        ),
+        throwsA(
+          predicate(
+            (e) => e.toString().contains('Package module source not preloaded'),
           ),
-          throwsA(
-            predicate((e) =>
-                e.toString().contains('Package module source not preloaded')),
-          ),
-        );
-      },
-    );
+        ),
+      );
+    });
   });
 }

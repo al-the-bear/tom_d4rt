@@ -52,9 +52,7 @@ class BridgedClass implements RuntimeType {
   /// instance after `_relaxersRegistered` is removed).
   static void registerSupertypes(Map<String, List<String>> hierarchy) {
     for (final entry in hierarchy.entries) {
-      _supertypeRegistry
-          .putIfAbsent(entry.key, () => {})
-          .addAll(entry.value);
+      _supertypeRegistry.putIfAbsent(entry.key, () => {}).addAll(entry.value);
     }
     // A new edge can lengthen the closure of a class that is not named in
     // `hierarchy` — anything reaching `entry.key` transitively — so the whole

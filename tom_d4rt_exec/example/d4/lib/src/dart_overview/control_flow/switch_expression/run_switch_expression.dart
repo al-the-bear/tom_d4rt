@@ -173,14 +173,16 @@ void main() {
   print('--- Switch in Expressions ---');
   int statusCode = 200;
 
-  print('Status ${statusCode}: ${switch (statusCode) {
-    200 => 'OK',
-    201 => 'Created',
-    400 => 'Bad Request',
-    404 => 'Not Found',
-    500 => 'Server Error',
-    _ => 'Unknown',
-  }}');
+  print(
+    'Status ${statusCode}: ${switch (statusCode) {
+      200 => 'OK',
+      201 => 'Created',
+      400 => 'Bad Request',
+      404 => 'Not Found',
+      500 => 'Server Error',
+      _ => 'Unknown',
+    }}',
+  );
 
   print('');
   print('=== End of Switch Expressions Demo ===');

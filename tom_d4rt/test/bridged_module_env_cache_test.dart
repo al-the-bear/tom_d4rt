@@ -34,52 +34,74 @@ void main() {
     setUp(D4rt.debugResetPool);
     tearDown(D4rt.debugResetPool);
 
-    test(
-        'PERF-2a: re-importing the same bridged URI reuses the cached module '
+    test('PERF-2a: re-importing the same bridged URI reuses the cached module '
         'env across executes', () {
       final interpreter = D4rt();
       expect(interpreter.providePackage('pkg_w'), isFalse);
-      interpreter.registerBridgedClass(marker('WClass'), 'package:w/w.dart',
-          sourceUri: 'package:w/w.dart');
+      interpreter.registerBridgedClass(
+        marker('WClass'),
+        'package:w/w.dart',
+        sourceUri: 'package:w/w.dart',
+      );
 
       const src = "import 'package:w/w.dart';\nint main() => 1;";
 
       interpreter.execute(source: src);
       final afterFirst = D4rt.debugBridgedModuleEnvBuildCount;
-      expect(afterFirst, 1,
-          reason: 'the first import builds the per-module env exactly once');
+      expect(
+        afterFirst,
+        1,
+        reason: 'the first import builds the per-module env exactly once',
+      );
 
       interpreter.execute(source: src);
-      expect(D4rt.debugBridgedModuleEnvBuildCount, afterFirst,
-          reason: 'the second execute reuses the cached env — no rebuild');
+      expect(
+        D4rt.debugBridgedModuleEnvBuildCount,
+        afterFirst,
+        reason: 'the second execute reuses the cached env — no rebuild',
+      );
     });
 
-    test('PERF-2b: a second interpreter with the same allowed-set reuses it',
-        () {
-      final first = D4rt();
-      expect(first.providePackage('pkg_w'), isFalse);
-      first.registerBridgedClass(marker('WClass'), 'package:w/w.dart',
-          sourceUri: 'package:w/w.dart');
+    test(
+      'PERF-2b: a second interpreter with the same allowed-set reuses it',
+      () {
+        final first = D4rt();
+        expect(first.providePackage('pkg_w'), isFalse);
+        first.registerBridgedClass(
+          marker('WClass'),
+          'package:w/w.dart',
+          sourceUri: 'package:w/w.dart',
+        );
 
-      const src = "import 'package:w/w.dart';\nint main() => 1;";
-      first.execute(source: src);
-      expect(D4rt.debugBridgedModuleEnvBuildCount, 1);
+        const src = "import 'package:w/w.dart';\nint main() => 1;";
+        first.execute(source: src);
+        expect(D4rt.debugBridgedModuleEnvBuildCount, 1);
 
-      // Second interpreter granted the same package → same signature → shares
-      // the cached module env.
-      final second = D4rt();
-      expect(second.providePackage('pkg_w'), isTrue,
-          reason: 'pkg_w already pooled — second interpreter reuses it');
-      second.execute(source: src);
-      expect(D4rt.debugBridgedModuleEnvBuildCount, 1,
-          reason: 'same allowed-set signature → cached env reused, no rebuild');
-    });
+        // Second interpreter granted the same package → same signature → shares
+        // the cached module env.
+        final second = D4rt();
+        expect(
+          second.providePackage('pkg_w'),
+          isTrue,
+          reason: 'pkg_w already pooled — second interpreter reuses it',
+        );
+        second.execute(source: src);
+        expect(
+          D4rt.debugBridgedModuleEnvBuildCount,
+          1,
+          reason: 'same allowed-set signature → cached env reused, no rebuild',
+        );
+      },
+    );
 
     test('PERF-2c: a different allowed-set rebuilds the module env', () {
       final first = D4rt();
       expect(first.providePackage('pkg_w'), isFalse);
-      first.registerBridgedClass(marker('WClass'), 'package:w/w.dart',
-          sourceUri: 'package:w/w.dart');
+      first.registerBridgedClass(
+        marker('WClass'),
+        'package:w/w.dart',
+        sourceUri: 'package:w/w.dart',
+      );
       first.execute(source: "import 'package:w/w.dart';\nint main() => 1;");
       expect(D4rt.debugBridgedModuleEnvBuildCount, 1);
 
@@ -88,11 +110,17 @@ void main() {
       // built fresh.
       final second = D4rt();
       expect(second.providePackage('pkg_v'), isFalse);
-      second.registerBridgedClass(marker('VClass'), 'package:v/v.dart',
-          sourceUri: 'package:v/v.dart');
+      second.registerBridgedClass(
+        marker('VClass'),
+        'package:v/v.dart',
+        sourceUri: 'package:v/v.dart',
+      );
       second.execute(source: "import 'package:v/v.dart';\nint main() => 2;");
-      expect(D4rt.debugBridgedModuleEnvBuildCount, 2,
-          reason: 'a different signature rebuilds the env — count advances');
+      expect(
+        D4rt.debugBridgedModuleEnvBuildCount,
+        2,
+        reason: 'a different signature rebuilds the env — count advances',
+      );
     });
   });
 }

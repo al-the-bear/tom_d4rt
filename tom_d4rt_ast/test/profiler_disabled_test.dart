@@ -60,23 +60,36 @@ void main() {
   }
 
   test('D4rtProfiler.enabled is false (never publish with profiling on)', () {
-    expect(D4rtProfiler.enabled, isFalse,
-        reason: 'D4rtProfiler.enabled must be false in committed code — '
-            'revert any local profiling switch before committing.');
+    expect(
+      D4rtProfiler.enabled,
+      isFalse,
+      reason:
+          'D4rtProfiler.enabled must be false in committed code — '
+          'revert any local profiling switch before committing.',
+    );
   });
 
-  test('no profiler spans accumulate when disabled (guards are compiled out)',
-      () {
-    D4rtProfiler.reset();
-    expect(D4rtProfiler.hasData, isFalse,
-        reason: 'reset clears any spans left by other tests');
+  test(
+    'no profiler spans accumulate when disabled (guards are compiled out)',
+    () {
+      D4rtProfiler.reset();
+      expect(
+        D4rtProfiler.hasData,
+        isFalse,
+        reason: 'reset clears any spans left by other tests',
+      );
 
-    D4rtRunner().executeBundleAs<int>(trivialBundle());
+      D4rtRunner().executeBundleAs<int>(trivialBundle());
 
-    expect(D4rtProfiler.hasData, isFalse,
-        reason: 'with enabled == false every record() site is dead-code '
+      expect(
+        D4rtProfiler.hasData,
+        isFalse,
+        reason:
+            'with enabled == false every record() site is dead-code '
             'eliminated, so a real execute records no spans; a non-empty '
-            'snapshot here means an unguarded profiler call slipped in.');
-    expect(D4rtProfiler.snapshot(), isEmpty);
-  });
+            'snapshot here means an unguarded profiler call slipped in.',
+      );
+      expect(D4rtProfiler.snapshot(), isEmpty);
+    },
+  );
 }

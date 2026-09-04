@@ -78,15 +78,18 @@ void main() {
       expect(execute(source), equals('ff'));
     });
 
-    test('I-INT-36: Int.toUnsigned and toSigned. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-INT-36: Int.toUnsigned and toSigned. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         int value = 123456789;
         return [value.toUnsigned(16), value.toSigned(16)];
       }
       ''';
-      expect(execute(source), equals([52501, -13035]));
-    });
+        expect(execute(source), equals([52501, -13035]));
+      },
+    );
 
     test('I-INT-37: Int.gcd. [2026-02-10 06:37] (PASS)', () {
       const source = '''

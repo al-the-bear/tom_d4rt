@@ -47,7 +47,7 @@ void main() {
   var nested = [
     [1, 2],
     [3, 4],
-    [5]
+    [5],
   ];
   var flattened = nested.expand((list) => list);
   print('nested: $nested');
@@ -143,13 +143,15 @@ void main() {
   print('--- Lazy Evaluation ---');
   var lazyNumbers = [1, 2, 3, 4, 5];
   print('Creating lazy chain...');
-  var lazyResult = lazyNumbers.where((n) {
-    print('  where: $n');
-    return n % 2 == 0;
-  }).map((n) {
-    print('  map: $n');
-    return n * 10;
-  });
+  var lazyResult = lazyNumbers
+      .where((n) {
+        print('  where: $n');
+        return n % 2 == 0;
+      })
+      .map((n) {
+        print('  map: $n');
+        return n * 10;
+      });
 
   print('Taking first element:');
   var firstElement = lazyResult.first;
@@ -159,8 +161,11 @@ void main() {
   print('');
   print('--- Chaining Operations ---');
   var data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  var processed =
-      data.where((n) => n % 2 == 0).map((n) => n * n).take(3).toList();
+  var processed = data
+      .where((n) => n % 2 == 0)
+      .map((n) => n * n)
+      .take(3)
+      .toList();
   print('data: $data');
   print('even squares (first 3): $processed');
 

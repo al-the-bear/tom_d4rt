@@ -45,8 +45,7 @@ class BitMask {
   BitMask operator >>(int shift) => BitMask(value >> shift);
 
   @override
-  bool operator ==(Object other) =>
-      other is BitMask && value == other.value;
+  bool operator ==(Object other) => other is BitMask && value == other.value;
 
   @override
   int get hashCode => value.hashCode;
@@ -148,9 +147,7 @@ void main() {
             return BitMask(positionalArgs[0] as int);
           },
         },
-        getters: {
-          'value': (visitor, target) => (target as BitMask).value,
-        },
+        getters: {'value': (visitor, target) => (target as BitMask).value},
         methods: {
           // Bitwise operators
           '&': (visitor, target, positionalArgs, namedArgs, typeArgs) {
@@ -236,15 +233,26 @@ void main() {
         },
       );
 
-      interpreter.registerBridgedClass(vector2Bridge, 'package:test/vector.dart');
-      interpreter.registerBridgedClass(bitMaskBridge, 'package:test/bitmask.dart');
       interpreter.registerBridgedClass(
-          comparableBridge, 'package:test/comparable.dart');
+        vector2Bridge,
+        'package:test/vector.dart',
+      );
+      interpreter.registerBridgedClass(
+        bitMaskBridge,
+        'package:test/bitmask.dart',
+      );
+      interpreter.registerBridgedClass(
+        comparableBridge,
+        'package:test/comparable.dart',
+      );
     });
 
     group('arithmetic operators', () {
-      test('I-EXPR-1: Operator + on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-1: Operator + on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/vector.dart';
           
           main() {
@@ -253,13 +261,18 @@ void main() {
             final sum = v1 + v2;
             return [sum.x, sum.y];
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals([4.0, 6.0]));
-      });
+          expect(result, equals([4.0, 6.0]));
+        },
+      );
 
-      test('I-EXPR-2: Operator - on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-2: Operator - on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/vector.dart';
           
           main() {
@@ -268,13 +281,18 @@ void main() {
             final diff = v1 - v2;
             return [diff.x, diff.y];
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals([3.0, 4.0]));
-      });
+          expect(result, equals([3.0, 4.0]));
+        },
+      );
 
-      test('I-EXPR-3: Operator * on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-3: Operator * on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/vector.dart';
           
           main() {
@@ -282,13 +300,18 @@ void main() {
             final scaled = v * 2;
             return [scaled.x, scaled.y];
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals([4.0, 6.0]));
-      });
+          expect(result, equals([4.0, 6.0]));
+        },
+      );
 
-      test('I-EXPR-4: Operator / on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-4: Operator / on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/vector.dart';
           
           main() {
@@ -296,13 +319,16 @@ void main() {
             final divided = v / 2;
             return [divided.x, divided.y];
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals([3.0, 4.0]));
-      });
+          expect(result, equals([3.0, 4.0]));
+        },
+      );
 
       test('I-EXPR-5: Chained operators. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+        final result = interpreter.execute(
+          source: '''
           import 'package:test/vector.dart';
           
           main() {
@@ -312,15 +338,19 @@ void main() {
             final sum = v1 + v2 + v3;
             return [sum.x, sum.y];
           }
-        ''');
+        ''',
+        );
 
         expect(result, equals([6.0, 6.0]));
       });
     });
 
     group('unary operators', () {
-      test('I-EXPR-6: Unary minus operator on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-6: Unary minus operator on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/vector.dart';
           
           main() {
@@ -328,13 +358,18 @@ void main() {
             final negated = -v;
             return [negated.x, negated.y];
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals([-3.0, -4.0]));
-      });
+          expect(result, equals([-3.0, -4.0]));
+        },
+      );
 
-      test('I-EXPR-7: Bitwise not operator on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-7: Bitwise not operator on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/bitmask.dart';
           
           main() {
@@ -342,13 +377,18 @@ void main() {
             final inverted = ~b;
             return inverted.value;
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals(-1));
-      });
+          expect(result, equals(-1));
+        },
+      );
 
-      test('I-EXPR-8: Unary minus with expression. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-8: Unary minus with expression. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/vector.dart';
           
           main() {
@@ -358,30 +398,40 @@ void main() {
             final negated = -(v1 + v2);
             return [negated.x, negated.y];
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals([-6.0, -8.0]));
-      });
+          expect(result, equals([-6.0, -8.0]));
+        },
+      );
     });
 
     group('index operator', () {
-      test('I-EXPR-9: Operator [] on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-9: Operator [] on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/vector.dart';
           
           main() {
             final v = Vector2(5.0, 10.0);
             return [v[0], v[1]];
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals([5.0, 10.0]));
-      });
+          expect(result, equals([5.0, 10.0]));
+        },
+      );
     });
 
     group('bitwise operators', () {
-      test('I-EXPR-10: Operator & on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-10: Operator & on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/bitmask.dart';
           
           main() {
@@ -390,13 +440,18 @@ void main() {
             final result = a & b;
             return result.value;
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals(0xF0));
-      });
+          expect(result, equals(0xF0));
+        },
+      );
 
-      test('I-EXPR-11: Operator | on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-11: Operator | on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/bitmask.dart';
           
           main() {
@@ -405,13 +460,18 @@ void main() {
             final result = a | b;
             return result.value;
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals(0xFF));
-      });
+          expect(result, equals(0xFF));
+        },
+      );
 
-      test('I-EXPR-12: Operator ^ on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-12: Operator ^ on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/bitmask.dart';
           
           main() {
@@ -420,13 +480,18 @@ void main() {
             final result = a ^ b;
             return result.value;
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals(0xF0));
-      });
+          expect(result, equals(0xF0));
+        },
+      );
 
-      test('I-EXPR-13: Operator << on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-13: Operator << on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/bitmask.dart';
           
           main() {
@@ -434,13 +499,18 @@ void main() {
             final result = a << 4;
             return result.value;
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals(16));
-      });
+          expect(result, equals(16));
+        },
+      );
 
-      test('I-EXPR-14: Operator >> on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-14: Operator >> on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/bitmask.dart';
           
           main() {
@@ -448,15 +518,20 @@ void main() {
             final result = a >> 2;
             return result.value;
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals(4));
-      });
+          expect(result, equals(4));
+        },
+      );
     });
 
     group('comparison operators', () {
-      test('I-EXPR-15: Operator < on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-15: Operator < on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/comparable.dart';
           
           main() {
@@ -464,13 +539,18 @@ void main() {
             final b = ComparableValue(10);
             return a < b;
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals(true));
-      });
+          expect(result, equals(true));
+        },
+      );
 
-      test('I-EXPR-16: Operator > on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-16: Operator > on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/comparable.dart';
           
           main() {
@@ -478,13 +558,18 @@ void main() {
             final b = ComparableValue(5);
             return a > b;
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals(true));
-      });
+          expect(result, equals(true));
+        },
+      );
 
-      test('I-EXPR-17: Operator <= on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-17: Operator <= on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/comparable.dart';
           
           main() {
@@ -493,13 +578,18 @@ void main() {
             final c = ComparableValue(10);
             return [a <= b, a <= c];
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals([true, true]));
-      });
+          expect(result, equals([true, true]));
+        },
+      );
 
-      test('I-EXPR-18: Operator >= on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-18: Operator >= on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/comparable.dart';
           
           main() {
@@ -508,13 +598,18 @@ void main() {
             final c = ComparableValue(5);
             return [a >= b, a >= c];
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals([true, true]));
-      });
+          expect(result, equals([true, true]));
+        },
+      );
 
-      test('I-EXPR-19: Operator == on bridged class. [2026-02-10 06:37] (PASS)', () {
-        final result = interpreter.execute(source: '''
+      test(
+        'I-EXPR-19: Operator == on bridged class. [2026-02-10 06:37] (PASS)',
+        () {
+          final result = interpreter.execute(
+            source: '''
           import 'package:test/comparable.dart';
           
           main() {
@@ -523,10 +618,12 @@ void main() {
             final c = ComparableValue(10);
             return [a == b, a == c];
           }
-        ''');
+        ''',
+          );
 
-        expect(result, equals([true, false]));
-      });
+          expect(result, equals([true, false]));
+        },
+      );
     });
   });
 }

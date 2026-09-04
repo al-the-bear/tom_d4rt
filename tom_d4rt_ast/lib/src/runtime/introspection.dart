@@ -228,12 +228,12 @@ class IntrospectionResult {
 
   /// Get all declarations as a single list.
   List<DeclarationInfo> get all => [
-        ...functions,
-        ...classes,
-        ...variables,
-        ...enums,
-        ...extensions,
-      ];
+    ...functions,
+    ...classes,
+    ...variables,
+    ...enums,
+    ...extensions,
+  ];
 
   /// Get a declaration by name, returns null if not found.
   DeclarationInfo? getByName(String name) {
@@ -309,8 +309,9 @@ class IntrospectionBuilder {
     // blocklist covered the common type names but missed many others
     // (`identityHashCode` in particular). Driving the filter from the AST
     // is exhaustive — anything not declared by the user is a built-in.
-    final Set<String>? userDeclaredNames =
-        compilationUnit == null ? null : <String>{};
+    final Set<String>? userDeclaredNames = compilationUnit == null
+        ? null
+        : <String>{};
 
     if (compilationUnit != null) {
       // Extract variable type annotations from AST
@@ -342,11 +343,13 @@ class IntrospectionBuilder {
 
           if (extName.isEmpty) {
             // Unnamed extension - create with generated name
-            extensions.add(ExtensionInfo(
-              name: '<unnamed extension on $onType>',
-              onType: onType,
-              methods: methodNames,
-            ));
+            extensions.add(
+              ExtensionInfo(
+                name: '<unnamed extension on $onType>',
+                onType: onType,
+                methods: methodNames,
+              ),
+            );
           } else {
             userDeclaredNames!.add(extName);
           }
@@ -392,8 +395,9 @@ class IntrospectionBuilder {
       } else {
         // It's a variable - use type metadata if available
         final declaredType = variableTypeMap[name];
-        variables
-            .add(_buildVariableInfo(name, value, declaredType: declaredType));
+        variables.add(
+          _buildVariableInfo(name, value, declaredType: declaredType),
+        );
       }
     }
 
@@ -437,7 +441,9 @@ class IntrospectionBuilder {
   }
 
   static FunctionInfo _buildFunctionInfo(
-      String name, InterpretedFunction func) {
+    String name,
+    InterpretedFunction func,
+  ) {
     // Extract parameter names using the new getters
     final paramNames = func.positionalParameterNames;
     final namedParamNames = func.namedParameterNames;
@@ -546,15 +552,13 @@ class IntrospectionBuilder {
       methods.add(methodName);
     }
 
-    return EnumInfo(
-      name: name,
-      values: values,
-      methods: methods,
-    );
+    return EnumInfo(name: name, values: values, methods: methods);
   }
 
   static ExtensionInfo _buildExtensionInfo(
-      String name, InterpretedExtension ext) {
+    String name,
+    InterpretedExtension ext,
+  ) {
     final methods = <String>[];
 
     // Extract methods
@@ -562,15 +566,14 @@ class IntrospectionBuilder {
       methods.add(methodName);
     }
 
-    return ExtensionInfo(
-      name: name,
-      onType: ext.onType.name,
-      methods: methods,
-    );
+    return ExtensionInfo(name: name, onType: ext.onType.name, methods: methods);
   }
 
-  static VariableInfo _buildVariableInfo(String name, Object? value,
-      {String? declaredType}) {
+  static VariableInfo _buildVariableInfo(
+    String name,
+    Object? value, {
+    String? declaredType,
+  }) {
     String valueType;
     if (value == null) {
       valueType = 'Null';
@@ -629,13 +632,13 @@ class D4rtConfiguration {
 
   /// Converts this configuration to a JSON-serializable map.
   Map<String, dynamic> toJson() => {
-        'imports': imports.map((i) => i.toJson()).toList(),
-        'permissions': permissions.map((p) => p.toJson()).toList(),
-        'globalVariables': globalVariables.map((v) => v.toJson()).toList(),
-        'globalGetters': globalGetters.map((g) => g.toJson()).toList(),
-        'globalFunctions': globalFunctions.map((f) => f.toJson()).toList(),
-        'debugEnabled': debugEnabled,
-      };
+    'imports': imports.map((i) => i.toJson()).toList(),
+    'permissions': permissions.map((p) => p.toJson()).toList(),
+    'globalVariables': globalVariables.map((v) => v.toJson()).toList(),
+    'globalGetters': globalGetters.map((g) => g.toJson()).toList(),
+    'globalFunctions': globalFunctions.map((f) => f.toJson()).toList(),
+    'debugEnabled': debugEnabled,
+  };
 }
 
 /// Configuration for a single import library.
@@ -657,10 +660,10 @@ class ImportConfiguration {
 
   /// Converts this import configuration to a JSON-serializable map.
   Map<String, dynamic> toJson() => {
-        'importPath': importPath,
-        'classes': classes.map((c) => c.toJson()).toList(),
-        'enums': enums.map((e) => e.toJson()).toList(),
-      };
+    'importPath': importPath,
+    'classes': classes.map((c) => c.toJson()).toList(),
+    'enums': enums.map((e) => e.toJson()).toList(),
+  };
 }
 
 /// Information about a bridged class.
@@ -734,23 +737,23 @@ class BridgedClassInfo {
 
   /// Converts this class info to a JSON-serializable map.
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'nativeType': nativeTypeName,
-        'constructors': constructors,
-        'methods': methods,
-        'getters': getters,
-        'setters': setters,
-        'staticMethods': staticMethods,
-        'staticGetters': staticGetters,
-        'staticSetters': staticSetters,
-        'constructorSignatures': constructorSignatures,
-        'methodSignatures': methodSignatures,
-        'getterSignatures': getterSignatures,
-        'setterSignatures': setterSignatures,
-        'staticMethodSignatures': staticMethodSignatures,
-        'staticGetterSignatures': staticGetterSignatures,
-        'staticSetterSignatures': staticSetterSignatures,
-      };
+    'name': name,
+    'nativeType': nativeTypeName,
+    'constructors': constructors,
+    'methods': methods,
+    'getters': getters,
+    'setters': setters,
+    'staticMethods': staticMethods,
+    'staticGetters': staticGetters,
+    'staticSetters': staticSetters,
+    'constructorSignatures': constructorSignatures,
+    'methodSignatures': methodSignatures,
+    'getterSignatures': getterSignatures,
+    'setterSignatures': setterSignatures,
+    'staticMethodSignatures': staticMethodSignatures,
+    'staticGetterSignatures': staticGetterSignatures,
+    'staticSetterSignatures': staticSetterSignatures,
+  };
 }
 
 /// Information about a bridged enum.
@@ -761,16 +764,10 @@ class BridgedEnumInfo {
   /// List of enum value names.
   final List<String> values;
 
-  const BridgedEnumInfo({
-    required this.name,
-    required this.values,
-  });
+  const BridgedEnumInfo({required this.name, required this.values});
 
   /// Converts this enum info to a JSON-serializable map.
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'values': values,
-      };
+  Map<String, dynamic> toJson() => {'name': name, 'values': values};
 }
 
 /// Information about a granted permission.
@@ -781,16 +778,10 @@ class PermissionInfo {
   /// Human-readable description of what this permission allows.
   final String description;
 
-  const PermissionInfo({
-    required this.type,
-    required this.description,
-  });
+  const PermissionInfo({required this.type, required this.description});
 
   /// Converts this permission info to a JSON-serializable map.
-  Map<String, dynamic> toJson() => {
-        'type': type,
-        'description': description,
-      };
+  Map<String, dynamic> toJson() => {'type': type, 'description': description};
 }
 
 /// Information about a registered global variable.
@@ -812,10 +803,10 @@ class GlobalVariableInfo {
 
   /// Converts this global variable info to a JSON-serializable map.
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'valueType': valueType,
-        'libraryUri': libraryUri,
-      };
+    'name': name,
+    'valueType': valueType,
+    'libraryUri': libraryUri,
+  };
 }
 
 /// Information about a registered global function.
@@ -837,10 +828,10 @@ class GlobalFunctionInfo {
 
   /// Converts this global function info to a JSON-serializable map.
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'libraryUri': libraryUri,
-        if (signature != null) 'signature': signature,
-      };
+    'name': name,
+    'libraryUri': libraryUri,
+    if (signature != null) 'signature': signature,
+  };
 }
 
 /// Information about a registered global getter.
@@ -862,10 +853,10 @@ class GlobalGetterInfo {
 
   /// Converts this global getter info to a JSON-serializable map.
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'libraryUri': libraryUri,
-        if (returnType != null) 'returnType': returnType,
-      };
+    'name': name,
+    'libraryUri': libraryUri,
+    if (returnType != null) 'returnType': returnType,
+  };
 }
 
 /// Represents the current state of the D4rt environment.
@@ -890,10 +881,10 @@ class EnvironmentState {
 
   /// Converts this environment state to a JSON-serializable map.
   Map<String, dynamic> toJson() => {
-        'variables': variables.map((v) => v.toJson()).toList(),
-        'bridgedClasses': bridgedClasses,
-        'bridgedEnums': bridgedEnums,
-      };
+    'variables': variables.map((v) => v.toJson()).toList(),
+    'bridgedClasses': bridgedClasses,
+    'bridgedEnums': bridgedEnums,
+  };
 }
 
 /// Information about a variable in the environment.
@@ -915,10 +906,10 @@ class EnvironmentVariableInfo {
 
   /// Converts this variable info to a JSON-serializable map.
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'valueType': valueType,
-        'isNull': isNull,
-      };
+    'name': name,
+    'valueType': valueType,
+    'isNull': isNull,
+  };
 }
 
 /// Converts an SAstNode type annotation to its source string representation.

@@ -58,8 +58,11 @@ void main() {
               SReturnStatement(
                 offset: 0,
                 length: 0,
-                expression:
-                    SIntegerLiteral(offset: 0, length: 1, value: returnValue),
+                expression: SIntegerLiteral(
+                  offset: 0,
+                  length: 1,
+                  value: returnValue,
+                ),
               ),
             ],
           ),
@@ -91,65 +94,106 @@ void main() {
     tearDown(D4rtRunner.debugResetPool);
 
     test(
-        'default-on: a legacy runner reuses its per-instance module env across '
-        'executes', () {
-      // No providePackage → legacy runner (empty allowed-set).
-      final runner = D4rtRunner();
-      runner.registerBridgedClass(marker('WClass'), 'package:w/w.dart',
-          sourceUri: 'package:w/w.dart');
+      'default-on: a legacy runner reuses its per-instance module env across '
+      'executes',
+      () {
+        // No providePackage → legacy runner (empty allowed-set).
+        final runner = D4rtRunner();
+        runner.registerBridgedClass(
+          marker('WClass'),
+          'package:w/w.dart',
+          sourceUri: 'package:w/w.dart',
+        );
 
-      runner.executeBundleAs<int>(
-          bundleImporting('package:w/w.dart', returnValue: 1));
-      final afterFirst = D4rtRunner.debugBridgedModuleEnvBuildCount;
-      expect(afterFirst, 1,
-          reason: 'the first import builds the per-module env exactly once');
+        runner.executeBundleAs<int>(
+          bundleImporting('package:w/w.dart', returnValue: 1),
+        );
+        final afterFirst = D4rtRunner.debugBridgedModuleEnvBuildCount;
+        expect(
+          afterFirst,
+          1,
+          reason: 'the first import builds the per-module env exactly once',
+        );
 
-      runner.executeBundleAs<int>(
-          bundleImporting('package:w/w.dart', returnValue: 2));
-      expect(D4rtRunner.debugBridgedModuleEnvBuildCount, afterFirst,
-          reason: 'with reuseAcrossRuns on (default) the second execute reuses '
-              'the per-instance cached env — no rebuild');
-    });
+        runner.executeBundleAs<int>(
+          bundleImporting('package:w/w.dart', returnValue: 2),
+        );
+        expect(
+          D4rtRunner.debugBridgedModuleEnvBuildCount,
+          afterFirst,
+          reason:
+              'with reuseAcrossRuns on (default) the second execute reuses '
+              'the per-instance cached env — no rebuild',
+        );
+      },
+    );
 
-    test('opt-out: reuseAcrossRuns:false rebuilds the module env on every run',
-        () {
-      final runner = D4rtRunner(reuseAcrossRuns: false);
-      runner.registerBridgedClass(marker('WClass'), 'package:w/w.dart',
-          sourceUri: 'package:w/w.dart');
+    test(
+      'opt-out: reuseAcrossRuns:false rebuilds the module env on every run',
+      () {
+        final runner = D4rtRunner(reuseAcrossRuns: false);
+        runner.registerBridgedClass(
+          marker('WClass'),
+          'package:w/w.dart',
+          sourceUri: 'package:w/w.dart',
+        );
 
-      runner.executeBundleAs<int>(
-          bundleImporting('package:w/w.dart', returnValue: 1));
-      expect(D4rtRunner.debugBridgedModuleEnvBuildCount, 1,
-          reason: 'first run builds the module env');
+        runner.executeBundleAs<int>(
+          bundleImporting('package:w/w.dart', returnValue: 1),
+        );
+        expect(
+          D4rtRunner.debugBridgedModuleEnvBuildCount,
+          1,
+          reason: 'first run builds the module env',
+        );
 
-      runner.executeBundleAs<int>(
-          bundleImporting('package:w/w.dart', returnValue: 2));
-      expect(D4rtRunner.debugBridgedModuleEnvBuildCount, 2,
-          reason: 'with reuseAcrossRuns off every run rebuilds for isolation');
-    });
+        runner.executeBundleAs<int>(
+          bundleImporting('package:w/w.dart', returnValue: 2),
+        );
+        expect(
+          D4rtRunner.debugBridgedModuleEnvBuildCount,
+          2,
+          reason: 'with reuseAcrossRuns off every run rebuilds for isolation',
+        );
+      },
+    );
 
-    test('invalidation: registering after a run drops the per-instance cache',
-        () {
-      final runner = D4rtRunner();
-      runner.registerBridgedClass(marker('WClass'), 'package:w/w.dart',
-          sourceUri: 'package:w/w.dart');
+    test(
+      'invalidation: registering after a run drops the per-instance cache',
+      () {
+        final runner = D4rtRunner();
+        runner.registerBridgedClass(
+          marker('WClass'),
+          'package:w/w.dart',
+          sourceUri: 'package:w/w.dart',
+        );
 
-      runner.executeBundleAs<int>(
-          bundleImporting('package:w/w.dart', returnValue: 1));
-      expect(D4rtRunner.debugBridgedModuleEnvBuildCount, 1);
+        runner.executeBundleAs<int>(
+          bundleImporting('package:w/w.dart', returnValue: 1),
+        );
+        expect(D4rtRunner.debugBridgedModuleEnvBuildCount, 1);
 
-      // A new (unrelated) registration must invalidate the per-instance caches
-      // so the next run rebinds even for the *same* URI — fixes the latent
-      // register-after-execute staleness. Without invalidation the cached `w`
-      // env would be reused and the count would stay 1.
-      runner.registerBridgedClass(marker('XClass'), 'package:x/x.dart',
-          sourceUri: 'package:x/x.dart');
+        // A new (unrelated) registration must invalidate the per-instance caches
+        // so the next run rebinds even for the *same* URI — fixes the latent
+        // register-after-execute staleness. Without invalidation the cached `w`
+        // env would be reused and the count would stay 1.
+        runner.registerBridgedClass(
+          marker('XClass'),
+          'package:x/x.dart',
+          sourceUri: 'package:x/x.dart',
+        );
 
-      runner.executeBundleAs<int>(
-          bundleImporting('package:w/w.dart', returnValue: 3));
-      expect(D4rtRunner.debugBridgedModuleEnvBuildCount, 2,
-          reason: 'the post-run registration dropped the cache, so re-importing '
-              'the same URI rebuilds');
-    });
+        runner.executeBundleAs<int>(
+          bundleImporting('package:w/w.dart', returnValue: 3),
+        );
+        expect(
+          D4rtRunner.debugBridgedModuleEnvBuildCount,
+          2,
+          reason:
+              'the post-run registration dropped the cache, so re-importing '
+              'the same URI rebuilds',
+        );
+      },
+    );
   });
 }

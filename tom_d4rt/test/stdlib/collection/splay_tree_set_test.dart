@@ -12,10 +12,12 @@ void main() {
   final d4rt = D4rt();
 
   group('SC2: SplayTreeSet collection bridge', () {
-    test('F-SC2-11: SplayTreeSet() iterates in natural sorted order [2026-07-27]',
-        () {
-      final result = d4rt.execute(
-        source: '''
+    test(
+      'F-SC2-11: SplayTreeSet() iterates in natural sorted order [2026-07-27]',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final set = SplayTreeSet();
@@ -25,18 +27,25 @@ void main() {
             return [set.toList(), set.length, set.first, set.last];
           }
         ''',
-      ) as List;
-      expect(result[0], orderedEquals([10, 20, 30]),
-          reason: 'sorted regardless of insertion order');
-      expect(result[1], 3, reason: 'length');
-      expect(result[2], 10, reason: 'first is the smallest');
-      expect(result[3], 30, reason: 'last is the largest');
-    });
+                )
+                as List;
+        expect(
+          result[0],
+          orderedEquals([10, 20, 30]),
+          reason: 'sorted regardless of insertion order',
+        );
+        expect(result[1], 3, reason: 'length');
+        expect(result[2], 10, reason: 'first is the smallest');
+        expect(result[3], 30, reason: 'last is the largest');
+      },
+    );
 
-    test('F-SC2-12: SplayTreeSet(compare) honours a custom comparator [2026-07-27]',
-        () {
-      final result = d4rt.execute(
-        source: '''
+    test(
+      'F-SC2-12: SplayTreeSet(compare) honours a custom comparator [2026-07-27]',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final set = SplayTreeSet((a, b) => (b as int).compareTo(a as int));
@@ -44,17 +53,20 @@ void main() {
             return [set.toList(), set.first, set.last];
           }
         ''',
-      ) as List;
-      expect(result[0], orderedEquals([3, 2, 1]), reason: 'reverse order');
-      expect(result[1], 3, reason: 'first under the reverse comparator');
-      expect(result[2], 1, reason: 'last under the reverse comparator');
-    });
+                )
+                as List;
+        expect(result[0], orderedEquals([3, 2, 1]), reason: 'reverse order');
+        expect(result[1], 3, reason: 'first under the reverse comparator');
+        expect(result[2], 1, reason: 'last under the reverse comparator');
+      },
+    );
 
     test(
-        'F-SC2-13: SplayTreeSet.from() / .of(), with and without a comparator [2026-07-27]',
-        () {
-      final result = d4rt.execute(
-        source: '''
+      'F-SC2-13: SplayTreeSet.from() / .of(), with and without a comparator [2026-07-27]',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final a = SplayTreeSet.from([5, 1, 3, 1]);
@@ -64,20 +76,32 @@ void main() {
             return [a.toList(), b.toList(), c.toList()];
           }
         ''',
-      ) as List;
-      expect(result[0], orderedEquals([1, 3, 5]),
-          reason: 'from() dedups and sorts');
-      expect(result[1], orderedEquals(['banana', 'fig', 'pear']),
-          reason: 'of() sorts strings');
-      expect(result[2], orderedEquals([5, 3, 1]),
-          reason: 'from() with a comparator');
-    });
+                )
+                as List;
+        expect(
+          result[0],
+          orderedEquals([1, 3, 5]),
+          reason: 'from() dedups and sorts',
+        );
+        expect(
+          result[1],
+          orderedEquals(['banana', 'fig', 'pear']),
+          reason: 'of() sorts strings',
+        );
+        expect(
+          result[2],
+          orderedEquals([5, 3, 1]),
+          reason: 'from() with a comparator',
+        );
+      },
+    );
 
     test(
-        'F-SC2-14: sort order is maintained across add / remove / clear [2026-07-27]',
-        () {
-      final result = d4rt.execute(
-        source: '''
+      'F-SC2-14: sort order is maintained across add / remove / clear [2026-07-27]',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final set = SplayTreeSet.from([50, 10, 30]);
@@ -90,19 +114,26 @@ void main() {
             return [removed, missing, order, set.isEmpty, set.isNotEmpty];
           }
         ''',
-      ) as List;
-      expect(result[0], true, reason: 'remove existing');
-      expect(result[1], false, reason: 'remove absent');
-      expect(result[2], orderedEquals([10, 20, 40, 50]),
-          reason: 'still sorted after interleaved add/remove');
-      expect(result[3], true, reason: 'isEmpty after clear');
-      expect(result[4], false, reason: 'isNotEmpty after clear');
-    });
+                )
+                as List;
+        expect(result[0], true, reason: 'remove existing');
+        expect(result[1], false, reason: 'remove absent');
+        expect(
+          result[2],
+          orderedEquals([10, 20, 40, 50]),
+          reason: 'still sorted after interleaved add/remove',
+        );
+        expect(result[3], true, reason: 'isEmpty after clear');
+        expect(result[4], false, reason: 'isNotEmpty after clear');
+      },
+    );
 
-    test('F-SC2-15: forEach / map / where iterate in sorted order [2026-07-27]',
-        () {
-      final result = d4rt.execute(
-        source: '''
+    test(
+      'F-SC2-15: forEach / map / where iterate in sorted order [2026-07-27]',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final set = SplayTreeSet.from([3, 1, 4, 1, 5, 9]);
@@ -113,16 +144,28 @@ void main() {
             return [seen, doubled, odd];
           }
         ''',
-      ) as List;
-      expect(result[0], orderedEquals([1, 3, 4, 5, 9]), reason: 'forEach order');
-      expect(result[1], orderedEquals([2, 6, 8, 10, 18]), reason: 'map order');
-      expect(result[2], orderedEquals([1, 3, 5, 9]), reason: 'where order');
-    });
+                )
+                as List;
+        expect(
+          result[0],
+          orderedEquals([1, 3, 4, 5, 9]),
+          reason: 'forEach order',
+        );
+        expect(
+          result[1],
+          orderedEquals([2, 6, 8, 10, 18]),
+          reason: 'map order',
+        );
+        expect(result[2], orderedEquals([1, 3, 5, 9]), reason: 'where order');
+      },
+    );
 
-    test('F-SC2-16: set algebra — containsAll / removeAll / retainAll [2026-07-27]',
-        () {
-      final result = d4rt.execute(
-        source: '''
+    test(
+      'F-SC2-16: set algebra — containsAll / removeAll / retainAll [2026-07-27]',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final a = SplayTreeSet.from(['d', 'b', 'a', 'c']);
@@ -136,17 +179,25 @@ void main() {
             return [all, none, afterRemove, b.toList()];
           }
         ''',
-      ) as List;
-      expect(result[0], true, reason: 'containsAll present');
-      expect(result[1], false, reason: 'containsAll with an absent element');
-      expect(result[2], orderedEquals(['b', 'd']), reason: 'after removeAll');
-      expect(result[3], orderedEquals([2, 5]), reason: 'retainAll stays sorted');
-    });
+                )
+                as List;
+        expect(result[0], true, reason: 'containsAll present');
+        expect(result[1], false, reason: 'containsAll with an absent element');
+        expect(result[2], orderedEquals(['b', 'd']), reason: 'after removeAll');
+        expect(
+          result[3],
+          orderedEquals([2, 5]),
+          reason: 'retainAll stays sorted',
+        );
+      },
+    );
 
-    test('F-SC2-17: removeWhere / retainWhere / any / every / fold [2026-07-27]',
-        () {
-      final result = d4rt.execute(
-        source: '''
+    test(
+      'F-SC2-17: removeWhere / retainWhere / any / every / fold [2026-07-27]',
+      () {
+        final result =
+            d4rt.execute(
+                  source: '''
           import 'dart:collection';
           main() {
             final a = SplayTreeSet.from([6, 5, 4, 3, 2, 1]);
@@ -162,18 +213,21 @@ void main() {
             ];
           }
         ''',
-      ) as List;
-      expect(result[0], orderedEquals([1, 3, 5]), reason: 'removeWhere');
-      expect(result[1], orderedEquals([5, 6]), reason: 'retainWhere');
-      expect(result[2], true, reason: 'any true');
-      expect(result[3], false, reason: 'any false');
-      expect(result[4], true, reason: 'every');
-      expect(result[5], 12, reason: 'fold');
-    });
+                )
+                as List;
+        expect(result[0], orderedEquals([1, 3, 5]), reason: 'removeWhere');
+        expect(result[1], orderedEquals([5, 6]), reason: 'retainWhere');
+        expect(result[2], true, reason: 'any true');
+        expect(result[3], false, reason: 'any false');
+        expect(result[4], true, reason: 'every');
+        expect(result[5], 12, reason: 'fold');
+      },
+    );
 
     test('F-SC2-18: lookup / elementAt / join / take / skip [2026-07-27]', () {
-      final result = d4rt.execute(
-        source: '''
+      final result =
+          d4rt.execute(
+                source: '''
           import 'dart:collection';
           main() {
             final set = SplayTreeSet.from(['three', 'one', 'two']);
@@ -187,7 +241,8 @@ void main() {
             ];
           }
         ''',
-      ) as List;
+              )
+              as List;
       expect(result[0], 'two', reason: 'lookup hit');
       expect(result[1], null, reason: 'lookup miss');
       expect(result[2], 'one', reason: 'elementAt follows sorted order');
@@ -196,25 +251,34 @@ void main() {
       expect(result[5], orderedEquals(['two']), reason: 'skip');
     });
 
-    test('F-SC2-19: first on an empty set raises a D4rt error [2026-07-27]', () {
-      expect(
-        () => d4rt.execute(source: '''
+    test(
+      'F-SC2-19: first on an empty set raises a D4rt error [2026-07-27]',
+      () {
+        expect(
+          () => d4rt.execute(
+            source: '''
           import 'dart:collection';
           main() { return SplayTreeSet().first; }
-        '''),
-        throwsA(isA<RuntimeD4rtException>()),
-      );
-    });
+        ''',
+          ),
+          throwsA(isA<RuntimeD4rtException>()),
+        );
+      },
+    );
 
-    test('F-SC2-20: a non-function compare argument is rejected [2026-07-27]',
-        () {
-      expect(
-        () => d4rt.execute(source: '''
+    test(
+      'F-SC2-20: a non-function compare argument is rejected [2026-07-27]',
+      () {
+        expect(
+          () => d4rt.execute(
+            source: '''
           import 'dart:collection';
           main() { return SplayTreeSet(42); }
-        '''),
-        throwsA(isA<RuntimeD4rtException>()),
-      );
-    });
+        ''',
+          ),
+          throwsA(isA<RuntimeD4rtException>()),
+        );
+      },
+    );
   });
 }

@@ -67,7 +67,11 @@ void registerGlobals(D4rt d4rt, String importPath) {
   d4rt.registerGlobalVariable('debugMode', debugMode, importPath);
 
   // Register global getters (computed values)
-  d4rt.registerGlobalGetter('currentTimestamp', () => currentTimestamp, importPath);
+  d4rt.registerGlobalGetter(
+    'currentTimestamp',
+    () => currentTimestamp,
+    importPath,
+  );
 
   // Register global functions
   registerGlobalFunctions(d4rt, importPath);
@@ -76,63 +80,74 @@ void registerGlobals(D4rt d4rt, String importPath) {
 /// Registers global functions with proper argument handling.
 void registerGlobalFunctions(D4rt d4rt, String importPath) {
   // Simple function with one required argument
-  d4rt.registertopLevelFunction(
-    'greet',
-    (visitor, positional, named, typeArgs) {
-      final name = D4.getRequiredArg<String>(positional, 0, 'name', 'greet');
-      return greet(name);
-    },
-    importPath,
-  );
+  d4rt.registertopLevelFunction('greet', (
+    visitor,
+    positional,
+    named,
+    typeArgs,
+  ) {
+    final name = D4.getRequiredArg<String>(positional, 0, 'name', 'greet');
+    return greet(name);
+  }, importPath);
 
   // Function with named arguments and defaults
-  d4rt.registertopLevelFunction(
-    'formatNumber',
-    (visitor, positional, named, typeArgs) {
-      final value =
-          D4.getRequiredArg<int>(positional, 0, 'value', 'formatNumber');
-      final suffix = D4.getNamedArgWithDefault<String>(named, 'suffix', '');
-      final padding = D4.getNamedArgWithDefault<int>(named, 'padding', 0);
-      return formatNumber(value, suffix: suffix, padding: padding);
-    },
-    importPath,
-  );
+  d4rt.registertopLevelFunction('formatNumber', (
+    visitor,
+    positional,
+    named,
+    typeArgs,
+  ) {
+    final value = D4.getRequiredArg<int>(
+      positional,
+      0,
+      'value',
+      'formatNumber',
+    );
+    final suffix = D4.getNamedArgWithDefault<String>(named, 'suffix', '');
+    final padding = D4.getNamedArgWithDefault<int>(named, 'padding', 0);
+    return formatNumber(value, suffix: suffix, padding: padding);
+  }, importPath);
 
   // Recursive function
-  d4rt.registertopLevelFunction(
-    'factorial',
-    (visitor, positional, named, typeArgs) {
-      final n = D4.getRequiredArg<int>(positional, 0, 'n', 'factorial');
-      return factorial(n);
-    },
-    importPath,
-  );
+  d4rt.registertopLevelFunction('factorial', (
+    visitor,
+    positional,
+    named,
+    typeArgs,
+  ) {
+    final n = D4.getRequiredArg<int>(positional, 0, 'n', 'factorial');
+    return factorial(n);
+  }, importPath);
 
   // Function with list parameter
-  d4rt.registertopLevelFunction(
-    'joinStrings',
-    (visitor, positional, named, typeArgs) {
-      // D4rt creates List<Object?>, use D4.coerceList to convert
-      final strings =
-          D4.coerceList<String>(positional[0], 'strings');
-      final separator =
-          D4.getNamedArgWithDefault<String>(named, 'separator', ', ');
-      return joinStrings(strings, separator: separator);
-    },
-    importPath,
-  );
+  d4rt.registertopLevelFunction('joinStrings', (
+    visitor,
+    positional,
+    named,
+    typeArgs,
+  ) {
+    // D4rt creates List<Object?>, use D4.coerceList to convert
+    final strings = D4.coerceList<String>(positional[0], 'strings');
+    final separator = D4.getNamedArgWithDefault<String>(
+      named,
+      'separator',
+      ', ',
+    );
+    return joinStrings(strings, separator: separator);
+  }, importPath);
 
   // Function that returns a list
-  d4rt.registertopLevelFunction(
-    'range',
-    (visitor, positional, named, typeArgs) {
-      final start = D4.getRequiredArg<int>(positional, 0, 'start', 'range');
-      final end = D4.getRequiredArg<int>(positional, 1, 'end', 'range');
-      final step = D4.getNamedArgWithDefault<int>(named, 'step', 1);
-      return range(start, end, step: step);
-    },
-    importPath,
-  );
+  d4rt.registertopLevelFunction('range', (
+    visitor,
+    positional,
+    named,
+    typeArgs,
+  ) {
+    final start = D4.getRequiredArg<int>(positional, 0, 'start', 'range');
+    final end = D4.getRequiredArg<int>(positional, 1, 'end', 'range');
+    final step = D4.getNamedArgWithDefault<int>(named, 'step', 1);
+    return range(start, end, step: step);
+  }, importPath);
 }
 
 // =============================================================================

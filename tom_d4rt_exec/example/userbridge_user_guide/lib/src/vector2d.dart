@@ -13,9 +13,7 @@ class Vector2D {
   Vector2D(this.x, this.y);
 
   /// Create a zero vector.
-  Vector2D.zero()
-      : x = 0,
-        y = 0;
+  Vector2D.zero() : x = 0, y = 0;
 
   /// Vector addition.
   Vector2D operator +(Vector2D other) => Vector2D(x + other.x, y + other.y);

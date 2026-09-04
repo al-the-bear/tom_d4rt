@@ -10,59 +10,65 @@ import 'bridged_types.dart'; // Import BridgedInstance for unwrap helper
 // and type conversion.
 
 /// Calls a native constructor.
-typedef BridgedConstructorCallable = Object? Function(
-    InterpreterVisitor
-        visitor, // For potential evaluation of args or access env
-    List<Object?> positionalArgs, // Interpretted arguments
-    Map<String, Object?> namedArgs // Interpretted arguments
+typedef BridgedConstructorCallable =
+    Object? Function(
+      InterpreterVisitor
+      visitor, // For potential evaluation of args or access env
+      List<Object?> positionalArgs, // Interpretted arguments
+      Map<String, Object?> namedArgs, // Interpretted arguments
     );
 
 /// Calls a native method/getter/setter.
-typedef BridgedMethodCallable = Object? Function(
-    InterpreterVisitor visitor,
-    Object
-        target, // The native target object (for instance methods/getters/setters)
-    List<Object?> positionalArgs,
-    Map<String, Object?> namedArgs);
+typedef BridgedMethodCallable =
+    Object? Function(
+      InterpreterVisitor visitor,
+      Object
+      target, // The native target object (for instance methods/getters/setters)
+      List<Object?> positionalArgs,
+      Map<String, Object?> namedArgs,
+    );
 
-typedef BridgedMethodAdapter = Object? Function(
-    InterpreterVisitor visitor, // The current visitor
-    Object target, // The native target object to call the method on
-    List<Object?> positionalArguments, // Interpretted arguments
-    Map<String, Object?> namedArguments, // Interpretted arguments
-    List<RuntimeType>? typeArguments, // Type arguments for generic methods
+typedef BridgedMethodAdapter =
+    Object? Function(
+      InterpreterVisitor visitor, // The current visitor
+      Object target, // The native target object to call the method on
+      List<Object?> positionalArguments, // Interpretted arguments
+      Map<String, Object?> namedArguments, // Interpretted arguments
+      List<RuntimeType>? typeArguments, // Type arguments for generic methods
     );
 
 /// Adapter for bridged static methods.
 /// Takes interpreter context, positional args, named args, type args.
 /// Returns the result of the native static method call.
-typedef BridgedStaticMethodAdapter = Object? Function(
-    InterpreterVisitor visitor,
-    List<Object?> positionalArguments,
-    Map<String, Object?> namedArguments,
-    List<RuntimeType>? typeArguments);
+typedef BridgedStaticMethodAdapter =
+    Object? Function(
+      InterpreterVisitor visitor,
+      List<Object?> positionalArguments,
+      Map<String, Object?> namedArguments,
+      List<RuntimeType>? typeArguments,
+    );
 
 /// Adapter for bridged static getters.
 /// Takes interpreter context.
 /// Returns the result of the native static getter.
-typedef BridgedStaticGetterAdapter = Object? Function(
-    InterpreterVisitor visitor);
+typedef BridgedStaticGetterAdapter =
+    Object? Function(InterpreterVisitor visitor);
 
 /// Adapter for bridged static setters.
 /// Takes interpreter context, the value to set.
-typedef BridgedStaticSetterAdapter = void Function(
-    InterpreterVisitor visitor, Object? value);
+typedef BridgedStaticSetterAdapter =
+    void Function(InterpreterVisitor visitor, Object? value);
 
 /// Adapter for bridged instance getters.
 /// Takes interpreter context, the native target object.
 /// Returns the result of the native instance getter.
-typedef BridgedInstanceGetterAdapter = Object? Function(
-    InterpreterVisitor? visitor, Object target);
+typedef BridgedInstanceGetterAdapter =
+    Object? Function(InterpreterVisitor? visitor, Object target);
 
 /// Adapter for bridged instance setters.
 /// Takes interpreter context, the native target object, the value to set.
-typedef BridgedInstanceSetterAdapter = void Function(
-    InterpreterVisitor? visitor, Object target, Object? value);
+typedef BridgedInstanceSetterAdapter =
+    void Function(InterpreterVisitor? visitor, Object target, Object? value);
 
 class BridgedEnumDefinition<T extends Enum> {
   /// The name under which the enum will be known in the interpreter.
@@ -98,7 +104,9 @@ class BridgedEnumDefinition<T extends Enum> {
   }) {
     // Validation: Ensure the value list is not empty
     if (values.isEmpty) {
-      throw ArgumentD4rtException('Cannot bridge an enum with no values: $name');
+      throw ArgumentD4rtException(
+        'Cannot bridge an enum with no values: $name',
+      );
     }
   }
 
@@ -238,13 +246,16 @@ class BridgedExtensionDefinition {
     for (final entry in getters.entries) {
       members[entry.key] = NativeExtensionCallable(
         name: entry.key,
-        adapter: (InterpreterVisitor visitor,
-            List<Object?> positionalArgs,
-            Map<String, Object?> namedArgs,
-            List<RuntimeType>? typeArgs) {
-          final target = _unwrapBridgedEnum(positionalArgs[0]);
-          return entry.value(visitor, target!);
-        },
+        adapter:
+            (
+              InterpreterVisitor visitor,
+              List<Object?> positionalArgs,
+              Map<String, Object?> namedArgs,
+              List<RuntimeType>? typeArgs,
+            ) {
+              final target = _unwrapBridgedEnum(positionalArgs[0]);
+              return entry.value(visitor, target!);
+            },
         isGetter: true,
         arity: 1,
       );
@@ -254,17 +265,20 @@ class BridgedExtensionDefinition {
     for (final entry in setters.entries) {
       members[entry.key] = NativeExtensionCallable(
         name: entry.key,
-        adapter: (InterpreterVisitor visitor,
-            List<Object?> positionalArgs,
-            Map<String, Object?> namedArgs,
-            List<RuntimeType>? typeArgs) {
-          final target = _unwrapBridgedEnum(positionalArgs[0]);
-          final value = positionalArgs.length > 1
-              ? _unwrapBridgedEnum(positionalArgs[1])
-              : null;
-          entry.value(visitor, target!, value);
-          return null;
-        },
+        adapter:
+            (
+              InterpreterVisitor visitor,
+              List<Object?> positionalArgs,
+              Map<String, Object?> namedArgs,
+              List<RuntimeType>? typeArgs,
+            ) {
+              final target = _unwrapBridgedEnum(positionalArgs[0]);
+              final value = positionalArgs.length > 1
+                  ? _unwrapBridgedEnum(positionalArgs[1])
+                  : null;
+              entry.value(visitor, target!, value);
+              return null;
+            },
         isSetter: true,
         arity: 2,
       );
@@ -274,25 +288,34 @@ class BridgedExtensionDefinition {
     for (final entry in methods.entries) {
       members[entry.key] = NativeExtensionCallable(
         name: entry.key,
-        adapter: (InterpreterVisitor visitor,
-            List<Object?> positionalArgs,
-            Map<String, Object?> namedArgs,
-            List<RuntimeType>? typeArgs) {
-          // Bucket #4 fix: Unwrap BridgedEnumValue → nativeValue so the
-          // generated adapter (which casts target to the native interface)
-          // receives the native enum, not the wrapper. Right operands of
-          // operator methods (e.g. `WidgetState.a | WidgetState.b`) need
-          // the same treatment.
-          final target = _unwrapBridgedEnum(positionalArgs[0]);
-          final methodArgs = positionalArgs
-              .sublist(1)
-              .map(_unwrapBridgedEnum)
-              .toList();
-          final unwrappedNamed = namedArgs
-              .map((k, v) => MapEntry(k, _unwrapBridgedEnum(v)));
-          return entry.value(
-              visitor, target!, methodArgs, unwrappedNamed, typeArgs);
-        },
+        adapter:
+            (
+              InterpreterVisitor visitor,
+              List<Object?> positionalArgs,
+              Map<String, Object?> namedArgs,
+              List<RuntimeType>? typeArgs,
+            ) {
+              // Bucket #4 fix: Unwrap BridgedEnumValue → nativeValue so the
+              // generated adapter (which casts target to the native interface)
+              // receives the native enum, not the wrapper. Right operands of
+              // operator methods (e.g. `WidgetState.a | WidgetState.b`) need
+              // the same treatment.
+              final target = _unwrapBridgedEnum(positionalArgs[0]);
+              final methodArgs = positionalArgs
+                  .sublist(1)
+                  .map(_unwrapBridgedEnum)
+                  .toList();
+              final unwrappedNamed = namedArgs.map(
+                (k, v) => MapEntry(k, _unwrapBridgedEnum(v)),
+              );
+              return entry.value(
+                visitor,
+                target!,
+                methodArgs,
+                unwrappedNamed,
+                typeArgs,
+              );
+            },
         // Mark operator methods (e.g. `|`, `&`, `~`, `[]`, `==`) so the
         // binary/unary operator dispatch sites recognise them as operator
         // overloads rather than plain extension methods.
@@ -301,11 +324,7 @@ class BridgedExtensionDefinition {
       );
     }
 
-    return InterpretedExtension(
-      name: name,
-      onType: onType,
-      members: members,
-    );
+    return InterpretedExtension(name: name, onType: onType, members: members);
   }
 }
 

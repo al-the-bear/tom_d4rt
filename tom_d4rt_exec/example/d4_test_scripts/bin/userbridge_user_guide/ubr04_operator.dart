@@ -47,7 +47,8 @@ void main() {
 
   m[[0, 1]] = 99.0;
   var updated = m[[0, 1]];
-  if (updated != 99.0) errors.add('m[0,1] after set expected 99.0, got $updated');
+  if (updated != 99.0)
+    errors.add('m[0,1] after set expected 99.0, got $updated');
 
   // ── Summary ──────────────────────────────────────────────────────
 

@@ -17,7 +17,9 @@ void main() {
 
   // Test Priority enum
   if (Priority.high.name != 'high') {
-    errors.add('Priority.high.name expected "high", got "${Priority.high.name}"');
+    errors.add(
+      'Priority.high.name expected "high", got "${Priority.high.name}"',
+    );
   }
 
   // Test Role enum

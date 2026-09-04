@@ -79,8 +79,10 @@ const _listenAdapterFiles = <String>[
 List<File> _allStdlibSources(String root) {
   final dir = Directory(root);
   if (!dir.existsSync()) {
-    fail('stdlib root "$root" does not exist — run this from the package root, '
-        'with both packages checked out side by side.');
+    fail(
+      'stdlib root "$root" does not exist — run this from the package root, '
+      'with both packages checked out side by side.',
+    );
   }
   return dir
       .listSync(recursive: true)
@@ -91,16 +93,14 @@ List<File> _allStdlibSources(String root) {
 }
 
 void main() {
-  group('SCC25: every listen adapter accepts the argument shapes the SDK does',
-      () {
+  group('SCC25: every listen adapter accepts the argument shapes the SDK does', () {
     // `Stream.listen`'s first parameter is `void Function(T)?`. Passing null is
     // ordinary Dart — it subscribes for the `onDone` / `onError` channels
     // without wanting the data. Every bridge below wraps a real `Stream`, so
     // every one of them has to accept it. Before the fix only the first two
     // did.
 
-    test(
-        'F-SCC25-1: Stream.listen(null) subscribes without a data callback '
+    test('F-SCC25-1: Stream.listen(null) subscribes without a data callback '
         '[2026-09-04]', () async {
       // The baseline. `async/stream.dart` already had the SDK-faithful shape,
       // so this passes before and after — it is here to make the contrast in
@@ -118,8 +118,7 @@ void main() {
       expect(await executeAsync(source), equals('done'));
     });
 
-    test(
-        'F-SCC25-2: Socket.listen(null) subscribes without a data callback '
+    test('F-SCC25-2: Socket.listen(null) subscribes without a data callback '
         '[2026-09-04]', () async {
       // Socket's adapter read `positionalArgs[0]` with no bounds check and cast
       // to a *nullable* function, so null flowed through correctly here but a
@@ -142,8 +141,7 @@ void main() {
       expect(await executeAsync(source), equals('done'));
     });
 
-    test(
-        'F-SCC25-3: ServerSocket.listen(null) subscribes without a data '
+    test('F-SCC25-3: ServerSocket.listen(null) subscribes without a data '
         'callback [2026-09-04]', () async {
       // RED before the fix: the adapter cast to a NON-nullable
       // `InterpretedFunction`, so this died with "type 'Null' is not a subtype
@@ -163,8 +161,7 @@ void main() {
       expect(await executeAsync(source), isTrue);
     });
 
-    test(
-        'F-SCC25-4: RawDatagramSocket.listen(null) subscribes without a data '
+    test('F-SCC25-4: RawDatagramSocket.listen(null) subscribes without a data '
         'callback [2026-09-04]', () async {
       // RED before the fix, same cast. This is the only one of the three raw
       // socket adapters a test can bind without a peer, which is why it stands
@@ -183,8 +180,7 @@ void main() {
       expect(await executeAsync(source), isTrue);
     });
 
-    test(
-        'F-SCC25-5: HttpServer.listen(null) subscribes without a data callback '
+    test('F-SCC25-5: HttpServer.listen(null) subscribes without a data callback '
         '[2026-09-04]', () async {
       // RED before the fix for a different reason than -3/-4: `io/http.dart`
       // threw RuntimeD4rtException('listen requires an onData callback.'), a
@@ -206,8 +202,7 @@ void main() {
   });
 
   group('SCC25: the duplication cannot grow back', () {
-    test(
-        'F-SCC25-6: `_runAction` is not redefined privately in any stdlib file '
+    test('F-SCC25-6: `_runAction` is not redefined privately in any stdlib file '
         '[2026-09-04]', () {
       // Before the fix there were four private definitions in two different
       // shapes: `T? _runAction<T>` in io/socket.dart and
@@ -239,14 +234,14 @@ void main() {
       expect(
         offenders,
         isEmpty,
-        reason: 'A private `_runAction` has reappeared. Use the shared '
+        reason:
+            'A private `_runAction` has reappeared. Use the shared '
             '`runAction` from lib/src/stdlib/run_action.dart instead — a '
             'second copy is how SCB9 turned into a fourteen-site fix.',
       );
     });
 
-    test(
-        'F-SCC25-7: no listen adapter builds its own onError/onDone wrapper '
+    test('F-SCC25-7: no listen adapter builds its own onError/onDone wrapper '
         'trio [2026-09-04]', () {
       // The onError and onDone wrappers were the genuinely identical part of
       // the nine copies — byte-for-byte the same in all six that had them,
@@ -269,7 +264,8 @@ void main() {
       expect(
         offenders,
         isEmpty,
-        reason: 'A listen adapter is building its own callback wrappers '
+        reason:
+            'A listen adapter is building its own callback wrappers '
             'again. Call `bridgedStreamListen` from '
             'lib/src/stdlib/stream_listen.dart — it already handles the '
             'error-handler arity that SCB9 had to fix in fourteen places.',

@@ -11,8 +11,10 @@ void main() {
       _registerAllMixins(d4rt);
     });
 
-    test('I-BRIDGE-12: Complex data processing with multiple mixins. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-BRIDGE-12: Complex data processing with multiple mixins. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         import 'package:mixins/events.dart';
         import 'package:mixins/validation.dart';
         import 'package:mixins/cache.dart';
@@ -103,26 +105,35 @@ void main() {
         }
       ''';
 
-      final result = await d4rt.execute(
-        library: 'package:test/main.dart',
-        sources: {'package:test/main.dart': code},
-      );
+        final result = await d4rt.execute(
+          library: 'package:test/main.dart',
+          sources: {'package:test/main.dart': code},
+        );
 
-      expect(result, isA<Map>());
-      final resultMap = result as Map;
+        expect(result, isA<Map>());
+        final resultMap = result as Map;
 
-      expect(resultMap['result1_success'], isTrue);
-      expect(resultMap['result1_prime'], isTrue); // 7 is prime
-      expect(resultMap['result1_fibonacci'],
-          equals([0, 1, 1, 2, 3, 5, 8])); // First 7 Fibonacci numbers
-      expect(resultMap['result2_error'],
-          isTrue); // Invalid email should cause error
-      expect(resultMap['total_processed'],
-          equals(1)); // Only valid data should be processed
-    });
+        expect(resultMap['result1_success'], isTrue);
+        expect(resultMap['result1_prime'], isTrue); // 7 is prime
+        expect(
+          resultMap['result1_fibonacci'],
+          equals([0, 1, 1, 2, 3, 5, 8]),
+        ); // First 7 Fibonacci numbers
+        expect(
+          resultMap['result2_error'],
+          isTrue,
+        ); // Invalid email should cause error
+        expect(
+          resultMap['total_processed'],
+          equals(1),
+        ); // Only valid data should be processed
+      },
+    );
 
-    test('I-BRIDGE-11: Math operations with bridged mixin. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-BRIDGE-11: Math operations with bridged mixin. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         import 'package:mixins/math.dart';
         
         class Calculator with MathMixin {
@@ -148,28 +159,33 @@ void main() {
         }
       ''';
 
-      final result = await d4rt.execute(
-        library: 'package:test/main.dart',
-        sources: {'package:test/main.dart': code},
-      );
+        final result = await d4rt.execute(
+          library: 'package:test/main.dart',
+          sources: {'package:test/main.dart': code},
+        );
 
-      expect(result, isA<Map>());
-      final resultMap = result as Map;
+        expect(result, isA<Map>());
+        final resultMap = result as Map;
 
-      // Verify mathematical calculations
-      expect(resultMap['circle_area'], closeTo(pi * 100, 0.001)); // π * 10²
-      expect(resultMap['rectangle_area'], equals(15.0)); // 5 * 3
-      expect(resultMap['triangle_area'], equals(12.0)); // 0.5 * 4 * 6
-      expect(resultMap['distance'], equals(5.0)); // √(3² + 4²)
-      expect(
-          resultMap['fibonacci_10'], equals([0, 1, 1, 2, 3, 5, 8, 13, 21, 34]));
-      expect(resultMap['is_17_prime'], isTrue);
-      expect(resultMap['is_16_prime'], isFalse);
-      expect(resultMap['ninety_degrees'], closeTo(pi / 2, 0.001));
-    });
+        // Verify mathematical calculations
+        expect(resultMap['circle_area'], closeTo(pi * 100, 0.001)); // π * 10²
+        expect(resultMap['rectangle_area'], equals(15.0)); // 5 * 3
+        expect(resultMap['triangle_area'], equals(12.0)); // 0.5 * 4 * 6
+        expect(resultMap['distance'], equals(5.0)); // √(3² + 4²)
+        expect(
+          resultMap['fibonacci_10'],
+          equals([0, 1, 1, 2, 3, 5, 8, 13, 21, 34]),
+        );
+        expect(resultMap['is_17_prime'], isTrue);
+        expect(resultMap['is_16_prime'], isFalse);
+        expect(resultMap['ninety_degrees'], closeTo(pi / 2, 0.001));
+      },
+    );
 
-    test('I-BRIDGE-13: Validation mixin functionality. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-BRIDGE-13: Validation mixin functionality. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         import 'package:mixins/validation.dart';
         
         class Validator with ValidationMixin {
@@ -222,27 +238,30 @@ void main() {
         }
       ''';
 
-      final result = await d4rt.execute(
-        library: 'package:test/main.dart',
-        sources: {'package:test/main.dart': code},
-      );
+        final result = await d4rt.execute(
+          library: 'package:test/main.dart',
+          sources: {'package:test/main.dart': code},
+        );
 
-      expect(result, isA<Map>());
-      final resultMap = result as Map;
+        expect(result, isA<Map>());
+        final resultMap = result as Map;
 
-      final validTest = resultMap['valid_test'] as Map;
-      expect(validTest['is_valid'], isTrue);
-      expect(validTest['errors'], isEmpty);
-      expect(validTest['first_email_error'], isNull);
-      expect(validTest['first_phone_error'], isNull);
+        final validTest = resultMap['valid_test'] as Map;
+        expect(validTest['is_valid'], isTrue);
+        expect(validTest['errors'], isEmpty);
+        expect(validTest['first_email_error'], isNull);
+        expect(validTest['first_phone_error'], isNull);
 
-      final invalidTest = resultMap['invalid_test'] as Map;
-      expect(invalidTest['is_valid'], isFalse);
-      expect(invalidTest['errors'], isNotEmpty);
-    });
+        final invalidTest = resultMap['invalid_test'] as Map;
+        expect(invalidTest['is_valid'], isFalse);
+        expect(invalidTest['errors'], isNotEmpty);
+      },
+    );
 
-    test('I-BRIDGE-14: Cache mixin functionality. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-BRIDGE-14: Cache mixin functionality. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         import 'package:mixins/cache.dart';
         
         class CacheManager with CacheMixin {
@@ -280,25 +299,30 @@ void main() {
         }
       ''';
 
-      final result = await d4rt.execute(
-        library: 'package:test/main.dart',
-        sources: {'package:test/main.dart': code},
-      );
+        final result = await d4rt.execute(
+          library: 'package:test/main.dart',
+          sources: {'package:test/main.dart': code},
+        );
 
-      expect(result, isA<Map>());
-      final resultMap = result as Map;
+        expect(result, isA<Map>());
+        final resultMap = result as Map;
 
-      expect(resultMap['cache_size'], equals(3));
-      expect(resultMap['cache_keys'], equals(['key1', 'key2', 'key3']));
-      expect(resultMap['has_key1'], isTrue);
-      expect(resultMap['has_key4'], isFalse);
-      expect(
-          resultMap['get_key1'], equals('value1')); // Now returns actual value
-      expect(resultMap['get_missing'], isNull);
-    });
+        expect(resultMap['cache_size'], equals(3));
+        expect(resultMap['cache_keys'], equals(['key1', 'key2', 'key3']));
+        expect(resultMap['has_key1'], isTrue);
+        expect(resultMap['has_key4'], isFalse);
+        expect(
+          resultMap['get_key1'],
+          equals('value1'),
+        ); // Now returns actual value
+        expect(resultMap['get_missing'], isNull);
+      },
+    );
 
-    test('I-BRIDGE-15: Event mixin functionality. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-BRIDGE-15: Event mixin functionality. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
         import 'package:mixins/events.dart';
         
         class EventManager with EventMixin {
@@ -328,20 +352,28 @@ void main() {
         }
       ''';
 
-      final result = await d4rt.execute(
-        library: 'package:test/main.dart',
-        sources: {'package:test/main.dart': code},
-      );
+        final result = await d4rt.execute(
+          library: 'package:test/main.dart',
+          sources: {'package:test/main.dart': code},
+        );
 
-      expect(result, isA<Map>());
-      final resultMap = result as Map;
+        expect(result, isA<Map>());
+        final resultMap = result as Map;
 
-      expect(resultMap['active_events'], equals(['click', 'change', 'submit']));
-      expect(resultMap['test_listener_count'],
-          equals(1)); // Now properly counts listeners
-      expect(resultMap['event_log'],
-          isEmpty); // Callbacks from bridged mixins don't execute in interpreted context
-    });
+        expect(
+          resultMap['active_events'],
+          equals(['click', 'change', 'submit']),
+        );
+        expect(
+          resultMap['test_listener_count'],
+          equals(1),
+        ); // Now properly counts listeners
+        expect(
+          resultMap['event_log'],
+          isEmpty,
+        ); // Callbacks from bridged mixins don't execute in interpreted context
+      },
+    );
   });
 }
 
@@ -360,19 +392,24 @@ void _registerAllMixins(D4rt d4rt) {
       name: 'EventMixin',
       canBeUsedAsMixin: true,
       methods: {
-        'addEventListener': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
-          if (positionalArgs.length < 2) {
-            throw ArgumentError(
-                'addEventListener requires eventType and callback');
-          }
-          final eventType = positionalArgs[0].toString();
-          final state = getInstanceState(instance);
-          final listeners =
-              state.putIfAbsent('listeners', () => <String, List<Function>>{})
-                  as Map<String, List<Function>>;
-          listeners.putIfAbsent(eventType, () => []).add(() => null);
-          return null;
-        },
+        'addEventListener':
+            (visitor, instance, positionalArgs, namedArgs, typeArgs) {
+              if (positionalArgs.length < 2) {
+                throw ArgumentError(
+                  'addEventListener requires eventType and callback',
+                );
+              }
+              final eventType = positionalArgs[0].toString();
+              final state = getInstanceState(instance);
+              final listeners =
+                  state.putIfAbsent(
+                        'listeners',
+                        () => <String, List<Function>>{},
+                      )
+                      as Map<String, List<Function>>;
+              listeners.putIfAbsent(eventType, () => []).add(() => null);
+              return null;
+            },
         'emit': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.isEmpty) {
             throw ArgumentError('emit requires eventType');
@@ -388,15 +425,17 @@ void _registerAllMixins(D4rt d4rt) {
           }
           return null;
         },
-        'getListenerCount': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
-          if (positionalArgs.isEmpty) {
-            throw ArgumentError('getListenerCount requires eventType');
-          }
-          final eventType = positionalArgs[0].toString();
-          final state = getInstanceState(instance);
-          final listeners = state['listeners'] as Map<String, List<Function>>?;
-          return listeners?[eventType]?.length ?? 0;
-        },
+        'getListenerCount':
+            (visitor, instance, positionalArgs, namedArgs, typeArgs) {
+              if (positionalArgs.isEmpty) {
+                throw ArgumentError('getListenerCount requires eventType');
+              }
+              final eventType = positionalArgs[0].toString();
+              final state = getInstanceState(instance);
+              final listeners =
+                  state['listeners'] as Map<String, List<Function>>?;
+              return listeners?[eventType]?.length ?? 0;
+            },
       },
       getters: {
         'activeEvents': (visitor, instance) => ['click', 'change', 'submit'],
@@ -412,62 +451,78 @@ void _registerAllMixins(D4rt d4rt) {
       name: 'ValidationMixin',
       canBeUsedAsMixin: true,
       methods: {
-        'validateEmail': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
-          if (positionalArgs.isEmpty) {
-            throw ArgumentError('validateEmail requires email');
-          }
-          final email = positionalArgs[0].toString();
-          final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-          return emailRegex.hasMatch(email);
-        },
-        'validatePhone': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
-          if (positionalArgs.isEmpty) {
-            throw ArgumentError('validatePhone requires phone');
-          }
-          final phone = positionalArgs[0].toString();
-          final phoneRegex = RegExp(r'^\+?[1-9]\d{1,14}$');
-          return phoneRegex
-              .hasMatch(phone.replaceAll(RegExp(r'[\s\-\(\)]'), ''));
-        },
-        'addValidationError': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
-          if (positionalArgs.length < 2) {
-            throw ArgumentError('addValidationError requires field and error');
-          }
-          final field = positionalArgs[0].toString();
-          final error = positionalArgs[1].toString();
-          final state = getInstanceState(instance);
-          final errors = state.putIfAbsent(
-                  'validationErrors', () => <String, List<String>>{})
-              as Map<String, List<String>>;
-          errors.putIfAbsent(field, () => []).add(error);
-          return null;
-        },
+        'validateEmail':
+            (visitor, instance, positionalArgs, namedArgs, typeArgs) {
+              if (positionalArgs.isEmpty) {
+                throw ArgumentError('validateEmail requires email');
+              }
+              final email = positionalArgs[0].toString();
+              final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+              return emailRegex.hasMatch(email);
+            },
+        'validatePhone':
+            (visitor, instance, positionalArgs, namedArgs, typeArgs) {
+              if (positionalArgs.isEmpty) {
+                throw ArgumentError('validatePhone requires phone');
+              }
+              final phone = positionalArgs[0].toString();
+              final phoneRegex = RegExp(r'^\+?[1-9]\d{1,14}$');
+              return phoneRegex.hasMatch(
+                phone.replaceAll(RegExp(r'[\s\-\(\)]'), ''),
+              );
+            },
+        'addValidationError':
+            (visitor, instance, positionalArgs, namedArgs, typeArgs) {
+              if (positionalArgs.length < 2) {
+                throw ArgumentError(
+                  'addValidationError requires field and error',
+                );
+              }
+              final field = positionalArgs[0].toString();
+              final error = positionalArgs[1].toString();
+              final state = getInstanceState(instance);
+              final errors =
+                  state.putIfAbsent(
+                        'validationErrors',
+                        () => <String, List<String>>{},
+                      )
+                      as Map<String, List<String>>;
+              errors.putIfAbsent(field, () => []).add(error);
+              return null;
+            },
         'clearValidationErrors':
             (visitor, instance, positionalArgs, namedArgs, typeArgs) {
-          final field =
-              positionalArgs.isNotEmpty ? positionalArgs[0]?.toString() : null;
-          final state = getInstanceState(instance);
-          final errors = state.putIfAbsent(
-                  'validationErrors', () => <String, List<String>>{})
-              as Map<String, List<String>>;
-          if (field != null) {
-            errors.remove(field);
-          } else {
-            errors.clear();
-          }
-          return null;
-        },
-        'getFirstError': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
-          if (positionalArgs.isEmpty) {
-            throw ArgumentError('getFirstError requires field');
-          }
-          final field = positionalArgs[0].toString();
-          final state = getInstanceState(instance);
-          final errors =
-              state['validationErrors'] as Map<String, List<String>>?;
-          final fieldErrors = errors?[field];
-          return fieldErrors?.isNotEmpty == true ? fieldErrors!.first : null;
-        },
+              final field = positionalArgs.isNotEmpty
+                  ? positionalArgs[0]?.toString()
+                  : null;
+              final state = getInstanceState(instance);
+              final errors =
+                  state.putIfAbsent(
+                        'validationErrors',
+                        () => <String, List<String>>{},
+                      )
+                      as Map<String, List<String>>;
+              if (field != null) {
+                errors.remove(field);
+              } else {
+                errors.clear();
+              }
+              return null;
+            },
+        'getFirstError':
+            (visitor, instance, positionalArgs, namedArgs, typeArgs) {
+              if (positionalArgs.isEmpty) {
+                throw ArgumentError('getFirstError requires field');
+              }
+              final field = positionalArgs[0].toString();
+              final state = getInstanceState(instance);
+              final errors =
+                  state['validationErrors'] as Map<String, List<String>>?;
+              final fieldErrors = errors?[field];
+              return fieldErrors?.isNotEmpty == true
+                  ? fieldErrors!.first
+                  : null;
+            },
       },
       getters: {
         'isValid': (visitor, instance) {
@@ -514,16 +569,17 @@ void _registerAllMixins(D4rt d4rt) {
           final cache = state['cache'] as Map<String, dynamic>?;
           return cache?[key];
         },
-        'removeCache': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
-          if (positionalArgs.isEmpty) {
-            throw ArgumentError('removeCache requires key');
-          }
-          final key = positionalArgs[0].toString();
-          final state = getInstanceState(instance);
-          final cache = state['cache'] as Map<String, dynamic>?;
-          cache?.remove(key);
-          return null;
-        },
+        'removeCache':
+            (visitor, instance, positionalArgs, namedArgs, typeArgs) {
+              if (positionalArgs.isEmpty) {
+                throw ArgumentError('removeCache requires key');
+              }
+              final key = positionalArgs[0].toString();
+              final state = getInstanceState(instance);
+              final cache = state['cache'] as Map<String, dynamic>?;
+              cache?.remove(key);
+              return null;
+            },
         'hasCache': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.isEmpty) {
             throw ArgumentError('hasCache requires key');
@@ -563,65 +619,75 @@ void _registerAllMixins(D4rt d4rt) {
       name: 'MathMixin',
       canBeUsedAsMixin: true,
       methods: {
-        'calculateDistance': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
-          if (positionalArgs.length < 4) {
-            throw ArgumentError('calculateDistance requires x1, y1, x2, y2');
-          }
-          final x1 = (positionalArgs[0] as num).toDouble();
-          final y1 = (positionalArgs[1] as num).toDouble();
-          final x2 = (positionalArgs[2] as num).toDouble();
-          final y2 = (positionalArgs[3] as num).toDouble();
-          return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
-        },
-        'calculateArea': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
-          if (positionalArgs.length < 2) {
-            throw ArgumentError('calculateArea requires shape and params');
-          }
-          final shape = positionalArgs[0].toString();
-          final params = positionalArgs[1];
+        'calculateDistance':
+            (visitor, instance, positionalArgs, namedArgs, typeArgs) {
+              if (positionalArgs.length < 4) {
+                throw ArgumentError(
+                  'calculateDistance requires x1, y1, x2, y2',
+                );
+              }
+              final x1 = (positionalArgs[0] as num).toDouble();
+              final y1 = (positionalArgs[1] as num).toDouble();
+              final x2 = (positionalArgs[2] as num).toDouble();
+              final y2 = (positionalArgs[3] as num).toDouble();
+              return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+            },
+        'calculateArea':
+            (visitor, instance, positionalArgs, namedArgs, typeArgs) {
+              if (positionalArgs.length < 2) {
+                throw ArgumentError('calculateArea requires shape and params');
+              }
+              final shape = positionalArgs[0].toString();
+              final params = positionalArgs[1];
 
-          // Handle both Map<String, dynamic> and Map<Object?, Object?>
-          Map<String, dynamic> parsedParams;
-          if (params is Map<String, dynamic>) {
-            parsedParams = params;
-          } else if (params is Map) {
-            parsedParams =
-                params.map((key, value) => MapEntry(key.toString(), value));
-          } else {
-            throw ArgumentError('params must be a Map');
-          }
+              // Handle both Map<String, dynamic> and Map<Object?, Object?>
+              Map<String, dynamic> parsedParams;
+              if (params is Map<String, dynamic>) {
+                parsedParams = params;
+              } else if (params is Map) {
+                parsedParams = params.map(
+                  (key, value) => MapEntry(key.toString(), value),
+                );
+              } else {
+                throw ArgumentError('params must be a Map');
+              }
 
-          switch (shape.toLowerCase()) {
-            case 'circle':
-              final radius = (parsedParams['radius'] as num?)?.toDouble() ?? 0;
-              return pi * radius * radius;
-            case 'rectangle':
-              final width = (parsedParams['width'] as num?)?.toDouble() ?? 0;
-              final height = (parsedParams['height'] as num?)?.toDouble() ?? 0;
-              return width * height;
-            case 'triangle':
-              final base = (parsedParams['base'] as num?)?.toDouble() ?? 0;
-              final height = (parsedParams['height'] as num?)?.toDouble() ?? 0;
-              return 0.5 * base * height;
-            default:
-              throw ArgumentError('Unknown shape: $shape');
-          }
-        },
-        'generateFibonacci': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
-          if (positionalArgs.isEmpty) {
-            throw ArgumentError('generateFibonacci requires count');
-          }
-          final count = positionalArgs[0] as int;
-          if (count <= 0) return [];
-          if (count == 1) return [0];
-          if (count == 2) return [0, 1];
+              switch (shape.toLowerCase()) {
+                case 'circle':
+                  final radius =
+                      (parsedParams['radius'] as num?)?.toDouble() ?? 0;
+                  return pi * radius * radius;
+                case 'rectangle':
+                  final width =
+                      (parsedParams['width'] as num?)?.toDouble() ?? 0;
+                  final height =
+                      (parsedParams['height'] as num?)?.toDouble() ?? 0;
+                  return width * height;
+                case 'triangle':
+                  final base = (parsedParams['base'] as num?)?.toDouble() ?? 0;
+                  final height =
+                      (parsedParams['height'] as num?)?.toDouble() ?? 0;
+                  return 0.5 * base * height;
+                default:
+                  throw ArgumentError('Unknown shape: $shape');
+              }
+            },
+        'generateFibonacci':
+            (visitor, instance, positionalArgs, namedArgs, typeArgs) {
+              if (positionalArgs.isEmpty) {
+                throw ArgumentError('generateFibonacci requires count');
+              }
+              final count = positionalArgs[0] as int;
+              if (count <= 0) return [];
+              if (count == 1) return [0];
+              if (count == 2) return [0, 1];
 
-          final result = [0, 1];
-          for (int i = 2; i < count; i++) {
-            result.add(result[i - 1] + result[i - 2]);
-          }
-          return result;
-        },
+              final result = [0, 1];
+              for (int i = 2; i < count; i++) {
+                result.add(result[i - 1] + result[i - 2]);
+              }
+              return result;
+            },
         'isPrime': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
           if (positionalArgs.isEmpty) {
             throw ArgumentError('isPrime requires number');
@@ -636,13 +702,14 @@ void _registerAllMixins(D4rt d4rt) {
           }
           return true;
         },
-        'degreeToRadian': (visitor, instance, positionalArgs, namedArgs, typeArgs) {
-          if (positionalArgs.isEmpty) {
-            throw ArgumentError('degreeToRadian requires degree');
-          }
-          final degree = (positionalArgs[0] as num).toDouble();
-          return degree * pi / 180;
-        },
+        'degreeToRadian':
+            (visitor, instance, positionalArgs, namedArgs, typeArgs) {
+              if (positionalArgs.isEmpty) {
+                throw ArgumentError('degreeToRadian requires degree');
+              }
+              final degree = (positionalArgs[0] as num).toDouble();
+              return degree * pi / 180;
+            },
       },
     ),
     'package:mixins/math.dart',

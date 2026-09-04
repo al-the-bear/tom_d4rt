@@ -17,9 +17,15 @@ void main() {
   late String tempOutputDir;
 
   setUpAll(() {
-    testFixturesDir = p.join(Directory.current.path, 'test', 'generator_tests', 'fixtures');
-    tempOutputDir =
-        Directory.systemTemp.createTempSync('bridge_class_test_').path;
+    testFixturesDir = p.join(
+      Directory.current.path,
+      'test',
+      'generator_tests',
+      'fixtures',
+    );
+    tempOutputDir = Directory.systemTemp
+        .createTempSync('bridge_class_test_')
+        .path;
   });
 
   tearDownAll(() {
@@ -61,12 +67,18 @@ void main() {
       test('G-CLS-45: Detects SimpleClass. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("name: 'SimpleClass'"));
         // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
-        expect(generatedCode, contains(r'nativeType: $test_package_1.SimpleClass'));
+        expect(
+          generatedCode,
+          contains(r'nativeType: $test_package_1.SimpleClass'),
+        );
       });
 
-      test('G-CLS-46: Detects OptionalPositionalClass. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("name: 'OptionalPositionalClass'"));
-      });
+      test(
+        'G-CLS-46: Detects OptionalPositionalClass. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("name: 'OptionalPositionalClass'"));
+        },
+      );
 
       test('G-CLS-47: Detects NamedParamsClass. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("name: 'NamedParamsClass'"));
@@ -78,52 +90,90 @@ void main() {
     });
 
     group('Constructors', () {
-      test('G-CLS-49: Generates default constructor. [2026-02-10 06:37] (PASS)', () {
-        // Default constructor has empty name
-        expect(generatedCode, contains("'': (visitor, positional, named)"));
-      });
+      test(
+        'G-CLS-49: Generates default constructor. [2026-02-10 06:37] (PASS)',
+        () {
+          // Default constructor has empty name
+          expect(generatedCode, contains("'': (visitor, positional, named)"));
+        },
+      );
 
-      test('G-CLS-50: Generates named constructors. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'fromType'"));
-        expect(generatedCode, contains("'empty'"));
-      });
+      test(
+        'G-CLS-50: Generates named constructors. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'fromType'"));
+          expect(generatedCode, contains("'empty'"));
+        },
+      );
 
-      test('G-CLS-51: Generates factory constructors. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'create'"));
-      });
+      test(
+        'G-CLS-51: Generates factory constructors. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'create'"));
+        },
+      );
 
-      test('G-CLS-52: Generates constructor parameter extraction. [2026-02-10 06:37] (PASS)', () {
-        // Positional parameter extraction pattern
-        expect(
-          generatedCode,
-          contains('D4.requireMinArgs'),
-        );
-      });
+      test(
+        'G-CLS-52: Generates constructor parameter extraction. [2026-02-10 06:37] (PASS)',
+        () {
+          // Positional parameter extraction pattern
+          expect(generatedCode, contains('D4.requireMinArgs'));
+        },
+      );
 
-      test('G-CLS-1: Handles const constructors. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("name: 'ConstClass'"));
-      });
+      test(
+        'G-CLS-1: Handles const constructors. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("name: 'ConstClass'"));
+        },
+      );
 
-      test('G-CLS-2: Generates constructor for implicit default constructor. [2026-02-10 06:37] (PASS)', () {
-        // ImplicitCtorClass has no explicit constructor declaration.
-        // The generator should detect the synthetic default constructor
-        // via ClassElement.unnamedConstructor.isSynthetic and emit a bridge.
-        expect(generatedCode, contains("name: 'ImplicitCtorClass'"));
-        // Verify the constructor map is not empty for this class
-        final implicitClassSection = _extractClassSection(generatedCode, 'ImplicitCtorClass');
-        expect(implicitClassSection, isNotNull, reason: 'ImplicitCtorClass should be in generated code');
-        expect(implicitClassSection, contains("'': (visitor, positional, named)"),
-            reason: 'Should have an unnamed constructor bridge');
-      });
+      test(
+        'G-CLS-2: Generates constructor for implicit default constructor. [2026-02-10 06:37] (PASS)',
+        () {
+          // ImplicitCtorClass has no explicit constructor declaration.
+          // The generator should detect the synthetic default constructor
+          // via ClassElement.unnamedConstructor.isSynthetic and emit a bridge.
+          expect(generatedCode, contains("name: 'ImplicitCtorClass'"));
+          // Verify the constructor map is not empty for this class
+          final implicitClassSection = _extractClassSection(
+            generatedCode,
+            'ImplicitCtorClass',
+          );
+          expect(
+            implicitClassSection,
+            isNotNull,
+            reason: 'ImplicitCtorClass should be in generated code',
+          );
+          expect(
+            implicitClassSection,
+            contains("'': (visitor, positional, named)"),
+            reason: 'Should have an unnamed constructor bridge',
+          );
+        },
+      );
 
-      test('G-CLS-3: Generates constructor for methods-only class. [2026-02-10 06:37] (PASS)', () {
-        // CalculatorLike has only methods, no fields with initializers, no constructor.
-        expect(generatedCode, contains("name: 'CalculatorLike'"));
-        final calcSection = _extractClassSection(generatedCode, 'CalculatorLike');
-        expect(calcSection, isNotNull, reason: 'CalculatorLike should be in generated code');
-        expect(calcSection, contains("'': (visitor, positional, named)"),
-            reason: 'Should have an unnamed constructor bridge');
-      });
+      test(
+        'G-CLS-3: Generates constructor for methods-only class. [2026-02-10 06:37] (PASS)',
+        () {
+          // CalculatorLike has only methods, no fields with initializers, no constructor.
+          expect(generatedCode, contains("name: 'CalculatorLike'"));
+          final calcSection = _extractClassSection(
+            generatedCode,
+            'CalculatorLike',
+          );
+          expect(
+            calcSection,
+            isNotNull,
+            reason: 'CalculatorLike should be in generated code',
+          );
+          expect(
+            calcSection,
+            contains("'': (visitor, positional, named)"),
+            reason: 'Should have an unnamed constructor bridge',
+          );
+        },
+      );
     });
 
     group('Getters and Setters', () {
@@ -131,23 +181,29 @@ void main() {
         expect(generatedCode, contains('getters: {'));
       });
 
-      test('G-CLS-5: Generates instance getters. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'name':"));
-        expect(generatedCode, contains("'displayName':"));
-        expect(generatedCode, contains("'isEmpty':"));
-      });
+      test(
+        'G-CLS-5: Generates instance getters. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'name':"));
+          expect(generatedCode, contains("'displayName':"));
+          expect(generatedCode, contains("'isEmpty':"));
+        },
+      );
 
       test('G-CLS-6a: Generates setters map. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains('setters: {'));
       });
 
-      test('G-CLS-7: Generates target validation for getters. [2026-02-10 06:37] (PASS)', () {
-        // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
-        expect(
-          generatedCode,
-          contains(r'D4.validateTarget<$test_package_1.PropertyClass>'),
-        );
-      });
+      test(
+        'G-CLS-7: Generates target validation for getters. [2026-02-10 06:37] (PASS)',
+        () {
+          // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
+          expect(
+            generatedCode,
+            contains(r'D4.validateTarget<$test_package_1.PropertyClass>'),
+          );
+        },
+      );
     });
 
     group('Methods', () {
@@ -159,26 +215,40 @@ void main() {
         expect(generatedCode, contains("'reset':"));
       });
 
-      test('G-CLS-10: Generates methods with return values. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'increment':"));
-        expect(generatedCode, contains("'format':"));
-      });
+      test(
+        'G-CLS-10: Generates methods with return values. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'increment':"));
+          expect(generatedCode, contains("'format':"));
+        },
+      );
 
-      test('G-CLS-11: Generates methods with optional parameters. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'formatWithSuffix':"));
-      });
+      test(
+        'G-CLS-11: Generates methods with optional parameters. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'formatWithSuffix':"));
+        },
+      );
 
-      test('G-CLS-12: Generates methods with named parameters. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'formatCustom':"));
-      });
+      test(
+        'G-CLS-12: Generates methods with named parameters. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'formatCustom':"));
+        },
+      );
 
-      test('G-CLS-13: Generates method target validation. [2026-02-10 06:37] (PASS)', () {
-        // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
-        expect(
-          generatedCode,
-          contains(r"D4.validateTarget<$test_package_1.MethodClass>(target, 'MethodClass')"),
-        );
-      });
+      test(
+        'G-CLS-13: Generates method target validation. [2026-02-10 06:37] (PASS)',
+        () {
+          // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
+          expect(
+            generatedCode,
+            contains(
+              r"D4.validateTarget<$test_package_1.MethodClass>(target, 'MethodClass')",
+            ),
+          );
+        },
+      );
     });
 
     group('Inheritance', () {
@@ -190,24 +260,36 @@ void main() {
         expect(generatedCode, contains("name: 'DerivedEntity'"));
       });
 
-      test('G-CLS-16: Detects multi-level inheritance. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("name: 'SpecialEntity'"));
-      });
+      test(
+        'G-CLS-16: Detects multi-level inheritance. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("name: 'SpecialEntity'"));
+        },
+      );
 
-      test('G-CLS-17: Inherited getters are included. [2026-02-10 06:37] (PASS)', () {
-        // DerivedEntity should have 'lastModified' from BaseEntity
-        // Check that createDerivedEntityBridge includes inherited members
-        expect(generatedCode, contains('_createDerivedEntityBridge'));
-      });
+      test(
+        'G-CLS-17: Inherited getters are included. [2026-02-10 06:37] (PASS)',
+        () {
+          // DerivedEntity should have 'lastModified' from BaseEntity
+          // Check that createDerivedEntityBridge includes inherited members
+          expect(generatedCode, contains('_createDerivedEntityBridge'));
+        },
+      );
 
-      test('G-CLS-18: Inherited methods are included. [2026-02-10 06:37] (PASS)', () {
-        // DerivedEntity should have 'touch' from BaseEntity
-        expect(generatedCode, contains("'touch':"));
-      });
+      test(
+        'G-CLS-18: Inherited methods are included. [2026-02-10 06:37] (PASS)',
+        () {
+          // DerivedEntity should have 'touch' from BaseEntity
+          expect(generatedCode, contains("'touch':"));
+        },
+      );
 
-      test('G-CLS-19: Overridden methods use child implementation. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'describe':"));
-      });
+      test(
+        'G-CLS-19: Overridden methods use child implementation. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'describe':"));
+        },
+      );
     });
 
     group('Static Members', () {
@@ -219,35 +301,50 @@ void main() {
         expect(generatedCode, contains('staticMethods: {'));
       });
 
-      test('G-CLS-22: Static getter has correct signature. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'instanceCount': (visitor)"));
-      });
+      test(
+        'G-CLS-22: Static getter has correct signature. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'instanceCount': (visitor)"));
+        },
+      );
 
-      test('G-CLS-23: Static method has correct signature. [2026-02-10 06:37] (PASS)', () {
-        expect(
-          generatedCode,
-          contains("'resetCount': (visitor, positional, named, typeArgs)"),
-        );
-      });
+      test(
+        'G-CLS-23: Static method has correct signature. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(
+            generatedCode,
+            contains("'resetCount': (visitor, positional, named, typeArgs)"),
+          );
+        },
+      );
     });
 
     group('Abstract Classes', () {
-      test('G-CLS-24: Abstract classes without constructors may be skipped. [2026-02-10 06:37] (PASS)', () {
-        // Pure abstract classes (no constructors) are typically skipped
-        // since they cannot be instantiated from D4rt scripts.
-        // The concrete implementation should still be bridged.
-        expect(generatedCode, contains("name: 'SimpleProcessor'"));
-      });
+      test(
+        'G-CLS-24: Abstract classes without constructors may be skipped. [2026-02-10 06:37] (PASS)',
+        () {
+          // Pure abstract classes (no constructors) are typically skipped
+          // since they cannot be instantiated from D4rt scripts.
+          // The concrete implementation should still be bridged.
+          expect(generatedCode, contains("name: 'SimpleProcessor'"));
+        },
+      );
 
-      test('G-CLS-25: Detects concrete implementation SimpleProcessor. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("name: 'SimpleProcessor'"));
-      });
+      test(
+        'G-CLS-25: Detects concrete implementation SimpleProcessor. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("name: 'SimpleProcessor'"));
+        },
+      );
 
-      test('G-CLS-26: SimpleProcessor has its own methods bridged. [2026-02-10 06:37] (PASS)', () {
-        // SimpleProcessor has isReady getter and process method
-        expect(generatedCode, contains("'isReady':"));
-        expect(generatedCode, contains("'process':"));
-      });
+      test(
+        'G-CLS-26: SimpleProcessor has its own methods bridged. [2026-02-10 06:37] (PASS)',
+        () {
+          // SimpleProcessor has isReady getter and process method
+          expect(generatedCode, contains("'isReady':"));
+          expect(generatedCode, contains("'process':"));
+        },
+      );
     });
 
     group('Generic Classes', () {
@@ -255,25 +352,34 @@ void main() {
         expect(generatedCode, contains("name: 'Container'"));
       });
 
-      test('G-CLS-28: Detects NumberContainer<T extends num>. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("name: 'NumberContainer'"));
-      });
+      test(
+        'G-CLS-28: Detects NumberContainer<T extends num>. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("name: 'NumberContainer'"));
+        },
+      );
 
       test('G-CLS-29: Detects Pair<K, V>. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("name: 'Pair'"));
       });
 
-      test('G-CLS-30: Generic class methods are bridged. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'hasValue':"));
-        expect(generatedCode, contains("'clear':"));
-        expect(generatedCode, contains("'swap':"));
-      });
+      test(
+        'G-CLS-30: Generic class methods are bridged. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'hasValue':"));
+          expect(generatedCode, contains("'clear':"));
+          expect(generatedCode, contains("'swap':"));
+        },
+      );
     });
 
     group('Special Cases', () {
-      test('G-CLS-31: Singleton pattern factory constructor. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("name: 'SingletonPattern'"));
-      });
+      test(
+        'G-CLS-31: Singleton pattern factory constructor. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("name: 'SingletonPattern'"));
+        },
+      );
 
       test('G-CLS-32: Classes with id field. [2026-02-10 06:37] (PASS)', () {
         expect(generatedCode, contains("'id':"));
@@ -285,10 +391,15 @@ void main() {
     late String generatedCode;
 
     setUpAll(() async {
-      final testFixturesDir =
-          p.join(Directory.current.path, 'test', 'generator_tests', 'fixtures');
-      final tempOutputDir =
-          Directory.systemTemp.createTempSync('bridge_struct_test_').path;
+      final testFixturesDir = p.join(
+        Directory.current.path,
+        'test',
+        'generator_tests',
+        'fixtures',
+      );
+      final tempOutputDir = Directory.systemTemp
+          .createTempSync('bridge_struct_test_')
+          .path;
 
       final generator = BridgeGenerator(
         workspacePath: testFixturesDir,
@@ -317,27 +428,41 @@ void main() {
       });
     });
 
-    test('G-CLS-33: Generates module bridge class with correct name. [2026-02-10 06:37] (PASS)', () {
-      expect(generatedCode, contains('class TestModuleBridge {'));
-    });
+    test(
+      'G-CLS-33: Generates module bridge class with correct name. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(generatedCode, contains('class TestModuleBridge {'));
+      },
+    );
 
-    test('G-CLS-34: Generates bridgeClasses method. [2026-02-10 06:37] (PASS)', () {
-      expect(
-        generatedCode,
-        contains('static List<BridgedClass> bridgeClasses()'),
-      );
-    });
+    test(
+      'G-CLS-34: Generates bridgeClasses method. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(
+          generatedCode,
+          contains('static List<BridgedClass> bridgeClasses()'),
+        );
+      },
+    );
 
-    test('G-CLS-35: Generates registerBridges method. [2026-02-10 06:37] (PASS)', () {
-      expect(
-        generatedCode,
-        contains('static void registerBridges(D4rt interpreter, String importPath)'),
-      );
-    });
+    test(
+      'G-CLS-35: Generates registerBridges method. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(
+          generatedCode,
+          contains(
+            'static void registerBridges(D4rt interpreter, String importPath)',
+          ),
+        );
+      },
+    );
 
-    test('G-CLS-36: Generates getImportBlock method. [2026-02-10 06:37] (PASS)', () {
-      expect(generatedCode, contains('static String getImportBlock()'));
-    });
+    test(
+      'G-CLS-36: Generates getImportBlock method. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(generatedCode, contains('static String getImportBlock()'));
+      },
+    );
 
     test('G-CLS-37: Includes header comment. [2026-02-10 06:37] (PASS)', () {
       expect(
@@ -346,18 +471,18 @@ void main() {
       );
     });
 
-    test('G-CLS-38: Includes generation timestamp. [2026-02-10 06:37] (PASS)', () {
-      expect(generatedCode, contains('// Generated:'));
-    });
+    test(
+      'G-CLS-38: Includes generation timestamp. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(generatedCode, contains('// Generated:'));
+      },
+    );
 
     test('G-CLS-39: Imports tom_d4rt package. [2026-02-10 06:37] (PASS)', () {
       // The generator hardcodes 'package:tom_d4rt/d4rt.dart' in bridge files.
       // In the tom_d4rt_exec context, ExecTestSetup post-processes this to
       // 'package:tom_d4rt_exec/d4rt.dart' before compilation.
-      expect(
-        generatedCode,
-        contains("import 'package:tom_d4rt/d4rt.dart'"),
-      );
+      expect(generatedCode, contains("import 'package:tom_d4rt/d4rt.dart'"));
     });
   });
 
@@ -365,10 +490,15 @@ void main() {
     late String generatedCode;
 
     setUpAll(() async {
-      final testFixturesDir =
-          p.join(Directory.current.path, 'test', 'generator_tests', 'fixtures');
-      final tempDir =
-          Directory.systemTemp.createTempSync('bridge_props_test_').path;
+      final testFixturesDir = p.join(
+        Directory.current.path,
+        'test',
+        'generator_tests',
+        'fixtures',
+      );
+      final tempDir = Directory.systemTemp
+          .createTempSync('bridge_props_test_')
+          .path;
 
       final generator = BridgeGenerator(
         workspacePath: testFixturesDir,
@@ -396,31 +526,49 @@ void main() {
       });
     });
 
-    test('G-CLS-40: Generic class Container<T> is bridged. [2026-02-10 06:37] (PASS)', () {
-      expect(generatedCode, contains("name: 'Container'"));
-      // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
-      expect(generatedCode, contains(r'nativeType: $test_package_1.Container'));
-    });
+    test(
+      'G-CLS-40: Generic class Container<T> is bridged. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(generatedCode, contains("name: 'Container'"));
+        // Types are prefixed with $<pkgname>_<N> since source imports use direct import aliases
+        expect(
+          generatedCode,
+          contains(r'nativeType: $test_package_1.Container'),
+        );
+      },
+    );
 
-    test('G-CLS-41: Bounded generic NumberContainer<T extends num> is bridged. [2026-02-10 06:37] (PASS)', () {
-      expect(generatedCode, contains("name: 'NumberContainer'"));
-    });
+    test(
+      'G-CLS-41: Bounded generic NumberContainer<T extends num> is bridged. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(generatedCode, contains("name: 'NumberContainer'"));
+      },
+    );
 
-    test('G-CLS-42: Multi-param generic Pair<K, V> is bridged. [2026-02-10 06:37] (PASS)', () {
-      expect(generatedCode, contains("name: 'Pair'"));
-    });
+    test(
+      'G-CLS-42: Multi-param generic Pair<K, V> is bridged. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(generatedCode, contains("name: 'Pair'"));
+      },
+    );
 
-    test('G-CLS-43: Inheritance is reflected in generated bridges. [2026-02-10 06:37] (PASS)', () {
-      // DerivedEntity extends BaseEntity - both should be bridged
-      expect(generatedCode, contains("name: 'BaseEntity'"));
-      expect(generatedCode, contains("name: 'DerivedEntity'"));
-      expect(generatedCode, contains("name: 'SpecialEntity'"));
-    });
+    test(
+      'G-CLS-43: Inheritance is reflected in generated bridges. [2026-02-10 06:37] (PASS)',
+      () {
+        // DerivedEntity extends BaseEntity - both should be bridged
+        expect(generatedCode, contains("name: 'BaseEntity'"));
+        expect(generatedCode, contains("name: 'DerivedEntity'"));
+        expect(generatedCode, contains("name: 'SpecialEntity'"));
+      },
+    );
 
-    test('G-CLS-44: Concrete implementation SimpleProcessor is bridged. [2026-02-10 06:37] (PASS)', () {
-      // Pure abstract classes may not be bridged, but implementations should be
-      expect(generatedCode, contains("name: 'SimpleProcessor'"));
-    });
+    test(
+      'G-CLS-44: Concrete implementation SimpleProcessor is bridged. [2026-02-10 06:37] (PASS)',
+      () {
+        // Pure abstract classes may not be bridged, but implementations should be
+        expect(generatedCode, contains("name: 'SimpleProcessor'"));
+      },
+    );
   });
 }
 

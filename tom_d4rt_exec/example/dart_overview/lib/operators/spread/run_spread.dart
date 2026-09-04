@@ -106,10 +106,7 @@ void main() {
   var features = [
     'core',
     'networking',
-    if (includeDebug) ...[
-      'debug_panel',
-      'logging',
-    ],
+    if (includeDebug) ...['debug_panel', 'logging'],
     'ui',
   ];
   print('');
@@ -119,10 +116,7 @@ void main() {
   features = [
     'core',
     'networking',
-    if (includeDebug) ...[
-      'debug_panel',
-      'logging',
-    ],
+    if (includeDebug) ...['debug_panel', 'logging'],
     'ui',
   ];
   print('Features (without debug): $features');
@@ -141,7 +135,7 @@ void main() {
   var nested = [
     [1, 2],
     [3, 4],
-    [5, 6]
+    [5, 6],
   ];
   var flat = [for (var inner in nested) ...inner];
   print('');

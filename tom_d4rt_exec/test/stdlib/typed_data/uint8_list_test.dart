@@ -6,7 +6,8 @@ void main() {
   const String testLibPath = 'd4rt-mem:/uint8_list_test.dart';
 
   dynamic executeTestScript(String scriptBody) {
-    final fullScript = '''
+    final fullScript =
+        '''
       import 'dart:typed_data';
       main() {
         $scriptBody
@@ -20,8 +21,10 @@ void main() {
   }
 
   group('Uint8List Tests', () {
-    test('I-TYPE-86: Constructor Uint8List(length). [2026-02-10 06:37] (PASS)', () {
-      final result = executeTestScript('''
+    test(
+      'I-TYPE-86: Constructor Uint8List(length). [2026-02-10 06:37] (PASS)',
+      () {
+        final result = executeTestScript('''
         var list = Uint8List(5);
         return {
           'length': list.length,
@@ -29,13 +32,16 @@ void main() {
           'defaultValue': list[0] // Should be 0
         };
       ''');
-      expect(result['length'], 5);
-      expect(result['elementSize'], 1);
-      expect(result['defaultValue'], 0);
-    });
+        expect(result['length'], 5);
+        expect(result['elementSize'], 1);
+        expect(result['defaultValue'], 0);
+      },
+    );
 
-    test('I-TYPE-87: Constructor Uint8List.fromList(). [2026-02-10 06:37] (PASS)', () {
-      final result = executeTestScript('''
+    test(
+      'I-TYPE-87: Constructor Uint8List.fromList(). [2026-02-10 06:37] (PASS)',
+      () {
+        final result = executeTestScript('''
         var source = [10, 20, 30];
         var list = Uint8List.fromList(source);
         return {
@@ -44,13 +50,16 @@ void main() {
           'val2': list[2]
         };
       ''');
-      expect(result['length'], 3);
-      expect(result['val0'], 10);
-      expect(result['val2'], 30);
-    });
+        expect(result['length'], 3);
+        expect(result['val0'], 10);
+        expect(result['val2'], 30);
+      },
+    );
 
-    test('I-TYPE-88: Uint8List operator [] and []=. [2026-02-10 06:37] (PASS)', () {
-      final result = executeTestScript('''
+    test(
+      'I-TYPE-88: Uint8List operator [] and []=. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = executeTestScript('''
         var list = Uint8List(3);
         list[0] = 255;
         list[1] = 128;
@@ -61,10 +70,11 @@ void main() {
           'val2': list[2]
         };
       ''');
-      expect(result['val0'], 255);
-      expect(result['val1'], 128);
-      expect(result['val2'], 127);
-    });
+        expect(result['val0'], 255);
+        expect(result['val1'], 128);
+        expect(result['val2'], 127);
+      },
+    );
 
     test('I-TYPE-89: Uint8List sublist. [2026-02-10 06:37] (PASS)', () {
       final result = executeTestScript('''
@@ -94,22 +104,29 @@ void main() {
       expect(result['bufferLength'], 7);
     });
 
-    test('I-TYPE-91: Uint8List.fromList with non-int values throws error. [2026-02-10 06:37] (PASS)', () {
-      expect(
-        () => executeTestScript("var list = Uint8List.fromList([1, 'a', 3]);"),
-        throwsA(isA<RuntimeD4rtException>()),
-      );
-    });
+    test(
+      'I-TYPE-91: Uint8List.fromList with non-int values throws error. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(
+          () =>
+              executeTestScript("var list = Uint8List.fromList([1, 'a', 3]);"),
+          throwsA(isA<RuntimeD4rtException>()),
+        );
+      },
+    );
 
-    test('I-TYPE-85: Index out of bounds for Uint8List[] and []=. [2026-02-10 06:37] (PASS)', () {
-      expect(
-        () => executeTestScript("var list = Uint8List(2); list[2] = 0;"),
-        throwsA(isA<RuntimeD4rtException>()),
-      );
-      expect(
-        () => executeTestScript("var list = Uint8List(2); return list[-1];"),
-        throwsA(isA<RuntimeD4rtException>()),
-      );
-    });
+    test(
+      'I-TYPE-85: Index out of bounds for Uint8List[] and []=. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(
+          () => executeTestScript("var list = Uint8List(2); list[2] = 0;"),
+          throwsA(isA<RuntimeD4rtException>()),
+        );
+        expect(
+          () => executeTestScript("var list = Uint8List(2); return list[-1];"),
+          throwsA(isA<RuntimeD4rtException>()),
+        );
+      },
+    );
   });
 }

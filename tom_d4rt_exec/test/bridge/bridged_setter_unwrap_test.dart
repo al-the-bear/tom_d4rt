@@ -58,9 +58,7 @@ void main() {
             return _NativeColor(positional[0] as int);
           },
         },
-        getters: {
-          'r': (visitor, target) => (target as _NativeColor).r,
-        },
+        getters: {'r': (visitor, target) => (target as _NativeColor).r},
       );
 
       final holderBridge = BridgedClass(
@@ -70,7 +68,8 @@ void main() {
           '': (visitor, positional, named) {
             if (positional.length != 1 || positional[0] is! _NativeColor) {
               throw ArgumentError(
-                  'Holder expects a _NativeColor (got ${positional.isEmpty ? 'nothing' : positional[0].runtimeType})');
+                'Holder expects a _NativeColor (got ${positional.isEmpty ? 'nothing' : positional[0].runtimeType})',
+              );
             }
             return _NativeHolder<_NativeColor>(positional[0] as _NativeColor);
           },
@@ -91,10 +90,11 @@ void main() {
         },
       );
 
+      interpreter.registerBridgedClass(colorBridge, 'package:test/color.dart');
       interpreter.registerBridgedClass(
-          colorBridge, 'package:test/color.dart');
-      interpreter.registerBridgedClass(
-          holderBridge, 'package:test/holder.dart');
+        holderBridge,
+        'package:test/holder.dart',
+      );
     });
 
     test('PrefixedIdentifier setter unwraps BridgedInstance<Color>', () {

@@ -16,46 +16,48 @@ import 'package:tom_d4rt_ast/runtime.dart';
 /// practice, so it cannot shadow a more specific bridge.
 class AsyncErrorAsync {
   static BridgedClass get definition => BridgedClass(
-        nativeType: AsyncError,
-        name: 'AsyncError',
-        isAssignable: (v) => v is AsyncError,
-        typeParameterCount: 0,
-        constructors: {
-          '': (visitor, positionalArgs, namedArgs) {
-            if (positionalArgs.isEmpty || positionalArgs[0] == null) {
-              throw RuntimeD4rtException(
-                  'AsyncError constructor requires a non-null error argument.');
-            }
-            // The SDK's second parameter is required-but-nullable. Scripts
-            // routinely write `AsyncError(e)` expecting the SDK's
-            // `defaultStackTrace` fallback, so accept the one-argument form
-            // rather than making them pass an explicit null.
-            final stackTrace = positionalArgs.length > 1
-                ? positionalArgs[1] as StackTrace?
-                : null;
-            return AsyncError(positionalArgs[0] as Object, stackTrace);
-          },
-        },
-        staticMethods: {
-          'defaultStackTrace': (visitor, positionalArgs, namedArgs, _) {
-            if (positionalArgs.isEmpty || positionalArgs[0] == null) {
-              throw RuntimeD4rtException(
-                  'AsyncError.defaultStackTrace requires a non-null error.');
-            }
-            return AsyncError.defaultStackTrace(positionalArgs[0] as Object);
-          },
-        },
-        methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
-              (target as AsyncError).toString(),
-        },
-        getters: {
-          'error': (visitor, target) => (target as AsyncError).error,
-          'stackTrace': (visitor, target) => (target as AsyncError).stackTrace,
-          'hashCode': (visitor, target) => (target as AsyncError).hashCode,
-          'runtimeType': (visitor, target) => (target as AsyncError).runtimeType,
-        },
-      );
+    nativeType: AsyncError,
+    name: 'AsyncError',
+    isAssignable: (v) => v is AsyncError,
+    typeParameterCount: 0,
+    constructors: {
+      '': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.isEmpty || positionalArgs[0] == null) {
+          throw RuntimeD4rtException(
+            'AsyncError constructor requires a non-null error argument.',
+          );
+        }
+        // The SDK's second parameter is required-but-nullable. Scripts
+        // routinely write `AsyncError(e)` expecting the SDK's
+        // `defaultStackTrace` fallback, so accept the one-argument form
+        // rather than making them pass an explicit null.
+        final stackTrace = positionalArgs.length > 1
+            ? positionalArgs[1] as StackTrace?
+            : null;
+        return AsyncError(positionalArgs[0] as Object, stackTrace);
+      },
+    },
+    staticMethods: {
+      'defaultStackTrace': (visitor, positionalArgs, namedArgs, _) {
+        if (positionalArgs.isEmpty || positionalArgs[0] == null) {
+          throw RuntimeD4rtException(
+            'AsyncError.defaultStackTrace requires a non-null error.',
+          );
+        }
+        return AsyncError.defaultStackTrace(positionalArgs[0] as Object);
+      },
+    },
+    methods: {
+      'toString': (visitor, target, positionalArgs, namedArgs, _) =>
+          (target as AsyncError).toString(),
+    },
+    getters: {
+      'error': (visitor, target) => (target as AsyncError).error,
+      'stackTrace': (visitor, target) => (target as AsyncError).stackTrace,
+      'hashCode': (visitor, target) => (target as AsyncError).hashCode,
+      'runtimeType': (visitor, target) => (target as AsyncError).runtimeType,
+    },
+  );
 }
 
 class AsyncErrorStdlib {

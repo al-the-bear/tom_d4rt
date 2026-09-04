@@ -24,34 +24,49 @@ void main() {
   /// `dart:io` compression codecs by writing the `gzip` / `zlib` globals, so
   /// those are the names a reader actually greps for.
   void expectUnbridged(String expression, String reported, {String? imports}) {
-    final source = '''
+    final source =
+        '''
       ${imports ?? ''}
       main() {
         return $expression;
       }
     ''';
-    expect(() => execute(source),
-        throwsRuntimeError(contains('Undefined variable: $reported')));
+    expect(
+      () => execute(source),
+      throwsRuntimeError(contains('Undefined variable: $reported')),
+    );
   }
 
   group('SC11: cannot be honoured meaningfully', () {
-    test('F-SC11-1: Zone is unreachable, including via runZoned [2026-07-27]',
-        () {
-      // Three names, one decision: scripts almost never write `Zone` directly,
-      // so the doc has to be findable from the runZoned* spellings too.
-      expectUnbridged('Zone.current', 'Zone', imports: "import 'dart:async';");
-      expectUnbridged(
-          'runZoned(() => 1)', 'runZoned', imports: "import 'dart:async';");
-      expectUnbridged('runZonedGuarded(() => 1, (e, s) {})', 'runZonedGuarded',
-          imports: "import 'dart:async';");
-      // Anchor: without this the three above would also pass if `dart:async`
-      // were simply unreachable, and the claim would be vacuous.
-      const anchor = '''
+    test(
+      'F-SC11-1: Zone is unreachable, including via runZoned [2026-07-27]',
+      () {
+        // Three names, one decision: scripts almost never write `Zone` directly,
+        // so the doc has to be findable from the runZoned* spellings too.
+        expectUnbridged(
+          'Zone.current',
+          'Zone',
+          imports: "import 'dart:async';",
+        );
+        expectUnbridged(
+          'runZoned(() => 1)',
+          'runZoned',
+          imports: "import 'dart:async';",
+        );
+        expectUnbridged(
+          'runZonedGuarded(() => 1, (e, s) {})',
+          'runZonedGuarded',
+          imports: "import 'dart:async';",
+        );
+        // Anchor: without this the three above would also pass if `dart:async`
+        // were simply unreachable, and the claim would be vacuous.
+        const anchor = '''
       import 'dart:async';
       main() => Completer<int>().isCompleted;
       ''';
-      expect(execute(anchor), isFalse);
-    });
+        expect(execute(anchor), isFalse);
+      },
+    );
 
     test('F-SC11-2: the identity/GC trio is unreachable [2026-07-27]', () {
       // Expando, WeakReference and Finalizer all depend on native object
@@ -65,8 +80,11 @@ void main() {
   group('SC11: deferred pending a concrete consumer', () {
     test('F-SC11-3: the dart:io entries are unreachable [2026-07-27]', () {
       expectUnbridged("Link('x')", 'Link', imports: "import 'dart:io';");
-      expectUnbridged("WebSocket.connect('ws://x')", 'WebSocket',
-          imports: "import 'dart:io';");
+      expectUnbridged(
+        "WebSocket.connect('ws://x')",
+        'WebSocket',
+        imports: "import 'dart:io';",
+      );
     });
 
     test('F-SC11-4: the compression codecs are unreachable under every '
@@ -75,24 +93,39 @@ void main() {
       // is what a script writes, and it is the message that sends a reader to
       // the doc. Unrelated to the gzip AstBundle uses internally, which is
       // below the bridge boundary and gives scripts nothing.
-      expectUnbridged('gzip.encode([1, 2, 3])', 'gzip',
-          imports: "import 'dart:io';");
-      expectUnbridged('zlib.encode([1, 2, 3])', 'zlib',
-          imports: "import 'dart:io';");
+      expectUnbridged(
+        'gzip.encode([1, 2, 3])',
+        'gzip',
+        imports: "import 'dart:io';",
+      );
+      expectUnbridged(
+        'zlib.encode([1, 2, 3])',
+        'zlib',
+        imports: "import 'dart:io';",
+      );
       expectUnbridged('GZipCodec()', 'GZipCodec', imports: "import 'dart:io';");
       expectUnbridged('ZLibCodec()', 'ZLibCodec', imports: "import 'dart:io';");
-      expectUnbridged('ZLibEncoder()', 'ZLibEncoder',
-          imports: "import 'dart:io';");
-      expectUnbridged('ZLibDecoder()', 'ZLibDecoder',
-          imports: "import 'dart:io';");
+      expectUnbridged(
+        'ZLibEncoder()',
+        'ZLibEncoder',
+        imports: "import 'dart:io';",
+      );
+      expectUnbridged(
+        'ZLibDecoder()',
+        'ZLibDecoder',
+        imports: "import 'dart:io';",
+      );
     });
 
     test('F-SC11-5: MutableRectangle is unreachable but Rectangle covers the '
         'common case [2026-07-27]', () {
       // The second half is the doc's stated justification for deferring the
       // mutable variant, so it has to hold for the row to stay honest.
-      expectUnbridged('MutableRectangle(0, 0, 1, 1)', 'MutableRectangle',
-          imports: "import 'dart:math';");
+      expectUnbridged(
+        'MutableRectangle(0, 0, 1, 1)',
+        'MutableRectangle',
+        imports: "import 'dart:math';",
+      );
       const source = '''
       import 'dart:math';
       main() {

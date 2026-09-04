@@ -5,15 +5,18 @@ dynamic execute(String source, {List<Object?>? args}) {
   final d4rt = D4rt();
   d4rt.setDebug(false);
   return d4rt.execute(
-      library: 'package:test/main.dart',
-      positionalArgs: args,
-      sources: {'package:test/main.dart': source});
+    library: 'package:test/main.dart',
+    positionalArgs: args,
+    sources: {'package:test/main.dart': source},
+  );
 }
 
 void main() {
   group('Async Constructor Patterns', () {
-    test('I-ASYNC-22: Static async factory method pattern. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-22: Static async factory method pattern. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class AsyncData {
@@ -33,12 +36,15 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(result, equals("async-initialized"));
-    });
+        final result = await execute(code);
+        expect(result, equals("async-initialized"));
+      },
+    );
 
-    test('I-ASYNC-29: Async service initialization pattern. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-29: Async service initialization pattern. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class AsyncService {
@@ -63,12 +69,15 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(result, equals(["config-for-production", true]));
-    });
+        final result = await execute(code);
+        expect(result, equals(["config-for-production", true]));
+      },
+    );
 
-    test('I-ASYNC-36: Database connection async creation pattern. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-36: Database connection async creation pattern. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class DatabaseConnection {
@@ -103,13 +112,18 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(result,
-          equals(["localhost:5432", true, "validated-remote-validated"]));
-    });
+        final result = await execute(code);
+        expect(
+          result,
+          equals(["localhost:5432", true, "validated-remote-validated"]),
+        );
+      },
+    );
 
-    test('I-ASYNC-21: Factory constructor with complex async initialization. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-21: Factory constructor with complex async initialization. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class ConfigManager {
@@ -157,21 +171,25 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(result, isA<Map>());
-      final resultMap = result as Map;
-      expect(
+        final result = await execute(code);
+        expect(result, isA<Map>());
+        final resultMap = result as Map;
+        expect(
           resultMap["config"],
           equals({
             "env": "prod",
             "version": "1.0",
-            "modules": "auth,database,cache"
-          }));
-      expect(resultMap["modules"], equals(["auth", "database", "cache"]));
-    });
+            "modules": "auth,database,cache",
+          }),
+        );
+        expect(resultMap["modules"], equals(["auth", "database", "cache"]));
+      },
+    );
 
-    test('I-ASYNC-23: Stream-based async constructor pattern. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-23: Stream-based async constructor pattern. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class StreamProcessor {
@@ -198,17 +216,21 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(
+        final result = await execute(code);
+        expect(
           result,
           equals([
             ["item1", "item2", "item3"],
-            "Processed 3 items"
-          ]));
-    });
+            "Processed 3 items",
+          ]),
+        );
+      },
+    );
 
-    test('I-ASYNC-24: Stream subscription async constructor pattern. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-24: Stream subscription async constructor pattern. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class EventCollector {
@@ -234,17 +256,21 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(
+        final result = await execute(code);
+        expect(
           result,
           equals([
             ["event1", "event2", "event3"],
-            3
-          ]));
-    });
+            3,
+          ]),
+        );
+      },
+    );
 
-    test('I-ASYNC-25: Stream transformation async constructor pattern. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-25: Stream transformation async constructor pattern. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class DataTransformer {
@@ -277,17 +303,21 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(
+        final result = await execute(code);
+        expect(
           result,
           equals([
             [6, 8, 10], // 3*2=6, 4*2=8, 5*2=10 (all > 5)
-            8.0 // (6+8+10)/3 = 8.0
-          ]));
-    });
+            8.0, // (6+8+10)/3 = 8.0
+          ]),
+        );
+      },
+    );
 
-    test('I-ASYNC-26: Complex stream async constructor with error handling. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-26: Complex stream async constructor with error handling. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class RobustStreamProcessor {
@@ -342,18 +372,22 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(
+        final result = await execute(code);
+        expect(
           result,
           equals([
             ["processed-good1", "processed-good2", "processed-good3"],
             ["Error: Exception: Processing failed for error"],
-            true
-          ]));
-    });
+            true,
+          ]),
+        );
+      },
+    );
 
-    test('I-ASYNC-27: Stream controller async constructor pattern. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-27: Stream controller async constructor pattern. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class StreamControllerManager {
@@ -391,12 +425,15 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(result, equals(["initial1", "initial2", "added1"]));
-    });
+        final result = await execute(code);
+        expect(result, equals(["initial1", "initial2", "added1"]));
+      },
+    );
 
-    test('I-ASYNC-28: Stream subscription management async constructor pattern. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-28: Stream subscription management async constructor pattern. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class SubscriptionManager {
@@ -444,17 +481,21 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(
+        final result = await execute(code);
+        expect(
           result,
           equals([
             ["data1", "data2", "data3"],
-            true
-          ]));
-    });
+            true,
+          ]),
+        );
+      },
+    );
 
-    test('I-ASYNC-30: Stream periodic constructor pattern. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-30: Stream periodic constructor pattern. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class PeriodicDataCollector {
@@ -483,17 +524,21 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(
+        final result = await execute(code);
+        expect(
           result,
           equals([
             [0, 2, 4, 6], // count * 2 for count = 0, 1, 2, 3
-            4
-          ]));
-    });
+            4,
+          ]),
+        );
+      },
+    );
 
-    test('I-ASYNC-31: Stream broadcast async constructor pattern. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-31: Stream broadcast async constructor pattern. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class BroadcastStreamManager {
@@ -531,18 +576,22 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(
+        final result = await execute(code);
+        expect(
           result,
           equals([
             ["L1:broadcast1", "L1:broadcast2"],
             ["L2:broadcast1", "L2:broadcast2"],
-            true
-          ]));
-    });
+            true,
+          ]),
+        );
+      },
+    );
 
-    test('I-ASYNC-32: Stream from Future async constructor pattern. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-32: Stream from Future async constructor pattern. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class FutureStreamProcessor {
@@ -572,12 +621,15 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(result, equals([3, "Collected 3 results"]));
-    });
+        final result = await execute(code);
+        expect(result, equals([3, "Collected 3 results"]));
+      },
+    );
 
-    test('I-ASYNC-33: Async generator (async*) constructor pattern. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-33: Async generator (async*) constructor pattern. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class AsyncGeneratorManager {
@@ -606,17 +658,21 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(
+        final result = await execute(code);
+        expect(
           result,
           equals([
             ["async1", "async2", "async3"],
-            3
-          ]));
-    });
+            3,
+          ]),
+        );
+      },
+    );
 
-    test('I-ASYNC-34: Sync generator (sync*) constructor pattern. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-34: Sync generator (sync*) constructor pattern. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class SyncGeneratorManager {
@@ -646,17 +702,21 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(
+        final result = await execute(code);
+        expect(
           result,
           equals([
             [1, 2, 3, 4],
-            10
-          ]));
-    });
+            10,
+          ]),
+        );
+      },
+    );
 
-    test('I-ASYNC-35: Generator with yield* constructor pattern. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-35: Generator with yield* constructor pattern. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class YieldStarManager {
@@ -691,8 +751,8 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(
+        final result = await execute(code);
+        expect(
           result,
           equals([
             [
@@ -701,14 +761,18 @@ void main() {
               "from_iterable2",
               "direct2",
               "sub1",
-              "sub2"
+              "sub2",
             ],
-            "Combined 6 items"
-          ]));
-    });
+            "Combined 6 items",
+          ]),
+        );
+      },
+    );
 
-    test('I-ASYNC-37: Await for loop with stream processing pattern. [2026-02-10 06:37] (PASS)', () async {
-      final code = '''
+    test(
+      'I-ASYNC-37: Await for loop with stream processing pattern. [2026-02-10 06:37] (PASS)',
+      () async {
+        final code = '''
         import 'dart:async';
         
         class StreamSumProcessor {
@@ -747,13 +811,15 @@ void main() {
         }
       ''';
 
-      final result = await execute(code);
-      expect(
+        final result = await execute(code);
+        expect(
           result,
           equals([
             150, // 10 + 20 + 30 + 40 + 50
-            5
-          ]));
-    });
+            5,
+          ]),
+        );
+      },
+    );
   });
 }

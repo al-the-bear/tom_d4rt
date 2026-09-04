@@ -43,9 +43,10 @@ import '../../interpreter_test.dart' show execute;
 /// RangeError` catches what the index sites raise.
 void main() {
   group('SC5: catchable dart:core error types', () {
-    test('F-SC5-1: NoSuchMethodError is catchable by concrete type [2026-07-27]',
-        () {
-      final result = execute('''
+    test(
+      'F-SC5-1: NoSuchMethodError is catchable by concrete type [2026-07-27]',
+      () {
+        final result = execute('''
         main() {
           try {
             throw NoSuchMethodError.withInvocation(
@@ -57,11 +58,11 @@ void main() {
           }
         }
       ''');
-      expect(result, 'caught');
-    });
+        expect(result, 'caught');
+      },
+    );
 
-    test(
-        'F-SC5-2: ConcurrentModificationError catches a real concurrent '
+    test('F-SC5-2: ConcurrentModificationError catches a real concurrent '
         'modification and exposes modifiedObject [2026-07-27]', () {
       // This one the interpreter already threw SDK-shaped (the native list
       // does the throwing), so before SC5 the value was right and only the
@@ -97,8 +98,7 @@ void main() {
       expect(result, '5|0|1|2');
     });
 
-    test(
-        'F-SC5-4: an IndexError is also caught by `on RangeError` and '
+    test('F-SC5-4: an IndexError is also caught by `on RangeError` and '
         '`on ArgumentError` [2026-07-27]', () {
       // The SDK hierarchy is IndexError -> RangeError -> ArgumentError -> Error.
       // A script that catches the broader type must keep catching the narrower
@@ -131,17 +131,19 @@ void main() {
       expect(result, 'range|argument');
     });
 
-    test('F-SC5-5: `is` follows the registered error hierarchy [2026-07-27]',
-        () {
-      final result = execute('''
+    test(
+      'F-SC5-5: `is` follows the registered error hierarchy [2026-07-27]',
+      () {
+        final result = execute('''
         main() {
           final e = IndexError.withLength(5, 2);
           return '\${e is IndexError}|\${e is RangeError}|'
                  '\${e is ArgumentError}|\${e is Error}';
         }
       ''');
-      expect(result, 'true|true|true|true');
-    });
+        expect(result, 'true|true|true|true');
+      },
+    );
 
     test('F-SC5-6: TypeError is constructible and catchable [2026-07-27]', () {
       final result = execute('''
@@ -158,8 +160,7 @@ void main() {
       expect(result, 'caught');
     });
 
-    test(
-        'F-SC5-7: AssertionError is constructible, catchable, and carries its '
+    test('F-SC5-7: AssertionError is constructible, catchable, and carries its '
         'message [2026-07-27]', () {
       final result = execute('''
         main() {
@@ -175,8 +176,7 @@ void main() {
       expect(result, 'caught:boom');
     });
 
-    test(
-        'F-SC5-8: StackOverflowError catches real runaway recursion '
+    test('F-SC5-8: StackOverflowError catches real runaway recursion '
         '[2026-07-27]', () {
       // Unlike the other six, this error genuinely arrives SDK-shaped today —
       // the recursion blows the *host* stack, so the native error escapes.
@@ -196,9 +196,10 @@ void main() {
       expect(result, 'caught');
     });
 
-    test('F-SC5-9: OutOfMemoryError is constructible and catchable [2026-07-27]',
-        () {
-      final result = execute('''
+    test(
+      'F-SC5-9: OutOfMemoryError is constructible and catchable [2026-07-27]',
+      () {
+        final result = execute('''
         main() {
           try {
             throw OutOfMemoryError();
@@ -209,11 +210,11 @@ void main() {
           }
         }
       ''');
-      expect(result, 'caught');
-    });
+        expect(result, 'caught');
+      },
+    );
 
-    test(
-        'F-SC5-10: every new error type is still caught by the broad '
+    test('F-SC5-10: every new error type is still caught by the broad '
         '`on Error` clause [2026-07-27]', () {
       // Regression guard: `on Error` is the hardcoded fast path in
       // `visitTryStatement`. Registering concrete bridges must not divert a
@@ -244,23 +245,24 @@ void main() {
     });
 
     test(
-        'F-SC5-11: NoSuchMethodError.withInvocation reports the missing member '
-        '[2026-07-27]', () {
-      // The SDK keeps the captured Invocation private — `toString()` is the
-      // only way a script can see which member was missing, so that is what
-      // the bridge has to keep working.
-      final result = execute('''
+      'F-SC5-11: NoSuchMethodError.withInvocation reports the missing member '
+      '[2026-07-27]',
+      () {
+        // The SDK keeps the captured Invocation private — `toString()` is the
+        // only way a script can see which member was missing, so that is what
+        // the bridge has to keep working.
+        final result = execute('''
         main() {
           final e = NoSuchMethodError.withInvocation(
               'receiver', Invocation.method(Symbol('foo'), [1, 2]));
           return e.toString().contains('foo');
         }
       ''');
-      expect(result, true);
-    });
+        expect(result, true);
+      },
+    );
 
-    test(
-        'F-SC5-12: ConcurrentModificationError is constructible with an '
+    test('F-SC5-12: ConcurrentModificationError is constructible with an '
         'explicit modified object [2026-07-27]', () {
       final result = execute('''
         main() {

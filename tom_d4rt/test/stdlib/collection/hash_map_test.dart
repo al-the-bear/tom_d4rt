@@ -10,7 +10,8 @@ void main() {
     });
 
     dynamic execute(String mainFunctionBody, {List<Object?>? args}) {
-      final source = '''
+      final source =
+          '''
         import 'dart:collection';
 
         main() {
@@ -25,21 +26,27 @@ void main() {
       );
     }
 
-    test('I-COLL-16: HashMap() constructor and basic properties. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-COLL-16: HashMap() constructor and basic properties. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
         var map = HashMap();
         return [map.length, map.isEmpty, map.isNotEmpty];
       ''');
-      expect(result, equals([0, true, false]));
-    });
+        expect(result, equals([0, true, false]));
+      },
+    );
 
-    test('I-COLL-17: HashMap.from() constructor. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-COLL-17: HashMap.from() constructor. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
         var map = HashMap.from({'a': 1, 'b': 2});
         return [map.length, map['a'], map['b']];
       ''');
-      expect(result, equals([2, 1, 2]));
-    });
+        expect(result, equals([2, 1, 2]));
+      },
+    );
 
     test('I-COLL-18: HashMap.of() constructor. [2026-02-10 06:37] (PASS)', () {
       final result = execute('''
@@ -78,16 +85,19 @@ void main() {
       expect(result, equals(0));
     });
 
-    test('I-COLL-22: ContainsKey() and containsValue(). [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-COLL-22: ContainsKey() and containsValue(). [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
         var map = HashMap.from({'a': 10, 'b': 20});
         return [
           map.containsKey('a'), map.containsKey('z'),
           map.containsValue(20), map.containsValue(99)
         ];
       ''');
-      expect(result, equals([true, false, true, false]));
-    });
+        expect(result, equals([true, false, true, false]));
+      },
+    );
 
     test('I-COLL-23: Remove() method. [2026-02-10 06:37] (PASS)', () {
       final result = execute('''
@@ -109,9 +119,13 @@ void main() {
         return log;
       ''');
       expect(
-          result,
-          TypeMatcher<List>()
-              .having((l) => l, 'elements', unorderedEquals(['a:1', 'b:2'])));
+        result,
+        TypeMatcher<List>().having(
+          (l) => l,
+          'elements',
+          unorderedEquals(['a:1', 'b:2']),
+        ),
+      );
     });
 
     test('I-COLL-14: PutIfAbsent() method. [2026-02-10 06:37] (PASS)', () {

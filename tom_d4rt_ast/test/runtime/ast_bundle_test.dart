@@ -260,8 +260,7 @@ void main() {
       final archive = ZipDecoder().decodeBytes(zip);
       final manifestFile = archive.findFile(AstBundleFormat.manifestFileName)!;
       final manifestJson =
-          jsonDecode(utf8.decode(manifestFile.content))
-              as Map<String, dynamic>;
+          jsonDecode(utf8.decode(manifestFile.content)) as Map<String, dynamic>;
       final manifest = AstBundleManifest.fromJson(manifestJson);
 
       expect(manifest.version, AstBundleFormat.version);
@@ -327,7 +326,8 @@ void main() {
 
     test('round-trips via file (ZIP format)', () {
       final original = createTestBundle();
-      final path = '${tempDir.path}/test_bundle${AstBundleFormat.bundleExtension}';
+      final path =
+          '${tempDir.path}/test_bundle${AstBundleFormat.bundleExtension}';
 
       original.saveToFile(path);
       expect(File(path).existsSync(), isTrue);
@@ -415,10 +415,7 @@ void main() {
       final original = AstBundleManifest(
         version: '1.0',
         entryPoint: 'bin/main.dart',
-        files: {
-          '0.ast.json': 'bin/main.dart',
-          '1.ast.json': 'lib/utils.dart',
-        },
+        files: {'0.ast.json': 'bin/main.dart', '1.ast.json': 'lib/utils.dart'},
       );
 
       final json = original.toJson();
@@ -508,8 +505,11 @@ void main() {
       for (final restored in [fromJson, fromBytes, fromZip]) {
         expect(restored.entryPointUri, original.entryPointUri);
         for (final uri in original.modules.keys) {
-          expect(restored.modules.containsKey(uri), isTrue,
-              reason: 'Missing module: $uri');
+          expect(
+            restored.modules.containsKey(uri),
+            isTrue,
+            reason: 'Missing module: $uri',
+          );
           expect(
             restored.modules[uri]!.length,
             original.modules[uri]!.length,

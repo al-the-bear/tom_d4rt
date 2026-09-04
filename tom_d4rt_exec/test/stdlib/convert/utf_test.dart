@@ -3,8 +3,10 @@ import 'package:test/test.dart';
 
 void main() {
   group('Utf8 tests', () {
-    test('I-MISC-422: Utf8Codec encode and decode. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-MISC-422: Utf8Codec encode and decode. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       import 'dart:convert';
       main() {
         Utf8Codec codec = Utf8Codec();
@@ -14,13 +16,15 @@ void main() {
         return [encoded, decoded];
       }
       ''';
-      expect(
+        expect(
           execute(source),
           equals([
             [72, 101, 108, 108, 111, 44, 32, 85, 84, 70, 45, 56, 33],
-            'Hello, UTF-8!'
-          ]));
-    });
+            'Hello, UTF-8!',
+          ]),
+        );
+      },
+    );
 
     test('I-MISC-420: Utf8Encoder convert. [2026-02-10 06:37] (PASS)', () {
       const source = '''
@@ -32,8 +36,10 @@ void main() {
         return encoded;
       }
       ''';
-      expect(execute(source),
-          equals([69, 110, 99, 111, 100, 101, 32, 116, 104, 105, 115, 33]));
+      expect(
+        execute(source),
+        equals([69, 110, 99, 111, 100, 101, 32, 116, 104, 105, 115, 33]),
+      );
     });
 
     test('I-MISC-421: Utf8Decoder convert. [2026-02-10 06:37] (PASS)', () {

@@ -29,19 +29,24 @@ void main() {
       expect(execute(source), equals(false));
     });
 
-    test('I-ITER-13: Iterator current without moveNext. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ITER-13: Iterator current without moveNext. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         List<int> numbers = [1, 2, 3];
         Iterator<int> iterator = numbers.iterator;
         return iterator.current;
       }
       ''';
-      expect(execute(source), isNull);
-    });
+        expect(execute(source), isNull);
+      },
+    );
 
-    test('I-ITER-14: Iterator moveNext after end. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ITER-14: Iterator moveNext after end. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         List<int> numbers = [1, 2, 3];
         Iterator<int> iterator = numbers.iterator;
@@ -52,16 +57,20 @@ void main() {
         return [iterated, iterator.moveNext()];
       }
       ''';
-      expect(
+        expect(
           execute(source),
           equals([
             [1, 2, 3],
-            false
-          ]));
-    });
+            false,
+          ]),
+        );
+      },
+    );
 
-    test('I-ITER-16: Iterator with nested loops. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ITER-16: Iterator with nested loops. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         List<List<int>> matrix = [
           [1, 2],
@@ -78,11 +87,14 @@ void main() {
         return result;
       }
       ''';
-      expect(execute(source), equals([1, 2, 3, 4, 5, 6]));
-    });
+        expect(execute(source), equals([1, 2, 3, 4, 5, 6]));
+      },
+    );
 
-    test('I-ITER-17: Iterator with custom iterable. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ITER-17: Iterator with custom iterable. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         Iterable<int> customIterable = Iterable.generate(5, (i) => i + 1);
         Iterator<int> iterator = customIterable.iterator;
@@ -93,11 +105,14 @@ void main() {
         return result;
       }
       ''';
-      expect(execute(source), equals([1, 2, 3, 4, 5]));
-    });
+        expect(execute(source), equals([1, 2, 3, 4, 5]));
+      },
+    );
 
-    test('I-ITER-18: Iterator with break in loop. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ITER-18: Iterator with break in loop. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         List<int> numbers = [1, 2, 3, 4, 5];
         Iterator<int> iterator = numbers.iterator;
@@ -109,11 +124,14 @@ void main() {
         return result;
       }
       ''';
-      expect(execute(source), equals([1, 2]));
-    });
+        expect(execute(source), equals([1, 2]));
+      },
+    );
 
-    test('I-ITER-11: Iterator with continue in loop. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ITER-11: Iterator with continue in loop. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         List<int> numbers = [1, 2, 3, 4, 5];
         Iterator<int> iterator = numbers.iterator;
@@ -125,7 +143,8 @@ void main() {
         return result;
       }
       ''';
-      expect(execute(source), equals([1, 3, 5]));
-    });
+        expect(execute(source), equals([1, 3, 5]));
+      },
+    );
   });
 }

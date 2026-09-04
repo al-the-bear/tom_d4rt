@@ -13,25 +13,27 @@ import 'package:tom_d4rt/d4rt.dart';
 
 void main() {
   group('D4rt.registerExtensions / finalizeBridges', () {
-    test('callbacks fire in registration order when finalizeBridges is called',
-        () {
-      final d4rt = D4rt();
-      final order = <String>[];
-      d4rt.registerExtensions('alpha', () => order.add('alpha'));
-      d4rt.registerExtensions('beta', () => order.add('beta'));
-      d4rt.registerExtensions('gamma', () => order.add('gamma'));
+    test(
+      'callbacks fire in registration order when finalizeBridges is called',
+      () {
+        final d4rt = D4rt();
+        final order = <String>[];
+        d4rt.registerExtensions('alpha', () => order.add('alpha'));
+        d4rt.registerExtensions('beta', () => order.add('beta'));
+        d4rt.registerExtensions('gamma', () => order.add('gamma'));
 
-      // Pre-condition: nothing has run yet.
-      expect(order, isEmpty);
-      expect(d4rt.bridgesFinalized, isFalse);
+        // Pre-condition: nothing has run yet.
+        expect(order, isEmpty);
+        expect(d4rt.bridgesFinalized, isFalse);
 
-      d4rt.finalizeBridges();
+        d4rt.finalizeBridges();
 
-      // Post-condition: every callback ran exactly once, in registration
-      // order.
-      expect(order, equals(<String>['alpha', 'beta', 'gamma']));
-      expect(d4rt.bridgesFinalized, isTrue);
-    });
+        // Post-condition: every callback ran exactly once, in registration
+        // order.
+        expect(order, equals(<String>['alpha', 'beta', 'gamma']));
+        expect(d4rt.bridgesFinalized, isTrue);
+      },
+    );
 
     test('finalizeBridges is idempotent — second call is a no-op', () {
       final d4rt = D4rt();
@@ -42,10 +44,13 @@ void main() {
       d4rt.finalizeBridges();
       d4rt.finalizeBridges();
 
-      expect(fireCount, 1,
-          reason:
-              'finalizeBridges() must run each callback exactly once across '
-              'any number of finalize calls.');
+      expect(
+        fireCount,
+        1,
+        reason:
+            'finalizeBridges() must run each callback exactly once across '
+            'any number of finalize calls.',
+      );
       expect(d4rt.bridgesFinalized, isTrue);
     });
 
@@ -59,25 +64,32 @@ void main() {
 
       d4rt.finalizeBridges();
 
-      expect(fired, 'third',
-          reason: 'Last registration for a given package name wins; '
-              'previous bodies are dropped (one extension per package).');
-    });
-
-    test('registerExtensions throws StateError after finalizeBridges has run',
-        () {
-      final d4rt = D4rt();
-      d4rt.registerExtensions('early', () {});
-      d4rt.finalizeBridges();
-
       expect(
-        () => d4rt.registerExtensions('late', () {}),
-        throwsA(isA<StateError>()),
-        reason: 'Adding extensions after the runner is frozen is a misuse — '
-            'the runner must surface it as an error rather than silently '
-            'dropping the registration.',
+        fired,
+        'third',
+        reason:
+            'Last registration for a given package name wins; '
+            'previous bodies are dropped (one extension per package).',
       );
     });
+
+    test(
+      'registerExtensions throws StateError after finalizeBridges has run',
+      () {
+        final d4rt = D4rt();
+        d4rt.registerExtensions('early', () {});
+        d4rt.finalizeBridges();
+
+        expect(
+          () => d4rt.registerExtensions('late', () {}),
+          throwsA(isA<StateError>()),
+          reason:
+              'Adding extensions after the runner is frozen is a misuse — '
+              'the runner must surface it as an error rather than silently '
+              'dropping the registration.',
+        );
+      },
+    );
 
     test('callbacks fire implicitly on the first execute call', () {
       final d4rt = D4rt();
@@ -95,9 +107,13 @@ void main() {
       final result = d4rt.execute(source: 'int main() => 7;');
 
       expect(result, 7);
-      expect(ranBeforeScript, isTrue,
-          reason: 'Implicit finalize must run extension callbacks before '
-              'the script body executes.');
+      expect(
+        ranBeforeScript,
+        isTrue,
+        reason:
+            'Implicit finalize must run extension callbacks before '
+            'the script body executes.',
+      );
       expect(d4rt.bridgesFinalized, isTrue);
     });
 
@@ -110,9 +126,13 @@ void main() {
       d4rt.execute(source: 'int main() => 2;');
       d4rt.execute(source: 'int main() => 3;');
 
-      expect(fireCount, 1,
-          reason: 'Implicit finalize is once-per-runner; subsequent '
-              'execute calls must not re-run extension callbacks.');
+      expect(
+        fireCount,
+        1,
+        reason:
+            'Implicit finalize is once-per-runner; subsequent '
+            'execute calls must not re-run extension callbacks.',
+      );
     });
 
     test('explicit finalizeBridges before execute is supported and '

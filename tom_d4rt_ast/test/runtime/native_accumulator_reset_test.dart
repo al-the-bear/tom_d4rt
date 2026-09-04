@@ -50,11 +50,7 @@ AstBundle _trivialMainBundle(int returnValue) {
       ),
     ),
   );
-  final unit = SCompilationUnit(
-    offset: 0,
-    length: 0,
-    declarations: [mainFn],
-  );
+  final unit = SCompilationUnit(offset: 0, length: 0, declarations: [mainFn]);
   return AstBundle(
     entryPointUri: 'package:t/main.dart',
     modules: {'package:t/main.dart': unit},
@@ -84,27 +80,29 @@ void main() {
       expect(D4.nativeRegistrationCount, 5);
     });
 
-    test('resetNativeAccumulators zeroes the counter and drops all entries',
-        () {
-      final keys = _simulateBuildRegistrations(3);
-      // Entries are reachable before reset.
-      for (final k in keys) {
-        expect(D4.interpretedForNative(k), isNotNull);
-      }
+    test(
+      'resetNativeAccumulators zeroes the counter and drops all entries',
+      () {
+        final keys = _simulateBuildRegistrations(3);
+        // Entries are reachable before reset.
+        for (final k in keys) {
+          expect(D4.interpretedForNative(k), isNotNull);
+        }
 
-      D4.resetNativeAccumulators();
+        D4.resetNativeAccumulators();
 
-      expect(D4.nativeRegistrationCount, 0);
-      // Even though the native keys are still alive, the Expando was swapped
-      // out — the old entries are gone.
-      for (final k in keys) {
-        expect(
-          D4.interpretedForNative(k),
-          isNull,
-          reason: 'reset must drop entries even for still-reachable keys',
-        );
-      }
-    });
+        expect(D4.nativeRegistrationCount, 0);
+        // Even though the native keys are still alive, the Expando was swapped
+        // out — the old entries are gone.
+        for (final k in keys) {
+          expect(
+            D4.interpretedForNative(k),
+            isNull,
+            reason: 'reset must drop entries even for still-reachable keys',
+          );
+        }
+      },
+    );
 
     test('WITHOUT reset, repeated build cycles accumulate (the B.12 bug)', () {
       // Hold every cycle's native keys alive, as the framework would.
@@ -146,28 +144,29 @@ void main() {
     });
 
     test(
-        'D4rtRunner.resetScriptDeclarations also clears the native accumulator',
-        () {
-      final runner = D4rtRunner();
-      // Drive a real build so the full reset path (env + native) runs.
-      expect(runner.executeBundleAs<int>(_trivialMainBundle(1)), 1);
+      'D4rtRunner.resetScriptDeclarations also clears the native accumulator',
+      () {
+        final runner = D4rtRunner();
+        // Drive a real build so the full reset path (env + native) runs.
+        expect(runner.executeBundleAs<int>(_trivialMainBundle(1)), 1);
 
-      final keys = _simulateBuildRegistrations(7);
-      expect(D4.nativeRegistrationCount, 7);
+        final keys = _simulateBuildRegistrations(7);
+        expect(D4.nativeRegistrationCount, 7);
 
-      runner.resetScriptDeclarations();
+        runner.resetScriptDeclarations();
 
-      expect(
-        D4.nativeRegistrationCount,
-        0,
-        reason: 'the runner reset API must clear D4 native state',
-      );
-      for (final k in keys) {
-        expect(D4.interpretedForNative(k), isNull);
-      }
-      // The interpreter is still usable afterwards.
-      expect(runner.executeBundleAs<int>(_trivialMainBundle(2)), 2);
-    });
+        expect(
+          D4.nativeRegistrationCount,
+          0,
+          reason: 'the runner reset API must clear D4 native state',
+        );
+        for (final k in keys) {
+          expect(D4.interpretedForNative(k), isNull);
+        }
+        // The interpreter is still usable afterwards.
+        expect(runner.executeBundleAs<int>(_trivialMainBundle(2)), 2);
+      },
+    );
 
     test('reset is idempotent and safe with no prior registrations', () {
       expect(D4.resetNativeAccumulators, returnsNormally);

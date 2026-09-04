@@ -54,8 +54,7 @@ void main() {
     // ---------------------------------------------------------------- (a)
     // Index out of range -> RangeError.
 
-    test(
-        'F-SCB10-1: list index out of range is catchable as RangeError and '
+    test('F-SCB10-1: list index out of range is catchable as RangeError and '
         'carries invalidValue/start/end [2026-07-28]', () {
       final result = execute('''
         main() {
@@ -72,9 +71,10 @@ void main() {
       expect(result, [9, 0, 2]);
     });
 
-    test('F-SCB10-2: a negative list index is the same RangeError [2026-07-28]',
-        () {
-      final result = execute('''
+    test(
+      'F-SCB10-2: a negative list index is the same RangeError [2026-07-28]',
+      () {
+        final result = execute('''
         main() {
           try {
             var l = [1, 2, 3];
@@ -86,11 +86,11 @@ void main() {
           }
         }
       ''');
-      expect(result, -1);
-    });
+        expect(result, -1);
+      },
+    );
 
-    test(
-        'F-SCB10-3: `on IndexError` does NOT catch it — the platform raises a '
+    test('F-SCB10-3: `on IndexError` does NOT catch it — the platform raises a '
         'plain RangeError for List.[] [2026-07-28]', () {
       // Fidelity in the negative direction. Throwing IndexError would satisfy
       // `on RangeError` too, so F-SCB10-1 alone cannot tell the two apart; this
@@ -110,8 +110,7 @@ void main() {
       expect(result, 'plain-RangeError');
     });
 
-    test(
-        'F-SCB10-4: index assignment out of range raises RangeError '
+    test('F-SCB10-4: index assignment out of range raises RangeError '
         '[2026-07-28]', () {
       final result = execute('''
         main() {
@@ -129,8 +128,7 @@ void main() {
       expect(result, 9);
     });
 
-    test(
-        'F-SCB10-5: compound index assignment out of range raises RangeError '
+    test('F-SCB10-5: compound index assignment out of range raises RangeError '
         '[2026-07-28]', () {
       // Separate raise site from F-SCB10-4 — the compound path reads before it
       // writes and had its own bounds check with its own message.
@@ -150,8 +148,7 @@ void main() {
       expect(result, 9);
     });
 
-    test(
-        'F-SCB10-6: index access out of range inside a cascade raises '
+    test('F-SCB10-6: index access out of range inside a cascade raises '
         'RangeError [2026-07-28]', () {
       final result = execute('''
         main() {
@@ -169,8 +166,7 @@ void main() {
       expect(result, 9);
     });
 
-    test(
-        'F-SCB10-7: indexing an EMPTY list yields the empty-range RangeError, '
+    test('F-SCB10-7: indexing an EMPTY list yields the empty-range RangeError, '
         'not a malformed one [2026-07-28]', () {
       // The edge the `0..length - 1` formulation could get wrong: for an empty
       // list `end` is -1, i.e. below `start`. RangeError.range accepts that and
@@ -199,9 +195,10 @@ void main() {
     // Failing cast / null check -> TypeError.
 
     test(
-        'F-SCB10-8: a failing `as` cast is catchable as TypeError and keeps its '
-        'diagnostic [2026-07-28]', () {
-      final result = execute('''
+      'F-SCB10-8: a failing `as` cast is catchable as TypeError and keeps its '
+      'diagnostic [2026-07-28]',
+      () {
+        final result = execute('''
         main() {
           try {
             dynamic x = 1;
@@ -213,20 +210,20 @@ void main() {
           }
         }
       ''');
-      // The 'caught:' marker is load-bearing. An earlier draft returned the
-      // message alone and asserted `contains('int')` / `contains('String')` —
-      // which the generic branch's `'wrong-type: Cast failed ... int ...
-      // String'` also satisfies, so the test PASSED before the fix existed.
-      expect(result, isA<String>());
-      expect(result as String, startsWith('caught:'));
-      // The message must still name both types — that diagnostic quality is
-      // why the interpreter used its own exception type in the first place.
-      expect(result, contains('int'));
-      expect(result, contains('String'));
-    });
+        // The 'caught:' marker is load-bearing. An earlier draft returned the
+        // message alone and asserted `contains('int')` / `contains('String')` —
+        // which the generic branch's `'wrong-type: Cast failed ... int ...
+        // String'` also satisfies, so the test PASSED before the fix existed.
+        expect(result, isA<String>());
+        expect(result as String, startsWith('caught:'));
+        // The message must still name both types — that diagnostic quality is
+        // why the interpreter used its own exception type in the first place.
+        expect(result, contains('int'));
+        expect(result, contains('String'));
+      },
+    );
 
-    test(
-        'F-SCB10-9: the `!` null-check operator raises TypeError, as it does '
+    test('F-SCB10-9: the `!` null-check operator raises TypeError, as it does '
         'natively [2026-07-28]', () {
       // Not named by SCB10, but real Dart raises TypeError here too ("Null
       // check operator used on a null value"), and it shares case (b)'s fix.
@@ -250,8 +247,7 @@ void main() {
     // ---------------------------------------------------------------- (c)
     // Missing member -> NoSuchMethodError.
 
-    test(
-        'F-SCB10-10: a missing method on an interpreted instance raises '
+    test('F-SCB10-10: a missing method on an interpreted instance raises '
         'NoSuchMethodError [2026-07-28]', () {
       final result = execute('''
         class A {}
@@ -269,8 +265,7 @@ void main() {
       expect(result, 'caught');
     });
 
-    test(
-        'F-SCB10-11: a missing method on a bridged receiver raises '
+    test('F-SCB10-11: a missing method on a bridged receiver raises '
         'NoSuchMethodError [2026-07-28]', () {
       final result = execute('''
         main() {
@@ -287,8 +282,7 @@ void main() {
       expect(result, 'caught');
     });
 
-    test(
-        'F-SCB10-12: a missing getter raises NoSuchMethodError too '
+    test('F-SCB10-12: a missing getter raises NoSuchMethodError too '
         '[2026-07-28]', () {
       final result = execute('''
         main() {
@@ -308,8 +302,7 @@ void main() {
     // ---------------------------------------------------------------- (d)
     // Failing assert -> AssertionError.
 
-    test(
-        'F-SCB10-13: a failing assert raises AssertionError [2026-07-28]', () {
+    test('F-SCB10-13: a failing assert raises AssertionError [2026-07-28]', () {
       final result = execute('''
         main() {
           try {
@@ -325,8 +318,7 @@ void main() {
       expect(result, 'caught');
     });
 
-    test(
-        'F-SCB10-14: the assert message lands in AssertionError.message '
+    test('F-SCB10-14: the assert message lands in AssertionError.message '
         '[2026-07-28]', () {
       // `message` rather than the formatted `toString()`: the SDK exposes the
       // raw message object, so a script can inspect it.
@@ -345,8 +337,7 @@ void main() {
       expect(result, 'boom');
     });
 
-    test(
-        'F-SCB10-15: a failing assert in a constructor initializer list also '
+    test('F-SCB10-15: a failing assert in a constructor initializer list also '
         'raises AssertionError [2026-07-28]', () {
       // Second assert raise site, in callable.dart rather than the visitor —
       // not named by SCB10, found by grepping for the message it produced.
@@ -371,8 +362,7 @@ void main() {
 
     // ---------------------------------------------------------- scope guards
 
-    test(
-        'F-SCB10-16: a genuine interpreter failure is NOT given an SDK type '
+    test('F-SCB10-16: a genuine interpreter failure is NOT given an SDK type '
         '[2026-07-28]', () {
       // The boundary SCB10's notes drew. An undefined name has no SDK
       // counterpart — real Dart rejects the program at compile time rather
@@ -394,8 +384,7 @@ void main() {
       expect(result, 'still-generic');
     });
 
-    test(
-        'F-SCB10-17: an error thrown by a NATIVE callee still arrives as '
+    test('F-SCB10-17: an error thrown by a NATIVE callee still arrives as '
         'itself [2026-07-28]', () {
       // Guards the property that made case (a) small: the interpreter does not
       // wrap what a native callee throws. String indexing has no interpreter
@@ -412,8 +401,7 @@ void main() {
       expect(result, ['range', 'state', 'format']);
     });
 
-    test(
-        'F-SCB10-18: an uncaught SDK-shaped error reaches the HOST unwrapped '
+    test('F-SCB10-18: an uncaught SDK-shaped error reaches the HOST unwrapped '
         '[2026-07-28]', () {
       // `execute()` ends in a catch-all that re-labels anything it does not
       // recognise as `RuntimeD4rtException('Unexpected error: ...')` — a message
@@ -422,14 +410,22 @@ void main() {
       // the `isSdkShapedError` carve-out, the shape made catchable *inside* a
       // script would be destroyed on the way *out* of one, and the host would
       // read "Unexpected error: Assertion failed".
-      expect(() => execute('main() { assert(1 == 2, "boom"); }'),
-          throwsA(isA<AssertionError>()));
-      expect(() => execute('main() { var l = [1]; return l[9]; }'),
-          throwsA(isA<RangeError>()));
-      expect(() => execute('main() { dynamic x = 1; return x as String; }'),
-          throwsA(isA<TypeError>()));
-      expect(() => execute('main() { dynamic x = 1; return x.wibble(); }'),
-          throwsA(isA<NoSuchMethodError>()));
+      expect(
+        () => execute('main() { assert(1 == 2, "boom"); }'),
+        throwsA(isA<AssertionError>()),
+      );
+      expect(
+        () => execute('main() { var l = [1]; return l[9]; }'),
+        throwsA(isA<RangeError>()),
+      );
+      expect(
+        () => execute('main() { dynamic x = 1; return x as String; }'),
+        throwsA(isA<TypeError>()),
+      );
+      expect(
+        () => execute('main() { dynamic x = 1; return x.wibble(); }'),
+        throwsA(isA<NoSuchMethodError>()),
+      );
     });
   });
 }

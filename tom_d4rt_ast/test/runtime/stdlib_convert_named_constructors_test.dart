@@ -46,10 +46,12 @@ void main() {
   BridgedClass bridge(String name) => env.findBridgedClassByName(name)!;
 
   group('SCB25: JsonEncoder.withIndent', () {
-    test('F-SCB25-AST-1: the withIndent constructor is registered [2026-09-03]',
-        () {
-      expect(bridge('JsonEncoder').constructors.keys, contains('withIndent'));
-    });
+    test(
+      'F-SCB25-AST-1: the withIndent constructor is registered [2026-09-03]',
+      () {
+        expect(bridge('JsonEncoder').constructors.keys, contains('withIndent'));
+      },
+    );
 
     test('F-SCB25-AST-2: the indent value reaches the native encoder '
         '[2026-09-03]', () {
@@ -77,9 +79,13 @@ void main() {
     test('F-SCB25-AST-5: mistyped arguments are rejected [2026-09-03]', () {
       final ctor = bridge('JsonEncoder').constructors['withIndent']!;
       expect(
-          () => ctor(visitor, [42], {}), throwsA(isA<RuntimeD4rtException>()));
-      expect(() => ctor(visitor, [null, 42], {}),
-          throwsA(isA<RuntimeD4rtException>()));
+        () => ctor(visitor, [42], {}),
+        throwsA(isA<RuntimeD4rtException>()),
+      );
+      expect(
+        () => ctor(visitor, [null, 42], {}),
+        throwsA(isA<RuntimeD4rtException>()),
+      );
     });
 
     test('F-SCB25-AST-6: indent is exposed as a getter [2026-09-03]', () {
@@ -100,10 +106,14 @@ void main() {
         'the default constructor null is not legal here [2026-09-03]', () {
       final ctor = bridge('JsonCodec').constructors['withReviver']!;
       expect(() => ctor(visitor, [], {}), throwsA(isA<RuntimeD4rtException>()));
-      expect(() => ctor(visitor, [null], {}),
-          throwsA(isA<RuntimeD4rtException>()));
       expect(
-          () => ctor(visitor, [42], {}), throwsA(isA<RuntimeD4rtException>()));
+        () => ctor(visitor, [null], {}),
+        throwsA(isA<RuntimeD4rtException>()),
+      );
+      expect(
+        () => ctor(visitor, [42], {}),
+        throwsA(isA<RuntimeD4rtException>()),
+      );
     });
   });
 
@@ -113,11 +123,15 @@ void main() {
       // 0xFB 0xFF encodes to "-_8=" url-safe and "+/8=" standard, so the two
       // alphabets are distinguishable from the output alone.
       final codecCtor = bridge('Base64Codec').constructors['urlSafe']!;
-      expect((codecCtor(visitor, [], {}) as Base64Codec).encode([251, 255]),
-          '-_8=');
+      expect(
+        (codecCtor(visitor, [], {}) as Base64Codec).encode([251, 255]),
+        '-_8=',
+      );
       final encoderCtor = bridge('Base64Encoder').constructors['urlSafe']!;
-      expect((encoderCtor(visitor, [], {}) as Base64Encoder).convert([251, 255]),
-          '-_8=');
+      expect(
+        (encoderCtor(visitor, [], {}) as Base64Encoder).convert([251, 255]),
+        '-_8=',
+      );
     });
   });
 }

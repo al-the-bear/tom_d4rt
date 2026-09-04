@@ -33,79 +33,114 @@ void main() {
   });
 
   group('SC2: LinkedHashSet collection bridge', () {
-    test('F-SC2-AST-1: is registered under the name LinkedHashSet [2026-07-27]',
-        () {
-      final bridge = env.findBridgedClassByName('LinkedHashSet');
-      expect(bridge, isNotNull);
-      expect(bridge!.nativeType, LinkedHashSet);
-      expect(bridge.typeParameterCount, 1);
-      expect(bridge.isAssignable?.call(LinkedHashSet<dynamic>()), isTrue);
-      expect(bridge.isAssignable?.call(<int>[]), isFalse);
-    });
+    test(
+      'F-SC2-AST-1: is registered under the name LinkedHashSet [2026-07-27]',
+      () {
+        final bridge = env.findBridgedClassByName('LinkedHashSet');
+        expect(bridge, isNotNull);
+        expect(bridge!.nativeType, LinkedHashSet);
+        expect(bridge.typeParameterCount, 1);
+        expect(bridge.isAssignable?.call(LinkedHashSet<dynamic>()), isTrue);
+        expect(bridge.isAssignable?.call(<int>[]), isFalse);
+      },
+    );
 
-    test('F-SC2-AST-2: exposes the default, from and of constructors [2026-07-27]',
-        () {
-      final bridge = env.findBridgedClassByName('LinkedHashSet')!;
-      expect(bridge.constructors.keys, containsAll(<String>['', 'from', 'of']));
-    });
+    test(
+      'F-SC2-AST-2: exposes the default, from and of constructors [2026-07-27]',
+      () {
+        final bridge = env.findBridgedClassByName('LinkedHashSet')!;
+        expect(
+          bridge.constructors.keys,
+          containsAll(<String>['', 'from', 'of']),
+        );
+      },
+    );
 
     test('F-SC2-AST-3: exposes the Set method surface [2026-07-27]', () {
       final bridge = env.findBridgedClassByName('LinkedHashSet')!;
       expect(
         bridge.methods.keys,
         containsAll(<String>[
-          'add', 'addAll', 'clear', 'contains', 'containsAll', 'forEach',
-          'remove', 'removeAll', 'retainAll', 'removeWhere', 'retainWhere',
-          'lookup', 'map', 'where', 'fold', 'join', 'toList', 'toSet',
+          'add',
+          'addAll',
+          'clear',
+          'contains',
+          'containsAll',
+          'forEach',
+          'remove',
+          'removeAll',
+          'retainAll',
+          'removeWhere',
+          'retainWhere',
+          'lookup',
+          'map',
+          'where',
+          'fold',
+          'join',
+          'toList',
+          'toSet',
         ]),
       );
     });
 
-    test('F-SC2-AST-4: the getters read through in insertion order [2026-07-27]',
-        () {
-      final bridge = env.findBridgedClassByName('LinkedHashSet')!;
-      final set = LinkedHashSet<dynamic>.of(['gamma', 'alpha', 'beta']);
-      expect(bridge.getters['length']!(null, set), 3);
-      expect(bridge.getters['isEmpty']!(null, set), isFalse);
-      expect(bridge.getters['isNotEmpty']!(null, set), isTrue);
-      expect(bridge.getters['first']!(null, set), 'gamma');
-      expect(bridge.getters['last']!(null, set), 'beta');
-    });
+    test(
+      'F-SC2-AST-4: the getters read through in insertion order [2026-07-27]',
+      () {
+        final bridge = env.findBridgedClassByName('LinkedHashSet')!;
+        final set = LinkedHashSet<dynamic>.of(['gamma', 'alpha', 'beta']);
+        expect(bridge.getters['length']!(null, set), 3);
+        expect(bridge.getters['isEmpty']!(null, set), isFalse);
+        expect(bridge.getters['isNotEmpty']!(null, set), isTrue);
+        expect(bridge.getters['first']!(null, set), 'gamma');
+        expect(bridge.getters['last']!(null, set), 'beta');
+      },
+    );
   });
 
   group('SC2: SplayTreeSet collection bridge', () {
-    test('F-SC2-AST-5: is registered under the name SplayTreeSet [2026-07-27]',
-        () {
-      final bridge = env.findBridgedClassByName('SplayTreeSet');
-      expect(bridge, isNotNull);
-      expect(bridge!.nativeType, SplayTreeSet);
-      expect(bridge.typeParameterCount, 1);
-      expect(bridge.isAssignable?.call(SplayTreeSet<dynamic>()), isTrue);
-      expect(bridge.isAssignable?.call(LinkedHashSet<dynamic>()), isFalse);
-    });
+    test(
+      'F-SC2-AST-5: is registered under the name SplayTreeSet [2026-07-27]',
+      () {
+        final bridge = env.findBridgedClassByName('SplayTreeSet');
+        expect(bridge, isNotNull);
+        expect(bridge!.nativeType, SplayTreeSet);
+        expect(bridge.typeParameterCount, 1);
+        expect(bridge.isAssignable?.call(SplayTreeSet<dynamic>()), isTrue);
+        expect(bridge.isAssignable?.call(LinkedHashSet<dynamic>()), isFalse);
+      },
+    );
 
-    test('F-SC2-AST-6: exposes the default, from and of constructors [2026-07-27]',
-        () {
-      final bridge = env.findBridgedClassByName('SplayTreeSet')!;
-      expect(bridge.constructors.keys, containsAll(<String>['', 'from', 'of']));
-    });
+    test(
+      'F-SC2-AST-6: exposes the default, from and of constructors [2026-07-27]',
+      () {
+        final bridge = env.findBridgedClassByName('SplayTreeSet')!;
+        expect(
+          bridge.constructors.keys,
+          containsAll(<String>['', 'from', 'of']),
+        );
+      },
+    );
 
-    test('F-SC2-AST-7: exposes the same method surface as LinkedHashSet [2026-07-27]',
-        () {
-      final linked = env.findBridgedClassByName('LinkedHashSet')!;
-      final splay = env.findBridgedClassByName('SplayTreeSet')!;
-      expect(splay.methods.keys.toSet(), linked.methods.keys.toSet());
-      expect(splay.getters.keys.toSet(), linked.getters.keys.toSet());
-    });
+    test(
+      'F-SC2-AST-7: exposes the same method surface as LinkedHashSet [2026-07-27]',
+      () {
+        final linked = env.findBridgedClassByName('LinkedHashSet')!;
+        final splay = env.findBridgedClassByName('SplayTreeSet')!;
+        expect(splay.methods.keys.toSet(), linked.methods.keys.toSet());
+        expect(splay.getters.keys.toSet(), linked.getters.keys.toSet());
+      },
+    );
 
-    test('F-SC2-AST-8: the getters read through in sorted order [2026-07-27]',
-        () {
-      final bridge = env.findBridgedClassByName('SplayTreeSet')!;
-      final set = SplayTreeSet<dynamic>.of([30, 10, 20]);
-      expect(bridge.getters['length']!(null, set), 3);
-      expect(bridge.getters['first']!(null, set), 10);
-      expect(bridge.getters['last']!(null, set), 30);
-    });
+    test(
+      'F-SC2-AST-8: the getters read through in sorted order [2026-07-27]',
+      () {
+        final bridge = env.findBridgedClassByName('SplayTreeSet')!;
+        final set = SplayTreeSet<dynamic>.of([30, 10, 20]);
+        expect(bridge.getters['length']!(null, set), 3);
+        expect(bridge.getters['first']!(null, set), 10);
+        expect(bridge.getters['last']!(null, set), 30);
+      },
+    );
 
     test('F-SC2-AST-9: the two sets stay distinct bridges [2026-07-27]', () {
       // A SplayTreeSet must not be captured by the LinkedHashSet bridge (and

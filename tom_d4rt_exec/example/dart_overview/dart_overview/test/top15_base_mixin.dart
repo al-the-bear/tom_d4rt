@@ -10,7 +10,9 @@ void main() {
   var item = TrackedItem('Widget');
 
   if (item.trackCount != 0) {
-    errors.add('TrackedItem initial trackCount expected 0, got ${item.trackCount}');
+    errors.add(
+      'TrackedItem initial trackCount expected 0, got ${item.trackCount}',
+    );
   }
 
   item.track();

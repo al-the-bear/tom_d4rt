@@ -5,14 +5,17 @@ dynamic execute(String source, {List<Object?>? args}) {
   final d4rt = D4rt();
 
   return d4rt.execute(
-      library: 'package:test/main.dart',
-      positionalArgs: args,
-      sources: {'package:test/main.dart': source});
+    library: 'package:test/main.dart',
+    positionalArgs: args,
+    sources: {'package:test/main.dart': source},
+  );
 }
 
 void main() {
-  test('I-ASYNC-2: Async nested loops: while containing for inside for. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-2: Async nested loops: while containing for inside for. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<void> delay(int milliseconds) async {
         // Simulate async delay
         return Future.delayed(Duration(milliseconds: milliseconds));
@@ -52,12 +55,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals(12));
-  });
+      final result = await execute(source);
+      expect(result, equals(12));
+    },
+  );
 
-  test('I-ASYNC-12: Async nested loops with conditions and breaks. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-12: Async nested loops with conditions and breaks. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<void> asyncPrint(String message) async {
         return Future.delayed(Duration(milliseconds: 5));
       }
@@ -122,12 +128,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals('Complex test completed'));
-  });
+      final result = await execute(source);
+      expect(result, equals('Complex test completed'));
+    },
+  );
 
-  test('I-ASYNC-1: Async nested loops with exception handling. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-1: Async nested loops with exception handling. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<int> riskyAsyncOperation(int value) async {
         await Future.delayed(Duration(milliseconds: 1));
         
@@ -186,12 +195,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals('Exception handling test completed successfully'));
-  });
+      final result = await execute(source);
+      expect(result, equals('Exception handling test completed successfully'));
+    },
+  );
 
-  test('I-ASYNC-3: Async nested loops with Future.wait. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-3: Async nested loops with Future.wait. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<String> asyncTask(String taskName, int delay) async {
         await Future.delayed(Duration(milliseconds: delay));
         return 'Task \$taskName completed';
@@ -233,12 +245,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals(8));
-  });
+      final result = await execute(source);
+      expect(result, equals(8));
+    },
+  );
 
-  test('I-ASYNC-4: Async nested for-in loops with lists. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-4: Async nested for-in loops with lists. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<String> processItem(String category, String item) async {
         await Future.delayed(Duration(milliseconds: 5));
         return '\$category:\$item';
@@ -274,12 +289,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals(9)); // 3 + 2 + 4 = 9 items total
-  });
+      final result = await execute(source);
+      expect(result, equals(9)); // 3 + 2 + 4 = 9 items total
+    },
+  );
 
-  test('I-ASYNC-5: Async nested for-in loops with maps and complex data. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-5: Async nested for-in loops with maps and complex data. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<Map<String, dynamic>> analyzeData(String department, Map<String, dynamic> employee) async {
         await Future.delayed(Duration(milliseconds: 3));
         
@@ -341,12 +359,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals(5)); // 2 + 2 + 1 = 5 employees total
-  });
+      final result = await execute(source);
+      expect(result, equals(5)); // 2 + 2 + 1 = 5 employees total
+    },
+  );
 
-  test('I-ASYNC-6: Async nested for-in loops with break and continue. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-6: Async nested for-in loops with break and continue. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<bool> shouldSkipItem(String category, String item) async {
         await Future.delayed(Duration(milliseconds: 2));
         // Skip items containing 'skip'
@@ -397,15 +418,18 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(
+      final result = await execute(source);
+      expect(
         result,
-        equals(
-            5)); // start:item1, start:item2, middle:item3, middle:item4, middle:item5
-  });
+        equals(5),
+      ); // start:item1, start:item2, middle:item3, middle:item4, middle:item5
+    },
+  );
 
-  test('I-ASYNC-7: Async nested for-in loops with exception handling. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-7: Async nested for-in loops with exception handling. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<String> riskyProcessing(String category, String item) async {
         await Future.delayed(Duration(milliseconds: 2));
         
@@ -469,12 +493,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals('Processed 8 items: 6 successful, 2 errors'));
-  });
+      final result = await execute(source);
+      expect(result, equals('Processed 8 items: 6 successful, 2 errors'));
+    },
+  );
 
-  test('I-ASYNC-8: Async nested for-in loops with await for streams. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-8: Async nested for-in loops with await for streams. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<Stream<String>> createAsyncStream(List<String> items) async {
         await Future.delayed(Duration(milliseconds: 5));
         
@@ -515,12 +542,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals(5)); // 3 items from stream1 + 2 items from stream2
-  });
+      final result = await execute(source);
+      expect(result, equals(5)); // 3 items from stream1 + 2 items from stream2
+    },
+  );
 
-  test('I-ASYNC-9: Simple async nested for-in loops. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-9: Simple async nested for-in loops. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<int> simpleNestedForIn() async {
         int count = 0;
         
@@ -545,12 +575,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals(5)); // 2 + 3 = 5 items total
-  });
+      final result = await execute(source);
+      expect(result, equals(5)); // 2 + 3 = 5 items total
+    },
+  );
 
-  test('I-ASYNC-10: Triple nested for-in loops with async operations. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-10: Triple nested for-in loops with async operations. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
       }
@@ -581,12 +614,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals(8)); // 2 * 2 * 2 = 8 combinations
-  });
+      final result = await execute(source);
+      expect(result, equals(8)); // 2 * 2 * 2 = 8 combinations
+    },
+  );
 
-  test('I-ASYNC-11: Nested loops with conditional break and continue. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-11: Nested loops with conditional break and continue. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
       }
@@ -625,18 +661,21 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    // outer 0: inner 0,2,3 = 3
-    // outer 1: inner 0,2,3 = 3
-    // outer 2: skipped = 0
-    // outer 3: inner 0,2 = 2 (breaks at 3)
-    // outer 4: inner 0,2,3 = 3
-    // Total = 11
-    expect(result, equals(11));
-  });
+      final result = await execute(source);
+      // outer 0: inner 0,2,3 = 3
+      // outer 1: inner 0,2,3 = 3
+      // outer 2: skipped = 0
+      // outer 3: inner 0,2 = 2 (breaks at 3)
+      // outer 4: inner 0,2,3 = 3
+      // Total = 11
+      expect(result, equals(11));
+    },
+  );
 
-  test('I-ASYNC-13: Nested for-in with maps and async transformations. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-13: Nested for-in with maps and async transformations. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
       }
@@ -674,12 +713,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals(4)); // 2 users * 2 properties = 4
-  });
+      final result = await execute(source);
+      expect(result, equals(4)); // 2 users * 2 properties = 4
+    },
+  );
 
-  test('I-ASYNC-14: Await for loop inside regular for-in loop. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-14: Await for loop inside regular for-in loop. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
       }
@@ -716,12 +758,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals(5)); // G1: 3 items, G2: 2 items = 5 total
-  });
+      final result = await execute(source);
+      expect(result, equals(5)); // G1: 3 items, G2: 2 items = 5 total
+    },
+  );
 
-  test('I-ASYNC-15: Mixed loop types with async: for-in inside while inside for. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-15: Mixed loop types with async: for-in inside while inside for. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
       }
@@ -755,12 +800,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals(8)); // 2 batches * 2 counters * 2 items = 8
-  });
+      final result = await execute(source);
+      expect(result, equals(8)); // 2 batches * 2 counters * 2 items = 8
+    },
+  );
 
-  test('I-ASYNC-16: Nested loops with async/await in various positions. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-16: Nested loops with async/await in various positions. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<int> asyncAdd(int a, int b) async {
         await Future.delayed(Duration(milliseconds: 5));
         return a + b;
@@ -796,12 +844,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals(6)); // All combinations pass the > 5 check
-  });
+      final result = await execute(source);
+      expect(result, equals(6)); // All combinations pass the > 5 check
+    },
+  );
 
-  test('I-ASYNC-17: Nested for-in with list modifications and async operations. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-17: Nested for-in with list modifications and async operations. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
       }
@@ -842,12 +893,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals(9)); // 3 groups * 3 items = 9
-  });
+      final result = await execute(source);
+      expect(result, equals(9)); // 3 groups * 3 items = 9
+    },
+  );
 
-  test('I-ASYNC-18: Deep nesting with 4 levels and mixed async operations. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-18: Deep nesting with 4 levels and mixed async operations. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
       }
@@ -881,12 +935,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals(16)); // 2^4 = 16 combinations
-  });
+      final result = await execute(source);
+      expect(result, equals(16)); // 2^4 = 16 combinations
+    },
+  );
 
-  test('I-ASYNC-19: Nested loops with early returns and exception handling. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-19: Nested loops with early returns and exception handling. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
       }
@@ -926,12 +983,15 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    expect(result, equals(8)); // 9 total - 1 error = 8 successful
-  });
+      final result = await execute(source);
+      expect(result, equals(8)); // 9 total - 1 error = 8 successful
+    },
+  );
 
-  test('I-ASYNC-20: Nested for-in with dynamic list generation. [2026-02-10 06:37] (PASS)', () async {
-    final source = '''
+  test(
+    'I-ASYNC-20: Nested for-in with dynamic list generation. [2026-02-10 06:37] (PASS)',
+    () async {
+      final source = '''
       Future<void> delay(int ms) async {
         return Future.delayed(Duration(milliseconds: ms));
       }
@@ -967,9 +1027,10 @@ void main() {
       }
     ''';
 
-    final result = await execute(source);
-    // outer=2: 0+1=1, outer=3: 0+1+2=3, outer=1: 0=0
-    // Total = 1 + 3 + 0 = 4
-    expect(result, equals(4));
-  });
+      final result = await execute(source);
+      // outer=2: 0+1=1, outer=3: 0+1+2=3, outer=1: 0=0
+      // Total = 1 + 3 + 0 = 4
+      expect(result, equals(4));
+    },
+  );
 }

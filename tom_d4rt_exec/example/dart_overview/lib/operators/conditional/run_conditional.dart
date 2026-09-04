@@ -31,12 +31,12 @@ void main() {
   String grade = score >= 90
       ? 'A'
       : score >= 80
-          ? 'B'
-          : score >= 70
-              ? 'C'
-              : score >= 60
-                  ? 'D'
-                  : 'F';
+      ? 'B'
+      : score >= 70
+      ? 'C'
+      : score >= 60
+      ? 'D'
+      : 'F';
   print('score = $score, grade = $grade');
 
   // Ternary with expressions

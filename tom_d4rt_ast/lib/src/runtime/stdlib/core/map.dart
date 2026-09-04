@@ -63,12 +63,14 @@ class MapCore {
       'castFrom': (visitor, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1 || namedArgs.isNotEmpty) {
           throw RuntimeD4rtException(
-              'Map.castFrom(source) expects one positional argument.');
+            'Map.castFrom(source) expects one positional argument.',
+          );
         }
         final source = positionalArgs[0];
         if (source is! Map) {
           throw RuntimeD4rtException(
-              'The argument to Map.castFrom must be a Map.');
+            'The argument to Map.castFrom must be a Map.',
+          );
         }
         return Map.castFrom<dynamic, dynamic, dynamic, dynamic>(source);
       },

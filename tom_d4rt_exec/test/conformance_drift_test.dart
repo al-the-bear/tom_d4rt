@@ -75,7 +75,12 @@ import 'package:test/test.dart';
 /// the coverage is PARTIAL and the deficit is reported by its own case below
 /// rather than being rounded up to "covered".
 class _Coverage {
-  const _Coverage(this.where, this.why, {this.refCases = 0, this.twinCases = 0});
+  const _Coverage(
+    this.where,
+    this.why, {
+    this.refCases = 0,
+    this.twinCases = 0,
+  });
 
   final String where;
   final String why;
@@ -145,26 +150,47 @@ const Map<String, _Coverage> _coveredElsewhere = {
 
   // ---- Native ast twins, same basename ------------------------------------
   'bridge/extract_bridged_arg_diagnostics_test.dart': _Coverage(
-      'ast:runtime/extract_bridged_arg_diagnostics_test.dart', _astTwin,
-      refCases: 3, twinCases: 3),
+    'ast:runtime/extract_bridged_arg_diagnostics_test.dart',
+    _astTwin,
+    refCases: 3,
+    twinCases: 3,
+  ),
   'bridge/facade_user_registration_test.dart': _Coverage(
-      'ast:runtime/facade_user_registration_test.dart', _astTwin,
-      refCases: 5, twinCases: 5),
+    'ast:runtime/facade_user_registration_test.dart',
+    _astTwin,
+    refCases: 5,
+    twinCases: 5,
+  ),
   'bridge/unwrap_as_test.dart': _Coverage(
-      'ast:runtime/unwrap_as_test.dart', _astTwin,
-      refCases: 12, twinCases: 12),
+    'ast:runtime/unwrap_as_test.dart',
+    _astTwin,
+    refCases: 12,
+    twinCases: 12,
+  ),
   'bridge/usage_log_test.dart': _Coverage(
-      'ast:runtime/usage_log_test.dart', _astTwin,
-      refCases: 9, twinCases: 9),
+    'ast:runtime/usage_log_test.dart',
+    _astTwin,
+    refCases: 9,
+    twinCases: 9,
+  ),
   'bridge_retention_test.dart': _Coverage(
-      'ast:runtime/bridge_retention_test.dart', _astTwin,
-      refCases: 3, twinCases: 3),
+    'ast:runtime/bridge_retention_test.dart',
+    _astTwin,
+    refCases: 3,
+    twinCases: 3,
+  ),
   'bridged_enum_memo_test.dart': _Coverage(
-      'ast:bridged_enum_memo_test.dart', _astTwin,
-      refCases: 3, twinCases: 3),
+    'ast:bridged_enum_memo_test.dart',
+    _astTwin,
+    refCases: 3,
+    twinCases: 3,
+  ),
   'bridged_module_env_cache_test.dart': _Coverage(
-      'ast:runtime/bridged_module_env_cache_test.dart', _astTwin,
-      refCases: 3, twinCases: 3),
+    'ast:runtime/bridged_module_env_cache_test.dart',
+    _astTwin,
+    refCases: 3,
+    twinCases: 3,
+  ),
   // SCC24's native-name sweep. The ast copy is byte-identical apart from the
   // import prefix — the file was written script-free precisely so it could be,
   // since ast has no parser. Recorded here rather than ported because its
@@ -178,55 +204,103 @@ const Map<String, _Coverage> _coveredElsewhere = {
   // That is the version gap, not a migration defect — which is the whole reason
   // the pairing belongs on the ast side, where the code being edited lives.
   'scc24_native_name_coverage_test.dart': _Coverage(
-      'ast:scc24_native_name_coverage_test.dart', _astTwin,
-      refCases: 9, twinCases: 9),
+    'ast:scc24_native_name_coverage_test.dart',
+    _astTwin,
+    refCases: 9,
+    twinCases: 9,
+  ),
   'dgub5_filesystem_permission_symlink_test.dart': _Coverage(
-      'ast:runtime/dgub5_filesystem_permission_symlink_test.dart', _astTwin,
-      refCases: 6, twinCases: 3),
+    'ast:runtime/dgub5_filesystem_permission_symlink_test.dart',
+    _astTwin,
+    refCases: 6,
+    twinCases: 3,
+  ),
   'environment_lazy_bridge_test.dart': _Coverage(
-      'ast:environment_lazy_bridge_test.dart', _astTwin,
-      refCases: 17, twinCases: 17),
+    'ast:environment_lazy_bridge_test.dart',
+    _astTwin,
+    refCases: 17,
+    twinCases: 17,
+  ),
   'environment_lookup_test.dart': _Coverage(
-      'ast:runtime/environment_lookup_test.dart', _astTwin,
-      refCases: 8, twinCases: 8),
+    'ast:runtime/environment_lookup_test.dart',
+    _astTwin,
+    refCases: 8,
+    twinCases: 8,
+  ),
   'extension_hook_test.dart': _Coverage(
-      'ast:runtime/extension_hook_test.dart', _astTwin,
-      refCases: 7, twinCases: 7),
+    'ast:runtime/extension_hook_test.dart',
+    _astTwin,
+    refCases: 7,
+    twinCases: 7,
+  ),
   'extension_once_per_process_test.dart': _Coverage(
-      'ast:runtime/extension_once_per_process_test.dart', _astTwin,
-      refCases: 3, twinCases: 3),
+    'ast:runtime/extension_once_per_process_test.dart',
+    _astTwin,
+    refCases: 3,
+    twinCases: 3,
+  ),
   'phase1_uri_registration_test.dart': _Coverage(
-      'ast:runtime/phase1_uri_registration_test.dart', _astTwin,
-      refCases: 4, twinCases: 4),
+    'ast:runtime/phase1_uri_registration_test.dart',
+    _astTwin,
+    refCases: 4,
+    twinCases: 4,
+  ),
   'pool_security_test.dart': _Coverage(
-      'ast:runtime/pool_security_test.dart', _astTwin,
-      refCases: 4, twinCases: 4),
+    'ast:runtime/pool_security_test.dart',
+    _astTwin,
+    refCases: 4,
+    twinCases: 4,
+  ),
   'profiler_disabled_test.dart': _Coverage(
-      'ast:profiler_disabled_test.dart', _astTwin,
-      refCases: 2, twinCases: 2),
+    'ast:profiler_disabled_test.dart',
+    _astTwin,
+    refCases: 2,
+    twinCases: 2,
+  ),
   'reuse_across_runs_toggle_test.dart': _Coverage(
-      'ast:runtime/reuse_across_runs_toggle_test.dart', _astTwin,
-      refCases: 3, twinCases: 3),
+    'ast:runtime/reuse_across_runs_toggle_test.dart',
+    _astTwin,
+    refCases: 3,
+    twinCases: 3,
+  ),
   'scb10_sdk_shaped_errors_test.dart': _Coverage(
-      'ast:runtime/scb10_sdk_shaped_errors_test.dart', _astTwin,
-      refCases: 18, twinCases: 4),
+    'ast:runtime/scb10_sdk_shaped_errors_test.dart',
+    _astTwin,
+    refCases: 18,
+    twinCases: 4,
+  ),
   'stdlib/bridge_arity_test.dart': _Coverage(
-      'ast:runtime/bridge_arity_test.dart', _astTwin,
-      refCases: 13, twinCases: 8),
+    'ast:runtime/bridge_arity_test.dart',
+    _astTwin,
+    refCases: 13,
+    twinCases: 8,
+  ),
   'warm_parent_lazy_class_test.dart': _Coverage(
-      'ast:runtime/warm_parent_lazy_class_test.dart', _astTwin,
-      refCases: 1, twinCases: 1),
+    'ast:runtime/warm_parent_lazy_class_test.dart',
+    _astTwin,
+    refCases: 1,
+    twinCases: 1,
+  ),
 
   // ---- Native ast twins, `stdlib_`-prefixed --------------------------------
   'stdlib/convert/convert_hierarchy_test.dart': _Coverage(
-      'ast:runtime/stdlib_convert_hierarchy_test.dart', _astStdlibPrefix,
-      refCases: 15, twinCases: 11),
+    'ast:runtime/stdlib_convert_hierarchy_test.dart',
+    _astStdlibPrefix,
+    refCases: 15,
+    twinCases: 11,
+  ),
   'stdlib/io/io_reexport_visibility_test.dart': _Coverage(
-      'ast:runtime/stdlib_io_reexport_visibility_test.dart', _astStdlibPrefix,
-      refCases: 10, twinCases: 6),
+    'ast:runtime/stdlib_io_reexport_visibility_test.dart',
+    _astStdlibPrefix,
+    refCases: 10,
+    twinCases: 6,
+  ),
   'stdlib/io/string_sink_collision_test.dart': _Coverage(
-      'ast:runtime/stdlib_string_sink_collision_test.dart', _astStdlibPrefix,
-      refCases: 4, twinCases: 4),
+    'ast:runtime/stdlib_string_sink_collision_test.dart',
+    _astStdlibPrefix,
+    refCases: 4,
+    twinCases: 4,
+  ),
 };
 
 /// Reference files with a twin in NEITHER exec nor tom_d4rt_ast: the real gap.
@@ -572,7 +646,9 @@ const Set<String> _divergentBaseline = {
 /// The defect that prompted the rule is concrete — scb7 shipped a pin and its
 /// FIX step named only the tom_d4rt copy, so landing that fix would have turned
 /// the exec twin red on a tree nobody was looking at.
-final RegExp _markerPattern = RegExp(r'^//\s*(KNOWN-GAP\([^)]*\)|WONT-FIX)\s*:');
+final RegExp _markerPattern = RegExp(
+  r'^//\s*(KNOWN-GAP\([^)]*\)|WONT-FIX)\s*:',
+);
 
 /// Every marker in [source], as `KNOWN-GAP(<id>)` or `WONT-FIX`.
 ///
@@ -581,17 +657,18 @@ final RegExp _markerPattern = RegExp(r'^//\s*(KNOWN-GAP\([^)]*\)|WONT-FIX)\s*:')
 /// counted as a use would make every file explaining the rule look like a file
 /// applying it.
 List<String> _markers(String source) => [
-      for (final line in source.split('\n'))
-        if (_markerPattern.firstMatch(line.trimLeft()) case final m?)
-          m.group(1)!,
-    ];
+  for (final line in source.split('\n'))
+    if (_markerPattern.firstMatch(line.trimLeft()) case final m?) m.group(1)!,
+];
 
 String _normalise(String source) => source
     .replaceAll('package:tom_d4rt/d4rt.dart', '@INTERPRETER@')
     .replaceAll('package:tom_d4rt_exec/d4rt.dart', '@INTERPRETER@')
     .replaceAll('package:tom_d4rt/src/exceptions.dart', '@EXCEPTIONS@')
-    .replaceAll('package:tom_d4rt_ast/src/runtime/exceptions.dart',
-        '@EXCEPTIONS@')
+    .replaceAll(
+      'package:tom_d4rt_ast/src/runtime/exceptions.dart',
+      '@EXCEPTIONS@',
+    )
     // SCC14: `bridge/d4_helpers_test.dart` reaches the D4 helpers directly.
     .replaceAll('package:tom_d4rt/src/generator/d4.dart', '@D4@')
     .replaceAll('package:tom_d4rt_ast/src/runtime/generator/d4.dart', '@D4@');
@@ -602,8 +679,9 @@ Map<String, File> _testFiles(Directory root) {
   for (final entity in root.listSync(recursive: true)) {
     if (entity is! File || !entity.path.endsWith('_test.dart')) continue;
     result[entity.path
-        .substring(prefix.length)
-        .replaceAll(Platform.pathSeparator, '/')] = entity;
+            .substring(prefix.length)
+            .replaceAll(Platform.pathSeparator, '/')] =
+        entity;
   }
   return result;
 }
@@ -620,8 +698,8 @@ void main() {
   final skipReason = haveSiblings
       ? null
       : 'needs the sibling checkouts ../tom_d4rt and ../tom_d4rt_ast; this '
-          'guard is about the repo layout and cannot run from a published '
-          'tom_d4rt_exec on its own';
+            'guard is about the repo layout and cannot run from a published '
+            'tom_d4rt_exec on its own';
 
   group('SCC6: the conformance corpora agree', () {
     late Map<String, File> ref;
@@ -638,7 +716,8 @@ void main() {
       // *supposed* to fail here until someone records the pairing.
       unmatched = {
         for (final path in ref.keys.where((k) => !exec.containsKey(k)))
-          path: _coveredElsewhere[path] ??
+          path:
+              _coveredElsewhere[path] ??
               const _Coverage('', 'no twin in either tree'),
       };
     });
@@ -661,7 +740,8 @@ void main() {
         expect(
           broken,
           isEmpty,
-          reason: 'A coverage claim points at a file that no longer exists. '
+          reason:
+              'A coverage claim points at a file that no longer exists. '
               'Either the twin was renamed — update the entry — or it was '
               'deleted, in which case the reference file is now a real gap and '
               'belongs in _uncoveredBaseline.\n${broken.join('\n')}',
@@ -669,158 +749,161 @@ void main() {
       },
     );
 
-    test(
-      'F-SCC6-2: no reference test has appeared without a counterpart '
-      '[2026-09-03] (PASS)',
-      () {
-        final uncovered = unmatched.entries
-            .where((e) => e.value.where.isEmpty)
-            .map((e) => e.key)
-            .toSet();
-        final appeared = uncovered.difference(_uncoveredBaseline.keys.toSet());
-        final closed = _uncoveredBaseline.keys.toSet().difference(uncovered);
+    test('F-SCC6-2: no reference test has appeared without a counterpart '
+        '[2026-09-03] (PASS)', () {
+      final uncovered = unmatched.entries
+          .where((e) => e.value.where.isEmpty)
+          .map((e) => e.key)
+          .toSet();
+      final appeared = uncovered.difference(_uncoveredBaseline.keys.toSet());
+      final closed = _uncoveredBaseline.keys.toSet().difference(uncovered);
 
-        expect(
-          appeared,
-          isEmpty,
-          reason: 'A tom_d4rt test has no recorded counterpart. That is the '
-              'drift this guard exists to catch. One of three things is true, '
-              'and all three are a deliberate edit here:\n'
-              '  * it is a genuine gap -> port it, copying verbatim and '
-              'rewriting only a direct interpreter-package import;\n'
-              '  * it already has a twin under a different name or path -> '
-              'record the pairing in _coveredElsewhere, having READ both files;\n'
-              '  * it cannot be ported -> add it to _uncoveredBaseline with the '
-              'reason.\n${appeared.join('\n')}',
-        );
-        expect(
-          closed,
-          isEmpty,
-          reason: 'These files now have a counterpart but are still listed in '
-              '_uncoveredBaseline. Remove them: a stale baseline is how the '
-              'ratchet loosens.\n${closed.join('\n')}',
-        );
-      },
-    );
+      expect(
+        appeared,
+        isEmpty,
+        reason:
+            'A tom_d4rt test has no recorded counterpart. That is the '
+            'drift this guard exists to catch. One of three things is true, '
+            'and all three are a deliberate edit here:\n'
+            '  * it is a genuine gap -> port it, copying verbatim and '
+            'rewriting only a direct interpreter-package import;\n'
+            '  * it already has a twin under a different name or path -> '
+            'record the pairing in _coveredElsewhere, having READ both files;\n'
+            '  * it cannot be ported -> add it to _uncoveredBaseline with the '
+            'reason.\n${appeared.join('\n')}',
+      );
+      expect(
+        closed,
+        isEmpty,
+        reason:
+            'These files now have a counterpart but are still listed in '
+            '_uncoveredBaseline. Remove them: a stale baseline is how the '
+            'ratchet loosens.\n${closed.join('\n')}',
+      );
+    });
 
-    test(
-      'F-SCC6-3: partial twins are reported with their case deficit '
-      '[2026-09-03] (PASS)',
-      () {
-        // Deliberately informational. A partial twin IS coverage of the subject
-        // — enough that reporting it as a missing file would be wrong — but the
-        // case counts do not match, so some assertions run against only one
-        // interpreter. Recording the deficit keeps that visible instead of
-        // rounding it up to "covered", which is what a presence-only check does.
-        final partials = _coveredElsewhere.entries
-            .where((e) => e.value.isPartial)
-            .toList();
-        var deficit = 0;
-        for (final e in partials) {
-          deficit += e.value.refCases - e.value.twinCases;
+    test('F-SCC6-3: partial twins are reported with their case deficit '
+        '[2026-09-03] (PASS)', () {
+      // Deliberately informational. A partial twin IS coverage of the subject
+      // — enough that reporting it as a missing file would be wrong — but the
+      // case counts do not match, so some assertions run against only one
+      // interpreter. Recording the deficit keeps that visible instead of
+      // rounding it up to "covered", which is what a presence-only check does.
+      final partials = _coveredElsewhere.entries
+          .where((e) => e.value.isPartial)
+          .toList();
+      var deficit = 0;
+      for (final e in partials) {
+        deficit += e.value.refCases - e.value.twinCases;
+      }
+      printOnFailure(
+        partials
+            .map(
+              (e) =>
+                  '${e.key}: ${e.value.refCases} cases vs '
+                  '${e.value.twinCases} in ${e.value.where}',
+            )
+            .join('\n'),
+      );
+      expect(
+        partials.length,
+        lessThanOrEqualTo(6),
+        reason:
+            'More files are now only PARTIALLY covered than when this was '
+            'measured (6 files, $deficit cases short). A partial twin passes '
+            'the presence check while leaving assertions unrun on the '
+            'analyzer-free line.',
+      );
+    });
+
+    test('F-SCC6-4: no shared file has started diverging in content '
+        '[2026-09-03] (PASS)', () {
+      final divergent = <String>{};
+      for (final path in ref.keys.where(exec.containsKey)) {
+        if (_normalise(ref[path]!.readAsStringSync()) !=
+            _normalise(exec[path]!.readAsStringSync())) {
+          divergent.add(path);
         }
-        printOnFailure(partials
-            .map((e) => '${e.key}: ${e.value.refCases} cases vs '
-                '${e.value.twinCases} in ${e.value.where}')
-            .join('\n'));
-        expect(
-          partials.length,
-          lessThanOrEqualTo(6),
-          reason: 'More files are now only PARTIALLY covered than when this was '
-              'measured (6 files, $deficit cases short). A partial twin passes '
-              'the presence check while leaving assertions unrun on the '
-              'analyzer-free line.',
-        );
-      },
-    );
+      }
+      final appeared = divergent.difference(_divergentBaseline);
+      final converged = _divergentBaseline.difference(divergent);
 
-    test(
-      'F-SCC6-4: no shared file has started diverging in content '
-      '[2026-09-03] (PASS)',
-      () {
-        final divergent = <String>{};
-        for (final path in ref.keys.where(exec.containsKey)) {
-          if (_normalise(ref[path]!.readAsStringSync()) !=
-              _normalise(exec[path]!.readAsStringSync())) {
-            divergent.add(path);
-          }
-        }
-        final appeared = divergent.difference(_divergentBaseline);
-        final converged = _divergentBaseline.difference(divergent);
+      expect(
+        appeared,
+        isEmpty,
+        reason:
+            'A file present in both trees has started asserting different '
+            'things. This is the case a presence check cannot see: the name is '
+            'on both sides and both suites are green. Either mirror the change '
+            'into the other tree, or — if the divergence is deliberate — add '
+            'it to _divergentBaseline with the reason in the comment '
+            'above.\n${appeared.join('\n')}',
+      );
+      expect(
+        converged,
+        isEmpty,
+        reason:
+            'These files no longer diverge. Remove them from '
+            '_divergentBaseline so the next real divergence is not absorbed '
+            'by a stale entry.\n${converged.join('\n')}',
+      );
+    });
 
-        expect(
-          appeared,
-          isEmpty,
-          reason: 'A file present in both trees has started asserting different '
-              'things. This is the case a presence check cannot see: the name is '
-              'on both sides and both suites are green. Either mirror the change '
-              'into the other tree, or — if the divergence is deliberate — add '
-              'it to _divergentBaseline with the reason in the comment '
-              'above.\n${appeared.join('\n')}',
-        );
-        expect(
-          converged,
-          isEmpty,
-          reason: 'These files no longer diverge. Remove them from '
-              '_divergentBaseline so the next real divergence is not absorbed '
-              'by a stale entry.\n${converged.join('\n')}',
-        );
-      },
-    );
-
-    test(
-      'F-SCC6-5: every pinned known gap names an owner and exists in both '
-      'copies [2026-09-04] (PASS)',
-      () {
-        // Part one — shape. A `KNOWN-GAP()` with nothing between the brackets
-        // is the marker equivalent of a bare `// TODO`: it records that someone
-        // noticed, and nothing else. `WONT-FIX` carries its own decision and
-        // needs no id.
-        final unowned = <String>[];
-        for (final tree in [ref, exec]) {
-          tree.forEach((path, file) {
-            for (final marker in _markers(file.readAsStringSync())) {
-              if (marker.startsWith('KNOWN-GAP') &&
-                  marker.substring(10, marker.length - 1).trim().isEmpty) {
-                unowned.add('$path: $marker');
-              }
+    test('F-SCC6-5: every pinned known gap names an owner and exists in both '
+        'copies [2026-09-04] (PASS)', () {
+      // Part one — shape. A `KNOWN-GAP()` with nothing between the brackets
+      // is the marker equivalent of a bare `// TODO`: it records that someone
+      // noticed, and nothing else. `WONT-FIX` carries its own decision and
+      // needs no id.
+      final unowned = <String>[];
+      for (final tree in [ref, exec]) {
+        tree.forEach((path, file) {
+          for (final marker in _markers(file.readAsStringSync())) {
+            if (marker.startsWith('KNOWN-GAP') &&
+                marker.substring(10, marker.length - 1).trim().isEmpty) {
+              unowned.add('$path: $marker');
             }
-          });
-        }
-        expect(
-          unowned,
-          isEmpty,
-          reason: 'A pinned gap does not name the todo that will delete it. '
-              'Name one, or — if nothing will ever fix it — say so with '
-              'WONT-FIX and the reason.\n${unowned.join('\n')}',
-        );
-
-        // Part two — parity, and the half that catches the scb7 defect. Note it
-        // takes NO exemption from _divergentBaseline: those files are allowed to
-        // differ in their assertions, but a pin is a maintenance obligation
-        // rather than an assertion, and a divergent file is exactly where a
-        // one-sided deletion hides. For the non-divergent files F-SCC6-4 already
-        // implies this; for the divergent ones only this check does.
-        final mismatched = <String>[];
-        for (final path in ref.keys.where(exec.containsKey)) {
-          final refMarkers = (_markers(ref[path]!.readAsStringSync())..sort())
-              .join(', ');
-          final execMarkers = (_markers(exec[path]!.readAsStringSync())..sort())
-              .join(', ');
-          if (refMarkers != execMarkers) {
-            mismatched
-                .add('$path: tom_d4rt [$refMarkers] vs exec [$execMarkers]');
           }
+        });
+      }
+      expect(
+        unowned,
+        isEmpty,
+        reason:
+            'A pinned gap does not name the todo that will delete it. '
+            'Name one, or — if nothing will ever fix it — say so with '
+            'WONT-FIX and the reason.\n${unowned.join('\n')}',
+      );
+
+      // Part two — parity, and the half that catches the scb7 defect. Note it
+      // takes NO exemption from _divergentBaseline: those files are allowed to
+      // differ in their assertions, but a pin is a maintenance obligation
+      // rather than an assertion, and a divergent file is exactly where a
+      // one-sided deletion hides. For the non-divergent files F-SCC6-4 already
+      // implies this; for the divergent ones only this check does.
+      final mismatched = <String>[];
+      for (final path in ref.keys.where(exec.containsKey)) {
+        final refMarkers = (_markers(
+          ref[path]!.readAsStringSync(),
+        )..sort()).join(', ');
+        final execMarkers = (_markers(
+          exec[path]!.readAsStringSync(),
+        )..sort()).join(', ');
+        if (refMarkers != execMarkers) {
+          mismatched.add(
+            '$path: tom_d4rt [$refMarkers] vs exec [$execMarkers]',
+          );
         }
-        expect(
-          mismatched,
-          isEmpty,
-          reason: 'A pinned gap exists in one tree and not the other. A pin has '
-              'to be deleted by hand when the gap closes, so a missing copy '
-              'means the fix lands green here and red there — or the reverse. '
-              'Mirror it.\n${mismatched.join('\n')}',
-        );
-      },
-    );
+      }
+      expect(
+        mismatched,
+        isEmpty,
+        reason:
+            'A pinned gap exists in one tree and not the other. A pin has '
+            'to be deleted by hand when the gap closes, so a missing copy '
+            'means the fix lands green here and red there — or the reverse. '
+            'Mirror it.\n${mismatched.join('\n')}',
+      );
+    });
   }, skip: skipReason);
 }

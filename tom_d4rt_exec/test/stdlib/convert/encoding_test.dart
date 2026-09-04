@@ -15,11 +15,12 @@ void main() {
       }
       ''';
       expect(
-          execute(source),
-          equals([
-            [72, 101, 108, 108, 111, 44, 32, 85, 84, 70, 45, 56, 33],
-            'Hello, UTF-8!'
-          ]));
+        execute(source),
+        equals([
+          [72, 101, 108, 108, 111, 44, 32, 85, 84, 70, 45, 56, 33],
+          'Hello, UTF-8!',
+        ]),
+      );
     });
 
     test('I-MISC-405: Ascii encode and decode. [2026-02-10 06:37] (PASS)', () {
@@ -34,11 +35,12 @@ void main() {
       }
       ''';
       expect(
-          execute(source),
-          equals([
-            [72, 101, 108, 108, 111, 44, 32, 65, 83, 67, 73, 73, 33],
-            'Hello, ASCII!'
-          ]));
+        execute(source),
+        equals([
+          [72, 101, 108, 108, 111, 44, 32, 65, 83, 67, 73, 73, 33],
+          'Hello, ASCII!',
+        ]),
+      );
     });
 
     test('I-MISC-406: Latin1 encode and decode. [2026-02-10 06:37] (PASS)', () {
@@ -53,11 +55,12 @@ void main() {
       }
       ''';
       expect(
-          execute(source),
-          equals([
-            [72, 101, 108, 108, 111, 44, 32, 76, 97, 116, 105, 110, 49, 33],
-            'Hello, Latin1!'
-          ]));
+        execute(source),
+        equals([
+          [72, 101, 108, 108, 111, 44, 32, 76, 97, 116, 105, 110, 49, 33],
+          'Hello, Latin1!',
+        ]),
+      );
     });
 
     test('I-MISC-408: Utf8 decoder. [2026-02-10 06:37] (PASS)', () {

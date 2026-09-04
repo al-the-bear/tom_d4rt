@@ -1,4 +1,5 @@
 #!/usr/bin/env dart
+
 /// Test all generated bridge test runners across example projects.
 ///
 /// This script first regenerates bridges for all example projects, then runs
@@ -144,44 +145,55 @@ Future<void> main(List<String> args) async {
   // Step 0: Regenerate bridges (unless --skip-generation)
   if (!skipGeneration) {
     print('━━━ Bridge Generation ━━━');
-    final generatorScript =
-        p.join(packageRoot, 'example', 'generate_example_bridges.dart');
+    final generatorScript = p.join(
+      packageRoot,
+      'example',
+      'generate_example_bridges.dart',
+    );
     if (File(generatorScript).existsSync()) {
       final sw = Stopwatch()..start();
-      final result = await Process.run(
-        'dart',
-        [
-          'run',
-          generatorScript,
-          if (verbose) '--verbose',
-        ],
-        workingDirectory: packageRoot,
-      );
+      final result = await Process.run('dart', [
+        'run',
+        generatorScript,
+        if (verbose) '--verbose',
+      ], workingDirectory: packageRoot);
       sw.stop();
 
       final passed = result.exitCode == 0;
-      results.add(TestResult(
-        project: 'Bridge Generation',
-        test: 'generate all',
-        passed: passed,
-        exitCode: result.exitCode,
-        stdout: result.stdout.toString(),
-        stderr: result.stderr.toString(),
-        duration: sw.elapsed,
-      ));
+      results.add(
+        TestResult(
+          project: 'Bridge Generation',
+          test: 'generate all',
+          passed: passed,
+          exitCode: result.exitCode,
+          stdout: result.stdout.toString(),
+          stderr: result.stderr.toString(),
+          duration: sw.elapsed,
+        ),
+      );
 
       final icon = passed ? '✓' : '✗';
-      print('  $icon generate_example_bridges.dart  (${sw.elapsed.inMilliseconds}ms)');
+      print(
+        '  $icon generate_example_bridges.dart  (${sw.elapsed.inMilliseconds}ms)',
+      );
       if (verbose || !passed) {
-        _printOutput(result.stdout.toString(), result.stderr.toString(), passed);
+        _printOutput(
+          result.stdout.toString(),
+          result.stderr.toString(),
+          passed,
+        );
       }
 
       if (!passed) {
         print('');
-        print('⚠  Bridge generation failed. Continuing with existing bridges...');
+        print(
+          '⚠  Bridge generation failed. Continuing with existing bridges...',
+        );
       }
     } else {
-      print('  ⚠  generate_example_bridges.dart not found, skipping generation');
+      print(
+        '  ⚠  generate_example_bridges.dart not found, skipping generation',
+      );
     }
     print('');
   }
@@ -192,16 +204,20 @@ Future<void> main(List<String> args) async {
     final testRunner = p.join(exampleDir, example.testRunner);
 
     if (!File(testRunner).existsSync()) {
-      print('⚠  ${example.name}: test runner not found at ${example.testRunner}');
-      results.add(TestResult(
-        project: example.name,
-        test: 'test runner exists',
-        passed: false,
-        exitCode: -1,
-        stdout: '',
-        stderr: 'Test runner not found: $testRunner',
-        duration: Duration.zero,
-      ));
+      print(
+        '⚠  ${example.name}: test runner not found at ${example.testRunner}',
+      );
+      results.add(
+        TestResult(
+          project: example.name,
+          test: 'test runner exists',
+          passed: false,
+          exitCode: -1,
+          stdout: '',
+          stderr: 'Test runner not found: $testRunner',
+          duration: Duration.zero,
+        ),
+      );
       continue;
     }
 
@@ -209,28 +225,34 @@ Future<void> main(List<String> args) async {
     print('━━━ ${example.name} ━━━');
     {
       final sw = Stopwatch()..start();
-      final result = await Process.run(
-        'dart',
-        ['run', example.testRunner, '--init-eval'],
-        workingDirectory: exampleDir,
-      );
+      final result = await Process.run('dart', [
+        'run',
+        example.testRunner,
+        '--init-eval',
+      ], workingDirectory: exampleDir);
       sw.stop();
 
       final passed = result.exitCode == 0;
-      results.add(TestResult(
-        project: example.name,
-        test: '--init-eval',
-        passed: passed,
-        exitCode: result.exitCode,
-        stdout: result.stdout.toString(),
-        stderr: result.stderr.toString(),
-        duration: sw.elapsed,
-      ));
+      results.add(
+        TestResult(
+          project: example.name,
+          test: '--init-eval',
+          passed: passed,
+          exitCode: result.exitCode,
+          stdout: result.stdout.toString(),
+          stderr: result.stderr.toString(),
+          duration: sw.elapsed,
+        ),
+      );
 
       final icon = passed ? '✓' : '✗';
       print('  $icon --init-eval  (${sw.elapsed.inMilliseconds}ms)');
       if (verbose || !passed) {
-        _printOutput(result.stdout.toString(), result.stderr.toString(), passed);
+        _printOutput(
+          result.stdout.toString(),
+          result.stderr.toString(),
+          passed,
+        );
       }
     }
 
@@ -239,42 +261,50 @@ Future<void> main(List<String> args) async {
       for (final scriptFile in example.scriptFiles) {
         final scriptPath = p.join(exampleDir, scriptFile);
         if (!File(scriptPath).existsSync()) {
-          results.add(TestResult(
-            project: example.name,
-            test: scriptFile,
-            passed: false,
-            exitCode: -1,
-            stdout: '',
-            stderr: 'Script not found: $scriptPath',
-            duration: Duration.zero,
-          ));
+          results.add(
+            TestResult(
+              project: example.name,
+              test: scriptFile,
+              passed: false,
+              exitCode: -1,
+              stdout: '',
+              stderr: 'Script not found: $scriptPath',
+              duration: Duration.zero,
+            ),
+          );
           print('  ✗ $scriptFile  (file not found)');
           continue;
         }
 
         final sw = Stopwatch()..start();
-        final result = await Process.run(
-          'dart',
-          ['run', example.testRunner, scriptFile],
-          workingDirectory: exampleDir,
-        );
+        final result = await Process.run('dart', [
+          'run',
+          example.testRunner,
+          scriptFile,
+        ], workingDirectory: exampleDir);
         sw.stop();
 
         final passed = result.exitCode == 0;
-        results.add(TestResult(
-          project: example.name,
-          test: scriptFile,
-          passed: passed,
-          exitCode: result.exitCode,
-          stdout: result.stdout.toString(),
-          stderr: result.stderr.toString(),
-          duration: sw.elapsed,
-        ));
+        results.add(
+          TestResult(
+            project: example.name,
+            test: scriptFile,
+            passed: passed,
+            exitCode: result.exitCode,
+            stdout: result.stdout.toString(),
+            stderr: result.stderr.toString(),
+            duration: sw.elapsed,
+          ),
+        );
 
         final icon = passed ? '✓' : '✗';
         print('  $icon $scriptFile  (${sw.elapsed.inMilliseconds}ms)');
         if (verbose || !passed) {
-          _printOutput(result.stdout.toString(), result.stderr.toString(), passed);
+          _printOutput(
+            result.stdout.toString(),
+            result.stderr.toString(),
+            passed,
+          );
         }
       }
     }
@@ -289,57 +319,69 @@ Future<void> main(List<String> args) async {
       final script = p.join(exampleDir, example.script);
 
       if (!Directory(exampleDir).existsSync()) {
-        print('⚠  ${example.name}: directory not found at ${example.directory}');
-        results.add(TestResult(
-          project: example.name,
-          test: example.script,
-          passed: false,
-          exitCode: -1,
-          stdout: '',
-          stderr: 'Directory not found: $exampleDir',
-          duration: Duration.zero,
-        ));
+        print(
+          '⚠  ${example.name}: directory not found at ${example.directory}',
+        );
+        results.add(
+          TestResult(
+            project: example.name,
+            test: example.script,
+            passed: false,
+            exitCode: -1,
+            stdout: '',
+            stderr: 'Directory not found: $exampleDir',
+            duration: Duration.zero,
+          ),
+        );
         continue;
       }
 
       if (!File(script).existsSync()) {
         print('⚠  ${example.name}: script not found at ${example.script}');
-        results.add(TestResult(
-          project: example.name,
-          test: example.script,
-          passed: false,
-          exitCode: -1,
-          stdout: '',
-          stderr: 'Script not found: $script',
-          duration: Duration.zero,
-        ));
+        results.add(
+          TestResult(
+            project: example.name,
+            test: example.script,
+            passed: false,
+            exitCode: -1,
+            stdout: '',
+            stderr: 'Script not found: $script',
+            duration: Duration.zero,
+          ),
+        );
         continue;
       }
 
       print('━━━ ${example.name} ━━━');
       final sw = Stopwatch()..start();
-      final result = await Process.run(
-        'dart',
-        ['run', example.script, ...example.args],
-        workingDirectory: exampleDir,
-      );
+      final result = await Process.run('dart', [
+        'run',
+        example.script,
+        ...example.args,
+      ], workingDirectory: exampleDir);
       sw.stop();
 
       final passed = result.exitCode == 0;
-      results.add(TestResult(
-        project: example.name,
-        test: example.script,
-        passed: passed,
-        exitCode: result.exitCode,
-        stdout: result.stdout.toString(),
-        stderr: result.stderr.toString(),
-        duration: sw.elapsed,
-      ));
+      results.add(
+        TestResult(
+          project: example.name,
+          test: example.script,
+          passed: passed,
+          exitCode: result.exitCode,
+          stdout: result.stdout.toString(),
+          stderr: result.stderr.toString(),
+          duration: sw.elapsed,
+        ),
+      );
 
       final icon = passed ? '✓' : '✗';
       print('  $icon ${example.script}  (${sw.elapsed.inMilliseconds}ms)');
       if (verbose || !passed) {
-        _printOutput(result.stdout.toString(), result.stderr.toString(), passed);
+        _printOutput(
+          result.stdout.toString(),
+          result.stderr.toString(),
+          passed,
+        );
       }
       print('');
     }
@@ -349,12 +391,16 @@ Future<void> main(List<String> args) async {
   final passed = results.where((r) => r.passed).length;
   final failed = results.where((r) => !r.passed).length;
   final total = results.length;
-  final totalTime =
-      results.fold<Duration>(Duration.zero, (sum, r) => sum + r.duration);
+  final totalTime = results.fold<Duration>(
+    Duration.zero,
+    (sum, r) => sum + r.duration,
+  );
 
   print('══════════════════════════════════════════════════════════════');
   print('');
-  print('Summary: $passed/$total passed  ($failed failed)  ${totalTime.inSeconds}s');
+  print(
+    'Summary: $passed/$total passed  ($failed failed)  ${totalTime.inSeconds}s',
+  );
   print('');
 
   if (failed > 0) {

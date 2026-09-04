@@ -41,34 +41,49 @@ void main() {
   /// `dart:io` compression codecs by writing the `gzip` / `zlib` globals, so
   /// those are the names a reader actually greps for.
   void expectUnbridged(String expression, String reported, {String? imports}) {
-    final source = '''
+    final source =
+        '''
       ${imports ?? ''}
       main() {
         return $expression;
       }
     ''';
-    expect(() => execute(source),
-        throwsRuntimeError(contains('Undefined variable: $reported')));
+    expect(
+      () => execute(source),
+      throwsRuntimeError(contains('Undefined variable: $reported')),
+    );
   }
 
   group('SC11: cannot be honoured meaningfully', () {
-    test('F-SC11-1: Zone is unreachable, including via runZoned [2026-07-27]',
-        () {
-      // Three names, one decision: scripts almost never write `Zone` directly,
-      // so the doc has to be findable from the runZoned* spellings too.
-      expectUnbridged('Zone.current', 'Zone', imports: "import 'dart:async';");
-      expectUnbridged(
-          'runZoned(() => 1)', 'runZoned', imports: "import 'dart:async';");
-      expectUnbridged('runZonedGuarded(() => 1, (e, s) {})', 'runZonedGuarded',
-          imports: "import 'dart:async';");
-      // Anchor: without this the three above would also pass if `dart:async`
-      // were simply unreachable, and the claim would be vacuous.
-      const anchor = '''
+    test(
+      'F-SC11-1: Zone is unreachable, including via runZoned [2026-07-27]',
+      () {
+        // Three names, one decision: scripts almost never write `Zone` directly,
+        // so the doc has to be findable from the runZoned* spellings too.
+        expectUnbridged(
+          'Zone.current',
+          'Zone',
+          imports: "import 'dart:async';",
+        );
+        expectUnbridged(
+          'runZoned(() => 1)',
+          'runZoned',
+          imports: "import 'dart:async';",
+        );
+        expectUnbridged(
+          'runZonedGuarded(() => 1, (e, s) {})',
+          'runZonedGuarded',
+          imports: "import 'dart:async';",
+        );
+        // Anchor: without this the three above would also pass if `dart:async`
+        // were simply unreachable, and the claim would be vacuous.
+        const anchor = '''
       import 'dart:async';
       main() => Completer<int>().isCompleted;
       ''';
-      expect(execute(anchor), isFalse);
-    });
+        expect(execute(anchor), isFalse);
+      },
+    );
 
     test('F-SC11-2: the identity/GC trio is unreachable [2026-07-27]', () {
       // Expando, WeakReference and Finalizer all depend on native object
@@ -82,8 +97,11 @@ void main() {
   group('SC11: deferred pending a concrete consumer', () {
     test('F-SC11-3: the dart:io entries are unreachable [2026-07-27]', () {
       expectUnbridged("Link('x')", 'Link', imports: "import 'dart:io';");
-      expectUnbridged("WebSocket.connect('ws://x')", 'WebSocket',
-          imports: "import 'dart:io';");
+      expectUnbridged(
+        "WebSocket.connect('ws://x')",
+        'WebSocket',
+        imports: "import 'dart:io';",
+      );
     });
 
     test('F-SC11-4: the compression codecs are unreachable under every '
@@ -92,24 +110,39 @@ void main() {
       // is what a script writes, and it is the message that sends a reader to
       // the doc. Unrelated to the gzip AstBundle uses internally, which is
       // below the bridge boundary and gives scripts nothing.
-      expectUnbridged('gzip.encode([1, 2, 3])', 'gzip',
-          imports: "import 'dart:io';");
-      expectUnbridged('zlib.encode([1, 2, 3])', 'zlib',
-          imports: "import 'dart:io';");
+      expectUnbridged(
+        'gzip.encode([1, 2, 3])',
+        'gzip',
+        imports: "import 'dart:io';",
+      );
+      expectUnbridged(
+        'zlib.encode([1, 2, 3])',
+        'zlib',
+        imports: "import 'dart:io';",
+      );
       expectUnbridged('GZipCodec()', 'GZipCodec', imports: "import 'dart:io';");
       expectUnbridged('ZLibCodec()', 'ZLibCodec', imports: "import 'dart:io';");
-      expectUnbridged('ZLibEncoder()', 'ZLibEncoder',
-          imports: "import 'dart:io';");
-      expectUnbridged('ZLibDecoder()', 'ZLibDecoder',
-          imports: "import 'dart:io';");
+      expectUnbridged(
+        'ZLibEncoder()',
+        'ZLibEncoder',
+        imports: "import 'dart:io';",
+      );
+      expectUnbridged(
+        'ZLibDecoder()',
+        'ZLibDecoder',
+        imports: "import 'dart:io';",
+      );
     });
 
     test('F-SC11-5: MutableRectangle is unreachable but Rectangle covers the '
         'common case [2026-07-27]', () {
       // The second half is the doc's stated justification for deferring the
       // mutable variant, so it has to hold for the row to stay honest.
-      expectUnbridged('MutableRectangle(0, 0, 1, 1)', 'MutableRectangle',
-          imports: "import 'dart:math';");
+      expectUnbridged(
+        'MutableRectangle(0, 0, 1, 1)',
+        'MutableRectangle',
+        imports: "import 'dart:math';",
+      );
       const source = '''
       import 'dart:math';
       main() {
@@ -153,13 +186,20 @@ void main() {
       for (final view in const [
         'asFloat32x4List',
         'asInt32x4List',
-        'asFloat64x2List'
+        'asFloat64x2List',
       ]) {
         expect(
-          () => execute("import 'dart:typed_data';\n"
-              'main() => Uint8List(64).buffer.$view();'),
-          throwsA(isA<NoSuchMethodError>().having((e) => e.toString(),
-              'toString', contains("has no instance method named '$view'"))),
+          () => execute(
+            "import 'dart:typed_data';\n"
+            'main() => Uint8List(64).buffer.$view();',
+          ),
+          throwsA(
+            isA<NoSuchMethodError>().having(
+              (e) => e.toString(),
+              'toString',
+              contains("has no instance method named '$view'"),
+            ),
+          ),
           reason: 'ByteBuffer.$view should report a missing member',
         );
       }
@@ -194,18 +234,22 @@ void main() {
       // the suffix meaningless.
       expect(
         () => execute("import 'dart:async';\nmain() => Zone.current;"),
-        throwsRuntimeError(allOf(
-          contains('Undefined variable: Zone'),
-          contains('not bridged:'),
-          contains('doc/d4rt_limitations.md'),
-        )),
+        throwsRuntimeError(
+          allOf(
+            contains('Undefined variable: Zone'),
+            contains('not bridged:'),
+            contains('doc/d4rt_limitations.md'),
+          ),
+        ),
       );
       expect(
         () => execute("import 'dart:async';\nmain() => Zoen.current;"),
-        throwsRuntimeError(allOf(
-          contains('Undefined variable: Zoen'),
-          isNot(contains('not bridged:')),
-        )),
+        throwsRuntimeError(
+          allOf(
+            contains('Undefined variable: Zoen'),
+            isNot(contains('not bridged:')),
+          ),
+        ),
       );
     });
 
@@ -216,12 +260,16 @@ void main() {
       // inspects the same substring. The reason must be a suffix and nothing
       // else — no reordering, no reworded prefix.
       for (final name in kUnbridgedReasons.keys) {
-        expect(undefinedVariableMessage(name),
-            startsWith('Undefined variable: $name ('),
-            reason: '$name must keep the bare prefix followed by the reason');
+        expect(
+          undefinedVariableMessage(name),
+          startsWith('Undefined variable: $name ('),
+          reason: '$name must keep the bare prefix followed by the reason',
+        );
       }
-      expect(undefinedVariableMessage('Zoen'),
-          equals('Undefined variable: Zoen'));
+      expect(
+        undefinedVariableMessage('Zoen'),
+        equals('Undefined variable: Zoen'),
+      );
     });
 
     test('F-SCB30-3: the map keys are exactly the doc\'s "Reported as" '
@@ -246,21 +294,33 @@ void main() {
           'asFloat64x2List',
         });
 
-      expect(documented, isNotEmpty,
-          reason: 'the doc parse found no identifiers — the table format '
-              'changed and this test is no longer reading what it thinks');
-      expect(kUnbridgedReasons.keys.toSet(), equals(documented),
-          reason: 'kUnbridgedReasons and the limitations doc disagree: add the '
-              'name to both, or to neither');
+      expect(
+        documented,
+        isNotEmpty,
+        reason:
+            'the doc parse found no identifiers — the table format '
+            'changed and this test is no longer reading what it thinks',
+      );
+      expect(
+        kUnbridgedReasons.keys.toSet(),
+        equals(documented),
+        reason:
+            'kUnbridgedReasons and the limitations doc disagree: add the '
+            'name to both, or to neither',
+      );
     });
 
     test('F-SCB30-4: every reason is a single lower-case clause, so the '
         'assembled message reads as one sentence [2026-09-03]', () {
       for (final entry in kUnbridgedReasons.entries) {
         expect(entry.value, isNotEmpty, reason: entry.key);
-        expect(entry.value.endsWith('.'), isFalse,
-            reason: '${entry.key}: the reason is spliced before "; see …", so '
-                'a trailing period reads as a broken sentence');
+        expect(
+          entry.value.endsWith('.'),
+          isFalse,
+          reason:
+              '${entry.key}: the reason is spliced before "; see …", so '
+              'a trailing period reads as a broken sentence',
+        );
         expect(entry.value.contains('\n'), isFalse, reason: entry.key);
       }
     });
@@ -272,12 +332,14 @@ void main() {
       // this one is quoted in a wrapped code block where a reader would never
       // notice. Compared with whitespace collapsed, since the wrap points are
       // presentation and not content.
-      String flat(String s) =>
-          s.replaceAll(RegExp(r'\s+'), ' ').trim();
-      expect(flat(File('doc/d4rt_limitations.md').readAsStringSync()),
-          contains(flat(undefinedVariableMessage('Zone'))),
-          reason: 'the doc\'s example message no longer matches '
-              'undefinedVariableMessage(\'Zone\')');
+      String flat(String s) => s.replaceAll(RegExp(r'\s+'), ' ').trim();
+      expect(
+        flat(File('doc/d4rt_limitations.md').readAsStringSync()),
+        contains(flat(undefinedVariableMessage('Zone'))),
+        reason:
+            'the doc\'s example message no longer matches '
+            'undefinedVariableMessage(\'Zone\')',
+      );
     });
   });
 
@@ -305,11 +367,14 @@ void main() {
 /// `isNotEmpty` guard instead of silently matching nothing.
 Set<String> _reportedAsIdentifiers() {
   final doc = File('doc/d4rt_limitations.md').readAsLinesSync();
-  final start =
-      doc.indexWhere((l) => l.startsWith('## Intentionally-Unbridged'));
+  final start = doc.indexWhere(
+    (l) => l.startsWith('## Intentionally-Unbridged'),
+  );
   if (start < 0) {
-    throw StateError('doc/d4rt_limitations.md has no '
-        '"## Intentionally-Unbridged" section — the pin cannot read its source');
+    throw StateError(
+      'doc/d4rt_limitations.md has no '
+      '"## Intentionally-Unbridged" section — the pin cannot read its source',
+    );
   }
   var end = doc.indexWhere((l) => l.startsWith('## '), start + 1);
   if (end < 0) end = doc.length;

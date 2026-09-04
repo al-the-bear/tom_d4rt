@@ -40,10 +40,7 @@ import 'cycle_a.dart';
 String fromB() => fromA();
 ''',
       };
-      expect(
-        executeSources('package:test/cycle_a.dart', sources),
-        equals('A'),
-      );
+      expect(executeSources('package:test/cycle_a.dart', sources), equals('A'));
     });
 
     test('F-DFUB10-EXEC-2: export cycle A<->B resolves [2026-07-27]', () {
@@ -82,10 +79,7 @@ String greet() => 'hi';
 String main() => greet();
 ''',
       };
-      expect(
-        executeSources('package:test/self.dart', sources),
-        equals('hi'),
-      );
+      expect(executeSources('package:test/self.dart', sources), equals('hi'));
     });
 
     test('F-DFUB10-EXEC-4: three-module cycle A->B->C->A [2026-07-27]', () {
@@ -108,14 +102,10 @@ import 'tri_a.dart';
 String fromC() => 'C' + fromA();
 ''',
       };
-      expect(
-        executeSources('package:test/tri_a.dart', sources),
-        equals('BCA'),
-      );
+      expect(executeSources('package:test/tri_a.dart', sources), equals('BCA'));
     });
 
-    test(
-        'F-DFUB10-EXEC-5: cyclic import of a class, not just a function '
+    test('F-DFUB10-EXEC-5: cyclic import of a class, not just a function '
         '[2026-07-27]', () {
       final sources = {
         'package:test/klass_a.dart': '''

@@ -41,24 +41,26 @@ void main() {
       expect(D4.nativeRegistrationCount, 5);
     });
 
-    test('resetNativeAccumulators zeroes the counter and drops all entries',
-        () {
-      final keys = _simulateBuildRegistrations(3);
-      for (final k in keys) {
-        expect(D4.interpretedForNative(k), isNotNull);
-      }
+    test(
+      'resetNativeAccumulators zeroes the counter and drops all entries',
+      () {
+        final keys = _simulateBuildRegistrations(3);
+        for (final k in keys) {
+          expect(D4.interpretedForNative(k), isNotNull);
+        }
 
-      D4.resetNativeAccumulators();
+        D4.resetNativeAccumulators();
 
-      expect(D4.nativeRegistrationCount, 0);
-      for (final k in keys) {
-        expect(
-          D4.interpretedForNative(k),
-          isNull,
-          reason: 'reset must drop entries even for still-reachable keys',
-        );
-      }
-    });
+        expect(D4.nativeRegistrationCount, 0);
+        for (final k in keys) {
+          expect(
+            D4.interpretedForNative(k),
+            isNull,
+            reason: 'reset must drop entries even for still-reachable keys',
+          );
+        }
+      },
+    );
 
     test('WITHOUT reset, repeated build cycles accumulate (the B.12 bug)', () {
       final pinned = <Object>[];
@@ -85,15 +87,10 @@ void main() {
       expect(live.length, perCycle);
     });
 
-    test(
-        'D4rt.resetScriptDeclarations also clears the native accumulator',
-        () {
+    test('D4rt.resetScriptDeclarations also clears the native accumulator', () {
       final interpreter = D4rt();
       // Drive a real execute so the full reset path (env + native) runs.
-      expect(
-        interpreter.execute(source: 'int main() => 1;'),
-        1,
-      );
+      expect(interpreter.execute(source: 'int main() => 1;'), 1);
 
       final keys = _simulateBuildRegistrations(7);
       expect(D4.nativeRegistrationCount, 7);

@@ -40,9 +40,7 @@ void _registerBoxBridge(D4rt d4rt) {
         return _NativeBox(positional[0] as int);
       },
     },
-    getters: {
-      'value': (visitor, target) => (target as _NativeBox).value,
-    },
+    getters: {'value': (visitor, target) => (target as _NativeBox).value},
   );
   d4rt.registerBridgedClass(box, 'package:test_lib/box.dart');
 
@@ -59,10 +57,7 @@ void _registerBoxBridge(D4rt d4rt) {
     nativeType: _NativeColoredBox,
     constructors: {
       '': (visitor, positional, named) {
-        return _NativeColoredBox(
-          positional[0] as int,
-          positional[1] as String,
-        );
+        return _NativeColoredBox(positional[0] as int, positional[1] as String);
       },
     },
     getters: {
@@ -98,23 +93,24 @@ _NativeBox main() => _NativeBox(7);
       expect(result.value, 7);
     });
 
-    test('unwraps to a more specific subtype when concretely assignable',
-        () async {
-      final d4rt = D4rt();
-      _registerBoxBridge(d4rt);
-      final bundle = await d4rt.createBundleFromSource('''
+    test(
+      'unwraps to a more specific subtype when concretely assignable',
+      () async {
+        final d4rt = D4rt();
+        _registerBoxBridge(d4rt);
+        final bundle = await d4rt.createBundleFromSource('''
 import 'package:test_lib/box.dart';
 _NativeColoredBox main() => _NativeColoredBox(3, 'green');
 ''');
 
-      final result = d4rt.executeBundleAs<_NativeColoredBox>(bundle);
+        final result = d4rt.executeBundleAs<_NativeColoredBox>(bundle);
 
-      expect(result.value, 3);
-      expect(result.color, 'green');
-    });
+        expect(result.value, 3);
+        expect(result.color, 'green');
+      },
+    );
 
-    test(
-        'unwraps an InterpretedInstance whose bridged-super matches T '
+    test('unwraps an InterpretedInstance whose bridged-super matches T '
         '(reaches the bridgedSuperObject branch)', () async {
       final d4rt = D4rt();
       _registerBoxBridge(d4rt);
@@ -149,23 +145,27 @@ _NativeBox main() => TaggedBox(11);
     test('throws D4UnwrapException when the bundle returns null and '
         'T is non-nullable', () async {
       final d4rt = D4rt();
-      final bundle =
-          await d4rt.createBundleFromSource('Object? main() => null;');
+      final bundle = await d4rt.createBundleFromSource(
+        'Object? main() => null;',
+      );
 
       expect(
         () => d4rt.executeBundleAs<int>(bundle),
         throwsA(
-          isA<D4UnwrapException>()
-              .having((e) => e.actualType, 'actualType', 'null'),
+          isA<D4UnwrapException>().having(
+            (e) => e.actualType,
+            'actualType',
+            'null',
+          ),
         ),
       );
     });
 
-    test('returns null when bundle returns null and T is nullable',
-        () async {
+    test('returns null when bundle returns null and T is nullable', () async {
       final d4rt = D4rt();
-      final bundle =
-          await d4rt.createBundleFromSource('Object? main() => null;');
+      final bundle = await d4rt.createBundleFromSource(
+        'Object? main() => null;',
+      );
 
       final result = d4rt.executeBundleAs<int?>(bundle);
 
@@ -185,15 +185,17 @@ Future<int> main() async => 21;
       expect(result, 21);
     });
 
-    test('also handles synchronous results (passes through unchanged)',
-        () async {
-      final d4rt = D4rt();
-      final bundle = await d4rt.createBundleFromSource('int main() => 5;');
+    test(
+      'also handles synchronous results (passes through unchanged)',
+      () async {
+        final d4rt = D4rt();
+        final bundle = await d4rt.createBundleFromSource('int main() => 5;');
 
-      final result = await d4rt.executeBundleAsAsync<int>(bundle);
+        final result = await d4rt.executeBundleAsAsync<int>(bundle);
 
-      expect(result, 5);
-    });
+        expect(result, 5);
+      },
+    );
 
     test('awaits and unwraps a Future<BridgedInstance> result', () async {
       final d4rt = D4rt();
@@ -208,21 +210,23 @@ Future<_NativeBox> main() async => _NativeBox(99);
       expect(result.value, 99);
     });
 
-    test('throws D4UnwrapException for an awaited Future with a wrong type',
-        () async {
-      final d4rt = D4rt();
-      final bundle = await d4rt.createBundleFromSource('''
+    test(
+      'throws D4UnwrapException for an awaited Future with a wrong type',
+      () async {
+        final d4rt = D4rt();
+        final bundle = await d4rt.createBundleFromSource('''
 Future<int> main() async => 42;
 ''');
 
-      await expectLater(
-        d4rt.executeBundleAsAsync<String>(bundle),
-        throwsA(
-          isA<D4UnwrapException>()
-              .having((e) => e.expectedType, 'expectedType', 'String')
-              .having((e) => e.actualType, 'actualType', 'int'),
-        ),
-      );
-    });
+        await expectLater(
+          d4rt.executeBundleAsAsync<String>(bundle),
+          throwsA(
+            isA<D4UnwrapException>()
+                .having((e) => e.expectedType, 'expectedType', 'String')
+                .having((e) => e.actualType, 'actualType', 'int'),
+          ),
+        );
+      },
+    );
   });
 }

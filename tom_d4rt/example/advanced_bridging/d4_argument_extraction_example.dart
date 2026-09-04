@@ -27,7 +27,11 @@ class Calculator {
   int subtract(int a, [int b = 0]) => a - b;
 
   /// Divide with named parameters.
-  double divide({required int dividend, required int divisor, int precision = 2}) {
+  double divide({
+    required int dividend,
+    required int divisor,
+    int precision = 2,
+  }) {
     final result = dividend / divisor;
     final factor = _pow10(precision);
     return (result * factor).round() / factor;
@@ -43,11 +47,7 @@ class Calculator {
   }
 
   /// Calculate with multiple optional named parameters.
-  int calculate(int value, {
-    int add = 0,
-    int subtract = 0,
-    int multiply = 1,
-  }) {
+  int calculate(int value, {int add = 0, int subtract = 0, int multiply = 1}) {
     return ((value + add) - subtract) * multiply;
   }
 
@@ -68,9 +68,7 @@ BridgedClass createCalculatorBridge() {
   return BridgedClass(
     nativeType: Calculator,
     name: 'Calculator',
-    constructors: {
-      '': (visitor, positional, named) => Calculator(),
-    },
+    constructors: {'': (visitor, positional, named) => Calculator()},
     methods: {
       // Example 1: Required positional arguments
       'add': (visitor, target, positional, named, typeArgs) {
@@ -102,8 +100,11 @@ BridgedClass createCalculatorBridge() {
         final calc = D4.validateTarget<Calculator>(target, 'Calculator');
 
         // D4.getRequiredNamedArg for required named parameters
-        final dividend =
-            D4.getRequiredNamedArg<int>(named, 'dividend', 'divide');
+        final dividend = D4.getRequiredNamedArg<int>(
+          named,
+          'dividend',
+          'divide',
+        );
         final divisor = D4.getRequiredNamedArg<int>(named, 'divisor', 'divide');
 
         // D4.getNamedArgWithDefault for optional named with default
@@ -134,7 +135,12 @@ BridgedClass createCalculatorBridge() {
         final calc = D4.validateTarget<Calculator>(target, 'Calculator');
 
         // Required positional
-        final value = D4.getRequiredArg<int>(positional, 0, 'value', 'calculate');
+        final value = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'value',
+          'calculate',
+        );
 
         // Multiple optional named with defaults
         final add = D4.getNamedArgWithDefault<int>(named, 'add', 0);
@@ -152,9 +158,11 @@ BridgedClass createCalculatorBridge() {
     methodSignatures: {
       'add': 'int add(int a, int b)',
       'subtract': 'int subtract(int a, [int b = 0])',
-      'divide': 'double divide({required int dividend, required int divisor, int precision = 2})',
+      'divide':
+          'double divide({required int dividend, required int divisor, int precision = 2})',
       'power': 'int power(int base, {int exponent = 2})',
-      'calculate': 'int calculate(int value, {int add = 0, int subtract = 0, int multiply = 1})',
+      'calculate':
+          'int calculate(int value, {int add = 0, int subtract = 0, int multiply = 1})',
     },
   );
 }
@@ -169,7 +177,9 @@ void main() async {
 
   final d4rt = D4rt();
   d4rt.registerBridgedClass(
-      createCalculatorBridge(), 'package:example/example.dart');
+    createCalculatorBridge(),
+    'package:example/example.dart',
+  );
 
   final script = '''
 import 'package:example/example.dart';

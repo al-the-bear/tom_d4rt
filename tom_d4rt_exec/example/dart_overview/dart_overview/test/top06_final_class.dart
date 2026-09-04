@@ -7,7 +7,9 @@ void main() {
 
   var config = AppConfig('production', false);
   if (config.environment != 'production') {
-    errors.add('AppConfig.environment expected "production", got "${config.environment}"');
+    errors.add(
+      'AppConfig.environment expected "production", got "${config.environment}"',
+    );
   }
   if (config.debug != false) {
     errors.add('AppConfig.debug expected false, got ${config.debug}');
@@ -15,7 +17,9 @@ void main() {
 
   var setting = config.getSetting();
   if (setting != 'Environment: production') {
-    errors.add('AppConfig.getSetting() expected "Environment: production", got "$setting"');
+    errors.add(
+      'AppConfig.getSetting() expected "Environment: production", got "$setting"',
+    );
   }
 
   if (errors.isEmpty) {

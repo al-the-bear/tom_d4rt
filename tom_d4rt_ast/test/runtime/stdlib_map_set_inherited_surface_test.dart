@@ -38,8 +38,7 @@ void main() {
   String nameOf(Object? o) => o.runtimeType.toString().split('<').first;
 
   group('SCB17: iterator and iterable implementation names', () {
-    test(
-        'F-SCB17-AST-1: every bridged collection\'s iterator routes to the '
+    test('F-SCB17-AST-1: every bridged collection\'s iterator routes to the '
         'Iterator bridge [2026-07-28]', () {
       final iterator = bridgeNamed('Iterator');
       final receivers = <String, Iterable<Object?>>{
@@ -59,15 +58,15 @@ void main() {
         expect(
           iterator.nativeNames,
           contains(nameOf(entry.value.iterator)),
-          reason: '${entry.key}.iterator is a '
+          reason:
+              '${entry.key}.iterator is a '
               '${nameOf(entry.value.iterator)}, which must route to Iterator '
               "or `.moveNext()` fails with \"Undefined property or method\"",
         );
       }
     });
 
-    test(
-        'F-SCB17-AST-2: every map view\'s iterator routes to the Iterator '
+    test('F-SCB17-AST-2: every map view\'s iterator routes to the Iterator '
         'bridge [2026-07-28]', () {
       final iterator = bridgeNamed('Iterator');
       final maps = <String, Map<String, int>>{
@@ -76,8 +75,9 @@ void main() {
         // ignore: prefer_collection_literals
         'LinkedHashMap': LinkedHashMap<String, int>()..['a'] = 1,
         'SplayTreeMap': SplayTreeMap<String, int>()..['a'] = 1,
-        'UnmodifiableMapView':
-            UnmodifiableMapView<String, int>(<String, int>{'a': 1}),
+        'UnmodifiableMapView': UnmodifiableMapView<String, int>(<String, int>{
+          'a': 1,
+        }),
       };
       for (final entry in maps.entries) {
         for (final view in <String, Iterable<Object?>>{
@@ -88,15 +88,15 @@ void main() {
           expect(
             iterator.nativeNames,
             contains(nameOf(view.value.iterator)),
-            reason: '${entry.key}.${view.key}.iterator is a '
+            reason:
+                '${entry.key}.${view.key}.iterator is a '
                 '${nameOf(view.value.iterator)}',
           );
         }
       }
     });
 
-    test(
-        'F-SCB17-AST-3: every map view itself routes to the Iterable bridge '
+    test('F-SCB17-AST-3: every map view itself routes to the Iterable bridge '
         '[2026-07-28]', () {
       final iterable = bridgeNamed('Iterable');
       final maps = <String, Map<String, int>>{
@@ -104,8 +104,9 @@ void main() {
         // ignore: prefer_collection_literals
         'LinkedHashMap': LinkedHashMap<String, int>()..['a'] = 1,
         'SplayTreeMap': SplayTreeMap<String, int>()..['a'] = 1,
-        'UnmodifiableMapView':
-            UnmodifiableMapView<String, int>(<String, int>{'a': 1}),
+        'UnmodifiableMapView': UnmodifiableMapView<String, int>(<String, int>{
+          'a': 1,
+        }),
       };
       for (final entry in maps.entries) {
         for (final view in <String, Iterable<Object?>>{
@@ -116,7 +117,8 @@ void main() {
           expect(
             iterable.nativeNames,
             contains(nameOf(view.value)),
-            reason: '${entry.key}.${view.key} is a ${nameOf(view.value)}; '
+            reason:
+                '${entry.key}.${view.key} is a ${nameOf(view.value)}; '
                 'SplayTreeMap.entries was the one that was missing',
           );
         }
@@ -125,8 +127,7 @@ void main() {
   });
 
   group('SCB17: addEntries is inherited, not shadowed', () {
-    test(
-        'F-SCB17-AST-4: the mutable map bridges declare no local addEntries '
+    test('F-SCB17-AST-4: the mutable map bridges declare no local addEntries '
         '[2026-07-28]', () {
       // The local copies did `newEntries.cast()`, which cannot unwrap a
       // `BridgedInstance<MapEntry>`. Removing them lets `MapCore`'s correct
@@ -141,13 +142,14 @@ void main() {
       }
     });
 
-    test('F-SCB17-AST-5: Map itself still provides addEntries [2026-07-28]',
-        () {
-      expect(bridgeNamed('Map').methods.keys, contains('addEntries'));
-    });
-
     test(
-        'F-SCB17-AST-6: the -> Map edge that carries addEntries is registered '
+      'F-SCB17-AST-5: Map itself still provides addEntries [2026-07-28]',
+      () {
+        expect(bridgeNamed('Map').methods.keys, contains('addEntries'));
+      },
+    );
+
+    test('F-SCB17-AST-6: the -> Map edge that carries addEntries is registered '
         '[2026-07-28]', () {
       for (final name in ['HashMap', 'LinkedHashMap', 'SplayTreeMap']) {
         expect(

@@ -14,7 +14,9 @@ void main() {
   // deposit
   ba.deposit(50.0);
   if (ba.balance != 150.0) {
-    errors.add('BankAccount.balance after deposit(50) expected 150.0, got ${ba.balance}');
+    errors.add(
+      'BankAccount.balance after deposit(50) expected 150.0, got ${ba.balance}',
+    );
   }
 
   // withdraw success
@@ -23,7 +25,9 @@ void main() {
     errors.add('BankAccount.withdraw(30) expected true, got $withdrawResult');
   }
   if (ba.balance != 120.0) {
-    errors.add('BankAccount.balance after withdraw(30) expected 120.0, got ${ba.balance}');
+    errors.add(
+      'BankAccount.balance after withdraw(30) expected 120.0, got ${ba.balance}',
+    );
   }
 
   // withdraw failure (insufficient funds)
@@ -32,7 +36,9 @@ void main() {
     errors.add('BankAccount.withdraw(200) expected false, got $withdrawFail');
   }
   if (ba.balance != 120.0) {
-    errors.add('BankAccount.balance after failed withdraw expected 120.0, got ${ba.balance}');
+    errors.add(
+      'BankAccount.balance after failed withdraw expected 120.0, got ${ba.balance}',
+    );
   }
 
   if (errors.isEmpty) {

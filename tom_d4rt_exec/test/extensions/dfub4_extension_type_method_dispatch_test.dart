@@ -8,9 +8,10 @@ import '../interpreter_test.dart';
 
 void main() {
   group('DFUB4: extension type method dispatch (ast tree)', () {
-    test('F-DFUB4A-1: single method reading representation [2026-07-23] (PASS)',
-        () {
-      const code = '''
+    test(
+      'F-DFUB4A-1: single method reading representation [2026-07-23] (PASS)',
+      () {
+        const code = '''
 extension type UserId(int id) {
   String describe() => 'User #\${id}';
 }
@@ -20,8 +21,9 @@ String main() {
   return u.describe();
 }
 ''';
-      expect(execute(code), equals('User #42'));
-    });
+        expect(execute(code), equals('User #42'));
+      },
+    );
 
     test('F-DFUB4A-2: multiple methods + getters [2026-07-23] (PASS)', () {
       const code = '''

@@ -20,7 +20,9 @@ void main() {
 
   setUpAll(() {
     d4ExampleDir = p.join(Directory.current.path, 'example', 'd4');
-    tempOutputDir = Directory.systemTemp.createTempSync('d4_example_test_').path;
+    tempOutputDir = Directory.systemTemp
+        .createTempSync('d4_example_test_')
+        .path;
   });
 
   tearDownAll(() {
@@ -58,20 +60,32 @@ void main() {
       generatedCode = await File(result.outputFiles.first).readAsString();
     });
 
-    test('D4-10: StringExtension does not use \$pkg prefix. [2026-02-11] (PASS)', () {
-      // String is a built-in type, so the cast should be (target as String)
-      // not (target as \$d4_example_1.String)
-      expect(generatedCode, contains("onTypeName: 'String'"));
-      expect(generatedCode, contains('(target as String)'));
-      expect(generatedCode, isNot(contains(r'(target as $d4_example_1.String)')));
-    });
+    test(
+      'D4-10: StringExtension does not use \$pkg prefix. [2026-02-11] (PASS)',
+      () {
+        // String is a built-in type, so the cast should be (target as String)
+        // not (target as \$d4_example_1.String)
+        expect(generatedCode, contains("onTypeName: 'String'"));
+        expect(generatedCode, contains('(target as String)'));
+        expect(
+          generatedCode,
+          isNot(contains(r'(target as $d4_example_1.String)')),
+        );
+      },
+    );
 
-    test('D4-11: IntExtension does not use \$pkg prefix. [2026-02-11] (PASS)', () {
-      // int is a built-in type, so the cast should be (target as int)
-      expect(generatedCode, contains("onTypeName: 'int'"));
-      expect(generatedCode, contains('(target as int)'));
-      expect(generatedCode, isNot(contains(r'(target as $d4_example_1.int)')));
-    });
+    test(
+      'D4-11: IntExtension does not use \$pkg prefix. [2026-02-11] (PASS)',
+      () {
+        // int is a built-in type, so the cast should be (target as int)
+        expect(generatedCode, contains("onTypeName: 'int'"));
+        expect(generatedCode, contains('(target as int)'));
+        expect(
+          generatedCode,
+          isNot(contains(r'(target as $d4_example_1.int)')),
+        );
+      },
+    );
 
     test('D4-12: StringExtension generates getters. [2026-02-11] (PASS)', () {
       expect(generatedCode, contains("'reversed': (visitor, target) =>"));
@@ -81,36 +95,65 @@ void main() {
     });
 
     test('D4-13: StringExtension generates methods. [2026-02-11] (PASS)', () {
-      expect(generatedCode, contains("'repeatWith': (visitor, target, positional, named, typeArgs)"));
+      expect(
+        generatedCode,
+        contains(
+          "'repeatWith': (visitor, target, positional, named, typeArgs)",
+        ),
+      );
     });
 
-    test('D4-14: IntExtension generates factorial getter. [2026-02-11] (PASS)', () {
-      expect(generatedCode, contains("'factorial': (visitor, target) =>"));
-    });
+    test(
+      'D4-14: IntExtension generates factorial getter. [2026-02-11] (PASS)',
+      () {
+        expect(generatedCode, contains("'factorial': (visitor, target) =>"));
+      },
+    );
 
-    test('D4-15: IntExtension generates clampTo method. [2026-02-11] (PASS)', () {
-      expect(generatedCode, contains("'clampTo': (visitor, target, positional, named, typeArgs)"));
-    });
+    test(
+      'D4-15: IntExtension generates clampTo method. [2026-02-11] (PASS)',
+      () {
+        expect(
+          generatedCode,
+          contains("'clampTo': (visitor, target, positional, named, typeArgs)"),
+        );
+      },
+    );
 
     test('D4-20: TestPoint class uses \$pkg prefix. [2026-02-11] (PASS)', () {
       // TestPoint is NOT a built-in type, so it should use $<pkgname>_<N> prefix
       expect(generatedCode, contains(r'nativeType: $d4_example_1.TestPoint'));
     });
 
-    test('D4-21: processItems function with callback is generated. [2026-02-11] (PASS)', () {
-      expect(generatedCode, contains("'processItems':"));
-    });
+    test(
+      'D4-21: processItems function with callback is generated. [2026-02-11] (PASS)',
+      () {
+        expect(generatedCode, contains("'processItems':"));
+      },
+    );
 
-    test('D4-22: filterItems function with optional callback is generated. [2026-02-11] (PASS)', () {
-      expect(generatedCode, contains("'filterItems':"));
-    });
+    test(
+      'D4-22: filterItems function with optional callback is generated. [2026-02-11] (PASS)',
+      () {
+        expect(generatedCode, contains("'filterItems':"));
+      },
+    );
 
-    test('D4-23: promptUser function with nullable callback is generated. [2026-02-11] (PASS)', () {
-      expect(generatedCode, contains("'promptUser':"));
-    });
+    test(
+      'D4-23: promptUser function with nullable callback is generated. [2026-02-11] (PASS)',
+      () {
+        expect(generatedCode, contains("'promptUser':"));
+      },
+    );
 
-    test('D4-30: ItemProcessor class with callback constructor is generated. [2026-02-11] (PASS)', () {
-      expect(generatedCode, contains(r'nativeType: $d4_example_1.ItemProcessor'));
-    });
+    test(
+      'D4-30: ItemProcessor class with callback constructor is generated. [2026-02-11] (PASS)',
+      () {
+        expect(
+          generatedCode,
+          contains(r'nativeType: $d4_example_1.ItemProcessor'),
+        );
+      },
+    );
   });
 }

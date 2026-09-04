@@ -30,15 +30,18 @@ void main() {
       expect(execute(source), equals([2023, 10, 1, 12, 0, 0]));
     });
 
-    test('I-DATE-3: DateTime.fromMillisecondsSinceEpoch. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-DATE-3: DateTime.fromMillisecondsSinceEpoch. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         DateTime date = DateTime.fromMillisecondsSinceEpoch(1696156800000, isUtc: true);
         return [date.year, date.month, date.day];
       }
       ''';
-      expect(execute(source), equals([2023, 10, 1]));
-    });
+        expect(execute(source), equals([2023, 10, 1]));
+      },
+    );
 
     test('I-DATE-4: DateTime.utc. [2026-02-10 06:37] (PASS)', () {
       const source = '''
@@ -50,16 +53,19 @@ void main() {
       expect(execute(source), equals('2023-10-01T12:00:00.000Z'));
     });
 
-    test('I-DATE-5: DateTime.isBefore and isAfter. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-DATE-5: DateTime.isBefore and isAfter. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         DateTime date1 = DateTime(2023, 10, 1);
         DateTime date2 = DateTime(2023, 10, 2);
         return [date1.isBefore(date2), date2.isAfter(date1)];
       }
       ''';
-      expect(execute(source), equals([true, true]));
-    });
+        expect(execute(source), equals([true, true]));
+      },
+    );
 
     test('I-DATE-7: DateTime.add and subtract. [2026-02-10 06:37] (PASS)', () {
       const source = '''
@@ -102,8 +108,10 @@ void main() {
         ];
       }
       ''';
-      expect(execute(source),
-          equals([2023, 10, 1, 12, 30, 45, 123, 456, 7, false]));
+      expect(
+        execute(source),
+        equals([2023, 10, 1, 12, 30, 45, 123, 456, 7, false]),
+      );
     });
 
     test('I-DATE-1: DateTime.toUtc and toLocal. [2026-02-10 06:37] (PASS)', () {

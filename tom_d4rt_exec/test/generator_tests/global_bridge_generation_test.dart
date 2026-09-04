@@ -16,9 +16,15 @@ void main() {
   late String tempOutputDir;
 
   setUpAll(() {
-    testFixturesDir = p.join(Directory.current.path, 'test', 'generator_tests', 'fixtures');
-    tempOutputDir =
-        Directory.systemTemp.createTempSync('bridge_global_test_').path;
+    testFixturesDir = p.join(
+      Directory.current.path,
+      'test',
+      'generator_tests',
+      'fixtures',
+    );
+    tempOutputDir = Directory.systemTemp
+        .createTempSync('bridge_global_test_')
+        .path;
   });
 
   tearDownAll(() {
@@ -44,7 +50,10 @@ void main() {
       // Need to include a class source for the generator to produce output
       // The global functions/variables are included alongside classes
       final classSourceFile = p.join(testFixturesDir, 'class_test_source.dart');
-      final globalSourceFile = p.join(testFixturesDir, 'global_test_source.dart');
+      final globalSourceFile = p.join(
+        testFixturesDir,
+        'global_test_source.dart',
+      );
       final outputFile = p.join(tempOutputDir, 'global_bridges_test.dart');
 
       result = await generator.generateBridges(
@@ -54,68 +63,110 @@ void main() {
       );
 
       expect(result.errors, isEmpty, reason: 'Should generate without errors');
-      expect(result.outputFiles, isNotEmpty, 
-          reason: 'Generator should produce output files');
+      expect(
+        result.outputFiles,
+        isNotEmpty,
+        reason: 'Generator should produce output files',
+      );
 
       generatedCode = await File(result.outputFiles.first).readAsString();
     });
 
     group('Simple Functions', () {
-      test('G-GB-29: Detects void function with no parameters. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'resetState'"));
-      });
+      test(
+        'G-GB-29: Detects void function with no parameters. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'resetState'"));
+        },
+      );
 
-      test('G-GB-30: Detects function returning value. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'getRequestCount'"));
-      });
+      test(
+        'G-GB-30: Detects function returning value. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'getRequestCount'"));
+        },
+      );
 
-      test('G-GB-31: Detects function with single parameter. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'greet'"));
-      });
+      test(
+        'G-GB-31: Detects function with single parameter. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'greet'"));
+        },
+      );
 
-      test('G-GB-32: Detects function with multiple parameters. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'add'"));
-      });
+      test(
+        'G-GB-32: Detects function with multiple parameters. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'add'"));
+        },
+      );
 
-      test('G-GB-33: Detects function returning boolean. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'isValidName'"));
-      });
+      test(
+        'G-GB-33: Detects function returning boolean. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'isValidName'"));
+        },
+      );
     });
 
     group('Functions with Optional Parameters', () {
-      test('G-GB-34: Detects function with optional positional parameter. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'formatMessage'"));
-      });
+      test(
+        'G-GB-34: Detects function with optional positional parameter. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'formatMessage'"));
+        },
+      );
 
-      test('G-GB-35: Detects function with optional parameters and defaults. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'buildUrl'"));
-      });
+      test(
+        'G-GB-35: Detects function with optional parameters and defaults. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'buildUrl'"));
+        },
+      );
 
-      test('G-GB-36: Detects function with named parameters. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'formatRecord'"));
-      });
+      test(
+        'G-GB-36: Detects function with named parameters. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'formatRecord'"));
+        },
+      );
 
-      test('G-GB-37: Detects function with mixed parameters. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'createEntry'"));
-      });
+      test(
+        'G-GB-37: Detects function with mixed parameters. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'createEntry'"));
+        },
+      );
     });
 
     group('Functions with Complex Types', () {
-      test('G-GB-1b: Detects function returning list. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'range'"));
-      });
+      test(
+        'G-GB-1b: Detects function returning list. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'range'"));
+        },
+      );
 
-      test('G-GB-2b: Detects function taking list parameter. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'sumList'"));
-      });
+      test(
+        'G-GB-2b: Detects function taking list parameter. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'sumList'"));
+        },
+      );
 
-      test('G-GB-3b: Detects function returning map. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'createConfig'"));
-      });
+      test(
+        'G-GB-3b: Detects function returning map. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'createConfig'"));
+        },
+      );
 
-      test('G-GB-4b: Detects function with nullable return. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'findMatch'"));
-      });
+      test(
+        'G-GB-4b: Detects function with nullable return. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'findMatch'"));
+        },
+      );
     });
 
     group('Async Functions', () {
@@ -123,9 +174,12 @@ void main() {
         expect(generatedCode, contains("'fetchData'"));
       });
 
-      test('G-GB-6b: Detects async function with parameters. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'computeAsync'"));
-      });
+      test(
+        'G-GB-6b: Detects async function with parameters. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'computeAsync'"));
+        },
+      );
     });
 
     group('Private Functions', () {
@@ -136,13 +190,19 @@ void main() {
     });
 
     group('Error Handling Functions', () {
-      test('G-GB-8a: Detects function that may throw. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'divideStrict'"));
-      });
+      test(
+        'G-GB-8a: Detects function that may throw. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'divideStrict'"));
+        },
+      );
 
-      test('G-GB-9b: Detects function with try-catch. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'divideSafe'"));
-      });
+      test(
+        'G-GB-9b: Detects function with try-catch. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'divideSafe'"));
+        },
+      );
     });
   });
 
@@ -160,7 +220,10 @@ void main() {
 
       // Include class source to ensure output is generated
       final classSourceFile = p.join(testFixturesDir, 'class_test_source.dart');
-      final globalSourceFile = p.join(testFixturesDir, 'global_test_source.dart');
+      final globalSourceFile = p.join(
+        testFixturesDir,
+        'global_test_source.dart',
+      );
       final outputFile = p.join(tempOutputDir, 'global_vars_test.dart');
 
       await generator.generateBridges(
@@ -213,9 +276,12 @@ void main() {
         expect(generatedCode, contains("'lastError'"));
       });
 
-      test('G-GB-19: Detects nullable mutable variable. [2026-02-10 06:37] (PASS)', () {
-        expect(generatedCode, contains("'lastRunTime'"));
-      });
+      test(
+        'G-GB-19: Detects nullable mutable variable. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(generatedCode, contains("'lastRunTime'"));
+        },
+      );
     });
   });
 
@@ -233,7 +299,10 @@ void main() {
 
       // Include class source to ensure output is generated
       final classSourceFile = p.join(testFixturesDir, 'class_test_source.dart');
-      final globalSourceFile = p.join(testFixturesDir, 'global_test_source.dart');
+      final globalSourceFile = p.join(
+        testFixturesDir,
+        'global_test_source.dart',
+      );
       final outputFile = p.join(tempOutputDir, 'global_struct_test.dart');
 
       await generator.generateBridges(
@@ -245,26 +314,39 @@ void main() {
       generatedCode = await File(outputFile).readAsString();
     });
 
-    test('G-GB-1a: Generates globalFunctions map. [2026-02-10 06:37] (PASS)', () {
-      expect(
-        generatedCode,
-        contains('static Map<String, NativeFunctionImpl> globalFunctions()'),
-      );
-    });
+    test(
+      'G-GB-1a: Generates globalFunctions map. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(
+          generatedCode,
+          contains('static Map<String, NativeFunctionImpl> globalFunctions()'),
+        );
+      },
+    );
 
-    test('G-GB-2a: Generates registerGlobalVariables method. [2026-02-10 06:37] (PASS)', () {
-      expect(
-        generatedCode,
-        contains('static void registerGlobalVariables(D4rt interpreter, String importPath)'),
-      );
-    });
+    test(
+      'G-GB-2a: Generates registerGlobalVariables method. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(
+          generatedCode,
+          contains(
+            'static void registerGlobalVariables(D4rt interpreter, String importPath)',
+          ),
+        );
+      },
+    );
 
-    test('G-GB-3a: Generates registerBridges entry point. [2026-02-10 06:37] (PASS)', () {
-      expect(
-        generatedCode,
-        contains('static void registerBridges(D4rt interpreter, String importPath)'),
-      );
-    });
+    test(
+      'G-GB-3a: Generates registerBridges entry point. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(
+          generatedCode,
+          contains(
+            'static void registerBridges(D4rt interpreter, String importPath)',
+          ),
+        );
+      },
+    );
   });
 
   group('Function Signature Verification', () {
@@ -281,7 +363,10 @@ void main() {
 
       // Include class source to ensure output is generated
       final classSourceFile = p.join(testFixturesDir, 'class_test_source.dart');
-      final globalSourceFile = p.join(testFixturesDir, 'global_test_source.dart');
+      final globalSourceFile = p.join(
+        testFixturesDir,
+        'global_test_source.dart',
+      );
       final outputFile = p.join(tempOutputDir, 'func_sig_test.dart');
 
       await generator.generateBridges(
@@ -293,26 +378,38 @@ void main() {
       generatedCode = await File(outputFile).readAsString();
     });
 
-    test('G-GB-20: Function names are in globalFunctionNames list. [2026-02-10 06:37] (PASS)', () {
-      expect(generatedCode, contains("'greet'"));
-      expect(generatedCode, contains("'add'"));
-      expect(generatedCode, contains("'resetState'"));
-    });
+    test(
+      'G-GB-20: Function names are in globalFunctionNames list. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(generatedCode, contains("'greet'"));
+        expect(generatedCode, contains("'add'"));
+        expect(generatedCode, contains("'resetState'"));
+      },
+    );
 
-    test('G-GB-21: Async functions are included. [2026-02-10 06:37] (PASS)', () {
-      expect(generatedCode, contains("'fetchData'"));
-      expect(generatedCode, contains("'computeAsync'"));
-    });
+    test(
+      'G-GB-21: Async functions are included. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(generatedCode, contains("'fetchData'"));
+        expect(generatedCode, contains("'computeAsync'"));
+      },
+    );
 
-    test('G-GB-22: Functions with named params are included. [2026-02-10 06:37] (PASS)', () {
-      expect(generatedCode, contains("'formatRecord'"));
-      expect(generatedCode, contains("'createEntry'"));
-    });
+    test(
+      'G-GB-22: Functions with named params are included. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(generatedCode, contains("'formatRecord'"));
+        expect(generatedCode, contains("'createEntry'"));
+      },
+    );
 
-    test('G-GB-23: Private functions are excluded. [2026-02-10 06:37] (PASS)', () {
-      expect(generatedCode, isNot(contains("'_internalHelper'")));
-      expect(generatedCode, isNot(contains("'_calculateInternal'")));
-    });
+    test(
+      'G-GB-23: Private functions are excluded. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(generatedCode, isNot(contains("'_internalHelper'")));
+        expect(generatedCode, isNot(contains("'_calculateInternal'")));
+      },
+    );
   });
 
   group('Variable Signature Verification', () {
@@ -329,7 +426,10 @@ void main() {
 
       // Include class source to ensure output is generated
       final classSourceFile = p.join(testFixturesDir, 'class_test_source.dart');
-      final globalSourceFile = p.join(testFixturesDir, 'global_test_source.dart');
+      final globalSourceFile = p.join(
+        testFixturesDir,
+        'global_test_source.dart',
+      );
       final outputFile = p.join(tempOutputDir, 'var_sig_test.dart');
 
       await generator.generateBridges(
@@ -341,26 +441,38 @@ void main() {
       generatedCode = await File(outputFile).readAsString();
     });
 
-    test('G-GB-24: Constant names are in globalVariableNames list. [2026-02-10 06:37] (PASS)', () {
-      expect(generatedCode, contains("'appName'"));
-      expect(generatedCode, contains("'maxRetries'"));
-      expect(generatedCode, contains("'debugMode'"));
-    });
+    test(
+      'G-GB-24: Constant names are in globalVariableNames list. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(generatedCode, contains("'appName'"));
+        expect(generatedCode, contains("'maxRetries'"));
+        expect(generatedCode, contains("'debugMode'"));
+      },
+    );
 
-    test('G-GB-25: Final variables are included. [2026-02-10 06:37] (PASS)', () {
-      expect(generatedCode, contains("'version'"));
-      expect(generatedCode, contains("'supportedFormats'"));
-    });
+    test(
+      'G-GB-25: Final variables are included. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(generatedCode, contains("'version'"));
+        expect(generatedCode, contains("'supportedFormats'"));
+      },
+    );
 
-    test('G-GB-26: Mutable variables are included. [2026-02-10 06:37] (PASS)', () {
-      expect(generatedCode, contains("'requestCount'"));
-      expect(generatedCode, contains("'lastError'"));
-    });
+    test(
+      'G-GB-26: Mutable variables are included. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(generatedCode, contains("'requestCount'"));
+        expect(generatedCode, contains("'lastError'"));
+      },
+    );
 
-    test('G-GB-4a: registerGlobalVariables registers variables. [2026-02-10 06:37] (PASS)', () {
-      // The registerGlobalVariables method should contain variable registrations
-      expect(generatedCode, contains('registerGlobalVariables'));
-    });
+    test(
+      'G-GB-4a: registerGlobalVariables registers variables. [2026-02-10 06:37] (PASS)',
+      () {
+        // The registerGlobalVariables method should contain variable registrations
+        expect(generatedCode, contains('registerGlobalVariables'));
+      },
+    );
   });
 
   group('Global Getter vs Variable Registration', () {
@@ -376,8 +488,10 @@ void main() {
       );
 
       final classSourceFile = p.join(testFixturesDir, 'class_test_source.dart');
-      final globalSourceFile =
-          p.join(testFixturesDir, 'global_test_source.dart');
+      final globalSourceFile = p.join(
+        testFixturesDir,
+        'global_test_source.dart',
+      );
       final outputFile = p.join(tempOutputDir, 'getter_vs_var_test.dart');
 
       await generator.generateBridges(
@@ -390,138 +504,179 @@ void main() {
     });
 
     group('Regular Variables use registerGlobalVariable', () {
-      test('G-GB-5a: Const vars use registerGlobalVariable. [2026-02-10 06:37] (PASS)', () {
-        // Variable values are prefixed with $<pkgname>_<N> since source imports use direct import aliases
-        // registerGlobalVariable now includes importPath and sourceUri parameters
-        // globals come from global_test_source.dart which is the 2nd import → $test_package_2
-        expect(
-          generatedCode,
-          contains(r"interpreter.registerGlobalVariable('appName', $test_package_2.appName, importPath"),
-        );
-        expect(
-          generatedCode,
-          contains(
-              r"interpreter.registerGlobalVariable('maxRetries', $test_package_2.maxRetries, importPath"),
-        );
-        expect(
-          generatedCode,
-          contains(
-              r"interpreter.registerGlobalVariable('debugMode', $test_package_2.debugMode, importPath"),
-        );
-      });
+      test(
+        'G-GB-5a: Const vars use registerGlobalVariable. [2026-02-10 06:37] (PASS)',
+        () {
+          // Variable values are prefixed with $<pkgname>_<N> since source imports use direct import aliases
+          // registerGlobalVariable now includes importPath and sourceUri parameters
+          // globals come from global_test_source.dart which is the 2nd import → $test_package_2
+          expect(
+            generatedCode,
+            contains(
+              r"interpreter.registerGlobalVariable('appName', $test_package_2.appName, importPath",
+            ),
+          );
+          expect(
+            generatedCode,
+            contains(
+              r"interpreter.registerGlobalVariable('maxRetries', $test_package_2.maxRetries, importPath",
+            ),
+          );
+          expect(
+            generatedCode,
+            contains(
+              r"interpreter.registerGlobalVariable('debugMode', $test_package_2.debugMode, importPath",
+            ),
+          );
+        },
+      );
 
-      test('G-GB-6a: Final vars use registerGlobalVariable. [2026-02-10 06:37] (PASS)', () {
-        expect(
-          generatedCode,
-          contains(r"interpreter.registerGlobalVariable('version', $test_package_2.version, importPath"),
-        );
-        expect(
-          generatedCode,
-          contains(
-            r"interpreter.registerGlobalVariable('supportedFormats', $test_package_2.supportedFormats, importPath",
-          ),
-        );
-      });
+      test(
+        'G-GB-6a: Final vars use registerGlobalVariable. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(
+            generatedCode,
+            contains(
+              r"interpreter.registerGlobalVariable('version', $test_package_2.version, importPath",
+            ),
+          );
+          expect(
+            generatedCode,
+            contains(
+              r"interpreter.registerGlobalVariable('supportedFormats', $test_package_2.supportedFormats, importPath",
+            ),
+          );
+        },
+      );
 
-      test('G-GB-7a: Mutable vars use registerGlobalVariable. [2026-02-10 06:37] (PASS)', () {
-        expect(
-          generatedCode,
-          contains(
-            r"interpreter.registerGlobalVariable('requestCount', $test_package_2.requestCount, importPath",
-          ),
-        );
-        expect(
-          generatedCode,
-          contains(
-              r"interpreter.registerGlobalVariable('lastError', $test_package_2.lastError, importPath"),
-        );
-      });
+      test(
+        'G-GB-7a: Mutable vars use registerGlobalVariable. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(
+            generatedCode,
+            contains(
+              r"interpreter.registerGlobalVariable('requestCount', $test_package_2.requestCount, importPath",
+            ),
+          );
+          expect(
+            generatedCode,
+            contains(
+              r"interpreter.registerGlobalVariable('lastError', $test_package_2.lastError, importPath",
+            ),
+          );
+        },
+      );
     });
 
     group('Top-level Getters use registerGlobalGetter', () {
-      test('G-GB-8b: Getter singleton uses registerGlobalGetter. [2026-02-10 06:37] (PASS)', () {
-        // Getter values are prefixed with $<pkgname>_<N> since source imports use direct import aliases
-        // registerGlobalGetter now includes importPath and sourceUri parameters
-        // getters come from global_test_source.dart which is the 2nd import → $test_package_2
-        expect(
-          generatedCode,
-          contains(
-            r"interpreter.registerGlobalGetter('globalService', () => $test_package_2.globalService, importPath",
-          ),
-        );
-      });
+      test(
+        'G-GB-8b: Getter singleton uses registerGlobalGetter. [2026-02-10 06:37] (PASS)',
+        () {
+          // Getter values are prefixed with $<pkgname>_<N> since source imports use direct import aliases
+          // registerGlobalGetter now includes importPath and sourceUri parameters
+          // getters come from global_test_source.dart which is the 2nd import → $test_package_2
+          expect(
+            generatedCode,
+            contains(
+              r"interpreter.registerGlobalGetter('globalService', () => $test_package_2.globalService, importPath",
+            ),
+          );
+        },
+      );
 
-      test('G-GB-9a: Getter computed uses registerGlobalGetter. [2026-02-10 06:37] (PASS)', () {
-        expect(
-          generatedCode,
-          contains(
-            r"interpreter.registerGlobalGetter('currentTime', () => $test_package_2.currentTime, importPath",
-          ),
-        );
-      });
+      test(
+        'G-GB-9a: Getter computed uses registerGlobalGetter. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(
+            generatedCode,
+            contains(
+              r"interpreter.registerGlobalGetter('currentTime', () => $test_package_2.currentTime, importPath",
+            ),
+          );
+        },
+      );
 
-      test('G-GB-10b: Nullable getter uses registerGlobalGetter. [2026-02-10 06:37] (PASS)', () {
-        expect(
-          generatedCode,
-          contains(
-            r"interpreter.registerGlobalGetter('lastLogMessage', () => $test_package_2.lastLogMessage, importPath",
-          ),
-        );
-      });
+      test(
+        'G-GB-10b: Nullable getter uses registerGlobalGetter. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(
+            generatedCode,
+            contains(
+              r"interpreter.registerGlobalGetter('lastLogMessage', () => $test_package_2.lastLogMessage, importPath",
+            ),
+          );
+        },
+      );
 
-      test('G-GB-11b: Mutable state getter registerGlobalGetter. [2026-02-10 06:37] (PASS)', () {
-        expect(
-          generatedCode,
-          contains(
-            r"interpreter.registerGlobalGetter('doubleRequestCount', () => $test_package_2.doubleRequestCount, importPath",
-          ),
-        );
-      });
+      test(
+        'G-GB-11b: Mutable state getter registerGlobalGetter. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(
+            generatedCode,
+            contains(
+              r"interpreter.registerGlobalGetter('doubleRequestCount', () => $test_package_2.doubleRequestCount, importPath",
+            ),
+          );
+        },
+      );
     });
 
     group('Getter vs Variable Separation', () {
-      test('G-GB-12b: RegisterGlobalVariables contains both. [2026-02-10 06:37] (PASS)', () {
-        expect(
-          generatedCode,
-          contains('static void registerGlobalVariables(D4rt interpreter, String importPath)'),
-        );
-      });
+      test(
+        'G-GB-12b: RegisterGlobalVariables contains both. [2026-02-10 06:37] (PASS)',
+        () {
+          expect(
+            generatedCode,
+            contains(
+              'static void registerGlobalVariables(D4rt interpreter, String importPath)',
+            ),
+          );
+        },
+      );
 
-      test('G-GB-27: Getters are NOT registered with registerGlobalVariable. [2026-02-10 06:37] (PASS)', () {
-        // These should NOT be registered as regular variables
-        expect(
-          generatedCode,
-          isNot(contains(
-              "interpreter.registerGlobalVariable('globalService'")),
-        );
-        expect(
-          generatedCode,
-          isNot(contains(
-              "interpreter.registerGlobalVariable('currentTime'")),
-        );
-        expect(
-          generatedCode,
-          isNot(contains(
-              "interpreter.registerGlobalVariable('doubleRequestCount'")),
-        );
-      });
+      test(
+        'G-GB-27: Getters are NOT registered with registerGlobalVariable. [2026-02-10 06:37] (PASS)',
+        () {
+          // These should NOT be registered as regular variables
+          expect(
+            generatedCode,
+            isNot(
+              contains("interpreter.registerGlobalVariable('globalService'"),
+            ),
+          );
+          expect(
+            generatedCode,
+            isNot(contains("interpreter.registerGlobalVariable('currentTime'")),
+          );
+          expect(
+            generatedCode,
+            isNot(
+              contains(
+                "interpreter.registerGlobalVariable('doubleRequestCount'",
+              ),
+            ),
+          );
+        },
+      );
 
-      test('G-GB-28: Regular variables are NOT registered with registerGlobalGetter. [2026-02-10 06:37] (PASS)',
-          () {
-        // These should NOT be registered as getters
-        expect(
-          generatedCode,
-          isNot(contains("interpreter.registerGlobalGetter('appName'")),
-        );
-        expect(
-          generatedCode,
-          isNot(contains("interpreter.registerGlobalGetter('version'")),
-        );
-        expect(
-          generatedCode,
-          isNot(contains("interpreter.registerGlobalGetter('requestCount'")),
-        );
-      });
+      test(
+        'G-GB-28: Regular variables are NOT registered with registerGlobalGetter. [2026-02-10 06:37] (PASS)',
+        () {
+          // These should NOT be registered as getters
+          expect(
+            generatedCode,
+            isNot(contains("interpreter.registerGlobalGetter('appName'")),
+          );
+          expect(
+            generatedCode,
+            isNot(contains("interpreter.registerGlobalGetter('version'")),
+          );
+          expect(
+            generatedCode,
+            isNot(contains("interpreter.registerGlobalGetter('requestCount'")),
+          );
+        },
+      );
     });
   });
 }

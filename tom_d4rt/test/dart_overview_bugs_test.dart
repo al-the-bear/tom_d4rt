@@ -38,16 +38,17 @@ dynamic execute(String source) {
 }
 
 /// Execute D4rt code with multiple source files.
-dynamic executeMulti(Map<String, String> sources, {String library = 'package:test/main.dart', bool debug = false}) {
+dynamic executeMulti(
+  Map<String, String> sources, {
+  String library = 'package:test/main.dart',
+  bool debug = false,
+}) {
   final d4rt = D4rt()..setDebug(debug);
   d4rt.grant(FilesystemPermission.any);
   d4rt.grant(NetworkPermission.any);
   d4rt.grant(ProcessRunPermission.any);
   d4rt.grant(IsolatePermission.any);
-  return d4rt.execute(
-    library: library,
-    sources: sources,
-  );
+  return d4rt.execute(library: library, sources: sources);
 }
 
 /// Execute D4rt code asynchronously.
@@ -78,8 +79,10 @@ void main() {
 
   group('Fixed Bugs (SHOULD PASS)', () {
     // Bug-79: Switch expression not exhaustive for sealed subclass with object pattern
-    test('I-BUG-20: Bug-79: Switch expression should match sealed subclass with object pattern. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-20: Bug-79: Switch expression should match sealed subclass with object pattern. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 sealed class Shape {}
 class Circle extends Shape {
   final double radius;
@@ -102,13 +105,16 @@ double main() {
   return calculateArea(circle);
 }
 ''');
-      // Should return the calculated area (78.53975)
-      expect(result, closeTo(78.54, 0.01));
-    });
+        // Should return the calculated area (78.53975)
+        expect(result, closeTo(78.54, 0.01));
+      },
+    );
 
     // Bug-80: Cascade on property access fails (..members.add)
-    test('I-BUG-21: Bug-80: Cascade should work on property access (..members.add). [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-21: Bug-80: Cascade should work on property access (..members.add). [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 class Team {
   String name = '';
   List<String> members = [];
@@ -122,13 +128,16 @@ List<String> main() {
   return team.members;
 }
 ''');
-      expect(result, equals(['Alice', 'Bob']));
-    });
+        expect(result, equals(['Alice', 'Bob']));
+      },
+    );
 
     // Bug-81: LogicalAndPatternImpl - when guards with object patterns
     // The AST represents "pattern when condition" as LogicalAndPatternImpl
-    test('I-BUG-1: Bug-81: Pattern with when guard should work (LogicalAndPatternImpl). [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-1: Bug-81: Pattern with when guard should work (LogicalAndPatternImpl). [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 class Person {
   final String name;
   final int age;
@@ -143,23 +152,29 @@ String main() {
   return 'Minor';
 }
 ''');
-      expect(result, equals('Adult: Charlie'));
-    });
+        expect(result, equals('Adult: Charlie'));
+      },
+    );
 
     // Bug-82: Function.call method not found on InterpretedFunction
-    test('I-BUG-2: Bug-82: Function.call() should work on interpreted functions. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-2: Bug-82: Function.call() should work on interpreted functions. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 int main() {
   var fn = (int x) => x * 2;
   return fn.call(5);
 }
 ''');
-      expect(result, equals(10));
-    });
+        expect(result, equals(10));
+      },
+    );
 
     // Bug-83: Nullable function?.call() fails
-    test('I-BUG-3: Bug-83: Nullable function?.call() should work. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-3: Bug-83: Nullable function?.call() should work. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 String main() {
   void Function()? onClick;
   String result = 'not called';
@@ -168,12 +183,15 @@ String main() {
   return result;
 }
 ''');
-      expect(result, equals('called'));
-    });
+        expect(result, equals('called'));
+      },
+    );
 
     // Bug-84: Mixin abstract method satisfaction false positive
-    test('I-BUG-4: Bug-84: Mixin should satisfy abstract method from superclass. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-4: Bug-84: Mixin should satisfy abstract method from superclass. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 abstract class Movable {
   void move();
 }
@@ -191,12 +209,15 @@ String main() {
   return 'success';
 }
 ''');
-      expect(result, equals('success'));
-    });
+        expect(result, equals('success'));
+      },
+    );
 
     // Bug-85: Cannot extend abstract final class in same library
-    test('I-BUG-5: Bug-85: Should extend abstract final class in same library. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-5: Bug-85: Should extend abstract final class in same library. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 abstract final class AbstractFinalClass {
   void doSomething();
 }
@@ -212,12 +233,15 @@ String main() {
   return 'success';
 }
 ''');
-      expect(result, equals('success'));
-    });
+        expect(result, equals('success'));
+      },
+    );
 
     // Bug-86: runtimeType not accessible via PrefixedIdentifier
-    test('I-BUG-6: Bug-86: runtimeType should be accessible in string interpolation. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-6: Bug-86: runtimeType should be accessible in string interpolation. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 class Wrapper<T> {
   final T value;
   Wrapper(this.value);
@@ -228,34 +252,43 @@ String main() {
   return 'Type: \${w.runtimeType}';
 }
 ''');
-      expect(result, contains('Wrapper'));
-    });
+        expect(result, contains('Wrapper'));
+      },
+    );
 
     // Bug-87: Map for-in comprehension fails with MapLiteralEntry error
-    test('I-BUG-7: Bug-87: Map for-in comprehension should work. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-7: Bug-87: Map for-in comprehension should work. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 Map<int, String> main() {
   var items = ['a', 'b', 'c'];
   return {for (var i = 0; i < items.length; i++) i: items[i]};
 }
 ''');
-      expect(result, equals({0: 'a', 1: 'b', 2: 'c'}));
-    });
+        expect(result, equals({0: 'a', 1: 'b', 2: 'c'}));
+      },
+    );
 
     // Bug-88: Record pattern with :name shorthand - name lexeme is null
-    test('I-BUG-8: Bug-88: Record pattern with :name shorthand should work. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-8: Bug-88: Record pattern with :name shorthand should work. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 String main() {
   var (:name, :age) = (name: 'Charlie', age: 35);
   return 'name=\$name, age=\$age';
 }
 ''');
-      expect(result, equals('name=Charlie, age=35'));
-    });
+        expect(result, equals('name=Charlie, age=35'));
+      },
+    );
 
     // Bug-89: Enum.values.byName (List.byName) not bridged
-    test('I-BUG-9: Bug-89: Enum.values.byName should find enum value. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-9: Bug-89: Enum.values.byName should find enum value. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 enum Color { red, green, blue }
 
 String main() {
@@ -263,12 +296,15 @@ String main() {
   return color.name;
 }
 ''');
-      expect(result, equals('green'));
-    });
+        expect(result, equals('green'));
+      },
+    );
 
     // Bug-90: Mixin on constraint abstract getter false positive
-    test('I-BUG-10: Bug-90: Mixin on constraint with getter should not require impl. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-10: Bug-90: Mixin on constraint with getter should not require impl. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 abstract class Named {
   String get name;
 }
@@ -288,14 +324,17 @@ String main() {
   return p.greet();
 }
 ''');
-      expect(result, equals('Hello, Alice'));
-    });
+        expect(result, equals('Hello, Alice'));
+      },
+    );
 
     // Bug-91: Extensions on bridged types from imported file fails
     // Extension defined in same file works, but imported extension fails
-    test('I-BUG-11: Bug-91: Imported extensions on bridged types should work. [2026-02-10 06:37] (PASS)', () {
-      final result = executeMulti({
-        'package:test/main.dart': '''
+    test(
+      'I-BUG-11: Bug-91: Imported extensions on bridged types should work. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = executeMulti({
+          'package:test/main.dart': '''
 import 'package:test/extensions.dart';
 
 String main() {
@@ -303,7 +342,7 @@ String main() {
   return name.capitalize();
 }
 ''',
-        'package:test/extensions.dart': '''
+          'package:test/extensions.dart': '''
 extension StringExtension on String {
   String capitalize() {
     if (isEmpty) return this;
@@ -311,14 +350,17 @@ extension StringExtension on String {
   }
 }
 ''',
-      });
-      expect(result, equals('Hello world'));
-    });
+        });
+        expect(result, equals('Hello world'));
+      },
+    );
 
     // Bug-92: await on Future factory constructor with callback
     // Future(() => ...) returns BridgedInstance<Object> instead of Future
-    test('I-BUG-12: Bug-92: await on Future factory constructor should work. [2026-02-10 06:37] (PASS)', () async {
-      final result = await executeAsync('''
+    test(
+      'I-BUG-12: Bug-92: await on Future factory constructor should work. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await executeAsync('''
 Future<String> main() async {
   var computed = Future(() {
     return 'Computed value';
@@ -326,13 +368,16 @@ Future<String> main() async {
   return await computed;
 }
 ''');
-      expect(result, equals('Computed value'));
-    });
+        expect(result, equals('Computed value'));
+      },
+    );
 
     // Bug-93: int not auto-promoted to double in return type
     // In Dart, int values are implicitly promoted to double when the return type is double
-    test('I-BUG-13: Bug-93: Int should be implicitly promoted to double return type. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-13: Bug-93: Int should be implicitly promoted to double return type. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 double foo(int x) {
   return x;
 }
@@ -340,13 +385,16 @@ double main() {
   return foo(5);
 }
 ''');
-      expect(result, equals(5.0));
-    });
+        expect(result, equals(5.0));
+      },
+    );
 
     // Bug-94: Cascade index assignment on property fails
     // ..headers['Content-Type'] = 'application/json' should work
-    test('I-BUG-14: Bug-94: Cascade index assignment on property should work. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-14: Bug-94: Cascade index assignment on property should work. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 class Request {
   String url = '';
   Map<String, String> headers = {};
@@ -360,27 +408,36 @@ Map<String, String> main() {
   return req.headers;
 }
 ''');
-      expect(result, equals({'Content-Type': 'application/json', 'Accept': 'text/html'}));
-    });
+        expect(
+          result,
+          equals({'Content-Type': 'application/json', 'Accept': 'text/html'}),
+        );
+      },
+    );
 
     // Bug-95: List.forEach with native function tear-off fails
     // list.forEach(print) passes a native function reference that isn't InterpretedFunction
-    test('I-BUG-15: Bug-95: List.forEach with native function tear-off should work. [2026-02-10 06:37] (PASS)', () {
-      expect(
-        () => execute('''
+    test(
+      'I-BUG-15: Bug-95: List.forEach with native function tear-off should work. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(
+          () => execute('''
 void main() {
   var numbers = [1, 2, 3];
   numbers.forEach(print);
 }
 '''),
-        returnsNormally,
-      );
-    });
+          returnsNormally,
+        );
+      },
+    );
 
     // Bug-96: super.name constructor parameter forwarding fails
     // Child(super.name) should forward the argument to Parent(this.name)
-    test('I-BUG-16: Bug-96: super.name constructor parameter forwarding should work. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-16: Bug-96: super.name constructor parameter forwarding should work. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 class Parent {
   final String name;
   Parent(this.name);
@@ -394,13 +451,16 @@ String main() {
   return Child('test').name;
 }
 ''');
-      expect(result, equals('test'));
-    });
+        expect(result, equals('test'));
+      },
+    );
 
     // Bug-97: num not recognized as satisfying Comparable bound
     // num implements Comparable<num> in Dart, but D4rt rejects it
-    test('I-BUG-17: Bug-97: num should satisfy Comparable type bound. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-17: Bug-97: num should satisfy Comparable type bound. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 class Box<T extends Comparable<dynamic>> {
   T value;
   Box(this.value);
@@ -411,13 +471,16 @@ int main() {
   return b.value.toInt();
 }
 ''');
-      expect(result, equals(42));
-    });
+        expect(result, equals(42));
+      },
+    );
 
     // Bug-98: Extension getter on bridged List<int> not resolved
     // Extension methods defined on List<int> should work on native List instances
-    test('I-BUG-18: Bug-98: Extension getter on bridged List should work. [2026-02-10 06:37] (PASS)', () {
-      final result = execute('''
+    test(
+      'I-BUG-18: Bug-98: Extension getter on bridged List should work. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
 extension IntListExt on List<int> {
   int get sum => fold(0, (a, b) => a + b);
   double get average => isEmpty ? 0.0 : sum / length;
@@ -428,13 +491,16 @@ double main() {
   return numbers.average;
 }
 ''');
-      expect(result, equals(3.0));
-    });
+        expect(result, equals(3.0));
+      },
+    );
 
     // Bug-99: Stream.handleError callback receives wrong number of arguments
     // handleError passes too many args to the error handler function
-    test('I-BUG-19: Bug-99: Stream handleError callback should receive correct args. [2026-02-10 06:37] (PASS)', () async {
-      final result = await executeAsync('''
+    test(
+      'I-BUG-19: Bug-99: Stream handleError callback should receive correct args. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await executeAsync('''
 import 'dart:async';
 
 Future<List<String>> main() async {
@@ -452,15 +518,16 @@ Future<List<String>> main() async {
   return results;
 }
 ''');
-      // The main bug was that too many args were passed to the callback.
-      // Stream ordering in the interpreter may differ from native Dart,
-      // but all values should be processed and the callback should receive
-      // the correct error without the "Too many positional arguments" error.
-      final resultList = result as List;
-      expect(resultList, contains('Handled: Error at 2'));
-      expect(resultList, contains('Value: 1'));
-      expect(resultList, contains('Value: 3'));
-      expect(resultList.length, equals(3));
-    });
+        // The main bug was that too many args were passed to the callback.
+        // Stream ordering in the interpreter may differ from native Dart,
+        // but all values should be processed and the callback should receive
+        // the correct error without the "Too many positional arguments" error.
+        final resultList = result as List;
+        expect(resultList, contains('Handled: Error at 2'));
+        expect(resultList, contains('Value: 1'));
+        expect(resultList, contains('Value: 3'));
+        expect(resultList.length, equals(3));
+      },
+    );
   });
 }

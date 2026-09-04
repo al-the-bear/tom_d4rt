@@ -1,10 +1,14 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
-
 Matcher throwsRuntimeError(dynamic messageMatcher) {
-  return throwsA(isA<RuntimeD4rtException>()
-      .having((e) => e.message, 'message', messageMatcher));
+  return throwsA(
+    isA<RuntimeD4rtException>().having(
+      (e) => e.message,
+      'message',
+      messageMatcher,
+    ),
+  );
 }
 
 dynamic execute(String source, {List<Object?>? args}) {
@@ -15,9 +19,10 @@ dynamic execute(String source, {List<Object?>? args}) {
   d4rt.grant(ProcessRunPermission.any);
   d4rt.grant(IsolatePermission.any);
   return d4rt.execute(
-      library: 'package:test/main.dart',
-      positionalArgs: args,
-      sources: {'package:test/main.dart': source});
+    library: 'package:test/main.dart',
+    positionalArgs: args,
+    sources: {'package:test/main.dart': source},
+  );
 }
 
 // Async version that awaits Future results for complex await tests
@@ -29,9 +34,10 @@ Future<dynamic> executeAsync(String source, {List<Object?>? args}) async {
   d4rt.grant(ProcessRunPermission.any);
   d4rt.grant(IsolatePermission.any);
   final result = d4rt.execute(
-      library: 'package:test/main.dart',
-      positionalArgs: args,
-      sources: {'package:test/main.dart': source});
+    library: 'package:test/main.dart',
+    positionalArgs: args,
+    sources: {'package:test/main.dart': source},
+  );
 
   // If the result is a Future, await it
   if (result is Future) {
@@ -43,16 +49,17 @@ Future<dynamic> executeAsync(String source, {List<Object?>? args}) async {
 void main() {
   group('Basic Interpreter', () {
     test(
-        'I-MISC-229: Variable declaration and retrieval. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-229: Variable declaration and retrieval. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var x = 10;
           return x;
         }
       ''';
-      expect(execute(source), equals(10));
-    });
+        expect(execute(source), equals(10));
+      },
+    );
 
     test('I-MISC-237: Variable assignment. [2026-02-10 06:37] (PASS)', () {
       final source = '''
@@ -76,17 +83,19 @@ void main() {
       expect(execute(source), equals(20));
     });
 
-    test('I-MISC-251: Variable usage in expression. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+    test(
+      'I-MISC-251: Variable usage in expression. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var a = 7;
           var b = 3;
           return a - b;
         }
       ''';
-      expect(execute(source), equals(4));
-    });
+        expect(execute(source), equals(4));
+      },
+    );
 
     test('I-MISC-259: Null handling. [2026-02-10 06:37] (PASS)', () {
       final source = '''
@@ -117,30 +126,38 @@ void main() {
       ''';
       // expect(execute(code), isA<RuntimeError>());
       expect(
-          () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
+        () => execute(code),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
             (e) => e.message,
             'message',
             contains('Undefined variable: nonDefini'),
-          )));
+          ),
+        ),
+      );
     });
 
-    test('I-MISC-69: Undefined variable (assign). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-69: Undefined variable (assign). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
        main() {
            nonDefini = 5;
         }
       ''';
-      // expect(execute(code), isA<RuntimeError>());
-      expect(
+        // expect(execute(code), isA<RuntimeError>());
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            contains("Assigning to undefined variable 'nonDefini'"),
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains("Assigning to undefined variable 'nonDefini'"),
+            ),
+          ),
+        );
+      },
+    );
 
     test('I-MISC-76: String concatenation. [2026-02-10 06:37] (PASS)', () {
       final source = '''
@@ -153,58 +170,65 @@ void main() {
       expect(execute(source), equals('Bonjour monde'));
     });
 
-    test('I-MISC-82: Main function with arguments. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+    test(
+      'I-MISC-82: Main function with arguments. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main(List<String> args) {
           return args.length.toString() + ":" + args[0];
         }
       ''';
-      final result = execute(
-        source,
-        args: [
-          ['arg1', 'test', 'more']
-        ], // Pass arguments
-      );
-      expect(result, equals('3:arg1')); // Length 3, first argument 'arg1'
-    });
+        final result = execute(
+          source,
+          args: [
+            ['arg1', 'test', 'more'],
+          ], // Pass arguments
+        );
+        expect(result, equals('3:arg1')); // Length 3, first argument 'arg1'
+      },
+    );
 
     test(
-        'I-MISC-89: Main function without arguments called with args (should throw). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-89: Main function without arguments called with args (should throw). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() { // Ne prend pas d'arguments
           return 10;
         }
       ''';
-      expect(
-        () => execute(
-          source,
-          args: ['fail'], // Passer des arguments quand même
-        ),
-        throwsRuntimeError(contains(
-            "'main' function accepts at most 0 positional argument(s)")),
-      );
-    });
+        expect(
+          () => execute(
+            source,
+            args: ['fail'], // Passer des arguments quand même
+          ),
+          throwsRuntimeError(
+            contains(
+              "'main' function accepts at most 0 positional argument(s)",
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-452: Main function with arguments called without args (should pass empty list). [2026-02-12] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-452: Main function with arguments called without args (should pass empty list). [2026-02-12] (PASS)',
+      () {
+        final source = '''
         main(List<String> args) { // Prend des arguments
           return args.length; // Doit être 0
         }
       ''';
-      final result = execute(source);
-      expect(result, equals(0));
-    });
+        final result = execute(source);
+        expect(result, equals(0));
+      },
+    );
   });
 
   group('Gestion des portées (Scopes)', () {
     test(
-        'I-MISC-453: Variable interne au bloc non accessible à l\'extérieur. [2026-02-12] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-453: Variable interne au bloc non accessible à l\'extérieur. [2026-02-12] (PASS)',
+      () {
+        final code = '''
        main() {
           {
             var a = 10;
@@ -212,20 +236,24 @@ void main() {
           print(a);
         }
       ''';
-      // expect(execute(code), isA<RuntimeError>());
-      expect(
+        // expect(execute(code), isA<RuntimeError>());
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            contains('Undefined variable: a'),
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains('Undefined variable: a'),
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-118: Variable interne masque variable externe. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-118: Variable interne masque variable externe. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         var x = "outer";
         main() {
           {
@@ -235,13 +263,14 @@ void main() {
           // This return won't be reached if inner block returns
         }
       ''';
-      expect(execute(source), equals('inner'));
-    });
+        expect(execute(source), equals('inner'));
+      },
+    );
 
     test(
-        'I-MISC-127: Le bloc interne retourne la valeur correcte (via var). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-127: Le bloc interne retourne la valeur correcte (via var). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
            var x = "outer";
            var blockResult;
@@ -252,13 +281,14 @@ void main() {
            return blockResult; // Return the assigned variable
         }
       ''';
-      expect(execute(source), equals("inner"));
-    });
+        expect(execute(source), equals("inner"));
+      },
+    );
 
     test(
-        'I-MISC-139: Accès à variable externe depuis bloc interne. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-139: Accès à variable externe depuis bloc interne. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         var outer = 100;
         main() {
            var inner;
@@ -268,15 +298,16 @@ void main() {
            return inner;
         }
       ''';
-      expect(execute(source), equals(105));
-    });
+        expect(execute(source), equals(105));
+      },
+    );
   });
 
   group('Control Flow - If Statements', () {
     test(
-        'I-MISC-153: If (true) executes then branch. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-153: If (true) executes then branch. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           if (true) {
             return 1;
@@ -285,13 +316,14 @@ void main() {
           }
         }
       ''';
-      expect(execute(source), equals(1));
-    });
+        expect(execute(source), equals(1));
+      },
+    );
 
     test(
-        'I-MISC-164: If (false) executes else branch. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-164: If (false) executes else branch. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           if (false) {
             return 1;
@@ -300,13 +332,14 @@ void main() {
           }
         }
       ''';
-      expect(execute(source), equals(0));
-    });
+        expect(execute(source), equals(0));
+      },
+    );
 
     test(
-        'I-MISC-172: If with expression condition (true). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-172: If with expression condition (true). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var x = 10;
           if (x > 5) {
@@ -315,13 +348,14 @@ void main() {
           return "non"; // Should not be reached
         }
       ''';
-      expect(execute(source), equals("oui"));
-    });
+        expect(execute(source), equals("oui"));
+      },
+    );
 
     test(
-        'I-MISC-183: If with expression condition (false). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-183: If with expression condition (false). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var x = 3;
           if (x > 5) {
@@ -331,13 +365,14 @@ void main() {
           }
         }
       ''';
-      expect(execute(source), equals("non"));
-    });
+        expect(execute(source), equals("non"));
+      },
+    );
 
     test(
-        'I-MISC-196: If without else (condition true). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-196: If without else (condition true). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var x = 1;
           if (true) {
@@ -346,13 +381,14 @@ void main() {
           return x;
         }
       ''';
-      expect(execute(source), equals(2));
-    });
+        expect(execute(source), equals(2));
+      },
+    );
 
     test(
-        'I-MISC-205: If without else (condition false). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-205: If without else (condition false). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var x = 1;
           if (false) {
@@ -361,25 +397,32 @@ void main() {
           return x;
         }
       ''';
-      expect(execute(source), equals(1));
-    });
+        expect(execute(source), equals(1));
+      },
+    );
 
-    test('I-MISC-216: If condition must be boolean. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-216: If condition must be boolean. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
        main() {
           if (1) { print("oops"); }
         }
       ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            contains(
-                "The condition of an 'if' must be a boolean, but was int."),
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains(
+                "The condition of an 'if' must be a boolean, but was int.",
+              ),
+            ),
+          ),
+        );
+      },
+    );
   });
 
   group('Control Flow - While Loops', () {
@@ -399,9 +442,9 @@ void main() {
     });
 
     test(
-        'I-MISC-224: While loop condition evaluated each time. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-224: While loop condition evaluated each time. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var i = 0;
           while (i < 1) {
@@ -410,13 +453,14 @@ void main() {
           return i; // Should be 1
         }
       ''';
-      expect(execute(source), equals(1));
-    });
+        expect(execute(source), equals(1));
+      },
+    );
 
     test(
-        'I-MISC-225: While loop condition starting false. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-225: While loop condition starting false. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var executed = false;
           while (false) {
@@ -425,34 +469,40 @@ void main() {
           return executed;
         }
       ''';
-      expect(execute(source), equals(false));
-    });
+        expect(execute(source), equals(false));
+      },
+    );
 
     test(
-        'I-MISC-226: While condition must be boolean. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-226: While condition must be boolean. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
        main() {
           while (1) { print("oops"); }
         }
       ''';
-      // expect(execute(code), isA<RuntimeError>());
-      expect(
+        // expect(execute(code), isA<RuntimeError>());
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            contains(
-                "The condition of a 'while' loop must be a boolean, but was int."),
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains(
+                "The condition of a 'while' loop must be a boolean, but was int.",
+              ),
+            ),
+          ),
+        );
+      },
+    );
   });
 
   group('Control Flow - Do-While Loops', () {
     test(
-        'I-MISC-227: Simple do-while loop executes at least once. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-227: Simple do-while loop executes at least once. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var i = 5;
           var executed = false;
@@ -463,13 +513,14 @@ void main() {
           return executed;
         }
       ''';
-      expect(execute(source), equals(true));
-    });
+        expect(execute(source), equals(true));
+      },
+    );
 
     test(
-        'I-MISC-228: Do-while loop condition checking. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-228: Do-while loop condition checking. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var i = 0;
           var sum = 0;
@@ -480,27 +531,33 @@ void main() {
           return sum; // 0 + 1 + 2 = 3
         }
       ''';
-      expect(execute(source), equals(3));
-    });
+        expect(execute(source), equals(3));
+      },
+    );
 
     test(
-        'I-MISC-230: Do-while condition must be boolean. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-230: Do-while condition must be boolean. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
        main() {
           do { print("hello"); } while (null);
         }
       ''';
-      // expect(execute(code), isA<RuntimeError>());
-      expect(
+        // expect(execute(code), isA<RuntimeError>());
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            contains(
-                "The condition of a 'do-while' loop must be a boolean, but was null."),
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains(
+                "The condition of a 'do-while' loop must be a boolean, but was null.",
+              ),
+            ),
+          ),
+        );
+      },
+    );
   });
 
   // ==============================================
@@ -508,24 +565,25 @@ void main() {
   // ==============================================
   group('Classes and Instances', () {
     test(
-        'I-MISC-231: Simple class declaration and instantiation. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-231: Simple class declaration and instantiation. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Bag {}
         main() {
           var bag = Bag();
           return bag; // Return the instance
         }
       ''';
-      final result = execute(code);
-      expect(result, isA<InterpretedInstance>());
-      expect((result as InterpretedInstance).klass.name, equals('Bag'));
-    });
+        final result = execute(code);
+        expect(result, isA<InterpretedInstance>());
+        expect((result as InterpretedInstance).klass.name, equals('Bag'));
+      },
+    );
 
     test(
-        'I-MISC-232: Instance field access and assignment. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-232: Instance field access and assignment. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Box {}
         main() {
           var box = Box();
@@ -533,8 +591,9 @@ void main() {
           return box.value;
         }
       ''';
-      expect(execute(code), equals(123));
-    });
+        expect(execute(code), equals(123));
+      },
+    );
 
     test('I-MISC-233: Direct field initializer. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -550,9 +609,9 @@ void main() {
     });
 
     test(
-        'I-MISC-234: Another direct field initializer (string). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-234: Another direct field initializer (string). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Stuff {
           var name = "hello";
         }
@@ -561,13 +620,14 @@ void main() {
           return stuff.name;
         }
       ''';
-      expect(execute(code), equals("hello"));
-    });
+        expect(execute(code), equals("hello"));
+      },
+    );
 
     test(
-        'I-MISC-235: Constructor with parameter and this.field initializer. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-235: Constructor with parameter and this.field initializer. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Points {
           var x;
           Points(val) : this.x = val {}
@@ -577,8 +637,9 @@ void main() {
           return p.x;
         }
       ''';
-      expect(execute(code), equals(5));
-    });
+        expect(execute(code), equals(5));
+      },
+    );
 
     test('I-MISC-236: Simple method call. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -594,9 +655,9 @@ void main() {
     });
 
     test(
-        'I-MISC-238: Method using this to access/modify field. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-238: Method using this to access/modify field. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Counter {
           var count = 0;
           inc() { 
@@ -612,13 +673,14 @@ void main() {
           return c.getCount();
         }
       ''';
-      expect(execute(code), equals(2));
-    });
+        expect(execute(code), equals(2));
+      },
+    );
 
     test(
-        'I-MISC-239: Method using this (verify return value of mutating method). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-239: Method using this (verify return value of mutating method). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Counter {
           var count = 0;
           inc() { 
@@ -632,13 +694,14 @@ void main() {
           return c.inc(); // This call should return 2
         }
       ''';
-      expect(execute(code), equals(2));
-    });
+        expect(execute(code), equals(2));
+      },
+    );
 
     test(
-        'I-MISC-240: Constructor initializer calculating value using this. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-240: Constructor initializer calculating value using this. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Rect {
           var w, h, area;
           Rect(width, height) : 
@@ -652,15 +715,16 @@ void main() {
           return r.area;
         }
       ''';
-      expect(execute(code), equals(20));
-    });
+        expect(execute(code), equals(20));
+      },
+    );
 
     // NEW subgroup for static members
     group('Static Members', () {
       test(
-          'I-MISC-241: Access initialized static field. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-241: Access initialized static field. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Config {
             static var url = "http://example.com";
           }
@@ -668,13 +732,14 @@ void main() {
             return Config.url;
           }
         ''';
-        expect(execute(code), equals("http://example.com"));
-      });
+          expect(execute(code), equals("http://example.com"));
+        },
+      );
 
       test(
-          'I-MISC-242: Assign and read static field. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-242: Assign and read static field. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class AppState {
             static var counter = 0;
           }
@@ -683,12 +748,14 @@ void main() {
             return AppState.counter;
           }
         ''';
-        expect(execute(code), equals(15));
-      });
+          expect(execute(code), equals(15));
+        },
+      );
 
-      test('I-MISC-243: Call simple static method. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+      test(
+        'I-MISC-243: Call simple static method. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Utils {
             static String identity(String s) {
               return s;
@@ -698,13 +765,14 @@ void main() {
             return Utils.identity("test");
           }
         ''';
-        expect(execute(code), equals("test"));
-      });
+          expect(execute(code), equals("test"));
+        },
+      );
 
       test(
-          'I-MISC-244: Static method accesses static field. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-244: Static method accesses static field. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Logger {
             static var level = "INFO";
             static String getLevel() {
@@ -719,8 +787,9 @@ void main() {
             return Logger.getLevel();
           }
         ''';
-        expect(execute(code), equals("DEBUG"));
-      });
+          expect(execute(code), equals("DEBUG"));
+        },
+      );
     }); // End Static Members group
 
     // NEW subgroup for Getters and Setters
@@ -767,9 +836,9 @@ void main() {
       });
 
       test(
-          'I-MISC-248: Instance setter with validation. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-248: Instance setter with validation. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Square {
             var _side = 0; 
             get side { return this._side; }
@@ -783,8 +852,9 @@ void main() {
             return s.side;
           }
         ''';
-        expect(execute(code), equals(0));
-      });
+          expect(execute(code), equals(0));
+        },
+      );
 
       test('I-MISC-249: Simple static getter. [2026-02-10 06:37] (PASS)', () {
         final code = '''
@@ -825,9 +895,10 @@ void main() {
     }); // End Getters and Setters group
 
     group('Named Constructors', () {
-      test('I-MISC-252: Simple named constructor. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+      test(
+        'I-MISC-252: Simple named constructor. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Points {
             num x, y;
             Points(this.x, this.y);
@@ -841,13 +912,14 @@ void main() {
             return [p.x, p.y];
           }
         ''';
-        expect(execute(code), equals([0, 0]));
-      });
+          expect(execute(code), equals([0, 0]));
+        },
+      );
 
       test(
-          'I-MISC-253: Named constructor with parameters. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-253: Named constructor with parameters. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Rect {
             num left, top, width, height;
             Rect(this.left, this.top, this.width, this.height);
@@ -863,13 +935,14 @@ void main() {
             return [r.left, r.top, r.width, r.height];
           }
         ''';
-        expect(execute(code), equals([0, 5, 10, 10]));
-      });
+          expect(execute(code), equals([0, 5, 10, 10]));
+        },
+      );
 
       test(
-          'I-MISC-254: Named constructor using this.field initializer. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-254: Named constructor using this.field initializer. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Color {
             int red, green, blue;
             Color(this.red, this.green, this.blue);
@@ -880,33 +953,39 @@ void main() {
              return [c.red, c.green, c.blue];
           }
         ''';
-        expect(execute(code), equals([128, 128, 128]));
-      });
+          expect(execute(code), equals([128, 128, 128]));
+        },
+      );
 
       test(
-          'I-MISC-255: Calling non-existent named constructor throws error. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-255: Calling non-existent named constructor throws error. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Foo { Foo(); }
          main() { var f = Foo.bar(); }
         ''';
-        // expect(execute(code), isA<RuntimeError>());
-        expect(
+          // expect(execute(code), isA<RuntimeError>());
+          expect(
             () => execute(code),
-            throwsA(isA<RuntimeD4rtException>().having(
-              (e) => e.message,
-              'message',
-              contains(
-                  "Class 'Foo' has no static method or named constructor named 'bar'."),
-            )));
-      });
+            throwsA(
+              isA<RuntimeD4rtException>().having(
+                (e) => e.message,
+                'message',
+                contains(
+                  "Class 'Foo' has no static method or named constructor named 'bar'.",
+                ),
+              ),
+            ),
+          );
+        },
+      );
     }); // End Named Constructors group
 
     group('Inheritance', () {
       test(
-          'I-MISC-256: Simple inheritance - access inherited field. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-256: Simple inheritance - access inherited field. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Animal {
             var name = "Generic";
           }
@@ -916,13 +995,14 @@ void main() {
             return d.name; // Access field from Animal
           }
         ''';
-        expect(execute(code), equals("Generic"));
-      });
+          expect(execute(code), equals("Generic"));
+        },
+      );
 
       test(
-          'I-MISC-257: Simple inheritance - access inherited method. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-257: Simple inheritance - access inherited method. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Vehicle {
             String start() { return "Vroom"; }
           }
@@ -932,8 +1012,9 @@ void main() {
              return c.start(); // Call method from Vehicle
           }
         ''';
-        expect(execute(code), equals("Vroom"));
-      });
+          expect(execute(code), equals("Vroom"));
+        },
+      );
 
       test('I-MISC-258: Overriding method. [2026-02-10 06:37] (PASS)', () {
         final code = '''
@@ -953,9 +1034,9 @@ void main() {
       });
 
       test(
-          'I-MISC-260: Accessing overridden method via base type reference (polymorphism). [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-260: Accessing overridden method via base type reference (polymorphism). [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Shape {
             String draw() { return "Drawing shape"; }
           }
@@ -968,13 +1049,14 @@ void main() {
             return myShape.draw(); // Should call Circle's draw() due to runtime type
           }
         ''';
-        expect(execute(code), equals("Drawing circle"));
-      });
+          expect(execute(code), equals("Drawing circle"));
+        },
+      );
 
       test(
-          'I-MISC-261: Inherited field initialization. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-261: Inherited field initialization. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Base {
              var a = 1;
           }
@@ -986,8 +1068,9 @@ void main() {
             return [obj.a, obj.b]; // Both fields should be initialized
           }
         ''';
-        expect(execute(code), equals([1, 2]));
-      });
+          expect(execute(code), equals([1, 2]));
+        },
+      );
 
       test('I-MISC-262: Inheritance chain. [2026-02-10 06:37] (PASS)', () {
         final code = '''
@@ -1003,21 +1086,25 @@ void main() {
       });
 
       test(
-          'I-MISC-263: Extending undefined class throws error. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-263: Extending undefined class throws error. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
            class Bad extends NonExistent {}
           main() {}
          ''';
 
-        expect(
+          expect(
             () => execute(code),
-            throwsA(isA<RuntimeD4rtException>().having(
-              (e) => e.message,
-              'message',
-              contains("Superclass 'NonExistent' not found for class 'Bad'."),
-            )));
-      });
+            throwsA(
+              isA<RuntimeD4rtException>().having(
+                (e) => e.message,
+                'message',
+                contains("Superclass 'NonExistent' not found for class 'Bad'."),
+              ),
+            ),
+          );
+        },
+      );
     }); // End Inheritance group
 
     group('Super Calls', () {
@@ -1059,9 +1146,9 @@ void main() {
       });
 
       test(
-          'I-MISC-267: Super setter call (implicit via assignment). [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-267: Super setter call (implicit via assignment). [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Base { 
             int _val = 0;
             int get value => _val;
@@ -1082,13 +1169,14 @@ void main() {
             return [v1, v2];
           }
         ''';
-        expect(execute(code), equals([5, 3]));
-      });
+          expect(execute(code), equals([5, 3]));
+        },
+      );
 
       test(
-          'I-MISC-56: Super call on method defined in grandparent. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-56: Super call on method defined in grandparent. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Grandparent { String identify() => "G"; }
           class Parent extends Grandparent { /* No identify */ }
           class Child extends Parent { 
@@ -1098,24 +1186,29 @@ void main() {
             return Child().identify();
           }
         ''';
-        expect(execute(code), equals("C->G"));
-      });
+          expect(execute(code), equals("C->G"));
+        },
+      );
 
       test(
-          'I-MISC-57: Super used outside instance method fails. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-57: Super used outside instance method fails. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
          main() { print(super.toString()); }
         ''';
-        // expect(execute(code), isA<RuntimeError>());
-        expect(
+          // expect(execute(code), isA<RuntimeError>());
+          expect(
             () => execute(code),
-            throwsA(isA<RuntimeD4rtException>().having(
-              (e) => e.message,
-              'message',
-              contains("'super' can only be used within an instance method."),
-            )));
-      });
+            throwsA(
+              isA<RuntimeD4rtException>().having(
+                (e) => e.message,
+                'message',
+                contains("'super' can only be used within an instance method."),
+              ),
+            ),
+          );
+        },
+      );
     }); // End Super Calls group
 
     group('Super Constructor Calls', () {
@@ -1137,9 +1230,9 @@ void main() {
       });
 
       test(
-          'I-MISC-59: Explicit super() call with arguments. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-59: Explicit super() call with arguments. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Parent {
             var x, y;
             Parent(this.x, this.y);
@@ -1152,12 +1245,14 @@ void main() {
             return [c.x, c.y];
           }
         ''';
-        expect(execute(code), equals([20, 6]));
-      });
+          expect(execute(code), equals([20, 6]));
+        },
+      );
 
-      test('I-MISC-60: Explicit super.named() call. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+      test(
+        'I-MISC-60: Explicit super.named() call. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Parent {
             var name;
             Parent() : name = "Default";
@@ -1171,13 +1266,14 @@ void main() {
             return c.name;
           }
         ''';
-        expect(execute(code), equals("Test Child"));
-      });
+          expect(execute(code), equals("Test Child"));
+        },
+      );
 
       test(
-          'I-MISC-62: Field initializer runs before super constructor call. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-62: Field initializer runs before super constructor call. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           var log = [];
           class Parent {
              // Use a fixed string or accessible var if needed for verification
@@ -1200,20 +1296,22 @@ void main() {
             return log;
           }
         ''';
-        // Expected order: Child field init -> Parent constructor -> Child constructor
-        expect(
+          // Expected order: Child field init -> Parent constructor -> Child constructor
+          expect(
             execute(code),
             equals([
               "Child field init",
               "Parent constructor: Value was 123",
-              "Child constructor"
-            ]));
-      });
+              "Child constructor",
+            ]),
+          );
+        },
+      );
 
       test(
-          'I-MISC-63: This.field initializer runs before super constructor call. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-63: This.field initializer runs before super constructor call. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
            var log = [];
            class Parent {
              var parentVal;
@@ -1233,70 +1331,89 @@ void main() {
               return log;
            }
          ''';
-        // Initializers run in order: this.field, then super() body, then child body
-        expect(execute(code), equals(["Parent init called", "Child body: 10"]));
-      });
+          // Initializers run in order: this.field, then super() body, then child body
+          expect(
+            execute(code),
+            equals(["Parent init called", "Child body: 10"]),
+          );
+        },
+      );
 
       test(
-          'I-MISC-64: Calling non-existent super constructor fails. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-64: Calling non-existent super constructor fails. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
             class Parent { Parent.named(); }
             class Child extends Parent { Child() : super.unnamed(); }
            main() { Child(); }
          ''';
-        expect(
+          expect(
             () => execute(code),
-            throwsA(isA<RuntimeD4rtException>().having(
-              (e) => e.message,
-              'message',
-              contains(
-                  "Superclass 'Parent' does not have a constructor named 'unnamed'."),
-            )));
-      });
+            throwsA(
+              isA<RuntimeD4rtException>().having(
+                (e) => e.message,
+                'message',
+                contains(
+                  "Superclass 'Parent' does not have a constructor named 'unnamed'.",
+                ),
+              ),
+            ),
+          );
+        },
+      );
 
       test(
-          'I-MISC-454: Implicit super() call fails if no default constructor in superclass. [2026-02-12] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-454: Implicit super() call fails if no default constructor in superclass. [2026-02-12] (PASS)',
+        () {
+          final code = '''
             class Parent { Parent.named(); }
             class Child extends Parent { Child(); } // Implicit super()
            main() { Child(); }
          ''';
-        expect(
+          expect(
             () => execute(code),
-            throwsA(isA<RuntimeD4rtException>().having(
-              (e) => e.message,
-              'message',
-              contains(
-                  "Implicit call to superclass 'Parent' default constructor failed: No default constructor found."),
-            )));
-      });
+            throwsA(
+              isA<RuntimeD4rtException>().having(
+                (e) => e.message,
+                'message',
+                contains(
+                  "Implicit call to superclass 'Parent' default constructor failed: No default constructor found.",
+                ),
+              ),
+            ),
+          );
+        },
+      );
 
       test(
-          'I-MISC-65: Calling super() on class with no superclass fails. [2026-02-10 06:37] (PASS)',
-          () {
-        final code = '''
+        'I-MISC-65: Calling super() on class with no superclass fails. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
             class Orphan { Orphan() : super(); }
            main() { Orphan(); }
           ''';
-        expect(
+          expect(
             () => execute(code),
-            throwsA(isA<RuntimeD4rtException>().having(
-              (e) => e.message,
-              'message',
-              contains(
-                  "Cannot call 'super' in constructor of class 'Orphan' because it has no superclass."),
-            )));
-      });
+            throwsA(
+              isA<RuntimeD4rtException>().having(
+                (e) => e.message,
+                'message',
+                contains(
+                  "Cannot call 'super' in constructor of class 'Orphan' because it has no superclass.",
+                ),
+              ),
+            ),
+          );
+        },
+      );
     }); // End Super Constructor Calls group
   }); // End Classes and Instances group
 
   group('Abstract Classes and Methods', () {
     test(
-        'I-MISC-66: Cannot instantiate abstract class. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-66: Cannot instantiate abstract class. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         abstract class Shape {
           Shape();
         }
@@ -1305,20 +1422,24 @@ void main() {
            var s = Shape(); // Error should happen here
         }
       ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            // Check for the specific error message within the potential wrapper error
-            contains('Cannot instantiate abstract class \'Shape\'.'),
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              // Check for the specific error message within the potential wrapper error
+              contains('Cannot instantiate abstract class \'Shape\'.'),
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-67: Concrete class must implement abstract method. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-67: Concrete class must implement abstract method. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         abstract class Vehicle {
           void move(); // Abstract method (no body)
         }
@@ -1327,20 +1448,25 @@ void main() {
         }
         main() { Car(); }
       ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            contains(
-                'Missing concrete implementation for inherited abstract method \'move\' in class \'Car\'.'),
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains(
+                'Missing concrete implementation for inherited abstract method \'move\' in class \'Car\'.',
+              ),
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-68: Concrete class implements abstract method successfully. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-68: Concrete class implements abstract method successfully. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         // Ensure correct structure with main()
         List<String> log = [];
         abstract class Vehicle {
@@ -1363,15 +1489,16 @@ void main() {
           return c.result; // Return the instance result
         }
       ''';
-      final result = execute(code);
-      // expect(result, equals(['Car moving']));
-      expect(result, equals("Car moving"));
-    });
+        final result = execute(code);
+        // expect(result, equals(['Car moving']));
+        expect(result, equals("Car moving"));
+      },
+    );
 
     test(
-        'I-MISC-70: Abstract method cannot be declared in concrete class. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-70: Abstract method cannot be declared in concrete class. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class MyClass {
           // Abstract methods only make sense in abstract classes and lack a body
           // This syntax is invalid Dart and should be caught by our existing checks
@@ -1383,39 +1510,45 @@ void main() {
            abstract void myMethod(); // Keep this to test the specific parser error check first
         }
       ''';
-      // With serialized AST (throwIfDiagnostics: false), the Dart analyzer's parse
-      // error is not thrown. The runtime catches abstract methods in concrete classes
-      // with a different message.
-      expect(
+        // With serialized AST (throwIfDiagnostics: false), the Dart analyzer's parse
+        // error is not thrown. The runtime catches abstract methods in concrete classes
+        // with a different message.
+        expect(
           () => execute(code),
-          throwsA(isA<Exception>().having(
-            (e) => e.toString(),
-            'toString()',
-            contains(
-                "Abstract methods can only be declared in abstract classes"),
-          )));
-    });
+          throwsA(
+            isA<Exception>().having(
+              (e) => e.toString(),
+              'toString()',
+              contains(
+                "Abstract methods can only be declared in abstract classes",
+              ),
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-71: Abstract method cannot have a body. [2026-02-10 06:37] (PASS)',
-        () {
-      final codeWithError = '''
+      'I-MISC-71: Abstract method cannot have a body. [2026-02-10 06:37] (PASS)',
+      () {
+        final codeWithError = '''
         abstract class MyAbstractClass {
           abstract void myMethod() { // Error intended for testing
              print("Body");
           }
         }
       ''';
-      // With serialized AST, the `abstract` keyword on method with body creates
-      // a malformed AST through parser error recovery. The code may throw any
-      // exception due to the damaged AST structure.
-      expect(() => execute(codeWithError), throwsA(isA<Exception>()));
-    });
+        // With serialized AST, the `abstract` keyword on method with body creates
+        // a malformed AST through parser error recovery. The code may throw any
+        // exception due to the damaged AST structure.
+        expect(() => execute(codeWithError), throwsA(isA<Exception>()));
+      },
+    );
 
     test(
-        'I-MISC-72: Concrete class must implement abstract getter. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-72: Concrete class must implement abstract getter. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         abstract class Describable {
           String get description; // Abstract getter (no body)
           Describable(); // Add default constructor
@@ -1429,20 +1562,25 @@ void main() {
            var i = Item("Box");
         }
       ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            contains(
-                'Missing concrete implementation for inherited abstract getter \'description\' in class \'Item\'.'),
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains(
+                'Missing concrete implementation for inherited abstract getter \'description\' in class \'Item\'.',
+              ),
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-73: Concrete class implements abstract getter successfully. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-73: Concrete class implements abstract getter successfully. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         // Ensure correct structure with main()
         List<String> log = [];
         abstract class Describable {
@@ -1460,14 +1598,15 @@ void main() {
           return i.description; // Return the result
         }
       ''';
-      final result = execute(code);
-      expect(result, equals('Item: Gadget'));
-    });
+        final result = execute(code);
+        expect(result, equals('Item: Gadget'));
+      },
+    );
 
     test(
-        'I-MISC-74: Concrete class must implement abstract setter. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-74: Concrete class must implement abstract setter. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         List<String> log = [];
         abstract class Configurable {
           set config(String value); // Abstract setter (no body)
@@ -1481,20 +1620,25 @@ void main() {
            var d = Device();
         }
       ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            contains(
-                'Missing concrete implementation for inherited abstract setter \'config\' in class \'Device\'.'),
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains(
+                'Missing concrete implementation for inherited abstract setter \'config\' in class \'Device\'.',
+              ),
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-75: Concrete class implements abstract setter successfully. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-75: Concrete class implements abstract setter successfully. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         // Ensure correct structure with main()
         abstract class Configurable {
           set config(String value); // Abstract setter
@@ -1516,10 +1660,11 @@ void main() {
           return "Setter called"; // Return a known value
         }
       ''';
-      final result = execute(code);
-      // expect(result, equals("Setting config to: Mode A"));
-      expect(result, equals("Setter called"));
-    });
+        final result = execute(code);
+        // expect(result, equals("Setting config to: Mode A"));
+        expect(result, equals("Setter called"));
+      },
+    );
   });
 
   group('Interfaces', () {
@@ -1546,9 +1691,9 @@ void main() {
     });
 
     test(
-        'I-MISC-78: Missing interface method implementation fails. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-78: Missing interface method implementation fails. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         abstract class Runnable {
            void run();
         }
@@ -1557,20 +1702,25 @@ void main() {
         }
        main() { var t = Task(); }
       ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            contains(
-                'Missing concrete implementation for interface method \'run\' in class \'Task\'.'),
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains(
+                'Missing concrete implementation for interface method \'run\' in class \'Task\'.',
+              ),
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-79: Missing interface getter implementation fails. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-79: Missing interface getter implementation fails. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         abstract class Labeled {
            String get label;
         }
@@ -1579,20 +1729,25 @@ void main() {
         }
        main() { var b = Button(); }
       ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            contains(
-                'Missing concrete implementation for interface getter \'label\' in class \'Button\'.'),
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains(
+                'Missing concrete implementation for interface getter \'label\' in class \'Button\'.',
+              ),
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-80: Missing interface setter implementation fails. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-80: Missing interface setter implementation fails. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         abstract class Settable {
            set value(int v);
         }
@@ -1601,20 +1756,25 @@ void main() {
         }
        main() { var b = Box(); }
       ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            contains(
-                'Missing concrete implementation for interface setter \'value\' in class \'Box\'.'),
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains(
+                'Missing concrete implementation for interface setter \'value\' in class \'Box\'.',
+              ),
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-81: Multiple interfaces implementation success. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-81: Multiple interfaces implementation success. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           abstract class Clickable { void click(); }
           abstract class Draggable { void drag(); }
 
@@ -1641,13 +1801,14 @@ void main() {
               return r1 + ", " + r2;
           }
         ''';
-      expect(execute(code), equals('File clicked, File dragged'));
-    });
+        expect(execute(code), equals('File clicked, File dragged'));
+      },
+    );
 
     test(
-        'I-MISC-83: Missing implementation with multiple interfaces fails. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-83: Missing implementation with multiple interfaces fails. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           abstract class Clickable { void click(); }
           abstract class Draggable { void drag(); }
 
@@ -1662,52 +1823,68 @@ void main() {
               Icon i = Icon("Folder");
           }
         ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            contains(
-                'Missing concrete implementation for interface method \'drag\' in class \'Icon\'.'),
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains(
+                'Missing concrete implementation for interface method \'drag\' in class \'Icon\'.',
+              ),
+            ),
+          ),
+        );
+      },
+    );
 
-    test('I-MISC-84: Implementing non-class fails. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-84: Implementing non-class fails. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           var notAClass = 1;
           class MyClass implements notAClass {} // Error
          main() {}
         ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            contains("Interface 'notAClass' not found for class 'MyClass'"),
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains("Interface 'notAClass' not found for class 'MyClass'"),
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-85: Implementing non-existent fails. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-85: Implementing non-existent fails. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           class MyClass implements NonExistent {} // Error
           main() {}
         ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            contains("Interface 'NonExistent' not found for class 'MyClass'."),
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains(
+                "Interface 'NonExistent' not found for class 'MyClass'.",
+              ),
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-86: Abstract class implementing interface does not need implementation. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-86: Abstract class implementing interface does not need implementation. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           abstract class Doer { void doIt(); }
           abstract class MyAbstract implements Doer { // OK
              MyAbstract();
@@ -1716,13 +1893,14 @@ void main() {
           // We just check that the class definition itself doesn't throw.
          main() { return "OK"; } 
         ''';
-      expect(execute(code), equals("OK"));
-    });
+        expect(execute(code), equals("OK"));
+      },
+    );
 
     test(
-        'I-MISC-455: Concrete class extending abstract class implementing interface must implement. [2026-02-12] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-455: Concrete class extending abstract class implementing interface must implement. [2026-02-12] (PASS)',
+      () {
+        final code = '''
           abstract class Doer { void doIt(); }
           abstract class MyAbstract implements Doer {
              MyAbstract();
@@ -1732,22 +1910,27 @@ void main() {
           }
          main() { var x = MyConcrete(); }
         ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            // The check for interface members happens after abstract member check.
-            // Depending on the order, the message might vary. Let's check for doIt.
-            contains(
-                "Missing concrete implementation for interface method 'doIt' in class 'MyConcrete'"),
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              // The check for interface members happens after abstract member check.
+              // Depending on the order, the message might vary. Let's check for doIt.
+              contains(
+                "Missing concrete implementation for interface method 'doIt' in class 'MyConcrete'",
+              ),
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-87: Implementation includes members from super-interfaces. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-87: Implementation includes members from super-interfaces. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           abstract class A { void methodA(); }
           abstract class B implements A { void methodB(); }
           class C implements B { // Error: Missing methodA and methodB
@@ -1755,26 +1938,30 @@ void main() {
           }
          main() { var x = C(); }
         ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            // Check for one of the missing methods (order might vary)
-            contains("Missing concrete implementation for interface method"),
-          )));
-      // More specific check for methodA might be needed if order is guaranteed
-      // expect(() => execute(code), throwsA(isA<RuntimeError>().having(
-      //    (e) => e.message, 'message', contains("method 'methodA'"),
-      // )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              // Check for one of the missing methods (order might vary)
+              contains("Missing concrete implementation for interface method"),
+            ),
+          ),
+        );
+        // More specific check for methodA might be needed if order is guaranteed
+        // expect(() => execute(code), throwsA(isA<RuntimeError>().having(
+        //    (e) => e.message, 'message', contains("method 'methodA'"),
+        // )));
+      },
+    );
   });
 
   group('Mixins', () {
     test(
-        'I-MISC-88: Simple mixin application and method call. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-88: Simple mixin application and method call. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         // Declare mixin FIRST
         mixin Walker {
           String walk() => "Walking";
@@ -1787,8 +1974,9 @@ void main() {
           return p.walk();
         }
       ''';
-      expect(execute(code), equals("Walking"));
-    });
+        expect(execute(code), equals("Walking"));
+      },
+    );
 
     test('I-MISC-90: Accessing mixin field. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -1808,9 +1996,9 @@ void main() {
     });
 
     test(
-        'I-MISC-91: Mixin overrides superclass method. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-91: Mixin overrides superclass method. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         // Declare Base and Mixin FIRST
         class Base {
           String message() => "Base";
@@ -1828,12 +2016,14 @@ void main() {
           return d.message();
         }
       ''';
-      expect(execute(code), equals("Mixin"));
-    });
+        expect(execute(code), equals("Mixin"));
+      },
+    );
 
-    test('I-MISC-92: Class overrides mixin method. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-92: Class overrides mixin method. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         // Declare mixin FIRST
         mixin Greeter {
           String greet() => "Mixin Hello";
@@ -1848,13 +2038,14 @@ void main() {
             return p.greet();
         }
       ''';
-      expect(execute(code), equals("Person Hello"));
-    });
+        expect(execute(code), equals("Person Hello"));
+      },
+    );
 
     test(
-        'I-MISC-93: Multiple mixins resolution order (last wins). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-93: Multiple mixins resolution order (last wins). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         // Declare mixins FIRST
         mixin M1 { String value() => "M1"; }
         mixin M2 { String value() => "M2"; }
@@ -1866,48 +2057,56 @@ void main() {
             return c.value();
         }
       ''';
-      expect(execute(code), equals("M2"));
-    });
+        expect(execute(code), equals("M2"));
+      },
+    );
 
-    test('I-MISC-94: Applying non-mixin class fails. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-94: Applying non-mixin class fails. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class NotAMixin { }
         class MyClass with NotAMixin { } // Error
        main() {}
       ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message,
-            'message',
-            contains(
-                "Class 'NotAMixin' cannot be used as a mixin because it's not declared with 'mixin' or 'class mixin'"), // Message d'erreur réel
-          )));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains(
+                "Class 'NotAMixin' cannot be used as a mixin because it's not declared with 'mixin' or 'class mixin'",
+              ), // Message d'erreur réel
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-95: Mixin cannot declare constructor. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-95: Mixin cannot declare constructor. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         mixin BadMixin {
            BadMixin() {} // Error
         }
        main() {}
       ''';
-      // With serialized AST, mixin constructor validation is not enforced at
-      // parse time. The runtime silently accepts it. This is a known limitation
-      // of the current serialized AST pipeline.
-      // The test verifies the code runs without error (constructor is ignored).
-      expect(execute(code), isNull);
-    });
+        // With serialized AST, mixin constructor validation is not enforced at
+        // parse time. The runtime silently accepts it. This is a known limitation
+        // of the current serialized AST pipeline.
+        // The test verifies the code runs without error (constructor is ignored).
+        expect(execute(code), isNull);
+      },
+    );
   });
 
   group('Error Handling:', () {
     test(
-        'I-MISC-96: Try...finally executes finally block normally. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-96: Try...finally executes finally block normally. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         var number = 0;
         main() {
           try {
@@ -1919,13 +2118,14 @@ void main() {
           return number;
         }
       ''';
-      expect(execute(code), equals(3));
-    });
+        expect(execute(code), equals(3));
+      },
+    );
 
     test(
-        'I-MISC-97: Try...finally executes finally block after exception. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-97: Try...finally executes finally block after exception. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         var number = 0;
         main() {
           try {
@@ -1939,23 +2139,21 @@ void main() {
           return number;
         }
       ''';
-      // Expect a RuntimeError, and finally must execute
-      // var resultLog = []; // Removed
-      expect(
-        () {
+        // Expect a RuntimeError, and finally must execute
+        // var resultLog = []; // Removed
+        expect(() {
           // execute(code, externalLog: resultLog); // Modified
           execute(code);
-        },
-        throwsA(equals("Oops")),
-      );
-      // Check that the log was modified as expected (1 then 2)
-      // expect(resultLog, equals([1, 2])); // Removed as not verifiable
-    });
+        }, throwsA(equals("Oops")));
+        // Check that the log was modified as expected (1 then 2)
+        // expect(resultLog, equals([1, 2])); // Removed as not verifiable
+      },
+    );
 
     test(
-        'I-MISC-98: Try...catch catches specific exception. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-98: Try...catch catches specific exception. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         var number = 0;
         main() {
           try {
@@ -1969,13 +2167,14 @@ void main() {
           return number;
         }
       ''';
-      expect(execute(code), equals(3));
-    });
+        expect(execute(code), equals(3));
+      },
+    );
 
     test(
-        'I-MISC-99: Try...catch...finally combination. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-99: Try...catch...finally combination. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         var number = 0;
         main() {
           try {
@@ -1990,13 +2189,14 @@ void main() {
           return number;
         }
       ''';
-      expect(execute(code), equals(4));
-    });
+        expect(execute(code), equals(4));
+      },
+    );
 
     test(
-        'I-MISC-100: Try...catch rethrows if no matching catch. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-100: Try...catch rethrows if no matching catch. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         // Pour l'instant, notre catch attrape tout
         // Ce test sera plus pertinent avec `on Type`
         main() {
@@ -2008,13 +2208,14 @@ void main() {
           }
         }
       ''';
-      expect(execute(code), equals("Caught: SpecificError"));
-    });
+        expect(execute(code), equals("Caught: SpecificError"));
+      },
+    );
 
     test(
-        'I-MISC-101: Exception in catch block propagates. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-101: Exception in catch block propagates. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         main() {
           try {
             throw "Initial"; // Lancer une valeur initiale
@@ -2023,16 +2224,14 @@ void main() {
           }
         }
       ''';
-      expect(
-        () => execute(code),
-        throwsA(equals('Secondary')),
-      );
-    });
+        expect(() => execute(code), throwsA(equals('Secondary')));
+      },
+    );
 
     test(
-        'I-MISC-102: Exception in finally block propagates and overrides. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-102: Exception in finally block propagates and overrides. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         main() {
           try {
             throw "TryException"; // Lancer dans le try
@@ -2041,16 +2240,14 @@ void main() {
           }
         }
       ''';
-      expect(
-        () => execute(code),
-        throwsA(equals('FinallyException')),
-      );
-    });
+        expect(() => execute(code), throwsA(equals('FinallyException')));
+      },
+    );
 
     test(
-        'I-MISC-103: Exception in finally block propagates even if try/catch handles. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-103: Exception in finally block propagates even if try/catch handles. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         main() {
           try {
             throw "TryException"; // Lancer dans le try
@@ -2061,11 +2258,9 @@ void main() {
           }
         }
       ''';
-      expect(
-        () => execute(code),
-        throwsA(equals('FinallyException')),
-      );
-    });
+        expect(() => execute(code), throwsA(equals('FinallyException')));
+      },
+    );
   }); // Fin groupe Error Handling
 
   group('Type Check Operator (is/is!):', () {
@@ -2083,33 +2278,35 @@ void main() {
         }
       ''';
       expect(
-          execute(code),
-          equals([
-            true, true, true, true, true,
-            true, // int, double, String, bool, List, Null
-            true, true, // i is num, d is num
-            false, false, // i is String, n is Object (n is null)
-            true // s is Object
-          ]));
+        execute(code),
+        equals([
+          true, true, true, true, true,
+          true, // int, double, String, bool, List, Null
+          true, true, // i is num, d is num
+          false, false, // i is String, n is Object (n is null)
+          true, // s is Object
+        ]),
+      );
     });
 
     test(
-        'I-MISC-105: Is! negation with built-in types. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-105: Is! negation with built-in types. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         main() {
           var i = 10;
           var s = "world";
           return [i is! int, s is! String, i is! String, s is! Object];
         }
       ''';
-      expect(execute(code), equals([false, false, true, false]));
-    });
+        expect(execute(code), equals([false, false, true, false]));
+      },
+    );
 
     test(
-        'I-MISC-106: Is with simple user-defined class. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-106: Is with simple user-defined class. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class A {}
         main() {
           var a = A();
@@ -2117,8 +2314,9 @@ void main() {
           return [a is A, b is A, a is Object];
         }
       ''';
-      expect(execute(code), equals([true, false, true]));
-    });
+        expect(execute(code), equals([true, false, true]));
+      },
+    );
 
     test('I-MISC-108: Is with inheritance. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -2134,9 +2332,9 @@ void main() {
     });
 
     test(
-        'I-MISC-109: Is with interface implementation. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-109: Is with interface implementation. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         abstract class I {}
         class A implements I {}
         class B {}
@@ -2145,12 +2343,14 @@ void main() {
           return [a is A, a is I, a is B, a is Object];
         }
       ''';
-      expect(execute(code), equals([true, true, false, true]));
-    });
+        expect(execute(code), equals([true, true, false, true]));
+      },
+    );
 
-    test('I-MISC-110: Is with mixin application. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-110: Is with mixin application. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         mixin M {}
         class A with M {}
         class B {}
@@ -2159,15 +2359,16 @@ void main() {
           return [a is A, a is M, a is B, a is Object];
         }
       ''';
-      // Note: 'is MixinName' requires the mixin to be treated like a type
-      // Our isSubtypeOf logic should handle this.
-      expect(execute(code), equals([true, true, false, true]));
-    });
+        // Note: 'is MixinName' requires the mixin to be treated like a type
+        // Our isSubtypeOf logic should handle this.
+        expect(execute(code), equals([true, true, false, true]));
+      },
+    );
 
     test(
-        'I-MISC-111: Is with complex hierarchy (extends, implements, with). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-111: Is with complex hierarchy (extends, implements, with). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         abstract class Clickable {} 
         mixin Logger { void log(String msg){} }
         class Widget {}
@@ -2188,14 +2389,17 @@ void main() {
           ];
         }
       ''';
-      expect(
-          execute(code), equals([true, true, true, true, false, true, true]));
-    });
+        expect(
+          execute(code),
+          equals([true, true, true, true, false, true, true]),
+        );
+      },
+    );
 
     test(
-        'I-MISC-112: Catch on Type (specific built-in). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-112: Catch on Type (specific built-in). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         main() {
           var result = '';
           try {
@@ -2210,12 +2414,14 @@ void main() {
           return result;
         }
       ''';
-      expect(execute(code), equals('Caught String'));
-    });
+        expect(execute(code), equals('Caught String'));
+      },
+    );
 
-    test('I-MISC-113: Catch on Type (superclass). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-113: Catch on Type (superclass). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class MyError {}
         class SpecificError extends MyError {}
         main() {
@@ -2234,12 +2440,14 @@ void main() {
            return result;
         }
       ''';
-      expect(execute(code), equals('Caught MyError'));
-    });
+        expect(execute(code), equals('Caught MyError'));
+      },
+    );
 
-    test('I-MISC-114: Catch on Type (interface). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-114: Catch on Type (interface). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         abstract class IError {}
         class NetworkError implements IError {}
         main() {
@@ -2254,8 +2462,9 @@ void main() {
            return result;
         }
       ''';
-      expect(execute(code), equals('Caught IError'));
-    });
+        expect(execute(code), equals('Caught IError'));
+      },
+    );
 
     test('I-MISC-115: Catch on Type (mixin). [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -2277,9 +2486,9 @@ void main() {
     });
 
     test(
-        'I-MISC-116: Catch on Type (no match, falls through to dynamic catch). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-116: Catch on Type (no match, falls through to dynamic catch). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         main() {
           var result = 'Not caught';
           try {
@@ -2296,12 +2505,14 @@ void main() {
         }
       ''';
 
-      expect(execute(code), 'Caught dynamic: true');
-    });
+        expect(execute(code), 'Caught dynamic: true');
+      },
+    );
 
-    test('I-MISC-117: Catch stack trace variable. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-117: Catch stack trace variable. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         main() {
           try {
             throw "Failure";
@@ -2315,11 +2526,12 @@ void main() {
           }
         }
       ''';
-      final result = execute(code);
-      // Check that the interpreted code returned the original error message,
-      // implying the stack trace check passed internally.
-      expect(result, 'Failure');
-    });
+        final result = execute(code);
+        // Check that the interpreted code returned the original error message,
+        // implying the stack trace check passed internally.
+        expect(result, 'Failure');
+      },
+    );
 
     test('I-MISC-119: Rethrow statement. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -2340,27 +2552,33 @@ void main() {
       expect(execute(code), equals('Caught outer: Inner error'));
     });
 
-    test('I-MISC-120: Rethrow outside catch fails. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-120: Rethrow outside catch fails. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         main() {
           rethrow;
         }
       ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
+          throwsA(
+            isA<RuntimeD4rtException>().having(
               (e) => e.message,
               'message',
-              contains("'rethrow' can only be used within a catch block."))));
-    });
+              contains("'rethrow' can only be used within a catch block."),
+            ),
+          ),
+        );
+      },
+    );
   });
 
   group('Redirecting Constructors (this(...)):', () {
     test(
-        'I-MISC-121: Simple redirection to unnamed constructor. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-121: Simple redirection to unnamed constructor. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Points {
           num x, y;
           Points(this.x, this.y);
@@ -2371,13 +2589,14 @@ void main() {
           return [p.x, p.y];
         }
       ''';
-      expect(execute(code), equals([0, 0]));
-    });
+        expect(execute(code), equals([0, 0]));
+      },
+    );
 
     test(
-        'I-MISC-122: Redirection to named constructor. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-122: Redirection to named constructor. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Rect {
           num left, top, width, height;
           Rect(this.left, this.top, this.width, this.height);
@@ -2393,13 +2612,14 @@ void main() {
           ];
         }
       ''';
-      expect(execute(code), equals([0, 0, 10, 10, 0, 0, 20, 30]));
-    });
+        expect(execute(code), equals([0, 0, 10, 10, 0, 0, 20, 30]));
+      },
+    );
 
     test(
-        'I-MISC-123: Redirection with argument passing and calculation. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-123: Redirection with argument passing and calculation. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Circle {
           num x, y, radius;
           Circle(this.x, this.y, this.radius);
@@ -2415,13 +2635,14 @@ void main() {
           ];
         }
       ''';
-      expect(execute(code), equals([5, 6, 1, 0, 0, 20]));
-    });
+        expect(execute(code), equals([5, 6, 1, 0, 0, 20]));
+      },
+    );
 
     test(
-        'I-MISC-124: Redirecting constructor body is not executed. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-124: Redirecting constructor body is not executed. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Counter {
           int value = 0;
           Counter(int val) { // Target constructor body
@@ -2435,13 +2656,14 @@ void main() {
           return c.value;
         }
       ''';
-      expect(execute(code), equals(50));
-    });
+        expect(execute(code), equals(50));
+      },
+    );
 
     test(
-        'I-MISC-125: Redirection chain (this -> this -> actual). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-125: Redirection chain (this -> this -> actual). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Chain {
           String trace = "";
           Chain(String initial) { trace += initial; }
@@ -2455,13 +2677,14 @@ void main() {
           return ch.trace;
         }
       ''';
-      expect(execute(code), equals("([Value])"));
-    });
+        expect(execute(code), equals("([Value])"));
+      },
+    );
 
     test(
-        'I-MISC-126: Redirecting to non-existent constructor fails. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-126: Redirecting to non-existent constructor fails. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Box {
           Box() {}
           Box.redirect() : this.nonExistent(); // Error here
@@ -2470,14 +2693,20 @@ void main() {
           return Box.redirect();
         }
       ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
+          throwsA(
+            isA<RuntimeD4rtException>().having(
               (e) => e.message,
               'message',
               contains(
-                  'Class \'Box\' does not have a constructor named \'nonExistent\''))));
-    });
+                'Class \'Box\' does not have a constructor named \'nonExistent\'',
+              ),
+            ),
+          ),
+        );
+      },
+    );
   });
 
   group('Collections', () {
@@ -2493,9 +2722,10 @@ void main() {
       expect(result, equals({'a': 1, 'b': true, 3: 'hello'}));
     });
 
-    test('I-MISC-129: Map literal with expressions. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-129: Map literal with expressions. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         main() {
           int x = 5;
           String k = 'key';
@@ -2503,10 +2733,11 @@ void main() {
           return m;
         }
       ''';
-      final result = execute(code);
-      expect(result is Map, isTrue);
-      expect(result, equals({'key': 10, 'next': 6}));
-    });
+        final result = execute(code);
+        expect(result is Map, isTrue);
+        expect(result, equals({'key': 10, 'next': 6}));
+      },
+    );
 
     test('I-MISC-130: Empty map literal. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -2533,23 +2764,26 @@ void main() {
       expect(result, equals({1, 'hello', true}));
     });
 
-    test('I-MISC-132: Set literal with expressions. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-132: Set literal with expressions. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           main() {
             int x = 2;
             var s = {x, x * 3, 'val-\$x'};
             return s;
           }
         ''';
-      final result = execute(code);
-      expect(result is Set, isTrue);
-      expect(result, equals({2, 6, 'val-2'}));
-    });
+        final result = execute(code);
+        expect(result is Set, isTrue);
+        expect(result, equals({2, 6, 'val-2'}));
+      },
+    );
 
-    test('I-MISC-133: List spread operator (...). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-133: List spread operator (...). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           main() {
             List<int> l1 = [1, 2];
             Set<int> s1 = {3, 4};
@@ -2557,14 +2791,15 @@ void main() {
             return l2;
           }
         ''';
-      final result = execute(code);
-      expect(result, equals([0, 1, 2, 3, 4, 5]));
-    });
+        final result = execute(code);
+        expect(result, equals([0, 1, 2, 3, 4, 5]));
+      },
+    );
 
     test(
-        'I-MISC-134: List null-aware spread operator (...?). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-134: List null-aware spread operator (...?). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           main() {
             List<int>? l1 = [1, 2];
             List<int>? l2 = null;
@@ -2572,9 +2807,10 @@ void main() {
             return l3;
           }
         ''';
-      final result = execute(code);
-      expect(result, equals([0, 1, 2, 3]));
-    });
+        final result = execute(code);
+        expect(result, equals([0, 1, 2, 3]));
+      },
+    );
 
     test('I-MISC-135: List spread type error. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -2584,14 +2820,17 @@ void main() {
           }
         ''';
       expect(
-          () => execute(code),
-          throwsRuntimeError(contains(
-              'Spread element in a List literal requires an Iterable'))); // Use contains and updated message
+        () => execute(code),
+        throwsRuntimeError(
+          contains('Spread element in a List literal requires an Iterable'),
+        ),
+      ); // Use contains and updated message
     });
 
-    test('I-MISC-136: Set spread operator (...). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-136: Set spread operator (...). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           main() {
             List<String> l1 = ['a', 'b'];
             Set<String> s1 = {'c', 'a'}; // Duplicate 'a' from spread
@@ -2599,15 +2838,16 @@ void main() {
             return s2;
           }
         ''';
-      final result = execute(code);
-      expect(result is Set, isTrue);
-      expect(result, equals({'x', 'a', 'b', 'c', 'y'}));
-    });
+        final result = execute(code);
+        expect(result is Set, isTrue);
+        expect(result, equals({'x', 'a', 'b', 'c', 'y'}));
+      },
+    );
 
     test(
-        'I-MISC-137: Set null-aware spread operator (...?). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-137: Set null-aware spread operator (...?). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           main() {
             List<int>? l1 = [1, 2];
             Set<int>? s1 = null;
@@ -2615,10 +2855,11 @@ void main() {
             return s2;
           }
         ''';
-      final result = execute(code);
-      expect(result is Set, isTrue);
-      expect(result, equals({0, 1, 2, 3}));
-    });
+        final result = execute(code);
+        expect(result is Set, isTrue);
+        expect(result, equals({0, 1, 2, 3}));
+      },
+    );
 
     test('I-MISC-138: Set spread type error. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -2628,14 +2869,17 @@ void main() {
           }
         ''';
       expect(
-          () => execute(code),
-          throwsRuntimeError(contains(
-              'Spread element in a Set literal requires an Iterable'))); // Use contains
+        () => execute(code),
+        throwsRuntimeError(
+          contains('Spread element in a Set literal requires an Iterable'),
+        ),
+      ); // Use contains
     });
 
-    test('I-MISC-140: Map spread operator (...). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-140: Map spread operator (...). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           main() {
             var m1 = {'a': 1, 'b': 2};
             var m2 = {'b': 3, 'c': 4}; // Key 'b' will be overwritten
@@ -2643,15 +2887,16 @@ void main() {
             return m3;
           }
         ''';
-      final result = execute(code);
-      expect(result is Map, isTrue);
-      expect(result, equals({'x': 0, 'a': 1, 'b': 3, 'c': 4, 'y': 5}));
-    });
+        final result = execute(code);
+        expect(result is Map, isTrue);
+        expect(result, equals({'x': 0, 'a': 1, 'b': 3, 'c': 4, 'y': 5}));
+      },
+    );
 
     test(
-        'I-MISC-141: Map null-aware spread operator (...?). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-141: Map null-aware spread operator (...?). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           main() {
             Map<String, int>? m1 = {'a': 1};
             Map<String, int>? m2 = null;
@@ -2659,10 +2904,11 @@ void main() {
             return m3;
           }
         ''';
-      final result = execute(code);
-      expect(result is Map, isTrue);
-      expect(result, equals({'x': 0, 'a': 1, 'y': 2}));
-    });
+        final result = execute(code);
+        expect(result is Map, isTrue);
+        expect(result, equals({'x': 0, 'a': 1, 'y': 2}));
+      },
+    );
 
     test('I-MISC-142: Map spread type error. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -2677,18 +2923,19 @@ void main() {
     });
 
     test(
-        'I-MISC-143: Map spread combined with entries. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-143: Map spread combined with entries. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           main() {
             var m1 = {'a': 1};
             return {...m1, 'b': 2};
           }
         ''';
-      final result = execute(code);
-      expect(result is Map, isTrue);
-      expect(result, equals({'a': 1, 'b': 2}));
-    });
+        final result = execute(code);
+        expect(result is Map, isTrue);
+        expect(result, equals({'a': 1, 'b': 2}));
+      },
+    );
   });
   group('Collection Control-Flow Elements', () {
     test('I-MISC-144: List with if (true). [2026-02-10 06:37] (PASS)', () {
@@ -2721,16 +2968,18 @@ void main() {
       expect(execute(code), equals([1, 2, 3]));
     });
 
-    test('I-MISC-147: List with if-else (false). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-147: List with if-else (false). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           main() {
             bool useTwo = false;
             return [1, if (useTwo) 2 else -1, 3];
           }
         ''';
-      expect(execute(code), equals([1, -1, 3]));
-    });
+        expect(execute(code), equals([1, -1, 3]));
+      },
+    );
 
     test('I-MISC-148: List with simple for-in. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -2743,28 +2992,31 @@ void main() {
     });
 
     test(
-        'I-MISC-149: List with nested if inside for. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-149: List with nested if inside for. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           main() {
             var nums = [1, 2, 3, 4];
             return [for (var n in nums) if (n % 2 == 0) n * 10];
           }
         ''';
-      expect(execute(code), equals([20, 40]));
-    });
+        expect(execute(code), equals([20, 40]));
+      },
+    );
 
-    test('I-MISC-150: List with spread inside if. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-MISC-150: List with spread inside if. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           main() {
             bool addMore = true;
             var extras = [3, 4];
             return [1, 2, if (addMore) ...extras, 5];
           }
         ''';
-      expect(execute(code), equals([1, 2, 3, 4, 5]));
-    });
+        expect(execute(code), equals([1, 2, 3, 4, 5]));
+      },
+    );
 
     test('I-MISC-151: Set with if and for. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -2777,7 +3029,9 @@ void main() {
       final result = execute(code);
       expect(result is Set, isTrue);
       expect(
-          result, equals({1, 12, 13})); // 2+10=12, 3+10=13, 2+10=12 (ignored)
+        result,
+        equals({1, 12, 13}),
+      ); // 2+10=12, 3+10=13, 2+10=12 (ignored)
     });
 
     test('I-MISC-152: Map with if and for. [2026-02-10 06:37] (PASS)', () {
@@ -2796,19 +3050,20 @@ void main() {
       final result = execute(code);
       expect(result is Map, isTrue);
       expect(
-          result,
-          equals({
-            'entry': 0,
-            'admin_key': true,
-            'user_a': 'aa',
-            'user_b': 'bb',
-            'exit': 1
-          }));
+        result,
+        equals({
+          'entry': 0,
+          'admin_key': true,
+          'user_a': 'aa',
+          'user_b': 'bb',
+          'exit': 1,
+        }),
+      );
     });
     test(
-        'I-MISC-154: Map for element must be MapEntry. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-154: Map for element must be MapEntry. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           main() {
             var items = [1, 2];
             return {
@@ -2817,16 +3072,19 @@ void main() {
             };
           }
         ''';
-      expect(
+        expect(
           () => execute(code),
           throwsRuntimeError(
-              contains("Expected a MapLiteralEntry ('key: value')")));
-    });
+            contains("Expected a MapLiteralEntry ('key: value')"),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-155: Map if element must be MapEntry. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-155: Map if element must be MapEntry. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           main() {
             bool addIt = true;
             return {
@@ -2835,46 +3093,55 @@ void main() {
             };
           }
         ''';
-      expect(
+        expect(
           () => execute(code),
           throwsRuntimeError(
-              contains("Expected a MapLiteralEntry ('key: value')")));
-    });
+            contains("Expected a MapLiteralEntry ('key: value')"),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-156: If condition not boolean fails. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-156: If condition not boolean fails. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           main() {
             return [if (1) 2];
           }
         ''';
-      expect(
+        expect(
           () => execute(code),
           throwsRuntimeError(
-              contains("Condition in collection 'if' must be a boolean")));
-    });
+            contains("Condition in collection 'if' must be a boolean"),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-157: For iterable not iterable fails. [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+      'I-MISC-157: For iterable not iterable fails. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
           main() {
             var notIterable = 1;
             return [for (var i in notIterable) i];
           }
         ''';
-      expect(() => execute(code),
-          throwsRuntimeError(contains("must be an Iterable")));
-    });
+        expect(
+          () => execute(code),
+          throwsRuntimeError(contains("must be an Iterable")),
+        );
+      },
+    );
   });
 
   // +++++ NOUVELLE SUITE DE TESTS POUR LES PONTS +++++
   group('Bridged Core Types Comprehensive', () {
     test(
-        'I-MISC-158: StringBuffer constructor, write, length, isEmpty, clear. [2026-02-10 06:37] (PASS)',
-        () {
-      final result = execute('''
+      'I-MISC-158: StringBuffer constructor, write, length, isEmpty, clear. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
         main() {
           var sb = StringBuffer();
           sb.write('Hello');
@@ -2888,8 +3155,9 @@ void main() {
           return [len1, empty1, len2, len3, empty2];
         }
       ''');
-      expect(result, equals([5, false, 11, 0, true]));
-    });
+        expect(result, equals([5, false, 11, 0, true]));
+      },
+    );
 
     test('I-MISC-159: Int.parse static method. [2026-02-10 06:37] (PASS)', () {
       final result = execute('''
@@ -2901,21 +3169,24 @@ void main() {
     });
 
     test(
-        'I-MISC-160: Int.parse static method - FormatException. [2026-02-10 06:37] (PASS)',
-        () {
-      expect(
-        () => execute('''
+      'I-MISC-160: Int.parse static method - FormatException. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(
+          () => execute('''
           main() {
             return int.parse('abc');
           }
         '''),
-        throwsA(isA<RuntimeD4rtException>().having(
-          (e) => e.message,
-          'message',
-          contains('FormatException'),
-        )),
-      );
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains('FormatException'),
+            ),
+          ),
+        );
+      },
+    );
 
     test('I-MISC-161: Double.nan static getter. [2026-02-10 06:37] (PASS)', () {
       final result = execute('''
@@ -2926,19 +3197,22 @@ void main() {
       expect(result, isA<double>());
     });
 
-    test('I-MISC-162: Double.infinity static getter. [2026-02-10 06:37] (PASS)',
-        () {
-      final result = execute('''
+    test(
+      'I-MISC-162: Double.infinity static getter. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
         main() {
           return double.infinity;
         }
       ''');
-      expect(result, equals(double.infinity));
-    });
+        expect(result, equals(double.infinity));
+      },
+    );
 
-    test('I-MISC-163: List.remove instance method. [2026-02-10 06:37] (PASS)',
-        () {
-      final result = execute('''
+    test(
+      'I-MISC-163: List.remove instance method. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = execute('''
         main() {
           var l = List.filled(3, 'a', growable: true);
           l.add('b'); // [a, a, a, b]
@@ -2956,8 +3230,9 @@ void main() {
         }
       ''');
 
-      expect(result, equals([true, 4, true, true]));
-    });
+        expect(result, equals([true, 4, true, true]));
+      },
+    );
   });
 
   group('Interpreter Core Feature Tests', () {
@@ -3015,41 +3290,47 @@ void main() {
       expect(execute(sourcePropAssign), equals(6));
     });
 
-    test('I-MISC-167: FunctionExpressionInvocation. [2026-02-10 06:37] (PASS)',
-        () {
-      expect(execute('main() { return (() => 10)(); }'), equals(10));
-      expect(execute('main() { var f = (int x) => x * 2; return f(5); }'),
-          equals(10));
-      const sourceComplex = '''
+    test(
+      'I-MISC-167: FunctionExpressionInvocation. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(execute('main() { return (() => 10)(); }'), equals(10));
+        expect(
+          execute('main() { var f = (int x) => x * 2; return f(5); }'),
+          equals(10),
+        );
+        const sourceComplex = '''
        class MyClass { Function fn; MyClass(this.fn); }
        main() {
          var obj = MyClass((a, b) => a + b);
          return obj.fn(3, 4);
        }
       ''';
-      expect(execute(sourceComplex), equals(7));
-    });
+        expect(execute(sourceComplex), equals(7));
+      },
+    );
 
-    test('I-MISC-168: FunctionReference (Tear-off). [2026-02-10 06:37] (PASS)',
-        () {
-      const sourceTopLevel = '''
+    test(
+      'I-MISC-168: FunctionReference (Tear-off). [2026-02-10 06:37] (PASS)',
+      () {
+        const sourceTopLevel = '''
          int add(int a, int b) => a + b;
          main() { var f = add; return f(5, 6); }
        ''';
-      expect(execute(sourceTopLevel), equals(11));
+        expect(execute(sourceTopLevel), equals(11));
 
-      const sourceStatic = '''
+        const sourceStatic = '''
          class Calc { static int mult(int a, int b) => a * b; }
          main() { var f = Calc.mult; return f(5, 6); }
        ''';
-      expect(execute(sourceStatic), equals(30));
+        expect(execute(sourceStatic), equals(30));
 
-      const sourceInstance = '''
+        const sourceInstance = '''
          class Greeter { String prefix; Greeter(this.prefix); String greet(String name) => '\$prefix \$name'; }
          main() { var g = Greeter('Hello'); var f = g.greet; return f('World'); }
        ''';
-      expect(execute(sourceInstance), equals('Hello World'));
-    });
+        expect(execute(sourceInstance), equals('Hello World'));
+      },
+    );
 
     test('I-MISC-169: AssertStatement. [2026-02-10 06:37] (PASS)', () {
       expect(() => execute('main() { assert(true); }'), returnsNormally);
@@ -3062,18 +3343,29 @@ void main() {
       //  - `toString()` therefore quotes a String message exactly as the SDK
       //    does. The no-message text is byte-identical to the old one.
       expect(
-          () => execute('main() { assert(false); }'),
-          throwsA(isA<AssertionError>()
+        () => execute('main() { assert(false); }'),
+        throwsA(
+          isA<AssertionError>()
               .having((e) => e.message, 'message', isNull)
-              .having((e) => e.toString(), 'toString', 'Assertion failed')));
+              .having((e) => e.toString(), 'toString', 'Assertion failed'),
+        ),
+      );
       expect(
-          () => execute('main() { assert(1 == 2, "Math is broken"); }'),
-          throwsA(isA<AssertionError>()
+        () => execute('main() { assert(1 == 2, "Math is broken"); }'),
+        throwsA(
+          isA<AssertionError>()
               .having((e) => e.message, 'message', 'Math is broken')
-              .having((e) => e.toString(), 'toString',
-                  'Assertion failed: "Math is broken"')));
-      expect(() => execute('main() { var x = 5; assert(x > 0); }'),
-          returnsNormally);
+              .having(
+                (e) => e.toString(),
+                'toString',
+                'Assertion failed: "Math is broken"',
+              ),
+        ),
+      );
+      expect(
+        () => execute('main() { var x = 5; assert(x > 0); }'),
+        returnsNormally,
+      );
     });
 
     test('I-MISC-170: EmptyStatement. [2026-02-10 06:37] (PASS)', () {
@@ -3081,43 +3373,64 @@ void main() {
       expect(execute('main() { int x=1; ; return x; }'), equals(1));
     });
 
-    test('I-MISC-171: NullAwareElement (?element). [2026-02-10 06:37] (PASS)',
-        () {
-      expect(execute('main() { int? x = 5; int? y; return [?x, ?y, 10]; }'),
-          equals([5, 10]));
-      expect(execute('main() { int? y; return [?y]; }'), equals([]));
-      // Test in set literal
-      expect(execute('main() { int? x = 5; int? y; return {?x, ?y, 10}; }'),
-          equals({5, 10}));
-    });
+    test(
+      'I-MISC-171: NullAwareElement (?element). [2026-02-10 06:37] (PASS)',
+      () {
+        expect(
+          execute('main() { int? x = 5; int? y; return [?x, ?y, 10]; }'),
+          equals([5, 10]),
+        );
+        expect(execute('main() { int? y; return [?y]; }'), equals([]));
+        // Test in set literal
+        expect(
+          execute('main() { int? x = 5; int? y; return {?x, ?y, 10}; }'),
+          equals({5, 10}),
+        );
+      },
+    );
 
-    test('I-MISC-173: SetOrMapLiteral edge cases. [2026-02-10 06:37] (PASS)',
-        () {
-      // Spread only - Map
-      expect(execute('main() { var m1 = {"a":1}; return {...m1}; }'),
-          equals({'a': 1}));
-      // Spread only - Set
-      expect(execute('main() { var s1 = {1}; return {...s1}; }'), equals({1}));
-      // Spread only - List (should become Set)
-      expect(execute('main() { var l1 = [1, 2]; return {...l1}; }'),
-          equals({1, 2}));
+    test(
+      'I-MISC-173: SetOrMapLiteral edge cases. [2026-02-10 06:37] (PASS)',
+      () {
+        // Spread only - Map
+        expect(
+          execute('main() { var m1 = {"a":1}; return {...m1}; }'),
+          equals({'a': 1}),
+        );
+        // Spread only - Set
+        expect(
+          execute('main() { var s1 = {1}; return {...s1}; }'),
+          equals({1}),
+        );
+        // Spread only - List (should become Set)
+        expect(
+          execute('main() { var l1 = [1, 2]; return {...l1}; }'),
+          equals({1, 2}),
+        );
 
-      expect(
+        expect(
           () => execute(
-              'main() { var s1 = {1}; var m1 = {"b":2}; return {...s1, ...m1}; }'),
-          throwsA(isA<
-              RuntimeD4rtException>())); // Dart behavior: Cannot mix Map and Set spreads
-      expect(
+            'main() { var s1 = {1}; var m1 = {"b":2}; return {...s1, ...m1}; }',
+          ),
+          throwsA(isA<RuntimeD4rtException>()),
+        ); // Dart behavior: Cannot mix Map and Set spreads
+        expect(
           () => execute(
-              'main() { var s1 = {1}; var m1 = {"b":2}; return {...m1, ...s1}; }'),
-          throwsA(isA<RuntimeD4rtException>()));
+            'main() { var s1 = {1}; var m1 = {"b":2}; return {...m1, ...s1}; }',
+          ),
+          throwsA(isA<RuntimeD4rtException>()),
+        );
 
-      expect(execute('main() { var s1 = {1, 2}; return <int>{...s1}; }'),
-          equals({1, 2}));
-      expect(
+        expect(
+          execute('main() { var s1 = {1, 2}; return <int>{...s1}; }'),
+          equals({1, 2}),
+        );
+        expect(
           execute('main() { var m1 = {"a":1}; return <String, int>{...m1}; }'),
-          equals({'a': 1}));
-    });
+          equals({'a': 1}),
+        );
+      },
+    );
   });
 
   group('Pattern Matching - Variable Declarations', () {
@@ -3164,29 +3477,36 @@ void main() {
     });
 
     test(
-        'I-MISC-178: List Pattern - Mismatch Length. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-178: List Pattern - Mismatch Length. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var [a, b] = [1]; // Too few elements
         }
       ''';
-      expect(
+        expect(
           () => execute(source),
           throwsRuntimeError(
-              contains('List pattern expected 2 elements, but List has 1')));
-    });
+            contains('List pattern expected 2 elements, but List has 1'),
+          ),
+        );
+      },
+    );
 
-    test('I-MISC-179: List Pattern - Mismatch Type. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+    test(
+      'I-MISC-179: List Pattern - Mismatch Type. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var [a] = "not a list";
         }
       ''';
-      expect(() => execute(source),
-          throwsRuntimeError(contains('Expected a List, but got String')));
-    });
+        expect(
+          () => execute(source),
+          throwsRuntimeError(contains('Expected a List, but got String')),
+        );
+      },
+    );
 
     test('I-MISC-180: Map Pattern - Simple. [2026-02-10 06:37] (PASS)', () {
       final source = '''
@@ -3199,50 +3519,61 @@ void main() {
     });
 
     test(
-        'I-MISC-181: Map Pattern - Different Key Types. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-181: Map Pattern - Different Key Types. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var map = {1: 'one', true: 'yes', 'k': 99};
           var {1: numVal, true: boolVal, 'k': strVal} = map;
           return numVal + boolVal + strVal.toString(); // 'one' + 'yes' + '99'
         }
       ''';
-      expect(execute(source), equals('oneyes99'));
-    });
+        expect(execute(source), equals('oneyes99'));
+      },
+    );
 
-    test('I-MISC-182: Map Pattern - Missing Key. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+    test(
+      'I-MISC-182: Map Pattern - Missing Key. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var {'a': x, 'b': y} = {'a': 1}; // Missing key 'b'
         }
       ''';
-      expect(() => execute(source),
-          throwsRuntimeError(contains("Map pattern key 'b' not found")));
-    });
+        expect(
+          () => execute(source),
+          throwsRuntimeError(contains("Map pattern key 'b' not found")),
+        );
+      },
+    );
 
-    test('I-MISC-184: Map Pattern - Mismatch Type. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+    test(
+      'I-MISC-184: Map Pattern - Mismatch Type. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var {'a': x} = [1, 2]; // Not a map
         }
       ''';
-      expect(() => execute(source),
-          throwsRuntimeError(contains('Expected a Map, but got List')));
-    });
+        expect(
+          () => execute(source),
+          throwsRuntimeError(contains('Expected a Map, but got List')),
+        );
+      },
+    );
 
-    test('I-MISC-185: Record Pattern - Positional. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+    test(
+      'I-MISC-185: Record Pattern - Positional. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var (a, b) = (10, 'world');
           return a.toString() + b; // '10' + 'world'
         }
       ''';
-      expect(execute(source), equals('10world'));
-    });
+        expect(execute(source), equals('10world'));
+      },
+    );
 
     test('I-MISC-186: Record Pattern - Named. [2026-02-10 06:37] (PASS)', () {
       final source = '''
@@ -3255,76 +3586,89 @@ void main() {
     });
 
     test(
-        'I-MISC-187: Record Pattern - Positional Mismatch Count. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-187: Record Pattern - Positional Mismatch Count. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var (a, b) = (1,); // Too few positional fields
         }
       ''';
-      expect(
+        expect(
           () => execute(source),
-          throwsRuntimeError(contains(
-              'Record pattern expected at least 2 positional fields, but Record only has 1')));
-    });
+          throwsRuntimeError(
+            contains(
+              'Record pattern expected at least 2 positional fields, but Record only has 1',
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-188: Record Pattern - Named Mismatch Name. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-188: Record Pattern - Named Mismatch Name. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var (value: v) = (data: 100); // Wrong named field
         }
       ''';
-      expect(
+        expect(
           () => execute(source),
-          throwsRuntimeError(contains(
-              "Record pattern named field 'value' not found in the record.")));
-    });
+          throwsRuntimeError(
+            contains(
+              "Record pattern named field 'value' not found in the record.",
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-189: Record Pattern - Mismatch Type. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-189: Record Pattern - Mismatch Type. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var (a,) = 123; // Not a record
         }
       ''';
-      expect(
+        expect(
           () => execute(source),
-          throwsRuntimeError(contains(
-              "Expected a Record, but got int"))); // Assuming InterpretedRecord is not int
-    });
+          throwsRuntimeError(contains("Expected a Record, but got int")),
+        ); // Assuming InterpretedRecord is not int
+      },
+    );
 
     test(
-        'I-MISC-190: Combined Pattern - List of Records. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-190: Combined Pattern - List of Records. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var [(val: x), (val: y)] = [(val: 5), (val: 10)];
           return x + y; // 5 + 10 = 15
         }
       ''';
-      expect(execute(source), equals(15));
-    });
+        expect(execute(source), equals(15));
+      },
+    );
 
     test(
-        'I-MISC-191: Combined Pattern - Record with List and Map. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-191: Combined Pattern - Record with List and Map. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var (list: [a,b], map: {'k': c}) = (list: [1, 2], map: {'k': 3});
           return a + b + c; // 1 + 2 + 3 = 6
         }
       ''';
-      expect(execute(source), equals(6));
-    });
+        expect(execute(source), equals(6));
+      },
+    );
   });
 
   test(
-      'I-MISC-192: Assignation par pattern (Record). [2026-02-10 06:37] (PASS)',
-      () {
-    final source = '''
+    'I-MISC-192: Assignation par pattern (Record). [2026-02-10 06:37] (PASS)',
+    () {
+      final source = '''
       main() {
         var a;
         var c;
@@ -3333,9 +3677,10 @@ void main() {
         return [a, c]; // Retourner les valeurs liées pour vérification
       }
     ''';
-    final result = execute(source);
-    expect(result, equals([1, 2]));
-  });
+      final result = execute(source);
+      expect(result, equals([1, 2]));
+    },
+  );
 
   group('Switch Expressions', () {
     test('I-MISC-193: Basic constant match. [2026-02-10 06:37] (PASS)', () {
@@ -3369,9 +3714,9 @@ void main() {
     });
 
     test(
-        'I-MISC-195: Non-exhaustive switch expression throws error. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-195: Non-exhaustive switch expression throws error. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var value = 3; // Pas de cas pour 3
           var result = switch (value) {
@@ -3382,11 +3727,14 @@ void main() {
           return result;
         }
       ''';
-      expect(
+        expect(
           () => execute(source),
-          throwsRuntimeError(contains(
-              'Switch expression was not exhaustive for value: 3'))); // Message d'erreur attendu
-    });
+          throwsRuntimeError(
+            contains('Switch expression was not exhaustive for value: 3'),
+          ),
+        ); // Message d'erreur attendu
+      },
+    );
 
     test('I-MISC-197: Pattern binding (Record). [2026-02-10 06:37] (PASS)', () {
       final source = '''
@@ -3416,9 +3764,10 @@ void main() {
       expect(execute(source), equals(6));
     });
 
-    test('I-MISC-456: Case with \'when\' clause (true). [2026-02-12] (PASS)',
-        () {
-      final source = '''
+    test(
+      'I-MISC-456: Case with \'when\' clause (true). [2026-02-12] (PASS)',
+      () {
+        final source = '''
         main() {
           var point = (x: 10, y: 5);
           var result = switch (point) {
@@ -3428,12 +3777,14 @@ void main() {
           return result;
         }
       ''';
-      expect(execute(source), equals("X > Y"));
-    });
+        expect(execute(source), equals("X > Y"));
+      },
+    );
 
-    test('I-MISC-457: Case with \'when\' clause (false). [2026-02-12] (PASS)',
-        () {
-      final source = '''
+    test(
+      'I-MISC-457: Case with \'when\' clause (false). [2026-02-12] (PASS)',
+      () {
+        final source = '''
         main() {
           var point = (x: 3, y: 8);
           var result = switch (point) {
@@ -3443,12 +3794,14 @@ void main() {
           return result;
         }
       ''';
-      expect(execute(source), equals("Other condition"));
-    });
+        expect(execute(source), equals("Other condition"));
+      },
+    );
 
-    test('I-MISC-201: When clause must be boolean. [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+    test(
+      'I-MISC-201: When clause must be boolean. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         main() {
           var val = 1;
           var result = switch (val) {
@@ -3458,9 +3811,12 @@ void main() {
           return result;
         }
       ''';
-      expect(() => execute(source),
-          throwsRuntimeError(contains('must evaluate to a boolean')));
-    });
+        expect(
+          () => execute(source),
+          throwsRuntimeError(contains('must evaluate to a boolean')),
+        );
+      },
+    );
   });
 
   group('Return Type Checking Tests', () {
@@ -3469,79 +3825,94 @@ void main() {
     setUp(() {
       interpreter = D4rt();
       interpreter.registerBridgedClass(
-          BridgedClass(
-            nativeType: DummyNative,
-            name: 'Dummy',
-            constructors: {'': (v, p, n) => DummyNative()},
-            methods: {
-              'nativeMethod': (v, t, p, n, typeArgs) =>
-                  (t as DummyNative).nativeMethod(),
-            },
-            getters: {},
-            setters: {},
-            staticGetters: {},
-            staticSetters: {},
-            staticMethods: {},
-          ),
-          'package:test/dummy.dart');
+        BridgedClass(
+          nativeType: DummyNative,
+          name: 'Dummy',
+          constructors: {'': (v, p, n) => DummyNative()},
+          methods: {
+            'nativeMethod': (v, t, p, n, typeArgs) =>
+                (t as DummyNative).nativeMethod(),
+          },
+          getters: {},
+          setters: {},
+          staticGetters: {},
+          staticSetters: {},
+          staticMethods: {},
+        ),
+        'package:test/dummy.dart',
+      );
     });
 
-    test('I-MISC-202: Correct return type (int). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+    test(
+      'I-MISC-202: Correct return type (int). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         int getNumber() {
           return 10;
         }
         main() => getNumber();
       ''';
-      expect(execute(source), equals(10));
-    });
+        expect(execute(source), equals(10));
+      },
+    );
 
-    test('I-MISC-203: Correct return type (String). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+    test(
+      'I-MISC-203: Correct return type (String). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         String getText() {
           return "hello";
         }
         main() => getText();
       ''';
-      expect(execute(source), equals("hello"));
-    });
+        expect(execute(source), equals("hello"));
+      },
+    );
 
     test(
-        'I-MISC-204: Incorrect return type (String instead of int). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-204: Incorrect return type (String instead of int). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         int getNumber() {
           return "not a number"; // Error
         }
         main() => getNumber();
       ''';
-      expect(
+        expect(
           () => execute(source),
-          throwsRuntimeError(contains(
-              "A value of type 'String' can't be returned from the function 'getNumber' because it has a return type of 'int'.")));
-    });
+          throwsRuntimeError(
+            contains(
+              "A value of type 'String' can't be returned from the function 'getNumber' because it has a return type of 'int'.",
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-206: Incorrect return type (int instead of String). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-206: Incorrect return type (int instead of String). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         String getText() {
           return 123; // Error
         }
         main() => getText();
       ''';
-      expect(
+        expect(
           () => execute(source),
-          throwsRuntimeError(contains(
-              "A value of type 'int' can't be returned from the function 'getText' because it has a return type of 'String'.")));
-    });
+          throwsRuntimeError(
+            contains(
+              "A value of type 'int' can't be returned from the function 'getText' because it has a return type of 'String'.",
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-207: Correct return type (void, implicit). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-207: Correct return type (void, implicit). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         void doNothing() {
           // No return statement
         }
@@ -3550,13 +3921,14 @@ void main() {
           return 'ok'; // Verify execution completes
         }
       ''';
-      expect(execute(source), equals('ok'));
-    });
+        expect(execute(source), equals('ok'));
+      },
+    );
 
     test(
-        'I-MISC-208: Correct return type (void, explicit null). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-208: Correct return type (void, explicit null). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         void doNothingExplicit() {
           return; // Equivalent to return null;
         }
@@ -3565,153 +3937,181 @@ void main() {
           return 'ok';
         }
       ''';
-      expect(execute(source), equals('ok'));
-    });
+        expect(execute(source), equals('ok'));
+      },
+    );
 
     test(
-        'I-MISC-209: Incorrect return type (non-null for void). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-209: Incorrect return type (non-null for void). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         void doNothingWrong() {
           return 5; // Error
         }
         main() => doNothingWrong();
       ''';
-      expect(
+        expect(
           () => execute(source),
-          throwsRuntimeError(contains(
-              "A value of type 'int' can't be returned from the function 'doNothingWrong' because it has a return type of 'void'.")));
-    });
+          throwsRuntimeError(
+            contains(
+              "A value of type 'int' can't be returned from the function 'doNothingWrong' because it has a return type of 'void'.",
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-210: Correct return type (dynamic, any value). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-210: Correct return type (dynamic, any value). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         dynamic getAnything() {
           return true;
         }
         main() => getAnything();
       ''';
-      expect(execute(source), isTrue);
+        expect(execute(source), isTrue);
 
-      final source2 = '''
+        final source2 = '''
         dynamic getAnythingElse() {
           return null;
         }
         main() => getAnythingElse();
       ''';
-      expect(execute(source2), isNull);
-    });
+        expect(execute(source2), isNull);
+      },
+    );
 
     test(
-        'I-MISC-211: Correct return type (Object, non-null). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-211: Correct return type (Object, non-null). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         Object getObject() {
           return [1, 2];
         }
         main() => getObject();
       ''';
-      expect(execute(source), equals([1, 2]));
-    });
+        expect(execute(source), equals([1, 2]));
+      },
+    );
 
     test(
-        'I-MISC-212: Incorrect return type (null for Object). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-212: Incorrect return type (null for Object). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         Object getObjectWrong() {
           return null; // Error
         }
         main() => getObjectWrong();
       ''';
-      expect(
+        expect(
           () => execute(source),
-          throwsRuntimeError(contains(
-              "A value of type 'Null' can't be returned from the function 'getObjectWrong' because it has a return type of 'Object'.")));
-    });
+          throwsRuntimeError(
+            contains(
+              "A value of type 'Null' can't be returned from the function 'getObjectWrong' because it has a return type of 'Object'.",
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-213: Correct return type (int? nullable, int value). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-213: Correct return type (int? nullable, int value). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         int? getNullableInt() {
           return 42;
         }
         main() => getNullableInt();
       ''';
-      expect(execute(source), equals(42));
-    });
+        expect(execute(source), equals(42));
+      },
+    );
 
     test(
-        'I-MISC-214: Correct return type (int? nullable, null value). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-214: Correct return type (int? nullable, null value). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         int? getNullableIntNull() {
           return null;
         }
         main() => getNullableIntNull();
       ''';
-      expect(execute(source), isNull);
-    });
+        expect(execute(source), isNull);
+      },
+    );
 
     test(
-        'I-MISC-215: Incorrect return type (String for int?). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-215: Incorrect return type (String for int?). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         int? getNullableIntWrong() {
           return "nope"; // Error
         }
         main() => getNullableIntWrong();
       ''';
-      expect(
+        expect(
           () => execute(source),
-          throwsRuntimeError(contains(
-              "A value of type 'String' can't be returned from the function 'getNullableIntWrong' because it has a return type of 'int?'.")));
-    });
+          throwsRuntimeError(
+            contains(
+              "A value of type 'String' can't be returned from the function 'getNullableIntWrong' because it has a return type of 'int?'.",
+            ),
+          ),
+        );
+      },
+    );
 
-    test('I-MISC-217: Correct subtype (int for num). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+    test(
+      'I-MISC-217: Correct subtype (int for num). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         num getNum() {
           return 5; // int is subtype of num
         }
         main() => getNum();
       ''';
-      expect(execute(source), equals(5));
-    });
+        expect(execute(source), equals(5));
+      },
+    );
 
     test(
-        'I-MISC-218: Correct subtype (double for num). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-218: Correct subtype (double for num). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         num getNumFloat() {
           return 3.14; // double is subtype of num
         }
         main() => getNumFloat();
       ''';
-      expect(execute(source), equals(3.14));
-    });
+        expect(execute(source), equals(3.14));
+      },
+    );
 
     test(
-        'I-MISC-219: Incorrect subtype (String for num). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-219: Incorrect subtype (String for num). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         num getNumWrong() {
           return "text"; // Error
         }
         main() => getNumWrong();
       ''';
-      expect(
+        expect(
           () => execute(source),
-          throwsRuntimeError(contains(
-              "A value of type 'String' can't be returned from the function 'getNumWrong' because it has a return type of 'num'.")));
-    });
+          throwsRuntimeError(
+            contains(
+              "A value of type 'String' can't be returned from the function 'getNumWrong' because it has a return type of 'num'.",
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-220: Correct return type (Bridged type). [2026-02-10 06:37] (PASS)',
-        () {
-      // Requires DummyNative and its bridge definition
-      final source = '''
+      'I-MISC-220: Correct return type (Bridged type). [2026-02-10 06:37] (PASS)',
+      () {
+        // Requires DummyNative and its bridge definition
+        final source = '''
         import 'package:test/dummy.dart';
          Dummy getDummy() {
            return Dummy();
@@ -3721,38 +4121,47 @@ void main() {
            return d.nativeMethod(); // Call method to ensure it's the right type
          }
        ''';
-      expect(interpreter.execute(source: source),
-          equals('DummyNative method result'));
-    });
+        expect(
+          interpreter.execute(source: source),
+          equals('DummyNative method result'),
+        );
+      },
+    );
 
     test(
-        'I-MISC-221: Incorrect return type (int for Bridged type). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-221: Incorrect return type (int for Bridged type). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         import 'package:test/dummy.dart';
          Dummy getDummyWrong() {
            return 123; // Error
          }
          main() => getDummyWrong();
        ''';
-      expect(
+        expect(
           () => interpreter.execute(source: source),
-          throwsRuntimeError(contains(
-              "A value of type 'int' can't be returned from the function 'getDummyWrong' because it has a return type of 'Dummy'.")));
-    });
+          throwsRuntimeError(
+            contains(
+              "A value of type 'int' can't be returned from the function 'getDummyWrong' because it has a return type of 'Dummy'.",
+            ),
+          ),
+        );
+      },
+    );
 
     test(
-        'I-MISC-222: Correct return type (null for Bridged type nullable). [2026-02-10 06:37] (PASS)',
-        () {
-      final source = '''
+      'I-MISC-222: Correct return type (null for Bridged type nullable). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         import 'package:test/dummy.dart';
          Dummy? getNullableDummy() {
            return null;
          }
          main() => getNullableDummy();
        ''';
-      expect(interpreter.execute(source: source), isNull);
-    });
+        expect(interpreter.execute(source: source), isNull);
+      },
+    );
   });
 }
 

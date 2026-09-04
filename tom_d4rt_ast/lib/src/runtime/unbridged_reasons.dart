@@ -37,15 +37,19 @@ const Map<String, String> kUnbridgedReasons = <String, String>{
   'Zone': _zone,
   'runZoned': _zone,
   'runZonedGuarded': _zone,
-  'Expando': 'an identity side-table needs stable native identity, which a '
+  'Expando':
+      'an identity side-table needs stable native identity, which a '
       'value crossing the bridge does not have',
-  'WeakReference': 'weakness is a property of the native heap, and interpreter '
+  'WeakReference':
+      'weakness is a property of the native heap, and interpreter '
       'structures the script cannot see keep the target reachable',
-  'Finalizer': 'same as WeakReference, plus a GC-timed callback would be '
+  'Finalizer':
+      'same as WeakReference, plus a GC-timed callback would be '
       'non-deterministic re-entry into sandboxed code',
 
   // Deferred pending a concrete consumer — no semantic obstacle, simply unbuilt.
-  'Link': 'deferred: symlink manipulation, would need FilesystemPermission '
+  'Link':
+      'deferred: symlink manipulation, would need FilesystemPermission '
       'path granularity and no consumer has asked',
   'WebSocket': _webSocket,
   'WebSocketTransformer': _webSocket,
@@ -58,7 +62,8 @@ const Map<String, String> kUnbridgedReasons = <String, String>{
   'ZLibCodec': _compression,
   'ZLibEncoder': _compression,
   'ZLibDecoder': _compression,
-  'MutableRectangle': 'deferred: the immutable Rectangle is bridged and covers '
+  'MutableRectangle':
+      'deferred: the immutable Rectangle is bridged and covers '
       'the common case',
   'Float32x4': _simd,
   'Int32x4': _simd,
@@ -68,17 +73,21 @@ const Map<String, String> kUnbridgedReasons = <String, String>{
   'Float64x2List': _simd,
 };
 
-const String _zone = 'zones intercept the control flow, scheduling and error '
+const String _zone =
+    'zones intercept the control flow, scheduling and error '
     'handling the interpreter owns, so a bridged Zone would be a no-op shell';
 
-const String _webSocket = 'deferred: a large stateful surface (upgrade '
+const String _webSocket =
+    'deferred: a large stateful surface (upgrade '
     'handshake, ping/pong, close codes) behind NetworkPermission that no '
     'current script exercises';
 
-const String _compression = 'deferred: compression codecs, to be added on '
+const String _compression =
+    'deferred: compression codecs, to be added on '
     'concrete demand';
 
-const String _simd = 'deferred: every lane operation would cost a bridge '
+const String _simd =
+    'deferred: every lane operation would cost a bridge '
     'crossing, so bridged SIMD is slower than the scalar code it replaces';
 
 /// The message for a failed variable lookup of [name].

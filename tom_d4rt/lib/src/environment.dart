@@ -391,8 +391,11 @@ class Environment {
     // lazy substrate resolves it on first lookup and memoizes (behaviour
     // unchanged for eager callers). See [defineBridgeLazy].
     defineBridgeLazy(
-        bridgedClass.name, bridgedClass.nativeType, () => bridgedClass,
-        sourceUri: sourceUri);
+      bridgedClass.name,
+      bridgedClass.nativeType,
+      () => bridgedClass,
+      sourceUri: sourceUri,
+    );
   }
 
   /// Registers a bridged class as a **deferred thunk** keyed by [name], plus a
@@ -414,16 +417,21 @@ class Environment {
   /// already-taken [name], the name becomes ambiguous — see
   /// [_markAmbiguousBridgeName].
   void defineBridgeLazy(
-      String name, Type nativeType, BridgedClass Function() thunk,
-      {String? sourceUri}) {
+    String name,
+    Type nativeType,
+    BridgedClass Function() thunk, {
+    String? sourceUri,
+  }) {
     final priorBridge = _bridgedClassesRaw?[name];
-    final collides = _values.containsKey(name) ||
+    final collides =
+        _values.containsKey(name) ||
         priorBridge != null ||
         _bridgedEnums.containsKey(name);
     if (collides) {
       // CHECK: Also collides with bridged enums / values.
       Logger.warn(
-          "Redefining bridged class or colliding with existing definition: $name");
+        "Redefining bridged class or colliding with existing definition: $name",
+      );
       // Preserve a displaced same-name bridge so every candidate stays
       // enumerable (two packages exporting an identically named class).
       final built = thunk();
@@ -472,24 +480,33 @@ class Environment {
   /// Returns true when [replacement] is a platform declaration that [prior]
   /// shadows, meaning the caller must leave the bare [name] bound to [prior]
   /// — see [_isPlatformSourceUri].
-  bool _markAmbiguousBridgeName(String name, BridgedClass prior,
-      BridgedClass replacement, String? replacementSourceUri) {
+  bool _markAmbiguousBridgeName(
+    String name,
+    BridgedClass prior,
+    BridgedClass replacement,
+    String? replacementSourceUri,
+  ) {
     final priorSourceUri = _bridgeSourceUrisRaw?[name];
     final qualified = <String, ({String sourceUri, BridgedClass bridge})>{};
     _collectAmbiguityCandidate(qualified, prior, priorSourceUri);
     _collectAmbiguityCandidate(qualified, replacement, replacementSourceUri);
     if (qualified.length < 2) {
       Logger.warn(
-          "Bridged name '$name' is declared by more than one class, but the "
-          "declarations cannot be told apart by package qualifier; the last "
-          "registration wins.");
+        "Bridged name '$name' is declared by more than one class, but the "
+        "declarations cannot be told apart by package qualifier; the last "
+        "registration wins.",
+      );
       return false;
     }
     // Every candidate stays addressable as `qualifier.Name` whether or not the
     // bare name ends up rejected, so bind the aliases before deciding.
     qualified.forEach((qualifier, candidate) {
       _bindQualifierAlias(
-          qualifier, name, candidate.bridge, candidate.sourceUri);
+        qualifier,
+        name,
+        candidate.bridge,
+        candidate.sourceUri,
+      );
     });
     // Dart's platform-library precedence: a declaration from a `dart:*` library
     // is shadowed by one from a non-platform library, silently and without
@@ -499,10 +516,12 @@ class Environment {
     // package — leave the name with no winner.
     final peers = _peersAfterPlatformPrecedence(qualified);
     if (peers.length < 2) {
-      Logger.debugLazy(() =>
-          "[Environment] Bridged name '$name' is declared by a platform and a "
-          "non-platform library; the non-platform declaration wins the bare "
-          "name (Dart platform precedence).");
+      Logger.debugLazy(
+        () =>
+            "[Environment] Bridged name '$name' is declared by a platform and a "
+            "non-platform library; the non-platform declaration wins the bare "
+            "name (Dart platform precedence).",
+      );
       // The bare name must end up on the non-platform declaration. The caller
       // binds `replacement`, so it only needs to step aside when `replacement`
       // is the platform one.
@@ -513,9 +532,11 @@ class Environment {
     peers.forEach((qualifier, candidate) {
       candidates[qualifier] = candidate.sourceUri;
     });
-    Logger.warn("Bridged name '$name' is declared by more than one library; "
-        "unqualified use is now an error. Qualify it as "
-        "${candidates.keys.map((q) => '$q.$name').join(' or ')}.");
+    Logger.warn(
+      "Bridged name '$name' is declared by more than one library; "
+      "unqualified use is now an error. Qualify it as "
+      "${candidates.keys.map((q) => '$q.$name').join(' or ')}.",
+    );
     return false;
   }
 
@@ -523,8 +544,9 @@ class Environment {
   /// candidate is present, leaving the set that genuinely competes for the bare
   /// name. A set that is all-platform or all-non-platform is returned unchanged.
   static Map<String, ({String sourceUri, BridgedClass bridge})>
-      _peersAfterPlatformPrecedence(
-          Map<String, ({String sourceUri, BridgedClass bridge})> qualified) {
+  _peersAfterPlatformPrecedence(
+    Map<String, ({String sourceUri, BridgedClass bridge})> qualified,
+  ) {
     final nonPlatform = <String, ({String sourceUri, BridgedClass bridge})>{};
     qualified.forEach((qualifier, candidate) {
       if (!_isPlatformSourceUri(candidate.sourceUri)) {
@@ -554,21 +576,28 @@ class Environment {
   /// when two candidates map to the same qualifier — a qualifier that resolves
   /// to two classes disambiguates nothing.
   void _collectAmbiguityCandidate(
-      Map<String, ({String sourceUri, BridgedClass bridge})> qualified,
-      BridgedClass bridge,
-      String? sourceUri) {
+    Map<String, ({String sourceUri, BridgedClass bridge})> qualified,
+    BridgedClass bridge,
+    String? sourceUri,
+  ) {
     if (sourceUri == null) return;
     final qualifier = _qualifierForSourceUri(sourceUri);
     if (qualifier == null) return;
     qualified.putIfAbsent(
-        qualifier, () => (sourceUri: sourceUri, bridge: bridge));
+      qualifier,
+      () => (sourceUri: sourceUri, bridge: bridge),
+    );
   }
 
   /// Makes `qualifier.`[name] resolve to [bridge], reusing the existing alias
   /// environment for [qualifier] when one is already bound (several ambiguous
   /// names can share a package).
   void _bindQualifierAlias(
-      String qualifier, String name, BridgedClass bridge, String sourceUri) {
+    String qualifier,
+    String name,
+    BridgedClass bridge,
+    String sourceUri,
+  ) {
     final existing = _prefixedImportsOrNew[qualifier];
     if (existing == null) {
       _prefixedImportsOrNew[qualifier] = Environment()
@@ -632,7 +661,10 @@ class Environment {
   /// the same instance as [replacement]. Also drops [replacement] from the
   /// shadow list, since it is becoming the primary.
   void _recordShadowedBridge(
-      String name, BridgedClass? prior, BridgedClass replacement) {
+    String name,
+    BridgedClass? prior,
+    BridgedClass replacement,
+  ) {
     if (prior == null || identical(prior, replacement)) return;
     final shadowed = _shadowedBridgesOrNew.putIfAbsent(name, () => []);
     if (!shadowed.any((b) => identical(b, prior))) shadowed.add(prior);
@@ -740,13 +772,15 @@ class Environment {
     }
     if (target == null) {
       Logger.warn(
-          "[Environment] Cannot register alias '$aliasName' -> '$targetName': "
-          "target class not found");
+        "[Environment] Cannot register alias '$aliasName' -> '$targetName': "
+        "target class not found",
+      );
       return;
     }
     _bridgedClassesOrNew[aliasName] = target;
     Logger.debug(
-        "[Environment] Defined bridge alias: $aliasName -> $targetName");
+      "[Environment] Defined bridge alias: $aliasName -> $targetName",
+    );
   }
 
   /// Converts a native object to a bridged instance if a bridge exists.
@@ -800,8 +834,9 @@ class Environment {
       // chain, iterating every bridge, or running the name-fallback toString.
       if (current._unbridgedTypeCache.contains(runtimeType)) {
         throw RuntimeD4rtException(
-            'Cannot bridge native object: No registered bridged class found '
-            'for native type $runtimeType.');
+          'Cannot bridge native object: No registered bridged class found '
+          'for native type $runtimeType.',
+        );
       }
       current = current._enclosing;
     }
@@ -892,10 +927,9 @@ class Environment {
     for (final m in matches) {
       supertypeUnion.addAll(BridgedClass.transitiveSupertypeNames(m.name));
     }
-    final leaves =
-        matches.where((m) => !supertypeUnion.contains(m.name)).toList(
-              growable: false,
-            );
+    final leaves = matches
+        .where((m) => !supertypeUnion.contains(m.name))
+        .toList(growable: false);
     return leaves;
   }
 
@@ -947,20 +981,26 @@ class Environment {
         // Extract the base type name before '<' for accurate matching.
         // Using contains() was too broad — e.g., 'ListMapView<int>'.contains('View<')
         // would falsely match the Flutter View widget bridge.
-        final baseTypeName =
-            nativeTypeName.substring(0, nativeTypeName.indexOf('<'));
+        final baseTypeName = nativeTypeName.substring(
+          0,
+          nativeTypeName.indexOf('<'),
+        );
         bridgedClass = current._bridgedClassesLookupByType.entries
-            .firstWhereOrNull((e) =>
-                baseTypeName == e.value.name ||
-                (e.value.nativeNames?.contains(baseTypeName) ?? false))
+            .firstWhereOrNull(
+              (e) =>
+                  baseTypeName == e.value.name ||
+                  (e.value.nativeNames?.contains(baseTypeName) ?? false),
+            )
             ?.value;
         // Suffix match fallback: e.g., CastList → List, ListIterator → Iterator
         // Handles types that embed the bridge name as a suffix.
         bridgedClass ??= current._bridgedClassesLookupByType.entries
-            .firstWhereOrNull((e) =>
-                e.value.name.length >= 3 &&
-                baseTypeName.endsWith(e.value.name) &&
-                baseTypeName.length > e.value.name.length)
+            .firstWhereOrNull(
+              (e) =>
+                  e.value.name.length >= 3 &&
+                  baseTypeName.endsWith(e.value.name) &&
+                  baseTypeName.length > e.value.name.length,
+            )
             ?.value;
       }
       bridgedClass ??= current._bridgedClassesLookupByType.entries
@@ -987,25 +1027,28 @@ class Environment {
     // header for the `MappedListIterable` → `Map` false-positive this guards).
     current = this;
     while (current != null) {
-      final bridgedClass =
-          current._bridgedClassesLookupByType.entries.firstWhereOrNull((e) {
-        final bridgeName = e.value.name;
-        // Only match if the bridge name is a substantial prefix (>= 3 chars)
-        // and the native type name starts with it followed by more chars.
-        return bridgeName.length >= 3 &&
-            nativeTypeNameFull.startsWith(bridgeName) &&
-            nativeTypeNameFull.length > bridgeName.length;
-      })?.value;
+      final bridgedClass = current._bridgedClassesLookupByType.entries
+          .firstWhereOrNull((e) {
+            final bridgeName = e.value.name;
+            // Only match if the bridge name is a substantial prefix (>= 3 chars)
+            // and the native type name starts with it followed by more chars.
+            return bridgeName.length >= 3 &&
+                nativeTypeNameFull.startsWith(bridgeName) &&
+                nativeTypeNameFull.length > bridgeName.length;
+          })
+          ?.value;
       if (bridgedClass != null) {
         Logger.debug(
-            "[Environment] Matched native type '$nativeTypeNameFull' to bridge '${bridgedClass.name}' via prefix matching");
+          "[Environment] Matched native type '$nativeTypeNameFull' to bridge '${bridgedClass.name}' via prefix matching",
+        );
         return bridgedClass;
       }
       current = current._enclosing;
     }
 
     throw RuntimeD4rtException(
-        'Cannot bridge native object: No registered bridged class found for native type $nativeType.');
+      'Cannot bridge native object: No registered bridged class found for native type $nativeType.',
+    );
   }
 
   /// Finds the bridged class whose `nativeNames` contains the LONGEST entry
@@ -1020,7 +1063,9 @@ class Environment {
   /// Choosing the longest prefix means an exact `_HashSetIterator` entry on
   /// Iterator wins over Set's shorter `_HashSet` prefix.
   BridgedClass? _longestNativeNamePrefixMatch(
-      Environment env, String nativeTypeName) {
+    Environment env,
+    String nativeTypeName,
+  ) {
     BridgedClass? best;
     int bestLen = 0;
     for (final entry in env._bridgedClassesLookupByType.entries) {
@@ -1043,7 +1088,8 @@ class Environment {
         _bridgedClasses.containsKey(name) ||
         _bridgedEnums.containsKey(name)) {
       Logger.warn(
-          "Redefining bridged enum or colliding with existing definition: $name");
+        "Redefining bridged enum or colliding with existing definition: $name",
+      );
     }
     _bridgedEnumsOrNew[name] = bridgedEnum;
     Logger.debugLazy(() => "[Environment] Defined bridge for enum: $name");
@@ -1061,7 +1107,9 @@ class Environment {
   }
 
   BridgedEnum? _findBridgedEnumForValueImpl(
-      Object value, Set<Environment> visited) {
+    Object value,
+    Set<Environment> visited,
+  ) {
     // Cluster-D follow-up (pointer_data_test stack overflow): prefixed
     // imports can form cycles in the env graph (a prefixed env's
     // `_enclosing` may point back into an env that already contains it
@@ -1098,7 +1146,9 @@ class Environment {
   }
 
   BridgedEnumValue? _getBridgedEnumValueImpl(
-      Object value, Set<Environment> visited) {
+    Object value,
+    Set<Environment> visited,
+  ) {
     // Cluster-D follow-up (pointer_data_test stack overflow): prefixed
     // imports can form cycles in the env graph (a prefixed env's
     // `_enclosing` may point back into an env that already contains it
@@ -1175,7 +1225,8 @@ class Environment {
     while (env != null) {
       if (Logger.isDebug) {
         Logger.debug(
-            '[Env.get] Attempting to get "$name" in env: ${env.hashCode}'); // Log attempt + env hash
+          '[Env.get] Attempting to get "$name" in env: ${env.hashCode}',
+        ); // Log attempt + env hash
       }
 
       // Prefixed-import resolution only applies when this environment actually
@@ -1188,7 +1239,8 @@ class Environment {
         if (env._prefixedImports.containsKey(name)) {
           if (Logger.isDebug) {
             Logger.debug(
-                "[Env.get] Name '$name' corresponds to a prefixed import. Returning the prefixed environment.");
+              "[Env.get] Name '$name' corresponds to a prefixed import. Returning the prefixed environment.",
+            );
           }
           return env._prefixedImports[name]; // Return the Environment itself.
         }
@@ -1202,7 +1254,8 @@ class Environment {
             if (env._prefixedImports.containsKey(prefix)) {
               if (Logger.isDebug) {
                 Logger.debug(
-                    "[Env.get] Prefixed access for '$name'. Searching for '$identifier' in the prefixed environment '$prefix'.");
+                  "[Env.get] Prefixed access for '$name'. Searching for '$identifier' in the prefixed environment '$prefix'.",
+                );
               }
               // Recursive call on the stored environment for the prefix.
               // No need to check _enclosing here, the prefixed environment will do that.
@@ -1212,7 +1265,8 @@ class Environment {
                 // If the identifier is not found in the prefixed environment, we want the original error to be propagated.
                 // Or, according to the desired semantics, we could raise a new error indicating that 'identifier' was not found IN 'prefix'.
                 throw RuntimeD4rtException(
-                    "Undefined name '$identifier' in imported prefix '$prefix'. Original error: ${e.message}");
+                  "Undefined name '$identifier' in imported prefix '$prefix'. Original error: ${e.message}",
+                );
               }
             } else {
               // The prefix itself is not found as a prefixed import.
@@ -1221,17 +1275,20 @@ class Environment {
               // So, if the prefix is not in _prefixedImports, it's an error.
               if (Logger.isDebug) {
                 Logger.debug(
-                    "[Env.get] Prefix '$prefix' for '$name' not found in prefixed imports.");
+                  "[Env.get] Prefix '$prefix' for '$name' not found in prefixed imports.",
+                );
               }
             }
           } else {
             // Handle the case of multiple points, for example a.b.c. For now, we only support prefix.identifier.
             Logger.warn(
-                "[Env.get] Name '$name' contains multiple points, not supported for simple prefixed access.");
+              "[Env.get] Name '$name' contains multiple points, not supported for simple prefixed access.",
+            );
             // Falling into the normal search could be an option, but let's raise an error for now
             // because it probably indicates an unexpected usage or an invalid variable name.
             throw RuntimeD4rtException(
-                "Complex prefixed access not supported: $name. Use the form prefix.identifier.");
+              "Complex prefixed access not supported: $name. Use the form prefix.identifier.",
+            );
           }
         }
       }
@@ -1242,7 +1299,8 @@ class Environment {
       if (localValue != null || env._values.containsKey(name)) {
         if (Logger.isDebug) {
           Logger.debug(
-              '[Env.get] Found \'$name\' locally in env: ${env.hashCode}');
+            '[Env.get] Found \'$name\' locally in env: ${env.hashCode}',
+          );
         }
         // Unwrap GlobalGetter for lazy evaluation
         if (localValue is GlobalGetter) {
@@ -1270,7 +1328,8 @@ class Environment {
         }
         if (Logger.isDebug) {
           Logger.debug(
-              " [Env.get] Found bridged class '$name' locally in env: ${env.hashCode}");
+            " [Env.get] Found bridged class '$name' locally in env: ${env.hashCode}",
+          );
         }
         return env._bridgedClasses[name];
       }
@@ -1279,7 +1338,8 @@ class Environment {
       if (env._bridgedEnums.isNotEmpty && env._bridgedEnums.containsKey(name)) {
         if (Logger.isDebug) {
           Logger.debug(
-              " [Env.get] Found bridged enum '$name' locally in env: ${env.hashCode}");
+            " [Env.get] Found bridged enum '$name' locally in env: ${env.hashCode}",
+          );
         }
         return env._bridgedEnums[name];
       }
@@ -1288,14 +1348,16 @@ class Environment {
       final parent = env._enclosing;
       if (Logger.isDebug && parent != null) {
         Logger.debug(
-            '[Env.get] Looking for \'$name\' in parent env: ${parent.hashCode}');
+          '[Env.get] Looking for \'$name\' in parent env: ${parent.hashCode}',
+        );
       }
       env = parent;
     }
 
     if (Logger.isDebug) {
       Logger.debug(
-          '[Env.get] \'$name\' not found in env chain starting from: $hashCode (no parent)'); // Log chain end
+        '[Env.get] \'$name\' not found in env chain starting from: $hashCode (no parent)',
+      ); // Log chain end
     }
     return kNotFound;
   }
@@ -1315,7 +1377,8 @@ class Environment {
   Object? assign(String name, Object? value) {
     if (Logger.isDebug) {
       Logger.debug(
-          "[Env.assign] Attempting to assign '$name' = $value in env: $hashCode");
+        "[Env.assign] Attempting to assign '$name' = $value in env: $hashCode",
+      );
     }
     if (_values.containsKey(name)) {
       final existing = _values[name];
@@ -1325,7 +1388,8 @@ class Environment {
         if (existing.hasSetter) {
           if (Logger.isDebug) {
             Logger.debug(
-                " [Env.assign] Calling setter for GlobalGetter '$name'");
+              " [Env.assign] Calling setter for GlobalGetter '$name'",
+            );
           }
           // Unwrap BridgedEnumValue to its native value before calling the setter.
           // GEN-054: This ensures bridged enum values can be assigned to native setters.
@@ -1335,14 +1399,16 @@ class Environment {
         } else {
           // GlobalGetter without setter - not assignable
           throw RuntimeD4rtException(
-              "Cannot assign to read-only global getter '$name'. "
-              "This global only has a getter, not a setter.");
+            "Cannot assign to read-only global getter '$name'. "
+            "This global only has a getter, not a setter.",
+          );
         }
       }
 
       if (Logger.isDebug) {
         Logger.debug(
-            " [Env.assign] Assigned '$name' locally in env: $hashCode");
+          " [Env.assign] Assigned '$name' locally in env: $hashCode",
+        );
       }
       _values[name] = value;
       // S3b additive: keep a slotted local's slot in sync when its value is set
@@ -1358,26 +1424,32 @@ class Environment {
 
     if (_bridgedClasses.containsKey(name)) {
       throw RuntimeD4rtException(
-          "Cannot assign to the name of a bridged class: $name");
+        "Cannot assign to the name of a bridged class: $name",
+      );
     }
 
     // Prevent assigning to bridged enum names
     if (_bridgedEnums.containsKey(name)) {
       throw RuntimeD4rtException(
-          "Cannot assign to the name of a bridged enum: $name");
+        "Cannot assign to the name of a bridged enum: $name",
+      );
     }
 
     if (_enclosing != null) {
       if (Logger.isDebug) {
         Logger.debug(
-            " [Env.assign] '$name' not found locally, assigning in parent env: ${_enclosing.hashCode}");
+          " [Env.assign] '$name' not found locally, assigning in parent env: ${_enclosing.hashCode}",
+        );
       }
       return _enclosing.assign(
-          name, value); // Delegate to the parent environment
+        name,
+        value,
+      ); // Delegate to the parent environment
     }
 
     Logger.debug(
-        "[Env.assign] Variable '$name' not found for assignment, throwing error.");
+      "[Env.assign] Variable '$name' not found for assignment, throwing error.",
+    );
     throw RuntimeD4rtException("Assigning to undefined variable '$name'.");
   }
 
@@ -1414,8 +1486,11 @@ class Environment {
   }
 
   // Method to find applicable extension members (Placeholder)
-  Callable? findExtensionMember(Object? target, String name,
-      {InterpreterVisitor? visitor}) {
+  Callable? findExtensionMember(
+    Object? target,
+    String name, {
+    InterpreterVisitor? visitor,
+  }) {
     // G-DOV-10/11 FIX: Handle null targets by searching extensions on nullable types
     if (target == null) {
       return _findNullableExtensionMember(name);
@@ -1431,7 +1506,8 @@ class Environment {
           final member = ext.findMember(name);
           if (member != null) {
             Logger.debug(
-                " [Environment] Found extension member '$name' in unnamed ext on ${ext.onType.name}");
+              " [Environment] Found extension member '$name' in unnamed ext on ${ext.onType.name}",
+            );
             // Need to bind 'target' to the call somehow.
             // This will likely require returning a bound callable or modifying the call site.
             return member; // Return the raw callable for now
@@ -1445,7 +1521,8 @@ class Environment {
             final member = value.findMember(name);
             if (member != null) {
               Logger.debug(
-                  "[Environment] Found extension member '$name' in named ext '${value.name}' on ${value.onType.name}");
+                "[Environment] Found extension member '$name' in named ext '${value.name}' on ${value.onType.name}",
+              );
               return member; // Return the raw callable
             }
           } else if (targetType is NativeFunction &&
@@ -1456,7 +1533,8 @@ class Environment {
               final member = value.findMember(name);
               if (member != null) {
                 Logger.debug(
-                    "[Environment] Found extension member '$name' in named ext '${value.name}' on ${value.onType.name}");
+                  "[Environment] Found extension member '$name' in named ext '${value.name}' on ${value.onType.name}",
+                );
                 return member; // Return the raw callable
               }
             }
@@ -1479,7 +1557,8 @@ class Environment {
           final member = ext.findMember(name);
           if (member != null) {
             Logger.debug(
-                "[Environment] Found nullable extension member '$name' in unnamed ext on ${ext.onType.name}?");
+              "[Environment] Found nullable extension member '$name' in unnamed ext on ${ext.onType.name}?",
+            );
             return member;
           }
         }
@@ -1490,7 +1569,8 @@ class Environment {
           final member = value.findMember(name);
           if (member != null) {
             Logger.debug(
-                "[Environment] Found nullable extension member '$name' in named ext '${value.name}' on ${value.onType.name}?");
+              "[Environment] Found nullable extension member '$name' in named ext '${value.name}' on ${value.onType.name}?",
+            );
             return member;
           }
         }
@@ -1506,8 +1586,10 @@ class Environment {
   /// - If target type is `List` (no type args) and extension is on `List<T>`, allow match
   /// - The extension itself handles type constraints at runtime
   bool _matchesExtensionType(
-      RuntimeType targetType, RuntimeType extensionOnType,
-      {Object? value}) {
+    RuntimeType targetType,
+    RuntimeType extensionOnType, {
+    Object? value,
+  }) {
     // First try the normal subtype check. Pass the value through so types
     // that need a runtime hierarchy probe (e.g. BridgedEnum.isSubtypeOf
     // checking the underlying native enum against an interface like
@@ -1523,7 +1605,8 @@ class Environment {
     // - Extension is on List<int> (has type parameter in declaration)
     if (targetType.name == extensionOnType.name) {
       Logger.debug(
-          "[_matchesExtensionType] Allowing same-name type match: ${targetType.name}");
+        "[_matchesExtensionType] Allowing same-name type match: ${targetType.name}",
+      );
       return true;
     }
 
@@ -1560,7 +1643,7 @@ class Environment {
     if (value is InterpretedRecord) {
       final positional = <RuntimeType>[
         for (final field in value.positionalFields)
-          getRuntimeType(field) ?? const NamedRuntimeType('dynamic')
+          getRuntimeType(field) ?? const NamedRuntimeType('dynamic'),
       ];
       final named = <String, RuntimeType>{};
       value.namedFields.forEach((key, fieldValue) {
@@ -1568,7 +1651,9 @@ class Environment {
             getRuntimeType(fieldValue) ?? const NamedRuntimeType('dynamic');
       });
       return RecordRuntimeType(
-          positionalFieldTypes: positional, namedFieldTypes: named);
+        positionalFieldTypes: positional,
+        namedFieldTypes: named,
+      );
     }
     // Handle Dart primitive/core types by looking them up in the environment
     // Assumes core types (String, int, bool, List, Map, etc.) are registered as BridgedClass
@@ -1605,11 +1690,13 @@ class Environment {
           return typeObj;
         } else {
           Logger.warn(
-              "[getRuntimeType] Found symbol '$typeName' but it's not a RuntimeType (${typeObj?.runtimeType})");
+            "[getRuntimeType] Found symbol '$typeName' but it's not a RuntimeType (${typeObj?.runtimeType})",
+          );
         }
       } on RuntimeD4rtException {
         Logger.warn(
-            "[getRuntimeType] RuntimeType for primitive '$typeName' not found in environment.");
+          "[getRuntimeType] RuntimeType for primitive '$typeName' not found in environment.",
+        );
       }
     }
 
@@ -1621,7 +1708,8 @@ class Environment {
       } on RuntimeD4rtException {
         // No bridged class found for this type
         Logger.debug(
-            "[getRuntimeType] No BridgedClass found for native type ${value.runtimeType}");
+          "[getRuntimeType] No BridgedClass found for native type ${value.runtimeType}",
+        );
       }
       // C20a fix: When the runtime type isn't a registered bridge (e.g.
       // private impl types returned by extension operators like
@@ -1643,8 +1731,9 @@ class Environment {
       }
       if (bestMatch != null) {
         Logger.debug(
-            "[getRuntimeType] Resolved native ${value.runtimeType} via "
-            "isAssignable to BridgedClass(${bestMatch.name})");
+          "[getRuntimeType] Resolved native ${value.runtimeType} via "
+          "isAssignable to BridgedClass(${bestMatch.name})",
+        );
         return bestMatch;
       }
     }
@@ -1667,7 +1756,8 @@ class Environment {
   }) {
     if (showNames != null && hideNames != null) {
       throw ArgumentD4rtException(
-          'Cannot provide both showNames and hideNames to shallowCopyFiltered.');
+        'Cannot provide both showNames and hideNames to shallowCopyFiltered.',
+      );
     }
 
     final newEnv = Environment(enclosing: _enclosing);
@@ -1745,7 +1835,8 @@ class Environment {
     newEnv._unnamedExtensionsOrNew.addAll(_unnamedExtensions);
 
     Logger.debug(
-        "[Environment.shallowCopyFiltered] Created filtered environment. Original size: ${_values.length} values. New size: ${newEnv._values.length} values.");
+      "[Environment.shallowCopyFiltered] Created filtered environment. Original size: ${_values.length} values. New size: ${newEnv._values.length} values.",
+    );
     return newEnv;
   }
 
@@ -1760,24 +1851,33 @@ class Environment {
   /// `RuntimeD4rtException('Name conflict in environment: ...')` instead of
   /// silently overwriting. The default `false` preserves the import-wins
   /// semantics expected of regular `import` directives.
-  void importEnvironment(Environment other,
-      {Set<String>? show, Set<String>? hide, bool errorOnConflict = false}) {
+  void importEnvironment(
+    Environment other, {
+    Set<String>? show,
+    Set<String>? hide,
+    bool errorOnConflict = false,
+  }) {
     if (show != null && hide != null) {
       throw ArgumentD4rtException(
-          'Cannot provide both show and hide to importEnvironment.');
+        'Cannot provide both show and hide to importEnvironment.',
+      );
     }
 
     Environment sourceEnvToImportFrom;
 
     if (show != null || hide != null) {
-      sourceEnvToImportFrom =
-          other.shallowCopyFiltered(showNames: show, hideNames: hide);
+      sourceEnvToImportFrom = other.shallowCopyFiltered(
+        showNames: show,
+        hideNames: hide,
+      );
       Logger.debug(
-          "[Environment.importEnvironment] Importing from a filtered version of other env (hashCode: ${other.hashCode}).");
+        "[Environment.importEnvironment] Importing from a filtered version of other env (hashCode: ${other.hashCode}).",
+      );
     } else {
       sourceEnvToImportFrom = other;
       Logger.debug(
-          "[Environment.importEnvironment] Importing directly from other env (hashCode: ${other.hashCode}).");
+        "[Environment.importEnvironment] Importing directly from other env (hashCode: ${other.hashCode}).",
+      );
     }
 
     // Perform the merge from sourceEnvToImportFrom
@@ -1790,13 +1890,15 @@ class Environment {
             // overwrite — a library that re-publishes two different
             // definitions of the same name is malformed.
             throw RuntimeD4rtException(
-                "Name conflict in environment: Symbol '$name' is already defined.");
+              "Name conflict in environment: Symbol '$name' is already defined.",
+            );
           }
           // GEN-100 sync: import wins for value conflicts (matches tom_d4rt_ast).
           // Explicit imports take priority over pre-registered ambient definitions.
           Logger.debug(
-              "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
-              "value '$name' with imported version");
+            "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
+            "value '$name' with imported version",
+          );
           _values[name] = value;
         }
         // Same value, skip the duplicate
@@ -1807,12 +1909,14 @@ class Environment {
           _prefixedImports.containsKey(name)) {
         if (errorOnConflict) {
           throw RuntimeD4rtException(
-              "Name conflict in environment: Symbol '$name' is already defined.");
+            "Name conflict in environment: Symbol '$name' is already defined.",
+          );
         }
         // GEN-100 sync: import value can replace pre-registered type definition.
         Logger.debug(
-            "[Environment.importEnvironment] GEN-100: Import value '$name' "
-            "replaces pre-registered type definition");
+          "[Environment.importEnvironment] GEN-100: Import value '$name' "
+          "replaces pre-registered type definition",
+        );
       }
       _values[name] = value;
     });
@@ -1825,7 +1929,8 @@ class Environment {
         }
         if (errorOnConflict) {
           throw RuntimeD4rtException(
-              "Name conflict in environment: Symbol '$name' is already defined.");
+            "Name conflict in environment: Symbol '$name' is already defined.",
+          );
         }
         // GEN-100 sync: When a bridged class with the same name but different
         // definition exists (e.g., dart:ui.TextStyle pre-registered vs
@@ -1833,8 +1938,9 @@ class Environment {
         // This matches Dart's import semantics: explicit imports take priority
         // over pre-registered (ambient) definitions.
         Logger.debug(
-            "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
-            "bridged class '$name' with imported version");
+          "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
+          "bridged class '$name' with imported version",
+        );
         // Preserve the displaced same-name bridge so every candidate stays
         // enumerable.
         final displaced = _bridgedClassesRaw?[name];
@@ -1847,8 +1953,12 @@ class Environment {
         if (displaced != null &&
             displaced.nativeType != bridgedClass.nativeType &&
             _importedBridgeNames.contains(name)) {
-          if (_markAmbiguousBridgeName(name, displaced, bridgedClass,
-              sourceEnvToImportFrom._bridgeSourceUrisRaw?[name])) {
+          if (_markAmbiguousBridgeName(
+            name,
+            displaced,
+            bridgedClass,
+            sourceEnvToImportFrom._bridgeSourceUrisRaw?[name],
+          )) {
             // The incoming declaration is a `dart:*` one that the sitting
             // non-platform declaration shadows: importing `dart:ui` after
             // `package:flutter/widgets.dart` must not move `TextStyle`.
@@ -1870,7 +1980,8 @@ class Environment {
           _prefixedImports.containsKey(name)) {
         if (errorOnConflict) {
           throw RuntimeD4rtException(
-              "Name conflict in environment: Symbol '$name' is already defined.");
+            "Name conflict in environment: Symbol '$name' is already defined.",
+          );
         }
         // Cluster A fix: a local script-level declaration (interpreted enum,
         // class, function, or top-level variable) shadows an imported bridged
@@ -1879,8 +1990,9 @@ class Environment {
         // skip the import. Type-based lookups still find the bridge via the
         // global _bridgedClassesLookupByType map.
         Logger.debug(
-            "[Environment.importEnvironment] Local declaration of '$name' "
-            "shadows imported bridged class — skipping import");
+          "[Environment.importEnvironment] Local declaration of '$name' "
+          "shadows imported bridged class — skipping import",
+        );
         return;
       }
       _bridgedClassesOrNew[name] = bridgedClass;
@@ -1921,12 +2033,14 @@ class Environment {
         }
         if (errorOnConflict) {
           throw RuntimeD4rtException(
-              "Name conflict in environment: Symbol '$name' is already defined.");
+            "Name conflict in environment: Symbol '$name' is already defined.",
+          );
         }
         // GEN-100 sync: import wins for enum conflicts too.
         Logger.debug(
-            "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
-            "bridged enum '$name' with imported version");
+          "[Environment.importEnvironment] GEN-100: Overwriting pre-registered "
+          "bridged enum '$name' with imported version",
+        );
         _bridgedEnumsOrNew[name] = bridgedEnum;
         return;
       }
@@ -1935,13 +2049,15 @@ class Environment {
           _prefixedImports.containsKey(name)) {
         if (errorOnConflict) {
           throw RuntimeD4rtException(
-              "Name conflict in environment: Symbol '$name' is already defined.");
+            "Name conflict in environment: Symbol '$name' is already defined.",
+          );
         }
         // Cluster A fix: local declaration shadows imported bridged enum.
         // See comment on the bridged-class branch above.
         Logger.debug(
-            "[Environment.importEnvironment] Local declaration of '$name' "
-            "shadows imported bridged enum — skipping import");
+          "[Environment.importEnvironment] Local declaration of '$name' "
+          "shadows imported bridged enum — skipping import",
+        );
         return;
       }
       _bridgedEnumsOrNew[name] = bridgedEnum;
@@ -1969,7 +2085,8 @@ class Environment {
           _bridgedClasses.containsKey(name) ||
           _bridgedEnums.containsKey(name)) {
         throw RuntimeD4rtException(
-            "Name conflict in environment: Symbol '$name' (prefixed import) is already defined or collides with another symbol type.");
+          "Name conflict in environment: Symbol '$name' (prefixed import) is already defined or collides with another symbol type.",
+        );
       }
       _prefixedImportsOrNew[name] = env;
     });
@@ -1981,18 +2098,22 @@ class Environment {
     // and throws `ConcurrentModificationError`. Skipping the merge is
     // correct: the destination already contains every element of the source.
     if (!identical(
-        _unnamedExtensions, sourceEnvToImportFrom._unnamedExtensions)) {
+      _unnamedExtensions,
+      sourceEnvToImportFrom._unnamedExtensions,
+    )) {
       _unnamedExtensionsOrNew.addAll(sourceEnvToImportFrom._unnamedExtensions);
     }
 
     Logger.debug(
-        "[Environment.importEnvironment] Merge complete. Current env (hashCode: $hashCode) updated.");
+      "[Environment.importEnvironment] Merge complete. Current env (hashCode: $hashCode) updated.",
+    );
   }
 
   // New method to handle prefixed imports
   void definePrefixedImport(String prefix, Environment importEnvironment) {
     Logger.debug(
-        "[Env.definePrefixedImport] Defining prefixed import '$prefix' with environment $importEnvironment (hash: ${importEnvironment.hashCode})");
+      "[Env.definePrefixedImport] Defining prefixed import '$prefix' with environment $importEnvironment (hash: ${importEnvironment.hashCode})",
+    );
     _prefixedImportsOrNew[prefix] = importEnvironment;
   }
 }

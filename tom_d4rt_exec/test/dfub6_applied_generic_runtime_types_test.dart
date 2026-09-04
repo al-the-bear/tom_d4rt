@@ -18,9 +18,10 @@ import 'interpreter_test.dart';
 
 void main() {
   group('DFUB6 (exec): applied generic runtime types', () {
-    test('F-DFUB6-EXEC-5: applied type args preserved for `is` [2026-07-27]',
-        () {
-      const code = '''
+    test(
+      'F-DFUB6-EXEC-5: applied type args preserved for `is` [2026-07-27]',
+      () {
+        const code = '''
 class Box<T> {
   final T value;
   Box(this.value);
@@ -31,11 +32,11 @@ List main() {
   return [box is Box<int>, box is Box<num>, box is Box<String>];
 }
 ''';
-      expect(execute(code), equals([true, true, false]));
-    });
+        expect(execute(code), equals([true, true, false]));
+      },
+    );
 
-    test(
-        'F-DFUB6-EXEC-6b: generic return validation throws on mismatch '
+    test('F-DFUB6-EXEC-6b: generic return validation throws on mismatch '
         '[2026-07-27]', () {
       const code = '''
 class Box<T> {
@@ -52,12 +53,16 @@ int main() {
   return 0;
 }
 ''';
-      expect(() => execute(code), throwsRuntimeError(contains("can't be returned")));
+      expect(
+        () => execute(code),
+        throwsRuntimeError(contains("can't be returned")),
+      );
     });
 
-    test('F-DFUB6-EXEC-6c: matching generic return is allowed [2026-07-27]',
-        () {
-      const code = '''
+    test(
+      'F-DFUB6-EXEC-6c: matching generic return is allowed [2026-07-27]',
+      () {
+        const code = '''
 class Box<T> {
   final T value;
   Box(this.value);
@@ -72,11 +77,11 @@ int main() {
   return b.value;
 }
 ''';
-      expect(execute(code), equals(42));
-    });
+        expect(execute(code), equals(42));
+      },
+    );
 
-    test(
-        'F-DFUB6-EXEC-7b: typed native collection return throws on mismatch '
+    test('F-DFUB6-EXEC-7b: typed native collection return throws on mismatch '
         '[2026-07-27]', () {
       const code = '''
 List<String> numbers() {
@@ -88,11 +93,13 @@ int main() {
   return 0;
 }
 ''';
-      expect(() => execute(code), throwsRuntimeError(contains("can't be returned")));
+      expect(
+        () => execute(code),
+        throwsRuntimeError(contains("can't be returned")),
+      );
     });
 
-    test(
-        'F-DFUB6-EXEC-7c: matching typed native collection return is allowed '
+    test('F-DFUB6-EXEC-7c: matching typed native collection return is allowed '
         '[2026-07-27]', () {
       const code = '''
 List<int> numbers() {
@@ -107,9 +114,10 @@ int main() {
     });
 
     test(
-        'F-DFUB6-EXEC-8: async return type wraps the inner value and is exempt '
-        '[2026-07-27]', () async {
-      const code = '''
+      'F-DFUB6-EXEC-8: async return type wraps the inner value and is exempt '
+      '[2026-07-27]',
+      () async {
+        const code = '''
 Future<List<String>> load() async {
   return ['a', 'b'];
 }
@@ -119,12 +127,12 @@ main() async {
   return r.length;
 }
 ''';
-      expect(await executeAsync(code), equals(2));
-    });
+        expect(await executeAsync(code), equals(2));
+      },
+    );
 
     // Bound-constraint guard-rails (already pass — must stay passing).
-    test(
-        'F-DFUB6-EXEC-B1: class bound `T extends num` rejects String '
+    test('F-DFUB6-EXEC-B1: class bound `T extends num` rejects String '
         '[2026-07-27]', () {
       const code = '''
 class Box<T extends num> {
@@ -137,13 +145,16 @@ int main() {
   return 0;
 }
 ''';
-      expect(() => execute(code),
-          throwsRuntimeError(contains('does not satisfy bound')));
+      expect(
+        () => execute(code),
+        throwsRuntimeError(contains('does not satisfy bound')),
+      );
     });
 
-    test('F-DFUB6-EXEC-B2: class bound `T extends num` accepts int [2026-07-27]',
-        () {
-      const code = '''
+    test(
+      'F-DFUB6-EXEC-B2: class bound `T extends num` accepts int [2026-07-27]',
+      () {
+        const code = '''
 class Box<T extends num> {
   final T value;
   Box(this.value);
@@ -154,12 +165,14 @@ int main() {
   return b.value;
 }
 ''';
-      expect(execute(code), equals(42));
-    });
+        expect(execute(code), equals(42));
+      },
+    );
 
-    test('F-DFUB6-EXEC-B4: bound `T extends num` accepts double [2026-07-27]',
-        () {
-      const code = '''
+    test(
+      'F-DFUB6-EXEC-B4: bound `T extends num` accepts double [2026-07-27]',
+      () {
+        const code = '''
 class Box<T extends num> {
   final T value;
   Box(this.value);
@@ -170,7 +183,8 @@ double main() {
   return b.value;
 }
 ''';
-      expect(execute(code), equals(3.5));
-    });
+        expect(execute(code), equals(3.5));
+      },
+    );
   });
 }

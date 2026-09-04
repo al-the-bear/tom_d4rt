@@ -23,7 +23,9 @@ void main() {
     errors.add('Employee.age expected 25, got ${emp.age}');
   }
   if (emp.department != 'Engineering') {
-    errors.add('Employee.department expected "Engineering", got "${emp.department}"');
+    errors.add(
+      'Employee.department expected "Engineering", got "${emp.department}"',
+    );
   }
 
   // Manager extends PersonBase using super.name, super.age (super params)

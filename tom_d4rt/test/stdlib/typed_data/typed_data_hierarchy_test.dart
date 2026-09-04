@@ -54,16 +54,21 @@ void main() {
   group('typed_data hierarchy: the TypedData root', () {
     for (final type in _views) {
       test('F-SCB20-1-$type: is TypedData answers true [2026-07-28]', () {
-        final source = '''
+        final source =
+            '''
         import 'dart:typed_data';
         main() {
           final l = $type.fromList([1, 2, 3]);
           return l is TypedData;
         }
         ''';
-        expect(execute(source), isTrue,
-            reason: '$type implements TypedData; before SCB20 this threw '
-                '"Undefined variable: TypedData" rather than answering');
+        expect(
+          execute(source),
+          isTrue,
+          reason:
+              '$type implements TypedData; before SCB20 this threw '
+              '"Undefined variable: TypedData" rather than answering',
+        );
       });
     }
 
@@ -123,37 +128,48 @@ void main() {
       test('F-SCB20-2-$type: is List stays true [2026-07-28]', () {
         // Regression guard on behaviour that already worked via the
         // isAssignable fallback, NOT a new assertion. See the header.
-        final source = '''
+        final source =
+            '''
         import 'dart:typed_data';
         main() {
           final l = $type.fromList([1, 2, 3]);
           return l is List;
         }
         ''';
-        expect(execute(source), isTrue,
-            reason: '$type is a native List; the isAssignable fallback '
-                'answered this correctly even before any edge existed');
+        expect(
+          execute(source),
+          isTrue,
+          reason:
+              '$type is a native List; the isAssignable fallback '
+              'answered this correctly even before any edge existed',
+        );
       });
 
       test('F-SCB20-7-$type: is Iterable answers true [2026-07-28]', () {
-        final source = '''
+        final source =
+            '''
         import 'dart:typed_data';
         main() {
           final l = $type.fromList([1, 2, 3]);
           return l is Iterable;
         }
         ''';
-        expect(execute(source), isTrue,
-            reason: '$type implements List which implements Iterable; '
-                'Iterable has no isAssignable predicate, so this needs a '
-                'registered edge');
+        expect(
+          execute(source),
+          isTrue,
+          reason:
+              '$type implements List which implements Iterable; '
+              'Iterable has no isAssignable predicate, so this needs a '
+              'registered edge',
+        );
       });
 
       test('F-SCB20-8-$type: `is` narrows in a control-flow position '
           '[2026-07-28]', () {
         // `is` answering true in isolation is not the same as the interpreter
         // using it — this exercises the type test where a script would put it.
-        final source = '''
+        final source =
+            '''
         import 'dart:typed_data';
         String describe(Object o) {
           if (o is Iterable) return 'iterable';
@@ -172,7 +188,8 @@ void main() {
     // win dispatch over List/Iterable/TypedData for its own members.
     for (final type in _views) {
       test('F-SCB20-20-$type: concrete members still resolve [2026-07-28]', () {
-        final source = '''
+        final source =
+            '''
         import 'dart:typed_data';
         main() {
           final l = $type.fromList([3, 1, 2]);
@@ -180,14 +197,18 @@ void main() {
           return [l[0], l.length, l.first];
         }
         ''';
-        expect(execute(source), equals([1, 3, 1]),
-            reason: 'the $type bridge must still own dispatch for its own '
-                'members after the supertype edges are registered');
+        expect(
+          execute(source),
+          equals([1, 3, 1]),
+          reason:
+              'the $type bridge must still own dispatch for its own '
+              'members after the supertype edges are registered',
+        );
       });
 
-      test('F-SCB20-21-$type: Iterable members still resolve [2026-07-28]',
-          () {
-        final source = '''
+      test('F-SCB20-21-$type: Iterable members still resolve [2026-07-28]', () {
+        final source =
+            '''
         import 'dart:typed_data';
         main() {
           final l = $type.fromList([1, 2, 3]);
@@ -200,7 +221,8 @@ void main() {
       test('F-SCB20-22-$type: bytesPerElement still resolves [2026-07-28]', () {
         // A typed-data-specific static, the member most likely to be lost if a
         // supertype bridge started winning.
-        final source = '''
+        final source =
+            '''
         import 'dart:typed_data';
         main() => $type.fromList([1, 2]).elementSizeInBytes;
         ''';

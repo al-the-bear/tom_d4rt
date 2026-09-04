@@ -14,11 +14,12 @@ void main() {
       }
       ''';
       expect(
-          execute(source),
-          equals([
-            [104, 101, 108, 108, 111],
-            'hello'
-          ]));
+        execute(source),
+        equals([
+          [104, 101, 108, 108, 111],
+          'hello',
+        ]),
+      );
     });
 
     test('I-MISC-400: Codec fuse. [2026-02-10 06:37] (PASS)', () {
@@ -34,8 +35,10 @@ void main() {
       expect(execute(source), equals(['aGVsbG8=', 'hello']));
     });
 
-    test('I-MISC-401: Codec encoder and decoder. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-MISC-401: Codec encoder and decoder. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       import 'dart:convert';
       main() {
         Codec<String, List<int>> codec = Utf8Codec();
@@ -46,12 +49,14 @@ void main() {
         return [encoded, decoded];
       }
       ''';
-      expect(
+        expect(
           execute(source),
           equals([
             [104, 101, 108, 108, 111],
-            'hello'
-          ]));
-    });
+            'hello',
+          ]),
+        );
+      },
+    );
   });
 }

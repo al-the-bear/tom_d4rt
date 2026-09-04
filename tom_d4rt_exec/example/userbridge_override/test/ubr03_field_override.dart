@@ -51,7 +51,8 @@ void main() {
   if (diff != 6) errors.add('calculate(10,4,subtract) expected 6, got $diff');
 
   var product = calculate(3, 7, operation: 'multiply');
-  if (product != 21) errors.add('calculate(3,7,multiply) expected 21, got $product');
+  if (product != 21)
+    errors.add('calculate(3,7,multiply) expected 21, got $product');
 
   // ── Summary ──────────────────────────────────────────────────────
 

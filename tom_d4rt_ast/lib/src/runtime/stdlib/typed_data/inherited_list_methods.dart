@@ -30,16 +30,19 @@ List<E> coerceElements<E>(Object? arg, String member) {
   if (value is Iterable<E>) return value.toList();
   if (value is Iterable) {
     return value.map<E>((element) {
-      final unwrapped =
-          element is BridgedInstance ? element.nativeObject : element;
+      final unwrapped = element is BridgedInstance
+          ? element.nativeObject
+          : element;
       if (unwrapped is E) return unwrapped;
       throw RuntimeD4rtException(
-          "$member expects an Iterable<$E>, but an element was "
-          "${unwrapped.runtimeType}.");
+        "$member expects an Iterable<$E>, but an element was "
+        "${unwrapped.runtimeType}.",
+      );
     }).toList();
   }
   throw RuntimeD4rtException(
-      "$member expects an Iterable<$E>, got ${value.runtimeType}.");
+    "$member expects an Iterable<$E>, got ${value.runtimeType}.",
+  );
 }
 
 /// Returns a map of methods that are inherited from `Iterable<E>` and the
@@ -132,8 +135,9 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       });
     },
     'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
-      return coerce(target)
-          .followedBy(coerceElements<E>(positionalArgs[0], 'followedBy'));
+      return coerce(
+        target,
+      ).followedBy(coerceElements<E>(positionalArgs[0], 'followedBy'));
     },
     'cast': (visitor, target, positionalArgs, namedArgs, _) {
       // d4rt erases the type argument; <Object?> preserves all elements.
@@ -209,8 +213,9 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       });
     },
     'join': (visitor, target, positionalArgs, namedArgs, _) {
-      final separator =
-          positionalArgs.isNotEmpty ? positionalArgs[0] as String : '';
+      final separator = positionalArgs.isNotEmpty
+          ? positionalArgs[0] as String
+          : '';
       return coerce(target).join(separator);
     },
 
@@ -242,22 +247,23 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
     },
     'lastIndexOf': (visitor, target, positionalArgs, namedArgs, _) {
       final element = positionalArgs[0] as E;
-      final start =
-          positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
+      final start = positionalArgs.length > 1
+          ? positionalArgs[1] as int?
+          : null;
       return coerce(target).lastIndexOf(element, start);
     },
     'indexWhere': (visitor, target, positionalArgs, namedArgs, _) {
       final test = positionalArgs[0] as Callable;
       final start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
-      return coerce(target).indexWhere(
-        (element) => test.call(visitor, [element]) as bool,
-        start,
-      );
+      return coerce(
+        target,
+      ).indexWhere((element) => test.call(visitor, [element]) as bool, start);
     },
     'lastIndexWhere': (visitor, target, positionalArgs, namedArgs, _) {
       final test = positionalArgs[0] as Callable;
-      final start =
-          positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
+      final start = positionalArgs.length > 1
+          ? positionalArgs[1] as int?
+          : null;
       return coerce(target).lastIndexWhere(
         (element) => test.call(visitor, [element]) as bool,
         start,
@@ -294,7 +300,5 @@ Map<String, BridgedInstanceGetterAdapter> inheritedListGetters<E>(
 Map<String, BridgedStaticGetterAdapter> typedListStaticGetters(
   int bytesPerElement,
 ) {
-  return {
-    'bytesPerElement': (visitor) => bytesPerElement,
-  };
+  return {'bytesPerElement': (visitor) => bytesPerElement};
 }

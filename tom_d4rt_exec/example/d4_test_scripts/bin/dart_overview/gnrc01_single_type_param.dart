@@ -25,7 +25,9 @@ void main() {
   // Test Maybe.some<String>
   var maybe = Maybe.some('test');
   if (maybe.value != 'test') {
-    errors.add('Maybe.some("test").value expected "test", got "${maybe.value}"');
+    errors.add(
+      'Maybe.some("test").value expected "test", got "${maybe.value}"',
+    );
   }
 
   if (errors.isEmpty) {

@@ -33,7 +33,8 @@ void main() {
       expect(
         graph.dartIoImporters,
         isEmpty,
-        reason: 'These libraries are reachable from package:tom_d4rt_ast/'
+        reason:
+            'These libraries are reachable from package:tom_d4rt_ast/'
             'd4rt.dart when conditional imports resolve to their web branch, '
             'and they import dart:io unconditionally. Put the dart:io usage '
             'behind an `if (dart.library.html)` conditional import (see '
@@ -50,16 +51,20 @@ void main() {
       // package. So the guard enumerates lib/*.dart rather than naming the two
       // barrels we happened to fix, which also means a new public library
       // cannot regress web support without failing here.
-      final publicLibraries = Directory('lib')
-          .listSync()
-          .whereType<File>()
-          .map((f) => f.path.replaceAll(r'\', '/'))
-          .where((p) => p.endsWith('.dart'))
-          .toList()
-        ..sort();
+      final publicLibraries =
+          Directory('lib')
+              .listSync()
+              .whereType<File>()
+              .map((f) => f.path.replaceAll(r'\', '/'))
+              .where((p) => p.endsWith('.dart'))
+              .toList()
+            ..sort();
 
-      expect(publicLibraries, isNotEmpty,
-          reason: 'the test must be run from the package root');
+      expect(
+        publicLibraries,
+        isNotEmpty,
+        reason: 'the test must be run from the package root',
+      );
 
       final offendersByLibrary = <String, String>{};
       for (final library in publicLibraries) {
@@ -69,10 +74,13 @@ void main() {
         }
       }
 
-      expect(offendersByLibrary, isEmpty,
-          reason: offendersByLibrary.entries
-              .map((e) => '${e.key}:\n${e.value}')
-              .join('\n'));
+      expect(
+        offendersByLibrary,
+        isEmpty,
+        reason: offendersByLibrary.entries
+            .map((e) => '${e.key}:\n${e.value}')
+            .join('\n'),
+      );
     });
 
     test('F-DFUB12-3: the walk actually resolves conditional imports to the '
@@ -85,14 +93,16 @@ void main() {
       expect(
         native.dartIoImporters,
         isNotEmpty,
-        reason: 'On the NATIVE branch the io stdlib must be reachable — if it '
+        reason:
+            'On the NATIVE branch the io stdlib must be reachable — if it '
             'is not, the walk is not following imports at all and the web '
             'assertions prove nothing.',
       );
       expect(
         native.dartIoImporters.any((f) => f.contains('stdlib/io/')),
         isTrue,
-        reason: 'stdlib/io/* is the library that must differ between the two '
+        reason:
+            'stdlib/io/* is the library that must differ between the two '
             'branches',
       );
     });
@@ -166,8 +176,9 @@ class _WebImportGraph {
     r"((?:\s*if\s*\([^)]*\)\s*'[^']+')*)",
     multiLine: true,
   );
-  static final RegExp _configuration =
-      RegExp(r"if\s*\(\s*([^)]*?)\s*\)\s*'([^']+)'");
+  static final RegExp _configuration = RegExp(
+    r"if\s*\(\s*([^)]*?)\s*\)\s*'([^']+)'",
+  );
   static final RegExp _part = RegExp(r"^\s*part\s+'([^']+)'", multiLine: true);
   static final RegExp _lineComment = RegExp(r'^\s*//.*$', multiLine: true);
 
@@ -182,8 +193,7 @@ class _WebImportGraph {
     for (final match in _importExport.allMatches(source)) {
       var chosen = match.group(1)!;
       if (web) {
-        for (final config
-            in _configuration.allMatches(match.group(2) ?? '')) {
+        for (final config in _configuration.allMatches(match.group(2) ?? '')) {
           if (config.group(1) == 'dart.library.html') {
             chosen = config.group(2)!;
             break;
@@ -205,7 +215,9 @@ class _WebImportGraph {
       return 'lib/${uri.substring(selfPackage.length)}';
     }
     if (uri.startsWith('package:')) return uri;
-    final dir = from.contains('/') ? from.substring(0, from.lastIndexOf('/')) : '.';
+    final dir = from.contains('/')
+        ? from.substring(0, from.lastIndexOf('/'))
+        : '.';
     return _normalize('$dir/$uri');
   }
 

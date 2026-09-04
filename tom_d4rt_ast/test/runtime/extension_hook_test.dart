@@ -23,8 +23,10 @@ import 'package:tom_d4rt_ast/runtime.dart';
 
 /// Builds the smallest possible [AstBundle] whose `main()` returns an
 /// `int`. Used to drive `executeBundle` in the implicit-finalize test.
-AstBundle _intBundle(int returnValue,
-    {String entryUri = 'package:t/main.dart'}) {
+AstBundle _intBundle(
+  int returnValue, {
+  String entryUri = 'package:t/main.dart',
+}) {
   final mainFn = SFunctionDeclaration(
     offset: 0,
     length: 0,
@@ -43,43 +45,44 @@ AstBundle _intBundle(int returnValue,
             SReturnStatement(
               offset: 0,
               length: 0,
-              expression:
-                  SIntegerLiteral(offset: 0, length: 1, value: returnValue),
+              expression: SIntegerLiteral(
+                offset: 0,
+                length: 1,
+                value: returnValue,
+              ),
             ),
           ],
         ),
       ),
     ),
   );
-  final unit = SCompilationUnit(
-    offset: 0,
-    length: 0,
-    declarations: [mainFn],
-  );
+  final unit = SCompilationUnit(offset: 0, length: 0, declarations: [mainFn]);
   return AstBundle(entryPointUri: entryUri, modules: {entryUri: unit});
 }
 
 void main() {
   group('D4rtRunner.registerExtensions / finalizeBridges', () {
-    test('callbacks fire in registration order when finalizeBridges is called',
-        () {
-      final runner = D4rtRunner();
-      final order = <String>[];
-      runner.registerExtensions('alpha', () => order.add('alpha'));
-      runner.registerExtensions('beta', () => order.add('beta'));
-      runner.registerExtensions('gamma', () => order.add('gamma'));
+    test(
+      'callbacks fire in registration order when finalizeBridges is called',
+      () {
+        final runner = D4rtRunner();
+        final order = <String>[];
+        runner.registerExtensions('alpha', () => order.add('alpha'));
+        runner.registerExtensions('beta', () => order.add('beta'));
+        runner.registerExtensions('gamma', () => order.add('gamma'));
 
-      // Pre-condition: nothing has run yet.
-      expect(order, isEmpty);
-      expect(runner.bridgesFinalized, isFalse);
+        // Pre-condition: nothing has run yet.
+        expect(order, isEmpty);
+        expect(runner.bridgesFinalized, isFalse);
 
-      runner.finalizeBridges();
+        runner.finalizeBridges();
 
-      // Post-condition: every callback ran exactly once, in registration
-      // order.
-      expect(order, equals(<String>['alpha', 'beta', 'gamma']));
-      expect(runner.bridgesFinalized, isTrue);
-    });
+        // Post-condition: every callback ran exactly once, in registration
+        // order.
+        expect(order, equals(<String>['alpha', 'beta', 'gamma']));
+        expect(runner.bridgesFinalized, isTrue);
+      },
+    );
 
     test('finalizeBridges is idempotent — second call is a no-op', () {
       final runner = D4rtRunner();
@@ -90,10 +93,13 @@ void main() {
       runner.finalizeBridges();
       runner.finalizeBridges();
 
-      expect(fireCount, 1,
-          reason:
-              'finalizeBridges() must run each callback exactly once across '
-              'any number of finalize calls.');
+      expect(
+        fireCount,
+        1,
+        reason:
+            'finalizeBridges() must run each callback exactly once across '
+            'any number of finalize calls.',
+      );
       expect(runner.bridgesFinalized, isTrue);
     });
 
@@ -107,25 +113,32 @@ void main() {
 
       runner.finalizeBridges();
 
-      expect(fired, 'third',
-          reason: 'Last registration for a given package name wins; '
-              'previous bodies are dropped (one extension per package).');
-    });
-
-    test('registerExtensions throws StateError after finalizeBridges has run',
-        () {
-      final runner = D4rtRunner();
-      runner.registerExtensions('early', () {});
-      runner.finalizeBridges();
-
       expect(
-        () => runner.registerExtensions('late', () {}),
-        throwsA(isA<StateError>()),
-        reason: 'Adding extensions after the runner is frozen is a misuse — '
-            'the runner must surface it as an error rather than silently '
-            'dropping the registration.',
+        fired,
+        'third',
+        reason:
+            'Last registration for a given package name wins; '
+            'previous bodies are dropped (one extension per package).',
       );
     });
+
+    test(
+      'registerExtensions throws StateError after finalizeBridges has run',
+      () {
+        final runner = D4rtRunner();
+        runner.registerExtensions('early', () {});
+        runner.finalizeBridges();
+
+        expect(
+          () => runner.registerExtensions('late', () {}),
+          throwsA(isA<StateError>()),
+          reason:
+              'Adding extensions after the runner is frozen is a misuse — '
+              'the runner must surface it as an error rather than silently '
+              'dropping the registration.',
+        );
+      },
+    );
 
     test('callbacks fire implicitly on the first executeBundle call', () {
       final runner = D4rtRunner();
@@ -146,9 +159,13 @@ void main() {
       final result = runner.executeBundle(_intBundle(7));
 
       expect(result, 7);
-      expect(ranBeforeScript, isTrue,
-          reason: 'Implicit finalize must run extension callbacks before '
-              'the script body executes.');
+      expect(
+        ranBeforeScript,
+        isTrue,
+        reason:
+            'Implicit finalize must run extension callbacks before '
+            'the script body executes.',
+      );
       expect(runner.bridgesFinalized, isTrue);
     });
 
@@ -161,9 +178,13 @@ void main() {
       runner.executeBundle(_intBundle(2));
       runner.executeBundle(_intBundle(3));
 
-      expect(fireCount, 1,
-          reason: 'Implicit finalize is once-per-runner; subsequent '
-              'executeBundle calls must not re-run extension callbacks.');
+      expect(
+        fireCount,
+        1,
+        reason:
+            'Implicit finalize is once-per-runner; subsequent '
+            'executeBundle calls must not re-run extension callbacks.',
+      );
     });
 
     test('explicit finalizeBridges before execute is supported and '

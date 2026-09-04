@@ -3,8 +3,10 @@ import '../interpreter_test.dart';
 
 void main() {
   group('Bridged Static Method as Value', () {
-    test('I-BRIDGE-9: Can pass bridged static method as value - int.parse. [2026-02-10 06:37] (PASS)', () {
-      const code = '''
+    test(
+      'I-BRIDGE-9: Can pass bridged static method as value - int.parse. [2026-02-10 06:37] (PASS)',
+      () {
+        const code = '''
 int main() {
   // Get the static method as a value
   var parseFunc = int.parse;
@@ -15,12 +17,15 @@ int main() {
   return result; // 42
 }
 ''';
-      final result = execute(code);
-      expect(result, equals(42));
-    });
+        final result = execute(code);
+        expect(result, equals(42));
+      },
+    );
 
-    test('I-BRIDGE-6: Can pass bridged static method to higher-order function. [2026-02-10 06:37] (PASS)', () {
-      const code = '''
+    test(
+      'I-BRIDGE-6: Can pass bridged static method to higher-order function. [2026-02-10 06:37] (PASS)',
+      () {
+        const code = '''
 int applyToString(Function f, String s) {
   return f(s);
 }
@@ -30,12 +35,15 @@ int main() {
   return applyToString(int.parse, '100');
 }
 ''';
-      final result = execute(code);
-      expect(result, equals(100));
-    });
+        final result = execute(code);
+        expect(result, equals(100));
+      },
+    );
 
-    test('I-BRIDGE-7: Can store bridged static methods in collections. [2026-02-10 06:37] (PASS)', () {
-      const code = '''
+    test(
+      'I-BRIDGE-7: Can store bridged static methods in collections. [2026-02-10 06:37] (PASS)',
+      () {
+        const code = '''
 int main() {
   // Store static methods in a list
   var parsers = [int.parse, double.parse];
@@ -47,12 +55,15 @@ int main() {
   return intResult + doubleResult.toInt();
 }
 ''';
-      final result = execute(code);
-      expect(result, equals(45)); // 42 + 3
-    });
+        final result = execute(code);
+        expect(result, equals(45)); // 42 + 3
+      },
+    );
 
-    test('I-BRIDGE-8: Can map with bridged static method. [2026-02-10 06:37] (PASS)', () {
-      const code = '''
+    test(
+      'I-BRIDGE-8: Can map with bridged static method. [2026-02-10 06:37] (PASS)',
+      () {
+        const code = '''
 int main() {
   var strings = ['1', '2', '3'];
   var numbers = strings.map(int.parse).toList();
@@ -60,12 +71,15 @@ int main() {
   return numbers.length;
 }
 ''';
-      final result = execute(code);
-      expect(result, equals(3));
-    });
+        final result = execute(code);
+        expect(result, equals(3));
+      },
+    );
 
-    test('I-BRIDGE-10: Can use multiple bridged static methods. [2026-02-10 06:37] (PASS)', () {
-      const code = '''
+    test(
+      'I-BRIDGE-10: Can use multiple bridged static methods. [2026-02-10 06:37] (PASS)',
+      () {
+        const code = '''
 import 'dart:math';
 
 int main() {
@@ -79,8 +93,9 @@ int main() {
   return maxResult + minResult;
 }
 ''';
-      final result = execute(code);
-      expect(result, equals(30)); // 20 + 10
-    });
+        final result = execute(code);
+        expect(result, equals(30)); // 20 + 10
+      },
+    );
   });
 }

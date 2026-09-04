@@ -43,35 +43,40 @@ void main() {
   });
 
   group('SC1: Stopwatch core bridge', () {
-    test('F-SC1-AST-1: is registered under the name Stopwatch [2026-07-27]',
-        () {
-      final bridge = env.findBridgedClassByName('Stopwatch');
-      expect(bridge, isNotNull);
-      expect(bridge!.nativeType, Stopwatch);
-      expect(bridge.isAssignable?.call(Stopwatch()), isTrue);
-    });
+    test(
+      'F-SC1-AST-1: is registered under the name Stopwatch [2026-07-27]',
+      () {
+        final bridge = env.findBridgedClassByName('Stopwatch');
+        expect(bridge, isNotNull);
+        expect(bridge!.nativeType, Stopwatch);
+        expect(bridge.isAssignable?.call(Stopwatch()), isTrue);
+      },
+    );
 
     test('F-SC1-AST-2: declares the default constructor and the state-machine '
         'methods [2026-07-27]', () {
       final bridge = env.findBridgedClassByName('Stopwatch')!;
       expect(bridge.constructors.keys, contains(''));
-      expect(bridge.methods.keys,
-          containsAll(<String>['start', 'stop', 'reset', 'toString']));
+      expect(
+        bridge.methods.keys,
+        containsAll(<String>['start', 'stop', 'reset', 'toString']),
+      );
     });
 
     test('F-SC1-AST-3: exposes every elapsed* / frequency / isRunning getter '
         '[2026-07-27]', () {
       final bridge = env.findBridgedClassByName('Stopwatch')!;
       expect(
-          bridge.getters.keys,
-          containsAll(<String>[
-            'elapsed',
-            'elapsedTicks',
-            'elapsedMilliseconds',
-            'elapsedMicroseconds',
-            'frequency',
-            'isRunning',
-          ]));
+        bridge.getters.keys,
+        containsAll(<String>[
+          'elapsed',
+          'elapsedTicks',
+          'elapsedMilliseconds',
+          'elapsedMicroseconds',
+          'frequency',
+          'isRunning',
+        ]),
+      );
     });
 
     test('F-SC1-AST-4: the getters read through to the native Stopwatch '
@@ -102,25 +107,30 @@ void main() {
     test('F-SC10-AST-2: declares the three named constructors and the static '
         'parse [2026-07-27]', () {
       final bridge = env.findBridgedClassByName('UriData')!;
-      expect(bridge.constructors.keys,
-          containsAll(<String>['fromString', 'fromBytes', 'fromUri']));
+      expect(
+        bridge.constructors.keys,
+        containsAll(<String>['fromString', 'fromBytes', 'fromUri']),
+      );
       expect(bridge.staticMethods.keys, contains('parse'));
     });
 
     test('F-SC10-AST-3: declares the content accessors [2026-07-27]', () {
       final bridge = env.findBridgedClassByName('UriData')!;
-      expect(bridge.methods.keys,
-          containsAll(<String>['contentAsBytes', 'contentAsString']));
       expect(
-          bridge.getters.keys,
-          containsAll(<String>[
-            'uri',
-            'mimeType',
-            'charset',
-            'isBase64',
-            'parameters',
-            'contentText',
-          ]));
+        bridge.methods.keys,
+        containsAll(<String>['contentAsBytes', 'contentAsString']),
+      );
+      expect(
+        bridge.getters.keys,
+        containsAll(<String>[
+          'uri',
+          'mimeType',
+          'charset',
+          'isBase64',
+          'parameters',
+          'contentText',
+        ]),
+      );
     });
 
     test('F-SC10-AST-4: the getters read through to the native UriData '
@@ -140,57 +150,81 @@ void main() {
       // here that has to cross into native code as an object rather than a
       // primitive.
       final ctors = env.findBridgedClassByName('UriData')!.constructors;
-      final latin = ctors['fromString']!(visitor, ['café'],
-          {'mimeType': 'text/plain', 'encoding': latin1}) as UriData;
+      final latin =
+          ctors['fromString']!(
+                visitor,
+                ['café'],
+                {'mimeType': 'text/plain', 'encoding': latin1},
+              )
+              as UriData;
       expect(latin.charset, 'iso-8859-1');
       expect(latin.contentAsString(), 'café');
 
-      final tagged = ctors['fromString']!(visitor, ['x'], {
-        'mimeType': 'text/plain',
-        'parameters': {'a': 'b'},
-        'base64': true,
-      }) as UriData;
+      final tagged =
+          ctors['fromString']!(
+                visitor,
+                ['x'],
+                {
+                  'mimeType': 'text/plain',
+                  'parameters': {'a': 'b'},
+                  'base64': true,
+                },
+              )
+              as UriData;
       expect(tagged.isBase64, isTrue);
       expect(tagged.parameters['a'], 'b');
 
       // `mimeType` defaults to application/octet-stream here, matching the SDK
       // constructor rather than leaving the argument null.
-      final bytes = ctors['fromBytes']!(visitor, [
-        [1, 2, 3]
-      ], const {}) as UriData;
+      final bytes =
+          ctors['fromBytes']!(visitor, [
+                [1, 2, 3],
+              ], const {})
+              as UriData;
       expect(bytes.mimeType, 'application/octet-stream');
       expect(bytes.contentAsBytes(), [1, 2, 3]);
 
-      expect(ctors['fromUri']!(visitor, [Uri.parse('data:,round')], const {}),
-          isA<UriData>());
+      expect(
+        ctors['fromUri']!(visitor, [Uri.parse('data:,round')], const {}),
+        isA<UriData>(),
+      );
     });
 
     test('F-SC10-AST-7: the content methods read through with and without an '
         'encoding [2026-07-27]', () {
       final methods = env.findBridgedClassByName('UriData')!.methods;
       final data = UriData.parse('data:text/plain;charset=iso-8859-1,caf%E9');
-      expect(methods['contentAsString']!(visitor, data, [], const {}, null),
-          'café');
       expect(
-          methods['contentAsString']!(
-              visitor, data, [], {'encoding': latin1}, null),
-          'café');
+        methods['contentAsString']!(visitor, data, [], const {}, null),
+        'café',
+      );
       expect(
-          methods['contentAsBytes']!(visitor, data, [], const {}, null),
-          [0x63, 0x61, 0x66, 0xE9]);
+        methods['contentAsString']!(visitor, data, [], {
+          'encoding': latin1,
+        }, null),
+        'café',
+      );
+      expect(methods['contentAsBytes']!(visitor, data, [], const {}, null), [
+        0x63,
+        0x61,
+        0x66,
+        0xE9,
+      ]);
     });
   });
 
   group('SC10: the Uri.data accessor that makes UriData reachable', () {
-    test('F-SC10-AST-5: the Uri bridge exposes the data getter [2026-07-27]',
-        () {
-      // Without this, a parsed `data:` URI has no route to its UriData —
-      // the interpreter could build one and never read it back.
-      final bridge = env.findBridgedClassByName('Uri')!;
-      expect(bridge.getters.keys, contains('data'));
-      final value = bridge.getters['data']!(null, Uri.parse('data:,round'));
-      expect(value, isA<UriData>());
-      expect((value as UriData).contentAsString(), 'round');
-    });
+    test(
+      'F-SC10-AST-5: the Uri bridge exposes the data getter [2026-07-27]',
+      () {
+        // Without this, a parsed `data:` URI has no route to its UriData —
+        // the interpreter could build one and never read it back.
+        final bridge = env.findBridgedClassByName('Uri')!;
+        expect(bridge.getters.keys, contains('data'));
+        final value = bridge.getters['data']!(null, Uri.parse('data:,round'));
+        expect(value, isA<UriData>());
+        expect((value as UriData).contentAsString(), 'round');
+      },
+    );
   });
 }

@@ -23,9 +23,10 @@ Object? execute(String code) {
 
 void main() {
   group('DFUB4: extension type method dispatch', () {
-    test('F-DFUB4-1: single method reading representation [2026-07-23] (PASS)',
-        () {
-      const code = '''
+    test(
+      'F-DFUB4-1: single method reading representation [2026-07-23] (PASS)',
+      () {
+        const code = '''
 extension type UserId(int id) {
   String describe() => 'User #\${id}';
 }
@@ -35,8 +36,9 @@ String main() {
   return u.describe();
 }
 ''';
-      expect(execute(code), equals('User #42'));
-    });
+        expect(execute(code), equals('User #42'));
+      },
+    );
 
     test('F-DFUB4-2: multiple methods + getters [2026-07-23] (PASS)', () {
       const code = '''
@@ -58,9 +60,9 @@ List main() {
     });
 
     test(
-        'F-DFUB4-3: method accessing representation directly [2026-07-23] (PASS)',
-        () {
-      const code = '''
+      'F-DFUB4-3: method accessing representation directly [2026-07-23] (PASS)',
+      () {
+        const code = '''
 extension type Email(String address) {
   String domain() {
     var parts = address.split('@');
@@ -74,8 +76,9 @@ List main() {
   return [email.domain(), email.isValid()];
 }
 ''';
-      expect(execute(code), equals(['example.com', true]));
-    });
+        expect(execute(code), equals(['example.com', true]));
+      },
+    );
 
     test('F-DFUB4-4: method calling another method [2026-07-23] (PASS)', () {
       const code = '''
@@ -91,13 +94,13 @@ List main() {
   return [u1.describe(), u1.isSpecial(), u2.isSpecial(), u3.isSpecial()];
 }
 ''';
-      expect(execute(code),
-          equals(['User #1', true, true, false]));
+      expect(execute(code), equals(['User #1', true, true, false]));
     });
 
-    test('F-DFUB4-5: method with loops over representation [2026-07-23] (PASS)',
-        () {
-      const code = '''
+    test(
+      'F-DFUB4-5: method with loops over representation [2026-07-23] (PASS)',
+      () {
+        const code = '''
 extension type IntList(List<int> items) {
   int sum() {
     int total = 0;
@@ -114,8 +117,9 @@ List main() {
   return [list.sum(), list.count()];
 }
 ''';
-      expect(execute(code), equals([15, 5]));
-    });
+        expect(execute(code), equals([15, 5]));
+      },
+    );
 
     test('F-DFUB4-6: method with conditional logic [2026-07-23] (PASS)', () {
       const code = '''
@@ -156,9 +160,10 @@ int main() {
       expect(execute(code), equals(60));
     });
 
-    test('F-DFUB4-8: method calling method for validation [2026-07-23] (PASS)',
-        () {
-      const code = '''
+    test(
+      'F-DFUB4-8: method calling method for validation [2026-07-23] (PASS)',
+      () {
+        const code = '''
 extension type UserId(int id) {
   bool isValid() => id > 0 && id < 1000000;
   String validate() {
@@ -173,11 +178,11 @@ List main() {
   return [valid.validate(), invalid.validate()];
 }
 ''';
-      expect(execute(code), equals(['Valid ID: 100', 'Invalid ID']));
-    });
+        expect(execute(code), equals(['Valid ID: 100', 'Invalid ID']));
+      },
+    );
 
-    test(
-        'F-DFUB4-9: setter mutates through the representation object '
+    test('F-DFUB4-9: setter mutates through the representation object '
         '[2026-07-23] (PASS)', () {
       // Setters are proactively supported (no upstream test): the setter body
       // runs with `this` bound and mutates the mutable representation object.

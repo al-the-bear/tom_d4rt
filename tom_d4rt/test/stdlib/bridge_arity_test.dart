@@ -37,8 +37,7 @@ String _messageOf(String source) {
 
 void main() {
   group('SCB28 — too few arguments names the member (generic)', () {
-    test(
-        'F-SCB28-1: static bridged method — DateTime.parse() names the member '
+    test('F-SCB28-1: static bridged method — DateTime.parse() names the member '
         'and the counts [2026-09-03]', () {
       final message = _messageOf("main() { return DateTime.parse(); }");
       expect(message, contains('DateTime.parse'));
@@ -47,8 +46,7 @@ void main() {
       expect(message, isNot(contains('RangeError')));
     });
 
-    test(
-        'F-SCB28-2: instance bridged method — "ab".padLeft() names the member '
+    test('F-SCB28-2: instance bridged method — "ab".padLeft() names the member '
         '[2026-09-03]', () {
       final message = _messageOf("main() { return 'ab'.padLeft(); }");
       expect(message, contains('String.padLeft'));
@@ -61,30 +59,33 @@ void main() {
       expect(message, isNot(contains('RangeError')));
     });
 
-    test('F-SCB28-4: instance on a core collection — sublist() [2026-09-03]',
-        () {
-      final message =
-          _messageOf("main() { var l = [1,2,3]; return l.sublist(); }");
-      expect(message, contains('sublist'));
-      expect(message, isNot(contains('RangeError')));
-    });
-
-    test('F-SCB28-5: bridged constructor — UriData.fromString() [2026-09-03]',
-        () {
-      final message = _messageOf("main() { return UriData.fromString(); }");
-      expect(message, contains('UriData.fromString'));
-      expect(message, isNot(contains('RangeError')));
-    });
+    test(
+      'F-SCB28-4: instance on a core collection — sublist() [2026-09-03]',
+      () {
+        final message = _messageOf(
+          "main() { var l = [1,2,3]; return l.sublist(); }",
+        );
+        expect(message, contains('sublist'));
+        expect(message, isNot(contains('RangeError')));
+      },
+    );
 
     test(
-        'F-SCB28-6: a multi-argument member reports the count it actually '
+      'F-SCB28-5: bridged constructor — UriData.fromString() [2026-09-03]',
+      () {
+        final message = _messageOf("main() { return UriData.fromString(); }");
+        expect(message, contains('UriData.fromString'));
+        expect(message, isNot(contains('RangeError')));
+      },
+    );
+
+    test('F-SCB28-6: a multi-argument member reports the count it actually '
         'needs, not just "one more" [2026-09-03]', () {
       // `String.replaceRange(start, end, replacement)` reads three slots. The
       // count in the message comes from the slot the adapter reached, so a
       // one-argument call names 3 rather than the 2 a naive "first missing
       // slot" reading would give.
-      final message =
-          _messageOf("main() { return 'abcdef'.replaceRange(1); }");
+      final message = _messageOf("main() { return 'abcdef'.replaceRange(1); }");
       expect(message, contains('String.replaceRange'));
       expect(message, contains('at least 3'));
       expect(message, contains('called with 1'));
@@ -92,8 +93,7 @@ void main() {
   });
 
   group('SCB28 — the generic diagnostic does not over-report', () {
-    test(
-        'F-SCB28-7: correctly-arity\'d calls are untouched — UriData.parse '
+    test('F-SCB28-7: correctly-arity\'d calls are untouched — UriData.parse '
         'still parses [2026-09-03]', () {
       expect(
         execute("main() { return UriData.parse('data:,hello').contentText; }"),
@@ -101,51 +101,56 @@ void main() {
       );
     });
 
-    test(
-        'F-SCB28-8: a genuine out-of-range inside the native call is still '
+    test('F-SCB28-8: a genuine out-of-range inside the native call is still '
         'reported as a RangeError, not as an arity error [2026-09-03]', () {
       // sublist(0, 99) passes the right *number* of arguments; the RangeError
       // comes from the native call and must survive as one.
-      final message =
-          _messageOf("main() { var l = [1,2,3]; return l.sublist(0, 99); }");
+      final message = _messageOf(
+        "main() { var l = [1,2,3]; return l.sublist(0, 99); }",
+      );
       expect(message, contains('RangeError'));
       expect(message, isNot(contains('positional argument')));
     });
   });
 
   group('SCB28 — too many arguments is rejected (per-adapter, UriData)', () {
-    test(
-        'F-SCB28-9: UriData.parse(source, extra) no longer silently discards '
+    test('F-SCB28-9: UriData.parse(source, extra) no longer silently discards '
         'the extra [2026-09-03]', () {
       final message = _messageOf(
-          "main() { return UriData.parse('data:,a', 'extra').contentText; }");
+        "main() { return UriData.parse('data:,a', 'extra').contentText; }",
+      );
       expect(message, contains('UriData.parse'));
     });
 
-    test('F-SCB28-10: instance method — isMimeType(type, extra) [2026-09-03]',
-        () {
-      final message = _messageOf(
-          "main() { return UriData.parse('data:,a').isMimeType('text/plain', 'x'); }");
-      expect(message, contains('UriData.isMimeType'));
-    });
-
     test(
-        'F-SCB28-11: a method that takes no positional arguments rejects one '
+      'F-SCB28-10: instance method — isMimeType(type, extra) [2026-09-03]',
+      () {
+        final message = _messageOf(
+          "main() { return UriData.parse('data:,a').isMimeType('text/plain', 'x'); }",
+        );
+        expect(message, contains('UriData.isMimeType'));
+      },
+    );
+
+    test('F-SCB28-11: a method that takes no positional arguments rejects one '
         '[2026-09-03]', () {
       final message = _messageOf(
-          "main() { return UriData.parse('data:,a').contentAsString('x'); }");
+        "main() { return UriData.parse('data:,a').contentAsString('x'); }",
+      );
       expect(message, contains('UriData.contentAsString'));
     });
 
-    test('F-SCB28-12: bridged constructor — fromUri(uri, extra) [2026-09-03]',
-        () {
-      final message = _messageOf(
-          "main() { return UriData.fromUri(Uri.parse('data:,a'), 'x').contentText; }");
-      expect(message, contains('UriData.fromUri'));
-    });
-
     test(
-        'F-SCB28-13: an explicit per-adapter guard takes precedence over the '
+      'F-SCB28-12: bridged constructor — fromUri(uri, extra) [2026-09-03]',
+      () {
+        final message = _messageOf(
+          "main() { return UriData.fromUri(Uri.parse('data:,a'), 'x').contentText; }",
+        );
+        expect(message, contains('UriData.fromUri'));
+      },
+    );
+
+    test('F-SCB28-13: an explicit per-adapter guard takes precedence over the '
         'generic diagnostic for too few, too [2026-09-03]', () {
       // The generic path would say "expects at least 1 positional argument";
       // because UriData.parse is explicitly guarded it never reaches the

@@ -58,29 +58,26 @@ String secretValue() => "should-not-read";
   });
 
   group('DGUB4: import-path scope boundary', () {
-    test(
-      'F-DGUB4-1: a genuine import inside the granted scope is allowed '
-      '[2026-07-27] (PASS)',
-      () {
-        // The anchor. Without it, the two denials below would pass just as
-        // happily if filesystem imports were broken outright — a denial proves
-        // nothing unless the same setup can also succeed.
-        final d4rt = D4rt()
-          ..grant(FilesystemPermission.readPath(libDir.absolute.path));
+    test('F-DGUB4-1: a genuine import inside the granted scope is allowed '
+        '[2026-07-27] (PASS)', () {
+      // The anchor. Without it, the two denials below would pass just as
+      // happily if filesystem imports were broken outright — a denial proves
+      // nothing unless the same setup can also succeed.
+      final d4rt = D4rt()
+        ..grant(FilesystemPermission.readPath(libDir.absolute.path));
 
-        final result = d4rt.execute(
-          source: '''
+      final result = d4rt.execute(
+        source: '''
 import './allowed.dart';
 
 String main() => allowedValue();
 ''',
-          basePath: libDir.absolute.path,
-          allowFileSystemImports: true,
-        );
+        basePath: libDir.absolute.path,
+        allowFileSystemImports: true,
+      );
 
-        expect(result, equals('in-scope'));
-      },
-    );
+      expect(result, equals('in-scope'));
+    });
 
     test(
       'F-DGUB4-2: a sibling sharing the scope prefix is denied on the import '
@@ -103,44 +100,45 @@ String main() => secretValue();
           ),
           throwsA(
             predicate(
-                (e) => e.toString().contains('requires FilesystemPermission')),
+              (e) => e.toString().contains('requires FilesystemPermission'),
+            ),
           ),
         );
       },
     );
 
-    test(
-      'F-DGUB4-3: the sibling is denied by absolute URI too, so it is the '
-      'scope that rejects it and not the `..` [2026-07-27] (PASS)',
-      () {
-        // F-DGUB4-2 reaches the sibling through '..'. On its own that leaves a
-        // cheaper explanation open: the loader might be rejecting traversal
-        // syntax rather than testing the scope. Spelling the same target as an
-        // absolute file: URI removes the '..' and must still be denied — which
-        // is only true if the check is a real scope comparison.
-        final targetUri =
-            io.File('${siblingDir.path}/secret.dart').absolute.uri.toString();
+    test('F-DGUB4-3: the sibling is denied by absolute URI too, so it is the '
+        'scope that rejects it and not the `..` [2026-07-27] (PASS)', () {
+      // F-DGUB4-2 reaches the sibling through '..'. On its own that leaves a
+      // cheaper explanation open: the loader might be rejecting traversal
+      // syntax rather than testing the scope. Spelling the same target as an
+      // absolute file: URI removes the '..' and must still be denied — which
+      // is only true if the check is a real scope comparison.
+      final targetUri = io.File(
+        '${siblingDir.path}/secret.dart',
+      ).absolute.uri.toString();
 
-        final d4rt = D4rt()
-          ..grant(FilesystemPermission.readPath(libDir.absolute.path));
+      final d4rt = D4rt()
+        ..grant(FilesystemPermission.readPath(libDir.absolute.path));
 
-        expect(
-          () => d4rt.execute(
-            source: '''
+      expect(
+        () => d4rt.execute(
+          source:
+              '''
 import '$targetUri';
 
 String main() => secretValue();
 ''',
-            basePath: libDir.absolute.path,
-            allowFileSystemImports: true,
+          basePath: libDir.absolute.path,
+          allowFileSystemImports: true,
+        ),
+        throwsA(
+          predicate(
+            (e) => e.toString().contains('requires FilesystemPermission'),
           ),
-          throwsA(
-            predicate(
-                (e) => e.toString().contains('requires FilesystemPermission')),
-          ),
-        );
-      },
-    );
+        ),
+      );
+    });
 
     test(
       'F-DGUB4-4: granting the parent admits both directories, so the denials '

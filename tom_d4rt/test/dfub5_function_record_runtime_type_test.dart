@@ -24,9 +24,10 @@ Object? execute(String code) {
 
 void main() {
   group('DFUB5: function/record runtime type checks', () {
-    test('F-DFUB5-1: `is` FunctionType matches a tear-off [2026-07-23] (PASS)',
-        () {
-      const code = '''
+    test(
+      'F-DFUB5-1: `is` FunctionType matches a tear-off [2026-07-23] (PASS)',
+      () {
+        const code = '''
 int addOne(int x) => x + 1;
 
 List main() {
@@ -34,12 +35,14 @@ List main() {
   return [f is int Function(int), f(41)];
 }
 ''';
-      expect(execute(code), equals([true, 42]));
-    });
+        expect(execute(code), equals([true, 42]));
+      },
+    );
 
-    test('F-DFUB5-2: `is` FunctionType rejects wrong return [2026-07-23] (PASS)',
-        () {
-      const code = '''
+    test(
+      'F-DFUB5-2: `is` FunctionType rejects wrong return [2026-07-23] (PASS)',
+      () {
+        const code = '''
 int addOne(int x) => x + 1;
 
 bool main() {
@@ -47,12 +50,14 @@ bool main() {
   return f is String Function(int);
 }
 ''';
-      expect(execute(code), equals(false));
-    });
+        expect(execute(code), equals(false));
+      },
+    );
 
-    test('F-DFUB5-3: function return-type mismatch throws [2026-07-23] (PASS)',
-        () {
-      const code = '''
+    test(
+      'F-DFUB5-3: function return-type mismatch throws [2026-07-23] (PASS)',
+      () {
+        const code = '''
 String greet(int x) => 'hi';
 
 int Function(int) makeFn() {
@@ -64,15 +69,23 @@ int main() {
   return fn(1);
 }
 ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-              (e) => e.message, 'message', contains("can't be returned"))));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains("can't be returned"),
+            ),
+          ),
+        );
+      },
+    );
 
-    test('F-DFUB5-4: matching function return still works [2026-07-23] (PASS)',
-        () {
-      const code = '''
+    test(
+      'F-DFUB5-4: matching function return still works [2026-07-23] (PASS)',
+      () {
+        const code = '''
 int addOne(int x) => x + 1;
 
 int Function(int) makeFn() {
@@ -84,8 +97,9 @@ int main() {
   return fn(41);
 }
 ''';
-      expect(execute(code), equals(42));
-    });
+        expect(execute(code), equals(42));
+      },
+    );
 
     test('F-DFUB5-5: `is` RecordType matches a record [2026-07-23] (PASS)', () {
       const code = '''
@@ -97,20 +111,23 @@ List main() {
       expect(execute(code), equals([true, 42, 'answer']));
     });
 
-    test('F-DFUB5-6: `is` RecordType rejects wrong shape [2026-07-23] (PASS)',
-        () {
-      const code = '''
+    test(
+      'F-DFUB5-6: `is` RecordType rejects wrong shape [2026-07-23] (PASS)',
+      () {
+        const code = '''
 bool main() {
   var rec = (42, label: 'answer');
   return rec is (String, {int label});
 }
 ''';
-      expect(execute(code), equals(false));
-    });
+        expect(execute(code), equals(false));
+      },
+    );
 
-    test('F-DFUB5-7: record return-type mismatch throws [2026-07-23] (PASS)',
-        () {
-      const code = '''
+    test(
+      'F-DFUB5-7: record return-type mismatch throws [2026-07-23] (PASS)',
+      () {
+        const code = '''
 (int, String) makeRecord() {
   return ('wrong', 'shape');
 }
@@ -119,15 +136,23 @@ Object main() {
   return makeRecord();
 }
 ''';
-      expect(
+        expect(
           () => execute(code),
-          throwsA(isA<RuntimeD4rtException>().having(
-              (e) => e.message, 'message', contains("can't be returned"))));
-    });
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.message,
+              'message',
+              contains("can't be returned"),
+            ),
+          ),
+        );
+      },
+    );
 
-    test('F-DFUB5-8: matching record return still works [2026-07-23] (PASS)',
-        () {
-      const code = '''
+    test(
+      'F-DFUB5-8: matching record return still works [2026-07-23] (PASS)',
+      () {
+        const code = '''
 (int, String) makeRecord() {
   return (1, 'a');
 }
@@ -137,7 +162,8 @@ int main() {
   return r.\$1;
 }
 ''';
-      expect(execute(code), equals(1));
-    });
+        expect(execute(code), equals(1));
+      },
+    );
   });
 }

@@ -41,7 +41,8 @@ void main() {
   const String testLibPath = 'd4rt-mem:/scc20_catch_clause_type_test.dart';
 
   dynamic run(String scriptBody, {String prelude = ''}) {
-    final fullScript = '''
+    final fullScript =
+        '''
 $prelude
 main() {
   $scriptBody
@@ -78,8 +79,10 @@ main() {
       // The control for F-SCC20-1. This passed before the fix; it is here so a
       // future regression cannot be mistaken for the operator having changed.
       expect(
-        run('return MyEx() is Exception;',
-            prelude: 'class MyEx implements Exception {}'),
+        run(
+          'return MyEx() is Exception;',
+          prelude: 'class MyEx implements Exception {}',
+        ),
         isTrue,
       );
     });
@@ -90,13 +93,15 @@ main() {
       // sixteen hardcoded names in the old switch; the fix removes the switch
       // rather than adding a seventeenth.
       expect(
-        run('''
+        run(
+          '''
           try { throw MyErr(); }
           on Error catch (e) { return 'on-Error'; }
           catch (e) { return 'fell-through'; }
         ''',
-            prelude:
-                'class MyErr implements Error { StackTrace? get stackTrace => null; }'),
+          prelude:
+              'class MyErr implements Error { StackTrace? get stackTrace => null; }',
+        ),
         equals('on-Error'),
       );
     });
@@ -134,17 +139,19 @@ main() {
       );
     });
 
-    test('F-SCC20-6: `on List<int>` still catches a `List<int>` [2026-09-04]',
-        () {
-      expect(
-        run('''
+    test(
+      'F-SCC20-6: `on List<int>` still catches a `List<int>` [2026-09-04]',
+      () {
+        expect(
+          run('''
           try { throw <int>[1]; }
           on List<int> catch (e) { return 'on-List-int'; }
           catch (e) { return 'fell-through'; }
         '''),
-        equals('on-List-int'),
-      );
-    });
+          equals('on-List-int'),
+        );
+      },
+    );
 
     test('F-SCC20-7: a bare `on List` still catches any list [2026-09-04]', () {
       // Without arguments the predicate must not start demanding them.
@@ -175,17 +182,19 @@ main() {
       );
     });
 
-    test('F-SCC20-9: `on Box<String>` catches a `Box<String>` [2026-09-04]',
-        () {
-      expect(
-        run('''
+    test(
+      'F-SCC20-9: `on Box<String>` catches a `Box<String>` [2026-09-04]',
+      () {
+        expect(
+          run('''
           try { throw Box<String>('x'); }
           on Box<String> catch (e) { return e.v; }
           catch (e) { return 'fell-through'; }
         ''', prelude: 'class Box<T> { final T v; Box(this.v); }'),
-        equals('x'),
-      );
-    });
+          equals('x'),
+        );
+      },
+    );
   });
 
   group('SCC20: non-named type annotations in the on-clause', () {
@@ -274,21 +283,23 @@ main() {
       );
     });
 
-    test('F-SCC20-15: subtype-correct bridged matching survives [2026-09-04]',
-        () {
-      // SCB7's case (`F-SCB7-11`): a thrown bridged collection matched by a
-      // supertype the bridge does not declare an `isAssignable` for. It used to
-      // need its own hand-placed fix inside the catch clause; it now rides on
-      // the shared predicate's bridged path.
-      expect(
-        run('''
+    test(
+      'F-SCC20-15: subtype-correct bridged matching survives [2026-09-04]',
+      () {
+        // SCB7's case (`F-SCB7-11`): a thrown bridged collection matched by a
+        // supertype the bridge does not declare an `isAssignable` for. It used to
+        // need its own hand-placed fix inside the catch clause; it now rides on
+        // the shared predicate's bridged path.
+        expect(
+          run('''
           try { throw UnmodifiableSetView(<int>{1}); }
           on Iterable catch (e) { return 'on-Iterable'; }
           catch (e) { return 'fell-through'; }
         ''', prelude: "import 'dart:collection';"),
-        equals('on-Iterable'),
-      );
-    });
+          equals('on-Iterable'),
+        );
+      },
+    );
 
     test('F-SCC20-16: an unresolvable on-type misses instead of throwing '
         '[2026-09-04]', () {
@@ -421,28 +432,30 @@ main() {
       );
     });
 
-    test('F-SCC20-24: the leaf bridge still owns member dispatch [2026-09-04]',
-        () {
-      // The reason the fix is registry edges and NOT an `isAssignable` on the
-      // `Exception` bridge. `isAssignable` decides which bridge owns a native
-      // value, so one on a root type makes the root match everything in its
-      // hierarchy and steal dispatch from its own subtypes. These getters live
-      // on `FormatException` alone and would disappear if that happened.
-      // `source` and `offset` come back null, and that is a SEPARATE defect
-      // measured here rather than papered over: the `FormatException` bridge
-      // reads them from namedArgs while the SDK constructor takes them
-      // positionally, so the two positional arguments are dropped. Filed as
-      // SCD68. What this case proves is unaffected — the `Exception` bridge
-      // declares no `source` or `offset` getter at all, so reaching them and
-      // getting null means the FormatException bridge answered.
-      expect(
-        run("""
+    test(
+      'F-SCC20-24: the leaf bridge still owns member dispatch [2026-09-04]',
+      () {
+        // The reason the fix is registry edges and NOT an `isAssignable` on the
+        // `Exception` bridge. `isAssignable` decides which bridge owns a native
+        // value, so one on a root type makes the root match everything in its
+        // hierarchy and steal dispatch from its own subtypes. These getters live
+        // on `FormatException` alone and would disappear if that happened.
+        // `source` and `offset` come back null, and that is a SEPARATE defect
+        // measured here rather than papered over: the `FormatException` bridge
+        // reads them from namedArgs while the SDK constructor takes them
+        // positionally, so the two positional arguments are dropped. Filed as
+        // SCD68. What this case proves is unaffected — the `Exception` bridge
+        // declares no `source` or `offset` getter at all, so reaching them and
+        // getting null means the FormatException bridge answered.
+        expect(
+          run("""
           var e = FormatException('bad', 'src', 2);
           return [e.message, e.source, e.offset];
         """),
-        equals(['bad', null, null]),
-      );
-    });
+          equals(['bad', null, null]),
+        );
+      },
+    );
 
     test('F-SCC20-25: the io exceptions reach Exception through IOException '
         '[2026-09-04]', () {

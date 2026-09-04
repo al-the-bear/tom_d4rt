@@ -21,23 +21,24 @@ class _OtherWidget {
 void main() {
   group('IMP-OPT-3: thunk-capable bridge registry', () {
     test(
-        'IMP-OPT-3a: defineBridgeLazy defers construction until first lookup',
-        () {
-      final env = Environment();
-      var builds = 0;
-      env.defineBridgeLazy('Widget', _Widget, () {
-        builds++;
-        return BridgedClass(nativeType: _Widget, name: 'Widget');
-      });
+      'IMP-OPT-3a: defineBridgeLazy defers construction until first lookup',
+      () {
+        final env = Environment();
+        var builds = 0;
+        env.defineBridgeLazy('Widget', _Widget, () {
+          builds++;
+          return BridgedClass(nativeType: _Widget, name: 'Widget');
+        });
 
-      // Registration alone must not build the class.
-      expect(builds, 0, reason: 'thunk must not run at registration time');
+        // Registration alone must not build the class.
+        expect(builds, 0, reason: 'thunk must not run at registration time');
 
-      final resolved = env.findBridgedClassByName('Widget');
-      expect(resolved, isNotNull);
-      expect(resolved!.name, 'Widget');
-      expect(builds, 1, reason: 'first lookup builds the class exactly once');
-    });
+        final resolved = env.findBridgedClassByName('Widget');
+        expect(resolved, isNotNull);
+        expect(resolved!.name, 'Widget');
+        expect(builds, 1, reason: 'first lookup builds the class exactly once');
+      },
+    );
 
     test('IMP-OPT-3b: lookup memoizes — the thunk runs at most once', () {
       final env = Environment();
@@ -72,18 +73,22 @@ void main() {
     });
 
     test(
-        'IMP-OPT-3d: defineBridge (eager API) routes through the thunk + memo',
-        () {
-      final env = Environment();
-      final built = BridgedClass(nativeType: _Widget, name: 'Widget');
-      env.defineBridge(built);
+      'IMP-OPT-3d: defineBridge (eager API) routes through the thunk + memo',
+      () {
+        final env = Environment();
+        final built = BridgedClass(nativeType: _Widget, name: 'Widget');
+        env.defineBridge(built);
 
-      final first = env.findBridgedClassByName('Widget');
-      final second = env.findBridgedClassByName('Widget');
-      expect(identical(first, built), isTrue,
-          reason: 'eager registration serves the same instance');
-      expect(identical(first, second), isTrue);
-    });
+        final first = env.findBridgedClassByName('Widget');
+        final second = env.findBridgedClassByName('Widget');
+        expect(
+          identical(first, built),
+          isTrue,
+          reason: 'eager registration serves the same instance',
+        );
+        expect(identical(first, second), isTrue);
+      },
+    );
 
     test('IMP-OPT-3e: same-name collision preserves the displaced bridge', () {
       final env = Environment();
@@ -121,18 +126,20 @@ void main() {
       return env;
     }
 
-    test('AMBIG-1: both classes stay reachable, each under its package name',
-        () {
-      final env = envWithBothParsers();
+    test(
+      'AMBIG-1: both classes stay reachable, each under its package name',
+      () {
+        final env = envWithBothParsers();
 
-      final scanner = env.get('tom_doc_scanner.MarkdownParser');
-      final latex = env.get('tom_md2latex.MarkdownParser');
+        final scanner = env.get('tom_doc_scanner.MarkdownParser');
+        final latex = env.get('tom_md2latex.MarkdownParser');
 
-      expect(scanner, isA<BridgedClass>());
-      expect(latex, isA<BridgedClass>());
-      expect((scanner as BridgedClass).nativeType, _Widget);
-      expect((latex as BridgedClass).nativeType, _OtherWidget);
-    });
+        expect(scanner, isA<BridgedClass>());
+        expect(latex, isA<BridgedClass>());
+        expect((scanner as BridgedClass).nativeType, _Widget);
+        expect((latex as BridgedClass).nativeType, _OtherWidget);
+      },
+    );
 
     test('AMBIG-2: the bare name is an error, not an arbitrary pick', () {
       final env = envWithBothParsers();
@@ -167,8 +174,7 @@ void main() {
       );
     });
 
-    test(
-        'AMBIG-4: the same class re-registered via a second barrel is not '
+    test('AMBIG-4: the same class re-registered via a second barrel is not '
         'ambiguous', () {
       // A re-export delivers one class twice. Same nativeType ⇒ one class ⇒
       // the bare name still designates exactly what the author expects.
@@ -316,9 +322,7 @@ void main() {
   });
 
   group('IMP-OPT-17: N-of-M lazy materialization (build counter)', () {
-    test(
-        'IMP-OPT-17a: resolving N of M registered thunks builds exactly N',
-        () {
+    test('IMP-OPT-17a: resolving N of M registered thunks builds exactly N', () {
       // Models the generator's lazy emission: M classes registered as deferred
       // factory thunks, each incrementing a shared build counter when built.
       const total = 2064; // mirrors the flutter-material corpus size
@@ -342,8 +346,11 @@ void main() {
         expect(resolved, isNotNull);
       }
 
-      expect(builds, used,
-          reason: 'only the resolved classes are materialized (≈N of M)');
+      expect(
+        builds,
+        used,
+        reason: 'only the resolved classes are materialized (≈N of M)',
+      );
     });
   });
 }

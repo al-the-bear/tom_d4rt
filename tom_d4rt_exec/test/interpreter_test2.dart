@@ -70,10 +70,14 @@ void main() {
         expect(eval('{...{"a": 1}}'), {'a': 1});
         expect(eval('{...?{"a": 1}, ?null, "b": false}'), {'a': 1, 'b': false});
         expect(eval('{?null, ?"a": 2}'), {'a': 2});
-        expect(eval('{"a": 1, if (true) "b": 2 else ...{"c": 3}}'),
-            {'a': 1, 'b': 2});
-        expect(eval('{"a": 1, if (false) "b": 2 else ...{"c": 3}}'),
-            {'a': 1, 'c': 3});
+        expect(eval('{"a": 1, if (true) "b": 2 else ...{"c": 3}}'), {
+          'a': 1,
+          'b': 2,
+        });
+        expect(eval('{"a": 1, if (false) "b": 2 else ...{"c": 3}}'), {
+          'a': 1,
+          'c': 3,
+        });
       });
 
       test('I-MISC-359: Sets. [2026-02-10 06:37] (PASS)', () {
@@ -188,10 +192,15 @@ void main() {
       expect(run('main() { int a = 42; return a; }'), 42);
       expect(run('main() { const a = 42; return a; }'), 42);
     });
-    test('I-MISC-285: Local variable declaration. [2026-02-10 06:37] (PASS)', () {
-      expect(run('main() { var a = 42; { var a = 23; return a; } return a; }'),
-          23);
-    });
+    test(
+      'I-MISC-285: Local variable declaration. [2026-02-10 06:37] (PASS)',
+      () {
+        expect(
+          run('main() { var a = 42; { var a = 23; return a; } return a; }'),
+          23,
+        );
+      },
+    );
     group('assignment', () {
       test('I-MISC-286: =. [2026-02-10 06:37] (PASS)', () {
         expect(run('main() { var a = 1; a = a + 2; return a; }'), 3);
@@ -225,81 +234,134 @@ void main() {
       expect(run('main() { if (true) return "T"; }'), 'T');
       expect(run('main() { if (false) return "T"; }'), null);
       expect(run('main() { if (false) return "T"; else return "F"; }'), 'F');
-      expect(run('main() { if (false) { return "T"; } else { return "F"; } }'),
-          'F');
       expect(
-          run('main() { if (false) { return "T"; } else if (true) { return "E"; } }'),
-          'E');
+        run('main() { if (false) { return "T"; } else { return "F"; } }'),
+        'F',
+      );
+      expect(
+        run(
+          'main() { if (false) { return "T"; } else if (true) { return "E"; } }',
+        ),
+        'E',
+      );
     });
     test('I-MISC-294: While. [2026-02-10 06:37] (PASS)', () {
       expect(run('main() { while(false) { } }'), null);
       expect(run('main() { var i = 0; while(i < 3) { i++; } return i; }'), 3);
       expect(
-          run('main() { var i = 0; while(i < 3) { if (i == 2) break; i++; } return i; }'),
-          2);
+        run(
+          'main() { var i = 0; while(i < 3) { if (i == 2) break; i++; } return i; }',
+        ),
+        2,
+      );
       expect(
-          run('main() { var i = 0; while(i++ < 3) { if (i == 1) continue; print(i); } return i; }'),
-          4);
+        run(
+          'main() { var i = 0; while(i++ < 3) { if (i == 1) continue; print(i); } return i; }',
+        ),
+        4,
+      );
     });
     test('I-MISC-295: Do/while. [2026-02-10 06:37] (PASS)', () {
       expect(run('main() { do { return "A"; } while(false); }'), 'A');
       expect(
-          run('main() { var i = 0; var result = 0; do { result += i; } while(i++ < 2); return result; }'),
-          3);
+        run(
+          'main() { var i = 0; var result = 0; do { result += i; } while(i++ < 2); return result; }',
+        ),
+        3,
+      );
       expect(
-          run('main() { var i = 0; var result = 0; do { if (i == 1) break; result += i; } while(i++ < 2); return result; }'),
-          0);
+        run(
+          'main() { var i = 0; var result = 0; do { if (i == 1) break; result += i; } while(i++ < 2); return result; }',
+        ),
+        0,
+      );
       expect(
-          run('main() { var i = 0; var result = 0; do { if (i == 1) continue; result += i; } while(i++ < 2); return result; }'),
-          02);
+        run(
+          'main() { var i = 0; var result = 0; do { if (i == 1) continue; result += i; } while(i++ < 2); return result; }',
+        ),
+        02,
+      );
     });
     test('I-MISC-297: For/next. [2026-02-10 06:37] (PASS)', () {
       expect(
-          run('main() { var result = 0; for (var i = 0; i < 3; i++) result += i; return result; }'),
-          3);
+        run(
+          'main() { var result = 0; for (var i = 0; i < 3; i++) result += i; return result; }',
+        ),
+        3,
+      );
       expect(
-          run('main() { var result = 0; for (var i = 0; i < 3; i++) { if(i == 2) break; result += i; } return result; }'),
-          1);
+        run(
+          'main() { var result = 0; for (var i = 0; i < 3; i++) { if(i == 2) break; result += i; } return result; }',
+        ),
+        1,
+      );
       expect(
-          run('main() { var result = 0; for (var i = 0; i < 3; i++) { if(i == 1) continue; result += i; } return result; }'),
-          2);
+        run(
+          'main() { var result = 0; for (var i = 0; i < 3; i++) { if(i == 1) continue; result += i; } return result; }',
+        ),
+        2,
+      );
       expect(
-          run('main() { var i = 1; for (i = 0; i < 3; i++) {} return i; }'), 3);
+        run('main() { var i = 1; for (i = 0; i < 3; i++) {} return i; }'),
+        3,
+      );
       expect(
-          run('main() { var i = 1; for (var i = 0; i < 3; i++) {} return i; }'),
-          1);
+        run('main() { var i = 1; for (var i = 0; i < 3; i++) {} return i; }'),
+        1,
+      );
     });
     test('I-MISC-298: For/each. [2026-02-10 06:37] (PASS)', () {
       expect(run('main() { for (final a in []) return a; }'), null);
       expect(
-          run('main() { var result = 0; for (final a in [3, 4, 2]) result += a; return result; }'),
-          9);
+        run(
+          'main() { var result = 0; for (final a in [3, 4, 2]) result += a; return result; }',
+        ),
+        9,
+      );
       expect(
-          run('main() { var result = 0; for (final a in [3, 4, 2]) { if (a == 2) break; result += a; } return result; }'),
-          7);
+        run(
+          'main() { var result = 0; for (final a in [3, 4, 2]) { if (a == 2) break; result += a; } return result; }',
+        ),
+        7,
+      );
       expect(
-          run('main() { var result = 0; for (final a in [3, 4, 2]) { if (a == 4) continue; result += a; } return result; }'),
-          5);
+        run(
+          'main() { var result = 0; for (final a in [3, 4, 2]) { if (a == 4) continue; result += a; } return result; }',
+        ),
+        5,
+      );
       expect(run('main() { var a = 1; for (a in [3, 4, 2]) {} return a; }'), 2);
-      expect(run('main() { var a = 1; for (var a in [3, 4, 2]) {} return a; }'),
-          1);
+      expect(
+        run('main() { var a = 1; for (var a in [3, 4, 2]) {} return a; }'),
+        1,
+      );
     });
     test('I-MISC-300: Try/catch. [2026-02-10 06:37] (PASS)', () {
       expect(
-          run('main() { try { var result = "B"; 1~/0; return result + "E"; } catch (e) { return "C"; } }'),
-          'C');
+        run(
+          'main() { try { var result = "B"; 1~/0; return result + "E"; } catch (e) { return "C"; } }',
+        ),
+        'C',
+      );
       expect(
-          run('main() { try { var result = "B"; 1~/1; return result + "E"; } catch (e) { return "C"; } }'),
-          'BE');
+        run(
+          'main() { try { var result = "B"; 1~/1; return result + "E"; } catch (e) { return "C"; } }',
+        ),
+        'BE',
+      );
       expect(
-          run('main() { for (var i in [1, 2]) { try { return i; } catch (e, st) { return "X"; } } }'),
-          1);
+        run(
+          'main() { for (var i in [1, 2]) { try { return i; } catch (e, st) { return "X"; } } }',
+        ),
+        1,
+      );
     });
   });
 
   group('examples', () {
     test('I-MISC-301: Factorial. [2026-02-10 06:37] (PASS)', () {
-      expect(run('''
+      expect(
+        run('''
         fac(n) {
           if (n == 0) return 1;
           return fac(n - 1) * n;
@@ -307,7 +369,9 @@ void main() {
         main() {
           return "\${fac(0)} \${fac(1)} \${fac(10)}";
       
-        }'''), '1 1 3628800');
+        }'''),
+        '1 1 3628800',
+      );
     });
     test('I-MISC-302: String methods. [2026-02-10 06:37] (PASS)', () {
       expect(run('main() { return "".isEmpty; }'), true);
@@ -335,7 +399,8 @@ void main() {
   });
   group('switch', () {
     test('I-MISC-307: Constant case. [2026-02-10 06:37] (PASS)', () {
-      expect(run('''
+      expect(
+        run('''
       main() {
       var a = 1;
       switch (a) {
@@ -347,11 +412,14 @@ void main() {
         break;
       }
       }
-    '''), 'one');
+    '''),
+        'one',
+      );
     });
 
     test('I-MISC-309: Default case. [2026-02-10 06:37] (PASS)', () {
-      expect(run('''
+      expect(
+        run('''
       main() {
       var a = 3;
       switch (a) {
@@ -365,7 +433,9 @@ void main() {
         return 'other';
       }
       }
-    '''), 'other');
+    '''),
+        'other',
+      );
     });
   });
 
@@ -376,8 +446,11 @@ void main() {
 
     test('I-MISC-311: Map pattern. [2026-02-10 06:37] (PASS)', () {
       expect(
-          run('main() { var { "a": a, "b": b } = { "a": 1, "b": 2 }; return a; }'),
-          1);
+        run(
+          'main() { var { "a": a, "b": b } = { "a": 1, "b": 2 }; return a; }',
+        ),
+        1,
+      );
     });
 
     test('I-MISC-313: Record pattern. [2026-02-10 06:37] (PASS)', () {
@@ -387,44 +460,58 @@ void main() {
 
   test('I-MISC-314: AssertStatement. [2026-02-10 06:37] (PASS)', () {
     expect(
-        () => run('main() { assert(false); }'), throwsA(isA<RuntimeD4rtException>()));
+      () => run('main() { assert(false); }'),
+      throwsA(isA<RuntimeD4rtException>()),
+    );
     expect(() => run('main() { assert(true); }'), returnsNormally);
-    expect(() => run('main() { assert(1 == 2, "message"); }'),
-        throwsA(isA<RuntimeD4rtException>()));
+    expect(
+      () => run('main() { assert(1 == 2, "message"); }'),
+      throwsA(isA<RuntimeD4rtException>()),
+    );
   });
   test('I-MISC-315: AsExpression. [2026-02-10 06:37] (PASS)', () {
     expect(() => run('main() { return 123 as int; }'), returnsNormally);
     expect(() => run('main() { return "hello" as String; }'), returnsNormally);
   });
-  test('I-MISC-316: BinaryExpression - bitwise operators. [2026-02-10 06:37] (PASS)', () {
-    expect(run('main() { return 5 ^ 3; }'), 6);
-    expect(run('main() { return 5 & 3; }'), 1);
-    expect(run('main() { return 5 | 3; }'), 7);
-    expect(run('main() { return 5 >> 1; }'), 2);
-    expect(run('main() { return 5 << 1; }'), 10);
-    expect(run('main() { return 5 >>> 1; }'), 2);
-  });
+  test(
+    'I-MISC-316: BinaryExpression - bitwise operators. [2026-02-10 06:37] (PASS)',
+    () {
+      expect(run('main() { return 5 ^ 3; }'), 6);
+      expect(run('main() { return 5 & 3; }'), 1);
+      expect(run('main() { return 5 | 3; }'), 7);
+      expect(run('main() { return 5 >> 1; }'), 2);
+      expect(run('main() { return 5 << 1; }'), 10);
+      expect(run('main() { return 5 >>> 1; }'), 2);
+    },
+  );
 
   test('I-MISC-317: IsExpression. [2026-02-10 06:37] (PASS)', () {
     expect(run('main() { return 123 is int; }'), true);
     expect(run('main() { return "hello" is String; }'), true);
     expect(run('main() { return "hello" is int; }'), false);
   });
-  test('I-MISC-318: MethodInvocation - String methods. [2026-02-10 06:37] (PASS)', () {
-    expect(run('main() { return "hello".substring(1); }'), 'ello');
-    expect(run('main() { return "hello".substring(1, 3); }'), 'el');
-    expect(run('main() { return "hello".toUpperCase(); }'), 'HELLO');
-    expect(run('main() { return "hello".toLowerCase(); }'), 'hello');
-  });
+  test(
+    'I-MISC-318: MethodInvocation - String methods. [2026-02-10 06:37] (PASS)',
+    () {
+      expect(run('main() { return "hello".substring(1); }'), 'ello');
+      expect(run('main() { return "hello".substring(1, 3); }'), 'el');
+      expect(run('main() { return "hello".toUpperCase(); }'), 'HELLO');
+      expect(run('main() { return "hello".toLowerCase(); }'), 'hello');
+    },
+  );
 
-  test('I-MISC-320: MethodInvocation - int methods. [2026-02-10 06:37] (PASS)', () {
-    expect(run('main() { return 123.toString(); }'), '123');
-  });
+  test(
+    'I-MISC-320: MethodInvocation - int methods. [2026-02-10 06:37] (PASS)',
+    () {
+      expect(run('main() { return 123.toString(); }'), '123');
+    },
+  );
   test('I-MISC-321: PrefixedIdentifier. [2026-02-10 06:37] (PASS)', () {
     expect(run('main() { var a = [1, 2, 3]; return a.length; }'), 3);
   });
   test('I-MISC-322: RethrowExpression. [2026-02-10 06:37] (PASS)', () {
-    expect(() => run('''
+    expect(
+      () => run('''
       main() {
         try {
         throw "error";
@@ -432,11 +519,15 @@ void main() {
         rethrow;
         }
       }
-      '''), throwsA(equals("error")));
+      '''),
+      throwsA(equals("error")),
+    );
   });
 
-  test('I-MISC-323: Complex default values for optional parameters. [2026-02-10 06:37] (PASS)', () {
-    final code = '''
+  test(
+    'I-MISC-323: Complex default values for optional parameters. [2026-02-10 06:37] (PASS)',
+    () {
+      final code = '''
       f({a = 1 + 2}) {
         return a;
       }
@@ -444,10 +535,13 @@ void main() {
         return f();
       }
       ''';
-    expect(run(code), 3);
-  });
-  test('I-MISC-324: Circular dependencies in default values. [2026-02-10 06:37] (PASS)', () {
-    final code = '''
+      expect(run(code), 3);
+    },
+  );
+  test(
+    'I-MISC-324: Circular dependencies in default values. [2026-02-10 06:37] (PASS)',
+    () {
+      final code = '''
       f({a = b, b = a}) {
         return [a, b];
       }
@@ -455,8 +549,9 @@ void main() {
         return f(a: 2, b: 3);
       }
       ''';
-    expect(run(code), [2, 3]);
-  });
+      expect(run(code), [2, 3]);
+    },
+  );
 
   group('LabeledStatement', () {
     test('I-MISC-325: Break with label. [2026-02-10 06:37] (PASS)', () {
@@ -505,8 +600,10 @@ void main() {
   });
 
   group('ThisExpression', () {
-    test('I-MISC-329: This expression in method. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-MISC-329: This expression in method. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       class A {
       var value;
       A(this.value);
@@ -520,8 +617,9 @@ void main() {
       return a.getValue();
       }
       ''';
-      expect(run(source), 42);
-    });
+        expect(run(source), 42);
+      },
+    );
   });
 
   group('function reference', () {
@@ -555,8 +653,10 @@ void main() {
       // Note: Getter tear-off currently returns the bound method itself, not a function
       // that calls the getter. This needs adjustment in the interpreter or test.
       // For now, we test the method tear-off works.
-      expect(() => run(source),
-          returnsNormally); // We expect it to run, value check is tricky
+      expect(
+        () => run(source),
+        returnsNormally,
+      ); // We expect it to run, value check is tricky
 
       // Let's refine the test to check the final value via direct access
       final source2 = '''
@@ -588,8 +688,10 @@ void main() {
       expect(run(source), 20);
     });
 
-    test('I-MISC-335: Tear-off missing instance method. [2026-02-10 06:37] (PASS)', () {
-      final source = '''
+    test(
+      'I-MISC-335: Tear-off missing instance method. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
        class MyClass {}
        main() {
          var obj = MyClass();
@@ -598,11 +700,14 @@ void main() {
        }
        ''';
 
-      expect(() => run(source), throwsA(isA<RuntimeD4rtException>()));
-    });
+        expect(() => run(source), throwsA(isA<RuntimeD4rtException>()));
+      },
+    );
 
-    test('I-MISC-336: Tear-off missing static method. [2026-02-10 06:37] (PASS)', () {
-      final source = '''
+    test(
+      'I-MISC-336: Tear-off missing static method. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
       class MyClass {}
       main() {
         var func = MyClass.missingStaticMethod;
@@ -610,11 +715,14 @@ void main() {
       }
       ''';
 
-      expect(() => run(source), throwsA(isA<RuntimeD4rtException>()));
-    });
+        expect(() => run(source), throwsA(isA<RuntimeD4rtException>()));
+      },
+    );
 
-    test('I-MISC-337: Pass function reference as argument. [2026-02-10 06:37] (PASS)', () {
-      final source = '''
+    test(
+      'I-MISC-337: Pass function reference as argument. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
         int apply(int val, Function(int) fn) {
           return fn(val);
         }
@@ -624,11 +732,14 @@ void main() {
           return apply(10, f);
         }
       ''';
-      expect(run(source), 20);
-    });
+        expect(run(source), 20);
+      },
+    );
 
-    test('I-MISC-338: Pass instance method reference as argument. [2026-02-10 06:37] (PASS)', () {
-      final source = '''
+    test(
+      'I-MISC-338: Pass instance method reference as argument. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
          int apply(int val, Function(int) fn) {
            return fn(val);
          }
@@ -643,8 +754,9 @@ void main() {
            return apply(5, f);
          }
        ''';
-      expect(run(source), 15);
-    });
+        expect(run(source), 15);
+      },
+    );
   }); // End of group('function reference')
 
   group('record literal', () {
@@ -684,29 +796,41 @@ void main() {
       expect(run(source), 2);
     });
 
-    test('I-MISC-346: Record field access - named. [2026-02-10 06:37] (PASS)', () {
-      final source = 'main() { var r = (x: 10, y: "hi"); return r.y; }';
-      expect(run(source), "hi");
-    });
+    test(
+      'I-MISC-346: Record field access - named. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = 'main() { var r = (x: 10, y: "hi"); return r.y; }';
+        expect(run(source), "hi");
+      },
+    );
 
-    test('I-MISC-347: Record field access - positional out of bounds. [2026-02-10 06:37] (PASS)', () {
-      final source = 'main() { var r = (1, 2); return r.\$3; }';
-      expect(() => run(source), throwsA(isA<RuntimeD4rtException>()));
-    });
+    test(
+      'I-MISC-347: Record field access - positional out of bounds. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = 'main() { var r = (1, 2); return r.\$3; }';
+        expect(() => run(source), throwsA(isA<RuntimeD4rtException>()));
+      },
+    );
 
-    test('I-MISC-348: Record field access - named not found. [2026-02-10 06:37] (PASS)', () {
-      final source = 'main() { var r = (a: 1); return r.b; }';
-      expect(() => run(source), throwsA(isA<RuntimeD4rtException>()));
-    });
+    test(
+      'I-MISC-348: Record field access - named not found. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = 'main() { var r = (a: 1); return r.b; }';
+        expect(() => run(source), throwsA(isA<RuntimeD4rtException>()));
+      },
+    );
 
     test('I-MISC-349: Nested record creation. [2026-02-10 06:37] (PASS)', () {
       final source = 'main() { return (1, (a: 2, b: 3), c: (4, d: 5)); }';
-      final expected = InterpretedRecord([
-        1,
-        InterpretedRecord([], {'a': 2, 'b': 3}),
-      ], {
-        'c': InterpretedRecord([4], {'d': 5}),
-      });
+      final expected = InterpretedRecord(
+        [
+          1,
+          InterpretedRecord([], {'a': 2, 'b': 3}),
+        ],
+        {
+          'c': InterpretedRecord([4], {'d': 5}),
+        },
+      );
       expect(run(source), expected);
     });
 
@@ -716,15 +840,23 @@ void main() {
       expect(run(source), 10);
     });
 
-    test('I-MISC-351: Nested record access - positional in named. [2026-02-10 06:37] (PASS)', () {
-      final source = 'main() { var rec = (a: (100, 200)); return rec.a.\$2; }';
-      expect(run(source), 200);
-    });
+    test(
+      'I-MISC-351: Nested record access - positional in named. [2026-02-10 06:37] (PASS)',
+      () {
+        final source =
+            'main() { var rec = (a: (100, 200)); return rec.a.\$2; }';
+        expect(run(source), 200);
+      },
+    );
 
-    test('I-MISC-352: Nested record access - named in positional. [2026-02-10 06:37] (PASS)', () {
-      final source = 'main() { var rec = (10, (x: true)); return rec.\$2.x; }';
-      expect(run(source), true);
-    });
+    test(
+      'I-MISC-352: Nested record access - named in positional. [2026-02-10 06:37] (PASS)',
+      () {
+        final source =
+            'main() { var rec = (10, (x: true)); return rec.\$2.x; }';
+        expect(run(source), true);
+      },
+    );
   });
 
   group('pattern assignment', () {
@@ -739,8 +871,10 @@ void main() {
       expect(run(source), 3);
     });
 
-    test('I-MISC-354: Record pattern assignment (positional). [2026-02-10 06:37] (PASS)', () {
-      final source = '''
+    test(
+      'I-MISC-354: Record pattern assignment (positional). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
       main() {
         var x = 0, y = '';
         var recordValue = (10, 'hello'); // Create the record first
@@ -748,11 +882,14 @@ void main() {
         return '\$x-\$y';
       }
       ''';
-      expect(run(source), '10-hello');
-    });
+        expect(run(source), '10-hello');
+      },
+    );
 
-    test('I-MISC-355: Record pattern assignment (named). [2026-02-10 06:37] (PASS)', () {
-      final source = '''
+    test(
+      'I-MISC-355: Record pattern assignment (named). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
       main() {
         var name = '', age = 0;
         var recordValue = (name: 'Interpreted', age: 1); // Create the record first
@@ -760,44 +897,56 @@ void main() {
         return '\$name is \$age';
       }
       ''';
-      expect(run(source), 'Interpreted is 1');
-    });
+        expect(run(source), 'Interpreted is 1');
+      },
+    );
 
-    test('I-MISC-356: Record pattern assignment (mixed). [2026-02-10 06:37] (PASS)', () {
-      final source = '''
+    test(
+      'I-MISC-356: Record pattern assignment (mixed). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
       main() {
         var id = 0, active = false;
         (id, active: active) = (99, active: true);
         return id + (active ? 100 : 0);
       }
       ''';
-      expect(run(source), 199);
-    });
+        expect(run(source), 199);
+      },
+    );
 
-    test('I-MISC-357: Pattern assignment returns value. [2026-02-10 06:37] (PASS)', () {
-      final source = '''
+    test(
+      'I-MISC-357: Pattern assignment returns value. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
       main() {
         var a=0, b=0;
         var result = ([a, b] = [5, 6]);
         return result;
       }
       ''';
-      expect(run(source), [5, 6]); // Should return the assigned list
-    });
+        expect(run(source), [5, 6]); // Should return the assigned list
+      },
+    );
 
-    test('I-MISC-358: Nested list pattern assignment. [2026-02-10 06:37] (PASS)', () {
-      final source = '''
+    test(
+      'I-MISC-358: Nested list pattern assignment. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
       main() {
         var a = 0, b = 0, c = 0;
         [a, [b, c]] = [1, [2, 3]];
         return a + b + c;
       }
       ''';
-      expect(run(source), 6);
-    });
+        expect(run(source), 6);
+      },
+    );
 
-    test('I-MISC-360: Nested record pattern assignment. [2026-02-10 06:37] (PASS)', () {
-      final source = '''
+    test(
+      'I-MISC-360: Nested record pattern assignment. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
       main() {
         var id = 0, name = '', active = false;
         var val = (10, details: (name: 'X', active: true));
@@ -805,19 +954,23 @@ void main() {
         return '\$id - \$name - \$active';
       }
       ''';
-      expect(run(source), '10 - X - true');
-    });
+        expect(run(source), '10 - X - true');
+      },
+    );
 
-    test('I-MISC-361: Pattern assignment with wildcard. [2026-02-10 06:37] (PASS)', () {
-      final source = '''
+    test(
+      'I-MISC-361: Pattern assignment with wildcard. [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
       main() {
         var a = 0, c = 0;
         [a, _, c] = [1, 2, 3]; // Assign a and c, ignore middle element
         return a + c;
       }
       ''';
-      expect(run(source), 4);
-    });
+        expect(run(source), 4);
+      },
+    );
   });
 
   group('switch expression', () {
@@ -888,8 +1041,10 @@ void main() {
       expect(run(source), 20);
     });
 
-    test('I-MISC-369: Match with when clause (true). [2026-02-10 06:37] (PASS)', () {
-      final source = '''
+    test(
+      'I-MISC-369: Match with when clause (true). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
       main() {
         var r = (a: 5);
         return switch(r) {
@@ -898,11 +1053,14 @@ void main() {
         };
       }
       ''';
-      expect(run(source), 10);
-    });
+        expect(run(source), 10);
+      },
+    );
 
-    test('I-MISC-370: Match with when clause (false). [2026-02-10 06:37] (PASS)', () {
-      final source = '''
+    test(
+      'I-MISC-370: Match with when clause (false). [2026-02-10 06:37] (PASS)',
+      () {
+        final source = '''
       main() {
         var r = (a: 2);
         return switch(r) {
@@ -911,8 +1069,9 @@ void main() {
         };
       }
       ''';
-      expect(run(source), -1);
-    });
+        expect(run(source), -1);
+      },
+    );
 
     test('I-MISC-371: Nested pattern match. [2026-02-10 06:37] (PASS)', () {
       final source = '''

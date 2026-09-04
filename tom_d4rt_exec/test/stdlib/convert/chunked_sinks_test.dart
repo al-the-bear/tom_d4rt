@@ -5,7 +5,8 @@ void main() {
   const String testLibPath = 'd4rt-mem:/chunked_sinks_test.dart';
 
   dynamic run(String scriptBody) {
-    final fullScript = '''
+    final fullScript =
+        '''
       import 'dart:convert';
       main() {
         $scriptBody
@@ -19,9 +20,10 @@ void main() {
   }
 
   group('ClosableStringSink (SC9)', () {
-    test('F-SC9-11: fromStringSink writes through to the buffer. [2026-07-27]',
-        () {
-      final result = run(r'''
+    test(
+      'F-SC9-11: fromStringSink writes through to the buffer. [2026-07-27]',
+      () {
+        final result = run(r'''
         final b = StringBuffer();
         final s = ClosableStringSink.fromStringSink(b, () {});
         s.write('hello');
@@ -30,8 +32,9 @@ void main() {
         s.writeAll(['a', 'b'], '-');
         return b.toString().replaceAll('\n', '|');
       ''');
-      expect(result, 'hello world|!a-b');
-    });
+        expect(result, 'hello world|!a-b');
+      },
+    );
 
     test('F-SC9-12: close() invokes the onClose callback. [2026-07-27]', () {
       final result = run('''
@@ -57,26 +60,46 @@ void main() {
     test('F-SC9-14: fromStringSink rejects a non-StringSink. [2026-07-27]', () {
       expect(
         () => run("return ClosableStringSink.fromStringSink(42, () {});"),
-        throwsA(isA<RuntimeD4rtException>().having((e) => e.toString(),
-            'message', contains('requires a StringSink'))),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.toString(),
+            'message',
+            contains('requires a StringSink'),
+          ),
+        ),
       );
     });
 
-    test('F-SC9-15: fromStringSink rejects a non-Function onClose. [2026-07-27]',
-        () {
-      expect(
-        () => run("return ClosableStringSink.fromStringSink(StringBuffer(), 7);"),
-        throwsA(isA<RuntimeD4rtException>().having((e) => e.toString(),
-            'message', contains('requires a callback'))),
-      );
-    });
+    test(
+      'F-SC9-15: fromStringSink rejects a non-Function onClose. [2026-07-27]',
+      () {
+        expect(
+          () => run(
+            "return ClosableStringSink.fromStringSink(StringBuffer(), 7);",
+          ),
+          throwsA(
+            isA<RuntimeD4rtException>().having(
+              (e) => e.toString(),
+              'message',
+              contains('requires a callback'),
+            ),
+          ),
+        );
+      },
+    );
 
     test('F-SC9-16: writeCharCode rejects a non-int. [2026-07-27]', () {
       expect(
         () => run(
-            "return ClosableStringSink.fromStringSink(StringBuffer(), () {}).writeCharCode('x');"),
-        throwsA(isA<RuntimeD4rtException>().having((e) => e.toString(),
-            'message', contains('writeCharCode requires one int'))),
+          "return ClosableStringSink.fromStringSink(StringBuffer(), () {}).writeCharCode('x');",
+        ),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.toString(),
+            'message',
+            contains('writeCharCode requires one int'),
+          ),
+        ),
       );
     });
   });
@@ -87,9 +110,10 @@ void main() {
   // (nothing could construct its argument) and left `asStringSink()`, the
   // idiomatic route to a ClosableStringSink, unreachable.
   group('chunked-conversion sinks, newly registered (SC9)', () {
-    test('F-SC9-17: StringConversionSink.withCallback accumulates. [2026-07-27]',
-        () {
-      final result = run('''
+    test(
+      'F-SC9-17: StringConversionSink.withCallback accumulates. [2026-07-27]',
+      () {
+        final result = run('''
         final out = [];
         final s = StringConversionSink.withCallback((v) { out.add(v); });
         s.add('abc');
@@ -97,8 +121,9 @@ void main() {
         s.close();
         return out.join('/');
       ''');
-      expect(result, 'abcdef');
-    });
+        expect(result, 'abcdef');
+      },
+    );
 
     test('F-SC9-18: addSlice writes a substring. [2026-07-27]', () {
       final result = run('''
@@ -110,9 +135,10 @@ void main() {
       expect(result, 'bcd');
     });
 
-    test('F-SC9-19: asStringSink yields a working ClosableStringSink. [2026-07-27]',
-        () {
-      final result = run(r'''
+    test(
+      'F-SC9-19: asStringSink yields a working ClosableStringSink. [2026-07-27]',
+      () {
+        final result = run(r'''
         final out = [];
         final css = StringConversionSink.withCallback((v) { out.add(v); })
             .asStringSink();
@@ -121,12 +147,14 @@ void main() {
         css.close();
         return [css is ClosableStringSink, out.join().replaceAll('\n', '|')];
       ''');
-      expect(result, [true, 'xyz|']);
-    });
+        expect(result, [true, 'xyz|']);
+      },
+    );
 
-    test('F-SC9-20: ChunkedConversionSink.withCallback collects chunks. [2026-07-27]',
-        () {
-      final result = run('''
+    test(
+      'F-SC9-20: ChunkedConversionSink.withCallback collects chunks. [2026-07-27]',
+      () {
+        final result = run('''
         final out = [];
         final s = ChunkedConversionSink.withCallback((chunks) {
           out.add(chunks.length);
@@ -136,12 +164,14 @@ void main() {
         s.close();
         return out.join();
       ''');
-      expect(result, '2');
-    });
+        expect(result, '2');
+      },
+    );
 
-    test('F-SC9-21: JsonEncoder.startChunkedConversion is now callable. [2026-07-27]',
-        () {
-      final result = run('''
+    test(
+      'F-SC9-21: JsonEncoder.startChunkedConversion is now callable. [2026-07-27]',
+      () {
+        final result = run('''
         final out = [];
         final sink = JsonEncoder().startChunkedConversion(
             StringConversionSink.withCallback((v) { out.add(v); }));
@@ -149,8 +179,9 @@ void main() {
         sink.close();
         return out.join();
       ''');
-      expect(result, '{"a":1}');
-    });
+        expect(result, '{"a":1}');
+      },
+    );
 
     // Registering ChunkedConversionSink gave the root of the sink hierarchy an
     // `isAssignable` predicate, which matches *every* sink in the library. The
@@ -170,9 +201,10 @@ void main() {
       expect(result, 'abde');
     });
 
-    test('F-SC9-23: encoder and decoder route to their own sink kind. [2026-07-27]',
-        () {
-      final result = run('''
+    test(
+      'F-SC9-23: encoder and decoder route to their own sink kind. [2026-07-27]',
+      () {
+        final result = run('''
         final bytes = [];
         final enc = utf8.encoder.startChunkedConversion(
             ByteConversionSink.withCallback((b) { bytes.add(b.length); }));
@@ -185,7 +217,8 @@ void main() {
         dec.close();
         return [bytes.join(), text.join()];
       ''');
-      expect(result, ['5', 'hi there']);
-    });
+        expect(result, ['5', 'hi there']);
+      },
+    );
   });
 }

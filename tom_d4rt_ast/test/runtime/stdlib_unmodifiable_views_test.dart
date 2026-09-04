@@ -44,166 +44,205 @@ void main() {
   });
 
   group('SC3: UnmodifiableMapView collection bridge', () {
-    test('F-SC3-AST-1: is registered under the name UnmodifiableMapView [2026-07-27]',
-        () {
-      final bridge = env.findBridgedClassByName('UnmodifiableMapView');
-      expect(bridge, isNotNull);
-      expect(bridge!.nativeType, UnmodifiableMapView);
-      expect(bridge.typeParameterCount, 2);
-      expect(
+    test(
+      'F-SC3-AST-1: is registered under the name UnmodifiableMapView [2026-07-27]',
+      () {
+        final bridge = env.findBridgedClassByName('UnmodifiableMapView');
+        expect(bridge, isNotNull);
+        expect(bridge!.nativeType, UnmodifiableMapView);
+        expect(bridge.typeParameterCount, 2);
+        expect(
           bridge.isAssignable?.call(UnmodifiableMapView<String, int>({'a': 1})),
-          isTrue);
-      expect(bridge.isAssignable?.call(<String, int>{'a': 1}), isFalse);
-    });
+          isTrue,
+        );
+        expect(bridge.isAssignable?.call(<String, int>{'a': 1}), isFalse);
+      },
+    );
 
     test('F-SC3-AST-2: exposes the wrapping constructor [2026-07-27]', () {
       final bridge = env.findBridgedClassByName('UnmodifiableMapView')!;
       expect(bridge.constructors.keys, contains(''));
     });
 
-    test('F-SC3-AST-3: exposes the read and mutating Map surface [2026-07-27]',
-        () {
-      final bridge = env.findBridgedClassByName('UnmodifiableMapView')!;
-      expect(
-        bridge.methods.keys,
-        containsAll(<String>[
-          // read-through
-          '[]', 'containsKey', 'containsValue', 'forEach', 'map', 'cast',
-          // delegated so the native view raises UnsupportedError
-          '[]=', 'addAll', 'addEntries', 'clear', 'putIfAbsent', 'remove',
-          'removeWhere', 'update', 'updateAll',
-        ]),
-      );
-    });
+    test(
+      'F-SC3-AST-3: exposes the read and mutating Map surface [2026-07-27]',
+      () {
+        final bridge = env.findBridgedClassByName('UnmodifiableMapView')!;
+        expect(
+          bridge.methods.keys,
+          containsAll(<String>[
+            // read-through
+            '[]', 'containsKey', 'containsValue', 'forEach', 'map', 'cast',
+            // delegated so the native view raises UnsupportedError
+            '[]=', 'addAll', 'addEntries', 'clear', 'putIfAbsent', 'remove',
+            'removeWhere', 'update', 'updateAll',
+          ]),
+        );
+      },
+    );
 
-    test('F-SC3-AST-4: the getters read through to the backing map [2026-07-27]',
-        () {
-      final bridge = env.findBridgedClassByName('UnmodifiableMapView')!;
-      final view = UnmodifiableMapView<dynamic, dynamic>({'a': 1, 'b': 2});
-      expect(bridge.getters['length']!(null, view), 2);
-      expect(bridge.getters['isEmpty']!(null, view), isFalse);
-      expect(bridge.getters['isNotEmpty']!(null, view), isTrue);
-      expect(bridge.getters['keys']!(null, view), orderedEquals(['a', 'b']));
-      expect(bridge.getters['values']!(null, view), orderedEquals([1, 2]));
-    });
+    test(
+      'F-SC3-AST-4: the getters read through to the backing map [2026-07-27]',
+      () {
+        final bridge = env.findBridgedClassByName('UnmodifiableMapView')!;
+        final view = UnmodifiableMapView<dynamic, dynamic>({'a': 1, 'b': 2});
+        expect(bridge.getters['length']!(null, view), 2);
+        expect(bridge.getters['isEmpty']!(null, view), isFalse);
+        expect(bridge.getters['isNotEmpty']!(null, view), isTrue);
+        expect(bridge.getters['keys']!(null, view), orderedEquals(['a', 'b']));
+        expect(bridge.getters['values']!(null, view), orderedEquals([1, 2]));
+      },
+    );
 
-    test('F-SC3-AST-5: the mutators delegate, so the SDK error surfaces [2026-07-27]',
-        () {
-      // The whole point of delegating rather than intercepting: scripts catch
-      // `UnsupportedError`, not a D4rt-specific exception.
-      final bridge = env.findBridgedClassByName('UnmodifiableMapView')!;
-      final view = UnmodifiableMapView<dynamic, dynamic>({'a': 1});
-      expect(
-        () => bridge.methods['clear']!(visitor, view, [], {}, []),
-        throwsUnsupportedError,
-      );
-      expect(
-        () => bridge.methods['[]=']!(visitor, view, ['b', 2], {}, []),
-        throwsUnsupportedError,
-      );
-      // ... while the read-through members on the same bridge still work.
-      expect(bridge.methods['[]']!(visitor, view, ['a'], {}, []), 1);
-    });
+    test(
+      'F-SC3-AST-5: the mutators delegate, so the SDK error surfaces [2026-07-27]',
+      () {
+        // The whole point of delegating rather than intercepting: scripts catch
+        // `UnsupportedError`, not a D4rt-specific exception.
+        final bridge = env.findBridgedClassByName('UnmodifiableMapView')!;
+        final view = UnmodifiableMapView<dynamic, dynamic>({'a': 1});
+        expect(
+          () => bridge.methods['clear']!(visitor, view, [], {}, []),
+          throwsUnsupportedError,
+        );
+        expect(
+          () => bridge.methods['[]=']!(visitor, view, ['b', 2], {}, []),
+          throwsUnsupportedError,
+        );
+        // ... while the read-through members on the same bridge still work.
+        expect(bridge.methods['[]']!(visitor, view, ['a'], {}, []), 1);
+      },
+    );
   });
 
   group('SC3: UnmodifiableSetView collection bridge', () {
-    test('F-SC3-AST-6: is registered under the name UnmodifiableSetView [2026-07-27]',
-        () {
-      final bridge = env.findBridgedClassByName('UnmodifiableSetView');
-      expect(bridge, isNotNull);
-      expect(bridge!.nativeType, UnmodifiableSetView);
-      expect(bridge.typeParameterCount, 1);
-      expect(bridge.isAssignable?.call(UnmodifiableSetView<int>({1})), isTrue);
-      expect(bridge.isAssignable?.call(<int>{1}), isFalse);
-    });
+    test(
+      'F-SC3-AST-6: is registered under the name UnmodifiableSetView [2026-07-27]',
+      () {
+        final bridge = env.findBridgedClassByName('UnmodifiableSetView');
+        expect(bridge, isNotNull);
+        expect(bridge!.nativeType, UnmodifiableSetView);
+        expect(bridge.typeParameterCount, 1);
+        expect(
+          bridge.isAssignable?.call(UnmodifiableSetView<int>({1})),
+          isTrue,
+        );
+        expect(bridge.isAssignable?.call(<int>{1}), isFalse);
+      },
+    );
 
-    test('F-SC3-AST-7: exposes the read and mutating Set surface [2026-07-27]',
-        () {
-      final bridge = env.findBridgedClassByName('UnmodifiableSetView')!;
-      expect(
-        bridge.methods.keys,
-        containsAll(<String>[
-          // read-through
-          'contains', 'containsAll', 'lookup', 'difference', 'intersection',
-          'union', 'forEach', 'map', 'where', 'fold', 'join', 'toList', 'toSet',
-          // delegated so the native view raises UnsupportedError
-          'add', 'addAll', 'remove', 'removeAll', 'retainAll', 'removeWhere',
-          'retainWhere', 'clear',
-        ]),
-      );
-    });
+    test(
+      'F-SC3-AST-7: exposes the read and mutating Set surface [2026-07-27]',
+      () {
+        final bridge = env.findBridgedClassByName('UnmodifiableSetView')!;
+        expect(
+          bridge.methods.keys,
+          containsAll(<String>[
+            // read-through
+            'contains', 'containsAll', 'lookup', 'difference', 'intersection',
+            'union',
+            'forEach',
+            'map',
+            'where',
+            'fold',
+            'join',
+            'toList',
+            'toSet',
+            // delegated so the native view raises UnsupportedError
+            'add', 'addAll', 'remove', 'removeAll', 'retainAll', 'removeWhere',
+            'retainWhere', 'clear',
+          ]),
+        );
+      },
+    );
 
-    test('F-SC3-AST-8: the getters read through to the backing set [2026-07-27]',
-        () {
-      final bridge = env.findBridgedClassByName('UnmodifiableSetView')!;
-      final view = UnmodifiableSetView<dynamic>({'x', 'y'});
-      expect(bridge.getters['length']!(null, view), 2);
-      expect(bridge.getters['isEmpty']!(null, view), isFalse);
-      expect(bridge.getters['first']!(null, view), 'x');
-      expect(bridge.getters['last']!(null, view), 'y');
-    });
+    test(
+      'F-SC3-AST-8: the getters read through to the backing set [2026-07-27]',
+      () {
+        final bridge = env.findBridgedClassByName('UnmodifiableSetView')!;
+        final view = UnmodifiableSetView<dynamic>({'x', 'y'});
+        expect(bridge.getters['length']!(null, view), 2);
+        expect(bridge.getters['isEmpty']!(null, view), isFalse);
+        expect(bridge.getters['first']!(null, view), 'x');
+        expect(bridge.getters['last']!(null, view), 'y');
+      },
+    );
 
-    test('F-SC3-AST-9: the mutators delegate, so the SDK error surfaces [2026-07-27]',
-        () {
-      final bridge = env.findBridgedClassByName('UnmodifiableSetView')!;
-      final view = UnmodifiableSetView<dynamic>({1});
-      expect(
-        () => bridge.methods['add']!(visitor, view, [2], {}, []),
-        throwsUnsupportedError,
-      );
-      expect(
-        () => bridge.methods['clear']!(visitor, view, [], {}, []),
-        throwsUnsupportedError,
-      );
-      // ... while the read-through members on the same bridge still work.
-      expect(bridge.methods['contains']!(visitor, view, [1], {}, []), isTrue);
-    });
+    test(
+      'F-SC3-AST-9: the mutators delegate, so the SDK error surfaces [2026-07-27]',
+      () {
+        final bridge = env.findBridgedClassByName('UnmodifiableSetView')!;
+        final view = UnmodifiableSetView<dynamic>({1});
+        expect(
+          () => bridge.methods['add']!(visitor, view, [2], {}, []),
+          throwsUnsupportedError,
+        );
+        expect(
+          () => bridge.methods['clear']!(visitor, view, [], {}, []),
+          throwsUnsupportedError,
+        );
+        // ... while the read-through members on the same bridge still work.
+        expect(bridge.methods['contains']!(visitor, view, [1], {}, []), isTrue);
+      },
+    );
   });
 
   group('SC3: UnmodifiableListView collection bridge', () {
-    test('F-SC3-AST-11: is registered under the name UnmodifiableListView [2026-09-04]',
-        () {
-      final bridge = env.findBridgedClassByName('UnmodifiableListView');
-      expect(bridge, isNotNull);
-      expect(bridge!.nativeType, UnmodifiableListView);
-      expect(bridge.typeParameterCount, 1);
-      expect(bridge.isAssignable?.call(UnmodifiableListView<int>([1])), isTrue);
-      expect(bridge.isAssignable?.call(<int>[1]), isFalse);
-    });
+    test(
+      'F-SC3-AST-11: is registered under the name UnmodifiableListView [2026-09-04]',
+      () {
+        final bridge = env.findBridgedClassByName('UnmodifiableListView');
+        expect(bridge, isNotNull);
+        expect(bridge!.nativeType, UnmodifiableListView);
+        expect(bridge.typeParameterCount, 1);
+        expect(
+          bridge.isAssignable?.call(UnmodifiableListView<int>([1])),
+          isTrue,
+        );
+        expect(bridge.isAssignable?.call(<int>[1]), isFalse);
+      },
+    );
 
     test('F-SC3-AST-12: exposes the wrapping constructor [2026-09-04]', () {
       final bridge = env.findBridgedClassByName('UnmodifiableListView')!;
       expect(bridge.constructors.keys, contains(''));
     });
 
-    test('F-SC3-AST-13: exposes the read and mutating List surface [2026-09-04]',
-        () {
-      final bridge = env.findBridgedClassByName('UnmodifiableListView')!;
-      expect(
-        bridge.methods.keys,
-        containsAll(<String>[
-          // read-through
-          '[]', 'contains', 'indexOf', 'lastIndexOf', 'elementAt', 'sublist',
-          'getRange', 'forEach', 'map', 'where', 'fold', 'join', 'toList',
-          'toSet', 'cast', 'asMap', 'reversed',
-          // delegated so the native view raises UnsupportedError
-          ..._mutatingListCalls.keys,
-        ]),
-      );
-      expect(bridge.setters.keys, containsAll(_mutatingListSetters.keys));
-    });
+    test(
+      'F-SC3-AST-13: exposes the read and mutating List surface [2026-09-04]',
+      () {
+        final bridge = env.findBridgedClassByName('UnmodifiableListView')!;
+        expect(
+          bridge.methods.keys,
+          containsAll(<String>[
+            // read-through
+            '[]', 'contains', 'indexOf', 'lastIndexOf', 'elementAt', 'sublist',
+            'getRange', 'forEach', 'map', 'where', 'fold', 'join', 'toList',
+            'toSet', 'cast', 'asMap', 'reversed',
+            // delegated so the native view raises UnsupportedError
+            ..._mutatingListCalls.keys,
+          ]),
+        );
+        expect(bridge.setters.keys, containsAll(_mutatingListSetters.keys));
+      },
+    );
 
-    test('F-SC3-AST-14: the getters read through to the backing list [2026-09-04]',
-        () {
-      final bridge = env.findBridgedClassByName('UnmodifiableListView')!;
-      final view = UnmodifiableListView<dynamic>(['a', 'b']);
-      expect(bridge.getters['length']!(null, view), 2);
-      expect(bridge.getters['isEmpty']!(null, view), isFalse);
-      expect(bridge.getters['isNotEmpty']!(null, view), isTrue);
-      expect(bridge.getters['first']!(null, view), 'a');
-      expect(bridge.getters['last']!(null, view), 'b');
-      expect(bridge.getters['reversed']!(null, view), orderedEquals(['b', 'a']));
-    });
+    test(
+      'F-SC3-AST-14: the getters read through to the backing list [2026-09-04]',
+      () {
+        final bridge = env.findBridgedClassByName('UnmodifiableListView')!;
+        final view = UnmodifiableListView<dynamic>(['a', 'b']);
+        expect(bridge.getters['length']!(null, view), 2);
+        expect(bridge.getters['isEmpty']!(null, view), isFalse);
+        expect(bridge.getters['isNotEmpty']!(null, view), isTrue);
+        expect(bridge.getters['first']!(null, view), 'a');
+        expect(bridge.getters['last']!(null, view), 'b');
+        expect(
+          bridge.getters['reversed']!(null, view),
+          orderedEquals(['b', 'a']),
+        );
+      },
+    );
 
     // Asserting the KEY is present would pass for an adapter that was dropped
     // and re-added as a D4rt-specific throw — the mutation still "fails", so a
@@ -219,7 +258,8 @@ void main() {
         expect(
           () => bridge.methods[entry.key]!(visitor, view, entry.value, {}, []),
           throwsUnsupportedError,
-          reason: '`${entry.key}` must delegate to the native view, not throw a '
+          reason:
+              '`${entry.key}` must delegate to the native view, not throw a '
               'D4rt-specific exception',
         );
       });
@@ -296,13 +336,13 @@ final Map<String, List<Object?>> _mutatingListCalls = {
   '[]=': [0, 'z'],
   'add': ['z'],
   'addAll': [
-    ['z']
+    ['z'],
   ],
   'clear': [],
   'insert': [0, 'z'],
   'insertAll': [
     0,
-    ['z']
+    ['z'],
   ],
   'remove': ['a'],
   'removeAt': [0],
@@ -312,18 +352,18 @@ final Map<String, List<Object?>> _mutatingListCalls = {
   'replaceRange': [
     0,
     1,
-    ['z']
+    ['z'],
   ],
   'retainWhere': [_alwaysTrue],
   'fillRange': [0, 1, 'z'],
   'setAll': [
     0,
-    ['z']
+    ['z'],
   ],
   'setRange': [
     0,
     1,
-    ['z']
+    ['z'],
   ],
   'shuffle': [],
   'sort': [],

@@ -41,7 +41,6 @@ class LimitationTest {
 /// All limitation tests
 final limitationTests = <LimitationTest>[
   // === LIMITATIONS ===
-
   LimitationTest(
     id: 'Lim-1',
     description: 'Extension types (Dart 3.3+) not supported',
@@ -195,7 +194,6 @@ void main() async {
   ),
 
   // === BUGS (Fixed) - Should all pass ===
-
   LimitationTest(
     id: 'Bug-1',
     description: 'List.empty() constructor',
@@ -656,7 +654,9 @@ Future<TestResult> runTest(LimitationTest test) async {
       // Run with timeout
       Timer(test.timeout, () {
         if (!completer.isCompleted) {
-          completer.complete(TestResult.failure('Timeout after ${test.timeout.inSeconds}s'));
+          completer.complete(
+            TestResult.failure('Timeout after ${test.timeout.inSeconds}s'),
+          );
         }
       });
 
@@ -665,16 +665,21 @@ Future<TestResult> runTest(LimitationTest test) async {
 
       var finalResult = result.result;
       if (finalResult is Future) {
-        finalResult = await finalResult.timeout(test.timeout, onTimeout: () {
-          return null;
-        });
+        finalResult = await finalResult.timeout(
+          test.timeout,
+          onTimeout: () {
+            return null;
+          },
+        );
       }
 
       if (!completer.isCompleted) {
         if (result.success) {
           completer.complete(TestResult.success(finalResult));
         } else {
-          completer.complete(TestResult.failure(result.error?.toString() ?? 'Unknown error'));
+          completer.complete(
+            TestResult.failure(result.error?.toString() ?? 'Unknown error'),
+          );
         }
       }
 
@@ -730,7 +735,8 @@ void main() async {
     final process = await Process.start(
       'dart',
       ['run', runnerFile.path],
-      workingDirectory: '/Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_generator/example',
+      workingDirectory:
+          '/Users/alexiskyaw/Desktop/Code/tom2/xternal/tom_module_d4rt/tom_d4rt_generator/example',
     );
 
     final stdout = StringBuffer();
@@ -753,7 +759,9 @@ void main() async {
     );
 
     if (exitCode == -1) {
-      return TestResult.failure('Timeout after ${test.timeout.inSeconds}s (killed)');
+      return TestResult.failure(
+        'Timeout after ${test.timeout.inSeconds}s (killed)',
+      );
     } else if (exitCode == 0) {
       return TestResult.success(stdout.toString());
     } else {

@@ -56,8 +56,7 @@ void main() {
       expect(message, contains('registerGenericTypeWrapper'));
     });
 
-    test(
-        'registered base, unmatched type-argument: reports registration state '
+    test('registered base, unmatched type-argument: reports registration state '
         'and the unmatched arg', () {
       // Register a relaxer for the base name that never resolves anything, so
       // resolution still misses but the base *is* registered.

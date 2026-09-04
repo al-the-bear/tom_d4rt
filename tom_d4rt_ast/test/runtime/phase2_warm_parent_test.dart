@@ -48,8 +48,11 @@ void main() {
               SReturnStatement(
                 offset: 0,
                 length: 0,
-                expression:
-                    SIntegerLiteral(offset: 0, length: 1, value: returnValue),
+                expression: SIntegerLiteral(
+                  offset: 0,
+                  length: 1,
+                  value: returnValue,
+                ),
               ),
             ],
           ),
@@ -99,42 +102,60 @@ void main() {
     tearDown(D4rtRunner.debugResetPool);
 
     test(
-        'IMP-OPT-8a: two consecutive executes reuse one warm parent (legacy)',
-        () {
-      final runner = D4rtRunner();
+      'IMP-OPT-8a: two consecutive executes reuse one warm parent (legacy)',
+      () {
+        final runner = D4rtRunner();
 
-      expect(runner.executeBundleAs<int>(bundleWith(1, extraName: 'a1')), 1);
-      final parentAfterFirst = runner.visitor!.globalEnvironment.enclosing;
-      expect(parentAfterFirst, isNotNull,
-          reason: 'the per-execute env must be a child chained off the parent');
+        expect(runner.executeBundleAs<int>(bundleWith(1, extraName: 'a1')), 1);
+        final parentAfterFirst = runner.visitor!.globalEnvironment.enclosing;
+        expect(
+          parentAfterFirst,
+          isNotNull,
+          reason: 'the per-execute env must be a child chained off the parent',
+        );
 
-      expect(runner.executeBundleAs<int>(bundleWith(2, extraName: 'a2')), 2);
-      final parentAfterSecond = runner.visitor!.globalEnvironment.enclosing;
+        expect(runner.executeBundleAs<int>(bundleWith(2, extraName: 'a2')), 2);
+        final parentAfterSecond = runner.visitor!.globalEnvironment.enclosing;
 
-      expect(identical(parentAfterFirst, parentAfterSecond), isTrue,
-          reason: 'the warm parent must be built once and reused, not rebuilt');
-    });
+        expect(
+          identical(parentAfterFirst, parentAfterSecond),
+          isTrue,
+          reason: 'the warm parent must be built once and reused, not rebuilt',
+        );
+      },
+    );
 
-    test('IMP-OPT-8b: script state does not leak between executes (legacy)',
-        () {
+    test('IMP-OPT-8b: script state does not leak between executes (legacy)', () {
       final runner = D4rtRunner();
 
       // First bundle declares top-level `a1`; it lands in that execute's child.
       runner.executeBundleAs<int>(bundleWith(1, extraName: 'a1'));
       final firstChild = runner.visitor!.globalEnvironment;
-      expect(firstChild.values.containsKey('a1'), isTrue,
-          reason: 'first bundle\'s top-level fn lands in its own child');
+      expect(
+        firstChild.values.containsKey('a1'),
+        isTrue,
+        reason: 'first bundle\'s top-level fn lands in its own child',
+      );
 
       // Second bundle declares `a2` instead; its child is fresh.
       runner.executeBundleAs<int>(bundleWith(2, extraName: 'a2'));
       final secondChild = runner.visitor!.globalEnvironment;
 
-      expect(identical(firstChild, secondChild), isFalse,
-          reason: 'each execute builds a fresh child environment');
-      expect(secondChild.values.containsKey('a2'), isTrue,
-          reason: 'second bundle\'s top-level fn lands in the new child');
-      expect(secondChild.values.containsKey('a1'), isFalse,
-          reason: 'first bundle\'s `a1` must NOT leak into the second child');
+      expect(
+        identical(firstChild, secondChild),
+        isFalse,
+        reason: 'each execute builds a fresh child environment',
+      );
+      expect(
+        secondChild.values.containsKey('a2'),
+        isTrue,
+        reason: 'second bundle\'s top-level fn lands in the new child',
+      );
+      expect(
+        secondChild.values.containsKey('a1'),
+        isFalse,
+        reason: 'first bundle\'s `a1` must NOT leak into the second child',
+      );
       // The immutable warm parent never receives script declarations.
       final parent = secondChild.enclosing!;
       expect(parent.values.containsKey('a1'), isFalse);
@@ -142,36 +163,51 @@ void main() {
     });
 
     test(
-        'IMP-OPT-8c: migrated instances share one warm parent by signature',
-        () {
-      final first = D4rtRunner();
-      expect(first.providePackage('pkg_w'), isFalse);
-      first.registerBridgedClass(marker('WClass'), 'package:w/w.dart',
-          sourceUri: 'package:w/w.dart');
+      'IMP-OPT-8c: migrated instances share one warm parent by signature',
+      () {
+        final first = D4rtRunner();
+        expect(first.providePackage('pkg_w'), isFalse);
+        first.registerBridgedClass(
+          marker('WClass'),
+          'package:w/w.dart',
+          sourceUri: 'package:w/w.dart',
+        );
 
-      // Two executes on the migrated instance build the parent once.
-      first.executeBundleAs<int>(bundleWith(1, extraName: 'w1'));
-      final parent1 = first.visitor!.globalEnvironment.enclosing;
-      first.executeBundleAs<int>(bundleWith(2, extraName: 'w2'));
-      final parent2 = first.visitor!.globalEnvironment.enclosing;
-      expect(identical(parent1, parent2), isTrue);
-      expect(D4rtRunner.debugWarmParentCacheSize, 1,
-          reason: 'one cached warm parent for the {pkg_w} signature');
+        // Two executes on the migrated instance build the parent once.
+        first.executeBundleAs<int>(bundleWith(1, extraName: 'w1'));
+        final parent1 = first.visitor!.globalEnvironment.enclosing;
+        first.executeBundleAs<int>(bundleWith(2, extraName: 'w2'));
+        final parent2 = first.visitor!.globalEnvironment.enclosing;
+        expect(identical(parent1, parent2), isTrue);
+        expect(
+          D4rtRunner.debugWarmParentCacheSize,
+          1,
+          reason: 'one cached warm parent for the {pkg_w} signature',
+        );
 
-      // A second runner granted the same package reuses the cached parent.
-      final second = D4rtRunner();
-      expect(second.providePackage('pkg_w'), isTrue,
-          reason: 'pkg_w is already pooled — second runner reuses it');
-      second.executeBundleAs<int>(bundleWith(3, extraName: 'w3'));
-      final parent3 = second.visitor!.globalEnvironment.enclosing;
-      expect(identical(parent1, parent3), isTrue,
-          reason: 'same allowed-set signature → same cached warm parent');
-      expect(D4rtRunner.debugWarmParentCacheSize, 1,
-          reason: 'no new parent built for the same signature');
-    });
+        // A second runner granted the same package reuses the cached parent.
+        final second = D4rtRunner();
+        expect(
+          second.providePackage('pkg_w'),
+          isTrue,
+          reason: 'pkg_w is already pooled — second runner reuses it',
+        );
+        second.executeBundleAs<int>(bundleWith(3, extraName: 'w3'));
+        final parent3 = second.visitor!.globalEnvironment.enclosing;
+        expect(
+          identical(parent1, parent3),
+          isTrue,
+          reason: 'same allowed-set signature → same cached warm parent',
+        );
+        expect(
+          D4rtRunner.debugWarmParentCacheSize,
+          1,
+          reason: 'no new parent built for the same signature',
+        );
+      },
+    );
 
-    test(
-        'IMP-OPT-8d: legacy instances do NOT share a warm parent across '
+    test('IMP-OPT-8d: legacy instances do NOT share a warm parent across '
         'runners', () {
       final first = D4rtRunner();
       final second = D4rtRunner();
@@ -182,8 +218,11 @@ void main() {
       final firstParent = first.visitor!.globalEnvironment.enclosing;
       final secondParent = second.visitor!.globalEnvironment.enclosing;
 
-      expect(identical(firstParent, secondParent), isFalse,
-          reason: 'legacy parents are per-instance — no cross-runner sharing');
+      expect(
+        identical(firstParent, secondParent),
+        isFalse,
+        reason: 'legacy parents are per-instance — no cross-runner sharing',
+      );
       // Legacy runners never populate the migrated static cache.
       expect(D4rtRunner.debugWarmParentCacheSize, 0);
     });

@@ -22,8 +22,7 @@ void main() {
       env = Environment();
     });
 
-    test(
-        'I-PERF-T4-01: Unbridged type throws on every repeated wrap. '
+    test('I-PERF-T4-01: Unbridged type throws on every repeated wrap. '
         '[2026-06-09 00:00] (PASS)', () {
       final widget = _Widget();
       // First call walks the full chain and caches the miss; subsequent
@@ -37,8 +36,7 @@ void main() {
       }
     });
 
-    test(
-        'I-PERF-T4-02: Cached miss does not poison an unrelated bridged type. '
+    test('I-PERF-T4-02: Cached miss does not poison an unrelated bridged type. '
         '[2026-06-09 00:00] (PASS)', () {
       env.registerBridgeType(_gadgetBridge());
 
@@ -49,42 +47,43 @@ void main() {
       // bridged hits. The negative cache is keyed per-type, so the gadget
       // must keep resolving correctly regardless of cached widget misses.
       for (var i = 0; i < 20; i++) {
-        expect(() => env.toBridgedInstance(widget),
-            throwsA(isA<RuntimeD4rtException>()));
+        expect(
+          () => env.toBridgedInstance(widget),
+          throwsA(isA<RuntimeD4rtException>()),
+        );
         final wrapped = env.toBridgedInstance(gadget);
         expect(wrapped, isA<BridgedInstance>());
         expect(wrapped!.bridgedClass.name, equals('Gadget'));
       }
     });
 
-    test(
-        'I-PERF-T4-03: Registering a bridge invalidates a cached miss. '
+    test('I-PERF-T4-03: Registering a bridge invalidates a cached miss. '
         '[2026-06-09 00:00] (PASS)', () {
       final widget = _Widget();
 
       // Prime the negative cache with a miss.
-      expect(() => env.toBridgedInstance(widget),
-          throwsA(isA<RuntimeD4rtException>()));
+      expect(
+        () => env.toBridgedInstance(widget),
+        throwsA(isA<RuntimeD4rtException>()),
+      );
 
       // Now register a bridge for the exact native type. This must clear the
       // negative cache so the next wrap resolves instead of re-throwing.
-      env.registerBridgeType(BridgedClass(
-        nativeType: _Widget,
-        name: 'Widget',
-      ));
+      env.registerBridgeType(BridgedClass(nativeType: _Widget, name: 'Widget'));
 
       final wrapped = env.toBridgedInstance(widget);
       expect(wrapped, isA<BridgedInstance>());
       expect(wrapped!.bridgedClass.name, equals('Widget'));
     });
 
-    test(
-        'I-PERF-T4-04: defineBridge also invalidates a cached miss. '
+    test('I-PERF-T4-04: defineBridge also invalidates a cached miss. '
         '[2026-06-09 00:00] (PASS)', () {
       final gadget = _Gadget();
 
-      expect(() => env.toBridgedInstance(gadget),
-          throwsA(isA<RuntimeD4rtException>()));
+      expect(
+        () => env.toBridgedInstance(gadget),
+        throwsA(isA<RuntimeD4rtException>()),
+      );
 
       env.defineBridge(_gadgetBridge());
 
@@ -101,7 +100,5 @@ class _Widget {}
 /// A native type we register a bridge for in the isolation/invalidation tests.
 class _Gadget {}
 
-BridgedClass _gadgetBridge() => BridgedClass(
-      nativeType: _Gadget,
-      name: 'Gadget',
-    );
+BridgedClass _gadgetBridge() =>
+    BridgedClass(nativeType: _Gadget, name: 'Gadget');

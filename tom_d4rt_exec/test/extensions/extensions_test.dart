@@ -37,8 +37,10 @@ void main() {
       expect(execute(code), equals(8));
     });
 
-    test('I-EXT-17: Access extension getter via implicit this. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXT-17: Access extension getter via implicit this. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class MyValue {
           int _val;
           MyValue(this._val);
@@ -55,11 +57,14 @@ void main() {
            return mv.process();
         }
       ''';
-      expect(execute(code), equals(12));
-    });
+        expect(execute(code), equals(12));
+      },
+    );
 
-    test('I-EXT-29: Assign via extension setter via implicit this. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXT-29: Assign via extension setter via implicit this. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class MyValue {
           int _val;
           MyValue(this._val);
@@ -80,8 +85,9 @@ void main() {
            return mv.current;
         }
       ''';
-      expect(execute(code), equals(11));
-    });
+        expect(execute(code), equals(11));
+      },
+    );
   });
 
   // Add other groups for operators, index, call, etc. below
@@ -130,8 +136,10 @@ void main() {
       expect(instance.get('y'), equals(7));
     });
 
-    test('I-EXT-2: Operator * (scalar) on custom class. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXT-2: Operator * (scalar) on custom class. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Vector {
           num x, y;
           Vector(this.x, this.y);
@@ -144,15 +152,18 @@ void main() {
           return v1 * 3;
         }
       ''';
-      final result = execute(code);
-      expect(result, isA<InterpretedInstance>());
-      final instance = result as InterpretedInstance;
-      expect(instance.get('x'), equals(9));
-      expect(instance.get('y'), equals(-6));
-    });
+        final result = execute(code);
+        expect(result, isA<InterpretedInstance>());
+        final instance = result as InterpretedInstance;
+        expect(instance.get('x'), equals(9));
+        expect(instance.get('y'), equals(-6));
+      },
+    );
 
-    test('I-EXT-3: Operator == on custom class (via extension). [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXT-3: Operator == on custom class (via extension). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Points {
           num x, y;
           Points(this.x, this.y);
@@ -167,8 +178,9 @@ void main() {
           return [p1 == p2, p1 == p3];
         }
       ''';
-      expect(execute(code), equals([true, false]));
-    });
+        expect(execute(code), equals([true, false]));
+      },
+    );
 
     test('I-EXT-4: Operator > on custom class. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -188,8 +200,10 @@ void main() {
       expect(execute(code), isTrue);
     });
 
-    test('I-EXT-5: Bitwise OR | on custom class. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXT-5: Bitwise OR | on custom class. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Flags {
           int value;
           Flags(this.value);
@@ -203,16 +217,19 @@ void main() {
           return f1 | f2;
         }
       ''';
-      final result = execute(code);
-      expect(result, isA<InterpretedInstance>());
-      final instance = result as InterpretedInstance;
-      expect(instance.get('value'), equals(3));
-    });
+        final result = execute(code);
+        expect(result, isA<InterpretedInstance>());
+        final instance = result as InterpretedInstance;
+        expect(instance.get('value'), equals(3));
+      },
+    );
   });
 
   group('Extension Compound Assignment', () {
-    test('I-EXT-7: += calls extension operator +. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXT-7: += calls extension operator +. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Value {
           int val;
           Value(this.val);
@@ -226,11 +243,14 @@ void main() {
           return v.val;
         }
       ''';
-      expect(execute(code), equals(15));
-    });
+        expect(execute(code), equals(15));
+      },
+    );
 
-    test('I-EXT-8: -= calls extension operator -. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXT-8: -= calls extension operator -. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Value {
           int val;
           Value(this.val);
@@ -244,11 +264,14 @@ void main() {
           return v.val;
         }
       ''';
-      expect(execute(code), equals(7));
-    });
+        expect(execute(code), equals(7));
+      },
+    );
 
-    test('I-EXT-9: *= calls extension operator *. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXT-9: *= calls extension operator *. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Value {
           int val;
           Value(this.val);
@@ -262,13 +285,16 @@ void main() {
           return v.val;
         }
       ''';
-      expect(execute(code), equals(40));
-    });
+        expect(execute(code), equals(40));
+      },
+    );
   });
 
   group('Extension Index Operators', () {
-    test('I-EXT-10: Operator [] reads via extension. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXT-10: Operator [] reads via extension. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class MyList {
           List<int> _internal = [10, 20, 30];
         }
@@ -280,11 +306,14 @@ void main() {
           return ml[1]; // Should call extension [], returns 20 * 2
         }
       ''';
-      expect(execute(code), equals(40));
-    });
+        expect(execute(code), equals(40));
+      },
+    );
 
-    test('I-EXT-11: Operator []= writes via extension. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXT-11: Operator []= writes via extension. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class MyList {
           List<int> _internal = [10, 20, 30];
           int get last => _internal.last;
@@ -303,11 +332,14 @@ void main() {
           return ml._internal[0];
         }
       ''';
-      expect(execute(code), equals(105));
-    });
+        expect(execute(code), equals(105));
+      },
+    );
 
-    test('I-EXT-12: Compound assignment with index calls extension [] and []=. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXT-12: Compound assignment with index calls extension [] and []=. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class MyList {
           List<int> _internal = [10, 20, 30];
         }
@@ -325,13 +357,16 @@ void main() {
           return ml._internal[1];
         }
       ''';
-      expect(execute(code), equals(50));
-    });
+        expect(execute(code), equals(50));
+      },
+    );
   });
 
   group('Extension Unary Operators', () {
-    test('I-EXT-13: Operator unary - calls extension. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXT-13: Operator unary - calls extension. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Value {
           int val;
           Value(this.val);
@@ -345,8 +380,9 @@ void main() {
           return negV.val;
         }
       ''';
-      expect(execute(code), equals(-5));
-    });
+        expect(execute(code), equals(-5));
+      },
+    );
 
     test('I-EXT-14: Operator ~ calls extension. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -373,8 +409,10 @@ void main() {
   });
 
   group('Extension Call Operator', () {
-    test('I-EXT-15: Call() via extension with positional args. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXT-15: Call() via extension with positional args. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         extension StringCaller on String {
           String call(String suffix, int times) {
              var result = this + suffix;
@@ -391,11 +429,14 @@ void main() {
           return s(", world", 2);
         }
       ''';
-      expect(execute(code), equals("Hello, worldHello, world"));
-    });
+        expect(execute(code), equals("Hello, worldHello, world"));
+      },
+    );
 
-    test('I-EXT-16: Call() via extension with named args. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXT-16: Call() via extension with named args. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Adder {
           int base;
           Adder(this.base);
@@ -408,11 +449,14 @@ void main() {
           return adder(add: 5);
         }
       ''';
-      expect(execute(code), equals(15));
-    });
+        expect(execute(code), equals(15));
+      },
+    );
 
-    test('I-EXT-18: Call() via extension with mixed args. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-EXT-18: Call() via extension with mixed args. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Greeter {
           String prefix;
           Greeter(this.prefix);
@@ -427,11 +471,14 @@ void main() {
           return greet("Tester", postfix: "?!");
         }
       ''';
-      expect(execute(code), equals("Hi Tester?!"));
-    });
+        expect(execute(code), equals("Hi Tester?!"));
+      },
+    );
     group('Extension Tests', () {
-      test('I-EXT-19: Simple extension method on String. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-EXT-19: Simple extension method on String. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         extension SimpleStringExt on String {
           String exclaim() => this + '!';
         }
@@ -440,11 +487,14 @@ void main() {
           return 'Hello'.exclaim();
         }
       ''';
-        expect(execute(source), equals('Hello!'));
-      });
+          expect(execute(source), equals('Hello!'));
+        },
+      );
 
-      test('I-EXT-20: Extension method with parameters on String. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-EXT-20: Extension method with parameters on String. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         extension ParamStringExt on String {
           String repeat(int times) => this * times;
         }
@@ -453,11 +503,14 @@ void main() {
           return 'Ho'.repeat(3);
         }
       ''';
-        expect(execute(source), equals('HoHoHo'));
-      });
+          expect(execute(source), equals('HoHoHo'));
+        },
+      );
 
-      test('I-EXT-61: Extension method using \'this\' property (isEmpty). [2026-02-12] (PASS)', () {
-        const source = '''
+      test(
+        'I-EXT-61: Extension method using \'this\' property (isEmpty). [2026-02-12] (PASS)',
+        () {
+          const source = '''
         extension CheckEmptyExt on String {
           bool isNotEmptyOrNull() => !isEmpty; // Accesses 'this.isEmpty'
         }
@@ -468,11 +521,14 @@ void main() {
           return [result1, result2];
         }
       ''';
-        expect(execute(source), equals([true, false]));
-      });
+          expect(execute(source), equals([true, false]));
+        },
+      );
 
-      test('I-EXT-62: Extension method using \'this\' method (toUpperCase). [2026-02-12] (PASS)', () {
-        const source = '''
+      test(
+        'I-EXT-62: Extension method using \'this\' method (toUpperCase). [2026-02-12] (PASS)',
+        () {
+          const source = '''
         extension ShoutExt on String {
           String shout() => toUpperCase() + '!!!'; // Calls 'this.toUpperCase()'
         }
@@ -481,11 +537,14 @@ void main() {
           return 'whisper'.shout();
         }
       ''';
-        expect(execute(source), equals('WHISPER!!!'));
-      });
+          expect(execute(source), equals('WHISPER!!!'));
+        },
+      );
 
-      test('I-EXT-63: Extension method using multiple \'this\' members. [2026-02-12] (PASS)', () {
-        const source = '''
+      test(
+        'I-EXT-63: Extension method using multiple \'this\' members. [2026-02-12] (PASS)',
+        () {
+          const source = '''
         extension ComplexStringExt on String {
           String process(String suffix) {
              if (isEmpty) return 'empty';
@@ -499,11 +558,14 @@ void main() {
           return [r1, r2];
         }
       ''';
-        expect(execute(source), equals(['DATA_DONE', 'empty']));
-      });
+          expect(execute(source), equals(['DATA_DONE', 'empty']));
+        },
+      );
 
-      test('I-EXT-24: Simple extension method on int. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-EXT-24: Simple extension method on int. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         extension IntExt on int {
           int squared() => this * this;
         }
@@ -512,8 +574,9 @@ void main() {
           return 5.squared();
         }
       ''';
-        expect(execute(source), equals(25));
-      });
+          expect(execute(source), equals(25));
+        },
+      );
 
       test('I-EXT-25: Extension method on List. [2026-02-10 06:37] (PASS)', () {
         const source = '''
@@ -531,11 +594,13 @@ void main() {
         expect(execute(source), equals([20, null, null]));
       });
 
-      test('I-EXT-26: Extension on interpreted class. [2026-02-10 06:37] (PASS)', () {
-        // NOTE: Accessing extension members on interpreted classes relies on
-        // the instance being a context itself, which isn't the standard way.
-        // Let's test calling an extension method that *internally* calls instance members.
-        const source = '''
+      test(
+        'I-EXT-26: Extension on interpreted class. [2026-02-10 06:37] (PASS)',
+        () {
+          // NOTE: Accessing extension members on interpreted classes relies on
+          // the instance being a context itself, which isn't the standard way.
+          // Let's test calling an extension method that *internally* calls instance members.
+          const source = '''
         class Counter {
           int value = 0;
           void increment() { value += 1; }
@@ -563,13 +628,16 @@ void main() {
           return [currentVal, calculatedVal];
         }
       ''';
-        // Expected: counter becomes 5. Then getCurrentValuePlus(10) returns 5 + 10 = 15.
-        expect(execute(source), equals([5, 15]));
-      });
+          // Expected: counter becomes 5. Then getCurrentValuePlus(10) returns 5 + 10 = 15.
+          expect(execute(source), equals([5, 15]));
+        },
+      );
 
-      test('I-EXT-27: Instance member wins over extension member. [2026-02-10 06:37] (PASS)', () {
-        // Test with String (native class)
-        const source1 = '''
+      test(
+        'I-EXT-27: Instance member wins over extension member. [2026-02-10 06:37] (PASS)',
+        () {
+          // Test with String (native class)
+          const source1 = '''
         extension StringExt on String {
           int get length => 1000; // Instance getter should win
         }
@@ -577,11 +645,14 @@ void main() {
           return 'hello'.length;
         }
       ''';
-        expect(execute(source1), equals(5),
-            reason: 'Native String.length should override extension');
+          expect(
+            execute(source1),
+            equals(5),
+            reason: 'Native String.length should override extension',
+          );
 
-        // Test with interpreted class
-        const source2 = '''
+          // Test with interpreted class
+          const source2 = '''
         class MyData {
           String value = 'instance';
           String info() => 'From Instance';
@@ -598,12 +669,18 @@ void main() {
         }
       ''';
 
-        expect(execute(source2), equals(['instance', 'From Instance']),
-            reason: 'Instance members should override extension members');
-      });
+          expect(
+            execute(source2),
+            equals(['instance', 'From Instance']),
+            reason: 'Instance members should override extension members',
+          );
+        },
+      );
 
-      test('I-EXT-28: Correct extension selected based on type. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-EXT-28: Correct extension selected based on type. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         extension ExtString on String {
           String identify() => 'String Extension';
         }
@@ -623,12 +700,17 @@ void main() {
           return [s.identify(), i.identify(), l.identify()];
         }
       ''';
-        expect(execute(source),
-            equals(['String Extension', 'Int Extension', 'List Extension']));
-      });
+          expect(
+            execute(source),
+            equals(['String Extension', 'Int Extension', 'List Extension']),
+          );
+        },
+      );
 
-      test('I-EXT-30: Extension applies to subtype. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-EXT-30: Extension applies to subtype. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
        class Base {}
        class Derived extends Base {}
 
@@ -641,13 +723,16 @@ void main() {
          return d.greet(); // Should apply BaseExt to Derived instance
        }
       ''';
-        // This depends heavily on how appliesTo and type checking work with inheritance
-        expect(execute(source), equals('Hello from BaseExt'));
-      });
+          // This depends heavily on how appliesTo and type checking work with inheritance
+          expect(execute(source), equals('Hello from BaseExt'));
+        },
+      );
     });
     group('Extension Tests', () {
-      test('I-EXT-31: Simple extension method on String. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-EXT-31: Simple extension method on String. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         extension SimpleStringExt on String {
           String exclaim() => this + '!';
         }
@@ -656,11 +741,14 @@ void main() {
           return 'Hello'.exclaim();
         }
       ''';
-        expect(execute(source), equals('Hello!'));
-      });
+          expect(execute(source), equals('Hello!'));
+        },
+      );
 
-      test('I-EXT-32: Extension method with parameters on String. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-EXT-32: Extension method with parameters on String. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         extension ParamStringExt on String {
           String repeat(int times) => this * times;
         }
@@ -669,11 +757,14 @@ void main() {
           return 'Ho'.repeat(3);
         }
       ''';
-        expect(execute(source), equals('HoHoHo'));
-      });
+          expect(execute(source), equals('HoHoHo'));
+        },
+      );
 
-      test('I-EXT-64: Extension method using \'this\' property (isEmpty). [2026-02-12] (PASS)', () {
-        const source = '''
+      test(
+        'I-EXT-64: Extension method using \'this\' property (isEmpty). [2026-02-12] (PASS)',
+        () {
+          const source = '''
         extension CheckEmptyExt on String {
           bool isNotEmptyOrNull() => !isEmpty; // Accesses 'this.isEmpty'
         }
@@ -684,11 +775,14 @@ void main() {
           return [result1, result2];
         }
       ''';
-        expect(execute(source), equals([true, false]));
-      });
+          expect(execute(source), equals([true, false]));
+        },
+      );
 
-      test('I-EXT-65: Extension method using \'this\' method (toUpperCase). [2026-02-12] (PASS)', () {
-        const source = '''
+      test(
+        'I-EXT-65: Extension method using \'this\' method (toUpperCase). [2026-02-12] (PASS)',
+        () {
+          const source = '''
         extension ShoutExt on String {
           String shout() => toUpperCase() + '!!!'; // Calls 'this.toUpperCase()'
         }
@@ -697,11 +791,14 @@ void main() {
           return 'whisper'.shout();
         }
       ''';
-        expect(execute(source), equals('WHISPER!!!'));
-      });
+          expect(execute(source), equals('WHISPER!!!'));
+        },
+      );
 
-      test('I-EXT-66: Extension method using multiple \'this\' members. [2026-02-12] (PASS)', () {
-        const source = '''
+      test(
+        'I-EXT-66: Extension method using multiple \'this\' members. [2026-02-12] (PASS)',
+        () {
+          const source = '''
         extension ComplexStringExt on String {
           String process(String suffix) {
              if (isEmpty) return 'empty';
@@ -715,11 +812,14 @@ void main() {
           return [r1, r2];
         }
       ''';
-        expect(execute(source), equals(['DATA_DONE', 'empty']));
-      });
+          expect(execute(source), equals(['DATA_DONE', 'empty']));
+        },
+      );
 
-      test('I-EXT-37: Simple extension method on int. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-EXT-37: Simple extension method on int. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         extension IntExt on int {
           int squared() => this * this;
         }
@@ -728,8 +828,9 @@ void main() {
           return 5.squared();
         }
       ''';
-        expect(execute(source), equals(25));
-      });
+          expect(execute(source), equals(25));
+        },
+      );
 
       test('I-EXT-38: Extension method on List. [2026-02-10 06:37] (PASS)', () {
         const source = '''
@@ -747,11 +848,13 @@ void main() {
         expect(execute(source), equals([20, null, null]));
       });
 
-      test('I-EXT-39: Extension on interpreted class. [2026-02-10 06:37] (PASS)', () {
-        // NOTE: Accessing extension members on interpreted classes relies on
-        // the instance being a context itself, which isn't the standard way.
-        // Let's test calling an extension method that *internally* calls instance members.
-        const source = '''
+      test(
+        'I-EXT-39: Extension on interpreted class. [2026-02-10 06:37] (PASS)',
+        () {
+          // NOTE: Accessing extension members on interpreted classes relies on
+          // the instance being a context itself, which isn't the standard way.
+          // Let's test calling an extension method that *internally* calls instance members.
+          const source = '''
         class Counter {
           int value = 0;
           void increment() { value += 1; }
@@ -779,13 +882,16 @@ void main() {
           return [currentVal, calculatedVal];
         }
       ''';
-        // Expected: counter becomes 5. Then getCurrentValuePlus(10) returns 5 + 10 = 15.
-        expect(execute(source), equals([5, 15]));
-      });
+          // Expected: counter becomes 5. Then getCurrentValuePlus(10) returns 5 + 10 = 15.
+          expect(execute(source), equals([5, 15]));
+        },
+      );
 
-      test('I-EXT-40: Instance member wins over extension member. [2026-02-10 06:37] (PASS)', () {
-        // Test with String (native class)
-        const source1 = '''
+      test(
+        'I-EXT-40: Instance member wins over extension member. [2026-02-10 06:37] (PASS)',
+        () {
+          // Test with String (native class)
+          const source1 = '''
         extension StringExt on String {
           int get length => 1000; // Instance getter should win
         }
@@ -793,11 +899,14 @@ void main() {
           return 'hello'.length;
         }
       ''';
-        expect(execute(source1), equals(5),
-            reason: 'Native String.length should override extension');
+          expect(
+            execute(source1),
+            equals(5),
+            reason: 'Native String.length should override extension',
+          );
 
-        // Test with interpreted class
-        const source2 = '''
+          // Test with interpreted class
+          const source2 = '''
         class MyData {
           String value = 'instance';
           String info() => 'From Instance';
@@ -814,12 +923,18 @@ void main() {
         }
       ''';
 
-        expect(execute(source2), equals(['instance', 'From Instance']),
-            reason: 'Instance members should override extension members');
-      });
+          expect(
+            execute(source2),
+            equals(['instance', 'From Instance']),
+            reason: 'Instance members should override extension members',
+          );
+        },
+      );
 
-      test('I-EXT-41: Correct extension selected based on type. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-EXT-41: Correct extension selected based on type. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
         extension ExtString on String {
           String identify() => 'String Extension';
         }
@@ -839,12 +954,17 @@ void main() {
           return [s.identify(), i.identify(), l.identify()];
         }
       ''';
-        expect(execute(source),
-            equals(['String Extension', 'Int Extension', 'List Extension']));
-      });
+          expect(
+            execute(source),
+            equals(['String Extension', 'Int Extension', 'List Extension']),
+          );
+        },
+      );
 
-      test('I-EXT-42: Extension applies to subtype. [2026-02-10 06:37] (PASS)', () {
-        const source = '''
+      test(
+        'I-EXT-42: Extension applies to subtype. [2026-02-10 06:37] (PASS)',
+        () {
+          const source = '''
        class Base {}
        class Derived extends Base {}
 
@@ -857,9 +977,10 @@ void main() {
          return d.greet(); // Should apply BaseExt to Derived instance
        }
       ''';
-        // This depends heavily on how appliesTo and type checking work with inheritance
-        expect(execute(source), equals('Hello from BaseExt'));
-      });
+          // This depends heavily on how appliesTo and type checking work with inheritance
+          expect(execute(source), equals('Hello from BaseExt'));
+        },
+      );
     });
     // test('I-EXT-43: Call() on nullable type via extension. [2026-02-10 06:37] (PASS)', () {
     //   final code = '''
@@ -877,8 +998,10 @@ void main() {
   });
 
   group('Extension Access via Implicit This', () {
-    test('I-EXT-44: Extension getter and method access via implicit this. [2026-02-10 06:37] (PASS)', () {
-      const sourceClass = '''
+    test(
+      'I-EXT-44: Extension getter and method access via implicit this. [2026-02-10 06:37] (PASS)',
+      () {
+        const sourceClass = '''
         class MyCounter {
           int value = 5;
 
@@ -894,8 +1017,8 @@ void main() {
         }
       ''';
 
-// Définir une extension sur cette classe
-      const sourceExtension = '''
+        // Définir une extension sur cette classe
+        const sourceExtension = '''
         extension CounterExtension on MyCounter {
           // Getter d'extension
           int get nextValue => this.value + 1;
@@ -905,8 +1028,9 @@ void main() {
         }
       ''';
 
-// Code to evaluate that uses the class and the extension
-      const sourceEval = '''
+        // Code to evaluate that uses the class and the extension
+        const sourceEval =
+            '''
         $sourceClass
         $sourceExtension
        main() {
@@ -918,12 +1042,13 @@ void main() {
           return [implicitGetterResult, implicitMethodResult];
         }
       ''';
-      // Compile and execute
-      final result = execute(sourceEval); // Use execute as in other tests
+        // Compile and execute
+        final result = execute(sourceEval); // Use execute as in other tests
 
-      // Check the results
-      expect(result, isA<List>());
-      expect(result, equals([6, 6])); // 5 + 1 for both cases
-    });
+        // Check the results
+        expect(result, isA<List>());
+        expect(result, equals([6, 6])); // 5 + 1 for both cases
+      },
+    );
   });
 }

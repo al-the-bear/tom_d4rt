@@ -25,55 +25,70 @@ import 'package:tom_d4rt/d4rt.dart';
 class _S5Probe {}
 
 void main() {
-  group('IMP-OPT-5: warm parent does not force lazy class thunks (analyzer)',
-      () {
-    // The migrated-instance warm parent and the package pool live in
-    // process-global caches; reset both so build-count assertions are
-    // order-independent across tests in the run.
-    setUp(D4rt.debugResetPool);
-    tearDown(D4rt.debugResetPool);
+  group(
+    'IMP-OPT-5: warm parent does not force lazy class thunks (analyzer)',
+    () {
+      // The migrated-instance warm parent and the package pool live in
+      // process-global caches; reset both so build-count assertions are
+      // order-independent across tests in the run.
+      setUp(D4rt.debugResetPool);
+      tearDown(D4rt.debugResetPool);
 
-    test(
-        'IMP-OPT-5a: building the warm parent registers the class thunk '
-        'without invoking it; resolution builds it exactly once', () {
-      var builds = 0;
-      BridgedClass buildProbe() {
-        builds++;
-        return BridgedClass(nativeType: _S5Probe, name: 'S5Probe');
-      }
+      test('IMP-OPT-5a: building the warm parent registers the class thunk '
+          'without invoking it; resolution builds it exactly once', () {
+        var builds = 0;
+        BridgedClass buildProbe() {
+          builds++;
+          return BridgedClass(nativeType: _S5Probe, name: 'S5Probe');
+        }
 
-      final interpreter = D4rt();
-      expect(interpreter.providePackage('pkg_s5'), isFalse,
-          reason: 'first sighting of pkg_s5 — opens the registration context');
-      interpreter.registerBridgedClassLazy(
-        'S5Probe',
-        _S5Probe,
-        buildProbe,
-        'package:s5/s5.dart',
-        sourceUri: 'package:s5/s5.dart',
-      );
+        final interpreter = D4rt();
+        expect(
+          interpreter.providePackage('pkg_s5'),
+          isFalse,
+          reason: 'first sighting of pkg_s5 — opens the registration context',
+        );
+        interpreter.registerBridgedClassLazy(
+          'S5Probe',
+          _S5Probe,
+          buildProbe,
+          'package:s5/s5.dart',
+          sourceUri: 'package:s5/s5.dart',
+        );
 
-      // Registration alone must not build the class.
-      expect(builds, 0, reason: 'registerBridgedClassLazy stores a thunk only');
+        // Registration alone must not build the class.
+        expect(
+          builds,
+          0,
+          reason: 'registerBridgedClassLazy stores a thunk only',
+        );
 
-      // Executing builds the warm parent from the pool (the warmup the plan
-      // targets). The class thunk must travel into the warm parent deferred.
-      expect(interpreter.execute(source: 'int main() => 1;'), 1);
-      expect(builds, 0,
-          reason: 'warm-parent pool registration must not force class thunks — '
-              'this is what keeps the one-time registration warmup cheap');
+        // Executing builds the warm parent from the pool (the warmup the plan
+        // targets). The class thunk must travel into the warm parent deferred.
+        expect(interpreter.execute(source: 'int main() => 1;'), 1);
+        expect(
+          builds,
+          0,
+          reason:
+              'warm-parent pool registration must not force class thunks — '
+              'this is what keeps the one-time registration warmup cheap',
+        );
 
-      final parent = interpreter.visitor!.globalEnvironment.enclosing;
-      expect(parent, isNotNull,
-          reason: 'the per-execute env is a child chained off the warm parent');
+        final parent = interpreter.visitor!.globalEnvironment.enclosing;
+        expect(
+          parent,
+          isNotNull,
+          reason: 'the per-execute env is a child chained off the warm parent',
+        );
 
-      // First resolution (by native type) builds the bridge exactly once.
-      parent!.toBridgedInstance(_S5Probe());
-      expect(builds, 1, reason: 'first resolution builds the thunk');
+        // First resolution (by native type) builds the bridge exactly once.
+        parent!.toBridgedInstance(_S5Probe());
+        expect(builds, 1, reason: 'first resolution builds the thunk');
 
-      // Second resolution reuses the memoized build.
-      parent.toBridgedInstance(_S5Probe());
-      expect(builds, 1, reason: 'the built bridge is memoized, not rebuilt');
-    });
-  });
+        // Second resolution reuses the memoized build.
+        parent.toBridgedInstance(_S5Probe());
+        expect(builds, 1, reason: 'the built bridge is memoized, not rebuilt');
+      });
+    },
+  );
 }

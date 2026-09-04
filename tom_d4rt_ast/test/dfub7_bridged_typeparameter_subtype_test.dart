@@ -37,16 +37,14 @@ void main() {
       expect(numType.isSubtypeOf(numType), isTrue);
     });
 
-    test(
-        'F-DFUB7-4: bounded `T extends num` defers to bound, so T !<: String '
+    test('F-DFUB7-4: bounded `T extends num` defers to bound, so T !<: String '
         '[2026-07-23]', () {
       final tBounded = TypeParameter('T', bound: numType);
       expect(tBounded.isSubtypeOf(stringType), isFalse);
       expect(tBounded.isSubtypeOf(numType), isTrue);
     });
 
-    test(
-        'F-DFUB7-5: unbounded `T` is a subtype only of top types, so T !<: '
+    test('F-DFUB7-5: unbounded `T` is a subtype only of top types, so T !<: '
         'String [2026-07-23]', () {
       final tUnbounded = TypeParameter('T');
       expect(tUnbounded.isSubtypeOf(stringType), isFalse);

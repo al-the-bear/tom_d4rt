@@ -27,10 +27,7 @@ void main() {
 
     test('tracks URIs from registerBridgedClass', () {
       final d4rt = D4rt();
-      final classDef = BridgedClass(
-        name: 'TestClass',
-        nativeType: String,
-      );
+      final classDef = BridgedClass(name: 'TestClass', nativeType: String);
       d4rt.registerBridgedClass(classDef, 'package:test_lib/classes.dart');
 
       expect(
@@ -69,11 +66,7 @@ void main() {
 
     test('tracks URIs from registerGlobalSetter', () {
       final d4rt = D4rt();
-      d4rt.registerGlobalSetter(
-        'z',
-        (v) {},
-        'package:test_lib/setters.dart',
-      );
+      d4rt.registerGlobalSetter('z', (v) {}, 'package:test_lib/setters.dart');
 
       expect(
         d4rt.bridgedLibraryUris,
@@ -87,10 +80,7 @@ void main() {
         name: 'TestExt',
         onTypeName: 'int',
       );
-      d4rt.registerBridgedExtension(
-        extDef,
-        'package:test_lib/extensions.dart',
-      );
+      d4rt.registerBridgedExtension(extDef, 'package:test_lib/extensions.dart');
 
       expect(
         d4rt.bridgedLibraryUris,
@@ -143,11 +133,7 @@ void main() {}
 
     test('skips bridged library imports', () async {
       final d4rt = D4rt();
-      d4rt.registerGlobalVariable(
-        'myVar',
-        42,
-        'package:my_lib/my_lib.dart',
-      );
+      d4rt.registerGlobalVariable('myVar', 42, 'package:my_lib/my_lib.dart');
 
       final bundle = await d4rt.createBundleFromSource('''
 import 'package:my_lib/my_lib.dart';
@@ -171,10 +157,7 @@ void main() {}
       );
 
       expect(bundle.modules, hasLength(2));
-      expect(
-        bundle.modules.containsKey('package:helper/helper.dart'),
-        isTrue,
-      );
+      expect(bundle.modules.containsKey('package:helper/helper.dart'), isTrue);
     });
 
     test('errors on unresolvable package import', () async {
@@ -251,22 +234,24 @@ int main() => 42;
       expect(result, 42);
     });
 
-    test('executes a bundle with multiple modules via explicitSources',
-        () async {
-      final d4rt = D4rt();
-      final bundle = await d4rt.createBundleFromSource(
-        '''
+    test(
+      'executes a bundle with multiple modules via explicitSources',
+      () async {
+        final d4rt = D4rt();
+        final bundle = await d4rt.createBundleFromSource(
+          '''
 import 'package:math_lib/add.dart';
 int main() => add(3, 4);
 ''',
-        explicitSources: {
-          'package:math_lib/add.dart': 'int add(int a, int b) => a + b;',
-        },
-      );
+          explicitSources: {
+            'package:math_lib/add.dart': 'int add(int a, int b) => a + b;',
+          },
+        );
 
-      final result = d4rt.executeBundle(bundle);
-      expect(result, 7);
-    });
+        final result = d4rt.executeBundle(bundle);
+        expect(result, 7);
+      },
+    );
 
     test('executes bundle with custom entry function name', () async {
       final d4rt = D4rt();
@@ -356,9 +341,7 @@ int main() => 42;
       final d4rt = D4rt();
       final result = d4rt.execute(
         library: 'package:test/main.dart',
-        sources: {
-          'package:test/main.dart': 'int main() => 100;',
-        },
+        sources: {'package:test/main.dart': 'int main() => 100;'},
       );
       expect(result, 100);
     });
@@ -366,21 +349,26 @@ int main() => 42;
     test('continuedExecute still works', () {
       final d4rt = D4rt();
       d4rt.execute(source: 'void main() {}');
-      d4rt.continuedExecute(source: '''
+      d4rt.continuedExecute(
+        source: '''
 int square(int x) => x * x;
 void main() {}
-''');
+''',
+      );
       final result = d4rt.eval('square(5)');
       expect(result, 25);
     });
 
     test('eval still works', () {
       final d4rt = D4rt();
-      d4rt.execute(source: '''
+      d4rt.execute(
+        source: '''
 int counter = 0;
 int getCounter() => counter;
 void main() {}
-''', name: 'getCounter');
+''',
+        name: 'getCounter',
+      );
 
       final result = d4rt.eval('getCounter()');
       expect(result, 0);
@@ -425,8 +413,7 @@ import 'package:utils/math.dart';
 int main() => multiply(6, 7);
 ''',
         explicitSources: {
-          'package:utils/math.dart':
-              'int multiply(int a, int b) => a * b;',
+          'package:utils/math.dart': 'int multiply(int a, int b) => a * b;',
         },
       );
 

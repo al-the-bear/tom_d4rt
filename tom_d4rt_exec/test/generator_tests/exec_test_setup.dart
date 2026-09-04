@@ -45,8 +45,7 @@ class ExecTestSetup {
     final projectPath = tester.projectPath;
 
     // Step 1: Delete existing binary (same as D4rtTester.prepareBridges)
-    final binaryPath =
-        p.join(projectPath, 'bin', tester.compiledBinaryName);
+    final binaryPath = p.join(projectPath, 'bin', tester.compiledBinaryName);
     final binary = File(binaryPath);
     if (binary.existsSync()) binary.deleteSync();
 
@@ -75,11 +74,13 @@ class ExecTestSetup {
 
     // Step 3: Compile the binary
     final runnerPath = p.join('bin', '${tester.runnerExecutable}.dart');
-    final compileResult = await Process.run(
-      'dart',
-      ['compile', 'exe', runnerPath, '-o', binaryPath],
-      workingDirectory: projectPath,
-    );
+    final compileResult = await Process.run('dart', [
+      'compile',
+      'exe',
+      runnerPath,
+      '-o',
+      binaryPath,
+    ], workingDirectory: projectPath);
 
     if (compileResult.exitCode != 0) {
       stderr.writeln('COMPILATION FAILED:');

@@ -12,15 +12,18 @@ void main() {
 
   // No args → defaults: sayHello('World', 'Hello')
   var r1 = sayHello();
-  if (r1 != 'Hello, World!') errors.add('sayHello() expected "Hello, World!", got "$r1"');
+  if (r1 != 'Hello, World!')
+    errors.add('sayHello() expected "Hello, World!", got "$r1"');
 
   // One optional arg
   var r2 = sayHello('Bob');
-  if (r2 != 'Hello, Bob!') errors.add('sayHello("Bob") expected "Hello, Bob!", got "$r2"');
+  if (r2 != 'Hello, Bob!')
+    errors.add('sayHello("Bob") expected "Hello, Bob!", got "$r2"');
 
   // Both optional args
   var r3 = sayHello('Charlie', 'Hi');
-  if (r3 != 'Hi, Charlie!') errors.add('sayHello("Charlie", "Hi") expected "Hi, Charlie!", got "$r3"');
+  if (r3 != 'Hi, Charlie!')
+    errors.add('sayHello("Charlie", "Hi") expected "Hi, Charlie!", got "$r3"');
 
   // ── power() — required + optional positional ─────────────────────
 

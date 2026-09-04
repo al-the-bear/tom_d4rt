@@ -23,9 +23,7 @@ void main() {
       '': (visitor, positionalArgs, namedArgs) =>
           Counter(positionalArgs[0] as int),
     },
-    getters: {
-      'value': (visitor, target) => (target as Counter).value,
-    },
+    getters: {'value': (visitor, target) => (target as Counter).value},
     methods: {
       'increment': (visitor, target, positionalArgs, namedArgs, typeArgs) {
         (target as Counter).increment();

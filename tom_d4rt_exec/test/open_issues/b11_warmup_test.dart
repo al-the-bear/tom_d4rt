@@ -74,19 +74,23 @@ void main() {
       expect(interpreter.bridgesFinalized, isTrue);
     });
 
-    test('first build after warmup runs correctly under simulated host load',
-        () {
-      final interpreter = _interpreterWithGreeter();
-      interpreter.warmup();
+    test(
+      'first build after warmup runs correctly under simulated host load',
+      () {
+        final interpreter = _interpreterWithGreeter();
+        interpreter.warmup();
 
-      // The "first build after setUpAll" — run it while the host is busy.
-      _simulateHostLoad();
-      final result = interpreter.execute(source: '''
+        // The "first build after setUpAll" — run it while the host is busy.
+        _simulateHostLoad();
+        final result = interpreter.execute(
+          source: '''
 import 'package:test/greeter.dart';
 String main() => Greeter('world').greet();
-''');
-      expect(result, 'hello world');
-    });
+''',
+        );
+        expect(result, 'hello world');
+      },
+    );
 
     test('warmed first build is deterministic across repeated runs', () {
       final interpreter = _interpreterWithGreeter();
@@ -96,20 +100,24 @@ String main() => Greeter('world').greet();
       // must produce the identical result with no flake.
       for (var i = 0; i < 25; i++) {
         _simulateHostLoad();
-        final result = interpreter.execute(source: '''
+        final result = interpreter.execute(
+          source: '''
 import 'package:test/greeter.dart';
 String main() => Greeter('run').greet();
-''');
+''',
+        );
         expect(result, 'hello run', reason: 'iteration $i flaked');
       }
     });
 
     test('execute still works without an explicit warmup (no regression)', () {
       final interpreter = _interpreterWithGreeter();
-      final result = interpreter.execute(source: '''
+      final result = interpreter.execute(
+        source: '''
 import 'package:test/greeter.dart';
 String main() => Greeter('cold').greet();
-''');
+''',
+      );
       expect(result, 'hello cold');
     });
   });

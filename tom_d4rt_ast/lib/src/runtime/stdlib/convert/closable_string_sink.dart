@@ -17,79 +17,83 @@ import 'package:tom_d4rt_ast/runtime.dart';
 /// `_ClosableStringSink` has no route to the `StringSink` bridge's members.
 class ClosableStringSinkConvert {
   static BridgedClass get definition => BridgedClass(
-        nativeType: ClosableStringSink,
-        name: 'ClosableStringSink',
-        isAssignable: (v) => v is ClosableStringSink,
-        nativeNames: const ['_ClosableStringSink'],
-        typeParameterCount: 0,
-        constructors: {
-          'fromStringSink': (visitor, positionalArgs, namedArgs) {
-            final sink = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
-            if (sink is! StringSink) {
-              throw RuntimeD4rtException(
-                  'ClosableStringSink.fromStringSink requires a StringSink as '
-                  'its first argument.');
-            }
-            final onClose =
-                positionalArgs.length > 1 ? positionalArgs[1] : null;
-            if (onClose is! InterpretedFunction) {
-              throw RuntimeD4rtException(
-                  'ClosableStringSink.fromStringSink requires a callback as its '
-                  'second argument.');
-            }
-            return ClosableStringSink.fromStringSink(
-                sink, () => onClose.call(visitor, []));
-          },
-        },
-        methods: {
-          'close': (visitor, target, positionalArgs, namedArgs, _) {
-            (target as ClosableStringSink).close();
-            return null;
-          },
-          'write': (visitor, target, positionalArgs, namedArgs, _) {
-            final value = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
-            (target as ClosableStringSink).write(value);
-            return null;
-          },
-          'writeln': (visitor, target, positionalArgs, namedArgs, _) {
-            final value = positionalArgs.isNotEmpty ? positionalArgs[0] : '';
-            (target as ClosableStringSink).writeln(value);
-            return null;
-          },
-          'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
-            final code = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
-            if (code is! int) {
-              throw RuntimeD4rtException(
-                  'ClosableStringSink.writeCharCode requires one int argument.');
-            }
-            (target as ClosableStringSink).writeCharCode(code);
-            return null;
-          },
-          'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
-            final objects = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
-            if (objects is! Iterable) {
-              throw RuntimeD4rtException(
-                  'ClosableStringSink.writeAll requires an Iterable as its '
-                  'first argument.');
-            }
-            final separator =
-                positionalArgs.length > 1 ? positionalArgs[1] : '';
-            if (separator is! String) {
-              throw RuntimeD4rtException(
-                  'ClosableStringSink.writeAll separator must be a String.');
-            }
-            (target as ClosableStringSink).writeAll(objects, separator);
-            return null;
-          },
-          'toString': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as ClosableStringSink).toString();
-          },
-        },
-        getters: {
-          'hashCode': (visitor, target) =>
-              (target as ClosableStringSink).hashCode,
-          'runtimeType': (visitor, target) =>
-              (target as ClosableStringSink).runtimeType,
-        },
-      );
+    nativeType: ClosableStringSink,
+    name: 'ClosableStringSink',
+    isAssignable: (v) => v is ClosableStringSink,
+    nativeNames: const ['_ClosableStringSink'],
+    typeParameterCount: 0,
+    constructors: {
+      'fromStringSink': (visitor, positionalArgs, namedArgs) {
+        final sink = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
+        if (sink is! StringSink) {
+          throw RuntimeD4rtException(
+            'ClosableStringSink.fromStringSink requires a StringSink as '
+            'its first argument.',
+          );
+        }
+        final onClose = positionalArgs.length > 1 ? positionalArgs[1] : null;
+        if (onClose is! InterpretedFunction) {
+          throw RuntimeD4rtException(
+            'ClosableStringSink.fromStringSink requires a callback as its '
+            'second argument.',
+          );
+        }
+        return ClosableStringSink.fromStringSink(
+          sink,
+          () => onClose.call(visitor, []),
+        );
+      },
+    },
+    methods: {
+      'close': (visitor, target, positionalArgs, namedArgs, _) {
+        (target as ClosableStringSink).close();
+        return null;
+      },
+      'write': (visitor, target, positionalArgs, namedArgs, _) {
+        final value = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
+        (target as ClosableStringSink).write(value);
+        return null;
+      },
+      'writeln': (visitor, target, positionalArgs, namedArgs, _) {
+        final value = positionalArgs.isNotEmpty ? positionalArgs[0] : '';
+        (target as ClosableStringSink).writeln(value);
+        return null;
+      },
+      'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
+        final code = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
+        if (code is! int) {
+          throw RuntimeD4rtException(
+            'ClosableStringSink.writeCharCode requires one int argument.',
+          );
+        }
+        (target as ClosableStringSink).writeCharCode(code);
+        return null;
+      },
+      'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
+        final objects = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
+        if (objects is! Iterable) {
+          throw RuntimeD4rtException(
+            'ClosableStringSink.writeAll requires an Iterable as its '
+            'first argument.',
+          );
+        }
+        final separator = positionalArgs.length > 1 ? positionalArgs[1] : '';
+        if (separator is! String) {
+          throw RuntimeD4rtException(
+            'ClosableStringSink.writeAll separator must be a String.',
+          );
+        }
+        (target as ClosableStringSink).writeAll(objects, separator);
+        return null;
+      },
+      'toString': (visitor, target, positionalArgs, namedArgs, _) {
+        return (target as ClosableStringSink).toString();
+      },
+    },
+    getters: {
+      'hashCode': (visitor, target) => (target as ClosableStringSink).hashCode,
+      'runtimeType': (visitor, target) =>
+          (target as ClosableStringSink).runtimeType,
+    },
+  );
 }

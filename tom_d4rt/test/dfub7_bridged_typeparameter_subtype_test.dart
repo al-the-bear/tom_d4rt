@@ -30,19 +30,20 @@ void main() {
       expect(doubleType.isSubtypeOf(numType), isTrue);
     });
 
-    test('F-DFUB7-2: num is NOT a subtype of int/double [2026-07-23] (RED)',
-        () {
-      expect(numType.isSubtypeOf(intType), isFalse);
-      expect(numType.isSubtypeOf(doubleType), isFalse);
-    });
+    test(
+      'F-DFUB7-2: num is NOT a subtype of int/double [2026-07-23] (RED)',
+      () {
+        expect(numType.isSubtypeOf(intType), isFalse);
+        expect(numType.isSubtypeOf(doubleType), isFalse);
+      },
+    );
 
     // GREEN guard-rail: reflexivity.
     test('F-DFUB7-3: num <: num stays true [2026-07-23]', () {
       expect(numType.isSubtypeOf(numType), isTrue);
     });
 
-    test(
-        'F-DFUB7-4: bounded `T extends num` defers to bound, so T !<: String '
+    test('F-DFUB7-4: bounded `T extends num` defers to bound, so T !<: String '
         '[2026-07-23] (RED)', () {
       final tBounded = TypeParameter('T', bound: numType);
       expect(tBounded.isSubtypeOf(stringType), isFalse);
@@ -50,8 +51,7 @@ void main() {
       expect(tBounded.isSubtypeOf(numType), isTrue);
     });
 
-    test(
-        'F-DFUB7-5: unbounded `T` is a subtype only of top types, so T !<: '
+    test('F-DFUB7-5: unbounded `T` is a subtype only of top types, so T !<: '
         'String [2026-07-23] (RED)', () {
       final tUnbounded = TypeParameter('T');
       expect(tUnbounded.isSubtypeOf(stringType), isFalse);

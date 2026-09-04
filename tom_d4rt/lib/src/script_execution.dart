@@ -79,11 +79,11 @@ ScriptExecutionResult executeFile(
   void Function(String)? log,
 }) {
   final file = File(filePath);
-  
+
   if (!file.existsSync()) {
     return ScriptExecutionResult.failure('File not found: $filePath');
   }
-  
+
   // Use resolveSymbolicLinksSync to normalize path (removes ./ and ..)
   final fullPath = file.resolveSymbolicLinksSync();
 
@@ -106,10 +106,7 @@ ScriptExecutionResult executeFile(
 
     return ScriptExecutionResult.success(result, sources.length);
   } catch (e, stackTrace) {
-    return ScriptExecutionResult.failure(
-      e.toString(),
-      stackTrace: stackTrace,
-    );
+    return ScriptExecutionResult.failure(e.toString(), stackTrace: stackTrace);
   }
 }
 
@@ -136,11 +133,11 @@ ScriptExecutionResult executeFileContinued(
   void Function(String)? log,
 }) {
   final file = File(filePath);
-  
+
   if (!file.existsSync()) {
     return ScriptExecutionResult.failure('File not found: $filePath');
   }
-  
+
   // Use resolveSymbolicLinksSync to normalize path (removes ./ and ..)
   final fullPath = file.resolveSymbolicLinksSync();
 
@@ -155,13 +152,13 @@ ScriptExecutionResult executeFileContinued(
     // Eval each imported file in reverse order (dependencies first, main last)
     // Skip the main file itself - we'll eval it at the end
     final orderedUris = sources.keys.toList();
-    
+
     for (final uri in orderedUris) {
       if (uri == libraryUri) continue; // Skip main file
-      
+
       final importSource = sources[uri]!;
       log?.call('Evaluating import: $uri');
-      
+
       // Wrap in a try-catch to get better error messages
       try {
         d4rt.eval(importSource);
@@ -170,17 +167,14 @@ ScriptExecutionResult executeFileContinued(
         rethrow;
       }
     }
-    
+
     // Finally eval the main file
     log?.call('Evaluating main: $libraryUri');
     final result = d4rt.eval(source);
 
     return ScriptExecutionResult.success(result, sources.length);
   } catch (e, stackTrace) {
-    return ScriptExecutionResult.failure(
-      e.toString(),
-      stackTrace: stackTrace,
-    );
+    return ScriptExecutionResult.failure(e.toString(), stackTrace: stackTrace);
   }
 }
 
@@ -221,10 +215,7 @@ ScriptExecutionResult executeSource(
 
     return ScriptExecutionResult.success(result, sources.length);
   } catch (e, stackTrace) {
-    return ScriptExecutionResult.failure(
-      e.toString(),
-      stackTrace: stackTrace,
-    );
+    return ScriptExecutionResult.failure(e.toString(), stackTrace: stackTrace);
   }
 }
 
@@ -256,8 +247,9 @@ void resolveImportsRecursively(
 
   // Parse the URI to get the base directory for resolving relative imports
   final uri = Uri.parse(sourceUri);
-  final baseDir =
-      uri.scheme == 'file' ? File(uri.toFilePath()).parent.path : null;
+  final baseDir = uri.scheme == 'file'
+      ? File(uri.toFilePath()).parent.path
+      : null;
 
   // Extract all imports
   final matches = _importRegex.allMatches(source);
@@ -312,8 +304,10 @@ void resolveImportsRecursively(
 /// Handles '..' and '.' path segments.
 String _resolvePath(String baseDir, String relativePath) {
   final baseParts = baseDir.split('/').where((p) => p.isNotEmpty).toList();
-  final relativeParts =
-      relativePath.split('/').where((p) => p.isNotEmpty).toList();
+  final relativeParts = relativePath
+      .split('/')
+      .where((p) => p.isNotEmpty)
+      .toList();
 
   final resultParts = List<String>.from(baseParts);
 

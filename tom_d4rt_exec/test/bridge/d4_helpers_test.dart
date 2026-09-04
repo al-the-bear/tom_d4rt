@@ -159,8 +159,12 @@ void main() {
       () {
         // Required positional double should accept int
         final positional = <Object?>[4];
-        final result =
-            D4.getRequiredArg<double>(positional, 0, 'size', 'SizedWidget');
+        final result = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'size',
+          'SizedWidget',
+        );
         expect(result, equals(4.0));
         expect(result, isA<double>());
       },
@@ -170,8 +174,12 @@ void main() {
       'D4-REQ-02: getRequiredArg<double> with double value. [2026-02-28] (PASS)',
       () {
         final positional = <Object?>[4.0];
-        final result =
-            D4.getRequiredArg<double>(positional, 0, 'size', 'SizedWidget');
+        final result = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'size',
+          'SizedWidget',
+        );
         expect(result, equals(4.0));
       },
     );
@@ -182,8 +190,11 @@ void main() {
       'D4-REQN-01: getRequiredNamedArg<double> with int value. [2026-02-28] (PASS)',
       () {
         final named = <String, Object?>{'size': 100};
-        final result =
-            D4.getRequiredNamedArg<double>(named, 'size', 'SizedWidget');
+        final result = D4.getRequiredNamedArg<double>(
+          named,
+          'size',
+          'SizedWidget',
+        );
         expect(result, equals(100.0));
         expect(result, isA<double>());
       },
@@ -236,79 +247,67 @@ void main() {
     );
   });
 
-  group('D4.getNamedArgWithDefault - absent vs explicit-null (OPEN C.4 / G1)', () {
-    // Premise lock-in for OPEN C.4 (G1): the helper must distinguish an
-    // *absent* named argument (→ apply the bridge default) from an
-    // *explicit null* (→ keep null when T is nullable). A prior version
-    // guarded on `!containsKey(p) || named[p] == null`, conflating the two
-    // and overwriting an explicit null with the default. These tests fail
-    // first if that regression returns.
+  group(
+    'D4.getNamedArgWithDefault - absent vs explicit-null (OPEN C.4 / G1)',
+    () {
+      // Premise lock-in for OPEN C.4 (G1): the helper must distinguish an
+      // *absent* named argument (→ apply the bridge default) from an
+      // *explicit null* (→ keep null when T is nullable). A prior version
+      // guarded on `!containsKey(p) || named[p] == null`, conflating the two
+      // and overwriting an explicit null with the default. These tests fail
+      // first if that regression returns.
 
-    test(
-      'GNAD-01: absent arg returns the default. [2026-06-07] (PASS)',
-      () {
-        final result =
-            D4.getNamedArgWithDefault<int>({}, 'count', 7);
+      test('GNAD-01: absent arg returns the default. [2026-06-07] (PASS)', () {
+        final result = D4.getNamedArgWithDefault<int>({}, 'count', 7);
         expect(result, equals(7));
-      },
-    );
+      });
 
-    test(
-      'GNAD-02: explicit null on nullable T is preserved (not defaulted). '
-      '[2026-06-07] (PASS)',
-      () {
+      test('GNAD-02: explicit null on nullable T is preserved (not defaulted). '
+          '[2026-06-07] (PASS)', () {
         final result = D4.getNamedArgWithDefault<int?>(
           {'count': null},
           'count',
           7,
         );
-        expect(result, isNull,
-            reason:
-                'Explicit null must survive; gating on containsKey only.');
-      },
-    );
-
-    test(
-      'GNAD-03: explicit null on non-nullable T falls back to the default. '
-      '[2026-06-07] (PASS)',
-      () {
-        // Non-nullable T cannot hold null, so the default is the only safe
-        // value to return for a present-but-null argument.
-        final result = D4.getNamedArgWithDefault<int>(
-          {'count': null},
-          'count',
-          7,
+        expect(
+          result,
+          isNull,
+          reason: 'Explicit null must survive; gating on containsKey only.',
         );
-        expect(result, equals(7));
-      },
-    );
+      });
 
-    test(
-      'GNAD-04: present non-null value is returned unchanged. '
-      '[2026-06-07] (PASS)',
-      () {
-        final result = D4.getNamedArgWithDefault<int>(
-          {'count': 3},
-          'count',
-          7,
-        );
+      test(
+        'GNAD-03: explicit null on non-nullable T falls back to the default. '
+        '[2026-06-07] (PASS)',
+        () {
+          // Non-nullable T cannot hold null, so the default is the only safe
+          // value to return for a present-but-null argument.
+          final result = D4.getNamedArgWithDefault<int>(
+            {'count': null},
+            'count',
+            7,
+          );
+          expect(result, equals(7));
+        },
+      );
+
+      test('GNAD-04: present non-null value is returned unchanged. '
+          '[2026-06-07] (PASS)', () {
+        final result = D4.getNamedArgWithDefault<int>({'count': 3}, 'count', 7);
         expect(result, equals(3));
-      },
-    );
+      });
 
-    test(
-      'GNAD-05: explicit null on nullable String? is preserved. '
-      '[2026-06-07] (PASS)',
-      () {
+      test('GNAD-05: explicit null on nullable String? is preserved. '
+          '[2026-06-07] (PASS)', () {
         final result = D4.getNamedArgWithDefault<String?>(
           {'label': null},
           'label',
           'fallback',
         );
         expect(result, isNull);
-      },
-    );
-  });
+      });
+    },
+  );
 }
 
 // =============================================================================

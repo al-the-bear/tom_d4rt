@@ -8,7 +8,9 @@ void main() {
   var user = User('Alice', 'alice@example.com');
   var userStr = user.toString();
   if (userStr != 'User(Alice, alice@example.com)') {
-    errors.add('User.toString() expected "User(Alice, alice@example.com)", got "$userStr"');
+    errors.add(
+      'User.toString() expected "User(Alice, alice@example.com)", got "$userStr"',
+    );
   }
 
   // Test Pair.toString()

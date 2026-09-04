@@ -85,20 +85,17 @@ void main() {
       );
     });
 
-    test(
-      'registerRelaxerFactory resolves a non-generic user type via '
-      'extractBridgedArg (pre-throw lookup)',
-      () {
-        final runner = D4rtRunner();
-        runner.registerRelaxerFactory('_Widgetish', (value, innerType) {
-          if (value == 'make-widget') return const _Widgetish();
-          return null;
-        });
+    test('registerRelaxerFactory resolves a non-generic user type via '
+        'extractBridgedArg (pre-throw lookup)', () {
+      final runner = D4rtRunner();
+      runner.registerRelaxerFactory('_Widgetish', (value, innerType) {
+        if (value == 'make-widget') return const _Widgetish();
+        return null;
+      });
 
-        final resolved = D4.extractBridgedArg<_Widgetish>('make-widget', 'w');
-        expect(resolved, isA<_Widgetish>());
-      },
-    );
+      final resolved = D4.extractBridgedArg<_Widgetish>('make-widget', 'w');
+      expect(resolved, isA<_Widgetish>());
+    });
 
     test('unrelated unregistered miss still throws the enriched message', () {
       String? message;

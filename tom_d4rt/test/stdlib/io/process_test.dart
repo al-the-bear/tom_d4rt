@@ -3,34 +3,42 @@ import 'package:test/test.dart';
 
 void main() {
   group('Process methods - comprehensive', () {
-    test('I-FILE-176: Process.run with echo command. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-176: Process.run with echo command. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      main() async {
         var result = await Process.run('echo', ['Hello World']);
         return [result.exitCode, result.stdout.toString().trim()];
       }
       ''';
-      final result = await execute(source);
-      expect(result[0], equals(0)); // Exit code should be 0
-      expect(result[1], equals('Hello World')); // Output should match
-    });
+        final result = await execute(source);
+        expect(result[0], equals(0)); // Exit code should be 0
+        expect(result[1], equals('Hello World')); // Output should match
+      },
+    );
 
-    test('I-FILE-173: Process.runSync with echo command. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-FILE-173: Process.runSync with echo command. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
      import 'dart:io';
      main() {
         var result = Process.runSync('echo', ['Hello Sync']);
         return [result.exitCode, result.stdout.toString().trim()];
       }
       ''';
-      final result = execute(source);
-      expect(result[0], equals(0));
-      expect(result[1], equals('Hello Sync'));
-    });
+        final result = execute(source);
+        expect(result[0], equals(0));
+        expect(result[1], equals('Hello Sync'));
+      },
+    );
 
-    test('I-FILE-174: Process.start basic functionality. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-174: Process.start basic functionality. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      main() async {
         var process = await Process.start('echo', ['Test Process']);
@@ -38,13 +46,16 @@ void main() {
         return [process.pid > 0, exitCode];
       }
       ''';
-      final result = await execute(source);
-      expect(result[0], isTrue); // PID should be positive
-      expect(result[1], equals(0)); // Exit code should be 0
-    });
+        final result = await execute(source);
+        expect(result[0], isTrue); // PID should be positive
+        expect(result[1], equals(0)); // Exit code should be 0
+      },
+    );
 
-    test('I-FILE-175: Process.killPid functionality. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-175: Process.killPid functionality. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      main() async {
         // Start a long-running process
@@ -54,10 +65,11 @@ void main() {
         return killed;
       }
       ''';
-      // Note: This test may be platform dependent
-      final result = await execute(source);
-      expect(result, isA<bool>());
-    });
+        // Note: This test may be platform dependent
+        final result = await execute(source);
+        expect(result, isA<bool>());
+      },
+    );
 
     test('I-FILE-177: ProcessResult properties. [2026-02-10 06:37] (PASS)', () {
       const source = '''
@@ -79,8 +91,10 @@ void main() {
       expect(result[3], isTrue); // stderr should exist
     });
 
-    test('I-FILE-178: Process with environment variables. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-178: Process with environment variables. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      main() async {
         var result = await Process.run('printenv', ['TEST_VAR'], 
@@ -88,19 +102,22 @@ void main() {
         return [result.exitCode, result.stdout.toString().trim()];
       }
       ''';
-      // Note: This test assumes printenv is available (Unix-like systems)
-      try {
-        final result = await execute(source);
-        expect(result[0], equals(0));
-        expect(result[1], equals('test_value'));
-      } catch (e) {
-        // Skip test if printenv is not available
-        print('Skipping environment test: $e');
-      }
-    });
+        // Note: This test assumes printenv is available (Unix-like systems)
+        try {
+          final result = await execute(source);
+          expect(result[0], equals(0));
+          expect(result[1], equals('test_value'));
+        } catch (e) {
+          // Skip test if printenv is not available
+          print('Skipping environment test: $e');
+        }
+      },
+    );
 
-    test('I-FILE-169: Process.run with working directory. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-169: Process.run with working directory. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      main() async {
         var tempDir = Directory.systemTemp.createTempSync();
@@ -109,18 +126,21 @@ void main() {
         return result.exitCode;
       }
       ''';
-      // Note: This test assumes pwd command is available (Unix-like systems)
-      try {
-        final result = await execute(source);
-        expect(result, equals(0));
-      } catch (e) {
-        // Skip test if pwd is not available
-        print('Skipping working directory test: $e');
-      }
-    });
+        // Note: This test assumes pwd command is available (Unix-like systems)
+        try {
+          final result = await execute(source);
+          expect(result, equals(0));
+        } catch (e) {
+          // Skip test if pwd is not available
+          print('Skipping working directory test: $e');
+        }
+      },
+    );
 
-    test('I-FILE-170: ProcessSignal constants availability. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-FILE-170: ProcessSignal constants availability. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
      import 'dart:io';
      main() {
         return [
@@ -130,14 +150,17 @@ void main() {
         ];
       }
       ''';
-      final result = execute(source);
-      expect(result[0], isTrue);
-      expect(result[1], isTrue);
-      expect(result[2], isTrue);
-    });
+        final result = execute(source);
+        expect(result[0], isTrue);
+        expect(result[1], isTrue);
+        expect(result[2], isTrue);
+      },
+    );
 
-    test('I-FILE-171: ProcessStartMode constants availability. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-FILE-171: ProcessStartMode constants availability. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
      import 'dart:io';
      main() {
         return [
@@ -147,14 +170,17 @@ void main() {
         ];
       }
       ''';
-      final result = execute(source);
-      expect(result[0], isTrue);
-      expect(result[1], isTrue);
-      expect(result[2], isTrue);
-    });
+        final result = execute(source);
+        expect(result[0], isTrue);
+        expect(result[1], isTrue);
+        expect(result[2], isTrue);
+      },
+    );
 
-    test('I-FILE-172: Process stdin/stdout/stderr streams. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-FILE-172: Process stdin/stdout/stderr streams. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
      import 'dart:io';
      import 'dart:convert';
      main() async {
@@ -171,14 +197,15 @@ void main() {
         return [exitCode, output.trim()];
       }
       ''';
-      try {
-        final result = await execute(source);
-        expect(result[0], equals(0));
-        expect(result[1], equals('Hello Cat'));
-      } catch (e) {
-        // Skip test if cat command is not available
-        print('Skipping stdin/stdout test: $e');
-      }
-    });
+        try {
+          final result = await execute(source);
+          expect(result[0], equals(0));
+          expect(result[1], equals('Hello Cat'));
+        } catch (e) {
+          // Skip test if cat command is not available
+          print('Skipping stdin/stdout test: $e');
+        }
+      },
+    );
   });
 }

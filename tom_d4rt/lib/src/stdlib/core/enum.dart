@@ -6,40 +6,40 @@ import 'package:tom_d4rt/src/bridge/bridged_enum.dart';
 /// bound-check time even though they never instantiate it directly.
 class EnumCore {
   static BridgedClass get definition => BridgedClass(
-        nativeType: Enum,
-        name: 'Enum',
-        typeParameterCount: 0,
-        constructors: {},
-        staticMethods: {
-          'compareByIndex': (visitor, positionalArgs, namedArgs, _) {
-            final pair = _comparandPair('compareByIndex', positionalArgs);
-            return pair.$1.index.compareTo(pair.$2.index);
-          },
-          'compareByName': (visitor, positionalArgs, namedArgs, _) {
-            final pair = _comparandPair('compareByName', positionalArgs);
-            return pair.$1.name.compareTo(pair.$2.name);
-          },
-        },
-        methods: {
-          'toString': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Enum).toString();
-          },
-          'noSuchMethod': (visitor, target, positionalArgs, namedArgs, _) {
-            if (positionalArgs.length != 1 || positionalArgs[0] is! Invocation) {
-              throw RuntimeD4rtException(
-                  'Enum.noSuchMethod requires an Invocation argument.');
-            }
-            return (target as Enum)
-                .noSuchMethod(positionalArgs[0] as Invocation);
-          },
-        },
-        getters: {
-          'index': (visitor, target) => (target as Enum).index,
-          'name': (visitor, target) => (target as Enum).name,
-          'hashCode': (visitor, target) => (target as Enum).hashCode,
-          'runtimeType': (visitor, target) => (target as Enum).runtimeType,
-        },
-      );
+    nativeType: Enum,
+    name: 'Enum',
+    typeParameterCount: 0,
+    constructors: {},
+    staticMethods: {
+      'compareByIndex': (visitor, positionalArgs, namedArgs, _) {
+        final pair = _comparandPair('compareByIndex', positionalArgs);
+        return pair.$1.index.compareTo(pair.$2.index);
+      },
+      'compareByName': (visitor, positionalArgs, namedArgs, _) {
+        final pair = _comparandPair('compareByName', positionalArgs);
+        return pair.$1.name.compareTo(pair.$2.name);
+      },
+    },
+    methods: {
+      'toString': (visitor, target, positionalArgs, namedArgs, _) {
+        return (target as Enum).toString();
+      },
+      'noSuchMethod': (visitor, target, positionalArgs, namedArgs, _) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Invocation) {
+          throw RuntimeD4rtException(
+            'Enum.noSuchMethod requires an Invocation argument.',
+          );
+        }
+        return (target as Enum).noSuchMethod(positionalArgs[0] as Invocation);
+      },
+    },
+    getters: {
+      'index': (visitor, target) => (target as Enum).index,
+      'name': (visitor, target) => (target as Enum).name,
+      'hashCode': (visitor, target) => (target as Enum).hashCode,
+      'runtimeType': (visitor, target) => (target as Enum).runtimeType,
+    },
+  );
 }
 
 /// The `index` and `name` of one enum value, read from whichever
@@ -70,18 +70,22 @@ _EnumFacts? _enumFacts(Object? value) {
 
 /// Reads both comparands, or throws naming the argument that is not an enum.
 (_EnumFacts, _EnumFacts) _comparandPair(
-    String member, List<Object?> positionalArgs) {
+  String member,
+  List<Object?> positionalArgs,
+) {
   if (positionalArgs.length != 2) {
     throw RuntimeD4rtException(
-        'Enum.$member(value1, value2) expects two positional arguments.');
+      'Enum.$member(value1, value2) expects two positional arguments.',
+    );
   }
   final first = _enumFacts(positionalArgs[0]);
   final second = _enumFacts(positionalArgs[1]);
   if (first == null || second == null) {
     throw RuntimeD4rtException(
-        'Enum.$member expects an enum value for both arguments, got '
-        '${positionalArgs[0].runtimeType} and '
-        '${positionalArgs[1].runtimeType}.');
+      'Enum.$member expects an enum value for both arguments, got '
+      '${positionalArgs[0].runtimeType} and '
+      '${positionalArgs[1].runtimeType}.',
+    );
   }
   return (first, second);
 }

@@ -67,17 +67,19 @@ void main() {
       expect(execute(source), equals([3, true, 2]));
     });
 
-    test('F-SCB21-3: Uint8List is nameable under dart:io alone [2026-07-28]',
-        () {
-      const source = '''
+    test(
+      'F-SCB21-3: Uint8List is nameable under dart:io alone [2026-07-28]',
+      () {
+        const source = '''
       import 'dart:io';
       main() {
         var u = Uint8List.fromList([1, 2, 3]);
         return u.length;
       }
       ''';
-      expect(execute(source), equals(3));
-    });
+        expect(execute(source), equals(3));
+      },
+    );
 
     test('F-SCB21-4: ByteData and Endian are nameable under dart:io alone '
         '[2026-07-28]', () {
@@ -121,8 +123,10 @@ void main() {
       import 'dart:io';
       main() { return LineSplitter().toString(); }
       ''';
-      expect(() => execute(source),
-          throwsRuntimeError(contains('Undefined variable: LineSplitter')));
+      expect(
+        () => execute(source),
+        throwsRuntimeError(contains('Undefined variable: LineSplitter')),
+      );
     });
 
     test('F-SCB21-7: the same name resolves once dart:convert is imported '
@@ -162,7 +166,8 @@ void main() {
         // scope answers `.toString()` — including the four credentials names
         // below, which are not types at all — so a toString-based check would
         // report a healthy surface that isn't one.
-        final source = '''
+        final source =
+            '''
         import 'dart:io';
         main() { return 1 is $name; }
         ''';
@@ -187,7 +192,8 @@ void main() {
 
     for (final name in credentials) {
       test('F-SCB21-9-$name: $name resolves to a callable [2026-07-28]', () {
-        final source = '''
+        final source =
+            '''
         import 'dart:io';
         main() { return $name.toString(); }
         ''';
@@ -195,19 +201,22 @@ void main() {
       });
     }
 
-    test('F-SCB21-10: constructing through the callable works [2026-07-28]', () {
-      // What the function shape does deliver, and the reason it was written
-      // this way: the common script use is to hand credentials to an
-      // HttpClient, which only needs the value.
-      const source = '''
+    test(
+      'F-SCB21-10: constructing through the callable works [2026-07-28]',
+      () {
+        // What the function shape does deliver, and the reason it was written
+        // this way: the common script use is to hand credentials to an
+        // HttpClient, which only needs the value.
+        const source = '''
       import 'dart:io';
       main() {
         var c = HttpClientBasicCredentials('user', 'pass');
         return c.toString();
       }
       ''';
-      expect(execute(source), contains('HttpClientBasicCredentials'));
-    });
+        expect(execute(source), contains('HttpClientBasicCredentials'));
+      },
+    );
 
     // NOT pinned here: `x is HttpClientBasicCredentials` currently *invokes*
     // the callable instead of testing a type, so it throws "requires username

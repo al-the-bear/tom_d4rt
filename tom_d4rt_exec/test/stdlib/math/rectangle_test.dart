@@ -25,8 +25,10 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('I-MISC-435: Rectangle containsRectangle. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-MISC-435: Rectangle containsRectangle. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       import 'dart:math';
       main() {
         Rectangle r1 = Rectangle(0, 0, 10, 20);
@@ -35,8 +37,9 @@ void main() {
         return [r1.containsRectangle(r2), r1.containsRectangle(r3)];
       }
       ''';
-      expect(execute(source), equals([true, false]));
-    });
+        expect(execute(source), equals([true, false]));
+      },
+    );
 
     test('I-MISC-436: Rectangle intersects. [2026-02-10 06:37] (PASS)', () {
       const source = '''
@@ -67,11 +70,12 @@ void main() {
       }
       ''';
       expect(
-          execute(source),
-          equals([
-            [5, 5, 5, 10],
-            null
-          ]));
+        execute(source),
+        equals([
+          [5, 5, 5, 10],
+          null,
+        ]),
+      );
     });
 
     test('I-MISC-439: Rectangle toString. [2026-02-10 06:37] (PASS)', () {
@@ -85,8 +89,10 @@ void main() {
       expect(execute(source), equals('Rectangle (0, 0) 10 x 20'));
     });
 
-    test('I-MISC-440: Rectangle equality and hashCode. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-MISC-440: Rectangle equality and hashCode. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       import 'dart:math';
       main() {
         Rectangle r1 = Rectangle(0, 0, 10, 20);
@@ -95,7 +101,8 @@ void main() {
         return [r1 == r2, r1 == r3, r1.hashCode == r2.hashCode];
       }
       ''';
-      expect(execute(source), equals([true, false, true]));
-    });
+        expect(execute(source), equals([true, false, true]));
+      },
+    );
   });
 }

@@ -5,7 +5,8 @@ void main() {
   const String testLibPath = 'd4rt-mem:/bytes_builder_test.dart';
 
   dynamic run(String scriptBody) {
-    final fullScript = '''
+    final fullScript =
+        '''
       import 'dart:typed_data';
       main() {
         $scriptBody
@@ -19,14 +20,16 @@ void main() {
   }
 
   group('BytesBuilder (SC8)', () {
-    test('F-SC8-1: default constructor yields an empty builder. [2026-07-27]',
-        () {
-      final result = run('''
+    test(
+      'F-SC8-1: default constructor yields an empty builder. [2026-07-27]',
+      () {
+        final result = run('''
         final b = BytesBuilder();
         return [b.length, b.isEmpty, b.isNotEmpty];
       ''');
-      expect(result, [0, true, false]);
-    });
+        expect(result, [0, true, false]);
+      },
+    );
 
     test('F-SC8-2: a constructed builder satisfies `is BytesBuilder`. '
         '[2026-07-27]', () {
@@ -116,10 +119,12 @@ void main() {
       expect(result, '0,2,4,6,8 | 0,2,4,6,8');
     });
 
-    test('F-SC8-10: takeBytes on an untouched builder is empty. [2026-07-27]',
-        () {
-      expect(run('return BytesBuilder().takeBytes().length;'), 0);
-    });
+    test(
+      'F-SC8-10: takeBytes on an untouched builder is empty. [2026-07-27]',
+      () {
+        expect(run('return BytesBuilder().takeBytes().length;'), 0);
+      },
+    );
 
     test('F-SC8-11: argument errors surface as catchable script errors. '
         '[2026-07-27]', () {

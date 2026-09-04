@@ -3,8 +3,10 @@ import 'package:test/test.dart';
 
 void main() {
   group('Iterable tests', () {
-    test('I-ITER-8: Iterable.map and Iterable.where. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ITER-8: Iterable.map and Iterable.where. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         Iterable<int> numbers = [1, 2, 3, 4, 5];
         Iterable<int> doubled = numbers.map((n) => n * 2);
@@ -12,16 +14,20 @@ void main() {
         return [doubled.toList(), evens.toList()];
       }
       ''';
-      expect(
+        expect(
           execute(source),
           equals([
             [2, 4, 6, 8, 10],
-            [2, 4]
-          ]));
-    });
+            [2, 4],
+          ]),
+        );
+      },
+    );
 
-    test('I-ITER-4: Iterable.reduce and Iterable.fold. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ITER-4: Iterable.reduce and Iterable.fold. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         Iterable<int> numbers = [1, 2, 3, 4, 5];
         int sum = numbers.reduce((a, b) => a + b);
@@ -29,61 +35,78 @@ void main() {
         return [sum, product];
       }
       ''';
-      expect(execute(source), equals([15, 120]));
-    });
+        expect(execute(source), equals([15, 120]));
+      },
+    );
 
-    test('I-ITER-5: Iterable.first, last, and length. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ITER-5: Iterable.first, last, and length. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         Iterable<int> numbers = [1, 2, 3, 4, 5];
         return [numbers.first, numbers.last, numbers.length];
       }
       ''';
-      expect(execute(source), equals([1, 5, 5]));
-    });
+        expect(execute(source), equals([1, 5, 5]));
+      },
+    );
 
-    test('I-ITER-6: Iterable.contains and Iterable.any. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ITER-6: Iterable.contains and Iterable.any. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         Iterable<int> numbers = [1, 2, 3, 4, 5];
         return [numbers.contains(3), numbers.any((n) => n > 4)];
       }
       ''';
-      expect(execute(source), equals([true, true]));
-    });
+        expect(execute(source), equals([true, true]));
+      },
+    );
 
-    test('I-ITER-7: Iterable.every and Iterable.take. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ITER-7: Iterable.every and Iterable.take. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         Iterable<int> numbers = [1, 2, 3, 4, 5];
         return [numbers.every((n) => n > 0), numbers.take(3).toList()];
       }
       ''';
-      expect(
+        expect(
           execute(source),
           equals([
             true,
-            [1, 2, 3]
-          ]));
-    });
+            [1, 2, 3],
+          ]),
+        );
+      },
+    );
 
-    test('I-ITER-9: Iterable.skip and Iterable.toList. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ITER-9: Iterable.skip and Iterable.toList. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         Iterable<int> numbers = [1, 2, 3, 4, 5];
         return [numbers.skip(2).toList(), numbers.toList()];
       }
       ''';
-      expect(
+        expect(
           execute(source),
           equals([
             [3, 4, 5],
-            [1, 2, 3, 4, 5]
-          ]));
-    });
+            [1, 2, 3, 4, 5],
+          ]),
+        );
+      },
+    );
 
-    test('I-ITER-10: Iterable.join and Iterable.toSet. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ITER-10: Iterable.join and Iterable.toSet. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         Iterable<int> numbers = [1, 2, 3, 4, 5];
         var setList = numbers.toSet().toList();
@@ -91,13 +114,15 @@ void main() {
         return [numbers.join(", "), setList];
       }
       ''';
-      expect(
+        expect(
           execute(source),
           equals([
             '1, 2, 3, 4, 5',
-            [1, 2, 3, 4, 5]
-          ]));
-    });
+            [1, 2, 3, 4, 5],
+          ]),
+        );
+      },
+    );
 
     test('I-ITER-1: Iterable.expand. [2026-02-10 06:37] (PASS)', () {
       const source = '''
@@ -122,15 +147,18 @@ void main() {
       expect(execute(source), equals(6));
     });
 
-    test('I-ITER-3: Iterable.isEmpty and Iterable.isNotEmpty. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ITER-3: Iterable.isEmpty and Iterable.isNotEmpty. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       main() {
         Iterable<int> numbers = [1, 2, 3];
         Iterable<int> empty = [];
         return [numbers.isEmpty, numbers.isNotEmpty, empty.isEmpty, empty.isNotEmpty];
       }
       ''';
-      expect(execute(source), equals([false, true, true, false]));
-    });
+        expect(execute(source), equals([false, true, true, false]));
+      },
+    );
   });
 }

@@ -16,11 +16,7 @@ class User {
   String? email;
 
   /// Creates a new user.
-  User({
-    required this.id,
-    required this.name,
-    this.email,
-  });
+  User({required this.id, required this.name, this.email});
 
   /// Creates a user from a map.
   factory User.fromMap(Map<String, dynamic> map) {
@@ -33,11 +29,7 @@ class User {
 
   /// Converts to a map.
   Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'email': email,
-    };
+    return {'id': id, 'name': name, 'email': email};
   }
 
   @override
@@ -104,8 +96,8 @@ class Order {
     required this.customer,
     List<Product>? items,
     DateTime? createdAt,
-  })  : items = items ?? [],
-        createdAt = createdAt ?? DateTime.now();
+  }) : items = items ?? [],
+       createdAt = createdAt ?? DateTime.now();
 
   /// Add an item to the order.
   void addItem(Product product) => items.add(product);
@@ -114,8 +106,7 @@ class Order {
   int get itemCount => items.length;
 
   /// Get the total price in cents.
-  int get totalPriceInCents =>
-      items.fold(0, (sum, p) => sum + p.priceInCents);
+  int get totalPriceInCents => items.fold(0, (sum, p) => sum + p.priceInCents);
 
   /// Get the total price formatted.
   String get formattedTotal {

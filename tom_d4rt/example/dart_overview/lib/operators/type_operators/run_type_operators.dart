@@ -151,7 +151,7 @@ void main() {
       double d => 'Double: $d',
       String s => 'String of length ${s.length}',
       List l => 'List with ${l.length} items',
-      _ => 'Unknown: ${obj.runtimeType}'
+      _ => 'Unknown: ${obj.runtimeType}',
     };
   }
 

@@ -3,8 +3,10 @@ import '../../interpreter_test.dart' show executeAsync;
 
 void main() {
   group('StreamTransformer Tests', () {
-    test('I-ASYNC-136: StreamTransformer.fromHandlers with handleData. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-136: StreamTransformer.fromHandlers with handleData. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 import 'dart:async';
 
 main() async {
@@ -35,12 +37,15 @@ main() async {
   return results;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals([2, 4, 6]));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals([2, 4, 6]));
+      },
+    );
 
-    test('I-ASYNC-135: StreamTransformer.fromHandlers with handleError. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-135: StreamTransformer.fromHandlers with handleError. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 import 'dart:async';
 
 main() async {
@@ -76,12 +81,15 @@ main() async {
   return results.length >= 2; // At least data and error
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals(true));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals(true));
+      },
+    );
 
-    test('I-ASYNC-137: StreamTransformer.fromHandlers with handleDone. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-137: StreamTransformer.fromHandlers with handleDone. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 import 'dart:async';
 
 main() async {
@@ -111,12 +119,15 @@ main() async {
   return doneCalled;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals(true));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals(true));
+      },
+    );
 
-    test('I-ASYNC-128: StreamTransformer.fromHandlers - filtering transformer. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-128: StreamTransformer.fromHandlers - filtering transformer. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 import 'dart:async';
 
 main() async {
@@ -150,13 +161,15 @@ main() async {
   return results;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals([2, 4]));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals([2, 4]));
+      },
+    );
 
-    test('I-ASYNC-129: StreamTransformer.fromHandlers - mapping to different type. [2026-02-10 06:37] (PASS)',
-        () async {
-      const code = '''
+    test(
+      'I-ASYNC-129: StreamTransformer.fromHandlers - mapping to different type. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 import 'dart:async';
 
 main() async {
@@ -185,12 +198,15 @@ main() async {
   return results;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals(['Number: 1', 'Number: 2']));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals(['Number: 1', 'Number: 2']));
+      },
+    );
 
-    test('I-ASYNC-130: StreamTransformer.fromBind - custom stream binding. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-130: StreamTransformer.fromBind - custom stream binding. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 import 'dart:async';
 
 main() async {
@@ -217,12 +233,15 @@ main() async {
   return results;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals([3, 6, 9]));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals([3, 6, 9]));
+      },
+    );
 
-    test('I-ASYNC-131: StreamTransformer.fromBind with async operations. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-131: StreamTransformer.fromBind with async operations. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 import 'dart:async';
 
 main() async {
@@ -251,12 +270,15 @@ main() async {
   return results;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals([11, 12]));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals([11, 12]));
+      },
+    );
 
-    test('I-ASYNC-132: Chained StreamTransformers. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-132: Chained StreamTransformers. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 import 'dart:async';
 
 main() async {
@@ -295,12 +317,15 @@ main() async {
   return results;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals([12, 20]));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals([12, 20]));
+      },
+    );
 
-    test('I-ASYNC-133: StreamTransformer with multiple outputs per input. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-133: StreamTransformer with multiple outputs per input. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 import 'dart:async';
 
 main() async {
@@ -331,12 +356,15 @@ main() async {
   return results;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals([2, 4, 3, 9]));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals([2, 4, 3, 9]));
+      },
+    );
 
-    test('I-ASYNC-134: StreamTransformer.cast. [2026-02-10 06:37] (PASS)', () async {
-      const code = '''
+    test(
+      'I-ASYNC-134: StreamTransformer.cast. [2026-02-10 06:37] (PASS)',
+      () async {
+        const code = '''
 import 'dart:async';
 
 main() async {
@@ -368,8 +396,9 @@ main() async {
   return results;
 }
 ''';
-      final result = await executeAsync(code);
-      expect(result, equals([1, 2]));
-    });
+        final result = await executeAsync(code);
+        expect(result, equals([1, 2]));
+      },
+    );
   });
 }

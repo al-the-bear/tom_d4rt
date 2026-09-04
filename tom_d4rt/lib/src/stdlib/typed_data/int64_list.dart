@@ -5,207 +5,240 @@ import 'inherited_list_methods.dart';
 
 class Int64ListTypedData {
   static BridgedClass get definition => BridgedClass(
-        name: 'Int64List',
-        nativeType: Int64List,
-        isAssignable: (v) => v is Int64List,
-        typeParameterCount: 0,
-        constructors: {
-          '': (visitor, positionalArgs, namedArgs) {
-            if (positionalArgs.length == 1 && positionalArgs[0] is int) {
-              return Int64List(positionalArgs[0] as int);
-            }
+    name: 'Int64List',
+    nativeType: Int64List,
+    isAssignable: (v) => v is Int64List,
+    typeParameterCount: 0,
+    constructors: {
+      '': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.length == 1 && positionalArgs[0] is int) {
+          return Int64List(positionalArgs[0] as int);
+        }
+        throw RuntimeD4rtException(
+          "Int64List constructor expects one int argument (length).",
+        );
+      },
+      'fromList': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.length == 1 && positionalArgs[0] is List) {
+          final sourceList = positionalArgs[0] as List;
+          final intList = sourceList.toNativeList().map((e) {
+            if (e is int) return e;
             throw RuntimeD4rtException(
-                "Int64List constructor expects one int argument (length).");
-          },
-          'fromList': (visitor, positionalArgs, namedArgs) {
-            if (positionalArgs.length == 1 && positionalArgs[0] is List) {
-              final sourceList = positionalArgs[0] as List;
-              final intList = sourceList.toNativeList().map((e) {
-                if (e is int) return e;
-                throw RuntimeD4rtException("Int64List.fromList expects a List<int>.");
-              }).toList();
-              return Int64List.fromList(intList);
-            }
-            throw RuntimeD4rtException(
-                "Int64List.fromList expects one List<int> argument.");
-          },
-          'view': (visitor, positionalArgs, namedArgs) {
-            if (positionalArgs.isNotEmpty && positionalArgs[0] is ByteBuffer) {
-              final buffer = positionalArgs[0] as ByteBuffer;
-              final offsetInBytes = positionalArgs.length > 1
-                  ? positionalArgs[1] as int? ?? 0
-                  : 0;
-              final length =
-                  positionalArgs.length > 2 ? positionalArgs[2] as int? : null;
-              return Int64List.view(buffer, offsetInBytes, length);
-            }
-            throw RuntimeD4rtException(
-                "Int64List.view expects ByteBuffer and optional offset/length arguments.");
-          },
-          'sublistView': (visitor, positionalArgs, namedArgs) {
-            if (positionalArgs.isNotEmpty && positionalArgs[0] is TypedData) {
-              final data = positionalArgs[0] as TypedData;
-              final start = positionalArgs.length > 1
-                  ? positionalArgs[1] as int? ?? 0
-                  : 0;
-              final end =
-                  positionalArgs.length > 2 ? positionalArgs[2] as int? : null;
-              return Int64List.sublistView(data, start, end);
-            }
-            throw RuntimeD4rtException(
-                "Int64List.sublistView expects TypedData and optional start/end arguments.");
-          },
-        },
-        methods: {
-          // Index operators
-          '[]': (visitor, target, positionalArgs, namedArgs, _) {
-            if (target is Int64List &&
-                positionalArgs.length == 1 &&
-                positionalArgs[0] is int) {
-              return target[positionalArgs[0] as int];
-            }
-            throw RuntimeD4rtException("Int64List[index] expects an int index.");
-          },
-          '[]=': (visitor, target, positionalArgs, namedArgs, _) {
-            if (target is Int64List &&
-                positionalArgs.length == 2 &&
-                positionalArgs[0] is int &&
-                positionalArgs[1] is int) {
-              final index = positionalArgs[0] as int;
-              final value = positionalArgs[1] as int;
-              target[index] = value;
-              return value;
-            }
-            throw RuntimeD4rtException(
-                "Int64List[index] = value expects int index and int value.");
-          },
+              "Int64List.fromList expects a List<int>.",
+            );
+          }).toList();
+          return Int64List.fromList(intList);
+        }
+        throw RuntimeD4rtException(
+          "Int64List.fromList expects one List<int> argument.",
+        );
+      },
+      'view': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.isNotEmpty && positionalArgs[0] is ByteBuffer) {
+          final buffer = positionalArgs[0] as ByteBuffer;
+          final offsetInBytes = positionalArgs.length > 1
+              ? positionalArgs[1] as int? ?? 0
+              : 0;
+          final length = positionalArgs.length > 2
+              ? positionalArgs[2] as int?
+              : null;
+          return Int64List.view(buffer, offsetInBytes, length);
+        }
+        throw RuntimeD4rtException(
+          "Int64List.view expects ByteBuffer and optional offset/length arguments.",
+        );
+      },
+      'sublistView': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.isNotEmpty && positionalArgs[0] is TypedData) {
+          final data = positionalArgs[0] as TypedData;
+          final start = positionalArgs.length > 1
+              ? positionalArgs[1] as int? ?? 0
+              : 0;
+          final end = positionalArgs.length > 2
+              ? positionalArgs[2] as int?
+              : null;
+          return Int64List.sublistView(data, start, end);
+        }
+        throw RuntimeD4rtException(
+          "Int64List.sublistView expects TypedData and optional start/end arguments.",
+        );
+      },
+    },
+    methods: {
+      // Index operators
+      '[]': (visitor, target, positionalArgs, namedArgs, _) {
+        if (target is Int64List &&
+            positionalArgs.length == 1 &&
+            positionalArgs[0] is int) {
+          return target[positionalArgs[0] as int];
+        }
+        throw RuntimeD4rtException("Int64List[index] expects an int index.");
+      },
+      '[]=': (visitor, target, positionalArgs, namedArgs, _) {
+        if (target is Int64List &&
+            positionalArgs.length == 2 &&
+            positionalArgs[0] is int &&
+            positionalArgs[1] is int) {
+          final index = positionalArgs[0] as int;
+          final value = positionalArgs[1] as int;
+          target[index] = value;
+          return value;
+        }
+        throw RuntimeD4rtException(
+          "Int64List[index] = value expects int index and int value.",
+        );
+      },
 
-          // List methods
-          'sublist': (visitor, target, positionalArgs, namedArgs, _) {
-            final start =
-                positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
-            final end =
-                positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
-            return (target as Int64List).sublist(start, end);
-          },
-          'getRange': (visitor, target, positionalArgs, namedArgs, _) {
-            final start = positionalArgs[0] as int;
-            final end = positionalArgs[1] as int;
-            return (target as Int64List).getRange(start, end);
-          },
-          'setRange': (visitor, target, positionalArgs, namedArgs, _) {
-            final start = positionalArgs[0] as int;
-            final end = positionalArgs[1] as int;
-            final iterable = coerceElements<int>(
-                positionalArgs[2], 'Int64List.setRange');
-            final skipCount =
-                positionalArgs.length > 3 ? positionalArgs[3] as int : 0;
-            (target as Int64List).setRange(start, end, iterable, skipCount);
-            return null;
-          },
-          'setAll': (visitor, target, positionalArgs, namedArgs, _) {
-            final at = positionalArgs[0] as int;
-            final iterable = coerceElements<int>(
-                positionalArgs[1], 'Int64List.setAll');
-            (target as Int64List).setAll(at, iterable);
-            return null;
-          },
-          'fillRange': (visitor, target, positionalArgs, namedArgs, _) {
-            final start = positionalArgs[0] as int;
-            final end = positionalArgs[1] as int;
-            final fill =
-                positionalArgs.length > 2 ? positionalArgs[2] as int? : null;
-            (target as Int64List).fillRange(start, end, fill);
-            return null;
-          },
+      // List methods
+      'sublist': (visitor, target, positionalArgs, namedArgs, _) {
+        final start = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
+        final end = positionalArgs.length > 1
+            ? positionalArgs[1] as int?
+            : null;
+        return (target as Int64List).sublist(start, end);
+      },
+      'getRange': (visitor, target, positionalArgs, namedArgs, _) {
+        final start = positionalArgs[0] as int;
+        final end = positionalArgs[1] as int;
+        return (target as Int64List).getRange(start, end);
+      },
+      'setRange': (visitor, target, positionalArgs, namedArgs, _) {
+        final start = positionalArgs[0] as int;
+        final end = positionalArgs[1] as int;
+        final iterable = coerceElements<int>(
+          positionalArgs[2],
+          'Int64List.setRange',
+        );
+        final skipCount = positionalArgs.length > 3
+            ? positionalArgs[3] as int
+            : 0;
+        (target as Int64List).setRange(start, end, iterable, skipCount);
+        return null;
+      },
+      'setAll': (visitor, target, positionalArgs, namedArgs, _) {
+        final at = positionalArgs[0] as int;
+        final iterable = coerceElements<int>(
+          positionalArgs[1],
+          'Int64List.setAll',
+        );
+        (target as Int64List).setAll(at, iterable);
+        return null;
+      },
+      'fillRange': (visitor, target, positionalArgs, namedArgs, _) {
+        final start = positionalArgs[0] as int;
+        final end = positionalArgs[1] as int;
+        final fill = positionalArgs.length > 2
+            ? positionalArgs[2] as int?
+            : null;
+        (target as Int64List).fillRange(start, end, fill);
+        return null;
+      },
 
-          // Typed methods
-          'buffer': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Int64List).buffer;
-          },
-          'asUint8ListView': (visitor, target, positionalArgs, namedArgs, _) {
-            final offsetInBytes =
-                positionalArgs.isNotEmpty ? positionalArgs[0] as int? : null;
-            final length =
-                positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
-            return (target as Int64List)
-                .buffer
-                .asUint8List(offsetInBytes ?? 0, length);
-          },
+      // Typed methods
+      'buffer': (visitor, target, positionalArgs, namedArgs, _) {
+        return (target as Int64List).buffer;
+      },
+      'asUint8ListView': (visitor, target, positionalArgs, namedArgs, _) {
+        final offsetInBytes = positionalArgs.isNotEmpty
+            ? positionalArgs[0] as int?
+            : null;
+        final length = positionalArgs.length > 1
+            ? positionalArgs[1] as int?
+            : null;
+        return (target as Int64List).buffer.asUint8List(
+          offsetInBytes ?? 0,
+          length,
+        );
+      },
 
-          // Standard methods
-          'toString': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Int64List).toString();
-          },
-          '==': (visitor, target, positionalArgs, namedArgs, _) {
-            return (target as Int64List) == positionalArgs[0];
-          },
+      // Standard methods
+      'toString': (visitor, target, positionalArgs, namedArgs, _) {
+        return (target as Int64List).toString();
+      },
+      '==': (visitor, target, positionalArgs, namedArgs, _) {
+        return (target as Int64List) == positionalArgs[0];
+      },
 
-          // Inherited Iterable<int> / List<int> read-only methods.
-          // See inherited_list_methods.dart — the interpreter resolves
-          // bridged methods without walking the supertype chain, so each
-          // typed-data variant must declare these directly.
-          ...inheritedListMethods<int>((t) => t as Int64List,
-              unmodifiableView: (t) => (t as Int64List).asUnmodifiableView()),
-        },
-        staticGetters: typedListStaticGetters(Int64List.bytesPerElement),
-        getters: {
-          'length': (visitor, target) {
-            if (target is Int64List) return target.length;
-            throw RuntimeD4rtException(
-                "Target is not an Int64List for getter 'length'");
-          },
-          'lengthInBytes': (visitor, target) {
-            if (target is Int64List) return target.lengthInBytes;
-            throw RuntimeD4rtException(
-                "Target is not an Int64List for getter 'lengthInBytes'");
-          },
-          'elementSizeInBytes': (visitor, target) {
-            if (target is Int64List) return target.elementSizeInBytes;
-            throw RuntimeD4rtException(
-                "Target is not an Int64List for getter 'elementSizeInBytes'");
-          },
-          'offsetInBytes': (visitor, target) {
-            if (target is Int64List) return target.offsetInBytes;
-            throw RuntimeD4rtException(
-                "Target is not an Int64List for getter 'offsetInBytes'");
-          },
-          'buffer': (visitor, target) {
-            if (target is Int64List) return target.buffer;
-            throw RuntimeD4rtException(
-                "Target is not an Int64List for getter 'buffer'");
-          },
-          'first': (visitor, target) {
-            if (target is Int64List) return target.first;
-            throw RuntimeD4rtException("Target is not an Int64List for getter 'first'");
-          },
-          'last': (visitor, target) {
-            if (target is Int64List) return target.last;
-            throw RuntimeD4rtException("Target is not an Int64List for getter 'last'");
-          },
-          'isEmpty': (visitor, target) {
-            if (target is Int64List) return target.isEmpty;
-            throw RuntimeD4rtException(
-                "Target is not an Int64List for getter 'isEmpty'");
-          },
-          'isNotEmpty': (visitor, target) {
-            if (target is Int64List) return target.isNotEmpty;
-            throw RuntimeD4rtException(
-                "Target is not an Int64List for getter 'isNotEmpty'");
-          },
-          'hashCode': (visitor, target) {
-            if (target is Int64List) return target.hashCode;
-            throw RuntimeD4rtException(
-                "Target is not an Int64List for getter 'hashCode'");
-          },
-          'runtimeType': (visitor, target) {
-            if (target is Int64List) return target.runtimeType;
-            throw RuntimeD4rtException(
-                "Target is not an Int64List for getter 'runtimeType'");
-          },
+      // Inherited Iterable<int> / List<int> read-only methods.
+      // See inherited_list_methods.dart — the interpreter resolves
+      // bridged methods without walking the supertype chain, so each
+      // typed-data variant must declare these directly.
+      ...inheritedListMethods<int>(
+        (t) => t as Int64List,
+        unmodifiableView: (t) => (t as Int64List).asUnmodifiableView(),
+      ),
+    },
+    staticGetters: typedListStaticGetters(Int64List.bytesPerElement),
+    getters: {
+      'length': (visitor, target) {
+        if (target is Int64List) return target.length;
+        throw RuntimeD4rtException(
+          "Target is not an Int64List for getter 'length'",
+        );
+      },
+      'lengthInBytes': (visitor, target) {
+        if (target is Int64List) return target.lengthInBytes;
+        throw RuntimeD4rtException(
+          "Target is not an Int64List for getter 'lengthInBytes'",
+        );
+      },
+      'elementSizeInBytes': (visitor, target) {
+        if (target is Int64List) return target.elementSizeInBytes;
+        throw RuntimeD4rtException(
+          "Target is not an Int64List for getter 'elementSizeInBytes'",
+        );
+      },
+      'offsetInBytes': (visitor, target) {
+        if (target is Int64List) return target.offsetInBytes;
+        throw RuntimeD4rtException(
+          "Target is not an Int64List for getter 'offsetInBytes'",
+        );
+      },
+      'buffer': (visitor, target) {
+        if (target is Int64List) return target.buffer;
+        throw RuntimeD4rtException(
+          "Target is not an Int64List for getter 'buffer'",
+        );
+      },
+      'first': (visitor, target) {
+        if (target is Int64List) return target.first;
+        throw RuntimeD4rtException(
+          "Target is not an Int64List for getter 'first'",
+        );
+      },
+      'last': (visitor, target) {
+        if (target is Int64List) return target.last;
+        throw RuntimeD4rtException(
+          "Target is not an Int64List for getter 'last'",
+        );
+      },
+      'isEmpty': (visitor, target) {
+        if (target is Int64List) return target.isEmpty;
+        throw RuntimeD4rtException(
+          "Target is not an Int64List for getter 'isEmpty'",
+        );
+      },
+      'isNotEmpty': (visitor, target) {
+        if (target is Int64List) return target.isNotEmpty;
+        throw RuntimeD4rtException(
+          "Target is not an Int64List for getter 'isNotEmpty'",
+        );
+      },
+      'hashCode': (visitor, target) {
+        if (target is Int64List) return target.hashCode;
+        throw RuntimeD4rtException(
+          "Target is not an Int64List for getter 'hashCode'",
+        );
+      },
+      'runtimeType': (visitor, target) {
+        if (target is Int64List) return target.runtimeType;
+        throw RuntimeD4rtException(
+          "Target is not an Int64List for getter 'runtimeType'",
+        );
+      },
 
-          // Inherited getters (single, iterator, reversed).
-          ...inheritedListGetters<int>((t) => t as Int64List),
-        },
-      );
+      // Inherited getters (single, iterator, reversed).
+      ...inheritedListGetters<int>((t) => t as Int64List),
+    },
+  );
 }

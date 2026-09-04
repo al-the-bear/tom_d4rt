@@ -4,16 +4,19 @@ import 'package:tom_d4rt/d4rt.dart';
 dynamic execute(String source, {List<Object?>? args}) {
   final d4rt = D4rt()..setDebug(false);
   return d4rt.execute(
-      library: 'package:test/main.dart',
-      positionalArgs: args,
-      sources: {'package:test/main.dart': source});
+    library: 'package:test/main.dart',
+    positionalArgs: args,
+    sources: {'package:test/main.dart': source},
+  );
 }
 
 void main() {
   group('Enhanced Type System', () {
     group('Type Casting (as operator)', () {
-      test('I-TYPE-13: Basic type casting with built-in types. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-13: Basic type casting with built-in types. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           main() {
             var i = 42;
             var d = 3.14;
@@ -33,29 +36,43 @@ void main() {
           }
         ''';
 
-        expect(execute(code),
-            equals([42, 3.14, 42, 3.14, "hello", "hello", null, "test"]));
-      });
+          expect(
+            execute(code),
+            equals([42, 3.14, 42, 3.14, "hello", "hello", null, "test"]),
+          );
+        },
+      );
 
-      test('I-TYPE-23: Failed type casting throws RuntimeError. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-23: Failed type casting throws RuntimeError. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           main() {
             var i = 42;
             return i as String; // Should fail
           }
         ''';
 
-        // SCB10 CONTRACT CHANGE: a failing `as` now raises `TypeError`, the type
-        // real Dart raises, so `on TypeError` in interpreted code matches the
-        // cast that failed. The message is carried through unchanged.
-        expect(
+          // SCB10 CONTRACT CHANGE: a failing `as` now raises `TypeError`, the type
+          // real Dart raises, so `on TypeError` in interpreted code matches the
+          // cast that failed. The message is carried through unchanged.
+          expect(
             () => execute(code),
-            throwsA(isA<TypeError>().having((e) => e.toString(), 'toString',
-                contains("Cast failed with 'as'"))));
-      });
+            throwsA(
+              isA<TypeError>().having(
+                (e) => e.toString(),
+                'toString',
+                contains("Cast failed with 'as'"),
+              ),
+            ),
+          );
+        },
+      );
 
-      test('I-TYPE-27: Type casting with custom classes. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-27: Type casting with custom classes. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Animal {
             String name;
             Animal(this.name);
@@ -73,11 +90,14 @@ void main() {
           }
         ''';
 
-        expect(execute(code), equals(["Rex", true, true]));
-      });
+          expect(execute(code), equals(["Rex", true, true]));
+        },
+      );
 
-      test('I-TYPE-28: Type casting with inheritance hierarchy. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-28: Type casting with inheritance hierarchy. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Shape {
             String getType() => "Shape";
           }
@@ -102,11 +122,14 @@ void main() {
           }
         ''';
 
-        expect(execute(code), equals(["Circle", true, true]));
-      });
+          expect(execute(code), equals(["Circle", true, true]));
+        },
+      );
 
-      test('I-TYPE-10: Invalid downcast should throw error. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-10: Invalid downcast should throw error. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Animal {}
           class Dog extends Animal {}
           class Cat extends Animal {}
@@ -117,14 +140,17 @@ void main() {
           }
         ''';
 
-        // For now, our basic implementation may not catch this
-        // but we'll improve it
-        final result = execute(code);
-        expect(result, isA<Object>()); // Currently permissive
-      });
+          // For now, our basic implementation may not catch this
+          // but we'll improve it
+          final result = execute(code);
+          expect(result, isA<Object>()); // Currently permissive
+        },
+      );
 
-      test('I-TYPE-11: Type casting with interfaces. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-11: Type casting with interfaces. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           abstract class Flyable {
             void fly();
           }
@@ -141,11 +167,14 @@ void main() {
           }
         ''';
 
-        expect(execute(code), equals(true));
-      });
+          expect(execute(code), equals(true));
+        },
+      );
 
-      test('I-TYPE-12: Type casting with mixins. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-12: Type casting with mixins. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           mixin Swimmer {
             void swim() => print("Swimming");
           }
@@ -160,13 +189,16 @@ void main() {
           }
         ''';
 
-        expect(execute(code), equals(true));
-      });
+          expect(execute(code), equals(true));
+        },
+      );
     });
 
     group('Enhanced Type Checking (is/is!)', () {
-      test('I-TYPE-14: Type checking with complex inheritance. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-14: Type checking with complex inheritance. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           abstract class Vehicle {}
           
           mixin Electric {
@@ -202,12 +234,17 @@ void main() {
           }
         ''';
 
-        expect(execute(code),
-            equals([true, true, true, true, true, true, true, true]));
-      });
+          expect(
+            execute(code),
+            equals([true, true, true, true, true, true, true, true]),
+          );
+        },
+      );
 
-      test('I-TYPE-15: Type checking with generics. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-15: Type checking with generics. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Container<T> {
             T value;
             Container(this.value);
@@ -226,13 +263,16 @@ void main() {
           }
         ''';
 
-        expect(execute(code), equals([true, true, true, true]));
-      });
+          expect(execute(code), equals([true, true, true, true]));
+        },
+      );
     });
 
     group('Type Error Messages', () {
-      test('I-TYPE-16: Clear error message for type mismatch. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-16: Clear error message for type mismatch. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           String getName() {
             return 42; // Wrong type
           }
@@ -242,37 +282,56 @@ void main() {
           }
         ''';
 
-        expect(
+          expect(
             () => execute(code),
-            throwsA(isA<RuntimeD4rtException>().having(
+            throwsA(
+              isA<RuntimeD4rtException>().having(
                 (e) => e.message,
                 'message',
-                allOf(contains("can't be returned"), contains("int"),
-                    contains("String")))));
-      });
+                allOf(
+                  contains("can't be returned"),
+                  contains("int"),
+                  contains("String"),
+                ),
+              ),
+            ),
+          );
+        },
+      );
 
-      test('I-TYPE-17: Clear error message for invalid cast. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-17: Clear error message for invalid cast. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           main() {
             var value = "hello";
             return value as int;
           }
         ''';
 
-        // SCB10 CONTRACT CHANGE: type is now `TypeError` (see I-TYPE-23). This
-        // test's subject is the *message*, which is why it still reads the same
-        // string — the SDK shape was added around d4rt's diagnostic, not in
-        // place of it.
-        expect(
+          // SCB10 CONTRACT CHANGE: type is now `TypeError` (see I-TYPE-23). This
+          // test's subject is the *message*, which is why it still reads the same
+          // string — the SDK shape was added around d4rt's diagnostic, not in
+          // place of it.
+          expect(
             () => execute(code),
-            throwsA(isA<TypeError>().having(
-                (e) => e.toString(), 'toString', contains("Cast failed"))));
-      });
+            throwsA(
+              isA<TypeError>().having(
+                (e) => e.toString(),
+                'toString',
+                contains("Cast failed"),
+              ),
+            ),
+          );
+        },
+      );
     });
 
     group('Runtime Type Validation', () {
-      test('I-TYPE-18: Generic type argument validation. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-18: Generic type argument validation. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class TypedList<T> {
             List<T> _items = [];
             
@@ -308,15 +367,18 @@ void main() {
           }
         ''';
 
-        final result = execute(code);
-        expect(result, isA<List>());
-        final resultList = result as List;
-        expect(resultList[0], equals("SUCCESS"));
-        expect(resultList[1], equals(["hello", "world"]));
-      });
+          final result = execute(code);
+          expect(result, isA<List>());
+          final resultList = result as List;
+          expect(resultList[0], equals("SUCCESS"));
+          expect(resultList[1], equals(["hello", "world"]));
+        },
+      );
 
-      test('I-TYPE-19: Method parameter type validation. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-19: Method parameter type validation. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class Calculator {
             num add(num a, num b) {
               return a + b;
@@ -347,8 +409,9 @@ void main() {
           }
         ''';
 
-        expect(execute(code), equals([8, 7.8, 30, "Type check passed"]));
-      });
+          expect(execute(code), equals([8, 7.8, 30, "Type check passed"]));
+        },
+      );
     });
 
     group('Advanced Type Features', () {
@@ -375,8 +438,10 @@ void main() {
         expect(execute(code), equals(["No value", "Value: hello", "No value"]));
       });
 
-      test('I-TYPE-21: Type inference for local variables. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-21: Type inference for local variables. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           main() {
             var inferredInt = 42;           // Should infer int
             var inferredString = "hello";    // Should infer String
@@ -392,8 +457,9 @@ void main() {
           }
         ''';
 
-        expect(execute(code), equals([true, true, true, true]));
-      });
+          expect(execute(code), equals([true, true, true, true]));
+        },
+      );
 
       test('I-TYPE-22: Dynamic type behavior. [2026-02-10 06:37] (PASS)', () {
         final code = '''
@@ -424,8 +490,10 @@ void main() {
     });
 
     group('Type System Edge Cases', () {
-      test('I-TYPE-24: Null safety with type casting. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-24: Null safety with type casting. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           main() {
             String? nullableString = null;
             
@@ -438,13 +506,16 @@ void main() {
           }
         ''';
 
-        // Current implementation might be permissive with null
-        final result = execute(code);
-        expect(result, anyOf("Caught null cast error", null));
-      });
+          // Current implementation might be permissive with null
+          final result = execute(code);
+          expect(result, anyOf("Caught null cast error", null));
+        },
+      );
 
-      test('I-TYPE-25: Type checking with Object hierarchy. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-25: Type checking with Object hierarchy. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           main() {
             var stringValue = "hello";
             var intValue = 42;
@@ -461,11 +532,14 @@ void main() {
           }
         ''';
 
-        expect(execute(code), equals([true, true, true, true, true, true]));
-      });
+          expect(execute(code), equals([true, true, true, true, true, true]));
+        },
+      );
 
-      test('I-TYPE-26: Generic type bounds validation. [2026-02-10 06:37] (PASS)', () {
-        final code = '''
+      test(
+        'I-TYPE-26: Generic type bounds validation. [2026-02-10 06:37] (PASS)',
+        () {
+          final code = '''
           class NumericContainer<T extends num> {
             T value;
             NumericContainer(this.value);
@@ -488,8 +562,9 @@ void main() {
           }
         ''';
 
-        expect(execute(code), equals([21, 42, 3.14, 6.28]));
-      });
+          expect(execute(code), equals([21, 42, 3.14, 6.28]));
+        },
+      );
     });
   });
 }

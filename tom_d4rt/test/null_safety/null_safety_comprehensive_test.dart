@@ -9,8 +9,11 @@ void main() {
       d4rt = D4rt();
     });
 
-    test('I-MISC-374: Complex null safety scenario with chaining and coalescing. [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(source: '''
+    test(
+      'I-MISC-374: Complex null safety scenario with chaining and coalescing. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = d4rt.execute(
+          source: '''
         class User {
           String? name;
           Profile? profile;
@@ -50,13 +53,18 @@ void main() {
           
           return [street1, street2, street3, defaultStreet, knownStreet];
         }
-      ''');
+      ''',
+        );
 
-      expect(result, [null, null, '123 Main St', 'Unknown', '123 Main St']);
-    });
+        expect(result, [null, null, '123 Main St', 'Unknown', '123 Main St']);
+      },
+    );
 
-    test('I-MISC-378: Null-aware method calls with complex return types. [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(source: '''
+    test(
+      'I-MISC-378: Null-aware method calls with complex return types. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = d4rt.execute(
+          source: '''
         class Calculator {
           int? getValue() => 42;
           Calculator? getChild() => null;
@@ -72,12 +80,17 @@ void main() {
           
           return [result1, result2, result3];
         }
-      ''');
+      ''',
+        );
 
-      expect(result, [null, 42, null]);
-    });
-    test('I-MISC-379: Null-aware assignment with complex expressions. [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(source: '''
+        expect(result, [null, 42, null]);
+      },
+    );
+    test(
+      'I-MISC-379: Null-aware assignment with complex expressions. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = d4rt.execute(
+          source: '''
         class Container {
           String? value = null;
         }
@@ -97,13 +110,18 @@ void main() {
           
           return [container.value, nullValue, nonNullValue];
         }
-      ''');
+      ''',
+        );
 
-      expect(result, ['first', 'assigned', 'original']);
-    });
+        expect(result, ['first', 'assigned', 'original']);
+      },
+    );
 
-    test('I-MISC-373: Spread null-aware with nested collections. [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(source: '''
+    test(
+      'I-MISC-373: Spread null-aware with nested collections. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = d4rt.execute(
+          source: '''
         main() {
           List<int>? nullList = null;
           List<int>? validList = [4, 5];
@@ -113,13 +131,18 @@ void main() {
           
           return combined;
         }
-      ''');
+      ''',
+        );
 
-      expect(result, [1, 2, 3, 4, 5, 6]);
-    });
+        expect(result, [1, 2, 3, 4, 5, 6]);
+      },
+    );
 
-    test('I-MISC-375: Mixed null safety operators in single expression. [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(source: '''
+    test(
+      'I-MISC-375: Mixed null safety operators in single expression. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = d4rt.execute(
+          source: '''
         class Service {
           String? getData() => null;
           String? getBackup() => 'backup';
@@ -133,13 +156,18 @@ void main() {
           
           return data;
         }
-      ''');
+      ''',
+        );
 
-      expect(result, 'backup');
-    });
+        expect(result, 'backup');
+      },
+    );
 
-    test('I-MISC-376: Null safety with method parameters and return values. [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(source: '''
+    test(
+      'I-MISC-376: Null safety with method parameters and return values. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = d4rt.execute(
+          source: '''
         class Processor {
           String? process(String? input) {
             if (input == null) return null;
@@ -159,13 +187,18 @@ void main() {
           
           return [result1, result2, final1, final2];
         }
-      ''');
+      ''',
+        );
 
-      expect(result, [null, 'processed: test', 'default', 'processed: test']);
-    });
+        expect(result, [null, 'processed: test', 'default', 'processed: test']);
+      },
+    );
 
-    test('I-MISC-377: Null safety with collection operations. [2026-02-10 06:37] (PASS)', () {
-      final result = d4rt.execute(source: '''
+    test(
+      'I-MISC-377: Null safety with collection operations. [2026-02-10 06:37] (PASS)',
+      () {
+        final result = d4rt.execute(
+          source: '''
         main() {
           List<String>? names1 = null;
           List<String>? names2 = ['Alice', 'Bob'];
@@ -185,9 +218,11 @@ void main() {
           
           return allNames;
         }
-      ''');
+      ''',
+        );
 
-      expect(result, ['Start', 'Alice', 'Bob', 'Middle', 'Charlie', 'End']);
-    });
+        expect(result, ['Start', 'Alice', 'Bob', 'Middle', 'Charlie', 'End']);
+      },
+    );
   });
 }

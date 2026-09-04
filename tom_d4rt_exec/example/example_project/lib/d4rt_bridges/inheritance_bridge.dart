@@ -30,20 +30,26 @@ class InheritanceBridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> classSourceUris() {
     return {
-      'Shape': 'package:d4rt_generator_example/test_classes/inheritance_classes.dart',
-      'Circle': 'package:d4rt_generator_example/test_classes/inheritance_classes.dart',
-      'Rectangle': 'package:d4rt_generator_example/test_classes/inheritance_classes.dart',
-      'Serializable': 'package:d4rt_generator_example/test_classes/inheritance_classes.dart',
-      'Cloneable': 'package:d4rt_generator_example/test_classes/inheritance_classes.dart',
-      'Point': 'package:d4rt_generator_example/test_classes/inheritance_classes.dart',
-      'ColoredRectangle': 'package:d4rt_generator_example/test_classes/inheritance_classes.dart',
+      'Shape':
+          'package:d4rt_generator_example/test_classes/inheritance_classes.dart',
+      'Circle':
+          'package:d4rt_generator_example/test_classes/inheritance_classes.dart',
+      'Rectangle':
+          'package:d4rt_generator_example/test_classes/inheritance_classes.dart',
+      'Serializable':
+          'package:d4rt_generator_example/test_classes/inheritance_classes.dart',
+      'Cloneable':
+          'package:d4rt_generator_example/test_classes/inheritance_classes.dart',
+      'Point':
+          'package:d4rt_generator_example/test_classes/inheritance_classes.dart',
+      'ColoredRectangle':
+          'package:d4rt_generator_example/test_classes/inheritance_classes.dart',
     };
   }
 
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns a map of enum names to their canonical source URIs.
@@ -51,8 +57,7 @@ class InheritanceBridge {
   /// Used for deduplication when the same enum is exported through
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
-    return {
-    };
+    return {};
   }
 
   /// Registers all bridges with an interpreter.
@@ -64,7 +69,11 @@ class InheritanceBridge {
     final classes = bridgeClasses();
     final classSources = classSourceUris();
     for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+      interpreter.registerBridgedClass(
+        bridge,
+        importPath,
+        sourceUri: classSources[bridge.name],
+      );
     }
   }
 
@@ -101,7 +110,6 @@ class InheritanceBridge {
   static String getImportBlock() {
     return "import 'package:d4rt_generator_example/test_classes.dart';";
   }
-
 }
 
 // =============================================================================
@@ -112,10 +120,10 @@ BridgedClass _createShapeBridge() {
   return BridgedClass(
     nativeType: $pkg.Shape,
     name: 'Shape',
-    constructors: {
-    },
+    constructors: {},
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.Shape>(target, 'Shape').name,
+      'name': (visitor, target) =>
+          D4.validateTarget<$pkg.Shape>(target, 'Shape').name,
     },
     methods: {
       'area': (visitor, target, positional, named, typeArgs) {
@@ -136,9 +144,7 @@ BridgedClass _createShapeBridge() {
       'perimeter': 'double perimeter()',
       'describe': 'String describe()',
     },
-    getterSignatures: {
-      'name': 'String get name',
-    },
+    getterSignatures: {'name': 'String get name'},
   );
 }
 
@@ -153,14 +159,22 @@ BridgedClass _createCircleBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Circle');
-        final radius = D4.getRequiredArg<double>(positional, 0, 'radius', 'Circle');
+        final radius = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'radius',
+          'Circle',
+        );
         return $pkg.Circle(radius);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.Circle>(target, 'Circle').name,
-      'radius': (visitor, target) => D4.validateTarget<$pkg.Circle>(target, 'Circle').radius,
-      'diameter': (visitor, target) => D4.validateTarget<$pkg.Circle>(target, 'Circle').diameter,
+      'name': (visitor, target) =>
+          D4.validateTarget<$pkg.Circle>(target, 'Circle').name,
+      'radius': (visitor, target) =>
+          D4.validateTarget<$pkg.Circle>(target, 'Circle').radius,
+      'diameter': (visitor, target) =>
+          D4.validateTarget<$pkg.Circle>(target, 'Circle').diameter,
     },
     methods: {
       'area': (visitor, target, positional, named, typeArgs) {
@@ -176,9 +190,7 @@ BridgedClass _createCircleBridge() {
         return t.describe();
       },
     },
-    constructorSignatures: {
-      '': 'Circle(double radius)',
-    },
+    constructorSignatures: {'': 'Circle(double radius)'},
     methodSignatures: {
       'area': 'double area()',
       'perimeter': 'double perimeter()',
@@ -203,21 +215,40 @@ BridgedClass _createRectangleBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Rectangle');
-        final width = D4.getRequiredArg<double>(positional, 0, 'width', 'Rectangle');
-        final height = D4.getRequiredArg<double>(positional, 1, 'height', 'Rectangle');
+        final width = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'width',
+          'Rectangle',
+        );
+        final height = D4.getRequiredArg<double>(
+          positional,
+          1,
+          'height',
+          'Rectangle',
+        );
         return $pkg.Rectangle(width, height);
       },
       'square': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Rectangle');
-        final side = D4.getRequiredArg<double>(positional, 0, 'side', 'Rectangle');
+        final side = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'side',
+          'Rectangle',
+        );
         return $pkg.Rectangle.square(side);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').name,
-      'width': (visitor, target) => D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').width,
-      'height': (visitor, target) => D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').height,
-      'isSquare': (visitor, target) => D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').isSquare,
+      'name': (visitor, target) =>
+          D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').name,
+      'width': (visitor, target) =>
+          D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').width,
+      'height': (visitor, target) =>
+          D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').height,
+      'isSquare': (visitor, target) =>
+          D4.validateTarget<$pkg.Rectangle>(target, 'Rectangle').isSquare,
     },
     methods: {
       'area': (visitor, target, positional, named, typeArgs) {
@@ -259,17 +290,14 @@ BridgedClass _createSerializableBridge() {
   return BridgedClass(
     nativeType: $pkg.Serializable,
     name: 'Serializable',
-    constructors: {
-    },
+    constructors: {},
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Serializable>(target, 'Serializable');
         return t.toJson();
       },
     },
-    methodSignatures: {
-      'toJson': 'Map<String, dynamic> toJson()',
-    },
+    methodSignatures: {'toJson': 'Map<String, dynamic> toJson()'},
   );
 }
 
@@ -281,17 +309,14 @@ BridgedClass _createCloneableBridge() {
   return BridgedClass(
     nativeType: $pkg.Cloneable,
     name: 'Cloneable',
-    constructors: {
-    },
+    constructors: {},
     methods: {
       'clone': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Cloneable>(target, 'Cloneable');
         return t.clone();
       },
     },
-    methodSignatures: {
-      'clone': 'T clone()',
-    },
+    methodSignatures: {'clone': 'T clone()'},
   );
 }
 
@@ -315,8 +340,10 @@ BridgedClass _createPointBridge() {
       },
     },
     getters: {
-      'x': (visitor, target) => D4.validateTarget<$pkg.Point>(target, 'Point').x,
-      'y': (visitor, target) => D4.validateTarget<$pkg.Point>(target, 'Point').y,
+      'x': (visitor, target) =>
+          D4.validateTarget<$pkg.Point>(target, 'Point').x,
+      'y': (visitor, target) =>
+          D4.validateTarget<$pkg.Point>(target, 'Point').y,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
@@ -330,13 +357,23 @@ BridgedClass _createPointBridge() {
       'distanceTo': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Point>(target, 'Point');
         D4.requireMinArgs(positional, 1, 'distanceTo');
-        final other = D4.getRequiredArg<$pkg.Point>(positional, 0, 'other', 'distanceTo');
+        final other = D4.getRequiredArg<$pkg.Point>(
+          positional,
+          0,
+          'other',
+          'distanceTo',
+        );
         return t.distanceTo(other);
       },
       'add': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Point>(target, 'Point');
         D4.requireMinArgs(positional, 1, 'add');
-        final other = D4.getRequiredArg<$pkg.Point>(positional, 0, 'other', 'add');
+        final other = D4.getRequiredArg<$pkg.Point>(
+          positional,
+          0,
+          'other',
+          'add',
+        );
         return t.add(other);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -348,7 +385,9 @@ BridgedClass _createPointBridge() {
       'fromJson': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fromJson');
         if (positional.isEmpty) {
-          throw ArgumentError('fromJson: Missing required argument "json" at position 0');
+          throw ArgumentError(
+            'fromJson: Missing required argument "json" at position 0',
+          );
         }
         final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
         return $pkg.Point.fromJson(json);
@@ -365,10 +404,7 @@ BridgedClass _createPointBridge() {
       'add': 'Point add(Point other)',
       'toString': 'String toString()',
     },
-    getterSignatures: {
-      'x': 'double get x',
-      'y': 'double get y',
-    },
+    getterSignatures: {'x': 'double get x', 'y': 'double get y'},
     staticMethodSignatures: {
       'fromJson': 'Point fromJson(Map<String, dynamic> json)',
     },
@@ -386,40 +422,87 @@ BridgedClass _createColoredRectangleBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'ColoredRectangle');
-        final width = D4.getRequiredArg<double>(positional, 0, 'width', 'ColoredRectangle');
-        final height = D4.getRequiredArg<double>(positional, 1, 'height', 'ColoredRectangle');
-        final color = D4.getRequiredArg<String>(positional, 2, 'color', 'ColoredRectangle');
+        final width = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'width',
+          'ColoredRectangle',
+        );
+        final height = D4.getRequiredArg<double>(
+          positional,
+          1,
+          'height',
+          'ColoredRectangle',
+        );
+        final color = D4.getRequiredArg<String>(
+          positional,
+          2,
+          'color',
+          'ColoredRectangle',
+        );
         return $pkg.ColoredRectangle(width, height, color);
       },
       'red': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ColoredRectangle');
-        final width = D4.getRequiredArg<double>(positional, 0, 'width', 'ColoredRectangle');
-        final height = D4.getRequiredArg<double>(positional, 1, 'height', 'ColoredRectangle');
+        final width = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'width',
+          'ColoredRectangle',
+        );
+        final height = D4.getRequiredArg<double>(
+          positional,
+          1,
+          'height',
+          'ColoredRectangle',
+        );
         return $pkg.ColoredRectangle.red(width, height);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle').name,
-      'width': (visitor, target) => D4.validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle').width,
-      'height': (visitor, target) => D4.validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle').height,
-      'isSquare': (visitor, target) => D4.validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle').isSquare,
-      'color': (visitor, target) => D4.validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle').color,
+      'name': (visitor, target) => D4
+          .validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle')
+          .name,
+      'width': (visitor, target) => D4
+          .validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle')
+          .width,
+      'height': (visitor, target) => D4
+          .validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle')
+          .height,
+      'isSquare': (visitor, target) => D4
+          .validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle')
+          .isSquare,
+      'color': (visitor, target) => D4
+          .validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle')
+          .color,
     },
     methods: {
       'area': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle');
+        final t = D4.validateTarget<$pkg.ColoredRectangle>(
+          target,
+          'ColoredRectangle',
+        );
         return t.area();
       },
       'perimeter': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle');
+        final t = D4.validateTarget<$pkg.ColoredRectangle>(
+          target,
+          'ColoredRectangle',
+        );
         return t.perimeter();
       },
       'describe': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle');
+        final t = D4.validateTarget<$pkg.ColoredRectangle>(
+          target,
+          'ColoredRectangle',
+        );
         return t.describe();
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$pkg.ColoredRectangle>(target, 'ColoredRectangle');
+        final t = D4.validateTarget<$pkg.ColoredRectangle>(
+          target,
+          'ColoredRectangle',
+        );
         return t.toJson();
       },
     },
@@ -442,4 +525,3 @@ BridgedClass _createColoredRectangleBridge() {
     },
   );
 }
-

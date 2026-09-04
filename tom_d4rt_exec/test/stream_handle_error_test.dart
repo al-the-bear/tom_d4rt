@@ -10,8 +10,11 @@ void main() {
       interpreter = D4rt();
     });
 
-    test('I-ASYNC-138: HandleError with single-arg callback works. [2026-02-10 06:37] (PASS)', () async {
-      final result = await interpreter.execute(source: '''
+    test(
+      'I-ASYNC-138: HandleError with single-arg callback works. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await interpreter.execute(
+          source: '''
         import 'dart:async';
 
         Future<List<String>> main() async {
@@ -28,19 +31,24 @@ void main() {
           }
           return results;
         }
-      ''');
+      ''',
+        );
 
-      // Bug-99 is about single-arg callback failing with "Too many positional arguments"
-      // If we get results at all without that error, the bug is fixed
-      expect(result, isA<List>());
-      final list = result as List;
-      expect(list, contains('Handled: Error at 2'));
-      expect(list, contains('Value: 1'));
-      expect(list, contains('Value: 3'));
-    });
+        // Bug-99 is about single-arg callback failing with "Too many positional arguments"
+        // If we get results at all without that error, the bug is fixed
+        expect(result, isA<List>());
+        final list = result as List;
+        expect(list, contains('Handled: Error at 2'));
+        expect(list, contains('Value: 1'));
+        expect(list, contains('Value: 3'));
+      },
+    );
 
-    test('I-ASYNC-139: HandleError with two-arg callback works. [2026-02-10 06:37] (PASS)', () async {
-      final result = await interpreter.execute(source: '''
+    test(
+      'I-ASYNC-139: HandleError with two-arg callback works. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await interpreter.execute(
+          source: '''
         import 'dart:async';
 
         Future<List<String>> main() async {
@@ -58,15 +66,20 @@ void main() {
           }
           return results;
         }
-      ''');
+      ''',
+        );
 
-      expect(result, contains('Value: 1'));
-      expect(result, contains('Handled: Error at 2'));
-      expect(result, contains('Value: 3'));
-    });
+        expect(result, contains('Value: 1'));
+        expect(result, contains('Handled: Error at 2'));
+        expect(result, contains('Value: 3'));
+      },
+    );
 
-    test('I-ASYNC-140: HandleError with test function works. [2026-02-10 06:37] (PASS)', () async {
-      final result = await interpreter.execute(source: '''
+    test(
+      'I-ASYNC-140: HandleError with test function works. [2026-02-10 06:37] (PASS)',
+      () async {
+        final result = await interpreter.execute(
+          source: '''
         import 'dart:async';
 
         Future<List<String>> main() async {
@@ -90,13 +103,15 @@ void main() {
           }
           return results;
         }
-      ''');
+      ''',
+        );
 
-      // Verify the test function works: String errors are handled, FormatException propagates
-      expect(result, isA<List>());
-      final list = result as List;
-      expect(list, contains('String handled: Error at 2'));
-      expect(list, contains('Caught: FormatException'));
-    });
+        // Verify the test function works: String errors are handled, FormatException propagates
+        expect(result, isA<List>());
+        final list = result as List;
+        expect(list, contains('String handled: Error at 2'));
+        expect(list, contains('Caught: FormatException'));
+      },
+    );
   });
 }

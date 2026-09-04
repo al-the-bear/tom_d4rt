@@ -13,8 +13,7 @@ import 'package:d4rt_generator_example/test_classes.dart' as $pkg;
 class EnumBridge {
   /// Returns all bridge class definitions.
   static List<BridgedClass> bridgeClasses() {
-    return [
-    ];
+    return [];
   }
 
   /// Returns a map of class names to their canonical source URIs.
@@ -22,8 +21,7 @@ class EnumBridge {
   /// Used for deduplication when the same class is exported through
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> classSourceUris() {
-    return {
-    };
+    return {};
   }
 
   /// Returns all bridged enum definitions.
@@ -59,10 +57,13 @@ class EnumBridge {
   static Map<String, String> enumSourceUris() {
     return {
       'Status': 'package:d4rt_generator_example/test_classes/enum_classes.dart',
-      'Priority': 'package:d4rt_generator_example/test_classes/enum_classes.dart',
+      'Priority':
+          'package:d4rt_generator_example/test_classes/enum_classes.dart',
       'Color': 'package:d4rt_generator_example/test_classes/enum_classes.dart',
-      'HttpMethod': 'package:d4rt_generator_example/test_classes/enum_classes.dart',
-      'DayOfWeek': 'package:d4rt_generator_example/test_classes/enum_classes.dart',
+      'HttpMethod':
+          'package:d4rt_generator_example/test_classes/enum_classes.dart',
+      'DayOfWeek':
+          'package:d4rt_generator_example/test_classes/enum_classes.dart',
     };
   }
 
@@ -75,14 +76,22 @@ class EnumBridge {
     final classes = bridgeClasses();
     final classSources = classSourceUris();
     for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+      interpreter.registerBridgedClass(
+        bridge,
+        importPath,
+        sourceUri: classSources[bridge.name],
+      );
     }
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
-      interpreter.registerBridgedEnum(enumDef, importPath, sourceUri: enumSources[enumDef.name]);
+      interpreter.registerBridgedEnum(
+        enumDef,
+        importPath,
+        sourceUri: enumSources[enumDef.name],
+      );
     }
   }
 
@@ -107,9 +116,7 @@ class EnumBridge {
   /// used for deduplication when the same libraries are exported through
   /// multiple barrels.
   static List<String> sourceLibraries() {
-    return [
-      'package:d4rt_generator_example/test_classes/enum_classes.dart',
-    ];
+    return ['package:d4rt_generator_example/test_classes/enum_classes.dart'];
   }
 
   /// Returns the import statement needed for D4rt scripts.
@@ -128,6 +135,4 @@ class EnumBridge {
     'HttpMethod',
     'DayOfWeek',
   ];
-
 }
-

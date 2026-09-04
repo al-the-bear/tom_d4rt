@@ -3,8 +3,10 @@ import 'package:test/test.dart';
 
 void main() {
   group('Json tests', () {
-    test('I-MISC-416: JsonCodec encode and decode. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-MISC-416: JsonCodec encode and decode. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       import 'dart:convert';
       main() {
         JsonCodec codec = JsonCodec();
@@ -14,10 +16,11 @@ void main() {
         return [encoded, decoded];
       }
       ''';
-      final result = execute(source) as List;
-      expect(result[0], equals('{"key":"value","number":42}'));
-      expect(result[1], equals({"key": "value", "number": 42}));
-    });
+        final result = execute(source) as List;
+        expect(result[0], equals('{"key":"value","number":42}'));
+        expect(result[1], equals({"key": "value", "number": 42}));
+      },
+    );
 
     test('I-MISC-413: JsonEncoder convert. [2026-02-10 06:37] (PASS)', () {
       const source = '''
@@ -69,8 +72,10 @@ void main() {
       expect(execute(source), equals({"key": "value", "number": 42}));
     });
 
-    test('I-MISC-418: JsonEncode with toEncodable. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-MISC-418: JsonEncode with toEncodable. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       import 'dart:convert';
       main() {
         Map<String, dynamic> data = {"key": "value", "date": DateTime(2023, 1, 1)};
@@ -83,9 +88,10 @@ void main() {
         return encoded;
       }
       ''';
-      expect(execute(source), contains('"key":"value"'));
-      expect(execute(source), contains('"date":"2023-01-01T00:00:00.000'));
-    });
+        expect(execute(source), contains('"key":"value"'));
+        expect(execute(source), contains('"date":"2023-01-01T00:00:00.000'));
+      },
+    );
 
     test('I-MISC-419: JsonDecode with reviver. [2026-02-10 06:37] (PASS)', () {
       const source = '''
@@ -108,8 +114,10 @@ void main() {
       expect((result['date'] as DateTime).year, equals(2023));
     });
 
-    test('I-MISC-412: JsonCodec with toEncodable and reviver. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-MISC-412: JsonCodec with toEncodable and reviver. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
       import 'dart:convert';
       main() {
         JsonCodec codec = JsonCodec(
@@ -132,14 +140,17 @@ void main() {
         return [encoded, decoded];
       }
       ''';
-      final result = execute(source) as List;
-      expect(result[0],
-          equals('{"key":"value","date":"2023-01-01T00:00:00.000Z"}'));
-      final decodedMap = result[1] as Map;
-      expect(decodedMap['key'], equals('value'));
-      expect(decodedMap['date'], isA<DateTime>());
-      expect((decodedMap['date'] as DateTime).isUtc, isTrue);
-      expect((decodedMap['date'] as DateTime).year, equals(2023));
-    });
+        final result = execute(source) as List;
+        expect(
+          result[0],
+          equals('{"key":"value","date":"2023-01-01T00:00:00.000Z"}'),
+        );
+        final decodedMap = result[1] as Map;
+        expect(decodedMap['key'], equals('value'));
+        expect(decodedMap['date'], isA<DateTime>());
+        expect((decodedMap['date'] as DateTime).isUtc, isTrue);
+        expect((decodedMap['date'] as DateTime).year, equals(2023));
+      },
+    );
   });
 }

@@ -4,8 +4,10 @@ import '../interpreter_test.dart';
 
 void main() {
   group('Enhanced Enums with Mixins', () {
-    test('I-ENUM-32: Basic enum with single mixin. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-32: Basic enum with single mixin. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         mixin Printable {
           void printInfo() {
             print('Printable mixin');
@@ -23,12 +25,15 @@ void main() {
           return Status.running.toString();
         }
       ''';
-      final result = execute(source);
-      expect(result, equals('Status.running'));
-    });
+        final result = execute(source);
+        expect(result, equals('Status.running'));
+      },
+    );
 
-    test('I-ENUM-27: Enum with mixin providing properties. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-27: Enum with mixin providing properties. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         mixin Describable {
           String get description => 'A describable item';
         }
@@ -43,9 +48,10 @@ void main() {
           return Priority.high.description;
         }
       ''';
-      final result = execute(source);
-      expect(result, equals('A describable item'));
-    });
+        final result = execute(source);
+        expect(result, equals('A describable item'));
+      },
+    );
 
     test('I-ENUM-31: Enum with multiple mixins. [2026-02-10 06:37] (PASS)', () {
       const source = '''
@@ -76,8 +82,10 @@ void main() {
       expect(result, equals('timestamp'));
     });
 
-    test('I-ENUM-33: Enum with mixin and instance methods. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-33: Enum with mixin and instance methods. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         mixin Comparable {
           int compareTo(int other) {
             return 0;
@@ -98,12 +106,15 @@ void main() {
           return Size.medium.describe();
         }
       ''';
-      final result = execute(source);
-      expect(result, equals('Size: medium'));
-    });
+        final result = execute(source);
+        expect(result, equals('Size: medium'));
+      },
+    );
 
-    test('I-ENUM-19: Enum with mixin and custom fields. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-19: Enum with mixin and custom fields. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         mixin Valuable {
           int getValue() {
             return 42;
@@ -123,12 +134,15 @@ void main() {
           return [Level.beginner.value, Level.expert.getValue()];
         }
       ''';
-      final result = execute(source);
-      expect(result, equals([1, 42]));
-    });
+        final result = execute(source);
+        expect(result, equals([1, 42]));
+      },
+    );
 
-    test('I-ENUM-20: Enum with mixin accessing enum properties. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-20: Enum with mixin accessing enum properties. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         mixin Indexed {
           String indexInfo() {
             return 'Index: \${(this as dynamic).index}';
@@ -145,15 +159,17 @@ void main() {
           return Color.blue.indexInfo();
         }
       ''';
-      final result = execute(source);
-      expect(result, equals('Index: 2'));
-    });
+        final result = execute(source);
+        expect(result, equals('Index: 2'));
+      },
+    );
 
-    test('I-ENUM-21: Enum with mixin providing instance methods (static fields skipped). [2026-02-10 06:37] (PASS)',
-        () {
-      // Note: Static fields in mixins are a known limitation in d4rt
-      // This test focuses on instance methods which are the primary use case for mixins
-      const source = '''
+    test(
+      'I-ENUM-21: Enum with mixin providing instance methods (static fields skipped). [2026-02-10 06:37] (PASS)',
+      () {
+        // Note: Static fields in mixins are a known limitation in d4rt
+        // This test focuses on instance methods which are the primary use case for mixins
+        const source = '''
         mixin Timestamped {
           int getTimestamp() {
             return 12345;
@@ -170,12 +186,15 @@ void main() {
           return Task.todo.getTimestamp();
         }
       ''';
-      final result = execute(source);
-      expect(result, equals(12345));
-    });
+        final result = execute(source);
+        expect(result, equals(12345));
+      },
+    );
 
-    test('I-ENUM-22: Enum with mixin overriding toString. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-22: Enum with mixin overriding toString. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         mixin CustomString {
           String toString() {
             return 'Custom: \${(this as dynamic).name}';
@@ -193,12 +212,15 @@ void main() {
           return Direction.north.toString();
         }
       ''';
-      final result = execute(source);
-      expect(result, equals('Custom: north'));
-    });
+        final result = execute(source);
+        expect(result, equals('Custom: north'));
+      },
+    );
 
-    test('I-ENUM-23: Enum with mixin and constructor. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-23: Enum with mixin and constructor. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         mixin Serializable {
           Map<String, dynamic> toJson() {
             return {'type': 'serializable'};
@@ -224,17 +246,21 @@ void main() {
           ];
         }
       ''';
-      final result = execute(source);
-      expect(
+        final result = execute(source);
+        expect(
           result,
           equals([
             'Active',
-            {'type': 'serializable'}
-          ]));
-    });
+            {'type': 'serializable'},
+          ]),
+        );
+      },
+    );
 
-    test('I-ENUM-24: Enum with regular mixin (not requiring on clause). [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-24: Enum with regular mixin (not requiring on clause). [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         mixin Formatter {
           String format(String text) {
             return 'Formatted: \$text';
@@ -251,12 +277,15 @@ void main() {
           return MessageType.error.format('System failure');
         }
       ''';
-      final result = execute(source);
-      expect(result, equals('Formatted: System failure'));
-    });
+        final result = execute(source);
+        expect(result, equals('Formatted: System failure'));
+      },
+    );
 
-    test('I-ENUM-25: Enum with mixin chain (mixin using another mixin). [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-25: Enum with mixin chain (mixin using another mixin). [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         mixin Base {
           String baseMethod() {
             return 'base';
@@ -278,12 +307,15 @@ void main() {
           return Entity.admin.extendedMethod();
         }
       ''';
-      final result = execute(source);
-      expect(result, equals('base extended'));
-    });
+        final result = execute(source);
+        expect(result, equals('base extended'));
+      },
+    );
 
-    test('I-ENUM-26: Enum values list still works with mixins. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-26: Enum values list still works with mixins. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         mixin Helper {
           void help() {
             print('Helping');
@@ -302,19 +334,23 @@ void main() {
           return values.map((v) => v.toString()).toList();
         }
       ''';
-      final result = execute(source);
-      expect(
+        final result = execute(source);
+        expect(
           result,
           equals([
             'State.idle',
             'State.loading',
             'State.success',
-            'State.failure'
-          ]));
-    });
+            'State.failure',
+          ]),
+        );
+      },
+    );
 
-    test('I-ENUM-28: Enum with mixin and equality still works. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-28: Enum with mixin and equality still works. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         mixin Tagged {
           String tag() {
             return 'tagged';
@@ -338,12 +374,15 @@ void main() {
           ];
         }
       ''';
-      final result = execute(source);
-      expect(result, equals([true, false, 'tagged']));
-    });
+        final result = execute(source);
+        expect(result, equals([true, false, 'tagged']));
+      },
+    );
 
-    test('I-ENUM-29: Enum with mixin in switch statement. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-29: Enum with mixin in switch statement. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         mixin Scorable {
           int getScore() {
             return 100;
@@ -380,12 +419,15 @@ void main() {
           ];
         }
       ''';
-      final result = execute(source);
-      expect(result, equals(['Excellent', 100]));
-    });
+        final result = execute(source);
+        expect(result, equals(['Excellent', 100]));
+      },
+    );
 
-    test('I-ENUM-30: Enum with mixin accessing instance fields. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-30: Enum with mixin accessing instance fields. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         mixin Calculator {
           int calculate() {
             var self = this as dynamic;
@@ -411,8 +453,9 @@ void main() {
           ];
         }
       ''';
-      final result = execute(source);
-      expect(result, equals([10, 20, 30]));
-    });
+        final result = execute(source);
+        expect(result, equals([10, 20, 30]));
+      },
+    );
   });
 }

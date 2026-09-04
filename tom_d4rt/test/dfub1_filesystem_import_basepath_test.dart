@@ -30,50 +30,45 @@ void main() {
   });
 
   group('DFUB1: filesystem imports via basePath', () {
-    test(
-      'F-DFUB1-1: direct source can import a relative filesystem module '
-      '[2026-07-23] (PASS)',
-      () {
-        final libDir = io.Directory('${tempRoot.path}/lib')
-          ..createSync(recursive: true);
-        io.File('${libDir.path}/utils.dart').writeAsStringSync('''
+    test('F-DFUB1-1: direct source can import a relative filesystem module '
+        '[2026-07-23] (PASS)', () {
+      final libDir = io.Directory('${tempRoot.path}/lib')
+        ..createSync(recursive: true);
+      io.File('${libDir.path}/utils.dart').writeAsStringSync('''
 String greetFromUtils() {
   return "hello from fs";
 }
 ''');
 
-        final d4rt = D4rt();
-        d4rt.grant(FilesystemPermission.readPath(libDir.path));
+      final d4rt = D4rt();
+      d4rt.grant(FilesystemPermission.readPath(libDir.path));
 
-        final result = d4rt.execute(
-          source: '''
+      final result = d4rt.execute(
+        source: '''
 import './utils.dart';
 
 String main() {
   return greetFromUtils();
 }
 ''',
-          basePath: libDir.path,
-          allowFileSystemImports: true,
-        );
+        basePath: libDir.path,
+        allowFileSystemImports: true,
+      );
 
-        expect(result, equals('hello from fs'));
-      },
-    );
+      expect(result, equals('hello from fs'));
+    });
 
-    test(
-      'F-DFUB1-2: filesystem root library can be loaded when enabled '
-      '[2026-07-23] (PASS)',
-      () {
-        final appDir = io.Directory('${tempRoot.path}/app')
-          ..createSync(recursive: true);
-        io.File('${appDir.path}/helpers.dart').writeAsStringSync('''
+    test('F-DFUB1-2: filesystem root library can be loaded when enabled '
+        '[2026-07-23] (PASS)', () {
+      final appDir = io.Directory('${tempRoot.path}/app')
+        ..createSync(recursive: true);
+      io.File('${appDir.path}/helpers.dart').writeAsStringSync('''
 String helperValue() {
   return "from helper";
 }
 ''');
-        final mainFile = io.File('${appDir.path}/main.dart')
-          ..writeAsStringSync('''
+      final mainFile = io.File('${appDir.path}/main.dart')
+        ..writeAsStringSync('''
 import './helpers.dart';
 
 String main() {
@@ -81,40 +76,40 @@ String main() {
 }
 ''');
 
-        final d4rt = D4rt();
-        d4rt.grant(FilesystemPermission.readPath(appDir.path));
+      final d4rt = D4rt();
+      d4rt.grant(FilesystemPermission.readPath(appDir.path));
 
-        final result = d4rt.execute(
-          library: mainFile.absolute.uri.toString(),
-          allowFileSystemImports: true,
-          basePath: appDir.path,
-        );
+      final result = d4rt.execute(
+        library: mainFile.absolute.uri.toString(),
+        allowFileSystemImports: true,
+        basePath: appDir.path,
+      );
 
-        expect(result, equals('from helper'));
-      },
-    );
+      expect(result, equals('from helper'));
+    });
 
     test(
       'F-DFUB1-3: filesystem imports resolve nested relatives without shared '
       'state [2026-07-23] (PASS)',
       () {
         final rootDir = io.Directory('${tempRoot.path}/nested');
-        io.Directory('${rootDir.path}/features/messages')
-            .createSync(recursive: true);
+        io.Directory(
+          '${rootDir.path}/features/messages',
+        ).createSync(recursive: true);
 
         io.File('${rootDir.path}/main.dart').writeAsStringSync('''
 import 'features/feature.dart';
 
 String entryMessage() => loadMessage();
 ''');
-        io.File('${rootDir.path}/features/feature.dart')
-            .writeAsStringSync('''
+        io.File('${rootDir.path}/features/feature.dart').writeAsStringSync('''
 import 'messages/value.dart';
 
 String loadMessage() => featureValue();
 ''');
-        io.File('${rootDir.path}/features/messages/value.dart')
-            .writeAsStringSync('''
+        io.File(
+          '${rootDir.path}/features/messages/value.dart',
+        ).writeAsStringSync('''
 String featureValue() => 'nested-ok';
 ''');
 

@@ -72,10 +72,7 @@ void main() {
   print('Set with p1, p2, p3: $pointSet');
   print('Set size: ${pointSet.length}'); // 2 (p1 and p2 are equal)
 
-  var pointMap = <Point, String>{
-    Point(1, 2): 'Origin',
-    Point(3, 4): 'Target',
-  };
+  var pointMap = <Point, String>{Point(1, 2): 'Origin', Point(3, 4): 'Target'};
   print('Map lookup Point(1, 2): ${pointMap[Point(1, 2)]}');
 
   // runtimeType
@@ -184,7 +181,10 @@ class Point {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Point && runtimeType == other.runtimeType && x == other.x && y == other.y;
+      other is Point &&
+          runtimeType == other.runtimeType &&
+          x == other.x &&
+          y == other.y;
 
   @override
   int get hashCode => Object.hash(x, y);

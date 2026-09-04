@@ -40,7 +40,9 @@ void main() {
     queue.enqueue('third');
 
     if (queue.length != 3) {
-      errors.add('Queue.length after 3 enqueues expected 3, got ${queue.length}');
+      errors.add(
+        'Queue.length after 3 enqueues expected 3, got ${queue.length}',
+      );
     }
 
     var dequeued = queue.dequeue();

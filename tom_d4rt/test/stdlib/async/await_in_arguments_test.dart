@@ -3,8 +3,10 @@ import '../../interpreter_test.dart';
 
 void main() {
   group('Await in Function Arguments Tests', () {
-    test('I-ASYNC-93: Await in positional arguments. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-ASYNC-93: Await in positional arguments. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
         Future<int> getValue() async {
           await Future.delayed(Duration(milliseconds: 5));
           return 42;
@@ -19,11 +21,14 @@ void main() {
           return result;
         }
       ''';
-      expect(await execute(source), equals(84));
-    });
+        expect(await execute(source), equals(84));
+      },
+    );
 
-    test('I-ASYNC-91: Await in named arguments. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-ASYNC-91: Await in named arguments. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
         Future<String> getName() async {
           await Future.delayed(Duration(milliseconds: 5));
           return "World";
@@ -38,11 +43,14 @@ void main() {
           return result;
         }
       ''';
-      expect(await execute(source), equals("Hello, World!"));
-    });
+        expect(await execute(source), equals("Hello, World!"));
+      },
+    );
 
-    test('I-ASYNC-92: Constructor with await in arguments. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-ASYNC-92: Constructor with await in arguments. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
         class Point {
           int x;
           int y;
@@ -64,14 +72,17 @@ void main() {
           return point.sum();
         }
       ''';
-      expect(await execute(source), equals(40));
-    });
+        expect(await execute(source), equals(40));
+      },
+    );
 
     // Note: Le test suivant révèle une limitation actuelle de l'implémentation
     // pour les cas d'await imbriqués
 
-    test('I-ASYNC-94: Nested await in function arguments - simplified. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-ASYNC-94: Nested await in function arguments - simplified. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
         Future<int> getNumber() async {
           await Future.delayed(Duration(milliseconds: 5));
           return 5;
@@ -87,12 +98,15 @@ void main() {
           return result;
         }
       ''';
-      // Comportement attendu et actuel: multiplyByThree(5) = 15
-      expect(await execute(source), equals(15));
-    });
+        // Comportement attendu et actuel: multiplyByThree(5) = 15
+        expect(await execute(source), equals(15));
+      },
+    );
 
-    test('I-ASYNC-95: Await with exception handling in arguments. [2026-02-10 06:37] (PASS)', () async {
-      const source = '''
+    test(
+      'I-ASYNC-95: Await with exception handling in arguments. [2026-02-10 06:37] (PASS)',
+      () async {
+        const source = '''
         Future<int> riskyFunction() async {
           await Future.delayed(Duration(milliseconds: 5));
           throw Exception("Something went wrong");
@@ -117,7 +131,8 @@ void main() {
         }
       ''';
 
-      expect(await execute(source), equals(101));
-    });
+        expect(await execute(source), equals(101));
+      },
+    );
   });
 }

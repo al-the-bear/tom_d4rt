@@ -133,64 +133,66 @@ void main() {
       () {
         final d4rt = D4rt();
         final mainlibrary = "d4rt-mem:/main_source.dart";
-        final result = d4rt.execute(
-          library: mainlibrary,
-          sources: sources,
-        );
+        final result = d4rt.execute(library: mainlibrary, sources: sources);
         expect(
           result,
           equals(
-              "Message from lib: Hello from lib_common! and number is 42 and extra: Extra message from lib_common!"),
+            "Message from lib: Hello from lib_common! and number is 42 and extra: Extra message from lib_common!",
+          ),
         );
       },
     );
 
-    test('I-IMPORT-1: Import package simple (memory). [2026-02-10 06:37] (PASS)', () {
-      final d4rt = D4rt();
-      final mainlibrary = "d4rt-mem:/main_pkg_import.dart";
-      final result = d4rt.execute(
-        library: mainlibrary,
-        sources: sources,
-      );
-      expect(
-        result,
-        equals("PkgMsg: Hello from my_test_pkg/utils! | PkgNum: 123"),
-      );
-    });
+    test(
+      'I-IMPORT-1: Import package simple (memory). [2026-02-10 06:37] (PASS)',
+      () {
+        final d4rt = D4rt();
+        final mainlibrary = "d4rt-mem:/main_pkg_import.dart";
+        final result = d4rt.execute(library: mainlibrary, sources: sources);
+        expect(
+          result,
+          equals("PkgMsg: Hello from my_test_pkg/utils! | PkgNum: 123"),
+        );
+      },
+    );
 
-    test('I-IMPORT-2: Import prefixed package (memory). [2026-02-10 06:37] (PASS)', () {
-      final d4rt = D4rt();
-      final mainlibrary = "d4rt-mem:/main_prefixed_pkg_import.dart";
-      final result = d4rt.execute(
-        library: mainlibrary,
-        sources: sources,
-      );
-      expect(
-        result,
-        equals(
-            "PrefixedPkgMsg: Hello from my_test_pkg/utils! | PrefixedPkgNum: 123"),
-      );
-    });
+    test(
+      'I-IMPORT-2: Import prefixed package (memory). [2026-02-10 06:37] (PASS)',
+      () {
+        final d4rt = D4rt();
+        final mainlibrary = "d4rt-mem:/main_prefixed_pkg_import.dart";
+        final result = d4rt.execute(library: mainlibrary, sources: sources);
+        expect(
+          result,
+          equals(
+            "PrefixedPkgMsg: Hello from my_test_pkg/utils! | PrefixedPkgNum: 123",
+          ),
+        );
+      },
+    );
 
-    test('I-IMPORT-3: Import dart:math (global functions). [2026-02-10 06:37] (PASS)', () {
-      final d4rt = D4rt();
-      final mainlibrary = "d4rt-mem:/main_dart_math_import.dart";
-      final result = d4rt.execute(
-        library: mainlibrary,
-        sources: sources,
-      );
-      expect(result, equals("sin(pi/2) = 1.0"));
-    });
+    test(
+      'I-IMPORT-3: Import dart:math (global functions). [2026-02-10 06:37] (PASS)',
+      () {
+        final d4rt = D4rt();
+        final mainlibrary = "d4rt-mem:/main_dart_math_import.dart";
+        final result = d4rt.execute(library: mainlibrary, sources: sources);
+        expect(result, equals("sin(pi/2) = 1.0"));
+      },
+    );
 
     group('Combinators (show/hide)', () {
-      test('I-IMPORT-4: Import with "show" (no prefix) - access allowed symbols. [2026-02-10 06:37] (PASS)', () {
-        final d4rt = D4rt();
-        final result = d4rt.execute(
-          library: "d4rt-mem:/main_import_show.dart",
-          sources: sources,
-        );
-        expect(result, equals("Hello from lib_common! | 42"));
-      });
+      test(
+        'I-IMPORT-4: Import with "show" (no prefix) - access allowed symbols. [2026-02-10 06:37] (PASS)',
+        () {
+          final d4rt = D4rt();
+          final result = d4rt.execute(
+            library: "d4rt-mem:/main_import_show.dart",
+            sources: sources,
+          );
+          expect(result, equals("Hello from lib_common! | 42"));
+        },
+      );
 
       test(
         'I-IMPORT-10: Import with "show" (no prefix) - check that the hidden symbol is not accessible. [2026-02-12] (PASS)',
@@ -198,8 +200,9 @@ void main() {
           final d4rt = D4rt();
           expect(
             () => d4rt.execute(
-                library: "d4rt-mem:/main_import_show_check_hidden.dart",
-                sources: sources),
+              library: "d4rt-mem:/main_import_show_check_hidden.dart",
+              sources: sources,
+            ),
             throwsA(
               isA<RuntimeD4rtException>().having(
                 (e) => e.message,
@@ -211,14 +214,17 @@ void main() {
         },
       );
 
-      test('I-IMPORT-5: Import with "hide" (no prefix) - access allowed symbols. [2026-02-10 06:37] (PASS)', () {
-        final d4rt = D4rt();
-        final result = d4rt.execute(
-          library: "d4rt-mem:/main_import_hide.dart",
-          sources: sources,
-        );
-        expect(result, equals("Hello from lib_common! | 42"));
-      });
+      test(
+        'I-IMPORT-5: Import with "hide" (no prefix) - access allowed symbols. [2026-02-10 06:37] (PASS)',
+        () {
+          final d4rt = D4rt();
+          final result = d4rt.execute(
+            library: "d4rt-mem:/main_import_hide.dart",
+            sources: sources,
+          );
+          expect(result, equals("Hello from lib_common! | 42"));
+        },
+      );
 
       test(
         'I-IMPORT-11: Import with "hide" (no prefix) - check that the hidden symbol is not accessible. [2026-02-12] (PASS)',
@@ -226,8 +232,9 @@ void main() {
           final d4rt = D4rt();
           expect(
             () => d4rt.execute(
-                library: "d4rt-mem:/main_import_hide_check_hidden.dart",
-                sources: sources),
+              library: "d4rt-mem:/main_import_hide_check_hidden.dart",
+              sources: sources,
+            ),
             throwsA(
               isA<RuntimeD4rtException>().having(
                 (e) => e.message,
@@ -239,13 +246,17 @@ void main() {
         },
       );
 
-      test('I-IMPORT-6: Import prefixed with "show" - access allowed symbols. [2026-02-10 06:37] (PASS)', () {
-        final d4rt = D4rt();
-        final result = d4rt.execute(
+      test(
+        'I-IMPORT-6: Import prefixed with "show" - access allowed symbols. [2026-02-10 06:37] (PASS)',
+        () {
+          final d4rt = D4rt();
+          final result = d4rt.execute(
             library: "d4rt-mem:/main_prefixed_import_show.dart",
-            sources: sources);
-        expect(result, equals("Hello from lib_common! | 42"));
-      });
+            sources: sources,
+          );
+          expect(result, equals("Hello from lib_common! | 42"));
+        },
+      );
 
       test(
         'I-IMPORT-12: Import prefixed with "show" - check that the hidden symbol is not accessible. [2026-02-12] (PASS)',
@@ -253,28 +264,33 @@ void main() {
           final d4rt = D4rt();
           expect(
             () => d4rt.execute(
-                library:
-                    "d4rt-mem:/main_prefixed_import_show_check_hidden.dart",
-                sources: sources),
+              library: "d4rt-mem:/main_prefixed_import_show_check_hidden.dart",
+              sources: sources,
+            ),
             throwsA(
               isA<RuntimeD4rtException>().having(
                 (e) => e.message,
                 'message',
                 contains(
-                    "Method 'getExtraMessage' not found in imported module 'common'. Error: Undefined variable: getExtraMessage"),
+                  "Method 'getExtraMessage' not found in imported module 'common'. Error: Undefined variable: getExtraMessage",
+                ),
               ),
             ),
           );
         },
       );
 
-      test('I-IMPORT-8: Import prefixed with "hide" - access allowed symbols. [2026-02-10 06:37] (PASS)', () {
-        final d4rt = D4rt();
-        final result = d4rt.execute(
+      test(
+        'I-IMPORT-8: Import prefixed with "hide" - access allowed symbols. [2026-02-10 06:37] (PASS)',
+        () {
+          final d4rt = D4rt();
+          final result = d4rt.execute(
             library: "d4rt-mem:/main_prefixed_import_hide.dart",
-            sources: sources);
-        expect(result, equals("Hello from lib_common! | 42"));
-      });
+            sources: sources,
+          );
+          expect(result, equals("Hello from lib_common! | 42"));
+        },
+      );
 
       test(
         'I-IMPORT-13: Import prefixed with "hide" - check that the hidden symbol is not accessible. [2026-02-12] (PASS)',
@@ -282,38 +298,46 @@ void main() {
           final d4rt = D4rt();
           expect(
             () => d4rt.execute(
-                library:
-                    "d4rt-mem:/main_prefixed_import_hide_check_hidden.dart",
-                sources: sources),
+              library: "d4rt-mem:/main_prefixed_import_hide_check_hidden.dart",
+              sources: sources,
+            ),
             throwsA(
               isA<RuntimeD4rtException>().having(
                 (e) => e.message,
                 'message',
                 contains(
-                    "Method 'getExtraMessage' not found in imported module 'common'. Error: Undefined variable: getExtraMessage"),
+                  "Method 'getExtraMessage' not found in imported module 'common'. Error: Undefined variable: getExtraMessage",
+                ),
               ),
             ),
           );
         },
       );
 
-      test('I-IMPORT-7: Import with "show" avoids name conflict with local definition. [2026-02-10 06:37] (PASS)', () {
-        final d4rt = D4rt();
-        final result = d4rt.execute(
+      test(
+        'I-IMPORT-7: Import with "show" avoids name conflict with local definition. [2026-02-10 06:37] (PASS)',
+        () {
+          final d4rt = D4rt();
+          final result = d4rt.execute(
             library: "d4rt-mem:/main_import_conflict_show.dart",
-            sources: sources);
-        expect(result, equals("Local getMessage | 42"));
-      });
+            sources: sources,
+          );
+          expect(result, equals("Local getMessage | 42"));
+        },
+      );
 
       test(
         'I-IMPORT-14: Import with "hide" avoids name conflict and allows access to other imported symbols. [2026-02-12] (PASS)',
         () {
           final d4rt = D4rt();
           final result = d4rt.execute(
-              library: "d4rt-mem:/main_import_conflict_hide.dart",
-              sources: sources);
-          expect(result,
-              equals("Local getMessage | 42 | Extra message from lib_common!"));
+            library: "d4rt-mem:/main_import_conflict_hide.dart",
+            sources: sources,
+          );
+          expect(
+            result,
+            equals("Local getMessage | 42 | Extra message from lib_common!"),
+          );
         },
       );
     });

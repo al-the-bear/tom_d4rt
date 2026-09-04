@@ -137,8 +137,10 @@ void main() {
     });
   });
   group('Enum Tests', () {
-    test('I-ENUM-35: Basic enum declaration and usage. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-35: Basic enum declaration and usage. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         enum Direction {
           north,
           south,
@@ -151,8 +153,9 @@ void main() {
           return dir.toString();
         }
       ''';
-      expect(execute(source), equals('Direction.north'));
-    });
+        expect(execute(source), equals('Direction.north'));
+      },
+    );
 
     test('I-ENUM-36: Enum with index property. [2026-02-10 06:37] (PASS)', () {
       const source = '''
@@ -227,8 +230,10 @@ void main() {
       expect(execute(source), equals([38.0, 234.0]));
     });
 
-    test('I-ENUM-39: Enum with complex properties and methods. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-39: Enum with complex properties and methods. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         enum CardSuit {
           hearts('♥', 'red'),
           diamonds('♦', 'red'),
@@ -270,9 +275,12 @@ void main() {
           ];
         }
       ''';
-      expect(execute(source),
-          equals(['♥', 'red', true, '♠', 'black', true, 'Hearts', 'Spades']));
-    });
+        expect(
+          execute(source),
+          equals(['♥', 'red', true, '♠', 'black', true, 'Hearts', 'Spades']),
+        );
+      },
+    );
 
     test('I-ENUM-41: Enum with static methods. [2026-02-10 06:37] (PASS)', () {
       const source = '''
@@ -309,8 +317,10 @@ void main() {
       expect(execute(source), equals([404, false, true, true, true]));
     });
 
-    test('I-ENUM-42: Enum with complex pattern matching. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-42: Enum with complex pattern matching. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         enum Shape {
           circle(0),
           square(4),
@@ -345,22 +355,26 @@ void main() {
           ];
         }
       ''';
-      expect(
+        expect(
           execute(source),
           equals([
             [
               'Perfect round shape',
               'Four equal sides',
               'Three sides',
-              'Five sides'
+              'Five sides',
             ],
             [4, 3, 5],
-            ['circle']
-          ]));
-    });
+            ['circle'],
+          ]),
+        );
+      },
+    );
 
-    test('I-ENUM-43: Enum with complex business logic. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-43: Enum with complex business logic. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         enum UserRole {
           guest(0, ['read']),
           user(1, ['read', 'write']),
@@ -402,7 +416,7 @@ void main() {
           ];
         }
       ''';
-      expect(
+        expect(
           execute(source),
           equals([
             true,
@@ -410,12 +424,16 @@ void main() {
             true,
             false,
             'moderator',
-            ['read']
-          ]));
-    });
+            ['read'],
+          ]),
+        );
+      },
+    );
 
-    test('I-ENUM-45: Enum with complex state management. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-ENUM-45: Enum with complex state management. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
         enum GameState {
           initial,
           playing,
@@ -500,12 +518,14 @@ void main() {
           return [states, scores];
         }
       ''';
-      expect(
+        expect(
           execute(source),
           equals([
             ['playing', 'paused', 'playing', 'gameOver'],
-            [10, 10, 25, 25]
-          ]));
-    });
+            [10, 10, 25, 25],
+          ]),
+        );
+      },
+    );
   });
 }

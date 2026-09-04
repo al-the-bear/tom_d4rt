@@ -37,10 +37,11 @@ int main() {
       expect(result, 3);
     });
 
-    test('compound assignment (+=) in a sibling static method persists',
-        () async {
-      final d4rt = D4rt();
-      final bundle = await d4rt.createBundleFromSource('''
+    test(
+      'compound assignment (+=) in a sibling static method persists',
+      () async {
+        final d4rt = D4rt();
+        final bundle = await d4rt.createBundleFromSource('''
 class Acc {
   static int total = 10;
   static void add(int n) { total += n; }
@@ -52,10 +53,11 @@ int main() {
   return Acc.read();
 }
 ''');
-      final runner = D4rtRunner();
-      final result = runner.executeBundle(bundle);
-      expect(result, 22);
-    });
+        final runner = D4rtRunner();
+        final result = runner.executeBundle(bundle);
+        expect(result, 22);
+      },
+    );
 
     test('write is observable directly via the static getter', () async {
       final d4rt = D4rt();

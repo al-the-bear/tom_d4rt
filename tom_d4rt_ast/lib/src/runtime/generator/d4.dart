@@ -202,8 +202,9 @@ class D4 {
   /// RenderObjects / animations) keeps the *native keys* alive across `/build`
   /// cycles, so the entries pinned by them survive too. That is the genuine
   /// cross-build accumulator identified in OPEN B.12 / §U28.
-  static Expando<Object> _nativeToInterpreted =
-      Expando<Object>('d4rt:nativeToInterpreted');
+  static Expando<Object> _nativeToInterpreted = Expando<Object>(
+    'd4rt:nativeToInterpreted',
+  );
 
   /// Cumulative count of [registerInterpretedForNative] calls since the last
   /// [resetNativeAccumulators]. The [Expando] itself exposes no length, so
@@ -372,7 +373,7 @@ class D4 {
   /// Lets the registration call dedupe by factory identity so a second
   /// `registerRelaxers()` does not re-append the same factory.
   static final Map<String, Set<GenericTypeWrapperFactory>>
-      _genericTypeWrapperIdentities = {};
+  _genericTypeWrapperIdentities = {};
 
   /// Register a wrapper factory for a generic base type (additive).
   ///
@@ -394,8 +395,10 @@ class D4 {
     String baseTypeName,
     GenericTypeWrapperFactory factory,
   ) {
-    final identities =
-        _genericTypeWrapperIdentities.putIfAbsent(baseTypeName, () => {});
+    final identities = _genericTypeWrapperIdentities.putIfAbsent(
+      baseTypeName,
+      () => {},
+    );
     if (!identities.add(factory)) return;
     (_genericTypeWrappers[baseTypeName] ??= []).add(factory);
   }
@@ -420,7 +423,7 @@ class D4 {
   /// instance after the `_relaxersRegistered` guard is removed).
   /// We dedupe by factory identity, keyed by `'$className.$constructorName'`.
   static final Map<String, Set<GenericConstructorFactory>>
-      _genericConstructorIdentities = {};
+  _genericConstructorIdentities = {};
 
   /// Register a generic constructor factory for a bridged class.
   ///
@@ -443,8 +446,7 @@ class D4 {
     GenericConstructorFactory factory,
   ) {
     final key = '$className.$constructorName';
-    final identities =
-        _genericConstructorIdentities.putIfAbsent(key, () => {});
+    final identities = _genericConstructorIdentities.putIfAbsent(key, () => {});
     if (!identities.add(factory)) return;
     final existing = _genericConstructors[key];
     if (existing != null) {
@@ -617,11 +619,15 @@ class D4 {
     final typeArg = _innerTypeArg(expectedType);
     final hasRelaxer = _genericTypeWrappers.containsKey(base);
     final hasProxy = _interfaceProxies.containsKey(base);
-    final hasCtor = _genericConstructors.keys.any((k) => k.startsWith('$base.'));
+    final hasCtor = _genericConstructors.keys.any(
+      (k) => k.startsWith('$base.'),
+    );
 
     final buffer = StringBuffer()
-      ..write('Invalid parameter "$paramName": expected $expectedType, '
-          'got $actualType')
+      ..write(
+        'Invalid parameter "$paramName": expected $expectedType, '
+        'got $actualType',
+      )
       ..write('\n  base type: $base');
     if (typeArg.isNotEmpty) {
       buffer.write('\n  unmatched type-argument: $typeArg');
@@ -634,24 +640,33 @@ class D4 {
     ];
     if (registered.isEmpty) {
       buffer
-        ..write('\n  registration: no relaxer / interface-proxy / '
-            'generic-constructor factory is registered for "$base".')
-        ..write('\n  remedy: add "$base" to `additionalRelaxerTypes:` in the '
-            'bridge config and regenerate, or register one at runtime via '
-            'D4.registerGenericTypeWrapper("$base", ...) / '
-            'D4.registerInterfaceProxy("$base", ...).');
+        ..write(
+          '\n  registration: no relaxer / interface-proxy / '
+          'generic-constructor factory is registered for "$base".',
+        )
+        ..write(
+          '\n  remedy: add "$base" to `additionalRelaxerTypes:` in the '
+          'bridge config and regenerate, or register one at runtime via '
+          'D4.registerGenericTypeWrapper("$base", ...) / '
+          'D4.registerInterfaceProxy("$base", ...).',
+        );
     } else {
       final verb = registered.length == 1 ? 'is' : 'are';
-      final argDesc =
-          typeArg.isEmpty ? 'this argument' : 'type-argument "$typeArg"';
+      final argDesc = typeArg.isEmpty
+          ? 'this argument'
+          : 'type-argument "$typeArg"';
       buffer
-        ..write('\n  registration: a ${registered.join(' / ')} $verb '
-            'registered for "$base", but $argDesc did not match.')
-        ..write('\n  remedy: extend the registered factory to cover '
-            '${typeArg.isEmpty ? 'this argument' : '"$base<$typeArg>"'} — add '
-            '"$typeArg" to `additionalRelaxerTypes:` for "$base" and '
-            'regenerate, or register an additional factory via '
-            'D4.registerGenericTypeWrapper("$base", ...).');
+        ..write(
+          '\n  registration: a ${registered.join(' / ')} $verb '
+          'registered for "$base", but $argDesc did not match.',
+        )
+        ..write(
+          '\n  remedy: extend the registered factory to cover '
+          '${typeArg.isEmpty ? 'this argument' : '"$base<$typeArg>"'} — add '
+          '"$typeArg" to `additionalRelaxerTypes:` for "$base" and '
+          'regenerate, or register an additional factory via '
+          'D4.registerGenericTypeWrapper("$base", ...).',
+        );
     }
     return buffer.toString();
   }
@@ -716,7 +731,7 @@ class D4 {
   /// since interpreted subclasses share the same native runtimeType and
   /// Flutter's `_inheritedElements[T]` lookup is type-erased.
   static final Map<String, Map<String, BridgedMethodAdapter>>
-      _methodInterceptors = {};
+  _methodInterceptors = {};
 
   /// Register an interceptor for a bridged method. Replaces any previously
   /// registered interceptor for the same `(className, methodName)` pair.
@@ -750,7 +765,7 @@ class D4 {
   // The interceptor receives `(visitor, positional, named, typeArgs)` —
   // matching [BridgedStaticMethodAdapter].
   static final Map<String, Map<String, BridgedStaticMethodAdapter>>
-      _staticMethodInterceptors = {};
+  _staticMethodInterceptors = {};
 
   /// Register an interceptor for a bridged static method. Replaces any
   /// previously registered interceptor for the same `(className, methodName)`
@@ -780,8 +795,8 @@ class D4 {
   /// Static getter adapters for bridged enums, keyed by enum name then getter
   /// name. These allow injecting non-constant static members (e.g.
   /// `WidgetState.any`) at runtime without modifying generated bridge files.
-  static final Map<String, Map<String, Object? Function()>>
-      _enumStaticGetters = {};
+  static final Map<String, Map<String, Object? Function()>> _enumStaticGetters =
+      {};
 
   /// Register a static getter on a bridged enum type.
   ///
@@ -925,9 +940,9 @@ class D4 {
     var depth = 0;
     for (var i = 0; i < s.length; i++) {
       final c = s.codeUnitAt(i);
-      if (c == 0x3C /* '<' */ || c == 0x28 /* '(' */) {
+      if (c == 0x3C /* '<' */ || c == 0x28 /* '(' */ ) {
         depth++;
-      } else if (c == 0x3E /* '>' */ || c == 0x29 /* ')' */) {
+      } else if (c == 0x3E /* '>' */ || c == 0x29 /* ')' */ ) {
         depth--;
       } else if (c == 0x2C /* ',' */ && depth == 0) {
         return i;
@@ -966,8 +981,9 @@ class D4 {
       case 'String|double':
         return <String, double>{
           for (final e in source.entries)
-            e.key as String:
-                e.value is int ? (e.value as int).toDouble() : e.value as double,
+            e.key as String: e.value is int
+                ? (e.value as int).toDouble()
+                : e.value as double,
         };
       case 'String|num':
         return <String, num>{
@@ -1385,8 +1401,8 @@ class D4 {
     final unwrapped = v is BridgedInstance
         ? v.nativeObject
         : v is BridgedEnumValue
-            ? v.nativeValue
-            : v;
+        ? v.nativeValue
+        : v;
 
     // InterpretedInstance → native via bridgedSuperObject or interface proxy
     if (v is InterpretedInstance) {
@@ -1516,8 +1532,9 @@ class D4 {
   static bool _isSingleArgFunction(String typeName) {
     // Match "ReturnType Function(SingleType)" - no comma means single arg.
     // Bug-47 FIX: also match nullable function types ending in `)?`.
-    final functionMatch =
-        RegExp(r'Function\(([^,)]+)\)\??$').firstMatch(typeName);
+    final functionMatch = RegExp(
+      r'Function\(([^,)]+)\)\??$',
+    ).firstMatch(typeName);
     if (functionMatch != null) {
       return true;
     }
@@ -1846,10 +1863,7 @@ class D4 {
         'String' => _CastIterator<String>(source),
         'num' => _CastIterator<num>(source),
         'bool' => _CastIterator<bool>(source),
-        'Object' ||
-        'dynamic' ||
-        'Object?' =>
-          _CastIterator<Object?>(source),
+        'Object' || 'dynamic' || 'Object?' => _CastIterator<Object?>(source),
         _ => null,
       };
       if (result != null) {
@@ -1997,7 +2011,11 @@ class D4 {
         );
         if (proxyResult != null) {
           if (usageLogEnabled) {
-            recordUsageHit('proxy', _baseTypeName(T.toString()), arg.klass.name);
+            recordUsageHit(
+              'proxy',
+              _baseTypeName(T.toString()),
+              arg.klass.name,
+            );
           }
           return proxyResult;
         }
@@ -2360,7 +2378,9 @@ class D4 {
   ///
   /// Mirrors `tom_d4rt/lib/src/generator/d4.dart` per the quest's sync rule.
   static Object? coerceCallableToFunction(
-      InterpreterVisitor visitor, Object? value) {
+    InterpreterVisitor visitor,
+    Object? value,
+  ) {
     if (value is! Callable) return value;
     final n = value.arity;
     switch (n) {
@@ -2371,8 +2391,7 @@ class D4 {
       case 2:
         return (a, b) => callInterpreterCallback(visitor, value, [a, b]);
       case 3:
-        return (a, b, c) =>
-            callInterpreterCallback(visitor, value, [a, b, c]);
+        return (a, b, c) => callInterpreterCallback(visitor, value, [a, b, c]);
       case 4:
         return (a, b, c, d) =>
             callInterpreterCallback(visitor, value, [a, b, c, d]);
@@ -2544,10 +2563,7 @@ class D4 {
 
     if (value == null) {
       if (null is T) return null as T;
-      throw D4UnwrapException(
-        expectedType: expected,
-        actualType: 'null',
-      );
+      throw D4UnwrapException(expectedType: expected, actualType: 'null');
     }
 
     if (value is BridgedInstance) {
@@ -2577,15 +2593,18 @@ class D4 {
       if (bridgedSuper is T) return bridgedSuper;
       final effectiveVisitor = visitor ?? _activeVisitor;
       if (effectiveVisitor != null) {
-        final proxy =
-            tryCreateInterfaceProxyWithVisitor<T>(value, effectiveVisitor);
+        final proxy = tryCreateInterfaceProxyWithVisitor<T>(
+          value,
+          effectiveVisitor,
+        );
         if (proxy != null) return proxy;
       }
       throw D4UnwrapException(
         expectedType: expected,
         actualType: 'InterpretedInstance(${value.klass.name})',
         source: 'InterpretedInstance',
-        extra: 'no registered interface proxy for its bridged '
+        extra:
+            'no registered interface proxy for its bridged '
             'superclass/interfaces',
       );
     }
@@ -2636,6 +2655,7 @@ class D4 {
     void add(String n) {
       if (seen.add(n)) candidates.add(n);
     }
+
     void addBridged(BridgedClass bc) {
       add(bc.name);
       for (final s in BridgedClass.transitiveSupertypeNames(bc.name)) {

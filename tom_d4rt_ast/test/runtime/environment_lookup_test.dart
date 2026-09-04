@@ -33,8 +33,11 @@ void main() {
 
     test('distinguishes present-but-null from absent', () {
       env.define('maybe', null);
-      expect(env.lookup('maybe'), isNull,
-          reason: 'a binding to null resolves to null, not the sentinel');
+      expect(
+        env.lookup('maybe'),
+        isNull,
+        reason: 'a binding to null resolves to null, not the sentinel',
+      );
       expect(env.lookup('maybe'), isNot(same(Environment.kNotFound)));
       expect(env.lookup('absent'), same(Environment.kNotFound));
     });
@@ -68,8 +71,13 @@ void main() {
     test('still throws RuntimeD4rtException on a miss', () {
       expect(
         () => env.get('missing'),
-        throwsA(isA<RuntimeD4rtException>().having(
-            (e) => e.message, 'message', contains('Undefined variable'))),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.message,
+            'message',
+            contains('Undefined variable'),
+          ),
+        ),
       );
     });
 

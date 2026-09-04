@@ -105,7 +105,9 @@ class FunctionRuntimeType implements RuntimeType {
       }
       for (var i = 0; i < positionalParameterTypes.length; i++) {
         if (!_runtimeTypeCompatible(
-            other.positionalParameterTypes[i], positionalParameterTypes[i])) {
+          other.positionalParameterTypes[i],
+          positionalParameterTypes[i],
+        )) {
           return false;
         }
       }
@@ -157,7 +159,9 @@ class RecordRuntimeType implements RuntimeType {
       if (namedFieldTypes.length != other.namedFieldTypes.length) return false;
       for (var i = 0; i < positionalFieldTypes.length; i++) {
         if (!_runtimeTypeCompatible(
-            positionalFieldTypes[i], other.positionalFieldTypes[i])) {
+          positionalFieldTypes[i],
+          other.positionalFieldTypes[i],
+        )) {
           return false;
         }
       }
@@ -196,7 +200,7 @@ class AppliedRuntimeType implements RuntimeType {
   final List<RuntimeType> typeArguments;
 
   AppliedRuntimeType(this.baseType, List<RuntimeType> typeArguments)
-      : typeArguments = List.unmodifiable(typeArguments);
+    : typeArguments = List.unmodifiable(typeArguments);
 
   @override
   String get name =>

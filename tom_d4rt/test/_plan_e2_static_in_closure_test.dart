@@ -9,7 +9,8 @@ import 'package:tom_d4rt/d4rt.dart';
 void main() {
   test('static helper called from closure receiving the arg', () {
     final d4rt = D4rt();
-    final result = d4rt.execute(source: '''
+    final result = d4rt.execute(
+      source: '''
 class Ctx {
   final int value;
   const Ctx(this.value);
@@ -30,13 +31,15 @@ int run(int Function(Ctx) body) {
 main() {
   return run((ctx) => Scope.watch(ctx));
 }
-''');
+''',
+    );
     expect(result, 42);
   });
 
   test('static helper called from nested builder closure', () {
     final d4rt = D4rt();
-    final result = d4rt.execute(source: '''
+    final result = d4rt.execute(
+      source: '''
 class Ctx {
   final int value;
   const Ctx(this.value);
@@ -62,13 +65,15 @@ main() {
     },
   );
 }
-''');
+''',
+    );
     expect(result, 12);
   });
 
   test('static helper call on closure-captured receiver', () {
     final d4rt = D4rt();
-    final result = d4rt.execute(source: '''
+    final result = d4rt.execute(
+      source: '''
 class Ctx {
   final int value;
   const Ctx(this.value);
@@ -87,7 +92,8 @@ main() {
   final Ctx outer = const Ctx(99);
   return run(() => Scope.watch(outer));
 }
-''');
+''',
+    );
     expect(result, 99);
   });
 }

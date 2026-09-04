@@ -169,8 +169,10 @@ void main() {
           return ProcessStartMode.values.map((m) => m.toString()).toList();
         }
       ''');
-      expect(result,
-          equals(['normal', 'inheritStdio', 'detached', 'detachedWithStdio']));
+      expect(
+        result,
+        equals(['normal', 'inheritStdio', 'detached', 'detachedWithStdio']),
+      );
     });
 
     test('F-SCC11-33: ProcessSignal.signalNumber exposes the POSIX number '
@@ -208,19 +210,21 @@ void main() {
       expect(result, equals(['a', 'b', 'c']));
     });
 
-    test('F-SCC11-36: split() honours the optional start offset [2026-09-04]',
-        () {
-      // The offset is what distinguishes the static from `LineSplitter().convert`
-      // — a bridge that forwarded only the string would look correct until
-      // someone passed a second argument.
-      final result = execute('''
+    test(
+      'F-SCC11-36: split() honours the optional start offset [2026-09-04]',
+      () {
+        // The offset is what distinguishes the static from `LineSplitter().convert`
+        // — a bridge that forwarded only the string would look correct until
+        // someone passed a second argument.
+        final result = execute('''
         import 'dart:convert';
         main() {
           return LineSplitter.split('a\\nb\\nc', 2).toList();
         }
       ''');
-      expect(result, equals(['b', 'c']));
-    });
+        expect(result, equals(['b', 'c']));
+      },
+    );
 
     test('F-SCC11-37: split() honours an explicit end offset [2026-09-04]', () {
       final result = execute('''
@@ -296,15 +300,18 @@ void main() {
       expect(result, 'abc');
     });
 
-    test('F-SCC11-43: matchAsPrefix returns null when the prefix does not match '
-        '[2026-09-04]', () {
-      final result = execute('''
+    test(
+      'F-SCC11-43: matchAsPrefix returns null when the prefix does not match '
+      '[2026-09-04]',
+      () {
+        final result = execute('''
         main() {
           return 'zzz'.matchAsPrefix('abcdef') == null;
         }
       ''');
-      expect(result, true);
-    });
+        expect(result, true);
+      },
+    );
 
     test('F-SCC11-44: matchAsPrefix honours the start offset [2026-09-04]', () {
       final result = execute('''

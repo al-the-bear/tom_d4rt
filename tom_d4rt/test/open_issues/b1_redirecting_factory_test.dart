@@ -19,9 +19,11 @@ import 'package:tom_d4rt/d4rt.dart';
 
 void main() {
   group('OPEN B.1 — redirecting factory constructors (VM)', () {
-    test('unnamed redirect `factory X() = Y` resolves to the subclass',
-        () async {
-      final result = await D4rt().execute(source: '''
+    test(
+      'unnamed redirect `factory X() = Y` resolves to the subclass',
+      () async {
+        final result = await D4rt().execute(
+          source: '''
 abstract class Shape {
   factory Shape() = Circle;
   double area();
@@ -34,12 +36,15 @@ double main() {
   final s = Shape();
   return s.area();
 }
-''');
-      expect(result, 3.14);
-    });
+''',
+        );
+        expect(result, 3.14);
+      },
+    );
 
     test('named redirect `factory X.n(..) = Y.m` forwards arguments', () async {
-      final result = await D4rt().execute(source: '''
+      final result = await D4rt().execute(
+        source: '''
 abstract class Shape {
   factory Shape.named(double r) = Circle.r;
   double area();
@@ -52,13 +57,16 @@ class Circle implements Shape {
 double main() {
   return Shape.named(2.0).area();
 }
-''');
+''',
+      );
       expect(result, 4.0);
     });
 
-    test('redirect to a default unnamed constructor with positional args',
-        () async {
-      final result = await D4rt().execute(source: '''
+    test(
+      'redirect to a default unnamed constructor with positional args',
+      () async {
+        final result = await D4rt().execute(
+          source: '''
 abstract class Animal {
   factory Animal(String name) = Dog;
   String describe();
@@ -71,12 +79,15 @@ class Dog implements Animal {
 String main() {
   return Animal('Rex').describe();
 }
-''');
-      expect(result, 'Dog: Rex');
-    });
+''',
+        );
+        expect(result, 'Dog: Rex');
+      },
+    );
 
     test('generic redirect `factory X() = Y<int>` resolves the type', () async {
-      final result = await D4rt().execute(source: '''
+      final result = await D4rt().execute(
+        source: '''
 abstract class Box<T> {
   factory Box() = IntBox;
   int size();
@@ -89,7 +100,8 @@ int main() {
   final b = Box<int>();
   return b.size();
 }
-''');
+''',
+      );
       expect(result, 42);
     });
   });

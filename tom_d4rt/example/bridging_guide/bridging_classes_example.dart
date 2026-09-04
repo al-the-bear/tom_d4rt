@@ -17,9 +17,7 @@ class Counter {
     instanceCount++;
   }
 
-  Counter.withDefault()
-      : _value = 0,
-        id = 'default' {
+  Counter.withDefault() : _value = 0, id = 'default' {
     instanceCount++;
   }
 
@@ -70,9 +68,7 @@ void main() {
     },
 
     // Static getters
-    staticGetters: {
-      'instanceCount': (visitor) => Counter.instanceCount,
-    },
+    staticGetters: {'instanceCount': (visitor) => Counter.instanceCount},
 
     // Static setters
     staticSetters: {

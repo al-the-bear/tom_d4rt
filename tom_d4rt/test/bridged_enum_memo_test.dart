@@ -22,10 +22,16 @@ void main() {
       final second = def.buildBridgedEnum();
       final third = def.buildBridgedEnum();
 
-      expect(identical(first, second), isTrue,
-          reason: '2nd build serves the memoized enum');
-      expect(identical(second, third), isTrue,
-          reason: '3rd build serves the same memoized enum');
+      expect(
+        identical(first, second),
+        isTrue,
+        reason: '2nd build serves the memoized enum',
+      );
+      expect(
+        identical(second, third),
+        isTrue,
+        reason: '3rd build serves the same memoized enum',
+      );
     });
 
     test('IMP-OPT-4b: cached enum preserves its values and adapters', () {
@@ -64,9 +70,11 @@ void main() {
         values: _Color.values,
       );
 
-      expect(identical(defA.buildBridgedEnum(), defB.buildBridgedEnum()),
-          isFalse,
-          reason: 'memo is per-definition, not global');
+      expect(
+        identical(defA.buildBridgedEnum(), defB.buildBridgedEnum()),
+        isFalse,
+        reason: 'memo is per-definition, not global',
+      );
     });
   });
 }

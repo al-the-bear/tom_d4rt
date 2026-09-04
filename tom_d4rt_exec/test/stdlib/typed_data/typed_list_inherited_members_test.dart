@@ -79,7 +79,8 @@ void main() {
     // failure names the variant that regressed instead of just the first.
     for (final type in _variants) {
       test('F-SCB3-13-$type: sort() orders in place [2026-07-28]', () {
-        final source = '''
+        final source =
+            '''
         import 'dart:typed_data';
         main() {
           final l = $type.fromList([3, 1, 2]);
@@ -87,13 +88,18 @@ void main() {
           return [l[0], l[1], l[2]];
         }
         ''';
-        expect(execute(source), equals([1, 2, 3]),
-            reason: 'sort() must resolve and reorder on $type');
+        expect(
+          execute(source),
+          equals([1, 2, 3]),
+          reason: 'sort() must resolve and reorder on $type',
+        );
       });
 
-      test('F-SCB3-14-$type: sort() honours a custom comparator [2026-07-28]',
-          () {
-        final source = '''
+      test(
+        'F-SCB3-14-$type: sort() honours a custom comparator [2026-07-28]',
+        () {
+          final source =
+              '''
         import 'dart:typed_data';
         main() {
           final l = $type.fromList([1, 3, 2]);
@@ -101,15 +107,21 @@ void main() {
           return [l[0], l[1], l[2]];
         }
         ''';
-        expect(execute(source), equals([3, 2, 1]),
-            reason: 'the comparator callback must cross the bridge on $type');
-      });
+          expect(
+            execute(source),
+            equals([3, 2, 1]),
+            reason: 'the comparator callback must cross the bridge on $type',
+          );
+        },
+      );
 
-      test('F-SCB3-15-$type: shuffle() preserves the multiset [2026-07-28]',
-          () {
-        // Order after shuffling is not deterministic, so assert the invariant
-        // that actually matters: nothing is lost or invented.
-        final source = '''
+      test(
+        'F-SCB3-15-$type: shuffle() preserves the multiset [2026-07-28]',
+        () {
+          // Order after shuffling is not deterministic, so assert the invariant
+          // that actually matters: nothing is lost or invented.
+          final source =
+              '''
         import 'dart:typed_data';
         main() {
           final l = $type.fromList([1, 2, 3, 4]);
@@ -119,13 +131,21 @@ void main() {
           return [l.length, copy];
         }
         ''';
-        expect(execute(source), equals([4, [1, 2, 3, 4]]),
-            reason: 'shuffle() must resolve on $type');
-      });
+          expect(
+            execute(source),
+            equals([
+              4,
+              [1, 2, 3, 4],
+            ]),
+            reason: 'shuffle() must resolve on $type',
+          );
+        },
+      );
 
       test('F-SCB3-16-$type: asUnmodifiableView() reads but rejects writes '
           '[2026-07-28]', () {
-        final source = '''
+        final source =
+            '''
         import 'dart:typed_data';
         main() {
           final l = $type.fromList([1, 2]);
@@ -135,20 +155,27 @@ void main() {
           return [v.length, v[0], v[1], threw];
         }
         ''';
-        expect(execute(source), equals([2, 1, 2, true]),
-            reason: 'asUnmodifiableView() must resolve on $type');
+        expect(
+          execute(source),
+          equals([2, 1, 2, true]),
+          reason: 'asUnmodifiableView() must resolve on $type',
+        );
       });
 
       test('F-SCB3-17-$type: bytesPerElement is readable as a static '
           '[2026-07-28]', () {
-        final source = '''
+        final source =
+            '''
         import 'dart:typed_data';
         main() {
           return $type.bytesPerElement;
         }
         ''';
-        expect(execute(source), equals(_bytesPerElement[type]),
-            reason: '$type.bytesPerElement must resolve as a static');
+        expect(
+          execute(source),
+          equals(_bytesPerElement[type]),
+          reason: '$type.bytesPerElement must resolve as a static',
+        );
       });
     }
   });
@@ -157,9 +184,10 @@ void main() {
     // The helper's exclusion rationale is corrected, not discarded: growing
     // operations genuinely are unsupported and must keep failing. Without this
     // the fix could over-reach and silently expose broken adapters.
-    test('F-SCB3-18: add() on a fixed-length typed list throws [2026-07-28]',
-        () {
-      const source = '''
+    test(
+      'F-SCB3-18: add() on a fixed-length typed list throws [2026-07-28]',
+      () {
+        const source = '''
       import 'dart:typed_data';
       main() {
         final l = Float32List.fromList([1.0]);
@@ -168,8 +196,9 @@ void main() {
         return threw;
       }
       ''';
-      expect(execute(source), isTrue);
-    });
+        expect(execute(source), isTrue);
+      },
+    );
   });
 
   group('typed-data lists: sort is not accidentally aliased', () {

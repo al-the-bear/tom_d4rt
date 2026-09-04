@@ -19,8 +19,10 @@ void main() {
       expect(execute(source), equals([true, false]));
     });
 
-    test('I-FILE-1: WriteAsStringSync and readAsStringSync. [2026-02-10 06:37] (PASS)', () {
-      const source = '''
+    test(
+      'I-FILE-1: WriteAsStringSync and readAsStringSync. [2026-02-10 06:37] (PASS)',
+      () {
+        const source = '''
      import 'dart:io';
      main() {
         File file = File(Directory.systemTemp.path + "/test_1.txt");
@@ -30,8 +32,9 @@ void main() {
         return content;
       }
       ''';
-      expect(execute(source), equals('Hello, world!'));
-    });
+        expect(execute(source), equals('Hello, world!'));
+      },
+    );
 
     test('I-FILE-154: DeleteSync. [2026-02-10 06:37] (PASS)', () {
       const source = '''

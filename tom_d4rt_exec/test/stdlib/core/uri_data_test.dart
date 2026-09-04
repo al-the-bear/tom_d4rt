@@ -11,16 +11,18 @@ import 'package:test/test.dart';
 
 void main() {
   group('UriData tests', () {
-    test('F-SC10-1: UriData.parse reads mime type and content [2026-07-27]',
-        () {
-      const source = '''
+    test(
+      'F-SC10-1: UriData.parse reads mime type and content [2026-07-27]',
+      () {
+        const source = '''
       main() {
         final d = UriData.parse('data:text/plain;charset=utf-8,Hello%20World');
         return [d.mimeType, d.contentAsString(), d.isBase64];
       }
       ''';
-      expect(execute(source), equals(['text/plain', 'Hello World', false]));
-    });
+        expect(execute(source), equals(['text/plain', 'Hello World', false]));
+      },
+    );
 
     test('F-SC10-2: UriData.fromString round-trips content [2026-07-27]', () {
       const source = '''
@@ -32,16 +34,18 @@ void main() {
       expect(execute(source), equals(['hello there', 'text/plain']));
     });
 
-    test('F-SC10-3: base64 encoding is flagged and round-trips [2026-07-27]',
-        () {
-      const source = '''
+    test(
+      'F-SC10-3: base64 encoding is flagged and round-trips [2026-07-27]',
+      () {
+        const source = '''
       main() {
         final d = UriData.fromString('payload', mimeType: 'text/plain', base64: true);
         return [d.isBase64, d.contentAsString()];
       }
       ''';
-      expect(execute(source), equals([true, 'payload']));
-    });
+        expect(execute(source), equals([true, 'payload']));
+      },
+    );
 
     test('F-SC10-4: fromBytes/contentAsBytes round-trip [2026-07-27]', () {
       const source = '''
@@ -51,8 +55,7 @@ void main() {
         return [bytes.length, bytes[0], bytes[3], d.mimeType];
       }
       ''';
-      expect(
-          execute(source), equals([4, 1, 250, 'application/octet-stream']));
+      expect(execute(source), equals([4, 1, 250, 'application/octet-stream']));
     });
 
     test('F-SC10-5: charset and parameters are exposed [2026-07-27]', () {
@@ -96,13 +99,13 @@ void main() {
         return [d is UriData, d.contentAsString(), d.mimeType];
       }
       ''';
-      expect(execute(source),
-          equals([true, 'made-by-uri', 'text/plain']));
+      expect(execute(source), equals([true, 'made-by-uri', 'text/plain']));
     });
 
-    test('F-SC10-8: UriData works as a declared type and field [2026-07-27]',
-        () {
-      const source = '''
+    test(
+      'F-SC10-8: UriData works as a declared type and field [2026-07-27]',
+      () {
+        const source = '''
       class Holder {
         UriData payload = UriData.fromString('held', mimeType: 'text/plain');
         String read() => payload.contentAsString();
@@ -113,8 +116,9 @@ void main() {
         return [local is UriData, local.contentAsString(), h.read()];
       }
       ''';
-      expect(execute(source), equals([true, 'local', 'held']));
-    });
+        expect(execute(source), equals([true, 'local', 'held']));
+      },
+    );
 
     test('F-SC10-9: toString returns the data URI text [2026-07-27]', () {
       const source = '''
@@ -133,11 +137,12 @@ void main() {
   // place in this bridge where a value has to survive the crossing *into*
   // native code as a bridged object rather than a primitive.
   group('UriData named-argument surface', () {
-    test('F-SC10-10: fromString honours the encoding argument [2026-07-27]',
-        () {
-      // `latin1` is a dart:convert global, so it reaches the adapter as the
-      // native Encoding the SDK constructor demands.
-      const source = '''
+    test(
+      'F-SC10-10: fromString honours the encoding argument [2026-07-27]',
+      () {
+        // `latin1` is a dart:convert global, so it reaches the adapter as the
+        // native Encoding the SDK constructor demands.
+        const source = '''
       import 'dart:convert';
       main() {
         final d = UriData.fromString('café', mimeType: 'text/plain',
@@ -145,8 +150,9 @@ void main() {
         return [d.charset, d.contentAsString()];
       }
       ''';
-      expect(execute(source), equals(['iso-8859-1', 'café']));
-    });
+        expect(execute(source), equals(['iso-8859-1', 'café']));
+      },
+    );
 
     test('F-SC10-11: contentAsString honours the encoding argument '
         '[2026-07-27]', () {

@@ -3,8 +3,10 @@ import 'interpreter_test.dart';
 
 void main() {
   group('Basic Generic Support', () {
-    test('I-TYPE-60: Simple class without generics should still work. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-60: Simple class without generics should still work. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Box {
           var value;
           Box(this.value);
@@ -16,11 +18,14 @@ void main() {
           return box.getValue();
         }
       ''';
-      expect(execute(code), equals(42));
-    });
+        expect(execute(code), equals(42));
+      },
+    );
 
-    test('I-TYPE-48: Class with generic syntax should parse but work as dynamic. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-48: Class with generic syntax should parse but work as dynamic. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Box<T> {
           var value;
           Box(this.value);
@@ -32,11 +37,14 @@ void main() {
           return box.getValue();
         }
       ''';
-      expect(execute(code), equals("hello"));
-    });
+        expect(execute(code), equals("hello"));
+      },
+    );
 
-    test('I-TYPE-53: Function with type parameter should parse and work. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-53: Function with type parameter should parse and work. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         T identity<T>(T value) {
           return value;
         }
@@ -47,11 +55,14 @@ void main() {
           return [result1, result2];
         }
       ''';
-      expect(execute(code), equals([42, "hello"]));
-    });
+        expect(execute(code), equals([42, "hello"]));
+      },
+    );
 
-    test('I-TYPE-58: Multiple type parameters should parse. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-58: Multiple type parameters should parse. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Pair<T, U> {
           var first;
           var second;
@@ -65,11 +76,14 @@ void main() {
           return [pair.getFirst(), pair.getSecond()];
         }
       ''';
-      expect(execute(code), equals([42, "hello"]));
-    });
+        expect(execute(code), equals([42, "hello"]));
+      },
+    );
 
-    test('I-TYPE-63: Type parameters with bounds should parse (but bounds ignored). [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-63: Type parameters with bounds should parse (but bounds ignored). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Container<T extends Object> {
           var item;
           Container(this.item);
@@ -81,11 +95,14 @@ void main() {
           return container.getItem();
         }
       ''';
-      expect(execute(code), equals("test"));
-    });
+        expect(execute(code), equals("test"));
+      },
+    );
 
-    test('I-TYPE-67: Generic method should parse. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-67: Generic method should parse. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Utils {
           static T convert<T>(dynamic value) {
             return value;
@@ -97,11 +114,14 @@ void main() {
           return result;
         }
       ''';
-      expect(execute(code), equals("converted"));
-    });
+        expect(execute(code), equals("converted"));
+      },
+    );
 
-    test('I-TYPE-30: Instantiation with explicit type arguments should parse. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-30: Instantiation with explicit type arguments should parse. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Box<T> {
           var value;
           Box(this.value);
@@ -113,11 +133,14 @@ void main() {
           return box.getValue();
         }
       ''';
-      expect(execute(code), equals(42));
-    });
+        expect(execute(code), equals(42));
+      },
+    );
 
-    test('I-TYPE-34: Nested generics should parse. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-34: Nested generics should parse. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Wrapper<T> {
           var content;
           Wrapper(this.content);
@@ -129,13 +152,16 @@ void main() {
           return nested.getContent().getContent();
         }
       ''';
-      expect(execute(code), equals("hello"));
-    });
+        expect(execute(code), equals("hello"));
+      },
+    );
   });
 
   group('Advanced Generic Support', () {
-    test('I-TYPE-38: Generic class with type-specific methods. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-38: Generic class with type-specific methods. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Repository<T> {
           List<T> items = [];
           
@@ -172,8 +198,9 @@ void main() {
           ];
         }
       ''';
-      expect(execute(code), equals(["hello", "world", 2, 42, 100, 2]));
-    });
+        expect(execute(code), equals(["hello", "world", 2, 42, 100, 2]));
+      },
+    );
 
     test('I-TYPE-46: Generic inheritance. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -206,8 +233,10 @@ void main() {
       expect(execute(code), equals([42, 42.0, 3.14, 3.14]));
     });
 
-    test('I-TYPE-47: Multiple generic constraints. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-47: Multiple generic constraints. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Serializable<T extends Object> {
           T data;
           Serializable(this.data);
@@ -234,11 +263,14 @@ void main() {
           ];
         }
       ''';
-      expect(execute(code), equals(["test data", true, "test data"]));
-    });
+        expect(execute(code), equals(["test data", true, "test data"]));
+      },
+    );
 
-    test('I-TYPE-49: Generic factory constructors. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-49: Generic factory constructors. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Optional<T> {
           T? _value;
           
@@ -268,11 +300,14 @@ void main() {
           ];
         }
       ''';
-      expect(execute(code), equals([true, "hello", false, null]));
-    });
+        expect(execute(code), equals([true, "hello", false, null]));
+      },
+    );
 
-    test('I-TYPE-50: Complex generic collection operations. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-50: Complex generic collection operations. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class GenericList<T> {
           List<T> _items = [];
           
@@ -304,13 +339,15 @@ void main() {
           ];
         }
       ''';
-      expect(
+        expect(
           execute(code),
           equals([
             [1, 2, 3],
-            ["num_1", "num_2", "num_3"]
-          ]));
-    });
+            ["num_1", "num_2", "num_3"],
+          ]),
+        );
+      },
+    );
 
     test('I-TYPE-51: Generic mixin support. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -356,9 +393,10 @@ void main() {
   });
 
   group('Generic Error Handling', () {
-    test('I-TYPE-52: Type mismatch should be caught (when bounds checking implemented). [2026-02-10 06:37] (PASS)',
-        () {
-      final code = '''
+    test(
+      'I-TYPE-52: Type mismatch should be caught (when bounds checking implemented). [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class NumberOnly<T extends num> {
           T value;
           NumberOnly(this.value);
@@ -374,8 +412,9 @@ void main() {
           return intContainer.value;
         }
       ''';
-      expect(execute(code), equals(42));
-    });
+        expect(execute(code), equals(42));
+      },
+    );
 
     test('I-TYPE-54: Null safety with generics. [2026-02-10 06:37] (PASS)', () {
       final code = '''
@@ -409,8 +448,10 @@ void main() {
   });
 
   group('Advanced Type Checking and Error Handling', () {
-    test('I-TYPE-55: Generic type constraints verification. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-55: Generic type constraints verification. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class NumericContainer<T extends num> {
           T value;
           NumericContainer(this.value);
@@ -435,11 +476,14 @@ void main() {
           ];
         }
       ''';
-      expect(execute(code), equals([15, 5.0, true, true]));
-    });
+        expect(execute(code), equals([15, 5.0, true, true]));
+      },
+    );
 
-    test('I-TYPE-56: Generic collections with type safety tests. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-56: Generic collections with type safety tests. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class TypeSafeList<T> {
           List<T> _items = [];
           
@@ -486,12 +530,17 @@ void main() {
           ];
         }
       ''';
-      expect(
-          execute(code), equals(["hello", "String", true, 100, "int", true]));
-    });
+        expect(
+          execute(code),
+          equals(["hello", "String", true, 100, "int", true]),
+        );
+      },
+    );
 
-    test('I-TYPE-57: Generic method overloading and type resolution. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-57: Generic method overloading and type resolution. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Converter {
           static T convert<T>(dynamic value) {
             // Simple conversion logic
@@ -523,18 +572,22 @@ void main() {
           ];
         }
       ''';
-      expect(
+        expect(
           execute(code),
           equals([
             2,
             5.0,
             "42",
-            ["1", "2.5", "3"]
-          ]));
-    });
+            ["1", "2.5", "3"],
+          ]),
+        );
+      },
+    );
 
-    test('I-TYPE-59: Generic exception handling and type errors. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-59: Generic exception handling and type errors. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Result<T, E> {
           final T? _value;
           final E? _error;
@@ -594,7 +647,7 @@ void main() {
           ];
         }
       ''';
-      expect(
+        expect(
           execute(code),
           equals([
             true,
@@ -602,12 +655,16 @@ void main() {
             true,
             "Division by zero",
             "Success: 5",
-            "Error: Division by zero"
-          ]));
-    });
+            "Error: Division by zero",
+          ]),
+        );
+      },
+    );
 
-    test('I-TYPE-61: Generic inheritance with type preservation. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-61: Generic inheritance with type preservation. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         abstract class Repository<T> {
           List<T> findAll();
           T? findById(String id);
@@ -665,11 +722,14 @@ void main() {
           ];
         }
       ''';
-      expect(execute(code), equals([2, 2, "Alice", 30]));
-    });
+        expect(execute(code), equals([2, 2, "Alice", 30]));
+      },
+    );
 
-    test('I-TYPE-62: Complex generic type interactions. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-62: Complex generic type interactions. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Either<L, R> {
           final L? _left;
           final R? _right;
@@ -729,12 +789,17 @@ void main() {
           ];
         }
       ''';
-      expect(execute(code),
-          equals([true, 42, true, 84, "Error: Invalid number: abc"]));
-    });
+        expect(
+          execute(code),
+          equals([true, 42, true, 84, "Error: Invalid number: abc"]),
+        );
+      },
+    );
 
-    test('I-TYPE-64: Generic type bounds with multiple constraints. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-64: Generic type bounds with multiple constraints. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         mixin Serializable {
           String toJson();
         }
@@ -792,12 +857,17 @@ void main() {
           ];
         }
       ''';
-      expect(execute(code),
-          equals([2, '{"id": "1", "name": "Alice"}', "Alice", "1"]));
-    });
+        expect(
+          execute(code),
+          equals([2, '{"id": "1", "name": "Alice"}', "Alice", "1"]),
+        );
+      },
+    );
 
-    test('I-TYPE-65: Generic type variance and covariance simulation. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-65: Generic type variance and covariance simulation. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Animal {
           final String name;
           Animal(this.name);
@@ -856,18 +926,22 @@ void main() {
           ];
         }
       ''';
-      expect(
+        expect(
           execute(code),
           equals([
             ["Woof!", "Woof!"],
             ["Meow!", "Meow!"],
             2,
-            "Rex"
-          ]));
-    });
+            "Rex",
+          ]),
+        );
+      },
+    );
 
-    test('I-TYPE-66: Static method resolution within class context. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-66: Static method resolution within class context. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Converter {
           static T convert<T>(dynamic value) {
             // Simple conversion logic
@@ -917,19 +991,23 @@ void main() {
           ];
         }
       ''';
-      expect(
+        expect(
           execute(code),
           equals([
             3,
             ["1", "2", "3"],
             42,
             "123",
-            [1.0, 2.0, 3.0]
-          ]));
-    });
+            [1.0, 2.0, 3.0],
+          ]),
+        );
+      },
+    );
 
-    test('I-TYPE-68: Dynamic bounds resolution with custom types from environment. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-68: Dynamic bounds resolution with custom types from environment. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         // Define a custom interface/class first
         abstract class Serializable {
           String toJson();
@@ -965,20 +1043,25 @@ void main() {
         }
       ''';
 
-      var result = execute(code);
-      expect(
+        var result = execute(code);
+        expect(
           result,
           anyOf(
-              equals(["Alice", '{"name": "Alice"}']),
-              contains(
-                  "Error:") // If the resolution of custom types is not yet complete
-              ));
-    });
+            equals(["Alice", '{"name": "Alice"}']),
+            contains(
+              "Error:",
+            ), // If the resolution of custom types is not yet complete
+          ),
+        );
+      },
+    );
   });
 
   group('Type Error Detection and Validation', () {
-    test('I-TYPE-69: Invalid type assignment should be detected. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-69: Invalid type assignment should be detected. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class TypedContainer<T> {
           T value;
           TypedContainer(this.value);
@@ -1005,16 +1088,22 @@ void main() {
           }
         }
       ''';
-      // For now, d4rt might not catch this, but we test the structure
-      var result = execute(code);
-      expect(
+        // For now, d4rt might not catch this, but we test the structure
+        var result = execute(code);
+        expect(
           result,
-          anyOf(equals("SUCCESS: Type error caught"),
-              equals("ERROR: Should have failed")));
-    });
+          anyOf(
+            equals("SUCCESS: Type error caught"),
+            equals("ERROR: Should have failed"),
+          ),
+        );
+      },
+    );
 
-    test('I-TYPE-29: Method call with wrong argument types should fail gracefully. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-29: Method call with wrong argument types should fail gracefully. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Calculator<T extends num> {
           T add(T a, T b) {
             return a + b;
@@ -1040,11 +1129,14 @@ void main() {
           }
         }
       ''';
-      expect(execute(code), equals([15, 12]));
-    });
+        expect(execute(code), equals([15, 12]));
+      },
+    );
 
-    test('I-TYPE-31: Generic type constraint violations should be handled. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-31: Generic type constraint violations should be handled. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         // Simulate a constraint violation scenario
         class NumericProcessor<T extends num> {
           T process(T value) {
@@ -1082,16 +1174,20 @@ void main() {
           }
         }
       ''';
-      expect(
+        expect(
           execute(code),
           equals([
             43,
-            [2, 3, 4]
-          ]));
-    });
+            [2, 3, 4],
+          ]),
+        );
+      },
+    );
 
-    test('I-TYPE-32: Null safety violations with generics. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-32: Null safety violations with generics. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class NullableContainer<T> {
           T? _value;
           
@@ -1134,11 +1230,14 @@ void main() {
           }
         }
       ''';
-      expect(execute(code), equals(["Null check worked", "test", "test"]));
-    });
+        expect(execute(code), equals(["Null check worked", "test", "test"]));
+      },
+    );
 
-    test('I-TYPE-33: Collection type mismatches should be detected. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-33: Collection type mismatches should be detected. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class TypedList<T> {
           List<T> _items = [];
           
@@ -1192,17 +1291,20 @@ void main() {
           }
         }
       ''';
-      var result = execute(code);
-      expect(result, isA<List>());
-      if (result is List) {
-        expect(result[0], equals("Type checking works"));
-        expect(result[1], equals(["hello", "world", "test"]));
-        expect(result[2], isA<bool>());
-      }
-    });
+        var result = execute(code);
+        expect(result, isA<List>());
+        if (result is List) {
+          expect(result[0], equals("Type checking works"));
+          expect(result[1], equals(["hello", "world", "test"]));
+          expect(result[2], isA<bool>());
+        }
+      },
+    );
 
-    test('I-TYPE-35: Generic method type parameter misuse. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-35: Generic method type parameter misuse. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class TypeConverter {
           static T convert<T>(dynamic value, Type targetType) {
             try {
@@ -1261,18 +1363,22 @@ void main() {
           }
         }
       ''';
-      expect(
+        expect(
           execute(code),
           equals([
             42,
             "123",
             true,
-            [1, 2, 3]
-          ]));
-    });
+            [1, 2, 3],
+          ]),
+        );
+      },
+    );
 
-    test('I-TYPE-36: Inheritance type safety violations. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-36: Inheritance type safety violations. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class Animal {
           String name;
           Animal(this.name);
@@ -1336,13 +1442,16 @@ void main() {
           }
         }
       ''';
-      var result = execute(code);
-      // This test shows current behavior - might change when stricter typing is implemented
-      expect(result, isA<List>());
-    });
+        var result = execute(code);
+        // This test shows current behavior - might change when stricter typing is implemented
+        expect(result, isA<List>());
+      },
+    );
 
-    test('I-TYPE-37: Complex generic constraint validation. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-37: Complex generic constraint validation. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         // Simulating a scenario where multiple constraints should be checked
         abstract class Drawable {
           void draw();
@@ -1433,11 +1542,14 @@ void main() {
           }
         }
       ''';
-      expect(execute(code), equals(["Validation passed", 2, 1, 11]));
-    });
+        expect(execute(code), equals(["Validation passed", 2, 1, 11]));
+      },
+    );
 
-    test('I-TYPE-39: Runtime type validation with generics enforcement. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-39: Runtime type validation with generics enforcement. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class TypeSafeContainer<T> {
           List<T> _items = [];
           
@@ -1484,17 +1596,20 @@ void main() {
         }
       ''';
 
-      var result = execute(code);
-      expect(result, isA<List>());
-      if (result is List) {
-        expect(result[0], equals("Type validation works"));
-        expect(result[1], equals(["hello", "world", "test"]));
-        expect(result[2], isA<bool>());
-      }
-    });
+        var result = execute(code);
+        expect(result, isA<List>());
+        if (result is List) {
+          expect(result[0], equals("Type validation works"));
+          expect(result[1], equals(["hello", "world", "test"]));
+          expect(result[2], isA<bool>());
+        }
+      },
+    );
 
-    test('I-TYPE-40: Generic method parameter validation. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-40: Generic method parameter validation. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class TypeValidator {
           static T validateAndReturn<T>(dynamic value, Type expectedType) {
             if (expectedType == String && value is! String) {
@@ -1543,19 +1658,23 @@ void main() {
         }
       ''';
 
-      expect(
+        expect(
           execute(code),
           equals([
             "hello",
             42,
-            ["a", "b", "c"]
-          ]));
-    });
+            ["a", "b", "c"],
+          ]),
+        );
+      },
+    );
   });
 
   group('Type Bounds Checking Implementation', () {
-    test('I-TYPE-41: Generic function with numeric bounds should enforce constraints. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-41: Generic function with numeric bounds should enforce constraints. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         T addOne<T extends num>(T value) {
           return value + 1;
         }
@@ -1572,11 +1691,14 @@ void main() {
           }
         }
       ''';
-      expect(execute(code), equals([43, 4.140000000000001]));
-    });
+        expect(execute(code), equals([43, 4.140000000000001]));
+      },
+    );
 
-    test('I-TYPE-42: Generic function with Object bounds should allow most types. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-42: Generic function with Object bounds should allow most types. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         T identity<T extends Object>(T value) {
           return value;
         }
@@ -1594,11 +1716,14 @@ void main() {
           }
         }
       ''';
-      expect(execute(code), equals(["hello", 42, true]));
-    });
+        expect(execute(code), equals(["hello", 42, true]));
+      },
+    );
 
-    test('I-TYPE-43: Generic class with bounded type parameters. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-43: Generic class with bounded type parameters. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         class NumericContainer<T extends num> {
           T value;
           NumericContainer(this.value);
@@ -1629,11 +1754,14 @@ void main() {
           }
         }
       ''';
-      expect(execute(code), equals([15, true, 3.14, 5.0]));
-    });
+        expect(execute(code), equals([15, true, 3.14, 5.0]));
+      },
+    );
 
-    test('I-TYPE-44: Multiple bounded type parameters. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-44: Multiple bounded type parameters. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         T process<T extends num, U extends Object>(T number, U object) {
           // T must be numeric, U can be any Object
           return number + (object.toString().length as num);
@@ -1650,11 +1778,14 @@ void main() {
           }
         }
       ''';
-      expect(execute(code), equals([10, 7.5]));
-    });
+        expect(execute(code), equals([10, 7.5]));
+      },
+    );
 
-    test('I-TYPE-45: Bounds checking error detection. [2026-02-10 06:37] (PASS)', () {
-      final code = '''
+    test(
+      'I-TYPE-45: Bounds checking error detection. [2026-02-10 06:37] (PASS)',
+      () {
+        final code = '''
         // This function should only accept numeric types
         T square<T extends num>(T value) {
           return value * value;
@@ -1675,13 +1806,16 @@ void main() {
           }
         }
       ''';
-      var result = execute(code);
-      expect(
+        var result = execute(code);
+        expect(
           result,
           anyOf(
-              equals([25, "bounds validation infrastructure working"]),
-              contains("bounds validation infrastructure working"),
-              contains("Bounds checking error:")));
-    });
+            equals([25, "bounds validation infrastructure working"]),
+            contains("bounds validation infrastructure working"),
+            contains("Bounds checking error:"),
+          ),
+        );
+      },
+    );
   });
 }

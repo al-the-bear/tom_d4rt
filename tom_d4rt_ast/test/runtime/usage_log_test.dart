@@ -64,11 +64,14 @@ void main() {
       D4.recordUsageHit('relaxer', 'List', 'int');
       D4.recordUsageHit('coercion', 'TextStyle', 'TextStyle');
       D4.recordUsageHit('ctor', 'ValueNotifier', 'int');
-      expect(D4.usageHits.keys, containsAll(<String>[
-        'relaxer|List|int',
-        'coercion|TextStyle|TextStyle',
-        'ctor|ValueNotifier|int',
-      ]));
+      expect(
+        D4.usageHits.keys,
+        containsAll(<String>[
+          'relaxer|List|int',
+          'coercion|TextStyle|TextStyle',
+          'ctor|ValueNotifier|int',
+        ]),
+      );
       expect(D4.usageHitCount, 3);
       expect(D4.usageHits.length, 3);
     });

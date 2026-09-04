@@ -74,11 +74,13 @@ class ConvertStdlib {
 
     // Register global functions
     environment.define(
-        'jsonEncode',
-        NativeFunction((visitor, arguments, namedArguments, typeArguments) {
+      'jsonEncode',
+      NativeFunction(
+        (visitor, arguments, namedArguments, typeArguments) {
           if (arguments.length != 1) {
             throw RuntimeD4rtException(
-                'jsonEncode requires one positional argument (object).');
+              'jsonEncode requires one positional argument (object).',
+            );
           }
           final toEncodableArg =
               namedArguments['toEncodable'] as InterpretedFunction?;
@@ -88,14 +90,20 @@ class ConvertStdlib {
                 ? null
                 : (object) => toEncodableArg.call(visitor, [object]),
           );
-        }, arity: 1, name: 'jsonEncode'));
+        },
+        arity: 1,
+        name: 'jsonEncode',
+      ),
+    );
 
     environment.define(
-        'jsonDecode',
-        NativeFunction((visitor, arguments, namedArguments, typeArguments) {
+      'jsonDecode',
+      NativeFunction(
+        (visitor, arguments, namedArguments, typeArguments) {
           if (arguments.length != 1 || arguments[0] is! String) {
             throw RuntimeD4rtException(
-                'jsonDecode requires one positional argument (String source).');
+              'jsonDecode requires one positional argument (String source).',
+            );
           }
           final reviverArg = namedArguments['reviver'] as InterpretedFunction?;
           return jsonDecode(
@@ -104,7 +112,11 @@ class ConvertStdlib {
                 ? null
                 : (key, value) => reviverArg.call(visitor, [key, value]),
           );
-        }, arity: 1, name: 'jsonDecode'));
+        },
+        arity: 1,
+        name: 'jsonDecode',
+      ),
+    );
 
     // Register global instances
     environment.define('json', json);
@@ -116,28 +128,42 @@ class ConvertStdlib {
 
     // Register global functions
     environment.define(
-        'base64Encode',
-        NativeFunction((visitor, arguments, namedArguments, typeArguments) {
+      'base64Encode',
+      NativeFunction(
+        (visitor, arguments, namedArguments, typeArguments) {
           if (arguments.length != 1) {
             throw RuntimeD4rtException(
-                'base64Encode requires one positional argument (List<int> bytes).');
+              'base64Encode requires one positional argument (List<int> bytes).',
+            );
           }
           final bytes = arguments[0];
           if (bytes is! List) {
-            throw RuntimeD4rtException('base64Encode requires a List<int> argument.');
+            throw RuntimeD4rtException(
+              'base64Encode requires a List<int> argument.',
+            );
           }
           return base64Encode(bytes.cast<int>());
-        }, arity: 1, name: 'base64Encode'));
+        },
+        arity: 1,
+        name: 'base64Encode',
+      ),
+    );
 
     environment.define(
-        'base64Decode',
-        NativeFunction((visitor, arguments, namedArguments, typeArguments) {
+      'base64Decode',
+      NativeFunction(
+        (visitor, arguments, namedArguments, typeArguments) {
           if (arguments.length != 1 || arguments[0] is! String) {
             throw RuntimeD4rtException(
-                'base64Decode requires one positional argument (String source).');
+              'base64Decode requires one positional argument (String source).',
+            );
           }
           return base64Decode(arguments[0] as String);
-        }, arity: 1, name: 'base64Decode'));
+        },
+        arity: 1,
+        name: 'base64Decode',
+      ),
+    );
 
     // Register HtmlEscape classes
     HtmlEscapeConvert.register(environment);

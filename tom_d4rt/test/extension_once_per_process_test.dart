@@ -25,70 +25,93 @@ void main() {
   BridgedClass marker(String name) =>
       BridgedClass(nativeType: Object, name: name);
 
-  group('IMP-OPT-11: extension callbacks fire once per package per process', () {
-    setUp(D4rt.debugResetPool);
-    tearDown(D4rt.debugResetPool);
+  group(
+    'IMP-OPT-11: extension callbacks fire once per package per process',
+    () {
+      setUp(D4rt.debugResetPool);
+      tearDown(D4rt.debugResetPool);
 
-    test(
+      test(
         'IMP-OPT-11a: two interpreters registering the same package fire the '
-        'callback exactly once', () {
-      var fireCount = 0;
-
-      final first = D4rt();
-      first.registerExtensions('shared_pkg', () => fireCount++);
-      first.finalizeBridges();
-      expect(fireCount, 1, reason: 'first finalize fires the callback');
-
-      final second = D4rt();
-      second.registerExtensions('shared_pkg', () => fireCount += 100);
-      second.finalizeBridges();
-
-      expect(fireCount, 1,
-          reason: 'second interpreter must NOT re-fire the already-fired '
-              'package');
-    });
-
-    test(
-        'IMP-OPT-11b: canonical providePackage idiom fires extensions once', () {
-      var fireCount = 0;
-
-      final first = D4rt();
-      if (first.providePackage('flutter') == false) {
-        first.registerBridgedClass(marker('FWidget'), 'package:f/f.dart',
-            sourceUri: 'package:f/f.dart');
-        first.registerExtensions('flutter', () => fireCount++);
-      }
-      first.finalizeBridges();
-      expect(fireCount, 1);
-
-      final second = D4rt();
-      if (second.providePackage('flutter') == false) {
-        second.registerExtensions('flutter', () => fireCount += 100);
-      }
-      second.finalizeBridges();
-
-      expect(fireCount, 1,
-          reason: 'second instance skips registration and the extension, and '
-              'the pooled callback is already fired');
-    });
-
-    test('IMP-OPT-11c: distinct packages each fire once in registration order',
+        'callback exactly once',
         () {
-      final order = <String>[];
+          var fireCount = 0;
 
-      final first = D4rt();
-      first.registerExtensions('alpha', () => order.add('alpha'));
-      first.registerExtensions('beta', () => order.add('beta'));
-      first.finalizeBridges();
-      expect(order, equals(<String>['alpha', 'beta']));
+          final first = D4rt();
+          first.registerExtensions('shared_pkg', () => fireCount++);
+          first.finalizeBridges();
+          expect(fireCount, 1, reason: 'first finalize fires the callback');
 
-      final second = D4rt();
-      second.registerExtensions('alpha', () => order.add('alpha2'));
-      second.registerExtensions('beta', () => order.add('beta2'));
-      second.finalizeBridges();
+          final second = D4rt();
+          second.registerExtensions('shared_pkg', () => fireCount += 100);
+          second.finalizeBridges();
 
-      expect(order, equals(<String>['alpha', 'beta']),
-          reason: 'both packages already fired once in this process');
-    });
-  });
+          expect(
+            fireCount,
+            1,
+            reason:
+                'second interpreter must NOT re-fire the already-fired '
+                'package',
+          );
+        },
+      );
+
+      test(
+        'IMP-OPT-11b: canonical providePackage idiom fires extensions once',
+        () {
+          var fireCount = 0;
+
+          final first = D4rt();
+          if (first.providePackage('flutter') == false) {
+            first.registerBridgedClass(
+              marker('FWidget'),
+              'package:f/f.dart',
+              sourceUri: 'package:f/f.dart',
+            );
+            first.registerExtensions('flutter', () => fireCount++);
+          }
+          first.finalizeBridges();
+          expect(fireCount, 1);
+
+          final second = D4rt();
+          if (second.providePackage('flutter') == false) {
+            second.registerExtensions('flutter', () => fireCount += 100);
+          }
+          second.finalizeBridges();
+
+          expect(
+            fireCount,
+            1,
+            reason:
+                'second instance skips registration and the extension, and '
+                'the pooled callback is already fired',
+          );
+        },
+      );
+
+      test(
+        'IMP-OPT-11c: distinct packages each fire once in registration order',
+        () {
+          final order = <String>[];
+
+          final first = D4rt();
+          first.registerExtensions('alpha', () => order.add('alpha'));
+          first.registerExtensions('beta', () => order.add('beta'));
+          first.finalizeBridges();
+          expect(order, equals(<String>['alpha', 'beta']));
+
+          final second = D4rt();
+          second.registerExtensions('alpha', () => order.add('alpha2'));
+          second.registerExtensions('beta', () => order.add('beta2'));
+          second.finalizeBridges();
+
+          expect(
+            order,
+            equals(<String>['alpha', 'beta']),
+            reason: 'both packages already fired once in this process',
+          );
+        },
+      );
+    },
+  );
 }

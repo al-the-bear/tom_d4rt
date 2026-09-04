@@ -29,5 +29,4 @@ List<Object?> errorHandlerArgs(
   InterpretedFunction handler,
   Object? error,
   StackTrace? stackTrace,
-) =>
-    handler.maxPositionalArity >= 2 ? [error, stackTrace] : [error];
+) => handler.maxPositionalArity >= 2 ? [error, stackTrace] : [error];

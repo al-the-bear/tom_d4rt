@@ -34,17 +34,17 @@ import 'package:tom_d4rt/d4rt.dart';
 dynamic execute(String source) {
   final d4rt = D4rt()..setDebug(false);
   return d4rt.execute(
-      library: 'package:test/main.dart',
-      sources: {'package:test/main.dart': source});
+    library: 'package:test/main.dart',
+    sources: {'package:test/main.dart': source},
+  );
 }
 
 void main() {
   group('SCC18: a typed pattern rejects a value of the wrong type', () {
-    test(
-        'F-SCC18-1: a switch statement skips `case int _` for a String '
+    test('F-SCC18-1: a switch statement skips `case int _` for a String '
         '[2026-09-04] (PASS)', () {
       expect(
-          execute('''
+        execute('''
             main() {
               Object x = 'hello';
               switch (x) {
@@ -54,14 +54,14 @@ void main() {
               }
             }
           '''),
-          'String');
+        'String',
+      );
     });
 
-    test(
-        'F-SCC18-2: a switch statement skips a typed BINDING pattern for the '
+    test('F-SCC18-2: a switch statement skips a typed BINDING pattern for the '
         'wrong type, and the arm that wins binds [2026-09-04] (PASS)', () {
       expect(
-          execute('''
+        execute('''
             main() {
               Object x = 42;
               switch (x) {
@@ -71,14 +71,14 @@ void main() {
               }
             }
           '''),
-          'int:43');
+        'int:43',
+      );
     });
 
-    test(
-        'F-SCC18-3: a switch EXPRESSION skips the wrong-typed arm '
+    test('F-SCC18-3: a switch EXPRESSION skips the wrong-typed arm '
         '[2026-09-04] (PASS)', () {
       expect(
-          execute('''
+        execute('''
             main() {
               Object x = 'hello';
               return switch (x) {
@@ -88,14 +88,14 @@ void main() {
               };
             }
           '''),
-          'String');
+        'String',
+      );
     });
 
-    test(
-        'F-SCC18-4: an if-case with a non-matching type takes the else branch '
+    test('F-SCC18-4: an if-case with a non-matching type takes the else branch '
         '[2026-09-04] (PASS)', () {
       expect(
-          execute('''
+        execute('''
             main() {
               Object x = 'hello';
               if (x case int _) {
@@ -105,14 +105,14 @@ void main() {
               }
             }
           '''),
-          'not-int');
+        'not-int',
+      );
     });
 
-    test(
-        'F-SCC18-5: a nested typed sub-pattern rejects, so the enclosing list '
+    test('F-SCC18-5: a nested typed sub-pattern rejects, so the enclosing list '
         'pattern does not match [2026-09-04] (PASS)', () {
       expect(
-          execute('''
+        execute('''
             main() {
               Object x = [1, 'two'];
               switch (x) {
@@ -122,14 +122,14 @@ void main() {
               }
             }
           '''),
-          'int-then-string');
+        'int-then-string',
+      );
     });
 
-    test(
-        'F-SCC18-6: `int(isEven: true)` evaluates its getter instead of '
+    test('F-SCC18-6: `int(isEven: true)` evaluates its getter instead of '
         'matching anything [2026-09-04] (PASS)', () {
       expect(
-          execute('''
+        execute('''
             main() {
               var out = [];
               for (var x in [2, 3]) {
@@ -142,14 +142,14 @@ void main() {
               return out;
             }
           '''),
-          ['even', 'odd']);
+        ['even', 'odd'],
+      );
     });
 
-    test(
-        'F-SCC18-7: a bare object pattern `int()` rejects a String '
+    test('F-SCC18-7: a bare object pattern `int()` rejects a String '
         '[2026-09-04] (PASS)', () {
       expect(
-          execute('''
+        execute('''
             main() {
               Object x = 's';
               switch (x) {
@@ -159,14 +159,14 @@ void main() {
               }
             }
           '''),
-          'String');
+        'String',
+      );
     });
 
-    test(
-        'F-SCC18-8: `num` accepts an int while `double` does not, so the '
+    test('F-SCC18-8: `num` accepts an int while `double` does not, so the '
         'supertype arm is reachable [2026-09-04] (PASS)', () {
       expect(
-          execute('''
+        execute('''
             main() {
               Object x = 7;
               switch (x) {
@@ -176,17 +176,17 @@ void main() {
               }
             }
           '''),
-          'num');
+        'num',
+      );
     });
 
-    test(
-        'F-SCC18-9: an untyped `var`/`_` pattern still matches anything '
+    test('F-SCC18-9: an untyped `var`/`_` pattern still matches anything '
         '[2026-09-04] (PASS)', () {
       // The fix must gate on `pattern.type != null` only. An untyped binding is
       // the irrefutable pattern the language says it is, and it is what every
       // existing destructuring test relies on.
       expect(
-          execute('''
+        execute('''
             main() {
               Object x = 'hello';
               switch (x) {
@@ -195,14 +195,14 @@ void main() {
               }
             }
           '''),
-          'bound:hello');
+        'bound:hello',
+      );
     });
 
-    test(
-        'F-SCC18-10: a typed pattern over a user class rejects an unrelated '
+    test('F-SCC18-10: a typed pattern over a user class rejects an unrelated '
         'instance and accepts a subclass [2026-09-04] (PASS)', () {
       expect(
-          execute('''
+        execute('''
             class Animal {}
             class Dog extends Animal {}
             class Rock {}
@@ -217,18 +217,18 @@ void main() {
 
             main() => [classify(Dog()), classify(Rock()), classify(3)];
           '''),
-          ['animal', 'rock', 'other']);
+        ['animal', 'rock', 'other'],
+      );
     });
 
-    test(
-        'F-SCC18-11: a typed pattern answers for a bridged collection exactly '
+    test('F-SCC18-11: a typed pattern answers for a bridged collection exactly '
         'as `is` does [2026-09-04] (PASS)', () {
       // SCB7 taught that a bridged `dart:collection` value is a
       // `BridgedInstance`, not a native `Map` — so a private type switch that
       // forgot to unwrap would answer 'other' here while `x is Map` said true.
       // Routing through the `is` predicate is what makes these agree.
       expect(
-          execute('''
+        execute('''
             import 'dart:collection';
             main() {
               Object x = HashMap<String, int>();
@@ -240,16 +240,16 @@ void main() {
               return [viaSwitch, x is Map];
             }
           '''),
-          ['Map', true]);
+        ['Map', true],
+      );
     });
 
-    test(
-        'F-SCC18-12: a guard still runs on the arm whose type matched, not on '
+    test('F-SCC18-12: a guard still runs on the arm whose type matched, not on '
         'the first arm [2026-09-04] (PASS)', () {
       // Before the fix the first arm always matched, so its `when` clause was
       // the only guard ever evaluated and the value it saw was the wrong type.
       expect(
-          execute('''
+        execute('''
             main() {
               Object x = 5;
               switch (x) {
@@ -260,7 +260,8 @@ void main() {
               }
             }
           '''),
-          'big-int');
+        'big-int',
+      );
     });
   });
 }

@@ -34,8 +34,10 @@ void main() {
         ];
       }
       ''';
-      expect(execute(source),
-          equals(['element', 'attribute', 'attribute', 'unknown']));
+      expect(
+        execute(source),
+        equals(['element', 'attribute', 'attribute', 'unknown']),
+      );
     });
 
     test('F-SCB3-2: a mode constant can be handed to the HtmlEscape '
@@ -64,11 +66,12 @@ void main() {
       expect(execute(source), equals([true, 'element']));
     });
 
-    test('F-SCB3-4: the escape flags of each mode are exposed [2026-07-28]',
-        () {
-      // The flags are what make a mode meaningful; without them a script that
-      // receives a mode cannot tell what it will do.
-      const source = '''
+    test(
+      'F-SCB3-4: the escape flags of each mode are exposed [2026-07-28]',
+      () {
+        // The flags are what make a mode meaningful; without them a script that
+        // receives a mode cannot tell what it will do.
+        const source = '''
       import 'dart:convert';
       main() {
         final a = HtmlEscapeMode.attribute;
@@ -79,9 +82,12 @@ void main() {
         ];
       }
       ''';
-      expect(execute(source),
-          equals([true, false, true, false, true, true, true, true]));
-    });
+        expect(
+          execute(source),
+          equals([true, false, true, false, true, true, true, true]),
+        );
+      },
+    );
 
     test('F-SCB3-5: a custom mode round-trips through HtmlEscape '
         '[2026-07-28]', () {
@@ -120,12 +126,9 @@ void main() {
       }
       ''';
       expect(
-          execute(source),
-          equals([
-            'a "b" &lt;c&gt;',
-            'a &quot;b&quot; &lt;c&gt;',
-            false,
-          ]));
+        execute(source),
+        equals(['a "b" &lt;c&gt;', 'a &quot;b&quot; &lt;c&gt;', false]),
+      );
     });
   });
 }

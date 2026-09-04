@@ -46,14 +46,25 @@ void main() {
       }
       ''';
       expect(
-          execute(source),
-          equals([
-            1000, 1000000, 60000000, 3600000000, 86400000000,
-            1000, 60000, 3600000, 86400000,
-            60, 3600, 86400,
-            60, 1440,
-            24,
-          ]));
+        execute(source),
+        equals([
+          1000,
+          1000000,
+          60000000,
+          3600000000,
+          86400000000,
+          1000,
+          60000,
+          3600000,
+          86400000,
+          60,
+          3600,
+          86400,
+          60,
+          1440,
+          24,
+        ]),
+      );
     });
 
     test('F-SCB3-21: the constants are consistent with Duration arithmetic '
@@ -150,7 +161,8 @@ void main() {
     for (final type in ['HashSet', 'LinkedHashSet', 'SplayTreeSet']) {
       test('F-SCB3-26-$type: difference/intersection/union resolve '
           '[2026-07-28]', () {
-        final source = '''
+        final source =
+            '''
         import 'dart:collection';
         main() {
           final s = $type<int>();
@@ -165,21 +177,24 @@ void main() {
         }
         ''';
         expect(
-            execute(source),
-            equals([
-              [1, 3],
-              [2],
-              [1, 2, 3, 7],
-            ]),
-            reason: 'set algebra must resolve on $type');
+          execute(source),
+          equals([
+            [1, 3],
+            [2],
+            [1, 2, 3, 7],
+          ]),
+          reason: 'set algebra must resolve on $type',
+        );
       });
 
-      test('F-SCB3-27-$type: the results are the same set type [2026-07-28]',
-          () {
-        // The SDK returns a set of the receiver's kind; if the adapter
-        // accidentally returned a plain literal Set this would silently pass a
-        // length check but break `is` narrowing downstream.
-        final source = '''
+      test(
+        'F-SCB3-27-$type: the results are the same set type [2026-07-28]',
+        () {
+          // The SDK returns a set of the receiver's kind; if the adapter
+          // accidentally returned a plain literal Set this would silently pass a
+          // length check but break `is` narrowing downstream.
+          final source =
+              '''
         import 'dart:collection';
         main() {
           final s = $type<int>();
@@ -187,8 +202,9 @@ void main() {
           return [s.difference({1}) is Set, s.union({3}) is Set];
         }
         ''';
-        expect(execute(source), equals([true, true]));
-      });
+          expect(execute(source), equals([true, true]));
+        },
+      );
     }
   });
 }

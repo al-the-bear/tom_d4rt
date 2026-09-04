@@ -7,8 +7,7 @@ void main() {
   // ===========================================================================
 
   /// Creates a minimal empty [SCompilationUnit].
-  SCompilationUnit emptyUnit() =>
-      SCompilationUnit(offset: 0, length: 0);
+  SCompilationUnit emptyUnit() => SCompilationUnit(offset: 0, length: 0);
 
   /// Creates an [SSimpleIdentifier] with the given [name].
   SSimpleIdentifier ident(String name) =>
@@ -94,8 +93,11 @@ void main() {
               SReturnStatement(
                 offset: 0,
                 length: 0,
-                expression:
-                    SIntegerLiteral(offset: 0, length: 1, value: returnValue),
+                expression: SIntegerLiteral(
+                  offset: 0,
+                  length: 1,
+                  value: returnValue,
+                ),
               ),
             ],
           ),
@@ -310,11 +312,13 @@ void main() {
 
       expect(
         () => loader.loadModule(Uri.parse('dart:nonexistent')),
-        throwsA(isA<RuntimeD4rtException>().having(
-          (e) => e.toString(),
-          'message',
-          contains('dart:nonexistent'),
-        )),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.toString(),
+            'message',
+            contains('dart:nonexistent'),
+          ),
+        ),
       );
     });
 
@@ -351,30 +355,36 @@ void main() {
 
       expect(
         () => loader.loadModule(Uri.parse('package:app/missing.dart')),
-        throwsA(isA<RuntimeD4rtException>().having(
-          (e) => e.toString(),
-          'message',
-          contains('not found in bundle'),
-        )),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.toString(),
+            'message',
+            contains('not found in bundle'),
+          ),
+        ),
       );
     });
 
     test('error message lists available modules', () {
-      final loader = createLoader(modules: {
-        'package:app/a.dart': emptyUnit(),
-        'package:app/b.dart': emptyUnit(),
-      });
+      final loader = createLoader(
+        modules: {
+          'package:app/a.dart': emptyUnit(),
+          'package:app/b.dart': emptyUnit(),
+        },
+      );
 
       expect(
         () => loader.loadModule(Uri.parse('package:app/missing.dart')),
-        throwsA(isA<RuntimeD4rtException>().having(
-          (e) => e.toString(),
-          'message',
-          allOf(
-            contains('package:app/a.dart'),
-            contains('package:app/b.dart'),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.toString(),
+            'message',
+            allOf(
+              contains('package:app/a.dart'),
+              contains('package:app/b.dart'),
+            ),
           ),
-        )),
+        ),
       );
     });
   });
@@ -550,15 +560,14 @@ void main() {
       final moduleB = SCompilationUnit(
         offset: 0,
         length: 0,
-        declarations: [
-          varDecl('shown', 1),
-          varDecl('hidden', 2),
-        ],
+        declarations: [varDecl('shown', 1), varDecl('hidden', 2)],
       );
       final moduleA = SCompilationUnit(
         offset: 0,
         length: 0,
-        directives: [exportDirective('package:app/b.dart', show: ['shown'])],
+        directives: [
+          exportDirective('package:app/b.dart', show: ['shown']),
+        ],
         declarations: [varDecl('aVal', 3)],
       );
 
@@ -572,20 +581,14 @@ void main() {
       expect(loaded.exportedEnvironment.get('aVal'), 3);
       expect(loaded.exportedEnvironment.get('shown'), 1);
       // 'hidden' should NOT be in exported environment of A
-      expect(
-        () => loaded.exportedEnvironment.get('hidden'),
-        throwsA(anything),
-      );
+      expect(() => loaded.exportedEnvironment.get('hidden'), throwsA(anything));
     });
 
     test('export with hide combinator', () {
       final moduleB = SCompilationUnit(
         offset: 0,
         length: 0,
-        declarations: [
-          varDecl('kept', 10),
-          varDecl('removed', 20),
-        ],
+        declarations: [varDecl('kept', 10), varDecl('removed', 20)],
       );
       final moduleA = SCompilationUnit(
         offset: 0,
@@ -677,10 +680,7 @@ void main() {
       final moduleB = SCompilationUnit(
         offset: 0,
         length: 0,
-        declarations: [
-          varDecl('visible', 1),
-          varDecl('invisible', 2),
-        ],
+        declarations: [varDecl('visible', 1), varDecl('invisible', 2)],
       );
       final moduleA = SCompilationUnit(
         offset: 0,
@@ -707,10 +707,7 @@ void main() {
       final moduleB = SCompilationUnit(
         offset: 0,
         length: 0,
-        declarations: [
-          varDecl('kept', 10),
-          varDecl('excluded', 20),
-        ],
+        declarations: [varDecl('kept', 10), varDecl('excluded', 20)],
       );
       final moduleA = SCompilationUnit(
         offset: 0,
@@ -783,21 +780,18 @@ void main() {
       final runner = D4rtRunner();
       final bundle = AstBundle(
         entryPointUri: 'package:app/other.dart',
-        modules: {
-          'package:app/other.dart': emptyUnit(),
-        },
+        modules: {'package:app/other.dart': emptyUnit()},
       );
 
       expect(
-        () => runner.executeBundle(
-          bundle,
-          entryPoint: 'package:app/main.dart',
+        () => runner.executeBundle(bundle, entryPoint: 'package:app/main.dart'),
+        throwsA(
+          isA<ArgumentD4rtException>().having(
+            (e) => e.toString(),
+            'message',
+            contains('not found in bundle'),
+          ),
         ),
-        throwsA(isA<ArgumentD4rtException>().having(
-          (e) => e.toString(),
-          'message',
-          contains('not found in bundle'),
-        )),
       );
     });
 
@@ -819,8 +813,10 @@ void main() {
         },
       );
 
-      final result =
-          runner.executeBundle(bundle, entryPoint: 'package:app/alt.dart');
+      final result = runner.executeBundle(
+        bundle,
+        entryPoint: 'package:app/alt.dart',
+      );
       expect(result, 99);
     });
 
@@ -878,11 +874,13 @@ void main() {
 
       expect(
         () => runner.executeBundle(bundle),
-        throwsA(isA<RuntimeD4rtException>().having(
-          (e) => e.toString(),
-          'message',
-          contains('main'),
-        )),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.toString(),
+            'message',
+            contains('main'),
+          ),
+        ),
       );
     });
   });
@@ -907,36 +905,40 @@ void main() {
     BridgedClass marker(String name) =>
         BridgedClass(nativeType: Object, name: name);
 
-    test('merges a single re-exported bridged class into the source module',
-        () {
-      final runner = D4rtRunner();
-      // Target library has the bridge.
-      runner.registerBridgedClass(
-        marker('TargetClass'),
-        'package:target/target.dart',
-        sourceUri: 'package:target/target.dart',
-      );
-      // Source library re-exports target.
-      runner.registerLibraryReExport(
-        'package:source/source.dart',
-        'package:target/target.dart',
-      );
+    test(
+      'merges a single re-exported bridged class into the source module',
+      () {
+        final runner = D4rtRunner();
+        // Target library has the bridge.
+        runner.registerBridgedClass(
+          marker('TargetClass'),
+          'package:target/target.dart',
+          sourceUri: 'package:target/target.dart',
+        );
+        // Source library re-exports target.
+        runner.registerLibraryReExport(
+          'package:source/source.dart',
+          'package:target/target.dart',
+        );
 
-      // Source library itself has a bridge so _tryLoadBridgedModule
-      // recognises it as a bridged module.
-      runner.registerBridgedClass(
-        marker('SourceClass'),
-        'package:source/source.dart',
-        sourceUri: 'package:source/source.dart',
-      );
+        // Source library itself has a bridge so _tryLoadBridgedModule
+        // recognises it as a bridged module.
+        runner.registerBridgedClass(
+          marker('SourceClass'),
+          'package:source/source.dart',
+          sourceUri: 'package:source/source.dart',
+        );
 
-      final loader = createLoader(runner: runner);
-      final module = loader.loadModule(Uri.parse('package:source/source.dart'));
+        final loader = createLoader(runner: runner);
+        final module = loader.loadModule(
+          Uri.parse('package:source/source.dart'),
+        );
 
-      // Both classes are reachable via the source module's exported env.
-      expect(module.exportedEnvironment.get('SourceClass'), isNotNull);
-      expect(module.exportedEnvironment.get('TargetClass'), isNotNull);
-    });
+        // Both classes are reachable via the source module's exported env.
+        expect(module.exportedEnvironment.get('SourceClass'), isNotNull);
+        expect(module.exportedEnvironment.get('TargetClass'), isNotNull);
+      },
+    );
 
     test('respects re-export show filter', () {
       final runner = D4rtRunner();
@@ -1022,14 +1024,8 @@ void main() {
         'package:b/b.dart',
         sourceUri: 'package:b/b.dart',
       );
-      runner.registerLibraryReExport(
-        'package:a/a.dart',
-        'package:b/b.dart',
-      );
-      runner.registerLibraryReExport(
-        'package:b/b.dart',
-        'package:c/c.dart',
-      );
+      runner.registerLibraryReExport('package:a/a.dart', 'package:b/b.dart');
+      runner.registerLibraryReExport('package:b/b.dart', 'package:c/c.dart');
 
       final loader = createLoader(runner: runner);
       final module = loader.loadModule(Uri.parse('package:a/a.dart'));
@@ -1052,14 +1048,8 @@ void main() {
         'package:b/b.dart',
         sourceUri: 'package:b/b.dart',
       );
-      runner.registerLibraryReExport(
-        'package:a/a.dart',
-        'package:b/b.dart',
-      );
-      runner.registerLibraryReExport(
-        'package:b/b.dart',
-        'package:a/a.dart',
-      );
+      runner.registerLibraryReExport('package:a/a.dart', 'package:b/b.dart');
+      runner.registerLibraryReExport('package:b/b.dart', 'package:a/a.dart');
 
       final loader = createLoader(runner: runner);
       final module = loader.loadModule(Uri.parse('package:a/a.dart'));

@@ -18,10 +18,7 @@ class DartOverviewBridges {
       d4rt,
       'package:dart_overview/dart_overview.dart',
     );
-    all_bridges.AllBridge.registerBridges(
-      d4rt,
-      'lib/dart_overview.dart',
-    );
+    all_bridges.AllBridge.registerBridges(d4rt, 'lib/dart_overview.dart');
     // Register under sub-package barrels for direct imports
     for (final barrel in all_bridges.AllBridge.subPackageBarrels()) {
       all_bridges.AllBridge.registerBridges(d4rt, barrel);

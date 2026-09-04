@@ -17,7 +17,8 @@ void main() {
   group('OPEN B.9 — static-field write from a sibling static method', () {
     test('write in a sibling static method persists across calls', () async {
       final d4rt = D4rt();
-      final result = await d4rt.execute(source: '''
+      final result = await d4rt.execute(
+        source: '''
 class Counter {
   static int value = 0;
   static void bump() { value = value + 1; }
@@ -29,14 +30,17 @@ int main() {
   Counter.bump();
   return Counter.read();
 }
-''');
+''',
+      );
       expect(result, 3);
     });
 
-    test('compound assignment (+=) in a sibling static method persists',
-        () async {
-      final d4rt = D4rt();
-      final result = await d4rt.execute(source: '''
+    test(
+      'compound assignment (+=) in a sibling static method persists',
+      () async {
+        final d4rt = D4rt();
+        final result = await d4rt.execute(
+          source: '''
 class Acc {
   static int total = 10;
   static void add(int n) { total += n; }
@@ -47,13 +51,16 @@ int main() {
   Acc.add(7);
   return Acc.read();
 }
-''');
-      expect(result, 22);
-    });
+''',
+        );
+        expect(result, 22);
+      },
+    );
 
     test('write is observable directly via the static getter', () async {
       final d4rt = D4rt();
-      final result = await d4rt.execute(source: '''
+      final result = await d4rt.execute(
+        source: '''
 class Flag {
   static bool ready = false;
   static void arm() { ready = true; }
@@ -62,7 +69,8 @@ bool main() {
   Flag.arm();
   return Flag.ready;
 }
-''');
+''',
+      );
       expect(result, true);
     });
   });

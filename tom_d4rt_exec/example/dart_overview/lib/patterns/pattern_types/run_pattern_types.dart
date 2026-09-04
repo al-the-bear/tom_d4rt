@@ -30,7 +30,7 @@ void main() {
     'success' => 'Operation completed',
     'error' => 'Operation failed',
     'pending' => 'Operation in progress',
-    _ => 'Unknown status'
+    _ => 'Unknown status',
   };
   print('status message: $message');
 
@@ -83,7 +83,7 @@ void main() {
   }
 
   var nested = {
-    'user': {'id': 123, 'name': 'Charlie'}
+    'user': {'id': 123, 'name': 'Charlie'},
   };
   if (nested case {'user': {'id': var id, 'name': var name}}) {
     print('Nested: id=$id, name=$name');
@@ -141,7 +141,7 @@ void main() {
   var weekday = 'Saturday';
   var isWeekend = switch (weekday) {
     'Saturday' || 'Sunday' => true,
-    _ => false
+    _ => false,
   };
   print('$weekday is weekend: $isWeekend');
 
@@ -192,7 +192,7 @@ void main() {
     >= 80 => 'B',
     >= 70 => 'C',
     >= 60 => 'D',
-    _ => 'F'
+    _ => 'F',
   };
   print('Score $score = Grade $grade');
 

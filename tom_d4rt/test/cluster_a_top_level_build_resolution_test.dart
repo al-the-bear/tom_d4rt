@@ -27,45 +27,54 @@ void main() {
   group('Cluster A — top-level function resolution from closure', () {
     test('top-level fn called directly from main', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 int build(int x) => x * 2;
 
 main() => build(21);
-''');
+''',
+      );
       expect(result, 42);
     });
 
     test('top-level fn called from a closure passed to another fn', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 int build(int x) => x + 1;
 
 int run(int Function() body) => body();
 
 main() => run(() => build(41));
-''');
+''',
+      );
       expect(result, 42);
     });
 
     test('top-level fn called from a default-callback closure argument', () {
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 int build(int x) => x * 3;
 
 int apply({required int Function(int) cb, required int seed}) => cb(seed);
 
 main() => apply(cb: (n) => build(n), seed: 14);
-''');
+''',
+      );
       expect(result, 42);
     });
 
-    test('runApp-style entry point: top-level build(ctx) invoked by harness', () {
-      // Mirrors SendTestRunner.send: the harness builds a synthetic
-      // `BuildContext` and calls the script's top-level `build(ctx)`
-      // function. Here the "harness" is a separate top-level fn
-      // (`runHarness`) that locates and invokes `build`.
-      final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+    test(
+      'runApp-style entry point: top-level build(ctx) invoked by harness',
+      () {
+        // Mirrors SendTestRunner.send: the harness builds a synthetic
+        // `BuildContext` and calls the script's top-level `build(ctx)`
+        // function. Here the "harness" is a separate top-level fn
+        // (`runHarness`) that locates and invokes `build`.
+        final d4rt = D4rt();
+        final result = d4rt.execute(
+          source: '''
 class FakeContext {
   final int seed;
   const FakeContext(this.seed);
@@ -79,9 +88,11 @@ int runHarness(int seed) {
 }
 
 main() => runHarness(7);
-''');
-      expect(result, 42);
-    });
+''',
+        );
+        expect(result, 42);
+      },
+    );
 
     test('top-level fn shadowed by local var inside closure does not poison '
         'sibling closures', () {
@@ -90,7 +101,8 @@ main() => runHarness(7);
       // top-level `build`. (This is plain Dart scoping; the test makes
       // sure d4rt honours it.)
       final d4rt = D4rt();
-      final result = d4rt.execute(source: '''
+      final result = d4rt.execute(
+        source: '''
 int build(int x) => x + 10;
 
 int twoClosures() {
@@ -103,7 +115,8 @@ int twoClosures() {
 }
 
 main() => twoClosures();
-''');
+''',
+      );
       // shadow() == 100, clean() == build(32) == 42, total == 142.
       expect(result, 142);
     });

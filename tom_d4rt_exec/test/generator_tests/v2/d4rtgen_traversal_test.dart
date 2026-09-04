@@ -45,8 +45,9 @@ environment:
 
   // Create buildkit.yaml if config provided
   if (d4rtgenConfig != null) {
-    await File(p.join(tempDir.path, 'buildkit.yaml'))
-        .writeAsString(d4rtgenConfig);
+    await File(
+      p.join(tempDir.path, 'buildkit.yaml'),
+    ).writeAsString(d4rtgenConfig);
   }
 
   return tempDir;
@@ -69,17 +70,18 @@ void main() {
     });
 
     test('D4G-TOOL-3: has expected global options', () {
-      final optionNames =
-          d4rtgenTool.globalOptions.map((o) => o.name).toList();
+      final optionNames = d4rtgenTool.globalOptions.map((o) => o.name).toList();
       expect(optionNames, contains('show'));
       expect(optionNames, contains('dump-config'));
     });
 
     test('D4G-TOOL-4: show and dump-config are flags', () {
-      final showOpt =
-          d4rtgenTool.globalOptions.firstWhere((o) => o.name == 'show');
-      final dumpOpt =
-          d4rtgenTool.globalOptions.firstWhere((o) => o.name == 'dump-config');
+      final showOpt = d4rtgenTool.globalOptions.firstWhere(
+        (o) => o.name == 'show',
+      );
+      final dumpOpt = d4rtgenTool.globalOptions.firstWhere(
+        (o) => o.name == 'dump-config',
+      );
       expect(showOpt.type, equals(OptionType.flag));
       expect(dumpOpt.type, equals(OptionType.flag));
     });
@@ -158,8 +160,10 @@ d4rtgen:
           executionRoot: tempDir.parent.path,
         );
 
-        final result =
-            await executor.execute(context, const CliArgs(listOnly: true));
+        final result = await executor.execute(
+          context,
+          const CliArgs(listOnly: true),
+        );
 
         expect(result.success, isTrue);
       } finally {
@@ -209,8 +213,12 @@ d4rtgen:
 
       final tempDir = await createInWorkspaceTempDir('d4rtgen_list_');
       try {
-        final result = await runner
-            .run(['--list', '--scan', tempDir.path, '--not-recursive']);
+        final result = await runner.run([
+          '--list',
+          '--scan',
+          tempDir.path,
+          '--not-recursive',
+        ]);
         expect(result.success, isTrue, reason: output.toString());
       } finally {
         await tempDir.delete(recursive: true);
@@ -227,8 +235,12 @@ d4rtgen:
 
       final tempDir = await createInWorkspaceTempDir('d4rtgen_dump_');
       try {
-        final result = await runner
-            .run(['--dump-config', '--scan', tempDir.path, '--not-recursive']);
+        final result = await runner.run([
+          '--dump-config',
+          '--scan',
+          tempDir.path,
+          '--not-recursive',
+        ]);
         expect(result.success, isTrue, reason: output.toString());
       } finally {
         await tempDir.delete(recursive: true);

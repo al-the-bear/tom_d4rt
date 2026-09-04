@@ -1,4 +1,5 @@
 #!/usr/bin/env dart
+
 /// Run Dart Overview Examples using D4rt Interpreter
 ///
 /// This script executes all area demonstration files (run_<area>.dart)
@@ -50,7 +51,7 @@ const excludedDocumentedLimitations = <String, String>{
 };
 
 /// Get compatible areas (not excluded due to documented limitations)
-List<String> get compatibleAreas => 
+List<String> get compatibleAreas =>
     areas.where((a) => !excludedDocumentedLimitations.containsKey(a)).toList();
 
 Future<void> main(List<String> args) async {
@@ -93,7 +94,9 @@ Future<void> main(List<String> args) async {
       final area = areas[i];
       final num = '${i + 1}.'.padLeft(4);
       if (excludedDocumentedLimitations.containsKey(area)) {
-        print('  $num ${_capitalize(area)} ⚠️  [LIMITATION: ${excludedDocumentedLimitations[area]}]');
+        print(
+          '  $num ${_capitalize(area)} ⚠️  [LIMITATION: ${excludedDocumentedLimitations[area]}]',
+        );
       } else {
         print('  $num ${_capitalize(area)} ✓');
       }
@@ -111,7 +114,7 @@ Future<void> main(List<String> args) async {
   // Determine which areas to run
   List<String> areasToRun;
   final filterArgs = args.where((a) => !a.startsWith('--')).toList();
-  
+
   if (filterArgs.isEmpty) {
     // Default: run only compatible areas (unless --all)
     areasToRun = runAll ? areas : compatibleAreas;
@@ -149,7 +152,7 @@ Future<void> main(List<String> args) async {
 
   // Grant all permissions for full access
   d4rt.grant(FilesystemPermission.any);
-  d4rt.grant(IsolatePermission.any);  // For async/isolates examples
+  d4rt.grant(IsolatePermission.any); // For async/isolates examples
 
   for (var i = 0; i < areasToRun.length; i++) {
     final area = areasToRun[i];
@@ -182,7 +185,7 @@ Future<void> main(List<String> args) async {
         if (finalResult is Future) {
           finalResult = await finalResult;
         }
-        
+
         print('');
         if (result.sourcesLoaded > 1) {
           print('(loaded ${result.sourcesLoaded} source files)');
@@ -228,7 +231,9 @@ Future<void> main(List<String> args) async {
   }
   if (!runAll && excludedDocumentedLimitations.isNotEmpty) {
     print('');
-    print('  Excluded (${excludedDocumentedLimitations.length} areas with documented limitations):');
+    print(
+      '  Excluded (${excludedDocumentedLimitations.length} areas with documented limitations):',
+    );
     for (final area in excludedDocumentedLimitations.keys) {
       final i = areas.indexOf(area);
       final num = '${i + 1}.'.padLeft(4);
@@ -248,7 +253,7 @@ Future<void> main(List<String> args) async {
 /// Find the dart_overview directory from the current script location.
 String? _findOverviewDirectory() {
   // First, try relative to current directory
-  if (Directory('variables').existsSync() && 
+  if (Directory('variables').existsSync() &&
       Directory('operators').existsSync()) {
     return Directory.current.path;
   }
@@ -278,7 +283,10 @@ String? _findOverviewDirectory() {
 /// Capitalize area name for display.
 String _capitalize(String s) {
   if (s.isEmpty) return s;
-  return s.split('_').map((word) {
-    return word.isEmpty ? word : word[0].toUpperCase() + word.substring(1);
-  }).join(' ');
+  return s
+      .split('_')
+      .map((word) {
+        return word.isEmpty ? word : word[0].toUpperCase() + word.substring(1);
+      })
+      .join(' ');
 }
