@@ -1,3 +1,24 @@
+## 0.27.0
+
+### Fixed — a type test stopped two levels up the supertype chain
+
+`BridgedClass.isSubtypeOf` consulted the supertype registry for a class's direct
+supertypes and ONE further hop, then gave up — so a bridge three levels deep
+answered `false` to an `is` against its own root, while the MEMBER walk, reading
+the same registry through `transitiveSupertypeNames`, went all the way down. A
+class could resolve its inherited methods correctly and deny being a subtype of
+the interface it inherited them from. The predicate now delegates to
+`transitiveSupertypeNames`, keeping the direct hit as a short circuit.
+
+The `dart:collection` and `dart:convert` hierarchy blocks spelled their
+transitive closures out by hand to work around this; each edge is now declared
+once, as the SDK declares it. The change is closure-preserving and unobservable
+outside `bridged_types.dart`.
+
+`transitiveSupertypeNames` is memoised and the cache dropped on
+`registerSupertypes`, so consulting the closure on the `is`/`catch` hot path
+costs 0.056us rather than the 0.379us an uncached walk measured.
+
 ## 0.26.0
 
 ### Fixed — a typed pattern never checked its type, so the first arm of every switch won

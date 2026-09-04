@@ -24,6 +24,10 @@ import 'package:tom_d4rt_ast/runtime.dart';
 /// hierarchy to drop supertype matches — so this makes dispatch more exact, not
 /// less. `ConvertHierarchyConvert` follows the same pattern for `dart:convert`.
 ///
+/// Each edge is declared ONCE, mirroring the SDK's own `implements` /`extends`
+/// clause; the transitive closure is computed by the registry walk. Declare a
+/// new collection by naming its immediate supertype only.
+///
 /// The registry keys on NAME, so `register()` must run after the bridges that
 /// these names refer to are defined.
 class CollectionHierarchyCollection {
@@ -34,21 +38,19 @@ class CollectionHierarchyCollection {
       'LinkedHashMap': ['Map'],
       'SplayTreeMap': ['Map'],
       'UnmodifiableMapView': ['Map'],
-      // Sets. Both edges are listed explicitly rather than relying on
-      // `Set -> Iterable` being followed transitively, because the registry
-      // walk in `BridgedClass.isSubtypeOf` only goes one hop past the direct
-      // supertypes.
-      'HashSet': ['Set', 'Iterable'],
-      'LinkedHashSet': ['Set', 'Iterable'],
-      'SplayTreeSet': ['Set', 'Iterable'],
-      'UnmodifiableSetView': ['Set', 'Iterable'],
+      // Sets. One edge per SDK relationship; `HashSet is Iterable` is answered
+      // by following `HashSet -> Set -> Iterable`, not by restating it.
+      'HashSet': ['Set'],
+      'LinkedHashSet': ['Set'],
+      'SplayTreeSet': ['Set'],
+      'UnmodifiableSetView': ['Set'],
       'Set': ['Iterable'],
       // Lists.
-      'UnmodifiableListView': ['List', 'Iterable'],
+      'UnmodifiableListView': ['List'],
       'List': ['Iterable'],
       // Queues.
-      'DoubleLinkedQueue': ['Queue', 'Iterable'],
-      'ListQueue': ['Queue', 'Iterable'],
+      'DoubleLinkedQueue': ['Queue'],
+      'ListQueue': ['Queue'],
       'Queue': ['Iterable'],
       // `LinkedList<E extends LinkedListEntry<E>>` implements `Iterable<E>`.
       'LinkedList': ['Iterable'],

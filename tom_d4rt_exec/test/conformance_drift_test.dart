@@ -298,6 +298,18 @@ const Map<String, int> _uncoveredBaseline = {
   // a version lag. The one case that passes either way is `F-SCC18-9`, which
   // asserts that an UNTYPED pattern still matches anything.
   'scc18_typed_pattern_type_test.dart': 12,
+  // Pinned on the next `tom_d4rt_ast` publish, and the measurement is worth
+  // recording because the two halves of the file answer differently. SCC19 made
+  // `BridgedClass.isSubtypeOf` read the FULL supertype closure instead of
+  // stopping one hop past the direct supertypes. Ported and run against the
+  // published interpreter: `F-SCC19-2` and `F-SCC19-3` fail — those assert three
+  // and four hops on a synthetic chain, which is precisely the fix. The three
+  // stdlib cases PASS, but trivially and for the old reason: the published copy
+  // still carries the hand-flattened hierarchy blocks, so its deep answers come
+  // from restated direct edges. Porting now would therefore pin two genuine
+  // failures alongside three assertions that are not yet asserting anything.
+  // Port it and delete this entry in the same commit as that publish.
+  'scc19_supertype_registry_depth_test.dart': 9,
   'stdlib/cast_from_family_test.dart': 6,
   'stdlib/convert/json_named_constructors_test.dart': 13,
   'stdlib/core/error_validation_helpers_test.dart': 18,

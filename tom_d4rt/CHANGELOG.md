@@ -1,3 +1,34 @@
+## 1.38.0
+
+### Fixed — a type test stopped two levels up the supertype chain
+
+`BridgedClass.isSubtypeOf` consulted the supertype registry for a class's direct
+supertypes and ONE further hop, then gave up. A bridge three levels deep
+therefore answered `false` to an `is` against its own root — while the MEMBER
+walk, reading the same registry through `transitiveSupertypeNames`, went all the
+way down. So a class could resolve its inherited methods correctly and deny
+being a subtype of the interface it inherited them from, which is the failure
+mode hardest to spot by reading the registry.
+
+The predicate now delegates to `transitiveSupertypeNames`, so the two mechanisms
+answer at the same depth. The direct-supertype hit is kept as a short circuit.
+
+**The stdlib hierarchy blocks were flattened to work around this, and are no
+longer.** Every edge in `CollectionHierarchyCollection` and
+`ConvertHierarchyConvert` used to be written as a full transitive closure —
+`'JsonEncoder': ['Converter', 'StreamTransformerBase', 'StreamTransformer']` for
+a class the SDK declares as `implements Converter`. Each is now declared once,
+mirroring the SDK. This is closure-preserving, so nothing outside
+`bridged_types.dart` can observe it: every other consumer already read the
+registry through the transitive walk.
+
+`transitiveSupertypeNames` is now memoised, dropped wholesale on
+`registerSupertypes`. The closure is read on every `is` and every `catch` once
+`isSubtypeOf` consults it, and recomputing it allocates three collections per
+query — measured at 0.379us against 0.057us for the old short circuit. With the
+cache a miss costs 0.056us, so the fix carries no hot-path regression, and deep
+hits — which used to be *wrong* — cost 0.054us.
+
 ## 1.37.0
 
 ### Fixed — a typed pattern never checked its type, so the first arm of every switch won

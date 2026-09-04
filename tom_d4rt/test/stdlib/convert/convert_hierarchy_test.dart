@@ -26,16 +26,16 @@ import 'package:tom_d4rt/d4rt.dart';
 /// is worse than the gap it replaced. The mechanical `--hierarchy` audit had it
 /// right and the hand-written list did not, so `F-SCB23-9` pins the negative.
 ///
-/// EDGES ARE DECLARED FLATTENED, and that is load-bearing rather than
-/// stylistic: `BridgedClass.isSubtypeOf` consults the registry for the direct
-/// supertypes and ONE further hop, not the full transitive closure. So
-/// `JsonEncoder -> Converter` plus `Converter -> StreamTransformerBase` plus
-/// `StreamTransformerBase -> StreamTransformer` (registered by dart:async)
-/// would still answer `JsonEncoder() is StreamTransformer` => false at three
-/// hops. `F-SCB23-13` is the case that catches a future un-flattening.
-/// (`transitiveSupertypeNames`, which the MEMBER walk uses, *is* transitive —
-/// so members and type tests disagree about depth. That asymmetry is filed as
-/// its own follow-up rather than fixed here.)
+/// EDGES ARE DECLARED ONE PER SDK RELATIONSHIP. They used to be written out as
+/// full closures, and that was load-bearing rather than stylistic:
+/// `BridgedClass.isSubtypeOf` consulted the registry for the direct supertypes
+/// and ONE further hop, so `JsonEncoder -> Converter -> StreamTransformerBase
+/// -> StreamTransformer` answered `false` at three hops unless the closure was
+/// restated. SCC19 pointed that predicate at the same transitive walk the
+/// MEMBER lookup had always used, which removed the asymmetry and with it the
+/// need to flatten. `F-SCB23-13` was written to fail the moment someone
+/// un-flattened the block; it now passes on single-hop edges, which is what
+/// makes it evidence for the walk rather than for the flattening.
 void main() {
   const String testLibPath = 'd4rt-mem:/convert_hierarchy_test.dart';
 
@@ -199,14 +199,16 @@ void main() {
     });
   });
 
-  group('SCB23: the flattening invariant', () {
+  group('SCB23: the depth invariant', () {
     test('F-SCB23-13: a leaf converter reaches StreamTransformer three '
         'declarations away [2026-07-28]', () {
       // `JsonEncoder -> Converter -> StreamTransformerBase ->
-      // StreamTransformer` is three hops, and `isSubtypeOf` consults the
-      // registry for two. This passes only because the edges are declared
-      // flattened; it is the case that fails first if someone "tidies" the
-      // block into minimal form.
+      // StreamTransformer` is three hops. This case was written when
+      // `isSubtypeOf` consulted only two, so it passed on the flattened edge
+      // lists and was the first thing to fail if anyone tidied the block into
+      // minimal form. SCC19 made the predicate transitive and the block was
+      // tidied; the case still passes, which is the whole point of leaving it
+      // here — it now measures the walk instead of the workaround.
       expect(run('return JsonEncoder() is StreamTransformer;'), isTrue);
     });
   });

@@ -133,16 +133,16 @@ void main() {
     });
   });
 
-  group('SCB23: the flattening invariant', () {
-    test('F-SCB23-AST-7: isSubtypeOf walks two hops, so the closure is '
-        'written out [2026-07-28]', () {
-      // This is the mechanism behind every edge list in
-      // `ConvertHierarchyConvert`, asserted directly rather than left as a
-      // comment. `isSubtypeOf` consults a class's direct supertypes and ONE
-      // further hop; the member walk (`transitiveSupertypeNames`) is fully
-      // transitive. The two disagree about depth, so a minimal edge set would
-      // give correct MEMBER resolution and wrong TYPE TESTS — the failure mode
-      // hardest to spot by reading the registry.
+  group('SCB23: the depth invariant', () {
+    test('F-SCB23-AST-7: the type test and the member walk agree about depth '
+        '[2026-07-28]', () {
+      // These two assertions used to disagree, and that disagreement is what
+      // every edge list in `ConvertHierarchyConvert` was flattened to hide:
+      // `isSubtypeOf` consulted a class's direct supertypes and ONE further
+      // hop while the member walk (`transitiveSupertypeNames`) was fully
+      // transitive, so a minimal edge set gave correct MEMBER resolution and
+      // wrong TYPE TESTS — the failure mode hardest to spot by reading the
+      // registry. SCC19 pointed both at the same walk.
       expect(
         BridgedClass.transitiveSupertypeNames('JsonEncoder'),
         containsAll(<String>[
@@ -151,7 +151,7 @@ void main() {
           'StreamTransformer',
         ]),
       );
-      // Three declarations away, and true only because the closure is flat.
+      // Three declarations away, over single-hop edges.
       expect(isSub('JsonEncoder', 'StreamTransformer'), isTrue);
     });
   });
