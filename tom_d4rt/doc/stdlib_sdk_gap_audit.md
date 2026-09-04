@@ -122,13 +122,35 @@ reachable whatever the truth. The self-operand shortcut (`o * o` rather than
 `'a' * 'a'` is a type error rather than a resolution failure, so the column
 can under-report but cannot invent a gap.
 
+**The probe body must assign and return afterwards, never `return` from
+inside the try.** The generated program is
+
+```dart
+try { probed = o.member; } finally { <teardown> }
+return probed;
+```
+
+and the obvious simplification — `try { return o.member; } finally { … }` —
+**silently measures the wrong thing**. In an async function, a `return` whose
+expression throws inside a `try` with a non-empty `finally` and no `catch` loses
+the error and returns *the finally block's last evaluated value* instead.
+Measured on the shape above: the correct form throws `Undefined property or
+method 'nonsenseXyz' on bridged instance of 'ServerSocket'`, while the
+`return`-inside-try form completes normally and yields the socket. Every missing
+member on every class with a teardown would have been recorded as present.
+
+This is an interpreter defect, not merely a probe-writing rule — the same
+program written by hand is equally wrong, and it is silent. It is tracked as
+scd40; the guard here is that the shape stays as written, and
+`_recipeSource` is the single place that decides it.
+
 **Why phase 2 cannot be skipped:** adapter-map absence does *not* imply
 unreachable for *instance* members — instance lookups fall back through
 the supertype chain. That fallback is **not uniform**, though
 (`Uint8List.sort` resolved while `HashSet.difference` did not), so the
 static diff cannot predict it either. Only the interpreter is a valid
-oracle. In the current run, **363 of 583** raw candidates turn out to be
-reachable via fallback — a 62 % false-positive rate that a single-phase
+oracle. In the current run, **378 of 583** raw candidates turn out to be
+reachable via fallback — a 65 % false-positive rate that a single-phase
 tool would report as gaps. That share has grown as edges were declared,
 which is the point: every edge added moves candidates from "confirmed
 gap" to "reachable anyway" without a line of adapter code being written.
@@ -193,20 +215,51 @@ Of the 231, **zero** are operators and **one** is a universal `Object` member
 (`noSuchMethod`) — a statement this audit could not make before those two
 columns were verified rather than merely printed.
 
+**Those two columns are now measured to completion, not sampled.**
+`unverifiedUniversal` is **0**, and `unverifiedOperators` is **1** — `HttpHeaders
+[]`, which carries a stated reason above rather than an absent recipe. So "zero
+confirmed operators" describes the whole operator surface, not the part of it
+that happened to have an instance to probe. That distinction is the entire
+reason the unverified columns exist: the same sentence, printed while nineteen
+entries were still unmeasured, would have been true of the measurement and false
+about the interpreter.
+
 The 231 are overwhelmingly one shape. Seven `dart:io` / `dart:isolate` types
 that *are* streams account for 219 of them — `RawSocket` 38, `Stdin` 37,
 `HttpServer` 36, `RawDatagramSocket` 36, `RawServerSocket` 36, `ReceivePort` 26,
-`ServerSocket` 10 — and on every one of them the confirmed set is the same
-`Stream` surface (`map`, `where`, `timeout`, `asBroadcastStream`, `fold`,
-`toList`, …). Each bridges `listen` and its own members, so `await for` works
-while the `Stream` combinators do not.
+`ServerSocket` 10. Each bridges `listen` and its own members, so `await for`
+works while the `Stream` combinators do not.
 
-Whether that is one missing supertype edge per class or 219 missing adapters is
-**not settled by this measurement** — `BridgedClass` does maintain a supertype
-registry, but it has not been established that registering `ServerSocket →
-Stream` in it makes instance-member fallback resolve `Stream`'s members. The
-shared shape of the confirmed set is evidence the cause is common; identifying
-it is the first step of the follow-up, not a conclusion of this audit.
+**The 219 are not one flat set, and the per-class counts are the clue.** Exactly
+ten members are confirmed missing on *all seven*:
+
+```text
+asBroadcastStream  asyncExpand  asyncMap  cast     distinct
+drain              handleError  pipe      reduce   timeout
+```
+
+`ServerSocket` is missing **only** those ten — its bridge already carries `map`,
+`where`, `fold`, `toList`, `first` and the rest directly. The other six are
+missing that same ten *plus* the combinators `ServerSocket` chose to spell out.
+So the correct reading is not "the `Stream` surface is absent everywhere"; it is
+**one bridge was filled in by hand further than the others, and ten members
+defeated even that**. 216 of the 219 are `Stream` members; the remaining three
+are the classes' own (`RawSocket.readMessage`, `RawSocket.sendMessage`,
+`Stdin.supportsAnsiEscapes`) and have nothing to do with streams.
+
+**The mechanism is now settled, and it is the cheap answer.** `BridgedClass`
+keeps a supertype registry, and `lookupOnBridgedSupertypes` — called from four
+dispatch sites in `InterpreterVisitor` — already walks it for both getters and
+methods. Registering the edge is therefore sufficient; measured directly:
+
+| Probe on a bound `ServerSocket` | No `→ Stream` edge | Edge registered |
+| --- | --- | --- |
+| `s.asBroadcastStream()` | throws `Undefined property or method` | `_AsBroadcastStream<Socket>` |
+| `s.timeout(Duration(seconds: 1))` | throws `Undefined property or method` | `_ControllerStream<Socket>` |
+
+The `Stream` adapters unwrap with `(target as Stream)`, and all seven native
+types genuinely implement `Stream`, so the cast holds. **That makes the fix one
+registration table, not 219 adapters** — see scd38.
 
 The candidate total fell from 610 to 583 without 27 members being registered
 one-for-one: registering a static removes it from the diff, and the tool also
