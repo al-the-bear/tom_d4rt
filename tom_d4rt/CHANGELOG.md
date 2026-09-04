@@ -1036,6 +1036,82 @@ mutation of an unmodifiable list will no longer see it — catch
 `UnsupportedError` instead. Read-only members, and scripts that do not
 attempt mutation, are unaffected.
 
+### Added — the member-level gaps a class-granularity audit cannot see (`ccf041f8`)
+
+Each of these is a member missing from a class the audit already counted as
+bridged, which is why none of them showed up in a coverage number: a spot-check
+that happens to land on a registered member reports the whole class as covered.
+Enumerating the SDK type's members is the only way to see a partial set.
+
+- **`Duration` exposed 6 of its 16 unit constants.** `secondsPerMinute`
+  resolved while `microsecondsPerDay` did not. All 16 are now registered.
+- **`Uri.base` was absent**, so a script could build and manipulate URIs but
+  could not resolve one against the process's working directory.
+- **`UriData` had none of the `isMimeType` / `isCharset` / `isEncoding`
+  predicates**, so a caller could produce a data URI and read its bytes but not
+  decide whether the payload was the shape it expected.
+- **`ByteBuffer.asUint8ClampedList` and `ByteData.asUnmodifiableView`** were the
+  two omissions in an otherwise complete reinterpretation surface.
+- **Set algebra (`difference` / `intersection` / `union`) resolved on a set
+  literal but on none of `HashSet` / `LinkedHashSet` / `SplayTreeSet`**, because
+  the interpreter's instance-member fallback through the supertype chain is not
+  uniform — declaring the trio on the `Set` bridge does not make it reachable on
+  a concrete set. The three now carry it, via a new shared
+  `setAlgebraMethods` helper rather than a third, fourth and fifth hand-rolled
+  copy; the two copies that already existed (`Set`, `UnmodifiableSetView`) were
+  converged onto it so they cannot drift apart again.
+
+One diagnostic changed with that convergence and is the only non-additive part:
+`Set.difference(notASet)` used to fail with a raw
+`type '…' is not a subtype of type 'Set'` cast error and now raises
+`Argument to Set.difference must be a Set.`, naming the class the script
+actually called. Scripts that pass a `Set` are unaffected.
+
+### Added — `sort`, `shuffle`, `asUnmodifiableView` and `bytesPerElement` on every typed list (`9fca5be3`)
+
+Nine of the ten typed-data lists that share `inheritedListMethods()` could not
+sort, shuffle, or take an unmodifiable view. `Uint8List` could, because it
+hand-rolls its own adapter map — and it is the most-used variant, so a
+spot-check reached the one working case. `bytesPerElement` was missing on all
+eleven.
+
+The helper had excluded these on the stated grounds that typed-data lists are
+fixed-length and mutating calls "would throw `UnsupportedError`". That
+conflated fixed-*length* with immutable: `sort` and `shuffle` permute in place
+without changing the length and are fully supported by the SDK, which is exactly
+why `Uint8List`'s own copy of `sort` worked. The doc comment now scopes the
+exclusion to length-changing operations only, and a test asserts `add` still
+refuses, so the correction cannot overreach.
+
+Two registration details worth stating because they are easy to get wrong:
+`asUnmodifiableView` is declared per concrete variant rather than on `List<E>`,
+so it arrives through a **required** `unmodifiableView` callback — required, so
+a newly added variant cannot silently omit it. `bytesPerElement` is a static,
+which no supertype fallback can reach, so it is registered through
+`typedListStaticGetters()` fed from the SDK constant itself rather than a
+literal, to prevent drift from the platform.
+
+### Fixed — `StdioType` and `HtmlEscapeMode` constants were registered but unreachable (`9bb876f3`)
+
+Both classes were bridged but inert: their `static const` constants sat in the
+bridge's *instance* `getters` map, so `StdioType.terminal` and
+`HtmlEscapeMode.element` could not resolve. That is worse than an absent
+bridge — `HtmlEscape`'s constructor advertised a `mode` parameter for which no
+script could supply a value, and a `StdioType` could not be compared against
+anything. `stdioType()` itself was never registered either, so nothing could
+produce the value the class exists to describe.
+
+Also added: `HtmlEscape.mode` (the read half of the constructor's round trip),
+the four `HtmlEscapeMode` escape flags, `StdioType.name`, and the missing
+`sqAttribute` constant.
+
+Found mechanically rather than by inspection. `tool/stdlib_member_diff.dart`,
+added by the same change, diffs each bridged class's adapter-map keys against
+the SDK type's real member set via `dart:mirrors`, then uses the interpreter
+itself as the oracle for whether a candidate is genuinely unreachable — a static
+diff alone over-reports, because instance lookups fall back through the
+supertype chain.
+
 ## 1.22.0
 
 ### Changed — filesystem permission scopes are symlink-aware (DGUB5)

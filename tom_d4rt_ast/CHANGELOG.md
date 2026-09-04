@@ -583,6 +583,74 @@ attempt mutation, are unaffected.
 
 Mirrors `tom_d4rt` 1.23.0.
 
+### Added — the member-level gaps a class-granularity audit cannot see (`ccf041f8`)
+
+Each of these is a member missing from a class the audit already counted as
+bridged, so a spot-check that lands on a registered member reports the whole
+class as covered. Enumerating the SDK type's members is the only way to see a
+partial set.
+
+- `Duration` exposed 6 of its 16 unit constants — `secondsPerMinute` resolved,
+  `microsecondsPerDay` did not. All 16 are registered.
+- `Uri.base` was absent, so a script could build URIs but not resolve one
+  against the process's working directory.
+- `UriData` had none of the `isMimeType` / `isCharset` / `isEncoding`
+  predicates.
+- `ByteBuffer.asUint8ClampedList` and `ByteData.asUnmodifiableView` were the two
+  omissions in an otherwise complete reinterpretation surface.
+- Set algebra (`difference` / `intersection` / `union`) resolved on a set
+  literal but on none of `HashSet` / `LinkedHashSet` / `SplayTreeSet`: the
+  interpreter's instance-member fallback through the supertype chain is not
+  uniform, so declaring the trio on the `Set` bridge does not reach a concrete
+  set. All three now carry it through a shared `setAlgebraMethods` helper, onto
+  which the two pre-existing hand-rolled copies (`Set`, `UnmodifiableSetView`)
+  were converged so they cannot drift.
+
+The only non-additive part is one diagnostic: `Set.difference(notASet)` used to
+fail with a raw `type '…' is not a subtype of type 'Set'` cast error and now
+raises `Argument to Set.difference must be a Set.`
+
+Mirrors `tom_d4rt` 1.23.0.
+
+### Added — `sort`, `shuffle`, `asUnmodifiableView` and `bytesPerElement` on every typed list (`9fca5be3`)
+
+Nine of the ten typed-data lists sharing `inheritedListMethods()` could not
+sort, shuffle or take an unmodifiable view; `Uint8List` could, because it
+hand-rolls its own adapter map — and being the most-used variant, it is the one
+a spot-check reaches. `bytesPerElement` was missing on all eleven.
+
+The exclusion had been justified by typed-data lists being fixed-length, which
+conflated fixed-*length* with immutable: `sort` and `shuffle` preserve length
+and the SDK supports them on every variant. The doc comment now scopes the
+exclusion to length-changing operations, with a test asserting `add` still
+refuses so the correction cannot overreach. `asUnmodifiableView` arrives through
+a **required** `unmodifiableView` callback, since it is declared per concrete
+variant rather than on `List<E>` — required, so a new variant cannot silently
+omit it. `bytesPerElement` is a static, unreachable by any supertype fallback,
+and is fed from the SDK constant itself rather than a literal.
+
+Mirrors `tom_d4rt` 1.23.0.
+
+### Fixed — `StdioType` and `HtmlEscapeMode` constants were registered but unreachable (`9bb876f3`)
+
+Both classes were bridged but inert: their `static const` constants sat in the
+bridge's *instance* `getters` map, so `StdioType.terminal` and
+`HtmlEscapeMode.element` could not resolve. That is worse than an absent bridge —
+`HtmlEscape`'s constructor advertised a `mode` parameter no script could supply
+a value for, and a `StdioType` could not be compared against anything.
+`stdioType()` was never registered either, so nothing could produce the value
+the class exists to describe. Also added: `HtmlEscape.mode`, the four
+`HtmlEscapeMode` escape flags, `StdioType.name`, and the missing `sqAttribute`
+constant.
+
+Found mechanically, by `tom_d4rt`'s `tool/stdlib_member_diff.dart`, which diffs
+each bridged class's adapter-map keys against the SDK type's real member set and
+uses the interpreter as the oracle for whether a candidate is genuinely
+unreachable. The tool needs `dart:mirrors` and therefore lives in `tom_d4rt`
+only; this tree is measured by running it against its twin.
+
+Mirrors `tom_d4rt` 1.23.0.
+
 ## 0.14.0
 
 ### Fixed — record type annotations resolve to their real shape (DGUB8)
