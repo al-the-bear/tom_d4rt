@@ -153,10 +153,12 @@ a plausible-looking wrong number:
    the rest. See [the unverified-column note](#the-unverified-column-hazard).
 
 Members with no usable instance recipe are reported in an explicit
-**UNVERIFIED** bucket (280 in the current run, overwhelmingly `dart:io`
-types that need a live socket or server to instantiate) rather than being
-silently counted either way. Closing that bucket means adding recipes to
-`_instanceRecipes`, not relaxing the classification.
+**UNVERIFIED** bucket rather than being silently counted either way, and that
+bucket is split in two: entries carrying a **stated reason** (they cannot be
+measured, and the report says why) and entries with **no recipe yet** (nobody
+got to them). The second half is the one that hides gaps, and it is now empty.
+Closing it means adding recipes to `_instanceRecipes`, never relaxing the
+classification.
 
 ### Current measured state
 
@@ -166,21 +168,45 @@ Measured 2026-09-04.
 |--------|-------|
 | Bridged classes examined | 181 |
 | Raw candidates from the map diff | 583 |
-| … reachable anyway via instance fallback | 363 |
-| … unverified (no instance recipe) | 280 |
-| **CONFIRMED unreachable** | **3** |
-| Classes with ≥ 1 confirmed gap | 1 |
+| … reachable anyway via instance fallback | 378 |
+| … unverified — cannot be measured, reason stated | 37 in 3 classes |
+| … unverified — no recipe yet | **0** |
+| **CONFIRMED unreachable** | **231** |
+| Classes with ≥ 1 confirmed gap | 13 |
 
-**Every confirmed member gap that is not a deliberate boundary is now
-closed.** The three that remain are all `ByteBuffer`'s SIMD views, and they
-are a **Boundary** decision — the SIMD types are intentionally unbridged —
-not a missing registration. There is nothing left in this measurement for a
-"register the member" todo to act on; the next reduction has to come from the
-UNVERIFIED bucket (SCC12) or from a boundary being revisited.
+**The confirmed count rose from 3 to 231 without a single member being
+un-bridged.** That is what closing the unverified bucket does: 228 members
+that no run had ever executed were measured for the first time, and they were
+already unreachable. The audit's headline number was previously describing
+only the measurable half of the surface — a `dart:io` gap could be introduced
+and no published figure would move.
 
-Of the 3, **zero** are operators and **zero** are universal `Object`
-members — a statement this audit could not make before those two columns
-were verified rather than merely printed.
+The three classes still unverified are all HTTP-client-shaped and each carries
+its reason in the report: `HttpClientRequest` (1) and `HttpHeaders` (1) are
+hidden by the value `HttpClient.getUrl` yields being bridged as its supertype
+`IOSink`, so a recipe would measure the wrong bridge; `HttpClientResponse` (35)
+needs a completed round trip, which does not finish inside the interpreter.
+UNVERIFIED here means "cannot be measured, here is why", not "nobody got to
+it".
+
+Of the 231, **zero** are operators and **one** is a universal `Object` member
+(`noSuchMethod`) — a statement this audit could not make before those two
+columns were verified rather than merely printed.
+
+The 231 are overwhelmingly one shape. Seven `dart:io` / `dart:isolate` types
+that *are* streams account for 219 of them — `RawSocket` 38, `Stdin` 37,
+`HttpServer` 36, `RawDatagramSocket` 36, `RawServerSocket` 36, `ReceivePort` 26,
+`ServerSocket` 10 — and on every one of them the confirmed set is the same
+`Stream` surface (`map`, `where`, `timeout`, `asBroadcastStream`, `fold`,
+`toList`, …). Each bridges `listen` and its own members, so `await for` works
+while the `Stream` combinators do not.
+
+Whether that is one missing supertype edge per class or 219 missing adapters is
+**not settled by this measurement** — `BridgedClass` does maintain a supertype
+registry, but it has not been established that registering `ServerSocket →
+Stream` in it makes instance-member fallback resolve `Stream`'s members. The
+shared shape of the confirmed set is evidence the cause is common; identifying
+it is the first step of the follow-up, not a conclusion of this audit.
 
 The candidate total fell from 610 to 583 without 27 members being registered
 one-for-one: registering a static removes it from the diff, and the tool also
@@ -491,10 +517,13 @@ the `dart:io` sockets and servers are omitted on purpose rather than have the
 audit open listening ports, so those need a recipe that constructs without
 binding, or an explicit "not auditable" marker.
 
-**Disposition:** Tracked — SCC57 for these 62 edges, SCC12 for the 284
-unverified members. Both buckets are measurement debt, not bridging decisions:
-until they close, "confirmed" is a lower bound and no entry inside them can be
-given a Boundary disposition, because nobody has established it is a gap.
+**Disposition:** Tracked — SCC57 for these 62 edges. The member-diff half of
+this debt is **closed**: its unverified bucket is down to 37 entries, every one
+of them carrying a stated reason for being unmeasurable. Measurement debt is
+not a bridging decision — while it stands, "confirmed" is a lower bound and no
+entry inside it can be given a Boundary disposition, because nobody has
+established it is a gap. The hierarchy audit is still in that position; the
+member audit no longer is.
 
 ### Why these are filed rather than fixed here
 
@@ -1123,13 +1152,16 @@ the six missing *classes* that produced them. It is now Boundary, with
    `String -> Comparable, Pattern`, `Duration -> Comparable`, and
    `StreamController -> Sink`. Small enough to take as one change, but the
    dispatch check still applies per class.
-5. **Close the audit's blind spot** — 62 candidate edges and 284 candidate
-   members sit UNVERIFIED for want of an instance recipe, most of
-   `dart:io` among them. Until that table is extended, "confirmed" is a
-   lower bound on both audits, not a total. `dart:convert` is the worked
-   example of why this matters in both directions: SCB23 probed eleven
-   unverified encoder/decoder pairs by hand and every one was a real gap —
-   but the twelfth candidate of the same shape, `LineSplitter`, was not.
+5. **Close the audit's blind spot** — 62 candidate *edges* still sit
+   UNVERIFIED for want of an instance recipe, so "confirmed" remains a lower
+   bound on the hierarchy audit. The *member* audit's blind spot is closed:
+   extending the recipe table moved 228 members out of UNVERIFIED and every
+   one of them was a real gap, which took the confirmed count from 3 to 231.
+   That is the vindication of the rule that only a recipe may empty this
+   bucket. `dart:convert` is the worked example of why it matters in both
+   directions: SCB23 probed eleven unverified encoder/decoder pairs by hand
+   and every one was a real gap — but the twelfth candidate of the same
+   shape, `LineSplitter`, was not.
 6. **`dart:io`'s re-export surface is 19 names short** — the whole
    `dart:_http` server/WebSocket block plus `HttpStatus`, none of them
    bridged anywhere. Highest value per unit of work is `HttpException` +

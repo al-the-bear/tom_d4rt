@@ -1,3 +1,72 @@
+## 1.35.0
+
+### Fixed — `await` inside a `finally`, and the exception that a `finally` swallowed
+
+Three defects in one region, found while extending the stdlib gap oracle rather
+than from a bug report. The oracle needs to acquire a live resource, read one
+member off it and release it again, so every one of its `dart:io` recipes is
+shaped `try { read } finally { await release; }` — which turns out to be the
+one shape the interpreter got wrong in three independent ways.
+
+**An `await` in a `finally` block never completed.** The interpreter drives
+`await` by *replay*: `visitAwaitExpression` returns a suspension sentinel rather
+than blocking, every statement visitor propagates it upwards as its own value,
+and the async driver awaits the future and re-executes the body. A visitor that
+discards a sub-visit's value therefore swallows the suspension — the driver
+never learns there is a future to wait for. `visitTryStatement` discarded
+exactly one such value, the finally block's, so `await` in a try body worked and
+`await` in a catch body worked and the defect was invisible from every direction
+except the one the oracle needed. The same statement now also returns a
+suspension raised by the *protected region* without running the finally, so a
+teardown does not run once on the suspending pass and again on the resuming one.
+
+**Inside an async function a suspending `finally` looped for ever.** An async
+function does not run `visitTryStatement` at all — a statement-level state
+machine decomposes the try so that any statement may suspend. Its resumption
+callback runs after the loop has already restored `visitor.currentAsyncState`,
+so it acted on behalf of a state the visitor could no longer see; a finally
+whose *last* statement was an `await` never un-marked its enclosing try, and the
+`return` that followed was diverted back into the finally, for ever. The
+callback now re-asserts the invariant it depends on.
+
+**An exception thrown inside `try { … } finally { … }` vanished.** With no catch
+clause the machine jumped to the finally leaving the error in `currentError` — a
+field the main loop clears after every statement that completes normally, so the
+finally's first statement erased it and the enclosing `catch` never ran. Errors
+that are only *passing through* a finally are now held in a dedicated field and
+re-raised, from outside the try, once the block ends. Relatedly, the search for a
+handler walked out exactly one level: a try with neither a catch nor a non-empty
+finally is not a handler, and the search now continues past it instead of
+propagating straight to the function's Future.
+
+The last of these was corrupting a measurement, not merely hanging a tool. The
+audit reads every candidate member as `try { probed = o.member; } finally { await
+o.close(); }`, so for each async recipe a **missing** member was silently
+reported as present — the exact failure mode the three-bucket design exists to
+prevent.
+
+### Fixed — `ServerSocket.bind` rejecting an `InternetAddress`
+
+The adapter `toString()`-ed its host argument, which is correct for a `String`
+and wrong for the `InternetAddress` the SDK signature also accepts: the address
+arrived as `InternetAddress('127.0.0.1')` and the bind failed. It is now passed
+through unchanged.
+
+### Changed — the member-diff oracle measures the `dart:io` surface
+
+`tool/stdlib_member_diff.dart` gained a generalised recipe model (prelude,
+`await`-ed construction, teardown clause) and ~22 recipes covering the live
+`dart:io` and `dart:isolate` types, plus a `_notAuditable` table so an entry
+that genuinely cannot be measured records *why*. The unverified bucket falls
+from 280 to 37, and all 37 carry a stated reason — the "no recipe yet" half,
+the half that hides gaps, is empty.
+
+The confirmed-gap count consequently rises from **3 to 231** with nothing
+un-bridged: 228 members that no run had ever executed were measured for the
+first time and were already unreachable. 219 of them are the `Stream`
+combinator surface on the seven `dart:io` / `dart:isolate` types that are
+streams. See `doc/stdlib_sdk_gap_audit.md`.
+
 ## 1.34.0
 
 ### Added — the seven static argument-validation helpers

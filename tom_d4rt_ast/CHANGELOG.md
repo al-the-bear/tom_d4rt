@@ -1,3 +1,42 @@
+## 0.25.0
+
+Mirrors `tom_d4rt` 1.35.0 — see that CHANGELOG for the full reasoning on each
+member. The differences worth knowing on this side are noted below.
+
+### Fixed — `await` inside a `finally`, and the exception that a `finally` swallowed
+
+Three defects in the try/finally region, two of them in the async state machine
+(`lib/src/runtime/callable.dart`) rather than in `visitTryStatement`: an async
+function decomposes a try into statements so any of them may suspend, and does
+not run the visitor's try handling at all.
+
+1. `visitTryStatement` swallowed a suspension raised in a finally block, so an
+   `await` there never completed — and it ran the finally on a pass where the
+   protected region had itself suspended, so a teardown ran twice.
+2. The state machine's resumption callback acted on behalf of a state the
+   visitor could no longer see, because the loop's own `finally` had already
+   restored `currentAsyncState`. A finally whose last statement was an `await`
+   never un-marked its enclosing try and looped for ever.
+3. An error passing through a finally with no catch was left in `currentError`,
+   which the main loop clears after every statement that completes normally —
+   so the finally's first statement erased it and the enclosing `catch` never
+   ran. It is now held in `AsyncExecutionState.errorAfterFinally` and re-raised
+   from outside the try. The handler search also walks outward past every try
+   that has neither a catch nor a non-empty finally, instead of stopping at the
+   first one it finds.
+
+**This side has no script-level test for the three.** `tom_d4rt_ast` cannot
+parse source, so the regression pin lives in `tom_d4rt`
+(`test/scc12_await_in_finally_test.dart`, 11 cases) and is ported to
+`tom_d4rt_exec` once this version is published — that suite consumes the
+*published* interpreter, so the port cannot precede the release.
+
+### Fixed — `ServerSocket.bind` rejecting an `InternetAddress`
+
+The adapter `toString()`-ed its host argument, so the `InternetAddress` the SDK
+signature also accepts arrived as `InternetAddress('127.0.0.1')` and the bind
+failed. It is now passed through unchanged.
+
 ## 0.24.0
 
 Mirrors `tom_d4rt` 1.34.0 — see that CHANGELOG for the full reasoning on each
