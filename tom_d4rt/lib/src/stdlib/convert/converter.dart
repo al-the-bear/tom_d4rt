@@ -6,6 +6,27 @@ class ConverterConvert {
         nativeType: Converter,
         name: 'Converter',
         typeParameterCount: 2, // Converter<S, T>
+        staticMethods: {
+          // The static counterpart of the instance `cast()`: wraps an existing
+          // converter so it accepts and produces different static types. Type
+          // arguments are erased at the bridge boundary, so the native call is
+          // instantiated at `dynamic` — the wrapper still delegates to the
+          // same converter.
+          'castFrom': (visitor, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length != 1 || namedArgs.isNotEmpty) {
+              throw RuntimeD4rtException(
+                  'Converter.castFrom(source) expects one positional '
+                  'argument.');
+            }
+            final source = positionalArgs[0];
+            if (source is! Converter) {
+              throw RuntimeD4rtException(
+                  'The argument to Converter.castFrom must be a Converter.');
+            }
+            return Converter.castFrom<dynamic, dynamic, dynamic, dynamic>(
+                source);
+          },
+        },
         methods: {
           'convert': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Converter).convert(positionalArgs[0]);

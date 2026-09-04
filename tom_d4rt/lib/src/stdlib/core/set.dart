@@ -36,6 +36,28 @@ class SetCore {
           },
         },
         staticMethods: {
+          // `Set.castFrom(source, {newSet})` — the optional `newSet` is a
+          // *generic* function (`Set<R> Function<R>()`), a value interpreted
+          // code cannot construct, so it is rejected explicitly rather than
+          // accepted and ignored. Silently dropping it would hand back a view
+          // over the wrong set implementation.
+          'castFrom': (visitor, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length != 1) {
+              throw RuntimeD4rtException(
+                  'Set.castFrom(source) expects one positional argument.');
+            }
+            if (namedArgs.isNotEmpty) {
+              throw RuntimeD4rtException(
+                  'Set.castFrom does not support the `newSet` argument: it is '
+                  'a generic function, which interpreted code cannot express.');
+            }
+            final source = positionalArgs[0];
+            if (source is! Set) {
+              throw RuntimeD4rtException(
+                  'The argument to Set.castFrom must be a Set.');
+            }
+            return Set.castFrom<dynamic, dynamic>(source);
+          },
           'from': (visitor, positionalArgs, namedArgs, _) {
             return Set.from(positionalArgs[0] as Iterable);
           },
