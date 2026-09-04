@@ -5012,7 +5012,7 @@ class BridgedMethodCallable implements Callable {
       Logger.error(
           "[BridgedMethodCallable] Native exception during call to '${_instance.bridgedClass.name}.$_methodName': $e\n$s");
       throw RuntimeD4rtException(
-          "Native error in bridged method '${_instance.bridgedClass.name}.$_methodName': $e", originalException: e);
+          "Native error in bridged method '${_instance.bridgedClass.name}.$_methodName': $e", originalException: e, originalStackTrace: s);
     }
   }
 
@@ -5054,7 +5054,7 @@ class BridgedStaticMethodCallable implements Callable {
       Logger.error(
           "[BridgedStaticMethodCallable] Native exception during call to '${_bridgedClass.name}.$_methodName': $e\n$s");
       throw RuntimeD4rtException(
-          "Native error in bridged static method '${_bridgedClass.name}.$_methodName': $e", originalException: e);
+          "Native error in bridged static method '${_bridgedClass.name}.$_methodName': $e", originalException: e, originalStackTrace: s);
     }
   }
 

@@ -546,6 +546,19 @@ class StreamSubscriptionAsync {
         methods: {
           'cancel': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as StreamSubscription).cancel(),
+          // Completes with [futureValue] once the stream is done. The value is
+          // optional and defaults to null, so an absent argument and an
+          // explicit `null` are indistinguishable — which matches the SDK,
+          // whose parameter is `[E? futureValue]`.
+          'asFuture': (visitor, target, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length > 1 || namedArgs.isNotEmpty) {
+              throw RuntimeD4rtException(
+                  'StreamSubscription.asFuture([futureValue]) expects at most '
+                  'one positional argument.');
+            }
+            return (target as StreamSubscription).asFuture<Object?>(
+                positionalArgs.isNotEmpty ? positionalArgs[0] : null);
+          },
           'pause': (visitor, target, positionalArgs, namedArgs, _) {
             final resumeSignal =
                 positionalArgs.isNotEmpty ? positionalArgs[0] as Future? : null;

@@ -253,6 +253,8 @@ class ProcessSignalIo {
     },
     getters: {
       'name': (visitor, target) => (target as ProcessSignal).name,
+      'signalNumber': (visitor, target) =>
+          (target as ProcessSignal).signalNumber,
       'runtimeType': (visitor, target) => (target as ProcessSignal).runtimeType,
       'hashCode': (visitor, target) => (target as ProcessSignal).hashCode,
     },
@@ -277,6 +279,17 @@ class ProcessStartModeIo {
       'inheritStdio': (visitor) => ProcessStartMode.inheritStdio,
       'detached': (visitor) => ProcessStartMode.detached,
       'detachedWithStdio': (visitor) => ProcessStartMode.detachedWithStdio,
+      // `values` is a `static const List`, so it belongs beside the
+      // individual constants and not in an instance map.
+      'values': (visitor) => ProcessStartMode.values,
+    },
+    // `ProcessStartMode` is *not* a Dart `enum` — it is a final class with
+    // static const instances, so it has no `name` and no `index`. Its
+    // `toString()` is what yields the declared name, and adding a synthesised
+    // `name` here would let a script write something the SDK rejects.
+    methods: {
+      'toString': (visitor, target, positionalArgs, namedArgs, _) =>
+          (target as ProcessStartMode).toString(),
     },
   );
 }

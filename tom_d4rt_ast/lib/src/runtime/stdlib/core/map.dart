@@ -55,6 +55,23 @@ class MapCore {
       },
     },
     staticMethods: {
+      // The static counterpart of the instance `cast()`: re-types an
+      // existing map as a live view rather than a copy. Type arguments are
+      // erased at the bridge boundary, so the native call is instantiated
+      // at `dynamic` and the observable contract is "same entries, still a
+      // view".
+      'castFrom': (visitor, positionalArgs, namedArgs, _) {
+        if (positionalArgs.length != 1 || namedArgs.isNotEmpty) {
+          throw RuntimeD4rtException(
+              'Map.castFrom(source) expects one positional argument.');
+        }
+        final source = positionalArgs[0];
+        if (source is! Map) {
+          throw RuntimeD4rtException(
+              'The argument to Map.castFrom must be a Map.');
+        }
+        return Map.castFrom<dynamic, dynamic, dynamic, dynamic>(source);
+      },
       'from': (visitor, positionalArgs, namedArgs, _) {
         return Map.from(positionalArgs[0] as Map);
       },

@@ -237,10 +237,24 @@ class RuntimeD4rtException extends D4rtException {
   /// (OPEN B.5 — U13/U24.)
   final Object? originalException;
 
+  /// The stack trace that accompanied [originalException] at the point the
+  /// bridged adapter threw it.
+  ///
+  /// Recovering the *value* was never enough on its own. The wrapper is
+  /// constructed in the interpreter's own `catch` block, so an interpreted
+  /// `catch (e, st)` used to receive the trace of the wrap site rather than of
+  /// the throw — which makes `Error.throwWithStackTrace` inert, since preserving
+  /// an earlier trace is the only thing that member does. Carrying the trace
+  /// alongside the value lets `visitTryStatement` hand the script what actually
+  /// happened.
+  final StackTrace? originalStackTrace;
+
   /// Creates a new runtime error with the given message. When
   /// [originalException] is supplied, the wrapped native exception stays
-  /// catchable by type.
-  RuntimeD4rtException(super.message, {this.originalException});
+  /// catchable by type; supply [originalStackTrace] from the same `catch`
+  /// clause so the trace survives the wrapping too.
+  RuntimeD4rtException(super.message,
+      {this.originalException, this.originalStackTrace});
 
   @override
   String toString() => 'Runtime Error: $message';
@@ -438,7 +452,9 @@ D4rtException wrapDirectiveError(
     SourceCodeD4rtException e =>
       SourceCodeD4rtException(message, e.problematicCode),
     RuntimeD4rtException e =>
-      RuntimeD4rtException(message, originalException: e.originalException),
+      RuntimeD4rtException(message,
+          originalException: e.originalException,
+          originalStackTrace: e.originalStackTrace),
     _ => null,
   };
   // An unreconstructable type is returned untouched AND unflagged, so an outer

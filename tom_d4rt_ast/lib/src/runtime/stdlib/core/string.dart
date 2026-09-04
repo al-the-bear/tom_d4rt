@@ -50,6 +50,29 @@ class StringCore {
               positionalArgs.length > 1 ? positionalArgs[1] as int? ?? 0 : 0,
             );
           },
+          // `Pattern.matchAsPrefix(String string, [int start])` — the receiver
+          // is the *pattern* and the string being searched is the *argument*.
+          // Reading it the other way round produces a bridge that compiles and
+          // matches nothing.
+          'matchAsPrefix': (visitor, target, positionalArgs, namedArgs, _) {
+            if (positionalArgs.isEmpty ||
+                positionalArgs.length > 2 ||
+                namedArgs.isNotEmpty) {
+              throw RuntimeD4rtException(
+                  'String.matchAsPrefix(string, [start]) expects one or two '
+                  'positional arguments.');
+            }
+            final string = positionalArgs[0];
+            if (string is! String) {
+              throw RuntimeD4rtException(
+                  'The first argument to String.matchAsPrefix must be a '
+                  'String.');
+            }
+            return (target as String).matchAsPrefix(
+              string,
+              positionalArgs.length > 1 ? positionalArgs[1] as int : 0,
+            );
+          },
           'startsWith': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as String).startsWith(
               positionalArgs[0] as Pattern,

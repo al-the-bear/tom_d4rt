@@ -12,6 +12,31 @@ class LineSplitterConvert {
             return LineSplitter();
           },
         },
+        staticMethods: {
+          // `LineSplitter.split(text, [start, end])` — the offsets are what
+          // distinguish this from `LineSplitter().convert(text)`; forwarding
+          // only the string would look correct until a caller passed a second
+          // argument.
+          'split': (visitor, positionalArgs, namedArgs, _) {
+            if (positionalArgs.isEmpty ||
+                positionalArgs.length > 3 ||
+                namedArgs.isNotEmpty) {
+              throw RuntimeD4rtException(
+                  'LineSplitter.split(text, [start, end]) expects one to three '
+                  'positional arguments.');
+            }
+            final text = positionalArgs[0];
+            if (text is! String) {
+              throw RuntimeD4rtException(
+                  'The first argument to LineSplitter.split must be a String.');
+            }
+            return LineSplitter.split(
+              text,
+              positionalArgs.length > 1 ? positionalArgs[1] as int : 0,
+              positionalArgs.length > 2 ? positionalArgs[2] as int? : null,
+            );
+          },
+        },
         methods: {
           'convert': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1 || positionalArgs[0] is! String) {

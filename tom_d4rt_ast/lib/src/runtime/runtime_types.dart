@@ -1502,7 +1502,7 @@ class InterpretedInstance implements RuntimeValue {
             Logger.error(
                 "Native exception during bridged superclass getter '$name': $e\n$s");
             throw RuntimeD4rtException(
-                "Native error in bridged superclass getter '$name': $e", originalException: e);
+                "Native error in bridged superclass getter '$name': $e", originalException: e, originalStackTrace: s);
           }
         }
 
@@ -1611,7 +1611,7 @@ class InterpretedInstance implements RuntimeValue {
           Logger.error(
               "Native exception during bridged mixin getter '$name': $e\n$s");
           throw RuntimeD4rtException(
-              "Native error in bridged mixin getter '$name': $e", originalException: e);
+              "Native error in bridged mixin getter '$name': $e", originalException: e, originalStackTrace: s);
         }
       }
 
@@ -1750,7 +1750,7 @@ class InterpretedInstance implements RuntimeValue {
                 Logger.error(
                     "Native exception during bridged super getter '$name' (RC-9b): $e\n$s");
                 throw RuntimeD4rtException(
-                    "Native error in bridged super getter '$name': $e", originalException: e);
+                    "Native error in bridged super getter '$name': $e", originalException: e, originalStackTrace: s);
               }
             } else {
               Logger.debug(
@@ -1833,7 +1833,7 @@ class InterpretedInstance implements RuntimeValue {
               Logger.error(
                   "Native exception during bridged superclass setter '$name': $e\n$s");
               throw RuntimeD4rtException(
-                  "Native error in bridged superclass setter '$name': $e", originalException: e);
+                  "Native error in bridged superclass setter '$name': $e", originalException: e, originalStackTrace: s);
             }
           }
         }
@@ -2282,7 +2282,7 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
           Logger.error(
               "Native exception during bridged mixin getter '$memberName': $e\n$s");
           throw RuntimeD4rtException(
-              "Native error in bridged mixin getter '$memberName': $e", originalException: e);
+              "Native error in bridged mixin getter '$memberName': $e", originalException: e, originalStackTrace: s);
         }
       }
 
@@ -2425,7 +2425,7 @@ class BridgedSuperMethodCallable implements Callable {
       Logger.error(
           "Native exception during call to bridged superclass method '$bridgedClassName.$methodName': $e\n$s");
       throw RuntimeD4rtException(
-          "Native error in bridged superclass method '$bridgedClassName.$methodName': $e", originalException: e);
+          "Native error in bridged superclass method '$bridgedClassName.$methodName': $e", originalException: e, originalStackTrace: s);
     }
   }
 
@@ -2500,7 +2500,7 @@ class BridgedMixinMethodCallable implements Callable {
       Logger.error(
           "[BridgedMixinMethodCallable] Native exception during call to '$bridgedMixinName.$methodName': $e\n$s");
       throw RuntimeD4rtException(
-          "Native error in bridged mixin method '$bridgedMixinName.$methodName': $e", originalException: e);
+          "Native error in bridged mixin method '$bridgedMixinName.$methodName': $e", originalException: e, originalStackTrace: s);
     }
   }
 
@@ -2535,7 +2535,7 @@ class BridgedEnumMixinMethodCallable implements Callable {
       Logger.error(
           "[BridgedEnumMixinMethodCallable] Native exception during call to '$bridgedMixinName.$methodName': $e\n$s");
       throw RuntimeD4rtException(
-          "Native error in bridged mixin method '$bridgedMixinName.$methodName': $e", originalException: e);
+          "Native error in bridged mixin method '$bridgedMixinName.$methodName': $e", originalException: e, originalStackTrace: s);
     }
   }
 

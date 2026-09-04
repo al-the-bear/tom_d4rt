@@ -19,6 +19,7 @@ class IterableCore {
       // `SplayTreeMap` while it worked on every other map.
       '_SplayTreeMapEntryIterable',
       '_AllMatchesIterable',
+      '_LineSplitIterable', // LineSplitter.split()
       '_SyncGeneratorIterable', // D4rt interpreter sync* generator
       '_SyncStarIterable', // Dart SDK sync* generator (from bridged code)
       // List transformation iterables (returned by .map(), .where(), etc.)
@@ -35,11 +36,71 @@ class IterableCore {
       'ReversedListIterable',
       'SubListIterable',
       'CastIterable',
+      // `Iterable.castFrom` / `.cast()` return the *efficient-length*
+      // subtype whenever the source can report its length cheaply — which
+      // is the common case (a list). Listing only `CastIterable` left
+      // `.length` on a cast list unreachable.
+      '_EfficientLengthCastIterable',
       'EfficientLengthMappedIterable',
       'EfficientLengthSkipIterable',
       'EfficientLengthTakeIterable',
     ],
     staticMethods: {
+      // Re-types an existing iterable as a live view rather than a copy.
+      // Type arguments are erased at the bridge boundary, so the native
+      // call is instantiated at `dynamic` and the observable contract is
+      // "same elements, still a view".
+      'castFrom': (visitor, positionalArgs, namedArgs, _) {
+        if (positionalArgs.length != 1 || namedArgs.isNotEmpty) {
+          throw RuntimeD4rtException(
+              'Iterable.castFrom(source) expects one positional argument.');
+        }
+        final source = positionalArgs[0];
+        if (source is! Iterable) {
+          throw RuntimeD4rtException(
+              'The argument to Iterable.castFrom must be an Iterable.');
+        }
+        return Iterable.castFrom<dynamic, dynamic>(source);
+      },
+      // The two rendering helpers differ only in truncation: the short
+      // form elides the middle of a long iterable, the full form does not.
+      // Both default to round delimiters — `(1, 2, 3)`, not `[1, 2, 3]`.
+      'iterableToShortString': (visitor, positionalArgs, namedArgs, _) {
+        if (positionalArgs.isEmpty || positionalArgs.length > 3) {
+          throw RuntimeD4rtException(
+              'Iterable.iterableToShortString(iterable, [leftDelimiter, '
+              'rightDelimiter]) expects one to three positional arguments.');
+        }
+        final iterable = positionalArgs[0];
+        if (iterable is! Iterable) {
+          throw RuntimeD4rtException(
+              'The first argument to Iterable.iterableToShortString must '
+              'be an Iterable.');
+        }
+        return Iterable.iterableToShortString(
+          iterable,
+          positionalArgs.length > 1 ? positionalArgs[1] as String : '(',
+          positionalArgs.length > 2 ? positionalArgs[2] as String : ')',
+        );
+      },
+      'iterableToFullString': (visitor, positionalArgs, namedArgs, _) {
+        if (positionalArgs.isEmpty || positionalArgs.length > 3) {
+          throw RuntimeD4rtException(
+              'Iterable.iterableToFullString(iterable, [leftDelimiter, '
+              'rightDelimiter]) expects one to three positional arguments.');
+        }
+        final iterable = positionalArgs[0];
+        if (iterable is! Iterable) {
+          throw RuntimeD4rtException(
+              'The first argument to Iterable.iterableToFullString must '
+              'be an Iterable.');
+        }
+        return Iterable.iterableToFullString(
+          iterable,
+          positionalArgs.length > 1 ? positionalArgs[1] as String : '(',
+          positionalArgs.length > 2 ? positionalArgs[2] as String : ')',
+        );
+      },
       'generate': (visitor, positionalArgs, namedArgs, _) {
         final count = positionalArgs[0] as int;
         final generator = positionalArgs.length > 1
