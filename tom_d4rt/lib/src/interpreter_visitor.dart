@@ -3675,7 +3675,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             if (arityError != null) throw RuntimeD4rtException(arityError);
             throw RuntimeD4rtException(
                 "Native error during bridged method call '$methodName' on ${bridgedClass.name}: $e",
-                originalException: e);
+                originalException: e, originalStackTrace: s);
           }
         } else {
           // C13 follow-up: before falling back to extensions, try a getter

@@ -445,8 +445,13 @@ D4rtException wrapDirectiveError(
   final D4rtException? wrapped = switch (error) {
     SourceCodeD4rtException e =>
       SourceCodeD4rtException(message, e.problematicCode),
-    RuntimeD4rtException e =>
-      RuntimeD4rtException(message, originalException: e.originalException),
+    // The trace is forwarded alongside the value: this function reconstructs
+    // the exception rather than mutating it, so anything it forgets to copy is
+    // silently lost, and a bridged throw inside an imported module is exactly
+    // the case where the trace is worth most.
+    RuntimeD4rtException e => RuntimeD4rtException(message,
+        originalException: e.originalException,
+        originalStackTrace: e.originalStackTrace),
     _ => null,
   };
   // An unreconstructable type is returned untouched AND unflagged, so an outer
