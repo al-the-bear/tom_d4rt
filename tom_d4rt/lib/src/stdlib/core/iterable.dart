@@ -19,6 +19,7 @@ class IterableCore {
           // `SplayTreeMap` while it worked on every other map.
           '_SplayTreeMapEntryIterable',
           '_AllMatchesIterable',
+          '_LineSplitIterable', // LineSplitter.split()
           '_SyncGeneratorIterable', // D4rt interpreter sync* generator
           '_SyncStarIterable', // Dart SDK sync* generator (from bridged code)
           // List transformation iterables (returned by .map(), .where(), etc.)

@@ -559,6 +559,7 @@ class InternetAddressTypeIo {
           'unix': (visitor) => InternetAddressType.unix,
         },
         getters: {
+          'name': (visitor, target) => (target as InternetAddressType).name,
           'host': (visitor, target) => (target as InternetAddressType).name,
           'address': (visitor, target) =>
               (target as InternetAddressType).hashCode,

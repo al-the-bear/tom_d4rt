@@ -12,6 +12,16 @@ class SymbolCore {
             return Symbol(name);
           },
         },
+        // `empty` and `unaryMinus` are `static const` fields, so they belong
+        // here and not in `getters`: an instance getter takes
+        // `(visitor, target)` and a static getter takes `(visitor)`, so a
+        // static const placed in the instance map registers, exports and
+        // analyses cleanly — and is inert, because nothing ever looks it up
+        // there.
+        staticGetters: {
+          'empty': (visitor) => Symbol.empty,
+          'unaryMinus': (visitor) => Symbol.unaryMinus,
+        },
         methods: {
           'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Symbol).toString();

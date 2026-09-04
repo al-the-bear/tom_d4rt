@@ -1,5 +1,11 @@
 import 'package:test/test.dart';
+import 'package:tom_d4rt/d4rt.dart';
 import '../interpreter_test.dart' show execute;
+
+/// A real Dart enum, registered as a bridge so F-SCC11-28 can exercise the
+/// `BridgedEnumValue` representation. Declaration order is deliberately the
+/// reverse of alphabetical order so index and name comparisons disagree.
+enum _Priority { low, high }
 
 /// SCC11 part 3 — the long tail: one or two members each, spread across a dozen
 /// classes.
@@ -67,20 +73,45 @@ void main() {
       expect(result, equals(['blue', 'green', 'red']));
     });
 
-    test('F-SCC11-28: the comparators also accept bridged SDK enum values '
+    test('F-SCC11-28: the comparators also accept bridged enum values '
         '[2026-09-04]', () {
       // The other representation. `BridgedEnumValue` does carry a native enum,
       // so this is the case a naive `as Enum` adapter would have passed —
       // keeping it asserted stops a later "simplification" from regressing the
       // interpreted side.
-      final result = execute('''
-        import 'dart:io';
-        main() {
-          return Enum.compareByIndex(
-              ProcessStartMode.normal, ProcessStartMode.detached);
-        }
-      ''');
-      expect(result, lessThan(0));
+      //
+      // The bridge has to be registered here rather than reached through
+      // `dart:io`, because none of the SDK "enum" surfaces the stdlib exposes
+      // is a Dart `enum`: `ProcessStartMode`, `ProcessSignal`, `FileMode`,
+      // `FileSystemEntityType` and `InternetAddressType` are all final classes
+      // with static const instances, and `x is Enum` is false for every one of
+      // them.
+      final d4rt = D4rt()..setDebug(false);
+      d4rt.registerBridgedEnum(
+        BridgedEnumDefinition<_Priority>(
+          name: 'Priority',
+          values: _Priority.values,
+        ),
+        'package:test_lib/test_lib.dart',
+      );
+      final result = d4rt.execute(
+        library: 'package:test/main.dart',
+        sources: {
+          'package:test/main.dart': '''
+            import 'package:test_lib/test_lib.dart';
+            main() {
+              return [
+                Enum.compareByIndex(Priority.low, Priority.high),
+                Enum.compareByName(Priority.low, Priority.high),
+              ];
+            }
+          ''',
+        },
+      );
+      // Declaration order is low, high — so by index low < high, while by name
+      // 'high' sorts before 'low'. Asserting both directions in one script is
+      // what proves the two comparators are not the same function.
+      expect(result, equals([-1, 1]));
     });
 
     test('F-SCC11-29: comparing a non-enum reports a diagnostic naming Enum '
@@ -128,10 +159,14 @@ void main() {
   group('SCC11: dart:io enum surfaces', () {
     test('F-SCC11-32: ProcessStartMode.values lists all four modes '
         '[2026-09-04]', () {
+      // Rendered through `toString()`, not `.name`: `ProcessStartMode` is a
+      // final class with static const instances rather than a Dart `enum`, so
+      // it has no `name` and no `index`. Bridging a synthesised `name` would
+      // let a script write something the SDK rejects.
       final result = execute('''
         import 'dart:io';
         main() {
-          return ProcessStartMode.values.map((m) => m.name).toList();
+          return ProcessStartMode.values.map((m) => m.toString()).toList();
         }
       ''');
       expect(result,
