@@ -1,3 +1,31 @@
+## 0.32.0
+
+### Fixed — `listen(null)` now works on every bridge, not two of nine
+
+Mirrors `tom_d4rt` 1.43.0. `Stream.listen` declares its first parameter as
+`void Function(T)?`, so subscribing for `onDone` / `onError` alone is ordinary
+Dart — but of the nine bridges implementing `listen`, only `Stream` and `Socket`
+accepted it. The four socket-family bridges cast to a non-nullable function and
+died with `type 'Null' is not a subtype of type 'InterpretedFunction'`, an
+internal crash rather than a diagnosable script fault; `Stdin`, `HttpServer` and
+`HttpClientResponse` threw `listen requires an onData callback.`, a restriction
+d4rt invented and the platform does not have. All nine now share one
+`bridgedStreamListen` that keeps the SDK's contract, which also fixes
+`socket.listen()` with no arguments (previously a `RangeError` from an unguarded
+`positionalArgs[0]`) and routes every `onError` through `errorHandlerArgs` once.
+
+### Changed — one `runAction`, replacing four private copies
+
+`_runAction` existed in four private copies in two incompatible shapes (`T?` and
+`FutureOr<T>`), differing only for a null function with a non-nullable `T`. None
+of the 84 call sites awaits the result, so the merged helper takes the nullable
+form. The `try { … } catch (e) { rethrow; }` the copies carried is a no-op and
+is not reproduced.
+
+The behavioural cases live in `tom_d4rt`, which has the parser to run them; the
+two structural guards that keep the duplication from growing back sweep **both**
+trees, so a copy reappearing on this side fails there.
+
 ## 0.31.0
 
 ### Fixed — bridge coverage gaps found by a mechanical sweep, not by accident

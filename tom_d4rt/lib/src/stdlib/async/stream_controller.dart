@@ -1,15 +1,6 @@
 import 'dart:async';
 import 'package:tom_d4rt/d4rt.dart';
-
-// Helper function for running interpreted functions
-FutureOr<T> _runAction<T>(
-    InterpreterVisitor visitor, InterpretedFunction? func, List<dynamic> args) {
-  try {
-    return func?.call(visitor, args) as FutureOr<T>;
-  } catch (e) {
-    rethrow;
-  }
-}
+import '../run_action.dart';
 
 class StreamControllerAsync {
   static BridgedClass get definition => BridgedClass(
@@ -28,16 +19,16 @@ class StreamControllerAsync {
             return StreamController(
               onListen: onListen == null
                   ? null
-                  : () => _runAction<void>(visitor, onListen, []),
+                  : () => runAction<void>(visitor, onListen, []),
               onPause: onPause == null
                   ? null
-                  : () => _runAction<void>(visitor, onPause, []),
+                  : () => runAction<void>(visitor, onPause, []),
               onResume: onResume == null
                   ? null
-                  : () => _runAction<void>(visitor, onResume, []),
+                  : () => runAction<void>(visitor, onResume, []),
               onCancel: onCancel == null
                   ? null
-                  : () => _runAction<void>(visitor, onCancel, []),
+                  : () => runAction<void>(visitor, onCancel, []),
               sync: sync,
             );
           },
@@ -49,10 +40,10 @@ class StreamControllerAsync {
             return StreamController.broadcast(
               onListen: onListen == null
                   ? null
-                  : () => _runAction<void>(visitor, onListen, []),
+                  : () => runAction<void>(visitor, onListen, []),
               onCancel: onCancel == null
                   ? null
-                  : () => _runAction<void>(visitor, onCancel, []),
+                  : () => runAction<void>(visitor, onCancel, []),
               sync: sync,
             );
           },
@@ -119,7 +110,7 @@ class StreamControllerAsync {
             final visitor = visitorParam; // Capture reference
             (target as StreamController).onListen = callback == null
                 ? null
-                : () => _runAction<void>(visitor!, callback, []);
+                : () => runAction<void>(visitor!, callback, []);
             return;
           },
           'onPause': (visitorParam, target, value) {
@@ -127,7 +118,7 @@ class StreamControllerAsync {
             final visitor = visitorParam; // Capture reference
             (target as StreamController).onPause = callback == null
                 ? null
-                : () => _runAction<void>(visitor!, callback, []);
+                : () => runAction<void>(visitor!, callback, []);
             return;
           },
           'onResume': (visitorParam, target, value) {
@@ -135,7 +126,7 @@ class StreamControllerAsync {
             final visitor = visitorParam; // Capture reference
             (target as StreamController).onResume = callback == null
                 ? null
-                : () => _runAction<void>(visitor!, callback, []);
+                : () => runAction<void>(visitor!, callback, []);
             return;
           },
           'onCancel': (visitorParam, target, value) {
@@ -143,7 +134,7 @@ class StreamControllerAsync {
             final visitor = visitorParam; // Capture reference
             (target as StreamController).onCancel = callback == null
                 ? null
-                : () => _runAction<void>(visitor!, callback, []);
+                : () => runAction<void>(visitor!, callback, []);
             return;
           },
         },

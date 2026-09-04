@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:tom_d4rt_ast/runtime.dart';
 
-import '../error_handler_args.dart';
+import '../stream_listen.dart';
 
 class StdinIo {
   static BridgedClass get definition => BridgedClass(
@@ -19,29 +19,9 @@ class StdinIo {
                       namedArgs['retainNewlines'] as bool? ?? false),
           'readByteSync': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as Stdin).readByteSync(),
-          'listen': (visitor, target, positionalArgs, namedArgs, _) {
-            final stdin = target as Stdin;
-            final onData = positionalArgs[0] as InterpretedFunction?;
-            final onError = namedArgs['onError'] as InterpretedFunction?;
-            final onDone = namedArgs['onDone'] as InterpretedFunction?;
-            final cancelOnError = namedArgs['cancelOnError'] as bool?;
-
-            if (onData == null) {
-              throw RuntimeD4rtException('listen requires an onData callback.');
-            }
-
-            return stdin.listen(
-              (data) => onData.call(visitor, [data]),
-              onError: onError == null
-                  ? null
-                  : (error, stackTrace) =>
-                      onError.call(
-                          visitor,
-                          errorHandlerArgs(onError, error, stackTrace)),
-              onDone: onDone == null ? null : () => onDone.call(visitor, []),
-              cancelOnError: cancelOnError,
-            );
-          },
+          'listen': (visitor, target, positionalArgs, namedArgs, _) =>
+              bridgedStreamListen(visitor, target as Stdin, positionalArgs,
+                  namedArgs),
         },
         getters: {
           'hasTerminal': (visitor, target) => (target as Stdin).hasTerminal,

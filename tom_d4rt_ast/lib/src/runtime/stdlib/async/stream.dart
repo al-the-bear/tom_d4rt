@@ -2,16 +2,8 @@ import 'dart:async';
 import 'package:tom_d4rt_ast/runtime.dart';
 
 import '../error_handler_args.dart';
-
-// Helper function for running interpreted functions
-FutureOr<T> _runAction<T>(
-    InterpreterVisitor visitor, InterpretedFunction? func, List<dynamic> args) {
-  try {
-    return func?.call(visitor, args) as FutureOr<T>;
-  } catch (e) {
-    rethrow;
-  }
-}
+import '../run_action.dart';
+import '../stream_listen.dart';
 
 /// Coerce a script-supplied transformer to a native [StreamTransformer].
 ///
@@ -36,7 +28,7 @@ StreamTransformer? _asStreamTransformer(
     final bind = value.get('bind', visitor: visitor);
     if (bind is InterpretedFunction) {
       return StreamTransformer.fromBind(
-          (stream) => _runAction<Stream>(visitor, bind, [stream]) as Stream);
+          (stream) => runAction<Stream>(visitor, bind, [stream]) as Stream);
     }
   }
   return null;
@@ -134,7 +126,7 @@ class StreamAsync {
               positionalArgs[0] as Duration,
               callback == null
                   ? null
-                  : (i) => _runAction(visitor, callback, [i]),
+                  : (i) => runAction(visitor, callback, [i]),
             );
           },
           'fromFuture': (visitor, positionalArgs, namedArgs, _) {
@@ -159,7 +151,7 @@ class StreamAsync {
             final onListen = positionalArgs[0] as InterpretedFunction;
             final isBroadcast = namedArgs['isBroadcast'] as bool? ?? false;
             return Stream.multi(
-              (controller) => _runAction<void>(visitor, onListen, [controller]),
+              (controller) => runAction<void>(visitor, onListen, [controller]),
               isBroadcast: isBroadcast,
             );
           },
@@ -173,7 +165,7 @@ class StreamAsync {
             return Stream.eventTransformed(
               source,
               (sink) {
-                _runAction<void>(visitor, mapSink, [sink]);
+                runAction<void>(visitor, mapSink, [sink]);
                 return sink;
               },
             );
@@ -186,34 +178,9 @@ class StreamAsync {
           },
         },
         methods: {
-          'listen': (visitor, target, positionalArgs, namedArgs, _) {
-            final onData = positionalArgs.isNotEmpty
-                ? positionalArgs[0] as InterpretedFunction?
-                : null;
-            final onError = namedArgs['onError'] as InterpretedFunction?;
-            final onDone = namedArgs['onDone'] as InterpretedFunction?;
-            final cancelOnError = namedArgs['cancelOnError'] as bool?;
-
-            void onDataWrapper(dynamic data) =>
-                _runAction<void>(visitor, onData!, [data]);
-            Function? onErrorWrapper = onError == null
-                ? null
-                : (Object error, [StackTrace? stackTrace]) =>
-                    _runAction<void>(
-                        visitor,
-                        onError,
-                        errorHandlerArgs(onError, error, stackTrace));
-            void Function()? onDoneWrapper = onDone == null
-                ? null
-                : () => _runAction<void>(visitor, onDone, []);
-
-            return (target as Stream).listen(
-              onData != null ? onDataWrapper : null,
-              onError: onErrorWrapper,
-              onDone: onDoneWrapper,
-              cancelOnError: cancelOnError,
-            );
-          },
+          'listen': (visitor, target, positionalArgs, namedArgs, _) =>
+              bridgedStreamListen(visitor, target as Stream, positionalArgs,
+                  namedArgs),
           'map': (visitor, target, positionalArgs, namedArgs, _) {
             final mapper = positionalArgs[0];
             if (mapper is! InterpretedFunction) {
@@ -221,7 +188,7 @@ class StreamAsync {
                   'Stream.map requires an Function mapper argument.');
             }
             return (target as Stream)
-                .map((event) => _runAction<dynamic>(visitor, mapper, [event]));
+                .map((event) => runAction<dynamic>(visitor, mapper, [event]));
           },
           'where': (visitor, target, positionalArgs, namedArgs, _) {
             final predicate = positionalArgs[0];
@@ -230,7 +197,7 @@ class StreamAsync {
                   'Stream.where requires an Function predicate argument.');
             }
             return (target as Stream).where((event) {
-              final result = _runAction<dynamic>(visitor, predicate, [event]);
+              final result = runAction<dynamic>(visitor, predicate, [event]);
               return result is bool && result;
             });
           },
@@ -241,7 +208,7 @@ class StreamAsync {
                   'Stream.expand requires an Function converter argument.');
             }
             return (target as Stream).expand((event) {
-              final result = _runAction<dynamic>(visitor, converter, [event]);
+              final result = runAction<dynamic>(visitor, converter, [event]);
               return result is Iterable ? result : const [];
             });
           },
@@ -277,7 +244,7 @@ class StreamAsync {
                   'Stream.takeWhile requires an Function predicate argument.');
             }
             return (target as Stream).takeWhile((event) {
-              final result = _runAction<dynamic>(visitor, predicate, [event]);
+              final result = runAction<dynamic>(visitor, predicate, [event]);
               return result is bool && result;
             });
           },
@@ -288,7 +255,7 @@ class StreamAsync {
                   'Stream.skipWhile requires an Function predicate argument.');
             }
             return (target as Stream).skipWhile((event) {
-              final result = _runAction<dynamic>(visitor, predicate, [event]);
+              final result = runAction<dynamic>(visitor, predicate, [event]);
               return result is bool && result;
             });
           },
@@ -300,7 +267,7 @@ class StreamAsync {
               return (target as Stream).distinct();
             } else {
               return (target as Stream).distinct((p, n) {
-                final result = _runAction<dynamic>(visitor, equals, [p, n]);
+                final result = runAction<dynamic>(visitor, equals, [p, n]);
                 return result is bool && result;
               });
             }
@@ -330,7 +297,7 @@ class StreamAsync {
                   'Stream.any requires an Function predicate argument.');
             }
             return (target as Stream).any((event) {
-              final result = _runAction<dynamic>(visitor, predicate, [event]);
+              final result = runAction<dynamic>(visitor, predicate, [event]);
               return result is bool && result;
             });
           },
@@ -348,7 +315,7 @@ class StreamAsync {
                   'Stream.every requires an Function predicate argument.');
             }
             return (target as Stream).every((event) {
-              final result = _runAction<dynamic>(visitor, predicate, [event]);
+              final result = runAction<dynamic>(visitor, predicate, [event]);
               return result is bool && result;
             });
           },
@@ -363,7 +330,7 @@ class StreamAsync {
             return (target as Stream).fold(
               initialValue,
               (previous, element) =>
-                  _runAction<dynamic>(visitor, combine, [previous, element]),
+                  runAction<dynamic>(visitor, combine, [previous, element]),
             );
           },
           'reduce': (visitor, target, positionalArgs, namedArgs, _) {
@@ -374,7 +341,7 @@ class StreamAsync {
             }
             return (target as Stream).reduce(
               (previous, element) =>
-                  _runAction<dynamic>(visitor, combine, [previous, element]),
+                  runAction<dynamic>(visitor, combine, [previous, element]),
             );
           },
           'forEach': (visitor, target, positionalArgs, namedArgs, _) {
@@ -384,7 +351,7 @@ class StreamAsync {
                   'Stream.forEach requires an Function action argument.');
             }
             return (target as Stream).forEach(
-              (element) => _runAction<void>(visitor, action, [element]),
+              (element) => runAction<void>(visitor, action, [element]),
             );
           },
           'asBroadcastStream': (visitor, target, positionalArgs, namedArgs, _) {
@@ -394,11 +361,11 @@ class StreamAsync {
               onListen: onListen == null
                   ? null
                   : (subscription) =>
-                      _runAction<void>(visitor, onListen, [subscription]),
+                      runAction<void>(visitor, onListen, [subscription]),
               onCancel: onCancel == null
                   ? null
                   : (subscription) =>
-                      _runAction<void>(visitor, onCancel, [subscription]),
+                      runAction<void>(visitor, onCancel, [subscription]),
             );
           },
           'asyncMap': (visitor, target, positionalArgs, namedArgs, _) {
@@ -409,7 +376,7 @@ class StreamAsync {
             }
             final convert = positionalArgs[0] as InterpretedFunction;
             return (target as Stream).asyncMap(
-              (event) => _runAction(visitor, convert, [event]),
+              (event) => runAction(visitor, convert, [event]),
             );
           },
           'asyncExpand': (visitor, target, positionalArgs, namedArgs, _) {
@@ -421,7 +388,7 @@ class StreamAsync {
             final convert = positionalArgs[0] as InterpretedFunction;
             return (target as Stream).asyncExpand<dynamic>(
               (event) {
-                final result = _runAction(visitor, convert, [event]);
+                final result = runAction(visitor, convert, [event]);
                 return result is Stream ? result : Stream.empty();
               },
             );
@@ -440,7 +407,7 @@ class StreamAsync {
                 final actualError = error is InternalInterpreterD4rtException
                     ? error.originalThrownValue
                     : error;
-                return _runAction<void>(visitor, onError,
+                return runAction<void>(visitor, onError,
                     errorHandlerArgs(onError, actualError, stackTrace));
               },
               test: test == null
@@ -449,7 +416,7 @@ class StreamAsync {
                       final actualError = error is InternalInterpreterD4rtException
                           ? error.originalThrownValue
                           : error;
-                      return _runAction<bool>(visitor, test, [actualError]) == true;
+                      return runAction<bool>(visitor, test, [actualError]) == true;
                     },
             );
           },
@@ -463,7 +430,7 @@ class StreamAsync {
               timeLimit,
               onTimeout: onTimeout == null
                   ? null
-                  : (sink) => _runAction<void>(visitor, onTimeout, [sink]),
+                  : (sink) => runAction<void>(visitor, onTimeout, [sink]),
             );
           },
           'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -474,9 +441,9 @@ class StreamAsync {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as Stream).firstWhere(
-              (element) => _runAction<bool>(visitor, test, [element]) == true,
+              (element) => runAction<bool>(visitor, test, [element]) == true,
               orElse:
-                  orElse == null ? null : () => _runAction(visitor, orElse, []),
+                  orElse == null ? null : () => runAction(visitor, orElse, []),
             );
           },
           'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -487,9 +454,9 @@ class StreamAsync {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as Stream).lastWhere(
-              (element) => _runAction<bool>(visitor, test, [element]) == true,
+              (element) => runAction<bool>(visitor, test, [element]) == true,
               orElse:
-                  orElse == null ? null : () => _runAction(visitor, orElse, []),
+                  orElse == null ? null : () => runAction(visitor, orElse, []),
             );
           },
           'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -501,9 +468,9 @@ class StreamAsync {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as Stream).singleWhere(
-              (element) => _runAction<bool>(visitor, test, [element]) == true,
+              (element) => runAction<bool>(visitor, test, [element]) == true,
               orElse:
-                  orElse == null ? null : () => _runAction(visitor, orElse, []),
+                  orElse == null ? null : () => runAction(visitor, orElse, []),
             );
           },
           'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
@@ -587,7 +554,7 @@ class StreamSubscriptionAsync {
             (target as StreamSubscription).onData(
               callback == null
                   ? null
-                  : (data) => _runAction<void>(visitor!, callback, [data]),
+                  : (data) => runAction<void>(visitor!, callback, [data]),
             );
             return;
           },
@@ -598,7 +565,7 @@ class StreamSubscriptionAsync {
               callback == null
                   ? null
                   : (error, stackTrace) =>
-                      _runAction<void>(visitor!, callback,
+                      runAction<void>(visitor!, callback,
                       errorHandlerArgs(callback, error, stackTrace)),
             );
             return;
@@ -609,7 +576,7 @@ class StreamSubscriptionAsync {
             (target as StreamSubscription).onDone(
               callback == null
                   ? null
-                  : () => _runAction<void>(visitor!, callback, []),
+                  : () => runAction<void>(visitor!, callback, []),
             );
             return;
           },
@@ -726,14 +693,14 @@ class StreamTransformerAsync {
               handleData: handleData == null
                   ? null
                   : (data, sink) =>
-                      _runAction<void>(visitor, handleData, [data, sink]),
+                      runAction<void>(visitor, handleData, [data, sink]),
               handleError: handleError == null
                   ? null
-                  : (error, stackTrace, sink) => _runAction<void>(
+                  : (error, stackTrace, sink) => runAction<void>(
                       visitor, handleError, [error, stackTrace, sink]),
               handleDone: handleDone == null
                   ? null
-                  : (sink) => _runAction<void>(visitor, handleDone, [sink]),
+                  : (sink) => runAction<void>(visitor, handleDone, [sink]),
             );
           },
           'fromBind': (visitor, positionalArgs, namedArgs) {
@@ -744,7 +711,7 @@ class StreamTransformerAsync {
             }
             final bind = positionalArgs[0] as InterpretedFunction;
             return StreamTransformer.fromBind(
-              (stream) => _runAction<Stream>(visitor, bind, [stream]) as Stream,
+              (stream) => runAction<Stream>(visitor, bind, [stream]) as Stream,
             );
           },
           'castFrom': (visitor, positionalArgs, namedArgs) {
@@ -957,25 +924,25 @@ class MultiStreamControllerAsync {
             final callback = value as InterpretedFunction?;
             (target as MultiStreamController).onListen = callback == null
                 ? null
-                : () => _runAction<void>(visitor!, callback, []);
+                : () => runAction<void>(visitor!, callback, []);
           },
           'onPause': (visitor, target, value) {
             final callback = value as InterpretedFunction?;
             (target as MultiStreamController).onPause = callback == null
                 ? null
-                : () => _runAction<void>(visitor!, callback, []);
+                : () => runAction<void>(visitor!, callback, []);
           },
           'onResume': (visitor, target, value) {
             final callback = value as InterpretedFunction?;
             (target as MultiStreamController).onResume = callback == null
                 ? null
-                : () => _runAction<void>(visitor!, callback, []);
+                : () => runAction<void>(visitor!, callback, []);
           },
           'onCancel': (visitor, target, value) {
             final callback = value as InterpretedFunction?;
             (target as MultiStreamController).onCancel = callback == null
                 ? null
-                : () => _runAction<void>(visitor!, callback, []);
+                : () => runAction<void>(visitor!, callback, []);
           },
         },
       );

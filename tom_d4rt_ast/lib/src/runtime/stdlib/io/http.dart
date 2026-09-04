@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:tom_d4rt_ast/runtime.dart';
 
-import '../error_handler_args.dart';
+import '../stream_listen.dart';
 
 class HttpClientIo {
   static BridgedClass get definition => BridgedClass(
@@ -380,28 +380,9 @@ class HttpServerIo {
           },
         },
         methods: {
-          'listen': (visitor, target, positionalArgs, namedArgs, _) {
-            final onData = positionalArgs[0] as InterpretedFunction?;
-            final onError = namedArgs['onError'] as InterpretedFunction?;
-            final onDone = namedArgs['onDone'] as InterpretedFunction?;
-            final cancelOnError = namedArgs['cancelOnError'] as bool?;
-
-            if (onData == null) {
-              throw RuntimeD4rtException('listen requires an onData callback.');
-            }
-
-            return (target as HttpServer).listen(
-              (request) => onData.call(visitor, [request]),
-              onError: onError == null
-                  ? null
-                  : (error, stackTrace) =>
-                      onError.call(
-                          visitor,
-                          errorHandlerArgs(onError, error, stackTrace)),
-              onDone: onDone == null ? null : () => onDone.call(visitor, []),
-              cancelOnError: cancelOnError,
-            );
-          },
+          'listen': (visitor, target, positionalArgs, namedArgs, _) =>
+              bridgedStreamListen(visitor, target as HttpServer, positionalArgs,
+                  namedArgs),
           'close': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as HttpServer).close(
                 force: namedArgs['force'] as bool? ?? false,
@@ -572,28 +553,9 @@ class HttpClientResponseIo {
         typeParameterCount: 0,
         constructors: {},
         methods: {
-          'listen': (visitor, target, positionalArgs, namedArgs, _) {
-            final onData = positionalArgs[0] as InterpretedFunction?;
-            final onError = namedArgs['onError'] as InterpretedFunction?;
-            final onDone = namedArgs['onDone'] as InterpretedFunction?;
-            final cancelOnError = namedArgs['cancelOnError'] as bool?;
-
-            if (onData == null) {
-              throw RuntimeD4rtException('listen requires an onData callback.');
-            }
-
-            return (target as HttpClientResponse).listen(
-              (data) => onData.call(visitor, [data]),
-              onError: onError == null
-                  ? null
-                  : (error, stackTrace) =>
-                      onError.call(
-                          visitor,
-                          errorHandlerArgs(onError, error, stackTrace)),
-              onDone: onDone == null ? null : () => onDone.call(visitor, []),
-              cancelOnError: cancelOnError,
-            );
-          },
+          'listen': (visitor, target, positionalArgs, namedArgs, _) =>
+              bridgedStreamListen(visitor, target as HttpClientResponse, positionalArgs,
+                  namedArgs),
           'transform': (visitor, target, positionalArgs, namedArgs, _) {
             // Implementation for transform would be complex, placeholder
             throw RuntimeD4rtException(

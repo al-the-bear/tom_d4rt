@@ -389,6 +389,30 @@ const Map<String, int> _uncoveredBaseline = {
   // in the suite. Tracked as SCD74; port this file and delete this entry in the
   // same commit that lands both halves.
   'scc23_uncaught_callback_error_test.dart': 16,
+  // Pinned on the next `tom_d4rt_ast` publish, and — like SCC22 above — the
+  // measurement was taken before this entry was written, not predicted. Ported
+  // verbatim and run against the 0.20.1 this package resolves (working tree:
+  // 0.31.0), the split is 4 PASS / 3 FAIL, and the three failures are not
+  // merely "the fix is missing": they reproduce, one for one, the drift table
+  // SCC25's header records as the pre-fix behaviour.
+  //
+  //   F-SCC25-3 ServerSocket      type 'Null' is not a subtype of
+  //   F-SCC25-4 RawDatagramSocket   type 'InterpretedFunction' in type cast
+  //   F-SCC25-5 HttpServer        Runtime Error: listen requires an onData callback.
+  //
+  // F-SCC25-1/-2 (Stream, Socket) PASS against the published copy, which is the
+  // control: those two adapters were already SDK-faithful before the fix, so
+  // their passing confirms the loopback harness works here and that the three
+  // failures are the version gap rather than a broken port.
+  //
+  // F-SCC25-6/-7, the two source guards, also pass — but only because they read
+  // the two SIBLING trees off disk, so from here they ask the identical
+  // question the reference tree's copy already answers about the identical
+  // files. That half is NOT PORTABLE, for the same reason SCC22's structural
+  // group is not: a second copy could only ever produce a duplicate failure.
+  // Port the five behavioural cases on the next publish; the structural pair
+  // stays a single copy in `tom_d4rt`. Tracked as SCD79.
+  'scc25_listen_adapter_test.dart': 7,
   'stdlib/cast_from_family_test.dart': 6,
   'stdlib/convert/json_named_constructors_test.dart': 13,
   'stdlib/core/error_validation_helpers_test.dart': 18,

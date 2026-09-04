@@ -161,29 +161,28 @@ const _optional = r"(e, [st]) => seen.add('optional:${st != null}')";
 // Structural sweep
 // ---------------------------------------------------------------------------
 
-/// The 15 adapters that hand an error to a script-supplied handler, by the
-/// stdlib file they live in and the `Class.member` they implement.
+/// The adapters that hand an error to a script-supplied handler, by the stdlib
+/// file they live in and the `Class.member` they implement.
 ///
 /// This is the whole set SCB9 fixed, not just the io part: a guard that only
 /// listed the io sites would go quiet the moment someone reintroduced the bug
 /// in `async/`, which is where it was originally reported.
+///
+/// **SCC25 changed this map deliberately, and shrank it from 15 entries to 7.**
+/// SCB9's 15 sites included nine `listen` adapters that were near-copies of one
+/// another; SCC25 collapsed all nine into the single `bridgedStreamListen` in
+/// `stream_listen.dart`, so they no longer call `errorHandlerArgs` themselves.
+/// The nine did not lose their guarantee — they inherit it from the one place
+/// that now implements it, which is a stronger arrangement than nine
+/// independent copies each asserted separately. What this map protects after
+/// SCC25 is the six adapters that are genuinely their own code plus the shared
+/// helper; the *shape* of the collapse is pinned separately by F-SCC25-7, which
+/// fails if a `listen` adapter starts building its own wrappers again.
 const _expectedSites = <String, List<String>>{
   'async/future.dart': ['Future.then', 'Future.catchError', 'Future.onError'],
-  'async/stream.dart': [
-    'Stream.listen',
-    'Stream.handleError',
-    'StreamSubscription.onError',
-  ],
-  'io/http.dart': ['HttpServer.listen', 'HttpClientResponse.listen'],
-  'io/socket.dart': [
-    'Socket.listen',
-    'Socket.handleError',
-    'ServerSocket.listen',
-    'RawSocket.listen',
-    'RawServerSocket.listen',
-    'RawDatagramSocket.listen',
-  ],
-  'io/stdio.dart': ['Stdin.listen'],
+  'async/stream.dart': ['Stream.handleError', 'StreamSubscription.onError'],
+  'io/socket.dart': ['Socket.handleError'],
+  'stream_listen.dart': ['bridgedStreamListen'],
 };
 
 /// `lib/src/stdlib` in each tree. The two packages always sit side by side in
@@ -219,9 +218,29 @@ List<String> _sitesIn(File file) {
         break;
       }
     }
-    sites.add('${className ?? '<no class>'}.${member ?? '<no member>'}');
+    if (className != null) {
+      sites.add('$className.${member ?? '<no member>'}');
+      continue;
+    }
+    // No enclosing bridge class: the call is in a shared helper, which since
+    // SCC25 is where nine of the fifteen original sites live. Name it by its
+    // top-level function so a failure still says *what* stopped calling the
+    // helper rather than `<no class>`.
+    sites.add(_enclosingTopLevelFunction(lines, i) ?? '<no class>.<no member>');
   }
   return sites;
+}
+
+/// The name of the top-level function containing line [from], scanning back for
+/// the nearest declaration that starts in column 0 and takes a parameter list.
+String? _enclosingTopLevelFunction(List<String> lines, int from) {
+  final declaration = RegExp(r'^[\w<>?,\s]*?(\w+)\s*\($');
+  for (var i = from; i >= 0; i--) {
+    if (lines[i].startsWith(' ') || lines[i].startsWith('//')) continue;
+    final match = declaration.firstMatch(lines[i].trimRight());
+    if (match != null) return match.group(1);
+  }
+  return null;
 }
 
 /// Every `.dart` file under [root], excluding the helper itself.
@@ -337,13 +356,19 @@ void main() {
     });
 
     test(
-        'F-SCC22-11: all 15 error-handler adapters still route through the '
+        'F-SCC22-11: every error-handler adapter still routes through the '
         'helper, in both trees [2026-09-04]', () {
       // Named per site rather than counted, so a failure says *which* adapter
-      // stopped calling the helper. Six of these — ServerSocket.listen,
-      // RawSocket.listen, RawServerSocket.listen, RawDatagramSocket.listen,
-      // HttpServer.listen and Stdin.listen — have no behavioural case anywhere
-      // in the corpus, and this is the whole of their coverage.
+      // stopped calling the helper.
+      //
+      // The set was 15 until SCC25 collapsed the nine `listen` adapters into
+      // `bridgedStreamListen`. The six that had no behavioural case anywhere in
+      // the corpus — ServerSocket.listen, RawSocket.listen,
+      // RawServerSocket.listen, RawDatagramSocket.listen, HttpServer.listen and
+      // Stdin.listen — were all `listen` adapters, so they are now covered by
+      // whatever covers the shared one, which includes F-SCB9-1..3 and
+      // F-SCC22-1..3. That is the substantive gain from the de-duplication: the
+      // sites a test cannot reach stopped being separate code.
       for (final entry in _stdlibRoots.entries) {
         expect(_siteMap(entry.value), equals(_expectedSites),
             reason: '${entry.key}: the set of adapters calling '

@@ -5,16 +5,8 @@ import 'dart:typed_data';
 import 'package:tom_d4rt/d4rt.dart';
 
 import '../error_handler_args.dart';
-
-T? _runAction<T>(InterpreterVisitor visitor, InterpretedFunction? function,
-    List<Object?> args) {
-  if (function == null) return null;
-  try {
-    return function.call(visitor, args) as T?;
-  } catch (e) {
-    rethrow;
-  }
-}
+import '../run_action.dart';
+import '../stream_listen.dart';
 
 /// Bridged implementation of dart:io Socket
 class SocketIo {
@@ -128,7 +120,7 @@ class SocketIo {
           'any': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).any((element) =>
-                _runAction<bool>(visitor, test, [element]) == true);
+                runAction<bool>(visitor, test, [element]) == true);
           },
           'contains': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Socket).contains(positionalArgs[0]);
@@ -139,20 +131,20 @@ class SocketIo {
           'every': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).every((element) =>
-                _runAction<bool>(visitor, test, [element]) == true);
+                runAction<bool>(visitor, test, [element]) == true);
           },
           'expand': (visitor, target, positionalArgs, namedArgs, _) {
             final toElements = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).expand((element) =>
-                _runAction<Iterable>(visitor, toElements, [element]) ?? []);
+                runAction<Iterable>(visitor, toElements, [element]) ?? []);
           },
           'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as Socket).firstWhere(
-              (element) => _runAction<bool>(visitor, test, [element]) == true,
+              (element) => runAction<bool>(visitor, test, [element]) == true,
               orElse: orElse != null
-                  ? () => _runAction<Uint8List>(visitor, orElse, [])!
+                  ? () => runAction<Uint8List>(visitor, orElse, [])!
                   : null,
             );
           },
@@ -162,12 +154,12 @@ class SocketIo {
             return (target as Socket).fold(
                 initialValue,
                 (prev, element) =>
-                    _runAction(visitor, combine, [prev, element]));
+                    runAction(visitor, combine, [prev, element]));
           },
           'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             final action = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).forEach((element) {
-              _runAction<void>(visitor, action, [element]);
+              runAction<void>(visitor, action, [element]);
             });
           },
           'join': (visitor, target, positionalArgs, namedArgs, _) {
@@ -179,16 +171,16 @@ class SocketIo {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as Socket).lastWhere(
-              (element) => _runAction<bool>(visitor, test, [element]) == true,
+              (element) => runAction<bool>(visitor, test, [element]) == true,
               orElse: orElse != null
-                  ? () => _runAction<Uint8List>(visitor, orElse, [])!
+                  ? () => runAction<Uint8List>(visitor, orElse, [])!
                   : null,
             );
           },
           'map': (visitor, target, positionalArgs, namedArgs, _) {
             final toElement = positionalArgs[0] as InterpretedFunction;
             return (target as Socket)
-                .map((element) => _runAction(visitor, toElement, [element]));
+                .map((element) => runAction(visitor, toElement, [element]));
           },
           'noSuchMethod': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Socket)
@@ -198,9 +190,9 @@ class SocketIo {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as Socket).singleWhere(
-              (element) => _runAction<bool>(visitor, test, [element]) == true,
+              (element) => runAction<bool>(visitor, test, [element]) == true,
               orElse: orElse != null
-                  ? () => _runAction<Uint8List>(visitor, orElse, [])!
+                  ? () => runAction<Uint8List>(visitor, orElse, [])!
                   : null,
             );
           },
@@ -210,7 +202,7 @@ class SocketIo {
           'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).skipWhile((element) =>
-                _runAction<bool>(visitor, test, [element]) == true);
+                runAction<bool>(visitor, test, [element]) == true);
           },
           'take': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Socket).take(positionalArgs[0] as int);
@@ -218,7 +210,7 @@ class SocketIo {
           'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).takeWhile((element) =>
-                _runAction<bool>(visitor, test, [element]) == true);
+                runAction<bool>(visitor, test, [element]) == true);
           },
           'toList': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as Socket).toList();
@@ -232,33 +224,11 @@ class SocketIo {
           'where': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).where((element) =>
-                _runAction<bool>(visitor, test, [element]) == true);
+                runAction<bool>(visitor, test, [element]) == true);
           },
-          'listen': (visitor, target, positionalArgs, namedArgs, _) {
-            final onData = positionalArgs[0] as InterpretedFunction?;
-            final onError = namedArgs['onError'] as InterpretedFunction?;
-            final onDone = namedArgs['onDone'] as InterpretedFunction?;
-            final cancelOnError = namedArgs['cancelOnError'] as bool?;
-
-            void onDataWrapper(dynamic data) =>
-                _runAction<void>(visitor, onData!, [data]);
-            Function? onErrorWrapper = onError == null
-                ? null
-                : (Object error, [StackTrace? stackTrace]) => _runAction<void>(
-                    visitor,
-                    onError,
-                    errorHandlerArgs(onError, error, stackTrace));
-            void Function()? onDoneWrapper = onDone == null
-                ? null
-                : () => _runAction<void>(visitor, onDone, []);
-
-            return (target as Socket).listen(
-              onData != null ? onDataWrapper : null,
-              onError: onErrorWrapper,
-              onDone: onDoneWrapper,
-              cancelOnError: cancelOnError,
-            );
-          },
+          'listen': (visitor, target, positionalArgs, namedArgs, _) =>
+              bridgedStreamListen(visitor, target as Socket, positionalArgs,
+                  namedArgs),
           'asyncMap': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.isEmpty ||
                 positionalArgs[0] is! InterpretedFunction) {
@@ -267,7 +237,7 @@ class SocketIo {
             }
             final convert = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).asyncMap(
-              (event) => _runAction(visitor, convert, [event]),
+              (event) => runAction(visitor, convert, [event]),
             );
           },
           'asyncExpand': (visitor, target, positionalArgs, namedArgs, _) {
@@ -279,7 +249,7 @@ class SocketIo {
             final convert = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).asyncExpand<dynamic>(
               (event) {
-                final result = _runAction(visitor, convert, [event]);
+                final result = runAction(visitor, convert, [event]);
                 return result is Stream ? result : Stream.empty();
               },
             );
@@ -293,11 +263,11 @@ class SocketIo {
             final onError = positionalArgs[0] as InterpretedFunction;
             final test = namedArgs['test'] as InterpretedFunction?;
             return (target as Socket).handleError(
-              (error, stackTrace) => _runAction<void>(visitor, onError,
+              (error, stackTrace) => runAction<void>(visitor, onError,
                   errorHandlerArgs(onError, error, stackTrace)),
               test: test == null
                   ? null
-                  : (error) => _runAction<bool>(visitor, test, [error]) == true,
+                  : (error) => runAction<bool>(visitor, test, [error]) == true,
             );
           },
           'timeout': (visitor, target, positionalArgs, namedArgs, _) {
@@ -310,7 +280,7 @@ class SocketIo {
               timeLimit,
               onTimeout: onTimeout == null
                   ? null
-                  : (sink) => _runAction<void>(visitor, onTimeout, [sink]),
+                  : (sink) => runAction<void>(visitor, onTimeout, [sink]),
             );
           },
           'asBroadcastStream': (visitor, target, positionalArgs, namedArgs, _) {
@@ -320,11 +290,11 @@ class SocketIo {
               onListen: onListen == null
                   ? null
                   : (subscription) =>
-                      _runAction<void>(visitor, onListen, [subscription]),
+                      runAction<void>(visitor, onListen, [subscription]),
               onCancel: onCancel == null
                   ? null
                   : (subscription) =>
-                      _runAction<void>(visitor, onCancel, [subscription]),
+                      runAction<void>(visitor, onCancel, [subscription]),
             );
           },
           'distinct': (visitor, target, positionalArgs, namedArgs, _) {
@@ -335,7 +305,7 @@ class SocketIo {
               return (target as Socket).distinct();
             } else {
               return (target as Socket).distinct((p, n) {
-                final result = _runAction<dynamic>(visitor, equals, [p, n]);
+                final result = runAction<dynamic>(visitor, equals, [p, n]);
                 return result is bool && result;
               });
             }
@@ -344,7 +314,7 @@ class SocketIo {
             final combine = positionalArgs[0] as InterpretedFunction;
             return (target as Socket).reduce(
               (previous, element) =>
-                  _runAction<dynamic>(visitor, combine, [previous, element]),
+                  runAction<dynamic>(visitor, combine, [previous, element]),
             );
           },
           'pipe': (visitor, target, positionalArgs, namedArgs, _) {
@@ -580,35 +550,13 @@ class ServerSocketIo {
           'close': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ServerSocket).close();
           },
-          'listen': (visitor, target, positionalArgs, namedArgs, _) {
-            final onData = positionalArgs[0] as InterpretedFunction;
-            final onError = namedArgs['onError'] as InterpretedFunction?;
-            final onDone = namedArgs['onDone'] as InterpretedFunction?;
-            final cancelOnError = namedArgs['cancelOnError'] as bool? ?? false;
-
-            void onDataWrapper(Socket socket) =>
-                _runAction<void>(visitor, onData, [socket]);
-            Function? onErrorWrapper = onError == null
-                ? null
-                : (Object error, [StackTrace? stackTrace]) => _runAction<void>(
-                    visitor,
-                    onError,
-                    errorHandlerArgs(onError, error, stackTrace));
-            void Function()? onDoneWrapper = onDone == null
-                ? null
-                : () => _runAction<void>(visitor, onDone, []);
-
-            return (target as ServerSocket).listen(
-              onDataWrapper,
-              onError: onErrorWrapper,
-              onDone: onDoneWrapper,
-              cancelOnError: cancelOnError,
-            );
-          },
+          'listen': (visitor, target, positionalArgs, namedArgs, _) =>
+              bridgedStreamListen(visitor, target as ServerSocket, positionalArgs,
+                  namedArgs),
           'any': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as ServerSocket).any((element) =>
-                _runAction<bool>(visitor, test, [element]) == true);
+                runAction<bool>(visitor, test, [element]) == true);
           },
           'contains': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ServerSocket).contains(positionalArgs[0]);
@@ -619,20 +567,20 @@ class ServerSocketIo {
           'every': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as ServerSocket).every((element) =>
-                _runAction<bool>(visitor, test, [element]) == true);
+                runAction<bool>(visitor, test, [element]) == true);
           },
           'expand': (visitor, target, positionalArgs, namedArgs, _) {
             final toElements = positionalArgs[0] as InterpretedFunction;
             return (target as ServerSocket).expand((element) =>
-                _runAction<Iterable>(visitor, toElements, [element]) ?? []);
+                runAction<Iterable>(visitor, toElements, [element]) ?? []);
           },
           'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as ServerSocket).firstWhere(
-              (element) => _runAction<bool>(visitor, test, [element]) == true,
+              (element) => runAction<bool>(visitor, test, [element]) == true,
               orElse: orElse != null
-                  ? () => _runAction<Socket>(visitor, orElse, [])!
+                  ? () => runAction<Socket>(visitor, orElse, [])!
                   : null,
             );
           },
@@ -642,12 +590,12 @@ class ServerSocketIo {
             return (target as ServerSocket).fold(
                 initialValue,
                 (prev, element) =>
-                    _runAction(visitor, combine, [prev, element]));
+                    runAction(visitor, combine, [prev, element]));
           },
           'forEach': (visitor, target, positionalArgs, namedArgs, _) {
             final action = positionalArgs[0] as InterpretedFunction;
             return (target as ServerSocket).forEach((element) {
-              _runAction<void>(visitor, action, [element]);
+              runAction<void>(visitor, action, [element]);
             });
           },
           'join': (visitor, target, positionalArgs, namedArgs, _) {
@@ -663,16 +611,16 @@ class ServerSocketIo {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as ServerSocket).lastWhere(
-              (element) => _runAction<bool>(visitor, test, [element]) == true,
+              (element) => runAction<bool>(visitor, test, [element]) == true,
               orElse: orElse != null
-                  ? () => _runAction<Socket>(visitor, orElse, [])!
+                  ? () => runAction<Socket>(visitor, orElse, [])!
                   : null,
             );
           },
           'map': (visitor, target, positionalArgs, namedArgs, _) {
             final toElement = positionalArgs[0] as InterpretedFunction;
             return (target as ServerSocket)
-                .map((element) => _runAction(visitor, toElement, [element]));
+                .map((element) => runAction(visitor, toElement, [element]));
           },
           'noSuchMethod': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ServerSocket)
@@ -682,9 +630,9 @@ class ServerSocketIo {
             final test = positionalArgs[0] as InterpretedFunction;
             final orElse = namedArgs['orElse'] as InterpretedFunction?;
             return (target as ServerSocket).singleWhere(
-              (element) => _runAction<bool>(visitor, test, [element]) == true,
+              (element) => runAction<bool>(visitor, test, [element]) == true,
               orElse: orElse != null
-                  ? () => _runAction<Socket>(visitor, orElse, [])!
+                  ? () => runAction<Socket>(visitor, orElse, [])!
                   : null,
             );
           },
@@ -694,7 +642,7 @@ class ServerSocketIo {
           'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as ServerSocket).skipWhile((element) =>
-                _runAction<bool>(visitor, test, [element]) == true);
+                runAction<bool>(visitor, test, [element]) == true);
           },
           'take': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ServerSocket).take(positionalArgs[0] as int);
@@ -702,7 +650,7 @@ class ServerSocketIo {
           'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as ServerSocket).takeWhile((element) =>
-                _runAction<bool>(visitor, test, [element]) == true);
+                runAction<bool>(visitor, test, [element]) == true);
           },
           'toList': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ServerSocket).toList();
@@ -716,7 +664,7 @@ class ServerSocketIo {
           'where': (visitor, target, positionalArgs, namedArgs, _) {
             final test = positionalArgs[0] as InterpretedFunction;
             return (target as ServerSocket).where((element) =>
-                _runAction<bool>(visitor, test, [element]) == true);
+                runAction<bool>(visitor, test, [element]) == true);
           },
           '==': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ServerSocket) == positionalArgs[0];
@@ -783,31 +731,9 @@ class RawSocketIo {
             final direction = positionalArgs[0] as SocketDirection;
             return (target as RawSocket).shutdown(direction);
           },
-          'listen': (visitor, target, positionalArgs, namedArgs, _) {
-            final onData = positionalArgs[0] as InterpretedFunction;
-            final onError = namedArgs['onError'] as InterpretedFunction?;
-            final onDone = namedArgs['onDone'] as InterpretedFunction?;
-            final cancelOnError = namedArgs['cancelOnError'] as bool? ?? false;
-
-            void onDataWrapper(RawSocketEvent event) =>
-                _runAction<void>(visitor, onData, [event]);
-            Function? onErrorWrapper = onError == null
-                ? null
-                : (Object error, [StackTrace? stackTrace]) => _runAction<void>(
-                    visitor,
-                    onError,
-                    errorHandlerArgs(onError, error, stackTrace));
-            void Function()? onDoneWrapper = onDone == null
-                ? null
-                : () => _runAction<void>(visitor, onDone, []);
-
-            return (target as RawSocket).listen(
-              onDataWrapper,
-              onError: onErrorWrapper,
-              onDone: onDoneWrapper,
-              cancelOnError: cancelOnError,
-            );
-          },
+          'listen': (visitor, target, positionalArgs, namedArgs, _) =>
+              bridgedStreamListen(visitor, target as RawSocket, positionalArgs,
+                  namedArgs),
           'setOption': (visitor, target, positionalArgs, namedArgs, _) {
             final option = positionalArgs[0] as SocketOption;
             final enabled = positionalArgs[1] as bool;
@@ -867,31 +793,9 @@ class RawServerSocketIo {
         isAssignable: (v) => v is RawServerSocket,
         typeParameterCount: 0,
         methods: {
-          'listen': (visitor, target, positionalArgs, namedArgs, _) {
-            final onData = positionalArgs[0] as InterpretedFunction;
-            final onError = namedArgs['onError'] as InterpretedFunction?;
-            final onDone = namedArgs['onDone'] as InterpretedFunction?;
-            final cancelOnError = namedArgs['cancelOnError'] as bool? ?? false;
-
-            void onDataWrapper(RawSocket socket) =>
-                _runAction<void>(visitor, onData, [socket]);
-            Function? onErrorWrapper = onError == null
-                ? null
-                : (Object error, [StackTrace? stackTrace]) => _runAction<void>(
-                    visitor,
-                    onError,
-                    errorHandlerArgs(onError, error, stackTrace));
-            void Function()? onDoneWrapper = onDone == null
-                ? null
-                : () => _runAction<void>(visitor, onDone, []);
-
-            return (target as RawServerSocket).listen(
-              onDataWrapper,
-              onError: onErrorWrapper,
-              onDone: onDoneWrapper,
-              cancelOnError: cancelOnError,
-            );
-          },
+          'listen': (visitor, target, positionalArgs, namedArgs, _) =>
+              bridgedStreamListen(visitor, target as RawServerSocket, positionalArgs,
+                  namedArgs),
           'close': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as RawServerSocket).close(),
         },
@@ -1075,31 +979,9 @@ class RawDatagramSocketIo {
           },
           'close': (visitor, target, positionalArgs, namedArgs, _) =>
               (target as RawDatagramSocket).close(),
-          'listen': (visitor, target, positionalArgs, namedArgs, _) {
-            final onData = positionalArgs[0] as InterpretedFunction;
-            final onError = namedArgs['onError'] as InterpretedFunction?;
-            final onDone = namedArgs['onDone'] as InterpretedFunction?;
-            final cancelOnError = namedArgs['cancelOnError'] as bool? ?? false;
-
-            void onDataWrapper(RawSocketEvent event) =>
-                _runAction<void>(visitor, onData, [event]);
-            Function? onErrorWrapper = onError == null
-                ? null
-                : (Object error, [StackTrace? stackTrace]) => _runAction<void>(
-                    visitor,
-                    onError,
-                    errorHandlerArgs(onError, error, stackTrace));
-            void Function()? onDoneWrapper = onDone == null
-                ? null
-                : () => _runAction<void>(visitor, onDone, []);
-
-            return (target as RawDatagramSocket).listen(
-              onDataWrapper,
-              onError: onErrorWrapper,
-              onDone: onDoneWrapper,
-              cancelOnError: cancelOnError,
-            );
-          },
+          'listen': (visitor, target, positionalArgs, namedArgs, _) =>
+              bridgedStreamListen(visitor, target as RawDatagramSocket, positionalArgs,
+                  namedArgs),
           'joinMulticast': (visitor, target, positionalArgs, namedArgs, _) {
             final group = positionalArgs[0] as InternetAddress;
             return (target as RawDatagramSocket).joinMulticast(group);

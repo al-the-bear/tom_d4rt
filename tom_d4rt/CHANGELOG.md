@@ -1,3 +1,49 @@
+## 1.43.0
+
+### Fixed — `listen(null)` now works on every bridge, not two of nine
+
+`Stream.listen` declares its first parameter as `void Function(T)?`, so
+subscribing for `onDone` / `onError` without wanting the data is ordinary Dart.
+Nine bridges implement `listen`, and they had drifted far enough apart that the
+same expression `x.listen(null)` produced three different outcomes depending on
+where `x` came from:
+
+| Bridge | Before |
+| --- | --- |
+| `Stream`, `Socket` | accepted — matches the SDK |
+| `ServerSocket`, `RawSocket`, `RawServerSocket`, `RawDatagramSocket` | `type 'Null' is not a subtype of type 'InterpretedFunction'` |
+| `Stdin`, `HttpServer`, `HttpClientResponse` | `listen requires an onData callback.` |
+
+Neither of the two failing behaviours was designed. The cast error is an
+internal crash leaking out of the interpreter rather than a diagnosable script
+fault, and the exception is a restriction d4rt invented that the platform does
+not have. No test pinned either, which is why they survived.
+
+All nine now route through one `bridgedStreamListen`, which keeps the SDK's
+contract. `socket.listen()` with no arguments is fixed in passing:
+`io/socket.dart` indexed `positionalArgs[0]` unguarded, so it raised
+`RangeError` instead of a script error.
+
+Because every `listen` is one implementation, its `onError` wrapper goes through
+`errorHandlerArgs` once. That helper is what lets a script's unary `(e)` handler
+work alongside the binary `(e, st)` form — a fix that previously had to be
+applied to fourteen sites by hand.
+
+### Changed — one `runAction`, replacing four private copies
+
+`_runAction` was copy-pasted into four stdlib files in two incompatible shapes:
+`T? _runAction<T>` and `FutureOr<T> _runAction<T>`. They differ only for a null
+function with a non-nullable `T`, where the `FutureOr` form throws and the
+nullable form yields null. No call site depended on it — none of the 84 awaits
+the result — so the merged helper takes the nullable form, which is strictly
+less likely to throw. The copies also wrapped the call in
+`try { … } catch (e) { rethrow; }`, which is a no-op; it is not reproduced.
+
+Two guards keep the duplication from growing back: one fails when a private
+`_runAction` reappears, the other when a `listen` adapter builds its own
+callback wrappers. Both sweep `tom_d4rt` **and** `tom_d4rt_ast`, since the AST
+tree has no parser and cannot run the behavioural cases itself.
+
 ## 1.42.0
 
 ### Fixed — bridge coverage gaps found by a mechanical sweep, not by accident
