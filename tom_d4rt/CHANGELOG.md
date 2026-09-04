@@ -1,3 +1,108 @@
+## 1.34.0
+
+### Added — the seven static argument-validation helpers
+
+`RangeError.checkNotNegative` / `checkValidIndex` / `checkValidRange` /
+`checkValueInInterval`, `ArgumentError.checkNotNull`, `IndexError.check` and
+`Error.throwWithStackTrace`. These are how idiomatic Dart validates arguments, so
+a script porting real code reaches them on its first function — and because
+statics get no fallback from the interpreter, every one was a hard failure rather
+than a degraded behaviour. `ArgumentError`, `RangeError` and `IndexError` had no
+`staticMethods` map at all; each gained one.
+
+Throwing is these helpers' normal behaviour, so the value they throw matters as
+much as the value they return: letting the native helper raise is what makes an
+interpreted `on RangeError` clause match. `IndexError.check` is the one shape
+worth reading twice — its optional arguments are *named*, unlike every
+`RangeError.check*` sibling, so reading them positionally would compile and then
+silently discard every diagnostic the caller supplied.
+
+### Fixed — a bridged throw no longer loses its stack trace
+
+`Error.throwWithStackTrace` exists solely to rethrow while keeping an *earlier*
+trace, and it could not do that. Every bridged-adapter wrap site recovers the
+thrown value but constructed the `RuntimeD4rtException` inside the interpreter's
+own `catch`, so `visitTryStatement` handed the script the trace of the wrap site
+rather than of the throw. The member would have been present and inert.
+
+`RuntimeD4rtException` now carries `originalStackTrace` beside
+`originalException`, 28 wrap sites pass it, and `visitTryStatement` prefers it
+over its own. `wrapDirectiveError` forwards it too — that function reconstructs
+the exception rather than mutating it, so anything it forgets to copy is lost,
+and a bridged throw inside an imported module is where the trace is worth most.
+Three sites bind only `catch (e)` and are unchanged: there is no trace there to
+preserve.
+
+This is not confined to the new member. Any script that printed a trace from a
+bridged throw was being shown interpreter internals — including from the most
+travelled site of all, the bridged instance-method call.
+
+### Added — the `castFrom` family
+
+`Iterable.castFrom`, `Map.castFrom`, `Set.castFrom` and `Converter.castFrom`
+(`Queue.castFrom` landed in 1.33.0). `Converter` and `LineSplitter` had no
+`staticMethods` map and gained one.
+
+`Set.castFrom`'s optional `newSet` argument is **rejected rather than ignored**:
+it is a generic function (`Set<R> Function<R>()`), a value interpreted code
+cannot construct, and silently dropping it would hand back a view over the wrong
+set implementation.
+
+Two of these exposed a gap the member diff cannot see — a correctly registered
+static whose SDK *return type* reaches no bridge. `Iterable.castFrom` returns
+`_EfficientLengthCastIterable` whenever the source reports its length cheaply
+(the common case), and `LineSplitter.split` returns `_LineSplitIterable`; neither
+was in `IterableCore.nativeNames`, so `.length` / `.toList()` raised on a value
+the adapter had produced correctly. Both names are now claimed.
+
+### Added — the static and instance long tail
+
+`Enum.compareByIndex` / `compareByName`, `Symbol.empty` / `unaryMinus`,
+`ProcessStartMode.values`, `String.matchAsPrefix`, `LineSplitter.split`,
+`Iterable.iterableToShortString` / `iterableToFullString`,
+`StreamSubscription.asFuture`, `ProcessSignal.signalNumber` and
+`InternetAddressType.name`.
+
+The enum comparators are the ones with a design decision in them. Three
+representations of an enum value reach the interpreter — a native `Enum`, a
+`BridgedEnumValue`, and an `InterpretedEnumValue` for an enum the script itself
+declared — and the two wrapper classes share no common enum interface. Writing
+`positionalArgs[0] as Enum` would compile and then reject precisely the enums a
+script is most likely to declare and then compare. The comparators read the
+`index` / `name` that all three can answer: the bridge must not refuse what Dart
+accepts, and must not accept what Dart refuses.
+
+`String.matchAsPrefix` is worth one note: the receiver is the *pattern* and the
+string being searched is the *argument*. Reading it the other way round produces
+a bridge that compiles and matches nothing.
+
+`ProcessStartMode` got `values` as a **static** getter and `toString()` as its
+only instance member, because it is *not* a Dart `enum` — it is a final class
+with static const instances, so it has no `name` and no `index`. The same is true
+of `ProcessSignal`, `FileSystemEntityType`, `InternetAddressType`, `FileMode` and
+`SocketDirection`: `x is Enum` is false for every one of them. Synthesising a
+`name` would let a script write something the SDK rejects.
+
+### Fixed — the gap oracle no longer reports two kinds of phantom gap
+
+`tool/stdlib_member_diff.dart` reported `unawaited` and
+`FileSystemEntityType.NOT_FOUND` as unreachable members. Neither is a gap:
+`unawaited` is a top-level *function* whose bridge carries `nativeType:
+Function`, so its `Function` class surface was being diffed, and `NOT_FOUND` is a
+deprecated SDK alias for the live `notFound`. Registering either would have
+produced a member that exports and analyses cleanly and is wrong.
+
+Both are suppressed at the category level. The deprecation filter reads the
+`@Deprecated` annotation rather than a name list, so the next alias the SDK
+retires drops out on its own instead of arriving as a fresh phantom gap — and it
+was verified by negative control, not by a green run: it removes exactly
+`NOT_FOUND` and keeps the live `notFound`.
+
+**Member-level gaps now stand at 3 confirmed in 1 class**, down from 28 across
+19. All three are `ByteBuffer`'s SIMD views, which are a deliberate boundary
+rather than a missing registration — so every non-boundary confirmed member gap
+in the stdlib corpus is closed.
+
 ## 1.33.0
 
 ### Added — `bool` implements `&`, `|`, `^` and their compound forms

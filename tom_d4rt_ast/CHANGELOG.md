@@ -1,3 +1,56 @@
+## 0.24.0
+
+Mirrors `tom_d4rt` 1.34.0 — see that CHANGELOG for the full reasoning on each
+member. The differences worth knowing on this side are noted below.
+
+### Added — the seven static argument-validation helpers
+
+`RangeError.checkNotNegative` / `checkValidIndex` / `checkValidRange` /
+`checkValueInInterval`, `ArgumentError.checkNotNull`, `IndexError.check` and
+`Error.throwWithStackTrace`. Statics get no fallback from the interpreter, so
+each was a hard failure rather than a degraded behaviour.
+
+### Fixed — a bridged throw no longer loses its stack trace
+
+`RuntimeD4rtException` gained `originalStackTrace`; 28 wrap sites across
+`interpreter_visitor.dart`, `callable.dart` and `runtime_types.dart` pass it,
+`visitTryStatement` prefers it over its own, and `wrapDirectiveError` forwards it
+when reconstructing. Three sites bind only `catch (e)` and are unchanged.
+
+The wrap-site inventory is now identical on both sides, which it was not when the
+mirror started: this tree binds `s` at the bridged instance-method call site
+where `tom_d4rt` did not, and reconciling the counts is what surfaced that the
+most-travelled wrap site of all had been missed upstream. Aligning the two counts
+is the check that found it — a per-file mirror review would not have.
+
+### Added — the `castFrom` family and the long tail
+
+`Iterable.castFrom`, `Map.castFrom`, `Set.castFrom`, `Converter.castFrom`;
+`Enum.compareByIndex` / `compareByName`, `Symbol.empty` / `unaryMinus`,
+`ProcessStartMode.values`, `String.matchAsPrefix`, `LineSplitter.split`,
+`Iterable.iterableToShortString` / `iterableToFullString`,
+`StreamSubscription.asFuture`, `ProcessSignal.signalNumber` and
+`InternetAddressType.name`. `IterableCore.nativeNames` also claims
+`_EfficientLengthCastIterable` and `_LineSplitIterable`, the SDK return types
+that made two otherwise-correct statics fail at the first member access.
+
+The enum comparators read the `index` / `name` common to all three enum
+representations (native `Enum`, `BridgedEnumValue`, `InterpretedEnumValue`)
+rather than casting to `Enum`, which would reject exactly the enums a script
+declares itself. `bridged_enum.dart` is already exported from `runtime.dart`
+here, so unlike the `tom_d4rt` twin this side needed no extra import.
+
+### Testing note (DGUC6)
+
+The 46 script-level tests for these members live in `tom_d4rt/test/` only. They
+cannot run in this tree (no parser) and were deliberately **not** ported to
+`tom_d4rt_exec`, which resolves `tom_d4rt_ast` from pub.dev: every member they
+assert exists only in the working tree, so all 46 would fail against the
+published interpreter for a reason no reader could act on. They are recorded in
+`tom_d4rt_exec/test/conformance_drift_test.dart`'s `_uncoveredBaseline` with this
+publish as their flip condition — port them and delete the entries in the same
+commit that consumes 0.24.0.
+
 ## 0.23.0
 
 Mirrors `tom_d4rt` 1.33.0.

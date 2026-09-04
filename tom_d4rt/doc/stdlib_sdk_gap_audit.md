@@ -1,6 +1,6 @@
 # D4rt stdlib — SDK gap audit
 
-**Date:** 2026-07-07 (updated 2026-09-03)
+**Date:** 2026-07-07 (updated 2026-09-04)
 **Interpreter version:** tom_d4rt (analyzer-based) + tom_d4rt_ast (mirror)
 **SDK reference:** Dart 3.12.2 (package constraint `^3.5.0`)
 **Scope audited:** all stdlib bridge files under
@@ -35,11 +35,13 @@ Class-level coverage is audited by hand; **member-level** and
   `dart:convert` blocks are now declared and the count stands at **4 edges
   across 3 classes** (`String`, `Duration`, `StreamController`). Read the
   hierarchy audit before treating any member-gap count as a work estimate.
-- **Gaps are member-level as well as class-level.** A mechanical member
-  diff over all 181 registered classes
-  (`tool/stdlib_member_diff.dart`) confirms **28 unreachable members
-  spread across 19 classes** that this audit otherwise counts as
-  bridged. Member-level coverage must therefore be measured, not
+- **Member-level gaps are now down to one deliberate boundary.** A mechanical
+  member diff over all 181 registered classes
+  (`tool/stdlib_member_diff.dart`) confirms **3 unreachable members in 1
+  class** — `ByteBuffer`'s SIMD views, which are *Boundary* by decision, not
+  Tracked. It opened at 28 across 19 classes. That number was only ever
+  actionable because it was measured: member-level coverage must be measured,
+  not
   spot-checked: a spot-check cannot distinguish a fully registered class
   from a **partially** registered one, because it passes as soon as it
   lands on a member that happens to be present. Shapes this actually
@@ -125,8 +127,8 @@ unreachable for *instance* members — instance lookups fall back through
 the supertype chain. That fallback is **not uniform**, though
 (`Uint8List.sort` resolved while `HashSet.difference` did not), so the
 static diff cannot predict it either. Only the interpreter is a valid
-oracle. In the current run, **365 of 610** raw candidates turn out to be
-reachable via fallback — a 60 % false-positive rate that a single-phase
+oracle. In the current run, **363 of 583** raw candidates turn out to be
+reachable via fallback — a 62 % false-positive rate that a single-phase
 tool would report as gaps. That share has grown as edges were declared,
 which is the point: every edge added moves candidates from "confirmed
 gap" to "reachable anyway" without a line of adapter code being written.
@@ -151,7 +153,7 @@ a plausible-looking wrong number:
    the rest. See [the unverified-column note](#the-unverified-column-hazard).
 
 Members with no usable instance recipe are reported in an explicit
-**UNVERIFIED** bucket (284 in the current run, overwhelmingly `dart:io`
+**UNVERIFIED** bucket (280 in the current run, overwhelmingly `dart:io`
 types that need a live socket or server to instantiate) rather than being
 silently counted either way. Closing that bucket means adding recipes to
 `_instanceRecipes`, not relaxing the classification.
@@ -163,15 +165,29 @@ Measured 2026-09-04.
 | Metric | Count |
 |--------|-------|
 | Bridged classes examined | 181 |
-| Raw candidates from the map diff | 610 |
-| … reachable anyway via instance fallback | 365 |
-| … unverified (no instance recipe) | 284 |
-| **CONFIRMED unreachable** | **28** |
-| Classes with ≥ 1 confirmed gap | 19 |
+| Raw candidates from the map diff | 583 |
+| … reachable anyway via instance fallback | 363 |
+| … unverified (no instance recipe) | 280 |
+| **CONFIRMED unreachable** | **3** |
+| Classes with ≥ 1 confirmed gap | 1 |
 
-Of the 28, **zero** are operators and **zero** are universal `Object`
+**Every confirmed member gap that is not a deliberate boundary is now
+closed.** The three that remain are all `ByteBuffer`'s SIMD views, and they
+are a **Boundary** decision — the SIMD types are intentionally unbridged —
+not a missing registration. There is nothing left in this measurement for a
+"register the member" todo to act on; the next reduction has to come from the
+UNVERIFIED bucket (SCC12) or from a boundary being revisited.
+
+Of the 3, **zero** are operators and **zero** are universal `Object`
 members — a statement this audit could not make before those two columns
 were verified rather than merely printed.
+
+The candidate total fell from 610 to 583 without 27 members being registered
+one-for-one: registering a static removes it from the diff, and the tool also
+stopped emitting two categories of phantom gap (a bridged top-level function
+has no class surface to diff, and a `@Deprecated` SDK alias is not a gap).
+Both suppressions are category-level and annotation-driven, so the next alias
+the SDK retires drops out on its own.
 
 The **Disposition** column is not decoration — see
 [the disposition rule](#recommended-next-actions). Every row must name where
@@ -180,12 +196,37 @@ unattributed observation.
 
 | Class | Confirmed | Instance | Static | Assessment | Disposition |
 | --- | --- | --- | --- | --- | --- |
-| `RangeError`, `ArgumentError`, `IndexError`, `Error` | 4, 1, 1, 1 | 0 | all | Genuine gap — the static validation helpers (`checkValidRange`/`checkValidIndex`/`checkNotNegative`/`checkValueInInterval`, `checkNotNull`, `check`, `throwWithStackTrace`). | SCC11 |
-| `Iterable`, `Map`, `Set`, `Converter`, `LineSplitter` | 3, 1, 1, 1, 1 | 0 | all | The `castFrom` family plus `iterableToShortString`/`iterableToFullString` and `LineSplitter.split`. Low traffic. | SCC11 |
 | `ByteBuffer` | 3 | 3 | 0 | The three SIMD views (`asFloat32x4List`, `asInt32x4List`, `asFloat64x2List`). This row **understates the finding** — see [Notes on the SIMD block](#notes-on-the-simd-block); it is nine names, not three. | **Boundary** — [limitations doc](d4rt_limitations.md#intentionally-unbridged-sdk-classes) + `F-SCB29-1..4` |
-| `Enum`, `Symbol`, `ProcessStartMode` | 2, 2, 1 | 0 | all | Statics: `compareByIndex`/`compareByName`, `Symbol.empty`/`unaryMinus`, `values`. | SCC11 |
-| `String`, `StreamSubscription`, `ProcessSignal`, `InternetAddressType` | 1 each | 1 | 0 | Instance long tail: `matchAsPrefix`, `asFuture`, `signalNumber`, `name`. | SCC11 (`String.matchAsPrefix`: SCC56) |
-| `unawaited`, `FileSystemEntityType.NOT_FOUND` | 1 each | — | — | **Tool artifacts.** `unawaited` is a function, not a class, so its `Function` surface is diffed; `NOT_FOUND` is a deprecated SDK alias. | SCC11 (suppress in the tool) |
+
+One row, and it is the row that was never going to be closed by registering a
+member. Earlier revisions of this table carried five more — the static
+validation helpers, the `castFrom` family, the enum/symbol statics, a
+four-member instance long tail, and a row of tool artifacts. All are gone: the
+first four were registered, and the last was never a gap at all.
+
+**Two of those rows were the tool, not the bridge**, and that is the reading
+worth carrying forward. `unawaited` was reported because it is a top-level
+*function* whose bridge carries `nativeType: Function`, so the diff compared
+it against `Function`'s class surface; `FileSystemEntityType.NOT_FOUND` was
+reported because it is a deprecated SDK alias for the live `notFound`.
+Registering either would have produced a member that exports and analyses
+cleanly and is wrong — a synthesised `Function` surface in the first case, a
+retired spelling promoted back into the API in the second. Both are now
+suppressed at the category level in `tool/stdlib_member_diff.dart`; the
+deprecation filter reads the annotation rather than a name list, so it was
+verified by negative control (it removes exactly `NOT_FOUND` from
+`FileSystemEntityType` and keeps the live `notFound`).
+
+**The oracle is structurally blind to one class of gap**, and it cost two
+debugging rounds to learn: a *correctly registered* static whose SDK **return
+type** reaches no bridge still fails at the first member access on the result.
+`Iterable.castFrom` returns `_EfficientLengthCastIterable` whenever the source
+reports its length cheaply — the common case — and `LineSplitter.split`
+returns `_LineSplitIterable`; neither was in `IterableCore.nativeNames`, so
+`.length` and `.toList()` raised on a value the adapter had produced
+correctly. The member-diff cannot see this: the member *is* in the map. Only
+an end-to-end test that uses the returned value can. A sweep for other
+bridged members with unbridged return types is tracked separately.
 
 **A supertype edge is worth ~25 adapters.** The largest en-bloc entries earlier
 revisions of this table carried are gone, and almost none of them was fixed by
