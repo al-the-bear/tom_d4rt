@@ -1,3 +1,74 @@
+## 1.40.0
+
+### Fixed — an empty `catch` block abandoned the rest of an `async` function
+
+`try { ... } catch (e) {}` — swallow the error and carry on — is an ordinary
+idiom, and inside an `async` function it silently discarded everything after the
+try. The function did not throw and did not hang; it resolved to whatever
+happened to be in the state machine's `lastResult` at the moment the error was
+caught. So this returned `null` rather than `['after']`:
+
+```dart
+main() async {
+  final seen = [];
+  try { throw 'x'; } catch (e) {}
+  seen.add('after');
+  return seen;
+}
+```
+
+and if the `try` had awaited before throwing, it returned `1` — the value of the
+last `await`, presented as the function's result. That is the worst shape a bug
+can take: no error, no stall, just a plausible wrong answer.
+
+The cause is one line in `_handleAsyncError`. Resuming into a catch block means
+setting `nextStateIdentifier` to the block's first statement, and an empty block
+has none — a `null` identifier is the state machine's stop signal. The empty
+*try* and empty *finally* analogues were already handled in `_runStateMachine`;
+the catch case was the one that had been missed. It now resumes exactly where a
+non-empty catch resumes after its last statement: the `finally` block if there
+is a non-empty one, otherwise the statement following the whole `try`.
+
+Only the empty-body case changes. Sync functions were never affected (they do
+not go through the state machine), and a catch containing so much as one
+statement always worked. Pinned by F-SCC22-13..17.
+
+### Tested — the nine `dart:io` error-handler arity sites SCB9 left unasserted
+
+SCB9 routed all 15 error-handler adapters through `errorHandlerArgs` but could
+only assert the 6 async ones; the 9 io sites were left "verified by
+construction". `test/scc22_io_error_handler_arity_test.dart` closes that, and
+the split is measured rather than assumed:
+
+- Three sites are reachable from a script and get the full unary / binary /
+  optional-second-parameter trio against a real loopback connection.
+  `Socket.listen` and `Socket.handleError` are driven by a server that accepts a
+  connection and immediately destroys it, so the next write fails with a broken
+  pipe; `HttpClientResponse.listen` by a server that promises 100 bytes and
+  sends 5.
+- Six are not reachable, each for a stated reason: `ServerSocket.listen`,
+  `RawServerSocket.listen` and `HttpServer.listen` carry accept-side OS failures
+  a test cannot induce; `RawSocket.listen` reports peer loss as a
+  `RawSocketEvent.readClosed` *data* event rather than an error;
+  `RawDatagramSocket.listen` would need an ICMP unreachable surfaced as one;
+  `Stdin.listen` needs a terminal. These are guarded structurally instead —
+  F-SCC22-10 asserts the hardcoded `[error, stackTrace]` pair appears nowhere
+  but inside the helper, and F-SCC22-11/12 assert the full 15-site map,
+  identically in both trees.
+
+The structural guard is a better instrument for the regression actually at risk
+(a future adapter reintroducing the hardcoded pair) than six socket tests would
+be, and it does not go flaky on a loaded machine.
+
+No permissioned-io harness had to be built for any of this: `executeAsync`
+already grants `NetworkPermission.any`, and `stdlib/io/socket_test.dart` already
+binds loopback servers.
+
+SCB9's header claimed 14 sites. It is 15 — `async/stream.dart` has three, not
+two, and had three in the SCB9 commit itself. The undercount was in the prose
+enumeration only; the fix always covered all 15. Corrected, and the count is now
+asserted rather than restated.
+
 ## 1.39.0
 
 ### Fixed — `on T` in a catch clause answered a smaller question than `x is T`

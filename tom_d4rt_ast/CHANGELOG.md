@@ -1,3 +1,43 @@
+## 0.29.0
+
+### Fixed — an empty `catch` block abandoned the rest of an `async` function
+
+`try { ... } catch (e) {}` — swallow the error and carry on — is an ordinary
+idiom, and inside an `async` function it silently discarded everything after the
+try. The function did not throw and did not hang; it resolved to whatever
+happened to be in the state machine's `lastResult` at the moment the error was
+caught. So this returned `null` rather than `['after']`:
+
+```dart
+main() async {
+  final seen = [];
+  try { throw 'x'; } catch (e) {}
+  seen.add('after');
+  return seen;
+}
+```
+
+and if the `try` had awaited before throwing, it returned `1` — the value of the
+last `await`, presented as the function's result. That is the worst shape a bug
+can take: no error, no stall, just a plausible wrong answer.
+
+The cause is one line in `_handleAsyncError`. Resuming into a catch block means
+setting `nextStateIdentifier` to the block's first statement, and an empty block
+has none — a `null` identifier is the state machine's stop signal. The empty
+*try* and empty *finally* analogues were already handled in `_runStateMachine`;
+the catch case was the one that had been missed. It now resumes exactly where a
+non-empty catch resumes after its last statement: the `finally` block if there
+is a non-empty one, otherwise the statement following the whole `try`.
+
+Only the empty-body case changes. Sync functions were never affected (they do
+not go through the state machine), and a catch containing so much as one
+statement always worked.
+
+Mirrored from `tom_d4rt` 1.40.0, where it is pinned by F-SCC22-13..17. The
+`tom_d4rt` release also adds the io error-handler arity coverage those tests
+accompany; F-SCC22-11/12 assert this tree's 15-site map alongside the reference
+tree's, so the two cannot drift apart.
+
 ## 0.28.0
 
 ### Fixed — `on T` in a catch clause answered a smaller question than `x is T`

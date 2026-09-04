@@ -330,6 +330,26 @@ const Map<String, int> _uncoveredBaseline = {
   // pipeline. Tracked as SCD69; when porting this file, expect F-SCC20-18 to be
   // the one case still needing an answer.
   'scc20_catch_clause_type_test.dart': 25,
+  // Pinned on the next `tom_d4rt_ast` publish, and the measurement is the
+  // cleanest of this group: ported, run, removed again — 13 of 17 cases PASS,
+  // and the 4 that fail are exactly the fix that is working-tree-only. SCC22
+  // fixed an empty `catch (e) {}` abandoning the rest of an async function, and
+  // F-SCC22-13/-14/-15/-16 each reproduce it against the published interpreter
+  // (`['after']` comes back as `null`, or as `1` — the value of the last
+  // `await`). F-SCC22-17 passes because a NON-empty catch was never broken.
+  //
+  // The other 13 tell us something worth writing down. The nine io arity cases
+  // (F-SCC22-1..9) pass against the published copy, which confirms SCB9's
+  // `errorHandlerArgs` shipped and that this file's loopback harness is not
+  // measuring a working-tree-only helper. The three structural cases
+  // (F-SCC22-10..12) also pass — but they read the two sibling trees' `lib/src`
+  // off disk, so from here they ask the identical question the reference tree's
+  // copy already answers, about the identical files. That half is NOT PORTABLE
+  // for the same reason `release_hygiene_test.dart` below it is not: a second
+  // copy could only ever produce a duplicate failure. Port the file on the next
+  // publish for the behavioural cases; the structural group stays a single copy
+  // in `tom_d4rt`.
+  'scc22_io_error_handler_arity_test.dart': 17,
   'stdlib/cast_from_family_test.dart': 6,
   'stdlib/convert/json_named_constructors_test.dart': 13,
   'stdlib/core/error_validation_helpers_test.dart': 18,

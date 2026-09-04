@@ -15,21 +15,30 @@ import 'interpreter_test.dart' show executeAsync;
 /// The message named argument counts rather than the callback the author wrote,
 /// so it read as an interpreter bug rather than a signature mismatch.
 ///
-/// **The gap was 14 sites, not one.** The todo named `Stream.listen` and asked
+/// **The gap was 15 sites, not one.** The todo named `Stream.listen` and asked
 /// for three others to be *checked*; grepping for the two-argument invocation
-/// found it hardcoded in `async/future.dart` (3), `async/stream.dart` (2),
+/// found it hardcoded in `async/future.dart` (3), `async/stream.dart` (3),
 /// `io/socket.dart` (6), `io/http.dart` (2) and `io/stdio.dart` (1). The io
 /// sites are not merely similar — `io/socket.dart`'s listen adapter is a
 /// byte-identical copy of `async/stream.dart`'s, `onDataWrapper` /
 /// `onErrorWrapper` / `onDoneWrapper` naming included. One adapter, copy-pasted.
-/// All 14 now route through `errorHandlerArgs`.
+/// All 15 now route through `errorHandlerArgs`.
 ///
-/// Which of the 14 this file can *assert* on is limited by what a script can
-/// reach without a network or a terminal: the 6 async sites are covered below,
-/// and the 9 io sites (socket, http, stdio) take the identical one-line change
-/// but are verified by construction rather than by test. That asymmetry is
-/// deliberate and worth stating rather than leaving the reader to infer it from
-/// the absence of cases.
+/// (This paragraph said "14 sites" and "`async/stream.dart` (2)" until SCC22
+/// recounted it. The undercount was in the enumeration only — the SCB9 commit
+/// itself already routed three stream sites, and the "6 async sites are covered
+/// below" summary and F-SCB9-8 were both right. A hand-maintained count in a
+/// header is exactly the thing that goes quietly wrong, which is why
+/// F-SCC22-11 now asserts the site map instead of restating it in prose.)
+///
+/// Which of the 15 this file can *assert* on is limited by what a script can
+/// reach without a network or a terminal: the 6 async sites are covered below.
+/// The 9 io sites (socket, http, stdio) are covered by
+/// `tom_d4rt/test/scc22_io_error_handler_arity_test.dart` — it drives a real
+/// loopback connection for the three a script can force an error out of, and
+/// guards the other six structurally, each with its measured reason for being
+/// unreachable. That file replaces this paragraph's earlier claim that the io
+/// sites were "verified by construction rather than by test".
 ///
 /// **`maxPositionalArity`, not `arity`.** `arity` counts only *required*
 /// positional parameters, so it reports 1 for `(e, [st])` — and native Dart

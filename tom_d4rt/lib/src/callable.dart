@@ -2897,6 +2897,30 @@ class InterpretedFunction implements Callable {
       state.nextStateIdentifier = matchingCatchClause
           .body.statements.firstOrNull; // Start of the catch block
 
+      // SCC22: an *empty* catch body has no first statement, and a null
+      // `nextStateIdentifier` stops the state machine — the async function was
+      // abandoned where the catch would have started and resolved to whatever
+      // happened to be in `lastResult`. Swallowing an error with `catch (e) {}`
+      // is a legal, ordinary idiom, so resume where a non-empty catch resumes
+      // after its last statement: the finally block if there is a non-empty
+      // one, otherwise the node after the whole try. This mirrors the empty-try
+      // and empty-finally handling already in `_runStateMachine`.
+      if (state.nextStateIdentifier == null) {
+        final finallyBlock = enclosingTry.finallyBlock;
+        if (finallyBlock != null && finallyBlock.statements.isNotEmpty) {
+          Logger.debug(
+              " [_handleAsyncError] Empty catch block, jumping to finally.");
+          state.nextStateIdentifier = finallyBlock.statements.first;
+        } else {
+          Logger.debug(
+              " [_handleAsyncError] Empty catch block and no finally; "
+              "continuing after the TryStatement.");
+          state.nextStateIdentifier =
+              _findNextSequentialNode(visitor, enclosingTry);
+          state.activeTryStatement = null;
+        }
+      }
+
       // Update the state for rethrow - store the original error
       final internalError = InternalInterpreterD4rtException(
           error ?? Exception("Unknown error caught")); // Pass only the error
