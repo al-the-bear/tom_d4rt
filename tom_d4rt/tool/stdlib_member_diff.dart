@@ -208,6 +208,23 @@ String _normalizeSetter(String name) =>
         ? name.substring(0, name.length - 1)
         : name;
 
+/// Whether [decl] carries `@Deprecated` (or the bare `@deprecated`).
+///
+/// Deprecated SDK members are not gaps. `FileSystemEntityType.NOT_FOUND` is the
+/// case that prompted this: it is a screaming-caps alias kept for compatibility
+/// with a naming convention the SDK abandoned, and bridging it would carry that
+/// spelling into D4rt scripts forever. Detected from the annotation rather than
+/// name-listed, so the next alias the SDK retires drops out on its own instead
+/// of arriving as a fresh phantom gap.
+bool _isDeprecated(DeclarationMirror decl) {
+  try {
+    return decl.metadata.any((m) => m.reflectee is Deprecated);
+  } catch (_) {
+    // Some SDK declarations throw on metadata access; treat as not annotated.
+    return false;
+  }
+}
+
 /// The set of member names a script may reach on the native [type], with
 /// instance and static members kept apart.
 ///
@@ -247,6 +264,7 @@ String _normalizeSetter(String name) =>
       final raw = _symbolName(entry.key);
       final decl = entry.value;
       if (!_isPublic(raw)) continue;
+      if (_isDeprecated(decl)) continue;
 
       if (decl is MethodMirror) {
         if (decl.isConstructor) continue;
@@ -292,6 +310,17 @@ ClassDiff diffClass(String name, BridgedClass bc) {
     ...bc.staticSetters.keys,
   };
   diff.bridgedCount = bridgedInstance.length + bridgedStatic.length;
+
+  // A bridge whose nativeType is `Function` is not a class bridge at all: it is
+  // how a bridged *top-level function* is registered (`unawaited` is the one in
+  // the stdlib). Diffing it against the `Function` class surface reports
+  // `apply` as missing, which is not a gap in anything — nobody calls
+  // `unawaited.apply`. Reported as a kind rather than skipped silently, so the
+  // row stays visible and countable without inflating the gap total.
+  if (bc.nativeType == Function) {
+    diff.error = 'bridged top-level function — no class surface to diff';
+    return diff;
+  }
 
   final sdk = _sdkSurface(bc.nativeType);
   if (sdk == null) {
