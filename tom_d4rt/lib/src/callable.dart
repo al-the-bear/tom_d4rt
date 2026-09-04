@@ -1653,6 +1653,30 @@ class InterpretedFunction implements Callable {
       // that may run after the original call() returns
       visitor.currentFunction = currentState.function;
 
+      // SCC12: an error that was only passing through a `finally` block resumes
+      // here, now that the block has finished — see
+      // `AsyncExecutionState.errorAfterFinally`. It is re-dispatched from
+      // *outside* the try it was held for, so the search for a handler starts at
+      // the enclosing try instead of finding the same one again and re-running
+      // its finally for ever.
+      if (currentState.resumeErrorAfterFinally) {
+        currentState.resumeErrorAfterFinally = false;
+        final heldTry = currentState.errorAfterFinallyTry!;
+        currentState.errorAfterFinallyTry = null;
+        currentState.currentError = currentState.errorAfterFinally;
+        currentState.currentStackTrace =
+            currentState.errorAfterFinallyStackTrace;
+        currentState.errorAfterFinally = null;
+        currentState.errorAfterFinallyStackTrace = null;
+        Logger.debug(
+            " [StateMachine] Finally block finished; re-raising the error it was "
+            "holding: ${currentState.currentError}");
+        _handleAsyncError(visitor, currentState, heldTry.parent ?? heldTry);
+        visitor.environment = originalVisitorEnv;
+        visitor.currentAsyncState = previousAsyncState;
+        return;
+      }
+
       Logger.debug(
           " [StateMachine] Executing state: ${currentNode.runtimeType} in state env ${currentState.environment.hashCode}, loop stack depth: ${currentState.loopEnvironmentStack.length}. Visitor env set to: ${visitor.environment.hashCode}");
 
@@ -2532,60 +2556,80 @@ class InterpretedFunction implements Callable {
           suspension.future.then((futureResult) {
             Logger.debug(
                 " [StateMachine] Future completed successfully with: $futureResult");
-            // Update the state with the result
-            currentState.lastAwaitResult = futureResult;
-            currentState.lastAwaitError = null;
-            currentState.lastAwaitStackTrace = null;
-            currentState.currentError = null; // Clear any previous error state
-            currentState.currentStackTrace = null;
+            // SCC12: this callback runs *after* the state machine loop's own
+            // `finally` has restored `visitor.currentAsyncState`, so by the time
+            // we get here the field is stale — null, for the outermost async
+            // function. Everything below acts on behalf of `currentState`, and
+            // parts of it read that field back: `_findNextSequentialNode` only
+            // clears `activeTryStatement` when it can see a state, and
+            // `_determineNextNodeAfterAwait` re-executes AST nodes that may
+            // suspend again. With the field null, a finally block whose *last*
+            // statement was an `await` never un-marked its enclosing try, so the
+            // `return` that followed the try was diverted back into the finally,
+            // ran it again, suspended again — for ever. Re-assert the invariant
+            // that while we are working for state S the visitor's current async
+            // state is S.
+            final previousAsyncState = visitor.currentAsyncState;
+            visitor.currentAsyncState = currentState;
+            try {
+              // Update the state with the result
+              currentState.lastAwaitResult = futureResult;
+              currentState.lastAwaitError = null;
+              currentState.lastAwaitStackTrace = null;
+              currentState.currentError = null; // Clear any previous error state
+              currentState.currentStackTrace = null;
 
-            if (currentState.pendingFinallyBlock != null) {
-              Logger.debug(
-                  "[StateMachine] Resuming after await, pending finally found. Executing finally block first.");
-              // The next state is the beginning of the finally block
-              final finallyBlock = currentState.pendingFinallyBlock!;
-              currentState.pendingFinallyBlock = null; // Consumed
-              currentState.nextStateIdentifier =
-                  finallyBlock.statements.firstOrNull;
-              if (currentState.nextStateIdentifier == null) {
-                // The finally block is empty, find the node after the try
+              if (currentState.pendingFinallyBlock != null) {
                 Logger.debug(
-                    "[StateMachine] Pending finally block was empty. Finding node after TryStatement.");
-                if (currentState.activeTryStatement != null) {
-                  currentState.nextStateIdentifier = _findNextSequentialNode(
-                      visitor, currentState.activeTryStatement!);
-                  currentState.activeTryStatement = null; // End of try handling
-                } else {
-                  Logger.warn(
-                      "[StateMachine] Cannot find node after empty finally block without active TryStatement.");
-                  currentState.nextStateIdentifier = null; // Safe stop
+                    "[StateMachine] Resuming after await, pending finally found. Executing finally block first.");
+                // The next state is the beginning of the finally block
+                final finallyBlock = currentState.pendingFinallyBlock!;
+                currentState.pendingFinallyBlock = null; // Consumed
+                currentState.nextStateIdentifier =
+                    finallyBlock.statements.firstOrNull;
+                if (currentState.nextStateIdentifier == null) {
+                  // The finally block is empty, find the node after the try
+                  Logger.debug(
+                      "[StateMachine] Pending finally block was empty. Finding node after TryStatement.");
+                  if (currentState.activeTryStatement != null) {
+                    currentState.nextStateIdentifier = _findNextSequentialNode(
+                        visitor, currentState.activeTryStatement!);
+                    currentState.activeTryStatement =
+                        null; // End of try handling
+                  } else {
+                    Logger.warn(
+                        "[StateMachine] Cannot find node after empty finally block without active TryStatement.");
+                    currentState.nextStateIdentifier = null; // Safe stop
+                  }
                 }
+                _scheduleStateMachineRun(visitor, currentState);
+                return; // Do not determine the next normal node
               }
+
+              // Determine the next state based on the AST context
+              AstNode? nextNodeAfterAwait;
+
+              if (suspension.isYieldSuspension) {
+                // For yield suspensions, simply continue with the next sequential node
+                nextNodeAfterAwait = _findNextSequentialNode(visitor,
+                    currentNode!); // The YieldStatement that caused the suspension
+                Logger.debug(
+                    "[StateMachine] Yield suspension completed. Next node: ${nextNodeAfterAwait?.runtimeType}");
+              } else {
+                // For await suspensions, use the complex await logic
+                nextNodeAfterAwait = _determineNextNodeAfterAwait(
+                    visitor,
+                    currentState,
+                    currentNode!); // The node that caused the suspension
+              }
+
+              currentState.nextStateIdentifier = nextNodeAfterAwait;
+
+              // Reschedule the state machine execution
               _scheduleStateMachineRun(visitor, currentState);
-              return; // Do not determine the next normal node
+            } finally {
+              visitor.currentAsyncState = previousAsyncState;
             }
-
-            // Determine the next state based on the AST context
-            AstNode? nextNodeAfterAwait;
-
-            if (suspension.isYieldSuspension) {
-              // For yield suspensions, simply continue with the next sequential node
-              nextNodeAfterAwait = _findNextSequentialNode(visitor,
-                  currentNode!); // The YieldStatement that caused the suspension
-              Logger.debug(
-                  "[StateMachine] Yield suspension completed. Next node: ${nextNodeAfterAwait?.runtimeType}");
-            } else {
-              // For await suspensions, use the complex await logic
-              nextNodeAfterAwait = _determineNextNodeAfterAwait(
-                  visitor,
-                  currentState,
-                  currentNode!); // The node that caused the suspension
-            }
-
-            currentState.nextStateIdentifier = nextNodeAfterAwait;
-
-            // Reschedule the state machine execution
-            _scheduleStateMachineRun(visitor, currentState);
           }).catchError((Object error, StackTrace stackTrace) {
             Logger.debug(
                 " [StateMachine] Future completed with ERROR: $error"); // Do not display stackTrace here, too long
@@ -2816,6 +2860,21 @@ class InterpretedFunction implements Callable {
       state.isCurrentlyRethrowing = false;
     }
 
+    // SCC12: walk outward past every try that cannot do anything with the error.
+    // A try with no catch clauses and no (non-empty) finally block is not a
+    // handler, and the search has to continue at the try enclosing *it* — the
+    // single-level lookup used to stop there and propagate straight to the
+    // function's Future, so an enclosing `catch` in the same function never ran.
+    while (enclosingTry != null &&
+        enclosingTry.catchClauses.isEmpty &&
+        (enclosingTry.finallyBlock == null ||
+            enclosingTry.finallyBlock!.statements.isEmpty)) {
+      Logger.debug(
+          " [_handleAsyncError] TryStatement at ${enclosingTry.offset} has no "
+          "catch and no finally; looking further out.");
+      enclosingTry = _findEnclosingTryStatement(enclosingTry.parent);
+    }
+
     CatchClause? matchingCatchClause;
     if (enclosingTry != null) {
       Logger.debug(
@@ -2888,9 +2947,17 @@ class InterpretedFunction implements Callable {
         state.nextStateIdentifier =
             enclosingTry.finallyBlock!.statements.firstOrNull;
 
-        // IMPORTANT: The error remains in state.currentError to be rethrown AFTER the finally.
-        // _findNextSequentialNode will handle the transition *after* the finally.
-        // The main loop of the state machine will check state.currentError at the end.
+        // SCC12: hold the error on the state instead of leaving it in
+        // `currentError`. The main loop clears `currentError` after every
+        // statement that completes normally, so an error parked there does not
+        // survive even the first statement of the finally block — it was dropped
+        // silently, and an enclosing `catch` never ran. The hold is released by
+        // `_findNextSequentialNode` when the block ends.
+        state.errorAfterFinally = error;
+        state.errorAfterFinallyStackTrace = stackTrace;
+        state.errorAfterFinallyTry = enclosingTry;
+        state.currentError = null;
+        state.currentStackTrace = null;
         _scheduleStateMachineRun(visitor, state);
       } else {
         //    b) Propagate the error by completing the main Future
@@ -4026,9 +4093,14 @@ class InterpretedFunction implements Callable {
             blockParent.finallyBlock == block) {
           Logger.debug("[_findNextSequentialNode] End of Finally block.");
           // After a finally, we look for the next node after the TryStatement
-          // If an error was in progress, it will be rethrown by the main loop.
           if (state != null) {
             state.activeTryStatement = null; // End of try handling
+            // SCC12: release an error that was only passing through this finally
+            // block. The main loop re-raises it before executing the node
+            // returned below.
+            if (state.errorAfterFinallyTry == blockParent) {
+              state.resumeErrorAfterFinally = true;
+            }
           }
           return _findNextSequentialNode(visitor, blockParent);
         }

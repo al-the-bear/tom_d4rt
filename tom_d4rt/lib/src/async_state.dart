@@ -76,6 +76,31 @@ class AsyncExecutionState {
   /// Store return value if a return happens inside a try with a finally.
   Object? returnAfterFinally;
 
+  /// An error that is only *passing through* a `finally` block: it was raised in
+  /// a protected region that has no matching catch clause, so it must be
+  /// re-raised at the enclosing try once the finally has finished.
+  ///
+  /// SCC12: it cannot simply be left in [currentError] while the finally runs.
+  /// The state machine clears [currentError] after every statement that
+  /// completes normally, so an error parked there is erased by the first
+  /// statement of the finally block — which is how an exception thrown inside
+  /// `try { … } finally { … }` inside an async function used to vanish
+  /// altogether, leaving the enclosing `catch` unrun.
+  Object? errorAfterFinally;
+
+  /// The stack trace belonging to [errorAfterFinally].
+  StackTrace? errorAfterFinallyStackTrace;
+
+  /// The `try` whose finally block [errorAfterFinally] is waiting for. Non-null
+  /// exactly while an error is held, and used to recognise the moment the block
+  /// ends — the error must resume at the *enclosing* try, not this one.
+  TryStatement? errorAfterFinallyTry;
+
+  /// Set when the finally block named by [errorAfterFinallyTry] has finished, so
+  /// the next state-machine step re-raises the held error instead of executing
+  /// the statement that follows the try.
+  bool resumeErrorAfterFinally = false;
+
   /// Flag to indicate if we are currently executing a catch block body.
   bool isHandlingErrorForRethrow = false;
 

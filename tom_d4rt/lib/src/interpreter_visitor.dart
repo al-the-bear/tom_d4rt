@@ -9695,6 +9695,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     Object? tryResult;
     Object? returnValue; // Store either the try result or the catch result
 
+    // SCC12: a `return` / `break` / `continue` out of the try or a catch block is
+    // held here rather than rethrown on the spot, so that the finally block still
+    // runs before it leaves the statement. It used to rethrow immediately — with
+    // a comment saying "the finally must execute" next to the line that ensured
+    // it did not.
+    Object? pendingControlFlow;
+
     final originalEnv = environment; // Save to restore after catch/finally
 
     try {
@@ -9703,20 +9710,16 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       tryResult = node.body.accept<Object?>(this);
       returnValue = tryResult; // Default value if no exception
       Logger.debug("[TryStatement] Try block completed normally");
-    } on ReturnException {
-      // If the try returns, the finally must execute, but we propagate the return
-      Logger.debug(
-          "[TryStatement] Propagating ReturnException from try block.");
-      rethrow;
-    } on BreakException {
-      // Propagate for outer loops/switch
-      Logger.debug("[TryStatement] Propagating BreakException from try block");
-      rethrow;
-    } on ContinueException {
-      // Propagate for outer loops
-      Logger.debug(
-          "[TryStatement] Propagating ContinueException from try block");
-      rethrow;
+    } on ReturnException catch (e) {
+      Logger.debug("[TryStatement] Holding ReturnException from try block "
+          "until the finally block has run.");
+      pendingControlFlow = e;
+    } on BreakException catch (e) {
+      Logger.debug("[TryStatement] Holding BreakException from try block");
+      pendingControlFlow = e;
+    } on ContinueException catch (e) {
+      Logger.debug("[TryStatement] Holding ContinueException from try block");
+      pendingControlFlow = e;
     } on InternalInterpreterD4rtException catch (e, s) {
       // Catch ONLY the exceptions already encapsulated (coming from a 'throw')
       Logger.debug(
@@ -9982,14 +9985,26 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             Logger.debug("[TryStatement] Catch block completed normally");
             // The exception is handled, clear caughtInternalException to not rethrow it after finally
             caughtInternalException = null;
-          } on ReturnException {
-            // The catch made a return, we propagate it immediately but the finally must execute
-            Logger.debug(
-                "[TryStatement] Caught ReturnException in CATCH block");
-            // IMPORTANT: Clean the rethrow state BEFORE rethrowing
+          } on ReturnException catch (e) {
+            // SCC12: held, not rethrown. The finally block has to run on the way
+            // out of a `return` in a catch clause, exactly as it does on the way
+            // out of one in the try body.
+            Logger.debug("[TryStatement] Holding ReturnException from CATCH "
+                "block until the finally block has run.");
             _isInCatchBlock = false;
             _originalCaughtInternalExceptionForRethrow = null;
-            rethrow; // IMPORTANT: Ensure the return ends the function
+            caughtInternalException = null; // The catch handled the exception.
+            pendingControlFlow = e;
+          } on BreakException catch (e) {
+            _isInCatchBlock = false;
+            _originalCaughtInternalExceptionForRethrow = null;
+            caughtInternalException = null;
+            pendingControlFlow = e;
+          } on ContinueException catch (e) {
+            _isInCatchBlock = false;
+            _originalCaughtInternalExceptionForRethrow = null;
+            caughtInternalException = null;
+            pendingControlFlow = e;
           } on InternalInterpreterD4rtException catch (catchInternalError, catchStack) {
             if (identical(catchInternalError,
                 _originalCaughtInternalExceptionForRethrow)) {
@@ -10035,6 +10050,18 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       } // fin boucle for catchClauses
     } // fin if (caughtInternalException != null)
 
+    // SCC12: the protected region suspended on an `await`, so it has NOT
+    // finished — the async driver will replay this whole statement once the
+    // future completes. Running the finally block now would run it twice, and a
+    // teardown clause that releases a resource twice is a behavioural difference
+    // a script can see. Native Dart runs a finally exactly once.
+    if (returnValue is AsyncSuspensionRequest) {
+      Logger.debug("[TryStatement] Protected region suspended; deferring the "
+          "finally block to the resumed pass.");
+      environment = originalEnv;
+      return returnValue;
+    }
+
     // 3. Execute the finally block (always)
     // Store potential exception from finally block (must be internal type now)
     InternalInterpreterD4rtException? finallyInternalException;
@@ -10043,7 +10070,18 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       environment = originalEnv; // Ensure we are in the correct environment
       Logger.debug("[TryStatement] Entering finally block");
       try {
-        node.finallyBlock!.accept<Object?>(this);
+        final finallyResult = node.finallyBlock!.accept<Object?>(this);
+        // SCC12: the finally block's value was discarded, and with it any
+        // `AsyncSuspensionRequest` an `await` inside it raised. The interpreter
+        // drives `await` by returning that sentinel up through every statement
+        // visitor to the async driver, so swallowing it does not lose a value —
+        // it loses the *future*, and the program then never completes at all.
+        // `try { … } finally { await release(); }` hung forever.
+        if (finallyResult is AsyncSuspensionRequest) {
+          Logger.debug("[TryStatement] Finally block suspended. Propagating.");
+          environment = originalEnv;
+          return finallyResult;
+        }
         Logger.debug("[TryStatement] Finally block completed normally");
       } on ReturnException {
         // If finally returns, it overrides everything
@@ -10070,6 +10108,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       Logger.debug(
           "[TryStatement] Rethrowing internal exception from FINALLY: ${finallyInternalException.originalThrownValue}");
       throw finallyInternalException; // The internal exception of the Finally always prevails
+    }
+
+    // SCC12: the held `return` / `break` / `continue` resumes here, after the
+    // finally block has run. An exception raised by the finally outranks it —
+    // checked above — which is what native Dart does too.
+    if (pendingControlFlow != null) {
+      Logger.debug("[TryStatement] Resuming held control flow: "
+          "${pendingControlFlow.runtimeType}");
+      throw pendingControlFlow;
     }
 
     // If there is an unhandled internal exception (either original, or from a catch) and no exception from the finally
