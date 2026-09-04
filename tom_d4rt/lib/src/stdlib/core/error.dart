@@ -14,6 +14,24 @@ class ErrorCore {
           'safeToString': (visitor, positionalArgs, namedArgs, _) {
             return Error.safeToString(positionalArgs[0]);
           },
+          // Rethrows `error` while keeping an *earlier* stack trace. Forwarding
+          // to the native helper rather than re-`throw`ing is what preserves the
+          // caller's trace; a plain `throw error` here would substitute this
+          // frame and quietly defeat the only reason the member exists.
+          'throwWithStackTrace': (visitor, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length != 2) {
+              throw RuntimeD4rtException(
+                  'Error.throwWithStackTrace(error, stackTrace) expects two '
+                  'positional arguments.');
+            }
+            final stackTrace = positionalArgs[1];
+            if (stackTrace is! StackTrace) {
+              throw RuntimeD4rtException(
+                  'The second argument to Error.throwWithStackTrace must be a '
+                  'StackTrace.');
+            }
+            Error.throwWithStackTrace(positionalArgs[0] as Object, stackTrace);
+          },
         },
         methods: {
           'toString': (visitor, target, positionalArgs, namedArgs, _) {
@@ -76,6 +94,23 @@ class ArgumentErrorCore {
             return ArgumentError.notNull(name);
           },
         },
+        staticMethods: {
+          // The single most-used validation helper in idiomatic Dart. Throwing
+          // is its normal behaviour, and the thrown value must be the bridged
+          // `ArgumentError` so an interpreted `on ArgumentError` clause matches
+          // — which is exactly what letting the native helper raise gives us.
+          'checkNotNull': (visitor, positionalArgs, namedArgs, _) {
+            if (positionalArgs.isEmpty || positionalArgs.length > 2) {
+              throw RuntimeD4rtException(
+                  'ArgumentError.checkNotNull(argument, [name]) expects one or '
+                  'two positional arguments.');
+            }
+            final name =
+                positionalArgs.length > 1 ? positionalArgs[1] as String? : null;
+            return ArgumentError.checkNotNull<Object>(
+                positionalArgs[0], name);
+          },
+        },
         methods: {
           'toString': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as ArgumentError).toString();
@@ -116,6 +151,71 @@ class RangeErrorCore {
             final name = positionalArgs.length > 3 ? positionalArgs[3] as String? : null;
             final message = positionalArgs.length > 4 ? positionalArgs[4] as String? : null;
             return RangeError.range(invalidValue, minValue as int?, maxValue as int?, name, message);
+          },
+        },
+        // The four `check*` validation helpers. Each takes its optional
+        // arguments *positionally* — unlike `IndexError.check`, which takes
+        // named ones. Reading them the other way round would compile and then
+        // silently drop every diagnostic the caller supplied, so the shapes are
+        // spelled out one member at a time rather than shared.
+        staticMethods: {
+          'checkNotNegative': (visitor, positionalArgs, namedArgs, _) {
+            if (positionalArgs.isEmpty || positionalArgs.length > 3) {
+              throw RuntimeD4rtException(
+                  'RangeError.checkNotNegative(value, [name, message]) expects '
+                  'one to three positional arguments.');
+            }
+            return RangeError.checkNotNegative(
+              positionalArgs[0] as int,
+              positionalArgs.length > 1 ? positionalArgs[1] as String? : null,
+              positionalArgs.length > 2 ? positionalArgs[2] as String? : null,
+            );
+          },
+          'checkValidIndex': (visitor, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length < 2 || positionalArgs.length > 5) {
+              throw RuntimeD4rtException(
+                  'RangeError.checkValidIndex(index, indexable, [name, length, '
+                  'message]) expects two to five positional arguments.');
+            }
+            return RangeError.checkValidIndex(
+              positionalArgs[0] as int,
+              positionalArgs[1],
+              positionalArgs.length > 2 ? positionalArgs[2] as String? : null,
+              positionalArgs.length > 3 ? positionalArgs[3] as int? : null,
+              positionalArgs.length > 4 ? positionalArgs[4] as String? : null,
+            );
+          },
+          'checkValidRange': (visitor, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length < 3 || positionalArgs.length > 6) {
+              throw RuntimeD4rtException(
+                  'RangeError.checkValidRange(start, end, length, [startName, '
+                  'endName, message]) expects three to six positional '
+                  'arguments.');
+            }
+            return RangeError.checkValidRange(
+              positionalArgs[0] as int,
+              positionalArgs[1] as int?,
+              positionalArgs[2] as int,
+              positionalArgs.length > 3 ? positionalArgs[3] as String? : null,
+              positionalArgs.length > 4 ? positionalArgs[4] as String? : null,
+              positionalArgs.length > 5 ? positionalArgs[5] as String? : null,
+            );
+          },
+          'checkValueInInterval': (visitor, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length < 3 || positionalArgs.length > 5) {
+              throw RuntimeD4rtException(
+                  'RangeError.checkValueInInterval(value, minValue, maxValue, '
+                  '[name, message]) expects three to five positional '
+                  'arguments.');
+            }
+            RangeError.checkValueInInterval(
+              positionalArgs[0] as int,
+              positionalArgs[1] as int,
+              positionalArgs[2] as int,
+              positionalArgs.length > 3 ? positionalArgs[3] as String? : null,
+              positionalArgs.length > 4 ? positionalArgs[4] as String? : null,
+            );
+            return null;
           },
         },
         methods: {
@@ -268,6 +368,26 @@ class IndexErrorCore {
         constructors: {
           'withLength': (visitor, positionalArgs, namedArgs) {
             return IndexError.withLength(
+              positionalArgs[0] as int,
+              positionalArgs[1] as int,
+              indexable: namedArgs['indexable'],
+              name: namedArgs['name'] as String?,
+              message: namedArgs['message'] as String?,
+            );
+          },
+        },
+        staticMethods: {
+          // `IndexError.check(index, length, {indexable, name, message})` — the
+          // only member of this family whose optional arguments are *named*.
+          // Reading them from `positionalArgs` would compile and then ignore
+          // everything the caller passed.
+          'check': (visitor, positionalArgs, namedArgs, _) {
+            if (positionalArgs.length != 2) {
+              throw RuntimeD4rtException(
+                  'IndexError.check(index, length, {indexable, name, message}) '
+                  'expects two positional arguments.');
+            }
+            return IndexError.check(
               positionalArgs[0] as int,
               positionalArgs[1] as int,
               indexable: namedArgs['indexable'],
