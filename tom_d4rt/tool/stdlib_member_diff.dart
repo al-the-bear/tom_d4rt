@@ -215,6 +215,50 @@ Environment buildFullyRegisteredEnvironment() {
   return env;
 }
 
+/// Phase 1 for every bridged class in [env]: the raw candidate members, before
+/// any of them has been driven through the interpreter.
+///
+/// Extracted from `main` so the standing baseline test in
+/// `test/stdlib/member_coverage_baseline_test.dart` measures through the same
+/// code path as the CLI. A test that reimplemented the walk could disagree with
+/// the tool about what a candidate even is, and then the two would drift with
+/// nobody the wiser — which is the failure this whole audit exists to prevent,
+/// reproduced one level up.
+///
+/// [only] narrows the run to named classes, as `--only` does. The totals over a
+/// narrowed run are a subset and must not be published as a measurement.
+List<ClassDiff> collectMemberDiffs(Environment env, {Set<String>? only}) {
+  final names = env.bridgedClassNames..sort();
+  final diffs = <ClassDiff>[];
+  for (final name in names) {
+    if (only != null && !only.contains(name)) continue;
+    final bc = env.findBridgedClassByName(name);
+    if (bc == null) continue;
+    diffs.add(diffClass(name, bc));
+  }
+  return diffs;
+}
+
+/// Phase 2 over [diffs], in place: classifies every candidate as confirmed,
+/// reachable-anyway or unverified.
+///
+/// [onClass] is called with each class name and its candidate count *before* the
+/// class is probed, which is what makes a wedged run diagnosable — see the
+/// comment at the call site in `main`.
+Future<void> verifyAll(
+  List<ClassDiff> diffs, {
+  void Function(String name, int candidates)? onClass,
+}) async {
+  for (final d in diffs) {
+    final candidates = d.missingInstance.length +
+        d.missingStatic.length +
+        d.missingOperators.length +
+        d.missingUniversal.length;
+    if (candidates > 0) onClass?.call(d.name, candidates);
+    await verify(d);
+  }
+}
+
 String _symbolName(Symbol s) => MirrorSystem.getName(s);
 
 bool _isPublic(String n) => !n.startsWith('_');
@@ -1281,6 +1325,112 @@ Future<void> runHierarchyAudit(Environment env, List<String> args) async {
   }
 }
 
+// =============================================================================
+// Standing baseline — SCC13
+// =============================================================================
+
+/// Renders the checked-in baseline consumed by
+/// `test/stdlib/member_coverage_baseline_test.dart`.
+///
+/// Three things are pinned, and the choice of which three is the whole design:
+///
+///   * **confirmed gaps** — the known defects. A member confirmed unreachable
+///     that is absent here is a regression.
+///   * **unmeasurable members** — the known blind spots. Needed to tell
+///     "unverified became a gap", which is a new *measurement* and not a new
+///     defect, apart from "reachable became a gap", which is the regression this
+///     guard exists for. Without this set the two are indistinguishable.
+///   * **which classes had a working recipe** — so the measurement cannot go
+///     dark silently. If a recipe breaks, every gap on that class turns
+///     unverified, and a guard that merely tolerates confirmed → unverified
+///     would report success while measuring nothing.
+///
+/// The ~378 members that are reachable only via the supertype-chain fallback are
+/// deliberately NOT pinned. They add no guard power — a member of that set going
+/// bad shows up as "confirmed and absent from the baseline" either way — and they
+/// would triple the file with names that carry no finding, turning a reviewable
+/// list of known defects into a wall nobody reads. That is the same failure as a
+/// count-only assertion, just in the other direction.
+String renderBaselineSource(List<ClassDiff> diffs) {
+  final confirmed = <String, List<String>>{};
+  final unmeasurable = <String, List<String>>{};
+  final measured = <String>[];
+
+  for (final d in diffs) {
+    if (d.recipeUsable) measured.add(d.name);
+    final gaps = <String>{
+      ...d.missingInstance,
+      ...d.missingStatic,
+      ...d.missingOperators,
+      ...d.missingUniversal,
+    }.toList()
+      ..sort();
+    if (gaps.isNotEmpty) confirmed[d.name] = gaps;
+    final blind = <String>{
+      ...d.unverifiedInstance,
+      ...d.unverifiedStatic,
+      ...d.unverifiedOperators,
+      ...d.unverifiedUniversal,
+    }.toList()
+      ..sort();
+    if (blind.isNotEmpty) unmeasurable[d.name] = blind;
+  }
+  measured.sort();
+
+  final gapTotal = confirmed.values.fold<int>(0, (s, l) => s + l.length);
+  final blindTotal = unmeasurable.values.fold<int>(0, (s, l) => s + l.length);
+
+  String renderMap(Map<String, List<String>> m) {
+    final b = StringBuffer();
+    for (final entry in m.entries) {
+      b.writeln("  '${entry.key}': [");
+      for (final member in entry.value) {
+        b.writeln("    r'$member',");
+      }
+      b.writeln('  ],');
+    }
+    return b.toString();
+  }
+
+  return '''
+// GENERATED — regenerate with:
+//   dart run tool/stdlib_member_diff.dart --baseline
+//
+// The standing member-coverage baseline for the `dart:*` stdlib bridges, read by
+// `member_coverage_baseline_test.dart`. Do not hand-edit: a hand-edited entry is
+// an assertion about the interpreter that nothing measured, which is exactly the
+// claim this baseline was introduced to stop anyone making.
+//
+// Current state: $gapTotal confirmed-unreachable members across ${confirmed.length} classes,
+// and $blindTotal members on ${unmeasurable.length} classes that cannot be measured at all.
+// Those totals are documentation, not assertions — the test derives them from the
+// tables below, so there is only ever one thing to update.
+//
+// Regenerating is a normal part of closing a gap and a normal part of adding an
+// instance recipe. It is NOT a normal part of making a red suite green: if
+// `no previously-reachable member became unreachable` is the test that failed,
+// regenerating hides a live defect.
+
+/// Members proven unreachable through the interpreter, per bridged class.
+const confirmedGaps = <String, List<String>>{
+${renderMap(confirmed)}};
+
+/// Candidates that could not be measured, per bridged class. Each of these has a
+/// stated reason in `_notAuditable` in the tool; they are pinned so that a member
+/// moving out of this bucket is reported as the new information it is, rather
+/// than as a fresh defect.
+const unmeasurable = <String, List<String>>{
+${renderMap(unmeasurable)}};
+
+/// Classes whose instance recipe produced a usable instance when the baseline was
+/// taken. A class dropping out of this list means its gaps stopped being
+/// measured, which the test reports as a failure rather than as a pass.
+const measuredClasses = <String>{
+${measured.map((n) => "  '$n',").join('\n')}
+};
+''';
+}
+
 /// Reads a two-token option (`--only Foo,Bar`) out of [args].
 String? _optionValue(List<String> args, String name) {
   final i = args.indexOf(name);
@@ -1298,44 +1448,40 @@ Future<void> main(List<String> args) async {
     exit(0);
   }
 
-  final names = env.bridgedClassNames..sort();
-
   // `--only Foo,Bar` narrows the run to named classes. The totals it prints are
   // then a subset and must not be published as a measurement — it exists so that
   // a single class can be re-probed in seconds instead of minutes while
   // diagnosing one.
   final only = _optionValue(args, '--only')?.split(',').toSet();
 
-  final diffs = <ClassDiff>[];
-  for (final name in names) {
-    if (only != null && !only.contains(name)) continue;
-    final bc = env.findBridgedClassByName(name);
-    if (bc == null) continue;
-    diffs.add(diffClass(name, bc));
-  }
+  final diffs = collectMemberDiffs(env, only: only);
 
   final rawCandidates = diffs.fold<int>(
       0, (s, d) => s + d.missingInstance.length + d.missingStatic.length);
 
   if (!args.contains('--no-verify')) {
+    // A clean run is around 600 probes in ~7 seconds; it stretches badly when
+    // probes wedge, because each one then costs the full idle timeout. That is
+    // why the progress lines below exist.
     stderr.writeln('Verifying $rawCandidates candidates against the '
-        'interpreter (this takes a few minutes)...');
+        'interpreter...');
     // Per-class progress on stderr, announced BEFORE the class rather than
-    // after. The run is long enough that a silent one is indistinguishable from
-    // a wedged one, and it does wedge: a bare read of a stream getter on a live
-    // socket returns a future that never completes. A line printed on
-    // completion cannot name the class that is currently hanging, which is the
-    // only line anyone diagnosing the hang wants.
-    for (final d in diffs) {
-      final candidates = d.missingInstance.length +
-          d.missingStatic.length +
-          d.missingOperators.length +
-          d.missingUniversal.length;
-      if (candidates > 0) {
-        stderr.writeln('  ${d.name} ($candidates)');
-      }
-      await verify(d);
-    }
+    // after. A silent run is indistinguishable from a wedged one, and it does
+    // wedge: a bare read of a stream getter on a live socket returns a future
+    // that never completes. A line printed on completion cannot name the class
+    // that is currently hanging, which is the only line anyone diagnosing the
+    // hang wants.
+    await verifyAll(diffs,
+        onClass: (name, candidates) =>
+            stderr.writeln('  $name ($candidates)'));
+  }
+
+  if (args.contains('--baseline')) {
+    final path = _optionValue(args, '--baseline-out') ??
+        'test/stdlib/member_coverage_baseline.dart';
+    File(path).writeAsStringSync(renderBaselineSource(diffs));
+    stdout.writeln('Baseline written to $path');
+    exit(0);
   }
 
   diffs.sort((a, b) {

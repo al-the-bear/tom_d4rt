@@ -1,3 +1,54 @@
+## 1.36.0
+
+### The stdlib member-gap audit is now a standing test
+
+The 231 unreachable stdlib members this audit has found accumulated over months
+for exactly one reason: nothing failed when they appeared. A tool that has to be
+remembered measures the past, not the present — so
+`test/stdlib/member_coverage_baseline_test.dart` now performs the full two-phase
+audit on every suite run and compares it against the checked-in baseline
+`test/stdlib/member_coverage_baseline.dart`.
+
+**It reuses the tool rather than reimplementing it.** `stdlib_member_diff.dart`
+grew two entry points, `collectMemberDiffs` and `verifyAll`, which both the CLI
+and the test call; a test that walked the bridged classes itself could disagree
+with the tool about what a candidate even *is*, which is this audit's own failure
+mode reproduced one level up. A new `--baseline` mode writes the generated file.
+The run is verified, not candidates-only, because removing a supertype edge flips
+members from `reachable` to `confirmed` — an event phase 2 catches and a
+candidate baseline cannot see at all. That costs ~7 seconds standalone and ~1
+second under `dart test`, which is what makes it affordable per-suite; the tool's
+former "a few minutes" stderr claim was wrong.
+
+**Four tests, split by remedy.** A single "matches the baseline" assertion cannot
+tell a regression from an improvement, so it teaches people to regenerate
+reflexively — and a guard people regenerate without reading is decorative.
+`F-SCC13-1` fires when a member that used to be reachable is not any more (fix
+the bridge); `F-SCC13-2` when a recipe stopped producing an instance or a bridged
+class vanished entirely (fix the recipe, or record a platform reason);
+`F-SCC13-3` when the baseline no longer describes reality (regenerate it) — and
+that one can only be provoked by good news, so the reflex is safe to have.
+
+**`F-SCC13-0` exists because an empty measurement agrees with any baseline.**
+Probes run in spawned isolates and a probe that cannot answer is scored "not
+measured", so a run where spawning failed finds zero gaps and passes. Measured
+with the probe timeout at 1 µs: two of the four tests passed on a run that
+learned nothing. `F-SCC13-0` pins floors on how much was examined and measured,
+and those floors live in the test rather than the generated file so a bad
+regeneration cannot lower them.
+
+**Each guard has been watched fail** — deleting the `DateTime.year` adapter,
+breaking its recipe, un-bridging a baselined class, and closing a baselined gap
+each fire exactly one expected test. That exercise found a real defect in the
+guard: the staleness check originally looked only for `reachable`, but adding a
+missing adapter removes the member from the candidate set altogether, so the
+*ordinary* way a gap closes went unreported.
+
+The ~378 members reachable only via the supertype fallback are deliberately not
+pinned: one going bad presents as "confirmed and absent from the baseline"
+either way, so pinning them would triple the file with names that carry no
+finding.
+
 ## 1.35.0
 
 ### Fixed — `await` inside a `finally`, and the exception that a `finally` swallowed

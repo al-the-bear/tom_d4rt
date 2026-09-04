@@ -35,14 +35,25 @@ Class-level coverage is audited by hand; **member-level** and
   `dart:convert` blocks are now declared and the count stands at **4 edges
   across 3 classes** (`String`, `Duration`, `StreamController`). Read the
   hierarchy audit before treating any member-gap count as a work estimate.
-- **Member-level gaps are now down to one deliberate boundary.** A mechanical
-  member diff over all 181 registered classes
-  (`tool/stdlib_member_diff.dart`) confirms **3 unreachable members in 1
-  class** — `ByteBuffer`'s SIMD views, which are *Boundary* by decision, not
-  Tracked. It opened at 28 across 19 classes. That number was only ever
-  actionable because it was measured: member-level coverage must be measured,
-  not
-  spot-checked: a spot-check cannot distinguish a fully registered class
+- **Member-level gaps stand at 231 across 13 classes, and 228 of those were
+  invisible until the audit could reach them.** A mechanical member diff over
+  all 181 registered classes (`tool/stdlib_member_diff.dart`) previously
+  confirmed only 3 — `ByteBuffer`'s SIMD views, *Boundary* by decision — because
+  every `dart:io` and `dart:isolate` class lacked an instance recipe and so was
+  reported UNVERIFIED rather than counted. Adding those recipes moved 228
+  members from "never executed" to "measured, and unreachable": 219 of them are
+  `Stream` members on seven stream-shaped classes, fixable by declaring
+  supertype edges rather than by writing adapters. **The count rose without a
+  single member being un-bridged**, which is the clearest statement this audit
+  can make about why an unverified bucket must never be counted as either
+  outcome.
+- **The audit is a test now, not a chore.** `test/stdlib/member_coverage_baseline_test.dart`
+  runs the full verified diff on every suite and fails when the per-class gap
+  set moves — in either direction, with the members named. The gaps above had
+  accumulated for months for one reason: nothing failed when they appeared. See
+  [the standing guard](#the-audit-runs-on-every-suite-not-on-request).
+- Member-level coverage must be **measured, not
+  spot-checked**: a spot-check cannot distinguish a fully registered class
   from a **partially** registered one, because it passes as soon as it
   lands on a member that happens to be present. Shapes this actually
   takes in the stdlib:
@@ -181,6 +192,95 @@ measured, and the report says why) and entries with **no recipe yet** (nobody
 got to them). The second half is the one that hides gaps, and it is now empty.
 Closing it means adding recipes to `_instanceRecipes`, never relaxing the
 classification.
+
+### The audit runs on every suite, not on request
+
+`test/stdlib/member_coverage_baseline_test.dart` performs the full two-phase
+audit — the tool's own `collectMemberDiffs` and `verifyAll`, not a
+reimplementation of them — and compares the result against the checked-in
+baseline `test/stdlib/member_coverage_baseline.dart`. Regenerate that baseline
+with:
+
+```bash
+dart run tool/stdlib_member_diff.dart --baseline
+```
+
+**A tool that has to be remembered measures the past, not the present.** The
+gaps this audit found had accumulated for months for exactly one reason: nothing
+failed when they appeared. The verified run costs ~7 seconds standalone and ~1
+second under `dart test` (the runner reuses compiled kernel), which is what makes
+a *verified* standing baseline affordable — phase 1 alone would not do, because
+removing a supertype edge flips members `reachable → confirmed`, an event phase 2
+catches and a candidate-only baseline cannot see at all.
+
+**The baseline pins three things and deliberately omits a fourth:** the 231
+confirmed gaps per class, the 37 members that cannot be measured, and the 75
+classes whose recipe yields an instance. The ~378 members reachable only via the
+supertype fallback are **not** pinned — one of them going bad presents as
+"confirmed and absent from the baseline" either way, so pinning them adds no
+guard power while tripling the file with names that carry no finding. That is the
+same failure as a count-only assertion, in the other direction.
+
+**Four tests, split by remedy — not one "matches the baseline" assertion.** A
+single assertion cannot distinguish a regression from an improvement, so it
+teaches people to regenerate reflexively, and once that reflex exists the guard
+is decorative. The split makes the reflex safe, because only one of the four is
+ever answered by regenerating:
+
+| Test | Finding | Remedy |
+|------|---------|--------|
+| `F-SCC13-0` | the audit measured almost nothing | fix the environment; trust no other result |
+| `F-SCC13-1` | a member that was reachable is not any more | fix the bridge |
+| `F-SCC13-2` | a recipe stopped producing an instance, or a bridged class vanished | fix the recipe, or record a platform reason |
+| `F-SCC13-3` | the baseline no longer describes reality | regenerate it |
+
+`F-SCC13-3` can only be provoked by *good news* — a gap closing, or a blind spot
+becoming measurable. A regression always presents as `F-SCC13-1` or `F-SCC13-2`,
+which regenerating does not silence.
+
+Pinning the unmeasurable set is what makes the guard tolerant of recipe work:
+without it, `unverified → confirmed` is indistinguishable from
+`reachable → confirmed`, so the 243 members that became measurable in one commit
+would have read as 243 fresh regressions.
+
+**An empty measurement agrees with any baseline.** Every probe runs in a spawned
+isolate and a probe that cannot answer is scored "not measured", so a run in
+which isolate spawning failed finds zero gaps and passes. Measured with the probe
+timeout set to 1 µs: `F-SCC13-1` and `F-SCC13-3` **passed on a run that learned
+nothing**. `F-SCC13-0` exists for that, and its two floors (≥ 100 classes
+examined, ≥ 40 measured) live in the test rather than the generated file so a bad
+regeneration cannot lower them. `F-SCC13-2` is the per-class version of the same
+check: wholesale failure trips `F-SCC13-0`, one class quietly dropping out trips
+`F-SCC13-2`.
+
+**Each of the four has been watched fail.** A guard nobody has seen fail is a
+guess about a guard, so each row was produced by breaking the thing named:
+
+| Injected fault | Fires |
+|----------------|-------|
+| every probe unable to answer (1 µs timeout) | 0 and 2 |
+| `DateTime.year` adapter deleted | 1 |
+| `DateTime` instance recipe broken | 2 |
+| a baselined class no longer bridged | 2 |
+| baseline claims a gap that is bridged now | 3 |
+
+The third row corrected a real defect in the guard: `F-SCC13-3` originally
+checked only for `reachable`, but adding the missing adapter removes the member
+from the candidate set altogether, so the *ordinary* way a gap closes was absent
+from the observation rather than present-and-reachable — and went unreported. The
+same control run showed a vanished bridge being announced as good news; that
+finding now belongs to `F-SCC13-2`, where it reads as the large regression it is.
+
+**A false regression is unreachable, by construction.** Classification is about
+*resolution*, not values, so a loaded machine can only push
+`confirmed → reachable` (a probe that never answers is scored reachable, because
+a missing member throws instantly) — which surfaces as `F-SCC13-3`, a
+bookkeeping failure. Nothing about load makes a resolving member report
+"undefined". The one failure that means "you broke something" is the one that
+timing cannot fake. The same asymmetry makes the guard portable: a `dart:io`
+recipe that cannot run on some platform maps to `unverified`, which
+`F-SCC13-2`'s message asks you to record as a reason rather than shrink the
+baseline.
 
 ### Current measured state
 
@@ -1232,12 +1332,19 @@ bridge *sources*: they read a live `Environment` after every
 exactly as a script would see them.
 
 ```bash
-# Member-level gaps — which members can no script reach? (~2 min)
+# Member-level gaps — which members can no script reach? (~7 s)
 dart run tool/stdlib_member_diff.dart [--json out.json] [--no-verify]
 
-# Hierarchy gaps — which bridged supertype has nobody declared? (~2 min)
+# Hierarchy gaps — which bridged supertype has nobody declared?
 dart run tool/stdlib_member_diff.dart --hierarchy [--json out.json] [--no-verify]
+
+# Rewrite the standing baseline the suite asserts against
+dart run tool/stdlib_member_diff.dart --baseline [--baseline-out path.dart]
 ```
+
+A clean verified run is ~600 probes in about 7 seconds. It stretches badly when
+probes wedge, because each one then costs the full idle timeout — which is why
+the run prints a progress line per class.
 
 `--no-verify` skips the interpreter pass and prints raw candidates. It is
 fast (~8 s) and useful while iterating, but its numbers are **not** gap
@@ -1255,6 +1362,12 @@ bridging fix silently invalidates whichever figures it touched — the four
 nothing would have said so. Re-run both modes before trusting a number for
 planning, and treat a row's figures as "true when written" rather than
 "true now". SCC89 tracks giving this a trigger instead of a convention.
+
+The member-level half now has that trigger *for the facts*, though not for this
+prose: `test/stdlib/member_coverage_baseline_test.dart` fails when the per-class
+gap set moves, so a bridging fix can no longer pass unnoticed — it fails the
+suite and asks for a regenerated baseline. The hierarchy half has no equivalent
+guard yet.
 
 - **Class inventory**, if a source-level list is wanted rather than the live
   registry: `grep -rhoE "name: '[A-Za-z]+'"` across `stdlib/`.
