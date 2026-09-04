@@ -1,3 +1,49 @@
+## 1.14.0
+
+### Fixed — a preloaded source stub shadowed the bridge registered at the same URI (scc14)
+
+`ModuleLoader._fetchModuleSource` returned a `sources` entry as soon as the URI
+matched, before it ever asked whether that URI had bridged content. The
+documented way to expose a bridge to a multi-source script is to register it
+under a URI and pass an empty entry for the same URI in `sources` so the import
+resolves — and that empty entry won: the module loaded as an empty library and
+every bridged name in it was undefined.
+
+```dart
+interpreter.registerBridgedClass(beepBridge, 'test:beep');
+interpreter.execute(
+  library: 'main',
+  sources: {'main': "import 'test:beep';\n…", 'test:beep': ''},
+  name: 'run',
+); // Runtime Error: Undefined variable: Beep
+```
+
+The single-source form (`execute(source: …)`) was unaffected, as was the
+multi-source form with no stub entry, which is why this survived: the failing
+shape is the one the reference suite uses and this package had no test for.
+
+A registered bridge now wins, which is what `tom_d4rt` and `tom_d4rt_ast` have
+always done — both resolve bridged content before consulting sources. There is
+no legitimate case for the other precedence: a URI cannot be both a native
+library and an interpreted one.
+
+### Added — eleven conformance suites ported from tom_d4rt (scc14)
+
+`bridge/bridged_setter_unwrap`, `bridge/d4_helpers`,
+`bridge/enum_map_arg_and_roundtrip`, `bridge/is_operator_on_unwrapped_native`,
+`bridge/usage_log_runner`, `environment_bridge_cache`,
+`null_safety/null_propagating_operators`, `scb9_error_handler_arity`,
+`scb11_symbol_literal`, `scb14_await_receiver_position` and
+`scb17_map_set_inherited_surface` — 107 cases that had only ever run against the
+analyzer-based interpreter. The `is`-operator suite is the one that found the
+loader defect above; the other ten passed on arrival.
+
+`test/conformance_drift_test.dart`'s recipe gained a third import remap
+(`package:tom_d4rt/src/generator/d4.dart` →
+`package:tom_d4rt_ast/src/runtime/generator/d4.dart`). The rule behind all three:
+a `src/` import resolves against `tom_d4rt_ast` under `src/runtime/`, while the
+public library import resolves against `tom_d4rt_exec`.
+
 ## 1.13.0
 
 ### Fixed — the stdlib on-type probe was still reported as an error (tccc5)

@@ -771,8 +771,17 @@ class ModuleLoader implements context.ModuleContext {
     Logger.debug(
         "[ModuleLoader] Récupération de la source pour: $uriString depuis sources. (show: $showNames, hide: $hideNames)");
 
-    // First check if the exact URI is in the preloaded sources
-    if (sources.containsKey(uriString)) {
+    // First check if the exact URI is in the preloaded sources.
+    //
+    // A registered bridge for the same URI wins, mirroring tom_d4rt's loader,
+    // which resolves bridged content before it ever consults `sources`. The
+    // caller that registers a bridge under `test:beep` and then passes
+    // `'test:beep': ''` alongside its main source is describing ONE library —
+    // the empty entry only exists so the import resolves — and taking the
+    // source here returned an empty module, leaving every bridged name
+    // undefined. There is no legitimate case for the other precedence: a URI
+    // cannot be both a native library and an interpreted one.
+    if (sources.containsKey(uriString) && !_hasBridgedContentForUri(uriString)) {
       Logger.debug("[ModuleLoader] Source found for $uriString in sources.");
       return sources[uriString]!;
     }
