@@ -33,15 +33,22 @@
 // existing backlog is a separate, owned remediation, and porting it is how these
 // lists shrink — never by relaxing the comparison.
 //
-// MEASURED 2026-09-04 on mbp, after SCC7's ports: reference 185 test files, exec
-// 176, tom_d4rt_ast 54. Forty reference files have no same-path counterpart in
-// exec; 27 are covered elsewhere, 13 are genuinely uncovered (121 cases). Of the
-// 145 files present in both trees, 30 differ by more than the one import line the
-// port recipe legitimately rewrites.
-//
 // Those figures are a snapshot for orientation only — the BASELINES below are the
 // authority, because they are the thing a failing test forces someone to update.
-// A count in a comment is exactly the artifact this guard exists to replace.
+// A count in a comment is exactly the artifact this guard exists to replace. So
+// this header no longer carries one: the earlier snapshot ("40 absent, 27 covered
+// elsewhere, 13 uncovered, 30 divergent") was already wrong by six files when
+// SCC14 read it, having gone stale within a week of being written, and a stale
+// count is worse than none because it reads as current. Run the suite.
+//
+// WHAT THE BASELINES BELOW ARE NOT. `_uncoveredBaseline` shrinking to nothing
+// would not mean the two interpreters agree — it would mean every reference test
+// has a counterpart that RUNS. Whether it passes is the suite's job, and whether
+// it passes against the interpreter anyone actually ships is DGUC6's: exec
+// resolves `tom_d4rt_ast` from pub.dev, so several entries here are pinned not on
+// a defect but on a publish. Measured 2026-09-04, the published 0.20.1 differs
+// from the 0.25.0 working tree in 32 library files. Confirm that gap before
+// reading any port failure as a migration bug.
 //
 // EQUIVALENCES ARE RECORDED, NEVER INFERRED. A normaliser that matched
 // `dfub1_*` to `dgub3_*` would be right; one that matched `dfub1_*` to nothing
@@ -207,8 +214,23 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// closed by porting, and the case count is the size of the hole. Removing an
 /// entry is only correct once the file has a counterpart; the test then confirms
 /// it. Adding an entry is only correct for a file that genuinely cannot be
-/// ported, and no such file has been found yet — every one of these is portable
-/// in principle.
+/// ported.
+///
+/// SCC14 closed nine entries and found the first two files that are NOT portable
+/// in principle, which is why the paragraph above no longer claims all of them
+/// are. Both are marked `NOT PORTABLE` below with the reason inline; the reason
+/// is the entry's whole value, because without it the next reader's only
+/// available move is to try the port again.
+///
+/// SCC14 is also the todo that proves porting is worth doing rather than merely
+/// tidy: `bridge/is_operator_on_unwrapped_native_test.dart` failed on arrival
+/// with `Undefined variable: Beep`, and the cause was a real defect in this
+/// package's loader — `_fetchModuleSource` returned a preloaded `sources` entry
+/// before ever checking whether the same URI had a registered bridge, so the
+/// documented "register a bridge, pass an empty stub so the import resolves"
+/// pattern produced an empty module. tom_d4rt and tom_d4rt_ast both resolve
+/// bridged content first. Nine files of assertions had been sitting in the
+/// reference tree for months describing behaviour this package did not have.
 ///
 /// SCC7 closed five entries at once (`html_escape`, `stdio_type`,
 /// `typed_list_inherited_members`, `member_gap` and the
@@ -232,18 +254,27 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// the next `tom_d4rt_ast` publish. Port all three and delete these entries in
 /// that same commit.
 const Map<String, int> _uncoveredBaseline = {
+  // NOT PORTABLE — a throughput probe, not a conformance assertion. Its single
+  // case measures how long a Conway generation takes; run on two interpreters
+  // with different performance characteristics it yields a flaky failure rather
+  // than information. There is nothing here for exec to agree or disagree with.
   '_conway_perf_probe_test.dart': 1,
-  'bridge/bridged_setter_unwrap_test.dart': 3,
-  'bridge/d4_helpers_test.dart': 26,
-  'bridge/enum_map_arg_and_roundtrip_test.dart': 6,
-  'bridge/is_operator_on_unwrapped_native_test.dart': 5,
-  'bridge/usage_log_runner_test.dart': 1,
-  'environment_bridge_cache_test.dart': 4,
-  'null_safety/null_propagating_operators_test.dart': 18,
-  'scb11_symbol_literal_test.dart': 11,
-  'scb14_await_receiver_position_test.dart': 12,
-  'scb17_map_set_inherited_surface_test.dart': 7,
-  'scb9_error_handler_arity_test.dart': 14,
+  // NOT PORTABLE — SCC13's standing member-coverage audit. It imports
+  // `../../tool/stdlib_member_diff.dart`, a `dart:mirrors` tool that reflects
+  // over *tom_d4rt's own* bridge registry, and compares against a baseline
+  // generated from it. exec has no such tool and its subject would be a
+  // different registry, so a copy here would measure the reference tree while
+  // pretending to measure this one. The analyzer-free line's equivalent has to
+  // be built against tom_d4rt_ast's registry, not ported.
+  'stdlib/member_coverage_baseline_test.dart': 4,
+  // Pinned on the next `tom_d4rt_ast` publish — see the paragraph above. Ported,
+  // measured, removed again: the SCC12 fix that makes `await` inside `finally`
+  // resume is in the working tree only, and against the published interpreter the
+  // run reaches `F-SCC12-4` and never terminates. A hang is the worst of the
+  // three outcomes — worse than a failure, because it takes the whole suite with
+  // it and reads as a broken machine rather than a pinned expectation. Port it
+  // and delete this entry in the same commit as that publish.
+  'scc12_await_in_finally_test.dart': 11,
   'stdlib/cast_from_family_test.dart': 6,
   'stdlib/convert/json_named_constructors_test.dart': 13,
   'stdlib/core/error_validation_helpers_test.dart': 18,
@@ -281,11 +312,18 @@ const Map<String, int> _uncoveredBaseline = {
 /// tom_d4rt once the publish made the newer assertions true. Direction is a
 /// per-file finding, not a rule.
 ///
-/// Six entries currently share ONE flip condition — the next `tom_d4rt_ast`
+/// Seven entries currently share ONE flip condition — the next `tom_d4rt_ast`
 /// publish — because exec resolves that package from pub.dev, so this suite
-/// certifies the PUBLISHED interpreter and not the working tree. Unpin all six
+/// certifies the PUBLISHED interpreter and not the working tree. Unpin all seven
 /// there and remove their entries in the same commit.
 ///
+///   * `stdlib/io/socket_test.dart` — SCC14 ported the reference copy and
+///     measured it: `F-SCC12-1` fails with `Failed host lookup:
+///     'InternetAddress('127.0.0.1', IPv4)'`, because the published
+///     `ServerSocket.bind` bridge stringifies its `address` argument and the fix
+///     that passes an `InternetAddress` through is working-tree only.
+///     `F-SCC12-2`, the host-string form that always worked, passes — so the
+///     divergence is exactly the two cases SCC12 added and nothing else.
 ///   * `stdlib/collection/linked_list_test.dart` — the working-tree LinkedList
 ///     bridge dropped `removeFirst` and gained `addAll` / `addFirst`.
 ///   * `stdlib/typed_data/typed_list_inherited_members_test.dart` — the
@@ -339,6 +377,7 @@ const Set<String> _divergentBaseline = {
   'stdlib/collection/queue_test.dart',
   'stdlib/collection/splay_tree_map_test.dart',
   'stdlib/intentionally_unbridged_test.dart',
+  'stdlib/io/socket_test.dart',
   'stdlib/typed_data/byte_data_test.dart',
   'stdlib/typed_data/typed_list_inherited_members_test.dart',
   'warm_parent_package_pool_test.dart',
@@ -369,12 +408,22 @@ const Set<String> _divergentBaseline = {
 /// but one entry below still differ after formatting, so the divergence is real —
 /// but do not rank the triage by the raw numbers, because they measure wrapping
 /// as much as they measure assertions.
+/// The pattern behind the pairs below is worth stating because it predicts the
+/// next one: a `src/` import resolves against `tom_d4rt_ast` under
+/// `src/runtime/`, while the public library import resolves against
+/// `tom_d4rt_exec` — because exec owns the parsing front end and ast owns the
+/// runtime. A reference test importing `package:tom_d4rt/src/<x>.dart` therefore
+/// ports to `package:tom_d4rt_ast/src/runtime/<x>.dart`, and a new such import
+/// needs a pair here rather than an exemption anywhere else.
 String _normalise(String source) => source
     .replaceAll('package:tom_d4rt/d4rt.dart', '@INTERPRETER@')
     .replaceAll('package:tom_d4rt_exec/d4rt.dart', '@INTERPRETER@')
     .replaceAll('package:tom_d4rt/src/exceptions.dart', '@EXCEPTIONS@')
     .replaceAll('package:tom_d4rt_ast/src/runtime/exceptions.dart',
-        '@EXCEPTIONS@');
+        '@EXCEPTIONS@')
+    // SCC14: `bridge/d4_helpers_test.dart` reaches the D4 helpers directly.
+    .replaceAll('package:tom_d4rt/src/generator/d4.dart', '@D4@')
+    .replaceAll('package:tom_d4rt_ast/src/runtime/generator/d4.dart', '@D4@');
 
 Map<String, File> _testFiles(Directory root) {
   final prefix = '${root.path}${Platform.pathSeparator}';
