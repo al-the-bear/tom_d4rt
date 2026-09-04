@@ -6,14 +6,31 @@ Mirrors `tom_d4rt` 1.44.1. This half of the mirror was already tall-styled in
 places and not in others — the drift `dart format` leaves behind when it is run
 on one file at a time. Formatting the whole tree settles it.
 
-This commit contains the formatter's output and nothing else. That it is inert
-was not assumed — `git diff -w` cannot establish it, because the tall style
-*splits* lines and a whitespace-insensitive diff still counts a moved line
-boundary as a change. What was checked instead is the token stream: strip all
-whitespace and the two revisions of every changed file are either identical
-(153 files) or identical once trailing commas are also stripped (893 files),
-commas being pure formatting punctuation in Dart. Zero files carried an edit
-that survived both passes.
+The reformat landed as its own commit, containing the formatter's output and
+nothing else. That it was inert was not assumed — `git diff -w` cannot establish
+it, because the tall style *splits* lines and a whitespace-insensitive diff
+still counts a moved line boundary as a change. What was checked instead is the
+token stream: strip all whitespace and the two revisions of every changed file
+are either identical (153 files) or identical once trailing commas are also
+stripped (893 files), commas being pure formatting punctuation in Dart. Zero
+files carried an edit that survived both passes.
+
+### Added — a guard so the style divergence cannot silently return
+
+`test/scc26_format_alignment_test.dart` pins the three facts the alignment rests
+on: every mirrored package declares an SDK floor at or above 3.7 (so the
+formatter cannot pick different styles for them), this package's tree is
+formatted, and the sibling `tom_d4rt` tree is formatted. The sibling check skips
+when the sibling is not checked out beside this package, since a copy resolved
+from pub.dev genuinely cannot answer that question and a red test there would be
+noise rather than a finding.
+
+The prohibition this replaces had already been written down once, informally,
+after the previous encounter with the problem — and it did not hold. That
+revert missed `stdlib/io/socket.dart`, and 1926 lines of divergence sat in the
+tree undetected until they were measured. A rule that must be remembered by
+everyone who edits one of 119 mirrored files, at the moment they reach for a
+reflex command, is not a control.
 
 ## 0.33.0
 
