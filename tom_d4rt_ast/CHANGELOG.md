@@ -1,3 +1,43 @@
+## 0.28.0
+
+### Fixed — `on T` in a catch clause answered a smaller question than `x is T`
+
+The catch clause carried its own type test: a flat switch over sixteen hardcoded
+type names plus a bridge-identity probe. It was never a copy of the `is`
+operator's predicate — it was a *smaller* one, and four of the differences were
+user-visible bugs, two of them in the dangerous direction:
+
+- `on Exception` and `on Error` did not catch a script class declared
+  `implements Exception` / `implements Error`.
+- **`on List<int>` caught a `List<String>`**, and `on Box<int>` caught a
+  `Box<String>` — type arguments on the catch type were discarded, so the
+  handler ran with a value of the wrong type bound to its parameter.
+- `on int Function(int)` and `on (int, String)` were rejected as "unsupported
+  type nodes" and never matched.
+
+`on T` now asks exactly the question `x is T` asks, through the same
+`_valueHasType` predicate `is`, declared-type checks and typed patterns use.
+One deliberate asymmetry is kept and commented: an unresolvable `on T` MISSES
+rather than throwing, so a failed type lookup cannot replace the exception being
+dispatched.
+
+This also **re-converges the two trees**. The prefixed-`on` case had drifted:
+the analyzer's `NamedType.name` drops the import prefix while this tree's
+`SNamedType.name` keeps it, so `on c.HashSet` fell through in `tom_d4rt` and
+caught here. The shared predicate reassembles the prefix in both.
+
+### Fixed — no bridged exception was an `Exception`
+
+`FormatException('x') is Exception` answered `false`, and so did the same
+question about `TimeoutException`, `SocketException`, `FileSystemException` and
+every other bridged exception: the error side of `dart:core` has declared its
+supertype edges since RC-7, the exception side had none. It went unnoticed
+because `on Exception catch (e)` used to read the native object directly instead
+of consulting the type test. `ExceptionHierarchyCore` now declares the chain,
+each edge once as the SDK declares it — registry edges only, with no
+`isAssignable` on `Exception`, which would make the root steal member dispatch
+from its own subtypes.
+
 ## 0.27.0
 
 ### Fixed — a type test stopped two levels up the supertype chain

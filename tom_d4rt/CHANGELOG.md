@@ -1,3 +1,43 @@
+## 1.39.0
+
+### Fixed — `on T` in a catch clause answered a smaller question than `x is T`
+
+The catch clause carried its own type test: a flat switch over sixteen hardcoded
+type names plus a bridge-identity probe. It was never a copy of the `is`
+operator's predicate — it was a *smaller* one, and four of the differences were
+user-visible bugs, two of them in the dangerous direction:
+
+- `on Exception` and `on Error` did not catch a script class declared
+  `implements Exception` / `implements Error`. The switch asked the host `is`
+  about the native object, which says nothing about an interpreted class.
+- **`on List<int>` caught a `List<String>`**, and `on Box<int>` caught a
+  `Box<String>`. Type arguments on the catch type were discarded, so the handler
+  ran with a value of the wrong type bound to its parameter.
+- `on int Function(int)` and `on (int, String)` were rejected as "unsupported
+  type nodes" and never matched.
+- A prefixed `on c.HashSet` never resolved.
+
+`on T` now asks exactly the question `x is T` asks, through the same
+`_valueHasType` predicate that `is`, declared-type checks and typed patterns
+use. One deliberate asymmetry is kept and commented: an unresolvable `on T`
+MISSES rather than throwing, so a failed type lookup cannot replace the
+exception being dispatched.
+
+### Fixed — no bridged exception was an `Exception`
+
+`FormatException('x') is Exception` answered `false`, and so did the same
+question about `TimeoutException`, `SocketException`, `FileSystemException` and
+every other bridged exception. The error side of `dart:core` has declared its
+supertype edges since RC-7; the exception side had none at all.
+
+Nothing noticed because the one place scripts ask it most — `on Exception catch
+(e)` — did not go through the type test. It had its own arm reading the native
+object directly, which is right for a native operand and silent about a bridged
+one. Removing that arm surfaced the gap immediately. `ExceptionHierarchyCore`
+now declares the chain, each edge once as the SDK declares it. These are
+registry edges only: no `isAssignable` is added to `Exception`, because that
+would make the root steal member dispatch from its own subtypes.
+
 ## 1.38.0
 
 ### Fixed — a type test stopped two levels up the supertype chain

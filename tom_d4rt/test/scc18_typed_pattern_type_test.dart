@@ -22,8 +22,11 @@
 //
 // THE TYPE TEST IS THE `is` OPERATOR'S. The fix routes both branches through
 // `_valueHasType`, lifted out of `visitIsExpression` — so `case Iterable _`
-// answers for a bridged collection exactly as `x is Iterable` does, rather
-// than through a fourth private copy of the type switch (see SCC20).
+// answers for a bridged collection exactly as `x is Iterable` does, rather than
+// through a private copy of the type switch. SCC20 then folded in the last
+// remaining copy, the catch clause, so the predicate now has four callers
+// (`is`, the declared-type check, this pattern branch, and `on T`) and no other
+// type-test body survives in either tree.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';

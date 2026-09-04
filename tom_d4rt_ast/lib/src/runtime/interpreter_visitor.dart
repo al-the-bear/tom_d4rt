@@ -10887,22 +10887,20 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // Use the ORIGINAL value from the internal exception for checks
       final originalThrownValue = caughtInternalException.originalThrownValue;
 
-      // SC5: a bridged error constructed in script code (`throw StateError('x')`)
-      // arrives here as a `BridgedInstance`, not as the native `StateError`.
-      // Every type test below — the hardcoded fast-path switch and the bridge
-      // comparison alike — asks about the *native* type, so an unwrapped view
-      // is what they need. Without it `on StateError` silently failed to catch
-      // a `StateError` the same script had just thrown.
-      //
-      // The catch variable is still bound to `originalThrownValue`: unwrapping
-      // is a matching concern only, and the BridgedInstance is what gives the
-      // handler its member access (`e.message`).
-      final thrownValueForTypeTest = originalThrownValue is BridgedInstance
+      // Diagnostics only. A bridged error constructed in script code
+      // (`throw StateError('x')`) arrives as a `BridgedInstance`, and the
+      // native type behind the wrapper is what makes a log line readable.
+      // MATCHING no longer uses this view: SCC20 hands the wrapper itself to
+      // [_valueHasType], whose bridged path consults the wrapper's own
+      // `bridgedClass` before falling back to the native object — strictly more
+      // precise than unwrapping up front, which is what SC5 had to do when the
+      // matching code here was a hand-written switch.
+      final thrownValueNativeView = originalThrownValue is BridgedInstance
           ? originalThrownValue.nativeObject
           : originalThrownValue;
 
       Logger.debug(
-        "[STryStatement] Looking for catch clauses for thrown value: ${stringify(originalThrownValue)} (type: ${thrownValueForTypeTest?.runtimeType})",
+        "[STryStatement] Looking for catch clauses for thrown value: ${stringify(originalThrownValue)} (type: ${thrownValueNativeView?.runtimeType})",
       );
 
       for (final clause in node.catchClauses) {
@@ -10916,190 +10914,42 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           Logger.debug("[STryStatement] Catch clause matches any type.");
         } else {
           final typeNode = clause.exceptionType!;
-          if (typeNode is SNamedType) {
-            targetCatchTypeName = typeNode.name!.name;
-            Logger.debug(
-              "[STryStatement] Checking catch clause for type: $targetCatchTypeName",
-            );
+          targetCatchTypeName =
+              typeNode is SNamedType ? typeNode.name!.name : '$typeNode';
 
-            // Match against the unwrapped native view (see above).
-            switch (targetCatchTypeName) {
-              case 'int':
-                typeMatch = thrownValueForTypeTest is int;
-                break;
-              case 'double':
-                typeMatch = thrownValueForTypeTest is double;
-                break;
-              case 'num':
-                typeMatch = thrownValueForTypeTest is num;
-                break;
-              case 'String':
-                typeMatch = thrownValueForTypeTest is String;
-                break;
-              case 'bool':
-                typeMatch = thrownValueForTypeTest is bool;
-                break;
-              case 'List':
-                typeMatch = thrownValueForTypeTest is List;
-                break;
-              case 'Null':
-                // This is tricky. 'on Null' might not be common.
-                // Check if the thrown value is null.
-                typeMatch = thrownValueForTypeTest == null;
-                break;
-              case 'Object':
-                // Everything non-null is an Object?
-                // Dart's 'on Object' catches non-null exceptions.
-                typeMatch = thrownValueForTypeTest != null;
-                break;
-              case 'dynamic': // 'on dynamic' catches everything, like no 'on' clause
-                typeMatch = true;
-                break;
-              case 'void': // Cannot catch on void
-                typeMatch = false;
-                break;
-              case 'Exception':
-                // Match any native Exception subtype
-                typeMatch = thrownValueForTypeTest is Exception;
-                break;
-              case 'Error':
-                // Match any native Error subtype
-                typeMatch = thrownValueForTypeTest is Error;
-                break;
-              case 'FormatException':
-                typeMatch = thrownValueForTypeTest is FormatException;
-                break;
-              case 'StateError':
-                typeMatch = thrownValueForTypeTest is StateError;
-                break;
-              case 'ArgumentError':
-                typeMatch = thrownValueForTypeTest is ArgumentError;
-                break;
-              case 'RangeError':
-                typeMatch = thrownValueForTypeTest is RangeError;
-                break;
-              case 'TypeError':
-                typeMatch = thrownValueForTypeTest is TypeError;
-                break;
-              case 'UnsupportedError':
-                typeMatch = thrownValueForTypeTest is UnsupportedError;
-                break;
-              default:
-                // User-defined type
-                try {
-                  final targetType = environment.get(targetCatchTypeName);
-                  if (targetType is InterpretedClass) {
-                    // Check if the ORIGINAL thrown value is an instance of the target type
-                    if (originalThrownValue is InterpretedInstance) {
-                      typeMatch = originalThrownValue.klass.isSubtypeOf(
-                        targetType,
-                      );
-                      Logger.debug(
-                        "[STryStatement]   Checking instance '${originalThrownValue.klass.name}' against class '$targetCatchTypeName'. Result: $typeMatch",
-                      );
-                    } else {
-                      // Native value cannot be subtype of user-defined class
-                      typeMatch = false;
-                      Logger.debug(
-                        "[STryStatement]   Thrown value is native (${originalThrownValue?.runtimeType}), cannot match user class '$targetCatchTypeName'.",
-                      );
-                    }
-                  } else if (targetType is BridgedClass) {
-                    // G-DCLI-08/12 FIX: Handle native exceptions matched against bridged types
-                    // When a native exception (e.g., RunException, CopyException) is thrown
-                    // and caught with 'on RunException catch (e)', we need to match the
-                    // native exception's type against the BridgedClass.
-                    if (thrownValueForTypeTest != null &&
-                        targetType.isAssignable != null &&
-                        targetType.isAssignable!(thrownValueForTypeTest)) {
-                      // SC5: ask the *catch type* whether it accepts the value.
-                      // The bridge-identity comparisons below are exact tests —
-                      // they cannot see that `_TypeError` is a `TypeError`, or
-                      // that an `IndexError` is a `RangeError`. The bridge's own
-                      // `isAssignable` closure is a real Dart `is`, so it makes
-                      // the match subtype-correct for every bridge.
-                      typeMatch = true;
-                      Logger.debug(
-                        "[STryStatement]   Bridged class '$targetCatchTypeName' isAssignable accepted '${thrownValueForTypeTest.runtimeType}'.",
-                      );
-                    } else if (originalThrownValue != null) {
-                      // Handle BridgedInstance (exceptions created by interpreter via bridged constructors)
-                      if (originalThrownValue is BridgedInstance) {
-                        typeMatch =
-                            originalThrownValue.bridgedClass.nativeType ==
-                                targetType.nativeType ||
-                            originalThrownValue.bridgedClass.name ==
-                                targetType.name;
-                        Logger.debug(
-                          "[STryStatement]   Checking BridgedInstance '${originalThrownValue.bridgedClass.name}' against bridged class '$targetCatchTypeName'. Result: $typeMatch",
-                        );
-                      } else {
-                        try {
-                          final thrownBridge = globalEnvironment.toBridgedClass(
-                            originalThrownValue.runtimeType,
-                          );
-                          // Check if the thrown value's bridge matches the catch type
-                          typeMatch =
-                              thrownBridge.nativeType ==
-                                  targetType.nativeType ||
-                              thrownBridge.name == targetType.name;
-                          Logger.debug(
-                            "[STryStatement]   Checking native thrown '${thrownBridge.name}' against bridged class '$targetCatchTypeName'. Result: $typeMatch",
-                          );
-                        } catch (_) {
-                          // Thrown value has no bridge - try runtime type name match
-                          final thrownTypeName = originalThrownValue.runtimeType
-                              .toString();
-                          typeMatch =
-                              thrownTypeName == targetType.name ||
-                              thrownTypeName.startsWith('${targetType.name}<');
-                          Logger.debug(
-                            "[STryStatement]   No bridge for thrown type '$thrownTypeName'. Name match against '$targetCatchTypeName': $typeMatch",
-                          );
-                        }
-                      }
-                    } else {
-                      typeMatch = false;
-                    }
-                    // SCB7: every attempt above is exact — `isAssignable` is a
-                    // native `is` the catch type may not declare, and the
-                    // comparisons after it test bridge identity. None can see
-                    // that an `UnmodifiableSetView` is an `Iterable`, so
-                    // `on Iterable` missed a thrown bridged collection that
-                    // `x is Iterable` matched. Resolving the thrown value's own
-                    // bridge and asking it about the catch type closes the gap,
-                    // the same way `visitIsExpression`'s bridged path does.
-                    // Additive: it runs only where the answer was already false.
-                    if (!typeMatch && thrownValueForTypeTest != null) {
-                      final thrownRuntimeType = environment.getRuntimeType(
-                        thrownValueForTypeTest,
-                      );
-                      typeMatch =
-                          thrownRuntimeType != null &&
-                          thrownRuntimeType.isSubtypeOf(
-                            targetType,
-                            value: thrownValueForTypeTest,
-                          );
-                    }
-                  } else {
-                    // Target type name resolved, but it's not an InterpretedClass or BridgedClass
-                    typeMatch = false;
-                    Logger.warn(
-                      "[STryStatement] Catch clause type '$targetCatchTypeName' not found or not a class/mixin.",
-                    );
-                  }
-                } catch (e) {
-                  // Error resolving targetCatchTypeName
-                  Logger.warn(
-                    "[STryStatement] Error resolving catch clause type '$targetCatchTypeName': $e",
-                  );
-                  typeMatch = false;
-                }
-            }
-          } else {
-            // Handle other type nodes like FunctionType if necessary
+          // SCC20: `on T` asks exactly the question `x is T` asks, so it asks
+          // it through the same predicate. This used to be a flat switch over
+          // sixteen hardcoded type names plus a bridge-identity probe — a
+          // SMALLER predicate than [_valueHasType], not a copy of it — and the
+          // difference was measurable from a script: `on Exception` missed a
+          // script class that implements `Exception`, `on List<int>` caught a
+          // `List<String>` because the type arguments were discarded,
+          // `on Box<int>` caught a `Box<String>` for the same reason,
+          // `on int Function(int)` was rejected as an "unsupported type node",
+          // and a prefixed `on c.HashSet` never resolved. The two trees had
+          // also drifted apart on the prefixed case, because SCB7's fix had to
+          // be placed differently in each; one predicate re-converges them.
+          //
+          // The WRAPPER is passed, not the unwrapped native view: the shared
+          // predicate does its own unwrapping where the host `is` operator
+          // needs it, and its bridged path prefers the wrapper's own bridge.
+          try {
+            typeMatch = _valueHasType(typeNode, originalThrownValue);
+          } on InternalInterpreterD4rtException catch (e) {
+            // The one thing a catch clause needs that `is` does not: an
+            // unresolvable `on T` must MISS, not throw. [_valueHasType] reports
+            // a failed type lookup by throwing, and letting that escape here
+            // would replace the exception being dispatched with a lookup
+            // failure and lose the original — so a resolution failure is read
+            // as "this clause does not match", which is what the old
+            // warn-and-continue path did.
             Logger.warn(
-              "[STryStatement] Unsupported catch clause type node: ${clause.exceptionType.runtimeType}",
+              "[STryStatement] Could not resolve catch clause type '$targetCatchTypeName': ${e.originalThrownValue}",
+            );
+            typeMatch = false;
+          } on UnimplementedD4rtException catch (e) {
+            Logger.warn(
+              "[STryStatement] Unsupported catch clause type node ${typeNode.runtimeType}: ${e.message}",
             );
             typeMatch = false;
           }
@@ -11387,11 +11237,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     bool result = false;
 
     if (typeNode is SNamedType) {
-      final rawTypeName = typeNode.name!.name;
-      // GEN-100c: Handle import-prefixed type checks (e.g., value is ui.Color)
-      final typeName = typeNode.importPrefix != null
-          ? '${typeNode.importPrefix!.name}.$rawTypeName'
-          : rawTypeName;
+      final bareTypeName = typeNode.name!.name;
+      // GEN-100c: Prefixed type-tests (e.g. `attribute is ui.LocaleStringAttribute`)
+      // need to resolve the right-hand side via the prefixed import environment,
+      // not as the bare identifier. Mirrors the same fix in
+      // `_resolveTypeAnnotationWithEnvironment` and the `tom_d4rt` visitor.
+      // Built-in primitives (`int`, `String`, …) are never prefixed, so a
+      // non-null `importPrefix` always routes to the user-type lookup.
+      final typePrefix = typeNode.importPrefix?.name;
+      final typeName =
+          typePrefix != null ? '$typePrefix.$bareTypeName' : bareTypeName;
 
       // SCB7: the cases below answer with the host's own `is` operator, so
       // they need the underlying native object. A bridged value arrives as a
@@ -11603,7 +11458,6 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       result = valueType != null &&
           valueType.isSubtypeOf(targetType, value: expressionValue);
     } else {
-      // Handle FunctionType, etc., later if needed
       throw UnimplementedD4rtException(
         'Type check for ${typeNode.runtimeType} not implemented.',
       );

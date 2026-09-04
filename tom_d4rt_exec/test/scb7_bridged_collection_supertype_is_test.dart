@@ -26,15 +26,35 @@
 // bridge OWNS a native object; a supertype claiming assignability would steal
 // dispatch from the concrete bridge.
 //
-// **Type tests are implemented three times, not once.** `is`, catch-clause
-// matching and pattern matching each carry their own type switch, so a fix to
-// one does not reach the others. F-SCB7-11 covers the catch-clause copy for
-// that reason. The pattern-matching copy does not evaluate its type at all — a
-// bare typed pattern (`case int _`, `case Map m`) matches unconditionally, so
-// the first arm of a `switch` always wins, for `int` and `String` just as much
-// as for a bridged collection. That is a defect of its own, unrelated to
-// bridged collections, and is tracked separately; it is not characterized here
-// because it would pin behaviour this file's subject has no say over.
+// **Type tests are implemented ONCE, in `_valueHasType`.** They were not always,
+// and that is why this file has the shape it has. When it was written the same
+// question was answered by four separate bodies — the `is` operator, the catch
+// clause, the declared-type check and the pattern matcher — each with its own
+// switch over hardcoded type names, so a fix to one did not reach the others.
+// F-SCB7-11 exists as a case distinct from everything above it for exactly that
+// reason: it asks the catch clause the same question the `is` cases ask, because
+// at the time only measuring both could tell you whether both worked.
+//
+// SCC18 extracted `_valueHasType` from `visitIsExpression` and pointed the
+// declared-type check and the pattern matcher at it. SCC20 folded in the catch
+// clause, deliberately left for last: `on T` starts from a value that may be an
+// interpreter exception wrapper rather than the thrown value, and the two trees
+// had drifted apart on precisely that code — SCB7's own fix had to be placed
+// differently in each. All four call sites now share one predicate, in both
+// trees.
+//
+// So F-SCB7-11 no longer guards against a divergent *copy*; it guards against
+// the catch clause being disconnected from the predicate again. Keep it. It is
+// the only case here that reaches the type test through `on T` rather than `is`,
+// and that path carries one deliberate asymmetry: an unresolvable `on T` must
+// MISS rather than throw, so a lookup failure cannot replace the exception being
+// dispatched. `scc20_catch_clause_type_test.dart` characterizes the fold and the
+// four user-visible bugs the divergence had been hiding.
+//
+// The pattern-matching body this header used to describe as "does not evaluate
+// its type at all" — a bare typed pattern matching unconditionally, so the first
+// `switch` arm always won — was the fourth copy, and SCC18 fixed it by deleting
+// it. `scc18_typed_pattern_type_test.dart` characterizes that.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';

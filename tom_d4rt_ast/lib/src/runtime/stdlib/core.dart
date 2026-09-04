@@ -113,6 +113,7 @@ class CoreStdlib {
     environment.defineBridge(StackOverflowErrorCore.definition);
     environment.defineBridge(OutOfMemoryErrorCore.definition);
     ErrorHierarchyCore.register();
+    ExceptionHierarchyCore.register();
     environment.defineBridge(InvocationCore.definition); // Bug-78 FIX
     environment.define(
         'dynamic',

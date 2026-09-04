@@ -310,6 +310,26 @@ const Map<String, int> _uncoveredBaseline = {
   // failures alongside three assertions that are not yet asserting anything.
   // Port it and delete this entry in the same commit as that publish.
   'scc19_supertype_registry_depth_test.dart': 9,
+  // Pinned on the next `tom_d4rt_ast` publish, but read the measurement before
+  // porting it there: ONE of its failures does NOT flip on that publish. SCC20
+  // folded the catch clause into the shared `_valueHasType`, and against the
+  // published interpreter 9 of the 25 cases fail. Eight are the fold itself —
+  // `on Exception` / `on Error` missing a script class that implements them
+  // (F-SCC20-1, -3), `on List<int>` and `on Box<int>` catching the wrong type
+  // argument (-5, -8), `on int Function(int)` and `on (int, String)` rejected as
+  // unsupported nodes (-10, -11), and the two exception-hierarchy cases the fold
+  // exposed (-22, -25, which need `ExceptionHierarchyCore`).
+  //
+  // The ninth is F-SCC20-18, and it is a finding about THIS package rather than
+  // a version lag: `on void` is a syntax error that tom_d4rt reports as a
+  // `SourceCodeD4rtException`, while exec parses the script and runs it, so the
+  // clause merely fails to match. exec's front end does not surface analyzer
+  // syntax diagnostics — measured directly, `main() { this is not dart ]]] }`
+  // reaches the interpreter and fails there as a RUNTIME error instead. Publishing
+  // `tom_d4rt_ast` cannot change that, because the gap is in exec's own parse
+  // pipeline. Tracked as SCD69; when porting this file, expect F-SCC20-18 to be
+  // the one case still needing an answer.
+  'scc20_catch_clause_type_test.dart': 25,
   'stdlib/cast_from_family_test.dart': 6,
   'stdlib/convert/json_named_constructors_test.dart': 13,
   'stdlib/core/error_validation_helpers_test.dart': 18,
