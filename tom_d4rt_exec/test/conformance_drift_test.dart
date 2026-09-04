@@ -350,6 +350,30 @@ const Map<String, int> _uncoveredBaseline = {
   // publish for the behavioural cases; the structural group stays a single copy
   // in `tom_d4rt`.
   'scc22_io_error_handler_arity_test.dart': 17,
+  // Pinned on the next `tom_d4rt_ast` publish. Unlike the four entries above,
+  // this one did not get as far as a behavioural measurement: ported verbatim,
+  // it does not COMPILE. `D4rt.onUncaughtError` — the hook SCC23 added so an
+  // embedder can observe an error thrown from a callback the platform invoked
+  // (a `Stream.listen` body, a `handleError` handler, a `Timer`) — does not
+  // exist on this package's `D4rt` at all, and all 16 cases set it.
+  //
+  // Landing it here is a two-part job, and the second part is the reason this
+  // is pinned rather than half-done:
+  //   * `executeBundle` forwards to the inner [D4rtRunner], whose
+  //     `onUncaughtError` only exists in the working tree. This package
+  //     resolves `tom_d4rt_ast` from pub.dev (DGUC6), so the forwarder cannot
+  //     be written until that publish.
+  //   * The classic `execute()` path does NOT go through the runner — this
+  //     package carries its own third copy of `_executeInEnvironment`
+  //     (`lib/src/d4rt_base.dart`), so the zone seam has to be mirrored into it
+  //     separately. That copy needs nothing unpublished and could be done now.
+  //
+  // Doing only the half that compiles would ship a hook that fires for
+  // `execute()` and silently does not for `executeBundle()` — the "looks
+  // covered" failure this file exists to catch, in the public API rather than
+  // in the suite. Tracked as SCD74; port this file and delete this entry in the
+  // same commit that lands both halves.
+  'scc23_uncaught_callback_error_test.dart': 16,
   'stdlib/cast_from_family_test.dart': 6,
   'stdlib/convert/json_named_constructors_test.dart': 13,
   'stdlib/core/error_validation_helpers_test.dart': 18,

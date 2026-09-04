@@ -25,6 +25,7 @@ For information on bridging Dart classes and functions to the interpreter, see t
 - [The Standard Library](#the-standard-library)
 - [Imports and Library URIs](#imports-and-library-uris)
 - [Security and Permissions](#security-and-permissions)
+- [Observing Errors That Escape a Callback](#observing-errors-that-escape-a-callback)
 - [Script Structure Requirements](#script-structure-requirements)
 - [Advanced Topics](#advanced-topics)
   - [Debug Logging](#debug-logging)
@@ -556,6 +557,61 @@ if (d4rt.hasPermission(FilesystemPermission.any)) {
 // Revoke permissions
 d4rt.revoke(NetworkPermission.any);
 ```
+
+---
+
+## Observing Errors That Escape a Callback
+
+Some interpreted code is invoked by the *platform* rather than by the script:
+the body of a `Stream.listen`, a `handleError` handler, a `Timer` callback.
+When one of those throws, native Dart sends the error to the current `Zone` and
+lets the enclosing `main()` return normally — and D4rt matches that, because
+matching it is the correct behaviour.
+
+What the match leaves behind is a hole. `Zone`, `runZoned` and
+`runZonedGuarded` are [intentionally unbridged](d4rt_limitations.md#intentionally-unbridged-sdk-classes),
+so an interpreted script has no way at all to observe its own callback failing,
+and neither does a host that only inspects `execute()`'s result. `onUncaughtError`
+is the way in:
+
+```dart
+final d4rt = D4rt();
+d4rt.onUncaughtError = (error, stackTrace) {
+  log.warning('script callback failed', error, stackTrace);
+};
+
+// Prints the warning, then returns 'done' normally — exactly as native Dart
+// would.
+final result = await d4rt.execute(source: '''
+  import 'dart:async';
+  main() async {
+    Timer(Duration.zero, () => throw StateError('late failure'));
+    await Future.delayed(Duration(milliseconds: 10));
+    return 'done';
+  }
+''');
+```
+
+The contract, in four parts:
+
+| | Behaviour |
+|---|---|
+| **What reaches the hook** | Only *escapes* — errors the caller cannot already observe. Anything that propagates through `execute()`'s return value or thrown exception stays on that path and is **not** also reported here. |
+| **What the error looks like** | The value the script actually threw. The interpreter's internal `InternalInterpreterD4rtException` wrapper is removed first, and a bridged exception is unwrapped to its native object, so this path agrees with the synchronous one. |
+| **Containment** | Setting a hook *contains* the error: it is reported to the hook and **not** forwarded to the enclosing zone. That is what makes the hook usable as a sandbox boundary by a host running untrusted script. A hook that itself throws is not swallowed — its own error goes to the enclosing zone. |
+| **Opt-in** | With no hook set, nothing changes: escapes reach the enclosing zone exactly as before. |
+
+**Set the hook before calling `execute()`**, and understand what setting it
+means: D4rt then owns the *error zone* for that execution. Owning the error zone
+is what makes the errors catchable at all, but it is also a real change to an
+embedder's error routing — a `Future` the embedder created *before* `execute()`
+and passed into the script reports its errors to the embedder's zone rather than
+to the script. That consequence is the reason the hook is opt-in rather than
+always on, and the reason D4rt does not fork a zone when no hook is set: a zone
+that specifies `handleUncaughtError` *is* a new error zone, and Dart deliberately
+refuses to carry an error across an error-zone boundary.
+
+`D4rtRunner` in `tom_d4rt_ast` exposes the same field with the same contract.
 
 ---
 

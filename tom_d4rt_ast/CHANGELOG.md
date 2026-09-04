@@ -1,3 +1,49 @@
+## 0.30.0
+
+### Added — `D4rtRunner.onUncaughtError`, for errors that escape a callback
+
+Mirrors `tom_d4rt` 1.41.0. Some interpreted code is invoked by the *platform*
+rather than by the script: the body of a `Stream.listen`, a `handleError`
+handler, a `Timer` callback. When one of those throws, native Dart sends the
+error to the current `Zone` and lets the enclosing `main()` return normally —
+and d4rt matched that, correctly.
+
+The hole it left is that `Zone`, `runZoned` and `runZonedGuarded` are
+deliberately unbridged, so an interpreted script had no way at all to observe
+its own callback failing, and a host that only inspected the execution result
+had none either.
+
+```dart
+final runner = D4rtRunner();
+runner.onUncaughtError = (error, stackTrace) {
+  log.warning('script callback failed', error, stackTrace);
+};
+```
+
+The contract:
+
+* **Only escapes reach the hook.** Anything that propagates through the
+  execution's return value or thrown exception stays on that path and is not
+  also reported here.
+* **The error is the value the script actually threw.** The interpreter's
+  internal `InternalInterpreterD4rtException` wrapper is removed first, and a
+  bridged exception is unwrapped to its native object, so this path agrees with
+  the synchronous one.
+* **A hook contains the error** — reported to the hook, not forwarded to the
+  enclosing zone, which is what makes it usable as a sandbox boundary by a host
+  running untrusted script. A hook that itself throws is not swallowed.
+* **It is opt-in.** With no hook set, nothing changes.
+
+Setting the hook makes the runner own the *error zone* for the execution, which
+is a real change to an embedder's error routing — hence opt-in, and hence no
+zone fork otherwise. A zone specifying `handleUncaughtError` *is* a new error
+zone, and Dart refuses to carry an error across an error-zone boundary; forking
+unconditionally would stop an ordinary script failure from ever reaching the
+caller.
+
+The fix sits at the one execution chokepoint rather than in each stdlib adapter,
+so it covers every interpreted callback the platform invokes.
+
 ## 0.29.0
 
 ### Fixed — an empty `catch` block abandoned the rest of an `async` function

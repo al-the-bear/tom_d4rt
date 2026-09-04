@@ -1,3 +1,65 @@
+## 1.41.0
+
+### Added — `D4rt.onUncaughtError`, for errors that escape a callback
+
+Some interpreted code is invoked by the *platform* rather than by the script:
+the body of a `Stream.listen`, a `handleError` handler, a `Timer` callback. When
+one of those throws, native Dart sends the error to the current `Zone` and lets
+the enclosing `main()` return normally — and d4rt matched that, correctly.
+
+The hole it left is that `Zone`, `runZoned` and `runZonedGuarded` are
+deliberately unbridged, so an interpreted script had no way at all to observe
+its own callback failing, and a host that only inspected `execute()`'s result
+had none either. The failure was simply invisible from both sides:
+
+```dart
+final d4rt = D4rt();
+d4rt.onUncaughtError = (error, stackTrace) {
+  log.warning('script callback failed', error, stackTrace);
+};
+
+// Warns, then returns 'done' normally — as native Dart would.
+await d4rt.execute(source: '''
+  import 'dart:async';
+  main() async {
+    Timer(Duration.zero, () => throw StateError('late failure'));
+    await Future.delayed(Duration(milliseconds: 10));
+    return 'done';
+  }
+''');
+```
+
+The contract:
+
+* **Only escapes reach the hook.** Anything that propagates through
+  `execute()`'s return value or thrown exception stays on that path and is not
+  also reported here.
+* **The error is the value the script actually threw.** The interpreter's
+  internal `InternalInterpreterD4rtException` wrapper is removed first, and a
+  bridged exception is unwrapped to its native object, so this path agrees with
+  the synchronous one. Previously an interpreter-internal type crossed the
+  sandbox boundary and a host could not tell "the script threw" from "the
+  platform threw".
+* **A hook contains the error** — it is reported to the hook and not forwarded
+  to the enclosing zone, which is what makes it usable as a sandbox boundary by
+  a host running untrusted script. A hook that itself throws is not swallowed.
+* **It is opt-in.** With no hook set, nothing changes.
+
+Setting the hook makes d4rt own the *error zone* for the execution, and that is
+a real change to an embedder's error routing — which is why it is opt-in and
+why d4rt does not fork a zone otherwise. A zone specifying `handleUncaughtError`
+*is* a new error zone, and Dart refuses to carry an error across an error-zone
+boundary; forking unconditionally would stop an ordinary script failure from
+ever reaching the caller of `execute()`.
+
+The fix sits at the one execution chokepoint rather than in each stdlib adapter,
+so it covers every interpreted callback the platform invokes — not just the
+`Stream.listen` case that surfaced it.
+
+Also verified in the same pass, and *not* a defect: `Stream.listen`'s onError
+and `Stream.handleError` deliver the same error object to a script. The
+asymmetry between them was in the escape direction only, and is now gone.
+
 ## 1.40.0
 
 ### Fixed — an empty `catch` block abandoned the rest of an `async` function

@@ -16,7 +16,7 @@ This document provides a comprehensive reference of all known D4rt interpreter l
 > deferred `dart:io` / `dart:math` entries — are not bugs and carry no ID; see
 > [Intentionally-Unbridged SDK Classes](#intentionally-unbridged-sdk-classes).
 
-**Last Updated:** 2026-09-03
+**Last Updated:** 2026-09-04
 
 ---
 
@@ -2995,7 +2995,7 @@ construction. The same holds for the runners layered on top
 
 | Class | Reported as | Library | Why it stays out |
 |-------|-------------|---------|------------------|
-| `Zone` | `Zone`, `runZoned`, `runZonedGuarded` | `dart:async` | Zones are cross-cutting control-flow interception — error handling, scheduling, and `print` all route through the ambient zone. The interpreter owns its own execution and scheduling, so a bridged `Zone` would either be a no-op shell or would have to re-implement the interpreter's control flow. Sandbox isolation is provided by the permission system instead. |
+| `Zone` | `Zone`, `runZoned`, `runZonedGuarded` | `dart:async` | Zones are cross-cutting control-flow interception — error handling, scheduling, and `print` all route through the ambient zone. The interpreter owns its own execution and scheduling, so a bridged `Zone` would either be a no-op shell or would have to re-implement the interpreter's control flow. Sandbox isolation is provided by the permission system instead. The one capability a script genuinely loses is observing an error thrown from a callback the *platform* invoked (a `Stream.listen` body, a `handleError` handler, a `Timer`); the **embedder** gets that back through [`D4rt.onUncaughtError`](d4rt_user_guide.md#observing-errors-that-escape-a-callback). |
 | `Expando` | `Expando` | `dart:core` | An identity side-table keyed on object identity. Interpreted values do not have a stable one-to-one native identity — a value can cross the bridge more than once — so `Expando` would silently lose entries. |
 | `WeakReference` | `WeakReference` | `dart:core` | Weakness is a property of the *native* heap. An interpreted value is reachable from interpreter structures the script cannot see, so a `WeakReference` to it would never clear; the API would be technically present and semantically a lie. |
 | `Finalizer` | `Finalizer` | `dart:core` | Same root cause as `WeakReference`, plus it hands the script a GC-timed callback — a non-deterministic re-entry point into sandboxed code. Sandbox-hostile by design. |

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/features.dart';
@@ -1269,6 +1270,50 @@ class D4rt {
     return List.unmodifiable(_moduleLoader.accumulatedRegistrationErrors);
   }
 
+  /// Called when an error escapes an interpreted callback that the platform
+  /// invoked *outside* the script's own future chain.
+  ///
+  /// A `Stream.listen` callback, a `handleError` handler and a `Timer` body are
+  /// all invoked by the platform, not by the script. When one of them throws,
+  /// native Dart sends the error to the current [Zone] and lets the enclosing
+  /// `main()` return normally — and d4rt matches that. The problem it leaves
+  /// behind is that `Zone`, `runZoned` and `runZonedGuarded` are deliberately
+  /// unbridged (see `unbridged_reasons.dart`), so an interpreted script has no
+  /// way at all to observe its own callback failing. This hook is the
+  /// embedder's way in.
+  ///
+  /// The error handed to the hook is the value the script actually threw. The
+  /// interpreter's internal `InternalInterpreterD4rtException` wrapper is
+  /// removed first, so this path agrees with the synchronous one, where
+  /// [execute] already rethrows the original value.
+  ///
+  /// **Setting a hook contains the error**: it is reported here and *not*
+  /// forwarded to the enclosing zone, which is what makes it usable as a
+  /// sandbox boundary by a host that runs untrusted script.
+  ///
+  /// Errors the caller can already observe are not routed here — anything that
+  /// propagates through [execute]'s return value or thrown exception stays on
+  /// that path.
+  ///
+  /// **Set this before calling [execute]**, and understand that setting it
+  /// makes d4rt own the *error zone* for the execution. That is what allows the
+  /// errors to be caught at all, but it also means a `Future` created by the
+  /// embedder *before* [execute] and passed into the script reports its errors
+  /// to the embedder's zone rather than to the script — the ordinary
+  /// consequence of an error-zone boundary, and the reason this is opt-in.
+  /// Leaving it null keeps the pre-existing routing untouched: escapes reach
+  /// the enclosing zone, still wrapped in the interpreter's internal exception
+  /// type.
+  ///
+  /// ## Example:
+  /// ```dart
+  /// final d4rt = D4rt();
+  /// d4rt.onUncaughtError = (error, stackTrace) {
+  ///   log.warning('script callback failed', error, stackTrace);
+  /// };
+  /// ```
+  void Function(Object error, StackTrace stackTrace)? onUncaughtError;
+
   /// Enables or disables debug logging for the interpreter.
   ///
   /// When enabled, the interpreter will output detailed information about
@@ -2006,7 +2051,117 @@ class D4rt {
   }
 
   /// Execute a parsed CompilationUnit in the given environment.
+  /// Runs the script in a zone d4rt owns, so that errors escaping an
+  /// interpreted callback have somewhere to be caught.
+  ///
+  /// SCC23: a callback the *platform* invokes — a `Stream.listen` handler, a
+  /// `handleError` handler, a `Timer` body — is outside the script's future
+  /// chain, so an error it throws cannot reach [execute]'s caller. It goes to
+  /// the current zone instead, and until this fork existed that meant the
+  /// embedder's zone, carrying an interpreter-internal wrapper type.
+  ///
+  /// The fork is the whole fix, and it is deliberately *one* seam rather than a
+  /// guard per adapter: it catches escapes from call sites nobody enumerated,
+  /// which is precisely the class of bug that motivated the todo (the escape
+  /// was reported against streams and turned out to include timers).
+  ///
+  /// Note that only *uncaught* errors reach [ZoneSpecification.handleUncaughtError].
+  /// A synchronous throw out of [Zone.run] propagates to the caller untouched,
+  /// so the error path [execute] already had is unaffected.
+  ///
+  /// **The zone exists only when [onUncaughtError] is set**, and that is a
+  /// constraint rather than a convenience. A zone that specifies
+  /// `handleUncaughtError` *is* a new error zone, and Dart deliberately refuses
+  /// to deliver an error across an error-zone boundary — `future_impl.dart`,
+  /// "Don't cross zone boundaries with errors". Forking unconditionally
+  /// therefore stops an ordinary script failure from ever reaching the caller
+  /// of [execute]: the awaiting caller registered its listener outside the
+  /// zone, so the error is diverted to the uncaught handler and the returned
+  /// future simply never completes. F-SCB9-12 caught exactly that. Owning the
+  /// error zone is a real change to an embedder's error routing, so it happens
+  /// when the embedder asks for it and not otherwise.
+  Zone _forkScriptZone() => Zone.current.fork(
+        specification: ZoneSpecification(
+          handleUncaughtError: (self, parent, zone, error, stackTrace) {
+            final scriptError = _unwrapScriptError(error);
+            final hook = onUncaughtError;
+            if (hook == null) {
+              // No embedder hook: behave exactly as before, minus the wrapper.
+              parent.handleUncaughtError(zone, scriptError, stackTrace);
+              return;
+            }
+            try {
+              hook(scriptError, stackTrace);
+            } catch (hookError, hookStack) {
+              // An embedder's hook is ordinary code and can be wrong. Losing
+              // both errors would be the worst available outcome.
+              parent.handleUncaughtError(zone, hookError, hookStack);
+            }
+          },
+        ),
+      );
+
+  /// Recovers the value the script actually threw from the interpreter's
+  /// internal wrapper.
+  ///
+  /// This mirrors what [_executeInEnvironment] already does for the
+  /// synchronous path, where an `InternalInterpreterD4rtException` is
+  /// unwrapped before it is rethrown to the caller. Without it the two paths
+  /// hand the host different shapes for the same script failure, and a
+  /// *native* error (one the script never touched) would be the only one that
+  /// arrived legible.
+  static Object _unwrapScriptError(Object error) {
+    var value = error;
+    if (value is InternalInterpreterD4rtException) {
+      value = value.originalThrownValue ?? value;
+    }
+    // A bridged exception's native object is the thing a host can catch on;
+    // the BridgedInstance shell means nothing outside the interpreter.
+    if (value is BridgedInstance) return value.nativeObject;
+    return value;
+  }
+
   dynamic _executeInEnvironment({
+    required CompilationUnit compilationUnit,
+    required Environment executionEnvironment,
+    required String name,
+    List<Object?>? positionalArgs,
+    Map<String, Object?>? namedArgs,
+    String? library,
+  }) {
+    run() => _executeInEnvironmentInZone(
+          compilationUnit: compilationUnit,
+          executionEnvironment: executionEnvironment,
+          name: name,
+          positionalArgs: positionalArgs,
+          namedArgs: namedArgs,
+          library: library,
+        );
+
+    // No hook, no zone, no behaviour change of any kind. See [_forkScriptZone]
+    // for why this is opt-in rather than always on.
+    if (onUncaughtError == null) return run();
+
+    final zone = _forkScriptZone();
+    final result = zone.run(run);
+    if (result is! Future) return result;
+
+    // The script's own failures still belong to the caller, but the caller
+    // awaits from *outside* the error zone and Dart will not carry an error
+    // across that boundary. Bridge it by hand: listen from inside the zone,
+    // where the delivery is legal, and complete a future that belongs to the
+    // caller's zone. Without this the returned future would hang and the
+    // failure would be misreported to [onUncaughtError] as an escape.
+    final bridged = Completer<Object?>();
+    zone.run(() => result.then(
+          bridged.complete,
+          onError: (Object error, StackTrace stackTrace) =>
+              bridged.completeError(error, stackTrace),
+        ));
+    return bridged.future;
+  }
+
+  dynamic _executeInEnvironmentInZone({
     required CompilationUnit compilationUnit,
     required Environment executionEnvironment,
     required String name,
