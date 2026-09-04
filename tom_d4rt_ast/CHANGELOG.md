@@ -1,3 +1,16 @@
+## 0.33.0
+
+### Changed — braced the long single-line `if`s ahead of the format alignment (scc26)
+
+Mirrors `tom_d4rt` 1.44.0. This package's SDK floor was already honest at
+`^3.10.4`, so nothing moved there; what changed is the seven braceless
+single-line `if` statements that exceed the column limit. The tall-style
+formatter splits such a line in two, and the split is what makes
+`curly_braces_in_flow_control_structures` fire — so bracing them now keeps the
+following format pass provably free of semantic hunks.
+
+No behaviour changes.
+
 ## 0.32.0
 
 ### Fixed — `listen(null)` now works on every bridge, not two of nine

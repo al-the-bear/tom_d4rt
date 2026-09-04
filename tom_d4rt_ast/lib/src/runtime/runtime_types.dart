@@ -224,12 +224,16 @@ class InterpretedClass implements Callable, RuntimeType {
       // Recursive call on mixin. Mixins don't change the 'this' binding
       // context; the method returned here will be bound later if needed.
       final mixinMethod = mixins[i].findInstanceMethod(name);
-      if (mixinMethod != null) return _methodResolutionCache[name] = mixinMethod;
+      if (mixinMethod != null) {
+        return _methodResolutionCache[name] = mixinMethod;
+      }
     }
 
     if (superclass != null) {
       final superMethod = superclass!.findInstanceMethod(name);
-      if (superMethod != null) return _methodResolutionCache[name] = superMethod;
+      if (superMethod != null) {
+        return _methodResolutionCache[name] = superMethod;
+      }
       return null;
     }
 
@@ -258,12 +262,16 @@ class InterpretedClass implements Callable, RuntimeType {
     // Check applied mixins in reverse order
     for (int i = mixins.length - 1; i >= 0; i--) {
       final mixinGetter = mixins[i].findInstanceGetter(name);
-      if (mixinGetter != null) return _getterResolutionCache[name] = mixinGetter;
+      if (mixinGetter != null) {
+        return _getterResolutionCache[name] = mixinGetter;
+      }
     }
 
     if (superclass != null) {
       final superGetter = superclass!.findInstanceGetter(name);
-      if (superGetter != null) return _getterResolutionCache[name] = superGetter;
+      if (superGetter != null) {
+        return _getterResolutionCache[name] = superGetter;
+      }
       return null;
     }
 
@@ -288,12 +296,16 @@ class InterpretedClass implements Callable, RuntimeType {
     // Check applied mixins in reverse order
     for (int i = mixins.length - 1; i >= 0; i--) {
       final mixinSetter = mixins[i].findInstanceSetter(name);
-      if (mixinSetter != null) return _setterResolutionCache[name] = mixinSetter;
+      if (mixinSetter != null) {
+        return _setterResolutionCache[name] = mixinSetter;
+      }
     }
 
     if (superclass != null) {
       final superSetter = superclass!.findInstanceSetter(name);
-      if (superSetter != null) return _setterResolutionCache[name] = superSetter;
+      if (superSetter != null) {
+        return _setterResolutionCache[name] = superSetter;
+      }
       return null;
     }
 

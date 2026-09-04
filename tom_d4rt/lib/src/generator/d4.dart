@@ -1021,7 +1021,9 @@ class D4 {
         // factory" and the next factory should be tried.
         final wrapped = factory(value, innerTypeArg);
         if (wrapped != null && wrapped is T) {
-          if (usageLogEnabled) recordUsageHit('relaxer', typeName, innerTypeArg);
+          if (usageLogEnabled) {
+            recordUsageHit('relaxer', typeName, innerTypeArg);
+          }
           return wrapped as T;
         }
         // GEN-079b: If innerTypeArg is nullable (e.g., 'Color?'), also try

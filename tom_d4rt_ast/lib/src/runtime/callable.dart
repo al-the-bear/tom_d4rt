@@ -470,7 +470,9 @@ class InterpretedFunction implements Callable {
             p is SFunctionTypedFormalParameter ||
             p is SSuperFormalParameter)
         .where((p) {
-      if (p is SSimpleFormalParameter) return p.isPositional && p.isRequired;
+      if (p is SSimpleFormalParameter) {
+        return p.isPositional && p.isRequired;
+      }
       return true; // Other NormalFormalParameter-like types are required positional by default
     }).length;
   }

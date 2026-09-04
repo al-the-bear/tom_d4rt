@@ -1103,7 +1103,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "[PrefixedIdentifier] Accessing method 'toString' on enum value '$prefixValue'. Returning callable.");
         // Return directly the string for simplicity in prefixed access?
         // No, return a callable function to be consistent with methods.
-        return NativeFunction((_, args, __, ___) {
+        return NativeFunction((_, args, _, _) {
           if (args.isNotEmpty) {
             throw RuntimeD4rtException("toString() takes no arguments.");
           }
@@ -1376,7 +1376,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           return Function;
         case 'toString':
           return NativeFunction(
-            (_, args, __, ___) {
+            (_, args, _, _) {
               if (args.isNotEmpty) {
                 throw RuntimeD4rtException("toString() takes no arguments.");
               }
@@ -1435,7 +1435,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             return prefixValue.runtimeType;
           case 'toString':
             return NativeFunction(
-              (_, args, __, ___) => prefixValue.toString(),
+              (_, args, _, _) => prefixValue.toString(),
               arity: 0,
               name: 'toString',
             );
@@ -1455,7 +1455,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             return prefixValue.runtimeType;
           case 'toString':
             return NativeFunction(
-              (_, args, __, ___) => prefixValue.toString(),
+              (_, args, _, _) => prefixValue.toString(),
               arity: 0,
               name: 'toString',
             );
@@ -12930,7 +12930,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         return record.runtimeType;
       case 'toString':
         return NativeFunction(
-          (_, args, __, ___) => record.toString(),
+          (_, args, _, _) => record.toString(),
           arity: 0,
           name: 'toString',
         );

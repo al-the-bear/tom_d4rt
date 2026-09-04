@@ -1,6 +1,6 @@
 name: tom_d4rt_exec
 description: "D4rt Exec - Analyzer-free D4rt interpreter running on mirror AST (tom_d4rt_ast). Migration target from tom_d4rt for Flutter/server use."
-version: 1.14.0
+version: 1.15.0
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_exec
 topics:
@@ -17,7 +17,7 @@ platforms:
   windows:
 
 environment:
-  sdk: ^3.5.0
+  sdk: ^3.10.4
 
 dependencies:
   analyzer: ^10.0.0

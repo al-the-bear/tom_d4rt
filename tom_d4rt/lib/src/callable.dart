@@ -698,7 +698,9 @@ class InterpretedFunction implements Callable {
               "Unsupported parameter kind after unwrapping DefaultFormalParameter: ${actualParam.runtimeType}");
         }
 
-        if (paramName == null) throw StateD4rtException("Parameter missing name");
+        if (paramName == null) {
+          throw StateD4rtException("Parameter missing name");
+        }
         processedParamNames.add(paramName);
 
         // Find corresponding argument and value

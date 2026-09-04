@@ -1,3 +1,19 @@
+## 1.15.0
+
+### Changed — the declared SDK floor now matches the one pub can actually reach (scc26)
+
+`environment.sdk` said `^3.5.0` while this package's own dependency
+`tom_d4rt_ast` declares `^3.10.4`, so the floor was unreachable in exactly the
+way `tom_d4rt`'s was. It is now `^3.10.4`.
+
+The floor is not only a resolution constraint: `dart format` takes its style
+from the language version, and the tall style begins at 3.7. Leaving a
+deliberately low floor in place means the formatter produces a different layout
+here than in the packages this one is built from — which is the divergence
+scc26 exists to remove.
+
+No lint fallout and no behaviour changes.
+
 ## 1.14.0
 
 ### Fixed — a preloaded source stub shadowed the bridge registered at the same URI (scc14)

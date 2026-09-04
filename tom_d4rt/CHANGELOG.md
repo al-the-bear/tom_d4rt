@@ -1,3 +1,34 @@
+## 1.44.0
+
+### Changed — the declared SDK floor now matches the one pub can actually reach (scc26)
+
+`environment.sdk` said `^3.5.0`. It could not have been true for some time:
+`analyzer: ^10.0.0` resolves to 10.1.0/10.2.0, both of which declare
+`sdk: ^3.9.0`, so no resolution of this package below 3.9 exists. The declared
+floor was a promise nothing could honour, and it had a second, quieter cost.
+`dart format` derives its style from the *language version*, and the formatter
+switched to the tall style at 3.7 — a package pinned below that formats in the
+old style, while `tom_d4rt_ast`, declaring `^3.10.4`, formats in the new one.
+Two trees the workspace requires to stay line-comparable were therefore
+guaranteed to diverge the moment anyone ran the formatter on either.
+
+The floor is now `^3.9.0`: the value pub already enforces. Raising it changes
+nothing for any consumer that resolves today.
+
+Raising the language version surfaced two lint families the older version could
+not report, both fixed here:
+
+- **`unnecessary_underscores`** (23 sites) — wildcard parameters became legal at
+  3.7, so the `__` / `___` spellings previously needed to avoid a name clash are
+  redundant. `tom_d4rt_ast` already spells these `_`, so this is also a mirror
+  convergence.
+- **`curly_braces_in_flow_control_structures`** (8 sites) — braceless
+  single-line `if`s that exceed the column limit. The tall formatter splits them
+  across two lines, which is what makes the lint fire; bracing them first keeps
+  the subsequent reformat free of behaviour-adjacent hunks.
+
+No behaviour changes.
+
 ## 1.43.0
 
 ### Fixed — `listen(null)` now works on every bridge, not two of nine
