@@ -4,8 +4,12 @@
 **Interpreter version:** tom_d4rt (analyzer-based) + tom_d4rt_ast (mirror)
 **SDK reference:** Dart 3.12.2 (package constraint `^3.5.0`)
 **Scope audited:** all stdlib bridge files under
-`tom_d4rt/lib/src/stdlib/` (114 files) and the mirror set under
-`tom_d4rt_ast/lib/src/runtime/stdlib/` (114 files — **identical gaps**).
+`tom_d4rt/lib/src/stdlib/` (117 files). The mirror set under
+`tom_d4rt_ast/lib/src/runtime/stdlib/` holds the same 117 files with none
+missing either way, but only **88 of them are verified identical** once the
+import line is normalised — 29 diverge and have not been reviewed, so
+"the findings transfer" is an assumption about those 29 rather than a
+measurement (scd49).
 Class-level coverage is audited by hand; **member-level** and
 **hierarchy-level** coverage are both measured mechanically by
 `tom_d4rt/tool/stdlib_member_diff.dart` — see "Member-level gaps" and
@@ -85,8 +89,15 @@ Class-level coverage is audited by hand; **member-level** and
     hand a script an instance of it.
 - `characters` (the `.characters` getter on `String`) is correctly
   absent — it comes from the `characters` package, not `dart:core`.
-- The mirror stdlib in `tom_d4rt_ast` has the **same 100 files and the
-  same gaps**, so any additions must land in **both** trees (per the
+- **The mirror stdlib is measured by proxy, and the proxy is only 75 %
+  verified.** `tom_d4rt_ast` carries the same 117 files, of which 88 are
+  identical modulo the import line and 29 diverge unreviewed — so every count
+  in this document is measured on `tom_d4rt` and *assumed* to hold for the
+  analyzer-free tree. The oracle cannot be pointed at the twin directly (it
+  needs `dart:mirrors` and must execute source, neither of which
+  `tom_d4rt_ast` can do), which makes the assumption load-bearing rather than
+  incidental: the twin is what ships inside Flutter apps. scd49 tracks turning
+  it into a check. Additions must land in **both** trees regardless (per the
   "keep tom_d4rt ↔ tom_d4rt_ast in sync" quest rule).
 - **A registered-but-unreachable class is its own failure mode.** Two
   `dart:convert` bridges had been written and exported but never passed
@@ -1373,6 +1384,11 @@ guard yet.
   registry: `grep -rhoE "name: '[A-Za-z]+'"` across `stdlib/`.
 - **Mirror parity**: the tool is `tom_d4rt`-only, since it needs
   `dart:mirrors` and `tom_d4rt_ast` must stay dependency-free. Parity is
-  checked by diffing the registrars directly — `collection_hierarchy.dart`,
-  `convert_hierarchy.dart` and `typed_data_hierarchy.dart` are byte-identical
-  between the trees apart from the import line, so the findings transfer.
+  checked by diffing files directly, and the check is currently partial:
+  `collection_hierarchy.dart`, `convert_hierarchy.dart` and
+  `typed_data_hierarchy.dart` are identical between the trees apart from the
+  import line, so the *hierarchy* findings transfer. Across the whole stdlib
+  it is 88 of 117 files identical and 29 unreviewed, so the member findings
+  transfer for the 88 and are assumed for the rest. Nothing enforces this —
+  it is a hand diff, re-run when someone thinks of it. scd49 tracks making it
+  a test.
