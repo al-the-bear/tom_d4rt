@@ -724,13 +724,22 @@ class ServerSocketIo {
         },
         staticMethods: {
           'bind': (visitor, positionalArgs, namedArgs, _) {
-            final host = positionalArgs[0].toString();
+            // `dynamic address`, and deliberately so: the SDK accepts either a
+            // host string or an `InternetAddress`, and its own documentation
+            // uses the latter. A `toString()` here turned
+            // `InternetAddress.loopbackIPv4` into the literal text
+            // `InternetAddress('127.0.0.1', IPv4)` and handed that to the
+            // resolver, so the documented form failed a host lookup while the
+            // string form worked. Pass the argument through and let `dart:io`
+            // decide, exactly as every sibling bridge (`RawServerSocket.bind`,
+            // `Socket.connect`, `RawDatagramSocket.bind`) already does.
+            final address = positionalArgs[0];
             final port = positionalArgs[1] as int;
             final backlog = namedArgs['backlog'] as int? ?? 0;
             final v6Only = namedArgs['v6Only'] as bool? ?? false;
             final shared = namedArgs['shared'] as bool? ?? false;
 
-            return ServerSocket.bind(host, port,
+            return ServerSocket.bind(address, port,
                 backlog: backlog, v6Only: v6Only, shared: shared);
           },
         },
