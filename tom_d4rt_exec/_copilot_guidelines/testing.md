@@ -23,7 +23,7 @@ All tests are in `tom_d4rt/test/`:
 | Test File | Purpose |
 |-----------|---------|
 | `interpreter_test.dart` | Core interpreter functionality |
-| `limitations_and_bugs_test.dart` | Known limitations (expected failures) |
+| `limitations_and_bugs_test.dart` | Pinned gaps, documented limitations, fixed-bug regressions |
 | `global_setter_test.dart` | INTER-002: Global setter API |
 | `bridged_instance_sort_test.dart` | INTER-005: BridgedInstance unwrapping |
 | `future_factory_test.dart` | Bug-92: Future factory constructor |
@@ -175,13 +175,55 @@ Testkit always uses `--reporter json` internally for parsing results.
 2. **After fixing bugs**: Run `testkit :test` to see improved results
 3. **When baseline is stale**: Run `testkit :baseline` to create new reference point
 
-### Expected Failures
+---
 
-Tests marked `(FAIL)` in their name are known limitations:
-- `I-LIM-3`: Isolate.run can't use interpreted closures
-- `I-BUG-14a/b`: Records with named fields or >9 positional fields
+## Recording a known gap — one convention
 
-These will show as `X/FAIL` in baseline results, which is correct behavior.
+A suite that carries a sanctioned red cannot gate regressions: the real
+regression looks exactly like the expected failure, and telling them apart means
+diffing a baseline by hand. So **a known gap is recorded by pinning the broken
+behaviour, not by asserting the correct behaviour and leaving the case red.**
+
+### The rule
+
+1. Assert what the interpreter actually does today, so the case **passes**.
+2. Put a marker in the comment **directly above the `test(`** naming who removes
+   it:
+
+   ```dart
+   // KNOWN-GAP(scb7_agñd-short-description): `is Map` is false for bridged map
+   // subtypes; closing it makes the pin below red.
+   test('F-SC3-21: ... [2026-07-27] (PASS)', () { ... });
+   ```
+
+   Use `WONT-FIX: <reason>` instead when nothing will ever close it — an absent
+   owner must be a decision, not an oversight.
+3. When the gap closes, the pin goes **red**. Delete it — **in every tree**.
+   This suite is mirrored verbatim into `tom_d4rt_exec`, so a pin always exists
+   at least twice.
+
+### What enforces it
+
+`F-SCC6-5` in `tom_d4rt_exec/test/conformance_drift_test.dart` fails when a
+`KNOWN-GAP()` names no owner, and when a marker exists in one tree's copy of a
+file but not the other's. The parity half takes no exemption from
+`_divergentBaseline` — a divergent file is precisely where a one-sided deletion
+hides.
+
+### Naming groups
+
+Name a group after the **contract** its cases hold to, never after a status.
+`Pinned Gaps (SHOULD PASS)`, `Fixed Bugs (SHOULD PASS)`,
+`Documented Limitations (SHOULD PASS)` all survive a bug closing;
+`Open Bugs - Pending (SHOULD FAIL)` did not — it held twenty-one passing cases
+for months.
+
+### The `(FAIL)` suffix
+
+`(FAIL)` in a test name means the case is *expected* to fail. Under this
+convention that combination should not arise in these suites, since a pinned gap
+passes. Treat a `(FAIL)` suffix on a passing test as a stale label to correct,
+not as a result to preserve.
 
 
 

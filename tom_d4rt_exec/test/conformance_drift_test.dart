@@ -28,6 +28,12 @@
 //   * a new uncovered file appears           -> the gap grew, fail
 //   * a recorded gap gains a counterpart     -> baseline stale, shrink it, fail
 //   * a shared file starts differing         -> real content drift, fail
+//   * a pinned known gap loses a copy        -> a fix will go red here, fail
+//
+// The last of those (F-SCC6-5, SCC15) is not about files at all but about the
+// assertions inside them, and it is the one case where being listed in
+// `_divergentBaseline` grants no exemption. See the comment above
+// `_markerPattern`.
 //
 // That is what the guard was actually for: nothing detected *additions*. The
 // existing backlog is a separate, owned remediation, and porting it is how these
@@ -415,6 +421,39 @@ const Set<String> _divergentBaseline = {
 /// runtime. A reference test importing `package:tom_d4rt/src/<x>.dart` therefore
 /// ports to `package:tom_d4rt_ast/src/runtime/<x>.dart`, and a new such import
 /// needs a pair here rather than an exemption anywhere else.
+/// A `KNOWN-GAP(<todo-id>):` or `WONT-FIX:` marker, as written in the comment
+/// directly above a test case that PINS broken behaviour.
+///
+/// SCC15: the corpus used to carry two opposite conventions for recording a
+/// known gap, and they need opposite handling when a fix lands.
+///
+///   * assert-the-correct-behaviour — the case FAILS until the gap closes, then
+///     goes green by itself. No cleanup, but the suite carries a permanent red,
+///     and a suite with a sanctioned red cannot gate regressions: the real one
+///     is indistinguishable from the expected one without a hand diff.
+///   * pin-the-broken-value — the case PASSES until the gap closes, then goes
+///     RED and must be deleted by hand. The suite stays green, at the price of a
+///     deletion someone has to remember.
+///
+/// The second is the adopted convention, and this check is what makes the price
+/// payable: a pin names who deletes it, and every copy of it is accounted for.
+/// The defect that prompted the rule is concrete — scb7 shipped a pin and its
+/// FIX step named only the tom_d4rt copy, so landing that fix would have turned
+/// the exec twin red on a tree nobody was looking at.
+final RegExp _markerPattern = RegExp(r'^//\s*(KNOWN-GAP\([^)]*\)|WONT-FIX)\s*:');
+
+/// Every marker in [source], as `KNOWN-GAP(<id>)` or `WONT-FIX`.
+///
+/// Line-based, and a `///` doc comment is deliberately not a marker: the
+/// convention is documented by writing the syntax out, and a doc comment that
+/// counted as a use would make every file explaining the rule look like a file
+/// applying it.
+List<String> _markers(String source) => [
+      for (final line in source.split('\n'))
+        if (_markerPattern.firstMatch(line.trimLeft()) case final m?)
+          m.group(1)!,
+    ];
+
 String _normalise(String source) => source
     .replaceAll('package:tom_d4rt/d4rt.dart', '@INTERPRETER@')
     .replaceAll('package:tom_d4rt_exec/d4rt.dart', '@INTERPRETER@')
@@ -593,6 +632,61 @@ void main() {
           reason: 'These files no longer diverge. Remove them from '
               '_divergentBaseline so the next real divergence is not absorbed '
               'by a stale entry.\n${converged.join('\n')}',
+        );
+      },
+    );
+
+    test(
+      'F-SCC6-5: every pinned known gap names an owner and exists in both '
+      'copies [2026-09-04] (PASS)',
+      () {
+        // Part one — shape. A `KNOWN-GAP()` with nothing between the brackets
+        // is the marker equivalent of a bare `// TODO`: it records that someone
+        // noticed, and nothing else. `WONT-FIX` carries its own decision and
+        // needs no id.
+        final unowned = <String>[];
+        for (final tree in [ref, exec]) {
+          tree.forEach((path, file) {
+            for (final marker in _markers(file.readAsStringSync())) {
+              if (marker.startsWith('KNOWN-GAP') &&
+                  marker.substring(10, marker.length - 1).trim().isEmpty) {
+                unowned.add('$path: $marker');
+              }
+            }
+          });
+        }
+        expect(
+          unowned,
+          isEmpty,
+          reason: 'A pinned gap does not name the todo that will delete it. '
+              'Name one, or — if nothing will ever fix it — say so with '
+              'WONT-FIX and the reason.\n${unowned.join('\n')}',
+        );
+
+        // Part two — parity, and the half that catches the scb7 defect. Note it
+        // takes NO exemption from _divergentBaseline: those files are allowed to
+        // differ in their assertions, but a pin is a maintenance obligation
+        // rather than an assertion, and a divergent file is exactly where a
+        // one-sided deletion hides. For the non-divergent files F-SCC6-4 already
+        // implies this; for the divergent ones only this check does.
+        final mismatched = <String>[];
+        for (final path in ref.keys.where(exec.containsKey)) {
+          final refMarkers = (_markers(ref[path]!.readAsStringSync())..sort())
+              .join(', ');
+          final execMarkers = (_markers(exec[path]!.readAsStringSync())..sort())
+              .join(', ');
+          if (refMarkers != execMarkers) {
+            mismatched
+                .add('$path: tom_d4rt [$refMarkers] vs exec [$execMarkers]');
+          }
+        }
+        expect(
+          mismatched,
+          isEmpty,
+          reason: 'A pinned gap exists in one tree and not the other. A pin has '
+              'to be deleted by hand when the gap closes, so a missing copy '
+              'means the fix lands green here and red there — or the reverse. '
+              'Mirror it.\n${mismatched.join('\n')}',
         );
       },
     );

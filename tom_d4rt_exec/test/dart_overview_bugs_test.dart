@@ -5,8 +5,18 @@
 ///
 /// Bug IDs: Bug-79 through Bug-99
 ///
-/// These tests assert the CORRECT behavior. When the bug exists, tests FAIL.
-/// When the bug is fixed, tests PASS.
+/// ALL TWENTY-ONE ARE FIXED and every case passes. They are kept as regression
+/// tests, which is what an assert-the-correct-behaviour case becomes once its
+/// bug closes — it needs no cleanup and goes red only on a real regression.
+///
+/// The file said the opposite until 2026-09-04, and its single group was named
+/// "Open Bugs - Pending (SHOULD FAIL)" while all twenty-one passed. That is the
+/// failure mode of naming a group after a status rather than a contract: the
+/// status moves and the name does not. Nothing here is pinned, so there is no
+/// KNOWN-GAP / WONT-FIX marker in this file; see
+/// `limitations_and_bugs_test.dart` for the convention and
+/// `tom_d4rt_exec/test/conformance_drift_test.dart` (`F-SCC6-5`) for its
+/// enforcement.
 library;
 
 import 'dart:async';
@@ -61,11 +71,12 @@ Future<dynamic> executeAsync(String source) async {
 
 void main() {
   // ============================================================
-  // OPEN BUGS - PENDING
-  // Known issues that should be fixed - tests FAIL until fixed
+  // FIXED BUGS (Bug-79 .. Bug-99)
+  // Regression tests for bugs found via the dart_overview examples and since
+  // resolved. All assert the correct behaviour and pass.
   // ============================================================
 
-  group('Open Bugs - Pending (SHOULD FAIL)', () {
+  group('Fixed Bugs (SHOULD PASS)', () {
     // Bug-79: Switch expression not exhaustive for sealed subclass with object pattern
     test('I-BUG-20: Bug-79: Switch expression should match sealed subclass with object pattern. [2026-02-10 06:37] (PASS)', () {
       final result = execute('''

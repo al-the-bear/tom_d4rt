@@ -1,16 +1,39 @@
 /// Comprehensive test suite for D4rt interpreter limitations and bugs.
 ///
 /// This test suite validates all documented limitations and bugs from
-/// `doc/d4rt_limitations.md`. Tests are organized into:
+/// `doc/d4rt_limitations.md`.
 ///
-/// 1. **Limitations (Lim-1 to Lim-9)**: Fundamental constraints or unsupported features
-/// 2. **Open Bugs (TODO status)**: Known issues that should be fixed - TESTS FAIL
-/// 3. **Fixed Bugs**: Regression tests for bugs that have been resolved - TESTS PASS
+/// ## Test Philosophy — one convention, and the suite stays green
 ///
-/// ## Test Philosophy
+/// EVERY CASE HERE PASSES, and that is a design rule rather than a happy
+/// accident. A suite carrying a sanctioned red cannot serve as a regression
+/// gate: a real regression looks exactly like the expected failure, and telling
+/// them apart means diffing against a baseline by hand — which is to say, not at
+/// all. This file used to state the opposite rule ("tests expect the code to
+/// WORK, so they FAIL until fixed") and grew group names asserting a state the
+/// run contradicted; of the twenty-five cases those groups held, twenty-four
+/// passed.
 ///
-/// - Open bugs/limitations: Tests expect the code to WORK, so they FAIL until fixed
-/// - Fixed bugs: Tests expect the code to WORK, they PASS (regression tests)
+/// Two kinds of case therefore live side by side, and the group names say which:
+///
+/// * **Fixed bugs and documented limitations** assert the CORRECT behaviour and
+///   pass because the behaviour is correct. Nothing to clean up when a
+///   neighbouring gap closes.
+/// * **Pinned gaps** assert the BROKEN behaviour. They pass today and go RED the
+///   day the gap closes, which is the signal to delete them. Because a pin has
+///   to be deleted by hand, it MUST carry a marker in the comment directly above
+///   the `test(`, naming who will delete it:
+///
+///   ```
+///   // KNOWN-GAP(<todo-id>): <why it is broken, and what closing it looks like>
+///   // WONT-FIX: <why it will stay broken>
+///   ```
+///
+///   A pin exists in EVERY copy of its file — this suite is mirrored verbatim
+///   into `tom_d4rt_exec` — so deleting one copy leaves the other red on a tree
+///   nobody remembered to check. `F-SCC6-5` in
+///   `tom_d4rt_exec/test/conformance_drift_test.dart` enforces both halves: the
+///   marker must name a todo, and the marker set must match across the trees.
 ///
 /// ## Strategy for Hanging Tests
 ///
@@ -64,18 +87,53 @@ Future<dynamic> executeAsync(
 
 void main() {
   // ============================================================
-  // OPEN BUGS - WON'T FIX
-  // Fundamental limitations that cannot be fixed
+  // PINNED GAPS
+  // Assertions that describe BROKEN behaviour, so they pass while the gap is
+  // open and go red when it closes. Each one carries a KNOWN-GAP / WONT-FIX
+  // marker naming who deletes it. See the file header.
   // ============================================================
 
-  group('Open Bugs - Won\'t Fix (SHOULD FAIL)', () {
+  group('Pinned Gaps (SHOULD PASS)', () {
+    // WONT-FIX: Dart offers no runtime API for constructing a record with named
+    // fields from a dynamically-known shape, so the interpreter cannot hand back
+    // a native `({int x, int y})` however it is implemented. The values are
+    // right and readable — only the runtime type differs — which is why this is
+    // a shape gap and not a correctness one. Pinned rather than left failing:
+    // this file is a regression gate, and one sanctioned red made every other
+    // red in it unreadable.
+    test('I-BUG-14a: Records with named fields stay interpreted. '
+        '[2026-02-10 06:37] (PASS)', () {
+      const source = '''
+({int x, int y}) main() {
+  return (x: 10, y: 20);
+}
+''';
+      final result = execute(source);
+      expect(result, isNot(isA<Record>()),
+          reason: 'if this now IS a native record the gap has closed — delete '
+              'this case in BOTH trees');
+      expect(result, isNot(isA<({int x, int y})>()));
+      // The gap is the runtime type and nothing else: the fields carry the
+      // values the source assigned and read back in declaration order.
+      expect(result.toString(), equals('(x: 10, y: 20)'));
+    });
+  });
+
+  // ============================================================
+  // DOCUMENTED LIMITATIONS
+  // The observable result is CORRECT; the limitation is a property the
+  // interpreter cannot express at this level and no assertion here can see.
+  // ============================================================
+
+  group('Documented Limitations (SHOULD PASS)', () {
     // Isolate.run has LIMITED SUPPORT in D4rt:
     // - Uses Future.microtask internally (same isolate, async execution)
     // - Returns correct results
     // - But NO true parallelism (code runs in same isolate)
     //
-    // This test PASSES because the result is correct (42).
-    // The limitation is that execution is not truly parallel.
+    // No marker: nothing here is pinned. The case asserts the correct result and
+    // will keep passing if true isolates ever arrive. The limitation it names is
+    // not observable from a return value, so this file cannot gate it.
     // See doc/d4rt_limitations.md Lim-3 for details.
     test(
         'I-LIM-3: Isolate.run limited support - returns correct result. [2026-02-11] (PASS)',
@@ -94,21 +152,17 @@ Future<int> main() async {
       final result = await executeAsync(source);
       expect(result, equals(42));
     });
+  });
 
-    // Bug-14: Records with named fields can't be converted to native records
-    test('I-BUG-14a: Records with named fields. [2026-02-10 06:37] (FAIL)', () {
-      const source = '''
-({int x, int y}) main() {
-  return (x: 10, y: 20);
-}
-''';
-      final result = execute(source);
-      // Currently returns InterpretedRecord - this test fails until we can create
-      // native records with named fields (not possible in Dart at runtime)
-      expect(result, isA<({int x, int y})>());
-    });
+  // ============================================================
+  // FIXED BUGS (✅ Fixed status)
+  // Regression tests for bugs that have been resolved - TESTS PASS
+  // ============================================================
 
-    // Bug-14: >9 positional fields can't be converted
+  group('Fixed Bugs (SHOULD PASS)', () {
+    // Bug-14: >9 positional fields. Filed alongside I-BUG-14a as a won't-fix and
+    // grouped with it for months; it converts correctly and has done for as long
+    // as anyone measured. Only the named-field half is still a gap.
     test(
         'I-BUG-14b: Records with >9 positional fields. [2026-02-10 06:37] (PASS)',
         () {
@@ -118,18 +172,11 @@ Future<int> main() async {
 }
 ''';
       final result = execute(source);
-      // Currently returns InterpretedRecord - this test fails until we add more cases
       expect(result, equals((1, 2, 3, 4, 5, 6, 7, 8, 9, 10)));
     });
-  });
 
-  // ============================================================
-  // OPEN BUGS - PENDING
-  // Known issues that should be fixed - tests FAIL until fixed
-  // ============================================================
-
-  group('Open Bugs - Pending (SHOULD FAIL)', () {
-    // Bug-45: Labeled continue in sync* generators
+    // Bug-45: Labeled continue in sync* generators. Was the sole occupant of an
+    // "Open Bugs - Pending (SHOULD FAIL)" group; it passes.
     test(
         'I-FILE-53: Bug-45: Labeled continue in sync* should return correct values. [2026-02-10 06:37] (PASS)',
         () {
@@ -148,14 +195,7 @@ List<int> main() {
       final result = execute(source);
       expect(result, equals([0, 1, 3, 4]));
     });
-  });
 
-  // ============================================================
-  // FIXED BUGS (✅ Fixed status)
-  // Regression tests for bugs that have been resolved - TESTS PASS
-  // ============================================================
-
-  group('Fixed Bugs (SHOULD PASS)', () {
     test(
         'I-FILE-54: Bug-1: List.empty() should work. [2026-02-10 06:37] (PASS)',
         () {
