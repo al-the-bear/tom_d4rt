@@ -219,6 +219,18 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// ../tom_d4rt_ast/lib`). exec resolves that package from pub.dev (DGUC6), so a
 /// port made while the trees differ certifies a version nobody is running and
 /// fails for reasons that read as migration bugs. Run the diff first.
+/// The three SCC11 entries below are the first added under that precondition
+/// rather than in spite of it. Each was ported, analysed clean, and then
+/// REMOVED again: every member they assert (the seven static validation
+/// helpers, the `castFrom` family, the long tail) exists only in the working
+/// tree, so all 46 cases fail against the published `tom_d4rt_ast` — not as a
+/// migration bug but because the members are genuinely absent from the version
+/// exec resolves. Porting them now would have made the exec suite red for a
+/// reason no reader could act on.
+///
+/// Their flip condition is the same one the [_divergentBaseline] header names:
+/// the next `tom_d4rt_ast` publish. Port all three and delete these entries in
+/// that same commit.
 const Map<String, int> _uncoveredBaseline = {
   '_conway_perf_probe_test.dart': 1,
   'bridge/bridged_setter_unwrap_test.dart': 3,
@@ -232,7 +244,10 @@ const Map<String, int> _uncoveredBaseline = {
   'scb14_await_receiver_position_test.dart': 12,
   'scb17_map_set_inherited_surface_test.dart': 7,
   'scb9_error_handler_arity_test.dart': 14,
+  'stdlib/cast_from_family_test.dart': 6,
   'stdlib/convert/json_named_constructors_test.dart': 13,
+  'stdlib/core/error_validation_helpers_test.dart': 18,
+  'stdlib/static_long_tail_test.dart': 22,
 };
 
 /// Files present in BOTH trees whose content differs by more than the one
