@@ -238,6 +238,49 @@ class RandomAccessFileIo {
       );
 }
 
+/// The operating-system error carried by every `dart:io` exception.
+///
+/// Four bridges already expose an `osError` getter and two constructors
+/// already accept an `OSError` argument, but the class itself was never
+/// registered — so the getter returned successfully and the result was then
+/// inert: `e.osError.errorCode` failed with "Undefined property or method
+/// 'errorCode' on OSError". Found by the SCC24 sweep.
+///
+/// This is the same defect shape as a missing `nativeNames` entry with a
+/// different cause: not an unclaimed private implementation type, but a
+/// public type with no bridge at all. Worth distinguishing when reading the
+/// sweep's output — the fix is a registration, not a name.
+class OSErrorIo {
+  static BridgedClass get definition => BridgedClass(
+        nativeType: OSError,
+        name: 'OSError',
+        isAssignable: (v) => v is OSError,
+        typeParameterCount: 0,
+        constructors: {
+          '': (visitor, positionalArgs, namedArgs) {
+            final message =
+                positionalArgs.isNotEmpty ? positionalArgs[0] as String? : null;
+            final errorCode =
+                positionalArgs.length > 1 ? positionalArgs[1] as int? : null;
+            return OSError(message ?? '', errorCode ?? OSError.noErrorCode);
+          },
+        },
+        staticGetters: {
+          'noErrorCode': (visitor) => OSError.noErrorCode,
+        },
+        methods: {
+          'toString': (visitor, target, positionalArgs, namedArgs, _) =>
+              (target as OSError).toString(),
+        },
+        getters: {
+          'message': (visitor, target) => (target as OSError).message,
+          'errorCode': (visitor, target) => (target as OSError).errorCode,
+          'hashCode': (visitor, target) => (target as OSError).hashCode,
+          'runtimeType': (visitor, target) => (target as OSError).runtimeType,
+        },
+      );
+}
+
 /// FileSystemException base class
 class FileSystemExceptionIo {
   static BridgedClass get definition => BridgedClass(

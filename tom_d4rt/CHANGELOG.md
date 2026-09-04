@@ -1,3 +1,53 @@
+## 1.42.0
+
+### Fixed — bridge coverage gaps found by a mechanical sweep, not by accident
+
+A `BridgedClass` claims the SDK's private implementation types by listing them
+in `nativeNames`. A type that is not listed resolves to no bridge, so the value
+comes back from the interpreter successfully and is then completely inert:
+every member on it fails with "Undefined property or method 'x' on _Whatever".
+
+The failure mode hides itself. A missing name does not merely break the value,
+it suppresses the tests that would have exercised the code behind it — if
+`Codec.inverted` cannot be used, nobody writes a test that uses it. The gap had
+therefore been found four times by accident while working on something else,
+never by a test.
+
+`test/scc24_native_name_coverage_test.dart` replaces the accidents with a
+check. `BridgedInstanceGetterAdapter` takes a nullable visitor, so every
+instance getter on every registered bridge can be invoked directly against a
+real native instance and the result handed to the resolver — several hundred
+return values, with no knowledge of return types, no argument construction and
+no private type name written down anywhere. Members that take arguments are
+covered by explicit probe tables. No private name appears in the test: every
+value is produced by an ordinary public call and the resolver is asked what
+claims the result, so an SDK rename keeps the test working rather than breaking
+it.
+
+Its first run found eight unclaimed types across five bridges, all of which had
+the predicted second-order effect — `Codec.inverted` had zero uses anywhere in
+the suite, the general `Converter.fuse` path had none, and the suite's single
+`File.openRead` call passed the result straight into `addStream` without ever
+calling a member on it:
+
+- `Iterator` — `_LinkedListIterator`, `_AllMatchesIterator` and
+  `_TypedListIterator`. The last covers *every* typed list, so `.iterator` was
+  a dead end on `Uint8List` and friends: exactly the buffers binary codecs and
+  byte-buffer code handle most.
+- `Converter` — `_FusedConverter` and `_JsonUtf8Decoder`. The bridge had no
+  `nativeNames` at all, so `Converter.fuse` was unusable and only the
+  `Codec`-level fuse had ever been tested.
+- `Codec` — `_InvertedCodec`, what `Codec.inverted` returns.
+- `Stream` — `_FileStream`, what `File.openRead()` returns.
+- `OSError` — a *missing bridge*, not a missing name: four `dart:io` exception
+  bridges expose an `osError` getter and two constructors accept an `OSError`,
+  but the class itself was never registered, so `e.osError.errorCode` was
+  unreachable. Now registered with `message`, `errorCode` and `noErrorCode`.
+
+The check runs over `dart:core`, `dart:async`, `dart:collection`, `dart:convert`
+and `dart:io` rather than the stream family alone, because the same enumeration
+— and the same trap — exists in all of them.
+
 ## 1.41.0
 
 ### Added — `D4rt.onUncaughtError`, for errors that escape a callback

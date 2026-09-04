@@ -34,6 +34,10 @@ class IoStdlib {
     environment.defineBridge(FileModeIo.definition);
     environment.defineBridge(FileLockIo.definition);
     environment.defineBridge(RandomAccessFileIo.definition);
+    // Must be registered alongside the exceptions that return it — every
+    // `osError` getter below produces one, and without this bridge the
+    // result is inert. See SCC24.
+    environment.defineBridge(OSErrorIo.definition);
     environment.defineBridge(FileSystemExceptionIo.definition);
     environment.defineBridge(PathAccessExceptionIo.definition);
     environment.defineBridge(PathExistsExceptionIo.definition);

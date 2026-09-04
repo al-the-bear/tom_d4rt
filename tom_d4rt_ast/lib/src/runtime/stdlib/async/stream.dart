@@ -81,7 +81,13 @@ class StreamAsync {
           '_TakeWhileStream',
           '_SkipWhileStream',
           '_DistinctStream',
-          '_StdStream'
+          '_StdStream',
+          // What `File.openRead()` returns. A `dart:io` private type, but it is
+          // a Stream, so this bridge is the one that has to claim it. Missing
+          // until SCC24: the single use of `openRead` in the suite passed the
+          // result straight into `addStream` and so never called a member on
+          // it, which is exactly the blind spot an inert value creates.
+          '_FileStream',
         ],
         constructors: {},
         staticMethods: {

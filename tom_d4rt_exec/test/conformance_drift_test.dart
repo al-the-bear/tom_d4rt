@@ -165,6 +165,21 @@ const Map<String, _Coverage> _coveredElsewhere = {
   'bridged_module_env_cache_test.dart': _Coverage(
       'ast:runtime/bridged_module_env_cache_test.dart', _astTwin,
       refCases: 3, twinCases: 3),
+  // SCC24's native-name sweep. The ast copy is byte-identical apart from the
+  // import prefix — the file was written script-free precisely so it could be,
+  // since ast has no parser. Recorded here rather than ported because its
+  // subject is a bridge REGISTRY, and exec has no registry of its own: it would
+  // build the same `Environment` from the same `tom_d4rt_ast` registrars the
+  // twin already sweeps, so a third copy measures nothing new.
+  //
+  // Porting it was tried and measured before this entry was written (DGUC6):
+  // against the published 0.20.1 that exec resolves, 7 of the 9 cases pass and
+  // the 2 that fail are exactly the gaps this todo fixed in the 0.30.0 tree.
+  // That is the version gap, not a migration defect — which is the whole reason
+  // the pairing belongs on the ast side, where the code being edited lives.
+  'scc24_native_name_coverage_test.dart': _Coverage(
+      'ast:scc24_native_name_coverage_test.dart', _astTwin,
+      refCases: 9, twinCases: 9),
   'dgub5_filesystem_permission_symlink_test.dart': _Coverage(
       'ast:runtime/dgub5_filesystem_permission_symlink_test.dart', _astTwin,
       refCases: 6, twinCases: 3),

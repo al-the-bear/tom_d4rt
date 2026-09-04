@@ -34,6 +34,13 @@ class IteratorCore {
           '_SplayTreeKeyIterator',
           '_SplayTreeValueIterator',
           '_SplayTreeMapEntryIterator',
+          '_LinkedListIterator', // LinkedList.iterator
+          '_AllMatchesIterator', // RegExp.allMatches(...).iterator
+          // Every typed list — Uint8List, Int32List, Float64List and the rest
+          // share one iterator implementation. Missing until SCC24, so
+          // `.iterator` was a dead end on exactly the buffers Flutter scripts
+          // handle most (binary message codecs, byte buffers).
+          '_TypedListIterator',
         ],
         methods: {
           'moveNext': (visitor, target, positionalArgs, namedArgs, _) {

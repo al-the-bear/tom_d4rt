@@ -6,7 +6,12 @@ class CodecConvert {
         nativeType: Codec,
         name: 'Codec',
         typeParameterCount: 2, // Codec<S, T>
-        nativeNames: ['_FusedCodec'],
+        // `_FusedCodec` is what `Codec.fuse` returns; `_InvertedCodec` is what
+        // `Codec.inverted` returns. SCC24 found the second one missing, which
+        // is also why `inverted` had no test anywhere in the suite: the getter
+        // returned successfully and the result was then inert, so there was
+        // nothing to write a test about.
+        nativeNames: ['_FusedCodec', '_InvertedCodec'],
         methods: {
           'encode': (visitor, target, positionalArgs, namedArgs, _) {
             if (positionalArgs.length != 1) {

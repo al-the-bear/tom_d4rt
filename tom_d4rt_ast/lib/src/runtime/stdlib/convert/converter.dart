@@ -6,6 +6,14 @@ class ConverterConvert {
         nativeType: Converter,
         name: 'Converter',
         typeParameterCount: 2, // Converter<S, T>
+        // What `Converter.fuse` returns. `_FusedConverter` is the general case;
+        // `_JsonUtf8Decoder` is the SDK's special-cased result for
+        // `utf8.decoder.fuse(json.decoder)`, the decode-direction counterpart
+        // of the `JsonUtf8Encoder` that SC9 had to reach for. Both were missing
+        // until SCC24, which is why the only fuse coverage in the suite went
+        // through `Codec.fuse` — the Converter-level result was inert, so it
+        // could not be used and was never tested.
+        nativeNames: ['_FusedConverter', '_JsonUtf8Decoder'],
         staticMethods: {
           // The static counterpart of the instance `cast()`: wraps an existing
           // converter so it accepts and produces different static types. Type

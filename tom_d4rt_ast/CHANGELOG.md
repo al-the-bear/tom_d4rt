@@ -1,3 +1,39 @@
+## 0.31.0
+
+### Fixed — bridge coverage gaps found by a mechanical sweep, not by accident
+
+Mirrors `tom_d4rt` 1.42.0. A `BridgedClass` claims the SDK's private
+implementation types by listing them in `nativeNames`; a type that is not listed
+resolves to no bridge, so the value comes back successfully and is then
+completely inert — every member on it fails with "Undefined property or method
+'x' on _Whatever". Worse, the gap hides itself: if `Codec.inverted` cannot be
+used, nobody writes a test that uses it, so the code behind the missing name
+goes untested too.
+
+`test/scc24_native_name_coverage_test.dart` replaces four accidental discoveries
+with a check. It invokes every instance getter on every registered bridge
+against a real native instance and asks the resolver what claims each result —
+no return types, no argument construction, and no private type name written down
+anywhere, so an SDK rename keeps the test working rather than breaking it.
+
+The file is a byte-for-byte copy of the `tom_d4rt` original apart from its
+import prefix. It was written script-free specifically so this package could
+carry it: there is no parser here, so a script-driven probe could not have been
+mirrored at all.
+
+Eight unclaimed types were found and fixed across five bridges:
+
+- `Iterator` — `_LinkedListIterator`, `_AllMatchesIterator`,
+  `_TypedListIterator`. The last covers every typed list, so `.iterator` was a
+  dead end on `Uint8List` and friends.
+- `Converter` — `_FusedConverter`, `_JsonUtf8Decoder` (the bridge had no
+  `nativeNames` at all).
+- `Codec` — `_InvertedCodec`.
+- `Stream` — `_FileStream`, what `File.openRead()` returns.
+- `OSError` — a missing *bridge*, not a missing name: four `dart:io` exception
+  bridges return one from `osError`, but the class was never registered, so
+  `e.osError.errorCode` was unreachable.
+
 ## 0.30.0
 
 ### Added — `D4rtRunner.onUncaughtError`, for errors that escape a callback
