@@ -213,6 +213,11 @@ Map<String, Object> _canonicalInstances() => {
   'TypeError': _typeError(),
   'UnimplementedError': UnimplementedError('x'),
   'UnsupportedError': UnsupportedError('x'),
+  // Both of this type's getters are always null, which is exactly the shape
+  // the sweep exists to check: a getter returning null is indistinguishable
+  // from one that has gone inert unless something asserts it is *reachable*.
+  // ignore: deprecated_member_use
+  'IntegerDivisionByZeroException': IntegerDivisionByZeroException(),
   'AssertionError': AssertionError('x'),
   'ConcurrentModificationError': ConcurrentModificationError(<int>[]),
   'NoSuchMethodError': NoSuchMethodError.withInvocation(

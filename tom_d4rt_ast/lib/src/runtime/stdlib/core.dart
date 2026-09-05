@@ -104,6 +104,7 @@ class CoreStdlib {
     environment.defineBridge(ArgumentErrorCore.definition);
     environment.defineBridge(RangeErrorCore.definition);
     environment.defineBridge(UnsupportedErrorCore.definition);
+    environment.defineBridge(IntegerDivisionByZeroExceptionCore.definition);
     environment.defineBridge(UnimplementedErrorCore.definition);
     environment.defineBridge(NoSuchMethodErrorCore.definition);
     environment.defineBridge(ConcurrentModificationErrorCore.definition);

@@ -1,3 +1,47 @@
+## 0.37.0
+
+### Fixed — division by zero now produces the SDK's own outcome (scc30)
+
+`1 ~/ 0` raised `RuntimeD4rtException('Integer division by zero.')`. Real Dart
+raises `IntegerDivisionByZeroException`, which is an `UnsupportedError`, so a
+script could catch it by neither name nor supertype — the same defect SCB10
+fixed for four other operations, at a site outside the four it named.
+
+**The guards were the bug, so they are gone rather than corrected.** Each arm
+tested `right == 0` and threw a hand-written message. But both operands are
+already native `num`s at that point, so `left ~/ right` dispatches straight to
+the SDK operator, which raises exactly the right exception on its own. The
+guards were not translating the SDK's behaviour, they were pre-empting it, and
+every way they differed from it was a divergence. Deleting them is a smaller
+implementation that cannot drift again, because there is no longer a second
+implementation to drift from.
+
+**The audit that came with it found four more divergences**, all from the same
+root cause. `right == 0` is also true of `0.0`, so the guards fired on doubles,
+where Dart does not throw at all — `1.0 % 0.0` is `NaN`, and `1.0 ~/ 0.0` is a
+different SDK error about converting Infinity to an int. And the compound
+operators carried their own copy of the guards, so `x /= 0` threw while `x / 0`
+twenty lines away correctly returned `Infinity`: one operator disagreeing with
+itself depending on which form was written. All now match the SDK.
+
+`IntegerDivisionByZeroException` is registered as a bridged class so
+`on IntegerDivisionByZeroException` resolves. Without it the clause would not
+error — it would simply never match, and the script would silently take a
+branch it never meant to take.
+
+**The message is a genuine loss, and matching the SDK is why.** The SDK
+exception carries no message, so `toString()` degrades from
+`Integer division by zero.` to the bare `IntegerDivisionByZeroException`.
+Preserving the friendlier text would mean inventing a subclass the SDK does not
+have, leaving scripts catching a type that exists nowhere else. The type is
+deprecated but is still what the VM throws; d4rt no longer names it in
+production code, so if a future SDK narrows it to a plain `UnsupportedError`,
+d4rt follows automatically.
+
+Also fixed at the premise: `eval_method_test`'s `I-MISC-31` asserted
+`throwsA(anything)` under a comment naming `IntegerDivisionByZeroException` —
+vacuous, and it passed equally before and after this change.
+
 ## 0.36.0
 
 ### Fixed — a declared parameter type is now checked when the caller binds it (scc29)

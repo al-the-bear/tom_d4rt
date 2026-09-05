@@ -1771,11 +1771,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         case TokenType.STAR:
           return left * right;
         case TokenType.SLASH:
-          // For double division, Dart returns infinity for division by zero
-          if (left is double || right is double) {
-            return left.toDouble() / right.toDouble();
-          }
-          // For integer division that will produce double, also return infinity
+          // `/` always produces a double, so a zero divisor is Infinity or
+          // NaN rather than an error. Both operands are widened because
+          // `int / int` is a double division too.
           return left.toDouble() / right.toDouble();
         case TokenType.GT:
           return left > right;
@@ -1785,13 +1783,18 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           return left >= right;
         case TokenType.LT_EQ:
           return left <= right;
+        // SCC30: deliberately NO zero-divisor guard on either operator.
+        // `left` and `right` are native `num`s here, so these dispatch to the
+        // SDK operators, which already raise
+        // `IntegerDivisionByZeroException` — an `UnsupportedError` a script
+        // can catch either by name or by supertype. A guard here can only
+        // disagree with that: the previous one threw a `RuntimeD4rtException`
+        // no `on` clause could name, and because `0.0 == 0` it also fired on
+        // doubles, where `1.0 % 0.0` is NaN and `1.0 ~/ 0.0` is a different
+        // SDK error entirely.
         case TokenType.PERCENT:
-          if (right == 0) throw RuntimeD4rtException("Modulo by zero.");
           return left % right;
         case TokenType.TILDE_SLASH:
-          if (right == 0) {
-            throw RuntimeD4rtException("Integer division by zero.");
-          }
           return left ~/ right;
         default:
           break;
@@ -10569,26 +10572,27 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         return left * right;
       }
       // Fall through
+      // SCC30: these three carried their own copy of the zero-divisor guards,
+      // which is how `x /= 0` came to throw while `x / 0` twenty lines away
+      // returned Infinity — one operator disagreeing with itself depending on
+      // which form was written. They now delegate to the SDK operators like
+      // their binary counterparts, and for the same reason: the SDK's outcome
+      // is the one a script expects and the only one it can catch.
     } else if (operatorType == TokenType.SLASH_EQ) {
       // Use unwrapped left/right for calculation
       if (left is num && right is num) {
-        if (right == 0) throw RuntimeD4rtException("Division by zero in '/='.");
         return left.toDouble() / right.toDouble();
       }
       // Fall through
     } else if (operatorType == TokenType.TILDE_SLASH_EQ) {
       // Use unwrapped left/right for calculation
       if (left is num && right is num) {
-        if (rhsValue == 0) {
-          throw RuntimeD4rtException("Integer division by zero in '~/='.");
-        }
         return left ~/ right;
       }
       // Fall through
     } else if (operatorType == TokenType.PERCENT_EQ) {
       // Use unwrapped left/right for calculation
       if (left is num && right is num) {
-        if (right == 0) throw RuntimeD4rtException("Modulo by zero in '%='.");
         return left % right;
       }
       // Fall through

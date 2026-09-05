@@ -559,6 +559,19 @@ const Map<String, int> _uncoveredBaseline = {
   // plumbing. Tracked as SCD89; port this file and delete this entry in the
   // commit that raises exec's `tom_d4rt_ast` floor past 0.36.0.
   'scc29_parameter_type_check_test.dart': 26,
+  // BLOCKED ON THE SAME PUBLISH as the entry above. SCC30 deleted the
+  // hand-written zero-divisor guards so `~/` and `%` reach the SDK operators
+  // and raise `IntegerDivisionByZeroException`, and registered that type as a
+  // bridge so `on IntegerDivisionByZeroException` resolves. Both halves are in
+  // the mirrored interpreters and neither is in exec's published
+  // `tom_d4rt_ast` 0.20.1, which still throws a `RuntimeD4rtException` here —
+  // so a verbatim port would fail every throwing case and read as a migration
+  // bug rather than a version gap.
+  //
+  // Nothing else has to land first. Port this file and delete this entry in
+  // the commit that raises exec's `tom_d4rt_ast` floor past 0.37.0; tracked
+  // together with SCC29 as SCD89.
+  'scc30_division_by_zero_test.dart': 21,
   'stdlib/cast_from_family_test.dart': 6,
   'stdlib/convert/json_named_constructors_test.dart': 13,
   'stdlib/core/error_validation_helpers_test.dart': 18,
@@ -649,7 +662,11 @@ const Map<String, int> _uncoveredBaseline = {
 ///     correct measurement of it. The reference tree's copy now asserts the
 ///     `TypeError` its own name always demanded. Converges with
 ///     `scc29_parameter_type_check_test.dart` in [_uncoveredBaseline]: same
-///     publish, same commit.
+///     publish, same commit. The same file also carries the SCC30 realignment:
+///     `I-MISC-31` asserted `throwsA(anything)` under a comment naming
+///     `IntegerDivisionByZeroException`, which certified nothing on either
+///     interpreter; the reference copy now asserts the type. Both realignments
+///     clear on the same publish, so the file needs only this one entry.
 const Set<String> _divergentBaseline = {
   '_c21_null_short_test.dart',
   '_plan_e2_static_in_closure_test.dart',

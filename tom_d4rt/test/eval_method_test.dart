@@ -729,8 +729,15 @@ void main() {
         () {
           d4rt.execute(source: 'void init() {}', name: 'init');
 
-          // Integer division by zero throws IntegerDivisionByZeroException
-          expect(() => d4rt.eval('10 ~/ 0'), throwsA(anything));
+          // The comment here always claimed `IntegerDivisionByZeroException`,
+          // but `throwsA(anything)` certified nothing — it passed just as well
+          // when the interpreter threw a `RuntimeD4rtException` no `on` clause
+          // could name. Asserting the type is what makes the comment true.
+          expect(
+            () => d4rt.eval('10 ~/ 0'),
+            // ignore: deprecated_member_use
+            throwsA(isA<IntegerDivisionByZeroException>()),
+          );
 
           // Bug-75 FIX: Float division by zero returns Infinity (correct Dart behavior)
           // In Dart, 10.0 / 0.0 returns double.infinity, not an error

@@ -296,6 +296,53 @@ class UnsupportedErrorCore {
   );
 }
 
+/// Bridges the exception the SDK raises for `1 ~/ 0` and `1 % 0`.
+///
+/// Registered so a script can write `on IntegerDivisionByZeroException`. An
+/// `on` clause naming an unregistered type does not fail — it simply never
+/// matches — so without this the clause would silently fall through to the
+/// next one and the script would take a branch it never meant to take.
+///
+/// The type is deprecated, but the VM still throws it, and d4rt raising
+/// exactly what the SDK raises is the whole point.
+///
+/// The alias below is what carries the deprecation suppression: `// ignore:`
+/// covers only the line that follows it, so with the type named at five spots
+/// the suppressions silently slid off their references whenever the formatter
+/// wrapped a line. One alias means one suppression that cannot drift, and it
+/// keeps the ignore narrow — an unrelated deprecated use elsewhere in this file
+/// still gets flagged.
+// ignore: deprecated_member_use
+typedef _IntegerDivisionByZero = IntegerDivisionByZeroException;
+
+class IntegerDivisionByZeroExceptionCore {
+  static BridgedClass get definition => BridgedClass(
+    nativeType: _IntegerDivisionByZero,
+    name: 'IntegerDivisionByZeroException',
+    isAssignable: (v) => v is _IntegerDivisionByZero,
+    typeParameterCount: 0,
+    constructors: {
+      '': (visitor, positionalArgs, namedArgs) => _IntegerDivisionByZero(),
+    },
+    methods: {
+      'toString': (visitor, target, positionalArgs, namedArgs, _) {
+        // Always the bare type name — the SDK exception carries no message.
+        return target.toString();
+      },
+    },
+    getters: {
+      // `message` and `stackTrace` come from the `UnsupportedError` interface
+      // it implements; both are always null on this type.
+      'message': (visitor, target) =>
+          (target as _IntegerDivisionByZero).message,
+      'hashCode': (visitor, target) => target.hashCode,
+      'runtimeType': (visitor, target) => target.runtimeType,
+      'stackTrace': (visitor, target) =>
+          (target as _IntegerDivisionByZero).stackTrace,
+    },
+  );
+}
+
 class UnimplementedErrorCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: UnimplementedError,
@@ -579,6 +626,15 @@ class ErrorHierarchyCore {
       'UnsupportedError': ['Error'],
       // UnimplementedError extends Error and implements UnsupportedError.
       'UnimplementedError': ['UnsupportedError', 'Error'],
+      // IntegerDivisionByZeroException implements BOTH UnsupportedError and
+      // Exception, so `e is Error` and `e is Exception` are both true of it —
+      // unusual, and the reason both branches are listed here rather than the
+      // Error chain alone.
+      'IntegerDivisionByZeroException': [
+        'UnsupportedError',
+        'Error',
+        'Exception',
+      ],
       'NoSuchMethodError': ['Error'],
       'ConcurrentModificationError': ['Error'],
       'TypeError': ['Error'],
