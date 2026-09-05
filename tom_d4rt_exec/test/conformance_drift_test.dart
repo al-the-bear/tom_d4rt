@@ -573,58 +573,28 @@ const Map<String, int> _uncoveredBaseline = {
   // the unpublished `tom_d4rt_ast`. Tracked as SCD84; port this file and delete
   // this entry in the same commit that lands both halves.
   'scc27_host_error_fidelity_test.dart': 9,
-  // BLOCKED ON A PUBLISH, not on a design question. SCC29 checks a caller's
-  // argument against the declared parameter type at binding time, in
-  // `InterpretedFunction._prepareExecutionEnvironment`. The fix is in both
-  // mirrored interpreters, but the check itself is what the cases assert, and
-  // DGUC6 puts it out of exec's reach: exec resolves `tom_d4rt_ast` 0.20.1 from
-  // pub.dev, which binds arguments unchecked. A verbatim port compiles and then
-  // fails every throwing case — the file would report the published
-  // interpreter's behaviour while reading as a migration bug.
+  // (`scc29_parameter_type_check_test.dart`, `scc30_division_by_zero_test.dart`,
+  // `scc31_undefined_name_uncatchable_test.dart` and
+  // `scc32_bridged_value_key_test.dart` were all here, each blocked on a
+  // different `tom_d4rt_ast` publish — floors 0.36.0, 0.37.0, 0.38.0 and
+  // 0.39.0. All four have landed. SCC32 came over with SCC35's 0.40.0 publish;
+  // the other three did NOT, and sat here unported while the floor moved past
+  // every one of their stated conditions. SCC43 found them and ported all
+  // three — 65 cases green against published 0.40.0, no interpreter work
+  // needed, exactly as their entries had predicted years of review-time
+  // earlier.
   //
-  // Nothing else has to land first: the check is self-contained, uses only
-  // `RuntimeType.isSubtypeOf` and `D4rtTypeError`, and needs no new exec-side
-  // plumbing. Tracked as SCD89; port this file and delete this entry in the
-  // commit that raises exec's `tom_d4rt_ast` floor past 0.36.0.
-  'scc29_parameter_type_check_test.dart': 26,
-  // BLOCKED ON THE SAME PUBLISH as the entry above. SCC30 deleted the
-  // hand-written zero-divisor guards so `~/` and `%` reach the SDK operators
-  // and raise `IntegerDivisionByZeroException`, and registered that type as a
-  // bridge so `on IntegerDivisionByZeroException` resolves. Both halves are in
-  // the mirrored interpreters and neither is in exec's published
-  // `tom_d4rt_ast` 0.20.1, which still throws a `RuntimeD4rtException` here —
-  // so a verbatim port would fail every throwing case and read as a migration
-  // bug rather than a version gap.
+  // THAT LAG IS THE FINDING, and it is why [_pinnedInterpreterFloors] below
+  // now exists. Every one of those entries named its flip condition in prose,
+  // and prose is checked only by whoever happens to reread it. Nothing was
+  // wrong with the analysis; the failure was that a due obligation stayed
+  // invisible. F-SCC43-1 makes the same declaration machine-checked: an entry
+  // records the floor it waits on, and the guard goes red the moment exec's
+  // pubspec passes it. Add the floor there whenever you add a publish-blocked
+  // entry to either baseline, and prose alone will not be load-bearing again.
   //
-  // Nothing else has to land first. Port this file and delete this entry in
-  // the commit that raises exec's `tom_d4rt_ast` floor past 0.37.0; tracked
-  // together with SCC29 as SCD89.
-  'scc30_division_by_zero_test.dart': 21,
-  // BLOCKED ON THE SAME PUBLISH as the two entries above. SCC31 raises an
-  // undefined name as `UndefinedNameD4rtException` and has both catch-dispatch
-  // sites decline to match any clause against it, so a typo escapes to the host
-  // instead of being swallowed by a bare `catch (e)`. Every behavioural case
-  // there asserts that escape; exec's published `tom_d4rt_ast` 0.20.1 still
-  // swallows, so a verbatim port fails all of them and reads as a migration bug
-  // rather than a version gap. The type it names is not in the published API
-  // either, so the port does not even compile until the floor moves.
-  //
-  // The last two cases (F-SCC31-17/18) are source scans over both trees rather
-  // than script runs, and they belong to `tom_d4rt` only — the port should drop
-  // them instead of duplicating a whole-repo assertion in a third suite.
-  //
-  // Nothing else has to land first. Port this file and delete this entry in
-  // the commit that raises exec's `tom_d4rt_ast` floor past 0.38.0; tracked
-  // together with SCC29 and SCC30 as SCD89.
-  'scc31_undefined_name_uncatchable_test.dart': 18,
-  // (`scc32_bridged_value_key_test.dart` was here, blocked on the publish that
-  // raises exec's `tom_d4rt_ast` floor past 0.39.0. SCC35 published 0.40.0 and
-  // the port landed — 19 of the 21 cases, since the entry's own instruction was
-  // to drop the F-SCC32-20/21 source-scan group. The file now has a
-  // `_divergentBaseline` entry recording that omission instead. SCC29, SCC30 and
-  // SCC31 shared its blocker and are still tracked as SCD89; SCC32 came over
-  // early only because `scb11_symbol_literal_test.dart` pinned its own widened
-  // assertion to the same commit.)
+  // SCC31 is ported MINUS its F-SCC31-17/18 source-scan group, as its own
+  // entry instructed; the omission is now a `_divergentBaseline` entry.
   'stdlib/cast_from_family_test.dart': 6,
   'stdlib/convert/json_named_constructors_test.dart': 13,
   'stdlib/core/error_validation_helpers_test.dart': 18,
@@ -759,6 +729,14 @@ const Set<String> _divergentBaseline = {
   // pass against the working tree. Un-skip the four and delete this entry in
   // the commit that raises exec's floor past 0.40.0; tracked as SCD120.
   'scb14_await_receiver_position_test.dart',
+  // The same deliberate subtraction as `scc32_bridged_value_key_test.dart`
+  // on the next line. Ported by SCC43 minus the twin's F-SCC31-17/18, which
+  // scan every mirrored tree's sources for the guard rather than running a
+  // script. A second copy would read the same files and reach the same
+  // verdict, so a dropped guard would turn two suites red for one cause and
+  // the extra red would say nothing the first did not. Permanent, not a
+  // shortfall.
+  'scc31_undefined_name_uncatchable_test.dart',
   'scc32_bridged_value_key_test.dart',
   // A deliberate PARTIAL port, and the only kind of divergence in this set that
   // is a subtraction rather than a rewrite. The reference file's F-SCC33-5
@@ -820,6 +798,118 @@ const Set<String> _divergentBaseline = {
 /// runtime. A reference test importing `package:tom_d4rt/src/<x>.dart` therefore
 /// ports to `package:tom_d4rt_ast/src/runtime/<x>.dart`, and a new such import
 /// needs a pair here rather than an exemption anywhere else.
+/// The `tom_d4rt_ast` version each publish-blocked baseline entry is waiting to
+/// see passed, keyed by the entry's path in [_uncoveredBaseline] or
+/// [_divergentBaseline].
+///
+/// WHY A MACHINE-READABLE REGISTER AND NOT JUST THE PROSE. Every entry in both
+/// baselines already explains itself, and the publish-blocked ones already
+/// stated their flip condition precisely — "delete this entry in the commit
+/// that raises exec's `tom_d4rt_ast` floor past 0.36.0". Three of them then sat
+/// unported while the floor went to 0.40.0, because a condition written in a
+/// comment is evaluated only by whoever happens to reread the comment, and the
+/// natural moment to reread it — the publish — is the one moment nobody is
+/// looking at this file. The entries were not wrong and nobody was careless;
+/// the obligation was simply invisible at the time it came due.
+///
+/// So the flip condition moves out of the prose and into a value the suite can
+/// evaluate. [F-SCC43-1] reads exec's own `pubspec.yaml`, compares its
+/// `tom_d4rt_ast` floor against every version recorded here, and fails with the
+/// list of entries whose publish has landed. Raising the floor therefore
+/// *produces the re-port checklist* instead of relying on someone to reconstruct
+/// it, and the checklist arrives in the same commit that makes the work possible.
+///
+/// TO ADD AN ENTRY: whenever you write a baseline comment saying an entry is
+/// blocked on an interpreter publish, record the version here too. The guard
+/// enforces that pairing in both directions — a key that no longer names a live
+/// baseline entry fails as a stale register, and a baseline comment naming a
+/// floor without a key here fails as an unregistered obligation. Neither half
+/// is optional, because a register that is allowed to drift from the prose is
+/// back to being prose.
+const Map<String, String> _pinnedInterpreterFloors = {
+  // SCC40 made the await-resumption slot per-await-site. The reference tree
+  // runs F-SCB14-9/-10/-11/-12 green; this copy skips exactly those four.
+  // Tracked as SCD120.
+  'scb14_await_receiver_position_test.dart': '0.40.0',
+  // The working-tree interpreter coerces a typed-data list where the published
+  // one does not, so the twin's 45 extra cases need the publish. Measured
+  // 2026-09-04: copying the twin verbatim today gives 66 pass / 45 fail.
+  'stdlib/typed_data/typed_list_inherited_members_test.dart': '0.40.0',
+  // The working-tree Queue bridge gained `remove` / `removeWhere` /
+  // `retainWhere` and the static `castFrom`; ListQueue reaches two of them
+  // through its `-> Queue` edge.
+  'stdlib/collection/queue_test.dart': '0.40.0',
+  'stdlib/collection/list_queue_test.dart': '0.40.0',
+  // Gained `firstKeyAfter` / `lastKeyBefore`, and its `I-COLL-78` still pins
+  // the invented empty-map guard the working tree removed.
+  'stdlib/collection/splay_tree_map_test.dart': '0.40.0',
+  // The working-tree interpreter implements `bool`'s `& | ^` and `&= |= ^=`;
+  // the published one still throws `Unsupported binary operator`.
+  'operator_improvements_test.dart': '0.40.0',
+};
+
+/// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
+///
+/// Read from the file rather than hard-coded, because the whole point is to
+/// notice the moment somebody edits that line — a copy here would have to be
+/// updated by the same person, at the same moment, and would then be checking
+/// their memory against itself.
+String _execAstFloor() {
+  final pubspec = File('pubspec.yaml').readAsStringSync();
+  final match = RegExp(
+    r'''tom_d4rt_ast:\s*["']?>=\s*(\d+\.\d+\.\d+)''',
+  ).firstMatch(pubspec);
+  if (match == null) {
+    fail(
+      'Could not read the tom_d4rt_ast floor from pubspec.yaml. The register '
+      'below is evaluated against it, so an unreadable constraint silently '
+      'disarms every pinned entry — hence a hard failure rather than a skip.',
+    );
+  }
+  return match.group(1)!;
+}
+
+/// Whether [a] is strictly greater than [b], both `x.y.z`.
+bool _versionExceeds(String a, String b) {
+  final left = a.split('.').map(int.parse).toList();
+  final right = b.split('.').map(int.parse).toList();
+  for (var i = 0; i < 3; i++) {
+    if (left[i] != right[i]) return left[i] > right[i];
+  }
+  return false;
+}
+
+/// Baseline entries in this file whose comment declares an interpreter floor,
+/// as `<entry path> -> <version>`.
+///
+/// Attribution is by the comment run immediately above an entry line, which is
+/// exactly how both baselines are written. This exists so the prose and
+/// [_pinnedInterpreterFloors] cannot disagree.
+Map<String, String> _floorsDeclaredInComments() {
+  final lines = File('test/conformance_drift_test.dart').readAsLinesSync();
+  final floorPattern = RegExp(r'floor past (\d+\.\d+\.\d+)');
+  final entryPattern = RegExp(r"^\s*'([^']+)'\s*(?::\s*\d+)?,\s*$");
+  final declared = <String, String>{};
+  var pending = <String>[];
+  for (final line in lines) {
+    final trimmed = line.trimLeft();
+    if (trimmed.startsWith('//')) {
+      pending.add(trimmed);
+      continue;
+    }
+    if (entryPattern.firstMatch(line) case final m?) {
+      for (final comment in pending) {
+        if (floorPattern.firstMatch(comment) case final f?) {
+          declared[m.group(1)!] = f.group(1)!;
+          break;
+        }
+      }
+    }
+    pending = <String>[];
+  }
+  return declared;
+}
+
 /// A `KNOWN-GAP(<todo-id>):` or `WONT-FIX:` marker, as written in the comment
 /// directly above a test case that PINS broken behaviour.
 ///
@@ -1111,6 +1201,80 @@ void main() {
             'to be deleted by hand when the gap closes, so a missing copy '
             'means the fix lands green here and red there — or the reverse. '
             'Mirror it.\n${mismatched.join('\n')}',
+      );
+    });
+  }, skip: skipReason);
+
+  group('SCC43: publish-blocked entries flip when the publish lands', () {
+    test('F-SCC43-1: no pinned entry is waiting on a publish that already '
+        'happened [2026-09-05] (PASS)', () {
+      final floor = _execAstFloor();
+
+      // Part one — no stale keys. An entry that has already been re-ported
+      // leaves the baselines but not necessarily this register, and a register
+      // holding paths that no longer exist reads as unfinished work that isn't.
+      final live = {..._uncoveredBaseline.keys, ..._divergentBaseline};
+      final stale = _pinnedInterpreterFloors.keys
+          .where((path) => !live.contains(path))
+          .toList();
+      expect(
+        stale,
+        isEmpty,
+        reason:
+            'These paths are registered as waiting on an interpreter publish '
+            'but are no longer in either baseline, so the wait is over and the '
+            'register was not updated with the port. Delete '
+            'them from _pinnedInterpreterFloors:\n${stale.join('\n')}',
+      );
+
+      // Part two — the register agrees with the prose. The observed failure
+      // mode was an entry whose flip condition lived only in a comment; this
+      // makes writing the comment insufficient on its own.
+      final unregistered = <String>[];
+      _floorsDeclaredInComments().forEach((path, version) {
+        if (!live.contains(path)) return;
+        final registered = _pinnedInterpreterFloors[path];
+        if (registered == null) {
+          unregistered.add('$path: comment says $version, not registered');
+        } else if (registered != version) {
+          unregistered.add(
+            '$path: comment says $version, register says $registered',
+          );
+        }
+      });
+      expect(
+        unregistered,
+        isEmpty,
+        reason:
+            'A baseline comment names an interpreter floor that '
+            '_pinnedInterpreterFloors does not carry, or carries differently. '
+            'A flip condition that exists only in prose is checked only when '
+            'somebody rereads the prose, which is how scc29/scc30/scc31 stayed '
+            'unported through four publishes. Record it in both '
+            'places:\n${unregistered.join('\n')}',
+      );
+
+      // Part three — the point of the whole register. Everything whose publish
+      // has landed is now due, and the failure message IS the checklist.
+      final due = <String>[];
+      _pinnedInterpreterFloors.forEach((path, waitingOn) {
+        if (_versionExceeds(floor, waitingOn)) {
+          due.add('$path — waited on a publish past $waitingOn');
+        }
+      });
+      expect(
+        due,
+        isEmpty,
+        reason:
+            "exec's tom_d4rt_ast floor is now $floor, which passes the version "
+            'these entries were waiting for. The interpreter behaviour they '
+            'were pinned to is published, so each one can be re-ported now: '
+            'copy the twin from ../tom_d4rt/test over the exec copy, rewrite '
+            'the interpreter import, run it, and delete both the baseline '
+            'entry and its line in _pinnedInterpreterFloors. If one of them '
+            'turns out still to fail, that is a real finding and needs a fresh '
+            'entry saying so — do not re-pin it to the next version without '
+            'measuring.\n${due.join('\n')}',
       );
     });
   }, skip: skipReason);
