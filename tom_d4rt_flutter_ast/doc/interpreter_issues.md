@@ -3555,10 +3555,12 @@ honour explicit type arguments correctly.
 
 ---
 
-### [ ] Open (GEN-124) — native enum value resolves to a prefix-matching `BridgedClass`, corrupting applied-generic return checks
+### [X] Fixed (GEN-124) — native enum value resolves to a prefix-matching `BridgedClass`, corrupting applied-generic return checks
 
 **Found:** 2026-08-12, run `20260812-0718-issue-analysis` (rev `a1775660a`),
 in **both** twins simultaneously.
+**Fixed:** 2026-09-06 in `tom_d4rt` 1.53.0 / `tom_d4rt_ast` 0.42.0, under
+scc46. Resolution and the escalation story are at the end of this entry.
 
 **Symptom**
 
@@ -3643,6 +3645,152 @@ Note its `_membersOf` already carries a hand-written workaround comment for a
 **Verifying the fix.** `frameworkErrors` must go to 0 for that script (today
 it is 8). Because the test passes either way, `+N` counts will not move —
 grep the log for `⚠️  FRAMEWORK ERROR` instead.
+
+**Resolution** (2026-09-06, `tom_d4rt` 1.53.0 / `tom_d4rt_ast` 0.42.0,
+commit `5ed844401`)
+
+The prescribed fix landed verbatim — the four-line `value is Enum` branch
+above, inserted in `getRuntimeType` immediately after the `BridgedEnumValue`
+branch, mirrored in both lines. Regression tests:
+`scc46_native_enum_runtime_type_test.dart` in each twin's `test/`.
+
+The stated criterion was met exactly: `frameworkErrors` for
+`widgets/widget_inspector_service_extensions_test.dart` went **8 → 0**.
+
+**The secondary hardening was deliberately not done.** PASS B still uses
+`firstWhereOrNull` with no longest-prefix preference. Ordering the
+candidates would make the wrong answer *more plausible*, not correct —
+`WidgetInspectorServiceExtensions` has no right answer among `BridgedClass`
+entries at all, because it is an enum. Making PASS B tidier is worth doing
+only as part of GEN-115 Phase 3, which deletes the string heuristic
+outright; filed as **scd132** so it is not lost in this entry.
+
+**How a cosmetic bug became a 131-failure outage — read this part.**
+
+This entry sat open for 25 days rated as noise: eight framework errors in
+one script, that script still passing, no `+N` movement anywhere. The
+"Blast radius" sentence above stated the true scope correctly on day one
+(*any* bridged enum, *wherever* `getRuntimeType` is consulted) and was
+nevertheless filed under its visible symptom.
+
+Between `tom_d4rt_ast` 0.20.1 and 0.40.0, the declared-parameter type check
+in `callable.dart` (`_checkArgumentType`) began consulting the same already
+-wrong `getRuntimeType` result. Nothing about the defect changed; a second
+consumer simply started trusting it. The corpus went from all-green to
+**131 failures across all 41 files**, and the failures were
+indistinguishable from a fresh interpreter regression until the inventory
+showed all 131 shared one signature.
+
+Two things follow, and both are cheap:
+
+1. **A cluster's rating should come from its blast-radius sentence, not
+   from its failure count.** The count measures how many consumers happen
+   to read a wrong value today. It says nothing about the defect, and it
+   moves without warning when an unrelated change adds a reader.
+2. **A cluster carrying an exact, already-written fix should be applied,
+   not deferred.** The whole cost here was four lines that were sitting in
+   this document the entire time.
+
+Filed as **scd135** (re-triage the open clusters by blast radius rather
+than by observed failure count).
+
+---
+
+### [ ] Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`)
+
+**Found:** 2026-09-06, run `20260906-scc46-fixed`, in **both** twins. This is
+the entire remainder of the corpus after GEN-124 was fixed: **15 failures,
+one signature, nothing else.**
+
+**Symptom**
+
+Passing a script-declared closure to a parameter whose type is a Flutter
+function typedef throws:
+
+```
+type 'dynamic Function()'        is not a subtype of type 'VoidCallback?' of 'onPressed'
+type 'dynamic Function(dynamic)' is not a subtype of type 'ValueChanged'  of 'onChanged'
+type 'dynamic Function(double)'  is not a subtype of type 'ValueChanged'  of 'onChanged'
+```
+
+Distribution across the AST twin: `flutter_extended_05` ×1,
+`flutter_extended_07` ×1, `flutter_extended_22` ×9, `flutter_extended_23` ×4.
+Eleven of the fifteen are the `ValueChanged` line.
+
+**Root cause**
+
+A function typedef has no bridgeable class, so the module loader registers it
+as a `BridgedClass` carrying `Function` as its native type and the *typedef's*
+name:
+
+```dart
+BridgedClass(nativeType: Function, name: typedef.name)
+```
+
+`FunctionRuntimeType.isSubtypeOf` — the type an interpreted closure resolves
+to — ends with a check that identifies `Function` **by name**:
+
+```dart
+// Every function is a `Function` and an `Object`.
+return _isWildcardTypeName(other.name) || other.name == 'Function';
+```
+
+The bridged typedef's name is `VoidCallback`, so the test misses and the
+closure is declared not-a-function. The name is the one property of that
+bridge that is deliberately *not* `Function`.
+
+**Why now** — the same escalation as GEN-124, one layer over. The rule was
+always wrong; nothing consulted it for arguments until `_checkArgumentType`
+(`callable.dart:437`) started routing declared-parameter types through
+`isSubtypeOf`. Note `_checkArgumentType` already tries to stay out of the way
+of callbacks: it skips structural annotations (`int Function(String)`) and
+exempts a declared `Function` by name at line 421. A bridged typedef defeats
+both — it is a structural type wearing a nominal name.
+
+**Fix**
+
+Identify the bridge by its native type rather than by its spelling, at the
+end of `FunctionRuntimeType.isSubtypeOf`:
+
+```dart
+// A function typedef is bridged as `BridgedClass(nativeType: Function, …)`,
+// so its name is the typedef's — `VoidCallback` — not `Function`. Match on
+// the native type, which is what actually identifies it.
+if (other is BridgedClass && other.nativeType == Function) return true;
+```
+
+This subsumes the existing name test (`dart:core`'s own `Function` bridge is
+registered with `nativeType: Function` too) and fixes the argument check, the
+return check and `is`/`as` in one place, because all three consult
+`isSubtypeOf`.
+
+**Deliberately arity-blind.** The rule accepts any callable for any typedef,
+exactly as the current `'Function'` branch does. A structural check would need
+the typedef's signature, which the bridge does not carry — `nativeType:
+Function` is all that survives generation. Making the bridge carry the
+signature is the real repair and is a generator change, not an interpreter
+one; filed separately as **scd137** rather than smuggled in here. Until then
+the posture stays the documented one at `callable.dart:381-384`: be permissive
+rather than reject working callbacks.
+
+**Mirror sites (fix must land in both)**
+
+| Symbol | `tom_d4rt` (`lib/src/`) | `tom_d4rt_ast` (`lib/src/runtime/`) |
+| ------ | ----------------------- | ----------------------------------- |
+| `FunctionRuntimeType.isSubtypeOf` | `runtime_interfaces.dart:124` | `runtime_interfaces.dart:124` |
+| typedef → `BridgedClass` registration | `module_loader.dart:541` | `ast_module_loader.dart:497` |
+| `_checkArgumentType` | `callable.dart` | `callable.dart:437` |
+
+**Representative script**
+
+`test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/end_drawer_button_test.dart:674`
+— `required VoidCallback? onPressed,` on a script-declared widget.
+
+**Verifying the fix.** The 15 failures above go to 0 and
+`flutter_extended_05`/`_07` return to `exit=0`, restoring them to their
+2026-06-24 numbers. Because the interpreter is resolved from pub.dev
+(DGUC6), this cannot be measured until `tom_d4rt`/`tom_d4rt_ast` are
+published — the twins' own suites are the primary gate.
 
 ---
 
