@@ -25,6 +25,8 @@
 // itself must stay identical in both trees — they share one stdlib bridge set,
 // so they share one set of deliberate absences.
 
+import 'exceptions.dart';
+
 /// Why a deliberately-unbridged SDK identifier is absent, keyed by the name a
 /// script actually writes.
 ///
@@ -102,3 +104,13 @@ String undefinedVariableMessage(String name) {
   return 'Undefined variable: $name '
       '(not bridged: $reason; see doc/d4rt_limitations.md)';
 }
+
+/// The error a genuine lookup miss on [name] raises.
+///
+/// SCC31: every site that reports an undefined name goes through here, so that
+/// the message and the type are produced together and cannot drift apart. The
+/// type is what makes the failure unreachable from an interpreted `catch` —
+/// see [UndefinedNameD4rtException] for why an undefined name must not be
+/// catchable by script code.
+UndefinedNameD4rtException undefinedNameError(String name) =>
+    UndefinedNameD4rtException(undefinedVariableMessage(name), name: name);

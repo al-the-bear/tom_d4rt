@@ -572,6 +572,23 @@ const Map<String, int> _uncoveredBaseline = {
   // the commit that raises exec's `tom_d4rt_ast` floor past 0.37.0; tracked
   // together with SCC29 as SCD89.
   'scc30_division_by_zero_test.dart': 21,
+  // BLOCKED ON THE SAME PUBLISH as the two entries above. SCC31 raises an
+  // undefined name as `UndefinedNameD4rtException` and has both catch-dispatch
+  // sites decline to match any clause against it, so a typo escapes to the host
+  // instead of being swallowed by a bare `catch (e)`. Every behavioural case
+  // there asserts that escape; exec's published `tom_d4rt_ast` 0.20.1 still
+  // swallows, so a verbatim port fails all of them and reads as a migration bug
+  // rather than a version gap. The type it names is not in the published API
+  // either, so the port does not even compile until the floor moves.
+  //
+  // The last two cases (F-SCC31-17/18) are source scans over both trees rather
+  // than script runs, and they belong to `tom_d4rt` only — the port should drop
+  // them instead of duplicating a whole-repo assertion in a third suite.
+  //
+  // Nothing else has to land first. Port this file and delete this entry in
+  // the commit that raises exec's `tom_d4rt_ast` floor past 0.38.0; tracked
+  // together with SCC29 and SCC30 as SCD89.
+  'scc31_undefined_name_uncatchable_test.dart': 18,
   'stdlib/cast_from_family_test.dart': 6,
   'stdlib/convert/json_named_constructors_test.dart': 13,
   'stdlib/core/error_validation_helpers_test.dart': 18,

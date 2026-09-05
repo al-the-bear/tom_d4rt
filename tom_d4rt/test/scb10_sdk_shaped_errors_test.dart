@@ -1,3 +1,4 @@
+import 'package:tom_d4rt/d4rt.dart';
 import 'package:test/test.dart';
 import 'interpreter_test.dart' show execute;
 
@@ -43,12 +44,17 @@ import 'interpreter_test.dart' show execute;
 ///
 /// **What deliberately did NOT change** — F-SCB10-16. Genuine interpreter
 /// failures (an undefined name, a malformed AST) have no SDK counterpart and
-/// keep raising `RuntimeD4rtException`. Note this is *not* because such
-/// failures are uncatchable from script: a bare `catch (e)` in interpreted code
-/// already catches `RuntimeD4rtException` today, contradicting SCB10's note.
-/// The reason is narrower and still holds — inventing an SDK type for
-/// "undefined variable" would claim a fidelity that does not exist, since real
-/// Dart rejects that program at compile time and never throws at all.
+/// keep raising a `RuntimeD4rtException` rather than borrowing an SDK type:
+/// inventing one for "undefined variable" would claim a fidelity that does not
+/// exist, since real Dart rejects that program at compile time and never throws
+/// at all.
+///
+/// SCC31 later drew the *consequence* of that same premise. If real Dart never
+/// runs such a program, then no interpreted handler should see the failure
+/// either — so an undefined name is now raised as `UndefinedNameD4rtException`
+/// and no `catch` clause in script code can claim it. F-SCB10-16 is the test
+/// that pins the boundary, and it asserts that escape; see
+/// `scc31_undefined_name_uncatchable_test.dart` for the full contract.
 void main() {
   group('SCB10: interpreter raises SDK-shaped errors', () {
     // ---------------------------------------------------------------- (a)
@@ -363,25 +369,36 @@ void main() {
     // ---------------------------------------------------------- scope guards
 
     test('F-SCB10-16: a genuine interpreter failure is NOT given an SDK type '
-        '[2026-07-28]', () {
+        '[2026-09-05]', () {
       // The boundary SCB10's notes drew. An undefined name has no SDK
       // counterpart — real Dart rejects the program at compile time rather
       // than throwing — so claiming NoSuchMethodError for it would be a
       // fidelity regression dressed as an improvement.
-      final result = execute('''
-        main() {
-          try {
-            return totallyUndefinedThing;
-          } on NoSuchMethodError catch (e) {
-            return 'wrongly-typed';
-          } on Error catch (e) {
-            return 'wrongly-typed-as-Error';
-          } catch (e) {
-            return 'still-generic';
+      //
+      // SCC31 took the same premise one step further. If real Dart never runs
+      // such a program, no interpreted handler should see the failure either;
+      // the clause list below is not merely *unmatched*, it is not consulted at
+      // all, and the error unwinds to the host. That is why this asserts a
+      // throw where it used to assert `'still-generic'` — the change is the
+      // point, not a relaxation of it. All three clauses are kept: an
+      // assertion that no clause claims the error needs clauses that would
+      // otherwise have claimed it.
+      expect(
+        () => execute('''
+          main() {
+            try {
+              return totallyUndefinedThing;
+            } on NoSuchMethodError catch (e) {
+              return 'wrongly-typed';
+            } on Error catch (e) {
+              return 'wrongly-typed-as-Error';
+            } catch (e) {
+              return 'still-generic';
+            }
           }
-        }
-      ''');
-      expect(result, 'still-generic');
+        '''),
+        throwsA(isA<UndefinedNameD4rtException>()),
+      );
     });
 
     test('F-SCB10-17: an error thrown by a NATIVE callee still arrives as '

@@ -3574,7 +3574,14 @@ class InterpretedFunction implements Callable {
       state.activeTryStatement = enclosingTry; // Marquer comme actif
 
       // 2. Find a matching SCatchClause (simplified: take the first one)
-      if (enclosingTry.catchClauses.isNotEmpty) {
+      //
+      // SCC31: except for an undefined name, which no clause may claim. The
+      // guard has to be here as well as in `visitTryStatement` — this path is
+      // the one an `async` function takes, and it does not type-match at all,
+      // so without it a typo inside an `async` body was swallowed even by a
+      // clause as specific as `on FormatException`.
+      if (enclosingTry.catchClauses.isNotEmpty &&
+          error is! UndefinedNameD4rtException) {
         matchingCatchClause = enclosingTry.catchClauses.first;
         Logger.debug(
           " [_handleAsyncError] Found matching SCatchClause (simplified: first one).",

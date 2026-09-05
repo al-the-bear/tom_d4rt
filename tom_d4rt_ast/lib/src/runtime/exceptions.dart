@@ -302,6 +302,41 @@ class UndefinedMemberD4rtException extends RuntimeD4rtException {
   UndefinedMemberD4rtException(super.message, {required this.memberName});
 }
 
+/// Thrown when a name a script reads resolves to no declaration at all.
+///
+/// **No interpreted `catch` clause may claim this.** In real Dart an undefined
+/// identifier is a compile-time error: the program never runs, so there is no
+/// frame in which a handler could execute. D4rt discovers the same defect later,
+/// during execution, and used to raise a plain [RuntimeD4rtException] — which a
+/// bare `catch (e)` in the script caught like any ordinary runtime condition.
+/// A typo therefore did not fail; it took whichever branch the handler wrote,
+/// and the script continued on a value the author never intended. That is the
+/// one error class where d4rt was *more* permissive than Dart in a way that
+/// hides bugs instead of surfacing them.
+///
+/// Both catch-dispatch sites — `visitTryStatement` and the async state
+/// machine's `_handleAsyncError` — check for this type and decline to match any
+/// clause, so the error unwinds past every handler to the host. `finally` blocks
+/// still run: the property wanted is "no *catch clause* can swallow it", not
+/// "no cleanup happens".
+///
+/// **A subtype of [RuntimeD4rtException], deliberately** — the same reasoning
+/// spelled out on [UndefinedMemberD4rtException]. `Environment.get` throws on
+/// every miss and is called *speculatively* all over the interpreter and the
+/// module loader, each such caller catching [RuntimeD4rtException] to try the
+/// next lookup strategy. A sibling type would have made all of those stop
+/// catching, turning ordinary resolution fallbacks into hard failures.
+///
+/// [name] carries what the message spells, so that code branching on this
+/// failure compares a field rather than parsing a diagnostic.
+class UndefinedNameD4rtException extends RuntimeD4rtException {
+  /// The identifier that resolved to nothing. Compared by equality, never
+  /// parsed.
+  final String name;
+
+  UndefinedNameD4rtException(super.message, {required this.name});
+}
+
 /// Re-wraps [e] under a new [message], keeping the "member absent" signal when
 /// [e] carries one.
 ///

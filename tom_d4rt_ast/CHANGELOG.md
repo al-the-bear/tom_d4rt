@@ -1,3 +1,59 @@
+## 0.38.0
+
+### Fixed — an undefined name can no longer be swallowed by script code (scc31)
+
+Reading a name that resolved to nothing raised a plain `RuntimeD4rtException`,
+and a bare `catch (e)` in the interpreted program caught it like any ordinary
+runtime condition. Real Dart never gets that far: an undefined identifier is a
+*compile-time* error, so the program does not run and there is no frame in which
+a handler could execute. D4rt was therefore more permissive than Dart in the one
+direction that hides bugs — a typo did not fail the script, it took whichever
+branch the handler wrote, and execution continued on a value the author never
+intended.
+
+**A type, not a resolver.** The complete fix is to resolve names before
+execution and reject the program, which is a project rather than a release; it
+is recorded as SCD95 and is still the target. What lands here is the half that
+removes the bug-swallowing: `undefinedNameError(name)` raises
+`UndefinedNameD4rtException`, and both catch-dispatch sites decline to match any
+clause against it, so the failure unwinds past every handler to the host.
+
+**Both dispatch sites, and the second one is the surprise.**
+`visitTryStatement` performs real `on T` matching, so a guard there is the
+obvious half. But an `async` body unwinds through `_handleAsyncError` in
+`callable.dart`, which takes `catchClauses.first` with *no type matching at
+all* — measured before the fix, an undefined name inside an `async` function was
+swallowed even by a clause as narrow as `on FormatException`. A guard in only
+the first site would have left the async path broken and looked correct.
+
+**`finally` still runs.** The guard empties the clause list rather than
+short-circuiting the block, so cleanup executes on the way out and the error
+still propagates. The property wanted is "no *catch clause* can claim it", not
+"no cleanup happens".
+
+**A subtype of `RuntimeD4rtException`, deliberately** — the same reasoning as
+`UndefinedMemberD4rtException` (SCC28). `Environment.get` throws on every miss
+and is called *speculatively* throughout the interpreter and the module loader,
+each caller catching `RuntimeD4rtException` to try the next lookup strategy. A
+sibling type would have stopped all of those from catching, turning ordinary
+resolution fallbacks into hard failures.
+
+Host code is unaffected: the change makes *interpreted* clauses skip and says
+nothing about catching around `execute()` / `eval()`, so the REPLs still report
+a typo at the prompt.
+
+The extension-resolution path also stops branching on
+`e.message.contains("Undefined variable: …")` and asks
+`e is UndefinedNameD4rtException && e.name == onTypeName` instead — the last
+variable-side instance of the message-as-branch-condition pattern SCC28 removed
+for members. Besides making a formatted diagnostic load-bearing, the old check
+fired whenever the type name merely *appeared* in an unrelated failure's
+message.
+
+F-SCB10-16 is rewritten rather than deleted: it is the only test pinning what
+happens to an undefined name, and it now asserts the escape it used to assert
+the swallowing of.
+
 ## 0.37.0
 
 ### Fixed — division by zero now produces the SDK's own outcome (scc30)

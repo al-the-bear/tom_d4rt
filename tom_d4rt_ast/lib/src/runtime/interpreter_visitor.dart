@@ -660,7 +660,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
 
       // This is the end of the search, the identifier is undefined.
-      throw RuntimeD4rtException(undefinedVariableMessage(name));
+      throw undefinedNameError(name);
     }
 
     // 'this' was found, now we try to access the member.
@@ -9110,13 +9110,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             operandValue = thisInstance.get(variableName); // Get from instance
             isInstanceField = true;
           } else {
-            throw RuntimeD4rtException(undefinedVariableMessage(variableName));
+            throw undefinedNameError(variableName);
           }
         } on LateInitializationError {
           // Plan H: surface unwrapped — matches native Dart behaviour.
           rethrow;
         } on RuntimeD4rtException {
-          throw RuntimeD4rtException(undefinedVariableMessage(variableName));
+          throw undefinedNameError(variableName);
         }
       }
       final bridgedInstance = toBridgedInstance(operandValue);
@@ -10887,7 +10887,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       Logger.debug(
         "[visitIdentifier] Failed to find '$identName' in env: ${environment.hashCode}",
       );
-      throw RuntimeD4rtException(undefinedVariableMessage(identName));
+      throw undefinedNameError(identName);
     }
     return value;
   }
@@ -10990,7 +10990,18 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         "[STryStatement] Looking for catch clauses for thrown value: ${stringify(originalThrownValue)} (type: ${thrownValueNativeView?.runtimeType})",
       );
 
-      for (final clause in node.catchClauses) {
+      // SCC31: an undefined name is a defect in the program text, not a runtime
+      // condition, so no clause may claim it — not `on Object`, not a bare
+      // `catch (e)`. Real Dart rejects such a program at compile time, where no
+      // handler exists to run; the nearest honest equivalent for an interpreter
+      // that has already started executing is an error that unwinds past every
+      // handler to the host. Skipping the loop rather than short-circuiting the
+      // whole block is deliberate: `caughtInternalException` stays non-null, so
+      // the finally block below still runs and the error still rethrows.
+      final isUnhandleable = originalThrownValue is UndefinedNameD4rtException;
+
+      for (final clause
+          in isUnhandleable ? const <SCatchClause>[] : node.catchClauses) {
         bool typeMatch = false;
         String? targetCatchTypeName;
 
@@ -13851,8 +13862,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         );
       }
     } on RuntimeD4rtException catch (e) {
-      // Check if the error is specifically "Undefined variable"which means the type wasn't found at all.
-      if (e.message.contains("Undefined variable: $onTypeName")) {
+      // SCC31: the type named in `on T` resolved to nothing at all, which is a
+      // question here rather than an answer — a core type may still be reachable
+      // as a bridge. Asked by type and by exact name: the old
+      // `e.message.contains(...)` made a formatted diagnostic load-bearing, and
+      // also took this branch when the name merely *appeared* in an unrelated
+      // failure's message.
+      if (e is UndefinedNameD4rtException && e.name == onTypeName) {
         // Special handling for core types that might not be explicitly defined if stdlib wasn't fully loaded?
         // Or maybe they are always NativeFunctions?
         BridgedClass? coreBridgedType = _getBridgedClassForNativeType(

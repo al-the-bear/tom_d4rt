@@ -1188,7 +1188,7 @@ class Environment {
   dynamic get(String name) {
     final value = lookup(name);
     if (identical(value, kNotFound)) {
-      throw RuntimeD4rtException(undefinedVariableMessage(name));
+      throw undefinedNameError(name);
     }
     return value;
   }
