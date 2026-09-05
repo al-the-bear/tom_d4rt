@@ -1,4 +1,4 @@
-## 0.41.0
+## 0.42.0
 
 ### Fixed — a native enum value resolves to its bridged enum, not to a bridged class whose name is a prefix of it (scc46)
 
@@ -14,8 +14,13 @@ dense with such pairs, and Flutter's is the worst case:
 | `TextDirection`       | `Text`                           |
 | `ThemeMode`           | `Theme`                          |
 | `BorderStyle`         | `Border`                         |
-| `PaintingStyle`       | `Paint`                          |
+| `WidgetState`         | `Widget`                         |
 | `CupertinoButtonSize` | `CupertinoButton`                |
+
+A single bridge captures as many enums as happen to extend its name: the
+`Text` bridge alone swallowed eleven, `Semantics` four, `Tab` three. Across
+the flutter-material corpus the defect accounted for 131 failures spanning 61
+distinct pairs — and for nothing else, which is how it was identified.
 
 The damage surfaced in `callable.dart`'s declared-parameter check, which
 rejected a perfectly correct call with `type 'Text' is not a subtype of type
@@ -26,6 +31,8 @@ This is a narrow fix at the caller, not a repair of PASS B. The prefix
 fallback still claims *unregistered* native types whose names collide with a
 bridge name; narrowing it is tracked separately, since doing so needs
 `nativeNames` declared on the bridges that currently rely on the loose match.
+
+## 0.41.0
 
 ### Fixed — every `await` in a statement resumes with its own value (scc40)
 

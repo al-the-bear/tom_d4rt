@@ -43,9 +43,7 @@ enum Alignment { start, end }
 
 Environment _envWithCollidingBridges() {
   final env = Environment();
-  env.defineBridge(
-    BridgedClass(nativeType: Text, name: 'Text'),
-  );
+  env.defineBridge(BridgedClass(nativeType: Text, name: 'Text'));
   env.defineBridgedEnum(
     BridgedEnumDefinition<TextDirection>(
       name: 'TextDirection',
@@ -98,18 +96,15 @@ void main() {
       expect(type, isA<BridgedEnum>());
     });
 
-    test(
-      'F-SCC46-3: the bridged class itself is unaffected — a Text instance '
-      'still resolves to Text',
-      () {
-        final env = _envWithCollidingBridges();
+    test('F-SCC46-3: the bridged class itself is unaffected — a Text instance '
+        'still resolves to Text', () {
+      final env = _envWithCollidingBridges();
 
-        final type = env.getRuntimeType(const Text('hello'));
+      final type = env.getRuntimeType(const Text('hello'));
 
-        expect(type, isNotNull);
-        expect(type!.name, 'Text');
-        expect(type, isA<BridgedClass>());
-      },
-    );
+      expect(type, isNotNull);
+      expect(type!.name, 'Text');
+      expect(type, isA<BridgedClass>());
+    });
   });
 }
