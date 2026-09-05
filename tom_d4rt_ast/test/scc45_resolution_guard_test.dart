@@ -88,24 +88,19 @@ const _ownedPrefix = 'tom_';
 /// carried no reason anyone could check. Every entry here names the todo that
 /// will delete it; if you add one and cannot name that todo, file it first.
 ///
-/// These three are the flutter-corpus twins (each including the companion app
-/// nested under its `test/`). They are frozen deliberately, not by neglect:
-/// SCC46 owns "run the full corpus and record the resolved tom_d4rt /
-/// tom_d4rt_ast versions alongside the results". Unfreezing them now and
-/// running the corpus days later recreates the exact defect SCC46 was filed
-/// about — a baseline that does not describe the interpreter it measured. The
-/// upgrade has to happen inside SCC46, immediately before its run, in the same
-/// session, and these entries are deleted when it closes.
+/// The list is currently EMPTY, and that is the intended resting state. It held
+/// three entries once — the flutter-corpus twins, frozen deliberately so their
+/// upgrade would happen inside SCC46 immediately before its corpus run rather
+/// than days earlier, which would have recreated the very defect SCC46 was
+/// filed about. SCC46 ran, and F-SCC45-3 named all three the moment they
+/// stopped being frozen. That is the mechanism working; an empty map is the
+/// receipt.
 ///
-/// `tom_d4rt_flutter_ast_test` is deliberately NOT here. It looks like it
-/// belongs — it is the fourth flutter package and it was frozen an hour ago —
-/// but SCC45 unfroze it and its suite is green, so an entry would exempt a
-/// package that has nothing to exempt. That is how an exception list rots.
-const Map<String, String> _frozenLockExceptions = {
-  'tom_d4rt_flutter': 'SCC46 — unfreeze immediately before its corpus run',
-  'tom_d4rt_flutter_ast': 'SCC46 — unfreeze immediately before its corpus run',
-  'tom_d4rt_flutter_test': 'SCC46 — unfreeze immediately before its corpus run',
-};
+/// Keep the map rather than deleting it. An exemption is occasionally the right
+/// answer for a lock whose unfreeze is genuinely owned by scheduled work, and
+/// re-deriving the shape under time pressure is how one gets added without an
+/// owner.
+const Map<String, String> _frozenLockExceptions = <String, String>{};
 
 /// A single dependency as recorded in a `pubspec.lock`.
 class _Resolution {
