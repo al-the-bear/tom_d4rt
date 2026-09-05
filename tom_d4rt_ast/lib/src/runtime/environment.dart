@@ -1626,6 +1626,20 @@ class Environment {
     if (value is BridgedEnumValue) {
       return value.enumType;
     }
+    // SCC46: the same for a value that reaches us UNWRAPPED — a native `Enum`
+    // straight off a bridge return or a call argument. Without this branch it
+    // falls through to `toBridgedClass` below, whose PASS B fuzzy fallback
+    // claims any bridge whose name is a >=3-char prefix of the native type
+    // name. Flutter's registry is dense with such pairs, so `TextDirection`
+    // resolved to the `Text` widget bridge, `ThemeMode` to `Theme`,
+    // `BorderStyle` to `Border`, `CupertinoButtonSize` to `CupertinoButton`.
+    // The declared-parameter check then rejected correct arguments with
+    // `type 'Text' is not a subtype of type 'TextDirection'`.
+    // Mirror of tom_d4rt/lib/src/environment.dart.
+    if (value is Enum) {
+      final bridgedEnum = findBridgedEnumForValue(value);
+      if (bridgedEnum != null) return bridgedEnum;
+    }
     // DFUB5: a tear-off / closure carries a structural function type so that
     // `is FunctionType` checks and function return-type validation compare real
     // parameter/return shapes instead of collapsing to plain `Function`.
