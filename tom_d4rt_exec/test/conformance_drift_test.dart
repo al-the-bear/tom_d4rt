@@ -286,73 +286,27 @@ const Map<String, _Coverage> _coveredElsewhere = {
     refCases: 3,
     twinCases: 3,
   ),
-  'scb10_sdk_shaped_errors_test.dart': _Coverage(
-    'ast:runtime/scb10_sdk_shaped_errors_test.dart',
-    _astTwin,
-    refCases: 18,
-    twinCases: 4,
-  ),
-  // The deficit is 6, and it is not a shortfall to close by porting. The
-  // reference file's primary guard (F-SCC28-1) is a SOURCE SCAN that reads both
-  // mirrored visitors from one process, so a second copy of it here would assert
-  // the identical thing about the identical two files — a duplicate failure, not
-  // a second measurement. Its six behavioural cases run scripts, which is the
-  // half exec could add value to, but they cannot run yet: they exercise
-  // `UndefinedMemberD4rtException`, absent from the published tom_d4rt_ast
-  // 0.20.1 this package resolves (working tree: 0.35.0), so a verbatim port does
-  // not compile. Measured, not predicted — the type is not in the pub-cache copy.
-  // The ast twin pins the half the scan cannot see: that the signal survives
-  // being re-wrapped. Revisit on the next publish (SCD88).
+  // The deficit is 6, and HALF of it is not a shortfall to close by porting.
+  // The reference file's primary guard (F-SCC28-1) is a SOURCE SCAN that reads
+  // both mirrored visitors from one process, so a second copy of it here would
+  // assert the identical thing about the identical two files — a duplicate
+  // failure, not a second measurement. That half stays where it is.
+  //
+  // The other half — six behavioural cases that run scripts — was blocked on a
+  // publish, and THAT BLOCK IS GONE. It was recorded here as `UndefinedMember`
+  // `D4rtException` being absent from the resolved tom_d4rt_ast, measured at
+  // 0.20.1. Re-measured 2026-09-05: this package resolves 0.40.0, whose
+  // `lib/src/runtime/exceptions.dart:298` declares the class, and that copy is
+  // byte-identical to the working tree. So a verbatim port now compiles and the
+  // six cases are portable. SCD88 already owns that port and its trigger — "the
+  // next ast publish" — has now fired. Until it lands the ast twin pins the half
+  // the scan cannot see, that the signal survives being re-wrapped, and this
+  // entry records a real, closable gap rather than a structural one.
   'scc28_typed_undefined_member_test.dart': _Coverage(
     'ast:runtime/scc28_typed_undefined_member_test.dart',
     _astTwin,
     refCases: 9,
     twinCases: 3,
-  ),
-  // SCC33's dispatch backstop: an unhandled node raises a named diagnostic
-  // instead of evaluating to `null`. Recorded against the ast twin rather than
-  // ported, and the reason is structural for one half and a publish for the
-  // other.
-  //
-  // The reference file's F-SCC33-5 hands an analyzer `ArgumentList` to
-  // `visitNode`. That is not a port target but a DIFFERENT CALL: this line's
-  // visitor takes an `SAstNode`, so there is no rewriting of imports that turns
-  // one into the other. The ast twin asserts the same contract natively, and
-  // more precisely — F-SCC33-AST-1 pins type and offset, F-SCC33-AST-2 pins
-  // that two unhandled types produce two DIFFERENT messages, which is the
-  // property that keeps the diagnostic pointing at the construct rather than at
-  // a later victim.
-  //
-  // The behavioural half was ported and MEASURED before this entry was written
-  // (DGUC6), then removed again. Against the published 0.20.1 this package
-  // resolves the split is 4 PASS / 1 FAIL, and the shape of it is the finding:
-  //
-  //   F-SCC33-1 PASS  `super(a: 7)`, the non-forwarding form
-  //   F-SCC33-2 PASS  `super(a: a)`, the forwarding form
-  //   F-SCC33-3 FAIL  `A() : this.named(a: 5)` -> Expected <5>, Actual <null>
-  //   F-SCC33-4 PASS  a named argument is evaluated exactly once
-  //   F-SCC33-6 PASS  legal code does not trip the backstop
-  //
-  // Read that against the reference tree, where the SAME file failed 4 of 6
-  // before the fix. The defect was genuinely NARROWER on the analyzer-free
-  // line, and the asymmetry explains why: the analyzer's `visitNode` recurses
-  // into children, so tom_d4rt walked into the label and resolved it as a
-  // variable — breaking every `super(...)` form loudly. This line's `visitNode`
-  // does not recurse; it answered `null`, so only the ONE site that dispatches
-  // a `NamedExpression` rather than unwrapping it field-wise was wrong. That
-  // site is the redirecting-constructor initializer in `callable.dart`, and
-  // F-SCC33-3 is the only case that names it.
-  //
-  // So the four passing cases are not filler — they are the control that proves
-  // the harness works here and that the single failure is the version gap
-  // rather than a broken port. Port the behavioural cases and delete this entry
-  // in the commit that raises exec's `tom_d4rt_ast` floor past 0.39.0; drop
-  // F-SCC33-5, which stays a single native copy on the ast side.
-  'scc33_unhandled_node_test.dart': _Coverage(
-    'ast:runtime/scc33_unhandled_node_test.dart',
-    _astTwin,
-    refCases: 6,
-    twinCases: 4,
   ),
   'stdlib/bridge_arity_test.dart': _Coverage(
     'ast:runtime/bridge_arity_test.dart',
@@ -433,6 +387,23 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// Their flip condition is the same one the [_divergentBaseline] header names:
 /// the next `tom_d4rt_ast` publish. Port all three and delete these entries in
 /// that same commit.
+///
+/// **THAT FLIP CONDITION HAS FIRED, AND MOST ENTRIES BELOW HAVE NOT BEEN
+/// RE-MEASURED SINCE.** Several comments in this map state, as present tense,
+/// that "exec resolves `tom_d4rt_ast` 0.20.1". It does not: measured 2026-09-05,
+/// this package resolves 0.40.0, and that copy is byte-identical to the working
+/// tree. Every split those comments record — SCC25's 4 PASS / 3 FAIL, SCC27's
+/// 2 PASS / 6 FAIL, and the "does not compile" claims for SCC28/29/30/31 — was
+/// taken against 0.20.1 and describes an interpreter nobody now runs. Two have
+/// already been re-measured and moved out: `scc28`'s blocker is gone (SCD88 owns
+/// the port) and `scc33`'s cases now pass 5/5, so its entry became a
+/// `_divergentBaseline` line instead.
+///
+/// Read every remaining "0.20.1" and every "blocked on a publish" below as a
+/// question to re-ask, not as a fact. The [_divergentBaseline] header already
+/// records the lesson from the last time this happened: the flip made the
+/// entries REVIEWABLE, not automatically stale — five converged and the rest did
+/// not, each for its own reason. Re-measuring the set is SCD107.
 const Map<String, int> _uncoveredBaseline = {
   // NOT PORTABLE — a throughput probe, not a conformance assertion. Its single
   // case measures how long a Conway generation takes; run on two interpreters
@@ -780,6 +751,14 @@ const Set<String> _divergentBaseline = {
   'open_issues/b9_static_field_sibling_write_test.dart',
   'operator_improvements_test.dart',
   'scc32_bridged_value_key_test.dart',
+  // A deliberate PARTIAL port, and the only kind of divergence in this set that
+  // is a subtraction rather than a rewrite. The reference file's F-SCC33-5
+  // hands an analyzer `ArgumentList` to `visitNode`; this line's visitor takes
+  // an `SAstNode`, so no import rewrite turns one call into the other and the
+  // case is omitted here. It is not lost — `tom_d4rt_ast` pins the same
+  // contract natively (F-SCC33-AST-1/2), against its own node type, which is
+  // the only place it can be pinned. The five behavioural cases are verbatim.
+  'scc33_unhandled_node_test.dart',
   'stdlib/collection/list_queue_test.dart',
   'stdlib/collection/queue_test.dart',
   'stdlib/collection/splay_tree_map_test.dart',
