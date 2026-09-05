@@ -125,5 +125,5 @@ The files are generated from the legacy tier corpus by `ztmp/split_tests.py`
 underlying tier sources change.
 
 Other `*_test.dart` files in this folder (e.g. `interpreter_generator_open_issues_test.dart`,
-`suspicious_rewrite_tests.dart`) are standalone suites with their own purpose and
+`suspicious_rewrite_test.dart`) are standalone suites with their own purpose and
 are **not** part of the base/extended corpus run.

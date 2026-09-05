@@ -20,6 +20,8 @@
 ///   expect(result.widgetType, contains('Container'));
 /// });
 /// ```
+// intentionally-not-discovered: the harness the suites in this folder
+// import. Its one declaration is a helper they call, not a suite.
 @TestOn('vm')
 library;
 

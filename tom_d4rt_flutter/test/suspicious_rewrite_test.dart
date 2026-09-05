@@ -1,4 +1,4 @@
-/// Source-based mirror of `suspicious_rewrite_tests.dart`
+/// Source-based mirror of `suspicious_rewrite_test.dart`
 /// from `tom_d4rt_flutter_ast/test/`. Runs the same 116
 /// suspicious scripts through `SourceFlutterD4rt` on port
 /// 4248 instead of the pre-compiled AstBundle path.
@@ -16,7 +16,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
 
-const String _kTestFileName = 'suspicious_rewrite_tests.dart';
+const String _kTestFileName = 'suspicious_rewrite_test.dart';
 
 void main() {
   setUpAll(() async {
