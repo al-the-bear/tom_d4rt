@@ -18,14 +18,14 @@
 #
 # Id defaults to <yyyyMMdd-HHmm>-base. Pass the SAME -Id to the sibling
 # project's script so both projects' logs land in an identically named
-# doc/basetestlog_<Id>/ folder. NEVER run this script for two projects at once
+# testlog/basetestlog_<Id>/ folder. NEVER run this script for two projects at once
 # — even though the AST app and the source-direct app bind different ports, the
 # host gets overloaded and the shared-resource contention corrupts results.
 #
 # Output (per test file <base>):
-#   doc/basetestlog_<Id>/<base>.result.json  machine-readable (--file-reporter json)
-#   doc/basetestlog_<Id>/<base>.log.txt        full stdout incl. framework errors
-#   doc/basetestlog_<Id>/metrics.txt           per-file exit code + pass/skip/fail summary
+#   testlog/basetestlog_<Id>/<base>.result.json  machine-readable (--file-reporter json)
+#   testlog/basetestlog_<Id>/<base>.log.txt        full stdout incl. framework errors
+#   testlog/basetestlog_<Id>/metrics.txt           per-file exit code + pass/skip/fail summary
 #
 # A failing test file must not abort the rest, so errors are non-terminating.
 param(
@@ -36,7 +36,7 @@ $ErrorActionPreference = 'Continue'
 $scriptDir = $PSScriptRoot
 Set-Location (Join-Path $PSScriptRoot '..')
 $project = Split-Path -Leaf (Get-Location)
-$out = "doc/basetestlog_$Id"
+$out = "testlog/basetestlog_$Id"
 New-Item -ItemType Directory -Force -Path $out | Out-Null
 
 # Idle-output watchdog: kill a test file that produces NO output for this many

@@ -16,12 +16,12 @@
 #
 # ID defaults to <YYYYMMDD-HHMM>-issue-analysis. Pass the SAME ID the sibling
 # project used so both projects' logs land in an identically named
-# doc/testlog_<ID>/ folder.
+# testlog/testlog_<ID>/ folder.
 #
 # Output (per test file <base>):
-#   doc/testlog_<ID>/<base>.result.json  machine-readable (--file-reporter json)
-#   doc/testlog_<ID>/<base>.log.txt       full stdout incl. framework/overflow errors
-#   doc/testlog_<ID>/metrics.txt          per-file exit code + pass/skip/fail summary
+#   testlog/testlog_<ID>/<base>.result.json  machine-readable (--file-reporter json)
+#   testlog/testlog_<ID>/<base>.log.txt       full stdout incl. framework/overflow errors
+#   testlog/testlog_<ID>/metrics.txt          per-file exit code + pass/skip/fail summary
 #
 # NOTE: no `set -e` — a failing file must not abort the rest.
 set -uo pipefail
@@ -36,7 +36,7 @@ PROJECT="$(basename "$PWD")"
 IDLE_TIMEOUT="${IDLE_TIMEOUT:-70}"
 
 ID="${1:-$(date +%Y%m%d-%H%M)-issue-analysis}"
-OUT="doc/testlog_${ID}"
+OUT="testlog/testlog_${ID}"
 mkdir -p "$OUT"
 
 # Per-FILE wall-clock backstop (coreutils timeout/gtimeout if present).

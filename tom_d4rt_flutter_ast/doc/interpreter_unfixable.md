@@ -53,10 +53,12 @@ alongside hundreds of megabytes of machine-generated run logs.
 Those folders are **pruned once the pass they belong to is
 superseded** — commit `11a596ab3` deleted the tracked ones and
 commit `887403ce3` moved machine-generated test output to a
-gitignored `testlog/` tree next to `doc/`. Only the *current*
-pass's analysis is kept in `doc/`. A pass analysis is therefore a
-working document with a lifetime of one pass, and a permanent
-document may not depend on one surviving.
+gitignored `testlog/` tree next to `doc/`. That migration is now
+complete: every runner writes under `testlog/`, so a pass analysis
+lives beside the results it describes and is never committed at
+all. A pass analysis is therefore a working document with a
+lifetime of one pass, and a permanent document may not depend on
+one surviving.
 
 So this file names a past pass **by its date and subject**, never
 by a path into a pruned folder.

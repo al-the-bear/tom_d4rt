@@ -3853,14 +3853,14 @@ To regenerate the clusters after a fix:
 ```bash
 cd tom_d4rt_flutter_ast
 flutter test test/generator_interpreter_issues_test.dart \
-    --file-reporter "json:doc/testlog_<id>/generator_interpreter_issues_test.result.json"
+    --file-reporter "json:testlog/testlog_<id>/generator_interpreter_issues_test.result.json"
 
 jq -rs '
   (reduce .[] as $e ({};
     if $e.type == "testStart" then .[$e.test.id|tostring] = $e.test.name else . end
   )) as $names |
   .[] | select(.type=="error") | "\($names[(.testID|tostring)] // "?")|||\(.error|gsub("\n";" "))"
-' doc/testlog_<id>/generator_interpreter_issues_test.result.json
+' testlog/testlog_<id>/generator_interpreter_issues_test.result.json
 ```
 
 Then `awk -F'\\|\\|\\|'` on the patterns above to slice out scripts per

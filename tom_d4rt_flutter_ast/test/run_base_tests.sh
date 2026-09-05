@@ -18,14 +18,14 @@
 #
 # ID defaults to <YYYYMMDD-HHMM>-base. Pass the SAME ID to the sibling
 # project's script so both projects' logs land in an identically named
-# doc/basetestlog_<ID>/ folder. NEVER run this script for two projects at once
+# testlog/basetestlog_<ID>/ folder. NEVER run this script for two projects at once
 # — even though the AST app and the source-direct app bind different ports, the
 # host gets overloaded and the shared-resource contention corrupts results.
 #
 # Output (per test file <base>):
-#   doc/basetestlog_<ID>/<base>.result.json  machine-readable (--file-reporter json)
-#   doc/basetestlog_<ID>/<base>.log.txt        full stdout incl. framework errors
-#   doc/basetestlog_<ID>/metrics.txt           per-file exit code + pass/skip/fail summary
+#   testlog/basetestlog_<ID>/<base>.result.json  machine-readable (--file-reporter json)
+#   testlog/basetestlog_<ID>/<base>.log.txt        full stdout incl. framework errors
+#   testlog/basetestlog_<ID>/metrics.txt           per-file exit code + pass/skip/fail summary
 #
 # NOTE: this script does NOT use `set -e` — a failing test file must not abort
 # the remaining files; every file is always attempted.
@@ -45,7 +45,7 @@ PROJECT="$(basename "$PWD")"
 IDLE_TIMEOUT="${IDLE_TIMEOUT:-80}"
 
 ID="${1:-$(date +%Y%m%d-%H%M)-base}"
-OUT="doc/basetestlog_${ID}"
+OUT="testlog/basetestlog_${ID}"
 mkdir -p "$OUT"
 
 # Per-FILE wall-clock backstop so a wedged transport can't hang the whole run.

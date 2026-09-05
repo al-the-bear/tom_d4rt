@@ -31,13 +31,40 @@ regenerating split files needs no script edit.
 ./test/run_issue_analysis_tests.ps1 -Id 20260604-1035-issue-analysis
 ```
 
-Each run writes, per test file `<base>`, into `doc/testlog_<ID>/`:
+Each run writes, per test file `<base>`, into a folder under `testlog/`:
+
+| Runner | Output folder |
+| ------ | ------------- |
+| `run_base_tests.{sh,ps1}` | `testlog/basetestlog_<ID>/` |
+| `run_issue_analysis_tests.{sh,ps1}` | `testlog/testlog_<ID>/` |
 
 | File | Contents |
 | ---- | -------- |
 | `<base>.result.json` | Machine-readable results (`flutter test --file-reporter json`) — includes per-test timing **metrics**. |
 | `<base>.log.txt` | Full stdout, including Flutter framework output (overflow errors, assertion banners, transport errors) that does **not** necessarily fail a test. |
 | `metrics.txt` | One line per file: exit code + the `+passed ~skipped -failed` summary. |
+
+### Everything goes to `testlog/`, and `testlog/` is gitignored
+
+There is **no base-vs-sweep split**: all four runners, on both platforms, write
+under `testlog/`, which `.gitignore` ignores wholesale. Test artifacts are never
+versioned — a committed one is a photograph of one machine's build that nothing
+updates, so a later reader cannot tell it from a current one. `doc/` is
+hand-authored only; nothing a runner writes belongs there.
+
+**Do not "tidy" a runner back to `doc/`.** That is not hypothetical: the
+`doc/` → `testlog/` decision was made on 2026-06-24 and applied in `1a4250154`
+to the two `.sh` issue-analysis runners *only*. The two `.ps1` twins and both
+`run_base_tests` scripts were missed and kept writing to `doc/` — so the same
+command produced a gitignored folder on macOS/Linux and a **tracked** one on
+Windows, and a contributor following this README on Windows would find ~41
+result-JSON and log files staged for commit. It actually happened: the 90 files
+under `doc/testlog_20260624-0713-issue-analysis/` are still in git for exactly
+this reason.
+
+If you write an analysis document about a run (`error_analysis.md`), it goes in
+the run's `testlog/` folder with the results it describes — durable on disk,
+deliberately not committed.
 
 ## ⚠️ The tests must run strictly serially — never in parallel
 

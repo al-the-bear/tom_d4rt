@@ -114,8 +114,16 @@ reflectable.dart
 # The `doc/` folder itself is fully tracked (no test artifacts written there).
 **/testlog/
 
-# Baseline test-run capture folders under doc/ — regenerated on every test run,
-# so versioning them only churns the tree and produces reconcile conflicts.
+# LEGACY. No runner writes here any more — `run_base_tests.{sh,ps1}` now emit
+# `testlog/basetestlog_<ID>/`, covered by the rule above. This stanza only keeps
+# pre-existing folders on developer machines out of `git status`; drop it once no
+# machine still has one.
+#
+# It is kept as a warning, not just as a rule. Ignoring the output in place was
+# the wrong fix: the base runner predates the 2026-06-24 "logs go to testlog/,
+# not doc/" decision (1a4250154) and was simply never migrated, so this line
+# preserved the violation instead of ending it — and made the comment above it
+# false for every base run from 2026-06-05 until 2026-09-05.
 **/doc/basetestlog_*/
 
 # Generated bridge/example output (*.b.dart) under the d4 example trees —
