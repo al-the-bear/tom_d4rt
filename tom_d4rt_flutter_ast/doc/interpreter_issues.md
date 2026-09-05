@@ -3698,9 +3698,14 @@ than by observed failure count).
 
 ### [ ] Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`)
 
-**Found:** 2026-09-06, run `20260906-scc46-fixed`, in **both** twins. This is
-the entire remainder of the corpus after GEN-124 was fixed: **15 failures,
-one signature, nothing else.**
+**Found:** 2026-09-06, run `20260906-scc46-fixed`. Every corpus failure left
+after GEN-124 was fixed is this one signature.
+
+**Severity: 15 failures, ~276 framework errors across 109 scripts.** Read
+those two numbers together — the second is the defect's actual size and the
+first is only the part that happens to reach an assertion. Rating this by the
+failure count is the mistake GEN-124's post-mortem is about (see scd135), so
+the count is not the headline here.
 
 **Symptom**
 
@@ -3713,9 +3718,21 @@ type 'dynamic Function(dynamic)' is not a subtype of type 'ValueChanged'  of 'on
 type 'dynamic Function(double)'  is not a subtype of type 'ValueChanged'  of 'onChanged'
 ```
 
-Distribution across the AST twin: `flutter_extended_05` ×1,
+Failing files in the AST twin: `flutter_extended_05` ×1,
 `flutter_extended_07` ×1, `flutter_extended_22` ×9, `flutter_extended_23` ×4.
-Eleven of the fifteen are the `ValueChanged` line.
+
+The same rejection is raised and *captured* in 105 further scripts without
+failing them — the widget under test still builds, so the corpus reports
+`status=success` while the callback was silently refused. By raw count:
+
+| Signature | Count |
+| --------- | ----: |
+| `dynamic Function(double)` vs `ValueChanged` of `onChanged` | 144 |
+| `dynamic Function(dynamic)` vs `ValueChanged` of `onChanged` | 42 |
+| `dynamic Function(dynamic)` vs `ValueChanged` of `onElementCreated` | 24 |
+| `dynamic Function()` vs `VoidCallback` of `onTap` | 14 |
+| `dynamic Function()` vs `VoidCallback` of `onPressed` | 11 |
+| remainder (`onCycle`, `onEvent`, `onSelected`, nullable variants, …) | ~41 |
 
 **Root cause**
 
@@ -3786,11 +3803,75 @@ rather than reject working callbacks.
 `test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/material/end_drawer_button_test.dart:674`
 — `required VoidCallback? onPressed,` on a script-declared widget.
 
-**Verifying the fix.** The 15 failures above go to 0 and
-`flutter_extended_05`/`_07` return to `exit=0`, restoring them to their
-2026-06-24 numbers. Because the interpreter is resolved from pub.dev
-(DGUC6), this cannot be measured until `tom_d4rt`/`tom_d4rt_ast` are
-published — the twins' own suites are the primary gate.
+**Verifying the fix.** Both bands must move, and only one of them is visible
+in exit codes:
+
+- the 4 failing files return to `exit=0`, restoring the 2026-08-12 numbers;
+- corpus-wide `frameworkErrors` drops by ~276, from 295 to the ~19 that
+  belong to GEN-126 and the two known environmental classes.
+
+Grep `⚠️  FRAMEWORK ERROR` and sum `frameworkErrors=` across the `[METRIC]`
+lines; do not read the `+N` counts alone. Because the interpreter is resolved
+from pub.dev (DGUC6), none of this can be measured until
+`tom_d4rt`/`tom_d4rt_ast` are published — the twins' own suites are the
+primary gate.
+
+---
+
+### [ ] Open (GEN-126) — a bridged base class arrives where the script's own subclass is declared
+
+**Found:** 2026-09-06, run `20260906-scc46-fixed`, alongside GEN-125. **11
+framework errors, 0 failures** — recorded now precisely because a zero
+failure count is not evidence of harmlessness.
+
+**Symptom**
+
+A script declares a subclass of a bridged Flutter class and passes it into
+framework machinery that hands it back through native code. On the way back
+the interpreted identity is gone and only the bridged base remains:
+
+```
+type 'Intent'                             is not a subtype of type '_GreetIntent' of 'intent'
+type 'TwoDimensionalChildBuilderDelegate' is not a subtype of type '_TwoDMgrCountingDelegate' of 'delegate'
+type 'RenderTwoDimensionalViewport'       is not a subtype of type '_TwoDSSRenderViewport' of 'renderObject'
+type 'ThemeExtension'                     is not a subtype of type 'BrandColors' of 'brand'
+```
+
+Seven of the eleven are `Intent` subclasses (`_GreetIntent`, `_UndoIntent`,
+`ToggleIntent`, `PlainActionIntent`, `ThemeReadIntent`, `TreeClimbIntent`,
+`ShowInfoIntent`).
+
+**Root cause (hypothesis, not yet confirmed in code)**
+
+The canonical shape is `widgets/actions_test.dart:37-43`:
+
+```dart
+class _GreetIntent extends Intent { const _GreetIntent(); }
+class _GreetAction extends Action<_GreetIntent> {
+  Object? invoke(_GreetIntent intent) { … }
+}
+```
+
+`Actions.invoke` dispatches inside the Flutter framework, so the intent
+crosses the bridge boundary twice. What comes back to `invoke` is the native
+`Intent` the proxy wraps, not the `InterpretedInstance` that was handed in —
+so `getRuntimeType` answers `Intent`, and the bridged base is correctly *not*
+a subtype of the interpreted subclass.
+
+If that is right, the repair is at the unwrap/rewrap boundary — a value that
+entered as an `InterpretedInstance` must come back as one — and **not** in
+`_checkArgumentType`, which is answering correctly about a value that is
+genuinely the wrong thing by then. Confirm before fixing: an exemption here
+would hide a real identity loss that other code paths also see.
+
+**Distinguish from GEN-125.** Both surface through `_checkArgumentType` and
+both were invisible before it consulted declared parameter types, but the
+defects are unrelated: GEN-125 is a *modelling* gap (the type system cannot
+say what a typedef is), GEN-126 is an *identity* loss (the value itself
+changed). Fixing GEN-125 will not move these 11.
+
+**Verifying the fix.** These 11 framework errors go to 0. No `+N` count will
+move — the affected tests already pass.
 
 ---
 
