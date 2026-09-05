@@ -1,3 +1,46 @@
+## 0.40.0
+
+### Fixed — an unhandled AST node announces itself instead of answering null (scc33)
+
+`InterpreterVisitor` never overrode `visitNode`, so a node type with no handler
+fell through to `SAstVisitor`'s default and the expression evaluated to `null`.
+A gap in an *evaluating* visitor therefore produced a value rather than a
+failure, and the program carried that value until something several frames away
+could not take it.
+
+**The cost is the diagnosis, not the null.** `#foo` was silently `null` for the
+life of the project (fixed in 0.15.0 / SCB11), and the eventual error —
+`type 'Null' is not a subtype of type 'Symbol' in type cast` — was raised inside
+a *bridge*, which is the one place the defect was not. Every such gap accuses
+the wrong component.
+
+`visitNode` now raises a diagnostic naming the node's runtime type and source
+offset. The sequencing was deliberate and is the reason this is safe to ship:
+instrument the default to log rather than raise, run the suite, add handlers for
+everything that legitimately arrived, and only then flip to raising.
+
+**The mirror's symptom was narrower than the analyzer tree's, and quieter.**
+`GeneralizingAstVisitor.visitNode` *recurses* into the node's children;
+`SAstVisitor.visitNode` does not — it simply returns `null`. So where the
+analyzer tree mis-resolved a named argument's label as a variable (a wrong
+value, sometimes right by accident), this tree just produced nothing: a
+redirecting `A() : this.named(a: 5)` passed `null`, not `5`. One site was
+affected rather than several, because only that site *dispatches* a named
+argument instead of reading it field-wise.
+
+`callable.dart` now **unwraps** a named argument rather than dispatching it.
+Dispatching and then re-reading `arg.expression` would evaluate the argument
+twice and run its side effects twice.
+
+Measured, not assumed: zero unhandled nodes fire across this package's 518
+tests, nor across `tom_d4rt_exec`'s 2745 driven against these sources. Covered
+by `test/runtime/scc33_unhandled_node_test.dart`.
+
+**Note for consumers.** A script that previously ran and produced a wrong value
+may now raise. That is the point of the change, but it is a behavioural break in
+the strict sense — if a script depended on an unhandled node yielding `null`, it
+will now fail loudly. No such node fires in any suite.
+
 ## 0.39.0
 
 ### Fixed — a bridged value is now a value key, not an identity key (scc32)
