@@ -1,3 +1,37 @@
+## 1.16.0
+
+### Fixed — an error keeps its type when it leaves `execute()` (scc35)
+
+`lib/src/d4rt_base.dart` is exec's own copy of the execute boundary, and it
+still called `isSdkShapedError`, which SCC27 deleted upstream. It compiled only
+because the dependency pin held `tom_d4rt_ast` at 0.20.1 — so the pub.dev
+resolution hazard was hiding a *compile break* here, not merely stale
+behaviour. Both boundary sites now call `throwAsHostFacingError`, and the host
+receives the type the callee actually raised.
+
+The explicit type list those sites used to carry is deliberately not
+reinstated. `D4rtException implements Exception`, so the general rule — an
+`Error` or an `Exception` that is not an interpreter control-flow signal
+escapes as itself — already admits every diagnostic type the list enumerated,
+and unlike the list it does not need editing when a new one is added.
+
+### Fixed — source that does not parse is rejected instead of partly run (scc35)
+
+`_parseSourceToAst` returns a unit with `hasParseErrors` set rather than
+throwing, because the expression paths try several parses in turn and need to
+inspect a failed one before falling through to the next. Code on its way to the
+interpreter has no next strategy, and nothing rejected the unit on its behalf —
+so a script with a syntax error ran the fragment the parser salvaged and
+reported success for a program the author never wrote.
+
+`_parseExecutableSource` now performs that rejection for the three entry points
+that execute source and for the module loader, raising
+`SourceCodeD4rtException` with one formatted line per diagnostic, each naming
+its line and column. Three cases in `interpreter_test.dart` had recorded the
+old behaviour as a property of the serialized-AST pipeline; they assert the
+parser diagnostic again, matching `tom_d4rt`, and the file is now a verbatim
+port of the reference copy.
+
 ## 1.15.1
 
 ### Changed — formatted the tree once, at the aligned language version (scc26)

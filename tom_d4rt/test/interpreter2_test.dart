@@ -459,14 +459,17 @@ void main() {
   });
 
   test('I-MISC-314: AssertStatement. [2026-02-10 06:37] (PASS)', () {
+    // A failing `assert` throws the SDK's own AssertionError rather than a
+    // d4rt exception, so that `e.message` hands back the script's raw message
+    // object exactly as it would natively.
     expect(
       () => run('main() { assert(false); }'),
-      throwsA(isA<RuntimeD4rtException>()),
+      throwsA(isA<AssertionError>()),
     );
     expect(() => run('main() { assert(true); }'), returnsNormally);
     expect(
       () => run('main() { assert(1 == 2, "message"); }'),
-      throwsA(isA<RuntimeD4rtException>()),
+      throwsA(isA<AssertionError>()),
     );
   });
   test('I-MISC-315: AsExpression. [2026-02-10 06:37] (PASS)', () {
@@ -761,9 +764,12 @@ void main() {
 
   group('record literal', () {
     test('I-MISC-339: Positional record. [2026-02-10 06:37] (PASS)', () {
+      // A positional-only record of 16 fields or fewer is rebuilt as a native
+      // Dart record on the way out of the interpreter. The named-field cases
+      // below stay InterpretedRecord because a record with named fields cannot
+      // be constructed at runtime.
       final source = 'main() { return (1, "two", true); }';
-      final expected = InterpretedRecord([1, "two", true], {});
-      expect(run(source), expected);
+      expect(run(source), (1, "two", true));
     });
 
     test('I-MISC-340: Named record. [2026-02-10 06:37] (PASS)', () {
@@ -785,9 +791,9 @@ void main() {
     });
 
     test('I-MISC-344: Empty record. [2026-02-10 06:37] (PASS)', () {
+      // Zero positional fields, no named ones: also a native record.
       final source = 'main() { return (); }';
-      final expected = InterpretedRecord([], {});
-      expect(run(source), expected);
+      expect(run(source), ());
     });
 
     test('I-MISC-345: Record field access. [2026-02-10 06:37] (PASS)', () {

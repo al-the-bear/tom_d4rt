@@ -646,21 +646,14 @@ const Map<String, int> _uncoveredBaseline = {
   // the commit that raises exec's `tom_d4rt_ast` floor past 0.38.0; tracked
   // together with SCC29 and SCC30 as SCD89.
   'scc31_undefined_name_uncatchable_test.dart': 18,
-  // BLOCKED ON THE SAME PUBLISH. SCC32 makes a bridged value a value key rather
-  // than an identity key — `BridgedInstance` delegates `==`/`hashCode` to its
-  // native, and hash keys are normalized to the native at storage. Exec's
-  // published `tom_d4rt_ast` 0.20.1 still hashes by wrapper identity, so a
-  // verbatim port fails the map, set and list cases and reads as a migration bug
-  // rather than a version gap.
-  //
-  // The last two cases (F-SCC32-20/21) are source scans over both trees rather
-  // than script runs, and belong to `tom_d4rt` only — the port should drop them,
-  // for the same reason as F-SCC31-17/18 above.
-  //
-  // Nothing else has to land first. Port this file and delete this entry in the
-  // commit that raises exec's `tom_d4rt_ast` floor past 0.39.0; tracked together
-  // with SCC29, SCC30 and SCC31 as SCD89.
-  'scc32_bridged_value_key_test.dart': 21,
+  // (`scc32_bridged_value_key_test.dart` was here, blocked on the publish that
+  // raises exec's `tom_d4rt_ast` floor past 0.39.0. SCC35 published 0.40.0 and
+  // the port landed — 19 of the 21 cases, since the entry's own instruction was
+  // to drop the F-SCC32-20/21 source-scan group. The file now has a
+  // `_divergentBaseline` entry recording that omission instead. SCC29, SCC30 and
+  // SCC31 shared its blocker and are still tracked as SCD89; SCC32 came over
+  // early only because `scb11_symbol_literal_test.dart` pinned its own widened
+  // assertion to the same commit.)
   'stdlib/cast_from_family_test.dart': 6,
   'stdlib/convert/json_named_constructors_test.dart': 13,
   'stdlib/core/error_validation_helpers_test.dart': 18,
@@ -680,9 +673,7 @@ const Map<String, int> _uncoveredBaseline = {
 /// question — is the reference tree right, or is exec? — and answering one means
 /// deleting its entry, not annotating it.
 ///
-/// Three causes are known and are NOT defects:
-///   * `interpreter_test.dart` is each package's own helper over its own
-///     interpreter, so it MUST differ. It is the one permanent entry.
+/// Two causes are known and are NOT defects:
 ///   * `stdlib/typed_data/byte_data_test.dart` used to differ only in a comment
 ///     naming which interpreter it exercises. SCC27 added a real divergence on
 ///     top of that — see the publish-pinned list below.
@@ -752,16 +743,15 @@ const Map<String, int> _uncoveredBaseline = {
 ///     source parser). Both are accurate about their own side, so neither is
 ///     the one to overwrite — which is exactly what a `_divergentBaseline`
 ///     entry is for.
-///   * `scb11_symbol_literal_test.dart` — the SCC32 realignment. Its
-///     `F-SCB11-7` deliberately left out the mixed spelling `m[Symbol('alpha')]`
-///     (insert by literal, look up by the explicit constructor) and said so in a
-///     comment, because the constructor's `BridgedInstance` wrapper hashed by
-///     identity and the lookup missed. SCC32 fixed that at the bridged-value
-///     level, so the reference copy now asserts the case and the stale comment
-///     is gone. The published interpreter still hashes by wrapper identity, so
-///     this copy's narrower assertion is a correct measurement of it. Converges
-///     with `scc32_bridged_value_key_test.dart` in [_uncoveredBaseline]: same
-///     publish, same commit.
+///   * `scc32_bridged_value_key_test.dart` — ported by SCC35, MINUS its
+///     `F-SCC32-20/21` group. Those two are a source scan over both mirrored
+///     trees rather than script runs, so a copy here would read the same files
+///     and answer the same question `tom_d4rt`'s copy already answers. The
+///     divergence is therefore deliberate and permanent, in the same category
+///     as `release_hygiene_test.dart` in [_uncoveredBaseline] — not a shortfall
+///     to be closed. (`scb11_symbol_literal_test.dart` was listed here for the
+///     other half of the same fix; its `F-SCB11-7` is now widened to the
+///     reference form and its entry is gone.)
 const Set<String> _divergentBaseline = {
   '_c21_null_short_test.dart',
   '_plan_e2_static_in_closure_test.dart',
@@ -782,7 +772,6 @@ const Set<String> _divergentBaseline = {
   'dfub9_extension_type_operator_dispatch_test.dart',
   'dgub4_filesystem_import_scope_boundary_test.dart',
   'instance_field_shadows_global_test.dart',
-  'interpreter_test.dart',
   'late_test.dart',
   'object_universal_members_test.dart',
   'open_issues/b11_warmup_test.dart',
@@ -790,7 +779,7 @@ const Set<String> _divergentBaseline = {
   'open_issues/b5_bridged_exception_catch_test.dart',
   'open_issues/b9_static_field_sibling_write_test.dart',
   'operator_improvements_test.dart',
-  'scb11_symbol_literal_test.dart',
+  'scc32_bridged_value_key_test.dart',
   'stdlib/collection/list_queue_test.dart',
   'stdlib/collection/queue_test.dart',
   'stdlib/collection/splay_tree_map_test.dart',
@@ -821,11 +810,21 @@ const Set<String> _divergentBaseline = {
 ///
 /// The cost of that choice is that the line counts here are not a measure of
 /// semantic distance. Measured 2026-09-03: `dart format`-ing both sides before
-/// comparing takes `interpreter_test.dart` from 653 differing lines to 46, and
-/// moves `instance_field_shadows_global_test.dart` the other way, 35 to 150. All
-/// but one entry below still differ after formatting, so the divergence is real —
-/// but do not rank the triage by the raw numbers, because they measure wrapping
-/// as much as they measure assertions.
+/// comparing took `interpreter_test.dart` from 653 differing lines to 46, and
+/// moved `instance_field_shadows_global_test.dart` the other way, 35 to 150. All
+/// but one entry below still differed after formatting, so the divergence is
+/// real — but do not rank the triage by the raw numbers, because they measure
+/// wrapping as much as they measure assertions.
+///
+/// `interpreter_test.dart` is no longer an entry, and how it left is the point
+/// of the paragraph above. It was described here as "the one permanent entry",
+/// on the reasoning that each package's helper import forces it to differ — but
+/// the helper import is normalised by construction (see [_normalise]), so the
+/// permanence was asserted, never measured. What actually kept it divergent was
+/// three cases claiming the serialized-AST pipeline could not raise a parser
+/// diagnostic. SCC35 made `execute()` reject source that does not parse, the
+/// claim became false, and the file converged. Read "permanent" here as
+/// "nobody has re-measured it".
 /// The pattern behind the pairs below is worth stating because it predicts the
 /// next one: a `src/` import resolves against `tom_d4rt_ast` under
 /// `src/runtime/`, while the public library import resolves against

@@ -91,7 +91,21 @@ class D4rt {
   D4rt();
 
   /// Parses source code to an [SCompilationUnit] using the internal converter.
-  SCompilationUnit _parseSourceToAst(String sourceCode, {String? path}) {
+  ///
+  /// A syntax error does not throw: the unit comes back with
+  /// [SCompilationUnit.hasParseErrors] set, because the expression paths try
+  /// several parses in turn and need to inspect a failed one to decide whether
+  /// to fall through to the next. Callers with no next strategy — an entry
+  /// script — must reject the unit themselves; [_parseDirectSource] does.
+  ///
+  /// When [diagnosticsOut] is supplied it receives one formatted line per
+  /// error-severity diagnostic, so a caller that does reject can say what was
+  /// wrong and where.
+  SCompilationUnit _parseSourceToAst(
+    String sourceCode, {
+    String? path,
+    List<String>? diagnosticsOut,
+  }) {
     final result = parseString(
       content: sourceCode,
       path: path,
@@ -112,9 +126,19 @@ class D4rt {
     );
 
     // Check for parse errors
-    final hasErrors = result.errors.any(
-      (e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR,
-    );
+    final errors = result.errors
+        .where((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR)
+        .toList();
+    final hasErrors = errors.isNotEmpty;
+    if (hasErrors && diagnosticsOut != null) {
+      for (final e in errors) {
+        final location = result.lineInfo.getLocation(e.offset);
+        diagnosticsOut.add(
+          '- ${e.message} '
+          '(line ${location.lineNumber}, column ${location.columnNumber})',
+        );
+      }
+    }
 
     // Convert analyzer AST to serializable AST
     final cu = _converter.convertCompilationUnit(result.unit);
@@ -131,6 +155,34 @@ class D4rt {
       );
     }
     return cu;
+  }
+
+  /// Parses source that is about to be executed, rejecting source that does
+  /// not parse.
+  ///
+  /// Code on its way to the interpreter — an entry script, or a library the
+  /// module loader is resolving — has no fallback strategy the way an
+  /// expression does: the declarations the parser salvaged from broken source
+  /// are a fragment of something the author never wrote, and running them
+  /// would report success for a script that never ran. So a syntax error is
+  /// fatal here, and [path] names the compilation unit it was found in.
+  SCompilationUnit _parseExecutableSource(String source, {String? path}) {
+    final diagnostics = <String>[];
+    final unit = _parseSourceToAst(
+      source,
+      path: path,
+      diagnosticsOut: diagnostics,
+    );
+    if (unit.hasParseErrors) {
+      final where = path ?? 'the direct source';
+      final detail = diagnostics.join('\n');
+      Logger.error('Parsing errors for $where:\n$detail');
+      throw SourceCodeD4rtException(
+        'Fatal parsing errors for $where:\n$detail',
+        source,
+      );
+    }
+    return unit;
   }
 
   /// Registers a bridged enum definition for use in interpreted code.
@@ -441,7 +493,7 @@ class D4rt {
       d4rt: this,
       collectRegistrationErrors: collectRegistrationErrors,
       parseSourceCallback: (sourceCode, uri) =>
-          _parseSourceToAst(sourceCode, path: uri.toString()),
+          _parseExecutableSource(sourceCode, path: uri.toString()),
       // DGUB3 — both were accepted here and then dropped, so `execute()` has
       // always advertised filesystem imports it could not perform. The loader
       // is the component that honours them.
@@ -1170,7 +1222,7 @@ class D4rt {
       Logger.debug(
         "[D4rt._parseSource] Parsing the provided source string directly (no source URI).",
       );
-      final unit = _parseSourceToAst(source);
+      final unit = _parseExecutableSource(source);
       Logger.debug(
         "[D4rt._parseSource] Direct source string parsed successfully.",
       );
@@ -1634,7 +1686,7 @@ class D4rt {
       Logger.debug(
         "[D4rt._executeClassic] Executing the provided source string directly (no source URI).",
       );
-      compilationUnit = _parseSourceToAst(source);
+      compilationUnit = _parseExecutableSource(source);
       Logger.debug(
         "[D4rt._executeClassic] Direct source string parsed successfully.",
       );
@@ -1820,7 +1872,7 @@ class D4rt {
 
     _moduleLoader = _initModule(sources);
 
-    final compilationUnit = _parseSourceToAst(source);
+    final compilationUnit = _parseExecutableSource(source);
 
     // Library-scoped globals are registered via ModuleLoader when imports are processed
     final Environment executionEnvironment = _moduleLoader.globalEnvironment;

@@ -1510,18 +1510,16 @@ void main() {
            abstract void myMethod(); // Keep this to test the specific parser error check first
         }
       ''';
-        // With serialized AST (throwIfDiagnostics: false), the Dart analyzer's parse
-        // error is not thrown. The runtime catches abstract methods in concrete classes
-        // with a different message.
+        // Expecting the parser error, not the RuntimeError for this specific case
+        // because `abstract` modifier on members is invalid syntax.
         expect(
           () => execute(code),
           throwsA(
             isA<Exception>().having(
-              (e) => e.toString(),
+              (e) => e.toString(), // Check toString() for Exception message
               'toString()',
-              contains(
-                "Abstract methods can only be declared in abstract classes",
-              ),
+              // Expecting the parser error
+              contains("Members of classes can't be declared to be 'abstract'"),
             ),
           ),
         );
@@ -1538,10 +1536,17 @@ void main() {
           }
         }
       ''';
-        // With serialized AST, the `abstract` keyword on method with body creates
-        // a malformed AST through parser error recovery. The code may throw any
-        // exception due to the damaged AST structure.
-        expect(() => execute(codeWithError), throwsA(isA<Exception>()));
+        expect(
+          () => execute(codeWithError),
+          throwsA(
+            isA<Exception>().having(
+              (e) => e.toString(), // Check toString() for Exception message
+              'toString()',
+              // Expecting the parser error (likely flags the modifier first)
+              contains("Members of classes can't be declared to be 'abstract'"),
+            ),
+          ),
+        );
       },
     );
 
@@ -2093,11 +2098,18 @@ void main() {
         }
        main() {}
       ''';
-        // With serialized AST, mixin constructor validation is not enforced at
-        // parse time. The runtime silently accepts it. This is a known limitation
-        // of the current serialized AST pipeline.
-        // The test verifies the code runs without error (constructor is ignored).
-        expect(execute(code), isNull);
+        expect(
+          () => execute(code),
+          throwsA(
+            isA<Exception>().having(
+              (e) => e.toString(), // Use toString for generic Exception
+              'toString()',
+              contains(
+                "Mixins can't declare constructors",
+              ), // Match parser error
+            ),
+          ),
+        );
       },
     );
   });

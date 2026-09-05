@@ -1512,8 +1512,6 @@ void main() {
       ''';
         // Expecting the parser error, not the RuntimeError for this specific case
         // because `abstract` modifier on members is invalid syntax.
-        // Let's refine the expectation later if needed based on how the parser handles this.
-        // For now, keeping the RuntimeError check as initially generated.
         expect(
           () => execute(code),
           throwsA(
