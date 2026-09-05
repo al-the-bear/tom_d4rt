@@ -119,8 +119,17 @@ void main() {
         }
       ''';
       expect(execute(source), 'caught-inside');
+      // `args` is main's *positional argument list*, so the argv list has to be
+      // its single element. Passing `['rethrow']` bound the String `'rethrow'`
+      // to `List<String> args` — which reached the intended branch only because
+      // `String` also has an `isEmpty`.
       expect(
-        () => execute(source, args: ['rethrow']),
+        () => execute(
+          source,
+          args: [
+            ['rethrow'],
+          ],
+        ),
         throwsA(isA<FormatException>()),
       );
     });

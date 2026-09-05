@@ -545,6 +545,20 @@ const Map<String, int> _uncoveredBaseline = {
   // the unpublished `tom_d4rt_ast`. Tracked as SCD84; port this file and delete
   // this entry in the same commit that lands both halves.
   'scc27_host_error_fidelity_test.dart': 9,
+  // BLOCKED ON A PUBLISH, not on a design question. SCC29 checks a caller's
+  // argument against the declared parameter type at binding time, in
+  // `InterpretedFunction._prepareExecutionEnvironment`. The fix is in both
+  // mirrored interpreters, but the check itself is what the cases assert, and
+  // DGUC6 puts it out of exec's reach: exec resolves `tom_d4rt_ast` 0.20.1 from
+  // pub.dev, which binds arguments unchecked. A verbatim port compiles and then
+  // fails every throwing case — the file would report the published
+  // interpreter's behaviour while reading as a migration bug.
+  //
+  // Nothing else has to land first: the check is self-contained, uses only
+  // `RuntimeType.isSubtypeOf` and `D4rtTypeError`, and needs no new exec-side
+  // plumbing. Tracked as SCD89; port this file and delete this entry in the
+  // commit that raises exec's `tom_d4rt_ast` floor past 0.36.0.
+  'scc29_parameter_type_check_test.dart': 26,
   'stdlib/cast_from_family_test.dart': 6,
   'stdlib/convert/json_named_constructors_test.dart': 13,
   'stdlib/core/error_validation_helpers_test.dart': 18,
@@ -627,6 +641,15 @@ const Map<String, int> _uncoveredBaseline = {
 ///     and `byte_data_test` were already listed here for other reasons — for
 ///     those two, removing the SCC27 divergence is necessary but not sufficient
 ///     to delete the entry.
+///   * `eval_method_test.dart` — the SCC29 realignment. Its `I-MISC-29` is named
+///     "Should throw error for type mismatches" and, in this tree, asserts that
+///     `int add(int a, int b)` called with two Strings returns `'helloworld'`.
+///     That is what the published interpreter does — nothing checked the
+///     arguments, and `+` happens to be defined on String — so the case is a
+///     correct measurement of it. The reference tree's copy now asserts the
+///     `TypeError` its own name always demanded. Converges with
+///     `scc29_parameter_type_check_test.dart` in [_uncoveredBaseline]: same
+///     publish, same commit.
 const Set<String> _divergentBaseline = {
   '_c21_null_short_test.dart',
   '_plan_e2_static_in_closure_test.dart',
@@ -647,6 +670,7 @@ const Set<String> _divergentBaseline = {
   'dfub8_super_parameter_default_forwarding_test.dart',
   'dfub9_extension_type_operator_dispatch_test.dart',
   'dgub4_filesystem_import_scope_boundary_test.dart',
+  'eval_method_test.dart',
   'instance_field_shadows_global_test.dart',
   'interpreter_test.dart',
   'late_test.dart',

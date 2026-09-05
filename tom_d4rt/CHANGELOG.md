@@ -1,3 +1,54 @@
+## 1.47.0
+
+### Fixed — a declared parameter type is now checked when the caller binds it (scc29)
+
+`String f(String s) => s;` invoked as `f(42)` returned `42`. Real Dart raises
+`TypeError: type 'int' is not a subtype of type 'String' of 's'`. The
+interpreter checked *return* types and nothing else, so the one direction that
+catches a **caller's** mistake was the missing one — and it failed silently: the
+wrong-typed value flowed into the body and misbehaved somewhere further in, so
+the reported symptom pointed at the callee rather than at the call. Measured
+before the fix, positional, optional, named, method and constructor parameters
+all passed the wrong value through; this was never limited to dynamic dispatch.
+
+The check runs in `InterpretedFunction._prepareExecutionEnvironment`, on the
+value the binding loop is about to define. That is the single point every call
+shape funnels through — direct, dynamic, method, constructor, closure, tear-off
+— so one site covers all of them. The predicate is `RuntimeType.isSubtypeOf`,
+the same one the return-type check uses; only the presentation differs. The
+error is `D4rtTypeError` with the SDK's **runtime** wording, because that is the
+shape a real program's `on TypeError` clause matches — deliberately not the
+return path's `RuntimeD4rtException` quoting the analyzer's compile-time
+diagnostic.
+
+**Scope is caller-provided arguments only.** A value the *declaration* produced
+— an omitted optional's implicit `null`, an evaluated default — is not checked.
+Real Dart rejects those at compile time, so a runtime check could only ever fire
+on programs the analyzer already refuses, while breaking the interpreted scripts
+that rely on `[String s]` meaning "may be absent".
+
+**Permissive wherever it cannot be sure**, because a false positive rejects a
+correct program and that is worse than the silent pass it replaces: `dynamic`
+and unannotated parameters, annotations that fail to resolve, function- and
+record-typed annotations, and type parameters the call site left unbound. That
+last one has two halves the obvious reading collapses into one — an *inferred*
+`T` and a raw `Box()` resolve to a placeholder and are waved through, but an
+explicitly bound `f<String>(...)` or `Box<String>()` resolves to a real type and
+**is** checked, matching real Dart.
+
+Also fixed at the same site: an `int` bound to a `double` parameter is now
+widened, as Dart widens it. Without it the body received an `int` where its own
+annotation promised a `double` — the same silent-wrong-value shape, one step
+further in. The return path already applied the identical conversion at the
+other end of the call.
+
+Two existing tests had encoded the defect as expected behaviour and were fixed
+at the premise rather than by loosening their assertions: `I-MISC-29` in
+`eval_method_test.dart` was named "Should throw error for type mismatches" while
+asserting that `int add(int a, int b)` called with two Strings returns
+`'helloworld'`; and `F-SCC27-5` passed a bare `'rethrow'` where main's argv list
+belonged, reaching its intended branch only because `String` also has `isEmpty`.
+
 ## 1.46.0
 
 ### Changed — "member absent" is a type, not a sentence (scc28)

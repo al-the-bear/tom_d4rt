@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:analyzer/dart/ast/ast.dart' hide TypeParameter;
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:tom_d4rt/d4rt.dart';
+import 'package:tom_d4rt/src/sdk_errors.dart';
 
 /// Represents a yield operation in a generator function
 class YieldValue {
@@ -235,6 +236,120 @@ class InterpretedFunction implements Callable {
       return const NamedRuntimeType('dynamic');
     }
   }
+
+  /// The value to bind to [paramName], after checking it against the declared
+  /// type of [param] and applying the one conversion Dart applies here.
+  ///
+  /// Returns the value to bind — normally [value] unchanged, or its `double`
+  /// widening — and throws [D4rtTypeError] when the argument cannot inhabit the
+  /// declared type. The message is the SDK's runtime wording, not the analyzer's
+  /// compile-time one, because this is the shape a real program's `on TypeError`
+  /// clause matches.
+  ///
+  /// Call this only for arguments the *caller* supplied. A value the declaration
+  /// produced — an omitted optional's implicit `null`, an evaluated default — is
+  /// a case real Dart rejects at compile time, so checking it here can only fire
+  /// on programs the analyzer already refuses, while breaking the interpreted
+  /// scripts that rely on `[String s]` meaning "may be absent".
+  ///
+  /// **Permissive wherever it cannot be sure.** A false positive rejects a
+  /// correct program, which is worse than the silent pass this replaces, so
+  /// every case the resolver cannot answer confidently is waved through:
+  /// unannotated and `dynamic` parameters, annotations that fail to resolve,
+  /// type parameters (which resolve to a placeholder rather than to the type the
+  /// caller supplied), and the structural function/record annotations whose
+  /// comparison is a larger question than this check.
+  ///
+  /// The predicate is [RuntimeType.isSubtypeOf] — the same one the return-type
+  /// check uses. Only the presentation differs.
+  static Object? _checkArgumentType(
+    Environment env,
+    NormalFormalParameter param,
+    String paramName,
+    Object? value,
+  ) {
+    final TypeAnnotation? typeNode;
+    if (param is SimpleFormalParameter) {
+      typeNode = param.type;
+    } else if (param is FieldFormalParameter) {
+      typeNode = param.type;
+    } else if (param is SuperFormalParameter) {
+      typeNode = param.type;
+    } else {
+      // FunctionTypedFormalParameter (`void f(int cb(String))`) — a structural
+      // shape, handled like the other structural annotations below.
+      return value;
+    }
+    // Only nominal annotations are checked. `int Function(String)` and
+    // `(int, String)` need a structural comparison against a callable or a
+    // record, and getting that wrong rejects working callbacks.
+    if (typeNode is! NamedType) return value;
+
+    // Cheap spelling-level exit, before the environment lookup below. The same
+    // test is repeated on the RESOLVED type, which is the one that matters: a
+    // type parameter left unbound by a raw generic (`Box()` rather than
+    // `Box<int>()`) is spelled `T` but resolves to `dynamic`.
+    if (_isUncheckableTypeName(typeNode.name.lexeme)) return value;
+
+    final RuntimeType declaredType;
+    try {
+      declaredType = _resolveTypeAnnotationDynamic(typeNode, env);
+    } catch (_) {
+      // Unresolvable annotation — stay permissive, as the return-type check
+      // does.
+      return value;
+    }
+    // A type parameter stands for a type that is not bound at this point, so a
+    // comparison would be against the placeholder rather than against what the
+    // caller actually supplied.
+    if (declaredType is TypeParameter) return value;
+
+    final declaredName = declaredType.name;
+    if (declaredName == 'dynamic' || declaredName == 'void') return value;
+
+    final isNullable = typeNode.question != null;
+    final displayName = isNullable ? '$declaredName?' : declaredName;
+
+    if (value == null) {
+      if (isNullable) return null;
+      throw D4rtTypeError(
+        "type 'Null' is not a subtype of type '$displayName' of '$paramName'",
+      );
+    }
+
+    // Above the hierarchy the subtype check can express: every non-null value
+    // inhabits `Object`, and `Function` is satisfied by callables whose runtime
+    // type the resolver models only coarsely.
+    if (declaredName == 'Object' || declaredName == 'Function') return value;
+
+    // Dart widens an `int` bound to a `double`. Without this the body receives
+    // an `int` where its own annotation promises a `double` — the same silent
+    // wrong value this check exists to stop, one step further in. The return
+    // path applies the identical conversion at the other end of the call.
+    if (declaredName == 'double' && value is int) return value.toDouble();
+
+    final RuntimeType? valueType;
+    try {
+      valueType = env.getRuntimeType(value);
+    } catch (_) {
+      return value;
+    }
+    if (valueType == null || valueType is TypeParameter) return value;
+
+    if (valueType.isSubtypeOf(declaredType, value: value)) return value;
+    throw D4rtTypeError(
+      "type '${valueType.name}' is not a subtype of type '$displayName' "
+      "of '$paramName'",
+    );
+  }
+
+  /// Type names that carry no information the argument check can act on.
+  ///
+  /// `Object` is absent on purpose: it admits every non-null value but still
+  /// rejects `null` when spelled without `?`, so it needs the null branch rather
+  /// than an early exit.
+  static bool _isUncheckableTypeName(String name) =>
+      name == 'dynamic' || name == 'void';
 
   // DFUB5: cached structural function type for this function.
   FunctionRuntimeType? _cachedCallableRuntimeType;
@@ -814,6 +929,21 @@ class InterpretedFunction implements Callable {
             // Optional parameters default to null if no default value specified
             valueToDefine = null;
           }
+        }
+
+        // SCC29: check the argument against the declared parameter type. Only
+        // for values the caller supplied — see [_checkArgumentType] for why an
+        // omitted optional and an evaluated default are deliberately outside
+        // the check. This is the one point every call shape funnels through, so
+        // direct, dynamic, method, constructor and closure calls are all
+        // covered by the single site.
+        if (argumentProvided) {
+          valueToDefine = _checkArgumentType(
+            executionEnvironment,
+            actualParam,
+            paramName,
+            valueToDefine,
+          );
         }
 
         // DFUB8: an optional super parameter (`[super.x]` / `{super.x}`) that
