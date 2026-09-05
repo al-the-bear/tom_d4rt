@@ -12,6 +12,16 @@ Last refreshed: 2026-09-03, against runs `scc2-ast0201-verify` and
 and `tom_d4rt 1.30.1`. See the 2026-09-03 entry under "Verification
 runs".
 
+**Both interpreters have been republished since that run and NEITHER
+number above has been re-measured.** As of 2026-09-05 pub.dev serves
+`tom_d4rt_ast 0.40.0` and `tom_d4rt 1.51.0`, twenty and twenty-one minor
+versions past the pair the base corpus was measured at. The twins resolve
+the interpreter from pub.dev, so a `flutter pub get` in either companion
+app moves it — and their locks are gitignored, so nothing announces when
+it does. Read `927 / 1 / 0` as what 0.20.1 / 1.30.1 did on 2026-09-03,
+not as what this tree does today; re-establishing it at the current pair
+is `scd105`.
+
 **The full 41-file corpus has no current number.** Its last run
 (2026-08-12) measured stale companion-app locks — `tom_d4rt` 1.22.0 and
 `tom_d4rt_ast` 0.14.0 against trees at 1.29.0 and 0.19.0 — so its
