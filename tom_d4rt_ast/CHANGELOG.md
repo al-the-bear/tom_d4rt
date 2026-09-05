@@ -1,3 +1,29 @@
+## 0.35.0
+
+### Changed — "member absent" is a type, not a sentence (scc28)
+
+Mirrors `tom_d4rt` 1.46.0, site for site. `UndefinedMemberD4rtException` (a
+`RuntimeD4rtException` subtype carrying `memberName`) replaces the
+`e.message.contains("Undefined property '$name'")` test at the eight sites that
+chose between extension-method resolution and propagating an inner failure.
+Eleven raise sites across `interpreter_visitor.dart`, `runtime_types.dart` and
+`bridge/bridged_types.dart` now throw it; `rewrapPreservingMemberSignal` carries
+the signal through the five sites that add context by concatenating the original
+message.
+
+Not breaking: the new type is a subtype of what was thrown before and inherits
+`toString()`, so every `on RuntimeD4rtException` clause and every printed
+diagnostic is unchanged.
+
+`test/runtime/scc28_typed_undefined_member_test.dart` is unit-level rather than
+script-level, for the DGUC6 reason the SC5 and SCB10 mirror suites give:
+`tom_d4rt_exec` resolves this package from pub.dev, so no script-level runner
+can see unpublished local edits. What it pins is the half the reference tree's
+source scan cannot — that the signal **survives being re-wrapped**, and that
+re-wrapping an ordinary runtime failure does not *invent* it. Inventing it would
+send a genuine error down the extension-lookup branch, where a same-named
+extension member answers in its place.
+
 ## 0.34.0
 
 ### Changed — an error keeps its type when it leaves the runner (scc27)

@@ -57,11 +57,11 @@ class D4rtTypeError extends Error implements TypeError {
 /// resolution and any user-defined `noSuchMethod` have been given their chance.
 ///
 /// Only the final sites raise this. The interpreter's intermediate
-/// member-lookup failures must stay `RuntimeD4rtException`, because several
-/// call sites branch on `e.message.contains("Undefined property '<name>'")` to
-/// decide whether to attempt extension lookup — that string is load-bearing
-/// control flow, not just a diagnostic. Replacing those with a typed signal is
-/// tracked separately.
+/// member-lookup failures raise `UndefinedMemberD4rtException` instead — the
+/// typed signal several call sites read to decide whether to attempt extension
+/// lookup. The distinction is the *stage*, not the wording: this type marks a
+/// lookup that has run out of answers, that one asks a question the caller is
+/// still deciding. Both carry d4rt's message verbatim.
 class D4rtNoSuchMethodError extends Error implements NoSuchMethodError {
   D4rtNoSuchMethodError(this.message);
 

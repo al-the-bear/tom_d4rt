@@ -379,8 +379,9 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
     }
 
     // 3. If neither method nor getter found, throw an error
-    throw RuntimeD4rtException(
+    throw UndefinedMemberD4rtException(
       "Undefined property or method '$name' on bridged instance of '${bridgedClass.name}'",
+      memberName: name,
     );
   }
 

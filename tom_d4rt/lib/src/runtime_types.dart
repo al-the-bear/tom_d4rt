@@ -1879,7 +1879,10 @@ class InterpretedInstance implements RuntimeValue {
     }
 
     // If not found anywhere in the hierarchy or bridge
-    throw RuntimeD4rtException("Undefined property '$name' on ${klass.name}.");
+    throw UndefinedMemberD4rtException(
+      "Undefined property '$name' on ${klass.name}.",
+      memberName: name,
+    );
   }
 
   // Find operator method on this instance (supports inheritance and mixins)
@@ -2448,8 +2451,9 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
     }
 
     // Property not found
-    throw RuntimeD4rtException(
+    throw UndefinedMemberD4rtException(
       "Undefined property '$memberName' on enum value '$this'.",
+      memberName: memberName,
     );
   }
 

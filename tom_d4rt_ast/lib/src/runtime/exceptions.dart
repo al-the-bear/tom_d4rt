@@ -265,6 +265,65 @@ class RuntimeD4rtException extends D4rtException {
   String toString() => 'Runtime Error: $message';
 }
 
+/// Thrown when a member lookup finds no member of that name on the receiver.
+///
+/// **This is a control-flow signal, and that is the reason it exists.** Eight
+/// sites in each mirrored visitor have to distinguish "the member is genuinely
+/// absent, so try extension-method resolution" from "the member was found and
+/// something inside it failed, so propagate that". Before SCC28 they made that
+/// decision with `e.message.contains("Undefined property '$name'")` — a
+/// formatted, human-readable diagnostic used as a branch condition. The wording
+/// was therefore load-bearing: rewording it, in either tree, silently disabled
+/// extension methods for every receiver kind routed through the edited site,
+/// with no analyzer error and a *wrong answer* rather than a crash as the
+/// symptom.
+///
+/// [memberName] carries what the message used to spell, so the message is free
+/// to change. It is compared exactly (`e.memberName == name`) where the old code
+/// asked for a substring, which also removes the case where a member whose name
+/// merely *appeared* in an unrelated diagnostic took the extension branch.
+///
+/// **A subtype of [RuntimeD4rtException], deliberately.** Between a raise site
+/// and the site that inspects it sit roughly forty `on RuntimeD4rtException`
+/// clauses, most of which only re-wrap and re-throw. Making this a sibling type
+/// would have required changing all of them in one commit; making it a subtype
+/// let the conversion land raise site by raise site, with every intermediate
+/// state working. `toString()` is inherited too, so the diagnostics are
+/// unchanged to the byte and no message assertion needed rewriting.
+///
+/// Not to be confused with [D4rtNoSuchMethodError], which the *final* lookup
+/// failures raise — the ones reached after extension resolution and any user
+/// `noSuchMethod` have had their chance. This type marks the intermediate
+/// failures, the ones that are still a question rather than an answer.
+class UndefinedMemberD4rtException extends RuntimeD4rtException {
+  /// The member that was not found. Compared by equality, never parsed.
+  final String memberName;
+
+  UndefinedMemberD4rtException(super.message, {required this.memberName});
+}
+
+/// Re-wraps [e] under a new [message], keeping the "member absent" signal when
+/// [e] carries one.
+///
+/// Several sites add context to a member-lookup failure on the way out
+/// ("… (accessing property via PropertyAccess 'x')"). Before SCC28 those
+/// preserved the signal *by accident*: they concatenated the original message
+/// into the new one, so an outer `contains("Undefined property 'x'")` still
+/// matched straight through the wrap. Now that the signal is a type, preserving
+/// it has to be deliberate — a plain [RuntimeD4rtException] here would leave the
+/// next frame out unable to tell an absent member from a failed one, which is
+/// precisely the extension-method regression SCC28 exists to prevent.
+///
+/// The original [UndefinedMemberD4rtException.memberName] is carried over rather
+/// than replaced with the wrapping site's own name: the failure being described
+/// is still the inner one, and that is what the substring used to say too.
+RuntimeD4rtException rewrapPreservingMemberSignal(
+  RuntimeD4rtException e,
+  String message,
+) => e is UndefinedMemberD4rtException
+    ? UndefinedMemberD4rtException(message, memberName: e.memberName)
+    : RuntimeD4rtException(message);
+
 /// Thrown when a script names a bridged class by its simple name and two
 /// different libraries in scope declare a class under that name.
 ///

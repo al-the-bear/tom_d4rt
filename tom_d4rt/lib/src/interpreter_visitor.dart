@@ -708,8 +708,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           return supertypeMatch.$1;
         }
         // If neither getter nor method, error
-        throw RuntimeD4rtException(
+        throw UndefinedMemberD4rtException(
           "Undefined property or method '$name' on bridged instance of '${bridgedInstance.bridgedClass.name}' accessed via implicit 'this'.",
+          memberName: name,
         );
       } // +++ NEW BLOCK +++
       else if (thisInstance is InterpretedEnumValue) {
@@ -745,10 +746,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       if (thisErr is LateInitializationError) {
         rethrow;
       }
-      // 'this' not found OR instance.get() failed
-      // If get() failed with a specific error, propagate it if it is NOT "Undefined property".
-      if (thisErr.message.contains("Undefined property '$name'") ||
-          thisErr.message.contains("Undefined property or method '$name'")) {
+      // 'this' not found OR instance.get() failed. Only a genuinely absent
+      // member is a candidate for extension-method resolution; anything that
+      // went wrong *inside* a member that does exist has to propagate.
+      if (thisErr is UndefinedMemberD4rtException &&
+          thisErr.memberName == name) {
         Logger.debug(
           "[SimpleIdentifier] Direct access failed for '$name' via implicit 'this'. Trying extension lookup on ${thisInstance?.runtimeType}.",
         );
@@ -808,7 +810,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           );
         }
       }
-      // Relaunch the error if it was NOT "Undefined property" OR if extension lookup failed.
+      // Relaunch the error if the member was not merely absent, or if
+      // extension lookup failed.
       else if (thisErr.message.contains(
         "non implémenté pour BridgedInstance",
       )) {
@@ -853,9 +856,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
       }
 
-      // If the initial error was 'Undefined property' AND that extension lookup failed,
-      // or if the initial error was something else, raise the final "Undefined variable" error.
-      throw RuntimeD4rtException(
+      // If the member was absent AND extension lookup failed, or if the initial
+      // error was something else entirely, raise the final "Undefined variable"
+      // error.
+      throw rewrapPreservingMemberSignal(
+        thisErr,
         "Undefined variable: $name (Original error: ${thisErr.message})",
       );
     }
@@ -1163,7 +1168,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           return member;
         }
       } on RuntimeD4rtException catch (e) {
-        if (e.message.contains("Undefined property '$memberName'")) {
+        if (e is UndefinedMemberD4rtException && e.memberName == memberName) {
           final extensionMember = environment.findExtensionMember(
             prefixValue,
             memberName,
@@ -1177,7 +1182,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             }
           }
         }
-        throw RuntimeD4rtException(
+        throw rewrapPreservingMemberSignal(
+          e,
           "${e.message} (accessing property via PrefixedIdentifier '$memberName')",
         );
       }
@@ -1220,7 +1226,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           return e.value;
         } on RuntimeD4rtException catch (e) {
           // G-DOV2-7 FIX: Try extension lookup if direct access fails
-          if (e.message.contains("Undefined property '$memberName'")) {
+          if (e is UndefinedMemberD4rtException && e.memberName == memberName) {
             Logger.debug(
               "[PrefixedIdentifier] Direct access failed for '$memberName' on enum $prefixValue. Trying extension lookup...",
             );
@@ -1244,7 +1250,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             }
           }
           // Propagate error if extension lookup failed
-          throw RuntimeD4rtException(
+          throw rewrapPreservingMemberSignal(
+            e,
             "Error getting member '$memberName' from enum value '$prefixValue': ${e.message}",
           );
         } catch (e) {
@@ -1349,7 +1356,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           try {
             return bridgedEnumValue.get(memberName);
           } on RuntimeD4rtException {
-            // Fall through to the "Undefined property" error below.
+            // Fall through to the member-absent error below.
           }
         }
       }
@@ -2583,7 +2590,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         } on RuntimeD4rtException catch (e) {
           // If 'this' doesn't exist or getting/setting on 'this' failed
           // Use the original error if it came from get/set, otherwise standard undefined.
-          if (e.message.contains("Undefined property '$variableName'") ||
+          // SCD86: the static-member half is still a message test. It is a
+          // different decision from member absence and carries no name check,
+          // so it is not the fragility SCC28 removed — but it is the last one
+          // in this file.
+          if ((e is UndefinedMemberD4rtException &&
+                  e.memberName == variableName) ||
               e.message.contains("Undefined static member")) {
             rethrow; // Propagate specific error from get/set
           }
@@ -3810,7 +3822,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "[MethodInvocation] Found direct instance member '$methodName' on ${targetValue.klass.name}. Type: ${calleeValue?.runtimeType}",
           );
         } on RuntimeD4rtException catch (e) {
-          if (e.message.contains("Undefined property '$methodName'")) {
+          if (e is UndefinedMemberD4rtException && e.memberName == methodName) {
             Logger.debug(
               "[MethodInvocation] Direct instance method '$methodName' failed/not found on ${targetValue.klass.name}. Error: ${e.message}. Trying extension method...",
             );
@@ -3964,7 +3976,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               );
             }
           } else {
-            // The error during direct get() wasn't "Undefined property", rethrow it
+            // The member exists and its own execution failed — rethrow.
             rethrow;
           }
         }
@@ -3979,7 +3991,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           );
         } on RuntimeD4rtException catch (e) {
           // Try Extension Method if Direct Fails (similar to InterpretedInstance)
-          if (e.message.contains("Undefined property '$methodName'")) {
+          if (e is UndefinedMemberD4rtException && e.memberName == methodName) {
             Logger.debug(
               "[MethodInvocation] Direct enum method '$methodName' failed/not found on $targetValue. Error: ${e.message}. Trying extension method...",
             );
@@ -4903,8 +4915,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           Logger.debug(
             "[MethodInvocation] Extension method '$methodName' not found. Rethrowing original error.",
           );
-          throw RuntimeD4rtException(
+          throw UndefinedMemberD4rtException(
             "Undefined property or method '$methodName' on ${targetValue.runtimeType}.",
+            memberName: methodName,
           );
         }
       }
@@ -5338,7 +5351,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
       } on RuntimeD4rtException catch (e) {
         // Try Extension Lookup Before Error
-        if (e.message.contains("Undefined property '$propertyName'")) {
+        if (e is UndefinedMemberD4rtException && e.memberName == propertyName) {
           Logger.debug(
             "[PropertyAccess] Direct access failed for '$propertyName'. Trying extension lookup on ${target.runtimeType}.",
           );
@@ -5377,8 +5390,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // Fall through to rethrow original error
           }
         }
-        // Rethrow original error if it wasn't "Undefined property"or if extension lookup failed
-        throw RuntimeD4rtException(
+        // Rethrow the original error if the member was not merely absent, or if
+        // extension lookup failed.
+        throw rewrapPreservingMemberSignal(
+          e,
           "${e.message} (accessing property via PropertyAccess '$propertyName')",
         );
       }
@@ -5414,7 +5429,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
       } on RuntimeD4rtException catch (e) {
         // Try Extension Getter if Direct Fails (similar to InterpretedInstance)
-        if (e.message.contains("Undefined property '$propertyName'")) {
+        if (e is UndefinedMemberD4rtException && e.memberName == propertyName) {
           Logger.debug(
             "[PropertyAccess] Direct access failed for '$propertyName' on enum $target. Trying extension lookup...",
           );
@@ -5448,7 +5463,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           }
         }
         // Rethrow original error or error from extension lookup
-        throw RuntimeD4rtException(
+        throw rewrapPreservingMemberSignal(
+          e,
           "${e.message} (accessing property via PropertyAccess '$propertyName' on enum value '$target')",
         );
       }
@@ -5581,8 +5597,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         currentClass = currentClass.superclass;
       }
       // Not found in superclass hierarchy
-      throw RuntimeD4rtException(
+      throw UndefinedMemberD4rtException(
         "Undefined property '$propertyName' accessed via 'super' on instance of '${instance.klass.name}'.",
+        memberName: propertyName,
       );
     } else if (target is BridgedClass) {
       final bridgedClass = target;
@@ -5730,7 +5747,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           try {
             return bridgedEnumValue.get(propertyName);
           } on RuntimeD4rtException {
-            // Fall through to the "Undefined property" error below.
+            // Fall through to the member-absent error below.
           }
         }
       }
@@ -5769,8 +5786,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           );
       }
 
-      throw RuntimeD4rtException(
+      throw UndefinedMemberD4rtException(
         "Undefined property or method '$propertyName' on bridged instance of '${bridgedInstance.bridgedClass.name}'.",
+        memberName: propertyName,
       );
     } else if (target is InterpretedRecord) {
       // Accessing field of a record
@@ -5870,8 +5888,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
 
       // Not found
-      throw RuntimeD4rtException(
+      throw UndefinedMemberD4rtException(
         "Undefined property or method '$propertyName' accessed via 'super' on bridged superclass '${bridgedSuper.name}'.",
+        memberName: propertyName,
       );
     } else if (target is Callable) {
       // ENG-006: Handle property access on function objects (InterpretedFunction, NativeFunction, etc.)
@@ -5895,8 +5914,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // Tear-off: return the callable itself
           return target;
         default:
-          throw RuntimeD4rtException(
+          throw UndefinedMemberD4rtException(
             "Undefined property '$propertyName' on function object (${target.runtimeType}).",
+            memberName: propertyName,
           );
       }
     } else {
@@ -5909,8 +5929,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         try {
           return bridgedEnumValue.get(propertyName);
         } catch (e) {
-          throw RuntimeD4rtException(
+          throw UndefinedMemberD4rtException(
             "Undefined property '$propertyName' on bridged enum value '${bridgedEnumValue.name}'.",
+            memberName: propertyName,
           );
         }
       }
@@ -5987,8 +6008,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         Logger.debug(
           "[PropertyAccess] Extension getter '$propertyName' not found. Rethrowing original error.",
         );
-        throw RuntimeD4rtException(
+        throw UndefinedMemberD4rtException(
           "Undefined property or method '$propertyName' on ${target.runtimeType}.",
+          memberName: propertyName,
         );
       }
     }

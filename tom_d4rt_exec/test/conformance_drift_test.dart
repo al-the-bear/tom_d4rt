@@ -106,6 +106,17 @@ const _astTwin = 'tom_d4rt_ast carries a same-named native twin under test/';
 const _astStdlibPrefix =
     'ast port of the same stdlib suite, renamed with its `stdlib_` prefix';
 
+/// How many entries in [_coveredElsewhere] may be partial twins (F-SCC6-3).
+///
+/// A ratchet, not a target: raising it is a deliberate edit that says "this new
+/// partial is the right shape, not a shortfall", and the entry's own comment has
+/// to say why. Raised from 6 to 7 for `scc28_typed_undefined_member_test.dart`,
+/// whose six-case deficit is not coverage a second copy could add: the
+/// reference file's uncovered cases are a source scan over two files this
+/// package does not own, plus seven script cases that need a type the published
+/// tom_d4rt_ast does not yet export.
+const _partialTwinBudget = 7;
+
 const Map<String, _Coverage> _coveredElsewhere = {
   // ---- Renamed on the exec side -------------------------------------------
   // exec folded three tom_d4rt filesystem suites into one file, and says so in
@@ -268,6 +279,23 @@ const Map<String, _Coverage> _coveredElsewhere = {
     _astTwin,
     refCases: 18,
     twinCases: 4,
+  ),
+  // The deficit is 6, and it is not a shortfall to close by porting. The
+  // reference file's primary guard (F-SCC28-1) is a SOURCE SCAN that reads both
+  // mirrored visitors from one process, so a second copy of it here would assert
+  // the identical thing about the identical two files — a duplicate failure, not
+  // a second measurement. Its six behavioural cases run scripts, which is the
+  // half exec could add value to, but they cannot run yet: they exercise
+  // `UndefinedMemberD4rtException`, absent from the published tom_d4rt_ast
+  // 0.20.1 this package resolves (working tree: 0.35.0), so a verbatim port does
+  // not compile. Measured, not predicted — the type is not in the pub-cache copy.
+  // The ast twin pins the half the scan cannot see: that the signal survives
+  // being re-wrapped. Revisit on the next publish (SCD88).
+  'scc28_typed_undefined_member_test.dart': _Coverage(
+    'ast:runtime/scc28_typed_undefined_member_test.dart',
+    _astTwin,
+    refCases: 9,
+    twinCases: 3,
   ),
   'stdlib/bridge_arity_test.dart': _Coverage(
     'ast:runtime/bridge_arity_test.dart',
@@ -853,12 +881,12 @@ void main() {
       );
       expect(
         partials.length,
-        lessThanOrEqualTo(6),
+        lessThanOrEqualTo(_partialTwinBudget),
         reason:
-            'More files are now only PARTIALLY covered than when this was '
-            'measured (6 files, $deficit cases short). A partial twin passes '
-            'the presence check while leaving assertions unrun on the '
-            'analyzer-free line.',
+            'More files are now only PARTIALLY covered than the budget of '
+            '$_partialTwinBudget allows (currently ${partials.length} files, '
+            '$deficit cases short). A partial twin passes the presence check '
+            'while leaving assertions unrun on the analyzer-free line.',
       );
     });
 

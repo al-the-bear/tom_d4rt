@@ -1,5 +1,4 @@
 import 'package:test/test.dart';
-import 'package:tom_d4rt/src/exceptions.dart';
 
 import '../../interpreter_test.dart';
 

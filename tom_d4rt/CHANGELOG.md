@@ -1,3 +1,43 @@
+## 1.46.0
+
+### Changed — "member absent" is a type, not a sentence (scc28)
+
+Member lookup failed by throwing `RuntimeD4rtException("Undefined property
+'<name>' on <receiver>")`, and eight sites in the visitor then asked
+`e.message.contains("Undefined property '$name'")` to decide between two
+entirely different continuations: try extension-method resolution, or propagate
+a failure that happened *inside* a member that does exist. **A formatted,
+human-readable diagnostic was the control-flow signal**, so rewording it —
+including a typo fix or a translation — silently disabled extension methods for
+every receiver kind routed through the edited site. The analyzer cannot see
+that, and the symptom is a wrong answer rather than a crash.
+
+New in `exceptions.dart`: `UndefinedMemberD4rtException`, a
+`RuntimeD4rtException` **subtype** carrying the absent member's name as a field.
+Subtyping is what let this land site by site: every surrounding `on
+RuntimeD4rtException` handler keeps catching, and `toString()` is inherited, so
+the diagnostics are unchanged to the byte. Eleven raise sites now throw it and
+eight decision sites ask `e is UndefinedMemberD4rtException && e.memberName ==
+name` — an equality where the old code asked for a substring.
+
+Also new: `rewrapPreservingMemberSignal`. Five sites add context to a
+member-lookup failure on the way out by concatenating the original message.
+Before this change they preserved the signal *by accident* — an outer
+`contains(...)` matched straight through the wrap. Typing only the raise sites
+would have lost the signal one frame out and reintroduced the very regression
+this change removes, so the wrappers re-raise through the helper.
+
+**Not a breaking change.** The new type is a subtype of what was thrown before
+and carries the same message, so nothing that caught or printed these failures
+moves. The point is that the message is now free to be reworded.
+
+`scc28_typed_undefined_member_test.dart` guards it, and its primary case is a
+**source scan** over both mirrored visitors rather than a behavioural
+assertion: the property being protected is "no site decides this by reading
+text", which is a property of the source. A behavioural test can only show that
+the sites which exist today take the right branch today; it cannot notice a
+ninth site added next month with a fresh `contains(...)`.
+
 ## 1.45.0
 
 ### Changed — an error keeps its type when it leaves `execute()` (scc27)
