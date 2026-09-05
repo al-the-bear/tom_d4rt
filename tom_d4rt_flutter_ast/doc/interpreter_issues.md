@@ -3779,7 +3779,8 @@ if (other is BridgedClass && other.nativeType == Function) return true;
 This subsumes the existing name test (`dart:core`'s own `Function` bridge is
 registered with `nativeType: Function` too) and fixes the argument check, the
 return check and `is`/`as` in one place, because all three consult
-`isSubtypeOf`.
+`isSubtypeOf`. Tracked as **scd136**, which also carries the
+publish-and-re-run sequence the fix needs before the corpus can see it.
 
 **Deliberately arity-blind.** The rule accepts any callable for any typedef,
 exactly as the current `'Function'` branch does. A structural check would need
@@ -3820,9 +3821,9 @@ primary gate.
 
 ### [ ] Open (GEN-126) — a bridged base class arrives where the script's own subclass is declared
 
-**Found:** 2026-09-06, run `20260906-scc46-fixed`, alongside GEN-125. **11
-framework errors, 0 failures** — recorded now precisely because a zero
-failure count is not evidence of harmlessness.
+**Found:** 2026-09-06, run `20260906-scc46-fixed`, alongside GEN-125. **14
+framework errors, 0 failures**, identically in both twins — recorded now
+precisely because a zero failure count is not evidence of harmlessness.
 
 **Symptom**
 
@@ -3837,9 +3838,10 @@ type 'RenderTwoDimensionalViewport'       is not a subtype of type '_TwoDSSRende
 type 'ThemeExtension'                     is not a subtype of type 'BrandColors' of 'brand'
 ```
 
-Seven of the eleven are `Intent` subclasses (`_GreetIntent`, `_UndoIntent`,
-`ToggleIntent`, `PlainActionIntent`, `ThemeReadIntent`, `TreeClimbIntent`,
-`ShowInfoIntent`).
+Nine of the fourteen are `Intent` subclasses, across seven distinct classes
+(`_GreetIntent`, `_UndoIntent`, `ToggleIntent`, `PlainActionIntent`,
+`ThemeReadIntent`, `TreeClimbIntent`, `ShowInfoIntent`); the remaining five
+are the `TwoDimensional*` and `ThemeExtension` cases above.
 
 **Root cause (hypothesis, not yet confirmed in code)**
 
@@ -3870,7 +3872,9 @@ defects are unrelated: GEN-125 is a *modelling* gap (the type system cannot
 say what a typedef is), GEN-126 is an *identity* loss (the value itself
 changed). Fixing GEN-125 will not move these 11.
 
-**Verifying the fix.** These 11 framework errors go to 0. No `+N` count will
+Tracked as **scd138** — as an investigation, not as a fix.
+
+**Verifying the fix.** These 14 framework errors go to 0. No `+N` count will
 move — the affected tests already pass.
 
 ---
@@ -3880,6 +3884,97 @@ move — the affected tests already pass.
 Corpus runs made to certify an interpreter change rather than to
 discover new clusters. Each entry records what was measured, against
 which resolved package versions, and what moved.
+
+### 2026-09-06 — full corpus, BOTH twins: GEN-124 fixed; the corpus's exit codes understated the damage by 20×
+
+**This is the current baseline.** Supersedes the 2026-08-12 run below.
+
+**Resolved interpreter versions** — read from the lockfiles after
+`flutter pub upgrade`, per DGUC6, because the twins consume the interpreter
+from pub.dev and a working-tree fix is invisible until published:
+
+| Package | `tom_d4rt` | `tom_d4rt_ast` |
+| ------- | ---------- | -------------- |
+| `tom_d4rt_flutter` | **1.53.0** | — |
+| `tom_d4rt_flutter/test/tom_d4rt_flutter_test_app` | **1.53.0** | — |
+| `tom_d4rt_flutter_ast` | 1.53.0 | **0.42.0** |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app` | — | **0.42.0** |
+
+Both are the SCC46 releases carrying the GEN-124 fix.
+
+**Why this run exists.** SCC46 mandated a completeness pass: upgrade every
+Flutter package to the current interpreter, run the full corpus on both twins,
+and reconcile every delta against the last all-green baseline. The upgrade
+itself surfaced the problem — moving from `tom_d4rt_ast` 0.20.1 to 0.40.0 took
+the corpus from all-green to **131 failures across all 41 files**.
+
+**Method.** `./test/run_issue_analysis_tests.sh` with `IDLE_TIMEOUT=300`, run
+ID `20260906-scc46-fixed`, AST twin to completion first and `tom_d4rt_flutter`
+only afterwards — serially, as the corpus's one-app-one-server design
+requires. Both 41/41, no IDLE-KILLED entries.
+
+**Result.**
+
+| | AST twin | source twin |
+| --- | --- | --- |
+| files | 41/41 | 41/41 |
+| failing files | 4 | 4 |
+| failures | 15 | 15 |
+| `frameworkErrors` | 295 | 303 |
+| scripts raising them | 109 | 109 |
+
+`metrics.txt` is **byte-identical between the twins** — the analyzer-free line
+remains behaviourally indistinguishable from the analyzer-based one.
+
+**Movement vs the 2026-08-12 baseline.** 37 of 41 files identical:
+
+| File | 2026-08-12 | now |
+| ---- | ---------- | --- |
+| `flutter_extended_05` | `exit=0 +61` | `exit=1 +60 -1` |
+| `flutter_extended_07` | `exit=0 +46` | `exit=1 +45 -1` |
+| `flutter_extended_22` | `exit=0 +42 ~1` | `exit=1 +33 ~1 -9` |
+| `flutter_extended_23` | `exit=0 +44 ~2` | `exit=1 +40 ~2 -4` |
+
+All 15 failures are **GEN-125**, filed above. GEN-124's fix does not appear in
+these counts at all — as GEN-124's entry predicted it would not — and shows
+only in `widgets/widget_inspector_service_extensions_test.dart`'s
+`frameworkErrors` going **8 → 0**, which was its stated criterion.
+
+**The finding that matters is not in the table.** Corpus-wide
+`frameworkErrors` went from **14 in August to 295**, across 109 scripts. Four
+files failed; 105 further scripts reported `status=success` while silently
+refusing a callback. Broken down:
+
+| Cluster | AST | source |
+| ------- | --: | -----: |
+| GEN-125 — closure vs bridged function typedef | 276 | 284 |
+| GEN-126 — interpreted subclass returns as its bridged base | 14 | 14 |
+| environmental (Scrollbar without `ScrollPosition`, PlatformView) | 5 | 5 |
+
+Had this run been read the way corpus runs are normally read — exit codes and
+`+N` counts — GEN-125 would have been recorded as a 15-failure edge case
+rather than as something touching a quarter of the corpus, and GEN-126 would
+not have been noticed at all. That is the same misreading that let GEN-124
+sit open for 25 days. **Read `frameworkErrors`, not just the exit codes**; the
+2026-08-12 entry already raised this and it is now filed as scd135, with the
+runner-side fix (fail or at least summarise nonzero `frameworkErrors`) still
+open.
+
+**The 8-error twin divergence is not a divergence.** The source twin's 303
+exceeds the AST twin's 295 entirely within two scripts —
+`rendering/render_repaint_boundary_test.dart` (47 vs 45) and
+`rendering/render_rotated_box_test.dart` (41 vs 35). Both drive
+`Slider(onChanged: (double v) => …)`, so the same GEN-125 rejection is raised
+once per rebuild and the count tracks frame timing, not interpreter
+behaviour. Every other (script, signature) pair matches exactly.
+
+**Also closed by this run.** The three `_frozenLockExceptions` entries in
+`tom_d4rt_ast/test/scc45_resolution_guard_test.dart` — the two Flutter twins
+plus their companion app — were frozen so their upgrade would happen inside
+SCC46 rather than days earlier. It did; the map is now empty and F-SCC45-2/3
+are green against it.
+
+---
 
 ### 2026-09-03 — base corpus, AST twin: tcca19's ambiguity rule regressed 17 scripts, fixed in 0.20.1
 
