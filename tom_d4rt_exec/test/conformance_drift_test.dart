@@ -750,6 +750,15 @@ const Set<String> _divergentBaseline = {
   'open_issues/b5_bridged_exception_catch_test.dart',
   'open_issues/b9_static_field_sibling_write_test.dart',
   'operator_improvements_test.dart',
+  // The only entry in this set whose divergence is a set of SKIPS rather than a
+  // content difference. SCC40 made the await-resumption slot per-await-site, so
+  // `(await a) + (await b)` stops yielding `'AA'`; the reference tree runs
+  // F-SCB14-9/-10/-11/-12 green. This copy skips exactly those four, because
+  // exec resolves `tom_d4rt_ast` from pub.dev at 0.40.0 (DGUC6) and the fix
+  // landed after it. Verified under a throwaway path override: all thirteen
+  // pass against the working tree. Un-skip the four and delete this entry in
+  // the commit that raises exec's floor past 0.40.0; tracked as SCD120.
+  'scb14_await_receiver_position_test.dart',
   'scc32_bridged_value_key_test.dart',
   // A deliberate PARTIAL port, and the only kind of divergence in this set that
   // is a subtraction rather than a rewrite. The reference file's F-SCC33-5
