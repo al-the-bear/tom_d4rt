@@ -20,7 +20,42 @@ class AsyncExecutionState {
   AstNode? nextStateIdentifier;
 
   /// The result value from the most recently completed Future (from await).
+  ///
+  /// Note this is the *most recent* result, not "the result of the await site
+  /// being resumed" — those coincide only when a statement contains a single
+  /// await. For per-site replay use [resolvedAwaitResults]; this slot remains
+  /// the completion value the state machine falls back to.
   Object? lastAwaitResult;
+
+  /// Results of the await sites already resolved while resuming the statement
+  /// currently in flight, keyed by the `AwaitExpression` node itself.
+  ///
+  /// SCC40: resuming a statement means re-evaluating it from the top, so every
+  /// await it contains is visited again. With only [lastAwaitResult] to consult,
+  /// each of those visits returned the same value — so `(await a) + (await b)`
+  /// evaluated to `'AA'`, a silent wrong answer rather than a crash. Keying by
+  /// node lets an already-resolved site replay *its own* value while a site that
+  /// has not been reached yet still suspends properly.
+  ///
+  /// Scoped to one evaluation of one statement: [resumingStatementHasMoreAwaits]
+  /// says whether that evaluation is still in progress, and the state machine
+  /// clears this map as soon as it is not. A loop body re-enters the identical
+  /// AST node on every iteration, so a map that outlived the statement would
+  /// replay the previous iteration's value.
+  ///
+  /// Keyed by IDENTITY, matching the `tom_d4rt_ast` twin, where it is load-
+  /// bearing: `SAstNode` overrides `==` with structural `equals()`, so a plain
+  /// map there would treat two await sites as one whenever the mirror tree
+  /// reuses a node shape. Analyzer nodes already compare by identity; spelling
+  /// it the same way in both keeps the two files diffable.
+  final Map<AstNode, Object?> resolvedAwaitResults =
+      Map<AstNode, Object?>.identity();
+
+  /// Set while resuming a statement that still has an unreached await site.
+  ///
+  /// The state machine consults it after `_determineNextNodeAfterAwait` to
+  /// decide whether [resolvedAwaitResults] survives into the next step.
+  bool resumingStatementHasMoreAwaits = false;
 
   /// The error from the most recently completed Future (if it failed).
   Object? lastAwaitError;
@@ -186,14 +221,25 @@ class AsyncSuspensionRequest {
   /// Flag indicating if this suspension is from a yield statement
   final bool isYieldSuspension;
 
+  /// The `await` site that produced this suspension, when there is one.
+  ///
+  /// SCC40: this is what lets the resolved value be filed against its own await
+  /// expression in [AsyncExecutionState.resolvedAwaitResults] instead of a
+  /// single per-frame slot shared by every await in the statement. Null for
+  /// suspensions the state machine raises itself (yield, await-for stream
+  /// conversion), which resume by a different route and need no per-site replay.
+  final AstNode? awaitNode;
+
   /// Creates a new async suspension request.
   ///
   /// [future] The Future that the interpreter should wait for.
   /// [asyncState] The current execution state that will be resumed after the Future completes.
   /// [isYieldSuspension] Whether this suspension is from a yield statement.
+  /// [awaitNode] The `await` expression this suspension came from, if any.
   AsyncSuspensionRequest(
     this.future,
     this.asyncState, {
     this.isYieldSuspension = false,
+    this.awaitNode,
   });
 }

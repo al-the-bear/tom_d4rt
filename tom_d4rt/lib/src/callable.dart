@@ -3019,6 +3019,14 @@ class InterpretedFunction implements Callable {
                 try {
                   // Update the state with the result
                   currentState.lastAwaitResult = futureResult;
+                  // SCC40: also file it against the await site it belongs to, so
+                  // re-evaluating the statement replays this value at THIS await
+                  // and keeps suspending at the ones not yet reached.
+                  final resolvedAwaitNode = suspension.awaitNode;
+                  if (resolvedAwaitNode != null) {
+                    currentState.resolvedAwaitResults[resolvedAwaitNode] =
+                        futureResult;
+                  }
                   currentState.lastAwaitError = null;
                   currentState.lastAwaitStackTrace = null;
                   currentState.currentError =
@@ -3072,11 +3080,20 @@ class InterpretedFunction implements Callable {
                     );
                   } else {
                     // For await suspensions, use the complex await logic
+                    currentState.resumingStatementHasMoreAwaits = false;
                     nextNodeAfterAwait = _determineNextNodeAfterAwait(
                       visitor,
                       currentState,
                       currentNode!,
                     ); // The node that caused the suspension
+                    // SCC40: the per-site cache is scoped to ONE evaluation of
+                    // the suspended statement. Once that evaluation is done the
+                    // entries must go, because a loop body re-enters the
+                    // identical AST node and would otherwise replay the previous
+                    // iteration's value.
+                    if (!currentState.resumingStatementHasMoreAwaits) {
+                      currentState.resolvedAwaitResults.clear();
+                    }
                   }
 
                   currentState.nextStateIdentifier = nextNodeAfterAwait;
@@ -3644,16 +3661,26 @@ class InterpretedFunction implements Callable {
         final previousResumptionMode = state.isInvocationResumptionMode;
         state.isInvocationResumptionMode = true;
 
+        // SCC40: see the ReturnStatement branch below — re-evaluation now
+        // genuinely re-reads operands, so it must run in the frame's own scope.
+        final previousVisitorEnv = visitor.environment;
+        visitor.environment = currentExecutionEnvironment;
+
         final result = awaitContextNode.accept<Object?>(visitor);
 
         // Restore the previous modes
         state.isInvocationResumptionMode = previousResumptionMode;
         visitor.currentAsyncState = previousAsyncState;
+        visitor.environment = previousVisitorEnv;
 
         if (result is AsyncSuspensionRequest) {
           Logger.debug(
             "[_determineNextNodeAfterAwait] Another await encountered during invocation continuation.",
           );
+          // SCC40: keep the per-site results — the next pass over this node has
+          // to replay them, or the awaits already resolved would suspend again
+          // and the statement would never finish.
+          state.resumingStatementHasMoreAwaits = true;
           return awaitContextNode; // Stay on the same node to handle the next await
         }
 
@@ -4084,12 +4111,23 @@ class InterpretedFunction implements Callable {
           final previousResumptionMode = state.isInvocationResumptionMode;
           state.isInvocationResumptionMode = true;
 
+          // SCC40: re-evaluating the expression means re-reading its operands,
+          // so it has to happen in the frame's own environment. That was
+          // invisible while every await in resumption mode short-circuited to
+          // `lastAwaitResult` — nothing was actually read. Now a not-yet-reached
+          // await evaluates its operand for real, and `return a + await b` fails
+          // with "Undefined variable: b" unless the scope is restored. Case 1
+          // (`_findNextSequentialNode` for a declaration) has always done this.
+          final previousVisitorEnv = visitor.environment;
+          visitor.environment = currentExecutionEnvironment;
+
           // Re-evaluate just the return expression
           final expression = returnNode.expression;
           if (expression == null) {
             // return; statement - no expression to evaluate
             state.isInvocationResumptionMode = previousResumptionMode;
             visitor.currentAsyncState = previousAsyncState;
+            visitor.environment = previousVisitorEnv;
             return null;
           }
 
@@ -4098,11 +4136,15 @@ class InterpretedFunction implements Callable {
           // Restore the previous modes
           state.isInvocationResumptionMode = previousResumptionMode;
           visitor.currentAsyncState = previousAsyncState;
+          visitor.environment = previousVisitorEnv;
 
           if (result is AsyncSuspensionRequest) {
             Logger.debug(
               "[_determineNextNodeAfterAwait] Another await encountered during return expression continuation.",
             );
+            // SCC40: as above — the already-resolved sites must survive into the
+            // next pass over this return statement.
+            state.resumingStatementHasMoreAwaits = true;
             return awaitContextNode; // Stay on the same node to handle the next await
           }
 

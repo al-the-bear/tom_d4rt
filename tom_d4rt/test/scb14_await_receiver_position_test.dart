@@ -119,21 +119,25 @@ void main() {
     // ---------------------------------------------------------------------
     // Below this line: two DISTINCT pre-existing bugs that this suite
     // uncovered but that are outside SCB14's scope ("await in receiver
-    // position"). They are kept here — skipped — because they are the
-    // cheapest known reproductions and they pin the exact boundary of what
-    // the receiver-slot fix does and does not cover. Un-skip them in the
-    // referenced todo, not here.
+    // position"). They are kept here because they are the cheapest known
+    // reproductions and they pin the exact boundary of what the receiver-slot
+    // fix does and does not cover.
+    //
+    // Both are now FIXED by SCC40, which replaced the single per-frame
+    // `lastAwaitResult` slot with a per-await-site map keyed by the
+    // `AwaitExpression` node. Bug B fell out of the same change: once a
+    // not-yet-reached await stopped short-circuiting to `lastAwaitResult` it
+    // began reading its operand for real, which forced the resumption path to
+    // restore the frame's environment — the very thing Bug B was about.
     // ---------------------------------------------------------------------
 
-    // Bug A — one `lastAwaitResult` slot per async frame. Every
-    // `visitAwaitExpression` reads the same slot on resumption, so the second
-    // and later awaits in a single statement all yield the FIRST future's
-    // value. Independent of receiver shape: F-SCB14-12 has no receiver at all
-    // and still fails, on a code path the SCB14 fix never touches.
-    // This is a silent wrong answer, not a crash — see the todo.
-    const bugAskip =
-        'scc40_agñg-multi-await-per-statement-single-slot: second await in a '
-        'statement resolves to the first future value';
+    // Bug A — there used to be one `lastAwaitResult` slot per async frame, and
+    // every `visitAwaitExpression` read that same slot on resumption, so the
+    // second and later awaits in a single statement all yielded the FIRST
+    // future's value. Independent of receiver shape: F-SCB14-12 has no
+    // receiver at all and still failed, on a code path the SCB14 fix never
+    // touches. It was a silent wrong answer, not a crash, which is why the
+    // suite stayed green around it.
 
     test(
       'F-SCB14-9: two awaits in receiver position in one statement',
@@ -148,7 +152,6 @@ void main() {
       ''');
         expect(result, equals('1,2|3,4'));
       },
-      skip: bugAskip,
     );
 
     test(
@@ -164,7 +167,6 @@ void main() {
       ''');
         expect(result, equals('1|3'));
       },
-      skip: bugAskip,
     );
 
     test('F-SCB14-12: two awaits with no receiver at all', () async {
@@ -177,17 +179,37 @@ void main() {
         main() async => await run();
       ''');
       expect(result, equals('AB'));
-    }, skip: bugAskip);
+    });
 
-    // Bug B — resumption re-enters the statement in an environment that no
-    // longer holds the enclosing block's locals, so `out` is undefined on the
-    // second pass. Distinct from Bug A: this is an await in ARGUMENT position
-    // whose invocation target is a local. The error text is byte-identical
-    // before and after the SCB14 fix, which is what proves it pre-existing.
-    test(
-      'F-SCB14-10: await in an argument whose target is a local',
-      () async {
-        final result = await executeAsync('''
+    // The per-await-site map is scoped to ONE evaluation of the suspended
+    // statement, and a loop body re-enters the *identical* AST node on every
+    // iteration. If the map outlived the statement, iteration 2 would replay
+    // iteration 1's value and the sum would be 2 instead of 3 — a silent wrong
+    // answer of exactly the shape SCC40 removed. This pins the clearing.
+    test('F-SCB14-13: the same await site in a loop body resolves afresh '
+        'on every iteration', () async {
+      final result = await executeAsync('''
+        Future<int> run() async {
+          var total = 0;
+          for (var i = 1; i <= 2; i++) {
+            total += await Future.value(i);
+          }
+          return total;
+        }
+        main() async => await run();
+      ''');
+      expect(result, equals(3));
+    });
+
+    // Bug B — resumption re-entered the statement in an environment that no
+    // longer held the enclosing block's locals, so `out` was undefined on the
+    // second pass. Tracked separately from Bug A (it is an await in ARGUMENT
+    // position whose invocation target is a local) but closed by the same SCC40
+    // change: restoring `visitor.environment` before re-evaluating is what the
+    // per-site fix *forced*, because a not-yet-reached await now genuinely reads
+    // its operand instead of short-circuiting to `lastAwaitResult`.
+    test('F-SCB14-10: await in an argument whose target is a local', () async {
+      final result = await executeAsync('''
         Future<int> run() async {
           final f = Stream.fromIterable([5, 6]).toList();
           final out = <int>[];
@@ -196,11 +218,7 @@ void main() {
         }
         main() async => await run();
       ''');
-        expect(result, equals(4));
-      },
-      skip:
-          'scc41_agñg-await-in-argument-resumption-loses-local: '
-          'resumption drops the enclosing block scope — "Undefined variable"',
-    );
+      expect(result, equals(4));
+    });
   });
 }

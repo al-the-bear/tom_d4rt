@@ -13047,12 +13047,21 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       );
     }
 
-    // Check if we are in invocation resumption mode
-    if (currentAsyncState!.isInvocationResumptionMode) {
+    // Resuming a statement re-evaluates it from the top, so this await site may
+    // already have been resolved on an earlier pass. Replay ITS OWN value.
+    //
+    // SCC40: this used to read `lastAwaitResult` whenever the frame was in
+    // invocation-resumption mode, which is a single slot shared by every await
+    // in the statement — so `(await a) + (await b)` produced `'AA'`. Falling
+    // through when the site is absent from the map is the other half of the
+    // fix: an await that has not been reached yet must still suspend, rather
+    // than silently adopting a neighbour's value.
+    final resolvedAwaits = currentAsyncState!.resolvedAwaitResults;
+    if (resolvedAwaits.containsKey(node)) {
       Logger.debug(
-        "[SAwaitExpression] In invocation resumption mode, returning last await result: ${currentAsyncState!.lastAwaitResult}",
+        "[SAwaitExpression] Replaying already-resolved await site: ${resolvedAwaits[node]}",
       );
-      return currentAsyncState!.lastAwaitResult;
+      return resolvedAwaits[node];
     }
 
     Logger.debug("[SAwaitExpression] Evaluating expression for await...");
@@ -13088,7 +13097,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // CRUCIAL: Return the suspension request with the future and the current state.
       // The async state machine will use this information.
       // Note: currentAsyncState cannot be null here because of the previous check.
-      return AsyncSuspensionRequest(future, currentAsyncState!);
+      return AsyncSuspensionRequest(
+        future,
+        currentAsyncState!,
+        awaitNode: node,
+      );
     } else {
       // The argument to 'await' MUST be a Future.
       throw RuntimeD4rtException(
