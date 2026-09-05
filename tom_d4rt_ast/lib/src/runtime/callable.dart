@@ -5198,14 +5198,9 @@ class InterpretedFunction implements Callable {
     // Dart 3 permits named arguments anywhere in the argument list, so we no
     // longer enforce a "named must come last" ordering for $invocationType.
     for (final arg in argumentList.arguments) {
-      // Evaluate argument, disallow await for now in constructor contexts
-      final argValue = arg.accept<Object?>(visitor);
-      if (argValue is AsyncSuspensionRequest) {
-        throw UnimplementedD4rtException(
-          "'await' is not yet supported within $invocationType call arguments.",
-        );
-      }
-
+      // A named argument is unwrapped here rather than dispatched: dispatching
+      // it and *then* re-reading `arg.expression` below would evaluate the
+      // argument twice, running its side effects twice.
       if (arg is SNamedExpression) {
         final name = arg.name!.label!.name;
         final value = arg.expression!.accept<Object?>(
@@ -5226,6 +5221,12 @@ class InterpretedFunction implements Callable {
         }
         namedArgs[name] = value;
       } else {
+        final argValue = arg.accept<Object?>(visitor);
+        if (argValue is AsyncSuspensionRequest) {
+          throw UnimplementedD4rtException(
+            "'await' is not yet supported within $invocationType call arguments.",
+          );
+        }
         positionalArgs.add(argValue);
         Logger.debug(
           " [_evalArgs] Evaluated POSITIONAL arg = $argValue (${argValue?.runtimeType})",

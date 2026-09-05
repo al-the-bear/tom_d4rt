@@ -13,6 +13,76 @@ import 'package:tom_d4rt/src/unbridged_reasons.dart';
 /// Main visitor that walks the AST and interprets the code.
 /// Uses a two-pass approach (DeclarationVisitor first).
 class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
+  /// SCC33 — the dispatch backstop.
+  ///
+  /// `GeneralizingAstVisitor.visitNode` walks the node's children and answers
+  /// `null`. For a visitor that *traverses*, that is the right default; for one
+  /// that *evaluates*, it is a trapdoor. A node with no handler did not fail —
+  /// it quietly produced `null`, and the program carried that `null` until it
+  /// hit something that could not take it, several frames away and in
+  /// unrelated code. `#foo` evaluated to `null` for the entire life of the
+  /// project this way (SCB11); the error it eventually raised accused a bridge.
+  ///
+  /// Raising here converts that class of defect from "wrong answer, blamed
+  /// elsewhere" into "named diagnostic, at the offset". Everything the
+  /// inherited default was legitimately doing now has an explicit handler —
+  /// see [visitNamedExpression], [visitFunctionDeclarationStatement] and
+  /// [visitTypeAlias], each of which was found by instrumenting this method
+  /// and running the suite rather than by reading the code.
+  @override
+  Object? visitNode(AstNode node) {
+    throw UnimplementedD4rtException(
+      "Unsupported AST node '${node.runtimeType}' at offset ${node.offset}. "
+      "The interpreter has no handler for this construct, so it cannot be "
+      "evaluated. Source: '${_nodeExcerpt(node)}'.",
+    );
+  }
+
+  /// A short, single-line excerpt of [node]'s source, for the diagnostic.
+  ///
+  /// Truncated because an unhandled node can be an entire declaration, and a
+  /// multi-line dump buries the node type that is the actual message.
+  static String _nodeExcerpt(AstNode node) {
+    final text = node.toSource().replaceAll(RegExp(r'\s+'), ' ');
+    return text.length <= 60 ? text : '${text.substring(0, 57)}...';
+  }
+
+  /// A named argument evaluates to its expression — the label is a name, not a
+  /// value.
+  ///
+  /// Without this, the generalizing default recursed into the children, which
+  /// walked the [Label] and tried to *resolve its identifier as a variable*.
+  /// That is why `super(a: 7)` failed with "Undefined variable: a" while
+  /// `super(a: a)` appeared to work: in the second form a variable of that name
+  /// happened to be in scope, so the accidental lookup succeeded and the real
+  /// value arrived by a different route. Every existing test wrote the
+  /// forwarding form, which is why the suite never caught it.
+  @override
+  Object? visitNamedExpression(NamedExpression node) =>
+      node.expression.accept<Object?>(this);
+
+  /// A local function declaration is executed by evaluating the declaration it
+  /// wraps.
+  ///
+  /// This worked before only as a side effect of the inherited default's child
+  /// recursion. It is spelled out because the behaviour is intended, and
+  /// because `tom_d4rt_ast` already had the explicit handler — this realigns
+  /// the twins.
+  @override
+  Object? visitFunctionDeclarationStatement(
+    FunctionDeclarationStatement node,
+  ) => node.functionDeclaration.accept<Object?>(this);
+
+  /// A type alias has no runtime representation, so it evaluates to nothing.
+  ///
+  /// Deliberately does **not** recurse: the alias' type parameters, function
+  /// type and formal parameters are type-level syntax with no value to compute,
+  /// and walking them was the only reason seven further node types reached the
+  /// default. Type annotations that name an alias are resolved leniently
+  /// elsewhere; making aliases actually resolve is separate work (SCD100).
+  @override
+  Object? visitTypeAlias(TypeAlias node) => null;
+
   Environment environment;
   final Environment globalEnvironment;
   final ModuleLoader moduleLoader; // Field for ModuleLoader

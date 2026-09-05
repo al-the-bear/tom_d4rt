@@ -24,6 +24,63 @@ class _SClosurePresenceVisitor extends SAstVisitor<void> {
 /// Main visitor that walks the AST and interprets the code.
 /// Uses a two-pass approach (DeclarationVisitor first).
 class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
+  /// SCC33 — the dispatch backstop.
+  ///
+  /// `SAstVisitor.visitNode` answers `null`. For a visitor that *traverses*,
+  /// that is the right default; for one that *evaluates*, it is a trapdoor. A
+  /// node with no handler did not fail — it quietly produced `null`, and the
+  /// program carried that `null` until it hit something that could not take it,
+  /// several frames away and in unrelated code. `#foo` evaluated to `null` for
+  /// the entire life of the project this way (SCB11); the error it eventually
+  /// raised accused a bridge.
+  ///
+  /// Raising here converts that class of defect from "wrong answer, blamed
+  /// elsewhere" into "named diagnostic, at the offset". The two node types that
+  /// were legitimately reaching this default now have explicit handlers — see
+  /// [visitNamedExpression] and [visitTypedefDeclaration], both found by
+  /// instrumenting this method and running the suite rather than by reading the
+  /// code.
+  ///
+  /// **This default differs from the analyzer twin's in one way that matters.**
+  /// `GeneralizingAstVisitor.visitNode` recurses into the node's children;
+  /// `SAstVisitor.visitNode` does not. So the same gap presented differently in
+  /// the two trees: in `tom_d4rt` an unhandled `NamedExpression` walked into its
+  /// [SLabel] and tried to resolve the label as a variable, while here it simply
+  /// evaluated to `null`. Same defect, and the quieter of the two was this one.
+  ///
+  /// The twin's diagnostic also quotes a short source excerpt. This one cannot:
+  /// [SAstNode] carries `offset` and `length` but not the source text, which is
+  /// the whole reason a bundle can ship without it. The omission is deliberate,
+  /// not drift.
+  @override
+  Object? visitNode(SAstNode node) {
+    throw UnimplementedD4rtException(
+      "Unsupported AST node '${node.runtimeType}' at offset ${node.offset}. "
+      "The interpreter has no handler for this construct, so it cannot be "
+      "evaluated.",
+    );
+  }
+
+  /// A named argument evaluates to its expression — the label is a name, not a
+  /// value.
+  ///
+  /// Without this the generalizing default returned `null`, so every site that
+  /// dispatched a named argument rather than unwrapping it field-wise silently
+  /// bound `null`. The redirecting-constructor initializer in `callable.dart`
+  /// is exactly such a site: `A() : this.named(a: 5)` passed `null`, not `5`.
+  @override
+  Object? visitNamedExpression(SNamedExpression node) =>
+      node.expression!.accept<Object?>(this);
+
+  /// A typedef has no runtime representation, so it evaluates to nothing.
+  ///
+  /// Deliberately does **not** recurse: the alias' type parameters, function
+  /// type and formal parameters are type-level syntax with no value to compute.
+  /// Type annotations that name an alias are resolved leniently elsewhere;
+  /// making aliases actually resolve is separate work (SCD100).
+  @override
+  Object? visitTypedefDeclaration(STypedefDeclaration node) => null;
+
   Environment environment;
   final Environment globalEnvironment;
   final ModuleContext moduleContext; // Abstract module loading interface
