@@ -1,3 +1,34 @@
+## 1.52.0
+
+### Fixed — every `await` in a statement resumes with its own value (scc40)
+
+Resuming a suspended statement re-evaluates it from the top, and every `await`
+in it consulted the same per-frame `lastAwaitResult` slot. So the second and
+later awaits replayed the *first* future's result: `(await a) + (await b)`
+evaluated to `'AA'`. A silent wrong answer, not a crash, which is why the
+suites stayed green around it for so long.
+
+The slot is replaced by `AsyncExecutionState.resolvedAwaitResults`, a map from
+await site to the value that site resolved to, filed via the new
+`AsyncSuspensionRequest.awaitNode`. An already-resolved site replays its own
+value; a site not yet reached falls through and suspends properly. The map is
+scoped to one evaluation of one statement — `resumingStatementHasMoreAwaits`
+says whether that evaluation is still running, and the state machine clears the
+map as soon as it is not, because a loop body re-enters the identical AST node
+on every iteration and would otherwise replay the previous iteration's value.
+
+**A second defect fell out of the first (scc41).** While a not-yet-reached
+await short-circuited to `lastAwaitResult`, nothing actually read its operand.
+Once it began evaluating that operand for real, the resumption path's failure to
+restore the frame's environment became reachable: `return a + await b` raised
+`Undefined variable: b`. The re-evaluation branches now restore
+`visitor.environment` alongside `currentAsyncState`.
+
+**Known limitation, not fixed here.** The variable-declaration resumption route
+still binds the first awaited value straight to the variable instead of
+re-evaluating the initializer, so `var s = (await a) + (await b);` yields `1`
+rather than `3`. The return-statement route is correct. Tracked separately.
+
 ## 1.51.0
 
 ### Fixed — an unhandled AST node announces itself instead of answering null (scc33)

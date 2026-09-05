@@ -44,10 +44,11 @@ class AsyncExecutionState {
   /// replay the previous iteration's value.
   ///
   /// Keyed by IDENTITY, matching the `tom_d4rt_ast` twin, where it is load-
-  /// bearing: `SAstNode` overrides `==` with structural `equals()`, so a plain
-  /// map there would treat two await sites as one whenever the mirror tree
-  /// reuses a node shape. Analyzer nodes already compare by identity; spelling
-  /// it the same way in both keeps the two files diffable.
+  /// bearing: `SAstNode` overrides `==` with `equals()`, a `toJson()` deep
+  /// diff, so a plain map there would run that diff on every lookup and would
+  /// fuse two await sites whose entire subtrees serialize identically.
+  /// Analyzer nodes already compare by identity; spelling it the same way in
+  /// both keeps the two files diffable.
   final Map<AstNode, Object?> resolvedAwaitResults =
       Map<AstNode, Object?>.identity();
 

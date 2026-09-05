@@ -43,10 +43,15 @@ class AsyncExecutionState {
   /// AST node on every iteration, so a map that outlived the statement would
   /// replay the previous iteration's value.
   ///
-  /// Keyed by IDENTITY, deliberately. `SAstNode` overrides `==` with structural
-  /// `equals()` and hashes on `(runtimeType, offset, length)`, so a plain map
-  /// would treat two await sites as one whenever the mirror tree reuses a
-  /// node shape — and this map's whole job is to tell await sites apart.
+  /// Keyed by IDENTITY, deliberately. `SAstNode` overrides `==` with
+  /// `equals()`, which serializes both sides via `toJson()` and deep-diffs
+  /// them. Under a plain map every lookup here would run that deep diff on a
+  /// hot path — and two await sites whose *entire* subtrees serialize
+  /// identically (`await next()` written twice) would fuse into one entry,
+  /// which is precisely what this map exists to prevent. Identity keying costs
+  /// a pointer compare. Note the fusing half is reasoned, not test-pinned: see
+  /// `test/runtime/scc40_per_await_site_resumption_test.dart` for why the case
+  /// cannot be written today.
   final Map<SAstNode, Object?> resolvedAwaitResults =
       Map<SAstNode, Object?>.identity();
 
