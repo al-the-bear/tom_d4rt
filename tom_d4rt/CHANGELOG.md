@@ -1,3 +1,64 @@
+## 1.50.0
+
+### Fixed — a bridged value is now a value key, not an identity key (scc32)
+
+Every value produced by a bridged *constructor* is a `BridgedInstance` wrapper,
+and that wrapper overrode only `toString()`. So it compared and hashed by
+identity, and two separately constructed wrappers around equal natives were
+different keys: `{Duration(seconds: 1): 1}[Duration(seconds: 1)]` was `null` and
+`{Symbol('a')}.contains(Symbol('a'))` was `false`.
+
+**The shape is what made it dangerous.** `a == b` on two such values answered
+`true`. A script therefore got the right answer from `==` and the wrong answer
+from every hash-based collection, with nothing raised on either path.
+
+**`==` was never routed to the native.** It had been assumed that only
+`hashCode` was missing. It was not: the `true` came from
+`visitBinaryExpression`, which unwraps *both operands* to their natives before
+comparing — the wrapper's own `==` was never consulted. So the fix needs `==` as
+much as `hashCode`, and the symptoms were wider than hashing:
+`[Duration(seconds: 1)].contains(Duration(seconds: 1))` was `false` and
+`indexOf` was `-1`, neither of which hashes at all.
+
+**Wrapper equality alone was not sufficient, and would have made things worse.**
+D4rt reaches a map by two different routes. `m[k]` passes `k` through untouched,
+so the lookup key arrives as a *wrapper*; `m.containsKey(k)` is a bridge method
+call whose arguments are unwrapped on the way in, so the same key arrives as a
+bare *native*. Dart's hash lookup asks `lookupKey == storedKey` — the lookup key
+is the receiver — so a wrapper looking up a stored native resolves through the
+new `operator ==`, while a bare native looking up a stored wrapper is rejected by
+the native's own `==`, which no code in this package can override. Fixing only
+the wrapper made `[]` work while `containsKey` stayed broken, leaving the two
+spellings in disagreement rather than uniformly wrong.
+
+The fix therefore has two halves, and both are required:
+
+1. `BridgedInstance` delegates `==` and `hashCode` to its wrapped native,
+   including across the wrapper/native boundary. This is the same choice
+   `BridgedEnumValue` already made, for the same reason.
+2. Hash keys are normalized to the native **at storage** — map-literal keys and
+   set-literal elements, including the null-aware spelling — so a stored key is
+   never a wrapper and the unfixable direction cannot arise.
+
+The second half generalizes RC-7, which already did exactly this for
+`BridgedEnumValue`; it **replaces** that enum-only special case rather than
+sitting beside it.
+
+**Cross-boundary equality is required, not speculative.** D4rt is inconsistent
+about wrapping: a constructor yields a wrapper, but every bridged *method* return
+yields a bare native. `DateTime(2021).difference(x)` and `Duration(seconds: 1)`
+are the same value in two representations and routinely meet in one collection.
+That inconsistency is itself a defect and is tracked separately as SCD98.
+
+**Unchanged on purpose.** Interpreted classes keep Dart's own semantics — a
+plain one still keys by identity, one that defines `==`/`hashCode` still
+collapses. List elements keep their representation, because a list is not
+hash-keyed and the wrapper's `==` now answers correctly on its own. Map *values*
+are untouched; only keys have a bucketing role.
+
+Covered by `scc32_bridged_value_key_test.dart` (21 cases), two of which are
+source scans pinning both halves of the fix into both mirrored trees.
+
 ## 1.49.0
 
 ### Fixed — an undefined name can no longer be swallowed by script code (scc31)

@@ -402,6 +402,50 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
       return "Instance of native '${bridgedClass.name}'";
     }
   }
+
+  /// SCC32: value equality, delegated to the wrapped native.
+  ///
+  /// Without this the wrapper compared by identity, so two separately
+  /// constructed wrappers around equal natives were different keys. The
+  /// interpreted `a == b` expression looked right only because
+  /// `visitBinaryExpression` unwraps both operands before comparing — the
+  /// wrapper itself was never consulted. So a script got `true` from `==` and a
+  /// miss from every hash-based collection, with no error either way. `List`
+  /// membership was wrong too (`[Duration(seconds: 1)].contains(Duration(
+  /// seconds: 1))` was false), which no amount of hashing would explain and
+  /// which is why `hashCode` alone was not the fix.
+  ///
+  /// **Equality with the raw native is deliberate**, and it is the same choice
+  /// [BridgedEnumValue] already made for the same reason. d4rt is not
+  /// consistent about wrapping: a constructor call yields a wrapper, while
+  /// every bridged *method* return yields a bare native, so
+  /// `DateTime(2021).difference(x)` and `Duration(seconds: 1)` are the same
+  /// value in two different representations and routinely meet in one
+  /// collection.
+  ///
+  /// This is asymmetric, which is normally a hazard — `raw == wrapper` stays
+  /// false because a native's `==` rejects a foreign type, and nothing here can
+  /// change that. It is safe because Dart's hash lookup calls
+  /// `lookupKey == storedKey`, making the lookup key the receiver: whenever the
+  /// wrapper is the value being looked *up*, this operator runs and the
+  /// comparison succeeds regardless of how the key was stored. The opposite
+  /// direction — a raw native looking up a stored wrapper — would fall on the
+  /// unfixable side, which is why hash keys are additionally normalized to the
+  /// native at storage time (see `_unwrapHashKey` in the interpreter). Between
+  /// the two, no stored key is ever a wrapper and every lookup resolves.
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is BridgedInstance) {
+      return nativeObject == other.nativeObject;
+    }
+    return nativeObject == other;
+  }
+
+  /// Must agree with [operator ==], and therefore with the native, or a value
+  /// that compares equal would still land in a different bucket.
+  @override
+  int get hashCode => nativeObject.hashCode;
 }
 
 /// Represents a generic type parameter like T, U, etc.

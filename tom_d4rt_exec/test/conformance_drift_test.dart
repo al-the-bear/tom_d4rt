@@ -589,6 +589,21 @@ const Map<String, int> _uncoveredBaseline = {
   // the commit that raises exec's `tom_d4rt_ast` floor past 0.38.0; tracked
   // together with SCC29 and SCC30 as SCD89.
   'scc31_undefined_name_uncatchable_test.dart': 18,
+  // BLOCKED ON THE SAME PUBLISH. SCC32 makes a bridged value a value key rather
+  // than an identity key — `BridgedInstance` delegates `==`/`hashCode` to its
+  // native, and hash keys are normalized to the native at storage. Exec's
+  // published `tom_d4rt_ast` 0.20.1 still hashes by wrapper identity, so a
+  // verbatim port fails the map, set and list cases and reads as a migration bug
+  // rather than a version gap.
+  //
+  // The last two cases (F-SCC32-20/21) are source scans over both trees rather
+  // than script runs, and belong to `tom_d4rt` only — the port should drop them,
+  // for the same reason as F-SCC31-17/18 above.
+  //
+  // Nothing else has to land first. Port this file and delete this entry in the
+  // commit that raises exec's `tom_d4rt_ast` floor past 0.39.0; tracked together
+  // with SCC29, SCC30 and SCC31 as SCD89.
+  'scc32_bridged_value_key_test.dart': 21,
   'stdlib/cast_from_family_test.dart': 6,
   'stdlib/convert/json_named_constructors_test.dart': 13,
   'stdlib/core/error_validation_helpers_test.dart': 18,
@@ -684,6 +699,16 @@ const Map<String, int> _uncoveredBaseline = {
 ///     `IntegerDivisionByZeroException`, which certified nothing on either
 ///     interpreter; the reference copy now asserts the type. Both realignments
 ///     clear on the same publish, so the file needs only this one entry.
+///   * `scb11_symbol_literal_test.dart` — the SCC32 realignment. Its
+///     `F-SCB11-7` deliberately left out the mixed spelling `m[Symbol('alpha')]`
+///     (insert by literal, look up by the explicit constructor) and said so in a
+///     comment, because the constructor's `BridgedInstance` wrapper hashed by
+///     identity and the lookup missed. SCC32 fixed that at the bridged-value
+///     level, so the reference copy now asserts the case and the stale comment
+///     is gone. The published interpreter still hashes by wrapper identity, so
+///     this copy's narrower assertion is a correct measurement of it. Converges
+///     with `scc32_bridged_value_key_test.dart` in [_uncoveredBaseline]: same
+///     publish, same commit.
 const Set<String> _divergentBaseline = {
   '_c21_null_short_test.dart',
   '_plan_e2_static_in_closure_test.dart',
@@ -714,6 +739,7 @@ const Set<String> _divergentBaseline = {
   'open_issues/b5_bridged_exception_catch_test.dart',
   'open_issues/b9_static_field_sibling_write_test.dart',
   'operator_improvements_test.dart',
+  'scb11_symbol_literal_test.dart',
   'stdlib/collection/linked_list_test.dart',
   'stdlib/collection/list_queue_test.dart',
   'stdlib/collection/queue_test.dart',

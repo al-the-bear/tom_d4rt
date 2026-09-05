@@ -7756,6 +7756,35 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // Assignment in cascade doesn't produce a value to be used further.
   }
 
+  /// A bridged value used as a hash key is stored as its wrapped native.
+  ///
+  /// SCC32, generalizing RC-7. That rule already existed for
+  /// [BridgedEnumValue] and for exactly this reason; the same argument covers
+  /// every bridged wrapper, so this replaces the enum-only special case rather
+  /// than sitting beside it.
+  ///
+  /// Storing the native is what makes the two lookup spellings agree. d4rt
+  /// reaches a map by two different routes: `m[k]` passes `k` through
+  /// untouched, while `m.containsKey(k)` is a bridge method call whose
+  /// arguments are unwrapped on the way in. So the lookup key arrives as a
+  /// wrapper down one path and as a native down the other, and no equality
+  /// definition on the wrapper can satisfy both — Dart's hash lookup asks
+  /// `lookupKey == storedKey`, and when the lookup key is a bare native its own
+  /// `==` rejects a wrapper, which is not something this code can override.
+  /// Normalizing the *stored* key removes the choice: a native compares equal
+  /// to a native directly, and to a wrapper through
+  /// [BridgedInstance.operator ==].
+  ///
+  /// Only values that are already wrappers are unwrapped. `toBridgedInstance`
+  /// is deliberately not used here — it *wraps* bare natives rather than
+  /// reporting on them, so asking it would allocate a wrapper for every native
+  /// key just to take it apart again.
+  Object? _unwrapHashKey(Object? key) {
+    if (key is BridgedEnumValue) return key.nativeValue;
+    if (key is BridgedInstance) return key.nativeObject;
+    return key;
+  }
+
   void _processCollectionElement(
     CollectionElement element,
     Object collection, {
@@ -7768,9 +7797,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           "Expected a MapLiteralEntry ('key: value') but got an expression in map literal.",
         );
       } else if (collection is List) {
+        // A list is not hash-keyed, so its elements keep their representation:
+        // `contains` and `indexOf` reach the wrapper's own `==`, which now
+        // answers correctly on its own.
         collection.add(value);
       } else if (collection is Set) {
-        collection.add(value);
+        // A set element IS a hash key, so it normalizes like a map key.
+        collection.add(_unwrapHashKey(value));
       }
     } else if (element is MapLiteralEntry) {
       if (!isMap) {
@@ -7779,11 +7812,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         );
       }
       if (collection is Map) {
-        var key = element.key.accept<Object?>(this);
+        final key = _unwrapHashKey(element.key.accept<Object?>(this));
         final value = element.value.accept<Object?>(this);
-        // RC-7: Unwrap BridgedEnumValue keys so that map lookups with
-        // unwrapped keys (in visitIndexExpression) find the entries.
-        if (key is BridgedEnumValue) key = key.nativeValue;
         collection[key] = value;
       } else {
         // Should not happen if isMap is true
@@ -8096,7 +8126,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         if (collection is List) {
           collection.add(value);
         } else if (collection is Set) {
-          collection.add(value);
+          collection.add(_unwrapHashKey(value));
         } else {
           // Should not happen if isMap is false
           throw StateD4rtException(
