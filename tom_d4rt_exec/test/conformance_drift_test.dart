@@ -52,9 +52,12 @@
 // has a counterpart that RUNS. Whether it passes is the suite's job, and whether
 // it passes against the interpreter anyone actually ships is DGUC6's: exec
 // resolves `tom_d4rt_ast` from pub.dev, so several entries here are pinned not on
-// a defect but on a publish. Measured 2026-09-04, the published 0.20.1 differs
-// from the 0.25.0 working tree in 32 library files. Confirm that gap before
-// reading any port failure as a migration bug.
+// a defect but on a publish. Measured 2026-09-05, immediately after SCC35
+// published 0.40.0, `diff -rq` reports the published `lib` as BYTE-IDENTICAL to
+// the working tree — so for once nothing here is pinned on a version gap, and a
+// port failure right now IS a real finding. That state is temporary and decays
+// with the next `lib/` commit: re-run the diff before reading any port failure
+// as a migration bug, rather than trusting this paragraph.
 //
 // EQUIVALENCES ARE RECORDED, NEVER INFERRED. A normaliser that matched
 // `dfub1_*` to `dgub3_*` would be right; one that matched `dfub1_*` to nothing
@@ -696,10 +699,22 @@ const Map<String, int> _uncoveredBaseline = {
 /// tom_d4rt once the publish made the newer assertions true. Direction is a
 /// per-file finding, not a rule.
 ///
-/// Eleven entries currently share ONE flip condition — the next `tom_d4rt_ast`
+/// A group of entries below shared ONE flip condition — the next `tom_d4rt_ast`
 /// publish — because exec resolves that package from pub.dev, so this suite
-/// certifies the PUBLISHED interpreter and not the working tree. Unpin all
-/// eleven there and remove their entries in the same commit.
+/// certifies the PUBLISHED interpreter and not the working tree.
+///
+/// SCC35 fired that condition (0.40.0), and the result is worth recording
+/// because it was NOT "unpin all of them in one commit" as this paragraph used
+/// to instruct. Five entries converged and were deleted — `eval_method_test`,
+/// `stdlib/collection/linked_list_test`, `stdlib/core/list_test`,
+/// `stdlib/typed_data/uint8_list_test`, and `bridge/bridged_class_test`. The
+/// rest did not, and each for its own reason: some are ports of coverage that
+/// does not exist here yet rather than assertions that disagree (that work is
+/// SCC36's, not this file's), and `byte_data_test` came down to a comment.
+///
+/// So the lesson is the one this file keeps teaching: the flip condition made
+/// the entries REVIEWABLE, not automatically stale. Re-measure each one; the
+/// suite will name precisely those that converged.
 ///
 ///   * `stdlib/io/socket_test.dart` — SCC14 ported the reference copy and
 ///     measured it: `F-SCC12-1` fails with `Failed host lookup:
@@ -708,8 +723,6 @@ const Map<String, int> _uncoveredBaseline = {
 ///     that passes an `InternetAddress` through is working-tree only.
 ///     `F-SCC12-2`, the host-string form that always worked, passes — so the
 ///     divergence is exactly the two cases SCC12 added and nothing else.
-///   * `stdlib/collection/linked_list_test.dart` — the working-tree LinkedList
-///     bridge dropped `removeFirst` and gained `addAll` / `addFirst`.
 ///   * `stdlib/typed_data/typed_list_inherited_members_test.dart` — the
 ///     working-tree typed-data bridges coerce their element argument instead of
 ///     casting it, so the twin's 45 new cases need a published interpreter that
@@ -727,32 +740,18 @@ const Map<String, int> _uncoveredBaseline = {
 ///   * `operator_improvements_test.dart` — the working-tree interpreter
 ///     implements `bool`'s `& | ^` and `&= |= ^=`; the published one still
 ///     throws `Unsupported binary operator`.
-///   * `bridge/bridged_class_test.dart`, `stdlib/core/list_test.dart`,
-///     `stdlib/typed_data/uint8_list_test.dart` and
-///     `stdlib/typed_data/byte_data_test.dart` — the SCC27 realignment. Each
-///     had cases asserting `isA<RuntimeD4rtException>()` on the wrapper a
-///     bridged call site builds; in the reference tree they now name the type
-///     the native callee actually raised (`ArgumentError`, `StateError`,
-///     `RangeError`, `IndexError`). Both halves are correct about their own
-///     interpreter, which is why this is a divergence and not a failure. They
-///     converge with `scc27_host_error_fidelity_test.dart` in
-///     [_uncoveredBaseline]: same publish, same commit. `bridged_class_test`
-///     and `byte_data_test` were already listed here for other reasons — for
-///     those two, removing the SCC27 divergence is necessary but not sufficient
-///     to delete the entry.
-///   * `eval_method_test.dart` — the SCC29 realignment. Its `I-MISC-29` is named
-///     "Should throw error for type mismatches" and, in this tree, asserts that
-///     `int add(int a, int b)` called with two Strings returns `'helloworld'`.
-///     That is what the published interpreter does — nothing checked the
-///     arguments, and `+` happens to be defined on String — so the case is a
-///     correct measurement of it. The reference tree's copy now asserts the
-///     `TypeError` its own name always demanded. Converges with
-///     `scc29_parameter_type_check_test.dart` in [_uncoveredBaseline]: same
-///     publish, same commit. The same file also carries the SCC30 realignment:
-///     `I-MISC-31` asserted `throwsA(anything)` under a comment naming
-///     `IntegerDivisionByZeroException`, which certified nothing on either
-///     interpreter; the reference copy now asserts the type. Both realignments
-///     clear on the same publish, so the file needs only this one entry.
+///   * `stdlib/typed_data/byte_data_test.dart` — the SCC27 realignment CLEARED
+///     here (SCC35 published it, and the four sibling files this bullet used to
+///     name — `bridge/bridged_class_test.dart`, `stdlib/core/list_test.dart`,
+///     `stdlib/typed_data/uint8_list_test.dart`, `eval_method_test.dart` — have
+///     had their entries deleted). What is left in THIS file is not a
+///     behavioural divergence at all: the `GEN-C6-279` case carries a different
+///     closing comment in each tree, each describing the case from its own
+///     tree's vantage (the reference points at the stdlib registration's "E1
+///     fix"; this copy points at the AST-driven interpreter reached through the
+///     source parser). Both are accurate about their own side, so neither is
+///     the one to overwrite — which is exactly what a `_divergentBaseline`
+///     entry is for.
 ///   * `scb11_symbol_literal_test.dart` — the SCC32 realignment. Its
 ///     `F-SCB11-7` deliberately left out the mixed spelling `m[Symbol('alpha')]`
 ///     (insert by literal, look up by the explicit constructor) and said so in a
@@ -768,7 +767,6 @@ const Set<String> _divergentBaseline = {
   '_plan_e2_static_in_closure_test.dart',
   'block_frame_collapse_test.dart',
   'bound_method_tearoff_cache_test.dart',
-  'bridge/bridged_class_test.dart',
   'bridge/bridged_enum_test.dart',
   'bridge/extension_on_stdlib_type_test.dart',
   'bridge/same_name_bridge_sourceuri_test.dart',
@@ -783,7 +781,6 @@ const Set<String> _divergentBaseline = {
   'dfub8_super_parameter_default_forwarding_test.dart',
   'dfub9_extension_type_operator_dispatch_test.dart',
   'dgub4_filesystem_import_scope_boundary_test.dart',
-  'eval_method_test.dart',
   'instance_field_shadows_global_test.dart',
   'interpreter_test.dart',
   'late_test.dart',
@@ -794,15 +791,12 @@ const Set<String> _divergentBaseline = {
   'open_issues/b9_static_field_sibling_write_test.dart',
   'operator_improvements_test.dart',
   'scb11_symbol_literal_test.dart',
-  'stdlib/collection/linked_list_test.dart',
   'stdlib/collection/list_queue_test.dart',
   'stdlib/collection/queue_test.dart',
   'stdlib/collection/splay_tree_map_test.dart',
-  'stdlib/core/list_test.dart',
   'stdlib/intentionally_unbridged_test.dart',
   'stdlib/io/socket_test.dart',
   'stdlib/typed_data/byte_data_test.dart',
-  'stdlib/typed_data/uint8_list_test.dart',
   'stdlib/typed_data/typed_list_inherited_members_test.dart',
   'warm_parent_package_pool_test.dart',
 };
@@ -883,7 +877,22 @@ String _normalise(String source) => source
     )
     // SCC14: `bridge/d4_helpers_test.dart` reaches the D4 helpers directly.
     .replaceAll('package:tom_d4rt/src/generator/d4.dart', '@D4@')
-    .replaceAll('package:tom_d4rt_ast/src/runtime/generator/d4.dart', '@D4@');
+    .replaceAll('package:tom_d4rt_ast/src/runtime/generator/d4.dart', '@D4@')
+    // SCC35: `bridge/bridged_class_test.dart` reaches the InterpretedInstance
+    // extension directly. Once its SCC27 divergence cleared, this import was
+    // the ONLY thing still separating the two copies — a permanent difference
+    // in where each package puts the file, not a difference in what either
+    // asserts. Left un-normalised it would have needed a standing
+    // `_divergentBaseline` entry, and that entry would then have absorbed any
+    // real drift in the file for as long as it stood.
+    .replaceAll(
+      'package:tom_d4rt/src/utils/extensions/interpreted_instance.dart',
+      '@INTERPRETED_INSTANCE@',
+    )
+    .replaceAll(
+      'package:tom_d4rt_ast/src/runtime/utils/extensions/interpreted_instance.dart',
+      '@INTERPRETED_INSTANCE@',
+    );
 
 Map<String, File> _testFiles(Directory root) {
   final prefix = '${root.path}${Platform.pathSeparator}';

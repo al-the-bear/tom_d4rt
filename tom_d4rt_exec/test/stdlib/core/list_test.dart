@@ -1,5 +1,4 @@
 import 'package:test/test.dart';
-import 'package:tom_d4rt_ast/src/runtime/exceptions.dart';
 
 import '../../interpreter_test.dart';
 
@@ -857,8 +856,10 @@ void main() {
           return items.elementAtOrNull(-1);
         }
         ''';
-          // Dart's elementAtOrNull throws RangeError for negative indices
-          expect(() => execute(source), throwsA(isA<RuntimeD4rtException>()));
+          // Dart's elementAtOrNull throws RangeError for negative indices.
+          // SCC27 CONTRACT CHANGE: the host now sees that RangeError itself,
+          // so the assertion can name what the test's own title already claims.
+          expect(() => execute(source), throwsA(isA<RangeError>()));
         },
       );
     });

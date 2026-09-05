@@ -25,7 +25,7 @@ dependencies:
   # The interpreter this package fronts. Resolved from pub.dev, not by path, so
   # this floor is also what any exec test suite actually measures (DGUC6) —
   # raising it is how upstream interpreter work becomes visible here at all.
-  tom_d4rt_ast: ">=0.20.0"
+  tom_d4rt_ast: ">=0.40.0"
   tom_ast_generator: ">=0.1.5"
 
 dev_dependencies:

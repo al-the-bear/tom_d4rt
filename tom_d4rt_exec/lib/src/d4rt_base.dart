@@ -1288,21 +1288,23 @@ class D4rt {
       } else {
         throw e.originalThrownValue!;
       }
-    } catch (e) {
-      // DFUB13 — a SourceCodeD4rtException is an EXPECTED, actionable
-      // diagnostic (missing import, bad URI). Re-wrapping it as "Unexpected
-      // error" discards a message the loader deliberately composed and tells
-      // the user they hit an interpreter bug rather than a typo. An
-      // AmbiguousBridgedNameException is the same kind of deliberate
-      // diagnostic: it names both candidates and the qualifier to use.
-      if (e is RuntimeD4rtException ||
-          e is SourceCodeD4rtException ||
-          e is AmbiguousBridgedNameException ||
-          isSdkShapedError(e)) {
-        rethrow;
-      } else {
-        throw RuntimeD4rtException('Unexpected error: $e');
-      }
+    } catch (e, s) {
+      // SCC27 — the host gets the type the script raised. This clause used to
+      // enumerate the types allowed to escape (DFUB13's SourceCodeD4rtException
+      // and AmbiguousBridgedNameException, plus `isSdkShapedError`'s four SDK
+      // shapes) and relabel everything else as "Unexpected error". That list is
+      // now redundant: every D4rtException implements Exception, so the general
+      // rule — anything that is an `Error` or an `Exception` escapes as
+      // itself — lets exactly those through and needs no maintenance when a new
+      // diagnostic type is added. `isSdkShapedError` was deleted upstream for
+      // precisely this reason; see `sdk_errors.dart`.
+      //
+      // It also fixes a case the list could not express: a native callee's
+      // error arrives wrapped in a `RuntimeD4rtException`, and the old code
+      // rethrew the *wrapper*, so `on FormatException` matched inside a script
+      // but not at the call site that ran it. `throwAsHostFacingError` unwraps
+      // it.
+      throwAsHostFacingError(e, s);
     }
     if (functionResult is InterpretedInstance) {
       _interpretedInstance = functionResult;
@@ -1320,18 +1322,10 @@ class D4rt {
         } else {
           throw e.originalThrownValue!;
         }
-      } catch (e) {
-        // DFUB13 — a SourceCodeD4rtException is an EXPECTED, actionable
-        // diagnostic (missing import, bad URI). Re-wrapping it as "Unexpected
-        // error" discards a message the loader deliberately composed and tells
-        // the user they hit an interpreter bug rather than a typo.
-        if (e is RuntimeD4rtException ||
-            e is SourceCodeD4rtException ||
-            isSdkShapedError(e)) {
-          rethrow;
-        } else {
-          throw RuntimeD4rtException('Unexpected error: $e');
-        }
+      } catch (e, s) {
+        // SCC27 — same rule as the synchronous boundary above. See the comment
+        // there for why the explicit type list is gone.
+        throwAsHostFacingError(e, s);
       }
     }
     _hasExecutedOnce = true;

@@ -711,13 +711,16 @@ void main() {
             name: 'init',
           );
 
-          // Note: d4rt uses duck typing, so string concatenation with + works
-          // This tests that calling a function with wrong types can still work
-          // if the operation is valid for those types
-          // The actual behavior depends on the operation - this test verifies consistent behavior
-          final result = d4rt.eval('add("hello", "world")');
-          // String + String returns concatenated string
-          expect(result, equals('helloworld'));
+          // This asserted the opposite of its own name: `add("hello", "world")`
+          // returned `'helloworld'`, because `+` happens to be defined on
+          // String and nothing checked the arguments against `int a, int b`.
+          // The wrong-typed values produced a plausible answer rather than an
+          // error, which is exactly the failure mode a parameter check exists
+          // to stop — so the premise was the bug, not the behaviour under it.
+          expect(
+            () => d4rt.eval('add("hello", "world")'),
+            throwsA(isA<TypeError>()),
+          );
         },
       );
 
@@ -726,8 +729,15 @@ void main() {
         () {
           d4rt.execute(source: 'void init() {}', name: 'init');
 
-          // Integer division by zero throws IntegerDivisionByZeroException
-          expect(() => d4rt.eval('10 ~/ 0'), throwsA(anything));
+          // The comment here always claimed `IntegerDivisionByZeroException`,
+          // but `throwsA(anything)` certified nothing — it passed just as well
+          // when the interpreter threw a `RuntimeD4rtException` no `on` clause
+          // could name. Asserting the type is what makes the comment true.
+          expect(
+            () => d4rt.eval('10 ~/ 0'),
+            // ignore: deprecated_member_use
+            throwsA(isA<IntegerDivisionByZeroException>()),
+          );
 
           // Bug-75 FIX: Float division by zero returns Infinity (correct Dart behavior)
           // In Dart, 10.0 / 0.0 returns double.infinity, not an error

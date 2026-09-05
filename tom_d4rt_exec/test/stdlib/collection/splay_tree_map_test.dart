@@ -350,30 +350,22 @@ void main() {
       },
     );
 
-    test(
-      'I-COLL-78: FirstKey() / lastKey() on empty map throws error. [2026-02-10 06:37] (PASS)',
-      () {
-        expect(
-          () => d4rt.execute(
-            source: '''
+    test('I-COLL-78: firstKey() / lastKey() return null on an empty map '
+        '[2026-09-04]', () {
+      final result = d4rt.execute(
+        source: '''
           import 'dart:collection';
-          main() { SplayTreeMap().firstKey(); }
+          main() {
+            final m = SplayTreeMap();
+            return [m.firstKey(), m.lastKey()];
+          }
         ''',
-          ),
-          throwsA(isA<RuntimeD4rtException>()),
-          reason: "firstKey on empty map",
-        );
-        expect(
-          () => d4rt.execute(
-            source: '''
-          import 'dart:collection';
-          main() { SplayTreeMap().lastKey(); }
-        ''',
-          ),
-          throwsA(isA<RuntimeD4rtException>()),
-          reason: "lastKey on empty map",
-        );
-      },
-    );
+      );
+      expect(
+        result,
+        equals([null, null]),
+        reason: 'both are declared K? in the SDK and return null when empty',
+      );
+    });
   });
 }
