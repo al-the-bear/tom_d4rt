@@ -152,6 +152,14 @@ The files are generated from the legacy tier corpus by `ztmp/split_tests.py`
 underlying tier sources change.
 
 Other `*_test.dart` files in this folder (e.g. `bridge_execution_test.dart`,
-`interpreter_generator_open_issues_test.dart`, `sync_shared_user_bridges_test.dart`)
-are standalone suites with their own purpose and are **not** part of the
-base/extended corpus run.
+`interpreter_generator_open_issues_test.dart`, `sync_shared_user_bridges_test.dart`,
+`interpreter_issues_doc_test.dart`) are standalone suites with their own purpose
+and are **not** part of the base/extended corpus run.
+
+`interpreter_issues_doc_test.dart` is a documentation guard: it pins the
+"What is still open" table in `doc/interpreter_issues.md` to the cluster
+sections it summarises, and fails if a corpus pass/skip/fail triple reappears
+in that document's header (results belong in `## Verification runs`, which
+records the interpreter pair, and in `testlog/`). Pure file I/O — no companion
+app, no port — so it is safe to run at any time, including alongside nothing
+else.

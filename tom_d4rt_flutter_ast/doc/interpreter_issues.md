@@ -5,45 +5,75 @@ failure pattern hit by demo scripts in `tom_d4rt_flutter_ast_app`. The
 representative scripts under each cluster are useful as starting points
 for a targeted fix and as regression tests once the cluster is closed.
 
-Last refreshed: 2026-09-03, against runs `scc2-ast0201-verify` and
-`scc2-src1301-verify` (Flutter 3.44.6). The **17-file base corpus** runs
-**927 / 1 / 0** (passed / skipped / failed) — identically in both twins,
-`tom_d4rt_flutter_ast` and `tom_d4rt_flutter` — at `tom_d4rt_ast 0.20.1`
-and `tom_d4rt 1.30.1`. See the 2026-09-03 entry under "Verification
-runs".
+## What is still open
 
-**Both interpreters have been republished since that run and NEITHER
-number above has been re-measured.** As of 2026-09-05 pub.dev serves
-`tom_d4rt_ast 0.40.0` and `tom_d4rt 1.51.0`, twenty and twenty-one minor
-versions past the pair the base corpus was measured at. The twins resolve
-the interpreter from pub.dev, so a `flutter pub get` in either companion
-app moves it — and their locks are gitignored, so nothing announces when
-it does. Read `927 / 1 / 0` as what 0.20.1 / 1.30.1 did on 2026-09-03,
-not as what this tree does today; re-establishing it at the current pair
-is `scd105`.
+This table is **derived from the section markers, not maintained alongside
+them.** Within `## Active clusters` below, a `###` section whose title
+opens with a bracket is a cluster and that bracket is its state; a section
+with no bracket is a dated note, not a cluster. The open set is therefore
+exactly:
 
-**The full 41-file corpus has no current number.** Its last run
-(2026-08-12) measured stale companion-app locks — `tom_d4rt` 1.22.0 and
-`tom_d4rt_ast` 0.14.0 against trees at 1.29.0 and 0.19.0 — so its
-**2164 / 5 / 0** does not describe the interpreters in this tree. The
-extended half (`flutter_extended_01..24`) is therefore unmeasured at
-0.20.1/1.30.1; re-establishing it is `scd6_aicv`.
+```bash
+grep -n '^### \[' doc/interpreter_issues.md | grep -v '\[X\]\|\[RESOLVED'
+```
 
-**One open cluster: GEN-124** (native enum value resolves to a
-prefix-matching `BridgedClass`). It produces **no test failure** — it
-surfaces only as 8 captured framework errors on
-`widgets/widget_inspector_service_extensions_test.dart`. That script is
-in the extended corpus, so GEN-124 was last observed on the stale 1.22.0
-/ 0.14.0 pair and is **unconfirmed at the current interpreter**. Every
-earlier cluster is closed.
+`ISSUES-1..3` in `test/interpreter_issues_doc_test.dart` **pin that
+equality** — the table's `Section` cells must reproduce the surviving
+heading text verbatim, so a marker changed without the table (or the
+reverse) fails the suite. Re-derive; do not hand-edit one side alone.
+
+| Marker | Section (heading text, verbatim) | What it is |
+| ------ | -------------------------------- | ---------- |
+| `[ ]` | Open (GEN-124) — native enum value resolves to a prefix-matching `BridgedClass`, corrupting applied-generic return checks | An **interpreter** defect in `Environment.getRuntimeType`. Produces **no test failure**: it surfaces only as 8 captured framework errors on `widgets/widget_inspector_service_extensions_test.dart`, which lives in the extended corpus. Last observed at `tom_d4rt` 1.22.0 / `tom_d4rt_ast` 0.14.0 and unconfirmed at anything newer — re-establishing whether it still reproduces is the first step of any fix attempt. |
+| `[REVERTED]` | (25) — Abstract bridged superclasses with no proxy + active-visitor unset during bridge method dispatch + broken `ThemeData.extension<T>()` adapter (bucket #16, Section P) | The fix was rolled back on 2026-04-25 after it regressed ~24 widget-build tests into build timeouts. Section P is **deferred, not solved**; `default_text_editing_shortcuts_test.dart` and `theme_extension_test.dart` stay in the open issue log. The section sketches a less invasive approach (gate the override lookup on a non-empty registry, skip the `withActiveVisitor` wrap on adapters that take no typeArgs). |
+| `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
+
+## No corpus numbers live in this header
+
+They used to, and they went stale twice — the header was hand-maintained
+separately from everything that produces the numbers, so no step of the
+workflow was obliged to touch it. Corpus results now live in exactly two
+places, both of which sit next to the thing that generates them:
+
+- **"Verification runs"** at the end of this document — one entry per run
+  made to certify a change, each recording the interpreter pair it
+  measured.
+- **`testlog/`** (gitignored) — the raw per-file `.result.json`,
+  `.log.txt`, and `metrics.txt` written by a runner.
+
+**The corpus measures a *published* interpreter, not this tree.** Both
+twins resolve `tom_d4rt_ast` / `tom_d4rt` from pub.dev, and their
+companion-app locks are gitignored — so a `flutter pub get` moves the
+measured version with nothing to announce that it did. Before quoting or
+taking any corpus number, establish which pair it describes (run from the
+`tom_ai/d4rt` repo root):
+
+```bash
+grep -A7 '^  tom_d4rt_ast:' tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app/pubspec.lock | grep version
+grep -A7 '^  tom_d4rt:'     tom_d4rt_flutter/test/tom_d4rt_flutter_test_app/pubspec.lock     | grep version
+grep -m1 '^version:' tom_d4rt_ast/pubspec.yaml tom_d4rt/pubspec.yaml   # what the tree holds
+```
+
+If the resolved pair is behind the tree, the run certifies the *previous*
+release. That is still real evidence about **bridge and generator**
+changes — those live in the tree and are exercised — but it is no evidence
+at all about an **interpreter** change. Re-measuring both twins at the
+current published pair is `scd105`; the extended half has never had a
+number at a current pair (`scd6_aicv`).
+
+To produce a number: `./test/run_base_tests.sh` for the 17-file base gate
+(`flutter_base_01..17`), `./test/run_issue_analysis_tests.sh` for the full
+41-file corpus. **Serial only, one twin at a time** — see
+`test/README.md`.
 
 > **Green corpus ≠ no open clusters.** The corpus does not gate on
 > `frameworkErrors`, so a script can raise interpreter runtime errors and
 > still report `status=success`. Read the logs, not just the exit codes.
 
-When a cluster lands a fix, mark the checkbox, add a `**Resolved:**`
-line with the commit ref, and re-run the suite to confirm. Drop the
-cluster from the list once everything in it passes.
+When a cluster lands a fix, mark its checkbox, add a `**Resolved:**` line
+with the commit ref, re-run the suite to confirm, and delete its row from
+"What is still open" above. Drop the cluster from the list once everything
+in it passes.
 
 ---
 
@@ -572,7 +602,14 @@ the interpreted instance via `_invokeInterpretedAs<T>`. Register via
 
 ---
 
-### [~] Partially fixed — function-typed argument residuals at intermediate boundaries
+### [X] Fixed (10) — function-typed argument residuals at intermediate boundaries
+
+> Marked `[~]` while the argument side was outstanding. Both scripts named
+> under "Still open" below — `semantics/semantics_config_test.dart` and
+> `services/channels_test.dart` — were subsequently closed by **cluster
+> 10a** (GEN-083 setter wrapping, GEN-083b `BasicMessageChannelUserBridge`),
+> the next section. The "Still open" block is kept as written for the
+> diagnosis it records; nothing in it remains open.
 
 **Resolution:** GEN-081/081b covers the **return-side** half of this
 cluster (callback result routed through `extractBridgedArg<T>` rather
