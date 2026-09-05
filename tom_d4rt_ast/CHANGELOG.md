@@ -41,6 +41,13 @@ may now raise. That is the point of the change, but it is a behavioural break in
 the strict sense — if a script depended on an unhandled node yielding `null`, it
 will now fail loudly. No such node fires in any suite.
 
+### Changed — the `tom_ast_model` constraint is upper-bounded
+
+`tom_ast_model: ">=0.2.0"` becomes `^0.2.0`. This package *interprets*
+`SAstNode` trees, so a breaking change to the model is a breaking change here;
+the open constraint promised support for every future model version and would
+have let pub pair an interpreter with a model it cannot read.
+
 ## 0.39.0
 
 ### Fixed — a bridged value is now a value key, not an identity key (scc32)

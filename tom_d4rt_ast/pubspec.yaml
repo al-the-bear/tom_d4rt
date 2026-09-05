@@ -14,7 +14,10 @@ environment:
 
 dependencies:
   archive: ^4.0.9
-  tom_ast_model: ">=0.2.0"
+  # Upper-bounded deliberately: this package interprets `SAstNode` trees, so a
+  # breaking change to the model is a breaking change here. An open constraint
+  # would let pub pair an interpreter with a model it cannot read.
+  tom_ast_model: ^0.2.0
 
 dev_dependencies:
   lints: ^6.0.0
