@@ -115,7 +115,16 @@ const _astStdlibPrefix =
 /// reference file's uncovered cases are a source scan over two files this
 /// package does not own, plus seven script cases that need a type the published
 /// tom_d4rt_ast does not yet export.
-const _partialTwinBudget = 7;
+///
+/// Raised from 7 to 8 for `scc33_unhandled_node_test.dart`. Its two-case deficit
+/// is the SHAPE of the twin rather than a shortfall: the reference file asserts
+/// the backstop by calling `visitNode` with an analyzer node, which is not a
+/// port target but a different call — the analyzer-free visitor takes an
+/// `SAstNode` — so the ast twin asserts it natively and does so with two cases
+/// where the reference spends one. The deficit is on the other side: four
+/// script-level cases collapse into one unit case, because ast has no parser.
+/// Only exec can run those, and only after a publish; see the entry's comment.
+const _partialTwinBudget = 8;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   // ---- Renamed on the exec side -------------------------------------------
@@ -296,6 +305,51 @@ const Map<String, _Coverage> _coveredElsewhere = {
     _astTwin,
     refCases: 9,
     twinCases: 3,
+  ),
+  // SCC33's dispatch backstop: an unhandled node raises a named diagnostic
+  // instead of evaluating to `null`. Recorded against the ast twin rather than
+  // ported, and the reason is structural for one half and a publish for the
+  // other.
+  //
+  // The reference file's F-SCC33-5 hands an analyzer `ArgumentList` to
+  // `visitNode`. That is not a port target but a DIFFERENT CALL: this line's
+  // visitor takes an `SAstNode`, so there is no rewriting of imports that turns
+  // one into the other. The ast twin asserts the same contract natively, and
+  // more precisely — F-SCC33-AST-1 pins type and offset, F-SCC33-AST-2 pins
+  // that two unhandled types produce two DIFFERENT messages, which is the
+  // property that keeps the diagnostic pointing at the construct rather than at
+  // a later victim.
+  //
+  // The behavioural half was ported and MEASURED before this entry was written
+  // (DGUC6), then removed again. Against the published 0.20.1 this package
+  // resolves the split is 4 PASS / 1 FAIL, and the shape of it is the finding:
+  //
+  //   F-SCC33-1 PASS  `super(a: 7)`, the non-forwarding form
+  //   F-SCC33-2 PASS  `super(a: a)`, the forwarding form
+  //   F-SCC33-3 FAIL  `A() : this.named(a: 5)` -> Expected <5>, Actual <null>
+  //   F-SCC33-4 PASS  a named argument is evaluated exactly once
+  //   F-SCC33-6 PASS  legal code does not trip the backstop
+  //
+  // Read that against the reference tree, where the SAME file failed 4 of 6
+  // before the fix. The defect was genuinely NARROWER on the analyzer-free
+  // line, and the asymmetry explains why: the analyzer's `visitNode` recurses
+  // into children, so tom_d4rt walked into the label and resolved it as a
+  // variable — breaking every `super(...)` form loudly. This line's `visitNode`
+  // does not recurse; it answered `null`, so only the ONE site that dispatches
+  // a `NamedExpression` rather than unwrapping it field-wise was wrong. That
+  // site is the redirecting-constructor initializer in `callable.dart`, and
+  // F-SCC33-3 is the only case that names it.
+  //
+  // So the four passing cases are not filler — they are the control that proves
+  // the harness works here and that the single failure is the version gap
+  // rather than a broken port. Port the behavioural cases and delete this entry
+  // in the commit that raises exec's `tom_d4rt_ast` floor past 0.39.0; drop
+  // F-SCC33-5, which stays a single native copy on the ast side.
+  'scc33_unhandled_node_test.dart': _Coverage(
+    'ast:runtime/scc33_unhandled_node_test.dart',
+    _astTwin,
+    refCases: 6,
+    twinCases: 4,
   ),
   'stdlib/bridge_arity_test.dart': _Coverage(
     'ast:runtime/bridge_arity_test.dart',

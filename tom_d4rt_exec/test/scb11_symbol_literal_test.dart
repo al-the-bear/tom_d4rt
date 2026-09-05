@@ -132,16 +132,30 @@ void main() {
       //
       // NOT asserted here: `m[Symbol('alpha')]`, i.e. inserting by literal and
       // looking up by the explicit form. The interpreted `Symbol('alpha')`
-      // evaluates to a `BridgedInstance` wrapper, and the map-literal and `[]`
-      // paths do not unwrap it — so its hash is the wrapper's identity hash and
-      // the lookup misses. That is a pre-existing defect of *every* bridged
+      // evaluates to a `BridgedInstance` wrapper whose hash is the wrapper's
+      // identity hash, so the lookup misses. That is a defect of *every* bridged
       // value type, not of symbols: `{Duration(seconds: 1): 1}[Duration(
-      // seconds: 1)]` is null for the same reason. It is tracked as SCC32 and
-      // deliberately left out of SCB11's scope, because unwrapping at those
-      // sites changes the identity semantics of all bridged instances at once.
-      // `containsKey` is asserted below precisely because it takes the other
-      // path — a bridge method call, which does unwrap — and therefore already
-      // agrees across the two spellings.
+      // seconds: 1)]` is null for the same reason.
+      //
+      // THIS OMISSION IS A PIN ON A PUBLISH, NOT AN OPEN DEFECT. SCC32 fixed it
+      // at the bridged-value level — `BridgedInstance` now delegates `==` and
+      // `hashCode` to its native, and hash keys are normalized to the native at
+      // storage — and the reference copy of this file asserts the case. This
+      // package resolves `tom_d4rt_ast` from pub.dev (DGUC6), and the published
+      // 0.20.1 has no `==`/`hashCode` on `BridgedInstance` at all, so the
+      // narrower assertion below is a correct measurement of the interpreter
+      // this suite actually runs.
+      //
+      // Measured, not predicted: with the reference tree's assertion in place
+      // the case fails here `Expected: ...true|1 / Actual: ...true|null`. Widen
+      // it to the reference form on the publish that raises this package's
+      // `tom_d4rt_ast` floor past 0.39.0 — the same commit that lands
+      // `scc32_bridged_value_key_test.dart` and clears both of this file's
+      // entries in `conformance_drift_test.dart`.
+      //
+      // `containsKey` IS asserted below, and the contrast is the point: it takes
+      // the other path — a bridge method call, which does unwrap — so it already
+      // agrees across the two spellings even on the published interpreter.
       final result = execute('''
         main() {
           final m = {#alpha: 1, #beta: 2};
