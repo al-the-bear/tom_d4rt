@@ -1,5 +1,32 @@
 ## 1.52.0
 
+### Fixed — a native enum value resolves to its bridged enum, not to a bridged class whose name is a prefix of it (scc46)
+
+`Environment.getRuntimeType` handled `BridgedEnumValue` — the wrapped form —
+but had no branch for a raw native `Enum` arriving from a bridge return or a
+call argument. Such a value fell through to `toBridgedClass`, whose PASS B
+fuzzy fallback claims any registered bridge whose name is a >=3-character
+prefix of the native type name. A bridge package for a large API surface is
+dense with such pairs, and Flutter's is the worst case:
+
+| native enum           | bridged class it was captured by |
+| --------------------- | -------------------------------- |
+| `TextDirection`       | `Text`                           |
+| `ThemeMode`           | `Theme`                          |
+| `BorderStyle`         | `Border`                         |
+| `PaintingStyle`       | `Paint`                          |
+| `CupertinoButtonSize` | `CupertinoButton`                |
+
+The damage surfaced in the declared-parameter check, which rejected a
+perfectly correct call with `type 'Text' is not a subtype of type
+'TextDirection' of 'dir'`. `getRuntimeType` now consults the bridged-enum
+registry for any native `Enum` before falling through.
+
+This is a narrow fix at the caller, not a repair of PASS B. The prefix
+fallback still claims *unregistered* native types whose names collide with a
+bridge name; narrowing it is tracked separately, since doing so needs
+`nativeNames` declared on the bridges that currently rely on the loose match.
+
 ### Fixed — every `await` in a statement resumes with its own value (scc40)
 
 Resuming a suspended statement re-evaluates it from the top, and every `await`
