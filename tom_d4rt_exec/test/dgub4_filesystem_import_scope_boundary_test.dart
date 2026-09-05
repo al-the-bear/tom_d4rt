@@ -17,8 +17,10 @@
 // So this suite pins the same boundary on the import path. It is the evidence
 // DGUB4's RED-test requirement specified and DFUB11 did not, in fact, supply.
 //
-// The analyzer-based reference copy of this suite is
-// `tom_d4rt/test/dgub4_filesystem_import_scope_boundary_test.dart`.
+// Twin: this suite has an analyzer-based copy at
+// `tom_d4rt/test/dgub4_filesystem_import_scope_boundary_test.dart` and an
+// analyzer-free copy at
+// `tom_d4rt_exec/test/dgub4_filesystem_import_scope_boundary_test.dart`.
 // `tom_d4rt_ast` needs no mirror: its `AstModuleLoader` is lookup-only and has
 // no filesystem branch, so the import gate does not exist there. Its copy of
 // the matcher is covered by F-DFUB11-A1.

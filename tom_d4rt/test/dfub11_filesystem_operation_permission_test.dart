@@ -26,7 +26,12 @@
 // in tom_d4rt_ast must stay web-safe (that package puts all of `dart:io`
 // behind a `dart.library.html` conditional).
 //
-// Twin: tom_d4rt_ast/test/runtime/dfub11_filesystem_operation_permission_test.dart
+// Twin: this suite has an analyzer-based copy at
+// tom_d4rt/test/dfub11_filesystem_operation_permission_test.dart and an
+// analyzer-free copy at
+// tom_d4rt_exec/test/dfub11_filesystem_operation_permission_test.dart. In
+// tom_d4rt_ast the FilesystemPermission matcher unit tests live in
+// tom_d4rt_ast/test/runtime/dfub11_filesystem_scope_matching_test.dart.
 
 import 'dart:io' as io;
 

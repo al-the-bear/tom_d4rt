@@ -36,7 +36,72 @@ enum FlagState {
       other is FlagState ? other.name : other.toString();
 }
 
+// 4. Enum with a STATIC factory method. Mirrors the `PageFormat.fromString`
+// shape from GitHub issue #2: a `static PageFormat fromString(String name)`
+// on the enum must be reachable as `EnumType.fromString(args)` from
+// interpreted code.
+enum SizeEnum {
+  small,
+  medium,
+  large;
+
+  static SizeEnum fromString(String name) => SizeEnum.values.firstWhere(
+    (e) => e.name == name,
+    orElse: () => SizeEnum.small,
+  );
+
+  static SizeEnum get largest => SizeEnum.large;
+}
+
 void main() {
+  group('Bridged Enum Tests - Static methods (issue #2)', () {
+    late D4rt interpreter;
+
+    setUp(() {
+      interpreter = D4rt();
+      final sizeDefinition = BridgedEnumDefinition<SizeEnum>(
+        name: 'SizeEnum',
+        values: SizeEnum.values,
+        staticMethods: {
+          'fromString': (visitor, positional, named, typeArgs) =>
+              SizeEnum.fromString(positional[0] as String),
+        },
+        staticGetters: {'largest': () => SizeEnum.largest},
+      );
+      interpreter.registerBridgedEnum(sizeDefinition, 'package:test/size.dart');
+    });
+
+    test('I-ENUM-STATIC-1: call static method on bridged enum', () {
+      final code = '''
+        import 'package:test/size.dart';
+        main() => SizeEnum.fromString('medium');
+      ''';
+      final result = interpreter.execute(source: code);
+      expect(result, equals(SizeEnum.medium));
+    });
+
+    test('I-ENUM-STATIC-2: static method result feeds back into script', () {
+      final code = '''
+        import 'package:test/size.dart';
+        main() {
+          var s = SizeEnum.fromString('large');
+          return s.index;
+        }
+      ''';
+      final result = interpreter.execute(source: code);
+      expect(result, equals(2));
+    });
+
+    test('I-ENUM-STATIC-3: static getter still resolves alongside methods', () {
+      final code = '''
+        import 'package:test/size.dart';
+        main() => SizeEnum.largest;
+      ''';
+      final result = interpreter.execute(source: code);
+      expect(result, equals(SizeEnum.large));
+    });
+  });
+
   group('Bridged Enum Tests - Simple', () {
     late D4rt interpreter;
 
@@ -144,6 +209,24 @@ void main() {
         expect(result, equals(3)); // red, green, blue
       },
     );
+
+    test('I-ENUM-19: toString() on a bridged enum TYPE via runtimeType. (RCJ12)', () {
+      // Reproduces flutter_extended_23 (dropdown_menu_close_behavior): a script
+      // does `v.runtimeType.toString()` where `v` is a bridged enum value.
+      // `v.runtimeType` yields the enum TYPE (a BridgedEnum), and calling
+      // toString() on the TYPE previously misresolved as a static-method lookup
+      // and threw "Undefined static method 'toString' on bridged enum". Dart's
+      // Type.toString() returns the type name, so this must yield 'BridgedColor'.
+      final code = '''
+        import 'package:test/color.dart';
+        main() {
+          var color = BridgedColor.green;
+          return color.runtimeType.toString();
+        }
+      ''';
+      final result = interpreter.execute(source: code);
+      expect(result, equals('BridgedColor'));
+    });
 
     test(
       'I-ENUM-1: Access .values and index into it. [2026-02-10 06:37] (PASS)',

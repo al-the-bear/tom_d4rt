@@ -1,15 +1,15 @@
 /// Repro + regression for OPEN B.11 — cold-start flakiness (U25).
 ///
 /// Historic failure: the first script run after a test harness' `setUpAll`
-/// flaked under host load because the analyzer parser, the AST converter, and
-/// the bridge/stdlib registration path cold-started *during* that first build.
-/// The shipped reset API warms nothing.
+/// flaked under host load because the analyzer parser and the bridge/stdlib
+/// registration path cold-started *during* that first build. The shipped
+/// reset API warms nothing.
 ///
 /// The fix adds an interpreter `warmup()` pass that pre-builds the parser +
 /// bridge infrastructure before the first real build, so the first build
-/// behaves like a warm one. This is the analyzer-free AST runtime exercised
-/// through `tom_d4rt_exec`; mirrors the analyzer-based twin in
-/// `tom_d4rt/test/open_issues/b11_warmup_test.dart`.
+/// behaves like a warm one. This is the analyzer-based VM runtime; mirrors the
+/// analyzer-free AST twin in
+/// `tom_d4rt_exec/test/open_issues/b11_warmup_test.dart`.
 library;
 
 import 'package:test/test.dart';
@@ -57,7 +57,7 @@ int _simulateHostLoad() {
 }
 
 void main() {
-  group('OPEN B.11 — warmup pre-builds infrastructure (AST)', () {
+  group('OPEN B.11 — warmup pre-builds infrastructure (VM)', () {
     test('warmup() finalizes bridges', () {
       final interpreter = _interpreterWithGreeter();
       expect(interpreter.bridgesFinalized, isFalse);
@@ -68,8 +68,6 @@ void main() {
     test('warmup() is idempotent (callable more than once)', () {
       final interpreter = _interpreterWithGreeter();
       interpreter.warmup();
-      // A second warmup must not throw (finalizeBridges is frozen, the
-      // throwaway environment is simply rebuilt).
       expect(interpreter.warmup, returnsNormally);
       expect(interpreter.bridgesFinalized, isTrue);
     });
@@ -80,7 +78,6 @@ void main() {
         final interpreter = _interpreterWithGreeter();
         interpreter.warmup();
 
-        // The "first build after setUpAll" — run it while the host is busy.
         _simulateHostLoad();
         final result = interpreter.execute(
           source: '''
@@ -96,8 +93,6 @@ String main() => Greeter('world').greet();
       final interpreter = _interpreterWithGreeter();
       interpreter.warmup();
 
-      // Re-run the first-after-setup script many times under load; every run
-      // must produce the identical result with no flake.
       for (var i = 0; i < 25; i++) {
         _simulateHostLoad();
         final result = interpreter.execute(

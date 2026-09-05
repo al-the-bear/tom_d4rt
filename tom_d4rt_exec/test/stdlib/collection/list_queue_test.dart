@@ -338,5 +338,44 @@ void main() {
       expect(result[0], orderedEquals([1, 2, 3, 4]));
       expect(result[1], true, reason: "Error adding to non-growable list");
     });
+
+    // SCC10: these two are NOT fixed by an adapter on ListQueue. `ListQueue`
+    // already declares a `-> Queue` edge, so registering `removeWhere` and
+    // `retainWhere` on the Queue bridge reaches ListQueue for free — one fix,
+    // two classes. That is the supertype-edge economy the audit doc describes,
+    // and these cases exist to prove the edge actually carries them rather than
+    // to test a second implementation. If someone later "fixes" ListQueue by
+    // adding duplicate adapters here, these still pass and the duplication goes
+    // unnoticed — so the guard that matters is the absence of ListQueue
+    // adapters, not this assertion. Stated here because the test cannot say it.
+    test('F-SCC10-11: removeWhere() reaches ListQueue through the Queue edge '
+        '[2026-09-04]', () {
+      final result = d4rt.execute(
+        source: '''
+          import 'dart:collection';
+          main() {
+            final queue = ListQueue.from([1, 2, 3, 4]);
+            queue.removeWhere((e) => e % 2 == 0);
+            return queue.toList();
+          }
+        ''',
+      );
+      expect(result, orderedEquals([1, 3]));
+    });
+
+    test('F-SCC10-12: retainWhere() reaches ListQueue through the Queue edge '
+        '[2026-09-04]', () {
+      final result = d4rt.execute(
+        source: '''
+          import 'dart:collection';
+          main() {
+            final queue = ListQueue.from([1, 2, 3, 4]);
+            queue.retainWhere((e) => e % 2 == 0);
+            return queue.toList();
+          }
+        ''',
+      );
+      expect(result, orderedEquals([2, 4]));
+    });
   });
 }

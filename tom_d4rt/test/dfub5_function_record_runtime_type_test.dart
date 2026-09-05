@@ -13,6 +13,16 @@
 // gives every Callable a `callableRuntimeType`, and derives a RecordRuntimeType
 // from an InterpretedRecord's field values — so `is` and return checks compare
 // real shapes.
+//
+// THE RECORD HALF REACHED THE ANALYZER-FREE LINE LATE, and the reason is worth
+// keeping because it is a whole class of bug this suite cannot see from the
+// analyzer side. `tom_ast_generator` used to drop every
+// `RecordTypeAnnotationField` into an opaque unknown node, so a record type
+// ANNOTATION arrived at the mirror tree carrying only its arity — the field
+// types were simply not there to compare. The record cases were pinned to that
+// degraded answer until DGUB8 fixed the copier (`tom_d4rt_ast >=0.14.0` /
+// `tom_ast_generator >=0.1.5`). Both trees now answer identically, which is
+// what the twin of this file exists to hold in place.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';

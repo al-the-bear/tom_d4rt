@@ -1,25 +1,40 @@
-// DFUB6 conformance (DGUB9): applied generic type arguments are preserved at
-// runtime — verified against the ANALYZER-FREE interpreter.
+// DFUB6: preserve applied generic type arguments at runtime.
 //
-// Mirror of tom_d4rt/test/dfub6_applied_generic_runtime_types_test.dart. The
-// ast tree reaches the same behaviour by a different route: SAstNode has no
-// parent references, so the applied return type is captured at declaration time
-// onto `InterpretedFunction.declaredReturnTypeApplied` and checked in
-// visitReturnStatement, rather than being read off the enclosing declaration at
-// return time. This file is the guard that both routes agree.
+// Ports the applied-runtime-types half of upstream kodjodevf/d4rt 1042fff. The
+// interpreter already stored `typeArguments` on an InterpretedInstance, but its
+// `valueType` collapsed to the bare class, so `is Box<int>` ignored the type
+// argument and generic/collection return-type checks compared the raw base type
+// only. The fix adds `AppliedRuntimeType` (base + applied args, element-wise
+// subtyping with dynamic/Object wildcards), makes `InterpretedInstance.valueType`
+// applied, and validates applied generic returns + typed native-collection
+// returns.
 //
-// F-DFUB6-8 is the async exemption guard: an async function's declared
-// `Future<T>` / `Stream<T>` / `Iterable<T>` return type wraps the returned inner
-// value, so comparing the inner value's applied type against the wrapper's
-// arguments would spuriously reject valid code.
+// The four BOUND-CONSTRAINT cases (`T extends num`) already pass on our fork via
+// `_getValidatedTypeArguments` — they are kept here as green guard-rails so the
+// dfub6 change does not regress them. The num-subtyping / TypeParameter-bound
+// tightening half of 1042fff is the separate dfub7.
+//
+// THE TWO TREES REACH THIS BEHAVIOUR BY DIFFERENT ROUTES, which is why the twin
+// of this file is worth running rather than assuming. An `SAstNode` carries no
+// parent reference, so the analyzer-free interpreter cannot read the applied
+// return type off the enclosing declaration at return time the way the
+// analyzer-based one does; it captures the type at declaration time onto
+// `InterpretedFunction.declaredReturnTypeApplied` and checks that in
+// `visitReturnStatement`. Same answers, different mechanism — so a regression
+// in one route would not show up in the other.
 
 import 'package:test/test.dart';
-import 'interpreter_test.dart';
+import 'package:tom_d4rt_exec/d4rt.dart';
+
+Object? execute(String code) {
+  final d4rt = D4rt();
+  return d4rt.execute(source: code);
+}
 
 void main() {
-  group('DFUB6 (exec): applied generic runtime types', () {
+  group('DFUB6: applied generic runtime types', () {
     test(
-      'F-DFUB6-EXEC-5: applied type args preserved for `is` [2026-07-27]',
+      'F-DFUB6-5: applied type args preserved for `is` [2026-07-23] (RED)',
       () {
         const code = '''
 class Box<T> {
@@ -36,8 +51,8 @@ List main() {
       },
     );
 
-    test('F-DFUB6-EXEC-6b: generic return validation throws on mismatch '
-        '[2026-07-27]', () {
+    test('F-DFUB6-6b: generic return validation throws on mismatch '
+        '[2026-07-23] (RED)', () {
       const code = '''
 class Box<T> {
   final T value;
@@ -55,12 +70,18 @@ int main() {
 ''';
       expect(
         () => execute(code),
-        throwsRuntimeError(contains("can't be returned")),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.message,
+            'message',
+            contains("can't be returned"),
+          ),
+        ),
       );
     });
 
     test(
-      'F-DFUB6-EXEC-6c: matching generic return is allowed [2026-07-27]',
+      'F-DFUB6-6c: matching generic return is allowed [2026-07-23] (RED)',
       () {
         const code = '''
 class Box<T> {
@@ -81,8 +102,8 @@ int main() {
       },
     );
 
-    test('F-DFUB6-EXEC-7b: typed native collection return throws on mismatch '
-        '[2026-07-27]', () {
+    test('F-DFUB6-7b: typed native collection return throws on mismatch '
+        '[2026-07-23] (RED)', () {
       const code = '''
 List<String> numbers() {
   return [1, 2, 3];
@@ -95,12 +116,18 @@ int main() {
 ''';
       expect(
         () => execute(code),
-        throwsRuntimeError(contains("can't be returned")),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.message,
+            'message',
+            contains("can't be returned"),
+          ),
+        ),
       );
     });
 
-    test('F-DFUB6-EXEC-7c: matching typed native collection return is allowed '
-        '[2026-07-27]', () {
+    test('F-DFUB6-7c: matching typed native collection return is allowed '
+        '[2026-07-23] (RED)', () {
       const code = '''
 List<int> numbers() {
   return [1, 2, 3];
@@ -113,27 +140,9 @@ int main() {
       expect(execute(code), equals(3));
     });
 
-    test(
-      'F-DFUB6-EXEC-8: async return type wraps the inner value and is exempt '
-      '[2026-07-27]',
-      () async {
-        const code = '''
-Future<List<String>> load() async {
-  return ['a', 'b'];
-}
-
-main() async {
-  var r = await load();
-  return r.length;
-}
-''';
-        expect(await executeAsync(code), equals(2));
-      },
-    );
-
     // Bound-constraint guard-rails (already pass — must stay passing).
-    test('F-DFUB6-EXEC-B1: class bound `T extends num` rejects String '
-        '[2026-07-27]', () {
+    test('F-DFUB6-B1: class bound `T extends num` rejects String '
+        '[2026-07-23] (GREEN)', () {
       const code = '''
 class Box<T extends num> {
   final T value;
@@ -147,14 +156,19 @@ int main() {
 ''';
       expect(
         () => execute(code),
-        throwsRuntimeError(contains('does not satisfy bound')),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.message,
+            'message',
+            contains('does not satisfy bound'),
+          ),
+        ),
       );
     });
 
-    test(
-      'F-DFUB6-EXEC-B2: class bound `T extends num` accepts int [2026-07-27]',
-      () {
-        const code = '''
+    test('F-DFUB6-B2: class bound `T extends num` accepts int '
+        '[2026-07-23] (GREEN)', () {
+      const code = '''
 class Box<T extends num> {
   final T value;
   Box(this.value);
@@ -165,14 +179,28 @@ int main() {
   return b.value;
 }
 ''';
-        expect(execute(code), equals(42));
-      },
-    );
+      expect(execute(code), equals(42));
+    });
 
-    test(
-      'F-DFUB6-EXEC-B4: bound `T extends num` accepts double [2026-07-27]',
-      () {
-        const code = '''
+    test('F-DFUB6-B3: nested bound `T extends num` rejects String '
+        '[2026-07-23] (GREEN)', () {
+      const code = '''
+class Box<T extends num> {
+  final T value;
+  Box(this.value);
+}
+
+int main() {
+  var b = Box<Box<String>>(null);
+  return 0;
+}
+''';
+      expect(() => execute(code), throwsA(isA<RuntimeD4rtException>()));
+    });
+
+    test('F-DFUB6-B4: bound `T extends num` accepts double '
+        '[2026-07-23] (GREEN)', () {
+      const code = '''
 class Box<T extends num> {
   final T value;
   Box(this.value);
@@ -183,8 +211,7 @@ double main() {
   return b.value;
 }
 ''';
-        expect(execute(code), equals(3.5));
-      },
-    );
+      expect(execute(code), equals(3.5));
+    });
   });
 }

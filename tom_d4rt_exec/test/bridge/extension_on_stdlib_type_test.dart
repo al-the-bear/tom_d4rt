@@ -7,7 +7,7 @@
 ///
 /// These tests exercise the module_loader's type resolution fallback logic.
 @TestOn('vm')
-library extension_on_stdlib_type_test;
+library;
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';

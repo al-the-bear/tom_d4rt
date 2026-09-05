@@ -1,22 +1,30 @@
-/// Regression (AST interpreter): same-name bridges from different libraries
-/// must resolve to the library the script actually imports — not the last one
-/// registered.
+/// Regression: same-name bridges from different libraries must resolve to the
+/// library the script actually imports — not the last one registered.
 ///
-/// End-to-end twin of `tom_d4rt/test/bridge/same_name_bridge_sourceuri_test.dart`
-/// running through the analyzer-free (`tom_d4rt_ast`) interpreter via the
-/// `tom_d4rt_exec` source entry point. See that file for the full "B2
-/// MarkdownParser clash" narrative.
+/// Scenario (the "B2 MarkdownParser clash"): two unrelated packages,
+/// `tom_doc_scanner` and `tom_md2latex`, each register a `BridgedClass` named
+/// `MarkdownParser`. They live at different canonical source URIs and expose
+/// different static methods (`generateId`/`extractText` vs `toLatex`). Bridge
+/// registration into the environment keys by *simple name*, so the last
+/// registration silently shadows the first. A script that imports ONLY
+/// `tom_doc_scanner` and calls `MarkdownParser.generateId(...)` then resolves
+/// the wrong (md2latex) bridge and fails.
+///
+/// The fix is sourceUri-qualified bridge resolution: the import that brought
+/// the name into scope must determine which underlying bridge a static call
+/// targets.
 library;
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
+/// Distinct native types so the two bridges have different `nativeType`.
 class DocScannerMarkdownParser {}
 
 class Md2LatexMarkdownParser {}
 
 void main() {
-  group('Same-name bridge resolution by importing library (AST)', () {
+  group('Same-name bridge resolution by importing library', () {
     late D4rt interpreter;
 
     BridgedClass docScannerParser() => BridgedClass(
@@ -24,8 +32,15 @@ void main() {
       name: 'MarkdownParser',
       constructors: {},
       staticMethods: {
-        'generateId': (visitor, positional, named, typeArgs) =>
-            'doc-scanner-id:${positional.first}',
+        'generateId':
+            (
+              InterpreterVisitor visitor,
+              List<Object?> positional,
+              Map<String, Object?> named,
+              List<RuntimeType>? typeArgs,
+            ) {
+              return 'doc-scanner-id:${positional.first}';
+            },
       },
     );
 
@@ -34,8 +49,15 @@ void main() {
       name: 'MarkdownParser',
       constructors: {},
       staticMethods: {
-        'toLatex': (visitor, positional, named, typeArgs) =>
-            'latex:${positional.first}',
+        'toLatex':
+            (
+              InterpreterVisitor visitor,
+              List<Object?> positional,
+              Map<String, Object?> named,
+              List<RuntimeType>? typeArgs,
+            ) {
+              return 'latex:${positional.first}';
+            },
       },
     );
 
@@ -46,11 +68,13 @@ void main() {
     test('B2-CLASH-1: importing tom_doc_scanner resolves its MarkdownParser '
         'static even when tom_md2latex registered a same-name bridge after it '
         '[2026-06-17]', () {
+      // doc_scanner registered FIRST.
       interpreter.registerBridgedClass(
         docScannerParser(),
         'package:tom_doc_scanner/tom_doc_scanner.dart',
         sourceUri: 'package:tom_doc_scanner/src/markdown_parser.dart',
       );
+      // md2latex registered AFTER — last-wins would shadow doc_scanner.
       interpreter.registerBridgedClass(
         md2latexParser(),
         'package:tom_md2latex/tom_md2latex.dart',
@@ -65,14 +89,48 @@ String main() {
 }
 ''';
 
-      expect(interpreter.execute(source: source), 'doc-scanner-id:Hello World');
+      final result = interpreter.execute(source: source);
+      expect(result, 'doc-scanner-id:Hello World');
     });
+
+    test(
+      'B2-CLASH-2: importing tom_md2latex resolves its MarkdownParser static '
+      'even when tom_doc_scanner registered a same-name bridge after it '
+      '[2026-06-17]',
+      () {
+        // Reverse registration order: md2latex first, doc_scanner after.
+        interpreter.registerBridgedClass(
+          md2latexParser(),
+          'package:tom_md2latex/tom_md2latex.dart',
+          sourceUri: 'package:tom_md2latex/src/markdown_parser.dart',
+        );
+        interpreter.registerBridgedClass(
+          docScannerParser(),
+          'package:tom_doc_scanner/tom_doc_scanner.dart',
+          sourceUri: 'package:tom_doc_scanner/src/markdown_parser.dart',
+        );
+
+        const source = '''
+import 'package:tom_md2latex/tom_md2latex.dart';
+
+String main() {
+  return MarkdownParser.toLatex('Hello World');
+}
+''';
+
+        final result = interpreter.execute(source: source);
+        expect(result, 'latex:Hello World');
+      },
+    );
 
     test('B2-CLASH-3: when BOTH same-name libraries are imported the bare name '
         'is rejected, as in Dart [2026-06-17]', () {
-      // Dart rejects such a reference and asks for a prefix, and so does d4rt —
-      // the earlier behaviour of picking whichever bridge happened to declare
-      // the requested member bound the name to a class the author never named.
+      // This mirrors the REPL/replay scenario: the init source imports every
+      // registered bridge library, so both MarkdownParser bridges land in one
+      // environment unprefixed. Dart rejects such a reference and asks for a
+      // prefix, and so does d4rt — the earlier behaviour of picking whichever
+      // bridge happened to declare the requested member bound the name to a
+      // class the author never named.
       interpreter.registerBridgedClass(
         docScannerParser(),
         'package:tom_doc_scanner/tom_doc_scanner.dart',

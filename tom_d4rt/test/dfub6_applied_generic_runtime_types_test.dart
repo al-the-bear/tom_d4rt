@@ -13,6 +13,15 @@
 // `_getValidatedTypeArguments` — they are kept here as green guard-rails so the
 // dfub6 change does not regress them. The num-subtyping / TypeParameter-bound
 // tightening half of 1042fff is the separate dfub7.
+//
+// THE TWO TREES REACH THIS BEHAVIOUR BY DIFFERENT ROUTES, which is why the twin
+// of this file is worth running rather than assuming. An `SAstNode` carries no
+// parent reference, so the analyzer-free interpreter cannot read the applied
+// return type off the enclosing declaration at return time the way the
+// analyzer-based one does; it captures the type at declaration time onto
+// `InterpretedFunction.declaredReturnTypeApplied` and checks that in
+// `visitReturnStatement`. Same answers, different mechanism — so a regression
+// in one route would not show up in the other.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';

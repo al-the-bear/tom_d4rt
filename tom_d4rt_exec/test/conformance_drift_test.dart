@@ -601,159 +601,117 @@ const Map<String, int> _uncoveredBaseline = {
   'stdlib/static_long_tail_test.dart': 22,
 };
 
+/// Why a [_divergentBaseline] entry is allowed to stand.
+///
+/// SCC44 replaced a flat `Set<String>` with this, and the replacement is the
+/// finding rather than the tidy-up. A path in a set says a file diverges and
+/// nothing about whether that is a verdict or an oversight — which made the set
+/// indistinguishable from an unexamined list, and 32 of its 38 entries turned
+/// out to be exactly that. They converged the moment someone copied the
+/// reference file over the exec one and ran it.
+///
+/// The todo's four categories collapse to two once the work is actually done.
+/// (c) COSMETIC — a divergence that is only prose — is not a verdict but a
+/// deferred convergence, so it has no member here: a comment that reads
+/// differently in each tree can be written symmetrically instead, naming both
+/// trees without asserting which one you are standing in, at which point the
+/// copies are byte-identical. And (d) UNCLASSIFIED is the state this enum
+/// exists to make unrepresentable.
+enum _Divergence {
+  /// CANNOT converge. The two copies exercise different API surfaces, or one
+  /// depends on a fact true only inside its own package. Overwriting either
+  /// side deletes coverage with nowhere else to live.
+  ///
+  /// Where the exec-only coverage is separable, prefer splitting it into its
+  /// own file over claiming this category — `_c21_null_short_bundle_test.dart`
+  /// and its two siblings are the pattern. The shared-name file then stays a
+  /// verbatim port and the guard keeps covering it.
+  necessary,
+
+  /// COULD converge textually but MUST NOT. Either un-skipping would assert
+  /// something the PUBLISHED interpreter fails (DGUC6 — see
+  /// [_pinnedInterpreterFloors]), or the divergence is a deliberate subtraction
+  /// whose reason is recorded above the entry.
+  deliberate,
+}
+
 /// Files present in BOTH trees whose content differs by more than the one
-/// import line the port recipe rewrites.
+/// import line the port recipe rewrites, each with the reason it is allowed to.
 ///
 /// A divergent file is as much of a hole as a missing one and worse in one
 /// respect: it looks covered. The name is on both sides, both suites are green,
 /// and the two trees are being asserted to behave differently.
 ///
-/// Also a baseline, for the same reason as [_uncoveredBaseline] — too many files
-/// diverge for a hard failure to be useful, and only a handful have a known
-/// cause. The value is that the NEXT one fails. Each entry is a per-file
-/// question — is the reference tree right, or is exec? — and answering one means
-/// deleting its entry, not annotating it.
+/// The value of the baseline is that the NEXT divergence fails. That only holds
+/// while the set is small and every member is justified, because AN ENTRY
+/// ABSORBS EVERY FUTURE DRIFT IN ITS FILE FOR AS LONG AS IT STANDS — which is
+/// why converging a merely-cosmetic divergence is worth doing rather than
+/// annotating it, and why F-SCC44-1 insists each survivor carry a written
+/// reason.
 ///
-/// Two causes are known and are NOT defects:
-///   * `stdlib/typed_data/byte_data_test.dart` used to differ only in a comment
-///     naming which interpreter it exercises. SCC27 added a real divergence on
-///     top of that — see the publish-pinned list below.
-///   * `stdlib/intentionally_unbridged_test.dart` records what each tree
-///     deliberately does not bridge, which is not the same set.
+/// DIRECTION IS A PER-FILE FINDING, NOT A RULE, and assuming the reference tree
+/// wins has been wrong more than once. SCC7's `unmodifiable_map_view` asserted
+/// MORE here than in `tom_d4rt` — four values including the `source is Map`
+/// supertype edge against three — and was mirrored UPSTREAM rather than
+/// overwritten. SCC44 found the mirror image: `dfub5`, `dfub6` and `dfub13`
+/// carried exec-side explanations the reference lacked (the `SAstNode` tree has
+/// no parent pointers, so the applied return type is captured at declaration
+/// time; `tom_ast_generator` used to flatten `RecordTypeAnnotationField`;
+/// `tom_d4rt_exec` owns a third copy of the module loader). Those paragraphs
+/// were folded into the reference headers BEFORE the ports were taken, so
+/// convergence added knowledge to both trees instead of deleting it from one.
 ///
-/// SCC7 converged three entries and one of them went the UNEXPECTED WAY, which
-/// is worth knowing before assuming the reference tree wins: exec's
-/// `unmodifiable_map_view` asserted MORE than tom_d4rt's — four values including
-/// the `source is Map` supertype edge against tom_d4rt's three — so it was
-/// mirrored UPSTREAM into tom_d4rt rather than overwritten. Two others
-/// (`unmodifiable_list_view`, `async/stream_consumer`) were exec copies
-/// deliberately pinned to pre-publish behaviour and were overwritten from
-/// tom_d4rt once the publish made the newer assertions true. Direction is a
-/// per-file finding, not a rule.
-///
-/// A group of entries below shared ONE flip condition — the next `tom_d4rt_ast`
-/// publish — because exec resolves that package from pub.dev, so this suite
-/// certifies the PUBLISHED interpreter and not the working tree.
-///
-/// SCC35 fired that condition (0.40.0), and the result is worth recording
-/// because it was NOT "unpin all of them in one commit" as this paragraph used
-/// to instruct. Five entries converged and were deleted — `eval_method_test`,
-/// `stdlib/collection/linked_list_test`, `stdlib/core/list_test`,
-/// `stdlib/typed_data/uint8_list_test`, and `bridge/bridged_class_test`. The
-/// rest did not, and each for its own reason: some are ports of coverage that
-/// does not exist here yet rather than assertions that disagree (that work is
-/// SCC36's, not this file's), and `byte_data_test` came down to a comment.
-///
-/// So the lesson is the one this file keeps teaching: the flip condition made
-/// the entries REVIEWABLE, not automatically stale. Re-measure each one; the
-/// suite will name precisely those that converged.
-///
-///   * `stdlib/io/socket_test.dart` — SCC14 ported the reference copy and
-///     measured it: `F-SCC12-1` fails with `Failed host lookup:
-///     'InternetAddress('127.0.0.1', IPv4)'`, because the published
-///     `ServerSocket.bind` bridge stringifies its `address` argument and the fix
-///     that passes an `InternetAddress` through is working-tree only.
-///     `F-SCC12-2`, the host-string form that always worked, passes — so the
-///     divergence is exactly the two cases SCC12 added and nothing else.
-///   * `stdlib/typed_data/typed_list_inherited_members_test.dart` — the
-///     working-tree typed-data bridges coerce their element argument instead of
-///     casting it, so the twin's 45 new cases need a published interpreter that
-///     does the same.
-///   * `stdlib/collection/queue_test.dart` and
-///     `stdlib/collection/list_queue_test.dart` — the working-tree Queue bridge
-///     gained `remove` / `removeWhere` / `retainWhere` and the static
-///     `castFrom`; ListQueue reaches two of them through its `-> Queue` edge.
-///   * `stdlib/collection/splay_tree_map_test.dart` — gained `firstKeyAfter` /
-///     `lastKeyBefore`, and its `I-COLL-78` still asserts that `firstKey()` on an
-///     empty map THROWS. That assertion is wrong about Dart but TRUE of the
-///     published interpreter, which still carries the invented guard the working
-///     tree removed. Pinning it is not endorsing it: the corrected case comes
-///     over with the publish.
-///   * `operator_improvements_test.dart` — the working-tree interpreter
-///     implements `bool`'s `& | ^` and `&= |= ^=`; the published one still
-///     throws `Unsupported binary operator`.
-///   * `stdlib/typed_data/byte_data_test.dart` — the SCC27 realignment CLEARED
-///     here (SCC35 published it, and the four sibling files this bullet used to
-///     name — `bridge/bridged_class_test.dart`, `stdlib/core/list_test.dart`,
-///     `stdlib/typed_data/uint8_list_test.dart`, `eval_method_test.dart` — have
-///     had their entries deleted). What is left in THIS file is not a
-///     behavioural divergence at all: the `GEN-C6-279` case carries a different
-///     closing comment in each tree, each describing the case from its own
-///     tree's vantage (the reference points at the stdlib registration's "E1
-///     fix"; this copy points at the AST-driven interpreter reached through the
-///     source parser). Both are accurate about their own side, so neither is
-///     the one to overwrite — which is exactly what a `_divergentBaseline`
-///     entry is for.
-///   * `scc32_bridged_value_key_test.dart` — ported by SCC35, MINUS its
-///     `F-SCC32-20/21` group. Those two are a source scan over both mirrored
-///     trees rather than script runs, so a copy here would read the same files
-///     and answer the same question `tom_d4rt`'s copy already answers. The
-///     divergence is therefore deliberate and permanent, in the same category
-///     as `release_hygiene_test.dart` in [_uncoveredBaseline] — not a shortfall
-///     to be closed. (`scb11_symbol_literal_test.dart` was listed here for the
-///     other half of the same fix; its `F-SCB11-7` is now widened to the
-///     reference form and its entry is gone.)
-const Set<String> _divergentBaseline = {
-  '_c21_null_short_test.dart',
-  '_plan_e2_static_in_closure_test.dart',
-  'block_frame_collapse_test.dart',
-  'bound_method_tearoff_cache_test.dart',
-  'bridge/bridged_enum_test.dart',
-  'bridge/extension_on_stdlib_type_test.dart',
-  'bridge/same_name_bridge_sourceuri_test.dart',
-  'cluster_a_top_level_build_resolution_test.dart',
-  'const_expressions_test.dart',
-  'dfub10_circular_module_load_test.dart',
-  'dfub11_filesystem_operation_permission_test.dart',
-  'dfub13_import_export_diagnostics_test.dart',
-  'dfub5_function_record_runtime_type_test.dart',
-  'dfub6_applied_generic_runtime_types_test.dart',
-  'dfub7_bridged_typeparameter_subtype_test.dart',
-  'dfub8_super_parameter_default_forwarding_test.dart',
-  'dfub9_extension_type_operator_dispatch_test.dart',
-  'dgub4_filesystem_import_scope_boundary_test.dart',
-  'instance_field_shadows_global_test.dart',
-  'late_test.dart',
-  'object_universal_members_test.dart',
-  'open_issues/b11_warmup_test.dart',
-  'open_issues/b1_redirecting_factory_test.dart',
-  'open_issues/b5_bridged_exception_catch_test.dart',
-  'open_issues/b9_static_field_sibling_write_test.dart',
-  'operator_improvements_test.dart',
-  // The only entry in this set whose divergence is a set of SKIPS rather than a
-  // content difference. SCC40 made the await-resumption slot per-await-site, so
+/// A PUBLISH MAKES ENTRIES REVIEWABLE, NOT AUTOMATICALLY STALE — and the
+/// converse trap is the one SCC44 walked into. Seven entries were pinned on
+/// `tom_d4rt_ast` reaching 0.40.0; SCC35 published exactly that, and when all
+/// seven were finally re-measured on 2026-09-05, six already passed. They had
+/// been recorded from prose rather than from a run, and the pins outlived their
+/// cause by a full release. [_pinnedInterpreterFloors] and F-SCC43-1 exist to
+/// make the flip condition machine-checkable; re-measuring is still manual, so
+/// re-measure the whole register when the floor moves, not the entry you
+/// happened to be reading.
+const Map<String, _Divergence> _divergentBaseline = {
+  // The reference copy's four `(legacy)` cases reach into the analyzer `D4rt`'s
+  // own environment chain — `enclosing`, the static warm-parent cache keyed on
+  // the allowed-set signature — and measured here they fail, because the exec
+  // `D4rt` is a WRAPPER that forwards `providePackage` / `allowedPackages` to
+  // an inner `D4rtRunner` and holds no chain of its own. What this copy pins is
+  // therefore a different contract: that the forwards expose the runner's
+  // behaviour faithfully through the wrapper. Neither copy can be the other.
+  'warm_parent_package_pool_test.dart': _Divergence.necessary,
+  // Each copy reads its OWN package's `doc/d4rt_limitations.md` and asserts the
+  // set of names that package deliberately does not bridge. The two sets are
+  // not the same set, and the reference copy does not even run here — exec has
+  // no such doc, so F-SCB30-3/-5 die on a missing file. Convergence would
+  // require one shared document, which would then be wrong about both trees.
+  'stdlib/intentionally_unbridged_test.dart': _Divergence.necessary,
+  // The only entry whose divergence is a set of SKIPS rather than a content
+  // difference, and the only publish-pin left standing after SCC44 re-measured
+  // all seven. SCC40 made the await-resumption slot per-await-site, so
   // `(await a) + (await b)` stops yielding `'AA'`; the reference tree runs
   // F-SCB14-9/-10/-11/-12 green. This copy skips exactly those four, because
   // exec resolves `tom_d4rt_ast` from pub.dev at 0.40.0 (DGUC6) and the fix
-  // landed after it. Verified under a throwaway path override: all thirteen
-  // pass against the working tree. Un-skip the four and delete this entry in
-  // the commit that raises exec's floor past 0.40.0; tracked as SCD120.
-  'scb14_await_receiver_position_test.dart',
-  // The same deliberate subtraction as `scc32_bridged_value_key_test.dart`
-  // on the next line. Ported by SCC43 minus the twin's F-SCC31-17/18, which
-  // scan every mirrored tree's sources for the guard rather than running a
-  // script. A second copy would read the same files and reach the same
-  // verdict, so a dropped guard would turn two suites red for one cause and
-  // the extra red would say nothing the first did not. Permanent, not a
-  // shortfall.
-  'scc31_undefined_name_uncatchable_test.dart',
-  'scc32_bridged_value_key_test.dart',
-  // A deliberate PARTIAL port, and the only kind of divergence in this set that
-  // is a subtraction rather than a rewrite. The reference file's F-SCC33-5
-  // hands an analyzer `ArgumentList` to `visitNode`; this line's visitor takes
-  // an `SAstNode`, so no import rewrite turns one call into the other and the
-  // case is omitted here. It is not lost — `tom_d4rt_ast` pins the same
-  // contract natively (F-SCC33-AST-1/2), against its own node type, which is
-  // the only place it can be pinned. The five behavioural cases are verbatim.
-  'scc33_unhandled_node_test.dart',
-  'stdlib/collection/list_queue_test.dart',
-  'stdlib/collection/queue_test.dart',
-  'stdlib/collection/splay_tree_map_test.dart',
-  'stdlib/intentionally_unbridged_test.dart',
-  'stdlib/io/socket_test.dart',
-  'stdlib/typed_data/byte_data_test.dart',
-  'stdlib/typed_data/typed_list_inherited_members_test.dart',
-  'warm_parent_package_pool_test.dart',
+  // landed after it — re-measured 2026-09-05 against the published copy and
+  // still failing, with the observed values recorded in
+  // [_pinnedInterpreterFloors]. Un-skip the four and delete this entry in the
+  // commit that raises exec's floor past 0.40.0; tracked as SCD120.
+  'scb14_await_receiver_position_test.dart': _Divergence.deliberate,
+  // Ported by SCC43 minus the twin's F-SCC31-17/18, which scan every mirrored
+  // tree's sources for the guard rather than running a script. A second copy
+  // would read the same files and reach the same verdict, so a dropped guard
+  // would turn two suites red for one cause and the extra red would say
+  // nothing the first did not. Permanent, not a shortfall.
+  'scc31_undefined_name_uncatchable_test.dart': _Divergence.deliberate,
+  // The same deliberate subtraction, for the same reason: F-SCC32-20/21 are a
+  // source scan over both mirrored trees rather than script runs.
+  'scc32_bridged_value_key_test.dart': _Divergence.deliberate,
+  // Also a subtraction, but for a reason no publish can clear. The reference
+  // file's F-SCC33-5 hands an analyzer `ArgumentList` to `visitNode`; this
+  // line's visitor takes an `SAstNode`, so no import rewrite turns one call
+  // into the other. It is not lost — `tom_d4rt_ast` pins the same contract
+  // natively (F-SCC33-AST-1/2) against its own node type, which is the only
+  // place it can be pinned. The five behavioural cases are verbatim.
+  'scc33_unhandled_node_test.dart': _Divergence.deliberate,
 };
 
 /// The direct interpreter-package imports the port recipe legitimately rewrites,
@@ -826,26 +784,30 @@ const Set<String> _divergentBaseline = {
 /// floor without a key here fails as an unregistered obligation. Neither half
 /// is optional, because a register that is allowed to drift from the prose is
 /// back to being prose.
+///
+/// A PIN IS A PREDICTION UNTIL SOMEBODY RUNS IT. SCC44 re-measured all seven
+/// entries this register held and six of them already passed — the six were
+/// recorded from prose ("the working-tree interpreter coerces a typed-data list
+/// where the published one does not") rather than from a run against the
+/// published copy, and they outlived their cause by a full release. `queue`,
+/// `list_queue`, `splay_tree_map`, `typed_list_inherited_members` and
+/// `operator_improvements` converged verbatim on 2026-09-05 at floor 0.40.0 and
+/// left both this register and [_divergentBaseline].
+///
+/// So the register's guard is necessary and not sufficient: F-SCC43-1 tells you
+/// WHEN an entry becomes reviewable, and only a run tells you whether it is
+/// still true. When the floor moves, re-measure every entry here, not the one
+/// you happened to be reading — the six that had gone stale were stale for the
+/// same reason, and reading any one of them would not have revealed the other
+/// five.
 const Map<String, String> _pinnedInterpreterFloors = {
   // SCC40 made the await-resumption slot per-await-site. The reference tree
   // runs F-SCB14-9/-10/-11/-12 green; this copy skips exactly those four.
-  // Tracked as SCD120.
+  // The one pin SCC44 re-measured and found still true: against the published
+  // 0.40.0 interpreter F-SCB14-9 gives `'1,2|1,2'` for an expected
+  // `'1,2|3,4'`, -11 gives `'1|1'` for `'1|3'`, -12 gives `'AA'` for `'AB'`,
+  // and -10 fails with `Undefined variable: out`. Tracked as SCD120.
   'scb14_await_receiver_position_test.dart': '0.40.0',
-  // The working-tree interpreter coerces a typed-data list where the published
-  // one does not, so the twin's 45 extra cases need the publish. Measured
-  // 2026-09-04: copying the twin verbatim today gives 66 pass / 45 fail.
-  'stdlib/typed_data/typed_list_inherited_members_test.dart': '0.40.0',
-  // The working-tree Queue bridge gained `remove` / `removeWhere` /
-  // `retainWhere` and the static `castFrom`; ListQueue reaches two of them
-  // through its `-> Queue` edge.
-  'stdlib/collection/queue_test.dart': '0.40.0',
-  'stdlib/collection/list_queue_test.dart': '0.40.0',
-  // Gained `firstKeyAfter` / `lastKeyBefore`, and its `I-COLL-78` still pins
-  // the invented empty-map guard the working tree removed.
-  'stdlib/collection/splay_tree_map_test.dart': '0.40.0',
-  // The working-tree interpreter implements `bool`'s `& | ^` and `&= |= ^=`;
-  // the published one still throws `Unsupported binary operator`.
-  'operator_improvements_test.dart': '0.40.0',
 };
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
@@ -885,10 +847,18 @@ bool _versionExceeds(String a, String b) {
 /// Attribution is by the comment run immediately above an entry line, which is
 /// exactly how both baselines are written. This exists so the prose and
 /// [_pinnedInterpreterFloors] cannot disagree.
+///
+/// The entry pattern accepts any single-value right-hand side rather than just
+/// an integer, because the two baselines no longer have the same shape:
+/// [_uncoveredBaseline] maps to a case count and [_divergentBaseline] to a
+/// [_Divergence]. A pattern that only matched digits would have silently
+/// stopped attributing every divergent entry the moment SCC44 changed that map
+/// — including the one publish-pin still standing — and a scanner that finds
+/// nothing passes.
 Map<String, String> _floorsDeclaredInComments() {
   final lines = File('test/conformance_drift_test.dart').readAsLinesSync();
   final floorPattern = RegExp(r'floor past (\d+\.\d+\.\d+)');
-  final entryPattern = RegExp(r"^\s*'([^']+)'\s*(?::\s*\d+)?,\s*$");
+  final entryPattern = RegExp(r"^\s*'([^']+)'\s*(?::\s*[^,]+)?,\s*$");
   final declared = <String, String>{};
   var pending = <String>[];
   for (final line in lines) {
@@ -908,6 +878,39 @@ Map<String, String> _floorsDeclaredInComments() {
     pending = <String>[];
   }
   return declared;
+}
+
+/// The comment run written directly above each [_divergentBaseline] entry, as
+/// `<entry path> -> <joined comment text>`.
+///
+/// Entries with no comment above them are absent from the result rather than
+/// present with an empty value, which is what lets F-SCC44-1 distinguish "this
+/// entry has no reason" from "the scanner did not reach it".
+Map<String, String> _divergentEntryComments() {
+  final lines = File('test/conformance_drift_test.dart').readAsLinesSync();
+  final entryPattern = RegExp(r"^\s*'([^']+)'\s*:\s*_Divergence\.\w+,\s*$");
+  final reasons = <String, String>{};
+  var inMap = false;
+  var pending = <String>[];
+  for (final line in lines) {
+    if (!inMap) {
+      inMap = line.startsWith(
+        'const Map<String, _Divergence> _divergentBaseline = {',
+      );
+      continue;
+    }
+    if (line.startsWith('};')) break;
+    final trimmed = line.trimLeft();
+    if (trimmed.startsWith('//')) {
+      pending.add(trimmed.substring(2).trim());
+      continue;
+    }
+    if (entryPattern.firstMatch(line) case final m? when pending.isNotEmpty) {
+      reasons[m.group(1)!] = pending.join(' ');
+    }
+    pending = <String>[];
+  }
+  return reasons;
 }
 
 /// A `KNOWN-GAP(<todo-id>):` or `WONT-FIX:` marker, as written in the comment
@@ -1123,8 +1126,9 @@ void main() {
           divergent.add(path);
         }
       }
-      final appeared = divergent.difference(_divergentBaseline);
-      final converged = _divergentBaseline.difference(divergent);
+      final baseline = _divergentBaseline.keys.toSet();
+      final appeared = divergent.difference(baseline);
+      final converged = baseline.difference(divergent);
 
       expect(
         appeared,
@@ -1213,7 +1217,7 @@ void main() {
       // Part one — no stale keys. An entry that has already been re-ported
       // leaves the baselines but not necessarily this register, and a register
       // holding paths that no longer exist reads as unfinished work that isn't.
-      final live = {..._uncoveredBaseline.keys, ..._divergentBaseline};
+      final live = {..._uncoveredBaseline.keys, ..._divergentBaseline.keys};
       final stale = _pinnedInterpreterFloors.keys
           .where((path) => !live.contains(path))
           .toList();
@@ -1275,6 +1279,55 @@ void main() {
             'turns out still to fail, that is a real finding and needs a fresh '
             'entry saying so — do not re-pin it to the next version without '
             'measuring.\n${due.join('\n')}',
+      );
+    });
+  }, skip: skipReason);
+
+  group('SCC44: every standing divergence is justified in writing', () {
+    test('F-SCC44-1: each _divergentBaseline entry carries a reason '
+        '[2026-09-05] (PASS)', () {
+      // The category alone is not the justification. `_Divergence.necessary`
+      // says a claim was made; it does not say what makes the two copies
+      // un-mergeable, and the next reader cannot re-derive that from a path and
+      // an enum. SCC44 found 32 of 38 entries in the predecessor `Set` were
+      // never verdicts at all — they converged the moment anyone ran them —
+      // and the thing that made them indistinguishable from real findings was
+      // exactly this missing sentence. An entry absorbs every future drift in
+      // its file for as long as it stands, so the cost of an unexamined one is
+      // paid indefinitely.
+      final reasons = _divergentEntryComments();
+
+      // Part one — the scanner reached the map. A source scan that matches
+      // nothing passes every assertion built on it, which is the failure mode
+      // that had already disarmed the floor scanner when SCC44 changed this
+      // map's shape. Assert coverage before asserting content.
+      expect(
+        reasons.keys.toSet(),
+        equals(_divergentBaseline.keys.toSet()),
+        reason:
+            'The comment scan did not pair up with the map it scans. Either an '
+            'entry has no comment run above it, or the entry syntax changed '
+            'and _divergentEntryComments no longer recognises it — and in the '
+            'second case every check below silently stops testing anything.',
+      );
+
+      // Part two — the reason is a reason. A length floor cannot tell prose
+      // from padding, but it does separate a written explanation from a
+      // restated filename, which is the observed degenerate case.
+      final thin = reasons.entries
+          .where((e) => e.value.length < 80)
+          .map((e) => '${e.key}: "${e.value}"')
+          .toList();
+      expect(
+        thin,
+        isEmpty,
+        reason:
+            'These entries carry a comment too short to explain anything. The '
+            'reason has to say what the two copies assert differently and why '
+            'that difference has to stand — for _Divergence.necessary, what '
+            'coverage overwriting either side would delete; for '
+            '_Divergence.deliberate, what makes converging wrong rather than '
+            'merely undone.\n${thin.join('\n')}',
       );
     });
   }, skip: skipReason);

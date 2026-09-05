@@ -1,28 +1,25 @@
-// DFUB8 conformance (DGUB11): super parameters forward the parent
-// constructor's default — verified against the ANALYZER-FREE interpreter.
+// DFUB8: super parameters forward the parent constructor's default.
 //
-// Mirror of tom_d4rt/test/dfub8_super_parameter_default_forwarding_test.dart.
-// The fix lives in the interpreter's constructor parameter binding
-// (callable.dart) in both trees; this file is the end-to-end guard that the
-// tom_d4rt_ast half is actually present in the HOSTED package tom_d4rt_exec
-// resolves. It can only be exercised through full source execution (class
-// hierarchies), which is why there is no standalone tom_d4rt_ast unit test.
+// Ports the two failing super-parameter cases from upstream
+// kodjodevf/d4rt test/class/class_test.dart. When a Dart 2.17+ super
+// parameter (`super.value`) is an *optional positional* whose matching
+// parameter in the PARENT constructor has a default, and the child call
+// omits it, our interpreter passed `null` instead of applying the parent's
+// default. The fix makes the omitted super-parameter fall through to the
+// parent constructor's declared default.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
-dynamic execute(String source) {
-  final d4rt = D4rt()..setDebug(false);
-  return d4rt.execute(
-    library: 'package:test/main.dart',
-    sources: {'package:test/main.dart': source},
-  );
+Object? execute(String code) {
+  final d4rt = D4rt();
+  return d4rt.execute(source: code);
 }
 
 void main() {
-  group('DFUB8 (exec): super-parameter default forwarding', () {
-    test('F-DFUB8-EXEC-1: optional positional super param uses parent default '
-        '[2026-07-27] (PASS)', () {
+  group('DFUB8: super-parameter default forwarding', () {
+    test('F-DFUB8-1: optional positional super param uses parent default '
+        '[2026-07-23] (RED)', () {
       const code = '''
         class Parent {
           final String name;
@@ -43,8 +40,8 @@ void main() {
       expect(execute(code), equals(['test', 0, 'test2', 42]));
     });
 
-    test('F-DFUB8-EXEC-2: super param with default value in parent '
-        '[2026-07-27] (PASS)', () {
+    test('F-DFUB8-2: super param with default value in parent '
+        '[2026-07-23] (RED)', () {
       const code = '''
         class Parent {
           final String name;

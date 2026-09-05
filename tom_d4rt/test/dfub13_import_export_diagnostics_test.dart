@@ -23,6 +23,14 @@
 // re-wrap, GAP 2 = the package-scheme message (already landed in tom_d4rt by
 // DFUB2, guarded here so it cannot silently regress), GAP 3 = directive
 // context.
+//
+// THE DFUB13 TODO SCOPED ITSELF TO tom_d4rt + tom_d4rt_ast AND THAT WAS A
+// FILE-COUNT SHORT. `tom_d4rt_exec` carries its own third copy of
+// `d4rt_base.dart` and `module_loader.dart`, and it is what downstream
+// consumers actually run — all three defects were present there too. So this
+// suite has a twin in that package, and the twin is the copy that matters to a
+// user. Fixing two of three loaders would have left the diagnostic rotting in
+// the one nobody was looking at.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';

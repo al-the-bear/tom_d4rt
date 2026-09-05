@@ -6,7 +6,18 @@ import 'interpreter_test.dart';
 /// `runtimeType`. These must always resolve in interpreted scripts —
 /// regardless of whether the runtime type has a registered bridge.
 ///
-/// Mirrors `tom_d4rt/test/object_universal_members_test.dart`.
+/// Regression cases motivating these tests:
+///
+///   * Catching a native `RuntimeD4rtException` and calling `e.toString()`,
+///     `e.hashCode`, or `e.runtimeType` previously failed with
+///     "Undefined property or method 'X' on RuntimeD4rtException" because
+///     the visitor's PrefixedIdentifier / PropertyAccess fallthroughs
+///     didn't expose the universal Object members.
+///
+/// The interpreter now applies a universal Object-member fallback in both
+/// `visitPropertyAccess` and `visitPrefixedIdentifier` (mirrored in the
+/// equivalent SAst visitors) right before throwing
+/// "Undefined property or method '…'".
 void main() {
   group('Object universal members — toString / hashCode / runtimeType', () {
     test('I-OBJ-UNI-1: e.toString() in catch block resolves '
@@ -22,6 +33,8 @@ void main() {
         }
       ''';
       final result = execute(source) as String;
+      // The exact message is interpreter-internal; we only assert that
+      // toString resolved (returned a non-empty String).
       expect(result, isNotEmpty);
       expect(result, isNot(equals("no throw")));
     });
@@ -53,6 +66,7 @@ void main() {
           return "no throw";
         }
       ''';
+      // Just assert it produces a non-empty type-name string.
       final result = execute(source) as String;
       expect(result, isNotEmpty);
       expect(result, isNot(equals("no throw")));

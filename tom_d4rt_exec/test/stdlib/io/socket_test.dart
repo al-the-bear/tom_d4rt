@@ -240,4 +240,50 @@ main() async {
       },
     );
   });
+
+  // SCC12: found by giving the member-gap audit a `ServerSocket` recipe. The
+  // audit needs an instance to read members off, so it binds a loopback server —
+  // and the canonical SDK form of that call was the one that did not work.
+  group('ServerSocket.bind address argument', () {
+    test('F-SCC12-1: binds when given an InternetAddress, not just a host '
+        'string [2026-09-04]', () async {
+      // `ServerSocket.bind` takes `dynamic address` precisely so that either a
+      // host string or an `InternetAddress` works, and the SDK documentation
+      // uses the `InternetAddress` form. The bridge stringified the argument,
+      // which turns `InternetAddress.loopbackIPv4` into the literal text
+      // `InternetAddress('127.0.0.1', IPv4)` and sends that to the resolver — so
+      // the documented form failed with a host-lookup error while the
+      // undocumented string form worked.
+      const source = '''
+     import 'dart:io';
+     main() async {
+        final server = await ServerSocket.bind(InternetAddress.loopbackIPv4, 0);
+        final bound = [server.address.address, server.port > 0];
+        await server.close();
+        return bound;
+      }
+      ''';
+      final result = await execute(source);
+      expect(result, equals(['127.0.0.1', true]));
+    });
+
+    test(
+      'F-SCC12-2: still binds when given a host string [2026-09-04]',
+      () async {
+        // The form that already worked, kept so the pass-through fix cannot be
+        // mistaken for a swap of one accepted type for the other.
+        const source = '''
+     import 'dart:io';
+     main() async {
+        final server = await ServerSocket.bind('127.0.0.1', 0);
+        final port = server.port;
+        await server.close();
+        return port > 0;
+      }
+      ''';
+        final result = await execute(source);
+        expect(result, isTrue);
+      },
+    );
+  });
 }

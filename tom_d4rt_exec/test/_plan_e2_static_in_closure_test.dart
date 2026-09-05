@@ -1,21 +1,16 @@
-/// Regression tests for Plan E2 — interpreted `static` helper accepting a
-/// receiver argument and called from inside a closure that captures (or
-/// receives) that receiver. The historic failure shape was
-/// "Cannot invoke method '...' on null" — the receiver bound to the
-/// static method's parameter became null when the helper was invoked
-/// through a builder/closure boundary.
-///
-/// These tests use plain Dart constructs (no Flutter context types) but
-/// reproduce the exact dispatch shape of `AppStateScope.watch(context)`
-/// being called inside a `bodyBuilder: (context, _) { ... }` closure in
-/// `widgets/inherited_widget_test.dart`.
+/// Mirror of `tom_d4rt_exec/test/_plan_e2_static_in_closure_test.dart`
+/// for the analyzer-based interpreter. Plan E2 — interpreted `static`
+/// helper called from inside a closure that receives or captures the
+/// receiver. Historic failure shape was "Cannot invoke method '...' on
+/// null".
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 void main() {
-  test('static helper called from closure receiving the arg', () async {
+  test('static helper called from closure receiving the arg', () {
     final d4rt = D4rt();
-    final bundle = await d4rt.createBundleFromSource('''
+    final result = d4rt.execute(
+      source: '''
 class Ctx {
   final int value;
   const Ctx(this.value);
@@ -33,18 +28,18 @@ int run(int Function(Ctx) body) {
   return body(c);
 }
 
-int main() {
+main() {
   return run((ctx) => Scope.watch(ctx));
 }
-''');
-    final runner = D4rtRunner();
-    final result = runner.executeBundle(bundle);
+''',
+    );
     expect(result, 42);
   });
 
-  test('static helper called from nested builder closure', () async {
+  test('static helper called from nested builder closure', () {
     final d4rt = D4rt();
-    final bundle = await d4rt.createBundleFromSource('''
+    final result = d4rt.execute(
+      source: '''
 class Ctx {
   final int value;
   const Ctx(this.value);
@@ -62,7 +57,7 @@ int useBuilder({required int Function(Ctx, int) bodyBuilder}) {
   return bodyBuilder(c, 5);
 }
 
-int main() {
+main() {
   return useBuilder(
     bodyBuilder: (context, builds) {
       final s = Scope.watch(context);
@@ -70,17 +65,15 @@ int main() {
     },
   );
 }
-''');
-    final runner = D4rtRunner();
-    final result = runner.executeBundle(bundle);
+''',
+    );
     expect(result, 12);
   });
 
-  test('static helper call on closure-captured receiver', () async {
-    // Variant where the closure does not receive the receiver as an
-    // argument but captures it from the enclosing scope.
+  test('static helper call on closure-captured receiver', () {
     final d4rt = D4rt();
-    final bundle = await d4rt.createBundleFromSource('''
+    final result = d4rt.execute(
+      source: '''
 class Ctx {
   final int value;
   const Ctx(this.value);
@@ -95,13 +88,12 @@ class Scope {
 
 int run(int Function() body) => body();
 
-int main() {
+main() {
   final Ctx outer = const Ctx(99);
   return run(() => Scope.watch(outer));
 }
-''');
-    final runner = D4rtRunner();
-    final result = runner.executeBundle(bundle);
+''',
+    );
     expect(result, 99);
   });
 }

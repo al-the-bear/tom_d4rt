@@ -350,6 +350,13 @@ void main() {
       },
     );
 
+    // REWRITTEN BY SCC10, because its premise was wrong. This case used to
+    // assert that `firstKey()` / `lastKey()` on an empty map THROW, and the
+    // bridge obliged with a hand-written `if (target.isEmpty) throw ... "Map is
+    // empty"` guard. Dart has no such guard: both members are declared `K?` and
+    // return null on an empty map (verified natively). So the bridge was
+    // refusing what Dart accepts, and this test was holding it in place — a
+    // script written `if (m.firstKey() == null)` died here and worked as Dart.
     test('I-COLL-78: firstKey() / lastKey() return null on an empty map '
         '[2026-09-04]', () {
       final result = d4rt.execute(
@@ -366,6 +373,82 @@ void main() {
         equals([null, null]),
         reason: 'both are declared K? in the SDK and return null when empty',
       );
+    });
+
+    // SCC10: `firstKeyAfter` / `lastKeyBefore` are the two members that make a
+    // SORTED map worth choosing over a HashMap, so their absence removed the
+    // reason to use the type. They are declared on SplayTreeMap rather than on
+    // Map, which is why the `-> Map` edge could not deliver them.
+    test('F-SCC10-7: firstKeyAfter() finds the next key in sort order '
+        '[2026-09-04]', () {
+      final result = d4rt.execute(
+        source: '''
+          import 'dart:collection';
+          main() {
+            final m = SplayTreeMap();
+            m[5] = 'b';
+            m[1] = 'a';
+            m[9] = 'c';
+            return [m.firstKeyAfter(1), m.firstKeyAfter(5)];
+          }
+        ''',
+      );
+      // Inserted out of order deliberately: a member that returned insertion
+      // order rather than sort order would give [9, ...] for the first.
+      expect(result, equals([5, 9]));
+    });
+
+    test('F-SCC10-8: lastKeyBefore() finds the previous key in sort order '
+        '[2026-09-04]', () {
+      final result = d4rt.execute(
+        source: '''
+          import 'dart:collection';
+          main() {
+            final m = SplayTreeMap();
+            m[5] = 'b';
+            m[1] = 'a';
+            m[9] = 'c';
+            return [m.lastKeyBefore(9), m.lastKeyBefore(5)];
+          }
+        ''',
+      );
+      expect(result, equals([5, 1]));
+    });
+
+    test('F-SCC10-9: both return null when there is no such key '
+        '[2026-09-04]', () {
+      // The SDK returns null rather than throwing, and the new adapters must not
+      // reinvent the `firstKey` guard that I-COLL-78 just removed.
+      final result = d4rt.execute(
+        source: '''
+          import 'dart:collection';
+          main() {
+            final m = SplayTreeMap();
+            m[1] = 'a';
+            m[5] = 'b';
+            return [m.firstKeyAfter(5), m.lastKeyBefore(1)];
+          }
+        ''',
+      );
+      expect(result, equals([null, null]));
+    });
+
+    test('F-SCC10-10: the queried key need not be present in the map '
+        '[2026-09-04]', () {
+      // `firstKeyAfter(3)` on a map holding 1 and 5 is a legitimate call — the
+      // members search the ordering, they do not look the key up.
+      final result = d4rt.execute(
+        source: '''
+          import 'dart:collection';
+          main() {
+            final m = SplayTreeMap();
+            m[1] = 'a';
+            m[5] = 'b';
+            return [m.firstKeyAfter(3), m.lastKeyBefore(3)];
+          }
+        ''',
+      );
+      expect(result, equals([5, 1]));
     });
   });
 }

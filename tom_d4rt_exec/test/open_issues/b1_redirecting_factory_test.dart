@@ -9,22 +9,21 @@
 /// "Cannot execute non-constructor function 'named' with empty body" because
 /// the `redirectedConstructor` target was never captured or resolved.
 ///
-/// This is the analyzer-free AST runtime: source is compiled to a bundle via
-/// the `tom_d4rt_exec` front end, then interpreted by `D4rtRunner`. Mirrors the
-/// analyzer-based twin in
-/// `tom_d4rt/test/open_issues/b1_redirecting_factory_test.dart`.
+/// This is the analyzer-based VM interpreter; source runs directly via
+/// `D4rt().execute`. Mirrors the analyzer-free twin in
+/// `tom_d4rt_exec/test/open_issues/b1_redirecting_factory_test.dart`.
 library;
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 void main() {
-  group('OPEN B.1 — redirecting factory constructors (AST)', () {
+  group('OPEN B.1 — redirecting factory constructors (VM)', () {
     test(
       'unnamed redirect `factory X() = Y` resolves to the subclass',
       () async {
-        final d4rt = D4rt();
-        final bundle = await d4rt.createBundleFromSource('''
+        final result = await D4rt().execute(
+          source: '''
 abstract class Shape {
   factory Shape() = Circle;
   double area();
@@ -37,16 +36,15 @@ double main() {
   final s = Shape();
   return s.area();
 }
-''');
-        final runner = D4rtRunner();
-        final result = runner.executeBundle(bundle);
+''',
+        );
         expect(result, 3.14);
       },
     );
 
     test('named redirect `factory X.n(..) = Y.m` forwards arguments', () async {
-      final d4rt = D4rt();
-      final bundle = await d4rt.createBundleFromSource('''
+      final result = await D4rt().execute(
+        source: '''
 abstract class Shape {
   factory Shape.named(double r) = Circle.r;
   double area();
@@ -59,17 +57,16 @@ class Circle implements Shape {
 double main() {
   return Shape.named(2.0).area();
 }
-''');
-      final runner = D4rtRunner();
-      final result = runner.executeBundle(bundle);
+''',
+      );
       expect(result, 4.0);
     });
 
     test(
       'redirect to a default unnamed constructor with positional args',
       () async {
-        final d4rt = D4rt();
-        final bundle = await d4rt.createBundleFromSource('''
+        final result = await D4rt().execute(
+          source: '''
 abstract class Animal {
   factory Animal(String name) = Dog;
   String describe();
@@ -82,16 +79,15 @@ class Dog implements Animal {
 String main() {
   return Animal('Rex').describe();
 }
-''');
-        final runner = D4rtRunner();
-        final result = runner.executeBundle(bundle);
+''',
+        );
         expect(result, 'Dog: Rex');
       },
     );
 
     test('generic redirect `factory X() = Y<int>` resolves the type', () async {
-      final d4rt = D4rt();
-      final bundle = await d4rt.createBundleFromSource('''
+      final result = await D4rt().execute(
+        source: '''
 abstract class Box<T> {
   factory Box() = IntBox;
   int size();
@@ -104,9 +100,8 @@ int main() {
   final b = Box<int>();
   return b.size();
 }
-''');
-      final runner = D4rtRunner();
-      final result = runner.executeBundle(bundle);
+''',
+      );
       expect(result, 42);
     });
   });

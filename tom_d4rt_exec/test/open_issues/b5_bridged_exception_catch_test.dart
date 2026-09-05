@@ -9,10 +9,9 @@
 /// escaped even an untyped `catch` (U24).
 ///
 /// The fix preserves the original native exception object through the wrap so
-/// `on NativeType` / bare `catch` dispatch matches the real type. This is the
-/// analyzer-free AST runtime exercised through `tom_d4rt_exec`; mirrors the
-/// analyzer-based twin in
-/// `tom_d4rt/test/open_issues/b5_bridged_exception_catch_test.dart`.
+/// `on <NativeType>` / bare `catch` dispatch matches the real type. This is the
+/// analyzer-based VM interpreter; mirrors the analyzer-free twin in
+/// `tom_d4rt_exec/test/open_issues/b5_bridged_exception_catch_test.dart`.
 library;
 
 import 'package:test/test.dart';
@@ -70,7 +69,7 @@ D4rt _interpreterWithThrower() {
 }
 
 void main() {
-  group('OPEN B.5 — bridge-wrapped exceptions stay catchable (AST)', () {
+  group('OPEN B.5 — bridge-wrapped exceptions stay catchable (VM)', () {
     test(
       'U13: `on NativeFault` matches a native throw from a bridged method',
       () async {

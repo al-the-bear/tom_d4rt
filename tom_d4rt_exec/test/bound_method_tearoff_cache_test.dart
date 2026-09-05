@@ -1,23 +1,26 @@
-/// Mirror of `tom_d4rt/test/bound_method_tearoff_cache_test.dart` for the
-/// analyzer-free interpreter (`tom_d4rt_ast` driven through `tom_d4rt_exec`,
-/// which parses source via the analyzer + AST generator and hands the mirror
-/// `SAstNode` tree to the interpreter).
-///
 /// S2 (perf, particle-field freeze §"Remaining work" step 2): a bare method
 /// tear-off (`obj.method` without an immediate call) is memoised per
 /// `(instance, unbound method)` pair instead of re-minting a fresh bound
-/// `InterpretedFunction` on every property access. These tests pin the
-/// observable contract: the tear-off stays callable and sees live state, the
-/// same instance/method yields an identical object, distinct instances yield
-/// distinct objects, super/mixin methods tear off identically, and repeated
-/// tear-offs allocate the bound closure only once.
+/// `InterpretedFunction` on every property access. On a hot per-frame rebuild
+/// path that re-mints hundreds of redundant closures, this removes the
+/// dominant old-gen garbage source behind the freeze.
+///
+/// These tests pin the *observable* contract the cache must preserve:
+///   - the cached tear-off is still callable and produces the right result;
+///   - tear-offs see *live* instance state (no stale captured fields);
+///   - Dart tear-off equality holds — `obj.method == obj.method` is true,
+///     and distinct instances yield distinct tear-offs;
+///   - superclass- and mixin-resolved methods tear off identically;
+///   - repeated tear-offs of the same method on the same instance allocate the
+///     bound closure only once (the actual perf guarantee, asserted through the
+///     [D4rtDiag.closureAllocs] window counter measured from the harness).
 library;
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 void main() {
-  group('bound method tear-off cache [ast]', () {
+  group('bound method tear-off cache', () {
     test('a cached tear-off is still callable and correct', () {
       final d4rt = D4rt();
       final result = d4rt.execute(
@@ -47,6 +50,8 @@ main() {
   final c = Counter();
   final fn = c.read;
   c.value = 41;
+  // The tear-off was taken BEFORE the mutation; it must still see the new
+  // value because it is bound to the instance, not a copy of its fields.
   return fn() + 1;
 }
 ''',
@@ -56,6 +61,9 @@ main() {
 
     test('tear-off is identical for the same instance and method', () {
       final d4rt = D4rt();
+      // The cache returns the SAME bound-closure object on repeated access —
+      // `identical` is the precise discriminator (pre-cache each access minted
+      // a distinct object, so this was false).
       final result = d4rt.execute(
         source: '''
 class A {
@@ -80,6 +88,7 @@ class A {
 main() {
   final a = A();
   final b = A();
+  // Each instance owns its own cache, so the bound closures are distinct.
   return identical(a.m, b.m);
 }
 ''',
@@ -124,6 +133,10 @@ main() {
     });
 
     test('repeated tear-offs of one method allocate the closure only once', () {
+      // Measure the closure-allocation delta the tear-off LOOP contributes,
+      // isolating it from the fixed setup cost (class wiring, `main`, the first
+      // legitimate bind). With the cache the loop adds zero closures regardless
+      // of iteration count; pre-cache each iteration minted a fresh closure.
       int closuresForLoop(int n) {
         final d4rt = D4rt();
         D4rtDiag.reset();
@@ -135,9 +148,9 @@ class Worker {
 }
 main() {
   final w = Worker();
-  var fn = w.step;
+  var fn = w.step; // first (and only) legitimate bind for this instance
   for (int i = 0; i < $n; i = i + 1) {
-    fn = w.step;
+    fn = w.step; // must hit the cache
   }
   return fn();
 }
@@ -148,6 +161,7 @@ main() {
 
       final fewIterations = closuresForLoop(0);
       final manyIterations = closuresForLoop(500);
+      // 500 extra tear-offs of an already-bound method add no closures.
       expect(manyIterations, fewIterations);
     });
   });

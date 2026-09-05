@@ -148,9 +148,9 @@ void main() {
     // resolution along the exact `services/codecs_test.dart` shape that the
     // generator-issues log flagged — `ByteData` used as a function-parameter
     // and local type annotation, plus the `ByteData.view(<Uint8List>.buffer)`
-    // static constructor over a byte buffer. This exercises the AST-driven
-    // (`tom_d4rt_ast`) interpreter through the source parser, mirroring the
-    // VM-twin lock-in in `tom_d4rt/test/stdlib/typed_data/byte_data_test.dart`.
+    // static constructor over a byte buffer. The stdlib registration already
+    // exposes all of this (see `byte_data.dart` "E1 fix"); this test pins it
+    // so a future stdlib refactor cannot silently regress the symbol.
     test('GEN-C6-279: ByteData type annotation + ByteData.view over a '
         'Uint8List buffer resolves and round-trips', () {
       final result = executeTestScript('''

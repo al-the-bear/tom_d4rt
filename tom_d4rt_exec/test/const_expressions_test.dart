@@ -210,5 +210,81 @@ main() {
         expect(result, equals(3));
       },
     );
+
+    test(
+      'I-EXPR-31: Const Set literal canonicalizes to one instance (T3). [2026-06-09 00:00] (PASS)',
+      () {
+        // A const set literal is a compile-time constant; evaluating the same
+        // literal node twice must return the identical canonical instance
+        // (matching real Dart). T3 caches the evaluated const literal so the
+        // interpreter no longer re-allocates a fresh UnmodifiableSetView per
+        // visit. Guards the canonicalization cache in visitSetOrMapLiteral.
+        const code = '''
+Set<int> makeSet() => const {1, 2, 3};
+main() {
+  final a = makeSet();
+  final b = makeSet();
+  return identical(a, b);
+}
+''';
+        final result = execute(code);
+        expect(result, isTrue);
+      },
+    );
+
+    test(
+      'I-EXPR-32: Const Map literal canonicalizes to one instance (T3). [2026-06-09 00:00] (PASS)',
+      () {
+        const code = '''
+Map<String, int> makeMap() => const {'a': 1, 'b': 2};
+main() {
+  final a = makeMap();
+  final b = makeMap();
+  return identical(a, b);
+}
+''';
+        final result = execute(code);
+        expect(result, isTrue);
+      },
+    );
+
+    test(
+      'I-EXPR-33: Non-const set literal still allocates fresh instances (T3). [2026-06-09 00:00] (PASS)',
+      () {
+        // The cache must apply ONLY to const literals — a plain set literal is
+        // mutable and identity-distinct on each evaluation.
+        const code = '''
+Set<int> makeSet() => {1, 2, 3};
+main() {
+  final a = makeSet();
+  final b = makeSet();
+  return identical(a, b);
+}
+''';
+        final result = execute(code);
+        expect(result, isFalse);
+      },
+    );
+
+    test(
+      'I-EXPR-34: Cached const set remains unmodifiable (T3). [2026-06-09 00:00] (PASS)',
+      () {
+        // Sharing one instance across hits is safe because const collections are
+        // unmodifiable; attempting to mutate the cached view must still throw.
+        const code = '''
+main() {
+  final set = const {1, 2, 3};
+  try {
+    set.add(4);
+    return 'mutated';
+  } catch (e) {
+    return 'threw';
+  }
+}
+''';
+        final result = execute(code);
+        expect(result, equals('threw'));
+      },
+    );
   });
 }

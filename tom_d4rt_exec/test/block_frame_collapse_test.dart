@@ -1,22 +1,26 @@
-/// Mirror of `tom_d4rt/test/block_frame_collapse_test.dart` for the
-/// analyzer-free interpreter (`tom_d4rt_ast` driven through `tom_d4rt_exec`,
-/// which parses source via the analyzer + AST generator and hands the mirror
-/// `SAstNode` tree to the interpreter).
-///
 /// S4 (perf, particle-field freeze §"Remaining work" step 1): a `Block` that
-/// introduces no name bindings runs its statements directly in the enclosing
-/// `Environment` instead of allocating a fresh child frame. These tests pin
-/// the observable contract the collapse must preserve — writes hit the
-/// enclosing frame, closures capture the enclosing binding, declaring blocks
-/// stay isolated, labelled break/continue still flow, and the slot fast-path
-/// resolves when the declaring block is nested in a collapsed parent.
+/// introduces no name bindings of its own runs its statements directly in the
+/// enclosing `Environment` instead of allocating a fresh child frame. This
+/// halves `Environment` allocation in the hot path (e.g. a Flutter `build`
+/// body re-run every frame, whose outermost block usually declares nothing
+/// before delegating to nested builders).
+///
+/// These tests pin the *observable* contract the collapse must preserve:
+///   - writes inside a collapsed block hit the enclosing frame (no shadow);
+///   - a closure created inside a collapsed block captures the enclosing
+///     binding, so later mutation is visible through it;
+///   - sibling blocks that DO declare a local still get isolated frames
+///     (shadowing is not leaked across the collapse);
+///   - labelled break/continue still flow correctly through collapsed blocks;
+///   - the slot fast-path (depth-0 [StaticCoord]) still resolves when the
+///     *declaring* block is nested inside a collapsed parent block.
 library;
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
 void main() {
-  group('block frame collapse (no-binding blocks) [ast]', () {
+  group('block frame collapse (no-binding blocks)', () {
     test('a bare nested block reassigns the enclosing variable', () {
       final d4rt = D4rt();
       final result = d4rt.execute(
@@ -24,6 +28,7 @@ void main() {
 main() {
   int x = 1;
   {
+    // no declarations here -> frame collapsed; assignment must hit `x`
     x = x + 41;
   }
   return x;
@@ -41,6 +46,7 @@ main() {
   int counter = 0;
   late void Function() bump;
   {
+    // collapsed block: the closure must close over the SAME `counter`
     bump = () { counter = counter + 1; };
   }
   bump();
@@ -60,16 +66,17 @@ main() {
 main() {
   int x = 10;
   {
-    int x = 99;
-    x = x + 1;
+    int x = 99; // declaring block keeps its own frame
+    x = x + 1;  // mutates the inner x only
   }
   {
-    x = x + 5;
+    x = x + 5; // collapsed block: mutates the OUTER x
   }
   return x;
 }
 ''',
       );
+      // inner shadow (99->100) is discarded; outer x: 10 -> 15
       expect(result, 15);
     });
 
@@ -102,6 +109,7 @@ main() {
   outer:
   for (int i = 0; i < 5; i = i + 1) {
     {
+      // collapsed block wrapping the break
       hits = hits + 1;
       if (i == 2) break outer;
     }
@@ -110,6 +118,7 @@ main() {
 }
 ''',
       );
+      // i = 0,1,2 -> 3 hits then break
       expect(result, 3);
     });
 
@@ -129,6 +138,7 @@ main() {
 }
 ''',
       );
+      // 0 + 1 + 3 + 4 = 8 (i == 2 skipped)
       expect(result, 8);
     });
 
@@ -140,9 +150,10 @@ main() {
 main() {
   int acc = 0;
   {
+    // collapsed parent (no own declarations)
     {
-      int local = 21;
-      acc = local + local;
+      int local = 21; // declaring block: keeps its frame + slot
+      acc = local + local; // depth-0 slot read of `local`
     }
   }
   return acc;
@@ -158,7 +169,7 @@ main() {
         source: '''
 main() {
   int call() {
-    int helper() => 21;
+    int helper() => 21; // function decl -> block keeps frame
     return helper() + helper();
   }
   return call();
@@ -175,7 +186,7 @@ main() {
 main() {
   int sum = 0;
   {
-    var (a, b) = (3, 4);
+    var (a, b) = (3, 4); // pattern decl -> block keeps frame
     sum = a + b;
   }
   return sum;
@@ -187,6 +198,8 @@ main() {
 
     test('repeated execution of a hot collapsed block stays correct', () {
       final d4rt = D4rt();
+      // Exercises the per-node cache: the same Block node is visited many
+      // times; the collapse decision must be stable and correct each time.
       final result = d4rt.execute(
         source: '''
 int accumulate(int n) {
@@ -208,6 +221,7 @@ main() {
 }
 ''',
       );
+      // sum 0..9 = 45
       expect(result, 45);
     });
   });
