@@ -13,7 +13,6 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:tom_d4rt/src/environment.dart';
 import 'package:tom_d4rt/src/interpreter_visitor.dart';
 import 'package:tom_d4rt/src/module_loader.dart';
-import 'package:tom_d4rt/src/sdk_errors.dart';
 import 'package:tom_d4rt/src/exceptions.dart';
 import 'package:tom_d4rt/src/callable.dart';
 import 'package:tom_d4rt/src/declaration_visitor.dart';
@@ -2434,27 +2433,13 @@ class D4rt {
         );
       }
       Logger.debug("[_executeInEnvironment] Finished Pass 2: Interpretation");
-    } on InternalInterpreterD4rtException catch (e) {
-      if (e.originalThrownValue is RuntimeD4rtException) {
-        throw e.originalThrownValue as RuntimeD4rtException;
-      } else {
-        throw e.originalThrownValue!;
-      }
-    } catch (e) {
-      // DFUB13 — a SourceCodeD4rtException is an EXPECTED, actionable
-      // diagnostic (missing import, bad URI). Re-wrapping it as "Unexpected
-      // error" discards a message the loader deliberately composed and tells
-      // the user they hit an interpreter bug rather than a typo. An
-      // AmbiguousBridgedNameException is the same kind of deliberate
-      // diagnostic: it names both candidates and the qualifier to use.
-      if (e is RuntimeD4rtException ||
-          e is SourceCodeD4rtException ||
-          e is AmbiguousBridgedNameException ||
-          isSdkShapedError(e)) {
-        rethrow;
-      } else {
-        throw RuntimeD4rtException('Unexpected error: $e');
-      }
+    } catch (e, s) {
+      // SCC27 — the host gets the type the script raised. DFUB13's
+      // SourceCodeD4rtException and AmbiguousBridgedNameException, SCB10's four
+      // SDK-shaped errors, and the interpreted-`throw` carrier used to be named
+      // here one by one; the boundary now states one rule, so a reader no
+      // longer has to check a list to predict what crosses it.
+      throwAsHostFacingError(e, s);
     }
     if (functionResult is InterpretedInstance) {
       _interpretedInstance = functionResult;
@@ -2463,29 +2448,20 @@ class D4rt {
     if (resultValue is Future) {
       try {
         _hasExecutedOnce = true;
-        return resultValue.then((value) {
-          final native = _bridgeInterpreterValueToNative(value);
-          _maybeEmitUsageLog();
-          return native;
-        });
-      } on InternalInterpreterD4rtException catch (e) {
-        if (e.originalThrownValue is RuntimeD4rtException) {
-          throw e.originalThrownValue as RuntimeD4rtException;
-        } else {
-          throw e.originalThrownValue!;
-        }
-      } catch (e) {
-        // DFUB13 — a SourceCodeD4rtException is an EXPECTED, actionable
-        // diagnostic (missing import, bad URI). Re-wrapping it as "Unexpected
-        // error" discards a message the loader deliberately composed and tells
-        // the user they hit an interpreter bug rather than a typo.
-        if (e is RuntimeD4rtException ||
-            e is SourceCodeD4rtException ||
-            isSdkShapedError(e)) {
-          rethrow;
-        } else {
-          throw RuntimeD4rtException('Unexpected error: $e');
-        }
+        return resultValue.then(
+          (value) {
+            final native = _bridgeInterpreterValueToNative(value);
+            _maybeEmitUsageLog();
+            return native;
+          },
+          // SCC27 — an `async main` reports its failure through this future,
+          // never through the enclosing try, so the boundary has to be applied
+          // here as well. Without it the async half of the API kept relabelling
+          // what the sync half had stopped relabelling.
+          onError: throwAsHostFacingError,
+        );
+      } catch (e, s) {
+        throwAsHostFacingError(e, s);
       }
     }
     _hasExecutedOnce = true;

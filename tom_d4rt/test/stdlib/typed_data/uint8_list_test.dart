@@ -118,13 +118,17 @@ void main() {
     test(
       'I-TYPE-85: Index out of bounds for Uint8List[] and []=. [2026-02-10 06:37] (PASS)',
       () {
+        // SCC27 CONTRACT CHANGE: the host receives the range failure the native
+        // list raised. `IndexError` for the over-length write is the more
+        // specific `RangeError` subtype Dart itself uses for an index; the
+        // negative case comes back as a plain `RangeError`.
         expect(
           () => executeTestScript("var list = Uint8List(2); list[2] = 0;"),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<IndexError>()),
         );
         expect(
           () => executeTestScript("var list = Uint8List(2); return list[-1];"),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<RangeError>()),
         );
       },
     );

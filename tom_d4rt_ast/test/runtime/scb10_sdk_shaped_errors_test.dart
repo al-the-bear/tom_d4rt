@@ -80,17 +80,46 @@ void main() {
       expect(indexRangeError(0, 0).toString(), contains('range is empty'));
     });
 
-    test('F-SCB10-AST-4: isSdkShapedError covers exactly the deliberately '
-        'raised types [2026-07-28]', () {
-      expect(isSdkShapedError(AssertionError('m')), isTrue);
-      expect(isSdkShapedError(D4rtTypeError('m')), isTrue);
-      expect(isSdkShapedError(D4rtNoSuchMethodError('m')), isTrue);
-      expect(isSdkShapedError(indexRangeError(9, 3)), isTrue);
-      // Errors a *native* callee throws are out of scope — widening the
-      // predicate to cover them would change the contract of every bridge.
-      expect(isSdkShapedError(FormatException('m')), isFalse);
-      expect(isSdkShapedError(StateError('m')), isFalse);
-      expect(isSdkShapedError(RuntimeD4rtException('m')), isFalse);
+    test('F-SCB10-AST-4: the deliberately raised types cross the host boundary '
+        'as themselves [2026-07-28]', () {
+      // SCC27 CONTRACT CHANGE: this case used to assert `isSdkShapedError`, the
+      // four-type carve-out that let these escape `execute()`'s catch-all. The
+      // predicate is gone — the boundary now asks whether a value is an `Error`
+      // or an `Exception`, which subsumes the list. What the carve-out
+      // guaranteed still has to hold, so the case now asserts it through the
+      // rule that replaced it rather than through the predicate that is no
+      // longer there.
+      for (final e in [
+        AssertionError('m'),
+        D4rtTypeError('m'),
+        D4rtNoSuchMethodError('m'),
+        indexRangeError(9, 3),
+        // A native callee's errors were deliberately outside the carve-out.
+        // Under the general rule they are inside it, which is the whole point
+        // of SCC27: nothing about a `FormatException` made it less catchable.
+        FormatException('m'),
+        StateError('m'),
+        RuntimeD4rtException('m'),
+      ]) {
+        expect(
+          () => throwAsHostFacingError(e, StackTrace.current),
+          throwsA(same(e)),
+          reason: '${e.runtimeType} should reach the host as itself',
+        );
+      }
+
+      // The one class of value that is still relabelled — neither hierarchy
+      // names it, so a bare `toString()` would be the host's whole diagnostic.
+      expect(
+        () => throwAsHostFacingError('not-an-exception', StackTrace.current),
+        throwsA(
+          isA<RuntimeD4rtException>().having(
+            (e) => e.message,
+            'message',
+            contains('Unexpected error: not-an-exception'),
+          ),
+        ),
+      );
     });
   });
 }

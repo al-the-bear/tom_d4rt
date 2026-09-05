@@ -1,3 +1,34 @@
+## 0.34.0
+
+### Changed — an error keeps its type when it leaves the runner (scc27)
+
+Mirrors `tom_d4rt` 1.45.0, and the defect on this side had a different shape
+worth recording. `D4rtRunner._executeInEnvironment` had no catch-all to relabel
+anything, so nothing here ever read "Unexpected error:" — but its one `on
+InternalInterpreterD4rtException` clause unwrapped an *interpreted* `throw` and
+left a *native* callee's error inside the `RuntimeD4rtException('Native error
+during …')` wrapper the bridged call site builds. Different cause, same
+observable consequence: `on FormatException` worked inside a script and not at
+the call site that ran it.
+
+That clause is now `catch (e, s) => throwAsHostFacingError(e, s)`, the same
+rule the reference tree states: an `Error` or an `Exception` leaves as itself
+with its original stack trace; a value in neither hierarchy and the four
+control-flow carriers do not. The async path gets it too, via `onError` on the
+future an `async main` reports through.
+
+New in `exceptions.dart`: `throwAsHostFacingError` and
+`isInterpreterControlFlowSignal`. **Removed: `isSdkShapedError`** — SCB10's
+four-type carve-out, which the general rule subsumes.
+
+**Breaking for a caller that matched on the wrapper.** `on
+RuntimeD4rtException` around `executeBundle` no longer catches a failure a
+script or a native callee produced; name the type. `F-SCB10-AST-4` now asserts
+the rule instead of the deleted predicate — the coverage is unit-level because
+this package cannot parse source, and the script-level equivalent
+(`scc27_host_error_fidelity_test.dart`) lives in `tom_d4rt` with a
+publish-pinned entry in exec's SCC6 drift guard.
+
 ## 0.33.1
 
 ### Changed — formatted the tree once, at the aligned language version (scc26)

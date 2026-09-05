@@ -664,17 +664,14 @@ void main() {
         import 'package:test/counter.dart';
         main() { return Counter('wrong'); }
       '''; // Expects int
+        // SCC27 CONTRACT CHANGE: the native constructor's own `ArgumentError`
+        // reaches the host as itself. The "Native error during …" wrapper still
+        // exists at the bridged call site — a script's `catch` unwraps it — but
+        // the host boundary no longer re-exposes the wrapper's text in place of
+        // the type the callee actually raised.
         expect(
           () => interpreter.execute(source: code),
-          throwsA(
-            isA<RuntimeD4rtException>().having(
-              (e) => e.message,
-              'message',
-              contains(
-                "Native error during default bridged constructor for 'Counter'",
-              ),
-            ),
-          ),
+          throwsA(isA<ArgumentError>()),
         );
       },
     );
@@ -686,15 +683,10 @@ void main() {
         import 'package:test/counter.dart';
         main() { return Counter.withId(123); }
       '''; // Expects String
+        // SCC27 CONTRACT CHANGE: as I-CLASS-20, for a named constructor.
         expect(
           () => interpreter.execute(source: code),
-          throwsA(
-            isA<RuntimeD4rtException>().having(
-              (e) => e.message,
-              'message',
-              contains("Native error during bridged constructor"),
-            ),
-          ),
+          throwsA(isA<ArgumentError>()),
         );
       },
     );
@@ -813,15 +805,10 @@ void main() {
            return c.add('wrong'); // Expects int
          }
        ''';
+        // SCC27 CONTRACT CHANGE: as I-CLASS-20, for an instance method call.
         expect(
           () => interpreter.execute(source: code),
-          throwsA(
-            isA<RuntimeD4rtException>().having(
-              (e) => e.message,
-              'message',
-              contains("Native error during bridged method call 'add'"),
-            ),
-          ),
+          throwsA(isA<ArgumentError>()),
         );
       },
     );
@@ -837,13 +824,18 @@ void main() {
            return c.value; // Should throw
          }
        ''';
+        // SCC27 CONTRACT CHANGE: this is the case the old "Unexpected error:"
+        // prefix described worst — a getter deliberately rejecting a call on a
+        // disposed instance is a `StateError` the host should be able to catch,
+        // not an interpreter fault. The prefix is now reserved for values that
+        // are neither `Error` nor `Exception`.
         expect(
           () => interpreter.execute(source: code),
           throwsA(
-            isA<RuntimeD4rtException>().having(
+            isA<StateError>().having(
               (e) => e.message,
               'message',
-              contains("Unexpected error: Bad state: Instance disposed"),
+              contains('Instance disposed'),
             ),
           ),
         );

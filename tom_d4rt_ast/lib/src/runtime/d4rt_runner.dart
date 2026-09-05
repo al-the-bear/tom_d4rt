@@ -2035,12 +2035,14 @@ class D4rtRunner {
         );
       }
       Logger.debug("[_executeInEnvironment] Finished Pass 2: Interpretation");
-    } on InternalInterpreterD4rtException catch (e) {
-      if (e.originalThrownValue is RuntimeD4rtException) {
-        throw e.originalThrownValue as RuntimeD4rtException;
-      } else {
-        throw e.originalThrownValue!;
-      }
+    } catch (e, s) {
+      // SCC27 — the host gets the type the script raised. This clause used to
+      // name `InternalInterpreterD4rtException` alone, which unwrapped an
+      // interpreted `throw` but left a *native* callee's error inside the
+      // `RuntimeD4rtException('Native error during …')` wrapper the bridged call
+      // site builds. So `on FormatException` worked inside a script and not at
+      // the call site that ran it. The boundary now states one rule for both.
+      throwAsHostFacingError(e, s);
     }
 
     _hasExecutedOnce = true;
@@ -2057,7 +2059,12 @@ class D4rtRunner {
     // [executeBundle] and the typed [executeBundleAs] / [executeBundleAsAsync]
     // entry points.
     if (functionResult is Future) {
-      return functionResult.then(_bridgeInterpreterValueToNative);
+      // SCC27 — an `async main` reports its failure through this future, never
+      // through the try above, so the boundary has to be applied here as well.
+      return functionResult.then(
+        _bridgeInterpreterValueToNative,
+        onError: throwAsHostFacingError,
+      );
     }
     return _bridgeInterpreterValueToNative(functionResult);
   }

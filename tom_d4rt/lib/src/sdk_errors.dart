@@ -24,6 +24,18 @@
 /// change is visible *only* in the type of the thrown value. No existing
 /// message assertion needed rewriting, which keeps the diff honest about which
 /// contract moved.
+///
+/// **There is no `isSdkShapedError` here any more, and its absence is the
+/// point.** SCB10 needed one: `execute()`'s catch-all relabelled anything it
+/// did not recognise as `Unexpected error: …`, so without a carve-out for the
+/// four types above, a script whose own `assert` failed reached its host
+/// reading `Unexpected error: Assertion failed` — the shape made catchable
+/// *inside* a script, destroyed on the way *out* of one. The carve-out was
+/// correct and deliberately narrow, but it left a boundary nobody could
+/// predict: four types escaped by type, everything else was rewritten. SCC27
+/// replaced it with a rule that needs no list — anything that is an `Error` or
+/// an `Exception` escapes as itself — which left the predicate with no call
+/// site. See `throwAsHostFacingError` in `exceptions.dart`.
 library;
 
 /// A `TypeError` carrying d4rt's own diagnostic.
@@ -73,28 +85,3 @@ class D4rtNoSuchMethodError extends Error implements NoSuchMethodError {
 /// matching what the platform says for an empty container.
 RangeError indexRangeError(int index, int length) =>
     RangeError.range(index, 0, length - 1, 'index');
-
-/// Whether [e] is one of the SDK-shaped errors the interpreter raises
-/// deliberately, and must therefore survive the host boundary unchanged.
-///
-/// `tom_d4rt`'s `execute()` ends in a catch-all that re-wraps anything it does
-/// not recognise as `RuntimeD4rtException('Unexpected error: ...')`. That
-/// message tells the caller they hit an interpreter bug — true for a stray
-/// internal failure, wrong for a script whose own `assert` failed or whose own
-/// list index went out of range. Without this predicate the host would read
-/// `Unexpected error: Assertion failed`, so the shape the SC5 bridges make
-/// catchable *inside* a script would be destroyed on the way *out* of one.
-/// (`tom_d4rt_ast`'s runner never had that catch-all, so its copy of this
-/// predicate has no call site; it is kept so the two files stay diffable.)
-///
-/// Deliberately limited to the four types raised by the sites this file
-/// serves. Errors a *native* callee throws — `FormatException` from
-/// `int.parse`, `StateError` from `List.first` — are still re-wrapped; that is
-/// a separate defect of the boundary, not of these raise sites, and widening
-/// the predicate to cover it would change the contract of every native bridge
-/// at once.
-bool isSdkShapedError(Object e) =>
-    e is AssertionError ||
-    e is TypeError ||
-    e is NoSuchMethodError ||
-    e is RangeError;

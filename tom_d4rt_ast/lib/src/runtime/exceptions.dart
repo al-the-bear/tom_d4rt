@@ -407,6 +407,67 @@ class ContinueSwitchLabel implements Exception {
   const ContinueSwitchLabel();
 }
 
+/// Whether [e] is one of the exceptions the interpreter uses to unwind its own
+/// stack, rather than a failure a script or a native callee produced.
+///
+/// These four `implement Exception` because that is how a Dart exception
+/// travels, not because a host was ever meant to see one. `execute()`'s
+/// boundary lets every other `Error` and `Exception` out unchanged, so a caller
+/// can `catch` by the type the script actually raised; these are the exception
+/// to that rule. One arriving at a host means the interpreter lost track of a
+/// `return`, `break` or `continue` — an interpreter bug, which is the case the
+/// "Unexpected error" wording was written for.
+///
+/// [InternalInterpreterD4rtException] is deliberately absent. It carries a
+/// value interpreted code threw rather than a jump, and the boundary unwraps it
+/// one clause earlier so the host receives that value itself.
+bool isInterpreterControlFlowSignal(Object e) =>
+    e is ReturnException ||
+    e is BreakException ||
+    e is ContinueException ||
+    e is ContinueSwitchLabel;
+
+/// Rethrows [e] in the shape a host calling `execute()` should receive, so that
+/// a `catch` clause outside the interpreter can name the same type a `catch`
+/// clause inside the script can.
+///
+/// Two transformations, and the pair is what makes the boundary symmetric with
+/// the interpreter's own `visitTryStatement`:
+///
+///  * **Unwrap.** A native callee's error reaches here inside a
+///    [RuntimeD4rtException] built by the bridged-call sites, which carry the
+///    thrown value in [RuntimeD4rtException.originalException]. `visitTryStatement`
+///    already recovers it so interpreted `on FormatException` matches; without
+///    the same recovery here the host saw the wrapper instead, and the same
+///    failure was catchable by type inside a script but not outside it.
+///  * **Classify.** Anything that is an `Error` or an `Exception` then escapes
+///    as itself. What does not is a thrown value in neither hierarchy — the
+///    host has no type to name, so a diagnostic beats a bare `toString()` — and
+///    an escaped control-flow signal, which is an interpreter fault.
+///
+/// The wrapper's own message ("Native error during bridged method call …") is
+/// discarded with it. That context is not lost: the bridged-call sites log it
+/// at warn level as they wrap. It is the same trade the script side made, and
+/// making the two sides trade differently is what produced the asymmetry.
+///
+/// [s] is the trace of the `catch` that called this. It is used only when the
+/// wrapper carries no [RuntimeD4rtException.originalStackTrace] — preferring
+/// the recorded one keeps `Error.throwWithStackTrace` meaningful across the
+/// boundary, exactly as it is across an interpreted `catch (e, st)`.
+Never throwAsHostFacingError(Object e, StackTrace s) {
+  final value = e is RuntimeD4rtException && e.originalException != null
+      ? e.originalException!
+      : e;
+  if ((value is Error || value is Exception) &&
+      !isInterpreterControlFlowSignal(value)) {
+    Error.throwWithStackTrace(
+      value,
+      (e is RuntimeD4rtException ? e.originalStackTrace : null) ?? s,
+    );
+  }
+  throw RuntimeD4rtException('Unexpected error: $value');
+}
+
 /// Exception thrown when there's an issue with the source code itself,
 /// like parsing errors or missing files.
 ///

@@ -487,6 +487,36 @@ const Map<String, int> _uncoveredBaseline = {
   // Port the five behavioural cases on the next publish; the structural pair
   // stays a single copy in `tom_d4rt`. Tracked as SCD79.
   'scc25_listen_adapter_test.dart': 7,
+  // Pinned on the next `tom_d4rt_ast` publish, and measured the same way as the
+  // entries above: ported verbatim, run, removed again. SCC27 made `execute()`
+  // rethrow an `Error`/`Exception` as itself instead of relabelling it, so a
+  // host `catch` can name what a script raised. Ported verbatim the file does
+  // not COMPILE — `isInterpreterControlFlowSignal` (F-SCC27-8) is the new
+  // predicate the rule is built on and exists only in the working tree. With
+  // that one case removed the behavioural split is 2 PASS / 6 FAIL, and the
+  // split is informative rather than uniform:
+  //
+  //   F-SCC27-4 PASS  the four SCB10 types already escape — exec carries the
+  //                   carve-out in its own `d4rt_base.dart` (scc82's subject,
+  //                   landed by 25b4d764c), so this is the control.
+  //   F-SCC27-6 PASS  an interpreted `throw` is unwrapped one clause earlier
+  //                   and never reached the catch-all in either tree.
+  //   F-SCC27-1/2/3/5/9 FAIL  a native callee's error still arrives inside the
+  //                   `Native error during …` wrapper the bridged call site
+  //                   builds. Measured: `Runtime Error: Native error during
+  //                   bridged method call 'boom' on Detonator: …`.
+  //   F-SCC27-7 FAIL  for the same reason and worth reading closely — it
+  //                   asserts the "Unexpected error:" prefix SURVIVES for a
+  //                   value in neither hierarchy, and it fails because the
+  //                   value never reaches the boundary that would apply it.
+  //
+  // Landing it here is a two-part job, like SCC23's entry above. exec's classic
+  // `execute()` does not go through [D4rtRunner] — this package carries its own
+  // third copy of `_executeInEnvironment` — so both the runner forwarder and
+  // that copy have to adopt `throwAsHostFacingError`, and the helper lives in
+  // the unpublished `tom_d4rt_ast`. Tracked as SCD84; port this file and delete
+  // this entry in the same commit that lands both halves.
+  'scc27_host_error_fidelity_test.dart': 9,
   'stdlib/cast_from_family_test.dart': 6,
   'stdlib/convert/json_named_constructors_test.dart': 13,
   'stdlib/core/error_validation_helpers_test.dart': 18,
@@ -509,8 +539,9 @@ const Map<String, int> _uncoveredBaseline = {
 /// Three causes are known and are NOT defects:
 ///   * `interpreter_test.dart` is each package's own helper over its own
 ///     interpreter, so it MUST differ. It is the one permanent entry.
-///   * `stdlib/typed_data/byte_data_test.dart` differs only in a comment naming
-///     which interpreter it exercises.
+///   * `stdlib/typed_data/byte_data_test.dart` used to differ only in a comment
+///     naming which interpreter it exercises. SCC27 added a real divergence on
+///     top of that — see the publish-pinned list below.
 ///   * `stdlib/intentionally_unbridged_test.dart` records what each tree
 ///     deliberately does not bridge, which is not the same set.
 ///
@@ -524,10 +555,10 @@ const Map<String, int> _uncoveredBaseline = {
 /// tom_d4rt once the publish made the newer assertions true. Direction is a
 /// per-file finding, not a rule.
 ///
-/// Seven entries currently share ONE flip condition — the next `tom_d4rt_ast`
+/// Eleven entries currently share ONE flip condition — the next `tom_d4rt_ast`
 /// publish — because exec resolves that package from pub.dev, so this suite
-/// certifies the PUBLISHED interpreter and not the working tree. Unpin all seven
-/// there and remove their entries in the same commit.
+/// certifies the PUBLISHED interpreter and not the working tree. Unpin all
+/// eleven there and remove their entries in the same commit.
 ///
 ///   * `stdlib/io/socket_test.dart` — SCC14 ported the reference copy and
 ///     measured it: `F-SCC12-1` fails with `Failed host lookup:
@@ -555,6 +586,19 @@ const Map<String, int> _uncoveredBaseline = {
 ///   * `operator_improvements_test.dart` — the working-tree interpreter
 ///     implements `bool`'s `& | ^` and `&= |= ^=`; the published one still
 ///     throws `Unsupported binary operator`.
+///   * `bridge/bridged_class_test.dart`, `stdlib/core/list_test.dart`,
+///     `stdlib/typed_data/uint8_list_test.dart` and
+///     `stdlib/typed_data/byte_data_test.dart` — the SCC27 realignment. Each
+///     had cases asserting `isA<RuntimeD4rtException>()` on the wrapper a
+///     bridged call site builds; in the reference tree they now name the type
+///     the native callee actually raised (`ArgumentError`, `StateError`,
+///     `RangeError`, `IndexError`). Both halves are correct about their own
+///     interpreter, which is why this is a divergence and not a failure. They
+///     converge with `scc27_host_error_fidelity_test.dart` in
+///     [_uncoveredBaseline]: same publish, same commit. `bridged_class_test`
+///     and `byte_data_test` were already listed here for other reasons — for
+///     those two, removing the SCC27 divergence is necessary but not sufficient
+///     to delete the entry.
 const Set<String> _divergentBaseline = {
   '_c21_null_short_test.dart',
   '_plan_e2_static_in_closure_test.dart',
@@ -588,9 +632,11 @@ const Set<String> _divergentBaseline = {
   'stdlib/collection/list_queue_test.dart',
   'stdlib/collection/queue_test.dart',
   'stdlib/collection/splay_tree_map_test.dart',
+  'stdlib/core/list_test.dart',
   'stdlib/intentionally_unbridged_test.dart',
   'stdlib/io/socket_test.dart',
   'stdlib/typed_data/byte_data_test.dart',
+  'stdlib/typed_data/uint8_list_test.dart',
   'stdlib/typed_data/typed_list_inherited_members_test.dart',
   'warm_parent_package_pool_test.dart',
 };

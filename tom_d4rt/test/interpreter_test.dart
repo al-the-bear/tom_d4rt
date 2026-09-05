@@ -3191,11 +3191,15 @@ void main() {
             return int.parse('abc');
           }
         '''),
+          // SCC27 CONTRACT CHANGE: a native callee's error now crosses the
+          // host boundary as itself instead of inside the wrapper the bridged
+          // call site builds, so `on FormatException` works at the call site
+          // exactly as it already did inside the script.
           throwsA(
-            isA<RuntimeD4rtException>().having(
+            isA<FormatException>().having(
               (e) => e.message,
               'message',
-              contains('FormatException'),
+              contains('Invalid radix-10 number'),
             ),
           ),
         );

@@ -1,3 +1,49 @@
+## 1.45.0
+
+### Changed — an error keeps its type when it leaves `execute()` (scc27)
+
+`execute()` ended in a catch-all that relabelled anything it did not recognise
+as `RuntimeD4rtException('Unexpected error: $e')`. That message asserts an
+interpreter bug — right for a stray internal failure, wrong for every failure a
+script legitimately produces. Alongside it, a native callee's error arrived
+wrapped in the `RuntimeD4rtException('Native error during …')` that the bridged
+call site builds. `visitTryStatement` unwraps that wrapper, so a script's own
+`catch` matched by type; the host boundary did not, so the same `catch` clause
+written at the *call site* did not. **A script's errors became less catchable
+the moment they crossed the boundary — that asymmetry was the bug.**
+
+The boundary now states one rule. Anything that is an `Error` or an `Exception`
+leaves as itself, with its original stack trace. Two things do not: a thrown
+value in neither hierarchy — nothing in the SDK's vocabulary describes it, so
+the caller gets a diagnostic rather than a bare `toString()` — and the
+interpreter's own control-flow signals, since a `ReturnException` reaching a
+host means a jump was lost, which *is* the interpreter bug the old label
+described.
+
+Two new symbols in `exceptions.dart` carry it: `throwAsHostFacingError`, which
+every boundary site now calls, and `isInterpreterControlFlowSignal`, the
+predicate naming the four carriers. The async path calls it too — an `async
+main` reports through the returned future and never through the enclosing try,
+so the two halves of the API had been relabelling differently.
+
+**Removed: `isSdkShapedError`.** SCB10 carved four types out of the catch-all
+(`AssertionError`, `TypeError`, `NoSuchMethodError`, `RangeError`) because
+without it a failing `assert` would have reached the host as "Unexpected error:
+Assertion failed". The carve-out was correct and left a boundary a reader could
+not predict: four types escaped, everything else was relabelled. The general
+rule subsumes the list, so the predicate is gone. Its four cases stay in
+`scb10_sdk_shaped_errors_test.dart` as the regression guard.
+
+**Breaking for a caller that matched on the wrapper.** `on RuntimeD4rtException`
+around `execute()` no longer catches a failure the *script* or a *native callee*
+produced; name the type instead. Eight cases in this suite asserted the old
+shape and now name `ArgumentError`, `StateError`, `RangeError`, `IndexError` and
+`FormatException` — each one reads better for it, because the assertion now says
+what the test's own title always claimed. Errors the interpreter raises about
+*itself* (`"No callable 'main' function found"`, arity violations) are
+unaffected: a `RuntimeD4rtException` with no wrapped original still arrives as
+itself.
+
 ## 1.44.1
 
 ### Changed — formatted the tree once, at the aligned language version (scc26)

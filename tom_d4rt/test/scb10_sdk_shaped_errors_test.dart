@@ -403,13 +403,18 @@ void main() {
 
     test('F-SCB10-18: an uncaught SDK-shaped error reaches the HOST unwrapped '
         '[2026-07-28]', () {
-      // `execute()` ends in a catch-all that re-labels anything it does not
-      // recognise as `RuntimeD4rtException('Unexpected error: ...')` — a message
-      // that tells the caller they hit an interpreter bug. Correct for a stray
-      // internal failure; wrong for a script whose own assert failed. Without
-      // the `isSdkShapedError` carve-out, the shape made catchable *inside* a
-      // script would be destroyed on the way *out* of one, and the host would
-      // read "Unexpected error: Assertion failed".
+      // `execute()` used to re-label anything it did not recognise as
+      // `RuntimeD4rtException('Unexpected error: ...')` — a message that tells
+      // the caller they hit an interpreter bug. Correct for a stray internal
+      // failure; wrong for a script whose own assert failed. SCB10 carved these
+      // four types out of that catch-all so the shape made catchable *inside* a
+      // script would survive the way *out* of one.
+      //
+      // SCC27 has since replaced the carve-out with a rule that needs no list:
+      // anything that is an `Error` or an `Exception` escapes as itself. These
+      // four are no longer special — which is exactly why the cases stay. They
+      // are the regression guard proving the general rule still covers what the
+      // list used to enumerate.
       expect(
         () => execute('main() { assert(1 == 2, "boom"); }'),
         throwsA(isA<AssertionError>()),

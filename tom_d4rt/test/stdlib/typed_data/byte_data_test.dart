@@ -124,18 +124,22 @@ void main() {
     test(
       'I-TYPE-77: Offset out of bounds throws error. [2026-02-10 06:37] (PASS)',
       () {
+        // SCC27 CONTRACT CHANGE: the host receives the `RangeError` the native
+        // `ByteData` raised for the bad byte offset, rather than the bridged
+        // call site's wrapper. `IndexError` — what the read/write paths actually
+        // raise — implements `RangeError`, so one matcher covers all three.
         expect(
           () => executeTestScript("var bd = new ByteData(1); bd.getInt8(1);"),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<RangeError>()),
         );
         expect(
           () =>
               executeTestScript("var bd = new ByteData(1); bd.setInt8(1, 0);"),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<RangeError>()),
         );
         expect(
           () => executeTestScript("var bd = new ByteData(1); bd.getUint16(0);"),
-          throwsA(isA<RuntimeD4rtException>()), // Not enough space for Uint16
+          throwsA(isA<RangeError>()), // Not enough space for Uint16
         );
       },
     );
