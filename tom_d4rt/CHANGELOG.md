@@ -1,3 +1,40 @@
+## 1.58.0
+
+### Fixed — `asUint8ListView()` was missing on `Uint8List` and `Float64List` (scc60)
+
+`Uint8List.asUint8ListView()` failed with "Bridged class 'Uint8List' has no
+instance method named 'asUint8ListView'" on both interpreter lines, and
+`Float64List.asUint8ListView()` failed on the analyzer line only. The other
+nine typed-data variants had it. Both gaps came from the same place: the
+member is declared per variant rather than shared, so a variant that skips it
+is invisible until someone calls it on that exact type. `Uint8List` hand-rolls
+its whole adapter map, and `Float64List` had simply drifted from its ten
+siblings on one side of the `tom_d4rt` / `tom_d4rt_ast` mirror.
+
+Both variants now declare `asUint8ListView` and `buffer` as methods, matching
+the other nine. `test/stdlib/typed_data/typed_list_inherited_members_test.dart`
+covers the member on all eleven variants (F-SCC60-3), which is what makes a
+future one-off omission fail rather than hide — a spot check on `Uint8List` or
+`Float32List` passes either way.
+
+### Documentation — why the typed-data member lists are not redundant
+
+`inherited_list_methods.dart` justified its existence with the claim that the
+interpreter "does not walk the supertype chain". That has not been true since
+the supertype registry gained `Int8List -> List -> Iterable` edges: those
+members now resolve through the generic `List` bridge as well, which makes the
+explicit lists look like dead weight.
+
+Deleting them would be wrong, and the doc comment now says why, measured rather
+than asserted. The `List` bridge is generic over `Object?`; a typed-data list is
+a `List<E>` whose element type is reified at the native boundary. Removing the
+shared spread from `Int8List` changes three members: `followedBy([9])` throws
+`_TypeError` (a `List<Object?>` where `Iterable<int>` is required), `reduce`
+throws (a `(dynamic, dynamic) => Object?` closure where `(int, int) => int` is
+required), and `firstWhere(…, orElse: () => 's')` returns the `String` instead
+of rejecting it. F-SCC60-1 and F-SCC60-2 pin the last two across all eleven
+variants; F-SCB3-20 already pinned the first.
+
 ## 1.57.0
 
 ### Fixed — `dart:io` and `dart:isolate` now declare their supertypes (scc57)

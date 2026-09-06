@@ -350,6 +350,105 @@ $probes
     },
   );
 
+  group('typed-data lists: the shared helper is not redundant with List', () {
+    // A standing temptation, and one that was measured rather than argued.
+    //
+    // Since the supertype registry gained `Int8List -> List -> Iterable`
+    // edges, a property access that misses on a typed view's own bridge falls
+    // back to `lookupOnBridgedSupertypes`, which finds the `List` bridge. A
+    // reader who checks only *resolution* concludes the explicit member lists
+    // below are dead weight and deletes them.
+    //
+    // Resolution is not the question. The `List` bridge is generic over
+    // `Object?`; a typed-data list is a `List<int>` / `List<double>` whose
+    // element type is *reified* at the native boundary. So every member that
+    // hands an iterable or a callback *into* the native call needs adapters
+    // that supply the concrete `E` — which only a per-element-type adapter
+    // can do. Routed through the `List` bridge:
+    //
+    //   * `followedBy([9])` passes `List<Object?>` where `Iterable<int>` is
+    //     required and throws `_TypeError` (F-SCB3-20 covers this one);
+    //   * `reduce((a, b) => a + b)` builds a `(dynamic, dynamic) => Object?`
+    //     closure where `(int, int) => int` is required, and throws;
+    //   * `firstWhere(..., orElse: () => 's')` silently returns the `String`
+    //     instead of rejecting it.
+    //
+    // The two cases not already covered elsewhere are pinned below. They pass
+    // today; they fail the moment the explicit lists are pruned, which is
+    // exactly the signal a future pruner needs.
+    for (final type in _variants) {
+      test('F-SCC60-1-$type: reduce() reifies the combine callback to '
+          '(E, E) => E [2026-09-06]', () {
+        final source =
+            '''
+        import 'dart:typed_data';
+        main() {
+          final l = $type.fromList(
+              [${_element(type, 1)}, ${_element(type, 2)}, ${_element(type, 3)}]);
+          return l.reduce((a, b) => a + b);
+        }
+        ''';
+        expect(
+          execute(source),
+          equals(type.startsWith('Float') ? 6.0 : 6),
+          reason:
+              'on $type, reduce() must pass the native call a closure typed '
+              'over the element type, not over dynamic',
+        );
+      });
+
+      test('F-SCC60-2-$type: firstWhere() rejects an orElse of the wrong '
+          'element type [2026-09-06]', () {
+        // `orElse` supplies the *element*, so a String where an int belongs is
+        // a type error in Dart and must stay one here. The generic `List`
+        // bridge would hand the String back to the script.
+        final source =
+            '''
+        import 'dart:typed_data';
+        main() {
+          final l = $type.fromList([${_element(type, 1)}, ${_element(type, 2)}]);
+          return l.firstWhere((e) => false, orElse: () => "s");
+        }
+        ''';
+        expect(
+          () => execute(source),
+          throwsA(isA<TypeError>()),
+          reason:
+              'on $type, firstWhere() must enforce the element type of the '
+              'orElse result',
+        );
+      });
+    }
+  });
+
+  group('typed-data lists: asUint8ListView reaches every variant', () {
+    // Found by diffing the eleven bridge files of `tom_d4rt` against their
+    // `tom_d4rt_ast` twins: `Float64List` was the single file that differed,
+    // and it was missing `buffer` and `asUint8ListView` from its `methods:`
+    // map. Ten variants had them; one did not, on one side of the mirror only.
+    //
+    // A per-variant test is what makes that kind of one-off omission visible —
+    // a spot-check on `Uint8List` or `Float32List` passes either way.
+    for (final type in _variants) {
+      test('F-SCC60-3-$type: asUint8ListView() views the whole buffer '
+          '[2026-09-06]', () {
+        final source =
+            '''
+        import 'dart:typed_data';
+        main() {
+          final l = $type.fromList([${_element(type, 1)}, ${_element(type, 2)}]);
+          return l.asUint8ListView().length;
+        }
+        ''';
+        expect(
+          execute(source),
+          equals(2 * _bytesPerElement[type]!),
+          reason: 'asUint8ListView() must resolve on $type',
+        );
+      });
+    }
+  });
+
   group('typed-data lists: sort is not accidentally aliased', () {
     test('F-SCB3-19: Float32List sorts by numeric value, not lexically '
         '[2026-07-28]', () {

@@ -162,9 +162,10 @@ class Uint8ClampedListTypedData {
       },
 
       // Inherited Iterable<int> / List<int> read-only methods.
-      // See inherited_list_methods.dart — the interpreter resolves
-      // bridged methods without walking the supertype chain, so each
-      // typed-data variant must declare these directly.
+      // See inherited_list_methods.dart — these are declared per variant
+      // because the element type has to be reified at the native boundary,
+      // which the generic `List` bridge cannot do. The supertype walk does
+      // reach `List`, so pruning this spread looks safe and is not.
       ...inheritedListMethods<int>(
         (t) => t as Uint8ClampedList,
         unmodifiableView: (t) => (t as Uint8ClampedList).asUnmodifiableView(),

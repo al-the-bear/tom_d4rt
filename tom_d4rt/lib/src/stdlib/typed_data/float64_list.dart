@@ -65,6 +65,7 @@ class Float64ListTypedData {
       },
     },
     methods: {
+      // Index operators
       '[]': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is Float64List &&
             positionalArgs.length == 1 &&
@@ -87,6 +88,8 @@ class Float64ListTypedData {
           "Float64List[index] = value expects int index and num value.",
         );
       },
+
+      // List methods
       'sublist': (visitor, target, positionalArgs, namedArgs, _) {
         final start = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
         final end = positionalArgs.length > 1
@@ -130,6 +133,25 @@ class Float64ListTypedData {
         (target as Float64List).fillRange(start, end, fill);
         return null;
       },
+
+      // Typed methods
+      'buffer': (visitor, target, positionalArgs, namedArgs, _) {
+        return (target as Float64List).buffer;
+      },
+      'asUint8ListView': (visitor, target, positionalArgs, namedArgs, _) {
+        final offsetInBytes = positionalArgs.isNotEmpty
+            ? positionalArgs[0] as int?
+            : null;
+        final length = positionalArgs.length > 1
+            ? positionalArgs[1] as int?
+            : null;
+        return (target as Float64List).buffer.asUint8List(
+          offsetInBytes ?? 0,
+          length,
+        );
+      },
+
+      // Standard methods
       'toString': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as Float64List).toString();
       },
@@ -138,9 +160,10 @@ class Float64ListTypedData {
       },
 
       // Inherited Iterable<double> / List<double> read-only methods.
-      // See inherited_list_methods.dart — the interpreter resolves
-      // bridged methods without walking the supertype chain, so each
-      // typed-data variant must declare these directly.
+      // See inherited_list_methods.dart — these are declared per variant
+      // because the element type has to be reified at the native boundary,
+      // which the generic `List` bridge cannot do. The supertype walk does
+      // reach `List`, so pruning this spread looks safe and is not.
       ...inheritedListMethods<double>(
         (t) => t as Float64List,
         unmodifiableView: (t) => (t as Float64List).asUnmodifiableView(),

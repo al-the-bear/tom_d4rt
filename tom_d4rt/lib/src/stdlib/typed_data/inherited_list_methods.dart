@@ -49,15 +49,37 @@ List<E> coerceElements<E>(Object? arg, String member) {
 /// read-only portion of `List<E>` for use in typed-data list bridges
 /// (`Float64List`, `Int32List`, `Uint8List`, …).
 ///
-/// **Why this helper exists.** The d4rt interpreter resolves bridged method
-/// names with a direct `bridgedClass.methods[name]` lookup
-/// (`interpreter_visitor.dart`) — it does *not* walk the supertype chain
-/// to the `List` / `Iterable` bridges. So each typed-data list variant
-/// has to declare its own copy of `toList`, `map`, `where`, etc. Without
-/// this helper, exposing those methods would mean duplicating ~25
-/// adapters across 12 typed-data variant files. The helper centralises
-/// the implementations and each variant just merges `inheritedListMethods<E>(...)`
-/// into its `methods:` map.
+/// **Why this helper exists.** Each typed-data list variant has to declare
+/// its own copy of `toList`, `map`, `where`, etc. Without this helper,
+/// exposing those methods would mean duplicating ~30 adapters across the
+/// typed-data variant files. The helper centralises the implementations and
+/// each variant just merges `inheritedListMethods<E>(...)` into its
+/// `methods:` map.
+///
+/// **Why the explicit lists are not redundant with the `List` bridge.** The
+/// supertype registry declares `Int8List -> List -> Iterable` (and the same
+/// for every other variant), so a member that misses on a typed view's own
+/// bridge falls back to `lookupOnBridgedSupertypes` and reaches the generic
+/// `List` bridge. Every member below therefore *resolves* either way, which
+/// makes deleting the spread look safe. It is not.
+///
+/// Resolution is not the question. The `List` bridge is generic over
+/// `Object?`, while a typed-data list is a `List<E>` whose element type is
+/// *reified* at the native boundary. Any member that passes an iterable or a
+/// callback *into* the native call needs the concrete `E`, which only a
+/// per-element-type adapter can supply. Measured on `Int8List` with the
+/// spread removed, three members change behaviour:
+///
+///   * `followedBy([9])` hands a `List<Object?>` to a parameter typed
+///     `Iterable<int>` and throws `_TypeError`;
+///   * `reduce((a, b) => a + b)` builds a `(dynamic, dynamic) => Object?`
+///     closure where `(int, int) => int` is required, and throws;
+///   * `firstWhere(…, orElse: () => 's')` returns the `String` to the script
+///     instead of rejecting it.
+///
+/// `test/stdlib/typed_data/typed_list_inherited_members_test.dart` pins the
+/// last two as F-SCC60-1 and F-SCC60-2; F-SCB3-20 pins the first. A prune
+/// that reaches for the supertype walk will turn those red.
 ///
 /// The [coerce] callback narrows `target` to the concrete typed-data
 /// variant — e.g. `(t) => t as Float64List`. Typed-data lists are all

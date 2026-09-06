@@ -112,6 +112,21 @@ class Uint8ListTypedData {
       'asUnmodifiableView': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as Uint8List).asUnmodifiableView();
       },
+      'asUint8ListView': (visitor, target, positionalArgs, namedArgs, _) {
+        final offsetInBytes = positionalArgs.isNotEmpty
+            ? positionalArgs[0] as int?
+            : null;
+        final length = positionalArgs.length > 1
+            ? positionalArgs[1] as int?
+            : null;
+        return (target as Uint8List).buffer.asUint8List(
+          offsetInBytes ?? 0,
+          length,
+        );
+      },
+      'buffer': (visitor, target, positionalArgs, namedArgs, _) {
+        return (target as Uint8List).buffer;
+      },
       'cast': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as Uint8List).cast();
       },
