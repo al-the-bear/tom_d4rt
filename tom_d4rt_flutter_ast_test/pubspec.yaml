@@ -38,7 +38,7 @@ dev_dependencies:
   # Analyzer-based source→AstBundle compiler. Used ONLY by the build-time
   # tool (tool/compile_samples_to_bundles.dart, run under `flutter test`) —
   # never by lib/ runtime code, so the shipped app stays analyzer-free.
-  tom_ast_generator: ^0.1.4
+  tom_ast_generator: ">=0.1.5"
 
 flutter:
   uses-material-design: true
