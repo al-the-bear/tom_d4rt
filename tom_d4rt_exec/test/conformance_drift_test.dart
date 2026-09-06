@@ -589,6 +589,67 @@ const Map<String, int> _uncoveredBaseline = {
   // past 0.45.0. The floors are registered in [_pinnedInterpreterFloors].
   'stdlib/io/io_hierarchy_test.dart': 19,
   'stdlib/isolate/isolate_hierarchy_test.dart': 4,
+  // PUBLISH-BLOCKED — the seven entries below are one finding, and the finding
+  // is that SCC61..SCC65 rebuilt most of `dart:io` in five consecutive releases
+  // while exec stayed on the release before the first of them. Every file here
+  // was ported verbatim on 2026-09-06, analysed clean, run against the
+  // published 0.42.0, and then REMOVED again; the pass/fail shape is recorded
+  // per entry so the next reader does not have to re-derive it.
+  //
+  // The census that produced them started from a measurement rather than a
+  // guess, which is what `tool/hosted_drift.dart` is for: it reports that
+  // published `tom_d4rt_ast` 0.42.0 strands 36 of 167 library files against the
+  // working tree, four of them under `src/runtime/stdlib/io`, and it names
+  // `stdlib/io/websocket.dart` as existing ONLY in the tree. A file whose whole
+  // subject is a library file the published archive does not contain cannot
+  // fail here for a migration reason.
+  //
+  // SCC61 (tom_d4rt_ast 0.48.0) made `on HttpException catch` match. Ported it
+  // gives 2 pass / 16 fail — and F-SCC61-13, the redirect-loop case, does not
+  // fail but HANGS: on the old interpreter the unresolvable catch clause never
+  // matches, so the redirect loop is never broken and `--timeout` does not stop
+  // it. Porting this today would wedge the suite rather than redden it, which
+  // is a materially worse outcome than a red and worth knowing before someone
+  // tries. Port it and delete this entry in the commit that raises exec's floor
+  // past 0.47.0.
+  'stdlib/io/http_exception_test.dart': 19,
+  // SCC62 (tom_d4rt_ast 0.49.0) bridged `HttpRequest`/`HttpResponse` and the
+  // four types reached through them, so a script could finally answer a
+  // request. Ported it gives 0 pass / 8 fail, and F-SCC62-8 (`connectionInfo`
+  // names the peer) hangs for SCC61's reason — a server that cannot name what
+  // it received never completes the exchange the case waits on. Port it and
+  // delete this entry in the commit that raises exec's floor past 0.48.0.
+  'stdlib/io/http_server_test.dart': 13,
+  // SCC63 (tom_d4rt_ast 0.50.0) added the WebSocket block. Ported it gives
+  // 0 pass / 37 fail — the cleanest publish-block in the map, because nothing
+  // WebSocket-shaped was bridged at all before the release and every case dies
+  // on `Undefined variable: WebSocket`. `hosted_drift.dart` reports the
+  // library file itself as only-in-tree, so this is not an inference. Port it
+  // and delete this entry in the commit that raises exec's floor past 0.49.0.
+  'stdlib/io/websocket_test.dart': 37,
+  // SCC64 (tom_d4rt_ast 0.51.0) re-registered the four `HttpClient*Credentials`
+  // names as real bridges rather than callables. Ported it gives 4 pass /
+  // 7 fail: construction already worked on the old interpreter — which is why
+  // the bug survived — so the four cases that only build a credentials object
+  // pass, and every case that asks `is` of one fails. Port it and delete this
+  // entry in the commit that raises exec's floor past 0.50.0.
+  'stdlib/io/http_credentials_test.dart': 11,
+  // SCC64's other half, in the interpreter rather than in a bridge: `x is Foo`
+  // where `Foo` resolved to a callable was answered by CALLING it. Ported it
+  // gives 2 pass / 5 fail. The two that pass are the ones asserting a correct
+  // answer the old path reached by accident; the five that fail are the ones
+  // that observe the invocation. Port it and delete this entry in the commit
+  // that raises exec's floor past 0.50.0.
+  'scc64_callable_is_operand_test.dart': 7,
+  // SCC65 (tom_d4rt_ast 0.52.0) bridged the last three `dart:io` re-exports a
+  // script could reach but not name. The two files below are its coverage.
+  // `http_response_details` (`RedirectInfo`, `HttpClientResponseCompressionState`)
+  // gives 0 pass / 11 fail and `http_date` (`HttpDate`) 0 pass / 10 fail —
+  // both total, because in each case the type under test has no name at all on
+  // the published interpreter. Port both and delete these entries in the commit
+  // that raises exec's floor past 0.51.0.
+  'stdlib/io/http_response_details_test.dart': 11,
+  'stdlib/io/http_date_test.dart': 10,
 };
 
 /// Why a [_divergentBaseline] entry is allowed to stand.
@@ -752,6 +813,23 @@ const Map<String, _Divergence> _divergentBaseline = {
   // Un-skip both and delete this entry in the commit that raises exec's floor
   // past 0.42.0.
   'stdlib/async/stream_consumer_test.dart': _Divergence.deliberate,
+  // The same shape again, and it replaces a worse entry than it looks. Until
+  // 2026-09-06 this copy was a SUBTRACTION — 99 lines and three whole SCC60
+  // groups shorter than the reference — with no baseline entry at all, so the
+  // guard was simply red. The tempting fix was a blanket entry saying "the
+  // exec copy omits SCC60", which is SCD154's hazard exactly: the blanket then
+  // absorbs every future divergence in a 450-line file.
+  //
+  // Measured instead. Re-ported verbatim and run against the published 0.42.0,
+  // 32 of the 33 restored cases PASS; the single failure is F-SCC60-3-Uint8List,
+  // because `Uint8List` is the one variant that hand-rolls its adapter map
+  // rather than sharing `inheritedListMethods<E>()` and so is the one whose
+  // `asUint8ListView` SCC60 had to add by hand. So the file is a verbatim port
+  // with one skipped case, not a subtraction, and the divergence is now the
+  // skip constant alone. Un-skip and delete this entry in the commit that
+  // raises exec's floor past 0.46.0.
+  'stdlib/typed_data/typed_list_inherited_members_test.dart':
+      _Divergence.deliberate,
 };
 
 /// The direct interpreter-package imports the port recipe legitimately rewrites,
@@ -879,6 +957,23 @@ const Map<String, String> _pinnedInterpreterFloors = {
   // hierarchy reads from one place.
   'stdlib/io/io_hierarchy_test.dart': '0.45.0',
   'stdlib/isolate/isolate_hierarchy_test.dart': '0.45.0',
+  // SCC60 (tom_d4rt_ast 0.47.0) added the `asUint8ListView` adapter `Uint8List`
+  // alone was missing. One skipped case, measured: the published copy answers
+  // `Bridged class 'Uint8List' has no instance method named 'asUint8ListView'`.
+  'stdlib/typed_data/typed_list_inherited_members_test.dart': '0.46.0',
+  // SCC61..SCC65 rebuilt most of `dart:io` across five consecutive releases.
+  // The five floors below are consecutive for that reason and not by accident,
+  // so a single floor raise past 0.51.0 discharges all seven entries at once —
+  // re-measure all seven then, not the one being read. Two of them HANG rather
+  // than fail against the published interpreter (F-SCC61-13, F-SCC62-8); the
+  // reason is recorded on their baseline entries.
+  'stdlib/io/http_exception_test.dart': '0.47.0',
+  'stdlib/io/http_server_test.dart': '0.48.0',
+  'stdlib/io/websocket_test.dart': '0.49.0',
+  'stdlib/io/http_credentials_test.dart': '0.50.0',
+  'scc64_callable_is_operand_test.dart': '0.50.0',
+  'stdlib/io/http_response_details_test.dart': '0.51.0',
+  'stdlib/io/http_date_test.dart': '0.51.0',
 };
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
@@ -929,7 +1024,13 @@ bool _versionExceeds(String a, String b) {
 Map<String, String> _floorsDeclaredInComments() {
   final lines = File('test/conformance_drift_test.dart').readAsLinesSync();
   final floorPattern = RegExp(r'floor past (\d+\.\d+\.\d+)');
-  final entryPattern = RegExp(r"^\s*'([^']+)'\s*(?::\s*[^,]+)?,\s*$");
+  // The value part is optional AND may be absent entirely, because `dart
+  // format` wraps an entry whose key and value do not fit in 80 columns onto
+  // two lines — leaving a key line that ends in a bare `:`. A pattern that only
+  // matched the one-line form would stop attributing such an entry the moment
+  // the formatter ran, and an unattributed entry reads here as a floor declared
+  // in prose with no register key: a failure whose cause is a line wrap.
+  final entryPattern = RegExp(r"^\s*'([^']+)'\s*(?::\s*[^,]*)?,?\s*$");
   final declared = <String, String>{};
   var pending = <String>[];
   for (final line in lines) {
@@ -959,7 +1060,12 @@ Map<String, String> _floorsDeclaredInComments() {
 /// entry has no reason" from "the scanner did not reach it".
 Map<String, String> _divergentEntryComments() {
   final lines = File('test/conformance_drift_test.dart').readAsLinesSync();
-  final entryPattern = RegExp(r"^\s*'([^']+)'\s*:\s*_Divergence\.\w+,\s*$");
+  // The `_Divergence.x,` tail is optional for the reason given in
+  // [_floorsDeclaredInComments]: the formatter puts it on its own line whenever
+  // the key is long enough, and the resulting bare `'path':` is still an entry.
+  final entryPattern = RegExp(
+    r"^\s*'([^']+)'\s*:\s*(?:_Divergence\.\w+,)?\s*$",
+  );
   final reasons = <String, String>{};
   var inMap = false;
   var pending = <String>[];

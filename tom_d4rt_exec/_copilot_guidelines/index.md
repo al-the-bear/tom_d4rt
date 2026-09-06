@@ -22,10 +22,21 @@ Run the same tests against both packages to detect regressions:
 - `tom_d4rt` = reference (1680 passing, 2 pre-existing failures as of v1.8.1)
 - `tom_d4rt_exec` = migration target (must match or exceed)
 
+## Guidelines in this folder
+
+| Document | Purpose |
+| -------- | ------- |
+| [build.md](build.md) | Build and regeneration commands |
+| [documentation.md](documentation.md) | Where documentation for this package lives |
+| [example.md](example.md) | Example file conventions |
+| [hosted_drift.md](hosted_drift.md) | `tool/hosted_drift.dart` — telling a genuine interpreter bug apart from a stale published copy |
+| [testing.md](testing.md) | Test layout and conventions |
+| [d4rt_interpreter_vs_d4rt_generator.md](d4rt_interpreter_vs_d4rt_generator.md) | When to reach for the interpreter vs the generator |
+
 ## Related Packages
 
 - `tom_d4rt` — The stable, unchanged reference version (all projects depend on this)
 - `tom_d4rt_ast` — Mirror AST model (zero deps, serializable)
-- `tom_d4rt_astgen` — 1:1 copier: analyzer AST → mirror AST
+- `tom_ast_generator` — 1:1 copier: analyzer AST → mirror AST
 - `tom_d4rt_generator` — Code generator for bridges
 - `tom_d4rt_dcli` — DCli integration for D4rt scripting
