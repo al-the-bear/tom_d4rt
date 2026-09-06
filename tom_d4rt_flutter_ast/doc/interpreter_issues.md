@@ -4178,12 +4178,13 @@ are in `basetestlog_20260728-scb16-{src,ast}/` and
 **Neither improvement is attributable to the widening.** The 12
 ext_22 recoveries are a single contiguous alphabetical block
 (`widgets/image_filtered_test.dart` … `widgets/page_storage_test.dart`)
-that resumes passing at `widgets/parent_data_widget_test.dart` — a
-leaked-framework-error cascade, not 12 independent defects. The leaked
-text is a Material layout advisory ("ListTile background color or ink
-splashes may be invisible… wrapped in a DecoratedBox"), which has
-nothing to do with type testing; its source was fixed by other cluster
-work between the 2026-06-24 baseline and now. ext_23's `-1` became a
+that resumes passing at `widgets/parent_data_widget_test.dart`. They are
+**12 independent script-authoring defects**, each raising its own Material
+layout advisory ("ListTile background color or ink splashes may be
+invisible"), which has nothing to do with type testing; commit `0f93ea375`
+fixed all 12 between the 2026-06-24 baseline and now. (This paragraph
+originally read the block as a single leaked-framework-error cascade. That
+was wrong — see the SCC48 amendment below for the disproof.) ext_23's `-1` became a
 **skip**, not a pass: the file now reports two skips
 (`dart_ui/system_color_palette_test.dart`,
 `rendering/render_android_view_test.dart`) where the baseline had one.
@@ -4260,6 +4261,61 @@ Establish provenance from `git log -S` on the skip string, and confirm
 the mechanism against the SDK source, before accepting a skip's stated
 reason.
 
+**Amendment, 2026-09-06 (SCC48) — the "leaked-framework-error cascade"
+above never happened.** This entry originally explained the 12 ext_22
+recoveries as one framework error leaking into 11 successors' verdicts. If
+that were true, a passing script could be failed by its predecessor and
+every cluster count in this document would be an upper bound of unknown
+tightness. Four independent lines of evidence say it is false:
+
+| Evidence | Finding |
+| --- | --- |
+| Harness code | `main.dart:1090` resets `_frameworkErrors = []` on every `/build`; capture opens at :1091 and closes after the post-build pump at :1239. `/clear` (:852–915) additionally nulls the widget, bumps `_widgetGeneration` and calls `resetScript()`. |
+| Error counts | Advisories per failing test were 11, 78, 23, 8, 2, 2, 3, 11, 9, 6, 1, 6 — **not monotonic**, which an accumulating bucket requires. |
+| Attribution | All 12 failing scripts use `ListTile` themselves (16, 18, 17, 12, 6, 6, 9, 13, 11, 10, 1, 4 references). The companion app's own UI uses zero, and so does `parent_data_widget_test.dart`, the successor that "resumed passing". Over the whole file: 26 non-`ListTile` scripts → 0 failures; 12 `ListTile` users → 12 failures. |
+| Git | `0f93ea375` (2026-06-24 12:48), *"wrap ListTiles under colored boxes in Material across corpus"*, states its own outcome: *"flutter_extended_22 +30~1-12 -> +42~1 (all 12 RC-2 failures pass); ListTile warnings 53 -> 0"*. It edited **40 scripts across 19 files** individually. |
+
+The baseline this entry compared against is `testlog_20260624-**0713**` —
+taken about 5½ hours *before* that fix, on the same day. The fix had already
+landed and already explained the delta five weeks before the cascade theory
+was written down.
+
+*Why the theory was persuasive.* The 12 are alphabetically adjacent because
+the corpus list is alphabetical and those scripts were written from a shared
+template — the contiguity is an artefact of ordering, not of propagation. The
+advisory's own source makes leakage structurally impossible:
+`ListTile._debugCheckBackgroundIsHidden`
+(`flutter/lib/src/material/list_tile.dart:1147`, reported at :1151) walks
+ancestors from the `ListTile` upward during **that tile's own build**,
+stopping at the first `Material`, and reports if it meets an opaque
+`ColoredBox`/`DecoratedBox` first. It cannot fire for a script that has no
+`ListTile`.
+
+*This is now measured, not argued.* `test/framework_error_isolation_test.dart`
+(both twins) drives two near-identical probes under
+`send_ast_via_http_scripts/_harness/` that differ only by the `Material` that
+silences the advisory, so a victim failure could only mean mis-attribution.
+Result: the offender reports `frameworkErrors=1` on every send (1, 1, 1 across
+three consecutive builds — flat, not growing); the victim reports 0 alone
+**and** 0 immediately after the offender. The file is deliberately named
+outside the `flutter_base_*` / `flutter_extended_*` runner globs so it does
+not perturb the metrics tables, and `findAllScripts` now skips `_`-prefixed
+directories so the deliberately-failing probe cannot read as a corpus
+regression.
+
+One trap worth recording: the check's call site (`list_tile.dart:832`) is
+guarded by `onTap != null || onLongPress != null || hasOpaqueBackground`, so
+the first draft of the offender probe — a bare `ListTile` in a coloured box —
+raised **nothing** and made the whole test vacuous. The probes carry an
+explicit opaque `tileColor` to open that gate.
+
+**Methodology takeaway.** A contiguous block of identical failures reads as
+one cause and is very often *n* causes sharing a template. Two cheap checks
+separate them: count the error occurrences per test (a leak accumulates,
+independent defects do not), and `git log -S` the error string (a real fix
+usually documents the exact delta you are staring at). Both were what
+overturned SCC47 the day before, and both applied unchanged here.
+
 ---
 
 ## How clusters were derived
@@ -4271,6 +4327,34 @@ representative test names per bucket recorded above. A test that
 emitted multiple distinct errors was attributed to the dominant
 (first) one. Cluster counts are approximate — re-bucketing after a
 cluster fix may shift small counts between adjacent buckets.
+
+**Counts are upper bounds, and here is exactly how far.** A cluster count
+is a count of *symptoms*, not of causes, so it can only ever over-state the
+work. Three mechanisms inflate it, and they differ in how much you should
+worry:
+
+- **One defect, many scripts** — real and common. Twelve `flutter_extended_22`
+  failures collapsed to a single authoring mistake replicated across a shared
+  script template (`0f93ea375`); the cluster looked twelve deep and was one
+  fix. Expect this. It is why closing a cluster often moves counts in
+  neighbouring buckets.
+- **One error, many buckets** — bounded by the "dominant (first) error"
+  attribution above. A test emitting several distinct errors contributes to
+  one bucket only, so this inflates *across* clusters rather than within one.
+- **One script's error, another script's verdict** — this would be the
+  dangerous one, because it is unbounded and invisible: no amount of reading
+  a script would explain its failure. **It was tested and does not occur.**
+  `test/framework_error_isolation_test.dart` measures it directly (see the
+  SCC48 amendment above): the companion app's framework-error bucket is reset
+  per `/build`, and a script that raises an advisory leaves its successor
+  clean. Pre-fix counts are therefore *not* inflated by leakage, and a
+  script's verdict may be read as being about that script.
+
+So: treat a count as "at most this many fixes", never as "this many bugs",
+and re-derive rather than subtract after a cluster closes. But do not
+discount a count on the suspicion that earlier scripts poisoned it — that
+mechanism has been ruled out by measurement, and the test above will fail if
+it ever appears.
 
 To regenerate the clusters after a fix:
 
