@@ -33,6 +33,22 @@ class HashSetCollection {
           "Argument to HashSet.from must be an Iterable.",
         );
       },
+      'identity': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.isNotEmpty) {
+          throw RuntimeD4rtException(
+            'Constructor HashSet.identity() takes no arguments.',
+          );
+        }
+        return HashSet<dynamic>.identity();
+      },
+      'of': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Iterable) {
+          throw RuntimeD4rtException(
+            'Constructor HashSet.of(Iterable elements) expects one Iterable.',
+          );
+        }
+        return HashSet<dynamic>.of(positionalArgs[0] as Iterable);
+      },
     },
     methods: {
       // Not reachable through the Set bridge: the interpreter's

@@ -12,9 +12,6 @@ class RunesCore {
       },
     },
     methods: {
-      'iterator': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as Runes).iterator;
-      },
       'contains': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as Runes).contains(positionalArgs[0]);
       },
@@ -113,6 +110,7 @@ class RunesCore {
       },
     },
     getters: {
+      'iterator': (visitor, target) => (target as Runes).iterator,
       'length': (visitor, target) {
         return (target as Runes).length;
       },

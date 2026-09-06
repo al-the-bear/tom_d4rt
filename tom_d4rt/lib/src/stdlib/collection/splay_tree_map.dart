@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:tom_d4rt/d4rt.dart';
+import 'package:tom_d4rt/src/stdlib/collection/map_named_constructors.dart';
 
 class SplayTreeMapCollection {
   static BridgedClass get definition => BridgedClass(
@@ -106,6 +107,20 @@ class SplayTreeMapCollection {
           actualCompare,
         );
       },
+      'fromIterable': (visitor, positionalArgs, namedArgs) =>
+          MapNamedConstructors.fromIterable(
+            'SplayTreeMap',
+            SplayTreeMap<dynamic, dynamic>.new,
+            visitor,
+            positionalArgs,
+            namedArgs,
+          ),
+      'fromIterables': (visitor, positionalArgs, namedArgs) =>
+          MapNamedConstructors.fromIterables(
+            'SplayTreeMap',
+            SplayTreeMap<dynamic, dynamic>.new,
+            positionalArgs,
+          ),
     },
     methods: {
       '[]': (visitor, target, positionalArgs, namedArgs, _) {

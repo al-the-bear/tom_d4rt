@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:tom_d4rt_ast/runtime.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/collection/map_named_constructors.dart';
 
 class HashMapCollection {
   static BridgedClass get definition => BridgedClass(
@@ -49,6 +50,26 @@ class HashMapCollection {
         }
         return HashMap<dynamic, dynamic>.identity();
       },
+      'fromIterable': (visitor, positionalArgs, namedArgs) =>
+          MapNamedConstructors.fromIterable(
+            'HashMap',
+            HashMap<dynamic, dynamic>.new,
+            visitor,
+            positionalArgs,
+            namedArgs,
+          ),
+      'fromIterables': (visitor, positionalArgs, namedArgs) =>
+          MapNamedConstructors.fromIterables(
+            'HashMap',
+            HashMap<dynamic, dynamic>.new,
+            positionalArgs,
+          ),
+      'fromEntries': (visitor, positionalArgs, namedArgs) =>
+          MapNamedConstructors.fromEntries(
+            'HashMap',
+            HashMap<dynamic, dynamic>.new,
+            positionalArgs,
+          ),
     },
     methods: {
       '[]': (visitor, target, positionalArgs, namedArgs, _) {

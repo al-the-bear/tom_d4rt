@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:tom_d4rt/d4rt.dart';
+import 'package:tom_d4rt/src/stdlib/collection/map_named_constructors.dart';
 
 class LinkedHashMapCollection {
   static BridgedClass get definition => BridgedClass(
@@ -53,6 +54,26 @@ class LinkedHashMapCollection {
         }
         return LinkedHashMap<dynamic, dynamic>.identity();
       },
+      'fromIterable': (visitor, positionalArgs, namedArgs) =>
+          MapNamedConstructors.fromIterable(
+            'LinkedHashMap',
+            LinkedHashMap<dynamic, dynamic>.new,
+            visitor,
+            positionalArgs,
+            namedArgs,
+          ),
+      'fromIterables': (visitor, positionalArgs, namedArgs) =>
+          MapNamedConstructors.fromIterables(
+            'LinkedHashMap',
+            LinkedHashMap<dynamic, dynamic>.new,
+            positionalArgs,
+          ),
+      'fromEntries': (visitor, positionalArgs, namedArgs) =>
+          MapNamedConstructors.fromEntries(
+            'LinkedHashMap',
+            LinkedHashMap<dynamic, dynamic>.new,
+            positionalArgs,
+          ),
     },
     methods: {
       '[]': (visitor, target, positionalArgs, namedArgs, _) {

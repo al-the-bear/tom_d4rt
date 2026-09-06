@@ -729,6 +729,23 @@ class StreamTransformerAsync {
     name: 'StreamTransformer',
     typeParameterCount: 2,
     constructors: {
+      '': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.length != 1 ||
+            positionalArgs[0] is! InterpretedFunction) {
+          throw RuntimeD4rtException(
+            'StreamTransformer(onListen) requires one function argument.',
+          );
+        }
+        final onListen = positionalArgs[0] as InterpretedFunction;
+        // The callback is handed the native stream and must give back the
+        // subscription it opened on it, which a script does by returning the
+        // result of `stream.listen(...)`.
+        return StreamTransformer<dynamic, dynamic>(
+          (stream, cancelOnError) => D4.unwrapAs<StreamSubscription<dynamic>>(
+            runAction<Object?>(visitor, onListen, [stream, cancelOnError]),
+          ),
+        );
+      },
       'fromHandlers': (visitor, positionalArgs, namedArgs) {
         final handleData = namedArgs['handleData'] as InterpretedFunction?;
         final handleError = namedArgs['handleError'] as InterpretedFunction?;

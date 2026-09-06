@@ -207,6 +207,24 @@ class ProcessResultIo {
     name: 'ProcessResult',
     isAssignable: (v) => v is ProcessResult,
     typeParameterCount: 0,
+    constructors: {
+      '': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.length != 4 ||
+            positionalArgs[0] is! int ||
+            positionalArgs[1] is! int) {
+          throw RuntimeD4rtException(
+            'ProcessResult(pid, exitCode, stdout, stderr) requires two int '
+            'arguments followed by the two output values.',
+          );
+        }
+        return ProcessResult(
+          positionalArgs[0] as int,
+          positionalArgs[1] as int,
+          positionalArgs[2],
+          positionalArgs[3],
+        );
+      },
+    },
     getters: {
       'exitCode': (visitor, target) => (target as ProcessResult).exitCode,
       'pid': (visitor, target) => (target as ProcessResult).pid,

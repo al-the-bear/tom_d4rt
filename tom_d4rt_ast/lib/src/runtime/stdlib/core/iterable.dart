@@ -45,6 +45,22 @@ class IterableCore {
       'EfficientLengthSkipIterable',
       'EfficientLengthTakeIterable',
     ],
+    constructors: {
+      'withIterator': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.length != 1 ||
+            positionalArgs[0] is! InterpretedFunction) {
+          throw RuntimeD4rtException(
+            'Iterable.withIterator(factory) requires one function argument.',
+          );
+        }
+        final factory = positionalArgs[0] as InterpretedFunction;
+        // The callback must yield a native iterator, which a script obtains
+        // from any real collection — `() => [1, 2].iterator`.
+        return Iterable<dynamic>.withIterator(
+          () => D4.unwrapAs<Iterator<dynamic>>(factory.call(visitor, const [])),
+        );
+      },
+    },
     staticMethods: {
       // Re-types an existing iterable as a live view rather than a copy.
       // Type arguments are erased at the bridge boundary, so the native

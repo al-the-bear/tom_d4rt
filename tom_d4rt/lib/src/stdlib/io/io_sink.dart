@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 import 'package:tom_d4rt/d4rt.dart';
@@ -10,6 +11,21 @@ class IOSinkIo {
     isAssignable: (v) => v is IOSink,
     typeParameterCount: 0,
     nativeNames: ['_StdSink'],
+    constructors: {
+      '': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.length != 1) {
+          throw RuntimeD4rtException(
+            'IOSink(target, {encoding}) requires one '
+            'StreamConsumer<List<int>> argument.',
+          );
+        }
+        final encoding = namedArgs['encoding'];
+        return IOSink(
+          D4.unwrapAs<StreamConsumer<List<int>>>(positionalArgs[0]),
+          encoding: encoding == null ? utf8 : D4.unwrapAs<Encoding>(encoding),
+        );
+      },
+    },
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.isEmpty) {

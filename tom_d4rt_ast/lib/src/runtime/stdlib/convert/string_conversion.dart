@@ -20,6 +20,27 @@ class StringConversionConvert {
     nativeNames: const ['_StringCallbackSink'],
     typeParameterCount: 0,
     staticMethods: {
+      'from': (visitor, positionalArgs, namedArgs, _) {
+        if (positionalArgs.length != 1) {
+          throw RuntimeD4rtException(
+            'StringConversionSink.from requires one Sink<String> argument.',
+          );
+        }
+        return StringConversionSink.from(
+          D4.unwrapAs<Sink<String>>(positionalArgs[0]),
+        );
+      },
+      'fromStringSink': (visitor, positionalArgs, namedArgs, _) {
+        if (positionalArgs.length != 1) {
+          throw RuntimeD4rtException(
+            'StringConversionSink.fromStringSink requires one StringSink '
+            'argument.',
+          );
+        }
+        return StringConversionSink.fromStringSink(
+          D4.unwrapAs<StringSink>(positionalArgs[0]),
+        );
+      },
       'withCallback': (visitor, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1 ||
             positionalArgs[0] is! InterpretedFunction) {

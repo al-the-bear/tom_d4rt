@@ -28,6 +28,8 @@ class StdinIo {
     },
     getters: {
       'hasTerminal': (visitor, target) => (target as Stdin).hasTerminal,
+      'supportsAnsiEscapes': (visitor, target) =>
+          (target as Stdin).supportsAnsiEscapes,
       'echoMode': (visitor, target) => (target as Stdin).echoMode,
       'lineMode': (visitor, target) => (target as Stdin).lineMode,
       'echoNewlineMode': (visitor, target) => (target as Stdin).echoNewlineMode,
@@ -112,6 +114,7 @@ class StdoutIo {
       'terminalColumns': (visitor, target) =>
           (target as Stdout).terminalColumns,
       'hasTerminal': (visitor, target) => (target as Stdout).hasTerminal,
+      'nonBlocking': (visitor, target) => (target as Stdout).nonBlocking,
       'runtimeType': (visitor, target) => (target as Stdout).runtimeType,
       'hashCode': (visitor, target) => (target as Stdout).hashCode,
     },

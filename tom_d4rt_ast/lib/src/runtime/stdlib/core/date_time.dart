@@ -7,6 +7,14 @@ class DateTimeCore {
     isAssignable: (v) => v is DateTime,
     typeParameterCount: 0,
     constructors: {
+      'timestamp': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.isNotEmpty) {
+          throw RuntimeD4rtException(
+            'Constructor DateTime.timestamp() takes no arguments.',
+          );
+        }
+        return DateTime.timestamp();
+      },
       '': (visitor, positionalArgs, namedArgs) {
         if (positionalArgs.isNotEmpty) {
           final year = positionalArgs[0] as int;

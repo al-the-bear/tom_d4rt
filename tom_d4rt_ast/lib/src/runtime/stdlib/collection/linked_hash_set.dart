@@ -54,6 +54,14 @@ class LinkedHashSetCollection {
           "Argument to LinkedHashSet.of must be an Iterable.",
         );
       },
+      'identity': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.isNotEmpty) {
+          throw RuntimeD4rtException(
+            'Constructor LinkedHashSet.identity() takes no arguments.',
+          );
+        }
+        return LinkedHashSet<dynamic>.identity();
+      },
     },
     methods: {
       // Not reachable through the Set bridge: the interpreter's

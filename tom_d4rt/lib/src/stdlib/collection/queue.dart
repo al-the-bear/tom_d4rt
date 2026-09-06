@@ -34,6 +34,14 @@ class QueueCollection {
           "Argument to Queue.from must be an Iterable.",
         );
       },
+      'of': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Iterable) {
+          throw RuntimeD4rtException(
+            'Constructor Queue.of(Iterable elements) expects one Iterable.',
+          );
+        }
+        return Queue<dynamic>.of(positionalArgs[0] as Iterable);
+      },
     },
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {

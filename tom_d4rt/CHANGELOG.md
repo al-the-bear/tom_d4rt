@@ -1,3 +1,42 @@
+## 1.65.0
+
+### Added — 26 SDK members the bridges declared no way to reach (scc73)
+
+A new guard, `test/scc73_sdk_member_completeness_test.dart`, reads the SDK's
+own source with the `analyzer` package and diffs every public constructor and
+instance getter it declares against what the bridges expose. SCB24 guards the
+axis one level up — that no whole class goes missing from a registrar — and
+SCB25's defect sat below that line: `JsonEncoder` was registered, so the
+class-level guard was satisfied, while `withIndent` was absent and `indent` was
+not exposed at all.
+
+The guard runs over all eight bridged `dart:` libraries and found 26 real gaps,
+all of which this release closes:
+
+- **dart:collection** — `HashMap` / `LinkedHashMap` / `SplayTreeMap`
+  `fromIterable`, `fromIterables` and `fromEntries`; `HashSet.identity`,
+  `HashSet.of`, `LinkedHashSet.identity`, `Queue.of`, `ListQueue.of`.
+- **dart:core** — `DateTime.timestamp`, `StackTrace.fromString`,
+  `RangeError.index`, `Iterable.withIterator`, and `Runes.iterator`, which was
+  registered as a *method*, so reading it handed back the bound callable
+  instead of the iterator.
+- **dart:async** — `StreamTransformer(onListen)`.
+- **dart:convert** — `StringConversionSink.from` and `.fromStringSink`.
+- **dart:io** — `ProcessResult(...)`, `IOSink(target, {encoding})`,
+  `Stdin.supportsAnsiEscapes`, `Stdout.nonBlocking`.
+
+The three map implementations declare their named constructors with identical
+bodies — the SDK shares them through a private `MapBase` helper a bridge cannot
+call — so the adapters delegate to one shared `MapNamedConstructors` rather
+than repeating the argument handling three times.
+
+The guard ships with an **empty allowlist**. Members are skipped only where the
+reason is a property of the language or the SDK's own intent: generative
+constructors on abstract classes (unreachable from a script by construction),
+`@Deprecated` members, and members `@Since` a version above this package's own
+SDK floor — without that last rule the guard would turn red on every SDK
+upgrade, demanding members the package cannot legally compile against.
+
 ## 1.64.0
 
 ### Fixed — `Converter.bind` and the `addStream` family were unreachable from scripts (scc68)

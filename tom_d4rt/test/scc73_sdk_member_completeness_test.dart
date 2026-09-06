@@ -146,6 +146,40 @@ List<String> _sdkSourceFiles(String libRoot, String dartLibrary) {
   return found;
 }
 
+/// Whether [metadata] carries `@deprecated` or `@Deprecated(...)`.
+bool _isDeprecated(NodeList<Annotation> metadata) => metadata.any(
+  (a) => a.name.name == 'deprecated' || a.name.name == 'Deprecated',
+);
+
+/// The `major.minor` in `@Since("3.10")`, or `null` when unannotated.
+(int, int)? _since(NodeList<Annotation> metadata) {
+  for (final annotation in metadata) {
+    if (annotation.name.name != 'Since') continue;
+    final argument = annotation.arguments?.arguments.firstOrNull;
+    if (argument is! SimpleStringLiteral) continue;
+    final parts = argument.value.split('.');
+    if (parts.length < 2) continue;
+    final major = int.tryParse(parts[0]);
+    final minor = int.tryParse(parts[1]);
+    if (major != null && minor != null) return (major, minor);
+  }
+  return null;
+}
+
+/// This package's declared SDK floor, read from its own `pubspec.yaml`.
+///
+/// Parsed with a regex rather than a YAML dependency: the line is
+/// `sdk: ^3.9.0` and adding a parser to reach one number would be a heavier
+/// dependency than the question deserves.
+(int, int) _packageSdkFloor() {
+  final pubspec = File('pubspec.yaml').readAsStringSync();
+  final match = RegExp(r'sdk:\s*[\^>=]*\s*(\d+)\.(\d+)').firstMatch(pubspec);
+  if (match == null) {
+    throw StateError('No environment.sdk floor found in pubspec.yaml');
+  }
+  return (int.parse(match.group(1)!), int.parse(match.group(2)!));
+}
+
 CompilationUnit _parse(String path) => parseFile(
   path: path,
   featureSet: FeatureSet.latestLanguageVersion(),
@@ -161,14 +195,32 @@ class _SdkClass {
 /// Every public class in `dart:<dartLibrary>`, with the constructors and
 /// instance getters it declares.
 ///
-/// GENERATIVE CONSTRUCTORS ON ABSTRACT CLASSES ARE SKIPPED, and that is a
-/// property of the language rather than a convenience: a script cannot
-/// instantiate an abstract class, and an interpreted subclass calling `super()`
-/// against an abstract bridged base is already handled as a no-op (see
-/// `BridgedClass.isAbstract`). A `factory` on an abstract class is a different
-/// matter — `HashMap.identity()` is ordinary callable API — so factories are
-/// kept whatever the class.
+/// TWO KINDS OF MEMBER ARE SKIPPED HERE RATHER THAN ALLOWLISTED, because the
+/// reason is a property of the language or of the SDK's own intent rather than
+/// a decision this package makes:
+///
+///   * GENERATIVE CONSTRUCTORS ON ABSTRACT CLASSES. A script cannot instantiate
+///     an abstract class, and an interpreted subclass calling `super()` against
+///     an abstract bridged base is already handled as a no-op (see
+///     `BridgedClass.isAbstract`). A `factory` on an abstract class is a
+///     different matter — `HashMap.identity()` is ordinary callable API — so
+///     factories are kept whatever the class.
+///
+///   * `@Deprecated` MEMBERS. Bridging one would teach scripts an API the SDK
+///     is withdrawing, and the guard would then hold it in place. `IndexError`'s
+///     unnamed constructor is the current example: the SDK says to use
+///     `IndexError.withLength`, which IS bridged.
+///
+///   * MEMBERS `@Since` A VERSION ABOVE THIS PACKAGE'S OWN SDK FLOOR. The guard
+///     reads whichever SDK the test is running on, which is routinely newer
+///     than the floor `pubspec.yaml` declares — so without this the guard would
+///     turn red on every SDK upgrade, demanding members the package cannot
+///     legally compile against. `Future.syncValue` is `@Since("3.10")` and the
+///     floor is 3.9; bridging it fails `dart analyze` with `sdk_version_since`.
+///     Raising the floor is the way to pick these up, and doing so makes them
+///     appear here on their own.
 Map<String, _SdkClass> _sdkClasses(String libRoot, String dartLibrary) {
+  final floor = _packageSdkFloor();
   final classes = <String, _SdkClass>{};
   for (final path in _sdkSourceFiles(libRoot, dartLibrary)) {
     for (final declaration in _parse(path).declarations) {
@@ -179,6 +231,13 @@ Map<String, _SdkClass> _sdkClasses(String libRoot, String dartLibrary) {
       final entry = classes.putIfAbsent(className, _SdkClass.new);
 
       for (final member in declaration.members) {
+        if (_isDeprecated(member.metadata)) continue;
+        final since = _since(member.metadata);
+        if (since != null &&
+            (since.$1 > floor.$1 ||
+                (since.$1 == floor.$1 && since.$2 > floor.$2))) {
+          continue;
+        }
         if (member is ConstructorDeclaration) {
           final name = member.name?.lexeme ?? '';
           if (name.startsWith('_')) continue;

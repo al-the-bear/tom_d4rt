@@ -1,3 +1,21 @@
+## 0.54.0
+
+### Added — 26 SDK members the bridges declared no way to reach (scc73)
+
+Mirrors `tom_d4rt` 1.65.0: the `dart:collection` map and set named
+constructors, `Queue.of` / `ListQueue.of`, `DateTime.timestamp`,
+`StackTrace.fromString`, `RangeError.index`, `Iterable.withIterator`,
+`StreamTransformer(onListen)`, `StringConversionSink.from` /
+`.fromStringSink`, `ProcessResult(...)`, `IOSink(target, {encoding})`,
+`Stdin.supportsAnsiEscapes` and `Stdout.nonBlocking`. `Runes.iterator` moves
+from `methods` to `getters`, where the SDK declares it.
+
+The guard that found them reads the SDK with the `analyzer` package and so
+lives only in `tom_d4rt`. Coverage on this line is registration-level
+(`test/runtime/stdlib_sdk_member_completeness_test.dart`), which is the level
+that can detect the failure this tree is actually exposed to: an adapter lost
+on the way across the mirror.
+
 ## 0.53.0
 
 ### Fixed — `Converter.bind` and the `addStream` family were unreachable from scripts (scc68)

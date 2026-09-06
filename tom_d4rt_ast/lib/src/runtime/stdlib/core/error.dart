@@ -160,6 +160,21 @@ class RangeErrorCore {
             : null;
         return RangeError.value(value, name, message);
       },
+      'index': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.length < 2 || positionalArgs[0] is! int) {
+          throw RuntimeD4rtException(
+            'RangeError.index(index, indexable, [name, message, length]) '
+            'requires an int index and an indexable.',
+          );
+        }
+        return RangeError.index(
+          positionalArgs[0] as int,
+          positionalArgs[1],
+          positionalArgs.length > 2 ? positionalArgs[2] as String? : null,
+          positionalArgs.length > 3 ? positionalArgs[3] as String? : null,
+          positionalArgs.length > 4 ? positionalArgs[4] as int? : null,
+        );
+      },
       'range': (visitor, positionalArgs, namedArgs) {
         final invalidValue = positionalArgs[0] as num;
         final minValue = positionalArgs[1] as num?;
