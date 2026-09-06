@@ -889,6 +889,71 @@ class D4 {
     }
   }
 
+  // ==========================================================================
+  // Stream Coercion
+  // ==========================================================================
+
+  /// Coerce a stream that came from d4rt into a typed `Stream<T>`.
+  ///
+  /// **Why a bare cast is not enough.** The interpreter erases type
+  /// arguments: `Stream<String>.fromIterable(['a'])` evaluates to a native
+  /// `Stream<Object?>`, and a `Stream<Object?>` is not a `Stream<String>`.
+  /// So both `arg as Stream<T>` *and* the `arg is! Stream<T>` guard that
+  /// usually precedes it reject every stream a script can build. The guard
+  /// failing first is what made this hard to spot — the adapter reports
+  /// "wrong argument" rather than a cast error, so it reads like a script
+  /// mistake.
+  ///
+  /// `Stream.cast<T>()` would be the obvious repair and is also wrong for
+  /// the nested case: it re-types the *element*, so `cast<List<int>>()` on a
+  /// stream of `List<Object?>` chunks throws on the first chunk. Use
+  /// [coerceByteStream] for chunked byte streams.
+  ///
+  /// An element whose type genuinely does not match still fails — this
+  /// widens nothing.
+  static Stream<T> coerceStream<T>(Object? arg, String paramName) {
+    final value = arg is BridgedInstance ? arg.nativeObject : arg;
+    if (value is Stream<T>) return value;
+    if (value is! Stream) {
+      throw ArgumentD4rtException(
+        'Invalid parameter "$paramName": expected Stream<$T>, '
+        'got ${value.runtimeType}',
+      );
+    }
+    return value.map<T>((element) {
+      final unwrapped = element is BridgedInstance
+          ? element.nativeObject
+          : element;
+      if (unwrapped is T) return unwrapped;
+      throw ArgumentD4rtException(
+        'Invalid parameter "$paramName": expected a Stream<$T>, but an '
+        'element was ${unwrapped.runtimeType}',
+      );
+    });
+  }
+
+  /// Coerce a stream of byte chunks that came from d4rt into a
+  /// `Stream<List<int>>`.
+  ///
+  /// This is [coerceStream] for the nested case, and it is a separate method
+  /// because the erasure applies twice over: the stream is a
+  /// `Stream<Object?>` *and* each chunk is a `List<Object?>`. Coercing only
+  /// the stream leaves chunks that fail on use; coercing only the chunks is
+  /// not expressible through a single type parameter. Each chunk goes
+  /// through [coerceList], so a chunk that is not a list of ints fails with
+  /// the same message a list parameter would produce.
+  static Stream<List<int>> coerceByteStream(Object? arg, String paramName) {
+    final value = arg is BridgedInstance ? arg.nativeObject : arg;
+    if (value is Stream<List<int>>) return value;
+    if (value is! Stream) {
+      throw ArgumentD4rtException(
+        'Invalid parameter "$paramName": expected Stream<List<int>>, '
+        'got ${value.runtimeType}',
+      );
+    }
+    return value.map<List<int>>((chunk) => coerceList<int>(chunk, paramName));
+  }
+
   /// Check if T is double or double? (nullable double)
   static bool _isDoubleType<T>() {
     // Check non-nullable double

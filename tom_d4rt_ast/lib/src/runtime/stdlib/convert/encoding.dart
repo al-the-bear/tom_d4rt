@@ -48,23 +48,9 @@ class EncodingConvert {
             'Encoding.decodeStream requires one Stream<List<int>> argument.',
           );
         }
-        // `Stream.cast<List<int>>()` is NOT enough: the interpreter hands
-        // over a `Stream` of `List<Object?>` chunks, and casting the
-        // ELEMENT to `List<int>` fails on the first chunk. Each chunk has
-        // to be cast in turn, which is the same thing `decode` above does
-        // to its single list.
-        final byteStream = (positionalArgs[0] as Stream).map<List<int>>((
-          chunk,
-        ) {
-          if (chunk is! List) {
-            throw RuntimeD4rtException(
-              'Encoding.decodeStream requires a Stream of List<int> '
-              'chunks; got ${chunk.runtimeType}.',
-            );
-          }
-          return chunk.cast<int>();
-        });
-        return (target as Encoding).decodeStream(byteStream);
+        return (target as Encoding).decodeStream(
+          D4.coerceByteStream(positionalArgs[0], 'Encoding.decodeStream'),
+        );
       },
       'fuse': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1 ||

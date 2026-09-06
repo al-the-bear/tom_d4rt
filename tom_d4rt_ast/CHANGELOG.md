@@ -1,3 +1,20 @@
+## 0.53.0
+
+### Fixed — `Converter.bind` and the `addStream` family were unreachable from scripts (scc68)
+
+`D4.coerceStream<T>` and `D4.coerceByteStream` added; the 19 stream-taking
+adapters in `dart:convert` and `dart:io` now route their argument through them
+instead of casting to a container type the interpreter's erasure can never
+produce. Guards narrow from `Stream<T>` to a raw `Stream` so the exception type
+at that boundary is unchanged.
+
+Coverage on this line is registration-level
+(`test/runtime/stdlib_stream_arg_coercion_test.dart`) — `tom_d4rt_exec` is the
+only runner that could execute a script against this tree and it resolves
+`tom_d4rt_ast` from pub.dev, so it cannot see unpublished edits.
+
+Mirrors `tom_d4rt` 1.64.0.
+
 ## 0.52.0
 
 ### Added — the last three `dart:io` re-exports a script could reach but not name (scc65)

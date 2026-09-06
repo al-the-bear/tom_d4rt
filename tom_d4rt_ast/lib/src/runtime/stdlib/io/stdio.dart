@@ -74,13 +74,14 @@ class StdoutIo {
       },
       'addStream': (visitor, target, positionalArgs, namedArgs, _) {
         final stdout = target as Stdout;
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! Stream<List<int>>) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
-            'addStream requires a Stream<List<int>> argument.',
+            'Stdout.addStream requires a Stream<List<int>> argument.',
           );
         }
-        return stdout.addStream(positionalArgs[0] as Stream<List<int>>);
+        return stdout.addStream(
+          D4.coerceByteStream(positionalArgs[0], 'Stdout.addStream'),
+        );
       },
       'flush': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as Stdout).flush(),

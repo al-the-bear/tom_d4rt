@@ -161,14 +161,13 @@ class JsonEncoderConvert {
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! Stream<dynamic>) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
-            'bind requires a Stream<dynamic> argument.',
+            'JsonEncoder.bind requires a Stream<dynamic> argument.',
           );
         }
         return (target as JsonEncoder).bind(
-          positionalArgs[0] as Stream<dynamic>,
+          D4.coerceStream<dynamic>(positionalArgs[0], 'JsonEncoder.bind'),
         );
       },
       'cast': (visitor, target, positionalArgs, namedArgs, _) {
@@ -232,14 +231,13 @@ class JsonDecoderConvert {
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! Stream<String>) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
-            'bind requires a Stream<String> argument.',
+            'JsonDecoder.bind requires a Stream<String> argument.',
           );
         }
         return (target as JsonDecoder).bind(
-          positionalArgs[0] as Stream<String>,
+          D4.coerceStream<String>(positionalArgs[0], 'JsonDecoder.bind'),
         );
       },
       'cast': (visitor, target, positionalArgs, namedArgs, _) {

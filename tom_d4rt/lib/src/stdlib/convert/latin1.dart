@@ -78,14 +78,13 @@ class Latin1EncoderConvert {
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! Stream<String>) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
-            'bind requires a Stream<String> argument.',
+            'Latin1Encoder.bind requires a Stream<String> argument.',
           );
         }
         return (target as Latin1Encoder).bind(
-          positionalArgs[0] as Stream<String>,
+          D4.coerceStream<String>(positionalArgs[0], 'Latin1Encoder.bind'),
         );
       },
       'fuse': (visitor, target, positionalArgs, namedArgs, _) {
@@ -138,14 +137,13 @@ class Latin1DecoderConvert {
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! Stream<List<int>>) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
-            'bind requires a Stream<List<int>> argument.',
+            'Latin1Decoder.bind requires a Stream<List<int>> argument.',
           );
         }
         return (target as Latin1Decoder).bind(
-          positionalArgs[0] as Stream<List<int>>,
+          D4.coerceByteStream(positionalArgs[0], 'Latin1Decoder.bind'),
         );
       },
       'fuse': (visitor, target, positionalArgs, namedArgs, _) {

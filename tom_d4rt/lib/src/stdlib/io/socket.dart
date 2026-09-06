@@ -58,7 +58,7 @@ class SocketIo {
           throw ArgumentD4rtException('Socket.addStream requires stream');
         }
         return (target as Socket).addStream(
-          positionalArgs[0] as Stream<List<int>>,
+          D4.coerceByteStream(positionalArgs[0], 'Socket.addStream'),
         );
       },
       'write': (visitor, target, positionalArgs, namedArgs, _) {

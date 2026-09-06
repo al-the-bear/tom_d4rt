@@ -61,14 +61,13 @@ class LineSplitterConvert {
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! Stream<String>) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
-            'bind requires a Stream<String> argument.',
+            'LineSplitter.bind requires a Stream<String> argument.',
           );
         }
         return (target as LineSplitter).bind(
-          positionalArgs[0] as Stream<String>,
+          D4.coerceStream<String>(positionalArgs[0], 'LineSplitter.bind'),
         );
       },
       'cast': (visitor, target, positionalArgs, namedArgs, _) {

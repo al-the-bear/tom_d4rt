@@ -95,14 +95,13 @@ class AsciiEncoderConvert {
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! Stream<String>) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
-            'bind requires a Stream<String> argument.',
+            'AsciiEncoder.bind requires a Stream<String> argument.',
           );
         }
         return (target as AsciiEncoder).bind(
-          positionalArgs[0] as Stream<String>,
+          D4.coerceStream<String>(positionalArgs[0], 'AsciiEncoder.bind'),
         );
       },
       'fuse': (visitor, target, positionalArgs, namedArgs, _) {
@@ -165,14 +164,13 @@ class AsciiDecoderConvert {
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! Stream<List<int>>) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
-            'bind requires a Stream<List<int>> argument.',
+            'AsciiDecoder.bind requires a Stream<List<int>> argument.',
           );
         }
         return (target as AsciiDecoder).bind(
-          positionalArgs[0] as Stream<List<int>>,
+          D4.coerceByteStream(positionalArgs[0], 'AsciiDecoder.bind'),
         );
       },
       'fuse': (visitor, target, positionalArgs, namedArgs, _) {

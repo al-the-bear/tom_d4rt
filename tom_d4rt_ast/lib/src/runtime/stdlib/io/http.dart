@@ -559,14 +559,13 @@ class HttpResponseIo {
         return null;
       },
       'addStream': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! Stream<List<int>>) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
-            'addStream requires a Stream<List<int>> argument.',
+            'HttpResponse.addStream requires a Stream<List<int>> argument.',
           );
         }
         return (target as HttpResponse).addStream(
-          positionalArgs[0] as Stream<List<int>>,
+          D4.coerceByteStream(positionalArgs[0], 'HttpResponse.addStream'),
         );
       },
       'addError': (visitor, target, positionalArgs, namedArgs, _) {
@@ -803,14 +802,13 @@ class HttpClientRequestIo {
         return null;
       },
       'addStream': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! Stream<List<int>>) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
-            'addStream requires a Stream<List<int>> argument.',
+            'HttpClientRequest.addStream requires a Stream<List<int>> argument.',
           );
         }
         return (target as HttpClientRequest).addStream(
-          positionalArgs[0] as Stream<List<int>>,
+          D4.coerceByteStream(positionalArgs[0], 'HttpClientRequest.addStream'),
         );
       },
       'flush': (visitor, target, positionalArgs, namedArgs, _) =>

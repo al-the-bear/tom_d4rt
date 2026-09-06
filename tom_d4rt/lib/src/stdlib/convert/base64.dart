@@ -128,14 +128,13 @@ class Base64EncoderConvert {
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! Stream<List<int>>) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
-            'bind requires a Stream<List<int>> argument.',
+            'Base64Encoder.bind requires a Stream<List<int>> argument.',
           );
         }
         return (target as Base64Encoder).bind(
-          positionalArgs[0] as Stream<List<int>>,
+          D4.coerceByteStream(positionalArgs[0], 'Base64Encoder.bind'),
         );
       },
       'fuse': (visitor, target, positionalArgs, namedArgs, _) {
@@ -198,14 +197,13 @@ class Base64DecoderConvert {
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! Stream<String>) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
-            'bind requires a Stream<String> argument.',
+            'Base64Decoder.bind requires a Stream<String> argument.',
           );
         }
         return (target as Base64Decoder).bind(
-          positionalArgs[0] as Stream<String>,
+          D4.coerceStream<String>(positionalArgs[0], 'Base64Decoder.bind'),
         );
       },
       'fuse': (visitor, target, positionalArgs, namedArgs, _) {

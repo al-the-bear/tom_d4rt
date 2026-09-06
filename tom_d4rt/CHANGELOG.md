@@ -1,3 +1,35 @@
+## 1.64.0
+
+### Fixed — `Converter.bind` and the `addStream` family were unreachable from scripts (scc68)
+
+Every adapter that takes a stream guarded its argument with a *container-typed*
+test — `positionalArgs[0] is! Stream<String>` — and then made the matching
+container-typed cast. The interpreter erases type arguments, so a script's
+`Stream.fromIterable([...])` arrives as a `Stream<Object?>` and the guard
+rejected it. The whole `Converter.bind` surface, plus `IOSink.addStream`,
+`Socket.addStream`, `Stdout.addStream`, `HttpResponse.addStream`,
+`HttpClientRequest.addStream` and `WebSocketTransformer.bind`, could not be
+called from interpreted code at all. Because the guard fired first, the symptom
+was its own "requires a Stream argument" message, which read as a script
+mistake rather than a bridge bug.
+
+Two new helpers carry the fix across the 19 affected call sites:
+
+- `D4.coerceStream<T>` converts element by element, and passes an
+  already-typed `Stream<T>` through by identity.
+- `D4.coerceByteStream` handles the nested case, where erasure applies twice
+  over. `Stream.cast<List<int>>()` is *not* enough here: `cast` converts the
+  ELEMENT, and a `List<Object?>` chunk is not a `List<int>`. Each chunk goes
+  through `D4.coerceList<int>` instead, so a bad chunk fails the way a list
+  parameter would.
+
+The guards themselves survive, narrowed from `Stream<T>` — which the
+interpreter can never satisfy — to a raw `Stream`. `D4.coerce*` throws
+`ArgumentD4rtException` while the stdlib adapters throw `RuntimeD4rtException`,
+and those are siblings rather than parent and child, so routing the whole check
+through the helper would have silently changed what a script's `catch`
+dispatches on.
+
 ## 1.63.0
 
 ### Added — the last three `dart:io` re-exports a script could reach but not name (scc65)

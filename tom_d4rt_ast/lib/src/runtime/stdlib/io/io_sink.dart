@@ -33,7 +33,7 @@ class IOSinkIo {
           throw ArgumentD4rtException('IOSink.addStream requires stream');
         }
         return (target as IOSink).addStream(
-          positionalArgs[0] as Stream<List<int>>,
+          D4.coerceByteStream(positionalArgs[0], 'IOSink.addStream'),
         );
       },
       'write': (visitor, target, positionalArgs, namedArgs, _) {

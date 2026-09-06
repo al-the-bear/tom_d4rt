@@ -262,4 +262,70 @@ void main() {
       expect(result, equals('Testing done future'));
     });
   });
+
+  /// SCC68 — the `addStream` half of the erased-container trap.
+  ///
+  /// `IOSink.addStream` took `positionalArgs[0] as Stream<List<int>>`. The
+  /// interpreter erases type arguments twice over here: the stream is a
+  /// `Stream<Object?>` and each chunk is a `List<Object?>`, so the cast threw
+  /// on the stream itself and the member was unreachable from a script. The
+  /// same shape covers `Stream<List<int>>` parameters on `Stdout`, `Socket`,
+  /// `HttpResponse` and `HttpClientRequest`; this is the one that needs no
+  /// network or console to drive.
+  group('IOSink.addStream over script-built streams (SCC68)', () {
+    test('F-SCC68-13: addStream consumes a script-built stream of byte chunks. '
+        '[2026-09-06]', () async {
+      const source = '''
+     import 'dart:io';
+     import 'dart:async';
+     main() async {
+        var tempDir = Directory.systemTemp.createTempSync();
+        var file = File(tempDir.path + "/scc68_add_stream.txt");
+        var sink = file.openWrite();
+
+        await sink.addStream(
+          Stream.fromIterable([[104, 101, 108], [108, 111]]),
+        );
+        await sink.close();
+
+        var content = file.readAsStringSync();
+        file.deleteSync();
+        tempDir.deleteSync();
+        return content;
+      }
+      ''';
+      expect(await execute(source), equals('hello'));
+    });
+
+    test(
+      'F-SCC68-14: a chunk that is not a list of ints is still rejected, and '
+      'the message names the member. [2026-09-06]',
+      () async {
+        const source = '''
+     import 'dart:io';
+     import 'dart:async';
+     main() async {
+        var tempDir = Directory.systemTemp.createTempSync();
+        var file = File(tempDir.path + "/scc68_add_stream_bad.txt");
+        var sink = file.openWrite();
+        var message = 'no-throw';
+        try {
+          await sink.addStream(Stream.fromIterable(['not-a-chunk']));
+        } catch (e) {
+          message = e.toString();
+        }
+        // Deliberately NOT closing the sink: a sink whose addStream failed
+        // never completes its close() future, so awaiting it here would hang
+        // the test rather than report the assertion.
+        tempDir.deleteSync(recursive: true);
+        return message;
+      }
+      ''';
+        expect(
+          await execute(source),
+          allOf(contains('IOSink.addStream'), contains('String')),
+        );
+      },
+    );
+  });
 }

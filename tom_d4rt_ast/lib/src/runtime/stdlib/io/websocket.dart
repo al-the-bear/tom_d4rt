@@ -362,10 +362,15 @@ class WebSocketTransformerIo {
     methods: {
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.isEmpty || positionalArgs[0] is! Stream) {
-          throw RuntimeD4rtException('bind requires a Stream argument.');
+          throw RuntimeD4rtException(
+            'WebSocketTransformer.bind requires a Stream argument.',
+          );
         }
         return (target as WebSocketTransformer).bind(
-          (positionalArgs[0] as Stream).cast<HttpRequest>(),
+          D4.coerceStream<HttpRequest>(
+            positionalArgs[0],
+            'WebSocketTransformer.bind',
+          ),
         );
       },
     },

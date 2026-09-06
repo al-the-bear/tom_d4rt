@@ -37,13 +37,14 @@ class HtmlEscapeConvert {
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! Stream<String>) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
-            'bind requires a Stream<String> argument.',
+            'HtmlEscape.bind requires a Stream<String> argument.',
           );
         }
-        return (target as HtmlEscape).bind(positionalArgs[0] as Stream<String>);
+        return (target as HtmlEscape).bind(
+          D4.coerceStream<String>(positionalArgs[0], 'HtmlEscape.bind'),
+        );
       },
       'fuse': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1 ||

@@ -85,14 +85,13 @@ class Utf8EncoderConvert {
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! Stream<String>) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
-            'bind requires a Stream<String> argument.',
+            'Utf8Encoder.bind requires a Stream<String> argument.',
           );
         }
         return (target as Utf8Encoder).bind(
-          positionalArgs[0] as Stream<String>,
+          D4.coerceStream<String>(positionalArgs[0], 'Utf8Encoder.bind'),
         );
       },
       'fuse': (visitor, target, positionalArgs, namedArgs, _) {
@@ -155,14 +154,13 @@ class Utf8DecoderConvert {
             );
           },
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! Stream<List<int>>) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(
-            'bind requires a Stream<List<int>> argument.',
+            'Utf8Decoder.bind requires a Stream<List<int>> argument.',
           );
         }
         return (target as Utf8Decoder).bind(
-          positionalArgs[0] as Stream<List<int>>,
+          D4.coerceByteStream(positionalArgs[0], 'Utf8Decoder.bind'),
         );
       },
       'fuse': (visitor, target, positionalArgs, namedArgs, _) {
