@@ -305,7 +305,7 @@ Map<String, Object> _canonicalInstances() => {
   'HttpClient': HttpClient(),
   // A plain data holder with a default constructor — the only one of the six
   // types SCC62 bridged that can be built without a live connection. The other
-  // four are in `_liveHttpInstances`.
+  // four are in `_liveInstances`.
   'HttpConnectionsInfo': HttpConnectionsInfo(),
   // Not an enum despite reading like one: a final class with a private
   // constructor and three static const instances, so a constant is the only
@@ -330,6 +330,11 @@ Map<String, Object> _canonicalInstances() => {
   // the list and returns null for an empty one, which is exactly the shape
   // that goes inert unnoticed unless something asserts it is reachable.
   'RedirectException': const RedirectException('x', <RedirectInfo>[]),
+  'WebSocketException': const WebSocketException('x'),
+  // The one member of the WebSocket block with a public constructor. The socket
+  // itself needs a handshake and is in the live map below; `WebSocketStatus` and
+  // `WebSocketTransformer` declare no instance getters and so are not swept.
+  'CompressionOptions': CompressionOptions.compressionDefault,
   'UriData': UriData.fromString('a'),
   // The bridge SCC24 had to ADD: `osError` on the four exceptions above
   // returned an unbridged value. Covered here so a later refactor that
@@ -352,35 +357,46 @@ Map<String, Object> _canonicalInstances() => {
   ).asStringSink(),
 };
 
-/// The four `dart:io` HTTP types that only exist inside a live connection.
+/// The five `dart:io` types that only exist inside a live connection.
 ///
-/// `HttpRequest`, `HttpResponse`, `HttpSession` and `HttpConnectionInfo` have no
-/// public constructor — the SDK hands them to a request handler and nowhere
-/// else — so they cannot join the synchronous map above. Capturing them from one
-/// real loopback round trip, rather than letting them widen F-SCC24-9's
-/// baseline, is deliberate: their getters return `Uri`, `HttpHeaders`,
-/// `List<Cookie>`, `HttpSession` and `HttpConnectionInfo`, which is exactly the
-/// shape that goes inert unnoticed. SCC62 exists because one of them did —
-/// `Cookie.sameSite` was bridged on both sides while returning a value no bridge
-/// claimed.
+/// `HttpRequest`, `HttpResponse`, `HttpSession`, `HttpConnectionInfo` and
+/// `WebSocket` have no usable public constructor — the SDK hands the first four
+/// to a request handler and nowhere else, and a `WebSocket` exists only on the
+/// far side of a completed upgrade handshake. So none of them can join the
+/// synchronous map above. Standing a loopback server up for them, rather than
+/// letting them widen F-SCC24-9's baseline, is deliberate: their getters return
+/// `Uri`, `HttpHeaders`, `List<Cookie>`, `HttpSession`, `HttpConnectionInfo` and
+/// `Duration`, which is exactly the shape that goes inert unnoticed. SCC62
+/// exists because one of them did — `Cookie.sameSite` was bridged on both sides
+/// while returning a value no bridge claimed.
 ///
 /// The instances are detached by the time the sweep reads them, since the server
 /// is closed first. That is harmless here and not worth keeping a socket open
 /// for: a getter that objects to a closed connection throws, and the sweep
 /// already skips a throwing getter — it is looking for values that resolve to no
 /// bridge, not for values that cannot be produced.
-final Map<String, Object> _liveHttpInstances = {};
+final Map<String, Object> _liveInstances = {};
 
-/// Populate [_liveHttpInstances]. Called once from `setUpAll`.
-Future<void> _captureLiveHttpInstances() async {
+/// Populate [_liveInstances]. Called once from `setUpAll`.
+///
+/// One server serves both round trips because a WebSocket *is* an upgraded HTTP
+/// request — binding a second port would model the two as unrelated when the
+/// handshake is the thing that connects them.
+Future<void> _captureLiveInstances() async {
   final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
-  server.listen((request) {
-    _liveHttpInstances['HttpRequest'] = request;
-    _liveHttpInstances['HttpResponse'] = request.response;
+  server.listen((request) async {
+    if (WebSocketTransformer.isUpgradeRequest(request)) {
+      // Listening with no handler keeps the server end responsive so the
+      // client's close handshake completes rather than timing out.
+      (await WebSocketTransformer.upgrade(request)).listen(null);
+      return;
+    }
+    _liveInstances['HttpRequest'] = request;
+    _liveInstances['HttpResponse'] = request.response;
     // Reading `session` is what creates it; there is no other way to obtain one.
-    _liveHttpInstances['HttpSession'] = request.session;
+    _liveInstances['HttpSession'] = request.session;
     final info = request.connectionInfo;
-    if (info != null) _liveHttpInstances['HttpConnectionInfo'] = info;
+    if (info != null) _liveInstances['HttpConnectionInfo'] = info;
     request.response.close();
   });
 
@@ -390,6 +406,11 @@ Future<void> _captureLiveHttpInstances() async {
   );
   final response = await request.close();
   await response.drain<void>();
+
+  final socket = await WebSocket.connect('ws://127.0.0.1:${server.port}/');
+  await socket.close();
+  _liveInstances['WebSocket'] = socket;
+
   await server.close();
   client.close();
 }
@@ -398,7 +419,7 @@ Future<void> _captureLiveHttpInstances() async {
 /// the connection-bound captures.
 Map<String, Object> _sweepInstances() => {
   ..._canonicalInstances(),
-  ..._liveHttpInstances,
+  ..._liveInstances,
 };
 
 /// A minimal enum so the `Enum` bridge has a canonical instance.
@@ -663,7 +684,7 @@ final _beyondAsyncProbes = <_Probe>[
 
 void main() {
   group('SCC24: native-name coverage', () {
-    setUpAll(_captureLiveHttpInstances);
+    setUpAll(_captureLiveInstances);
 
     test(
       'F-SCC24-1: every instance getter on every bridge returns a value that '
@@ -940,12 +961,13 @@ void main() {
       // stdio handles) or cannot be constructed at all (`OutOfMemoryError`,
       // `StackOverflowError`).
       //
-      // A live HTTP exchange used to be on that list, and no longer is. SCC62
-      // bridged six types whose getters return precisely the shapes this sweep
-      // exists to catch, four of which only exist inside a request handler, so
-      // `_captureLiveHttpInstances` now stands a loopback server up in
+      // A live connection used to be on that list, and no longer is. The HTTP
+      // server half and the WebSocket block between them added types whose
+      // getters return precisely the shapes this sweep exists to catch, five of
+      // which exist only inside a request handler or past a completed upgrade
+      // handshake, so `_captureLiveInstances` stands a loopback server up in
       // `setUpAll` and captures them. That is a real widening of what the suite
-      // does, taken because the alternative was to raise this baseline by four
+      // does, taken because the alternative was to raise this baseline by five
       // and lose the sweep over the newest and least-exercised bridges in the
       // tree. It does not generalise: a spawned process or a claimed stdin has
       // consequences past the end of the test, and a bound loopback socket that
@@ -971,7 +993,7 @@ void main() {
         reason:
             'A bridge with instance getters was added without a '
             'canonical instance in `_canonicalInstances` (or, for one that '
-            'needs a live connection, `_liveHttpInstances`), so F-SCC24-1 '
+            'needs a live connection, `_liveInstances`), so F-SCC24-1 '
             'cannot see it. Add one, or lower this baseline deliberately. '
             'Uncovered: ${uncovered.join(', ')}',
       );

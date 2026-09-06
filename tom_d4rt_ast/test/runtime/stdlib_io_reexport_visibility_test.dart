@@ -26,14 +26,13 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/convert.dart';
 /// `Environment` and a choice of which registrars to call — which is exactly
 /// what these tests do.
 ///
-/// NOT COVERED HERE, deliberately: 10 of the 32 names `dart:io` re-exports are
-/// still unreachable — what remains of the `dart:_http` surface once the
-/// request/response half is bridged, which is the WebSocket family plus the
-/// detail types (`HttpClientCredentials` shapes, `RedirectInfo`). That is a real
-/// gap, but a *bridging* gap (those classes are bridged nowhere at all), not the
-/// re-export gap SCB21 described. It is tracked separately rather than pinned
-/// here as a failing expectation, so that closing it does not require deleting
-/// assertions.
+/// NOT COVERED HERE, deliberately: 5 of the 32 names `dart:io` re-exports are
+/// still unreachable — the client-side detail types (`HttpDate`,
+/// `HttpOverrides`, `BadCertificateCallback`, `RedirectInfo`,
+/// `HttpClientResponseCompressionState`). That is a real gap, but a *bridging*
+/// gap (those classes are bridged nowhere at all), not the re-export gap SCB21
+/// described. It is tracked separately rather than pinned here as a failing
+/// expectation, so that closing it does not require deleting assertions.
 void main() {
   group('SCB21: the typed_data names are eager, so no import gates them', () {
     test('F-SCB21-AST-1: Stdlib.register alone defines the names SCB21 '
@@ -130,7 +129,7 @@ void main() {
       IoStdlib.register(env);
     });
 
-    // 18 of the 32 re-exported names resolve as real bridged *types*. They are
+    // 23 of the 32 re-exported names resolve as real bridged *types*. They are
     // pinned because the follow-up work that bridges the other names will touch
     // this registrar, and silently losing one would look like unrelated
     // breakage.
@@ -169,6 +168,20 @@ void main() {
       // class carrying only static getters, so the thing to assert is that the
       // *name* resolves to a bridge rather than to a callable.
       'HttpStatus',
+      // The WebSocket block (SCC63). The last group that was unreachable in its
+      // entirety rather than partly — nothing WebSocket-shaped was bridged, so
+      // unlike the rows above these five closed a gap no script could have been
+      // part-way through. `WebSocketStatus` and `CompressionOptions` are only
+      // ever reached through the socket itself, so they would have been the
+      // easiest to leave behind; pinning them here is what stops that. The
+      // handshake round trip is pinned script-level in
+      // `tom_d4rt/test/stdlib/io/websocket_test.dart` (DGUC6: this tree cannot
+      // run scripts).
+      'WebSocket',
+      'WebSocketTransformer',
+      'WebSocketException',
+      'WebSocketStatus',
+      'CompressionOptions',
       // Comes from the eager typed_data registrar rather than `IoStdlib`, but
       // lands in the same environment — which is the whole point above.
       'BytesBuilder',

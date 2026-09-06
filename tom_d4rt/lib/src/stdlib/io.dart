@@ -23,6 +23,7 @@ export 'package:tom_d4rt/src/stdlib/io/io_sink.dart';
 export 'package:tom_d4rt/src/stdlib/io/io_exception.dart';
 export 'package:tom_d4rt/src/stdlib/io/socket.dart';
 export 'package:tom_d4rt/src/stdlib/io/io_hierarchy.dart';
+export 'package:tom_d4rt/src/stdlib/io/websocket.dart';
 
 class IoStdlib {
   static void register(Environment environment) {

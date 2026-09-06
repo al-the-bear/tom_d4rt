@@ -53,11 +53,6 @@ const Map<String, String> kUnbridgedReasons = <String, String>{
   'Link':
       'deferred: symlink manipulation, would need FilesystemPermission '
       'path granularity and no consumer has asked',
-  'WebSocket': _webSocket,
-  'WebSocketTransformer': _webSocket,
-  'WebSocketException': _webSocket,
-  'WebSocketStatus': _webSocket,
-  'CompressionOptions': _webSocket,
   'gzip': _compression,
   'zlib': _compression,
   'GZipCodec': _compression,
@@ -78,11 +73,6 @@ const Map<String, String> kUnbridgedReasons = <String, String>{
 const String _zone =
     'zones intercept the control flow, scheduling and error '
     'handling the interpreter owns, so a bridged Zone would be a no-op shell';
-
-const String _webSocket =
-    'deferred: a large stateful surface (upgrade '
-    'handshake, ping/pong, close codes) behind NetworkPermission that no '
-    'current script exercises';
 
 const String _compression =
     'deferred: compression codecs, to be added on '

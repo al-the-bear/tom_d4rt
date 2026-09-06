@@ -96,12 +96,14 @@ void main() {
 
   group('SC11: deferred pending a concrete consumer', () {
     test('F-SC11-3: the dart:io entries are unreachable [2026-07-27]', () {
+      // `Link` is the last of them. `WebSocket` and the four names around it
+      // were asserted here until they were bridged; the assertion went with
+      // them, because this file pins the *doc's* deferred table and a name that
+      // has been built is no longer in it. That is the mechanism working —
+      // F-SCB30-3 derives the expected key set from the table, so removing the
+      // row without removing this case would have failed rather than gone
+      // quiet.
       expectUnbridged("Link('x')", 'Link', imports: "import 'dart:io';");
-      expectUnbridged(
-        "WebSocket.connect('ws://x')",
-        'WebSocket',
-        imports: "import 'dart:io';",
-      );
     });
 
     test('F-SC11-4: the compression codecs are unreachable under every '

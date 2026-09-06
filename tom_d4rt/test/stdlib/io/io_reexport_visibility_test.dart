@@ -27,14 +27,14 @@ import '../../interpreter_test.dart';
 /// permissive registry could just as easily have made everything visible to
 /// everyone, and that would NOT match Dart.
 ///
-/// NOT COVERED HERE, deliberately: 10 of the 32 names `dart:io` re-exports are
-/// still unreachable — what remains of the `dart:_http` surface once the
-/// request/response half is bridged, which is the WebSocket family plus the
-/// detail types (`HttpClientCredentials` shapes, `RedirectInfo`). That is a
-/// genuine gap, but it is a *bridging* gap (those classes are bridged nowhere
-/// at all), not the re-export gap SCB21 described. It is tracked separately
-/// rather than pinned here as a failing expectation, so that closing it does
-/// not require deleting assertions.
+/// NOT COVERED HERE, deliberately: 5 of the 32 names `dart:io` re-exports are
+/// still unreachable — the client-side detail types (`HttpDate`,
+/// `HttpOverrides`, `BadCertificateCallback`, `RedirectInfo`,
+/// `HttpClientResponseCompressionState`). That is a genuine gap, but it is a
+/// *bridging* gap (those classes are bridged nowhere at all), not the re-export
+/// gap SCB21 described. It is tracked separately rather than pinned here as a
+/// failing expectation, so that closing it does not require deleting
+/// assertions.
 void main() {
   group('SCB21: dart:io-only scripts can name the typed_data re-exports', () {
     test('F-SCB21-1: BytesBuilder is nameable and usable under dart:io alone '
@@ -142,7 +142,7 @@ void main() {
   });
 
   group('SCB21: the HTTP re-exports that are bridged stay reachable', () {
-    // 18 of the 32 re-exported names resolve as real bridged *types*. They are
+    // 23 of the 32 re-exported names resolve as real bridged *types*. They are
     // pinned because the follow-up work that bridges the other names will touch
     // this registrar, and silently losing one would look like unrelated
     // breakage.
@@ -179,6 +179,15 @@ void main() {
       // type rather than a callable. `http_exception_test.dart` covers the
       // constants themselves.
       'HttpStatus',
+      // The WebSocket block (SCC63). The last group that was unreachable in
+      // its entirety rather than partly — nothing WebSocket-shaped was bridged,
+      // so unlike the rows above these five closed a gap no script could have
+      // been part-way through. `websocket_test.dart` pins the handshake.
+      'WebSocket',
+      'WebSocketTransformer',
+      'WebSocketException',
+      'WebSocketStatus',
+      'CompressionOptions',
       // Reaches a dart:io script through the eager typed_data registrar rather
       // than through the io one — but from the script's side it is simply
       // another name that resolves.

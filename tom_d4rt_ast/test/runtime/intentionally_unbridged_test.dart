@@ -87,9 +87,11 @@ void main() {
   group('SC11: deferred pending a concrete consumer — dart:io', () {
     setUp(() => IoStdlib.register(env));
 
+    // `WebSocket` and the four names around it were listed here until they were
+    // bridged; they went with the doc row, because this list pins the *doc's*
+    // deferred table and a name that has been built is no longer in it.
     const deferred = <String>[
       'Link',
-      'WebSocket',
       'GZipCodec',
       'ZLibCodec',
       'ZLibEncoder',

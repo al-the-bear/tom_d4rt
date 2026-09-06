@@ -1,3 +1,57 @@
+## 0.50.0
+
+### Added — WebSockets (scc63)
+
+Mirrors `tom_d4rt` 1.61.0. `WebSocket` and the four names around it were bridged nowhere, so a script had
+no way to open one — `import 'dart:io'; WebSocket.connect(...)` failed with
+`Undefined variable: WebSocket`. Unlike most of the `dart:io` gaps closed
+recently, this one failed *loudly*: the block was absent in its entirety rather
+than half-built, so a script either had no WebSocket support or knew it. It is
+bridged for the capability, not to repair a lie.
+
+Five types are now bridged:
+
+- **`WebSocket`** — `connect` and the `fromUpgradedSocket` constructor; the
+  `Stream` side (`listen`) and the `StreamSink` side (`add`, `addUtf8Text`,
+  `addError`, `addStream`, `close`); the getters `readyState`, `extensions`,
+  `protocol`, `closeCode`, `closeReason`, `done` and a read/write
+  `pingInterval`; the four state constants and the static `userAgent`
+  property. The deprecated zero-argument constructor is deliberately omitted.
+- **`WebSocketTransformer`** — the `upgrade` and `isUpgradeRequest` statics that
+  turn a bridged `HttpRequest` into a socket, plus the factory and `bind` for
+  the stream-transformer form.
+- **`WebSocketException`** — `message` and `httpStatusCode`, with a supertype
+  edge to `IOException`. It is declared a *sibling* of `HttpException`, not a
+  child: a failed upgrade is not an HTTP error, and the extra hop would make
+  `on HttpException` swallow it.
+- **`WebSocketStatus`** — the thirteen close-code constants.
+- **`CompressionOptions`** — the per-message-deflate configuration, its
+  `compressionDefault` / `compressionOff` presets and five getters.
+
+`WebSocket` also gains supertype edges to `Stream` and `StreamSink`. It is the
+one class in `dart:io` that is both shapes without going through `IOSink`,
+because its sink element type is `String|List<int>` rather than bytes.
+
+Two things are worth knowing about the result:
+
+- **There is no permission gate**, matching the posture of the HTTP server half.
+  A `NetworkPermission` check on `WebSocket.connect` would look like a sandbox
+  and not be one — the same handshake is reachable through `Socket` plus
+  `WebSocket.fromUpgradedSocket`. Coherent network gating across `dart:io` is
+  tracked as its own work rather than approximated five names at a time.
+- **`extensions` always returns `''`.** The SDK hardcodes it
+  (`websocket_impl.dart`), so the getter cannot report whether
+  per-message-deflate was negotiated. The bridge reports what the SDK reports;
+  proving `CompressionOptions` reached the wire requires reading the
+  `sec-websocket-extensions` request header from the server side.
+
+`WebSocket.connect`'s `headers` argument is coerced rather than cast. A map
+literal written in a script is a `_Map<Object?, Object?>` whatever its entries
+hold, so an `as Map<String, dynamic>?` would have thrown a raw cast error before
+`connect` was reached — the one shape on this surface where a plain cast is
+wrong.
+
+
 ## 0.49.0
 
 ### Fixed — a script could start an HTTP server but not answer a request (scc62)

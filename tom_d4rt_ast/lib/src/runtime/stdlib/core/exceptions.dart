@@ -43,6 +43,11 @@ class ExceptionHierarchyCore {
       'FileSystemException': ['IOException'],
       'SocketException': ['IOException'],
       'HttpException': ['IOException'],
+      // `class WebSocketException implements IOException`. A sibling of
+      // `HttpException` rather than a child of it, despite arriving through the
+      // same `dart:_http` re-export: a failed upgrade is not an HTTP error, and
+      // declaring the extra hop would make `on HttpException` swallow it.
+      'WebSocketException': ['IOException'],
       // `class RedirectException implements HttpException` — one hop, not two.
       // The reach to `IOException` and `Exception` is the registry walk's job.
       'RedirectException': ['HttpException'],

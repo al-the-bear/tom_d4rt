@@ -877,8 +877,8 @@ These are recorded as **intentional limitations** with a per-class rationale in
 [d4rt_limitations.md § Intentionally-Unbridged SDK Classes](d4rt_limitations.md#intentionally-unbridged-sdk-classes),
 which distinguishes the ones that *cannot* be honoured (`Zone`, `Expando`,
 `WeakReference`, `Finalizer`) from the ones merely deferred until a consumer
-appears (`Link`, `WebSocket`, `GZipCodec`/`ZLibCodec`, `MutableRectangle`, the
-SIMD block). Each row is pinned by a case in
+appears (`Link`, `GZipCodec`/`ZLibCodec`, `MutableRectangle`, the SIMD block).
+Each row is pinned by a case in
 [`intentionally_unbridged_test.dart`](../test/stdlib/intentionally_unbridged_test.dart),
 so the table cannot silently go stale in the "someone bridged it" direction.
 
@@ -889,20 +889,31 @@ so the table cannot silently go stale in the "someone bridged it" direction.
 | `Finalizer` | dart:core | GC callbacks; sandbox-hostile. | Boundary — cannot be honoured |
 | `Zone` | dart:async | Full zone API is large and cross-cutting. | Boundary — cannot be honoured |
 | `Link` | dart:io | Symlinks — behind `FilesystemPermission`. | Deferred |
-| `WebSocket` (+ `WebSocketTransformer`, `WebSocketException`, `WebSocketStatus`, `CompressionOptions`) | dart:io | Behind `NetworkPermission`; larger surface. | Deferred **and** scoped as SCC63 — see below |
+| ~~`WebSocket`~~ ✅ bridged (+ `WebSocketTransformer`, `WebSocketException`, `WebSocketStatus`, `CompressionOptions`) | dart:io | Was deferred as a larger stateful surface. | Bridged — see below |
 | `GZipCodec` / `ZLibCodec` | dart:io | Compression; add if a consumer needs it. | Deferred |
 | `MutableRectangle` | dart:math | `Rectangle` present; mutable variant rarely typed. | Deferred |
 | The SIMD block (9 names) | dart:typed_data | Correct but pointless through an interpreter — see [Notes on the SIMD block](#notes-on-the-simd-block). | Deferred |
 
-**`WebSocket` is the one name that legitimately carries two records, and that
-is deliberate rather than an oversight.** It sits in the limitations table
-*and* has scoped work in SCC63, because the two serve different readers: a
-script author who hits `Undefined variable: WebSocket` needs to know the
-absence is known, and a developer needs the block's scope and its permission
-posture. The rule below permits this — what it forbids is a name with
-*neither* record. The 2026-09-03 reconciliation also widened the limitations
-row from `WebSocket` alone to all five names in the block, since the other
-four failed identically and pointed the reader nowhere.
+**Two things about the WebSocket block are worth carrying forward.**
+
+*It is ungated, and that is the coherent choice rather than a shortcut.* A
+`NetworkPermission` check on `WebSocket.connect` would look like a sandbox and
+not be one: the same handshake is reachable through `Socket` plus
+`WebSocket.fromUpgradedSocket`, and the server half through `ServerSocket` plus
+`HttpServer.listenOn`. Gating the front door while the side door stands open is
+worse than gating neither, because it invites the reader to trust it. The block
+therefore inherits the posture the HTTP server half settled on, and coherent
+network gating across all of `dart:io` is tracked as its own work rather than
+being approximated five names at a time.
+
+*`WebSocket.extensions` cannot report what was negotiated.* The SDK hardcodes
+`String get extensions => "";` in `websocket_impl.dart`, so the getter answers
+`''` whether or not per-message-deflate is in use. The bridge reports what the
+SDK reports; a test that wants to prove `CompressionOptions` reached the wire
+has to inspect the `sec-websocket-extensions` request header from the server
+side, which is what
+[`websocket_test.dart`](../test/stdlib/io/websocket_test.dart) does. This is an
+SDK limitation faithfully passed through, not a bridging gap to close.
 
 ## Notes on the error-type gap
 
@@ -1241,11 +1252,11 @@ Measured against a live environment, the 32 names split three ways:
 
 | Shape | Count | Names |
 | ----- | ----- | ----- |
-| Bridged as a real type | 18 | `HttpClient`, `HttpClientRequest`, `HttpClientResponse`, `HttpServer`, `HttpRequest`, `HttpResponse`, `HttpSession`, `HttpConnectionInfo`, `HttpConnectionsInfo`, `HttpHeaders`, `HeaderValue`, `ContentType`, `Cookie`, `SameSite`, `HttpException`, `RedirectException`, `HttpStatus`, `BytesBuilder` |
+| Bridged as a real type | 23 | `HttpClient`, `HttpClientRequest`, `HttpClientResponse`, `HttpServer`, `HttpRequest`, `HttpResponse`, `HttpSession`, `HttpConnectionInfo`, `HttpConnectionsInfo`, `HttpHeaders`, `HeaderValue`, `ContentType`, `Cookie`, `SameSite`, `HttpException`, `RedirectException`, `HttpStatus`, `WebSocket`, `WebSocketTransformer`, `WebSocketException`, `WebSocketStatus`, `CompressionOptions`, `BytesBuilder` |
 | Resolves as a callable, not a type | 4 | `HttpClientCredentials`, `HttpClientBasicCredentials`, `HttpClientBearerCredentials`, `HttpClientDigestCredentials` |
-| Not reachable at all | 10 | `HttpDate`, `BadCertificateCallback`, `HttpOverrides`, `WebSocketStatus`, `CompressionOptions`, `WebSocketTransformer`, `WebSocket`, `WebSocketException`, `HttpClientResponseCompressionState`, `RedirectInfo` |
+| Not reachable at all | 5 | `HttpDate`, `BadCertificateCallback`, `HttpOverrides`, `HttpClientResponseCompressionState`, `RedirectInfo` |
 
-The 10 are a **bridging** gap, not a re-export gap — those classes are
+The 5 are a **bridging** gap, not a re-export gap — those classes are
 bridged nowhere in either tree.
 
 The gaps this section used to carry that were worse than a plain missing name
@@ -1280,12 +1291,18 @@ that probes reachability with `.toString()` cannot see any of this — every
 name in scope answers `toString()` — which is why the counts above are
 taken from registration shape and `is`, not from name resolution.
 
-**Disposition: all 14 remaining names are Tracked**, and the three todos
-partition the 10 exactly — no name is in two, none is in none:
+The WebSocket block is the one group that was unreachable in its *entirety*
+rather than partly, so unlike the shapes above it never misled anyone — a
+script either had no WebSocket support or knew it. Its five names are now
+bridged; the two facts worth knowing about them (the absent permission gate and
+the SDK's hardcoded `extensions` getter) are under
+[P3](#p3--niche-or-questionable-sandbox-fit-audit-only-likely-skip).
+
+**Disposition: all 9 remaining names are Tracked**, and the two todos partition
+the 5 unreachable ones exactly — no name is in two, none is in none:
 
 | Names | Count | Tracked as |
 | ----- | ----- | ---------- |
-| `WebSocket`, `WebSocketTransformer`, `WebSocketException`, `WebSocketStatus`, `CompressionOptions` | 5 | SCC63 — **also** has a limitations row; see the note under [P3](#p3--niche-or-questionable-sandbox-fit-audit-only-likely-skip) |
 | `HttpDate`, `HttpOverrides`, `BadCertificateCallback`, `RedirectInfo`, `HttpClientResponseCompressionState` | 5 | SCC65 — the client-side leftovers |
 | The four credentials names | 4 | SCC64 — registered, but as callables rather than types |
 
@@ -1410,10 +1427,11 @@ places. So the guarantee is procedural: it holds because filling in a
 Disposition is part of adding a row, not because a test catches the omission.
 
 **The rule forbids the empty case, not the double one.** A name may legitimately
-carry both records — see `WebSocket` under P3, which needs a limitations row
-for the script author who hits the error *and* a tracked todo for the developer
-who will build the block. Requiring strict exclusivity would delete the row the
-script author needs the moment work is scheduled, which is exactly backwards.
+carry both records: a limitations row serves the script author who hits
+`Undefined variable: <it>` and needs to know the absence is known, while a
+tracked todo serves the developer who will build the thing. Requiring strict
+exclusivity would delete the row the script author needs the moment work is
+scheduled, which is exactly backwards.
 
 **Worked example of the failure.** The `dart:typed_data` SIMD block sat
 unbridged, untracked and undocumented — nine names in the "neither" state,
@@ -1455,18 +1473,19 @@ the six missing *classes* that produced them. It is now Boundary, with
    candidate of the same shape, `LineSplitter`, was not. SCC57 added the
    converse rule after a recipe for `Stdin` destroyed fd 0 for every later suite
    in the process: **a recipe must yield an object the audit owns.**
-6. **`dart:io`'s re-export surface is 10 names short** — what is left of the
-   `dart:_http` block once the server half is bridged, which is the WebSocket
-   family plus the detail types, none of it bridged anywhere. Separately, the
-   four credentials names need converting from `NativeFunction` to real bridges
-   so they work as types. Two blocks are done, and both were worth more than
-   their name count suggests, for the same reason: a missing name that is only
-   ever *reached* rather than *written* fails silently. Bridging
-   `HttpException`, `RedirectException`, `HttpStatus` and `IOException` turned
-   catch clauses that read as correct but were dead code into working handlers;
-   bridging `HttpRequest`/`HttpResponse`/`HttpSession`/`HttpConnectionInfo`/
+6. **`dart:io`'s re-export surface is 5 names short** — the client-side detail
+   types, bridged nowhere. Separately, the four credentials names need
+   converting from `NativeFunction` to real bridges so they work as types.
+   Three blocks are done. Two were worth more than their name count suggests,
+   for the same reason: a missing name that is only ever *reached* rather than
+   *written* fails silently. Bridging `HttpException`, `RedirectException`,
+   `HttpStatus` and `IOException` turned catch clauses that read as correct but
+   were dead code into working handlers; bridging
+   `HttpRequest`/`HttpResponse`/`HttpSession`/`HttpConnectionInfo`/
    `HttpConnectionsInfo`/`SameSite` turned the already-bridged `HttpServer` from
-   a name into something that can answer a request.
+   a name into something that can answer a request. The WebSocket block is the
+   exception that proves the point — it was absent in its entirety, so it failed
+   loudly, and it was bridged for the capability rather than to repair a lie.
 
 ## Method / reproducibility
 

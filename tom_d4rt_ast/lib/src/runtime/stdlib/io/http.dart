@@ -6,6 +6,7 @@ import 'package:tom_d4rt_ast/runtime.dart';
 import '../core/map.dart';
 import '../run_action.dart';
 import '../stream_listen.dart';
+import 'websocket.dart';
 
 class HttpClientIo {
   static BridgedClass get definition => BridgedClass(
@@ -1505,6 +1506,16 @@ class IoHttpStdlib {
     environment.defineBridge(HttpExceptionIo.definition);
     environment.defineBridge(RedirectExceptionIo.definition);
     environment.defineBridge(HttpStatusIo.definition);
+
+    // The WebSocket block (SCC63). Registered from here rather than from its
+    // own registrar because these names arrive through the same `dart:_http`
+    // re-export as everything above — a second registrar would make the import
+    // gate two things to keep in step instead of one.
+    environment.defineBridge(WebSocketIo.definition);
+    environment.defineBridge(WebSocketTransformerIo.definition);
+    environment.defineBridge(WebSocketExceptionIo.definition);
+    environment.defineBridge(WebSocketStatusIo.definition);
+    environment.defineBridge(CompressionOptionsIo.definition);
 
     // Define constructor functions for credentials
     environment.define(

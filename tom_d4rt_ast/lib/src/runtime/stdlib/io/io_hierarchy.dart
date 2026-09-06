@@ -62,6 +62,13 @@ class IoHierarchyIo {
       // satisfies both its own predicate and `IOSinkIo`'s, and with nothing
       // ordering them `_filterToMostSpecific` has no ground to drop the base.
       'HttpResponse': ['IOSink'],
+      // `abstract class WebSocket implements Stream<dynamic>,
+      // StreamSink<dynamic>` — the one class in the library that is both shapes
+      // without going through `IOSink`, because its sink element type is
+      // `String|List<int>` and not bytes. Listed with the sinks rather than
+      // twice; the `Stream` half carries the same dispatch argument as
+      // `HttpRequest` below.
+      'WebSocket': ['Stream', 'StreamSink'],
 
       // The stream sources. Each `implements Stream<T>` for its own element
       // type, which the registry does not model — the edge is on the raw name,
