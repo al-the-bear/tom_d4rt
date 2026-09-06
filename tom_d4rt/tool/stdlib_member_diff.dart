@@ -497,6 +497,27 @@ const _notAuditable = <String, String>{
   'HttpClientResponse':
       'requires a completed HTTP round trip, which does not '
       'finish inside the interpreter — the probe hangs rather than answering',
+  // The one entry here that is NOT a bridge defect, and the one that had to be
+  // learned the hard way. `Stdin` has no constructor: the only instance in
+  // existence is the process's own standard input, so a recipe cannot sandbox
+  // it the way `IOSink` sandboxes a file sink. That is survivable while `Stdin`
+  // exposes nothing but `readLineSync` and `hasTerminal`; it stops being
+  // survivable the moment `Stdin` gains a `Stream` supertype, because the probe
+  // then bare-reads `stdin.length`, `stdin.first`, `stdin.last` — and a bare
+  // read of a `Stream` getter SUBSCRIBES.
+  //
+  // Subscribing to fd 0 inside `dart test` does not fail the one probe; it
+  // destroys the file descriptor for the whole process, and every suite that
+  // registers `dart:io` afterwards dies in `IoStdioStdlib.register` with
+  // "Failed to get type of stdio handle (fd 0)". Measured: 82 unrelated
+  // failures in `test/stdlib` alone, none of them near the audit. The probe
+  // timeout does not help — the damage is done by the subscription, not by the
+  // hang it causes.
+  'Stdin':
+      'the only instance is the process\'s own standard input, which has '
+      'no constructor and cannot be sandboxed; a bare read of any inherited '
+      '`Stream` getter subscribes to fd 0 and destroys it for every later '
+      'suite in the same `dart test` process',
 };
 
 const _instanceRecipes = <String, Recipe>{
@@ -615,6 +636,13 @@ const _instanceRecipes = <String, Recipe>{
     'UnmodifiableListView<int>([1, 2])',
     imports: "import 'dart:collection';",
   ),
+  // The map sibling of the view above, missing for no reason other than that
+  // nobody had asked it a question — the list view was added when a `List` gap
+  // was being chased and its twin was not.
+  'UnmodifiableMapView': Recipe(
+    'UnmodifiableMapView<String, int>({\'a\': 1})',
+    imports: "import 'dart:collection';",
+  ),
   'LinkedList': Recipe('LinkedList()', imports: "import 'dart:collection';"),
   // The SDK's `LinkedListEntry` is abstract and exists to be subclassed; this
   // bridge models it as a concrete value carrier instead, so `LinkedListEntry(1)`
@@ -669,6 +697,58 @@ const _instanceRecipes = <String, Recipe>{
     '(ReceivePort()..close()).sendPort',
     imports: "import 'dart:isolate';",
   ),
+  // The `dart:io` / `dart:isolate` classes the hierarchy audit reported
+  // UNVERIFIED (SCC57). Each is a plain constructor call over values, so the
+  // reason they were missing is the same one that kept the `dart:core` recipes
+  // missing until SCC56: the member audit never needed an instance of them, and
+  // the hierarchy audit inherited its table rather than being given its own.
+  'OSError': Recipe("OSError('audit', 1)", imports: "import 'dart:io';"),
+  'ContentType': Recipe(
+    "ContentType('text', 'plain')",
+    imports: "import 'dart:io';",
+  ),
+  'RemoteError': Recipe(
+    "RemoteError('audit', 'stack')",
+    imports: "import 'dart:isolate';",
+  ),
+  // `File` and `Directory` are pure value objects until a method is called —
+  // the constructor stores a path and touches nothing. They read as
+  // resource-holding classes and are not; that misreading is why they had no
+  // recipe. A path that does not exist is fine, and is chosen deliberately so
+  // no probe can be tempted into I/O.
+  'File': Recipe(
+    "File('audit_probe_does_not_exist')",
+    imports: "import 'dart:io';",
+  ),
+  'Directory': Recipe(
+    "Directory('audit_probe_does_not_exist')",
+    imports: "import 'dart:io';",
+  ),
+  // The one genuinely resource-holding recipe added by SCC57. `IOSink` has no
+  // bridged constructor, and every other route to one is a SUBTYPE — `stdout`
+  // dispatches to the `Stdout` bridge, a connected socket to `Socket` — so a
+  // probe built on those would measure the wrong bridge's walk and report it
+  // under this class's name. `openWrite` is the only expression that yields a
+  // value whose sole matching bridge is `IOSink` itself.
+  //
+  // The scratch file goes under a project-local `ztmp/`, which the repo root
+  // gitignores at any depth, and is removed in the teardown. Never the system
+  // temp directory: a probe that leaks there leaks somewhere nobody looks.
+  'IOSink': Recipe(
+    '_auditSink()',
+    imports: "import 'dart:io';",
+    prelude:
+        'Future<IOSink> _auditSink() async {'
+        "  final d = Directory('ztmp');"
+        '  if (!d.existsSync()) { d.createSync(recursive: true); }'
+        "  return File('ztmp/audit_iosink.tmp').openWrite();"
+        '}',
+    teardown:
+        'await o.close(); '
+        "final f = File('ztmp/audit_iosink.tmp'); "
+        'if (f.existsSync()) { f.deleteSync(); }',
+    isAsync: true,
+  ),
   'ProcessSignal': Recipe('ProcessSignal.sigint', imports: "import 'dart:io';"),
   'InternetAddressType': Recipe(
     'InternetAddressType.IPv4',
@@ -688,7 +768,9 @@ const _instanceRecipes = <String, Recipe>{
     imports: "import 'dart:io';",
   ),
   'RawSocketEvent': Recipe('RawSocketEvent.read', imports: "import 'dart:io';"),
-  'Stdin': Recipe('stdin', imports: "import 'dart:io';"),
+  // `Stdin` is deliberately absent — see `_notAuditable`. `Stdout` stays: it is
+  // a sink, so a bare read of an inherited `IOSink` getter observes it without
+  // consuming anything.
   'Stdout': Recipe('stdout', imports: "import 'dart:io';"),
   'HttpClient': Recipe(
     'HttpClient()',
@@ -1198,18 +1280,40 @@ class HierarchyGap {
   bool verified = false;
   bool recipeUsable = false;
 
+  /// Why this class cannot be measured, from [_notAuditable]; null means a
+  /// recipe is merely missing.
+  ///
+  /// The member audit has printed this since SCC12 and the hierarchy audit did
+  /// not, which made the two modes disagree about what an unverified edge means:
+  /// members separated "cannot be measured, here is why" from "nobody wrote a
+  /// recipe", and the hierarchy report showed one number covering both. A blind
+  /// spot only visible in a todo is a blind spot twice.
+  String? notAuditableReason;
+
   Map<String, dynamic> toJson() => {
     'name': name,
     'nativeType': nativeTypeName,
     'hasIsAssignable': hasIsAssignable,
     'verified': verified,
     'recipeUsable': recipeUsable,
+    if (notAuditableReason != null) 'notAuditableReason': notAuditableReason,
     'missingEdges': missingEdges,
     'satisfiedAnyway': satisfiedAnyway,
     'unverifiedEdges': unverifiedEdges,
     'registeredEdges': registeredEdges,
   };
 }
+
+/// SDK implementation libraries, and the public library that re-exports each.
+///
+/// A `dart:_`-prefixed library cannot be imported by any program, so an import
+/// directive naming one does not resolve and the probe throws — which the
+/// hierarchy audit then scores UNVERIFIED. That is not a hypothetical: `dart:io`
+/// declares its whole HTTP surface in the patch library `dart:_http`, so
+/// `ContentType -> HeaderValue` reported as "no recipe written yet" while the
+/// recipe worked perfectly. A blind spot manufactured by the instrument is worse
+/// than the one it was built to find, because it names the wrong cause.
+const _sdkReexports = <String, String>{'dart:_http': 'dart:io'};
 
 /// The `dart:` library that declares [type], as an import directive.
 ///
@@ -1223,8 +1327,14 @@ String? _importForType(Type type) {
     if (t is! ClassMirror) return null;
     final owner = t.owner;
     if (owner is! LibraryMirror) return null;
-    final uri = owner.uri.toString();
+    final raw = owner.uri.toString();
+    final uri = _sdkReexports[raw] ?? raw;
     if (!uri.startsWith('dart:') || uri == 'dart:core') return null;
+    // An unmapped implementation library: emit nothing rather than something
+    // unresolvable. The supertype may still be in scope through the recipe's own
+    // imports, and if it is not the probe fails honestly instead of failing for
+    // a reason that has nothing to do with the edge.
+    if (uri.startsWith('dart:_')) return null;
     return "import '$uri';";
   } catch (_) {
     return null;
@@ -1335,6 +1445,7 @@ List<HierarchyGap> auditHierarchy(Environment env) {
 /// Publishing that as a defect would send someone to fix working code.
 Future<void> verifyHierarchy(HierarchyGap gap, Environment env) async {
   gap.verified = true;
+  gap.notAuditableReason = _notAuditable[gap.name];
   final recipe = _instanceRecipes[gap.name];
   if (recipe == null || !await recipeWorks(gap.name)) {
     gap.unverifiedEdges
@@ -1412,9 +1523,28 @@ Future<void> runHierarchyAudit(Environment env, List<String> args) async {
     '  ... satisfied anyway (isAssignable): '
     '${gaps.fold<int>(0, (s, g) => s + g.satisfiedAnyway.length)}',
   );
+  final unverifiedClasses = gaps
+      .where((g) => g.unverifiedEdges.isNotEmpty)
+      .toList();
+  final explained = unverifiedClasses
+      .where((g) => g.notAuditableReason != null)
+      .toList();
+  final unexplained = unverifiedClasses
+      .where((g) => g.notAuditableReason == null)
+      .toList();
   stdout.writeln(
     '  ... unverified (no instance recipe): '
     '${gaps.fold<int>(0, (s, g) => s + g.unverifiedEdges.length)}',
+  );
+  stdout.writeln(
+    '      ... with a stated reason:      '
+    '${explained.fold<int>(0, (s, g) => s + g.unverifiedEdges.length)} '
+    'in ${explained.length} classes',
+  );
+  stdout.writeln(
+    '      ... no recipe yet (unfinished): '
+    '${unexplained.fold<int>(0, (s, g) => s + g.unverifiedEdges.length)} '
+    'in ${unexplained.length} classes',
   );
   stdout.writeln('CONFIRMED missing edges:             $totalEdges');
   stdout.writeln('Classes with >=1 confirmed gap:      ${withGaps.length}');
@@ -1431,6 +1561,20 @@ Future<void> runHierarchyAudit(Environment env, List<String> args) async {
       '| ${g.missingEdges.join(', ')} '
       '| ${g.registeredEdges.isEmpty ? '—' : g.registeredEdges.join(', ')} |',
     );
+  }
+
+  if (unverifiedClasses.isNotEmpty) {
+    stdout.writeln('');
+    stdout.writeln('Why each unverified class cannot be measured:');
+    stdout.writeln('');
+    stdout.writeln('| Class | Unverified edges | Reason |');
+    stdout.writeln('| --- | --- | --- |');
+    for (final g in unverifiedClasses) {
+      stdout.writeln(
+        '| ${g.name} | ${g.unverifiedEdges.join(', ')} '
+        '| ${g.notAuditableReason ?? '**no recipe written yet**'} |',
+      );
+    }
   }
 
   final jsonIndex = args.indexOf('--json');

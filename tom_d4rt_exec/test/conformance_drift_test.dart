@@ -569,6 +569,26 @@ const Map<String, int> _uncoveredBaseline = {
   // 0.44.0. The floor is registered in [_pinnedInterpreterFloors]; do not rely
   // on this paragraph to be reread at the right moment.
   'stdlib/core/core_hierarchy_test.dart': 19,
+  // PUBLISH-BLOCKED, same shape as the entry above and for the same reason.
+  // `IoHierarchyIo` (15 edges) and `IsolateHierarchyIsolate` (3) are new library
+  // code in `tom_d4rt_ast` 0.46.0. Ported verbatim and run 2026-09-06 against
+  // the published 0.42.0 this copy gives 6 pass / 13 fail for the io file and
+  // 2 pass / 2 fail for the isolate one — the RED shape the reference tree
+  // showed before the fix, with every edge case failing and only the dispatch
+  // guards passing.
+  //
+  // F-SCC57-3 is the case worth naming, because on the old interpreter it fails
+  // for the instructive half. `stdout is IOSink` is already true there, answered
+  // by `IOSinkIo.isAssignable`; `stdout is StringSink` is false, because a
+  // predicate answers the pair it is asked about and does not walk. That is
+  // precisely what the case was written to pin, so it fails on its second
+  // expectation rather than its first — and a reader who checked only the first
+  // would conclude the block was already present.
+  //
+  // Port both and delete these entries in the commit that raises exec's floor
+  // past 0.45.0. The floors are registered in [_pinnedInterpreterFloors].
+  'stdlib/io/io_hierarchy_test.dart': 19,
+  'stdlib/isolate/isolate_hierarchy_test.dart': 4,
 };
 
 /// Why a [_divergentBaseline] entry is allowed to stand.
@@ -850,6 +870,15 @@ const Map<String, String> _pinnedInterpreterFloors = {
   // `is Iterable` and `is StringSink` assertion the block was written for. The 7
   // that pass are the dispatch guards, which is the point of their existing.
   'stdlib/core/core_hierarchy_test.dart': '0.44.0',
+  // SCC57 (tom_d4rt_ast 0.46.0) gave `dart:io` and `dart:isolate` their
+  // supertype edges — the last two libraries that had none. Measured 2026-09-06
+  // against the published 0.42.0: 13 of the io file's 19 cases and 2 of the
+  // isolate file's 4 fail. The survivors are the dispatch guards plus
+  // `File`/`Directory is FileSystemEntity` and `ContentType is HeaderValue`,
+  // which were already answered by predicates and are declared here only so the
+  // hierarchy reads from one place.
+  'stdlib/io/io_hierarchy_test.dart': '0.45.0',
+  'stdlib/isolate/isolate_hierarchy_test.dart': '0.45.0',
 };
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.

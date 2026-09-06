@@ -35,26 +35,28 @@ Class-level coverage is audited by hand; **member-level** and
   `addFirst`, the only members that are LinkedList's own) were then written by
   hand, so the class now measures complete. A mechanical cross-reference over all
   183 classes (`--hierarchy`) opened at **35 missing edges across 23
-  classes**, concentrated in `dart:convert`; the `dart:typed_data`,
-  `dart:convert` and `dart:core` blocks are now declared and the count stands at
-  **18 edges across 9 classes**, all of them in `dart:io` / `dart:isolate`. That
-  count went *up* before it came down — adding instance recipes let the audit
-  measure classes it had been reporting as unverified — so read
+  classes**, concentrated in `dart:convert`; every block — `dart:typed_data`,
+  `dart:convert`, `dart:core`, `dart:io` and `dart:isolate` — is now declared,
+  and the count stands at **0 confirmed edges and 0 unverified**. That count
+  went *up* before it came down — adding instance recipes let the audit measure
+  classes it had been reporting as unverified — so read
   [the movement table](#hierarchy-gaps--the-supertype-edge-audit) rather than
   the number, and read the hierarchy audit before treating any member-gap count
   as a work estimate.
-- **Member-level gaps stand at 231 across 13 classes, and 228 of those were
-  invisible until the audit could reach them.** A mechanical member diff over
-  all 181 registered classes (`tool/stdlib_member_diff.dart`) previously
-  confirmed only 3 — `ByteBuffer`'s SIMD views, *Boundary* by decision — because
-  every `dart:io` and `dart:isolate` class lacked an instance recipe and so was
+- **Member-level gaps stand at 13 across 7 classes, and the fall from 231 is
+  what closing the last hierarchy block bought.** A mechanical member diff over
+  all 183 registered classes (`tool/stdlib_member_diff.dart`) once confirmed
+  only 3 — `ByteBuffer`'s SIMD views, *Boundary* by decision — because every
+  `dart:io` and `dart:isolate` class lacked an instance recipe and so was
   reported UNVERIFIED rather than counted. Adding those recipes moved 228
-  members from "never executed" to "measured, and unreachable": 219 of them are
-  `Stream` members on seven stream-shaped classes, fixable by declaring
-  supertype edges rather than by writing adapters. **The count rose without a
-  single member being un-bridged**, which is the clearest statement this audit
-  can make about why an unverified bucket must never be counted as either
-  outcome.
+  members from "never executed" to "measured, and unreachable"; declaring the
+  `dart:io` supertype edges then moved 218 of those to *reachable*, because they
+  were `Stream` and `IOSink` members on stream- and sink-shaped classes that
+  simply had no edge to inherit through. **The count rose without a single
+  member being un-bridged, and fell without a single adapter being written** —
+  which is the clearest statement this audit can make about why an unverified
+  bucket must never be counted as either outcome, and about why an edge is worth
+  more than an adapter.
 - **The audit is a test now, not a chore.** `test/stdlib/member_coverage_baseline_test.dart`
   runs the full verified diff on every suite and fails when the per-class gap
   set moves — in either direction, with the members named. The gaps above had
@@ -228,8 +230,8 @@ a *verified* standing baseline affordable — phase 1 alone would not do, becaus
 removing a supertype edge flips members `reachable → confirmed`, an event phase 2
 catches and a candidate-only baseline cannot see at all.
 
-**The baseline pins three things and deliberately omits a fourth:** the 231
-confirmed gaps per class, the 37 members that cannot be measured, and the 75
+**The baseline pins three things and deliberately omits a fourth:** the 13
+confirmed gaps per class, the 74 members that cannot be measured, and the 85
 classes whose recipe yields an instance. The ~378 members reachable only via the
 supertype fallback are **not** pinned — one of them going bad presents as
 "confirmed and absent from the baseline" either way, so pinning them adds no
@@ -299,34 +301,43 @@ baseline.
 
 ### Current measured state
 
-Measured 2026-09-04.
+Measured 2026-09-06.
 
 | Metric | Count |
 |--------|-------|
-| Bridged classes examined | 181 |
-| Raw candidates from the map diff | 583 |
-| … reachable anyway via instance fallback | 378 |
-| … unverified — cannot be measured, reason stated | 37 in 3 classes |
+| Bridged classes examined | 183 |
+| Raw candidates from the map diff | 604 |
+| … reachable anyway via instance fallback | 580 |
+| … unverified — cannot be measured, reason stated | 74 in 4 classes |
 | … unverified — no recipe yet | **0** |
-| **CONFIRMED unreachable** | **231** |
-| Classes with ≥ 1 confirmed gap | 13 |
+| **CONFIRMED unreachable** | **13** |
+| Classes with ≥ 1 confirmed gap | 7 |
 
-**The confirmed count rose from 3 to 231 without a single member being
-un-bridged.** That is what closing the unverified bucket does: 228 members
-that no run had ever executed were measured for the first time, and they were
-already unreachable. The audit's headline number was previously describing
-only the measurable half of the surface — a `dart:io` gap could be introduced
-and no published figure would move.
+**The confirmed count went 3 → 231 → 13, and neither move touched an adapter.**
+The rise was the unverified bucket closing: 228 members that no run had ever
+executed were measured for the first time, and they were already unreachable.
+The fall was the `dart:io` supertype block being declared: 218 of those 228 were
+`Stream` and `IOSink` members on stream- and sink-shaped classes, and an
+inherited member becomes reachable the moment there is an edge to inherit
+through. Between those two figures nothing about the interpreter's *behaviour*
+changed twice — what changed was first what the audit could see, then what the
+registry could walk.
 
-The three classes still unverified are all HTTP-client-shaped and each carries
-its reason in the report: `HttpClientRequest` (1) and `HttpHeaders` (1) are
-hidden by the value `HttpClient.getUrl` yields being bridged as its supertype
-`IOSink`, so a recipe would measure the wrong bridge; `HttpClientResponse` (35)
-needs a completed round trip, which does not finish inside the interpreter.
+Read that as the standing warning it is: a headline number from this tool is a
+statement about the interpreter **and** about the instrument, and the two move
+independently.
+
+The four classes still unverified each carry their reason in the report.
+`HttpClientRequest` (1) and `HttpHeaders` (1) are hidden by the value
+`HttpClient.getUrl` yields being bridged as its supertype `IOSink`, so a recipe
+would measure the wrong bridge; `HttpClientResponse` (35) needs a completed
+round trip, which does not finish inside the interpreter. `Stdin` (37) is the
+odd one out and the only entry that is not a bridge defect — see
+[the `Stdin` exemption](#the-stdin-exemption-a-probe-that-destroys-the-process).
 UNVERIFIED here means "cannot be measured, here is why", not "nobody got to
 it".
 
-Of the 231, **zero** are operators and **one** is a universal `Object` member
+Of the 13, **zero** are operators and **one** is a universal `Object` member
 (`noSuchMethod`) — a statement this audit could not make before those two
 columns were verified rather than merely printed.
 
@@ -339,33 +350,35 @@ reason the unverified columns exist: the same sentence, printed while nineteen
 entries were still unmeasured, would have been true of the measurement and false
 about the interpreter.
 
-The 231 are overwhelmingly one shape. Seven `dart:io` / `dart:isolate` types
-that *are* streams account for 219 of them — `RawSocket` 38, `Stdin` 37,
-`HttpServer` 36, `RawDatagramSocket` 36, `RawServerSocket` 36, `ReceivePort` 26,
-`ServerSocket` 10. Each bridges `listen` and its own members, so `await for`
-works while the `Stream` combinators do not.
+**The 231 were overwhelmingly one shape, and that shape is now gone.** Seven
+`dart:io` / `dart:isolate` types that *are* streams accounted for 219 of them —
+`RawSocket` 38, `Stdin` 37, `HttpServer` 36, `RawDatagramSocket` 36,
+`RawServerSocket` 36, `ReceivePort` 26, `ServerSocket` 10. Each bridged `listen`
+and its own members, so `await for` worked while the `Stream` combinators did
+not. Declaring the edges closed all of them at once; what survives on those
+classes is `RawSocket.readMessage` / `sendMessage`, which are the class's own
+members and never had anything to do with streams.
 
-**The 219 are not one flat set, and the per-class counts are the clue.** Exactly
-ten members are confirmed missing on *all seven*:
+The per-class counts were the clue to why one table could do it. Exactly ten
+members were confirmed missing on *all seven*:
 
 ```text
 asBroadcastStream  asyncExpand  asyncMap  cast     distinct
 drain              handleError  pipe      reduce   timeout
 ```
 
-`ServerSocket` is missing **only** those ten — its bridge already carries `map`,
-`where`, `fold`, `toList`, `first` and the rest directly. The other six are
-missing that same ten *plus* the combinators `ServerSocket` chose to spell out.
-So the correct reading is not "the `Stream` surface is absent everywhere"; it is
-**one bridge was filled in by hand further than the others, and ten members
-defeated even that**. 216 of the 219 are `Stream` members; the remaining three
-are the classes' own (`RawSocket.readMessage`, `RawSocket.sendMessage`,
-`Stdin.supportsAnsiEscapes`) and have nothing to do with streams.
+`ServerSocket` was missing **only** those ten — its bridge already carried
+`map`, `where`, `fold`, `toList`, `first` and the rest directly. The other six
+were missing that same ten *plus* the combinators `ServerSocket` chose to spell
+out. So the reading was never "the `Stream` surface is absent everywhere"; it
+was **one bridge had been filled in by hand further than the others, and ten
+members defeated even that**.
 
-**The mechanism is now settled, and it is the cheap answer.** `BridgedClass`
-keeps a supertype registry, and `lookupOnBridgedSupertypes` — called from four
-dispatch sites in `InterpreterVisitor` — already walks it for both getters and
-methods. Registering the edge is therefore sufficient; measured directly:
+**The mechanism is the cheap one.** `BridgedClass` keeps a supertype registry,
+and `lookupOnBridgedSupertypes` — called from four dispatch sites in
+`InterpreterVisitor` — already walks it for both getters and methods.
+Registering the edge is therefore sufficient; measured directly, before and
+after:
 
 | Probe on a bound `ServerSocket` | No `→ Stream` edge | Edge registered |
 | --- | --- | --- |
@@ -373,11 +386,40 @@ methods. Registering the edge is therefore sufficient; measured directly:
 | `s.timeout(Duration(seconds: 1))` | throws `Undefined property or method` | `_ControllerStream<Socket>` |
 
 The `Stream` adapters unwrap with `(target as Stream)`, and all seven native
-types genuinely implement `Stream`, so the cast holds. **That makes the fix one
-registration table, not 219 adapters** — see scd38.
+types genuinely implement `Stream`, so the cast holds. **The fix was one
+registration table, not 219 adapters.**
 
-The candidate total fell from 610 to 583 without 27 members being registered
-one-for-one: registering a static removes it from the diff, and the tool also
+#### The `Stdin` exemption — a probe that destroys the process
+
+`Stdin` is the one class in `_notAuditable` that is not blocked by a bridge
+defect, and the reason is worth stating because it generalises.
+
+`Stdin` has no constructor. The only instance in existence is the process's own
+standard input, so — unlike `IOSink`, which the audit probes through a scratch
+file under `ztmp/` — there is no sandboxed substitute to build. That was
+survivable for as long as `Stdin` exposed nothing but `readLineSync` and
+`hasTerminal`. It stopped being survivable the moment `Stdin` gained its
+`-> Stream` edge, because the audit probes a member by *bare-reading* it, and a
+bare read of a `Stream` getter — `stdin.length`, `stdin.first`, `stdin.last` —
+**subscribes**.
+
+Subscribing to fd 0 does not fail one probe. It destroys the descriptor for the
+whole process, and because `dart test` runs VM suites as isolates in a single
+process, every suite that registers `dart:io` afterwards dies in
+`IoStdioStdlib.register` with `Failed to get type of stdio handle (fd 0)`.
+Measured while closing this block: **82 failures in `test/stdlib` alone**, none
+of them anywhere near the audit, all of them in suites that had nothing to do
+with the change. The probe timeout does not help — the damage is done by the
+subscription, not by the hang it causes.
+
+The general rule this leaves: **a recipe must yield an object the audit owns.**
+A recipe that hands back a process-global, single-consumer resource is not a
+measurement, it is a side effect on everything that runs later.
+
+The candidate total once fell from 610 to 583 without 27 members being
+registered one-for-one, and the mechanism is worth keeping even though later
+bridge work has moved the number since: registering a static removes it from
+the diff, and the tool also
 stopped emitting two categories of phantom gap (a bridged top-level function
 has no class surface to diff, and a `@Deprecated` SDK alias is not a gap).
 Both suppressions are category-level and annotation-driven, so the next alias
@@ -391,10 +433,22 @@ unattributed observation.
 | Class | Confirmed | Instance | Static | Assessment | Disposition |
 | --- | --- | --- | --- | --- | --- |
 | `ByteBuffer` | 3 | 3 | 0 | The three SIMD views (`asFloat32x4List`, `asInt32x4List`, `asFloat64x2List`). This row **understates the finding** — see [Notes on the SIMD block](#notes-on-the-simd-block); it is nine names, not three. | **Boundary** — [limitations doc](d4rt_limitations.md#intentionally-unbridged-sdk-classes) + `F-SCB29-1..4` |
+| `HttpClient` | 2 | 2 | 0 | `authenticateProxy`, `connectionFactory` — callback-typed setters, so each needs an interpreted closure handed back across the sandbox boundary rather than a value. | Tracked — scd161 |
+| `LinkedListEntry` | 2 | 2 | 0 | `insertAfter`, `insertBefore`. The entry bridge exists and its read surface is complete; the two mutators reach into the owning `LinkedList` and were never adapted. | Tracked — scd161 |
+| `Object` | 1 | 1 | 0 | `noSuchMethod`. Adapting it means synthesising an `Invocation` — which is itself unbridged — and re-entering the interpreter from inside dispatch. | Tracked — scd161 |
+| `RawSocket` | 2 | 2 | 0 | `readMessage`, `sendMessage` — file-descriptor passing over Unix domain sockets. The one residual pair on a class whose whole `Stream` surface SCC57 closed. | Tracked — scd161 |
+| `Stdout` | 2 | 2 | 0 | `lineTerminator`, `nonBlocking`. The second hands out a second `Stdout` bound to the same descriptor, which is the shape the `Stdin` exemption above says to be careful with. | Tracked — scd161 |
+| `StringConversionSink` | 1 | 1 | 0 | `asUtf8Sink`, the one member of the convert-sink block SCB23 did not reach. | Tracked — scd161 |
 
-One row, and it is the row that was never going to be closed by registering a
-member. Earlier revisions of this table carried five more — the static
-validation helpers, the `castFrom` family, the enum/symbol statics, a
+Seven rows and thirteen members, six of the rows added when SCC57's supertype
+edges stripped 218 inherited members off the total and left the classes' *own*
+gaps visible underneath. That is the useful property of the fall: the residue is
+no longer dominated by one shape, so each row now has to be read on its own
+terms rather than dismissed as more of the same.
+
+The `ByteBuffer` row is the one that was never going to be closed by
+registering a member. Earlier revisions of this table carried five more — the
+static validation helpers, the `castFrom` family, the enum/symbol statics, a
 four-member instance long tail, and a row of tool artifacts. All are gone: the
 first four were registered, and the last was never a gap at all.
 
@@ -600,21 +654,29 @@ every edge.
 **Candidates are then verified**, for the same reason the member diff
 verifies its own: a static cross-reference over-reports badly. Each candidate
 is driven through the interpreter as `o is Supertype` and kept only if the
-answer is actually `false`. Measured 2026-09-06, after the `dart:core` edges
-were declared:
+answer is actually `false`. Measured 2026-09-06, after the `dart:io` and
+`dart:isolate` edges were declared:
 
 | Metric | Count |
 |--------|-------|
 | Bridged classes examined | 183 |
 | … declaring `isAssignable` | 157 |
-| … with ≥ 1 registered edge | 90 |
-| Candidate edges from the cross-reference | 38 |
-| … satisfied anyway via `isAssignable` | 3 |
-| … unverified (no instance recipe) | 17 |
-| **CONFIRMED missing edges** | **18** |
-| Classes with ≥ 1 confirmed gap | 9 |
+| … with ≥ 1 registered edge | 108 |
+| Candidate edges from the cross-reference | 0 |
+| … satisfied anyway via `isAssignable` | 0 |
+| … unverified (no instance recipe) | 0 |
+| **CONFIRMED missing edges** | **0** |
+| Classes with ≥ 1 confirmed gap | 0 |
 
-This table has now been measured five times, and the movement is worth keeping
+**The cross-reference proposes nothing.** That is a stronger statement than
+"zero confirmed": a candidate is any SDK supertype relation the registry has not
+been told about, so an empty candidate set means the registry now knows every
+relation the mirror can see across all 183 classes. It does not mean the
+registry is *complete* — the cross-reference is bounded by what `dart:mirrors`
+reports on the bridged native types — but there is no longer any measurement
+debt hiding behind the number.
+
+This table has now been measured seven times, and the movement is worth keeping
 because each step separates a *repair* from a change in what the audit can see
 — the two are indistinguishable from the confirmed count alone, and reading
 them as the same thing is the standing hazard of this section.
@@ -627,6 +689,8 @@ them as the same thing is the standing hazard of this section.
 | Re-measured with the SCC12 io recipes | 52 | 5 | 21 | 26 | 16 |
 | After four dart:core recipes (SCC56) | 52 | 6 | 17 | 29 | 19 |
 | After the dart:core edges (SCC56) | 38 | 3 | 17 | **18** | 9 |
+| After six dart:io recipes (SCC57) | 38 | 6 | 7 | 25 | 13 |
+| After the dart:io / dart:isolate edges (SCC57) | **0** | 0 | 0 | **0** | 0 |
 
 - **35 → 24 confirmed** was the eleven typed-data `-> Iterable` edges;
   **24 → 4** is the twenty convert codec/converter edges. Those are repairs.
@@ -652,98 +716,108 @@ them as the same thing is the standing hazard of this section.
   cross-reference only proposes an edge that is not already registered — so
   declaring an edge that was *already true by fallback*, or one that was merely
   *unverified*, also removes it from the candidate set.
-- **Satisfied-anyway went 11 → 0 → 6 → 3.** The eleven were the typed lists'
-  `-> List`. Three of the six were `int -> num`, `double -> num` and
-  `RegExpMatch -> Match`, now backed by declared edges. The three left are
-  `Socket -> IOSink`, `Stdout -> IOSink` and `SendPort -> Capability`: true via
-  the `isAssignable` fallback with nothing declared behind them, which is
-  exactly the state the typed lists were in.
+- **18 → 25 is the eyesight effect a third time**, and the last time it can
+  happen: the six `dart:io` recipes (`OSError`, `ContentType`, `RemoteError`,
+  `File`, `Directory`, and the sandboxed `IOSink`) moved ten edges out of
+  unverified, seven of which measured false. Nothing was un-bridged to produce
+  that rise.
+- **25 → 0 is the repair, and it is the largest single one in the table.**
+  `IoHierarchyIo` declares fifteen edges and `IsolateHierarchyIsolate` three;
+  between them they remove all 38 remaining candidates, because the walk
+  composes what they declare. `Socket -> IOSink` plus `IOSink -> {StreamSink,
+  StringSink}` plus the `dart:async` edges SCC49 had already put in place answer
+  six questions from two declarations.
+- **Satisfied-anyway went 11 → 0 → 6 → 3 → 6 → 0.** The eleven were the typed
+  lists' `-> List`. Three of the six were `int -> num`, `double -> num` and
+  `RegExpMatch -> Match`. The 3 → 6 step is the six `dart:io` recipes making
+  visible what was already true: `File`/`Directory -> FileSystemEntity` and
+  `ContentType -> HeaderValue` had been answered by predicates all along, and
+  simply could not be seen before there was an instance to ask. All six are now
+  declared, which is why the bucket empties rather than merely shrinking.
 
 That satisfied-anyway bucket is the argument for running a verification pass at
 all: published as unverified, those entries would send someone to fix behaviour
-that already works.
+that already works. Every entry that ever entered it was eventually declared
+anyway — not because the answer was wrong, but because an answer that lives in a
+predicate three files away cannot be read as a hierarchy, and because a
+predicate answers one hop and then stops.
 
-### Confirmed gaps, by hierarchy
+### Confirmed gaps, by hierarchy: none left
 
-| Hierarchy | Classes | Missing edges | Members also lost? | Disposition |
-| --- | --- | --- | --- | --- |
-| `dart:io` byte sinks | `Socket`, `Stdout` | `-> IOSink`'s five: `EventSink`, `Sink`, `StreamConsumer`, `StreamSink`, `StringSink` | Not measured — the member audit covers both classes and reports no gap | SCC57 |
-| `dart:io` / `dart:isolate` stream sources | `HttpServer`, `RawDatagramSocket`, `RawServerSocket`, `RawSocket`, `ReceivePort`, `ServerSocket`, `Stdin` | `-> Stream` | No | SCC57 |
+The table that stood here is empty. Every hierarchy it ever listed has been
+closed: the eleven typed-data `-> Iterable` edges by SCB20/SCC55, the twenty
+`dart:convert` codec and converter edges by SCB23 (see *Notes on the convert
+hierarchy* below), the `dart:core` comparables and patterns by SCC56,
+`StreamController -> Sink` by SCC49, and the `dart:io` byte sinks and
+`dart:io` / `dart:isolate` stream sources by SCC57.
 
-All nine remaining classes are in `dart:io` or `dart:isolate`, and all nine
-declare an `isAssignable` — which is why they are measurable at all, and why
-declaring their edges needs the same dispatch check `dart:core` got.
+The last two are worth keeping the reasoning for, because they are the clearest
+demonstration of what a registered edge buys that a predicate does not.
 
-`Socket` is the instructive row: it is `implements Stream<Uint8List>, IOSink`,
-the audit reports `-> IOSink` as *satisfied anyway* (the `IOSink` bridge's own
-predicate answers it) and the five edges `IOSink` itself carries as **missing**
-— because a fallback that answers one hop does not walk. Declaring
-`Socket -> IOSink` and `IOSink -> {EventSink, Sink, StreamConsumer,
-StreamSink, StringSink}` closes six edges with two declarations, and is the
-same partial-edge-set failure mode `StreamController` used to show.
+`Socket` is `implements Stream<Uint8List>, IOSink` — the one class in `dart:io`
+that is both shapes at once. Before SCC57 the audit reported `Socket -> IOSink`
+as *satisfied anyway*, because the `IOSink` bridge's own `isAssignable` answers
+it, and reported the five edges `IOSink` itself carries as **missing**. Both
+readings were correct at once: **a fallback answers the pair it is asked about
+and then stops; only a registered edge continues up the target's own
+supertypes.** So `socket is IOSink` was true while `socket is StringSink` was
+false, and the one answer anybody spot-checked was the true one. That is why the
+gap survived inspection for as long as it did, and it is pinned as an assertion
+about the mechanism — not about `dart:io` — in `F-SCC57-3`.
 
-The rows this table used to carry are all closed: the three `dart:convert`
-ones by SCB23 (see *Notes on the convert hierarchy* below), the `dart:core`
-comparables by SCC56, and `StreamController -> Sink` by SCC49 — the last of
-those closed as a side effect of the `EventSink -> Sink` edge, since the walk
-now reaches `Sink` through it.
+The repair is correspondingly cheap. `Socket -> IOSink`, plus `IOSink ->
+{StreamSink, StringSink}`, plus the `StreamSink -> {EventSink, StreamConsumer}`
+and `EventSink -> Sink` edges `dart:async` already carried from SCC49, answer
+six questions from two new declarations. Nothing in that chain is restated; the
+registry walks it.
 
-### The 17 unverified edges are the audit's own blind spot
+### The audit's blind spot is closed in both modes
 
-Eight classes carry candidate edges that could not be tested because
-`_instanceRecipes` has no usable entry for them:
+The hierarchy audit's unverified bucket — candidate edges that could not be
+tested because `_instanceRecipes` had no usable entry for the class — stood at
+17 across eight classes before SCC57 and is now **zero**. Six recipes closed
+ten of them (`OSError`, `ContentType`, `RemoteError`, `File`, `Directory`, and a
+sandboxed `IOSink` obtained from `File.openWrite()` under `ztmp` and closed in a
+`finally`); declaring the edges removed the rest from the candidate set
+entirely.
 
-| Class | Unverified edges |
-| --- | --- |
-| `HttpClientRequest` | `EventSink`, `IOSink`, `Sink`, `StreamConsumer`, `StreamSink`, `StringSink` |
-| `IOSink` | `EventSink`, `Sink`, `StreamConsumer`, `StreamSink`, `StringSink` |
-| `Directory`, `File` | `FileSystemEntity` |
-| `HttpClientResponse` | `Stream` |
-| `ContentType` | `HeaderValue` |
-| `OSError` | `Exception` |
-| `RemoteError` | `Error` |
+Keeping that bucket separate rather than resolving it by guess is what made the
+closure safe, and the `dart:convert` group is the standing argument for it.
+SCB23 probed all eleven encoder/decoder pairs directly — they construct with a
+no-argument constructor the recipe table simply did not know about — and every
+one was missing its `-> Converter` edge, exactly as the shared shape suggested.
+But `LineSplitter`, in the same group with the same shape and listed alongside
+them, is `extends StreamTransformerBase` and not a `Converter` at all. Folding
+the bucket into "confirmed" would have declared one wrong edge in twelve: a
+false `is` answer turned into a confidently wrong `true`, which is worse than
+the gap it replaced.
 
-They are reported as their own bucket rather than folded into either answer,
-because both readings would be a guess.
+The member audit's own bucket is closed the same way, at 74 members across four
+classes, each carrying a stated reason. Both audits now report zero entries
+whose reason is "no recipe written yet" — the distinction that matters, since
+an unmeasurable class with a reason is a documented boundary while one without
+is unfinished work.
 
-The `dart:convert` encoder/decoder pairs used to be the largest group here,
-and their fate is the argument for keeping the bucket separate rather than
-resolving it by guess. SCB23 probed all eleven directly (they construct with
-a no-argument constructor, which the audit's recipe table simply did not
-know) and every one was missing its `-> Converter` edge, exactly as the same
-shape suggested. But `LineSplitter` — in the same group, the same shape,
-listed alongside them — is `extends StreamTransformerBase`, not a `Converter`
-at all. Folding the bucket into "confirmed" would have declared one wrong
-edge in twelve, which is a worse outcome than the gap: a false `is` answer
-that becomes a confidently wrong `true`.
+Not every class can be given a recipe, and SCC57 established the rule for when
+one must be refused: **a recipe must yield an object the audit owns.** See
+*The `Stdin` exemption* above for the case that produced it.
 
-Closing that bucket means extending the recipe table, not writing probes —
-the same rule the member diff follows. Some entries are deliberately hard:
-the `dart:io` sockets and servers are omitted on purpose rather than have the
-audit open listening ports, so those need a recipe that constructs without
-binding, or an explicit "not auditable" marker.
+### Why the fixes land in registrars, not in probes
 
-**Disposition:** Tracked — SCC57 for these 17 edges. The member-diff half of
-this debt is **closed**: its unverified bucket is down to 37 entries, every one
-of them carrying a stated reason for being unmeasurable. Measurement debt is
-not a bridging decision — while it stands, "confirmed" is a lower bound and no
-entry inside it can be given a Boundary disposition, because nobody has
-established it is a gap. The hierarchy audit is still in that position; the
-member audit no longer is.
+Each hierarchy needs its own dispatch verification — the SC7 queue case showed
+that adding edges changes which bridge *owns* a native, and
+`_filterToMostSpecific` can newly drop a match that used to win. Every
+hierarchy block therefore ships with a "dispatch is unchanged" group alongside
+its edge cases, reading members that exist on the subtype only.
 
-### Why these are filed rather than fixed here
-
-Each hierarchy needs its own dispatch verification — the SC7 queue case
-showed that adding edges changes which bridge *owns* a native, and
-`_filterToMostSpecific` can newly drop a match that used to win. The edges must
-also land in both trees (`CollectionHierarchyCollection`,
-`ConvertHierarchyConvert` and `CoreHierarchyCore` are byte-identical between
-`tom_d4rt` and `tom_d4rt_ast` today; any new registrar must stay that way). The
-audit's job is to make the list complete and repeatable; the fixes are tracked
-in the **Disposition** column of the confirmed-gaps table above.
-"Tracked separately" without naming the tracker is what
-[the disposition rule](#the-disposition-rule--read-this-before-adding-a-row)
-now forbids.
+The edges must also land in both trees: `CollectionHierarchyCollection`,
+`ConvertHierarchyConvert`, `CoreHierarchyCore`, `IoHierarchyIo` and
+`IsolateHierarchyIsolate` are byte-identical between `tom_d4rt` and
+`tom_d4rt_ast` today, and any new registrar must stay that way. A registrar
+runs **last** in its library's `register`, because the registry keys on name and
+every bridge an edge refers to must already be defined — including the ones that
+point out of the library, which is why the block lives beside the library rather
+than beside any one bridge.
 
 ## Not a gap: relaxer false-alarms (already fixed)
 
@@ -1348,26 +1422,24 @@ the six missing *classes* that produced them. It is now Boundary, with
    [d4rt_limitations.md](d4rt_limitations.md#intentionally-unbridged-sdk-classes).
    Several are sandbox-hostile by design and will stay out; the rest wait
    for a concrete consumer.
-4. **The hierarchy gaps are confined to `dart:io` / `dart:isolate`** — 18
-   confirmed missing edges across 9 classes. The blocks were filed per
-   hierarchy rather than as one change, because each alters bridge
-   *ownership* and needs its own dispatch verification; `dart:typed_data`
-   (11 edges), `dart:convert` (20 edges, plus the `Encoding.decodeStream`
-   adapter) and `dart:core` (12 edges) are all closed, as is
-   `StreamController -> Sink`, which the `EventSink -> Sink` edge reached
-   without being declared for it. What remains is one shape repeated nine
-   times: seven stream-shaped classes missing `-> Stream`, and `Socket` and
-   `Stdout` missing the five edges `IOSink` carries.
-5. **Close the audit's blind spot** — 17 candidate *edges* still sit
-   UNVERIFIED for want of an instance recipe, so "confirmed" remains a lower
-   bound on the hierarchy audit. The *member* audit's blind spot is closed:
-   extending the recipe table moved 228 members out of UNVERIFIED and every
-   one of them was a real gap, which took the confirmed count from 3 to 231.
-   That is the vindication of the rule that only a recipe may empty this
-   bucket. `dart:convert` is the worked example of why it matters in both
-   directions: SCB23 probed eleven unverified encoder/decoder pairs by hand
-   and every one was a real gap — but the twelfth candidate of the same
-   shape, `LineSplitter`, was not.
+4. **The hierarchy audit is closed** — zero candidates, zero confirmed, across
+   183 classes. The blocks were filed per hierarchy rather than as one change,
+   because each alters bridge *ownership* and needs its own dispatch
+   verification: `dart:typed_data` (11 edges), `dart:convert` (20 edges, plus
+   the `Encoding.decodeStream` adapter), `dart:core` (12 edges), `dart:async`'s
+   `StreamController -> Sink`, and finally `dart:io` (15 edges) and
+   `dart:isolate` (3). The last block is the one to remember: its fifteen
+   declarations closed 25 confirmed edges, because the walk composes them and
+   because `dart:async` had already declared the three hops behind `IOSink`.
+5. **Both audits' blind spots are closed** — no candidate edge and no candidate
+   member now sits UNVERIFIED for want of a recipe. What remains unmeasurable
+   carries a stated reason: 74 members on 4 classes, and no edges at all.
+   Only a recipe may empty this bucket, never a guess, and `dart:convert` is
+   the worked example of why in both directions: SCB23 probed eleven unverified
+   encoder/decoder pairs by hand and every one was a real gap — but the twelfth
+   candidate of the same shape, `LineSplitter`, was not. SCC57 added the
+   converse rule after a recipe for `Stdin` destroyed fd 0 for every later suite
+   in the process: **a recipe must yield an object the audit owns.**
 6. **`dart:io`'s re-export surface is 19 names short** — the whole
    `dart:_http` server/WebSocket block plus `HttpStatus`, none of them
    bridged anywhere. Highest value per unit of work is `HttpException` +
