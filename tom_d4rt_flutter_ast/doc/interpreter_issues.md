@@ -4197,6 +4197,69 @@ work.
 `is <FlutterType>` guard and so cannot exercise the widening). A
 completeness pass over the full corpus is tracked separately.
 
+**Amendment, 2026-09-06 (SCC47) — the ext_23 "fail → skip" was a
+regression in measurement, and one of the two skips was wrong.** The
+table above reads `+44 ~1 -1` → `+44 ~2` as an improvement in the same
+breath as calling it "not a pass". It is neither: the pass count did not
+move, so a *measured failure became an unmeasured skip*. In a file whose
+group is "Tests with workarounds reverted retest" — a group that exists
+precisely to keep failures visible — a skip is the opposite of the signal
+wanted. SCC47 re-derived the provenance of both skips from git rather
+than from the test bodies:
+
+| Skip | Origin | Verdict |
+| --- | --- | --- |
+| `dart_ui/system_color_palette_test.dart` | inherited at the 2026-06-08 corpus split (`61079635b`) — this is the baseline's `~1` | **wrong; removed** |
+| `rendering/render_android_view_test.dart` | added by `7817bcc31`, 2026-06-24 — the `-1` → `~2` transition itself | **correct; kept** |
+
+*The SystemColor skip accused the interpreter falsely.* Its comment
+claimed "the d4rt bridge wraps the native `UnsupportedError` in a way
+that the script's `catch (e)` does not reliably intercept". That is not
+true, and was disproved two ways. First by measurement:
+`tom_d4rt/test/scc47_bridged_throw_catchable_test.dart` and its AST-line
+twin `tom_d4rt_exec/test/scc47_bridged_throw_catchable_test.dart` throw
+`UnsupportedError` from a bridged static getter, static method, instance
+getter and instance method, and assert each is caught both by a bare
+`catch (e)` and by `on UnsupportedError` — 5/5 green on both lines.
+Second by the SDK source: in `sky_engine`'s `platform_dispatcher.dart`,
+`SystemColor.light` and `.dark` are **non-throwing `static final`
+fields**; every *palette member* getter (`canvas`, `accentColor`, …) is
+what throws off-web. The script had guarded the acquisition — which can
+never throw — and read the members unguarded outside the `try`. Compiled
+Flutter fails that script identically. It was a script defect, and the
+skip was masking it behind a platform-sounding justification that also
+libelled the interpreter.
+
+The script now gates on `ui.SystemColor.platformProvidesSystemColors` and
+touches one member inside the `try` to prove the palette is readable, not
+merely constructible. It passes measured (`status=success httpStatus=200
+frameworkErrors=0`). Because `tom_d4rt_flutter` reads the AST twin's
+script corpus (`send_test_runner.dart` → `../tom_d4rt_flutter_ast/…`),
+the fix lands on both twins from one edit.
+
+*The AndroidView skip is correct and stays.* It guards an **uncatchable**
+Objective-C `NSInvalidArgumentException` raised inside
+`-[FlutterPlatformViewController handleMethodCall:result:]`, which kills
+the companion app outright; the death then fails the *next* test's
+`/clear` with `httpStatus=-1`. No interpreter change can observe or
+survive it, so this is a genuine host-capability guard, now annotated as
+such in both twins' `flutter_extended_23_test.dart`.
+
+**New measurement**, both twins run serially: `+41 ~1 -4`, against the
+`+40 ~2 -4` this entry recorded. Pass +1, skip −1, fail unchanged. All
+four residual failures are GEN-125 (`FunctionRuntimeType.isSubtypeOf`
+identifies `Function` by name, but a function typedef is bridged as
+`BridgedClass(nativeType: Function, name: <typedef>)`), already filed
+under SCC46 as `scd136` — no new defect.
+
+**Methodology takeaway.** A skip carries a claim, and the claim is not
+evidence. Reading this entry's own `~2` as benign, and the skip comment
+as authoritative, would have filed a bogus interpreter cluster; the
+probe run's failure text even superficially agreed with the comment.
+Establish provenance from `git log -S` on the skip string, and confirm
+the mechanism against the SDK source, before accepting a skip's stated
+reason.
+
 ---
 
 ## How clusters were derived

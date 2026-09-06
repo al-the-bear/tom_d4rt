@@ -828,20 +828,44 @@ dynamic build(BuildContext context) {
   final provides = ui.SystemColor.platformProvidesSystemColors;
   print('platformProvidesSystemColors: $provides');
 
-  // D4RT-LIMITATION: Platform capability - SystemColor not supported on all platforms (e.g., Linux)
-  // Wrap SystemColor access in try-catch to handle unsupported platforms gracefully.
+  // NOT a d4rt limitation — a genuine Flutter platform limitation, and the
+  // guard below has to be placed where the throw actually is. `SystemColor.light`
+  // and `.dark` are non-throwing `static final` fields (sky_engine
+  // platform_dispatcher.dart): they always hand back a SystemColorPalette. It is
+  // every PALETTE MEMBER getter (canvas, canvasText, accentColor, ...) that
+  // throws `UnsupportedError` while `platformProvidesSystemColors` is false —
+  // which it is on every non-web platform. So a try/catch around the two
+  // acquisitions is inert, and the unguarded member reads further down abort
+  // the build. Compiled Flutter on macOS fails this exact way too.
+  //
+  // Gate on the API's own capability probe, which is precisely what the
+  // "Usage Example" card in this file recommends. The try/catch is kept so a
+  // platform that advertises support but still throws is reported rather than
+  // crashing the build.
   ui.SystemColorPalette? light;
   ui.SystemColorPalette? dark;
   String? platformError;
-  
-  try {
-    light = ui.SystemColor.light;
-    dark = ui.SystemColor.dark;
-  } catch (e) {
-    platformError = e.toString();
+
+  if (provides) {
+    try {
+      light = ui.SystemColor.light;
+      dark = ui.SystemColor.dark;
+      // Touch one member: proves the palette is genuinely readable, not just
+      // constructible, before the sections below read it unguarded.
+      light.canvas;
+    } catch (e) {
+      light = null;
+      dark = null;
+      platformError = e.toString();
+      print('WARNING: SystemColor not supported on this platform: $platformError');
+    }
+  } else {
+    platformError =
+        'UnsupportedError: SystemColor not supported on the current platform '
+        '(platformProvidesSystemColors == false)';
     print('WARNING: SystemColor not supported on this platform: $platformError');
   }
-  
+
   // If SystemColor is not supported, show a fallback UI
   if (light == null || dark == null) {
     print('\n=== SystemColorPalette Demo Complete (unsupported platform) ===');

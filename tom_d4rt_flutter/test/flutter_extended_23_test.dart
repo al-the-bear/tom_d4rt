@@ -72,21 +72,22 @@ void main() {
         );
         expectSuccess(result);
       },
-      skip: (Platform.isLinux || Platform.isMacOS || Platform.isWindows)
-          // SystemColor is only populated on web (Chrome, Safari, Firefox,
-          // Edge); on every desktop platform `SystemColor.platformProvidesSystemColors`
-          // is false and accessing `.light` / `.dark` throws
-          // `UnsupportedError`. The original (non-retest) script handles
-          // this by gating on `platformProvidesSystemColors` and rendering
-          // a fallback widget — the retest version has that workaround
-          // reverted and relies on `try/catch (e)` around `.light` / `.dark`
-          // alone. The d4rt bridge wraps the native `UnsupportedError` in a
-          // way that the script's `catch (e)` does not reliably intercept,
-          // so the build endpoint surfaces HTTP 400 and the test fails. The
-          // skip mirrors the underlying platform reality: this retest can
-          // only succeed on web, where the API is genuinely populated.
-          ? 'SystemColor not supported on desktop platforms (web-only API)'
-          : null,
+      // SCC47 (2026-09-06): this test used to carry
+      //   skip: 'SystemColor not supported on desktop platforms (web-only API)'
+      // whose comment blamed the d4rt bridge for "wrapping the native
+      // UnsupportedError so the script's catch (e) does not intercept it".
+      // That accusation was false. tom_d4rt{,_ast}'s
+      // scc47_bridged_throw_catchable_test.dart shows a throwing bridged
+      // static getter / static method / instance getter / instance method is
+      // caught by interpreted `catch (e)`, and by `on UnsupportedError` too.
+      //
+      // The real cause was a mis-placed guard in the script: `SystemColor.light`
+      // and `.dark` are non-throwing `static final` fields, so the try/catch
+      // wrapped around them could never fire, while the PALETTE MEMBER reads
+      // below it (canvas, canvasText, ...) throw on every non-web platform and
+      // ran unguarded. Compiled Flutter fails identically. The script now gates
+      // on `platformProvidesSystemColors` — the probe its own "Usage Example"
+      // card recommends — and passes measured on desktop.
     );
 
     // Foundation
@@ -267,6 +268,17 @@ void main() {
           // NEXT test's `/clear` with `httpStatus=-1` (collateral damage), so a
           // single Android-only test takes a sibling down with it. AndroidView
           // is meaningful only on Android, so gate the retest accordingly.
+          //
+          // SCC47 (2026-09-06) re-derived this from git history rather than
+          // assuming it: the skip was added by 7817bcc31 on 2026-06-24, which
+          // is what turned extended_23's `+44 ~1 -1` into `+44 ~2`. It is a
+          // genuine HOST-CAPABILITY guard, not a silenced interpreter defect —
+          // the exception is an uncatchable Objective-C
+          // NSInvalidArgumentException raised inside the macOS embedder,
+          // outside any Dart (let alone interpreted) frame, and it kills the
+          // companion app. Nothing in the interpreter can observe or survive
+          // it, so leaving this measured would cost a sibling test as well.
+          // This one stays skipped, deliberately.
           ? null
           : 'AndroidView PlatformView crashes the embedder on non-Android hosts',
     );
