@@ -1073,6 +1073,14 @@ class AsyncStreamStdlib {
     // the registry is keyed by name and the call is idempotent, so it does not
     // matter which registrar runs first.
     BridgedClass.registerSupertypes({
+      // SCC49: `abstract class EventSink<T> implements Sink<T>`. The chain
+      // stopped at `EventSink` because SC4 was auditing `StreamConsumer`, not
+      // `Sink` — so `c.sink is Sink` answered false for a value that plainly is
+      // one, which is worse than the name being unresolvable because it looks
+      // like an answer. One edge is enough: the registry closes transitively,
+      // so `StreamSink` and `StreamController` inherit it below without being
+      // named again.
+      'EventSink': ['Sink'],
       'StreamSink': ['EventSink', 'StreamConsumer'],
       'StreamController': ['StreamSink', 'EventSink', 'StreamConsumer'],
       'MultiStreamController': ['StreamController'],

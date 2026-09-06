@@ -206,4 +206,64 @@ void main() {
       );
     });
   });
+
+  group('SCC49: the sink hierarchy reaches dart:core Sink', () {
+    // The SDK's chain is
+    //   abstract class EventSink<T> implements Sink<T>
+    //   abstract class StreamSink<S> implements EventSink<S>, StreamConsumer<S>
+    //   abstract class StreamController<T> implements StreamSink<T>, …
+    // so every one of these is a `Sink`. SC4 registered the edges as far as
+    // `EventSink` and stopped, because `Sink` was not what it was auditing —
+    // leaving `is Sink` answering false for values that plainly are one, which
+    // is worse than the name being absent because it looks like an answer.
+    //
+    // Asserted against the STATIC supertype registry rather than against a
+    // resolved bridge, because `Sink` is registered by the `dart:core`
+    // registrar and this file's `env` carries only `AsyncStreamStdlib` — so
+    // `findBridgedClassByName('Sink')` is legitimately null here. The registry
+    // is keyed by name and is exactly what `isSubtypeOf` consults, so this
+    // measures the same edge without pulling in a second registrar that the fix
+    // does not touch.
+
+    test('F-SCC49-AST-7: StreamSink reaches Sink [2026-09-06]', () {
+      expect(
+        BridgedClass.transitiveSupertypeNames('StreamSink'),
+        contains('Sink'),
+        reason:
+            '`StreamSink` implements `EventSink`, which implements `Sink`. '
+            'Every link but the last was already registered.',
+      );
+    });
+
+    test(
+      'F-SCC49-AST-8: the closure is recomputed, not enumerated [2026-09-06]',
+      () {
+        // Only the `EventSink -> Sink` edge was added; `StreamController`'s own
+        // entry was not touched, so it can reach `Sink` only through the
+        // transitive closure. A false here while F-SCC49-AST-7 holds would mean
+        // the closure cache was not invalidated by the new registration.
+        expect(
+          BridgedClass.transitiveSupertypeNames('StreamController'),
+          containsAll(<String>['StreamSink', 'EventSink', 'Sink']),
+        );
+        expect(
+          BridgedClass.transitiveSupertypeNames('EventSink'),
+          contains('Sink'),
+        );
+      },
+    );
+
+    test('F-SCC49-AST-9: the Sink edge is not over-broad [2026-09-06]', () {
+      // Same guard shape as F-SC4-AST-10: an edge that made everything a `Sink`
+      // would pass the two tests above while being worthless.
+      expect(
+        BridgedClass.transitiveSupertypeNames('Stream'),
+        isNot(contains('Sink')),
+      );
+      expect(
+        BridgedClass.transitiveSupertypeNames('StreamSubscription'),
+        isNot(contains('Sink')),
+      );
+    });
+  });
 }

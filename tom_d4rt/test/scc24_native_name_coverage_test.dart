@@ -752,17 +752,49 @@ void main() {
     });
 
     test('F-SCC24-8: the check fails when a nativeNames entry is missing '
-        '[2026-09-04]', () {
+        '[2026-09-06]', () {
       // Verify by breaking. A family bridge with an EMPTY `nativeNames` must
-      // NOT resolve these values — otherwise the resolver's name-based
-      // fallbacks would be doing the work, the enumeration would not be
-      // load-bearing, and every assertion above would pass no matter what was
-      // deleted from the lists. Measured when this file was written: 26 of 27
-      // stream-family values fail to resolve without their entry.
+      // NOT resolve these values — otherwise the assertions above would pass no
+      // matter what was deleted from the lists.
       //
-      // No private type name appears here either: the values come from the same
-      // public calls, and the assertion is only that resolution FAILS without
-      // the enumeration.
+      // RETARGETED BY SCC49, and the reason matters. When this test was written
+      // (2026-09-04) the enumeration was the ONLY mechanism, so all 27
+      // stream-family values went inert once their entry was removed and the
+      // control could simply sweep the lot. SCC49 added a structural suffix
+      // fallback to `toBridgedClass` — Dart's implementation types end with the
+      // interface they implement (`_ControllerStream`, `_MapStream`,
+      // `_HandleErrorStream`), so those now resolve with no enumeration at all.
+      // That is the intended outcome, not a regression: the allowlist was
+      // deliberately demoted to a fast path plus an explicit-ownership
+      // override.
+      //
+      // Loosening the assertion to accommodate that would have destroyed the
+      // control's purpose, so the control was SPLIT along the line SCC49 drew,
+      // and each half asserts something stronger than the original did:
+      //
+      //   * `_stillInertWithoutEnumeration` — values whose implementation type
+      //     name suffix-matches no bridge, because the SDK abbreviates it
+      //     (`_StreamSinkWrapper` for `StreamSink`, `_ControllerSubscription`
+      //     for `StreamSubscription`). These still go inert, which is what
+      //     proves resolution is not unconditional. If this half ever empties,
+      //     the sweep really has become vacuous.
+      //
+      //   * `_structurallyResolvedWithoutEnumeration` — values that now resolve
+      //     without their entry, asserted against the CORRECT bridge rather
+      //     than merely against "something". `_ControllerStream` resolving to
+      //     `Stream` and not to `StreamSink` is the property SCC49 delivers,
+      //     and it is a tighter claim than the old `<inert>` check made.
+      //
+      // Measured 2026-09-06 against a bare three-bridge environment:
+      //   _ControllerStream<int>       -> Stream
+      //   _StreamSinkWrapper<int>      -> <inert: no bridge>
+      //   _HandleErrorStream<int>      -> Stream
+      //   _MapStream<int, int>         -> Stream
+      //   _ControllerSubscription<int> -> <inert: no bridge>
+      //
+      // No private type name is hard-coded here either: the values come from
+      // the same public calls, and the split above is a property of what the
+      // SDK happens to name them.
       final bare = Environment()
         ..defineBridge(
           BridgedClass(
@@ -789,22 +821,44 @@ void main() {
           ),
         );
 
-      for (final value in <Object?>[
-        _controller().stream,
+      // Half one: the SDK does not name these after the interface, so nothing
+      // but the enumeration can claim them.
+      final stillInertWithoutEnumeration = <Object?>[
         _controller().sink,
-        _source().handleError((Object e) {}),
-        _source().map((e) => e),
         _source().listen(null),
-      ]) {
+      ];
+      for (final value in stillInertWithoutEnumeration) {
         expect(
           _resolvedBridgeName(bare, value),
           '<inert: no bridge>',
           reason:
-              'Without its `nativeNames` entry this value resolved '
-              'anyway, which means the assertions above are not actually '
-              'guarding the enumeration.',
+              'Without its `nativeNames` entry this value resolved anyway. '
+              'Its implementation type (${value.runtimeType}) suffix-matches '
+              'no bridge name, so nothing but the enumeration should be able '
+              'to claim it — if something did, the assertions above are no '
+              'longer guarding anything.',
         );
       }
+
+      // Half two: the SDK does name these after the interface, so SCC49's
+      // structural pass claims them — and must claim the RIGHT one.
+      final structurallyResolvedWithoutEnumeration = <Object?, String>{
+        _controller().stream: 'Stream',
+        _source().handleError((Object e) {}): 'Stream',
+        _source().map((e) => e): 'Stream',
+      };
+      structurallyResolvedWithoutEnumeration.forEach((value, expected) {
+        expect(
+          _resolvedBridgeName(bare, value),
+          expected,
+          reason:
+              'SCC49: ${value.runtimeType} should resolve to `$expected` from '
+              'its name alone, with every `nativeNames` list emptied. '
+              'Resolving to a different bridge would mean the structural pass '
+              'picks by something other than the longest matching suffix; '
+              'resolving to nothing would mean it did not run at all.',
+        );
+      });
     });
 
     test('F-SCC24-9: the sweep\'s blind spot does not grow [2026-09-04]', () {

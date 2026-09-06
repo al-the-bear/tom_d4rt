@@ -133,6 +133,72 @@ void main() {
     );
   });
 
+  group('SCC49: the sink hierarchy reaches dart:core Sink', () {
+    // The SDK's chain is
+    //   abstract class EventSink<T> implements Sink<T>
+    //   abstract class StreamSink<S> implements EventSink<S>, StreamConsumer<S>
+    //   abstract class StreamController<T> implements StreamSink<T>, …
+    // so every one of these is a `Sink`. SC4 registered the edges as far as
+    // `EventSink` and stopped, because `Sink` was not what it was auditing —
+    // leaving `is Sink` answering false for values that plainly are one, which
+    // is worse than the name being absent because it looks like an answer.
+    //
+    // `Sink` is bridged (stdlib/core/sink.dart) and the convert side already
+    // declares `ChunkedConversionSink -> Sink`, so the async side was the only
+    // half missing. The fix is one edge, `EventSink -> Sink`: the supertype
+    // registry computes a transitive closure, so `StreamSink` and
+    // `StreamController` inherit it without being named again.
+
+    test('F-SCC49-7: a controller sink is a Sink [2026-09-06]', () async {
+      final result = await executeAsync('''
+        import 'dart:async';
+        main() {
+          final c = StreamController();
+          return c.sink is Sink;
+        }
+      ''');
+      expect(
+        result,
+        isTrue,
+        reason:
+            '`StreamController.sink` is a `StreamSink`, which implements '
+            '`EventSink`, which implements `Sink`. Every link but the last was '
+            'already registered.',
+      );
+    });
+
+    test('F-SCC49-8: a controller is itself a Sink [2026-09-06]', () async {
+      final result = await executeAsync('''
+        import 'dart:async';
+        main() {
+          final c = StreamController();
+          return [c is Sink, c is EventSink, c is StreamSink];
+        }
+      ''');
+      expect(
+        result,
+        orderedEquals([true, true, true]),
+        reason:
+            'Transitivity through the registry: only the `EventSink -> Sink` '
+            'edge was added, so a false here for `is Sink` while the other two '
+            'hold would mean the closure is not being recomputed.',
+      );
+    });
+
+    test('F-SCC49-9: the Sink edge is not over-broad [2026-09-06]', () async {
+      // Same guard shape as F-SC4-3: an edge that makes everything a `Sink`
+      // would pass the two tests above while being worthless.
+      final result = await executeAsync('''
+        import 'dart:async';
+        main() {
+          final c = StreamController();
+          return [c.stream is Sink, 'x' is Sink, 42 is Sink];
+        }
+      ''');
+      expect(result, orderedEquals([false, false, false]));
+    });
+  });
+
   group('SC4: StreamSink routing for controller sinks', () {
     test(
       'F-SC4-7: a controller sink resolves to the StreamSink bridge [2026-07-27]',

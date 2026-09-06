@@ -872,17 +872,107 @@ class Environment {
     }
 
     // 3) Name-based fallbacks (private impl, generic suffix, *Impl prefix).
-    //    [toBridgedClass] will throw if no bridge matches — propagate, but
-    //    negative-cache the miss first so repeats short-circuit (T4, F3).
+    //    [toBridgedClass] will throw if no bridge matches — try the structural
+    //    fallback (step 4) before giving up, and negative-cache the miss so
+    //    repeats short-circuit (T4, F3).
     final BridgedClass bridgedClass;
     try {
       bridgedClass = toBridgedClass(runtimeType);
     } on RuntimeD4rtException {
+      // 4) Structural suffix fallback (SCC49). Dart names implementation types
+      //    after the interface they implement — `_CompactIterator`,
+      //    `_SplayTreeKeyIterator`, `_HashMapKeyIterator`, `RuneIterator`,
+      //    `_CompactKeysIterable` — and step 3 already exploits that, but only
+      //    for names that are BOTH public AND generic: the suffix rule sits in
+      //    the `else if (name.contains('<'))` arm of an
+      //    `if (name starts with '_') … else if …` chain, so it is unreachable
+      //    for private names (they take the first arm) and for non-generic
+      //    public names (they enter neither). Those two shapes are the entire
+      //    reason the stdlib bridges carry hand-maintained `nativeNames`
+      //    allowlists: the `Iterator` bridge alone enumerates seventeen private
+      //    SDK types, and the eighteenth an SDK release introduces surfaces to
+      //    the script author as "Undefined property or method 'moveNext' on
+      //    _CompactIterator".
+      //
+      //    WHY IT LIVES HERE AND NOT IN `toBridgedClass`. It was implemented
+      //    there first, as a fourth pass past the loose prefix fallback, on the
+      //    reasoning that a pass firing only where an exception is already
+      //    thrown cannot regress a working case. That reasoning is wrong, and
+      //    the suite said so: 43 tests failed, all of them enum dispatch. The
+      //    throw is not merely a failure report — callers USE it as a control
+      //    flow signal, catching it and falling through to the bridged-ENUM
+      //    registry, which is a different registry from bridged classes. A
+      //    bridged enum named `SimpleEnum` suffix-matches the `Enum` bridge, so
+      //    widening `toBridgedClass` silently claimed it and the fallthrough
+      //    never ran. Resolving here instead keeps `toBridgedClass` — which
+      //    `getRuntimeType` and others also call — exactly as it was, and
+      //    confines the widening to the one path that actually wraps a native
+      //    object.
+      //
+      //    INTERPRETER-OWNED VALUES ARE EXCLUDED for the same reason, and the
+      //    exclusion is wider than it first looks. The obvious guard —
+      //    "skip native Dart enum values" — was not enough: the object that
+      //    actually reached here in the enum tests was d4rt's own
+      //    `BridgedEnum`, whose NAME ends with `Enum`, so it was claimed by the
+      //    `Enum` bridge. Interpreter runtime objects (`RuntimeType`,
+      //    `RuntimeValue`, `Callable`) are not native objects awaiting a
+      //    bridge; they are the interpreter's own representation, and a
+      //    name-shaped guess about them is never meaningful. Nothing about a
+      //    suffix can distinguish them, so the guess must not be attempted.
+      //
+      //    `nativeNames` stays the fast path and the explicit-ownership
+      //    override: an entry there matches in step 3 and never reaches here,
+      //    so a bridge can still claim a type whose name points elsewhere —
+      //    which is required, because the SDK abbreviates often enough
+      //    (`_StreamSinkWrapper` for `StreamSink`, `_ControllerSubscription`
+      //    for `StreamSubscription`) that the naming convention alone is not
+      //    sufficient.
+      final BridgedClass? structural = _isInterpreterOwned(nativeObject)
+          ? null
+          : _structuralSuffixBridge(runtimeType);
+      if (structural != null) {
+        Logger.debug(
+          "[Environment] Matched native type '$runtimeType' to bridge "
+          "'${structural.name}' via structural suffix matching",
+        );
+        _resolvedTypeCacheOrNew[runtimeType] = structural;
+        return BridgedInstance(structural, nativeObject);
+      }
       _unbridgedTypeCacheOrNew.add(runtimeType);
       rethrow;
     }
     _resolvedTypeCacheOrNew[runtimeType] = bridgedClass;
     return BridgedInstance(bridgedClass, nativeObject);
+  }
+
+  /// Whether [value] is owned by the interpreter rather than being a native
+  /// object awaiting a bridge.
+  ///
+  /// Native enum values belong to the bridged-ENUM registry, which is separate
+  /// from the bridged-CLASS registry that [toBridgedInstance] resolves against;
+  /// `RuntimeType` / `RuntimeValue` / `Callable` are d4rt's own runtime
+  /// representations. For all of these, guessing a bridge from the shape of the
+  /// type name is not merely unhelpful — it produces a wrong answer where the
+  /// caller expected the miss and had a correct path to fall through to.
+  static bool _isInterpreterOwned(Object nativeObject) =>
+      nativeObject is Enum ||
+      nativeObject is RuntimeType ||
+      nativeObject is RuntimeValue ||
+      nativeObject is Callable;
+
+  /// Resolves [nativeType] by the longest bridge name that is a suffix of its
+  /// name, walking the whole scope chain. See step 4 of [toBridgedInstance] for
+  /// why this is a last resort and why it is not a pass inside
+  /// [toBridgedClass].
+  BridgedClass? _structuralSuffixBridge(Type nativeType) {
+    final structuralName = _structuralBaseName(nativeType.toString());
+    Environment? current = this;
+    while (current != null) {
+      final match = _longestNameSuffixMatch(current, structuralName);
+      if (match != null) return match;
+      current = current._enclosing;
+    }
+    return null;
   }
 
   /// From a list of `isAssignable` matches, return the "most specific"
@@ -994,14 +1084,15 @@ class Environment {
             ?.value;
         // Suffix match fallback: e.g., CastList → List, ListIterator → Iterator
         // Handles types that embed the bridge name as a suffix.
-        bridgedClass ??= current._bridgedClassesLookupByType.entries
-            .firstWhereOrNull(
-              (e) =>
-                  e.value.name.length >= 3 &&
-                  baseTypeName.endsWith(e.value.name) &&
-                  baseTypeName.length > e.value.name.length,
-            )
-            ?.value;
+        //
+        // SCC49: the LONGEST matching suffix wins. This was a
+        // `firstWhereOrNull`, which returned whichever candidate happened to be
+        // registered first — so a type whose name ends with two bridge names
+        // (`_BodyBoxConstraints` ends with both `Constraints` and
+        // `BoxConstraints`) resolved by registration order rather than by
+        // specificity, and reordering two `registerBridgedClass` calls could
+        // silently change dispatch.
+        bridgedClass ??= _longestNameSuffixMatch(current, baseTypeName);
       }
       bridgedClass ??= current._bridgedClassesLookupByType.entries
           .firstWhereOrNull((e) => e.value.name == nativeTypeName)
@@ -1049,6 +1140,50 @@ class Environment {
     throw RuntimeD4rtException(
       'Cannot bridge native object: No registered bridged class found for native type $nativeType.',
     );
+  }
+
+  /// Strips a native type name down to the part the structural suffix rule can
+  /// match against: generic arguments and a leading private `_` both carry no
+  /// dispatch information.
+  ///
+  /// `_CompactIterator<int, String>` → `CompactIterator`, which then suffix-
+  /// matches the `Iterator` bridge.
+  static String _structuralBaseName(String nativeTypeName) {
+    var name = nativeTypeName;
+    final angle = name.indexOf('<');
+    if (angle >= 0) {
+      name = name.substring(0, angle);
+    }
+    if (name.startsWith('_')) {
+      name = name.substring(1);
+    }
+    return name;
+  }
+
+  /// Finds the bridged class in [env] whose `name` is the LONGEST proper suffix
+  /// of [baseTypeName].
+  ///
+  /// Longest-wins is the specificity rule: `_BodyBoxConstraints` ends with both
+  /// `Constraints` and `BoxConstraints`, and `_HashSetIterator` would end with
+  /// a hypothetical `Iterator` and `SetIterator`. Picking the longer name picks
+  /// the more derived bridge. Names shorter than three characters are ignored
+  /// for the same reason PASS B ignores them — a two-letter bridge name is a
+  /// coincidence generator, not evidence.
+  ///
+  /// A bridge whose name equals [baseTypeName] outright is deliberately NOT
+  /// matched here: that is an exact-name hit, which the precise passes own.
+  BridgedClass? _longestNameSuffixMatch(Environment env, String baseTypeName) {
+    BridgedClass? best;
+    int bestLen = 0;
+    for (final entry in env._bridgedClassesLookupByType.entries) {
+      final name = entry.value.name;
+      if (name.length < 3 || name.length <= bestLen) continue;
+      if (baseTypeName.length <= name.length) continue;
+      if (!baseTypeName.endsWith(name)) continue;
+      bestLen = name.length;
+      best = entry.value;
+    }
+    return best;
   }
 
   /// Finds the bridged class whose `nativeNames` contains the LONGEST entry
