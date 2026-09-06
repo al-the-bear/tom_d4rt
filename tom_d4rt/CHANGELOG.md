@@ -1,3 +1,52 @@
+## 1.57.0
+
+### Fixed — `dart:io` and `dart:isolate` now declare their supertypes (scc57)
+
+`stdout is StringSink`, `socket is Stream`, `stdin is Stream`,
+`ReceivePort() is Stream` and `OSError('x', 1) is Exception` all answered
+`false`. `dart:collection`, `dart:convert`, `dart:typed_data`, `dart:async` and
+(since 1.56.0) `dart:core` each had a hierarchy block; `dart:io` and
+`dart:isolate` never did, so every type test a script writes about the two
+shapes those libraries are built out of — the byte sink and the stream source —
+was answered wrongly.
+
+**One of those answers was already right, and that is why the gap survived.**
+`socket is IOSink` was true before this change: the `IOSink` bridge declares an
+`isAssignable` predicate and a connected socket satisfies it. But a predicate is
+consulted for the pair being asked about and then stops — it does not continue up
+the target's own supertypes. So `socket is IOSink` was true while
+`socket is StringSink` was false, and the one answer anybody spot-checked was the
+true one. Only a registered edge walks.
+
+Two new registrars, `IoHierarchyIo` (15 edges) and `IsolateHierarchyIsolate`
+(3), close 25 confirmed missing edges, because the registry composes what they
+declare rather than requiring the closure to be spelled out. `Socket -> IOSink`
+plus `IOSink -> {StreamSink, StringSink}` plus the `StreamSink -> {EventSink,
+StreamConsumer}` and `EventSink -> Sink` edges `dart:async` already carried
+answer six questions from two declarations.
+
+**The member surface came back with them.** Declaring the edges moved 218
+members from confirmed-unreachable to reachable without a single adapter being
+written — the `Stream` combinators (`asBroadcastStream`, `asyncExpand`,
+`asyncMap`, `cast`, `distinct`, `drain`, `handleError`, `pipe`, `reduce`,
+`timeout`) on `RawSocket`, `Stdin`, `HttpServer`, `RawDatagramSocket`,
+`RawServerSocket`, `ReceivePort` and `ServerSocket`, and the `StringSink`
+surface on `Socket` and `Stdout`. `await for` had always worked on those
+classes, because each bridged `listen` directly; everything built on top of it
+had not.
+
+Also in this change: the stdlib gap audit (`tool/stdlib_member_diff.dart`) gains
+six instance recipes and reports its not-auditable set with reasons in
+`--hierarchy` mode as it has in `--members` mode since 1.30.0. Both audits now
+report zero candidates whose reason is "no recipe written yet". `Stdin` is
+explicitly marked not-auditable: it has no constructor, the only instance is the
+process's own standard input, and a bare read of an inherited `Stream` getter
+subscribes to fd 0 and destroys it for every later suite in the same `dart test`
+process.
+
+Covered by `F-SCC57-1..3`, `F-SCC57-11..15`, `F-SCC57-21..23`, `F-SCC57-31..33`
+and `F-SCC57-41..44`.
+
 ## 1.56.0
 
 ### Fixed — the non-error half of `dart:core` now declares its supertypes (scc56)

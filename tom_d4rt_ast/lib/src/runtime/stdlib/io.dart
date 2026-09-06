@@ -8,6 +8,7 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/io/process.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io/platform.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io/io_sink.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io/socket.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/io/io_hierarchy.dart';
 
 export 'package:tom_d4rt_ast/src/runtime/environment.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/io/directory.dart';
@@ -19,6 +20,7 @@ export 'package:tom_d4rt_ast/src/runtime/stdlib/io/process.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/io/platform.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/io/io_sink.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/io/socket.dart';
+export 'package:tom_d4rt_ast/src/runtime/stdlib/io/io_hierarchy.dart';
 
 class IoStdlib {
   static void register(Environment environment) {
@@ -90,5 +92,11 @@ class IoStdlib {
     environment.defineBridge(DatagramIo.definition);
     environment.defineBridge(RawDatagramSocketIo.definition);
     environment.defineBridge(NetworkInterfaceIo.definition);
+
+    // Last: the supertype edges key on NAME, so every bridge they refer to must
+    // already be defined. Several of them point out of this library — `IOSink`
+    // reaches `StreamSink` and `StringSink`, the servers reach `Stream` — which
+    // is why the block lives here rather than beside any one bridge.
+    IoHierarchyIo.register();
   }
 }
