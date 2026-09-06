@@ -1,3 +1,42 @@
+## 1.67.0
+
+### Added — a guard that no stdlib bridge name is defined twice (scc76)
+
+SCB26 was a duplicate bridge name: `StringSink` was registered by both the core
+and the io registrar. It survived for as long as it existed and only surfaced
+because SC9 happened to trip over the warning it logs. The cost was not the
+duplication — it was that the LAST registration wins, so `StringSink` silently
+lost three members it had in the other copy, and no test noticed.
+
+`test/scc76_bridge_name_collision_test.dart` registers every stdlib registrar
+into one environment and asserts each registered name resolves to exactly one
+bridge. It is green today (205 names, zero collisions) — the value is the next
+one.
+
+The assertion is possible without a production change because
+`_recordShadowedBridge` runs on EVERY collision, before the `nativeType`
+comparison that decides ambiguity. Two definitions of the same native type read
+as a benign re-export and are never marked ambiguous, which is correct for two
+barrels exporting one class and exactly wrong for two registrars — but the
+displaced bridge is stashed either way, so `findAllBridgedClassesByName` sees
+both.
+
+### Added — `ModuleLoader.stdlibModuleNames`
+
+A read-only view of the `dart:` libraries the loader can register on demand, so
+the guard drives off the production list instead of a copy. A copy in the test
+would decay silently, which is the failure the guard exists to prevent one
+level up.
+
+### Fixed — the type-resolution fallback carried a second registrar map, and it had drifted
+
+`module_loader.dart` wrote the stdlib registrar list out twice: once as
+`_stdlibRegistrars` and again as a local map in the fallback that auto-loads
+stdlib modules while resolving an unknown type. The copy was missing
+`isolate`, so a bridge package depending on a `dart:isolate` type found nothing
+there while every other stdlib module was tried. The loop now derives from the
+one map.
+
 ## 1.66.0
 
 ### Added — the eight remaining reachable-member gaps, and the audit that was blind to a quarter of the surface (scc74)

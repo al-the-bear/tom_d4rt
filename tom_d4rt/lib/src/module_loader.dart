@@ -319,6 +319,15 @@ class ModuleLoader {
   /// Known non-ambient stdlib modules and their registration functions.
   /// dart:core and dart:async are pre-registered into globalEnvironment and
   /// are NOT listed here (they stay ambient/unconditional).
+  /// The `dart:` libraries this loader can register on demand.
+  ///
+  /// Exposed read-only so a guard can drive off the production list rather
+  /// than a copy of it. SCC76 needs to register every stdlib module into one
+  /// environment to check for duplicate bridge names, and a hardcoded copy of
+  /// this list in a test would decay silently — which is the same failure the
+  /// guard itself exists to prevent, one level up.
+  static Iterable<String> get stdlibModuleNames => _stdlibRegistrars.keys;
+
   static final Map<String, void Function(Environment)> _stdlibRegistrars = {
     'math': MathStdlib.register,
     'convert': ConvertStdlib.register,
@@ -2029,19 +2038,17 @@ class ModuleLoader {
     // Bridge packages may depend on stdlib types (e.g., DCli uses Platform
     // from dart:io). In real Dart, these would be transitively available.
     // We auto-load stdlib modules to find the type.
-    final stdlibRegistrars = <String, void Function()>{
-      'io': () => StdlibIo.register(globalEnvironment),
-      'math': () => MathStdlib.register(globalEnvironment),
-      'convert': () => ConvertStdlib.register(globalEnvironment),
-      'collection': () => CollectionStdlib.register(globalEnvironment),
-      'typed_data': () => TypedDataStdlib.register(globalEnvironment),
-    };
-
-    for (final entry in stdlibRegistrars.entries) {
+    // Derived from [_stdlibRegistrars] rather than written out again. It WAS
+    // written out again, and the copy had already drifted: it was missing
+    // `isolate`, so a bridge package depending on a `dart:isolate` type found
+    // nothing here while every other stdlib module was tried. Two lists of the
+    // same thing is the shape SCC76 guards one level up, and it does not stop
+    // being that shape because these are closures.
+    for (final entry in _stdlibRegistrars.entries) {
       if (_autoLoadedStdlibs.contains(entry.key)) continue;
 
       // Load the stdlib module
-      entry.value();
+      entry.value(globalEnvironment);
       _autoLoadedStdlibs.add(entry.key);
 
       // Check if the type is now available. `lookup`, not `get`: missing here

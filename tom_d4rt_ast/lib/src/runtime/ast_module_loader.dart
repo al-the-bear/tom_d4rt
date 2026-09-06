@@ -229,6 +229,16 @@ class AstModuleLoader implements ModuleContext {
   /// Maps `dart:xxx` path names to their registration callbacks.
   /// `null` means the module is handled by [Stdlib.register] at init time
   /// (core, async) and requires no additional registration.
+  /// The `dart:` libraries this loader knows about, including the two that
+  /// arrive pre-registered.
+  ///
+  /// Exposed read-only so a guard can drive off the production list rather
+  /// than a copy of it. SCC76 needs to register every stdlib module into one
+  /// environment to check for duplicate bridge names, and a hardcoded copy of
+  /// this list in a test would decay silently — the same failure the guard
+  /// itself exists to prevent, one level up.
+  static Iterable<String> get stdlibModuleNames => _stdlibRegistrars.keys;
+
   static final Map<String, void Function(Environment)?> _stdlibRegistrars = {
     'core': null, // Registered at environment init
     'async': null, // Registered at environment init

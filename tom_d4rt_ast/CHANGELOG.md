@@ -1,3 +1,16 @@
+## 0.56.0
+
+### Added — a guard that no stdlib bridge name is defined twice (scc76)
+
+Mirrors `tom_d4rt` 1.67.0: `test/scc76_bridge_name_collision_test.dart`
+registers every stdlib registrar into one environment and asserts each name
+resolves to exactly one bridge, plus `AstModuleLoader.stdlibModuleNames` as the
+read-only view it drives off.
+
+This tree's loader lists `core` and `async` with `null` registrars — they are
+pre-registered at runner construction — so its `stdlibModuleNames` includes
+them where the analyzer tree's does not. The guard covers both shapes.
+
 ## 0.55.0
 
 ### Added — the eight remaining reachable-member gaps (scc74)
