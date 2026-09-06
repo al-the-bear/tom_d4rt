@@ -8,6 +8,23 @@ import 'package:tom_d4rt_exec/d4rt.dart';
 /// `orderedEquals` rather than `unorderedEquals`. A test that only checked
 /// membership would pass against the `HashSet` bridge too and would therefore
 /// not pin the behaviour that makes this class worth bridging at all.
+
+/// DGUC6: this package resolves `tom_d4rt_ast` from pub.dev, currently 0.42.0,
+/// and SCC51 — which stopped the collection bridges shadowing `Iterable`'s
+/// delegating `first`/`last`/`single` and so let the SDK's own `StateError`
+/// reach the script — ships in 0.44.0. The reference copy in `tom_d4rt/test`
+/// runs these cases green; here they would report the pre-fix
+/// `RuntimeD4rtException` as though it were a migration defect.
+///
+/// Skipped rather than re-pinned to the old exception family on purpose. A pin
+/// would keep the suite green and then need a hand deletion nobody is watching
+/// for, and F-SCC6-5 requires a `KNOWN-GAP` marker to exist in BOTH trees — the
+/// reference copy has no gap to mark. Un-skip and delete this constant in the
+/// commit that raises exec's `tom_d4rt_ast` floor past 0.43.0.
+const _scc51Skip =
+    'pinned on the tom_d4rt_ast publish that carries SCC51 (0.44.0); '
+    "exec resolves 0.42.0 — see this file's header";
+
 void main() {
   final d4rt = D4rt();
 
@@ -258,8 +275,13 @@ void main() {
     });
 
     test(
-      'F-SC2-9: single / first on an empty set raise a D4rt error [2026-07-27]',
+      'F-SC2-9: single / first on an empty set raise a StateError [2026-07-27]',
       () {
+        // SCC51: the expected family changed from RuntimeD4rtException to
+        // StateError. The bridge used to catch the SDK's StateError and rethrow
+        // a hand-written message; it now inherits Set's delegating adapter, so
+        // the SDK's own error reaches the script and the `on StateError catch`
+        // a Dart author writes actually fires.
         expect(
           () => d4rt.execute(
             source: '''
@@ -267,7 +289,7 @@ void main() {
           main() { return LinkedHashSet().first; }
         ''',
           ),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<StateError>()),
           reason: 'first on empty',
         );
         expect(
@@ -277,10 +299,11 @@ void main() {
           main() { return LinkedHashSet.from([1, 2]).single; }
         ''',
           ),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<StateError>()),
           reason: 'single with more than one element',
         );
       },
+      skip: _scc51Skip,
     );
 
     test(

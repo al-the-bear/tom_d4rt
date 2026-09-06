@@ -308,6 +308,38 @@ const Map<String, _Coverage> _coveredElsewhere = {
     refCases: 9,
     twinCases: 3,
   ),
+  // Both files read before pairing. The twin is FULL — six cases against six —
+  // but it is not a port, and the reason is the one SCC24 first recorded: the
+  // reference cases drive scripts through `D4rt.execute`, and `tom_d4rt_ast`
+  // has no parser, so the twin asks `Environment.toBridgedInstance` directly
+  // instead (`F-SCC49-AST-1..6` against `F-SCC49-1..6`). That is the stronger
+  // probe, not a weaker one: a script only sees "threw" or "did not throw",
+  // while the resolver can be asked WHICH bridge answered — which is what the
+  // suffix-overlap pair is about. An exec port would run the reference form,
+  // but it is publish-blocked on top of that: the `EventSink -> Sink` edge and
+  // the structural pass ship in tom_d4rt_ast 0.43.0 and exec resolves 0.42.0.
+  // Note the top-level `ast:` path — this twin sits at `tom_d4rt_ast/test/`,
+  // not under `test/runtime/` where most of the entries above live.
+  'scc49_structural_native_dispatch_test.dart': _Coverage(
+    'ast:scc49_structural_native_dispatch_test.dart',
+    _astTwin,
+    refCases: 6,
+    twinCases: 6,
+  ),
+  // Both files read before pairing, and this one is a genuine full twin: the
+  // same eight case ids, `F-SCC51-1..8`, asserting the same thing on each side.
+  // It can be native because the subject is a native-side harness — it walks
+  // every shadowed collection adapter and compares it against the `Iterable`
+  // one it shadows — so it never needed a parser and did not have to be
+  // reshaped to lose it. An exec port is publish-blocked: SCC51 ships in
+  // tom_d4rt_ast 0.44.0 and exec resolves 0.42.0, which is the same gap the six
+  // `stdlib/collection` and `stdlib/async` skips in [_divergentBaseline] pin.
+  'scc51_shadowed_adapter_test.dart': _Coverage(
+    'ast:scc51_shadowed_adapter_test.dart',
+    _astTwin,
+    refCases: 8,
+    twinCases: 8,
+  ),
   'stdlib/bridge_arity_test.dart': _Coverage(
     'ast:runtime/bridge_arity_test.dart',
     _astTwin,
@@ -712,6 +744,56 @@ const Map<String, _Divergence> _divergentBaseline = {
   // natively (F-SCC33-AST-1/2) against its own node type, which is the only
   // place it can be pinned. The five behavioural cases are verbatim.
   'scc33_unhandled_node_test.dart': _Divergence.deliberate,
+  // The five `stdlib/collection` entries below are ONE finding recorded five
+  // times, and they were measured rather than predicted: each file was re-ported
+  // verbatim from the reference tree first, run, and only the cases that
+  // actually failed were skipped. SCC51 stopped the collection bridges shadowing
+  // `Iterable`'s delegating `first`/`last`/`single`, so the SDK's own
+  // `StateError` now reaches the script where a hand-written
+  // `RuntimeD4rtException` used to; the reference tree asserts `StateError` and
+  // runs green. exec resolves `tom_d4rt_ast` from pub.dev at 0.42.0 (DGUC6) and
+  // SCC51 ships in 0.44.0, so here the pre-fix family is still thrown.
+  //
+  // SKIPPED, NOT RE-PINNED TO THE OLD FAMILY, against the SCC15 default. A pin
+  // would keep the suite green and then need a hand deletion nobody is watching
+  // for — and F-SCC6-5 requires a `KNOWN-GAP` marker in BOTH trees, which the
+  // reference copy cannot carry because it has no gap to mark. The
+  // `scb14_await_receiver_position_test.dart` entry above is the precedent.
+  //
+  // Un-skip the six cases across these five files and delete all five entries in
+  // the commit that raises exec's floor past 0.43.0; the skip constants name
+  // themselves `_scc51Skip` in each file so the deletion is greppable.
+  'stdlib/collection/list_queue_test.dart': _Divergence.deliberate,
+  // Second of the five. `F-SC2-19` skipped: `SplayTreeSet().first` on an empty
+  // set. Same SCC51 cause and the same flip condition as the entry above — the
+  // commit that raises exec's floor past 0.43.0 un-skips it and deletes this.
+  'stdlib/collection/splay_tree_set_test.dart': _Divergence.deliberate,
+  // Third of the five. `F-SC2-9` skipped: it asserts `first` on an empty
+  // `LinkedHashSet` AND `single` on a two-element one, so it is the case that
+  // covers both shadowed getters. Flip at floor past 0.43.0 with the rest.
+  'stdlib/collection/linked_hash_set_test.dart': _Divergence.deliberate,
+  // Fourth of the five. `I-COLL-44` skipped: `LinkedList.first` when empty.
+  // `LinkedList` is not an `Iterable` subclass in the bridge graph the way the
+  // others are, so it is worth keeping distinct rather than folded into one
+  // entry — its shadowing came from SCC8's own hand-written surface. Flip at
+  // floor past 0.43.0.
+  'stdlib/collection/linked_list_test.dart': _Divergence.deliberate,
+  // Fifth of the five and the only one with two skipped cases: `I-COLL-71`
+  // (`first` on an empty `Queue`) and `I-COLL-62` (`last` on the same). Both
+  // observe the pre-SCC51 `RuntimeD4rtException` against the published 0.42.0
+  // where the reference tree observes `StateError`. Flip at floor past 0.43.0.
+  'stdlib/collection/queue_test.dart': _Divergence.deliberate,
+  // The same shape one release earlier. SCC49 registered the `EventSink -> Sink`
+  // supertype edge, which ships in tom_d4rt_ast 0.43.0; exec resolves 0.42.0, so
+  // F-SCC49-7 returns `false` and F-SCC49-8 `[false, true, true]` — the two
+  // links below `Sink` are already registered and only the last is missing,
+  // which is exactly the version gap and not a migration defect. Its sibling
+  // F-SCC49-9 is left RUNNING deliberately: it asserts certain values are NOT
+  // sinks, which an interpreter missing the edge satisfies vacuously, so it
+  // covers nothing here until the two skips lift but costs nothing to keep.
+  // Un-skip both and delete this entry in the commit that raises exec's floor
+  // past 0.42.0.
+  'stdlib/async/stream_consumer_test.dart': _Divergence.deliberate,
 };
 
 /// The direct interpreter-package imports the port recipe legitimately rewrites,
@@ -808,6 +890,22 @@ const Map<String, String> _pinnedInterpreterFloors = {
   // `'1,2|3,4'`, -11 gives `'1|1'` for `'1|3'`, -12 gives `'AA'` for `'AB'`,
   // and -10 fails with `Undefined variable: out`. Tracked as SCD120.
   'scb14_await_receiver_position_test.dart': '0.40.0',
+  // SCC51 (tom_d4rt_ast 0.44.0) stopped the collection bridges shadowing
+  // `Iterable`'s delegating `first`/`last`/`single`. Measured 2026-09-06 against
+  // the published 0.42.0: each of the six cases below still receives a
+  // `RuntimeD4rtException` carrying the bridge's own message where the reference
+  // tree receives the SDK's `StateError`. One case per file except `queue`,
+  // which has two (`I-COLL-71` first, `I-COLL-62` last).
+  'stdlib/collection/list_queue_test.dart': '0.43.0',
+  'stdlib/collection/splay_tree_set_test.dart': '0.43.0',
+  'stdlib/collection/linked_hash_set_test.dart': '0.43.0',
+  'stdlib/collection/linked_list_test.dart': '0.43.0',
+  'stdlib/collection/queue_test.dart': '0.43.0',
+  // SCC49 (tom_d4rt_ast 0.43.0) added the `EventSink -> Sink` supertype edge.
+  // Measured 2026-09-06 against the published 0.42.0: F-SCC49-7 returns `false`
+  // for `c.sink is Sink` and F-SCC49-8 `[false, true, true]` — the `EventSink`
+  // and `StreamSink` links answer, the `Sink` one does not.
+  'stdlib/async/stream_consumer_test.dart': '0.42.0',
 };
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
@@ -972,6 +1070,17 @@ String _normalise(String source) => source
     .replaceAll(
       'package:tom_d4rt_ast/src/runtime/utils/extensions/interpreted_instance.dart',
       '@INTERPRETED_INSTANCE@',
+    )
+    // SCC52: `scc46_native_enum_runtime_type_test.dart` builds a
+    // `BridgedEnumDefinition` directly, which neither package re-exports from
+    // its public library. Same shape as the two pairs above and the same
+    // reason for normalising rather than baselining: the import is the only
+    // thing that can differ, so an entry would buy a permanent exemption for a
+    // file whose assertions are identical.
+    .replaceAll('package:tom_d4rt/src/bridge/bridged_enum.dart', '@ENUM@')
+    .replaceAll(
+      'package:tom_d4rt_ast/src/runtime/bridge/bridged_enum.dart',
+      '@ENUM@',
     );
 
 Map<String, File> _testFiles(Directory root) {

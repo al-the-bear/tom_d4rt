@@ -34,9 +34,14 @@
 /// range errors, unsupported operations — if the interpreter will not deliver
 /// the exception to its handler.
 ///
-/// Twin of `tom_d4rt/test/scc47_bridged_throw_catchable_test.dart`. This is the
-/// line the Flutter corpus actually runs, so it is the one that matters for the
-/// system_color_palette finding.
+/// This file exists once in `tom_d4rt/test/` and once in `tom_d4rt_exec/test/`,
+/// and the two copies are verbatim apart from the interpreter import. The
+/// analyzer-free half lives in `tom_d4rt_exec` rather than in `tom_d4rt_ast`
+/// because `tom_d4rt_ast` is analyzer-free and so cannot parse the interpreted
+/// source these assertions need. Exec runs the `tom_d4rt_ast` interpreter,
+/// which is the line the Flutter corpus executes — so it is the exec copy that
+/// speaks to the system_color_palette finding, and the `tom_d4rt` copy that
+/// says whether the two interpreters agree.
 library;
 
 import 'package:test/test.dart';
@@ -63,9 +68,10 @@ D4rt _interpreterWithThrowingBridges() {
       nativeType: SystemColor,
       name: 'SystemColor',
       staticGetters: {
-        'light': (visitor) =>
-            throw UnsupportedError('SystemColor not supported on the current '
-                'platform.'),
+        'light': (visitor) => throw UnsupportedError(
+          'SystemColor not supported on the current '
+          'platform.',
+        ),
       },
       staticMethods: {
         'probe': (visitor, positional, named, typeArgs) =>
@@ -80,9 +86,7 @@ D4rt _interpreterWithThrowingBridges() {
     BridgedClass(
       nativeType: Palette,
       name: 'Palette',
-      constructors: {
-        '': (visitor, positional, named) => Palette(),
-      },
+      constructors: {'': (visitor, positional, named) => Palette()},
       getters: {
         'canvas': (visitor, target) =>
             throw UnsupportedError('canvas is unsupported'),
@@ -125,26 +129,23 @@ String main() {
 
 void main() {
   group('SCC47: exceptions from bridged members reach interpreted catch', () {
-    test(
-      'F-SCC47-1: a bridged STATIC GETTER that throws is caught by '
-      '`catch (e)` — the system_color_palette case',
-      () {
-        final outcome = _runGuarded(
-          _interpreterWithThrowingBridges(),
-          'final v = SystemColor.light;',
-        );
+    test('F-SCC47-1: a bridged STATIC GETTER that throws is caught by '
+        '`catch (e)` — the system_color_palette case', () {
+      final outcome = _runGuarded(
+        _interpreterWithThrowingBridges(),
+        'final v = SystemColor.light;',
+      );
 
-        expect(
-          outcome,
-          startsWith('caught:'),
-          reason:
-              'A bare `catch (e)` catches everything in Dart. Letting the '
-              'native UnsupportedError escape the interpreted try means no '
-              'script can guard a platform-dependent bridged API.',
-        );
-        expect(outcome, contains('SystemColor not supported'));
-      },
-    );
+      expect(
+        outcome,
+        startsWith('caught:'),
+        reason:
+            'A bare `catch (e)` catches everything in Dart. Letting the '
+            'native UnsupportedError escape the interpreted try means no '
+            'script can guard a platform-dependent bridged API.',
+      );
+      expect(outcome, contains('SystemColor not supported'));
+    });
 
     test(
       'F-SCC47-2: a bridged STATIC METHOD that throws is caught by `catch (e)`',
@@ -159,33 +160,27 @@ void main() {
       },
     );
 
-    test(
-      'F-SCC47-3: a bridged INSTANCE GETTER that throws is caught by '
-      '`catch (e)`',
-      () {
-        final outcome = _runGuarded(
-          _interpreterWithThrowingBridges(),
-          'final v = Palette().canvas;',
-        );
+    test('F-SCC47-3: a bridged INSTANCE GETTER that throws is caught by '
+        '`catch (e)`', () {
+      final outcome = _runGuarded(
+        _interpreterWithThrowingBridges(),
+        'final v = Palette().canvas;',
+      );
 
-        expect(outcome, startsWith('caught:'));
-        expect(outcome, contains('canvas is unsupported'));
-      },
-    );
+      expect(outcome, startsWith('caught:'));
+      expect(outcome, contains('canvas is unsupported'));
+    });
 
-    test(
-      'F-SCC47-4: a bridged INSTANCE METHOD that throws is caught by '
-      '`catch (e)`',
-      () {
-        final outcome = _runGuarded(
-          _interpreterWithThrowingBridges(),
-          'final v = Palette().resolve();',
-        );
+    test('F-SCC47-4: a bridged INSTANCE METHOD that throws is caught by '
+        '`catch (e)`', () {
+      final outcome = _runGuarded(
+        _interpreterWithThrowingBridges(),
+        'final v = Palette().resolve();',
+      );
 
-        expect(outcome, startsWith('caught:'));
-        expect(outcome, contains('resolve is unsupported'));
-      },
-    );
+      expect(outcome, startsWith('caught:'));
+      expect(outcome, contains('resolve is unsupported'));
+    });
 
     test(
       'F-SCC47-5: the same exception is also catchable by its declared TYPE, '

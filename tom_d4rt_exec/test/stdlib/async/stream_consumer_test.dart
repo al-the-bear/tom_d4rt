@@ -30,6 +30,20 @@ import '../../interpreter_test.dart' show executeAsync;
 /// have silently stolen dispatch from the two concrete bridges. The registry
 /// feeds `isSubtypeOf` only, so `is` learns the hierarchy while dispatch is
 /// untouched.
+
+/// DGUC6: this package resolves `tom_d4rt_ast` from pub.dev, currently 0.42.0,
+/// and SCC49's `EventSink -> Sink` supertype edge ships in 0.43.0. The
+/// reference copy in `tom_d4rt/test` runs F-SCC49-7 and -8 green; here they
+/// return `false` and `[false, true, true]` respectively — the two links below
+/// `Sink` are registered and only the last is missing, which is exactly the
+/// version gap and not a migration defect.
+///
+/// Un-skip the two cases and delete this constant in the commit that raises
+/// exec's `tom_d4rt_ast` floor past 0.42.0.
+const _scc49Skip =
+    'pinned on the tom_d4rt_ast publish that carries the EventSink -> Sink '
+    "edge (0.43.0); exec resolves 0.42.0 — see this file's header";
+
 void main() {
   group('SC4: StreamConsumer bridge', () {
     test('F-SC4-1: the StreamConsumer name resolves [2026-07-27]', () async {
@@ -131,6 +145,77 @@ void main() {
         expect(result, orderedEquals([1, 2, 99]));
       },
     );
+  });
+
+  group('SCC49: the sink hierarchy reaches dart:core Sink', () {
+    // The SDK's chain is
+    //   abstract class EventSink<T> implements Sink<T>
+    //   abstract class StreamSink<S> implements EventSink<S>, StreamConsumer<S>
+    //   abstract class StreamController<T> implements StreamSink<T>, …
+    // so every one of these is a `Sink`. SC4 registered the edges as far as
+    // `EventSink` and stopped, because `Sink` was not what it was auditing —
+    // leaving `is Sink` answering false for values that plainly are one, which
+    // is worse than the name being absent because it looks like an answer.
+    //
+    // `Sink` is bridged (stdlib/core/sink.dart) and the convert side already
+    // declares `ChunkedConversionSink -> Sink`, so the async side was the only
+    // half missing. The fix is one edge, `EventSink -> Sink`: the supertype
+    // registry computes a transitive closure, so `StreamSink` and
+    // `StreamController` inherit it without being named again.
+
+    test('F-SCC49-7: a controller sink is a Sink [2026-09-06]', () async {
+      final result = await executeAsync('''
+        import 'dart:async';
+        main() {
+          final c = StreamController();
+          return c.sink is Sink;
+        }
+      ''');
+      expect(
+        result,
+        isTrue,
+        reason:
+            '`StreamController.sink` is a `StreamSink`, which implements '
+            '`EventSink`, which implements `Sink`. Every link but the last was '
+            'already registered.',
+      );
+    }, skip: _scc49Skip);
+
+    test('F-SCC49-8: a controller is itself a Sink [2026-09-06]', () async {
+      final result = await executeAsync('''
+        import 'dart:async';
+        main() {
+          final c = StreamController();
+          return [c is Sink, c is EventSink, c is StreamSink];
+        }
+      ''');
+      expect(
+        result,
+        orderedEquals([true, true, true]),
+        reason:
+            'Transitivity through the registry: only the `EventSink -> Sink` '
+            'edge was added, so a false here for `is Sink` while the other two '
+            'hold would mean the closure is not being recomputed.',
+      );
+    }, skip: _scc49Skip);
+
+    test('F-SCC49-9: the Sink edge is not over-broad [2026-09-06]', () async {
+      // Same guard shape as F-SC4-3: an edge that makes everything a `Sink`
+      // would pass the two tests above while being worthless.
+      //
+      // Left RUNNING while its two siblings are skipped, and the asymmetry is
+      // deliberate: this case asserts that certain values are NOT sinks, which
+      // an interpreter missing the edge entirely satisfies. It passes here
+      // vacuously, so read it as covering nothing until the skips above lift.
+      final result = await executeAsync('''
+        import 'dart:async';
+        main() {
+          final c = StreamController();
+          return [c.stream is Sink, 'x' is Sink, 42 is Sink];
+        }
+      ''');
+      expect(result, orderedEquals([false, false, false]));
+    });
   });
 
   group('SC4: StreamSink routing for controller sinks', () {

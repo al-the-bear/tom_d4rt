@@ -34,12 +34,14 @@
 /// range errors, unsupported operations — if the interpreter will not deliver
 /// the exception to its handler.
 ///
-/// Twin of `tom_d4rt_exec/test/scc47_bridged_throw_catchable_test.dart`. The
-/// AST-line twin lives in `tom_d4rt_exec`, not `tom_d4rt_ast`, because
-/// `tom_d4rt_ast` is analyzer-free and so cannot parse the interpreted source
-/// these assertions need. Exec runs the `tom_d4rt_ast` interpreter, which is
-/// the line the Flutter corpus executes — so that copy is the one that speaks
-/// to the system_color_palette finding.
+/// This file exists once in `tom_d4rt/test/` and once in `tom_d4rt_exec/test/`,
+/// and the two copies are verbatim apart from the interpreter import. The
+/// analyzer-free half lives in `tom_d4rt_exec` rather than in `tom_d4rt_ast`
+/// because `tom_d4rt_ast` is analyzer-free and so cannot parse the interpreted
+/// source these assertions need. Exec runs the `tom_d4rt_ast` interpreter,
+/// which is the line the Flutter corpus executes — so it is the exec copy that
+/// speaks to the system_color_palette finding, and the `tom_d4rt` copy that
+/// says whether the two interpreters agree.
 library;
 
 import 'package:test/test.dart';

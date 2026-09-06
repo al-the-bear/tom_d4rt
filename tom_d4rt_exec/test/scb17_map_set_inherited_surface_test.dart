@@ -210,11 +210,37 @@ void main() {
         throwsA(anything),
         reason: 'HashMap must not inherit SplayTreeMap members',
       );
-      // No set-side equivalent is asserted here on purpose: `SplayTreeSet`
-      // bridges no leaf-only member at all — `firstAfter`, `lastBefore` and the
-      // rest of its ordered surface are simply absent — so a set-side
-      // discrimination test would pass vacuously. That absence is a gap of its
-      // own, tracked separately.
+      // The set side, which needs a different shape of assertion. `SplayTreeSet`
+      // declares no leaf-only MEMBER — measured against the Dart 3.12.2 SDK, its
+      // entire public surface is also on `Set` — so there is no set-side
+      // analogue of `firstKey` to call and no member-existence test to write.
+      // (An earlier note here claimed the ordered surface `firstAfter` /
+      // `lastBefore` was missing from the bridge and tracked that as a gap.
+      // Those members do not exist in Dart at all; nothing was missing.)
+      //
+      // What the leaf does own is BEHAVIOUR: `union` / `intersection` /
+      // `difference` / `toSet` are overridden to return a sorted set, so the
+      // same call through a supertype-coerced `LinkedHashSet` gives insertion
+      // order. That contrast discriminates dispatch just as sharply as a
+      // missing member, and unlike a member check it cannot pass vacuously.
+      expect(
+        run(
+          'final s = SplayTreeSet<int>()..addAll([5, 1, 9]); '
+          'return s.union(<int>{7, 0}).toList();',
+        ),
+        orderedEquals([0, 1, 5, 7, 9]),
+        reason: 'the SplayTreeSet leaf sorts the union',
+      );
+      expect(
+        run(
+          'final s = LinkedHashSet<int>()..addAll([5, 1, 9]); '
+          'return s.union(<int>{7, 0}).toList();',
+        ),
+        orderedEquals([5, 1, 9, 7, 0]),
+        reason:
+            'the non-vacuity guard: if this also came back sorted, the '
+            'assertion above would be measuring the SDK rather than dispatch',
+      );
       expect(
         () => run(
           'final s = UnmodifiableSetView<int>(<int>{1}); '

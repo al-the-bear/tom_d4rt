@@ -1,0 +1,26 @@
+# Analysis options for the conformance corpus only. The package-level file one
+# directory up still applies; this narrows one lint for the test tree.
+include: ../analysis_options.yaml
+
+analyzer:
+  errors:
+    # A test file here is a PORT: a byte-for-byte copy of its `tom_d4rt/test`
+    # counterpart with the interpreter import rewritten, and
+    # `conformance_drift_test.dart` (F-SCC6-4) enforces exactly that by
+    # comparing bytes. So an `// ignore:` comment or a hand-tuned import list is
+    # not a local tidy-up — it makes the file no longer a port, and buying it
+    # back costs a `_divergentBaseline` entry that then absorbs every FUTURE
+    # divergence in that file.
+    #
+    # `unnecessary_import` fires on ports for a structural reason, not an
+    # accidental one: `tom_d4rt_exec/lib/d4rt.dart` re-exports
+    # `package:tom_d4rt_ast/runtime.dart` wholesale, while `tom_d4rt/lib/d4rt.dart`
+    # exports a hand-picked subset. Any reference test that reaches into
+    # `package:tom_d4rt/src/...` for a type exec's public library happens to
+    # re-export therefore ports to a redundant-looking import — today
+    # `scc46_native_enum_runtime_type_test.dart` and `BridgedEnumDefinition`,
+    # and the same will hold for the next such type.
+    #
+    # Scoped to `test/` rather than the package, so redundant imports in `lib/`
+    # are still reported.
+    unnecessary_import: ignore

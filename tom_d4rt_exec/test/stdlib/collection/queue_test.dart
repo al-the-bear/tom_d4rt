@@ -1,6 +1,22 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt_exec/d4rt.dart';
 
+/// DGUC6: this package resolves `tom_d4rt_ast` from pub.dev, currently 0.42.0,
+/// and SCC51 — which stopped the collection bridges shadowing `Iterable`'s
+/// delegating `first`/`last`/`single` and so let the SDK's own `StateError`
+/// reach the script — ships in 0.44.0. The reference copy in `tom_d4rt/test`
+/// runs these cases green; here they would report the pre-fix
+/// `RuntimeD4rtException` as though it were a migration defect.
+///
+/// Skipped rather than re-pinned to the old exception family on purpose. A pin
+/// would keep the suite green and then need a hand deletion nobody is watching
+/// for, and F-SCC6-5 requires a `KNOWN-GAP` marker to exist in BOTH trees — the
+/// reference copy has no gap to mark. Un-skip and delete this constant in the
+/// commit that raises exec's `tom_d4rt_ast` floor past 0.43.0.
+const _scc51Skip =
+    'pinned on the tom_d4rt_ast publish that carries SCC51 (0.44.0); '
+    "exec resolves 0.42.0 — see this file's header";
+
 void main() {
   group('dart:collection - Queue Tests', () {
     D4rt d4rtInstance = D4rt();
@@ -109,15 +125,10 @@ void main() {
           var q = Queue();
           return q.first;
         '''),
-          throwsA(
-            isA<RuntimeD4rtException>().having(
-              (e) => e.message,
-              'message',
-              contains('Cannot get first from an empty queue.'),
-            ),
-          ),
+          throwsA(isA<StateError>()),
         );
       },
+      skip: _scc51Skip,
     );
 
     test(
@@ -128,15 +139,10 @@ void main() {
           var q = Queue();
           return q.last;
         '''),
-          throwsA(
-            isA<RuntimeD4rtException>().having(
-              (e) => e.message,
-              'message',
-              contains('Cannot get last from an empty queue.'),
-            ),
-          ),
+          throwsA(isA<StateError>()),
         );
       },
+      skip: _scc51Skip,
     );
 
     test('I-COLL-63: Clear() method. [2026-02-10 06:37] (PASS)', () {

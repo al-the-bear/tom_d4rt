@@ -8,6 +8,23 @@ import 'package:tom_d4rt_exec/d4rt.dart';
 /// optional `compare` argument. Every assertion below therefore uses
 /// `orderedEquals` on a deliberately shuffled input — an unordered assertion
 /// would pass against any `Set` bridge and pin nothing.
+
+/// DGUC6: this package resolves `tom_d4rt_ast` from pub.dev, currently 0.42.0,
+/// and SCC51 — which stopped the collection bridges shadowing `Iterable`'s
+/// delegating `first`/`last`/`single` and so let the SDK's own `StateError`
+/// reach the script — ships in 0.44.0. The reference copy in `tom_d4rt/test`
+/// runs these cases green; here they would report the pre-fix
+/// `RuntimeD4rtException` as though it were a migration defect.
+///
+/// Skipped rather than re-pinned to the old exception family on purpose. A pin
+/// would keep the suite green and then need a hand deletion nobody is watching
+/// for, and F-SCC6-5 requires a `KNOWN-GAP` marker to exist in BOTH trees — the
+/// reference copy has no gap to mark. Un-skip and delete this constant in the
+/// commit that raises exec's `tom_d4rt_ast` floor past 0.43.0.
+const _scc51Skip =
+    'pinned on the tom_d4rt_ast publish that carries SCC51 (0.44.0); '
+    "exec resolves 0.42.0 — see this file's header";
+
 void main() {
   final d4rt = D4rt();
 
@@ -252,8 +269,13 @@ void main() {
     });
 
     test(
-      'F-SC2-19: first on an empty set raises a D4rt error [2026-07-27]',
+      'F-SC2-19: first on an empty set raises a StateError [2026-07-27]',
       () {
+        // SCC51: the expected family changed from RuntimeD4rtException to
+        // StateError. The bridge used to catch the SDK's StateError and rethrow
+        // a hand-written message; it now inherits Set's delegating adapter, so
+        // the SDK's own error reaches the script and the `on StateError catch`
+        // a Dart author writes actually fires.
         expect(
           () => d4rt.execute(
             source: '''
@@ -261,9 +283,10 @@ void main() {
           main() { return SplayTreeSet().first; }
         ''',
           ),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<StateError>()),
         );
       },
+      skip: _scc51Skip,
     );
 
     test(
@@ -280,5 +303,143 @@ void main() {
         );
       },
     );
+  });
+
+  // SCC50: the members `SplayTreeSet` declares ITSELF, as opposed to the
+  // `Iterable` conveniences the bridge also carries.
+  //
+  // WHY THIS GROUP EXISTS, AND WHY IT IS NOT WHAT WAS EXPECTED. It was filed as
+  // "bridge `SplayTreeSet.firstAfter` / `lastBefore`, the ordered neighbour
+  // queries that are the whole reason to pick a splay tree". Those members do
+  // not exist. Measured against the Dart 3.12.2 SDK
+  // (`dart-sdk/lib/collection/splay_tree.dart`): `firstKeyAfter` /
+  // `lastKeyBefore` are declared on `SplayTreeMap` only, and `SplayTreeSet`'s
+  // complete public surface is
+  //
+  //     cast iterator length isEmpty isNotEmpty first last single contains
+  //     add remove addAll removeAll retainAll lookup intersection difference
+  //     union clear toSet toString
+  //
+  // — every one of which `Set` also declares. So `SplayTreeSet` has NO
+  // leaf-only member, the bridge was never missing one, and a member-level
+  // discrimination test for this type cannot be written at all. This is a
+  // property of the SDK, not a gap in the bridge.
+  //
+  // WHAT IS ACTUALLY WORTH PINNING, then, is not which members exist but what
+  // they RETURN. `union` / `intersection` / `difference` / `toSet` are declared
+  // on `Set` returning `Set`, and `SplayTreeSet` overrides all four to return a
+  // *sorted* set (`_filter` and `_clone` both build a `SplayTreeSet`). That
+  // override is the leaf behaviour, it is observable from a script, and none of
+  // it had coverage — the bridge routes these through `setAlgebraMethods`,
+  // whose `coerce` is `(t) => t as Set`, so an implementation that copied into
+  // a plain `Set` first would lose the ordering silently and every existing
+  // assertion in this file would still pass.
+  group('SCC50: the leaf-declared surface of SplayTreeSet', () {
+    // Inserted out of order throughout, so a result that merely echoed
+    // insertion order would be visible.
+    const build = 'final s = SplayTreeSet(); s.addAll([5, 1, 9, 3]); ';
+
+    Object? run(String body) =>
+        d4rt.execute(source: "import 'dart:collection';\nmain() {\n$body\n}\n");
+
+    test('F-SCC50-1: union() returns a sorted set [2026-09-06]', () {
+      expect(
+        run('$build return s.union({7, 0}).toList();'),
+        orderedEquals([0, 1, 3, 5, 7, 9]),
+        reason:
+            'THE LEAF ASSERTION. `SplayTreeSet.union` is `_clone()..addAll`, '
+            'so the result is a SplayTreeSet and the added elements sort into '
+            'place. A LinkedHashSet given the same input yields '
+            '[5, 1, 9, 3, 7, 0] — F-SCB17-7 uses exactly that contrast as the '
+            'set-side dispatch discriminator.',
+      );
+    });
+
+    test('F-SCC50-2: intersection() returns a sorted set [2026-09-06]', () {
+      expect(
+        run('$build return s.intersection({9, 1, 4}).toList();'),
+        orderedEquals([1, 9]),
+        reason:
+            'The argument is written {9, 1, 4} rather than {1, 9, 4} so that '
+            'an implementation iterating the ARGUMENT and collecting hits '
+            'would produce [9, 1] and fail here.',
+      );
+    });
+
+    test('F-SCC50-3: difference() returns a sorted set [2026-09-06]', () {
+      expect(
+        run('$build return s.difference({1, 9}).toList();'),
+        orderedEquals([3, 5]),
+      );
+    });
+
+    test(
+      'F-SCC50-4: toSet() returns a sorted, independent copy [2026-09-06]',
+      () {
+        expect(
+          run(
+            '$build final copy = s.toSet(); s.add(2); '
+            'return [copy.toList(), s.toList()];',
+          ),
+          equals([
+            [1, 3, 5, 9],
+            [1, 2, 3, 5, 9],
+          ]),
+          reason:
+              'Two claims in one: the copy is sorted, and it is a copy — '
+              '`toSet()` is `_clone()`, so a later mutation of the original must '
+              'not reach it. An adapter returning `target` itself would pass a '
+              'sortedness check alone.',
+        );
+      },
+    );
+
+    test('F-SCC50-5: cast() preserves the sorted order [2026-09-06]', () {
+      // `cast` is the one member of the four that does NOT return a
+      // SplayTreeSet — the SDK gives a lazy `CastSet` view over it — so the
+      // ordering survives by delegation rather than by type.
+      expect(
+        run('$build return s.cast().toList();'),
+        orderedEquals([1, 3, 5, 9]),
+      );
+    });
+
+    test('F-SCC50-6: single and clear behave on the leaf [2026-09-06]', () {
+      expect(run('final s = SplayTreeSet(); s.add(4); return s.single;'), 4);
+      expect(
+        run('$build s.clear(); return [s.length, s.isEmpty, s.toList()];'),
+        equals([0, true, []]),
+      );
+    });
+
+    test('F-SCC50-7: lookup() returns null for a miss [2026-09-06]', () {
+      // `E? lookup(Object?)` — declared nullable in the SDK. Guarding this the
+      // way `firstKey` was once guarded (throw "set is empty") is the mistake
+      // I-COLL-78 had to undo on the map side; this pins that it was not
+      // repeated here.
+      expect(
+        run('$build return [s.lookup(9), s.lookup(4)];'),
+        equals([9, null]),
+      );
+    });
+
+    test('F-SCC50-8: the SDK declares no firstAfter / lastBefore '
+        '[2026-09-06]', () {
+      // NOT a wish-list item, and deliberately asserted rather than left as a
+      // comment. This todo was filed on the belief that these two members exist
+      // and were unbridged; they do not exist, so bridging them would invent
+      // API that native Dart does not have. If a future SDK adds them this test
+      // still passes — the interpreter would need the adapter before the call
+      // resolves — but the reasoning above it is what a reader needs, and it is
+      // anchored to a failing call rather than floating in prose.
+      expect(
+        () => run('$build return s.firstAfter(3);'),
+        throwsA(anything),
+        reason:
+            'SplayTreeSet.firstAfter is not a Dart member; `dart analyze` '
+            'rejects the same call in native code',
+      );
+      expect(() => run('$build return s.lastBefore(3);'), throwsA(anything));
+    });
   });
 }
