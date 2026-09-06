@@ -1469,7 +1469,15 @@ class SendTestRunner {
     return Directory(p.join(packageRoot, scriptsPath));
   }
 
-  /// Find all script files in the scripts directory (recursively).
+  /// Find all *behavioural corpus* script files, recursively.
+  ///
+  /// Directories whose name starts with `_` are skipped. They hold harness
+  /// fixtures rather than corpus scripts, and some of them are expected to
+  /// fail: `_harness/framework_error_offender_test.dart` (SCC48) raises a
+  /// Flutter advisory on purpose so the isolation test has a reliable error
+  /// source. Sweeping such a script would report a permanent phantom
+  /// regression, so the convention is enforced here rather than left to each
+  /// caller to remember.
   static List<File> findAllScripts() {
     final scriptsDir = getScriptsDirectory();
     if (!scriptsDir.existsSync()) {
@@ -1480,8 +1488,20 @@ class SendTestRunner {
         .listSync(recursive: true)
         .whereType<File>()
         .where((f) => f.path.endsWith('.dart'))
+        .where((f) => !_isHarnessFixture(scriptsDir, f))
         .toList()
       ..sort((a, b) => a.path.compareTo(b.path));
+  }
+
+  /// Whether [file] sits under an `_`-prefixed directory below [scriptsDir].
+  static bool _isHarnessFixture(Directory scriptsDir, File file) {
+    final relative = p.relative(file.path, from: scriptsDir.path);
+    // Last segment is the file name; only directory segments gate inclusion,
+    // so a corpus script may still be named `_foo_test.dart` if it must be.
+    final segments = p.split(relative);
+    return segments
+        .take(segments.length - 1)
+        .any((segment) => segment.startsWith('_'));
   }
 
   /// Get the relative path of a script file from the scripts directory.
