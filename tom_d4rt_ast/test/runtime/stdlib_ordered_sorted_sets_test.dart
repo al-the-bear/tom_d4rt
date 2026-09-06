@@ -152,4 +152,152 @@ void main() {
       expect(splay.isAssignable!(LinkedHashSet<dynamic>()), isFalse);
     });
   });
+
+  // SCC50 mirror coverage. The script-level twin is the `SCC50` group in
+  // `tom_d4rt/test/stdlib/collection/splay_tree_set_test.dart`.
+  //
+  // THE FINDING THIS GROUP RECORDS. SCC50 was filed as "bridge
+  // `SplayTreeSet.firstAfter` / `lastBefore`". Those members do not exist:
+  // measured against the Dart 3.12.2 SDK, `firstKeyAfter` / `lastKeyBefore` are
+  // declared on `SplayTreeMap` alone, and every public member of
+  // `SplayTreeSet` is also declared on `Set`. `SplayTreeSet` therefore has no
+  // leaf-only member at all — which is exactly why F-SC2-AST-7 above can assert
+  // that its bridge surface EQUALS `LinkedHashSet`'s and be right to. That
+  // equality reads like a shortfall and is not one.
+  //
+  // What the leaf owns is behaviour, not surface: `union` / `intersection` /
+  // `difference` / `toSet` are overridden to return a sorted set. The bridge
+  // routes the first three through `setAlgebraMethods`, whose `coerce` is
+  // `(t) => t as Set` — an implementation that copied into a plain `Set` first
+  // would lose the ordering while leaving every surface assertion in this file
+  // green, so the adapters are driven for their RESULT here.
+  group('SCC50: the leaf behaviour behind the shared surface', () {
+    late InterpreterVisitor visitor;
+
+    setUp(() {
+      // Method adapters take a non-nullable visitor (only getters accept
+      // `null`), and none of the set-algebra adapters resolves a name or loads
+      // a module, so an empty loader is enough.
+      visitor = InterpreterVisitor(
+        globalEnvironment: env,
+        moduleContext: AstModuleLoader(
+          modules: const {},
+          globalEnvironment: env,
+          runner: D4rtRunner(),
+        ),
+      );
+    });
+
+    /// Invokes [method] on the `SplayTreeSet` bridge with [args].
+    Object? callSplay(String method, List<Object?> args) =>
+        env.findBridgedClassByName('SplayTreeSet')!.methods[method]!(
+          visitor,
+          SplayTreeSet<dynamic>.of([5, 1, 9, 3]),
+          args,
+          {},
+          [],
+        );
+
+    test('F-SCC50-AST-1: union() returns a sorted set [2026-09-06]', () {
+      // The source set is built from [5, 1, 9, 3] and the argument is
+      // {7, 0} — both out of order, so a result echoing either input's order
+      // is distinguishable from a sorted one.
+      expect(
+        (callSplay('union', [
+                  <dynamic>{7, 0},
+                ])
+                as Set)
+            .toList(),
+        orderedEquals([0, 1, 3, 5, 7, 9]),
+      );
+    });
+
+    test('F-SCC50-AST-2: intersection() and difference() return sorted sets '
+        '[2026-09-06]', () {
+      expect(
+        (callSplay('intersection', [
+                  <dynamic>{9, 1, 4},
+                ])
+                as Set)
+            .toList(),
+        orderedEquals([1, 9]),
+        reason:
+            'the argument is written {9, 1, 4}, so an implementation '
+            'iterating it and collecting hits would give [9, 1]',
+      );
+      expect(
+        (callSplay('difference', [
+                  <dynamic>{1, 9},
+                ])
+                as Set)
+            .toList(),
+        orderedEquals([3, 5]),
+      );
+    });
+
+    test(
+      'F-SCC50-AST-3: toSet() returns a sorted, independent copy [2026-09-06]',
+      () {
+        final bridge = env.findBridgedClassByName('SplayTreeSet')!;
+        final original = SplayTreeSet<dynamic>.of([5, 1, 9, 3]);
+        final copy =
+            bridge.methods['toSet']!(visitor, original, [], {}, []) as Set;
+        original.add(2);
+        expect(copy.toList(), orderedEquals([1, 3, 5, 9]));
+        expect(
+          original.toList(),
+          orderedEquals([1, 2, 3, 5, 9]),
+          reason:
+              'two claims: the copy is sorted, and it is a copy — an adapter '
+              'returning `target` itself would satisfy sortedness alone',
+        );
+      },
+    );
+
+    test('F-SCC50-AST-4: the LinkedHashSet twin is insertion-ordered '
+        '[2026-09-06]', () {
+      // The non-vacuity guard. Both bridges share `setAlgebraMethods`, so if
+      // this one also came back sorted the three tests above would be
+      // measuring the SDK rather than which native object did the work.
+      final result =
+          env.findBridgedClassByName('LinkedHashSet')!.methods['union']!(
+                visitor,
+                LinkedHashSet<dynamic>.of([5, 1, 9, 3]),
+                [
+                  <dynamic>{7, 0},
+                ],
+                {},
+                [],
+              )
+              as Set;
+      expect(result.toList(), orderedEquals([5, 1, 9, 3, 7, 0]));
+    });
+
+    test('F-SCC50-AST-5: neither firstAfter nor lastBefore is bridged '
+        '[2026-09-06]', () {
+      // Asserted rather than left as prose, because the absence is the
+      // conclusion of this todo and a future reader will otherwise re-file
+      // it. Adding either adapter would invent API that native Dart does not
+      // have, and would break F-SC2-AST-7's surface equality besides.
+      final splay = env.findBridgedClassByName('SplayTreeSet')!;
+      expect(splay.methods.keys, isNot(contains('firstAfter')));
+      expect(splay.methods.keys, isNot(contains('lastBefore')));
+    });
+
+    test('F-SCC50-AST-6: the map twin DOES carry the ordered surface '
+        '[2026-09-06]', () {
+      // The contrast that makes F-SCC50-AST-5 a statement about the SDK
+      // rather than about our coverage: the members exist on the map, they
+      // are bridged there, and they have no set-side counterpart to bridge.
+      expect(
+        env.findBridgedClassByName('SplayTreeMap')!.methods.keys,
+        containsAll(<String>[
+          'firstKey',
+          'lastKey',
+          'firstKeyAfter',
+          'lastKeyBefore',
+        ]),
+      );
+    });
+  });
 }
