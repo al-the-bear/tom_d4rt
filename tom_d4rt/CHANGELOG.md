@@ -1,3 +1,58 @@
+## 1.54.0
+
+### Fixed — a native type no bridge claims by name resolves structurally instead of going inert (scc49)
+
+Calling a member on a native object whose type appears in no bridge's
+`nativeNames` failed with `Undefined property or method 'moveNext' on
+_CompactIterator` — not with a resolution error, because the failure is
+absorbed upstream and the object surfaces as a raw native with no members.
+Every private SDK implementation type therefore had to be enumerated by hand;
+the `Iterator` bridge alone carries seventeen entries, and the eighteenth an
+SDK release introduces is a new bug report. User libraries with their own
+private iterators were never covered at all.
+
+Measuring the premise narrowed it. Public *generic* implementation types
+already resolved for free — `WhereIterator`, `MappedListIterable`,
+`ReversedListIterable` appear in no allowlist and work today, because
+`toBridgedClass` has a suffix rule that matches them. That rule sits in the
+`else if (name.contains('<'))` arm of an `if (name starts with '_') … else if`
+chain, so it is unreachable for two shapes and only those two: private names
+(`_CompactIterator`, `_SplayTreeKeyIterator`) and non-generic public names
+(`Runes`, `RuneIterator`). Those two shapes are the entire reason the
+allowlists exist.
+
+So the fix makes the existing rule reachable rather than adding an `is` test.
+`toBridgedInstance` gains a final step that resolves an otherwise-unclaimed
+native object by the **longest** bridge name that is a suffix of its type
+name, and the pre-existing public suffix rule is switched to the same
+longest-wins helper. That second half is a fix in its own right: it used
+`firstWhereOrNull`, so it returned whichever bridge was registered first and
+reordering two `registerBridgedClass` calls could silently change dispatch —
+`_BodyBoxConstraints` suffix-matches both `Constraints` and `BoxConstraints`.
+
+The step lives in `toBridgedInstance`, not as a fourth pass inside
+`toBridgedClass`, and the difference is load-bearing. Implemented in
+`toBridgedClass` first, on the reasoning that a pass firing only where an
+exception is already thrown cannot regress a working case; the suite
+disagreed with 43 failures, all enum dispatch. That throw is not a failure
+report — callers *use* it as a control-flow signal, catching it to fall
+through to the bridged-enum registry, and a bridged enum named `SimpleEnum`
+suffix-matches the `Enum` bridge. Interpreter-owned names (`Enum`,
+`RuntimeType`, `RuntimeValue`, `Callable`) are excluded for the same reason.
+
+`nativeNames` stays, as the fast path and as the explicit-ownership override.
+It is still required: the SDK abbreviates often enough
+(`_StreamSinkWrapper` for `StreamSink`) that the naming convention alone does
+not cover everything.
+
+### Fixed — `EventSink` is registered as a subtype of `Sink` (scc49)
+
+One line, independent of the above. SC4 registered the sink hierarchy as far
+as `EventSink` because `Sink` was not what it was auditing, so `c.sink is
+Sink` answered `false` for a value that plainly is one — worse than an
+unresolvable name, because it looks like an answer. The hierarchy registry
+closes transitively, so `StreamSink` and `StreamController` inherit the edge.
+
 ## 1.53.0
 
 ### Fixed — a native enum value resolves to its bridged enum, not to a bridged class whose name is a prefix of it (scc46)
