@@ -1,3 +1,11 @@
+## 0.52.0
+
+### Added — the last three `dart:io` re-exports a script could reach but not name (scc65)
+
+### Documented — `BadCertificateCallback` and `HttpOverrides` are unbridged by decision (scc65)
+
+Mirrors `tom_d4rt` 1.63.0.
+
 ## 0.51.0
 
 ### Fixed — a type test no longer runs the function it is asked about (scc64)

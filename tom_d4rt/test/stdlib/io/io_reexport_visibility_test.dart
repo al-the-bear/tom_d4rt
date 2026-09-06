@@ -27,14 +27,21 @@ import '../../interpreter_test.dart';
 /// permissive registry could just as easily have made everything visible to
 /// everyone, and that would NOT match Dart.
 ///
-/// NOT COVERED HERE, deliberately: 5 of the 32 names `dart:io` re-exports are
-/// still unreachable — the client-side detail types (`HttpDate`,
-/// `HttpOverrides`, `BadCertificateCallback`, `RedirectInfo`,
-/// `HttpClientResponseCompressionState`). That is a genuine gap, but it is a
-/// *bridging* gap (those classes are bridged nowhere at all), not the re-export
-/// gap SCB21 described. It is tracked separately rather than pinned here as a
-/// failing expectation, so that closing it does not require deleting
-/// assertions.
+/// NOT COVERED HERE: two of the 32 names `dart:io` re-exports are not bridged,
+/// and both by decision rather than omission.
+///
+/// `BadCertificateCallback` is a `typedef`, not a class — an alias for
+/// `bool Function(X509Certificate, String, int)`. Everything a script does with
+/// it already works: `HttpClient.badCertificateCallback` takes a plain function
+/// value, and the interpreter does not resolve type annotations at all, so the
+/// alias is usable as an annotation whether or not anything defines it. A
+/// `BridgedClass` would add only `x is BadCertificateCallback`, which is a
+/// function-shape question `BridgedClass` cannot answer honestly.
+///
+/// `HttpOverrides` is left unbridged on sandbox grounds: its `global` setter
+/// swaps the `HttpClient` implementation process-wide and outlives the script
+/// that set it, which is the uncontrolled host access the interpreter exists to
+/// prevent. Both are recorded in [d4rt_limitations.md](../../../doc/d4rt_limitations.md).
 void main() {
   group('SCB21: dart:io-only scripts can name the typed_data re-exports', () {
     test('F-SCB21-1: BytesBuilder is nameable and usable under dart:io alone '
@@ -142,10 +149,10 @@ void main() {
   });
 
   group('SCB21: the HTTP re-exports that are bridged stay reachable', () {
-    // 27 of the 32 re-exported names resolve as real bridged *types*. They are
-    // pinned because the follow-up work that bridges the other names will touch
-    // this registrar, and silently losing one would look like unrelated
-    // breakage.
+    // 30 of the 32 re-exported names resolve as real bridged *types* — every
+    // one except the two the header explains are unbridged by decision. They
+    // are pinned as a set because they all come out of one registrar, and
+    // silently losing one would look like unrelated breakage.
     const bridgedTypes = <String>[
       'HttpClient',
       'HttpClientRequest',
@@ -198,6 +205,17 @@ void main() {
       'HttpClientBasicCredentials',
       'HttpClientBearerCredentials',
       'HttpClientDigestCredentials',
+      // The last three (SCC65). `RedirectInfo` and
+      // `HttpClientResponseCompressionState` are dead ends of the kind SCC62
+      // named: `HttpClientResponse.redirects` and `.compressionState` were
+      // bridged all along, so a script could reach a value and then not name,
+      // test or read it — a failure that surfaces one call after the one that
+      // caused it. `HttpDate` had no such excuse; nothing had registered it.
+      // `http_date_test.dart` and `http_response_details_test.dart` pin the
+      // behaviour.
+      'HttpDate',
+      'RedirectInfo',
+      'HttpClientResponseCompressionState',
       // Reaches a dart:io script through the eager typed_data registrar rather
       // than through the io one — but from the script's side it is simply
       // another name that resolves.

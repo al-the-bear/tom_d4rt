@@ -1,3 +1,47 @@
+## 1.63.0
+
+### Added — the last three `dart:io` re-exports a script could reach but not name (scc65)
+
+`HttpDate`, `RedirectInfo` and `HttpClientResponseCompressionState` are now
+bridged, closing the `dart:io` re-export surface: 30 of its 32 names are
+bridged and the remaining two are decisions recorded in
+`doc/d4rt_limitations.md`.
+
+Two of the three were the shape that fails one call *after* the call that
+caused it. `HttpClientResponse.redirects` and `.compressionState` had been
+bridged all along, so a script could reach a value and then be unable to name,
+test or read it — the error names the getter it was passed to, not the getter
+that produced it. `RedirectInfo` needed `nativeNames: ['_RedirectInfo']` for
+that: what the SDK hands back is the private implementation type, and without
+the claim the value resolves to no bridge and is inert even once the name
+exists.
+
+`HttpDate` had no such excuse — nothing had registered it. It is two static
+methods and no instances, and it is the only way a script can parse the three
+RFC date formats `HttpHeaders` puts on the wire. Hand-rolling that in
+interpreted Dart handles RFC-1123 and silently fails RFC-850 and asctime, so
+the absence pushed scripts toward a worse implementation rather than toward a
+workaround.
+
+### Documented — `BadCertificateCallback` and `HttpOverrides` are unbridged by decision (scc65)
+
+Both now carry a row in `doc/d4rt_limitations.md` and a reason in the error
+message, so a script that names one reads a decision rather than a gap.
+
+`BadCertificateCallback` is a `typedef`, not a class, and everything a script
+does with it already works without the name: the
+`HttpClient.badCertificateCallback` setter accepts a plain function value, and
+the interpreter does not resolve type annotations at all, so the alias is
+usable as an annotation whether or not anything defines it. A `BridgedClass`
+would add exactly one thing — `x is BadCertificateCallback` — which is a
+question about a function's shape that a bridge keyed on native type cannot
+answer honestly.
+
+`HttpOverrides.global` swaps the `HttpClient` implementation process-wide and
+outlives the script that set it, so one sandboxed script would redirect every
+subsequent HTTP call made by the host and by every other script. Unlike a
+filesystem or network grant there is no granularity that makes it safe.
+
 ## 1.62.0
 
 ### Fixed — a type test no longer runs the function it is asked about (scc64)

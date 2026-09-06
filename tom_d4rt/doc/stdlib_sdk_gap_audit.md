@@ -1252,11 +1252,18 @@ Measured against a live environment, the 32 names split two ways:
 
 | Shape | Count | Names |
 | ----- | ----- | ----- |
-| Bridged as a real type | 27 | `HttpClient`, `HttpClientRequest`, `HttpClientResponse`, `HttpServer`, `HttpRequest`, `HttpResponse`, `HttpSession`, `HttpConnectionInfo`, `HttpConnectionsInfo`, `HttpHeaders`, `HeaderValue`, `ContentType`, `Cookie`, `SameSite`, `HttpException`, `RedirectException`, `HttpStatus`, `WebSocket`, `WebSocketTransformer`, `WebSocketException`, `WebSocketStatus`, `CompressionOptions`, `HttpClientCredentials`, `HttpClientBasicCredentials`, `HttpClientBearerCredentials`, `HttpClientDigestCredentials`, `BytesBuilder` |
-| Not reachable at all | 5 | `HttpDate`, `BadCertificateCallback`, `HttpOverrides`, `HttpClientResponseCompressionState`, `RedirectInfo` |
+| Bridged as a real type | 30 | `HttpClient`, `HttpClientRequest`, `HttpClientResponse`, `HttpServer`, `HttpRequest`, `HttpResponse`, `HttpSession`, `HttpConnectionInfo`, `HttpConnectionsInfo`, `HttpHeaders`, `HeaderValue`, `ContentType`, `Cookie`, `SameSite`, `HttpException`, `RedirectException`, `HttpStatus`, `WebSocket`, `WebSocketTransformer`, `WebSocketException`, `WebSocketStatus`, `CompressionOptions`, `HttpClientCredentials`, `HttpClientBasicCredentials`, `HttpClientBearerCredentials`, `HttpClientDigestCredentials`, `HttpDate`, `RedirectInfo`, `HttpClientResponseCompressionState`, `BytesBuilder` |
+| Unbridged by decision | 2 | `BadCertificateCallback`, `HttpOverrides` |
 
-The 5 are a **bridging** gap, not a re-export gap — those classes are
-bridged nowhere in either tree.
+The two that remain are the only names on this surface whose absence is a
+**decision** rather than a gap, and they are unbridged for unrelated reasons:
+`BadCertificateCallback` is a `typedef` and not a class at all, so there is
+nothing a `BridgedClass` could model; `HttpOverrides` is a process-wide,
+script-outliving hook for swapping the `HttpClient` implementation, which is
+precisely the host access the sandbox exists to prevent. Both are argued in
+full in the [limitations doc](d4rt_limitations.md#intentionally-unbridged-sdk-classes),
+which means this re-export surface now has **no untracked gap left** — every
+one of the 32 names is either bridged or on that page.
 
 The gaps this section used to carry that were worse than a plain missing name
 are now all closed. Each shared a shape: a name a script never *writes* but is
@@ -1305,23 +1312,37 @@ bridged; the two facts worth knowing about them (the absent permission gate and
 the SDK's hardcoded `extensions` getter) are under
 [P3](#p3--niche-or-questionable-sandbox-fit-audit-only-likely-skip).
 
-**Disposition: the 5 remaining names are Tracked** as one todo:
+The last three to be bridged — `HttpDate`, `RedirectInfo` and
+`HttpClientResponseCompressionState` — split between the two shapes above.
+`RedirectInfo` and `HttpClientResponseCompressionState` were the handed-not-
+written kind: `HttpClientResponse.redirects` and `.compressionState` had been
+bridged all along, so a script could reach a value and then be unable to name,
+test or read it — a failure surfacing one call after the one that caused it.
+`RedirectInfo` needed `nativeNames: ['_RedirectInfo']` for that, since what the
+SDK hands back is the private implementation type; without the claim the value
+resolves to no bridge and is inert even once the name exists.
+`HttpDate` had no such excuse — nothing had registered it, and it is two static
+methods and no instances.
 
-| Names | Count | Tracked as |
-| ----- | ----- | ---------- |
-| `HttpDate`, `HttpOverrides`, `BadCertificateCallback`, `RedirectInfo`, `HttpClientResponseCompressionState` | 5 | SCC65 — the client-side leftovers |
-
-Pinned by [`io_reexport_visibility_test.dart`](../test/stdlib/io/io_reexport_visibility_test.dart)
+**Disposition: every name on this surface now carries one.** The 30 bridged
+names are pinned by
+[`io_reexport_visibility_test.dart`](../test/stdlib/io/io_reexport_visibility_test.dart)
 and its registration-level mirror
-`tom_d4rt_ast/test/runtime/stdlib_io_reexport_visibility_test.dart`, with the
-exception surface's catching behaviour in
-[`http_exception_test.dart`](../test/stdlib/io/http_exception_test.dart) and the
+`tom_d4rt_ast/test/runtime/stdlib_io_reexport_visibility_test.dart`, with
+behaviour pinned per family: the exception surface in
+[`http_exception_test.dart`](../test/stdlib/io/http_exception_test.dart), the
 server's round trip in
-[`http_server_test.dart`](../test/stdlib/io/http_server_test.dart). All
-deliberately pin only the working surface: asserting today's behaviour for the
-5 missing names would create assertions to delete rather than repair once they
-are bridged. The credentials family's type questions are pinned in
-[`http_credentials_test.dart`](../test/stdlib/io/http_credentials_test.dart).
+[`http_server_test.dart`](../test/stdlib/io/http_server_test.dart), the
+credentials family's type questions in
+[`http_credentials_test.dart`](../test/stdlib/io/http_credentials_test.dart),
+and the last three in
+[`http_date_test.dart`](../test/stdlib/io/http_date_test.dart) and
+[`http_response_details_test.dart`](../test/stdlib/io/http_response_details_test.dart).
+The two unbridged names are held by the limitations doc with cases in
+[`intentionally_unbridged_test.dart`](../test/stdlib/intentionally_unbridged_test.dart),
+which asserts both that the names are absent and — for
+`BadCertificateCallback` — that everything a script would use the alias for
+works without it, since that is the whole justification for the row.
 
 ## Notes on argument guards in hand-written bridges
 
@@ -1479,20 +1500,23 @@ the six missing *classes* that produced them. It is now Boundary, with
    candidate of the same shape, `LineSplitter`, was not. SCC57 added the
    converse rule after a recipe for `Stdin` destroyed fd 0 for every later suite
    in the process: **a recipe must yield an object the audit owns.**
-6. **`dart:io`'s re-export surface is 5 names short** — the client-side detail
-   types, bridged nowhere. Four blocks are done, and three of them were worth
-   more than their name count suggests, for the same reason: a name that is only
-   ever *reached* rather than *written* fails silently. Bridging
-   `HttpException`, `RedirectException`, `HttpStatus` and `IOException` turned
-   catch clauses that read as correct but were dead code into working handlers;
-   bridging `HttpRequest`/`HttpResponse`/`HttpSession`/`HttpConnectionInfo`/
+6. **`dart:io`'s re-export surface is closed** — 30 of its 32 names are bridged
+   and the remaining two are decisions on the limitations page, so nothing on it
+   is an unrecorded gap. Most of those blocks were worth more than their name
+   count suggests, for one reason: a name that is only ever *reached* rather
+   than *written* fails silently. Bridging `HttpException`, `RedirectException`,
+   `HttpStatus` and `IOException` turned catch clauses that read as correct but
+   were dead code into working handlers; bridging
+   `HttpRequest`/`HttpResponse`/`HttpSession`/`HttpConnectionInfo`/
    `HttpConnectionsInfo`/`SameSite` turned the already-bridged `HttpServer` from
-   a name into something that can answer a request; and converting the four
+   a name into something that can answer a request; converting the four
    credentials names from callables into real bridges turned `x is
-   HttpClientCredentials` from a throw or a silent `false` into an answer. The
-   WebSocket block is the exception that proves the point — it was absent in its
-   entirety, so it failed loudly, and it was bridged for the capability rather
-   than to repair a lie.
+   HttpClientCredentials` from a throw or a silent `false` into an answer; and
+   `RedirectInfo`/`HttpClientResponseCompressionState` were the same shape one
+   last time, on getters that had been bridged all along. The WebSocket block is
+   the exception that proves the point — it was absent in its entirety, so it
+   failed loudly, and it was bridged for the capability rather than to repair a
+   lie.
 
 ## Method / reproducibility
 

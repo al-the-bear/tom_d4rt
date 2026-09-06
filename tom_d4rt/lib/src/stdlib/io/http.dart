@@ -1581,6 +1581,117 @@ class HttpClientBearerCredentialsIo {
   );
 }
 
+/// `HttpDate` — the RFC-1123 date codec, and the whole of it.
+///
+/// `class HttpDate { HttpDate._(); static String format(DateTime); static
+/// DateTime parse(String); }` — every other member is private, so two static
+/// methods and no instances is the complete public surface.
+///
+/// The alternative to bridging it is a script parsing HTTP dates by hand, and
+/// the reason that is worse than tedious is `parse`: the SDK accepts three
+/// formats (RFC-1123, RFC-850 and asctime) because servers emit all three. A
+/// hand-rolled parser handles the first and silently rejects the others, which
+/// looks like a malformed response rather than a missing branch.
+class HttpDateIo {
+  static BridgedClass get definition => BridgedClass(
+    nativeType: HttpDate,
+    name: 'HttpDate',
+    // The SDK's constructor is private, so nothing a script writes can produce
+    // one — but `isAbstract` is what turns `HttpDate()` from a silent success
+    // into the rejection Dart itself gives.
+    isAbstract: true,
+    isAssignable: (v) => v is HttpDate,
+    typeParameterCount: 0,
+    staticMethods: {
+      'format': (visitor, positionalArgs, namedArgs, _) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! DateTime) {
+          throw RuntimeD4rtException(
+            'HttpDate.format requires a single DateTime argument.',
+          );
+        }
+        return HttpDate.format(positionalArgs[0] as DateTime);
+      },
+      'parse': (visitor, positionalArgs, namedArgs, _) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
+          throw RuntimeD4rtException(
+            'HttpDate.parse requires a single String argument.',
+          );
+        }
+        // The SDK throws `HttpException` for an unparseable date, and that is
+        // deliberately not caught and rewrapped here: `HttpException` is
+        // bridged, so a script can catch the real thing, and a rewrap would
+        // turn a handleable failure into an interpreter error.
+        return HttpDate.parse(positionalArgs[0] as String);
+      },
+    },
+  );
+}
+
+/// `RedirectInfo` — one hop of a redirect chain.
+///
+/// `abstract interface class RedirectInfo { int get statusCode; String get
+/// method; Uri get location; }`. No constructor, so a script only ever
+/// receives one — from `HttpClientResponse.redirects` or
+/// `RedirectException.redirects`, both of which have been bridged since long
+/// before this type had a name.
+///
+/// That gap is the dead-end shape SCC62 named: the getter resolves, the call
+/// succeeds, and the script holds a list whose elements it cannot read. The
+/// `nativeNames` entry is what closes it — the value arriving from either
+/// getter is an SDK-private `_RedirectInfo`, and without the claim it resolves
+/// to no bridge and is inert.
+class RedirectInfoIo {
+  static BridgedClass get definition => BridgedClass(
+    nativeType: RedirectInfo,
+    name: 'RedirectInfo',
+    nativeNames: const ['_RedirectInfo'],
+    isAbstract: true,
+    isAssignable: (v) => v is RedirectInfo,
+    typeParameterCount: 0,
+    getters: {
+      'statusCode': (visitor, target) => (target as RedirectInfo).statusCode,
+      'method': (visitor, target) => (target as RedirectInfo).method,
+      'location': (visitor, target) => (target as RedirectInfo).location,
+    },
+  );
+}
+
+/// `HttpClientResponseCompressionState` — what happened to the response body.
+///
+/// The value of `HttpClientResponse.compressionState`, and the second half of
+/// the same dead end `RedirectInfo` above closed.
+///
+/// Unlike `SameSite` and `ProcessStartMode` — the other two constant families
+/// in this stdlib, both of which are final classes with static const instances
+/// — this one is a genuine Dart `enum`, so `name`, `index` and `values` are
+/// real members rather than something a bridge would be synthesising.
+class HttpClientResponseCompressionStateIo {
+  static BridgedClass get definition => BridgedClass(
+    nativeType: HttpClientResponseCompressionState,
+    name: 'HttpClientResponseCompressionState',
+    isAssignable: (v) => v is HttpClientResponseCompressionState,
+    typeParameterCount: 0,
+    staticGetters: {
+      'notCompressed': (visitor) =>
+          HttpClientResponseCompressionState.notCompressed,
+      'decompressed': (visitor) =>
+          HttpClientResponseCompressionState.decompressed,
+      'compressed': (visitor) => HttpClientResponseCompressionState.compressed,
+      'values': (visitor) => HttpClientResponseCompressionState.values,
+    },
+    methods: {
+      'toString': (visitor, target, positionalArgs, namedArgs, _) =>
+          (target as HttpClientResponseCompressionState).toString(),
+    },
+    getters: {
+      'name': (visitor, target) =>
+          (target as HttpClientResponseCompressionState).name,
+      'index': (visitor, target) =>
+          (target as HttpClientResponseCompressionState).index,
+    },
+  );
+}
+
 class IoHttpStdlib {
   static void register(Environment environment) {
     environment.defineBridge(HttpClientIo.definition);
@@ -1619,5 +1730,13 @@ class IoHttpStdlib {
     environment.defineBridge(HttpClientBasicCredentialsIo.definition);
     environment.defineBridge(HttpClientDigestCredentialsIo.definition);
     environment.defineBridge(HttpClientBearerCredentialsIo.definition);
+
+    // The last three re-exports (SCC65). `RedirectInfo` and
+    // `HttpClientResponseCompressionState` are reached only through
+    // `HttpClientResponse` getters that have been bridged all along, so until
+    // now those getters returned values a script could not name or read.
+    environment.defineBridge(HttpDateIo.definition);
+    environment.defineBridge(RedirectInfoIo.definition);
+    environment.defineBridge(HttpClientResponseCompressionStateIo.definition);
   }
 }

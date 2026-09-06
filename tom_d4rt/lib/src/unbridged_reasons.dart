@@ -46,6 +46,15 @@ const Map<String, String> kUnbridgedReasons = <String, String>{
   'Finalizer':
       'same as WeakReference, plus a GC-timed callback would be '
       'non-deterministic re-entry into sandboxed code',
+  'HttpOverrides':
+      'setting it swaps the HttpClient implementation process-wide '
+      'and outlives the script, which is the host access the sandbox exists to '
+      'prevent',
+
+  // Not a class, so there is nothing to bridge.
+  'BadCertificateCallback':
+      'a typedef, not a class — the setter it names already '
+      'accepts a plain function value',
 
   // Deferred pending a concrete consumer — no semantic obstacle, simply unbuilt.
   'Link':

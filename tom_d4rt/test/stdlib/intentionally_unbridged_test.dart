@@ -92,6 +92,77 @@ void main() {
       expectUnbridged('WeakReference(Object())', 'WeakReference');
       expectUnbridged('Finalizer((v) {})', 'Finalizer');
     });
+
+    test('F-SC11-7: HttpOverrides is unreachable under every spelling '
+        '[2026-09-06]', () {
+      // The odd one out in this group: nothing about `HttpOverrides` resists
+      // bridging technically — it is refused because the capability it grants
+      // *is* the sandbox escape. `global` swaps the HttpClient implementation
+      // process-wide and outlives the script that set it.
+      const io = "import 'dart:io';";
+      expectUnbridged('HttpOverrides.current', 'HttpOverrides', imports: io);
+      expectUnbridged(
+        'HttpOverrides.runZoned(() => 1)',
+        'HttpOverrides',
+        imports: io,
+      );
+      // The anchor that keeps the row honest: HTTP itself is bridged, so this
+      // is a refusal of one hook and not of the library it lives in. Without
+      // it the case above would also pass if `dart:io`'s HTTP surface were
+      // simply missing, which is the opposite of what the doc claims.
+      const anchor = '''
+      import 'dart:io';
+      main() => HttpClient().userAgent == null;
+      ''';
+      expect(execute(anchor), isFalse);
+    });
+  });
+
+  group('SCC65: not a class, so there is nothing to bridge', () {
+    test('F-SCC65-22: BadCertificateCallback is unreachable as a name '
+        '[2026-09-06]', () {
+      expectUnbridged(
+        'BadCertificateCallback',
+        'BadCertificateCallback',
+        imports: "import 'dart:io';",
+      );
+    });
+
+    test('F-SCC65-23: everything a script does with the alias works without it '
+        '[2026-09-06]', () {
+      // This is the case that makes the doc row honest rather than merely
+      // true. The row's justification is not "we could not build it" — it is
+      // "the name buys a script nothing", and that claim is only worth
+      // anything if the two things a script would use the alias FOR both work
+      // while the name is undefined.
+      //
+      // First: the setter takes a plain function value, with no reference to
+      // the alias anywhere. The SDK declares it with the inline function type
+      // too, so this matches the platform rather than working around it.
+      const assignment = '''
+      import 'dart:io';
+      main() {
+        final client = HttpClient();
+        client.badCertificateCallback = (cert, host, port) => false;
+        return 'assigned';
+      }
+      ''';
+      expect(execute(assignment), equals('assigned'));
+
+      // Second: the alias is usable as an annotation while undefined, because
+      // the interpreter does not resolve type annotations at all. A script
+      // pasted from SDK documentation therefore runs unchanged — which is the
+      // only way a reader would meet the name in practice.
+      const annotated = '''
+      import 'dart:io';
+      bool check(X509Certificate c, String h, int p) => false;
+      main() {
+        BadCertificateCallback cb = check;
+        return cb('cert', 'host', 443);
+      }
+      ''';
+      expect(execute(annotated), isFalse);
+    });
   });
 
   group('SC11: deferred pending a concrete consumer', () {
@@ -359,8 +430,8 @@ void main() {
   });
 }
 
-/// Every backtick-quoted identifier in the "Reported as" column of the two
-/// tables under `## Intentionally-Unbridged SDK Classes`.
+/// Every backtick-quoted identifier in the "Reported as" column of the tables
+/// under `## Intentionally-Unbridged SDK Classes`.
 ///
 /// Reading the doc rather than restating it is the whole point: F-SCB30-3 needs
 /// the doc's list as a *source*, and a hard-coded copy here would be a third

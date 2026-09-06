@@ -325,11 +325,16 @@ Map<String, Object> _canonicalInstances() => {
   // instance would really be one of the leaves above — so a canonical instance
   // would sweep a subclass's members under the base name.
   'HttpException': const HttpException('x'),
-  // An empty redirect list is the only one a script can build (`RedirectInfo`
-  // is unbridged — scc65), and it is enough for the sweep: `uri` reads through
-  // the list and returns null for an empty one, which is exactly the shape
-  // that goes inert unnoticed unless something asserts it is reachable.
+  // An empty redirect list is enough for the sweep: `uri` reads through the
+  // list and returns null for an empty one, which is exactly the shape that
+  // goes inert unnoticed unless something asserts it is reachable. A populated
+  // one would sweep `RedirectInfo`'s getters under this name; the real thing is
+  // in `_liveInstances`.
   'RedirectException': const RedirectException('x', <RedirectInfo>[]),
+  // An enum, so a constant is the only instance there is. Its `name` and
+  // `index` are the getters the sweep reads.
+  'HttpClientResponseCompressionState':
+      HttpClientResponseCompressionState.notCompressed,
   'WebSocketException': const WebSocketException('x'),
   // The one member of the WebSocket block with a public constructor. The socket
   // itself needs a handshake and is in the live map below; `WebSocketStatus` and
@@ -357,12 +362,14 @@ Map<String, Object> _canonicalInstances() => {
   ).asStringSink(),
 };
 
-/// The five `dart:io` types that only exist inside a live connection.
+/// The six `dart:io` types that only exist inside a live connection.
 ///
-/// `HttpRequest`, `HttpResponse`, `HttpSession`, `HttpConnectionInfo` and
-/// `WebSocket` have no usable public constructor — the SDK hands the first four
-/// to a request handler and nowhere else, and a `WebSocket` exists only on the
-/// far side of a completed upgrade handshake. So none of them can join the
+/// `HttpRequest`, `HttpResponse`, `HttpSession`, `HttpConnectionInfo`,
+/// `WebSocket` and `RedirectInfo` have no usable public constructor — the SDK
+/// hands the first four to a request handler and nowhere else, a `WebSocket`
+/// exists only on the far side of a completed upgrade handshake, and a
+/// `RedirectInfo` only inside an `HttpClient` that actually followed a hop. So
+/// none of them can join the
 /// synchronous map above. Standing a loopback server up for them, rather than
 /// letting them widen F-SCC24-9's baseline, is deliberate: their getters return
 /// `Uri`, `HttpHeaders`, `List<Cookie>`, `HttpSession`, `HttpConnectionInfo` and
@@ -391,6 +398,15 @@ Future<void> _captureLiveInstances() async {
       (await WebSocketTransformer.upgrade(request)).listen(null);
       return;
     }
+    if (request.uri.path == '/redirect') {
+      // A real 302 is the only way to obtain a `RedirectInfo`: `HttpClient`
+      // builds one per hop internally and exposes it nowhere else.
+      request.response
+        ..statusCode = HttpStatus.movedTemporarily
+        ..headers.set(HttpHeaders.locationHeader, '/')
+        ..close();
+      return;
+    }
     _liveInstances['HttpRequest'] = request;
     _liveInstances['HttpResponse'] = request.response;
     // Reading `session` is what creates it; there is no other way to obtain one.
@@ -406,6 +422,18 @@ Future<void> _captureLiveInstances() async {
   );
   final response = await request.close();
   await response.drain<void>();
+
+  // A second round trip through the 302 above. What lands in the map is the
+  // SDK's private `_RedirectInfo`, which is the point: the bridge claims that
+  // name in `nativeNames`, and a hand-rolled `implements RedirectInfo` fake
+  // would sweep clean without ever exercising the claim.
+  final redirected = await (await client.getUrl(
+    Uri.parse('http://127.0.0.1:${server.port}/redirect'),
+  )).close();
+  await redirected.drain<void>();
+  if (redirected.redirects.isNotEmpty) {
+    _liveInstances['RedirectInfo'] = redirected.redirects.first;
+  }
 
   final socket = await WebSocket.connect('ws://127.0.0.1:${server.port}/');
   await socket.close();

@@ -26,13 +26,21 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/convert.dart';
 /// `Environment` and a choice of which registrars to call — which is exactly
 /// what these tests do.
 ///
-/// NOT COVERED HERE, deliberately: 5 of the 32 names `dart:io` re-exports are
-/// still unreachable — the client-side detail types (`HttpDate`,
-/// `HttpOverrides`, `BadCertificateCallback`, `RedirectInfo`,
-/// `HttpClientResponseCompressionState`). That is a real gap, but a *bridging*
-/// gap (those classes are bridged nowhere at all), not the re-export gap SCB21
-/// described. It is tracked separately rather than pinned here as a failing
-/// expectation, so that closing it does not require deleting assertions.
+/// NOT COVERED HERE: two of the 32 names `dart:io` re-exports are not bridged,
+/// and both by decision rather than omission.
+///
+/// `BadCertificateCallback` is a `typedef`, not a class — an alias for
+/// `bool Function(X509Certificate, String, int)`. Everything a script does with
+/// it already works: `HttpClient.badCertificateCallback` accepts a plain
+/// function value, and the interpreter does not resolve type annotations at
+/// all, so the alias is usable as an annotation whether or not anything defines
+/// it. A `BridgedClass` would add only `x is BadCertificateCallback`, which is
+/// a function-shape question `BridgedClass` cannot answer honestly.
+///
+/// `HttpOverrides` is left unbridged on sandbox grounds: its `global` setter
+/// swaps the `HttpClient` implementation process-wide and outlives the script
+/// that set it, which is precisely the uncontrolled host access the interpreter
+/// exists to prevent. Both are recorded in `tom_d4rt/doc/d4rt_limitations.md`.
 void main() {
   group('SCB21: the typed_data names are eager, so no import gates them', () {
     test('F-SCB21-AST-1: Stdlib.register alone defines the names SCB21 '
@@ -129,10 +137,10 @@ void main() {
       IoStdlib.register(env);
     });
 
-    // 27 of the 32 re-exported names resolve as real bridged *types*. They are
-    // pinned because the follow-up work that bridges the other names will touch
-    // this registrar, and silently losing one would look like unrelated
-    // breakage.
+    // 30 of the 32 re-exported names resolve as real bridged *types* — every
+    // one except the two the header explains are unbridged by decision. They
+    // are pinned as a set because they all come out of one registrar, and
+    // silently losing one would look like unrelated breakage.
     const bridgedTypes = <String>[
       'HttpClient',
       'HttpClientRequest',
@@ -192,6 +200,18 @@ void main() {
       'HttpClientBasicCredentials',
       'HttpClientBearerCredentials',
       'HttpClientDigestCredentials',
+      // The last three (SCC65). `RedirectInfo` and
+      // `HttpClientResponseCompressionState` are dead-end value types: the
+      // `HttpClientResponse` getters that yield them were bridged all along,
+      // so a script could reach a value it could not then name or read.
+      // `HttpDate` is the odd one — two statics and no instances, unreachable
+      // simply because nothing had registered it. The script-level behaviour
+      // is pinned in `tom_d4rt/test/stdlib/io/http_date_test.dart` and
+      // `http_response_details_test.dart` (DGUC6: this tree cannot run
+      // scripts).
+      'HttpDate',
+      'RedirectInfo',
+      'HttpClientResponseCompressionState',
       // Comes from the eager typed_data registrar rather than `IoStdlib`, but
       // lands in the same environment — which is the whole point above.
       'BytesBuilder',
@@ -274,6 +294,60 @@ void main() {
           reason: '$name must declare the marker interface',
         );
       }
+    });
+
+    // SCC65 — the last three, at the registration level.
+    //
+    // The script-level tests can only observe that a name resolves and that
+    // its members answer. What this tree can see is *why* they answer: which
+    // members the bridge declares, and — for `RedirectInfo` — that the bridge
+    // claims the SDK's private implementation class, which is the difference
+    // between a reachable name and a usable value.
+
+    test('F-SCB21-AST-9: HttpDate is a static-only holder [2026-09-06]', () {
+      // `class HttpDate { HttpDate._(); }` — a private constructor, so the
+      // absence of a bridged one is the SDK's own shape and not an omission.
+      final httpDate = env.findBridgedClassByName('HttpDate')!;
+      expect(httpDate.isAbstract, isTrue);
+      expect(httpDate.constructors, isEmpty);
+      expect(httpDate.staticMethods.keys, containsAll(['format', 'parse']));
+      // The whole public surface is static: an instance member here would mean
+      // the bridge had invented something the SDK does not expose.
+      expect(httpDate.getters, isEmpty);
+      expect(httpDate.methods, isEmpty);
+    });
+
+    test('F-SCB21-AST-10: RedirectInfo claims the SDK implementation class '
+        '[2026-09-06]', () {
+      // The load-bearing assertion of the pair. A script never constructs a
+      // `RedirectInfo`; it receives an SDK-private `_RedirectInfo` from
+      // `HttpClientResponse.redirects` or `RedirectException.redirects`, and
+      // without the `nativeNames` claim that value resolves to no bridge and
+      // is inert — the member call fails far from the getter that produced it.
+      final redirect = env.findBridgedClassByName('RedirectInfo')!;
+      expect(redirect.nativeNames, contains('_RedirectInfo'));
+      expect(redirect.isAbstract, isTrue);
+      expect(redirect.constructors, isEmpty);
+      expect(
+        redirect.getters.keys,
+        containsAll(['statusCode', 'method', 'location']),
+      );
+    });
+
+    test('F-SCB21-AST-11: the compression state exposes all three constants '
+        'plus enum members [2026-09-06]', () {
+      // A genuine Dart `enum`, unlike `SameSite` and `ProcessStartMode` — so
+      // `name` and `index` are real SDK members here, and omitting them would
+      // be the bridge refusing what Dart accepts.
+      final state = env.findBridgedClassByName(
+        'HttpClientResponseCompressionState',
+      )!;
+      expect(
+        state.staticGetters.keys,
+        containsAll(['notCompressed', 'decompressed', 'compressed', 'values']),
+      );
+      expect(state.getters.keys, containsAll(['name', 'index']));
+      expect(state.constructors, isEmpty);
     });
   });
 }

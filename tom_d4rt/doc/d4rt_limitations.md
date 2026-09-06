@@ -2950,9 +2950,9 @@ Check the number of parameters the user's callback function accepts. If it accep
 
 The classes below are **deliberately not bridged**. Their absence is a design
 boundary, not an oversight — each either asks the interpreter for a guarantee it
-cannot honour, or carries a large surface with no demonstrated consumer. They
-are listed here so a script author who hits `Undefined variable: Zone` reads a
-decision rather than a gap.
+cannot honour, is not a class at all, or carries a large surface with no
+demonstrated consumer. They are listed here so a script author who hits
+`Undefined variable: Zone` reads a decision rather than a gap.
 
 **Almost all of these report the same way:** `Undefined variable: <name>`, where
 `<name>` is whatever the script wrote — not necessarily the class. A script
@@ -2985,6 +2985,11 @@ lookup, so it cannot consult the reason map — which is why it is the one case
 where you have to arrive here by searching. If you did, the `dart:typed_data`
 row below is the one you want.
 
+The three tables below are ordered by *why*, not by library: a name that cannot
+be honoured is a permanent decision, a name that is not a class has nothing to
+build, and a deferred name is simply waiting for a consumer. Only the third
+table is expected to shrink over time.
+
 This applies to **both interpreter trees**. `tom_d4rt` (analyzer-based) and
 `tom_d4rt_ast` (analyzer-free) share one stdlib bridge set, mirrored
 file-for-file, so a class missing from one is missing from the other by
@@ -2999,6 +3004,13 @@ construction. The same holds for the runners layered on top
 | `Expando` | `Expando` | `dart:core` | An identity side-table keyed on object identity. Interpreted values do not have a stable one-to-one native identity — a value can cross the bridge more than once — so `Expando` would silently lose entries. |
 | `WeakReference` | `WeakReference` | `dart:core` | Weakness is a property of the *native* heap. An interpreted value is reachable from interpreter structures the script cannot see, so a `WeakReference` to it would never clear; the API would be technically present and semantically a lie. |
 | `Finalizer` | `Finalizer` | `dart:core` | Same root cause as `WeakReference`, plus it hands the script a GC-timed callback — a non-deterministic re-entry point into sandboxed code. Sandbox-hostile by design. |
+| `HttpOverrides` | `HttpOverrides` | `dart:io` | A global hook for swapping the `HttpClient` implementation. `HttpOverrides.global = …` takes effect **process-wide and outlives the script that set it**, so one sandboxed script would silently redirect every subsequent HTTP call made by the host application and by every other script. That is the uncontrolled host access the permission system exists to prevent, and unlike a filesystem or network grant there is no granularity that makes it safe — the capability *is* the escape. The zone-scoped `runZoned` / `runWithHttpOverrides` forms are narrower but require the script to supply an `HttpOverrides` subclass whose `createHttpClient` returns a native `HttpClient`, which interpreted code cannot produce. |
+
+### Not a class, so there is nothing to bridge
+
+| Name | Reported as | Library | Why it stays out |
+|------|-------------|---------|------------------|
+| `BadCertificateCallback` | `BadCertificateCallback` | `dart:io` | A `typedef`, not a class — an alias for `bool Function(X509Certificate, String, int)`. Everything a script does with it already works without the name: `HttpClient.badCertificateCallback` accepts a plain function value, and the interpreter does not resolve type annotations at all, so `BadCertificateCallback cb = …` is accepted whether or not anything defines the alias. Bridging it as a `BridgedClass` would add exactly one thing — `x is BadCertificateCallback` — and that is a question about a function's shape and arity, which `BridgedClass` models by native type and therefore cannot answer honestly. The SDK's own `badCertificateCallback` setter is declared with the inline function type rather than the alias, so even the platform treats the name as documentation. |
 
 ### Deferred pending a concrete consumer
 
