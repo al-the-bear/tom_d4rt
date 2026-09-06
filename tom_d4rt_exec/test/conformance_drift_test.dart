@@ -416,26 +416,34 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// exec resolves. Porting them now would have made the exec suite red for a
 /// reason no reader could act on.
 ///
-/// Their flip condition is the same one the [_divergentBaseline] header names:
-/// the next `tom_d4rt_ast` publish. Port all three and delete these entries in
-/// that same commit.
+/// Their flip condition was the same one the [_divergentBaseline] header names:
+/// the next `tom_d4rt_ast` publish.
 ///
-/// **THAT FLIP CONDITION HAS FIRED, AND MOST ENTRIES BELOW HAVE NOT BEEN
-/// RE-MEASURED SINCE.** Several comments in this map state, as present tense,
-/// that "exec resolves `tom_d4rt_ast` 0.20.1". It does not: measured 2026-09-05,
-/// this package resolves 0.40.0, and that copy is byte-identical to the working
-/// tree. Every split those comments record — SCC25's 4 PASS / 3 FAIL, SCC27's
-/// 2 PASS / 6 FAIL, and the "does not compile" claims for SCC28/29/30/31 — was
-/// taken against 0.20.1 and describes an interpreter nobody now runs. Two have
-/// already been re-measured and moved out: `scc28`'s blocker is gone (SCD88 owns
-/// the port) and `scc33`'s cases now pass 5/5, so its entry became a
-/// `_divergentBaseline` line instead.
+/// **THAT WHOLE CLASS OF ENTRY IS NOW GONE.** The map used to be mostly
+/// publish-pinned, and those pins went unre-measured across four publishes while
+/// their prose kept asserting, in the present tense, that exec resolved 0.20.1.
+/// Measured 2026-09-06: exec's pubspec floor is `>=0.40.0`, the lockfile
+/// resolves 0.42.0, and `diff -rq` of that hosted copy against the working tree
+/// returns twelve files — all of them `src/runtime/stdlib/collection/*` plus
+/// `environment.dart` and `stdlib/async/stream.dart`, i.e. exactly the
+/// unpublished SCC49 and SCC51 work. **The interpreter core is byte-identical
+/// between published and working tree**, so a publish pin on anything other
+/// than a collection or stream bridge is, today, a claim about nothing.
 ///
-/// Read every remaining "0.20.1" and every "blocked on a publish" below as a
-/// question to re-ask, not as a fact. The [_divergentBaseline] header already
-/// records the lesson from the last time this happened: the flip made the
-/// entries REVIEWABLE, not automatically stale — five converged and the rest did
-/// not, each for its own reason. Re-measuring the set is SCD107.
+/// Every entry was therefore re-ported and re-run under that precondition, and
+/// eight of the twelve pinned files went green on the published interpreter with
+/// no interpreter work at all: `scc12` (11/11), `scc18` (12/12), `scc19` (9/9),
+/// `scc20` (25/25 — including F-SCC20-18, which the entry had predicted could
+/// never flip), and the four SCC11 stdlib files (6, 13, 18 and 22 cases). All
+/// eight are now ported and their entries are deleted; 116 cases of reference
+/// coverage moved into this suite in one pass.
+///
+/// **No entry below is publish-blocked.** That is the standing invariant this
+/// map now carries, and it is what makes [_pinnedInterpreterFloors] carry no
+/// key from here: the four survivors are blocked on exec-local work or are
+/// structurally un-portable, and neither condition is fixed by publishing. If
+/// you ever add a publish-pinned entry back, register its floor there in the
+/// same edit — prose alone was exactly the mechanism that failed.
 const Map<String, int> _uncoveredBaseline = {
   // NOT PORTABLE — a throughput probe, not a conformance assertion. Its single
   // case measures how long a Conway generation takes; run on two interpreters
@@ -458,179 +466,88 @@ const Map<String, int> _uncoveredBaseline = {
   // exec's own release hygiene is F-SCC17-1/2/3 `tom_d4rt_exec`, which already
   // run in the reference tree.
   'release_hygiene_test.dart': 10,
-  // Pinned on the next `tom_d4rt_ast` publish — see the paragraph above. Ported,
-  // measured, removed again: the SCC12 fix that makes `await` inside `finally`
-  // resume is in the working tree only, and against the published interpreter the
-  // run reaches `F-SCC12-4` and never terminates. A hang is the worst of the
-  // three outcomes — worse than a failure, because it takes the whole suite with
-  // it and reads as a broken machine rather than a pinned expectation. Port it
-  // and delete this entry in the same commit as that publish.
-  'scc12_await_in_finally_test.dart': 11,
-  // Pinned on the next `tom_d4rt_ast` publish, same as the entries above and
-  // measured the same way: ported, run, removed again. SCC18 taught typed
-  // patterns to evaluate their type, and the fix is in the working tree only —
-  // against the published interpreter 11 of the 12 cases fail, each of them
-  // reporting the very bug the file was written to pin. Keeping it would make
-  // the exec suite red in a way that reads as a migration defect rather than as
-  // a version lag. The one case that passes either way is `F-SCC18-9`, which
-  // asserts that an UNTYPED pattern still matches anything.
-  'scc18_typed_pattern_type_test.dart': 12,
-  // Pinned on the next `tom_d4rt_ast` publish, and the measurement is worth
-  // recording because the two halves of the file answer differently. SCC19 made
-  // `BridgedClass.isSubtypeOf` read the FULL supertype closure instead of
-  // stopping one hop past the direct supertypes. Ported and run against the
-  // published interpreter: `F-SCC19-2` and `F-SCC19-3` fail — those assert three
-  // and four hops on a synthetic chain, which is precisely the fix. The three
-  // stdlib cases PASS, but trivially and for the old reason: the published copy
-  // still carries the hand-flattened hierarchy blocks, so its deep answers come
-  // from restated direct edges. Porting now would therefore pin two genuine
-  // failures alongside three assertions that are not yet asserting anything.
-  // Port it and delete this entry in the same commit as that publish.
-  'scc19_supertype_registry_depth_test.dart': 9,
-  // Pinned on the next `tom_d4rt_ast` publish, but read the measurement before
-  // porting it there: ONE of its failures does NOT flip on that publish. SCC20
-  // folded the catch clause into the shared `_valueHasType`, and against the
-  // published interpreter 9 of the 25 cases fail. Eight are the fold itself —
-  // `on Exception` / `on Error` missing a script class that implements them
-  // (F-SCC20-1, -3), `on List<int>` and `on Box<int>` catching the wrong type
-  // argument (-5, -8), `on int Function(int)` and `on (int, String)` rejected as
-  // unsupported nodes (-10, -11), and the two exception-hierarchy cases the fold
-  // exposed (-22, -25, which need `ExceptionHierarchyCore`).
+  // PARTLY PORTABLE, and the reason it is still whole here is a decision this
+  // map cannot make on its own. Re-measured 2026-09-06 against published
+  // 0.42.0: 14 of 17 cases PASS. The four async-catch cases this entry was
+  // written to pin (F-SCC22-13..16) are among them — SCC22's fix for an empty
+  // `catch (e) {}` abandoning the rest of an async function shipped, so the
+  // publish pin this entry used to carry is discharged.
   //
-  // The ninth is F-SCC20-18, and it is a finding about THIS package rather than
-  // a version lag: `on void` is a syntax error that tom_d4rt reports as a
-  // `SourceCodeD4rtException`, while exec parses the script and runs it, so the
-  // clause merely fails to match. exec's front end does not surface analyzer
-  // syntax diagnostics — measured directly, `main() { this is not dart ]]] }`
-  // reaches the interpreter and fails there as a RUNTIME error instead. Publishing
-  // `tom_d4rt_ast` cannot change that, because the gap is in exec's own parse
-  // pipeline. Tracked as SCD69; when porting this file, expect F-SCC20-18 to be
-  // the one case still needing an answer.
-  'scc20_catch_clause_type_test.dart': 25,
-  // Pinned on the next `tom_d4rt_ast` publish, and the measurement is the
-  // cleanest of this group: ported, run, removed again — 13 of 17 cases PASS,
-  // and the 4 that fail are exactly the fix that is working-tree-only. SCC22
-  // fixed an empty `catch (e) {}` abandoning the rest of an async function, and
-  // F-SCC22-13/-14/-15/-16 each reproduce it against the published interpreter
-  // (`['after']` comes back as `null`, or as `1` — the value of the last
-  // `await`). F-SCC22-17 passes because a NON-empty catch was never broken.
+  // What fails is the group the old text predicted would pass: the three
+  // structural cases F-SCC22-10/-11/-12. They read the two sibling trees'
+  // `lib/src` off disk with paths relative to the package they run in, so from
+  // `tom_d4rt_exec/test` they resolve to exec's own `lib`, which carries no
+  // stdlib error-handler adapters at all. The reference copy already walks BOTH
+  // trees and answers the question correctly for both; a copy here can only ever
+  // restate it against the wrong subject.
   //
-  // The other 13 tell us something worth writing down. The nine io arity cases
-  // (F-SCC22-1..9) pass against the published copy, which confirms SCB9's
-  // `errorHandlerArgs` shipped and that this file's loopback harness is not
-  // measuring a working-tree-only helper. The three structural cases
-  // (F-SCC22-10..12) also pass — but they read the two sibling trees' `lib/src`
-  // off disk, so from here they ask the identical question the reference tree's
-  // copy already answers, about the identical files. That half is NOT PORTABLE
-  // for the same reason `release_hygiene_test.dart` below it is not: a second
-  // copy could only ever produce a duplicate failure. Port the file on the next
-  // publish for the behavioural cases; the structural group stays a single copy
-  // in `tom_d4rt`.
+  // So the file splits 14 portable / 3 structurally single-copy, and porting the
+  // portable half means a subtraction port — a `_divergentBaseline` entry whose
+  // blanket then absorbs every future divergence in the file (SCD154). That
+  // trade is a design call, not a census outcome, so it is SCD157 rather than
+  // something this pass improvised.
   'scc22_io_error_handler_arity_test.dart': 17,
-  // Pinned on the next `tom_d4rt_ast` publish. Unlike the four entries above,
-  // this one did not get as far as a behavioural measurement: ported verbatim,
-  // it does not COMPILE. `D4rt.onUncaughtError` — the hook SCC23 added so an
-  // embedder can observe an error thrown from a callback the platform invoked
-  // (a `Stream.listen` body, a `handleError` handler, a `Timer`) — does not
-  // exist on this package's `D4rt` at all, and all 16 cases set it.
+  // BLOCKED ON EXEC-LOCAL WORK — no longer on a publish, and the correction is
+  // the finding. Ported verbatim 2026-09-06 it still does not COMPILE: five
+  // `undefined_setter` errors, because all 16 cases set `D4rt.onUncaughtError`
+  // and this package's `D4rt` has no such member. But the reason recorded here
+  // for years — "the forwarder cannot be written until `tom_d4rt_ast`
+  // publishes" — is now false. `onUncaughtError` IS in published 0.42.0, on
+  // `D4rtRunner` in `lib/src/runtime/d4rt_runner.dart`; grep both the pub cache
+  // copy and the working tree and they agree.
   //
-  // Landing it here is a two-part job, and the second part is the reason this
-  // is pinned rather than half-done:
-  //   * `executeBundle` forwards to the inner [D4rtRunner], whose
-  //     `onUncaughtError` only exists in the working tree. This package
-  //     resolves `tom_d4rt_ast` from pub.dev (DGUC6), so the forwarder cannot
-  //     be written until that publish.
-  //   * The classic `execute()` path does NOT go through the runner — this
-  //     package carries its own third copy of `_executeInEnvironment`
-  //     (`lib/src/d4rt_base.dart`), so the zone seam has to be mirrored into it
-  //     separately. That copy needs nothing unpublished and could be done now.
+  // Both halves of the two-part job are therefore unblocked today:
+  //   * `executeBundle` forwards to the inner [D4rtRunner] — a one-line
+  //     forwarder alongside the twenty others in `lib/src/d4rt_base.dart`.
+  //   * The classic `execute()` path does NOT go through the runner (this
+  //     package carries its own third copy of `_executeInEnvironment`), so the
+  //     zone seam has to be mirrored into it separately.
   //
-  // Doing only the half that compiles would ship a hook that fires for
-  // `execute()` and silently does not for `executeBundle()` — the "looks
-  // covered" failure this file exists to catch, in the public API rather than
-  // in the suite. Tracked as SCD74; port this file and delete this entry in the
-  // same commit that lands both halves.
+  // Doing only one half would ship a hook that fires for `execute()` and
+  // silently does not for `executeBundle()` — the "looks covered" failure this
+  // file exists to catch, in the public API rather than in the suite. That is
+  // still the rule; what changed is that waiting is no longer a reason. SCD74
+  // owns it, and it is an API addition with its own test cycle rather than
+  // census work.
   'scc23_uncaught_callback_error_test.dart': 16,
-  // Pinned on the next `tom_d4rt_ast` publish, and — like SCC22 above — the
-  // measurement was taken before this entry was written, not predicted. Ported
-  // verbatim and run against the 0.20.1 this package resolves (working tree:
-  // 0.31.0), the split is 4 PASS / 3 FAIL, and the three failures are not
-  // merely "the fix is missing": they reproduce, one for one, the drift table
-  // SCC25's header records as the pre-fix behaviour.
+  // PARTLY PORTABLE, for exactly SCC22's reason and with the same shape of
+  // correction. Re-measured 2026-09-06 against published 0.42.0: 5 of 7 cases
+  // PASS. The three listen-adapter failures this entry recorded against 0.20.1
+  // (F-SCC25-3 ServerSocket, -4 RawDatagramSocket, -5 HttpServer) are gone —
+  // SCC25's fix shipped, so the five behavioural cases now all agree with the
+  // reference tree.
   //
-  //   F-SCC25-3 ServerSocket      type 'Null' is not a subtype of
-  //   F-SCC25-4 RawDatagramSocket   type 'InterpretedFunction' in type cast
-  //   F-SCC25-5 HttpServer        Runtime Error: listen requires an onData callback.
+  // What fails is the source-guard pair F-SCC25-6/-7, which the old text
+  // correctly called un-portable but expected to pass: they scan the sibling
+  // trees' stdlib for a privately redefined `_runAction` and for hand-rolled
+  // onError/onDone wrapper trios, and from exec's directory the scan subject is
+  // exec's own `lib`, which contains neither. The reference copy already asks
+  // this of both trees.
   //
-  // F-SCC25-1/-2 (Stream, Socket) PASS against the published copy, which is the
-  // control: those two adapters were already SDK-faithful before the fix, so
-  // their passing confirms the loopback harness works here and that the three
-  // failures are the version gap rather than a broken port.
-  //
-  // F-SCC25-6/-7, the two source guards, also pass — but only because they read
-  // the two SIBLING trees off disk, so from here they ask the identical
-  // question the reference tree's copy already answers about the identical
-  // files. That half is NOT PORTABLE, for the same reason SCC22's structural
-  // group is not: a second copy could only ever produce a duplicate failure.
-  // Port the five behavioural cases on the next publish; the structural pair
-  // stays a single copy in `tom_d4rt`. Tracked as SCD79.
+  // 5 portable / 2 structurally single-copy. Same subtraction-port trade as
+  // SCC22 above, tracked together as SCD157. SCD79 remains the record of the
+  // adapter work itself.
   'scc25_listen_adapter_test.dart': 7,
-  // Pinned on the next `tom_d4rt_ast` publish, and measured the same way as the
-  // entries above: ported verbatim, run, removed again. SCC27 made `execute()`
-  // rethrow an `Error`/`Exception` as itself instead of relabelling it, so a
-  // host `catch` can name what a script raised. Ported verbatim the file does
-  // not COMPILE — `isInterpreterControlFlowSignal` (F-SCC27-8) is the new
-  // predicate the rule is built on and exists only in the working tree. With
-  // that one case removed the behavioural split is 2 PASS / 6 FAIL, and the
-  // split is informative rather than uniform:
+  // ONE CASE SHORT, and it is the only entry left here that names a real
+  // behavioural gap in this package. Re-measured 2026-09-06 against published
+  // 0.42.0: 8 of 9 cases PASS. Everything the old text recorded as blocked has
+  // landed — `isInterpreterControlFlowSignal` is in published `exceptions.dart`
+  // so F-SCC27-8 compiles and passes, `throwAsHostFacingError` is published AND
+  // already adopted by exec's own `lib/src/d4rt_base.dart`, and the five
+  // `Native error during …` wrapper failures (F-SCC27-1/2/3/5/7) are fixed.
   //
-  //   F-SCC27-4 PASS  the four SCB10 types already escape — exec carries the
-  //                   carve-out in its own `d4rt_base.dart` (scc82's subject,
-  //                   landed by 25b4d764c), so this is the control.
-  //   F-SCC27-6 PASS  an interpreted `throw` is unwrapped one clause earlier
-  //                   and never reached the catch-all in either tree.
-  //   F-SCC27-1/2/3/5/9 FAIL  a native callee's error still arrives inside the
-  //                   `Native error during …` wrapper the bridged call site
-  //                   builds. Measured: `Runtime Error: Native error during
-  //                   bridged method call 'boom' on Detonator: …`.
-  //   F-SCC27-7 FAIL  for the same reason and worth reading closely — it
-  //                   asserts the "Unexpected error:" prefix SURVIVES for a
-  //                   value in neither hierarchy, and it fails because the
-  //                   value never reaches the boundary that would apply it.
-  //
-  // Landing it here is a two-part job, like SCC23's entry above. exec's classic
-  // `execute()` does not go through [D4rtRunner] — this package carries its own
-  // third copy of `_executeInEnvironment` — so both the runner forwarder and
-  // that copy have to adopt `throwAsHostFacingError`, and the helper lives in
-  // the unpublished `tom_d4rt_ast`. Tracked as SCD84; port this file and delete
-  // this entry in the same commit that lands both halves.
+  // The survivor is F-SCC27-9, "an error from an async main reaches the host as
+  // itself". Measured: the reference tree throws a `FormatException` out of
+  // `execute()`; here `execute()` returns a `Future<dynamic>` that later
+  // completes with `RuntimeD4rtException: Native error during static bridged
+  // method call 'parse' on int: FormatException: …`. Two divergences at once —
+  // the error arrives asynchronously instead of synchronously, and it arrives
+  // wrapped. The async half is structural (exec's async main genuinely returns
+  // a future); the wrapping half is the `throwAsHostFacingError` seam not being
+  // applied on the async completion path, which is exec-local work in the third
+  // `_executeInEnvironment` copy. SCD84 owns it; port the file and delete this
+  // entry in the commit that closes that seam.
   'scc27_host_error_fidelity_test.dart': 9,
-  // (`scc29_parameter_type_check_test.dart`, `scc30_division_by_zero_test.dart`,
-  // `scc31_undefined_name_uncatchable_test.dart` and
-  // `scc32_bridged_value_key_test.dart` were all here, each blocked on a
-  // different `tom_d4rt_ast` publish — floors 0.36.0, 0.37.0, 0.38.0 and
-  // 0.39.0. All four have landed. SCC32 came over with SCC35's 0.40.0 publish;
-  // the other three did NOT, and sat here unported while the floor moved past
-  // every one of their stated conditions. SCC43 found them and ported all
-  // three — 65 cases green against published 0.40.0, no interpreter work
-  // needed, exactly as their entries had predicted years of review-time
-  // earlier.
-  //
-  // THAT LAG IS THE FINDING, and it is why [_pinnedInterpreterFloors] below
-  // now exists. Every one of those entries named its flip condition in prose,
-  // and prose is checked only by whoever happens to reread it. Nothing was
-  // wrong with the analysis; the failure was that a due obligation stayed
-  // invisible. F-SCC43-1 makes the same declaration machine-checked: an entry
-  // records the floor it waits on, and the guard goes red the moment exec's
-  // pubspec passes it. Add the floor there whenever you add a publish-blocked
-  // entry to either baseline, and prose alone will not be load-bearing again.
-  //
-  // SCC31 is ported MINUS its F-SCC31-17/18 source-scan group, as its own
-  // entry instructed; the omission is now a `_divergentBaseline` entry.
-  'stdlib/cast_from_family_test.dart': 6,
-  'stdlib/convert/json_named_constructors_test.dart': 13,
-  'stdlib/core/error_validation_helpers_test.dart': 18,
-  'stdlib/static_long_tail_test.dart': 22,
 };
 
 /// Why a [_divergentBaseline] entry is allowed to stand.
