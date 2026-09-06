@@ -16,8 +16,15 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/io.dart';
 /// `tom_d4rt_ast` from pub.dev rather than by path (DGUC6), so no script-level
 /// runner can see unpublished local edits to this tree at all.
 void main() {
+  //
+  // SCC77 removed `hashCode` from this set. It was declared in BOTH `methods`
+  // and `getters`, and `BridgedInstance.get` consults `methods` first — so the
+  // getter was dead and reading `x.hashCode` on a value that resolved here
+  // would have yielded the bound callable instead of the int. That is the same
+  // shape SCC73 found on `Runes.iterator`. No script could observe it, because
+  // nothing resolves to this bridge, which is why it survived; the method entry
+  // is gone and the getter is the one that answers.
   const coreMethods = <String>{
-    'hashCode',
     'toString',
     'write',
     'writeAll',

@@ -1,3 +1,44 @@
+## 1.68.0
+
+### Fixed — `StringSink.hashCode` was a method shadowing its own getter (scc77)
+
+`StringSinkCore` declared `hashCode` in BOTH `methods` and `getters`, and
+`BridgedInstance.get` consults `methods` first — so the getter was dead and
+reading `x.hashCode` on a value resolving to this bridge would have yielded the
+bound callable instead of the int. The same shape SCC73 found on
+`Runes.iterator`. The method entry is gone.
+
+No script could observe it, because nothing resolves to the `StringSink` bridge
+— which is exactly why it survived.
+
+### Added — the `StringSink` reachability SCC77 asked for is now pinned
+
+`test/stdlib/core/scc77_string_sink_reachability_test.dart` covers what nothing
+covered end to end: `StringBuffer`, `stdout`, a file `IOSink` and a
+`ClosableStringSink` all answering `is StringSink`, and `StringSink` used as a
+declared parameter type — which is stronger than `is`, since it goes through
+parameter checking.
+
+**The reachability itself was already there.** SCC77 was filed when
+`StringBuffer() is StringSink` was FALSE; SCC56's supertype edges
+(`StringBuffer -> StringSink`, `IOSink -> StreamSink, StringSink`) closed that,
+and this release only pins it. Verified by deleting the edge and watching the
+cases fail.
+
+### Documented — `StringSinkCore` has no `isAssignable`, and that is a decision
+
+SCC77 also asked for an `isAssignable` predicate. Measured by adding it, running
+both suites, and removing it again: resolution is IDENTICAL either way, because
+every `StringSink` the stdlib hands a script already has a more specific bridge.
+It would be a no-op today and a latent hazard tomorrow — the predicate is what
+lets a bridge win the `isAssignable` fallback, so the first stdlib type
+implementing `StringSink` without its own bridge would resolve there and lose
+its real class's members. The reasoning is recorded in `string_sink.dart`.
+
+One of SCC77's predictions is recorded as tested and FALSE: the edges do not let
+member lookup fall through to the `StringSink` bridge, because every
+implementor's bridge declares a superset of its members.
+
 ## 1.67.0
 
 ### Added — a guard that no stdlib bridge name is defined twice (scc76)

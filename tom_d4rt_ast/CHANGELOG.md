@@ -1,3 +1,21 @@
+## 0.57.0
+
+### Fixed — `StringSink.hashCode` was a method shadowing its own getter (scc77)
+
+Mirrors `tom_d4rt` 1.68.0.
+
+### Added — registration-level `StringSink` reachability coverage
+
+`test/runtime/scc77_string_sink_reachability_test.dart`. This tree had NO
+coverage of the `StringSink` edges at all: they were mirrored across correctly,
+and nothing here would have noticed if they had not been.
+
+Registration level is also the right level for what SCC77 turned out to be — the
+fix lives entirely in the supertype registry, and `isSubtypeOf` reads it
+directly. The file additionally pins that nothing resolves TO the `StringSink`
+bridge, which is why its member list is guarded at registration level rather
+than by any script.
+
 ## 0.56.0
 
 ### Added — a guard that no stdlib bridge name is defined twice (scc76)

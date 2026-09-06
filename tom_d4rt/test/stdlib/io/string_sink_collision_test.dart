@@ -19,21 +19,38 @@ import 'package:tom_d4rt/src/stdlib/io.dart';
 /// as a benign re-export and never marked the name ambiguous — the loss was
 /// reported only as a `Logger.warn`.
 ///
-/// These assertions are registration-level rather than script-level because
-/// `StringSink` has no script-reachable instance today: a `StringBuffer`
-/// resolves to `StringBufferCore`, and `stdout` resolves to the `Stdout`
-/// bridge, so no member lookup lands on the `StringSink` bridge. That is also
-/// why the drift survived — but it is not permanent. The hierarchy work
-/// (SCB23 and friends; `StringBuffer() is StringSink` is currently FALSE) is
-/// exactly what would let a `StringBuffer` fall through to the `StringSink`
-/// bridge for members it does not declare itself, at which point the missing
-/// members become script-visible.
+/// These assertions are registration-level rather than script-level, and the
+/// reason they had to be has since gone away. When this file was written
+/// `StringSink` had no script-reachable instance at all: a `StringBuffer`
+/// resolved to `StringBufferCore`, `stdout` to the `Stdout` bridge, and no
+/// member lookup or type test ever landed on the `StringSink` bridge — which is
+/// why the member drift survived its whole lifetime with nothing but a
+/// `Logger.warn` to show for it.
+///
+/// SCC56 declared the supertype edges (`StringBuffer -> StringSink` in
+/// `core_hierarchy.dart`, `IOSink -> StreamSink, StringSink` in
+/// `io_hierarchy.dart`) and closed that. Measured 2026-09-06,
+/// `StringBuffer() is StringSink` is TRUE, so is `stdout is StringSink`, and a
+/// `StringBuffer` does now fall through to this bridge for members
+/// `StringBufferCore` does not declare. SCC77 pins that reachability in
+/// `test/stdlib/core/scc77_string_sink_reachability_test.dart`.
+///
+/// The assertions below stay registration-level anyway, because what they check
+/// is which registrar OWNS the name — a question about the registry, not about
+/// a value.
 void main() {
   /// The members the `dart:core` definition declares. Named here rather than
   /// inlined per test so a deliberate future change to the core bridge shows up
   /// as one edit, and an accidental narrowing shows up as several failures.
+  //
+  // SCC77 removed `hashCode` from this set. It was declared in BOTH `methods`
+  // and `getters`, and `BridgedInstance.get` consults `methods` first — so the
+  // getter was dead and reading `x.hashCode` on a value that resolved here
+  // would have yielded the bound callable instead of the int. That is the same
+  // shape SCC73 found on `Runes.iterator`. No script could observe it, because
+  // nothing resolves to this bridge, which is why it survived; the method entry
+  // is gone and the getter is the one that answers.
   const coreMethods = <String>{
-    'hashCode',
     'toString',
     'write',
     'writeAll',
