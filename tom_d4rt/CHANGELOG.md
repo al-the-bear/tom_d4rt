@@ -1,3 +1,28 @@
+## 1.70.0
+
+### Added — a guard that a written bridge definition is actually registered (scb24)
+
+`StringConversionConvert` and `ChunkedConversionConvert` were fully written —
+constructors, adapters, argument validation — exported from `convert.dart`, and
+never passed to `defineBridge`. No script could name either. SC9 found them by
+accident, and the SDK gap audit structurally could not: it looks for missing
+FILES, and by that measure both libraries were complete.
+
+`test/scb24_unregistered_bridge_test.dart` reads every
+`static BridgedClass get …` under the stdlib with the analyzer, extracts the
+`name:` it passes to `BridgedClass`, and asserts that name is live in a fully
+registered environment. Measured 2026-09-06: 205 declarations, 205 live names,
+zero orphans — SC9's two were the only ones.
+
+**It asserts the runtime property, not the source diff SCB24 described.** A
+source-level diff of declarations against `defineBridge` calls has a blind spot
+this does not: a call inside a `register()` nobody invokes reads as registered
+and is not. The environment has to be built either way, so the weaker check
+would not have been cheaper.
+
+Verified by commenting out one registration: the guard names the exact
+definition and its bridge name.
+
 ## 1.69.0
 
 ### Fixed — `runtimeType` on a bridged instance reported `BridgedInstance<Object>` (scc78)

@@ -1,3 +1,19 @@
+## 0.59.0
+
+### Added — the SCB24 guard, count-based (scb24)
+
+Mirrors `tom_d4rt` 1.70.0's intent with the instrument this package can carry.
+The analyzer twin names which definition is unregistered; this one asserts that
+the number of `static BridgedClass get …` declarations equals the number of
+live bridge names, since the package is analyzer-free by construction.
+
+A count cannot say which definition is orphaned, and could in principle be
+balanced by an orphan plus a duplicate registration — but the duplicate half is
+covered exactly by `scc76_bridge_name_collision_test.dart`, so the pair is not
+open to that. Carried here rather than leaning on the mirror because nothing
+verifies the two stdlib trees are copies, and SCC78 found the two interpreters
+disagreeing on a line for as long as both existed.
+
 ## 0.58.0
 
 ### Added — a guard for the `runtimeType` divergence that only the other tree had (scc78)
