@@ -93,6 +93,28 @@ void main() {
       expectUnbridged('Finalizer((v) {})', 'Finalizer');
     });
 
+    test('F-SCC74-3: the file-descriptor-passing trio is unreachable '
+        '[2026-09-06]', () {
+      // Refused for the same reason as `HttpOverrides` rather than for a
+      // technical one: a `ResourceHandle` is a raw OS file descriptor, and a
+      // script holding one has a working handle to a file or socket that no
+      // permission check ever saw named. The two `RawSocket` members that would
+      // produce them are pinned separately by F-SCC74-1, as missing members on
+      // a class that IS bridged.
+      const io = "import 'dart:io';";
+      expectUnbridged('SocketMessage([], [])', 'SocketMessage', imports: io);
+      expectUnbridged(
+        'SocketControlMessage.fromHandles([])',
+        'SocketControlMessage',
+        imports: io,
+      );
+      expectUnbridged(
+        'ResourceHandle.fromFile(File("x"))',
+        'ResourceHandle',
+        imports: io,
+      );
+    });
+
     test('F-SC11-7: HttpOverrides is unreachable under every spelling '
         '[2026-09-06]', () {
       // The odd one out in this group: nothing about `HttpOverrides` resists
@@ -278,6 +300,56 @@ void main() {
       }
     });
 
+    test('F-SCC74-1: the RawSocket message pair fails as missing MEMBERS, so '
+        'the sandbox decision holds [2026-09-06]', () async {
+      // Same shape as F-SCB29-3 and for the same reason: `RawSocket` is
+      // bridged, so `readMessage` / `sendMessage` are missing members rather
+      // than missing names and never reach a variable lookup.
+      //
+      // This pair is the one REFUSED row in the limitations table. Every other
+      // entry is deferred pending a consumer; these two would let a script
+      // receive a `ResourceHandle` — a raw file descriptor — for a file or
+      // socket the permission system never granted, and no permission check
+      // can see it happen. If this test fails because someone bridged them,
+      // the fix is NOT to delete the case: it is to decide, deliberately, that
+      // the sandbox boundary moved.
+      for (final member in const ['readMessage', 'sendMessage']) {
+        await expectLater(
+          () async {
+            final source =
+                "import 'dart:io';\n"
+                'main() async {\n'
+                "  final server = await RawServerSocket.bind('127.0.0.1', 0);\n"
+                "  final socket = await RawSocket.connect('127.0.0.1', "
+                'server.port);\n'
+                // NOT `try { return ... } finally`: in an async function a
+                // throwing return expression inside a try with a non-empty
+                // finally and no catch loses the error and yields the finally
+                // block's value instead. The audit tool hit this and documents
+                // it as scd40; the shape below throws correctly.
+                '  dynamic probed;\n'
+                '  try {\n'
+                '    probed = socket.$member();\n'
+                '  } finally {\n'
+                '    socket.close();\n'
+                '    await server.close();\n'
+                '  }\n'
+                '  return probed;\n'
+                '}\n';
+            await executeAsync(source);
+          }(),
+          throwsA(
+            isA<Object>().having(
+              (e) => e.toString(),
+              'toString',
+              contains("named '$member'"),
+            ),
+          ),
+          reason: 'RawSocket.$member should report a missing member',
+        );
+      }
+    });
+
     test('F-SCB29-4: the eleven non-SIMD typed lists still work, so the block '
         'above is a decision and not a dead library [2026-09-03]', () {
       // Without this anchor every claim above would also hold if
@@ -360,11 +432,19 @@ void main() {
         // the map structurally cannot serve it, and `ByteBuffer` itself must
         // stay out of the map because it is registered. SCC91 tracks giving the
         // member path its own reason.
+        //
+        // `RawSocket` and its two message members are the same shape, added by
+        // SCC74: the class is bridged and only the pair is out, so they arrive
+        // as `has no instance method named 'readMessage'` and never reach a
+        // variable lookup either.
         ..removeAll(const {
           'ByteBuffer',
           'asFloat32x4List',
           'asInt32x4List',
           'asFloat64x2List',
+          'RawSocket',
+          'readMessage',
+          'sendMessage',
         });
 
       expect(

@@ -520,6 +520,46 @@ const _notAuditable = <String, String>{
       'suite in the same `dart test` process',
 };
 
+/// Members measured as unreachable ON PURPOSE, keyed `Class.member`.
+///
+/// `confirmedGaps` answers "what is broken". Until this table existed it also
+/// silently held "what we decided not to bridge", and the two are different
+/// claims: one is a backlog, the other is a design boundary. A reader could not
+/// tell them apart, so the backlog looked permanent and the decisions looked
+/// like neglect. The three `ByteBuffer` views below had been a recorded
+/// decision — doc row and pinned test — for a whole release while still sitting
+/// in `confirmedGaps` as if nobody had got to them.
+///
+/// The reason here is one line and a pointer, never the argument itself. The
+/// argument lives in `doc/d4rt_limitations.md` § Intentionally-Unbridged SDK
+/// Classes, which is also what the disposition rule requires: every unbridged
+/// name carries either a tracked todo or a table row with a case in
+/// `test/stdlib/intentionally_unbridged_test.dart`. Restating it here would
+/// give the same decision two homes that can disagree.
+///
+/// A member that merely has not been got to yet does NOT belong here — it
+/// belongs in `confirmedGaps`, where it reads as the work it is.
+const _declined = <String, String>{
+  'ByteBuffer.asFloat32x4List': _simdViews,
+  'ByteBuffer.asFloat64x2List': _simdViews,
+  'ByteBuffer.asInt32x4List': _simdViews,
+  'RawSocket.readMessage': _fileDescriptorPassing,
+  'RawSocket.sendMessage': _fileDescriptorPassing,
+};
+
+const _simdViews =
+    'returns a SIMD typed list, which is intentionally unbridged — see the '
+    'SIMD block in doc/d4rt_limitations.md, pinned by F-SCB29-3';
+
+const _fileDescriptorPassing =
+    'moves ResourceHandles (raw OS file descriptors) across a socket, which '
+    'would bypass the permission system — see the RawSocket message API row '
+    'in doc/d4rt_limitations.md, pinned by F-SCC74-1';
+
+/// Whether `Class.member` is a recorded decision rather than a defect.
+bool _isDeclined(String className, String member) =>
+    _declined.containsKey('$className.$member');
+
 const _instanceRecipes = <String, Recipe>{
   'String': Recipe("'abc'"),
   // The `dart:core` classes the hierarchy audit reported UNVERIFIED (SCC56).
@@ -802,6 +842,57 @@ const _instanceRecipes = <String, Recipe>{
     imports: "import 'dart:io';",
     isAsync: true,
     teardown: 'await o.close(force: true);',
+  ),
+  // The three classes SCC61..SCC63 bridged arrived without recipes, so 73
+  // members went straight into the unmeasurable bucket and the audit stopped
+  // being able to see the surface it had just gained. Both server-side recipes
+  // below drive a real round trip, which is the only way to obtain either
+  // value — neither type has a constructor.
+  'WebSocketTransformer': Recipe(
+    'WebSocketTransformer()',
+    imports: "import 'dart:io';",
+  ),
+  'HttpRequest': Recipe(
+    '_auditHttpRequest()',
+    imports: "import 'dart:async';\nimport 'dart:io';",
+    prelude:
+        'HttpServer? _auditServer;'
+        'Future<HttpRequest> _auditHttpRequest() async {'
+        "  final server = await HttpServer.bind('127.0.0.1', 0);"
+        '  _auditServer = server;'
+        '  final client = HttpClient();'
+        '  final request = await client.getUrl('
+        "      Uri.parse('http://127.0.0.1:\${server.port}/audit'));"
+        '  unawaited(request.close());'
+        '  final received = await server.first;'
+        '  client.close(force: true);'
+        '  return received;'
+        '}',
+    isAsync: true,
+    // One probe program runs per member, so the bound port has to go back.
+    // The request is only released once its response is closed, and the
+    // server only once it is no longer holding the connection.
+    teardown:
+        'await o.response.close(); '
+        'await _auditServer?.close(force: true);',
+  ),
+  'WebSocket': Recipe(
+    '_auditWebSocket()',
+    imports: "import 'dart:async';\nimport 'dart:io';",
+    prelude:
+        'Future<WebSocket> _auditWebSocket() async {'
+        "  final server = await HttpServer.bind('127.0.0.1', 0);"
+        '  final port = server.port;'
+        '  unawaited(server.first.then((request) async {'
+        '    final peer = await WebSocketTransformer.upgrade(request);'
+        '    await peer.close();'
+        '  }));'
+        "  final socket = await WebSocket.connect('ws://127.0.0.1:\$port/');"
+        '  await server.close(force: true);'
+        '  return socket;'
+        '}',
+    isAsync: true,
+    teardown: 'await o.close();',
   ),
   'Socket': Recipe(
     '_auditConnect()',
@@ -1621,14 +1712,28 @@ String renderBaselineSource(List<ClassDiff> diffs) {
   final unmeasurable = <String, List<String>>{};
   final measured = <String>[];
 
+  final declined = <String, List<String>>{};
+
   for (final d in diffs) {
     if (d.recipeUsable) measured.add(d.name);
-    final gaps = <String>{
+    final measuredGaps = <String>{
       ...d.missingInstance,
       ...d.missingStatic,
       ...d.missingOperators,
       ...d.missingUniversal,
     }.toList()..sort();
+    // A measured gap is either a defect or a decision. Splitting them here is
+    // what lets the guard demand that the defect list shrink while leaving the
+    // decision list alone.
+    final gaps = [
+      for (final m in measuredGaps)
+        if (!_isDeclined(d.name, m)) m,
+    ];
+    final byDesign = [
+      for (final m in measuredGaps)
+        if (_isDeclined(d.name, m)) m,
+    ];
+    if (byDesign.isNotEmpty) declined[d.name] = byDesign;
     if (gaps.isNotEmpty) confirmed[d.name] = gaps;
     final blind = <String>{
       ...d.unverifiedInstance,
@@ -1642,6 +1747,14 @@ String renderBaselineSource(List<ClassDiff> diffs) {
 
   final gapTotal = confirmed.values.fold<int>(0, (s, l) => s + l.length);
   final blindTotal = unmeasurable.values.fold<int>(0, (s, l) => s + l.length);
+  final declinedTotal = declined.values.fold<int>(0, (s, l) => s + l.length);
+  // The recipe-less classes. The tool already separated these from the ones
+  // with a stated reason; the baseline records the split so the test can
+  // demand it stay empty.
+  final unfinished = [
+    for (final d in diffs)
+      if (d.unverifiedCount > 0 && d.notAuditableReason == null) d.name,
+  ]..sort();
 
   String renderMap(Map<String, List<String>> m) {
     final b = StringBuffer();
@@ -1665,6 +1778,7 @@ String renderBaselineSource(List<ClassDiff> diffs) {
 // claim this baseline was introduced to stop anyone making.
 //
 // Current state: $gapTotal confirmed-unreachable members across ${confirmed.length} classes,
+// $declinedTotal members on ${declined.length} classes unreachable by decision,
 // and $blindTotal members on ${unmeasurable.length} classes that cannot be measured at all.
 // Those totals are documentation, not assertions — the test derives them from the
 // tables below, so there is only ever one thing to update.
@@ -1678,12 +1792,35 @@ String renderBaselineSource(List<ClassDiff> diffs) {
 const confirmedGaps = <String, List<String>>{
 ${renderMap(confirmed)}};
 
+/// Members unreachable BY DECISION, per bridged class. Each carries its reason
+/// in `_declined` in the tool.
+///
+/// Separate from [confirmedGaps] because the two make different claims. A
+/// confirmed gap is work not yet done and the guard wants that list to shrink;
+/// a declined member is a boundary that was chosen, and shrinking it would mean
+/// reversing a decision rather than fixing a defect.
+const declinedMembers = <String, List<String>>{
+${renderMap(declined)}};
+
 /// Candidates that could not be measured, per bridged class. Each of these has a
 /// stated reason in `_notAuditable` in the tool; they are pinned so that a member
 /// moving out of this bucket is reported as the new information it is, rather
 /// than as a fresh defect.
 const unmeasurable = <String, List<String>>{
 ${renderMap(unmeasurable)}};
+
+/// Classes carrying unmeasured members with NO stated reason — i.e. a bridged
+/// class nobody has written an instance recipe for yet.
+///
+/// Pinned at empty on purpose. Three classes (`HttpRequest`, `WebSocket`,
+/// `WebSocketTransformer`) sat here for a whole release cycle with 73 members
+/// between them: they were bridged, no recipe followed, and the audit simply
+/// stopped seeing that surface. Nothing failed, because the old baseline folded
+/// them in with the classes that have a stated reason. Measuring them found a
+/// real gap on the first run.
+const unfinishedClasses = <String>{
+${unfinished.map((n) => "  '\$n',").join('\n')}
+};
 
 /// Classes whose instance recipe produced a usable instance when the baseline was
 /// taken. A class dropping out of this list means its gaps stopped being
@@ -1749,6 +1886,18 @@ Future<void> main(List<String> args) async {
         _optionValue(args, '--baseline-out') ??
         'test/stdlib/member_coverage_baseline.dart';
     File(path).writeAsStringSync(renderBaselineSource(diffs));
+    // The emitter writes one list element per line and `dart format` collapses
+    // short lists onto one, so an unformatted write produced a 125-line diff
+    // for a two-line change — burying exactly the "which members moved and
+    // why" this tool tells its caller to look for. Formatting here makes that
+    // instruction true instead of aspirational.
+    final formatted = Process.runSync('dart', ['format', path]);
+    if (formatted.exitCode != 0) {
+      stderr.writeln(
+        'Baseline written but `dart format` failed; the diff will be mostly '
+        're-wrapping:\n${formatted.stderr}',
+      );
+    }
     stdout.writeln('Baseline written to $path');
     exit(0);
   }
@@ -1788,8 +1937,31 @@ Future<void> main(List<String> args) async {
     '${unexplained.fold<int>(0, (s, d) => s + d.unverifiedCount)} '
     'in ${unexplained.length} classes',
   );
-  stdout.writeln('CONFIRMED unreachable members:       $totalGaps');
-  stdout.writeln('Classes with >=1 confirmed gap:      $withGaps');
+  // The measured-unreachable total splits the same way the baseline does.
+  // Reporting one number here while the baseline reported two was how the
+  // three `ByteBuffer` SIMD views spent a release looking like a backlog on
+  // the console while already being a documented decision.
+  final declinedTotal = diffs.fold<int>(
+    0,
+    (sum, d) =>
+        sum +
+        [
+          ...d.missingInstance,
+          ...d.missingStatic,
+          ...d.missingOperators,
+          ...d.missingUniversal,
+        ].where((m) => _isDeclined(d.name, m)).length,
+  );
+  stdout.writeln(
+    'MEASURED unreachable members:        $totalGaps in $withGaps classes',
+  );
+  stdout.writeln(
+    '  ... unreachable BY DECISION:      $declinedTotal '
+    '(see _declined / doc/d4rt_limitations.md)',
+  );
+  stdout.writeln(
+    'CONFIRMED unreachable members:       ${totalGaps - declinedTotal}',
+  );
   stdout.writeln('');
   // Operator and Universal are broken out rather than folded into Confirmed:
   // a row reading `Confirmed 1 | Instance 0 | Static 0` was unreadable, and

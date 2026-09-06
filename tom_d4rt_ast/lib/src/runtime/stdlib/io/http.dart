@@ -8,6 +8,35 @@ import '../run_action.dart';
 import '../stream_listen.dart';
 import 'websocket.dart';
 
+/// Binds a script callback for a native API that will call it later.
+///
+/// Two things have to happen at SET time rather than at call time. The visitor
+/// is nullable on a setter adapter and the deferred invocation needs a real
+/// one; and a non-function value is the script's mistake, so it should be
+/// reported where the script made it. A failure discovered inside the HTTP
+/// client's own callback surfaces as a connection error with nothing pointing
+/// back to the assignment.
+///
+/// The returned closure awaits the result only when there is something to
+/// await: a script callback may be `async` or not, and the native signatures
+/// here are `Future`-returning either way.
+Future<Object?> Function(List<Object?>) _deferredCallback(
+  InterpreterVisitor? visitor,
+  Object? value,
+  String member,
+) {
+  if (visitor == null) {
+    throw RuntimeD4rtException('$member cannot be set without an interpreter.');
+  }
+  if (value is! InterpretedFunction) {
+    throw RuntimeD4rtException('$member requires a function or null.');
+  }
+  return (args) async {
+    final result = value.call(visitor, args);
+    return result is Future ? await result : result;
+  };
+}
+
 class HttpClientIo {
   static BridgedClass get definition => BridgedClass(
     nativeType: HttpClient,
@@ -254,6 +283,47 @@ class HttpClientIo {
       },
     },
     setters: {
+      // Both take a callback the client invokes later, from native code, so
+      // the adapter has to capture the visitor and unwrap what the script
+      // hands back. `null` clears the hook, which is how the SDK spells "go
+      // back to the default behaviour".
+      //
+      // The visitor is nullable on a setter adapter but the deferred call
+      // needs a real one, so it is checked here rather than at invocation
+      // time — a null discovered inside the HTTP client's own callback would
+      // surface as a connection failure with nothing pointing back to here.
+      'authenticateProxy': (visitor, target, value) {
+        final client = target as HttpClient;
+        if (value == null) {
+          client.authenticateProxy = null;
+          return;
+        }
+        final callback = _deferredCallback(
+          visitor,
+          value,
+          'HttpClient.authenticateProxy',
+        );
+        client.authenticateProxy = (host, port, scheme, realm) async =>
+            D4.unwrapAs<bool>(await callback([host, port, scheme, realm]));
+        return;
+      },
+      'connectionFactory': (visitor, target, value) {
+        final client = target as HttpClient;
+        if (value == null) {
+          client.connectionFactory = null;
+          return;
+        }
+        final callback = _deferredCallback(
+          visitor,
+          value,
+          'HttpClient.connectionFactory',
+        );
+        client.connectionFactory = (url, proxyHost, proxyPort) async =>
+            D4.unwrapAs<ConnectionTask<Socket>>(
+              await callback([url, proxyHost, proxyPort]),
+            );
+        return;
+      },
       'idleTimeout': (visitor, target, value) {
         (target as HttpClient).idleTimeout = value as Duration;
         return;

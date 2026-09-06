@@ -289,6 +289,19 @@ class ObjectCore {
       },
     },
     methods: {
+      // The universal member. It exists on every object and is what an
+      // interpreted class reaches through `super.noSuchMethod(invocation)`
+      // when its own override decides not to handle the call; without it that
+      // super-call has nowhere to go. The native contract is to throw, and
+      // throwing is the correct answer here too.
+      'noSuchMethod': (visitor, target, positionalArgs, namedArgs, _) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Invocation) {
+          throw RuntimeD4rtException(
+            'Object.noSuchMethod requires one Invocation argument.',
+          );
+        }
+        return target.noSuchMethod(positionalArgs[0] as Invocation);
+      },
       '==': (visitor, target, positionalArgs, namedArgs, _) {
         return target == positionalArgs[0];
       },

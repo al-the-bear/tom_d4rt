@@ -115,10 +115,22 @@ class StdoutIo {
           (target as Stdout).terminalColumns,
       'hasTerminal': (visitor, target) => (target as Stdout).hasTerminal,
       'nonBlocking': (visitor, target) => (target as Stdout).nonBlocking,
+      'lineTerminator': (visitor, target) => (target as Stdout).lineTerminator,
       'runtimeType': (visitor, target) => (target as Stdout).runtimeType,
       'hashCode': (visitor, target) => (target as Stdout).hashCode,
     },
     setters: {
+      // The SDK restricts this to "\n" or "\r\n" and asserts on anything
+      // else; the guard turns that assert into a message a script can act on.
+      'lineTerminator': (visitor, target, value) {
+        if (value != '\n' && value != '\r\n') {
+          throw RuntimeD4rtException(
+            r'Stdout.lineTerminator must be "\n" or "\r\n".',
+          );
+        }
+        (target as Stdout).lineTerminator = value! as String;
+        return;
+      },
       'encoding': (visitor, target, value) {
         if (value is! Encoding) {
           throw RuntimeD4rtException(

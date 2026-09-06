@@ -1,3 +1,23 @@
+## 0.55.0
+
+### Added — the eight remaining reachable-member gaps (scc74)
+
+Mirrors `tom_d4rt` 1.66.0: `LinkedListEntry.insertAfter` / `.insertBefore`,
+`Object.noSuchMethod`, `StringConversionSink.asUtf8Sink`,
+`Stdout.lineTerminator` (getter and setter), `HttpClient.authenticateProxy` /
+`.connectionFactory`, and `WebSocketTransformer.cast`.
+
+`SocketMessage`, `SocketControlMessage` and `ResourceHandle` join
+`kUnbridgedReasons`, so a script that reaches for file-descriptor passing is
+told it is refused for sandbox reasons rather than merely that the name is
+undefined.
+
+The audit that found these runs scripts through the analyzer-based interpreter
+and cannot run here; coverage on this line is registration-level
+(`test/runtime/stdlib_member_axis_gaps_test.dart`), which is the level that
+catches the failure this tree is exposed to — an adapter lost crossing the
+mirror.
+
 ## 0.54.0
 
 ### Added — 26 SDK members the bridges declared no way to reach (scc73)

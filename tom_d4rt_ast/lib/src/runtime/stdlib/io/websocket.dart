@@ -360,6 +360,12 @@ class WebSocketTransformerIo {
       },
     },
     methods: {
+      // Inherited from `StreamTransformer`. The interpreter erases type
+      // arguments, so the only cast a script can express is the identity one —
+      // which is what `StreamTransformer.cast` does for a matching pair, and
+      // is enough for the `transform` call the cast exists to type-check.
+      'cast': (visitor, target, positionalArgs, namedArgs, _) =>
+          (target as WebSocketTransformer).cast<HttpRequest, WebSocket>(),
       'bind': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.isEmpty || positionalArgs[0] is! Stream) {
           throw RuntimeD4rtException(

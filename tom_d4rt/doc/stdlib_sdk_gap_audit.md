@@ -230,9 +230,11 @@ a *verified* standing baseline affordable — phase 1 alone would not do, becaus
 removing a supertype edge flips members `reachable → confirmed`, an event phase 2
 catches and a candidate-only baseline cannot see at all.
 
-**The baseline pins three things and deliberately omits a fourth:** the 13
-confirmed gaps per class, the 74 members that cannot be measured, and the 85
-classes whose recipe yields an instance. The ~378 members reachable only via the
+**The baseline pins four things and deliberately omits a fifth:** the confirmed
+gaps per class, the members unreachable *by decision*, the members that cannot
+be measured, and the classes whose recipe yields an instance. (The counts are
+not quoted here — they move whenever a gap closes, and the baseline file's own
+header carries the live figures.) The ~378 members reachable only via the
 supertype fallback are **not** pinned — one of them going bad presents as
 "confirmed and absent from the baseline" either way, so pinning them adds no
 guard power while tripling the file with names that carry no finding. That is the
@@ -305,23 +307,37 @@ Measured 2026-09-06.
 
 | Metric | Count |
 |--------|-------|
-| Bridged classes examined | 183 |
-| Raw candidates from the map diff | 604 |
-| … reachable anyway via instance fallback | 580 |
-| … unverified — cannot be measured, reason stated | 74 in 4 classes |
+| Bridged classes examined | 205 |
+| Raw candidates from the map diff | 668 |
+| … reachable anyway via instance fallback | 652 |
+| … unverified — cannot be measured, reason stated | 73 in 4 classes |
 | … unverified — no recipe yet | **0** |
-| **CONFIRMED unreachable** | **13** |
-| Classes with ≥ 1 confirmed gap | 7 |
+| **MEASURED unreachable** | **5** |
+| … of those, unreachable **by decision** | 5 in 2 classes |
+| **CONFIRMED unreachable** (i.e. defects) | **0** |
 
-**The confirmed count went 3 → 231 → 13, and neither move touched an adapter.**
-The rise was the unverified bucket closing: 228 members that no run had ever
-executed were measured for the first time, and they were already unreachable.
-The fall was the `dart:io` supertype block being declared: 218 of those 228 were
-`Stream` and `IOSink` members on stream- and sink-shaped classes, and an
-inherited member becomes reachable the moment there is an edge to inherit
-through. Between those two figures nothing about the interpreter's *behaviour*
-changed twice — what changed was first what the audit could see, then what the
-registry could walk.
+**The confirmed count went 3 → 231 → 13 → 0, and only the last move touched
+adapters.** The rise was the unverified bucket closing: 228 members that no run
+had ever executed were measured for the first time, and they were already
+unreachable. The first fall was the `dart:io` supertype block being declared:
+218 of those 228 were `Stream` and `IOSink` members on stream- and sink-shaped
+classes, and an inherited member becomes reachable the moment there is an edge
+to inherit through. Between those two figures nothing about the interpreter's
+*behaviour* changed twice — what changed was first what the audit could see,
+then what the registry could walk.
+
+The last move, 13 → 0, is the one that was ordinary engineering: SCC74 bridged
+eight of the thirteen and reclassified the other five as decisions rather than
+defects. Those five had always been decisions — three `ByteBuffer` SIMD views
+already had a limitations-table row and a pinning test — but the tool had no
+way to say so, so a settled boundary and an open backlog shared one number. The
+`_declined` table is that missing distinction.
+
+**A caution about the 0.** It means no *measured* member is unreachable, and
+the instrument's reach is the other half of that claim: 73 members on four
+classes still cannot be measured at all, each with a stated reason. `0
+confirmed` and `73 unmeasurable` have to be read together, which is why they sit
+in the same table.
 
 Read that as the standing warning it is: a headline number from this tool is a
 statement about the interpreter **and** about the instrument, and the two move

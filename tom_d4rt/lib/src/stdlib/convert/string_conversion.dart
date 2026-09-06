@@ -96,6 +96,20 @@ class StringConversionConvert {
         (target as StringConversionSink).close();
         return null;
       },
+      // The byte half of the same pair: `asUtf8Sink` hands back a
+      // `_Utf8StringSinkAdapter`, which the ByteConversionSink bridge already
+      // routes through its `nativeNames`.
+      'asUtf8Sink': (visitor, target, positionalArgs, namedArgs, _) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! bool) {
+          throw RuntimeD4rtException(
+            'StringConversionSink.asUtf8Sink requires one bool argument '
+            '(allowMalformed).',
+          );
+        }
+        return (target as StringConversionSink).asUtf8Sink(
+          positionalArgs[0] as bool,
+        );
+      },
       // The idiomatic route to a `ClosableStringSink`: it hands back a
       // `_ClosableStringSink`, which the ClosableStringSink bridge routes.
       'asStringSink': (visitor, target, positionalArgs, namedArgs, _) {

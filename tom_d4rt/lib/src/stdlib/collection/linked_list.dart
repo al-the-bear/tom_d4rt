@@ -168,6 +168,28 @@ class LinkedListEntryCollection {
       },
     },
     methods: {
+      'insertAfter': (visitor, target, positionalArgs, namedArgs, _) {
+        if (target is! BridgedLinkedListEntry ||
+            positionalArgs.length != 1 ||
+            positionalArgs[0] is! BridgedLinkedListEntry) {
+          throw RuntimeD4rtException(
+            'LinkedListEntry.insertAfter(entry) expects one LinkedListEntry.',
+          );
+        }
+        target.insertAfter(positionalArgs[0] as BridgedLinkedListEntry);
+        return null;
+      },
+      'insertBefore': (visitor, target, positionalArgs, namedArgs, _) {
+        if (target is! BridgedLinkedListEntry ||
+            positionalArgs.length != 1 ||
+            positionalArgs[0] is! BridgedLinkedListEntry) {
+          throw RuntimeD4rtException(
+            'LinkedListEntry.insertBefore(entry) expects one LinkedListEntry.',
+          );
+        }
+        target.insertBefore(positionalArgs[0] as BridgedLinkedListEntry);
+        return null;
+      },
       'unlink': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is BridgedLinkedListEntry &&
             positionalArgs.isEmpty &&

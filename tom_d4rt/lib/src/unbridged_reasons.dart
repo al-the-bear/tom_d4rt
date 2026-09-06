@@ -46,6 +46,9 @@ const Map<String, String> kUnbridgedReasons = <String, String>{
   'Finalizer':
       'same as WeakReference, plus a GC-timed callback would be '
       'non-deterministic re-entry into sandboxed code',
+  'SocketMessage': _fileDescriptorPassing,
+  'SocketControlMessage': _fileDescriptorPassing,
+  'ResourceHandle': _fileDescriptorPassing,
   'HttpOverrides':
       'setting it swaps the HttpClient implementation process-wide '
       'and outlives the script, which is the host access the sandbox exists to '
@@ -84,6 +87,10 @@ const String _zone =
 const String _compression =
     'deferred: compression codecs, to be added on '
     'concrete demand';
+
+const String _fileDescriptorPassing =
+    'refused: it carries raw OS file descriptors across a socket, which no '
+    'permission check can see and which the sandbox therefore cannot contain';
 
 const String _simd =
     'deferred: every lane operation would cost a bridge '

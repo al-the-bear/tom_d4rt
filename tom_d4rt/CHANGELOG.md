@@ -1,3 +1,52 @@
+## 1.66.0
+
+### Added — the eight remaining reachable-member gaps, and the audit that was blind to a quarter of the surface (scc74)
+
+SCC73's guard covers constructors and instance getters. Methods and statics are
+measured by `tool/stdlib_member_diff.dart` instead, which probes each candidate
+through a real instance — the only sound approach for members that are
+inherited and that take arguments.
+
+**The instrument first.** Three classes SCC61..SCC63 bridged — `HttpRequest`,
+`WebSocket`, `WebSocketTransformer` — never got instance recipes, so 73 members
+went into the "cannot be measured" bucket alongside the classes that have a
+documented reason to be there. Nothing failed: the baseline folded the two
+kinds together. Writing the three recipes found a real gap on the first run.
+`F-SCC74-2` now asserts that bucket is empty, so a bridged class without a
+recipe fails immediately instead of going quietly dark.
+
+**Then the gaps.** Eight members closed, each with behaviour cases:
+
+- `LinkedListEntry.insertAfter` / `.insertBefore`
+- `Object.noSuchMethod` — the route an interpreted `super.noSuchMethod(...)`
+  needs
+- `StringConversionSink.asUtf8Sink`
+- `Stdout.lineTerminator` (getter and setter; the setter enforces the two legal
+  values the SDK only asserts on)
+- `HttpClient.authenticateProxy` / `.connectionFactory`
+- `WebSocketTransformer.cast`
+
+**And a distinction the tool could not previously make.** The remaining five
+measured-unreachable members are decisions, not defects, and had been sharing a
+number with the backlog: the three `ByteBuffer` SIMD views already had a
+limitations-table row and a pinning test, and still read as unfinished work.
+The new `_declined` table separates them, pointing at the recorded decision
+rather than restating it. `RawSocket.readMessage` / `.sendMessage` join them
+with a new limitations row — they move `ResourceHandle`s, raw OS file
+descriptors, across a socket, which no permission check can see; that one is
+refused rather than deferred.
+
+Confirmed defects on the method/static axis are now **0**, against 73 members
+on four classes that still cannot be measured. Those two numbers have to be
+read together.
+
+### Fixed — `--baseline` wrote unformatted source (scd184)
+
+The emitter writes one list element per line and `dart format` collapses short
+lists, so a two-line change produced a 125-line diff — burying the "which
+members moved and why" the tool tells its caller to look for. It formats what
+it writes now.
+
 ## 1.65.0
 
 ### Added — 26 SDK members the bridges declared no way to reach (scc73)

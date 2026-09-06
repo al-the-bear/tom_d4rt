@@ -34,6 +34,12 @@
 //   | `DateTime` instance recipe broken             | 2        |
 //   | a baselined class no longer bridged           | 2        |
 //   | baseline claims a gap that is bridged now     | 3        |
+//   | `HttpRequest` instance recipe deleted         | F-SCC74-2|
+//
+// The last row is worth its own note: deleting the `WebSocketTransformer`
+// recipe did NOT fire it, and that is correct. Its one candidate is bridged
+// now, so with no recipe there is nothing left unmeasured. The guard reports a
+// class that has candidates nobody can see, not a class without a recipe.
 //
 // The first row is why F-SCC13-0 and F-SCC13-2 exist: with the probe timeout at
 // 1µs nothing was measured at all, and tests 1 and 3 PASSED — an empty
@@ -87,13 +93,20 @@ void main() {
   late Map<String, Map<String, _Now>> observed;
   late Set<String> observedMeasured;
 
+  /// Bridged classes carrying unmeasured members with no stated reason.
+  late Set<String> observedUnfinished;
+
   setUpAll(() async {
     final diffs = collectMemberDiffs(buildFullyRegisteredEnvironment());
     await verifyAll(diffs);
 
     observed = {};
     observedMeasured = {};
+    observedUnfinished = {};
     for (final d in diffs) {
+      if (d.unverifiedCount > 0 && d.notAuditableReason == null) {
+        observedUnfinished.add(d.name);
+      }
       if (d.recipeUsable) observedMeasured.add(d.name);
       final byMember = <String, _Now>{};
       for (final m in [
@@ -123,6 +136,9 @@ void main() {
   /// nothing at all.
   String baselineStateOf(String cls, String member) {
     if (confirmedGaps[cls]?.contains(member) ?? false) return 'gap';
+    // A declined member measures exactly like a gap and must not read as a
+    // regression — the difference is why it is unreachable, not whether.
+    if (declinedMembers[cls]?.contains(member) ?? false) return 'declined';
     if (unmeasurable[cls]?.contains(member) ?? false) return 'blind';
     return 'absent';
   }
@@ -207,6 +223,7 @@ void main() {
     // measured, and a class that is gone contributes nothing to walk.
     final vanished = <String>{
       ...confirmedGaps.keys,
+      ...declinedMembers.keys,
       ...unmeasurable.keys,
     }.where((c) => !observed.containsKey(c)).toList()..sort();
 
@@ -227,6 +244,39 @@ void main() {
                     'platform cannot run it — and if it is the platform, record that '
                     'as a reason in _notAuditable rather than shrinking the baseline, '
                     'so the blind spot stays visible.'}',
+    );
+  });
+
+  test('F-SCC74-2: every bridged class with unmeasured members has a stated '
+      'reason [2026-09-06]', () {
+    // The blackout this file could not see. F-SCC13-2 catches a recipe that
+    // BREAKS; nothing caught a class that never had one. When SCC61..SCC63
+    // bridged `HttpRequest`, `WebSocket` and `WebSocketTransformer`, no recipes
+    // followed, and 73 members went straight into the unmeasurable bucket — the
+    // same bucket as the classes with a documented reason. The totals moved
+    // from "74 members on 4 classes" to "146 on 7" and every test here stayed
+    // green, because the baseline folded the two kinds together.
+    //
+    // The tool has always known the difference: `notAuditableReason` is null
+    // exactly when the class is expected to be measurable. This asserts on it.
+    // Writing the three recipes found a real gap on the first run
+    // (`WebSocketTransformer.cast`), which is the argument for the guard rather
+    // than for tolerating the bucket.
+    final unfinished = <String>[];
+    for (final name in observedUnfinished) {
+      unfinished.add(name);
+    }
+    unfinished.sort();
+    expect(
+      unfinished,
+      isEmpty,
+      reason:
+          'These bridged classes have members nobody can measure, and no '
+          'stated reason why:\n  ${unfinished.join('\n  ')}\n\n'
+          'A bridged class with no instance recipe is invisible to this audit '
+          '— its gaps cannot be found. Add a recipe to _instanceRecipes, or if '
+          'the class genuinely cannot be instantiated in a probe, record that '
+          'in _notAuditable so the blind spot is at least deliberate.',
     );
   });
 
@@ -263,6 +313,35 @@ void main() {
         }
       }
     }
+    // A declined member becoming reachable is not "good news needing a
+    // regenerate" — it means someone bridged something the limitations table
+    // says is deliberately absent. Reported here because this is the test that
+    // walks the baseline, but with its own wording: the remedy is to move the
+    // row out of the doc and delete its pinning case, in the same change.
+    final reversedDecisions = <String>[];
+    for (final entry in declinedMembers.entries) {
+      final byMember = observed[entry.key];
+      if (byMember == null) continue;
+      for (final member in entry.value) {
+        if (byMember[member] != _Now.gap) {
+          reversedDecisions.add('${entry.key}.$member');
+        }
+      }
+    }
+    reversedDecisions.sort();
+    expect(
+      reversedDecisions,
+      isEmpty,
+      reason:
+          'These members are recorded in doc/d4rt_limitations.md as '
+          'deliberately unbridged, and they are reachable now:\n'
+          '  ${reversedDecisions.join('\n  ')}\n\n'
+          'That is a decision being reversed, not a gap being closed. If it '
+          'was intended, move the row out of the limitations table, delete its '
+          'case in intentionally_unbridged_test.dart and drop it from '
+          '_declined — all in the same change.',
+    );
+
     for (final entry in unmeasurable.entries) {
       final byMember = observed[entry.key];
       if (byMember == null) continue;

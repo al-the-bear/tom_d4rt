@@ -6,8 +6,9 @@
 // an assertion about the interpreter that nothing measured, which is exactly the
 // claim this baseline was introduced to stop anyone making.
 //
-// Current state: 12 confirmed-unreachable members across 7 classes,
-// and 146 members on 7 classes that cannot be measured at all.
+// Current state: 0 confirmed-unreachable members across 0 classes,
+// 5 members on 2 classes unreachable by decision,
+// and 73 members on 4 classes that cannot be measured at all.
 // Those totals are documentation, not assertions — the test derives them from the
 // tables below, so there is only ever one thing to update.
 //
@@ -17,14 +18,18 @@
 // regenerating hides a live defect.
 
 /// Members proven unreachable through the interpreter, per bridged class.
-const confirmedGaps = <String, List<String>>{
+const confirmedGaps = <String, List<String>>{};
+
+/// Members unreachable BY DECISION, per bridged class. Each carries its reason
+/// in `_declined` in the tool.
+///
+/// Separate from [confirmedGaps] because the two make different claims. A
+/// confirmed gap is work not yet done and the guard wants that list to shrink;
+/// a declined member is a boundary that was chosen, and shrinking it would mean
+/// reversing a decision rather than fixing a defect.
+const declinedMembers = <String, List<String>>{
   'ByteBuffer': [r'asFloat32x4List', r'asFloat64x2List', r'asInt32x4List'],
-  'HttpClient': [r'authenticateProxy', r'connectionFactory'],
-  'LinkedListEntry': [r'insertAfter', r'insertBefore'],
-  'Object': [r'noSuchMethod'],
   'RawSocket': [r'readMessage', r'sendMessage'],
-  'Stdout': [r'lineTerminator'],
-  'StringConversionSink': [r'asUtf8Sink'],
 };
 
 /// Candidates that could not be measured, per bridged class. Each of these has a
@@ -71,44 +76,6 @@ const unmeasurable = <String, List<String>>{
     r'where',
   ],
   'HttpHeaders': [r'[]'],
-  'HttpRequest': [
-    r'any',
-    r'asBroadcastStream',
-    r'asyncExpand',
-    r'asyncMap',
-    r'cast',
-    r'contains',
-    r'distinct',
-    r'drain',
-    r'elementAt',
-    r'every',
-    r'expand',
-    r'first',
-    r'firstWhere',
-    r'fold',
-    r'forEach',
-    r'handleError',
-    r'isBroadcast',
-    r'isEmpty',
-    r'join',
-    r'last',
-    r'lastWhere',
-    r'length',
-    r'map',
-    r'pipe',
-    r'reduce',
-    r'single',
-    r'singleWhere',
-    r'skip',
-    r'skipWhile',
-    r'take',
-    r'takeWhile',
-    r'timeout',
-    r'toList',
-    r'toSet',
-    r'transform',
-    r'where',
-  ],
   'Stdin': [
     r'any',
     r'asBroadcastStream',
@@ -147,46 +114,18 @@ const unmeasurable = <String, List<String>>{
     r'transform',
     r'where',
   ],
-  'WebSocket': [
-    r'any',
-    r'asBroadcastStream',
-    r'asyncExpand',
-    r'asyncMap',
-    r'cast',
-    r'contains',
-    r'distinct',
-    r'drain',
-    r'elementAt',
-    r'every',
-    r'expand',
-    r'first',
-    r'firstWhere',
-    r'fold',
-    r'forEach',
-    r'handleError',
-    r'isBroadcast',
-    r'isEmpty',
-    r'join',
-    r'last',
-    r'lastWhere',
-    r'length',
-    r'map',
-    r'pipe',
-    r'reduce',
-    r'single',
-    r'singleWhere',
-    r'skip',
-    r'skipWhile',
-    r'take',
-    r'takeWhile',
-    r'timeout',
-    r'toList',
-    r'toSet',
-    r'transform',
-    r'where',
-  ],
-  'WebSocketTransformer': [r'cast'],
 };
+
+/// Classes carrying unmeasured members with NO stated reason — i.e. a bridged
+/// class nobody has written an instance recipe for yet.
+///
+/// Pinned at empty on purpose. Three classes (`HttpRequest`, `WebSocket`,
+/// `WebSocketTransformer`) sat here for a whole release cycle with 73 members
+/// between them: they were bridged, no recipe followed, and the audit simply
+/// stopped seeing that surface. Nothing failed, because the old baseline folded
+/// them in with the classes that have a stated reason. Measuring them found a
+/// real gap on the first run.
+const unfinishedClasses = <String>{};
 
 /// Classes whose instance recipe produced a usable instance when the baseline was
 /// taken. A class dropping out of this list means its gaps stopped being
@@ -212,6 +151,7 @@ const measuredClasses = <String>{
   'HtmlEscape',
   'HtmlEscapeMode',
   'HttpClient',
+  'HttpRequest',
   'HttpServer',
   'IOSink',
   'Int16List',
@@ -273,6 +213,8 @@ const measuredClasses = <String>{
   'Uri',
   'UriData',
   'Utf8Codec',
+  'WebSocket',
+  'WebSocketTransformer',
   'bool',
   'double',
   'int',
