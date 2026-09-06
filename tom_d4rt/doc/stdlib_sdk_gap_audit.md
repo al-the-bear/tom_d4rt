@@ -34,11 +34,15 @@ Class-level coverage is audited by hand; **member-level** and
   its `-> Iterable` edge was declared, and those last two (`addAll`,
   `addFirst`, the only members that are LinkedList's own) were then written by
   hand, so the class now measures complete. A mechanical cross-reference over all
-  180 classes (`--hierarchy`) opened at **35 missing edges across 23
-  classes**, concentrated in `dart:convert`; the `dart:typed_data` and
-  `dart:convert` blocks are now declared and the count stands at **4 edges
-  across 3 classes** (`String`, `Duration`, `StreamController`). Read the
-  hierarchy audit before treating any member-gap count as a work estimate.
+  183 classes (`--hierarchy`) opened at **35 missing edges across 23
+  classes**, concentrated in `dart:convert`; the `dart:typed_data`,
+  `dart:convert` and `dart:core` blocks are now declared and the count stands at
+  **18 edges across 9 classes**, all of them in `dart:io` / `dart:isolate`. That
+  count went *up* before it came down — adding instance recipes let the audit
+  measure classes it had been reporting as unverified — so read
+  [the movement table](#hierarchy-gaps--the-supertype-edge-audit) rather than
+  the number, and read the hierarchy audit before treating any member-gap count
+  as a work estimate.
 - **Member-level gaps stand at 231 across 13 classes, and 228 of those were
   invisible until the audit could reach them.** A mechanical member diff over
   all 181 registered classes (`tool/stdlib_member_diff.dart`) previously
@@ -596,72 +600,110 @@ every edge.
 **Candidates are then verified**, for the same reason the member diff
 verifies its own: a static cross-reference over-reports badly. Each candidate
 is driven through the interpreter as `o is Supertype` and kept only if the
-answer is actually `false`. Measured 2026-07-28, after the convert
-codec/converter edges were declared:
+answer is actually `false`. Measured 2026-09-06, after the `dart:core` edges
+were declared:
 
 | Metric | Count |
 |--------|-------|
-| Bridged classes examined | 181 |
-| … declaring `isAssignable` | 155 |
-| … with ≥ 1 registered edge | 69 |
-| Candidate edges from the cross-reference | 66 |
-| … satisfied anyway via `isAssignable` | 0 |
-| … unverified (no instance recipe) | 62 |
-| **CONFIRMED missing edges** | **4** |
-| Classes with ≥ 1 confirmed gap | 3 |
+| Bridged classes examined | 183 |
+| … declaring `isAssignable` | 157 |
+| … with ≥ 1 registered edge | 90 |
+| Candidate edges from the cross-reference | 38 |
+| … satisfied anyway via `isAssignable` | 3 |
+| … unverified (no instance recipe) | 17 |
+| **CONFIRMED missing edges** | **18** |
+| Classes with ≥ 1 confirmed gap | 9 |
 
-This table has now been measured three times, and the movement is worth
-keeping because each step separates a *repair* from a change in what the audit
-can see:
+This table has now been measured five times, and the movement is worth keeping
+because each step separates a *repair* from a change in what the audit can see
+— the two are indistinguishable from the confirmed count alone, and reading
+them as the same thing is the standing hazard of this section.
 
 | Measurement | Candidates | Satisfied anyway | Unverified | Confirmed | Classes |
 | --- | --- | --- | --- | --- | --- |
 | Before the typed_data edges | 137 | 11 | 91 | 35 | 23 |
 | After typed_data (SCB20 / SCC55) | 115 | 0 | 91 | 24 | 12 |
-| After convert codecs (SCB23) | 66 | 0 | 62 | **4** | 3 |
+| After convert codecs (SCB23) | 66 | 0 | 62 | 4 | 3 |
+| Re-measured with the SCC12 io recipes | 52 | 5 | 21 | 26 | 16 |
+| After four dart:core recipes (SCC56) | 52 | 6 | 17 | 29 | 19 |
+| After the dart:core edges (SCC56) | 38 | 3 | 17 | **18** | 9 |
 
 - **35 → 24 confirmed** was the eleven typed-data `-> Iterable` edges;
-  **24 → 4** is the twenty convert codec/converter edges. Those are the repairs.
+  **24 → 4** is the twenty convert codec/converter edges. Those are repairs.
+- **4 → 26 is NOT a regression, and this is the row to read carefully.** No
+  bridge changed. SCC12 added sandboxed recipes so the *member* audit could
+  measure `dart:io`, the hierarchy audit shares that recipe table, and edges
+  that had been silently sitting in "unverified" became measurable — and
+  measured false. The confirmed count rises when the audit's eyesight improves
+  and falls when a bridge is fixed.
+- **26 → 29 is the same effect at small scale**, and it is why the row is kept
+  separate rather than merged into the one below it. SCC56 added four recipes
+  (`RegExp`, `RegExpMatch`, `Runes`, `StringBuffer`) before declaring anything:
+  three of their edges confirmed as gaps and one (`RegExpMatch -> Match`) turned
+  out already true. Had the recipes and the declarations landed in one
+  measurement, that step would have read as 26 → 18 and hidden both facts.
+- **29 → 18 is the repair.** `CoreHierarchyCore` declares **twelve** edges and
+  removes **fourteen** candidates, because the registry walk composes them:
+  `int -> num` and `num -> Comparable` together answer `int is Comparable`,
+  which the cross-reference had proposed as its own candidate. Declaring the
+  closure by hand would have produced the same table while never exercising the
+  walk.
 - **Candidates fall faster than confirmed gaps** at each step, because the
   cross-reference only proposes an edge that is not already registered — so
   declaring an edge that was *already true by fallback*, or one that was merely
-  *unverified*, also removes it from the candidate set. The 115 → 66 drop is 20
-  confirmed plus 29 previously-unverified encoder/decoder edges that the same
-  block covered.
-- **11 → 0 satisfied-anyway.** Those eleven were exactly the typed lists'
-  `-> List`: true via the `isAssignable` fallback, with no edge behind them.
-  They are now backed by a declared edge, so they leave the candidate set by
-  the previous bullet rather than by being counted here.
+  *unverified*, also removes it from the candidate set.
+- **Satisfied-anyway went 11 → 0 → 6 → 3.** The eleven were the typed lists'
+  `-> List`. Three of the six were `int -> num`, `double -> num` and
+  `RegExpMatch -> Match`, now backed by declared edges. The three left are
+  `Socket -> IOSink`, `Stdout -> IOSink` and `SendPort -> Capability`: true via
+  the `isAssignable` fallback with nothing declared behind them, which is
+  exactly the state the typed lists were in.
 
-That satisfied-anyway bucket was the argument for running a verification pass
-at all: published unverified, those eleven would have sent someone to fix
-behaviour that already worked. It is empty now only because the edges were
-declared for readability — the fallback that made them true is untouched.
+That satisfied-anyway bucket is the argument for running a verification pass at
+all: published as unverified, those entries would send someone to fix behaviour
+that already works.
 
 ### Confirmed gaps, by hierarchy
 
 | Hierarchy | Classes | Missing edges | Members also lost? | Disposition |
 | --- | --- | --- | --- | --- |
-| `dart:core` comparables | `String`, `Duration` | `-> Comparable`, `-> Pattern` | Yes — `String.matchAsPrefix` | SCC56 |
-| `dart:async` sinks | `StreamController` | `-> Sink` | No | SCC58 |
+| `dart:io` byte sinks | `Socket`, `Stdout` | `-> IOSink`'s five: `EventSink`, `Sink`, `StreamConsumer`, `StreamSink`, `StringSink` | Not measured — the member audit covers both classes and reports no gap | SCC57 |
+| `dart:io` / `dart:isolate` stream sources | `HttpServer`, `RawDatagramSocket`, `RawServerSocket`, `RawSocket`, `ReceivePort`, `ServerSocket`, `Stdin` | `-> Stream` | No | SCC57 |
 
-`StreamController` is the instructive row: it already carries
-`-> EventSink`, `-> StreamConsumer` and `-> StreamSink`, and is missing only
-`-> Sink`. Partial edge sets are the normal failure mode — whoever adds a
-hierarchy declares the edges the failing test needed, and the rest stay
-missing until something else trips over them.
+All nine remaining classes are in `dart:io` or `dart:isolate`, and all nine
+declare an `isAssignable` — which is why they are measurable at all, and why
+declaring their edges needs the same dispatch check `dart:core` got.
 
-The three `dart:convert` rows this table used to carry — codecs, converters
-and the `Encoding` root — were closed by SCB23; see *Notes on the convert
-hierarchy* below for what the fix had to get right beyond declaring the edges.
+`Socket` is the instructive row: it is `implements Stream<Uint8List>, IOSink`,
+the audit reports `-> IOSink` as *satisfied anyway* (the `IOSink` bridge's own
+predicate answers it) and the five edges `IOSink` itself carries as **missing**
+— because a fallback that answers one hop does not walk. Declaring
+`Socket -> IOSink` and `IOSink -> {EventSink, Sink, StreamConsumer,
+StreamSink, StringSink}` closes six edges with two declarations, and is the
+same partial-edge-set failure mode `StreamController` used to show.
 
-### The 62 unverified edges are the audit's own blind spot
+The rows this table used to carry are all closed: the three `dart:convert`
+ones by SCB23 (see *Notes on the convert hierarchy* below), the `dart:core`
+comparables by SCC56, and `StreamController -> Sink` by SCC49 — the last of
+those closed as a side effect of the `EventSink -> Sink` edge, since the walk
+now reaches `Sink` through it.
 
-Further classes carry candidate edges that could not be tested because
-`_instanceRecipes` has no entry for them — most of `dart:io` (`Socket`,
-`Stdout`, `IOSink`, `File`, `Directory`, the `FileSystemException` family)
-and the numeric tower (`int`/`double`/`num`/`BigInt` `-> Comparable`). They
-are reported as their own bucket rather than folded into either answer,
+### The 17 unverified edges are the audit's own blind spot
+
+Eight classes carry candidate edges that could not be tested because
+`_instanceRecipes` has no usable entry for them:
+
+| Class | Unverified edges |
+| --- | --- |
+| `HttpClientRequest` | `EventSink`, `IOSink`, `Sink`, `StreamConsumer`, `StreamSink`, `StringSink` |
+| `IOSink` | `EventSink`, `Sink`, `StreamConsumer`, `StreamSink`, `StringSink` |
+| `Directory`, `File` | `FileSystemEntity` |
+| `HttpClientResponse` | `Stream` |
+| `ContentType` | `HeaderValue` |
+| `OSError` | `Exception` |
+| `RemoteError` | `Error` |
+
+They are reported as their own bucket rather than folded into either answer,
 because both readings would be a guess.
 
 The `dart:convert` encoder/decoder pairs used to be the largest group here,
@@ -681,7 +723,7 @@ the `dart:io` sockets and servers are omitted on purpose rather than have the
 audit open listening ports, so those need a recipe that constructs without
 binding, or an explicit "not auditable" marker.
 
-**Disposition:** Tracked — SCC57 for these 62 edges. The member-diff half of
+**Disposition:** Tracked — SCC57 for these 17 edges. The member-diff half of
 this debt is **closed**: its unverified bucket is down to 37 entries, every one
 of them carrying a stated reason for being unmeasurable. Measurement debt is
 not a bridging decision — while it stands, "confirmed" is a lower bound and no
@@ -693,15 +735,14 @@ member audit no longer is.
 
 Each hierarchy needs its own dispatch verification — the SC7 queue case
 showed that adding edges changes which bridge *owns* a native, and
-`_filterToMostSpecific` can newly drop a match that used to win. Six
-hierarchies across four libraries is not one change, and the edges must land
-in both trees (`CollectionHierarchyCollection` and `ConvertHierarchyConvert`
-are byte-identical between `tom_d4rt` and `tom_d4rt_ast` today; any new
-registrar must stay that way). The audit's job is to make the list complete
-and repeatable; the fixes are tracked in the **Disposition** column of the
-confirmed-gaps table above — SCC56 for the `dart:core` singletons, SCC58 for
-`StreamController -> Sink`. "Tracked separately" without naming the tracker is
-what [the disposition rule](#the-disposition-rule--read-this-before-adding-a-row)
+`_filterToMostSpecific` can newly drop a match that used to win. The edges must
+also land in both trees (`CollectionHierarchyCollection`,
+`ConvertHierarchyConvert` and `CoreHierarchyCore` are byte-identical between
+`tom_d4rt` and `tom_d4rt_ast` today; any new registrar must stay that way). The
+audit's job is to make the list complete and repeatable; the fixes are tracked
+in the **Disposition** column of the confirmed-gaps table above.
+"Tracked separately" without naming the tracker is what
+[the disposition rule](#the-disposition-rule--read-this-before-adding-a-row)
 now forbids.
 
 ## Not a gap: relaxer false-alarms (already fixed)
@@ -1307,16 +1348,17 @@ the six missing *classes* that produced them. It is now Boundary, with
    [d4rt_limitations.md](d4rt_limitations.md#intentionally-unbridged-sdk-classes).
    Several are sandbox-hostile by design and will stay out; the rest wait
    for a concrete consumer.
-4. **The hierarchy gaps are nearly closed** — 4 confirmed missing edges
-   remain, none of them in `dart:convert`. The blocks were filed per
+4. **The hierarchy gaps are confined to `dart:io` / `dart:isolate`** — 18
+   confirmed missing edges across 9 classes. The blocks were filed per
    hierarchy rather than as one change, because each alters bridge
    *ownership* and needs its own dispatch verification; `dart:typed_data`
-   (11 edges) and `dart:convert` (20 edges, plus the `Encoding.decodeStream`
-   adapter) are both closed. What is left is three unrelated singletons:
-   `String -> Comparable, Pattern`, `Duration -> Comparable`, and
-   `StreamController -> Sink`. Small enough to take as one change, but the
-   dispatch check still applies per class.
-5. **Close the audit's blind spot** — 62 candidate *edges* still sit
+   (11 edges), `dart:convert` (20 edges, plus the `Encoding.decodeStream`
+   adapter) and `dart:core` (12 edges) are all closed, as is
+   `StreamController -> Sink`, which the `EventSink -> Sink` edge reached
+   without being declared for it. What remains is one shape repeated nine
+   times: seven stream-shaped classes missing `-> Stream`, and `Socket` and
+   `Stdout` missing the five edges `IOSink` carries.
+5. **Close the audit's blind spot** — 17 candidate *edges* still sit
    UNVERIFIED for want of an instance recipe, so "confirmed" remains a lower
    bound on the hierarchy audit. The *member* audit's blind spot is closed:
    extending the recipe table moved 228 members out of UNVERIFIED and every

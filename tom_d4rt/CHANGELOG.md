@@ -1,4 +1,35 @@
-## 1.55.0
+## 1.56.0
+
+### Fixed — the non-error half of `dart:core` now declares its supertypes (scc56)
+
+`'abc' is Comparable`, `1 is Comparable`, `'abc' is Pattern`,
+`RegExp('a+') is Pattern`, `'abc'.runes is Iterable` and
+`StringBuffer() is StringSink` all answered `false`. Every other library that
+needed supertype edges had been given a hierarchy block — `dart:collection`,
+`dart:convert`, `dart:typed_data`, and the `Error`/`Exception` chain inside
+`dart:core` itself — but the rest of `dart:core` had none at all, so the type
+tests a generic-bounded script writes could not be answered. A
+`T extends Comparable<T>` bound, an `on Pattern` extension and an
+`is StringSink` guard were each unusable against the SDK types that satisfy
+them.
+
+The new `CoreHierarchyCore` declares them the way the SDK does: single-hop
+edges only, one per `implements`/`extends` clause, with the closure computed by
+the registry walk. `1 is Comparable` is therefore answered by following
+`int -> num -> Comparable` rather than by restating it.
+
+**No member was ever missing.** `compareTo` is declared directly on each of
+the six comparable bridges, and `matchAsPrefix`/`allMatches` directly on
+`String` — so the edges buy type tests only. That is pinned rather than
+asserted, because the obvious reading of a false `is Pattern` is that the
+`Pattern` surface is gone.
+
+**`int -> num` and `double -> num` are the only edges here that were already
+true**, answered by `num`'s own assignability predicate with nothing declared
+behind them. Declaring them lets the most-specific filter DROP the `num` match
+in favour of `int` or `double`, which makes dispatch more exact; the primitives
+are on every hot path, so `test/stdlib/core/core_hierarchy_test.dart` reads
+subtype-only members off both to prove nothing moved.
 
 ### Fixed — `first`, `last` and `single` on the dart:collection bridges now throw the SDK's `StateError` (scc51)
 

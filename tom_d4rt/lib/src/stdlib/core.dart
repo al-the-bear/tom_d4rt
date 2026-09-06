@@ -1,5 +1,6 @@
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/src/stdlib/core/comparable.dart';
+import 'package:tom_d4rt/src/stdlib/core/core_hierarchy.dart';
 import 'package:tom_d4rt/src/stdlib/core/double.dart';
 import 'package:tom_d4rt/src/stdlib/core/error.dart';
 import 'package:tom_d4rt/src/stdlib/core/exceptions.dart';
@@ -165,5 +166,10 @@ class CoreStdlib {
         name: 'identityHashCode',
       ),
     );
+    // Last, so that every name the block refers to has been defined above it.
+    // The registry keys on name rather than on the bridge object, so this is a
+    // readability constraint rather than a correctness one — but a block that
+    // reads bottom-up is one nobody has to check the ordering of.
+    CoreHierarchyCore.register();
   }
 }

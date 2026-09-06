@@ -438,12 +438,17 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// eight are now ported and their entries are deleted; 116 cases of reference
 /// coverage moved into this suite in one pass.
 ///
-/// **No entry below is publish-blocked.** That is the standing invariant this
-/// map now carries, and it is what makes [_pinnedInterpreterFloors] carry no
-/// key from here: the four survivors are blocked on exec-local work or are
-/// structurally un-portable, and neither condition is fixed by publishing. If
-/// you ever add a publish-pinned entry back, register its floor there in the
-/// same edit — prose alone was exactly the mechanism that failed.
+/// **A publish-blocked entry here must register its floor in
+/// [_pinnedInterpreterFloors] in the same edit.** SCC44's sweep left this map
+/// with none — the survivors of that pass are blocked on exec-local work or are
+/// structurally un-portable, and neither condition is fixed by publishing — and
+/// for a while that read as an invariant of the map itself. It is not, and
+/// treating it as one would be the same mistake in a new place: a reference test
+/// whose subject is an interpreter change that has not shipped belongs HERE,
+/// with a floor, not deleted and not ported-and-skipped. `core_hierarchy` is the
+/// first such entry since, and it is the shape to copy. What must never come
+/// back is the entry that states its flip condition in prose ALONE, because the
+/// prose is read only by whoever happens to reread it and never by the publish.
 const Map<String, int> _uncoveredBaseline = {
   // NOT PORTABLE — a throughput probe, not a conformance assertion. Its single
   // case measures how long a Conway generation takes; run on two interpreters
@@ -548,6 +553,22 @@ const Map<String, int> _uncoveredBaseline = {
   // `_executeInEnvironment` copy. SCD84 owns it; port the file and delete this
   // entry in the commit that closes that seam.
   'scc27_host_error_fidelity_test.dart': 9,
+  // PUBLISH-BLOCKED, and the first entry of that kind since SCC44 cleared the
+  // map of them. The reference file asserts the `dart:core` supertype edges
+  // `CoreHierarchyCore` declares — `String is Comparable`, `1 is Comparable` via
+  // `num`, `RegExp is Pattern`, `StringBuffer is StringSink` and the rest. That
+  // block is new library code in `tom_d4rt_ast` 0.45.0 and exists nowhere else;
+  // ported verbatim and run 2026-09-06 against the published 0.42.0 this copy
+  // gives 7 pass / 12 fail, which is precisely the RED shape the reference tree
+  // showed before the fix — every case that needs an edge fails, and only the
+  // five that pin unchanged dispatch pass. So the port would not be recording a
+  // divergence between the two interpreters; it would be recording that exec is
+  // reading an older one, which is DGUC6 and not a finding.
+  //
+  // Port it and delete this entry in the commit that raises exec's floor past
+  // 0.44.0. The floor is registered in [_pinnedInterpreterFloors]; do not rely
+  // on this paragraph to be reread at the right moment.
+  'stdlib/core/core_hierarchy_test.dart': 19,
 };
 
 /// Why a [_divergentBaseline] entry is allowed to stand.
@@ -823,6 +844,12 @@ const Map<String, String> _pinnedInterpreterFloors = {
   // for `c.sink is Sink` and F-SCC49-8 `[false, true, true]` — the `EventSink`
   // and `StreamSink` links answer, the `Sink` one does not.
   'stdlib/async/stream_consumer_test.dart': '0.42.0',
+  // SCC56 (tom_d4rt_ast 0.45.0) gave the non-error half of `dart:core` its
+  // supertype edges. Measured 2026-09-06 against the published 0.42.0: 12 of the
+  // 19 cases fail — every `is Comparable`, `is Pattern`, `is Match`,
+  // `is Iterable` and `is StringSink` assertion the block was written for. The 7
+  // that pass are the dispatch guards, which is the point of their existing.
+  'stdlib/core/core_hierarchy_test.dart': '0.44.0',
 };
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.

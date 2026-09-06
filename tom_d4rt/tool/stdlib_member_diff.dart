@@ -501,6 +501,14 @@ const _notAuditable = <String, String>{
 
 const _instanceRecipes = <String, Recipe>{
   'String': Recipe("'abc'"),
+  // The `dart:core` classes the hierarchy audit reported UNVERIFIED (SCC56).
+  // Each is an expression away — nobody had needed an instance probe for them
+  // before the supertype edges were asked about, which is the usual reason a
+  // recipe is missing rather than any difficulty in writing one.
+  'RegExp': Recipe("RegExp('a+')"),
+  'RegExpMatch': Recipe("RegExp('a+').firstMatch('aaa')"),
+  'Runes': Recipe("'abc'.runes"),
+  'StringBuffer': Recipe("StringBuffer('x')"),
   'UriData': Recipe("UriData.parse('data:text/plain;charset=utf-8,x')"),
   'Uri': Recipe("Uri.parse('https://example.dev/a?b=c')"),
   'Duration': Recipe('Duration(seconds: 1)'),
