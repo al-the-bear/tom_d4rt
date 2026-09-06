@@ -75,6 +75,12 @@ void main() {
       'PathAccessException',
       'PathExistsException',
       'PathNotFoundException',
+      // The HTTP half of the chain, bridged in scc61. `RedirectException`
+      // declares one hop (`implements HttpException`, as the SDK does) and
+      // reaches `Exception` in three, so it exercises the walk one level
+      // deeper than anything above.
+      'HttpException',
+      'RedirectException',
     ]) {
       test('F-SCC20-AST-2-$name: $name is an Exception [2026-09-04]', () {
         // Two or three declared hops away — `PathNotFoundException ->
@@ -96,10 +102,12 @@ void main() {
             'Exception',
           ]),
         );
-        // `IOException` is declared but not bridged — the edge exists so that the
-        // classes below it reach `Exception` truthfully and so that bridging it
-        // later needs no edge changes.
-        expect(env.findBridgedClassByName('IOException'), isNull);
+        // `IOException` is now bridged as well as declared (scc61). The edges
+        // did not have to change when it was — which is what the separation
+        // between "declares a supertype" and "is a bridge" buys, and the reason
+        // this assertion is worth keeping rather than deleting: it names which
+        // of the two properties each hop has.
+        expect(env.findBridgedClassByName('IOException'), isNotNull);
       },
     );
   });

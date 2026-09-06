@@ -1,3 +1,40 @@
+## 0.48.0
+
+### Fixed — `on HttpException catch` and `on IOException catch` never matched (scc61)
+
+`HttpException`, `RedirectException` and `IOException` were not bridged at all,
+so a script writing `on HttpException catch (e)` got a handler that silently
+never ran. That is worse than an error: the clause resolves to nothing, the
+match is read as "does not apply", and the exception continues to the next
+clause — so a script's error handling appears to be in place while doing
+nothing. `on Exception catch` caught the same throw, which is what made the
+gap look like correct behaviour.
+
+All four are now bridged. `IOException` lives in its own
+`lib/src/stdlib/io/io_exception.dart` because it is the root of the `dart:io`
+error hierarchy rather than an HTTP type; the other three are in
+`io/http.dart`. The two exceptions carry `isAssignable`, which is what lets a
+natively-thrown instance reach the clause.
+
+The supertype edges (`IOException → Exception`, `FileSystemException`,
+`SocketException`, `HttpException → IOException`, `RedirectException →
+HttpException`, and the three `PathXException` leaves) are declared in
+`ExceptionHierarchyCore` alongside the rest of the chain, each edge once, with
+the closure computed by the registry walk. Bridging a base type is normally
+the hazard `isAssignable` documents — a root predicate can steal member
+dispatch from its own subtypes — and it is safe here precisely because every
+leaf declares its hop up, so `_filterToMostSpecific` still prefers the leaf.
+`http_exception_test.dart` pins both halves (F-SCC61-9, F-SCC61-10), and both
+passed before the change as well as after: they are the guard, not the fix.
+
+### Added — `HttpStatus` constants
+
+`HttpStatus` is bridged as an abstract class carrying its 64 non-deprecated
+`static const int` members, so `HttpStatus.notFound` resolves. The
+screaming-caps `@Deprecated` aliases (`NOT_FOUND` and friends) are
+deliberately absent — bridging a name the SDK is retiring would make it harder
+to remove later, and scripts that need it can write the integer.
+
 ## 0.47.0
 
 ### Fixed — `asUint8ListView()` was missing on `Uint8List` and `Float64List` (scc60)

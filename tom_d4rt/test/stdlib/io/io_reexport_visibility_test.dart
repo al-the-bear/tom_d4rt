@@ -27,12 +27,12 @@ import '../../interpreter_test.dart';
 /// permissive registry could just as easily have made everything visible to
 /// everyone, and that would NOT match Dart.
 ///
-/// NOT COVERED HERE, deliberately: 19 of the 32 names `dart:io` re-exports are
-/// unreachable — the whole `dart:_http` server/WebSocket surface plus
-/// `HttpStatus`. That is a genuine gap, but it is a *bridging* gap (those
-/// classes are bridged nowhere at all), not the re-export gap SCB21 described.
-/// It is tracked separately rather than pinned here as a failing expectation,
-/// so that closing it does not require deleting assertions.
+/// NOT COVERED HERE, deliberately: 16 of the 32 names `dart:io` re-exports are
+/// still unreachable — the whole `dart:_http` server/WebSocket surface. That is
+/// a genuine gap, but it is a *bridging* gap (those classes are bridged nowhere
+/// at all), not the re-export gap SCB21 described. It is tracked separately
+/// rather than pinned here as a failing expectation, so that closing it does
+/// not require deleting assertions.
 void main() {
   group('SCB21: dart:io-only scripts can name the typed_data re-exports', () {
     test('F-SCB21-1: BytesBuilder is nameable and usable under dart:io alone '
@@ -140,7 +140,7 @@ void main() {
   });
 
   group('SCB21: the HTTP re-exports that are bridged stay reachable', () {
-    // 9 of the 32 re-exported names resolve as real bridged *types*. They are
+    // 12 of the 32 re-exported names resolve as real bridged *types*. They are
     // pinned because the follow-up work that bridges the other names will touch
     // this registrar, and silently losing one would look like unrelated
     // breakage.
@@ -153,6 +153,18 @@ void main() {
       'HeaderValue',
       'ContentType',
       'Cookie',
+      // The exception surface (SCC61). Reachability is the whole point of
+      // bridging these: an unresolvable name in a catch clause is not an error,
+      // it is a handler that silently never matches. `http_exception_test.dart`
+      // pins the catching behaviour; this row pins that the name exists at all.
+      'HttpException',
+      'RedirectException',
+      // A constants holder with no instances, so `1 is HttpStatus` is a strange
+      // question to ask of it — but it is the same question as every other row,
+      // and answering `false` rather than throwing is what says the name is a
+      // type rather than a callable. `http_exception_test.dart` covers the
+      // constants themselves.
+      'HttpStatus',
       // Reaches a dart:io script through the eager typed_data registrar rather
       // than through the io one — but from the script's side it is simply
       // another name that resolves.

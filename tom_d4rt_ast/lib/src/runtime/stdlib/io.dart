@@ -7,6 +7,7 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/io/http.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io/process.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io/platform.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io/io_sink.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/io/io_exception.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io/socket.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/io/io_hierarchy.dart';
 
@@ -19,6 +20,7 @@ export 'package:tom_d4rt_ast/src/runtime/stdlib/io/http.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/io/process.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/io/platform.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/io/io_sink.dart';
+export 'package:tom_d4rt_ast/src/runtime/stdlib/io/io_exception.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/io/socket.dart';
 export 'package:tom_d4rt_ast/src/runtime/stdlib/io/io_hierarchy.dart';
 
@@ -40,6 +42,12 @@ class IoStdlib {
     // `osError` getter below produces one, and without this bridge the
     // result is inert. See SCC24.
     environment.defineBridge(OSErrorIo.definition);
+    // The root of the `dart:io` error hierarchy, registered before the leaves
+    // it covers so the file reads top-down. Order does not matter to the
+    // runtime — supertype edges key on name and are declared separately — but
+    // an unbridged root is a silently dead `on IOException catch`, which is
+    // what SCC61 fixed.
+    environment.defineBridge(IOExceptionIo.definition);
     environment.defineBridge(FileSystemExceptionIo.definition);
     environment.defineBridge(PathAccessExceptionIo.definition);
     environment.defineBridge(PathExistsExceptionIo.definition);

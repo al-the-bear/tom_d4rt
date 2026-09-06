@@ -33,14 +33,19 @@ class ExceptionHierarchyCore {
       'TimeoutException': ['Exception'],
       'IsolateSpawnException': ['Exception'],
 
-      // `abstract class IOException implements Exception` — not bridged itself,
-      // so `on IOException` still cannot resolve a class. The hop is declared
-      // anyway because it is what the SDK says, it is what makes the two
-      // classes below reach `Exception` truthfully, and it means bridging
-      // `IOException` later needs no edge changes.
+      // The `dart:io` chain. It is declared here rather than in
+      // `IoHierarchyIo` because `IOException` is where it meets `dart:core`,
+      // and splitting a hierarchy across two registrars is how an edge goes
+      // missing. `IOException` itself carries an `isAssignable` (see
+      // `IOExceptionIo`) — safe only because every leaf below declares its hop
+      // up, which is what lets `_filterToMostSpecific` keep preferring the leaf.
       'IOException': ['Exception'],
       'FileSystemException': ['IOException'],
       'SocketException': ['IOException'],
+      'HttpException': ['IOException'],
+      // `class RedirectException implements HttpException` — one hop, not two.
+      // The reach to `IOException` and `Exception` is the registry walk's job.
+      'RedirectException': ['HttpException'],
       'PathAccessException': ['FileSystemException'],
       'PathExistsException': ['FileSystemException'],
       'PathNotFoundException': ['FileSystemException'],

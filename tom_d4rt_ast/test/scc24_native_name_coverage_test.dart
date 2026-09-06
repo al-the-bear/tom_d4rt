@@ -313,6 +313,15 @@ Map<String, Object> _canonicalInstances() => {
   'PathExistsException': const PathExistsException('p', OSError('x')),
   'PathNotFoundException': const PathNotFoundException('p', OSError('x')),
   'SocketException': const SocketException('x'),
+  // `IOException` has no entry: it is abstract, declares no getters, and any
+  // instance would really be one of the leaves above — so a canonical instance
+  // would sweep a subclass's members under the base name.
+  'HttpException': const HttpException('x'),
+  // An empty redirect list is the only one a script can build (`RedirectInfo`
+  // is unbridged — scc65), and it is enough for the sweep: `uri` reads through
+  // the list and returns null for an empty one, which is exactly the shape
+  // that goes inert unnoticed unless something asserts it is reachable.
+  'RedirectException': const RedirectException('x', <RedirectInfo>[]),
   'UriData': UriData.fromString('a'),
   // The bridge SCC24 had to ADD: `osError` on the four exceptions above
   // returned an unbridged value. Covered here so a later refactor that

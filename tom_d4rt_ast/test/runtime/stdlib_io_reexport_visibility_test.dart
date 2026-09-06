@@ -26,12 +26,12 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/convert.dart';
 /// `Environment` and a choice of which registrars to call — which is exactly
 /// what these tests do.
 ///
-/// NOT COVERED HERE, deliberately: 19 of the 32 names `dart:io` re-exports are
-/// unreachable — the whole `dart:_http` server/WebSocket surface plus
-/// `HttpStatus`. That is a real gap, but a *bridging* gap (those classes are
-/// bridged nowhere at all), not the re-export gap SCB21 described. It is tracked
-/// separately rather than pinned here as a failing expectation, so that closing
-/// it does not require deleting assertions.
+/// NOT COVERED HERE, deliberately: 16 of the 32 names `dart:io` re-exports are
+/// still unreachable — the whole `dart:_http` server/WebSocket surface. That is
+/// a real gap, but a *bridging* gap (those classes are bridged nowhere at all),
+/// not the re-export gap SCB21 described. It is tracked separately rather than
+/// pinned here as a failing expectation, so that closing it does not require
+/// deleting assertions.
 void main() {
   group('SCB21: the typed_data names are eager, so no import gates them', () {
     test('F-SCB21-AST-1: Stdlib.register alone defines the names SCB21 '
@@ -128,7 +128,7 @@ void main() {
       IoStdlib.register(env);
     });
 
-    // 9 of the 32 re-exported names resolve as real bridged *types*. They are
+    // 12 of the 32 re-exported names resolve as real bridged *types*. They are
     // pinned because the follow-up work that bridges the other names will touch
     // this registrar, and silently losing one would look like unrelated
     // breakage.
@@ -141,6 +141,17 @@ void main() {
       'HeaderValue',
       'ContentType',
       'Cookie',
+      // The exception surface (SCC61). An unresolvable name in a catch clause
+      // is not an error, it is a handler that silently never matches — so the
+      // name existing at all is the load-bearing fact. The script-level
+      // behaviour is pinned in `tom_d4rt/test/stdlib/io/http_exception_test.dart`
+      // (DGUC6: this tree cannot run scripts).
+      'HttpException',
+      'RedirectException',
+      // A constants holder with no instances. It is bridged as an abstract
+      // class carrying only static getters, so the thing to assert is that the
+      // *name* resolves to a bridge rather than to a callable.
+      'HttpStatus',
       // Comes from the eager typed_data registrar rather than `IoStdlib`, but
       // lands in the same environment — which is the whole point above.
       'BytesBuilder',

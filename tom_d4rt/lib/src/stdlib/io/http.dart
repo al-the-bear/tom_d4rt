@@ -956,6 +956,174 @@ class HeaderValueIo {
   );
 }
 
+/// `HttpException` — the error every `HttpClient` / `HttpServer` call can raise.
+///
+/// `isAssignable` is what makes `on HttpException catch` work, and it is not
+/// optional here the way it is on a type a script only ever constructs: an
+/// exception arriving from a native call reaches the catch clause as a native
+/// object, and without the predicate no bridge claims it.
+class HttpExceptionIo {
+  static BridgedClass get definition => BridgedClass(
+    nativeType: HttpException,
+    name: 'HttpException',
+    isAssignable: (v) => v is HttpException,
+    typeParameterCount: 0,
+    constructors: {
+      '': (visitor, positionalArgs, namedArgs) {
+        final message = positionalArgs.isNotEmpty
+            ? positionalArgs[0] as String? ?? ''
+            : '';
+        return HttpException(message, uri: namedArgs['uri'] as Uri?);
+      },
+    },
+    methods: {
+      'toString': (visitor, target, positionalArgs, namedArgs, _) =>
+          (target as HttpException).toString(),
+    },
+    getters: {
+      'message': (visitor, target) => (target as HttpException).message,
+      'uri': (visitor, target) => (target as HttpException).uri,
+    },
+  );
+}
+
+/// `RedirectException` — `class RedirectException implements HttpException`.
+///
+/// `redirects` is a `List<RedirectInfo>` and `RedirectInfo` is not bridged, so
+/// an empty list is the only one a script can build. The getter is bridged
+/// anyway because a natively-thrown `RedirectException` carries a populated
+/// one, and `uri` reads through it (`redirects.last.location`).
+class RedirectExceptionIo {
+  static BridgedClass get definition => BridgedClass(
+    nativeType: RedirectException,
+    name: 'RedirectException',
+    isAssignable: (v) => v is RedirectException,
+    typeParameterCount: 0,
+    constructors: {
+      '': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.length < 2) {
+          throw RuntimeD4rtException(
+            'RedirectException requires message and redirects arguments.',
+          );
+        }
+        final message = positionalArgs[0] as String? ?? '';
+        final rawRedirects = positionalArgs[1];
+        if (rawRedirects is! List) {
+          throw RuntimeD4rtException(
+            'RedirectException requires a List<RedirectInfo> as its second '
+            'argument.',
+          );
+        }
+        // `List.from` rather than `cast`: cast defers the type error to the
+        // first read, which would surface it from inside `uri` rather than
+        // from the constructor the script actually got wrong.
+        return RedirectException(
+          message,
+          List<RedirectInfo>.from(rawRedirects.toNativeList()),
+        );
+      },
+    },
+    methods: {
+      'toString': (visitor, target, positionalArgs, namedArgs, _) =>
+          (target as RedirectException).toString(),
+    },
+    getters: {
+      'message': (visitor, target) => (target as RedirectException).message,
+      'redirects': (visitor, target) => (target as RedirectException).redirects,
+      'uri': (visitor, target) => (target as RedirectException).uri,
+    },
+  );
+}
+
+/// `HttpStatus` — a constants holder, no instances and no constructor.
+///
+/// The screaming-caps aliases the SDK still carries (`HTTP_STATUS_NOT_FOUND`
+/// and friends) are deliberately absent: they are `@Deprecated` upstream and
+/// bridging them would make code that cannot be written against a current SDK
+/// runnable under the interpreter.
+class HttpStatusIo {
+  static BridgedClass get definition => BridgedClass(
+    nativeType: HttpStatus,
+    name: 'HttpStatus',
+    typeParameterCount: 0,
+    isAbstract: true,
+    staticGetters: {
+      'continue_': (visitor) => HttpStatus.continue_,
+      'switchingProtocols': (visitor) => HttpStatus.switchingProtocols,
+      'processing': (visitor) => HttpStatus.processing,
+      'ok': (visitor) => HttpStatus.ok,
+      'created': (visitor) => HttpStatus.created,
+      'accepted': (visitor) => HttpStatus.accepted,
+      'nonAuthoritativeInformation': (visitor) =>
+          HttpStatus.nonAuthoritativeInformation,
+      'noContent': (visitor) => HttpStatus.noContent,
+      'resetContent': (visitor) => HttpStatus.resetContent,
+      'partialContent': (visitor) => HttpStatus.partialContent,
+      'multiStatus': (visitor) => HttpStatus.multiStatus,
+      'alreadyReported': (visitor) => HttpStatus.alreadyReported,
+      'imUsed': (visitor) => HttpStatus.imUsed,
+      'multipleChoices': (visitor) => HttpStatus.multipleChoices,
+      'movedPermanently': (visitor) => HttpStatus.movedPermanently,
+      'found': (visitor) => HttpStatus.found,
+      'movedTemporarily': (visitor) => HttpStatus.movedTemporarily,
+      'seeOther': (visitor) => HttpStatus.seeOther,
+      'notModified': (visitor) => HttpStatus.notModified,
+      'useProxy': (visitor) => HttpStatus.useProxy,
+      'temporaryRedirect': (visitor) => HttpStatus.temporaryRedirect,
+      'permanentRedirect': (visitor) => HttpStatus.permanentRedirect,
+      'badRequest': (visitor) => HttpStatus.badRequest,
+      'unauthorized': (visitor) => HttpStatus.unauthorized,
+      'paymentRequired': (visitor) => HttpStatus.paymentRequired,
+      'forbidden': (visitor) => HttpStatus.forbidden,
+      'notFound': (visitor) => HttpStatus.notFound,
+      'methodNotAllowed': (visitor) => HttpStatus.methodNotAllowed,
+      'notAcceptable': (visitor) => HttpStatus.notAcceptable,
+      'proxyAuthenticationRequired': (visitor) =>
+          HttpStatus.proxyAuthenticationRequired,
+      'requestTimeout': (visitor) => HttpStatus.requestTimeout,
+      'conflict': (visitor) => HttpStatus.conflict,
+      'gone': (visitor) => HttpStatus.gone,
+      'lengthRequired': (visitor) => HttpStatus.lengthRequired,
+      'preconditionFailed': (visitor) => HttpStatus.preconditionFailed,
+      'requestEntityTooLarge': (visitor) => HttpStatus.requestEntityTooLarge,
+      'requestUriTooLong': (visitor) => HttpStatus.requestUriTooLong,
+      'unsupportedMediaType': (visitor) => HttpStatus.unsupportedMediaType,
+      'requestedRangeNotSatisfiable': (visitor) =>
+          HttpStatus.requestedRangeNotSatisfiable,
+      'expectationFailed': (visitor) => HttpStatus.expectationFailed,
+      'misdirectedRequest': (visitor) => HttpStatus.misdirectedRequest,
+      'unprocessableEntity': (visitor) => HttpStatus.unprocessableEntity,
+      'locked': (visitor) => HttpStatus.locked,
+      'failedDependency': (visitor) => HttpStatus.failedDependency,
+      'upgradeRequired': (visitor) => HttpStatus.upgradeRequired,
+      'preconditionRequired': (visitor) => HttpStatus.preconditionRequired,
+      'tooManyRequests': (visitor) => HttpStatus.tooManyRequests,
+      'requestHeaderFieldsTooLarge': (visitor) =>
+          HttpStatus.requestHeaderFieldsTooLarge,
+      'connectionClosedWithoutResponse': (visitor) =>
+          HttpStatus.connectionClosedWithoutResponse,
+      'unavailableForLegalReasons': (visitor) =>
+          HttpStatus.unavailableForLegalReasons,
+      'clientClosedRequest': (visitor) => HttpStatus.clientClosedRequest,
+      'internalServerError': (visitor) => HttpStatus.internalServerError,
+      'notImplemented': (visitor) => HttpStatus.notImplemented,
+      'badGateway': (visitor) => HttpStatus.badGateway,
+      'serviceUnavailable': (visitor) => HttpStatus.serviceUnavailable,
+      'gatewayTimeout': (visitor) => HttpStatus.gatewayTimeout,
+      'httpVersionNotSupported': (visitor) =>
+          HttpStatus.httpVersionNotSupported,
+      'variantAlsoNegotiates': (visitor) => HttpStatus.variantAlsoNegotiates,
+      'insufficientStorage': (visitor) => HttpStatus.insufficientStorage,
+      'loopDetected': (visitor) => HttpStatus.loopDetected,
+      'notExtended': (visitor) => HttpStatus.notExtended,
+      'networkAuthenticationRequired': (visitor) =>
+          HttpStatus.networkAuthenticationRequired,
+      'networkConnectTimeoutError': (visitor) =>
+          HttpStatus.networkConnectTimeoutError,
+    },
+  );
+}
+
 class IoHttpStdlib {
   static void register(Environment environment) {
     environment.defineBridge(HttpClientIo.definition);
@@ -966,6 +1134,9 @@ class IoHttpStdlib {
     environment.defineBridge(ContentTypeIo.definition);
     environment.defineBridge(CookieIo.definition);
     environment.defineBridge(HeaderValueIo.definition);
+    environment.defineBridge(HttpExceptionIo.definition);
+    environment.defineBridge(RedirectExceptionIo.definition);
+    environment.defineBridge(HttpStatusIo.definition);
 
     // Define constructor functions for credentials
     environment.define(
