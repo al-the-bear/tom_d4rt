@@ -66,9 +66,10 @@ D4rt _interpreterWithThrowingBridges() {
       nativeType: SystemColor,
       name: 'SystemColor',
       staticGetters: {
-        'light': (visitor) =>
-            throw UnsupportedError('SystemColor not supported on the current '
-                'platform.'),
+        'light': (visitor) => throw UnsupportedError(
+          'SystemColor not supported on the current '
+          'platform.',
+        ),
       },
       staticMethods: {
         'probe': (visitor, positional, named, typeArgs) =>
@@ -83,9 +84,7 @@ D4rt _interpreterWithThrowingBridges() {
     BridgedClass(
       nativeType: Palette,
       name: 'Palette',
-      constructors: {
-        '': (visitor, positional, named) => Palette(),
-      },
+      constructors: {'': (visitor, positional, named) => Palette()},
       getters: {
         'canvas': (visitor, target) =>
             throw UnsupportedError('canvas is unsupported'),
@@ -128,26 +127,23 @@ String main() {
 
 void main() {
   group('SCC47: exceptions from bridged members reach interpreted catch', () {
-    test(
-      'F-SCC47-1: a bridged STATIC GETTER that throws is caught by '
-      '`catch (e)` — the system_color_palette case',
-      () {
-        final outcome = _runGuarded(
-          _interpreterWithThrowingBridges(),
-          'final v = SystemColor.light;',
-        );
+    test('F-SCC47-1: a bridged STATIC GETTER that throws is caught by '
+        '`catch (e)` — the system_color_palette case', () {
+      final outcome = _runGuarded(
+        _interpreterWithThrowingBridges(),
+        'final v = SystemColor.light;',
+      );
 
-        expect(
-          outcome,
-          startsWith('caught:'),
-          reason:
-              'A bare `catch (e)` catches everything in Dart. Letting the '
-              'native UnsupportedError escape the interpreted try means no '
-              'script can guard a platform-dependent bridged API.',
-        );
-        expect(outcome, contains('SystemColor not supported'));
-      },
-    );
+      expect(
+        outcome,
+        startsWith('caught:'),
+        reason:
+            'A bare `catch (e)` catches everything in Dart. Letting the '
+            'native UnsupportedError escape the interpreted try means no '
+            'script can guard a platform-dependent bridged API.',
+      );
+      expect(outcome, contains('SystemColor not supported'));
+    });
 
     test(
       'F-SCC47-2: a bridged STATIC METHOD that throws is caught by `catch (e)`',
@@ -162,33 +158,27 @@ void main() {
       },
     );
 
-    test(
-      'F-SCC47-3: a bridged INSTANCE GETTER that throws is caught by '
-      '`catch (e)`',
-      () {
-        final outcome = _runGuarded(
-          _interpreterWithThrowingBridges(),
-          'final v = Palette().canvas;',
-        );
+    test('F-SCC47-3: a bridged INSTANCE GETTER that throws is caught by '
+        '`catch (e)`', () {
+      final outcome = _runGuarded(
+        _interpreterWithThrowingBridges(),
+        'final v = Palette().canvas;',
+      );
 
-        expect(outcome, startsWith('caught:'));
-        expect(outcome, contains('canvas is unsupported'));
-      },
-    );
+      expect(outcome, startsWith('caught:'));
+      expect(outcome, contains('canvas is unsupported'));
+    });
 
-    test(
-      'F-SCC47-4: a bridged INSTANCE METHOD that throws is caught by '
-      '`catch (e)`',
-      () {
-        final outcome = _runGuarded(
-          _interpreterWithThrowingBridges(),
-          'final v = Palette().resolve();',
-        );
+    test('F-SCC47-4: a bridged INSTANCE METHOD that throws is caught by '
+        '`catch (e)`', () {
+      final outcome = _runGuarded(
+        _interpreterWithThrowingBridges(),
+        'final v = Palette().resolve();',
+      );
 
-        expect(outcome, startsWith('caught:'));
-        expect(outcome, contains('resolve is unsupported'));
-      },
-    );
+      expect(outcome, startsWith('caught:'));
+      expect(outcome, contains('resolve is unsupported'));
+    });
 
     test(
       'F-SCC47-5: the same exception is also catchable by its declared TYPE, '
