@@ -1,3 +1,34 @@
+## 1.69.0
+
+### Fixed — `runtimeType` on a bridged instance reported `BridgedInstance<Object>` (scc78)
+
+`visitPropertyAccess` intercepted `runtimeType` and `hashCode` for a bridged
+instance and returned `target.runtimeType` — and `target` IS the wrapper when
+the value arrives already wrapped. So every bridged value in the language
+reported `BridgedInstance<Object>`: `StringBuffer`, `Object`, `Duration`,
+`File`, all of them. The interception sat in a `switch` ahead of the
+getter-adapter lookup, so the `runtimeType` getter most bridges declare could
+never override it.
+
+Primitives and collections were unaffected, because they are not wrapped —
+which is why the defect read as "some types are fine".
+
+**`tom_d4rt_ast` has had the correct form since GEN-075.** The two
+`interpreter_visitor.dart` files disagreed on this one line for as long as both
+existed, and nothing noticed. The fix is written identically in both, so a diff
+of the mirror shows nothing.
+
+### Changed — `I-OBJ-UNI-3` asserts the type it expects
+
+It accepted any non-empty string that was not `"no throw"` — its own comment
+said "just assert it produces a non-empty type-name string", which cannot
+distinguish a correct answer from any wrong one. It now pins `FormatException`.
+
+SCC78 filed it as the assertion that had MASKED the defect. Measured, that is
+not so: re-breaking the fix leaves it green, because a caught `FormatException`
+never reaches the bridged-instance branch. It was genuinely too weak and is
+tightened on its own merits; it was not what hid the bug.
+
 ## 1.68.0
 
 ### Fixed — `StringSink.hashCode` was a method shadowing its own getter (scc77)

@@ -66,10 +66,21 @@ void main() {
           return "no throw";
         }
       ''';
-      // Just assert it produces a non-empty type-name string.
+      // SCC78 tightened this. It used to assert only `isNotEmpty` and
+      // `isNot("no throw")` — its own comment said "just assert it produces a
+      // non-empty type-name string" — which cannot distinguish a correct
+      // answer from any wrong one. `int.parse` throws a `FormatException`, so
+      // the type is nameable and there was no reason to be vague.
+      //
+      // SCC78 filed this as the assertion that had MASKED its defect, on the
+      // reasoning that `BridgedInstance<Object>` satisfies both old matchers.
+      // Measured, that is not so: re-breaking the fix and re-running this file
+      // leaves it green, because a caught `FormatException` does not reach the
+      // bridged-instance branch of `visitPropertyAccess` at all. The test was
+      // genuinely too weak and is worth tightening on its own merits; it was
+      // not what hid SCC78.
       final result = execute(source) as String;
-      expect(result, isNotEmpty);
-      expect(result, isNot(equals("no throw")));
+      expect(result, equals('FormatException'));
     });
 
     test('I-OBJ-UNI-4: toString tear-off invocation '

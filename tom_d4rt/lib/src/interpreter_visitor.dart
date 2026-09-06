@@ -5714,11 +5714,21 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       Logger.debug(
         "[PropertyAccess] Access on BridgedInstance: ${bridgedInstance.bridgedClass.name}.$propertyName",
       );
+      // GEN-075 / SCC78: these two universal members answer from the NATIVE
+      // object, never from `target`. When the value arrives already wrapped,
+      // `target` IS the `BridgedInstance`, so `target.runtimeType` reported
+      // `BridgedInstance<Object>` for every bridged value in the interpreter.
+      //
+      // `tom_d4rt_ast` has had the correct form since GEN-075 and this tree did
+      // not, which is a mirror divergence nothing caught — the two
+      // `interpreter_visitor.dart` files disagreed on one line for as long as
+      // both existed. Written identically here so a diff of the mirror shows
+      // nothing.
       switch (propertyName) {
         case 'runtimeType':
-          return target.runtimeType;
+          return bridgedInstance.nativeObject.runtimeType;
         case 'hashCode':
-          return target.hashCode;
+          return bridgedInstance.nativeObject.hashCode;
         default:
       }
       final getterAdapter = bridgedInstance.bridgedClass

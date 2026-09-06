@@ -1,3 +1,18 @@
+## 0.58.0
+
+### Added — a guard for the `runtimeType` divergence that only the other tree had (scc78)
+
+This tree was already correct: `bridgedInstance.nativeObject.runtimeType` since
+GEN-075, where `tom_d4rt` returned the wrapper's type. The two
+`interpreter_visitor.dart` files disagreed on one line for as long as both
+existed and nothing noticed — the mirror rule says a fix must land in both
+trees, but has no counterpart saying the two must AGREE.
+
+`test/runtime/scc78_bridged_runtimetype_test.dart` pins the property from this
+side, including that the wrappers of two unrelated types really are
+indistinguishable — which is what made the defect invisible rather than merely
+wrong.
+
 ## 0.57.0
 
 ### Fixed — `StringSink.hashCode` was a method shadowing its own getter (scc77)
