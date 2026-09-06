@@ -1,3 +1,51 @@
+## 1.55.0
+
+### Fixed — `first`, `last` and `single` on the dart:collection bridges now throw the SDK's `StateError` (scc51)
+
+`<Set>{}.first`, `HashSet().single`, `ListQueue().last` and thirteen further
+combinations threw a `RuntimeD4rtException` carrying a hand-written message
+("Cannot get first from an empty queue."), where native Dart throws
+`StateError`. A script written by a Dart author — `try { … } on StateError
+catch (e) { … }` — therefore caught nothing, and the difference was invisible
+from inside the collection bridges because they all agreed with each other.
+Only `List` was correct, and only because its bridge never had a hand-written
+copy: `<int>[].first` already reported `StateError`.
+
+The cause is a migration that was never finished. Each concrete collection
+bridge carried its own `first`/`last`/`single`, written before the
+`HashSet -> Set -> Iterable` supertype edges existed and correct at the time.
+Once the edges landed, those copies stopped being the only implementation and
+became *shadows* over `Iterable`'s — which delegates, and so reports the SDK's
+own error. Eighteen such adapters across nine files are deleted; the inherited
+copies answer now.
+
+`UnmodifiableMapView` had a nineteenth, an `addEntries` that called
+`.cast()` on its argument and so could not unwrap a
+`BridgedInstance<MapEntry>` — byte for byte the shape removed from `HashMap`
+and `LinkedHashMap` earlier. `Map`'s copy, which unwraps correctly, answers
+now.
+
+**Behavioural change.** Scripts that caught `RuntimeD4rtException` around an
+empty-collection access must catch `StateError` instead. That is the point of
+the change rather than a side effect of it: the previous family was
+unreachable from correctly written Dart.
+
+### Added — a regression test that measures shadowing behaviourally, not by name
+
+Bridge adapters sharing a *name* with a supertype's costs nothing; only their
+*behaving differently* does. `test/scc51_shadowed_adapter_test.dart` invokes
+both members of every such pair on the same native object with the same
+arguments and compares outcomes. Name intersection alone reports 315 pairs —
+a number no reviewer reads. The differential reports the real ones, and after
+these deletions it reports none, so the test asserts an empty difference set
+with no allowlist at all.
+
+The set-algebra trio (`union`, `intersection`, `difference`) is deliberately
+*not* collapsed onto `Set`, and `set_algebra_methods.dart` now records why:
+`coerce` hands back the same native object, so the leaf's own override runs
+and `SplayTreeSet.union` stays sorted. The per-class copies survive for their
+diagnostics — the class name in an argument-type error — which is the only
+respect in which they differ.
 ## 1.54.0
 
 ### Fixed — a native type no bridge claims by name resolves structurally instead of going inert (scc49)

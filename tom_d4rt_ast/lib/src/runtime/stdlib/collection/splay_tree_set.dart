@@ -545,54 +545,6 @@ class SplayTreeSetCollection {
           "Target is not a SplayTreeSet for getter 'isNotEmpty'",
         );
       },
-      'first': (visitor, target) {
-        if (target is SplayTreeSet) {
-          try {
-            return target.first;
-          } catch (e) {
-            throw RuntimeD4rtException(
-              "SplayTreeSet is empty (for getter 'first').",
-            );
-          }
-        }
-        throw RuntimeD4rtException(
-          "Target is not a SplayTreeSet for getter 'first'",
-        );
-      },
-      'last': (visitor, target) {
-        if (target is SplayTreeSet) {
-          try {
-            return target.last;
-          } catch (e) {
-            throw RuntimeD4rtException(
-              "SplayTreeSet is empty (for getter 'last').",
-            );
-          }
-        }
-        throw RuntimeD4rtException(
-          "Target is not a SplayTreeSet for getter 'last'",
-        );
-      },
-      'single': (visitor, target) {
-        if (target is SplayTreeSet) {
-          try {
-            return target.single;
-          } catch (e) {
-            if (target.isEmpty) {
-              throw RuntimeD4rtException(
-                "SplayTreeSet is empty (for getter 'single').",
-              );
-            } else {
-              throw RuntimeD4rtException(
-                "SplayTreeSet has more than one element (for getter 'single').",
-              );
-            }
-          }
-        }
-        throw RuntimeD4rtException(
-          "Target is not a SplayTreeSet for getter 'single'",
-        );
-      },
       'iterator': (visitor, target) {
         if (target is SplayTreeSet) return target.iterator;
         throw RuntimeD4rtException(

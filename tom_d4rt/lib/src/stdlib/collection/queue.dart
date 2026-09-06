@@ -209,24 +209,6 @@ class QueueCollection {
           "Target is not a Queue for getter 'isNotEmpty'",
         );
       },
-      'first': (visitor, target) {
-        if (target is Queue) {
-          if (target.isEmpty) {
-            throw RuntimeD4rtException("Cannot get first from an empty queue.");
-          }
-          return target.first;
-        }
-        throw RuntimeD4rtException("Target is not a Queue for getter 'first'");
-      },
-      'last': (visitor, target) {
-        if (target is Queue) {
-          if (target.isEmpty) {
-            throw RuntimeD4rtException("Cannot get last from an empty queue.");
-          }
-          return target.last;
-        }
-        throw RuntimeD4rtException("Target is not a Queue for getter 'last'");
-      },
       'hashCode': (visitor, target) {
         if (target is Queue) {
           return target.hashCode;

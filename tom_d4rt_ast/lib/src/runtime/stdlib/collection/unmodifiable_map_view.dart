@@ -150,18 +150,6 @@ class UnmodifiableMapViewCollection {
         _view(target, 'addAll').addAll(positionalArgs[0] as Map);
         return null;
       },
-      'addEntries': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 || positionalArgs[0] is! Iterable) {
-          throw RuntimeD4rtException(
-            "Argument to UnmodifiableMapView.addEntries must be an Iterable.",
-          );
-        }
-        _view(
-          target,
-          'addEntries',
-        ).addEntries((positionalArgs[0] as Iterable).cast());
-        return null;
-      },
       'clear': (visitor, target, positionalArgs, namedArgs, _) {
         _view(target, 'clear').clear();
         return null;

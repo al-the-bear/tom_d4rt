@@ -13,6 +13,14 @@ import 'package:tom_d4rt_ast/runtime.dart';
 // unit test would mean building a parsed AST module, so we reach for the
 // same-package registrar directly instead of widening the published API.
 import 'package:tom_d4rt_ast/src/runtime/stdlib/collection.dart';
+// `Set` and `Iterable` are `dart:core` bridges, not `dart:collection` ones, so
+// the top of the set hierarchy only exists once `CoreStdlib` has run too. A
+// script gets both because it imports both; a registration-level test has to
+// say so — and it matters here because SCC51 moved `first`/`last` up onto
+// those very bridges.
+import 'package:tom_d4rt_ast/src/runtime/stdlib/core.dart';
+
+import '../bridge_reachability.dart';
 
 /// SC2 mirror coverage for `tom_d4rt_ast`.
 ///
@@ -29,6 +37,7 @@ void main() {
 
   setUp(() {
     env = Environment();
+    CoreStdlib.register(env);
     CollectionStdlib.register(env);
   });
 
@@ -86,13 +95,17 @@ void main() {
     test(
       'F-SC2-AST-4: the getters read through in insertion order [2026-07-27]',
       () {
-        final bridge = env.findBridgedClassByName('LinkedHashSet')!;
+        // Resolved by reachability rather than off the LinkedHashSet bridge
+        // directly: SCC51 deleted the leaf's `first`/`last` copies, which
+        // shadowed — and diverged from — `Set`'s. Which bridge in the chain
+        // carries a member is not a contract; that a script can read it is.
         final set = LinkedHashSet<dynamic>.of(['gamma', 'alpha', 'beta']);
-        expect(bridge.getters['length']!(null, set), 3);
-        expect(bridge.getters['isEmpty']!(null, set), isFalse);
-        expect(bridge.getters['isNotEmpty']!(null, set), isTrue);
-        expect(bridge.getters['first']!(null, set), 'gamma');
-        expect(bridge.getters['last']!(null, set), 'beta');
+        Object? read(String m) => readReachable(env, 'LinkedHashSet', set, m);
+        expect(read('length'), 3);
+        expect(read('isEmpty'), isFalse);
+        expect(read('isNotEmpty'), isTrue);
+        expect(read('first'), 'gamma');
+        expect(read('last'), 'beta');
       },
     );
   });
@@ -134,11 +147,15 @@ void main() {
     test(
       'F-SC2-AST-8: the getters read through in sorted order [2026-07-27]',
       () {
-        final bridge = env.findBridgedClassByName('SplayTreeSet')!;
+        // Reachability-resolved for the same reason as F-SC2-AST-4, and it
+        // carries extra weight here: `SplayTreeSet` sorts, so reading 10/30
+        // out of an insertion order of 30/10/20 proves the inherited `Set`
+        // adapter still dispatches to THIS native object rather than a copy.
         final set = SplayTreeSet<dynamic>.of([30, 10, 20]);
-        expect(bridge.getters['length']!(null, set), 3);
-        expect(bridge.getters['first']!(null, set), 10);
-        expect(bridge.getters['last']!(null, set), 30);
+        Object? read(String m) => readReachable(env, 'SplayTreeSet', set, m);
+        expect(read('length'), 3);
+        expect(read('first'), 10);
+        expect(read('last'), 30);
       },
     );
 

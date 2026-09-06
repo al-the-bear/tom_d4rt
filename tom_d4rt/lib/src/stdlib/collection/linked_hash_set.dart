@@ -514,54 +514,6 @@ class LinkedHashSetCollection {
           "Target is not a LinkedHashSet for getter 'isNotEmpty'",
         );
       },
-      'first': (visitor, target) {
-        if (target is LinkedHashSet) {
-          try {
-            return target.first;
-          } catch (e) {
-            throw RuntimeD4rtException(
-              "LinkedHashSet is empty (for getter 'first').",
-            );
-          }
-        }
-        throw RuntimeD4rtException(
-          "Target is not a LinkedHashSet for getter 'first'",
-        );
-      },
-      'last': (visitor, target) {
-        if (target is LinkedHashSet) {
-          try {
-            return target.last;
-          } catch (e) {
-            throw RuntimeD4rtException(
-              "LinkedHashSet is empty (for getter 'last').",
-            );
-          }
-        }
-        throw RuntimeD4rtException(
-          "Target is not a LinkedHashSet for getter 'last'",
-        );
-      },
-      'single': (visitor, target) {
-        if (target is LinkedHashSet) {
-          try {
-            return target.single;
-          } catch (e) {
-            if (target.isEmpty) {
-              throw RuntimeD4rtException(
-                "LinkedHashSet is empty (for getter 'single').",
-              );
-            } else {
-              throw RuntimeD4rtException(
-                "LinkedHashSet has more than one element (for getter 'single').",
-              );
-            }
-          }
-        }
-        throw RuntimeD4rtException(
-          "Target is not a LinkedHashSet for getter 'single'",
-        );
-      },
       'iterator': (visitor, target) {
         if (target is LinkedHashSet) return target.iterator;
         throw RuntimeD4rtException(

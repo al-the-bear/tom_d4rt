@@ -163,51 +163,6 @@ class ListQueueCollection {
           "Target is not a ListQueue for getter 'isNotEmpty'",
         );
       },
-      'first': (visitor, target) {
-        if (target is ListQueue) {
-          if (target.isEmpty) {
-            throw RuntimeD4rtException(
-              "ListQueue is empty (for getter 'first').",
-            );
-          }
-          return target.first;
-        }
-        throw RuntimeD4rtException(
-          "Target is not a ListQueue for getter 'first'",
-        );
-      },
-      'last': (visitor, target) {
-        if (target is ListQueue) {
-          if (target.isEmpty) {
-            throw RuntimeD4rtException(
-              "ListQueue is empty (for getter 'last').",
-            );
-          }
-          return target.last;
-        }
-        throw RuntimeD4rtException(
-          "Target is not a ListQueue for getter 'last'",
-        );
-      },
-      'single': (visitor, target) {
-        if (target is ListQueue) {
-          if (target.length != 1) {
-            if (target.isEmpty) {
-              throw RuntimeD4rtException(
-                "ListQueue is empty (for getter 'single').",
-              );
-            } else {
-              throw RuntimeD4rtException(
-                "ListQueue has more than one element (for getter 'single').",
-              );
-            }
-          }
-          return target.single;
-        }
-        throw RuntimeD4rtException(
-          "Target is not a ListQueue for getter 'single'",
-        );
-      },
       'iterator': (visitor, target) {
         if (target is ListQueue) return target.iterator;
         throw RuntimeD4rtException(

@@ -252,8 +252,13 @@ void main() {
     });
 
     test(
-      'F-SC2-19: first on an empty set raises a D4rt error [2026-07-27]',
+      'F-SC2-19: first on an empty set raises a StateError [2026-07-27]',
       () {
+        // SCC51: the expected family changed from RuntimeD4rtException to
+        // StateError. The bridge used to catch the SDK's StateError and rethrow
+        // a hand-written message; it now inherits Set's delegating adapter, so
+        // the SDK's own error reaches the script and the `on StateError catch`
+        // a Dart author writes actually fires.
         expect(
           () => d4rt.execute(
             source: '''
@@ -261,7 +266,7 @@ void main() {
           main() { return SplayTreeSet().first; }
         ''',
           ),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<StateError>()),
         );
       },
     );

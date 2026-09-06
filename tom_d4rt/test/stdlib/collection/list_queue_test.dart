@@ -291,6 +291,11 @@ void main() {
         77,
       );
 
+      // SCC51: the expected family changed from RuntimeD4rtException to
+      // StateError. The bridge used to catch the SDK's StateError and rethrow a
+      // hand-written message; it now inherits Iterable's delegating adapter, so
+      // the SDK's own error reaches the script and the `on StateError catch` a
+      // Dart author writes actually fires.
       expect(
         () => d4rt.execute(
           source: '''
@@ -298,7 +303,7 @@ void main() {
             main() { ListQueue().single; }
         ''',
         ),
-        throwsA(isA<RuntimeD4rtException>()),
+        throwsA(isA<StateError>()),
         reason: "single on empty queue",
       );
       expect(
@@ -308,7 +313,7 @@ void main() {
             main() { ListQueue.from([1,2]).single; }
         ''',
         ),
-        throwsA(isA<RuntimeD4rtException>()),
+        throwsA(isA<StateError>()),
         reason: "single on multi-element queue",
       );
     });

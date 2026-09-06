@@ -183,14 +183,19 @@ void main() {
     test(
       'I-COLL-44: Accessing first/last on empty list throws error. [2026-02-10 06:37] (PASS)',
       () {
+        // SCC51: the expected family changed from RuntimeD4rtException to
+        // StateError. The bridge used to catch the SDK's StateError and rethrow
+        // a hand-written message; it now inherits Iterable's delegating
+        // adapter, so the SDK's own error reaches the script and the
+        // `on StateError catch` a Dart author writes actually fires.
         expect(
           () =>
               executeTestScript('var list = LinkedList(); return list.first;'),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<StateError>()),
         );
         expect(
           () => executeTestScript('var list = LinkedList(); return list.last;'),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<StateError>()),
         );
       },
     );

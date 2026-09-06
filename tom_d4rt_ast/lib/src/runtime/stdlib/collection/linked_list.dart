@@ -137,32 +137,6 @@ class LinkedListCollection {
           "Target is not a LinkedList for getter 'isNotEmpty'",
         );
       },
-      'first': (visitor, target) {
-        if (target is LinkedList<BridgedLinkedListEntry>) {
-          if (target.isEmpty) {
-            throw RuntimeD4rtException(
-              "Cannot get first from an empty LinkedList.",
-            );
-          }
-          return target.first;
-        }
-        throw RuntimeD4rtException(
-          "Target is not a LinkedList for getter 'first'",
-        );
-      },
-      'last': (visitor, target) {
-        if (target is LinkedList<BridgedLinkedListEntry>) {
-          if (target.isEmpty) {
-            throw RuntimeD4rtException(
-              "Cannot get last from an empty LinkedList.",
-            );
-          }
-          return target.last;
-        }
-        throw RuntimeD4rtException(
-          "Target is not a LinkedList for getter 'last'",
-        );
-      },
     },
   );
 }

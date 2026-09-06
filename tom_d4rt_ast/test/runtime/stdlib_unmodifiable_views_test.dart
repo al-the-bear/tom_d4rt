@@ -8,6 +8,14 @@ import 'package:tom_d4rt_ast/runtime.dart';
 // unit test would mean building a parsed AST module, so we reach for the
 // same-package registrar directly instead of widening the published API.
 import 'package:tom_d4rt_ast/src/runtime/stdlib/collection.dart';
+// `Map`, `List` and `Iterable` are `dart:core` bridges, not `dart:collection`
+// ones, so the tops of the three view hierarchies only exist once `CoreStdlib`
+// has run too. A script gets both because it imports both; a
+// registration-level test has to say so — and it matters here because SCC51
+// moved several members up onto those very bridges.
+import 'package:tom_d4rt_ast/src/runtime/stdlib/core.dart';
+
+import '../bridge_reachability.dart';
 
 /// SC3 mirror coverage for `tom_d4rt_ast`.
 ///
@@ -29,6 +37,7 @@ void main() {
 
   setUp(() {
     env = Environment();
+    CoreStdlib.register(env);
     CollectionStdlib.register(env);
     // Method adapters take a non-nullable visitor (only getters accept `null`),
     // so the mutator tests need a real one. None of the members exercised here
@@ -67,9 +76,15 @@ void main() {
     test(
       'F-SC3-AST-3: exposes the read and mutating Map surface [2026-07-27]',
       () {
-        final bridge = env.findBridgedClassByName('UnmodifiableMapView')!;
+        // Reachable, not declared. SCC51 deleted this bridge's local
+        // `addEntries` — byte-for-byte the `.cast()` shape SCB17 removed from
+        // `HashMap`/`LinkedHashMap`, which cannot unwrap a
+        // `BridgedInstance<MapEntry>` — so `Map`'s copy, which unwraps
+        // correctly, answers now. What a script can call is the contract;
+        // which bridge in the chain declares it is not, and pinning the latter
+        // is what would make a correct deletion look like a regression.
         expect(
-          bridge.methods.keys,
+          reachableMethodNames(env, 'UnmodifiableMapView'),
           containsAll(<String>[
             // read-through
             '[]', 'containsKey', 'containsValue', 'forEach', 'map', 'cast',
@@ -230,17 +245,21 @@ void main() {
     test(
       'F-SC3-AST-14: the getters read through to the backing list [2026-09-04]',
       () {
-        final bridge = env.findBridgedClassByName('UnmodifiableListView')!;
+        // Reachability-resolved: SCC51 deleted this bridge's `first`/`last`
+        // copies, which pre-empted the SDK with a `RuntimeD4rtException` where
+        // native Dart raises `StateError`. `Iterable`'s delegating adapters
+        // answer now. The read-through behaviour asserted below is unchanged —
+        // only the declaring bridge moved, which is why this reads by
+        // reachability instead.
         final view = UnmodifiableListView<dynamic>(['a', 'b']);
-        expect(bridge.getters['length']!(null, view), 2);
-        expect(bridge.getters['isEmpty']!(null, view), isFalse);
-        expect(bridge.getters['isNotEmpty']!(null, view), isTrue);
-        expect(bridge.getters['first']!(null, view), 'a');
-        expect(bridge.getters['last']!(null, view), 'b');
-        expect(
-          bridge.getters['reversed']!(null, view),
-          orderedEquals(['b', 'a']),
-        );
+        Object? read(String m) =>
+            readReachable(env, 'UnmodifiableListView', view, m);
+        expect(read('length'), 2);
+        expect(read('isEmpty'), isFalse);
+        expect(read('isNotEmpty'), isTrue);
+        expect(read('first'), 'a');
+        expect(read('last'), 'b');
+        expect(read('reversed'), orderedEquals(['b', 'a']));
       },
     );
 

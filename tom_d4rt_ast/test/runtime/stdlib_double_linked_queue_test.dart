@@ -13,6 +13,8 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/collection.dart';
 // gets both because it imports both; a registration-level test has to say so.
 import 'package:tom_d4rt_ast/src/runtime/stdlib/core.dart';
 
+import '../bridge_reachability.dart';
+
 /// SC7 mirror coverage for `tom_d4rt_ast` — `DoubleLinkedQueue`, its
 /// `DoubleLinkedQueueEntry` cursor, and the queue supertype hierarchy.
 ///
@@ -156,9 +158,28 @@ void main() {
           () => bridge.methods['removeLast']!(visitor, queue, [], {}, []),
           throwsA(isA<RuntimeD4rtException>()),
         );
+        // `first` parts company with the two methods above, on both axes.
+        //
+        // SCC51 deleted the `DoubleLinkedQueue` and `Queue` copies of this
+        // getter, so it resolves by reachability onto `Iterable`'s delegating
+        // adapter — hence the walk rather than an index into this bridge.
+        //
+        // And it now reports the SDK's own `StateError`, not a
+        // `RuntimeD4rtException`. That is the point of the deletion: the old
+        // copy caught the SDK error and rethrew a hand-written one, so the
+        // `on StateError catch` a Dart author writes never fired.
+        // `removeFirst`/`removeLast` above keep expecting
+        // `RuntimeD4rtException` because they are genuinely still
+        // D4rt-authored adapters — the change is not blanket.
         expect(
-          () => bridge.getters['first']!(visitor, queue),
-          throwsA(isA<RuntimeD4rtException>()),
+          () => readReachable(
+            env,
+            'DoubleLinkedQueue',
+            queue,
+            'first',
+            visitor: visitor,
+          ),
+          throwsA(isA<StateError>()),
         );
       },
     );

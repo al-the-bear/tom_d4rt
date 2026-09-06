@@ -441,50 +441,6 @@ class HashSetCollection {
           "Target is not a HashSet for getter 'isNotEmpty'",
         );
       },
-      'first': (visitor, target) {
-        if (target is HashSet) {
-          try {
-            return target.first;
-          } catch (e) {
-            throw RuntimeD4rtException(
-              "HashSet is empty (for getter 'first').",
-            );
-          }
-        }
-        throw RuntimeD4rtException(
-          "Target is not a HashSet for getter 'first'",
-        );
-      },
-      'last': (visitor, target) {
-        if (target is HashSet) {
-          try {
-            return target.last;
-          } catch (e) {
-            throw RuntimeD4rtException("HashSet is empty (for getter 'last').");
-          }
-        }
-        throw RuntimeD4rtException("Target is not a HashSet for getter 'last'");
-      },
-      'single': (visitor, target) {
-        if (target is HashSet) {
-          try {
-            return target.single;
-          } catch (e) {
-            if (target.isEmpty) {
-              throw RuntimeD4rtException(
-                "HashSet is empty (for getter 'single').",
-              );
-            } else {
-              throw RuntimeD4rtException(
-                "HashSet has more than one element (for getter 'single').",
-              );
-            }
-          }
-        }
-        throw RuntimeD4rtException(
-          "Target is not a HashSet for getter 'single'",
-        );
-      },
       'iterator': (visitor, target) {
         if (target is HashSet) return target.iterator;
         throw RuntimeD4rtException(

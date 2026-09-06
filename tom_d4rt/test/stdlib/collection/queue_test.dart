@@ -109,13 +109,7 @@ void main() {
           var q = Queue();
           return q.first;
         '''),
-          throwsA(
-            isA<RuntimeD4rtException>().having(
-              (e) => e.message,
-              'message',
-              contains('Cannot get first from an empty queue.'),
-            ),
-          ),
+          throwsA(isA<StateError>()),
         );
       },
     );
@@ -128,13 +122,7 @@ void main() {
           var q = Queue();
           return q.last;
         '''),
-          throwsA(
-            isA<RuntimeD4rtException>().having(
-              (e) => e.message,
-              'message',
-              contains('Cannot get last from an empty queue.'),
-            ),
-          ),
+          throwsA(isA<StateError>()),
         );
       },
     );

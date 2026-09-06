@@ -258,8 +258,13 @@ void main() {
     });
 
     test(
-      'F-SC2-9: single / first on an empty set raise a D4rt error [2026-07-27]',
+      'F-SC2-9: single / first on an empty set raise a StateError [2026-07-27]',
       () {
+        // SCC51: the expected family changed from RuntimeD4rtException to
+        // StateError. The bridge used to catch the SDK's StateError and rethrow
+        // a hand-written message; it now inherits Set's delegating adapter, so
+        // the SDK's own error reaches the script and the `on StateError catch`
+        // a Dart author writes actually fires.
         expect(
           () => d4rt.execute(
             source: '''
@@ -267,7 +272,7 @@ void main() {
           main() { return LinkedHashSet().first; }
         ''',
           ),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<StateError>()),
           reason: 'first on empty',
         );
         expect(
@@ -277,7 +282,7 @@ void main() {
           main() { return LinkedHashSet.from([1, 2]).single; }
         ''',
           ),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<StateError>()),
           reason: 'single with more than one element',
         );
       },

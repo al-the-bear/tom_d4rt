@@ -165,35 +165,6 @@ class DoubleLinkedQueueCollection {
       'isEmpty': (visitor, target) => (target as DoubleLinkedQueue).isEmpty,
       'isNotEmpty': (visitor, target) =>
           (target as DoubleLinkedQueue).isNotEmpty,
-      'first': (visitor, target) {
-        final queue = target as DoubleLinkedQueue;
-        if (queue.isEmpty) {
-          throw RuntimeD4rtException(
-            "DoubleLinkedQueue is empty (for getter 'first').",
-          );
-        }
-        return queue.first;
-      },
-      'last': (visitor, target) {
-        final queue = target as DoubleLinkedQueue;
-        if (queue.isEmpty) {
-          throw RuntimeD4rtException(
-            "DoubleLinkedQueue is empty (for getter 'last').",
-          );
-        }
-        return queue.last;
-      },
-      'single': (visitor, target) {
-        final queue = target as DoubleLinkedQueue;
-        if (queue.length != 1) {
-          throw RuntimeD4rtException(
-            queue.isEmpty
-                ? "DoubleLinkedQueue is empty (for getter 'single')."
-                : "DoubleLinkedQueue has more than one element (for getter 'single').",
-          );
-        }
-        return queue.single;
-      },
       'iterator': (visitor, target) => (target as DoubleLinkedQueue).iterator,
       'hashCode': (visitor, target) => (target as DoubleLinkedQueue).hashCode,
       'runtimeType': (visitor, target) =>
