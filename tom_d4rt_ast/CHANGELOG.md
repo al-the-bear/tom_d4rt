@@ -1,3 +1,52 @@
+## 0.49.0
+
+### Fixed — a script could start an HTTP server but not answer a request (scc62)
+
+Mirrors `tom_d4rt` 1.60.0. `HttpServer` was bridged; `HttpRequest` and
+`HttpResponse` were not. So `HttpServer.bind` succeeded, `server.listen`
+delivered a connection, and the value the handler was handed had no bridge —
+every member on it failed with `Cannot access property 'method' on target of
+type _HttpRequest`. The one path by which a request can be answered ran through
+a name that did not resolve.
+
+Six types are now bridged, closing the server half of `dart:io`:
+
+- **`HttpRequest`** — the twelve declared getters (`response`, `method`, `uri`,
+  `requestedUri`, `headers`, `cookies`, `contentLength`, `protocolVersion`,
+  `persistentConnection`, `certificate`, `session`, `connectionInfo`), plus
+  `listen` for the request body, which is a `Stream<Uint8List>`.
+- **`HttpResponse`** — the `IOSink` surface (`write`, `writeln`, `writeAll`,
+  `writeCharCode`, `add`, `addStream`, `addError`, `flush`, `close`) plus
+  `redirect`, `detachSocket`, and getters and setters for the seven mutable
+  fields (`statusCode`, `reasonPhrase`, `contentLength`,
+  `persistentConnection`, `bufferOutput`, `deadline`, `encoding`).
+- **`HttpSession`** — the full `Map` surface plus `id`, `isNew`, `destroy` and
+  the `onTimeout` callback. The `Map` adapters are spread in from `MapCore`
+  rather than inherited: bridge member lookup is flat and does not walk the
+  supertype registry, and name canonicalization resolves `_HttpSession` to this
+  bridge before any assignability scan, so a bridge that wins selection has to
+  carry every member it needs.
+- **`HttpConnectionInfo`** and **`HttpConnectionsInfo`** — the peer identity and
+  the live connection counters.
+- **`SameSite`** — the value type of `Cookie.sameSite`, which was bridged as
+  both getter and setter while the getter returned something no bridge claimed
+  and the setter accepted nothing but null. It is not an enum despite reading
+  like one: a final class with a private constructor and three static const
+  instances, so it is bridged as a class with static getters.
+
+Three supertype edges are registered alongside them — `HttpResponse -> IOSink`,
+`HttpRequest -> Stream` and `HttpSession -> Map`. These are load-bearing for
+dispatch and not only for `is`: an `HttpResponse` satisfies both its own
+predicate and `IOSink`'s, and without an ordering `_filterToMostSpecific` has no
+ground on which to drop the base.
+
+Script-level behaviour is pinned in `tom_d4rt`
+(`test/stdlib/io/http_server_test.dart`), which runs a real loopback round trip;
+this tree cannot execute scripts, so its coverage is the registration-level
+mirror in `test/runtime/stdlib_io_reexport_visibility_test.dart` plus the SCC24
+getter sweep, which was widened to cover the new bridges rather than have its
+blind-spot baseline raised by four.
+
 ## 0.48.0
 
 ### Fixed — `on HttpException catch` and `on IOException catch` never matched (scc61)

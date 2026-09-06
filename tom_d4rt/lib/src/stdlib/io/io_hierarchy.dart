@@ -56,12 +56,22 @@ class IoHierarchyIo {
       // instrument cannot see is still either right or wrong in the registry,
       // and the SDK says which.
       'HttpClientRequest': ['IOSink'],
+      // `abstract interface class HttpResponse implements IOSink`. Unlike the
+      // line above, this edge IS reachable by the audit — and it has to be
+      // declared for dispatch and not only for `is`: an `HttpResponse` value
+      // satisfies both its own predicate and `IOSinkIo`'s, and with nothing
+      // ordering them `_filterToMostSpecific` has no ground to drop the base.
+      'HttpResponse': ['IOSink'],
 
       // The stream sources. Each `implements Stream<T>` for its own element
       // type, which the registry does not model — the edge is on the raw name,
       // and `is Stream` is the question scripts actually ask.
       'Stdin': ['Stream'],
       'HttpServer': ['Stream'],
+      // `abstract interface class HttpRequest implements Stream<Uint8List>` —
+      // the request body. Same dispatch argument as `HttpResponse` above, with
+      // `StreamCore` as the base that would otherwise tie.
+      'HttpRequest': ['Stream'],
       'HttpClientResponse': ['Stream'],
       'RawDatagramSocket': ['Stream'],
       'RawServerSocket': ['Stream'],
@@ -81,6 +91,12 @@ class IoHierarchyIo {
       'File': ['FileSystemEntity'],
       'Directory': ['FileSystemEntity'],
       'ContentType': ['HeaderValue'],
+      // `abstract interface class HttpSession implements Map`. The Map surface
+      // is spread into `HttpSessionIo` from `MapCore` rather than inherited —
+      // bridge member lookup is flat and does not walk this registry — so the
+      // edge is here for the type test, and to record that the spread is
+      // implementing a declared relationship rather than borrowing adapters.
+      'HttpSession': ['Map'],
     });
   }
 }

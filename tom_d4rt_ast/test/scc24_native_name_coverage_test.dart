@@ -303,6 +303,14 @@ Map<String, Object> _canonicalInstances() => {
   'FileStat': File('pubspec.yaml').statSync(),
   'FileSystemEntity': File('pubspec.yaml'),
   'HttpClient': HttpClient(),
+  // A plain data holder with a default constructor — the only one of the six
+  // types SCC62 bridged that can be built without a live connection. The other
+  // four are in `_liveHttpInstances`.
+  'HttpConnectionsInfo': HttpConnectionsInfo(),
+  // Not an enum despite reading like one: a final class with a private
+  // constructor and three static const instances, so a constant is the only
+  // way to get one.
+  'SameSite': SameSite.lax,
   'ContentType': ContentType.json,
   'HeaderValue': HeaderValue('a', const {'b': 'c'}),
   'Cookie': Cookie('a', 'b'),
@@ -342,6 +350,55 @@ Map<String, Object> _canonicalInstances() => {
   'ClosableStringSink': StringConversionSink.withCallback(
     (_) {},
   ).asStringSink(),
+};
+
+/// The four `dart:io` HTTP types that only exist inside a live connection.
+///
+/// `HttpRequest`, `HttpResponse`, `HttpSession` and `HttpConnectionInfo` have no
+/// public constructor — the SDK hands them to a request handler and nowhere
+/// else — so they cannot join the synchronous map above. Capturing them from one
+/// real loopback round trip, rather than letting them widen F-SCC24-9's
+/// baseline, is deliberate: their getters return `Uri`, `HttpHeaders`,
+/// `List<Cookie>`, `HttpSession` and `HttpConnectionInfo`, which is exactly the
+/// shape that goes inert unnoticed. SCC62 exists because one of them did —
+/// `Cookie.sameSite` was bridged on both sides while returning a value no bridge
+/// claimed.
+///
+/// The instances are detached by the time the sweep reads them, since the server
+/// is closed first. That is harmless here and not worth keeping a socket open
+/// for: a getter that objects to a closed connection throws, and the sweep
+/// already skips a throwing getter — it is looking for values that resolve to no
+/// bridge, not for values that cannot be produced.
+final Map<String, Object> _liveHttpInstances = {};
+
+/// Populate [_liveHttpInstances]. Called once from `setUpAll`.
+Future<void> _captureLiveHttpInstances() async {
+  final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+  server.listen((request) {
+    _liveHttpInstances['HttpRequest'] = request;
+    _liveHttpInstances['HttpResponse'] = request.response;
+    // Reading `session` is what creates it; there is no other way to obtain one.
+    _liveHttpInstances['HttpSession'] = request.session;
+    final info = request.connectionInfo;
+    if (info != null) _liveHttpInstances['HttpConnectionInfo'] = info;
+    request.response.close();
+  });
+
+  final client = HttpClient();
+  final request = await client.getUrl(
+    Uri.parse('http://127.0.0.1:${server.port}/'),
+  );
+  final response = await request.close();
+  await response.drain<void>();
+  await server.close();
+  client.close();
+}
+
+/// Every instance the getter sweep has to work with: the synchronous map plus
+/// the connection-bound captures.
+Map<String, Object> _sweepInstances() => {
+  ..._canonicalInstances(),
+  ..._liveHttpInstances,
 };
 
 /// A minimal enum so the `Enum` bridge has a canonical instance.
@@ -606,12 +663,14 @@ final _beyondAsyncProbes = <_Probe>[
 
 void main() {
   group('SCC24: native-name coverage', () {
+    setUpAll(_captureLiveHttpInstances);
+
     test(
       'F-SCC24-1: every instance getter on every bridge returns a value that '
       'resolves [2026-09-04]',
       () {
         final env = _stdlibEnvironment();
-        final instances = _canonicalInstances();
+        final instances = _sweepInstances();
         final inert = <String, String>{};
 
         for (final bridge in _allBridges(env).values) {
@@ -876,23 +935,27 @@ void main() {
       // a bridge forces either an instance (widening the sweep) or a deliberate
       // decision to leave it uncovered — it cannot happen silently.
       //
-      // Measured 2026-09-04: 170 bridges registered, 111 with a canonical
-      // instance, 20 with getters but no instance. The remainder declare no
-      // instance getters, so an instance would add nothing.
-      //
       // The 20 are not arbitrary leftovers — every one needs a resource this
-      // suite should not acquire (a bound socket, a spawned process, a live
-      // HTTP exchange, the real stdio handles) or cannot be constructed at
-      // all (`OutOfMemoryError`, `StackOverflowError`). Widening the sweep to
-      // them means standing a server up inside the guard, which is a
-      // different kind of test; tracked separately rather than smuggled in
-      // here.
+      // suite should not acquire (a bound socket, a spawned process, the real
+      // stdio handles) or cannot be constructed at all (`OutOfMemoryError`,
+      // `StackOverflowError`).
+      //
+      // A live HTTP exchange used to be on that list, and no longer is. SCC62
+      // bridged six types whose getters return precisely the shapes this sweep
+      // exists to catch, four of which only exist inside a request handler, so
+      // `_captureLiveHttpInstances` now stands a loopback server up in
+      // `setUpAll` and captures them. That is a real widening of what the suite
+      // does, taken because the alternative was to raise this baseline by four
+      // and lose the sweep over the newest and least-exercised bridges in the
+      // tree. It does not generalise: a spawned process or a claimed stdin has
+      // consequences past the end of the test, and a bound loopback socket that
+      // is closed again does not.
       //
       // The bound is `lessThanOrEqualTo`, not `equals`, on purpose: adding a
       // canonical instance should never fail the guard, only removing
       // coverage should.
       final env = _stdlibEnvironment();
-      final instances = _canonicalInstances();
+      final instances = _sweepInstances();
       final uncovered =
           _allBridges(env).values
               .where(
@@ -907,7 +970,8 @@ void main() {
         lessThanOrEqualTo(20),
         reason:
             'A bridge with instance getters was added without a '
-            'canonical instance in `_canonicalInstances`, so F-SCC24-1 '
+            'canonical instance in `_canonicalInstances` (or, for one that '
+            'needs a live connection, `_liveHttpInstances`), so F-SCC24-1 '
             'cannot see it. Add one, or lower this baseline deliberately. '
             'Uncovered: ${uncovered.join(', ')}',
       );

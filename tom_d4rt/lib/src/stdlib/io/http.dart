@@ -3,6 +3,8 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:tom_d4rt/d4rt.dart';
 
+import '../core/map.dart';
+import '../run_action.dart';
 import '../stream_listen.dart';
 
 class HttpClientIo {
@@ -432,6 +434,332 @@ class HttpServerIo {
       },
       'sessionTimeout': (visitor, target, value) {
         (target as HttpServer).sessionTimeout = value as int;
+        return;
+      },
+    },
+  );
+}
+
+/// `HttpRequest` — what the bridged `HttpServer` has been handing to scripts
+/// with no name attached.
+///
+/// `HttpServer` is a `Stream<HttpRequest>` and has been bridged since long
+/// before this class was, so a script could bind a port, accept a connection,
+/// and then do nothing with it: `request.method` raised "Cannot access property
+/// 'method' on target of type _HttpRequest". The server was reachable and
+/// useless in the same breath.
+///
+/// `response` is the load-bearing getter — it is the ONLY way to answer a
+/// request, so bridging `HttpRequest` without also bridging [HttpResponseIo]
+/// would have moved the dead end one hop rather than removing it. The same
+/// argument chains through `session`, `connectionInfo` and (via
+/// `HttpServer.connectionsInfo()`) `HttpConnectionsInfo`, which is why all six
+/// types arrived together.
+class HttpRequestIo {
+  static BridgedClass get definition => BridgedClass(
+    nativeType: HttpRequest,
+    name: 'HttpRequest',
+    isAssignable: (v) => v is HttpRequest,
+    typeParameterCount: 0,
+    constructors: {},
+    methods: {
+      // `abstract interface class HttpRequest implements Stream<Uint8List>` —
+      // this is how a script reads a POST body. Routed through the shared
+      // helper for the reason its own doc gives: nine hand-written copies of
+      // `listen` had already drifted apart.
+      'listen': (visitor, target, positionalArgs, namedArgs, _) =>
+          bridgedStreamListen(
+            visitor,
+            target as HttpRequest,
+            positionalArgs,
+            namedArgs,
+          ),
+    },
+    getters: {
+      'response': (visitor, target) => (target as HttpRequest).response,
+      'method': (visitor, target) => (target as HttpRequest).method,
+      'uri': (visitor, target) => (target as HttpRequest).uri,
+      'requestedUri': (visitor, target) => (target as HttpRequest).requestedUri,
+      'headers': (visitor, target) => (target as HttpRequest).headers,
+      'cookies': (visitor, target) => (target as HttpRequest).cookies,
+      'contentLength': (visitor, target) =>
+          (target as HttpRequest).contentLength,
+      'protocolVersion': (visitor, target) =>
+          (target as HttpRequest).protocolVersion,
+      'persistentConnection': (visitor, target) =>
+          (target as HttpRequest).persistentConnection,
+      'certificate': (visitor, target) => (target as HttpRequest).certificate,
+      'session': (visitor, target) => (target as HttpRequest).session,
+      'connectionInfo': (visitor, target) =>
+          (target as HttpRequest).connectionInfo,
+    },
+  );
+}
+
+/// `HttpResponse` — the sink half of serving a request.
+///
+/// Bridged with setters and not only getters, which is the point of the class:
+/// `statusCode`, `reasonPhrase`, `contentLength`, `persistentConnection`,
+/// `bufferOutput` and `deadline` are all mutable in the SDK, and a bridge
+/// carrying getters alone would satisfy every name-resolution check while
+/// leaving the response read-only and therefore unanswerable.
+///
+/// `HttpResponse implements IOSink`, so the write surface is the same one
+/// [HttpClientRequestIo] carries. The edge is declared in `IoHierarchyIo`
+/// rather than inferred here: without it, `_filterToMostSpecific` sees a value
+/// matching both this bridge and the `IOSink` one with nothing to order them
+/// by.
+class HttpResponseIo {
+  static BridgedClass get definition => BridgedClass(
+    nativeType: HttpResponse,
+    name: 'HttpResponse',
+    isAssignable: (v) => v is HttpResponse,
+    typeParameterCount: 0,
+    constructors: {},
+    methods: {
+      'write': (visitor, target, positionalArgs, namedArgs, _) {
+        (target as HttpResponse).write(
+          positionalArgs.isNotEmpty ? positionalArgs[0] : null,
+        );
+        return null;
+      },
+      'writeln': (visitor, target, positionalArgs, namedArgs, _) {
+        (target as HttpResponse).writeln(
+          positionalArgs.isNotEmpty ? positionalArgs[0] : '',
+        );
+        return null;
+      },
+      'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
+        if (positionalArgs.isEmpty || positionalArgs[0] is! Iterable) {
+          throw RuntimeD4rtException('writeAll requires an Iterable argument.');
+        }
+        (target as HttpResponse).writeAll(
+          positionalArgs[0] as Iterable<dynamic>,
+          positionalArgs.length > 1 ? positionalArgs[1] as String : '',
+        );
+        return null;
+      },
+      'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
+        if (positionalArgs.isEmpty || positionalArgs[0] is! int) {
+          throw RuntimeD4rtException('writeCharCode requires an int argument.');
+        }
+        (target as HttpResponse).writeCharCode(positionalArgs[0] as int);
+        return null;
+      },
+      'add': (visitor, target, positionalArgs, namedArgs, _) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
+          throw RuntimeD4rtException('add requires a List<int> argument.');
+        }
+        // `List<int>` and not `List<dynamic>`: a script's list literal is
+        // `List<dynamic>` at runtime, so the cast has to narrow rather than
+        // check. `cast` is lazy and would defer the failure into the socket
+        // write, where it surfaces without a line number.
+        (target as HttpResponse).add(List<int>.from(positionalArgs[0] as List));
+        return null;
+      },
+      'addStream': (visitor, target, positionalArgs, namedArgs, _) {
+        if (positionalArgs.length != 1 ||
+            positionalArgs[0] is! Stream<List<int>>) {
+          throw RuntimeD4rtException(
+            'addStream requires a Stream<List<int>> argument.',
+          );
+        }
+        return (target as HttpResponse).addStream(
+          positionalArgs[0] as Stream<List<int>>,
+        );
+      },
+      'addError': (visitor, target, positionalArgs, namedArgs, _) {
+        if (positionalArgs.isEmpty) {
+          throw RuntimeD4rtException(
+            'addError requires at least one argument (error).',
+          );
+        }
+        (target as HttpResponse).addError(
+          positionalArgs[0]!,
+          positionalArgs.length > 1 ? positionalArgs[1] as StackTrace? : null,
+        );
+        return null;
+      },
+      'flush': (visitor, target, positionalArgs, namedArgs, _) =>
+          (target as HttpResponse).flush(),
+      'close': (visitor, target, positionalArgs, namedArgs, _) =>
+          (target as HttpResponse).close(),
+      'redirect': (visitor, target, positionalArgs, namedArgs, _) {
+        if (positionalArgs.isEmpty || positionalArgs[0] is! Uri) {
+          throw RuntimeD4rtException('redirect requires a Uri argument.');
+        }
+        return (target as HttpResponse).redirect(
+          positionalArgs[0] as Uri,
+          status: namedArgs['status'] as int? ?? HttpStatus.movedTemporarily,
+        );
+      },
+      'detachSocket': (visitor, target, positionalArgs, namedArgs, _) =>
+          (target as HttpResponse).detachSocket(
+            writeHeaders: namedArgs['writeHeaders'] as bool? ?? true,
+          ),
+    },
+    getters: {
+      'statusCode': (visitor, target) => (target as HttpResponse).statusCode,
+      'reasonPhrase': (visitor, target) =>
+          (target as HttpResponse).reasonPhrase,
+      'contentLength': (visitor, target) =>
+          (target as HttpResponse).contentLength,
+      'persistentConnection': (visitor, target) =>
+          (target as HttpResponse).persistentConnection,
+      'bufferOutput': (visitor, target) =>
+          (target as HttpResponse).bufferOutput,
+      'deadline': (visitor, target) => (target as HttpResponse).deadline,
+      'encoding': (visitor, target) => (target as HttpResponse).encoding,
+      'headers': (visitor, target) => (target as HttpResponse).headers,
+      'cookies': (visitor, target) => (target as HttpResponse).cookies,
+      'connectionInfo': (visitor, target) =>
+          (target as HttpResponse).connectionInfo,
+      'done': (visitor, target) => (target as HttpResponse).done,
+    },
+    setters: {
+      'statusCode': (visitor, target, value) {
+        (target as HttpResponse).statusCode = value as int;
+        return;
+      },
+      'reasonPhrase': (visitor, target, value) {
+        (target as HttpResponse).reasonPhrase = value as String;
+        return;
+      },
+      'contentLength': (visitor, target, value) {
+        (target as HttpResponse).contentLength = value as int;
+        return;
+      },
+      'persistentConnection': (visitor, target, value) {
+        (target as HttpResponse).persistentConnection = value as bool;
+        return;
+      },
+      'bufferOutput': (visitor, target, value) {
+        (target as HttpResponse).bufferOutput = value as bool;
+        return;
+      },
+      'deadline': (visitor, target, value) {
+        (target as HttpResponse).deadline = value as Duration?;
+        return;
+      },
+      'encoding': (visitor, target, value) {
+        (target as HttpResponse).encoding = value as Encoding;
+        return;
+      },
+    },
+  );
+}
+
+/// `HttpSession` — the per-client store hanging off `HttpRequest.session`.
+///
+/// `abstract interface class HttpSession implements Map`, and the SDK declares
+/// only four members of its own on top of that. The Map surface is therefore
+/// most of what the class *is*, and it is spread in from [MapCore] rather than
+/// re-listed: bridge selection resolves `_HttpSession` to this class by the
+/// `_Foo -> Foo` name canonicalization, which runs BEFORE any `isAssignable`
+/// scan, so whatever is not on this bridge is not reachable at all. Copying
+/// forty adapters to say the same thing would guarantee they drift.
+///
+/// Index access (`session['k']`) does not actually come through here — the
+/// interpreter's index paths test `target is Map` before consulting a bridge,
+/// and `_HttpSession` satisfies it. The spread still matters for everything
+/// invoked by NAME (`containsKey`, `remove`, `keys`, `length`), which does go
+/// through the bridge.
+class HttpSessionIo {
+  static BridgedClass get definition {
+    final map = MapCore.definition;
+    return BridgedClass(
+      nativeType: HttpSession,
+      name: 'HttpSession',
+      isAssignable: (v) => v is HttpSession,
+      // Zero, not MapCore's two: the SDK writes `implements Map` bare, so a
+      // script has no type arguments to supply.
+      typeParameterCount: 0,
+      constructors: {},
+      methods: {
+        ...map.methods,
+        'destroy': (visitor, target, positionalArgs, namedArgs, _) {
+          (target as HttpSession).destroy();
+          return null;
+        },
+      },
+      getters: {
+        ...map.getters,
+        'id': (visitor, target) => (target as HttpSession).id,
+        'isNew': (visitor, target) => (target as HttpSession).isNew,
+      },
+      setters: {
+        ...map.setters,
+        'onTimeout': (visitor, target, value) {
+          final callback = value as InterpretedFunction;
+          // The adapter typedef makes `visitor` nullable, but a setter can only
+          // run while a script is executing, so the null case is unreachable —
+          // and the callback is invoked LATER, when the session times out, so
+          // the visitor has to be captured now either way.
+          final capturedVisitor = visitor!;
+          (target as HttpSession).onTimeout = () =>
+              runAction<void>(capturedVisitor, callback, []);
+          return;
+        },
+      },
+    );
+  }
+}
+
+/// `HttpConnectionInfo` — who is on the other end of a request.
+class HttpConnectionInfoIo {
+  static BridgedClass get definition => BridgedClass(
+    nativeType: HttpConnectionInfo,
+    name: 'HttpConnectionInfo',
+    isAssignable: (v) => v is HttpConnectionInfo,
+    typeParameterCount: 0,
+    constructors: {},
+    getters: {
+      'remoteAddress': (visitor, target) =>
+          (target as HttpConnectionInfo).remoteAddress,
+      'remotePort': (visitor, target) =>
+          (target as HttpConnectionInfo).remotePort,
+      'localPort': (visitor, target) =>
+          (target as HttpConnectionInfo).localPort,
+    },
+  );
+}
+
+/// `HttpConnectionsInfo` — the counters `HttpServer.connectionsInfo()` returns.
+///
+/// The one type in this group a script can also construct: the SDK declares it
+/// as a plain class with four mutable `int` fields and an implicit default
+/// constructor, which makes it usable as a tally in interpreted code and not
+/// only as a value the server hands back.
+class HttpConnectionsInfoIo {
+  static BridgedClass get definition => BridgedClass(
+    nativeType: HttpConnectionsInfo,
+    name: 'HttpConnectionsInfo',
+    isAssignable: (v) => v is HttpConnectionsInfo,
+    typeParameterCount: 0,
+    constructors: {
+      '': (visitor, positionalArgs, namedArgs) => HttpConnectionsInfo(),
+    },
+    getters: {
+      'total': (visitor, target) => (target as HttpConnectionsInfo).total,
+      'active': (visitor, target) => (target as HttpConnectionsInfo).active,
+      'idle': (visitor, target) => (target as HttpConnectionsInfo).idle,
+      'closing': (visitor, target) => (target as HttpConnectionsInfo).closing,
+    },
+    setters: {
+      'total': (visitor, target, value) {
+        (target as HttpConnectionsInfo).total = value as int;
+        return;
+      },
+      'active': (visitor, target, value) {
+        (target as HttpConnectionsInfo).active = value as int;
+        return;
+      },
+      'idle': (visitor, target, value) {
+        (target as HttpConnectionsInfo).idle = value as int;
+        return;
+      },
+      'closing': (visitor, target, value) {
+        (target as HttpConnectionsInfo).closing = value as int;
         return;
       },
     },
@@ -913,6 +1241,40 @@ class CookieIo {
   );
 }
 
+/// `SameSite` — the value `Cookie.sameSite` has always declared it takes.
+///
+/// **It is not an enum**, despite reading like one at every call site.
+/// The SDK declares `final class SameSite` with a private constructor and three
+/// static consts, the same shape as `Endian`. Registering it as a
+/// `BridgedEnumDefinition` would have given it `index`/`values` semantics it
+/// does not have and lost `toString`, which is the wire form (`SameSite=Lax`)
+/// and not a debug string.
+///
+/// `CookieIo` has carried the getter and the setter since before this bridge
+/// existed, which made the property look complete in the bridge listing while
+/// being unusable from a script: the getter returned a value with no name and
+/// the setter accepted nothing but null.
+class SameSiteIo {
+  static BridgedClass get definition => BridgedClass(
+    nativeType: SameSite,
+    name: 'SameSite',
+    isAssignable: (v) => v is SameSite,
+    typeParameterCount: 0,
+    constructors: {},
+    staticGetters: {
+      'lax': (visitor) => SameSite.lax,
+      'strict': (visitor) => SameSite.strict,
+      'none': (visitor) => SameSite.none,
+      'values': (visitor) => SameSite.values,
+    },
+    getters: {'name': (visitor, target) => (target as SameSite).name},
+    methods: {
+      'toString': (visitor, target, positionalArgs, namedArgs, _) =>
+          (target as SameSite).toString(),
+    },
+  );
+}
+
 class HeaderValueIo {
   static BridgedClass get definition => BridgedClass(
     nativeType: HeaderValue,
@@ -1128,11 +1490,17 @@ class IoHttpStdlib {
   static void register(Environment environment) {
     environment.defineBridge(HttpClientIo.definition);
     environment.defineBridge(HttpServerIo.definition);
+    environment.defineBridge(HttpRequestIo.definition);
+    environment.defineBridge(HttpResponseIo.definition);
+    environment.defineBridge(HttpSessionIo.definition);
+    environment.defineBridge(HttpConnectionInfoIo.definition);
+    environment.defineBridge(HttpConnectionsInfoIo.definition);
     environment.defineBridge(HttpClientRequestIo.definition);
     environment.defineBridge(HttpClientResponseIo.definition);
     environment.defineBridge(HttpHeadersIo.definition);
     environment.defineBridge(ContentTypeIo.definition);
     environment.defineBridge(CookieIo.definition);
+    environment.defineBridge(SameSiteIo.definition);
     environment.defineBridge(HeaderValueIo.definition);
     environment.defineBridge(HttpExceptionIo.definition);
     environment.defineBridge(RedirectExceptionIo.definition);

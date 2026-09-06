@@ -26,12 +26,14 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/convert.dart';
 /// `Environment` and a choice of which registrars to call — which is exactly
 /// what these tests do.
 ///
-/// NOT COVERED HERE, deliberately: 16 of the 32 names `dart:io` re-exports are
-/// still unreachable — the whole `dart:_http` server/WebSocket surface. That is
-/// a real gap, but a *bridging* gap (those classes are bridged nowhere at all),
-/// not the re-export gap SCB21 described. It is tracked separately rather than
-/// pinned here as a failing expectation, so that closing it does not require
-/// deleting assertions.
+/// NOT COVERED HERE, deliberately: 10 of the 32 names `dart:io` re-exports are
+/// still unreachable — what remains of the `dart:_http` surface once the
+/// request/response half is bridged, which is the WebSocket family plus the
+/// detail types (`HttpClientCredentials` shapes, `RedirectInfo`). That is a real
+/// gap, but a *bridging* gap (those classes are bridged nowhere at all), not the
+/// re-export gap SCB21 described. It is tracked separately rather than pinned
+/// here as a failing expectation, so that closing it does not require deleting
+/// assertions.
 void main() {
   group('SCB21: the typed_data names are eager, so no import gates them', () {
     test('F-SCB21-AST-1: Stdlib.register alone defines the names SCB21 '
@@ -128,7 +130,7 @@ void main() {
       IoStdlib.register(env);
     });
 
-    // 12 of the 32 re-exported names resolve as real bridged *types*. They are
+    // 18 of the 32 re-exported names resolve as real bridged *types*. They are
     // pinned because the follow-up work that bridges the other names will touch
     // this registrar, and silently losing one would look like unrelated
     // breakage.
@@ -141,6 +143,21 @@ void main() {
       'HeaderValue',
       'ContentType',
       'Cookie',
+      // The server half (SCC62). `HttpServer` above has been bridged all along,
+      // so these six are what turned it from a name into something that can
+      // answer a request. The round trip is pinned script-level in
+      // `tom_d4rt/test/stdlib/io/http_server_test.dart` (DGUC6: this tree
+      // cannot run scripts).
+      'HttpRequest',
+      'HttpResponse',
+      'HttpSession',
+      'HttpConnectionInfo',
+      'HttpConnectionsInfo',
+      // Reached as `Cookie.sameSite`'s value type rather than named directly,
+      // which is how it stayed missing while the property it belongs to was
+      // bridged on both sides. Not an enum despite reading like one — a final
+      // class with a private constructor and three static const instances.
+      'SameSite',
       // The exception surface (SCC61). An unresolvable name in a catch clause
       // is not an error, it is a handler that silently never matches — so the
       // name existing at all is the load-bearing fact. The script-level

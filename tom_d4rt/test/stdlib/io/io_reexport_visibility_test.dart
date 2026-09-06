@@ -27,9 +27,11 @@ import '../../interpreter_test.dart';
 /// permissive registry could just as easily have made everything visible to
 /// everyone, and that would NOT match Dart.
 ///
-/// NOT COVERED HERE, deliberately: 16 of the 32 names `dart:io` re-exports are
-/// still unreachable — the whole `dart:_http` server/WebSocket surface. That is
-/// a genuine gap, but it is a *bridging* gap (those classes are bridged nowhere
+/// NOT COVERED HERE, deliberately: 10 of the 32 names `dart:io` re-exports are
+/// still unreachable — what remains of the `dart:_http` surface once the
+/// request/response half is bridged, which is the WebSocket family plus the
+/// detail types (`HttpClientCredentials` shapes, `RedirectInfo`). That is a
+/// genuine gap, but it is a *bridging* gap (those classes are bridged nowhere
 /// at all), not the re-export gap SCB21 described. It is tracked separately
 /// rather than pinned here as a failing expectation, so that closing it does
 /// not require deleting assertions.
@@ -140,7 +142,7 @@ void main() {
   });
 
   group('SCB21: the HTTP re-exports that are bridged stay reachable', () {
-    // 12 of the 32 re-exported names resolve as real bridged *types*. They are
+    // 18 of the 32 re-exported names resolve as real bridged *types*. They are
     // pinned because the follow-up work that bridges the other names will touch
     // this registrar, and silently losing one would look like unrelated
     // breakage.
@@ -153,6 +155,18 @@ void main() {
       'HeaderValue',
       'ContentType',
       'Cookie',
+      // The server half (SCC62). `HttpServer` above has been bridged all along,
+      // so these six are what turned it from a name into something that can
+      // answer a request; `http_server_test.dart` pins the round trip.
+      'HttpRequest',
+      'HttpResponse',
+      'HttpSession',
+      'HttpConnectionInfo',
+      'HttpConnectionsInfo',
+      // Reached as `Cookie.sameSite`'s value type rather than named directly,
+      // which is how it stayed missing while the property it belongs to was
+      // bridged on both sides.
+      'SameSite',
       // The exception surface (SCC61). Reachability is the whole point of
       // bridging these: an unresolvable name in a catch clause is not an error,
       // it is a handler that silently never matches. `http_exception_test.dart`

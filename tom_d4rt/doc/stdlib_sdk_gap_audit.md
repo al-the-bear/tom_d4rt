@@ -1241,19 +1241,26 @@ Measured against a live environment, the 32 names split three ways:
 
 | Shape | Count | Names |
 | ----- | ----- | ----- |
-| Bridged as a real type | 12 | `HttpClient`, `HttpClientRequest`, `HttpClientResponse`, `HttpServer`, `HttpHeaders`, `HeaderValue`, `ContentType`, `Cookie`, `HttpException`, `RedirectException`, `HttpStatus`, `BytesBuilder` |
+| Bridged as a real type | 18 | `HttpClient`, `HttpClientRequest`, `HttpClientResponse`, `HttpServer`, `HttpRequest`, `HttpResponse`, `HttpSession`, `HttpConnectionInfo`, `HttpConnectionsInfo`, `HttpHeaders`, `HeaderValue`, `ContentType`, `Cookie`, `SameSite`, `HttpException`, `RedirectException`, `HttpStatus`, `BytesBuilder` |
 | Resolves as a callable, not a type | 4 | `HttpClientCredentials`, `HttpClientBasicCredentials`, `HttpClientBearerCredentials`, `HttpClientDigestCredentials` |
-| Not reachable at all | 16 | `HttpDate`, `BadCertificateCallback`, `HttpOverrides`, `WebSocketStatus`, `CompressionOptions`, `WebSocketTransformer`, `WebSocket`, `WebSocketException`, `HttpConnectionsInfo`, `HttpSession`, `SameSite`, `HttpRequest`, `HttpResponse`, `HttpClientResponseCompressionState`, `HttpConnectionInfo`, `RedirectInfo` |
+| Not reachable at all | 10 | `HttpDate`, `BadCertificateCallback`, `HttpOverrides`, `WebSocketStatus`, `CompressionOptions`, `WebSocketTransformer`, `WebSocket`, `WebSocketException`, `HttpClientResponseCompressionState`, `RedirectInfo` |
 
-The 16 are a **bridging** gap, not a re-export gap — those classes are
-bridged nowhere in either tree. One consequence is worth naming because it
-is worse than a plain missing name:
+The 10 are a **bridging** gap, not a re-export gap — those classes are
+bridged nowhere in either tree.
 
-- **`HttpServer` yields values a script cannot name.** The server is
-  bridged; `HttpRequest` and `HttpResponse` are not. A script can start a
-  server but has no type for what it hands back.
+The gaps this section used to carry that were worse than a plain missing name
+are now all closed. Each shared a shape: a name a script never *writes* but is
+*handed*, so its absence did not read as an error at the point it mattered.
 
-The exception surface used to carry a second, worse consequence — an
+The server was the largest. `HttpServer` was bridged while `HttpRequest` and
+`HttpResponse` were not, so a script could start a server, accept a connection,
+and have no type for what it was handed — the one path by which a request can be
+answered ran through a name that did not resolve. `SameSite` was the same defect
+in miniature: `Cookie.sameSite` was bridged as both getter and setter, so the
+property looked complete while the getter returned an unnameable value and the
+setter accepted nothing but null.
+
+The exception surface carried the sharpest version of it — an
 unresolved type in a catch clause does not raise, so `on HttpException
 catch` was a handler that silently never matched. `HttpException`,
 `RedirectException` and `HttpStatus` are now bridged, and so is
@@ -1273,12 +1280,11 @@ that probes reachability with `.toString()` cannot see any of this — every
 name in scope answers `toString()` — which is why the counts above are
 taken from registration shape and `is`, not from name resolution.
 
-**Disposition: all 20 remaining names are Tracked**, and the four todos
-partition the 16 exactly — no name is in two, none is in none:
+**Disposition: all 14 remaining names are Tracked**, and the three todos
+partition the 10 exactly — no name is in two, none is in none:
 
 | Names | Count | Tracked as |
 | ----- | ----- | ---------- |
-| `HttpRequest`, `HttpResponse`, `HttpSession`, `HttpConnectionInfo`, `HttpConnectionsInfo`, `SameSite` | 6 | SCC62 — makes the already-bridged `HttpServer` usable |
 | `WebSocket`, `WebSocketTransformer`, `WebSocketException`, `WebSocketStatus`, `CompressionOptions` | 5 | SCC63 — **also** has a limitations row; see the note under [P3](#p3--niche-or-questionable-sandbox-fit-audit-only-likely-skip) |
 | `HttpDate`, `HttpOverrides`, `BadCertificateCallback`, `RedirectInfo`, `HttpClientResponseCompressionState` | 5 | SCC65 — the client-side leftovers |
 | The four credentials names | 4 | SCC64 — registered, but as callables rather than types |
@@ -1287,9 +1293,11 @@ Pinned by [`io_reexport_visibility_test.dart`](../test/stdlib/io/io_reexport_vis
 and its registration-level mirror
 `tom_d4rt_ast/test/runtime/stdlib_io_reexport_visibility_test.dart`, with the
 exception surface's catching behaviour in
-[`http_exception_test.dart`](../test/stdlib/io/http_exception_test.dart). All
+[`http_exception_test.dart`](../test/stdlib/io/http_exception_test.dart) and the
+server's round trip in
+[`http_server_test.dart`](../test/stdlib/io/http_server_test.dart). All
 deliberately pin only the working surface: asserting today's behaviour for the
-16 missing names or the broken `is` would create assertions to delete rather
+10 missing names or the broken `is` would create assertions to delete rather
 than repair once they are fixed.
 
 ## Notes on argument guards in hand-written bridges
@@ -1447,15 +1455,18 @@ the six missing *classes* that produced them. It is now Boundary, with
    candidate of the same shape, `LineSplitter`, was not. SCC57 added the
    converse rule after a recipe for `Stdin` destroyed fd 0 for every later suite
    in the process: **a recipe must yield an object the audit owns.**
-6. **`dart:io`'s re-export surface is 16 names short** — the whole
-   `dart:_http` server/WebSocket block, none of it bridged anywhere. The
-   `HttpRequest`/`HttpResponse`/`HttpSession` block is what makes the
-   already-bridged `HttpServer` usable. Separately, the four credentials
-   names need converting from `NativeFunction` to real bridges so they work
-   as types. The exception surface is done: bridging `HttpException`,
-   `RedirectException`, `HttpStatus` and `IOException` was the highest value
-   per unit of work precisely because a missing catch-clause type does not
-   raise — it makes the handler dead code that reads as correct.
+6. **`dart:io`'s re-export surface is 10 names short** — what is left of the
+   `dart:_http` block once the server half is bridged, which is the WebSocket
+   family plus the detail types, none of it bridged anywhere. Separately, the
+   four credentials names need converting from `NativeFunction` to real bridges
+   so they work as types. Two blocks are done, and both were worth more than
+   their name count suggests, for the same reason: a missing name that is only
+   ever *reached* rather than *written* fails silently. Bridging
+   `HttpException`, `RedirectException`, `HttpStatus` and `IOException` turned
+   catch clauses that read as correct but were dead code into working handlers;
+   bridging `HttpRequest`/`HttpResponse`/`HttpSession`/`HttpConnectionInfo`/
+   `HttpConnectionsInfo`/`SameSite` turned the already-bridged `HttpServer` from
+   a name into something that can answer a request.
 
 ## Method / reproducibility
 
