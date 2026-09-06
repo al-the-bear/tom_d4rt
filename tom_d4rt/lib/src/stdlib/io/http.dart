@@ -1487,6 +1487,100 @@ class HttpStatusIo {
   );
 }
 
+/// The marker interface `HttpClient.addCredentials` accepts.
+///
+/// `abstract interface class HttpClientCredentials {}` in the SDK — no members
+/// and no factory, so this bridge deliberately declares neither. Its whole job
+/// is to make the name answer `is`: a script that wraps `addCredentials`
+/// behind a `dynamic` parameter has exactly one way to validate what it was
+/// handed, and it is this type.
+///
+/// `nativeNames` claims `_HttpClientCredentials`, the abstract impl base every
+/// concrete form extends. Without it a credentials value coming *back* from a
+/// native API would resolve to no bridge at all and be inert.
+class HttpClientCredentialsIo {
+  static BridgedClass get definition => BridgedClass(
+    nativeType: HttpClientCredentials,
+    name: 'HttpClientCredentials',
+    nativeNames: const ['_HttpClientCredentials'],
+    isAbstract: true,
+    isAssignable: (v) => v is HttpClientCredentials,
+    typeParameterCount: 0,
+  );
+}
+
+class HttpClientBasicCredentialsIo {
+  static BridgedClass get definition => BridgedClass(
+    nativeType: HttpClientBasicCredentials,
+    name: 'HttpClientBasicCredentials',
+    nativeNames: const ['_HttpClientBasicCredentials'],
+    isAssignable: (v) => v is HttpClientBasicCredentials,
+    typeParameterCount: 0,
+    constructors: {
+      '': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.length != 2 ||
+            positionalArgs[0] is! String ||
+            positionalArgs[1] is! String) {
+          throw RuntimeD4rtException(
+            'HttpClientBasicCredentials requires username and password '
+            'arguments.',
+          );
+        }
+        return HttpClientBasicCredentials(
+          positionalArgs[0] as String,
+          positionalArgs[1] as String,
+        );
+      },
+    },
+  );
+}
+
+class HttpClientDigestCredentialsIo {
+  static BridgedClass get definition => BridgedClass(
+    nativeType: HttpClientDigestCredentials,
+    name: 'HttpClientDigestCredentials',
+    nativeNames: const ['_HttpClientDigestCredentials'],
+    isAssignable: (v) => v is HttpClientDigestCredentials,
+    typeParameterCount: 0,
+    constructors: {
+      '': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.length != 2 ||
+            positionalArgs[0] is! String ||
+            positionalArgs[1] is! String) {
+          throw RuntimeD4rtException(
+            'HttpClientDigestCredentials requires username and password '
+            'arguments.',
+          );
+        }
+        return HttpClientDigestCredentials(
+          positionalArgs[0] as String,
+          positionalArgs[1] as String,
+        );
+      },
+    },
+  );
+}
+
+class HttpClientBearerCredentialsIo {
+  static BridgedClass get definition => BridgedClass(
+    nativeType: HttpClientBearerCredentials,
+    name: 'HttpClientBearerCredentials',
+    nativeNames: const ['_HttpClientBearerCredentials'],
+    isAssignable: (v) => v is HttpClientBearerCredentials,
+    typeParameterCount: 0,
+    constructors: {
+      '': (visitor, positionalArgs, namedArgs) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! String) {
+          throw RuntimeD4rtException(
+            'HttpClientBearerCredentials requires a token argument.',
+          );
+        }
+        return HttpClientBearerCredentials(positionalArgs[0] as String);
+      },
+    },
+  );
+}
+
 class IoHttpStdlib {
   static void register(Environment environment) {
     environment.defineBridge(HttpClientIo.definition);
@@ -1517,74 +1611,13 @@ class IoHttpStdlib {
     environment.defineBridge(WebSocketStatusIo.definition);
     environment.defineBridge(CompressionOptionsIo.definition);
 
-    // Define constructor functions for credentials
-    environment.define(
-      'HttpClientCredentials',
-      NativeFunction(
-        (visitor, arguments, namedArguments, typeArguments) {
-          return HttpClientCredentials;
-        },
-        arity: 0,
-        name: 'HttpClientCredentials',
-      ),
-    );
-
-    environment.define(
-      'HttpClientBasicCredentials',
-      NativeFunction(
-        (visitor, arguments, namedArguments, typeArguments) {
-          if (arguments.length != 2 ||
-              arguments[0] is! String ||
-              arguments[1] is! String) {
-            throw RuntimeD4rtException(
-              'HttpClientBasicCredentials requires username and password arguments.',
-            );
-          }
-          return HttpClientBasicCredentials(
-            arguments[0] as String,
-            arguments[1] as String,
-          );
-        },
-        arity: 2,
-        name: 'HttpClientBasicCredentials',
-      ),
-    );
-
-    environment.define(
-      'HttpClientDigestCredentials',
-      NativeFunction(
-        (visitor, arguments, namedArguments, typeArguments) {
-          if (arguments.length != 2 ||
-              arguments[0] is! String ||
-              arguments[1] is! String) {
-            throw RuntimeD4rtException(
-              'HttpClientDigestCredentials requires username and password arguments.',
-            );
-          }
-          return HttpClientDigestCredentials(
-            arguments[0] as String,
-            arguments[1] as String,
-          );
-        },
-        arity: 2,
-        name: 'HttpClientDigestCredentials',
-      ),
-    );
-
-    environment.define(
-      'HttpClientBearerCredentials',
-      NativeFunction(
-        (visitor, arguments, namedArguments, typeArguments) {
-          if (arguments.length != 1 || arguments[0] is! String) {
-            throw RuntimeD4rtException(
-              'HttpClientBearerCredentials requires a token argument.',
-            );
-          }
-          return HttpClientBearerCredentials(arguments[0] as String);
-        },
-        arity: 1,
-        name: 'HttpClientBearerCredentials',
-      ),
-    );
+    // The credentials block (SCC64). These four were registered as bare
+    // `NativeFunction`s — construction worked, but the names were callable
+    // values rather than types, so `x is HttpClientBasicCredentials` did not
+    // ask a type question at all.
+    environment.defineBridge(HttpClientCredentialsIo.definition);
+    environment.defineBridge(HttpClientBasicCredentialsIo.definition);
+    environment.defineBridge(HttpClientDigestCredentialsIo.definition);
+    environment.defineBridge(HttpClientBearerCredentialsIo.definition);
   }
 }

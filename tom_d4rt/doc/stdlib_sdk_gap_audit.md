@@ -1248,12 +1248,11 @@ which imports but does not re-export `dart:convert`. `CoreStdlib`,
 `AsyncStdlib` and `TypedDataStdlib` are eager (see GEN-106), so their names
 need no import.
 
-Measured against a live environment, the 32 names split three ways:
+Measured against a live environment, the 32 names split two ways:
 
 | Shape | Count | Names |
 | ----- | ----- | ----- |
-| Bridged as a real type | 23 | `HttpClient`, `HttpClientRequest`, `HttpClientResponse`, `HttpServer`, `HttpRequest`, `HttpResponse`, `HttpSession`, `HttpConnectionInfo`, `HttpConnectionsInfo`, `HttpHeaders`, `HeaderValue`, `ContentType`, `Cookie`, `SameSite`, `HttpException`, `RedirectException`, `HttpStatus`, `WebSocket`, `WebSocketTransformer`, `WebSocketException`, `WebSocketStatus`, `CompressionOptions`, `BytesBuilder` |
-| Resolves as a callable, not a type | 4 | `HttpClientCredentials`, `HttpClientBasicCredentials`, `HttpClientBearerCredentials`, `HttpClientDigestCredentials` |
+| Bridged as a real type | 27 | `HttpClient`, `HttpClientRequest`, `HttpClientResponse`, `HttpServer`, `HttpRequest`, `HttpResponse`, `HttpSession`, `HttpConnectionInfo`, `HttpConnectionsInfo`, `HttpHeaders`, `HeaderValue`, `ContentType`, `Cookie`, `SameSite`, `HttpException`, `RedirectException`, `HttpStatus`, `WebSocket`, `WebSocketTransformer`, `WebSocketException`, `WebSocketStatus`, `CompressionOptions`, `HttpClientCredentials`, `HttpClientBasicCredentials`, `HttpClientBearerCredentials`, `HttpClientDigestCredentials`, `BytesBuilder` |
 | Not reachable at all | 5 | `HttpDate`, `BadCertificateCallback`, `HttpOverrides`, `HttpClientResponseCompressionState`, `RedirectInfo` |
 
 The 5 are a **bridging** gap, not a re-export gap — those classes are
@@ -1280,16 +1279,24 @@ to `Exception` was registered but no class stood under the name, so `on
 IOException catch` missed every `dart:io` exception while the less specific
 `on Exception catch` caught them.
 
-The four callable-shaped credentials are registered with
-`environment.define(..., NativeFunction(...))` rather than `defineBridge`.
-Calling them works, which is the common script use (hand credentials to an
-`HttpClient`). Using them as *types* does not: `x is
-HttpClientBasicCredentials` **invokes** the callable and throws *"requires
-username and password arguments"*, while the zero-arity
-`HttpClientCredentials` answers a silent, always-wrong `false`. An audit
-that probes reachability with `.toString()` cannot see any of this — every
-name in scope answers `toString()` — which is why the counts above are
-taken from registration shape and `is`, not from name resolution.
+The credentials family was the subtlest of them. All four were registered
+with `environment.define(..., NativeFunction(...))` rather than
+`defineBridge`, which made construction work — the common script use, hand
+credentials to an `HttpClient` — while leaving the names as callable values
+that merely shared a class name. Using them as *types* therefore did not
+ask a type question at all: `x is HttpClientBasicCredentials` **invoked**
+the callable and threw *"requires username and password arguments"*, while
+the zero-arity `HttpClientCredentials` really did return a `Type` and so
+answered a silent, always-wrong `false` even for a genuine credentials
+value. They are now real bridges, with the three concrete forms declaring
+the marker interface as a supertype so `c is HttpClientCredentials` — the
+type `addCredentials` accepts, and the only check a script wrapping it can
+make — answers true.
+
+An audit that probes reachability with `.toString()` cannot see any of this:
+every name in scope answers `toString()`, callable or not, which is why the
+counts above are taken from registration shape and `is` rather than from
+name resolution.
 
 The WebSocket block is the one group that was unreachable in its *entirety*
 rather than partly, so unlike the shapes above it never misled anyone — a
@@ -1298,13 +1305,11 @@ bridged; the two facts worth knowing about them (the absent permission gate and
 the SDK's hardcoded `extensions` getter) are under
 [P3](#p3--niche-or-questionable-sandbox-fit-audit-only-likely-skip).
 
-**Disposition: all 9 remaining names are Tracked**, and the two todos partition
-the 5 unreachable ones exactly — no name is in two, none is in none:
+**Disposition: the 5 remaining names are Tracked** as one todo:
 
 | Names | Count | Tracked as |
 | ----- | ----- | ---------- |
 | `HttpDate`, `HttpOverrides`, `BadCertificateCallback`, `RedirectInfo`, `HttpClientResponseCompressionState` | 5 | SCC65 — the client-side leftovers |
-| The four credentials names | 4 | SCC64 — registered, but as callables rather than types |
 
 Pinned by [`io_reexport_visibility_test.dart`](../test/stdlib/io/io_reexport_visibility_test.dart)
 and its registration-level mirror
@@ -1314,8 +1319,9 @@ exception surface's catching behaviour in
 server's round trip in
 [`http_server_test.dart`](../test/stdlib/io/http_server_test.dart). All
 deliberately pin only the working surface: asserting today's behaviour for the
-10 missing names or the broken `is` would create assertions to delete rather
-than repair once they are fixed.
+5 missing names would create assertions to delete rather than repair once they
+are bridged. The credentials family's type questions are pinned in
+[`http_credentials_test.dart`](../test/stdlib/io/http_credentials_test.dart).
 
 ## Notes on argument guards in hand-written bridges
 
@@ -1474,18 +1480,19 @@ the six missing *classes* that produced them. It is now Boundary, with
    converse rule after a recipe for `Stdin` destroyed fd 0 for every later suite
    in the process: **a recipe must yield an object the audit owns.**
 6. **`dart:io`'s re-export surface is 5 names short** — the client-side detail
-   types, bridged nowhere. Separately, the four credentials names need
-   converting from `NativeFunction` to real bridges so they work as types.
-   Three blocks are done. Two were worth more than their name count suggests,
-   for the same reason: a missing name that is only ever *reached* rather than
-   *written* fails silently. Bridging `HttpException`, `RedirectException`,
-   `HttpStatus` and `IOException` turned catch clauses that read as correct but
-   were dead code into working handlers; bridging
-   `HttpRequest`/`HttpResponse`/`HttpSession`/`HttpConnectionInfo`/
+   types, bridged nowhere. Four blocks are done, and three of them were worth
+   more than their name count suggests, for the same reason: a name that is only
+   ever *reached* rather than *written* fails silently. Bridging
+   `HttpException`, `RedirectException`, `HttpStatus` and `IOException` turned
+   catch clauses that read as correct but were dead code into working handlers;
+   bridging `HttpRequest`/`HttpResponse`/`HttpSession`/`HttpConnectionInfo`/
    `HttpConnectionsInfo`/`SameSite` turned the already-bridged `HttpServer` from
-   a name into something that can answer a request. The WebSocket block is the
-   exception that proves the point — it was absent in its entirety, so it failed
-   loudly, and it was bridged for the capability rather than to repair a lie.
+   a name into something that can answer a request; and converting the four
+   credentials names from callables into real bridges turned `x is
+   HttpClientCredentials` from a throw or a silent `false` into an answer. The
+   WebSocket block is the exception that proves the point — it was absent in its
+   entirety, so it failed loudly, and it was bridged for the capability rather
+   than to repair a lie.
 
 ## Method / reproducibility
 

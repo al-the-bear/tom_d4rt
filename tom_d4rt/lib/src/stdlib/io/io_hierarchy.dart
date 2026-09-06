@@ -104,6 +104,19 @@ class IoHierarchyIo {
       // edge is here for the type test, and to record that the spread is
       // implementing a declared relationship rather than borrowing adapters.
       'HttpSession': ['Map'],
+      // The credentials family (SCC64). `HttpClientCredentials` is the marker
+      // `addCredentials` accepts, so `concrete is HttpClientCredentials` is the
+      // question a script actually asks — and `isAssignable` is consulted only
+      // for the pair being asked about, never walking the target's own
+      // supertypes, so without these edges that question answers false while
+      // `concrete is ConcreteType` passes.
+      //
+      // They also break the bridge-selection tie: both the marker and the
+      // concrete bridge answer `isAssignable` true for the same native object,
+      // and hand-written bridges all carry `hierarchyDepth == 0`.
+      'HttpClientBasicCredentials': ['HttpClientCredentials'],
+      'HttpClientDigestCredentials': ['HttpClientCredentials'],
+      'HttpClientBearerCredentials': ['HttpClientCredentials'],
     });
   }
 }

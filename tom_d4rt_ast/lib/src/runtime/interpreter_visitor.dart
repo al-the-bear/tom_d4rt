@@ -11619,16 +11619,31 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                 // A non-instance value cannot be a subtype of a user-defined class
                 result = false;
               }
-            } else if (targetType is NativeFunction &&
-                targetType.call(this, []) is Type) {
-              final object = targetType.call(this, []);
-
-              // This early return used to leave `visitIsExpression` directly,
-              // so `is!` against a Type-valued native silently answered the
-              // un-negated result. Returning from the predicate instead lets
-              // the caller apply the negation — a fix that fell out of the
-              // extraction rather than one that was sought.
-              return expressionValue.runtimeType == object;
+            } else if (targetType is Callable) {
+              // SCC64: a callable is never a type, so this is a diagnosis
+              // rather than an answer — and until SCC64 the interpreter
+              // answered it by CALLING the function, twice, to see whether it
+              // returned a `Type`. A type test therefore ran arbitrary host
+              // code: `1 is print` surfaced a `RangeError` from inside
+              // `print`'s own body, and `1 is identical` reported "identical
+              // requires two arguments" as though the type test had arguments.
+              //
+              // That branch existed for exactly one registration in the whole
+              // stdlib — `HttpClientCredentials`, defined as a zero-arity
+              // native returning its own `Type` — which SCC64 replaced with a
+              // real bridge. No consumer package registers a `Type`-valued
+              // native either, so it was one workaround that every other
+              // callable fell into rather than a mechanism with one user.
+              //
+              // `Callable`, not `NativeFunction`: an interpreted function
+              // reached the `else` below and got "not found or is not a int",
+              // which names the OPERAND's type and so reads as though the
+              // operand were at fault. Both halves of the same mistake now
+              // give the same sentence.
+              throw RuntimeD4rtException(
+                "'$typeName' is a function, not a type, so it cannot be used "
+                "on the right-hand side of 'is'.",
+              );
             } else {
               throw RuntimeD4rtException(
                 "Type '$typeName' not found or is not a ${expressionValue.runtimeType}.",

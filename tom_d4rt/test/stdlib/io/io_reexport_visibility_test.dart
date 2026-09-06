@@ -142,7 +142,7 @@ void main() {
   });
 
   group('SCB21: the HTTP re-exports that are bridged stay reachable', () {
-    // 23 of the 32 re-exported names resolve as real bridged *types*. They are
+    // 27 of the 32 re-exported names resolve as real bridged *types*. They are
     // pinned because the follow-up work that bridges the other names will touch
     // this registrar, and silently losing one would look like unrelated
     // breakage.
@@ -188,6 +188,16 @@ void main() {
       'WebSocketException',
       'WebSocketStatus',
       'CompressionOptions',
+      // The credentials family (SCC64). These four were the last names that
+      // "resolved" without being types: registered as bare `NativeFunction`s,
+      // so they constructed but could not be asked about. `1 is X` throwing —
+      // or, for the zero-arity marker, answering a silent always-wrong
+      // `false` — is what moved them out of their own group and into this one.
+      // `http_credentials_test.dart` pins the type questions that matter.
+      'HttpClientCredentials',
+      'HttpClientBasicCredentials',
+      'HttpClientBearerCredentials',
+      'HttpClientDigestCredentials',
       // Reaches a dart:io script through the eager typed_data registrar rather
       // than through the io one — but from the script's side it is simply
       // another name that resolves.
@@ -198,9 +208,9 @@ void main() {
       test('F-SCB21-8-$name: $name is usable as a type under dart:io '
           '[2026-07-28]', () {
         // `is` is the discriminating demand, not `.toString()`. Every name in
-        // scope answers `.toString()` — including the four credentials names
-        // below, which are not types at all — so a toString-based check would
-        // report a healthy surface that isn't one.
+        // scope answers `.toString()`, including a callable that merely shares
+        // a class name — which is what the credentials four used to be — so a
+        // toString-based check would report a healthy surface that isn't one.
         final source =
             '''
         import 'dart:io';
@@ -209,56 +219,5 @@ void main() {
         expect(execute(source), isFalse);
       });
     }
-  });
-
-  group('SCB21: the credentials names are functions, not types', () {
-    // The remaining four of the 13 names that "resolve" are registered with
-    // `environment.define(..., NativeFunction(...))` rather than
-    // `defineBridge`, so they are callable values that happen to share a class
-    // name. Separated into their own group because that distinction is exactly
-    // what a `.toString()`-shaped audit misses — and because the difference is
-    // observable, so it should be stated rather than averaged away.
-    const credentials = <String>[
-      'HttpClientCredentials',
-      'HttpClientBasicCredentials',
-      'HttpClientBearerCredentials',
-      'HttpClientDigestCredentials',
-    ];
-
-    for (final name in credentials) {
-      test('F-SCB21-9-$name: $name resolves to a callable [2026-07-28]', () {
-        final source =
-            '''
-        import 'dart:io';
-        main() { return $name.toString(); }
-        ''';
-        expect(execute(source), contains('native fn'));
-      });
-    }
-
-    test(
-      'F-SCB21-10: constructing through the callable works [2026-07-28]',
-      () {
-        // What the function shape does deliver, and the reason it was written
-        // this way: the common script use is to hand credentials to an
-        // HttpClient, which only needs the value.
-        const source = '''
-      import 'dart:io';
-      main() {
-        var c = HttpClientBasicCredentials('user', 'pass');
-        return c.toString();
-      }
-      ''';
-        expect(execute(source), contains('HttpClientBasicCredentials'));
-      },
-    );
-
-    // NOT pinned here: `x is HttpClientBasicCredentials` currently *invokes*
-    // the callable instead of testing a type, so it throws "requires username
-    // and password arguments"; the zero-arity `HttpClientCredentials` instead
-    // answers a silent, always-wrong `false`. Both are defects, and the fix is
-    // to bridge these as real classes — which would make an assertion pinned to
-    // today's behaviour something to delete rather than repair. Tracked as a
-    // follow-up instead.
   });
 }

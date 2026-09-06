@@ -129,7 +129,7 @@ void main() {
       IoStdlib.register(env);
     });
 
-    // 23 of the 32 re-exported names resolve as real bridged *types*. They are
+    // 27 of the 32 re-exported names resolve as real bridged *types*. They are
     // pinned because the follow-up work that bridges the other names will touch
     // this registrar, and silently losing one would look like unrelated
     // breakage.
@@ -182,6 +182,16 @@ void main() {
       'WebSocketException',
       'WebSocketStatus',
       'CompressionOptions',
+      // The credentials family (SCC64). These four were registered with
+      // `define(..., NativeFunction(...))` rather than `defineBridge`, so they
+      // resolved as callable values that merely shared a class name — the last
+      // names in this list that "resolved" without being types. The script-side
+      // consequences are pinned in `tom_d4rt/test/stdlib/io/
+      // http_credentials_test.dart` (DGUC6: this tree cannot run scripts).
+      'HttpClientCredentials',
+      'HttpClientBasicCredentials',
+      'HttpClientBearerCredentials',
+      'HttpClientDigestCredentials',
       // Comes from the eager typed_data registrar rather than `IoStdlib`, but
       // lands in the same environment — which is the whole point above.
       'BytesBuilder',
@@ -193,30 +203,75 @@ void main() {
       });
     }
 
-    test('F-SCB21-AST-6: the four credentials names are callables, not types '
-        '[2026-07-28]', () {
-      // The distinction this tree can see more sharply than a script can. They
-      // are registered with `define(..., NativeFunction(...))` rather than
-      // `defineBridge`, so they are values that happen to share a class name.
-      // A script calling `HttpClientBasicCredentials('u', 'p')` works; a script
-      // writing `x is HttpClientBasicCredentials` *invokes* the callable
-      // instead of testing a type. Pinning the registration shape here is what
-      // makes that script-level defect explicable rather than mysterious.
+    // SCC64 — the credentials family, at the registration level.
+    //
+    // What this tree can see and a script cannot: the *shape* each name is
+    // registered with. Before SCC64 all four were `NativeFunction`s, and the
+    // script-level symptom — `x is HttpClientBasicCredentials` executing the
+    // constructor instead of testing a type — was only explicable once you
+    // knew that. Pinning the shape here is what keeps the two halves connected.
+    const credentials = <String>[
+      'HttpClientCredentials',
+      'HttpClientBasicCredentials',
+      'HttpClientBearerCredentials',
+      'HttpClientDigestCredentials',
+    ];
+
+    for (final name in credentials) {
+      test('F-SCB21-AST-6-$name: $name resolves to a bridge rather than a '
+          'callable [2026-09-06]', () {
+        expect(env.findBridgedClassByName(name), isNotNull);
+        expect(
+          env.get(name),
+          isNot(isA<NativeFunction>()),
+          reason: '$name must no longer be a callable value',
+        );
+      });
+    }
+
+    test('F-SCB21-AST-7: the marker carries no constructor and the three '
+        'concrete forms do [2026-09-06]', () {
+      // `abstract interface class HttpClientCredentials {}` in the SDK has no
+      // factory, so `HttpClientCredentials()` must fail. The three concrete
+      // forms each declare one, and losing a constructor while gaining a type
+      // is exactly the trade the conversion had to avoid.
+      expect(
+        env.findBridgedClassByName('HttpClientCredentials')!.isAbstract,
+        isTrue,
+      );
+      expect(
+        env.findBridgedClassByName('HttpClientCredentials')!.constructors,
+        isEmpty,
+      );
       for (final name in const <String>[
-        'HttpClientCredentials',
         'HttpClientBasicCredentials',
         'HttpClientBearerCredentials',
         'HttpClientDigestCredentials',
       ]) {
         expect(
-          env.findBridgedClassByName(name),
-          isNull,
-          reason: '$name is defined as a NativeFunction, not a bridge',
+          env.findBridgedClassByName(name)!.constructors,
+          contains(''),
+          reason: '$name must keep its unnamed constructor',
         );
+      }
+    });
+
+    test('F-SCB21-AST-8: the three concrete forms declare the marker as a '
+        'supertype [2026-09-06]', () {
+      // `isAssignable` is consulted only for the pair being asked about and
+      // never walks the target's own supertypes, so without these registered
+      // edges `concrete is HttpClientCredentials` answers false while
+      // `concrete is ConcreteType` passes — and the marker is precisely the
+      // type `addCredentials` accepts, so it is the question worth asking.
+      for (final name in const <String>[
+        'HttpClientBasicCredentials',
+        'HttpClientBearerCredentials',
+        'HttpClientDigestCredentials',
+      ]) {
         expect(
-          env.get(name),
-          isA<NativeFunction>(),
-          reason: '$name must still resolve as a callable value',
+          BridgedClass.transitiveSupertypeNames(name),
+          contains('HttpClientCredentials'),
+          reason: '$name must declare the marker interface',
         );
       }
     });

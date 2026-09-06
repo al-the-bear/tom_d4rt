@@ -1,3 +1,37 @@
+## 1.62.0
+
+### Fixed — a type test no longer runs the function it is asked about (scc64)
+
+`x is Foo`, where `Foo` resolved to a callable, was answered by **calling it**
+— twice, because the guard and the body each invoked it — to see whether it
+returned a `Type`. A type test, which a reader takes to be a pure question
+about a value, therefore executed arbitrary host code with whatever side
+effects that code has. `1 is print` surfaced a raw `RangeError` from inside
+`print`'s own body; `1 is identical` reported *"identical requires two
+arguments"* as though the type test had arguments.
+
+The interpreter now diagnoses a callable on the right-hand side of `is`
+without invoking anything, and says it the same way for a host function and
+for a script one — an `InterpretedFunction` previously missed the branch
+entirely and fell through to *"Type 'f' not found or is not a int"*, which
+names the *operand's* type and so reads as though the operand were at fault.
+
+### Fixed — the four `HttpClient*Credentials` names are types (scc64)
+
+`IoHttpStdlib` registered all four with `environment.define(...,
+NativeFunction(...))` rather than `defineBridge`. Construction worked — the
+common script use — but the names were callable values that merely shared a
+class name, so `c is HttpClientBasicCredentials` threw rather than answering,
+and the zero-arity `HttpClientCredentials` answered a silent, always-wrong
+`false` even for a genuine credentials instance. `HttpClientCredentials()`
+also *succeeded*, handing the script a `Type` object, though the SDK declares
+it as a bare `abstract interface class` with no factory.
+
+All four are now real bridges. The marker is abstract with no constructors;
+the three concrete forms keep their constructors and declare the marker as a
+supertype, so `c is HttpClientCredentials` — the type `addCredentials` accepts,
+and the only check a script wrapping that call can make — answers true.
+
 ## 1.61.0
 
 ### Added — WebSockets (scc63)
