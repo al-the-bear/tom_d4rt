@@ -3885,6 +3885,85 @@ Corpus runs made to certify an interpreter change rather than to
 discover new clusters. Each entry records what was measured, against
 which resolved package versions, and what moved.
 
+### 2026-09-06 — base corpus, BOTH twins at the SCC75 publish: a thirteen-minor interpreter jump is behaviourally neutral
+
+**Scope: the 17-file BASE subset only** (`run_base_tests.sh`,
+`flutter_base_01..17`), not the 41-file corpus. The entry below it is the
+standing full-corpus baseline and remains so — these numbers do not supersede
+it and must not be compared against its corpus-wide totals.
+
+**Resolved interpreter versions** — read from the COMPANION APP lockfiles,
+which are the ones the corpus actually runs:
+
+| Package | `tom_d4rt` | `tom_d4rt_ast` |
+| ------- | ---------- | -------------- |
+| `tom_d4rt_flutter/test/tom_d4rt_flutter_test_app` | **1.66.0** | — |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app` | — | **0.55.0** |
+
+Previous entry measured 1.53.0 / 0.42.0. Thirteen minors on both lines.
+
+**Why this run exists.** SCC75 published both interpreters to close the skew
+every exec-side and Flutter-side measurement was being taken through. A
+publish moves what the twins resolve, so the corpus is the gate for it.
+
+**A near-miss worth recording, because it would not have been visible in the
+result.** `flutter pub upgrade` in the TWIN does not touch the companion app's
+lock, and the app is a separate package that reaches the interpreter by path.
+The first attempt at this run was already in flight against 0.42.0 / 1.53.0
+with the twins themselves on 0.55.0 / 1.66.0 — it would have completed,
+produced per-file numbers, and certified the previous release with nothing in
+the output to say so. Caught by reading the app lockfiles before trusting the
+run. Filed as `scd193`; the fix is to make the runners read and report the
+app's resolved version rather than to remember to check.
+
+**Method.** `IDLE_TIMEOUT=300` (the default 80 killed `flutter_base_01` and
+`_02` on the first attempt, exactly as the 2026-09-06 full run recorded).
+AST twin to completion first, `tom_d4rt_flutter` only afterwards — serial, as
+the one-app-one-server design requires.
+
+**Result.** Both twins, all 17 files, against the same files at the previous
+pair:
+
+| | AST 0.42.0 | AST 0.55.0 | source 1.53.0 | source 1.66.0 |
+| --- | --- | --- | --- | --- |
+| files | 17/17 | 17/17 | 17/17 | 17/17 |
+| files with a non-zero exit | 0 | 1 (transport) | 0 | 0 |
+| `frameworkErrors` | 108 | **111** | 117 | **111** |
+
+**Fifteen of the seventeen files are identical across all four columns.** Only
+`flutter_base_12` (AST 51 → 46, source 53 → 51) and `flutter_base_13`
+(AST 14 → 22, source 21 → 17) move, and they move in *opposite* directions on
+the two twins — which is the frame-timing variance the entry below already
+characterised for GEN-125: the rejection is raised once per rebuild, so the
+count tracks when frames land rather than what the interpreter did.
+
+**Both twins land on exactly 111.** They started three points apart and
+converged, which is the property the analyzer-free line exists to hold: after a
+thirteen-minor jump on both sides, the two remain behaviourally
+indistinguishable on this corpus.
+
+**So the jump is behaviourally neutral.** That is the right result for a
+release whose purpose was closing a version skew rather than fixing corpus
+defects, and it is the useful finding: nothing in 1.54.0–1.66.0 /
+0.43.0–0.55.0 regressed the Flutter bridge surface. GEN-125 is untouched, as
+expected — nothing in those releases addressed it.
+
+**A misreading that was live for several minutes, recorded because the shape
+recurs.** Nine files into the AST run the aggregate read "8 `frameworkErrors`
+across 6 script runs" against a baseline of "108 across 47", which looks like a
+collapse and is not: it compared ten completed files against seventeen. The
+per-file table above is the only honest form. This is the same error the entry
+below warns about, inverted — there, exit codes understated the damage; here,
+an aggregate over mismatched denominators would have overstated the
+improvement.
+
+**The one non-zero exit is transport, not interpretation.**
+`flutter_base_01` → `animation/curve_test.dart` reported
+`status=transport_error httpStatus=-1` after 30.8s (`HttpException:
+Connection closed before full header was received`), on the first script of
+the first file immediately after app start. `frameworkErrors=0` for it. One
+occurrence in the whole run; the remaining 16 files exited 0.
+
 ### 2026-09-06 — full corpus, BOTH twins: GEN-124 fixed; the corpus's exit codes understated the damage by 20×
 
 **This is the current baseline.** Supersedes the 2026-08-12 run below.
