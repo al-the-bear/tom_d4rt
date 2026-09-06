@@ -10,7 +10,7 @@ environment:
   sdk: ^3.5.0
 
 dependencies:
-  tom_d4rt: ">=1.11.0"
+  tom_d4rt: ">=1.66.0"
 
 dev_dependencies:
   # Floor 1.15.3: below it, a regeneration from a relative scan root writes

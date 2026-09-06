@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   path: ^1.9.0
-  tom_d4rt: ">=1.11.0"
+  tom_d4rt: ">=1.66.0"
 
 dev_dependencies:
   lints: ^5.0.0

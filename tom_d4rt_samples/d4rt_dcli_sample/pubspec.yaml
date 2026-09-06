@@ -11,7 +11,7 @@ environment:
   sdk: ^3.5.0
 
 dependencies:
-  tom_d4rt: ">=1.11.0"
+  tom_d4rt: ">=1.66.0"
   tom_d4rt_dcli: ">=1.1.6"
   # Referenced directly by the example scripts (import 'package:dcli/dcli.dart').
   dcli: ^8.4.2

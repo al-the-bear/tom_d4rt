@@ -12,7 +12,7 @@ dependencies:
   # library also declares (tcca19 applied too broadly); 1.30.1 restores
   # platform-library precedence. Matches the generator's own floor so this
   # fixture measures the interpreter the generator is developed against.
-  tom_d4rt: ">=1.30.1"
+  tom_d4rt: ">=1.66.0"
   tom_d4rt_generator:
     path: ../..
 
