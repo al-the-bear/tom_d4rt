@@ -2,16 +2,6 @@ import 'package:test/test.dart';
 
 import 'interpreter_test.dart';
 
-/// The multi-await tests below are FIXED in the working tree but cannot run
-/// here yet: `tom_d4rt_exec` resolves `tom_d4rt_ast` **from pub.dev**, not by
-/// path (DGUC6), so this suite certifies the *published* interpreter. The SCC40
-/// fix landed after 0.40.0 and is verified green in the `tom_d4rt` suite and —
-/// under a throwaway path override — in this suite too (3054/1/0). Un-skip when
-/// `tom_d4rt_ast` publishes past 0.40.0.
-const publishedAstGapSkip =
-    'Fixed by SCC40 in the working tree; tom_d4rt_exec resolves tom_d4rt_ast '
-    'from pub.dev (0.40.0), which predates the fix. Un-skip after publish.';
-
 /// SCB14 — `await` used directly in RECEIVER position.
 ///
 /// The suspension machinery re-enters the enclosing statement once the future
@@ -139,10 +129,6 @@ void main() {
     // not-yet-reached await stopped short-circuiting to `lastAwaitResult` it
     // began reading its operand for real, which forced the resumption path to
     // restore the frame's environment — the very thing Bug B was about.
-    //
-    // They are nevertheless SKIPPED here, and only here: the `tom_d4rt` twin
-    // runs them green. This package pins `tom_d4rt_ast` from pub.dev at 0.40.0,
-    // which predates the fix — see [publishedAstGapSkip].
     // ---------------------------------------------------------------------
 
     // Bug A — there used to be one `lastAwaitResult` slot per async frame, and
@@ -166,7 +152,6 @@ void main() {
       ''');
         expect(result, equals('1,2|3,4'));
       },
-      skip: publishedAstGapSkip,
     );
 
     test(
@@ -182,7 +167,6 @@ void main() {
       ''');
         expect(result, equals('1|3'));
       },
-      skip: publishedAstGapSkip,
     );
 
     test('F-SCB14-12: two awaits with no receiver at all', () async {
@@ -195,7 +179,7 @@ void main() {
         main() async => await run();
       ''');
       expect(result, equals('AB'));
-    }, skip: publishedAstGapSkip);
+    });
 
     // The per-await-site map is scoped to ONE evaluation of the suspended
     // statement, and a loop body re-enters the *identical* AST node on every
@@ -224,10 +208,8 @@ void main() {
     // change: restoring `visitor.environment` before re-evaluating is what the
     // per-site fix *forced*, because a not-yet-reached await now genuinely reads
     // its operand instead of short-circuiting to `lastAwaitResult`.
-    test(
-      'F-SCB14-10: await in an argument whose target is a local',
-      () async {
-        final result = await executeAsync('''
+    test('F-SCB14-10: await in an argument whose target is a local', () async {
+      final result = await executeAsync('''
         Future<int> run() async {
           final f = Stream.fromIterable([5, 6]).toList();
           final out = <int>[];
@@ -236,9 +218,7 @@ void main() {
         }
         main() async => await run();
       ''');
-        expect(result, equals(4));
-      },
-      skip: publishedAstGapSkip,
-    );
+      expect(result, equals(4));
+    });
   });
 }

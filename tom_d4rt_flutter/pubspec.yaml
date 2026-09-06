@@ -26,7 +26,7 @@ dependencies:
   # same-name rule to `dart:*` declarations too, so `TextStyle` — declared by
   # both `dart:ui` and painting — is rejected unqualified and 17 base-corpus
   # scripts fail. 1.30.1 restores Dart's platform-library precedence.
-  tom_d4rt: ">=1.30.1"
+  tom_d4rt: ">=1.66.0"
   path: ^1.9.0
   # A.4: opt-in vector_math_64 bridge surface (Quad / Vector3 / Vector4 / …).
   # Direct dependency required so the generated vector_math_bridges.b.dart can

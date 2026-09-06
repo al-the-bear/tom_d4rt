@@ -1,3 +1,44 @@
+## 1.17.0
+
+### Changed — the `tom_d4rt_ast` floor moves to 0.55.0, and eighteen pinned conformance entries flip with it (scc75)
+
+`tom_d4rt` 1.66.0 and `tom_d4rt_ast` 0.55.0 are published, so exec's floor rises
+from `>=0.40.0` to `>=0.55.0` and the thirteen-minor skew every exec-side
+measurement was taken through is closed.
+
+`F-SCC43-1` produced the re-port checklist the moment the floor moved — that is
+what the register exists for — and **all eighteen entries passed when ported**.
+Not one had gone stale, which is the opposite of what SCC44 found when it
+re-measured seven pins and six had already converged. The difference is that
+these eighteen were each measured against the published copy before being
+pinned, and SCC44's six were inferred from prose.
+
+`_pinnedInterpreterFloors` is now empty. The eighteen files, previously skipped
+or absent:
+
+- `scb14_await_receiver_position_test.dart`, `scc64_callable_is_operand_test.dart`
+- `stdlib/collection/` — `list_queue`, `splay_tree_set`, `linked_hash_set`,
+  `linked_list`, `queue`
+- `stdlib/async/stream_consumer`, `stdlib/typed_data/typed_list_inherited_members`
+- `stdlib/core/core_hierarchy`, `stdlib/io/io_hierarchy`,
+  `stdlib/isolate/isolate_hierarchy`
+- `stdlib/io/` — `http_exception`, `http_server`, `websocket`,
+  `http_credentials`, `http_response_details`, `http_date`
+
+### Added — script-level coverage of the fixes that could not previously reach this line
+
+`stdlib/convert/converter_bind_stream_test.dart` (SCC68's `Converter.bind` over
+erased streams), `stdlib/scc73_sdk_member_completeness_behaviour_test.dart` and
+`stdlib/scc74_member_axis_gaps_test.dart`. Each exercises members that were
+unreachable through a published interpreter until this release, which is exactly
+the asymmetry SCC75 was filed to end: the exec suite was green either way,
+because it had no test for what it could not reach.
+
+`stdlib/io/io_sink_test.dart` gains SCC68's two `addStream` cases, and
+`stdlib/intentionally_unbridged_test.dart` drops its `WebSocket` assertion —
+SCC63 bridged the class, and this copy lagged only because it reads a published
+interpreter.
+
 ## 1.16.0
 
 ### Fixed — an error keeps its type when it leaves `execute()` (scc35)

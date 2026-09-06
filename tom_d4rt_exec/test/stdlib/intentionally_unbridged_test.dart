@@ -79,12 +79,15 @@ void main() {
 
   group('SC11: deferred pending a concrete consumer', () {
     test('F-SC11-3: the dart:io entries are unreachable [2026-07-27]', () {
+      // `Link` is the last of them. `WebSocket` was asserted here until SCC63
+      // bridged it, and the assertion went with it when the publish that
+      // carries SCC63 landed (SCC75, `tom_d4rt_ast` 0.55.0) — this file pins
+      // the set of names that are deliberately absent, and a name that has been
+      // built is no longer in it. Removing the case is the mechanism working,
+      // not a loosened test: the reference tree dropped the same assertion when
+      // it bridged the class, and this copy lagged only because it reads a
+      // published interpreter.
       expectUnbridged("Link('x')", 'Link', imports: "import 'dart:io';");
-      expectUnbridged(
-        "WebSocket.connect('ws://x')",
-        'WebSocket',
-        imports: "import 'dart:io';",
-      );
     });
 
     test('F-SC11-4: the compression codecs are unreachable under every '

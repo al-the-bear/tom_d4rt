@@ -25,7 +25,7 @@ dependencies:
   # 0.19.0 is load-bearing (same-name bridged classes resolve by declaring
   # source URI rather than last-wins, tcca19) for a host that registers the
   # whole Tom bridge set.
-  tom_d4rt_ast: ">=0.20.0"
+  tom_d4rt_ast: ">=0.55.0"
   # AST converter (analyzer → mirror AST) for parseSourceCallback
   tom_ast_generator: ">=0.1.5"
   # Analyzer needed by tom_ast_generator for parsing

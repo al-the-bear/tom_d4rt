@@ -21,25 +21,6 @@
 import '../../interpreter_test.dart';
 import 'package:test/test.dart';
 
-/// DGUC6: this package resolves `tom_d4rt_ast` from pub.dev, currently 0.42.0,
-/// and SCC60 — which added the missing `asUint8ListView` adapter — ships in
-/// 0.47.0. Exactly one case of this file observes that gap: `Uint8List` alone
-/// hand-rolls its adapter map instead of sharing `inheritedListMethods<E>()`,
-/// so it is the one variant whose `asUint8ListView` was added by hand and the
-/// one the published copy still lacks. The other ten pass here, which is worth
-/// stating because it inverts the usual intuition — the most-used variant is
-/// the broken one, and a spot-check would read this file as fully green.
-///
-/// Skipped rather than re-pinned to the pre-fix exception, for the reason the
-/// `stdlib/collection` files state at length: a pin keeps the suite green and
-/// then needs a hand deletion nobody is watching for, and F-SCC6-5 requires a
-/// `KNOWN-GAP` marker in BOTH trees — the reference copy has no gap to mark.
-/// Un-skip and delete this constant in the commit that raises exec's
-/// `tom_d4rt_ast` floor past 0.46.0.
-const _scc60Skip =
-    'pinned on the tom_d4rt_ast publish that carries SCC60 (0.47.0); '
-    "exec resolves 0.42.0 — see this file's header";
-
 /// Every typed-data list variant, with a literal the constructor accepts.
 const _variants = <String>[
   'Uint8List',
@@ -464,7 +445,7 @@ $probes
           equals(2 * _bytesPerElement[type]!),
           reason: 'asUint8ListView() must resolve on $type',
         );
-      }, skip: type == 'Uint8List' ? _scc60Skip : null);
+      });
     }
   });
 

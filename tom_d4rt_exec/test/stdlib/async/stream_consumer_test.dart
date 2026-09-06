@@ -30,20 +30,6 @@ import '../../interpreter_test.dart' show executeAsync;
 /// have silently stolen dispatch from the two concrete bridges. The registry
 /// feeds `isSubtypeOf` only, so `is` learns the hierarchy while dispatch is
 /// untouched.
-
-/// DGUC6: this package resolves `tom_d4rt_ast` from pub.dev, currently 0.42.0,
-/// and SCC49's `EventSink -> Sink` supertype edge ships in 0.43.0. The
-/// reference copy in `tom_d4rt/test` runs F-SCC49-7 and -8 green; here they
-/// return `false` and `[false, true, true]` respectively — the two links below
-/// `Sink` are registered and only the last is missing, which is exactly the
-/// version gap and not a migration defect.
-///
-/// Un-skip the two cases and delete this constant in the commit that raises
-/// exec's `tom_d4rt_ast` floor past 0.42.0.
-const _scc49Skip =
-    'pinned on the tom_d4rt_ast publish that carries the EventSink -> Sink '
-    "edge (0.43.0); exec resolves 0.42.0 — see this file's header";
-
 void main() {
   group('SC4: StreamConsumer bridge', () {
     test('F-SC4-1: the StreamConsumer name resolves [2026-07-27]', () async {
@@ -179,7 +165,7 @@ void main() {
             '`EventSink`, which implements `Sink`. Every link but the last was '
             'already registered.',
       );
-    }, skip: _scc49Skip);
+    });
 
     test('F-SCC49-8: a controller is itself a Sink [2026-09-06]', () async {
       final result = await executeAsync('''
@@ -197,16 +183,11 @@ void main() {
             'edge was added, so a false here for `is Sink` while the other two '
             'hold would mean the closure is not being recomputed.',
       );
-    }, skip: _scc49Skip);
+    });
 
     test('F-SCC49-9: the Sink edge is not over-broad [2026-09-06]', () async {
       // Same guard shape as F-SC4-3: an edge that makes everything a `Sink`
       // would pass the two tests above while being worthless.
-      //
-      // Left RUNNING while its two siblings are skipped, and the asymmetry is
-      // deliberate: this case asserts that certain values are NOT sinks, which
-      // an interpreter missing the edge entirely satisfies. It passes here
-      // vacuously, so read it as covering nothing until the skips above lift.
       final result = await executeAsync('''
         import 'dart:async';
         main() {

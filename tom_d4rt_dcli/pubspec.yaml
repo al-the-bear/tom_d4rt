@@ -19,7 +19,7 @@ dependencies:
   # ErrorReporter, neither when its on-type resolves through the fallback
   # (1.28.0) nor while that fallback probes the stdlib modules (1.29.0). The
   # REPL's `-test` mode counts those as failures.
-  tom_d4rt: ">=1.29.0"
+  tom_d4rt: ">=1.66.0"
 
   # VS Code scripting API (for bridge support)
   tom_vscode_scripting_api: ">=1.1.0"

@@ -462,6 +462,24 @@ const Map<String, int> _uncoveredBaseline = {
   // different registry, so a copy here would measure the reference tree while
   // pretending to measure this one. The analyzer-free line's equivalent has to
   // be built against tom_d4rt_ast's registry, not ported.
+  // SCC75. The SDK-completeness guard reads the SDK source with the analyzer
+  // and diffs it against the registered bridge set — and it skips members
+  // annotated `@Since` a version above THE READING PACKAGE'S OWN SDK FLOOR,
+  // taken from its `pubspec.yaml`. That rule is what keeps it from turning red
+  // on every SDK upgrade, and it is also why the file cannot be shared: the
+  // reference tree declares `^3.9.0` and this one `^3.10.4`, so the two
+  // legitimately disagree about which members are in scope.
+  //
+  // Ported experimentally on 2026-09-06 it reported one member,
+  // `Future.syncValue` (`@Since("3.10")`) — correctly, and the finding is real
+  // rather than an artefact: `tom_d4rt_ast` also declares `^3.10.4`, so it
+  // could bridge it today and does not, purely because the mirror ties it to
+  // `tom_d4rt`'s lower floor. `tom_d4rt` is in fact the only package in the
+  // repo below 3.10.4, lower than every one of its own consumers. Aligning the
+  // floors and bridging the member is SCD191; porting this file becomes
+  // possible in the same change, because the disagreement disappears with the
+  // floor gap.
+  'scc73_sdk_member_completeness_test.dart': 4,
   'stdlib/member_coverage_baseline_test.dart': 4,
   // NOT PORTABLE — SCC17's release-hygiene guard. Its subject is the repo, not
   // an interpreter: it walks git history and reads the pubspec and CHANGELOG of
@@ -553,103 +571,6 @@ const Map<String, int> _uncoveredBaseline = {
   // `_executeInEnvironment` copy. SCD84 owns it; port the file and delete this
   // entry in the commit that closes that seam.
   'scc27_host_error_fidelity_test.dart': 9,
-  // PUBLISH-BLOCKED, and the first entry of that kind since SCC44 cleared the
-  // map of them. The reference file asserts the `dart:core` supertype edges
-  // `CoreHierarchyCore` declares — `String is Comparable`, `1 is Comparable` via
-  // `num`, `RegExp is Pattern`, `StringBuffer is StringSink` and the rest. That
-  // block is new library code in `tom_d4rt_ast` 0.45.0 and exists nowhere else;
-  // ported verbatim and run 2026-09-06 against the published 0.42.0 this copy
-  // gives 7 pass / 12 fail, which is precisely the RED shape the reference tree
-  // showed before the fix — every case that needs an edge fails, and only the
-  // five that pin unchanged dispatch pass. So the port would not be recording a
-  // divergence between the two interpreters; it would be recording that exec is
-  // reading an older one, which is DGUC6 and not a finding.
-  //
-  // Port it and delete this entry in the commit that raises exec's floor past
-  // 0.44.0. The floor is registered in [_pinnedInterpreterFloors]; do not rely
-  // on this paragraph to be reread at the right moment.
-  'stdlib/core/core_hierarchy_test.dart': 19,
-  // PUBLISH-BLOCKED, same shape as the entry above and for the same reason.
-  // `IoHierarchyIo` (15 edges) and `IsolateHierarchyIsolate` (3) are new library
-  // code in `tom_d4rt_ast` 0.46.0. Ported verbatim and run 2026-09-06 against
-  // the published 0.42.0 this copy gives 6 pass / 13 fail for the io file and
-  // 2 pass / 2 fail for the isolate one — the RED shape the reference tree
-  // showed before the fix, with every edge case failing and only the dispatch
-  // guards passing.
-  //
-  // F-SCC57-3 is the case worth naming, because on the old interpreter it fails
-  // for the instructive half. `stdout is IOSink` is already true there, answered
-  // by `IOSinkIo.isAssignable`; `stdout is StringSink` is false, because a
-  // predicate answers the pair it is asked about and does not walk. That is
-  // precisely what the case was written to pin, so it fails on its second
-  // expectation rather than its first — and a reader who checked only the first
-  // would conclude the block was already present.
-  //
-  // Port both and delete these entries in the commit that raises exec's floor
-  // past 0.45.0. The floors are registered in [_pinnedInterpreterFloors].
-  'stdlib/io/io_hierarchy_test.dart': 19,
-  'stdlib/isolate/isolate_hierarchy_test.dart': 4,
-  // PUBLISH-BLOCKED — the seven entries below are one finding, and the finding
-  // is that SCC61..SCC65 rebuilt most of `dart:io` in five consecutive releases
-  // while exec stayed on the release before the first of them. Every file here
-  // was ported verbatim on 2026-09-06, analysed clean, run against the
-  // published 0.42.0, and then REMOVED again; the pass/fail shape is recorded
-  // per entry so the next reader does not have to re-derive it.
-  //
-  // The census that produced them started from a measurement rather than a
-  // guess, which is what `tool/hosted_drift.dart` is for: it reports that
-  // published `tom_d4rt_ast` 0.42.0 strands 36 of 167 library files against the
-  // working tree, four of them under `src/runtime/stdlib/io`, and it names
-  // `stdlib/io/websocket.dart` as existing ONLY in the tree. A file whose whole
-  // subject is a library file the published archive does not contain cannot
-  // fail here for a migration reason.
-  //
-  // SCC61 (tom_d4rt_ast 0.48.0) made `on HttpException catch` match. Ported it
-  // gives 2 pass / 16 fail — and F-SCC61-13, the redirect-loop case, does not
-  // fail but HANGS: on the old interpreter the unresolvable catch clause never
-  // matches, so the redirect loop is never broken and `--timeout` does not stop
-  // it. Porting this today would wedge the suite rather than redden it, which
-  // is a materially worse outcome than a red and worth knowing before someone
-  // tries. Port it and delete this entry in the commit that raises exec's floor
-  // past 0.47.0.
-  'stdlib/io/http_exception_test.dart': 19,
-  // SCC62 (tom_d4rt_ast 0.49.0) bridged `HttpRequest`/`HttpResponse` and the
-  // four types reached through them, so a script could finally answer a
-  // request. Ported it gives 0 pass / 8 fail, and F-SCC62-8 (`connectionInfo`
-  // names the peer) hangs for SCC61's reason — a server that cannot name what
-  // it received never completes the exchange the case waits on. Port it and
-  // delete this entry in the commit that raises exec's floor past 0.48.0.
-  'stdlib/io/http_server_test.dart': 13,
-  // SCC63 (tom_d4rt_ast 0.50.0) added the WebSocket block. Ported it gives
-  // 0 pass / 37 fail — the cleanest publish-block in the map, because nothing
-  // WebSocket-shaped was bridged at all before the release and every case dies
-  // on `Undefined variable: WebSocket`. `hosted_drift.dart` reports the
-  // library file itself as only-in-tree, so this is not an inference. Port it
-  // and delete this entry in the commit that raises exec's floor past 0.49.0.
-  'stdlib/io/websocket_test.dart': 37,
-  // SCC64 (tom_d4rt_ast 0.51.0) re-registered the four `HttpClient*Credentials`
-  // names as real bridges rather than callables. Ported it gives 4 pass /
-  // 7 fail: construction already worked on the old interpreter — which is why
-  // the bug survived — so the four cases that only build a credentials object
-  // pass, and every case that asks `is` of one fails. Port it and delete this
-  // entry in the commit that raises exec's floor past 0.50.0.
-  'stdlib/io/http_credentials_test.dart': 11,
-  // SCC64's other half, in the interpreter rather than in a bridge: `x is Foo`
-  // where `Foo` resolved to a callable was answered by CALLING it. Ported it
-  // gives 2 pass / 5 fail. The two that pass are the ones asserting a correct
-  // answer the old path reached by accident; the five that fail are the ones
-  // that observe the invocation. Port it and delete this entry in the commit
-  // that raises exec's floor past 0.50.0.
-  'scc64_callable_is_operand_test.dart': 7,
-  // SCC65 (tom_d4rt_ast 0.52.0) bridged the last three `dart:io` re-exports a
-  // script could reach but not name. The two files below are its coverage.
-  // `http_response_details` (`RedirectInfo`, `HttpClientResponseCompressionState`)
-  // gives 0 pass / 11 fail and `http_date` (`HttpDate`) 0 pass / 10 fail —
-  // both total, because in each case the type under test has no name at all on
-  // the published interpreter. Port both and delete these entries in the commit
-  // that raises exec's floor past 0.51.0.
-  'stdlib/io/http_response_details_test.dart': 11,
-  'stdlib/io/http_date_test.dart': 10,
 };
 
 /// Why a [_divergentBaseline] entry is allowed to stand.
@@ -736,17 +657,6 @@ const Map<String, _Divergence> _divergentBaseline = {
   // no such doc, so F-SCB30-3/-5 die on a missing file. Convergence would
   // require one shared document, which would then be wrong about both trees.
   'stdlib/intentionally_unbridged_test.dart': _Divergence.necessary,
-  // The only entry whose divergence is a set of SKIPS rather than a content
-  // difference, and the only publish-pin left standing after SCC44 re-measured
-  // all seven. SCC40 made the await-resumption slot per-await-site, so
-  // `(await a) + (await b)` stops yielding `'AA'`; the reference tree runs
-  // F-SCB14-9/-10/-11/-12 green. This copy skips exactly those four, because
-  // exec resolves `tom_d4rt_ast` from pub.dev at 0.40.0 (DGUC6) and the fix
-  // landed after it — re-measured 2026-09-05 against the published copy and
-  // still failing, with the observed values recorded in
-  // [_pinnedInterpreterFloors]. Un-skip the four and delete this entry in the
-  // commit that raises exec's floor past 0.40.0; tracked as SCD120.
-  'scb14_await_receiver_position_test.dart': _Divergence.deliberate,
   // Ported by SCC43 minus the twin's F-SCC31-17/18, which scan every mirrored
   // tree's sources for the guard rather than running a script. A second copy
   // would read the same files and reach the same verdict, so a dropped guard
@@ -763,73 +673,6 @@ const Map<String, _Divergence> _divergentBaseline = {
   // natively (F-SCC33-AST-1/2) against its own node type, which is the only
   // place it can be pinned. The five behavioural cases are verbatim.
   'scc33_unhandled_node_test.dart': _Divergence.deliberate,
-  // The five `stdlib/collection` entries below are ONE finding recorded five
-  // times, and they were measured rather than predicted: each file was re-ported
-  // verbatim from the reference tree first, run, and only the cases that
-  // actually failed were skipped. SCC51 stopped the collection bridges shadowing
-  // `Iterable`'s delegating `first`/`last`/`single`, so the SDK's own
-  // `StateError` now reaches the script where a hand-written
-  // `RuntimeD4rtException` used to; the reference tree asserts `StateError` and
-  // runs green. exec resolves `tom_d4rt_ast` from pub.dev at 0.42.0 (DGUC6) and
-  // SCC51 ships in 0.44.0, so here the pre-fix family is still thrown.
-  //
-  // SKIPPED, NOT RE-PINNED TO THE OLD FAMILY, against the SCC15 default. A pin
-  // would keep the suite green and then need a hand deletion nobody is watching
-  // for — and F-SCC6-5 requires a `KNOWN-GAP` marker in BOTH trees, which the
-  // reference copy cannot carry because it has no gap to mark. The
-  // `scb14_await_receiver_position_test.dart` entry above is the precedent.
-  //
-  // Un-skip the six cases across these five files and delete all five entries in
-  // the commit that raises exec's floor past 0.43.0; the skip constants name
-  // themselves `_scc51Skip` in each file so the deletion is greppable.
-  'stdlib/collection/list_queue_test.dart': _Divergence.deliberate,
-  // Second of the five. `F-SC2-19` skipped: `SplayTreeSet().first` on an empty
-  // set. Same SCC51 cause and the same flip condition as the entry above — the
-  // commit that raises exec's floor past 0.43.0 un-skips it and deletes this.
-  'stdlib/collection/splay_tree_set_test.dart': _Divergence.deliberate,
-  // Third of the five. `F-SC2-9` skipped: it asserts `first` on an empty
-  // `LinkedHashSet` AND `single` on a two-element one, so it is the case that
-  // covers both shadowed getters. Flip at floor past 0.43.0 with the rest.
-  'stdlib/collection/linked_hash_set_test.dart': _Divergence.deliberate,
-  // Fourth of the five. `I-COLL-44` skipped: `LinkedList.first` when empty.
-  // `LinkedList` is not an `Iterable` subclass in the bridge graph the way the
-  // others are, so it is worth keeping distinct rather than folded into one
-  // entry — its shadowing came from SCC8's own hand-written surface. Flip at
-  // floor past 0.43.0.
-  'stdlib/collection/linked_list_test.dart': _Divergence.deliberate,
-  // Fifth of the five and the only one with two skipped cases: `I-COLL-71`
-  // (`first` on an empty `Queue`) and `I-COLL-62` (`last` on the same). Both
-  // observe the pre-SCC51 `RuntimeD4rtException` against the published 0.42.0
-  // where the reference tree observes `StateError`. Flip at floor past 0.43.0.
-  'stdlib/collection/queue_test.dart': _Divergence.deliberate,
-  // The same shape one release earlier. SCC49 registered the `EventSink -> Sink`
-  // supertype edge, which ships in tom_d4rt_ast 0.43.0; exec resolves 0.42.0, so
-  // F-SCC49-7 returns `false` and F-SCC49-8 `[false, true, true]` — the two
-  // links below `Sink` are already registered and only the last is missing,
-  // which is exactly the version gap and not a migration defect. Its sibling
-  // F-SCC49-9 is left RUNNING deliberately: it asserts certain values are NOT
-  // sinks, which an interpreter missing the edge satisfies vacuously, so it
-  // covers nothing here until the two skips lift but costs nothing to keep.
-  // Un-skip both and delete this entry in the commit that raises exec's floor
-  // past 0.42.0.
-  'stdlib/async/stream_consumer_test.dart': _Divergence.deliberate,
-  // The same shape again, and it replaces a worse entry than it looks. Until
-  // 2026-09-06 this copy was a SUBTRACTION — 99 lines and three whole SCC60
-  // groups shorter than the reference — with no baseline entry at all, so the
-  // guard was simply red. The tempting fix was a blanket entry saying "the
-  // exec copy omits SCC60", which is SCD154's hazard exactly: the blanket then
-  // absorbs every future divergence in a 450-line file.
-  //
-  // Measured instead. Re-ported verbatim and run against the published 0.42.0,
-  // 32 of the 33 restored cases PASS; the single failure is F-SCC60-3-Uint8List,
-  // because `Uint8List` is the one variant that hand-rolls its adapter map
-  // rather than sharing `inheritedListMethods<E>()` and so is the one whose
-  // `asUint8ListView` SCC60 had to add by hand. So the file is a verbatim port
-  // with one skipped case, not a subtraction, and the divergence is now the
-  // skip constant alone. Un-skip and delete this entry in the commit that
-  // raises exec's floor past 0.46.0.
-  'stdlib/typed_data/typed_list_inherited_members_test.dart':
-      _Divergence.deliberate,
 };
 
 /// The direct interpreter-package imports the port recipe legitimately rewrites,
@@ -918,63 +761,17 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// you happened to be reading — the six that had gone stale were stale for the
 /// same reason, and reading any one of them would not have revealed the other
 /// five.
-const Map<String, String> _pinnedInterpreterFloors = {
-  // SCC40 made the await-resumption slot per-await-site. The reference tree
-  // runs F-SCB14-9/-10/-11/-12 green; this copy skips exactly those four.
-  // The one pin SCC44 re-measured and found still true: against the published
-  // 0.40.0 interpreter F-SCB14-9 gives `'1,2|1,2'` for an expected
-  // `'1,2|3,4'`, -11 gives `'1|1'` for `'1|3'`, -12 gives `'AA'` for `'AB'`,
-  // and -10 fails with `Undefined variable: out`. Tracked as SCD120.
-  'scb14_await_receiver_position_test.dart': '0.40.0',
-  // SCC51 (tom_d4rt_ast 0.44.0) stopped the collection bridges shadowing
-  // `Iterable`'s delegating `first`/`last`/`single`. Measured 2026-09-06 against
-  // the published 0.42.0: each of the six cases below still receives a
-  // `RuntimeD4rtException` carrying the bridge's own message where the reference
-  // tree receives the SDK's `StateError`. One case per file except `queue`,
-  // which has two (`I-COLL-71` first, `I-COLL-62` last).
-  'stdlib/collection/list_queue_test.dart': '0.43.0',
-  'stdlib/collection/splay_tree_set_test.dart': '0.43.0',
-  'stdlib/collection/linked_hash_set_test.dart': '0.43.0',
-  'stdlib/collection/linked_list_test.dart': '0.43.0',
-  'stdlib/collection/queue_test.dart': '0.43.0',
-  // SCC49 (tom_d4rt_ast 0.43.0) added the `EventSink -> Sink` supertype edge.
-  // Measured 2026-09-06 against the published 0.42.0: F-SCC49-7 returns `false`
-  // for `c.sink is Sink` and F-SCC49-8 `[false, true, true]` — the `EventSink`
-  // and `StreamSink` links answer, the `Sink` one does not.
-  'stdlib/async/stream_consumer_test.dart': '0.42.0',
-  // SCC56 (tom_d4rt_ast 0.45.0) gave the non-error half of `dart:core` its
-  // supertype edges. Measured 2026-09-06 against the published 0.42.0: 12 of the
-  // 19 cases fail — every `is Comparable`, `is Pattern`, `is Match`,
-  // `is Iterable` and `is StringSink` assertion the block was written for. The 7
-  // that pass are the dispatch guards, which is the point of their existing.
-  'stdlib/core/core_hierarchy_test.dart': '0.44.0',
-  // SCC57 (tom_d4rt_ast 0.46.0) gave `dart:io` and `dart:isolate` their
-  // supertype edges — the last two libraries that had none. Measured 2026-09-06
-  // against the published 0.42.0: 13 of the io file's 19 cases and 2 of the
-  // isolate file's 4 fail. The survivors are the dispatch guards plus
-  // `File`/`Directory is FileSystemEntity` and `ContentType is HeaderValue`,
-  // which were already answered by predicates and are declared here only so the
-  // hierarchy reads from one place.
-  'stdlib/io/io_hierarchy_test.dart': '0.45.0',
-  'stdlib/isolate/isolate_hierarchy_test.dart': '0.45.0',
-  // SCC60 (tom_d4rt_ast 0.47.0) added the `asUint8ListView` adapter `Uint8List`
-  // alone was missing. One skipped case, measured: the published copy answers
-  // `Bridged class 'Uint8List' has no instance method named 'asUint8ListView'`.
-  'stdlib/typed_data/typed_list_inherited_members_test.dart': '0.46.0',
-  // SCC61..SCC65 rebuilt most of `dart:io` across five consecutive releases.
-  // The five floors below are consecutive for that reason and not by accident,
-  // so a single floor raise past 0.51.0 discharges all seven entries at once —
-  // re-measure all seven then, not the one being read. Two of them HANG rather
-  // than fail against the published interpreter (F-SCC61-13, F-SCC62-8); the
-  // reason is recorded on their baseline entries.
-  'stdlib/io/http_exception_test.dart': '0.47.0',
-  'stdlib/io/http_server_test.dart': '0.48.0',
-  'stdlib/io/websocket_test.dart': '0.49.0',
-  'stdlib/io/http_credentials_test.dart': '0.50.0',
-  'scc64_callable_is_operand_test.dart': '0.50.0',
-  'stdlib/io/http_response_details_test.dart': '0.51.0',
-  'stdlib/io/http_date_test.dart': '0.51.0',
-};
+///
+/// EMPTY AS OF 2026-09-06, and the emptiness is the register working rather
+/// than the register being unused. SCC75 published `tom_d4rt_ast` 0.55.0 and
+/// raised exec's floor to it; F-SCC43-1 then produced the re-port checklist —
+/// all eighteen entries this map held — and every one of them passed when
+/// ported. Not one had gone stale, which is the opposite of what SCC44 found
+/// and is worth recording: SCC44's six stale pins had been written from prose,
+/// while these eighteen were each measured against the published copy before
+/// being pinned. Measure before pinning and the pin survives; infer it and it
+/// rots.
+const Map<String, String> _pinnedInterpreterFloors = <String, String>{};
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
 ///

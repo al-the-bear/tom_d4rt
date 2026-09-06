@@ -25,7 +25,7 @@ dependencies:
   # same-name rule to `dart:*` declarations too, so `TextStyle` — declared by
   # both `dart:ui` and painting — is rejected unqualified and 17 base-corpus
   # scripts fail. 0.20.1 restores Dart's platform-library precedence.
-  tom_d4rt_ast: ">=0.20.1"
+  tom_d4rt_ast: ">=0.55.0"
   archive: ^4.0.9
   # Explicit transitive Flutter deps used in generated bridge code
   characters: ^1.4.0
