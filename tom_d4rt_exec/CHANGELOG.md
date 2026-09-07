@@ -1,3 +1,29 @@
+## 1.19.0
+
+### Changed — the interpreter floor moves to `^0.60.0`, and the arity diagnostics are certified end to end here (scc86)
+
+`tom_d4rt_ast` 0.60.0 is published, so the floor rises from `^0.55.0`. That is
+five minors of interpreter work reaching this package at once, including SCB28's
+`describeArityError` and SCC85's 526 `D4.checkArity` guards. Neither was
+reachable from an exec test before: this package resolves its interpreter from
+pub.dev rather than by path (DGUC6), so an exec suite certifies the PUBLISHED
+interpreter and working-tree fixes are invisible here until a release goes out.
+
+`test/stdlib/bridge_arity_test.dart` is ported from the reference tree — 19
+cases, identical apart from one import line. Thirteen are SCB28's (a too-few
+call names the class and member instead of surfacing a raw list `RangeError`);
+six are SCC85's (a surplus argument is rejected rather than silently discarded).
+Until now the analyzer-free line had only registration-level coverage of the
+recogniser, because `tom_d4rt_ast` has no source parser and cannot run a
+script-level arity test in-tree even in principle.
+
+The `_coveredElsewhere` exemption that stood in for this file is removed: it
+claimed the ast twin covered it, and a real port is now here.
+
+The five-minor upgrade caused no regressions — 3602 passed / 1 skipped before
+the port, with the only two failures the pre-existing F-SCC6-2 and F-SCC6-4
+tracked as SCD200.
+
 ## 1.18.0
 
 ### Changed — the `tom_d4rt_ast` constraint becomes a caret, and every run now prints the interpreter it measured (scc80)

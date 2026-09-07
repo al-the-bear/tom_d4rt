@@ -340,12 +340,6 @@ const Map<String, _Coverage> _coveredElsewhere = {
     refCases: 8,
     twinCases: 8,
   ),
-  'stdlib/bridge_arity_test.dart': _Coverage(
-    'ast:runtime/bridge_arity_test.dart',
-    _astTwin,
-    refCases: 13,
-    twinCases: 8,
-  ),
   'warm_parent_lazy_class_test.dart': _Coverage(
     'ast:runtime/warm_parent_lazy_class_test.dart',
     _astTwin,
