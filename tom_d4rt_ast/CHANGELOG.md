@@ -1,5 +1,12 @@
 ## 0.60.1
 
+### Fixed — a dead anchor in the README, and the guard widened to cover it (scc88)
+
+The guard walked `doc/` only. The package README is the first page anyone reads,
+and `tom_d4rt`'s carried
+`#source-based-vs-analyzer-free--which-line-to-use` — a double hyphen left by
+stripping an em dash. Fixed, and every package's README is now inside the guard.
+
 ### Fixed — four dead cross-file links, and the anchor guard extended to cover them (scc88)
 
 The anchor guard checked `](#anchor)` only, and four links to other FILES were

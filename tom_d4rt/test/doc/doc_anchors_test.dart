@@ -86,12 +86,19 @@ void main() {
           'doc/ is missing, so this guard would pass by checking nothing. Run '
           'from the package root.',
     );
-    return docDir
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.md'))
-        .toList()
-      ..sort((a, b) => a.path.compareTo(b.path));
+    // doc/ plus the package README — the README is the first page anyone
+    // reads and carried a dead anchor of its own
+    // (`#source-based-vs-analyzer-free--which-line-to-use`, a double hyphen
+    // left by stripping an em dash), so leaving it out would have been a hole
+    // in exactly the place it matters most.
+    final readme = File('README.md');
+    return [
+      ...docDir
+          .listSync(recursive: true)
+          .whereType<File>()
+          .where((f) => f.path.endsWith('.md')),
+      if (readme.existsSync()) readme,
+    ]..sort((a, b) => a.path.compareTo(b.path));
   }
 
   group('SCC88: intra-document anchors resolve', () {

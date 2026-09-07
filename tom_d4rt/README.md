@@ -488,7 +488,7 @@ Related packages (don't duplicate — follow the link):
 
 - [tom_d4rt_generator](../tom_d4rt_generator/) — automated `BridgedClass` / `BridgedEnumDefinition` generation from annotated source ([user guide](../tom_d4rt_generator/doc/bridgegenerator_user_guide.md))
 - [tom_d4rt_dcli](../tom_d4rt_dcli/) — DCli REPL and `*.dcli.dart` script runner built on this interpreter
-- [tom_d4rt_exec](../tom_d4rt_exec/) — **see also:** the analyzer-free counterpart of this package, for web / OTA embeddings (see [Source-based vs analyzer-free](#source-based-vs-analyzer-free--which-line-to-use))
+- [tom_d4rt_exec](../tom_d4rt_exec/) — **see also:** the analyzer-free counterpart of this package, for web / OTA embeddings (see [Source-based vs analyzer-free](#source-based-vs-analyzer-free-which-line-to-use))
 
 ## Status
 
