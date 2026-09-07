@@ -194,6 +194,7 @@ class StreamAsync {
             namedArgs,
           ),
       'map': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.map', atMost: 1);
         final mapper = positionalArgs[0];
         if (mapper is! InterpretedFunction) {
           throw RuntimeD4rtException(
@@ -205,6 +206,7 @@ class StreamAsync {
         );
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.where', atMost: 1);
         final predicate = positionalArgs[0];
         if (predicate is! InterpretedFunction) {
           throw RuntimeD4rtException(
@@ -217,6 +219,7 @@ class StreamAsync {
         });
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.expand', atMost: 1);
         final converter = positionalArgs[0];
         if (converter is! InterpretedFunction) {
           throw RuntimeD4rtException(
@@ -241,6 +244,7 @@ class StreamAsync {
         return (target as Stream).transform(streamTransformer);
       },
       'take': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.take', atMost: 1);
         final count = positionalArgs[0];
         if (count is! int) {
           throw RuntimeD4rtException(
@@ -250,6 +254,7 @@ class StreamAsync {
         return (target as Stream).take(count);
       },
       'skip': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.skip', atMost: 1);
         final count = positionalArgs[0];
         if (count is! int) {
           throw RuntimeD4rtException(
@@ -259,6 +264,7 @@ class StreamAsync {
         return (target as Stream).skip(count);
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.takeWhile', atMost: 1);
         final predicate = positionalArgs[0];
         if (predicate is! InterpretedFunction) {
           throw RuntimeD4rtException(
@@ -271,6 +277,7 @@ class StreamAsync {
         });
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.skipWhile', atMost: 1);
         final predicate = positionalArgs[0];
         if (predicate is! InterpretedFunction) {
           throw RuntimeD4rtException(
@@ -283,6 +290,7 @@ class StreamAsync {
         });
       },
       'distinct': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.distinct', atMost: 1);
         final equals = positionalArgs.isNotEmpty
             ? positionalArgs[0] as InterpretedFunction?
             : null;
@@ -300,12 +308,14 @@ class StreamAsync {
       'toSet': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as Stream).toSet(),
       'join': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.join', atMost: 1);
         final separator = positionalArgs.isNotEmpty
             ? positionalArgs[0] as String? ?? ''
             : '';
         return (target as Stream).join(separator);
       },
       'pipe': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.pipe', atMost: 1);
         final streamConsumer = positionalArgs[0];
         if (streamConsumer is! StreamConsumer) {
           throw RuntimeD4rtException(
@@ -315,6 +325,7 @@ class StreamAsync {
         return (target as Stream).pipe(streamConsumer);
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.any', atMost: 1);
         final predicate = positionalArgs[0];
         if (predicate is! InterpretedFunction) {
           throw RuntimeD4rtException(
@@ -335,6 +346,7 @@ class StreamAsync {
         return (target as Stream).contains(positionalArgs[0]);
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.every', atMost: 1);
         final predicate = positionalArgs[0];
         if (predicate is! InterpretedFunction) {
           throw RuntimeD4rtException(
@@ -362,6 +374,7 @@ class StreamAsync {
         );
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.reduce', atMost: 1);
         final combine = positionalArgs[0];
         if (combine is! InterpretedFunction) {
           throw RuntimeD4rtException(
@@ -374,6 +387,7 @@ class StreamAsync {
         );
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.forEach', atMost: 1);
         final action = positionalArgs[0];
         if (action is! InterpretedFunction) {
           throw RuntimeD4rtException(
@@ -516,6 +530,7 @@ class StreamAsync {
         return (target as Stream).elementAt(positionalArgs[0] as int);
       },
       'drain': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.drain', atMost: 1);
         final futureValue = positionalArgs.isNotEmpty
             ? positionalArgs[0]
             : null;
@@ -572,6 +587,7 @@ class StreamSubscriptionAsync {
         );
       },
       'pause': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stream.pause', atMost: 1);
         final resumeSignal = positionalArgs.isNotEmpty
             ? positionalArgs[0] as Future?
             : null;

@@ -29,48 +29,60 @@ class BigIntCore {
     },
     methods: {
       '+': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.+', atMost: 1);
         return (target as BigInt) + (positionalArgs[0] as BigInt);
       },
       '-': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.-', atMost: 1);
         return (target as BigInt) - (positionalArgs[0] as BigInt);
       },
       '*': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.*', atMost: 1);
         return (target as BigInt) * (positionalArgs[0] as BigInt);
       },
       '~/': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.~/', atMost: 1);
         return (target as BigInt) ~/ (positionalArgs[0] as BigInt);
       },
       '%': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.%', atMost: 1);
         return (target as BigInt) % (positionalArgs[0] as BigInt);
       },
       'remainder': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.remainder', atMost: 1);
         return (target as BigInt).remainder(positionalArgs[0] as BigInt);
       },
       'pow': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.pow', atMost: 1);
         return (target as BigInt).pow(positionalArgs[0] as int);
       },
       'modPow': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.modPow', atMost: 2);
         return (target as BigInt).modPow(
           positionalArgs[0] as BigInt,
           positionalArgs[1] as BigInt,
         );
       },
       'modInverse': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.modInverse', atMost: 1);
         return (target as BigInt).modInverse(positionalArgs[0] as BigInt);
       },
       'gcd': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.gcd', atMost: 1);
         return (target as BigInt).gcd(positionalArgs[0] as BigInt);
       },
       'abs': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as BigInt).abs();
       },
       'compareTo': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.compareTo', atMost: 1);
         return (target as BigInt).compareTo(positionalArgs[0] as BigInt);
       },
       'toString': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as BigInt).toString();
       },
       'toRadixString': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.toRadixString', atMost: 1);
         return (target as BigInt).toRadixString(positionalArgs[0] as int);
       },
       'toInt': (visitor, target, positionalArgs, namedArgs, _) {
@@ -80,54 +92,66 @@ class BigIntCore {
         return (target as BigInt).toDouble();
       },
       'toUnsigned': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.toUnsigned', atMost: 1);
         return (target as BigInt).toUnsigned(positionalArgs[0] as int);
       },
       'toSigned': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.toSigned', atMost: 1);
         return (target as BigInt).toSigned(positionalArgs[0] as int);
       },
       'unary-': (visitor, target, positionalArgs, namedArgs, _) {
         return -(target as BigInt);
       },
       '&': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.&', atMost: 1);
         return (target as BigInt) & (positionalArgs[0] as BigInt);
       },
       '|': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.|', atMost: 1);
         return (target as BigInt) | (positionalArgs[0] as BigInt);
       },
       '^': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.^', atMost: 1);
         return (target as BigInt) ^ (positionalArgs[0] as BigInt);
       },
       '~': (visitor, target, positionalArgs, namedArgs, _) {
         return ~(target as BigInt);
       },
       '<<': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.<<', atMost: 1);
         return (target as BigInt) << (positionalArgs[0] as int);
       },
       '>>': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.>>', atMost: 1);
         return (target as BigInt) >> (positionalArgs[0] as int);
       },
       '==': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.==', atMost: 1);
         return (target as BigInt) == positionalArgs[0];
       },
       '<': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.<', atMost: 1);
         if (positionalArgs[0] is BigInt) {
           return (target as BigInt) < (positionalArgs[0] as BigInt);
         }
         throw RuntimeD4rtException("BigInt comparison requires another BigInt");
       },
       '<=': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.<=', atMost: 1);
         if (positionalArgs[0] is BigInt) {
           return (target as BigInt) <= (positionalArgs[0] as BigInt);
         }
         throw RuntimeD4rtException("BigInt comparison requires another BigInt");
       },
       '>': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.>', atMost: 1);
         if (positionalArgs[0] is BigInt) {
           return (target as BigInt) > (positionalArgs[0] as BigInt);
         }
         throw RuntimeD4rtException("BigInt comparison requires another BigInt");
       },
       '>=': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'BigInt.>=', atMost: 1);
         if (positionalArgs[0] is BigInt) {
           return (target as BigInt) >= (positionalArgs[0] as BigInt);
         }

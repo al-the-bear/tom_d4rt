@@ -76,9 +76,11 @@ class SetCore {
     },
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.add', atMost: 1);
         return (target as Set).add(positionalArgs[0]);
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.addAll', atMost: 1);
         (target as Set).addAll(positionalArgs[0] as Iterable);
         return null;
       },
@@ -87,23 +89,29 @@ class SetCore {
         return null;
       },
       'contains': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.contains', atMost: 1);
         return (target as Set).contains(positionalArgs[0]);
       },
       'containsAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.containsAll', atMost: 1);
         return (target as Set).containsAll(positionalArgs[0] as Iterable);
       },
       ...setAlgebraMethods('Set', (t) => t as Set),
       'lookup': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.lookup', atMost: 1);
         return (target as Set).lookup(positionalArgs[0]);
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.remove', atMost: 1);
         return (target as Set).remove(positionalArgs[0]);
       },
       'removeAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.removeAll', atMost: 1);
         (target as Set).removeAll(positionalArgs[0] as Iterable);
         return null;
       },
       'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.removeWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         (target as Set).removeWhere((element) {
           return test.call(visitor, [element]) as bool;
@@ -111,10 +119,12 @@ class SetCore {
         return null;
       },
       'retainAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.retainAll', atMost: 1);
         (target as Set).retainAll(positionalArgs[0] as Iterable);
         return null;
       },
       'retainWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.retainWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         (target as Set).retainWhere((element) {
           return test.call(visitor, [element]) as bool;
@@ -129,6 +139,7 @@ class SetCore {
         return (target as Set).toList(growable: growable);
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.forEach', atMost: 1);
         final action = positionalArgs[0] as Callable;
         for (var element in (target as Set)) {
           action.call(visitor, [element]);
@@ -136,12 +147,14 @@ class SetCore {
         return null;
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.map', atMost: 1);
         final f = positionalArgs[0] as Callable;
         return (target as Set).map((element) {
           return f.call(visitor, [element]);
         });
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.where', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Set).where((element) {
           return test.call(visitor, [element]) as bool;
@@ -154,24 +167,28 @@ class SetCore {
         return (target as Set).whereType();
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.expand', atMost: 1);
         final f = positionalArgs[0] as Callable;
         return (target as Set).expand((element) {
           return f.call(visitor, [element]) as Iterable;
         });
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.every', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Set).every((element) {
           return test.call(visitor, [element]) as bool;
         });
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.any', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Set).any((element) {
           return test.call(visitor, [element]) as bool;
         });
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.firstWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as Set).firstWhere(
@@ -180,6 +197,7 @@ class SetCore {
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.lastWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as Set).lastWhere(
@@ -188,6 +206,7 @@ class SetCore {
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.singleWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as Set).singleWhere(
@@ -196,27 +215,33 @@ class SetCore {
         );
       },
       'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.elementAt', atMost: 1);
         return (target as Set).elementAt(positionalArgs[0] as int);
       },
       'take': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.take', atMost: 1);
         return (target as Set).take(positionalArgs[0] as int);
       },
       'skip': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.skip', atMost: 1);
         return (target as Set).skip(positionalArgs[0] as int);
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.takeWhile', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as Set).takeWhile((element) {
           return test.call(visitor, [element]) as bool;
         });
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.skipWhile', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as Set).skipWhile((element) {
           return test.call(visitor, [element]) as bool;
         });
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.fold', atMost: 2);
         final initialValue = positionalArgs[0];
         final combine = positionalArgs[1] as InterpretedFunction;
         return (target as Set).fold(initialValue, (previousValue, element) {
@@ -224,18 +249,21 @@ class SetCore {
         });
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.reduce', atMost: 1);
         final combine = positionalArgs[0] as InterpretedFunction;
         return (target as Set).reduce((value, element) {
           return combine.call(visitor, [value, element]);
         });
       },
       'join': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.join', atMost: 1);
         final separator = positionalArgs.isNotEmpty
             ? positionalArgs[0] as String
             : '';
         return (target as Set).join(separator);
       },
       'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Set.followedBy', atMost: 1);
         return (target as Set).followedBy(positionalArgs[0] as Iterable);
       },
       'cast': (visitor, target, positionalArgs, namedArgs, _) {

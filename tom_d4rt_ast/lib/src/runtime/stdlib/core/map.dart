@@ -124,17 +124,21 @@ class MapCore {
     },
     methods: {
       '[]': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.[]', atMost: 1);
         return (target as Map)[positionalArgs[0]];
       },
       '[]=': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.[]=', atMost: 2);
         (target as Map)[positionalArgs[0]] = positionalArgs[1];
         return null;
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.addAll', atMost: 1);
         (target as Map).addAll(positionalArgs[0] as Map);
         return null;
       },
       'addEntries': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.addEntries', atMost: 1);
         final entries = positionalArgs[0] as Iterable;
         // Unwrap BridgedInstance<MapEntry> to get native MapEntry objects
         final nativeEntries = entries.map((entry) {
@@ -156,12 +160,15 @@ class MapCore {
         return null;
       },
       'containsKey': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.containsKey', atMost: 1);
         return (target as Map).containsKey(positionalArgs[0]);
       },
       'containsValue': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.containsValue', atMost: 1);
         return (target as Map).containsValue(positionalArgs[0]);
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.forEach', atMost: 1);
         final action = positionalArgs[0] as InterpretedFunction;
         (target as Map).forEach((key, value) {
           action.call(visitor, [key, value]);
@@ -169,6 +176,7 @@ class MapCore {
         return null;
       },
       'putIfAbsent': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.putIfAbsent', atMost: 2);
         final ifAbsent = positionalArgs[1] as InterpretedFunction;
         return (target as Map).putIfAbsent(
           positionalArgs[0],
@@ -176,9 +184,11 @@ class MapCore {
         );
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.remove', atMost: 1);
         return (target as Map).remove(positionalArgs[0]);
       },
       'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.removeWhere', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         (target as Map).removeWhere((key, value) {
           return test.call(visitor, [key, value]) as bool;
@@ -186,6 +196,7 @@ class MapCore {
         return null;
       },
       'update': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.update', atMost: 2);
         final update = positionalArgs[1] as InterpretedFunction;
         final ifAbsent = namedArgs['ifAbsent'] as InterpretedFunction?;
         return (target as Map).update(
@@ -195,6 +206,7 @@ class MapCore {
         );
       },
       'updateAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.updateAll', atMost: 1);
         final update = positionalArgs[0] as InterpretedFunction;
         (target as Map).updateAll((key, value) {
           return update.call(visitor, [key, value]);
@@ -202,6 +214,7 @@ class MapCore {
         return null;
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Map.map', atMost: 1);
         final convert = positionalArgs[0] as InterpretedFunction;
         return (target as Map).map((key, value) {
           final result = convert.call(visitor, [key, value]);

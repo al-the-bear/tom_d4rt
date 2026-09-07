@@ -20,6 +20,7 @@ class RandomMath {
     },
     methods: {
       'nextInt': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Random.nextInt', atMost: 1);
         return (target as Random).nextInt(positionalArgs[0] as int);
       },
       'nextDouble': (visitor, target, positionalArgs, namedArgs, _) {

@@ -162,22 +162,42 @@ class IsolateIsolate {
         return (target as Isolate).pause(resumeCapability);
       },
       'resume': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'IsolateSpawnException.resume',
+          atMost: 1,
+        );
         final resumeCapability = positionalArgs[0] as Capability;
         (target as Isolate).resume(resumeCapability);
         return null;
       },
       'addOnExitListener': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'IsolateSpawnException.addOnExitListener',
+          atMost: 1,
+        );
         final responsePort = positionalArgs[0] as SendPort;
         final response = namedArgs.get<Object?>('response');
         (target as Isolate).addOnExitListener(responsePort, response: response);
         return null;
       },
       'removeOnExitListener': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'IsolateSpawnException.removeOnExitListener',
+          atMost: 1,
+        );
         final responsePort = positionalArgs[0] as SendPort;
         (target as Isolate).removeOnExitListener(responsePort);
         return null;
       },
       'setErrorsFatal': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'IsolateSpawnException.setErrorsFatal',
+          atMost: 1,
+        );
         final errorsAreFatal = positionalArgs[0] as bool;
         (target as Isolate).setErrorsFatal(errorsAreFatal);
         return null;
@@ -189,6 +209,7 @@ class IsolateIsolate {
         return null;
       },
       'ping': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'IsolateSpawnException.ping', atMost: 1);
         final responsePort = positionalArgs[0] as SendPort;
         final response = namedArgs.get<Object?>('response');
         final priority = namedArgs.get<int?>('priority') ?? Isolate.immediate;
@@ -200,11 +221,21 @@ class IsolateIsolate {
         return null;
       },
       'addErrorListener': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'IsolateSpawnException.addErrorListener',
+          atMost: 1,
+        );
         final port = positionalArgs[0] as SendPort;
         (target as Isolate).addErrorListener(port);
         return null;
       },
       'removeErrorListener': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'IsolateSpawnException.removeErrorListener',
+          atMost: 1,
+        );
         final port = positionalArgs[0] as SendPort;
         (target as Isolate).removeErrorListener(port);
         return null;
@@ -221,6 +252,7 @@ class SendPortIsolate {
     isAssignable: (v) => v is SendPort,
     methods: {
       'send': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'IsolateSpawnException.send', atMost: 1);
         final message = positionalArgs[0];
         (target as SendPort).send(message);
         return null;
@@ -282,6 +314,7 @@ class ReceivePortIsolate {
       },
       // Stream methods
       'map': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'IsolateSpawnException.map', atMost: 1);
         final transform = positionalArgs[0];
         if (transform is! InterpretedFunction) {
           throw RuntimeD4rtException(
@@ -293,6 +326,7 @@ class ReceivePortIsolate {
         );
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'IsolateSpawnException.where', atMost: 1);
         final test = positionalArgs[0];
         if (test is! InterpretedFunction) {
           throw RuntimeD4rtException(
@@ -304,10 +338,12 @@ class ReceivePortIsolate {
         );
       },
       'take': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'IsolateSpawnException.take', atMost: 1);
         final count = positionalArgs[0] as int;
         return (target as Stream).take(count);
       },
       'skip': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'IsolateSpawnException.skip', atMost: 1);
         final count = positionalArgs[0] as int;
         return (target as Stream).skip(count);
       },

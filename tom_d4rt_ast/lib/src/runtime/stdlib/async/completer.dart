@@ -28,6 +28,7 @@ class CompleterAsync {
         return null;
       },
       'completeError': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Completer.completeError', atMost: 1);
         final error = positionalArgs[0];
         if (error == null) {
           throw RuntimeD4rtException(

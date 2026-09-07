@@ -95,6 +95,7 @@ class ByteBufferTypedData {
       },
       // ENG-004: Additional asXxxList methods for full typed_data support
       'asInt8List': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteBuffer.asInt8List', atMost: 2);
         final t = target as ByteBuffer;
         final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
         final length = positionalArgs.length > 1
@@ -103,6 +104,7 @@ class ByteBufferTypedData {
         return t.asInt8List(offset, length);
       },
       'asInt16List': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteBuffer.asInt16List', atMost: 2);
         final t = target as ByteBuffer;
         final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
         final length = positionalArgs.length > 1
@@ -111,6 +113,7 @@ class ByteBufferTypedData {
         return t.asInt16List(offset, length);
       },
       'asInt32List': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteBuffer.asInt32List', atMost: 2);
         final t = target as ByteBuffer;
         final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
         final length = positionalArgs.length > 1
@@ -119,6 +122,7 @@ class ByteBufferTypedData {
         return t.asInt32List(offset, length);
       },
       'asInt64List': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteBuffer.asInt64List', atMost: 2);
         final t = target as ByteBuffer;
         final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
         final length = positionalArgs.length > 1
@@ -127,6 +131,7 @@ class ByteBufferTypedData {
         return t.asInt64List(offset, length);
       },
       'asUint16List': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteBuffer.asUint16List', atMost: 2);
         final t = target as ByteBuffer;
         final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
         final length = positionalArgs.length > 1
@@ -135,6 +140,7 @@ class ByteBufferTypedData {
         return t.asUint16List(offset, length);
       },
       'asUint32List': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteBuffer.asUint32List', atMost: 2);
         final t = target as ByteBuffer;
         final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
         final length = positionalArgs.length > 1
@@ -143,6 +149,7 @@ class ByteBufferTypedData {
         return t.asUint32List(offset, length);
       },
       'asUint64List': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteBuffer.asUint64List', atMost: 2);
         final t = target as ByteBuffer;
         final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
         final length = positionalArgs.length > 1
@@ -151,6 +158,7 @@ class ByteBufferTypedData {
         return t.asUint64List(offset, length);
       },
       'asFloat32List': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteBuffer.asFloat32List', atMost: 2);
         final t = target as ByteBuffer;
         final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
         final length = positionalArgs.length > 1
@@ -159,6 +167,7 @@ class ByteBufferTypedData {
         return t.asFloat32List(offset, length);
       },
       'asFloat64List': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteBuffer.asFloat64List', atMost: 2);
         final t = target as ByteBuffer;
         final offset = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
         final length = positionalArgs.length > 1

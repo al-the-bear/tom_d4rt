@@ -23,6 +23,7 @@
 library;
 
 import 'package:test/test.dart';
+import 'package:tom_d4rt/d4rt.dart';
 import '../interpreter_test.dart';
 
 /// Fails the test with the actual message when [source] does not throw.
@@ -160,6 +161,76 @@ void main() {
       expect(message, contains('UriData.parse'));
       expect(message, contains('exactly one String argument'));
       expect(message, isNot(contains('RangeError')));
+    });
+  });
+  group('SCC85 — too many arguments are rejected, not discarded', () {
+    test('F-SCC85-1: an extra argument to a one-slot member is rejected and '
+        'named [2026-09-07]', () {
+      final message = _messageOf(
+        "main() { return BigInt.from(6).pow(2, 'extra'); }",
+      );
+      expect(message, contains('BigInt.pow'));
+      expect(message, contains('at most 1'));
+      expect(message, contains('called with 2'));
+      expect(message, isNot(contains('RangeError')));
+    });
+
+    test('F-SCC85-2: a two-slot member accepts two and rejects three '
+        '[2026-09-07]', () {
+      expect(
+        execute(
+          "main() { return BigInt.from(4).modPow(BigInt.from(2), "
+          "BigInt.from(5)).toInt(); }",
+        ),
+        equals(1),
+      );
+      final message = _messageOf(
+        "main() { return BigInt.from(4).modPow(BigInt.from(2), "
+        "BigInt.from(5), 'extra'); }",
+      );
+      expect(message, contains('BigInt.modPow'));
+      expect(message, contains('at most 2'));
+      expect(message, contains('called with 3'));
+    });
+
+    test('F-SCC85-3: the message says the surplus is unused, so the reader is '
+        'pointed at the typo [2026-09-07]', () {
+      final message = _messageOf("main() { return 'abc'.padLeft(5, '0', 9); }");
+      expect(message, contains('String.padLeft'));
+      expect(message, contains('not used by this member'));
+    });
+
+    // The load-bearing case for the sweep's SAFETY. Every guard inserted is
+    // `atMost`, never `exactly`, because the maximum is derivable from the
+    // adapter's own source — one past the highest index it reads — while the
+    // minimum is not: an adapter reading `positionalArgs[1]` behind a length
+    // test takes one argument or two. `atMost` therefore cannot fire on a
+    // too-FEW call, so the generic SCB28 diagnostic keeps its layering and
+    // F-SCB28-1..6 did not have to be repointed as the sweep advanced.
+    test('F-SCC85-4: guarding a bridge does NOT change its too-few message — '
+        'the generic path still owns that half [2026-09-07]', () {
+      final message = _messageOf("main() { return BigInt.from(6).pow(); }");
+      expect(message, contains('BigInt.pow'));
+      expect(message, contains('at least 1'));
+      expect(message, isNot(contains('at most')));
+    });
+
+    test('F-SCC85-5: correctly-arity\'d calls are untouched across the swept '
+        'surface [2026-09-07]', () {
+      expect(execute("main() { return BigInt.from(6).pow(2).toInt(); }"), 36);
+      expect(execute("main() { return 'abc'.padLeft(5, '0'); }"), '00abc');
+      expect(execute("main() { return [1,2,3].sublist(1).length; }"), 2);
+      expect(execute("main() { return int.parse('42'); }"), 42);
+    });
+
+    test('F-SCC85-6: D4.checkArity refuses a bound-less call [2026-09-07]', () {
+      // An assert, so it fires in tests and costs nothing in a release build.
+      // Without it a typo'd keyword — `atMax:` — would silently accept
+      // everything, which is the failure this whole sweep is about.
+      expect(
+        () => D4.checkArity(const [], 'X.y'),
+        throwsA(isA<AssertionError>()),
+      );
     });
   });
 }

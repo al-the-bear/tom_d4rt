@@ -378,6 +378,7 @@ class ByteDataTypedData {
         return (target as ByteData).toString();
       },
       '==': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ByteData.==', atMost: 1);
         return (target as ByteData) == positionalArgs[0];
       },
     },

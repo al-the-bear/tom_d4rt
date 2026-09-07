@@ -1,3 +1,32 @@
+## 0.60.0
+
+### Added — `D4.checkArity`, and 526 stdlib adapters that no longer discard a surplus argument (scc85)
+
+An adapter that reads `positionalArgs[0]` and is handed two arguments dropped
+the second in silence — `UriData.parse('data:,a', 'extra')` returned the parsed
+value, and a typo stayed invisible. The too-FEW half was already covered
+generically by `D4.describeArityError`; too-MANY cannot be, because
+`BridgedClass` stores an adapter as an untyped closure and nothing on the
+dispatch path knows how many arguments it wants.
+
+`D4.checkArity(positionalArgs, 'Class.member', atMost: N)` is the shared guard
+that replaces writing that check out by hand, and it is now in 526 adapters per
+tree. The unguarded surface measured 443 adapters across 49 files and is now 23
+across 3.
+
+**Every inserted bound is `atMost`, never `exactly`**, and that is what makes
+the sweep safe. The maximum is derivable from the adapter's own source — one
+past the highest index it reads, so anything beyond is provably ignored — while
+the minimum is not: an adapter reading `positionalArgs[1]` behind a length test
+takes one argument or two. Because `atMost` cannot fire on a too-few call, the
+generic SCB28 diagnostic keeps that half untouched and none of F-SCB28-1..6 had
+to be repointed as the sweep advanced.
+
+The 23 remaining are a principled residue, not leftovers: 21 sit in shared
+method-map helpers (`inheritedListMethods<E>`, `set_algebra_methods`) that serve
+several bridged classes at once, so no single `Class.member` label exists for
+them, and 2 pass the argument list on whole.
+
 ## 0.59.0
 
 ### Added — the SCB24 guard, count-based (scb24)

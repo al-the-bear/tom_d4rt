@@ -50,11 +50,13 @@ class ClosableStringSinkConvert {
         return null;
       },
       'write': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ClosableStringSink.write', atMost: 1);
         final value = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
         (target as ClosableStringSink).write(value);
         return null;
       },
       'writeln': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'ClosableStringSink.writeln', atMost: 1);
         final value = positionalArgs.isNotEmpty ? positionalArgs[0] : '';
         (target as ClosableStringSink).writeln(value);
         return null;

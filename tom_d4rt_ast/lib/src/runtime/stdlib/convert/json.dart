@@ -41,9 +41,11 @@ class JsonCodecConvert {
     },
     methods: {
       'encode': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'JsonCodec.encode', atMost: 1);
         return (target as JsonCodec).encode(positionalArgs[0]);
       },
       'decode': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'JsonCodec.decode', atMost: 2);
         final source = positionalArgs[0] as String;
         final reviverArg =
             namedArgs['reviver'] as InterpretedFunction? ??
@@ -135,6 +137,7 @@ class JsonEncoderConvert {
     },
     methods: {
       'convert': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'JsonCodec.convert', atMost: 1);
         return (target as JsonEncoder).convert(positionalArgs[0]);
       },
       'fuse': (visitor, target, positionalArgs, namedArgs, _) {
@@ -204,6 +207,7 @@ class JsonDecoderConvert {
     },
     methods: {
       'convert': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'JsonCodec.convert', atMost: 1);
         final source = positionalArgs[0] as String;
         return (target as JsonDecoder).convert(source);
       },

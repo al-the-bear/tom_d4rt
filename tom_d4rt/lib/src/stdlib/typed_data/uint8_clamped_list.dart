@@ -93,6 +93,7 @@ class Uint8ClampedListTypedData {
 
       // List methods
       'sublist': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8ClampedList.sublist', atMost: 2);
         final start = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
         final end = positionalArgs.length > 1
             ? positionalArgs[1] as int?
@@ -100,11 +101,13 @@ class Uint8ClampedListTypedData {
         return (target as Uint8ClampedList).sublist(start, end);
       },
       'getRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8ClampedList.getRange', atMost: 2);
         final start = positionalArgs[0] as int;
         final end = positionalArgs[1] as int;
         return (target as Uint8ClampedList).getRange(start, end);
       },
       'setRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8ClampedList.setRange', atMost: 4);
         final start = positionalArgs[0] as int;
         final end = positionalArgs[1] as int;
         final iterable = coerceElements<int>(
@@ -118,6 +121,7 @@ class Uint8ClampedListTypedData {
         return null;
       },
       'setAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8ClampedList.setAll', atMost: 2);
         final at = positionalArgs[0] as int;
         final iterable = coerceElements<int>(
           positionalArgs[1],
@@ -127,6 +131,7 @@ class Uint8ClampedListTypedData {
         return null;
       },
       'fillRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8ClampedList.fillRange', atMost: 3);
         final start = positionalArgs[0] as int;
         final end = positionalArgs[1] as int;
         final fill = positionalArgs.length > 2
@@ -141,6 +146,11 @@ class Uint8ClampedListTypedData {
         return (target as Uint8ClampedList).buffer;
       },
       'asUint8ListView': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'Uint8ClampedList.asUint8ListView',
+          atMost: 2,
+        );
         final offsetInBytes = positionalArgs.isNotEmpty
             ? positionalArgs[0] as int?
             : null;
@@ -158,6 +168,7 @@ class Uint8ClampedListTypedData {
         return (target as Uint8ClampedList).toString();
       },
       '==': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8ClampedList.==', atMost: 1);
         return (target as Uint8ClampedList) == positionalArgs[0];
       },
 

@@ -76,15 +76,26 @@ class UnmodifiableSetViewCollection {
     },
     methods: {
       'contains': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableSetView.contains',
+          atMost: 1,
+        );
         return _view(target, 'contains').contains(positionalArgs[0]);
       },
       'containsAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableSetView.containsAll',
+          atMost: 1,
+        );
         return _view(
           target,
           'containsAll',
         ).containsAll(_iterable(positionalArgs[0], 'containsAll'));
       },
       'lookup': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableSetView.lookup', atMost: 1);
         return _view(target, 'lookup').lookup(positionalArgs[0]);
       },
       ...setAlgebraMethods(
@@ -92,6 +103,7 @@ class UnmodifiableSetViewCollection {
         (t) => _view(t, 'setAlgebra'),
       ),
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableSetView.forEach', atMost: 1);
         final action = _callback(positionalArgs[0], 'forEach');
         for (final element in _view(target, 'forEach')) {
           action.call(visitor, [element]);
@@ -99,6 +111,7 @@ class UnmodifiableSetViewCollection {
         return null;
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableSetView.map', atMost: 1);
         final f = _callback(positionalArgs[0], 'map');
         return _view(
           target,
@@ -106,6 +119,7 @@ class UnmodifiableSetViewCollection {
         ).map((element) => f.call(visitor, [element]));
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableSetView.where', atMost: 1);
         return _view(
           target,
           'where',
@@ -115,6 +129,7 @@ class UnmodifiableSetViewCollection {
         return _view(target, 'whereType').whereType<dynamic>();
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableSetView.expand', atMost: 1);
         final f = _callback(positionalArgs[0], 'expand');
         return _view(target, 'expand').expand((element) {
           final result = f.call(visitor, [element]);
@@ -122,30 +137,47 @@ class UnmodifiableSetViewCollection {
         });
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableSetView.any', atMost: 1);
         return _view(
           target,
           'any',
         ).any(_predicate(visitor, positionalArgs[0], 'any'));
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableSetView.every', atMost: 1);
         return _view(
           target,
           'every',
         ).every(_predicate(visitor, positionalArgs[0], 'every'));
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableSetView.takeWhile',
+          atMost: 1,
+        );
         return _view(
           target,
           'takeWhile',
         ).takeWhile(_predicate(visitor, positionalArgs[0], 'takeWhile'));
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableSetView.skipWhile',
+          atMost: 1,
+        );
         return _view(
           target,
           'skipWhile',
         ).skipWhile(_predicate(visitor, positionalArgs[0], 'skipWhile'));
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableSetView.firstWhere',
+          atMost: 1,
+        );
         final orElse = namedArgs['orElse'] as Callable?;
         return _view(target, 'firstWhere').firstWhere(
           _predicate(visitor, positionalArgs[0], 'firstWhere'),
@@ -153,6 +185,11 @@ class UnmodifiableSetViewCollection {
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableSetView.lastWhere',
+          atMost: 1,
+        );
         final orElse = namedArgs['orElse'] as Callable?;
         return _view(target, 'lastWhere').lastWhere(
           _predicate(visitor, positionalArgs[0], 'lastWhere'),
@@ -160,6 +197,11 @@ class UnmodifiableSetViewCollection {
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableSetView.singleWhere',
+          atMost: 1,
+        );
         final orElse = namedArgs['orElse'] as Callable?;
         return _view(target, 'singleWhere').singleWhere(
           _predicate(visitor, positionalArgs[0], 'singleWhere'),
@@ -180,6 +222,7 @@ class UnmodifiableSetViewCollection {
         );
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableSetView.reduce', atMost: 1);
         final combine = _callback(positionalArgs[0], 'reduce');
         return _view(
           target,
@@ -187,21 +230,34 @@ class UnmodifiableSetViewCollection {
         ).reduce((value, element) => combine.call(visitor, [value, element]));
       },
       'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableSetView.followedBy',
+          atMost: 1,
+        );
         return _view(
           target,
           'followedBy',
         ).followedBy(_iterable(positionalArgs[0], 'followedBy'));
       },
       'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableSetView.elementAt',
+          atMost: 1,
+        );
         return _view(target, 'elementAt').elementAt(positionalArgs[0] as int);
       },
       'take': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableSetView.take', atMost: 1);
         return _view(target, 'take').take(positionalArgs[0] as int);
       },
       'skip': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableSetView.skip', atMost: 1);
         return _view(target, 'skip').skip(positionalArgs[0] as int);
       },
       'join': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableSetView.join', atMost: 1);
         final separator = positionalArgs.isNotEmpty
             ? positionalArgs[0] as String
             : '';
@@ -227,16 +283,24 @@ class UnmodifiableSetViewCollection {
       // `UnsupportedError` that scripts already catch via
       // `on UnsupportedError`.
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableSetView.add', atMost: 1);
         return _view(target, 'add').add(positionalArgs[0]);
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableSetView.addAll', atMost: 1);
         _view(target, 'addAll').addAll(_iterable(positionalArgs[0], 'addAll'));
         return null;
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableSetView.remove', atMost: 1);
         return _view(target, 'remove').remove(positionalArgs[0]);
       },
       'removeAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableSetView.removeAll',
+          atMost: 1,
+        );
         _view(
           target,
           'removeAll',
@@ -244,6 +308,11 @@ class UnmodifiableSetViewCollection {
         return null;
       },
       'retainAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableSetView.retainAll',
+          atMost: 1,
+        );
         _view(
           target,
           'retainAll',
@@ -251,6 +320,11 @@ class UnmodifiableSetViewCollection {
         return null;
       },
       'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableSetView.removeWhere',
+          atMost: 1,
+        );
         _view(
           target,
           'removeWhere',
@@ -258,6 +332,11 @@ class UnmodifiableSetViewCollection {
         return null;
       },
       'retainWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'UnmodifiableSetView.retainWhere',
+          atMost: 1,
+        );
         _view(
           target,
           'retainWhere',

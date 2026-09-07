@@ -8,12 +8,14 @@ class PatternCore {
     constructors: {},
     methods: {
       'allMatches': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Pattern.allMatches', atMost: 1);
         return (target as Pattern).allMatches(
           positionalArgs[0] as String,
           positionalArgs.get<int>(1) ?? 0,
         );
       },
       'matchAsPrefix': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Pattern.matchAsPrefix', atMost: 1);
         return (target as Pattern).matchAsPrefix(
           positionalArgs[0] as String,
           positionalArgs.get<int>(1) ?? 0,
@@ -40,9 +42,11 @@ class MatchCore {
     constructors: {},
     methods: {
       'group': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Pattern.group', atMost: 1);
         return (target as Match).group(positionalArgs[0] as int);
       },
       'groups': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Pattern.groups', atMost: 1);
         return (target as Match).groups(positionalArgs[0] as List<int>);
       },
       '[]': (visitor, target, positionalArgs, namedArgs, _) {

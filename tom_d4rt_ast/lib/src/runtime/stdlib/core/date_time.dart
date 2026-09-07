@@ -125,26 +125,33 @@ class DateTimeCore {
     },
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'DateTime.add', atMost: 1);
         return (target as DateTime).add(positionalArgs[0] as Duration);
       },
       'subtract': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'DateTime.subtract', atMost: 1);
         return (target as DateTime).subtract(positionalArgs[0] as Duration);
       },
       'difference': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'DateTime.difference', atMost: 1);
         return (target as DateTime).difference(positionalArgs[0] as DateTime);
       },
       'isBefore': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'DateTime.isBefore', atMost: 1);
         return (target as DateTime).isBefore(positionalArgs[0] as DateTime);
       },
       'isAfter': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'DateTime.isAfter', atMost: 1);
         return (target as DateTime).isAfter(positionalArgs[0] as DateTime);
       },
       'isAtSameMomentAs': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'DateTime.isAtSameMomentAs', atMost: 1);
         return (target as DateTime).isAtSameMomentAs(
           positionalArgs[0] as DateTime,
         );
       },
       'compareTo': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'DateTime.compareTo', atMost: 1);
         return (target as DateTime).compareTo(positionalArgs[0] as DateTime);
       },
       'toLocal': (visitor, target, positionalArgs, namedArgs, _) {

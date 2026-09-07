@@ -70,14 +70,17 @@ class DoubleLinkedQueueCollection {
     },
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'DoubleLinkedQueue.add', atMost: 1);
         (target as DoubleLinkedQueue).add(positionalArgs[0]);
         return null;
       },
       'addFirst': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'DoubleLinkedQueue.addFirst', atMost: 1);
         (target as DoubleLinkedQueue).addFirst(positionalArgs[0]);
         return null;
       },
       'addLast': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'DoubleLinkedQueue.addLast', atMost: 1);
         (target as DoubleLinkedQueue).addLast(positionalArgs[0]);
         return null;
       },
@@ -110,6 +113,7 @@ class DoubleLinkedQueueCollection {
         return queue.removeLast();
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'DoubleLinkedQueue.remove', atMost: 1);
         return (target as DoubleLinkedQueue).remove(positionalArgs[0]);
       },
       'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -202,10 +206,12 @@ class DoubleLinkedQueueEntryCollection {
     },
     methods: {
       'append': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'DoubleLinkedQueue.append', atMost: 1);
         (target as DoubleLinkedQueueEntry).append(positionalArgs[0]);
         return null;
       },
       'prepend': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'DoubleLinkedQueue.prepend', atMost: 1);
         (target as DoubleLinkedQueueEntry).prepend(positionalArgs[0]);
         return null;
       },

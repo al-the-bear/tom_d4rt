@@ -28,22 +28,27 @@ class RectangleMath {
     },
     methods: {
       'containsPoint': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Rectangle.containsPoint', atMost: 1);
         return (target as Rectangle).containsPoint(positionalArgs[0] as Point);
       },
       'containsRectangle': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Rectangle.containsRectangle', atMost: 1);
         return (target as Rectangle).containsRectangle(
           positionalArgs[0] as Rectangle,
         );
       },
       'intersects': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Rectangle.intersects', atMost: 1);
         return (target as Rectangle).intersects(positionalArgs[0] as Rectangle);
       },
       'intersection': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Rectangle.intersection', atMost: 1);
         return (target as Rectangle).intersection(
           positionalArgs[0] as Rectangle,
         );
       },
       'boundingBox': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Rectangle.boundingBox', atMost: 1);
         return (target as Rectangle).boundingBox(
           positionalArgs[0] as Rectangle,
         );

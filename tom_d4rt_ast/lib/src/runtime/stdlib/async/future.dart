@@ -149,6 +149,7 @@ class FutureAsync {
     },
     methods: {
       'then': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Future.then', atMost: 1);
         final onValue = positionalArgs[0];
         final onError = namedArgs.get<InterpretedFunction?>('onError');
         if (onValue is! InterpretedFunction) {
@@ -167,6 +168,7 @@ class FutureAsync {
         );
       },
       'catchError': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Future.catchError', atMost: 1);
         final onError = positionalArgs[0];
         final test = namedArgs.get<InterpretedFunction?>('test');
         if (onError is! InterpretedFunction) {
@@ -185,6 +187,7 @@ class FutureAsync {
         );
       },
       'whenComplete': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Future.whenComplete', atMost: 1);
         final action = positionalArgs[0];
         if (action is! InterpretedFunction) {
           throw RuntimeD4rtException(
@@ -194,6 +197,7 @@ class FutureAsync {
         return (target as Future).whenComplete(() => action.call(visitor, []));
       },
       'timeout': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Future.timeout', atMost: 1);
         final timeLimit = positionalArgs[0] as Duration;
         final onTimeout = namedArgs.get<InterpretedFunction?>('onTimeout');
         return (target as Future).timeout(
@@ -208,6 +212,7 @@ class FutureAsync {
       },
       // FutureExtensions methods
       'onError': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Future.onError', atMost: 1);
         final handleError = positionalArgs[0];
         final test = namedArgs.get<InterpretedFunction?>('test');
         if (handleError is! InterpretedFunction) {

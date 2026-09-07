@@ -15,6 +15,7 @@ class Utf8CodecConvert {
     },
     methods: {
       'encode': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Utf8Codec.encode', atMost: 1);
         return (target as Utf8Codec).encode(positionalArgs[0] as String);
       },
       'decode': (visitor, target, positionalArgs, namedArgs, _) {
@@ -70,6 +71,7 @@ class Utf8EncoderConvert {
     },
     methods: {
       'convert': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Utf8Codec.convert', atMost: 1);
         return (target as Utf8Encoder).convert(positionalArgs[0] as String);
       },
       'startChunkedConversion':

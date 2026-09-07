@@ -93,14 +93,17 @@ class Uint8ListTypedData {
 
       // List methods
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.add', atMost: 1);
         return (target as Uint8List).add(positionalArgs[0] as int);
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.addAll', atMost: 1);
         return (target as Uint8List).addAll(
           coerceElements<int>(positionalArgs[0], 'Uint8List.addAll'),
         );
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.any', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as Uint8List).any(
           (element) => runAction<bool>(visitor, test, [element]) == true,
@@ -113,6 +116,7 @@ class Uint8ListTypedData {
         return (target as Uint8List).asUnmodifiableView();
       },
       'asUint8ListView': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.asUint8ListView', atMost: 2);
         final offsetInBytes = positionalArgs.isNotEmpty
             ? positionalArgs[0] as int?
             : null;
@@ -134,18 +138,22 @@ class Uint8ListTypedData {
         return (target as Uint8List).clear();
       },
       'contains': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.contains', atMost: 1);
         return (target as Uint8List).contains(positionalArgs[0]);
       },
       'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.elementAt', atMost: 1);
         return (target as Uint8List).elementAt(positionalArgs[0] as int);
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.every', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as Uint8List).every(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.expand', atMost: 1);
         final toElements = positionalArgs[0] as InterpretedFunction;
         return (target as Uint8List).expand(
           (element) =>
@@ -153,6 +161,7 @@ class Uint8ListTypedData {
         );
       },
       'fillRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.fillRange', atMost: 3);
         final start = positionalArgs[0] as int;
         final end = positionalArgs[1] as int;
         final fillValue = positionalArgs.length > 2
@@ -161,6 +170,7 @@ class Uint8ListTypedData {
         return (target as Uint8List).fillRange(start, end, fillValue);
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.firstWhere', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         final orElse = namedArgs['orElse'] as InterpretedFunction?;
         return (target as Uint8List).firstWhere(
@@ -171,6 +181,7 @@ class Uint8ListTypedData {
         );
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.fold', atMost: 2);
         final initialValue = positionalArgs[0];
         final combine = positionalArgs[1] as InterpretedFunction;
         return (target as Uint8List).fold(
@@ -179,11 +190,13 @@ class Uint8ListTypedData {
         );
       },
       'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.followedBy', atMost: 1);
         return (target as Uint8List).followedBy(
           coerceElements<int>(positionalArgs[0], 'Uint8List.followedBy'),
         );
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.forEach', atMost: 1);
         final action = positionalArgs[0] as InterpretedFunction;
         for (var element in (target as Uint8List)) {
           runAction<void>(visitor, action, [element]);
@@ -191,16 +204,19 @@ class Uint8ListTypedData {
         return null;
       },
       'getRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.getRange', atMost: 2);
         final start = positionalArgs[0] as int;
         final end = positionalArgs[1] as int;
         return (target as Uint8List).getRange(start, end);
       },
       'indexOf': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.indexOf', atMost: 2);
         final element = positionalArgs[0] as int;
         final start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
         return (target as Uint8List).indexOf(element, start);
       },
       'indexWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.indexWhere', atMost: 2);
         final test = positionalArgs[0] as InterpretedFunction;
         final start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
         return (target as Uint8List).indexWhere(
@@ -209,11 +225,13 @@ class Uint8ListTypedData {
         );
       },
       'insert': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.insert', atMost: 2);
         final index = positionalArgs[0] as int;
         final element = positionalArgs[1] as int;
         return (target as Uint8List).insert(index, element);
       },
       'insertAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.insertAll', atMost: 2);
         final index = positionalArgs[0] as int;
         final iterable = coerceElements<int>(
           positionalArgs[1],
@@ -222,12 +240,14 @@ class Uint8ListTypedData {
         return (target as Uint8List).insertAll(index, iterable);
       },
       'join': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.join', atMost: 1);
         final separator = positionalArgs.isNotEmpty
             ? positionalArgs[0] as String
             : "";
         return (target as Uint8List).join(separator);
       },
       'lastIndexOf': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.lastIndexOf', atMost: 2);
         final element = positionalArgs[0] as int;
         final start = positionalArgs.length > 1
             ? positionalArgs[1] as int?
@@ -235,6 +255,7 @@ class Uint8ListTypedData {
         return (target as Uint8List).lastIndexOf(element, start);
       },
       'lastIndexWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.lastIndexWhere', atMost: 2);
         final test = positionalArgs[0] as InterpretedFunction;
         final start = positionalArgs.length > 1
             ? positionalArgs[1] as int?
@@ -245,6 +266,7 @@ class Uint8ListTypedData {
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.lastWhere', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         final orElse = namedArgs['orElse'] as InterpretedFunction?;
         return (target as Uint8List).lastWhere(
@@ -255,17 +277,20 @@ class Uint8ListTypedData {
         );
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.map', atMost: 1);
         final toElement = positionalArgs[0] as InterpretedFunction;
         return (target as Uint8List).map(
           (element) => runAction(visitor, toElement, [element]),
         );
       },
       'noSuchMethod': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.noSuchMethod', atMost: 1);
         return (target as Uint8List).noSuchMethod(
           positionalArgs[0] as Invocation,
         );
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.reduce', atMost: 1);
         final combine = positionalArgs[0] as InterpretedFunction;
         return (target as Uint8List).reduce(
           (value, element) =>
@@ -273,26 +298,31 @@ class Uint8ListTypedData {
         );
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.remove', atMost: 1);
         return (target as Uint8List).remove(positionalArgs[0]);
       },
       'removeAt': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.removeAt', atMost: 1);
         return (target as Uint8List).removeAt(positionalArgs[0] as int);
       },
       'removeLast': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as Uint8List).removeLast();
       },
       'removeRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.removeRange', atMost: 2);
         final start = positionalArgs[0] as int;
         final end = positionalArgs[1] as int;
         return (target as Uint8List).removeRange(start, end);
       },
       'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.removeWhere', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as Uint8List).removeWhere(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
       },
       'replaceRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.replaceRange', atMost: 3);
         final start = positionalArgs[0] as int;
         final end = positionalArgs[1] as int;
         final replacements = coerceElements<int>(
@@ -302,12 +332,14 @@ class Uint8ListTypedData {
         return (target as Uint8List).replaceRange(start, end, replacements);
       },
       'retainWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.retainWhere', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as Uint8List).retainWhere(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
       },
       'setAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.setAll', atMost: 2);
         final index = positionalArgs[0] as int;
         final iterable = coerceElements<int>(
           positionalArgs[1],
@@ -316,6 +348,7 @@ class Uint8ListTypedData {
         return (target as Uint8List).setAll(index, iterable);
       },
       'setRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.setRange', atMost: 4);
         final start = positionalArgs[0] as int;
         final end = positionalArgs[1] as int;
         final iterable = coerceElements<int>(
@@ -328,12 +361,14 @@ class Uint8ListTypedData {
         return (target as Uint8List).setRange(start, end, iterable, skipCount);
       },
       'shuffle': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.shuffle', atMost: 1);
         final random = positionalArgs.isNotEmpty
             ? positionalArgs[0] as Random?
             : null;
         return (target as Uint8List).shuffle(random);
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.singleWhere', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         final orElse = namedArgs['orElse'] as InterpretedFunction?;
         return (target as Uint8List).singleWhere(
@@ -344,15 +379,18 @@ class Uint8ListTypedData {
         );
       },
       'skip': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.skip', atMost: 1);
         return (target as Uint8List).skip(positionalArgs[0] as int);
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.skipWhile', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as Uint8List).skipWhile(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
       },
       'sort': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.sort', atMost: 1);
         final compare = positionalArgs.isNotEmpty
             ? positionalArgs[0] as InterpretedFunction?
             : null;
@@ -363,6 +401,7 @@ class Uint8ListTypedData {
         );
       },
       'sublist': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.sublist', atMost: 2);
         final start = positionalArgs[0] as int;
         final end = positionalArgs.length > 1
             ? positionalArgs[1] as int?
@@ -370,9 +409,11 @@ class Uint8ListTypedData {
         return (target as Uint8List).sublist(start, end);
       },
       'take': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.take', atMost: 1);
         return (target as Uint8List).take(positionalArgs[0] as int);
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.takeWhile', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as Uint8List).takeWhile(
           (element) => runAction<bool>(visitor, test, [element]) == true,
@@ -389,6 +430,7 @@ class Uint8ListTypedData {
         return (target as Uint8List).toString();
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.where', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as Uint8List).where(
           (element) => runAction<bool>(visitor, test, [element]) == true,
@@ -400,10 +442,12 @@ class Uint8ListTypedData {
 
       // Operators
       '+': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.+', atMost: 1);
         return (target as Uint8List) +
             coerceElements<int>(positionalArgs[0], 'Uint8List +');
       },
       '==': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uint8List.==', atMost: 1);
         return (target as Uint8List) == positionalArgs[0];
       },
     },

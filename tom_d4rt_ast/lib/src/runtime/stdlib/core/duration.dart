@@ -74,15 +74,19 @@ class DurationCore {
     },
     methods: {
       '+': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Duration.+', atMost: 1);
         return (target as Duration) + (positionalArgs[0] as Duration);
       },
       '-': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Duration.-', atMost: 1);
         return (target as Duration) - (positionalArgs[0] as Duration);
       },
       '*': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Duration.*', atMost: 1);
         return (target as Duration) * (positionalArgs[0] as num);
       },
       '~/': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Duration.~/', atMost: 1);
         return (target as Duration) ~/ (positionalArgs[0] as int);
       },
       'unary-': (visitor, target, positionalArgs, namedArgs, _) {
@@ -92,6 +96,7 @@ class DurationCore {
         return (target as Duration).abs();
       },
       'compareTo': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Duration.compareTo', atMost: 1);
         return (target as Duration).compareTo(positionalArgs[0] as Duration);
       },
       'toString': (visitor, target, positionalArgs, namedArgs, _) {

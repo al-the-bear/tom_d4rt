@@ -16,10 +16,12 @@ class StringBufferCore {
     },
     methods: {
       'write': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'StringBuffer.write', atMost: 1);
         (target as StringBuffer).write(positionalArgs[0]);
         return null;
       },
       'writeAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'StringBuffer.writeAll', atMost: 2);
         final objects = positionalArgs[0] as Iterable;
         final separator = positionalArgs.length > 1
             ? positionalArgs[1] as String
@@ -28,11 +30,13 @@ class StringBufferCore {
         return null;
       },
       'writeln': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'StringBuffer.writeln', atMost: 1);
         final obj = positionalArgs.isNotEmpty ? positionalArgs[0] : '';
         (target as StringBuffer).writeln(obj);
         return null;
       },
       'writeCharCode': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'StringBuffer.writeCharCode', atMost: 1);
         (target as StringBuffer).writeCharCode(positionalArgs[0] as int);
         return null;
       },

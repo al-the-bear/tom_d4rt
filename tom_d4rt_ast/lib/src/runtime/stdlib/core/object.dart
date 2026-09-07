@@ -303,6 +303,7 @@ class ObjectCore {
         return target.noSuchMethod(positionalArgs[0] as Invocation);
       },
       '==': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Object.==', atMost: 1);
         return target == positionalArgs[0];
       },
       'toString': (visitor, target, positionalArgs, namedArgs, _) {

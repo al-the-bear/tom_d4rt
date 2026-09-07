@@ -46,10 +46,12 @@ class StdoutIo {
     constructors: {},
     methods: {
       'write': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stdin.write', atMost: 1);
         (target as Stdout).write(positionalArgs[0]);
         return null;
       },
       'writeln': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Stdin.writeln', atMost: 1);
         (target as Stdout).writeln(
           positionalArgs.isNotEmpty ? positionalArgs[0] : '',
         );

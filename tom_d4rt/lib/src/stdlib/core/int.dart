@@ -68,81 +68,104 @@ class IntCore {
         return (target as int).toString();
       },
       'toStringAsFixed': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.toStringAsFixed', atMost: 1);
         return (target as int).toStringAsFixed(positionalArgs[0] as int);
       },
       'toStringAsExponential': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.toStringAsExponential', atMost: 1);
         final fractionDigits = positionalArgs.isNotEmpty
             ? positionalArgs[0] as int?
             : null;
         return (target as int).toStringAsExponential(fractionDigits);
       },
       'toStringAsPrecision': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.toStringAsPrecision', atMost: 1);
         return (target as int).toStringAsPrecision(positionalArgs[0] as int);
       },
       'toRadixString': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.toRadixString', atMost: 1);
         return (target as int).toRadixString(positionalArgs[0] as int);
       },
       'compareTo': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.compareTo', atMost: 1);
         return (target as int).compareTo(positionalArgs[0] as num);
       },
       'clamp': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.clamp', atMost: 2);
         return (target as int).clamp(
           positionalArgs[0] as num,
           positionalArgs[1] as num,
         );
       },
       'remainder': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.remainder', atMost: 1);
         return (target as int).remainder(positionalArgs[0] as num);
       },
       'gcd': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.gcd', atMost: 1);
         return (target as int).gcd(positionalArgs[0] as int);
       },
       'modInverse': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.modInverse', atMost: 1);
         return (target as int).modInverse(positionalArgs[0] as int);
       },
       'modPow': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.modPow', atMost: 2);
         return (target as int).modPow(
           positionalArgs[0] as int,
           positionalArgs[1] as int,
         );
       },
       'toSigned': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.toSigned', atMost: 1);
         return (target as int).toSigned(positionalArgs[0] as int);
       },
       'toUnsigned': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.toUnsigned', atMost: 1);
         return (target as int).toUnsigned(positionalArgs[0] as int);
       },
       '+': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.+', atMost: 1);
         return (target as int) + (positionalArgs[0] as num);
       },
       '-': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.-', atMost: 1);
         return (target as int) - (positionalArgs[0] as num);
       },
       '*': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.*', atMost: 1);
         return (target as int) * (positionalArgs[0] as num);
       },
       '/': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int./', atMost: 1);
         return (target as int) / (positionalArgs[0] as num);
       },
       '~/': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.~/', atMost: 1);
         return (target as int) ~/ (positionalArgs[0] as num);
       },
       '%': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.%', atMost: 1);
         return (target as int) % (positionalArgs[0] as num);
       },
       '<<': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.<<', atMost: 1);
         return (target as int) << (positionalArgs[0] as int);
       },
       '>>': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.>>', atMost: 1);
         return (target as int) >> (positionalArgs[0] as int);
       },
       '&': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.&', atMost: 1);
         return (target as int) & (positionalArgs[0] as int);
       },
       '|': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.|', atMost: 1);
         return (target as int) | (positionalArgs[0] as int);
       },
       '^': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'int.^', atMost: 1);
         return (target as int) ^ (positionalArgs[0] as int);
       },
       'unary-': (visitor, target, positionalArgs, namedArgs, _) {

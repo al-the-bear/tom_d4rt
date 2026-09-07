@@ -91,6 +91,7 @@ class Int16ListTypedData {
 
       // List methods
       'sublist': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Int16List.sublist', atMost: 2);
         final start = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
         final end = positionalArgs.length > 1
             ? positionalArgs[1] as int?
@@ -98,11 +99,13 @@ class Int16ListTypedData {
         return (target as Int16List).sublist(start, end);
       },
       'getRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Int16List.getRange', atMost: 2);
         final start = positionalArgs[0] as int;
         final end = positionalArgs[1] as int;
         return (target as Int16List).getRange(start, end);
       },
       'setRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Int16List.setRange', atMost: 4);
         final start = positionalArgs[0] as int;
         final end = positionalArgs[1] as int;
         final iterable = coerceElements<int>(
@@ -116,6 +119,7 @@ class Int16ListTypedData {
         return null;
       },
       'setAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Int16List.setAll', atMost: 2);
         final at = positionalArgs[0] as int;
         final iterable = coerceElements<int>(
           positionalArgs[1],
@@ -125,6 +129,7 @@ class Int16ListTypedData {
         return null;
       },
       'fillRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Int16List.fillRange', atMost: 3);
         final start = positionalArgs[0] as int;
         final end = positionalArgs[1] as int;
         final fill = positionalArgs.length > 2
@@ -139,6 +144,7 @@ class Int16ListTypedData {
         return (target as Int16List).buffer;
       },
       'asUint8ListView': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Int16List.asUint8ListView', atMost: 2);
         final offsetInBytes = positionalArgs.isNotEmpty
             ? positionalArgs[0] as int?
             : null;
@@ -156,6 +162,7 @@ class Int16ListTypedData {
         return (target as Int16List).toString();
       },
       '==': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Int16List.==', atMost: 1);
         return (target as Int16List) == positionalArgs[0];
       },
 

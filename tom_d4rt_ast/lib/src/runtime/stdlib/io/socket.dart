@@ -50,6 +50,7 @@ class SocketIo {
         return null;
       },
       'transform': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.transform', atMost: 1);
         final separator = positionalArgs[0] as StreamTransformer;
         return (target as Socket).transform(separator.cast());
       },
@@ -69,6 +70,7 @@ class SocketIo {
         return null;
       },
       'writeln': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.writeln', atMost: 1);
         final obj = positionalArgs.isNotEmpty ? positionalArgs[0] : '';
         (target as Socket).writeln(obj);
         return null;
@@ -120,24 +122,29 @@ class SocketIo {
         return null;
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.any', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as Socket).any(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
       },
       'contains': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.contains', atMost: 1);
         return (target as Socket).contains(positionalArgs[0]);
       },
       'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.elementAt', atMost: 1);
         return (target as Socket).elementAt(positionalArgs[0] as int);
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.every', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as Socket).every(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.expand', atMost: 1);
         final toElements = positionalArgs[0] as InterpretedFunction;
         return (target as Socket).expand(
           (element) =>
@@ -145,6 +152,7 @@ class SocketIo {
         );
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.firstWhere', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         final orElse = namedArgs['orElse'] as InterpretedFunction?;
         return (target as Socket).firstWhere(
@@ -155,6 +163,7 @@ class SocketIo {
         );
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.fold', atMost: 2);
         final initialValue = positionalArgs[0];
         final combine = positionalArgs[1] as InterpretedFunction;
         return (target as Socket).fold(
@@ -163,18 +172,21 @@ class SocketIo {
         );
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.forEach', atMost: 1);
         final action = positionalArgs[0] as InterpretedFunction;
         return (target as Socket).forEach((element) {
           runAction<void>(visitor, action, [element]);
         });
       },
       'join': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.join', atMost: 1);
         final separator = positionalArgs.isNotEmpty
             ? positionalArgs[0] as String
             : "";
         return (target as Socket).join(separator);
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.lastWhere', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         final orElse = namedArgs['orElse'] as InterpretedFunction?;
         return (target as Socket).lastWhere(
@@ -185,15 +197,18 @@ class SocketIo {
         );
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.map', atMost: 1);
         final toElement = positionalArgs[0] as InterpretedFunction;
         return (target as Socket).map(
           (element) => runAction(visitor, toElement, [element]),
         );
       },
       'noSuchMethod': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.noSuchMethod', atMost: 1);
         return (target as Socket).noSuchMethod(positionalArgs[0] as Invocation);
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.singleWhere', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         final orElse = namedArgs['orElse'] as InterpretedFunction?;
         return (target as Socket).singleWhere(
@@ -204,18 +219,22 @@ class SocketIo {
         );
       },
       'skip': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.skip', atMost: 1);
         return (target as Socket).skip(positionalArgs[0] as int);
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.skipWhile', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as Socket).skipWhile(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
       },
       'take': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.take', atMost: 1);
         return (target as Socket).take(positionalArgs[0] as int);
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.takeWhile', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as Socket).takeWhile(
           (element) => runAction<bool>(visitor, test, [element]) == true,
@@ -231,6 +250,7 @@ class SocketIo {
         return (target as Socket).toString();
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.where', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as Socket).where(
           (element) => runAction<bool>(visitor, test, [element]) == true,
@@ -316,6 +336,7 @@ class SocketIo {
         );
       },
       'distinct': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.distinct', atMost: 1);
         final equals = positionalArgs.isNotEmpty
             ? positionalArgs[0] as InterpretedFunction?
             : null;
@@ -329,6 +350,7 @@ class SocketIo {
         }
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.reduce', atMost: 1);
         final combine = positionalArgs[0] as InterpretedFunction;
         return (target as Socket).reduce(
           (previous, element) =>
@@ -336,6 +358,7 @@ class SocketIo {
         );
       },
       'pipe': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.pipe', atMost: 1);
         final streamConsumer = positionalArgs[0];
         if (streamConsumer is! StreamConsumer) {
           throw RuntimeD4rtException(
@@ -349,12 +372,14 @@ class SocketIo {
       'cast': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as Socket).cast(),
       'drain': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.drain', atMost: 1);
         final futureValue = positionalArgs.isNotEmpty
             ? positionalArgs[0]
             : null;
         return (target as Socket).drain(futureValue);
       },
       '==': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.==', atMost: 1);
         return (target as Socket) == positionalArgs[0];
       },
     },
@@ -579,24 +604,29 @@ class ServerSocketIo {
             namedArgs,
           ),
       'any': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.any', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as ServerSocket).any(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
       },
       'contains': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.contains', atMost: 1);
         return (target as ServerSocket).contains(positionalArgs[0]);
       },
       'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.elementAt', atMost: 1);
         return (target as ServerSocket).elementAt(positionalArgs[0] as int);
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.every', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as ServerSocket).every(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.expand', atMost: 1);
         final toElements = positionalArgs[0] as InterpretedFunction;
         return (target as ServerSocket).expand(
           (element) =>
@@ -604,6 +634,7 @@ class ServerSocketIo {
         );
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.firstWhere', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         final orElse = namedArgs['orElse'] as InterpretedFunction?;
         return (target as ServerSocket).firstWhere(
@@ -614,6 +645,7 @@ class ServerSocketIo {
         );
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.fold', atMost: 2);
         final initialValue = positionalArgs[0];
         final combine = positionalArgs[1] as InterpretedFunction;
         return (target as ServerSocket).fold(
@@ -622,22 +654,26 @@ class ServerSocketIo {
         );
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.forEach', atMost: 1);
         final action = positionalArgs[0] as InterpretedFunction;
         return (target as ServerSocket).forEach((element) {
           runAction<void>(visitor, action, [element]);
         });
       },
       'join': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.join', atMost: 1);
         final separator = positionalArgs.isNotEmpty
             ? positionalArgs[0] as String
             : "";
         return (target as ServerSocket).join(separator);
       },
       'transform': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.transform', atMost: 1);
         final separator = positionalArgs[0] as StreamTransformer;
         return (target as ServerSocket).transform(separator.cast());
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.lastWhere', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         final orElse = namedArgs['orElse'] as InterpretedFunction?;
         return (target as ServerSocket).lastWhere(
@@ -648,17 +684,20 @@ class ServerSocketIo {
         );
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.map', atMost: 1);
         final toElement = positionalArgs[0] as InterpretedFunction;
         return (target as ServerSocket).map(
           (element) => runAction(visitor, toElement, [element]),
         );
       },
       'noSuchMethod': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.noSuchMethod', atMost: 1);
         return (target as ServerSocket).noSuchMethod(
           positionalArgs[0] as Invocation,
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.singleWhere', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         final orElse = namedArgs['orElse'] as InterpretedFunction?;
         return (target as ServerSocket).singleWhere(
@@ -669,18 +708,22 @@ class ServerSocketIo {
         );
       },
       'skip': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.skip', atMost: 1);
         return (target as ServerSocket).skip(positionalArgs[0] as int);
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.skipWhile', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as ServerSocket).skipWhile(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
       },
       'take': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.take', atMost: 1);
         return (target as ServerSocket).take(positionalArgs[0] as int);
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.takeWhile', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as ServerSocket).takeWhile(
           (element) => runAction<bool>(visitor, test, [element]) == true,
@@ -696,12 +739,14 @@ class ServerSocketIo {
         return (target as ServerSocket).toString();
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.where', atMost: 1);
         final test = positionalArgs[0] as InterpretedFunction;
         return (target as ServerSocket).where(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
       },
       '==': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.==', atMost: 1);
         return (target as ServerSocket) == positionalArgs[0];
       },
     },
@@ -755,18 +800,21 @@ class RawSocketIo {
       'available': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as RawSocket).available(),
       'read': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.read', atMost: 1);
         final len = positionalArgs.isNotEmpty
             ? positionalArgs[0] as int?
             : null;
         return (target as RawSocket).read(len);
       },
       'write': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.write', atMost: 1);
         final data = positionalArgs[0] as List<int>;
         return (target as RawSocket).write(data);
       },
       'close': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as RawSocket).close(),
       'shutdown': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.shutdown', atMost: 1);
         final direction = positionalArgs[0] as SocketDirection;
         return (target as RawSocket).shutdown(direction);
       },
@@ -778,15 +826,18 @@ class RawSocketIo {
             namedArgs,
           ),
       'setOption': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.setOption', atMost: 2);
         final option = positionalArgs[0] as SocketOption;
         final enabled = positionalArgs[1] as bool;
         return (target as RawSocket).setOption(option, enabled);
       },
       'getRawOption': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.getRawOption', atMost: 1);
         final option = positionalArgs[0] as RawSocketOption;
         return (target as RawSocket).getRawOption(option);
       },
       'setRawOption': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.setRawOption', atMost: 1);
         final option = positionalArgs[0] as RawSocketOption;
         return (target as RawSocket).setRawOption(option);
       },
@@ -1028,6 +1079,7 @@ class RawDatagramSocketIo {
       'receive': (visitor, target, positionalArgs, namedArgs, _) =>
           (target as RawDatagramSocket).receive(),
       'send': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.send', atMost: 3);
         final data = positionalArgs[0] as List<int>;
         final address = positionalArgs[1] as InternetAddress;
         final port = positionalArgs[2] as int;
@@ -1043,18 +1095,22 @@ class RawDatagramSocketIo {
             namedArgs,
           ),
       'joinMulticast': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.joinMulticast', atMost: 1);
         final group = positionalArgs[0] as InternetAddress;
         return (target as RawDatagramSocket).joinMulticast(group);
       },
       'leaveMulticast': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.leaveMulticast', atMost: 1);
         final group = positionalArgs[0] as InternetAddress;
         return (target as RawDatagramSocket).leaveMulticast(group);
       },
       'getRawOption': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.getRawOption', atMost: 1);
         final option = positionalArgs[0] as RawSocketOption;
         return (target as RawDatagramSocket).getRawOption(option);
       },
       'setRawOption': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Socket.setRawOption', atMost: 1);
         final option = positionalArgs[0] as RawSocketOption;
         return (target as RawDatagramSocket).setRawOption(option);
       },

@@ -91,6 +91,7 @@ class Float32ListTypedData {
 
       // List methods
       'sublist': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Float32List.sublist', atMost: 2);
         final start = positionalArgs.isNotEmpty ? positionalArgs[0] as int : 0;
         final end = positionalArgs.length > 1
             ? positionalArgs[1] as int?
@@ -98,11 +99,13 @@ class Float32ListTypedData {
         return (target as Float32List).sublist(start, end);
       },
       'getRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Float32List.getRange', atMost: 2);
         final start = positionalArgs[0] as int;
         final end = positionalArgs[1] as int;
         return (target as Float32List).getRange(start, end);
       },
       'setRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Float32List.setRange', atMost: 4);
         final start = positionalArgs[0] as int;
         final end = positionalArgs[1] as int;
         final iterable = coerceElements<double>(
@@ -116,6 +119,7 @@ class Float32ListTypedData {
         return null;
       },
       'setAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Float32List.setAll', atMost: 2);
         final at = positionalArgs[0] as int;
         final iterable = coerceElements<double>(
           positionalArgs[1],
@@ -125,6 +129,7 @@ class Float32ListTypedData {
         return null;
       },
       'fillRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Float32List.fillRange', atMost: 3);
         final start = positionalArgs[0] as int;
         final end = positionalArgs[1] as int;
         final fill = positionalArgs.length > 2
@@ -139,6 +144,7 @@ class Float32ListTypedData {
         return (target as Float32List).buffer;
       },
       'asUint8ListView': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Float32List.asUint8ListView', atMost: 2);
         final offsetInBytes = positionalArgs.isNotEmpty
             ? positionalArgs[0] as int?
             : null;
@@ -156,6 +162,7 @@ class Float32ListTypedData {
         return (target as Float32List).toString();
       },
       '==': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Float32List.==', atMost: 1);
         return (target as Float32List) == positionalArgs[0];
       },
 

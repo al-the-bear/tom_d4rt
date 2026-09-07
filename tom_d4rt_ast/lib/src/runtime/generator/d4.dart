@@ -2203,6 +2203,76 @@ class D4 {
         'but was called with ${positional.length}.';
   }
 
+  /// SCC85: reject positional arguments the adapter would silently discard.
+  ///
+  /// The companion to [describeArityError], which covers the too-FEW half
+  /// generically: an unguarded adapter that reads past the end of the argument
+  /// list raises a `RangeError` the dispatcher recognises and restates. Too
+  /// MANY arguments raise nothing at all — the adapter reads the slots it wants,
+  /// the surplus is dropped, and a typo stays invisible:
+  ///
+  ///     UriData.parse('data:,a', 'extra')   // returns the parsed value
+  ///
+  /// That half cannot be recognised at the dispatch boundary the same way,
+  /// because [BridgedClass] stores an adapter as an untyped closure and nothing
+  /// on the dispatch path knows how many arguments it wants. The count is known
+  /// only inside the adapter, so the check has to live there — but it does NOT
+  /// have to be written out 443 times across two trees, which is what this is
+  /// for.
+  ///
+  /// [atMost] is the bound to prefer, and the one a sweep can derive
+  /// mechanically: it is one past the highest index the adapter ever reads, so
+  /// anything beyond it is *provably* ignored. [exactly] and [atLeast] are for
+  /// adapters whose minimum is known by hand — the minimum is not derivable in
+  /// general, because an adapter reading `positionalArgs[1]` behind a length
+  /// test takes one argument or two.
+  ///
+  /// Ordering note: once an adapter carries this, its message wins over
+  /// [describeArityError]'s, because the check runs before any index is read.
+  /// That is intended — an explicit guard can name the expected shape — but it
+  /// means a test asserting the generic wording must not point at a guarded
+  /// bridge.
+  ///
+  /// [memberDescription] is the `Class.member` the script author called.
+  static void checkArity(
+    List<Object?> positional,
+    String memberDescription, {
+    int? exactly,
+    int? atMost,
+    int? atLeast,
+  }) {
+    assert(
+      exactly != null || atMost != null || atLeast != null,
+      'checkArity was given no bound, so it would accept anything. Pass '
+      'exactly:, atMost: or atLeast:.',
+    );
+    final int actual = positional.length;
+
+    if (exactly != null && actual != exactly) {
+      throw RuntimeD4rtException(
+        '$memberDescription expects exactly $exactly positional '
+        '${_arguments(exactly)}, but was called with $actual.',
+      );
+    }
+    if (atLeast != null && actual < atLeast) {
+      throw RuntimeD4rtException(
+        '$memberDescription expects at least $atLeast positional '
+        '${_arguments(atLeast)}, but was called with $actual.',
+      );
+    }
+    if (atMost != null && actual > atMost) {
+      throw RuntimeD4rtException(
+        '$memberDescription accepts at most $atMost positional '
+        '${_arguments(atMost)}, but was called with $actual. The extra '
+        '${actual - atMost == 1 ? 'argument is' : 'arguments are'} not used by '
+        'this member — check for a typo or a misremembered signature.',
+      );
+    }
+  }
+
+  /// `argument` / `arguments`, so the messages above read as English.
+  static String _arguments(int n) => n == 1 ? 'argument' : 'arguments';
+
   /// Get a required positional argument with type checking.
   ///
   /// Throws ArgumentError if the argument is missing or has wrong type.

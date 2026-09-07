@@ -220,6 +220,7 @@ class DirectoryIo {
             return directory.resolveSymbolicLinksSync();
           },
       'createTemp': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Directory.createTemp', atMost: 1);
         final directory = target as Directory;
         checkFilesystemWritePermission(
           visitor,
@@ -231,6 +232,7 @@ class DirectoryIo {
         );
       },
       'createTempSync': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Directory.createTempSync', atMost: 1);
         final directory = target as Directory;
         checkFilesystemWritePermission(
           visitor,

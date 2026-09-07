@@ -426,6 +426,7 @@ class UnmodifiableListViewCollection {
         );
       },
       'join': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'UnmodifiableListView.join', atMost: 1);
         final t = target as UnmodifiableListView;
         String separator = "";
         if (positionalArgs.isNotEmpty) {

@@ -21,9 +21,11 @@ class PointMath {
     },
     methods: {
       'distanceTo': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Point.distanceTo', atMost: 1);
         return (target as Point).distanceTo(positionalArgs[0] as Point);
       },
       'squaredDistanceTo': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Point.squaredDistanceTo', atMost: 1);
         return (target as Point).squaredDistanceTo(positionalArgs[0] as Point);
       },
       '+': (visitor, target, positionalArgs, namedArgs, _) {

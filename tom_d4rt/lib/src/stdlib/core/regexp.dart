@@ -29,20 +29,25 @@ class RegExpCore {
     },
     methods: {
       'hasMatch': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'RegExp.hasMatch', atMost: 1);
         return (target as RegExp).hasMatch(positionalArgs[0] as String);
       },
       'firstMatch': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'RegExp.firstMatch', atMost: 1);
         return (target as RegExp).firstMatch(positionalArgs[0] as String);
       },
       'allMatches': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'RegExp.allMatches', atMost: 2);
         final input = positionalArgs[0] as String;
         final start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
         return (target as RegExp).allMatches(input, start);
       },
       'stringMatch': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'RegExp.stringMatch', atMost: 1);
         return (target as RegExp).stringMatch(positionalArgs[0] as String);
       },
       'matchAsPrefix': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'RegExp.matchAsPrefix', atMost: 2);
         final string = positionalArgs[0] as String;
         final start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
         return (target as RegExp).matchAsPrefix(string, start);
@@ -51,9 +56,11 @@ class RegExpCore {
         return (target as RegExp).toString();
       },
       'noSuchMethod': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'RegExp.noSuchMethod', atMost: 1);
         return (target as RegExp).noSuchMethod(positionalArgs[0] as Invocation);
       },
       '==': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'RegExp.==', atMost: 1);
         return (target as RegExp) == positionalArgs[0];
       },
     },
@@ -80,9 +87,11 @@ class RegExpMatchCore {
     methods: {
       // Methods inherited from Match
       'group': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'RegExp.group', atMost: 1);
         return (target as RegExpMatch).group(positionalArgs[0] as int);
       },
       'groups': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'RegExp.groups', atMost: 1);
         return (target as RegExpMatch).groups(positionalArgs[0] as List<int>);
       },
       '[]': (visitor, target, positionalArgs, namedArgs, _) {
@@ -97,11 +106,13 @@ class RegExpMatchCore {
         return (target as RegExpMatch).toString();
       },
       'noSuchMethod': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'RegExp.noSuchMethod', atMost: 1);
         return (target as RegExpMatch).noSuchMethod(
           positionalArgs[0] as Invocation,
         );
       },
       '==': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'RegExp.==', atMost: 1);
         return (target as RegExpMatch) == positionalArgs[0];
       },
       // RegExpMatch-specific methods

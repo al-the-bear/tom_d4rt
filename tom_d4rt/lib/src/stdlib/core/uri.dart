@@ -145,9 +145,11 @@ class UriCore {
         return (target as Uri).removeFragment();
       },
       'resolve': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uri.resolve', atMost: 1);
         return (target as Uri).resolve(positionalArgs[0] as String);
       },
       'resolveUri': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Uri.resolveUri', atMost: 1);
         return (target as Uri).resolveUri(positionalArgs[0] as Uri);
       },
       'toFilePath': (visitor, target, positionalArgs, namedArgs, _) {

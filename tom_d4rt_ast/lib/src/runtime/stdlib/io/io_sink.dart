@@ -60,6 +60,7 @@ class IOSinkIo {
         return null;
       },
       'writeln': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'IOSink.writeln', atMost: 1);
         final obj = positionalArgs.isNotEmpty ? positionalArgs[0] : '';
         (target as IOSink).writeln(obj);
         return null;

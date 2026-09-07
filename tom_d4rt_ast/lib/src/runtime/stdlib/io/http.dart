@@ -589,12 +589,14 @@ class HttpResponseIo {
     constructors: {},
     methods: {
       'write': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpClient.write', atMost: 1);
         (target as HttpResponse).write(
           positionalArgs.isNotEmpty ? positionalArgs[0] : null,
         );
         return null;
       },
       'writeln': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpClient.writeln', atMost: 1);
         (target as HttpResponse).writeln(
           positionalArgs.isNotEmpty ? positionalArgs[0] : '',
         );
@@ -845,10 +847,12 @@ class HttpClientRequestIo {
     constructors: {},
     methods: {
       'write': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpClient.write', atMost: 1);
         (target as HttpClientRequest).write(positionalArgs[0]);
         return null;
       },
       'writeln': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpClient.writeln', atMost: 1);
         (target as HttpClientRequest).writeln(
           positionalArgs.isNotEmpty ? positionalArgs[0] : '',
         );
@@ -898,6 +902,7 @@ class HttpClientRequestIo {
         return null;
       },
       'abort': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpClient.abort', atMost: 2);
         (target as HttpClientRequest).abort(
           positionalArgs.isNotEmpty ? positionalArgs[0] : null,
           positionalArgs.length > 1 ? positionalArgs[1] as StackTrace? : null,
@@ -976,6 +981,7 @@ class HttpClientResponseIo {
         );
       },
       'redirect': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'HttpClient.redirect', atMost: 2);
         final method = positionalArgs.isNotEmpty
             ? positionalArgs[0] as String?
             : null;

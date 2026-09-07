@@ -119,17 +119,21 @@ class ListCore {
     },
     methods: {
       '[]': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.[]', atMost: 1);
         return (target as List)[positionalArgs[0] as int];
       },
       '[]=': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.[]=', atMost: 2);
         (target as List)[positionalArgs[0] as int] = positionalArgs[1];
         return null;
       },
       'add': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.add', atMost: 1);
         (target as List).add(positionalArgs[0]);
         return null;
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.addAll', atMost: 1);
         final list = target as List;
         for (final e in positionalArgs[0] as Iterable) {
           final value = e is BridgedInstance ? e.nativeObject : e;
@@ -138,9 +142,11 @@ class ListCore {
         return null;
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.remove', atMost: 1);
         return (target as List).remove(positionalArgs[0]);
       },
       'removeAt': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.removeAt', atMost: 1);
         return (target as List).removeAt(positionalArgs[0] as int);
       },
       'removeLast': (visitor, target, positionalArgs, namedArgs, _) {
@@ -151,19 +157,23 @@ class ListCore {
         return null;
       },
       'contains': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.contains', atMost: 1);
         return (target as List).contains(positionalArgs[0]);
       },
       'indexOf': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.indexOf', atMost: 2);
         int start = positionalArgs.length == 2 ? positionalArgs[1] as int : 0;
         return (target as List).indexOf(positionalArgs[0], start);
       },
       'lastIndexOf': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.lastIndexOf', atMost: 2);
         int? start = positionalArgs.length == 2
             ? positionalArgs[1] as int?
             : null;
         return (target as List).lastIndexOf(positionalArgs[0], start);
       },
       'indexWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.indexWhere', atMost: 2);
         final test = positionalArgs[0] as Callable;
         int start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
         return (target as List).indexWhere(
@@ -172,6 +182,7 @@ class ListCore {
         );
       },
       'lastIndexWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.lastIndexWhere', atMost: 2);
         final test = positionalArgs[0] as Callable;
         int? start = positionalArgs.length > 1
             ? positionalArgs[1] as int?
@@ -182,12 +193,14 @@ class ListCore {
         );
       },
       'sublist': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.sublist', atMost: 2);
         int? end = positionalArgs.length == 2
             ? positionalArgs[1] as int?
             : null;
         return (target as List).sublist(positionalArgs[0] as int, end);
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.forEach', atMost: 1);
         final callback = positionalArgs[0];
         // Bug-95 FIX: Accept both InterpretedFunction/Callable and native
         // Dart Function tear-offs (like `print`).
@@ -205,24 +218,28 @@ class ListCore {
         return null;
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.any', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as List).any(
           (element) => test.call(visitor, [element], {}) as bool,
         );
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.every', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as List).every(
           (element) => test.call(visitor, [element], {}) as bool,
         );
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.map', atMost: 1);
         final toElement = positionalArgs[0] as Callable;
         return (target as List).map(
           (element) => toElement.call(visitor, [element], {}),
         );
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.where', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as List).where(
           (element) => test.call(visitor, [element], {}) as bool,
@@ -236,18 +253,21 @@ class ListCore {
         return (target as List).whereType();
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.expand', atMost: 1);
         final toElements = positionalArgs[0] as Callable;
         return (target as List).expand(
           (element) => toElements.call(visitor, [element], {}) as Iterable,
         );
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.reduce', atMost: 1);
         final combine = positionalArgs[0] as Callable;
         return (target as List).reduce(
           (value, element) => combine.call(visitor, [value, element], {}),
         );
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.fold', atMost: 2);
         final initialValue = positionalArgs[0];
         final combine = positionalArgs[1] as Callable;
         return (target as List).fold(
@@ -257,24 +277,29 @@ class ListCore {
         );
       },
       'join': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.join', atMost: 1);
         final separator = positionalArgs.isNotEmpty
             ? positionalArgs[0] as String
             : '';
         return (target as List).join(separator);
       },
       'take': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.take', atMost: 1);
         return (target as List).take(positionalArgs[0] as int);
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.takeWhile', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as List).takeWhile(
           (value) => test.call(visitor, [value], {}) as bool,
         );
       },
       'skip': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.skip', atMost: 1);
         return (target as List).skip(positionalArgs[0] as int);
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.skipWhile', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as List).skipWhile(
           (value) => test.call(visitor, [value], {}) as bool,
@@ -289,6 +314,7 @@ class ListCore {
         return (target as List).toSet();
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.firstWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
 
@@ -310,6 +336,7 @@ class ListCore {
         }
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.lastWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as List).lastWhere(
@@ -318,6 +345,7 @@ class ListCore {
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.singleWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as List).singleWhere(
@@ -326,10 +354,12 @@ class ListCore {
         );
       },
       'insert': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.insert', atMost: 2);
         (target as List).insert(positionalArgs[0] as int, positionalArgs[1]);
         return null;
       },
       'insertAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.insertAll', atMost: 2);
         final list = target as List;
         var index = positionalArgs[0] as int;
         for (final e in positionalArgs[1] as Iterable) {
@@ -339,6 +369,7 @@ class ListCore {
         return null;
       },
       'setAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.setAll', atMost: 2);
         final list = target as List;
         var index = positionalArgs[0] as int;
         for (final e in positionalArgs[1] as Iterable) {
@@ -348,6 +379,7 @@ class ListCore {
         return null;
       },
       'fillRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.fillRange', atMost: 3);
         (target as List).fillRange(
           positionalArgs[0] as int,
           positionalArgs[1] as int,
@@ -356,6 +388,7 @@ class ListCore {
         return null;
       },
       'replaceRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.replaceRange', atMost: 3);
         final list = target as List;
         final start = positionalArgs[0] as int;
         final end = positionalArgs[1] as int;
@@ -371,6 +404,7 @@ class ListCore {
         return null;
       },
       'removeRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.removeRange', atMost: 2);
         (target as List).removeRange(
           positionalArgs[0] as int,
           positionalArgs[1] as int,
@@ -378,6 +412,7 @@ class ListCore {
         return null;
       },
       'retainWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.retainWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         (target as List).retainWhere(
           (element) => test.call(visitor, [element], {}) as bool,
@@ -385,6 +420,7 @@ class ListCore {
         return null;
       },
       'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.removeWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         (target as List).removeWhere(
           (element) => test.call(visitor, [element], {}) as bool,
@@ -450,12 +486,15 @@ class ListCore {
         return (target as List).cast<dynamic>();
       },
       'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.followedBy', atMost: 1);
         return (target as List).followedBy(positionalArgs[0] as Iterable);
       },
       'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.elementAt', atMost: 1);
         return (target as List).elementAt(positionalArgs[0] as int);
       },
       'elementAtOrNull': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.elementAtOrNull', atMost: 1);
         return (target as List).elementAtOrNull(positionalArgs[0] as int);
       },
       'byName': (visitor, target, positionalArgs, namedArgs, _) {
@@ -482,6 +521,7 @@ class ListCore {
         );
       },
       'setRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.setRange', atMost: 4);
         int skipCount = positionalArgs.length > 3
             ? positionalArgs[3] as int? ?? 0
             : 0;
@@ -494,6 +534,7 @@ class ListCore {
         return null;
       },
       'getRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'List.getRange', atMost: 2);
         return (target as List).getRange(
           positionalArgs[0] as int,
           positionalArgs[1] as int,

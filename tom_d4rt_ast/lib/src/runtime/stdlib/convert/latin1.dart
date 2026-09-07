@@ -15,9 +15,11 @@ class Latin1CodecConvert {
     },
     methods: {
       'encode': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Latin1Codec.encode', atMost: 1);
         return (target as Latin1Codec).encode(positionalArgs[0] as String);
       },
       'decode': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Latin1Codec.decode', atMost: 1);
         final allowInvalid = namedArgs.get<bool?>('allowInvalid');
         return (target as Latin1Codec).decode(
           positionalArgs[0] as List<int>,
@@ -63,6 +65,7 @@ class Latin1EncoderConvert {
     },
     methods: {
       'convert': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Latin1Codec.convert', atMost: 1);
         return (target as Latin1Encoder).convert(positionalArgs[0] as String);
       },
       'startChunkedConversion':
@@ -120,6 +123,7 @@ class Latin1DecoderConvert {
     },
     methods: {
       'convert': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Latin1Codec.convert', atMost: 1);
         return (target as Latin1Decoder).convert(
           positionalArgs[0] as List<int>,
         );

@@ -18,6 +18,7 @@ class EndianTypedData {
         return (target as Endian).toString();
       },
       '==': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Endian.==', atMost: 1);
         return (target as Endian) == positionalArgs[0];
       },
     },

@@ -7,6 +7,7 @@ class TypeCore {
     typeParameterCount: 0,
     methods: {
       '==': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Type.==', atMost: 1);
         return (target as Type) == positionalArgs[0];
       },
       'toString': (visitor, target, positionalArgs, namedArgs, _) {

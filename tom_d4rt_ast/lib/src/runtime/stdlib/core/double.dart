@@ -60,45 +60,61 @@ class DoubleCore {
         return (target as double).toString();
       },
       'toStringAsFixed': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'double.toStringAsFixed', atMost: 1);
         return (target as double).toStringAsFixed(positionalArgs[0] as int);
       },
       'toStringAsExponential': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(
+          positionalArgs,
+          'double.toStringAsExponential',
+          atMost: 1,
+        );
         final fractionDigits = positionalArgs.isNotEmpty
             ? positionalArgs[0] as int?
             : null;
         return (target as double).toStringAsExponential(fractionDigits);
       },
       'toStringAsPrecision': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'double.toStringAsPrecision', atMost: 1);
         return (target as double).toStringAsPrecision(positionalArgs[0] as int);
       },
       'compareTo': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'double.compareTo', atMost: 1);
         return (target as double).compareTo(positionalArgs[0] as num);
       },
       'clamp': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'double.clamp', atMost: 2);
         return (target as double).clamp(
           positionalArgs[0] as num,
           positionalArgs[1] as num,
         );
       },
       'remainder': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'double.remainder', atMost: 1);
         return (target as double).remainder(positionalArgs[0] as num);
       },
       '+': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'double.+', atMost: 1);
         return (target as double) + (positionalArgs[0] as num);
       },
       '-': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'double.-', atMost: 1);
         return (target as double) - (positionalArgs[0] as num);
       },
       '*': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'double.*', atMost: 1);
         return (target as double) * (positionalArgs[0] as num);
       },
       '/': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'double./', atMost: 1);
         return (target as double) / (positionalArgs[0] as num);
       },
       '~/': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'double.~/', atMost: 1);
         return (target as double) ~/ (positionalArgs[0] as num);
       },
       '%': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'double.%', atMost: 1);
         return (target as double) % (positionalArgs[0] as num);
       },
       'unary-': (visitor, target, positionalArgs, namedArgs, _) {

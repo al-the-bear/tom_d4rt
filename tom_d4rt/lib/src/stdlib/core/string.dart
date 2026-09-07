@@ -34,6 +34,7 @@ class StringCore {
         return (target as String)[positionalArgs[0] as int];
       },
       'substring': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.substring', atMost: 2);
         return (target as String).substring(
           positionalArgs[0] as int,
           positionalArgs.length > 1 ? positionalArgs[1] as int? : null,
@@ -46,6 +47,7 @@ class StringCore {
         return (target as String).toLowerCase();
       },
       'contains': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.contains', atMost: 2);
         return (target as String).contains(
           positionalArgs[0] as Pattern,
           positionalArgs.length > 1 ? positionalArgs[1] as int? ?? 0 : 0,
@@ -77,21 +79,25 @@ class StringCore {
         );
       },
       'startsWith': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.startsWith', atMost: 2);
         return (target as String).startsWith(
           positionalArgs[0] as Pattern,
           positionalArgs.length > 1 ? positionalArgs[1] as int? ?? 0 : 0,
         );
       },
       'endsWith': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.endsWith', atMost: 1);
         return (target as String).endsWith(positionalArgs[0] as String);
       },
       'indexOf': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.indexOf', atMost: 2);
         return (target as String).indexOf(
           positionalArgs[0] as Pattern,
           positionalArgs.length > 1 ? positionalArgs[1] as int? ?? 0 : 0,
         );
       },
       'lastIndexOf': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.lastIndexOf', atMost: 2);
         return (target as String).lastIndexOf(
           positionalArgs[0] as Pattern,
           positionalArgs.length > 1 ? positionalArgs[1] as int? : null,
@@ -107,15 +113,18 @@ class StringCore {
         return (target as String).trimRight();
       },
       'replaceAll': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.replaceAll', atMost: 2);
         return (target as String).replaceAll(
           positionalArgs[0] as Pattern,
           positionalArgs[1] as String,
         );
       },
       'split': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.split', atMost: 1);
         return (target as String).split(positionalArgs[0] as Pattern);
       },
       'splitMapJoin': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.splitMapJoin', atMost: 1);
         final pattern = positionalArgs[0] as Pattern;
         final onMatch = namedArgs['onMatch'] as InterpretedFunction?;
         final onNonMatch = namedArgs['onNonMatch'] as InterpretedFunction?;
@@ -130,18 +139,21 @@ class StringCore {
         );
       },
       'padLeft': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.padLeft', atMost: 2);
         return (target as String).padLeft(
           positionalArgs[0] as int,
           positionalArgs.length > 1 ? positionalArgs[1] as String? ?? ' ' : ' ',
         );
       },
       'padRight': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.padRight', atMost: 2);
         return (target as String).padRight(
           positionalArgs[0] as int,
           positionalArgs.length > 1 ? positionalArgs[1] as String? ?? ' ' : ' ',
         );
       },
       'replaceFirst': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.replaceFirst', atMost: 3);
         return (target as String).replaceFirst(
           positionalArgs[0] as Pattern,
           positionalArgs[1] as String,
@@ -149,6 +161,7 @@ class StringCore {
         );
       },
       'replaceRange': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.replaceRange', atMost: 3);
         return (target as String).replaceRange(
           positionalArgs[0] as int,
           positionalArgs.length > 1 ? positionalArgs[1] as int? : null,
@@ -156,21 +169,25 @@ class StringCore {
         );
       },
       'codeUnitAt': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.codeUnitAt', atMost: 1);
         return (target as String).codeUnitAt(positionalArgs[0] as int);
       },
       'toString': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as String).toString();
       },
       'compareTo': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.compareTo', atMost: 1);
         return (target as String).compareTo(positionalArgs[0] as String);
       },
       'allMatches': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.allMatches', atMost: 2);
         return (target as String).allMatches(
           positionalArgs[0] as String,
           positionalArgs.length > 1 ? positionalArgs[1] as int? ?? 0 : 0,
         );
       },
       'replaceAllMapped': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'String.replaceAllMapped', atMost: 2);
         final pattern = positionalArgs[0] as Pattern;
         final replace = positionalArgs[1];
         if (replace is! InterpretedFunction) {

@@ -874,6 +874,7 @@ class FileIo {
         return file.openSync(mode: mode);
       },
       'openRead': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'FileMode.openRead', atMost: 2);
         final file = target as File;
         checkFilesystemReadPermission(
           visitor,

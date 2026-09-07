@@ -144,27 +144,32 @@ class IterableCore {
     },
     methods: {
       'map': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.map', atMost: 1);
         final f = positionalArgs[0] as Callable;
         return (target as Iterable).map((element) {
           return f.call(visitor, [element]);
         });
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.where', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Iterable).where((element) {
           return test.call(visitor, [element]) as bool;
         });
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.expand', atMost: 1);
         final f = positionalArgs[0] as Callable;
         return (target as Iterable).expand((element) {
           return f.call(visitor, [element]) as Iterable;
         });
       },
       'contains': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.contains', atMost: 1);
         return (target as Iterable).contains(positionalArgs[0]);
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.forEach', atMost: 1);
         final action = positionalArgs[0] as Callable;
         for (var element in (target as Iterable)) {
           action.call(visitor, [element]);
@@ -172,12 +177,14 @@ class IterableCore {
         return null;
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.reduce', atMost: 1);
         final combine = positionalArgs[0] as Callable;
         return (target as Iterable).reduce((value, element) {
           return combine.call(visitor, [value, element]);
         });
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.fold', atMost: 2);
         final initialValue = positionalArgs[0];
         final combine = positionalArgs[1] as Callable;
         return (target as Iterable).fold(initialValue, (
@@ -188,18 +195,21 @@ class IterableCore {
         });
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.every', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Iterable).every((element) {
           return test.call(visitor, [element]) as bool;
         });
       },
       'join': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.join', atMost: 1);
         final separator = positionalArgs.isNotEmpty
             ? positionalArgs[0] as String
             : '';
         return (target as Iterable).join(separator);
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.any', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Iterable).any((element) {
           return test.call(visitor, [element]) as bool;
@@ -213,24 +223,29 @@ class IterableCore {
         return (target as Iterable).toSet();
       },
       'take': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.take', atMost: 1);
         return (target as Iterable).take(positionalArgs[0] as int);
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.takeWhile', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Iterable).takeWhile((element) {
           return test.call(visitor, [element]) as bool;
         });
       },
       'skip': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.skip', atMost: 1);
         return (target as Iterable).skip(positionalArgs[0] as int);
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.skipWhile', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Iterable).skipWhile((element) {
           return test.call(visitor, [element]) as bool;
         });
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.firstWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as Iterable).firstWhere(
@@ -239,6 +254,7 @@ class IterableCore {
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.lastWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as Iterable).lastWhere(
@@ -247,6 +263,7 @@ class IterableCore {
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.singleWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as Iterable).singleWhere(
@@ -255,12 +272,15 @@ class IterableCore {
         );
       },
       'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.elementAt', atMost: 1);
         return (target as Iterable).elementAt(positionalArgs[0] as int);
       },
       'elementAtOrNull': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.elementAtOrNull', atMost: 1);
         return (target as Iterable).elementAtOrNull(positionalArgs[0] as int);
       },
       'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Iterable.followedBy', atMost: 1);
         return (target as Iterable).followedBy(positionalArgs[0] as Iterable);
       },
       'whereType': (visitor, target, positionalArgs, namedArgs, _) {

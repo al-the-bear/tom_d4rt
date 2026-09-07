@@ -38,6 +38,7 @@ class ConverterConvert {
     },
     methods: {
       'convert': (visitor, target, positionalArgs, namedArgs, _) {
+        D4.checkArity(positionalArgs, 'Converter.convert', atMost: 1);
         return (target as Converter).convert(positionalArgs[0]);
       },
       'startChunkedConversion':
