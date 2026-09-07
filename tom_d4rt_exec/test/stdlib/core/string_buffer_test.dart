@@ -1,12 +1,82 @@
 import '../../interpreter_test.dart';
 import 'package:test/test.dart';
 
+/// `StringBuffer`'s write surface, as reached from interpreted code.
+///
+/// Despite the member names, none of this exercises a `StringSink` BRIDGE. A
+/// script's `StringBuffer` resolves to `StringBufferCore`, and every `write` /
+/// `writeln` / `writeAll` / `writeCharCode` lookup below lands there. The
+/// `StringSink` bridge is never consulted, so nothing here would notice if it
+/// changed, went missing, or were displaced by a second definition.
+///
+/// The two properties that DO depend on `StringSink` are pinned elsewhere, and
+/// deliberately so:
+///
+///   * `test/stdlib/io/string_sink_collision_test.dart` — that exactly one
+///     registrar owns the name, after the io registrar shipped a second,
+///     strictly smaller definition that displaced the core one under last-wins.
+///   * `test/stdlib/core/scc77_string_sink_reachability_test.dart` — that the
+///     bridge is reachable at all: the `StringBuffer -> StringSink` and
+///     `IOSink -> StreamSink, StringSink` supertype edges, member fall-through,
+///     and `ClosableStringSink`, which is the only `StringSink` a script obtains
+///     that is neither a `StringBuffer` nor an `IOSink`.
+///
+/// Keep that split in mind before adding a case here: a `StringSink` assertion
+/// written against a bare `StringBuffer` pins `StringBufferCore` and reports
+/// success for a bridge it never touched.
+
 void main() {
-  group('StringSink methods - comprehensive', () {
-    test(
-      'I-STRING-40: StringSink write method with StringBuffer. [2026-02-10 06:37] (PASS)',
-      () {
-        const source = '''
+  group('StringBuffer write surface', () {
+    test('I-STRING-4: Write. [2026-02-10 06:37] (PASS)', () {
+      const source = '''
+      main() {
+        StringBuffer buffer = StringBuffer();
+        buffer.write("hello");
+        return buffer.toString();
+      }
+      ''';
+      expect(execute(source), equals('hello'));
+    });
+
+    test('I-STRING-1: Writeln. [2026-02-10 06:37] (PASS)', () {
+      const source = '''
+      main() {
+        StringBuffer buffer = StringBuffer();
+        buffer.writeln("hello");
+        buffer.writeln("world");
+        return buffer.toString();
+      }
+      ''';
+      expect(execute(source), equals('hello\nworld\n'));
+    });
+
+    test('I-STRING-2: WriteAll. [2026-02-10 06:37] (PASS)', () {
+      const source = '''
+      main() {
+        StringBuffer buffer = StringBuffer();
+        buffer.writeAll(["hello", "world"], " ");
+        return buffer.toString();
+      }
+      ''';
+      expect(execute(source), equals('hello world'));
+    });
+
+    test('I-STRING-3: WriteCharCode. [2026-02-10 06:37] (PASS)', () {
+      const source = '''
+      main() {
+        StringBuffer buffer = StringBuffer();
+        buffer.writeCharCode(104); // 'h'
+        buffer.writeCharCode(101); // 'e'
+        buffer.writeCharCode(108); // 'l'
+        buffer.writeCharCode(108); // 'l'
+        buffer.writeCharCode(111); // 'o'
+        return buffer.toString();
+      }
+      ''';
+      expect(execute(source), equals('hello'));
+    });
+    test('I-STRING-40: StringBuffer.write. [2026-02-10 06:37] (PASS)', () {
+      const source = '''
      import 'dart:core';
      main() {
         var buffer = StringBuffer();
@@ -16,15 +86,12 @@ void main() {
         return buffer.toString();
       }
       ''';
-        final result = execute(source);
-        expect(result, equals('Hello World'));
-      },
-    );
+      final result = execute(source);
+      expect(result, equals('Hello World'));
+    });
 
-    test(
-      'I-STRING-37: StringSink writeln method with StringBuffer. [2026-02-10 06:37] (PASS)',
-      () {
-        const source = '''
+    test('I-STRING-37: StringBuffer.writeln. [2026-02-10 06:37] (PASS)', () {
+      const source = '''
      import 'dart:core';
      main() {
         var buffer = StringBuffer();
@@ -34,13 +101,12 @@ void main() {
         return buffer.toString();
       }
       ''';
-        final result = execute(source);
-        expect(result, equals('Line 1\nLine 2\nLine 3'));
-      },
-    );
+      final result = execute(source);
+      expect(result, equals('Line 1\nLine 2\nLine 3'));
+    });
 
     test(
-      'I-STRING-38: StringSink writeln with no arguments. [2026-02-10 06:37] (PASS)',
+      'I-STRING-38: StringBuffer.writeln with no arguments. [2026-02-10 06:37] (PASS)',
       () {
         const source = '''
      import 'dart:core';
@@ -58,7 +124,7 @@ void main() {
     );
 
     test(
-      'I-STRING-39: StringSink writeAll method with list. [2026-02-10 06:37] (PASS)',
+      'I-STRING-39: StringBuffer.writeAll with a list. [2026-02-10 06:37] (PASS)',
       () {
         const source = '''
      import 'dart:core';
@@ -75,7 +141,7 @@ void main() {
     );
 
     test(
-      'I-STRING-41: StringSink writeAll method with separator. [2026-02-10 06:37] (PASS)',
+      'I-STRING-41: StringBuffer.writeAll with a separator. [2026-02-10 06:37] (PASS)',
       () {
         const source = '''
      import 'dart:core';
@@ -92,7 +158,7 @@ void main() {
     );
 
     test(
-      'I-STRING-42: StringSink writeCharCode method. [2026-02-10 06:37] (PASS)',
+      'I-STRING-42: StringBuffer.writeCharCode. [2026-02-10 06:37] (PASS)',
       () {
         const source = '''
      import 'dart:core';
@@ -112,7 +178,7 @@ void main() {
     );
 
     test(
-      'I-STRING-43: StringSink write with different data types. [2026-02-10 06:37] (PASS)',
+      'I-STRING-43: StringBuffer.write with different data types. [2026-02-10 06:37] (PASS)',
       () {
         const source = '''
      import 'dart:core';
@@ -134,7 +200,7 @@ void main() {
     );
 
     test(
-      'I-STRING-32: StringSink writeAll with mixed types. [2026-02-10 06:37] (PASS)',
+      'I-STRING-32: StringBuffer.writeAll with mixed types. [2026-02-10 06:37] (PASS)',
       () {
         const source = '''
      import 'dart:core';
@@ -151,7 +217,7 @@ void main() {
     );
 
     test(
-      'I-STRING-33: StringSink complex usage with multiple operations. [2026-02-10 06:37] (PASS)',
+      'I-STRING-33: StringBuffer, multiple operations in sequence. [2026-02-10 06:37] (PASS)',
       () {
         const source = '''
      import 'dart:core';
@@ -193,7 +259,7 @@ void main() {
     );
 
     test(
-      'I-STRING-34: StringSink isEmpty and isNotEmpty properties. [2026-02-10 06:37] (PASS)',
+      'I-STRING-34: StringBuffer.isEmpty and .isNotEmpty. [2026-02-10 06:37] (PASS)',
       () {
         const source = '''
      import 'dart:core';
@@ -214,10 +280,8 @@ void main() {
       },
     );
 
-    test(
-      'I-STRING-35: StringSink length property. [2026-02-10 06:37] (PASS)',
-      () {
-        const source = '''
+    test('I-STRING-35: StringBuffer.length. [2026-02-10 06:37] (PASS)', () {
+      const source = '''
      import 'dart:core';
      main() {
         var buffer = StringBuffer();
@@ -232,12 +296,11 @@ void main() {
         return [len1, len2, len3];
       }
       ''';
-        final result = execute(source);
-        expect(result, equals([0, 5, 11]));
-      },
-    );
+      final result = execute(source);
+      expect(result, equals([0, 5, 11]));
+    });
 
-    test('I-STRING-36: StringSink clear method. [2026-02-10 06:37] (PASS)', () {
+    test('I-STRING-36: StringBuffer.clear. [2026-02-10 06:37] (PASS)', () {
       const source = '''
      import 'dart:core';
      main() {
