@@ -1,5 +1,14 @@
 ## 1.19.0
 
+### Fixed — four dead cross-file links, and the anchor guard extended to cover them (scc88)
+
+The anchor guard checked `](#anchor)` only, and four links to other FILES were
+dead at the same moment: `limitation_and_bug_analysis.md` had been deleted from
+both trees, and exec's `issues.md` linked to `d4rt_limitations.md`, which is the
+reference tree's filename for a document exec names
+`tom_d4rt_exec_limitations.md`. Retargeted or dropped, and `F-SCC88-5` now
+checks every relative link resolves. External URLs stay out of scope.
+
 ### Fixed — two dead anchors in the bridging guide, and a test that stops them coming back (scc88)
 
 `doc/BRIDGING_GUIDE.md` linked to `#advanced-enum-bridging` and

@@ -1,5 +1,14 @@
 ## 0.60.1
 
+### Fixed — four dead cross-file links, and the anchor guard extended to cover them (scc88)
+
+The anchor guard checked `](#anchor)` only, and four links to other FILES were
+dead at the same moment: `limitation_and_bug_analysis.md` had been deleted from
+both trees, and exec's `issues.md` linked to `d4rt_limitations.md`, which is the
+reference tree's filename for a document exec names
+`tom_d4rt_exec_limitations.md`. Retargeted or dropped, and `F-SCC88-5` now
+checks every relative link resolves. External URLs stay out of scope.
+
 ### Added — a doc-anchor guard for this package's own `doc/` (scc88)
 
 `test/doc/doc_anchors_test.dart` checks every `](#anchor)` names a heading in

@@ -2,7 +2,7 @@
 
 > Last updated: 2026-02-09
 
-This document tracks **open interpreter issues** that require changes to `tom_d4rt`. Fixed bugs and limitations are documented in [d4rt_limitations.md](d4rt_limitations.md).
+This document tracks **open interpreter issues** that require changes to `tom_d4rt`. Fixed bugs and limitations are documented in [d4rt_limitations.md](tom_d4rt_exec_limitations.md).
 
 ---
 
@@ -1083,5 +1083,4 @@ This is a fundamental language limitation.
 
 ## Related Documentation
 
-- [D4rt Limitations and Bugs](d4rt_limitations.md) — All fixed bugs and limitations
-- [Limitation and Bug Analysis](limitation_and_bug_analysis.md) — Deep-dive analysis with fix strategies
+- [D4rt Limitations and Bugs](tom_d4rt_exec_limitations.md) — All fixed bugs and limitations

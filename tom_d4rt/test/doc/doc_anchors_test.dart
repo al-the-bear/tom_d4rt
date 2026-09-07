@@ -221,5 +221,38 @@ void main() {
         expect(defined, contains(anchor));
       }
     });
+
+    test('F-SCC88-5: every relative link to another file resolves '
+        '[2026-09-07]', () {
+      // The other half of "the navigation works", and a real gap when this file
+      // was first written: it checked `](#anchor)` only, and four cross-file
+      // links were dead at the same moment the anchors were fixed —
+      // `limitation_and_bug_analysis.md` had been deleted, and exec's issues.md
+      // pointed at the reference tree's filename for a file it names
+      // differently. External URLs are excluded on purpose: somebody else's
+      // uptime is not this suite's business.
+      final broken = <String>[];
+      for (final file in docs()) {
+        final dir = file.parent.path;
+        for (final m in RegExp(
+          r'\]\((?!https?:|#|mailto:)([^)#]+)(#[^)]*)?\)',
+        ).allMatches(file.readAsStringSync())) {
+          final target = File('$dir/${m.group(1)!}');
+          final dirTarget = Directory('$dir/${m.group(1)!}');
+          if (!target.existsSync() && !dirTarget.existsSync()) {
+            broken.add('${file.path}  ->  ${m.group(1)}');
+          }
+        }
+      }
+      expect(
+        broken,
+        isEmpty,
+        reason:
+            'These links point at files that do not exist. Retarget them, or '
+            'delete the link if the document is gone — a link to a deleted '
+            'document reads as "this exists somewhere and I cannot find it".\n'
+            '${broken.join('\n')}',
+      );
+    });
   });
 }

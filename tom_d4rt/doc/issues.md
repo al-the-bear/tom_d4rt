@@ -1084,4 +1084,3 @@ This is a fundamental language limitation.
 ## Related Documentation
 
 - [D4rt Limitations and Bugs](d4rt_limitations.md) — All fixed bugs and limitations
-- [Limitation and Bug Analysis](limitation_and_bug_analysis.md) — Deep-dive analysis with fix strategies
