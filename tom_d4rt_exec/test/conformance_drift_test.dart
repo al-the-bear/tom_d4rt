@@ -422,8 +422,11 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// **THAT WHOLE CLASS OF ENTRY IS NOW GONE.** The map used to be mostly
 /// publish-pinned, and those pins went unre-measured across four publishes while
 /// their prose kept asserting, in the present tense, that exec resolved 0.20.1.
-/// Measured 2026-09-06: exec's pubspec floor is `>=0.40.0`, the lockfile
-/// resolves 0.42.0, and `diff -rq` of that hosted copy against the working tree
+/// Measured 2026-09-06 (the floor and lock numbers below have since moved —
+/// `^0.55.0` and 0.55.0 as of 2026-09-07; F-SCC80-1 prints the live pair on
+/// every run, so read that rather than this paragraph): exec's pubspec floor
+/// was `>=0.40.0`, the lockfile
+/// resolved 0.42.0, and `diff -rq` of that hosted copy against the working tree
 /// returns twelve files — all of them `src/runtime/stdlib/collection/*` plus
 /// `environment.dart` and `stdlib/async/stream.dart`, i.e. exactly the
 /// unpublished SCC49 and SCC51 work. **The interpreter core is byte-identical
@@ -779,16 +782,53 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{};
 /// notice the moment somebody edits that line — a copy here would have to be
 /// updated by the same person, at the same moment, and would then be checking
 /// their memory against itself.
+///
+/// Accepts `^x.y.z` as well as `>=x.y.z`. SCC80 tightened this package's
+/// constraint to a caret, and a reader that understood only `>=` would have
+/// answered with `fail()` — disarming F-SCC43-1 on the very edit meant to
+/// harden it.
 String _execAstFloor() {
   final pubspec = File('pubspec.yaml').readAsStringSync();
   final match = RegExp(
-    r'''tom_d4rt_ast:\s*["']?>=\s*(\d+\.\d+\.\d+)''',
+    r'''tom_d4rt_ast:\s*["']?(?:>=|\^)\s*(\d+\.\d+\.\d+)''',
   ).firstMatch(pubspec);
   if (match == null) {
     fail(
       'Could not read the tom_d4rt_ast floor from pubspec.yaml. The register '
       'below is evaluated against it, so an unreadable constraint silently '
       'disarms every pinned entry — hence a hard failure rather than a skip.',
+    );
+  }
+  return match.group(1)!;
+}
+
+/// The `tom_d4rt_ast` version exec's `pubspec.lock` actually RESOLVES.
+///
+/// This is the interpreter every test in this package exercises, and it is not
+/// the same number as [_execAstFloor]. A constraint moves only when somebody
+/// edits it; a resolved version moves on every `pub upgrade`. The gap between
+/// them is what SCC80 was filed about — a lock frozen five minors behind the
+/// published interpreter, certifying a version no fresh checkout could obtain.
+///
+/// `pubspec.lock` is gitignored here (this is a package, not an app), so the
+/// number is per-machine and invisible in any diff or review. That is exactly
+/// why it has to be read at run time and printed, rather than written down.
+String _execAstResolved() {
+  final lock = File('pubspec.lock');
+  if (!lock.existsSync()) {
+    fail(
+      'No pubspec.lock, so which interpreter this suite measures is unknown. '
+      'Run `dart pub upgrade` before measuring exec conformance.',
+    );
+  }
+  final match = RegExp(
+    '^  tom_d4rt_ast:\\n(?:.*\\n)*?    version: "([^"]+)"',
+    multiLine: true,
+  ).firstMatch(lock.readAsStringSync());
+  if (match == null) {
+    fail(
+      'Could not read the resolved tom_d4rt_ast version from pubspec.lock. An '
+      'unreadable lock means the suite cannot say what it certified.',
     );
   }
   return match.group(1)!;
@@ -1193,6 +1233,67 @@ void main() {
       );
     });
   }, skip: skipReason);
+
+  group('SCC80: the suite records which interpreter it measured', () {
+    test('F-SCC80-1: the resolved tom_d4rt_ast version is readable, printed '
+        'and not behind the declared floor [2026-09-07]', () {
+      final floor = _execAstFloor();
+      final resolved = _execAstResolved();
+
+      // The whole point of this case, and the load-bearing half of it. Every
+      // exec conformance run now carries the number it certified in its own
+      // log, so no future baseline can be read as a statement about "the
+      // interpreter" in the abstract.
+      //
+      // The expect() below is a backstop, not the guard: measured 2026-09-07 by
+      // rewriting the lock to a stale 0.42.0, `dart test` re-resolved it back
+      // to 0.55.0 before this file ran, so pub repairs the fault before the
+      // assertion can see it. With a caret constraint it cannot fire at all.
+      // Do not read a green F-SCC80-1 as evidence the lock was checked — read
+      // the printed number.
+      // ignore: avoid_print
+      print(
+        'exec conformance measured against tom_d4rt_ast $resolved '
+        '(pubspec floor $floor)',
+      );
+
+      expect(
+        _versionExceeds(floor, resolved),
+        isFalse,
+        reason:
+            'pubspec.lock resolves tom_d4rt_ast $resolved, which is BEHIND the '
+            '$floor this package declares. Every result in this run therefore '
+            'describes an interpreter the constraint itself calls too old. Run '
+            '`dart pub upgrade`.',
+      );
+    });
+
+    test('F-SCC80-2: the tom_d4rt_ast constraint is upper-bounded, not '
+        'lower-bound-only [2026-09-07]', () {
+      final pubspec = File('pubspec.yaml').readAsStringSync();
+      final constraint = RegExp(
+        'tom_d4rt_ast:[ ]*[\'"]?([^\'"\\n]+)',
+      ).firstMatch(pubspec)?.group(1)?.trim();
+
+      expect(
+        constraint,
+        isNotNull,
+        reason: 'tom_d4rt_ast is not declared in pubspec.yaml.',
+      );
+      expect(
+        constraint!.startsWith('>='),
+        isFalse,
+        reason:
+            'tom_d4rt_ast is constrained as "$constraint" — lower-bound-only. '
+            'That is the exact shape SCC80 was filed about: a pre-existing '
+            'pubspec.lock satisfies such a constraint forever, so the suite '
+            'keeps certifying an interpreter no fresh checkout resolves and a '
+            'new publish never becomes visible here at all. Use a caret bound '
+            'on the version actually certified, so moving onto a new '
+            'interpreter is a deliberate edit. SCC45 is the general statement.',
+      );
+    });
+  });
 
   group('SCC43: publish-blocked entries flip when the publish lands', () {
     test('F-SCC43-1: no pinned entry is waiting on a publish that already '

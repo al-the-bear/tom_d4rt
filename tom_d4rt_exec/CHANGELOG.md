@@ -1,3 +1,35 @@
+## 1.18.0
+
+### Changed — the `tom_d4rt_ast` constraint becomes a caret, and every run now prints the interpreter it measured (scc80)
+
+The constraint moves from `>=0.55.0` to `^0.55.0` (and `tom_ast_generator` from
+`>=0.1.5` to `^0.1.5`). A lower-bound-only constraint is satisfied forever by
+any pre-existing `pubspec.lock`, so a machine could keep certifying an
+interpreter no fresh checkout resolves — which is exactly what happened: a lock
+frozen at 0.14.0 reported a green suite while a fresh checkout resolved 0.19.0
+and got a red one. A caret makes a lock older than the certified version
+unresolvable, and adopting a new interpreter publish a deliberate edit.
+
+Two new cases in `test/conformance_drift_test.dart`:
+
+- **`F-SCC80-1`** prints the resolved version into every run's log —
+  `exec conformance measured against tom_d4rt_ast 0.55.0 (pubspec floor 0.55.0)`
+  — so no baseline can be read as a claim about "the interpreter" in the
+  abstract. `pubspec.lock` is gitignored, so this number appears in no diff and
+  no review; printing it is the only way it reaches the record. Its `expect` is
+  a backstop and is documented as one: rewriting the lock to a stale 0.42.0
+  showed `dart test` re-resolving it before the assertion could see the fault.
+- **`F-SCC80-2`** fails if the constraint is ever relaxed back to `>=`, which is
+  what keeps the fix above from being quietly undone.
+
+`_execAstFloor()` now accepts `^x.y.z` as well as `>=x.y.z`. It parsed only
+`>=`, so the caret would have turned it into a `fail()` and disarmed
+`F-SCC43-1` — the register check — on the very edit meant to harden it.
+
+`_copilot_guidelines/testing.md` gains the run recipe: `dart pub upgrade` before
+any conformance measurement, and quote the printed version alongside any number
+reported.
+
 ## 1.17.0
 
 ### Changed — the `tom_d4rt_ast` floor moves to 0.55.0, and eighteen pinned conformance entries flip with it (scc75)

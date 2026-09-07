@@ -113,6 +113,39 @@ dart test test/global_setter_test.dart
 dart test --name "Lim-3"
 ```
 
+### Before measuring exec conformance: upgrade, then record the version
+
+`tom_d4rt_exec` resolves its interpreter (`tom_d4rt_ast`) **from pub.dev, not by
+path** (DGUC6), and its `pubspec.lock` is gitignored. So the interpreter a run
+measures is per-machine state that appears in no diff and no review.
+
+Any run whose result is going to be quoted — a baseline, a conformance claim, a
+"the exec suite is green" statement — must therefore start with:
+
+```bash
+dart pub upgrade      # otherwise you measure whatever this machine last locked
+dart test
+```
+
+`F-SCC80-1` in `test/conformance_drift_test.dart` prints the resolved version
+into every run's log:
+
+```
+exec conformance measured against tom_d4rt_ast 0.55.0 (pubspec floor 0.55.0)
+```
+
+Quote that line alongside any number you report. Without it, "2598 passed" names
+no interpreter, and two machines can produce different totals from the same
+commit with nothing in the record to explain it — which is what happened, and
+is what SCC80 was filed about.
+
+The constraint is a **caret** (`^0.55.0`), not lower-bound-only, so a lock older
+than the certified version cannot silently satisfy it and adopting a new
+interpreter publish is a deliberate edit. `F-SCC80-2` fails if that is ever
+relaxed back to `>=`. **Do not commit `pubspec.lock` to work around any of
+this** — this is a package, not an app; the fix is the constraint plus the
+printed version.
+
 ---
 
 ## Test Results Tracking with Testkit Baselines
