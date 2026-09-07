@@ -1,3 +1,22 @@
+## 0.60.1
+
+### Documented — which `D4` argument helper belongs to which side of the bridge layer (scc87)
+
+Two helpers read a positional argument out of an adapter and they throw
+different exception types. `D4.getRequiredArg` / `getOptionalArg` throw
+`ArgumentD4rtException` and are what `tom_d4rt_generator` emits;
+`D4.checkArity` throws `RuntimeD4rtException`, matching what the stdlib dispatch
+path already produced and what `describeArityError` emits. Neither is wrong, but
+the split was undocumented, so a new bridge had no one obvious way to read an
+argument and the inconsistency kept reproducing.
+
+Both definitions now say which side they belong to and point at the other.
+`getRequiredArg`'s doc also said "Throws ArgumentError", which is a different
+class it never throws.
+
+Doc-only in `lib/`; the guard that keeps the boundary stated
+(`stdlib_d4_boundary_test`) ships in `test/`.
+
 ## 0.60.0
 
 ### Added — `D4.checkArity`, and 526 stdlib adapters that no longer discard a surplus argument (scc85)

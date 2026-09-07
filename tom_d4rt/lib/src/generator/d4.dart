@@ -2211,6 +2211,11 @@ class D4 {
   /// means a test asserting the generic wording must not point at a guarded
   /// bridge.
   ///
+  /// **This is the HAND-WRITTEN stdlib entry point**, and the counterpart to
+  /// [getRequiredArg], which is the generated one. The two throw different
+  /// exception types on purpose — see [getRequiredArg] for why the split exists
+  /// and why it was not collapsed. `stdlib_d4_boundary_test` keeps it stated.
+  ///
   /// [memberDescription] is the `Class.member` the script author called.
   static void checkArity(
     List<Object?> positional,
@@ -2251,9 +2256,31 @@ class D4 {
   /// `argument` / `arguments`, so the messages above read as English.
   static String _arguments(int n) => n == 1 ? 'argument' : 'arguments';
 
-  /// Get a required positional argument with type checking.
+  /// Get a required positional argument, bounds-checked and type-extracted.
   ///
-  /// Throws ArgumentError if the argument is missing or has wrong type.
+  /// **This is the GENERATED-code entry point.** `tom_d4rt_generator` emits it;
+  /// the hand-written stdlib under `lib/src/stdlib/` does not use it, and
+  /// [checkArity] is what that side reaches for instead. `stdlib_d4_boundary_test`
+  /// pins the split so it stays a stated boundary rather than an accident.
+  ///
+  /// The two sides differ in what they throw, and the difference is real rather
+  /// than cosmetic:
+  ///
+  ///   * this pair throws [ArgumentD4rtException] — generated bridges and their
+  ///     tests depend on it, which is why SCC87 chose not to change it;
+  ///   * [checkArity] throws [RuntimeD4rtException], matching what the stdlib
+  ///     dispatch path already produced and what [describeArityError] emits, so
+  ///     a hand-written bridge reports arity failures the same way whether the
+  ///     guard is explicit or generic.
+  ///
+  /// Both are siblings under `D4rtException`, so a script that wants every
+  /// bridge argument failure catches THAT and gets all of them. What it cannot
+  /// do is pick one subtype and be sure it has covered the surface — worth
+  /// knowing before writing `on ArgumentD4rtException` in a script.
+  ///
+  /// Throws [ArgumentD4rtException] when the argument is missing or has the
+  /// wrong type. (The previous wording here said `ArgumentError`, which is a
+  /// different class this method never throws.)
   static T getRequiredArg<T>(
     List<Object?> positional,
     int index,
