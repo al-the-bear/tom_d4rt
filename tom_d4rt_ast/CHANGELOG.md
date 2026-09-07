@@ -1,5 +1,11 @@
 ## 0.60.1
 
+### Added — a doc-anchor guard for this package's own `doc/` (scc88)
+
+`test/doc/doc_anchors_test.dart` checks every `](#anchor)` names a heading in
+its own file. This package's docs carry no intra-doc links today, so the guard
+is preventive here; it caught 40 dead anchors in the sibling packages.
+
 ### Documented — which `D4` argument helper belongs to which side of the bridge layer (scc87)
 
 Two helpers read a positional argument out of an adapter and they throw

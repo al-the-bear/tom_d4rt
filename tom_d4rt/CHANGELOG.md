@@ -1,4 +1,26 @@
-## 1.71.0
+## 1.72.0
+
+### Fixed — 40 dead intra-document anchors, and a test that stops them coming back (scc88)
+
+`d4rt_limitations.md` opens with a bug index whose rows link to detail sections,
+and 35 of those anchors resolved to nothing; `BRIDGING_GUIDE.md` and
+`stdlib_sdk_gap_audit.md` carried five more. The rows still read as
+authoritative, so only the navigation was dead — and a dead anchor is silent in
+a browser, so a reader concludes the section is missing rather than that the
+link is wrong.
+
+23 of the 35 were simply WRONG anchors: the section exists and the slug did not
+match it (`bug-27-short-circuit--with-null-check-fails`, a double hyphen left by
+stripping `&&`, and similar). Those are retargeted. The other 12 have no detail
+section in the file, in the tree, or in this repository's history — the doc
+arrived at the initial group-repo import already missing them — so those rows
+are UNLINKED, keeping their ID, description and status, with a note above the
+table saying why they are not links.
+
+`test/doc/doc_anchors_test.dart` pins it: every `](#anchor)` in `doc/` must name
+a heading in its own file. It models GitHub's `-1`/`-2` suffixes for repeated
+headings, which this corpus needs — "Problem Description" appears 75 times, once
+per bug section.
 
 ### Documented — which `D4` argument helper belongs to which side of the bridge layer (scc87)
 
@@ -9,6 +31,8 @@ obvious way to read an argument. Both definitions now state their side and point
 at the other, and `stdlib_d4_boundary_test` pins that no stdlib file reaches for
 the generated pair. `getRequiredArg`'s doc also claimed it throws `ArgumentError`,
 a class it never throws.
+
+## 1.71.0
 
 ### Added — `D4.checkArity`, and 526 stdlib adapters that no longer discard a surplus argument (scc85)
 

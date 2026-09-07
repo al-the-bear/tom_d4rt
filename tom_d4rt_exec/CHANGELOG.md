@@ -1,5 +1,13 @@
 ## 1.19.0
 
+### Fixed — two dead anchors in the bridging guide, and a test that stops them coming back (scc88)
+
+`doc/BRIDGING_GUIDE.md` linked to `#advanced-enum-bridging` and
+`#core-concepts-BridgedClass`; the real slugs are
+`advanced-enum-bridging-with-getters-and-methods` and the lowercased form.
+`test/doc/doc_anchors_test.dart` now checks every `](#anchor)` in this package's
+own `doc/` resolves.
+
 ### Changed — the interpreter floor moves to `^0.60.0`, and the arity diagnostics are certified end to end here (scc86)
 
 `tom_d4rt_ast` 0.60.0 is published, so the floor rises from `^0.55.0`. That is

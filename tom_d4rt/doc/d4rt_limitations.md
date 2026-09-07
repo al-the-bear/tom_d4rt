@@ -24,6 +24,13 @@ This document provides a comprehensive reference of all known D4rt interpreter l
 
 Combined list of all limitations and bugs, sorted by status (Fixed → TODO → Won't Fix), then by ID.
 
+A row whose description is **not a link** has no detail section in this
+document. Those twelve entries are kept because the ID and the status are still
+the record — the finding was made and closed — but the write-up they once
+pointed at is in neither this file nor this repository's history, so there is
+nothing to link to. Every other row's link resolves, and a test enforces that
+(`test/doc/doc_anchors_test.dart`).
+
 | ID | Description | Complexity | Status |
 |----|-------------|------------|--------|
 | Lim-1 | [Extension types (Dart 3.3+ inline classes)](#lim-1-extension-types-dart-33) | High | ✅ Fixed |
@@ -36,7 +43,7 @@ Combined list of all limitations and bugs, sorted by status (Fixed → TODO → 
 | Lim-9, Bug-41 | [Await in string interpolation shows raw object](#lim-9-bug-41-await-in-string-interpolation) | Medium | ✅ Fixed |
 | Bug-1 | [List.empty() constructor not bridged](#bug-1-listempty-constructor-not-bridged) | Low | ✅ Fixed |
 | Bug-2 | [Queue.addAll() method not bridged](#bug-2-queueaddall-method-not-bridged) | Low | ✅ Fixed |
-| Bug-3 | [Enum value access via Day.wednesday fails](#bug-3-enum-value-access) | Low | ✅ Fixed |
+| Bug-3 | Enum value access via Day.wednesday fails | Low | ✅ Fixed |
 | Bug-4 | [Enum value at top-level const fails](#bug-4-enum-value-at-top-level-const-fails) | Low | ✅ Fixed |
 | Bug-5 | [Division by zero throws instead of returning infinity](#bug-5-division-by-zero-throws-instead-of-returning-infinity) | Low | ✅ Fixed |
 | Bug-6 | [Record missing Object methods (hashCode)](#bug-6-record-missing-object-methods-hashcode) | Low | ✅ Fixed |
@@ -47,54 +54,54 @@ Combined list of all limitations and bugs, sorted by status (Fixed → TODO → 
 | Bug-11 | [Sealed class subclasses incorrectly rejected](#bug-11-sealed-class-subclasses-incorrectly-rejected) | Medium | ✅ Fixed |
 | Bug-12 | [Interface Exception not found for implements](#bug-12-interface-exception-not-found-for-implements) | Medium | ✅ Fixed |
 | Bug-15 | [base64Encode function not exported from dart:convert](#bug-15-base64encode-function-not-exported-from-dartconvert) | Low | ✅ Fixed |
-| Bug-16 | [Abstract method inheritance false positive](#bug-16-abstract-method-inheritance) | Medium | ✅ Fixed |
-| Bug-17 | [Interface class same-library extension incorrectly rejected](#bug-17-interface-class-extension) | Medium | ✅ Fixed |
-| Bug-18 | [Mixin abstract getter inheritance false positive](#bug-18-mixin-abstract-getter) | Medium | ✅ Fixed |
+| Bug-16 | Abstract method inheritance false positive | Medium | ✅ Fixed |
+| Bug-17 | Interface class same-library extension incorrectly rejected | Medium | ✅ Fixed |
+| Bug-18 | Mixin abstract getter inheritance false positive | Medium | ✅ Fixed |
 | Bug-20 | [identical() function not bridged](#bug-20-identical-function-not-bridged) | Low | ✅ Fixed |
 | Bug-21 | [Set.from() constructor not bridged](#bug-21-setfrom-constructor-not-bridged) | Low | ✅ Fixed |
-| Bug-22 | [Error() class constructor not bridged](#bug-22-error-class-constructor) | Low | ✅ Fixed |
+| Bug-22 | Error() class constructor not bridged | Low | ✅ Fixed |
 | Bug-23 | [Static const referencing sibling const fails](#bug-23-static-const-referencing-sibling-const-fails) | Medium | ✅ Fixed |
 | Bug-24 | [mixin class declaration not supported](#bug-24-mixin-class-declaration-not-supported) | Medium | ✅ Fixed |
 | Bug-26 | [Assert in constructor initializer not supported](#bug-26-assert-in-constructor-initializer-not-supported) | Medium | ✅ Fixed |
-| Bug-27 | [Short-circuit && with null check fails](#bug-27-short-circuit--with-null-check-fails) | Medium | ✅ Fixed |
-| Bug-28 | [GenericFunctionTypeImpl not implemented](#bug-28-genericfunctiontypeimpl) | Medium | ✅ Fixed |
-| Bug-29 | [Future.value() returns wrong type](#bug-29-futurevalue-type) | Medium | ✅ Fixed |
-| Bug-44 | [Async generators completion detection issues](#bug-44-async-generators) | Medium | ✅ Fixed |
+| Bug-27 | [Short-circuit && with null check fails](#bug-27-short-circuit-with-null-check-fails) | Medium | ✅ Fixed |
+| Bug-28 | GenericFunctionTypeImpl not implemented | Medium | ✅ Fixed |
+| Bug-29 | Future.value() returns wrong type | Medium | ✅ Fixed |
+| Bug-44 | Async generators completion detection issues | Medium | ✅ Fixed |
 | Bug-45 | [Labeled continue in sync* generators fails](#bug-45-labeled-continue-in-sync-generators-fails) | Medium | ✅ Fixed |
 | Bug-47 | [Future.doWhile type cast issues](#bug-47-futuredowhile-type-cast-issues) | Medium | ✅ Fixed |
-| Bug-48 | [await for stream iteration fails](#bug-48-await-for-stream) | Medium | ✅ Fixed |
-| Bug-50 | [Index assignment operator \[\]= not found](#bug-50-index-assignment-operator) | Low | ✅ Fixed |
-| Bug-51 | [Bridged mixins not found during type resolution](#bug-51-bridged-mixins) | Medium | ✅ Fixed |
+| Bug-48 | await for stream iteration fails | Medium | ✅ Fixed |
+| Bug-50 | Index assignment operator \[\]= not found | Low | ✅ Fixed |
+| Bug-51 | Bridged mixins not found during type resolution | Medium | ✅ Fixed |
 | Bug-52 | [Implicit super() fails when superclass has constructors](#bug-52-implicit-super-fails-when-superclass-has-constructors) | Low | ✅ Fixed |
 | Bug-53 | [NullAwareElement feature not supported](#bug-53-nullawareelement-feature-not-supported) | Low | ✅ Fixed |
-| Bug-54 | [Void return type checking too strict](#bug-54-void-return-type) | Low | ✅ Fixed |
+| Bug-54 | Void return type checking too strict | Low | ✅ Fixed |
 | Bug-55 | [Symbol class not bridged](#bug-55-symbol-class-not-bridged) | Low | ✅ Fixed |
-| Bug-56 | [Constructor with positional arguments fails](#bug-56-constructor-positional-arguments) | Medium | ✅ Fixed |
-| Bug-57 | [Class with operator override and constructor fails](#bug-57-operator-override-constructor) | Medium | ✅ Fixed |
-| Bug-58 | [Functions/classes at end of file not found](#bug-58-declarations-at-file-end) | Medium | ✅ Fixed |
+| Bug-56 | [Constructor with positional arguments fails](#bug-56-constructor-with-positional-arguments-fixed) | Medium | ✅ Fixed |
+| Bug-57 | [Class with operator override and constructor fails](#bug-57-class-with-operator-override-and-constructor-fixed) | Medium | ✅ Fixed |
+| Bug-58 | [Functions/classes at end of file not found](#bug-58-functionsclasses-at-end-of-file-fixed) | Medium | ✅ Fixed |
 | Bug-59 | [Imported classes have empty constructor maps](#bug-59-imported-classes-have-empty-constructor-maps) | Medium | ✅ Fixed |
-| Bug-60 | [Null-safe indexing on null throws unclear error](#bug-60-null-safe-indexing) | Medium | ✅ Fixed |
-| Bug-61 | [if-case pattern evaluates pattern as condition](#bug-61-if-case-pattern) | Medium | ✅ Fixed |
-| Bug-62 | [GenericFunctionType in generic type args fails](#bug-62-genericfunctiontype-in-generics) | Medium | ✅ Fixed |
-| Bug-63 | [Abstract method from interface false positive](#bug-63-abstract-method-interface) | Medium | ✅ Fixed |
-| Bug-64 | [Interface class same-library extension rejected](#bug-64-interface-class-extension) | Medium | ✅ Fixed |
+| Bug-60 | [Null-safe indexing on null throws unclear error](#bug-60-null-safe-indexing-on-null-throws-unclear-error) | Medium | ✅ Fixed |
+| Bug-61 | [if-case pattern evaluates pattern as condition](#bug-61-if-case-pattern-evaluates-pattern-as-condition) | Medium | ✅ Fixed |
+| Bug-62 | [GenericFunctionType in generic type args fails](#bug-62-genericfunctiontype-in-generic-type-arguments-fails) | Medium | ✅ Fixed |
+| Bug-63 | [Abstract method from interface false positive](#bug-63-abstract-method-from-interface-fixed) | Medium | ✅ Fixed |
+| Bug-64 | [Interface class same-library extension rejected](#bug-64-interface-class-same-library-extension-rejected) | Medium | ✅ Fixed |
 | Bug-65 | [Map.from constructor not bridged](#bug-65-mapfrom-constructor-not-bridged) | Low | ✅ Fixed |
-| Bug-66 | [Record pattern with named field fails](#bug-66-record-pattern-named-field) | Medium | ✅ Fixed |
-| Bug-67 | [if-case with int pattern wrong condition type](#bug-67-if-case-int-pattern) | Medium | ✅ Fixed |
-| Bug-69 | [Abstract getter from mixin false positive](#bug-69-abstract-getter-mixin) | Medium | ✅ Fixed |
-| Bug-70 | [await on Future.value fails](#bug-70-await-future-value) | Medium | ✅ Fixed |
-| Bug-71 | [Error class not bridged (undefined variable)](#bug-71-error-class-not-bridged) | Low | ✅ Fixed |
-| Bug-72 | [Bridged mixins not found during class declaration](#bug-72-bridged-mixins-class-declaration) — `bridged_mixin_test` (5) + `complex_bridged_mixin_test` (5) | Medium | ✅ Fixed |
-| Bug-73, Bug-74 | [Async nested loops/return type error with anonymous name](#bug-73-async-nested-loops-return-type) — `async_nested_loops_test` (20 tests) | Medium | ✅ Fixed |
-| Bug-75 | [Division by zero returns Infinity instead of throwing](#bug-75-division-by-zero-returns-infinity) — `eval_method_test: should handle division by zero` | Low | ✅ Fixed |
-| Bug-76 | [Introspection API returns globals for empty source](#bug-76-introspection-empty-source) — `introspection_api_test: empty source, imports only` (2) | Low | ✅ Fixed |
-| Bug-77 | [File.parent test flaky in full test suite](#bug-77-file-parent-flaky) — `file_test: comprehensive parent` (1) | Low | ✅ Fixed |
-| Bug-78 | [noSuchMethod not invoked for method calls](#bug-78-nosuchmethod-method-calls) — `limitations_and_bugs_test: Lim-7` (1) | Medium | ✅ Fixed |
+| Bug-66 | [Record pattern with named field fails](#bug-66-record-pattern-with-named-field-fixed) | Medium | ✅ Fixed |
+| Bug-67 | [if-case with int pattern wrong condition type](#bug-67-if-case-with-int-pattern-wrong-condition-type) | Medium | ✅ Fixed |
+| Bug-69 | [Abstract getter from mixin false positive](#bug-69-abstract-getter-from-mixin-fixed) | Medium | ✅ Fixed |
+| Bug-70 | [await on Future.value fails](#bug-70-await-on-futurevalue-fixed) | Medium | ✅ Fixed |
+| Bug-71 | [Error class not bridged (undefined variable)](#bug-71-error-class-not-bridged-undefined-variable) | Low | ✅ Fixed |
+| Bug-72 | [Bridged mixins not found during class declaration](#bug-72-bridged-mixins-not-found-during-class-declaration) — `bridged_mixin_test` (5) + `complex_bridged_mixin_test` (5) | Medium | ✅ Fixed |
+| Bug-73, Bug-74 | [Async nested loops/return type error with anonymous name](#bug-73-async-nested-loops-fail-with-return-type-error) — `async_nested_loops_test` (20 tests) | Medium | ✅ Fixed |
+| Bug-75 | [Division by zero returns Infinity instead of throwing](#bug-75-division-by-zero-returns-infinity-instead-of-throwing) — `eval_method_test: should handle division by zero` | Low | ✅ Fixed |
+| Bug-76 | [Introspection API returns globals for empty source](#bug-76-introspection-api-returns-globals-for-empty-source) — `introspection_api_test: empty source, imports only` (2) | Low | ✅ Fixed |
+| Bug-77 | [File.parent test flaky in full test suite](#bug-77-fileparent-test-flaky-in-full-test-suite) — `file_test: comprehensive parent` (1) | Low | ✅ Fixed |
+| Bug-78 | [noSuchMethod not invoked for method calls](#bug-78-nosuchmethod-not-invoked-for-method-calls) — `limitations_and_bugs_test: Lim-7` (1) | Medium | ✅ Fixed |
 | Bug-79 | [Switch expression not exhaustive for sealed subclass](#bug-79-switch-expression-not-exhaustive-for-sealed-subclass) — `dart_overview_bugs_test: Bug-79` | Medium | ✅ Fixed |
 | Bug-80 | [Cascade on property access fails](#bug-80-cascade-on-property-access-fails) — `dart_overview_bugs_test: Bug-80` | Medium | ✅ Fixed |
 | Bug-81 | [Pattern with when guard fails (LogicalAndPatternImpl)](#bug-81-pattern-with-when-guard-fails) — `dart_overview_bugs_test: Bug-81` | Medium | ✅ Fixed |
-| Bug-82 | [Function.call method not found](#bug-82-function-call-method-not-found) — `dart_overview_bugs_test: Bug-82` | Medium | ✅ Fixed |
-| Bug-83 | [Nullable function?.call() fails](#bug-83-nullable-function-call-fails) — `dart_overview_bugs_test: Bug-83` | Medium | ✅ Fixed |
+| Bug-82 | [Function.call method not found](#bug-82-functioncall-method-not-found) — `dart_overview_bugs_test: Bug-82` | Medium | ✅ Fixed |
+| Bug-83 | [Nullable function?.call() fails](#bug-83-nullable-functioncall-fails) — `dart_overview_bugs_test: Bug-83` | Medium | ✅ Fixed |
 | Bug-84 | [Mixin abstract method satisfaction false positive](#bug-84-mixin-abstract-method-satisfaction-false-positive) — `dart_overview_bugs_test: Bug-84` | Medium | ✅ Fixed |
 | Bug-85 | [Cannot extend abstract final class in same library](#bug-85-cannot-extend-abstract-final-class-in-same-library) — `dart_overview_bugs_test: Bug-85` | Low | ✅ Fixed |
 | Bug-86 | [runtimeType not accessible via PrefixedIdentifier](#bug-86-runtimetype-not-accessible-via-prefixedidentifier) — `dart_overview_bugs_test: Bug-86` | Medium | ✅ Fixed |
@@ -103,7 +110,7 @@ Combined list of all limitations and bugs, sorted by status (Fixed → TODO → 
 | Bug-89 | [Enum.values.byName (List.byName) not bridged](#bug-89-enumvaluesbyname-listbyname-not-bridged) — `dart_overview_bugs_test: Bug-89` | Low | ✅ Fixed |
 | Bug-90 | [Mixin on constraint abstract getter false positive](#bug-90-mixin-on-constraint-abstract-getter-false-positive) — `dart_overview_bugs_test: Bug-90` | Medium | ✅ Fixed |
 | Bug-91 | [Imported extensions on bridged types fail](#bug-91-imported-extensions-on-bridged-types-fail) — `dart_overview_bugs_test: Bug-91` | Medium | ✅ Fixed |
-| Bug-92 | [Future factory constructor returns BridgedInstance&lt;Object&gt;](#bug-92-future-factory-constructor-returns-bridgedinstanceobject) — `dart_overview_bugs_test: Bug-92` | Medium | ✅ Fixed |
+| Bug-92 | [Future factory constructor returns BridgedInstance&lt;Object&gt;](#bug-92-future-factory-constructor-returns-bridgedinstanceltobjectgt) — `dart_overview_bugs_test: Bug-92` | Medium | ✅ Fixed |
 | Bug-93 | [Int not implicitly promoted to double return type](#bug-93-int-not-implicitly-promoted-to-double-return-type) — `dart_overview_bugs_test: Bug-93` | Low | ✅ Fixed |
 | Bug-94 | [Cascade index assignment on property fails](#bug-94-cascade-index-assignment-on-property-fails) — `dart_overview_bugs_test: Bug-94` | Medium | ✅ Fixed |
 | Bug-95 | [List.forEach with native function tear-off fails](#bug-95-listforeach-with-native-function-tear-off-fails) — `dart_overview_bugs_test: Bug-95` | Medium | ✅ Fixed |

@@ -24,7 +24,7 @@ Class-level coverage is audited by hand; **member-level** and
   and pin it in `test/stdlib/intentionally_unbridged_test.dart`). A row with
   neither is a defect, because it leaves a script author unable to tell
   "deliberately out of scope" from "nobody has got to it yet". Read
-  [the rule](#the-disposition-rule--read-this-before-adding-a-row) before
+  [the rule](#the-disposition-rule-read-this-before-adding-a-row) before
   adding to any table below.
 - **Gaps come at three levels: class, member, and hierarchy.** A missing
   supertype *edge* is its own defect, distinct from a missing member and
@@ -40,7 +40,7 @@ Class-level coverage is audited by hand; **member-level** and
   and the count stands at **0 confirmed edges and 0 unverified**. That count
   went *up* before it came down — adding instance recipes let the audit measure
   classes it had been reporting as unverified — so read
-  [the movement table](#hierarchy-gaps--the-supertype-edge-audit) rather than
+  [the movement table](#hierarchy-gaps-the-supertype-edge-audit) rather than
   the number, and read the hierarchy audit before treating any member-gap count
   as a work estimate.
 - **Member-level gaps stand at 13 across 7 classes, and the fall from 231 is
@@ -1326,7 +1326,7 @@ rather than partly, so unlike the shapes above it never misled anyone — a
 script either had no WebSocket support or knew it. Its five names are now
 bridged; the two facts worth knowing about them (the absent permission gate and
 the SDK's hardcoded `extensions` getter) are under
-[P3](#p3--niche-or-questionable-sandbox-fit-audit-only-likely-skip).
+[P3](#p3-niche-or-questionable-sandbox-fit-audit-only-likely-skip).
 
 The last three to be bridged — `HttpDate`, `RedirectInfo` and
 `HttpClientResponseCompressionState` — split between the two shapes above.
