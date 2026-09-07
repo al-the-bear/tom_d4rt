@@ -1,3 +1,35 @@
+## 0.61.0
+
+### Fixed — `WebSocketTransformer` had no supertype edge, and the audit doc had been wrong about it since (scc89)
+
+`abstract interface class WebSocketTransformer implements
+StreamTransformer<HttpRequest, WebSocket>`. SCC63 bridged the class and did not
+declare the edge, so `transformer is StreamTransformer` answered false and the
+whole inherited surface was unreachable. Declared in both trees.
+
+The reason it survived is the point of SCC89. SCC57 measured the hierarchy
+audit at zero candidates and wrote that into `doc/stdlib_sdk_gap_audit.md`;
+SCC63 landed afterwards; nothing re-runs `--hierarchy` when a bridge ships, so
+the sentence stayed there, wrong, for every commit in between.
+
+Also in this change:
+
+- An instance recipe for `HttpClientResponseCompressionState`, the audit's last
+  unverified class. It is an enum, so the recipe is a value read — missing
+  because nobody had asked the audit about it, not because it was hard.
+- `_declinedEdges`, the hierarchy half's equivalent of the member half's
+  `_declined`. Making that class measurable surfaced `-> Enum` as confirmed
+  missing, which is a convention rather than a defect: the stdlib bridges every
+  enum as a `BridgedClass` with `staticGetters`, and no bridged enum declares
+  the edge. Declaring it for one would make it the odd one out. Recorded with
+  its reason and counted separately, so a decision that stops being visible
+  cannot stop being reviewable. Whether all bridged enums should declare it is
+  SCD207.
+- `test/doc/gap_audit_figures_test.dart`, which parses the doc's two *Current
+  measured state* tables and compares every row against a live run of both
+  audits. It caught a stale figure within minutes of being written — one this
+  change itself introduced.
+
 ## 0.60.1
 
 ### Fixed — a dead anchor in the README, and the guard widened to cover it (scc88)

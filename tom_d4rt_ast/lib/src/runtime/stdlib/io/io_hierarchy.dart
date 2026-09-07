@@ -69,6 +69,15 @@ class IoHierarchyIo {
       // twice; the `Stream` half carries the same dispatch argument as
       // `HttpRequest` below.
       'WebSocket': ['Stream', 'StreamSink'],
+      // `abstract interface class WebSocketTransformer implements
+      // StreamTransformer<HttpRequest, WebSocket>` — the server-side upgrade
+      // handler, which a script reaches as the argument to
+      // `HttpServer.transform`. SCC63 bridged the class and did not declare
+      // this edge; the audit reported it as the only confirmed missing edge in
+      // the library while the doc still said there were none, because nothing
+      // re-runs `--hierarchy` when a bridge ships. That is the gap SCC89 is
+      // about, and this is the instance it found.
+      'WebSocketTransformer': ['StreamTransformer'],
 
       // The stream sources. Each `implements Stream<T>` for its own element
       // type, which the registry does not model — the edge is on the raw name,

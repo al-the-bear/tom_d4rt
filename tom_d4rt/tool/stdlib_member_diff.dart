@@ -556,6 +556,56 @@ const _fileDescriptorPassing =
     'would bypass the permission system — see the RawSocket message API row '
     'in doc/d4rt_limitations.md, pinned by F-SCC74-1';
 
+/// Supertype edges the audit must not report as defects, because not declaring
+/// them is a decision the stdlib made uniformly.
+///
+/// The hierarchy half had no equivalent of [_declined] until SCC89 needed one.
+/// The member half has had one since SCB29, and for the same reason: an audit
+/// that cannot distinguish "nobody did this" from "we decided not to" reports
+/// both as gaps, and a gap nobody intends to close teaches readers to skip the
+/// section.
+const _declinedEdges = <String, Map<String, String>>{
+  'HttpClientResponseCompressionState': {'Enum': _enumSupertypeNotModelled},
+};
+
+const _enumSupertypeNotModelled =
+    'the stdlib bridges every enum as a BridgedClass with staticGetters rather '
+    'than a BridgedEnumDefinition, and no bridged enum declares an `-> Enum` '
+    'edge. Declaring it for this one would make it the only enum in the '
+    'library that does. Whether they all should is a real question and is '
+    'filed as SCD207 -- until it is answered, the uniform convention is the '
+    'decision, not an oversight. This class is the only enum the audit can see '
+    'the edge on at all, because SCC89 gave it the instance recipe that made '
+    'it measurable.';
+
+/// Strip the declined edges out of [gaps] and return how many were removed.
+///
+/// Called by the report and by `test/doc/gap_audit_figures_test.dart`, which
+/// checks the doc's printed figures against a live run. It exists as a function
+/// rather than a loop inside the report for that reason: a second copy in the
+/// test would be a second thing to keep in step, and the figure it produces is
+/// exactly what the doc quotes.
+///
+/// Declined edges are removed before anything counts them, so every downstream
+/// figure and the rendered table agree, and reported separately, because a
+/// decision that stops being visible stops being reviewable.
+int applyDeclinedEdges(List<HierarchyGap> gaps) {
+  var total = 0;
+  for (final gap in gaps) {
+    final declined = gap.missingEdges
+        .where((e) => _isDeclinedEdge(gap.name, e))
+        .length;
+    if (declined == 0) continue;
+    total += declined;
+    gap.missingEdges.removeWhere((e) => _isDeclinedEdge(gap.name, e));
+  }
+  return total;
+}
+
+/// Whether `Class -> Supertype` is a recorded decision rather than a defect.
+bool _isDeclinedEdge(String className, String supertype) =>
+    _declinedEdges[className]?.containsKey(supertype) ?? false;
+
 /// Whether `Class.member` is a recorded decision rather than a defect.
 bool _isDeclined(String className, String member) =>
     _declined.containsKey('$className.$member');
@@ -803,6 +853,13 @@ const _instanceRecipes = <String, Recipe>{
     imports: "import 'dart:io';",
   ),
   'StdioType': Recipe('StdioType.terminal', imports: "import 'dart:io';"),
+  // SCC89: the hierarchy audit's last unverified class. An enum, so the recipe
+  // is a value read — the same shape as `StdioType` above, and missing for the
+  // same reason: nobody had asked the audit about it, not because it was hard.
+  'HttpClientResponseCompressionState': Recipe(
+    'HttpClientResponseCompressionState.notCompressed',
+    imports: "import 'dart:io';",
+  ),
   'ProcessStartMode': Recipe(
     'ProcessStartMode.normal',
     imports: "import 'dart:io';",
@@ -1596,6 +1653,8 @@ Future<void> runHierarchyAudit(Environment env, List<String> args) async {
     });
   }
 
+  final declinedEdgeTotal = applyDeclinedEdges(gaps);
+
   final withGaps = gaps.where((g) => g.missingEdges.isNotEmpty).toList();
   final totalEdges = withGaps.fold<int>(0, (s, g) => s + g.missingEdges.length);
   final assignableWithGaps = withGaps.where((g) => g.hasIsAssignable).length;
@@ -1636,6 +1695,10 @@ Future<void> runHierarchyAudit(Environment env, List<String> args) async {
     '      ... no recipe yet (unfinished): '
     '${unexplained.fold<int>(0, (s, g) => s + g.unverifiedEdges.length)} '
     'in ${unexplained.length} classes',
+  );
+  stdout.writeln(
+    '  ... missing BY DECISION:           $declinedEdgeTotal '
+    '(see _declinedEdges)',
   );
   stdout.writeln('CONFIRMED missing edges:             $totalEdges');
   stdout.writeln('Classes with >=1 confirmed gap:      ${withGaps.length}');

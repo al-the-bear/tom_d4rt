@@ -37,14 +37,16 @@ Class-level coverage is audited by hand; **member-level** and
   183 classes (`--hierarchy`) opened at **35 missing edges across 23
   classes**, concentrated in `dart:convert`; every block — `dart:typed_data`,
   `dart:convert`, `dart:core`, `dart:io` and `dart:isolate` — is now declared,
-  and the count stands at **0 confirmed edges and 0 unverified**. That count
+  and the count stands at **0 confirmed edges and 0 unverified**, with one
+  candidate recorded as a decision rather than a gap. That count
   went *up* before it came down — adding instance recipes let the audit measure
   classes it had been reporting as unverified — so read
   [the movement table](#hierarchy-gaps-the-supertype-edge-audit) rather than
   the number, and read the hierarchy audit before treating any member-gap count
   as a work estimate.
-- **Member-level gaps stand at 13 across 7 classes, and the fall from 231 is
-  what closing the last hierarchy block bought.** A mechanical member diff over
+- **Member-level gaps stand at 0 confirmed, with 5 unreachable by decision
+  across 2 classes, and the fall from 231 is what closing the last hierarchy
+  block bought.** A mechanical member diff over
   all 183 registered classes (`tool/stdlib_member_diff.dart`) once confirmed
   only 3 — `ByteBuffer`'s SIMD views, *Boundary* by decision — because every
   `dart:io` and `dart:isolate` class lacked an instance recipe and so was
@@ -221,6 +223,17 @@ with:
 ```bash
 dart run tool/stdlib_member_diff.dart --baseline
 ```
+
+**The doc's own figures are checked too, by
+`test/doc/gap_audit_figures_test.dart`.** It parses the two *Current measured
+state* tables and compares every row against a live run of both audits — the
+tool's own collectors, not a reimplementation. That guard exists because the
+baseline above pins the MEASUREMENT and says nothing about what this file
+claims the measurement was: SCC57 wrote "zero candidates, zero confirmed,
+across 183 classes", SCC63 then bridged the `dart:io` WebSocket surface without
+declaring `WebSocketTransformer -> StreamTransformer`, and the sentence stayed
+here, wrong, for every commit in between. It was found by re-running the tool
+by hand, which is exactly the thing that does not happen on a schedule.
 
 **A tool that has to be remembered measures the past, not the present.** The
 gaps this audit found had accumulated for months for exactly one reason: nothing
@@ -673,24 +686,35 @@ is driven through the interpreter as `o is Supertype` and kept only if the
 answer is actually `false`. Measured 2026-09-06, after the `dart:io` and
 `dart:isolate` edges were declared:
 
+Measured 2026-09-07.
+
 | Metric | Count |
 |--------|-------|
-| Bridged classes examined | 183 |
-| … declaring `isAssignable` | 157 |
-| … with ≥ 1 registered edge | 108 |
-| Candidate edges from the cross-reference | 0 |
+| Bridged classes examined | 205 |
+| … declaring `isAssignable` | 177 |
+| … with ≥ 1 registered edge | 120 |
+| Candidate edges from the cross-reference | 1 |
 | … satisfied anyway via `isAssignable` | 0 |
 | … unverified (no instance recipe) | 0 |
+| … missing **by decision** | 1 |
 | **CONFIRMED missing edges** | **0** |
 | Classes with ≥ 1 confirmed gap | 0 |
 
-**The cross-reference proposes nothing.** That is a stronger statement than
-"zero confirmed": a candidate is any SDK supertype relation the registry has not
-been told about, so an empty candidate set means the registry now knows every
-relation the mirror can see across all 183 classes. It does not mean the
+**The one candidate is a decision, not a gap.**
+`HttpClientResponseCompressionState -> Enum` is recorded in `_declinedEdges` in
+the tool: the stdlib bridges every enum as a `BridgedClass` with `staticGetters`
+rather than a `BridgedEnumDefinition`, and no bridged enum declares an `-> Enum`
+edge. Declaring it for this one would make it the only enum in the library that
+does. Whether they all should is filed as SCD207; until that is answered the
+uniform convention is the decision. It is the only enum the audit can see the
+edge on at all, because SCC89 wrote the instance recipe that made it
+measurable.
+
+The count is not zero *candidates* any more, and that is the honest reading: an
+empty candidate set means the registry knows every relation the mirror can see,
+and this one it knows about and has chosen not to declare. It does not mean the
 registry is *complete* — the cross-reference is bounded by what `dart:mirrors`
-reports on the bridged native types — but there is no longer any measurement
-debt hiding behind the number.
+reports on the bridged native types.
 
 This table has now been measured seven times, and the movement is worth keeping
 because each step separates a *repair* from a change in what the audit can see
@@ -707,6 +731,8 @@ them as the same thing is the standing hazard of this section.
 | After the dart:core edges (SCC56) | 38 | 3 | 17 | **18** | 9 |
 | After six dart:io recipes (SCC57) | 38 | 6 | 7 | 25 | 13 |
 | After the dart:io / dart:isolate edges (SCC57) | **0** | 0 | 0 | **0** | 0 |
+| Re-measured after SCC63 bridged WebSocket (SCC89) | 2 | 0 | 1 | **1** | 1 |
+| After the WebSocketTransformer edge + one recipe (SCC89) | 1 | 0 | 0 | **0** | 0 |
 
 - **35 → 24 confirmed** was the eleven typed-data `-> Iterable` edges;
   **24 → 4** is the twenty convert codec/converter edges. Those are repairs.
@@ -1498,8 +1524,9 @@ the six missing *classes* that produced them. It is now Boundary, with
    [d4rt_limitations.md](d4rt_limitations.md#intentionally-unbridged-sdk-classes).
    Several are sandbox-hostile by design and will stay out; the rest wait
    for a concrete consumer.
-4. **The hierarchy audit is closed** — zero candidates, zero confirmed, across
-   183 classes. The blocks were filed per hierarchy rather than as one change,
+4. **The hierarchy audit is closed** — zero confirmed across 205 classes, with
+   the single remaining candidate recorded as a decision (see *Current measured
+   state* under *Hierarchy gaps*). The blocks were filed per hierarchy rather than as one change,
    because each alters bridge *ownership* and needs its own dispatch
    verification: `dart:typed_data` (11 edges), `dart:convert` (20 edges, plus
    the `Encoding.decodeStream` adapter), `dart:core` (12 edges), `dart:async`'s
