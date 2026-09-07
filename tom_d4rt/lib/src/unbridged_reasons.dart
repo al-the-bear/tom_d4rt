@@ -96,6 +96,44 @@ const String _simd =
     'deferred: every lane operation would cost a bridge '
     'crossing, so bridged SIMD is slower than the scalar code it replaces';
 
+/// Why a deliberately-unbridged MEMBER on a bridged class is absent, keyed by
+/// `Class.member`.
+///
+/// SCC91. [kUnbridgedReasons] is keyed on the bare identifier a script writes,
+/// which works because an unbridged CLASS fails in `Environment.get` — there is
+/// no such name. A missing member on a class that IS bridged never reaches a
+/// variable lookup: `buffer.asFloat32x4List()` resolves `buffer` fine and fails
+/// one layer deeper, in bridged-member dispatch, where the only thing in scope
+/// is a class and a member name. So it needs its own key shape, and the two
+/// maps cannot be merged without one of them lying about what it is keyed on.
+///
+/// Both entries here are members whose ABSENCE is the decision while the class
+/// around them is bridged and useful. That is the whole membership rule: a
+/// class nobody bridged belongs in [kUnbridgedReasons] instead.
+const Map<String, String> kUnbridgedMemberReasons = <String, String>{
+  // The three SIMD views on a bridged ByteBuffer. Pinned by F-SCB29-3.
+  'ByteBuffer.asFloat32x4List': _simd,
+  'ByteBuffer.asInt32x4List': _simd,
+  'ByteBuffer.asFloat64x2List': _simd,
+  // The RawSocket message pair, added by SCC74. Pinned by F-SCC74-1.
+  'RawSocket.readMessage': _fileDescriptorPassing,
+  'RawSocket.sendMessage': _fileDescriptorPassing,
+};
+
+/// The suffix a member-miss message carries when the member is a decision.
+///
+/// Empty for an ordinary miss — a typo, a member that was never in the SDK, a
+/// bridge that is simply incomplete. Strictly a SUFFIX, exactly as
+/// [undefinedVariableMessage] is: `has no instance method named 'x'` is what
+/// the limitations doc tells readers to grep for and what F-SCB29-3 matches on
+/// with `contains`, so prepending or rewording would break the thing this is
+/// meant to help.
+String unbridgedMemberSuffix(String className, String memberName) {
+  final reason = kUnbridgedMemberReasons['$className.$memberName'];
+  if (reason == null) return '';
+  return ' (not bridged: $reason; see doc/d4rt_limitations.md)';
+}
+
 /// The message for a failed variable lookup of [name].
 ///
 /// Returns the bare `Undefined variable: <name>` for an ordinary miss — a typo,

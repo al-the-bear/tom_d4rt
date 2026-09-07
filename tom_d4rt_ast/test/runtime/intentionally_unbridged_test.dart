@@ -286,4 +286,78 @@ void main() {
       expect(env.findBridgedClassByName('Float32List'), isNotNull);
     });
   });
+
+  group('SCC91: the member path carries its reason too', () {
+    // Registration-level for the DGUC6 reason: `tom_d4rt_exec` is the only
+    // runner that could drive a script against this tree, and it resolves
+    // `tom_d4rt_ast` from pub.dev rather than by path, so it cannot see
+    // unpublished local edits. The script-level twin — which calls
+    // `buffer.asFloat32x4List()` and reads the message end to end — is
+    // F-SCB29-3 and F-SCC74-1 in `tom_d4rt`.
+
+    test('F-SCC91-AST-1: every declined member names a class that IS '
+        'registered [2026-09-07]', () {
+      // The membership rule for this map, and the thing that separates it from
+      // kUnbridgedReasons: an entry here is a member missing from a class that
+      // exists. A class nobody bridged belongs in the other map, where a
+      // variable lookup can reach it.
+      // The shared `env` carries the eagerly-registered stdlib, which covers
+      // the dart:typed_data half. dart:io registers lazily on import, so the
+      // RawSocket pair needs it explicitly — without this the case fails for
+      // the wrong reason, reporting a bridged class as absent.
+      IoStdlib.register(env);
+      final missing = <String>[];
+      for (final key in kUnbridgedMemberReasons.keys) {
+        final className = key.split('.').first;
+        if (env.findBridgedClassByName(className) == null) {
+          missing.add(key);
+        }
+      }
+      expect(
+        missing,
+        isEmpty,
+        reason:
+            'These entries name a class that is NOT registered, so the member '
+            'path can never be reached for them — the failure happens at the '
+            'variable lookup instead and kUnbridgedReasons is where they '
+            'belong.\n${missing.join('\n')}',
+      );
+    });
+
+    test('F-SCC91-AST-2: the suffix fires on a declined member and stays '
+        'silent on a typo [2026-09-07]', () {
+      // The property the whole design turns on. A reason attached to every
+      // miss on a class that has any declined member would erase the
+      // distinction SCB30 exists to draw.
+      expect(
+        unbridgedMemberSuffix('ByteBuffer', 'asFloat32x4List'),
+        allOf(
+          contains('not bridged:'),
+          contains('bridged SIMD is slower'),
+          contains('doc/d4rt_limitations.md'),
+        ),
+      );
+      expect(unbridgedMemberSuffix('ByteBuffer', 'asFlaot32x4List'), isEmpty);
+      expect(unbridgedMemberSuffix('ByteBuffer', 'asUint8List'), isEmpty);
+      // Keyed on the PAIR, not the member name alone: the same name on another
+      // class is an ordinary miss.
+      expect(unbridgedMemberSuffix('Uint8List', 'asFloat32x4List'), isEmpty);
+    });
+
+    test('F-SCC91-AST-3: the two maps do not overlap [2026-09-07]', () {
+      // A name in both would mean the same absence explained twice from two
+      // places, which is how the two copies drift.
+      final memberNames = kUnbridgedMemberReasons.keys
+          .map((k) => k.split('.').last)
+          .toSet();
+      expect(
+        memberNames.intersection(kUnbridgedReasons.keys.toSet()),
+        isEmpty,
+        reason:
+            'A member name is also a bare-identifier key. Decide which layer '
+            'reports it — a bridged class means the member map, an unbridged '
+            'one means the identifier map — and remove the other.',
+      );
+    });
+  });
 }

@@ -1,3 +1,39 @@
+## 0.62.0
+
+### Added — a deliberately-unbridged MEMBER now says so, like an unbridged class already did (scc91)
+
+SCB30 made an unbridged CLASS explain itself: `Undefined variable: Zone (not
+bridged: …; see doc/d4rt_limitations.md)`. It could not reach a missing MEMBER
+on a class that IS bridged, because that fails one layer deeper — in bridged
+member dispatch, where the only things in scope are a class and a member name,
+not the bare identifier the map is keyed on. So the three `ByteBuffer` SIMD
+views and the `RawSocket` message pair still reported a flat
+`Bridged class 'ByteBuffer' has no instance method named 'asFloat32x4List'`,
+and the limitations doc had to tell readers this was the one case where they
+had to arrive by searching.
+
+`kUnbridgedMemberReasons` is keyed on `Class.member` and consulted from all
+three bridged-member miss sites — the method call, the property read, and the
+implicit-`this` read. The prefix is unchanged and the reason is strictly a
+suffix, exactly as SCB30 did it, because that prefix is what the doc tells
+readers to grep and what `F-SCB29-3` matches on with `contains`.
+
+**Keyed on the pair, not the member name**, so a typo still looks like a typo:
+`buffer.asFlaot32x4List()` gets the bare message while `asFloat32x4List` gets
+the reason. Erasing that distinction would undo what SCB30 was for, and
+`F-SCB29-3` now pins both directions.
+
+The two maps stay separate because they are keyed on different things, and
+merging them would make one of them lie about what its key means.
+`F-SCC91-AST-3` pins that they do not overlap; `F-SCC91-AST-1` pins that every
+member entry names a class that really is registered, which is the rule that
+keeps entries in the right map.
+
+`F-SCB30-3` derives the expected key set from the doc, and the five member
+names were subtracted from it because the map could not serve them. They are
+now pinned instead of excused, and the doc's "Reported as" column lists
+`readMessage` / `sendMessage` — which is what the error actually reports.
+
 ## 0.61.0
 
 ### Fixed — `WebSocketTransformer` had no supertype edge, and the audit doc had been wrong about it since (scc89)

@@ -2984,13 +2984,20 @@ itself the signal that the absence is deliberate. The reasons are held in
 below assert that its key set is exactly the "Reported as" identifiers on this
 page, so the two cannot drift apart.
 
-The one exception is a missing **member** on a class that *is* bridged: the
-three `ByteBuffer` SIMD views report
+A missing **member** on a class that *is* bridged reports differently — the
+three `ByteBuffer` SIMD views and the `RawSocket` message pair say
 `Bridged class 'ByteBuffer' has no instance method named 'asFloat32x4List'`
-instead. That message carries no reason — it does not pass through a variable
-lookup, so it cannot consult the reason map — which is why it is the one case
-where you have to arrive here by searching. If you did, the `dart:typed_data`
-row below is the one you want.
+rather than `Undefined variable:` — but SCC91 gave that path its own reason
+map, so the message continues with the same explanation and the same pointer
+back here. Neither case requires you to arrive by searching any more.
+
+The two maps stay separate because they are keyed on different things: a
+missing class fails at a variable lookup and is known by its bare name, a
+missing member fails one layer deeper where the only things in scope are a
+class and a member. Merging them would mean one of the two lying about what its
+key means — and it would attach a reason to every miss on a class that has any
+declined member, so a typo would read as a decision. `asFlaot32x4List` gets the
+bare message, and F-SCB29-3 pins that.
 
 The three tables below are ordered by *why*, not by library: a name that cannot
 be honoured is a permanent decision, a name that is not a class has nothing to
@@ -3012,7 +3019,7 @@ construction. The same holds for the runners layered on top
 | `WeakReference` | `WeakReference` | `dart:core` | Weakness is a property of the *native* heap. An interpreted value is reachable from interpreter structures the script cannot see, so a `WeakReference` to it would never clear; the API would be technically present and semantically a lie. |
 | `Finalizer` | `Finalizer` | `dart:core` | Same root cause as `WeakReference`, plus it hands the script a GC-timed callback — a non-deterministic re-entry point into sandboxed code. Sandbox-hostile by design. |
 | `HttpOverrides` | `HttpOverrides` | `dart:io` | A global hook for swapping the `HttpClient` implementation. `HttpOverrides.global = …` takes effect **process-wide and outlives the script that set it**, so one sandboxed script would silently redirect every subsequent HTTP call made by the host application and by every other script. That is the uncontrolled host access the permission system exists to prevent, and unlike a filesystem or network grant there is no granularity that makes it safe — the capability *is* the escape. The zone-scoped `runZoned` / `runWithHttpOverrides` forms are narrower but require the script to supply an `HttpOverrides` subclass whose `createHttpClient` returns a native `HttpClient`, which interpreted code cannot produce. |
-| `SocketControlMessage` | `SocketMessage`, `SocketControlMessage`, `ResourceHandle` | `dart:io` | File-descriptor passing over a Unix domain socket, reached through `RawSocket.readMessage` / `sendMessage` — which are therefore absent too, as missing *members* on a bridged class (pinned by F-SCC74-1). A `SocketControlMessage` exists to carry `ResourceHandle`s: raw operating-system file descriptors. A script that received one would hold a working handle to a file or socket that `FilesystemPermission` and `NetworkPermission` never granted, and neither permission could see it happen — a grant is checked when a path or a host is *named*, and a descriptor names neither. The capability is the escape, exactly as with `HttpOverrides`, so no granularity makes it safe. The rest of `RawSocket` is bridged; only the message pair is out. |
+| `SocketControlMessage` | `SocketMessage`, `SocketControlMessage`, `ResourceHandle`, `readMessage`, `sendMessage` | `dart:io` | File-descriptor passing over a Unix domain socket, reached through `RawSocket.readMessage` / `sendMessage` — which are therefore absent too, as missing *members* on a bridged class (pinned by F-SCC74-1). A `SocketControlMessage` exists to carry `ResourceHandle`s: raw operating-system file descriptors. A script that received one would hold a working handle to a file or socket that `FilesystemPermission` and `NetworkPermission` never granted, and neither permission could see it happen — a grant is checked when a path or a host is *named*, and a descriptor names neither. The capability is the escape, exactly as with `HttpOverrides`, so no granularity makes it safe. The rest of `RawSocket` is bridged; only the message pair is out. |
 
 ### Not a class, so there is nothing to bridge
 

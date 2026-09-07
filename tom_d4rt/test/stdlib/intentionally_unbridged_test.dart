@@ -292,12 +292,55 @@ void main() {
             isA<NoSuchMethodError>().having(
               (e) => e.toString(),
               'toString',
-              contains("has no instance method named '$view'"),
+              allOf(
+                // The prefix is unchanged, which is load-bearing: it is what
+                // the doc tells readers to grep and what this matcher used to
+                // assert on its own.
+                contains("has no instance method named '$view'"),
+                // SCC91: and now the reason follows it, so a reader learns the
+                // absence is a decision without knowing the doc exists.
+                contains('not bridged:'),
+                contains('bridged SIMD is slower than the scalar code'),
+                contains('doc/d4rt_limitations.md'),
+              ),
             ),
           ),
           reason: 'ByteBuffer.$view should report a missing member',
         );
       }
+
+      // The other half of SCC91, and the reason the map is keyed on
+      // `Class.member` rather than on the bare name: a TYPO must still look
+      // like a typo. Without this the suffix could be attached to every miss
+      // on a class that has any declined member, which would make the
+      // distinction SCB30 exists to draw disappear again.
+      expect(
+        () => execute(
+          "import 'dart:typed_data';\n"
+          'main() => Uint8List(64).buffer.asFlaot32x4List();',
+        ),
+        throwsA(
+          isA<NoSuchMethodError>().having(
+            (e) => e.toString(),
+            'toString',
+            allOf(
+              contains("has no instance method named 'asFlaot32x4List'"),
+              isNot(contains('not bridged:')),
+            ),
+          ),
+        ),
+        reason: 'a misspelling is an ordinary miss and must carry no reason',
+      );
+
+      // A real member still resolves, so the suffix machinery is not sitting
+      // in the success path.
+      expect(
+        execute(
+          "import 'dart:typed_data';\n"
+          'main() => Uint8List(4).buffer.asUint8List().length;',
+        ),
+        equals(4),
+      );
     });
 
     test('F-SCC74-1: the RawSocket message pair fails as missing MEMBERS, so '
@@ -342,7 +385,16 @@ void main() {
             isA<Object>().having(
               (e) => e.toString(),
               'toString',
-              contains("named '$member'"),
+              allOf(
+                contains("named '$member'"),
+                // SCC91: the refusal now states itself at the point of
+                // failure. This pair is the one REFUSED row rather than a
+                // deferred one, so the reason a reader gets is the sandbox
+                // argument, not "nobody built it yet".
+                contains('not bridged:'),
+                contains('raw OS file descriptors'),
+                contains('doc/d4rt_limitations.md'),
+              ),
             ),
           ),
           reason: 'RawSocket.$member should report a missing member',
@@ -425,27 +477,29 @@ void main() {
       // Derived from the doc, not hard-coded — a hard-coded expectation here
       // would be a third copy and would rot alongside the other two.
       final documented = _reportedAsIdentifiers()
-        // These four are in the doc's "Reported as" column because a reader may
-        // arrive from `Bridged class 'ByteBuffer' has no instance method named
-        // 'asFloat32x4List'` — a missing *member* on a class that IS bridged
-        // (F-SCB29-3). That message never passes through a variable lookup, so
-        // the map structurally cannot serve it, and `ByteBuffer` itself must
-        // stay out of the map because it is registered. SCC91 tracks giving the
-        // member path its own reason.
+        // `ByteBuffer` and `RawSocket` are the only two subtractions left, and
+        // they are subtractions for the opposite reason to the rest of this
+        // file: both classes ARE bridged and useful. They appear in the doc's
+        // "Reported as" column only as the context a reader needs to find the
+        // member rows under them, so a variable lookup of either name succeeds
+        // and [kUnbridgedReasons] must not claim otherwise.
         //
-        // `RawSocket` and its two message members are the same shape, added by
-        // SCC74: the class is bridged and only the pair is out, so they arrive
-        // as `has no instance method named 'readMessage'` and never reach a
-        // variable lookup either.
-        ..removeAll(const {
-          'ByteBuffer',
-          'asFloat32x4List',
-          'asInt32x4List',
-          'asFloat64x2List',
-          'RawSocket',
-          'readMessage',
-          'sendMessage',
-        });
+        // Their five members used to be subtracted here too, because the
+        // member path could not carry a reason and the map structurally could
+        // not serve it. SCC91 gave that path [kUnbridgedMemberReasons], so
+        // they are pinned below instead of excused here.
+        //
+        // `RawSocket` is deliberately NOT subtracted: it is not in the column
+        // at all, so subtracting it would be a no-op that reads like a
+        // decision. If somebody adds it, this test should fail and the
+        // question should be asked then.
+        ..removeAll(const {'ByteBuffer'});
+
+      // The member map's keys are `Class.member`; the doc's column carries the
+      // bare member name, which is what the error message shows.
+      final documentedMembers = kUnbridgedMemberReasons.keys
+          .map((k) => k.split('.').last)
+          .toSet();
 
       expect(
         documented,
@@ -455,7 +509,7 @@ void main() {
             'changed and this test is no longer reading what it thinks',
       );
       expect(
-        kUnbridgedReasons.keys.toSet(),
+        kUnbridgedReasons.keys.toSet().union(documentedMembers),
         equals(documented),
         reason:
             'kUnbridgedReasons and the limitations doc disagree: add the '

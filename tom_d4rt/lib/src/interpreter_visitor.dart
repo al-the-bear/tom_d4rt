@@ -779,7 +779,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
         // If neither getter nor method, error
         throw UndefinedMemberD4rtException(
-          "Undefined property or method '$name' on bridged instance of '${bridgedInstance.bridgedClass.name}' accessed via implicit 'this'.",
+          "Undefined property or method '$name' on bridged instance of "
+          "'${bridgedInstance.bridgedClass.name}' accessed via implicit 'this'."
+          "${unbridgedMemberSuffix(bridgedInstance.bridgedClass.name, name)}",
           memberName: name,
         );
       } // +++ NEW BLOCK +++
@@ -1461,7 +1463,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
 
       throw D4rtNoSuchMethodError(
-        "Undefined property or method '$memberName' on bridged instance of '${bridgedInstance.bridgedClass.name}'.",
+        "Undefined property or method '$memberName' on bridged instance of "
+        "'${bridgedInstance.bridgedClass.name}'."
+        "${unbridgedMemberSuffix(bridgedInstance.bridgedClass.name, memberName)}",
       );
     } else if (prefixValue is InterpretedRecord) {
       // Accessing field of a record
@@ -4383,7 +4387,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               return extensionMethod.call(this, extensionArgs, namedArgs);
             } else {
               throw D4rtNoSuchMethodError(
-                "Bridged class '${bridgedClass.name}' has no instance method named '$methodName'.",
+                "Bridged class '${bridgedClass.name}' has no instance "
+                "method named '$methodName'."
+                "${unbridgedMemberSuffix(bridgedClass.name, methodName)}",
               );
             }
           } on RuntimeD4rtException catch (findError) {
