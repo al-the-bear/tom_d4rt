@@ -1,3 +1,38 @@
+## 0.63.0
+
+### Fixed — the host error boundary now unwraps the carrier, as its own doc already said it did (scc92)
+
+`throwAsHostFacingError` in `tom_d4rt` unwraps
+`InternalInterpreterD4rtException` so the host receives the value interpreted
+code actually threw — including a value in neither error hierarchy, which real
+Dart also permits a script to throw. This tree's copy did not, so such a throw
+surfaced as `Unexpected error: <carrier>` instead.
+
+It was not a documented difference: THIS FILE'S OWN doc comment says "the
+boundary unwraps it one clause earlier so the host receives that value itself".
+The prose had been mirrored and the code had not. That is exactly the failure
+SCC92 was filed about, and writing the guard is what found it.
+
+### Added — `tool/check_mirrored_sources.dart` and a suite that runs it (scc92)
+
+The rule that an interpreter fix lands in both trees was enforced by nothing: a
+one-sided fix analyzed clean, passed both suites, and surfaced only when
+somebody read the two files side by side.
+
+Measured, 156 files sit at mirrored paths; 142 agree and 14 diverge. The
+divergent ones are baselined with a reason each, and the baseline is checked
+from both directions — an entry that stops diverging is reported as stale, which
+fired on its first run and removed five barrels that had been copied in from an
+earlier measurement.
+
+**It compares code, not text.** The todo proposed deriving one tree's copy from
+the other, as the Flutter twins do. Those pairs differ by one import line, so
+generation loses nothing; these differ in PROSE on purpose — `unbridged_reasons.dart`
+documents a doc-derived pin in the reference and a registry-derived one here,
+because those are genuinely different pins. Generating would delete that. So the
+comparison strips comments and normalises the two package layouts, and prose
+stays per-tree.
+
 ## 0.62.0
 
 ### Added — a deliberately-unbridged MEMBER now says so, like an unbridged class already did (scc91)

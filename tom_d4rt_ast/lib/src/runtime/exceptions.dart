@@ -549,6 +549,12 @@ bool isInterpreterControlFlowSignal(Object e) =>
 /// the recorded one keeps `Error.throwWithStackTrace` meaningful across the
 /// boundary, exactly as it is across an interpreted `catch (e, st)`.
 Never throwAsHostFacingError(Object e, StackTrace s) {
+  // A `throw` in interpreted code arrives inside this carrier, and the host
+  // receives whatever the script threw — including a value in neither error
+  // hierarchy, which real Dart also permits a script to throw.
+  if (e is InternalInterpreterD4rtException) {
+    throw e.originalThrownValue!;
+  }
   final value = e is RuntimeD4rtException && e.originalException != null
       ? e.originalException!
       : e;
