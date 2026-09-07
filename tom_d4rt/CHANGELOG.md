@@ -3,8 +3,8 @@
 ### Fixed — one export out of alphabetical order, found by the new mirror check (scc92)
 
 `closable_string_sink.dart` sat between `html_escape` and `json` in
-`stdlib/convert.dart` here and after `byte_conversion` in the AST tree. Neither
-was alphabetical; both are now, which is what let the pair start agreeing.
+`stdlib/convert.dart` here, while the AST tree already had it in alphabetical
+order. Only this tree changed; the pair agrees now.
 
 The check itself lives in `tom_d4rt_ast` — see its CHANGELOG for why it
 compares code rather than deriving one tree from the other.
