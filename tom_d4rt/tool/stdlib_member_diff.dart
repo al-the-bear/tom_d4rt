@@ -82,6 +82,7 @@ import 'package:tom_d4rt/d4rt.dart'
         NetworkPermission,
         ProcessRunPermission;
 import 'package:tom_d4rt/src/bridge/bridged_types.dart';
+import 'package:tom_d4rt/src/unbridged_reasons.dart';
 import 'package:tom_d4rt/src/stdlib/core.dart';
 import 'package:tom_d4rt/src/stdlib/async.dart';
 import 'package:tom_d4rt/src/stdlib/collection.dart';
@@ -539,31 +540,14 @@ const _notAuditable = <String, String>{
 ///
 /// A member that merely has not been got to yet does NOT belong here — it
 /// belongs in `confirmedGaps`, where it reads as the work it is.
-const _declined = <String, String>{
-  'ByteBuffer.asFloat32x4List': _simdViews,
-  'ByteBuffer.asFloat64x2List': _simdViews,
-  'ByteBuffer.asInt32x4List': _simdViews,
-  'RawSocket.readMessage': _fileDescriptorPassing,
-  'RawSocket.sendMessage': _fileDescriptorPassing,
-};
-
-const _simdViews =
-    'returns a SIMD typed list, which is intentionally unbridged — see the '
-    'SIMD block in doc/d4rt_limitations.md, pinned by F-SCB29-3';
-
-const _fileDescriptorPassing =
-    'moves ResourceHandles (raw OS file descriptors) across a socket, which '
-    'would bypass the permission system — see the RawSocket message API row '
-    'in doc/d4rt_limitations.md, pinned by F-SCC74-1';
-
 /// Supertype edges the audit must not report as defects, because not declaring
 /// them is a decision the stdlib made uniformly.
 ///
-/// The hierarchy half had no equivalent of [_declined] until SCC89 needed one.
-/// The member half has had one since SCB29, and for the same reason: an audit
-/// that cannot distinguish "nobody did this" from "we decided not to" reports
-/// both as gaps, and a gap nobody intends to close teaches readers to skip the
-/// section.
+/// The hierarchy half had no equivalent of the member-level decision table
+/// until SCC89 needed one. The member half has had one since SCB29, and for the
+/// same reason: an audit that cannot distinguish "nobody did this" from "we
+/// decided not to" reports both as gaps, and a gap nobody intends to close
+/// teaches readers to skip the section.
 const _declinedEdges = <String, Map<String, String>>{
   'HttpClientResponseCompressionState': {'Enum': _enumSupertypeNotModelled},
 };
@@ -577,6 +561,10 @@ const _enumSupertypeNotModelled =
     'decision, not an oversight. This class is the only enum the audit can see '
     'the edge on at all, because SCC89 gave it the instance recipe that made '
     'it measurable.';
+
+/// Whether `Class -> Supertype` is a recorded decision rather than a defect.
+bool _isDeclinedEdge(String className, String supertype) =>
+    _declinedEdges[className]?.containsKey(supertype) ?? false;
 
 /// Strip the declined edges out of [gaps] and return how many were removed.
 ///
@@ -602,13 +590,16 @@ int applyDeclinedEdges(List<HierarchyGap> gaps) {
   return total;
 }
 
-/// Whether `Class -> Supertype` is a recorded decision rather than a defect.
-bool _isDeclinedEdge(String className, String supertype) =>
-    _declinedEdges[className]?.containsKey(supertype) ?? false;
-
 /// Whether `Class.member` is a recorded decision rather than a defect.
+///
+/// Reads `kUnbridgedMemberReasons` from `lib/` rather than a copy. SCC91 gave
+/// that map to the interpreter so a declined member explains itself at the
+/// point of failure, and it held exactly the five keys this tool was already
+/// carrying privately. Two tables of the same five decisions, in the same
+/// `Class.member` shape, is one table too many: the one the error message uses
+/// is the one that cannot go stale unnoticed, so the audit defers to it.
 bool _isDeclined(String className, String member) =>
-    _declined.containsKey('$className.$member');
+    kUnbridgedMemberReasons.containsKey('$className.$member');
 
 const _instanceRecipes = <String, Recipe>{
   'String': Recipe("'abc'"),
@@ -2020,7 +2011,7 @@ Future<void> main(List<String> args) async {
   );
   stdout.writeln(
     '  ... unreachable BY DECISION:      $declinedTotal '
-    '(see _declined / doc/d4rt_limitations.md)',
+    '(see kUnbridgedMemberReasons / doc/d4rt_limitations.md)',
   );
   stdout.writeln(
     'CONFIRMED unreachable members:       ${totalGaps - declinedTotal}',

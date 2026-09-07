@@ -1,5 +1,14 @@
 ## 1.74.0
 
+### Changed — the audit tool defers to the interpreter's decision table instead of keeping its own (scc91)
+
+`tool/stdlib_member_diff.dart` carried a private `_declined` map of five
+`Class.member` decisions. SCC91 gave the interpreter `kUnbridgedMemberReasons`
+so a declined member explains itself at the point of failure — and it held
+exactly the same five keys. The tool now reads that map. Two tables of the same
+decisions in the same key shape is one too many, and the one the error message
+uses is the one that cannot go stale unnoticed.
+
 ### Added — a deliberately-unbridged MEMBER now says so, like an unbridged class already did (scc91)
 
 SCB30 made an unbridged CLASS explain itself: `Undefined variable: Zone (not
