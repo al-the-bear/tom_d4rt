@@ -14656,6 +14656,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         show: showNames,
         hide: hideNames,
       );
+      // SCD4 (scd4_aicv): a name ambiguous further up the chain is judged
+      // against what this script imports.
+      environment.recordUnprefixedImport(
+        resolvedUri.toString(),
+        loadedModule.exportedEnvironment,
+        show: showNames,
+        hide: hideNames,
+      );
     }
     return null; // Import directives do not produce a value.
   }

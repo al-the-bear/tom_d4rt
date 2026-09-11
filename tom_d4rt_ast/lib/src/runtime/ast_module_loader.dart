@@ -914,6 +914,15 @@ class AstModuleLoader implements ModuleContext {
             hide: hideNames,
           ),
         );
+        // SCD4 (scd4_aicv): what an ambiguity is judged against. The surface
+        // is read when a lookup needs it, so a cyclic import that is still
+        // loading is seen whole by then.
+        moduleEnv.recordUnprefixedImport(
+          resolvedUri.toString(),
+          loaded.exportedEnvironment,
+          show: showNames,
+          hide: hideNames,
+        );
       }
     }
   }

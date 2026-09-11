@@ -1,3 +1,37 @@
+## 0.65.0
+
+### Fixed — a name two packages share is judged over what the script imports (scd4_aicv)
+
+A bridged name declared by two libraries was marked ambiguous wherever both
+were registered, and the mark was enforced on every lookup that reached that
+environment. `D4rtRunner`'s warm parent registers every bridged class of every
+registered library into one environment that every script encloses, so there
+the rule was evaluated over the host's whole registry: a script that imported
+only `package:a` was refused `Foo` because `package:b` also declared one. Dart
+decides ambiguity over the READER's imports.
+
+Each unprefixed import is now recorded on the scope it lands in
+(`Environment.recordUnprefixedImport`, called by both module loaders and by
+`visitImportDirective`), and a lookup that meets an ambiguous name narrows the
+candidates to the packages the reading module's imports reach — the imported
+library's own package, or that of any declaration the import made visible,
+honouring `show` / `hide`. One candidate left is the class the script means;
+two or more are still Dart's ambiguous import, reported with just those; none,
+or no import record at all, keeps the registry's verdict, because there is no
+basis to choose.
+
+A name the script's imports bring in is found in its own scope before any of
+this, so the change only matters when an import's recorded export surface is
+missing the name and the lookup falls through to the baseline — the shape
+`cupertino/contextmenu_test.dart` reached with `TextStyle`. Platform precedence
+(a `dart:*` declaration loses to a `package:` one) already cleared that case;
+this is the package-vs-package half. AMBIG-2 / AMBIG-P4 are unchanged: peers in
+scope are still rejected.
+
+Pinned by AMBIG-S1..S7 in `test/environment_lazy_bridge_test.dart` and, at
+script level through the runner, by `test/runtime/scd4a_ambiguity_import_scope_test.dart`
+(F-SCD4A-AST-1 failed with `Ambiguous Name Error` before the fix).
+
 ## 0.64.0
 
 ### Fixed — `break` and `continue` reach the statement they name

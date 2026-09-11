@@ -218,6 +218,10 @@ class Environment {
   // ambient definition, but two imports that disagree make the name ambiguous.
   // See the conflict branch of [importEnvironment].
   Set<String>? _importedBridgeNamesRaw;
+  // The unprefixed imports of the module this environment is the scope of —
+  // what an ambiguity found further up the chain is narrowed by. Null except
+  // at module scopes; see [recordUnprefixedImport].
+  List<_UnprefixedImport>? _unprefixedImportsRaw;
   LazyBridgeRegistry<Type>? _bridgedClassesLookupByTypeRaw;
   // GEN-115 Phase 2 — runtimeType→bridge resolution cache. Populated by
   // [toBridgedInstance] after a non-trivial step-2 / step-3 walk so that
@@ -537,6 +541,71 @@ class Environment {
       "${candidates.keys.map((q) => '$q.$name').join(' or ')}.",
     );
     return false;
+  }
+
+  /// Records that the module this environment is the scope of imports
+  /// [libraryUri] without a prefix, bringing the declarations of [surface] —
+  /// the imported module's export environment — into scope unqualified,
+  /// filtered by the import's [show] / [hide] combinators.
+  ///
+  /// SCD4 (scd4_aicv): this is what an ambiguity is judged against. A
+  /// registry that holds every bridge the host registered — the AST runner's
+  /// name baseline is one — marks a name ambiguous as soon as two libraries
+  /// declare it, whether or not the reading script imports both. Dart decides
+  /// ambiguity over the READER's imports, so [lookup] narrows the candidates
+  /// to the packages these imports reach before it rejects the name.
+  void recordUnprefixedImport(
+    String libraryUri,
+    Environment surface, {
+    Set<String>? show,
+    Set<String>? hide,
+  }) {
+    (_unprefixedImportsRaw ??= []).add(
+      _UnprefixedImport(libraryUri, surface, show, hide),
+    );
+  }
+
+  /// Resolves [name], which [owner] holds as ambiguous over [candidates]
+  /// (`qualifier → source URI`), against the unprefixed imports of the module
+  /// this lookup started in; throws [AmbiguousBridgedNameException] when they
+  /// do not settle it.
+  ///
+  /// A candidate is in scope when an import that admits [name] reaches its
+  /// package — the imported library's own, or that of any declaration the
+  /// import made visible (a barrel re-exporting another package's class).
+  /// Exactly one in scope is the class the script means. Two or more are
+  /// Dart's ambiguous import, reported with just those. None, or no import
+  /// record at all (a replay that imports everything, an environment used
+  /// directly), leaves the registry's verdict: there is no basis to choose,
+  /// and choosing anyway is the arbitrary pick the ambiguity rule exists to
+  /// prevent.
+  Object? _resolveAmbiguityInImportScope(
+    String name,
+    Environment owner,
+    Map<String, String> candidates,
+  ) {
+    Environment? scope = this;
+    while (scope != null && scope._unprefixedImportsRaw == null) {
+      scope = scope._enclosing;
+    }
+    final imports = scope?._unprefixedImportsRaw;
+    if (imports == null) throw AmbiguousBridgedNameException(name, candidates);
+
+    final inScope = <String, String>{};
+    candidates.forEach((qualifier, sourceUri) {
+      if (imports.any((i) => i.admits(name) && i.reaches(qualifier))) {
+        inScope[qualifier] = sourceUri;
+      }
+    });
+    if (inScope.length == 1) {
+      final bridge =
+          owner._prefixedImports[inScope.keys.single]?._bridgedClasses[name];
+      if (bridge != null) return bridge;
+    }
+    throw AmbiguousBridgedNameException(
+      name,
+      inScope.length > 1 ? inScope : candidates,
+    );
   }
 
   /// Drops the platform (`dart:*`) candidates when at least one non-platform
@@ -1454,7 +1523,7 @@ class Environment {
         // guard is a null-read on the hot path.
         final ambiguous = env._ambiguousBridgeNamesRaw?[name];
         if (ambiguous != null) {
-          throw AmbiguousBridgedNameException(name, ambiguous);
+          return _resolveAmbiguityInImportScope(name, env, ambiguous);
         }
         if (Logger.isDebug) {
           Logger.debug(
@@ -2263,5 +2332,44 @@ class Environment {
       "[Env.definePrefixedImport] Defining prefixed import '$prefix' with environment $importEnvironment (hash: ${importEnvironment.hashCode})",
     );
     _prefixedImportsOrNew[prefix] = importEnvironment;
+  }
+}
+
+/// One unprefixed `import` of a module, as the ambiguity check sees it: the
+/// imported library, the export surface it brought in, and its combinators.
+/// See [Environment.recordUnprefixedImport].
+class _UnprefixedImport {
+  _UnprefixedImport(this.libraryUri, this.surface, this.show, this.hide);
+
+  final String libraryUri;
+  final Environment surface;
+  final Set<String>? show;
+  final Set<String>? hide;
+
+  // The packages this import reaches, recomputed only when the surface has
+  // grown — it can while a cyclic import is still loading.
+  Set<String>? _qualifiers;
+  int _qualifiersFrom = -1;
+
+  /// Whether the import's combinators let [name] through.
+  bool admits(String name) =>
+      (show == null || show!.contains(name)) &&
+      (hide == null || !hide!.contains(name));
+
+  /// Whether this import reaches the package [qualifier] names.
+  bool reaches(String qualifier) {
+    final sourceUris = surface._bridgeSourceUrisRaw;
+    final size = sourceUris?.length ?? 0;
+    var qualifiers = _qualifiers;
+    if (qualifiers == null || _qualifiersFrom != size) {
+      qualifiers = <String>{};
+      for (final uri in [libraryUri, ...?sourceUris?.values]) {
+        final q = Environment._qualifierForSourceUri(uri);
+        if (q != null) qualifiers.add(q);
+      }
+      _qualifiers = qualifiers;
+      _qualifiersFrom = size;
+    }
+    return qualifiers.contains(qualifier);
   }
 }

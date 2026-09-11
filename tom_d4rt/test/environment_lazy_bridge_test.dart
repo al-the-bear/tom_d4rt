@@ -319,6 +319,159 @@ void main() {
     });
   });
 
+  group('AMBIG-SCOPE: ambiguity is decided over what the reading script '
+      'imports', () {
+    // A registry that holds every bridge the host registered — the AST
+    // runner's name baseline is one — marks a name ambiguous as soon as two
+    // libraries declare it. Dart decides ambiguity over the READER's imports:
+    // a script that imports only one of the two libraries means that one.
+    // So the verdict belongs to the lookup, narrowed by the imports of the
+    // module the lookup started in. AMBIG-2 / AMBIG-P4 above still hold — a
+    // lookup with no import record is judged over the whole registry.
+    const scannerUri = 'package:tom_doc_scanner/src/markdown_parser.dart';
+    const latexUri = 'package:tom_md2latex/src/markdown_parser.dart';
+
+    ({Environment registry, Environment script}) scopes() {
+      final registry = Environment();
+      registry.defineBridge(
+        BridgedClass(nativeType: _Widget, name: 'MarkdownParser'),
+        sourceUri: scannerUri,
+      );
+      registry.defineBridge(
+        BridgedClass(nativeType: _OtherWidget, name: 'MarkdownParser'),
+        sourceUri: latexUri,
+      );
+      return (registry: registry, script: Environment(enclosing: registry));
+    }
+
+    /// The surface a barrel import brings in — here without `MarkdownParser`,
+    /// which is the shape that reaches the registry at all: a name the import
+    /// DID bring would be found in the script's own scope first.
+    Environment barrel(String sourceUri) => Environment()
+      ..defineBridge(
+        BridgedClass(nativeType: Object, name: 'Marker'),
+        sourceUri: sourceUri,
+      );
+
+    test('AMBIG-S1: importing one of the two libraries picks its class '
+        '[2026-09-11] (PASS)', () {
+      final s = scopes();
+      s.script.recordUnprefixedImport(
+        'package:tom_doc_scanner/tom_doc_scanner.dart',
+        barrel('package:tom_doc_scanner/tom_doc_scanner.dart'),
+      );
+
+      final resolved = s.script.get('MarkdownParser');
+      expect((resolved as BridgedClass).nativeType, _Widget);
+    });
+
+    test('AMBIG-S2: importing both leaves the name ambiguous, reporting the '
+        'two it is torn between [2026-09-11] (PASS)', () {
+      final s = scopes();
+      s.script
+        ..recordUnprefixedImport(
+          'package:tom_doc_scanner/tom_doc_scanner.dart',
+          barrel('package:tom_doc_scanner/tom_doc_scanner.dart'),
+        )
+        ..recordUnprefixedImport(
+          'package:tom_md2latex/tom_md2latex.dart',
+          barrel('package:tom_md2latex/tom_md2latex.dart'),
+        );
+
+      expect(
+        () => s.script.get('MarkdownParser'),
+        throwsA(
+          isA<AmbiguousBridgedNameException>().having(
+            (e) => e.candidatesByQualifier.keys,
+            'qualifiers',
+            unorderedEquals(<String>['tom_doc_scanner', 'tom_md2latex']),
+          ),
+        ),
+      );
+    });
+
+    test('AMBIG-S3: importing neither leaves the registry verdict standing '
+        '[2026-09-11] (PASS)', () {
+      final s = scopes();
+      s.script.recordUnprefixedImport(
+        'package:unrelated/unrelated.dart',
+        barrel('package:unrelated/unrelated.dart'),
+      );
+
+      expect(
+        () => s.script.get('MarkdownParser'),
+        throwsA(isA<AmbiguousBridgedNameException>()),
+      );
+    });
+
+    test('AMBIG-S4: the narrowing reaches a lookup from a scope nested '
+        'inside the importing module [2026-09-11] (PASS)', () {
+      final s = scopes();
+      s.script.recordUnprefixedImport(
+        'package:tom_md2latex/tom_md2latex.dart',
+        barrel('package:tom_md2latex/tom_md2latex.dart'),
+      );
+      final functionScope = Environment(
+        enclosing: Environment(enclosing: s.script),
+      );
+
+      final resolved = functionScope.get('MarkdownParser');
+      expect((resolved as BridgedClass).nativeType, _OtherWidget);
+    });
+
+    test('AMBIG-S5: a package counts when the import made one of its '
+        'declarations visible — a barrel that re-exports it '
+        '[2026-09-11] (PASS)', () {
+      final s = scopes();
+      // The script imports some other package's barrel, which re-exports a
+      // class declared in tom_md2latex.
+      s.script.recordUnprefixedImport(
+        'package:aggregator/aggregator.dart',
+        barrel('package:tom_md2latex/src/other.dart'),
+      );
+
+      final resolved = s.script.get('MarkdownParser');
+      expect((resolved as BridgedClass).nativeType, _OtherWidget);
+    });
+
+    test('AMBIG-S6: an import that shows other names does not put the '
+        'package in scope for this one [2026-09-11] (PASS)', () {
+      final s = scopes();
+      s.script
+        ..recordUnprefixedImport(
+          'package:tom_doc_scanner/tom_doc_scanner.dart',
+          barrel('package:tom_doc_scanner/tom_doc_scanner.dart'),
+          show: {'Marker'},
+        )
+        ..recordUnprefixedImport(
+          'package:tom_md2latex/tom_md2latex.dart',
+          barrel('package:tom_md2latex/tom_md2latex.dart'),
+          hide: {'Marker'},
+        );
+
+      final resolved = s.script.get('MarkdownParser');
+      expect((resolved as BridgedClass).nativeType, _OtherWidget);
+    });
+
+    test('AMBIG-S7: two dart: libraries — only the imported one counts '
+        '[2026-09-11] (PASS)', () {
+      final registry = Environment()
+        ..defineBridge(
+          BridgedClass(nativeType: _Widget, name: 'Codec'),
+          sourceUri: 'dart:convert',
+        )
+        ..defineBridge(
+          BridgedClass(nativeType: _OtherWidget, name: 'Codec'),
+          sourceUri: 'dart:ui',
+        );
+      final script = Environment(enclosing: registry)
+        ..recordUnprefixedImport('dart:convert', Environment());
+
+      final resolved = script.get('Codec');
+      expect((resolved as BridgedClass).nativeType, _Widget);
+    });
+  });
+
   group('IMP-OPT-17: N-of-M lazy materialization (build counter)', () {
     test('IMP-OPT-17a: resolving N of M registered thunks builds exactly N', () {
       // Models the generator's lazy emission: M classes registered as deferred
