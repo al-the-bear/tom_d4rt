@@ -33,6 +33,23 @@ and `tom_d4rt_ast` alike — the two runtimes implement it identically.
    URI, or two classes from the same package), the legacy last-registration-wins
    behaviour stands and a warning is logged. An error whose remedy does not
    exist would be worse than the arbitrary pick it replaces.
+6. **A `dart:*` declaration loses to a non-platform one.** Dart's
+   platform-library precedence: `dart:ui`'s `TextStyle` and painting's are two
+   classes, yet naming `TextStyle` with both in scope is legal and means
+   painting's. Only peers — package vs package, or platform vs platform — leave
+   a name without a winner. The shadowed platform class stays reachable as
+   `ui.TextStyle`.
+7. **The verdict is judged over what the reading script imports.** An
+   environment can hold more candidates than a script sees — the
+   `tom_core_d4rt` binary registers every package it bridges, and
+   `D4rtRunner`'s warm parent registers every bridged class of every library
+   by name. So a lookup that meets an ambiguous name narrows the candidates to
+   the packages the reading module's unprefixed imports reach (the imported
+   library's own package, or that of any declaration the import made visible,
+   honouring `show` / `hide` — `Environment.recordUnprefixedImport`). One left
+   is the class the script means; several are still ambiguous, reported with
+   just those; none, or no import record at all (a replay that imports
+   everything, an environment used directly), keeps the registry's verdict.
 
 This mirrors Dart itself: importing two libraries that both export `Foo` is
 legal; *referring* to the bare `Foo` afterwards is the error, and the fix is a
@@ -100,15 +117,43 @@ tom_md2latex.MarkdownParser.toLatex('Hello World');
 ```
 
 A script that imports **only one** of the two libraries keeps using the bare
-name; the ambiguity exists only where both are in scope.
+name; the ambiguity exists only where both are in scope (rule 7) — including
+when the class reaches the script through a registry rather than through the
+import's own export surface.
 
 ## Tests that pin the rule
 
-| Test | Location |
-| ---- | -------- |
-| `AMBIG-1` … `AMBIG-6` | `tom_d4rt/test/environment_lazy_bridge_test.dart`, mirrored in `tom_d4rt_ast/test/environment_lazy_bridge_test.dart` |
-| `B2-CLASH-1` … `B2-CLASH-4` | `tom_d4rt/test/bridge/same_name_bridge_sourceuri_test.dart` |
+| Test | Location | Kind |
+| ---- | -------- | ---- |
+| `AMBIG-1` … `AMBIG-6` | `tom_d4rt/test/environment_lazy_bridge_test.dart`, mirrored in `tom_d4rt_ast/test/environment_lazy_bridge_test.dart` | registration |
+| `AMBIG-P1` … `AMBIG-P5` (platform precedence) | same files | registration |
+| `AMBIG-S1` … `AMBIG-S7` (import scope) | same files | registration + import record |
+| `B2-CLASH-1` … `B2-CLASH-4` | `tom_d4rt/test/bridge/same_name_bridge_sourceuri_test.dart`, ported to `tom_d4rt_exec` | script |
+| `F-SCD5A-1` … `F-SCD5A-3` (TextStyle pair, import-over-ambient) | `tom_d4rt/test/bridge/scd5a_script_level_ambiguity_test.dart`, ported to `tom_d4rt_exec` | script |
+| `F-SCD4A-AST-1` … `F-SCD4A-AST-3` (package pair through the runner baseline) | `tom_d4rt_ast/test/runtime/scd4a_ambiguity_import_scope_test.dart` | script (runner bundle) |
+| `F-SCD5A-AST-1` … `F-SCD5A-AST-4` (the tcca19 corpus shape, TextStyle, import-over-ambient) | `tom_d4rt_ast/test/runtime/scd5a_script_level_ambiguity_test.dart` | script (runner bundle) |
 
 `AMBIG-4` (same native type via two barrels is *not* ambiguous) and `AMBIG-5`
 (an unqualifiable collision keeps last-wins) are the two that keep the rule from
-over-reaching; do not relax them.
+over-reaching; do not relax them. `AMBIG-2` and `AMBIG-P4` pin the rejection of
+peers in scope; the scope rule narrows what counts as in scope, not the
+verdict.
+
+## Changing the rule
+
+tcca19 (tom_d4rt 1.27.0 / tom_d4rt_ast 0.19.0) broke 17 of the 927 base-corpus
+scripts with `Ambiguous Name Error: TextStyle` and shipped with every test
+green, because the tests were all registration-level: they asked what the
+registry decides about candidates the test supplied, never whether a script
+naming the class reaches it. So a change to this rule needs both of:
+
+- **A script-level test** — bridges registered on a real interpreter, a script
+  with real import directives, an assertion on which class the bare name
+  reached. `tom_d4rt` runs source; `tom_d4rt_ast` runs a hand-built bundle
+  through `D4rtRunner` (the `scd5a_*` files above are the pattern).
+  F-SCD5A-1 and F-SCD5A-AST-1/2 go red when platform precedence is removed —
+  that is the regression class this requirement exists for.
+- **A corpus run after publishing** — both Flutter twins' base corpus, serially,
+  with the companion-app locks at the new release, recorded under
+  `Verification runs` in `tom_d4rt_flutter_ast/doc/interpreter_issues.md`. The
+  d4rt quest overview states this for every name-resolution change.

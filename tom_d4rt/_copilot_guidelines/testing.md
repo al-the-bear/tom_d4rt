@@ -269,6 +269,20 @@ When fixing a bug:
 3. Verify test passes
 4. Run `testkit :test` to verify the fix is captured in baseline
 
+### Name-Resolution Changes Need a Script-Level Test and a Corpus Run
+
+A change to how a name resolves — the bridged-name ambiguity rule, platform
+precedence, import / export merging, prefixes, qualifier aliases, shadowing —
+needs a test that EXECUTES A SCRIPT with real import directives and asserts which
+class the bare name reached; a test that builds an `Environment` by hand only
+asks what the registry decides about candidates it supplied. `tom_d4rt`
+runs source (`test/bridge/scd5a_script_level_ambiguity_test.dart`);
+`tom_d4rt_ast` runs a hand-built bundle through `D4rtRunner`
+(`test/runtime/scd5a_script_level_ambiguity_test.dart`). After publishing, run
+both Flutter twins' base corpus and record the run. tcca19 broke 17 corpus
+scripts with every registration-level test green. The rule and its tests:
+`tom_d4rt_generator/_copilot_guidelines/same_name_class_resolution.md`.
+
 ### Network Tests Stay on Loopback
 
 A test must not reach the live internet, and must not catch errors so that an

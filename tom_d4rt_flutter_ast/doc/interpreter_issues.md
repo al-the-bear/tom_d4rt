@@ -24,7 +24,8 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 
 | Marker | Section (heading text, verbatim) | What it is |
 | ------ | -------------------------------- | ---------- |
-| `[ ]` | Open (GEN-124) — native enum value resolves to a prefix-matching `BridgedClass`, corrupting applied-generic return checks | An **interpreter** defect in `Environment.getRuntimeType`. Produces **no test failure**: it surfaces only as 8 captured framework errors on `widgets/widget_inspector_service_extensions_test.dart`, which lives in the extended corpus. Last observed at `tom_d4rt` 1.22.0 / `tom_d4rt_ast` 0.14.0 and unconfirmed at anything newer — re-establishing whether it still reproduces is the first step of any fix attempt. |
+| `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect: passing a script closure to a parameter typed as a Flutter function typedef is rejected. Found 2026-09-06 (run `20260906-scc46-fixed`); 15 failures and ~276 framework errors across 109 scripts — the framework-error count is its real size. |
+| `[ ]` | Open (GEN-126) — a bridged base class arrives where the script's own subclass is declared | A script subclass of a bridged Flutter class loses its interpreted identity on a round trip through native code, so only the bridged base comes back (`type 'Intent' is not a subtype of type '_GreetIntent'`). Found 2026-09-06; 14 framework errors, 0 failures, identical in both twins. |
 | `[REVERTED]` | (25) — Abstract bridged superclasses with no proxy + active-visitor unset during bridge method dispatch + broken `ThemeData.extension<T>()` adapter (bucket #16, Section P) | The fix was rolled back on 2026-04-25 after it regressed ~24 widget-build tests into build timeouts. Section P is **deferred, not solved**; `default_text_editing_shortcuts_test.dart` and `theme_extension_test.dart` stay in the open issue log. The section sketches a less invasive approach (gate the override lookup on a non-empty registry, skip the `withActiveVisitor` wrap on adapters that take no typeArgs). |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
 
@@ -3884,6 +3885,68 @@ move — the affected tests already pass.
 Corpus runs made to certify an interpreter change rather than to
 discover new clusters. Each entry records what was measured, against
 which resolved package versions, and what moved.
+
+### 2026-09-11 — base corpus, BOTH twins at tom_d4rt 1.77.0 / tom_d4rt_ast 0.65.0: break/continue and import-scoped ambiguity are behaviourally neutral
+
+**Scope: the 17-file BASE subset only** (`run_base_tests.sh`), compared with
+the 2026-09-06 base entry below; the full-corpus baseline is unchanged by it.
+
+**Resolved interpreter versions** — read from the COMPANION APP lockfiles, and
+equal to what each twin itself resolves:
+
+| Package | `tom_d4rt` | `tom_d4rt_ast` |
+| ------- | ---------- | -------------- |
+| `tom_d4rt_flutter/test/tom_d4rt_flutter_test_app` | **1.77.0** | — |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app` | — | **0.65.0** |
+
+Previous entry measured 1.66.0 / 0.55.0.
+
+**Why this run exists.** Two interpreter publishes landed on 2026-09-11 and
+neither had been through the corpus:
+
+- tom_d4rt 1.76.0 / tom_d4rt_ast 0.64.0 — `break` / `continue` in async bodies
+  and labelled jumps (scd4_ahlh);
+- tom_d4rt 1.77.0 / tom_d4rt_ast 0.65.0 — bridged-name ambiguity judged over
+  the reading script's imports (scd4_aicv).
+
+The second is a NAME-RESOLUTION change, and the quest now requires a corpus run
+for every such change (scd5_aicv): tcca19 was the precedent, a registry change
+that broke 17 base scripts with every unit test green. One run at 1.77.0 /
+0.65.0 covers both publishes.
+
+**Method.** The host was checked free of other `flutter test` processes first —
+an earlier attempt the same day was aborted on file 01 because another
+session's Flutter tests were running. AST twin to completion, then
+`tom_d4rt_flutter`. `IDLE_TIMEOUT=300`. `D4RT_SKIP_BRIDGE_REGEN=1`: the lock
+upgrade would otherwise trigger the silent, timestamp-only bridge regeneration
+that idle-kills file 01 (sce13), and an interpreter release does not change the
+bridges.
+
+**Result.**
+
+| | AST 0.55.0 | AST 0.65.0 | source 1.66.0 | source 1.77.0 |
+| --- | --- | --- | --- | --- |
+| files | 17/17 | 17/17 | 17/17 | 17/17 |
+| files with a non-zero exit | 1 (transport) | **0** | 0 | **0** |
+| non-`success` script statuses | 1 | **0** | 0 | **0** |
+| `frameworkErrors` | 111 | **108** | 111 | **100** |
+| `Ambiguous Name Error` / "outside of a loop" lines | 0 | **0** | 0 | **0** |
+
+**Fifteen of seventeen files are identical in every column**, per-file test
+counts included. Only `flutter_base_12` (AST 46 → 49, source 51 → 43) and
+`flutter_base_13` (AST 22 → 16, source 17 → 14) move, in no consistent
+direction across the twins — the frame-timing variance the entries below
+already characterise (the rejection is raised once per rebuild, so the count
+tracks when frames land). The one transport error the 0.55.0 AST run had on
+`flutter_base_01` did not recur.
+
+**So both publishes are behaviourally neutral on this corpus**, which is the
+expected result: the corpus contains no labelled jump and executes no
+`await for`, its one async-body `break` (`services/spell_check_service_test.dart`)
+sits off the scored build path, and it had zero ambiguity errors before the
+ambiguity change — which can only turn a lookup that threw into a resolution.
+The ambiguity rule's own coverage is script-level unit tests
+(`scd5a_script_level_ambiguity_test.dart` in both trees), not this corpus.
 
 ### 2026-09-06 — base corpus, BOTH twins at the SCC75 publish: a thirteen-minor interpreter jump is behaviourally neutral
 
