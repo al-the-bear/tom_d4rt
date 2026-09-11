@@ -302,6 +302,23 @@ When fixing a bug:
 3. Verify test passes
 4. Run `testkit :test` to verify the fix is captured in baseline
 
+### Network Tests Stay on Loopback
+
+A test must not reach the live internet, and must not catch errors so that an
+unreachable network can pass. Serve what the script needs from a server the
+test starts on `127.0.0.1` port 0 — `_LoopbackHttp` in
+`test/stdlib/io/socket_test.dart` is the pattern — and assert the one outcome
+loopback guarantees. When the server records what it received, assert that too:
+a `write` or `add` is then checked from the far end rather than trusted.
+
+Both halves of the old shape did damage. Public hosts made the suite
+non-deterministic and unrunnable offline (`I-FILE-179` failed once in a full
+`-j1` run and passed on the rerun). The catch-alls written to tolerate that
+also swallowed interpreter errors: `break` inside `await for` was broken for
+months while `I-FILE-179` printed "Skipping HTTP request test" and passed.
+`localhost` resolution (`InternetAddress.lookup('localhost')`) is not the live
+internet and needs no tolerance either.
+
 ---
 
 ## Related Documentation
