@@ -53,6 +53,26 @@ Write-Host "== $project :: issue-analysis run $Id =="
 Write-Host "== output: $out =="
 Set-Content -Path "$out/metrics.txt" -Value ''
 
+# Resolve the companion app before the first file. It is a separate package
+# with its own gitignored pubspec.lock, and nothing else re-resolves it when
+# this package moves — a stale app lock once built against an interpreter
+# releases behind, and the run died in setUpAll naming only a timeout. The
+# harness now refuses to launch an app out of step with this package
+# (test/companion_app_resolution.dart); resolving once here keeps that refusal
+# for machines that skipped the runner.
+$appDir = 'test/tom_d4rt_flutter_test_app'
+Write-Host "== resolving $appDir =="
+Push-Location $appDir
+$pubOut = & flutter pub get 2>&1
+$pubRc = $LASTEXITCODE
+Pop-Location
+if ($pubRc -ne 0) {
+  $pubOut | ForEach-Object { Write-Host $_ }
+  Add-Content -Path "$out/metrics.txt" -Value "companion app: flutter pub get failed in $appDir"
+  Write-Host "companion app: flutter pub get failed in $appDir"
+  exit 1
+}
+
 foreach ($f in $files) {
   $base = [IO.Path]::GetFileNameWithoutExtension($f)
   Write-Host ''

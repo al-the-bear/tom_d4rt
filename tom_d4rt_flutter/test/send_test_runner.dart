@@ -32,6 +32,8 @@ import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as p;
 
+import 'companion_app_resolution.dart';
+
 /// Result of sending a D4rt source script to the test app.
 class SendResult {
   /// Whether the build succeeded.
@@ -146,6 +148,7 @@ class SendTestRunner {
   static HttpClient? _client;
   static Process? _testAppProcess;
   static bool _startedByRunner = false;
+
   /// Set when a transport error is observed; the next [send] call will
   /// recycle the test app before doing anything else. Decoupling recycle
   /// from the catch path keeps the failed test inside flutter_test's per-test
@@ -309,6 +312,18 @@ class SendTestRunner {
     // out-of-band; never reap/start/own it here (and never let [tearDown]
     // kill it, since `_startedByRunner` stays false).
     if (startApp && !_useRunningApp) {
+      // Refuse to launch an app that would run a different interpreter from
+      // this package's — see companion_app_resolution.dart. It is a read of
+      // two lock files, so it costs nothing and fails in seconds, where an app
+      // built against a stale lock used to burn two launch timeouts and then
+      // blame the timeout.
+      final unresolved = companionResolutionFailure(
+        parentDir: Directory.current.path,
+        appDir: p.join(Directory.current.path, testAppPath),
+      );
+      if (unresolved != null) {
+        throw StateError(unresolved);
+      }
       // Always reap any prior test_app first — covers orphans from a
       // SIGKILL'd parent or a wedged-but-still-bound prior invocation.
       await _killExistingProcess();
@@ -510,6 +525,11 @@ class SendTestRunner {
     // runner's idle-output watchdog window would be killed as a false stall.
     // The heartbeat both reassures a human watcher and keeps the watchdog fed.
     while (DateTime.now().isBefore(deadline)) {
+      // An app that has exited will never answer. Waiting out the timeout
+      // after that only delays the report and hides the reason.
+      if (_lastTestAppExitCode != null) {
+        break;
+      }
       probes++;
       try {
         final tempClient = HttpClient();
@@ -539,12 +559,60 @@ class SendTestRunner {
     }
 
     if (!ready) {
+      // Give the stream listeners a moment to deliver the app's last lines —
+      // for a build failure those ARE the diagnosis.
+      await Future<void>.delayed(const Duration(milliseconds: 300));
+      final exitCode = _lastTestAppExitCode;
+      final waited = DateTime.now().difference(start).inSeconds;
+      final stdoutTail = List<String>.of(_testAppStdoutTail);
+      final stderrTail = List<String>.of(_testAppStderrTail);
       await _killTestApp();
       throw StateError(
-        'Source test app failed to start within '
-        '${effectiveTimeout.inSeconds} seconds',
+        _appStartFailure(
+          headline: exitCode == null
+              ? 'Source test app did not answer /health within '
+                    '${effectiveTimeout.inSeconds} seconds'
+              : 'Source test app exited with code $exitCode after ${waited}s, before '
+                    'answering /health',
+          appDir: appDir,
+          stdoutTail: stdoutTail,
+          stderrTail: stderrTail,
+        ),
       );
     }
+  }
+
+  /// The message for an app that did not come up: what happened, what the
+  /// app resolves beside this package, and the last lines it printed. Before
+  /// this existed the message was only the timeout, and a stale companion lock
+  /// read exactly like a hung transport.
+  static String _appStartFailure({
+    required String headline,
+    required String appDir,
+    required List<String> stdoutTail,
+    required List<String> stderrTail,
+  }) {
+    const shown = 40;
+    List<String> last(List<String> lines) =>
+        lines.length > shown ? lines.sublist(lines.length - shown) : lines;
+    return [
+      headline,
+      '',
+      companionResolutionReport(
+        parentDir: Directory.current.path,
+        appDir: appDir,
+      ),
+      if (stdoutTail.isNotEmpty) ...[
+        '',
+        'App stdout (last ${last(stdoutTail).length} lines):',
+        ...last(stdoutTail).map((line) => '  $line'),
+      ],
+      if (stderrTail.isNotEmpty) ...[
+        '',
+        'App stderr (last ${last(stderrTail).length} lines):',
+        ...last(stderrTail).map((line) => '  $line'),
+      ],
+    ].join('\n');
   }
 
   static Future<String> _resolveFlutterExecutable() async {
@@ -849,11 +917,11 @@ class SendTestRunner {
     final judgment = response['judgment'] as String?;
     final remoteStackTrace = response['stackTrace'] as String?;
     // Cluster J TODO #18 — test-app per-stage timings.
-    final appMetric =
-        (response['_buildMetric'] as Map?)?.cast<String, dynamic>();
+    final appMetric = (response['_buildMetric'] as Map?)
+        ?.cast<String, dynamic>();
     // Init-path profiler snapshot (compile-time gated in the interpreter).
-    final initProfile =
-        (response['_initProfile'] as Map?)?.cast<String, dynamic>();
+    final initProfile = (response['_initProfile'] as Map?)
+        ?.cast<String, dynamic>();
 
     _printSendMetrics(
       scriptPath: scriptPath,
@@ -990,11 +1058,7 @@ class SendTestRunner {
     // Wait for overlay to appear (dialog, menu, bottom sheet use microtask)
     await Future<void>.delayed(interactDelay);
 
-    final interactResult = await interact(
-      actions,
-      host: host,
-      port: port,
-    );
+    final interactResult = await interact(actions, host: host, port: port);
 
     return (build: buildResult, interact: interactResult);
   }
@@ -1167,15 +1231,11 @@ class SendTestRunner {
     } else if (_lastTestAppExitCode == null) {
       buffer
         ..writeln('')
-        ..writeln(
-          'Runner app process: still running (no exit code observed).',
-        );
+        ..writeln('Runner app process: still running (no exit code observed).');
     } else {
       buffer
         ..writeln('')
-        ..writeln(
-          'Runner app process: exited with code $_lastTestAppExitCode',
-        );
+        ..writeln('Runner app process: exited with code $_lastTestAppExitCode');
     }
 
     final remoteLogs = await _tryFetchRemoteAppLogs(host: host, port: port);
@@ -1240,8 +1300,10 @@ class SendTestRunner {
     final profileSuffix = _formatInitProfile(initProfile);
     if (profileSuffix.isNotEmpty) {
       // ignore: avoid_print
-      print('[PROFILE] script=$scriptPath '
-          'testFile=${_currentSuite ?? '<unknown>'}$profileSuffix');
+      print(
+        '[PROFILE] script=$scriptPath '
+        'testFile=${_currentSuite ?? '<unknown>'}$profileSuffix',
+      );
     }
   }
 
@@ -1264,8 +1326,7 @@ class SendTestRunner {
       final v = (e.value as Map?)?.cast<String, dynamic>();
       final ms = v?['ms'];
       final n = v?['n'];
-      final msStr =
-          ms is num ? ms.toStringAsFixed(3) : (ms?.toString() ?? '-');
+      final msStr = ms is num ? ms.toStringAsFixed(3) : (ms?.toString() ?? '-');
       buf.write(' ${e.key}=${msStr}ms(${n ?? '-'}x)');
     }
     return buf.toString();
@@ -1283,6 +1344,7 @@ class SendTestRunner {
       if (v is num) return v.toInt();
       return null;
     }
+
     return ' appBodyMs=${i('bodyMs') ?? -1}'
         ' appParseMs=${i('parseMs') ?? -1}'
         ' appSetStateMs=${i('setStateMs') ?? -1}'
@@ -1385,8 +1447,11 @@ Future<Map<String, dynamic>> _httpPostSource(
 }) async {
   return Future<Map<String, dynamic>>(() async {
     final request = await client.postUrl(Uri.parse('http://$host:$port$path'));
-    request.headers.contentType =
-        ContentType('text', 'plain', charset: 'utf-8');
+    request.headers.contentType = ContentType(
+      'text',
+      'plain',
+      charset: 'utf-8',
+    );
     request.write(source);
     final response = await request.close();
     final responseBody = await utf8.decoder.bind(response).join();

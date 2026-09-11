@@ -68,6 +68,21 @@ echo "== ${PROJECT} :: base-test run ${ID} =="
 echo "== output: ${OUT} =="
 : > "$OUT/metrics.txt"
 
+# Resolve the companion app before the first file. It is a separate package
+# with its own gitignored pubspec.lock, and nothing else re-resolves it when
+# this package moves — a stale app lock once built against an interpreter
+# releases behind, and the run died in setUpAll naming only a timeout. The
+# harness now refuses to launch an app out of step with this package
+# (test/companion_app_resolution.dart); resolving once here keeps that refusal
+# for machines that skipped the runner.
+APP_DIR="test/tom_d4rt_flutter_ast_app"
+echo "== resolving ${APP_DIR} =="
+if ! pub_out="$(cd "$APP_DIR" && flutter pub get 2>&1)"; then
+  echo "$pub_out"
+  echo "companion app: flutter pub get failed in ${APP_DIR}" | tee -a "$OUT/metrics.txt"
+  exit 1
+fi
+
 for f in "${FILES[@]}"; do
   base="${f%.dart}"
   echo ""

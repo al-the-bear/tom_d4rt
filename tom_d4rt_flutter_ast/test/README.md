@@ -132,6 +132,32 @@ IDLE_TIMEOUT=120 ./test/run_issue_analysis_tests.sh   # more headroom
 $env:IDLE_TIMEOUT = 120; ./test/run_issue_analysis_tests.ps1
 ```
 
+## The companion app is resolved and checked before any test runs
+
+The corpus scripts run inside `test/tom_d4rt_flutter_ast_app/`, a separate package with its own
+gitignored `pubspec.lock`. Nothing re-resolves it when this package moves, so
+without a check it can keep an older interpreter than the package itself:
+either the corpus silently certifies that older interpreter, or the app fails
+to build and the file ends in "test app failed to start" with nothing naming
+the lock. Two things now prevent that:
+
+- **The runner scripts resolve the app** (`flutter pub get` in its directory)
+  once, before the first file. If that fails, pub's message is printed, a
+  `companion app: flutter pub get failed` line goes to `metrics.txt`, and the
+  run stops.
+- **The harness checks the app before launching it**
+  (`test/companion_app_resolution.dart`, called from `SendTestRunner.setUp`).
+  Every hosted `tom_*` package the app resolves must be the version this
+  package resolves, and the app's lock must record this package at its current
+  version. Otherwise `setUpAll` fails in seconds, naming each package with both
+  versions and the remedy. This covers files run by hand, outside the scripts.
+
+If the app still does not come up, the failure says whether it exited (with its
+exit code) or never answered `/health`, lists what the app resolves beside this
+package, and shows the last lines of the app's output — for a build failure,
+the compiler error. The wait also ends as soon as the app process exits, rather
+than running out the launch timeout.
+
 ## The split corpus files (run order)
 
 The corpus is packed into ordered, ~50-test files. The runners glob them in
