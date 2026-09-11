@@ -571,6 +571,15 @@ class ModuleLoader implements context.ModuleContext {
                 hide: hideNames,
               ),
             );
+            // SCD4 (scd4_aicv): what an ambiguity is judged against. The
+            // surface is read when a lookup needs it, so a cyclic import that
+            // is still loading is seen whole by then.
+            moduleEnvironment.recordUnprefixedImport(
+              resolvedImportUri.toString(),
+              importedModule.exportedEnvironment,
+              show: showNames,
+              hide: hideNames,
+            );
             Logger.debug(
               "[ModuleLoader loadModule for $uri]   Successfully imported environment from ${resolvedImportUri.toString()} into ${uri.toString()} (show: ${showNames?.join(", ")}, hide: ${hideNames?.join(", ")}).",
             );

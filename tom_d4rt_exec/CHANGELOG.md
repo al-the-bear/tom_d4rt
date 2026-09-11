@@ -1,3 +1,18 @@
+## 1.21.0
+
+### Changed — resolves `tom_d4rt_ast` 0.65.0; imports are recorded for the ambiguity check
+
+`tom_d4rt_ast` 0.65.0 judges a bridged name that two packages declare over the
+reading script's imports rather than over everything the host registered
+(scd4_aicv). This package's own module loader records each unprefixed import
+on the module scope (`Environment.recordUnprefixedImport`), as both
+interpreters' loaders do.
+
+On this package's `execute(source:)` path the narrowing is dormant: bare
+bridged names reach a script only through its imports, so no ambiguity from
+outside them can arise. It is live on the `executeBundle*` path, which runs
+`D4rtRunner` with its name baseline — see the `tom_d4rt_ast` 0.65.0 CHANGELOG.
+
 ## 1.20.0
 
 ### Changed — resolves `tom_d4rt_ast` 0.64.0: `break` and `continue` reach the statement they name
