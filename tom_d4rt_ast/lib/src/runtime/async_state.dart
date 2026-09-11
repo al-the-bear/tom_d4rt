@@ -177,6 +177,58 @@ class AsyncExecutionState {
   /// Used to track which await-for loop we're in
   final List<SForStatement> awaitForNodeStack = [];
 
+  /// How deep each loop stack was when a `for` loop was entered.
+  ///
+  /// WHY. Leaving a loop — at its end, or by `break` / `continue` from inside
+  /// it — must remove exactly what it and the loops nested in it pushed, and
+  /// the stacks cannot answer that themselves: they are not parallel. A for-in
+  /// over an existing variable pushes a node and no environment, a for-in
+  /// that declares one pushes its environment only on the first element, and
+  /// only a classic `for` pushes an initialisation flag. Popping "the last
+  /// entry" of each, which `break` used to do, left the wrong loop whenever
+  /// those shapes were nested. Recording the depths on entry makes the exit
+  /// exact whatever was pushed in between.
+  ///
+  /// Keyed by identity: the node is the loop, not a structurally equal one.
+  final Map<SAstNode, LoopStackDepths> loopEntryDepths = Map.identity();
+
+  /// Records that [loop] is being entered, before it pushes anything.
+  void recordLoopEntry(SAstNode loop) {
+    loopEntryDepths[loop] = LoopStackDepths(
+      nodes: loopNodeStack.length,
+      environments: loopEnvironmentStack.length,
+      initialized: loopInitializedStack.length,
+      awaitFor: awaitForNodeStack.length,
+    );
+  }
+
+  /// Restores every loop stack to [depths], forgetting the loops that are
+  /// removed — so a loop entered again later starts from scratch instead of
+  /// resuming a stale iterator or list.
+  void truncateLoopStacks(LoopStackDepths depths) {
+    for (final node in loopNodeStack.skip(depths.nodes)) {
+      forInIteratorMap.remove(node);
+      loopEntryDepths.remove(node);
+    }
+    for (final node in awaitForNodeStack.skip(depths.awaitFor)) {
+      loopEntryDepths.remove(node);
+    }
+    _shrink(loopNodeStack, depths.nodes);
+    _shrink(loopEnvironmentStack, depths.environments);
+    _shrink(loopInitializedStack, depths.initialized);
+    _shrink(awaitForNodeStack, depths.awaitFor);
+    _shrink(awaitForListStack, depths.awaitFor);
+    _shrink(awaitForIndexStack, depths.awaitFor);
+    if (awaitForNodeStack.isEmpty) {
+      currentAwaitForList = null;
+      currentAwaitForIndex = null;
+    }
+  }
+
+  static void _shrink(List<Object?> stack, int depth) {
+    if (stack.length > depth) stack.removeRange(depth, stack.length);
+  }
+
   /// For async* generators: the stream controller to send yields to
   StreamController<Object?>? generatorStreamController;
 
@@ -210,6 +262,22 @@ class AsyncExecutionState {
     this.isHandlingContinue = false,
     this.generatorStreamController,
   });
+}
+
+/// The depth of each loop stack at the moment a loop was entered; see
+/// [AsyncExecutionState.loopEntryDepths].
+class LoopStackDepths {
+  const LoopStackDepths({
+    required this.nodes,
+    required this.environments,
+    required this.initialized,
+    required this.awaitFor,
+  });
+
+  final int nodes;
+  final int environments;
+  final int initialized;
+  final int awaitFor;
 }
 
 /// Represents a request to suspend execution and wait for a Future.

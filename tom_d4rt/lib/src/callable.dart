@@ -2199,6 +2199,7 @@ class InterpretedFunction implements Callable {
                   );
                   // Mark that we're waiting for stream conversion
                   currentState.awaitingStreamConversion = true;
+                  currentState.recordLoopEntry(forNode);
                   // Add this loop to the stack as "pending initialization"
                   currentState.awaitForNodeStack.add(forNode);
                   currentState.awaitForListStack.add(
@@ -2208,51 +2209,11 @@ class InterpretedFunction implements Callable {
                 }
               }
             } else if (currentState.awaitingStreamConversion == true) {
-              // We just finished converting the stream to a list
-              currentState.awaitingStreamConversion = false;
-              final List<Object?> items =
-                  currentState.lastAwaitResult as List<Object?>;
-
-              // Store in the stack for the current await-for loop
-              final stackIndex = currentState.awaitForNodeStack.indexOf(
-                forNode,
-              );
-              if (stackIndex >= 0) {
-                currentState.awaitForListStack[stackIndex] = items;
-                currentState.awaitForIndexStack[stackIndex] = 0;
-                awaitForList = items;
-                awaitForIndex = 0;
-              }
-
-              // Keep legacy fields for backward compatibility
-              currentState.currentAwaitForList = items;
-              currentState.currentAwaitForIndex = 0;
-
-              Logger.debug(
-                "[StateMachine] AwaitForIn: Stream converted to list with ${items.length} items at stack index $stackIndex.",
-              );
-
-              // Set up the loop variable environment - create a dedicated environment
-              if (parts is ForEachPartsWithDeclaration) {
-                final loopVariable = parts.loopVariable;
-                // Create an environment for this await-for loop
-                final parentEnv = currentState.loopEnvironmentStack.isNotEmpty
-                    ? currentState.loopEnvironmentStack.last
-                    : currentState.environment;
-                final awaitForEnv = Environment(enclosing: parentEnv);
-                awaitForEnv.define(loopVariable.name.lexeme, null);
-
-                // Add to the loop environment stack
-                currentState.loopEnvironmentStack.add(awaitForEnv);
-                currentState.loopNodeStack.add(forNode);
-                visitor.environment = awaitForEnv;
-
-                Logger.debug(
-                  "[StateMachine] AwaitForIn: Created environment ${awaitForEnv.hashCode} with parent ${parentEnv.hashCode}",
-                );
-              }
-
-              // Continue to process the first item
+              // The stream has just been read into a list.
+              final items = currentState.lastAwaitResult as List<Object?>;
+              _beginAwaitForIteration(currentState, forNode, items);
+              awaitForList = items;
+              awaitForIndex = 0;
             }
 
             // Determine which list and index to use
@@ -2268,22 +2229,16 @@ class InterpretedFunction implements Callable {
                   "[StateMachine] AwaitForIn: Processing item $currentIndex: $currentItem (stack level ${currentState.awaitForNodeStack.length})",
                 );
 
-                // Restore the environment for this await-for loop
-                // Find the stack index for this await-for loop
+                // The loop's environment is the one it pushed when its stream
+                // was read — at the environment depth recorded on entry.
                 final awaitForLoopIndex = currentState.awaitForNodeStack
                     .indexOf(forNode);
-                if (awaitForLoopIndex >= 0 &&
-                    awaitForLoopIndex <
+                final entryDepths = currentState.loopEntryDepths[forNode];
+                if (entryDepths != null &&
+                    entryDepths.environments <
                         currentState.loopEnvironmentStack.length) {
-                  visitor.environment =
-                      currentState.loopEnvironmentStack[awaitForLoopIndex];
-                  Logger.debug(
-                    "[StateMachine] AwaitForIn: Restored visitor environment to ${visitor.environment.hashCode} (await-for loop index $awaitForLoopIndex)",
-                  );
-                } else {
-                  Logger.debug(
-                    "[StateMachine] AwaitForIn: Could NOT find environment for await-for loop at index $awaitForLoopIndex!",
-                  );
+                  visitor.environment = currentState
+                      .loopEnvironmentStack[entryDepths.environments];
                 }
 
                 if (parts is ForEachPartsWithDeclaration) {
@@ -2335,43 +2290,14 @@ class InterpretedFunction implements Callable {
                   "[StateMachine] AwaitForIn: Iteration finished for stack level ${currentState.awaitForNodeStack.length}.",
                 );
 
-                final stackIdx = currentState.awaitForNodeStack.indexOf(
-                  forNode,
-                );
-                if (stackIdx >= 0) {
-                  currentState.awaitForNodeStack.removeAt(stackIdx);
-                  currentState.awaitForListStack.removeAt(stackIdx);
-                  currentState.awaitForIndexStack.removeAt(stackIdx);
-                  Logger.debug(
-                    "[StateMachine] AwaitForIn: Removed loop from stack. Remaining depth: ${currentState.awaitForNodeStack.length}",
-                  );
+                final entryDepths = currentState.loopEntryDepths[forNode];
+                if (entryDepths != null) {
+                  currentState.truncateLoopStacks(entryDepths);
                 }
-
-                // Clean up the loop environment
-                final loopEnvIndex = currentState.loopNodeStack.indexOf(
-                  forNode,
-                );
-                if (loopEnvIndex >= 0 &&
-                    loopEnvIndex < currentState.loopEnvironmentStack.length) {
-                  // Restore the parent environment
-                  final loopEnv =
-                      currentState.loopEnvironmentStack[loopEnvIndex];
-                  visitor.environment =
-                      loopEnv.enclosing ?? currentState.environment;
-
-                  // Remove from stacks
-                  currentState.loopEnvironmentStack.removeAt(loopEnvIndex);
-                  currentState.loopNodeStack.removeAt(loopEnvIndex);
-                  Logger.debug(
-                    "[StateMachine] AwaitForIn: Restored parent environment ${visitor.environment.hashCode}",
-                  );
-                }
-
-                // Clean up legacy fields if this was the last await-for loop
-                if (currentState.awaitForNodeStack.isEmpty) {
-                  currentState.currentAwaitForList = null;
-                  currentState.currentAwaitForIndex = null;
-                }
+                visitor.environment =
+                    currentState.loopEnvironmentStack.isNotEmpty
+                    ? currentState.loopEnvironmentStack.last
+                    : currentState.environment;
 
                 currentNode = _findNextSequentialNode(visitor, forNode);
                 currentState.nextStateIdentifier = currentNode;
@@ -2425,6 +2351,7 @@ class InterpretedFunction implements Callable {
                 currentState.currentForInIterator =
                     iterator; // Save the iterator (keep for compatibility)
                 // Add node and iterator to map/stack immediately
+                currentState.recordLoopEntry(forNode);
                 currentState.loopNodeStack.add(forNode);
                 currentState.forInIteratorMap[forNode] = iterator;
                 Logger.debug(
@@ -2586,6 +2513,7 @@ class InterpretedFunction implements Callable {
               enclosing: visitor.environment,
             );
             currentState.forLoopEnvironment = newLoopEnvironment;
+            currentState.recordLoopEntry(forNode);
             // Push the new environment, initialization state, and ForStatement node onto the stacks
             currentState.loopEnvironmentStack.add(newLoopEnvironment);
             currentState.loopInitializedStack.add(
@@ -2822,6 +2750,15 @@ class InterpretedFunction implements Callable {
           }
           // If suspended (lastResult is AsyncSuspensionRequest), the general suspension logic takes over.
           // The visitor environment must be restored in the finally of the main loop.
+        } else if (currentNode is LabeledStatement) {
+          // Step into the labelled statement so a labelled loop runs here, in
+          // the state machine, like an unlabelled one. Accepting it whole
+          // would hand the loop to the synchronous visitor, which cannot
+          // suspend on an `await` in its body. The label needs no bookkeeping:
+          // `_jumpTarget` reads it from the AST.
+          currentNode = currentNode.statement;
+          currentState.nextStateIdentifier = currentNode;
+          continue;
         } else if (currentNode is TryStatement) {
           // When entering a TryStatement, register it
           currentState.activeTryStatement = currentNode;
@@ -3164,53 +3101,62 @@ class InterpretedFunction implements Callable {
           currentState.completer.complete(e.value);
         }
         return; // Stop the state machine
-      } on BreakException {
+      } on BreakException catch (e) {
+        // SCD4: the statement a break leaves is found in the AST, not taken
+        // from the top of a stack — see `_jumpTarget`.
+        final from = currentNode!;
+        final target = _jumpTarget(from, e.label, isContinue: false);
         Logger.debug(
-          " [StateMachine] Caught BreakException. Finding node after loop.",
+          " [StateMachine] Caught BreakException (label: ${e.label}); leaving "
+          "${target?.runtimeType}.",
         );
-        if (currentState.loopNodeStack.isNotEmpty) {
-          final loopNode = currentState.loopNodeStack.removeLast();
-          // Also remove the corresponding environment and initialized flag
-          if (currentState.loopEnvironmentStack.isNotEmpty) {
-            currentState.loopEnvironmentStack.removeLast();
-          }
-          if (currentState.loopInitializedStack.isNotEmpty) {
-            currentState.loopInitializedStack.removeLast();
-          }
-          currentNode = _findNextSequentialNode(visitor, loopNode);
-          currentState.nextStateIdentifier = currentNode;
-          continue; // Continue execution after the loop
-        } else {
-          // This is an error: break outside a loop
+        if (target == null) {
           if (!currentState.completer.isCompleted) {
             currentState.completer.completeError(
-              RuntimeD4rtException("Break statement outside of a loop."),
+              RuntimeD4rtException(
+                e.label == null
+                    ? "Break statement outside of a loop."
+                    : "Break to label '${e.label}', which no enclosing "
+                          "statement carries.",
+              ),
               StackTrace.current,
             );
           }
           return;
         }
-      } on ContinueException {
+        _leaveLoopsFor(currentState, from, target, leaveTarget: true);
+        currentState.activeTryStatement = _findEnclosingTryStatement(target);
+        currentNode = _findNextSequentialNode(visitor, target);
+        currentState.nextStateIdentifier = currentNode;
+        continue;
+      } on ContinueException catch (e) {
+        final from = currentNode!;
+        final target = _jumpTarget(from, e.label, isContinue: true);
         Logger.debug(
-          " [StateMachine] Caught ContinueException. Finding next loop iteration.",
+          " [StateMachine] Caught ContinueException (label: ${e.label}); "
+          "restarting ${target?.runtimeType}.",
         );
-        if (currentState.loopNodeStack.isNotEmpty) {
-          final loopNode = currentState.loopNodeStack.last;
-          // For all loop types, going back to the loop statement itself
-          // will trigger the correct next action (condition check or updaters).
-          currentNode = loopNode;
-          currentState.nextStateIdentifier = currentNode;
-          continue;
-        } else {
-          // This is an error: continue outside a loop
+        if (target == null) {
           if (!currentState.completer.isCompleted) {
             currentState.completer.completeError(
-              RuntimeD4rtException("Continue statement outside of a loop."),
+              RuntimeD4rtException(
+                e.label == null
+                    ? "Continue statement outside of a loop."
+                    : "Continue to label '${e.label}', which no enclosing "
+                          "loop carries.",
+              ),
               StackTrace.current,
             );
           }
           return;
         }
+        // Loops nested inside the target are left; the target itself goes on
+        // to its next iteration: its condition, its updaters, its next element.
+        _leaveLoopsFor(currentState, from, target, leaveTarget: false);
+        currentState.activeTryStatement = _findEnclosingTryStatement(target);
+        currentNode = target;
+        currentState.nextStateIdentifier = currentNode;
+        continue;
       } catch (error, stackTrace) {
         // Other error during state execution (SYNC)
 
@@ -3530,6 +3476,69 @@ class InterpretedFunction implements Callable {
         }
       }
     }
+  }
+
+  /// The statement a `break` (or, with [isContinue], a `continue`) raised
+  /// while running [from] jumps to, or null when no enclosing statement of
+  /// the current function qualifies.
+  ///
+  /// Without a label that is the innermost enclosing loop — or `switch`, for a
+  /// break. With one it is the statement the label is written on, which for a
+  /// continue must be a loop.
+  ///
+  /// SCD4: this used to be "whatever loop is on top of `loopNodeStack`". Only
+  /// `for` loops are pushed there, so `while` and `do` could not be left at
+  /// all, a break in a `while` nested in a `for` left the `for`, and labels
+  /// were ignored. The AST says which statement a jump targets; asking it
+  /// makes the answer independent of what the loops happened to push.
+  static AstNode? _jumpTarget(
+    AstNode from,
+    String? label, {
+    required bool isContinue,
+  }) {
+    bool isLoop(AstNode node) =>
+        node is ForStatement || node is WhileStatement || node is DoStatement;
+    for (
+      AstNode? node = from.parent;
+      node != null && node is! FunctionBody;
+      node = node.parent
+    ) {
+      if (label == null) {
+        if (isLoop(node) || (!isContinue && node is SwitchStatement)) {
+          return node;
+        }
+      } else if (node is LabeledStatement &&
+          node.labels.any((l) => l.label.name == label)) {
+        AstNode statement = node.statement;
+        while (statement is LabeledStatement) {
+          statement = statement.statement;
+        }
+        return !isContinue || isLoop(statement) ? statement : null;
+      }
+    }
+    return null;
+  }
+
+  /// Unwinds the loop stacks for a jump from [from] to [target]: every loop
+  /// between the two is left, and [target] as well when [leaveTarget].
+  ///
+  /// Only loops that pushed onto the stacks have entry depths, so a `while`
+  /// on the way costs nothing; the outermost loop that did is the one the
+  /// stacks are restored to, which removes everything nested inside it too.
+  static void _leaveLoopsFor(
+    AsyncExecutionState state,
+    AstNode from,
+    AstNode target, {
+    required bool leaveTarget,
+  }) {
+    LoopStackDepths? outermost;
+    for (AstNode? node = from; node != null; node = node.parent) {
+      final atTarget = identical(node, target);
+      if (atTarget && !leaveTarget) break;
+      outermost = state.loopEntryDepths[node] ?? outermost;
+      if (atTarget) break;
+    }
+    if (outermost != null) state.truncateLoopStacks(outermost);
   }
 
   static TryStatement? _findEnclosingTryStatement(AstNode? node) {
@@ -4622,28 +4631,11 @@ class InterpretedFunction implements Callable {
         Logger.debug(
           "[_determineNextNodeAfterAwait] Setting up await for list iteration.",
         );
-        state.awaitingStreamConversion = false;
-        final List<Object?> items = futureResult as List<Object?>;
-
-        // Update the stack for this await-for loop
-        final stackIndex = state.awaitForNodeStack.indexOf(awaitContextNode);
-        if (stackIndex >= 0) {
-          state.awaitForListStack[stackIndex] = items;
-          state.awaitForIndexStack[stackIndex] = 0;
-          Logger.debug(
-            "[_determineNextNodeAfterAwait] Updated stack index $stackIndex with ${items.length} items",
-          );
-        }
-
-        // Also update legacy fields for backward compatibility
-        state.currentAwaitForList = items;
-        state.currentAwaitForIndex = 0;
-
-        final parts = awaitContextNode.forLoopParts as ForEachParts;
-        if (parts is ForEachPartsWithDeclaration) {
-          final loopVariable = parts.loopVariable;
-          visitor.environment.define(loopVariable.name.lexeme, null);
-        }
+        _beginAwaitForIteration(
+          state,
+          awaitContextNode,
+          futureResult as List<Object?>,
+        );
 
         // Return the ForStatement itself to continue processing
         return awaitContextNode;
@@ -4674,6 +4666,44 @@ class InterpretedFunction implements Callable {
       "_determineNextNodeAfterAwait - Unhandled await context: ${awaitContextNode.runtimeType} (suspension from: ${nodeThatCausedSuspension.runtimeType}). Stopping state machine.",
     );
     return null; // Default stop state machine
+  }
+
+  /// The stream of the `await for` [forNode] has been read into [items]: file
+  /// them against the loop, and give the loop its environment and its place
+  /// on the loop stack.
+  ///
+  /// SCD4: the loop used to be put on `loopNodeStack` only on a path that the
+  /// resumption never took, so `break` and `continue` in the body found no
+  /// loop and failed with "outside of a loop". Both loop-variable forms get an
+  /// environment: a declared variable lives in it, and an existing one is
+  /// assigned through it to the scope that owns it.
+  static void _beginAwaitForIteration(
+    AsyncExecutionState state,
+    ForStatement forNode,
+    List<Object?> items,
+  ) {
+    state.awaitingStreamConversion = false;
+    final stackIndex = state.awaitForNodeStack.indexWhere(
+      (node) => identical(node, forNode),
+    );
+    if (stackIndex >= 0) {
+      state.awaitForListStack[stackIndex] = items;
+      state.awaitForIndexStack[stackIndex] = 0;
+    }
+    state.currentAwaitForList = items;
+    state.currentAwaitForIndex = 0;
+
+    final loopEnvironment = Environment(
+      enclosing: state.loopEnvironmentStack.isNotEmpty
+          ? state.loopEnvironmentStack.last
+          : state.environment,
+    );
+    final parts = forNode.forLoopParts;
+    if (parts is ForEachPartsWithDeclaration) {
+      loopEnvironment.define(parts.loopVariable.name.lexeme, null);
+    }
+    state.loopEnvironmentStack.add(loopEnvironment);
+    state.loopNodeStack.add(forNode);
   }
 
   // Implementation of the logic to find the next sequential node
@@ -4918,12 +4948,19 @@ class InterpretedFunction implements Callable {
       // check if the parent is a statement that can be sequenced.
 
       if (parent is Block) {
-        // If the parent is a Block, the logic at the beginning (block handling) applies.
-        // Call recursively so that this logic takes over.
+        // The statement reached by climbing sits in this Block, so the block
+        // logic at the top applies to IT: the next statement in the block, or
+        // the block's own end. Recursing with the Block instead skipped the
+        // rest of the block — SCD4 found it through `label: for (...)`, the
+        // first shape that climbs to a Block from a statement nested in
+        // another statement.
         Logger.debug(
-          " [_findNextSequentialNode] Ascending into a Block. Re-evaluating block logic for the parent Block.",
+          " [_findNextSequentialNode] Ascending into a Block. Re-evaluating block logic for the statement in it.",
         );
-        return _findNextSequentialNode(visitor, parent);
+        return _findNextSequentialNode(
+          visitor,
+          currentSearchNode is Statement ? currentSearchNode : parent,
+        );
       } else if (parent is Statement) {
         // If the parent is another statement, continue ascending
         // to find the enclosing block or function.

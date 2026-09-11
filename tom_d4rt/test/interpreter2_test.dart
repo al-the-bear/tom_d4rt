@@ -572,7 +572,7 @@ void main() {
       expect(run(source), 'Exited outer loop');
     });
 
-    test('I-MISC-327: Continue with label. [2026-02-10 06:37] (PASS)', () {
+    test('I-MISC-327: Continue with label. [2026-09-11] (PASS)', () {
       const source = '''
       main() {
       var result = '';
@@ -585,7 +585,13 @@ void main() {
       return result;
       }
       ''';
-      expect(run(source), '012');
+      // `continue outer` restarts the OUTER loop, so the append after the
+      // inner loop never runs — the Dart VM returns ''. This test expected
+      // '012', which is what the interpreter produced while an unlabelled
+      // inner loop took `continue outer` as its own (SCD4). F-SCD4-19 in
+      // scd4_await_for_break_test.dart pins the same rule with a result that
+      // cannot be reached by doing nothing.
+      expect(run(source), '');
     });
   });
 

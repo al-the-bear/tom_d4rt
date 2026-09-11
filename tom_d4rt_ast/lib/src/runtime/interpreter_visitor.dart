@@ -86,7 +86,21 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   final ModuleContext moduleContext; // Abstract module loading interface
   InterpretedFunction? currentFunction; // Track the function being executed
   AsyncExecutionState? currentAsyncState;
-  Set<String> _currentStatementLabels = {};
+
+  /// The statement [visitLabeledStatement] is about to run, and the labels
+  /// written on it. A loop or switch reads its labels from here once, on
+  /// entry — see [_labelsOf] — so a label reaches the statement it is written
+  /// on and nothing nested inside it.
+  SAstNode? _labelledStatement;
+  Set<String> _labelledStatementLabels = const {};
+
+  /// The labels written on [statement]: empty unless it is the statement a
+  /// [SLabeledStatement] is running right now. Read once, on entry — a nested
+  /// labelled statement replaces the record while the body runs.
+  Set<String> _labelsOf(SAstNode statement) =>
+      identical(statement, _labelledStatement)
+      ? _labelledStatementLabels
+      : const {};
 
   /// For sync* generators: the list to collect yielded values into.
   /// When non-null, yield statements add directly to this list.
@@ -6253,6 +6267,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitWhileStatement(SWhileStatement node) {
+    final labels = _labelsOf(node);
     while (true) {
       // Handle condition being BridgedInstance<bool>
       final conditionValue = node.condition!.accept<Object?>(this);
@@ -6278,9 +6293,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         node.body!.accept<Object?>(this);
       } on BreakException catch (e) {
         Logger.debug(
-          "[While] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels",
+          "[While] Caught BreakException (label: ${e.label}) with labels: $labels",
         );
-        if (e.label == null || _currentStatementLabels.contains(e.label)) {
+        if (e.label == null || labels.contains(e.label)) {
           // Unlabeled break OR labeled break targeting this loop.
           Logger.debug("[While] Breaking loop.");
           break; // Exit the while loop
@@ -6291,9 +6306,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         }
       } on ContinueException catch (e) {
         Logger.debug(
-          "[While] Caught ContinueException (label: ${e.label}) with current labels: $_currentStatementLabels",
+          "[While] Caught ContinueException (label: ${e.label}) with labels: $labels",
         );
-        if (e.label == null || _currentStatementLabels.contains(e.label)) {
+        if (e.label == null || labels.contains(e.label)) {
           // Unlabeled continue OR labeled continue targeting this loop.
           Logger.debug("[While] Continuing loop.");
           continue; // Skip to the next iteration
@@ -6310,15 +6325,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitDoStatement(SDoStatement node) {
+    final labels = _labelsOf(node);
     do {
       try {
         // Execute the body first
         node.body!.accept<Object?>(this);
       } on BreakException catch (e) {
         Logger.debug(
-          "[DoWhile] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels",
+          "[DoWhile] Caught BreakException (label: ${e.label}) with labels: $labels",
         );
-        if (e.label == null || _currentStatementLabels.contains(e.label)) {
+        if (e.label == null || labels.contains(e.label)) {
           Logger.debug("[DoWhile] Breaking loop.");
           break; // Exit the do-while loop
         } else {
@@ -6327,9 +6343,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         }
       } on ContinueException catch (e) {
         Logger.debug(
-          "[DoWhile] Caught ContinueException (label: ${e.label}) with current labels: $_currentStatementLabels",
+          "[DoWhile] Caught ContinueException (label: ${e.label}) with labels: $labels",
         );
-        if (e.label == null || _currentStatementLabels.contains(e.label)) {
+        if (e.label == null || labels.contains(e.label)) {
           Logger.debug("[DoWhile] Continuing loop condition check.");
           // For do-while, continue still needs to check the condition
           // So we fall through to the condition check below
@@ -6367,6 +6383,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitForStatement(SForStatement node) {
+    final labels = _labelsOf(node);
     final loopParts = node.forLoopParts;
 
     if (loopParts is SForPartsWithDeclarations) {
@@ -6376,6 +6393,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         loopParts.condition,
         loopParts.updaters,
         node.body!,
+        labels,
       );
     } else if (loopParts is SForPartsWithExpression) {
       // Classic for loop: for (i = 0; ... ; ...)
@@ -6384,6 +6402,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         loopParts.condition,
         loopParts.updaters,
         node.body!,
+        labels,
       );
     } else if (loopParts is SForEachPartsWithDeclaration) {
       // For-in loop: for (var item in list) or await for (var item in stream)
@@ -6393,10 +6412,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           loopParts.loopVariable!,
           loopParts.iterable!,
           node.body!,
+          labels,
         );
       } else {
         // Regular for-in loop - expect Iterable
-        _executeForIn(loopParts.loopVariable!, loopParts.iterable!, node.body!);
+        _executeForIn(
+          loopParts.loopVariable!,
+          loopParts.iterable!,
+          node.body!,
+          labels,
+        );
       }
     } else if (loopParts is SForEachPartsWithIdentifier) {
       // For-in loop: for (item in list) or await for (item in stream)
@@ -6406,10 +6431,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           loopParts.identifier!,
           loopParts.iterable!,
           node.body!,
+          labels,
         );
       } else {
         // Regular for-in loop - expect Iterable
-        _executeForIn(loopParts.identifier!, loopParts.iterable!, node.body!);
+        _executeForIn(
+          loopParts.identifier!,
+          loopParts.iterable!,
+          node.body!,
+          labels,
+        );
       }
     } else if (loopParts is SForEachPartsWithPattern) {
       // Dart 3 record-pattern for-in:
@@ -6418,6 +6449,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         loopParts.pattern!,
         loopParts.iterable!,
         node.body!,
+        labels,
       );
     } else {
       // Should not happen with valid Dart code
@@ -6493,6 +6525,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     SAstNode? condition,
     List<SAstNode>? updaters,
     SAstNode body,
+    Set<String> labels,
   ) {
     final outerEnv = environment;
 
@@ -6532,12 +6565,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           try {
             body.accept<Object?>(this);
           } on BreakException catch (e) {
-            if (e.label == null || _currentStatementLabels.contains(e.label)) {
+            if (e.label == null || labels.contains(e.label)) {
               break;
             }
             rethrow;
           } on ContinueException catch (e) {
-            if (e.label != null && !_currentStatementLabels.contains(e.label)) {
+            if (e.label != null && !labels.contains(e.label)) {
               rethrow;
             }
             // Fall through to updaters.
@@ -6576,13 +6609,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         try {
           body.accept<Object?>(this);
         } on BreakException catch (e) {
-          if (e.label == null || _currentStatementLabels.contains(e.label)) {
+          if (e.label == null || labels.contains(e.label)) {
             break;
           } else {
             rethrow;
           }
         } on ContinueException catch (e) {
-          if (e.label == null || _currentStatementLabels.contains(e.label)) {
+          if (e.label == null || labels.contains(e.label)) {
             // Fall through to the updater section.
           } else {
             rethrow;
@@ -6621,6 +6654,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     SAstNode loopVariableOrIdentifier,
     SAstNode iterableExpression,
     SAstNode body,
+    Set<String> labels,
   ) {
     final expressionValue = iterableExpression.accept<Object?>(this);
 
@@ -6679,9 +6713,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             body.accept<Object?>(this);
           } on BreakException catch (e) {
             Logger.debug(
-              "[ForIn] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels",
+              "[ForIn] Caught BreakException (label: ${e.label}) with labels: $labels",
             );
-            if (e.label == null || _currentStatementLabels.contains(e.label)) {
+            if (e.label == null || labels.contains(e.label)) {
               Logger.debug("[ForIn] Breaking loop.");
               break; // Exit the for-in loop
             } else {
@@ -6690,9 +6724,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             }
           } on ContinueException catch (e) {
             Logger.debug(
-              "[ForIn] Caught ContinueException (label: ${e.label}) with current labels: $_currentStatementLabels",
+              "[ForIn] Caught ContinueException (label: ${e.label}) with labels: $labels",
             );
-            if (e.label == null || _currentStatementLabels.contains(e.label)) {
+            if (e.label == null || labels.contains(e.label)) {
               Logger.debug("[ForIn] Continuing loop.");
               continue; // Go to the next element
             } else {
@@ -6721,6 +6755,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     SDartPattern pattern,
     SAstNode iterableExpression,
     SAstNode body,
+    Set<String> labels,
   ) {
     final expressionValue = iterableExpression.accept<Object?>(this);
 
@@ -6754,18 +6789,18 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           body.accept<Object?>(this);
         } on BreakException catch (e) {
           Logger.debug(
-            "[ForInPattern] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels",
+            "[ForInPattern] Caught BreakException (label: ${e.label}) with labels: $labels",
           );
-          if (e.label == null || _currentStatementLabels.contains(e.label)) {
+          if (e.label == null || labels.contains(e.label)) {
             break;
           } else {
             rethrow;
           }
         } on ContinueException catch (e) {
           Logger.debug(
-            "[ForInPattern] Caught ContinueException (label: ${e.label}) with current labels: $_currentStatementLabels",
+            "[ForInPattern] Caught ContinueException (label: ${e.label}) with labels: $labels",
           );
-          if (e.label == null || _currentStatementLabels.contains(e.label)) {
+          if (e.label == null || labels.contains(e.label)) {
             continue;
           } else {
             rethrow;
@@ -6782,6 +6817,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     SAstNode loopVariableOrIdentifier,
     SAstNode iterableExpression,
     SAstNode body,
+    Set<String> labels,
   ) {
     final expressionValue = iterableExpression.accept<Object?>(this);
 
@@ -6818,6 +6854,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           loopVariableOrIdentifier,
           streamValue,
           body,
+          labels,
         ),
         currentAsyncState!,
       );
@@ -6834,12 +6871,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     SAstNode loopVariableOrIdentifier,
     Stream<Object?> stream,
     SAstNode body,
+    Set<String> labels,
   ) async {
     // Convert stream to list
     final List<Object?> items = await stream.toList();
 
     // Now process as a regular for-in loop with the list
-    _executeForInWithItems(loopVariableOrIdentifier, items, body);
+    _executeForInWithItems(loopVariableOrIdentifier, items, body, labels);
 
     return null; // await for loops don't produce a value
   }
@@ -6849,6 +6887,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     SAstNode loopVariableOrIdentifier,
     List<Object?> items,
     SAstNode body,
+    Set<String> labels,
   ) {
     // G-DOV-12 FIX: Create a dedicated loop environment (like _executeForIn does)
     // to ensure the loop variable is properly scoped and accessible.
@@ -6886,9 +6925,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           body.accept<Object?>(this);
         } on BreakException catch (e) {
           Logger.debug(
-            "[AwaitForIn] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels",
+            "[AwaitForIn] Caught BreakException (label: ${e.label}) with labels: $labels",
           );
-          if (e.label == null || _currentStatementLabels.contains(e.label)) {
+          if (e.label == null || labels.contains(e.label)) {
             Logger.debug("[AwaitForIn] Breaking loop.");
             break; // Exit the for-in loop
           } else {
@@ -6897,9 +6936,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           }
         } on ContinueException catch (e) {
           Logger.debug(
-            "[AwaitForIn] Caught ContinueException (label: ${e.label}) with current labels: $_currentStatementLabels",
+            "[AwaitForIn] Caught ContinueException (label: ${e.label}) with labels: $labels",
           );
-          if (e.label == null || _currentStatementLabels.contains(e.label)) {
+          if (e.label == null || labels.contains(e.label)) {
             Logger.debug("[AwaitForIn] Continuing loop.");
             continue; // Go to the next element
           } else {
@@ -9687,34 +9726,36 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   @override
   Object? visitLabeledStatement(SLabeledStatement node) {
     final labelNames = node.labels.map((l) => l.label!.name).toSet();
-    final oldLabels = _currentStatementLabels;
-    _currentStatementLabels = labelNames;
+    // A statement written `a: b: ...` may arrive as nested labelled
+    // statements; the statement they wrap answers to every one of them.
+    if (identical(node, _labelledStatement)) {
+      labelNames.addAll(_labelledStatementLabels);
+    }
+    final previousStatement = _labelledStatement;
+    final previousLabels = _labelledStatementLabels;
+    _labelledStatement = node.statement;
+    _labelledStatementLabels = labelNames;
     Logger.debug("[SLabeledStatement] Entering with labels: $labelNames");
 
     try {
       return node.statement!.accept<Object?>(this);
     } on BreakException catch (e) {
-      Logger.debug(
-        "[SLabeledStatement] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels",
-      );
-      if (e.label != null && _currentStatementLabels.contains(e.label)) {
-        // This break was targeting this labeled statement.
+      if (e.label != null && labelNames.contains(e.label)) {
+        // A labelled break naming this statement leaves it — the only way to
+        // leave a labelled block, and harmless for a loop, which consumed its
+        // own labelled break already.
         Logger.debug(
           "[SLabeledStatement] Consuming labeled break: '${e.label}'.",
         );
-        return null; // Effectively breaks out of the labeled statement.
-      } else {
-        // Unlabeled break or break for an outer label, rethrow.
-        Logger.debug("[SLabeledStatement] Rethrowing break...");
-        rethrow;
+        return null;
       }
+      rethrow;
     }
-    // ContinueException with a label matching this statement is an error
-    // (you can only continue loops/switch members), so we don't catch it here.
-    // It should be caught by the loop/switch or propagate further up.
+    // A labelled continue is caught by the loop the label is written on.
     finally {
       Logger.debug("[SLabeledStatement] Exiting labels: $labelNames");
-      _currentStatementLabels = oldLabels;
+      _labelledStatement = previousStatement;
+      _labelledStatementLabels = previousLabels;
     }
   }
 
@@ -12794,6 +12835,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitSwitchStatement(SSwitchStatement node) {
+    final labels = _labelsOf(node);
     final switchValue = node.expression!.accept<Object?>(this);
     final switchEnvironment = Environment(enclosing: environment);
     final previousEnvironment = environment;
@@ -12927,8 +12969,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                       }
                     } on BreakException catch (e) {
                       environment = prevEnv;
-                      if (e.label == null ||
-                          _currentStatementLabels.contains(e.label)) {
+                      if (e.label == null || labels.contains(e.label)) {
                         break; // Exit the loop over members
                       } else {
                         rethrow;
@@ -12985,10 +13026,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                 // Fall-through continues if no break
               } on BreakException catch (e) {
                 Logger.debug(
-                  "[Switch] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels",
+                  "[Switch] Caught BreakException (label: ${e.label}) with labels: $labels",
                 );
-                if (e.label == null ||
-                    _currentStatementLabels.contains(e.label)) {
+                if (e.label == null || labels.contains(e.label)) {
                   // Unlabeled break OR labeled break targeting this switch.
                   Logger.debug("[Switch] Breaking switch.");
                   execute = false; // Stop execution after this block

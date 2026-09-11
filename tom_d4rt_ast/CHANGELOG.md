@@ -1,3 +1,47 @@
+## 0.64.0
+
+### Fixed — `break` and `continue` reach the statement they name
+
+`break` inside `await for` aborted the script with `Break statement outside of
+a loop.` (SCD4). The cause was wider than `await for`: an async body sent every
+jump to "the loop on top of `loopNodeStack`", and only `for` loops are pushed
+there. So, in any `async` function:
+
+- `break` / `continue` in `await for` failed, in both loop-variable forms;
+- `break` / `continue` in `while` and `do` failed the same way;
+- a `break` in a `while` nested in a `for` left the `for` — a silent wrong
+  answer;
+- labels were ignored, and a labelled loop was handed to the synchronous
+  visitor, which cannot suspend on an `await` in its body.
+
+The state machine now reads a jump's target from the AST — the innermost
+enclosing loop (or `switch`, for a break), or the statement carrying the
+label — and restores every loop stack to the depth it had when the outermost
+loop being left was entered. A loop left early is forgotten, so re-entering a
+`for-in` starts from its first element instead of resuming a stale iterator.
+Labelled statements are stepped into, which exposed the next-statement search
+recursing on a block instead of the statement in it and skipping the rest of
+the block; that is fixed too.
+
+Synchronous code had its own label defect: a label stayed in force for
+everything nested inside the statement it was written on, so an unlabelled
+inner loop took `break outer` / `continue outer` as its own. A loop or switch
+now reads its labels once, on entry, and only when it is the statement the
+label is written on.
+
+`I-FILE-179`, the socket test whose catch-all had reported this defect as a
+skip, now skips only on a network failure. `I-MISC-327` expected `'012'` from a
+`continue outer` whose correct result is `''` — the Dart VM's answer — and is
+corrected.
+
+Still open, and tracked: `await for` reads the whole stream before its body
+runs and an `async*` generator ignores its listener, so a `break` cannot stop a
+generator (sce16); `break` / `continue` out of a `try` in an async body skip
+its `finally` (sce18).
+
+`test/runtime/scd4_jump_targets_test.dart` pins the fix against this tree with
+hand-built bundles, since `tom_d4rt_exec` measures the published release.
+
 ## 0.63.0
 
 ### Removed — `lib/src/version.versioner.dart`, a version stamp nothing could read or refresh
