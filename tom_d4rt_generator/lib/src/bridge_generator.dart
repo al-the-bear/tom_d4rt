@@ -10768,6 +10768,33 @@ class BridgeGenerator {
     return true;
   }
 
+  /// Emits the body for a parameter typed as a list of function typedefs,
+  /// which the bridge cannot build: a runtime throw, then a placeholder local
+  /// under the parameter's name so the call emitted after it still compiles.
+  ///
+  /// The placeholder is `dynamic` because nothing narrower is safe to spell
+  /// here. `List<$rawElementType>` names the typedef unprefixed, while the
+  /// generated file imports every source library under a `$pkg_N` prefix — and
+  /// a typedef the generator declined to bridge may not be imported at all. A
+  /// `dynamic` local is assignable to whatever the parameter's type is, and
+  /// the code is unreachable, so its value never matters.
+  void _writeUnbridgeableFunctionListParam(
+    StringBuffer buffer,
+    ParameterInfo param,
+    String contextName,
+    String rawElementType,
+  ) {
+    final localName = _getSafeLocalName(param.name);
+    buffer.writeln(
+      "        // TODO: Unbridgeable function type List<$rawElementType>",
+    );
+    buffer.writeln(
+      "        throw UnimplementedError('${_escapeString(contextName)}: Parameter \"${param.name}\" has unbridgeable function type List<$rawElementType>. Bridge cannot handle function types in collections.');",
+    );
+    buffer.writeln("        // ignore: dead_code");
+    buffer.writeln("        final dynamic $localName = null;");
+  }
+
   /// Generates extraction code for a positional parameter.
   /// Returns false if the parameter cannot be bridged (e.g., required function type).
   ///
@@ -10800,22 +10827,16 @@ class BridgeGenerator {
       // Check if element type is a function typedef - can't bridge those properly
       final rawElementType = _extractListElementType(param.type);
       if (_isFunctionTypeName(rawElementType)) {
-        final localName = _getSafeLocalName(param.name);
         warnings?.add(
           'TODO: $contextName: parameter "${param.name}" '
           'has unbridgeable function type List<$rawElementType>',
         );
-        // Generate TODO code that throws at runtime, but define variable for compilation
-        buffer.writeln(
-          "        // TODO: Unbridgeable function type List<$rawElementType>",
+        _writeUnbridgeableFunctionListParam(
+          buffer,
+          param,
+          contextName,
+          rawElementType,
         );
-        buffer.writeln(
-          "        throw UnimplementedError('${_escapeString(contextName)}: Parameter \"${param.name}\" has unbridgeable function type List<$rawElementType>. Bridge cannot handle function types in collections.');",
-        );
-        // Define dummy variable so code compiles (unreachable due to throw)
-        // ignore: dead_code
-        buffer.writeln("        // ignore: dead_code");
-        buffer.writeln("        final $localName = <dynamic>[];");
         return true;
       }
 
@@ -11521,16 +11542,12 @@ class BridgeGenerator {
           'TODO: $contextName: parameter "${param.name}" '
           'has unbridgeable type List<$rawElementType>',
         );
-        // Generate TODO code that throws at runtime, but define variable for compilation
-        buffer.writeln(
-          "        // TODO: Unbridgeable function type List<$rawElementType>",
+        _writeUnbridgeableFunctionListParam(
+          buffer,
+          param,
+          contextName,
+          rawElementType,
         );
-        buffer.writeln(
-          "        throw UnimplementedError('${_escapeString(contextName)}: Parameter \"${param.name}\" has unbridgeable function type List<$rawElementType>. Bridge cannot handle function types in collections.');",
-        );
-        // Define dummy variable so code compiles (unreachable due to throw)
-        buffer.writeln("        // ignore: dead_code");
-        buffer.writeln("        final $localName = <dynamic>[];");
         return true;
       }
 

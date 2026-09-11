@@ -1,3 +1,29 @@
+## 1.21.1
+
+### Fixed — bridges with a `List<FunctionTypedef>` parameter compile (scd7_ahcm)
+
+A parameter typed as a list of function typedefs — `List<BridgeRegistrar>`,
+`List<VoidCallback>` and the rest of the known-typedef list — is not bridged:
+the adapter throws `UnimplementedError`. After the throw the generator emitted
+a placeholder local so the call below it would still compile, typed
+`<dynamic>[]`. It did not compile: `List<dynamic>` is not assignable to
+`List<BridgeRegistrar>?`, and the `// ignore: dead_code` above it silences the
+dead-code diagnostic on the declaration, not the type error on the call.
+Consumers never saw it because their `analysis_options.yaml` excludes the
+generated folder; `tom_vscode_bridge` carried the error in
+`VSCodeBridgeServer`'s constructor adapter.
+
+The placeholder is now `final dynamic <name> = null;`. `dynamic` is assignable
+to any parameter type, and the generator has nothing narrower it can safely
+spell there: every source library is imported under a `$pkg_N` prefix, and a
+typedef the generator declined to bridge may not be imported at all. The
+runtime behaviour is unchanged — the throw comes first. The named-parameter and
+positional-parameter paths, which each emitted their own copy, now share one
+emitter.
+
+The GEN-121 analyze gate's fixture now declares such a parameter on both paths,
+so `dart analyze` over the generated output covers the placeholder.
+
 ## 1.21.0
 
 ### Fixed — `d4rtgen --dry-run` / `-n` writes nothing (scd5_ahcm)

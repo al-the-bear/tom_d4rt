@@ -156,9 +156,10 @@ class GatePackage {
 
 /// Builds the fixture package and generates its bridge into `lib/`.
 ///
-/// The sources are chosen so the emitted file exercises the two code paths that
-/// have actually shipped defects: cross-file `package:` imports (GEN-119) and a
-/// `part of`-declared extension feeding `extensionSourceUris()` (GEN-120).
+/// The sources are chosen so the emitted file exercises the code paths that have
+/// actually shipped defects: cross-file `package:` imports (GEN-119), a
+/// `part of`-declared extension feeding `extensionSourceUris()` (GEN-120), and
+/// the placeholder emitted for a list of function typedefs (scd7_ahcm).
 Future<GatePackage> buildGatePackage(String generatorRoot) async {
   final root = Directory.systemTemp.createTempSync('gen121_gate_');
 
@@ -209,6 +210,24 @@ class ZomUser {
 }
 ''');
 
+  // A list of function typedefs is the one parameter shape the generator
+  // declines to bridge. It emits a throw followed by a placeholder local so the
+  // call below it still type-checks — and that placeholder once did not
+  // (scd7_ahcm): `<dynamic>[]` is not assignable to `List<BridgeRegistrar>`.
+  // The typedef is recognised by name, so the fixture uses one the generator
+  // knows, in the shape tom_vscode_bridge has it. The named constructor
+  // parameter and the positional method parameter reach the two separate emit
+  // sites.
+  File(p.join(libDir.path, 'handlers.dart')).writeAsStringSync('''
+typedef BridgeRegistrar = void Function(int value);
+
+class ZomDispatcher {
+  ZomDispatcher({List<BridgeRegistrar>? registrars});
+
+  void addAll(List<BridgeRegistrar> registrars) {}
+}
+''');
+
   _writePackageConfig(root: root, generatorRoot: generatorRoot);
 
   final generator = BridgeGenerator(
@@ -221,6 +240,7 @@ class ZomUser {
     sourceFiles: [
       p.join(libDir.path, 'model.dart'),
       p.join(libDir.path, 'consumer.dart'),
+      p.join(libDir.path, 'handlers.dart'),
     ],
     outputPath: p.join(libDir.path, 'zom_analyzegate_bridges.dart'),
     moduleName: 'gate',
@@ -343,6 +363,16 @@ void main() {
           pristineSource,
           contains("'ZomLevel'"),
           reason: 'an enum bridge must be emitted',
+        );
+        expect(
+          'Unbridgeable function type List<BridgeRegistrar>'
+              .allMatches(pristineSource)
+              .length,
+          2,
+          reason:
+              'both List<BridgeRegistrar> parameters must take the unbridgeable '
+              'path — the named one (constructor) and the positional one '
+              '(method) are emitted by different code',
         );
       },
     );
