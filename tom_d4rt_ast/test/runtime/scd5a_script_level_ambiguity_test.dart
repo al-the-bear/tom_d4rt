@@ -93,11 +93,7 @@ void main() {
       foundation,
       sourceUri: foundation,
     )
-    ..registerBridgedClass(
-      marker('MaterialApp'),
-      material,
-      sourceUri: material,
-    )
+    ..registerBridgedClass(marker('MaterialApp'), material, sourceUri: material)
     ..registerBridgedClass(
       BridgedClass(nativeType: int, name: 'Color'),
       material,
