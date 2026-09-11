@@ -14,7 +14,7 @@ dependencies:
   # example is what a new project copies, so it names the release it is run
   # against. F-SCC45-4 (tom_d4rt_ast/test/scc45_resolution_guard_test.dart)
   # fails when a newer release is in the pub cache.
-  tom_d4rt: ">=1.66.0"
+  tom_d4rt: ">=1.76.0"
 
 dev_dependencies:
   # Floor 1.15.3: below it, a regeneration from a relative scan root writes

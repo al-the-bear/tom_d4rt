@@ -26,7 +26,7 @@ dependencies:
   # against (the d4rt repo's F-SCC45-4 holds it there). Never lower it below
   # tom_d4rt_flutter_ast's own floor, or the app would resolve an interpreter
   # its bridges are not verified against.
-  tom_d4rt_ast: ">=0.60.0"
+  tom_d4rt_ast: ">=0.64.0"
 
 dev_dependencies:
   flutter_test:

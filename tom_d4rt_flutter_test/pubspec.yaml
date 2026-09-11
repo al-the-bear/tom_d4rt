@@ -26,7 +26,7 @@ dev_dependencies:
   # same analyzer-based interpreter SourceFlutterD4rt drives, so the counters
   # reflect the real per-frame interpreter cost. The floor tracks the current
   # published tom_d4rt, as for every demo app and example (F-SCC45-4).
-  tom_d4rt: ">=1.66.0"
+  tom_d4rt: ">=1.76.0"
 
 flutter:
   uses-material-design: true
