@@ -576,6 +576,29 @@ if (result.isSuccess) {
 }
 ```
 
+### Checking that committed bridges are current
+
+`checkBridgeFreshness` regenerates a package's bridges from its own
+`buildkit.yaml` and compares them with the committed `*.b.dart` files, ignoring
+the `// Generated:` timestamp. It never writes to the package: generated files
+go to a scratch tree under the package's `.dart_tool/`, which is removed
+afterwards. Use it in a package's own test suite, so that a generator upgrade
+or a source change that was not followed by a regeneration fails a test
+instead of passing against old generated code:
+
+```dart
+test('committed bridges match the generator', () async {
+  final freshness = await checkBridgeFreshness(Directory.current.path);
+  expect(freshness.errors, isEmpty);
+  expect(freshness.stale, isEmpty, reason: 'run d4rtgen and commit');
+});
+```
+
+Each stale entry names the package-relative file and whether it `differs` or
+is generated but `notCommitted`. A report with errors has not measured
+anything — assert on `errors` first. Generation takes as long as a `d4rtgen`
+run, so give the test a generous timeout in a large package.
+
 ---
 
 ## Ecosystem

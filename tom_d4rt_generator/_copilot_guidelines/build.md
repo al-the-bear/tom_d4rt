@@ -158,18 +158,24 @@ Follow semantic versioning:
 
 ## Regenerating Example Bridges
 
-After making changes to the generator:
+After a generator change that alters its output, the examples go stale, and
+`test/example_bridges_fresh_test.dart` says which. From the `tom_d4rt_generator`
+directory:
 
 ```bash
-# From tom_d4rt_generator directory
-dart run bin/d4rt_gen.dart --project=example
+# One example
+dart run bin/d4rtgen.dart -s example/<name>
 
-# Verify generated bridges compile
-cd example && dart analyze lib/d4rt_bridges/
+# All of them
+dart run example/generate_example_bridges.dart
 
-# Verify example scripts still work
-dart run run_examples.dart all
+# Verify the example scripts still work
+dart run example/run_all_examples.dart --run-only
 ```
+
+Commit everything the regeneration changes, including any new
+`relaxers.b.dart`, and delete the regenerated examples from `knownStale` in
+`test/example_bridges_fresh_test.dart` in the same commit.
 
 ## Recompiling the d4rtgen Binary
 

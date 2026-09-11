@@ -546,6 +546,51 @@ The "UB Test" column in `doc/test_coverage.md` uses these values:
 
 ---
 
+## Freshness of Committed Bridges
+
+Script tests such as `D4rtTester.runScriptOnly()` run against the *committed*
+`*.b.dart` files and never regenerate them, and outside the Flutter twins no
+test suite regenerates as a side effect. A generator change can therefore land
+with every suite green while every consumer still tests its old bridges.
+
+`checkBridgeFreshness(projectPath)` (`lib/src/bridge_freshness.dart`) closes
+that gap: it regenerates a package from its own `buildkit.yaml` and compares the
+result with the committed files, ignoring the `// Generated:` line. Consumers
+assert it in one test (see the README, "Checking that committed bridges are
+current").
+
+It runs the unmodified `generateBridges` inside the scratch overlay in
+`lib/src/scratch_overlay.dart`, which sends writes to package `*.b.dart` files
+into `.dart_tool/tom_d4rt_generator/freshness/<run>/` and lets reads see those
+copies only where the run wrote one. Two constraints shaped that design and
+must survive any change to it:
+
+- **Do not re-root the configured output paths.** The generator derives content
+  from them — the test runner chooses between a `package:` and a relative import
+  from its own location, and quotes its path in usage comments — so re-rooted
+  generation is not byte-comparable, and every package reads as stale.
+- **Do not redirect reads.** Packages import their own generated files
+  (`tom_build_cli` imports its `dartscript.b.dart`); with reads redirected the
+  analyzer meets one library under two URIs and fails with a library-cycle
+  error.
+
+`test/example_bridges_fresh_test.dart` applies the check to every `example/`
+project with a `d4rtgen:` section — the projects `buildkit_skip.yaml` hides from
+workspace scans. It is a ratchet: examples on its `knownStale` list must still
+be stale, every other example must be fresh. Regenerate an example with
+`dart run bin/d4rtgen.dart -s example/<name>` and delete its entry in the same
+commit; the test fails until you do.
+
+`test/bridge_freshness_test.dart` pins both the verdicts and the absence of
+writes, the latter by snapshotting the fixture before and after each check.
+Keep that snapshot relative to the fixture root: the fixture lives under this
+package's `.dart_tool/`, so filtering `.dart_tool` from absolute paths drops
+every entry and makes the comparison vacuously equal. The fixture also asserts
+that its snapshot names the bridge file, which catches an empty snapshot
+directly. After changing either file, inject the fault — turn redirection off
+by changing the default `redirectedSuffix` — and confirm the five gate tests
+fail on the snapshot assertion before trusting a green run.
+
 ## Issue Tracking Workflow
 
 When a test reveals a generator bug:

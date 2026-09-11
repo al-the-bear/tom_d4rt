@@ -1,3 +1,46 @@
+## 1.17.0
+
+### Added — `checkBridgeFreshness`, a test-time gate for stale bridges
+
+Regeneration is not a side effect of any non-Flutter test suite; it happens
+when somebody runs `d4rtgen` by hand. So a generator change can land, every
+suite go green, and every committed `*.b.dart` stay stale — the suites then
+exercise the old generated code. GEN-123 went unnoticed that way: a relative
+scan root dropped all four user bridges in `d4rt_userbridges_sample`, and no
+suite regenerated.
+
+`checkBridgeFreshness(projectPath)` regenerates a package's bridges from its
+own `buildkit.yaml` and compares the result with what the package has
+committed, ignoring the `// Generated:` timestamp line. It reports each
+disagreeing file as `differs` or `notCommitted`, and generation errors
+separately — a report with errors has measured nothing, and `isFresh` is false.
+A consumer asserts it in one test:
+
+```dart
+test('committed bridges match the generator', () async {
+  final freshness = await checkBridgeFreshness(Directory.current.path);
+  expect(freshness.errors, isEmpty);
+  expect(freshness.stale, isEmpty);
+});
+```
+
+It does not write to the package. Generation runs unmodified, inside a
+`dart:io` overlay that sends writes to `*.b.dart` files into a scratch tree
+under the package's `.dart_tool/`, while reads see the scratch copy only where
+this run wrote one. Two cheaper designs were measured and rejected: rewriting
+the configured output paths changes the generated content (the test runner
+picks its import form and usage comments from its own path), so every package
+reads as stale; and redirecting reads as well breaks any package that imports
+its own generated files, which the analyzer then meets under two URIs.
+
+An unresolved package — no `.dart_tool/package_config.json` — is refused with an
+error instead of being resolved: `generateBridges` would run `dart pub get`, a
+subprocess no overlay can redirect, and rewrite `pubspec.lock` in place.
+
+Measured against eight non-Flutter consumers before release, the gate agreed
+with an in-place regeneration on every file, and a content-and-directory
+snapshot of each package was identical before and after.
+
 ## 1.16.0
 
 ### Changed — the `tom_d4rt` floor moves from `>=1.11.0` to `>=1.30.1`

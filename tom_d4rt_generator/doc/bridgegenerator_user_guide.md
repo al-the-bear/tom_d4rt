@@ -110,6 +110,19 @@ YourPackageBridges.register(d4rtInstance);
 For complex cases where automated generation isn't enough (e.g., unsupported types, complex simplified logic), you can provide **User Bridges**.
 Create a class that extends the generated bridge or `BridgedClass` manually, and register it *instead* of or *after* code generation. The generator respects manual "UserBridge" files if placed in specific locations (see *User Bridge Design*).
 
+### 5. Testing That Committed Bridges Are Current
+Generated bridges are committed, and nothing regenerates them during a normal `dart test` run. Add one test that calls `checkBridgeFreshness`, so a generator upgrade or a source change without a regeneration fails the suite rather than passing against the old bridges:
+
+```dart
+test('committed bridges match the generator', () async {
+  final freshness = await checkBridgeFreshness(Directory.current.path);
+  expect(freshness.errors, isEmpty);
+  expect(freshness.stale, isEmpty, reason: 'run d4rtgen and commit');
+});
+```
+
+The check regenerates into a scratch tree under `.dart_tool/` and compares, ignoring the `// Generated:` timestamp; the package itself is not modified. When it fails, run `d4rtgen` in the package and commit the result.
+
 ## Troubleshooting
 
 *   **Missing Types**: If a class isn't showing up, ensure it is exported by the `barrelFile` and that `followAllReExports` is true if it's nested deep in exports.
