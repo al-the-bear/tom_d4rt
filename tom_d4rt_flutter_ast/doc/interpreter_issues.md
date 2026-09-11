@@ -58,9 +58,10 @@ grep -m1 '^version:' tom_d4rt_ast/pubspec.yaml tom_d4rt/pubspec.yaml   # what th
 If the resolved pair is behind the tree, the run certifies the *previous*
 release. That is still real evidence about **bridge and generator**
 changes — those live in the tree and are exercised — but it is no evidence
-at all about an **interpreter** change. Re-measuring both twins at the
-current published pair is `scd105`; the extended half has never had a
-number at a current pair (`scd6_aicv`).
+at all about an **interpreter** change. The standing baseline is the
+newest entry of the same scope in "Verification runs": base-subset runs
+and full-corpus runs are recorded separately, so compare a run only with
+an entry of its own scope, and read that entry's resolved pair first.
 
 To produce a number: `./test/run_base_tests.sh` for the 17-file base gate
 (`flutter_base_01..17`), `./test/run_issue_analysis_tests.sh` for the full
