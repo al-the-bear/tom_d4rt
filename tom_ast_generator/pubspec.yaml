@@ -36,5 +36,5 @@ dev_dependencies:
   # test/example_resolution_test.dart use `package:tom_d4rt_generator/testing.dart`;
   # 1.19.0 is the first whose `resolveIfUnresolved` asks pub whether a project
   # resolves instead of only checking that a package config exists.
-  tom_d4rt_generator: ">=1.19.0"
+  tom_d4rt_generator: ">=1.23.0"
   tom_d4rt_exec: ">=1.9.0"

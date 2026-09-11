@@ -46,7 +46,7 @@ dev_dependencies:
   # test/example_resolution_test.dart use `package:tom_d4rt_generator/testing.dart`;
   # 1.19.0 is the first whose `resolveIfUnresolved` asks pub whether a project
   # resolves instead of only checking that a package config exists.
-  tom_d4rt_generator: ">=1.19.0"
+  tom_d4rt_generator: ">=1.23.0"
 
   # The analyzer-tree interpreter that `test/generator_tests/` compares the
   # analyzer-free tree against. It is declared here ONLY to record the reference

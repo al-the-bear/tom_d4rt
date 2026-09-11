@@ -666,6 +666,27 @@ file when the resolution is unchanged, so that comparison stays "stale"
 forever. `D4rtTester.prepareBridges` runs the same step, so an unresolvable
 example fails there with the cause rather than with a compile error.
 
+**Resolving is not the same as resolving the way this package does.** The same
+file also asserts parity, per example, with `compareFixtureResolution`
+(`lib/src/testing/fixture_resolution_parity.dart`). An example reaches this
+package by `path:`, and a path dependency supplies the SOURCE but not the
+RESOLUTION: the example compiles this package's current `lib/` against the
+EXAMPLE's lock. So an example can resolve perfectly and still type-check
+current first-party source against an old third-party dependency. What the
+reader is shown is a compile error inside `../../lib/` — a directory the
+example does not own, whose contents are correct — and the pubspec that is
+wrong names no version at all. Measured in `tom_d4rt_exec`: every
+`example/*/pubspec.lock` pinned `tom_d4rt_ast` 0.19.0 against a lib needing
+0.20.x, surfacing as `The getter 'Logger' isn't defined for the type
+'ModuleLoader'` and costing a full triage cycle (scd9_aicx). Lock files are
+gitignored, so the drift never appears in `git status`.
+
+Only the host's RUNTIME dependencies are compared — `direct main` and
+`transitive` in the lock, the ones its `lib/` is compiled against. Comparing
+every shared hosted package instead reports benign differences: measured across
+the three packages with examples, all seven were `lints`, a dev-only ruleset no
+library imports. The repair is `dart pub get` in the named fixture.
+
 `test/bridge_freshness_test.dart` pins both the verdicts and the absence of
 writes, the latter by snapshotting the fixture before and after each check.
 Keep that snapshot relative to the fixture root: the fixture lives under this
