@@ -4,95 +4,70 @@
 > limits are owned by the canonical
 > [`tom_d4rt/doc/d4rt_limitations.md`](../../tom_d4rt/doc/d4rt_limitations.md)
 > and are not repeated here. This file documents only the limitations
-> **specific to the DCli REPL surface** — currently the macOS DCli/filesystem
-> known test failures below. They stem from the upstream `dcli` package and
-> macOS platform behaviour, not from the D4rt interpreter.
+> **specific to the DCli REPL surface** — currently one upstream `dcli` bug,
+> below. It stems from the `dcli` package, not from the D4rt interpreter.
 
-**Date:** 2026-03-09
-**Affects:** 14 tests (13 permissions, 1 directory operations)
-**Status:** Not fixing — upstream DCli bug + macOS filesystem behavior
+**Affects:** `isWritable`, `isReadable` and `isExecutable` in scripts, and 13
+tests in `test/permissions_test.dart`
+**Status:** upstream `dcli` bug (<https://github.com/onepub-dev/dcli>), present
+in 8.4.2 (used here) and 10.0.0; a fix has been prepared for upstream
 
 ---
 
-## Issue 1: DCli `isWritable` Returns `false` on macOS (13 tests)
+## Issue 1: DCli permission checks use the session login name, not the process user
 
-**Affected file:** `test/permissions_test.dart` (13 tests marked `[fails on Macos]`)
+### What a script sees
 
-### Root Cause: DCli `_whoami()` Bug
+In a process started outside a login session, `isWritable(path)` returns
+`false` for a file the script itself just created, and `isReadable` /
+`isExecutable` can be wrong the same way for any file whose "other" bits do not
+grant the access. That covers the common ways of running dcli today:
 
-DCli's `_whoami()` function in `posix_shell.dart` incorrectly identifies the current user as `"root"` on macOS when running from the Dart VM.
+- **macOS:** anything descended from an app launched from the Dock or by
+  launchd — a terminal inside VS Code, an agent, a test runner. There the
+  session's login name is `root`.
+- **Linux, and macOS without a terminal:** CI jobs, cron, `ssh host 'dcli …'`.
+  There `getlogin()` fails, and dcli takes that to mean `root`.
 
-**The buggy code** — `dcli-8.4.2/lib/src/shell/posix_shell.dart` lines 358–374:
+A login shell (Terminal.app, an interactive `ssh` session) is not affected.
+`Shell.current.loggedInUser` shows which case you are in: it names the logged-in
+user — `root` in the affected sessions — while `id -un` names the process user.
+
+### Root cause
+
+`_checkPermission` in `dcli/lib/src/functions/is.dart` falls back from the
+"other" bits to the group and owner bits by comparing NAMES with
+`Shell.current.loggedInUser`:
 
 ```dart
-String _whoami() {
-  String? user;
-  if (isPosixSupported) {
-    try {
-      user = getlogin();
-    } on PosixException catch (e) {
-      if (e.code == ENXIO) {
-        // no controlling terminal so we must be root.  // <-- WRONG ASSUMPTION
-        user = 'root';
-      }
-    }
-  }
-
-  /// fall back to whoami if nothing else works.
-  user ??= 'whoami'.firstLine;
-  verbose(() => 'whoami: $user');
-  return user!;
+final user = Shell.current.loggedInUser;     // the session login name
+// ...
+} else if (owner) {
+  if (user == ownerName) { access = true; }  // "root" == "alexiskyaw" -> false
 }
 ```
 
-**The bug:** When `getlogin()` throws `PosixException(ENXIO)`, DCli sets `user = 'root'` instead of leaving `user` as `null` and letting it fall through to the `'whoami'.firstLine` fallback. The correct fix would be:
+`loggedInUser` comes from `getlogin()`, which reports who LOGGED IN, not who the
+process IS. Measured on macOS in an affected session: `getlogin()` returned
+`root` while `geteuid()` was 501 and named the actual user.
 
-```dart
-// Just leave user = null so the whoami fallback runs
-on PosixException catch (e) {
-  if (e.code == ENXIO) {
-    // no controlling terminal — fall through to whoami
-  }
-}
-```
+The fix is in the access check, not in `loggedInUser`: decide ownership and
+group membership by the process's effective uid, gid and supplementary groups.
+Measured against a 34-test permission suite in an affected session: dcli 8.4.2
+and 10.0.0 unpatched pass 21 and fail 13; 10.0.0 with that change passes all
+34. Changing only `_whoami()` to fall back to `whoami` on `ENXIO` does not help
+on macOS, because there `getlogin()` does not fail — it answers `root`.
 
-**Why `getlogin()` fails on macOS:** The Dart VM process does not have an associated utmp/utmpx login record. C's `getlogin()` relies on this record, which macOS only maintains for direct terminal sessions. This affects **all** Dart programs on macOS (not just `dart test`):
+### How the tests handle it
 
-```
-$ dart run my_script.dart
-loggedInUser: root     # WRONG — should be "alexiskyaw"
+The 13 owner-dependent tests in `test/permissions_test.dart` run through
+`ownerTest`, which skips them — with the reason — exactly when
+`Shell.current.loggedInUser` differs from `id -un`, the bug's precondition. In a
+login shell they run, on any platform. A tripwire test asserts the bug is still
+there whenever the skips are active, so an upgraded dcli that fixes it fails the
+tripwire instead of leaving the tests skipped for nothing.
 
-$ whoami
-alexiskyaw             # CORRECT — whoami uses different mechanism
-```
-
-**How this breaks permission checks** — `dcli-8.4.2/lib/src/functions/is.dart` lines 49–117:
-
-```dart
-bool _checkPermission(String path, int permissionBitMask) {
-  final user = Shell.current.loggedInUser;  // Returns "root" on macOS
-  // ...
-  final stat0 = posix.stat(path);
-  ownerName = posix.getUserNameByUID(stat0.uid);  // Returns "alexiskyaw"
-  // ...
-  } else if (owner) {
-    if (user == ownerName) {  // "root" == "alexiskyaw" → false!
-      access = true;
-    }
-  }
-  return access;  // Returns false when it should be true
-}
-```
-
-### Platform Behavior Comparison
-
-| Platform | `loggedInUser` implementation | Works in Dart VM? |
-|----------|------------------------------|-------------------|
-| **Linux** | `getlogin()` via posix package | Yes — Linux keeps utmp records across process trees |
-| **macOS** | `getlogin()` via posix package | **No** — ENXIO, falls to `'root'` instead of `whoami` fallback |
-| **Windows** | `env['USERNAME']` | Yes — just reads the environment variable |
-
-### Affected Tests
+### Affected tests
 
 | # | Test Name | Group |
 |---|-----------|-------|
@@ -109,29 +84,3 @@ bool _checkPermission(String path, int permissionBitMask) {
 | 11 | symlink permissions follow target | special permissions |
 | 12 | create config file with restricted permissions | real-world scenarios |
 | 13 | check before writing | real-world scenarios |
-
----
-
-## Issue 2: Case-Insensitive Filesystem on macOS (1 test)
-
-**Affected file:** `test/directory_operations_test.dart` (1 test marked `[fails on Macos]`)
-
-### Root Cause
-
-The test creates two files `FILE.TXT` and `file.txt` in the same directory, then expects `find('*.txt', caseSensitive: false)` to return 2 results.
-
-On macOS APFS (case-insensitive by default), `FILE.TXT` and `file.txt` are the **same file** — the second `touch()` overwrites the first. Only 1 file exists, so the find returns 1 instead of 2.
-
-This is a test design issue specific to macOS — it works on Linux (ext4 is case-sensitive).
-
-### Affected Test
-
-| # | Test Name | Group |
-|---|-----------|-------|
-| 1 | case-insensitive matching when specified | find |
-
----
-
-## Resolution
-
-These failures are not fixed — they are annotated with `[fails on Macos]` in test descriptions so they can be identified and filtered. The upstream DCli bug should be reported/fixed in the `dcli` package.

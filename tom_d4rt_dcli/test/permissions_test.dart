@@ -9,7 +9,75 @@ import 'package:dcli/dcli.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
+/// Whether upstream dcli can see that this process owns the files it creates.
+///
+/// dcli (8.4.2 through at least 10.0.0) decides the owner and group branches of
+/// `isWritable` / `isReadable` / `isExecutable` by comparing the file's owner
+/// with `Shell.current.loggedInUser` — the session's LOGIN name, from
+/// `getlogin()` — rather than with the user the process runs as. On macOS a
+/// process started outside a login session (VS Code launched from the Dock, a
+/// launchd job, anything they spawn) has the login name `root`; on Linux
+/// `getlogin()` fails without a controlling terminal and dcli maps that to
+/// `root` too. A file the test itself just created, mode 644, then reads as not
+/// writable, because only the owner may write it and `root` is not the owner.
+///
+/// This was measured, not assumed: in such a session `getlogin()` returned
+/// `root` while `geteuid()` named the user, and the same tests pass 34/34
+/// against a dcli whose `_checkPermission` compares effective ids. The fix
+/// belongs upstream — see PR candidate DCLI-1 in
+/// `_ai/quests/d4rt/pull-requests.d4rt.todo.md`.
+///
+/// So the owner-bit tests are skipped exactly when that precondition holds —
+/// not by platform. In a login shell they run as before, on any OS.
+// `id -un` names the EFFECTIVE user. Windows has no such command, and dcli's
+// permission checks are POSIX-only anyway, so there is nothing to compare.
+final String? _effectiveUser = Platform.isWindows
+    ? Shell.current.loggedInUser
+    : 'id -un'.firstLine;
+final String? _loginUser = Shell.current.loggedInUser;
+final bool _dcliMisidentifiesUser = _loginUser != _effectiveUser;
+
+/// A test whose result depends on dcli recognising this process as the file's
+/// owner. See [_dcliMisidentifiesUser].
+void ownerTest(String description, dynamic Function() body) => test(
+  description,
+  body,
+  skip: _dcliMisidentifiesUser
+      ? 'upstream dcli takes the session login name ($_loginUser) for the '
+            'process user ($_effectiveUser); see DCLI-1 in '
+            '_ai/quests/d4rt/pull-requests.d4rt.todo.md'
+      : null,
+);
+
 void main() {
+  // The skips above must not outlive the bug. While they are active, this
+  // asserts the bug is still there; when an upgraded dcli answers correctly,
+  // it fails — delete [ownerTest]'s skip and this test together.
+  test(
+    'upstream dcli still misreads ownership in this session (tripwire for the '
+    'ownerTest skips)',
+    () {
+      final dir = createTempDir();
+      try {
+        final path = p.join(dir, 'own.txt');
+        touch(path, create: true);
+        expect(
+          isWritable(path),
+          isFalse,
+          reason:
+              'dcli now recognises the process as the owner even though the '
+              'session login name is $_loginUser: remove the ownerTest skip '
+              'and this tripwire.',
+        );
+      } finally {
+        deleteDir(dir, recursive: true);
+      }
+    },
+    skip: _dcliMisidentifiesUser
+        ? null
+        : 'the session login name matches the process user, so the upstream '
+              'bug cannot show here',
+  );
   late String testDir;
 
   setUp(() {
@@ -43,10 +111,7 @@ void main() {
       // DCli permission functions use stat internally which throws on non-existent files
       // Use exists() check before calling permission functions
       expect(exists(path), isFalse);
-      expect(
-        () => isReadable(path),
-        throwsA(isA<RunException>()),
-      );
+      expect(() => isReadable(path), throwsA(isA<RunException>()));
     });
 
     test('handles symlink', () {
@@ -60,14 +125,14 @@ void main() {
   });
 
   group('isWritable', () {
-    test('returns true for writable file [fails on Macos]', () {
+    ownerTest('returns true for writable file', () {
       final path = p.join(testDir, 'writable.txt');
       touch(path, create: true);
 
       expect(isWritable(path), isTrue);
     });
 
-    test('returns true for writable directory [fails on Macos]', () {
+    ownerTest('returns true for writable directory', () {
       final path = p.join(testDir, 'writable_dir');
       createDir(path);
 
@@ -79,13 +144,10 @@ void main() {
 
       // DCli permission functions use stat internally which throws on non-existent files
       expect(exists(path), isFalse);
-      expect(
-        () => isWritable(path),
-        throwsA(isA<RunException>()),
-      );
+      expect(() => isWritable(path), throwsA(isA<RunException>()));
     });
 
-    test('can write to writable file [fails on Macos]', () {
+    ownerTest('can write to writable file', () {
       final path = p.join(testDir, 'write_test.txt');
       touch(path, create: true);
 
@@ -119,10 +181,7 @@ void main() {
 
       // DCli permission functions use stat internally which throws on non-existent files
       expect(exists(path), isFalse);
-      expect(
-        () => isExecutable(path),
-        throwsA(isA<RunException>()),
-      );
+      expect(() => isExecutable(path), throwsA(isA<RunException>()));
     });
 
     test('directories are typically executable (traversable)', () {
@@ -166,7 +225,7 @@ void main() {
       'chmod 644 $path'.run;
     });
 
-    test('makes file writable [fails on Macos]', () {
+    ownerTest('makes file writable', () {
       final path = p.join(testDir, 'writable.txt');
       touch(path, create: true);
       'chmod 444 $path'.run;
@@ -176,7 +235,7 @@ void main() {
       expect(isWritable(path), isTrue);
     });
 
-    test('handles directory permissions [fails on Macos]', () {
+    ownerTest('handles directory permissions', () {
       final path = p.join(testDir, 'perm_dir');
       createDir(path);
 
@@ -226,8 +285,10 @@ void main() {
       final stat = File(path).statSync();
 
       expect(stat.modified, isA<DateTime>());
-      expect(stat.modified.isBefore(DateTime.now().add(Duration(seconds: 1))),
-          isTrue);
+      expect(
+        stat.modified.isBefore(DateTime.now().add(Duration(seconds: 1))),
+        isTrue,
+      );
     });
 
     test('gets access time', () {
@@ -260,7 +321,7 @@ void main() {
   });
 
   group('permission modes', () {
-    test('mode 644 - rw-r--r-- [fails on Macos]', () {
+    ownerTest('mode 644 - rw-r--r--', () {
       final path = p.join(testDir, 'mode644.txt');
       touch(path, create: true);
       'chmod 644 $path'.run;
@@ -270,7 +331,7 @@ void main() {
       expect(isExecutable(path), isFalse);
     });
 
-    test('mode 755 - rwxr-xr-x [fails on Macos]', () {
+    ownerTest('mode 755 - rwxr-xr-x', () {
       final path = p.join(testDir, 'mode755.sh');
       touch(path, create: true);
       'chmod 755 $path'.run;
@@ -280,7 +341,7 @@ void main() {
       expect(isExecutable(path), isTrue);
     });
 
-    test('mode 600 - rw------- [fails on Macos]', () {
+    ownerTest('mode 600 - rw-------', () {
       final path = p.join(testDir, 'mode600.txt');
       touch(path, create: true);
       'chmod 600 $path'.run;
@@ -290,7 +351,7 @@ void main() {
       expect(isExecutable(path), isFalse);
     });
 
-    test('mode 700 - rwx------ [fails on Macos]', () {
+    ownerTest('mode 700 - rwx------', () {
       final path = p.join(testDir, 'mode700.sh');
       touch(path, create: true);
       'chmod 700 $path'.run;
@@ -302,7 +363,7 @@ void main() {
   });
 
   group('special permissions', () {
-    test('hidden files are accessible [fails on Macos]', () {
+    ownerTest('hidden files are accessible', () {
       final path = p.join(testDir, '.hidden');
       touch(path, create: true);
 
@@ -310,7 +371,7 @@ void main() {
       expect(isWritable(path), isTrue);
     });
 
-    test('symlink permissions follow target [fails on Macos]', () {
+    ownerTest('symlink permissions follow target', () {
       final target = p.join(testDir, 'target.txt');
       final link = p.join(testDir, 'link.txt');
       touch(target, create: true);
@@ -334,7 +395,7 @@ echo "Deploying..."
       expect(isExecutable(script), isTrue);
     });
 
-    test('create config file with restricted permissions [fails on Macos]', () {
+    ownerTest('create config file with restricted permissions', () {
       final config = p.join(testDir, 'secrets.conf');
       config.write('API_KEY=secret123');
       'chmod 600 $config'.run;
@@ -351,7 +412,7 @@ echo "Deploying..."
       expect(isExecutable(dir), isTrue); // x on dir means traversable
     });
 
-    test('check before writing [fails on Macos]', () {
+    ownerTest('check before writing', () {
       final path = p.join(testDir, 'check_write.txt');
       touch(path, create: true);
 

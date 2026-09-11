@@ -45,8 +45,10 @@ void main() {
     test('throws without recursive when parent missing', () {
       final path = p.join(testDir, 'a', 'b', 'c');
 
-      expect(() => createDir(path, recursive: false),
-          throwsA(isA<CreateDirException>()));
+      expect(
+        () => createDir(path, recursive: false),
+        throwsA(isA<CreateDirException>()),
+      );
     });
 
     test('does not throw if directory already exists with recursive', () {
@@ -109,7 +111,9 @@ void main() {
       touch(p.join(path, 'file.txt'), create: true);
 
       expect(
-          () => deleteDir(path, recursive: false), throwsA(isA<Exception>()));
+        () => deleteDir(path, recursive: false),
+        throwsA(isA<Exception>()),
+      );
     });
 
     test('deletes non-empty directory with recursive', () {
@@ -160,8 +164,11 @@ void main() {
       touch(p.join(subDir, 'file.dart'), create: true);
       touch(p.join(subDir, 'nested', 'nested_file.dart'), create: true);
 
-      final results =
-          find('*.dart', workingDirectory: subDir, recursive: true).toList();
+      final results = find(
+        '*.dart',
+        workingDirectory: subDir,
+        recursive: true,
+      ).toList();
 
       expect(results.length, equals(2));
     });
@@ -208,23 +215,41 @@ void main() {
       touch(p.join(subDir, '.hidden'), create: true);
       touch(p.join(subDir, 'visible'), create: true);
 
-      final withHidden =
-          find('*', workingDirectory: subDir, includeHidden: true).toList();
+      final withHidden = find(
+        '*',
+        workingDirectory: subDir,
+        includeHidden: true,
+      ).toList();
 
       expect(withHidden.any((f) => f.contains('.hidden')), isTrue);
     });
 
-    test('case-insensitive matching when specified [fails on Macos]', () {
+    // The two names must not differ ONLY in case: on a case-insensitive
+    // filesystem (macOS's default APFS, Windows) `FILE.TXT` and `file.txt` are
+    // the same file, so there would be one file to find, not two. Distinct
+    // names test the same thing — the pattern's case — on every filesystem.
+    test('case-insensitive matching when specified', () {
       final subDir = p.join(testDir, 'case_test');
       createDir(subDir);
-      touch(p.join(subDir, 'FILE.TXT'), create: true);
-      touch(p.join(subDir, 'file.txt'), create: true);
+      touch(p.join(subDir, 'UPPER.TXT'), create: true);
+      touch(p.join(subDir, 'lower.txt'), create: true);
 
-      final results =
-          find('*.txt', workingDirectory: subDir, caseSensitive: false)
-              .toList();
+      final insensitive = find(
+        '*.txt',
+        workingDirectory: subDir,
+        caseSensitive: false,
+      ).toList();
+      final sensitive = find(
+        '*.txt',
+        workingDirectory: subDir,
+        caseSensitive: true,
+      ).toList();
 
-      expect(results.length, equals(2));
+      expect(
+        insensitive.map(p.basename),
+        unorderedEquals(['UPPER.TXT', 'lower.txt']),
+      );
+      expect(sensitive.map(p.basename), ['lower.txt']);
     });
 
     test('finds directories when type specified', () {
@@ -234,9 +259,11 @@ void main() {
       createDir(p.join(subDir, 'dir2'), recursive: true);
       touch(p.join(subDir, 'file.txt'), create: true);
 
-      final results = find('*',
-          workingDirectory: subDir,
-          types: [FileSystemEntityType.directory]).toList();
+      final results = find(
+        '*',
+        workingDirectory: subDir,
+        types: [FileSystemEntityType.directory],
+      ).toList();
 
       expect(results.length, equals(2));
       expect(results.every((f) => isDirectory(f)), isTrue);
