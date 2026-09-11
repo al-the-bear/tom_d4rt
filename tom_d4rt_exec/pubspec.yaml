@@ -42,10 +42,11 @@ dev_dependencies:
   # `bridgeReExports()` source keys as `lib/…` instead of `package:…`, which no
   # script import can match (GEN-125, fixed in 1.15.3) — load-bearing for
   # test/generator_tests/.
-  # Floor 1.18.0: test/example_bridges_fresh_test.dart uses the example-bridge
-  # ratchet helpers from `package:tom_d4rt_generator/testing.dart`, first
-  # shipped in 1.18.0.
-  tom_d4rt_generator: ">=1.18.0"
+  # Floor 1.19.0: test/example_bridges_fresh_test.dart and
+  # test/example_resolution_test.dart use `package:tom_d4rt_generator/testing.dart`;
+  # 1.19.0 is the first whose `resolveIfUnresolved` asks pub whether a project
+  # resolves instead of only checking that a package config exists.
+  tom_d4rt_generator: ">=1.19.0"
 
   # The analyzer-tree interpreter that `test/generator_tests/` compares the
   # analyzer-free tree against. It is declared here ONLY to record the reference
