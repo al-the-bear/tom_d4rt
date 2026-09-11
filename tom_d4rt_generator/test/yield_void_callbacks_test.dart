@@ -14,6 +14,9 @@
 ///   • ON ⇒ void callbacks become `async` and carry the 1 ms yield, while
 ///     non-void callbacks (with a return value the framework consumes) are
 ///     left untouched.
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

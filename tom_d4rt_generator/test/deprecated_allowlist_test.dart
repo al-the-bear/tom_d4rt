@@ -11,6 +11,7 @@
 ///   - flag off + empty allowlist ⇒ all `@Deprecated` symbols excluded
 ///   - flag on ⇒ all symbols emitted
 ///   - allowlist of one symbol ⇒ that symbol emitted, the rest excluded
+@Tags(['generation'])
 library;
 
 import 'dart:io';

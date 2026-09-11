@@ -8,6 +8,9 @@
 /// Tests the fixes for:
 /// - GEN-070: Extensions on built-in types should not use $pkg prefix
 /// - GEN-071: Function-typed parameters with defaults use combinatorial dispatch
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

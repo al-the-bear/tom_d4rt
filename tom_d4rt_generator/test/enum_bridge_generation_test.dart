@@ -5,6 +5,9 @@
 /// - Generates BridgedEnumDefinition code
 /// - Generates registerBridgedEnum calls
 /// - Handles complex enum cases
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

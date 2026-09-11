@@ -280,9 +280,62 @@ void _expectSuccess(D4rtTestResult result, String projectName) {
 ### Test Annotations
 
 ```dart
+@Tags(['generation'])  // Runs the generator — see below. REQUIRED, and pinned
+library;               // by G-GENTAG-1; the tag attaches to a library directive
 @TestOn('vm')          // Subprocess execution requires VM
 @Timeout(Duration(minutes: 2))  // Bridge generation + subprocess needs time
 ```
+
+### A test that runs the generator is tagged `generation`
+
+**Rule: if a test file mentions `BridgeGenerator(`, `generateBridges(`,
+`checkBridgeFreshness`, `previewGeneration` or `D4rtTester(`, it carries
+`@Tags(['generation'])`.** `test/generation_tag_coverage_test.dart`
+(G-GENTAG-1) fails when one does not, and G-GENTAG-2 fails if the tag stops
+being worth carrying.
+
+**Why.** Such a test runs the analyzer over a project and its whole dependency
+graph. That costs seconds when the workspace summary cache
+(`<workspace>/.tom/analyzer-cache`) is warm, and minutes when it is cold — and
+it is cold right after any dependency change, which is exactly when somebody
+runs the suite. `package:test`'s default 30-second budget is a deadline for a
+fixed amount of work; these tests do not have one. `dart_test.yaml` gives the
+tag a `10x` factor, multiplying whatever the file or test already declares.
+
+**What it looked like before.** A `TimeoutException` on whichever
+generation-bound file happened to be loading when the machine was busy —
+`d4rt_tester_test.dart` at 12 minutes once, `gen070` and `gen119` at 30 seconds
+months later. Because it moved between files, raising one file's `@Timeout`
+could never have fixed it, and the suite's headline count was not reproducible:
+a real regression was indistinguishable from the noise.
+
+**Reproducing it.** It does not appear on an idle machine with a warm cache —
+two full runs passed while this was being diagnosed. Both stressors are needed:
+
+```bash
+CACHE=$(mktemp -d)                       # a cold summary cache, in isolation
+for i in $(seq 1 16); do python3 -c "
+import time
+end = time.time() + 900
+while time.time() < end: pass
+" & done                                  # saturate the CPU
+TOM_TOOL_CACHE=$CACHE dart test
+pkill -f "end = time.time"
+```
+
+Use `TOM_TOOL_CACHE` rather than deleting `<workspace>/.tom/analyzer-cache`:
+that cache is shared with every other session on the machine, and deleting it
+costs them minutes.
+
+Measured 2026-09-12 on mbp (10 cores): cold cache alone 3:07 green; load alone
+4:31 green; both together 6:49 **red** — `G-GEN119-04`, 30 seconds, 1014/1.
+With the tag: 6:03 and 6:26, green, twice. Setting the factor back to `1x`
+reproduced the identical failure, which is what proves the tag is doing the
+work rather than the run being lucky.
+
+**The serial lane, if it is ever needed.** The tag also names the heavy set, so
+`dart test --tags generation -j 1` and `dart test --exclude-tags generation`
+split the suite without anyone re-deriving which files are which.
 
 ---
 

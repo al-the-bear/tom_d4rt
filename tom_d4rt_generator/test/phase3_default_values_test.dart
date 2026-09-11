@@ -14,6 +14,7 @@
 /// `defaultValueCode`) so future refactors cannot silently regress the
 /// rendering of primitive, null, collection, enum, and const-constructor
 /// default values.
+@Tags(['generation'])
 library;
 
 import 'dart:io';

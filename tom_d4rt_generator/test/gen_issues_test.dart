@@ -3,6 +3,9 @@
 /// These tests verify the generator correctly handles:
 /// - GEN-095: Missing static factory method bridges
 /// - GEN-096: Getter/method signature mismatch
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

@@ -5,6 +5,9 @@
 /// - Detects global variables (const, final, mutable)
 /// - Generates globalFunctionNames and globalVariableNames lists
 /// - Handles various parameter patterns
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

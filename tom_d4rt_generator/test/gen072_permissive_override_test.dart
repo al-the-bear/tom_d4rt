@@ -13,6 +13,7 @@
 ///
 /// The fix adds: `(isCurrentMorePermissive && !isExistingMorePermissive)`
 /// to shouldOverride, so a permissive export always overrides a restrictive one.
+@Tags(['generation'])
 @TestOn('vm')
 library;
 

@@ -6,6 +6,9 @@
 // 2. Static const defaults (e.g., thickness = defaultThickness) are handled
 //    by resolving the literal value when possible
 
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

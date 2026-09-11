@@ -9,6 +9,9 @@
 // Fixtures live under this package's own `.dart_tool/`, which is gitignored and
 // per-package, and are deleted afterwards.
 
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

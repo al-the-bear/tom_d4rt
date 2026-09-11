@@ -1,0 +1,30 @@
+# Test configuration for tom_d4rt_generator.
+#
+# WHY THIS FILE EXISTS (scd9_ahcm). More than half of this package's test
+# files run the bridge generator, which means running the ANALYZER over a
+# project and its whole dependency graph. That work costs seconds when the
+# workspace summary cache is warm and minutes when it is not — a cache is cold
+# after any dependency change, which is exactly when the suite gets run. The
+# framework's default 30-second per-test budget is a deadline for a fixed
+# amount of work; these tests do not have one.
+#
+# The result was a suite that could not be trusted: a `TimeoutException` landed
+# on whichever generation-bound file happened to be loading when the machine
+# was busy — `d4rt_tester_test.dart` at 12 minutes once, `gen070` and `gen119`
+# at 30 seconds later — so the headline count was not reproducible and a real
+# regression would have been indistinguishable from the noise.
+#
+# REPRODUCING IT (it does not appear on an idle machine with a warm cache):
+#
+#   TOM_TOOL_CACHE=$(mktemp -d) dart test        # cold summary cache
+#   ...while ~16 busy processes saturate the CPU
+#
+# Measured 2026-09-12: cold cache alone 3:07 and green; load alone 4:31 and
+# green; both together 6:49 with `G-GEN119-04` timing out at 30 seconds —
+# 1014/1. With the tag below the same harness passes.
+tags:
+  # Tests that run the generator, so their cost is the analyzer's, not the
+  # test's. The factor multiplies whatever the test or file already declares,
+  # so a file with `@Timeout(Duration(minutes: 2))` keeps its own proportion.
+  generation:
+    timeout: 10x

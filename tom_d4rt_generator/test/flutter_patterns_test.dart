@@ -3,6 +3,9 @@
 /// Reproduces compilation error patterns found when generating bridges
 /// for Flutter SDK APIs. Each test group corresponds to an RC (Root Cause)
 /// from the bridge_generator_flutter_analysis.md.
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

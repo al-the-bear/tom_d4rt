@@ -5,6 +5,9 @@
 /// - final class - can be instantiated but not extended
 /// - interface class - can only be implemented
 /// - base class - can only be extended in same library
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

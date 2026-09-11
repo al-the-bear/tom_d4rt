@@ -30,6 +30,9 @@
 // does NOT chdir. `dart test` runs test files as isolates inside one process
 // and `Directory.current` is process-wide.
 
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

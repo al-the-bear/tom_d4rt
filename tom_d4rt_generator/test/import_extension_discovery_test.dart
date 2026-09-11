@@ -2,6 +2,9 @@
 ///
 /// Verifies that the generator discovers extensions from imported libraries,
 /// not just extensions defined in the source files being bridged.
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

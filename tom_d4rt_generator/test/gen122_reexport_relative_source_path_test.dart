@@ -26,6 +26,9 @@
 // and `Directory.current` is process-wide. The relative path is therefore
 // derived from the current directory rather than by moving into the fixture.
 
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

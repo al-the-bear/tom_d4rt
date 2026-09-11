@@ -2,6 +2,9 @@
 ///
 /// Verifies that the generator correctly bridges pure `mixin` declarations
 /// (not `mixin class`), making them available as types in D4rt scripts.
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

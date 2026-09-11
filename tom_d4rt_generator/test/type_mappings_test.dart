@@ -16,6 +16,9 @@
 ///     otherwise import.
 ///   • Both default to empty and round-trip through json/copyWith, so committed
 ///     output stays byte-identical until a config opts in.
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

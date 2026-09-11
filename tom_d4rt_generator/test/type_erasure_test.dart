@@ -5,6 +5,9 @@
 /// - Uses bounds instead of dynamic when type params have bounds
 /// - Handles instance methods, static methods, and global functions
 /// - Handles class type parameters vs method type parameters
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

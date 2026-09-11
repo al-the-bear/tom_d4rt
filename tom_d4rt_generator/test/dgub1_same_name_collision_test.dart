@@ -21,6 +21,9 @@
 // reported as a warning naming the class, and (2) the winner is deterministic
 // (the FIRST source file is kept).
 
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

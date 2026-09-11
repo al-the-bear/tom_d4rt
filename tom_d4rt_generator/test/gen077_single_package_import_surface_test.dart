@@ -13,6 +13,9 @@
 // This test drives the generator with sourceImport: null to force
 // importBlockUri == null and asserts all three methods are present.
 
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

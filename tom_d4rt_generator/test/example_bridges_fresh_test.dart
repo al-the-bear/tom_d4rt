@@ -15,6 +15,9 @@
 // then commit everything it changes — including a new `relaxers.b.dart`, which
 // the regenerated `dartscript.b.dart` imports — and delete its entry here.
 
+@Tags(['generation'])
+library;
+
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/testing.dart';

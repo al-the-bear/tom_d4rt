@@ -13,6 +13,7 @@
 /// These tests exercise the full pipeline: config loading → bridge
 /// generation → test runner code generation → subprocess execution
 /// → structured result parsing.
+@Tags(['generation'])
 @TestOn('vm')
 @Timeout(Duration(minutes: 2))
 library d4rt_tester_test;

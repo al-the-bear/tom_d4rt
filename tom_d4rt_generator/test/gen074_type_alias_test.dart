@@ -1,6 +1,9 @@
 // GEN-074: Test type alias (typedef) bridging
 // These tests verify that type aliases pointing to classes are properly bridged
 
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

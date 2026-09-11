@@ -13,6 +13,9 @@
 ///   3. no redundant `?? null` is emitted for optional params;
 ///   4. a param named `key` extracts as its *declared* type (`Marker?`), never a
 ///      force-inferred one.
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

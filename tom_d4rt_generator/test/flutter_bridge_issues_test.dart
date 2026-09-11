@@ -11,6 +11,9 @@
 /// - Curves static const members not accessible
 /// - AnimationController.vsync TickerProvider interface not recognized
 /// - ChangeNotifier.hasListeners/addListener not bridged
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

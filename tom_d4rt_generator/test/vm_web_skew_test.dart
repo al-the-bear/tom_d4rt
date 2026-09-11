@@ -11,6 +11,9 @@
 //   - ON  → the `?? default` coercion is emitted for the skewed param.
 //   - OFF → output is unchanged (committed `*.b.dart` stays byte-identical).
 
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

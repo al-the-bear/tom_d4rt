@@ -32,6 +32,9 @@
 // process-wide, so changing it here fails the `setUpAll` of every other test
 // file that resolves fixtures relative to the cwd.
 
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

@@ -8,6 +8,7 @@
 /// convention `<feature_id>_<short_description>.dart`.
 ///
 /// See `doc/test_coverage.md` for the full feature inventory.
+@Tags(['generation'])
 @TestOn('vm')
 @Timeout(Duration(minutes: 5))
 library d4rt_coverage_test;

@@ -10,6 +10,9 @@
 ///   - Interpreter is defined in cross_file_type.dart
 ///   - Generator should emit `$cross_file_type_1.Interpreter?`
 ///   - Bug: generator emits `$cross_file_reference_source_1.Interpreter?`
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

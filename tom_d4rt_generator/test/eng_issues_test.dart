@@ -4,6 +4,9 @@
 /// - ENG-010: InterpretedFunction callback wrapping for setters
 /// - ENG-011: Null cast in generic method callback return
 /// - ENG-007: Nullable type extraction mismatch
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

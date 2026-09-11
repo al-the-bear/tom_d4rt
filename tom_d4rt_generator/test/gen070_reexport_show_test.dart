@@ -11,6 +11,7 @@
 /// 1. Convert visited set to recursion-stack (remove after return) so barrels
 ///    can be reached through multiple chains.
 /// 2. Union show clauses when merging (multiple export chains are additive).
+@Tags(['generation'])
 @TestOn('vm')
 library;
 

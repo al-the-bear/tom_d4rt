@@ -7,6 +7,9 @@
 /// - Nullable callbacks
 /// - Multiple callbacks in one method
 /// - Nested callbacks (callbacks that take callbacks)
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;

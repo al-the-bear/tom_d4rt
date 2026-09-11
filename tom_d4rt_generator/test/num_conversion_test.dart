@@ -15,6 +15,9 @@
 /// - "Undefined variable: Curves"
 /// - "Undefined variable: Tween"
 /// - "Undefined property or method 'hasListeners'"
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
