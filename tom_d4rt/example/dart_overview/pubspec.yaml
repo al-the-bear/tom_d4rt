@@ -8,6 +8,10 @@ environment:
 
 dependencies:
   path: ^1.9.0
+  # Tracks the current published tom_d4rt, not a specific requirement: an
+  # example is what a new project copies, so it names the release it is run
+  # against. F-SCC45-4 (tom_d4rt_ast/test/scc45_resolution_guard_test.dart)
+  # fails when a newer release is in the pub cache.
   tom_d4rt: ">=1.66.0"
 
 dev_dependencies:

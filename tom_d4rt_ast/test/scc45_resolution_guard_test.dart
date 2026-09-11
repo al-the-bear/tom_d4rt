@@ -53,6 +53,17 @@
 //            this machine's pub cache — SCC45
 // F-SCC45-3  every entry in F-SCC45-2's exception list is still load-bearing,
 //            so the list cannot outlive its reasons
+// F-SCC45-4  no example, sample or demo-app pubspec DECLARES a hosted
+//            interpreter floor below a version already in the pub cache
+//
+// F-SCC45-4 is about the pubspec, not the lock. An example's floor is not a
+// requirement anyone measured; it is what a new project copies, so it should
+// claim the release the example is actually run against — the current one.
+// Libraries are excluded on purpose: their floors ARE requirement claims, and
+// raising one without a reason is its own defect. The copy surfaces once went
+// nineteen minors stale (`>=1.11.0` against 1.30.0) because nothing connected
+// a publish to them; this is that connection, through the same pub-cache
+// discriminator as F-SCC45-2.
 //
 // Both walk EVERY package under the repo root, not just the top-level ones.
 // DGUC10 recorded the reason: the eight fixture packages under
@@ -286,6 +297,92 @@ String? _newestCached(String name) {
   return stable.last;
 }
 
+/// The interpreter packages whose floors F-SCC45-4 holds to the current
+/// release. Tool dependencies such as `tom_d4rt_generator` are left out: an
+/// example demonstrates running ON the interpreter, and chasing every tool
+/// release through every example is churn that buys no truth.
+const _interpreterPackages = {'tom_d4rt', 'tom_d4rt_ast', 'tom_d4rt_exec'};
+
+/// Top-level projects that are copy surfaces although no path segment says so:
+/// the standalone demo apps a new user starts from.
+const _demoApps = {'tom_d4rt_flutter_test', 'tom_d4rt_flutter_ast_test'};
+
+/// Whether the package at repo-relative [rel] is an example, a sample or a
+/// demo app — something a user copies — rather than a library.
+bool _isCopySurface(String rel) {
+  final segments = rel.split('/');
+  return segments.contains('example') ||
+      segments.first == 'tom_d4rt_samples' ||
+      _demoApps.contains(rel);
+}
+
+/// Every directory beneath [root] holding a `pubspec.yaml`, resolved or not —
+/// a floor is a claim in the pubspec whether or not anyone ran `pub get`.
+List<Directory> _pubspecsUnder(Directory root) {
+  final found = <Directory>[];
+  void walk(Directory dir, int depth) {
+    if (depth > 5) return;
+    final name = dir.path.split(Platform.pathSeparator).last;
+    if (name.startsWith('.') || name == 'build' || name == 'node_modules') {
+      return;
+    }
+    if (File('${dir.path}/pubspec.yaml').existsSync()) found.add(dir);
+    for (final child in dir.listSync().whereType<Directory>()) {
+      walk(child, depth + 1);
+    }
+  }
+
+  walk(root, 0);
+  return found;
+}
+
+/// Interpreter dependencies [package] declares with a version constraint, as
+/// name -> constraint text. Path, git and sdk dependencies carry no constraint
+/// and are skipped; F-SCC45-1 owns path resolutions.
+///
+/// Hand-rolled for the same reason as [_lockedTomPackages]. A dependency with
+/// an inline constraint sits at two spaces under `dependencies:` or
+/// `dev_dependencies:`, which the scan tracks by the last top-level key.
+Map<String, String> _declaredInterpreterConstraints(Directory package) {
+  final lines = File('${package.path}/pubspec.yaml').readAsLinesSync();
+  final sectionPattern = RegExp(r'^([A-Za-z_]+):');
+  final depPattern = RegExp(r'''^  ([A-Za-z0-9_]+):\s*(.*)$''');
+
+  final declared = <String, String>{};
+  String? section;
+  for (final line in lines) {
+    if (sectionPattern.firstMatch(line) case final m?) {
+      section = m.group(1);
+      continue;
+    }
+    if (section != 'dependencies' && section != 'dev_dependencies') continue;
+    final m = depPattern.firstMatch(line);
+    if (m == null || !_interpreterPackages.contains(m.group(1))) continue;
+    final constraint = m
+        .group(2)!
+        .split('#')
+        .first
+        .trim()
+        .replaceAll('"', '')
+        .replaceAll("'", '');
+    if (constraint.isEmpty) continue; // a `path:` or `git:` block follows
+    declared[m.group(1)!] = constraint;
+  }
+  return declared;
+}
+
+/// The lower bound of a pub version [constraint], or null when it has none
+/// (`any`, `<2.0.0`).
+String? _lowerBound(String constraint) {
+  final c = constraint.trim();
+  final caret = RegExp(r'^\^(\S+)').firstMatch(c);
+  if (caret != null) return caret.group(1);
+  final atLeast = RegExp(r'>=?\s*([0-9][^\s<]*)').firstMatch(c);
+  if (atLeast != null) return atLeast.group(1);
+  if (RegExp(r'^[0-9]+\.[0-9]+\.[0-9]+').hasMatch(c)) return c;
+  return null;
+}
+
 /// [dir] relative to [root], for readable failure messages.
 ///
 /// Always `/`-separated, so the exception list can be keyed on a path segment
@@ -421,6 +518,72 @@ void main() {
             'reader inherits a set of names nobody can justify but nobody '
             'dares remove.\n'
             '${obsolete.join(', ')}',
+      );
+    });
+
+    test('F-SCC45-4: no copy surface declares an interpreter floor below a '
+        'version already in the pub cache [2026-09-11]', () {
+      if (root == null) {
+        markTestSkipped('d4rt repo root not reachable — nothing to check');
+        return;
+      }
+
+      final surfaces = _pubspecsUnder(
+        root,
+      ).where((package) => _isCopySurface(_rel(root, package))).toList();
+      expect(
+        surfaces.map((package) => _rel(root, package)),
+        containsAll(['tom_d4rt_samples/d4rt_advanced_sample', ..._demoApps]),
+        reason: 'the copy-surface discovery found too little to be trusted',
+      );
+
+      // Guards the guard: a parser that silently reads nothing reports every
+      // copy surface clean. The advanced sample is known to declare one.
+      final advanced = surfaces.firstWhere(
+        (package) =>
+            _rel(root, package) == 'tom_d4rt_samples/d4rt_advanced_sample',
+      );
+      expect(
+        _declaredInterpreterConstraints(advanced),
+        contains('tom_d4rt'),
+        reason: 'the pubspec scan read no constraint where one is declared',
+      );
+
+      final offenders = <String>[];
+      for (final package in surfaces) {
+        final constraints = _declaredInterpreterConstraints(package);
+        for (final MapEntry(key: name, value: constraint)
+            in constraints.entries) {
+          final floor = _lowerBound(constraint);
+          final newest = _newestCached(name);
+          if (floor == null) {
+            offenders.add(
+              '${_rel(root, package)} declares $name "$constraint", which has '
+              'no floor at all',
+            );
+          } else if (newest != null && _compareVersions(floor, newest) < 0) {
+            offenders.add(
+              '${_rel(root, package)} declares $name "$constraint" while '
+              '$newest is already in the pub cache',
+            );
+          }
+        }
+      }
+
+      expect(
+        offenders,
+        isEmpty,
+        reason:
+            'An example, sample or demo app is what a new project copies, so '
+            'its interpreter floor should name the release it is run against: '
+            'the current one. These still name an older one, which nobody has '
+            'measured them against.\n'
+            'REMEDY: raise the floor to the newest published version, run '
+            '`dart pub upgrade` (or `flutter pub upgrade`) in the package, and '
+            'run its smoke check. If it no longer works on the current '
+            'interpreter, that is the bug this guard exists to surface — fix '
+            'the example, do not lower the floor.\n'
+            '${offenders.join('\n')}',
       );
     });
   });

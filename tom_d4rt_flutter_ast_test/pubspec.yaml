@@ -21,12 +21,12 @@ dependencies:
   # zero analyzer/dart:io dependency, so the app builds and runs on the web.
   tom_d4rt_flutter_ast:
     path: ../tom_d4rt_flutter_ast
-  # Must not float below the floor tom_d4rt_flutter_ast declares, or the app
-  # would resolve an interpreter its own bridges are not verified against.
-  # 0.20.1 tracks that package's hard floor: below it, `TextStyle` is rejected
-  # unqualified because `dart:ui` and painting both declare it, and this app
-  # renders widget trees that name it.
-  tom_d4rt_ast: ">=0.55.0"
+  # Tracks the current published tom_d4rt_ast, not a specific requirement: a
+  # demo app is what a new project copies, so it names the release it is run
+  # against (the d4rt repo's F-SCC45-4 holds it there). Never lower it below
+  # tom_d4rt_flutter_ast's own floor, or the app would resolve an interpreter
+  # its bridges are not verified against.
+  tom_d4rt_ast: ">=0.60.0"
 
 dev_dependencies:
   flutter_test:
