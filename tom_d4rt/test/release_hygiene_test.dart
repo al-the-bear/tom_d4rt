@@ -121,6 +121,11 @@ String _lastVersionBump(String package, String head) {
 
 /// Commits reachable from [head] that changed [package]'s `lib/` after the
 /// version was last bumped — i.e. library changes not covered by any version.
+///
+/// The versioner stamp, `lib/src/version.versioner.dart`, is left out. It is
+/// derived FROM the version rather than being a change behind it: writing it
+/// completes a bump, and counting it would demand a new version for the act of
+/// recording the current one.
 List<String> _libCommitsAfterLastBump(String package, String head) {
   final anchor = _lastVersionBump(package, head);
   final log = _git([
@@ -129,6 +134,7 @@ List<String> _libCommitsAfterLastBump(String package, String head) {
     '$anchor..$head',
     '--',
     '${_gitPaths[package]}/lib',
+    ':(exclude)${_gitPaths[package]}/lib/src/version.versioner.dart',
   ]);
   return log.isEmpty ? const [] : log.split('\n');
 }

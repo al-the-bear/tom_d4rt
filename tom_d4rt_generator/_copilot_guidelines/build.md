@@ -127,18 +127,28 @@ The example project includes test classes and generated bridges:
 
 ### Pre-Publish Checklist
 
-1. **Update version** in `pubspec.yaml`
+1. **Bump the version and the stamp together**, from this package's
+   directory, with the current BuildKit (`tom_binaries/tom/<platform>/buildkit`):
+
+   ```bash
+   buildkit -p . :bumpversion --minor=. --versioner   # --major=. / no flag = patch
+   ```
+
+   `--versioner` rewrites `lib/src/version.versioner.dart`, which is what
+   `d4rtgen --version` prints. The `--minor=` value is matched against the
+   project path BuildKit prints (`.` here); a value that matches nothing falls
+   back to a PATCH bump without saying so, so check the `(minor)` in its
+   output. After a hand edit of `pubspec.yaml`, run `buildkit -v -p .
+   :versioner` instead — an older BuildKit writes `lib/src/version.g.dart` and
+   leaves the banner behind, so use the current one.
 2. **Update CHANGELOG.md** with changes
-3. **Regenerate the version file** — `buildkit -v -p . :versioner` with the
-   current BuildKit (`tom_binaries/tom/<platform>/buildkit`). It must write
-   `lib/src/version.versioner.dart`; an older BuildKit writes
-   `lib/src/version.g.dart` instead and leaves the banner on the old version.
-4. **Run all tests**: `dart test` — this includes the example freshness and
-   resolution tests
-5. **Run analyzer**: `dart analyze`
-6. **Verify example scripts work**: `dart run example/run_all_examples.dart --run-only`
-7. **Update documentation** if API or configuration changed
-8. **Commit and push**
+3. **Run all tests**: `dart test` — `test/version_stamp_test.dart` fails when
+   the stamp and `pubspec.yaml` disagree, and the example freshness and
+   resolution tests run too
+4. **Run analyzer**: `dart analyze`
+5. **Verify example scripts work**: `dart run example/run_all_examples.dart --run-only`
+6. **Update documentation** if API or configuration changed
+7. **Commit and push**
 
 ### Publishing Steps
 
@@ -165,6 +175,20 @@ dart pub upgrade tom_d4rt_generator     # flutter pub upgrade in the Flutter twi
 
 Raise a consumer's floor only when it needs something the release adds; the
 lock is what has to move.
+
+### After Publishing: Rebuild the Binary
+
+`d4rtgen` on a login PATH is the precompiled binary in `tom_binaries`, not this
+source, so a release does not reach it until it is rebuilt:
+
+```bash
+TOM_BINARY_PATH=<workspace>/tom_binaries/tom buildkit -p . :compiler --all-platforms
+```
+
+That builds darwin-arm64 and the three Linux targets; win32-x64 only builds on
+the Windows host. Set `TOM_BINARY_PATH` explicitly — a shell profile may point
+it at a different clone. Confirm `d4rtgen --version` reports the release, then
+commit only the `d4rtgen` files in `tom_binaries`.
 
 ### Version Numbering
 

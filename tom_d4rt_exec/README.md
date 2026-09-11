@@ -62,7 +62,6 @@ dart pub add tom_d4rt_exec
 - **Configuration introspection** — `getConfiguration()` returns a `D4rtConfiguration` snapshot of all registered bridges, permissions, and globals.
 - **Environment introspection** — `getEnvironmentState()` returns the live global environment after execution.
 - **Debug logging** — `setDebug(true)` enables detailed trace output for all interpreter passes.
-- **Versioned build info** — `TomVersionInfo` carries version, git commit, and build timestamp.
 - **Multi-platform** — declared for Android, iOS, Linux, macOS, Web, and Windows.
 
 ## Quick Start

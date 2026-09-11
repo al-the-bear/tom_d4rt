@@ -1,5 +1,14 @@
 ## 0.63.0
 
+### Removed — `lib/src/version.versioner.dart`, a version stamp nothing could read or refresh
+
+It declared `TomVersionInfo` with a version a long way behind the package's
+own, because it was never regenerated: this package has no `versioner:`
+configuration, so `buildkit :versioner` skips it. Nothing imported it and the
+library does not export it, so no consumer could reach it — it could only
+mislead someone reading the source. A stamp is kept only where a banner prints
+it, and there a test holds it to `pubspec.yaml`.
+
 ### Fixed — the host error boundary now unwraps the carrier, as its own doc already said it did (scc92)
 
 `throwAsHostFacingError` in `tom_d4rt` unwraps
