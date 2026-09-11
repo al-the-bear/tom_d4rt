@@ -17,6 +17,9 @@ dev_dependencies:
   # `bridgeReExports()` source keys as `lib/…` instead of `package:…`, which no
   # script import can ever match (GEN-125). This sample regenerates its bridges,
   # so the floor is load-bearing.
-  tom_d4rt_generator: ">=1.15.3"
+  # Floor 1.17.0: test/bridges_fresh_test.dart calls `checkBridgeFreshness`,
+  # which first ships in 1.17.0. (1.17.0 also carries the GEN-125 fix that set
+  # the previous floor, 1.15.3.)
+  tom_d4rt_generator: ">=1.17.0"
   lints: ^4.0.0
   test: ^1.25.0
