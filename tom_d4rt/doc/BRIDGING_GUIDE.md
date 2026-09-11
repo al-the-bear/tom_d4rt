@@ -13,6 +13,7 @@ This guide provides a comprehensive overview of how to *manually* bridge your na
 - [Bridging Classes](#bridging-classes)
   - [Core Concepts: `BridgedClass`](#core-concepts-bridgedclass)
   - [Registering Bridged Classes](#registering-bridged-classes)
+  - [Same-Named Classes from Two Libraries](#same-named-classes-from-two-libraries)
   - [Bridging Constructors](#bridging-constructors)
     - [Default Constructor](#default-constructor)
     - [Named Constructors](#named-constructors)
@@ -233,6 +234,39 @@ main() {
   return myCounter.value;
 }
 ```
+
+### Same-Named Classes from Two Libraries
+
+Two packages can each bridge a class with the same simple name — say
+`MarkdownParser` in `tom_doc_scanner` and in `tom_md2latex`. Register each
+with its declaring `sourceUri`; that URI is what lets the interpreter tell the
+two apart:
+
+```dart
+interpreter.registerBridgedClass(scannerParser,
+    'package:tom_doc_scanner/tom_doc_scanner.dart',
+    sourceUri: 'package:tom_doc_scanner/src/markdown_parser.dart');
+interpreter.registerBridgedClass(latexParser,
+    'package:tom_md2latex/tom_md2latex.dart',
+    sourceUri: 'package:tom_md2latex/src/markdown_parser.dart');
+```
+
+The bare name then follows Dart's import rules, judged over what the
+**script** imports:
+
+- A script that imports one of the two libraries gets that library's class.
+- A script that imports both cannot use the bare name: it fails with an
+  `AmbiguousBridgedNameException` naming both candidates. Qualify it with the
+  package name — `tom_doc_scanner.MarkdownParser` — which works whether or not
+  the script declared an import prefix.
+- A `dart:*` declaration loses to a `package:` one without any ambiguity, as in
+  Dart: `TextStyle` under both `dart:ui` and `package:flutter/painting.dart`
+  means painting's. The platform class stays reachable as `ui.TextStyle`.
+- Without a `sourceUri` the two cannot be told apart, and the last registration
+  wins.
+
+Only classes follow these rules so far. A same-named bridged enum, top-level
+function or variable from two packages is still resolved by registration order.
 
 ### Bridging Constructors
 
