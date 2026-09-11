@@ -31,6 +31,7 @@ import 'bridge_generator.dart'
         MemberInfo,
         ParameterInfo;
 import 'file_generators.dart' show ensureBDartExtension;
+import 'generated_stamp.dart';
 import 'generic_constructor_generator.dart' show generateGenericConstructor;
 import 'generic_interceptor_generator.dart' show generateGenericInterceptor;
 
@@ -739,6 +740,7 @@ const _sdkGenericTypesWithoutRelaxers = {
 // =============================================================================
 
 void _writeFileHeader(StringBuffer buffer, BridgeConfig config) {
+  buffer.writeln(generatedStampLine());
   buffer.writeln('/// D4rt GEN-079 Relaxer Wrappers for ${config.name}');
   buffer.writeln('///');
   buffer.writeln(

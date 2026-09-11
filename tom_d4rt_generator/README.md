@@ -580,7 +580,7 @@ if (result.isSuccess) {
 
 `checkBridgeFreshness` regenerates a package's bridges from its own
 `buildkit.yaml` and compares them with the committed `*.b.dart` files, ignoring
-the `// Generated:` timestamp. It never writes to the package: generated files
+the `// Generated:` line. It never writes to the package: generated files
 go to a scratch tree under the package's `.dart_tool/`, which is removed
 afterwards. Use it in a package's own test suite, so that a generator upgrade
 or a source change that was not followed by a regeneration fails a test
@@ -598,6 +598,24 @@ Each stale entry names the package-relative file and whether it `differs` or
 is generated but `notCommitted`. A report with errors has not measured
 anything — assert on `errors` first. Generation takes as long as a `d4rtgen`
 run, so give the test a generous timeout in a large package.
+
+### Which generator wrote a file
+
+Every file the generator writes — module bridges, relaxers, proxies, the
+barrel, the dartscript and test-runner files — carries one provenance line in
+its header:
+
+```dart
+// Generated: 2026-09-11T14:30:00.000 by tom_d4rt_generator 1.20.0
+```
+
+So `grep -r "by tom_d4rt_generator" --include='*.b.dart'` answers which
+generator produced a committed tree, and `parseGeneratedStamp(content)` reads
+the line back (`generatorVersion` is null for files written before 1.20.0,
+which recorded only the time). The version sits on the `// Generated:` line on
+purpose: every comparison of generated output ignores that line, so a
+generator release that produces the same code does not make a package's
+bridges read as stale.
 
 For `example/` projects — which `buildkit_skip.yaml` hides from workspace
 scans — `package:tom_d4rt_generator/testing.dart` provides

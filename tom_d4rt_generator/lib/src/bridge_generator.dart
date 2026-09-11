@@ -27,6 +27,7 @@ import 'element_mode_extractor.dart';
 import 'file_writer.dart';
 import 'sdk_utils.dart' show getSdkPath;
 import 'user_bridge_scanner.dart';
+import 'generated_stamp.dart';
 
 // =============================================================================
 // OPERATOR DETECTION
@@ -6145,7 +6146,7 @@ class BridgeGenerator {
     } else {
       buffer.writeln('// Sources: ${allSourceFiles.length} files');
     }
-    buffer.writeln('// Generated: ${DateTime.now().toIso8601String()}');
+    buffer.writeln(generatedStampLine());
     buffer.writeln();
 
     // Suppress common linter warnings in generated code

@@ -10,6 +10,7 @@ import 'package:path/path.dart' as p;
 
 import 'bridge_config.dart';
 import 'bridge_generator.dart'; // for toPascalCase
+import 'generated_stamp.dart';
 
 /// Ensures a file path ends with the `.b.dart` extension.
 ///
@@ -71,6 +72,7 @@ String _moduleImportPath(
 /// Returns the file content as a string.
 String generateBarrelFileContent(BridgeConfig config) {
   final buffer = StringBuffer();
+  buffer.writeln(generatedStampLine());
   buffer.writeln('/// D4rt Bridges for ${config.name}');
   buffer.writeln('library;');
   buffer.writeln();
@@ -117,7 +119,7 @@ String generateDartscriptFileContent(
   // Header
   buffer.writeln('// D4rt Bridge - Generated file, do not edit');
   buffer.writeln('// Dartscript registration for ${config.name}');
-  buffer.writeln('// Generated: ${DateTime.now().toIso8601String()}');
+  buffer.writeln(generatedStampLine());
   buffer.writeln();
   buffer.writeln('/// D4rt Bridge Registration for ${config.name}');
   buffer.writeln('library;');
@@ -307,7 +309,7 @@ String generateTestRunnerContent(
   // Header
   buffer.writeln('// D4rt Bridge - Generated file, do not edit');
   buffer.writeln('// Test runner for ${config.name}');
-  buffer.writeln('// Generated: ${DateTime.now().toIso8601String()}');
+  buffer.writeln(generatedStampLine());
   buffer.writeln();
   // Suppress linter warnings common in generated test runners
   buffer.writeln('// ignore_for_file: avoid_print');

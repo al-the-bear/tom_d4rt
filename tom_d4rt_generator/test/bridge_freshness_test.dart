@@ -14,6 +14,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/src/scratch_overlay.dart';
+import 'package:tom_d4rt_generator/src/version.versioner.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 
 Directory _fixtureRoot(String tag) => Directory(
@@ -292,6 +293,37 @@ void main() {
         result.stale.map((s) => s.path),
         contains('lib/src/d4rt_bridges/zom_fresh_bridges.b.dart'),
       );
+    });
+
+    test('G-FRESH-08: every file the generator writes names the generator '
+        'that wrote it [2026-09-11] (PASS)', () {
+      final written = package
+          .listSync(recursive: true)
+          .whereType<File>()
+          .where((f) => f.path.endsWith('.b.dart'))
+          .where(
+            (f) => !p
+                .split(p.relative(f.path, from: package.path))
+                .contains('.dart_tool'),
+          )
+          .toList();
+      // The module bridge, its relaxers, the barrel and the test runner —
+      // each written by a different emitter.
+      expect(written.map((f) => p.basename(f.path)).toSet(), {
+        'zom_fresh_bridges.b.dart',
+        'relaxers.b.dart',
+        'd4rt_bridges.b.dart',
+        'd4rtrun.b.dart',
+      });
+      for (final file in written) {
+        final stamp = parseGeneratedStamp(file.readAsStringSync());
+        expect(stamp, isNotNull, reason: '${file.path} has no provenance line');
+        expect(
+          stamp!.generatorVersion,
+          D4rtGenVersionInfo.version,
+          reason: '${file.path} does not name this generator',
+        );
+      }
     });
   });
 

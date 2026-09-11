@@ -121,7 +121,17 @@ test('committed bridges match the generator', () async {
 });
 ```
 
-The check regenerates into a scratch tree under `.dart_tool/` and compares, ignoring the `// Generated:` timestamp; the package itself is not modified. When it fails, run `d4rtgen` in the package and commit the result.
+The check regenerates into a scratch tree under `.dart_tool/` and compares, ignoring the `// Generated:` line; the package itself is not modified. When it fails, run `d4rtgen` in the package and commit the result.
+
+### 6. Knowing Which Generator Wrote the Bridges
+
+Each generated file's header names the generator that wrote it:
+
+```dart
+// Generated: 2026-09-11T14:30:00.000 by tom_d4rt_generator 1.20.0
+```
+
+Before regenerating several packages together, check that they will all use the same generator. The version on a committed file says which generator *wrote* it; the package's resolved dependency says which one a regeneration *would* use. Files written before 1.20.0 carry only the time.
 
 ## Troubleshooting
 

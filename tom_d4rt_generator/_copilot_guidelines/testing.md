@@ -559,6 +559,13 @@ result with the committed files, ignoring the `// Generated:` line. Consumers
 assert it in one test (see the README, "Checking that committed bridges are
 current").
 
+That line carries the generator version as well as the time
+(`lib/src/generated_stamp.dart`), which is why the version costs no freshness:
+every comparison of generated output — this gate, the example ratchet, the
+flutter corpus — drops the whole line. Any new emitter must write
+`generatedStampLine()` in its header; G-FRESH-08 checks the four files the
+fixture produces and PROXY-A2-10 checks the proxy file.
+
 It runs the unmodified `generateBridges` inside the scratch overlay in
 `lib/src/scratch_overlay.dart`, which sends writes to package `*.b.dart` files
 into `.dart_tool/tom_d4rt_generator/freshness/<run>/` and lets reads see those

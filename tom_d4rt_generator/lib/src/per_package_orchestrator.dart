@@ -19,6 +19,7 @@ import 'bridge_config.dart';
 import 'bridge_generator.dart';
 import 'file_generators.dart' show ensureBDartExtension, toImportUri;
 import 'file_writer.dart';
+import 'generated_stamp.dart';
 import 'sdk_utils.dart' show getSdkPath;
 import 'user_bridge_scanner.dart';
 
@@ -626,7 +627,7 @@ class PerPackageBridgeOrchestrator {
 
     buffer.writeln('// D4rt Bridge - Generated file, do not edit');
     buffer.writeln('// Delegating barrel for ${mapping.moduleName}');
-    buffer.writeln('// Generated: ${DateTime.now().toIso8601String()}');
+    buffer.writeln(generatedStampLine());
     buffer.writeln();
     buffer.writeln(
       '// ignore_for_file: unused_import, deprecated_member_use, sort_child_properties_last, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member',

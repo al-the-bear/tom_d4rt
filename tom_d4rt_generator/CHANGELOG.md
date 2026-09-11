@@ -1,3 +1,36 @@
+## 1.20.0
+
+### Added — every generated file names the generator that wrote it
+
+The `// Generated:` line in each file's header now carries the generator
+version as well as the time:
+
+```dart
+// Generated: 2026-09-11T14:30:00.000 by tom_d4rt_generator 1.20.0
+```
+
+"Which generator produced these committed bridges?" could be answered only by
+reading each consumer's `.dart_tool/package_config.json`, and that says which
+generator a regeneration *would* use today, not which one wrote the files. A
+sweep once produced a baseline from three different generators without
+anything showing it. The version in the file makes the committed tree answer
+the question on its own.
+
+Relaxer, proxy and barrel files had no `// Generated:` line at all; they now
+carry one, as do module bridges, the dartscript file and the test runner.
+
+The version goes on the existing line on purpose. Every comparison of generated
+output — `checkBridgeFreshness`, the example ratchet, the flutter corpus —
+ignores lines starting with `// Generated:`, so a release that produces the
+same code does not make every consumer's bridges read as stale. Regenerating
+with this release changes only that line in files that were otherwise current,
+and adds it to relaxer, proxy and barrel files.
+
+New public API (`package:tom_d4rt_generator/tom_d4rt_generator.dart`):
+`generatedStampLine()`, `parseGeneratedStamp(content)` returning a
+`GeneratedStamp` (`generatedAt`, `generatorVersion` — null for files written
+before this release), and `generatedStampPrefix`.
+
 ## 1.19.0
 
 ### Changed — `resolveIfUnresolved` asks pub whether a project resolves

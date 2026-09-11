@@ -28,6 +28,7 @@ library;
 export 'src/bridge_api.dart';
 export 'src/bridge_config.dart';
 export 'src/bridge_freshness.dart';
+export 'src/generated_stamp.dart';
 export 'src/bridge_generator.dart';
 export 'src/corpus_type_scanner.dart';
 export 'src/file_generators.dart';

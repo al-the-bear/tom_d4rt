@@ -64,6 +64,13 @@ void main() {
       generatedCode = await File(result.outputFile!).readAsString();
     });
 
+    test('PROXY-A2-10: the proxy file names the generator that wrote it. '
+        '[2026-09-11] (PASS)', () {
+      final stamp = parseGeneratedStamp(generatedCode);
+      expect(stamp, isNotNull);
+      expect(stamp!.generatorVersion, isNotNull);
+    });
+
     test('PROXY-A2-01: emits a proxy class extending the abstract base. '
         '[2026-06-07] (PASS)', () {
       // The generic type parameter from `Comparable<T>` is carried through.

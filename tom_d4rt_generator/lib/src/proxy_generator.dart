@@ -28,6 +28,7 @@ import 'package:path/path.dart' as p;
 import 'analysis_paths.dart' show analysisIncludedPath;
 import 'bridge_config.dart';
 import 'file_generators.dart' show ensureBDartExtension;
+import 'generated_stamp.dart';
 import 'sdk_utils.dart' show getSdkPath;
 import 'type_rendering.dart' show renderDartType, renderDartTypeExpanded;
 
@@ -288,6 +289,7 @@ Future<ProxyGenerationResult> generateProxies({
 
   // Generate the proxy file content
   final buffer = StringBuffer();
+  buffer.writeln(generatedStampLine());
   buffer.writeln('/// D4rt Proxy Classes for ${config.name}');
   buffer.writeln('///');
   buffer.writeln(
