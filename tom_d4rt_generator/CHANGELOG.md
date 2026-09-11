@@ -1,3 +1,32 @@
+## 1.21.0
+
+### Fixed — `d4rtgen --dry-run` / `-n` writes nothing (scd5_ahcm)
+
+The flag was accepted — tom_build_base parses `-n` for every tool — and then
+ignored: `d4rtgen -n` regenerated every `*.b.dart` in place, exactly like a
+normal run. A flag whose whole contract is "change nothing" silently changed
+everything, and the operator reaching for it to inspect a package whose
+bridges must not move was the one it hurt.
+
+A dry run now runs the full generation with its writes redirected into a
+scratch directory under the project's `.dart_tool/` (the overlay behind
+`checkBridgeFreshness`), then prints every file a real run would write and how
+it relates to the project's copy — `would create`, `would change`, or
+`unchanged` apart from the `// Generated:` line — and deletes the scratch
+tree. Because the redirection happens at the `dart:io` level, all six writers
+(module bridges, relaxers, proxies, barrel, dartscript, test runner) are
+covered without any of them checking a flag. The tool now advertises
+`--dry-run` in its help.
+
+### Added — `previewGeneration`
+
+The shared mechanism, exported from `package:tom_d4rt_generator/tom_d4rt_generator.dart`
+(`lib/src/generation_preview.dart`): run a generation callback against a
+package inside the scratch overlay and get back its result plus every file it
+wrote, as `PreviewedWrite(path, PreviewedChange)`. `checkBridgeFreshness` is
+now built on it, so the gate and the dry run classify a change identically.
+`normaliseGeneratedContent` moved to the same file and is still exported.
+
 ## 1.20.0
 
 ### Added — every generated file names the generator that wrote it

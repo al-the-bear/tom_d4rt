@@ -42,8 +42,36 @@ dart run tom_d4rt_generator:d4rtgen
 | `--config=<file>` | `-c` | Path to specific `d4rt_bridging.json` file |
 | `--verbose` | `-v` | Show detailed output during generation |
 | `--list` | `-l` | List projects that would be processed (no action) |
+| `--dry-run` | `-n` | Report the files a run would write and how each differs from the project's copy; write nothing |
 | `--show` | | With `--list`, show buildkit.yaml d4rtgen configuration for each project |
 | `--help` | `-h` | Show usage help |
+
+### Dry Run (`-n, --dry-run`)
+
+`d4rtgen -n` runs the full generation but writes nothing to the project. It
+reports every file a real run would write, and how each relates to the copy
+the project has:
+
+```text
+[DRY RUN] tom_ai/d4rt/tom_d4rt_generator/example/user_guide: a run would write 5 file(s); nothing was written.
+  unchanged     bin/d4rtrun.b.dart
+  unchanged     lib/d4rt_bridges.b.dart
+  would change  lib/dartscript.b.dart
+  would create  lib/src/d4rt_bridges/relaxers.b.dart
+  would change  lib/src/d4rt_bridges/user_guide_bridges.b.dart
+```
+
+`unchanged` ignores the `// Generated:` header line, which differs on every
+run. Use it before regenerating a package whose bridges should not move, or to
+see what a generator upgrade would do to a consumer.
+
+The generation runs for real, with its writes sent to a scratch directory under
+the project's `.dart_tool/` that is deleted afterwards. So a dry run takes as
+long as a normal one, reports any error a normal run would hit, and still
+warms the analyzer summary cache, which lives outside the project. Progress
+lines printed by the generator along the way may name the file paths it is
+writing; the final `[DRY RUN]` report is the authority — nothing reached the
+project.
 
 ### Workspace Navigation Options
 

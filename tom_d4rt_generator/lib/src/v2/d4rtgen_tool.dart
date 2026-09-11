@@ -39,7 +39,9 @@ final d4rtgenTool = ToolDefinition(
     gitTraversal: false,
     recursiveScan: true,
     interactiveMode: false,
-    dryRun: false,
+    // Honoured by the executor: generation runs into a scratch tree and the
+    // run reports what it would write (see `_dryRun`).
+    dryRun: true,
     jsonOutput: false,
     verbose: true,
   ),

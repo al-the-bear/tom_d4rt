@@ -566,11 +566,21 @@ flutter corpus — drops the whole line. Any new emitter must write
 `generatedStampLine()` in its header; G-FRESH-08 checks the four files the
 fixture produces and PROXY-A2-10 checks the proxy file.
 
-It runs the unmodified `generateBridges` inside the scratch overlay in
-`lib/src/scratch_overlay.dart`, which sends writes to package `*.b.dart` files
-into `.dart_tool/tom_d4rt_generator/freshness/<run>/` and lets reads see those
-copies only where the run wrote one. Two constraints shaped that design and
-must survive any change to it:
+It runs the unmodified `generateBridges` through `previewGeneration`
+(`lib/src/generation_preview.dart`), which wraps the scratch overlay in
+`lib/src/scratch_overlay.dart`: writes to package `*.b.dart` files go into
+`.dart_tool/tom_d4rt_generator/<purpose>/<run>/`, reads see those copies only
+where the run wrote one, and the result is every file written, classed as
+`created` / `changed` / `unchanged` against the package. `d4rtgen --dry-run`
+is the other caller — it runs the CLI's own generation path the same way and
+prints that list (D4G-DRY-1..3 in `test/v2/d4rtgen_dry_run_test.dart`) — so a
+dry run and the freshness gate classify a change the same way. They do not yet
+generate the same way: the gate drives `bridge_api.dart`'s `generateBridges`,
+the CLI drives the v2 executor's own orchestration, and the two can drift
+(sce28).
+A dry run must never grow its own "is this a dry run?" checks at write sites:
+the overlay is what makes every current and future writer safe. Two
+constraints shaped that design and must survive any change to it:
 
 - **Do not re-root the configured output paths.** The generator derives content
   from them — the test runner chooses between a `package:` and a relative import

@@ -56,6 +56,10 @@ class D4rtgenExecutor extends CommandExecutor {
       return ItemResult.success(path: context.path, name: context.name);
     }
 
+    // `--dry-run` / `-n`: run the generation for real, into a scratch tree,
+    // and report what it wrote. See [_dryRun].
+    if (args.dryRun) return _dryRun(context, args);
+
     try {
       await _processProjectDirect(context.path, verbose: args.verbose);
       return ItemResult.success(path: context.path, name: context.name);
@@ -68,6 +72,47 @@ class D4rtgenExecutor extends CommandExecutor {
         error: '$e',
       );
     }
+  }
+}
+
+/// `d4rtgen --dry-run`: every file a run would write, and how it differs from
+/// what the project has — with nothing written.
+///
+/// SCD5 (scd5_ahcm): tom_build_base parses `-n` for every tool, and this
+/// executor used to ignore it, so a dry run regenerated every `*.b.dart` in
+/// place. Checking the flag at each of the generator's six write sites would
+/// leave the next write site to be forgotten. Instead the ordinary generation
+/// runs unchanged inside the scratch overlay ([previewGeneration]), which
+/// catches every write wherever it is made, and the report is read off what
+/// the overlay caught.
+Future<ItemResult> _dryRun(CommandContext context, CliArgs args) async {
+  final workspaceRoot = findWorkspaceRoot(context.executionRoot);
+  final relativePath = p.relative(context.path, from: workspaceRoot);
+  try {
+    final preview = await previewGeneration(
+      packageRoot: context.path,
+      purpose: 'dry_run',
+      generate: () => _processProjectDirect(context.path, verbose: args.verbose),
+    );
+    final width = PreviewedChange.values
+        .map((change) => change.label.length)
+        .reduce((a, b) => a > b ? a : b);
+    print(
+      '[DRY RUN] $relativePath: a run would write '
+      '${preview.writes.length} file(s); nothing was written.',
+    );
+    for (final write in preview.writes) {
+      print('  ${write.change.label.padRight(width)}  ${write.path}');
+    }
+    return ItemResult.success(path: context.path, name: context.name);
+  } catch (e, st) {
+    stderr.writeln('Error processing ${context.path} (dry run): $e');
+    if (args.verbose) stderr.writeln(st);
+    return ItemResult.failure(
+      path: context.path,
+      name: context.name,
+      error: '$e',
+    );
   }
 }
 

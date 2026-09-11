@@ -118,6 +118,9 @@ dart run tom_d4rt_generator:d4rtgen --scan=. --recursive
 # List discovered projects without generating
 dart run tom_d4rt_generator:d4rtgen --scan=. --list
 
+# Show what a regeneration would write, and write nothing
+dart run tom_d4rt_generator:d4rtgen --project=. --dry-run
+
 # Verbose output showing per-class progress
 dart run tom_d4rt_generator:d4rtgen --project=. --verbose
 ```

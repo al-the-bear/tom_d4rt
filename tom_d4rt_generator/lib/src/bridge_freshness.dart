@@ -32,7 +32,7 @@ import 'package:path/path.dart' as p;
 
 import 'bridge_api.dart';
 import 'build_config_loader.dart';
-import 'scratch_overlay.dart';
+import 'generation_preview.dart';
 
 /// One generated file whose committed copy does not match a fresh generation.
 class StaleBridge {
@@ -85,13 +85,6 @@ class BridgeFreshness {
   bool get isFresh => errors.isEmpty && stale.isEmpty;
 }
 
-/// Drop the `// Generated:` timestamp line, the one line that legitimately
-/// differs between two generations of identical input.
-String normaliseGeneratedContent(String content) => content
-    .split('\n')
-    .where((line) => !line.trimLeft().startsWith('// Generated:'))
-    .join('\n');
-
 /// Regenerate [projectPath]'s bridges into a scratch tree and compare them with
 /// what the package has committed.
 ///
@@ -123,64 +116,49 @@ Future<BridgeFreshness> checkBridgeFreshness(String projectPath) async {
     );
   }
 
-  final scratch = Directory(
-    p.join(
-      packageRoot,
-      '.dart_tool',
-      'tom_d4rt_generator',
-      'freshness',
-      '${pid}_${DateTime.now().microsecondsSinceEpoch}',
-    ),
-  )..createSync(recursive: true);
+  final preview = await previewGeneration(
+    packageRoot: packageRoot,
+    purpose: 'freshness',
+    generate: () => generateBridges(config: config, projectPath: packageRoot),
+  );
+  final writes = {for (final w in preview.writes) w.path: w.change};
 
-  try {
-    final result = await runWithScratchOverlay(
-      packageRoot: packageRoot,
-      scratchRoot: scratch.path,
-      body: () => generateBridges(config: config, projectPath: packageRoot),
+  final checked = <String>[];
+  final stale = <StaleBridge>[];
+  for (final reportedPath in preview.result.outputFiles) {
+    final relative = p.relative(
+      p.normalize(p.absolute(reportedPath)),
+      from: packageRoot,
     );
-
-    final checked = <String>[];
-    final stale = <StaleBridge>[];
-    for (final reportedPath in result.outputFiles) {
-      final relative = p.relative(
-        p.normalize(p.absolute(reportedPath)),
-        from: packageRoot,
+    checked.add(relative);
+    // The generator reports destinations in the package; the overlay sent the
+    // writes to the scratch tree. A reported file the preview did not see was
+    // written some other way — possibly in place — so nothing can be
+    // concluded, and the package itself should be inspected.
+    final change = writes[relative];
+    if (change == null) {
+      return BridgeFreshness(
+        checked: checked,
+        stale: stale,
+        errors: [
+          'The generator reported $relative, but it is not in the scratch '
+              'tree. The write was not redirected, so the package itself may '
+              'have been modified — inspect it before trusting any result.',
+        ],
       );
-      checked.add(relative);
-      final generated = File(p.join(scratch.path, relative));
-      // The generator reports destinations in the package; the zone sent the
-      // writes to the scratch tree. A reported file that is not there was
-      // written some other way — possibly in place — so nothing can be
-      // concluded, and the package itself should be inspected.
-      if (!generated.existsSync()) {
-        return BridgeFreshness(
-          checked: checked,
-          stale: stale,
-          errors: [
-            'The generator reported $relative, but it is not in the scratch '
-                'tree. The write was not redirected, so the package itself may '
-                'have been modified — inspect it before trusting any result.',
-          ],
-        );
-      }
-      final committed = File(p.join(packageRoot, relative));
-      if (!committed.existsSync()) {
-        stale.add(StaleBridge(relative, StaleReason.notCommitted));
-        continue;
-      }
-      final fresh = normaliseGeneratedContent(generated.readAsStringSync());
-      final existing = normaliseGeneratedContent(committed.readAsStringSync());
-      if (fresh != existing) {
-        stale.add(StaleBridge(relative, StaleReason.differs));
-      }
     }
-    return BridgeFreshness(
-      checked: checked,
-      stale: stale,
-      errors: result.errors,
-    );
-  } finally {
-    if (scratch.existsSync()) scratch.deleteSync(recursive: true);
+    switch (change) {
+      case PreviewedChange.created:
+        stale.add(StaleBridge(relative, StaleReason.notCommitted));
+      case PreviewedChange.changed:
+        stale.add(StaleBridge(relative, StaleReason.differs));
+      case PreviewedChange.unchanged:
+        break;
+    }
   }
+  return BridgeFreshness(
+    checked: checked,
+    stale: stale,
+    errors: preview.result.errors,
+  );
 }
