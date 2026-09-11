@@ -15,7 +15,7 @@ dependencies:
   # example is what a new project copies, so it names the release it is run
   # against. F-SCC45-4 (tom_d4rt_ast/test/scc45_resolution_guard_test.dart)
   # fails when a newer release is in the pub cache.
-  tom_d4rt: ">=1.76.0"
+  tom_d4rt: ">=1.77.0"
   tom_d4rt_dcli: ">=1.1.6"
   # Referenced directly by the example scripts (import 'package:dcli/dcli.dart').
   dcli: ^8.4.2
