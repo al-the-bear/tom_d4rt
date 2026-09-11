@@ -1,3 +1,36 @@
+## 1.22.0
+
+### Fixed — `extensionSourceUris()` identifies an extension instead of just naming it (scd8_ahcm)
+
+The emitted map was keyed by the extension NAME alone, and `registerBridges()`
+looked the source URI back up by that same name. Two genuinely distinct
+extensions sharing a name — different on-types, different libraries — therefore
+collapsed to one entry: Dart keeps the last, so one extension was registered
+against the other's source URI, and the map literal itself carried an
+`equal_keys_in_map` warning. This is independent of GEN-120, which removed a
+duplicate of a *single* extension; this was two extensions sharing one key, and
+the only surviving route to that warning in a generated bridge.
+
+The key is now `<name>@<onType>` (`<unnamed>@<onType>` as before for unnamed
+extensions), spelled identically in the map and in the `registerBridges()`
+lookup — the two halves of that wire format move together. `BridgeGenerator.extensionSourceUriKey`
+is the single place it is built.
+
+**This changes generated output**, so every committed `*.b.dart` whose
+`extensionSourceUris()` has entries is stale until regenerated — 17 files in
+this workspace, including both Flutter twins. Regenerate with the fleet sweep;
+an un-regenerated file keeps working, because both halves of its own key live
+in it.
+
+### Added — a generation-time warning for extensions that still cannot be told apart
+
+Two extensions sharing a name AND an on-type are indistinguishable at the
+lookup site, which reads a `BridgedExtensionDefinition` and has nothing else to
+key on. The generator now emits one entry (a duplicate key would fail the
+GEN-121 analyze gate and decide the winner by source order anyway) and reports
+the loser as a warning naming both libraries, so the collision surfaces where
+it can still be acted on.
+
 ## 1.21.1
 
 ### Fixed — bridges with a `List<FunctionTypedef>` parameter compile (scd7_ahcm)

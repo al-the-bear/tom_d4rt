@@ -1142,6 +1142,16 @@ class BridgeGenerator {
   /// Tracks types that are used but not exported from the barrel file.
   final List<String> _missingExportWarnings = [];
 
+  /// scd8: extensions that share an `extensionSourceUris()` key with another.
+  ///
+  /// The key is built from what the lookup site has — the name and the
+  /// on-type — so two extensions sharing both cannot be told apart there by
+  /// any key. Emitting both would be a duplicate map key (`equal_keys_in_map`,
+  /// fatal to the GEN-121 gate) and would silently give one of them the
+  /// other's URI anyway, so one entry is emitted and the loser is reported
+  /// here instead.
+  final List<String> _extensionKeyCollisionWarnings = [];
+
   /// Skip reports for elements that were not bridged.
   /// Each entry clearly explains what was skipped and why.
   final List<String> _skipReports = [];
@@ -2839,6 +2849,7 @@ class BridgeGenerator {
     };
     // Clear previous warnings since we're starting a new generation
     _missingExportWarnings.clear();
+    _extensionKeyCollisionWarnings.clear();
     final hasEnums = globals.enums.isNotEmpty;
     final hasGlobalFunctions = globals.functions.isNotEmpty;
     final hasGlobalVariables = globals.variables.isNotEmpty;
@@ -3349,6 +3360,7 @@ class BridgeGenerator {
       warnings: warnings
         ..addAll(_nonWrappableDefaultWarnings)
         ..addAll(_missingExportWarnings)
+        ..addAll(_extensionKeyCollisionWarnings)
         ..addAll(_skipReports),
       // GEN-076: Report which classes were generated for cross-module dedup
       generatedClassSources: {
@@ -3534,6 +3546,7 @@ class BridgeGenerator {
     };
     // Clear previous warnings since we're starting a new generation
     _missingExportWarnings.clear();
+    _extensionKeyCollisionWarnings.clear();
     final hasEnums = globals.enums.isNotEmpty;
     final hasGlobalFunctions = globals.functions.isNotEmpty;
     final hasGlobalVariables = globals.variables.isNotEmpty;
@@ -3862,6 +3875,7 @@ class BridgeGenerator {
       warnings: warnings
         ..addAll(_nonWrappableDefaultWarnings)
         ..addAll(_missingExportWarnings)
+        ..addAll(_extensionKeyCollisionWarnings)
         ..addAll(_skipReports),
     );
   }
@@ -6919,9 +6933,30 @@ class BridgeGenerator {
     );
     buffer.writeln('  static Map<String, String> extensionSourceUris() {');
     buffer.writeln('    return {');
+    final emittedExtensionUris = <String, String>{};
     for (final ext in resolvableExtensions) {
       final sourceUri = _getPackageUri(ext.sourceFile);
-      final key = ext.name ?? '<unnamed>@${ext.onTypeName}';
+      final key = extensionSourceUriKey(
+        name: ext.name,
+        onTypeName: ext.onTypeName,
+      );
+      final alreadyEmitted = emittedExtensionUris[key];
+      if (alreadyEmitted != null) {
+        // Same name on the same type, from two libraries. Nothing at the
+        // lookup site separates them, so say so here rather than emit a
+        // duplicate key that decides it by source order.
+        if (alreadyEmitted != sourceUri) {
+          _extensionKeyCollisionWarnings.add(
+            'Extension "$key" is declared by more than one library '
+            '($alreadyEmitted and $sourceUri). Both are registered, but they '
+            'cannot be told apart when their source URI is looked up, so both '
+            'are registered against $alreadyEmitted. Rename one extension to '
+            'give each its own source URI.',
+          );
+        }
+        continue;
+      }
+      emittedExtensionUris[key] = sourceUri;
       buffer.writeln("      '$key': '$sourceUri',");
     }
     buffer.writeln('    };');
@@ -7074,7 +7109,8 @@ class BridgeGenerator {
       buffer.writeln('    final extSources = extensionSourceUris();');
       buffer.writeln('    for (final extDef in extensions) {');
       buffer.writeln(
-        "      final extKey = extDef.name ?? '<unnamed>@\${extDef.onTypeName}';",
+        "      final extKey = '\${extDef.name ?? '<unnamed>'}"
+        "@\${extDef.onTypeName}';",
       );
       buffer.writeln(
         '      interpreter.registerBridgedExtension(extDef, importPath, sourceUri: extSources[extKey]);',
@@ -14180,6 +14216,20 @@ class BridgeGenerator {
     'RegisterCallback', // ZoneCallback<R> Function(Zone, ZoneDelegate, Zone, R Function())
     'RunHandler', // R Function(Zone, ZoneDelegate, Zone, R Function())
   };
+
+  /// scd8: the key identifying [ext] in `extensionSourceUris()`.
+  ///
+  /// Name alone does not identify an extension — two libraries may each
+  /// declare `extension Helpers`, and the map would keep only the last, so one
+  /// extension registered against the other's source URI. The on-type is added
+  /// because it is the only other thing the lookup site has: it reads a
+  /// `BridgedExtensionDefinition`, whose name and `onTypeName` are exactly
+  /// what `registerBridges()` re-spells to look the URI back up. Both sides of
+  /// that wire format have to agree, so change them together.
+  static String extensionSourceUriKey({
+    required String? name,
+    required String onTypeName,
+  }) => '${name ?? '<unnamed>'}@$onTypeName';
 
   /// Checks if a type name is a known function typedef.
   bool _isFunctionTypeName(String typeName) {

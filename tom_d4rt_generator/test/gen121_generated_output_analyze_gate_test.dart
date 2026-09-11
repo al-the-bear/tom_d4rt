@@ -158,8 +158,9 @@ class GatePackage {
 ///
 /// The sources are chosen so the emitted file exercises the code paths that have
 /// actually shipped defects: cross-file `package:` imports (GEN-119), a
-/// `part of`-declared extension feeding `extensionSourceUris()` (GEN-120), and
-/// the placeholder emitted for a list of function typedefs (scd7_ahcm).
+/// `part of`-declared extension feeding `extensionSourceUris()` (GEN-120), the
+/// placeholder emitted for a list of function typedefs (scd7_ahcm), and two
+/// same-named extensions from different libraries (scd8_ahcm).
 Future<GatePackage> buildGatePackage(String generatorRoot) async {
   final root = Directory.systemTemp.createTempSync('gen121_gate_');
 
@@ -210,6 +211,26 @@ class ZomUser {
 }
 ''');
 
+  // scd8: two libraries each declaring `extension Helpers`. Keyed by name
+  // alone these collapsed to one entry in `extensionSourceUris()` — a
+  // duplicate map key, which this gate treats as fatal — and one extension
+  // registered against the other's URI. Keyed by name and on-type both
+  // survive, and analysing the output is what proves the keys are well formed.
+  File(p.join(libDir.path, 'alpha_ext.dart')).writeAsStringSync('''
+class Alpha {}
+
+extension Helpers on Alpha {
+  String get tag => 'alpha';
+}
+''');
+  File(p.join(libDir.path, 'beta_ext.dart')).writeAsStringSync('''
+class Beta {}
+
+extension Helpers on Beta {
+  String get label => 'beta';
+}
+''');
+
   // A list of function typedefs is the one parameter shape the generator
   // declines to bridge. It emits a throw followed by a placeholder local so the
   // call below it still type-checks — and that placeholder once did not
@@ -241,6 +262,8 @@ class ZomDispatcher {
       p.join(libDir.path, 'model.dart'),
       p.join(libDir.path, 'consumer.dart'),
       p.join(libDir.path, 'handlers.dart'),
+      p.join(libDir.path, 'alpha_ext.dart'),
+      p.join(libDir.path, 'beta_ext.dart'),
     ],
     outputPath: p.join(libDir.path, 'zom_analyzegate_bridges.dart'),
     moduleName: 'gate',
@@ -365,6 +388,16 @@ void main() {
           reason: 'an enum bridge must be emitted',
         );
         expect(
+          pristineSource,
+          contains("'Helpers@Alpha': 'package:zom_analyzegate/alpha_ext.dart'"),
+          reason: 'scd8: same-named extensions must each keep their own URI',
+        );
+        expect(
+          pristineSource,
+          contains("'Helpers@Beta': 'package:zom_analyzegate/beta_ext.dart'"),
+          reason: 'scd8: the second must not be lost to the first',
+        );
+        expect(
           'Unbridgeable function type List<BridgeRegistrar>'
               .allMatches(pristineSource)
               .length,
@@ -418,7 +451,7 @@ void main() {
       'G-GEN121-04: a duplicate map key is reported, proving warnings are '
       'fatal by default [2026-08-03] (PASS)',
       () async {
-        const anchor = "'ZomLevelExtension':";
+        const anchor = "'ZomLevelExtension@ZomLevel':";
         final at = pristineSource.indexOf(anchor);
         expect(
           at,
@@ -427,7 +460,7 @@ void main() {
         );
         final broken =
             '${pristineSource.substring(0, at)}'
-            "'ZomLevelExtension': "
+            "'ZomLevelExtension@ZomLevel': "
             "'package:zom_analyzegate/level_part.dart',\n      "
             '${pristineSource.substring(at)}';
         gate.writeGenerated(broken);

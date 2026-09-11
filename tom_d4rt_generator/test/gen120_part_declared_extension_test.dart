@@ -10,6 +10,9 @@
 //         'DLLogLevelExtension': 'package:tom_dist_ledger/src/ledger_api/ledger_api.dart',
 //         ...
 //
+// (The key is `<name>@<onType>` since scd8_ahcm, which is what these tests
+// assert; name alone could not tell two same-named extensions apart.)
+//
 // `DLLogLevelExtension` is declared in `call_callback.dart`, which is
 // `part of 'ledger_api.dart'`. The barrel walk hands `_parseGlobals` both the
 // part and its parent library as separate source files. Resolving either one
@@ -169,7 +172,7 @@ void main() {
       '[2026-08-03] (PASS)',
       () {
         expect(
-          countOf(generatedCode, "'ZomLevelExtension':"),
+          countOf(generatedCode, "'ZomLevelExtension@ZomLevel':"),
           equals(1),
           reason:
               'A duplicate key in a map literal is what the analyzer reports '
@@ -187,7 +190,8 @@ void main() {
         expect(
           generatedCode,
           contains(
-            "'ZomLevelExtension': 'package:zom_partext/parent_lib.dart'",
+            "'ZomLevelExtension@ZomLevel': "
+            "'package:zom_partext/parent_lib.dart'",
           ),
           reason:
               'A part file is not independently importable, so its URI is '
