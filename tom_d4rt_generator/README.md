@@ -606,6 +606,13 @@ the pieces of a ratchet test: examples on a known-stale list must stay stale
 until regenerated and removed from it, every other example must be fresh. See
 `test/example_bridges_fresh_test.dart` for the complete test.
 
+`resolveIfUnresolved` is also useful on its own: it asks pub whether a project
+still resolves (`dart pub get --offline`, online only if that fails), repairs a
+stale package config, and returns pub's own message when the project cannot
+resolve. `resolutionProblems` reads a package config without running pub, and
+`findDartProjects` lists every project under a root. See
+`test/example_resolution_test.dart`.
+
 ---
 
 ## Ecosystem

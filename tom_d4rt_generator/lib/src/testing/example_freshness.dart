@@ -30,50 +30,18 @@
 /// can land while the backlog is paid down.
 library;
 
-import 'dart:io';
-
-import 'package:path/path.dart' as p;
-
 import '../bridge_freshness.dart';
+import 'project_discovery.dart';
 
 /// Directories under [root] whose `buildkit.yaml` has a `d4rtgen:` section,
 /// relative to [root] and sorted. `.dart_tool` and `build` trees are skipped.
-List<String> findD4rtgenProjects(String root) {
-  final directory = Directory(root);
-  if (!directory.existsSync()) return const [];
-  final projects = <String>[];
-  for (final entity in directory.listSync(recursive: true)) {
-    if (entity is! File || p.basename(entity.path) != 'buildkit.yaml') continue;
-    final segments = p.split(p.relative(entity.path, from: root));
-    if (segments.contains('.dart_tool') || segments.contains('build')) continue;
-    if (!_d4rtgenSection.hasMatch(entity.readAsStringSync())) continue;
-    projects.add(p.relative(entity.parent.path, from: root));
-  }
-  return projects..sort();
-}
+List<String> findD4rtgenProjects(String root) => projectDirectoriesUnder(
+  root,
+  'buildkit.yaml',
+  accept: (file) => _d4rtgenSection.hasMatch(file.readAsStringSync()),
+);
 
 final _d4rtgenSection = RegExp(r'^d4rtgen:', multiLine: true);
-
-/// Runs `dart pub get` in [projectPath] if it has no
-/// `.dart_tool/package_config.json`, and returns the failure, or null.
-///
-/// `checkBridgeFreshness` deliberately refuses an unresolved package, because
-/// resolving writes to it. A test of its own examples may resolve them as a
-/// setup step, as `D4rtTester.prepareBridges` does: what `pub get` writes —
-/// `.dart_tool/` and `pubspec.lock` — is gitignored in this workspace.
-Future<String?> resolveIfUnresolved(String projectPath) async {
-  final packageConfig = File(
-    p.join(projectPath, '.dart_tool', 'package_config.json'),
-  );
-  if (packageConfig.existsSync()) return null;
-  final result = await Process.run('dart', [
-    'pub',
-    'get',
-  ], workingDirectory: projectPath);
-  return result.exitCode == 0
-      ? null
-      : '`dart pub get` failed in $projectPath:\n${result.stderr}';
-}
 
 /// What is wrong with [project]'s [freshness] under the ratchet, or null.
 ///

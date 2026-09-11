@@ -584,6 +584,18 @@ test over their own examples. Regenerate an example with
 `dart run bin/d4rtgen.dart -s example/<name>` and delete its entry in the same
 commit; the test fails until you do.
 
+`test/example_resolution_test.dart` covers every `example/` project with a
+`pubspec.yaml` — the script-only ones too — by asking pub whether it resolves
+(`resolveIfUnresolved` in `lib/src/testing/package_resolution.dart`):
+`dart pub get --offline`, then online only if that fails, then a read of the
+package config for the one damage pub cannot see, a cached directory without
+its `pubspec.yaml`. A stale config is repaired; a project that cannot resolve
+fails with pub's own message. Do not replace the resolve with a cheaper
+"`pubspec.yaml` is newer than the config" test: `dart pub get` rewrites neither
+file when the resolution is unchanged, so that comparison stays "stale"
+forever. `D4rtTester.prepareBridges` runs the same step, so an unresolvable
+example fails there with the cause rather than with a compile error.
+
 `test/bridge_freshness_test.dart` pins both the verdicts and the absence of
 writes, the latter by snapshotting the fixture before and after each check.
 Keep that snapshot relative to the fixture root: the fixture lives under this

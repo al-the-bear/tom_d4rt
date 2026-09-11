@@ -118,10 +118,4 @@ void main() {
       },
     );
   });
-
-  test('G-RATCHET-09: resolveIfUnresolved leaves a resolved package alone '
-      '[2026-09-11] (PASS)', () async {
-    // This package is resolved — the test is running in it.
-    expect(await resolveIfUnresolved(Directory.current.path), isNull);
-  });
 }

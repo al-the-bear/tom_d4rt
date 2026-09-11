@@ -63,6 +63,7 @@ import 'package:path/path.dart' as p;
 import '../bridge_api.dart';
 import '../bridge_config.dart';
 import 'd4rt_test_result.dart';
+import 'package_resolution.dart';
 
 /// Runs D4rt scripts and evaluations with in-memory bridge generation
 /// and subprocess-based test execution.
@@ -144,23 +145,15 @@ class D4rtTester {
   /// });
   /// ```
   Future<bool> prepareBridges(BridgeConfig config) async {
-    // Step 0: Ensure dependencies are resolved (package_config.json must exist
-    // for the generator to resolve package: URIs in barrel files)
-    final packageConfig = File(
-      p.join(projectPath, '.dart_tool', 'package_config.json'),
-    );
-    if (!packageConfig.existsSync()) {
-      final pubGetResult = await Process.run('dart', [
-        'pub',
-        'get',
-      ], workingDirectory: projectPath);
-      if (pubGetResult.exitCode != 0) {
-        _lastGenerationErrors = [
-          'dart pub get failed in $projectPath:',
-          pubGetResult.stderr.toString(),
-        ];
-        return false;
-      }
+    // Step 0: Make sure the project still resolves. Checking only that a
+    // package config exists is not enough: a project that stopped resolving
+    // keeps its last config, and generation then fails on a downstream symptom
+    // — once an analyzer "API break" that was really a config naming a version
+    // the pub cache no longer had. Pub's own message names the cause.
+    final unresolved = await resolveIfUnresolved(projectPath);
+    if (unresolved != null) {
+      _lastGenerationErrors = [unresolved];
+      return false;
     }
 
     // Step 1: Delete existing binary to verify it gets regenerated

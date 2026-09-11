@@ -1,3 +1,42 @@
+## 1.19.0
+
+### Changed — `resolveIfUnresolved` asks pub whether a project resolves
+
+A project that stops resolving keeps its last `.dart_tool/package_config.json`,
+and whatever reads it next fails on a downstream symptom. The recorded case is
+an example project whose config still named analyzer 8.4.1, long gone from the
+pub cache: `DiagnosticSeverity is not defined`, an apparent analyzer API break.
+When this release was prepared, 7 of the 25 example projects across
+`tom_d4rt_generator`, `tom_d4rt_exec` and `tom_ast_generator` named a `lints`
+version the cache no longer held.
+
+`resolveIfUnresolved` used to act only when the package config was missing, so
+it passed exactly those projects. It now runs `dart pub get --offline` — about a
+second, no network, and no writes when the resolution is current — and falls
+back to `dart pub get` only if that fails, so a config that merely went stale is
+repaired and a project that cannot resolve fails with pub's own message. It
+then reads the config once more, because a cached directory that exists without
+its `pubspec.yaml` passes a resolve.
+
+The obvious cheaper test — `pubspec.yaml` newer than the config — was measured
+and rejected: `dart pub get` rewrites neither the config nor `pubspec.lock` when
+the resolution is unchanged, so that comparison reports "stale" forever after
+any edit that does not change the resolution.
+
+`D4rtTester.prepareBridges` runs the same step instead of checking only that a
+config exists, so its generation errors now name the resolution failure.
+
+### Added
+
+- `resolutionProblems(projectPath)` — what is wrong with a project's package
+  config, read from disk without running pub: missing, unreadable, a package
+  root that no longer exists, or one without a `pubspec.yaml`.
+- `findDartProjects(root)` — every directory under `root` with a
+  `pubspec.yaml`, for tests that cover projects without a `d4rtgen:` section.
+
+This package's `test/example_resolution_test.dart` resolves every `example/`
+project with it.
+
 ## 1.18.0
 
 ### Added — building blocks for an `example/` bridge ratchet (`testing.dart`)
