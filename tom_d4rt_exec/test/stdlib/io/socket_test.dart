@@ -123,45 +123,51 @@ main() async {
     );
 
     test(
-      'I-FILE-179: Socket write and flush methods. [2026-02-10 06:37] (PASS)',
+      'I-FILE-179: Socket write and flush methods. [2026-09-11] (PASS)',
       () async {
+        // Only a network failure may skip this test. It used to catch
+        // everything, in the script and around it, and report a skip: that is
+        // how `break` inside `await for` failing in the interpreter (SCD4)
+        // passed here for months as "Skipping HTTP request test".
         const source = '''
+     import 'dart:async';
      import 'dart:io';
      import 'dart:convert';
      main() async {
         try {
           var socket = await Socket.connect('httpbin.org', 80, timeout: Duration(seconds: 5));
-          
+
           // Send HTTP request
           socket.write('GET /get HTTP/1.1\\r\\n');
           socket.write('Host: httpbin.org\\r\\n');
           socket.write('Connection: close\\r\\n');
           socket.write('\\r\\n');
-          
+
           await socket.flush();
-          
+
           // Read a bit of response to verify it worked
           var response = '';
           await for (var data in socket.transform(utf8.decoder).take(1)) {
             response = data;
             break;
           }
-          
+
           await socket.close();
-          
-          return response.contains('HTTP/1.1');
-        } catch (e) {
-          return false;
+
+          return response;
+        } on SocketException {
+          return 'offline';
+        } on TimeoutException {
+          return 'offline';
         }
       }
       ''';
-        try {
-          final result = await execute(source);
-          expect(result, isA<bool>());
-        } catch (e) {
-          // Skip test if networking is not available
-          print('Skipping HTTP request test: $e');
+        final result = await execute(source);
+        if (result == 'offline') {
+          markTestSkipped('httpbin.org is not reachable from this host');
+          return;
         }
+        expect(result, contains('HTTP/1.1'));
       },
     );
 

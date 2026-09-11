@@ -1,3 +1,23 @@
+## 1.20.0
+
+### Changed — resolves `tom_d4rt_ast` 0.64.0: `break` and `continue` reach the statement they name
+
+The interpreter this package runs is `tom_d4rt_ast` from pub.dev, and the
+constraint was `^0.60.0` — which on a 0.x version stops before 0.61.0, so this
+package, and everything that depends on it, stayed on 0.60.x through three
+releases. It is now `^0.64.0`.
+
+0.64.0 fixes `break` and `continue` in `async` code: inside `await for` they
+failed with "outside of a loop", in `while` and `do` likewise, a `break` in a
+`while` nested in a `for` left the `for`, and labels were ignored. Labelled
+`break` / `continue` in synchronous code no longer land on an unlabelled inner
+loop. See the `tom_d4rt_ast` 0.64.0 CHANGELOG.
+
+The reference suite's new `scd4_await_for_break_test.dart` is ported here
+unchanged, and so are two corrected reference tests: `I-FILE-179` skips only on
+a network failure, and `I-MISC-327` expects the Dart VM's `''` rather than the
+`'012'` the label defect produced.
+
 ## 1.19.0
 
 ### Removed — `lib/src/version.versioner.dart`, a version stamp nothing could read or refresh
