@@ -88,6 +88,19 @@ The generated `…_bridges.b.dart` already carries everything the rule needs:
 | `classSourceUris()` | `name → declaring library URI`. The map the whole rule keys off. |
 | `registerBridges()` | Passes `sourceUri: classSources[entry.key]` to `registerBridgedClassLazy`. |
 | `bridgeReExports()` | Lets the loader distinguish a re-export from a second declaration. |
+| `extensionSourceUris()` | `<name>@<onType> → declaring library URI`, for extensions. |
+
+**Extensions are keyed by name AND on-type** (scd8_ahcm), because the name alone
+does not identify one: two libraries may each declare `extension Helpers`, and a
+name-keyed map keeps only the last — registering one extension against the
+other's URI. `registerBridges()` re-spells the same key from the
+`BridgedExtensionDefinition` it is registering, so the two halves are one wire
+format and move together. That definition carries the name and the on-type and
+nothing else, so two extensions sharing BOTH cannot be separated at the lookup
+site at all: the generator emits one entry and reports the other as a warning
+naming both libraries, rather than emitting a duplicate map key. Classes do not
+need the same treatment — a class's `sourceUri` is passed at its own
+registration rather than looked up by key.
 
 **Do not fix a collision by renaming one of the two classes in the generator
 config.** Renaming is a workaround that the next collision defeats, and it
@@ -104,6 +117,10 @@ registration ("declared by more than one library; unqualified use is now an
 error…") and the `AmbiguousBridgedNameException` at the reference. A
 generation-time report would need a workspace-wide index the generator does not
 have and could not keep current.
+
+The extension warning above is not a counter-example: it fires for two
+extensions the SAME run emits into one file, which is exactly the collision a
+single run can see. A cross-package one still cannot be.
 
 ## Writing scripts against a colliding name
 
@@ -132,6 +149,7 @@ import's own export surface.
 | `F-SCD5A-1` … `F-SCD5A-3` (TextStyle pair, import-over-ambient) | `tom_d4rt/test/bridge/scd5a_script_level_ambiguity_test.dart`, ported to `tom_d4rt_exec` | script |
 | `F-SCD4A-AST-1` … `F-SCD4A-AST-3` (package pair through the runner baseline) | `tom_d4rt_ast/test/runtime/scd4a_ambiguity_import_scope_test.dart` | script (runner bundle) |
 | `F-SCD5A-AST-1` … `F-SCD5A-AST-4` (the tcca19 corpus shape, TextStyle, import-over-ambient) | `tom_d4rt_ast/test/runtime/scd5a_script_level_ambiguity_test.dart` | script (runner bundle) |
+| `G-EXTKEY-1` … `G-EXTKEY-5` (the emitted extension key, both halves of it) | `tom_d4rt_generator/test/extension_source_uri_key_test.dart` | generation |
 
 `AMBIG-4` (same native type via two barrels is *not* ambiguous) and `AMBIG-5`
 (an unqualifiable collision keeps last-wins) are the two that keep the rule from
