@@ -1,3 +1,30 @@
+## 1.23.0
+
+### Added — `compareFixtureResolution`: an example that resolves is not yet an example that resolves CORRECTLY (scd9_aicx)
+
+An example project reaches the package it exercises by `path: ../..`, and a
+path dependency supplies the SOURCE but not the RESOLUTION: the example
+compiles that package's current `lib/` against the EXAMPLE's lock. A stale
+example lock therefore type-checks current first-party source against an old
+third-party dependency, and the error lands inside `../../lib/` — a directory
+the example does not own and whose contents are correct. Measured instance:
+every `tom_d4rt_exec/example/*/pubspec.lock` pinned `tom_d4rt_ast` 0.19.0 while
+exec's lib needed 0.20.x, surfacing as `The getter 'Logger' isn't defined for
+the type 'ModuleLoader'` plus `Bad state: Generating AOT kernel dill failed!`.
+Lock files are gitignored, so the drift never appears in `git status`.
+
+`compareFixtureResolution(hostProjectPath:, fixtureProjectPath:)` reports each
+package the fixture resolves differently, and `describeMismatches` renders them
+with the reason the fixture's lock governs someone else's compile, plus the
+repair. Exported from `package:tom_d4rt_generator/testing.dart`, alongside
+`resolveIfUnresolved`, which answers the neighbouring question.
+
+Only the host's RUNTIME dependencies are compared — the ones its `lib/` is
+compiled against (`direct main` and `transitive` in the lock). Comparing every
+shared hosted package instead reports benign differences: measured across the
+three packages with examples, all seven were `lints`, a dev-only ruleset no
+library imports.
+
 ## 1.22.0
 
 ### Fixed — `extensionSourceUris()` identifies an extension instead of just naming it (scd8_ahcm)
