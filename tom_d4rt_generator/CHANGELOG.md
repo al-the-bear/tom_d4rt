@@ -1,3 +1,28 @@
+## 1.18.0
+
+### Added — building blocks for an `example/` bridge ratchet (`testing.dart`)
+
+Example projects carry `buildkit_skip.yaml`, so no workspace scan reaches them
+and nothing notices when their committed bridges fall behind the generator.
+Measured with `checkBridgeFreshness`, 17 of the 21 example projects across
+`tom_d4rt_generator`, `tom_d4rt_exec` and `tom_ast_generator` were stale. The
+package that owns them is the only place a test can notice, and three packages
+need the same test, so its logic ships here:
+
+- `findD4rtgenProjects(root)` — the directories under `root` whose
+  `buildkit.yaml` has a `d4rtgen:` section, skipping `.dart_tool` and `build`.
+- `resolveIfUnresolved(projectPath)` — `dart pub get` for a project that has
+  never been resolved. `checkBridgeFreshness` refuses to resolve, because that
+  writes to the package; an owning package's test may do it as setup.
+- `freshnessRatchetViolation(project, freshness, knownStale: …)` — the verdict
+  under a ratchet: a project on the caller's known-stale list must still be
+  stale, any other project must be fresh, and a report with errors is always a
+  violation. So the list can only shrink, and no new staleness lands while the
+  backlog is paid down.
+
+This package's own suite applies it to its seven examples
+(`test/example_bridges_fresh_test.dart`).
+
 ## 1.17.0
 
 ### Added — `checkBridgeFreshness`, a test-time gate for stale bridges

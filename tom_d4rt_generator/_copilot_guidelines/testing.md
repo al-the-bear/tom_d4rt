@@ -577,7 +577,10 @@ must survive any change to it:
 `test/example_bridges_fresh_test.dart` applies the check to every `example/`
 project with a `d4rtgen:` section — the projects `buildkit_skip.yaml` hides from
 workspace scans. It is a ratchet: examples on its `knownStale` list must still
-be stale, every other example must be fresh. Regenerate an example with
+be stale, every other example must be fresh. The discovery, resolution and
+verdict live in `lib/src/testing/example_freshness.dart` (exported from
+`testing.dart`), because `tom_d4rt_exec` and `tom_ast_generator` run the same
+test over their own examples. Regenerate an example with
 `dart run bin/d4rtgen.dart -s example/<name>` and delete its entry in the same
 commit; the test fails until you do.
 

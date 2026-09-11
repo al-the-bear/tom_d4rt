@@ -599,6 +599,13 @@ is generated but `notCommitted`. A report with errors has not measured
 anything — assert on `errors` first. Generation takes as long as a `d4rtgen`
 run, so give the test a generous timeout in a large package.
 
+For `example/` projects — which `buildkit_skip.yaml` hides from workspace
+scans — `package:tom_d4rt_generator/testing.dart` provides
+`findD4rtgenProjects`, `resolveIfUnresolved` and `freshnessRatchetViolation`,
+the pieces of a ratchet test: examples on a known-stale list must stay stale
+until regenerated and removed from it, every other example must be fresh. See
+`test/example_bridges_fresh_test.dart` for the complete test.
+
 ---
 
 ## Ecosystem
