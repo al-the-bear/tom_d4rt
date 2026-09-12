@@ -769,6 +769,93 @@ enum _Divergence {
   deliberate,
 }
 
+/// Which tree supplied the surviving assertions when a divergent pair was
+/// converged.
+///
+/// SCD22. "Converged" without a direction is unreviewable: the pair agrees, the
+/// guard goes quiet, and whether the stronger file won or the weaker one was
+/// copied over it is no longer recoverable from anything but a diff nobody will
+/// run. Recording the direction is the only part of the decision procedure that
+/// leaves evidence.
+enum _Direction {
+  /// The REFERENCE copy in `tom_d4rt` was the stronger one and was mirrored
+  /// down into exec. The obvious direction, and presumably the common one.
+  ///
+  /// Unused, which is worth stating rather than suppressing quietly: of the
+  /// four convergences whose direction is documented anywhere, NONE went this
+  /// way. Two possible readings — either the pairs that needed a written
+  /// justification were exactly the counter-intuitive ones, or the obvious
+  /// direction is rarer than it looks. The register is too small to tell, and
+  /// sce64 is where that gets answered. Keeping the value is the point: an
+  /// enum with only the surprising cases in it would make the surprising case
+  /// look like the rule.
+  // ignore: unused_field
+  downstream,
+
+  /// The EXEC copy was the stronger one and was mirrored up into `tom_d4rt`.
+  /// Not rare, and the case the obvious rule destroys: exec's suite is where
+  /// the analyzer-free line's gaps were characterised, so when a gap CLOSED the
+  /// exec copy is the one that got the sharper assertion.
+  upstream,
+
+  /// Each side asserted something the other lacked, and the converged file
+  /// asserts BOTH. Step (3) of the rule — union, not choice.
+  union,
+}
+
+/// One convergence, and why it went the way it did.
+class _Convergence {
+  const _Convergence(this.direction, this.why);
+
+  final _Direction direction;
+  final String why;
+}
+
+/// Pairs that were divergent and are now converged, with the direction taken.
+///
+/// F-SCC44-2 checks that every entry is still TRUE — the file exists in both
+/// trees, is not in [_divergentBaseline], and the two copies still agree. A log
+/// of convergences that have since drifted apart again would be worse than no
+/// log, because it reads as a record of settled questions.
+///
+/// This register starts part-full, and honestly so. Roughly twenty-six pairs
+/// converged between SCC44 and SCD22 with no direction recorded anywhere;
+/// reconstructing those from diffs would be inventing a finding rather than
+/// recording one, so only the four whose direction is documented in the
+/// paragraph above [_divergentBaseline] are listed. New convergences add an
+/// entry; sce64 covers reconstructing what can still be established.
+const Map<String, _Convergence> _convergenceLog = {
+  'stdlib/collection/unmodifiable_map_view_test.dart': _Convergence(
+    _Direction.upstream,
+    'exec F-SC3-9 asserted four expressions including `source is Map` — the '
+        'SUPERTYPE edge, which resolves through a registered hierarchy edge '
+        'rather than by name-matching, so a different mechanism from the '
+        'exact-type check beside it. The reference copy asserted three and did '
+        'not cover the supertype on the wrapped map. Copying the reference '
+        'over the twin would have deleted a real assertion and left the weaker '
+        'file in BOTH trees, with the guard reporting the pair converged.',
+  ),
+  'dfub5_function_record_runtime_type_test.dart': _Convergence(
+    _Direction.union,
+    'the exec copy carried an explanation the reference lacked — the SAstNode '
+        'tree has no parent pointers, so the applied return type is captured '
+        'at declaration time. Folded into the reference header BEFORE the port '
+        'was taken, so convergence added knowledge to both trees instead of '
+        'deleting it from one.',
+  ),
+  'dfub6_applied_generic_runtime_types_test.dart': _Convergence(
+    _Direction.union,
+    'same shape as dfub5: the exec copy recorded that tom_ast_generator used '
+        'to flatten RecordTypeAnnotationField, which the reference header did '
+        'not say. Folded upstream first, then ported.',
+  ),
+  'dfub13_import_export_diagnostics_test.dart': _Convergence(
+    _Direction.union,
+    'same shape again: the exec copy recorded that tom_d4rt_exec owns a third '
+        'copy of the module loader. Folded upstream first, then ported.',
+  ),
+};
+
 /// Files present in BOTH trees whose content differs by more than the one
 /// import line the port recipe rewrites, each with the reason it is allowed to.
 ///
@@ -794,6 +881,33 @@ enum _Divergence {
 /// `tom_d4rt_exec` owns a third copy of the module loader). Those paragraphs
 /// were folded into the reference headers BEFORE the ports were taken, so
 /// convergence added knowledge to both trees instead of deleting it from one.
+///
+/// THE PROCEDURE, because the principle above is not one. SCD22 wrote it down
+/// after the direction question had been answered ad hoc three times. Before
+/// converging a pair:
+///
+///   1. Diff it and read what each side ASSERTS, not which tree it lives in.
+///   2. Where one side asserts strictly more, THAT SIDE WINS regardless of
+///      tree.
+///   3. Where they assert different things, the converged file asserts BOTH.
+///      Union, not choice.
+///   4. Where they genuinely contradict, that is a behaviour question. The
+///      answer goes in a todo, not into a test edit.
+///   5. Record the direction in [_convergenceLog]. "Converged" without a
+///      direction is unreviewable.
+///
+/// The anti-pattern this blocks is the one the workspace rules already name
+/// from the other side — never adapt a test to match buggy behaviour, never
+/// loosen an assertion to make a pair agree. Bulk-converging by tree precedence
+/// is that same move wearing a tidy-up's clothes: no individual step looks like
+/// weakening a test, and the aggregate quietly does.
+///
+/// THE GUARD CANNOT CATCH THAT. [_divergentBaseline] fails on CHANGE, so it
+/// fires when a converged pair drifts apart again and has no view of whether
+/// the convergence kept the stronger assertions. That judgement is
+/// unautomatable, which is why this is a procedure with a written record rather
+/// than a test. F-SCC44-2 checks the record is still true, which is the part a
+/// machine can do.
 ///
 /// A PUBLISH MAKES ENTRIES REVIEWABLE, NOT AUTOMATICALLY STALE — and the
 /// converse trap is the one SCC44 walked into. Seven entries were pinned on
@@ -1863,5 +1977,58 @@ void main() {
             'merely undone.\n${thin.join('\n')}',
       );
     });
+    test('F-SCC44-2: every recorded convergence is still true [2026-09-12] '
+        '(PASS)', () {
+      // SCD22 item (5). The direction a pair converged in is a finding, and a
+      // finding that is not checked rots like any other. This does not — and
+      // cannot — verify that the STRONGER side won: that judgement is
+      // unautomatable, which is why the rule is a procedure rather than code.
+      // What it verifies is that the record still describes reality, so an
+      // entry cannot quietly become a statement about a pair that has since
+      // drifted apart again.
+      // `ref` / `exec` belong to the SCC6 group; this is a sibling group, so
+      // the maps are built here rather than reached for.
+      final refFiles = _testFiles(refTests);
+      final execFiles = _testFiles(execTests);
+
+      final wrong = <String>[];
+      for (final entry in _convergenceLog.entries) {
+        final path = entry.key;
+        final refFile = refFiles[path];
+        final execFile = execFiles[path];
+        if (refFile == null || execFile == null) {
+          wrong.add('$path: logged as converged but missing from one tree');
+          continue;
+        }
+        if (_divergentBaseline.containsKey(path)) {
+          wrong.add(
+            '$path: logged as converged AND listed in _divergentBaseline — '
+            'the two registers contradict each other',
+          );
+          continue;
+        }
+        if (_normalise(refFile.readAsStringSync()) !=
+            _normalise(execFile.readAsStringSync())) {
+          wrong.add(
+            '$path: logged as converged (${entry.value.direction.name}) but '
+            'the copies differ again',
+          );
+        }
+      }
+
+      expect(
+        wrong,
+        isEmpty,
+        reason:
+            'The convergence log no longer describes the corpus:\n'
+            '${wrong.join('\n')}\n\n'
+            'A pair that has drifted apart again is a NEW divergence, not a '
+            'settled one: remove its log entry and either converge it afresh '
+            'under the direction rule or add it to _divergentBaseline with a '
+            'reason. Leaving the entry makes the pair read as a settled '
+            'question.',
+      );
+    });
+
   }, skip: skipReason);
 }
