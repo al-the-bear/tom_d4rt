@@ -142,15 +142,42 @@ the member **resolved**.
 
 **Operators need their own probe shape, not their own exemption.** A member
 named `+` or `[]` cannot be read as `o.+`, so it is driven through an
-expression instead (`o + o`, `o[0]`, `~o`, `-o`, `o << 1`) from
-`_operatorProbes`. `==` is both a universal `Object` member and an operator,
-and the universal branch is tested first, so it is explicitly routed to the
-operator probe — otherwise its `o.==` read would fail to *parse*, a parse
-failure is not one of the unreachable wordings, and the tool would call it
-reachable whatever the truth. The self-operand shortcut (`o * o` rather than
-`o * 2`) costs precision in the conservative direction: on `String`,
-`'a' * 'a'` is a type error rather than a resolution failure, so the column
-can under-report but cannot invent a gap.
+expression instead (`o + o`, `o[0]`, `~o`, `-o`) from `_operatorProbes`. `==`
+is both a universal `Object` member and an operator, and the universal branch
+is tested first, so it is explicitly routed to the operator probe — otherwise
+its `o.==` read would fail to *parse*, a parse failure is not one of the
+unreachable wordings, and the tool would call it reachable whatever the truth.
+
+**The right-hand operand comes from the SDK signature.** Earlier revisions put
+the instance on both sides, which on `String` is `'a' * 'a'` — and that made
+the column unfalsifiable rather than merely imprecise. The interpreter's
+fallthrough for a binary expression is `Unsupported operator (STAR) for types
+String and String`, and that one wording covers BOTH "this operator does not
+resolve" and "these operand types are wrong"; with an ill-typed probe the two
+cannot be told apart, so `String *` could only ever read as reachable. Measured
+by removing `String`'s `*` from the interpreter: the self-operand probe
+reported **0** confirmed gaps and the signature-derived probe reported **1**.
+
+Each operand is now chosen per class from the declared parameter type — the
+self-operand where the class is assignable to it (the most faithful probe
+available, and still the answer for most operators), a literal from a
+type-keyed table otherwise (`String * int`, `HttpHeaders['a']`,
+`Duration * num`). A type variable (`Map`'s `K`, `List`'s `E`) takes the
+self-operand deliberately: the bridge erases type arguments, so every bridged
+collection is instantiated at `dynamic` and any value satisfies the parameter.
+
+Because the operand is known to type-check, the fallthrough wording is
+unambiguous and the operator classifier recognises it. That widening is
+deliberately **not** in the shared `_isUnreachableError`, which also classifies
+member and hierarchy probes: there an ill-typed expression is still possible,
+and recognising the wording would make the tool invent gaps. The derived
+operand and the narrow classifier are one change, not two.
+
+An operator whose operand cannot be derived — no reflectable signature, or a
+parameter type with no literal — is UNVERIFIED WITH A REASON, recorded in
+`operatorProbeSkips` and printed at the end of a run. It is not skipped:
+skipping is how these operators came to be classified as reachable in the first
+place. The set is empty as measured, and `F-SCD39-5` fails if it stops being.
 
 **The probe body must assign and return afterwards, never `return` from
 inside the try.** The generated program is

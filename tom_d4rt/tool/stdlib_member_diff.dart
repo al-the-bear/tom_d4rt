@@ -159,10 +159,16 @@ const Map<String, Set<String>> _knownExtensionMembers = {
 
 /// The report for one bridged class.
 class ClassDiff {
-  ClassDiff(this.name, this.nativeTypeName);
+  ClassDiff(this.name, this.nativeTypeName, {this.nativeType});
 
   final String name;
   final String nativeTypeName;
+
+  /// The bridge's native type, kept alongside its printed name because the
+  /// operator probe needs to read the SDK signature off the mirror to derive a
+  /// well-typed right-hand operand (SCD39). Nullable so a hand-built
+  /// `ClassDiff` in a test stays cheap to construct.
+  final Type? nativeType;
 
   /// After [verify], these hold only members confirmed unreachable through the
   /// interpreter. Before it, they are unverified candidates.
@@ -429,7 +435,11 @@ bool _isDeprecated(DeclarationMirror decl) {
 }
 
 ClassDiff diffClass(String name, BridgedClass bc) {
-  final diff = ClassDiff(name, bc.nativeType.toString());
+  final diff = ClassDiff(
+    name,
+    bc.nativeType.toString(),
+    nativeType: bc.nativeType,
+  );
 
   final bridgedInstance = <String>{
     ...bc.methods.keys,
@@ -1063,42 +1073,185 @@ bool _isUnreachableError(String message) =>
     message.contains('Unsupported binary operator') ||
     message.contains('Compound assignment operator');
 
-/// How to exercise an operator from interpreted code.
+/// Literal expressions for an operator's right-hand operand, by the SDK
+/// parameter type the operator declares.
 ///
-/// An operator cannot be probed the way a named member can — `o.+` is not an
-/// expression, so the bare-read trick that covers every other column does not
-/// apply. Each entry applies the operator to the recipe instance `o`, using a
-/// second `o` as the right operand where the operator is symmetric and a literal
-/// where the SDK fixes the right-hand type (shifts take an int, index takes a
-/// key).
-///
-/// The self-operand shortcut costs precision: on `String`, `o * o` is
-/// `'a' * 'a'`, a type error rather than a resolution failure, so it classifies
-/// as *reachable* even if `'a' * 2` were broken. That is the conservative
-/// direction — the column may under-report, but it will not invent gaps.
+/// Keyed by TYPE, like `_argumentLiterals`, so the table does not grow a row
+/// per class. `Object` and `dynamic` are absent deliberately: a class is always
+/// assignable to them, so the self-operand rule answers first and is the more
+/// faithful probe.
+const _operandLiterals = <String, String>{
+  'int': '1',
+  'num': '1',
+  'double': '1.0',
+  'bool': 'true',
+  'String': "'a'",
+  'Pattern': "'a'",
+  'Duration': 'Duration(seconds: 1)',
+  'BigInt': 'BigInt.one',
+};
+
+/// Index operators want a valid index, not an arbitrary one. The recipes yield
+/// small collections, so `1` is frequently out of range where `0` is not, and
+/// a RangeError is a different failure from an unresolved operator.
+const _indexOperators = <String>{'[]', '[]='};
+
+/// How to exercise each operator. `%r%` is the right-hand operand and `%v%` the
+/// assigned value; both are synthesised per class from the SDK signature by
+/// [_operatorProbeFor].
 const _operatorProbes = <String, String>{
-  '+': 'o + o',
-  '-': 'o - o',
-  '*': 'o * o',
-  '/': 'o / o',
-  '~/': 'o ~/ o',
-  '%': 'o % o',
-  '&': 'o & o',
-  '|': 'o | o',
-  '^': 'o ^ o',
-  '<': 'o < o',
-  '<=': 'o <= o',
-  '>': 'o > o',
-  '>=': 'o >= o',
-  '==': 'o == o',
-  '<<': 'o << 1',
-  '>>': 'o >> 1',
-  '>>>': 'o >>> 1',
+  '+': 'o + %r%',
+  '-': 'o - %r%',
+  '*': 'o * %r%',
+  '/': 'o / %r%',
+  '~/': 'o ~/ %r%',
+  '%': 'o % %r%',
+  '&': 'o & %r%',
+  '|': 'o | %r%',
+  '^': 'o ^ %r%',
+  '<': 'o < %r%',
+  '<=': 'o <= %r%',
+  '>': 'o > %r%',
+  '>=': 'o >= %r%',
+  '==': 'o == %r%',
+  '<<': 'o << %r%',
+  '>>': 'o >> %r%',
+  '>>>': 'o >>> %r%',
   '~': '~o',
   'unary-': '-o',
-  '[]': 'o[0]',
-  '[]=': 'o[0] = o',
+  '[]': 'o[%r%]',
+  '[]=': 'o[%r%] = %v%',
 };
+
+/// One operand expression, or the reason there cannot be one.
+typedef _Operand = ({String? expr, String? reason});
+
+/// The expression to use for a parameter of [param] on [nativeType].
+///
+/// Self-operand FIRST when it type-checks: `o + o` exercises the operator with
+/// a value of exactly the kind the class is built from, which is the most
+/// faithful probe available and is what every operator whose signature admits
+/// its own type should use. A literal is the fallback for the operators whose
+/// right-hand type is something else — `String * int` is the case SCD39 was
+/// filed for.
+_Operand _operandFor(ClassMirror root, TypeMirror param, String op) {
+  // A type variable (`Map`'s `K`/`V`, `List`'s `E`) names no concrete type the
+  // table could hold. The self-operand is the right answer and is genuinely
+  // well-typed at the boundary, because the bridge erases type arguments --
+  // every bridged collection is instantiated at `dynamic`, so any value
+  // satisfies the parameter. Stated rather than left to `isSubtypeOf`, which
+  // happens to answer true here for reasons that have nothing to do with that.
+  if (param is TypeVariableMirror) return (expr: 'o', reason: null);
+  try {
+    if (root.isSubtypeOf(param)) return (expr: 'o', reason: null);
+  } catch (_) {
+    // Not comparable; fall through to the literal table.
+  }
+  final bare = _bareTypeName(param);
+  if (_indexOperators.contains(op) && (bare == 'int' || bare == 'num')) {
+    return (expr: '0', reason: null);
+  }
+  final literal = _operandLiterals[bare];
+  if (literal != null) return (expr: literal, reason: null);
+  return (
+    expr: null,
+    reason:
+        'the operator takes a `$bare`, which the class is not assignable to '
+        'and for which no operand literal is defined',
+  );
+}
+
+/// The probe source for [op] on [className], or the reason there is none.
+///
+/// WHY A WELL-TYPED OPERAND IS THE WHOLE POINT. The interpreter's final
+/// fallthrough for a binary expression is
+/// `Unsupported operator (STAR) for types String and String`, and that one
+/// wording covers BOTH "this operator does not resolve" and "these operand
+/// types are wrong". While the probe drove every operator with the instance on
+/// both sides, the two were indistinguishable: `'a' * 'a'` throws it, so
+/// `String *` read as reachable whatever the truth. Deriving the operand from
+/// the SDK signature removes the second meaning, which is what makes the
+/// wording safe to classify on -- see [_isUnreachableOperatorError].
+({String? probe, String? reason}) _operatorProbeFor(
+  String className,
+  Type nativeType,
+  String op,
+) {
+  final template = _operatorProbes[op];
+  if (template == null) {
+    return (probe: null, reason: 'no probe template for `$op`');
+  }
+  if (!template.contains('%r%')) return (probe: template, reason: null);
+
+  final decl = _declaredMember(nativeType, op, static: false);
+  if (decl == null) {
+    // `int >>>` is the live instance: the mirror does not surface it, so there
+    // is no signature to derive an operand from. Reported rather than guessed,
+    // because guessing `1` here would be assuming the very thing the probe is
+    // supposed to establish.
+    return (
+      probe: null,
+      reason:
+          'the SDK signature for `$op` is not reflectable, so no operand can '
+          'be derived',
+    );
+  }
+
+  final ClassMirror root;
+  try {
+    final r = reflectType(nativeType);
+    if (r is! ClassMirror) {
+      return (probe: null, reason: 'native type is not a class mirror');
+    }
+    root = r;
+  } catch (_) {
+    return (probe: null, reason: 'native type is not reflectable');
+  }
+
+  final params = decl.parameters;
+  if (params.isEmpty) {
+    return (probe: null, reason: '`$op` declares no parameter to supply');
+  }
+
+  final rhs = _operandFor(root, params.first.type, op);
+  if (rhs.expr == null) return (probe: null, reason: rhs.reason);
+  var probe = template.replaceAll('%r%', rhs.expr!);
+
+  if (probe.contains('%v%')) {
+    if (params.length < 2) {
+      return (probe: null, reason: '`$op` declares no value parameter');
+    }
+    final value = _operandFor(root, params[1].type, op);
+    if (value.expr == null) return (probe: null, reason: value.reason);
+    probe = probe.replaceAll('%v%', value.expr!);
+  }
+  return (probe: probe, reason: null);
+}
+
+/// Test/diagnostic access to [_operatorProbeFor].
+({String? probe, String? reason}) operatorProbeForDebug(
+  String className,
+  Type nativeType,
+  String op,
+) => _operatorProbeFor(className, nativeType, op);
+
+/// Operator probes that could not be made well-typed, and why.
+///
+/// `'<class>.<op>' -> reason`. An operator with no valid probe is UNVERIFIED
+/// WITH A REASON rather than skipped: skipping is how these ended up classified
+/// as reachable in the first place, and an unexplained hole is what SCC12
+/// established the member columns must not have.
+final operatorProbeSkips = <String, String>{};
+
+/// Whether [message] means the operator did not resolve.
+///
+/// Extends the shared wordings with the binary-expression fallthrough, which is
+/// only unambiguous BECAUSE the operand is derived from the SDK signature. Do
+/// not move this into `_isUnreachableError`: that function also classifies
+/// member and hierarchy probes, where an ill-typed expression is still possible
+/// and would then be reported as a gap the tool invented.
+bool _isUnreachableOperatorError(String message) =>
+    _isUnreachableError(message) || message.contains('Unsupported operator (');
 
 enum Reach { confirmedMissing, reachable, unverified }
 
@@ -1339,12 +1492,33 @@ Future<Reach> verifyInstanceMember(String className, String member) {
 
 /// Applies [op] to a recipe instance. UNVERIFIED when there is no recipe for the
 /// class or no probe template for the operator, never a gap.
-Future<Reach> verifyOperator(String className, String op) {
+Future<Reach> verifyOperator(
+  String className,
+  String op, {
+  Type? nativeType,
+}) async {
   final recipe = _instanceRecipes[className];
-  final probe = _operatorProbes[op];
-  if (recipe == null || probe == null) return Future.value(Reach.unverified);
+  if (recipe == null) return Reach.unverified;
+  if (nativeType == null) return Reach.unverified;
+
+  final built = _operatorProbeFor(className, nativeType, op);
+  final reason = built.reason;
+  if (reason != null) {
+    operatorProbeSkips['$className.$op'] = reason;
+    return Reach.unverified;
+  }
+
   _traceProbe('$className $op');
-  return _probe(_recipeSource(recipe, probe), onTimeout: Reach.reachable);
+  final outcome = await _runProbe(_recipeSource(recipe, built.probe!));
+  // A probe that never answers is REACHABLE for the same reason a member read
+  // is: the recipe already works and an unresolved operator throws instantly,
+  // so a program still running got past the dispatch.
+  if (!outcome.answered) return Reach.reachable;
+  final error = outcome.error;
+  if (error == null) return Reach.reachable;
+  return _isUnreachableOperatorError(error)
+      ? Reach.confirmedMissing
+      : Reach.reachable;
 }
 
 Future<Reach> verifyStaticMember(String className, String member) {
@@ -1405,7 +1579,7 @@ Future<void> verify(ClassDiff diff) async {
   final confirmedOperators = <String>[];
   for (final m in diff.missingOperators) {
     final reach = canProbeInstances
-        ? await verifyOperator(diff.name, m)
+        ? await verifyOperator(diff.name, m, nativeType: diff.nativeType)
         : Reach.unverified;
     switch (reach) {
       case Reach.confirmedMissing:
@@ -1429,7 +1603,7 @@ Future<void> verify(ClassDiff diff) async {
     final reach = !canProbeInstances
         ? Reach.unverified
         : _isOperator(m)
-        ? await verifyOperator(diff.name, m)
+        ? await verifyOperator(diff.name, m, nativeType: diff.nativeType)
         : await verifyInstanceMember(diff.name, m);
     switch (reach) {
       case Reach.confirmedMissing:
@@ -2644,6 +2818,21 @@ Future<void> main(List<String> args) async {
       diffs,
       onClass: (name, candidates) => stderr.writeln('  $name ($candidates)'),
     );
+  }
+
+  // SCD39: operators that could not be given a well-typed probe. Printed
+  // rather than folded into the unverified total alone, because the whole
+  // point of the change is that an unmeasurable operator says why.
+  if (operatorProbeSkips.isNotEmpty) {
+    stderr.writeln(
+      'Operator probes skipped (unverified, with a reason): '
+      '${operatorProbeSkips.length}',
+    );
+    for (final e
+        in (operatorProbeSkips.entries.toList()
+          ..sort((a, b) => a.key.compareTo(b.key)))) {
+      stderr.writeln('  ${e.key}: ${e.value}');
+    }
   }
 
   if (args.contains('--baseline')) {
