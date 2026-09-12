@@ -1960,6 +1960,638 @@ ${measured.map((n) => "  '$n',").join('\n')}
 }
 
 /// Reads a two-token option (`--only Foo,Bar`) out of [args].
+
+// ---------------------------------------------------------------------------
+// SCD36: the return-type pass.
+// ---------------------------------------------------------------------------
+
+/// What one registered member's returned value turned out to be worth.
+enum ReturnReach {
+  /// The value came back and a member its declared type guarantees could be
+  /// read off it. This is the answer that matters — not "a value arrived".
+  usable,
+
+  /// The value came back and the interpreter could not resolve it to any
+  /// bridge, so the script cannot do anything with it. The defect class this
+  /// pass exists to find.
+  gap,
+
+  /// No argument could be synthesised for a required parameter, or the
+  /// declared return type offered no witness member. Measured nothing.
+  unprobed,
+
+  /// The probe never answered. Measured nothing.
+  noAnswer,
+}
+
+/// Literal expressions by SDK parameter type, used to call members that take
+/// arguments.
+///
+/// Keyed by TYPE rather than by member, which is what makes the pass scale: a
+/// per-member argument table would be the same per-case work the instance
+/// recipes already cost, and the pass would then only cover members somebody
+/// had already thought about — exactly the property that let this defect class
+/// hide. The two members that motivated SCD36 both take one argument
+/// (`Iterable.castFrom(Iterable)`, `LineSplitter.split(String)`), so a pass
+/// restricted to no-argument members would have missed both.
+const _argumentLiterals = <String, String>{
+  'int': '1',
+  'double': '1.0',
+  'num': '1',
+  'bool': 'true',
+  'String': "'ab'",
+  'Object': '1',
+  'dynamic': '1',
+  'Pattern': "'a'",
+  'Comparable': '1',
+  'Iterable': '[1, 2, 3]',
+  'List': '[1, 2, 3]',
+  'Set': '{1, 2}',
+  'Map': "{'a': 1}",
+  'Duration': 'Duration(seconds: 1)',
+  'StackTrace': 'StackTrace.current',
+};
+
+/// Members that must not be probed, because calling them ends or blocks the
+/// probe rather than returning a value.
+///
+/// This is not a list of things that are hard to measure — it is a list of
+/// things whose measurement would destroy the measurement. A probe that calls
+/// `exit` takes the isolate with it; one that calls `sleep` burns the idle
+/// timeout and is scored as no-answer.
+const _unprobableMembers = <String>{
+  // Writers. These are the reason the list is not merely about probes that
+  // hang: this pass CALLS members where the member diff only reads them, and a
+  // called `dart:io` writer acts on the filesystem. `o.openWrite().done` left
+  // an empty `audit_probe_does_not_exist` in the package root on every run --
+  // the audit dirtying the tree it was auditing.
+  //
+  // Containment by moving the process working directory was tried first and is
+  // wrong: `dart test` runs its files as isolates in ONE process, so setting
+  // `Directory.current` from the doc-figures test changed it under every other
+  // test file running concurrently. Three unrelated cases went red, and only
+  // under `-j 4`. Exclusion is local; global state is not.
+  'openWrite',
+  'copy',
+  'copySync',
+  'createTemp',
+  'createTempSync',
+  'writeAsBytes',
+  'writeAsBytesSync',
+  'setLastModified',
+  'setLastModifiedSync',
+  'setLastAccessed',
+  'setLastAccessedSync',
+  'lock',
+  'lockSync',
+  'unlock',
+  'unlockSync',
+  'flush',
+  'exit',
+  'sleep',
+  'abort',
+  'clear',
+  'close',
+  'cancel',
+  'destroy',
+  'kill',
+  'shutdown',
+  'removeWhere',
+  'retainWhere',
+  'removeLast',
+  'removeRange',
+  'removeAt',
+  'remove',
+  'deleteSync',
+  'delete',
+  'renameSync',
+  'rename',
+  'createSync',
+  'create',
+  'writeAsStringSync',
+  'writeAsString',
+  'watch',
+  'listen',
+  'pause',
+  'resume',
+  'wait',
+  'reduce',
+  'single',
+  'last',
+  'first',
+};
+
+/// Getters that make good witnesses: cheap, total, and declared by the type
+/// rather than inherited from `Object`.
+///
+/// Order is preference order. A witness must not throw on a legitimate value —
+/// `first` and `single` do on an empty or multi-element iterable — because the
+/// pass would then report a working member as a gap.
+const _preferredWitnesses = <String>[
+  'isEmpty',
+  'isNotEmpty',
+  'length',
+  'iterator',
+  'keys',
+  'values',
+  'entries',
+  'inMilliseconds',
+  'scheme',
+  'path',
+  'index',
+  'name',
+];
+
+/// The SDK declaration of [member] on [type], instance or static.
+MethodMirror? _declaredMember(
+  Type type,
+  String member, {
+  required bool static,
+}) {
+  final ClassMirror root;
+  try {
+    final t = reflectType(type);
+    if (t is! ClassMirror) return null;
+    root = t;
+  } catch (_) {
+    return null;
+  }
+
+  final seen = <ClassMirror>{};
+  final queue = <ClassMirror>[root];
+  while (queue.isNotEmpty) {
+    final cm = queue.removeAt(0);
+    if (!seen.add(cm)) continue;
+    Map<Symbol, DeclarationMirror> declarations;
+    try {
+      declarations = cm.declarations;
+    } catch (_) {
+      continue;
+    }
+    for (final entry in declarations.entries) {
+      final decl = entry.value;
+      if (decl is! MethodMirror) continue;
+      if (decl.isConstructor) continue;
+      if (decl.isStatic != static) continue;
+      if (_symbolName(entry.key) != member) continue;
+      return decl;
+    }
+    if (static) break; // statics do not inherit
+    try {
+      final sup = cm.superclass;
+      if (sup != null && sup.reflectedType != Object) queue.add(sup);
+      queue.addAll(cm.superinterfaces);
+    } catch (_) {
+      // best effort
+    }
+  }
+  return null;
+}
+
+/// The bare name of a type mirror, without type arguments or nullability.
+String _bareTypeName(TypeMirror t) {
+  final raw = _symbolName(t.simpleName);
+  final cut = raw.indexOf('<');
+  return (cut < 0 ? raw : raw.substring(0, cut)).replaceAll('?', '');
+}
+
+/// A witness member on [returnType] — something the declared type promises,
+/// whose absence therefore means the VALUE was not usable rather than that the
+/// member was never bridged.
+String? _witnessFor(TypeMirror returnType) {
+  final ClassMirror cm;
+  try {
+    if (returnType is! ClassMirror) return null;
+    cm = returnType;
+  } catch (_) {
+    return null;
+  }
+
+  final available = <String>{};
+  final seen = <ClassMirror>{};
+  final queue = <ClassMirror>[cm];
+  while (queue.isNotEmpty) {
+    final c = queue.removeAt(0);
+    if (!seen.add(c)) continue;
+    Map<Symbol, DeclarationMirror> declarations;
+    try {
+      declarations = c.declarations;
+    } catch (_) {
+      continue;
+    }
+    for (final entry in declarations.entries) {
+      final name = _symbolName(entry.key);
+      if (!_isPublic(name)) continue;
+      if (_universalObjectMembers.contains(name)) continue;
+      final decl = entry.value;
+      final isGetter =
+          (decl is MethodMirror && decl.isGetter && !decl.isStatic) ||
+          (decl is VariableMirror && !decl.isStatic);
+      if (isGetter) available.add(name);
+    }
+    try {
+      final sup = c.superclass;
+      if (sup != null && sup.reflectedType != Object) queue.add(sup);
+      queue.addAll(c.superinterfaces);
+    } catch (_) {
+      // best effort
+    }
+  }
+
+  for (final preferred in _preferredWitnesses) {
+    if (available.contains(preferred)) return preferred;
+  }
+  final rest = available.toList()..sort();
+  return rest.isEmpty ? null : rest.first;
+}
+
+/// The argument list to call [m] with, or null when some required parameter
+/// has no literal.
+String? _argumentsFor(MethodMirror m) {
+  final parts = <String>[];
+  for (final p in m.parameters) {
+    if (p.isOptional) continue; // optional parameters are simply not passed
+    final literal = _argumentLiterals[_bareTypeName(p.type)];
+    if (literal == null) return null;
+    parts.add(p.isNamed ? '${_symbolName(p.simpleName)}: $literal' : literal);
+  }
+  return parts.join(', ');
+}
+
+/// One member's result.
+class ReturnGap {
+  ReturnGap(
+    this.className,
+    this.member, {
+    required this.isStatic,
+    required this.declaredReturn,
+  });
+
+  final String className;
+  final String member;
+  final bool isStatic;
+  final String declaredReturn;
+
+  String? witness;
+  ReturnReach reach = ReturnReach.unprobed;
+
+  /// Why it was not probed, or what the interpreter said when it failed.
+  String? detail;
+
+  Map<String, dynamic> toJson() => {
+    'class': className,
+    'member': member,
+    'static': isStatic,
+    'declaredReturn': declaredReturn,
+    'witness': witness,
+    'reach': reach.name,
+    if (detail != null) 'detail': detail,
+  };
+}
+
+/// The receiver type named in a member-lookup failure, or null when the
+/// message is not one.
+///
+/// Extracted rather than guessed at by substring. The bridge names are short
+/// and appear INSIDE SDK implementation names — `_EfficientLengthCastIterable`
+/// ends with `Iterable` — so a "does this message mention a bridge name" test
+/// answers yes for the very case that is a gap.
+String? lookupFailureReceiver(String message) {
+  const patterns = [
+    // The wording an UNBRIDGED native target produces. `core/map.dart` already
+    // documents it against `_ConstMap`, and it is the one shape the audit's
+    // shared `_isUnreachableError` has never recognised -- which is why this
+    // pass reported zero until the negative control exposed it.
+    r"Cannot access property '[^']*' on target of type ([^.]+)\.",
+    r"Undefined property or method '[^']*' on ([A-Za-z_$][\w<>, ?$]*)",
+    r"([A-Za-z_$][\w<>, ?$]*) has no getter named",
+    r"([A-Za-z_$][\w<>, ?$]*) has no instance method named",
+  ];
+  for (final p in patterns) {
+    final m = RegExp(p).firstMatch(message);
+    if (m != null) return m.group(1)!.trim();
+  }
+  return null;
+}
+
+/// Whether [message] says the interpreter could not resolve the RETURNED value
+/// to any bridge, as opposed to the bridge lacking the witness member.
+///
+/// The distinction is the whole precision of this pass. The interpreter names
+/// the receiver it failed on: when that receiver is a registered bridge the
+/// finding is an ordinary member gap, which the member diff already reports and
+/// this pass must not double-count. When it is an SDK implementation type --
+/// `_LineSplitIterable`, `_EfficientLengthCastIterable`, `_ConstMap` -- the
+/// value never became a bridged instance at all, which is this defect class.
+bool namesAnUnbridgedReceiver(String message, Set<String> bridgeNames) {
+  final receiver = lookupFailureReceiver(message);
+  if (receiver == null) return false;
+  final cut = receiver.indexOf('<');
+  final bare = (cut < 0 ? receiver : receiver.substring(0, cut)).trim();
+  return !bridgeNames.contains(bare);
+}
+
+/// Probes every registered member of every bridged class and reports the ones
+/// whose RETURNED VALUE the script cannot use.
+///
+/// Why this is a runtime pass and not the static one SCD36 proposed: mirrors
+/// report the DECLARED return type, and for both members that motivated the
+/// todo that type is `Iterable`, which is bridged. `Iterable.castFrom` returns
+/// `_EfficientLengthCastIterable` and `LineSplitter.split` returns
+/// `_LineSplitIterable` — neither appears anywhere in a static signature. A
+/// pass that read declared return types and cross-referenced them against
+/// `nativeNames` would have reported zero for both, which is the same blindness
+/// in a new place.
+Future<List<ReturnGap>> auditReturnTypes(
+  Environment env, {
+  Set<String>? only,
+  void Function(String name, int probes)? onClass,
+}) async {
+  final bridgeNames = env.bridgedClassNames.toSet();
+  final results = <ReturnGap>[];
+
+  final names = env.bridgedClassNames..sort();
+  for (final className in names) {
+    if (only != null && !only.contains(className)) continue;
+    final bc = env.findBridgedClassByName(className);
+    if (bc == null) continue;
+    if (bc.nativeType == Function) continue;
+
+    final recipe = _instanceRecipes[className];
+    final instanceMembers = <String>{...bc.methods.keys, ...bc.getters.keys};
+    final staticMembers = <String>{
+      ...bc.staticMethods.keys,
+      ...bc.staticGetters.keys,
+    };
+
+    final planned = <ReturnGap>[];
+
+    void plan(String member, {required bool isStatic}) {
+      if (_isOperator(member)) return;
+      // `_isOperator` tests the first character only, so the mirror's name for
+      // unary minus -- `unary-` -- passes it and then builds the probe
+      // `o.unary-.witness`, which parses as a subtraction and fails with a
+      // lookup error that looks exactly like a gap. Probe plain identifiers.
+      if (!RegExp(r'^[A-Za-z_$][A-Za-z0-9_$]*$').hasMatch(member)) return;
+      if (_universalObjectMembers.contains(member)) return;
+      if (_unprobableMembers.contains(member)) return;
+      final decl = _declaredMember(bc.nativeType, member, static: isStatic);
+      if (decl == null) return; // bridge-only member; the member diff owns it
+      final ret = decl.returnType;
+      final bare = _bareTypeName(ret);
+      // A primitive or an untyped result carries no bridge question: the
+      // interpreter represents these natively whatever the SDK returns.
+      const native = {
+        'void',
+        'dynamic',
+        'Null',
+        'Never',
+        'int',
+        'double',
+        'num',
+        'bool',
+        'String',
+        'Object',
+      };
+      if (native.contains(bare)) return;
+      final gap = ReturnGap(
+        className,
+        member,
+        isStatic: isStatic,
+        declaredReturn: bare,
+      );
+      gap.witness = _witnessFor(ret);
+      if (gap.witness == null) {
+        gap.detail = 'declared return type $bare offers no witness getter';
+        planned.add(gap);
+        return;
+      }
+      final args = decl.isGetter ? '' : _argumentsFor(decl);
+      if (args == null) {
+        gap.detail =
+            'a required parameter has no literal '
+            '(${decl.parameters.where((p) => !p.isOptional).map((p) => _bareTypeName(p.type)).join(', ')})';
+        planned.add(gap);
+        return;
+      }
+      gap.detail = decl.isGetter ? '<getter>' : '($args)';
+      planned.add(gap);
+    }
+
+    if (recipe != null) {
+      for (final m in instanceMembers) {
+        plan(m, isStatic: false);
+      }
+    }
+    for (final m in staticMembers) {
+      plan(m, isStatic: true);
+    }
+
+    final probable = planned
+        .where((g) => g.witness != null && !g.detail!.startsWith('a required'))
+        .toList();
+    if (planned.isNotEmpty) onClass?.call(className, probable.length);
+
+    for (final gap in planned) {
+      if (gap.witness == null || gap.detail!.startsWith('a required')) {
+        results.add(gap); // stays unprobed, with its reason
+        continue;
+      }
+      final call = gap.detail == '<getter>'
+          ? gap.member
+          : '${gap.member}${gap.detail}';
+      final String source;
+      if (gap.isStatic) {
+        final imports = recipe?.imports ?? '';
+        source =
+            '$imports main() { final r = $className.$call; '
+            'return r.${gap.witness}; }';
+      } else {
+        source = _recipeSource(recipe!, 'o.$call.${gap.witness}');
+      }
+      final outcome = await _runProbe(source);
+      if (!outcome.answered) {
+        gap.reach = ReturnReach.noAnswer;
+        gap.detail = 'probe never answered';
+      } else if (outcome.error == null) {
+        gap.reach = ReturnReach.usable;
+        gap.detail = null;
+      } else if (lookupFailureReceiver(outcome.error!) == 'null') {
+        // The member returned null, so the witness read failed on null rather
+        // than on an unbridged type. Every instance of this was a `tryParse`
+        // -- `BigInt.tryParse('ab')`, `DateTime.tryParse('ab')`,
+        // `Encoding.getByName('ab')` -- answering null for a synthesised
+        // argument that is not a valid input, which is the SDK behaving
+        // correctly. Nothing about the bridge was measured.
+        gap.reach = ReturnReach.unprobed;
+        gap.detail = 'returned null for the synthesised argument';
+      } else if (namesAnUnbridgedReceiver(outcome.error!, bridgeNames)) {
+        gap.reach = ReturnReach.gap;
+        gap.detail = outcome.error!.split('\n').first;
+      } else {
+        // Threw for some other reason — a type error from a synthesised
+        // argument, a StateError from a legitimate call. Not this pass's
+        // finding, and deliberately not reported as one.
+        gap.reach = ReturnReach.usable;
+        gap.detail = null;
+      }
+      results.add(gap);
+    }
+  }
+  return results;
+}
+
+/// The mirror-image question, asked statically: a member that TAKES an SDK type
+/// no bridge knows is uncallable, and a name-level member diff is equally blind
+/// to it.
+///
+/// Unlike the return-type question this one really is static, and the asymmetry
+/// is the point. A script must *construct* the argument it passes, so what
+/// constrains it is the DECLARED parameter type — if that type is bridged, the
+/// script has a way to make one. A return value arrives already built, as
+/// whatever concrete class the SDK chose, so only the runtime type says whether
+/// the script can use it. Same defect shape, opposite instrument.
+List<String> auditParameterTypes(Environment env, {Set<String>? only}) {
+  // Both the bridge NAMES and the NATIVE TYPE NAMES they wrap. The two differ
+  // whenever a bridge is registered under the SDK's name while wrapping a
+  // d4rt-side class: the `LinkedListEntry` bridge wraps
+  // `BridgedLinkedListEntry`, so its own `insertAfter(BridgedLinkedListEntry)`
+  // reported as taking an unbridged type when only names were compared.
+  final bridged = env.bridgedClassNames.toSet();
+  for (final n in env.bridgedClassNames) {
+    final bc = env.findBridgedClassByName(n);
+    if (bc == null) continue;
+    final native = bc.nativeType.toString();
+    final cut = native.indexOf('<');
+    bridged.add(cut < 0 ? native : native.substring(0, cut));
+  }
+  // Types the interpreter represents natively, plus the shapes that carry no
+  // class question at all (type variables, function types, void).
+  const native = {
+    'void',
+    'dynamic',
+    'Null',
+    'Never',
+    'int',
+    'double',
+    'num',
+    'bool',
+    'String',
+    'Object',
+    'Function',
+    'Symbol',
+    'Type',
+    'Enum',
+    'Record',
+  };
+  final findings = <String>[];
+
+  final names = env.bridgedClassNames..sort();
+  for (final className in names) {
+    if (only != null && !only.contains(className)) continue;
+    final bc = env.findBridgedClassByName(className);
+    if (bc == null || bc.nativeType == Function) continue;
+
+    void check(String member, {required bool isStatic}) {
+      if (!RegExp(r'^[A-Za-z_$][A-Za-z0-9_$]*$').hasMatch(member)) return;
+      final decl = _declaredMember(bc.nativeType, member, static: isStatic);
+      if (decl == null) return;
+      for (final param in decl.parameters) {
+        final t = param.type;
+        // A type variable (`E`, `T`) is not a class the registry could hold.
+        if (t is TypeVariableMirror) continue;
+        // A function-type parameter is a callback, not a class the registry
+        // could hold -- and `FunctionTypeMirror` implements `ClassMirror`, so
+        // without this it reports its whole signature as an unbridged type
+        // name. It was 525 findings before this line and 40 after, and every
+        // one of the 485 was a callback.
+        if (t is FunctionTypeMirror) continue;
+        if (t is! ClassMirror) continue;
+        if (t.isAbstract && _symbolName(t.simpleName).isEmpty) continue;
+        final bare = _bareTypeName(t);
+        if (bare.isEmpty || native.contains(bare)) continue;
+        if (bridged.contains(bare)) continue;
+        findings.add(
+          '$className.$member${isStatic ? " (static)" : ""} '
+          'takes ${param.isOptional ? "optional " : ""}$bare',
+        );
+      }
+    }
+
+    for (final m in <String>{...bc.methods.keys}) {
+      check(m, isStatic: false);
+    }
+    for (final m in <String>{...bc.staticMethods.keys}) {
+      check(m, isStatic: true);
+    }
+  }
+  findings.sort();
+  return findings;
+}
+
+Future<void> runReturnTypeAudit(Environment env, List<String> args) async {
+  final only = _optionValue(args, '--only')?.split(',').toSet();
+  final results = await auditReturnTypes(
+    env,
+    only: only,
+    onClass: (name, probes) {
+      if (probes > 0) stderr.writeln('  $name ($probes)');
+    },
+  );
+
+  final gaps = results.where((r) => r.reach == ReturnReach.gap).toList();
+  final usable = results.where((r) => r.reach == ReturnReach.usable).length;
+  final unprobed = results.where((r) => r.reach == ReturnReach.unprobed).length;
+  final noAnswer = results.where((r) => r.reach == ReturnReach.noAnswer).length;
+
+  if (args.contains('--json')) {
+    stdout.writeln(
+      const JsonEncoder.withIndent('  ').convert({
+        'probed': usable + gaps.length,
+        'usable': usable,
+        'gaps': gaps.length,
+        'unprobed': unprobed,
+        'noAnswer': noAnswer,
+        'results': results.map((r) => r.toJson()).toList(),
+      }),
+    );
+    return;
+  }
+
+  stdout.writeln(
+    'Members whose return value was probed:  ${usable + gaps.length}',
+  );
+  stdout.writeln('  ... usable (witness read succeeded):  $usable');
+  stdout.writeln('  ... RETURN-TYPE GAP:                  ${gaps.length}');
+  stdout.writeln('Not probed (no argument literal / no witness): $unprobed');
+  stdout.writeln('No answer (probe wedged):                     $noAnswer');
+
+  final paramFindings = auditParameterTypes(env, only: only);
+  stdout.writeln(
+    'Parameter types with no bridge (static pass):  ${paramFindings.length}',
+  );
+
+  if (gaps.isEmpty) {
+    stdout.writeln('\nNo return-type gaps.');
+  }
+  if (paramFindings.isNotEmpty) {
+    stdout.writeln('\nPARAMETER TYPES WITH NO BRIDGE');
+    for (final f in paramFindings) {
+      stdout.writeln('  $f');
+    }
+  }
+
+  if (gaps.isEmpty) return;
+  stdout.writeln('\nRETURN-TYPE GAPS');
+  for (final g in gaps) {
+    stdout.writeln(
+      '  ${g.className}.${g.member}${g.isStatic ? " (static)" : ""} '
+      '-> declared ${g.declaredReturn}, witness .${g.witness}',
+    );
+    stdout.writeln('      ${g.detail}');
+  }
+}
+
 String? _optionValue(List<String> args, String name) {
   final i = args.indexOf(name);
   return i >= 0 && i + 1 < args.length ? args[i + 1] : null;
@@ -1968,6 +2600,11 @@ String? _optionValue(List<String> args, String name) {
 Future<void> main(List<String> args) async {
   _trace = args.contains('--trace');
   final env = buildFullyRegisteredEnvironment();
+
+  if (args.contains('--returns')) {
+    await runReturnTypeAudit(env, args);
+    exit(0);
+  }
 
   if (args.contains('--hierarchy')) {
     await runHierarchyAudit(env, args);

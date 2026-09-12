@@ -86,6 +86,62 @@ void main() {
       expect(hierarchy.keys, contains('CONFIRMED missing edges'));
     });
 
+    test('F-SCD36-6: the return-type figures match a live run '
+        '[2026-09-12]', () async {
+      // Added with the `--returns` mode. The hierarchy figures rotted for
+      // every commit between SCC57 and SCC89 for want of exactly this, and a
+      // third mode is a third chance to repeat it.
+      final env = buildFullyRegisteredEnvironment();
+      final results = await auditReturnTypes(env);
+      final printed = figuresIn('## The return-type audit');
+
+      expect(
+        printed.keys,
+        contains('RETURN-TYPE GAP'),
+        reason:
+            'The return-type table is gone or relabelled, so this case is '
+            'comparing nothing. Point it at the new table.',
+      );
+
+      final measured = <String, int>{
+        'RETURN-TYPE GAP': results
+            .where((r) => r.reach == ReturnReach.gap)
+            .length,
+        'usable (a witness read succeeded)': results
+            .where((r) => r.reach == ReturnReach.usable)
+            .length,
+        'Parameter types with no bridge (static pass)': auditParameterTypes(
+          env,
+        ).length,
+      };
+
+      final mismatches = <String>[];
+      measured.forEach((label, value) {
+        final key = printed.keys.firstWhere(
+          (k) => k.replaceAll('—', '-') == label,
+          orElse: () => '',
+        );
+        if (key.isEmpty) {
+          mismatches.add('"$label" has no row in the doc');
+          return;
+        }
+        final stated = leadingInt(printed[key]!);
+        if (stated != value) {
+          mismatches.add('$label: doc says $stated, a live run says $value');
+        }
+      });
+      expect(
+        mismatches,
+        isEmpty,
+        reason:
+            'The return-type table no longer describes a fresh run. Re-run '
+            '`dart run tool/stdlib_member_diff.dart --returns` and correct it. '
+            'A RETURN-TYPE GAP above zero is a real defect: a registered '
+            'member whose returned value reaches no bridge. Add the runtime '
+            "type to the owning bridge's nativeNames.\n${mismatches.join('\n')}",
+      );
+    });
+
     test(
       'F-SCC89-2: the member figures match a live audit [2026-09-07]',
       () async {

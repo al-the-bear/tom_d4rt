@@ -494,16 +494,16 @@ deprecation filter reads the annotation rather than a name list, so it was
 verified by negative control (it removes exactly `NOT_FOUND` from
 `FileSystemEntityType` and keeps the live `notFound`).
 
-**The oracle is structurally blind to one class of gap**, and it cost two
-debugging rounds to learn: a *correctly registered* static whose SDK **return
-type** reaches no bridge still fails at the first member access on the result.
-`Iterable.castFrom` returns `_EfficientLengthCastIterable` whenever the source
-reports its length cheaply — the common case — and `LineSplitter.split`
-returns `_LineSplitIterable`; neither was in `IterableCore.nativeNames`, so
-`.length` and `.toList()` raised on a value the adapter had produced
-correctly. The member-diff cannot see this: the member *is* in the map. Only
-an end-to-end test that uses the returned value can. A sweep for other
-bridged members with unbridged return types is tracked separately.
+**The member diff cannot see return types, and a third mode now does.** A
+*correctly registered* member whose SDK **return type** reaches no bridge still
+fails at the first member access on the result: the member *is* in the map, so
+the name-level diff reports no gap, and only code that USES the returned value
+can tell. `Iterable.castFrom` returns `_EfficientLengthCastIterable` whenever
+the source reports its length cheaply — the common case — and
+`LineSplitter.split` returns `_LineSplitIterable`; neither was in
+`IterableCore.nativeNames`, so `.length` and `.toList()` raised on a value the
+adapter had produced correctly. `--returns` measures this directly; see
+[The return-type audit](#the-return-type-audit).
 
 **A supertype edge is worth ~25 adapters.** The largest en-bloc entries earlier
 revisions of this table carried are gone, and almost none of them was fixed by
@@ -942,6 +942,118 @@ runs **last** in its library's `register`, because the registry keys on name and
 every bridge an edge refers to must already be defined — including the ones that
 point out of the library, which is why the block lives beside the library rather
 than beside any one bridge.
+
+## The return-type audit
+
+`dart run tool/stdlib_member_diff.dart --returns`
+
+A member can be registered correctly, export cleanly and analyse cleanly and
+still be unusable, because the value it RETURNS reaches no bridge. The member
+diff is blind to this by construction — it compares member *names*, and the
+member is present in both maps whatever its return type.
+
+### It has to be a runtime pass
+
+The obvious instrument is static: read each member's declared return type from
+the mirror and cross-reference it against `nativeNames`. That instrument
+reports **zero for both members that motivated the mode**, and the reason is
+worth stating plainly because it is the whole design constraint:
+
+| member | declared return type | runtime type |
+|--------|---------------------|--------------|
+| `Iterable.castFrom` | `Iterable` — bridged | `_EfficientLengthCastIterable` |
+| `LineSplitter.split` | `Iterable` — bridged | `_LineSplitIterable` |
+
+The offending types appear in no static signature anywhere. A script must
+*construct* an argument, so a parameter's declared type is what constrains it;
+a return value arrives already built, as whatever concrete class the SDK chose.
+Same defect shape, opposite instrument.
+
+So `--returns` calls each member and reads a **witness** off the result — a
+getter the member's declared return type guarantees. Arguments are synthesised
+from a table keyed by parameter TYPE rather than by member, which is what makes
+the pass scale past the members somebody already thought about: both motivating
+members take one argument, so a pass restricted to no-argument members would
+have missed both.
+
+### Measured state
+
+Measured 2026-09-12.
+
+| Metric | Count |
+|--------|-------|
+| Members whose return value was probed | 409 |
+| … usable (a witness read succeeded) | 409 |
+| … **RETURN-TYPE GAP** | **0** |
+| Not probed (no argument literal, or no witness on the return type) | 274 |
+| No answer (probe wedged) | 3 |
+| Parameter types with no bridge (static pass) | 1 |
+
+### The zero is load-bearing, so the instrument is tested for sensitivity
+
+A zero is worth nothing unless the instrument could have said otherwise, and
+this one silently could not at first. It classifies on the interpreter's
+wording, and the wording an unbridged native target actually produces —
+`Cannot access property 'x' on target of type _Foo` — was missing from the
+audit's shared `_isUnreachableError`. The pass reported 0 of 411 while blind to
+every gap it existed to find. `core/map.dart` had documented that exact wording
+against `_ConstMap` for a release; nothing connected the two.
+
+It was caught by planting the original defect: disabling the SCC49 structural
+suffix fallback and removing the two `nativeNames` entries SCC11 added, then
+re-running. With the corrected vocabulary the pass names both members and their
+runtime types; with the plant reverted it returns to zero.
+
+That plant is also the reason SCC11's two `nativeNames` entries can no longer
+be removed as a test: **SCC49's structural suffix fallback now resolves both
+anyway**, by matching `_LineSplitIterable` to `Iterable` on the name suffix.
+The allowlist entries are belt-and-braces rather than load-bearing, and the
+defect class is much narrower than when SCD36 was written — a returned type is
+only unreachable now if its name does *not* end in a bridged name.
+
+`test/scd36_return_type_pass_test.dart` pins both halves: F-SCD36-1..4 the
+wording vocabulary, F-SCD36-5 that the two motivating members are still in
+range of the instrument rather than merely passing.
+
+### Two precision rules, each learned from a false positive
+
+- **`unary-` is not an identifier.** The shared `_isOperator` tests the first
+  character, and the mirror's name for unary minus starts with a letter — so
+  it built the probe `o.unary-.witness`, which parses as a subtraction and
+  fails with a lookup error indistinguishable from a gap. The pass probes plain
+  identifiers only.
+- **A called writer writes.** This pass CALLS members where the member diff
+  only reads them, so `o.openWrite().done` created an empty
+  `audit_probe_does_not_exist` in the package root on every run — the audit
+  dirtying the tree it was auditing. Writers are excluded by name. Containment
+  by moving the process working directory was tried first and is wrong:
+  `dart test` runs its files as isolates in ONE process, so setting
+  `Directory.current` from the doc-figures test changed it under every other
+  test file running concurrently, and three unrelated cases went red **only
+  under `-j 4`**.
+- **A null result is a wrong argument, not an unbridged type.**
+  `BigInt.tryParse('ab')`, `DateTime.tryParse('ab')`,
+  `Encoding.getByName('ab')` and `InternetAddress.tryParse('ab')` all answer
+  null for a synthesised argument that is not a valid input. The witness read
+  then fails *on null*, which is the SDK behaving correctly. All four reported
+  as gaps before the pass distinguished the receiver `null`.
+
+### The parameter half
+
+The mirror-image question — a member that TAKES an SDK type no bridge knows is
+uncallable, and is equally invisible to a name-level diff — is asked in the
+same mode, statically. One finding:
+
+- `HttpServer.bindSecure` takes a `SecurityContext`, which has no bridge at
+  all. Verified from a script: `SecurityContext()` and
+  `SecurityContext.defaultContext` both raise `Undefined variable:
+  SecurityContext`, so the member is registered and uncallable. Tracked
+  separately — bridging it is a TLS-surface decision, not an audit change.
+
+Function-type parameters are excluded: `FunctionTypeMirror` implements
+`ClassMirror`, so without that exclusion the pass reported each callback's
+whole signature as an unbridged type name — 525 findings, of which 485 were
+callbacks and the rest name-versus-`nativeType` mismatches.
 
 ## Not a gap: relaxer false-alarms (already fixed)
 
