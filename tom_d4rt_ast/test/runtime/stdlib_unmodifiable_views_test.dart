@@ -31,6 +31,24 @@ import '../bridge_reachability.dart';
 /// the map and set views and its name read as if it covered all three, so the
 /// list view went uncovered for months while the file passed. A suite named
 /// after a family is checked against the family.
+///
+/// AND AT THE SAME DEPTH ACROSS IT. scc16 fixed the coverage; SCD56 fixed the
+/// depth. The map and set groups asserted seventeen mutators were PRESENT and
+/// invoked four of them, so thirteen were pinned by key alone — and a key is
+/// what an adapter dropped and re-added as `throw RuntimeD4rtException(...)`
+/// keeps. The mutation still fails, so a test that only checks for failure
+/// cannot tell delegation from interception, which is the whole scb6 contract.
+/// All seventeen are invoked now, generated from the tables at the foot of
+/// this file, so a new mutator is covered by adding one row.
+///
+/// VERIFIED BY DOING IT. Reverting a mutator to a D4rt-specific throw reds
+/// exactly one case and names the member — measured 2026-09-12 on seven of
+/// them: `update`, `removeWhere`, `putIfAbsent` on the map view; `add`,
+/// `removeWhere`, `retainAll` on the set view; and `addEntries`, which is the
+/// interesting one because no bridge here declares it. Intercepting `Map`'s
+/// copy — the one that actually answers — reds `F-SC3-AST-18/addEntries` and
+/// nothing else, which is what the reachability resolution is for. Each run
+/// went `+52 -1`, so "exactly one" is measured rather than assumed.
 void main() {
   late Environment env;
   late InterpreterVisitor visitor;
@@ -88,9 +106,12 @@ void main() {
           containsAll(<String>[
             // read-through
             '[]', 'containsKey', 'containsValue', 'forEach', 'map', 'cast',
-            // delegated so the native view raises UnsupportedError
-            '[]=', 'addAll', 'addEntries', 'clear', 'putIfAbsent', 'remove',
-            'removeWhere', 'update', 'updateAll',
+            // Delegated so the native view raises UnsupportedError. Taken from
+            // the table the delegation cases below are generated from, so the
+            // surface assertion and the behaviour assertion cannot disagree
+            // about which members are mutators — listing them twice is how
+            // they would.
+            ..._mutatingMapCalls.keys,
           ]),
         );
       },
@@ -128,6 +149,46 @@ void main() {
         expect(bridge.methods['[]']!(visitor, view, ['a'], {}, []), 1);
       },
     );
+
+    // SCD56. F-SC3-AST-3 asserts nine mutators are PRESENT and F-SC3-AST-5
+    // invoked two of them, so seven were pinned by key alone — and a key is
+    // exactly what an adapter dropped and re-added as
+    // `throw RuntimeD4rtException(...)` keeps. The mutation still fails, so a
+    // test that only checks for failure cannot tell delegation from
+    // interception. Every one is invoked now, with arguments that survive its
+    // own validation: an argument the adapter rejects reports the argument
+    // problem and never reaches the native view, which would make the case
+    // pass for the wrong reason.
+    //
+    // RESOLVED BY REACHABILITY, not off this bridge. `addEntries` is not
+    // declared here — SCC51 deleted the local copy because it could not unwrap
+    // a `BridgedInstance<MapEntry>`, and `Map`'s copy answers instead. What a
+    // script can call is the contract; which bridge declares it is not.
+    for (final entry in _mutatingMapCalls.entries) {
+      test('F-SC3-AST-18/${entry.key}: the mutating method delegates, so the '
+          'SDK error surfaces [2026-09-12]', () {
+        final adapter = findReachableMethod(
+          env,
+          'UnmodifiableMapView',
+          entry.key,
+        );
+        expect(
+          adapter,
+          isNotNull,
+          reason:
+              'no bridge on UnmodifiableMapView\'s chain declares '
+              '`${entry.key}`',
+        );
+        final view = UnmodifiableMapView<dynamic, dynamic>({'a': 1, 'b': 2});
+        expect(
+          () => adapter!(visitor, view, entry.value, {}, []),
+          throwsUnsupportedError,
+          reason:
+              '`${entry.key}` must delegate to the native view, not throw a '
+              'D4rt-specific exception',
+        );
+      });
+    }
   });
 
   group('SC3: UnmodifiableSetView collection bridge', () {
@@ -163,9 +224,9 @@ void main() {
             'join',
             'toList',
             'toSet',
-            // delegated so the native view raises UnsupportedError
-            'add', 'addAll', 'remove', 'removeAll', 'retainAll', 'removeWhere',
-            'retainWhere', 'clear',
+            // Delegated so the native view raises UnsupportedError; taken
+            // from the table below for the same reason as the map view's.
+            ..._mutatingSetCalls.keys,
           ]),
         );
       },
@@ -200,6 +261,34 @@ void main() {
         expect(bridge.methods['contains']!(visitor, view, [1], {}, []), isTrue);
       },
     );
+
+    // SCD56, for the same reason as the map view's generated cases above: six
+    // of these eight were pinned by key and never called.
+    for (final entry in _mutatingSetCalls.entries) {
+      test('F-SC3-AST-19/${entry.key}: the mutating method delegates, so the '
+          'SDK error surfaces [2026-09-12]', () {
+        final adapter = findReachableMethod(
+          env,
+          'UnmodifiableSetView',
+          entry.key,
+        );
+        expect(
+          adapter,
+          isNotNull,
+          reason:
+              'no bridge on UnmodifiableSetView\'s chain declares '
+              '`${entry.key}`',
+        );
+        final view = UnmodifiableSetView<dynamic>({1, 2});
+        expect(
+          () => adapter!(visitor, view, entry.value, {}, []),
+          throwsUnsupportedError,
+          reason:
+              '`${entry.key}` must delegate to the native view, not throw a '
+              'D4rt-specific exception',
+        );
+      });
+    }
   });
 
   group('SC3: UnmodifiableListView collection bridge', () {
@@ -347,6 +436,65 @@ final _alwaysTrue = NativeFunction(
   arity: 1,
   name: 'alwaysTrue',
 );
+
+/// A two-argument callable, for the map mutators whose callback takes `(k, v)`.
+final _alwaysTrue2 = NativeFunction(
+  (visitor, positional, named, types) => true,
+  arity: 2,
+  name: 'alwaysTrue2',
+);
+
+/// A one-argument callable that returns a value, for `update` / `putIfAbsent`.
+final _returnsValue = NativeFunction(
+  (visitor, positional, named, types) => 99,
+  arity: 1,
+  name: 'returnsValue',
+);
+
+/// The nine mutating methods on the map view, each with arguments that pass its
+/// own validation.
+///
+/// The arguments matter as much as the names. `update` narrows its second
+/// positional to a `Callable` before delegating, so passing a plain value would
+/// report an argument problem and the delegation would never be reached — the
+/// case would then pass without having tested anything. Same for `putIfAbsent`,
+/// `removeWhere` and `updateAll`.
+final Map<String, List<Object?>> _mutatingMapCalls = {
+  '[]=': ['c', 3],
+  'addAll': [
+    {'c': 3},
+  ],
+  // `Map`'s adapter answers this one, not the view's; it takes an iterable of
+  // entries and unwraps a `BridgedInstance<MapEntry>`. A native entry is what
+  // a script's `{'c': 3}.entries` becomes by the time it arrives.
+  'addEntries': [
+    [MapEntry<dynamic, dynamic>('c', 3)],
+  ],
+  'clear': [],
+  'putIfAbsent': ['c', _returnsValue],
+  'remove': ['a'],
+  'removeWhere': [_alwaysTrue2],
+  'update': ['a', _returnsValue],
+  'updateAll': [_alwaysTrue2],
+};
+
+/// The eight mutating methods on the set view.
+final Map<String, List<Object?>> _mutatingSetCalls = {
+  'add': [3],
+  'addAll': [
+    [3],
+  ],
+  'remove': [1],
+  'removeAll': [
+    [1],
+  ],
+  'retainAll': [
+    [1],
+  ],
+  'removeWhere': [_alwaysTrue],
+  'retainWhere': [_alwaysTrue],
+  'clear': [],
+};
 
 /// The 18 mutating methods scb6 rewrote to delegate, each with arguments that
 /// pass its own validation — otherwise the adapter would report the argument
