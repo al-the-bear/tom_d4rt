@@ -1,3 +1,25 @@
+## 1.87.0
+
+### Fixed — `is` honours the nullable `?` suffix, and so do typed patterns (scd62)
+
+`_valueHasType` switched on the type NAME and dropped the suffix, so `String?`
+reached the `String` case and asked the host's own `is` — false for null.
+Measured: `null is String?`, `null is int?` and `null is Object?` were all
+false. The last is the sharpest form of it, since every value satisfies
+`Object?` and there was no input for which that answer was right.
+
+It was not only the operator. SCC18 extracted this predicate out of
+`visitIsExpression` and routed typed PATTERNS through it, so the same defect
+decided pattern arms: `case String? _` did not match null and the null fell to
+a later arm or to `default`. All three pattern contexts — a `switch`
+expression arm, `if (v case ...)`, and a `case T? name:` label with its
+binding — are fixed and pinned.
+
+Scoped to null deliberately. A non-null value still tests against the bare
+type, which was always correct (`'hi' is String?` was true before this), and
+`Null`, `dynamic` and `void` keep their own branches rather than being
+collapsed into the nullable question.
+
 ## 1.86.0
 
 ### Fixed — a `throw` inside an async `finally` never completed (scd43_aide)

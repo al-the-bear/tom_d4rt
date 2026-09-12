@@ -11499,6 +11499,28 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   bool _valueHasType(STypeAnnotation? typeNode, Object? expressionValue) {
     bool result = false;
 
+    // SCD62: the `?` suffix is part of the question, and this predicate used
+    // to drop it. `null` satisfies EVERY nullable type — `Null` is a subtype
+    // of `T?` for all T — so the answer is yes before the name switch below
+    // ever runs. Without this, that switch reached the `String` / `int` /
+    // `Object` cases and asked the host's own `is`, which is false for null:
+    // `null is String?` and even `null is Object?` came back false, and there
+    // is no input for which the second of those is right.
+    //
+    // `_checkValueMatchesType` a few hundred lines up has always had this
+    // line, so the rule was already settled in this file; only this copy of
+    // the question was missing it.
+    //
+    // SCOPED TO NULL ON PURPOSE. A non-null value falls through and is tested
+    // against the bare type, which was always correct — `'hi' is String?` was
+    // true before this change. And `Null`, `dynamic` and `void` keep their
+    // existing branches untouched: none of them is written with a `?`, so
+    // none reaches this return, which is what SCC20's notes ask for when they
+    // warn against collapsing those three into the nullable question.
+    if (expressionValue == null && (typeNode?.isNullable ?? false)) {
+      return true;
+    }
+
     if (typeNode is SNamedType) {
       final bareTypeName = typeNode.name!.name;
       // GEN-100c: Prefixed type-tests (e.g. `attribute is ui.LocaleStringAttribute`)
