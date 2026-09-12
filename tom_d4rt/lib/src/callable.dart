@@ -3401,6 +3401,34 @@ class InterpretedFunction implements Callable {
       state.isCurrentlyRethrowing = false;
     }
 
+    // SCD43: an error raised INSIDE a try's own finally block must be offered
+    // to the try enclosing that try. Without this the search returned the very
+    // try whose finally was running, the machine scheduled that finally again,
+    // and it threw again -- the program never completed.
+    //
+    // The held error is dropped in the same step, and that is the language
+    // rule rather than bookkeeping: Dart specifies that an exception raised in
+    // a finally REPLACES one propagating from the try body, and the replaced
+    // one is lost. Leaving scd40's hold in place would make the ORIGINAL
+    // surface at the state machine's terminal exits -- a fix that stops the
+    // loop and still answers wrongly.
+    final finallyOwner = _tryOwningFinallyBlockOf(nodeWhereErrorOccurred);
+    if (enclosingTry != null && identical(enclosingTry, finallyOwner)) {
+      Logger.debug(
+        " [_handleAsyncError] Error raised inside the finally of "
+        "${enclosingTry.offset}; continuing the search outside that try.",
+      );
+      if (identical(state.errorAfterFinallyTry, enclosingTry)) {
+        state.errorAfterFinally = null;
+        state.errorAfterFinallyStackTrace = null;
+        state.errorAfterFinallyTry = null;
+        state.resumeErrorAfterFinally = false;
+      }
+      // A pending return is replaced too, for the same reason.
+      state.returnAfterFinally = null;
+      enclosingTry = _findEnclosingTryStatement(enclosingTry.parent);
+    }
+
     // SCC12: walk outward past every try that cannot do anything with the error.
     // A try with no catch clauses and no (non-empty) finally block is not a
     // handler, and the search has to continue at the try enclosing *it* — the
@@ -3637,6 +3665,34 @@ class InterpretedFunction implements Callable {
       if (atTarget) break;
     }
     if (outermost != null) state.truncateLoopStacks(outermost);
+  }
+
+  /// The `try` whose FINALLY BLOCK lexically contains [node], or null when
+  /// [node] is not inside one.
+  ///
+  /// SCD43: a finally block is not protected by its own try, so an error
+  /// raised inside one must be offered to the try ENCLOSING that try.
+  /// `_findEnclosingTryStatement` returns the owner itself, which has a
+  /// finally, so the machine scheduled that finally again -- and it threw
+  /// again, for ever.
+  ///
+  /// Structural for the same reason as [_tryOwningCatchClauseOf]: whether a
+  /// node sits inside a given finally block is a fact about the AST that no
+  /// amount of prior execution can change, so it needs no flag on the state.
+  /// And like that one it stops at the FIRST enclosing finally, so a `try`
+  /// written inside a finally block is found by [_findEnclosingTryStatement]
+  /// first and handles its own errors normally.
+  static TryStatement? _tryOwningFinallyBlockOf(AstNode? node) {
+    AstNode? current = node;
+    while (current != null) {
+      final parent = current.parent;
+      if (parent is TryStatement && identical(parent.finallyBlock, current)) {
+        return parent;
+      }
+      if (current is FunctionBody) return null;
+      current = parent;
+    }
+    return null;
   }
 
   /// The `try` whose CATCH CLAUSE lexically contains [node], or null when

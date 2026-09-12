@@ -889,4 +889,174 @@ void main() {
       },
     );
   });
+
+  /// SCD43 — a `throw` inside an async `finally` re-entered that same finally
+  /// for ever.
+  ///
+  /// `_handleAsyncError` asked `_findEnclosingTryStatement` which try protects
+  /// the throwing node, and for a node inside a finally block that is the try
+  /// whose finally is currently running. It has a finally, so the machine
+  /// scheduled that finally again, which threw again. **A finally block is not
+  /// protected by its own try**, so the search has to continue at the try's
+  /// parent.
+  ///
+  /// Every async shape hung: with and without an outer catch, with and without
+  /// an `await` before the throw, and whether or not the finally's exception
+  /// was replacing one already in flight. The synchronous path was correct
+  /// throughout, and is the reference these cases are written against.
+  ///
+  /// ## The replacement rule is the part worth getting right
+  ///
+  /// Dart specifies that an exception raised in a `finally` REPLACES one
+  /// propagating from the try body, and the replaced one is lost. A fix that
+  /// merely stops the loop but propagates the ORIGINAL would pass any test that
+  /// only asserts "something was thrown" — so F-SCD43-3 and F-SCD43-6 name the
+  /// exception that must win AND the one that must not appear.
+  ///
+  /// ## These cases HANG when they regress, they do not fail
+  ///
+  /// The machine reschedules itself through `Future.microtask`, so a loop here
+  /// starves the event loop and the file's `run` timeout never fires. Before
+  /// the fix this group wedged the suite rather than failing it. To see a red
+  /// state, use a wall clock: `perl -e 'alarm 90; exec @ARGV' dart test …`.
+  group('SCD43: a throw inside an async finally propagates', () {
+    /// Asserts the program throws something naming [fragment].
+    Future<void> expectThrows(String source, String fragment) => expectLater(
+      executeAsync(source).timeout(const Duration(seconds: 10)),
+      throwsA(
+        predicate(
+          (Object? e) => e.toString().contains(fragment),
+          'an error mentioning "$fragment"',
+        ),
+      ),
+    );
+
+    test('F-SCD43-1: an outer try catches it [2026-09-12]', () async {
+      expect(
+        await run(r"""
+          Future<dynamic> main() async {
+            try { try { } finally { throw StateError('fin'); } }
+            catch (e) { return 'caught'; }
+          }
+        """),
+        'caught',
+      );
+    });
+
+    test('F-SCD43-2: with no outer handler it leaves the function '
+        '[2026-09-12]', () async {
+      await expectThrows(
+        r"Future<dynamic> main() async { try { } finally { throw StateError('fin'); } }",
+        'fin',
+      );
+    });
+
+    test(
+      "F-SCD43-3: it REPLACES the try body's exception [2026-09-12]",
+      () async {
+        // Dart loses the body's exception. Asserting only that something was
+        // caught would pass while the original propagated, which is the wrong
+        // answer arrived at by a fix that merely stops the loop.
+        final caught = await run(r"""
+        Future<dynamic> main() async {
+          try {
+            try { throw StateError('body'); } finally { throw StateError('fin'); }
+          } catch (e) { return e.toString(); }
+        }
+      """);
+        expect(caught, contains('fin'));
+        expect(
+          caught,
+          isNot(contains('body')),
+          reason:
+              "the finally's exception replaces the body's, and the replaced one "
+              'is lost — propagating the original instead would satisfy any '
+              '"did it throw" assertion',
+        );
+      },
+    );
+
+    test('F-SCD43-4: with an await before the throw, an outer try catches it '
+        '[2026-09-12]', () async {
+      expect(
+        await run(r"""
+          Future<dynamic> main() async {
+            try {
+              try { } finally { await Future.value(0); throw StateError('fin'); }
+            } catch (e) { return 'caught'; }
+          }
+        """),
+        'caught',
+      );
+    });
+
+    test('F-SCD43-5: with an await and no outer handler it leaves the '
+        'function [2026-09-12]', () async {
+      await expectThrows(
+        r"Future<dynamic> main() async { try { } finally { await Future.value(0); throw StateError('fin'); } }",
+        'fin',
+      );
+    });
+
+    test('F-SCD43-6: with an await it still REPLACES the body exception '
+        '[2026-09-12]', () async {
+      final caught = await run(r"""
+        Future<dynamic> main() async {
+          try {
+            try { throw StateError('body'); }
+            finally { await Future.value(0); throw StateError('fin'); }
+          } catch (e) { return e.toString(); }
+        }
+      """);
+      expect(caught, contains('fin'));
+      expect(caught, isNot(contains('body')));
+    });
+
+    test('F-SCD43-7: a throwing finally discards a pending return '
+        '[2026-09-12]', () async {
+      // Real Dart throws here — the finally's abrupt completion replaces the
+      // pending return exactly as it replaces a pending exception. scd40 left
+      // this contest undecided because the shape hung before reaching the
+      // state machine's terminal exits; it no longer does.
+      await expectThrows(
+        r"Future<dynamic> main() async { try { return 7; } finally { throw StateError('fin'); } }",
+        'fin',
+      );
+    });
+
+    test('F-SCD43-8: the SYNC path is unchanged [2026-09-12]', () async {
+      // The reference. It was already correct, and it is what the async path
+      // is being made to agree with.
+      final caught = await run(r"""
+        main() {
+          try {
+            try { throw StateError('body'); } finally { throw StateError('fin'); }
+          } catch (e) { return e.toString(); }
+        }
+      """);
+      expect(caught, contains('fin'));
+      expect(caught, isNot(contains('body')));
+    });
+
+    test('F-SCD43-9: a try nested INSIDE a finally handles its own errors '
+        '[2026-09-12]', () async {
+      // The boundary the structural rule must respect, and the exact parallel
+      // of F-SCD41-11 for catch clauses: skipping to the owner unconditionally
+      // would make a try written inside a finally unable to catch anything.
+      expect(
+        await run(r"""
+          Future<dynamic> main() async {
+            var log = [];
+            try { }
+            finally {
+              try { throw StateError('inner'); } catch (e) { log.add('ic'); }
+              log.add('done');
+            }
+            return log;
+          }
+        """),
+        orderedEquals(['ic', 'done']),
+      );
+    });
+  });
 }

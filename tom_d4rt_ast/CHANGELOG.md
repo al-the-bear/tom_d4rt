@@ -1,3 +1,42 @@
+## 0.74.0
+
+### Fixed — a `throw` inside an async `finally` never completed (scd43_aide)
+
+    Future<dynamic> main() async {
+      try { } finally { throw StateError('fin'); }
+    }
+
+hung. `_handleAsyncError` asked `_findEnclosingTryStatement` which try protects
+the throwing node, and for a node inside a finally block that is the try whose
+finally is currently running. It has a finally, so the machine scheduled that
+finally again — which threw again, for ever. **A finally block is not protected
+by its own try**, so the search now continues at the try's parent.
+
+Every async shape hung: with an outer catch and without, with an `await` before
+the throw and without, and whether or not the finally's exception was replacing
+one already in flight. The synchronous path was correct throughout and is the
+reference the nine new cases are written against.
+
+**The replacement rule is the half that a naive fix gets wrong.** Dart specifies
+that an exception raised in a finally REPLACES one propagating from the try
+body, and the replaced one is lost. Stopping the loop while leaving scd40's
+`errorAfterFinally` hold in place would have surfaced the ORIGINAL exception at
+the state machine's terminal exits — a program that no longer hangs and still
+answers wrongly. The hold is dropped in the same step, and so is a pending
+return: `try { return 7; } finally { throw … }` now throws, as real Dart does.
+
+The rule is read from the AST, not recorded on the state, which is the decision
+scd41 made for the rethrow case and for the same reason — whether a node sits
+inside a given finally block is a fact no amount of prior execution can change.
+Like `_tryOwningCatchClauseOf`, it stops at the FIRST enclosing finally, so a
+`try` written inside a finally block still handles its own errors (F-SCD43-9).
+
+These cases HANG when they regress rather than failing: the machine reschedules
+through `Future.microtask`, so a loop starves the event loop and the file's own
+timeout never fires. Seeing the red state needs a wall clock
+(`perl -e 'alarm 90; exec @ARGV' dart test …`), which is stated in the group's
+doc comment.
+
 ## 0.73.0
 
 ### Fixed — a bare block lost its locals across an `await` (scd42_aide)
