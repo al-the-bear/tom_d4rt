@@ -65,6 +65,14 @@ class CoreHierarchyCore {
       // predicate three files away.
       'RegExpMatch': ['Match'],
       'Runes': ['Iterable'],
+      // The two container roots. `List` and `Set` are `dart:core` types, so
+      // their edge to `Iterable` belongs to the `dart:core` registrar — it used
+      // to be declared by `dart:collection`'s, which meant a script that never
+      // imported `dart:collection` had no path from `List` to `Iterable` at
+      // all. SCD67 moved it here so `dart:typed_data`'s views can reach
+      // `Iterable` through `List` instead of restating it eleven times.
+      'List': ['Iterable'],
+      'Set': ['Iterable'],
       'StringBuffer': ['StringSink'],
     });
   }

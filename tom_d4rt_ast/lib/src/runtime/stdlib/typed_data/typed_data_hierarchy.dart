@@ -29,11 +29,15 @@ import 'package:tom_d4rt_ast/runtime.dart';
 /// — the predicate decides bridge *ownership*, so a supertype claiming
 /// assignability could quietly steal dispatch from the concrete views.
 ///
-/// Every edge is listed explicitly rather than relying on `-> List -> Iterable`
-/// being followed transitively: the registry walk in
-/// `BridgedClass.isSubtypeOf` only goes one hop past the direct supertypes, and
-/// leaving `Iterable` implicit would work today only by accident of the chain
-/// being exactly two links long.
+/// One edge per SDK `implements`, and `Iterable` is NOT among them: it is
+/// reached by following `List -> Iterable`. That edge used to be declared by
+/// `dart:collection`'s registrar, which is why every view here restated the
+/// whole closure — a script importing only `dart:typed_data` had no other path
+/// to `Iterable`. SCD67 moved it to `CoreHierarchyCore`, where the `dart:core`
+/// types it describes actually live, and the closure is unchanged in both
+/// conditions. (The original reason for restating it — that the registry walk
+/// went only one hop past the direct supertypes — stopped being true at SCC19,
+/// which made `isSubtypeOf` read the full closure.)
 ///
 /// `ByteData` is the member of this hierarchy that is NOT a list — it
 /// implements `TypedData` and nothing else — which is what makes it the case
@@ -46,18 +50,20 @@ import 'package:tom_d4rt_ast/runtime.dart';
 class TypedDataHierarchyTypedData {
   static void register() {
     BridgedClass.registerSupertypes(const {
-      // The eleven list views: `TypedData` and the List/Iterable chain.
-      'Uint8List': ['TypedData', 'List', 'Iterable'],
-      'Uint8ClampedList': ['TypedData', 'List', 'Iterable'],
-      'Uint16List': ['TypedData', 'List', 'Iterable'],
-      'Uint32List': ['TypedData', 'List', 'Iterable'],
-      'Uint64List': ['TypedData', 'List', 'Iterable'],
-      'Int8List': ['TypedData', 'List', 'Iterable'],
-      'Int16List': ['TypedData', 'List', 'Iterable'],
-      'Int32List': ['TypedData', 'List', 'Iterable'],
-      'Int64List': ['TypedData', 'List', 'Iterable'],
-      'Float32List': ['TypedData', 'List', 'Iterable'],
-      'Float64List': ['TypedData', 'List', 'Iterable'],
+      // The eleven list views. `abstract class Uint8List implements List<int>,
+      // TypedData` — two edges, and `Iterable` is reached by following
+      // `List -> Iterable` in `CoreHierarchyCore` rather than being restated.
+      'Uint8List': ['TypedData', 'List'],
+      'Uint8ClampedList': ['TypedData', 'List'],
+      'Uint16List': ['TypedData', 'List'],
+      'Uint32List': ['TypedData', 'List'],
+      'Uint64List': ['TypedData', 'List'],
+      'Int8List': ['TypedData', 'List'],
+      'Int16List': ['TypedData', 'List'],
+      'Int32List': ['TypedData', 'List'],
+      'Int64List': ['TypedData', 'List'],
+      'Float32List': ['TypedData', 'List'],
+      'Float64List': ['TypedData', 'List'],
       // `ByteData` implements `TypedData` without implementing `List`.
       'ByteData': ['TypedData'],
     });

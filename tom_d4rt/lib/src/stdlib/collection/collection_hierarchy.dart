@@ -44,10 +44,12 @@ class CollectionHierarchyCollection {
       'LinkedHashSet': ['Set'],
       'SplayTreeSet': ['Set'],
       'UnmodifiableSetView': ['Set'],
-      'Set': ['Iterable'],
-      // Lists.
+      // Lists. `List -> Iterable` and `Set -> Iterable` live in
+      // `CoreHierarchyCore`: both are `dart:core` types, and declaring them
+      // here left them unavailable to any script that did not import
+      // `dart:collection` — which `dart:typed_data` now depends on not being
+      // the case.
       'UnmodifiableListView': ['List'],
-      'List': ['Iterable'],
       // Queues.
       'DoubleLinkedQueue': ['Queue'],
       'ListQueue': ['Queue'],

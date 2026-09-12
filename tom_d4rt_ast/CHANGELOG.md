@@ -1,3 +1,37 @@
+## 0.78.0
+
+### Changed — every supertype edge is one SDK hop (scd67)
+
+The `_supertypeRegistry` blocks used to restate whole closures:
+`'IndexError': ['RangeError', 'ArgumentError', 'Error']` where the SDK says
+`class IndexError extends RangeError` and the other two were already reachable.
+That was not a style choice — until SCC19 the registry walk went only one hop
+past the direct supertypes, so a two-hop answer had to be written out. SCC19
+removed the constraint; the comments explaining it outlived it by months, in
+files whose next reader would have copied the shape.
+
+Swept the three blocks that still carried it: `dart:async`'s `StreamController`,
+`dart:typed_data`'s eleven list views, and the `dart:core` error chain. Measured,
+that removed exactly 18 redundant edges — 155 direct edges became 137 — and the
+transitive closure of all 94 registered names is byte-identical before and
+after. `test/scd67_hierarchy_edges_test.dart` now derives the invariant instead
+of recording it: a parent already reachable through another parent of the same
+key does not belong in that key's list. Run against the pre-sweep tree it
+reports all 18 by name.
+
+### Fixed — `List -> Iterable` is a `dart:core` edge and is now declared there
+
+`List` and `Set` are `dart:core` types, but their edge to `Iterable` was
+declared by `dart:collection`'s registrar — so a script that never imported
+`dart:collection` had no path from `List` to `Iterable` at all. That is why
+every typed-data view restated the whole closure: it was the only way those
+views could reach `Iterable` on their own imports. The edge now lives in
+`CoreHierarchyCore`, which always registers, and the eleven views declare the
+two edges the SDK gives them.
+
+Purely additive: with `dart:collection` loaded nothing changes, and without it
+`List` and `Set` gain a closure they should always have had.
+
 ## 0.77.0
 
 ### Fixed — the three pattern kinds `_matchAndBind` had no branch for (scd64)

@@ -1105,7 +1105,11 @@ class AsyncStreamStdlib {
       // named again.
       'EventSink': ['Sink'],
       'StreamSink': ['EventSink', 'StreamConsumer'],
-      'StreamController': ['StreamSink', 'EventSink', 'StreamConsumer'],
+      // `abstract interface class StreamController<T> implements
+      // StreamSink<T>`. One edge: `EventSink` and `StreamConsumer` are reached
+      // through `StreamSink` on the line above, and restating them here was a
+      // second copy of a closure that is already written down two lines up.
+      'StreamController': ['StreamSink'],
       'MultiStreamController': ['StreamController'],
       // `class StreamView<T> extends Stream<T>`. Recorded for completeness of
       // the registry even though StreamView instances dispatch to the `Stream`

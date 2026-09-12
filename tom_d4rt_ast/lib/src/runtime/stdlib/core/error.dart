@@ -636,20 +636,23 @@ class ErrorHierarchyCore {
     BridgedClass.registerSupertypes(const {
       'StateError': ['Error'],
       'ArgumentError': ['Error'],
-      'RangeError': ['ArgumentError', 'Error'],
-      'IndexError': ['RangeError', 'ArgumentError', 'Error'],
+      // `class RangeError extends ArgumentError`, `class IndexError extends
+      // RangeError`. One edge each — the walk reaches `Error` through
+      // `ArgumentError`, which is declared on the line above.
+      'RangeError': ['ArgumentError'],
+      'IndexError': ['RangeError'],
       'UnsupportedError': ['Error'],
-      // UnimplementedError extends Error and implements UnsupportedError.
-      'UnimplementedError': ['UnsupportedError', 'Error'],
+      // `class UnimplementedError extends Error implements UnsupportedError`.
+      // The `Error` half is reached through `UnsupportedError`, so only the
+      // interface edge is declared.
+      'UnimplementedError': ['UnsupportedError'],
       // IntegerDivisionByZeroException implements BOTH UnsupportedError and
       // Exception, so `e is Error` and `e is Exception` are both true of it —
-      // unusual, and the reason both branches are listed here rather than the
-      // Error chain alone.
-      'IntegerDivisionByZeroException': [
-        'UnsupportedError',
-        'Error',
-        'Exception',
-      ],
+      // unusual, and the reason two parents are listed here rather than the
+      // Error chain alone. `Error` itself is reached through
+      // `UnsupportedError`; `Exception` is a genuine second parent and has to
+      // be named.
+      'IntegerDivisionByZeroException': ['UnsupportedError', 'Exception'],
       'NoSuchMethodError': ['Error'],
       'ConcurrentModificationError': ['Error'],
       'TypeError': ['Error'],
