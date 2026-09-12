@@ -369,6 +369,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     } on PatternMatchD4rtException catch (e) {
       // Convert pattern match failures to standard RuntimeError for now
       throw RuntimeD4rtException("Pattern match failed: ${e.message}");
+    } on TypeError {
+      // SCD64: a `TypeError` raised while binding is the PROGRAM's error, not
+      // this machinery failing, so it keeps its identity instead of being
+      // wrapped below. `var (a!) = maybeNull;` is legal Dart whose entire
+      // purpose is to raise one, and a script's `on TypeError` has to see it.
+      rethrow;
     } catch (e, s) {
       // Add stack trace capture
       Logger.error(
@@ -14060,6 +14066,44 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       if (Logger.isDebug) {
         Logger.debug("[_matchAndBind] CastPattern: matched successfully");
       }
+    } else if (pattern is ParenthesizedPattern) {
+      // SCD64: `(p)` is pure grouping. It matches exactly what `p` matches and
+      // binds exactly what `p` binds, so recursing IS the implementation — no
+      // type test, no binding, no unwrapping of the value. A non-match inside
+      // propagates out as the same `PatternMatchD4rtException` every caller
+      // already handles, which is why the parentheses need no arm-selection
+      // logic of their own.
+      _matchAndBind(pattern.pattern, value, environment);
+    } else if (pattern is NullCheckPattern) {
+      // SCD64: `p?` — a null does NOT match, and a non-null is then matched
+      // against the inner pattern.
+      //
+      // Measured against the SDK rather than assumed, because this is the half
+      // of the pair that is easy to get backwards: `case int n?` with a null
+      // scrutinee falls through to the next arm, quietly. It does not throw.
+      // `p!` below is the same shape with the opposite answer for null, and
+      // writing either one's behaviour into the other is the mistake this
+      // comment exists to prevent.
+      if (value == null) {
+        throw PatternMatchD4rtException(
+          'Null-check pattern does not match null',
+        );
+      }
+      _matchAndBind(pattern.pattern, value, environment);
+    } else if (pattern is NullAssertPattern) {
+      // SCD64: `p!` — a null THROWS rather than failing to match, so it can
+      // never select a later arm. Signalling a non-match here instead would
+      // turn a program that is supposed to stop into one that quietly takes
+      // `default`.
+      //
+      // `D4rtTypeError`, with the SDK's own wording, because that is what a
+      // script's `on TypeError` matches — and because the arm-selection sites
+      // catch `PatternMatchD4rtException` and nothing else, so the type of the
+      // exception is what decides whether this propagates at all.
+      if (value == null) {
+        throw D4rtTypeError('Null check operator used on a null value');
+      }
+      _matchAndBind(pattern.pattern, value, environment);
     } else {
       throw UnimplementedD4rtException(
         "Pattern type not yet supported in _matchAndBind: ${pattern.runtimeType}",
@@ -14108,6 +14152,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     } on PatternMatchD4rtException catch (e) {
       // Convert pattern match failures into standard RuntimeErrors for assignment expressions
       throw RuntimeD4rtException("Pattern assignment failed: ${e.message}");
+    } on TypeError {
+      // SCD64 — see the matching note on the declaration site.
+      rethrow;
     } catch (e) {
       // Catch other potential errors during binding
       throw RuntimeD4rtException("Error during pattern assignment: $e");

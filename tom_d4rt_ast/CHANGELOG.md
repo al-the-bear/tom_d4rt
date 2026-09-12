@@ -1,3 +1,40 @@
+## 0.77.0
+
+### Fixed — the three pattern kinds `_matchAndBind` had no branch for (scd64)
+
+`case (int _)` threw `Unimplemented Error: Pattern type not yet supported in
+_matchAndBind: ParenthesizedPatternImpl`, and so did `var (int a) = ...`.
+Auditing the rest of the dispatch — every `DartPattern` subtype the analyzer
+defines, through five contexts, in one pass — found two more kinds in the same
+state rather than one:
+
+| pattern kind         | spelled | before        |
+| -------------------- | ------- | ------------- |
+| ParenthesizedPattern | `(p)`   | Unimplemented |
+| NullCheckPattern     | `p?`    | Unimplemented |
+| NullAssertPattern    | `p!`    | Unimplemented |
+
+The other twelve were implemented and answered correctly in all five contexts.
+
+All three are now live in every pattern position: switch statement, switch
+expression, `if (v case ...)`, destructuring declaration, pattern assignment
+and pattern for-each. `(p)` is pure grouping and recurses. The two null
+patterns are the same syntax with OPPOSITE answers for null, measured against
+the SDK rather than assumed: `case int n?` with a null scrutinee falls quietly
+to the next arm, while `case int n!` raises a `TypeError` with the null-check
+operator's own wording and cannot select an arm at all. The exception type is
+load-bearing — arm selection catches pattern-match failures and nothing else —
+so a null-assert signalled as a non-match would silently take `default`.
+
+The two irrefutable sites (declaration, assignment) also stopped wrapping a
+`TypeError` raised during binding in a generic runtime error. `var (a!) =
+maybeNull;` is legal Dart whose entire purpose is to raise one, and a script's
+`on TypeError` has to see it.
+
+A failing CAST pattern is a separate, unfixed divergence, now pinned: `case var
+n as int` over a String signals a non-match and takes `default`, where real
+Dart throws.
+
 ## 0.76.0
 
 ### Fixed — a typed for-each loop variable is checked against what it binds (scd63)
