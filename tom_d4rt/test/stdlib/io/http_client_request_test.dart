@@ -96,4 +96,82 @@ void main() {
       expect(await executeAsync(source), orderedEquals([true, 200]));
     });
   });
+
+  /// SCD45 — the response half of the same round trip.
+  ///
+  /// `HttpClientResponse` carried an audit exemption for a release saying that
+  /// obtaining an instance needs a completed HTTP round trip which "does not
+  /// finish inside the interpreter — the probe hangs rather than answering".
+  /// It does finish. Measured under a wall clock, the round trip below returns
+  /// in well under a second, and all 35 of the class's audit candidates turn
+  /// out to be reachable through the `Stream<List<int>>` it implements.
+  ///
+  /// These cases exist because the exemption was wrong and nobody retested it.
+  /// A stated reason is a claim about the system, and this one outlived its
+  /// cause by long enough to keep 35 members unmeasured — so the response path
+  /// gets an executable claim rather than a prose one.
+  group('SCD45: the response side of the round trip', () {
+    test('F-SCD45-1: a script reads status, headers and body from the '
+        'response [2026-09-12]', () async {
+      const source = '''
+        import 'dart:io';
+        Future<dynamic> main() async {
+          final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+          server.listen((r) async {
+            r.response.write('pong');
+            await r.response.close();
+          });
+          final client = HttpClient();
+          try {
+            final request = await client.getUrl(
+                Uri.parse('http://127.0.0.1:\${server.port}/audit'));
+            final response = await request.close();
+            // A member of its own, a member of HttpHeaders, and a member it
+            // inherits from Stream — the three routes a script can take into
+            // this value, and the Stream route is the one all 35 audit
+            // candidates use.
+            final chunks = await response.toList();
+            return [
+              response.statusCode,
+              response.reasonPhrase,
+              response.headers != null,
+              chunks.isNotEmpty,
+            ];
+          } finally {
+            client.close(force: true);
+            await server.close(force: true);
+          }
+        }
+      ''';
+      expect(
+        await executeAsync(source),
+        orderedEquals([200, 'OK', true, true]),
+      );
+    });
+
+    test('F-SCD45-2: the response is not bridged as a bare Stream '
+        '[2026-09-12]', () async {
+      // `statusCode` is declared by `HttpClientResponse` and not by `Stream`,
+      // so reading it is what says which bridge answered. Stated directly so a
+      // regression names itself, exactly as F-SCD44-2 does for the request.
+      const source = '''
+        import 'dart:io';
+        Future<dynamic> main() async {
+          final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+          server.listen((r) async { await r.response.close(); });
+          final client = HttpClient();
+          try {
+            final request = await client.getUrl(
+                Uri.parse('http://127.0.0.1:\${server.port}/audit'));
+            final response = await request.close();
+            return [response.statusCode, response.isRedirect];
+          } finally {
+            client.close(force: true);
+            await server.close(force: true);
+          }
+        }
+      ''';
+      expect(await executeAsync(source), orderedEquals([200, false]));
+    });
+  });
 }

@@ -8,7 +8,7 @@
 //
 // Current state: 51 confirmed-unreachable members across 4 classes,
 // 5 members on 2 classes unreachable by decision,
-// and 71 members on 2 classes that cannot be measured at all.
+// and 36 members on 1 classes that cannot be measured at all.
 // Those totals are documentation, not assertions — the test derives them from the
 // tables below, so there is only ever one thing to update.
 //
@@ -93,43 +93,6 @@ const declinedMembers = <String, List<String>>{
 /// moving out of this bucket is reported as the new information it is, rather
 /// than as a fresh defect.
 const unmeasurable = <String, List<String>>{
-  'HttpClientResponse': [
-    r'any',
-    r'asBroadcastStream',
-    r'asyncExpand',
-    r'asyncMap',
-    r'cast',
-    r'contains',
-    r'distinct',
-    r'drain',
-    r'elementAt',
-    r'every',
-    r'expand',
-    r'first',
-    r'firstWhere',
-    r'fold',
-    r'forEach',
-    r'handleError',
-    r'isBroadcast',
-    r'isEmpty',
-    r'join',
-    r'last',
-    r'lastWhere',
-    r'length',
-    r'map',
-    r'pipe',
-    r'reduce',
-    r'single',
-    r'singleWhere',
-    r'skip',
-    r'skipWhile',
-    r'take',
-    r'takeWhile',
-    r'timeout',
-    r'toList',
-    r'toSet',
-    r'where',
-  ],
   'Stdin': [
     r'any',
     r'asBroadcastStream',
@@ -206,6 +169,7 @@ const measuredClasses = <String>{
   'HtmlEscapeMode',
   'HttpClient',
   'HttpClientRequest',
+  'HttpClientResponse',
   'HttpClientResponseCompressionState',
   'HttpHeaders',
   'HttpRequest',

@@ -571,9 +571,6 @@ class Recipe {
 /// so each entry is a pointer at work to do rather than a permanent exemption:
 /// fix the defect and the class becomes auditable.
 const _notAuditable = <String, String>{
-  'HttpClientResponse':
-      'requires a completed HTTP round trip, which does not '
-      'finish inside the interpreter — the probe hangs rather than answering',
   // The one entry here that is NOT a bridge defect, and the one that had to be
   // learned the hard way. `Stdin` has no constructor: the only instance in
   // existence is the process's own standard input, so a recipe cannot sandbox
@@ -975,6 +972,44 @@ const _instanceRecipes = <String, Recipe>{
   'WebSocketTransformer': Recipe(
     'WebSocketTransformer()',
     imports: "import 'dart:io';",
+  ),
+  // SCD45: the reason this class carried for a release was that an HTTP round
+  // trip "does not finish inside the interpreter -- the probe hangs rather than
+  // answering". It does finish. Measured under a wall clock, the shape below
+  // returns `[200, OK, _HttpClientResponse, true, false, true]` in well under a
+  // second, and `test/stdlib/io/http_client_request_test.dart` pins the same
+  // round trip.
+  //
+  // The response is a `Stream<List<int>>`, so a bare read of an inherited
+  // getter (`first`, `length`, `isEmpty`) SUBSCRIBES -- the hazard the `Stdin`
+  // entry in `_notAuditable` documents. It is safe here and not there: this
+  // stream is a real HTTP body that the server closes, so a subscription
+  // completes instead of capturing a process-wide file descriptor. The body is
+  // deliberately non-empty, so a probe that drains it gets data rather than the
+  // `StateError` an empty stream raises for `first`.
+  'HttpClientResponse': Recipe(
+    '_auditClientResponse()',
+    imports: "import 'dart:async';\nimport 'dart:io';",
+    prelude:
+        'HttpServer? _auditRespServer;'
+        'HttpClient? _auditRespClient;'
+        'Future<HttpClientResponse> _auditClientResponse() async {'
+        "  final server = await HttpServer.bind('127.0.0.1', 0);"
+        '  _auditRespServer = server;'
+        '  server.listen((r) async {'
+        "    r.response.write('pong');"
+        '    await r.response.close();'
+        '  });'
+        '  final client = HttpClient();'
+        '  _auditRespClient = client;'
+        '  final request = await client.getUrl('
+        "      Uri.parse('http://127.0.0.1:\${server.port}/audit'));"
+        '  return await request.close();'
+        '}',
+    isAsync: true,
+    teardown:
+        '_auditRespClient?.close(force: true); '
+        'await _auditRespServer?.close(force: true);',
   ),
   // SCD44: both of these were `_notAuditable` because the value
   // `HttpClient.getUrl` yields was said to arrive bridged as its `IOSink`

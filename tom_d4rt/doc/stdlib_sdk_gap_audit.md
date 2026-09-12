@@ -361,8 +361,8 @@ Measured 2026-09-12.
 |--------|-------|
 | Bridged classes examined | 205 |
 | Raw candidates from the map diff | 680 |
-| … reachable anyway via instance fallback | 616 |
-| … unverified — cannot be measured, reason stated | 71 in 2 classes |
+| … reachable anyway via instance fallback | 651 |
+| … unverified — cannot be measured, reason stated | 36 in 1 class |
 | … unverified — no recipe yet | **0** |
 | **MEASURED unreachable** | **56** |
 | … of those, unreachable **by decision** | 5 in 2 classes |
@@ -400,20 +400,31 @@ in the same step — see [the static-probe blind spot](#the-static-probe-blind-s
 fixing it surfaced six more on `Platform`, `RawSocketOption` and
 `ConnectionTask`.
 
-The instrument's reach is still the other half of the claim: 71 members on two
-classes cannot be measured at all, each with a stated reason.
+The instrument's reach is still the other half of the claim — but it is now one
+class rather than four. SCD45 retired the last bridge-defect entry, leaving only
+the `Stdin` exemption: 36 members that cannot be probed because probing them
+would destroy the process, which is a deliberate refusal rather than an
+unexplored limitation.
 
 Read that as the standing warning it is: a headline number from this tool is a
 statement about the interpreter **and** about the instrument, and the two move
 independently.
 
-The two classes still unverified each carry their reason in the report.
-`HttpClientResponse` (35) needs a completed round trip, which was recorded as
-not finishing inside the interpreter; `Stdin` (37) is the odd one out and the
-only entry that is not a bridge defect — see
+One class is still unverified, and it is the only entry that was never a bridge
+defect: `Stdin` (36) — see
 [the `Stdin` exemption](#the-stdin-exemption-a-probe-that-destroys-the-process).
 UNVERIFIED here means "cannot be measured, here is why", not "nobody got to
 it".
+
+**`HttpClientResponse` used to be here too.** Its stated reason was that
+obtaining an instance needs a completed HTTP round trip, which "does not finish
+inside the interpreter — the probe hangs rather than answering". It does finish:
+measured under a wall clock, a loopback request returns
+`[200, OK, _HttpClientResponse, …]` in well under a second, and all 35 of its
+candidates are reachable through the `Stream` supertype it implements. The
+reason had been wrong for a release, which is the argument for re-running a
+stated reason rather than inheriting it — the entry described a symptom nobody
+had retested.
 
 **`HttpClientRequest` and `HttpHeaders` used to be here and are not any more.**
 Their stated reason was that the value `HttpClient.getUrl` yields arrives
@@ -1073,10 +1084,10 @@ Measured 2026-09-12.
 
 | Metric | Count |
 |--------|-------|
-| Members whose return value was probed | 413 |
-| … usable (a witness read succeeded) | 413 |
+| Members whose return value was probed | 419 |
+| … usable (a witness read succeeded) | 419 |
 | … **RETURN-TYPE GAP** | **0** |
-| Not probed (no argument literal, or no witness on the return type) | 276 |
+| Not probed (no argument literal, or no witness on the return type) | 279 |
 | No answer (probe wedged) | 3 |
 | Parameter types with no bridge (static pass) | 1 |
 
