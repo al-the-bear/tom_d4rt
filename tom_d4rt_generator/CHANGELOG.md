@@ -597,6 +597,20 @@ auxiliary-import writer, so the gate cannot quietly become vacuous.
   `copyWith`), the `BridgeGenerator` constructor, and both executor paths
   (`bridge_api.dart`, `v2/d4rtgen_executor.dart`).
 
+### Fixed — the v2 executor forwards `recursiveBoundTypes` (DGUB2)
+
+*Recorded 2026-09-12 (scd11_aicx). The fix shipped in this release —
+`799c16893`, a week before it — but no entry was written for it, so a consumer
+reading the log could not tell the bug had been fixed.*
+
+- `D4rtgenExecutor` constructed its `BridgeGenerator` without passing
+  `recursiveBoundTypes`, so a project generating through the v2 path silently
+  ignored its `buildkit.yaml` `recursiveBoundTypes:` entries and fell back to
+  the built-in defaults (`num`, `String`, `DateTime`, `Duration`, `BigInt`).
+  Since `D4rtgenExecutor` is the default v2 executor, this was a correctness
+  bug rather than hygiene: the escape hatch existed in the config and did
+  nothing.
+
 ### Added — generated-code-quality regression guards (DGU4)
 
 - Cross-checked upstream 0.2.1's four generated-code-quality fixes against our
