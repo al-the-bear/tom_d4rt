@@ -36,6 +36,7 @@
 import 'dart:collection';
 
 import 'package:test/test.dart';
+import 'package:tom_d4rt_ast/runtime.dart';
 // `CollectionStdlib` is deliberately not re-exported from `runtime.dart`;
 // `dart:collection` is registered lazily when a script imports it, and driving
 // that path from a unit test would mean building a parsed AST module.
@@ -70,11 +71,23 @@ const _linkedListEntryMethods = <String>{
 
 void main() {
   late Environment env;
+  late InterpreterVisitor visitor;
 
   setUp(() {
     env = Environment();
     CoreStdlib.register(env);
     CollectionStdlib.register(env);
+    // Constructor adapters take a non-nullable visitor (only getters accept
+    // `null`). Neither constructor here resolves a name or loads a module, so
+    // an empty loader is enough — the same arrangement the view tests use.
+    visitor = InterpreterVisitor(
+      globalEnvironment: env,
+      moduleContext: AstModuleLoader(
+        modules: const {},
+        globalEnvironment: env,
+        runner: D4rtRunner(),
+      ),
+    );
   });
 
   group('SCD57: LinkedList collection bridge', () {
@@ -144,6 +157,20 @@ void main() {
             'set in the same commit.',
       );
     });
+
+    test('F-SCD57-7: exposes the unnamed constructor [2026-09-12]', () {
+      final bridge = env.findBridgedClassByName('LinkedList')!;
+      expect(bridge.constructors.keys, contains(''));
+      final made = bridge.constructors['']!(visitor, [], {});
+      expect(made, isA<LinkedList<BridgedLinkedListEntry>>());
+      // It takes no arguments, and says so rather than ignoring them — an
+      // adapter that silently accepted them would let a script write
+      // `LinkedList(3)` and get an empty list back.
+      expect(
+        () => bridge.constructors['']!(visitor, [3], {}),
+        throwsA(isA<RuntimeD4rtException>()),
+      );
+    });
   });
 
   group('SCD57: LinkedListEntry collection bridge', () {
@@ -183,6 +210,18 @@ void main() {
       // An attached entry knows its list; the getter must hand back the native
       // one rather than null, which is what `unlink` then operates on.
       expect(bridge.getters['list']!(null, first), isNotNull);
+    });
+
+    test('F-SCD57-8: exposes the value-taking constructor [2026-09-12]', () {
+      final bridge = env.findBridgedClassByName('LinkedListEntry')!;
+      expect(bridge.constructors.keys, contains(''));
+      final made = bridge.constructors['']!(visitor, ['a'], {});
+      expect(made, isA<BridgedLinkedListEntry>());
+      expect((made as BridgedLinkedListEntry).value, 'a');
+      expect(
+        () => bridge.constructors['']!(visitor, [], {}),
+        throwsA(isA<RuntimeD4rtException>()),
+      );
     });
   });
 }
