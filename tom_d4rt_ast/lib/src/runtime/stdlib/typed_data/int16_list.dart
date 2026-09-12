@@ -139,10 +139,13 @@ class Int16ListTypedData {
         return null;
       },
 
+      // SCD27: `buffer` was registered HERE as well as in `getters`,
+      // so `l.buffer()` resolved. In the SDK it is a getter inherited
+      // from `TypedData` and that call does not compile as Dart — the
+      // widening shape, where a script is green here and invalid there.
+      // The getter registration below is the correct one and stays.
+      // Absence pinned by F-SCD27-*.
       // Typed methods
-      'buffer': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as Int16List).buffer;
-      },
       'asUint8ListView': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Int16List.asUint8ListView', atMost: 2);
         final offsetInBytes = positionalArgs.isNotEmpty

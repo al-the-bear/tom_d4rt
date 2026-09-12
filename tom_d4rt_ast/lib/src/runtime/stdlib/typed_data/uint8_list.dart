@@ -128,9 +128,12 @@ class Uint8ListTypedData {
           length,
         );
       },
-      'buffer': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as Uint8List).buffer;
-      },
+      // SCD27: `buffer` was registered here as well as in `getters`, so
+      // `l.buffer()` resolved. In the SDK it is a getter inherited from
+      // `TypedData` and that call does not compile as Dart — the widening
+      // shape, where a script is green here and invalid there. The getter
+      // registration below is the correct one and stays. Absence pinned by
+      // F-SCD27-*.
       'cast': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as Uint8List).cast();
       },

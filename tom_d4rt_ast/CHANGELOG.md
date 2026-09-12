@@ -1,3 +1,64 @@
+## 0.66.0
+
+### Fixed — `buffer` was callable as a method on every typed list (scd27_aidb)
+
+`buffer` was registered in the `methods:` map as well as the `getters:` map on
+all eleven typed lists, so `list.buffer()` resolved. In the SDK it is a getter
+inherited from `TypedData`, and that call does not compile as Dart.
+
+**This removes script-visible surface.** A script written `list.buffer()` stops
+working here — and it never worked as Dart, which is the point: the widening
+shape makes a script green in the interpreter and invalid outside it, and it is
+the one bridge defect no passing test catches, because every assertion anyone
+would write uses `list.buffer`, the form that was always correct.
+
+The duplicate is also why it lasted: `list.buffer` read correctly throughout, so
+there was nothing broken to trip over — the extra surface simply sat beside the
+correct surface.
+
+Both directions are pinned — `F-SCD27-1-*` that the property reads on every
+variant, `F-SCD27-2-*` that the call does not resolve — because a deletion
+cannot be protected by an assertion that passes.
+
+### Fixed — collection arguments in `core` and `convert` are coerced, not cast (scd26_aidb)
+
+d4rt evaluates a list literal to `List<Object?>` and a map literal to
+`Map<Object?, Object?>`, so an adapter written `positionalArgs[0] as
+Iterable<int>` tested the CONTAINER's type argument — which never matches —
+rather than its CONTENTS, which usually do. `Runes('ab').followedBy([99])` threw
+where `Runes('ab').followedBy(Runes('c'))` passed, which is why these survived
+review.
+
+Fixed at `Runes.followedBy`, `RegExpMatch.groups`, `Match.groups`,
+`latin1.decode`, and `Uri`'s `pathSegments` and `queryParameters`. Two further
+sites were probed and found already correct (`Function.apply`, `latin1.encode`)
+and are now pinned so a later sweep cannot "fix" them into a regression.
+
+`coerceElements` moves from `typed_data/inherited_list_methods.dart` to
+`stdlib/coerce_elements.dart` — it was never typed-data-specific — and gains
+`coerceMapArg` and `coerceElementsOrNull`. None of them widens: an element, key
+or value whose type genuinely does not fit still fails.
+
+### Fixed — `InternetAddressType` offered four members the SDK does not declare (scd24_aida)
+
+`lookup`, `host`, `address` and `type` were bridged on the enum, each wired to
+an unrelated `Object` member: `host` returned `.name`, `address` returned
+`.hashCode`, `type` returned `.runtimeType`, `lookup` returned `toString()`. So
+`type.address` handed back a hash code and raised nothing.
+
+They were copied from `InternetAddress`, which sits beside it in the same file
+and really does declare all four. Removed, and their absence pinned by
+`F-SCD24-1..5`.
+
+### Changed — the public barrel documents what it exports (scd14_aicx)
+
+`lib/tom_d4rt_ast.dart` is a pass-through to the serializable mirror AST and
+said it "adds the D4rt runtime: interpreter, environment, bridges, and standard
+library". Those exist in the package but are not reachable through that entry
+point — `package:tom_d4rt_ast/d4rt.dart` is. The docstring now says so, and
+`lib/ast.dart` no longer points at an `ast_converter.dart` this package does not
+have.
+
 ## 0.65.0
 
 ### Fixed — a name two packages share is judged over what the script imports (scd4_aicv)
