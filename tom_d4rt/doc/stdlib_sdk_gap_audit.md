@@ -124,6 +124,31 @@ Class-level coverage is audited by hand; **member-level** and
   both trees register **205** bridge names, diffing clean. Additions must land
   in **both** trees regardless (per the "keep tom_d4rt ↔ tom_d4rt_ast in sync"
   quest rule).
+
+- **The twin now has a member audit of its own, for ordinary named members.**
+  `tom_d4rt_ast/tool/stdlib_member_audit.dart` walks that registry directly
+  rather than inferring from this one, and
+  `tom_d4rt_ast/test/scd51_member_coverage_test.dart` pins the result the same
+  four ways SCC13 pins this tree's. It decides reachability by walking the
+  registered supertype chain — what `lookupOnBridgedSupertypes` does at run
+  time — because the twin cannot execute source to probe.
+
+  **That simulation was calibrated before it was trusted**, and the calibration
+  is standing rather than a one-off: `test/scd51_member_gap_parity_test.dart`
+  runs the same chain walk over THIS registry and requires it to reproduce the
+  empirical baseline exactly (`F-SCD51-5`). While that holds, `F-SCD51-6` — the
+  two trees have the same unreachable set — is a fact about the registries
+  rather than about the method. Both were green on first run: 56 unreachable
+  members across 6 classes, identical on both sides.
+
+  **Scope: ordinary named members.** Measured 2026-09-12, the chain walk agreed
+  with the probe on all 644 of them and disagreed on all 63 operators and
+  `Object` universals (`+`, `<`, `[]`, `==`, `toString`), which the interpreter
+  reaches through paths the registry does not model. Those stay covered here
+  and nowhere else, so the shipping tree's operator surface is still measured
+  only by inference (sce90). In the other direction the walk needs no instance,
+  so it decides the 36 members this tree cannot measure at all for want of a
+  recipe.
 - **A registered-but-unreachable class is its own failure mode.** Two
   `dart:convert` bridges had been written and exported but never passed
   to `defineBridge`, and `JsonUtf8Encoder` was reachable through a
