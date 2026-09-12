@@ -671,6 +671,15 @@ const Map<String, int> _uncoveredBaseline = {
   // blanket then absorbs every future divergence in the file (SCD154). That
   // trade is a design call, not a census outcome, so it is SCD157 rather than
   // something this pass improvised.
+  //
+  // RE-MEASURED 2026-09-12 against published 0.65.0 (scd25_aida), which is 23
+  // releases past the 0.42.0 the numbers above were taken at: UNCHANGED, case
+  // for case. scc22 is still 14/17 with F-SCC22-10/-11/-12 failing, scc25 still
+  // 5/7 with F-SCC25-6/-7, scc27 still 8/9 with F-SCC27-9, and scc23 still does
+  // not compile for the same five `undefined_setter` errors. So none of these
+  // four is a stale pin waiting on a publish that already happened — the
+  // residual failures are source scans over files exec does not own, plus the
+  // one behavioural gap scc27's own note names.
   'scc22_io_error_handler_arity_test.dart': 17,
   // BLOCKED ON EXEC-LOCAL WORK — no longer on a publish, and the correction is
   // the finding. Ported verbatim 2026-09-06 it still does not COMPILE: five
@@ -694,6 +703,15 @@ const Map<String, int> _uncoveredBaseline = {
   // still the rule; what changed is that waiting is no longer a reason. SCD74
   // owns it, and it is an API addition with its own test cycle rather than
   // census work.
+  //
+  // RE-MEASURED 2026-09-12 against published 0.65.0 (scd25_aida), which is 23
+  // releases past the 0.42.0 the numbers above were taken at: UNCHANGED, case
+  // for case. scc22 is still 14/17 with F-SCC22-10/-11/-12 failing, scc25 still
+  // 5/7 with F-SCC25-6/-7, scc27 still 8/9 with F-SCC27-9, and scc23 still does
+  // not compile for the same five `undefined_setter` errors. So none of these
+  // four is a stale pin waiting on a publish that already happened — the
+  // residual failures are source scans over files exec does not own, plus the
+  // one behavioural gap scc27's own note names.
   'scc23_uncaught_callback_error_test.dart': 16,
   // PARTLY PORTABLE, for exactly SCC22's reason and with the same shape of
   // correction. Re-measured 2026-09-06 against published 0.42.0: 5 of 7 cases
@@ -712,6 +730,15 @@ const Map<String, int> _uncoveredBaseline = {
   // 5 portable / 2 structurally single-copy. Same subtraction-port trade as
   // SCC22 above, tracked together as SCD157. SCD79 remains the record of the
   // adapter work itself.
+  //
+  // RE-MEASURED 2026-09-12 against published 0.65.0 (scd25_aida), which is 23
+  // releases past the 0.42.0 the numbers above were taken at: UNCHANGED, case
+  // for case. scc22 is still 14/17 with F-SCC22-10/-11/-12 failing, scc25 still
+  // 5/7 with F-SCC25-6/-7, scc27 still 8/9 with F-SCC27-9, and scc23 still does
+  // not compile for the same five `undefined_setter` errors. So none of these
+  // four is a stale pin waiting on a publish that already happened — the
+  // residual failures are source scans over files exec does not own, plus the
+  // one behavioural gap scc27's own note names.
   'scc25_listen_adapter_test.dart': 7,
   // ONE CASE SHORT, and it is the only entry left here that names a real
   // behavioural gap in this package. Re-measured 2026-09-06 against published
@@ -732,6 +759,15 @@ const Map<String, int> _uncoveredBaseline = {
   // applied on the async completion path, which is exec-local work in the third
   // `_executeInEnvironment` copy. SCD84 owns it; port the file and delete this
   // entry in the commit that closes that seam.
+  //
+  // RE-MEASURED 2026-09-12 against published 0.65.0 (scd25_aida), which is 23
+  // releases past the 0.42.0 the numbers above were taken at: UNCHANGED, case
+  // for case. scc22 is still 14/17 with F-SCC22-10/-11/-12 failing, scc25 still
+  // 5/7 with F-SCC25-6/-7, scc27 still 8/9 with F-SCC27-9, and scc23 still does
+  // not compile for the same five `undefined_setter` errors. So none of these
+  // four is a stale pin waiting on a publish that already happened — the
+  // residual failures are source scans over files exec does not own, plus the
+  // one behavioural gap scc27's own note names.
   'scc27_host_error_fidelity_test.dart': 9,
 };
 
