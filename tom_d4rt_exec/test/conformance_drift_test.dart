@@ -615,6 +615,23 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// first such entry since, and it is the shape to copy. What must never come
 /// back is the entry that states its flip condition in prose ALONE, because the
 /// prose is read only by whoever happens to reread it and never by the publish.
+/// WHAT THE NUMBERS ARE, because the obvious check over them does not work
+/// (SCD61). Each count is a RUNTIME measurement: how many cases actually ran
+/// when the file was ported and executed against the published interpreter.
+/// That is what makes it useful on a publish — "port it and confirm the count"
+/// is how you notice the reference side moved after the pin was taken.
+///
+/// It is NOT a count of `test(` calls, and the two diverge for any file that
+/// generates cases in a loop. Measured 2026-09-12, three of the eight entries
+/// here do: `scc73_sdk_member_completeness_test.dart` (recorded 4, three
+/// static), `stdlib/member_coverage_baseline_test.dart` (recorded 4, six
+/// static) and `release_hygiene_test.dart` (recorded 10, five static — and 32
+/// at runtime since SCD60 widened it from three packages to ten).
+///
+/// So a static guard over this map would verify the five entries whose counts
+/// cannot drift and exempt the three that already have, which is worse than
+/// none. That is why [F-SCC6-6] checks [_coveredElsewhere] — whose counts ARE
+/// static-comparable — and stops there. Confirming a count here is a run.
 const Map<String, int> _uncoveredBaseline = {
   // NOT PORTABLE — a throughput probe, not a conformance assertion. Its single
   // case measures how long a Conway generation takes; run on two interpreters
