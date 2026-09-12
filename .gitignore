@@ -343,3 +343,12 @@ bk_master.yaml
 # RangeError in _readDirectiveUri) and bloats the repo. They regenerate on
 # demand.
 **/.tom/analyzer-cache/
+
+# The pre-publish path-resolved pass (SCD66) writes these into the Flutter
+# twins, their companion apps and tom_d4rt_exec so the corpus and the exec
+# suite can be run against the working tree BEFORE an irreversible publish.
+# They are a temporary local state, never a committed one: a tracked override
+# would silently make a package resolve the tree for everyone, which is the
+# thing the workspace rule against path overrides exists to prevent.
+# `tom_d4rt_flutter_ast/tool/prepublish_overrides.dart --restore` removes them.
+pubspec_overrides.yaml

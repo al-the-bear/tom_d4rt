@@ -172,6 +172,38 @@ when the newest `## Verification runs` entry names a pair that differs from
 what the companion apps resolve on this machine, so a recorded run that is no
 longer comparable to a run made here is reported rather than assumed.
 
+### The opt-in pre-publish pass
+
+A publish cannot be undone, and the rule above means a corpus regression from
+an interpreter change is found only AFTER the release that carries it. So
+there is a supported way to run the corpus against the working tree first:
+
+```bash
+cd tom_d4rt_flutter_ast
+dart run tool/prepublish_overrides.dart            # status: what resolves what
+dart run tool/prepublish_overrides.dart --set      # path-resolve + pub get
+# ... run the corpus, serially, as usual ...
+dart run tool/prepublish_overrides.dart --restore  # back to hosted
+```
+
+`--set` covers both twins, both companion apps and `tom_d4rt_exec` — the apps
+are separate packages with their own lockfiles and reach the interpreter
+through their twin, so overriding the twin alone leaves the run measuring the
+published interpreter.
+
+**Results from a pre-publish pass must never be recorded under
+`## Verification runs`.** That section records which PUBLISHED pair a run
+measured; an entry naming a version nobody can install is worse than no entry.
+Use the pass to decide whether to publish, then publish, then run and record
+normally.
+
+The mechanism is a gitignored `pubspec_overrides.yaml`, never an edit to a
+`pubspec.yaml`, and `scd66_resolution_strategy_test.dart` fails if a
+`dependency_overrides:` block appears in a tracked pubspec or if the gitignore
+entry goes away. The workspace rule against path overrides is about making a
+package WORK against an unpublished API and shipping it; this is a measurement
+that is thrown away, and it is enforced to stay that way rather than promised.
+
 ## The companion app is resolved and checked before any test runs
 
 The corpus scripts run inside `test/tom_d4rt_flutter_ast_app/`, a separate package with its own
