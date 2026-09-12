@@ -132,6 +132,46 @@ IDLE_TIMEOUT=120 ./test/run_issue_analysis_tests.sh   # more headroom
 $env:IDLE_TIMEOUT = 120; ./test/run_issue_analysis_tests.ps1
 ```
 
+## ⚠️ The corpus certifies the PUBLISHED interpreter, not the working tree
+
+This package resolves ``tom_d4rt_ast`` **from pub.dev**, and so does its companion
+app. Neither is path-resolved, and that is a deliberate policy rather than an
+oversight: the corpus is meant to measure what a consumer of the published
+package actually gets.
+
+The cost is accepted knowingly, and it is easy to be caught by:
+
+- **Bridge and generator changes are exercised.** The `*.b.dart` files, the
+  user bridges and `tom_d4rt_generator` all live in this tree, so a corpus run
+  is the right gate for them.
+- **Interpreter changes are NOT exercised until they are published.** A change
+  to ``tom_d4rt_ast`` that is only in the working tree is not in the package this
+  corpus loads. An hour of green results after such a change is evidence about
+  the PREVIOUS release, and reading it as proof of the change is the failure
+  this section exists to prevent — it is silent in both directions: the fix
+  looks verified without having run, and a regression it would have caused is
+  not caught.
+
+So for an interpreter change the primary gate is the `tom_d4rt` and
+`tom_d4rt_ast` suites. Publish first, raise the constraint, `flutter pub
+upgrade` here AND in the companion app, and only then does a corpus run say
+anything about it. **Do not route around this with a `pubspec_overrides.yaml`**
+— the workspace rule against path overrides exists for exactly this shape.
+
+**Name-resolution changes always get a corpus run after publishing**, before
+the work is called done, and the run is recorded under `## Verification runs`
+in `tom_d4rt_flutter_ast/doc/interpreter_issues.md` with the interpreter pair
+it measured. That entry is the ONLY durable record of which interpreter a run
+used: `pubspec.lock` is gitignored in both twins and in both companion apps, so
+the resolved version is machine-local and invisible in any diff or review, and
+two fleet hosts can run the same corpus against different interpreters with
+nothing in the repository saying which.
+
+`interpreter_issues_doc_test.dart` in the AST twin guards that record: it fails
+when the newest `## Verification runs` entry names a pair that differs from
+what the companion apps resolve on this machine, so a recorded run that is no
+longer comparable to a run made here is reported rather than assumed.
+
 ## The companion app is resolved and checked before any test runs
 
 The corpus scripts run inside `test/tom_d4rt_flutter_ast_app/`, a separate package with its own
