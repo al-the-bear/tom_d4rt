@@ -571,14 +571,6 @@ class Recipe {
 /// so each entry is a pointer at work to do rather than a permanent exemption:
 /// fix the defect and the class becomes auditable.
 const _notAuditable = <String, String>{
-  'HttpClientRequest':
-      'the value `HttpClient.getUrl` yields is bridged as '
-      '`IOSink`, its supertype, so every `HttpClientRequest` member reads as '
-      'undefined regardless of the adapter map — the recipe would measure the '
-      'wrong bridge',
-  'HttpHeaders':
-      'only reachable via `HttpClientRequest.headers`, which the '
-      'same `IOSink` misbridging hides',
   'HttpClientResponse':
       'requires a completed HTTP round trip, which does not '
       'finish inside the interpreter — the probe hangs rather than answering',
@@ -983,6 +975,64 @@ const _instanceRecipes = <String, Recipe>{
   'WebSocketTransformer': Recipe(
     'WebSocketTransformer()',
     imports: "import 'dart:io';",
+  ),
+  // SCD44: both of these were `_notAuditable` because the value
+  // `HttpClient.getUrl` yields was said to arrive bridged as its `IOSink`
+  // supertype, hiding every `HttpClientRequest` member. It is not: bridge
+  // selection resolves `_HttpClientRequest` to `HttpClientRequest` by the
+  // `_Foo -> Foo` name canonicalization, which runs BEFORE any ancestor or
+  // `isAssignable` scan. Measured end to end -- a loopback round trip reads
+  // `request.headers`, sets one and closes the request.
+  //
+  // The server is kept alive in `_auditServer` rather than closed inside the
+  // prelude: the request is not usable once its connection is gone, and a
+  // probe that measured a dead request would report the whole class missing.
+  'HttpClientRequest': Recipe(
+    '_auditClientRequest()',
+    imports: "import 'dart:async';\nimport 'dart:io';",
+    prelude:
+        'HttpServer? _auditReqServer;'
+        'HttpClient? _auditReqClient;'
+        'Future<HttpClientRequest> _auditClientRequest() async {'
+        "  final server = await HttpServer.bind('127.0.0.1', 0);"
+        '  _auditReqServer = server;'
+        '  server.listen((r) async {'
+        '    await r.response.close();'
+        '  });'
+        '  final client = HttpClient();'
+        '  _auditReqClient = client;'
+        '  return await client.getUrl('
+        "      Uri.parse('http://127.0.0.1:\${server.port}/audit'));"
+        '}',
+    isAsync: true,
+    teardown:
+        '_auditReqClient?.close(force: true); '
+        'await _auditReqServer?.close(force: true);',
+  ),
+  // Only reachable through `HttpClientRequest.headers`, which is why it shared
+  // that entry's fate.
+  'HttpHeaders': Recipe(
+    '_auditHeaders()',
+    imports: "import 'dart:async';\nimport 'dart:io';",
+    prelude:
+        'HttpServer? _auditHdrServer;'
+        'HttpClient? _auditHdrClient;'
+        'Future<HttpHeaders> _auditHeaders() async {'
+        "  final server = await HttpServer.bind('127.0.0.1', 0);"
+        '  _auditHdrServer = server;'
+        '  server.listen((r) async {'
+        '    await r.response.close();'
+        '  });'
+        '  final client = HttpClient();'
+        '  _auditHdrClient = client;'
+        '  final request = await client.getUrl('
+        "      Uri.parse('http://127.0.0.1:\${server.port}/audit'));"
+        '  return request.headers;'
+        '}',
+    isAsync: true,
+    teardown:
+        '_auditHdrClient?.close(force: true); '
+        'await _auditHdrServer?.close(force: true);',
   ),
   'HttpRequest': Recipe(
     '_auditHttpRequest()',
@@ -1527,16 +1577,72 @@ Future<Reach> verifyOperator(
       : Reach.reachable;
 }
 
+/// Import directives for classes that have statics worth probing but no
+/// instance recipe to borrow an import from.
+///
+/// SCD44: `Platform` is the clear case -- it is all statics and has no public
+/// constructor, so no instance recipe will ever exist for it, yet its statics
+/// are exactly what a script reaches for. Without an import the probe cannot
+/// even name the class.
+const _staticOnlyImports = <String, String>{
+  'ConnectionTask': "import 'dart:io';",
+  'Platform': "import 'dart:io';",
+  'RawSocketOption': "import 'dart:io';",
+};
+
 Future<Reach> verifyStaticMember(String className, String member) {
-  // Statics need no instance, so every class can be verified. The import is
-  // whatever the instance recipe used, when there is one.
-  final imports = _instanceRecipes[className]?.imports ?? '';
+  // Statics need no instance, so every class can be verified -- PROVIDED the
+  // class name is in scope. The import is whatever the instance recipe used,
+  // when there is one, and [_staticOnlyImports] otherwise.
+  final imports =
+      _instanceRecipes[className]?.imports ??
+      _staticOnlyImports[className] ??
+      '';
   _traceProbe('$className.$member (static)');
-  return _probe(
+  return _probeStatic(
+    className,
     '$imports main() { return $className.$member; }',
-    onTimeout: Reach.reachable,
   );
 }
+
+/// Runs a static-member probe and refuses to score it when the CLASS did not
+/// resolve.
+///
+/// SCD44: a class with no instance recipe gets a probe with no imports, so
+/// `HttpHeaders.acceptRangesHeader` failed with `Undefined variable:
+/// HttpHeaders` -- the class, not the member. That wording is not one of the
+/// audit's unreachable wordings, so the probe was scored **reachable**, and
+/// every static of every recipe-less class outside `dart:core` passed silently.
+/// Measured: 45 genuinely missing `HttpHeaders` constants read as present until
+/// this todo gave the class a recipe.
+///
+/// Scored UNVERIFIED rather than as a gap, which is the conservative direction
+/// the audit moves in everywhere: a probe that could not name the class
+/// measured nothing about its members. Giving the class a recipe -- or any
+/// import -- is what makes it measurable.
+Future<Reach> _probeStatic(String className, String source) async {
+  final outcome = await _runProbe(source);
+  // A probe that never answers is reachable for the usual reason: an
+  // unresolved member throws instantly, so a program still running got past
+  // the lookup.
+  if (!outcome.answered) return Reach.reachable;
+  final error = outcome.error;
+  if (error == null) return Reach.reachable;
+  if (error.contains('Undefined variable: $className')) {
+    staticProbeSkips[className] =
+        'the probe has no import for `$className`, so the class name does not '
+        'resolve and nothing about its statics was measured; give the class an '
+        'instance recipe (its `imports` are reused here)';
+    return Reach.unverified;
+  }
+  return _isUnreachableError(error) ? Reach.confirmedMissing : Reach.reachable;
+}
+
+/// Classes whose static probes could not name the class, and why.
+///
+/// Printed at the end of a run for the same reason `operatorProbeSkips` is: an
+/// unmeasurable column has to say so rather than read as a pass.
+final staticProbeSkips = <String, String>{};
 
 Future<void> verify(ClassDiff diff) async {
   diff.notAuditableReason = _notAuditable[diff.name];
@@ -2829,6 +2935,18 @@ Future<void> main(List<String> args) async {
   // SCD39: operators that could not be given a well-typed probe. Printed
   // rather than folded into the unverified total alone, because the whole
   // point of the change is that an unmeasurable operator says why.
+  if (staticProbeSkips.isNotEmpty) {
+    stderr.writeln(
+      'Static probes skipped, class name not in scope: '
+      '${staticProbeSkips.length}',
+    );
+    for (final e
+        in (staticProbeSkips.entries.toList()
+          ..sort((a, b) => a.key.compareTo(b.key)))) {
+      stderr.writeln('  ${e.key}: ${e.value}');
+    }
+  }
+
   if (operatorProbeSkips.isNotEmpty) {
     stderr.writeln(
       'Operator probes skipped (unverified, with a reason): '

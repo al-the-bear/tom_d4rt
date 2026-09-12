@@ -6,9 +6,9 @@
 // an assertion about the interpreter that nothing measured, which is exactly the
 // claim this baseline was introduced to stop anyone making.
 //
-// Current state: 0 confirmed-unreachable members across 0 classes,
+// Current state: 51 confirmed-unreachable members across 4 classes,
 // 5 members on 2 classes unreachable by decision,
-// and 73 members on 4 classes that cannot be measured at all.
+// and 71 members on 2 classes that cannot be measured at all.
 // Those totals are documentation, not assertions — the test derives them from the
 // tables below, so there is only ever one thing to update.
 //
@@ -18,7 +18,63 @@
 // regenerating hides a live defect.
 
 /// Members proven unreachable through the interpreter, per bridged class.
-const confirmedGaps = <String, List<String>>{};
+const confirmedGaps = <String, List<String>>{
+  'ConnectionTask': [r'fromSocket'],
+  'HttpHeaders': [
+    r'acceptRangesHeader',
+    r'accessControlAllowCredentialsHeader',
+    r'accessControlAllowHeadersHeader',
+    r'accessControlAllowMethodsHeader',
+    r'accessControlAllowOriginHeader',
+    r'accessControlExposeHeadersHeader',
+    r'accessControlMaxAgeHeader',
+    r'accessControlRequestHeadersHeader',
+    r'accessControlRequestMethodHeader',
+    r'ageHeader',
+    r'allowHeader',
+    r'contentDisposition',
+    r'contentLanguageHeader',
+    r'contentLocationHeader',
+    r'contentMD5Header',
+    r'contentRangeHeader',
+    r'entityHeaders',
+    r'etagHeader',
+    r'expectHeader',
+    r'expiresHeader',
+    r'fromHeader',
+    r'generalHeaders',
+    r'ifMatchHeader',
+    r'ifNoneMatchHeader',
+    r'ifRangeHeader',
+    r'ifUnmodifiedSinceHeader',
+    r'lastModifiedHeader',
+    r'maxForwardsHeader',
+    r'pragmaHeader',
+    r'proxyAuthenticateHeader',
+    r'proxyAuthorizationHeader',
+    r'rangeHeader',
+    r'refererHeader',
+    r'requestHeaders',
+    r'responseHeaders',
+    r'retryAfterHeader',
+    r'serverHeader',
+    r'teHeader',
+    r'trailerHeader',
+    r'transferEncodingHeader',
+    r'upgradeHeader',
+    r'varyHeader',
+    r'viaHeader',
+    r'warningHeader',
+    r'wwwAuthenticateHeader',
+  ],
+  'Platform': [r'lineTerminator'],
+  'RawSocketOption': [
+    r'IPv4MulticastInterface',
+    r'IPv6MulticastInterface',
+    r'levelIPv4',
+    r'levelIPv6',
+  ],
+};
 
 /// Members unreachable BY DECISION, per bridged class. Each carries its reason
 /// in `_declined` in the tool.
@@ -37,7 +93,6 @@ const declinedMembers = <String, List<String>>{
 /// moving out of this bucket is reported as the new information it is, rather
 /// than as a fresh defect.
 const unmeasurable = <String, List<String>>{
-  'HttpClientRequest': [r'writeCharCode'],
   'HttpClientResponse': [
     r'any',
     r'asBroadcastStream',
@@ -75,7 +130,6 @@ const unmeasurable = <String, List<String>>{
     r'toSet',
     r'where',
   ],
-  'HttpHeaders': [r'[]'],
   'Stdin': [
     r'any',
     r'asBroadcastStream',
@@ -151,6 +205,9 @@ const measuredClasses = <String>{
   'HtmlEscape',
   'HtmlEscapeMode',
   'HttpClient',
+  'HttpClientRequest',
+  'HttpClientResponseCompressionState',
+  'HttpHeaders',
   'HttpRequest',
   'HttpServer',
   'IOSink',

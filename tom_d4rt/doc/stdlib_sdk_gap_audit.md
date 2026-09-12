@@ -355,18 +355,18 @@ baseline.
 
 ### Current measured state
 
-Measured 2026-09-06.
+Measured 2026-09-12.
 
 | Metric | Count |
 |--------|-------|
 | Bridged classes examined | 205 |
-| Raw candidates from the map diff | 668 |
-| … reachable anyway via instance fallback | 652 |
-| … unverified — cannot be measured, reason stated | 73 in 4 classes |
+| Raw candidates from the map diff | 680 |
+| … reachable anyway via instance fallback | 616 |
+| … unverified — cannot be measured, reason stated | 71 in 2 classes |
 | … unverified — no recipe yet | **0** |
-| **MEASURED unreachable** | **5** |
+| **MEASURED unreachable** | **56** |
 | … of those, unreachable **by decision** | 5 in 2 classes |
-| **CONFIRMED unreachable** (i.e. defects) | **0** |
+| **CONFIRMED unreachable** (i.e. defects) | **51** |
 
 **The confirmed count went 3 → 231 → 13 → 0, and only the last move touched
 adapters.** The rise was the unverified bucket closing: 228 members that no run
@@ -385,33 +385,53 @@ already had a limitations-table row and a pinning test — but the tool had no
 way to say so, so a settled boundary and an open backlog shared one number. The
 `_declined` table is that missing distinction.
 
-**A caution about the 0.** It means no *measured* member is unreachable, and
-the instrument's reach is the other half of that claim: 73 members on four
-classes still cannot be measured at all, each with a stated reason. `0
-confirmed` and `73 unmeasurable` have to be read together, which is why they sit
-in the same table.
+**A caution about the 51.** The confirmed count rose from 0 because the
+instrument's reach grew, not because the interpreter regressed — which is the
+movement this table's notes keep insisting on. SCD44 changed nothing in `lib/`
+at all, so no member's reachability can have moved; what moved is what the
+audit can see.
+
+Two things grew it. Retiring the `HttpClientRequest` / `HttpHeaders` excuses
+and giving both recipes measured `HttpHeaders` for the first time: 45 of its
+static header-name constants are missing (`acceptRangesHeader`,
+`accessControlAllowOriginHeader`, …). And a defect in the instrument was found
+in the same step — see [the static-probe blind spot](#the-static-probe-blind-spot)
+— which had been scoring the statics of every recipe-less class as reachable;
+fixing it surfaced six more on `Platform`, `RawSocketOption` and
+`ConnectionTask`.
+
+The instrument's reach is still the other half of the claim: 71 members on two
+classes cannot be measured at all, each with a stated reason.
 
 Read that as the standing warning it is: a headline number from this tool is a
 statement about the interpreter **and** about the instrument, and the two move
 independently.
 
-The four classes still unverified each carry their reason in the report.
-`HttpClientRequest` (1) and `HttpHeaders` (1) are hidden by the value
-`HttpClient.getUrl` yields being bridged as its supertype `IOSink`, so a recipe
-would measure the wrong bridge; `HttpClientResponse` (35) needs a completed
-round trip, which does not finish inside the interpreter. `Stdin` (37) is the
-odd one out and the only entry that is not a bridge defect — see
+The two classes still unverified each carry their reason in the report.
+`HttpClientResponse` (35) needs a completed round trip, which was recorded as
+not finishing inside the interpreter; `Stdin` (37) is the odd one out and the
+only entry that is not a bridge defect — see
 [the `Stdin` exemption](#the-stdin-exemption-a-probe-that-destroys-the-process).
 UNVERIFIED here means "cannot be measured, here is why", not "nobody got to
 it".
+
+**`HttpClientRequest` and `HttpHeaders` used to be here and are not any more.**
+Their stated reason was that the value `HttpClient.getUrl` yields arrives
+bridged as its supertype `IOSink`, so a recipe would measure the wrong bridge.
+It does not: selection resolves `_HttpClientRequest` to `HttpClientRequest` by
+the `_Foo -> Foo` name canonicalization in `Environment`, which runs BEFORE any
+ancestor or `isAssignable` scan, so a registered ancestor never gets the chance
+to claim it. Both now have recipes and are measured. A stated reason that has
+outlived its cause is worse than none — it documents a limitation that no longer
+exists — so the entries are deleted rather than annotated.
 
 Of the 13, **zero** are operators and **one** is a universal `Object` member
 (`noSuchMethod`) — a statement this audit could not make before those two
 columns were verified rather than merely printed.
 
 **Those two columns are now measured to completion, not sampled.**
-`unverifiedUniversal` is **0**, and `unverifiedOperators` is **1** — `HttpHeaders
-[]`, which carries a stated reason above rather than an absent recipe. So "zero
+`unverifiedUniversal` is **0**, and `unverifiedOperators` is **0** — the last
+entry was `HttpHeaders []`, which SCD44's recipe retired. So "zero
 confirmed operators" describes the whole operator surface, not the part of it
 that happened to have an instance to probe. That distinction is the entire
 reason the unverified columns exist: the same sentence, printed while nineteen
@@ -599,6 +619,38 @@ list was about to raise. All 28 such cast sites now go through
 cell. The general lesson is the same one that produced SCB3 in the first place:
 **`Uint8List` is the variant most likely to be probed and the variant least
 representative of the others.**
+
+### The static-probe blind spot
+
+A static member is probed without an instance — `main() { return Foo.bar; }` —
+and the import comes from the class's instance recipe, because that is the one
+place the tool knows which library a class lives in. **A class with no recipe
+therefore got a probe with no imports at all**, and the failure was
+
+    Runtime Error: Undefined variable: HttpHeaders
+
+— the CLASS failing to resolve, not the member. That wording is not one of the
+unreachable wordings, so the probe was scored *reachable*, and every static of
+every recipe-less class outside `dart:core` passed silently.
+
+It was found by removing the `HttpHeaders` excuse: giving the class a recipe
+gave its probes an import, and 45 genuinely missing header-name constants
+appeared at once. Fixing the probe surfaced six more on `Platform`,
+`RawSocketOption` and `ConnectionTask`.
+
+`verifyStaticMember` now scores a probe that could not name the class as
+UNVERIFIED rather than reachable — the conservative direction, since such a
+probe measured nothing about the member — and records the class in
+`staticProbeSkips`, printed at the end of a run. `_staticOnlyImports` supplies
+an import for classes that have statics worth probing and no instance recipe to
+borrow one from; `Platform` is the clear case, being all statics with no public
+constructor, so no instance recipe will ever exist for it. The set is empty as
+measured.
+
+**This is the third wording to have made a column silently unfalsifiable**, after
+the two SCD36 and SCD39 found. The pattern is the same each time: the audit
+classifies on error text, nothing ties that text to the interpreter's throw
+sites, and an unrecognised wording reads as success. It is tracked as sce77.
 
 ### The unverified-column hazard
 
@@ -1021,10 +1073,10 @@ Measured 2026-09-12.
 
 | Metric | Count |
 |--------|-------|
-| Members whose return value was probed | 409 |
-| … usable (a witness read succeeded) | 409 |
+| Members whose return value was probed | 413 |
+| … usable (a witness read succeeded) | 413 |
 | … **RETURN-TYPE GAP** | **0** |
-| Not probed (no argument literal, or no witness on the return type) | 274 |
+| Not probed (no argument literal, or no witness on the return type) | 276 |
 | No answer (probe wedged) | 3 |
 | Parameter types with no bridge (static pass) | 1 |
 
