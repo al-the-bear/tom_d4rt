@@ -2910,8 +2910,26 @@ class BridgeGenerator {
       for (final v in globals.variables) {
         variablesPerFile.putIfAbsent(v.sourceFile, () => []).add(v);
       }
-      for (final ext in globals.extensions) {
-        extensionsPerFile.putIfAbsent(ext.sourceFile, () => []).add(ext);
+      // scd11: the same exclusion + dedupe the single-file branch applies.
+      // Reading `globals.extensions` raw here emitted a part-declared
+      // extension into two files and ignored excludeSourcePatterns entirely.
+      //
+      // The dedupe canonicalises a part-declared extension's `sourceFile` to
+      // its parent library's `package:` URI — the part is not independently
+      // importable, so the parent is the only URI a consumer can act on. That
+      // string is not one of the input paths, so grouping on it directly would
+      // open a SECOND group for a file that already has one, and both would
+      // write to the same `<base>_bridge.dart`: one silently overwriting the
+      // other. Map it back to the input path when it names one.
+      final pathsByPackageUri = <String, String>{
+        for (final file in sourceFiles) _getPackageUri(file): file,
+      };
+      for (final ext in _bridgeableExtensions(
+        globals.extensions,
+        excludeSourcePatterns,
+      )) {
+        final groupKey = pathsByPackageUri[ext.sourceFile] ?? ext.sourceFile;
+        extensionsPerFile.putIfAbsent(groupKey, () => []).add(ext);
       }
 
       // Collect all source files that have any bridgeable content
@@ -3159,81 +3177,12 @@ class BridgeGenerator {
         }).toList();
       }
 
-      // Filter out extensions matching source URI patterns
-      var filteredExtensions = globals.extensions;
-      if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
-        filteredExtensions = filteredExtensions.where((e) {
-          final sourceUri = _getPackageUri(e.sourceFile);
-          final extName = e.name ?? e.onTypeName;
-          if (_matchesSourceExclusion(
-            sourceUri,
-            extName,
-            excludeSourcePatterns,
-          )) {
-            _recordSkip(
-              'extension',
-              extName,
-              'source URI excluded by pattern: $sourceUri',
-            );
-            return false;
-          }
-          return true;
-        }).toList();
-      }
-
-      // GEN-064: Filter out duplicate extensions (keep first occurrence)
-      // Extensions can appear multiple times when imported through different
-      // barrel re-exports. Deduplicate by name+sourceFile.
-      //
-      // GEN-120: the source URI has to be canonicalised to the parent library
-      // before it can act as a key. An extension declared inside a `part of`
-      // file arrives twice by two different routes: the local extractor tags it
-      // with the library it extracted (the parent), while GEN-049 import
-      // discovery tags it with the declaring *fragment*, which for a part is
-      // the part's own URI. Keyed on the raw URI those read as two distinct
-      // extensions, so both survived — emitting a duplicate key in
-      // `extensionSourceUris()` and, less visibly, registering the extension
-      // twice in `bridgedExtensions()`.
-      {
-        final indexByKey = <String, int>{};
-        final deduped = <ExtensionInfo>[];
-
-        // Only entries the part-of resolver actually moves get rewritten.
-        // `sourceFile` also feeds `allSourceFiles`, which drives import
-        // generation, so normalising every entry to a `package:` URI would
-        // churn the emitted imports of packages that have no part files at
-        // all. Rewrite the exceptional case, leave the common one alone.
-        ExtensionInfo canonicalise(ExtensionInfo e) {
-          final rawUri = _getPackageUri(e.sourceFile);
-          final parentUri = _resolvePartOfToParent(rawUri);
-          return parentUri == rawUri ? e : e.withSourceFile(parentUri);
-        }
-
-        for (final e in filteredExtensions) {
-          final canonical = canonicalise(e);
-          final key =
-              '${e.name ?? '<unnamed>'}|${_getPackageUri(canonical.sourceFile)}';
-          final existingIndex = indexByKey[key];
-          if (existingIndex != null) {
-            // Import discovery populates only `methodNames`, never `methods`,
-            // so whichever copy arrives first is not necessarily the useful
-            // one. Callback wrapping (GEN-052) needs the full `MemberInfo`, so
-            // prefer the richer copy rather than relying on source ordering.
-            if (deduped[existingIndex].methods.isEmpty && e.methods.isNotEmpty) {
-              deduped[existingIndex] = canonical;
-            }
-            _recordSkip(
-              'extension',
-              e.name ?? e.onTypeName,
-              'duplicate (already seen from another import)',
-            );
-            continue;
-          }
-          indexByKey[key] = deduped.length;
-          deduped.add(canonical);
-        }
-        filteredExtensions = deduped;
-      }
+      // GEN-064 / GEN-120 / scd11: exclusion and dedupe live in one place,
+      // because directory mode has to get exactly the same answer.
+      final filteredExtensions = _bridgeableExtensions(
+        globals.extensions,
+        excludeSourcePatterns,
+      );
 
       // GEN-057: Post-process global functions to fix up missing return type URIs
       // This handles cases where return types like `core.Which` were InvalidType
@@ -14230,6 +14179,101 @@ class BridgeGenerator {
     required String? name,
     required String onTypeName,
   }) => '${name ?? '<unnamed>'}@$onTypeName';
+
+  /// The extensions that should be bridged: [excludeSourcePatterns] applied,
+  /// then duplicates collapsed.
+  ///
+  /// BOTH generation modes call this. The pipeline used to sit inline in the
+  /// single-file branch and directory mode had none of it, so a part-declared
+  /// extension was emitted into two output files — one named after the part,
+  /// one after the parent library, each with a complete definition, both
+  /// registered — and `excludeSourcePatterns` never reached extensions at all
+  /// (scd11_ahcm).
+  List<ExtensionInfo> _bridgeableExtensions(
+    List<ExtensionInfo> extensions,
+    List<String>? excludeSourcePatterns,
+  ) {
+    var filteredExtensions = extensions;
+    if (excludeSourcePatterns != null && excludeSourcePatterns.isNotEmpty) {
+      filteredExtensions = filteredExtensions.where((e) {
+        final sourceUri = _getPackageUri(e.sourceFile);
+        // A part-declared extension arrives twice: once tagged with the parent
+        // library, once with the part itself. Matching only the raw URI let
+        // the part's copy survive an exclusion naming the parent — and the
+        // dedupe below then renamed that survivor to the parent, so the
+        // exclusion had no effect at all. Both spellings exclude it, in either
+        // mode (scd11_ahcm).
+        final parentUri = _resolvePartOfToParent(sourceUri);
+        final extName = e.name ?? e.onTypeName;
+        for (final uri in {sourceUri, parentUri}) {
+          if (_matchesSourceExclusion(uri, extName, excludeSourcePatterns)) {
+            _recordSkip(
+              'extension',
+              extName,
+              'source URI excluded by pattern: $uri',
+            );
+            return false;
+          }
+        }
+        return true;
+      }).toList();
+    }
+
+    // GEN-064: Filter out duplicate extensions (keep first occurrence)
+    // Extensions can appear multiple times when imported through different
+    // barrel re-exports. Deduplicate by name+sourceFile.
+    //
+    // GEN-120: the source URI has to be canonicalised to the parent library
+    // before it can act as a key. An extension declared inside a `part of`
+    // file arrives twice by two different routes: the local extractor tags it
+    // with the library it extracted (the parent), while GEN-049 import
+    // discovery tags it with the declaring *fragment*, which for a part is
+    // the part's own URI. Keyed on the raw URI those read as two distinct
+    // extensions, so both survived — emitting a duplicate key in
+    // `extensionSourceUris()` and, less visibly, registering the extension
+    // twice in `bridgedExtensions()`.
+    {
+      final indexByKey = <String, int>{};
+      final deduped = <ExtensionInfo>[];
+
+      // Only entries the part-of resolver actually moves get rewritten.
+      // `sourceFile` also feeds `allSourceFiles`, which drives import
+      // generation, so normalising every entry to a `package:` URI would
+      // churn the emitted imports of packages that have no part files at
+      // all. Rewrite the exceptional case, leave the common one alone.
+      ExtensionInfo canonicalise(ExtensionInfo e) {
+        final rawUri = _getPackageUri(e.sourceFile);
+        final parentUri = _resolvePartOfToParent(rawUri);
+        return parentUri == rawUri ? e : e.withSourceFile(parentUri);
+      }
+
+      for (final e in filteredExtensions) {
+        final canonical = canonicalise(e);
+        final key =
+            '${e.name ?? '<unnamed>'}|${_getPackageUri(canonical.sourceFile)}';
+        final existingIndex = indexByKey[key];
+        if (existingIndex != null) {
+          // Import discovery populates only `methodNames`, never `methods`,
+          // so whichever copy arrives first is not necessarily the useful
+          // one. Callback wrapping (GEN-052) needs the full `MemberInfo`, so
+          // prefer the richer copy rather than relying on source ordering.
+          if (deduped[existingIndex].methods.isEmpty && e.methods.isNotEmpty) {
+            deduped[existingIndex] = canonical;
+          }
+          _recordSkip(
+            'extension',
+            e.name ?? e.onTypeName,
+            'duplicate (already seen from another import)',
+          );
+          continue;
+        }
+        indexByKey[key] = deduped.length;
+        deduped.add(canonical);
+      }
+      filteredExtensions = deduped;
+    }
+    return filteredExtensions;
+  }
 
   /// Checks if a type name is a known function typedef.
   bool _isFunctionTypeName(String typeName) {

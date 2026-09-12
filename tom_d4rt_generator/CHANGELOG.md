@@ -1,3 +1,36 @@
+## 1.24.0
+
+### Fixed — directory mode bypassed both the extension dedupe and the source exclusion (scd11_ahcm)
+
+GEN-120 deduplicated extensions in SINGLE-FILE mode. Directory mode — one
+`<source>_bridge.dart` per source file — grouped them straight off
+`globals.extensions`: before the `excludeSourcePatterns` filter, before the
+GEN-064/GEN-120 dedupe, and keyed on the unnormalised `sourceFile`. A
+part-declared extension was therefore emitted into TWO output files, one named
+after the part and one after the parent library, each carrying a complete
+`BridgedExtensionDefinition`, and both were registered; and
+`excludeSourcePatterns` never reached extensions in that mode at all.
+
+Both pipelines now call one helper, `_bridgeableExtensions`. Directory mode maps
+the canonicalised parent URI back to the input path before grouping, so the
+extension joins that file's own group instead of opening a second one whose
+output file would collide by basename and silently overwrite it.
+
+### Fixed — an exclusion naming a parent library now excludes its parts' extensions
+
+Found while fixing the above, and **not** directory-mode-specific: measured in
+single-file mode too. A part-declared extension arrives twice — tagged with the
+parent library, and with the part itself — and the exclusion was matched only
+against each copy's raw URI. Excluding the parent left the part's copy standing,
+which the dedupe then renamed to the parent, so the exclusion had no effect.
+Either spelling now excludes it.
+
+Note for callers: `excludeSourcePatterns` globs the WHOLE source URI. A bare
+`thing.dart` matches nothing; write `package:pkg/src/thing.dart` or `**/thing.dart`.
+This is unchanged behaviour, now documented — the first version of the test for
+this fix used a bare file name and failed for that reason rather than the one it
+was written for.
+
 ## 1.23.0
 
 ### Added — `compareFixtureResolution`: an example that resolves is not yet an example that resolves CORRECTLY (scd9_aicx)

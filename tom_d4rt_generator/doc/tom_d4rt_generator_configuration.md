@@ -123,7 +123,7 @@ Mirrors `ModuleConfig` in `lib/src/bridge_config.dart`.
 | `excludeFunctions` | `List<String>` | `[]` | Top-level function names to skip. |
 | `excludeConstructors` | `List<String>` | `[]` | Constructor names to skip (`Class.named`). |
 | `excludeVariables` | `List<String>` | `[]` | Top-level variable names to skip. |
-| `excludeSourcePatterns` | `List<String>` | `[]` | Source-URI glob patterns to skip; supports `#symbol` selectors for symbol-level exclusion. |
+| `excludeSourcePatterns` | `List<String>` | `[]` | Source-URI glob patterns to skip; supports `#symbol` selectors for symbol-level exclusion. Matched against the **whole** source URI, so a bare file name matches nothing — write `package:pkg/src/thing.dart` or a glob such as `**/thing.dart`. An extension declared in a `part of` file is excluded by either the part's URI or its parent library's. |
 | `followAllReExports` | `bool` | `true` | Follow all external re-exports by default. |
 | `skipReExports` | `List<String>` | `[]` | Package names to skip when following re-exports. |
 | `followReExports` | `List<String>` | `[]` | Package names to follow when `followAllReExports: false`. |
