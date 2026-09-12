@@ -1,4 +1,5 @@
 import 'package:tom_d4rt_ast/runtime.dart';
+import '../coerce_elements.dart';
 
 class RunesCore {
   static BridgedClass get definition => BridgedClass(
@@ -125,7 +126,9 @@ class RunesCore {
       },
       'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Runes.followedBy', atMost: 1);
-        return (target as Runes).followedBy(positionalArgs[0] as Iterable<int>);
+        return (target as Runes).followedBy(
+          coerceElements<int>(positionalArgs[0], 'Runes.followedBy'),
+        );
       },
     },
     getters: {

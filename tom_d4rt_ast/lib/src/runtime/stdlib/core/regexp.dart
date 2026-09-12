@@ -1,4 +1,5 @@
 import 'package:tom_d4rt_ast/runtime.dart';
+import '../coerce_elements.dart';
 
 class RegExpCore {
   static BridgedClass get definition => BridgedClass(
@@ -92,7 +93,9 @@ class RegExpMatchCore {
       },
       'groups': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'RegExp.groups', atMost: 1);
-        return (target as RegExpMatch).groups(positionalArgs[0] as List<int>);
+        return (target as RegExpMatch).groups(
+          coerceElements<int>(positionalArgs[0], 'RegExpMatch.groups'),
+        );
       },
       '[]': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1 || positionalArgs[0] is! int) {

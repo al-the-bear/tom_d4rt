@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:tom_d4rt_ast/runtime.dart';
+import '../coerce_elements.dart';
 
 class UriCore {
   static BridgedClass get definition => BridgedClass(
@@ -16,10 +17,15 @@ class UriCore {
           host: namedArgs['host'] as String?,
           port: namedArgs['port'] as int?,
           path: namedArgs['path'] as String?,
-          pathSegments: namedArgs['pathSegments'] as Iterable<String>?,
+          pathSegments: coerceElementsOrNull<String>(
+            namedArgs['pathSegments'],
+            'Uri.pathSegments',
+          ),
           query: namedArgs['query'] as String?,
-          queryParameters:
-              namedArgs['queryParameters'] as Map<String, dynamic>?,
+          queryParameters: coerceMapArg<String, dynamic>(
+            namedArgs['queryParameters'],
+            'Uri.queryParameters',
+          ),
           fragment: namedArgs['fragment'] as String?,
         );
       },
@@ -134,10 +140,15 @@ class UriCore {
           host: namedArgs['host'] as String?,
           port: namedArgs['port'] as int?,
           path: namedArgs['path'] as String?,
-          pathSegments: namedArgs['pathSegments'] as Iterable<String>?,
+          pathSegments: coerceElementsOrNull<String>(
+            namedArgs['pathSegments'],
+            'Uri.pathSegments',
+          ),
           query: namedArgs['query'] as String?,
-          queryParameters:
-              namedArgs['queryParameters'] as Map<String, dynamic>?,
+          queryParameters: coerceMapArg<String, dynamic>(
+            namedArgs['queryParameters'],
+            'Uri.queryParameters',
+          ),
           fragment: namedArgs['fragment'] as String?,
         );
       },

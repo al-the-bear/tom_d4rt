@@ -2,48 +2,15 @@ import 'dart:math' show Random;
 
 import 'package:tom_d4rt/d4rt.dart';
 
-/// Coerces an adapter argument that the SDK expects as `Iterable<E>`.
-///
-/// **Why a bare cast is not enough.** d4rt evaluates a list literal to
-/// `List<Object?>` — element types are erased — and elements that came from
-/// bridged code arrive as `BridgedInstance` wrappers. So
-/// `positionalArgs[n] as Iterable<int>` throws `_TypeError` on
-/// `l.setAll(0, [7, 8])` even though every element really is an `int`. The
-/// same call with a typed-data argument (`l.setAll(0, Uint8List.fromList([7,
-/// 8]))`) passes the cast, which is why the bug survived: the natural
-/// spot-check uses the typed form.
-///
-/// **Why it matters twice over.** On a member that should succeed, the failed
-/// cast simply kills the script. On a length-*changing* member it is worse:
-/// the cast throws *before* the native call, so the `UnsupportedError` that a
-/// fixed-length list would have raised never happens, and a script written as
-///
-///     try { list.addAll(more); } on UnsupportedError { … }
-///
-/// dies instead of taking its recovery path.
-///
-/// An element whose type genuinely does not match still fails — this widens
-/// nothing. `Float32List.setAll(0, [7, 8])` (ints into a `double` list) is a
-/// type error in Dart and stays one here.
-List<E> coerceElements<E>(Object? arg, String member) {
-  final value = arg is BridgedInstance ? arg.nativeObject : arg;
-  if (value is Iterable<E>) return value.toList();
-  if (value is Iterable) {
-    return value.map<E>((element) {
-      final unwrapped = element is BridgedInstance
-          ? element.nativeObject
-          : element;
-      if (unwrapped is E) return unwrapped;
-      throw RuntimeD4rtException(
-        "$member expects an Iterable<$E>, but an element was "
-        "${unwrapped.runtimeType}.",
-      );
-    }).toList();
-  }
-  throw RuntimeD4rtException(
-    "$member expects an Iterable<$E>, got ${value.runtimeType}.",
-  );
-}
+// SCD26 moved `coerceElements` here from this file. It was never
+// typed-data-specific — the defect it fixes is that d4rt erases a list
+// literal's element type, which is true of every adapter that takes a
+// collection — and `core/runes.dart` should not import out of `typed_data/`
+// to reach it. Re-exported so the eleven typed-data bridges that import
+// this file keep compiling unchanged.
+export '../coerce_elements.dart' show coerceElements;
+
+import '../coerce_elements.dart';
 
 /// Returns a map of methods that are inherited from `Iterable<E>` and the
 /// read-only portion of `List<E>` for use in typed-data list bridges

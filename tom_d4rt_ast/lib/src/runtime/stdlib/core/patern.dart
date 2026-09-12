@@ -1,4 +1,5 @@
 import 'package:tom_d4rt_ast/runtime.dart';
+import '../coerce_elements.dart';
 
 class PatternCore {
   static BridgedClass get definition => BridgedClass(
@@ -47,7 +48,9 @@ class MatchCore {
       },
       'groups': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Pattern.groups', atMost: 1);
-        return (target as Match).groups(positionalArgs[0] as List<int>);
+        return (target as Match).groups(
+          coerceElements<int>(positionalArgs[0], 'Match.groups'),
+        );
       },
       '[]': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1 || positionalArgs[0] is! int) {

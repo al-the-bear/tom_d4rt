@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:tom_d4rt/d4rt.dart';
+import '../coerce_elements.dart';
 
 class Latin1CodecConvert {
   static BridgedClass get definition => BridgedClass(
@@ -22,7 +23,7 @@ class Latin1CodecConvert {
         D4.checkArity(positionalArgs, 'Latin1Codec.decode', atMost: 1);
         final allowInvalid = namedArgs.get<bool?>('allowInvalid');
         return (target as Latin1Codec).decode(
-          positionalArgs[0] as List<int>,
+          coerceElements<int>(positionalArgs[0], 'latin1.decode'),
           allowInvalid: allowInvalid,
         );
       },
@@ -125,7 +126,7 @@ class Latin1DecoderConvert {
       'convert': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Latin1Codec.convert', atMost: 1);
         return (target as Latin1Decoder).convert(
-          positionalArgs[0] as List<int>,
+          coerceElements<int>(positionalArgs[0], 'latin1.decode'),
         );
       },
       'startChunkedConversion':
