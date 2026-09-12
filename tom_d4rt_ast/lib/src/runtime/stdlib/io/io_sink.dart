@@ -31,7 +31,8 @@ class IOSinkIo {
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException('IOSink.add requires data');
         }
-        (target as IOSink).add(positionalArgs[0] as List<int>);
+        // SCD70: coerce, not cast — see `Socket.add` in io/socket.dart.
+        (target as IOSink).add(D4.coerceList<int>(positionalArgs[0], 'bytes'));
         return null;
       },
       'addError': (visitor, target, positionalArgs, namedArgs, _) {

@@ -79,7 +79,16 @@ class RandomAccessFileIo {
             'RandomAccessFile.readInto requires a List<int> buffer.',
           );
         }
-        final buffer = positionalArgs[0] as List<int>;
+        // SCD70: `.cast<int>()`, NOT `D4.coerceList` — and the difference from
+        // `writeFrom` below is the whole point. `readInto` is an OUT parameter:
+        // the native call writes the bytes it read into the caller's list, so
+        // the script has to be holding the same object. `coerceList` converts
+        // eagerly and hands the native a COPY — measured, that returns the byte
+        // count while leaving the script's buffer untouched, which is worse
+        // than the cast error it replaced because it is silent. `List.cast`
+        // returns a writable VIEW whose `[]=` forwards to the source, so the
+        // bytes land where the script can see them.
+        final buffer = (positionalArgs[0] as List).cast<int>();
         final start = positionalArgs.length > 1
             ? positionalArgs[1] as int? ?? 0
             : 0;
@@ -94,7 +103,16 @@ class RandomAccessFileIo {
             'RandomAccessFile.readIntoSync requires a List<int> buffer.',
           );
         }
-        final buffer = positionalArgs[0] as List<int>;
+        // SCD70: `.cast<int>()`, NOT `D4.coerceList` — and the difference from
+        // `writeFrom` below is the whole point. `readInto` is an OUT parameter:
+        // the native call writes the bytes it read into the caller's list, so
+        // the script has to be holding the same object. `coerceList` converts
+        // eagerly and hands the native a COPY — measured, that returns the byte
+        // count while leaving the script's buffer untouched, which is worse
+        // than the cast error it replaced because it is silent. `List.cast`
+        // returns a writable VIEW whose `[]=` forwards to the source, so the
+        // bytes land where the script can see them.
+        final buffer = (positionalArgs[0] as List).cast<int>();
         final start = positionalArgs.length > 1
             ? positionalArgs[1] as int? ?? 0
             : 0;
@@ -127,7 +145,11 @@ class RandomAccessFileIo {
             'RandomAccessFile.writeFrom requires a List<int> buffer.',
           );
         }
-        final buffer = positionalArgs[0] as List<int>;
+        // SCD70: `coerceList` here, `.cast` in `readInto` above. This is an IN
+        // parameter — the native only reads the bytes — so the eager
+        // conversion is right, and buys bridged-element unwrapping and an
+        // `ArgumentD4rtException` that names the parameter.
+        final buffer = D4.coerceList<int>(positionalArgs[0], 'buffer');
         final start = positionalArgs.length > 1
             ? positionalArgs[1] as int? ?? 0
             : 0;
@@ -142,7 +164,7 @@ class RandomAccessFileIo {
             'RandomAccessFile.writeFromSync requires a List<int> buffer.',
           );
         }
-        final buffer = positionalArgs[0] as List<int>;
+        final buffer = D4.coerceList<int>(positionalArgs[0], 'buffer');
         final start = positionalArgs.length > 1
             ? positionalArgs[1] as int? ?? 0
             : 0;

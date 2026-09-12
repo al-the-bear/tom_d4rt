@@ -56,7 +56,13 @@ class HttpClientIo {
             'HttpClient.findProxyFromEnvironment requires a Uri argument.',
           );
         }
-        final environmentMap = namedArgs['environment'] as Map<String, String>?;
+        // SCD70: coerce, not cast — a script's map literal is a
+        // `Map<Object?, Object?>` whatever its entries hold.
+        final environmentMap = D4.coerceMapOrNull<String, String>(
+          namedArgs['environment'],
+          'environment',
+          visitor,
+        );
         return HttpClient.findProxyFromEnvironment(
           positionalArgs[0] as Uri,
           environment: environmentMap,
@@ -872,7 +878,10 @@ class HttpClientRequestIo {
         if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
           throw RuntimeD4rtException('add requires a List<int> argument.');
         }
-        (target as HttpClientRequest).add(positionalArgs[0] as List<int>);
+        // SCD70: coerce, not cast — see `Socket.add` in io/socket.dart.
+        (target as HttpClientRequest).add(
+          D4.coerceList<int>(positionalArgs[0], 'bytes'),
+        );
         return null;
       },
       'addStream': (visitor, target, positionalArgs, namedArgs, _) {
@@ -1196,7 +1205,13 @@ class ContentTypeIo {
           positionalArgs[1] as String,
           charset: namedArgs['charset'] as String?,
           parameters:
-              namedArgs['parameters'] as Map<String, String?>? ?? const {},
+              // SCD70: coerce, not cast — see `findProxyFromEnvironment` above.
+              D4.coerceMapOrNull<String, String?>(
+                namedArgs['parameters'],
+                'parameters',
+                visitor,
+              ) ??
+              const {},
         );
       },
     },
@@ -1360,8 +1375,13 @@ class HeaderValueIo {
         final value = positionalArgs.isNotEmpty
             ? positionalArgs[0] as String
             : '';
+        // SCD70: coerce, not cast — see `findProxyFromEnvironment` above.
         final parameters = positionalArgs.length > 1
-            ? positionalArgs[1] as Map<String, String?>
+            ? D4.coerceMap<String, String?>(
+                positionalArgs[1],
+                'parameters',
+                visitor,
+              )
             : const <String, String?>{};
         return HeaderValue(value, parameters);
       },

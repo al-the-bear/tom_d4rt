@@ -73,7 +73,8 @@ class StdoutIo {
         if (positionalArgs.length != 1 || positionalArgs[0] is! List) {
           throw RuntimeD4rtException('add requires a List<int> argument.');
         }
-        stdout.add(positionalArgs[0] as List<int>);
+        // SCD70: coerce, not cast — see `Socket.add` in io/socket.dart.
+        stdout.add(D4.coerceList<int>(positionalArgs[0], 'bytes'));
         return null;
       },
       'addStream': (visitor, target, positionalArgs, namedArgs, _) {

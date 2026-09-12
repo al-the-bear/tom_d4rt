@@ -36,7 +36,21 @@ class SocketIo {
         if (positionalArgs.isEmpty) {
           throw ArgumentD4rtException('Socket.add requires data');
         }
-        (target as Socket).add(positionalArgs[0] as List<int>);
+        // SCD70: coerce, do NOT cast. A list literal written in a script is a
+        // `List<Object?>` whatever its elements hold and whatever the author
+        // annotated — the interpreter checks the element type, it does not
+        // reify it — so `as List<int>` threw for every list a script could
+        // construct, `<int>[65, 66]` included. There was no spelling of
+        // `Socket.add` that worked; the cast succeeded only for a list that
+        // arrived already typed from a native bridge, which is why the io tests
+        // never caught it: they all write Strings.
+        //
+        // `D4.coerceList` is the helper for this, and does more than
+        // `.cast<int>()` would: it unwraps bridged elements, drops nulls where
+        // the target type is non-nullable, converts eagerly rather than
+        // producing a lazy view that fails inside the native call, and reports
+        // a bad element as an `ArgumentD4rtException` naming the parameter.
+        (target as Socket).add(D4.coerceList<int>(positionalArgs[0], 'bytes'));
         return null;
       },
       'addError': (visitor, target, positionalArgs, namedArgs, _) {
@@ -821,7 +835,7 @@ class RawSocketIo {
       },
       'write': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.write', atMost: 1);
-        final data = positionalArgs[0] as List<int>;
+        final data = D4.coerceList<int>(positionalArgs[0], 'data');
         return (target as RawSocket).write(data);
       },
       'close': (visitor, target, positionalArgs, namedArgs, _) =>
@@ -961,7 +975,7 @@ class RawSocketOptionIo {
       '': (visitor, positionalArgs, namedArgs) {
         final level = positionalArgs[0] as int;
         final option = positionalArgs[1] as int;
-        final value = positionalArgs[2] as List<int>;
+        final value = D4.coerceList<int>(positionalArgs[2], 'value');
         return RawSocketOption(level, option, Uint8List.fromList(value));
       },
       'fromInt': (visitor, positionalArgs, namedArgs) {
@@ -1067,7 +1081,7 @@ class DatagramIo {
     typeParameterCount: 0,
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {
-        final data = positionalArgs[0] as List<int>;
+        final data = D4.coerceList<int>(positionalArgs[0], 'data');
         final address = positionalArgs[1] as InternetAddress;
         final port = positionalArgs[2] as int;
         return Datagram(Uint8List.fromList(data), address, port);
@@ -1093,7 +1107,7 @@ class RawDatagramSocketIo {
           (target as RawDatagramSocket).receive(),
       'send': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.send', atMost: 3);
-        final data = positionalArgs[0] as List<int>;
+        final data = D4.coerceList<int>(positionalArgs[0], 'data');
         final address = positionalArgs[1] as InternetAddress;
         final port = positionalArgs[2] as int;
         return (target as RawDatagramSocket).send(data, address, port);

@@ -1,3 +1,33 @@
+## 0.80.0
+
+### Fixed — adapter arguments are coerced, not cast (scd70)
+
+`s.add([65, 66])` threw `type 'List<Object?>' is not a subtype of type
+'List<int>' in type cast`, and `s.add(<int>[65, 66])` threw the same thing: a
+list literal written in a script is a `List<Object?>` whatever its elements hold
+and whatever the author annotated, because the interpreter checks the element
+type without reifying it. There was no spelling of `Socket.add` a script could
+reach. Maps arrive the same way, as `Map<Object?, Object?>`.
+
+Seventeen adapters had that cast, against a report that named two — five in
+`io/socket.dart`, four in `io/file.dart`, four in `io/http.dart`, one each in
+`io/stdio.dart`, `io/io_sink.dart`, `isolate/isolate.dart`, and one in
+`core/function.dart`: `Function.apply` with named arguments, which is not io at
+all. Each was independently unusable from a script. They now use
+`D4.coerceList` / `D4.coerceMap`, which unwrap bridged elements and report a bad
+element by parameter name.
+
+`RandomAccessFile.readInto` and `readIntoSync` are the exception and use
+`List.cast<int>()` instead. They are OUT parameters — the native writes into the
+caller's list — and an eager coercion hands it a copy: measured, that returns
+the byte count while leaving the script's buffer untouched, which is quieter
+than the cast error it replaced and worse. `cast` returns a writable view.
+
+`test/scd70_no_container_arg_casts_test.dart` derives the rule rather than
+listing the sites: an adapter may not cast an argument to a parameterised
+container whose type arguments are not top types. Run against the trees as they
+stood it reports all thirty-four rows.
+
 ## 0.79.0
 
 ### Fixed — `FormatException`'s source and offset are positional (scd68)

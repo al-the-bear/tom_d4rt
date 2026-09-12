@@ -96,7 +96,8 @@ class IsolateIsolate {
       },
       'spawnUri': (visitor, positionalArgs, namedArgs, _) {
         final uri = positionalArgs[0] as Uri;
-        final args = positionalArgs[1] as List<String>;
+        // SCD70: coerce, not cast — see `Socket.add` in io/socket.dart.
+        final args = D4.coerceList<String>(positionalArgs[1], 'args');
         final message = positionalArgs[2];
         final paused = namedArgs.get<bool?>('paused') ?? false;
         final onExit = namedArgs.get<SendPort?>('onExit');

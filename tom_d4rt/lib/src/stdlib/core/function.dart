@@ -17,8 +17,16 @@ class FunctionCore {
         final argumentsToPass = positionalArgs.length > 1
             ? positionalArgs[1] as List<Object?>
             : <Object?>[];
+        // SCD70: coerce, not cast. `Function.apply(f, args, named)` is
+        // `dart:core`, not io, and it failed the same way every byte API did:
+        // a map literal written in a script is a `Map<Object?, Object?>`, so
+        // the cast threw for the only spelling a script can produce.
         final namedArgumentsToPass = positionalArgs.length > 2
-            ? positionalArgs[2] as Map<String, Object?>
+            ? D4.coerceMap<String, Object?>(
+                positionalArgs[2],
+                'namedArguments',
+                visitor,
+              )
             : namedArgs;
 
         return functionToApply.call(
