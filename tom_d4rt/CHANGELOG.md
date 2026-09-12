@@ -1,3 +1,46 @@
+## 1.85.0
+
+### Fixed — a bare block lost its locals across an `await` (scd42_aide)
+
+    main() async {
+      { var log = []; log.add(await Future.value(1)); return log; }
+    }
+
+reported `Undefined variable: log` for a local plainly in scope. The same code
+at the top level of a function body, or inside an `if`, `for` or `while` body,
+worked — which is what made it look like an unrelated scoping bug each of the
+three separate times SCC12 hit it.
+
+The distinguishing condition is a **bare block**, and it is not the one the
+report named. The async state machine flattens the statement tree: it steps into
+if/for/while bodies and runs their statements in the function's own frame, so a
+declaration there survives a resumption. A standalone `{ … }` had no such
+handler, so it was handed to `visitBlock`, which opens a CHILD environment and
+runs the statements synchronously. An `await` inside then suspended, the machine
+resumed at a statement *inside* the block, and that child environment was gone.
+
+A bare block is now stepped into like every sibling construct, for the reason
+the `LabeledStatement` case next to it already gives: accepting the node whole
+hands it to the synchronous visitor, which cannot suspend. This carries the
+limitation those cases already have — the machine flattens, so block-scoped
+shadowing is not honoured in async code — and that is a much smaller problem
+than a hard error on ordinary code.
+
+**It was not only failing loudly.** The hoisted form that looks like a
+workaround,
+
+    { var log = []; final v = await Future.value(1); log.add(v); return log; }
+
+returned `1` rather than `[1]` — the awaited value instead of the list. A test
+that checked only for the absence of an exception would have called the bare
+block healthy, so `F-SCD42-5` asserts the value.
+
+The report's framing — "an `await` in ARGUMENT position loses the environment" —
+points at the wrong expression. What is lost is the method **target**:
+`F-SCD42-3` has no local in the argument list at all and failed identically,
+while `F-SCD42-4` passes an awaited argument to a top-level function and always
+worked, because the callee is resolved globally.
+
 ## 1.84.0
 
 ### Fixed — async try/catch now decides like the synchronous path (scd41_aide)

@@ -2765,6 +2765,30 @@ class InterpretedFunction implements Callable {
           currentNode = currentNode.statement;
           currentState.nextStateIdentifier = currentNode;
           continue;
+        } else if (currentNode is Block) {
+          // SCD42: step into a bare block, for the same reason as the labelled
+          // statement above and exactly as the if / for / while bodies already
+          // do a few branches down. Accepting it whole hands it to
+          // `visitBlock`, which opens a CHILD environment and runs the
+          // statements synchronously -- so an `await` inside suspends, the
+          // machine resumes at a statement *inside* the block, and that child
+          // environment is gone. A local declared in the block then reports
+          // `Undefined variable`, which is what `{ var log = [];
+          // log.add(await f()); }` did.
+          //
+          // Stepping in puts the block's declarations in the function frame,
+          // which is where every other block's declarations in an async
+          // function already go. That is a real limitation of this machine --
+          // it flattens the statement tree, so block-scoped shadowing is not
+          // honoured in async code -- but it is the limitation the if, for,
+          // while and labelled cases already have, and a hard error is worse
+          // than an inconsistency shared with every sibling construct.
+          final blockNode = currentNode;
+          currentNode =
+              blockNode.statements.firstOrNull ??
+              _findNextSequentialNode(visitor, blockNode);
+          currentState.nextStateIdentifier = currentNode;
+          continue;
         } else if (currentNode is TryStatement) {
           // When entering a TryStatement, register it
           currentState.activeTryStatement = currentNode;

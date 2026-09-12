@@ -753,4 +753,140 @@ void main() {
       );
     });
   });
+
+  /// SCD42 — an `await` in argument position lost the enclosing environment,
+  /// but only inside a bare block.
+  ///
+  /// The reported shape was `log.add(await Future.value(1))` reporting
+  /// `Undefined variable: log` for a local plainly in scope. At the top level
+  /// of a function body it works, and it works inside an `if`, `for` or
+  /// `while` body too — which is what made it look like an unrelated scoping
+  /// bug each of the three times SCC12 hit it.
+  ///
+  /// The distinguishing condition is a BARE block. The async state machine
+  /// flattens the statement tree: it steps into if/for/while bodies and runs
+  /// their statements in the function's own frame, so declarations there are
+  /// visible after a resumption. A standalone `{ … }` had no such handler, so
+  /// it went to `visitBlock`, which opens a CHILD environment and runs the
+  /// statements synchronously. An `await` inside then suspended, the machine
+  /// resumed at a statement *inside* the block, and that child environment was
+  /// gone.
+  ///
+  /// The fix steps into a bare block like every sibling construct. It carries
+  /// the same limitation those already have — block-scoped shadowing is not
+  /// honoured in async code, because the machine flattens — and that is a
+  /// smaller problem than a hard error on ordinary code.
+  ///
+  /// F-SCD42-5 is not decoration: before the fix that program returned `1`
+  /// rather than `[1]`, so the bare block was also corrupting a value silently,
+  /// not only failing loudly.
+  group('SCD42: a bare block keeps its locals across an await', () {
+    test('F-SCD42-1: the reported shape — `log.add(await …)` in a bare block '
+        '[2026-09-12]', () async {
+      expect(
+        await run(r"""
+          main() async {
+            { var log = []; log.add(await Future.value(1)); return log; }
+          }
+        """),
+        orderedEquals([1]),
+      );
+    });
+
+    test('F-SCD42-2: two nested bare blocks [2026-09-12]', () async {
+      expect(
+        await run(r"""
+          main() async {
+            { { var log = []; log.add(await Future.value(1)); return log; } }
+          }
+        """),
+        orderedEquals([1]),
+      );
+    });
+
+    test('F-SCD42-3: the local need not appear in the argument list '
+        '[2026-09-12]', () async {
+      // It is the method TARGET that was lost, not anything in the arguments —
+      // worth pinning, because the todo described this as "an await in argument
+      // position loses the environment" and that framing points at the wrong
+      // expression.
+      expect(
+        await run(r"""
+          main() async {
+            { var unused = 1; final l = []; l.add(await Future.value(9)); return l; }
+          }
+        """),
+        orderedEquals([9]),
+      );
+    });
+
+    test('F-SCD42-4: a top-level call with an awaited argument, in a bare '
+        'block [2026-09-12]', () async {
+      // Already worked: the callee is resolved globally, so no environment of
+      // the block is needed to find it. Pinned as a control — it is the half of
+      // the reported shape that was never broken.
+      expect(
+        await run(r"""
+          f(a) => a;
+          main() async { { var n = 1; return f(await Future.value(n)); } }
+        """),
+        1,
+      );
+    });
+
+    test('F-SCD42-5: a hoisted await in a bare block returns the right value '
+        '[2026-09-12]', () async {
+      // The workaround shape, and it was ALSO wrong: this returned `1` — the
+      // awaited value — instead of the list. A test that only checked for the
+      // absence of an exception would have called the bare block healthy.
+      expect(
+        await run(r"""
+          main() async {
+            { var log = []; final v = await Future.value(1); log.add(v); return log; }
+          }
+        """),
+        orderedEquals([1]),
+      );
+    });
+
+    test('F-SCD42-6: an if body still works [2026-09-12]', () async {
+      // Control: the machine already stepped into these, and the fix must not
+      // disturb the path that was correct.
+      expect(
+        await run(r"""
+          main() async {
+            if (true) { var log = []; log.add(await Future.value(1)); return log; }
+          }
+        """),
+        orderedEquals([1]),
+      );
+    });
+
+    test('F-SCD42-7: a for body still works [2026-09-12]', () async {
+      expect(
+        await run(r"""
+          main() async {
+            for (var i = 0; i < 1; i++) {
+              var log = [];
+              log.add(await Future.value(1));
+              return log;
+            }
+          }
+        """),
+        orderedEquals([1]),
+      );
+    });
+
+    test(
+      'F-SCD42-8: a bare block with no await is unaffected [2026-09-12]',
+      () async {
+        expect(
+          await run(r"""
+          main() async { { var log = []; log.add(1); return log; } }
+        """),
+          orderedEquals([1]),
+        );
+      },
+    );
+  });
 }
