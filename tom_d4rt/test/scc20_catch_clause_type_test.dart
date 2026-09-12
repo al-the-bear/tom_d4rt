@@ -440,19 +440,24 @@ main() {
         // value, so one on a root type makes the root match everything in its
         // hierarchy and steal dispatch from its own subtypes. These getters live
         // on `FormatException` alone and would disappear if that happened.
-        // `source` and `offset` come back null, and that is a SEPARATE defect
-        // measured here rather than papered over: the `FormatException` bridge
-        // reads them from namedArgs while the SDK constructor takes them
-        // positionally, so the two positional arguments are dropped. Filed as
-        // SCD68. What this case proves is unaffected — the `Exception` bridge
-        // declares no `source` or `offset` getter at all, so reaching them and
-        // getting null means the FormatException bridge answered.
+        // This used to pin `['bad', null, null]` with a comment naming the
+        // defect: the bridge read `source` and `offset` out of namedArgs while
+        // the SDK constructor takes all three positionally, so the two extra
+        // arguments were dropped. SCD68 fixed the adapter and this case now
+        // asserts the values a script actually passed.
+        //
+        // It still proves what it was written to prove, and proves it BETTER.
+        // The `Exception` bridge declares no `source` or `offset` getter at
+        // all, so reaching them means the `FormatException` bridge answered —
+        // and reading back what was passed, rather than null, rules out the one
+        // reading the old assertion could not: that the getters were resolving
+        // somewhere that returns null for everything.
         expect(
           run("""
           var e = FormatException('bad', 'src', 2);
           return [e.message, e.source, e.offset];
         """),
-          equals(['bad', null, null]),
+          equals(['bad', 'src', 2]),
         );
       },
     );

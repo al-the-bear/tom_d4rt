@@ -1,3 +1,28 @@
+## 0.79.0
+
+### Fixed — `FormatException`'s source and offset are positional (scd68)
+
+`FormatException('bad', 'src', 2)` produced an exception whose `source` and
+`offset` were both null. The adapter read them out of `namedArgs` while the SDK
+declares `FormatException([String message = "", this.source, this.offset])` —
+three POSITIONAL parameters, none of them named. So there was no spelling that
+worked: the named form the adapter wanted is not legal Dart, and the legal
+positional form reached arguments the adapter never read.
+
+Silent in both directions, which is why it lasted. Extra positional arguments
+are discarded rather than reported as an arity error, so the exception looked
+right until something read `.offset` — and `toString()`, which the SDK builds
+from all three, could only ever print the message. It now reports the position
+and the caret line the SDK puts under it.
+
+A guard now checks the general claim rather than this instance:
+`test/scd68_constructor_named_args_test.dart` reads every `namedArgs['x']` in a
+bridged CONSTRUCTOR adapter and asks `dart:mirrors` whether the SDK constructor
+declares a named parameter `x`. Measured: 70 such claims across 17 stdlib files,
+zero mismatches after this fix, and exactly the two false ones reported when run
+against the adapter as it was. Every other exception adapter in both `dart:core`
+and `dart:io` was checked the same way and is correct.
+
 ## 0.78.0
 
 ### Changed — every supertype edge is one SDK hop (scd67)

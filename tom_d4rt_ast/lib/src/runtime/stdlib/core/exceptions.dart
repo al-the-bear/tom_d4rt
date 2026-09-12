@@ -90,12 +90,27 @@ class FormatExceptionCore {
     isAssignable: (v) => v is FormatException,
     typeParameterCount: 0,
     constructors: {
+      // SCD68: `FormatException([String message = "", this.source,
+      // this.offset])` — three POSITIONAL parameters, none of them named. This
+      // adapter used to read `source` and `offset` out of `namedArgs`, so the
+      // only spelling that could set them was one Dart does not accept, and the
+      // legal spelling silently dropped both. Extra positional arguments are
+      // discarded rather than reported as an arity error, so
+      // `FormatException('bad', 'src', 2)` produced an exception that looked
+      // right until something read `.offset`.
+      //
+      // Passing them through also restores `toString()`, which the SDK builds
+      // from all three: `FormatException: bad (at character 3)` followed by the
+      // source line and a caret. With the arguments dropped it could only ever
+      // print the message.
       '': (visitor, positionalArgs, namedArgs) {
         final message = positionalArgs.isNotEmpty
             ? positionalArgs[0] as String
             : '';
-        final source = namedArgs['source'];
-        final offset = namedArgs['offset'] as int?;
+        final source = positionalArgs.length > 1 ? positionalArgs[1] : null;
+        final offset = positionalArgs.length > 2
+            ? positionalArgs[2] as int?
+            : null;
         return FormatException(message, source, offset);
       },
     },
