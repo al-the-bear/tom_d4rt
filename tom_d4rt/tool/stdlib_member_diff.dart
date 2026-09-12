@@ -2283,7 +2283,7 @@ Future<void> runHierarchyAudit(Environment env, List<String> args) async {
 /// Renders the checked-in baseline consumed by
 /// `test/stdlib/member_coverage_baseline_test.dart`.
 ///
-/// Three things are pinned, and the choice of which three is the whole design:
+/// Four things are pinned, and the choice of which four is the whole design:
 ///
 ///   * **confirmed gaps** — the known defects. A member confirmed unreachable
 ///     that is absent here is a regression.
@@ -2295,6 +2295,12 @@ Future<void> runHierarchyAudit(Environment env, List<String> args) async {
 ///     dark silently. If a recipe breaks, every gap on that class turns
 ///     unverified, and a guard that merely tolerates confirmed → unverified
 ///     would report success while measuring nothing.
+///   * **the registry itself** — every bridge name live in the environment.
+///     The other three describe classes the audit has an OPINION about, and a
+///     class earns an opinion by having a gap, a blind spot or a recipe. 109 of
+///     the 205 bridged classes have none of those, so before SCD48 they were
+///     pinned by nothing here. See `bridgedClasses` below for the two ways that
+///     mattered.
 ///
 /// The ~378 members that are reachable only via the supertype-chain fallback are
 /// deliberately NOT pinned. They add no guard power — a member of that set going
@@ -2302,7 +2308,7 @@ Future<void> runHierarchyAudit(Environment env, List<String> args) async {
 /// would triple the file with names that carry no finding, turning a reviewable
 /// list of known defects into a wall nobody reads. That is the same failure as a
 /// count-only assertion, just in the other direction.
-String renderBaselineSource(List<ClassDiff> diffs) {
+String renderBaselineSource(List<ClassDiff> diffs, Set<String> registry) {
   final confirmed = <String, List<String>>{};
   final unmeasurable = <String, List<String>>{};
   final measured = <String>[];
@@ -2372,7 +2378,8 @@ String renderBaselineSource(List<ClassDiff> diffs) {
 // an assertion about the interpreter that nothing measured, which is exactly the
 // claim this baseline was introduced to stop anyone making.
 //
-// Current state: $gapTotal confirmed-unreachable members across ${confirmed.length} classes,
+// Current state: ${registry.length} bridged classes registered; of those,
+// $gapTotal confirmed-unreachable members across ${confirmed.length} classes,
 // $declinedTotal members on ${declined.length} classes unreachable by decision,
 // and $blindTotal members on ${unmeasurable.length} classes that cannot be measured at all.
 // Those totals are documentation, not assertions — the test derives them from the
@@ -2414,7 +2421,7 @@ ${renderMap(unmeasurable)}};
 /// them in with the classes that have a stated reason. Measuring them found a
 /// real gap on the first run.
 const unfinishedClasses = <String>{
-${unfinished.map((n) => "  '\$n',").join('\n')}
+${unfinished.map((n) => "  '$n',").join('\n')}
 };
 
 /// Classes whose instance recipe produced a usable instance when the baseline was
@@ -2422,6 +2429,29 @@ ${unfinished.map((n) => "  '\$n',").join('\n')}
 /// measured, which the test reports as a failure rather than as a pass.
 const measuredClasses = <String>{
 ${measured.map((n) => "  '$n',").join('\n')}
+};
+
+/// Every bridge name live in a fully registered `Environment` — the vocabulary
+/// a script with every `dart:` library imported can actually name.
+///
+/// The other four tables pin classes the audit has an opinion about. This one
+/// pins the ones it does not, which on the 2026-09-12 measurement was 109 of
+/// 205. Two changes reach those classes and were caught by nothing:
+///
+///   * a bridge's `name:` string changed. The definition is still declared and
+///     still registered, so `F-SCB24-1` is green — under the NEW name. Every
+///     script naming the old one breaks. Measured: renaming `FileLock` to
+///     `FileLockZ` left all 3543 tests passing.
+///   * a definition deleted together with its `defineBridge` call. Nothing
+///     declares it, so there is no unregistered declaration for `F-SCB24-1`
+///     to find.
+///
+/// Deleting only the `defineBridge` call is NOT in that set — `F-SCB24-1` has
+/// covered it since 2026-09-06, and a class with a working recipe is covered by
+/// `measuredClasses` above. This list is the remainder, not a second copy of
+/// either.
+const bridgedClasses = <String>{
+${(registry.toList()..sort()).map((n) => "  '$n',").join('\n')}
 };
 ''';
 }
@@ -3141,10 +3171,26 @@ Future<void> main(List<String> args) async {
   }
 
   if (args.contains('--baseline')) {
+    // A narrowed run measures a subset, and a baseline written from a subset
+    // silently disarms every guard that reads it: `measuredClasses` shrinks to
+    // the named classes, so the "this recipe went dark" test has almost nothing
+    // left to check, and it reports that as a pass. The floors in the test
+    // cannot catch it either — they bound the LIVE run, which is full-size.
+    if (only != null) {
+      stderr.writeln(
+        'Refusing to write a baseline from a --only run: it would measure '
+        '${only.length} classes and record that as the expected state of all '
+        '${env.bridgedClassNames.length}. Drop --only, or keep the narrowed '
+        'run for diagnosis and regenerate separately.',
+      );
+      exit(2);
+    }
     final path =
         _optionValue(args, '--baseline-out') ??
         'test/stdlib/member_coverage_baseline.dart';
-    File(path).writeAsStringSync(renderBaselineSource(diffs));
+    File(path).writeAsStringSync(
+      renderBaselineSource(diffs, env.bridgedClassNames.toSet()),
+    );
     // The emitter writes one list element per line and `dart format` collapses
     // short lists onto one, so an unformatted write produced a 125-line diff
     // for a two-line change — burying exactly the "which members moved and

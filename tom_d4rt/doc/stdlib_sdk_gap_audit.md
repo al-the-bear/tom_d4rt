@@ -301,20 +301,21 @@ a *verified* standing baseline affordable — phase 1 alone would not do, becaus
 removing a supertype edge flips members `reachable → confirmed`, an event phase 2
 catches and a candidate-only baseline cannot see at all.
 
-**The baseline pins four things and deliberately omits a fifth:** the confirmed
+**The baseline pins five things and deliberately omits a sixth:** the confirmed
 gaps per class, the members unreachable *by decision*, the members that cannot
-be measured, and the classes whose recipe yields an instance. (The counts are
-not quoted here — they move whenever a gap closes, and the baseline file's own
-header carries the live figures.) The ~378 members reachable only via the
+be measured, the classes whose recipe yields an instance, and the registry
+itself — every bridge name live in the environment. (The counts are not quoted
+here — they move whenever a gap closes, and the baseline file's own header
+carries the live figures.) The ~378 members reachable only via the
 supertype fallback are **not** pinned — one of them going bad presents as
 "confirmed and absent from the baseline" either way, so pinning them adds no
 guard power while tripling the file with names that carry no finding. That is the
 same failure as a count-only assertion, in the other direction.
 
-**Four tests, split by remedy — not one "matches the baseline" assertion.** A
+**Five tests, split by remedy — not one "matches the baseline" assertion.** A
 single assertion cannot distinguish a regression from an improvement, so it
 teaches people to regenerate reflexively, and once that reflex exists the guard
-is decorative. The split makes the reflex safe, because only one of the four is
+is decorative. The split makes the reflex safe, because only one of the five is
 ever answered by regenerating:
 
 | Test | Finding | Remedy |
@@ -322,11 +323,32 @@ ever answered by regenerating:
 | `F-SCC13-0` | the audit measured almost nothing | fix the environment; trust no other result |
 | `F-SCC13-1` | a member that was reachable is not any more | fix the bridge |
 | `F-SCC13-2` | a recipe stopped producing an instance, or a bridged class vanished | fix the recipe, or record a platform reason |
+| `F-SCD48-1` | a name is gone from the registry | put the bridge back |
 | `F-SCC13-3` | the baseline no longer describes reality | regenerate it |
 
-`F-SCC13-3` can only be provoked by *good news* — a gap closing, or a blind spot
-becoming measurable. A regression always presents as `F-SCC13-1` or `F-SCC13-2`,
-which regenerating does not silence.
+`F-SCC13-3` can only be provoked by *good news* — a gap closing, a blind spot
+becoming measurable, or a class newly bridged. A regression always presents as
+`F-SCC13-1`, `F-SCC13-2` or `F-SCD48-1`, which regenerating does not silence.
+
+**Why the registry needs its own pin.** The other four tables describe classes
+the audit has an *opinion* about, and a class earns one by having a gap, a blind
+spot or an instance recipe. On the 2026-09-12 measurement 109 of the 205 bridged
+classes had none of the three, so nothing in this file said anything about them.
+Two changes reach those classes without touching a `defineBridge` line, and both
+were caught by nothing: a bridge's `name:` string changing — the definition is
+still declared and still registered, under the new name, so `F-SCB24-1` is
+satisfied while every script naming the old one breaks — and a definition
+deleted together with its registration, which leaves `F-SCB24-1` no unregistered
+declaration to find. Measured: renaming `FileLock` to `FileLockZ` left all 3543
+tests passing.
+
+`F-SCD48-1` is therefore the remainder, not a second copy of anything.
+`F-SCB24-1` (`test/scb24_unregistered_bridge_test.dart`) covers *declared but not
+registered*; `F-SCC13-2` covers the 96 classes with a working recipe; this covers
+the names that neither sees. Additions deliberately do **not** fail it — bridging
+a class is the outcome the project wants, and a guard that goes red on good news
+is one people learn to silence by regenerating. A new name is reported by
+`F-SCC13-3` instead, where regenerating is the right answer.
 
 Pinning the unmeasurable set is what makes the guard tolerant of recipe work:
 without it, `unverified → confirmed` is indistinguishable from
@@ -336,23 +358,33 @@ would have read as 243 fresh regressions.
 **An empty measurement agrees with any baseline.** Every probe runs in a spawned
 isolate and a probe that cannot answer is scored "not measured", so a run in
 which isolate spawning failed finds zero gaps and passes. Measured with the probe
-timeout set to 1 µs: `F-SCC13-1` and `F-SCC13-3` **passed on a run that learned
-nothing**. `F-SCC13-0` exists for that, and its two floors (≥ 100 classes
-examined, ≥ 40 measured) live in the test rather than the generated file so a bad
-regeneration cannot lower them. `F-SCC13-2` is the per-class version of the same
-check: wholesale failure trips `F-SCC13-0`, one class quietly dropping out trips
-`F-SCC13-2`.
+timeout set to 1 µs, `F-SCC13-1` — the regression guard, the one people care
+about — **passed on a run that learned nothing**. `F-SCC13-0` exists for that,
+and its two floors (≥ 100 classes examined, ≥ 40 measured) live in the test
+rather than the generated file so a bad regeneration cannot lower them.
+`F-SCC13-2` is the per-class version of the same check: wholesale failure trips
+`F-SCC13-0`, one class quietly dropping out trips `F-SCC13-2`.
 
-**Each of the four has been watched fail.** A guard nobody has seen fail is a
-guess about a guard, so each row was produced by breaking the thing named:
+`F-SCD48-1` is the one test in the file that survives that state, and by
+construction: it reads the registry rather than a probe result, so it is still
+making a real assertion on a machine where probing is broken. Measured — it is
+the only test there that stays green under the 1 µs timeout.
+
+**Each of the five has been watched fail.** A guard nobody has seen fail is a
+guess about a guard, so each row was produced by breaking the thing named. The
+Fires column is what was observed, not what was expected:
 
 | Injected fault | Fires |
 |----------------|-------|
-| every probe unable to answer (1 µs timeout) | 0 and 2 |
+| every probe unable to answer (1 µs timeout) | 0, 2, 3, `F-SCC74-2` |
 | `DateTime.year` adapter deleted | 1 |
 | `DateTime` instance recipe broken | 2 |
 | a baselined class no longer bridged | 2 |
 | baseline claims a gap that is bridged now | 3 |
+| `FileLock` bridge renamed to `FileLockZ` | `F-SCD48-1` and 3 |
+| `IoStdlib.register` dropped from the env builder | `F-SCD48-1` (bulk branch) and 2 |
+| `JsonUtf8Encoder`'s `defineBridge` deleted | `F-SCD48-1`, and `F-SCB24-1` in its own file |
+| a name cut from `bridgedClasses` by hand | 3 |
 
 The third row corrected a real defect in the guard: `F-SCC13-3` originally
 checked only for `reachable`, but adding the missing adapter removes the member

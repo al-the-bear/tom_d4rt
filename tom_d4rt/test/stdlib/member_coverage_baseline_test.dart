@@ -9,7 +9,7 @@
 // `verifyAll`, not a reimplementation of them — and compares the result against
 // the checked-in baseline in `member_coverage_baseline.dart`.
 //
-// THE THREE TESTS ARE DELIBERATELY NOT ONE. A single "matches the baseline"
+// THE TESTS ARE DELIBERATELY NOT ONE. A single "matches the baseline"
 // assertion cannot distinguish a regression from an improvement, so it teaches
 // people to regenerate the baseline reflexively, and once that reflex exists the
 // guard is decorative. Split by *remedy* instead:
@@ -17,35 +17,50 @@
 //   1. a member that used to be reachable is not any more  -> a defect to fix
 //   2. a recipe stopped producing an instance              -> the measurement went dark
 //   3. the baseline no longer describes reality            -> regenerate it
+//   4. a name is gone from the registry (SCD48)            -> a bridge was renamed or deleted
 //
 // Only (3) is ever a correct response to "regenerate", and (3) can only be
-// triggered by good news: gaps closing, or blind spots becoming measurable. A
-// regression always shows up as (1) or (2), which regenerating does not silence
-// on its own — so the reflex is safe to have.
+// triggered by good news: gaps closing, blind spots becoming measurable, or a
+// class newly bridged. A regression always shows up as (1), (2) or (4), which
+// regenerating does not silence on its own — so the reflex is safe to have.
 //
 // EACH TEST HERE HAS BEEN SEEN TO FAIL. A guard nobody has watched fail is a
 // guess about a guard. Each row was produced by breaking the thing named and
-// checking that exactly the expected test went red:
+// checking that exactly the expected tests went red — the Fires column is what
+// was observed, not what was expected:
 //
-//   | Injected fault                                | Fires    |
-//   | --------------------------------------------- | -------- |
-//   | every probe unable to answer (1µs timeout)    | 0 and 2  |
-//   | `DateTime.year` adapter deleted               | 1        |
-//   | `DateTime` instance recipe broken             | 2        |
-//   | a baselined class no longer bridged           | 2        |
-//   | baseline claims a gap that is bridged now     | 3        |
-//   | `HttpRequest` instance recipe deleted         | F-SCC74-2|
+//   | Injected fault                                  | Fires                   |
+//   | ----------------------------------------------- | ----------------------- |
+//   | every probe unable to answer (1µs timeout)      | 0, 2, 3, F-SCC74-2      |
+//   | `DateTime.year` adapter deleted                 | 1                       |
+//   | `DateTime` instance recipe broken               | 2                       |
+//   | a baselined class no longer bridged             | 2                       |
+//   | baseline claims a gap that is bridged now       | 3                       |
+//   | `HttpRequest` instance recipe deleted           | F-SCC74-2               |
+//   | `FileLock` bridge renamed to `FileLockZ`        | F-SCD48-1 and 3         |
+//   | `IoStdlib.register` dropped from the env builder| F-SCD48-1 (bulk) and 2  |
+//   | `JsonUtf8Encoder`'s `defineBridge` deleted      | F-SCD48-1, and F-SCB24-1 |
+//   | a name cut from `bridgedClasses` by hand        | 3                       |
 //
-// The last row is worth its own note: deleting the `WebSocketTransformer`
-// recipe did NOT fire it, and that is correct. Its one candidate is bridged
-// now, so with no recipe there is nothing left unmeasured. The guard reports a
-// class that has candidates nobody can see, not a class without a recipe.
+// The `HttpRequest` row is worth its own note: deleting the
+// `WebSocketTransformer` recipe did NOT fire it, and that is correct. Its one
+// candidate is bridged now, so with no recipe there is nothing left unmeasured.
+// The guard reports a class that has candidates nobody can see, not a class
+// without a recipe.
 //
-// The first row is why F-SCC13-0 and F-SCC13-2 exist: with the probe timeout at
-// 1µs nothing was measured at all, and tests 1 and 3 PASSED — an empty
-// measurement agrees with any baseline. Two of the four tests here are green on a
-// run that learned nothing, so "the suite is green" is not by itself evidence
-// that the audit ran.
+// The first row is why F-SCC13-0 exists: with the probe timeout at 1µs nothing
+// was measured at all, and test 1 — the regression guard, the one people care
+// about — PASSED, because an empty measurement agrees with any baseline. (3 and
+// F-SCC74-2 do fire on that run, but for reasons unrelated to the point: every
+// declined member reads as unmeasurable, and every class then has unexplained
+// unmeasured members. Neither says "the audit did not run", which is what
+// F-SCC13-0 says.) So "the suite is green" is not by itself evidence that the
+// audit ran.
+//
+// F-SCD48-1 IS THE EXCEPTION TO ALL OF THAT, and deliberately: it reads the
+// registry rather than a probe result, so it is the one test in this file that
+// still means something on a machine where probing has gone dark. Measured —
+// it is the only test here that stays green under the 1µs timeout.
 //
 // WHY THE DIFF DIRECTION IS ASYMMETRIC. Probe classification is not perfectly
 // stable in principle: a probe that never answers is scored *reachable* (a
@@ -79,7 +94,8 @@ enum _Now { gap, reachable, blind }
 /// measured nothing.
 ///
 /// These two numbers are the floor under that. They are far below the real
-/// figures (181 classes examined, 75 with a working recipe) because their job is
+/// figures (205 classes examined, 96 with a working recipe — measured
+/// 2026-09-12) because their job is
 /// to separate "measured" from "measured nothing", not to pin the measurement —
 /// pinning is what the baseline is for, and a tight floor here would just be a
 /// second baseline to update.
@@ -96,8 +112,17 @@ void main() {
   /// Bridged classes carrying unmeasured members with no stated reason.
   late Set<String> observedUnfinished;
 
+  /// Every bridge name live in the environment, read from the registry itself
+  /// rather than from `observed`. The distinction is what makes F-SCD48-1 hold
+  /// on a machine where probing has gone dark: `observed` is built from the
+  /// audit walk, the registry is not, so a run that measures nothing still has
+  /// a full vocabulary to compare.
+  late Set<String> observedRegistry;
+
   setUpAll(() async {
-    final diffs = collectMemberDiffs(buildFullyRegisteredEnvironment());
+    final env = buildFullyRegisteredEnvironment();
+    observedRegistry = env.bridgedClassNames.toSet();
+    final diffs = collectMemberDiffs(env);
     await verifyAll(diffs);
 
     observed = {};
@@ -247,6 +272,63 @@ void main() {
     );
   });
 
+  test('F-SCD48-1: no bridged class has left the registry [2026-09-12]', () {
+    // The registry guard, and the only test here that does not read a probe.
+    //
+    // WHAT WAS ALREADY COVERED, so that this is not read as a second copy of
+    // it. `F-SCB24-1` (scb24_unregistered_bridge_test.dart) parses every
+    // `static BridgedClass get` under lib/src/stdlib and requires its `name:`
+    // to be live, so deleting a `defineBridge` call fires there. `F-SCC13-2`
+    // above pins the 96 classes with a working instance recipe. Between them a
+    // large part of the registry is defended.
+    //
+    // WHAT WAS NOT. 109 of the 205 bridged classes have no gap, no blind spot
+    // and no recipe, so the four tables above say nothing about them, and two
+    // changes reach them without touching a `defineBridge` line:
+    //
+    //   * the `name:` string changes. The declaration still exists and is
+    //     still registered — under the new name — so F-SCB24-1 is satisfied
+    //     while every script naming the old one breaks. MEASURED: renaming
+    //     `FileLock` to `FileLockZ` left all 3543 tests passing.
+    //   * the definition is deleted together with its registration. Nothing
+    //     declares it, so F-SCB24-1 has no unregistered declaration to find.
+    //
+    // Both are the same event from a script's point of view: a name that used
+    // to resolve does not. That is what this asserts, and it is why the check
+    // is on NAMES rather than on definitions.
+    //
+    // ADDITIONS DO NOT FAIL HERE. Bridging a class is the ordinary good
+    // outcome, and a guard that goes red on good news is one people learn to
+    // silence by regenerating — the reflex the whole split-by-remedy structure
+    // of this file exists to avoid. A new name is reported by F-SCC13-3
+    // instead, with "regenerate" as the correct answer.
+    final vanished = bridgedClasses.difference(observedRegistry).toList()
+      ..sort();
+
+    // The count is in the message because it separates two different
+    // emergencies. One name gone is a rename or a deleted bridge: read the
+    // name and put it back. A large fraction gone is a registrar that did not
+    // run, and chasing the names individually would waste the diagnosis.
+    final wholesale = vanished.length > bridgedClasses.length ~/ 4;
+    expect(
+      vanished,
+      isEmpty,
+      reason:
+          '${vanished.length} of ${bridgedClasses.length} bridged names are no '
+          'longer in the registry, so no script can name them:\n'
+          '  ${vanished.join('\n  ')}\n\n'
+          '${wholesale ? 'That is a large fraction of the registry, which is '
+                    'not a bridge being dropped — it is a registrar that did not run, or an '
+                    'environment that did not come up. Check F-SCC13-0 in this '
+                    'file first; if it is red too, fix that and re-run before '
+                    'reading these names.\n' : 'Check for a changed `name:` on the '
+                    'BridgedClass, a deleted definition, or a `defineBridge` '
+                    'call that went with it. Do NOT regenerate the baseline to '
+                    'make this pass: that records the lost vocabulary as '
+                    'expected.\n'}',
+    );
+  });
+
   test('F-SCC74-2: every bridged class with unmeasured members has a stated '
       'reason [2026-09-06]', () {
     // The blackout this file could not see. F-SCC13-2 catches a recipe that
@@ -362,16 +444,24 @@ void main() {
         }
       }
     }
+    // SCD48: a name in the registry that the baseline does not know about.
+    // Reported here rather than in F-SCD48-1 because the remedy is the one this
+    // test owns — a bridge was added, which is the outcome the project wants,
+    // and the baseline simply has not been told.
+    final newlyBridged = observedRegistry.difference(bridgedClasses).toList()
+      ..sort();
+
     closed.sort();
     nowMeasurable.sort();
 
     expect(
-      [...closed, ...nowMeasurable],
+      [...closed, ...nowMeasurable, ...newlyBridged],
       isEmpty,
       reason:
           'Good news, and the baseline has not caught up.\n'
           '${closed.isEmpty ? '' : 'No longer gaps:\n  ${closed.join('\n  ')}\n'}'
           '${nowMeasurable.isEmpty ? '' : 'No longer blind spots:\n  ${nowMeasurable.join('\n  ')}\n'}'
+          '${newlyBridged.isEmpty ? '' : 'Newly bridged classes:\n  ${newlyBridged.join('\n  ')}\n'}'
           '\nRegenerate with: '
           'dart run tool/stdlib_member_diff.dart --baseline\n'
           'Commit the regenerated baseline together with the change that caused '
