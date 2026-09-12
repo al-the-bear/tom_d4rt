@@ -66,6 +66,7 @@
 // derivable from the names — each pairing below was confirmed by reading both
 // files, and a wrong pairing silently exempts a file forever.
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:test/test.dart';
@@ -557,7 +558,14 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// (`diff -rq ~/.pub-cache/hosted/pub.dev/tom_d4rt_ast-VERSION/lib
 /// ../tom_d4rt_ast/lib`). exec resolves that package from pub.dev (DGUC6), so a
 /// port made while the trees differ certifies a version nobody is running and
-/// fails for reasons that read as migration bugs. Run the diff first.
+/// fails for reasons that read as migration bugs.
+///
+/// SCD21 MOVED THAT PRECONDITION OUT OF THIS PARAGRAPH. F-SCC80-3 performs the
+/// comparison, so it is announced by every run rather than depending on the
+/// next person reading this and remembering. The paragraph is kept because it
+/// records WHY the precondition exists, which a failure message has no room
+/// for — but the check is the check, and prose asking someone to run a diff is
+/// not one.
 /// The three SCC11 entries below are the first added under that precondition
 /// rather than in spite of it. Each was ported, analysed clean, and then
 /// REMOVED again: every member they assert (the seven static validation
@@ -1150,6 +1158,67 @@ String _normalise(String source) => source
       '@ENUM@',
     );
 
+/// Files under `tom_d4rt_ast/lib` that differ between the PUBLISHED copy exec
+/// resolves and the sibling working tree, and why that is currently accepted.
+///
+/// SCD21. Keyed by the path relative to `lib/`. An entry is a statement that
+/// the difference cannot change what this suite measures; anything else belongs
+/// in a publish, not here. F-SCC80-3 fails on drift that is not listed AND on
+/// an entry that no longer differs, so the register cannot quietly outlive its
+/// cause the way the pinned floors in [_divergentBaseline] once did.
+const Map<String, String> _astWorkingTreeDrift = {
+  // scd14_aicx rewrote two barrel docstrings: `tom_d4rt_ast.dart` claimed the
+  // barrel "adds the D4rt runtime" when it re-exports the model alone, and
+  // `ast.dart` pointed readers at an `ast_converter.dart` this package does not
+  // have. Both are doc comments — no export list, no declaration and no body
+  // changed — so nothing an interpreter does differs between the two copies.
+  // The change was deliberately not published: it is prose, and a release adds
+  // a version every twin's lock then falls behind. These entries retire
+  // themselves at the next tom_d4rt_ast release, and this case says so by
+  // failing if they are still listed once the copies agree.
+  'ast.dart': 'doc comment only (scd14_aicx), unpublished',
+  'tom_d4rt_ast.dart': 'doc comment only (scd14_aicx), unpublished',
+};
+
+/// The directory exec's own package config resolves `tom_d4rt_ast` to.
+///
+/// The package CONFIG rather than `pubspec.lock`: the lock records what a
+/// resolve decided, the config is what the runtime actually loads, and a path
+/// dependency or a `pubspec_overrides.yaml` moves the second without the first
+/// saying anything this file could notice.
+Directory? _resolvedAstRoot() {
+  final config = File('.dart_tool/package_config.json');
+  if (!config.existsSync()) return null;
+  final decoded =
+      jsonDecode(config.readAsStringSync()) as Map<String, dynamic>;
+  for (final entry in (decoded['packages'] as List<dynamic>)) {
+    final package = entry as Map<String, dynamic>;
+    if (package['name'] != 'tom_d4rt_ast') continue;
+    final rootUri = package['rootUri'] as String;
+    final uri = Uri.parse(rootUri);
+    final path = uri.hasScheme
+        ? uri.toFilePath()
+        : File('.dart_tool/$rootUri').absolute.path;
+    return Directory(Directory(path).absolute.path);
+  }
+  return null;
+}
+
+/// Every file under [root], keyed by its path relative to [root].
+Map<String, File> _filesUnder(Directory root) {
+  final prefix = '${root.path}${Platform.pathSeparator}';
+  final result = <String, File>{};
+  if (!root.existsSync()) return result;
+  for (final entity in root.listSync(recursive: true)) {
+    if (entity is! File) continue;
+    result[entity.path
+            .substring(prefix.length)
+            .replaceAll(Platform.pathSeparator, '/')] =
+        entity;
+  }
+  return result;
+}
+
 /// `test(` declarations in [source], ignoring comments.
 ///
 /// Deliberately not a bare `test(` search: prose in a doc comment matches one,
@@ -1539,6 +1608,110 @@ void main() {
             '$floor this package declares. Every result in this run therefore '
             'describes an interpreter the constraint itself calls too old. Run '
             '`dart pub upgrade`.',
+      );
+    });
+
+    test('F-SCC80-3: the interpreter exec resolves is the one in the working '
+        'tree [2026-09-12] (PASS)', () {
+      // DGUC6 in one assertion. Exec resolves tom_d4rt_ast FROM PUB.DEV, so
+      // every green run here certifies the PUBLISHED interpreter — and every
+      // port into this suite, and every result quoted as evidence that a
+      // mirrored fix works, is conditional on the published copy and the tree
+      // being edited being the same bytes.
+      //
+      // That condition used to be checked by a person remembering to run
+      // `diff -rq` and by a paragraph asking the next person to do the same.
+      // When the trees agree a port means what it claims; when they do not, the
+      // same port lands, passes, and certifies a version nobody runs. The two
+      // outcomes are indistinguishable in the output, which is exactly the
+      // failure a guard is meant to remove rather than document.
+      final resolved = _resolvedAstRoot();
+      expect(
+        resolved,
+        isNotNull,
+        reason:
+            'Could not read tom_d4rt_ast out of '
+            '.dart_tool/package_config.json, so which interpreter this suite '
+            'measures is unknown. Run `dart pub get`.',
+      );
+
+      final sibling = Directory('../tom_d4rt_ast');
+      if (!sibling.existsSync()) {
+        // A consumer checkout, or CI without the monorepo. Absence is not
+        // drift, and failing here would make the suite unusable exactly where
+        // there is nothing to compare against.
+        markTestSkipped(
+          'no sibling ../tom_d4rt_ast to compare against; this case is about '
+          'the monorepo layout',
+        );
+        return;
+      }
+
+      final resolvedPath = resolved!.absolute.path;
+      final siblingPath = sibling.absolute.path;
+      expect(
+        resolvedPath,
+        isNot(equals(siblingPath)),
+        reason:
+            'tom_d4rt_ast resolves to the sibling working tree, not to a '
+            'published package. That makes this case green by making the whole '
+            'suite measure the tree being edited, which ERASES the distinction '
+            'it exists to expose — exec is supposed to certify what a consumer '
+            'gets. A `pubspec_overrides.yaml` or a path dependency is how this '
+            'happens, and the workspace rule forbids both: "NEVER fix '
+            'missing-API dependency errors with path overrides or '
+            'pubspec_overrides.yaml. Always publish the dependency to pub.dev '
+            'first, then update the version constraint."',
+      );
+
+      final published = _filesUnder(Directory('$resolvedPath/lib'));
+      final working = _filesUnder(Directory('$siblingPath/lib'));
+
+      final differing = <String>{};
+      for (final path in {...published.keys, ...working.keys}) {
+        final a = published[path];
+        final b = working[path];
+        if (a == null || b == null) {
+          differing.add('$path (present in only one copy)');
+          continue;
+        }
+        if (a.readAsStringSync() != b.readAsStringSync()) differing.add(path);
+      }
+
+      final accepted = _astWorkingTreeDrift.keys.toSet();
+      final unexplained = differing.difference(accepted).toList()..sort();
+      final settled = accepted.difference(differing).toList()..sort();
+
+      expect(
+        settled,
+        isEmpty,
+        reason:
+            'These files are listed in _astWorkingTreeDrift but no longer '
+            'differ, so the register describes a drift that is gone — probably '
+            'because tom_d4rt_ast was published. Remove them; a baseline '
+            'nobody prunes is how a ratchet loosens.\n'
+            '${settled.join('\n')}',
+      );
+
+      expect(
+        unexplained,
+        isEmpty,
+        reason:
+            'The tom_d4rt_ast this suite RESOLVES and the one in the working '
+            'tree have drifted, so every result in this run describes an '
+            'interpreter that is not the one being edited:\n'
+            '${unexplained.join('\n')}\n\n'
+            'THE REMEDY IS TO PUBLISH tom_d4rt_ast and raise this package\'s '
+            'constraint. It is NOT a `pubspec_overrides.yaml` and NOT a path '
+            'dependency: either makes this case green by making the suite '
+            'measure the working tree, which is the one thing exec exists not '
+            'to do. The workspace rule is explicit — "NEVER fix missing-API '
+            'dependency errors with path overrides or pubspec_overrides.yaml. '
+            'Always publish the dependency to pub.dev first, then update the '
+            'version constraint."\n\n'
+            'If a difference genuinely cannot change what this suite measures '
+            '(a doc comment, say), add it to _astWorkingTreeDrift with the '
+            'reason — and expect to remove it at the next release.',
       );
     });
 
