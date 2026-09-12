@@ -352,4 +352,184 @@ void main() {
       },
     );
   });
+
+  /// SCD40 — the held error is dropped when the `try` is the LAST thing in the
+  /// function.
+  ///
+  /// SCC12 parked an uncaught error on `AsyncExecutionState.errorAfterFinally`
+  /// so it would survive the finally block, and `_findNextSequentialNode`
+  /// re-raises it when the block ends. That works whenever something follows
+  /// the try — which is why F-SCC12-12 passes, and why this defect survived: it
+  /// uses the assign-then-return shape, and every other case in this file has a
+  /// statement after the try too.
+  ///
+  /// When the try/finally is the last thing in the function there is no next
+  /// node, so the state machine's loop simply ends. Its terminal exits checked
+  /// `returnAfterFinally` and `currentError` and never `errorAfterFinally`, so
+  /// the held error was discarded and the function completed with `lastResult`
+  /// — the finally block's last evaluated value.
+  ///
+  /// **It answers, and the answer is wrong**, which is what makes it worse than
+  /// the hang SCC12 fixed. The shape is what a careful programmer writes:
+  /// acquire, use, release in a finally.
+  ///
+  /// ## The preconditions are broader than first recorded
+  ///
+  /// `await` in the finally is NOT one of them — F-SCD40-7 uses a wholly
+  /// synchronous finally and failed the same way. Nor is `return`-in-try:
+  /// F-SCD40-6 uses a bare `throw`. What matters is: async function, an error
+  /// in the try body, a non-empty finally, no catch, and nothing after the try.
+  ///
+  /// F-SCD40-2..5 and F-SCD40-10/11 are rows that were already correct. They
+  /// are pinned because they are correct *for a different reason* — the error
+  /// takes another path — and widening the hold is exactly the fix that would
+  /// capture them too and change their answers.
+  group('SCD40: an error held across a finally survives to the function end', () {
+    /// Asserts the program throws something naming [fragment].
+    Future<void> expectThrows(String source, String fragment) => expectLater(
+      executeAsync(source).timeout(const Duration(seconds: 10)),
+      throwsA(
+        predicate(
+          (Object? e) => e.toString().contains(fragment),
+          'an error mentioning "$fragment"',
+        ),
+      ),
+    );
+
+    test('F-SCD40-1: `return <throwing>` in a try whose finally awaits '
+        '[2026-09-12]', () async {
+      // The reported reproduction. Before the fix this completed normally and
+      // returned 42 — the value of the finally block's last expression.
+      await expectThrows(r"""
+        class Thing { Future<int> tidy() async { await Future.value(0); return 42; } }
+        Future<dynamic> main() async {
+          final o = Thing();
+          try { return o.nonsenseXyz; } finally { await o.tidy(); }
+        }
+      """, 'nonsenseXyz');
+    });
+
+    test('F-SCD40-2: the same shape in a SYNC function still throws '
+        '[2026-09-12]', () async {
+      await expectThrows(r"""
+        class Thing { int tidy() => 42; }
+        main() {
+          final o = Thing();
+          try { return o.nonsenseXyz; } finally { o.tidy(); }
+        }
+      """, 'nonsenseXyz');
+    });
+
+    test('F-SCD40-3: an EMPTY finally still throws [2026-09-12]', () async {
+      // Correct for a different reason: `_handleAsyncError` walks outward past
+      // a try with no catch and an empty finally, so the error never enters the
+      // hold at all. That is SCC12's guard, and this case is here to notice if
+      // the SCD40 fix disturbs it.
+      await expectThrows(
+        r"Future<dynamic> main() async { try { return (1).nonsenseXyz; } finally { } }",
+        'nonsenseXyz',
+      );
+    });
+
+    test('F-SCD40-4: no try at all still throws [2026-09-12]', () async {
+      await expectThrows(
+        r"Future<dynamic> main() async { return (1).nonsenseXyz; }",
+        'nonsenseXyz',
+      );
+    });
+
+    test('F-SCD40-5: assign in the try and return after it still throws '
+        '[2026-09-12]', () async {
+      // The workaround shape the audit tool was forced into, and the shape
+      // F-SCC12-12 already uses. Correct because the `return` after the try
+      // gives the machine a next node, which is where the re-raise lives.
+      await expectThrows(r"""
+        class Thing { Future<int> tidy() async { await Future.value(0); return 42; } }
+        Future<dynamic> main() async {
+          final o = Thing();
+          dynamic v;
+          try { v = o.nonsenseXyz; } finally { await o.tidy(); }
+          return v;
+        }
+      """, 'nonsenseXyz');
+    });
+
+    test('F-SCD40-6: a bare `throw` in a try whose finally awaits '
+        '[2026-09-12]', () async {
+      // Not a `return` and not a member-lookup failure: the defect is about ANY
+      // error held across the finally, which the original framing did not
+      // cover. Before the fix this returned 99.
+      await expectThrows(
+        r"Future<dynamic> main() async { try { throw StateError('boom'); } finally { await Future.value(99); } }",
+        'boom',
+      );
+    });
+
+    test('F-SCD40-7: a wholly SYNCHRONOUS finally in an async function '
+        '[2026-09-12]', () async {
+      // `await` in the finally is not a precondition. This one suspends nowhere
+      // at all and failed identically, which is why the fix belongs at the
+      // state machine's terminal exits rather than on the await path.
+      await expectThrows(r"""
+        Future<dynamic> main() async {
+          int x = 0;
+          try { throw StateError('boom'); } finally { x = 99; }
+        }
+      """, 'boom');
+    });
+
+    test('F-SCD40-8: a SUCCESSFUL return is not overwritten by the finally '
+        '[2026-09-12]', () async {
+      // The question the todo asked, and the reason its title is right: if the
+      // finally's value could overwrite a successful return too, this would be
+      // a much broader defect. It cannot — measured before the fix — and this
+      // case exists so the fix does not make it one.
+      expect(
+        await run(r"""
+          Future<dynamic> main() async {
+            try { return 7; } finally { await Future.value(99); }
+          }
+        """),
+        7,
+      );
+    });
+
+    test('F-SCD40-9: a statement-level error, try last [2026-09-12]', () async {
+      await expectThrows(
+        r"Future<dynamic> main() async { try { (1).nonsenseXyz; } finally { await Future.value(99); } }",
+        'nonsenseXyz',
+      );
+    });
+
+    test(
+      'F-SCD40-10: a catch still wins over the finally [2026-09-12]',
+      () async {
+        expect(
+          await run(r"""
+          Future<dynamic> main() async {
+            try { throw StateError('boom'); }
+            catch (e) { return 'caught'; }
+            finally { await Future.value(99); }
+          }
+        """),
+          'caught',
+        );
+      },
+    );
+
+    test(
+      'F-SCD40-11: a statement after the try still throws [2026-09-12]',
+      () async {
+        // The path that already worked, and the one the fix must not disturb:
+        // here `_findNextSequentialNode` has a next node, so the re-raise happens
+        // in the loop rather than at its terminal exit.
+        await expectThrows(r"""
+        Future<dynamic> main() async {
+          try { throw StateError('boom'); } finally { await Future.value(9); }
+          return 'after';
+        }
+      """, 'boom');
+      },
+    );
+  });
 }

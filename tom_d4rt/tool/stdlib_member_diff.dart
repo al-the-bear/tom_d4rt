@@ -1279,14 +1279,20 @@ void _traceProbe(String what) {
 /// Assembles a probe program: acquire `o`, run [body], release `o`.
 ///
 /// The teardown wraps [body] in `try`/`finally` **without a `return` inside the
-/// `try`**, and that is load-bearing rather than stylistic. Measured: in an
-/// async function, a `return` whose expression throws inside a `try` with a
-/// non-empty `finally` and no `catch` loses the error and returns the finally
-/// block's last evaluated value instead. With `try { return o.member; } finally
-/// { await o.close(); }` a bound `ServerSocket` reports *every* missing member
-/// as present — the program completes and yields the socket. The shape here
-/// throws correctly. Do not "simplify" it; the failure is silent and it
-/// falsifies the whole run, not one row. Tracked as scd40.
+/// `try`**. That was originally load-bearing rather than stylistic: in an async
+/// function, an error raised inside a `try` with a non-empty `finally` and no
+/// `catch` was discarded and the function completed with the finally block's
+/// last evaluated value. With `try { return o.member; } finally { await
+/// o.close(); }` a bound `ServerSocket` reported *every* missing member as
+/// present — the program completed and yielded the socket.
+///
+/// SCD40 fixed the interpreter, so the obvious shape is now correct too. This
+/// one is kept anyway, for two reasons that outlive the fix: the audit is the
+/// instrument that has to be trusted when the interpreter is wrong, so it
+/// should not depend on interpreter behaviour it can avoid depending on; and
+/// the twins resolve the interpreter from pub.dev (DGUC6), so a probe written
+/// to the fixed semantics would silently mis-measure against an older release.
+/// Do not "simplify" it.
 ///
 /// [body]'s value still reaches the caller, which `verifyHierarchy` needs — it
 /// reads the answer, not just whether the program threw.

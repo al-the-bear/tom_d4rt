@@ -3211,6 +3211,45 @@ class InterpretedFunction implements Callable {
       }
     }
 
+    // SCD40: an error held across a finally block must survive to the end of
+    // the function. SCC12 parks it on `errorAfterFinally` so the main loop's
+    // per-statement clearing of `currentError` cannot drop it, and
+    // `_findNextSequentialNode` re-raises it when the finally block ends — but
+    // only by handing it to the NEXT node. When the try is the last thing in
+    // the function there is no next node, the loop simply ends, and the three
+    // exits below looked at `returnAfterFinally` and `currentError` and never
+    // at the hold. The error was discarded and the function completed with
+    // `lastResult`, i.e. the finally block's last evaluated value: a program
+    // that answers, with the wrong answer.
+    //
+    // Checked BEFORE the pending return: the two are set by different abrupt
+    // completions of the same try, and when the try body threw, Dart propagates
+    // that error. (A `return` written INSIDE a finally does override a pending
+    // error in real Dart; d4rt hangs on that shape today, which is a separate
+    // defect and not one this ordering can decide.)
+    if (currentState.errorAfterFinally != null &&
+        !currentState.completer.isCompleted) {
+      final heldError = currentState.errorAfterFinally;
+      final heldStackTrace = currentState.errorAfterFinallyStackTrace;
+      currentState.errorAfterFinally = null;
+      currentState.errorAfterFinallyStackTrace = null;
+      currentState.errorAfterFinallyTry = null;
+      currentState.resumeErrorAfterFinally = false;
+      currentState.isHandlingErrorForRethrow = false;
+      currentState.originalErrorForRethrow = null;
+      Logger.debug(
+        " [StateMachine] Loop finished with an error held across a finally; "
+        "propagating it: $heldError",
+      );
+      currentState.completer.completeError(
+        _unwrapExceptionForPropagation(
+          heldError ?? Exception("Unknown error after finally"),
+        ),
+        heldStackTrace,
+      );
+      return;
+    }
+
     // Handle a return that was suspended by a finally
     if (currentState.returnAfterFinally != null &&
         !currentState.completer.isCompleted) {

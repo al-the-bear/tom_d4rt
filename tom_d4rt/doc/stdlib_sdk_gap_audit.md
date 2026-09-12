@@ -187,19 +187,31 @@ try { probed = o.member; } finally { <teardown> }
 return probed;
 ```
 
-and the obvious simplification — `try { return o.member; } finally { … }` —
-**silently measures the wrong thing**. In an async function, a `return` whose
-expression throws inside a `try` with a non-empty `finally` and no `catch` loses
-the error and returns *the finally block's last evaluated value* instead.
-Measured on the shape above: the correct form throws `Undefined property or
-method 'nonsenseXyz' on bridged instance of 'ServerSocket'`, while the
-`return`-inside-try form completes normally and yields the socket. Every missing
-member on every class with a teardown would have been recorded as present.
+The obvious simplification — `try { return o.member; } finally { … }` — used to
+**silently measure the wrong thing**. In an async function, an error raised
+inside a `try` with a non-empty `finally` and no `catch` was discarded and the
+function completed with *the finally block's last evaluated value*. Measured on
+the shape above: the correct form threw `Undefined property or method
+'nonsenseXyz' on bridged instance of 'ServerSocket'`, while the
+`return`-inside-try form completed normally and yielded the socket. Every
+missing member on every class with a teardown would have been recorded as
+present.
 
-This is an interpreter defect, not merely a probe-writing rule — the same
-program written by hand is equally wrong, and it is silent. It is tracked as
-scd40; the guard here is that the shape stays as written, and
-`_recipeSource` is the single place that decides it.
+That was an interpreter defect rather than a probe-writing rule — the same
+program written by hand was equally wrong, and equally silent. **SCD40 fixed
+it**, at the async state machine's terminal exits: the held error survives to
+the end of the function instead of being dropped when the `try` is the last
+thing in it. The preconditions turned out to be broader than first recorded —
+neither `await` in the finally nor `return`-in-try was required, only an
+uncaught error in a try with a non-empty finally and nothing after it. Eleven
+cases in `test/scc12_await_in_finally_test.dart` pin the family.
+
+**The shape here stays as written anyway**, for two reasons that outlive the
+fix. The audit is the instrument that has to be trusted precisely when the
+interpreter is wrong, so it should not depend on interpreter behaviour it can
+avoid depending on; and the twins resolve the interpreter from pub.dev (DGUC6),
+so a probe written to the fixed semantics would mis-measure against an older
+release. `_recipeSource` is the single place that decides it.
 
 **Why phase 2 cannot be skipped:** adapter-map absence does *not* imply
 unreachable for *instance* members — instance lookups fall back through

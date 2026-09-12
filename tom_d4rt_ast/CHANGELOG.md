@@ -1,3 +1,54 @@
+## 0.71.0
+
+### Fixed — an async function silently returned its finally block's value instead of throwing (scd40_aide)
+
+The shape is what a careful programmer writes: acquire a resource, use it,
+release it in a `finally`. In an `async` function, if anything in the `try` body
+raised and there was no `catch`, the error was **discarded** and the function
+completed normally with the finally block's last evaluated value.
+
+    Future<dynamic> main() async {
+      final o = Thing();
+      try { return o.nonsenseXyz; } finally { await o.tidy(); }
+    }
+
+returned `42` — `tidy()`'s result — where it must throw `Undefined property
+'nonsenseXyz'`. With a `ServerSocket` teardown it returned the socket. This is
+the dangerous member of the family SCC12 opened: it does not hang and does not
+throw, **it answers, and the answer is wrong**.
+
+SCC12 already parked such an error on `AsyncExecutionState.errorAfterFinally`,
+because the main loop clears `currentError` after every statement that completes
+normally and the error would not survive even the first statement of the
+finally. `_findNextSequentialNode` re-raises it when the block ends — by handing
+it to the NEXT node. When the `try` is the last thing in the function there is
+no next node: the loop simply ends, and its terminal exits consulted
+`returnAfterFinally` and `currentError` and never the hold. The error was
+dropped and the function completed with `lastResult`.
+
+The terminal exits now honour the hold, ahead of a pending return: the two are
+set by different abrupt completions of the same `try`, and when the try body
+threw, Dart propagates that error.
+
+**The preconditions were broader than the report.** `await` in the finally is
+not one of them — a wholly synchronous finally in an async function failed
+identically, so the fix belongs at the state machine's exits rather than on the
+await path. Nor is `return`-in-try: a bare `throw` was discarded the same way.
+What matters is an async function, an uncaught error in a `try`, a non-empty
+`finally`, and nothing after the `try`. That last condition is why the defect
+survived: every existing case in the family had a statement after the try, and
+`F-SCC12-12` uses the assign-then-return shape the audit tool had been forced
+into precisely by this bug.
+
+A **successful** return is not affected and never was — `try { return 7; }
+finally { await … }` returns 7. Establishing that first is what says this is an
+error-handling defect rather than "a finally overwrites the pending return",
+which would have been broader and worse. `F-SCD40-8` keeps it that way.
+
+Eleven cases in `test/scc12_await_in_finally_test.dart` pin the family: four
+were red and seven were already green *for a different reason* — the error takes
+another path — which is exactly the set a widened hold would have captured too.
+
 ## 0.70.0
 
 ### Fixed — an unknown named argument to `Set.castFrom` blamed `newSet` (scd37_aidc)
