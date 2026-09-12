@@ -1,3 +1,35 @@
+## 1.26.0
+
+### Added — `d4rtgen --verify-output` (scd13_ahcm)
+
+GEN-121 put the generator's output under `dart analyze` inside the generator's
+own test suite. That protects the generator, not its consumers: a consumer's
+`analysis_options.yaml` excludes the generated bridge directory, so `dart
+analyze` reports the project clean while a generated file imports a URI that
+resolves nowhere. GEN-119 and GEN-120 both shipped through that gap and were
+found by hand afterwards.
+
+`d4rtgen --verify-output` runs `dart analyze --format=machine` over the files
+the run just wrote and fails the run on any error, or on any warning not
+explicitly allowlisted. Opt-in for now.
+
+**Only diagnostics inside generated files can fail a run.** A consumer may be
+mid-refactor or carry an unrelated warning of its own; none of that is the
+generator's emission. This scoping is what makes the flag safe to point at any
+package, and it is the precondition for ever defaulting it on.
+
+### Changed — one severity policy, shared by the tool and the gate
+
+The severity policy, the machine-format parser and the allowlist move from
+`test/gen121_generated_output_analyze_gate_test.dart` into
+`lib/src/verification/generated_output_analysis.dart`; the gate now consumes
+them. Two copies would drift, and the whole point of a gate is that the tool
+and the test agree on what a bad emission is.
+
+Note for anyone adding to `allowedWarningCodes`: entries are spelled as the
+machine format spells them (`UPPER_SNAKE_CASE`), and are matched
+case-insensitively.
+
 ## 1.25.0
 
 ### Fixed — the orchestrated relaxer path emitted a file that did not compile (scd12_ahcm)

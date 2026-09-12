@@ -20,6 +20,12 @@ const d4rtgenOptions = <OptionDefinition>[
     name: 'dump-config',
     description: 'Print effective merged configuration as JSON (no action)',
   ),
+  OptionDefinition.flag(
+    name: 'verify-output',
+    description:
+        'After generating, run dart analyze over the generated files and fail '
+        'on any error (opt-in; adds a few seconds per project)',
+  ),
 ];
 
 // =============================================================================

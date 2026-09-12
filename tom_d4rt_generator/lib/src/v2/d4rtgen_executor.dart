@@ -8,6 +8,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
+
+import '../verification/generated_output_analysis.dart';
 import 'package:tom_build_base/tom_build_base.dart'
     show TomBuildConfig, hasTomBuildConfig, findWorkspaceRoot;
 import 'package:tom_analyzer_shared/tom_analyzer_shared.dart'
@@ -61,7 +63,16 @@ class D4rtgenExecutor extends CommandExecutor {
     if (args.dryRun) return _dryRun(context, args);
 
     try {
-      await _processProjectDirect(context.path, verbose: args.verbose);
+      final written = await _processProjectDirect(
+        context.path,
+        verbose: args.verbose,
+      );
+
+      if (args.extraOptions['verify-output'] == true) {
+        final failure = await _verifyOutput(context, written);
+        if (failure != null) return failure;
+      }
+
       return ItemResult.success(path: context.path, name: context.name);
     } catch (e, st) {
       stderr.writeln('Error processing ${context.path}: $e');
@@ -73,6 +84,51 @@ class D4rtgenExecutor extends CommandExecutor {
       );
     }
   }
+}
+
+/// `d4rtgen --verify-output`: analyse what was just written, and fail on it.
+///
+/// SCD13 (scd13_ahcm). GEN-121 gates the generator's own output inside its test
+/// suite, which protects the generator but not a consumer: `tom_dist_ledger`
+/// regenerating its bridges got no signal that the output was malformed,
+/// because its `analysis_options.yaml` excludes the generated directory. Both
+/// GEN-119 and GEN-120 shipped through that gap and were found by hand.
+///
+/// The severity policy is not defined here — it is
+/// [verifyGeneratedOutput], shared with the GEN-121 gate, so the tool and the
+/// test cannot disagree about what a bad emission is.
+///
+/// Returns null when the output is acceptable, or the failure to report.
+Future<ItemResult?> _verifyOutput(
+  CommandContext context,
+  List<String> written,
+) async {
+  final workspaceRoot = findWorkspaceRoot(context.executionRoot);
+  final label = p.relative(context.path, from: workspaceRoot);
+
+  final OutputVerification verification;
+  try {
+    verification = await verifyGeneratedOutput(generatedFiles: written);
+  } on AnalyzeInvocationException catch (e) {
+    // A verification that could not run is not a pass. Say so.
+    stderr.writeln('  VERIFY: could not analyse $label.\n$e');
+    return ItemResult.failure(
+      path: context.path,
+      name: context.name,
+      error: 'verify-output could not run dart analyze',
+    );
+  }
+
+  print(verification.describe(label: label));
+  if (verification.ok) return null;
+
+  return ItemResult.failure(
+    path: context.path,
+    name: context.name,
+    error:
+        'verify-output: ${verification.fatal.length} analyzer problem(s) in '
+        'generated files',
+  );
 }
 
 /// `d4rtgen --dry-run`: every file a run would write, and how it differs from
@@ -121,7 +177,7 @@ Future<ItemResult> _dryRun(CommandContext context, CliArgs args) async {
 // =============================================================================
 
 /// Process a single project directory directly.
-Future<void> _processProjectDirect(
+Future<List<String>> _processProjectDirect(
   String projectPath, {
   required bool verbose,
 }) async {
@@ -136,8 +192,7 @@ Future<void> _processProjectDirect(
     if (verbose) {
       print('  Using configuration from buildkit.yaml');
     }
-    await _generateBridges(config, projectPath, verbose: verbose);
-    return;
+    return _generateBridges(config, projectPath, verbose: verbose);
   }
 
   throw Exception(
@@ -146,11 +201,19 @@ Future<void> _processProjectDirect(
 }
 
 /// Generate bridges from a BridgeConfig object.
-Future<void> _generateBridges(
+Future<List<String>> _generateBridges(
   BridgeConfig config,
   String projectDir, {
   required bool verbose,
 }) async {
+  // Every path this run wrote, for `--verify-output` to analyse.
+  //
+  // Collected at the sites that already compute the path rather than derived
+  // from the config a second time: a path computed twice is a path that can
+  // disagree with itself. A write site added later and not recorded here is
+  // simply not verified — it is never written somewhere unexpected — so the
+  // failure mode of forgetting one is a coverage gap, not a wrong file.
+  final written = <String>[];
   final effectivePackageName =
       BuildConfigLoader.getPackageName(projectDir) ?? config.name;
 
@@ -273,6 +336,8 @@ Future<void> _generateBridges(
       importHideClause: module.importHideClause,
     );
 
+    written.add(p.join(projectDir, normalizedOutputPath));
+
     if (verbose) {
       print('    Generated ${result.classesGenerated} classes');
     }
@@ -290,6 +355,7 @@ Future<void> _generateBridges(
       ensureBDartExtension(config.barrelPath!),
     );
     await _generateBarrelFile(barrelPath, config, verbose: verbose);
+    written.add(barrelPath);
   }
 
   // Generate dartscript file if requested
@@ -304,6 +370,7 @@ Future<void> _generateBridges(
       packageName: effectivePackageName,
       verbose: verbose,
     );
+    written.add(dartscriptPath);
   }
 
   // Generate test runner file if requested
@@ -318,6 +385,7 @@ Future<void> _generateBridges(
       packageName: effectivePackageName,
       verbose: verbose,
     );
+    written.add(testRunnerPath);
   }
 
   // Generate proxy classes if requested (GEN-083)
@@ -334,6 +402,8 @@ Future<void> _generateBridges(
         print('  PROXY ERROR: $error');
       }
     }
+
+    if (proxyResult.outputFile != null) written.add(proxyResult.outputFile!);
 
     if (proxyResult.proxies.isNotEmpty) {
       print(
@@ -365,6 +435,9 @@ Future<void> _generateBridges(
         ' → ${relaxerResult.outputFile}',
       );
     }
+    if (relaxerResult.outputFile != null) {
+      written.add(relaxerResult.outputFile!);
+    }
     for (final warning in relaxerResult.warnings) {
       print('  GEN-079 WARNING: $warning');
     }
@@ -374,6 +447,8 @@ Future<void> _generateBridges(
     print('  Complete');
     print('');
   }
+
+  return written;
 }
 
 /// Generate barrel file that exports all bridge modules.

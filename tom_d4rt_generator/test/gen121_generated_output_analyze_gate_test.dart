@@ -61,88 +61,23 @@ import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/src/bridge_api.dart' as api;
 import 'package:tom_d4rt_generator/src/bridge_config.dart';
 import 'package:tom_d4rt_generator/src/bridge_generator.dart';
-
-/// Diagnostics whose severity does not fail the gate.
-///
-/// `INFO` covers lints, which depend on the ambient SDK's default rule set and
-/// on an `analysis_options.yaml` this synthetic package deliberately does not
-/// have. Gating on them would make the suite fail on an SDK bump rather than on
-/// a generator regression.
-const _nonFatalSeverities = {'INFO'};
-
-/// Analyzer warning codes that are known, reviewed, and accepted.
-///
-/// Deliberately empty. An entry here is a standing statement that a generated
-/// file may carry that warning forever, so each addition wants a comment saying
-/// who reviewed it and why it cannot be fixed at the generator.
-const _allowedWarningCodes = <String>{};
-
-/// One diagnostic line of `dart analyze --format=machine`.
-///
-/// The machine format is `SEVERITY|TYPE|CODE|FILE|LINE|COL|LENGTH|MESSAGE`.
-class Diagnostic {
-  Diagnostic({
-    required this.severity,
-    required this.code,
-    required this.line,
-    required this.message,
-  });
-
-  final String severity;
-  final String code;
-  final String line;
-  final String message;
-
-  static Diagnostic? tryParse(String raw) {
-    final parts = raw.split('|');
-    if (parts.length < 8) return null;
-    return Diagnostic(
-      severity: parts[0],
-      code: parts[2],
-      line: parts[4],
-      // The message may itself contain `|`; rejoin whatever follows.
-      message: parts.sublist(7).join('|'),
-    );
-  }
-
-  @override
-  String toString() => '$severity $code (line $line): $message';
-}
+import 'package:tom_d4rt_generator/src/verification/generated_output_analysis.dart';
 
 /// Runs `dart analyze` over [directory] and returns the parsed diagnostics.
+///
+/// SCD13: the severity policy, the machine-format parser and the allowlist are
+/// no longer defined here. They live in
+/// `lib/src/verification/generated_output_analysis.dart` and are shared with
+/// `d4rtgen --verify-output`, so the gate and the tool cannot drift into
+/// disagreeing about what a bad emission is — which was the whole point of
+/// having a gate.
 Future<List<Diagnostic>> analyzeDirectory(String directory) async {
-  // `Platform.resolvedExecutable` is the Dart binary running this suite, so the
-  // gate analyses with the same SDK the generator was tested against rather
-  // than whatever `dart` happens to be first on PATH.
-  final result = await Process.run(Platform.resolvedExecutable, [
-    'analyze',
-    '--format=machine',
-    directory,
-  ]);
-
-  // Exit codes: 0 none, 1 usage/crash, 2 warnings only, 3 errors present.
-  if (result.exitCode == 1) {
-    fail(
-      'dart analyze could not run (exit 1).\n'
-      'stdout: ${result.stdout}\nstderr: ${result.stderr}',
-    );
+  try {
+    return await analyzePaths([directory]);
+  } on AnalyzeInvocationException catch (e) {
+    fail('$e');
   }
-
-  return const LineSplitter()
-      .convert(result.stdout as String)
-      .where((l) => l.trim().isNotEmpty)
-      .map(Diagnostic.tryParse)
-      .whereType<Diagnostic>()
-      .toList();
 }
-
-/// Diagnostics from [all] that the gate treats as failures.
-List<Diagnostic> fatalDiagnostics(List<Diagnostic> all) => all
-    .where((d) => !_nonFatalSeverities.contains(d.severity))
-    .where(
-      (d) => !(d.severity == 'WARNING' && _allowedWarningCodes.contains(d.code)),
-    )
-    .toList();
 
 /// A generated-bridge package that can be analysed standalone.
 class GatePackage {
