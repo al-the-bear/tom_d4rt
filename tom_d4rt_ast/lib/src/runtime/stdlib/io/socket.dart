@@ -558,18 +558,17 @@ class InternetAddressIo {
   }
 }
 
-/// Bridged InternetAddress class
+/// Bridged `InternetAddressType` enum.
+///
+/// The doc comment used to read "Bridged InternetAddress class", which is
+/// the fingerprint of how the four fabricated members got here: the adapter
+/// map was filled from the neighbouring class and the header came with it.
 class InternetAddressTypeIo {
   static BridgedClass get definition => BridgedClass(
     nativeType: InternetAddressType,
     name: 'InternetAddressType',
     isAssignable: (v) => v is InternetAddressType,
     typeParameterCount: 0,
-    methods: {
-      'lookup': (visitor, target, positionalArgs, namedArgs, _) {
-        return (target as InternetAddressType).toString();
-      },
-    },
     staticGetters: {
       'IPv4': (visitor) => InternetAddressType.IPv4,
       'IPv6': (visitor) => InternetAddressType.IPv6,
@@ -577,10 +576,26 @@ class InternetAddressTypeIo {
       'unix': (visitor) => InternetAddressType.unix,
     },
     getters: {
+      // `name` comes from the `EnumName` extension and is the only instance
+      // member this enum has. SCD24 removed the four beside it — `lookup`,
+      // `host`, `address` and `type` — which the SDK does not declare on
+      // `InternetAddressType` at all. They were copied from `InternetAddressIo`
+      // above, where all four ARE correct, and wired to whatever `Object`
+      // member came to hand: `host` returned `.name`, `address` returned
+      // `.hashCode`, `type` returned `.runtimeType` and `lookup` returned
+      // `toString()`.
+      //
+      // That is worse than a member merely being absent. `type.address` handed
+      // back an int and raised nothing, so a script doing arithmetic on a hash
+      // code got no error here and does not compile as Dart at all. A
+      // two-value enum has no address, host or lookup to give, so none of the
+      // four has a defensible reading as a convenience.
+      //
+      // Their absence is pinned by F-SCD24-1..4 in
+      // `test/stdlib/io/internet_address_type_test.dart`: a deletion cannot be
+      // protected by an assertion that passes, so without the pin the next
+      // reader restores them as an oversight.
       'name': (visitor, target) => (target as InternetAddressType).name,
-      'host': (visitor, target) => (target as InternetAddressType).name,
-      'address': (visitor, target) => (target as InternetAddressType).hashCode,
-      'type': (visitor, target) => (target as InternetAddressType).runtimeType,
     },
   );
 }

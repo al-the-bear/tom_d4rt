@@ -640,7 +640,7 @@ enum (`HttpClientResponseCompressionState`) reached `EnumName.name`:
 | --- | --- | --- | --- |
 | Real Dart **extension** members | 15 | `firstOrNull`/`lastOrNull`/`singleOrNull`/`elementAtOrNull`/`indexed` on `Iterable` and `List`; `List.byName`; `Enum.name` and `HttpClientResponseCompressionState.name`; `Future.ignore`/`onError` | **Correct** — the bridge is right and the oracle is blind. Re-verified 2026-09-12: all fifteen compile against the native types under `dart analyze` |
 | Declared conveniences | 15 | `FileSystemEvent.isCreate`/`isModify`/`isDelete`/`isMove`; `asUint8ListView` on **all eleven** typed lists | **Accepted, but see below** — not all are commented as deliberate |
-| Fabricated members | 4 | `InternetAddressType.host`/`address`/`type`/`lookup` | **Defect** — scd24 owns it; see below |
+| Fabricated members | ~~4~~ 0 | ~~`InternetAddressType.host`/`address`/`type`/`lookup`~~ | **FIXED 2026-09-12 (scd24)** — removed from both trees and pinned; see below |
 
 `Function.call` appeared in the 2026-09-04 table and no longer does.
 
@@ -662,12 +662,35 @@ That is how all fifteen extension members were cleared, and how `isCreate`,
 `asUint8ListView` and the four `InternetAddressType` members were confirmed
 absent from the SDK.
 
-**`InternetAddressType` is the one real finding.** Its four extra members are
-not merely absent from the SDK, they are wired to unrelated `Object` members —
-`host` returns `.name`, `address` returns `.hashCode`, `type` returns
-`.runtimeType`, `lookup` returns `toString()`. A script reading
-`type.address` gets a hash code and no error. See
-`lib/src/stdlib/io/socket.dart`.
+**`InternetAddressType` was the one real finding, and is fixed.** Its four extra
+members were not merely absent from the SDK, they were wired to unrelated
+`Object` members — `host` returned `.name`, `address` returned `.hashCode`,
+`type` returned `.runtimeType`, `lookup` returned `toString()`. A script reading
+`type.address` got a hash code and no error.
+
+They were COPIED rather than moved: `InternetAddressIo` sits directly above in
+the same file, really does declare all four, and still does. The doc comment
+came across with them — it read "Bridged InternetAddress class" above
+`InternetAddressTypeIo` until 2026-09-12, which is the fingerprint that finally
+identified the mechanism. Nothing generated this file; the stdlib bridges are
+hand-written, so there is no generator with the same bug for other adjacent
+class pairs.
+
+Removed from both trees on 2026-09-12 and pinned, per the rule SCC8 established:
+`F-SCD24-1..5` in `test/stdlib/io/internet_address_type_test.dart` (script
+level) and `F-SCD24-AST-1..5` in
+`tom_d4rt_ast/test/runtime/stdlib_internet_address_type_test.dart`
+(registration level — it asserts the adapter map has no such key, which is the
+thing that went wrong). Measured after: the class reports zero confirmed gaps
+and zero entries in either half of the member diff.
+
+**The two pins do not assert the same exception, and that is a finding.**
+Measured on a bridged instance: a missing METHOD raises `D4rtNoSuchMethodError`,
+which `implements NoSuchMethodError`, so a script catches it exactly as it would
+catch real Dart's; a missing GETTER raises `UndefinedMemberD4rtException`, which
+extends `RuntimeD4rtException` and cannot be caught that way. The same absence
+therefore reports differently by member kind, and only one of the two matches
+Dart. Tracked as sce67.
 
 **A member the SDK lacks is the one bridge defect no test can catch by
 itself.** It makes every script that uses it pass here and fail to compile as
