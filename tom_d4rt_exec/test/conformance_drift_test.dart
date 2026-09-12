@@ -83,6 +83,7 @@ class _Coverage {
     this.why, {
     this.refCases = 0,
     this.twinCases = 0,
+    this.whyPartial,
   });
 
   final String where;
@@ -90,7 +91,25 @@ class _Coverage {
   final int refCases;
   final int twinCases;
 
+  /// Why this twin is legitimately SMALLER than its reference, or null when
+  /// the shortfall has not been examined.
+  ///
+  /// SCD19 added this. Before it, the only way to accept a partial was to raise
+  /// [_partialTwinBudget] and explain the raise in that constant's doc comment
+  /// — which put the reasoning in a global counter rather than on the entry it
+  /// described, and left the budget saying "eight partials are fine" without
+  /// binding WHICH eight. An entry carrying its own reason cannot drift away
+  /// from the thing it excuses.
+  ///
+  /// Set it only for a twin that is a DIFFERENT KIND of test, never for one
+  /// that is the same kind with cases missing. The distinction is the whole
+  /// point: `dfub4` looked exactly like this and was three dropped cases.
+  final String? whyPartial;
+
   bool get isPartial => twinCases < refCases;
+
+  /// A shortfall nobody has explained — what F-SCC6-3 is counting.
+  bool get isUnexplainedPartial => isPartial && whyPartial == null;
 }
 
 /// The analyzer-free line is covered natively by a tom_d4rt_ast test of the same
@@ -109,25 +128,25 @@ const _astTwin = 'tom_d4rt_ast carries a same-named native twin under test/';
 const _astStdlibPrefix =
     'ast port of the same stdlib suite, renamed with its `stdlib_` prefix';
 
-/// How many entries in [_coveredElsewhere] may be partial twins (F-SCC6-3).
+/// How many partial twins may go UNEXPLAINED (F-SCC6-3).
 ///
-/// A ratchet, not a target: raising it is a deliberate edit that says "this new
-/// partial is the right shape, not a shortfall", and the entry's own comment has
-/// to say why. Raised from 6 to 7 for `scc28_typed_undefined_member_test.dart`,
-/// whose six-case deficit is not coverage a second copy could add: the
-/// reference file's uncovered cases are a source scan over two files this
-/// package does not own, plus seven script cases that need a type the published
-/// tom_d4rt_ast does not yet export.
+/// A ratchet, not a target -- but SCD19 changed what it counts. It used to count
+/// every partial, so accepting one meant raising the number and explaining the
+/// raise in this comment: the reasoning lived on a global counter rather than on
+/// the entry it described, and "eight partials are fine" bound none of the eight
+/// to anything. A partial whose entry carries a [_Coverage.whyPartial] is now
+/// simply not counted here, and its reason sits where a reader meets it.
 ///
-/// Raised from 7 to 8 for `scc33_unhandled_node_test.dart`. Its two-case deficit
-/// is the SHAPE of the twin rather than a shortfall: the reference file asserts
-/// the backstop by calling `visitNode` with an analyzer node, which is not a
-/// port target but a different call — the analyzer-free visitor takes an
-/// `SAstNode` — so the ast twin asserts it natively and does so with two cases
-/// where the reference spends one. The deficit is on the other side: four
-/// script-level cases collapse into one unit case, because ast has no parser.
-/// Only exec can run those, and only after a publish; see the entry's comment.
-const _partialTwinBudget = 8;
+/// Which leaves the shortfalls nobody has explained. There is one:
+/// `scc28_typed_undefined_member_test.dart`, six cases short, and its entry
+/// records that the block on porting them is gone and SCD88 owns the port. That
+/// is a closable gap with an owner, NOT a twin that is legitimately smaller, so
+/// giving it a `whyPartial` would be a lie of exactly the kind that field
+/// invites -- see the field's own doc.
+///
+/// Lower it when SCD88 lands. Raising it needs a new unexplained shortfall
+/// somebody has decided to tolerate, which should be rare enough to argue about.
+const _partialTwinBudget = 1;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   // ---- Renamed on the exec side -------------------------------------------
@@ -160,7 +179,14 @@ const Map<String, _Coverage> _coveredElsewhere = {
     'exec:extensions/dfub4_extension_type_method_dispatch_test.dart',
     'same suite, filed under extensions/ in this tree',
     refCases: 9,
-    twinCases: 6,
+    // SCD19 ported F-DFUB4-5, -6 and -8, which had no counterpart here. They
+    // are script-level dispatch cases like the six that were already present —
+    // loops, conditionals, a method calling a method — so nothing about them
+    // needed the analyzer, and their absence was a shortfall rather than a
+    // difference in kind. All three pass, so no defect was hiding behind the
+    // gap; what was hiding was the gap itself, which read as covered because
+    // the filename matched.
+    twinCases: 9,
   ),
 
   // ---- Renamed on the ast side ---------------------------------------------
@@ -237,12 +263,23 @@ const Map<String, _Coverage> _coveredElsewhere = {
     _astTwin,
     refCases: 6,
     twinCases: 3,
+    whyPartial:
+        'the twin covers the three cases that are about the permission object '
+        '(F-DGUB5-4..6: allows() equating symlinked and real spellings, a '
+        'not-yet-created path, and one under a symlinked ancestor). The three '
+        'it omits — F-DGUB5-1..3 — assert what an IMPORT is allowed to read, '
+        'which needs module resolution over source, and tom_d4rt_ast has no '
+        'parser. Only exec can run those, and it does, at its own path.',
   ),
   'environment_lazy_bridge_test.dart': _Coverage(
     'ast:environment_lazy_bridge_test.dart',
     _astTwin,
-    refCases: 17,
-    twinCases: 17,
+    // SCD19: both sides had grown from 17 to 24 since these were written, in
+    // step, so the pair was never partial and nothing reported the drift. The
+    // numbers were simply no longer true, which is why F-SCC6-6 now checks
+    // them against the files.
+    refCases: 24,
+    twinCases: 24,
   ),
   'environment_lookup_test.dart': _Coverage(
     'ast:runtime/environment_lookup_test.dart',
@@ -353,12 +390,27 @@ const Map<String, _Coverage> _coveredElsewhere = {
     _astStdlibPrefix,
     refCases: 15,
     twinCases: 11,
+    whyPartial:
+        'not a subset — a different decomposition of the same subject. The '
+        'reference asserts the hierarchy through `is` checks in interpreted '
+        'script; the twin asserts it against the REGISTRATIONS (that '
+        'JsonCodec extends Codec directly, that the type test and the member '
+        'walk agree about depth, that Encoding declares decodeStream). It '
+        'even carries a case the reference has none of, F-SCB23-AST-8. What '
+        'it cannot assert is the handful of script-level behaviours — fuse '
+        'resolving on both halves, leaf members winning over inherited ones — '
+        'which need an interpreter run over source. Comparing case COUNTS '
+        'across two decompositions measures nothing; the count is kept only so '
+        'a future drop is visible.',
   ),
   'stdlib/io/io_reexport_visibility_test.dart': _Coverage(
     'ast:runtime/stdlib_io_reexport_visibility_test.dart',
     _astStdlibPrefix,
-    refCases: 10,
-    twinCases: 6,
+    // SCD19: recorded as 10 -> 6 and reported as a four-case deficit for five
+    // weeks. Measured, it is 8 -> 11: the twin OVER-covers, and the reference
+    // shrank. The deficit was an artefact of numbers nobody re-read.
+    refCases: 8,
+    twinCases: 11,
   ),
   'stdlib/io/string_sink_collision_test.dart': _Coverage(
     'ast:runtime/stdlib_string_sink_collision_test.dart',
@@ -993,6 +1045,26 @@ String _normalise(String source) => source
       '@ENUM@',
     );
 
+/// `test(` declarations in [source], ignoring comments.
+///
+/// Deliberately not a bare `test(` search: prose in a doc comment matches one,
+/// and the first version of F-SCC6-6 reported a 5/4 partial in
+/// `pool_security_test.dart` whose fifth "case" was the sentence "The security
+/// test (b) therefore probes the warm parent's real exposure surface". Anchoring
+/// to the start of a line after stripping comments is enough — every case in
+/// both corpora is written that way, and a declaration that is not would be
+/// unreadable for other reasons.
+int _countCases(String source) {
+  final withoutBlocks = source.replaceAll(RegExp(r'/\*.*?\*/', dotAll: true), '');
+  final withoutLines = withoutBlocks
+      .split('\n')
+      .map((line) => line.replaceAll(RegExp(r'//.*'), ''))
+      .join('\n');
+  return RegExp(r'^\s*test\s*\(', multiLine: true)
+      .allMatches(withoutLines)
+      .length;
+}
+
 Map<String, File> _testFiles(Directory root) {
   final prefix = '${root.path}${Platform.pathSeparator}';
   final result = <String, File>{};
@@ -1109,30 +1181,94 @@ void main() {
       // case counts do not match, so some assertions run against only one
       // interpreter. Recording the deficit keeps that visible instead of
       // rounding it up to "covered", which is what a presence-only check does.
-      final partials = _coveredElsewhere.entries
-          .where((e) => e.value.isPartial)
+      final unexplained = _coveredElsewhere.entries
+          .where((e) => e.value.isUnexplainedPartial)
           .toList();
       var deficit = 0;
-      for (final e in partials) {
+      for (final e in unexplained) {
         deficit += e.value.refCases - e.value.twinCases;
       }
       printOnFailure(
-        partials
+        _coveredElsewhere.entries
+            .where((e) => e.value.isPartial)
             .map(
               (e) =>
                   '${e.key}: ${e.value.refCases} cases vs '
-                  '${e.value.twinCases} in ${e.value.where}',
+                  '${e.value.twinCases} in ${e.value.where}'
+                  '${e.value.whyPartial == null ? '"'"'  <- UNEXPLAINED'"'"' : '"'"''"'"'}',
             )
             .join('\n'),
       );
       expect(
-        partials.length,
+        unexplained.length,
         lessThanOrEqualTo(_partialTwinBudget),
         reason:
-            'More files are now only PARTIALLY covered than the budget of '
-            '$_partialTwinBudget allows (currently ${partials.length} files, '
-            '$deficit cases short). A partial twin passes the presence check '
-            'while leaving assertions unrun on the analyzer-free line.',
+            'More twins are short by an UNEXPLAINED margin than the budget '
+            'of $_partialTwinBudget allows (currently ${unexplained.length} '
+            'files, $deficit cases short). A partial twin passes the presence '
+            'check while leaving assertions unrun on the analyzer-free line. '
+            'Either port the missing cases, or -- if the twin is a different '
+            'KIND of test rather than the same one with cases dropped -- give '
+            'its entry a `whyPartial` saying so. Do not equalise the counts: a '
+            'count edited to silence this is a lie the next reader cannot '
+            'detect, which is what F-SCC6-6 checks.',
+      );
+    });
+
+    test('F-SCC6-6: the recorded case counts still match the files '
+        '[2026-09-12] (PASS)', () {
+      // F-SCC6-3 reasons entirely from `refCases` / `twinCases`, which are
+      // hand-written. Nothing re-read them for five weeks and two had rotted:
+      // `environment_lazy_bridge` said 17/17 while both sides had grown to
+      // 24/24, and `io_reexport_visibility` said 10/6 — reported as a
+      // four-case deficit — while the files said 8/11, the twin OVER-covering.
+      // A deficit computed from stale numbers is not a measurement, and the
+      // todo that prompted this warned that an edited count is "a lie the next
+      // reader cannot detect". So the numbers are now checked against the code
+      // they describe.
+      //
+      // Counting is `^\s*test(` over the source with comments stripped, which
+      // is fussier than it looks: a plain `test(` search counts the prose in
+      // `pool_security_test.dart`'s header ("The security test (b) therefore
+      // probes...") and reports a 5/4 partial that does not exist. A checker
+      // whose first finding is imaginary gets switched off.
+      final drift = <String>[];
+      for (final entry in _coveredElsewhere.entries) {
+        final coverage = entry.value;
+        if (coverage.refCases == 0 && coverage.twinCases == 0) continue;
+
+        final refFile = File('${refTests.path}/${entry.key}');
+        final parts = coverage.where.split(':');
+        final twinFile = File(
+          parts.first == 'exec'
+              ? '${execTests.path}/${parts.last}'
+              : '${astTests.path}/${parts.last}',
+        );
+        if (!refFile.existsSync() || !twinFile.existsSync()) {
+          drift.add('${entry.key}: a file named by this entry does not exist');
+          continue;
+        }
+        final actualRef = _countCases(refFile.readAsStringSync());
+        final actualTwin = _countCases(twinFile.readAsStringSync());
+        if (actualRef != coverage.refCases || actualTwin != coverage.twinCases) {
+          drift.add(
+            '${entry.key}: recorded ${coverage.refCases}/${coverage.twinCases}, '
+            'files say $actualRef/$actualTwin (${coverage.where})',
+          );
+        }
+      }
+
+      expect(
+        drift,
+        isEmpty,
+        reason:
+            'These entries describe case counts the files no longer have, so '
+            'every deficit computed from them is guesswork:\n'
+            '${drift.join('\n')}\n\n'
+            'Update the numbers to what the files say. If that turns an entry '
+            'partial, decide which kind it is — port the cases, or record a '
+            '`whyPartial` — rather than leaving the count wrong to keep '
+            'F-SCC6-3 quiet.',
       );
     });
 

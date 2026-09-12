@@ -111,5 +111,78 @@ int main() {
 ''';
       expect(execute(code), equals(50));
     });
+
+    // SCD19: F-DFUB4-5, -6 and -8 of the reference suite had no counterpart
+    // here. Nothing about them is analyzer-specific — they are script-level
+    // dispatch cases like the six above — so their absence was a shortfall
+    // rather than a difference in kind, and the twin passed the presence check
+    // while leaving a third of the suite unrun on this line.
+    test(
+      'F-DFUB4A-7: method with loops over representation [2026-09-12] (PASS)',
+      () {
+        const code = '''
+extension type IntList(List<int> items) {
+  int sum() {
+    int total = 0;
+    for (final item in items) {
+      total = total + item;
+    }
+    return total;
+  }
+  int count() => items.length;
+}
+
+List main() {
+  var list = IntList([1, 2, 3, 4, 5]);
+  return [list.sum(), list.count()];
+}
+''';
+        expect(execute(code), equals([15, 5]));
+      },
+    );
+
+    test('F-DFUB4A-8: method with conditional logic [2026-09-12] (PASS)', () {
+      const code = '''
+extension type Score(int points) {
+  String grade() {
+    if (points >= 90) return 'A';
+    if (points >= 80) return 'B';
+    if (points >= 70) return 'C';
+    return 'F';
+  }
+}
+
+List main() {
+  var s1 = Score(95);
+  var s2 = Score(85);
+  var s3 = Score(75);
+  var s4 = Score(65);
+  return [s1.grade(), s2.grade(), s3.grade(), s4.grade()];
+}
+''';
+      expect(execute(code), equals(['A', 'B', 'C', 'F']));
+    });
+
+    test(
+      'F-DFUB4A-9: method calling method for validation [2026-09-12] (PASS)',
+      () {
+        const code = '''
+extension type UserId(int id) {
+  bool isValid() => id > 0 && id < 1000000;
+  String validate() {
+    if (!isValid()) return 'Invalid ID';
+    return 'Valid ID: \${id}';
+  }
+}
+
+List main() {
+  var valid = UserId(100);
+  var invalid = UserId(-1);
+  return [valid.validate(), invalid.validate()];
+}
+''';
+        expect(execute(code), equals(['Valid ID: 100', 'Invalid ID']));
+      },
+    );
   });
 }
