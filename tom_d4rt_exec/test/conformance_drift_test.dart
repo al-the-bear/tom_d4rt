@@ -1259,6 +1259,117 @@ Map<String, String> _divergentEntryComments() {
 /// The defect that prompted the rule is concrete — scb7 shipped a pin and its
 /// FIX step named only the tom_d4rt copy, so landing that fix would have turned
 /// the exec twin red on a tree nobody was looking at.
+/// Shared guideline files that are NOT expected to match, and why.
+///
+/// SCD55. One entry, and it is permanent: `index.md` lists each package's own
+/// contents, so the two copies describe different file sets by construction.
+const Map<String, String> _guidelineExempt = {
+  'index.md':
+      'each package indexes its own folder — tom_d4rt has '
+      'sync_with_tom_d4rt_ast.md and exec has hosted_drift.md, so the two '
+      'lists are different documents about different things',
+};
+
+/// Guideline FILES that legitimately exist in one tree only.
+///
+/// Without this the comparison walks only the shared names, so deleting a
+/// guideline from one tree says nothing at all — the same forgotten-mirror
+/// shape the section check exists for, one level up.
+const Map<String, String> _guidelineOneSidedFiles = {
+  'sync_with_tom_d4rt_ast.md':
+      'tom_d4rt only — it describes keeping the analyzer-based interpreter in '
+      'step with its analyzer-free twin, which exec does not do',
+  'hosted_drift.md':
+      'exec only — DGUC6, the hazard of resolving the interpreter from '
+      'pub.dev, which the other packages do not',
+};
+
+/// Headings that legitimately appear in ONE copy of a shared guideline.
+///
+/// Recorded, never inferred — the same discipline as [_coveredElsewhere] and
+/// [_divergentBaseline]. A section appearing on one side only is exactly what
+/// a forgotten mirror looks like, so it has to be a deliberate entry here
+/// rather than something the comparison quietly tolerates.
+const Map<String, Map<String, String>> _guidelineOneSided = {
+  'testing.md': {
+    '### Before measuring exec conformance: upgrade, then record the version':
+        'DGUC6 is an exec-only hazard: exec resolves tom_d4rt_ast from '
+        'pub.dev with a gitignored lock, so which interpreter a run measured '
+        'is per-machine state. tom_d4rt resolves nothing and the section '
+        'would be false there.',
+  },
+};
+
+/// Every `_copilot_guidelines/*.md` in [packageRoot], keyed by file name.
+///
+/// The guidelines are flat, so a name is enough — unlike the test corpora,
+/// which need relative paths.
+Map<String, File> _guidelineFiles(Directory packageRoot) {
+  final dir = Directory('${packageRoot.path}/_copilot_guidelines');
+  if (!dir.existsSync()) return {};
+  return {
+    for (final f in dir.listSync().whereType<File>())
+      if (f.path.endsWith('.md')) f.uri.pathSegments.last: f,
+  };
+}
+
+/// Rewrites the package self-reference so the two copies can be compared.
+///
+/// Deliberately NOT [_normalise]: that one maps specific library paths a test
+/// imports, and a guideline quotes the package by PREFIX in prose and fenced
+/// examples — `package:tom_d4rt/tom_d4rt.dart` among them, which `_normalise`
+/// does not carry. Widening `_normalise` to cover it would change what
+/// `F-SCC6-4` considers identical, which is a different guard's question.
+String _normaliseGuideline(String source) => source
+    .replaceAll('package:tom_d4rt_exec/', '@PKG@/')
+    .replaceAll('package:tom_d4rt/', '@PKG@/');
+
+/// Splits markdown into `heading -> section text`, the preamble under `''`.
+///
+/// FENCED BLOCKS ARE NOT SCANNED FOR HEADINGS. A `#` at the start of a line
+/// inside a ``` fence is a shell comment, and `testing.md` is full of them —
+/// the first version of this splitter read `# Run tests with dart test
+/// directly` out of a bash example as a level-1 heading, which shifted every
+/// section boundary after it and made the guard report a divergence that did
+/// not exist. It reported it on its very first run, which is the only reason
+/// it was caught before being written down as a finding.
+Map<String, String> _sections(String source) {
+  final out = <String, String>{};
+  var heading = '';
+  var inFence = false;
+  final body = StringBuffer();
+  for (final line in source.split('\n')) {
+    if (line.trimLeft().startsWith('```')) inFence = !inFence;
+    if (!inFence && line.startsWith('#')) {
+      out[heading] = body.toString();
+      body.clear();
+      heading = line;
+    } else {
+      body.writeln(line);
+    }
+  }
+  out[heading] = body.toString();
+  return {for (final e in out.entries) e.key: _trimSectionTail(e.value)};
+}
+
+/// Drops trailing blank lines and a trailing `---` from a section body.
+///
+/// A horizontal rule is punctuation between sections, not instruction, and it
+/// belongs to whichever section happens to come last before it. Inserting a
+/// new section therefore MOVES the rule from one section to another without
+/// anything having been edited — which is exactly what exec's DGUC6 section
+/// did to `## Running Tests`, and the only difference the comparison found
+/// there. Trailing only: a rule in the middle of a body is left alone, and so
+/// is anything inside a fence, because a fence is never at a section's tail.
+String _trimSectionTail(String body) {
+  final lines = body.split('\n');
+  while (lines.isNotEmpty &&
+      (lines.last.trim().isEmpty || lines.last.trim() == '---')) {
+    lines.removeLast();
+  }
+  return lines.join('\n');
+}
+
 final RegExp _markerPattern = RegExp(
   r'^//\s*(KNOWN-GAP\([^)]*\)|WONT-FIX)\s*:',
 );
@@ -2018,6 +2129,181 @@ void main() {
             'If it genuinely pins broken behaviour it passes for that reason, '
             'and belongs behind a `KNOWN-GAP(<todo-id>)` or `WONT-FIX` marker '
             'in the comment above it, not behind a label in its name.',
+      );
+    });
+
+    test('F-SCC6-9: the shared guideline files still agree '
+        '[2026-09-12] (PASS)', () {
+      // SCD55. `F-SCC6-4` byte-compares every `_test.dart` present in both
+      // trees, so a hand-edit to one copy fails loudly. The guideline
+      // documents sitting next to them have the same shape and had no check
+      // at all — they were kept in step by memory, and SCC15 mirrored its
+      // second copy with `sed` precisely because nothing would have caught
+      // forgetting.
+      //
+      // THE FAILURE MODE IS WORSE HERE THAN FOR TESTS, not better: a stale
+      // test at least runs, while a stale guideline is read as instruction
+      // and produces wrong work from it.
+      //
+      // COMPARED BY SECTION, not by file. SCD55 measured the six shared files
+      // on 2026-09-04 and found five identical modulo one import line; by
+      // 2026-09-12 `testing.md` had grown a 33-line exec-only section about
+      // DGUC6, which is correct content that the file-level comparison the
+      // todo proposed would have had to exempt wholesale — losing the guard
+      // on the most-edited file of the six. Sections present on one side only
+      // are therefore listed in [_guidelineOneSided] with their reason, and
+      // everything else must match.
+      //
+      // EVERY BRANCH WAS WATCHED FAIL. The Fires column is observed:
+      //
+      //   | Injected fault                                  | Fires          |
+      //   | ------------------------------------------------ | -------------- |
+      //   | a shared section edited in one tree only          | sections differ|
+      //   | a NEW one-sided section, unrecorded               | one tree only  |
+      //   | a recorded one-sided section mirrored into both   | record stale   |
+      //   | a recorded heading present in neither tree        | record stale   |
+      //   | a NEW one-sided FILE, unrecorded                  | files one-sided|
+      //   | a shared file DELETED from one tree               | files one-sided|
+      //   | a recorded one-sided FILE mirrored into both      | record stale   |
+      //   | the guidelines folder pointed at a missing path   | floor          |
+      //
+      // The "shared file deleted" row is why the file-level check exists at
+      // all. SCD55 asked only for the shared files to be compared, which walks
+      // the names present in BOTH — so deleting `build.md` from one tree would
+      // have said nothing. That is the same forgotten-mirror shape the section
+      // check catches, one level up, and it costs a two-entry record.
+      //
+      // IT ALSO FAILED TWICE ON ITS OWN BUGS BEFORE IT PASSED, both of which
+      // are now handled and commented where they bit: `#` inside a fenced
+      // block is a shell comment and not a heading, and a trailing `---` is
+      // punctuation that MOVES when a section is inserted above it. Both
+      // produced a confident report of drift that did not exist, which is the
+      // failure mode a guard like this has to be most careful about — a false
+      // report here sends someone to edit a document that was correct.
+      final mismatched = <String>[];
+      final unrecorded = <String>[];
+      final staleRecord = <String>[];
+
+      final refGuides = _guidelineFiles(Directory('../tom_d4rt'));
+      final execGuides = _guidelineFiles(Directory('.'));
+
+      // The floor. Everything below is an emptiness check over a walk, and a
+      // walk that found no files satisfies all of them.
+      expect(
+        refGuides.keys.where(execGuides.containsKey).length,
+        greaterThanOrEqualTo(4),
+        reason:
+            'Found only ${refGuides.keys.where(execGuides.containsKey).length} '
+            'shared guideline files. That is not a finding about drift — the '
+            'walk did not run. Measured 2026-09-12 at 6 shared of 7 and 7.',
+      );
+
+      final oneSidedFiles = <String>[];
+      for (final name in {...refGuides.keys, ...execGuides.keys}) {
+        final inRef = refGuides.containsKey(name);
+        final inExec = execGuides.containsKey(name);
+        if (inRef && inExec) continue;
+        if (_guidelineOneSidedFiles.containsKey(name)) continue;
+        oneSidedFiles.add('$name (only in ${inRef ? 'tom_d4rt' : 'exec'})');
+      }
+      for (final name in _guidelineOneSidedFiles.keys) {
+        if (refGuides.containsKey(name) && execGuides.containsKey(name)) {
+          staleRecord.add(
+            '$name: recorded as one-sided, present in both trees',
+          );
+        } else if (!refGuides.containsKey(name) &&
+            !execGuides.containsKey(name)) {
+          staleRecord.add('$name: recorded as one-sided, present in neither');
+        }
+      }
+      oneSidedFiles.sort();
+      expect(
+        oneSidedFiles,
+        isEmpty,
+        reason:
+            'These guideline files exist in one tree only:\n'
+            '  ${oneSidedFiles.join('\n  ')}\n\n'
+            'A guideline deleted from one copy, or added to one copy, is the '
+            'same forgotten mirror the section check catches — one level up. '
+            'Mirror the file, or record it in _guidelineOneSidedFiles with '
+            'the reason it is true of one package only.',
+      );
+
+      for (final name in refGuides.keys.where(execGuides.containsKey)) {
+        if (_guidelineExempt.containsKey(name)) continue;
+        final refSections = _sections(
+          _normaliseGuideline(refGuides[name]!.readAsStringSync()),
+        );
+        final execSections = _sections(
+          _normaliseGuideline(execGuides[name]!.readAsStringSync()),
+        );
+        final recorded = _guidelineOneSided[name] ?? const <String, String>{};
+
+        for (final heading in {...refSections.keys, ...execSections.keys}) {
+          final inRef = refSections.containsKey(heading);
+          final inExec = execSections.containsKey(heading);
+          if (inRef && inExec) {
+            if (refSections[heading] != execSections[heading]) {
+              mismatched.add(
+                '$name ${heading.isEmpty ? '(preamble)' : heading}',
+              );
+            }
+            if (recorded.containsKey(heading)) {
+              staleRecord.add(
+                '$name $heading: recorded as one-sided, present in both',
+              );
+            }
+          } else if (!recorded.containsKey(heading)) {
+            unrecorded.add(
+              '$name ${heading.isEmpty ? '(preamble)' : heading} '
+              '(only in ${inRef ? 'tom_d4rt' : 'exec'})',
+            );
+          }
+        }
+        for (final heading in recorded.keys) {
+          if (!refSections.containsKey(heading) &&
+              !execSections.containsKey(heading)) {
+            staleRecord.add('$name $heading: recorded, present in neither');
+          }
+        }
+      }
+      mismatched.sort();
+      unrecorded.sort();
+      staleRecord.sort();
+
+      expect(
+        mismatched,
+        isEmpty,
+        reason:
+            'These guideline sections exist in both trees and differ:\n'
+            '  ${mismatched.join('\n  ')}\n\n'
+            'The two copies are hand-maintained twins. Mirror the edit. Do '
+            'NOT reach for a sync script — copying one line is not the part '
+            'that needs automating, noticing is, and that is this test.',
+      );
+
+      expect(
+        unrecorded,
+        isEmpty,
+        reason:
+            'These guideline sections exist in one tree only:\n'
+            '  ${unrecorded.join('\n  ')}\n\n'
+            'That is what a forgotten mirror looks like, so it is not '
+            'tolerated by default. Either mirror the section, or — if it is '
+            'genuinely true of one package only, as the DGUC6 section is of '
+            'exec — add it to _guidelineOneSided with the reason.',
+      );
+
+      expect(
+        staleRecord,
+        isEmpty,
+        reason:
+            'These _guidelineOneSided entries no longer describe reality:\n'
+            '  ${staleRecord.join('\n  ')}\n\n'
+            'A section recorded as one-sided that is now in both trees, or in '
+            'neither, is a record outliving its cause — delete the entry. '
+            'Without this the list would only ever grow, and an exemption '
+            'nobody prunes stops being an exception and becomes a hole.',
       );
     });
   }, skip: skipReason);
