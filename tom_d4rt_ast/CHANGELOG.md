@@ -1134,6 +1134,10 @@ and `F-SCC57-41..44`.
 
 ## 0.45.0
 
+This section also covers the work released as **0.44.0**, whose heading
+was renamed rather than added to when the version was bumped (ab944d4a2,
+scc56). 0.44.0 was never published, so no release carries that number.
+
 ### Fixed — the non-error half of `dart:core` now declares its supertypes (scc56)
 
 `'abc' is Comparable`, `1 is Comparable`, `'abc' is Pattern`,
@@ -2060,6 +2064,10 @@ publish as their flip condition — port them and delete the entries in the same
 commit that consumes 0.24.0.
 
 ## 0.23.0
+
+This section also covers the work released as **0.22.0**, whose heading
+was renamed rather than added to when the version was bumped (10a53c28f).
+0.22.0 was never published, so no release carries that number.
 
 Mirrors `tom_d4rt` 1.33.0.
 

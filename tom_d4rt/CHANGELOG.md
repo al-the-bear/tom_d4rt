@@ -1300,6 +1300,10 @@ and `F-SCC57-41..44`.
 
 ## 1.56.0
 
+This section also covers the work released as **1.55.0**, whose heading
+was renamed rather than added to when the version was bumped (ab944d4a2,
+scc56). 1.55.0 was never published, so no release carries that number.
+
 ### Fixed — the non-error half of `dart:core` now declares its supertypes (scc56)
 
 `'abc' is Comparable`, `1 is Comparable`, `'abc' is Pattern`,
