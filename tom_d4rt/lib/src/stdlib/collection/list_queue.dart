@@ -97,11 +97,12 @@ class ListQueueCollection {
         if (target is ListQueue &&
             positionalArgs.isEmpty &&
             namedArgs.isEmpty) {
-          if (target.isEmpty) {
-            throw RuntimeD4rtException(
-              "Cannot removeFirst from an empty ListQueue.",
-            );
-          }
+          // SCD30: the empty-queue guard that used to sit here threw a
+          // RuntimeD4rtException with prose of its own invention, so the
+          // idiomatic `try { q.removeFirst(); } on StateError { … }` did not
+          // catch and the script's recovery path never ran. The native call
+          // raises the SDK's own `StateError: Bad state: No element` unaided,
+          // so the guard needed removing rather than correcting.
           return target.removeFirst();
         }
         throw RuntimeD4rtException(
@@ -112,11 +113,12 @@ class ListQueueCollection {
         if (target is ListQueue &&
             positionalArgs.isEmpty &&
             namedArgs.isEmpty) {
-          if (target.isEmpty) {
-            throw RuntimeD4rtException(
-              "Cannot removeLast from an empty ListQueue.",
-            );
-          }
+          // SCD30: the empty-queue guard that used to sit here threw a
+          // RuntimeD4rtException with prose of its own invention, so the
+          // idiomatic `try { q.removeLast(); } on StateError { … }` did not
+          // catch and the script's recovery path never ran. The native call
+          // raises the SDK's own `StateError: Bad state: No element` unaided,
+          // so the guard needed removing rather than correcting.
           return target.removeLast();
         }
         throw RuntimeD4rtException(

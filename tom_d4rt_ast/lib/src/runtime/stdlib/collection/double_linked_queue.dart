@@ -95,22 +95,22 @@ class DoubleLinkedQueueCollection {
         );
       },
       'removeFirst': (visitor, target, positionalArgs, namedArgs, _) {
-        final queue = target as DoubleLinkedQueue;
-        if (queue.isEmpty) {
-          throw RuntimeD4rtException(
-            "Cannot removeFirst from an empty DoubleLinkedQueue.",
-          );
-        }
-        return queue.removeFirst();
+        // SCD30: the empty-queue guard that used to sit here threw a
+        // RuntimeD4rtException with prose of its own invention, so the
+        // idiomatic `try { q.removeFirst(); } on StateError { … }` did
+        // not catch and the script's recovery path never ran. The native
+        // call raises the SDK's own `StateError: Bad state: No element`
+        // unaided, so the guard needed removing rather than correcting.
+        return (target as DoubleLinkedQueue).removeFirst();
       },
       'removeLast': (visitor, target, positionalArgs, namedArgs, _) {
-        final queue = target as DoubleLinkedQueue;
-        if (queue.isEmpty) {
-          throw RuntimeD4rtException(
-            "Cannot removeLast from an empty DoubleLinkedQueue.",
-          );
-        }
-        return queue.removeLast();
+        // SCD30: the empty-queue guard that used to sit here threw a
+        // RuntimeD4rtException with prose of its own invention, so the
+        // idiomatic `try { q.removeLast(); } on StateError { … }` did
+        // not catch and the script's recovery path never ran. The native
+        // call raises the SDK's own `StateError: Bad state: No element`
+        // unaided, so the guard needed removing rather than correcting.
+        return (target as DoubleLinkedQueue).removeLast();
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'DoubleLinkedQueue.remove', atMost: 1);

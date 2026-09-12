@@ -82,11 +82,20 @@ void main() {
           var q = Queue();
           q.removeFirst();
         '''),
+          // SCD30 corrected this case's PREMISE, which is a different act
+          // from loosening it. It asserted `RuntimeD4rtException` carrying
+          // "Cannot removeFirst from an empty queue." — a message the bridge
+          // invented — and so pinned the defect in place: Dart throws
+          // `StateError` with `Bad state: No element`, and a script written
+          // `on StateError` did not catch. The case now asserts the SDK's
+          // contract. The catchability, which is the part that actually
+          // mattered and which no host-side matcher can see, is asserted from
+          // inside a script by F-SCD30-1-*.
           throwsA(
-            isA<RuntimeD4rtException>().having(
-              (e) => e.message,
+            isA<StateError>().having(
+              (e) => e.toString(),
               'message',
-              contains('Cannot removeFirst from an empty queue.'),
+              contains('No element'),
             ),
           ),
         );

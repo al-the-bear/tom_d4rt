@@ -154,7 +154,7 @@ void main() {
           }
         ''',
           ),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<StateError>()),
           reason: "removeFirst on empty queue",
         );
         expect(
@@ -167,7 +167,7 @@ void main() {
           }
         ''',
           ),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<StateError>()),
           reason: "removeLast on empty queue",
         );
       },

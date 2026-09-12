@@ -1,5 +1,36 @@
 ## 0.67.0
 
+### Fixed — an empty queue raises a catchable `StateError` (scd30_aidb)
+
+`removeFirst` and `removeLast` guarded the empty case by hand and threw
+`RuntimeD4rtException` with a message the bridge invented. Dart throws
+`StateError` with `Bad state: No element`, so a script written the idiomatic
+
+    try { q.removeFirst(); } on StateError { … }
+
+did not catch, and the failure surfaced as an uncaught interpreter error instead
+of the recovery path its author wrote.
+
+The guards are removed rather than corrected: the native call raises the SDK's
+error unaided. Six sites — `Queue`, `ListQueue` and `DoubleLinkedQueue`, in both
+trees.
+
+`first` and `last` were listed in the report and turned out to be fine already;
+they resolve through the supertype edge and were never guarded.
+
+This is a better hiding place than the sibling defect it came from. The
+`SplayTreeMap` guard threw where Dart RETURNS, so it changed the value contract
+and one probe found it. This one throws where Dart THROWS, so the two behave
+identically until a script tries to CATCH — which is why the new cases assert
+the catch from inside an interpreted script rather than asserting a throw from
+the host.
+
+Three existing cases asserted the old contract and had their PREMISE corrected,
+which is noted here because it is a different act from loosening them: I-COLL-69
+pinned the invented message verbatim, I-COLL-50 pinned the interpreter's
+exception type, and F-SC7-AST-6 expected `removeFirst` to disagree with `first`
+in the same bridge.
+
 ### Fixed — the float typed lists accept int literals, as Dart does (scd29_aidb)
 
 `Float32List.fromList([1, 2])` worked while `setAll(0, [7, 8])` did not, so the

@@ -150,13 +150,17 @@ void main() {
       () {
         final bridge = queueBridge();
         final queue = DoubleLinkedQueue<dynamic>();
+        // SCD30 finished what SCC51 started. These two kept their hand-written
+        // guard while `first` below lost its copy, so the bridge reported two
+        // different error contracts for the same empty queue — and the one a
+        // Dart author catches was the one `removeFirst` did not use.
         expect(
           () => bridge.methods['removeFirst']!(visitor, queue, [], {}, []),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<StateError>()),
         );
         expect(
           () => bridge.methods['removeLast']!(visitor, queue, [], {}, []),
-          throwsA(isA<RuntimeD4rtException>()),
+          throwsA(isA<StateError>()),
         );
         // `first` parts company with the two methods above, on both axes.
         //
@@ -168,9 +172,13 @@ void main() {
         // `RuntimeD4rtException`. That is the point of the deletion: the old
         // copy caught the SDK error and rethrew a hand-written one, so the
         // `on StateError catch` a Dart author writes never fired.
-        // `removeFirst`/`removeLast` above keep expecting
-        // `RuntimeD4rtException` because they are genuinely still
-        // D4rt-authored adapters — the change is not blanket.
+        // `removeFirst`/`removeLast` above now agree with it. When this note
+        // was written they did not, and "they are genuinely still D4rt-authored
+        // adapters" was the reason given — true as a description and not a
+        // justification: an adapter being hand-written is why it COULD invent
+        // an error contract, not why it should. SCD30 deleted those guards too,
+        // so all three report the SDK's error and the bridge speaks with one
+        // voice about an empty queue.
         expect(
           () => readReachable(
             env,
