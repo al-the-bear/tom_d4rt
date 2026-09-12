@@ -180,6 +180,7 @@ class Int8ListTypedData {
       ),
     },
     staticGetters: typedListStaticGetters(Int8List.bytesPerElement),
+    setters: inheritedListSetters<int>((t) => t as Int8List),
     getters: {
       'length': (visitor, target) {
         if (target is Int8List) return target.length;

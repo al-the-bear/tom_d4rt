@@ -180,6 +180,7 @@ class Uint16ListTypedData {
       ),
     },
     staticGetters: typedListStaticGetters(Uint16List.bytesPerElement),
+    setters: inheritedListSetters<int>((t) => t as Uint16List),
     getters: {
       'length': (visitor, target) {
         if (target is Uint16List) return target.length;

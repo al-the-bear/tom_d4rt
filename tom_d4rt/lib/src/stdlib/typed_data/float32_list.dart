@@ -180,6 +180,7 @@ class Float32ListTypedData {
       ),
     },
     staticGetters: typedListStaticGetters(Float32List.bytesPerElement),
+    setters: inheritedListSetters<double>((t) => t as Float32List),
     getters: {
       'length': (visitor, target) {
         if (target is Float32List) return target.length;

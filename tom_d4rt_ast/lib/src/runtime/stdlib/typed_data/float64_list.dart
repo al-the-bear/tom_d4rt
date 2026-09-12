@@ -180,6 +180,7 @@ class Float64ListTypedData {
       ),
     },
     staticGetters: typedListStaticGetters(Float64List.bytesPerElement),
+    setters: inheritedListSetters<double>((t) => t as Float64List),
     getters: {
       'length': (visitor, target) {
         if (target is Float64List) return target.length;

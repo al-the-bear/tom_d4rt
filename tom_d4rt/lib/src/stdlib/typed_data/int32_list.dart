@@ -180,6 +180,7 @@ class Int32ListTypedData {
       ),
     },
     staticGetters: typedListStaticGetters(Int32List.bytesPerElement),
+    setters: inheritedListSetters<int>((t) => t as Int32List),
     getters: {
       'length': (visitor, target) {
         if (target is Int32List) return target.length;

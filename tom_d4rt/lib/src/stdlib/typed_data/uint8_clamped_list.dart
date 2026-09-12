@@ -186,6 +186,7 @@ class Uint8ClampedListTypedData {
       ),
     },
     staticGetters: typedListStaticGetters(Uint8ClampedList.bytesPerElement),
+    setters: inheritedListSetters<int>((t) => t as Uint8ClampedList),
     getters: {
       'length': (visitor, target) {
         if (target is Uint8ClampedList) return target.length;

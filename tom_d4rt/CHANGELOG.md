@@ -1,5 +1,33 @@
 ## 1.78.0
 
+### Changed — the eleven typed lists share one adapter map (scd28_aidb)
+
+`Uint8List` hand-rolled the whole inherited-`List` surface that the other ten
+reached through `inheritedListMethods<E>()`. That one structural fact had
+already produced two defects in opposite directions (SCB3, SCC9), and both were
+hard to see for the same reason: `Uint8List` is the variant most likely to be
+probed and the one least representative of the others.
+
+Its 45 duplicate adapters are gone; it uses the shared helper like its siblings.
+Measured through the interpreter before and after, **`Uint8List`'s resolvable
+surface is identical on all 24 probes** — this removes a duplicate
+implementation, not surface.
+
+### Fixed — `first`, `last` and `length` are assignable on every typed list
+
+The same measurement found the asymmetry running the other way. `Uint8List`
+declared the three `List` setters and the other ten declared none, so
+`l.first = 1` worked on `Uint8List` and raised "undefined setter" on its
+siblings — with `Uint8List` being the CORRECT one. All three are valid Dart on
+every typed list: `first`/`last` are length-preserving, and `length` exists and
+throws `UnsupportedError`, which a script can catch. A missing-member error sends
+`try { … } on UnsupportedError { … }` down the wrong path.
+
+Now provided by a shared `inheritedListSetters<E>()`, so the eleven cannot
+disagree again. A wrong element type still fails — assigning an `int` into a
+`Float64List` is a type error in Dart and stays one — but reports which member
+and which element type instead of a raw `_TypeError`.
+
 ### Fixed — `buffer` was callable as a method on every typed list (scd27_aidb)
 
 `buffer` was registered in the `methods:` map as well as the `getters:` map on

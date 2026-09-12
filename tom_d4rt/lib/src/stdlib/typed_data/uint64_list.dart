@@ -180,6 +180,7 @@ class Uint64ListTypedData {
       ),
     },
     staticGetters: typedListStaticGetters(Uint64List.bytesPerElement),
+    setters: inheritedListSetters<int>((t) => t as Uint64List),
     getters: {
       'length': (visitor, target) {
         if (target is Uint64List) return target.length;

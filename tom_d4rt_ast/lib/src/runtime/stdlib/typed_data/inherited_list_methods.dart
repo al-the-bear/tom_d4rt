@@ -12,6 +12,52 @@ export '../coerce_elements.dart' show coerceElements;
 
 import '../coerce_elements.dart';
 
+/// The `List<E>` setters every typed list inherits.
+///
+/// SCD28. `Uint8List` hand-rolled these three and the other ten had NO `setters`
+/// map at all, so `l.first = 1` worked on `Uint8List` and raised
+/// `RuntimeD4rtException` on its siblings — with `Uint8List` being the correct
+/// one for once. All three are valid Dart on every typed list:
+/// `first` and `last` are length-PRESERVING and simply assign, and `length` is
+/// declared but throws `UnsupportedError` on a fixed-length list, which is a
+/// runtime answer rather than a missing member.
+///
+/// That is the shape SCD28 exists to remove: a member correct in one variant
+/// and absent from ten, because one variant did not share the code. Reached
+/// through the shared helper, the eleven cannot disagree again.
+Map<String, BridgedInstanceSetterAdapter> inheritedListSetters<E>(
+  List<E> Function(Object target) coerce,
+) {
+  return {
+    'length': (visitor, target, value) {
+      coerce(target).length = value as int;
+    },
+    // `value as E` would do, and reports a raw `_TypeError` when it fails:
+    // "type 'int' is not a subtype of type 'double' in type cast", with no
+    // mention of the member or the list. The check is the same — an `int` into
+    // a `Float64List` is a type error in Dart and stays one, so this widens
+    // nothing — but the message names what the script did.
+    'first': (visitor, target, value) {
+      final v = value is BridgedInstance ? value.nativeObject : value;
+      if (v is! E) {
+        throw RuntimeD4rtException(
+          "Cannot assign ${v.runtimeType} to first: this list holds $E.",
+        );
+      }
+      coerce(target).first = v;
+    },
+    'last': (visitor, target, value) {
+      final v = value is BridgedInstance ? value.nativeObject : value;
+      if (v is! E) {
+        throw RuntimeD4rtException(
+          "Cannot assign ${v.runtimeType} to last: this list holds $E.",
+        );
+      }
+      coerce(target).last = v;
+    },
+  };
+}
+
 /// Returns a map of methods that are inherited from `Iterable<E>` and the
 /// read-only portion of `List<E>` for use in typed-data list bridges
 /// (`Float64List`, `Int32List`, `Uint8List`, …).
