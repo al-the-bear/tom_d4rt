@@ -237,7 +237,7 @@ void main() {
     // Tests for when values come wrapped in BridgedInstance
 
     test(
-      'D4-WRAP-01: extractBridgedArg unwraps BridgedInstance<int> to double. [2026-02-28] (FAIL)',
+      'D4-WRAP-01: extractBridgedArg unwraps BridgedInstance<int> to double. [2026-02-28] (PASS)',
       () {
         // When D4rt wraps an int in BridgedInstance, extracting as double should work
         // This is a theoretical test - would need a mock BridgedInstance

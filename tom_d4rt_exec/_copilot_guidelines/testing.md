@@ -53,7 +53,10 @@ test('I-LIM-3: Isolate.run interpreted closure [2026-02-10 08:00]', () {
 - **ID**: Prefix `I-` (Interpreter) + category + number
 - **Description**: Brief explanation of what the test validates
 - **Creation date**: `YYYY-MM-DD HH:MM` format, when test was added
-- **Expected result**: `FAIL` for known limitations/bugs, `PASS` for tests expected to pass
+- **Expected result**: always `PASS`. The suffix records what the case is
+  expected to do, and under this convention every case in these suites is
+  expected to pass — a pinned gap passes by asserting the broken behaviour.
+  See "The `(FAIL)` suffix" below; `F-SCC6-6` rejects the other value.
 
 ### ID Categories
 
@@ -257,6 +260,22 @@ for months.
 convention that combination should not arise in these suites, since a pinned gap
 passes. Treat a `(FAIL)` suffix on a passing test as a stale label to correct,
 not as a result to preserve.
+
+**`F-SCC6-6` in `conformance_drift_test.dart` now rejects the suffix outright**,
+in both trees, so the rule is checked rather than remembered. It was not
+remembered: measured 2026-09-12, 204 names still carried it across four packages
+while every one of those suites was green — 46 in `tom_d4rt_exec`, 120 in
+`tom_d4rt_generator`, 38 in `tom_ast_generator`, and 0 in the two the guards
+already covered. Not one of the 204 was failing.
+
+The suffix is not cosmetic. Testkit parses it into `testlog/baseline_*.csv`, so
+a stale label makes a healthy case read as a sanctioned failure to anyone
+reading the baseline rather than running the suite.
+
+If a case really does pin broken behaviour, say so where it cannot rot: a
+`KNOWN-GAP(<todo-id>)` or `WONT-FIX` marker in the comment above it, which
+`F-SCC6-5` then holds to both trees. A label in the name says the opposite of
+what such a case does — it passes.
 
 
 

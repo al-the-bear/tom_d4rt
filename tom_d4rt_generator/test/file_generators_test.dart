@@ -7,7 +7,7 @@ import 'package:tom_d4rt_generator/src/file_generators.dart';
 void main() {
   group('File generators', () {
     test(
-      'G-FGEN-01: Barrel exports are relative to barrelPath directory. [2026-02-27] (FAIL)',
+      'G-FGEN-01: Barrel exports are relative to barrelPath directory. [2026-02-27] (PASS)',
       () {
         final config = BridgeConfig(
           name: 'flutter_material_bridges',
@@ -46,7 +46,7 @@ void main() {
 
     test(
       'G-FGEN-02: toImportUri converts host backslashes to POSIX slashes. '
-      '[2026-06-15] (FAIL)',
+      '[2026-06-15] (PASS)',
       () {
         // `p.relative` returns host-native separators (backslashes on
         // Windows). Dart import/export URIs must always use `/` — `\t` would
@@ -70,7 +70,7 @@ void main() {
 
     test(
       'G-FGEN-03: Dartscript module imports use POSIX separators on every host. '
-      '[2026-06-15] (FAIL)',
+      '[2026-06-15] (PASS)',
       () {
         // Reproduces the tom_core_d4rt Windows defect: relative module imports
         // in lib/dartscript.b.dart were emitted with backslashes, so Dart
@@ -116,7 +116,7 @@ void main() {
 
     test(
       'G-FGEN-04: Test runner carries no hardcoded developer log path. '
-      '[2026-06-28] (FAIL)',
+      '[2026-06-28] (PASS)',
       () {
         // Issue #3: the generated d4rtrun.b.dart baked in a developer-specific
         // absolute path (`/Users/alexiskyaw/.../tom2/d4_invocations.log`) and an

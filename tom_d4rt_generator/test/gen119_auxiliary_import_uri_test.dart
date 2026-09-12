@@ -127,7 +127,7 @@ void main() {
   group('GEN-119: auxiliary import URI resolution', () {
     test(
       'G-GEN119-01: package roots are absolute even for a relative '
-      'workspacePath [2026-08-03] (FAIL)',
+      'workspacePath [2026-08-03] (PASS)',
       () {
         final root = generatorFor(
           resolvableFixture,
@@ -171,7 +171,7 @@ void main() {
     test(
       'G-GEN119-03: a parent that cannot be mapped back to a package keeps '
       'the original URI instead of degrading to a bare path [2026-08-03] '
-      '(FAIL)',
+      '(PASS)',
       () {
         // No pubspec.yaml and no packageName, so `_getPackageUri` cannot name
         // the package and hands the raw file path straight back. That is the

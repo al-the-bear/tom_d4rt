@@ -28,7 +28,7 @@ void main() {
     //
     // Extension types are a Dart 3.3 feature. D4rt parses them but doesn't
     // correctly handle getter access - it treats getters as function calls.
-    test('G-DOV3-1: Extension type getter access [2026-02-10] (FAIL)', () {
+    test('G-DOV3-1: Extension type getter access [2026-02-10] (PASS)', () {
       const source = '''
 extension type UserId(int value) {
   bool get isValid => value > 0;

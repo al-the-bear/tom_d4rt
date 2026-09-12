@@ -124,7 +124,7 @@ void main() {
       });
 
       test(
-        'G-FBI-06: PositionedBox.position extracts Offset. [2026-02-28] (FAIL)',
+        'G-FBI-06: PositionedBox.position extracts Offset. [2026-02-28] (PASS)',
         () {
           expect(generatedCode, contains("name: 'PositionedBox'"));
           // Position parameter should extract Offset properly
@@ -148,7 +148,7 @@ void main() {
       });
 
       test(
-        'G-FBI-11: routes parameter with Map<String, WidgetBuilder> is handled. [2026-02-28] (FAIL)',
+        'G-FBI-11: routes parameter with Map<String, WidgetBuilder> is handled. [2026-02-28] (PASS)',
         () {
           // The routes parameter should convert InterpretedFunction to Widget Function(BuildContext)
           expect(
@@ -273,7 +273,7 @@ void main() {
       );
 
       test(
-        'G-FBI-42: AnimationController.vsync accepts InterpretedInstance implementing TickerProvider. [2026-02-28] (FAIL)',
+        'G-FBI-42: AnimationController.vsync accepts InterpretedInstance implementing TickerProvider. [2026-02-28] (PASS)',
         () {
           // The vsync parameter should accept InterpretedInstance that implements the interface
           expect(
@@ -296,21 +296,21 @@ void main() {
       );
 
       test(
-        'G-FBI-51: ChangeNotifier.hasListeners getter is bridged. [2026-02-28] (FAIL)',
+        'G-FBI-51: ChangeNotifier.hasListeners getter is bridged. [2026-02-28] (PASS)',
         () {
           expect(generatedCode, contains("'hasListeners'"));
         },
       );
 
       test(
-        'G-FBI-52: ChangeNotifier.addListener method is bridged. [2026-02-28] (FAIL)',
+        'G-FBI-52: ChangeNotifier.addListener method is bridged. [2026-02-28] (PASS)',
         () {
           expect(generatedCode, contains("'addListener'"));
         },
       );
 
       test(
-        'G-FBI-53: ChangeNotifier.removeListener method is bridged. [2026-02-28] (FAIL)',
+        'G-FBI-53: ChangeNotifier.removeListener method is bridged. [2026-02-28] (PASS)',
         () {
           expect(generatedCode, contains("'removeListener'"));
         },
@@ -324,7 +324,7 @@ void main() {
       );
 
       test(
-        'G-FBI-55: ValueNotifier inherits hasListeners from ChangeNotifier. [2026-02-28] (FAIL)',
+        'G-FBI-55: ValueNotifier inherits hasListeners from ChangeNotifier. [2026-02-28] (PASS)',
         () {
           // When extending, inherited methods should also be accessible
           // This is a runtime concern - the generated code should allow
@@ -353,7 +353,7 @@ void main() {
       );
 
       test(
-        'G-FBI-61: ElevatedButton.onPressed is required but nullable - only checks containsKey. [2026-02-28] (FAIL)',
+        'G-FBI-61: ElevatedButton.onPressed is required but nullable - only checks containsKey. [2026-02-28] (PASS)',
         () {
           // Extract ElevatedButton bridge section
           final elevatedButtonSection = _extractBridgeSection(
@@ -383,7 +383,7 @@ void main() {
       );
 
       test(
-        'G-FBI-62: Switch.onChanged is required but nullable. [2026-02-28] (FAIL)',
+        'G-FBI-62: Switch.onChanged is required but nullable. [2026-02-28] (PASS)',
         () {
           // Extract Switch bridge section
           final switchSection = _extractBridgeSection(generatedCode, 'Switch');

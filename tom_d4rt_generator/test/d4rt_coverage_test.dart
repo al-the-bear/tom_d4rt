@@ -738,7 +738,7 @@ void main() {
       });
 
       test(
-        'GEN-045: barrel name collision (constrained mixin blocked). [2026-02-10] (FAIL)',
+        'GEN-045: barrel name collision (constrained mixin blocked). [2026-02-10] (PASS)',
         () async {
           // GEN-045: Bird/Eagle/Penguin excluded from barrel due to
           // Animal name collision between mixins/basics and classes/inheritance.
@@ -898,7 +898,7 @@ void main() {
     // ── Types ──────────────────────────────────────────────────────
 
     group('TYPE: Type Features', () {
-      test('G-TYPE-1: Record parameter. [2026-02-10 06:37] (FAIL)', () async {
+      test('G-TYPE-1: Record parameter. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           '../d4_test_scripts/bin/dart_overview/type01_record_param.dart',
@@ -907,7 +907,7 @@ void main() {
         expect(result.processOutput, contains('TYPE01_PASSED'));
       });
 
-      test('G-TYPE-2: Record return type. [2026-02-10 06:37] (FAIL)', () async {
+      test('G-TYPE-2: Record return type. [2026-02-10 06:37] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           '../d4_test_scripts/bin/dart_overview/type02_record_return.dart',

@@ -327,7 +327,7 @@ void main() {
     // 09_interactive_input.dart excluded - requires terminal interaction
 
     group('dcli_scripting_guide', () {
-      test('G-DCLI-01: Hello world. [2026-02-13] (FAIL)', () async {
+      test('G-DCLI-01: Hello world. [2026-02-13] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           '../d4_test_scripts/bin/dcli_scripting_guide/01_hello.dart',
@@ -335,7 +335,7 @@ void main() {
         _expectSuccess(result, 'dcli_01_hello');
       });
 
-      test('G-DCLI-02: StringAsProcess extension. [2026-02-13] (FAIL)', () async {
+      test('G-DCLI-02: StringAsProcess extension. [2026-02-13] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           '../d4_test_scripts/bin/dcli_scripting_guide/02_string_as_process.dart',
@@ -343,7 +343,7 @@ void main() {
         _expectSuccess(result, 'dcli_02_string_as_process');
       });
 
-      test('G-DCLI-03: Color output functions. [2026-02-13] (FAIL)', () async {
+      test('G-DCLI-03: Color output functions. [2026-02-13] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           '../d4_test_scripts/bin/dcli_scripting_guide/03_colors.dart',
@@ -351,7 +351,7 @@ void main() {
         _expectSuccess(result, 'dcli_03_colors');
       });
 
-      test('G-DCLI-04: File write/append. [2026-02-13] (FAIL)', () async {
+      test('G-DCLI-04: File write/append. [2026-02-13] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           '../d4_test_scripts/bin/dcli_scripting_guide/04_file_write.dart',
@@ -359,7 +359,7 @@ void main() {
         _expectSuccess(result, 'dcli_04_file_write');
       });
 
-      test('G-DCLI-05: Progress class. [2026-02-13] (FAIL)', () async {
+      test('G-DCLI-05: Progress class. [2026-02-13] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           '../d4_test_scripts/bin/dcli_scripting_guide/05_progress_capture.dart',
@@ -367,7 +367,7 @@ void main() {
         _expectSuccess(result, 'dcli_05_progress_capture');
       });
 
-      test('G-DCLI-06: Environment variables. [2026-02-13] (FAIL)', () async {
+      test('G-DCLI-06: Environment variables. [2026-02-13] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           '../d4_test_scripts/bin/dcli_scripting_guide/06_env_access.dart',
@@ -375,7 +375,7 @@ void main() {
         _expectSuccess(result, 'dcli_06_env_access');
       });
 
-      test('G-DCLI-07: Basic file operations. [2026-02-13] (FAIL)', () async {
+      test('G-DCLI-07: Basic file operations. [2026-02-13] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           '../d4_test_scripts/bin/dcli_scripting_guide/07_basic_file_ops.dart',
@@ -383,7 +383,7 @@ void main() {
         _expectSuccess(result, 'dcli_07_basic_file_ops');
       });
 
-      test('G-DCLI-08: Command execution. [2026-02-13] (FAIL)', () async {
+      test('G-DCLI-08: Command execution. [2026-02-13] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           '../d4_test_scripts/bin/dcli_scripting_guide/08_command_execution.dart',
@@ -391,7 +391,7 @@ void main() {
         _expectSuccess(result, 'dcli_08_command_execution');
       });
 
-      test('G-DCLI-10: Temporary files. [2026-02-13] (FAIL)', () async {
+      test('G-DCLI-10: Temporary files. [2026-02-13] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           '../d4_test_scripts/bin/dcli_scripting_guide/10_temp_files.dart',
@@ -399,7 +399,7 @@ void main() {
         _expectSuccess(result, 'dcli_10_temp_files');
       });
 
-      test('G-DCLI-11: Find function. [2026-02-13] (FAIL)', () async {
+      test('G-DCLI-11: Find function. [2026-02-13] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           '../d4_test_scripts/bin/dcli_scripting_guide/11_find_details.dart',
@@ -407,7 +407,7 @@ void main() {
         _expectSuccess(result, 'dcli_11_find_details');
       });
 
-      test('G-DCLI-12: Error handling. [2026-02-13] (FAIL)', () async {
+      test('G-DCLI-12: Error handling. [2026-02-13] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           '../d4_test_scripts/bin/dcli_scripting_guide/12_error_handling.dart',
@@ -415,7 +415,7 @@ void main() {
         _expectSuccess(result, 'dcli_12_error_handling');
       });
 
-      test('G-DCLI-13: Cross-platform. [2026-02-13] (FAIL)', () async {
+      test('G-DCLI-13: Cross-platform. [2026-02-13] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           '../d4_test_scripts/bin/dcli_scripting_guide/13_cross_platform.dart',
@@ -423,7 +423,7 @@ void main() {
         _expectSuccess(result, 'dcli_13_cross_platform');
       });
 
-      test('G-DCLI-14: Shell execution. [2026-02-13] (FAIL)', () async {
+      test('G-DCLI-14: Shell execution. [2026-02-13] (PASS)', () async {
         final result = await tester.runScriptOnly(
           config,
           '../d4_test_scripts/bin/dcli_scripting_guide/14_shell_execution.dart',

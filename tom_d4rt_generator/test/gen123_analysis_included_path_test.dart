@@ -74,7 +74,7 @@ final _helperAssignmentPattern = RegExp(
 void main() {
   group('GEN-123: analysisIncludedPath states the whole contract', () {
     test(
-      'G-GEN123-01: a relative path becomes absolute [2026-08-12] (FAIL)',
+      'G-GEN123-01: a relative path becomes absolute [2026-08-12] (PASS)',
       () {
         final resolved = analysisIncludedPath('d4rt_userbridges_sample');
 
@@ -99,7 +99,7 @@ void main() {
 
     test(
       'G-GEN123-02: an absolute path is preserved, and normalized '
-      '[2026-08-12] (FAIL)',
+      '[2026-08-12] (PASS)',
       () {
         final root = Directory.current.path;
         final denormalized = p.join(root, 'lib', '..', 'lib', 'src');
@@ -119,7 +119,7 @@ void main() {
 
     test(
       'G-GEN123-03: the analyzer accepts the result for a relative input '
-      '[2026-08-12] (FAIL)',
+      '[2026-08-12] (PASS)',
       () {
         // The behavioural half. G-GEN123-01 asserts a property of a string;
         // this asserts that the operation which actually threw now succeeds,
@@ -186,7 +186,7 @@ void main() {
 
     test(
       'G-GEN123-06: relative and absolute project dirs yield identical '
-      'user-bridge counts [2026-08-12] (FAIL)',
+      'user-bridge counts [2026-08-12] (PASS)',
       () async {
         final fromAbsolute = await preScanUserBridges(sampleAbsolute);
         final fromRelative = await preScanUserBridges(
@@ -231,7 +231,7 @@ void main() {
 
     test(
       'G-GEN123-04: every includedPaths argument comes from '
-      'analysisIncludedPath [2026-08-12] (FAIL)',
+      'analysisIncludedPath [2026-08-12] (PASS)',
       () {
         final offenders = <String>[];
         var checkedSites = 0;
@@ -274,7 +274,7 @@ void main() {
 
     test(
       'G-GEN123-05: no context-building source calls bare p.normalize on a '
-      'project path [2026-08-12] (FAIL)',
+      'project path [2026-08-12] (PASS)',
       () {
         // The specific wrong shape, named so it cannot creep back in under a
         // different variable name than the ones G-GEN123-04 knows about.

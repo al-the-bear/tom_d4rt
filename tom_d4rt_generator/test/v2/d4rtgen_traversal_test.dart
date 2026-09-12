@@ -182,7 +182,7 @@ d4rtgen:
     });
 
     test(
-      'D4G-EXE-5: test runner imports use pubspec package name, not d4rtgen name. [2026-02-27] (FAIL)',
+      'D4G-EXE-5: test runner imports use pubspec package name, not d4rtgen name. [2026-02-27] (PASS)',
       () async {
         final tempDir = await createTempProject(
           packageName: 'actual_pkg_name',

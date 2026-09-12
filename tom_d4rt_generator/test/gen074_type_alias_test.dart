@@ -55,7 +55,7 @@ void main() {
 
   group('GEN-074: Type alias bridging', () {
     test(
-      'G-ISS-20: should include classAliases() method in generated code [2026-03-01] (FAIL)',
+      'G-ISS-20: should include classAliases() method in generated code [2026-03-01] (PASS)',
       () {
         // The generator should produce a classAliases() method that maps
         // alias names to their target class names
@@ -69,7 +69,7 @@ void main() {
     );
 
     test(
-      'G-ISS-21: MaterialStateProperty should be aliased to WidgetStateProperty [2026-03-01] (FAIL)',
+      'G-ISS-21: MaterialStateProperty should be aliased to WidgetStateProperty [2026-03-01] (PASS)',
       () {
         // The classAliases() method should include MaterialStateProperty -> WidgetStateProperty
         expect(
@@ -81,7 +81,7 @@ void main() {
     );
 
     test(
-      'G-ISS-22: ButtonStateProperty should be aliased to WidgetStateProperty [2026-03-01] (FAIL)',
+      'G-ISS-22: ButtonStateProperty should be aliased to WidgetStateProperty [2026-03-01] (PASS)',
       () {
         // The classAliases() method should include ButtonStateProperty -> WidgetStateProperty
         expect(
@@ -93,7 +93,7 @@ void main() {
     );
 
     test(
-      'G-ISS-23: Box should be aliased to SimpleContainer [2026-03-01] (FAIL)',
+      'G-ISS-23: Box should be aliased to SimpleContainer [2026-03-01] (PASS)',
       () {
         // Non-generic type aliases should also be bridged
         expect(
@@ -106,7 +106,7 @@ void main() {
     );
 
     test(
-      'G-ISS-24: Container should be aliased to SimpleContainer [2026-03-01] (FAIL)',
+      'G-ISS-24: Container should be aliased to SimpleContainer [2026-03-01] (PASS)',
       () {
         // Non-generic type aliases should also be bridged
         expect(
@@ -144,7 +144,7 @@ void main() {
     );
 
     test(
-      'G-ISS-27: registerBridges should call registerClassAlias for aliases [2026-03-01] (FAIL)',
+      'G-ISS-27: registerBridges should call registerClassAlias for aliases [2026-03-01] (PASS)',
       () {
         // The registerBridges method should register class aliases
         expect(

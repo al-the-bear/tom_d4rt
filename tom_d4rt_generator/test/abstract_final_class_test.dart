@@ -85,7 +85,7 @@ void main() {
       });
 
       test(
-        'G-AFC-02: abstract final Curves class is bridged. [2026-03-01] (FAIL)',
+        'G-AFC-02: abstract final Curves class is bridged. [2026-03-01] (PASS)',
         () {
           // Abstract final classes with static members should be bridged
           expect(generatedCode, contains("name: 'Curves'"));
@@ -93,7 +93,7 @@ void main() {
       );
 
       test(
-        'G-AFC-03: Curves.linear static const is accessible. [2026-03-01] (FAIL)',
+        'G-AFC-03: Curves.linear static const is accessible. [2026-03-01] (PASS)',
         () {
           // Static const members should be bridged as getters
           expect(
@@ -104,7 +104,7 @@ void main() {
       );
 
       test(
-        'G-AFC-04: Curves.byName static method is accessible. [2026-03-01] (FAIL)',
+        'G-AFC-04: Curves.byName static method is accessible. [2026-03-01] (PASS)',
         () {
           expect(
             generatedCode,
@@ -114,7 +114,7 @@ void main() {
       );
 
       test(
-        'G-AFC-05: Curves has no constructors bridged (cannot be instantiated). [2026-03-01] (FAIL)',
+        'G-AFC-05: Curves has no constructors bridged (cannot be instantiated). [2026-03-01] (PASS)',
         () {
           // Abstract final classes should have no bridged constructors
           // but should still exist as a class

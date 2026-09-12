@@ -77,7 +77,7 @@ void main() {
     });
 
     test(
-        'GEN-095-03: FeatureMock.feature static factory bridged. [2026-03-07] (FAIL)',
+        'GEN-095-03: FeatureMock.feature static factory bridged. [2026-03-07] (PASS)',
         () {
       // Static factory method should be bridged as static member.
       // D4rt script: FeatureMock.feature('smcp')
@@ -90,7 +90,7 @@ void main() {
     });
 
     test(
-        'GEN-095-04: FeatureMock.enable static factory bridged. [2026-03-07] (FAIL)',
+        'GEN-095-04: FeatureMock.enable static factory bridged. [2026-03-07] (PASS)',
         () {
       expect(
         generatedCode,
@@ -100,7 +100,7 @@ void main() {
     });
 
     test(
-        'GEN-095-05: FeatureMock.disable static factory bridged. [2026-03-07] (FAIL)',
+        'GEN-095-05: FeatureMock.disable static factory bridged. [2026-03-07] (PASS)',
         () {
       expect(
         generatedCode,
@@ -124,7 +124,7 @@ void main() {
     });
 
     test(
-        'GEN-095-08: ColorMock.fromARGB static factory bridged. [2026-03-07] (FAIL)',
+        'GEN-095-08: ColorMock.fromARGB static factory bridged. [2026-03-07] (PASS)',
         () {
       expect(
         generatedCode,
@@ -134,7 +134,7 @@ void main() {
     });
 
     test(
-        'GEN-095-09: ColorMock.fromHex static factory bridged. [2026-03-07] (FAIL)',
+        'GEN-095-09: ColorMock.fromHex static factory bridged. [2026-03-07] (PASS)',
         () {
       expect(
         generatedCode,
@@ -221,7 +221,7 @@ void main() {
     });
 
     test(
-        'GEN-096-06: CombinedPatternMock static factories. [2026-03-07] (FAIL)',
+        'GEN-096-06: CombinedPatternMock static factories. [2026-03-07] (PASS)',
         () {
       expect(generatedCode, contains("name: 'CombinedPatternMock'"));
       expect(generatedCode, contains("'create':"));

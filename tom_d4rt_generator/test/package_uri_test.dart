@@ -10,7 +10,7 @@ void main() {
   group('BridgeGenerator._getPackageUri', () {
     test(
       'G-PURI-01: Unresolved host paths fall back to POSIX separators. '
-      '[2026-06-15] (FAIL)',
+      '[2026-06-15] (PASS)',
       () {
         // Reproduces the tom_core_kernel_bridges.b.dart Windows defect: a
         // source file that does not resolve to a package was embedded raw into
@@ -33,7 +33,7 @@ void main() {
 
     test(
       'G-PURI-02: Windows lib paths resolve to package URIs. '
-      '[2026-06-15] (FAIL)',
+      '[2026-06-15] (PASS)',
       () {
         // The `/lib/` lookup must succeed on backslash input too.
         final generator = BridgeGenerator(
@@ -51,7 +51,7 @@ void main() {
 
     test(
       'G-PURI-03: A relative source path still resolves to a package URI '
-      '(GEN-125). [2026-08-12] (FAIL)',
+      '(GEN-125). [2026-08-12] (PASS)',
       () {
         // `d4rtgen -s .` walks the project with relative paths, so a barrel
         // such as `lib/tom_d4rt_cli_api.dart` reaches here unrooted. Both
@@ -74,7 +74,7 @@ void main() {
 
     test(
       'G-PURI-04: Already-resolved URIs are passed through unrooted. '
-      '[2026-08-12] (FAIL)',
+      '[2026-08-12] (PASS)',
       () {
         // Several call sites feed `_getPackageUri` a URI that is already
         // resolved. Rooting a relative path must not treat `package:`/`dart:`

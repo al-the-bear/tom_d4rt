@@ -47,7 +47,7 @@ void main() {
     // The interpreter does not properly handle casting to nullable types.
     // When casting a value to a nullable type like String?, the interpreter
     // treats it as a regular cast and fails because it expects an exact match.
-    test('G-DOV2-1: Cast to nullable type (as String?) [2026-02-10 21:30] (FAIL)',
+    test('G-DOV2-1: Cast to nullable type (as String?) [2026-02-10 21:30] (PASS)',
         () {
       const source = '''
 void main() {
@@ -72,7 +72,7 @@ void main() {
     // When using a factory constructor as a tear-off in map(), the interpreter
     // fails to resolve it as a static member / factory constructor.
     test(
-        'G-DOV2-2: Factory constructor tear-off (Class.fromMap) [2026-02-10 21:30] (FAIL)',
+        'G-DOV2-2: Factory constructor tear-off (Class.fromMap) [2026-02-10 21:30] (PASS)',
         () {
       const source = '''
 class Settings {
@@ -111,7 +111,7 @@ void main() {
     // directly, rather than delegating to the factory which returns a concrete
     // subclass.
     test(
-        'G-DOV2-3: Factory constructor on abstract class [2026-02-10 21:30] (FAIL)',
+        'G-DOV2-3: Factory constructor on abstract class [2026-02-10 21:30] (PASS)',
         () {
       const source = '''
 abstract class Shape {
@@ -166,7 +166,7 @@ void main() {
     // the interpreter does not recognize that num implements Comparable<num>.
     // This differs from the class-level check which was fixed in G-DOV-9.
     test(
-        'G-DOV2-4: Function-level type parameter bound (Comparable) [2026-02-10 21:30] (FAIL)',
+        'G-DOV2-4: Function-level type parameter bound (Comparable) [2026-02-10 21:30] (PASS)',
         () {
       const source = '''
 T clamp<T extends Comparable<T>>(T value, T min, T max) {
@@ -192,7 +192,7 @@ void main() {
     //
     // The interpreter does not support cast patterns (var x as Type) in
     // pattern matching contexts like if-case statements.
-    test('G-DOV2-5: CastPatternImpl not implemented [2026-02-10 21:30] (FAIL)',
+    test('G-DOV2-5: CastPatternImpl not implemented [2026-02-10 21:30] (PASS)',
         () {
       const source = '''
 void main() {
@@ -216,7 +216,7 @@ void main() {
     // Eagle(super.name)), the interpreter doesn't properly recognize that the
     // 'name' getter is provided by the parent class Bird, not the mixin.
     test(
-        'G-DOV2-6: super.name forwarding through mixin chain [2026-02-10 21:30] (FAIL)',
+        'G-DOV2-6: super.name forwarding through mixin chain [2026-02-10 21:30] (PASS)',
         () {
       const source = '''
 abstract class Animal {

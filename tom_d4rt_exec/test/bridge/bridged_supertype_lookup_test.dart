@@ -123,7 +123,7 @@ void main() {
     });
 
     test(
-      'B-SUP-02: Can call transform() on Curves.linear result. [2026-03-01] (FAIL)',
+      'B-SUP-02: Can call transform() on Curves.linear result. [2026-03-01] (PASS)',
       () {
         // This is the key test - calling a method on a private subclass instance
         // should work by finding the method on the public base class bridge.
@@ -143,7 +143,7 @@ void main() {
     );
 
     test(
-      'B-SUP-03: Can call transform() on Curves.decelerate result. [2026-03-01] (FAIL)',
+      'B-SUP-03: Can call transform() on Curves.decelerate result. [2026-03-01] (PASS)',
       () {
         final result = d4rt.execute(
           source: '''
@@ -162,7 +162,7 @@ void main() {
     );
 
     test(
-      'B-SUP-04: Multiple transform calls work correctly. [2026-03-01] (FAIL)',
+      'B-SUP-04: Multiple transform calls work correctly. [2026-03-01] (PASS)',
       () {
         final result = d4rt.execute(
           source: '''
@@ -185,7 +185,7 @@ void main() {
       },
     );
 
-    test('B-SUP-05: Curve variable can be reassigned. [2026-03-01] (FAIL)', () {
+    test('B-SUP-05: Curve variable can be reassigned. [2026-03-01] (PASS)', () {
       final result = d4rt.execute(
         source: '''
           import 'package:test/curves.dart';

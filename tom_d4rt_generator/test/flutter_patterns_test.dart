@@ -130,7 +130,7 @@ void main() {
     // =========================================================================
     group('RC-1: Non-wrappable defaults', () {
       test(
-        'G-FLP-03: const SimpleValue(0, 0) default uses non-nullable type. [2026-02-26] (FAIL)',
+        'G-FLP-03: const SimpleValue(0, 0) default uses non-nullable type. [2026-02-26] (PASS)',
         () {
           // The generated code for WidgetWithDefaults constructor must NOT
           // produce getOptionalNamedArg<SimpleValue?> for the offset parameter
@@ -150,7 +150,7 @@ void main() {
       );
 
       test(
-        'G-FLP-38: Private const identifiers in defaults are not emitted directly. [2026-02-27] (FAIL)',
+        'G-FLP-38: Private const identifiers in defaults are not emitted directly. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -191,7 +191,7 @@ void main() {
       );
 
       test(
-        'G-FLP-42: Bare identifier values in const-arg defaults are not emitted directly. [2026-02-27] (FAIL)',
+        'G-FLP-42: Bare identifier values in const-arg defaults are not emitted directly. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -224,7 +224,7 @@ void main() {
       );
 
       test(
-        'G-FLP-04: const BoxSideLike() default uses non-nullable type. [2026-02-26] (FAIL)',
+        'G-FLP-04: const BoxSideLike() default uses non-nullable type. [2026-02-26] (PASS)',
         () {
           expect(
             generatedCode,
@@ -238,7 +238,7 @@ void main() {
       );
 
       test(
-        'G-FLP-05: Static access defaults remain wrappable. [2026-02-26] (FAIL)',
+        'G-FLP-05: Static access defaults remain wrappable. [2026-02-26] (PASS)',
         () {
           // SimpleValue.origin and BoxSideLike.none should be wrappable
           // (ClassName.value pattern)
@@ -251,7 +251,7 @@ void main() {
       );
 
       test(
-        'G-FLP-06: const SimpleValue.zero() named ctor default handled. [2026-02-26] (FAIL)',
+        'G-FLP-06: const SimpleValue.zero() named ctor default handled. [2026-02-26] (PASS)',
         () {
           // const SimpleValue.zero() is a named constructor with no args
           // Should produce non-nullable type, not nullable fallback
@@ -480,7 +480,7 @@ void main() {
       );
 
       test(
-        'G-FLP-47: Required named Future<ConcreteType> parameter is not degraded to Future<dynamic>. [2026-02-27] (FAIL)',
+        'G-FLP-47: Required named Future<ConcreteType> parameter is not degraded to Future<dynamic>. [2026-02-27] (PASS)',
         () {
           expect(generatedCode, contains("name: 'FutureCodecHostLike'"));
 
@@ -514,7 +514,7 @@ void main() {
       );
 
       test(
-        'G-FLP-48: Generic render-object subtype is preserved in updateRenderObject extraction. [2026-02-27] (FAIL)',
+        'G-FLP-48: Generic render-object subtype is preserved in updateRenderObject extraction. [2026-02-27] (PASS)',
         () {
           expect(generatedCode, contains("name: 'SlottedWidgetImplLike2'"));
 
@@ -550,7 +550,7 @@ void main() {
       );
 
       test(
-        'G-FLP-49: Prefixed generic type argument in Future<T> does not collapse to dynamic. [2026-02-27] (FAIL)',
+        'G-FLP-49: Prefixed generic type argument in Future<T> does not collapse to dynamic. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -586,7 +586,7 @@ void main() {
       );
 
       test(
-        'G-FLP-50: Recursive slotted render-object generic uses concrete child type, not base RenderObjectLike. [2026-02-27] (FAIL)',
+        'G-FLP-50: Recursive slotted render-object generic uses concrete child type, not base RenderObjectLike. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -627,7 +627,7 @@ void main() {
       );
 
       test(
-        'G-FLP-51: Covariant slotted render-object parameter keeps mixin type, not base RenderObjectLike. [2026-02-27] (FAIL)',
+        'G-FLP-51: Covariant slotted render-object parameter keeps mixin type, not base RenderObjectLike. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -668,7 +668,7 @@ void main() {
       );
 
       test(
-        'G-FLP-52: Raw recursive RenderObject-bound generic method arg uses dynamic extraction. [2026-02-27] (FAIL)',
+        'G-FLP-52: Raw recursive RenderObject-bound generic method arg uses dynamic extraction. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -707,7 +707,7 @@ void main() {
       );
 
       test(
-        'G-FLP-53: Inherited mixin method signature should win over broad superclass signature. [2026-02-27] (FAIL)',
+        'G-FLP-53: Inherited mixin method signature should win over broad superclass signature. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -827,7 +827,7 @@ void main() {
       );
 
       test(
-        'G-FLP-56: Declared @visibleForOverriding members are skipped from bridges. [2026-02-27] (FAIL)',
+        'G-FLP-56: Declared @visibleForOverriding members are skipped from bridges. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -1066,7 +1066,7 @@ void main() {
     // =========================================================================
     group('RC-8.6: Callback contravariance nullability', () {
       test(
-        'G-FLP-28: Nullable callback arg Object? is preserved (not narrowed to Object). [2026-02-27] (FAIL)',
+        'G-FLP-28: Nullable callback arg Object? is preserved (not narrowed to Object). [2026-02-27] (PASS)',
         () {
           expect(generatedCode, contains("name: 'GestureMatcherLike'"));
 
@@ -1103,7 +1103,7 @@ void main() {
     // =========================================================================
     group('RC-9e: Generic num bound preservation', () {
       test(
-        'G-FLP-29: LayoutBuilderLike<T extends num> does not extract T as dynamic. [2026-02-27] (FAIL)',
+        'G-FLP-29: LayoutBuilderLike<T extends num> does not extract T as dynamic. [2026-02-27] (PASS)',
         () {
           expect(generatedCode, contains("name: 'LayoutBuilderLike'"));
 
@@ -1137,7 +1137,7 @@ void main() {
       );
 
       test(
-        'G-FLP-31: AbstractLayoutBuilderLike<ConstraintsLike> is not degraded to dynamic. [2026-02-27] (FAIL)',
+        'G-FLP-31: AbstractLayoutBuilderLike<ConstraintsLike> is not degraded to dynamic. [2026-02-27] (PASS)',
         () {
           expect(generatedCode, contains("name: 'LayoutHostLike'"));
 
@@ -1170,7 +1170,7 @@ void main() {
       );
 
       test(
-        'G-FLP-32: AbstractLayoutBuilderGenericLike<C> method arg keeps bound type instead of dynamic. [2026-02-27] (FAIL)',
+        'G-FLP-32: AbstractLayoutBuilderGenericLike<C> method arg keeps bound type instead of dynamic. [2026-02-27] (PASS)',
         () {
           expect(generatedCode, contains("name: 'ConcreteLayoutBuilderLike'"));
 
@@ -1204,7 +1204,7 @@ void main() {
       );
 
       test(
-        'G-FLP-34: AbstractLayoutBuilderGenericLike bridge self-type arg is not dynamic. [2026-02-27] (FAIL)',
+        'G-FLP-34: AbstractLayoutBuilderGenericLike bridge self-type arg is not dynamic. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -1240,7 +1240,7 @@ void main() {
       );
 
       test(
-        'G-FLP-35: ConstrainedLayoutBuilderLike inherited oldWidget arg is not dynamic. [2026-02-27] (FAIL)',
+        'G-FLP-35: ConstrainedLayoutBuilderLike inherited oldWidget arg is not dynamic. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -1277,7 +1277,7 @@ void main() {
       );
 
       test(
-        'G-FLP-36: Inherited generic updateShouldRebuild oldWidget does not degrade to dynamic. [2026-02-27] (FAIL)',
+        'G-FLP-36: Inherited generic updateShouldRebuild oldWidget does not degrade to dynamic. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -1314,7 +1314,7 @@ void main() {
       );
 
       test(
-        'G-FLP-33: SlottedRenderObjectElementGenericLike keeps second arg bound R extends RenderObjectLike. [2026-02-27] (FAIL)',
+        'G-FLP-33: SlottedRenderObjectElementGenericLike keeps second arg bound R extends RenderObjectLike. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -1412,7 +1412,7 @@ void main() {
     // =========================================================================
     group('RC-9c: Generic upper bound preservation', () {
       test(
-        'G-FLP-24: SlottedWidgetLike preserves R extends Object in constructor extraction. [2026-02-27] (FAIL)',
+        'G-FLP-24: SlottedWidgetLike preserves R extends Object in constructor extraction. [2026-02-27] (PASS)',
         () {
           expect(generatedCode, contains("name: 'SlottedWidgetLike'"));
 
@@ -1440,7 +1440,7 @@ void main() {
       );
 
       test(
-        'G-FLP-26: Slotted mixin-like bound R extends RenderObjectLike is not erased to dynamic. [2026-02-27] (FAIL)',
+        'G-FLP-26: Slotted mixin-like bound R extends RenderObjectLike is not erased to dynamic. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -1486,7 +1486,7 @@ void main() {
     // =========================================================================
     group('RC-4b: SDK type prefixing for clash-prone names', () {
       test(
-        'G-FLP-25: WidgetWithSdkType uses prefixed dart:math types instead of bare Point/Random. [2026-02-27] (FAIL)',
+        'G-FLP-25: WidgetWithSdkType uses prefixed dart:math types instead of bare Point/Random. [2026-02-27] (PASS)',
         () {
           expect(generatedCode, contains("name: 'WidgetWithSdkType'"));
 
@@ -1518,7 +1518,7 @@ void main() {
       );
 
       test(
-        'G-FLP-30: Callback typedef return Point<double> is prefixed with dart:math alias. [2026-02-27] (FAIL)',
+        'G-FLP-30: Callback typedef return Point<double> is prefixed with dart:math alias. [2026-02-27] (PASS)',
         () {
           expect(generatedCode, contains("name: 'PointFactoryHostLike'"));
 
@@ -1544,7 +1544,7 @@ void main() {
       );
 
       test(
-        'G-FLP-37: dart:collection Queue is prefixed when local Queue exists. [2026-02-27] (FAIL)',
+        'G-FLP-37: dart:collection Queue is prefixed when local Queue exists. [2026-02-27] (PASS)',
         () {
           expect(generatedCode, contains("name: 'QueueHostLike'"));
 
@@ -1570,7 +1570,7 @@ void main() {
       );
 
       test(
-        'G-FLP-40: SDK imports are aliased when prefixed SDK types are emitted. [2026-02-27] (FAIL)',
+        'G-FLP-40: SDK imports are aliased when prefixed SDK types are emitted. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -1593,7 +1593,7 @@ void main() {
     // =========================================================================
     group('RC-1c: External default gaps', () {
       test(
-        'G-FLP-39: External non-nullable named params do not degrade to nullable extraction. [2026-02-27] (FAIL)',
+        'G-FLP-39: External non-nullable named params do not degrade to nullable extraction. [2026-02-27] (PASS)',
         () {
           expect(generatedCode, contains("name: 'ExternalDefaultGapLike'"));
 
@@ -1677,7 +1677,7 @@ void main() {
       );
 
       test(
-        'G-FLP-43: Nested callback typedef argument shape is preserved. [2026-02-27] (FAIL)',
+        'G-FLP-43: Nested callback typedef argument shape is preserved. [2026-02-27] (PASS)',
         () {
           expect(generatedCode, contains("name: 'StatefulBuilderHostLike'"));
 
@@ -1709,7 +1709,7 @@ void main() {
       );
 
       test(
-        'G-FLP-44: Imported nested callback typedef argument shape is preserved. [2026-02-27] (FAIL)',
+        'G-FLP-44: Imported nested callback typedef argument shape is preserved. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -1744,7 +1744,7 @@ void main() {
       );
 
       test(
-        'G-FLP-45: Imported alias-of-alias nested callback typedef is preserved. [2026-02-27] (FAIL)',
+        'G-FLP-45: Imported alias-of-alias nested callback typedef is preserved. [2026-02-27] (PASS)',
         () {
           expect(
             generatedCode,
@@ -1779,7 +1779,7 @@ void main() {
       );
 
       test(
-        'G-FLP-46: Imported generic nullable predicate keeps T? parameter. [2026-02-27] (FAIL)',
+        'G-FLP-46: Imported generic nullable predicate keeps T? parameter. [2026-02-27] (PASS)',
         () {
           expect(generatedCode, contains("name: 'ExternalDragTargetLike'"));
 

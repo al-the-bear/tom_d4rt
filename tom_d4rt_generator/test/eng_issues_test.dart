@@ -73,7 +73,7 @@ void main() {
     });
 
     test(
-        'ENG-010-02: onStart setter wraps InterpretedFunction. [2026-03-07] (FAIL)',
+        'ENG-010-02: onStart setter wraps InterpretedFunction. [2026-03-07] (PASS)',
         () {
       // The setter adapter should check if value is InterpretedFunction
       // and wrap it in a native closure:
@@ -96,7 +96,7 @@ void main() {
     });
 
     test(
-        'ENG-010-03: All callback setters have wrapping code. [2026-03-07] (FAIL)',
+        'ENG-010-03: All callback setters have wrapping code. [2026-03-07] (PASS)',
         () {
       // Each callback setter (onStart, onUpdate, onEnd) should have wrapper
       expect(generatedCode, contains("'onStart':"));
@@ -105,14 +105,14 @@ void main() {
     });
 
     test(
-        'ENG-010-04: AnimationMock status callback setter wrapped. [2026-03-07] (FAIL)',
+        'ENG-010-04: AnimationMock status callback setter wrapped. [2026-03-07] (PASS)',
         () {
       expect(generatedCode, contains("name: 'AnimationMock'"));
       expect(generatedCode, contains("'onStatusChanged':"));
     });
 
     test(
-        'ENG-010-05: CallbackReturnSetters filter wrapped with return. [2026-03-07] (FAIL)',
+        'ENG-010-05: CallbackReturnSetters filter wrapped with return. [2026-03-07] (PASS)',
         () {
       expect(generatedCode, contains("name: 'CallbackReturnSetters'"));
       expect(generatedCode, contains("'filter':"));
@@ -120,7 +120,7 @@ void main() {
     });
 
     test(
-        'ENG-010-06: CallbackReturnSetters transform wrapped. [2026-03-07] (FAIL)',
+        'ENG-010-06: CallbackReturnSetters transform wrapped. [2026-03-07] (PASS)',
         () {
       expect(generatedCode, contains("'transform':"));
     });
@@ -189,7 +189,7 @@ void main() {
     });
 
     test(
-        'ENG-011-03: then callback return handles null safely. [2026-03-07] (FAIL)',
+        'ENG-011-03: then callback return handles null safely. [2026-03-07] (PASS)',
         () {
       // The callback wrapper should handle null returns:
       // final result = D4.callInterpreterCallback(visitor, fn, [value]);
@@ -251,7 +251,7 @@ void main() {
     });
 
     test(
-        'ENG-007-03: Nullable style parameter uses proper extraction. [2026-03-07] (FAIL)',
+        'ENG-007-03: Nullable style parameter uses proper extraction. [2026-03-07] (PASS)',
         () {
       // For nullable parameter TextStyleMock?, should use:
       // D4.extractBridgedArgOrNull<TextStyleMock>(...) 

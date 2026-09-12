@@ -76,7 +76,7 @@ void main() {
     });
 
     test(
-        'GEN-055c: BridgeRegistry.register uses correct prefix for Interpreter. [2026-02-14] (FAIL)',
+        'GEN-055c: BridgeRegistry.register uses correct prefix for Interpreter. [2026-02-14] (PASS)',
         () {
       // The Interpreter type is defined in cross_file_type.dart, not in
       // cross_file_reference_source.dart. The generated code must NOT use
@@ -114,7 +114,7 @@ void main() {
     });
 
     test(
-        'GEN-055d: Worker.initialize uses correct prefix for cross-file params. [2026-02-14] (FAIL)',
+        'GEN-055d: Worker.initialize uses correct prefix for cross-file params. [2026-02-14] (PASS)',
         () {
       // Worker.initialize(Interpreter interpreter, {RuntimeConfig? config})
       // Both Interpreter and RuntimeConfig are from cross_file_type.dart

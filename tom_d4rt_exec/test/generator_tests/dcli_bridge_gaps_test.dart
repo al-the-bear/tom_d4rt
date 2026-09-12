@@ -137,7 +137,7 @@ void main() {
       );
 
       test(
-        'DCL-EXT-003: Extension method callback should wrap InterpretedFunction [2026-02-11] (FAIL)',
+        'DCL-EXT-003: Extension method callback should wrap InterpretedFunction [2026-02-11] (PASS)',
         () {
           // The extension method forEach takes void Function(String) lineAction
           // It should wrap the callback, not use Function.apply directly
@@ -155,7 +155,7 @@ void main() {
       );
 
       test(
-        'DCL-EXT-004: Extension callback should use InterpretedFunction wrapper [2026-02-11] (FAIL)',
+        'DCL-EXT-004: Extension callback should use InterpretedFunction wrapper [2026-02-11] (PASS)',
         () {
           final section = _extractSection(generatedCode, 'bridgedExtensions');
           expect(section, isNotNull);

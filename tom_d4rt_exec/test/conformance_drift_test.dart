@@ -69,6 +69,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:analyzer/dart/analysis/features.dart';
+import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:test/test.dart';
 
 /// Why a reference file with no same-path exec counterpart is nevertheless
@@ -864,31 +868,31 @@ const Map<String, _Convergence> _convergenceLog = {
   'stdlib/collection/unmodifiable_map_view_test.dart': _Convergence(
     _Direction.upstream,
     'exec F-SC3-9 asserted four expressions including `source is Map` — the '
-        'SUPERTYPE edge, which resolves through a registered hierarchy edge '
-        'rather than by name-matching, so a different mechanism from the '
-        'exact-type check beside it. The reference copy asserted three and did '
-        'not cover the supertype on the wrapped map. Copying the reference '
-        'over the twin would have deleted a real assertion and left the weaker '
-        'file in BOTH trees, with the guard reporting the pair converged.',
+    'SUPERTYPE edge, which resolves through a registered hierarchy edge '
+    'rather than by name-matching, so a different mechanism from the '
+    'exact-type check beside it. The reference copy asserted three and did '
+    'not cover the supertype on the wrapped map. Copying the reference '
+    'over the twin would have deleted a real assertion and left the weaker '
+    'file in BOTH trees, with the guard reporting the pair converged.',
   ),
   'dfub5_function_record_runtime_type_test.dart': _Convergence(
     _Direction.union,
     'the exec copy carried an explanation the reference lacked — the SAstNode '
-        'tree has no parent pointers, so the applied return type is captured '
-        'at declaration time. Folded into the reference header BEFORE the port '
-        'was taken, so convergence added knowledge to both trees instead of '
-        'deleting it from one.',
+    'tree has no parent pointers, so the applied return type is captured '
+    'at declaration time. Folded into the reference header BEFORE the port '
+    'was taken, so convergence added knowledge to both trees instead of '
+    'deleting it from one.',
   ),
   'dfub6_applied_generic_runtime_types_test.dart': _Convergence(
     _Direction.union,
     'same shape as dfub5: the exec copy recorded that tom_ast_generator used '
-        'to flatten RecordTypeAnnotationField, which the reference header did '
-        'not say. Folded upstream first, then ported.',
+    'to flatten RecordTypeAnnotationField, which the reference header did '
+    'not say. Folded upstream first, then ported.',
   ),
   'dfub13_import_export_diagnostics_test.dart': _Convergence(
     _Direction.union,
     'same shape again: the exec copy recorded that tom_d4rt_exec owns a third '
-        'copy of the module loader. Folded upstream first, then ported.',
+    'copy of the module loader. Folded upstream first, then ported.',
   ),
 };
 
@@ -1259,6 +1263,45 @@ final RegExp _markerPattern = RegExp(
   r'^//\s*(KNOWN-GAP\([^)]*\)|WONT-FIX)\s*:',
 );
 
+/// Collects `test(...)` / `group(...)` names that claim an expected failure.
+///
+/// SCD53 / F-SCC6-6. Two different rules, and the asymmetry is measured rather
+/// than stylistic:
+///
+///   * `(FAIL)` is the outcome suffix and is rejected in EITHER kind of name.
+///   * `SHOULD FAIL` only means something in a GROUP name. A test described
+///     "... should fail gracefully" is prose about what the code under test
+///     does, and `I-TYPE-29` in the reference tree is exactly that — an early
+///     version of this check flagged it.
+class _ExpectedFailureCollector extends RecursiveAstVisitor<void> {
+  _ExpectedFailureCollector(this.file);
+  final String file;
+  final labelled = <String>[];
+  int namesRead = 0;
+
+  @override
+  void visitMethodInvocation(MethodInvocation node) {
+    final kind = node.methodName.name;
+    if (kind == 'test' || kind == 'group') {
+      final args = node.argumentList.arguments;
+      if (args.isNotEmpty && args.first is StringLiteral) {
+        // `stringValue` joins adjacent literals — which is how most names here
+        // are written — and returns null for an interpolated one.
+        final value = (args.first as StringLiteral).stringValue;
+        if (value != null) {
+          namesRead++;
+          if (value.contains('(FAIL)') ||
+              (kind == 'group' &&
+                  value.toUpperCase().contains('SHOULD FAIL'))) {
+            labelled.add('$file\n      $kind: $value');
+          }
+        }
+      }
+    }
+    super.visitMethodInvocation(node);
+  }
+}
+
 /// Every marker in [source], as `KNOWN-GAP(<id>)` or `WONT-FIX`.
 ///
 /// Line-based, and a `///` doc comment is deliberately not a marker: the
@@ -1339,8 +1382,7 @@ const Map<String, String> _astWorkingTreeDrift = {
 Directory? _resolvedAstRoot() {
   final config = File('.dart_tool/package_config.json');
   if (!config.existsSync()) return null;
-  final decoded =
-      jsonDecode(config.readAsStringSync()) as Map<String, dynamic>;
+  final decoded = jsonDecode(config.readAsStringSync()) as Map<String, dynamic>;
   for (final entry in (decoded['packages'] as List<dynamic>)) {
     final package = entry as Map<String, dynamic>;
     if (package['name'] != 'tom_d4rt_ast') continue;
@@ -1379,14 +1421,18 @@ Map<String, File> _filesUnder(Directory root) {
 /// both corpora is written that way, and a declaration that is not would be
 /// unreadable for other reasons.
 int _countCases(String source) {
-  final withoutBlocks = source.replaceAll(RegExp(r'/\*.*?\*/', dotAll: true), '');
+  final withoutBlocks = source.replaceAll(
+    RegExp(r'/\*.*?\*/', dotAll: true),
+    '',
+  );
   final withoutLines = withoutBlocks
       .split('\n')
       .map((line) => line.replaceAll(RegExp(r'//.*'), ''))
       .join('\n');
-  return RegExp(r'^\s*test\s*\(', multiLine: true)
-      .allMatches(withoutLines)
-      .length;
+  return RegExp(
+    r'^\s*test\s*\(',
+    multiLine: true,
+  ).allMatches(withoutLines).length;
 }
 
 Map<String, File> _testFiles(Directory root) {
@@ -1529,7 +1575,11 @@ void main() {
               (e) =>
                   '${e.key}: ${e.value.refCases} cases vs '
                   '${e.value.twinCases} in ${e.value.where}'
-                  '${e.value.whyPartial == null ? '"'"'  <- UNEXPLAINED'"'"' : '"'"''"'"'}',
+                  '${e.value.whyPartial == null ? '"'
+                            "'  <- UNEXPLAINED'"
+                            '"' : '"'
+                            "''"
+                            '"'}',
             )
             .join('\n'),
       );
@@ -1584,7 +1634,8 @@ void main() {
         }
         final actualRef = _countCases(refFile.readAsStringSync());
         final actualTwin = _countCases(twinFile.readAsStringSync());
-        if (actualRef != coverage.refCases || actualTwin != coverage.twinCases) {
+        if (actualRef != coverage.refCases ||
+            actualTwin != coverage.twinCases) {
           drift.add(
             '${entry.key}: recorded ${coverage.refCases}/${coverage.twinCases}, '
             'files say $actualRef/$actualTwin (${coverage.where})',
@@ -1617,9 +1668,7 @@ void main() {
           .where((e) => e.value.copierUncovered)
           .toList();
       printOnFailure(
-        gaps
-            .map((e) => '${e.key} -> ${e.value.where}')
-            .join('\n'),
+        gaps.map((e) => '${e.key} -> ${e.value.where}').join('\n'),
       );
       expect(
         gaps.length,
@@ -1723,6 +1772,123 @@ void main() {
             'to be deleted by hand when the gap closes, so a missing copy '
             'means the fix lands green here and red there — or the reverse. '
             'Mirror it.\n${mismatched.join('\n')}',
+      );
+    });
+
+    test('F-SCC6-8: no test name claims it is expected to fail '
+        '[2026-09-12] (PASS)', () {
+      // SCD53. Numbered 8 rather than 6: SCD53 asked for "F-SCC6-6", but 6 and
+      // 7 were taken between the todo being written and being executed, and an
+      // id that already means something else is worse than a gap in the
+      // sequence.
+      //
+      // The id convention encodes the EXPECTED outcome in the name, and
+      // under the convention SCC15 adopted no case in these suites is expected
+      // to fail: a pinned gap PASSES, by asserting the broken behaviour. So the
+      // `(FAIL)` suffix has no legitimate use and is rejected outright.
+      //
+      // It was not rejected before, and the labels rotted exactly as you would
+      // expect. Measured 2026-09-12: 204 names still carried the suffix across
+      // four packages while every one of those suites ran green — 46 in
+      // `tom_d4rt_exec`, 120 in `tom_d4rt_generator`, 38 in
+      // `tom_ast_generator`. Not one of the 204 was failing, so all 204 labels
+      // were false. (SCC15 found the same defect in three file pairs and fixed
+      // it there; SCD50 cleared `tom_d4rt` and `tom_d4rt_ast`, which is why
+      // they are at zero.)
+      //
+      // NOT COSMETIC: testkit parses the suffix into `testlog/baseline_*.csv`,
+      // so a stale label makes a healthy case read as a sanctioned failure to
+      // anyone reading the baseline instead of running the suite.
+      //
+      // WHY IT PARSES RATHER THAN GREPS. A text scan cannot tell a label from
+      // a mention, and both exist here: this very comment writes the suffix a
+      // dozen times, and `scd50_no_expected_failures_test.dart` in the
+      // reference tree contains `contains('(FAIL)')` as CODE. An anchored
+      // regex — suffix followed by a closing quote — still matches that
+      // second case, which is how the sweep nearly disarmed SCD50's guard.
+      // Reading the argument of `test(...)` / `group(...)` cannot.
+      //
+      // THE FOUR TREES ARE NOT THE USUAL TWO. The rest of this group compares
+      // the reference and exec corpora; this walks the generator packages as
+      // well, because that is where 158 of the 204 lived. They are siblings in
+      // the same repository, so the reach costs nothing and a guard covering
+      // 23% of the corpus it was written for would be decorative.
+      //
+      // IF A CASE REALLY PINS BROKEN BEHAVIOUR, it needs a
+      // `KNOWN-GAP(<todo-id>)` or `WONT-FIX` marker in the comment above it —
+      // which F-SCC6-5 above then holds to both trees — not a label in the
+      // name saying the opposite of what the case does.
+      final labelled = <String>[];
+      var namesRead = 0;
+      for (final root in const [
+        'test',
+        '../tom_d4rt/test',
+        '../tom_d4rt_generator/test',
+        '../tom_ast_generator/test',
+      ]) {
+        final dir = Directory(root);
+        if (!dir.existsSync()) continue;
+        for (final file
+            in dir
+                .listSync(recursive: true)
+                .whereType<File>()
+                .where((f) => f.path.endsWith('.dart'))) {
+          final unit = parseString(
+            content: file.readAsStringSync(),
+            featureSet: FeatureSet.latestLanguageVersion(),
+            throwIfDiagnostics: false,
+          ).unit;
+          final collector = _ExpectedFailureCollector(file.path);
+          unit.accept(collector);
+          namesRead += collector.namesRead;
+          labelled.addAll(collector.labelled);
+        }
+      }
+      labelled.sort();
+
+      // The floor. Every assertion below is an emptiness check, and a walk
+      // that parsed nothing satisfies it — the same trap F-SCB24-2 exists for,
+      // where a scan read 0 of 205 names and its guard passed. Measured
+      // 2026-09-12 at 9674 names across the four trees — read off a
+      // deliberately-broken floor rather than added up from a scan, which is
+      // how the first figure written here came out one short: the scan
+      // predated this very test, and a `test(...)` is itself a name.
+      //
+      // EACH BRANCH HAS BEEN SEEN TO FAIL. The Fires column is observed:
+      //
+      //   | Injected fault                                        | Fires   |
+      //   | ----------------------------------------------------- | ------- |
+      //   | a `(PASS)` flipped back in exec                        | yes     |
+      //   | ... in `tom_d4rt_generator`                            | yes     |
+      //   | ... in `tom_ast_generator`                             | yes     |
+      //   | a group renamed to `SHOULD FAIL` in `tom_d4rt`         | yes     |
+      //   | a TEST named "... should fail gracefully" (I-TYPE-29)  | no      |
+      //   | the floor raised above the corpus                      | yes     |
+      //
+      // The fifth row is the one worth keeping: it is real, it is in the
+      // reference tree, and an earlier version of this check flagged it.
+      expect(
+        namesRead,
+        greaterThan(3000),
+        reason:
+            'Read only $namesRead test/group names across the four trees, '
+            'which is too few to be the real corpus — so the emptiness check '
+            'below is not saying anything. The likeliest cause is that '
+            '`test(...)` stopped parsing as a MethodInvocation with a literal '
+            'first argument.',
+      );
+
+      expect(
+        labelled,
+        isEmpty,
+        reason:
+            'These names claim the case is expected to fail:\n'
+            '  ${labelled.join('\n  ')}\n\n'
+            'If the case PASSES, the label is stale — relabel it `(PASS)`. '
+            'That is what 204 of them were on 2026-09-12.\n'
+            'If it genuinely pins broken behaviour it passes for that reason, '
+            'and belongs behind a `KNOWN-GAP(<todo-id>)` or `WONT-FIX` marker '
+            'in the comment above it, not behind a label in its name.',
       );
     });
   }, skip: skipReason);
@@ -2065,6 +2231,5 @@ void main() {
             'question.',
       );
     });
-
   }, skip: skipReason);
 }

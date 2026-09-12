@@ -71,7 +71,7 @@ void main() {
   group('DOV: Dart Overview Interpreter Failures', () {
     group('String Interpolation in Adjacent Strings', () {
       test('G-DOV-1: Adjacent strings with interpolation. '
-          '[2026-02-10 12:00] (FAIL)', () {
+          '[2026-02-10 12:00] (PASS)', () {
         // D4rt throws: "Type de StringLiteral non géré: StringInterpolationImpl"
         // when AdjacentStrings contain StringInterpolation children.
         final result = _execute(r'''
@@ -86,7 +86,7 @@ void main() {
       });
 
       test('G-DOV-2: Multi-line adjacent string with multiple interpolations. '
-          '[2026-02-10 12:00] (FAIL)', () {
+          '[2026-02-10 12:00] (PASS)', () {
         final result = _execute(r'''
           main() {
             var table = 'users';
@@ -107,7 +107,7 @@ void main() {
 
     group('LogicalAndPattern in switch/case', () {
       test('G-DOV-3: Relational AND pattern in switch expression. '
-          '[2026-02-10 12:00] (FAIL)', () {
+          '[2026-02-10 12:00] (PASS)', () {
         // D4rt throws: "Pattern type not yet supported: LogicalAndPatternImpl"
         final result = _execute(r'''
           main() {
@@ -123,7 +123,7 @@ void main() {
       });
 
       test('G-DOV-4: LogicalAnd pattern in if-case statement. '
-          '[2026-02-10 12:00] (FAIL)', () {
+          '[2026-02-10 12:00] (PASS)', () {
         final result = _execute(r'''
           main() {
             var number = 15;
@@ -143,7 +143,7 @@ void main() {
 
     group('Constructor Tear-offs', () {
       test('G-DOV-5: Constructor tear-off with Class.new. '
-          '[2026-02-10 12:00] (FAIL)', () {
+          '[2026-02-10 12:00] (PASS)', () {
         // D4rt throws: "Undefined static member 'new' on class 'Person'"
         final result = _execute(r'''
           class Person {
@@ -169,7 +169,7 @@ void main() {
 
     group('Abstract Method Inheritance Chain', () {
       test('G-DOV-6: Grandchild class inherits abstract method override. '
-          '[2026-02-10 12:00] (FAIL)', () {
+          '[2026-02-10 12:00] (PASS)', () {
         // D4rt throws: "Missing concrete implementation for inherited
         // abstract method 'move' in class 'AdvancedRobot'"
         // because it only checks the direct parent, not the full chain.
@@ -196,7 +196,7 @@ void main() {
       });
 
       test('G-DOV-7: Mixin chain with abstract method inherited from parent. '
-          '[2026-02-10 12:00] (FAIL)', () {
+          '[2026-02-10 12:00] (PASS)', () {
         // D4rt throws: "Missing concrete implementation for inherited
         // abstract method 'move' in class 'Eagle'"
         final result = _execute(r'''
@@ -253,7 +253,7 @@ void main() {
 
     group('Generic Type Bound Checking', () {
       test('G-DOV-9: User class implementing Comparable satisfies bound. '
-          '[2026-02-10 12:00] (FAIL)', () {
+          '[2026-02-10 12:00] (PASS)', () {
         // D4rt throws: "Type argument 'Person' for type parameter 'T'
         // does not satisfy bound 'Comparable' in class 'SortedList'"
         // Core types like num/String pass, but user-defined classes fail.
@@ -295,7 +295,7 @@ void main() {
 
     group('Extensions on Nullable Types', () {
       test('G-DOV-10: Extension method on nullable List type (on List<T>?). '
-          '[2026-02-10 12:00] (FAIL)', () {
+          '[2026-02-10 12:00] (PASS)', () {
         // D4rt throws: "Cannot access property 'orEmpty' on target of type null"
         // because it doesn't resolve extensions declared with nullable receiver.
         final result = _execute(r'''
@@ -313,7 +313,7 @@ void main() {
       });
 
       test('G-DOV-11: Extension on nullable String. '
-          '[2026-02-10 12:00] (FAIL)', () {
+          '[2026-02-10 12:00] (PASS)', () {
         final result = _execute(r'''
           extension NullableStringExt on String? {
             String get orEmpty => this ?? '';
@@ -335,7 +335,7 @@ void main() {
 
     group('Await-for Loop Variable Declaration', () {
       test('G-DOV-12: await for with var declaration in stream loop. '
-          '[2026-02-10 12:00] (FAIL)', () async {
+          '[2026-02-10 12:00] (PASS)', () async {
         // D4rt throws: "Assigning to undefined variable 'number'"
         // because the loop variable declaration in await-for is not
         // properly scoped in the state machine.
