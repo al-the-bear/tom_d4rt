@@ -126,8 +126,8 @@ class StringCore {
       'splitMapJoin': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'String.splitMapJoin', atMost: 1);
         final pattern = positionalArgs[0] as Pattern;
-        final onMatch = namedArgs['onMatch'] as InterpretedFunction?;
-        final onNonMatch = namedArgs['onNonMatch'] as InterpretedFunction?;
+        final onMatch = namedArgs['onMatch'] as Callable?;
+        final onNonMatch = namedArgs['onNonMatch'] as Callable?;
         return (target as String).splitMapJoin(
           pattern,
           onMatch: onMatch == null
@@ -190,9 +190,9 @@ class StringCore {
         D4.checkArity(positionalArgs, 'String.replaceAllMapped', atMost: 2);
         final pattern = positionalArgs[0] as Pattern;
         final replace = positionalArgs[1];
-        if (replace is! InterpretedFunction) {
+        if (replace is! Callable) {
           throw RuntimeD4rtException(
-            'Expected an InterpretedFunction for replaceAllMapped',
+            'Expected a function for replaceAllMapped',
           );
         }
         return (target as String).replaceAllMapped(pattern, (match) {
@@ -202,9 +202,9 @@ class StringCore {
       'replaceFirstMapped': (visitor, target, positionalArgs, namedArgs, _) {
         final pattern = positionalArgs[0] as Pattern;
         final replace = positionalArgs[1];
-        if (replace is! InterpretedFunction) {
+        if (replace is! Callable) {
           throw RuntimeD4rtException(
-            'Expected an InterpretedFunction for replaceFirstMapped',
+            'Expected a function for replaceFirstMapped',
           );
         }
         final startIndex = positionalArgs.length > 2

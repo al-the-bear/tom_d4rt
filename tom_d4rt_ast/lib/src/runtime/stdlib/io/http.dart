@@ -28,7 +28,7 @@ Future<Object?> Function(List<Object?>) _deferredCallback(
   if (visitor == null) {
     throw RuntimeD4rtException('$member cannot be set without an interpreter.');
   }
-  if (value is! InterpretedFunction) {
+  if (value is! Callable) {
     throw RuntimeD4rtException('$member requires a function or null.');
   }
   return (args) async {
@@ -346,7 +346,7 @@ class HttpClientIo {
       },
       'authenticate': (visitor, target, value) {
         if (value != null) {
-          final callback = value as InterpretedFunction;
+          final callback = value as Callable;
           (target as HttpClient).authenticate =
               (Uri url, String scheme, String? realm) async {
                 if (visitor == null) {
@@ -364,7 +364,7 @@ class HttpClientIo {
       },
       'findProxy': (visitor, target, value) {
         if (value != null) {
-          final callback = value as InterpretedFunction;
+          final callback = value as Callable;
           (target as HttpClient).findProxy = (Uri url) {
             if (visitor == null) {
               throw RuntimeD4rtException(
@@ -381,7 +381,7 @@ class HttpClientIo {
       },
       'badCertificateCallback': (visitor, target, value) {
         if (value != null) {
-          final callback = value as InterpretedFunction;
+          final callback = value as Callable;
           (target as HttpClient).badCertificateCallback = (cert, host, port) {
             if (visitor == null) {
               throw RuntimeD4rtException(
@@ -398,7 +398,7 @@ class HttpClientIo {
       },
       'keyLog': (visitor, target, value) {
         if (value != null) {
-          final callback = value as InterpretedFunction;
+          final callback = value as Callable;
           (target as HttpClient).keyLog = (String line) {
             if (visitor == null) {
               throw RuntimeD4rtException(
@@ -762,7 +762,7 @@ class HttpSessionIo {
       setters: {
         ...map.setters,
         'onTimeout': (visitor, target, value) {
-          final callback = value as InterpretedFunction;
+          final callback = value as Callable;
           // The adapter typedef makes `visitor` nullable, but a setter can only
           // run while a script is executing, so the null case is unreachable —
           // and the callback is invoked LATER, when the session times out, so
@@ -1099,11 +1099,10 @@ class HttpHeadersIo {
         return (target as HttpHeaders).value(positionalArgs[0] as String);
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.isEmpty ||
-            positionalArgs[0] is! InterpretedFunction) {
+        if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException('forEach requires a function argument.');
         }
-        final callback = positionalArgs[0] as InterpretedFunction;
+        final callback = positionalArgs[0] as Callable;
         (target as HttpHeaders).forEach((name, values) {
           callback.call(visitor, [name, values]);
         });

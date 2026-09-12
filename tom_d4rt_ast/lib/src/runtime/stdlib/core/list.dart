@@ -39,10 +39,8 @@ class ListCore {
       },
       'generate': (visitor, positionalArgs, namedArgs) {
         final generator = positionalArgs[1];
-        if (generator is! InterpretedFunction) {
-          throw RuntimeD4rtException(
-            'Expected a InterpretedFunction for generate',
-          );
+        if (generator is! Callable) {
+          throw RuntimeD4rtException('Expected a function for generate');
         }
         return List<dynamic>.generate(
           positionalArgs[0] as int,
@@ -71,10 +69,8 @@ class ListCore {
       },
       'generate': (visitor, positionalArgs, namedArgs, _) {
         final generator = positionalArgs[1];
-        if (generator is! InterpretedFunction) {
-          throw RuntimeD4rtException(
-            'Expected a InterpretedFunction for generate',
-          );
+        if (generator is! Callable) {
+          throw RuntimeD4rtException('Expected a function for generate');
         }
         return List<dynamic>.generate(
           positionalArgs[0] as int,

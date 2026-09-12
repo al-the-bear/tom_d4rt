@@ -16,10 +16,10 @@ class SplayTreeMapCollection {
           );
         }
 
-        InterpretedFunction? compareFn;
+        Callable? compareFn;
         if (positionalArgs.isNotEmpty && positionalArgs[0] != null) {
-          if (positionalArgs[0] is InterpretedFunction) {
-            compareFn = positionalArgs[0] as InterpretedFunction;
+          if (positionalArgs[0] is Callable) {
+            compareFn = positionalArgs[0] as Callable;
           } else {
             throw RuntimeD4rtException(
               "The 'compare' argument must be a function.",
@@ -52,10 +52,10 @@ class SplayTreeMapCollection {
           );
         }
 
-        InterpretedFunction? compareFn;
+        Callable? compareFn;
         if (positionalArgs.length > 1 && positionalArgs[1] != null) {
-          if (positionalArgs[1] is InterpretedFunction) {
-            compareFn = positionalArgs[1] as InterpretedFunction;
+          if (positionalArgs[1] is Callable) {
+            compareFn = positionalArgs[1] as Callable;
           } else {
             throw RuntimeD4rtException(
               "The 'compare' argument must be a function.",
@@ -84,10 +84,10 @@ class SplayTreeMapCollection {
             "First argument to SplayTreeMap.of must be a Map.",
           );
         }
-        InterpretedFunction? compareFn;
+        Callable? compareFn;
         if (positionalArgs.length > 1 && positionalArgs[1] != null) {
-          if (positionalArgs[1] is InterpretedFunction) {
-            compareFn = positionalArgs[1] as InterpretedFunction;
+          if (positionalArgs[1] is Callable) {
+            compareFn = positionalArgs[1] as Callable;
           } else {
             throw RuntimeD4rtException(
               "The 'compare' argument must be a function.",
@@ -181,7 +181,7 @@ class SplayTreeMapCollection {
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is SplayTreeMap && positionalArgs.length == 1) {
           final action = positionalArgs[0];
-          if (action is InterpretedFunction) {
+          if (action is Callable) {
             for (var entry in target.entries) {
               action.call(visitor, [entry.key, entry.value]);
             }
@@ -199,7 +199,7 @@ class SplayTreeMapCollection {
         if (target is SplayTreeMap && positionalArgs.length == 2) {
           final key = positionalArgs[0];
           final ifAbsent = positionalArgs[1];
-          if (ifAbsent is InterpretedFunction) {
+          if (ifAbsent is Callable) {
             return target.putIfAbsent(key, () => ifAbsent.call(visitor, []));
           }
           throw RuntimeD4rtException(

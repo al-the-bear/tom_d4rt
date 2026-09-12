@@ -28,7 +28,7 @@ StreamTransformer? _asStreamTransformer(
   }
   if (value is InterpretedInstance) {
     final bind = value.get('bind', visitor: visitor);
-    if (bind is InterpretedFunction) {
+    if (bind is Callable) {
       return StreamTransformer.fromBind(
         (stream) => runAction<Stream>(visitor, bind, [stream]) as Stream,
       );
@@ -126,7 +126,7 @@ class StreamAsync {
           );
         }
         final callback = positionalArgs.length > 1
-            ? positionalArgs[1] as InterpretedFunction?
+            ? positionalArgs[1] as Callable?
             : null;
         return Stream.periodic(
           positionalArgs[0] as Duration,
@@ -150,13 +150,12 @@ class StreamAsync {
         return Stream.fromFutures((positionalArgs[0] as Iterable).cast());
       },
       'multi': (visitor, positionalArgs, namedArgs, _) {
-        if (positionalArgs.isEmpty ||
-            positionalArgs[0] is! InterpretedFunction) {
+        if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Stream.multi requires an onListen function.',
           );
         }
-        final onListen = positionalArgs[0] as InterpretedFunction;
+        final onListen = positionalArgs[0] as Callable;
         final isBroadcast = namedArgs['isBroadcast'] as bool? ?? false;
         return Stream.multi(
           (controller) => runAction<void>(visitor, onListen, [controller]),
@@ -170,7 +169,7 @@ class StreamAsync {
           );
         }
         final source = positionalArgs[0] as Stream;
-        final mapSink = positionalArgs[1] as InterpretedFunction;
+        final mapSink = positionalArgs[1] as Callable;
         return Stream.eventTransformed(source, (sink) {
           runAction<void>(visitor, mapSink, [sink]);
           return sink;
@@ -196,7 +195,7 @@ class StreamAsync {
       'map': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Stream.map', atMost: 1);
         final mapper = positionalArgs[0];
-        if (mapper is! InterpretedFunction) {
+        if (mapper is! Callable) {
           throw RuntimeD4rtException(
             'Stream.map requires an Function mapper argument.',
           );
@@ -208,7 +207,7 @@ class StreamAsync {
       'where': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Stream.where', atMost: 1);
         final predicate = positionalArgs[0];
-        if (predicate is! InterpretedFunction) {
+        if (predicate is! Callable) {
           throw RuntimeD4rtException(
             'Stream.where requires an Function predicate argument.',
           );
@@ -221,7 +220,7 @@ class StreamAsync {
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Stream.expand', atMost: 1);
         final converter = positionalArgs[0];
-        if (converter is! InterpretedFunction) {
+        if (converter is! Callable) {
           throw RuntimeD4rtException(
             'Stream.expand requires an Function converter argument.',
           );
@@ -266,7 +265,7 @@ class StreamAsync {
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Stream.takeWhile', atMost: 1);
         final predicate = positionalArgs[0];
-        if (predicate is! InterpretedFunction) {
+        if (predicate is! Callable) {
           throw RuntimeD4rtException(
             'Stream.takeWhile requires an Function predicate argument.',
           );
@@ -279,7 +278,7 @@ class StreamAsync {
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Stream.skipWhile', atMost: 1);
         final predicate = positionalArgs[0];
-        if (predicate is! InterpretedFunction) {
+        if (predicate is! Callable) {
           throw RuntimeD4rtException(
             'Stream.skipWhile requires an Function predicate argument.',
           );
@@ -292,7 +291,7 @@ class StreamAsync {
       'distinct': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Stream.distinct', atMost: 1);
         final equals = positionalArgs.isNotEmpty
-            ? positionalArgs[0] as InterpretedFunction?
+            ? positionalArgs[0] as Callable?
             : null;
         if (equals == null) {
           return (target as Stream).distinct();
@@ -327,7 +326,7 @@ class StreamAsync {
       'any': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Stream.any', atMost: 1);
         final predicate = positionalArgs[0];
-        if (predicate is! InterpretedFunction) {
+        if (predicate is! Callable) {
           throw RuntimeD4rtException(
             'Stream.any requires an Function predicate argument.',
           );
@@ -348,7 +347,7 @@ class StreamAsync {
       'every': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Stream.every', atMost: 1);
         final predicate = positionalArgs[0];
-        if (predicate is! InterpretedFunction) {
+        if (predicate is! Callable) {
           throw RuntimeD4rtException(
             'Stream.every requires an Function predicate argument.',
           );
@@ -359,14 +358,13 @@ class StreamAsync {
         });
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length < 2 ||
-            positionalArgs[1] is! InterpretedFunction) {
+        if (positionalArgs.length < 2 || positionalArgs[1] is! Callable) {
           throw RuntimeD4rtException(
-            'Stream.fold requires initial value and InterpretedFunction combine arguments.',
+            'Stream.fold requires initial value and function combine arguments.',
           );
         }
         final initialValue = positionalArgs[0];
-        final combine = positionalArgs[1] as InterpretedFunction;
+        final combine = positionalArgs[1] as Callable;
         return (target as Stream).fold(
           initialValue,
           (previous, element) =>
@@ -376,7 +374,7 @@ class StreamAsync {
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Stream.reduce', atMost: 1);
         final combine = positionalArgs[0];
-        if (combine is! InterpretedFunction) {
+        if (combine is! Callable) {
           throw RuntimeD4rtException(
             'Stream.reduce requires an Function combine argument.',
           );
@@ -389,7 +387,7 @@ class StreamAsync {
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Stream.forEach', atMost: 1);
         final action = positionalArgs[0];
-        if (action is! InterpretedFunction) {
+        if (action is! Callable) {
           throw RuntimeD4rtException(
             'Stream.forEach requires an Function action argument.',
           );
@@ -399,8 +397,8 @@ class StreamAsync {
         );
       },
       'asBroadcastStream': (visitor, target, positionalArgs, namedArgs, _) {
-        final onListen = namedArgs['onListen'] as InterpretedFunction?;
-        final onCancel = namedArgs['onCancel'] as InterpretedFunction?;
+        final onListen = namedArgs['onListen'] as Callable?;
+        final onCancel = namedArgs['onCancel'] as Callable?;
         return (target as Stream).asBroadcastStream(
           onListen: onListen == null
               ? null
@@ -413,39 +411,36 @@ class StreamAsync {
         );
       },
       'asyncMap': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.isEmpty ||
-            positionalArgs[0] is! InterpretedFunction) {
+        if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Stream.asyncMap requires a convert function.',
           );
         }
-        final convert = positionalArgs[0] as InterpretedFunction;
+        final convert = positionalArgs[0] as Callable;
         return (target as Stream).asyncMap(
           (event) => runAction(visitor, convert, [event]),
         );
       },
       'asyncExpand': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.isEmpty ||
-            positionalArgs[0] is! InterpretedFunction) {
+        if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Stream.asyncExpand requires a convert function.',
           );
         }
-        final convert = positionalArgs[0] as InterpretedFunction;
+        final convert = positionalArgs[0] as Callable;
         return (target as Stream).asyncExpand<dynamic>((event) {
           final result = runAction(visitor, convert, [event]);
           return result is Stream ? result : Stream.empty();
         });
       },
       'handleError': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.isEmpty ||
-            positionalArgs[0] is! InterpretedFunction) {
+        if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Stream.handleError requires an onError function.',
           );
         }
-        final onError = positionalArgs[0] as InterpretedFunction;
-        final test = namedArgs['test'] as InterpretedFunction?;
+        final onError = positionalArgs[0] as Callable;
+        final test = namedArgs['test'] as Callable?;
         return (target as Stream).handleError(
           (error, stackTrace) {
             // Unwrap InternalInterpreterException to get the original thrown value
@@ -473,7 +468,7 @@ class StreamAsync {
           throw RuntimeD4rtException('Stream.timeout requires a Duration.');
         }
         final timeLimit = positionalArgs[0] as Duration;
-        final onTimeout = namedArgs['onTimeout'] as InterpretedFunction?;
+        final onTimeout = namedArgs['onTimeout'] as Callable?;
         return (target as Stream).timeout(
           timeLimit,
           onTimeout: onTimeout == null
@@ -482,42 +477,39 @@ class StreamAsync {
         );
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.isEmpty ||
-            positionalArgs[0] is! InterpretedFunction) {
+        if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Stream.firstWhere requires a test function.',
           );
         }
-        final test = positionalArgs[0] as InterpretedFunction;
-        final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        final test = positionalArgs[0] as Callable;
+        final orElse = namedArgs['orElse'] as Callable?;
         return (target as Stream).firstWhere(
           (element) => runAction<bool>(visitor, test, [element]) == true,
           orElse: orElse == null ? null : () => runAction(visitor, orElse, []),
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.isEmpty ||
-            positionalArgs[0] is! InterpretedFunction) {
+        if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Stream.lastWhere requires a test function.',
           );
         }
-        final test = positionalArgs[0] as InterpretedFunction;
-        final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        final test = positionalArgs[0] as Callable;
+        final orElse = namedArgs['orElse'] as Callable?;
         return (target as Stream).lastWhere(
           (element) => runAction<bool>(visitor, test, [element]) == true,
           orElse: orElse == null ? null : () => runAction(visitor, orElse, []),
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.isEmpty ||
-            positionalArgs[0] is! InterpretedFunction) {
+        if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Stream.singleWhere requires a test function.',
           );
         }
-        final test = positionalArgs[0] as InterpretedFunction;
-        final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        final test = positionalArgs[0] as Callable;
+        final orElse = namedArgs['orElse'] as Callable?;
         return (target as Stream).singleWhere(
           (element) => runAction<bool>(visitor, test, [element]) == true,
           orElse: orElse == null ? null : () => runAction(visitor, orElse, []),
@@ -604,7 +596,7 @@ class StreamSubscriptionAsync {
     },
     setters: {
       'onData': (visitorParam, target, value) {
-        final callback = value as InterpretedFunction?;
+        final callback = value as Callable?;
         final visitor = visitorParam; // Keep reference for closure
         (target as StreamSubscription).onData(
           callback == null
@@ -614,7 +606,7 @@ class StreamSubscriptionAsync {
         return;
       },
       'onError': (visitorParam, target, value) {
-        final callback = value as InterpretedFunction?;
+        final callback = value as Callable?;
         final visitor = visitorParam; // Keep reference for closure
         (target as StreamSubscription).onError(
           callback == null
@@ -628,7 +620,7 @@ class StreamSubscriptionAsync {
         return;
       },
       'onDone': (visitorParam, target, value) {
-        final callback = value as InterpretedFunction?;
+        final callback = value as Callable?;
         final visitor = visitorParam; // Keep reference for closure
         (target as StreamSubscription).onDone(
           callback == null
@@ -746,13 +738,12 @@ class StreamTransformerAsync {
     typeParameterCount: 2,
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! InterpretedFunction) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'StreamTransformer(onListen) requires one function argument.',
           );
         }
-        final onListen = positionalArgs[0] as InterpretedFunction;
+        final onListen = positionalArgs[0] as Callable;
         // The callback is handed the native stream and must give back the
         // subscription it opened on it, which a script does by returning the
         // result of `stream.listen(...)`.
@@ -763,9 +754,9 @@ class StreamTransformerAsync {
         );
       },
       'fromHandlers': (visitor, positionalArgs, namedArgs) {
-        final handleData = namedArgs['handleData'] as InterpretedFunction?;
-        final handleError = namedArgs['handleError'] as InterpretedFunction?;
-        final handleDone = namedArgs['handleDone'] as InterpretedFunction?;
+        final handleData = namedArgs['handleData'] as Callable?;
+        final handleError = namedArgs['handleError'] as Callable?;
+        final handleDone = namedArgs['handleDone'] as Callable?;
 
         return StreamTransformer.fromHandlers(
           handleData: handleData == null
@@ -785,13 +776,12 @@ class StreamTransformerAsync {
         );
       },
       'fromBind': (visitor, positionalArgs, namedArgs) {
-        if (positionalArgs.isEmpty ||
-            positionalArgs[0] is! InterpretedFunction) {
+        if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'StreamTransformer.fromBind requires a bind function.',
           );
         }
-        final bind = positionalArgs[0] as InterpretedFunction;
+        final bind = positionalArgs[0] as Callable;
         return StreamTransformer.fromBind(
           (stream) => runAction<Stream>(visitor, bind, [stream]) as Stream,
         );
@@ -1014,25 +1004,25 @@ class MultiStreamControllerAsync {
     },
     setters: {
       'onListen': (visitor, target, value) {
-        final callback = value as InterpretedFunction?;
+        final callback = value as Callable?;
         (target as MultiStreamController).onListen = callback == null
             ? null
             : () => runAction<void>(visitor!, callback, []);
       },
       'onPause': (visitor, target, value) {
-        final callback = value as InterpretedFunction?;
+        final callback = value as Callable?;
         (target as MultiStreamController).onPause = callback == null
             ? null
             : () => runAction<void>(visitor!, callback, []);
       },
       'onResume': (visitor, target, value) {
-        final callback = value as InterpretedFunction?;
+        final callback = value as Callable?;
         (target as MultiStreamController).onResume = callback == null
             ? null
             : () => runAction<void>(visitor!, callback, []);
       },
       'onCancel': (visitor, target, value) {
-        final callback = value as InterpretedFunction?;
+        final callback = value as Callable?;
         (target as MultiStreamController).onCancel = callback == null
             ? null
             : () => runAction<void>(visitor!, callback, []);

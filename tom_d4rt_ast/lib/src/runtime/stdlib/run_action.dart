@@ -28,6 +28,6 @@ import 'package:tom_d4rt_ast/runtime.dart';
 /// would hide it from the adapter that knows what operation was in flight.
 T? runAction<T>(
   InterpreterVisitor visitor,
-  InterpretedFunction? function,
+  Callable? function,
   List<Object?> args,
 ) => function?.call(visitor, args) as T?;

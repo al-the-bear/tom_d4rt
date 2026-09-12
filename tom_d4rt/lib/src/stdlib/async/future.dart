@@ -10,9 +10,8 @@ class FutureAsync {
     typeParameterCount: 1, // Future<T>
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {
-        if (positionalArgs.length == 1 &&
-            positionalArgs[0] is InterpretedFunction) {
-          final computation = positionalArgs[0] as InterpretedFunction;
+        if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
+          final computation = positionalArgs[0] as Callable;
           return Future(() => computation.call(visitor, []));
         }
         throw RuntimeD4rtException('Invalid arguments for Future constructor.');
@@ -25,7 +24,7 @@ class FutureAsync {
       // `Future.delayed(...)` and `Future<T>.delayed(...)` resolve.
       'delayed': (visitor, positionalArgs, namedArgs) {
         final duration = positionalArgs[0] as Duration;
-        final computation = positionalArgs.get<InterpretedFunction?>(1);
+        final computation = positionalArgs.get<Callable?>(1);
         return Future.delayed(
           duration,
           computation == null ? null : () => computation.call(visitor, []),
@@ -46,14 +45,14 @@ class FutureAsync {
       },
       'microtask': (visitor, positionalArgs, namedArgs) {
         final computation = positionalArgs[0];
-        if (computation is! InterpretedFunction) {
+        if (computation is! Callable) {
           throw RuntimeD4rtException('Future.microtask requires an Function.');
         }
         return Future.microtask(() => computation.call(visitor, []));
       },
       'sync': (visitor, positionalArgs, namedArgs) {
         final computation = positionalArgs[0];
-        if (computation is! InterpretedFunction) {
+        if (computation is! Callable) {
           throw RuntimeD4rtException('Future.sync requires an Function.');
         }
         return Future.sync(() => computation.call(visitor, []));
@@ -62,7 +61,7 @@ class FutureAsync {
     staticMethods: {
       'delayed': (visitor, positionalArgs, namedArgs, _) {
         final duration = positionalArgs[0] as Duration;
-        final computation = positionalArgs.get<InterpretedFunction?>(1);
+        final computation = positionalArgs.get<Callable?>(1);
         return Future.delayed(
           duration,
           computation == null ? null : () => computation.call(visitor, []),
@@ -83,14 +82,14 @@ class FutureAsync {
       },
       'microtask': (visitor, positionalArgs, namedArgs, _) {
         final computation = positionalArgs[0];
-        if (computation is! InterpretedFunction) {
+        if (computation is! Callable) {
           throw RuntimeD4rtException('Future.microtask requires an Function.');
         }
         return Future.microtask(() => computation.call(visitor, []));
       },
       'sync': (visitor, positionalArgs, namedArgs, _) {
         final computation = positionalArgs[0];
-        if (computation is! InterpretedFunction) {
+        if (computation is! Callable) {
           throw RuntimeD4rtException('Future.sync requires an Function.');
         }
         return Future.sync(() => computation.call(visitor, []));
@@ -101,7 +100,7 @@ class FutureAsync {
           throw RuntimeD4rtException('Future.wait requires an Iterable.');
         }
         final eagerError = namedArgs.get<bool?>('eagerError') ?? false;
-        final cleanUp = namedArgs.get<InterpretedFunction?>('cleanUp');
+        final cleanUp = namedArgs.get<Callable?>('cleanUp');
         return Future.wait(
           futures.cast<Future>(),
           eagerError: eagerError,
@@ -120,7 +119,7 @@ class FutureAsync {
       'forEach': (visitor, positionalArgs, namedArgs, _) {
         final elements = positionalArgs[0] as Iterable;
         final action = positionalArgs[1];
-        if (action is! InterpretedFunction) {
+        if (action is! Callable) {
           throw RuntimeD4rtException(
             'Future.forEach requires an Function for action.',
           );
@@ -132,7 +131,7 @@ class FutureAsync {
       },
       'doWhile': (visitor, positionalArgs, namedArgs, _) {
         final action = positionalArgs[0];
-        if (action is! InterpretedFunction) {
+        if (action is! Callable) {
           throw RuntimeD4rtException(
             'Future.doWhile requires an Function for action.',
           );
@@ -151,8 +150,8 @@ class FutureAsync {
       'then': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Future.then', atMost: 1);
         final onValue = positionalArgs[0];
-        final onError = namedArgs.get<InterpretedFunction?>('onError');
-        if (onValue is! InterpretedFunction) {
+        final onError = namedArgs.get<Callable?>('onError');
+        if (onValue is! Callable) {
           throw RuntimeD4rtException(
             'Future.then requires an Function for onValue.',
           );
@@ -170,8 +169,8 @@ class FutureAsync {
       'catchError': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Future.catchError', atMost: 1);
         final onError = positionalArgs[0];
-        final test = namedArgs.get<InterpretedFunction?>('test');
-        if (onError is! InterpretedFunction) {
+        final test = namedArgs.get<Callable?>('test');
+        if (onError is! Callable) {
           throw RuntimeD4rtException(
             'Future.catchError requires an Function for onError.',
           );
@@ -189,7 +188,7 @@ class FutureAsync {
       'whenComplete': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Future.whenComplete', atMost: 1);
         final action = positionalArgs[0];
-        if (action is! InterpretedFunction) {
+        if (action is! Callable) {
           throw RuntimeD4rtException(
             'Future.whenComplete requires an Function for action.',
           );
@@ -199,7 +198,7 @@ class FutureAsync {
       'timeout': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Future.timeout', atMost: 1);
         final timeLimit = positionalArgs[0] as Duration;
-        final onTimeout = namedArgs.get<InterpretedFunction?>('onTimeout');
+        final onTimeout = namedArgs.get<Callable?>('onTimeout');
         return (target as Future).timeout(
           timeLimit,
           onTimeout: onTimeout == null
@@ -214,8 +213,8 @@ class FutureAsync {
       'onError': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Future.onError', atMost: 1);
         final handleError = positionalArgs[0];
-        final test = namedArgs.get<InterpretedFunction?>('test');
-        if (handleError is! InterpretedFunction) {
+        final test = namedArgs.get<Callable?>('test');
+        if (handleError is! Callable) {
           throw RuntimeD4rtException(
             'Future.onError requires a Function for handleError.',
           );

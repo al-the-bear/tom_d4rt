@@ -130,7 +130,7 @@ Function(List<String>)? _protocolSelectorArg(
   InterpreterVisitor visitor,
   Map<String, Object?> namedArgs,
 ) {
-  final selector = namedArgs['protocolSelector'] as InterpretedFunction?;
+  final selector = namedArgs['protocolSelector'] as Callable?;
   if (selector == null) return null;
   return (List<String> protocols) =>
       runAction<Object?>(visitor, selector, [protocols]);

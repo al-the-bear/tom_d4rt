@@ -32,7 +32,7 @@ class ClosableStringSinkConvert {
           );
         }
         final onClose = positionalArgs.length > 1 ? positionalArgs[1] : null;
-        if (onClose is! InterpretedFunction) {
+        if (onClose is! Callable) {
           throw RuntimeD4rtException(
             'ClosableStringSink.fromStringSink requires a callback as its '
             'second argument.',

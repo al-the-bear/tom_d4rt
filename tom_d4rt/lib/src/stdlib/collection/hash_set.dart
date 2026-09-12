@@ -101,7 +101,7 @@ class HashSetCollection {
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is HashSet && positionalArgs.length == 1) {
           final action = positionalArgs[0];
-          if (action is InterpretedFunction) {
+          if (action is Callable) {
             for (var element in target) {
               action.call(visitor, [element]);
             }
@@ -148,7 +148,7 @@ class HashSetCollection {
       'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
-          if (test is InterpretedFunction) {
+          if (test is Callable) {
             target.removeWhere((element) {
               final result = test.call(visitor, [element]);
               return result is bool && result;
@@ -164,7 +164,7 @@ class HashSetCollection {
       'retainWhere': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
-          if (test is InterpretedFunction) {
+          if (test is Callable) {
             target.retainWhere((element) {
               final result = test.call(visitor, [element]);
               return result is bool && result;
@@ -180,7 +180,7 @@ class HashSetCollection {
       'any': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
-          if (test is InterpretedFunction) {
+          if (test is Callable) {
             return target.any((element) {
               final result = test.call(visitor, [element]);
               return result is bool && result;
@@ -195,7 +195,7 @@ class HashSetCollection {
       'every': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
-          if (test is InterpretedFunction) {
+          if (test is Callable) {
             return target.every((element) {
               final result = test.call(visitor, [element]);
               return result is bool && result;
@@ -210,7 +210,7 @@ class HashSetCollection {
       'where': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
-          if (test is InterpretedFunction) {
+          if (test is Callable) {
             return target.where((element) {
               final result = test.call(visitor, [element]);
               return result is bool && result;
@@ -225,7 +225,7 @@ class HashSetCollection {
       'map': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is HashSet && positionalArgs.length == 1) {
           final f = positionalArgs[0];
-          if (f is InterpretedFunction) {
+          if (f is Callable) {
             return target.map((element) => f.call(visitor, [element]));
           }
           throw RuntimeD4rtException(
@@ -237,7 +237,7 @@ class HashSetCollection {
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is HashSet && positionalArgs.length == 1) {
           final f = positionalArgs[0];
-          if (f is InterpretedFunction) {
+          if (f is Callable) {
             return target.expand((element) {
               final result = f.call(visitor, [element]);
               return result is Iterable ? result : [];
@@ -253,7 +253,7 @@ class HashSetCollection {
         if (target is HashSet && positionalArgs.length == 2) {
           final initialValue = positionalArgs[0];
           final combine = positionalArgs[1];
-          if (combine is InterpretedFunction) {
+          if (combine is Callable) {
             return target.fold(
               initialValue,
               (previousValue, element) =>
@@ -269,7 +269,7 @@ class HashSetCollection {
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is HashSet && positionalArgs.length == 1) {
           final combine = positionalArgs[0];
-          if (combine is InterpretedFunction) {
+          if (combine is Callable) {
             return target.reduce(
               (value, element) => combine.call(visitor, [value, element]),
             );
@@ -321,7 +321,7 @@ class HashSetCollection {
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
-          if (test is InterpretedFunction) {
+          if (test is Callable) {
             return target.takeWhile((element) {
               final result = test.call(visitor, [element]);
               return result is bool && result;
@@ -336,7 +336,7 @@ class HashSetCollection {
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
-          if (test is InterpretedFunction) {
+          if (test is Callable) {
             return target.skipWhile((element) {
               final result = test.call(visitor, [element]);
               return result is bool && result;
@@ -351,8 +351,8 @@ class HashSetCollection {
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
-          final orElse = namedArgs['orElse'] as InterpretedFunction?;
-          if (test is InterpretedFunction) {
+          final orElse = namedArgs['orElse'] as Callable?;
+          if (test is Callable) {
             return target.firstWhere((element) {
               final result = test.call(visitor, [element]);
               return result is bool && result;
@@ -367,8 +367,8 @@ class HashSetCollection {
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
-          final orElse = namedArgs['orElse'] as InterpretedFunction?;
-          if (test is InterpretedFunction) {
+          final orElse = namedArgs['orElse'] as Callable?;
+          if (test is Callable) {
             return target.lastWhere((element) {
               final result = test.call(visitor, [element]);
               return result is bool && result;
@@ -383,8 +383,8 @@ class HashSetCollection {
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is HashSet && positionalArgs.length == 1) {
           final test = positionalArgs[0];
-          final orElse = namedArgs['orElse'] as InterpretedFunction?;
-          if (test is InterpretedFunction) {
+          final orElse = namedArgs['orElse'] as Callable?;
+          if (test is Callable) {
             return target.singleWhere((element) {
               final result = test.call(visitor, [element]);
               return result is bool && result;

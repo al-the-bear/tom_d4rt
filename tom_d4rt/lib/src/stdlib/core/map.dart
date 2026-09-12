@@ -88,8 +88,8 @@ class MapCore {
       },
       'fromIterable': (visitor, positionalArgs, namedArgs, _) {
         final iterable = positionalArgs[0] as Iterable;
-        final key = namedArgs['key'] as InterpretedFunction?;
-        final value = namedArgs['value'] as InterpretedFunction?;
+        final key = namedArgs['key'] as Callable?;
+        final value = namedArgs['value'] as Callable?;
 
         return Map.fromIterable(
           iterable,
@@ -169,7 +169,7 @@ class MapCore {
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Map.forEach', atMost: 1);
-        final action = positionalArgs[0] as InterpretedFunction;
+        final action = positionalArgs[0] as Callable;
         (target as Map).forEach((key, value) {
           action.call(visitor, [key, value]);
         });
@@ -177,7 +177,7 @@ class MapCore {
       },
       'putIfAbsent': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Map.putIfAbsent', atMost: 2);
-        final ifAbsent = positionalArgs[1] as InterpretedFunction;
+        final ifAbsent = positionalArgs[1] as Callable;
         return (target as Map).putIfAbsent(
           positionalArgs[0],
           () => ifAbsent.call(visitor, []),
@@ -189,7 +189,7 @@ class MapCore {
       },
       'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Map.removeWhere', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         (target as Map).removeWhere((key, value) {
           return test.call(visitor, [key, value]) as bool;
         });
@@ -197,8 +197,8 @@ class MapCore {
       },
       'update': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Map.update', atMost: 2);
-        final update = positionalArgs[1] as InterpretedFunction;
-        final ifAbsent = namedArgs['ifAbsent'] as InterpretedFunction?;
+        final update = positionalArgs[1] as Callable;
+        final ifAbsent = namedArgs['ifAbsent'] as Callable?;
         return (target as Map).update(
           positionalArgs[0],
           (value) => update.call(visitor, [value]),
@@ -207,7 +207,7 @@ class MapCore {
       },
       'updateAll': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Map.updateAll', atMost: 1);
-        final update = positionalArgs[0] as InterpretedFunction;
+        final update = positionalArgs[0] as Callable;
         (target as Map).updateAll((key, value) {
           return update.call(visitor, [key, value]);
         });
@@ -215,7 +215,7 @@ class MapCore {
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Map.map', atMost: 1);
-        final convert = positionalArgs[0] as InterpretedFunction;
+        final convert = positionalArgs[0] as Callable;
         return (target as Map).map((key, value) {
           final result = convert.call(visitor, [key, value]);
           // Accept both native MapEntry and BridgedInstance<MapEntry>

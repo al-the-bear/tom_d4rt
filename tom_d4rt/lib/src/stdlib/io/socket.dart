@@ -123,7 +123,7 @@ class SocketIo {
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.any', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as Socket).any(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
@@ -138,14 +138,14 @@ class SocketIo {
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.every', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as Socket).every(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.expand', atMost: 1);
-        final toElements = positionalArgs[0] as InterpretedFunction;
+        final toElements = positionalArgs[0] as Callable;
         return (target as Socket).expand(
           (element) =>
               runAction<Iterable>(visitor, toElements, [element]) ?? [],
@@ -153,8 +153,8 @@ class SocketIo {
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.firstWhere', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
-        final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        final test = positionalArgs[0] as Callable;
+        final orElse = namedArgs['orElse'] as Callable?;
         return (target as Socket).firstWhere(
           (element) => runAction<bool>(visitor, test, [element]) == true,
           orElse: orElse != null
@@ -165,7 +165,7 @@ class SocketIo {
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.fold', atMost: 2);
         final initialValue = positionalArgs[0];
-        final combine = positionalArgs[1] as InterpretedFunction;
+        final combine = positionalArgs[1] as Callable;
         return (target as Socket).fold(
           initialValue,
           (prev, element) => runAction(visitor, combine, [prev, element]),
@@ -173,7 +173,7 @@ class SocketIo {
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.forEach', atMost: 1);
-        final action = positionalArgs[0] as InterpretedFunction;
+        final action = positionalArgs[0] as Callable;
         return (target as Socket).forEach((element) {
           runAction<void>(visitor, action, [element]);
         });
@@ -187,8 +187,8 @@ class SocketIo {
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.lastWhere', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
-        final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        final test = positionalArgs[0] as Callable;
+        final orElse = namedArgs['orElse'] as Callable?;
         return (target as Socket).lastWhere(
           (element) => runAction<bool>(visitor, test, [element]) == true,
           orElse: orElse != null
@@ -198,7 +198,7 @@ class SocketIo {
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.map', atMost: 1);
-        final toElement = positionalArgs[0] as InterpretedFunction;
+        final toElement = positionalArgs[0] as Callable;
         return (target as Socket).map(
           (element) => runAction(visitor, toElement, [element]),
         );
@@ -209,8 +209,8 @@ class SocketIo {
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.singleWhere', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
-        final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        final test = positionalArgs[0] as Callable;
+        final orElse = namedArgs['orElse'] as Callable?;
         return (target as Socket).singleWhere(
           (element) => runAction<bool>(visitor, test, [element]) == true,
           orElse: orElse != null
@@ -224,7 +224,7 @@ class SocketIo {
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.skipWhile', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as Socket).skipWhile(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
@@ -235,7 +235,7 @@ class SocketIo {
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.takeWhile', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as Socket).takeWhile(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
@@ -251,7 +251,7 @@ class SocketIo {
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.where', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as Socket).where(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
@@ -264,39 +264,36 @@ class SocketIo {
             namedArgs,
           ),
       'asyncMap': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.isEmpty ||
-            positionalArgs[0] is! InterpretedFunction) {
+        if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Socket.asyncMap requires a convert function.',
           );
         }
-        final convert = positionalArgs[0] as InterpretedFunction;
+        final convert = positionalArgs[0] as Callable;
         return (target as Socket).asyncMap(
           (event) => runAction(visitor, convert, [event]),
         );
       },
       'asyncExpand': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.isEmpty ||
-            positionalArgs[0] is! InterpretedFunction) {
+        if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Socket.asyncExpand requires a convert function.',
           );
         }
-        final convert = positionalArgs[0] as InterpretedFunction;
+        final convert = positionalArgs[0] as Callable;
         return (target as Socket).asyncExpand<dynamic>((event) {
           final result = runAction(visitor, convert, [event]);
           return result is Stream ? result : Stream.empty();
         });
       },
       'handleError': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.isEmpty ||
-            positionalArgs[0] is! InterpretedFunction) {
+        if (positionalArgs.isEmpty || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'Socket.handleError requires an onError function.',
           );
         }
-        final onError = positionalArgs[0] as InterpretedFunction;
-        final test = namedArgs['test'] as InterpretedFunction?;
+        final onError = positionalArgs[0] as Callable;
+        final test = namedArgs['test'] as Callable?;
         return (target as Socket).handleError(
           (error, stackTrace) => runAction<void>(
             visitor,
@@ -313,7 +310,7 @@ class SocketIo {
           throw RuntimeD4rtException('Socket.timeout requires a Duration.');
         }
         final timeLimit = positionalArgs[0] as Duration;
-        final onTimeout = namedArgs['onTimeout'] as InterpretedFunction?;
+        final onTimeout = namedArgs['onTimeout'] as Callable?;
         return (target as Socket).timeout(
           timeLimit,
           onTimeout: onTimeout == null
@@ -322,8 +319,8 @@ class SocketIo {
         );
       },
       'asBroadcastStream': (visitor, target, positionalArgs, namedArgs, _) {
-        final onListen = namedArgs['onListen'] as InterpretedFunction?;
-        final onCancel = namedArgs['onCancel'] as InterpretedFunction?;
+        final onListen = namedArgs['onListen'] as Callable?;
+        final onCancel = namedArgs['onCancel'] as Callable?;
         return (target as Socket).asBroadcastStream(
           onListen: onListen == null
               ? null
@@ -338,7 +335,7 @@ class SocketIo {
       'distinct': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.distinct', atMost: 1);
         final equals = positionalArgs.isNotEmpty
-            ? positionalArgs[0] as InterpretedFunction?
+            ? positionalArgs[0] as Callable?
             : null;
         if (equals == null) {
           return (target as Socket).distinct();
@@ -351,7 +348,7 @@ class SocketIo {
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.reduce', atMost: 1);
-        final combine = positionalArgs[0] as InterpretedFunction;
+        final combine = positionalArgs[0] as Callable;
         return (target as Socket).reduce(
           (previous, element) =>
               runAction<dynamic>(visitor, combine, [previous, element]),
@@ -620,7 +617,7 @@ class ServerSocketIo {
           ),
       'any': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.any', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as ServerSocket).any(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
@@ -635,14 +632,14 @@ class ServerSocketIo {
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.every', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as ServerSocket).every(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.expand', atMost: 1);
-        final toElements = positionalArgs[0] as InterpretedFunction;
+        final toElements = positionalArgs[0] as Callable;
         return (target as ServerSocket).expand(
           (element) =>
               runAction<Iterable>(visitor, toElements, [element]) ?? [],
@@ -650,8 +647,8 @@ class ServerSocketIo {
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.firstWhere', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
-        final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        final test = positionalArgs[0] as Callable;
+        final orElse = namedArgs['orElse'] as Callable?;
         return (target as ServerSocket).firstWhere(
           (element) => runAction<bool>(visitor, test, [element]) == true,
           orElse: orElse != null
@@ -662,7 +659,7 @@ class ServerSocketIo {
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.fold', atMost: 2);
         final initialValue = positionalArgs[0];
-        final combine = positionalArgs[1] as InterpretedFunction;
+        final combine = positionalArgs[1] as Callable;
         return (target as ServerSocket).fold(
           initialValue,
           (prev, element) => runAction(visitor, combine, [prev, element]),
@@ -670,7 +667,7 @@ class ServerSocketIo {
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.forEach', atMost: 1);
-        final action = positionalArgs[0] as InterpretedFunction;
+        final action = positionalArgs[0] as Callable;
         return (target as ServerSocket).forEach((element) {
           runAction<void>(visitor, action, [element]);
         });
@@ -689,8 +686,8 @@ class ServerSocketIo {
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.lastWhere', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
-        final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        final test = positionalArgs[0] as Callable;
+        final orElse = namedArgs['orElse'] as Callable?;
         return (target as ServerSocket).lastWhere(
           (element) => runAction<bool>(visitor, test, [element]) == true,
           orElse: orElse != null
@@ -700,7 +697,7 @@ class ServerSocketIo {
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.map', atMost: 1);
-        final toElement = positionalArgs[0] as InterpretedFunction;
+        final toElement = positionalArgs[0] as Callable;
         return (target as ServerSocket).map(
           (element) => runAction(visitor, toElement, [element]),
         );
@@ -713,8 +710,8 @@ class ServerSocketIo {
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.singleWhere', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
-        final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        final test = positionalArgs[0] as Callable;
+        final orElse = namedArgs['orElse'] as Callable?;
         return (target as ServerSocket).singleWhere(
           (element) => runAction<bool>(visitor, test, [element]) == true,
           orElse: orElse != null
@@ -728,7 +725,7 @@ class ServerSocketIo {
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.skipWhile', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as ServerSocket).skipWhile(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
@@ -739,7 +736,7 @@ class ServerSocketIo {
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.takeWhile', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as ServerSocket).takeWhile(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );
@@ -755,7 +752,7 @@ class ServerSocketIo {
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Socket.where', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as ServerSocket).where(
           (element) => runAction<bool>(visitor, test, [element]) == true,
         );

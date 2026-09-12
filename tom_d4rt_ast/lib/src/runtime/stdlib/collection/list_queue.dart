@@ -134,7 +134,7 @@ class ListQueueCollection {
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is ListQueue && positionalArgs.length == 1) {
           final action = positionalArgs[0];
-          if (action is InterpretedFunction) {
+          if (action is Callable) {
             for (var element in target) {
               action.call(visitor, [element]);
             }

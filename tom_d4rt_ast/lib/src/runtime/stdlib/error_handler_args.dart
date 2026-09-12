@@ -26,7 +26,18 @@ import 'package:tom_d4rt_ast/runtime.dart';
 /// `handleError`, whose SDK signature is a fixed `(error, stackTrace, sink)`
 /// three-argument shape with no arity variance.
 List<Object?> errorHandlerArgs(
-  InterpretedFunction handler,
+  Callable handler,
   Object? error,
   StackTrace? stackTrace,
-) => handler.maxPositionalArity >= 2 ? [error, stackTrace] : [error];
+) =>
+    // SCD35: only an interpreted function can be asked how many positional
+    // parameters it declares. A bridged or native callable carries no such
+    // metadata -- `BridgedMethodCallable.arity` is a hardcoded 0 precisely
+    // because the adapter validates arity itself -- so there is nothing to
+    // introspect and guessing would be worse than choosing. The single-argument
+    // form is the safe choice: `(error)` is the shape every SDK error handler
+    // accepts, while supplying a second argument to a one-parameter bridged
+    // tear-off fails inside the adapter.
+    handler is InterpretedFunction && handler.maxPositionalArity >= 2
+    ? [error, stackTrace]
+    : [error];

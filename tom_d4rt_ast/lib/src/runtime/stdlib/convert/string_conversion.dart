@@ -42,13 +42,12 @@ class StringConversionConvert {
         );
       },
       'withCallback': (visitor, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! InterpretedFunction) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'StringConversionSink.withCallback requires one Function argument.',
           );
         }
-        final callback = positionalArgs[0] as InterpretedFunction;
+        final callback = positionalArgs[0] as Callable;
         return StringConversionSink.withCallback((accumulated) {
           callback.call(visitor, [accumulated]);
         });

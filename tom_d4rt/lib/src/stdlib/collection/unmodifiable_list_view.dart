@@ -316,9 +316,8 @@ class UnmodifiableListViewCollection {
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
         final t = target as UnmodifiableListView;
-        if (positionalArgs.length == 1 &&
-            positionalArgs[0] is InterpretedFunction) {
-          final action = positionalArgs[0] as InterpretedFunction;
+        if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
+          final action = positionalArgs[0] as Callable;
           for (var element in t) {
             action.call(visitor, [element]);
           }
@@ -330,9 +329,8 @@ class UnmodifiableListViewCollection {
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
         final t = target as UnmodifiableListView;
-        if (positionalArgs.length == 1 &&
-            positionalArgs[0] is InterpretedFunction) {
-          final toElement = positionalArgs[0] as InterpretedFunction;
+        if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
+          final toElement = positionalArgs[0] as Callable;
           return t.map((e) => toElement.call(visitor, [e]));
         }
         throw RuntimeD4rtException(
@@ -341,9 +339,8 @@ class UnmodifiableListViewCollection {
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
         final t = target as UnmodifiableListView;
-        if (positionalArgs.length == 1 &&
-            positionalArgs[0] is InterpretedFunction) {
-          final test = positionalArgs[0] as InterpretedFunction;
+        if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
+          final test = positionalArgs[0] as Callable;
           return t.where((e) {
             final result = test.call(visitor, [e]);
             if (result is bool) return result;
@@ -358,9 +355,8 @@ class UnmodifiableListViewCollection {
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
         final t = target as UnmodifiableListView;
-        if (positionalArgs.length == 1 &&
-            positionalArgs[0] is InterpretedFunction) {
-          final test = positionalArgs[0] as InterpretedFunction;
+        if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
+          final test = positionalArgs[0] as Callable;
           return t.any((e) {
             final result = test.call(visitor, [e]);
             if (result is bool) return result;
@@ -375,9 +371,8 @@ class UnmodifiableListViewCollection {
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
         final t = target as UnmodifiableListView;
-        if (positionalArgs.length == 1 &&
-            positionalArgs[0] is InterpretedFunction) {
-          final test = positionalArgs[0] as InterpretedFunction;
+        if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
+          final test = positionalArgs[0] as Callable;
           return t.every((e) {
             final result = test.call(visitor, [e]);
             if (result is bool) return result;
@@ -484,10 +479,9 @@ class UnmodifiableListViewCollection {
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
         final t = target as UnmodifiableListView;
-        if (positionalArgs.length == 1 &&
-            positionalArgs[0] is InterpretedFunction) {
-          final test = positionalArgs[0] as InterpretedFunction;
-          final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
+          final test = positionalArgs[0] as Callable;
+          final orElse = namedArgs['orElse'] as Callable?;
           return t.singleWhere((e) {
             final result = test.call(visitor, [e]);
             if (result is bool) return result;
@@ -502,10 +496,9 @@ class UnmodifiableListViewCollection {
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
         final t = target as UnmodifiableListView;
-        if (positionalArgs.length == 1 &&
-            positionalArgs[0] is InterpretedFunction) {
-          final test = positionalArgs[0] as InterpretedFunction;
-          final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
+          final test = positionalArgs[0] as Callable;
+          final orElse = namedArgs['orElse'] as Callable?;
           return t.firstWhere((e) {
             final result = test.call(visitor, [e]);
             if (result is bool) return result;
@@ -520,10 +513,9 @@ class UnmodifiableListViewCollection {
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
         final t = target as UnmodifiableListView;
-        if (positionalArgs.length == 1 &&
-            positionalArgs[0] is InterpretedFunction) {
-          final test = positionalArgs[0] as InterpretedFunction;
-          final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
+          final test = positionalArgs[0] as Callable;
+          final orElse = namedArgs['orElse'] as Callable?;
           return t.lastWhere((e) {
             final result = test.call(visitor, [e]);
             if (result is bool) return result;
@@ -556,9 +548,8 @@ class UnmodifiableListViewCollection {
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
         final t = target as UnmodifiableListView;
-        if (positionalArgs.length == 1 &&
-            positionalArgs[0] is InterpretedFunction) {
-          final test = positionalArgs[0] as InterpretedFunction;
+        if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
+          final test = positionalArgs[0] as Callable;
           return t.skipWhile((e) {
             final result = test.call(visitor, [e]);
             if (result is bool) return result;
@@ -573,9 +564,8 @@ class UnmodifiableListViewCollection {
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
         final t = target as UnmodifiableListView;
-        if (positionalArgs.length == 1 &&
-            positionalArgs[0] is InterpretedFunction) {
-          final test = positionalArgs[0] as InterpretedFunction;
+        if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
+          final test = positionalArgs[0] as Callable;
           return t.takeWhile((e) {
             final result = test.call(visitor, [e]);
             if (result is bool) return result;
@@ -590,9 +580,8 @@ class UnmodifiableListViewCollection {
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
         final t = target as UnmodifiableListView;
-        if (positionalArgs.length == 1 &&
-            positionalArgs[0] is InterpretedFunction) {
-          final toElements = positionalArgs[0] as InterpretedFunction;
+        if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
+          final toElements = positionalArgs[0] as Callable;
           return t.expand((e) {
             final result = toElements.call(visitor, [e]);
             if (result is Iterable) return result;
@@ -607,10 +596,9 @@ class UnmodifiableListViewCollection {
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
         final t = target as UnmodifiableListView;
-        if (positionalArgs.length == 2 &&
-            positionalArgs[1] is InterpretedFunction) {
+        if (positionalArgs.length == 2 && positionalArgs[1] is Callable) {
           final initialValue = positionalArgs[0];
-          final combine = positionalArgs[1] as InterpretedFunction;
+          final combine = positionalArgs[1] as Callable;
           return t.fold(
             initialValue,
             (prev, e) => combine.call(visitor, [prev, e]),
@@ -622,9 +610,8 @@ class UnmodifiableListViewCollection {
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
         final t = target as UnmodifiableListView;
-        if (positionalArgs.length == 1 &&
-            positionalArgs[0] is InterpretedFunction) {
-          final combine = positionalArgs[0] as InterpretedFunction;
+        if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
+          final combine = positionalArgs[0] as Callable;
           return t.reduce((prev, e) => combine.call(visitor, [prev, e]));
         }
         throw RuntimeD4rtException(

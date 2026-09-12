@@ -16,13 +16,12 @@ class ChunkedConversionConvert {
     typeParameterCount: 1,
     staticMethods: {
       'withCallback': (visitor, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 ||
-            positionalArgs[0] is! InterpretedFunction) {
+        if (positionalArgs.length != 1 || positionalArgs[0] is! Callable) {
           throw RuntimeD4rtException(
             'ChunkedConversionSink.withCallback requires an Function callback.',
           );
         }
-        final callback = positionalArgs[0] as InterpretedFunction;
+        final callback = positionalArgs[0] as Callable;
         return ChunkedConversionSink<dynamic>.withCallback((
           List<dynamic> chunks,
         ) {

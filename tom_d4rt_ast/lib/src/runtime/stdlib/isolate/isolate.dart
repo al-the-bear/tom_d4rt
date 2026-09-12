@@ -55,7 +55,7 @@ class IsolateIsolate {
     staticMethods: {
       'run': (visitor, positionalArgs, namedArgs, _) {
         final computation = positionalArgs[0];
-        if (computation is! InterpretedFunction) {
+        if (computation is! Callable) {
           throw RuntimeD4rtException(
             'Isolate.run requires a Function for computation.',
           );
@@ -83,7 +83,7 @@ class IsolateIsolate {
       'spawn': (visitor, positionalArgs, namedArgs, _) {
         final entryPoint = positionalArgs[0];
         positionalArgs[1]; // message (ignored in this stub implementation)
-        if (entryPoint is! InterpretedFunction) {
+        if (entryPoint is! Callable) {
           throw RuntimeD4rtException(
             'Isolate.spawn requires a Function for entryPoint.',
           );
@@ -294,9 +294,9 @@ class ReceivePortIsolate {
     },
     methods: {
       'listen': (visitor, target, positionalArgs, namedArgs, _) {
-        final onData = positionalArgs.get<InterpretedFunction?>(0);
-        final onError = namedArgs.get<InterpretedFunction?>('onError');
-        final onDone = namedArgs.get<InterpretedFunction?>('onDone');
+        final onData = positionalArgs.get<Callable?>(0);
+        final onError = namedArgs.get<Callable?>('onError');
+        final onDone = namedArgs.get<Callable?>('onDone');
         final cancelOnError = namedArgs.get<bool?>('cancelOnError');
 
         return (target as ReceivePort).listen(
@@ -316,7 +316,7 @@ class ReceivePortIsolate {
       'map': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'IsolateSpawnException.map', atMost: 1);
         final transform = positionalArgs[0];
-        if (transform is! InterpretedFunction) {
+        if (transform is! Callable) {
           throw RuntimeD4rtException(
             'Stream.map requires a Function for transform.',
           );
@@ -328,7 +328,7 @@ class ReceivePortIsolate {
       'where': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'IsolateSpawnException.where', atMost: 1);
         final test = positionalArgs[0];
-        if (test is! InterpretedFunction) {
+        if (test is! Callable) {
           throw RuntimeD4rtException(
             'Stream.where requires a Function for test.',
           );
@@ -359,7 +359,7 @@ class RawReceivePortIsolate {
     isAssignable: (v) => v is RawReceivePort,
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {
-        final handler = positionalArgs.get<InterpretedFunction?>(0);
+        final handler = positionalArgs.get<Callable?>(0);
         final debugName = positionalArgs.get<String>(1) ?? '';
         if (handler != null) {
           final rawPort = RawReceivePort(null, debugName);
@@ -379,7 +379,7 @@ class RawReceivePortIsolate {
     },
     setters: {
       'handler': (visitor, target, value) {
-        if (value is InterpretedFunction) {
+        if (value is Callable) {
           (target as RawReceivePort).handler = (message) =>
               value.call(visitor!, [message]);
         } else if (value == null) {

@@ -32,7 +32,7 @@ class TimerAsync {
           throw RuntimeD4rtException('Timer constructor takes 2 arguments.');
         }
         final duration = positionalArgs[0] as Duration;
-        final callback = positionalArgs[1] as InterpretedFunction;
+        final callback = positionalArgs[1] as Callable;
         return Timer(duration, () async {
           callback.call(visitor, []);
           await _yieldEventLoop();
@@ -42,7 +42,7 @@ class TimerAsync {
     staticMethods: {
       'periodic': (visitor, positionalArgs, namedArgs, _) {
         final duration = positionalArgs[0] as Duration;
-        final callback = positionalArgs[1] as InterpretedFunction;
+        final callback = positionalArgs[1] as Callable;
         return Timer.periodic(duration, (timer) async {
           callback.call(visitor, [timer]);
           await _yieldEventLoop();
@@ -57,7 +57,7 @@ class TimerAsync {
             'Timer.run expects exactly one callback argument.',
           );
         }
-        final callback = positionalArgs[0] as InterpretedFunction;
+        final callback = positionalArgs[0] as Callable;
         return Timer.run(() async {
           callback.call(visitor, []);
           await _yieldEventLoop();

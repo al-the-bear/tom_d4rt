@@ -82,8 +82,7 @@ class ConvertStdlib {
               'jsonEncode requires one positional argument (object).',
             );
           }
-          final toEncodableArg =
-              namedArguments['toEncodable'] as InterpretedFunction?;
+          final toEncodableArg = namedArguments['toEncodable'] as Callable?;
           return jsonEncode(
             arguments[0],
             toEncodable: toEncodableArg == null
@@ -105,7 +104,7 @@ class ConvertStdlib {
               'jsonDecode requires one positional argument (String source).',
             );
           }
-          final reviverArg = namedArguments['reviver'] as InterpretedFunction?;
+          final reviverArg = namedArguments['reviver'] as Callable?;
           return jsonDecode(
             arguments[0] as String,
             reviver: reviverArg == null

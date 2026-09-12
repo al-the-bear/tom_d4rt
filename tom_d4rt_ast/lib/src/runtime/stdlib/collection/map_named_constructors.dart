@@ -33,8 +33,8 @@ class MapNamedConstructors {
         '$className.fromIterable expects one Iterable argument.',
       );
     }
-    final key = namedArgs['key'] as InterpretedFunction?;
-    final value = namedArgs['value'] as InterpretedFunction?;
+    final key = namedArgs['key'] as Callable?;
+    final value = namedArgs['value'] as Callable?;
     final map = create();
     for (final element in positionalArgs[0] as Iterable) {
       map[key == null ? element : key.call(visitor, [element])] = value == null

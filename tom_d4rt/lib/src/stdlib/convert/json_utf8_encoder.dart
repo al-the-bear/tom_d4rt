@@ -35,7 +35,7 @@ class JsonUtf8EncoderConvert {
         final toEncodable = positionalArgs.length > 1
             ? positionalArgs[1]
             : null;
-        if (toEncodable != null && toEncodable is! InterpretedFunction) {
+        if (toEncodable != null && toEncodable is! Callable) {
           throw RuntimeD4rtException(
             'JsonUtf8Encoder toEncodable must be a Function or null.',
           );
@@ -50,9 +50,7 @@ class JsonUtf8EncoderConvert {
           indent as String?,
           toEncodable == null
               ? null
-              : (object) => (toEncodable as InterpretedFunction).call(visitor, [
-                  object,
-                ]),
+              : (object) => (toEncodable as Callable).call(visitor, [object]),
           // The SDK default is 256; `null` is not accepted for this one.
           bufferSize as int? ?? 256,
         );

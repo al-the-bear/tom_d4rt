@@ -136,7 +136,7 @@ class LinkedHashMapCollection {
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is LinkedHashMap && positionalArgs.length == 1) {
           final action = positionalArgs[0];
-          if (action is InterpretedFunction) {
+          if (action is Callable) {
             target.forEach((key, value) {
               action.call(visitor, [key, value]);
             });
@@ -154,7 +154,7 @@ class LinkedHashMapCollection {
         if (target is LinkedHashMap && positionalArgs.length == 2) {
           final key = positionalArgs[0];
           final ifAbsent = positionalArgs[1];
-          if (ifAbsent is InterpretedFunction) {
+          if (ifAbsent is Callable) {
             return target.putIfAbsent(key, () => ifAbsent.call(visitor, []));
           }
           throw RuntimeD4rtException(
@@ -176,7 +176,7 @@ class LinkedHashMapCollection {
       'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is LinkedHashMap && positionalArgs.length == 1) {
           final test = positionalArgs[0];
-          if (test is InterpretedFunction) {
+          if (test is Callable) {
             target.removeWhere((key, value) {
               final result = test.call(visitor, [key, value]);
               return result is bool && result;
@@ -195,8 +195,8 @@ class LinkedHashMapCollection {
         if (target is LinkedHashMap && positionalArgs.length == 2) {
           final key = positionalArgs[0];
           final update = positionalArgs[1];
-          final ifAbsent = namedArgs['ifAbsent'] as InterpretedFunction?;
-          if (update is InterpretedFunction) {
+          final ifAbsent = namedArgs['ifAbsent'] as Callable?;
+          if (update is Callable) {
             return target.update(
               key,
               (value) => update.call(visitor, [value]),
@@ -216,7 +216,7 @@ class LinkedHashMapCollection {
       'updateAll': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is LinkedHashMap && positionalArgs.length == 1) {
           final update = positionalArgs[0];
-          if (update is InterpretedFunction) {
+          if (update is Callable) {
             target.updateAll(
               (key, value) => update.call(visitor, [key, value]),
             );
@@ -245,7 +245,7 @@ class LinkedHashMapCollection {
       'map': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is LinkedHashMap && positionalArgs.length == 1) {
           final transform = positionalArgs[0];
-          if (transform is InterpretedFunction) {
+          if (transform is Callable) {
             return target.map(
               (key, value) =>
                   MapEntry(key, transform.call(visitor, [key, value])),

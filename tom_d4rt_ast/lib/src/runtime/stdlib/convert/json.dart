@@ -9,8 +9,8 @@ class JsonCodecConvert {
     typeParameterCount: 0,
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {
-        final reviverArg = namedArgs['reviver'] as InterpretedFunction?;
-        final toEncodableArg = namedArgs['toEncodable'] as InterpretedFunction?;
+        final reviverArg = namedArgs['reviver'] as Callable?;
+        final toEncodableArg = namedArgs['toEncodable'] as Callable?;
 
         return JsonCodec(
           reviver: reviverArg == null
@@ -28,7 +28,7 @@ class JsonCodecConvert {
       // falling back to a reviver-less codec.
       'withReviver': (visitor, positionalArgs, namedArgs) {
         final reviver = positionalArgs.isNotEmpty ? positionalArgs[0] : null;
-        if (reviver is! InterpretedFunction) {
+        if (reviver is! Callable) {
           throw RuntimeD4rtException(
             'JsonCodec.withReviver reviver must be a Function '
             '(key, value).',
@@ -48,10 +48,8 @@ class JsonCodecConvert {
         D4.checkArity(positionalArgs, 'JsonCodec.decode', atMost: 2);
         final source = positionalArgs[0] as String;
         final reviverArg =
-            namedArgs['reviver'] as InterpretedFunction? ??
-            (positionalArgs.length > 1
-                ? positionalArgs[1] as InterpretedFunction?
-                : null);
+            namedArgs['reviver'] as Callable? ??
+            (positionalArgs.length > 1 ? positionalArgs[1] as Callable? : null);
         return (target as JsonCodec).decode(
           source,
           reviver: reviverArg == null
@@ -88,7 +86,7 @@ class JsonEncoderConvert {
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {
         final toEncodableArg = positionalArgs.isNotEmpty
-            ? positionalArgs[0] as InterpretedFunction?
+            ? positionalArgs[0] as Callable?
             : null;
         return JsonEncoder(
           toEncodableArg == null
@@ -119,7 +117,7 @@ class JsonEncoderConvert {
         final toEncodable = positionalArgs.length > 1
             ? positionalArgs[1]
             : null;
-        if (toEncodable != null && toEncodable is! InterpretedFunction) {
+        if (toEncodable != null && toEncodable is! Callable) {
           throw RuntimeD4rtException(
             'JsonEncoder.withIndent toEncodable must be a Function '
             'or null.',
@@ -129,9 +127,7 @@ class JsonEncoderConvert {
           indent as String?,
           toEncodable == null
               ? null
-              : (object) => (toEncodable as InterpretedFunction).call(visitor, [
-                  object,
-                ]),
+              : (object) => (toEncodable as Callable).call(visitor, [object]),
         );
       },
     },
@@ -196,7 +192,7 @@ class JsonDecoderConvert {
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {
         final reviverArg = positionalArgs.isNotEmpty
-            ? positionalArgs[0] as InterpretedFunction?
+            ? positionalArgs[0] as Callable?
             : null;
         return JsonDecoder(
           reviverArg == null

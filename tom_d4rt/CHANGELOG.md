@@ -1,4 +1,47 @@
-## 1.80.0
+## 1.81.0
+
+### Fixed — a bridged method tear-off is a function everywhere now (scd35_aidc)
+
+`stream.listen(seen.add)` did not run. `seen.add` tears off a method from a
+bridged `List` and yields a `BridgedMethodCallable`; sixty-two stdlib bridge
+files cast their callback argument to `InterpretedFunction`, which that is not
+a subtype of, so the cast threw. Adapters that guarded with
+`is! InterpretedFunction` instead reported `requires a Function` — the same
+defect wearing a more confusing message, since the argument *is* a function.
+The workaround was to wrap the tear-off in a lambda, which is exactly the kind
+of rewrite a script author has no way to predict is necessary.
+
+`Callable` is the supertype `InterpretedFunction` and every bridged callable
+already implement, so no new type was needed. Two files had converged on it
+independently — `core/list.dart` in the Bug-95 fix and
+`collection/unmodifiable_list_view.dart`, whose helper already documented
+"accepts any `Callable`, not just `InterpretedFunction`". This finishes that
+job across the stdlib rather than adding a third case at each site: every
+`as` / `is` narrowing in `lib/src/stdlib` is now `Callable`, in both twins.
+
+Two things were deliberately left narrow. The `InterpretedFunction` checks
+outside the stdlib — in `interpreter_visitor.dart`, `callable.dart`,
+`environment.dart` — are genuine dispatch on interpreted-only state such as
+`isGetter`, not argument coercion, and are untouched. And `errorHandlerArgs`
+keeps one `is InterpretedFunction`, because deciding whether an error handler
+takes a stack trace means reading `maxPositionalArity`, which only an
+interpreted function can answer: `BridgedMethodCallable.arity` is a hardcoded
+0 precisely because the adapter validates arity itself. A bridged tear-off
+used as `onError` is therefore called with the error alone — the shape every
+SDK error handler accepts, where passing a second argument to a one-parameter
+tear-off would fail inside the adapter.
+
+Every assertion in `scd35_bridged_tearoff_as_callback_test.dart` is the bare
+tear-off. The wrapped form appears once, labelled a control: it passed before
+this fix too, so a test written that way measures nothing. Six of the twelve
+cases were confirmed red beforehand; the six that were already green document
+paths that were never broken — the interpreter's own argument binding accepts
+any `Callable` and always did.
+
+F-SCD35-9 is a ratchet rather than a case about today's members. The surface
+of this bug grew with the bridge corpus: every newly bridged member is another
+tear-off, and every newly written adapter another chance to narrow the type
+back. The scan covers the adapters nobody has written yet.
 
 ### Fixed — the last three bridged-constructor wrap sites drop the trace (scd34_aidc)
 
@@ -36,6 +79,8 @@ Verified by negative control rather than by a green run: each adapter in
 trace manufactured at the wrap site cannot satisfy the assertion by accident.
 Removing the forwarding at each of the three sites individually was confirmed
 to turn exactly that site's case red.
+
+## 1.80.0
 
 ### Changed — the invented-error-contract sweep, and its one survivor (scd31_aidb)
 

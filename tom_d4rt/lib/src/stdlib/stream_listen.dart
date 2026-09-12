@@ -45,10 +45,10 @@ StreamSubscription<Object?> bridgedStreamListen(
   // rather than a diagnosable error. Reading it as absent-means-null matches
   // what passing an explicit null does.
   final onData = positionalArgs.isNotEmpty
-      ? positionalArgs[0] as InterpretedFunction?
+      ? positionalArgs[0] as Callable?
       : null;
-  final onError = namedArgs['onError'] as InterpretedFunction?;
-  final onDone = namedArgs['onDone'] as InterpretedFunction?;
+  final onError = namedArgs['onError'] as Callable?;
+  final onDone = namedArgs['onDone'] as Callable?;
   // Left as `bool?`: the SDK treats null as false, so the `?? false` that four
   // of the copies added was a no-op that only made them look different.
   final cancelOnError = namedArgs['cancelOnError'] as bool?;

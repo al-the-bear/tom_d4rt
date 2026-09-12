@@ -11,10 +11,10 @@ class StreamControllerAsync {
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {
         final sync = namedArgs['sync'] as bool? ?? false;
-        final onListen = namedArgs['onListen'] as InterpretedFunction?;
-        final onPause = namedArgs['onPause'] as InterpretedFunction?;
-        final onResume = namedArgs['onResume'] as InterpretedFunction?;
-        final onCancel = namedArgs['onCancel'] as InterpretedFunction?;
+        final onListen = namedArgs['onListen'] as Callable?;
+        final onPause = namedArgs['onPause'] as Callable?;
+        final onResume = namedArgs['onResume'] as Callable?;
+        final onCancel = namedArgs['onCancel'] as Callable?;
 
         return StreamController(
           onListen: onListen == null
@@ -34,8 +34,8 @@ class StreamControllerAsync {
       },
       'broadcast': (visitor, positionalArgs, namedArgs) {
         final sync = namedArgs['sync'] as bool? ?? false;
-        final onListen = namedArgs['onListen'] as InterpretedFunction?;
-        final onCancel = namedArgs['onCancel'] as InterpretedFunction?;
+        final onListen = namedArgs['onListen'] as Callable?;
+        final onCancel = namedArgs['onCancel'] as Callable?;
 
         return StreamController.broadcast(
           onListen: onListen == null
@@ -105,7 +105,7 @@ class StreamControllerAsync {
     },
     setters: {
       'onListen': (visitorParam, target, value) {
-        final callback = value as InterpretedFunction?;
+        final callback = value as Callable?;
         final visitor = visitorParam; // Capture reference
         (target as StreamController).onListen = callback == null
             ? null
@@ -113,7 +113,7 @@ class StreamControllerAsync {
         return;
       },
       'onPause': (visitorParam, target, value) {
-        final callback = value as InterpretedFunction?;
+        final callback = value as Callable?;
         final visitor = visitorParam; // Capture reference
         (target as StreamController).onPause = callback == null
             ? null
@@ -121,7 +121,7 @@ class StreamControllerAsync {
         return;
       },
       'onResume': (visitorParam, target, value) {
-        final callback = value as InterpretedFunction?;
+        final callback = value as Callable?;
         final visitor = visitorParam; // Capture reference
         (target as StreamController).onResume = callback == null
             ? null
@@ -129,7 +129,7 @@ class StreamControllerAsync {
         return;
       },
       'onCancel': (visitorParam, target, value) {
-        final callback = value as InterpretedFunction?;
+        final callback = value as Callable?;
         final visitor = visitorParam; // Capture reference
         (target as StreamController).onCancel = callback == null
             ? null

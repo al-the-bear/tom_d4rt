@@ -228,14 +228,14 @@ class SetCore {
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Set.takeWhile', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as Set).takeWhile((element) {
           return test.call(visitor, [element]) as bool;
         });
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Set.skipWhile', atMost: 1);
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as Set).skipWhile((element) {
           return test.call(visitor, [element]) as bool;
         });
@@ -243,14 +243,14 @@ class SetCore {
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Set.fold', atMost: 2);
         final initialValue = positionalArgs[0];
-        final combine = positionalArgs[1] as InterpretedFunction;
+        final combine = positionalArgs[1] as Callable;
         return (target as Set).fold(initialValue, (previousValue, element) {
           return combine.call(visitor, [previousValue, element]);
         });
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Set.reduce', atMost: 1);
-        final combine = positionalArgs[0] as InterpretedFunction;
+        final combine = positionalArgs[0] as Callable;
         return (target as Set).reduce((value, element) {
           return combine.call(visitor, [value, element]);
         });

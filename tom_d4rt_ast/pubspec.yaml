@@ -1,6 +1,6 @@
 name: tom_d4rt_ast
 description: Analyzer-free Dart interpreter runtime that executes pre-compiled SAstNode bundles with full bridging, sandboxing, and standard library support.
-version: 0.68.0
+version: 0.69.0
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_d4rt_ast
 topics:
