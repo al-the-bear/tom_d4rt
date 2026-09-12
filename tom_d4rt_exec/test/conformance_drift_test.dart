@@ -77,10 +77,44 @@ import 'package:test/test.dart';
 /// [refCases] and [twinCases] are `test(` counts; when the twin carries fewer,
 /// the coverage is PARTIAL and the deficit is reported by its own case below
 /// rather than being rounded up to "covered".
+/// Which LAYER a reference suite exercises, and therefore what a twin of it can
+/// and cannot certify.
+///
+/// SCD20. The guard's three-way rule — a tom_d4rt test is uncovered only when
+/// it has a twin in NEITHER exec nor tom_d4rt_ast — is what dropped the
+/// apparent gap from 46 files to 18, and it is sound for what it claims. What
+/// it is silent about is that the two kinds of twin certify different things.
+///
+/// An exec test hands SOURCE to the analyzer, has `tom_ast_generator` copy the
+/// analyzer AST into the mirror node-for-node, and interprets the result. A
+/// tom_d4rt_ast test constructs or loads a mirror AST and interprets it. The
+/// copy step is exec's alone, it is roughly a thousand nodes of transcription,
+/// and a node whose fields are copied wrongly yields a mirror tree that
+/// interprets CONSISTENTLY AND WRONGLY. No ast twin can see that, because it
+/// never had an analyzer AST to copy from.
+///
+/// So a [script] suite exempted by an `ast:` twin leaves the copier untested
+/// for whatever constructs its source uses, and a [registration] suite does
+/// not — there is no source, so there is nothing to copy. That is the whole
+/// distinction this enum records, and why it is on every entry rather than
+/// only on the ones that look interesting.
+enum _Layer {
+  /// The reference suite runs SOURCE and asserts behaviour. An `ast:` twin of
+  /// one of these cannot exercise the analyzer-to-mirror copy.
+  script,
+
+  /// The reference suite asserts bridge wiring — registries, lookups,
+  /// retention, name resolution — without running a script. Here the ast twin
+  /// is not a substitute for an exec test; it is the BETTER test, closer to
+  /// the code it exercises.
+  registration,
+}
+
 class _Coverage {
   const _Coverage(
     this.where,
     this.why, {
+    required this.layer,
     this.refCases = 0,
     this.twinCases = 0,
     this.whyPartial,
@@ -88,6 +122,12 @@ class _Coverage {
 
   final String where;
   final String why;
+
+  /// Which layer the REFERENCE suite exercises. Required, so a new entry
+  /// cannot be added without the author deciding — the classification is a
+  /// reading of the file, and a default would be a guess wearing a fact's
+  /// clothes.
+  final _Layer layer;
   final int refCases;
   final int twinCases;
 
@@ -107,6 +147,15 @@ class _Coverage {
   final String? whyPartial;
 
   bool get isPartial => twinCases < refCases;
+
+  /// Whether exec's analyzer-to-mirror copier is unexercised for this suite.
+  ///
+  /// True exactly when a source-running suite is exempted by a twin that never
+  /// sees source. Derived rather than declared: it follows from [layer] and
+  /// [where], and a hand-maintained duplicate of a derivable fact is one more
+  /// thing to drift.
+  bool get copierUncovered =>
+      layer == _Layer.script && where.startsWith('ast:');
 
   /// A shortfall nobody has explained — what F-SCC6-3 is counting.
   bool get isUnexplainedPartial => isPartial && whyPartial == null;
@@ -148,6 +197,33 @@ const _astStdlibPrefix =
 /// somebody has decided to tolerate, which should be rare enough to argue about.
 const _partialTwinBudget = 1;
 
+/// How many script-level suites may rest on an `ast:` twin alone (F-SCC6-7).
+///
+/// SCD20. Each of these is a suite that runs SOURCE, exempted by a twin that
+/// never sees source, so exec's analyzer-to-mirror copier is unexercised for
+/// whatever constructs that suite uses. They are ACCEPTED, not defects — the
+/// alternative the todo explicitly ruled out is porting all of them, which buys
+/// copier coverage by doubling a corpus that DGUC6 already makes hard to reason
+/// about, since exec measures the PUBLISHED tom_d4rt_ast rather than the tree
+/// being edited.
+///
+/// The number is therefore a ratchet on a known, deliberate gap rather than a
+/// target of zero. Lowering it is what a targeted port achieves; raising it
+/// needs a new script-level suite that somebody decided not to port, and the
+/// entry should say why.
+///
+/// What actually closes this is node-family coverage, not file count: a handful
+/// of exec tests spanning patterns, records, extension types, generic
+/// constructor invocation and the directive forms exercises more of the copy
+/// surface than fourteen ports chosen by which files happen to have ast twins.
+/// That census is sce62.
+///
+/// The fourteen were classified by asking whether the REFERENCE file runs
+/// source, with comments stripped first. That is not pedantry:
+/// `bridged_enum_memo_test.dart`'s only `execute(` is inside a comment, and a
+/// naive search files it as script-level and inflates this budget to fifteen.
+const _copierGapBudget = 14;
+
 const Map<String, _Coverage> _coveredElsewhere = {
   // ---- Renamed on the exec side -------------------------------------------
   // exec folded three tom_d4rt filesystem suites into one file, and says so in
@@ -158,6 +234,7 @@ const Map<String, _Coverage> _coveredElsewhere = {
   'dfub1_filesystem_import_basepath_test.dart': _Coverage(
     'exec:dgub3_filesystem_import_basepath_test.dart',
     'F-DGUB3-1..3 are these three cases verbatim, id prefix and date aside',
+    layer: _Layer.script,
     refCases: 3,
     twinCases: 7,
   ),
@@ -165,12 +242,14 @@ const Map<String, _Coverage> _coveredElsewhere = {
     'exec:dgub3_filesystem_import_basepath_test.dart',
     'read-gate half only, as F-DGUB3-4; the write-side gate is DFUB11, which '
         'exec has at its own path',
+    layer: _Layer.script,
     refCases: 4,
     twinCases: 7,
   ),
   'dfub3_filesystem_module_identity_test.dart': _Coverage(
     'exec:dgub3_filesystem_import_basepath_test.dart',
     'nested-relative canonicalisation, as F-DGUB3-3',
+    layer: _Layer.script,
     refCases: 2,
     twinCases: 7,
   ),
@@ -178,6 +257,7 @@ const Map<String, _Coverage> _coveredElsewhere = {
   'dfub4_extension_type_method_dispatch_test.dart': _Coverage(
     'exec:extensions/dfub4_extension_type_method_dispatch_test.dart',
     'same suite, filed under extensions/ in this tree',
+    layer: _Layer.script,
     refCases: 9,
     // SCD19 ported F-DFUB4-5, -6 and -8, which had no counterpart here. They
     // are script-level dispatch cases like the six that were already present —
@@ -193,6 +273,7 @@ const Map<String, _Coverage> _coveredElsewhere = {
   'open_issues/b12_native_accumulator_reset_test.dart': _Coverage(
     'ast:runtime/native_accumulator_reset_test.dart',
     'same six cases; ast drops the `b12_` issue prefix and the open_issues/ dir',
+    layer: _Layer.script,
     refCases: 6,
     twinCases: 6,
   ),
@@ -201,42 +282,49 @@ const Map<String, _Coverage> _coveredElsewhere = {
   'bridge/extract_bridged_arg_diagnostics_test.dart': _Coverage(
     'ast:runtime/extract_bridged_arg_diagnostics_test.dart',
     _astTwin,
+    layer: _Layer.registration,
     refCases: 3,
     twinCases: 3,
   ),
   'bridge/facade_user_registration_test.dart': _Coverage(
     'ast:runtime/facade_user_registration_test.dart',
     _astTwin,
+    layer: _Layer.registration,
     refCases: 5,
     twinCases: 5,
   ),
   'bridge/unwrap_as_test.dart': _Coverage(
     'ast:runtime/unwrap_as_test.dart',
     _astTwin,
+    layer: _Layer.registration,
     refCases: 12,
     twinCases: 12,
   ),
   'bridge/usage_log_test.dart': _Coverage(
     'ast:runtime/usage_log_test.dart',
     _astTwin,
+    layer: _Layer.registration,
     refCases: 9,
     twinCases: 9,
   ),
   'bridge_retention_test.dart': _Coverage(
     'ast:runtime/bridge_retention_test.dart',
     _astTwin,
+    layer: _Layer.script,
     refCases: 3,
     twinCases: 3,
   ),
   'bridged_enum_memo_test.dart': _Coverage(
     'ast:bridged_enum_memo_test.dart',
     _astTwin,
+    layer: _Layer.registration,
     refCases: 3,
     twinCases: 3,
   ),
   'bridged_module_env_cache_test.dart': _Coverage(
     'ast:runtime/bridged_module_env_cache_test.dart',
     _astTwin,
+    layer: _Layer.script,
     refCases: 3,
     twinCases: 3,
   ),
@@ -255,12 +343,14 @@ const Map<String, _Coverage> _coveredElsewhere = {
   'scc24_native_name_coverage_test.dart': _Coverage(
     'ast:scc24_native_name_coverage_test.dart',
     _astTwin,
+    layer: _Layer.registration,
     refCases: 9,
     twinCases: 9,
   ),
   'dgub5_filesystem_permission_symlink_test.dart': _Coverage(
     'ast:runtime/dgub5_filesystem_permission_symlink_test.dart',
     _astTwin,
+    layer: _Layer.script,
     refCases: 6,
     twinCases: 3,
     whyPartial:
@@ -278,48 +368,56 @@ const Map<String, _Coverage> _coveredElsewhere = {
     // step, so the pair was never partial and nothing reported the drift. The
     // numbers were simply no longer true, which is why F-SCC6-6 now checks
     // them against the files.
+    layer: _Layer.registration,
     refCases: 24,
     twinCases: 24,
   ),
   'environment_lookup_test.dart': _Coverage(
     'ast:runtime/environment_lookup_test.dart',
     _astTwin,
+    layer: _Layer.registration,
     refCases: 8,
     twinCases: 8,
   ),
   'extension_hook_test.dart': _Coverage(
     'ast:runtime/extension_hook_test.dart',
     _astTwin,
+    layer: _Layer.script,
     refCases: 7,
     twinCases: 7,
   ),
   'extension_once_per_process_test.dart': _Coverage(
     'ast:runtime/extension_once_per_process_test.dart',
     _astTwin,
+    layer: _Layer.registration,
     refCases: 3,
     twinCases: 3,
   ),
   'phase1_uri_registration_test.dart': _Coverage(
     'ast:runtime/phase1_uri_registration_test.dart',
     _astTwin,
+    layer: _Layer.registration,
     refCases: 4,
     twinCases: 4,
   ),
   'pool_security_test.dart': _Coverage(
     'ast:runtime/pool_security_test.dart',
     _astTwin,
+    layer: _Layer.script,
     refCases: 4,
     twinCases: 4,
   ),
   'profiler_disabled_test.dart': _Coverage(
     'ast:profiler_disabled_test.dart',
     _astTwin,
+    layer: _Layer.script,
     refCases: 2,
     twinCases: 2,
   ),
   'reuse_across_runs_toggle_test.dart': _Coverage(
     'ast:runtime/reuse_across_runs_toggle_test.dart',
     _astTwin,
+    layer: _Layer.script,
     refCases: 3,
     twinCases: 3,
   ),
@@ -342,6 +440,7 @@ const Map<String, _Coverage> _coveredElsewhere = {
   'scc28_typed_undefined_member_test.dart': _Coverage(
     'ast:runtime/scc28_typed_undefined_member_test.dart',
     _astTwin,
+    layer: _Layer.script,
     refCases: 9,
     twinCases: 3,
   ),
@@ -360,6 +459,7 @@ const Map<String, _Coverage> _coveredElsewhere = {
   'scc49_structural_native_dispatch_test.dart': _Coverage(
     'ast:scc49_structural_native_dispatch_test.dart',
     _astTwin,
+    layer: _Layer.script,
     refCases: 6,
     twinCases: 6,
   ),
@@ -374,12 +474,14 @@ const Map<String, _Coverage> _coveredElsewhere = {
   'scc51_shadowed_adapter_test.dart': _Coverage(
     'ast:scc51_shadowed_adapter_test.dart',
     _astTwin,
+    layer: _Layer.script,
     refCases: 8,
     twinCases: 8,
   ),
   'warm_parent_lazy_class_test.dart': _Coverage(
     'ast:runtime/warm_parent_lazy_class_test.dart',
     _astTwin,
+    layer: _Layer.script,
     refCases: 1,
     twinCases: 1,
   ),
@@ -388,6 +490,7 @@ const Map<String, _Coverage> _coveredElsewhere = {
   'stdlib/convert/convert_hierarchy_test.dart': _Coverage(
     'ast:runtime/stdlib_convert_hierarchy_test.dart',
     _astStdlibPrefix,
+    layer: _Layer.script,
     refCases: 15,
     twinCases: 11,
     whyPartial:
@@ -409,12 +512,14 @@ const Map<String, _Coverage> _coveredElsewhere = {
     // SCD19: recorded as 10 -> 6 and reported as a four-case deficit for five
     // weeks. Measured, it is 8 -> 11: the twin OVER-covers, and the reference
     // shrank. The deficit was an artefact of numbers nobody re-read.
+    layer: _Layer.script,
     refCases: 8,
     twinCases: 11,
   ),
   'stdlib/io/string_sink_collision_test.dart': _Coverage(
     'ast:runtime/stdlib_string_sink_collision_test.dart',
     _astStdlibPrefix,
+    layer: _Layer.registration,
     refCases: 4,
     twinCases: 4,
   ),
@@ -1110,7 +1215,17 @@ void main() {
         for (final path in ref.keys.where((k) => !exec.containsKey(k)))
           path:
               _coveredElsewhere[path] ??
-              const _Coverage('', 'no twin in either tree'),
+              // The sentinel for a file with no twin at all. Its `layer` is
+              // inert — `copierUncovered` reads `where`, which is empty here,
+              // so it is false whatever this says — but the field is required
+              // and a required field wants a deliberate value. `script` is the
+              // conservative one: if it ever stopped being inert it would
+              // over-report rather than hide a gap.
+              const _Coverage(
+                '',
+                'no twin in either tree',
+                layer: _Layer.script,
+              ),
       };
     });
 
@@ -1269,6 +1384,35 @@ void main() {
             'partial, decide which kind it is — port the cases, or record a '
             '`whyPartial` — rather than leaving the count wrong to keep '
             'F-SCC6-3 quiet.',
+      );
+    });
+
+    test('F-SCC6-7: script-level suites resting on an ast twin are named '
+        '[2026-09-12] (PASS)', () {
+      // Informational, like F-SCC6-3. The exemptions are sound for what they
+      // claim — the ast twin really does exercise the interpreter — and silent
+      // about the one layer exec alone owns. Naming them keeps that silence
+      // visible instead of letting `covered elsewhere` read as covered
+      // everywhere.
+      final gaps = _coveredElsewhere.entries
+          .where((e) => e.value.copierUncovered)
+          .toList();
+      printOnFailure(
+        gaps
+            .map((e) => '${e.key} -> ${e.value.where}')
+            .join('\n'),
+      );
+      expect(
+        gaps.length,
+        lessThanOrEqualTo(_copierGapBudget),
+        reason:
+            'More script-level suites now rest on an ast twin alone than the '
+            'budget of $_copierGapBudget allows (currently ${gaps.length}). '
+            'Each runs source, so its twin cannot exercise the '
+            'analyzer-to-mirror copy — a node copied wrongly yields a mirror '
+            'tree that interprets consistently and wrongly, which no ast test '
+            'can see. Port one, or raise the budget and say in the entry why '
+            'this suite is not worth porting.',
       );
     });
 
