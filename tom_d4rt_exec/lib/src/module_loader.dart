@@ -77,6 +77,17 @@ class ModuleLoader implements context.ModuleContext {
   /// is present here only between the start of its directive processing and its
   /// completion.
   final Map<Uri, _InFlightModule> _inFlightModules = {};
+
+  /// GEN-100 (SCD52) — one [Environment] per `dart:` library that registers on
+  /// demand, built on first import and reused after. Isolating them is what
+  /// keeps `dart:math`'s `Random` out of a script that never imported it.
+  final Map<String, Environment> _stdlibEnvironments = {};
+
+  /// GEN-100 (SCD52) — one [Environment] per bridged library URI. Before this,
+  /// bridges were registered into `globalEnvironment`, so a bridge imported by
+  /// one module was visible to every module and `show`/`hide` could not be
+  /// expressed at all.
+  final Map<String, Environment> _bridgedModuleEnvironments = {};
   final List<Map<String, LibraryEnum>> bridgedEnumDefinitions;
   final List<Map<String, LibraryClass>> bridgedClases;
   final D4rt? d4rt; // Reference to D4rt instance for permission checking
@@ -363,6 +374,122 @@ class ModuleLoader implements context.ModuleContext {
     // Add more dangerous modules as needed
   }
 
+  // ===========================================================================
+  // GEN-100 (SCD52): per-module / per-stdlib environment loading.
+  // Mirrors ModuleLoader._loadStdlibModule / _tryLoadBridgedModule in
+  // tom_d4rt and tom_d4rt_ast. Before this, both jobs were done inside
+  // `_fetchModuleSource` as a side effect of being asked for source text.
+  // ===========================================================================
+
+  /// The `dart:` libraries this loader can register on demand.
+  ///
+  /// `dart:core` and `dart:async` are absent on purpose: they are
+  /// pre-registered into `globalEnvironment` and stay ambient.
+  static final Map<String, void Function(Environment)> _stdlibRegistrars = {
+    'math': MathStdlib.register,
+    'convert': ConvertStdlib.register,
+    'io': StdlibIo.register,
+    'collection': CollectionStdlib.register,
+    'typed_data': TypedDataStdlib.register,
+    'isolate': IsolateStdlib.register,
+  };
+
+  /// Loads a `dart:*` library into its own [Environment].
+  ///
+  /// Returns `null` when the library has bridged content instead, so the
+  /// caller falls through to [_tryLoadBridgedModule]; throws when the library
+  /// is genuinely unsupported.
+  ///
+  /// DGUB3 — [identityUri] rather than [uri] is the cache key, because this
+  /// loader dedupes modules by symlink-resolved identity. The reference has no
+  /// such key and writes `_moduleCache[uri]`; copying that here would store the
+  /// module where the reader never looks, so every import would rebuild it.
+  LoadedModule? _loadStdlibModule(Uri uri, Uri identityUri) {
+    final libName = uri.path;
+    final uriString = uri.toString();
+
+    final registrar = _stdlibRegistrars[libName];
+    if (registrar != null) {
+      Environment stdlibEnv;
+      if (_stdlibEnvironments.containsKey(libName)) {
+        stdlibEnv = _stdlibEnvironments[libName]!;
+      } else {
+        stdlibEnv = Environment(enclosing: globalEnvironment);
+        registrar(stdlibEnv);
+        // The lexical name (`Random`) stays isolated in stdlibEnv; only the
+        // native-type -> bridge mapping is propagated, so that
+        // `toBridgedInstance(rawNative)` can still find the bridge when a
+        // script passes a native subtype through an interpreted function.
+        stdlibEnv.propagateBridgeTypesTo(globalEnvironment);
+        _stdlibEnvironments[libName] = stdlibEnv;
+        Logger.debug(
+          '[ModuleLoader] GEN-100: registered isolated stdlib dart:$libName',
+        );
+      }
+      final module = LoadedModule(
+        uri,
+        _parseSource(uri, ''),
+        stdlibEnv,
+        stdlibEnv,
+      );
+      _moduleCache[identityUri] = module;
+      return module;
+    }
+
+    // dart:core / dart:async are ambient.
+    if (libName == 'core' || libName == 'async') {
+      final module = LoadedModule(
+        uri,
+        _parseSource(uri, ''),
+        globalEnvironment,
+        globalEnvironment,
+      );
+      _moduleCache[identityUri] = module;
+      return module;
+    }
+
+    // A `dart:` URI somebody bridged (e.g. `dart:ui`).
+    if (_hasBridgedContentForUri(uriString)) return null;
+
+    throw SourceCodeD4rtException("Dart library '$uriString' not supported.");
+  }
+
+  /// Loads a bridged library URI into its own [Environment], built once and
+  /// cached.
+  ///
+  /// The env is built with show=null/hide=null so it holds everything the URI
+  /// exports; the per-import filter is applied by the caller when it merges.
+  /// Baking the filter into a cached env shared by every import of the URI
+  /// would make the first importer's combinators decide what later ones see.
+  /// DGUB3 — keyed by [identityUri]; see [_loadStdlibModule].
+  LoadedModule _tryLoadBridgedModule(
+    Uri uri,
+    Uri identityUri,
+    Set<String>? showNames,
+    Set<String>? hideNames,
+  ) {
+    final uriString = uri.toString();
+    Environment moduleEnv;
+    if (_bridgedModuleEnvironments.containsKey(uriString)) {
+      moduleEnv = _bridgedModuleEnvironments[uriString]!;
+    } else {
+      moduleEnv = Environment(enclosing: globalEnvironment);
+      _registerBridgesForUriInto(uriString, null, null, moduleEnv);
+      _bridgedModuleEnvironments[uriString] = moduleEnv;
+      Logger.debug(
+        '[ModuleLoader] GEN-100: created per-module env for $uriString',
+      );
+    }
+    final module = LoadedModule(
+      uri,
+      _parseSource(uri, ''),
+      moduleEnv,
+      moduleEnv,
+    );
+    _moduleCache[identityUri] = module;
+    return module;
+  }
+
   /// Checks if there are bridges registered for a specific URI.
   bool _hasBridgedContentForUri(String uriString) {
     for (final entry in bridgedEnumDefinitions) {
@@ -475,11 +602,31 @@ class ModuleLoader implements context.ModuleContext {
     Logger.debug(
       "[ModuleLoader loadModule for $uri] Loading module: ${uri.toString()}",
     );
-    String sourceCode = _fetchModuleSource(
-      uri,
-      showNames: showNames,
-      hideNames: hideNames,
-    ); // Pass show/hide to filter bridged registrations
+    // GEN-100 (SCD52) — resolve stdlib and bridged modules, each into its own
+    // Environment, BEFORE falling through to source. The order is stdlib ->
+    // bridged -> source, and it is a sequence a reader can see. It used to be
+    // whatever the early returns inside `_fetchModuleSource` happened to do,
+    // which is how SCC14's `Undefined variable: Beep` was possible.
+    if (uri.scheme == 'dart') {
+      final stdlibModule = _loadStdlibModule(uri, identityUri);
+      if (stdlibModule != null) {
+        currentLibrary = previousLibraryForRecursiveLoad;
+        return stdlibModule;
+      }
+      // A bridged `dart:` URI falls through to the bridged branch.
+    }
+    if (_hasBridgedContentForUri(uri.toString())) {
+      final bridgedModule = _tryLoadBridgedModule(
+        uri,
+        identityUri,
+        showNames,
+        hideNames,
+      );
+      currentLibrary = previousLibraryForRecursiveLoad;
+      return bridgedModule;
+    }
+
+    String sourceCode = _fetchModuleSource(uri);
     SCompilationUnit ast = _parseSource(uri, sourceCode);
 
     Environment moduleEnvironment = Environment(enclosing: globalEnvironment);
@@ -850,28 +997,24 @@ class ModuleLoader implements context.ModuleContext {
     return true;
   }
 
-  String _fetchModuleSource(
-    Uri uri, {
-    Set<String>? showNames,
-    Set<String>? hideNames,
-  }) {
+  /// Reads a module's source text. Nothing else.
+  ///
+  /// GEN-100 — stdlib and bridged URIs are resolved by [_loadStdlibModule]
+  /// and [_tryLoadBridgedModule] BEFORE this is called, so by the time a URI
+  /// arrives here it is either preloaded, on disk, or an error. Until SCD52
+  /// this function also performed every bridge registration as a side effect
+  /// and returned `''` so the caller parsed an empty unit — which is how
+  /// SCC14 met `Undefined variable: Beep`: the preloaded-sources check sat
+  /// ahead of the bridge check, so `'test:beep': ''` won and the bridged
+  /// names were never registered. Resolution order is now a visible sequence
+  /// in [_loadModuleInternal] rather than the order of early returns here.
+  String _fetchModuleSource(Uri uri) {
     final uriString = uri.toString();
-    Logger.debug(
-      "[ModuleLoader] Récupération de la source pour: $uriString depuis sources. (show: $showNames, hide: $hideNames)",
-    );
+    Logger.debug("[ModuleLoader] Fetching source for: $uriString");
 
-    // First check if the exact URI is in the preloaded sources.
-    //
-    // A registered bridge for the same URI wins, mirroring tom_d4rt's loader,
-    // which resolves bridged content before it ever consults `sources`. The
-    // caller that registers a bridge under `test:beep` and then passes
-    // `'test:beep': ''` alongside its main source is describing ONE library —
-    // the empty entry only exists so the import resolves — and taking the
-    // source here returned an empty module, leaving every bridged name
-    // undefined. There is no legitimate case for the other precedence: a URI
-    // cannot be both a native library and an interpreted one.
-    if (sources.containsKey(uriString) &&
-        !_hasBridgedContentForUri(uriString)) {
+    // The preloaded sources. No bridge check is needed any more: a URI with
+    // bridged content never reaches this function.
+    if (sources.containsKey(uriString)) {
       Logger.debug("[ModuleLoader] Source found for $uriString in sources.");
       return sources[uriString]!;
     }
@@ -881,8 +1024,8 @@ class ModuleLoader implements context.ModuleContext {
     // resolve against basePath; `file:` URIs read directly.
     // DGUB3 (mirrors tom_d4rt DFUB2) — every on-disk read is gated by a
     // per-read FilesystemPermission check, which throws before any bytes are
-    // read. This is checked ahead of the stdlib branch below so a filesystem
-    // module never falls through to "not a recognized Dart standard library".
+    // read. The stdlib branch this used to sit ahead of now runs earlier
+    // still, in [_loadModuleInternal], so a `dart:` URI never reaches here.
     if (allowFileSystemImports) {
       final fileUri = _resolveFileSystemUri(uri);
       if (fileUri != null) {
@@ -901,64 +1044,32 @@ class ModuleLoader implements context.ModuleContext {
       }
     }
 
-    // Then handle the known Dart libraries provided by Stdlib
-    if (uri.scheme == 'dart') {
-      final knownStdlibDartLibs = [
-        'core',
-        'math',
-        'async',
-        'convert',
-        'io',
-        'collection',
-        'typed_data',
-        'isolate',
-      ];
-      if (knownStdlibDartLibs.contains(uri.path)) {
-        if (uri.path == 'convert') {
-          ConvertStdlib.register(globalEnvironment);
-          return '';
-        }
-        if (uri.path == 'math') {
-          MathStdlib.register(globalEnvironment);
-          return '';
-        }
-        if (uri.path == 'io') {
-          StdlibIo.register(globalEnvironment);
-          return '';
-        }
-        if (uri.path == 'collection') {
-          CollectionStdlib.register(globalEnvironment);
-          return '';
-        }
-        if (uri.path == 'typed_data') {
-          TypedDataStdlib.register(globalEnvironment);
-          return '';
-        }
-        if (uri.path == 'isolate') {
-          IsolateStdlib.register(globalEnvironment);
-          return '';
-        }
-        Logger.info(
-          "[ModuleLoader] The Dart library '${uri.toString()}' is provided natively by Stdlib. Returning an empty module.",
-        );
-        return ""; // Empty source to allow the import to succeed
-      } else {
-        // Not a known stdlib - check if there are bridges for this dart: URI
-        if (_hasBridgedContentForUri(uriString)) {
-          Logger.info(
-            "[ModuleLoader] Dart library '${uri.toString()}' has bridged content, falling through to bridge registration.",
-          );
-          // Fall through to bridged content handling below
-        } else {
-          Logger.error(
-            "[ModuleLoader] Dart library '${uri.toString()}' not supported or recognized by Stdlib.",
-          );
-          throw SourceCodeD4rtException(
-            "Dart library '${uri.toString()}' not supported.",
-          );
-        }
-      }
-    }
+    // Neither preloaded nor on disk. A `dart:` URI that is neither a known
+    // stdlib library nor bridged was already rejected by [_loadStdlibModule].
+    Logger.error(
+      "[ModuleLoader] Source not preloaded and not a recognized Dart standard library for URI: $uriString",
+    );
+    // DFUB13 / DGUB3 — the reason a module could not be loaded decides the
+    // message: a filesystem candidate reports either the disabled flag or the
+    // path the loader looked at, a `package:` URI gets package-specific
+    // guidance, and only the genuine leftovers get the generic stdlib tail.
+    throw _missingModuleSourceError(uri);
+  }
+
+  /// Registers every bridged definition for [uriString] into
+  /// [targetEnvironment], and reports whether the URI had any.
+  ///
+  /// SCD52 — lifted out of `_fetchModuleSource`, which registered into
+  /// `globalEnvironment` as a side effect of being asked for source text.
+  /// The target is a parameter now, which is what lets a bridged URI own a
+  /// module environment instead of leaking its names to every other module.
+  /// Lookups still reach the global scope: a module env encloses it.
+  bool _registerBridgesForUriInto(
+    String uriString,
+    Set<String>? showNames,
+    Set<String>? hideNames,
+    Environment targetEnvironment,
+  ) {
     // Check if this URI has any bridged types or library-scoped globals registered
     final hasBridgedContent =
         bridgedClases.isNotEmpty ||
@@ -1018,7 +1129,7 @@ class ModuleLoader implements context.ModuleContext {
 
           try {
             final bridgedEnum = definition.buildBridgedEnum();
-            globalEnvironment.defineBridgedEnum(bridgedEnum);
+            targetEnvironment.defineBridgedEnum(bridgedEnum);
             Logger.debug(
               " [execute] Registered bridged enum: $enumName from $sourceUri",
             );
@@ -1082,7 +1193,7 @@ class ModuleLoader implements context.ModuleContext {
             // without it the environment cannot derive a package qualifier for
             // either candidate, so it falls back to last-registration-wins and
             // binds the bare name to a class the script never named.
-            globalEnvironment.defineBridgeLazy(
+            targetEnvironment.defineBridgeLazy(
               libClass.name,
               libClass.nativeType,
               libClass.thunk,
@@ -1143,7 +1254,7 @@ class ModuleLoader implements context.ModuleContext {
           }
 
           try {
-            globalEnvironment.define(funcName, nativeFunc);
+            targetEnvironment.define(funcName, nativeFunc);
             _registeredFunctions[funcName] = sourceUri;
             Logger.debug(
               " [execute] Registered library function: $funcName from $sourceUri",
@@ -1199,7 +1310,7 @@ class ModuleLoader implements context.ModuleContext {
           }
 
           try {
-            globalEnvironment.define(varName, libVar.value);
+            targetEnvironment.define(varName, libVar.value);
             _registeredVariables[varName] = sourceUri;
             Logger.debug(
               " [execute] Registered library variable: $varName from $sourceUri",
@@ -1255,7 +1366,7 @@ class ModuleLoader implements context.ModuleContext {
           }
 
           try {
-            globalEnvironment.define(
+            targetEnvironment.define(
               getterName,
               GlobalGetter(libGetter.getter),
             );
@@ -1316,12 +1427,12 @@ class ModuleLoader implements context.ModuleContext {
 
           try {
             // Find the corresponding getter and update it to include the setter
-            final existingValue = globalEnvironment.getRawValueIfDefined(
+            final existingValue = targetEnvironment.getRawValueIfDefined(
               setterName,
             );
             if (existingValue is GlobalGetter) {
               // Replace GlobalGetter with one that includes the setter
-              globalEnvironment.define(
+              targetEnvironment.define(
                 setterName,
                 GlobalGetter(existingValue.getter, setter: libSetter.setter),
               );
@@ -1334,7 +1445,7 @@ class ModuleLoader implements context.ModuleContext {
               Logger.warn(
                 " [execute] Setter '$setterName' registered without corresponding getter",
               );
-              globalEnvironment.define(
+              targetEnvironment.define(
                 setterName,
                 GlobalGetter(
                   () => null, // No getter - reading returns null
@@ -1412,7 +1523,7 @@ class ModuleLoader implements context.ModuleContext {
             // revoked, so a host collecting reported errors as its pass/fail
             // signal — the REPL in `-test` mode — failed runs in which nothing
             // went wrong.
-            final typeObj = globalEnvironment.lookup(definition.onTypeName);
+            final typeObj = targetEnvironment.lookup(definition.onTypeName);
             var onType = typeObj is RuntimeType ? typeObj : null;
 
             // GEN-056 FIX: If the type isn't found in the environment, try
@@ -1454,12 +1565,12 @@ class ModuleLoader implements context.ModuleContext {
 
             // Named extensions are defined by name; unnamed are added as unnamed extensions
             if (definition.name != null) {
-              globalEnvironment.define(definition.name!, interpretedExt);
+              targetEnvironment.define(definition.name!, interpretedExt);
               Logger.debug(
                 " [execute] Registered named bridged extension: ${definition.name} on ${definition.onTypeName} from $sourceUri",
               );
             } else {
-              globalEnvironment.addUnnamedExtension(interpretedExt);
+              targetEnvironment.addUnnamedExtension(interpretedExt);
               Logger.debug(
                 " [execute] Registered unnamed bridged extension on ${definition.onTypeName} from $sourceUri",
               );
@@ -1485,21 +1596,9 @@ class ModuleLoader implements context.ModuleContext {
         }
       }
 
-      // If this URI had bridged content, return empty source
-      if (hasContentForUri) {
-        return '';
-      }
+      return hasContentForUri;
     }
-
-    // If it's neither explicitly preloaded nor a known Dart library, it's an error.
-    Logger.error(
-      "[ModuleLoader] Source not preloaded and not a recognized Dart standard library for URI: $uriString",
-    );
-    // DFUB13 / DGUB3 — the reason a module could not be loaded decides the
-    // message: a filesystem candidate reports either the disabled flag or the
-    // path the loader looked at, a `package:` URI gets package-specific
-    // guidance, and only the genuine leftovers get the generic stdlib tail.
-    throw _missingModuleSourceError(uri);
+    return false;
   }
 
   /// GEN-056 FIX: Resolve a RuntimeType for an extension's on-type by

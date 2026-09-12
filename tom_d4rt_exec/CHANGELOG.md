@@ -1,3 +1,66 @@
+## 1.22.0
+
+### Changed — module resolution is a visible sequence, not an order of early returns (scd52)
+
+`ModuleLoader` now resolves a module the way `tom_d4rt` and `tom_d4rt_ast` have
+since GEN-100: **stdlib → bridged → source**, as three steps in
+`_loadModuleInternal`, each producing its own `Environment`.
+
+Until now both earlier steps lived inside `_fetchModuleSource`, which
+registered every bridge for a URI into `globalEnvironment` as a side effect of
+being asked for source text and returned `''` so the caller parsed an empty
+unit. Three things follow from that shape, and the first is what prompted this:
+
+- **Precedence was implicit.** Which of stdlib, bridges, the filesystem and the
+  preloaded `sources` won was whatever the sequence of early returns in one
+  650-line function happened to do. SCC14 met `Undefined variable: Beep`
+  because the `sources` check sat ahead of the bridge check, so the documented
+  multi-source pattern — register a bridge under a URI, pass `'that:uri': ''`
+  so the import resolves — loaded an empty library and lost every bridged name.
+  That was fixed in two lines at the time; this removes the shape that allowed
+  it.
+- **Bridges landed in the global scope.** A bridged URI now gets its own module
+  `Environment`, built once and cached, holding everything the URI exports; the
+  per-import `show`/`hide` filter is applied by the caller when it merges,
+  rather than baked in at registration time by whichever module imported first.
+- **`_fetchModuleSource` mutated.** It is named for a pure read and was the
+  registration path. It now reads source and nothing else — a URI with bridged
+  content never reaches it.
+
+`dart:` libraries that register on demand (`math`, `convert`, `io`,
+`collection`, `typed_data`, `isolate`) each get an isolated environment, with
+only the native-type→bridge mapping propagated to the global scope so
+`toBridgedInstance` can still resolve a native subtype. `dart:core` and
+`dart:async` stay ambient.
+
+Behaviour-preserving: the full suite reports the same 3687 passing tests as
+before the change. This package's own additions — DGUB3 URI canonicalisation
+and the symlink identity key, the per-read `FilesystemPermission` gate, DFUB10
+cycle handling — are unchanged and still sit in `_loadModuleInternal`.
+
+### Note on a prediction that did not hold
+
+scd52 listed "bridges leak into the global scope, so exec cannot express
+`show`/`hide` or same-name-in-two-libraries the way the other two can" as a
+live consequence. Both halves were measured against the old loader, and both
+were already working:
+
+- **Same name in two libraries.** Registration is driven by IMPORT, so a
+  library nobody imports never reaches the environment and there is no second
+  name to shadow anything. With both imported, the clash was already handled
+  above the loader by the ambiguity machinery
+  (`AmbiguousBridgedNameException` and the `<package>.Name` qualifier).
+  `test/bridge/scd52_same_name_bridge_per_module_test.dart` pins all four
+  cases and passes against the old loader as well as the new one.
+- **Per-import `show`/`hide`.** A module importing a bridged library with
+  `show Alpha` did not remove `Beta` for a second module importing the same
+  library plainly. Measured both ways; unchanged.
+
+So this release changes structure, not capability. The value is the two
+consequences that ARE real — resolution order you can read, and a fetch
+function that does not mutate — plus being the same shape as the other two
+interpreters, which is what makes a fix in one portable to the others.
+
 ## 1.21.0
 
 ### Changed — resolves `tom_d4rt_ast` 0.65.0; imports are recorded for the ambiguity check
