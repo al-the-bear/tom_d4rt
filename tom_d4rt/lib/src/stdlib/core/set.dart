@@ -47,10 +47,30 @@ class SetCore {
             'Set.castFrom(source) expects one positional argument.',
           );
         }
-        if (namedArgs.isNotEmpty) {
+        if (namedArgs.containsKey('newSet')) {
           throw RuntimeD4rtException(
-            'Set.castFrom does not support the `newSet` argument: it is '
-            'a generic function, which interpreted code cannot express.',
+            'Set.castFrom does not support the `newSet` argument: its type is '
+            '`Set<R> Function<R>()`, a generic function that the callee '
+            'instantiates at a type the caller never writes. Interpreted code '
+            'cannot express that, and the callable model has no path for a '
+            'caller-side type instantiation, so it is rejected rather than '
+            'accepted and ignored -- dropping it would return a view over a '
+            'LinkedHashSet where the caller asked for, say, a SplayTreeSet, '
+            'and the script would misbehave far from this call. Cast the set '
+            'yourself if you need a specific implementation: '
+            '`SplayTreeSet<T>.of(source.cast<T>())`.',
+          );
+        }
+        // Any OTHER named argument is a different mistake and must not be
+        // reported as the `newSet` limitation: `Set.castFrom(s, newFoo: 1)`
+        // used to produce the paragraph above, which sends the reader to a
+        // limitation that has nothing to do with what they wrote.
+        if (namedArgs.isNotEmpty) {
+          final names = namedArgs.keys.toList()..sort();
+          throw RuntimeD4rtException(
+            'Set.castFrom has no named parameter '
+            '${names.map((n) => '`$n`').join(', ')}. Its only named parameter '
+            'is `newSet`, which is unsupported -- see the error that names it.',
           );
         }
         final source = positionalArgs[0];

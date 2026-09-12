@@ -1,3 +1,39 @@
+## 0.70.0
+
+### Fixed — an unknown named argument to `Set.castFrom` blamed `newSet` (scd37_aidc)
+
+`Set.castFrom<S, T>(Set<S> source, {Set<R> Function<R>()? newSet})` is the only
+member in the whole bridged surface whose parameter is a *generic* function —
+one the callee instantiates at a type the caller never writes. Interpreted code
+cannot express that, so 1.34.0 made the bridge reject `newSet` rather than
+accept and ignore it, and that remains the right answer: a dropped `newSet`
+returns a view over a `LinkedHashSet` where the caller asked for a
+`SplayTreeSet`, and the script then misbehaves far from the call.
+
+The rejection was implemented as `namedArgs.isNotEmpty`, so ANY named argument
+produced the `newSet` explanation. `Set.castFrom(s, newFoo: 1)` was answered
+with a paragraph about generic functions — a limitation that has nothing to do
+with what the author wrote, and the kind of misdirection that costs a debugging
+round. The two cases are now separate: `newSet` gets the reason, anything else
+is told it is not a parameter of `castFrom`. The `newSet` message also now says
+what to do instead (`SplayTreeSet<T>.of(source.cast<T>())`).
+
+**`Map.castFrom` does not have this shape**, contrary to what the tracking todo
+assumed. SDK 3.12.2 declares `Map.castFrom<K, V, K2, V2>(Map<K, V> source)`
+with no named parameter at all, so the bridge refusing one is correct rather
+than the same defect — a bridge must not accept what the SDK rejects. Pinned by
+F-SCD37-5 so the claim stays measured.
+
+`newSet` is the *only* instance: swept against the SDK sources of `core`,
+`collection`, `convert`, `async`, `typed_data` and `io`. The sweep has to read
+the sources because `dart:mirrors` erases the `<R>` and reports the parameter
+as a plain `() -> Set`, which is indistinguishable from an ordinary callback —
+so no mirror-based audit can find this shape.
+
+F-SCD37-1 is written as a throw rather than a value comparison on purpose: the
+bridge could accept `newSet` and ignore it, and every other assertion here
+would still pass.
+
 ## 0.69.0
 
 ### Fixed — a bridged method tear-off is a function everywhere now (scd35_aidc)
