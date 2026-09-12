@@ -1,4 +1,25 @@
-## 1.78.0
+## 1.79.0
+
+### Fixed — the float typed lists accept int literals, as Dart does (scd29_aidb)
+
+`Float32List.fromList([1, 2])` worked while `setAll(0, [7, 8])` did not, so the
+same script could build a float list from int literals and then fail to write
+int literals into it.
+
+**Measured against the analyzer, `fromList` was the correct one.** In a context
+expecting `double`, an integer LITERAL is a double: `fromList([1, 2])`,
+`setAll(0, [7, 8])`, `setRange(0, 2, [7, 8])`, `followedBy([9])` and
+`Float32List(1) + [9]` all compile. The other four were rejecting valid Dart,
+which is an over-narrow guard rather than a widening.
+
+The conversion is narrow: `int` to `double` only, only where that is the element
+type. `double` to `int` is lossy and stays refused, and no other element type is
+converted.
+
+One limit is recorded rather than hidden. Dart accepts the literal and refuses a
+genuine `List<int>` variable; d4rt erases element types, so the two arrive
+indistinguishable and one side has to be chosen. Accepting admits the common,
+valid form.
 
 ### Changed — the eleven typed lists share one adapter map (scd28_aidb)
 
@@ -27,6 +48,8 @@ Now provided by a shared `inheritedListSetters<E>()`, so the eleven cannot
 disagree again. A wrong element type still fails — assigning an `int` into a
 `Float64List` is a type error in Dart and stays one — but reports which member
 and which element type instead of a raw `_TypeError`.
+
+## 1.78.0
 
 ### Fixed — `buffer` was callable as a method on every typed list (scd27_aidb)
 

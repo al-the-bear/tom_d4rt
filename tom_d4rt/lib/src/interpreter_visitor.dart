@@ -2092,8 +2092,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // element-wise builds the result in the receiver's own element type
           // and still rejects an element that genuinely does not fit.
           final combined = left.toList();
+          final wantsDouble = combined is List<double>;
           for (final element in right) {
-            combined.add(element);
+            // SCD29: an `int` into a `List<double>` receiver. Dart accepts
+            // `Float32List(1) + [9]` — in a context expecting `double` an
+            // integer literal IS a double — so refusing it rejected valid Dart.
+            // Narrow on purpose: only int -> double, and only when the receiver
+            // holds doubles. An element that genuinely does not fit still
+            // throws on the `add` below.
+            combined.add(
+              wantsDouble && element is int ? element.toDouble() : element,
+            );
           }
           return combined;
         }

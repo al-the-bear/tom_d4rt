@@ -32,6 +32,27 @@ List<E> coerceElements<E>(Object? arg, String member) {
           ? element.nativeObject
           : element;
       if (unwrapped is E) return unwrapped;
+      // SCD29: an `int` where a `double` is wanted. This is not a widening —
+      // it is what DART does. In a context expecting `double`, an integer
+      // literal IS a double: `Float32List.fromList([1, 2])`,
+      // `l.setAll(0, [7, 8])` and `l.followedBy([9])` all compile, verified
+      // against the analyzer. Rejecting them made valid Dart fail here, which
+      // is the SCD26 defect shape rather than the must-not-widen one.
+      //
+      // THE LIMIT IS REAL AND WORTH STATING. Dart accepts the LITERAL and
+      // rejects a genuine `List<int>` variable. d4rt erases element types, so
+      // `[7, 8]` and a `List<int>` arrive here indistinguishable, and no rule
+      // written at this point can separate them. Accepting is the side that
+      // admits the common, valid script; rejecting is the side that breaks it.
+      // The residue — a `List<int>` variable that Dart would refuse — is a
+      // known consequence of erasure, not an oversight.
+      //
+      // Deliberately narrow: only `int` -> `double`, only when that is what
+      // `E` is. `double` -> `int` is lossy and stays refused, and no other
+      // numeric pair is converted.
+      if (unwrapped is int && <E>[] is List<double>) {
+        return unwrapped.toDouble() as E;
+      }
       throw RuntimeD4rtException(
         "$member expects an Iterable<$E>, but an element was "
         "${unwrapped.runtimeType}.",
