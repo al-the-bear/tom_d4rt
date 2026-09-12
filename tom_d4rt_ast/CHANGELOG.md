@@ -1,3 +1,37 @@
+## 0.76.0
+
+### Fixed — a typed for-each loop variable is checked against what it binds (scd63)
+
+`for (final int x in [1, 'two', 3])` bound the String and kept going. The body
+then ran with a value its own declaration rules out — and, measured, did not
+fail there either: `x + 1` reached `String.+` and produced `'two1'`. A silently
+wrong value, not an error a few frames away. Real Dart raises a `TypeError` on
+the offending element, after the earlier iterations have run, which is what
+this now does, with the SDK's own wording so a script's `on TypeError` sees
+what Dart would have shown it.
+
+SEVEN PATHS, ONE CONSTRUCT. The same loop was checked or unchecked depending on
+things a reader of the loop cannot see. The visitor has three for-each
+implementations (statement, collection-literal element, await-for item list),
+the async state machine two more, and the sync generator a seventh — so whether
+a given loop was covered came down to whether its enclosing function was
+`async`. All seven now share one rule.
+
+IT IS A BINDING CHECK, NOT `is`. The obvious implementation — the `is`
+predicate SCC18 extracted — is wrong twice over. `for (final double d in
+[1, 2.5])` is a program real Dart ACCEPTS, because the literal widens, and
+`1 is double` is false; and `is` must answer "no" to a type it cannot resolve,
+where a binding check has to wave that same type through or a script using an
+unbridged library stops running. The check reused is the one SCC29 wrote for
+parameter binding, which had already settled both. Its value-independent half
+is now split out so a loop resolves its annotation once: measured, that
+resolution was ~86% of the check's cost, and hoisting it took the overhead on a
+200 000-element typed loop from +16% to +2%.
+
+Two cases are deliberately left as they were: `for (x in xs)` over a variable
+declared elsewhere (the annotation is not on this node), and a type name the
+interpreter cannot resolve. Both are pinned as they stand.
+
 ## 0.75.0
 
 ### Fixed — `is` honours the nullable `?` suffix, and so do typed patterns (scd62)

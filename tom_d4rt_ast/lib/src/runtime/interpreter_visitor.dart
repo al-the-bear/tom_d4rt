@@ -6658,6 +6658,31 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
   }
 
+  /// SCD63: the per-element check a typed for-each loop variable needs, or null
+  /// when the loop needs none — resolved ONCE, before iterating.
+  ///
+  /// A typed for-each variable used to bind whatever the iterable produced:
+  /// `for (final int x in [1, 'two', 3])` ran its body with a String in a
+  /// variable its own declaration rules out, and the body then computed a wrong
+  /// value rather than failing — `x + 1` concatenated to `'two1'`. Real Dart
+  /// raises `TypeError` on the offending element, after the earlier iterations
+  /// have run, which is what [ResolvedBinding.bind] reproduces.
+  ///
+  /// The check is a BINDING check, deliberately not this visitor's own
+  /// `_valueHasType`. `is` is a question, and a question must answer "no" to a
+  /// type it cannot resolve; a binding check must wave that same type through,
+  /// and it widens an `int` to a `double` where `is` must not. Using the `is`
+  /// predicate here would reject `for (final double d in [1, 2.5])`, which real
+  /// Dart accepts, and would turn a for-in over a type from an unbridged
+  /// library into a lookup failure.
+  ///
+  /// [InterpretedFunction.resolveForEachBinding] owns the rule; the async state
+  /// machine's and sync generator's own for-each paths share it, because
+  /// whether a given loop runs on this path or on one of theirs depends on
+  /// nothing more visible than whether its enclosing function is `async`.
+  ResolvedBinding? _forEachBinding(SAstNode? loopVariable) =>
+      InterpretedFunction.resolveForEachBinding(environment, loopVariable);
+
   // Helper method to execute the logic of a for-in loop (simplified)
   void _executeForIn(
     SAstNode loopVariableOrIdentifier,
@@ -6712,10 +6737,15 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           );
         }
 
+        final binding = _forEachBinding(loopVariableOrIdentifier);
+
         // Iterate over the native list
         for (final element in iterableValue) {
           // Assign current element to the loop variable
-          environment.assign(variableName, element);
+          environment.assign(
+            variableName,
+            binding == null ? element : binding.bind(environment, element),
+          );
 
           // Execute the body
           try {
@@ -6924,10 +6954,15 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         );
       }
 
+      final binding = _forEachBinding(loopVariableOrIdentifier);
+
       // Iterate over the items
       for (final element in items) {
         // Assign current element to the loop variable
-        environment.assign(variableName, element);
+        environment.assign(
+          variableName,
+          binding == null ? element : binding.bind(environment, element),
+        );
 
         // Execute the body
         try {
@@ -8026,8 +8061,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               );
             }
 
+            final binding = _forEachBinding(loopVariableNode);
+
             for (final item in unwrappedIterable) {
-              environment.assign(variableName, item);
+              environment.assign(
+                variableName,
+                binding == null ? item : binding.bind(environment, item),
+              );
               _processCollectionElement(
                 element.body!,
                 collection,

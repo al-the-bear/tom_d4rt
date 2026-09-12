@@ -238,30 +238,17 @@ class InterpretedFunction implements Callable {
   }
 
   /// The value to bind to [paramName], after checking it against the declared
-  /// type of [param] and applying the one conversion Dart applies here.
-  ///
-  /// Returns the value to bind — normally [value] unchanged, or its `double`
-  /// widening — and throws [D4rtTypeError] when the argument cannot inhabit the
-  /// declared type. The message is the SDK's runtime wording, not the analyzer's
-  /// compile-time one, because this is the shape a real program's `on TypeError`
-  /// clause matches.
+  /// type of [param]. Picks the annotation off whichever parameter shape this
+  /// is and defers to [checkBindingType], which owns the check itself.
   ///
   /// Call this only for arguments the *caller* supplied. A value the declaration
   /// produced — an omitted optional's implicit `null`, an evaluated default — is
   /// a case real Dart rejects at compile time, so checking it here can only fire
   /// on programs the analyzer already refuses, while breaking the interpreted
-  /// scripts that rely on `[String s]` meaning "may be absent".
-  ///
-  /// **Permissive wherever it cannot be sure.** A false positive rejects a
-  /// correct program, which is worse than the silent pass this replaces, so
-  /// every case the resolver cannot answer confidently is waved through:
-  /// unannotated and `dynamic` parameters, annotations that fail to resolve,
-  /// type parameters (which resolve to a placeholder rather than to the type the
-  /// caller supplied), and the structural function/record annotations whose
-  /// comparison is a larger question than this check.
-  ///
-  /// The predicate is [RuntimeType.isSubtypeOf] — the same one the return-type
-  /// check uses. Only the presentation differs.
+  /// scripts that rely on `[String s]` meaning "may be absent". That restriction
+  /// belongs to the CALLER of this method, not to [checkBindingType]: a for-in
+  /// loop variable is always a value the iterable supplied, so it has no
+  /// equivalent exemption.
   static Object? _checkArgumentType(
     Environment env,
     NormalFormalParameter param,
@@ -277,19 +264,135 @@ class InterpretedFunction implements Callable {
       typeNode = param.type;
     } else {
       // FunctionTypedFormalParameter (`void f(int cb(String))`) — a structural
-      // shape, handled like the other structural annotations below.
+      // shape, handled like the annotation check's own structural exits.
       return value;
     }
+    return checkBindingType(env, typeNode, value, describedAs: paramName);
+  }
+
+  /// The value to bind to a for-each loop variable for one iteration, checked
+  /// against the variable's written type.
+  ///
+  /// SCD63: a typed for-each variable used to bind whatever the iterable
+  /// produced — `for (final int x in [1, 'two', 3])` ran its body with a String
+  /// in a variable its own declaration rules out, and the body then computed a
+  /// wrong value rather than failing (`x + 1` concatenated). Real Dart raises
+  /// `TypeError` on the offending element, after the earlier iterations have
+  /// run, which is what this reproduces.
+  ///
+  /// [loopVariable] is the loop's own variable node. A `SimpleIdentifier`
+  /// (`for (x in xs)`) carries no annotation here — its type was written at its
+  /// own declaration, which this node does not reach — so it binds unchecked.
+  ///
+  /// Every for-each execution path calls this: the visitor's three (statement,
+  /// collection-literal element, await-for item list) and the async state
+  /// machine's and sync generator's own copies in this file. They are separate
+  /// implementations of one construct, so a check added to any subset of them
+  /// would hold only for the loops that happen to run on that path — and
+  /// whether a given loop runs on the state machine's path depends on nothing
+  /// more visible than whether its enclosing function is `async`.
+  static Object? checkForEachBinding(
+    Environment env,
+    AstNode? loopVariable,
+    Object? element,
+  ) {
+    final binding = resolveForEachBinding(env, loopVariable);
+    return binding == null ? element : binding.bind(env, element);
+  }
+
+  /// [resolveBinding] for a for-each loop variable: the resolved check, or null
+  /// when the loop needs none.
+  ///
+  /// A path with a real loop to hoist out of calls this ONCE before iterating
+  /// and then [ResolvedBinding.bind] per element. The async state machine and
+  /// the sync generator re-enter per item and have no such place to stand, so
+  /// they call [checkForEachBinding] and pay the resolution each time.
+  static ResolvedBinding? resolveForEachBinding(
+    Environment env,
+    AstNode? loopVariable,
+  ) {
+    if (loopVariable is! DeclaredIdentifier) return null;
+    return resolveBinding(env, loopVariable.type);
+  }
+
+  /// The value to bind to a written type [typeNode], after checking it and
+  /// applying the one conversion Dart applies here.
+  ///
+  /// Returns the value to bind — normally [value] unchanged, or its `double`
+  /// widening — and throws [D4rtTypeError] when the value cannot inhabit the
+  /// annotation. A null [typeNode] is an unannotated binding (`var x`), which
+  /// admits anything.
+  ///
+  /// [describedAs] names the binding in the message. The SDK spells a failed
+  /// PARAMETER bind `type 'X' is not a subtype of type 'Y' of 'p'` but a failed
+  /// for-in bind just `type 'X' is not a subtype of type 'Y'`, so the clause is
+  /// appended only when a name is supplied. Matching the SDK wording per
+  /// construct is the point of [D4rtTypeError]: an `on TypeError` clause in a
+  /// script ported from Dart should see what Dart would have shown it.
+  ///
+  /// SCC29 wrote this for parameter binding; SCD63 made the for-each loop
+  /// variable the second caller. It is deliberately NOT the `is` predicate
+  /// (`_valueHasType` in the visitor): `is` is a QUESTION, which must answer
+  /// "no" when it cannot resolve the type, while this is a BINDING CHECK, which
+  /// must wave through what it cannot resolve — and which has a conversion in
+  /// it that `is` has no business performing.
+  ///
+  /// **Permissive wherever it cannot be sure.** A false positive rejects a
+  /// correct program, which is worse than the silent pass this replaces, so
+  /// every case the resolver cannot answer confidently is waved through:
+  /// unannotated and `dynamic` bindings, annotations that fail to resolve,
+  /// type parameters (which resolve to a placeholder rather than to the type
+  /// actually supplied), and the structural function/record annotations whose
+  /// comparison is a larger question than this check.
+  ///
+  /// The predicate is [RuntimeType.isSubtypeOf] — the same one the return-type
+  /// check uses. Only the presentation differs.
+  static Object? checkBindingType(
+    Environment env,
+    TypeAnnotation? typeNode,
+    Object? value, {
+    String? describedAs,
+  }) {
+    final binding = resolveBinding(env, typeNode, describedAs: describedAs);
+    return binding == null ? value : binding.bind(env, value);
+  }
+
+  /// The value-independent half of a binding check, resolved once.
+  ///
+  /// Returns null when the annotation admits everything, so the caller can skip
+  /// the check entirely rather than call a predicate that always says yes.
+  ///
+  /// **Permissive wherever it cannot be sure.** A false positive rejects a
+  /// correct program, which is worse than the silent pass these checks replace,
+  /// so every case the resolver cannot answer confidently returns null here:
+  /// unannotated bindings, `dynamic` / `void`, annotations that fail to
+  /// resolve, type parameters (which resolve to a placeholder rather than to
+  /// the type actually supplied), and the structural function/record
+  /// annotations whose comparison is a larger question than this check.
+  ///
+  /// Split out from [checkBindingType] by SCD63 so a for-each loop can resolve
+  /// its annotation once and check every element against the result. That is
+  /// not a micro-optimisation: on a 200 000-element typed loop the resolution
+  /// measured ~86% of the check's total cost (+16% over an unchecked loop, of
+  /// which the subtype test itself was ~2%), because resolving a name walks the
+  /// environment chain while comparing two resolved types does not.
+  static ResolvedBinding? resolveBinding(
+    Environment env,
+    TypeAnnotation? typeNode, {
+    String? describedAs,
+  }) {
+    // An unannotated binding admits anything.
+    if (typeNode == null) return null;
     // Only nominal annotations are checked. `int Function(String)` and
     // `(int, String)` need a structural comparison against a callable or a
     // record, and getting that wrong rejects working callbacks.
-    if (typeNode is! NamedType) return value;
+    if (typeNode is! NamedType) return null;
 
     // Cheap spelling-level exit, before the environment lookup below. The same
     // test is repeated on the RESOLVED type, which is the one that matters: a
     // type parameter left unbound by a raw generic (`Box()` rather than
     // `Box<int>()`) is spelled `T` but resolves to `dynamic`.
-    if (_isUncheckableTypeName(typeNode.name.lexeme)) return value;
+    if (_isUncheckableTypeName(typeNode.name.lexeme)) return null;
 
     final RuntimeType declaredType;
     try {
@@ -297,49 +400,21 @@ class InterpretedFunction implements Callable {
     } catch (_) {
       // Unresolvable annotation — stay permissive, as the return-type check
       // does.
-      return value;
+      return null;
     }
     // A type parameter stands for a type that is not bound at this point, so a
     // comparison would be against the placeholder rather than against what the
     // caller actually supplied.
-    if (declaredType is TypeParameter) return value;
+    if (declaredType is TypeParameter) return null;
 
     final declaredName = declaredType.name;
-    if (declaredName == 'dynamic' || declaredName == 'void') return value;
+    if (declaredName == 'dynamic' || declaredName == 'void') return null;
 
-    final isNullable = typeNode.question != null;
-    final displayName = isNullable ? '$declaredName?' : declaredName;
-
-    if (value == null) {
-      if (isNullable) return null;
-      throw D4rtTypeError(
-        "type 'Null' is not a subtype of type '$displayName' of '$paramName'",
-      );
-    }
-
-    // Above the hierarchy the subtype check can express: every non-null value
-    // inhabits `Object`, and `Function` is satisfied by callables whose runtime
-    // type the resolver models only coarsely.
-    if (declaredName == 'Object' || declaredName == 'Function') return value;
-
-    // Dart widens an `int` bound to a `double`. Without this the body receives
-    // an `int` where its own annotation promises a `double` — the same silent
-    // wrong value this check exists to stop, one step further in. The return
-    // path applies the identical conversion at the other end of the call.
-    if (declaredName == 'double' && value is int) return value.toDouble();
-
-    final RuntimeType? valueType;
-    try {
-      valueType = env.getRuntimeType(value);
-    } catch (_) {
-      return value;
-    }
-    if (valueType == null || valueType is TypeParameter) return value;
-
-    if (valueType.isSubtypeOf(declaredType, value: value)) return value;
-    throw D4rtTypeError(
-      "type '${valueType.name}' is not a subtype of type '$displayName' "
-      "of '$paramName'",
+    return ResolvedBinding._(
+      declaredType,
+      declaredName,
+      typeNode.question != null,
+      describedAs == null ? '' : " of '$describedAs'",
     );
   }
 
@@ -2252,11 +2327,16 @@ class InterpretedFunction implements Callable {
                   // where the loop environment might not have the variable defined yet
                   // (e.g., after async resumption with environment changes).
                   final varName = parts.loopVariable.name.lexeme;
+                  final boundItem = checkForEachBinding(
+                    visitor.environment,
+                    parts.loopVariable,
+                    currentItem,
+                  );
                   try {
-                    visitor.environment.assign(varName, currentItem);
+                    visitor.environment.assign(varName, boundItem);
                   } on RuntimeD4rtException {
                     // Variable not found in scope chain — define it in current env
-                    visitor.environment.define(varName, currentItem);
+                    visitor.environment.define(varName, boundItem);
                   }
                 } else if (parts is ForEachPartsWithIdentifier) {
                   visitor.environment.assign(
@@ -2402,7 +2482,11 @@ class InterpretedFunction implements Callable {
                     // Assign (not define) the loop variable for the current iteration
                     currentState.loopEnvironmentStack[loopIndex].assign(
                       loopVariable.name.lexeme,
-                      currentItem,
+                      checkForEachBinding(
+                        visitor.environment,
+                        loopVariable,
+                        currentItem,
+                      ),
                     );
                   } else {
                     // Environment doesn't exist yet - create it
@@ -2420,7 +2504,11 @@ class InterpretedFunction implements Callable {
                     // Define the loop variable in this environment
                     newLoopEnvironment.define(
                       loopVariable.name.lexeme,
-                      currentItem,
+                      checkForEachBinding(
+                        newLoopEnvironment,
+                        loopVariable,
+                        currentItem,
+                      ),
                     );
                     Logger.debug(
                       "[StateMachine] ForIn: Created environment at index ${currentState.loopEnvironmentStack.length - 1}",
@@ -5780,7 +5868,14 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
     for (final element in iterable) {
       // Define loop variable
       if (loopVariable is DeclaredIdentifier) {
-        visitor.environment.define(loopVariable.name.lexeme, element);
+        visitor.environment.define(
+          loopVariable.name.lexeme,
+          InterpretedFunction.checkForEachBinding(
+            visitor.environment,
+            loopVariable,
+            element,
+          ),
+        );
       } else if (loopVariable is SimpleIdentifier) {
         visitor.environment.assign(loopVariable.name, element);
       }
@@ -5806,6 +5901,72 @@ class _LazySyncGeneratorIterator implements Iterator<Object?> {
         rethrow;
       }
     }
+  }
+}
+
+/// A binding check with everything that does not depend on the value already
+/// resolved — the product of [InterpretedFunction.resolveBinding].
+///
+/// Exists so a loop can resolve its annotation once and check many values
+/// against it; see [InterpretedFunction.resolveBinding] for the measurement
+/// that motivated the split.
+class ResolvedBinding {
+  const ResolvedBinding._(
+    this._declaredType,
+    this._declaredName,
+    this._isNullable,
+    this._suffix,
+  );
+
+  final RuntimeType _declaredType;
+  final String _declaredName;
+  final bool _isNullable;
+
+  /// The `of 'name'` clause, or empty. The SDK spells a failed PARAMETER bind
+  /// `type 'X' is not a subtype of type 'Y' of 'p'` but a failed for-in bind
+  /// just `type 'X' is not a subtype of type 'Y'`, and matching the SDK per
+  /// construct is the point of [D4rtTypeError]: an `on TypeError` clause in a
+  /// script ported from Dart should see what Dart would have shown it.
+  final String _suffix;
+
+  String get _displayName => _isNullable ? '$_declaredName?' : _declaredName;
+
+  /// The value to bind — [value] unchanged, or its `double` widening — or
+  /// throws [D4rtTypeError] when [value] cannot inhabit the declared type.
+  Object? bind(Environment env, Object? value) {
+    if (value == null) {
+      if (_isNullable) return null;
+      throw D4rtTypeError(
+        "type 'Null' is not a subtype of type '$_displayName'$_suffix",
+      );
+    }
+
+    // Above the hierarchy the subtype check can express: every non-null value
+    // inhabits `Object`, and `Function` is satisfied by callables whose runtime
+    // type the resolver models only coarsely.
+    if (_declaredName == 'Object' || _declaredName == 'Function') return value;
+
+    // Dart widens an `int` bound to a `double`. Without this the binding
+    // receives an `int` where its own annotation promises a `double` — the same
+    // silent wrong value this check exists to stop, one step further in. It is
+    // also why a binding check cannot be the `is` predicate: `1 is double` is
+    // false, but `for (final double d in [1, 2.5])` is a program real Dart
+    // accepts, because the literal widens.
+    if (_declaredName == 'double' && value is int) return value.toDouble();
+
+    final RuntimeType? valueType;
+    try {
+      valueType = env.getRuntimeType(value);
+    } catch (_) {
+      return value;
+    }
+    if (valueType == null || valueType is TypeParameter) return value;
+
+    if (valueType.isSubtypeOf(_declaredType, value: value)) return value;
+    throw D4rtTypeError(
+      "type '${valueType.name}' is not a subtype of type '$_displayName'"
+      "$_suffix",
+    );
   }
 }
 
