@@ -58,6 +58,8 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
+import 'package:tom_d4rt_generator/src/bridge_api.dart' as api;
+import 'package:tom_d4rt_generator/src/bridge_config.dart';
 import 'package:tom_d4rt_generator/src/bridge_generator.dart';
 
 /// Diagnostics whose severity does not fail the gate.
@@ -214,6 +216,65 @@ class ZomUser {
 }
 ''');
 
+  // scd12: the proxy / relaxer emission path, which nothing in this fixture
+  // drove before. `@D4rtUserProxy` / `@D4rtUserRelaxer` directives are how a
+  // downstream package asks for generic instantiations it needs; the scanner
+  // resolves them and the emitter writes the proxies and relaxer factories.
+  // GEN-119 lived in this neighbourhood, so output that merely generates is
+  // not enough — it has to analyse.
+  File(p.join(libDir.path, 'forms.dart')).writeAsStringSync('''
+class ZomCustomer {
+  ZomCustomer(this.id);
+
+  final int id;
+}
+
+class ZomCustomerForm {
+  ZomCustomerForm(this.title);
+
+  final String title;
+}
+
+class ZomBox<T> {
+  ZomBox(this.items);
+
+  final List<T> items;
+
+  int get count => items.length;
+}
+
+class ZomConsumer {
+  ZomConsumer();
+
+  int total(ZomBox<ZomCustomer> box) => box.count;
+
+  ZomBox<ZomCustomer> build(List<ZomCustomer> items) =>
+      ZomBox<ZomCustomer>(items);
+}
+''');
+  File(p.join(libDir.path, 'user_directives.dart')).writeAsStringSync('''
+library;
+
+import 'package:tom_d4rt/d4rt.dart';
+
+@D4rtUserProxy(
+  'package:zom_analyzegate/forms.dart',
+  'ZomBox',
+  variants: ['ZomCustomer'],
+)
+class ZomBoxUserProxy extends D4UserProxy {}
+
+@D4rtUserRelaxer(
+  'package:zom_analyzegate/forms.dart',
+  'ZomBox',
+  variants: ['ZomCustomer'],
+)
+class ZomBoxUserRelaxer extends D4UserRelaxer {
+  @override
+  String get baseTypeName => 'ZomBox';
+}
+''');
+
   // scd8: two libraries each declaring `extension Helpers`. Keyed by name
   // alone these collapsed to one entry in `extensionSourceUris()` — a
   // duplicate map key, which this gate treats as fatal — and one extension
@@ -267,6 +328,8 @@ class ZomDispatcher {
       p.join(libDir.path, 'handlers.dart'),
       p.join(libDir.path, 'alpha_ext.dart'),
       p.join(libDir.path, 'beta_ext.dart'),
+      p.join(libDir.path, 'forms.dart'),
+      p.join(libDir.path, 'user_directives.dart'),
     ],
     outputPath: p.join(libDir.path, 'zom_analyzegate_bridges.dart'),
     moduleName: 'gate',
@@ -280,6 +343,7 @@ class ZomDispatcher {
 void _writePackageConfig({
   required Directory root,
   required String generatorRoot,
+  String packageName = 'zom_analyzegate',
 }) {
   final ownConfigFile = File(
     p.join(generatorRoot, '.dart_tool', 'package_config.json'),
@@ -301,7 +365,7 @@ void _writePackageConfig({
     // into a config that lives somewhere else entirely.
     ...(ownConfig['packages'] as List).cast<Map<String, dynamic>>(),
     {
-      'name': 'zom_analyzegate',
+      'name': packageName,
       'rootUri': root.uri.toString(),
       'packageUri': 'lib/',
       'languageVersion': '3.0',
@@ -316,6 +380,130 @@ void _writePackageConfig({
       '  ',
     ).convert({'configVersion': 2, 'packages': packages}),
   );
+}
+
+
+/// Builds a package whose bridges are generated through the ORCHESTRATION
+/// entry point — the one a consumer actually runs.
+///
+/// scd12: `BridgeGenerator.generateBridges` (the gate above) emits the module
+/// file and nothing else. The proxy and relaxer emitters, and the barrel and
+/// dartscript writers, live in `bridge_api.generateBridges`, so the gate could
+/// not see their output at all — and GEN-119 lived in that neighbourhood.
+/// `@D4rtUserProxy` / `@D4rtUserRelaxer` directives are what drive them.
+Future<Directory> buildOrchestratedPackage(String generatorRoot) async {
+  final root = Directory.systemTemp.createTempSync('gen121_orch_');
+  File(p.join(root.path, 'pubspec.yaml')).writeAsStringSync(
+    'name: zom_orchgate\n'
+    'environment:\n'
+    "  sdk: '>=3.0.0 <4.0.0'\n",
+  );
+
+  final libDir = Directory(p.join(root.path, 'lib'))..createSync();
+  File(p.join(libDir.path, 'forms.dart')).writeAsStringSync('''
+class ZomCustomer {
+  ZomCustomer(this.id);
+
+  final int id;
+}
+
+class ZomCustomerForm {
+  ZomCustomerForm(this.title);
+
+  final String title;
+}
+
+class ZomBox<T> {
+  ZomBox(this.items);
+
+  final List<T> items;
+
+  int get count => items.length;
+}
+
+class ZomConsumer {
+  ZomConsumer();
+
+  int total(ZomBox<ZomCustomer> box) => box.count;
+
+  ZomBox<ZomCustomer> build(List<ZomCustomer> items) =>
+      ZomBox<ZomCustomer>(items);
+}
+''');
+  File(p.join(libDir.path, 'user_directives.dart')).writeAsStringSync('''
+library;
+
+import 'package:tom_d4rt/d4rt.dart';
+
+@D4rtUserProxy(
+  'package:zom_orchgate/forms.dart',
+  'ZomBox',
+  variants: ['ZomCustomer'],
+)
+class ZomBoxUserProxy extends D4UserProxy {}
+
+@D4rtUserRelaxer(
+  'package:zom_orchgate/forms.dart',
+  'ZomBox',
+  variants: ['ZomCustomer'],
+)
+class ZomBoxUserRelaxer extends D4UserRelaxer {
+  @override
+  String get baseTypeName => 'ZomBox';
+}
+''');
+  File(p.join(libDir.path, 'zom_orchgate.dart')).writeAsStringSync(
+    "export 'forms.dart';\n"
+    "export 'user_directives.dart';\n",
+  );
+
+  // A hand-written user relaxer, which is what the relaxer emitter actually
+  // discovers: `<relaxer output dir>/user_relaxers/*_user_relaxer.dart`, any
+  // top-level `Object? relax<Type>(...)`. (The `@D4rtUserRelaxer` annotation
+  // above is scanned by `UserProxyRelaxerScanner`, which no generation path
+  // calls — SCE46. The directives stay in the fixture because they still
+  // exercise bridging of the directive classes themselves.)
+  Directory(p.join(libDir.path, 'src', 'user_relaxers'))
+      .createSync(recursive: true);
+  File(p.join(libDir.path, 'src', 'user_relaxers',
+          'zom_box_user_relaxer.dart'))
+      .writeAsStringSync('''
+import 'package:zom_orchgate/forms.dart';
+
+/// A hand-written relaxer, in the shape `GenericTypeWrapperFactory` requires:
+/// the raw value plus the inner type argument the script asked for.
+Object? relaxZomBox(Object value, String innerTypeArg) {
+  if (innerTypeArg != 'ZomCustomer') return null;
+  final items = value is ZomBox ? value.items : const <Object?>[];
+  return ZomBox<ZomCustomer>(items.whereType<ZomCustomer>().toList());
+}
+''');
+
+  _writePackageConfig(
+    root: root,
+    generatorRoot: generatorRoot,
+    packageName: 'zom_orchgate',
+  );
+
+  final result = await api.generateBridges(
+    projectPath: root.path,
+    config: BridgeConfig(
+      name: 'zom_orchgate',
+      helpersImport: 'package:tom_d4rt/tom_d4rt.dart',
+      modules: [
+        ModuleConfig(
+          name: 'all',
+          barrelFiles: ['package:zom_orchgate/zom_orchgate.dart'],
+          outputPath: 'lib/src/bridges/zom_orchgate_bridges.b.dart',
+        ),
+      ],
+      barrelPath: 'lib/src/bridges/d4rt_bridges.b.dart',
+      dartscriptPath: 'lib/src/bridges/dartscript.b.dart',
+      registrationClass: 'ZomOrchBridges',
+    ),
+  );
+  expect(result.errors, isEmpty, reason: 'orchestrated fixture must generate');
+  return root;
 }
 
 void main() {
@@ -409,6 +597,67 @@ void main() {
               'both List<BridgeRegistrar> parameters must take the unbridgeable '
               'path — the named one (constructor) and the positional one '
               '(method) are emitted by different code',
+        );
+      },
+    );
+  });
+
+  // scd12: the orchestration path — proxies, relaxers, barrel, dartscript —
+  // which the gate above never reached.
+  group('GEN-121: the orchestrated output analyses clean too', () {
+    late Directory orchRoot;
+    late String relaxerSource;
+
+    setUpAll(() async {
+      orchRoot = await buildOrchestratedPackage(Directory.current.path);
+      relaxerSource =
+          File(p.join(orchRoot.path, 'lib', 'src', 'relaxers.b.dart'))
+              .readAsStringSync();
+    });
+
+    tearDownAll(() {
+      try {
+        orchRoot.deleteSync(recursive: true);
+      } catch (_) {}
+    });
+
+    test(
+      'G-GEN121-05: dart analyze reports no fatal diagnostic for the '
+      'orchestrated package [2026-09-12] (PASS)',
+      () async {
+        final fatal = fatalDiagnostics(await analyzeDirectory(orchRoot.path));
+        expect(
+          fatal,
+          isEmpty,
+          reason: 'The relaxer, proxy, barrel and dartscript writers emit code '
+              'no test analysed before this one. Offenders:\n'
+              '${fatal.join('\n')}',
+        );
+      },
+      timeout: const Timeout(Duration(minutes: 5)),
+    );
+
+    test(
+      'G-GEN121-06: the relaxer writer actually emitted the directive\'s '
+      'instantiation [2026-09-12] (PASS)',
+      () {
+        // Anti-vacuity, in the style of G-GEN119-05: G-GEN121-05 passes just
+        // as happily over a relaxers file that is an empty stub, which is what
+        // the generator writes when nothing reaches the emitter — and a
+        // directive that silently reaches nothing is the failure this fixture
+        // exists to notice.
+        expect(
+          relaxerSource,
+          contains('relaxZomBox'),
+          reason: 'the fixture ships a user relaxer the emitter must pick up '
+              'and register; without it the file is a no-op stub and '
+              'G-GEN121-05 would pass while analysing nothing of substance',
+        );
+        expect(
+          relaxerSource,
+          contains('user_relaxers/zom_box_user_relaxer.dart'),
+          reason: 'the writer must import it, and that import is emitted as a '
+              'package: URI — the GEN-119 failure mode was a bare path',
         );
       },
     );

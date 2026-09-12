@@ -1,3 +1,33 @@
+## 1.25.0
+
+### Fixed — the orchestrated relaxer path emitted a file that did not compile (scd12_ahcm)
+
+Extending the GEN-121 `dart analyze` gate to a second, *orchestrated* package —
+generated through `bridge_api.generateBridges`, the path that also emits the
+relaxers, barrel and dartscript files — put `lib/src/relaxers.b.dart` under the
+analyzer for the first time. Three defects surfaced at once, each of which made
+the emitted package fail to compile:
+
+- **User-relaxer imports were collected and then dropped.** The scan built an
+  import block into a local buffer that nothing ever read, so every call to a
+  user relaxer landed in the output as `Undefined name 'relaxZomBox'`.
+- **`registerGenericConstructors()` was not emitted when no RC-2 class was
+  eligible.** `dartscript.b.dart` calls it unconditionally, so a package with
+  relaxers but no generic constructor factory produced an undefined-function
+  reference. The function is now always defined, empty when nothing is
+  reachable.
+- **`scanUserRelaxers` built the package URI without the package name**, so it
+  emitted `package:src/user_relaxers/x.dart` (URI_DOES_NOT_EXIST) — the GEN-119
+  failure mode, in a path GEN-119's guard does not cover. The owning package is
+  now taken from `config.name`, falling back to the pubspec's `name:`.
+
+Also adds `unused_element` to the emitted `// ignore_for_file:` list, for the
+`_coerceToV` helper that is emitted unconditionally.
+
+Gate coverage: `G-GEN121-05` analyses the orchestrated package, `G-GEN121-06`
+pins that its relaxer file really does carry a user relaxer and its import, so
+the analyze assertion cannot go vacuous.
+
 ## 1.24.0
 
 ### Fixed — directory mode bypassed both the extension dedupe and the source exclusion (scd11_ahcm)

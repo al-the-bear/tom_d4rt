@@ -325,7 +325,13 @@ Future<RelaxerGenerationResult> generateRelaxers({
   }
 
   // Scan for user-defined relaxer extensions
-  final userRelaxers = scanUserRelaxers(outputPath, projectPath, warn);
+  final userRelaxers = scanUserRelaxers(
+    outputPath,
+    projectPath,
+    warn,
+    packageName: config.name,
+  );
+  var userRelaxerImports = '';
 
   // Add user relaxer imports if any exist
   if (userRelaxers.isNotEmpty) {
@@ -338,12 +344,16 @@ Future<RelaxerGenerationResult> generateRelaxers({
         userImportBuf.writeln("import '${entry.importUri}';");
       }
     }
-    // Note: We insert user imports inline with the generated code.
-    // The import block was already written to buffer, so we prepend
-    // user relaxer registrations to the registration function.
     for (final entry in userRelaxers) {
       (factoryNames[entry.baseTypeName] ??= []).add(entry.factoryFunctionName);
     }
+    // scd12: these imports used to be collected into `userImportBuf` and
+    // dropped on the floor, so `registerRelaxers()` referenced a hand-written
+    // `relax<Type>` function the file never imported — an undefined name in
+    // generated code. The import block is already in `buffer`, so they are
+    // spliced in after the last import rather than appended (an import after a
+    // declaration is not valid Dart).
+    userRelaxerImports = userImportBuf.toString();
   }
 
   // Build generic-widget re-creator blocks for the configured
@@ -423,7 +433,9 @@ Future<RelaxerGenerationResult> generateRelaxers({
     );
   }
 
-  final outputFilePath = await emit(buffer.toString());
+  final outputFilePath = await emit(
+    _withUserRelaxerImports(buffer.toString(), userRelaxerImports),
+  );
 
   print(
     '  RELAXER: Generated $wrappersGenerated wrapper classes, '
@@ -757,7 +769,7 @@ void _writeFileHeader(StringBuffer buffer, BridgeConfig config) {
   buffer.writeln('library;');
   buffer.writeln();
   buffer.writeln(
-    '// ignore_for_file: unused_import, invalid_implementation_override, deprecated_member_use, sort_child_properties_last, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unused_local_variable, unintended_html_in_doc_comment, non_constant_identifier_names, unreachable_switch_case, must_call_super, no_logic_in_create_state, unused_field, unnecessary_cast, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, use_key_in_widget_constructors, annotate_overrides, unnecessary_import',
+    '// ignore_for_file: unused_import, invalid_implementation_override, deprecated_member_use, sort_child_properties_last, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unused_local_variable, unintended_html_in_doc_comment, non_constant_identifier_names, unreachable_switch_case, must_call_super, no_logic_in_create_state, unused_field, unused_element, unnecessary_cast, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, use_key_in_widget_constructors, annotate_overrides, unnecessary_import',
   );
   buffer.writeln();
 }
@@ -1631,6 +1643,37 @@ String _factoryFunctionName(String baseTypeName, String moduleName) {
 // Step 3d: Registration function
 // =============================================================================
 
+/// The `name:` a project's `pubspec.yaml` declares, or null.
+///
+/// Used when no package name was passed, so a user-relaxer import still names
+/// the package that owns the file rather than emitting an unresolvable URI.
+String? _packageNameOf(String projectPath) {
+  final pubspec = File(p.join(projectPath, 'pubspec.yaml'));
+  if (!pubspec.existsSync()) return null;
+  for (final line in pubspec.readAsLinesSync()) {
+    final match = RegExp(r'^name:\s*([A-Za-z0-9_]+)').firstMatch(line);
+    if (match != null) return match.group(1);
+  }
+  return null;
+}
+
+/// Splices [imports] in after the last `import` directive of [source].
+///
+/// Dart requires directives to precede declarations, and the relaxer file's
+/// import block is written long before the user-relaxer scan runs, so these
+/// cannot simply be appended (scd12).
+String _withUserRelaxerImports(String source, String imports) {
+  if (imports.trim().isEmpty) return source;
+  final lines = source.split('\n');
+  var lastImport = -1;
+  for (var i = 0; i < lines.length; i++) {
+    if (lines[i].startsWith('import ')) lastImport = i;
+  }
+  if (lastImport == -1) return '$imports$source';
+  lines.insert(lastImport + 1, imports.trimRight());
+  return lines.join('\n');
+}
+
 /// Writes the `registerRelaxers()` function.
 void _writeRegistrationFunction(
   StringBuffer buffer,
@@ -1883,8 +1926,9 @@ class UserRelaxerEntry {
 List<UserRelaxerEntry> scanUserRelaxers(
   String relaxerOutputPath,
   String projectPath,
-  void Function(String) warn,
-) {
+  void Function(String) warn, {
+  String? packageName,
+}) {
   final results = <UserRelaxerEntry>[];
   final outputDir = p.dirname(p.join(projectPath, relaxerOutputPath));
   final userRelaxerDir = Directory(p.join(outputDir, 'user_relaxers'));
@@ -1911,9 +1955,17 @@ List<UserRelaxerEntry> scanUserRelaxers(
         if (funcName.length <= 5) continue; // 'relax' + at least 1 char
         final baseTypeName = funcName.substring(5); // Strip 'relax'
 
-        // Compute import URI relative to the project
+        // Compute the import URI relative to the project. scd12: the
+        // package name used to be omitted entirely — stripping `lib/` and
+        // prefixing `package:` yields `package:src/user_relaxers/x.dart`,
+        // which resolves nowhere. That is the GEN-119 failure mode in this
+        // path: an emitted import that no consumer can resolve.
         final relativePath = p.relative(file.path, from: projectPath);
-        final importUri = 'package:${p.split(relativePath).skip(1).join('/')}';
+        final withinLib = p.split(relativePath).skip(1).join('/');
+        final owner = packageName ?? _packageNameOf(projectPath);
+        final importUri = owner == null
+            ? 'package:$withinLib'
+            : 'package:$owner/$withinLib';
 
         results.add(
           UserRelaxerEntry(
@@ -2194,7 +2246,20 @@ int _writeGenericConstructorSection(
     eligible[entry.key] = cls;
   }
 
-  if (eligible.isEmpty && templatedBlocks.isEmpty) return 0;
+  if (eligible.isEmpty && templatedBlocks.isEmpty) {
+    // scd12: `dartscript.b.dart` calls `registerGenericConstructors()`
+    // unconditionally, and the stub path below defines it — but the stub only
+    // fires when NOTHING at all was emitted. A file that has user relaxers and
+    // no RC-2-eligible class fell between the two and defined only
+    // `registerRelaxers()`, so the generated dartscript did not compile.
+    buffer.writeln(
+      '/// RC-2: no generic constructor factories were reachable here; the '
+      'orchestrator calls this unconditionally, so it is defined empty.',
+    );
+    buffer.writeln('void registerGenericConstructors() {}');
+    buffer.writeln();
+    return 0;
+  }
 
   // Collect all concrete bridged class names for type dispatches.
   // GEN-095: Exclude types from a package's private `lib/src/` (not reachable
