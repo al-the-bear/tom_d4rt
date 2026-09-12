@@ -1,15 +1,16 @@
 # D4rt stdlib — SDK gap audit
 
-**Date:** 2026-07-07 (updated 2026-09-04)
+**Date:** 2026-07-07 (updated 2026-09-12)
 **Interpreter version:** tom_d4rt (analyzer-based) + tom_d4rt_ast (mirror)
 **SDK reference:** Dart 3.12.2 (package constraint `^3.5.0`)
 **Scope audited:** all stdlib bridge files under
-`tom_d4rt/lib/src/stdlib/` (117 files). The mirror set under
-`tom_d4rt_ast/lib/src/runtime/stdlib/` holds the same 117 files with none
-missing either way, but only **88 of them are verified identical** once the
-import line is normalised — 29 diverge and have not been reviewed, so
-"the findings transfer" is an assumption about those 29 rather than a
-measurement (scd49).
+`tom_d4rt/lib/src/stdlib/` (126 files). The mirror set under
+`tom_d4rt_ast/lib/src/runtime/stdlib/` holds the same 126 files with none
+missing either way, and **122 of them are identical in executable code** —
+same tokens, comments and directives aside. The four that differ do so in one
+place each, the permission-access idiom, which is structural. That is measured
+on every run by `test/scd49_stdlib_twin_sync_test.dart`, so "the findings
+transfer" is a checked property rather than an assumption.
 Class-level coverage is audited by hand; **member-level** and
 **hierarchy-level** coverage are both measured mechanically by
 `tom_d4rt/tool/stdlib_member_diff.dart` — see "Member-level gaps" and
@@ -97,16 +98,32 @@ Class-level coverage is audited by hand; **member-level** and
     hand a script an instance of it.
 - `characters` (the `.characters` getter on `String`) is correctly
   absent — it comes from the `characters` package, not `dart:core`.
-- **The mirror stdlib is measured by proxy, and the proxy is only 75 %
-  verified.** `tom_d4rt_ast` carries the same 117 files, of which 88 are
-  identical modulo the import line and 29 diverge unreviewed — so every count
-  in this document is measured on `tom_d4rt` and *assumed* to hold for the
-  analyzer-free tree. The oracle cannot be pointed at the twin directly (it
-  needs `dart:mirrors` and must execute source, neither of which
-  `tom_d4rt_ast` can do), which makes the assumption load-bearing rather than
-  incidental: the twin is what ships inside Flutter apps. scd49 tracks turning
-  it into a check. Additions must land in **both** trees regardless (per the
-  "keep tom_d4rt ↔ tom_d4rt_ast in sync" quest rule).
+- **The mirror stdlib is measured by proxy, and the proxy is now checked.**
+  Every count in this document is taken on `tom_d4rt` and read as holding for
+  the analyzer-free tree, because the oracle cannot be pointed at the twin
+  directly — it needs `dart:mirrors` and must execute source, neither of which
+  `tom_d4rt_ast` can do. That inference is load-bearing rather than incidental:
+  the twin is what ships inside Flutter apps. `test/scd49_stdlib_twin_sync_test.dart`
+  makes it checkable by comparing TOKEN streams file by file — comments,
+  directives and trailing commas excluded, because those differ legitimately
+  and constantly. 122 of the 126 files agree exactly; the four that do not are
+  pinned with both sides of their divergence recorded, so a second divergence
+  in one of them still fails.
+
+  Two things the check does **not** establish, and neither should be read into
+  it. It compares source, so two trees whose bridge files agree can still
+  behave differently if their interpreters do — it says the *adapter maps* are
+  the same, not that executing them is. And it is a file-by-file comparison,
+  so a class bridged in a file that exists in only one tree would be caught,
+  but a divergence in the interpreter beneath is out of scope entirely. A
+  direct oracle on `tom_d4rt_exec` remains the stronger measurement (sce88),
+  delayed by DGUC6: that package resolves `tom_d4rt_ast` from pub.dev, so such
+  a suite certifies the published interpreter rather than the working tree.
+
+  The registries were measured separately on 2026-09-12 and agree exactly:
+  both trees register **205** bridge names, diffing clean. Additions must land
+  in **both** trees regardless (per the "keep tom_d4rt ↔ tom_d4rt_ast in sync"
+  quest rule).
 - **A registered-but-unreachable class is its own failure mode.** Two
   `dart:convert` bridges had been written and exported but never passed
   to `defineBridge`, and `JsonUtf8Encoder` was reachable through a
@@ -1104,8 +1121,13 @@ its edge cases, reading members that exist on the subtype only.
 
 The edges must also land in both trees: `CollectionHierarchyCollection`,
 `ConvertHierarchyConvert`, `CoreHierarchyCore`, `IoHierarchyIo` and
-`IsolateHierarchyIsolate` are byte-identical between `tom_d4rt` and
-`tom_d4rt_ast` today, and any new registrar must stay that way. A registrar
+`IsolateHierarchyIsolate` are identical apart from their import line between
+`tom_d4rt` and `tom_d4rt_ast` today, and any new registrar must stay that way
+— `test/scd49_stdlib_twin_sync_test.dart` fails if one drifts. (They are not
+*byte*-identical, as this paragraph claimed until 2026-09-12: the import
+differs, `package:tom_d4rt/d4rt.dart` against
+`package:tom_d4rt_ast/runtime.dart`, which is why that check compares tokens
+with directives excluded rather than comparing text.) A registrar
 runs **last** in its library's `register`, because the registry keys on name and
 every bridge an edge refers to must already be defined — including the ones that
 point out of the library, which is why the block lives beside the library rather
