@@ -1718,8 +1718,8 @@ void main() {
       );
     });
 
-    test('F-SCC6-5: every pinned known gap names an owner and exists in both '
-        'copies [2026-09-04] (PASS)', () {
+    test('F-SCC6-5: every pinned known gap names an owner and exists in every '
+        'recorded copy [2026-09-04] (PASS)', () {
       // Part one — shape. A `KNOWN-GAP()` with nothing between the brackets
       // is the marker equivalent of a bare `// TODO`: it records that someone
       // noticed, and nothing else. `WONT-FIX` carries its own decision and
@@ -1772,6 +1772,135 @@ void main() {
             'to be deleted by hand when the gap closes, so a missing copy '
             'means the fix lands green here and red there — or the reverse. '
             'Mirror it.\n${mismatched.join('\n')}',
+      );
+
+      // Part three — the RECORDED pairings (SCD54). Part two compares files at
+      // the same relative path in tom_d4rt and exec, which misses two kinds of
+      // twin entirely:
+      //
+      //   * a twin in `tom_d4rt_ast`. This guard's own header names that tree
+      //     as one of the three it compares, and `_coveredElsewhere` records
+      //     reference files whose ONLY counterpart is an ast one — sometimes
+      //     under a different name. A pin in such a reference file had a twin
+      //     nothing looked at, in either direction.
+      //   * a RENAMED exec twin. `dfub1_filesystem_import_basepath_test.dart`
+      //     is covered by `exec:dgub3_filesystem_import_basepath_test.dart`;
+      //     different path, so part two never pairs them either.
+      //
+      // This is the scb7 defect one tree wider: that pin shipped naming only
+      // the tom_d4rt copy, and would have turned its exec twin red. The same
+      // mistake against a recorded twin was invisible.
+      //
+      // PARTIAL TWINS ARE NOT TREATED AS FULL ONES, and the asymmetry is the
+      // design. A partial twin carries fewer CASES by definition, so a pin the
+      // reference has and it does not may be perfectly correct — the case it
+      // describes is one of the ones the twin never carried. The counts in the
+      // entry cannot say WHICH cases are missing, so demanding an exact match
+      // would fail on legitimate entries. So:
+      //
+      //   twin has a marker the reference lacks   -> always wrong, always fails
+      //   full twin missing the reference's pin   -> wrong, fails
+      //   partial twin missing it                 -> allowed, but only if the
+      //                                              entry says why it is small
+      //
+      // The last line reuses `whyPartial` rather than inventing a budget,
+      // which is the same argument SCD19 made when it added that field: a
+      // reason living on the entry cannot drift away from the thing it
+      // excuses, and a global counter saying "eight partials are fine" does
+      // not bind which eight.
+      //
+      // EVERY BRANCH WAS WATCHED FAIL, and here that is not a formality: the
+      // repo holds exactly ONE pin today (a `WONT-FIX` in
+      // `limitations_and_bugs_test.dart`, present in both tom_d4rt and exec,
+      // and in no recorded pairing), and `tom_d4rt_ast` holds none at all. So
+      // this code lands green over an empty corpus and the controls are the
+      // only evidence it works. Measured 2026-09-12 by injecting a
+      // `KNOWN-GAP(scd54-control)` marker:
+      //
+      //   | Injected into                                  | Fires            |
+      //   | ---------------------------------------------- | ---------------- |
+      //   | ref of a full ast pairing (`unwrap_as`)         | pinned only in tom_d4rt |
+      //   | TWIN of that pairing                            | pinned only in the twin |
+      //   | ref of a RENAMED exec pairing (`dfub1`)         | pinned only in tom_d4rt |
+      //   | ref of a partial with no `whyPartial` (`scc28`) | shortfall, with counts |
+      //   | ref of a partial WITH `whyPartial` (`dgub5`)    | nothing          |
+      //
+      // The first row also confirms what SCD54 asked for specifically: the
+      // message names BOTH files, so a reader knows where to put the mirror.
+      // The last row is the design: `dgub5` carries 3 of its reference's 6
+      // cases and says why, so a pin it does not have is not a finding.
+      final pairMismatched = <String>[];
+      final unexplainedShortfall = <String>[];
+      final execByPath = _testFiles(execTests);
+      final astByPath = _testFiles(astTests);
+
+      _coveredElsewhere.forEach((refPath, coverage) {
+        final refFile = ref[refPath];
+        // A reference file that is gone, or a claim pointing nowhere, is
+        // F-SCC6-1's and F-SCC6-7's finding. Reporting it here too would name
+        // one event twice with two different remedies.
+        if (refFile == null) return;
+        final where = coverage.where;
+        final target = where.substring(where.indexOf(':') + 1);
+        final twinFile = where.startsWith('exec:')
+            ? execByPath[target]
+            : astByPath[target];
+        if (twinFile == null) return;
+
+        // Sets, not lists: the question is which pins EXIST on each side, and
+        // two copies of one marker in a file is not a distinction this guard
+        // has any opinion about.
+        final refMarkers = _markers(refFile.readAsStringSync()).toSet();
+        final twinMarkers = _markers(twinFile.readAsStringSync()).toSet();
+
+        final onlyTwin = (twinMarkers.difference(refMarkers).toList())..sort();
+        final onlyRef = (refMarkers.difference(twinMarkers).toList())..sort();
+
+        if (onlyTwin.isNotEmpty) {
+          pairMismatched.add(
+            '$refPath -> $where: pinned only in the twin '
+            '[${onlyTwin.join(', ')}]',
+          );
+        }
+        if (onlyRef.isEmpty) return;
+        if (!coverage.isPartial) {
+          pairMismatched.add(
+            '$refPath -> $where: pinned only in tom_d4rt '
+            '[${onlyRef.join(', ')}]',
+          );
+        } else if (coverage.whyPartial == null) {
+          unexplainedShortfall.add(
+            '$refPath -> $where (${coverage.twinCases} of '
+            '${coverage.refCases} cases): [${onlyRef.join(', ')}]',
+          );
+        }
+      });
+      pairMismatched.sort();
+      unexplainedShortfall.sort();
+
+      expect(
+        pairMismatched,
+        isEmpty,
+        reason:
+            'A pinned gap exists on one side of a recorded pairing and not '
+            'the other:\n  ${pairMismatched.join('\n  ')}\n\n'
+            'These files are twins by record, not by path, so nothing else '
+            'compares them. Mirror the pin, or delete it from both sides in '
+            'the same change.',
+      );
+
+      expect(
+        unexplainedShortfall,
+        isEmpty,
+        reason:
+            'A partial twin is missing a pin its reference carries, and the '
+            '_coveredElsewhere entry does not say why it is smaller:\n'
+            '  ${unexplainedShortfall.join('\n  ')}\n\n'
+            'If the twin never carried the case the pin describes, set '
+            '`whyPartial` on the entry saying so — that is what the field is '
+            'for, and it puts the reason where a reader of the entry will '
+            'find it. If the twin DOES carry the case, the pin is simply '
+            'missing: mirror it.',
       );
     });
 
