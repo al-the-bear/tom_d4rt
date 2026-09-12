@@ -532,4 +532,225 @@ void main() {
       },
     );
   });
+
+  /// SCD41 — the async path approximated two things `visitTryStatement` already
+  /// decides properly, and both were observable from a script.
+  ///
+  /// **Which clause matches.** `_handleAsyncError` took
+  /// `enclosingTry.catchClauses.first`, with a comment admitting it was
+  /// "simplified". So in an async function `on StateError catch` ran for an
+  /// `ArgumentError`, and a clause that must not match caught anyway — the same
+  /// script behaving differently depending only on whether the enclosing
+  /// function is `async`, which is the property that makes it easy to
+  /// misdiagnose as a bridge problem. The synchronous path had already
+  /// converged on one predicate in SCC20 (`on T` asks exactly what `x is T`
+  /// asks); this extracts that decision so both paths call it.
+  ///
+  /// **Which try a `rethrow` targets.** The async path answered from
+  /// `AsyncExecutionState.activeTryStatement`, a single mutable field, by
+  /// testing whether it equalled the try found for the rethrow node. Any try
+  /// that completed in between cleared the field, and the test then failed —
+  /// so the error was re-offered to the SAME try, whose catch rethrew again.
+  /// F-SCD41-7 is that shape and it **hung** rather than failing; the answer is
+  /// now read from the AST, where it does not depend on what else has run.
+  ///
+  /// The controls are half the point. F-SCD41-4/5 and F-SCD41-8..11 were
+  /// already correct, several of them *for a different reason* than the fixed
+  /// cases, and they are what a careless widening of either rule would break.
+  group('SCD41: async try/catch decides like the synchronous path', () {
+    /// Asserts the program throws something naming [fragment].
+    Future<void> expectThrows(String source, String fragment) => expectLater(
+      executeAsync(source).timeout(const Duration(seconds: 10)),
+      throwsA(
+        predicate(
+          (Object? e) => e.toString().contains(fragment),
+          'an error mentioning "$fragment"',
+        ),
+      ),
+    );
+
+    test('F-SCD41-1: a SECOND typed clause matches when the first does not '
+        '[2026-09-12]', () async {
+      expect(
+        await run(r"""
+          Future<dynamic> main() async {
+            try { throw ArgumentError('a'); }
+            on StateError catch (e) { return 'StateError'; }
+            on ArgumentError catch (e) { return 'ArgumentError'; }
+          }
+        """),
+        'ArgumentError',
+      );
+    });
+
+    test('F-SCD41-2: a clause that does not match does not catch '
+        '[2026-09-12]', () async {
+      // The dangerous half. Before the fix this returned 'caught': a script's
+      // `on StateError` swallowed an ArgumentError that had to propagate, so
+      // the error surfaced nowhere at all.
+      await expectThrows(
+        r"Future<dynamic> main() async { try { throw ArgumentError('a'); } "
+            r"on StateError catch (e) { return 'caught'; } }",
+        'a',
+      );
+    });
+
+    test('F-SCD41-3: a bare `catch` after a non-matching typed clause '
+        '[2026-09-12]', () async {
+      expect(
+        await run(r"""
+          Future<dynamic> main() async {
+            try { throw ArgumentError('a'); }
+            on StateError catch (e) { return 'StateError'; }
+            catch (e) { return 'bare'; }
+          }
+        """),
+        'bare',
+      );
+    });
+
+    test('F-SCD41-4: the first clause still wins when it genuinely matches '
+        '[2026-09-12]', () async {
+      // Correct before the fix too — by accident, because first-clause-always
+      // happens to be right when the first clause is the right one.
+      expect(
+        await run(r"""
+          Future<dynamic> main() async {
+            try { throw StateError('s'); }
+            on StateError catch (e) { return 'StateError'; }
+            on ArgumentError catch (e) { return 'ArgumentError'; }
+          }
+        """),
+        'StateError',
+      );
+    });
+
+    test('F-SCD41-5: the SYNC path is unchanged [2026-09-12]', () async {
+      // The reference the async path is being made to agree with. If a shared
+      // predicate ever regresses, this is the case that says the damage is not
+      // confined to async code.
+      expect(
+        await run(r"""
+          main() {
+            try { throw ArgumentError('a'); }
+            on StateError catch (e) { return 'StateError'; }
+            on ArgumentError catch (e) { return 'ArgumentError'; }
+          }
+        """),
+        'ArgumentError',
+      );
+    });
+
+    test('F-SCD41-6: `on Exception` matches a script class that implements it, '
+        'in an async function [2026-09-12]', () async {
+      // SCC20's property, which the async path could not have had while it was
+      // choosing by position: matching goes through the same predicate as
+      // `is`, so an interpreted class implementing Exception is matched.
+      expect(
+        await run(r"""
+          class Mine implements Exception {}
+          Future<dynamic> main() async {
+            try { throw Mine(); }
+            on StateError catch (e) { return 'StateError'; }
+            on Exception catch (e) { return 'Exception'; }
+          }
+        """),
+        'Exception',
+      );
+    });
+
+    test('F-SCD41-7: a rethrow after a nested try ran inside the catch '
+        '[2026-09-12]', () async {
+      // Defect 2, and it HUNG rather than failing: the inner try/finally
+      // cleared `activeTryStatement`, so the rethrow could not tell it should
+      // skip the try it was already inside. The error was re-offered to that
+      // same try, whose catch rethrew again.
+      //
+      // A synchronous spin is not interruptible by `run`'s timeout, so before
+      // the fix this case wedged the whole suite rather than failing it. If it
+      // ever regresses, expect a hang and reach for a wall-clock kill
+      // (`perl -e 'alarm 25; exec @ARGV' dart test …`) rather than a longer
+      // timeout.
+      expect(
+        await run(r"""
+          Future<dynamic> main() async {
+            var log = [];
+            try {
+              try { throw StateError('x'); }
+              catch (e) {
+                try { await Future.value(0); } finally { log.add('if'); }
+                log.add('pre');
+                rethrow;
+              }
+            } catch (e) { log.add('oc'); }
+            return log;
+          }
+        """),
+        orderedEquals(['if', 'pre', 'oc']),
+      );
+    });
+
+    test('F-SCD41-8: a plain nested rethrow still reaches the outer catch '
+        '[2026-09-12]', () async {
+      expect(
+        await run(r"""
+          Future<dynamic> main() async {
+            var log = [];
+            try {
+              try { throw StateError('x'); } catch (e) { log.add('ic'); rethrow; }
+            } catch (e) { log.add('oc'); }
+            return log;
+          }
+        """),
+        orderedEquals(['ic', 'oc']),
+      );
+    });
+
+    test('F-SCD41-9: a rethrow at each of three levels [2026-09-12]', () async {
+      expect(
+        await run(r"""
+          Future<dynamic> main() async {
+            var log = [];
+            try {
+              try {
+                try { throw StateError('x'); } catch (e) { log.add('1'); rethrow; }
+              } catch (e) { log.add('2'); rethrow; }
+            } catch (e) { log.add('3'); }
+            return log;
+          }
+        """),
+        orderedEquals(['1', '2', '3']),
+      );
+    });
+
+    test('F-SCD41-10: a rethrow with no outer handler leaves the function '
+        '[2026-09-12]', () async {
+      await expectThrows(
+        r"Future<dynamic> main() async { try { throw StateError('escape-me'); } "
+            r"catch (e) { rethrow; } }",
+        'escape-me',
+      );
+    });
+
+    test('F-SCD41-11: a try nested inside a catch handles its own errors '
+        '[2026-09-12]', () async {
+      // The boundary the structural rethrow rule must respect: a try written
+      // INSIDE a catch block is a real handler for what happens in it, and must
+      // not be skipped the way the rethrow's own try is.
+      expect(
+        await run(r"""
+          Future<dynamic> main() async {
+            var log = [];
+            try { throw StateError('a'); }
+            catch (e) {
+              log.add('oc');
+              try { throw StateError('b'); } catch (e2) { log.add('ic'); }
+            }
+            return log;
+          }
+        """),
+        orderedEquals(['oc', 'ic']),
+      );
+    });
+  });
 }

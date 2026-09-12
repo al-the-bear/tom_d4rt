@@ -1,3 +1,71 @@
+## 1.84.0
+
+### Fixed — async try/catch now decides like the synchronous path (scd41_aide)
+
+Two defects with one cause: the async state machine approximated two decisions
+that `visitTryStatement` already made properly, so the same script behaved
+differently depending only on whether the enclosing function was `async`.
+
+**Typed catch clauses were chosen by position.** `_handleAsyncError` took
+`enclosingTry.catchClauses.first`, with a comment admitting it was
+"simplified". In an async function
+
+    try { throw ArgumentError('a'); }
+    on StateError catch (e) { ... }        // ran
+    on ArgumentError catch (e) { ... }     // did not
+
+and, worse, a lone `on StateError catch` **caught** an `ArgumentError` that had
+to propagate — so the error surfaced nowhere at all. The synchronous path had
+converged on one predicate in SCC20 (`on T` asks exactly what `x is T` asks);
+the matching rules are now extracted into `catchClauseMatches` /
+`selectCatchClause` and both paths call them. The SCC31 undefined-name rule
+moves there too, so it exists once instead of at every dispatch site.
+
+**A `rethrow` could not tell which try it was already inside.** The async path
+read that from `AsyncExecutionState.activeTryStatement`, a single mutable field,
+and tested whether it equalled the try found for the rethrow node. Any try that
+completed in between cleared the field, the test then failed, the error was
+re-offered to the *same* try, and its catch rethrew again — so the function
+**hung**. A nested `try` inside a catch block is enough:
+
+    try { throw StateError('x'); }
+    catch (e) {
+      try { await Future.value(0); } finally { }   // clears the field
+      rethrow;                                      // never escapes
+    }
+
+The answer is now read from the AST: the try to skip is the one whose catch
+clause lexically contains the rethrow.
+
+**The choice between patching and deriving, recorded.** SCD41 proposed turning
+`activeTryStatement` into a stack, and asked whether the async path should be
+derived from `visitTryStatement` wholesale rather than reimplementing it. What
+landed is the middle answer, and deliberately so:
+
+- The **decision procedures** are now shared. "Which clause matches this error"
+  and "which try does this rethrow target" are not suspension concerns, and both
+  were already answered correctly next door. Sharing them makes this class of
+  divergence impossible rather than fixing its instances.
+- The **executors** stay separate. The state machine exists because any
+  statement may suspend, and `visitTryStatement` runs its blocks synchronously;
+  deriving execution from it means rewriting the suspension model, which is a
+  rewrite rather than a refactor.
+- `activeTryStatement` is **not** made a stack. Its only fragile read was the
+  rethrow test, and that answer is structural. A stack would add push/pop
+  obligations to every suspension and resumption path in a machine that has now
+  produced six defects — maintaining the dependence instead of removing it.
+
+Eleven cases join the family file. Four were red (`on`-clause selection) and one
+**hung**; six were controls, several correct for a different reason than the
+fixed cases — a try nested inside a catch must still handle its own errors, and
+that is precisely what an over-eager rethrow skip would break.
+
+`F-SCC31-17` is rewritten rather than deleted. It used to assert the
+undefined-name rule appeared in all four dispatch files, because there were two
+implementations of matching; now it asserts the stronger pair — the rule lives
+in the one decision, and `callable.dart` routes to it and does not re-implement
+the choice. Verified non-vacuous by reinstating `catchClauses.first`.
+
 ## 1.83.0
 
 ### Fixed — an async function silently returned its finally block's value instead of throwing (scd40_aide)

@@ -3348,7 +3348,26 @@ class InterpretedFunction implements Callable {
     );
 
     // If this is a rethrow and we found the same try statement, look for an outer one
-    if (isRethrow && enclosingTry != null && enclosingTry == currentTry) {
+    // SCD41: the try a `rethrow` must skip is the one whose CATCH CLAUSE
+    // lexically contains it, which the AST answers directly. It used to be
+    // read from `state.activeTryStatement` -- a single mutable field that any
+    // try completing in between clears. Then the test below failed, the error
+    // was re-offered to the same try, its catch rethrew again, and the function
+    // HUNG. A nested `try` inside a catch block is enough to trigger it.
+    //
+    // Deliberately NOT fixed by making that field a stack: its only
+    // load-bearing read is this one, the answer is structural, and a stack
+    // would add push/pop obligations to every suspension and resumption path
+    // in a machine that has already produced six defects. Reading the AST
+    // removes the dependence instead of maintaining it. `currentTry` stays as
+    // a fallback for a rethrow that is not lexically inside a catch clause.
+    final rethrowOwner = isRethrow
+        ? _tryOwningCatchClauseOf(nodeWhereErrorOccurred)
+        : null;
+    if (isRethrow &&
+        enclosingTry != null &&
+        (identical(enclosingTry, rethrowOwner) ||
+            (rethrowOwner == null && enclosingTry == currentTry))) {
       Logger.debug(
         " [_handleAsyncError] Rethrow detected - skipping current try/catch and looking for outer one",
       );
@@ -3388,11 +3407,21 @@ class InterpretedFunction implements Callable {
       // the one an `async` function takes, and it does not type-match at all,
       // so without it a typo inside an `async` body was swallowed even by a
       // clause as specific as `on FormatException`.
-      if (enclosingTry.catchClauses.isNotEmpty &&
-          error is! UndefinedNameD4rtException) {
-        matchingCatchClause = enclosingTry.catchClauses.first;
+      // SCD41: ask the SAME question the synchronous path asks. This used to
+      // be `catchClauses.first` with a comment admitting it was "simplified",
+      // so `on StateError catch` ran for an `ArgumentError` and a clause that
+      // must not match caught anyway -- the same script behaving differently
+      // depending only on whether the enclosing function is `async`.
+      // `selectCatchClause` also owns the SCC31 undefined-name rule, so the
+      // guard that used to sit here inline lives in one place now.
+      if (enclosingTry.catchClauses.isNotEmpty) {
+        matchingCatchClause = visitor.selectCatchClause(enclosingTry, error);
         Logger.debug(
-          " [_handleAsyncError] Found matching CatchClause (simplified: first one).",
+          matchingCatchClause == null
+              ? " [_handleAsyncError] No clause of the TryStatement handles "
+                    "this error."
+              : " [_handleAsyncError] Selected the catch clause whose type "
+                    "matches.",
         );
       } else {
         Logger.debug(
@@ -3584,6 +3613,28 @@ class InterpretedFunction implements Callable {
       if (atTarget) break;
     }
     if (outermost != null) state.truncateLoopStacks(outermost);
+  }
+
+  /// The `try` whose CATCH CLAUSE lexically contains [node], or null when
+  /// [node] is not inside one.
+  ///
+  /// SCD41: this is how a `rethrow` learns which try it is already inside and
+  /// must therefore skip. Note what it does NOT do: it stops at the first
+  /// enclosing catch clause, so a `try` written *inside* a catch block is found
+  /// by [_findEnclosingTryStatement] first and handles its own errors normally.
+  /// Skipping to the owner unconditionally would make such a try unable to
+  /// catch anything a rethrow passed through it.
+  static TryStatement? _tryOwningCatchClauseOf(AstNode? node) {
+    AstNode? current = node;
+    while (current != null) {
+      if (current is CatchClause) {
+        final parent = current.parent;
+        return parent is TryStatement ? parent : null;
+      }
+      if (current is FunctionBody) return null;
+      current = current.parent;
+    }
+    return null;
   }
 
   static TryStatement? _findEnclosingTryStatement(AstNode? node) {

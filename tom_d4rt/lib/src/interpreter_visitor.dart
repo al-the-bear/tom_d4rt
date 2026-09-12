@@ -11051,6 +11051,68 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
   InternalInterpreterD4rtException? _originalCaughtInternalExceptionForRethrow;
 
+  /// Whether [clause] handles [thrownValue].
+  ///
+  /// SCD41: extracted so the ASYNC path can ask the same question. It used to
+  /// take `catchClauses.first` regardless of type, so `on StateError catch` ran
+  /// for an `ArgumentError` and a clause that must not match caught anyway —
+  /// the same script behaving differently depending only on whether the
+  /// enclosing function is `async`. Two implementations of catch matching is
+  /// how that divergence arose; there is now one.
+  ///
+  /// The WRAPPER is passed, not an unwrapped native view: [_valueHasType] does
+  /// its own unwrapping where the host `is` needs it, and its bridged path
+  /// prefers the wrapper's own bridge.
+  bool catchClauseMatches(CatchClause clause, Object? thrownValue) {
+    // No `on Type`: matches anything.
+    if (clause.exceptionType == null) return true;
+
+    final typeNode = clause.exceptionType!;
+    final targetCatchTypeName = typeNode is NamedType
+        ? typeNode.name.lexeme
+        : '$typeNode';
+
+    // SCC20: `on T` asks exactly the question `x is T` asks, so it asks it
+    // through the same predicate. This was once a flat switch over sixteen
+    // hardcoded type names — a SMALLER predicate than [_valueHasType] — and the
+    // difference was measurable: `on Exception` missed a script class that
+    // implements `Exception`, `on List<int>` caught a `List<String>`,
+    // `on int Function(int)` was rejected outright, and a prefixed
+    // `on c.HashSet` never resolved.
+    try {
+      return _valueHasType(typeNode, thrownValue);
+    } on InternalInterpreterD4rtException catch (e) {
+      // The one thing a catch clause needs that `is` does not: an unresolvable
+      // `on T` must MISS, not throw. Letting the lookup failure escape would
+      // replace the exception being dispatched and lose the original.
+      Logger.warn(
+        "[TryStatement] Could not resolve catch clause type "
+        "'$targetCatchTypeName': ${e.originalThrownValue}",
+      );
+      return false;
+    } on UnimplementedD4rtException catch (e) {
+      Logger.warn(
+        "[TryStatement] Unsupported catch clause type node "
+        "${typeNode.runtimeType}: ${e.message}",
+      );
+      return false;
+    }
+  }
+
+  /// The clause of [node] that handles [thrownValue], or null when none does.
+  ///
+  /// SCC31: an undefined name is a defect in the program text, not a runtime
+  /// condition, so no clause may claim it — not `on Object`, not a bare
+  /// `catch (e)`. Real Dart rejects such a program at compile time, where no
+  /// handler exists to run.
+  CatchClause? selectCatchClause(TryStatement node, Object? thrownValue) {
+    if (thrownValue is UndefinedNameD4rtException) return null;
+    for (final clause in node.catchClauses) {
+      if (catchClauseMatches(clause, thrownValue)) return clause;
+    }
+    return null;
+  }
+
   @override
   Object? visitTryStatement(TryStatement node) {
     // Store the internal exception if caught
@@ -11157,57 +11219,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
       for (final clause
           in isUnhandleable ? const <CatchClause>[] : node.catchClauses) {
-        bool typeMatch = false;
-        String? targetCatchTypeName;
-
-        // Type check (on Type)
-        if (clause.exceptionType == null) {
-          // No 'on Type' clause, matches anything
-          typeMatch = true;
-          Logger.debug("[TryStatement] Catch clause matches any type.");
-        } else {
-          final typeNode = clause.exceptionType!;
-          targetCatchTypeName = typeNode is NamedType
-              ? typeNode.name.lexeme
-              : '$typeNode';
-
-          // SCC20: `on T` asks exactly the question `x is T` asks, so it asks
-          // it through the same predicate. This used to be a flat switch over
-          // sixteen hardcoded type names plus a bridge-identity probe — a
-          // SMALLER predicate than [_valueHasType], not a copy of it — and the
-          // difference was measurable from a script: `on Exception` missed a
-          // script class that implements `Exception`, `on List<int>` caught a
-          // `List<String>` because the type arguments were discarded,
-          // `on Box<int>` caught a `Box<String>` for the same reason,
-          // `on int Function(int)` was rejected as an "unsupported type node",
-          // and a prefixed `on c.HashSet` never resolved. The two trees had
-          // also drifted apart on the prefixed case, because SCB7's fix had to
-          // be placed differently in each; one predicate re-converges them.
-          //
-          // The WRAPPER is passed, not the unwrapped native view: the shared
-          // predicate does its own unwrapping where the host `is` operator
-          // needs it, and its bridged path prefers the wrapper's own bridge.
-          try {
-            typeMatch = _valueHasType(typeNode, originalThrownValue);
-          } on InternalInterpreterD4rtException catch (e) {
-            // The one thing a catch clause needs that `is` does not: an
-            // unresolvable `on T` must MISS, not throw. [_valueHasType] reports
-            // a failed type lookup by throwing, and letting that escape here
-            // would replace the exception being dispatched with a lookup
-            // failure and lose the original — so a resolution failure is read
-            // as "this clause does not match", which is what the old
-            // warn-and-continue path did.
-            Logger.warn(
-              "[TryStatement] Could not resolve catch clause type '$targetCatchTypeName': ${e.originalThrownValue}",
-            );
-            typeMatch = false;
-          } on UnimplementedD4rtException catch (e) {
-            Logger.warn(
-              "[TryStatement] Unsupported catch clause type node ${typeNode.runtimeType}: ${e.message}",
-            );
-            typeMatch = false;
-          }
-        }
+        // SCD41: one predicate, shared with the async path. The matching rules
+        // that used to live inline here are in [catchClauseMatches]; the loop
+        // stays because this path also EXECUTES the clause it selects, which
+        // the async path does not.
+        final typeMatch = catchClauseMatches(clause, originalThrownValue);
+        final String? targetCatchTypeName = clause.exceptionType == null
+            ? null
+            : '${clause.exceptionType}';
 
         if (typeMatch) {
           Logger.debug(

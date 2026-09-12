@@ -47,14 +47,6 @@ import 'interpreter_test.dart' show execute;
 /// Packages whose sources are mirrors of one another, relative to the repo root.
 const _mirroredPackages = ['tom_d4rt', 'tom_d4rt_ast', 'tom_d4rt_exec'];
 
-/// The files carrying the two catch-dispatch sites, in both trees.
-const _dispatchSites = [
-  'tom_d4rt/lib/src/interpreter_visitor.dart',
-  'tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart',
-  'tom_d4rt/lib/src/callable.dart',
-  'tom_d4rt_ast/lib/src/runtime/callable.dart',
-];
-
 /// The files that raise an undefined-name failure, in both trees.
 const _raiseSites = [
   'tom_d4rt/lib/src/environment.dart',
@@ -407,8 +399,8 @@ void main() {
   group('SCC31: the guard is present in both mirrored trees', () {
     final repoRoot = _repoRoot();
 
-    test('F-SCC31-17: both catch-dispatch sites in both trees decline the '
-        'type [2026-09-05]', () {
+    test('F-SCC31-17: the one catch-dispatch decision declines the type, and '
+        'both trees route to it [2026-09-05]', () {
       // Needs the sibling checkout. A published copy of this package cannot see
       // `tom_d4rt_ast`, and a red test there would be noise rather than a
       // finding — same reasoning as F-SCC26-3.
@@ -416,22 +408,80 @@ void main() {
         markTestSkipped('mirrored checkout not present');
         return;
       }
-      final missing = <String>[];
-      for (final relative in _dispatchSites) {
+
+      // SCD41 changed what this case can usefully assert. There used to be TWO
+      // implementations of catch-clause matching — `visitTryStatement` for
+      // synchronous code and `_handleAsyncError` for async — so the guard
+      // checked that the undefined-name rule appeared in all four files, and
+      // the duplication was the thing that made the check necessary.
+      //
+      // The async site no longer matches at all: it calls `selectCatchClause`,
+      // the one decision procedure, which carries the rule. So the property is
+      // now structural rather than replicated, and the honest assertion is the
+      // stronger pair — the rule lives in the decision, and nothing
+      // re-implements the decision beside it.
+      final decisionSites = [
+        'tom_d4rt/lib/src/interpreter_visitor.dart',
+        'tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart',
+      ];
+      final delegatingSites = [
+        'tom_d4rt/lib/src/callable.dart',
+        'tom_d4rt_ast/lib/src/runtime/callable.dart',
+      ];
+
+      final missingRule = <String>[];
+      for (final relative in decisionSites) {
         final file = File('${repoRoot.path}/$relative');
         expect(file.existsSync(), isTrue, reason: '$relative should exist');
-        if (!file.readAsStringSync().contains('UndefinedNameD4rtException')) {
-          missing.add(relative);
+        final source = file.readAsStringSync();
+        if (!source.contains('selectCatchClause') ||
+            !source.contains('UndefinedNameD4rtException')) {
+          missingRule.add(relative);
         }
       }
       expect(
-        missing,
+        missingRule,
         isEmpty,
         reason:
-            'A dispatch site with no guard swallows undefined names again, and '
-            'the two trees would then disagree about whether a typo is a bug. '
-            'Both `visitTryStatement` and `_handleAsyncError` need it, in both '
-            'trees:\n${missing.join('\n')}',
+            'The shared catch-clause decision must carry the undefined-name '
+            'rule. Without it a typo inside a try becomes catchable again, and '
+            'the two trees would disagree about whether a typo is a '
+            'bug:\n${missingRule.join('\n')}',
+      );
+
+      final notDelegating = <String>[];
+      for (final relative in delegatingSites) {
+        final file = File('${repoRoot.path}/$relative');
+        expect(file.existsSync(), isTrue, reason: '$relative should exist');
+        final source = file.readAsStringSync();
+        // Calls the shared decision, and does NOT pick a clause by position.
+        // `catchClauses.first` is the exact shortcut SCD41 removed: it ran
+        // `on StateError catch` for an `ArgumentError`, and it also bypassed
+        // the undefined-name rule unless a second copy of that rule sat beside
+        // it — which is the duplication this case used to be forced to accept.
+        //
+        // Comment lines are skipped, as `_untypedRaiseLines` already does in
+        // this file: the shortcut is NAMED in the comment that explains why it
+        // is gone, and a whole-file `contains` matched that prose. A guard that
+        // fires on the description of the thing it forbids is a guard nobody
+        // can leave a note next to.
+        final reimplements = source
+            .split('\n')
+            .where((l) => !l.trimLeft().startsWith('//'))
+            .any((l) => l.contains('catchClauses.first'));
+        if (!source.contains('selectCatchClause') || reimplements) {
+          notDelegating.add(relative);
+        }
+      }
+      expect(
+        notDelegating,
+        isEmpty,
+        reason:
+            'The async error path must select its catch clause through '
+            '`selectCatchClause` rather than re-implementing the choice. A '
+            'second implementation is how the async path came to differ from '
+            'the synchronous one in the first place, and no behavioural test '
+            'names that divergence:\n${notDelegating.join('\n')}',
       );
     });
 
