@@ -24,7 +24,7 @@
 // `tool/stdlib_member_audit.dart` and lists EVERY registered bridge name in its
 // `auditedClasses` set. Counting it, the unmentioned set is **zero** — the scan
 // would have been perfectly green and perfectly meaningless, and it was added
-// (by scd51) the same day this guard was written. Excluding it, the set is 23.
+// (by scd51) the same day this guard was written. Excluding it, the set is 66.
 // A file that is a generated list of names is data, not somebody's test naming
 // a bridge, so any test file whose first lines say `GENERATED` is skipped.
 //
@@ -41,41 +41,91 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/isolate.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/math.dart';
 
 /// Bridges no test in this tree names, measured 2026-09-12 over 205 registered
-/// names and 86 test files.
+/// names and 88 test files.
 ///
-/// Dominated by `dart:io` and `dart:isolate` — the sockets, the process and
-/// filesystem enums, the ports. Those are the hardest to exercise from a
-/// registration-level test and the ones `tom_d4rt` covers behaviourally, which
-/// is why they are pinned rather than chased.
+/// Dominated by `dart:io`, `dart:isolate` and `dart:convert` — the sockets, the
+/// process and filesystem enums, the ports, the codecs. Those are the hardest
+/// to exercise from a registration-level test and the ones `tom_d4rt` covers
+/// behaviourally, which is why they are pinned rather than chased.
+///
+/// **THIS SET WAS 23 AND IS NOW 66**, without a single bridge losing coverage:
+/// the 43 added were only ever "named" in a comment or inside a string
+/// literal, and [_codeOnly] stopped counting those. Zero names dropped, which
+/// is the check that the stricter rule is a strict tightening rather than a
+/// different question — so the old 23 was not a smaller gap, it was the same
+/// gap measured through prose.
 ///
 /// DELETING A LINE IS HOW COVERAGE IS CLAIMED. `F-SCD58-3` fails on an entry
 /// that IS named now, so the list cannot quietly outlive the gap it records —
 /// without that it would only ever grow, and a baseline nobody prunes stops
 /// being a record and becomes a permission.
 const uncoveredBridges = <String>{
+  'AsciiCodec',
+  'ByteBuffer',
   'Capability',
+  'ChunkedConversionSink',
+  'Codec',
+  'Comparable',
   'ConnectionTask',
+  'Encoding',
+  'Enum',
+  'EventSink',
+  'Exception',
   'FileLock',
   'FileMode',
+  'FileStat',
+  'FileSystemEntity',
   'FileSystemEntityType',
   'FileSystemEvent',
+  'HttpClientBasicCredentials',
+  'HttpClientBearerCredentials',
+  'HttpClientCredentials',
+  'HttpClientDigestCredentials',
+  'HttpClientRequest',
+  'HttpClientResponse',
+  'HttpConnectionInfo',
+  'HttpDate',
+  'HttpResponse',
+  'HttpSession',
+  'IOException',
   'Isolate',
+  'IsolateSpawnException',
+  'JsonCodec',
+  'Latin1Codec',
+  'Match',
   'MultiStreamController',
   'NetworkInterface',
+  'Never',
   'Null',
+  'Pattern',
   'Pipe',
   'Point',
+  'ProcessStartMode',
+  'Random',
+  'RandomAccessFile',
   'RawDatagramSocket',
   'RawReceivePort',
   'RawServerSocket',
+  'RawSocket',
   'RawSocketEvent',
   'ReceivePort',
+  'Rectangle',
+  'RegExpMatch',
   'RemoteError',
+  'Runes',
+  'SendPort',
   'ServerSocket',
+  'Sink',
   'Socket',
   'SocketDirection',
   'SocketOption',
+  'Stdin',
+  'Stdout',
+  'StringSink',
+  'Symbol',
   'TransferableTypedData',
+  'Utf8Codec',
+  'WebSocketStatus',
 };
 
 /// Floors under two emptiness assertions. A walk that registered nothing, or
@@ -95,6 +145,64 @@ Environment _fullyRegisteredEnvironment() {
   return env;
 }
 
+/// [source] with its comments and string literals blanked out, so only CODE is
+/// searched for bridge names.
+///
+/// THE THIRD EXCLUSION, and found the same way as the other two — by the scan
+/// going wrong. `Null` is a registered bridge AND an ordinary English word, so
+/// a test whose header discusses null patterns, or which asserts on the SDK
+/// message `'Null check operator used on a null value'`, made `Null` read as
+/// covered while nothing exercised the bridge at all. That is the guard's own
+/// stated principle one level further in: prose ABOUT a name is not a test
+/// naming it, exactly as a list about the gap is not coverage of it.
+///
+/// It is a lexer, not a parser, and deliberately so. The exact question — "does
+/// this identifier appear in an expression position" — needs the analyzer, and
+/// this package has no analyzer to spend (zero runtime dependencies is the
+/// point of the twin). Blanking comments and string bodies removes the whole
+/// class of false positives that actually occurs, and the failure mode of
+/// getting it slightly wrong is a name reading as UNCOVERED when it is covered
+/// — which fails loudly on [uncoveredBridges] rather than quietly granting
+/// permission. The cheap approximation errs in the safe direction.
+String _codeOnly(String source) {
+  final out = StringBuffer();
+  var i = 0;
+  while (i < source.length) {
+    final rest = source.length - i;
+    if (rest >= 2 && source.startsWith('//', i)) {
+      final end = source.indexOf('\n', i);
+      i = end == -1 ? source.length : end;
+      continue;
+    }
+    if (rest >= 2 && source.startsWith('/*', i)) {
+      final end = source.indexOf('*/', i + 2);
+      i = end == -1 ? source.length : end + 2;
+      continue;
+    }
+    final quote = source[i];
+    if (quote == "'" || quote == '"') {
+      final triple = quote * 3;
+      final delimiter = source.startsWith(triple, i) ? triple : quote;
+      i += delimiter.length;
+      while (i < source.length) {
+        if (source[i] == r'\') {
+          i += 2;
+          continue;
+        }
+        if (source.startsWith(delimiter, i)) {
+          i += delimiter.length;
+          break;
+        }
+        i++;
+      }
+      continue;
+    }
+    out.write(quote);
+    i++;
+  }
+  return out.toString();
+}
+
 void main() {
   final registered = _fullyRegisteredEnvironment().bridgedClassNames..sort();
 
@@ -112,7 +220,7 @@ void main() {
   //   * a GENERATED file. `stdlib_member_baseline.dart` lists every registered
   //     name in `auditedClasses`, so counting it puts the unmentioned set at
   //     ZERO — green and meaningless. See the file header.
-  //   * THIS FILE. `uncoveredBridges` below names all 23 pinned bridges, so
+  //   * THIS FILE. `uncoveredBridges` below names all 66 pinned bridges, so
   //     counting it makes every one of them read as covered and F-SCD58-3
   //     reports the entire baseline as stale on the first run. It did.
   //
@@ -128,7 +236,7 @@ void main() {
     final text = file.readAsStringSync();
     final head = text.split('\n').take(3).join('\n');
     if (head.contains('GENERATED')) continue;
-    sources.add(text);
+    sources.add(_codeOnly(text));
   }
 
   bool isNamed(String bridge) {
@@ -178,18 +286,25 @@ void main() {
   //   | ------------------------------------------------- | ----- |
   //   | a baselined name removed from the list             | 2     |
   //   | a baselined name given a mention in a test         | 3     |
-  //   | the generated-file exclusion dropped               | 3, x23  |
-  //   | the SELF exclusion dropped                         | 3, x23  |
+  //   | the generated-file exclusion dropped               | 3, x66  |
+  //   | the SELF exclusion dropped                         | 3, x66  |
+  //   | _codeOnly dropped (comments and strings counted)   | 3, x44  |
   //   | this file renamed without updating the skip        | 1 and 3 |
   //   | the test-source walk pointed at a missing directory| 1       |
   //
   // The two exclusion rows are the ones worth keeping: without either, every
-  // pinned name reads as covered and F-SCD58-3 reports all 23 at once — which
-  // is what a reader would see if somebody "simplified" a skip away.
+  // pinned name reads as covered and F-SCD58-3 reports all 66 at once — which
+  // is what a reader would see if somebody "simplified" a skip away. The
+  // `_codeOnly` row is the same shape and is how the stripper was added at
+  // all: SCD64's test asserts the SDK message `'Null check operator used on a
+  // null value'`, the word `Null` is a registered bridge, and the guard
+  // reported it as covered. Its 44 is 43 prose-only names plus that `Null` —
+  // the one that was already pinned, and the one that made the other 43
+  // visible.
   //
   // The rename row fires 1 AND 3, which was not the prediction: F-SCD58-1's
   // `selfSeen` check names the cause, and F-SCD58-3 then reports the
-  // consequence. Read the first — the 23 in the second are not a finding.
+  // consequence. Read the first — the 66 in the second are not a finding.
   test('F-SCD58-2: every registered bridge is named by some test '
       '[2026-09-12]', () {
     final newlyUncovered = unnamed.difference(uncoveredBridges).toList()
