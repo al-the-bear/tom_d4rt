@@ -263,6 +263,25 @@ with:
 dart run tool/stdlib_member_diff.dart --baseline
 ```
 
+**The supertype-edge half has its own standing baseline** —
+`test/stdlib/hierarchy_baseline.dart`, read by
+`hierarchy_baseline_test.dart`, regenerated with `--hierarchy --baseline`. It
+runs the tool's own `auditHierarchy` / `verifyAllEdges`, and has the same
+four-way split by remedy as the member one.
+
+Until SCD47 it did not exist, and the asymmetry was the wrong way round: a
+missing edge is the more expensive defect of the two. The member baseline does
+catch a deleted edge — the members it stops carrying surface as F-SCC13-1
+regressions — but reports one deleted line as N unrelated member failures, so
+the reader gets ten stream combinators and has to infer the cause. Measured:
+deleting `HttpClientResponse -> Stream` now fails `F-SCD47-2` naming that edge.
+
+Not every declared edge is load-bearing, which is worth knowing before writing
+a control for this: deleting `SplayTreeSet -> Set` changes nothing the audit can
+see, because the cross-reference never raises it as a candidate. The test
+header records which fault produced each row of its control matrix for that
+reason.
+
 **The doc's own figures are checked too, by
 `test/doc/gap_audit_figures_test.dart`.** It parses the two *Current measured
 state* tables and compares every row against a live run of both audits — the

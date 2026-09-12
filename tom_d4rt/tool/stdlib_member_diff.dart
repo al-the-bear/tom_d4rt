@@ -655,9 +655,12 @@ int applyDeclinedEdges(List<HierarchyGap> gaps) {
   for (final gap in gaps) {
     final declined = gap.missingEdges
         .where((e) => _isDeclinedEdge(gap.name, e))
-        .length;
-    if (declined == 0) continue;
-    total += declined;
+        .toList();
+    if (declined.isEmpty) continue;
+    total += declined.length;
+    gap.declinedEdges
+      ..addAll(declined)
+      ..sort();
     gap.missingEdges.removeWhere((e) => _isDeclinedEdge(gap.name, e));
   }
   return total;
@@ -1808,6 +1811,15 @@ class HierarchyGap {
   /// their own bucket rather than folded into either answer.
   final unverifiedEdges = <String>[];
 
+  /// Candidate edges [applyDeclinedEdges] removed because `_declinedEdges`
+  /// says they are deliberate.
+  ///
+  /// SCD47: recorded rather than merely counted, so the baseline can pin them.
+  /// A declined edge measures exactly like a confirmed one — `o is T` answers
+  /// false — and the difference is why, not whether; without the list, a
+  /// decision being silently reversed is indistinguishable from a gap closing.
+  final declinedEdges = <String>[];
+
   /// What the registry does know, for context in the report.
   final registeredEdges = <String>[];
 
@@ -1832,6 +1844,7 @@ class HierarchyGap {
     'recipeUsable': recipeUsable,
     if (notAuditableReason != null) 'notAuditableReason': notAuditableReason,
     'missingEdges': missingEdges,
+    'declinedEdges': declinedEdges,
     'satisfiedAnyway': satisfiedAnyway,
     'unverifiedEdges': unverifiedEdges,
     'registeredEdges': registeredEdges,
@@ -2021,6 +2034,122 @@ Future<void> verifyHierarchy(HierarchyGap gap, Environment env) async {
   gap.satisfiedAnyway.sort();
 }
 
+/// Phase 2 over [gaps], in place — the edge counterpart of [verifyAll].
+///
+/// SCD47: extracted so the CLI and `hierarchy_baseline_test.dart` run the SAME
+/// walk. The member half learned this in SCC13: a test that re-implements the
+/// audit tests its own copy, and the two drift in exactly the direction that
+/// makes the guard agree with whatever the tool now does.
+Future<void> verifyAllEdges(
+  List<HierarchyGap> gaps,
+  Environment env, {
+  void Function(String name, int candidates)? onClass,
+}) async {
+  for (final g in gaps) {
+    if (g.missingEdges.isNotEmpty) onClass?.call(g.name, g.missingEdges.length);
+    await verifyHierarchy(g, env);
+  }
+}
+
+/// The generated source of `test/stdlib/hierarchy_baseline.dart`.
+///
+/// Mirrors [renderBaselineSource] deliberately, down to the header warning: the
+/// two baselines are read by two tests with the same four-way split, and a
+/// reader who has met one should not have to learn the other.
+String renderHierarchyBaselineSource(List<HierarchyGap> gaps) {
+  final buffer = StringBuffer();
+
+  String entries(
+    Iterable<HierarchyGap> source,
+    List<String> Function(HierarchyGap) pick,
+  ) {
+    final b = StringBuffer();
+    for (final g in source.toList()..sort((a, b) => a.name.compareTo(b.name))) {
+      final values = pick(g);
+      if (values.isEmpty) continue;
+      b.writeln("  '${g.name}': [");
+      for (final v in values..sort()) {
+        b.writeln("    r'$v',");
+      }
+      b.writeln('  ],');
+    }
+    return b.toString();
+  }
+
+  final confirmed = gaps.where((g) => g.missingEdges.isNotEmpty);
+  final declined = gaps.where((g) => g.declinedEdges.isNotEmpty);
+  final unmeasurable = gaps.where((g) => g.unverifiedEdges.isNotEmpty);
+  final measured =
+      (gaps.where((g) => g.recipeUsable).map((g) => g.name).toList()..sort());
+
+  int count(
+    Iterable<HierarchyGap> s,
+    List<String> Function(HierarchyGap) pick,
+  ) => s.fold(0, (t, g) => t + pick(g).length);
+
+  buffer.writeln('''
+// GENERATED — regenerate with:
+//   dart run tool/stdlib_member_diff.dart --hierarchy --baseline
+//
+// The standing SUPERTYPE-EDGE baseline for the `dart:*` stdlib bridges, read by
+// `hierarchy_baseline_test.dart`. Do not hand-edit: a hand-edited entry is an
+// assertion about the interpreter that nothing measured.
+//
+// A missing edge is the more expensive of the two defects this tool finds. It
+// costs the whole inherited surface at once rather than one member, and it makes
+// `is` and `on` answer wrongly — `LinkedList` went from 27 unreachable members
+// to 2 when one edge was declared. The member baseline DOES catch a deleted
+// edge, but reports it as N unrelated member regressions; this one names the
+// edge.
+//
+// Current state: ${count(confirmed, (g) => g.missingEdges)} confirmed missing edges across ${confirmed.length} classes,
+// ${count(declined, (g) => g.declinedEdges)} edges on ${declined.length} classes missing by decision,
+// and ${count(unmeasurable, (g) => g.unverifiedEdges)} edges on ${unmeasurable.length} classes that cannot be measured at all.
+// Those totals are documentation, not assertions — the test derives them from the
+// tables below, so there is only ever one thing to update.
+''');
+
+  buffer.writeln(
+    '/// Edges proven absent through the interpreter (`o is T` answered false).',
+  );
+  buffer.writeln('const confirmedEdges = <String, List<String>>{');
+  buffer.write(entries(confirmed, (g) => g.missingEdges));
+  buffer.writeln('};\n');
+
+  buffer.writeln(
+    '/// Edges deliberately not declared — see `_declinedEdges` in the tool.',
+  );
+  buffer.writeln('const declinedEdges = <String, List<String>>{');
+  buffer.write(entries(declined, (g) => g.declinedEdges));
+  buffer.writeln('};\n');
+
+  buffer.writeln('''
+/// Edges no probe could measure.
+///
+/// Pinned for the reason SCC13 learned the hard way on the member side: without
+/// it, `unverified -> confirmed` is indistinguishable from
+/// `reachable -> confirmed`, so adding an instance recipe would read as a wave
+/// of fresh regressions rather than as new information.''');
+  buffer.writeln('const unmeasurableEdges = <String, List<String>>{');
+  buffer.write(entries(unmeasurable, (g) => g.unverifiedEdges));
+  buffer.writeln('};\n');
+
+  buffer.writeln('''
+/// Classes whose instance recipe yielded an instance when this was taken.
+///
+/// The floor under the tolerance above: a recipe that stops working turns every
+/// one of its class's edges UNVERIFIED, and an unverified edge is not asserted
+/// about. Without pinning which classes COULD be measured, the guard can go
+/// dark and still report success.''');
+  buffer.writeln('const measuredEdgeClasses = <String>{');
+  for (final n in measured) {
+    buffer.writeln("  '$n',");
+  }
+  buffer.writeln('};');
+
+  return buffer.toString();
+}
+
 Future<void> runHierarchyAudit(Environment env, List<String> args) async {
   final gaps = auditHierarchy(env);
   final candidateEdges = gaps.fold<int>(0, (s, g) => s + g.missingEdges.length);
@@ -2030,9 +2159,7 @@ Future<void> runHierarchyAudit(Environment env, List<String> args) async {
       'Verifying $candidateEdges candidate edges against the '
       'interpreter...',
     );
-    for (final g in gaps) {
-      await verifyHierarchy(g, env);
-    }
+    await verifyAllEdges(gaps, env);
     gaps.sort((a, b) {
       final byCount = b.missingEdges.length.compareTo(a.missingEdges.length);
       return byCount != 0 ? byCount : a.name.compareTo(b.name);
@@ -2040,6 +2167,25 @@ Future<void> runHierarchyAudit(Environment env, List<String> args) async {
   }
 
   final declinedEdgeTotal = applyDeclinedEdges(gaps);
+
+  // SCD47: the edge half now has a standing baseline too. Written after
+  // `applyDeclinedEdges` so the declined list is populated, and before the
+  // report so a `--baseline` run does not also print a table nobody asked for.
+  if (args.contains('--baseline')) {
+    final path =
+        _optionValue(args, '--baseline-out') ??
+        'test/stdlib/hierarchy_baseline.dart';
+    File(path).writeAsStringSync(renderHierarchyBaselineSource(gaps));
+    final formatted = Process.runSync('dart', ['format', path]);
+    if (formatted.exitCode != 0) {
+      stderr.writeln(
+        'Baseline written but `dart format` failed; the diff will be mostly '
+        're-wrapping:\n${formatted.stderr}',
+      );
+    }
+    stdout.writeln('Hierarchy baseline written to $path');
+    return;
+  }
 
   final withGaps = gaps.where((g) => g.missingEdges.isNotEmpty).toList();
   final totalEdges = withGaps.fold<int>(0, (s, g) => s + g.missingEdges.length);
