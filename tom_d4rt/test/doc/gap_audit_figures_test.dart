@@ -86,6 +86,91 @@ void main() {
       expect(hierarchy.keys, contains('CONFIRMED missing edges'));
     });
 
+    test('F-SCD46-1: every class with a confirmed gap has a disposition row '
+        '[2026-09-12]', () async {
+      // The disposition rule's own text says the honest pin would be a test
+      // asserting the recorded set equals the doc's table, and then declines to
+      // write one because "there is no enumerable set of SDK classes to compare
+      // against without an analyzer pass over the SDK".
+      //
+      // That is true of unbridged CLASSES and false of confirmed MEMBER gaps,
+      // which is what this table records. The audit produces the set itself:
+      // every class `verifyAll` leaves holding a measured-unreachable member is
+      // a row the table must carry. So the case the rule calls procedural is
+      // enumerable after all, for exactly the rows it governs.
+      //
+      // Why it matters enough to write: the table had drifted in BOTH
+      // directions before this. Five rows described members that resolve from a
+      // script today, and fifty-one confirmed gaps had no row at all — a rule
+      // with a backlog, which is the state its own prose warns is "on its way to
+      // being decorative".
+      final env = buildFullyRegisteredEnvironment();
+      final diffs = collectMemberDiffs(env);
+      await verifyAll(diffs);
+
+      final withGaps = <String>{};
+      for (final d in diffs) {
+        final n =
+            d.missingInstance.length +
+            d.missingStatic.length +
+            d.missingOperators.length +
+            d.missingUniversal.length;
+        if (n > 0) withGaps.add(d.name);
+      }
+      expect(
+        withGaps,
+        isNotEmpty,
+        reason:
+            'No class reports a confirmed gap at all. That is not good news — '
+            'it means the audit measured nothing, and this case would pass '
+            'against an empty table. Check F-SCC13-0 first.',
+      );
+
+      final text = doc.readAsStringSync();
+      // Rows are `| `ClassName` | …`; match the class name in the first cell.
+      final documented = RegExp(
+        r'^\| `([A-Za-z_]\w*)` \|',
+        multiLine: true,
+      ).allMatches(text).map((m) => m.group(1)!).toSet();
+
+      final undocumented = withGaps.difference(documented).toList()..sort();
+      expect(
+        undocumented,
+        isEmpty,
+        reason:
+            'These classes have members the audit confirmed unreachable, and '
+            'no row in the disposition table:\n  ${undocumented.join('\n  ')}\n\n'
+            'Every gap must name where its resolution lives — a tracked todo id '
+            'or a Boundary with a limitations-doc entry and a pinning case. A '
+            'row with neither is the defect the rule exists to remove, and a '
+            'reader cannot tell "deliberately out of scope" from "nobody has '
+            'got to it yet".',
+      );
+
+      // The other direction: a row describing members that are no longer gaps.
+      // Five rows were stale that way before SCD46, each naming members that
+      // resolve from a script. A table that documents absent limitations
+      // misleads exactly as much as one that omits present ones.
+      const exempt = {'F-SCC13-0', 'F-SCC13-1', 'F-SCC13-2', 'F-SCC13-3'};
+      final tableRows = RegExp(
+        r'^\| `([A-Za-z_]\w*)` \| \d+ \| \d+ \| \d+ \|',
+        multiLine: true,
+      ).allMatches(text).map((m) => m.group(1)!).toSet()..removeAll(exempt);
+      final stale = tableRows.difference(withGaps).toList()..sort();
+      expect(
+        stale,
+        isEmpty,
+        reason:
+            'The disposition table has rows for these classes, and none of '
+            'them has a confirmed gap any more:\n  ${stale.join('\n  ')}\n\n'
+            'Delete the rows. A stated limitation that has outlived its cause '
+            'documents something that is not true, which is worse than saying '
+            'nothing — verify each member from a script before removing it, '
+            'because leaving the candidate set only means the member is in the '
+            'adapter map, not that it works.',
+      );
+    });
+
     test('F-SCD36-6: the return-type figures match a live run '
         '[2026-09-12]', () async {
       // Added with the `--returns` mode. The hierarchy figures rotted for

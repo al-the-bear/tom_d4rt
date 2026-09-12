@@ -532,18 +532,33 @@ unattributed observation.
 | Class | Confirmed | Instance | Static | Assessment | Disposition |
 | --- | --- | --- | --- | --- | --- |
 | `ByteBuffer` | 3 | 3 | 0 | The three SIMD views (`asFloat32x4List`, `asInt32x4List`, `asFloat64x2List`). This row **understates the finding** — see [Notes on the SIMD block](#notes-on-the-simd-block); it is nine names, not three. | **Boundary** — [limitations doc](d4rt_limitations.md#intentionally-unbridged-sdk-classes) + `F-SCB29-1..4` |
-| `HttpClient` | 2 | 2 | 0 | `authenticateProxy`, `connectionFactory` — callback-typed setters, so each needs an interpreted closure handed back across the sandbox boundary rather than a value. | Tracked — scd161 |
-| `LinkedListEntry` | 2 | 2 | 0 | `insertAfter`, `insertBefore`. The entry bridge exists and its read surface is complete; the two mutators reach into the owning `LinkedList` and were never adapted. | Tracked — scd161 |
-| `Object` | 1 | 1 | 0 | `noSuchMethod`. Adapting it means synthesising an `Invocation` — which is itself unbridged — and re-entering the interpreter from inside dispatch. | Tracked — scd161 |
-| `RawSocket` | 2 | 2 | 0 | `readMessage`, `sendMessage` — file-descriptor passing over Unix domain sockets. The one residual pair on a class whose whole `Stream` surface SCC57 closed. | Tracked — scd161 |
-| `Stdout` | 2 | 2 | 0 | `lineTerminator`, `nonBlocking`. The second hands out a second `Stdout` bound to the same descriptor, which is the shape the `Stdin` exemption above says to be careful with. | Tracked — scd161 |
-| `StringConversionSink` | 1 | 1 | 0 | `asUtf8Sink`, the one member of the convert-sink block SCB23 did not reach. | Tracked — scd161 |
+| `RawSocket` | 2 | 2 | 0 | `readMessage`, `sendMessage` — file-descriptor passing over Unix domain sockets. A script holding a `ResourceHandle` has a working handle to a file or socket that no permission ever granted, and neither `FilesystemPermission` nor `NetworkPermission` can see it happen: a grant is checked when a path or host is *named*, and a descriptor names neither. | **Boundary** — [limitations doc](d4rt_limitations.md#intentionally-unbridged-sdk-classes) + `F-SCC74-1`; the refusal is carried in the diagnostic itself |
+| `HttpHeaders` | 45 | 0 | 45 | The static header-name constants (`acceptRangesHeader`, `accessControlAllowOriginHeader`, …). The class is half-bridged: `acceptHeader` and friends resolve, which is what makes the absence of the rest a trap rather than a plain gap. | Tracked — sce82 |
+| `RawSocketOption` | 4 | 0 | 4 | `IPv4MulticastInterface`, `IPv6MulticastInterface`, `levelIPv4`, `levelIPv6` — the socket-option level and interface constants. | Tracked — sce82 |
+| `ConnectionTask` | 1 | 0 | 1 | `fromSocket`. | Tracked — sce82 |
+| `Platform` | 1 | 0 | 1 | `lineTerminator`. | Tracked — sce82 |
 
-Seven rows and thirteen members, six of the rows added when SCC57's supertype
-edges stripped 218 inherited members off the total and left the classes' *own*
-gaps visible underneath. That is the useful property of the fall: the residue is
-no longer dominated by one shape, so each row now has to be read on its own
-terms rather than dismissed as more of the same.
+Six rows and 56 members, and the shape of the table changed completely in
+September 2026. The seven rows it carried before were the classes' own residue
+after SCC57's supertype edges stripped 218 inherited members off the total.
+**Five of those seven are now closed** — `HttpClient`'s callback setters,
+`LinkedListEntry`'s two mutators, `Object.noSuchMethod`, `Stdout`'s
+`lineTerminator` and `nonBlocking`, and `StringConversionSink.asUtf8Sink` all
+resolve from a script today. They were verified one at a time rather than
+inferred from the count, because a member leaving the candidate set means only
+that it is in the adapter map, not that it works.
+
+What replaced them is not a backlog of the same kind. `RawSocket`'s pair moved
+from *tracked* to *Boundary* — the refusal is now carried in the diagnostic a
+script actually receives, which is the strongest form the rule allows. The four
+new rows are all **statics**, and all became visible in the same week for the
+same reason: the audit could not see them. See
+[the static-probe blind spot](#the-static-probe-blind-spot) — a class with no
+instance recipe got a probe with no imports, so its statics failed on the class
+name and scored *reachable*. Fifty-one members were passing that way.
+
+That is the useful thing to read off this table: every row on it today exists
+because the instrument got sharper, not because the interpreter got worse.
 
 The `ByteBuffer` row is the one that was never going to be closed by
 registering a member. Earlier revisions of this table carried five more — the
@@ -1784,12 +1799,26 @@ declined, and simply never written down. The reader who then hits
 *nobody has got to it yet*, which is the entire distinction the limitations
 section exists to draw.
 
-The honest pin would be a test asserting that the unbridged set equals the
-doc's table. There is no enumerable "set of SDK classes" to compare against
-without an analyzer pass over the SDK, and hard-coding the expected set is
-this document again in Dart syntax — it rots identically, and now in two
-places. So the guarantee is procedural: it holds because filling in a
-Disposition is part of adding a row, not because a test catches the omission.
+**For unbridged CLASSES the guarantee is procedural**, and has to be: there is
+no enumerable "set of SDK classes" to compare against without an analyzer pass
+over the SDK, and hard-coding the expected set is this document again in Dart
+syntax — it rots identically, and now in two places. So that half holds because
+filling in a Disposition is part of adding a row.
+
+**For confirmed MEMBER gaps it is not procedural any more.** Earlier revisions
+of this paragraph said a pin was impossible; that reasoning is about classes and
+does not carry to the rows this table actually governs, because the audit
+produces the set itself — every class `verifyAll` leaves holding a
+measured-unreachable member is a row the table must have. `F-SCD46-1` asserts
+exactly that, in both directions: a confirmed gap with no row fails, and a row
+whose members are no longer gaps fails too.
+
+The second direction is not hypothetical either. The table carried five rows
+describing members that resolve from a script today — `HttpClient`'s callback
+setters, `LinkedListEntry`'s mutators, `Object.noSuchMethod`, `Stdout`'s pair
+and `StringConversionSink.asUtf8Sink` — while fifty-one confirmed gaps had no
+row at all. It had drifted both ways at once, which is what a rule enforced only
+by habit looks like after a few releases.
 
 **The rule forbids the empty case, not the double one.** A name may legitimately
 carry both records: a limitations row serves the script author who hits
