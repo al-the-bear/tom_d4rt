@@ -103,6 +103,60 @@ const _universalObjectMembers = <String>{
   '==',
 };
 
+/// Adapter keys that are REAL Dart extension members on the native type.
+///
+/// SCD23. `extraBridged` used to hold these mixed in with genuine defects, and
+/// that is dangerous rather than untidy: the column reads as a list of things to
+/// delete, and deleting these breaks `list.firstOrNull` for every script while
+/// the test suites stay green. SCC8 came within one step of doing exactly that
+/// on the first entry it looked at.
+///
+/// THE BLINDNESS IS STRUCTURAL, not a bug in this tool. The oracle is
+/// `dart:mirrors`, which reports DECLARATIONS ON A TYPE. An extension declares
+/// nothing on the type it extends — it is a separate top-level declaration with
+/// a static dispatch rule — so no mirror walk can ever see an extension member,
+/// and no amount of walking superinterfaces changes that. Every extension member
+/// a bridge correctly offers therefore lands in `extraBridged`, permanently.
+///
+/// A HAND-WRITTEN ALLOWLIST IS THE RIGHT SHAPE for this, not a stopgap. The set
+/// is small, it changes only when the SDK adds an extension, and it fails in the
+/// safe direction: a missing entry reports a correct bridge as unexplained,
+/// which is a question; a stale entry is caught by [_staleExtensionAllowlist]
+/// below rather than silently hiding a defect. Teaching the tool to read the
+/// SDK's extension declarations with the analyzer would be a real front end and
+/// a much larger change — worth it only if this list becomes troublesome.
+///
+/// Every entry was cleared by the verification recipe rather than by reading the
+/// bridge: a one-liner using the member on the NATIVE type, run through
+/// `dart analyze`. All fifteen compile; `isCreate`, `asUint8ListView` and the
+/// four `InternetAddressType` members do not, which is why they are absent here.
+const Map<String, Set<String>> _knownExtensionMembers = {
+  // `IterableExtensions` / `ListExtensions` (dart:core).
+  'Iterable': {
+    'elementAtOrNull',
+    'firstOrNull',
+    'indexed',
+    'lastOrNull',
+    'singleOrNull',
+  },
+  'List': {
+    'elementAtOrNull',
+    'firstOrNull',
+    'indexed',
+    'lastOrNull',
+    'singleOrNull',
+    // `EnumByName`, which extends `Iterable<T extends Enum>`. Legal on a List
+    // whose elements are an enum, which is the case the bridge offers it for.
+    'byName',
+  },
+  // `EnumName` (dart:core). Reached on every bridged enum, not only `Enum`
+  // itself — which is why a second entry appears here for a concrete one.
+  'Enum': {'name'},
+  'HttpClientResponseCompressionState': {'name'},
+  // `FutureExtensions` (dart:async).
+  'Future': {'ignore', 'onError'},
+};
+
 /// The report for one bridged class.
 class ClassDiff {
   ClassDiff(this.name, this.nativeTypeName);
@@ -130,10 +184,23 @@ class ClassDiff {
   final unverifiedOperators = <String>[];
   final unverifiedUniversal = <String>[];
 
-  /// Adapter keys with no matching SDK member. Mostly extension members that
-  /// mirrors cannot see (`firstOrNull` and friends live on `IterableExtensions`,
-  /// not on `Iterable`), so this is informational, not a defect list.
+  /// Adapter keys with no matching SDK member and NO recorded explanation.
+  ///
+  /// SCD23 split this. It used to hold the known extension members too, which
+  /// made it read as a defect list while being roughly half correct bridges —
+  /// and the correct half is the half a tidy-up deletes. What is left here is
+  /// the part that genuinely wants a verdict: a declared convenience, or a
+  /// FABRICATION, which is the one bridge defect no passing test can catch. A
+  /// member the SDK lacks makes every script using it green in the interpreter
+  /// and uncompilable as Dart, so the error surfaces only when the script moves
+  /// to real Dart.
   final extraBridged = <String>[];
+
+  /// Adapter keys that are real Dart extension members on the native type.
+  ///
+  /// Not a defect and not a candidate: `dart:mirrors` structurally cannot see
+  /// these. See [_knownExtensionMembers] for why the list is hand-written.
+  final extraBridgedKnownExtension = <String>[];
 
   bool verified = false;
 
@@ -193,6 +260,7 @@ class ClassDiff {
     'unverifiedOperators': unverifiedOperators,
     'unverifiedUniversal': unverifiedUniversal,
     'extraBridged': extraBridged,
+    'extraBridgedKnownExtension': extraBridgedKnownExtension,
     if (error != null) 'error': error,
   };
 }
@@ -416,9 +484,14 @@ ClassDiff diffClass(String name, BridgedClass bc) {
     }
   }
 
+  final knownExtensions = _knownExtensionMembers[bc.name] ?? const <String>{};
   for (final m in bridgedInstance) {
     if (!sdk.instance.contains(m) && !_universalObjectMembers.contains(m)) {
-      diff.extraBridged.add(m);
+      if (knownExtensions.contains(m)) {
+        diff.extraBridgedKnownExtension.add(m);
+      } else {
+        diff.extraBridged.add(m);
+      }
     }
   }
 
@@ -427,6 +500,7 @@ ClassDiff diffClass(String name, BridgedClass bc) {
   diff.missingOperators.sort();
   diff.missingUniversal.sort();
   diff.extraBridged.sort();
+  diff.extraBridgedKnownExtension.sort();
   return diff;
 }
 
@@ -2051,6 +2125,104 @@ Future<void> main(List<String> args) async {
         '| ${d.name} | ${d.unverifiedCount} '
         '| ${d.notAuditableReason ?? '**no recipe written yet**'} |',
       );
+    }
+  }
+
+  // SCD23. `extraBridged` reached only the JSON before this, which is most of
+  // why it could be mistaken for a defect list: the one place it appeared gave
+  // no room for the distinction. Both halves are printed now, under headings
+  // that say which is which.
+  final knownExt = diffs
+      .where((d) => d.extraBridgedKnownExtension.isNotEmpty)
+      .toList();
+  final unexplainedExtra = diffs
+      .where((d) => d.extraBridged.isNotEmpty)
+      .toList();
+
+  if (knownExt.isNotEmpty) {
+    final total = knownExt.fold<int>(
+      0,
+      (s, d) => s + d.extraBridgedKnownExtension.length,
+    );
+    stdout.writeln('');
+    stdout.writeln(
+      'Bridged members the oracle CANNOT see: $total in ${knownExt.length} '
+      'classes',
+    );
+    stdout.writeln('');
+    stdout.writeln(
+      'These are real Dart extension members on the native type. `dart:mirrors` '
+      'reports declarations ON a type, and an extension declares nothing on the '
+      'type it extends, so every one of these lands in the map diff no matter '
+      'how correct the bridge is. NOT candidates for removal — deleting them '
+      'breaks working script code while the suites stay green.',
+    );
+    stdout.writeln('');
+    stdout.writeln('| Class | Extension members |');
+    stdout.writeln('| --- | --- |');
+    for (final d in knownExt) {
+      stdout.writeln(
+        '| ${d.name} | ${d.extraBridgedKnownExtension.join(', ')} |',
+      );
+    }
+  }
+
+  // A name allowlisted for a class that no longer reports it. The allowlist is
+  // hand-written, so it can outlive its cause — and an entry that silently
+  // stopped matching would hide a member that had become a real defect.
+  final byName = {for (final d in diffs) d.name: d};
+  final staleAllowlist = <String>[];
+  for (final entry in _knownExtensionMembers.entries) {
+    final diff = byName[entry.key];
+    if (diff == null) continue;
+    for (final member in entry.value) {
+      if (!diff.extraBridgedKnownExtension.contains(member)) {
+        staleAllowlist.add('${entry.key}.$member');
+      }
+    }
+  }
+  staleAllowlist.sort();
+  if (staleAllowlist.isNotEmpty) {
+    stdout.writeln('');
+    stdout.writeln(
+      'STALE extension allowlist entries: ${staleAllowlist.length}',
+    );
+    stdout.writeln(
+      'Allowlisted in _knownExtensionMembers but not reported by the diff, so '
+      'the entry is excusing nothing. Either the bridge dropped the member, or '
+      'the SDK grew a real declaration for it — both are worth knowing, and '
+      'leaving the entry means the next one that stops matching is invisible:',
+    );
+    for (final s in staleAllowlist) {
+      stdout.writeln('  $s');
+    }
+  }
+
+  if (unexplainedExtra.isNotEmpty) {
+    final total = unexplainedExtra.fold<int>(
+      0,
+      (s, d) => s + d.extraBridged.length,
+    );
+    stdout.writeln('');
+    stdout.writeln(
+      'Bridged members with NO SDK counterpart and no explanation: $total in '
+      '${unexplainedExtra.length} classes',
+    );
+    stdout.writeln('');
+    stdout.writeln(
+      'Each wants a verdict — a declared convenience, or a FABRICATION. The '
+      'second is the one bridge defect no passing test can catch: a member the '
+      'SDK lacks makes every script using it green here and uncompilable as '
+      'Dart, so the error surfaces only when the script moves to real Dart. '
+      'Settle each with the recipe, not by reading the bridge: write a '
+      'one-liner using the member on the NATIVE type and run `dart analyze`. '
+      'Verdicts live in doc/stdlib_sdk_gap_audit.md.',
+    );
+    stdout.writeln('');
+    stdout.writeln('| Class | Members |');
+    stdout.writeln('| --- | --- |');
+    for (final d in unexplainedExtra) {
+      stdout.writeln('| ${d.name} | ${d.extraBridged.join(', ')} |');
     }
   }
 

@@ -623,20 +623,44 @@ siblings is tracked as its own item.
 
 The tool also reports the opposite direction — members the *bridge* offers that
 the mirror of the native type does not declare. **This is not a defect list**,
-and reading it as one would delete correct bridges. Measured 2026-09-04, its 32
-entries across 16 classes fall into three groups, and only the third is wrong:
+and reading it as one would delete correct bridges.
+
+**The tool now splits it**, so the distinction no longer depends on this table
+being read first. `extraBridgedKnownExtension` holds the members the oracle
+structurally cannot see, printed under a heading saying so; `extraBridged` holds
+what is left, which is the part that wants a verdict. The allowlist driving the
+split is `_knownExtensionMembers` in `tool/stdlib_member_diff.dart`, and a
+stale entry in it is reported rather than absorbed.
+
+Re-measured 2026-09-12 — **34 entries across 18 classes**, up from the 32/16 of
+2026-09-04 because `Uint8List` gained an `asUint8ListView` and a second bridged
+enum (`HttpClientResponseCompressionState`) reached `EnumName.name`:
 
 | Group | Count | Entries | Verdict |
 | --- | --- | --- | --- |
-| Real Dart **extension** members | 15 | `firstOrNull`/`lastOrNull`/`singleOrNull`/`elementAtOrNull`/`indexed` on `Iterable` and `List`, `List.byName`, `Enum.name`, `Future.ignore`/`onError`, `Function.call` | **Correct** — the bridge is right and the oracle is blind |
-| Declared conveniences | 13 | `FileSystemEvent.isCreate`/`isModify`/`isDelete`/`isMove`; `asUint8ListView` on the nine non-`Uint8List` typed lists | **Correct** — each is commented as deliberate at its definition |
-| Fabricated members | 4 | `InternetAddressType.host`/`address`/`type`/`lookup` | **Defect** — see below |
+| Real Dart **extension** members | 15 | `firstOrNull`/`lastOrNull`/`singleOrNull`/`elementAtOrNull`/`indexed` on `Iterable` and `List`; `List.byName`; `Enum.name` and `HttpClientResponseCompressionState.name`; `Future.ignore`/`onError` | **Correct** — the bridge is right and the oracle is blind. Re-verified 2026-09-12: all fifteen compile against the native types under `dart analyze` |
+| Declared conveniences | 15 | `FileSystemEvent.isCreate`/`isModify`/`isDelete`/`isMove`; `asUint8ListView` on **all eleven** typed lists | **Accepted, but see below** — not all are commented as deliberate |
+| Fabricated members | 4 | `InternetAddressType.host`/`address`/`type`/`lookup` | **Defect** — scd24 owns it; see below |
+
+`Function.call` appeared in the 2026-09-04 table and no longer does.
+
+**A correction to the previous verdict.** The conveniences row used to read
+"each is commented as deliberate at its definition". Checked 2026-09-12, that is
+true of `FileSystemEvent` — its four sit under `// Convenience getters for type
+checking` — and **not** of `asUint8ListView`, whose eleven sit under
+`// Typed methods`, which says what they are and nothing about why they exist
+beyond the SDK. The members are still accepted; what was wrong was the claim
+that the acceptance is written down where the next reader meets it. Tracked as
+sce65.
 
 **The oracle cannot see extension members**, because `dart:mirrors` reports
 declarations on the type and an extension declares nothing on it. So every
-extension member a bridge correctly offers arrives in `extraBridged`. Verify
-before acting on an entry: `dart analyze` a one-liner using the member on the
-native type. That is how the 15 above were cleared.
+extension member a bridge correctly offers arrives in `extraBridged` — which is
+why the split exists. Verify before acting on any entry the tool still reports
+as unexplained: `dart analyze` a one-liner using the member on the native type.
+That is how all fifteen extension members were cleared, and how `isCreate`,
+`asUint8ListView` and the four `InternetAddressType` members were confirmed
+absent from the SDK.
 
 **`InternetAddressType` is the one real finding.** Its four extra members are
 not merely absent from the SDK, they are wired to unrelated `Object` members —
