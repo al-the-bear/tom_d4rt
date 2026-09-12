@@ -615,9 +615,44 @@ missing adapter, and a harder one to see, because the class measures complete.
 why the guard survived every green run for as long as it existed. Its premise
 was wrong about Dart, so the case was rewritten to assert `null`; that is a
 different act from loosening an assertion and belongs in the commit message as
-such. The invented-guard shape has no general detector yet — this instance was
-found while measuring something else — and sweeping the stdlib for its
-siblings is tracked as its own item.
+such.
+
+#### The sweep, and what it found (scd31, 2026-09-12)
+
+Three shapes, in decreasing detectability: **(1)** throws where the SDK RETURNS
+a value — changes the value contract, so any script reading the result breaks;
+**(2)** throws the WRONG TYPE where the SDK also throws — invisible until a
+script tries to CATCH, which is `Queue.removeFirst` (scd30); **(3)** right type,
+wrong MESSAGE — invisible to everything but a script matching on text.
+
+Measured over `lib/src/stdlib`: **1138** `throw RuntimeD4rtException` sites.
+Filtering out the argument, target-type and callback-return guards — all
+correct, and the overwhelming majority — leaves **37**; of those, exactly **one**
+is conditioned on the RECEIVER's state rather than on its arguments, which is
+the shape both known instances had.
+
+That survivor is `LinkedListEntry.unlink()` on an unlinked entry, and it **stays**.
+Dart has no contract there to contradict: measured, the SDK throws
+`_TypeError: Null check operator used on a null value`, an internal crash rather
+than a documented failure and not a type any script would name in a catch. The
+rule is "do not invent a contract the SDK has"; where the SDK has none, a
+legible error is the better answer. The reasoning is at the definition, so a
+later sweep matching on shape alone does not remove it.
+
+**Stage 2 was declined, with a check instead.** The proposal was to extend the
+oracle with a nullability column — enumerate nullable returns from
+`dart:mirrors` and drive each in the state that should yield null. It was
+conditioned on stage 1 finding "more than a handful"; stage 1 found one. To
+confirm that was a real result and not an artefact of grepping for the wrong
+shape, the same question was asked a second way: sixteen nullable-returning
+collection members driven in the empty state. **All sixteen return null; none
+throws.** Two independent methods agreeing on zero is the justification for not
+building the generated oracle now.
+
+Those sixteen are kept as `test/stdlib/nullable_returns_do_not_throw_test.dart`,
+so the property is held rather than merely measured. If a future instance is
+found by accident again — as this one was — that is the signal that the listed
+form is no longer enough and the generated form is worth its cost.
 
 ### The other half of the diff: `extraBridged`
 

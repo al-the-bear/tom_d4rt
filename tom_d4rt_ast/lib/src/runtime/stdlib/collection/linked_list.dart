@@ -194,6 +194,19 @@ class LinkedListEntryCollection {
         if (target is BridgedLinkedListEntry &&
             positionalArgs.isEmpty &&
             namedArgs.isEmpty) {
+          // SCD31 examined this guard and it STAYS, which is the one
+          // survivor of that sweep. It looks like the defect class — a
+          // hand-written throw conditioned on the receiver's state — but Dart
+          // has no contract here to contradict: measured, `LinkedListEntry
+          // .unlink()` on an unlinked entry throws
+          // `_TypeError: Null check operator used on a null value`, an internal
+          // crash rather than a documented failure, and not a type any script
+          // would name in a catch.
+          //
+          // So deleting it would trade a clear message for an SDK crash and
+          // gain no fidelity. The rule the sweep applies is "do not invent a
+          // contract the SDK has"; where the SDK has none, a legible error is
+          // the better answer.
           if (target.list == null) {
             throw RuntimeD4rtException(
               "Cannot unlink an entry that is not in a list or already unlinked.",

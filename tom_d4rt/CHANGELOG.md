@@ -1,4 +1,27 @@
-## 1.79.0
+## 1.80.0
+
+### Changed — the invented-error-contract sweep, and its one survivor (scd31_aidb)
+
+A hand-written adapter that invents an error contract the SDK does not have is a
+defect no reachability check can see: the member is registered, it resolves, and
+the member diff counts the class complete.
+
+Swept. Of 1138 `throw RuntimeD4rtException` sites under `lib/src/stdlib`, the
+argument, target-type and callback-return guards — the overwhelming majority and
+all correct — leave 37, of which exactly one is conditioned on the RECEIVER's
+state rather than its arguments, which is the shape both known instances had.
+
+That one is `LinkedListEntry.unlink()` on an unlinked entry, and it STAYS: Dart
+has no contract there to contradict, throwing an internal
+`_TypeError: Null check operator used on a null value` rather than a documented
+failure. Where the SDK has no contract, a legible error is the better answer.
+The reasoning now sits at the definition so a later sweep matching on shape
+alone does not remove it.
+
+`test/stdlib/nullable_returns_do_not_throw_test.dart` holds the property going
+forward: sixteen nullable-returning collection members, each driven in the state
+that should yield null. It would have caught the `SplayTreeMap.firstKey()` case
+that prompted the sweep.
 
 ### Fixed — an empty queue raises a catchable `StateError` (scd30_aidb)
 
@@ -30,6 +53,8 @@ which is noted here because it is a different act from loosening them: I-COLL-69
 pinned the invented message verbatim, I-COLL-50 pinned the interpreter's
 exception type, and F-SC7-AST-6 expected `removeFirst` to disagree with `first`
 in the same bridge.
+
+## 1.79.0
 
 ### Fixed — the float typed lists accept int literals, as Dart does (scd29_aidb)
 
