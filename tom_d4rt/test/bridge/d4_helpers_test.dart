@@ -9,7 +9,10 @@
 /// - "Invalid parameter elevation: expected double?, got int"
 /// - Type coercion for widget parameters
 import 'package:test/test.dart';
-import 'package:tom_d4rt/src/generator/d4.dart';
+import 'package:tom_d4rt/d4rt.dart';
+// The stdlib registrars are not part of the published surface, so `CoreStdlib`
+// is reached by same-package path rather than by widening `d4rt.dart` for a test.
+import 'package:tom_d4rt/src/stdlib/core.dart';
 
 void main() {
   group('D4.extractBridgedArg - Int to Double Promotion', () {
@@ -234,16 +237,33 @@ void main() {
   });
 
   group('BridgedInstance Unwrapping with Type Promotion', () {
-    // Tests for when values come wrapped in BridgedInstance
-
+    // A value that reaches a bridge adapter from interpreted code arrives
+    // WRAPPED, so the unwrap and the int->double promotion have to compose:
+    // `extractBridgedArg` takes `nativeObject` off the wrapper first and only
+    // then asks whether the result is a `T`. Either half alone passes its own
+    // test and the pair still fails, which is why this case is separate from
+    // D4-PROM-01 above.
+    //
+    // Skipped from 2026-02-28 to 2026-09-12 as "needs a mock BridgedInstance".
+    // No mock is needed and none was then: `Environment.toBridgedInstance`
+    // makes a real one, and the suite had been using it elsewhere for months.
+    // The placeholder body left behind asserted `expect(true, isTrue)`, so
+    // un-skipping it would have reported a pass having tested nothing.
     test(
-      'D4-WRAP-01: extractBridgedArg unwraps BridgedInstance<int> to double. [2026-02-28] (FAIL)',
+      'D4-WRAP-01: extractBridgedArg unwraps BridgedInstance<int> to double. '
+      '[2026-02-28] (PASS)',
       () {
-        // When D4rt wraps an int in BridgedInstance, extracting as double should work
-        // This is a theoretical test - would need a mock BridgedInstance
-        expect(true, isTrue); // Placeholder for actual BridgedInstance test
+        final env = Environment();
+        CoreStdlib.register(env);
+        final wrapped = env.toBridgedInstance(10);
+        // Guards the premise: if this stopped being a wrapper the test below
+        // would be D4-PROM-01 again, passing for the wrong reason.
+        expect(wrapped, isA<BridgedInstance>());
+
+        final result = D4.extractBridgedArg<double>(wrapped, 'value');
+        expect(result, isA<double>());
+        expect(result, equals(10.0));
       },
-      skip: 'Needs BridgedInstance mock for proper testing',
     );
   });
 

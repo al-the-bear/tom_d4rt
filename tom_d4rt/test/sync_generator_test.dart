@@ -34,7 +34,7 @@ void main() {
     );
 
     test(
-      'I-GEN-2: Sync* generator with .toList() call. [2026-02-10] (FAIL)',
+      'I-GEN-2: Sync* generator with .toList() call. [2026-02-10] (PASS)',
       () {
         final result = d4rt.execute(
           library: 'package:main/main.dart',
@@ -58,7 +58,7 @@ void main() {
     );
 
     test(
-      'I-GEN-3: Sync* generator with .take().toList() chain. [2026-02-10] (FAIL)',
+      'I-GEN-3: Sync* generator with .take().toList() chain. [2026-02-10] (PASS)',
       () {
         final result = d4rt.execute(
           library: 'package:main/main.dart',
@@ -83,7 +83,7 @@ void main() {
     );
 
     test(
-      'I-GEN-4: Sync* generator with .map() and .toList(). [2026-02-10] (FAIL)',
+      'I-GEN-4: Sync* generator with .map() and .toList(). [2026-02-10] (PASS)',
       () {
         final result = d4rt.execute(
           library: 'package:main/main.dart',
