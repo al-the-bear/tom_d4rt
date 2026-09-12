@@ -1,5 +1,42 @@
 ## 1.80.0
 
+### Fixed — the last three bridged-constructor wrap sites drop the trace (scd34_aidc)
+
+SCC11 gave `RuntimeD4rtException` an `originalStackTrace` so an interpreted
+`catch (e, st)` reports where the *native* throw happened rather than where the
+interpreter caught it. Three wrap sites were left binding only `catch (e)` and
+so had nothing to forward — all three on the bridged-constructor paths: the
+explicit `super.named()` call, the implicit super call, and
+`visitInstanceCreationExpression`. All three now bind `catch (e, s)` and pass
+`originalStackTrace: s`.
+
+The site in `visitInstanceCreationExpression` had a second defect that says how
+it got this way: its `Logger.error` line read `\$e\n\$s` — escaped, so it
+logged the literal text `$e\n$s` instead of the exception and its trace. That
+is what narrowing the binder to `catch (e)` leaves behind when the message is
+made to compile rather than fixed. Its sibling twenty lines away still had the
+unescaped form, which is what the line should have said all along.
+
+Widening the three was necessary but not sufficient, and only a negative
+control could show that. Two of the three sit under a re-wrap in
+`InterpretedClass.call` that catches `on RuntimeD4rtException` and builds a
+fresh one out of `e.message` alone — discarding the trace that had just been
+preserved one frame below. Four re-wraps on the constructor path now carry
+`originalStackTrace: e.originalStackTrace` across. They deliberately do **not**
+carry `originalException`: that would change which type a script's `on` clause
+matches, which is a behavioural question and not this change.
+
+The arity-error throw in the same clause (SCB28) now forwards the trace too. It
+replaces the native error as the *value* on purpose, but the adapter frame that
+indexed past the end of the argument list is still the only one that says where.
+
+Verified by negative control rather than by a green run: each adapter in
+`scd34_constructor_trace_forwarding_test.dart` throws via
+`Error.throwWithStackTrace` carrying a `StackTrace.fromString` sentinel, so a
+trace manufactured at the wrap site cannot satisfy the assertion by accident.
+Removing the forwarding at each of the three sites individually was confirmed
+to turn exactly that site's case red.
+
 ### Changed — the invented-error-contract sweep, and its one survivor (scd31_aidb)
 
 A hand-written adapter that invents an error contract the SDK does not have is a

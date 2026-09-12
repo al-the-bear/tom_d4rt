@@ -1419,13 +1419,16 @@ class InterpretedFunction implements Callable {
                     );
                   }
                 } on RuntimeD4rtException catch (e) {
+                  // SCD34: carry the preserved trace across the re-wrap.
                   throw RuntimeD4rtException(
                     "Error during bridged super constructor '$superConstructorName': ${e.message}",
+                    originalStackTrace: e.originalStackTrace,
                   );
-                } catch (e) {
+                } catch (e, s) {
                   throw RuntimeD4rtException(
                     "Native error during bridged super constructor '$superConstructorName': $e",
                     originalException: e,
+                    originalStackTrace: s,
                   );
                 }
               } else {
@@ -1598,13 +1601,16 @@ class InterpretedFunction implements Callable {
                 "[ImplicitSuperCall] Stored native object from bridged super constructor '' ($nativeSuperObject)",
               );
             } on RuntimeD4rtException catch (e) {
+              // SCD34: carry the preserved trace across the re-wrap.
               throw RuntimeD4rtException(
                 "Error during implicit bridged super constructor: ${e.message}",
+                originalStackTrace: e.originalStackTrace,
               );
-            } catch (e) {
+            } catch (e, s) {
               throw RuntimeD4rtException(
                 "Native error during implicit bridged super constructor: $e",
                 originalException: e,
+                originalStackTrace: s,
               );
             }
           }

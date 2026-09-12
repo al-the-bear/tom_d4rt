@@ -12545,13 +12545,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         return bridgedInstance;
       } on RuntimeD4rtException catch (e) {
         // If the adapter itself raises a RuntimeError (e.g. conversion failure)
+        // SCD34: carry the preserved trace across the re-wrap.
         throw RuntimeD4rtException(
           "Error during bridged constructor '$constructorLookupName' for class '$constructorName': ${e.message}",
+          originalStackTrace: e.originalStackTrace,
         );
-      } catch (e) {
+      } catch (e, s) {
         // Catch potential native exceptions raised by the adapter or the native constructor
         Logger.error(
-          "[InstanceCreation] Native exception during bridged constructor '$constructorName.$constructorLookupName': \$e\\n\$s",
+          "[InstanceCreation] Native exception during bridged constructor '$constructorName.$constructorLookupName': $e\n$s",
         );
         // Encapsulate the native error in a RuntimeError for propagation
         // SCB28: an unguarded adapter indexed past the end of the
@@ -12561,10 +12563,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           positionalArgs,
           '$constructorName.$constructorLookupName',
         );
-        if (arityError != null) throw RuntimeD4rtException(arityError);
+        if (arityError != null) {
+          // SCD34: the arity description deliberately replaces the native
+          // error as the *value* (SCB28), but the trace still belongs to the
+          // adapter that indexed past the end -- which is the only frame that
+          // says where.
+          throw RuntimeD4rtException(arityError, originalStackTrace: s);
+        }
         throw RuntimeD4rtException(
           "Native error during bridged constructor '$constructorLookupName' for class '$constructorName': $e",
           originalException: e,
+          originalStackTrace: s,
         );
       }
     } else {

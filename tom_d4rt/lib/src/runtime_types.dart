@@ -740,8 +740,14 @@ class InterpretedClass implements Callable, RuntimeType {
           typeArguments,
         );
       } on RuntimeD4rtException catch (e) {
+        // SCD34: carry the preserved trace across the re-wrap. This clause is
+        // what the bridged-super-constructor path actually returns to the
+        // script, so dropping the trace here undoes the forwarding done at
+        // the site that raised it. The *value* is deliberately not carried:
+        // that would change which type a script's `on` clause matches.
         throw RuntimeD4rtException(
           "Error during constructor execution for class '$name': ${e.message}",
+          originalStackTrace: e.originalStackTrace,
         );
       }
     } else {
