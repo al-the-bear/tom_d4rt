@@ -11,7 +11,7 @@
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
 // The stdlib registrars are not part of the published surface, so `CoreStdlib`
-// is reached by same-package path rather than by widening `d4rt.dart` for a test.
+// is reached by same-package path rather than by widening the barrel for a test.
 import 'package:tom_d4rt/src/stdlib/core.dart';
 
 void main() {
