@@ -41,18 +41,49 @@ import 'package:test/test.dart';
 
 /// The packages in this repo that are published, and their path relative to
 /// `tom_d4rt/` — which is the working directory when this suite runs.
-const _packages = <String, String>{
-  'tom_d4rt': '.',
-  'tom_d4rt_ast': '../tom_d4rt_ast',
-  'tom_d4rt_exec': '../tom_d4rt_exec',
-};
+///
+/// DISCOVERED, NOT LISTED (SCD60). This was a hardcoded three while the repo
+/// published ten, so seven packages — including both flutter twins, which the
+/// cluster campaign changes more often than anything else — were outside every
+/// check here. A hardcoded list has no way of telling you it is short; that is
+/// the same "nothing says when you are done" defect SCC21 names.
+///
+/// The rule is: a sibling directory with a `pubspec.yaml` that does NOT declare
+/// `publish_to: none`. Adding a publishable package to the repo therefore
+/// brings it under this guard with no edit here, which is the property that
+/// makes the discovery worth the dozen lines.
+final Map<String, String> _packages = _discoverPackages();
 
 /// Path of a package's directory as git sees it, i.e. relative to the repo root.
-const _gitPaths = <String, String>{
-  'tom_d4rt': 'tom_d4rt',
-  'tom_d4rt_ast': 'tom_d4rt_ast',
-  'tom_d4rt_exec': 'tom_d4rt_exec',
+final Map<String, String> _gitPaths = {
+  for (final name in _packages.keys) name: name,
 };
+
+Map<String, String> _discoverPackages() {
+  // `..` from `tom_d4rt/` is the repo root, which is where the sibling
+  // packages live. The reference package itself is spelled `.` because the
+  // suite's working directory IS that package.
+  final root = Directory('..');
+  if (!root.existsSync()) return const {};
+  final found = <String, String>{};
+  for (final entry in root.listSync().whereType<Directory>()) {
+    final name = entry.uri.pathSegments.where((s) => s.isNotEmpty).last;
+    final pubspec = File('${entry.path}/pubspec.yaml');
+    if (!pubspec.existsSync()) continue;
+    // A demo app or a test project says so, and is not held to release
+    // hygiene — there is nothing to release.
+    if (RegExp(
+      r'''^publish_to:\s*['"]?none''',
+      multiLine: true,
+    ).hasMatch(pubspec.readAsStringSync())) {
+      continue;
+    }
+    found[name] = name == 'tom_d4rt' ? '.' : '../$name';
+  }
+  return Map.fromEntries(
+    found.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
+  );
+}
 
 /// Versions that were declared in a pubspec and have no `## <version>` heading,
 /// with the reason each is permitted.
@@ -98,6 +129,23 @@ const _versionsWithoutHeading = <String, Set<String>>{
     '0.44.0',
   },
   'tom_d4rt_exec': {},
+  // SCD60 widened this guard from three packages to every publishable one,
+  // which turned up three more gaps with three different causes — worth
+  // separating, because only one of the three was fixable.
+  'tom_d4rt_flutter': {
+    // Build metadata, not a release. `1.0.0+1` was declared transiently while
+    // 60f02fb4a split the library from its demo app; `## 1.0.0` is the
+    // section, and a `+1` suffix does not get one of its own.
+    '1.0.0+1',
+  },
+  'tom_d4rt_generator': {
+    // Absorbed into 1.8.8 by 06eca521e, whose own message says why: "1.8.7
+    // already on pub.dev". So the 1.8.7 ON pub.dev is a different build, and
+    // this repository's 1.8.7 content shipped as 1.8.8 — which that section
+    // now says, since a reader holding pub.dev's 1.8.7 is exactly who would
+    // come looking.
+    '1.8.7',
+  },
 };
 
 /// Every version string this package's pubspec has ever declared.
@@ -209,7 +257,19 @@ List<String> _libCommitsAfterLastBump(String package, String head) {
     '--format=%h %s',
     '$anchor..$head',
     '--',
-    '${_gitPaths[package]}/lib',
+    // LIBRARY CODE, not every file under lib/. The exclusion below already
+    // said that for the versioner stamp; SCD60 made the rule general when
+    // widening this guard to every publishable package turned up
+    // `538c91bcf`, which untracked `tom_d4rt_dcli/lib/d4rt_bridges.g.info` —
+    // a dated generator marker, gitignored, read by nothing, removed so pub's
+    // publish validation would stop flagging a tracked file the package's own
+    // ignore rules exclude. Demanding a release for that is asking a version
+    // number to describe something no consumer can observe.
+    //
+    // This narrows what the guard MEANS, which is different from excusing a
+    // package: it applies everywhere and there is no list to grow. A
+    // per-package exemption is the thing that would make this decorative.
+    '${_gitPaths[package]}/lib/*.dart',
     ':(exclude)${_gitPaths[package]}/lib/src/version.versioner.dart',
   ]);
   return log.isEmpty ? const [] : log.split('\n');
@@ -356,13 +416,13 @@ void main() {
         '[2026-09-12] (PASS)', () {
       final undocumented = <String>[];
       final staleBaseline = <String>[];
-      final perPackage = <String, int>{};
+      final perPackageVersions = <String, Set<String>>{};
 
       for (final package in _packages.keys) {
         final declared = _declaredVersions(package);
         final headings = _changelogHeadings(package);
         final permitted = _versionsWithoutHeading[package] ?? const <String>{};
-        perPackage[package] = declared.length;
+        perPackageVersions[package] = declared;
 
         for (final version in declared.difference(headings)) {
           if (!permitted.contains(version)) {
@@ -383,31 +443,42 @@ void main() {
       undocumented.sort();
       staleBaseline.sort();
 
-      // The floor, PER PACKAGE rather than in aggregate. Both checks below
-      // are emptiness assertions over a git walk, and a walk that returned
-      // nothing satisfies them — which is what a wrong pathspec does,
-      // silently.
+      // The floor, per package. Both checks below are emptiness assertions
+      // over a git walk, and a walk that returned nothing satisfies them —
+      // which is what a wrong pathspec does, silently.
       //
-      // Aggregate was the first attempt and the control showed it was not
-      // enough: breaking ONE package's pathspec left 119 of 212 versions,
-      // comfortably over any aggregate floor worth writing, and the failure
-      // surfaced only as a side effect — that package's baselined versions
-      // read as "never declared". A per-package floor names the cause.
-      // Measured 2026-09-12 at 98 / 93 / 21.
+      // IT ASKS ONLY THAT THE WALK RETURNED SOMETHING, and arriving at that
+      // took three tries, each wrong in a way the next measurement exposed:
+      //
+      //   * aggregate (>100) could not see ONE package going dark — breaking
+      //     a pathspec left 119 of 212 versions, over any aggregate floor;
+      //   * per-package (>=10) encoded an assumption about package age, and
+      //     failed honestly on SCD60's widened set, where `tom_ast_model` has
+      //     five versions in its whole history and `tom_d4rt_flutter_ast`
+      //     four;
+      //   * "the walk must contain the version the pubspec declares NOW" read
+      //     well and was wrong in the other direction: it fails on an
+      //     UNCOMMITTED bump, which is a normal working state, and blames the
+      //     walk for it. A guard that reports a broken scan when the scan is
+      //     fine sends someone to fix a thing that is not broken.
+      //
+      // What is left is the only claim that is true of every package in every
+      // state: if the walk ran, it saw at least one version.
       final wentDark = [
-        for (final entry in perPackage.entries)
-          if (entry.value < 10) '${entry.key} (${entry.value})',
+        for (final package in _packages.keys)
+          if ((perPackageVersions[package] ?? const <String>{}).isEmpty)
+            package,
       ]..sort();
       expect(
         wentDark,
         isEmpty,
         reason:
-            'These packages enumerated almost no versions: '
-            '${wentDark.join(', ')}. That is not a finding about their '
-            'CHANGELOGs — the git walk did not run for them, and every '
-            'version they declare then reads as documented by absence. Note '
-            'that `git log` resolves a pathspec against the CWD, which is why '
-            'these calls run from the repo root.',
+            'The git walk returned no versions at all for these packages:\n'
+            '  ${wentDark.join('\n  ')}\n\n'
+            'That is not a finding about their CHANGELOGs — every version they '
+            'declare then reads as documented by absence, and the checks below '
+            'say nothing. Note that `git log` resolves a pathspec against the '
+            'CWD, which is why these calls run from the repo root.',
       );
 
       expect(

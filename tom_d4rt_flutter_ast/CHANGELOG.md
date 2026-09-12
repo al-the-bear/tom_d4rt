@@ -1,3 +1,15 @@
+## 0.4.0
+
+### Fixed — the TwoDimensional proxies follow Flutter's `ScrollCacheExtent` rename
+
+`TwoDimensionalChildDelegate` and its neighbours moved from a raw `double`
+cache extent to `ScrollCacheExtent`, so the generated proxies no longer matched
+the abstract members they override.
+
+*(Bumped 2026-09-12 by scd60. `e60560ff6` changed `lib/` and no version
+followed it, so the change would otherwise have shipped inside the already
+written 0.3.0 section — the SCC17 failure mode.)*
+
 ## 0.3.0
 
 - Migrate the `TwoDimensionalChildDelegate` proxies to `ScrollCacheExtent`,

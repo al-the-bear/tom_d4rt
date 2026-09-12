@@ -422,6 +422,28 @@ a Windows drive prefix (`C:/Code/x`) still reads as a path.
 Covered by `G-PURI-03` (relative path → package URI) and `G-PURI-04`
 (resolved URIs pass through untouched).
 
+## 1.15.1
+
+### Fixed — per-source-file state is keyed on the normalised path (GEN-122)
+
+Regenerating a bridge package silently deleted every re-export edge belonging
+to a `path:` dependency — around 330 lines across `tom_core_d4rt` — while
+leaving hosted dependencies untouched. Nothing failed: `bridgeReExports()` was
+still emitted, just empty, so the output analysed clean and the suites stayed
+green while d4rt scripts lost the ability to resolve symbols through those
+barrels.
+
+The cause was a key mismatch rather than a resolution failure. `parseFile`
+normalises to an absolute path before resolving, so the collector stored under
+the normalised key while the emitter looked the entry up under the path as
+written. `buildkit.yaml` spells `barrelFiles` relative for `path:` dependencies
+and absolute for pub-cache ones, which is exactly why the loss split along that
+line. Both maps now store and read through one `_sourceFileKey()` helper.
+
+*(Section written 2026-09-12 by scd60. The bump landed in `b0f94fb42` with no
+CHANGELOG entry at all — not renamed away, simply omitted — which is the case
+`F-SCC17-5` exists to find.)*
+
 ## 1.15.2
 
 ### Fixed — a relative scan root silently dropped every user bridge (GEN-123)
@@ -1119,6 +1141,12 @@ summaries. See `doc/summary_refactoring_plan.md` for the full plan and
 - **`bridge_generator.dart`** — Minor fixes and improvements to bridge generation.
 
 ## 1.8.8
+
+This section also covers the work prepared as **1.8.7**, whose heading was
+renamed rather than added to when the version was bumped (`06eca521e`,
+whose own message says why: "1.8.7 already on pub.dev"). The 1.8.7 on
+pub.dev is a different build; this repository's 1.8.7 content shipped as
+1.8.8.
 
 ### Added
 

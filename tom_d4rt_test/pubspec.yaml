@@ -1,6 +1,12 @@
 name: tom_d4rt_test
 description: Behavioural conformance test suite for the tom_d4rt interpreter.
 version: 1.0.0
+# Behavioural conformance suite for the interpreter, not a library: its
+# lib/ carries one empty placeholder file from `dart create` and nothing
+# depends on it. Without this line one `dart pub publish` would put a test
+# project on pub.dev under the org's name, and the release-hygiene guard
+# would hold it to a CHANGELOG it has no reason to keep (scd60).
+publish_to: 'none'
 # repository: https://github.com/my_org/my_repo
 
 environment:
