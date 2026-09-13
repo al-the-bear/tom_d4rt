@@ -59,6 +59,16 @@ const _mirroredPackages = [
   'tom_d4rt',
   'tom_d4rt_ast',
   'tom_d4rt_exec',
+  // SCD82 — the rest of the repo. `tom_d4rt_dcli` and `tom_dcli_exec` are twins
+  // in the sense this suite cares about (the same REPL on the two interpreter
+  // lines, kept in step by diffing); the other three are not mirrored, so for
+  // them the guard is hygiene rather than a correctness aid. All five declare an
+  // SDK floor of ^3.10.4, well above the tall-style boundary F-SCC26-1 checks.
+  'tom_ast_generator',
+  'tom_ast_model',
+  'tom_d4rt_dcli',
+  'tom_d4rt_generator',
+  'tom_dcli_exec',
   // SCD81 — the Flutter twins are the same kind of pair one layer up: 18
   // generated bridge files each plus the shared `d4rt_user_bridges/` set that
   // `tom_d4rt_flutter_ast/tool/sync_shared_user_bridges.dart` derives by
@@ -130,9 +140,16 @@ Directory? _repoRoot() {
 List<String> _formatTargets(Directory package) {
   final name = package.path.split(Platform.pathSeparator).last;
   if (!_generatedOutputPackages.contains(name)) {
+    // `bin` and `tool` as well as `lib`/`test`, because SCD82 measured the hole
+    // they left: with the roots at `lib test`, four packages passed this guard
+    // while nine files under `bin/` and `tool/` still rewrote wholesale on the
+    // first `dart format`. A guard that says "formatted" about part of a package
+    // is worse than none, because the claim is what stops anyone checking.
     return [
       'lib',
       'test',
+      'bin',
+      'tool',
     ].where((d) => Directory('${package.path}/$d').existsSync()).toList();
   }
   final lib = Directory('${package.path}/lib');
@@ -279,6 +296,54 @@ void main() {
               'each other',
         );
       }
+    });
+
+    test('F-SCD82-1: every mirrored package is formatted [2026-09-13]', () {
+      // The general case, and it exists because adding five packages to
+      // `_mirroredPackages` exposed what that list did NOT buy. F-SCC26-2 checks
+      // this package, F-SCC26-3 names `tom_d4rt`, F-SCD81-1 covers the two
+      // Flutter twins — and nothing checked the rest. `tom_d4rt_exec` had been
+      // in the list since SCC26 with no case asserting its layout at all. A list
+      // that looks like coverage and is not is the failure this suite was
+      // written about, one level up from the formatting itself.
+      //
+      // The two named cases are kept rather than folded in: F-SCC26-3 carries
+      // the mirror argument for the reference tree, and F-SCD81-1 also asserts
+      // the generated-output exclusion is non-vacuous, which this case does not
+      // ask about. Overlapping guards are cheap; a silent gap is not.
+      if (root == null) {
+        markTestSkipped('d4rt repo root not found — siblings not reachable');
+        return;
+      }
+      final here = Directory.current.absolute.path
+          .split(Platform.pathSeparator)
+          .last;
+      final unformatted = <String, List<String>>{};
+      var checked = 0;
+      for (final name in _mirroredPackages) {
+        if (name == here) continue; // F-SCC26-2 owns this one.
+        final package = Directory('${root.path}/$name');
+        if (!package.existsSync()) continue;
+        checked++;
+        final changed = _unformattedFiles(package);
+        if (changed.isNotEmpty) unformatted[name] = changed;
+      }
+
+      expect(
+        checked,
+        greaterThanOrEqualTo(_mirroredPackages.length - 1),
+        reason:
+            'only $checked of ${_mirroredPackages.length} mirrored packages were '
+            'reachable, so this is not a measurement of the repo',
+      );
+      expect(
+        unformatted,
+        isEmpty,
+        reason:
+            'these packages have unformatted files, so the next `dart format` '
+            'will rewrite them and bury whatever real edit lands alongside:\n'
+            '${unformatted.entries.map((e) => '${e.key}: ${e.value.join(', ')}').join('\n')}',
+      );
     });
   });
 }
