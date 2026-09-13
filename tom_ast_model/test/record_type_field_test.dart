@@ -44,68 +44,58 @@ SRecordTypeAnnotation intWithNamedLabel() => SRecordTypeAnnotation(
 
 void main() {
   group('DGUB8: SRecordTypeField', () {
-    test(
-      'F-DGUB8-1: a positional field carries its type and has no name '
-      '[2026-07-28] (PASS)',
-      () {
-        final field = intWithNamedLabel().positionalFields.single;
-        expect(field.name, isNull);
-        expect((field.type as SNamedType).name!.name, 'int');
-      },
-    );
-
-    test(
-      'F-DGUB8-2: a named field carries both its type and its name '
-      '[2026-07-28] (PASS)',
-      () {
-        final field = intWithNamedLabel().namedFields.single;
-        expect(field.name!.name, 'label');
-        expect((field.type as SNamedType).name!.name, 'String');
-      },
-    );
-
-    test('F-DGUB8-3: nodeType is RecordTypeField [2026-07-28] (PASS)', () {
-      expect(intWithNamedLabel().positionalFields.single.nodeType,
-          'RecordTypeField');
+    test('F-DGUB8-1: a positional field carries its type and has no name '
+        '[2026-07-28] (PASS)', () {
+      final field = intWithNamedLabel().positionalFields.single;
+      expect(field.name, isNull);
+      expect((field.type as SNamedType).name!.name, 'int');
     });
 
-    test(
-      'F-DGUB8-4: the field node round-trips through SAstNodeFactory '
-      '[2026-07-28] (PASS)',
-      () {
-        // Goes through the *factory* rather than SRecordTypeField.fromJson so
-        // this also asserts the node is registered under its nodeType — an
-        // unregistered node deserialises to null and silently loses the field.
-        final original = intWithNamedLabel().namedFields.single;
-        final restored =
-            SAstNodeFactory.fromJson(original.toJson()) as SRecordTypeField;
-        expect(restored.name!.name, 'label');
-        expect((restored.type as SNamedType).name!.name, 'String');
-        expect(restored.offset, original.offset);
-        expect(restored.length, original.length);
-      },
-    );
+    test('F-DGUB8-2: a named field carries both its type and its name '
+        '[2026-07-28] (PASS)', () {
+      final field = intWithNamedLabel().namedFields.single;
+      expect(field.name!.name, 'label');
+      expect((field.type as SNamedType).name!.name, 'String');
+    });
 
-    test(
-      'F-DGUB8-5: the enclosing annotation round-trips with typed fields '
-      '[2026-07-28] (PASS)',
-      () {
-        final restored = SRecordTypeAnnotation.fromJson(
-          intWithNamedLabel().toJson(),
-        );
-        expect(restored.positionalFields, hasLength(1));
-        expect(restored.namedFields, hasLength(1));
-        expect(
-          (restored.positionalFields.single.type as SNamedType).name!.name,
-          'int',
-        );
-        expect(restored.namedFields.single.name!.name, 'label');
-        expect(
-          (restored.namedFields.single.type as SNamedType).name!.name,
-          'String',
-        );
-      },
-    );
+    test('F-DGUB8-3: nodeType is RecordTypeField [2026-07-28] (PASS)', () {
+      expect(
+        intWithNamedLabel().positionalFields.single.nodeType,
+        'RecordTypeField',
+      );
+    });
+
+    test('F-DGUB8-4: the field node round-trips through SAstNodeFactory '
+        '[2026-07-28] (PASS)', () {
+      // Goes through the *factory* rather than SRecordTypeField.fromJson so
+      // this also asserts the node is registered under its nodeType — an
+      // unregistered node deserialises to null and silently loses the field.
+      final original = intWithNamedLabel().namedFields.single;
+      final restored =
+          SAstNodeFactory.fromJson(original.toJson()) as SRecordTypeField;
+      expect(restored.name!.name, 'label');
+      expect((restored.type as SNamedType).name!.name, 'String');
+      expect(restored.offset, original.offset);
+      expect(restored.length, original.length);
+    });
+
+    test('F-DGUB8-5: the enclosing annotation round-trips with typed fields '
+        '[2026-07-28] (PASS)', () {
+      final restored = SRecordTypeAnnotation.fromJson(
+        intWithNamedLabel().toJson(),
+      );
+      expect(restored.positionalFields, hasLength(1));
+      expect(restored.namedFields, hasLength(1));
+      expect(
+        (restored.positionalFields.single.type as SNamedType).name!.name,
+        'int',
+      );
+      expect(restored.namedFields.single.name!.name, 'label');
+      expect(
+        (restored.namedFields.single.type as SNamedType).name!.name,
+        'String',
+      );
+    });
 
     test(
       'F-DGUB8-6: a field with no declared type round-trips as null, not as a '

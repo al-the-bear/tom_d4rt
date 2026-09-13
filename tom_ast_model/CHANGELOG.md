@@ -1,3 +1,21 @@
+## 0.2.1
+
+### Changed — formatted the tree once (scd82)
+
+Every package in this repo already declares an SDK floor above the 3.7
+tall-style boundary, so the formatter can no longer produce two layouts here.
+What was not true is that the trees were formatted: until this commit, running
+`dart format` on any single file rewrote it wholesale and buried whatever real
+edit came with it.
+
+**Proven layout-only rather than assumed.** `git diff -w` cannot establish it,
+because the tall style *splits* lines and a whitespace-insensitive diff still
+counts a moved boundary as a change. What was checked is the token stream, per
+file, twice: whitespace stripped, then whitespace and commas stripped. The single changed file is identical to HEAD under that normalisation.
+
+`dart analyze` is clean, the suite passes (7 tests), and the formatter is now
+idempotent here.
+
 ## 0.2.0
 
 - **Add `SRecordTypeField`** — the fields of a record type *annotation*
