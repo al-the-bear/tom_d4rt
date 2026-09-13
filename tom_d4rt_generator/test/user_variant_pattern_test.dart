@@ -20,24 +20,33 @@ void main() {
       expect(p.literal, 'Customer');
     });
 
-    test('G-UVP-3: a bare "*" matches everything (empty literal, endsWith)', () {
-      final p = WildcardPattern.parse('*');
-      expect(p.kind, WildcardMatchKind.endsWith);
-      expect(p.literal, '');
-      expect(p.match('Anything')?.full, 'Anything');
-      expect(p.match('Anything')?.captured, 'Anything');
-    });
+    test(
+      'G-UVP-3: a bare "*" matches everything (empty literal, endsWith)',
+      () {
+        final p = WildcardPattern.parse('*');
+        expect(p.kind, WildcardMatchKind.endsWith);
+        expect(p.literal, '');
+        expect(p.match('Anything')?.full, 'Anything');
+        expect(p.match('Anything')?.captured, 'Anything');
+      },
+    );
 
     test('G-UVP-4: missing "*" is rejected', () {
-      expect(() => WildcardPattern.parse('Customer'),
-          throwsA(isA<FormatException>()));
+      expect(
+        () => WildcardPattern.parse('Customer'),
+        throwsA(isA<FormatException>()),
+      );
     });
 
     test('G-UVP-5: more than one "*" or a mid-slot "*" is rejected', () {
-      expect(() => WildcardPattern.parse('*DO*'),
-          throwsA(isA<FormatException>()));
-      expect(() => WildcardPattern.parse('Cust*DO'),
-          throwsA(isA<FormatException>()));
+      expect(
+        () => WildcardPattern.parse('*DO*'),
+        throwsA(isA<FormatException>()),
+      );
+      expect(
+        () => WildcardPattern.parse('Cust*DO'),
+        throwsA(isA<FormatException>()),
+      );
     });
   });
 
@@ -61,7 +70,10 @@ void main() {
     });
 
     test('G-UVP-9: expandTemplate substitutes \$0 and \$1', () {
-      final cap = const WildcardCapture(full: 'CustomerDO', captured: 'Customer');
+      final cap = const WildcardCapture(
+        full: 'CustomerDO',
+        captured: 'Customer',
+      );
       expect(cap.expandTemplate(r'$1Form'), 'CustomerForm');
       expect(cap.expandTemplate(r'$0Wrapper'), 'CustomerDOWrapper');
       expect(cap.expandTemplate(r'Map<$1, $0>'), 'Map<Customer, CustomerDO>');
@@ -89,8 +101,10 @@ void main() {
     });
 
     test('G-UVP-12: a \$-template with no wildcard slot is rejected', () {
-      expect(() => TypeArgVariantSpec.parse(r'Customer, $1Form'),
-          throwsA(isA<FormatException>()));
+      expect(
+        () => TypeArgVariantSpec.parse(r'Customer, $1Form'),
+        throwsA(isA<FormatException>()),
+      );
     });
   });
 
@@ -103,17 +117,19 @@ void main() {
       'Unrelated',
     ];
 
-    test('G-UVP-13: single-param pattern expands the driver to the full name',
-        () {
-      final spec = TypeArgVariantSpec.parse('*DO');
-      expect(spec.isPattern, isTrue);
-      expect(spec.driverIndex, 0);
-      expect(spec.expand(candidates), [
-        ['CustomerDO'],
-        ['OrderDO'],
-        ['ProductDO'],
-      ]);
-    });
+    test(
+      'G-UVP-13: single-param pattern expands the driver to the full name',
+      () {
+        final spec = TypeArgVariantSpec.parse('*DO');
+        expect(spec.isPattern, isTrue);
+        expect(spec.driverIndex, 0);
+        expect(spec.expand(candidates), [
+          ['CustomerDO'],
+          ['OrderDO'],
+          ['ProductDO'],
+        ]);
+      },
+    );
 
     test('G-UVP-14: two-param pattern derives the second slot from \$1', () {
       final spec = TypeArgVariantSpec.parse(r'*DO, $1Form');
@@ -153,22 +169,32 @@ void main() {
 
   group('TypeArgVariantSpec — malformed rejection (G-UVP-18..20)', () {
     test('G-UVP-18: more than one wildcard slot is rejected', () {
-      expect(() => TypeArgVariantSpec.parse('*DO, *Form'),
-          throwsA(isA<FormatException>()));
+      expect(
+        () => TypeArgVariantSpec.parse('*DO, *Form'),
+        throwsA(isA<FormatException>()),
+      );
     });
 
     test('G-UVP-19: an empty slot is rejected', () {
-      expect(() => TypeArgVariantSpec.parse('Customer, '),
-          throwsA(isA<FormatException>()));
-      expect(() => TypeArgVariantSpec.fromSlots(const []),
-          throwsA(isA<FormatException>()));
+      expect(
+        () => TypeArgVariantSpec.parse('Customer, '),
+        throwsA(isA<FormatException>()),
+      );
+      expect(
+        () => TypeArgVariantSpec.fromSlots(const []),
+        throwsA(isA<FormatException>()),
+      );
     });
 
-    test('G-UVP-20: a malformed driver pattern propagates the FormatException',
-        () {
-      expect(() => TypeArgVariantSpec.parse('Cust*DO, RenderBox'),
-          throwsA(isA<FormatException>()));
-    });
+    test(
+      'G-UVP-20: a malformed driver pattern propagates the FormatException',
+      () {
+        expect(
+          () => TypeArgVariantSpec.parse('Cust*DO, RenderBox'),
+          throwsA(isA<FormatException>()),
+        );
+      },
+    );
   });
 
   group('expandUserVariants — multi-spec aggregation (G-UVP-21..24)', () {
@@ -186,25 +212,29 @@ void main() {
       ]);
     });
 
-    test('G-UVP-22: duplicate tuples are de-duplicated, first-seen order kept',
-        () {
-      final specs = [
-        TypeArgVariantSpec.parse('CustomerDO, CustomerForm'),
-        TypeArgVariantSpec.parse(r'*DO, $1Form'), // re-emits CustomerDO tuple
-      ];
-      expect(expandUserVariants(specs, candidates), [
-        ['CustomerDO', 'CustomerForm'],
-        ['OrderDO', 'OrderForm'],
-      ]);
-    });
+    test(
+      'G-UVP-22: duplicate tuples are de-duplicated, first-seen order kept',
+      () {
+        final specs = [
+          TypeArgVariantSpec.parse('CustomerDO, CustomerForm'),
+          TypeArgVariantSpec.parse(r'*DO, $1Form'), // re-emits CustomerDO tuple
+        ];
+        expect(expandUserVariants(specs, candidates), [
+          ['CustomerDO', 'CustomerForm'],
+          ['OrderDO', 'OrderForm'],
+        ]);
+      },
+    );
 
     test('G-UVP-23: mismatched arity across specs is rejected', () {
       final specs = [
         TypeArgVariantSpec.parse('Customer'),
         TypeArgVariantSpec.parse('Order, OrderForm'),
       ];
-      expect(() => expandUserVariants(specs, candidates),
-          throwsA(isA<ArgumentError>()));
+      expect(
+        () => expandUserVariants(specs, candidates),
+        throwsA(isA<ArgumentError>()),
+      );
     });
 
     test('G-UVP-24: an empty spec list yields an empty result', () {

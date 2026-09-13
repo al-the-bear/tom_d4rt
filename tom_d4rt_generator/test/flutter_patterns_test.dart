@@ -777,14 +777,17 @@ void main() {
           expect(
             section,
             contains('callInterpreterCallback'),
-            reason: 'Function setter wraps callback via callInterpreterCallback',
+            reason:
+                'Function setter wraps callback via callInterpreterCallback',
           );
           // The wrapper function preserves all required named params
           expect(
             section,
-            contains(RegExp(
-              r"\{required int priority, required.*ExternalSchedulerBindingLike scheduler\}",
-            )),
+            contains(
+              RegExp(
+                r"\{required int priority, required.*ExternalSchedulerBindingLike scheduler\}",
+              ),
+            ),
             reason:
                 'Wrapper function preserves required named params in signature',
           );

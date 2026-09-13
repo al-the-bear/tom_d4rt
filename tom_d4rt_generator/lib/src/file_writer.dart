@@ -78,13 +78,13 @@ class StandaloneFileWriter implements FileWriter {
   Future<void> writeFile(FileId fileId, String content) async {
     final path = absolutePath(fileId);
     final file = File(path);
-    
+
     // Ensure parent directory exists
     final parentDir = file.parent;
     if (!parentDir.existsSync()) {
       await parentDir.create(recursive: true);
     }
-    
+
     await file.writeAsString(content);
   }
 

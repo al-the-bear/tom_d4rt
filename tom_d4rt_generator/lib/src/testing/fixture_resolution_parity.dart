@@ -48,7 +48,8 @@ class ResolutionMismatch {
   final String fixtureVersion;
 
   @override
-  String toString() => '${p.basename(fixturePath)}: $package '
+  String toString() =>
+      '${p.basename(fixturePath)}: $package '
       '$fixtureVersion, host has $hostVersion';
 }
 
@@ -77,12 +78,14 @@ List<ResolutionMismatch> compareFixtureResolution({
     final fixtureVersion = fixture[entry.key];
     // A fixture need not use everything the host does.
     if (fixtureVersion == null || fixtureVersion == entry.value) continue;
-    mismatches.add(ResolutionMismatch(
-      fixturePath: fixtureProjectPath,
-      package: entry.key,
-      hostVersion: entry.value,
-      fixtureVersion: fixtureVersion,
-    ));
+    mismatches.add(
+      ResolutionMismatch(
+        fixturePath: fixtureProjectPath,
+        package: entry.key,
+        hostVersion: entry.value,
+        fixtureVersion: fixtureVersion,
+      ),
+    );
   }
   return mismatches;
 }
@@ -92,12 +95,16 @@ List<ResolutionMismatch> compareFixtureResolution({
 String describeMismatches(List<ResolutionMismatch> mismatches) {
   if (mismatches.isEmpty) return '';
   final buffer = StringBuffer()
-    ..writeln('${mismatches.length} package(s) resolve differently in the '
-        'fixture than in the package it exercises.')
-    ..writeln('The fixture reaches that package by `path:`, which supplies its '
-        'SOURCE but not its RESOLUTION — so the fixture compiles the '
-        "host's current lib/ against these older versions, and the error "
-        'surfaces inside a directory the fixture does not own.');
+    ..writeln(
+      '${mismatches.length} package(s) resolve differently in the '
+      'fixture than in the package it exercises.',
+    )
+    ..writeln(
+      'The fixture reaches that package by `path:`, which supplies its '
+      'SOURCE but not its RESOLUTION — so the fixture compiles the '
+      "host's current lib/ against these older versions, and the error "
+      'surfaces inside a directory the fixture does not own.',
+    );
   for (final mismatch in mismatches) {
     buffer.writeln('  - $mismatch');
   }

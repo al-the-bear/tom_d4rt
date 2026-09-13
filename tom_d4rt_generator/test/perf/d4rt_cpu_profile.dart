@@ -78,8 +78,10 @@ Future<void> main(List<String> args) async {
 
   emit('');
   emit('=== D4rt CPU profile run ===');
-  emit('budget=${budgetMs}ms warmup=${warmupMs}ms '
-      'benchmarks=${selected.length} top=$topN');
+  emit(
+    'budget=${budgetMs}ms warmup=${warmupMs}ms '
+    'benchmarks=${selected.length} top=$topN',
+  );
   emit('');
   emit(resultTableHeader());
 
@@ -119,9 +121,7 @@ Future<void> main(List<String> args) async {
   await service.dispose();
 
   // Persist for the analysis doc.
-  final resultsDir = Directory(
-    p.join(scriptsDir, '..', 'results'),
-  );
+  final resultsDir = Directory(p.join(scriptsDir, '..', 'results'));
   resultsDir.createSync(recursive: true);
   final outFile = File(p.join(resultsDir.path, 'cpu_profile_latest.txt'));
   outFile.writeAsStringSync(out.toString());
@@ -174,8 +174,11 @@ _Aggregate _aggregate(CpuSamples samples) {
     agg.totalSamples++;
 
     // Exclusive: the leaf frame (top of stack) is index 0.
-    agg.exclusive.update(labelFor(stack.first), (v) => v + 1,
-        ifAbsent: () => 1);
+    agg.exclusive.update(
+      labelFor(stack.first),
+      (v) => v + 1,
+      ifAbsent: () => 1,
+    );
 
     // Inclusive: every distinct function appearing in the stack.
     final seen = <int>{};
@@ -198,8 +201,10 @@ void _emitFunctionTable(
     final pct = totalSamples == 0
         ? '0.0'
         : (row.value * 100 / totalSamples).toStringAsFixed(1);
-    emit('${row.value.toString().padLeft(8)}  ${'$pct%'.padLeft(6)}  '
-        '${row.key}');
+    emit(
+      '${row.value.toString().padLeft(8)}  ${'$pct%'.padLeft(6)}  '
+      '${row.key}',
+    );
   }
 }
 
@@ -212,7 +217,9 @@ String? _toWebSocket(Uri? serverUri) {
 
 int? _intArg(List<String> args, String flag) {
   for (final a in args) {
-    if (a.startsWith('$flag=')) return int.tryParse(a.substring(flag.length + 1));
+    if (a.startsWith('$flag=')) {
+      return int.tryParse(a.substring(flag.length + 1));
+    }
   }
   return null;
 }

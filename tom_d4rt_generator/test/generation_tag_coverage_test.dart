@@ -33,73 +33,67 @@ const _generatorEntryPoints = <String>[
 ];
 
 /// Every `*_test.dart` under `test/`, recursively.
-List<File> testFiles(String testRoot) => Directory(testRoot)
-    .listSync(recursive: true)
-    .whereType<File>()
-    .where((f) => f.path.endsWith('_test.dart'))
-    .toList()
-  ..sort((a, b) => a.path.compareTo(b.path));
+List<File> testFiles(String testRoot) =>
+    Directory(testRoot)
+        .listSync(recursive: true)
+        .whereType<File>()
+        .where((f) => f.path.endsWith('_test.dart'))
+        .toList()
+      ..sort((a, b) => a.path.compareTo(b.path));
 
 void main() {
   final testRoot = p.join(Directory.current.path, 'test');
 
   group('scd9: generation-bound tests declare it', () {
-    test(
-      'G-GENTAG-1: every test file that runs the generator carries the '
-      "'generation' tag [2026-09-12] (PASS)",
-      () {
-        final untagged = <String>[];
-        for (final file in testFiles(testRoot)) {
-          final source = file.readAsStringSync();
-          final runsGenerator =
-              _generatorEntryPoints.any((entry) => source.contains(entry));
-          if (!runsGenerator) continue;
-          if (!source.contains("@Tags(['generation'])")) {
-            untagged.add(p.relative(file.path, from: testRoot));
-          }
+    test('G-GENTAG-1: every test file that runs the generator carries the '
+        "'generation' tag [2026-09-12] (PASS)", () {
+      final untagged = <String>[];
+      for (final file in testFiles(testRoot)) {
+        final source = file.readAsStringSync();
+        final runsGenerator = _generatorEntryPoints.any(
+          (entry) => source.contains(entry),
+        );
+        if (!runsGenerator) continue;
+        if (!source.contains("@Tags(['generation'])")) {
+          untagged.add(p.relative(file.path, from: testRoot));
         }
+      }
 
-        expect(
-          untagged,
-          isEmpty,
-          reason:
-              'These test files run the generator but do not carry the tag '
-              "that gives them a proportionate timeout. Add `@Tags(['generation'])` "
-              'above their `library;` directive:\n  ${untagged.join('\n  ')}',
-        );
-      },
-    );
+      expect(
+        untagged,
+        isEmpty,
+        reason:
+            'These test files run the generator but do not carry the tag '
+            "that gives them a proportionate timeout. Add `@Tags(['generation'])` "
+            'above their `library;` directive:\n  ${untagged.join('\n  ')}',
+      );
+    });
 
-    test(
-      'G-GENTAG-2: the tag is configured, so carrying it actually buys time '
-      '[2026-09-12] (PASS)',
-      () {
-        // Anti-vacuity: G-GENTAG-1 passes just as happily when the tag means
-        // nothing. The factor is what makes the tag worth applying.
-        final config = File(
-          p.join(Directory.current.path, 'dart_test.yaml'),
-        );
-        expect(
-          config.existsSync(),
-          isTrue,
-          reason: 'dart_test.yaml is what gives the tag its timeout',
-        );
-        final text = config.readAsStringSync();
-        expect(text, contains('generation:'));
-        expect(
-          RegExp(r'timeout:\s*(\d+)x').firstMatch(text)?.group(1),
-          isNotNull,
-          reason: 'the generation tag needs a timeout factor',
-        );
-        expect(
-          int.parse(RegExp(r'timeout:\s*(\d+)x').firstMatch(text)!.group(1)!),
-          greaterThanOrEqualTo(4),
-          reason:
-              'measured: at 1x the suite fails on a cold summary cache under '
-              'load, at 10x it passes — see the header of dart_test.yaml for '
-              'the harness',
-        );
-      },
-    );
+    test('G-GENTAG-2: the tag is configured, so carrying it actually buys time '
+        '[2026-09-12] (PASS)', () {
+      // Anti-vacuity: G-GENTAG-1 passes just as happily when the tag means
+      // nothing. The factor is what makes the tag worth applying.
+      final config = File(p.join(Directory.current.path, 'dart_test.yaml'));
+      expect(
+        config.existsSync(),
+        isTrue,
+        reason: 'dart_test.yaml is what gives the tag its timeout',
+      );
+      final text = config.readAsStringSync();
+      expect(text, contains('generation:'));
+      expect(
+        RegExp(r'timeout:\s*(\d+)x').firstMatch(text)?.group(1),
+        isNotNull,
+        reason: 'the generation tag needs a timeout factor',
+      );
+      expect(
+        int.parse(RegExp(r'timeout:\s*(\d+)x').firstMatch(text)!.group(1)!),
+        greaterThanOrEqualTo(4),
+        reason:
+            'measured: at 1x the suite fails on a cold summary cache under '
+            'load, at 10x it passes — see the header of dart_test.yaml for '
+            'the harness',
+      );
+    });
   });
 }

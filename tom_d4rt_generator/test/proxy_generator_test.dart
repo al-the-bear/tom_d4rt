@@ -33,8 +33,9 @@ void main() {
       // resolves `dart:core` via the SDK + package config. The output goes to
       // a temp file (absolute path → wins the p.join in proxy_generator).
       final projectRoot = Directory.current.path;
-      final tempDir =
-          Directory.systemTemp.createTempSync('proxy_generator_test_');
+      final tempDir = Directory.systemTemp.createTempSync(
+        'proxy_generator_test_',
+      );
       final outputFile = p.join(tempDir.path, 'comparable_proxy.b.dart');
 
       final config = BridgeConfig(
@@ -53,13 +54,13 @@ void main() {
         ],
       );
 
-      result = await generateProxies(
-        config: config,
-        projectPath: projectRoot,
-      );
+      result = await generateProxies(config: config, projectPath: projectRoot);
 
-      expect(result.errors, isEmpty,
-          reason: 'Proxy generation should succeed for dart:core Comparable');
+      expect(
+        result.errors,
+        isEmpty,
+        reason: 'Proxy generation should succeed for dart:core Comparable',
+      );
       expect(result.outputFile, isNotNull);
       generatedCode = await File(result.outputFile!).readAsString();
     });
@@ -74,7 +75,10 @@ void main() {
     test('PROXY-A2-01: emits a proxy class extending the abstract base. '
         '[2026-06-07] (PASS)', () {
       // The generic type parameter from `Comparable<T>` is carried through.
-      expect(generatedCode, contains('class D4rtComparable<T> extends Comparable<T>'));
+      expect(
+        generatedCode,
+        contains('class D4rtComparable<T> extends Comparable<T>'),
+      );
     });
 
     test('PROXY-A2-02: abstract method becomes a required callback field. '
@@ -92,20 +96,23 @@ void main() {
     test('PROXY-A2-04: registerProxyFactories registers an interface proxy. '
         '[2026-06-07] (PASS)', () {
       expect(generatedCode, contains('void registerProxyFactories()'));
-      expect(generatedCode,
-          contains("D4.registerInterfaceProxy('Comparable'"));
+      expect(generatedCode, contains("D4.registerInterfaceProxy('Comparable'"));
     });
 
-    test('PROXY-A2-05: the factory adapts InterpretedInstance via '
-        'findInstanceMethod/bind/call + extractBridgedArg. [2026-06-07] (PASS)',
-        () {
-      // The factory body is the InterpretedInstance→native bridge: it looks
-      // up the script method, binds+calls it, and coerces the typed return.
-      expect(generatedCode, contains("findInstanceMethod('compareTo')"));
-      expect(generatedCode, contains('.bind(instance).call(visitor,'));
-      expect(generatedCode,
-          contains("D4.extractBridgedArg<int>(result, 'compareTo', visitor)"));
-    });
+    test(
+      'PROXY-A2-05: the factory adapts InterpretedInstance via '
+      'findInstanceMethod/bind/call + extractBridgedArg. [2026-06-07] (PASS)',
+      () {
+        // The factory body is the InterpretedInstance→native bridge: it looks
+        // up the script method, binds+calls it, and coerces the typed return.
+        expect(generatedCode, contains("findInstanceMethod('compareTo')"));
+        expect(generatedCode, contains('.bind(instance).call(visitor,'));
+        expect(
+          generatedCode,
+          contains("D4.extractBridgedArg<int>(result, 'compareTo', visitor)"),
+        );
+      },
+    );
   });
 
   /// Quest d4rt (OPEN C.1 c/d): per-target
@@ -124,8 +131,7 @@ void main() {
 
     setUpAll(() async {
       final projectRoot = Directory.current.path;
-      final tempDir =
-          Directory.systemTemp.createTempSync('proxy_void_test_');
+      final tempDir = Directory.systemTemp.createTempSync('proxy_void_test_');
       final outputFile = p.join(tempDir.path, 'sink_proxy.b.dart');
 
       final config = BridgeConfig(
@@ -144,13 +150,13 @@ void main() {
         ],
       );
 
-      result = await generateProxies(
-        config: config,
-        projectPath: projectRoot,
-      );
+      result = await generateProxies(config: config, projectPath: projectRoot);
 
-      expect(result.errors, isEmpty,
-          reason: 'Proxy generation should succeed for dart:core Sink');
+      expect(
+        result.errors,
+        isEmpty,
+        reason: 'Proxy generation should succeed for dart:core Sink',
+      );
       expect(result.outputFile, isNotNull);
       generatedCode = await File(result.outputFile!).readAsString();
     });

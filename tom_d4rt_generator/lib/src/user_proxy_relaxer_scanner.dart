@@ -130,8 +130,8 @@ class UserVariantDirective {
   /// This is the multi-type-parameter + wildcard expansion-to-source the
   /// proxy/relaxer emitter splices into the generated registration cases.
   List<String> renderInstantiations(Iterable<String> candidates) => [
-        for (final tuple in expand(candidates)) '$baseClass<${tuple.join(', ')}>',
-      ];
+    for (final tuple in expand(candidates)) '$baseClass<${tuple.join(', ')}>',
+  ];
 
   @override
   String toString() =>

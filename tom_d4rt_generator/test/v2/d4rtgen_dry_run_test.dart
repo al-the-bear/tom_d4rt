@@ -152,50 +152,57 @@ void main() {
       expect(run.printed, contains('nothing was written'));
     }, timeout: const Timeout(Duration(minutes: 5)));
 
-    test('D4G-DRY-2: --dry-run on a generated package leaves the committed '
-        'bridges untouched and says which would change [2026-09-11] (PASS)',
-        () async {
-      final real = await _d4rtgen(scanRoot, const []);
-      expect(real.success, isTrue, reason: real.printed);
-      expect(_generatedFiles(package), hasLength(4));
+    test(
+      'D4G-DRY-2: --dry-run on a generated package leaves the committed '
+      'bridges untouched and says which would change [2026-09-11] (PASS)',
+      () async {
+        final real = await _d4rtgen(scanRoot, const []);
+        expect(real.success, isTrue, reason: real.printed);
+        expect(_generatedFiles(package), hasLength(4));
 
-      // A source change the committed bridges were not regenerated for.
-      File(p.join(package.path, 'lib/src/greeter.dart')).writeAsStringSync(
-        'class Greeter {\n'
-        '  Greeter(this.name);\n'
-        '  final String name;\n'
-        "  String greet() => 'Hello, \$name';\n"
-        "  String wave() => 'o/';\n"
-        '}\n',
-      );
-      final before = _snapshot(package);
+        // A source change the committed bridges were not regenerated for.
+        File(p.join(package.path, 'lib/src/greeter.dart')).writeAsStringSync(
+          'class Greeter {\n'
+          '  Greeter(this.name);\n'
+          '  final String name;\n'
+          "  String greet() => 'Hello, \$name';\n"
+          "  String wave() => 'o/';\n"
+          '}\n',
+        );
+        final before = _snapshot(package);
 
-      final run = await _d4rtgen(scanRoot, ['--dry-run']);
+        final run = await _d4rtgen(scanRoot, ['--dry-run']);
 
-      expect(run.success, isTrue, reason: run.printed);
-      expect(_snapshot(package), before, reason: 'dry run changed the tree');
-      expect(
-        run.printed,
-        matches(
-          RegExp(r'would change\s+lib/src/d4rt_bridges/dryfix_bridges\.b\.dart'),
-        ),
-      );
-      expect(
-        run.printed,
-        matches(RegExp(r'unchanged\s+lib/d4rt_bridges\.b\.dart')),
-      );
-    }, timeout: const Timeout(Duration(minutes: 5)));
+        expect(run.success, isTrue, reason: run.printed);
+        expect(_snapshot(package), before, reason: 'dry run changed the tree');
+        expect(
+          run.printed,
+          matches(
+            RegExp(
+              r'would change\s+lib/src/d4rt_bridges/dryfix_bridges\.b\.dart',
+            ),
+          ),
+        );
+        expect(
+          run.printed,
+          matches(RegExp(r'unchanged\s+lib/d4rt_bridges\.b\.dart')),
+        );
+      },
+      timeout: const Timeout(Duration(minutes: 5)),
+    );
 
-    test('D4G-DRY-3: d4rtgen advertises --dry-run [2026-09-11] (PASS)',
-        () async {
-      expect(d4rtgenTool.features.dryRun, isTrue);
-      final help = StringBuffer();
-      await ToolRunner(
-        tool: d4rtgenTool,
-        executors: createD4rtgenExecutors(),
-        output: help,
-      ).run(['--help']);
-      expect(help.toString(), contains('--dry-run'));
-    });
+    test(
+      'D4G-DRY-3: d4rtgen advertises --dry-run [2026-09-11] (PASS)',
+      () async {
+        expect(d4rtgenTool.features.dryRun, isTrue);
+        final help = StringBuffer();
+        await ToolRunner(
+          tool: d4rtgenTool,
+          executors: createD4rtgenExecutors(),
+          output: help,
+        ).run(['--help']);
+        expect(help.toString(), contains('--dry-run'));
+      },
+    );
   });
 }

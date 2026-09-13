@@ -94,28 +94,25 @@ class CollisionWidget {
   });
 
   group('DGUB1 / GEN-045: within-package same-name class collision', () {
-    test(
-      'G-DGUB1-1: collision is surfaced as a NAME COLLISION warning (never '
-      'silent) [2026-07-23] (PASS)',
-      () {
-        final collisionWarnings = result.warnings
-            .where((w) => w.contains('NAME COLLISION'))
-            .toList();
-        expect(
-          collisionWarnings,
-          isNotEmpty,
-          reason:
-              'The generator must warn when two same-name classes from '
-              'different source libraries collide, instead of silently '
-              'dropping one. Warnings: ${result.warnings}',
-        );
-        expect(
-          collisionWarnings.single,
-          contains('CollisionWidget'),
-          reason: 'The warning must name the colliding class.',
-        );
-      },
-    );
+    test('G-DGUB1-1: collision is surfaced as a NAME COLLISION warning (never '
+        'silent) [2026-07-23] (PASS)', () {
+      final collisionWarnings = result.warnings
+          .where((w) => w.contains('NAME COLLISION'))
+          .toList();
+      expect(
+        collisionWarnings,
+        isNotEmpty,
+        reason:
+            'The generator must warn when two same-name classes from '
+            'different source libraries collide, instead of silently '
+            'dropping one. Warnings: ${result.warnings}',
+      );
+      expect(
+        collisionWarnings.single,
+        contains('CollisionWidget'),
+        reason: 'The warning must name the colliding class.',
+      );
+    });
 
     test(
       'G-DGUB1-2: the winner is deterministic — the FIRST source file is kept '

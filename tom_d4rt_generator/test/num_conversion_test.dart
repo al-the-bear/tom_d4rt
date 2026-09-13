@@ -184,13 +184,10 @@ void main() {
       // Issue: "Undefined variable: Curves"
       // Abstract classes with static const members should be bridged
 
-      test(
-        'G-NUM-11: Abstract Curves class is bridged. [2026-02-28] (OK)',
-        () {
-          // Curves should be available as a variable in D4rt
-          expect(generatedCode, contains("name: 'Curves'"));
-        },
-      );
+      test('G-NUM-11: Abstract Curves class is bridged. [2026-02-28] (OK)', () {
+        // Curves should be available as a variable in D4rt
+        expect(generatedCode, contains("name: 'Curves'"));
+      });
 
       test(
         'G-NUM-12: Curves.linear static const is accessible. [2026-02-28] (OK)',
@@ -287,12 +284,9 @@ void main() {
     });
 
     group('ValueNotifier Methods', () {
-      test(
-        'G-NUM-26: ValueNotifier<T> is bridged. [2026-02-28] (OK)',
-        () {
-          expect(generatedCode, contains("name: 'ValueNotifier'"));
-        },
-      );
+      test('G-NUM-26: ValueNotifier<T> is bridged. [2026-02-28] (OK)', () {
+        expect(generatedCode, contains("name: 'ValueNotifier'"));
+      });
 
       test(
         'G-NUM-27: hasListeners getter should be bridged. [2026-02-28] (OK)',

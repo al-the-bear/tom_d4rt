@@ -148,7 +148,8 @@ Future<ItemResult> _dryRun(CommandContext context, CliArgs args) async {
     final preview = await previewGeneration(
       packageRoot: context.path,
       purpose: 'dry_run',
-      generate: () => _processProjectDirect(context.path, verbose: args.verbose),
+      generate: () =>
+          _processProjectDirect(context.path, verbose: args.verbose),
     );
     final width = PreviewedChange.values
         .map((change) => change.label.length)
@@ -300,7 +301,9 @@ Future<List<String>> _generateBridges(
       // path too (mirrors bridge_api.dart). Without this the v2 executor
       // silently fell back to the built-in defaults and ignored config.
       recursiveBoundTypes: config.recursiveBoundTypes.isNotEmpty
-          ? config.recursiveBoundTypes.map(RecursiveBoundType.fromString).toList()
+          ? config.recursiveBoundTypes
+                .map(RecursiveBoundType.fromString)
+                .toList()
           : null, // Use defaults if not configured
       // DGU3: forward the configurable type-mapping escape hatch and any
       // paired custom imports so buildkit.yaml can resolve awkward types

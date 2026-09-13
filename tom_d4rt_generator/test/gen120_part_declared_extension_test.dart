@@ -153,72 +153,60 @@ void main() {
   });
 
   group('GEN-120: part-declared extensions are collected once', () {
-    test(
-      'G-GEN120-01: the extension is registered exactly once in '
-      'bridgedExtensions() [2026-08-03] (PASS)',
-      () {
-        expect(
-          countOf(generatedCode, "name: 'ZomLevelExtension'"),
-          equals(1),
-          reason:
-              'Resolving the part and resolving its parent both yield the '
-              'same LibraryElement, so the extractor returns the extension '
-              'twice. A duplicate element in a List literal is legal Dart, so '
-              'this defect is invisible to the analyzer — only this assertion '
-              'catches it.',
-        );
-      },
-    );
+    test('G-GEN120-01: the extension is registered exactly once in '
+        'bridgedExtensions() [2026-08-03] (PASS)', () {
+      expect(
+        countOf(generatedCode, "name: 'ZomLevelExtension'"),
+        equals(1),
+        reason:
+            'Resolving the part and resolving its parent both yield the '
+            'same LibraryElement, so the extractor returns the extension '
+            'twice. A duplicate element in a List literal is legal Dart, so '
+            'this defect is invisible to the analyzer — only this assertion '
+            'catches it.',
+      );
+    });
 
-    test(
-      'G-GEN120-02: extensionSourceUris() emits no duplicate key '
-      '[2026-08-03] (PASS)',
-      () {
-        expect(
-          countOf(generatedCode, "'ZomLevelExtension@ZomLevel':"),
-          equals(1),
-          reason:
-              'A duplicate key in a map literal is what the analyzer reports '
-              'as equal_keys_in_map. Dart silently keeps the LAST entry, so '
-              'the duplicate is not merely noisy — it decides which source '
-              'URI survives by source order.',
-        );
-      },
-    );
+    test('G-GEN120-02: extensionSourceUris() emits no duplicate key '
+        '[2026-08-03] (PASS)', () {
+      expect(
+        countOf(generatedCode, "'ZomLevelExtension@ZomLevel':"),
+        equals(1),
+        reason:
+            'A duplicate key in a map literal is what the analyzer reports '
+            'as equal_keys_in_map. Dart silently keeps the LAST entry, so '
+            'the duplicate is not merely noisy — it decides which source '
+            'URI survives by source order.',
+      );
+    });
 
-    test(
-      'G-GEN120-03: the surviving source URI is the parent library, not the '
-      'part [2026-08-03] (PASS)',
-      () {
-        expect(
-          generatedCode,
-          contains(
-            "'ZomLevelExtension@ZomLevel': "
-            "'package:zom_partext/parent_lib.dart'",
-          ),
-          reason:
-              'A part file is not independently importable, so its URI is '
-              'useless to any consumer that tries to act on it. The parent '
-              'library is the only URI that can be imported.',
-        );
-        expect(
-          generatedCode,
-          isNot(contains('package:zom_partext/child_part.dart')),
-          reason: 'The part URI must not appear anywhere in the output.',
-        );
-      },
-    );
+    test('G-GEN120-03: the surviving source URI is the parent library, not the '
+        'part [2026-08-03] (PASS)', () {
+      expect(
+        generatedCode,
+        contains(
+          "'ZomLevelExtension@ZomLevel': "
+          "'package:zom_partext/parent_lib.dart'",
+        ),
+        reason:
+            'A part file is not independently importable, so its URI is '
+            'useless to any consumer that tries to act on it. The parent '
+            'library is the only URI that can be imported.',
+      );
+      expect(
+        generatedCode,
+        isNot(contains('package:zom_partext/child_part.dart')),
+        reason: 'The part URI must not appear anywhere in the output.',
+      );
+    });
 
-    test(
-      'G-GEN120-04: deduplication keeps the members, it does not drop the '
-      'extension [2026-08-03] (PASS)',
-      () {
-        // Anti-vacuity guard. Asserting "exactly one" passes just as happily
-        // when the count is one because the extension was dropped entirely as
-        // when it was correctly deduped, so pin the payload too.
-        expect(generatedCode, contains("'label'"));
-        expect(generatedCode, contains("'isAtLeast'"));
-      },
-    );
+    test('G-GEN120-04: deduplication keeps the members, it does not drop the '
+        'extension [2026-08-03] (PASS)', () {
+      // Anti-vacuity guard. Asserting "exactly one" passes just as happily
+      // when the count is one because the extension was dropped entirely as
+      // when it was correctly deduped, so pin the payload too.
+      expect(generatedCode, contains("'label'"));
+      expect(generatedCode, contains("'isAtLeast'"));
+    });
   });
 }

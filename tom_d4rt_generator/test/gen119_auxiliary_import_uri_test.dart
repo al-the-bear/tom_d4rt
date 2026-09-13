@@ -125,77 +125,68 @@ void main() {
       );
 
   group('GEN-119: auxiliary import URI resolution', () {
-    test(
-      'G-GEN119-01: package roots are absolute even for a relative '
-      'workspacePath [2026-08-03] (PASS)',
-      () {
-        final root = generatorFor(
-          resolvableFixture,
-          packageName: 'zom_partfix',
-        ).packageRootForTesting('zom_partfix');
+    test('G-GEN119-01: package roots are absolute even for a relative '
+        'workspacePath [2026-08-03] (PASS)', () {
+      final root = generatorFor(
+        resolvableFixture,
+        packageName: 'zom_partfix',
+      ).packageRootForTesting('zom_partfix');
 
-        expect(root, isNotNull, reason: 'fixture package must resolve');
-        expect(
-          p.isAbsolute(root!),
-          isTrue,
-          reason:
-              'A relative package root propagates into every path derived '
-              'from it. `_getPackageUri` maps a path back to a package URI by '
-              'scanning for a `/lib/` segment, which a path that *starts* '
-              'with `lib/` does not have — so it silently returns the bare '
-              'path. Root was: $root',
-        );
-      },
-    );
+      expect(root, isNotNull, reason: 'fixture package must resolve');
+      expect(
+        p.isAbsolute(root!),
+        isTrue,
+        reason:
+            'A relative package root propagates into every path derived '
+            'from it. `_getPackageUri` maps a path back to a package URI by '
+            'scanning for a `/lib/` segment, which a path that *starts* '
+            'with `lib/` does not have — so it silently returns the bare '
+            'path. Root was: $root',
+      );
+    });
 
-    test(
-      'G-GEN119-02: a part-of file resolves to its parent as a package URI '
-      '[2026-08-03] (PASS)',
-      () {
-        final parent = generatorFor(
-          resolvableFixture,
-          packageName: 'zom_partfix',
-        ).partOfParentUriForTesting('package:zom_partfix/child_part.dart');
+    test('G-GEN119-02: a part-of file resolves to its parent as a package URI '
+        '[2026-08-03] (PASS)', () {
+      final parent = generatorFor(
+        resolvableFixture,
+        packageName: 'zom_partfix',
+      ).partOfParentUriForTesting('package:zom_partfix/child_part.dart');
 
-        expect(
-          parent,
-          equals('package:zom_partfix/parent_lib.dart'),
-          reason:
-              'Part files are not independently importable, so GEN-060 '
-              'rewrites them to the parent library. The rewrite must stay a '
-              'package URI.',
-        );
-      },
-    );
+      expect(
+        parent,
+        equals('package:zom_partfix/parent_lib.dart'),
+        reason:
+            'Part files are not independently importable, so GEN-060 '
+            'rewrites them to the parent library. The rewrite must stay a '
+            'package URI.',
+      );
+    });
 
-    test(
-      'G-GEN119-03: a parent that cannot be mapped back to a package keeps '
-      'the original URI instead of degrading to a bare path [2026-08-03] '
-      '(PASS)',
-      () {
-        // No pubspec.yaml and no packageName, so `_getPackageUri` cannot name
-        // the package and hands the raw file path straight back. That is the
-        // exact failure mode that produced the `$aux_aux` line; the resolver
-        // must not propagate it.
-        const uri = 'package:zom_partfix/child_part.dart';
-        final resolved = generatorFor(
-          unresolvableFixture,
-        ).partOfParentUriForTesting(uri);
+    test('G-GEN119-03: a parent that cannot be mapped back to a package keeps '
+        'the original URI instead of degrading to a bare path [2026-08-03] '
+        '(PASS)', () {
+      // No pubspec.yaml and no packageName, so `_getPackageUri` cannot name
+      // the package and hands the raw file path straight back. That is the
+      // exact failure mode that produced the `$aux_aux` line; the resolver
+      // must not propagate it.
+      const uri = 'package:zom_partfix/child_part.dart';
+      final resolved = generatorFor(
+        unresolvableFixture,
+      ).partOfParentUriForTesting(uri);
 
-        expect(
-          resolved.startsWith('package:') || resolved.startsWith('dart:'),
-          isTrue,
-          reason: '$uri resolved to a non-importable URI: $resolved',
-        );
-        expect(
-          resolved,
-          equals(uri),
-          reason:
-              'When the parent cannot be expressed as a package URI the safe '
-              'answer is the part file\'s own URI, which is importable.',
-        );
-      },
-    );
+      expect(
+        resolved.startsWith('package:') || resolved.startsWith('dart:'),
+        isTrue,
+        reason: '$uri resolved to a non-importable URI: $resolved',
+      );
+      expect(
+        resolved,
+        equals(uri),
+        reason:
+            'When the parent cannot be expressed as a package URI the safe '
+            'answer is the part file\'s own URI, which is importable.',
+      );
+    });
   });
 
   // FIX step 2 of scc69: a regen smoke gate. The defect shipped because the
@@ -255,48 +246,42 @@ void main() {
       'flutter_patterns_source.dart',
       'type_alias_source.dart',
     ]) {
-      test(
-        'G-GEN119-04[$fixture]: every emitted import is a package: or dart: '
-        'URI [2026-08-03] (PASS)',
-        () async {
-          final uris = importUrisOf(await generate(fixture)).toList();
-          expect(uris, isNotEmpty, reason: 'expected an import block');
+      test('G-GEN119-04[$fixture]: every emitted import is a package: or dart: '
+          'URI [2026-08-03] (PASS)', () async {
+        final uris = importUrisOf(await generate(fixture)).toList();
+        expect(uris, isNotEmpty, reason: 'expected an import block');
 
-          final bad = uris
-              .where((u) => !u.startsWith('package:') && !u.startsWith('dart:'))
-              .toList();
-          expect(
-            bad,
-            isEmpty,
-            reason:
-                "Non-absolute imports resolve against the generated file's "
-                'own directory, which is never the package root. Offenders: '
-                '$bad',
-          );
-        },
-      );
+        final bad = uris
+            .where((u) => !u.startsWith('package:') && !u.startsWith('dart:'))
+            .toList();
+        expect(
+          bad,
+          isEmpty,
+          reason:
+              "Non-absolute imports resolve against the generated file's "
+              'own directory, which is never the package root. Offenders: '
+              '$bad',
+        );
+      });
     }
 
-    test(
-      'G-GEN119-05: the smoke gate actually exercises the auxiliary-import '
-      'writer [2026-08-03] (PASS)',
-      () async {
-        final auxImports = RegExp(
-          r"""^import\s+'([^']+)'\s+as\s+(\$aux_\w+);""",
-          multiLine: true,
-        ).allMatches(await generate(auxBearingFixture));
+    test('G-GEN119-05: the smoke gate actually exercises the auxiliary-import '
+        'writer [2026-08-03] (PASS)', () async {
+      final auxImports = RegExp(
+        r"""^import\s+'([^']+)'\s+as\s+(\$aux_\w+);""",
+        multiLine: true,
+      ).allMatches(await generate(auxBearingFixture));
 
-        expect(
-          auxImports,
-          isNotEmpty,
-          reason:
-              'G-GEN119-04 only gates the auxiliary-import writer while some '
-              'fixture still drives it. If this fails, the corpus stopped '
-              'producing $auxBearingFixture-style auxiliary imports and '
-              'G-GEN119-04 has become vacuous — add a fixture that emits one '
-              'rather than deleting this test.',
-        );
-      },
-    );
+      expect(
+        auxImports,
+        isNotEmpty,
+        reason:
+            'G-GEN119-04 only gates the auxiliary-import writer while some '
+            'fixture still drives it. If this fails, the corpus stopped '
+            'producing $auxBearingFixture-style auxiliary imports and '
+            'G-GEN119-04 has become vacuous — add a fixture that emits one '
+            'rather than deleting this test.',
+      );
+    });
   });
 }

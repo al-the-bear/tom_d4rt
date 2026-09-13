@@ -74,8 +74,11 @@ void main() {
         }
       ''');
       expect(counts['int'], 3);
-      expect(counts['ValueNotifier'], isNull,
-          reason: 'constructor names are not type-args');
+      expect(
+        counts['ValueNotifier'],
+        isNull,
+        reason: 'constructor names are not type-args',
+      );
     });
 
     test('G-CTS-6: dynamic / void / Never are excluded', () {
@@ -125,16 +128,20 @@ void main() {
       expect(r.distinctCount, 3);
     });
 
-    test('G-CTS-10: toYamlAllowlist emits sorted additionalRelaxerTypes block',
-        () {
-      final yaml = scanner.toYamlAllowlist(resultOf({'Color': 1, 'Apple': 1}));
-      expect(yaml, contains('additionalRelaxerTypes:'));
-      // Apple before Color (sorted), each as a list item.
-      final appleIdx = yaml.indexOf('  - Apple');
-      final colorIdx = yaml.indexOf('  - Color');
-      expect(appleIdx, greaterThanOrEqualTo(0));
-      expect(colorIdx, greaterThan(appleIdx));
-    });
+    test(
+      'G-CTS-10: toYamlAllowlist emits sorted additionalRelaxerTypes block',
+      () {
+        final yaml = scanner.toYamlAllowlist(
+          resultOf({'Color': 1, 'Apple': 1}),
+        );
+        expect(yaml, contains('additionalRelaxerTypes:'));
+        // Apple before Color (sorted), each as a list item.
+        final appleIdx = yaml.indexOf('  - Apple');
+        final colorIdx = yaml.indexOf('  - Color');
+        expect(appleIdx, greaterThanOrEqualTo(0));
+        expect(colorIdx, greaterThan(appleIdx));
+      },
+    );
 
     test('G-CTS-11: toYamlAllowlist prefixes header as comment lines', () {
       final yaml = scanner.toYamlAllowlist(

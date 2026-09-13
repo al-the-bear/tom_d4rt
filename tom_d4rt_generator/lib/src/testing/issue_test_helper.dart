@@ -259,12 +259,10 @@ class IssueTestHelper {
   Future<IssueTestResult> _generateBridges() async {
     final root = _tempDir!.path;
 
-    final sourceImport = 'package:$packageName/${p.basename(moduleConfig.barrelFile)}';
-    
-    final allSourceImports = [
-      sourceImport,
-      ...additionalSourceImports,
-    ];
+    final sourceImport =
+        'package:$packageName/${p.basename(moduleConfig.barrelFile)}';
+
+    final allSourceImports = [sourceImport, ...additionalSourceImports];
 
     final generator = BridgeGenerator(
       workspacePath: root,

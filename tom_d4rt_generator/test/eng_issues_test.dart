@@ -19,8 +19,9 @@ void main() {
 
   setUpAll(() {
     testFixturesDir = p.join(Directory.current.path, 'test', 'fixtures');
-    tempOutputDir =
-        Directory.systemTemp.createTempSync('eng_issues_test_').path;
+    tempOutputDir = Directory.systemTemp
+        .createTempSync('eng_issues_test_')
+        .path;
   });
 
   tearDownAll(() {
@@ -67,63 +68,72 @@ void main() {
       await File(debugPath).writeAsString(generatedCode);
     });
 
-    test('ENG-010-01: GestureRecognizerMock is bridged. [2026-03-07] (PASS)',
-        () {
-      expect(generatedCode, contains("name: 'GestureRecognizerMock'"));
-    });
+    test(
+      'ENG-010-01: GestureRecognizerMock is bridged. [2026-03-07] (PASS)',
+      () {
+        expect(generatedCode, contains("name: 'GestureRecognizerMock'"));
+      },
+    );
 
     test(
-        'ENG-010-02: onStart setter wraps InterpretedFunction. [2026-03-07] (PASS)',
-        () {
-      // The setter adapter should check if value is InterpretedFunction
-      // and wrap it in a native closure:
-      // if (value is InterpretedFunction) {
-      //   instance.onStart = (GestureDetails details) =>
-      //     D4.callInterpreterCallback(visitor, value, [details]);
-      // } else {
-      //   instance.onStart = value;
-      // }
-      expect(
-        generatedCode,
-        anyOf(
-          contains(
-              'InterpretedFunction'), // Checks for InterpretedFunction handling
-          contains(
-              'D4.callInterpreterCallback'), // Or uses the callback wrapper
-        ),
-        reason: 'Setter should wrap InterpretedFunction in native closure',
-      );
-    });
+      'ENG-010-02: onStart setter wraps InterpretedFunction. [2026-03-07] (PASS)',
+      () {
+        // The setter adapter should check if value is InterpretedFunction
+        // and wrap it in a native closure:
+        // if (value is InterpretedFunction) {
+        //   instance.onStart = (GestureDetails details) =>
+        //     D4.callInterpreterCallback(visitor, value, [details]);
+        // } else {
+        //   instance.onStart = value;
+        // }
+        expect(
+          generatedCode,
+          anyOf(
+            contains(
+              'InterpretedFunction',
+            ), // Checks for InterpretedFunction handling
+            contains(
+              'D4.callInterpreterCallback',
+            ), // Or uses the callback wrapper
+          ),
+          reason: 'Setter should wrap InterpretedFunction in native closure',
+        );
+      },
+    );
 
     test(
-        'ENG-010-03: All callback setters have wrapping code. [2026-03-07] (PASS)',
-        () {
-      // Each callback setter (onStart, onUpdate, onEnd) should have wrapper
-      expect(generatedCode, contains("'onStart':"));
-      expect(generatedCode, contains("'onUpdate':"));
-      expect(generatedCode, contains("'onEnd':"));
-    });
+      'ENG-010-03: All callback setters have wrapping code. [2026-03-07] (PASS)',
+      () {
+        // Each callback setter (onStart, onUpdate, onEnd) should have wrapper
+        expect(generatedCode, contains("'onStart':"));
+        expect(generatedCode, contains("'onUpdate':"));
+        expect(generatedCode, contains("'onEnd':"));
+      },
+    );
 
     test(
-        'ENG-010-04: AnimationMock status callback setter wrapped. [2026-03-07] (PASS)',
-        () {
-      expect(generatedCode, contains("name: 'AnimationMock'"));
-      expect(generatedCode, contains("'onStatusChanged':"));
-    });
+      'ENG-010-04: AnimationMock status callback setter wrapped. [2026-03-07] (PASS)',
+      () {
+        expect(generatedCode, contains("name: 'AnimationMock'"));
+        expect(generatedCode, contains("'onStatusChanged':"));
+      },
+    );
 
     test(
-        'ENG-010-05: CallbackReturnSetters filter wrapped with return. [2026-03-07] (PASS)',
-        () {
-      expect(generatedCode, contains("name: 'CallbackReturnSetters'"));
-      expect(generatedCode, contains("'filter':"));
-      // Return-value callbacks need: return D4.callInterpreterCallback(...) as bool;
-    });
+      'ENG-010-05: CallbackReturnSetters filter wrapped with return. [2026-03-07] (PASS)',
+      () {
+        expect(generatedCode, contains("name: 'CallbackReturnSetters'"));
+        expect(generatedCode, contains("'filter':"));
+        // Return-value callbacks need: return D4.callInterpreterCallback(...) as bool;
+      },
+    );
 
     test(
-        'ENG-010-06: CallbackReturnSetters transform wrapped. [2026-03-07] (PASS)',
-        () {
-      expect(generatedCode, contains("'transform':"));
-    });
+      'ENG-010-06: CallbackReturnSetters transform wrapped. [2026-03-07] (PASS)',
+      () {
+        expect(generatedCode, contains("'transform':"));
+      },
+    );
 
     // OPEN C.5 / idx-290 lock-in: a bare nullable `VoidCallback?` setter (the
     // `SemanticsConfiguration.onTap = () {...}` shape from
@@ -144,9 +154,13 @@ void main() {
       // Zero-arg closure dispatching through the interpreter with no params.
       expect(
         generatedCode,
-        matches(RegExp(
-            r"onTapRaw == null \? null : \(\) \{ D4\.callInterpreterCallback\(visitor!, onTapRaw, \[\]\);")),
-        reason: 'VoidCallback? setter should emit a zero-arg, null-guarded '
+        matches(
+          RegExp(
+            r"onTapRaw == null \? null : \(\) \{ D4\.callInterpreterCallback\(visitor!, onTapRaw, \[\]\);",
+          ),
+        ),
+        reason:
+            'VoidCallback? setter should emit a zero-arg, null-guarded '
             'closure that dispatches through D4.callInterpreterCallback',
       );
     });
@@ -167,8 +181,10 @@ void main() {
       );
 
       final sourceFile = p.join(testFixturesDir, 'setter_callback_source.dart');
-      final outputFile =
-          p.join(tempOutputDir, 'setter_callback_bridges_eng011.dart');
+      final outputFile = p.join(
+        tempOutputDir,
+        'setter_callback_bridges_eng011.dart',
+      );
 
       final result = await generator.generateBridges(
         sourceFiles: [sourceFile],
@@ -189,30 +205,32 @@ void main() {
     });
 
     test(
-        'ENG-011-03: then callback return handles null safely. [2026-03-07] (PASS)',
-        () {
-      // The callback wrapper should handle null returns:
-      // final result = D4.callInterpreterCallback(visitor, fn, [value]);
-      // if (result == null && null is R) return null as R;
-      // return result as R;
+      'ENG-011-03: then callback return handles null safely. [2026-03-07] (PASS)',
+      () {
+        // The callback wrapper should handle null returns:
+        // final result = D4.callInterpreterCallback(visitor, fn, [value]);
+        // if (result == null && null is R) return null as R;
+        // return result as R;
 
-      // Check for null-safe casting pattern
-      expect(
-        generatedCode,
-        anyOf(
-          contains('null is'), // Null-safe check
-          contains('castCallbackResult'), // Or helper method
-          contains('?? null'), // Or null coalescing
-        ),
-        reason: 'Generic callback return should handle null safely',
-      );
-    });
+        // Check for null-safe casting pattern
+        expect(
+          generatedCode,
+          anyOf(
+            contains('null is'), // Null-safe check
+            contains('castCallbackResult'), // Or helper method
+            contains('?? null'), // Or null coalescing
+          ),
+          reason: 'Generic callback return should handle null safely',
+        );
+      },
+    );
 
     test(
-        'ENG-011-04: thenOrNull explicitly handles nullable. [2026-03-07] (PASS)',
-        () {
-      expect(generatedCode, contains("'thenOrNull':"));
-    });
+      'ENG-011-04: thenOrNull explicitly handles nullable. [2026-03-07] (PASS)',
+      () {
+        expect(generatedCode, contains("'thenOrNull':"));
+      },
+    );
   });
 
   group('ENG-007: Nullable Type Extraction', () {
@@ -229,8 +247,10 @@ void main() {
       );
 
       final sourceFile = p.join(testFixturesDir, 'setter_callback_source.dart');
-      final outputFile =
-          p.join(tempOutputDir, 'setter_callback_bridges_eng007.dart');
+      final outputFile = p.join(
+        tempOutputDir,
+        'setter_callback_bridges_eng007.dart',
+      );
 
       final result = await generator.generateBridges(
         sourceFiles: [sourceFile],
@@ -251,26 +271,28 @@ void main() {
     });
 
     test(
-        'ENG-007-03: Nullable style parameter uses proper extraction. [2026-03-07] (PASS)',
-        () {
-      // For nullable parameter TextStyleMock?, should use:
-      // D4.extractBridgedArgOrNull<TextStyleMock>(...) 
-      // OR
-      // D4.extractBridgedArg<TextStyleMock?>(...)
-      expect(
-        generatedCode,
-        anyOf(
-          contains('extractBridgedArgOrNull'),
-          contains('TextStyleMock?>'),
-        ),
-        reason: 'Nullable params should use null-aware extraction',
-      );
-    });
+      'ENG-007-03: Nullable style parameter uses proper extraction. [2026-03-07] (PASS)',
+      () {
+        // For nullable parameter TextStyleMock?, should use:
+        // D4.extractBridgedArgOrNull<TextStyleMock>(...)
+        // OR
+        // D4.extractBridgedArg<TextStyleMock?>(...)
+        expect(
+          generatedCode,
+          anyOf(
+            contains('extractBridgedArgOrNull'),
+            contains('TextStyleMock?>'),
+          ),
+          reason: 'Nullable params should use null-aware extraction',
+        );
+      },
+    );
 
     test(
-        'ENG-007-04: formatWith method handles nullable param. [2026-03-07] (PASS)',
-        () {
-      expect(generatedCode, contains("'formatWith':"));
-    });
+      'ENG-007-04: formatWith method handles nullable param. [2026-03-07] (PASS)',
+      () {
+        expect(generatedCode, contains("'formatWith':"));
+      },
+    );
   });
 }

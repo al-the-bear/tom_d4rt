@@ -26,9 +26,7 @@ void main() {
 
   setUpAll(() {
     fixturesDir = p.join(Directory.current.path, 'test', 'fixtures');
-    tempDir = Directory.systemTemp
-        .createTempSync('deprecated_allowlist_')
-        .path;
+    tempDir = Directory.systemTemp.createTempSync('deprecated_allowlist_').path;
   });
 
   tearDownAll(() {
@@ -62,31 +60,36 @@ void main() {
       outputPath: out,
       moduleName: 'test',
     );
-    expect(result.errors, isEmpty,
-        reason: 'deprecated-allowlist fixture must generate cleanly');
+    expect(
+      result.errors,
+      isEmpty,
+      reason: 'deprecated-allowlist fixture must generate cleanly',
+    );
     expect(result.outputFiles, isNotEmpty);
     return File(result.outputFiles.first).readAsStringSync();
   }
 
   group('A.5: @Deprecated allowlist', () {
-    test('G-DEP-1: flag off + empty allowlist excludes all deprecated symbols',
-        () async {
-      final code = await generateWith(
-        generateDeprecatedElements: false,
-        outName: 'dep_off.dart',
-      );
-      // Live symbols are always present.
-      expect(code, contains('LiveWidget'));
-      expect(code, contains('LiveMode'));
-      expect(code, contains('liveFunction'));
-      // Deprecated symbols are skipped.
-      expect(code, isNot(contains('LegacyWidget')));
-      expect(code, isNot(contains('LegacyGadget')));
-      expect(code, isNot(contains('LegacyMode')));
-      expect(code, isNot(contains('legacyFunction')));
-      expect(code, isNot(contains('legacyGetter')));
-      expect(code, isNot(contains('legacyConstant')));
-    });
+    test(
+      'G-DEP-1: flag off + empty allowlist excludes all deprecated symbols',
+      () async {
+        final code = await generateWith(
+          generateDeprecatedElements: false,
+          outName: 'dep_off.dart',
+        );
+        // Live symbols are always present.
+        expect(code, contains('LiveWidget'));
+        expect(code, contains('LiveMode'));
+        expect(code, contains('liveFunction'));
+        // Deprecated symbols are skipped.
+        expect(code, isNot(contains('LegacyWidget')));
+        expect(code, isNot(contains('LegacyGadget')));
+        expect(code, isNot(contains('LegacyMode')));
+        expect(code, isNot(contains('legacyFunction')));
+        expect(code, isNot(contains('legacyGetter')));
+        expect(code, isNot(contains('legacyConstant')));
+      },
+    );
 
     test('G-DEP-2: flag on includes all deprecated symbols', () async {
       final code = await generateWith(
@@ -99,25 +102,26 @@ void main() {
       expect(code, contains('legacyFunction'));
     });
 
-    test('G-DEP-3: allowlisted symbol is emitted, others stay excluded',
-        () async {
-      final code = await generateWith(
-        generateDeprecatedElements: false,
-        deprecatedAllowlist: {'LegacyWidget', 'legacyFunction'},
-        outName: 'dep_allow.dart',
-      );
-      // Allowlisted symbols are emitted.
-      expect(code, contains('LegacyWidget'));
-      expect(code, contains('legacyFunction'));
-      // Non-allowlisted deprecated symbols remain excluded.
-      expect(code, isNot(contains('LegacyGadget')));
-      expect(code, isNot(contains('LegacyMode')));
-      expect(code, isNot(contains('legacyGetter')));
-      expect(code, isNot(contains('legacyConstant')));
-    });
-
     test(
-        'G-DEP-4: the default policy (flag off + empty allowlist) is '
+      'G-DEP-3: allowlisted symbol is emitted, others stay excluded',
+      () async {
+        final code = await generateWith(
+          generateDeprecatedElements: false,
+          deprecatedAllowlist: {'LegacyWidget', 'legacyFunction'},
+          outName: 'dep_allow.dart',
+        );
+        // Allowlisted symbols are emitted.
+        expect(code, contains('LegacyWidget'));
+        expect(code, contains('legacyFunction'));
+        // Non-allowlisted deprecated symbols remain excluded.
+        expect(code, isNot(contains('LegacyGadget')));
+        expect(code, isNot(contains('LegacyMode')));
+        expect(code, isNot(contains('legacyGetter')));
+        expect(code, isNot(contains('legacyConstant')));
+      },
+    );
+
+    test('G-DEP-4: the default policy (flag off + empty allowlist) is '
         'content-identical across repeated generations', () async {
       // The "byte-identical regen" guarantee (OPEN A.5 step d) rests on the
       // deprecated-exclusion path being deterministic: adding the
@@ -125,15 +129,19 @@ void main() {
       // output. Generating the same fixture twice under the default policy must
       // yield identical source — modulo the `// Generated:` header timestamp,
       // which is wall-clock and not part of the bridge content.
-      final first = stripGeneratedTimestamp(await generateWith(
-        generateDeprecatedElements: false,
-        outName: 'dep_default_a.dart',
-      ));
-      final second = stripGeneratedTimestamp(await generateWith(
-        generateDeprecatedElements: false,
-        deprecatedAllowlist: const {},
-        outName: 'dep_default_b.dart',
-      ));
+      final first = stripGeneratedTimestamp(
+        await generateWith(
+          generateDeprecatedElements: false,
+          outName: 'dep_default_a.dart',
+        ),
+      );
+      final second = stripGeneratedTimestamp(
+        await generateWith(
+          generateDeprecatedElements: false,
+          deprecatedAllowlist: const {},
+          outName: 'dep_default_b.dart',
+        ),
+      );
       expect(second, equals(first));
     });
   });

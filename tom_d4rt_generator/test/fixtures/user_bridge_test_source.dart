@@ -41,7 +41,10 @@ class MyCollection<T> {
 ///
 /// The @D4rtUserBridge annotation specifies which library this bridge targets.
 /// The optional second argument specifies the class name for disambiguation.
-@D4rtUserBridge('package:test_package/user_bridge_test_source.dart', 'MyCollection')
+@D4rtUserBridge(
+  'package:test_package/user_bridge_test_source.dart',
+  'MyCollection',
+)
 class MyCollectionUserBridge extends D4UserBridge {
   /// Provide nativeNames for internal implementations.
   static List<String> get nativeNames => ['_InternalCollection'];

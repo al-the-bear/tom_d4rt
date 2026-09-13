@@ -35,10 +35,11 @@ void main() {
       verbose: false,
     );
 
-    final sourceFile =
-        p.join(testFixturesDir, 'required_nullable_source.dart');
-    final outputFile =
-        p.join(tempOutputDir, 'required_nullable_bridges_test.dart');
+    final sourceFile = p.join(testFixturesDir, 'required_nullable_source.dart');
+    final outputFile = p.join(
+      tempOutputDir,
+      'required_nullable_bridges_test.dart',
+    );
 
     final result = await generator.generateBridges(
       sourceFiles: [sourceFile],

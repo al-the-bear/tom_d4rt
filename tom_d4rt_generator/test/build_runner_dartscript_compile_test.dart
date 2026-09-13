@@ -87,8 +87,7 @@ void main() {
         'fixture_pkg_b': 'package_fixture_pkg_b_bridges.b.dart',
       };
 
-      final barrelContent =
-          orchestrator.generateDelegatingBarrelContentForTest(
+      final barrelContent = orchestrator.generateDelegatingBarrelContentForTest(
         mapping,
         packageFiles,
       );
@@ -107,8 +106,11 @@ void main() {
         projectPath: tempDir.path,
         globalClassLookup: const {},
       );
-      expect(relaxerResult.isSuccess, isTrue,
-          reason: 'relaxer stub generation should succeed');
+      expect(
+        relaxerResult.isSuccess,
+        isTrue,
+        reason: 'relaxer stub generation should succeed',
+      );
 
       // --- 4) Per-package bridge stand-ins (what real per-package files expose).
       _writeFixture(tempDir, 'all_bridges.b.dart', barrelContent);
@@ -131,19 +133,30 @@ void main() {
       );
 
       // --- Contract assertions: barrel exposes everything the dartscript calls.
-      expect(barrelContent, contains('static List<BridgedClass> bridgeClasses()'));
+      expect(
+        barrelContent,
+        contains('static List<BridgedClass> bridgeClasses()'),
+      );
       expect(barrelContent, contains('static void registerBridges('));
       expect(barrelContent, contains('static String getImportBlock()'));
-      expect(barrelContent, contains('static List<String> subPackageBarrels()'),
-          reason: 'GEN-BRC: barrel MUST expose subPackageBarrels() — the '
-              'dartscript template calls it unconditionally');
+      expect(
+        barrelContent,
+        contains('static List<String> subPackageBarrels()'),
+        reason:
+            'GEN-BRC: barrel MUST expose subPackageBarrels() — the '
+            'dartscript template calls it unconditionally',
+      );
       // Primary package (fixture_pkg_a) excluded; sub-package included.
-      expect(barrelContent,
-          contains("'package:fixture_pkg_b/fixture_pkg_b.dart'"),
-          reason: 'sub-package barrel URI must be listed');
-      expect(barrelContent,
-          isNot(contains("'package:fixture_pkg_a/fixture_pkg_a.dart',")),
-          reason: 'primary package must not appear in subPackageBarrels()');
+      expect(
+        barrelContent,
+        contains("'package:fixture_pkg_b/fixture_pkg_b.dart'"),
+        reason: 'sub-package barrel URI must be listed',
+      );
+      expect(
+        barrelContent,
+        isNot(contains("'package:fixture_pkg_a/fixture_pkg_a.dart',")),
+        reason: 'primary package must not appear in subPackageBarrels()',
+      );
 
       // Dartscript must wire the relaxer + sub-package registration the build
       // would otherwise fail to compile against.
@@ -152,20 +165,17 @@ void main() {
       expect(dartscriptContent, contains('registerRelaxers()'));
 
       // --- Compile check: dart analyze must report no errors.
-      final result = Process.runSync(
-        'dart',
-        [
-          'analyze',
-          '--no-fatal-warnings',
-          tempDir.path,
-        ],
-        workingDirectory: tempDir.path,
-      );
+      final result = Process.runSync('dart', [
+        'analyze',
+        '--no-fatal-warnings',
+        tempDir.path,
+      ], workingDirectory: tempDir.path);
 
       expect(
         result.exitCode,
         0,
-        reason: 'Generated build_runner dartscript.b.dart did not compile.\n'
+        reason:
+            'Generated build_runner dartscript.b.dart did not compile.\n'
             'stdout:\n${result.stdout}\nstderr:\n${result.stderr}',
       );
     });

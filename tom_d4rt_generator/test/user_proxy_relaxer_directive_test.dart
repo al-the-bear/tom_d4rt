@@ -14,15 +14,14 @@ UserVariantDirective directive({
   UserVariantKind kind = UserVariantKind.relaxer,
   String baseClass = 'TomFormList',
   required List<String> variants,
-}) =>
-    UserVariantDirective.parse(
-      kind: kind,
-      libraryPath: 'package:my_pkg/forms.dart',
-      baseClass: baseClass,
-      variants: variants,
-      directiveClassName: '${baseClass}UserDirective',
-      sourceFile: 'lib/src/d4rt_user_relaxers/forms.dart',
-    );
+}) => UserVariantDirective.parse(
+  kind: kind,
+  libraryPath: 'package:my_pkg/forms.dart',
+  baseClass: baseClass,
+  variants: variants,
+  directiveClassName: '${baseClass}UserDirective',
+  sourceFile: 'lib/src/d4rt_user_relaxers/forms.dart',
+);
 
 void main() {
   group('UserVariantDirective.parse', () {
@@ -34,10 +33,9 @@ void main() {
     });
 
     test('G-UPR-2: explicit multi-param variants parse with arity 2', () {
-      final d = directive(variants: [
-        'Customer, CustomerDetailForm',
-        'Order, OrderForm',
-      ]);
+      final d = directive(
+        variants: ['Customer, CustomerDetailForm', 'Order, OrderForm'],
+      );
       expect(d.arity, 2);
       expect(d.hasPattern, isFalse);
       expect(d.variantSpecs, hasLength(2));
@@ -79,10 +77,9 @@ void main() {
 
   group('UserVariantDirective.expand', () {
     test('G-UPR-8: explicit multi-param variants ignore candidates', () {
-      final d = directive(variants: [
-        'Customer, CustomerDetailForm',
-        'Order, OrderForm',
-      ]);
+      final d = directive(
+        variants: ['Customer, CustomerDetailForm', 'Order, OrderForm'],
+      );
       final tuples = d.expand(const ['Anything', 'Else']);
       expect(tuples, [
         ['Customer', 'CustomerDetailForm'],
@@ -108,10 +105,9 @@ void main() {
     });
 
     test('G-UPR-11: explicit + pattern variants de-duplicate, order kept', () {
-      final d = directive(variants: [
-        'CustomerDO, CustomerForm',
-        r'*DO, $1Form',
-      ]);
+      final d = directive(
+        variants: ['CustomerDO, CustomerForm', r'*DO, $1Form'],
+      );
       final tuples = d.expand(const ['CustomerDO', 'OrderDO']);
       // The explicit tuple appears first and is not duplicated by the pattern.
       expect(tuples, [
@@ -124,21 +120,17 @@ void main() {
   group('UserVariantDirective.renderInstantiations', () {
     test('G-UPR-12: renders multi-param concrete generic instantiations', () {
       final d = directive(variants: ['Customer, CustomerDetailForm']);
-      expect(
-        d.renderInstantiations(const []),
-        ['TomFormList<Customer, CustomerDetailForm>'],
-      );
+      expect(d.renderInstantiations(const []), [
+        'TomFormList<Customer, CustomerDetailForm>',
+      ]);
     });
 
     test('G-UPR-13: wildcard pattern renders one instantiation per match', () {
       final d = directive(variants: [r'*DO, $1Form']);
-      expect(
-        d.renderInstantiations(const ['CustomerDO', 'OrderDO', 'Nope']),
-        [
-          'TomFormList<CustomerDO, CustomerForm>',
-          'TomFormList<OrderDO, OrderForm>',
-        ],
-      );
+      expect(d.renderInstantiations(const ['CustomerDO', 'OrderDO', 'Nope']), [
+        'TomFormList<CustomerDO, CustomerForm>',
+        'TomFormList<OrderDO, OrderForm>',
+      ]);
     });
 
     test('G-UPR-14: single-param relaxer renders <V> instantiation', () {
@@ -160,10 +152,10 @@ void main() {
           variants: [r'*DO, $1Form'],
         ),
       ];
-      final block = renderUserVariantInstantiationBlock(
-        directives,
-        const ['CustomerDO', 'OrderDO'],
-      );
+      final block = renderUserVariantInstantiationBlock(directives, const [
+        'CustomerDO',
+        'OrderDO',
+      ]);
       expect(block, '''
 // proxy TomFormList
 //   TomFormList<Customer, CustomerDetailForm>
@@ -176,7 +168,9 @@ void main() {
 
     test('G-UPR-16: directive with no matching candidates is noted', () {
       final block = renderUserVariantInstantiationBlock(
-        [directive(variants: [r'*DO, $1Form'])],
+        [
+          directive(variants: [r'*DO, $1Form']),
+        ],
         const ['NoMatch'],
       );
       expect(block, '''

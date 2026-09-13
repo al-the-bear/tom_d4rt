@@ -93,10 +93,12 @@ void main() {
       includeDynamicArm: true,
     );
 
-    test('G-GCC-1: canonical GlobalKey named-passthrough body byte-for-byte',
-        () {
-      expect(generateGenericConstructor(globalKey), _globalKeyGolden);
-    });
+    test(
+      'G-GCC-1: canonical GlobalKey named-passthrough body byte-for-byte',
+      () {
+        expect(generateGenericConstructor(globalKey), _globalKeyGolden);
+      },
+    );
 
     test('G-GCC-2: canonical ValueKey nullable-value body byte-for-byte', () {
       expect(generateGenericConstructor(valueKey), _valueKeyGolden);
@@ -108,77 +110,102 @@ void main() {
       const arms = ['NavigatorState', 'FormState', 'ScaffoldState'];
       var prev = -1;
       for (final t in arms) {
-        final idx =
-            out.indexOf("'$t' => GlobalKey<$t>(debugLabel: debugLabel),");
-        expect(idx, greaterThan(prev),
-            reason: 'arm $t out of declaration order');
+        final idx = out.indexOf(
+          "'$t' => GlobalKey<$t>(debugLabel: debugLabel),",
+        );
+        expect(
+          idx,
+          greaterThan(prev),
+          reason: 'arm $t out of declaration order',
+        );
         prev = idx;
       }
       // Default arm constructs the non-null unparameterized class.
       expect(out, contains('      _ => GlobalKey(debugLabel: debugLabel),'));
     });
 
-    test('G-GCC-4: nullable-value arms emit the is/as ternary; default is null',
-        () {
-      final out = generateGenericConstructor(valueKey);
-      expect(
+    test(
+      'G-GCC-4: nullable-value arms emit the is/as ternary; default is null',
+      () {
+        final out = generateGenericConstructor(valueKey);
+        expect(
           out,
-          contains("      'String' => value is String\n"
-              '          ? ValueKey<String>(value)\n'
-              '          : ValueKey<String?>(value as String?),'));
-      expect(out, contains('      _ => null,'));
-    });
+          contains(
+            "      'String' => value is String\n"
+            '          ? ValueKey<String>(value)\n'
+            '          : ValueKey<String?>(value as String?),',
+          ),
+        );
+        expect(out, contains('      _ => null,'));
+      },
+    );
 
-    test('G-GCC-5: includeDynamicArm prepends the dynamic|Object|Object? arm',
-        () {
-      final out = generateGenericConstructor(valueNotifier);
-      expect(
+    test(
+      'G-GCC-5: includeDynamicArm prepends the dynamic|Object|Object? arm',
+      () {
+        final out = generateGenericConstructor(valueNotifier);
+        expect(
           out,
-          contains("      'dynamic' || 'Object' || 'Object?' => "
-              'ValueNotifier<dynamic>(value),'));
-      // The dynamic arm precedes the first concrete arm.
-      expect(out.indexOf("'dynamic' || 'Object' || 'Object?'"),
-          lessThan(out.indexOf("'String' => value is String")));
-    });
+          contains(
+            "      'dynamic' || 'Object' || 'Object?' => "
+            'ValueNotifier<dynamic>(value),',
+          ),
+        );
+        // The dynamic arm precedes the first concrete arm.
+        expect(
+          out.indexOf("'dynamic' || 'Object' || 'Object?'"),
+          lessThan(out.indexOf("'String' => value is String")),
+        );
+      },
+    );
 
     test('G-GCC-6: no dynamic arm when includeDynamicArm is false', () {
       final out = generateGenericConstructor(valueKey);
       expect(out, isNot(contains("'dynamic' || 'Object' || 'Object?'")));
     });
 
-    test('G-GCC-7: empty type-arg allow-list emits nothing (dormant default)',
-        () {
-      const dormant = GenericConstructorConfig(
-        className: 'GlobalKey',
-        kind: GenericConstructorKind.namedPassthrough,
-      );
-      expect(generateGenericConstructor(dormant), isEmpty);
-    });
+    test(
+      'G-GCC-7: empty type-arg allow-list emits nothing (dormant default)',
+      () {
+        const dormant = GenericConstructorConfig(
+          className: 'GlobalKey',
+          kind: GenericConstructorKind.namedPassthrough,
+        );
+        expect(generateGenericConstructor(dormant), isEmpty);
+      },
+    );
 
     test('G-GCC-8: registrations wrapper emits one body per config', () {
-      final out = generateGenericConstructorRegistrations(
-          [globalKey, valueKey, valueNotifier]);
+      final out = generateGenericConstructorRegistrations([
+        globalKey,
+        valueKey,
+        valueNotifier,
+      ]);
       expect(out, contains('void _registerGeneratedGenericConstructors() {'));
       expect(out, contains("D4.registerGenericConstructor('GlobalKey', '',"));
       expect(out, contains("D4.registerGenericConstructor('ValueKey', '',"));
       expect(
-          out, contains("D4.registerGenericConstructor('ValueNotifier', '',"));
+        out,
+        contains("D4.registerGenericConstructor('ValueNotifier', '',"),
+      );
       expect(out.trimRight(), endsWith('}'));
     });
 
-    test('G-GCC-9: registrations wrapper is empty when no config contributes',
-        () {
-      expect(generateGenericConstructorRegistrations(const []), isEmpty);
-      expect(
-        generateGenericConstructorRegistrations(const [
-          GenericConstructorConfig(
-            className: 'GlobalKey',
-            kind: GenericConstructorKind.namedPassthrough,
-          ),
-        ]),
-        isEmpty,
-      );
-    });
+    test(
+      'G-GCC-9: registrations wrapper is empty when no config contributes',
+      () {
+        expect(generateGenericConstructorRegistrations(const []), isEmpty);
+        expect(
+          generateGenericConstructorRegistrations(const [
+            GenericConstructorConfig(
+              className: 'GlobalKey',
+              kind: GenericConstructorKind.namedPassthrough,
+            ),
+          ]),
+          isEmpty,
+        );
+      },
+    );
 
     test('G-GCC-10: multiple named args forward as a comma-separated set', () {
       const twoArgs = GenericConstructorConfig(
@@ -237,8 +264,10 @@ void main() {
       expect(cfg.className, 'ValueKey');
       expect(cfg.kind, GenericConstructorKind.nullableValue);
       expect(cfg.typeArgVariants, ['String', 'int']);
-      expect(() => GenericConstructorConfig.fromYaml('nope'),
-          throwsArgumentError);
+      expect(
+        () => GenericConstructorConfig.fromYaml('nope'),
+        throwsArgumentError,
+      );
     });
 
     test('G-GCC-DC-4: kind defaults to nullableValue when absent', () {
@@ -259,9 +288,9 @@ void main() {
     );
 
     Map<String, dynamic> baseJson() => {
-          'name': 'flutterm',
-          'modules': <dynamic>[],
-        };
+      'name': 'flutterm',
+      'modules': <dynamic>[],
+    };
 
     test('G-GCC-BC-1: defaults to an empty list', () {
       final config = BridgeConfig.fromJson(baseJson());

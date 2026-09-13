@@ -44,29 +44,20 @@ void main() {
       },
     );
 
-    test(
-      'G-FGEN-02: toImportUri converts host backslashes to POSIX slashes. '
-      '[2026-06-15] (PASS)',
-      () {
-        // `p.relative` returns host-native separators (backslashes on
-        // Windows). Dart import/export URIs must always use `/` — `\t` would
-        // otherwise be parsed as a TAB escape, corrupting the URI.
-        expect(
-          toImportUri(r'src\tom_basics\tom_basics_bridges.b.dart'),
-          equals('src/tom_basics/tom_basics_bridges.b.dart'),
-        );
-        // Already-POSIX input is preserved.
-        expect(
-          toImportUri('src/foo/bar.b.dart'),
-          equals('src/foo/bar.b.dart'),
-        );
-        // Mixed separators are normalised.
-        expect(
-          toImportUri(r'src/foo\bar.b.dart'),
-          equals('src/foo/bar.b.dart'),
-        );
-      },
-    );
+    test('G-FGEN-02: toImportUri converts host backslashes to POSIX slashes. '
+        '[2026-06-15] (PASS)', () {
+      // `p.relative` returns host-native separators (backslashes on
+      // Windows). Dart import/export URIs must always use `/` — `\t` would
+      // otherwise be parsed as a TAB escape, corrupting the URI.
+      expect(
+        toImportUri(r'src\tom_basics\tom_basics_bridges.b.dart'),
+        equals('src/tom_basics/tom_basics_bridges.b.dart'),
+      );
+      // Already-POSIX input is preserved.
+      expect(toImportUri('src/foo/bar.b.dart'), equals('src/foo/bar.b.dart'));
+      // Mixed separators are normalised.
+      expect(toImportUri(r'src/foo\bar.b.dart'), equals('src/foo/bar.b.dart'));
+    });
 
     test(
       'G-FGEN-03: Dartscript module imports use POSIX separators on every host. '
@@ -114,38 +105,35 @@ void main() {
       },
     );
 
-    test(
-      'G-FGEN-04: Test runner carries no hardcoded developer log path. '
-      '[2026-06-28] (PASS)',
-      () {
-        // Issue #3: the generated d4rtrun.b.dart baked in a developer-specific
-        // absolute path (`/Users/alexiskyaw/.../tom2/d4_invocations.log`) and an
-        // unconditional per-invocation logger that threw (and was swallowed) on
-        // every other machine. The per-invocation log was dropped entirely; the
-        // generated runner must contain no trace of it.
-        final config = BridgeConfig(
-          name: 'tom_dartscript_bridges',
-          modules: const [
-            ModuleConfig(
-              name: 'tom_basics',
-              barrelFiles: ['package:tom_basics/tom_basics.dart'],
-              outputPath: 'lib/src/tom_basics/tom_basics_bridges.b.dart',
-            ),
-          ],
-        );
+    test('G-FGEN-04: Test runner carries no hardcoded developer log path. '
+        '[2026-06-28] (PASS)', () {
+      // Issue #3: the generated d4rtrun.b.dart baked in a developer-specific
+      // absolute path (`/Users/alexiskyaw/.../tom2/d4_invocations.log`) and an
+      // unconditional per-invocation logger that threw (and was swallowed) on
+      // every other machine. The per-invocation log was dropped entirely; the
+      // generated runner must contain no trace of it.
+      final config = BridgeConfig(
+        name: 'tom_dartscript_bridges',
+        modules: const [
+          ModuleConfig(
+            name: 'tom_basics',
+            barrelFiles: ['package:tom_basics/tom_basics.dart'],
+            outputPath: 'lib/src/tom_basics/tom_basics_bridges.b.dart',
+          ),
+        ],
+      );
 
-        final content = generateTestRunnerContent(
-          config,
-          testRunnerPath: 'bin/d4rtrun.b.dart',
-          packageName: 'tom_core_d4rt',
-        );
+      final content = generateTestRunnerContent(
+        config,
+        testRunnerPath: 'bin/d4rtrun.b.dart',
+        packageName: 'tom_core_d4rt',
+      );
 
-        expect(content, isNot(contains('d4_invocations.log')));
-        expect(content, isNot(contains('_d4InvocationsLogPath')));
-        expect(content, isNot(contains('_logD4Invocation')));
-        // Guard against any absolute developer path leaking back in.
-        expect(content, isNot(contains('/Users/')));
-      },
-    );
+      expect(content, isNot(contains('d4_invocations.log')));
+      expect(content, isNot(contains('_d4InvocationsLogPath')));
+      expect(content, isNot(contains('_logD4Invocation')));
+      // Guard against any absolute developer path leaking back in.
+      expect(content, isNot(contains('/Users/')));
+    });
   });
 }

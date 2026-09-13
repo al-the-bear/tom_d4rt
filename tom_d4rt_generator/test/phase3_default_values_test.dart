@@ -30,8 +30,9 @@ void main() {
 
   setUpAll(() async {
     fixturesDir = p.join(Directory.current.path, 'test', 'fixtures');
-    tempDir =
-        Directory.systemTemp.createTempSync('phase3_default_values_').path;
+    tempDir = Directory.systemTemp
+        .createTempSync('phase3_default_values_')
+        .path;
 
     final generator = BridgeGenerator(
       workspacePath: fixturesDir,
@@ -51,8 +52,11 @@ void main() {
       moduleName: 'test',
     );
 
-    expect(result.errors, isEmpty,
-        reason: 'default-values fixture must generate cleanly');
+    expect(
+      result.errors,
+      isEmpty,
+      reason: 'default-values fixture must generate cleanly',
+    );
     expect(result.outputFiles, isNotEmpty);
 
     generatedCode = await File(result.outputFiles.first).readAsString();
@@ -104,16 +108,16 @@ void main() {
       // before the colon: `const {'a' : 1}`. The plan explicitly marks
       // whitespace as cosmetic/non-gating, so we accept either shape.
       expect(
-          generatedCode,
-          anyOf(
-            contains("const {'a': 1}"),
-            contains("const {'a' : 1}"),
-            contains("const <String, int>{'a': 1}"),
-          ));
+        generatedCode,
+        anyOf(
+          contains("const {'a': 1}"),
+          contains("const {'a' : 1}"),
+          contains("const <String, int>{'a': 1}"),
+        ),
+      );
     });
 
-    test(
-        'GEN-SET-1: empty-Set named default renders as typed empty set, '
+    test('GEN-SET-1: empty-Set named default renders as typed empty set, '
         'never bare `const {}` [2026-06-16]', () {
       // `Set<String> flags = const {}` — a bare `const {}` makes Dart infer an
       // empty Map (static type Object), which fails to assign to the
@@ -133,8 +137,7 @@ void main() {
       );
     });
 
-    test(
-        'GEN-SET-2: empty-Set positional default renders as typed empty set '
+    test('GEN-SET-2: empty-Set positional default renders as typed empty set '
         '[2026-06-16]', () {
       // `Set<int> ids = const {}` (optional positional) must coerce to a typed
       // empty set so the constructor argument keeps its `Set<int>` type.
@@ -151,15 +154,16 @@ void main() {
       expect(generatedCode, contains('const DurationLike(seconds: 5)'));
     });
 
-    test('optional-positional default renders via getOptionalArgWithDefault',
-        () {
-      // `[this.value = 0, this.label = 'x']` — positional defaults use the
-      // indexed helper, not the named helper. Both values MUST appear.
-      expect(
-          generatedCode, contains("getOptionalArgWithDefault"));
-      expect(generatedCode, contains("'value', 0"));
-      expect(generatedCode, contains("'label', 'x'"));
-    });
+    test(
+      'optional-positional default renders via getOptionalArgWithDefault',
+      () {
+        // `[this.value = 0, this.label = 'x']` — positional defaults use the
+        // indexed helper, not the named helper. Both values MUST appear.
+        expect(generatedCode, contains("getOptionalArgWithDefault"));
+        expect(generatedCode, contains("'value', 0"));
+        expect(generatedCode, contains("'label', 'x'"));
+      },
+    );
 
     test('no default value skips the getOptionalArgWithDefault variant', () {
       // `description` in OptionalPositionalClass is declared without a
@@ -171,62 +175,78 @@ void main() {
     });
   });
 
-  group('OPEN C.3 / U2: operator-bearing & built-in numeric constant defaults',
-      () {
-    // These const expressions used to be classified non-wrappable and routed
-    // to the throwing getRequiredArgTodoDefault helper. The generator now
-    // emits them as real defaults: dart:math constants are substituted with
-    // their literal value (so `math.pi * 2` becomes a literal arithmetic
-    // expression), built-in numeric constants (double.infinity) are emitted
-    // as-is, and pure literal arithmetic (1.0 / 2) is preserved.
+  group(
+    'OPEN C.3 / U2: operator-bearing & built-in numeric constant defaults',
+    () {
+      // These const expressions used to be classified non-wrappable and routed
+      // to the throwing getRequiredArgTodoDefault helper. The generator now
+      // emits them as real defaults: dart:math constants are substituted with
+      // their literal value (so `math.pi * 2` becomes a literal arithmetic
+      // expression), built-in numeric constants (double.infinity) are emitted
+      // as-is, and pure literal arithmetic (1.0 / 2) is preserved.
 
-    test('GEN-C3-1: math.pi * 2 named default is wrappable (not TodoDefault)',
+      test(
+        'GEN-C3-1: math.pi * 2 named default is wrappable (not TodoDefault)',
         () {
-      expect(
-        generatedCode,
-        contains("getNamedArgWithDefault<double>(named, 'fullTurn',"),
-        reason: 'math.pi * 2 must emit a real default via the wrappable path.',
+          expect(
+            generatedCode,
+            contains("getNamedArgWithDefault<double>(named, 'fullTurn',"),
+            reason:
+                'math.pi * 2 must emit a real default via the wrappable path.',
+          );
+          expect(
+            generatedCode,
+            isNot(
+              contains(
+                "getRequiredNamedArgTodoDefault<double>(named, 'fullTurn'",
+              ),
+            ),
+            reason: 'fullTurn must not fall back to the throwing TODO helper.',
+          );
+        },
       );
-      expect(
-        generatedCode,
-        isNot(contains(
-            "getRequiredNamedArgTodoDefault<double>(named, 'fullTurn'")),
-        reason: 'fullTurn must not fall back to the throwing TODO helper.',
-      );
-    });
 
-    test('GEN-C3-2: math.pi is substituted with its literal value', () {
-      // The pi constant is emitted as a literal double; the `* 2` arithmetic
-      // is preserved so the const expression evaluates to 2π.
-      expect(generatedCode, contains('3.14159'));
-      expect(generatedCode, contains('* 2'));
-    });
+      test('GEN-C3-2: math.pi is substituted with its literal value', () {
+        // The pi constant is emitted as a literal double; the `* 2` arithmetic
+        // is preserved so the const expression evaluates to 2π.
+        expect(generatedCode, contains('3.14159'));
+        expect(generatedCode, contains('* 2'));
+      });
 
-    test('GEN-C3-3: double.infinity built-in constant is emitted as-is', () {
-      expect(
-        generatedCode,
-        contains("getNamedArgWithDefault<double>(named, 'maxWidth', double.infinity)"),
-      );
-    });
+      test('GEN-C3-3: double.infinity built-in constant is emitted as-is', () {
+        expect(
+          generatedCode,
+          contains(
+            "getNamedArgWithDefault<double>(named, 'maxWidth', double.infinity)",
+          ),
+        );
+      });
 
-    test('GEN-C3-4: pure literal arithmetic 1.0 / 2 is preserved', () {
-      expect(
-        generatedCode,
-        contains("getNamedArgWithDefault<double>(named, 'half', 1.0 / 2)"),
-      );
-    });
+      test('GEN-C3-4: pure literal arithmetic 1.0 / 2 is preserved', () {
+        expect(
+          generatedCode,
+          contains("getNamedArgWithDefault<double>(named, 'half', 1.0 / 2)"),
+        );
+      });
 
-    test('GEN-C3-5: operator-bearing positional default is wrappable', () {
-      expect(
-        generatedCode,
-        contains("getOptionalArgWithDefault<double>(positional, 0, 'endAngle',"),
-        reason: 'positional math.pi * 2 must use the indexed wrappable helper.',
-      );
-      expect(
-        generatedCode,
-        isNot(contains(
-            "getRequiredArgTodoDefault<double>(positional, 0, 'endAngle'")),
-      );
-    });
-  });
+      test('GEN-C3-5: operator-bearing positional default is wrappable', () {
+        expect(
+          generatedCode,
+          contains(
+            "getOptionalArgWithDefault<double>(positional, 0, 'endAngle',",
+          ),
+          reason:
+              'positional math.pi * 2 must use the indexed wrappable helper.',
+        );
+        expect(
+          generatedCode,
+          isNot(
+            contains(
+              "getRequiredArgTodoDefault<double>(positional, 0, 'endAngle'",
+            ),
+          ),
+        );
+      });
+    },
+  );
 }

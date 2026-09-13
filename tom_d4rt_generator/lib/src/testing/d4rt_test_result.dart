@@ -68,7 +68,8 @@ class D4rtTestResult {
       try {
         final json = jsonDecode(jsonStr) as Map<String, dynamic>;
         final capturedOutput = json['output'] as String? ?? '';
-        final capturedExceptions = (json['exceptions'] as List<dynamic>?)
+        final capturedExceptions =
+            (json['exceptions'] as List<dynamic>?)
                 ?.map((e) => e.toString())
                 .toList() ??
             [];

@@ -44,11 +44,7 @@ void main() {
         hostProjectPath: p.current,
         fixtureProjectPath: p.absolute('example', project),
       );
-      expect(
-        mismatches,
-        isEmpty,
-        reason: describeMismatches(mismatches),
-      );
+      expect(mismatches, isEmpty, reason: describeMismatches(mismatches));
     });
   }
 }

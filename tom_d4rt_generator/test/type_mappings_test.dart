@@ -100,92 +100,81 @@ void main() {
       },
     );
 
-    test(
-      'G-DGU3-2: mapping Awkward->dynamic substitutes every type-resolution '
-      'reference at extraction sites. [2026-07-21] (PASS)',
-      () {
-        for (final param in ['input', 'first', 'seed']) {
-          expect(
-            generatedOn,
-            contains("getRequiredArg<dynamic>(positional, 0, '$param'"),
-            reason: 'mapped param "$param" must extract as dynamic',
-          );
-          expect(
-            generatedOn,
-            isNot(contains("Awkward>(positional, 0, '$param'")),
-            reason: 'mapped param "$param" must not keep the concrete Awkward '
-                'type',
-          );
-        }
-      },
-    );
-
-    test(
-      "G-DGU3-3: the mapped type's own bridge registration is left intact. "
-      '[2026-07-21] (PASS)',
-      () {
-        // typeMappings must only rewrite type *references*, never erase the
-        // class bridge itself — Awkward is still registered and constructible.
-        expect(generatedOn, contains("name: 'Awkward'"));
-        expect(generatedOn, contains('_createAwkwardBridge'));
+    test('G-DGU3-2: mapping Awkward->dynamic substitutes every type-resolution '
+        'reference at extraction sites. [2026-07-21] (PASS)', () {
+      for (final param in ['input', 'first', 'seed']) {
         expect(
           generatedOn,
-          contains('nativeType: \$test_package_1.Awkward'),
-          reason: 'the bridge nativeType stays the real class, not dynamic',
+          contains("getRequiredArg<dynamic>(positional, 0, '$param'"),
+          reason: 'mapped param "$param" must extract as dynamic',
         );
-      },
-    );
-
-    test(
-      'G-DGU3-4: additionalImports are emitted into the generated file. '
-      '[2026-07-21] (PASS)',
-      () {
         expect(
           generatedOn,
-          contains("import 'package:test_package/shims.dart';"),
-          reason: 'configured additional import must appear in the output',
+          isNot(contains("Awkward>(positional, 0, '$param'")),
+          reason:
+              'mapped param "$param" must not keep the concrete Awkward '
+              'type',
         );
-        expect(
-          generatedOff,
-          isNot(contains("import 'package:test_package/shims.dart';")),
-          reason: 'no additional import is emitted without configuration',
-        );
-      },
-    );
+      }
+    });
+
+    test("G-DGU3-3: the mapped type's own bridge registration is left intact. "
+        '[2026-07-21] (PASS)', () {
+      // typeMappings must only rewrite type *references*, never erase the
+      // class bridge itself — Awkward is still registered and constructible.
+      expect(generatedOn, contains("name: 'Awkward'"));
+      expect(generatedOn, contains('_createAwkwardBridge'));
+      expect(
+        generatedOn,
+        contains('nativeType: \$test_package_1.Awkward'),
+        reason: 'the bridge nativeType stays the real class, not dynamic',
+      );
+    });
+
+    test('G-DGU3-4: additionalImports are emitted into the generated file. '
+        '[2026-07-21] (PASS)', () {
+      expect(
+        generatedOn,
+        contains("import 'package:test_package/shims.dart';"),
+        reason: 'configured additional import must appear in the output',
+      );
+      expect(
+        generatedOff,
+        isNot(contains("import 'package:test_package/shims.dart';")),
+        reason: 'no additional import is emitted without configuration',
+      );
+    });
   });
 
   group('DGU3 BridgeConfig plumbing', () {
-    test(
-      'G-DGU3-5: typeMappings and additionalImports default empty and '
-      'round-trip through json/copyWith. [2026-07-21] (PASS)',
-      () {
-        const base = BridgeConfig(name: 'pkg', modules: []);
-        expect(base.typeMappings, isEmpty);
-        expect(base.additionalImports, isEmpty);
+    test('G-DGU3-5: typeMappings and additionalImports default empty and '
+        'round-trip through json/copyWith. [2026-07-21] (PASS)', () {
+      const base = BridgeConfig(name: 'pkg', modules: []);
+      expect(base.typeMappings, isEmpty);
+      expect(base.additionalImports, isEmpty);
 
-        // Empty ⇒ keys omitted from json (back-compatible).
-        expect(base.toJson().containsKey('typeMappings'), isFalse);
-        expect(base.toJson().containsKey('additionalImports'), isFalse);
+      // Empty ⇒ keys omitted from json (back-compatible).
+      expect(base.toJson().containsKey('typeMappings'), isFalse);
+      expect(base.toJson().containsKey('additionalImports'), isFalse);
 
-        final configured = base.copyWith(
-          typeMappings: const {'Awkward': 'dynamic', 'Sealed?': 'Object?'},
-          additionalImports: const ['package:my_pkg/shims.dart'],
-        );
-        expect(configured.typeMappings['Awkward'], 'dynamic');
-        expect(configured.typeMappings['Sealed?'], 'Object?');
-        expect(configured.additionalImports, ['package:my_pkg/shims.dart']);
-        expect(configured.toJson()['typeMappings'], isNotNull);
-        expect(configured.toJson()['additionalImports'], isNotNull);
+      final configured = base.copyWith(
+        typeMappings: const {'Awkward': 'dynamic', 'Sealed?': 'Object?'},
+        additionalImports: const ['package:my_pkg/shims.dart'],
+      );
+      expect(configured.typeMappings['Awkward'], 'dynamic');
+      expect(configured.typeMappings['Sealed?'], 'Object?');
+      expect(configured.additionalImports, ['package:my_pkg/shims.dart']);
+      expect(configured.toJson()['typeMappings'], isNotNull);
+      expect(configured.toJson()['additionalImports'], isNotNull);
 
-        final restored = BridgeConfig.fromJson(configured.toJson());
-        expect(restored.typeMappings, configured.typeMappings);
-        expect(restored.additionalImports, configured.additionalImports);
+      final restored = BridgeConfig.fromJson(configured.toJson());
+      expect(restored.typeMappings, configured.typeMappings);
+      expect(restored.additionalImports, configured.additionalImports);
 
-        // Absent in json ⇒ empty.
-        final fromBare = BridgeConfig.fromJson({'name': 'pkg', 'modules': []});
-        expect(fromBare.typeMappings, isEmpty);
-        expect(fromBare.additionalImports, isEmpty);
-      },
-    );
+      // Absent in json ⇒ empty.
+      final fromBare = BridgeConfig.fromJson({'name': 'pkg', 'modules': []});
+      expect(fromBare.typeMappings, isEmpty);
+      expect(fromBare.additionalImports, isEmpty);
+    });
   });
 }

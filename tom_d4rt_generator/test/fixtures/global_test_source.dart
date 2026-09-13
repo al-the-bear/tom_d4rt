@@ -238,7 +238,7 @@ class GlobalService {
   static GlobalService? _instance;
   static GlobalService get instance => _instance ??= GlobalService._();
   GlobalService._();
-  
+
   String get status => 'running';
 }
 

@@ -33,12 +33,9 @@ void main() {
       warnings = [];
       scanner = UserProxyRelaxerScanner(onWarning: warnings.add);
 
-      final collection = AnalysisContextCollection(
-        includedPaths: [fixture],
-      );
+      final collection = AnalysisContextCollection(includedPaths: [fixture]);
       final context = collection.contextFor(fixture);
-      final result =
-          await context.currentSession.getResolvedLibrary(fixture);
+      final result = await context.currentSession.getResolvedLibrary(fixture);
       if (result is! ResolvedLibraryResult) {
         fail('Failed to resolve fixture (${result.runtimeType})');
       }
@@ -104,8 +101,9 @@ void main() {
         reason: 'should warn about the marker-base class with no annotation',
       );
       expect(
-        scanner.proxyDirectives
-            .any((d) => d.directiveClassName == 'UnannotatedUserProxy'),
+        scanner.proxyDirectives.any(
+          (d) => d.directiveClassName == 'UnannotatedUserProxy',
+        ),
         isFalse,
       );
     });

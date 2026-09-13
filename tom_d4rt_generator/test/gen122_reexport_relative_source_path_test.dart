@@ -135,8 +135,9 @@ Future<String> generateWith(
   );
   expect(result.errors, isEmpty, reason: 'fixture must generate cleanly');
 
-  final code =
-      File(p.join(outDir.path, 'zom_reexp_bridges.dart')).readAsStringSync();
+  final code = File(
+    p.join(outDir.path, 'zom_reexp_bridges.dart'),
+  ).readAsStringSync();
   try {
     outDir.deleteSync(recursive: true);
   } catch (_) {}
@@ -169,80 +170,71 @@ void main() {
   });
 
   group('GEN-122: re-export collection is independent of path style', () {
-    test(
-      'G-GEN122-01: absolute source paths emit every export directive '
-      '[2026-08-10] (PASS)',
-      () {
-        // Anti-vacuity guard for G-GEN122-03: if the absolute run were also
-        // empty, comparing the two runs would prove nothing.
-        expect(
-          absoluteBody,
-          contains(
-            "(source: 'package:zom_reexp/zom_reexp.dart', "
-            "target: 'package:zom_reexp/src/zom_api.dart'",
-          ),
-        );
-        expect(
-          absoluteBody,
-          contains(
-            "(source: 'package:zom_reexp/zom_reexp.dart', "
-            "target: 'package:zom_reexp/src/zom_types.dart'",
-          ),
-        );
-        expect(
-          absoluteBody,
-          contains(
-            "(source: 'package:zom_reexp/src/zom_api.dart', "
-            "target: 'package:zom_reexp/src/zom_types.dart', "
-            "show: {'ZomTypeA'}",
-          ),
-        );
-      },
-    );
+    test('G-GEN122-01: absolute source paths emit every export directive '
+        '[2026-08-10] (PASS)', () {
+      // Anti-vacuity guard for G-GEN122-03: if the absolute run were also
+      // empty, comparing the two runs would prove nothing.
+      expect(
+        absoluteBody,
+        contains(
+          "(source: 'package:zom_reexp/zom_reexp.dart', "
+          "target: 'package:zom_reexp/src/zom_api.dart'",
+        ),
+      );
+      expect(
+        absoluteBody,
+        contains(
+          "(source: 'package:zom_reexp/zom_reexp.dart', "
+          "target: 'package:zom_reexp/src/zom_types.dart'",
+        ),
+      );
+      expect(
+        absoluteBody,
+        contains(
+          "(source: 'package:zom_reexp/src/zom_api.dart', "
+          "target: 'package:zom_reexp/src/zom_types.dart', "
+          "show: {'ZomTypeA'}",
+        ),
+      );
+    });
 
-    test(
-      'G-GEN122-02: relative source paths emit the same export directives '
-      '[2026-08-10] (PASS)',
-      () {
-        expect(
-          relativeBody,
-          contains(
-            "(source: 'package:zom_reexp/zom_reexp.dart', "
-            "target: 'package:zom_reexp/src/zom_api.dart'",
-          ),
-          reason:
-              'A barrel named by a relative path — the shape every `path:` '
-              'dependency takes in buildkit.yaml — must contribute its '
-              'exports exactly as an absolute one does.',
-        );
-        expect(
-          relativeBody,
-          contains(
-            "(source: 'package:zom_reexp/src/zom_api.dart', "
-            "target: 'package:zom_reexp/src/zom_types.dart', "
-            "show: {'ZomTypeA'}",
-          ),
-          reason:
-              'The show combinator has to survive too — dropping it would '
-              'widen the re-export instead of losing it, which is the more '
-              'dangerous failure of the two.',
-        );
-      },
-    );
+    test('G-GEN122-02: relative source paths emit the same export directives '
+        '[2026-08-10] (PASS)', () {
+      expect(
+        relativeBody,
+        contains(
+          "(source: 'package:zom_reexp/zom_reexp.dart', "
+          "target: 'package:zom_reexp/src/zom_api.dart'",
+        ),
+        reason:
+            'A barrel named by a relative path — the shape every `path:` '
+            'dependency takes in buildkit.yaml — must contribute its '
+            'exports exactly as an absolute one does.',
+      );
+      expect(
+        relativeBody,
+        contains(
+          "(source: 'package:zom_reexp/src/zom_api.dart', "
+          "target: 'package:zom_reexp/src/zom_types.dart', "
+          "show: {'ZomTypeA'}",
+        ),
+        reason:
+            'The show combinator has to survive too — dropping it would '
+            'widen the re-export instead of losing it, which is the more '
+            'dangerous failure of the two.',
+      );
+    });
 
-    test(
-      'G-GEN122-03: the two path styles produce identical re-export bodies '
-      '[2026-08-10] (PASS)',
-      () {
-        expect(
-          relativeBody,
-          equals(absoluteBody),
-          reason:
-              'How a source file is spelled on the command line is not a '
-              'semantic property of the library it names. Any divergence here '
-              'means the generator is keying state on the spelling.',
-        );
-      },
-    );
+    test('G-GEN122-03: the two path styles produce identical re-export bodies '
+        '[2026-08-10] (PASS)', () {
+      expect(
+        relativeBody,
+        equals(absoluteBody),
+        reason:
+            'How a source file is spelled on the command line is not a '
+            'semantic property of the library it names. Any divergence here '
+            'means the generator is keying state on the spelling.',
+      );
+    });
   });
 }

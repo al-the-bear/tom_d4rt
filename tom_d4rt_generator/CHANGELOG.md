@@ -1,3 +1,23 @@
+## 1.26.1
+
+### Changed — formatted the tree once (scd82)
+
+Every package in this repo already declares an SDK floor above the 3.7
+tall-style boundary, so the formatter can no longer produce two layouts here.
+What was not true is that the trees were formatted: until this commit, running
+`dart format` on any single file rewrote it wholesale and buried whatever real
+edit came with it.
+
+**Proven layout-only rather than assumed.** `git diff -w` cannot establish it,
+because the tall style *splits* lines and a whitespace-insensitive diff still
+counts a moved boundary as a change. What was checked is the token stream, per
+file, twice: whitespace stripped, then whitespace and commas stripped. 112 of the 113 changed files are identical to HEAD under that normalisation. The exception is `test/perf/d4rt_cpu_profile.dart`, which gained one brace pair: re-wrapping a long braceless `if` splits it across lines, which is what makes `curly_braces_in_flow_control_structures` fire. It was added by `dart fix --code=curly_braces_in_flow_control_structures`, not by hand, and every inserted chunk in that file was checked to be exactly `{` or `}`.
+
+**The emitter's output is unaffected, and that was measured twice.** No file's quote count changed, so no adjacent string literal was re-split; and the suite includes the `example/` freshness ratchets, which regenerate bridges into a scratch tree and compare them against the committed files. A formatting change that altered emitted text would fail them.
+
+`dart analyze` is clean, the suite passes (1046 tests), and the formatter is now
+idempotent here.
+
 ## 1.26.0
 
 ### Added — `d4rtgen --verify-output` (scd13_ahcm)

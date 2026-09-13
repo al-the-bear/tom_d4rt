@@ -1,4 +1,5 @@
 #!/usr/bin/env dart
+
 /// D4rt Bridge Generator CLI (d4rtgen)
 ///
 /// Command-line interface for generating D4rt bridges from configuration files.

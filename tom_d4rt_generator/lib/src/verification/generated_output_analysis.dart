@@ -135,8 +135,9 @@ List<Diagnostic> fatalDiagnostics(Iterable<Diagnostic> all) {
   return all
       .where((d) => !nonFatalSeverities.contains(d.severity.toUpperCase()))
       .where(
-        (d) => !(d.severity.toUpperCase() == 'WARNING' &&
-            allowed.contains(d.code.toUpperCase())),
+        (d) =>
+            !(d.severity.toUpperCase() == 'WARNING' &&
+                allowed.contains(d.code.toUpperCase())),
       )
       .toList();
 }
@@ -220,12 +221,13 @@ String _canonical(String path) {
 Future<OutputVerification> verifyGeneratedOutput({
   required List<String> generatedFiles,
 }) async {
-  final existing = generatedFiles
-      .map((f) => p.normalize(p.absolute(f)))
-      .where((f) => File(f).existsSync())
-      .toSet()
-      .toList()
-    ..sort();
+  final existing =
+      generatedFiles
+          .map((f) => p.normalize(p.absolute(f)))
+          .where((f) => File(f).existsSync())
+          .toSet()
+          .toList()
+        ..sort();
 
   final all = await analyzePaths(existing);
 

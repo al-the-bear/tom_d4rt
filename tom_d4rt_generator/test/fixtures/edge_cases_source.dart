@@ -65,13 +65,9 @@ class Result<T, E> {
   final E? error;
   final bool isSuccess;
 
-  const Result.success(T this.value)
-      : error = null,
-        isSuccess = true;
+  const Result.success(T this.value) : error = null, isSuccess = true;
 
-  const Result.failure(E this.error)
-      : value = null,
-        isSuccess = false;
+  const Result.failure(E this.error) : value = null, isSuccess = false;
 
   R fold<R>(R Function(T) onSuccess, R Function(E) onFailure) {
     if (isSuccess && value != null) {

@@ -193,15 +193,12 @@ void main() {
         },
       );
 
-      test(
-        'G-FBI-22: runtimeType getter is bridged. [2026-02-28] (OK)',
-        () {
-          expect(
-            generatedCode,
-            anyOf(contains("'runtimeType'"), contains('.runtimeType')),
-          );
-        },
-      );
+      test('G-FBI-22: runtimeType getter is bridged. [2026-02-28] (OK)', () {
+        expect(
+          generatedCode,
+          anyOf(contains("'runtimeType'"), contains('.runtimeType')),
+        );
+      });
 
       test('G-FBI-23: ValueKey class is bridged. [2026-02-28] (PASS)', () {
         expect(generatedCode, contains("name: 'ValueKey'"));

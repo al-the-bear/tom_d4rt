@@ -11,24 +11,13 @@ library;
 // =============================================================================
 
 /// A simple status enum with no members.
-enum SimpleStatus {
-  pending,
-  active,
-  completed,
-  cancelled,
-}
+enum SimpleStatus { pending, active, completed, cancelled }
 
 /// A simple color enum.
-enum Color {
-  red,
-  green,
-  blue,
-}
+enum Color { red, green, blue }
 
 /// A single-value enum (edge case).
-enum Singleton {
-  instance,
-}
+enum Singleton { instance }
 
 // =============================================================================
 // Enums with Members

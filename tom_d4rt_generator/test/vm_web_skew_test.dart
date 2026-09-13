@@ -98,8 +98,7 @@ void main() {
         expect(
           code,
           matches(_plainPattern),
-          reason:
-              'The default path still emits the plain nullable extraction.',
+          reason: 'The default path still emits the plain nullable extraction.',
         );
       },
     );

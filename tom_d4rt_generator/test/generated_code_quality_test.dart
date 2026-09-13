@@ -61,89 +61,82 @@ void main() {
   });
 
   group('DGU4 generated-code-quality guards', () {
-    test(
-      'G-DGU4-1: generic collection extraction is well-formed. '
-      '[2026-07-21] (PASS)',
-      () {
-        // Panel.mount(List<Item>) must emit a clean coerceList<...Item> call.
-        expect(
-          generated,
-          contains('coerceList<'),
-          reason: 'the List<Item> param must extract via coerceList',
-        );
-        expect(
-          generated,
-          matches(RegExp(r'coerceList<\$?[A-Za-z0-9_.]+\.Item>')),
-          reason: 'the emitted generic type argument must be a tidy '
-              'prefixed Item with no stray spaces or invalid tags',
-        );
-        // No malformed angle-bracket artefacts anywhere in the coercion sites.
-        expect(generated, isNot(contains('coerceList< ')));
-        expect(generated, isNot(contains('coerceList<>')));
-      },
-    );
+    test('G-DGU4-1: generic collection extraction is well-formed. '
+        '[2026-07-21] (PASS)', () {
+      // Panel.mount(List<Item>) must emit a clean coerceList<...Item> call.
+      expect(
+        generated,
+        contains('coerceList<'),
+        reason: 'the List<Item> param must extract via coerceList',
+      );
+      expect(
+        generated,
+        matches(RegExp(r'coerceList<\$?[A-Za-z0-9_.]+\.Item>')),
+        reason:
+            'the emitted generic type argument must be a tidy '
+            'prefixed Item with no stray spaces or invalid tags',
+      );
+      // No malformed angle-bracket artefacts anywhere in the coercion sites.
+      expect(generated, isNot(contains('coerceList< ')));
+      expect(generated, isNot(contains('coerceList<>')));
+    });
 
-    test(
-      'G-DGU4-2: abstract class strips its generative constructor and keeps '
-      'the factory + isAbstract flag. [2026-07-21] (PASS)',
-      () {
-        expect(generated, contains("name: 'Delegate'"));
-        expect(
-          generated,
-          contains('isAbstract: true'),
-          reason: 'abstract Delegate must be flagged for the runtime',
-        );
-        // The factory `Delegate.create` survives; the generative `Delegate()`
-        // adapter (keyed '') is stripped so no abstract construction slips in.
-        final bridgeMatch = RegExp(
-          r'BridgedClass _createDelegateBridge\(\) \{[\s\S]*?'
-          r'constructors: \{([\s\S]*?)\},',
-        ).firstMatch(generated);
-        expect(bridgeMatch, isNotNull, reason: 'Delegate bridge must exist');
-        final ctorSection = bridgeMatch!.group(1)!;
-        expect(
-          ctorSection,
-          contains("'create':"),
-          reason: 'the factory constructor must be bridged',
-        );
-        expect(
-          ctorSection,
-          isNot(contains("'': (visitor")),
-          reason: 'the abstract generative constructor must be stripped',
-        );
-      },
-    );
+    test('G-DGU4-2: abstract class strips its generative constructor and keeps '
+        'the factory + isAbstract flag. [2026-07-21] (PASS)', () {
+      expect(generated, contains("name: 'Delegate'"));
+      expect(
+        generated,
+        contains('isAbstract: true'),
+        reason: 'abstract Delegate must be flagged for the runtime',
+      );
+      // The factory `Delegate.create` survives; the generative `Delegate()`
+      // adapter (keyed '') is stripped so no abstract construction slips in.
+      final bridgeMatch = RegExp(
+        r'BridgedClass _createDelegateBridge\(\) \{[\s\S]*?'
+        r'constructors: \{([\s\S]*?)\},',
+      ).firstMatch(generated);
+      expect(bridgeMatch, isNotNull, reason: 'Delegate bridge must exist');
+      final ctorSection = bridgeMatch!.group(1)!;
+      expect(
+        ctorSection,
+        contains("'create':"),
+        reason: 'the factory constructor must be bridged',
+      );
+      expect(
+        ctorSection,
+        isNot(contains("'': (visitor")),
+        reason: 'the abstract generative constructor must be stripped',
+      );
+    });
 
-    test(
-      'G-DGU4-3: no redundant `?? null` is emitted for optional params. '
-      '[2026-07-21] (PASS)',
-      () {
-        expect(
-          generated,
-          isNot(contains('?? null')),
-          reason: 'optional params must not extract with a trailing ?? null',
-        );
-      },
-    );
+    test('G-DGU4-3: no redundant `?? null` is emitted for optional params. '
+        '[2026-07-21] (PASS)', () {
+      expect(
+        generated,
+        isNot(contains('?? null')),
+        reason: 'optional params must not extract with a trailing ?? null',
+      );
+    });
 
-    test(
-      "G-DGU4-4: a param named `key` extracts as its declared type, not a "
-      'force-inferred one. [2026-07-21] (PASS)',
-      () {
-        // Panel.key is declared `Marker?` — it must extract as Marker?, proving
-        // no name-based ("key" => some widget Key) inference is applied.
-        expect(
-          generated,
-          matches(RegExp(r"getOptionalNamedArg<\$?[A-Za-z0-9_.]+\.Marker\?>"
-              r"\(named, 'key'\)")),
-          reason: 'the key param must keep its declared Marker? type',
-        );
-        expect(
-          generated,
-          isNot(contains("<Key?>(named, 'key')")),
-          reason: 'no aggressive Key inference for a param named key',
-        );
-      },
-    );
+    test("G-DGU4-4: a param named `key` extracts as its declared type, not a "
+        'force-inferred one. [2026-07-21] (PASS)', () {
+      // Panel.key is declared `Marker?` — it must extract as Marker?, proving
+      // no name-based ("key" => some widget Key) inference is applied.
+      expect(
+        generated,
+        matches(
+          RegExp(
+            r"getOptionalNamedArg<\$?[A-Za-z0-9_.]+\.Marker\?>"
+            r"\(named, 'key'\)",
+          ),
+        ),
+        reason: 'the key param must keep its declared Marker? type',
+      );
+      expect(
+        generated,
+        isNot(contains("<Key?>(named, 'key')")),
+        reason: 'no aggressive Key inference for a param named key',
+      );
+    });
   });
 }

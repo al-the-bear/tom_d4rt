@@ -46,8 +46,10 @@ void main() {
     );
 
     final sourceFile = p.join(testFixturesDir, 'class_test_source.dart');
-    final outputFile =
-        p.join(tempOutputDir, 'single_package_import_surface_test.dart');
+    final outputFile = p.join(
+      tempOutputDir,
+      'single_package_import_surface_test.dart',
+    );
 
     final result = await generator.generateBridges(
       sourceFiles: [sourceFile],
@@ -68,16 +70,13 @@ void main() {
   });
 
   group('GEN-077: AllBridge import surface (single-package inline)', () {
-    test(
-      'G-ISS-37: sourceLibraries() is emitted [2026-06-17] (PASS)',
-      () {
-        expect(
-          generatedCode,
-          contains('static List<String> sourceLibraries()'),
-          reason: 'sourceLibraries() must always be emitted',
-        );
-      },
-    );
+    test('G-ISS-37: sourceLibraries() is emitted [2026-06-17] (PASS)', () {
+      expect(
+        generatedCode,
+        contains('static List<String> sourceLibraries()'),
+        reason: 'sourceLibraries() must always be emitted',
+      );
+    });
 
     test(
       'G-ISS-38: getImportBlock() is emitted even without a barrel URI [2026-06-17] (PASS)',

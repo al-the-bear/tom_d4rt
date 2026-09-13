@@ -75,7 +75,8 @@ const _viewportGolden = r'''  static _InterpretedTwoDimensionalViewport create(
   }
 ''';
 
-const _helperGolden = r'''/// Read a captured `super(...)` named arg and unwrap it to a native [T].
+const _helperGolden =
+    r'''/// Read a captured `super(...)` named arg and unwrap it to a native [T].
 ///
 /// Returns `null` when the script did not pass `name` to `super(...)` (so the
 /// caller can fall back to a default) or when the captured value cannot be
@@ -100,156 +101,284 @@ T? _readSuperArg<T>(
 /// derive it from the analyzer (defaults pre-applied where the param has one).
 const _boxFormals = [
   SuperArgFormal(name: 'key', type: 'Key'),
-  SuperArgFormal(name: 'scrollDirection', type: 'Axis', defaultExpr: 'Axis.vertical'),
+  SuperArgFormal(
+    name: 'scrollDirection',
+    type: 'Axis',
+    defaultExpr: 'Axis.vertical',
+  ),
   SuperArgFormal(name: 'reverse', type: 'bool', defaultExpr: 'false'),
   SuperArgFormal(name: 'controller', type: 'ScrollController'),
   SuperArgFormal(name: 'primary', type: 'bool'),
   SuperArgFormal(name: 'physics', type: 'ScrollPhysics'),
   SuperArgFormal(name: 'shrinkWrap', type: 'bool', defaultExpr: 'false'),
   SuperArgFormal(name: 'padding', type: 'EdgeInsetsGeometry'),
-  SuperArgFormal(name: 'clipBehavior', type: 'Clip', defaultExpr: 'Clip.hardEdge'),
+  SuperArgFormal(
+    name: 'clipBehavior',
+    type: 'Clip',
+    defaultExpr: 'Clip.hardEdge',
+  ),
 ];
 
 const _viewportFormals = [
   SuperArgFormal(name: 'key', type: 'Key'),
-  SuperArgFormal(name: 'delegate', type: 'TwoDimensionalChildDelegate', isRequired: true),
-  SuperArgFormal(name: 'verticalOffset', type: 'ViewportOffset', isRequired: true),
+  SuperArgFormal(
+    name: 'delegate',
+    type: 'TwoDimensionalChildDelegate',
+    isRequired: true,
+  ),
+  SuperArgFormal(
+    name: 'verticalOffset',
+    type: 'ViewportOffset',
+    isRequired: true,
+  ),
   SuperArgFormal(name: 'mainAxis', type: 'Axis', isRequired: true),
   SuperArgFormal(name: 'cacheExtent', type: 'double'),
-  SuperArgFormal(name: 'clipBehavior', type: 'Clip', defaultExpr: 'Clip.hardEdge'),
+  SuperArgFormal(
+    name: 'clipBehavior',
+    type: 'Clip',
+    defaultExpr: 'Clip.hardEdge',
+  ),
 ];
 
 void main() {
   group('generateSuperArgCaptureFactory', () {
-    test('G-SAC-1: all-optional BoxScrollView factory matches the canonical golden byte-for-byte. [2026-06-07 00:00] (PASS)', () {
-      final out = generateSuperArgCaptureFactory(
-        baseClassName: 'BoxScrollView',
-        formals: _boxFormals,
-      );
-      expect(out, equals(_boxGolden));
-    });
+    test(
+      'G-SAC-1: all-optional BoxScrollView factory matches the canonical golden byte-for-byte. [2026-06-07 00:00] (PASS)',
+      () {
+        final out = generateSuperArgCaptureFactory(
+          baseClassName: 'BoxScrollView',
+          formals: _boxFormals,
+        );
+        expect(out, equals(_boxGolden));
+      },
+    );
 
-    test('G-SAC-2: required formals get a locals + null-check StateError preamble. [2026-06-07 00:00] (PASS)', () {
-      final out = generateSuperArgCaptureFactory(
-        baseClassName: 'TwoDimensionalViewport',
-        formals: _viewportFormals,
-      );
-      expect(out, equals(_viewportGolden));
-    });
+    test(
+      'G-SAC-2: required formals get a locals + null-check StateError preamble. [2026-06-07 00:00] (PASS)',
+      () {
+        final out = generateSuperArgCaptureFactory(
+          baseClassName: 'TwoDimensionalViewport',
+          formals: _viewportFormals,
+        );
+        expect(out, equals(_viewportGolden));
+      },
+    );
 
-    test('G-SAC-3: factory has no preamble and no StateError when nothing is required. [2026-06-07 00:00] (PASS)', () {
-      final out = generateSuperArgCaptureFactory(
-        baseClassName: 'BoxScrollView',
-        formals: _boxFormals,
-      );
-      expect(out, isNot(contains('throw StateError')));
-      expect(out, isNot(contains('final delegate =')));
-      // The proxy name + canonical tail are always present.
-      expect(out, contains('static _InterpretedBoxScrollView create('));
-      expect(out, contains('    instance.nativeProxy ??= proxy;'));
-      expect(out, contains('    return proxy;'));
-    });
+    test(
+      'G-SAC-3: factory has no preamble and no StateError when nothing is required. [2026-06-07 00:00] (PASS)',
+      () {
+        final out = generateSuperArgCaptureFactory(
+          baseClassName: 'BoxScrollView',
+          formals: _boxFormals,
+        );
+        expect(out, isNot(contains('throw StateError')));
+        expect(out, isNot(contains('final delegate =')));
+        // The proxy name + canonical tail are always present.
+        expect(out, contains('static _InterpretedBoxScrollView create('));
+        expect(out, contains('    instance.nativeProxy ??= proxy;'));
+        expect(out, contains('    return proxy;'));
+      },
+    );
 
-    test('G-SAC-4: a required formal that carries a default is forwarded inline, not validated. [2026-06-07 00:00] (PASS)', () {
-      // mainAxis required but given a default → no null-check, inline `?? default`.
-      final formals = [
-        const SuperArgFormal(name: 'delegate', type: 'TwoDimensionalChildDelegate', isRequired: true),
-        const SuperArgFormal(name: 'mainAxis', type: 'Axis', isRequired: true, defaultExpr: 'Axis.vertical'),
-      ];
-      final out = generateSuperArgCaptureFactory(
-        baseClassName: 'Demo',
-        formals: formals,
-      );
-      // Only delegate is validated.
-      expect(out, contains('if (delegate == null) {'));
-      expect(out, isNot(contains('mainAxis == null')));
-      expect(out, contains("mainAxis: _readSuperArg<Axis>(instance, 'mainAxis', visitor) ?? Axis.vertical,"));
-    });
+    test(
+      'G-SAC-4: a required formal that carries a default is forwarded inline, not validated. [2026-06-07 00:00] (PASS)',
+      () {
+        // mainAxis required but given a default → no null-check, inline `?? default`.
+        final formals = [
+          const SuperArgFormal(
+            name: 'delegate',
+            type: 'TwoDimensionalChildDelegate',
+            isRequired: true,
+          ),
+          const SuperArgFormal(
+            name: 'mainAxis',
+            type: 'Axis',
+            isRequired: true,
+            defaultExpr: 'Axis.vertical',
+          ),
+        ];
+        final out = generateSuperArgCaptureFactory(
+          baseClassName: 'Demo',
+          formals: formals,
+        );
+        // Only delegate is validated.
+        expect(out, contains('if (delegate == null) {'));
+        expect(out, isNot(contains('mainAxis == null')));
+        expect(
+          out,
+          contains(
+            "mainAxis: _readSuperArg<Axis>(instance, 'mainAxis', visitor) ?? Axis.vertical,",
+          ),
+        );
+      },
+    );
   });
 
   group('generateSuperArgEntry', () {
-    test('G-SAC-5: the key formal always falls back to _readKey, never a config default. [2026-06-07 00:00] (PASS)', () {
-      expect(
-        generateSuperArgEntry(const SuperArgFormal(name: 'key', type: 'Key', defaultExpr: 'const ValueKey(0)')),
-        equals("key: _readSuperArg<Key>(instance, 'key', visitor) ?? _readKey(instance, visitor),"),
-      );
-    });
+    test(
+      'G-SAC-5: the key formal always falls back to _readKey, never a config default. [2026-06-07 00:00] (PASS)',
+      () {
+        expect(
+          generateSuperArgEntry(
+            const SuperArgFormal(
+              name: 'key',
+              type: 'Key',
+              defaultExpr: 'const ValueKey(0)',
+            ),
+          ),
+          equals(
+            "key: _readSuperArg<Key>(instance, 'key', visitor) ?? _readKey(instance, visitor),",
+          ),
+        );
+      },
+    );
 
-    test('G-SAC-6: a defaulted formal gets a trailing `?? default`; a bare one does not. [2026-06-07 00:00] (PASS)', () {
-      expect(
-        generateSuperArgEntry(const SuperArgFormal(name: 'scrollDirection', type: 'Axis', defaultExpr: 'Axis.vertical')),
-        equals("scrollDirection: _readSuperArg<Axis>(instance, 'scrollDirection', visitor) ?? Axis.vertical,"),
-      );
-      expect(
-        generateSuperArgEntry(const SuperArgFormal(name: 'cacheExtent', type: 'double')),
-        equals("cacheExtent: _readSuperArg<double>(instance, 'cacheExtent', visitor),"),
-      );
-    });
+    test(
+      'G-SAC-6: a defaulted formal gets a trailing `?? default`; a bare one does not. [2026-06-07 00:00] (PASS)',
+      () {
+        expect(
+          generateSuperArgEntry(
+            const SuperArgFormal(
+              name: 'scrollDirection',
+              type: 'Axis',
+              defaultExpr: 'Axis.vertical',
+            ),
+          ),
+          equals(
+            "scrollDirection: _readSuperArg<Axis>(instance, 'scrollDirection', visitor) ?? Axis.vertical,",
+          ),
+        );
+        expect(
+          generateSuperArgEntry(
+            const SuperArgFormal(name: 'cacheExtent', type: 'double'),
+          ),
+          equals(
+            "cacheExtent: _readSuperArg<double>(instance, 'cacheExtent', visitor),",
+          ),
+        );
+      },
+    );
 
-    test('G-SAC-7: a validated formal forwards its preamble local by name. [2026-06-07 00:00] (PASS)', () {
-      expect(
-        generateSuperArgEntry(const SuperArgFormal(name: 'delegate', type: 'TwoDimensionalChildDelegate', isRequired: true)),
-        equals('delegate: delegate,'),
-      );
-    });
+    test(
+      'G-SAC-7: a validated formal forwards its preamble local by name. [2026-06-07 00:00] (PASS)',
+      () {
+        expect(
+          generateSuperArgEntry(
+            const SuperArgFormal(
+              name: 'delegate',
+              type: 'TwoDimensionalChildDelegate',
+              isRequired: true,
+            ),
+          ),
+          equals('delegate: delegate,'),
+        );
+      },
+    );
   });
 
   group('generateReadSuperArgHelper', () {
-    test('G-SAC-8: the shared _readSuperArg helper matches the canonical golden. [2026-06-07 00:00] (PASS)', () {
-      expect(generateReadSuperArgHelper(), equals(_helperGolden));
-    });
+    test(
+      'G-SAC-8: the shared _readSuperArg helper matches the canonical golden. [2026-06-07 00:00] (PASS)',
+      () {
+        expect(generateReadSuperArgHelper(), equals(_helperGolden));
+      },
+    );
   });
 
   group('applySuperArgDefaults', () {
-    test('G-SAC-9: superArgDefaults fills only formals that lack a default; existing defaults survive. [2026-06-07 00:00] (PASS)', () {
-      final formals = [
-        const SuperArgFormal(name: 'scrollDirection', type: 'Axis'),
-        const SuperArgFormal(name: 'reverse', type: 'bool', defaultExpr: 'false'),
-        const SuperArgFormal(name: 'physics', type: 'ScrollPhysics'),
-      ];
-      final merged = applySuperArgDefaults(formals, const {
-        'scrollDirection': 'Axis.vertical',
-        'reverse': 'true', // must NOT override the formal's own default
-      });
-      expect(merged[0].defaultExpr, equals('Axis.vertical'));
-      expect(merged[1].defaultExpr, equals('false'), reason: 'pre-existing default survives');
-      expect(merged[2].defaultExpr, isNull, reason: 'no default supplied → stays bare');
-    });
+    test(
+      'G-SAC-9: superArgDefaults fills only formals that lack a default; existing defaults survive. [2026-06-07 00:00] (PASS)',
+      () {
+        final formals = [
+          const SuperArgFormal(name: 'scrollDirection', type: 'Axis'),
+          const SuperArgFormal(
+            name: 'reverse',
+            type: 'bool',
+            defaultExpr: 'false',
+          ),
+          const SuperArgFormal(name: 'physics', type: 'ScrollPhysics'),
+        ];
+        final merged = applySuperArgDefaults(formals, const {
+          'scrollDirection': 'Axis.vertical',
+          'reverse': 'true', // must NOT override the formal's own default
+        });
+        expect(merged[0].defaultExpr, equals('Axis.vertical'));
+        expect(
+          merged[1].defaultExpr,
+          equals('false'),
+          reason: 'pre-existing default survives',
+        );
+        expect(
+          merged[2].defaultExpr,
+          isNull,
+          reason: 'no default supplied → stays bare',
+        );
+      },
+    );
 
-    test('G-SAC-10: a merged required formal becomes inline (no longer validated). [2026-06-07 00:00] (PASS)', () {
-      final formals = [
-        const SuperArgFormal(name: 'scrollDirection', type: 'Axis', isRequired: true),
-      ];
-      // Before merge: needs validation.
-      expect(formals.single.needsValidation, isTrue);
-      final merged = applySuperArgDefaults(formals, const {'scrollDirection': 'Axis.vertical'});
-      // After merge: has a default → inline, script arg still wins via `_readSuperArg ?? default`.
-      expect(merged.single.needsValidation, isFalse);
-      final out = generateSuperArgCaptureFactory(baseClassName: 'Demo', formals: merged);
-      expect(out, isNot(contains('throw StateError')));
-      expect(out, contains("scrollDirection: _readSuperArg<Axis>(instance, 'scrollDirection', visitor) ?? Axis.vertical,"));
-    });
+    test(
+      'G-SAC-10: a merged required formal becomes inline (no longer validated). [2026-06-07 00:00] (PASS)',
+      () {
+        final formals = [
+          const SuperArgFormal(
+            name: 'scrollDirection',
+            type: 'Axis',
+            isRequired: true,
+          ),
+        ];
+        // Before merge: needs validation.
+        expect(formals.single.needsValidation, isTrue);
+        final merged = applySuperArgDefaults(formals, const {
+          'scrollDirection': 'Axis.vertical',
+        });
+        // After merge: has a default → inline, script arg still wins via `_readSuperArg ?? default`.
+        expect(merged.single.needsValidation, isFalse);
+        final out = generateSuperArgCaptureFactory(
+          baseClassName: 'Demo',
+          formals: merged,
+        );
+        expect(out, isNot(contains('throw StateError')));
+        expect(
+          out,
+          contains(
+            "scrollDirection: _readSuperArg<Axis>(instance, 'scrollDirection', visitor) ?? Axis.vertical,",
+          ),
+        );
+      },
+    );
   });
 
   group('ProxyClassConfig.superArgDefaults round-trip', () {
-    test('G-SAC-11: superArgDefaults survive a ProxyClassConfig JSON round-trip. [2026-06-07 00:00] (PASS)', () {
-      const config = ProxyClassConfig(
-        className: 'BoxScrollView',
-        superArgDefaults: {
-          'scrollDirection': 'Axis.vertical',
-          'clipBehavior': 'Clip.hardEdge',
-        },
-      );
-      final restored = ProxyClassConfig.fromJson(config.toJson());
-      expect(restored.superArgDefaults, hasLength(2));
-      expect(restored.superArgDefaults['scrollDirection'], equals('Axis.vertical'));
-      expect(restored.superArgDefaults['clipBehavior'], equals('Clip.hardEdge'));
-    });
+    test(
+      'G-SAC-11: superArgDefaults survive a ProxyClassConfig JSON round-trip. [2026-06-07 00:00] (PASS)',
+      () {
+        const config = ProxyClassConfig(
+          className: 'BoxScrollView',
+          superArgDefaults: {
+            'scrollDirection': 'Axis.vertical',
+            'clipBehavior': 'Clip.hardEdge',
+          },
+        );
+        final restored = ProxyClassConfig.fromJson(config.toJson());
+        expect(restored.superArgDefaults, hasLength(2));
+        expect(
+          restored.superArgDefaults['scrollDirection'],
+          equals('Axis.vertical'),
+        );
+        expect(
+          restored.superArgDefaults['clipBehavior'],
+          equals('Clip.hardEdge'),
+        );
+      },
+    );
 
-    test('G-SAC-12: an empty superArgDefaults is omitted from JSON (dormant by default). [2026-06-07 00:00] (PASS)', () {
-      const config = ProxyClassConfig(className: 'BoxScrollView');
-      expect(config.toJson().containsKey('superArgDefaults'), isFalse);
-      expect(config.superArgDefaults, isEmpty);
-    });
+    test(
+      'G-SAC-12: an empty superArgDefaults is omitted from JSON (dormant by default). [2026-06-07 00:00] (PASS)',
+      () {
+        const config = ProxyClassConfig(className: 'BoxScrollView');
+        expect(config.toJson().containsKey('superArgDefaults'), isFalse);
+        expect(config.superArgDefaults, isEmpty);
+      },
+    );
   });
 }

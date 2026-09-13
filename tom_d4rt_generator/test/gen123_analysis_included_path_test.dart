@@ -97,61 +97,55 @@ void main() {
       },
     );
 
-    test(
-      'G-GEN123-02: an absolute path is preserved, and normalized '
-      '[2026-08-12] (PASS)',
-      () {
-        final root = Directory.current.path;
-        final denormalized = p.join(root, 'lib', '..', 'lib', 'src');
+    test('G-GEN123-02: an absolute path is preserved, and normalized '
+        '[2026-08-12] (PASS)', () {
+      final root = Directory.current.path;
+      final denormalized = p.join(root, 'lib', '..', 'lib', 'src');
 
-        final resolved = analysisIncludedPath(denormalized);
+      final resolved = analysisIncludedPath(denormalized);
 
-        expect(resolved, equals(p.join(root, 'lib', 'src')));
-        expect(
-          resolved,
-          isNot(contains('..')),
-          reason:
-              'the analyzer rejects a non-normalized path just as firmly as a '
-              'relative one — both raise the same ArgumentError',
-        );
-      },
-    );
+      expect(resolved, equals(p.join(root, 'lib', 'src')));
+      expect(
+        resolved,
+        isNot(contains('..')),
+        reason:
+            'the analyzer rejects a non-normalized path just as firmly as a '
+            'relative one — both raise the same ArgumentError',
+      );
+    });
 
-    test(
-      'G-GEN123-03: the analyzer accepts the result for a relative input '
-      '[2026-08-12] (PASS)',
-      () {
-        // The behavioural half. G-GEN123-01 asserts a property of a string;
-        // this asserts that the operation which actually threw now succeeds,
-        // and that it still throws without the helper — so the test cannot
-        // pass for the wrong reason (e.g. if `analysisIncludedPath` were
-        // reduced to `p.normalize` again, this would go red too).
-        final relative = p.relative(
-          Directory.current.path,
-          from: p.dirname(Directory.current.path),
-        );
+    test('G-GEN123-03: the analyzer accepts the result for a relative input '
+        '[2026-08-12] (PASS)', () {
+      // The behavioural half. G-GEN123-01 asserts a property of a string;
+      // this asserts that the operation which actually threw now succeeds,
+      // and that it still throws without the helper — so the test cannot
+      // pass for the wrong reason (e.g. if `analysisIncludedPath` were
+      // reduced to `p.normalize` again, this would go red too).
+      final relative = p.relative(
+        Directory.current.path,
+        from: p.dirname(Directory.current.path),
+      );
 
-        expect(
-          () => AnalysisContextCollection(
-            includedPaths: [p.normalize(relative)],
-            sdkPath: getSdkPath(),
-          ),
-          throwsArgumentError,
-          reason:
-              'guards the premise: if the analyzer ever starts accepting a '
-              'relative includedPath, this suite is no longer testing '
-              'anything and GEN-123 should be revisited rather than kept',
-        );
+      expect(
+        () => AnalysisContextCollection(
+          includedPaths: [p.normalize(relative)],
+          sdkPath: getSdkPath(),
+        ),
+        throwsArgumentError,
+        reason:
+            'guards the premise: if the analyzer ever starts accepting a '
+            'relative includedPath, this suite is no longer testing '
+            'anything and GEN-123 should be revisited rather than kept',
+      );
 
-        expect(
-          () => AnalysisContextCollection(
-            includedPaths: [analysisIncludedPath(relative)],
-            sdkPath: getSdkPath(),
-          ),
-          returnsNormally,
-        );
-      },
-    );
+      expect(
+        () => AnalysisContextCollection(
+          includedPaths: [analysisIncludedPath(relative)],
+          sdkPath: getSdkPath(),
+        ),
+        returnsNormally,
+      );
+    });
   });
 
   group('GEN-123: a relative project dir finds the same user bridges', () {
@@ -184,38 +178,34 @@ void main() {
       }
     });
 
-    test(
-      'G-GEN123-06: relative and absolute project dirs yield identical '
-      'user-bridge counts [2026-08-12] (PASS)',
-      () async {
-        final fromAbsolute = await preScanUserBridges(sampleAbsolute);
-        final fromRelative = await preScanUserBridges(
-          p.relative(sampleAbsolute, from: Directory.current.path),
-        );
+    test('G-GEN123-06: relative and absolute project dirs yield identical '
+        'user-bridge counts [2026-08-12] (PASS)', () async {
+      final fromAbsolute = await preScanUserBridges(sampleAbsolute);
+      final fromRelative = await preScanUserBridges(
+        p.relative(sampleAbsolute, from: Directory.current.path),
+      );
 
-        expect(
-          fromAbsolute.userBridges.length,
-          greaterThan(0),
-          reason:
-              'anti-vacuity: if the fixture stops carrying user bridges both '
-              'sides go to zero and the comparison below passes for free',
-        );
-        expect(
-          fromRelative.userBridges.length,
-          equals(fromAbsolute.userBridges.length),
-          reason:
-              'a relative scan root found '
-              '${fromRelative.userBridges.length} class user bridges where an '
-              'absolute one found ${fromAbsolute.userBridges.length}. That '
-              'gap is emitted as bridges missing overrides, not as an error.',
-        );
-        expect(
-          fromRelative.globalsUserBridges.length,
-          equals(fromAbsolute.globalsUserBridges.length),
-        );
-      },
-      timeout: const Timeout(Duration(minutes: 4)),
-    );
+      expect(
+        fromAbsolute.userBridges.length,
+        greaterThan(0),
+        reason:
+            'anti-vacuity: if the fixture stops carrying user bridges both '
+            'sides go to zero and the comparison below passes for free',
+      );
+      expect(
+        fromRelative.userBridges.length,
+        equals(fromAbsolute.userBridges.length),
+        reason:
+            'a relative scan root found '
+            '${fromRelative.userBridges.length} class user bridges where an '
+            'absolute one found ${fromAbsolute.userBridges.length}. That '
+            'gap is emitted as bridges missing overrides, not as an error.',
+      );
+      expect(
+        fromRelative.globalsUserBridges.length,
+        equals(fromAbsolute.globalsUserBridges.length),
+      );
+    }, timeout: const Timeout(Duration(minutes: 4)));
   });
 
   group('GEN-123: no call site re-derives the path by hand', () {
@@ -229,75 +219,69 @@ void main() {
       };
     });
 
-    test(
-      'G-GEN123-04: every includedPaths argument comes from '
-      'analysisIncludedPath [2026-08-12] (PASS)',
-      () {
-        final offenders = <String>[];
-        var checkedSites = 0;
+    test('G-GEN123-04: every includedPaths argument comes from '
+        'analysisIncludedPath [2026-08-12] (PASS)', () {
+      final offenders = <String>[];
+      var checkedSites = 0;
 
-        sources.forEach((file, source) {
-          final helperVariables = _helperAssignmentPattern
-              .allMatches(source)
-              .map((m) => m.group(1)!)
-              .toSet();
+      sources.forEach((file, source) {
+        final helperVariables = _helperAssignmentPattern
+            .allMatches(source)
+            .map((m) => m.group(1)!)
+            .toSet();
 
-          for (final match in _includedPathsPattern.allMatches(source)) {
-            checkedSites++;
-            final variable = match.group(1)!;
-            if (!helperVariables.contains(variable)) {
-              offenders.add('$file: includedPaths: [$variable]');
-            }
+        for (final match in _includedPathsPattern.allMatches(source)) {
+          checkedSites++;
+          final variable = match.group(1)!;
+          if (!helperVariables.contains(variable)) {
+            offenders.add('$file: includedPaths: [$variable]');
           }
-        });
+        }
+      });
 
-        expect(
-          checkedSites,
-          greaterThanOrEqualTo(5),
-          reason:
-              'anti-vacuity: the five known context-building sites must still '
-              'be found. If this drops, a file was renamed or the call was '
-              'reshaped — update `_contextBuildingSources` rather than '
-              'deleting the gate.',
-        );
-        expect(
-          offenders,
-          isEmpty,
-          reason:
-              'Each of these builds an analyzer context from a path it '
-              'derived itself. That is how GEN-123 happened: three of five '
-              'hand-written derivations forgot to absolutise. Offenders: '
-              '$offenders',
-        );
-      },
-    );
+      expect(
+        checkedSites,
+        greaterThanOrEqualTo(5),
+        reason:
+            'anti-vacuity: the five known context-building sites must still '
+            'be found. If this drops, a file was renamed or the call was '
+            'reshaped — update `_contextBuildingSources` rather than '
+            'deleting the gate.',
+      );
+      expect(
+        offenders,
+        isEmpty,
+        reason:
+            'Each of these builds an analyzer context from a path it '
+            'derived itself. That is how GEN-123 happened: three of five '
+            'hand-written derivations forgot to absolutise. Offenders: '
+            '$offenders',
+      );
+    });
 
-    test(
-      'G-GEN123-05: no context-building source calls bare p.normalize on a '
-      'project path [2026-08-12] (PASS)',
-      () {
-        // The specific wrong shape, named so it cannot creep back in under a
-        // different variable name than the ones G-GEN123-04 knows about.
-        final barePattern = RegExp(
-          r'(?:final|var)\s+\w*(?:[Pp]roject|[Ww]orkspace)\w*\s*=\s*'
-          r'p\.normalize\(\s*\w+\s*\)',
-        );
+    test('G-GEN123-05: no context-building source calls bare p.normalize on a '
+        'project path [2026-08-12] (PASS)', () {
+      // The specific wrong shape, named so it cannot creep back in under a
+      // different variable name than the ones G-GEN123-04 knows about.
+      final barePattern = RegExp(
+        r'(?:final|var)\s+\w*(?:[Pp]roject|[Ww]orkspace)\w*\s*=\s*'
+        r'p\.normalize\(\s*\w+\s*\)',
+      );
 
-        final offenders = <String>[];
-        sources.forEach((file, source) {
-          for (final match in barePattern.allMatches(source)) {
-            offenders.add('$file: ${match.group(0)}');
-          }
-        });
+      final offenders = <String>[];
+      sources.forEach((file, source) {
+        for (final match in barePattern.allMatches(source)) {
+          offenders.add('$file: ${match.group(0)}');
+        }
+      });
 
-        expect(
-          offenders,
-          isEmpty,
-          reason:
-              '`p.normalize(x)` collapses `.`/`..` but leaves a relative path '
-              'relative. Use `analysisIncludedPath(x)`. Offenders: $offenders',
-        );
-      },
-    );
+      expect(
+        offenders,
+        isEmpty,
+        reason:
+            '`p.normalize(x)` collapses `.`/`..` but leaves a relative path '
+            'relative. Use `analysisIncludedPath(x)`. Offenders: $offenders',
+      );
+    });
   });
 }

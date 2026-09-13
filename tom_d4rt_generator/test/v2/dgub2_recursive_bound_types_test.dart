@@ -39,36 +39,34 @@ CommandContext _createTestContext({
 
 void main() {
   group('DGUB2: v2 executor forwards recursiveBoundTypes', () {
-    test(
-      'G-DGUB2-1: config-supplied recursive bound type (bool) reaches '
-      'generation via the v2 path [2026-07-23] (PASS)',
-      () async {
-        final tempDir = await Directory.systemTemp.createTemp(
-          'dgub2_recursive_bounds_',
-        );
-        try {
-          // pubspec.yaml
-          await File(p.join(tempDir.path, 'pubspec.yaml')).writeAsString('''
+    test('G-DGUB2-1: config-supplied recursive bound type (bool) reaches '
+        'generation via the v2 path [2026-07-23] (PASS)', () async {
+      final tempDir = await Directory.systemTemp.createTemp(
+        'dgub2_recursive_bounds_',
+      );
+      try {
+        // pubspec.yaml
+        await File(p.join(tempDir.path, 'pubspec.yaml')).writeAsString('''
 name: test_project
 version: 1.0.0
 environment:
   sdk: ^3.0.0
 ''');
 
-          // Source: a top-level generic function with a recursive type bound.
-          // This triggers _generateRecursiveBoundDispatch in the generator,
-          // which emits `if (firstElem is <BoundType>)` for every configured
-          // recursive bound type.
-          await Directory(p.join(tempDir.path, 'lib')).create(recursive: true);
-          await File(p.join(tempDir.path, 'lib/core.dart')).writeAsString('''
+        // Source: a top-level generic function with a recursive type bound.
+        // This triggers _generateRecursiveBoundDispatch in the generator,
+        // which emits `if (firstElem is <BoundType>)` for every configured
+        // recursive bound type.
+        await Directory(p.join(tempDir.path, 'lib')).create(recursive: true);
+        await File(p.join(tempDir.path, 'lib/core.dart')).writeAsString('''
 /// Returns the first element; generic with a self-referential bound so the
 /// generator emits runtime type dispatch.
 T pickFirst<T extends Comparable<T>>(List<T> items) => items.first;
 ''');
 
-          // buildkit.yaml: add `bool` — a dart:core type that is NOT one of the
-          // built-in defaults (num, String, DateTime, Duration, BigInt).
-          await File(p.join(tempDir.path, 'buildkit.yaml')).writeAsString('''
+        // buildkit.yaml: add `bool` — a dart:core type that is NOT one of the
+        // built-in defaults (num, String, DateTime, Duration, BigInt).
+        await File(p.join(tempDir.path, 'buildkit.yaml')).writeAsString('''
 d4rtgen:
   name: test_project
   recursiveBoundTypes:
@@ -80,37 +78,36 @@ d4rtgen:
       outputPath: lib/src/bridges/core_bridges.b.dart
 ''');
 
-          final executor = D4rtgenExecutor();
-          final context = _createTestContext(
-            path: tempDir.path,
-            executionRoot: tempDir.parent.path,
-          );
+        final executor = D4rtgenExecutor();
+        final context = _createTestContext(
+          path: tempDir.path,
+          executionRoot: tempDir.parent.path,
+        );
 
-          final result = await executor.execute(context, const CliArgs());
-          expect(result.success, isTrue, reason: 'Generation must succeed');
+        final result = await executor.execute(context, const CliArgs());
+        expect(result.success, isTrue, reason: 'Generation must succeed');
 
-          final bridgesPath = p.join(
-            tempDir.path,
-            'lib/src/bridges/core_bridges.b.dart',
-          );
-          final bridges = await File(bridgesPath).readAsString();
+        final bridgesPath = p.join(
+          tempDir.path,
+          'lib/src/bridges/core_bridges.b.dart',
+        );
+        final bridges = await File(bridgesPath).readAsString();
 
-          // The default dispatch (String) is always present; that alone does
-          // not prove the config was forwarded. `bool` is the discriminating
-          // marker: it appears ONLY if the config value reached the generator.
-          expect(
-            bridges,
-            contains('firstElem is bool'),
-            reason:
-                'The buildkit-configured recursive bound type `bool` must '
-                'reach generation via the v2 path. Its absence means the v2 '
-                'executor dropped config.recursiveBoundTypes and fell back to '
-                'the built-in defaults.',
-          );
-        } finally {
-          await tempDir.delete(recursive: true);
-        }
-      },
-    );
+        // The default dispatch (String) is always present; that alone does
+        // not prove the config was forwarded. `bool` is the discriminating
+        // marker: it appears ONLY if the config value reached the generator.
+        expect(
+          bridges,
+          contains('firstElem is bool'),
+          reason:
+              'The buildkit-configured recursive bound type `bool` must '
+              'reach generation via the v2 path. Its absence means the v2 '
+              'executor dropped config.recursiveBoundTypes and fell back to '
+              'the built-in defaults.',
+        );
+      } finally {
+        await tempDir.delete(recursive: true);
+      }
+    });
   });
 }

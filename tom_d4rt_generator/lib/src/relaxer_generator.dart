@@ -159,8 +159,12 @@ Future<RelaxerGenerationResult> generateRelaxers({
     _writeFileHeader(stub, config);
     stub.writeln();
     stub.writeln('// $reason');
-    stub.writeln('// Emitting empty stubs so the dartscript registration calls');
-    stub.writeln('// to registerRelaxers() / registerGenericConstructors() resolve.');
+    stub.writeln(
+      '// Emitting empty stubs so the dartscript registration calls',
+    );
+    stub.writeln(
+      '// to registerRelaxers() / registerGenericConstructors() resolve.',
+    );
     stub.writeln();
     stub.writeln('/// No-op: no GEN-079 relaxer wrappers for this package.');
     stub.writeln('void registerRelaxers() {}');
@@ -171,7 +175,10 @@ Future<RelaxerGenerationResult> generateRelaxers({
     stub.writeln('void registerGenericConstructors() {}');
     final outputFilePath = await emit(stub.toString());
     print('  RELAXER: Generated empty stub ($reason) → $outputFilePath');
-    return RelaxerGenerationResult(outputFile: outputFilePath, warnings: warnings);
+    return RelaxerGenerationResult(
+      outputFile: outputFilePath,
+      warnings: warnings,
+    );
   }
 
   // -------------------------------------------------------------------------
@@ -213,8 +220,9 @@ Future<RelaxerGenerationResult> generateRelaxers({
   // extraction sites, the explicit `relaxerClasses`, and
   // `additionalRelaxerTypes`. A null allowlist means "generate everything"
   // (the default) and the enumerations are left untouched.
-  final Set<String>? reducedTypeArgAllowlist =
-      config.generateAllRelaxers ? null : _buildReducedTypeArgAllowlist(config, genericExtractionSites);
+  final Set<String>? reducedTypeArgAllowlist = config.generateAllRelaxers
+      ? null
+      : _buildReducedTypeArgAllowlist(config, genericExtractionSites);
 
   final targets = _buildRelaxerTargets(
     genericExtractionSites,
@@ -558,9 +566,11 @@ List<_RelaxerTarget> _buildRelaxerTargets(
       globalClassLookup.entries
           .where((e) => !e.value.isAbstract && !e.value.isSealed)
           .where((e) => _isReachableViaBarrels(e.value, inScopePackagePrefixes))
-          .where((e) =>
-              reducedTypeArgAllowlist == null ||
-              reducedTypeArgAllowlist.contains(e.key))
+          .where(
+            (e) =>
+                reducedTypeArgAllowlist == null ||
+                reducedTypeArgAllowlist.contains(e.key),
+          )
           .map((e) => e.key)
           .toList()
         ..sort();
@@ -1179,7 +1189,9 @@ void _writeConstructor(
       // Can't find a suitable T-typed getter — treat as implements instead.
       // This returns null to signal the caller to switch strategies.
       // For now, use a safe fallback constructor.
-      buf.writeln('  $wrapperName(this._inner) : super(_coerceToV<V>(_inner)) {');
+      buf.writeln(
+        '  $wrapperName(this._inner) : super(_coerceToV<V>(_inner)) {',
+      );
     } else {
       // Use _coerceToV to handle d4rt int→double literals in constructor arg.
       final valueExpr = '_coerceToV<V>(_inner.${tGetter.name})';
@@ -1312,8 +1324,8 @@ void _writeExtendsDelegation(
     final getterExpr = castReturn == 'V'
         ? '_coerceToV<V>(_inner.${getter.name})'
         : _isFunctionTypedMember(getter)
-            ? _buildForwardingClosureFromMember(getter, typeParamName)
-            : '_inner.${getter.name} as $castReturn';
+        ? _buildForwardingClosureFromMember(getter, typeParamName)
+        : '_inner.${getter.name} as $castReturn';
     buf.writeln('  $castReturn get ${getter.name} => $getterExpr;');
   }
 
@@ -1391,10 +1403,7 @@ bool _isFunctionTypedMember(MemberInfo member) {
 
 /// Heuristic match for zero-arg-returning-T function typedef aliases.
 bool _looksLikeZeroArgGetterTypedef(String type) {
-  const zeroArgGetterTypedefs = {
-    'ValueGetter',
-    'AsyncValueGetter',
-  };
+  const zeroArgGetterTypedefs = {'ValueGetter', 'AsyncValueGetter'};
   for (final td in zeroArgGetterTypedefs) {
     if (type.startsWith('$td<')) return true;
   }
@@ -1515,12 +1524,7 @@ void _writeImplementsDelegation(
   // every such method, turning the wrapper into a transparent proxy.
   final tMethodNames = tMethods.map((m) => m.name).toSet();
   // Object's default methods are concrete — don't override them.
-  const objectMethods = {
-    'toString',
-    'hashCode',
-    'noSuchMethod',
-    'runtimeType',
-  };
+  const objectMethods = {'toString', 'hashCode', 'noSuchMethod', 'runtimeType'};
   for (final method in allMethods) {
     if (tMethodNames.contains(method.name)) continue;
     if (method.hasTypeParameters) continue;
@@ -1780,8 +1784,10 @@ String? generateWidgetReCreator(
     return null;
   }
 
-  final getterNames =
-      info.allInstanceGetters(globalClassLookup).map((m) => m.name).toSet();
+  final getterNames = info
+      .allInstanceGetters(globalClassLookup)
+      .map((m) => m.name)
+      .toSet();
 
   String? typeParamField;
   var typeParamNullable = false;
@@ -2671,9 +2677,11 @@ void _writeRC2Case(
           // GEN-075c: int → double widening for primitive type-param dispatch.
           // Scripts pass `ValueNotifier<double>(0)` literally; the value is
           // an int and a strict `as double` cast would fail. Coerce via num.
-          args.add(isNullable
-              ? '($safeName as num?)?.toDouble()'
-              : '($safeName as num).toDouble()');
+          args.add(
+            isNullable
+                ? '($safeName as num?)?.toDouble()'
+                : '($safeName as num).toDouble()',
+          );
         } else {
           args.add('$safeName as $typeArg${isNullable ? '?' : ''}');
         }
@@ -2830,9 +2838,11 @@ void _writeRC2Case(
           );
         } else if (typeArg == 'double') {
           // GEN-075c: int → double widening (see positional branch).
-          namedArgParts.add(isNullable
-              ? '${p.name}: ($safeName as num?)?.toDouble()'
-              : '${p.name}: ($safeName as num).toDouble()');
+          namedArgParts.add(
+            isNullable
+                ? '${p.name}: ($safeName as num?)?.toDouble()'
+                : '${p.name}: ($safeName as num).toDouble()',
+          );
         } else {
           namedArgParts.add(
             '${p.name}: $safeName as $typeArg${isNullable ? '?' : ''}',

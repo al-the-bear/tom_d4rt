@@ -112,8 +112,9 @@ Future<(String, List<String>)> generateFixture(Directory fixture) async {
     moduleName: 'extkey',
   );
   expect(result.errors, isEmpty, reason: 'fixture must generate cleanly');
-  final code =
-      File(p.join(outDir.path, 'zom_extkey_bridges.dart')).readAsStringSync();
+  final code = File(
+    p.join(outDir.path, 'zom_extkey_bridges.dart'),
+  ).readAsStringSync();
   try {
     outDir.deleteSync(recursive: true);
   } catch (_) {}
@@ -140,13 +141,10 @@ void main() {
   });
 
   group('scd8: same-named extensions from different libraries', () {
-    test(
-      'G-EXTKEY-1: both extensions reach bridgedExtensions() '
-      '[2026-09-12] (PASS)',
-      () {
-        expect(countOf(generatedCode, "name: 'Helpers'"), equals(2));
-      },
-    );
+    test('G-EXTKEY-1: both extensions reach bridgedExtensions() '
+        '[2026-09-12] (PASS)', () {
+      expect(countOf(generatedCode, "name: 'Helpers'"), equals(2));
+    });
 
     test(
       'G-EXTKEY-2: each survives in extensionSourceUris() under its own key, '
@@ -163,36 +161,32 @@ void main() {
       },
     );
 
-    test(
-      'G-EXTKEY-3: the bare name is no longer a key, so neither entry can '
-      'overwrite the other [2026-09-12] (PASS)',
-      () {
-        expect(
-          countOf(generatedCode, "      'Helpers':"),
-          equals(0),
-          reason:
-              'the bare name was the key that made the two collide — Dart '
-              'keeps the last entry, so one extension registered against the '
-              "other's source URI",
-        );
-      },
-    );
+    test('G-EXTKEY-3: the bare name is no longer a key, so neither entry can '
+        'overwrite the other [2026-09-12] (PASS)', () {
+      expect(
+        countOf(generatedCode, "      'Helpers':"),
+        equals(0),
+        reason:
+            'the bare name was the key that made the two collide — Dart '
+            'keeps the last entry, so one extension registered against the '
+            "other's source URI",
+      );
+    });
 
-    test(
-      'G-EXTKEY-4: registerBridges() looks the URI up under the same key it '
-      'was emitted with [2026-09-12] (PASS)',
-      () {
-        // The key is spelled on both sides; if they ever disagree, every
-        // lookup misses and every extension registers with a null source URI
-        // — which nothing else in the suite would notice.
-        expect(
-          generatedCode,
-          contains(r"final extKey = '${extDef.name ?? '<unnamed>'}"
-              r"@${extDef.onTypeName}';"),
-        );
-        expect(generatedCode, contains('sourceUri: extSources[extKey]'));
-      },
-    );
+    test('G-EXTKEY-4: registerBridges() looks the URI up under the same key it '
+        'was emitted with [2026-09-12] (PASS)', () {
+      // The key is spelled on both sides; if they ever disagree, every
+      // lookup misses and every extension registers with a null source URI
+      // — which nothing else in the suite would notice.
+      expect(
+        generatedCode,
+        contains(
+          r"final extKey = '${extDef.name ?? '<unnamed>'}"
+          r"@${extDef.onTypeName}';",
+        ),
+      );
+      expect(generatedCode, contains('sourceUri: extSources[extKey]'));
+    });
 
     test(
       'G-EXTKEY-5: two extensions sharing name AND on-type are reported, and '

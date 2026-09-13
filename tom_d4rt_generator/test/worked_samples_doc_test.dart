@@ -100,7 +100,8 @@ void main() {
       expect(
         missing,
         isEmpty,
-        reason: 'documented samples with no main.dart on disk (rotted refs):\n'
+        reason:
+            'documented samples with no main.dart on disk (rotted refs):\n'
             '${missing.join('\n')}',
       );
     });

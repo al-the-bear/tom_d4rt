@@ -355,12 +355,15 @@ class ProxyClassConfig {
         proxyName: json['proxyName'] as String?,
         mixinVariants:
             (json['mixinVariants'] as List?)?.cast<String>() ?? const [],
-        typeArgVariants: (json['typeArgVariants'] as List?)
+        typeArgVariants:
+            (json['typeArgVariants'] as List?)
                 ?.map((e) => TypeArgProxyVariant.fromYaml(e as Object))
                 .toList() ??
             const [],
-        superArgDefaults: (json['superArgDefaults'] as Map?)
-                ?.map((k, v) => MapEntry(k.toString(), v.toString())) ??
+        superArgDefaults:
+            (json['superArgDefaults'] as Map?)?.map(
+              (k, v) => MapEntry(k.toString(), v.toString()),
+            ) ??
             const {},
       );
     }
@@ -416,11 +419,10 @@ class TypeArgProxyVariant {
   const TypeArgProxyVariant({required this.typeArg, required this.defaultExpr});
 
   factory TypeArgProxyVariant.fromJson(Map<String, dynamic> json) {
-    if (json
-        case {
-          'typeArg': final String typeArg,
-          'defaultExpr': final String defaultExpr,
-        }) {
+    if (json case {
+      'typeArg': final String typeArg,
+      'defaultExpr': final String defaultExpr,
+    }) {
       return TypeArgProxyVariant(typeArg: typeArg, defaultExpr: defaultExpr);
     }
     throw ArgumentError(
@@ -438,9 +440,9 @@ class TypeArgProxyVariant {
   }
 
   Map<String, dynamic> toJson() => {
-        'typeArg': typeArg,
-        'defaultExpr': defaultExpr,
-      };
+    'typeArg': typeArg,
+    'defaultExpr': defaultExpr,
+  };
 }
 
 /// Declarative spec for a generic method/static interceptor whose adapter drops
@@ -535,7 +537,8 @@ class GenericInterceptorConfig {
       className: className,
       methodName: methodName,
       isStatic: json['isStatic'] as bool? ?? false,
-      typeArgVariants: (json['typeArgVariants'] as List?)
+      typeArgVariants:
+          (json['typeArgVariants'] as List?)
               ?.map((e) => e.toString())
               .toList() ??
           const [],
@@ -551,20 +554,18 @@ class GenericInterceptorConfig {
         value.map((k, v) => MapEntry(k.toString(), v)),
       );
     }
-    throw ArgumentError(
-      'GenericInterceptorConfig expects a Map, got: $value',
-    );
+    throw ArgumentError('GenericInterceptorConfig expects a Map, got: $value');
   }
 
   Map<String, dynamic> toJson() => {
-        'className': className,
-        'methodName': methodName,
-        if (isStatic) 'isStatic': isStatic,
-        if (typeArgVariants.isNotEmpty) 'typeArgVariants': typeArgVariants,
-        if (contextArgIndex != 0) 'contextArgIndex': contextArgIndex,
-        if (contextArgType != 'BuildContext') 'contextArgType': contextArgType,
-        if (fallbackExpr != null) 'fallbackExpr': fallbackExpr,
-      };
+    'className': className,
+    'methodName': methodName,
+    if (isStatic) 'isStatic': isStatic,
+    if (typeArgVariants.isNotEmpty) 'typeArgVariants': typeArgVariants,
+    if (contextArgIndex != 0) 'contextArgIndex': contextArgIndex,
+    if (contextArgType != 'BuildContext') 'contextArgType': contextArgType,
+    if (fallbackExpr != null) 'fallbackExpr': fallbackExpr,
+  };
 }
 
 /// Which generated body shape a [GenericConstructorConfig] templates.
@@ -684,15 +685,18 @@ class GenericConstructorConfig {
     return GenericConstructorConfig(
       className: className,
       kind: kind,
-      typeArgVariants: (json['typeArgVariants'] as List?)
+      typeArgVariants:
+          (json['typeArgVariants'] as List?)
               ?.map((e) => e.toString())
               .toList() ??
           const [],
-      namedArgs: (json['namedArgs'] as List?)
-              ?.map((e) =>
-                  GenericCtorNamedArg.fromJson((e as Map).map(
-                    (k, v) => MapEntry(k.toString(), v),
-                  )))
+      namedArgs:
+          (json['namedArgs'] as List?)
+              ?.map(
+                (e) => GenericCtorNamedArg.fromJson(
+                  (e as Map).map((k, v) => MapEntry(k.toString(), v)),
+                ),
+              )
               .toList() ??
           const [],
       includeDynamicArm: json['includeDynamicArm'] as bool? ?? false,
@@ -709,13 +713,13 @@ class GenericConstructorConfig {
   }
 
   Map<String, dynamic> toJson() => {
-        'className': className,
-        'kind': kind.name,
-        if (typeArgVariants.isNotEmpty) 'typeArgVariants': typeArgVariants,
-        if (namedArgs.isNotEmpty)
-          'namedArgs': namedArgs.map((a) => a.toJson()).toList(),
-        if (includeDynamicArm) 'includeDynamicArm': includeDynamicArm,
-      };
+    'className': className,
+    'kind': kind.name,
+    if (typeArgVariants.isNotEmpty) 'typeArgVariants': typeArgVariants,
+    if (namedArgs.isNotEmpty)
+      'namedArgs': namedArgs.map((a) => a.toJson()).toList(),
+    if (includeDynamicArm) 'includeDynamicArm': includeDynamicArm,
+  };
 }
 
 /// Configuration for a class to include in reduced relaxer/RC-2 generation.
@@ -835,9 +839,9 @@ class RecreatorClassConfig {
   }
 
   Map<String, dynamic> toJson() => {
-        'className': className,
-        if (!_isDefaultInnerTypes) 'innerTypes': innerTypes,
-      };
+    'className': className,
+    if (!_isDefaultInnerTypes) 'innerTypes': innerTypes,
+  };
 
   bool get _isDefaultInnerTypes {
     if (innerTypes.length != defaultInnerTypes.length) return false;
@@ -1164,10 +1168,9 @@ class BridgeConfig {
   });
 
   factory BridgeConfig.fromJson(Map<String, dynamic> json) {
-    final modules =
-        (json['modules'] as List)
-            .map((m) => ModuleConfig.fromJson(m as Map<String, dynamic>))
-            .toList();
+    final modules = (json['modules'] as List)
+        .map((m) => ModuleConfig.fromJson(m as Map<String, dynamic>))
+        .toList();
     return BridgeConfig(
       name: json['name'] as String,
       modules: modules,
@@ -1197,7 +1200,8 @@ class BridgeConfig {
               ?.map((e) => ProxyClassConfig.fromYaml(e))
               .toList() ??
           const [],
-      relaxerOutputPath: json['relaxerOutputPath'] as String? ??
+      relaxerOutputPath:
+          json['relaxerOutputPath'] as String? ??
           _defaultRelaxerOutputPath(modules),
       priorRelaxerModules:
           (json['priorRelaxerModules'] as List?)?.cast<String>() ?? const [],
@@ -1226,8 +1230,9 @@ class BridgeConfig {
           const [],
       yieldVoidCallbacks: json['yieldVoidCallbacks'] as bool? ?? false,
       typeMappings:
-          (json['typeMappings'] as Map?)
-              ?.map((k, v) => MapEntry(k.toString(), v.toString())) ??
+          (json['typeMappings'] as Map?)?.map(
+            (k, v) => MapEntry(k.toString(), v.toString()),
+          ) ??
           const {},
       additionalImports:
           (json['additionalImports'] as List?)?.cast<String>() ?? const [],
@@ -1317,11 +1322,13 @@ class BridgeConfig {
       if (recreatorClasses.isNotEmpty)
         'recreatorClasses': recreatorClasses.map((r) => r.toJson()).toList(),
       if (genericInterceptors.isNotEmpty)
-        'genericInterceptors':
-            genericInterceptors.map((g) => g.toJson()).toList(),
+        'genericInterceptors': genericInterceptors
+            .map((g) => g.toJson())
+            .toList(),
       if (genericConstructors.isNotEmpty)
-        'genericConstructors':
-            genericConstructors.map((g) => g.toJson()).toList(),
+        'genericConstructors': genericConstructors
+            .map((g) => g.toJson())
+            .toList(),
       if (yieldVoidCallbacks) 'yieldVoidCallbacks': yieldVoidCallbacks,
       if (typeMappings.isNotEmpty) 'typeMappings': typeMappings,
       if (additionalImports.isNotEmpty) 'additionalImports': additionalImports,

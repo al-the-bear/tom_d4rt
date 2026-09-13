@@ -60,21 +60,25 @@ void main() {
           '_radioGroupMaybeOfFallback(visitor, positional, named, typeArgs)',
     );
 
-    test('G-GMI-1: canonical RadioGroup.maybeOf static interceptor byte-for-byte',
-        () {
-      expect(generateGenericInterceptor(radioGroup), _radioGroupGolden);
-    });
+    test(
+      'G-GMI-1: canonical RadioGroup.maybeOf static interceptor byte-for-byte',
+      () {
+        expect(generateGenericInterceptor(radioGroup), _radioGroupGolden);
+      },
+    );
 
-    test('G-GMI-2: static interceptor uses the static registry + class receiver',
-        () {
-      final out = generateGenericInterceptor(radioGroup);
-      expect(out, contains('D4.registerBridgedStaticMethodInterceptor'));
-      expect(out, contains('(visitor, positional, named, typeArgs) {'));
-      // Static re-dispatch targets the class itself.
-      expect(out, contains("'String' => RadioGroup.maybeOf<String>(ctx),"));
-      // No instance receiver-validation lines for a static interceptor.
-      expect(out, isNot(contains('target is RadioGroup')));
-    });
+    test(
+      'G-GMI-2: static interceptor uses the static registry + class receiver',
+      () {
+        final out = generateGenericInterceptor(radioGroup);
+        expect(out, contains('D4.registerBridgedStaticMethodInterceptor'));
+        expect(out, contains('(visitor, positional, named, typeArgs) {'));
+        // Static re-dispatch targets the class itself.
+        expect(out, contains("'String' => RadioGroup.maybeOf<String>(ctx),"));
+        // No instance receiver-validation lines for a static interceptor.
+        expect(out, isNot(contains('target is RadioGroup')));
+      },
+    );
 
     test('G-GMI-3: every declared type-arg becomes a switch arm in order', () {
       final out = generateGenericInterceptor(radioGroup);
@@ -82,8 +86,11 @@ void main() {
       var prev = -1;
       for (final t in arms) {
         final idx = out.indexOf("'$t' => RadioGroup.maybeOf<$t>(ctx),");
-        expect(idx, greaterThan(prev),
-            reason: 'arm $t out of declaration order');
+        expect(
+          idx,
+          greaterThan(prev),
+          reason: 'arm $t out of declaration order',
+        );
         prev = idx;
       }
       // Default arm + closing.
@@ -95,49 +102,63 @@ void main() {
       final out = generateGenericInterceptor(radioGroup);
       expect(out, contains('    if (byType != null) return byType;'));
       expect(
+        out,
+        contains(
+          '    return _radioGroupMaybeOfFallback(visitor, positional, named, typeArgs);',
+        ),
+      );
+    });
+
+    test(
+      'G-GMI-5: without fallbackExpr, the switch result is returned directly',
+      () {
+        const noFallback = GenericInterceptorConfig(
+          className: 'RadioGroup',
+          methodName: 'maybeOf',
+          isStatic: true,
+          typeArgVariants: ['String', 'int'],
+        );
+        final out = generateGenericInterceptor(noFallback);
+        expect(out, contains('    return byType;'));
+        expect(out, isNot(contains('if (byType != null) return byType;')));
+      },
+    );
+
+    test(
+      'G-GMI-6: instance interceptor validates the receiver and targets it',
+      () {
+        const themeExt = GenericInterceptorConfig(
+          className: 'ThemeData',
+          methodName: 'extension',
+          typeArgVariants: ['MyExt'],
+        );
+        final out = generateGenericInterceptor(themeExt);
+        expect(out, contains('D4.registerBridgedMethodInterceptor'));
+        expect(
           out,
-          contains(
-              '    return _radioGroupMaybeOfFallback(visitor, positional, named, typeArgs);'));
-    });
+          contains('(visitor, target, positional, named, typeArgs) {'),
+        );
+        expect(
+          out,
+          contains('    final t = target is ThemeData ? target : null;'),
+        );
+        expect(out, contains('    if (t == null) return null;'));
+        // Instance re-dispatch targets the validated receiver `t`.
+        expect(out, contains("'MyExt' => t.extension<MyExt>(ctx),"));
+      },
+    );
 
-    test('G-GMI-5: without fallbackExpr, the switch result is returned directly',
-        () {
-      const noFallback = GenericInterceptorConfig(
-        className: 'RadioGroup',
-        methodName: 'maybeOf',
-        isStatic: true,
-        typeArgVariants: ['String', 'int'],
-      );
-      final out = generateGenericInterceptor(noFallback);
-      expect(out, contains('    return byType;'));
-      expect(out, isNot(contains('if (byType != null) return byType;')));
-    });
-
-    test('G-GMI-6: instance interceptor validates the receiver and targets it',
-        () {
-      const themeExt = GenericInterceptorConfig(
-        className: 'ThemeData',
-        methodName: 'extension',
-        typeArgVariants: ['MyExt'],
-      );
-      final out = generateGenericInterceptor(themeExt);
-      expect(out, contains('D4.registerBridgedMethodInterceptor'));
-      expect(out, contains('(visitor, target, positional, named, typeArgs) {'));
-      expect(out, contains('    final t = target is ThemeData ? target : null;'));
-      expect(out, contains('    if (t == null) return null;'));
-      // Instance re-dispatch targets the validated receiver `t`.
-      expect(out, contains("'MyExt' => t.extension<MyExt>(ctx),"));
-    });
-
-    test('G-GMI-7: empty type-arg allow-list emits nothing (dormant default)',
-        () {
-      const dormant = GenericInterceptorConfig(
-        className: 'RadioGroup',
-        methodName: 'maybeOf',
-        isStatic: true,
-      );
-      expect(generateGenericInterceptor(dormant), isEmpty);
-    });
+    test(
+      'G-GMI-7: empty type-arg allow-list emits nothing (dormant default)',
+      () {
+        const dormant = GenericInterceptorConfig(
+          className: 'RadioGroup',
+          methodName: 'maybeOf',
+          isStatic: true,
+        );
+        expect(generateGenericInterceptor(dormant), isEmpty);
+      },
+    );
 
     test('G-GMI-8: contextArgIndex + contextArgType customise the guard', () {
       const cfg = GenericInterceptorConfig(
@@ -163,21 +184,31 @@ void main() {
       );
       final out = generateGenericInterceptorRegistrations([radioGroup, second]);
       expect(out, contains('void _registerGeneratedGenericInterceptors() {'));
-      expect(out, contains("D4.registerBridgedStaticMethodInterceptor('RadioGroup', 'maybeOf',"));
-      expect(out, contains("D4.registerBridgedStaticMethodInterceptor('Foo', 'bar',"));
+      expect(
+        out,
+        contains(
+          "D4.registerBridgedStaticMethodInterceptor('RadioGroup', 'maybeOf',",
+        ),
+      );
+      expect(
+        out,
+        contains("D4.registerBridgedStaticMethodInterceptor('Foo', 'bar',"),
+      );
       expect(out.trimRight(), endsWith('}'));
     });
 
-    test('G-GMI-10: registrations wrapper is empty when no config contributes',
-        () {
-      expect(generateGenericInterceptorRegistrations(const []), isEmpty);
-      expect(
-        generateGenericInterceptorRegistrations(const [
-          GenericInterceptorConfig(className: 'A', methodName: 'b'),
-        ]),
-        isEmpty,
-      );
-    });
+    test(
+      'G-GMI-10: registrations wrapper is empty when no config contributes',
+      () {
+        expect(generateGenericInterceptorRegistrations(const []), isEmpty);
+        expect(
+          generateGenericInterceptorRegistrations(const [
+            GenericInterceptorConfig(className: 'A', methodName: 'b'),
+          ]),
+          isEmpty,
+        );
+      },
+    );
 
     test('G-GMI-11: config JSON round-trips through fromJson/toJson', () {
       final json = radioGroup.toJson();
@@ -186,8 +217,14 @@ void main() {
       expect(restored.className, 'RadioGroup');
       expect(restored.methodName, 'maybeOf');
       expect(restored.isStatic, isTrue);
-      expect(restored.typeArgVariants,
-          ['String', 'int', 'double', 'num', 'bool', 'Object']);
+      expect(restored.typeArgVariants, [
+        'String',
+        'int',
+        'double',
+        'num',
+        'bool',
+        'Object',
+      ]);
       expect(restored.fallbackExpr, radioGroup.fallbackExpr);
     });
 
@@ -225,8 +262,10 @@ void main() {
       });
       expect(cfg.className, 'RadioGroup');
       expect(cfg.typeArgVariants, ['String', 'int']);
-      expect(() => GenericInterceptorConfig.fromYaml('nope'),
-          throwsArgumentError);
+      expect(
+        () => GenericInterceptorConfig.fromYaml('nope'),
+        throwsArgumentError,
+      );
     });
   });
 
@@ -241,9 +280,9 @@ void main() {
     );
 
     Map<String, dynamic> baseJson() => {
-          'name': 'flutterm',
-          'modules': <dynamic>[],
-        };
+      'name': 'flutterm',
+      'modules': <dynamic>[],
+    };
 
     test('G-GMI-BC-1: defaults to an empty list', () {
       final config = BridgeConfig.fromJson(baseJson());
@@ -262,8 +301,14 @@ void main() {
       expect(gi.className, 'RadioGroup');
       expect(gi.methodName, 'maybeOf');
       expect(gi.isStatic, isTrue);
-      expect(gi.typeArgVariants,
-          ['String', 'int', 'double', 'num', 'bool', 'Object']);
+      expect(gi.typeArgVariants, [
+        'String',
+        'int',
+        'double',
+        'num',
+        'bool',
+        'Object',
+      ]);
       expect(gi.fallbackExpr, radioGroup.fallbackExpr);
     });
 
