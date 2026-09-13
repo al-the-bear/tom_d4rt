@@ -209,6 +209,52 @@ class _PackageBridgeBundle {
   bool extensionFired = false;
 }
 
+/// Recovers the value the script actually threw from the interpreter's
+/// internal wrappers — **public, because an embedder sometimes has to call
+/// it.**
+///
+/// Since SCD73 an escaping error is unwrapped before it reaches an embedder on
+/// its own: the zone d4rt forks wraps every callback it registers, which covers
+/// a `Stream.listen` handler and a `Future.then` continuation, and the three
+/// `Timer` adapters unwrap themselves because their bodies are `async` and so
+/// never throw out of the registered callback at all. An error abandoned in an
+/// unawaited future is unwrapped by the interpreter's own async machinery
+/// before it gets that far.
+///
+/// **One route is not covered**: a handler passed to `Stream.handleError`, which
+/// the SDK invokes without registering it with the zone, so there is nothing to
+/// wrap. Reaching it would need d4rt to own the *error zone*, which it does only
+/// when [onUncaughtError] is set, and which cannot be made unconditional — Dart
+/// refuses to deliver an error across an error-zone boundary, so an ordinary
+/// script failure would stop reaching the caller of `execute` (tracked as
+/// sce117). An embedder who prefers their own `runZonedGuarded` to the hook
+/// should therefore pass what they receive through this function; it is a no-op
+/// on the shapes that are already unwrapped:
+///
+/// ```dart
+/// runZonedGuarded(() => d4rt.execute(...), (error, stack) {
+///   log(unwrapScriptError(error));
+/// });
+/// ```
+///
+/// Two peels, not one, which is why this is not left to the caller to write:
+/// the internal wrapper holds the thrown value, and a *bridged* exception
+/// holds its native object one level further in. A host that peeled only the
+/// first would get a `BridgedInstance` it cannot `catch` on.
+///
+/// Values that are neither are returned unchanged, so passing a native error
+/// through this is harmless.
+Object unwrapScriptError(Object error) {
+  var value = error;
+  if (value is InternalInterpreterD4rtException) {
+    value = value.originalThrownValue ?? value;
+  }
+  // A bridged exception's native object is the thing a host can catch on;
+  // the BridgedInstance shell means nothing outside the interpreter.
+  if (value is BridgedInstance) return value.nativeObject;
+  return value;
+}
+
 /// The main D4rt interpreter class.
 ///
 /// This class provides the primary interface for executing Dart code at runtime.
@@ -1369,9 +1415,12 @@ class D4rt {
   /// embedder *before* [execute] and passed into the script reports its errors
   /// to the embedder's zone rather than to the script — the ordinary
   /// consequence of an error-zone boundary, and the reason this is opt-in.
-  /// Leaving it null keeps the pre-existing routing untouched: escapes reach
-  /// the enclosing zone, still wrapped in the interpreter's internal exception
-  /// type.
+  /// Leaving it null keeps the routing untouched — escapes reach the enclosing
+  /// zone — and **since SCD73 they arrive unwrapped there too**, so an embedder
+  /// who prefers their own `runZonedGuarded` is no longer paying legibility for
+  /// it. One escape route has no seam to unwrap at, `Stream.handleError`'s
+  /// handler; pass what you receive through [unwrapScriptError] if you want to
+  /// be certain, which is a no-op on anything already unwrapped.
   ///
   /// ## Example:
   /// ```dart
@@ -2154,24 +2203,99 @@ class D4rt {
   /// A synchronous throw out of [Zone.run] propagates to the caller untouched,
   /// so the error path [execute] already had is unaffected.
   ///
-  /// **The zone exists only when [onUncaughtError] is set**, and that is a
-  /// constraint rather than a convenience. A zone that specifies
-  /// `handleUncaughtError` *is* a new error zone, and Dart deliberately refuses
-  /// to deliver an error across an error-zone boundary — `future_impl.dart`,
-  /// "Don't cross zone boundaries with errors". Forking unconditionally
+  /// **The zone is always forked; the ERROR zone is only taken over when
+  /// [onUncaughtError] is set.** The distinction is the whole of SCD73 and is
+  /// easy to collapse by accident. A zone that specifies `handleUncaughtError`
+  /// *is* a new error zone, and Dart deliberately refuses to deliver an error
+  /// across an error-zone boundary — `future_impl.dart`, "Don't cross zone
+  /// boundaries with errors". Taking over the error zone unconditionally
   /// therefore stops an ordinary script failure from ever reaching the caller
   /// of [execute]: the awaiting caller registered its listener outside the
   /// zone, so the error is diverted to the uncaught handler and the returned
   /// future simply never completes. F-SCB9-12 caught exactly that. Owning the
   /// error zone is a real change to an embedder's error routing, so it happens
   /// when the embedder asks for it and not otherwise.
-  Zone _forkScriptZone() => Zone.current.fork(
-    specification: ZoneSpecification(
+  ///
+  /// A zone that specifies only the `register*Callback` hooks is **not** an
+  /// error zone (`Zone.errorZone` still resolves to the parent's), so those
+  /// hooks are installed unconditionally. They are what unwraps the
+  /// interpreter's internal types on the no-hook path: an escaping error has to
+  /// be *observed* to be unwrapped, and a callback can be observed by wrapping
+  /// it at registration instead of by handling the error it throws. SCD73 was
+  /// filed believing no such seam existed.
+  ///
+  /// They run on every callback registered while a script executes, including
+  /// callbacks belonging to native code a bridge called — so the transform has
+  /// to leave anything that is not an interpreter type byte-identical, which
+  /// [unwrapScriptError] does. That it is safe to apply here at all was
+  /// measured rather than assumed: a `Future.then` callback that throws is the
+  /// one registered-callback escape an interpreted `catch` can still receive,
+  /// and its `catch`, `on`-clause matching, member access and `rethrow` were
+  /// all checked unchanged.
+  Zone _forkScriptZone() =>
+      Zone.current.fork(specification: _scriptZoneSpecification());
+
+  /// The specification behind [_forkScriptZone], split out because its two
+  /// halves answer to different constraints.
+  ZoneSpecification _scriptZoneSpecification() {
+    // Unconditional: shed the wrapper as the callback throws, which needs no
+    // error zone. See [unwrapScriptError] for the one shape this cannot reach.
+    R Function() registerCallback<R>(
+      Zone self,
+      ZoneDelegate parent,
+      Zone zone,
+      R Function() callback,
+    ) => parent.registerCallback(zone, () {
+      try {
+        return callback();
+      } catch (error, stackTrace) {
+        Error.throwWithStackTrace(unwrapScriptError(error), stackTrace);
+      }
+    });
+
+    R Function(T) registerUnaryCallback<R, T>(
+      Zone self,
+      ZoneDelegate parent,
+      Zone zone,
+      R Function(T) callback,
+    ) => parent.registerUnaryCallback(zone, (T arg) {
+      try {
+        return callback(arg);
+      } catch (error, stackTrace) {
+        Error.throwWithStackTrace(unwrapScriptError(error), stackTrace);
+      }
+    });
+
+    R Function(T1, T2) registerBinaryCallback<R, T1, T2>(
+      Zone self,
+      ZoneDelegate parent,
+      Zone zone,
+      R Function(T1, T2) callback,
+    ) => parent.registerBinaryCallback(zone, (T1 a, T2 b) {
+      try {
+        return callback(a, b);
+      } catch (error, stackTrace) {
+        Error.throwWithStackTrace(unwrapScriptError(error), stackTrace);
+      }
+    });
+
+    // Conditional: this is the error-zone half.
+    if (onUncaughtError == null) {
+      return ZoneSpecification(
+        registerCallback: registerCallback,
+        registerUnaryCallback: registerUnaryCallback,
+        registerBinaryCallback: registerBinaryCallback,
+      );
+    }
+    return ZoneSpecification(
+      registerCallback: registerCallback,
+      registerUnaryCallback: registerUnaryCallback,
+      registerBinaryCallback: registerBinaryCallback,
       handleUncaughtError: (self, parent, zone, error, stackTrace) {
-        final scriptError = _unwrapScriptError(error);
+        final scriptError = unwrapScriptError(error);
         final hook = onUncaughtError;
         if (hook == null) {
-          // No embedder hook: behave exactly as before, minus the wrapper.
+          // The field was cleared after the fork. Behave as the no-hook path.
           parent.handleUncaughtError(zone, scriptError, stackTrace);
           return;
         }
@@ -2183,27 +2307,7 @@ class D4rt {
           parent.handleUncaughtError(zone, hookError, hookStack);
         }
       },
-    ),
-  );
-
-  /// Recovers the value the script actually threw from the interpreter's
-  /// internal wrapper.
-  ///
-  /// This mirrors what [_executeInEnvironment] already does for the
-  /// synchronous path, where an `InternalInterpreterD4rtException` is
-  /// unwrapped before it is rethrown to the caller. Without it the two paths
-  /// hand the host different shapes for the same script failure, and a
-  /// *native* error (one the script never touched) would be the only one that
-  /// arrived legible.
-  static Object _unwrapScriptError(Object error) {
-    var value = error;
-    if (value is InternalInterpreterD4rtException) {
-      value = value.originalThrownValue ?? value;
-    }
-    // A bridged exception's native object is the thing a host can catch on;
-    // the BridgedInstance shell means nothing outside the interpreter.
-    if (value is BridgedInstance) return value.nativeObject;
-    return value;
+    );
   }
 
   dynamic _executeInEnvironment({
@@ -2223,12 +2327,12 @@ class D4rt {
       library: library,
     );
 
-    // No hook, no zone, no behaviour change of any kind. See [_forkScriptZone]
-    // for why this is opt-in rather than always on.
-    if (onUncaughtError == null) return run();
-
+    // The zone is always forked — its `register*Callback` half sheds the
+    // interpreter's internal wrapper and costs no change in error routing. The
+    // error-zone half is opt-in; see [_forkScriptZone].
     final zone = _forkScriptZone();
     final result = zone.run(run);
+    if (onUncaughtError == null) return result;
     if (result is! Future) return result;
 
     // The script's own failures still belong to the caller, but the caller

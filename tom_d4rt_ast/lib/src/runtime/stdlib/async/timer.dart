@@ -17,6 +17,24 @@ Future<void> _yieldEventLoop() async {
   await Future<void>.delayed(Duration.zero);
 }
 
+/// SCD73 — a timer body is the one interpreted callback whose future *nobody
+/// can await*, so this is where the interpreter's wrapper has to come off.
+///
+/// The zone d4rt forks sheds the wrapper for every escape that leaves through a
+/// callback the platform invokes, which is most of them. A timer is the
+/// exception, and for a reason that is d4rt's own doing rather than the SDK's:
+/// the adapters below are `async` so they can yield the event loop afterwards,
+/// so a synchronous throw out of `callback.call` does not escape the registered
+/// callback at all — it completes the adapter's own future, which nothing holds.
+/// `Zone.errorCallback` was measured and is not consulted for an `async`
+/// function body's completion, so there is no zone seam to use here.
+///
+/// Unwrapping at this one boundary is unambiguous in a way a general per-adapter
+/// guard is not: nothing downstream of a timer body can be an interpreted
+/// `catch`, so the value is leaving the interpreter for good.
+Never _rethrowUnwrapped(Object error, StackTrace stackTrace) =>
+    Error.throwWithStackTrace(unwrapScriptError(error), stackTrace);
+
 class TimerAsync {
   static BridgedClass get definition => BridgedClass(
     nativeType: Timer,
@@ -34,7 +52,11 @@ class TimerAsync {
         final duration = positionalArgs[0] as Duration;
         final callback = positionalArgs[1] as Callable;
         return Timer(duration, () async {
-          callback.call(visitor, []);
+          try {
+            callback.call(visitor, []);
+          } catch (error, stackTrace) {
+            _rethrowUnwrapped(error, stackTrace);
+          }
           await _yieldEventLoop();
         });
       },
@@ -44,7 +66,11 @@ class TimerAsync {
         final duration = positionalArgs[0] as Duration;
         final callback = positionalArgs[1] as Callable;
         return Timer.periodic(duration, (timer) async {
-          callback.call(visitor, [timer]);
+          try {
+            callback.call(visitor, [timer]);
+          } catch (error, stackTrace) {
+            _rethrowUnwrapped(error, stackTrace);
+          }
           await _yieldEventLoop();
         });
       },
@@ -59,7 +85,11 @@ class TimerAsync {
         }
         final callback = positionalArgs[0] as Callable;
         return Timer.run(() async {
-          callback.call(visitor, []);
+          try {
+            callback.call(visitor, []);
+          } catch (error, stackTrace) {
+            _rethrowUnwrapped(error, stackTrace);
+          }
           await _yieldEventLoop();
         });
       },

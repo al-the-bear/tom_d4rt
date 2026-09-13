@@ -1,3 +1,54 @@
+## 1.94.0
+
+### Fixed — a no-hook embedder no longer sees the interpreter's exception wrapper (scd73)
+
+An error escaping an interpreted callback reached an embedder's own
+`runZonedGuarded` as `InternalInterpreterD4rtException`, with the thrown value
+buried two levels in (`originalThrownValue`, then a `BridgedInstance`'s
+`nativeObject`). Unwrapping only happened in the zone d4rt forked, and the fork
+only happened when `onUncaughtError` was set — so the shape a host saw depended on
+whether it used the hook or its own zone.
+
+The reason this was recorded as unfixable turns out to be half right. Unwrapping
+does require *observing* the error, and the only error-interception point Dart
+offers is `ZoneSpecification.handleUncaughtError`, which makes the zone a new
+**error zone** — and Dart refuses to carry an error across an error-zone
+boundary, so owning it unconditionally stops an ordinary script failure from ever
+reaching the caller of `execute` (a hang, not a failure). What the analysis
+missed is that a callback can be observed **at registration** instead of by
+handling what it throws, and a zone specifying only the `register*Callback`
+hooks is *not* an error zone. Measured: `identical(zone.errorZone,
+parent.errorZone)` stays true, and an ordinary future error still crosses to an
+awaiter outside.
+
+So the two halves are now separate. The zone is forked **always** and sheds the
+wrapper; the error-zone half stays opt-in behind `onUncaughtError`. A `Timer` body
+needed a second seam, found by a failing test rather than a probe: d4rt's own
+adapter is `() async { callback.call(...); await _yieldEventLoop(); }`, so the
+throw completes the adapter's unheld future instead of escaping the registered
+callback, and `Zone.errorCallback` is not consulted for an `async` body's
+completion. The three `Timer` adapters therefore unwrap themselves — a bounded
+set, counted: of the five stdlib adapters that invoke a `Callable` inside a
+native `async` closure, the other two hand their future to someone who can hold
+it.
+
+One escape route keeps the wrapper: `Stream.handleError`'s handler, which the SDK
+invokes with no zone registration at all. `unwrapScriptError` is therefore now
+**public** (top-level, exported) and documented as the remedy — two peels, not
+one, which is why it is not left to the caller to write. It returns anything
+that is neither wrapper nor `BridgedInstance` unchanged, so applying it twice or
+to a native error is a no-op.
+
+That the full unwrap is safe at the callback seam was measured, not assumed: a
+`Future.then` callback that throws is the one registered-callback escape an
+interpreted `catch` can still receive, and twelve in-script cases — `catch`,
+`on`-clause matching against native and script-declared types, `e.message`,
+`rethrow`, and in-callback `try`/`catch` inside timers and stream handlers — were
+recorded before the change and are byte-identical after it.
+
+`F-SCC23-10` asserted the old behaviour on purpose and is inverted here, keeping
+its other half: d4rt still does not take over the embedder's error zone.
+
 ## 1.93.0
 
 ### Fixed — `InterpretedInstance.toString()` reaches the script's override (scd72)

@@ -37,16 +37,25 @@
 ///   enumerated yet. Per-adapter wrapping catches only the adapters someone
 ///   remembered.
 /// - **The interpreter-internal wrapper is unwrapped before the error leaves.**
-///   The host sees exactly what the *synchronous* path already gives it
-///   (`_executeInEnvironment` rethrows `originalThrownValue`), so the two paths
-///   finally agree.
+///   This was written as "the host sees exactly what the *synchronous* path
+///   already gives it", and SCD73's baseline measurement showed that claim to be
+///   false in the other direction: the synchronous path rethrows
+///   `originalThrownValue` and so still hands the host a `BridgedInstance`
+///   shell, where this path hands over the native object inside it. The two
+///   paths agree on shedding the wrapper and disagree one peel further in —
+///   tracked as sce118. Corrected here rather than deleted, because the wrong
+///   version is the reason nobody looked.
 /// - **A `D4rt.onUncaughtError` hook receives it** when the embedder sets one.
 ///   That is the sandbox argument: a host that runs untrusted script must be
 ///   able to observe and contain the script's failures.
 /// - **With no hook, the error forwards to the parent zone** — today's
 ///   behaviour exactly. F-SCB9-14 keeps passing unchanged, which is the point:
 ///   the todo's "DO NOT fix this by making listen's adapter swallow the error"
-///   is honoured by construction rather than by discipline.
+///   is honoured by construction rather than by discipline. **SCD73 later made
+///   the unwrapping unconditional too**, so the no-hook path forwards to the
+///   parent zone *and* forwards what the script threw; the zone is always
+///   forked, only the error-zone half is opt-in. See
+///   `scd73_no_hook_unwrapping_test.dart`.
 ///
 /// **(b) alone was rejected on evidence, not taste.** A `Timer` callback can
 /// fire after `execute`'s future has already completed (probe 10), so a
@@ -332,29 +341,42 @@ void main() {
       'F-SCC23-10: with no hook d4rt does not take over the error zone [2026-09-04]',
       () async {
         // Pins the *cost* of the design, so nobody later "tidies up" the
-        // conditional fork without knowing what it buys.
+        // opt-in error zone into an unconditional one.
         //
         // A zone that defines `handleUncaughtError` is a new *error zone*, and
         // Dart refuses to deliver an error across an error-zone boundary
         // (`future_impl.dart`: "Don't cross zone boundaries with errors"). An
-        // unconditional fork therefore breaks the ordinary case: the caller
-        // awaits `execute`'s future from outside the zone, the script's own
-        // failure is diverted to the uncaught handler, and the future never
+        // unconditional error zone therefore breaks the ordinary case: the
+        // caller awaits `execute`'s future from outside the zone, the script's
+        // own failure is diverted to the uncaught handler, and the future never
         // completes. F-SCB9-12 fails exactly that way — it was written for an
         // unrelated reason and caught this within a minute.
         //
-        // So the zone is opt-in. The consequence, asserted here rather than left
-        // to be discovered: an embedder that sets no hook still sees the
-        // interpreter's internal wrapper, because there is no seam to unwrap it
-        // at. Making that unconditional needs a way to observe escapes without
-        // owning the error zone, which Dart does not offer — SCD73.
+        // SCD73 UPDATED THIS TEST, and the update is the interesting part. Its
+        // original assertion was that a no-hook embedder still receives
+        // `InternalInterpreterD4rtException`, on the reasoning that unwrapping
+        // needs to intercept the error and interception means owning the error
+        // zone. Only the second half was true: a zone can wrap a **callback at
+        // registration** without becoming an error zone, and that is enough to
+        // unwrap what the callback throws. So the escape now arrives clean
+        // while the error zone is still the embedder's — the two properties
+        // turned out to be separable, and this test asserts both at once.
+        // `Stream.handleError` is the one handler with no registration seam;
+        // `scd73_no_hook_unwrapping_test.dart` owns that residue.
         final (_, zoneErrors) = await runWithoutHook(
           streamScript("(v) { throw StateError('uz'); }"),
         );
         expect(
           zoneErrors.single,
-          isA<InternalInterpreterD4rtException>(),
-          reason: 'unchanged from before SCC23 — the opt-in is the whole point',
+          isA<StateError>(),
+          reason:
+              'the no-hook path agrees with the hook path on the shape of a '
+              'script failure — SCD73',
+        );
+        expect(
+          zoneErrors.single,
+          isNot(isA<InternalInterpreterD4rtException>()),
+          reason: 'this is the assertion SCD73 inverted, kept explicit',
         );
       },
     );
