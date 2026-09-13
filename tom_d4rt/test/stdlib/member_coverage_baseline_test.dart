@@ -71,6 +71,40 @@
 // "undefined". The one failure that means "you broke something" is the one that
 // timing cannot fake.
 
+//
+// SCD75 ADDED ONE CASE AND ONE CORRECTION, both worth reading before trusting a
+// "no gaps" result on any class.
+//
+// The correction: SCD75 was filed as "bridge member surface is a second
+// enumeration gap, unguarded", from reading bridge sources and counting their
+// declared members. This audit had always measured that surface — it diffs
+// `dart:mirrors` over `BridgedClass.nativeType` against the declared map, which
+// is exactly what that todo proposed building — and its verdict on both named
+// examples was that they are reachable through the registered hierarchy. Neither
+// was a gap. F-SCD75-1 pins that so the claim cannot be re-derived from the same
+// reading, and it distinguishes the two routes a member can take (declared by
+// the bridge, or inherited through the chain), because a member that swaps
+// routes is invisible to every other test here:
+//
+//   | Injected fault                                    | Fires                |
+//   | ------------------------------------------------- | -------------------- |
+//   | `LinkedList -> Iterable` hierarchy edge cut       | 1 and F-SCD75-1      |
+//   | `LinkedList.isNotEmpty` getter deleted            | F-SCD75-1 ALONE      |
+//
+// The second row is why the case is not merely documentation: deleting a
+// declared getter that the chain also supplies is not a coverage regression by
+// this file's other definitions — the member stays reachable — so nothing else
+// notices the bridge shrinking.
+//
+// THE BLIND SPOT SCD75 FOUND INSTEAD, and it is a real one: every probe here
+// runs against an instance the BRIDGE constructed. A script class that
+// `extends` a bridged class is never probed, and that route can be broken while
+// every member reads as reachable. Measured 2026-09-13: `class B extends
+// StringBuffer` works, while `class E extends LinkedListEntry<E>` — the idiom
+// the SDK documents for `LinkedList` — cannot be added to a `LinkedList` at all,
+// because the bridge's `add` tests `is BridgedLinkedListEntry` and an
+// interpreted subclass is not one. Tracked as sce120_aimm; widening the audit to
+// cover the subclass route is not free, so it is named rather than assumed away.
 @Timeout(Duration(minutes: 5))
 library;
 
@@ -466,6 +500,102 @@ void main() {
           'dart run tool/stdlib_member_diff.dart --baseline\n'
           'Commit the regenerated baseline together with the change that caused '
           'it, so the diff shows which members moved and why.',
+    );
+  });
+
+  test('F-SCD75-1: a short declared-member list is not a coverage gap — the '
+      'fallback is what closes it [2026-09-13]', () {
+    // SCD75 was filed as "bridge member surface is a second enumeration gap,
+    // unguarded", naming members measured by hand: the `LinkedList` bridge
+    // "declares exactly two instance getters, `length` and `isEmpty`", and the
+    // `StreamController` bridge contains no `done` at all. The reading of the
+    // source was right about `done` — `grep -c "'done'"` on
+    // `stream_controller.dart` is still 0 — and wrong about `isNotEmpty`, which
+    // the `LinkedList` bridge has declared all along. Every conclusion drawn
+    // from either was wrong, and this case exists so the claim cannot be filed
+    // a third time from the same reading.
+    //
+    // A bridge's declared members are not its reachable surface. What a script
+    // can touch is decided at run time by the registered hierarchy walk, so an
+    // undeclared member resolves through a supertype's bridge. Measured
+    // 2026-09-13 through the interpreter: `iterator`, `first`, `last`,
+    // `isNotEmpty`, `for`-`in` and `map` all work on a `LinkedList`, and
+    // `controller.done` completes when the controller closes.
+    //
+    // So each member reaches a script by one of TWO routes, and this case
+    // records which — a member that swapped routes would otherwise look
+    // identical from the outside:
+    //
+    //   * DECLARED by the bridge itself. Never enters this audit's diff at all,
+    //     because the diff is the SDK surface MINUS the declared map.
+    //   * UNDECLARED, reachable through the hierarchy. Enters the diff and is
+    //     classified by RUNNING a script, not by reading the map — which is the
+    //     other half of the correction: this audit has always seen these
+    //     members correctly, so the surface was never unguarded.
+    const declared = <String, List<String>>{
+      'LinkedList': ['length', 'isEmpty', 'isNotEmpty'],
+    };
+    const viaHierarchy = <String, List<String>>{
+      'LinkedList': ['iterator', 'first', 'last'],
+      'StreamController': ['done'],
+    };
+
+    // Anti-vacuity first: if the diff for these classes were empty — a narrowed
+    // run, a mirror walk that stopped early — every per-member expectation
+    // below would pass by absence.
+    for (final cls in {...declared.keys, ...viaHierarchy.keys}) {
+      expect(
+        observed[cls],
+        isNotNull,
+        reason:
+            '$cls is not in the audit at all, so nothing below is a '
+            'measurement of it',
+      );
+    }
+    expect(
+      observed['LinkedList']!.length,
+      greaterThanOrEqualTo(20),
+      reason:
+          'the SDK surface walk should find ~28 members this bridge does not '
+          'declare; a handful would mean the walk stopped early, and then '
+          '"no gaps" says nothing',
+    );
+
+    final wrong = <String>[];
+    declared.forEach((cls, members) {
+      for (final member in members) {
+        final now = observed[cls]![member];
+        if (now != null) {
+          wrong.add(
+            '$cls.$member is declared by the bridge, so it should not be in '
+            'the diff at all — got $now',
+          );
+        }
+      }
+    });
+    viaHierarchy.forEach((cls, members) {
+      for (final member in members) {
+        final now = observed[cls]![member];
+        if (now != _Now.reachable) {
+          wrong.add(
+            '$cls.$member should be undeclared and reachable through the '
+            'hierarchy — got ${now ?? 'declared by the bridge now'}',
+          );
+        }
+      }
+    });
+
+    expect(
+      wrong,
+      isEmpty,
+      reason:
+          'These are the members SCD75 reported as unreachable, with the route '
+          'each actually takes. A change that breaks the hierarchy fallback '
+          'shows up here with a name instead of as an unexplained baseline '
+          'diff; a member that moves from one route to the other shows up as '
+          'well, which is information rather than breakage — move it and say '
+          'why.\n'
+          '${wrong.join('\n')}',
     );
   });
 }
