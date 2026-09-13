@@ -32,10 +32,15 @@
 //       accept stream fires on `accept(2)` failing (EMFILE, ENFILE). A test
 //       cannot exhaust the process file-descriptor table without breaking the
 //       test runner with it.
-//   HttpServer.listen — same, one layer up. Measured separately: a script
-//       cannot even read `req.response` off the request it delivers
-//       ("Cannot access property 'response' on target of type _HttpRequest"),
-//       so the adapter's onData path is unreachable too. Filed as SCD71.
+//   HttpServer.listen — same, one layer up. The second half of this entry has
+//       since become false and is corrected rather than deleted, because the
+//       correction is the useful part: it read "a script cannot even read
+//       `req.response` off the request it delivers", filed as SCD71. SCC62
+//       bridged `HttpRequest` and `HttpResponse` two days later and the
+//       canonical four-line server now serves a request end to end
+//       (`stdlib/io/http_server_test.dart`, F-SCC62-1). So the onData path is
+//       reachable; only the ERROR channel is not, for the accept(2) reason
+//       above, which is what this entry was really about.
 //   RawSocket.listen — a `RawSocket` reports peer loss as the
 //       `RawSocketEvent.readClosed` *data* event, not as an error. Measured:
 //       destroying the peer yields `[write, readClosed]` and no error.

@@ -24,7 +24,7 @@
 // `tool/stdlib_member_audit.dart` and lists EVERY registered bridge name in its
 // `auditedClasses` set. Counting it, the unmentioned set is **zero** — the scan
 // would have been perfectly green and perfectly meaningless, and it was added
-// (by scd51) the same day this guard was written. Excluding it, the set is 65.
+// (by scd51) the same day this guard was written. Excluding it, the set is 63.
 // A file that is a generated list of names is data, not somebody's test naming
 // a bridge, so any test file whose first lines say `GENERATED` is skipped.
 //
@@ -55,10 +55,12 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/math.dart';
 /// than a different question — so the old 23 was not a smaller gap, it was the
 /// same gap measured through prose.
 ///
-/// **IT IS 65 SINCE SCD70**, which took `FileMode` out the way the list is
-/// meant to shrink: a test named it in code. That is the ratchet working in
-/// the direction nobody has to remember — F-SCD58-3 failed on the commit that
-/// added the coverage, and deleting the line was the fix.
+/// **IT IS 63 SINCE SCD71**, having been 65 after SCD70. Each of those three
+/// names — `FileMode`, then `HttpResponse` and `HttpConnectionInfo` — came off
+/// the way the list is meant to shrink: a test named it in code, F-SCD58-3
+/// failed on the commit that added the coverage, and deleting the line was the
+/// fix. That is the ratchet working in the direction nobody has to remember,
+/// and it had never moved that way before SCD70.
 ///
 /// DELETING A LINE IS HOW COVERAGE IS CLAIMED. `F-SCD58-3` fails on an entry
 /// that IS named now, so the list cannot quietly outlive the gap it records —
@@ -87,9 +89,7 @@ const uncoveredBridges = <String>{
   'HttpClientDigestCredentials',
   'HttpClientRequest',
   'HttpClientResponse',
-  'HttpConnectionInfo',
   'HttpDate',
-  'HttpResponse',
   'HttpSession',
   'IOException',
   'Isolate',
@@ -224,7 +224,7 @@ void main() {
   //   * a GENERATED file. `stdlib_member_baseline.dart` lists every registered
   //     name in `auditedClasses`, so counting it puts the unmentioned set at
   //     ZERO — green and meaningless. See the file header.
-  //   * THIS FILE. `uncoveredBridges` below names all 65 pinned bridges, so
+  //   * THIS FILE. `uncoveredBridges` below names all 63 pinned bridges, so
   //     counting it makes every one of them read as covered and F-SCD58-3
   //     reports the entire baseline as stale on the first run. It did.
   //
@@ -270,7 +270,7 @@ void main() {
           'This file excluded itself by filename and did not find itself in '
           'the walk, so it was renamed. Update the name in the skip — '
           'otherwise its own uncoveredBridges list counts as coverage of the '
-          '65 bridges it pins, and F-SCD58-3 reports the whole baseline as '
+          '63 bridges it pins, and F-SCD58-3 reports the whole baseline as '
           'stale.',
     );
     expect(
@@ -290,14 +290,14 @@ void main() {
   //   | ------------------------------------------------- | ----- |
   //   | a baselined name removed from the list             | 2     |
   //   | a baselined name given a mention in a test         | 3     |
-  //   | the generated-file exclusion dropped               | 3, x65  |
-  //   | the SELF exclusion dropped                         | 3, x65  |
+  //   | the generated-file exclusion dropped               | 3, x63  |
+  //   | the SELF exclusion dropped                         | 3, x63  |
   //   | _codeOnly dropped (comments and strings counted)   | 3, x44  |
   //   | this file renamed without updating the skip        | 1 and 3 |
   //   | the test-source walk pointed at a missing directory| 1       |
   //
   // The two exclusion rows are the ones worth keeping: without either, every
-  // pinned name reads as covered and F-SCD58-3 reports all 65 at once — which
+  // pinned name reads as covered and F-SCD58-3 reports all 63 at once — which
   // is what a reader would see if somebody "simplified" a skip away. The
   // `_codeOnly` row is the same shape and is how the stripper was added at
   // all: SCD64's test asserts the SDK message `'Null check operator used on a
@@ -308,7 +308,7 @@ void main() {
   //
   // The rename row fires 1 AND 3, which was not the prediction: F-SCD58-1's
   // `selfSeen` check names the cause, and F-SCD58-3 then reports the
-  // consequence. Read the first — the 65 in the second are not a finding.
+  // consequence. Read the first — the 63 in the second are not a finding.
   test('F-SCD58-2: every registered bridge is named by some test '
       '[2026-09-12]', () {
     final newlyUncovered = unnamed.difference(uncoveredBridges).toList()
