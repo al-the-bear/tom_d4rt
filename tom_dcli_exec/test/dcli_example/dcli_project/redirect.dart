@@ -35,11 +35,15 @@ void main3() {
   const pathToLog = 'log.txt';
   print('running ls');
   'ls *'.start(
-      progress: Progress((line) {
-    print(line);
-  }, stderr: (line) {
-    pathToLog.append(line);
-  }));
+    progress: Progress(
+      (line) {
+        print(line);
+      },
+      stderr: (line) {
+        pathToLog.append(line);
+      },
+    ),
+  );
 
   print('Displaying the log file');
   cat(pathToLog);
@@ -50,16 +54,19 @@ void main() {
   final errors = <String>[];
 
   final result = 'ls /fred'.start(
-
-      /// stop the start command from throwing if 'ls'
-      /// returns non-zero exit code
-      nothrow: true,
-      progress: Progress((line) {
+    /// stop the start command from throwing if 'ls'
+    /// returns non-zero exit code
+    nothrow: true,
+    progress: Progress(
+      (line) {
         // do nothing, so stdout is suppressed
-      }, stderr: (line) {
+      },
+      stderr: (line) {
         // add errors to the [errors] list
         errors.add(line);
-      }));
+      },
+    ),
+  );
 
   /// non-zero exit code means we have a problem.
   if (result.exitCode != 0) {

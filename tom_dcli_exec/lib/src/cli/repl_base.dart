@@ -1478,10 +1478,7 @@ void main() {}
             // library's top-level functions (`verify`, `verifyEquals`, …) only
             // become visible through its import.
             var result = freshD4rt.execute(
-              source: prepareProgramSource(
-                code,
-                importBlock: getImportBlock(),
-              ),
+              source: prepareProgramSource(code, importBlock: getImportBlock()),
             );
             if (result is Future) result = await result;
             if (result != null && !silent) {

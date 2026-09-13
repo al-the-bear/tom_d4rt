@@ -328,12 +328,12 @@ class ContextStack {
     final current = _stack.removeLast();
     _stack.add(
       ExecutionContext(
-        workingDirectory: newDirectory,
-        sourceFile: current.sourceFile,
-        recordToSession: current.recordToSession,
-        silent: current.silent,
-        parent: current.parent,
-      )
+          workingDirectory: newDirectory,
+          sourceFile: current.sourceFile,
+          recordToSession: current.recordToSession,
+          silent: current.silent,
+          parent: current.parent,
+        )
         ..multilineMode = current.multilineMode
         ..multilineBuffer.addAll(current.multilineBuffer),
     );

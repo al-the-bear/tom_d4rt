@@ -103,8 +103,10 @@ void main() {
     copyTree(sourceDir, destDir);
     print('Copied directory tree');
     print('Files in dest:');
-    find('*', workingDirectory: destDir)
-        .forEach((f) => print('  ${p.basename(f)}'));
+    find(
+      '*',
+      workingDirectory: destDir,
+    ).forEach((f) => print('  ${p.basename(f)}'));
 
     // 14. File info
     print('\n--- 14. File Information ---');

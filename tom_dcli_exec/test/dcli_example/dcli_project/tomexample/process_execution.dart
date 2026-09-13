@@ -45,9 +45,11 @@ void main() {
     // 6. Progress tracking
     print('\n--- 6. Progress Tracking ---');
     final lines = <String>[];
-    'seq 1 5'.start(progress: Progress((line) {
-      lines.add(line);
-    }));
+    'seq 1 5'.start(
+      progress: Progress((line) {
+        lines.add(line);
+      }),
+    );
     print('Captured ${lines.length} lines: ${lines.join(", ")}');
 
     // 7. Capture stdout and stderr
@@ -117,8 +119,10 @@ echo "More stdout"
     touch(fileWithSpace, create: true);
 
     final found = <String>[];
-    startFromArgs('ls', ['-la', fileWithSpace],
-        progress: Progress((line) => found.add(line)));
+    startFromArgs('ls', [
+      '-la',
+      fileWithSpace,
+    ], progress: Progress((line) => found.add(line)));
     print('Found file with space in name: ${found.isNotEmpty}');
 
     // 13. Process multiple files

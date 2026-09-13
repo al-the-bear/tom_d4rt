@@ -51,25 +51,32 @@ void main() {
     // 4. Find files by pattern
     print('\n--- 4. Finding Files ---');
     print('All .dart files:');
-    find('*.dart', workingDirectory: projectDir, recursive: true)
-        .forEach((f) => print('  ${p.relative(f, from: projectDir)}'));
+    find(
+      '*.dart',
+      workingDirectory: projectDir,
+      recursive: true,
+    ).forEach((f) => print('  ${p.relative(f, from: projectDir)}'));
 
     // 5. Find with types
     print('\n--- 5. Finding Directories ---');
     print('All directories:');
-    find('*',
-            workingDirectory: projectDir,
-            recursive: true,
-            types: [FileSystemEntityType.directory])
-        .forEach((f) => print('  ${p.relative(f, from: projectDir)}/'));
+    find(
+      '*',
+      workingDirectory: projectDir,
+      recursive: true,
+      types: [FileSystemEntityType.directory],
+    ).forEach((f) => print('  ${p.relative(f, from: projectDir)}/'));
 
     // 6. Find with case insensitive
     print('\n--- 6. Case-insensitive Find ---');
     touch(p.join(projectDir, 'README.md'), create: true);
     touch(p.join(projectDir, 'readme.txt'), create: true);
     print('Files matching readme (case-insensitive):');
-    find('readme*', workingDirectory: projectDir, caseSensitive: false)
-        .forEach((f) => print('  ${p.basename(f)}'));
+    find(
+      'readme*',
+      workingDirectory: projectDir,
+      caseSensitive: false,
+    ).forEach((f) => print('  ${p.basename(f)}'));
 
     // 7. Listing directory contents
     print('\n--- 7. Listing Contents ---');
@@ -100,18 +107,23 @@ void main() {
     print('Created hidden directory: .config/');
 
     print('Hidden files (with includeHidden):');
-    find('*',
-            workingDirectory: projectDir, includeHidden: true, recursive: false)
+    find(
+          '*',
+          workingDirectory: projectDir,
+          includeHidden: true,
+          recursive: false,
+        )
         .toList()
         .where((f) => p.basename(f).startsWith('.'))
         .forEach((f) => print('  ${p.basename(f)}'));
 
     // 10. Count files
     print('\n--- 10. Counting Files ---');
-    final dartFileCount =
-        find('*.dart', workingDirectory: projectDir, recursive: true)
-            .toList()
-            .length;
+    final dartFileCount = find(
+      '*.dart',
+      workingDirectory: projectDir,
+      recursive: true,
+    ).toList().length;
     print('Total .dart files: $dartFileCount');
 
     // 11. Move directory
@@ -133,10 +145,11 @@ void main() {
     copyTree(projectDir, backupDir);
     print('Copied project/ to backup/');
 
-    final backupDartFiles =
-        find('*.dart', workingDirectory: backupDir, recursive: true)
-            .toList()
-            .length;
+    final backupDartFiles = find(
+      '*.dart',
+      workingDirectory: backupDir,
+      recursive: true,
+    ).toList().length;
     print('Dart files in backup: $backupDartFiles');
 
     // 13. Delete non-empty directory

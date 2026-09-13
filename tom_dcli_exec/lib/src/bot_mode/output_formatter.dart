@@ -15,15 +15,11 @@ class FormattedOutput {
 
   /// Optional file attachments.
   final List<File>? attachments;
-  
+
   /// Parse mode for Telegram ('Markdown', 'MarkdownV2', 'HTML', or null for plain text).
   final String? parseMode;
 
-  FormattedOutput({
-    required this.text,
-    this.attachments,
-    this.parseMode,
-  });
+  FormattedOutput({required this.text, this.attachments, this.parseMode});
 }
 
 /// Execution result from REPL.
@@ -42,11 +38,11 @@ class ExecutionResult {
 
   /// Error message (if isError is true).
   final String? errorMessage;
-  
+
   /// Optional Copilot Chat response data.
   /// If present, this was a Copilot Chat interaction.
   final CopilotChatResponse? copilotResponse;
-  
+
   /// Whether the output contains pre-formatted text with markdown.
   /// When true, the output should be rendered as markdown, not wrapped in code blocks.
   /// Used for help text, info output, and other formatted displays.
@@ -67,16 +63,16 @@ class ExecutionResult {
 class CopilotChatResponse {
   /// The main generated markdown content.
   final String generatedMarkdown;
-  
+
   /// Optional comment/notes from the response.
   final String? comment;
-  
+
   /// File paths referenced while forming the response.
   final List<String> references;
-  
+
   /// File paths the user explicitly requested as attachments.
   final List<String> requestedAttachments;
-  
+
   CopilotChatResponse({
     required this.generatedMarkdown,
     this.comment,
@@ -84,14 +80,15 @@ class CopilotChatResponse {
     List<String>? requestedAttachments,
   }) : references = references ?? [],
        requestedAttachments = requestedAttachments ?? [];
-  
+
   /// Create from the Map returned by VsCodeHelper.askCopilotChat.
   factory CopilotChatResponse.fromMap(Map<String, dynamic> map) {
     return CopilotChatResponse(
       generatedMarkdown: map['generatedMarkdown'] as String? ?? '',
       comment: map['comments'] as String?,
       references: (map['references'] as List?)?.cast<String>() ?? [],
-      requestedAttachments: (map['requestedAttachments'] as List?)?.cast<String>() ?? [],
+      requestedAttachments:
+          (map['requestedAttachments'] as List?)?.cast<String>() ?? [],
     );
   }
 }
@@ -107,7 +104,7 @@ class OutputFormatter {
   });
 
   /// Format an execution result for Telegram.
-  /// 
+  ///
   /// Parses console_markdown and converts to Telegram-compatible Markdown.
   /// Handles truncation at line endings and attaches full output if too long.
   FormattedOutput format(ExecutionResult result) {
@@ -133,18 +130,18 @@ class OutputFormatter {
     if (result.duration.inMilliseconds > 100) {
       text += '\n⏱ ${result.duration.inMilliseconds}ms';
     }
-    
+
     // Handle Copilot Chat response formatting
     if (result.copilotResponse != null) {
       final copilot = result.copilotResponse!;
       final buffer = StringBuffer();
-      
+
       // Add comment at top if present
       if (copilot.comment != null && copilot.comment!.isNotEmpty) {
         buffer.writeln('💬 Comment: ${copilot.comment}');
         buffer.writeln();
       }
-      
+
       // List references at top if present
       if (copilot.references.isNotEmpty) {
         buffer.writeln('📚 References:');
@@ -153,10 +150,10 @@ class OutputFormatter {
         }
         buffer.writeln();
       }
-      
+
       // Add the main content
       buffer.write(text);
-      
+
       // Note about attachments at the end
       if (copilot.requestedAttachments.isNotEmpty) {
         buffer.writeln();
@@ -166,11 +163,12 @@ class OutputFormatter {
           buffer.writeln('  • $att');
         }
       }
-      
+
       text = buffer.toString();
-      
+
       // Auto-attach files from requestedAttachments if configured
-      if (config.autoAttachCopilotFiles && copilot.requestedAttachments.isNotEmpty) {
+      if (config.autoAttachCopilotFiles &&
+          copilot.requestedAttachments.isNotEmpty) {
         attachments ??= [];
         for (final path in copilot.requestedAttachments) {
           final file = File(path);
@@ -183,7 +181,7 @@ class OutputFormatter {
 
     // Parse and convert to Telegram markdown, with truncation
     final prepared = prepareForTelegram(text, maxChars: config.maxOutputChars);
-    
+
     // Handle single long line - send as attachment only
     if (prepared.isSingleLongLine) {
       attachments ??= [];
@@ -194,7 +192,7 @@ class OutputFormatter {
         parseMode: null, // Plain text for the "(Line too long)" message
       );
     }
-    
+
     // Attach full output if truncated
     if (prepared.wasTruncated && config.attachFullOutput) {
       attachments ??= [];
@@ -202,7 +200,7 @@ class OutputFormatter {
     }
 
     return FormattedOutput(
-      text: prepared.text, 
+      text: prepared.text,
       attachments: attachments,
       parseMode: 'MarkdownV2',
     );

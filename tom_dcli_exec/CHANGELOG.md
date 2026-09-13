@@ -1,3 +1,31 @@
+## 1.2.2
+
+### Changed — formatted the tree once (scd82)
+
+The analyzer-free twin of `tom_d4rt_dcli`, formatted in the same pass and for
+the same reason: the two are the same REPL on the two interpreter lines, kept in
+step by diffing, so unformatted layout was costing the check that keeps them
+equal rather than merely looking untidy. 57 of 84 files under `lib` and `test`
+were affected.
+
+**Layout plus two brace pairs, proven per file rather than asserted.**
+`git diff -w` cannot establish inertness, because the tall style *splits* lines
+and a whitespace-insensitive diff still counts a moved boundary as a change.
+What was checked is the token stream, twice: whitespace stripped, then whitespace
+and commas stripped. 56 of the 57 files are identical to HEAD under that
+normalisation.
+
+The exception is `lib/src/cli/vscode_integration.dart`, which gained two brace
+pairs — re-wrapping a long braceless `if` splits it across lines, which is what
+makes `curly_braces_in_flow_control_structures` fire. They were added by
+`dart fix --code=curly_braces_in_flow_control_structures`, not by hand, and every
+inserted chunk in that file was checked to be exactly `{` or `}`.
+
+Worth noting for the mirror: `vscode_integration.dart` needed the same two
+braces in both twins, at the same two sites. That is the twins being twins.
+
+`dart analyze` is clean, and the formatter is now idempotent here.
+
 ## 1.2.1
 
 ### Fixed — barrel re-exports were registered under an unmatched key (GEN-125)

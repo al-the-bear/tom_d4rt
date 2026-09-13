@@ -48,11 +48,7 @@ class DirectoryNotFoundException extends CliException {
 /// Error during code execution.
 class ExecutionException extends CliException {
   /// Creates an execution exception.
-  ExecutionException(
-    super.message, {
-    super.command,
-    super.stackTrace,
-  });
+  ExecutionException(super.message, {super.command, super.stackTrace});
 }
 
 /// Error during replay file execution.
@@ -68,7 +64,7 @@ class ReplayException extends CliException {
 
   /// Creates a replay exception.
   ReplayException(this.file, this.line, this.cause)
-      : super('Error at $file:$line: ${cause.message}');
+    : super('Error at $file:$line: ${cause.message}');
 }
 
 /// Thrown when a method is called that is invalid in the current multiline mode.
@@ -84,9 +80,9 @@ class InvalidMultilineModeException extends CliException {
     required this.currentMode,
     required this.attemptedMethod,
   }) : super(
-          'Cannot call $attemptedMethod while in multiline mode ($currentMode). '
-          'Call .end first to complete the multiline block, or clearMultilineBuffer() to cancel.',
-        );
+         'Cannot call $attemptedMethod while in multiline mode ($currentMode). '
+         'Call .end first to complete the multiline block, or clearMultilineBuffer() to cancel.',
+       );
 }
 
 /// Thrown when maximum nesting depth is exceeded.
@@ -96,14 +92,18 @@ class MaxNestingDepthException extends CliException {
 
   /// Creates a max nesting depth exception.
   MaxNestingDepthException(this.maxDepth)
-      : super('Maximum nesting depth ($maxDepth) exceeded. '
-            'Check for circular references in replay files.');
+    : super(
+        'Maximum nesting depth ($maxDepth) exceeded. '
+        'Check for circular references in replay files.',
+      );
 }
 
 /// Thrown when accessing cli global before initialization.
 class CliNotInitializedException extends CliException {
   /// Creates a cli not initialized exception.
   CliNotInitializedException()
-      : super('cli global not yet initialized. '
-            'This happens when accessing cli before REPL startup.');
+    : super(
+        'cli global not yet initialized. '
+        'This happens when accessing cli before REPL startup.',
+      );
 }

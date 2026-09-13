@@ -4,32 +4,33 @@
 library;
 
 /// Formats a result for display in the REPL.
-/// 
+///
 /// Provides special formatting for:
 /// - Copilot Chat responses (Maps with 'generatedMarkdown' key)
 /// - Other Maps and Lists with indented JSON-like formatting
 /// - Regular values with toString()
 String formatResult(dynamic result) {
   if (result == null) return 'null';
-  
+
   // Special handling for Copilot Chat responses
   if (result is Map) {
     if (result.containsKey('generatedMarkdown')) {
       final buffer = StringBuffer();
       buffer.writeln();
-      buffer.writeln('<cyan>─</cyan>'* 60);
+      buffer.writeln('<cyan>─</cyan>' * 60);
       buffer.writeln('📝 **Copilot Response:**');
       buffer.writeln('<cyan>─</cyan>' * 60);
       // Apply markdown formatting to the response
       buffer.writeln(result['generatedMarkdown'].toString());
-      if (result['comments'] != null && result['comments'].toString().isNotEmpty) {
+      if (result['comments'] != null &&
+          result['comments'].toString().isNotEmpty) {
         buffer.writeln();
         buffer.writeln('💬 *Comments:* ${result['comments']}');
       }
       buffer.write('<cyan>─</cyan>' * 60);
       return buffer.toString();
     }
-    
+
     // Format other Maps nicely
     if (result.isEmpty) return '{}';
     final buffer = StringBuffer('{');
@@ -44,7 +45,7 @@ String formatResult(dynamic result) {
     buffer.write('}');
     return buffer.toString();
   }
-  
+
   // Format Lists nicely
   if (result is List) {
     if (result.isEmpty) return '[]';
@@ -61,7 +62,7 @@ String formatResult(dynamic result) {
     buffer.write(']');
     return buffer.toString();
   }
-  
+
   return result.toString();
 }
 

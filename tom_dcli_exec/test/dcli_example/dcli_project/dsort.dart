@@ -97,8 +97,9 @@ void dsort(List<String> args) {
 
   if (columns.isEmpty) {
     /// if no columns defined we sort by the whole line.
-    columns
-        .add(Column(0, const CaseInsensitiveSort(), SortDirection.ascending));
+    columns.add(
+      Column(0, const CaseInsensitiveSort(), SortDirection.ascending),
+    );
   }
 
   if (verbose) {
@@ -133,8 +134,7 @@ void dsort(List<String> args) {
 void usageError(String error) {
   print(red(error));
   print('');
-  print(
-    '''
+  print('''
 Example:
 
 dsort --sortkey=1n unsorted.txt
@@ -196,8 +196,7 @@ ${green("Examples:")}
   then Descending numeric sort on cols 5-7 inclusive
   using the column delimter ':'
  ${green("dsort -f=: --sortkey=1nd,2,3Sd,5-7nd unsorted.txt")}
-''',
-  );
+''');
 
   exit(-1);
 }

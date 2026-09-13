@@ -46,7 +46,7 @@ void main() {
     'git',
     'python',
     'node',
-    'nonexistent'
+    'nonexistent',
   ];
   for (final cmd in commands) {
     final found = isOnPATH(cmd);
@@ -108,8 +108,10 @@ void main() {
   final output = <String>[];
   // Set env var, run command, then clean up
   env['CUSTOM_VAR'] = 'custom_value';
-  startFromArgs('sh', ['-c', 'echo \$CUSTOM_VAR'],
-      progress: Progress((line) => output.add(line)));
+  startFromArgs('sh', [
+    '-c',
+    'echo \$CUSTOM_VAR',
+  ], progress: Progress((line) => output.add(line)));
   env['CUSTOM_VAR'] = null;
   print('Subprocess with custom env: ${output.join()}');
 

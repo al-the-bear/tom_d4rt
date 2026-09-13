@@ -88,13 +88,17 @@ void main() {
   print(header);
   print(separator);
   print(
-      '${grey("│")} ${"server".padRight(15)} ${grey("│")} ${green("running".padRight(10))} ${grey("│")}');
+    '${grey("│")} ${"server".padRight(15)} ${grey("│")} ${green("running".padRight(10))} ${grey("│")}',
+  );
   print(
-      '${grey("│")} ${"database".padRight(15)} ${grey("│")} ${green("healthy".padRight(10))} ${grey("│")}');
+    '${grey("│")} ${"database".padRight(15)} ${grey("│")} ${green("healthy".padRight(10))} ${grey("│")}',
+  );
   print(
-      '${grey("│")} ${"cache".padRight(15)} ${grey("│")} ${yellow("warning".padRight(10))} ${grey("│")}');
+    '${grey("│")} ${"cache".padRight(15)} ${grey("│")} ${yellow("warning".padRight(10))} ${grey("│")}',
+  );
   print(
-      '${grey("│")} ${"worker".padRight(15)} ${grey("│")} ${red("stopped".padRight(10))} ${grey("│")}');
+    '${grey("│")} ${"worker".padRight(15)} ${grey("│")} ${red("stopped".padRight(10))} ${grey("│")}',
+  );
   print(grey('└${"─" * 17}┴${"─" * 12}┘'));
 
   // 9. Diff-style output
@@ -107,8 +111,9 @@ void main() {
   // 10. Log levels
   print('\n--- 10. Log Levels ---');
   void log(String level, String message) {
-    final timestamp =
-        grey('[${DateTime.now().toIso8601String().substring(11, 19)}]');
+    final timestamp = grey(
+      '[${DateTime.now().toIso8601String().substring(11, 19)}]',
+    );
     final levelStr = switch (level) {
       'DEBUG' => grey('DEBUG'),
       'INFO' => blue('INFO '),
@@ -136,13 +141,15 @@ void main() {
 
   // 12. ASCII art banner
   print('\n--- 12. ASCII Banner ---');
-  print(cyan(r'''
+  print(
+    cyan(r'''
   ____   ____ _ _ 
  |  _ \ / ___| (_)
  | | | | |   | | |
  | |_| | |___| | |
  |____/ \____|_|_|
-'''));
+'''),
+  );
 
   // 13. Conditional coloring
   print('\n--- 13. Conditional Coloring ---');

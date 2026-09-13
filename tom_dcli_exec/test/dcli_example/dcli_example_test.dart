@@ -74,11 +74,13 @@ Future<String> _ensureDclieBinary() async {
   }
 
   if (needsRebuild()) {
-    final result = await Process.run(
-      'dart',
-      ['compile', 'exe', sourcePath, '-o', binaryPath],
-      workingDirectory: _projectRoot,
-    );
+    final result = await Process.run('dart', [
+      'compile',
+      'exe',
+      sourcePath,
+      '-o',
+      binaryPath,
+    ], workingDirectory: _projectRoot);
     if (result.exitCode != 0) {
       throw StateError('Failed to compile dclie binary:\n${result.stderr}');
     }
@@ -91,19 +93,20 @@ Future<({String stdout, String stderr, int exitCode})> _runScript(
   String scriptPath, {
   Duration timeout = const Duration(seconds: 30),
 }) async {
-  final process = await Process.start(
-    _dclieBinaryPath,
-    [scriptPath],
-    workingDirectory: _projectRoot,
-  );
+  final process = await Process.start(_dclieBinaryPath, [
+    scriptPath,
+  ], workingDirectory: _projectRoot);
 
   final stdout = await process.stdout
       .transform(utf8.decoder)
       .join()
-      .timeout(timeout, onTimeout: () {
-    process.kill();
-    return '<TIMEOUT>';
-  });
+      .timeout(
+        timeout,
+        onTimeout: () {
+          process.kill();
+          return '<TIMEOUT>';
+        },
+      );
   final stderr = await process.stderr
       .transform(utf8.decoder)
       .join()
@@ -140,7 +143,9 @@ void main() {
     });
 
     test('02_string_as_process', () async {
-      final r = await _runScript(p.join(scriptDir, '02_string_as_process.dart'));
+      final r = await _runScript(
+        p.join(scriptDir, '02_string_as_process.dart'),
+      );
       expect(r.exitCode, 0, reason: 'stderr: ${r.stderr}');
     });
 
@@ -213,7 +218,9 @@ void main() {
     });
 
     test('directory_operations', () async {
-      final r = await _runScript(p.join(scriptDir, 'directory_operations.dart'));
+      final r = await _runScript(
+        p.join(scriptDir, 'directory_operations.dart'),
+      );
       expect(r.exitCode, 0, reason: 'stderr: ${r.stderr}');
     });
   });
@@ -250,17 +257,13 @@ void main() {
     });
 
     test('12_error_handling', () async {
-      final r = await _runScript(
-        p.join(scriptDir, '12_error_handling.dart'),
-      );
+      final r = await _runScript(p.join(scriptDir, '12_error_handling.dart'));
       expect(r.exitCode, 0, reason: 'stderr: ${r.stderr}');
       expect(r.stdout, contains('All error handling examples completed!'));
     });
 
     test('14_shell_execution', () async {
-      final r = await _runScript(
-        p.join(scriptDir, '14_shell_execution.dart'),
-      );
+      final r = await _runScript(p.join(scriptDir, '14_shell_execution.dart'));
       expect(r.exitCode, 0, reason: 'stderr: ${r.stderr}');
       expect(r.stdout, contains('Shell execution examples completed!'));
     });
@@ -276,9 +279,7 @@ void main() {
     );
 
     test('environment', () async {
-      final r = await _runScript(
-        p.join(tomexampleDir, 'environment.dart'),
-      );
+      final r = await _runScript(p.join(tomexampleDir, 'environment.dart'));
       expect(r.exitCode, 0, reason: 'stderr: ${r.stderr}');
       expect(r.stdout, contains('Environment Operations Example Complete'));
     });
@@ -293,9 +294,7 @@ void main() {
     });
 
     test('error_handling', () async {
-      final r = await _runScript(
-        p.join(tomexampleDir, 'error_handling.dart'),
-      );
+      final r = await _runScript(p.join(tomexampleDir, 'error_handling.dart'));
       expect(r.exitCode, 0, reason: 'stderr: ${r.stderr}');
       expect(r.stdout, contains('Error Handling Example Complete'));
     });

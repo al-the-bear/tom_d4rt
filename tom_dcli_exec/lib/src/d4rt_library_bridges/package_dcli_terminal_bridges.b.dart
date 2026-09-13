@@ -68,14 +68,22 @@ class PackageDcliTerminalBridge {
     final classes = bridgeClasses();
     final classSources = classSourceUris();
     for (final bridge in classes) {
-      interpreter.registerBridgedClass(bridge, importPath, sourceUri: classSources[bridge.name]);
+      interpreter.registerBridgedClass(
+        bridge,
+        importPath,
+        sourceUri: classSources[bridge.name],
+      );
     }
 
     // Register bridged enums with source URIs for deduplication
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
-      interpreter.registerBridgedEnum(enumDef, importPath, sourceUri: enumSources[enumDef.name]);
+      interpreter.registerBridgedEnum(
+        enumDef,
+        importPath,
+        sourceUri: enumSources[enumDef.name],
+      );
     }
 
     // Register global functions with source URIs for deduplication
@@ -83,7 +91,13 @@ class PackageDcliTerminalBridge {
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
-      interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
+      interpreter.registertopLevelFunction(
+        entry.key,
+        entry.value,
+        importPath,
+        sourceUri: funcSources[entry.key],
+        signature: funcSigs[entry.key],
+      );
     }
   }
 
@@ -93,63 +107,104 @@ class PackageDcliTerminalBridge {
       'red': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'red');
         final text = D4.getRequiredArg<String>(positional, 0, 'text', 'red');
-        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(named, 'background', $pkg.AnsiColor.none);
+        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(
+          named,
+          'background',
+          $pkg.AnsiColor.none,
+        );
         final bold = D4.getNamedArgWithDefault<bool>(named, 'bold', true);
         return $pkg.red(text, background: background, bold: bold);
       },
       'black': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'black');
         final text = D4.getRequiredArg<String>(positional, 0, 'text', 'black');
-        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(named, 'background', $pkg.AnsiColor.white);
+        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(
+          named,
+          'background',
+          $pkg.AnsiColor.white,
+        );
         final bold = D4.getNamedArgWithDefault<bool>(named, 'bold', true);
         return $pkg.black(text, background: background, bold: bold);
       },
       'green': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'green');
         final text = D4.getRequiredArg<String>(positional, 0, 'text', 'green');
-        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(named, 'background', $pkg.AnsiColor.none);
+        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(
+          named,
+          'background',
+          $pkg.AnsiColor.none,
+        );
         final bold = D4.getNamedArgWithDefault<bool>(named, 'bold', true);
         return $pkg.green(text, background: background, bold: bold);
       },
       'blue': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'blue');
         final text = D4.getRequiredArg<String>(positional, 0, 'text', 'blue');
-        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(named, 'background', $pkg.AnsiColor.none);
+        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(
+          named,
+          'background',
+          $pkg.AnsiColor.none,
+        );
         final bold = D4.getNamedArgWithDefault<bool>(named, 'bold', true);
         return $pkg.blue(text, background: background, bold: bold);
       },
       'yellow': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'yellow');
         final text = D4.getRequiredArg<String>(positional, 0, 'text', 'yellow');
-        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(named, 'background', $pkg.AnsiColor.none);
+        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(
+          named,
+          'background',
+          $pkg.AnsiColor.none,
+        );
         final bold = D4.getNamedArgWithDefault<bool>(named, 'bold', true);
         return $pkg.yellow(text, background: background, bold: bold);
       },
       'magenta': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'magenta');
-        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'magenta');
-        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(named, 'background', $pkg.AnsiColor.none);
+        final text = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'text',
+          'magenta',
+        );
+        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(
+          named,
+          'background',
+          $pkg.AnsiColor.none,
+        );
         final bold = D4.getNamedArgWithDefault<bool>(named, 'bold', true);
         return $pkg.magenta(text, background: background, bold: bold);
       },
       'cyan': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'cyan');
         final text = D4.getRequiredArg<String>(positional, 0, 'text', 'cyan');
-        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(named, 'background', $pkg.AnsiColor.none);
+        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(
+          named,
+          'background',
+          $pkg.AnsiColor.none,
+        );
         final bold = D4.getNamedArgWithDefault<bool>(named, 'bold', true);
         return $pkg.cyan(text, background: background, bold: bold);
       },
       'white': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'white');
         final text = D4.getRequiredArg<String>(positional, 0, 'text', 'white');
-        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(named, 'background', $pkg.AnsiColor.none);
+        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(
+          named,
+          'background',
+          $pkg.AnsiColor.none,
+        );
         final bold = D4.getNamedArgWithDefault<bool>(named, 'bold', true);
         return $pkg.white(text, background: background, bold: bold);
       },
       'orange': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'orange');
         final text = D4.getRequiredArg<String>(positional, 0, 'text', 'orange');
-        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(named, 'background', $pkg.AnsiColor.none);
+        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(
+          named,
+          'background',
+          $pkg.AnsiColor.none,
+        );
         final bold = D4.getNamedArgWithDefault<bool>(named, 'bold', true);
         return $pkg.orange(text, background: background, bold: bold);
       },
@@ -157,9 +212,18 @@ class PackageDcliTerminalBridge {
         D4.requireMinArgs(positional, 1, 'grey');
         final text = D4.getRequiredArg<String>(positional, 0, 'text', 'grey');
         final level = D4.getNamedArgWithDefault<double>(named, 'level', 0.5);
-        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(named, 'background', $pkg.AnsiColor.none);
+        final background = D4.getNamedArgWithDefault<$pkg.AnsiColor>(
+          named,
+          'background',
+          $pkg.AnsiColor.none,
+        );
         final bold = D4.getNamedArgWithDefault<bool>(named, 'bold', true);
-        return $pkg.grey(text, level: level, background: background, bold: bold);
+        return $pkg.grey(
+          text,
+          level: level,
+          background: background,
+          bold: bold,
+        );
       },
     };
   }
@@ -186,16 +250,26 @@ class PackageDcliTerminalBridge {
   /// Returns a map of global function names to their display signatures.
   static Map<String, String> globalFunctionSignatures() {
     return {
-      'red': 'String red(String text, {AnsiColor background = AnsiColor.none, bool bold = true})',
-      'black': 'String black(String text, {AnsiColor background = AnsiColor.white, bool bold = true})',
-      'green': 'String green(String text, {AnsiColor background = AnsiColor.none, bool bold = true})',
-      'blue': 'String blue(String text, {AnsiColor background = AnsiColor.none, bool bold = true})',
-      'yellow': 'String yellow(String text, {AnsiColor background = AnsiColor.none, bool bold = true})',
-      'magenta': 'String magenta(String text, {AnsiColor background = AnsiColor.none, bool bold = true})',
-      'cyan': 'String cyan(String text, {AnsiColor background = AnsiColor.none, bool bold = true})',
-      'white': 'String white(String text, {AnsiColor background = AnsiColor.none, bool bold = true})',
-      'orange': 'String orange(String text, {AnsiColor background = AnsiColor.none, bool bold = true})',
-      'grey': 'String grey(String text, {double level = 0.5, AnsiColor background = AnsiColor.none, bool bold = true})',
+      'red':
+          'String red(String text, {AnsiColor background = AnsiColor.none, bool bold = true})',
+      'black':
+          'String black(String text, {AnsiColor background = AnsiColor.white, bool bold = true})',
+      'green':
+          'String green(String text, {AnsiColor background = AnsiColor.none, bool bold = true})',
+      'blue':
+          'String blue(String text, {AnsiColor background = AnsiColor.none, bool bold = true})',
+      'yellow':
+          'String yellow(String text, {AnsiColor background = AnsiColor.none, bool bold = true})',
+      'magenta':
+          'String magenta(String text, {AnsiColor background = AnsiColor.none, bool bold = true})',
+      'cyan':
+          'String cyan(String text, {AnsiColor background = AnsiColor.none, bool bold = true})',
+      'white':
+          'String white(String text, {AnsiColor background = AnsiColor.none, bool bold = true})',
+      'orange':
+          'String orange(String text, {AnsiColor background = AnsiColor.none, bool bold = true})',
+      'grey':
+          'String grey(String text, {double level = 0.5, AnsiColor background = AnsiColor.none, bool bold = true})',
     };
   }
 
@@ -214,11 +288,7 @@ class PackageDcliTerminalBridge {
   }
 
   /// Returns a list of bridged enum names.
-  static List<String> get enumNames => [
-    'TableAlignment',
-    'TerminalClearMode',
-  ];
-
+  static List<String> get enumNames => ['TableAlignment', 'TerminalClearMode'];
 }
 
 // =============================================================================
@@ -246,20 +316,14 @@ BridgedClass _createAnsiBridge() {
         return $pkg.Ansi.strip(line);
       },
     },
-    constructorSignatures: {
-      '': 'factory Ansi()',
-    },
-    staticMethodSignatures: {
-      'strip': 'String strip(String line)',
-    },
+    constructorSignatures: {'': 'factory Ansi()'},
+    staticMethodSignatures: {'strip': 'String strip(String line)'},
     staticGetterSignatures: {
       'isSupported': 'bool get isSupported',
       'resetEmitAnsi': 'void get resetEmitAnsi',
       'esc': 'dynamic get esc',
     },
-    staticSetterSignatures: {
-      'isSupported': 'set isSupported(bool value)',
-    },
+    staticSetterSignatures: {'isSupported': 'set isSupported(bool value)'},
   );
 }
 
@@ -280,8 +344,10 @@ BridgedClass _createAnsiColorBridge() {
       },
     },
     getters: {
-      'code': (visitor, target) => D4.validateTarget<$pkg.AnsiColor>(target, 'AnsiColor').code,
-      'bold': (visitor, target) => D4.validateTarget<$pkg.AnsiColor>(target, 'AnsiColor').bold,
+      'code': (visitor, target) =>
+          D4.validateTarget<$pkg.AnsiColor>(target, 'AnsiColor').code,
+      'bold': (visitor, target) =>
+          D4.validateTarget<$pkg.AnsiColor>(target, 'AnsiColor').bold,
     },
     methods: {
       'apply': (visitor, target, positional, named, typeArgs) {
@@ -292,10 +358,16 @@ BridgedClass _createAnsiColorBridge() {
           return t.apply(text);
         }
         if (named.containsKey('background')) {
-          final background = D4.getRequiredNamedArg<$pkg.AnsiColor>(named, 'background', 'apply');
+          final background = D4.getRequiredNamedArg<$pkg.AnsiColor>(
+            named,
+            'background',
+            'apply',
+          );
           return t.apply(text, background: background);
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw StateError(
+          'Unreachable: all named parameter combinations should be covered',
+        );
       },
     },
     staticGetters: {
@@ -337,10 +409,7 @@ BridgedClass _createAnsiColorBridge() {
     methodSignatures: {
       'apply': 'String apply(String text, {AnsiColor background = none})',
     },
-    getterSignatures: {
-      'code': 'int get code',
-      'bold': 'bool get bold',
-    },
+    getterSignatures: {'code': 'int get code', 'bold': 'bool get bold'},
     staticMethodSignatures: {
       'reset': 'String reset()',
       'fgReset': 'String fgReset()',
@@ -389,41 +458,70 @@ BridgedClass _createFormatBridge() {
         final t = D4.validateTarget<$pkg.Format>(target, 'Format');
         D4.requireMinArgs(positional, 1, 'row');
         if (positional.isEmpty) {
-          throw ArgumentError('row: Missing required argument "cols" at position 0');
+          throw ArgumentError(
+            'row: Missing required argument "cols" at position 0',
+          );
         }
         final cols = D4.coerceList<String?>(positional[0], 'cols');
         final widths = D4.coerceListOrNull<int>(named['widths'], 'widths');
-        final alignments = D4.coerceListOrNull<$pkg.TableAlignment>(named['alignments'], 'alignments');
+        final alignments = D4.coerceListOrNull<$pkg.TableAlignment>(
+          named['alignments'],
+          'alignments',
+        );
         final delimiter = D4.getOptionalNamedArg<String?>(named, 'delimiter');
-        return t.row(cols, widths: widths, alignments: alignments, delimiter: delimiter);
+        return t.row(
+          cols,
+          widths: widths,
+          alignments: alignments,
+          delimiter: delimiter,
+        );
       },
       'limitString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Format>(target, 'Format');
         D4.requireMinArgs(positional, 1, 'limitString');
-        final display = D4.getRequiredArg<String>(positional, 0, 'display', 'limitString');
+        final display = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'display',
+          'limitString',
+        );
         final width = D4.getNamedArgWithDefault<int>(named, 'width', 40);
         return t.limitString(display, width: width);
       },
       'percentage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Format>(target, 'Format');
         D4.requireMinArgs(positional, 2, 'percentage');
-        final progress = D4.getRequiredArg<double>(positional, 0, 'progress', 'percentage');
-        final precision = D4.getRequiredArg<int>(positional, 1, 'precision', 'percentage');
+        final progress = D4.getRequiredArg<double>(
+          positional,
+          0,
+          'progress',
+          'percentage',
+        );
+        final precision = D4.getRequiredArg<int>(
+          positional,
+          1,
+          'precision',
+          'percentage',
+        );
         return t.percentage(progress, precision);
       },
       'bytesAsReadable': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Format>(target, 'Format');
         D4.requireMinArgs(positional, 1, 'bytesAsReadable');
-        final bytes = D4.getRequiredArg<int>(positional, 0, 'bytes', 'bytesAsReadable');
+        final bytes = D4.getRequiredArg<int>(
+          positional,
+          0,
+          'bytes',
+          'bytesAsReadable',
+        );
         final pad = D4.getNamedArgWithDefault<bool>(named, 'pad', true);
         return t.bytesAsReadable(bytes, pad: pad);
       },
     },
-    constructorSignatures: {
-      '': 'factory Format()',
-    },
+    constructorSignatures: {'': 'factory Format()'},
     methodSignatures: {
-      'row': 'String row(List<String?> cols, {List<int>? widths, List<TableAlignment>? alignments, String? delimiter})',
+      'row':
+          'String row(List<String?> cols, {List<int>? widths, List<TableAlignment>? alignments, String? delimiter})',
       'limitString': 'String limitString(String display, {int width = 40})',
       'percentage': 'String percentage(double progress, int precision)',
       'bytesAsReadable': 'String bytesAsReadable(int bytes, {bool pad = true})',
@@ -445,31 +543,49 @@ BridgedClass _createTerminalBridge() {
       },
     },
     getters: {
-      'isAnsi': (visitor, target) => D4.validateTarget<$pkg.Terminal>(target, 'Terminal').isAnsi,
-      'column': (visitor, target) => D4.validateTarget<$pkg.Terminal>(target, 'Terminal').column,
-      'columns': (visitor, target) => D4.validateTarget<$pkg.Terminal>(target, 'Terminal').columns,
-      'row': (visitor, target) => D4.validateTarget<$pkg.Terminal>(target, 'Terminal').row,
-      'hasTerminal': (visitor, target) => D4.validateTarget<$pkg.Terminal>(target, 'Terminal').hasTerminal,
-      'rows': (visitor, target) => D4.validateTarget<$pkg.Terminal>(target, 'Terminal').rows,
-      'lines': (visitor, target) => D4.validateTarget<$pkg.Terminal>(target, 'Terminal').lines,
+      'isAnsi': (visitor, target) =>
+          D4.validateTarget<$pkg.Terminal>(target, 'Terminal').isAnsi,
+      'column': (visitor, target) =>
+          D4.validateTarget<$pkg.Terminal>(target, 'Terminal').column,
+      'columns': (visitor, target) =>
+          D4.validateTarget<$pkg.Terminal>(target, 'Terminal').columns,
+      'row': (visitor, target) =>
+          D4.validateTarget<$pkg.Terminal>(target, 'Terminal').row,
+      'hasTerminal': (visitor, target) =>
+          D4.validateTarget<$pkg.Terminal>(target, 'Terminal').hasTerminal,
+      'rows': (visitor, target) =>
+          D4.validateTarget<$pkg.Terminal>(target, 'Terminal').rows,
+      'lines': (visitor, target) =>
+          D4.validateTarget<$pkg.Terminal>(target, 'Terminal').lines,
     },
     setters: {
-      'column': (visitor, target, value) => 
-        D4.validateTarget<$pkg.Terminal>(target, 'Terminal').column = value as dynamic,
-      'row': (visitor, target, value) => 
-        D4.validateTarget<$pkg.Terminal>(target, 'Terminal').row = value as dynamic,
+      'column': (visitor, target, value) =>
+          D4.validateTarget<$pkg.Terminal>(target, 'Terminal').column =
+              value as dynamic,
+      'row': (visitor, target, value) =>
+          D4.validateTarget<$pkg.Terminal>(target, 'Terminal').row =
+              value as dynamic,
     },
     methods: {
       'clearScreen': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Terminal>(target, 'Terminal');
-        final mode = D4.getNamedArgWithDefault<$pkg.TerminalClearMode>(named, 'mode', $pkg.TerminalClearMode.all);
+        final mode = D4.getNamedArgWithDefault<$pkg.TerminalClearMode>(
+          named,
+          'mode',
+          $pkg.TerminalClearMode.all,
+        );
         t.clearScreen(mode: mode);
         return null;
       },
       'overwriteLine': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Terminal>(target, 'Terminal');
         D4.requireMinArgs(positional, 1, 'overwriteLine');
-        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'overwriteLine');
+        final text = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'text',
+          'overwriteLine',
+        );
         t.overwriteLine(text);
         return null;
       },
@@ -483,21 +599,36 @@ BridgedClass _createTerminalBridge() {
       'writeLine': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Terminal>(target, 'Terminal');
         D4.requireMinArgs(positional, 1, 'writeLine');
-        final text = D4.getRequiredArg<String>(positional, 0, 'text', 'writeLine');
+        final text = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'text',
+          'writeLine',
+        );
         if (!named.containsKey('alignment')) {
           t.writeLine(text);
           return null;
         }
         if (named.containsKey('alignment')) {
-          final alignment = D4.getRequiredNamedArg<dynamic>(named, 'alignment', 'writeLine');
+          final alignment = D4.getRequiredNamedArg<dynamic>(
+            named,
+            'alignment',
+            'writeLine',
+          );
           t.writeLine(text, alignment: alignment);
           return null;
         }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        throw StateError(
+          'Unreachable: all named parameter combinations should be covered',
+        );
       },
       'clearLine': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$pkg.Terminal>(target, 'Terminal');
-        final mode = D4.getNamedArgWithDefault<$pkg.TerminalClearMode>(named, 'mode', $pkg.TerminalClearMode.all);
+        final mode = D4.getNamedArgWithDefault<$pkg.TerminalClearMode>(
+          named,
+          'mode',
+          $pkg.TerminalClearMode.all,
+        );
         t.clearLine(mode: mode);
         return null;
       },
@@ -543,15 +674,16 @@ BridgedClass _createTerminalBridge() {
         return $pkg.Terminal.previousLine();
       },
     },
-    constructorSignatures: {
-      '': 'factory Terminal()',
-    },
+    constructorSignatures: {'': 'factory Terminal()'},
     methodSignatures: {
-      'clearScreen': 'void clearScreen({TerminalClearMode mode = TerminalClearMode.all})',
+      'clearScreen':
+          'void clearScreen({TerminalClearMode mode = TerminalClearMode.all})',
       'overwriteLine': 'void overwriteLine(String text)',
       'write': 'void write(String text)',
-      'writeLine': 'void writeLine(String text, {TextAlignment alignment = TextAlignment.left})',
-      'clearLine': 'void clearLine({TerminalClearMode mode = TerminalClearMode.all})',
+      'writeLine':
+          'void writeLine(String text, {TextAlignment alignment = TextAlignment.left})',
+      'clearLine':
+          'void clearLine({TerminalClearMode mode = TerminalClearMode.all})',
       'showCursor': 'void showCursor({required bool show})',
       'cursorUp': 'void cursorUp()',
       'cursorDown': 'void cursorDown()',
@@ -573,9 +705,6 @@ BridgedClass _createTerminalBridge() {
       'column': 'set column(int value)',
       'row': 'set row(int value)',
     },
-    staticMethodSignatures: {
-      'previousLine': 'void previousLine()',
-    },
+    staticMethodSignatures: {'previousLine': 'void previousLine()'},
   );
 }
-
