@@ -1,3 +1,25 @@
+## 1.2.1
+
+### Changed — formatted the hand-written half of `lib/` (scd81)
+
+The formatter had never been run here, so until this commit `dart format` on any
+single file rewrote it wholesale and buried whatever real edit came with it. That
+matters more in these two packages than in most: they are twins, and the shared
+`d4rt_user_bridges/` set is derived by `sync_shared_user_bridges.dart` rewriting
+one import line and checked by comparing TEXT.
+
+**Only the hand-written files — the 18 generated `*.b.dart` are deliberately
+untouched.** `tom_d4rt_generator` emits them by string concatenation and depends
+on no formatter, so formatting them would start a permanent fight: format,
+regenerate, and the diff is back. Teaching the generator to format its own output
+is tracked separately, and needs a workspace-wide regeneration because every
+consumer's freshness guard reads committed output.
+
+Layout-only, measured rather than asserted: normalising away whitespace and then
+whitespace-and-commas leaves every changed file byte-identical to its previous
+content, and no quote count changed, so no string literal was re-split and no
+D4rt script text moved. `dart analyze` clean in both twins.
+
 ## 1.2.0
 
 - Add `ProfilingMetrics` (exported from `tom_d4rt_flutter.dart`) — a single
