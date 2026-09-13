@@ -79,6 +79,20 @@ const _mirroredPackages = [
   'tom_d4rt_flutter_ast',
 ];
 
+/// File names that are GENERATOR OUTPUT and are therefore excluded everywhere.
+///
+/// SCD82 — `version.versioner.dart` is what `buildkit :versioner` writes and what
+/// a tool prints as its `--version` banner. It is emitted unformatted, so
+/// including it would start the same fight the bridges would: format, regenerate
+/// at the next version bump, and the diff is back. Measured, not assumed: after
+/// regenerating the four stamps this pass had to refresh, `dart format` found
+/// exactly those four files and nothing else.
+///
+/// Fixing it belongs in the versioner, which lives outside this repo, so unlike
+/// the bridges (sce123_aimn) it is not this quest's to close — sce124_aimn
+/// records it.
+const _generatedFileNames = {'version.versioner.dart'};
+
 /// The packages whose formatted surface is `lib/` MINUS the generator's output.
 ///
 /// SCD81 checked the thing that could have invalidated the whole approach, and
@@ -139,33 +153,57 @@ Directory? _repoRoot() {
 /// omission — which is the failure mode this whole suite exists to prevent.
 List<String> _formatTargets(Directory package) {
   final name = package.path.split(Platform.pathSeparator).last;
-  if (!_generatedOutputPackages.contains(name)) {
-    // `bin` and `tool` as well as `lib`/`test`, because SCD82 measured the hole
-    // they left: with the roots at `lib test`, four packages passed this guard
-    // while nine files under `bin/` and `tool/` still rewrote wholesale on the
-    // first `dart format`. A guard that says "formatted" about part of a package
-    // is worse than none, because the claim is what stops anyone checking.
-    return [
-      'lib',
-      'test',
-      'bin',
-      'tool',
-    ].where((d) => Directory('${package.path}/$d').existsSync()).toList();
+
+  // Whole directories where that is possible, because a directory check cannot
+  // pass by omission. SCD82 widened the set from `lib test` to include `bin` and
+  // `tool`, which had left a measured hole: four packages passed this guard while
+  // nine files under those two still rewrote wholesale on the first format.
+  const roots = ['lib', 'test', 'bin', 'tool'];
+  final excluded = _generatedFiles(package);
+  if (!_generatedOutputPackages.contains(name) && excluded.isEmpty) {
+    return roots
+        .where((d) => Directory('${package.path}/$d').existsSync())
+        .toList();
   }
-  final lib = Directory('${package.path}/lib');
-  if (!lib.existsSync()) return const [];
+
+  // Enumerated only where an exclusion is needed, because `dart format` takes
+  // paths and has no exclude flag. Both exclusions are name-based and re-derived
+  // on every run, so a file added to the package is covered automatically.
   final prefix = '${package.path}${Platform.pathSeparator}';
-  return lib
-      .listSync(recursive: true)
-      .whereType<File>()
-      .map((f) => f.path)
-      .where((path) => path.endsWith('.dart') && !path.endsWith('.b.dart'))
-      .map(
-        (path) =>
-            path.startsWith(prefix) ? path.substring(prefix.length) : path,
-      )
-      .toList()
-    ..sort();
+  final targets = <String>[];
+  for (final dir in roots) {
+    final root = Directory('${package.path}/$dir');
+    if (!root.existsSync()) continue;
+    // The Flutter twins' `test/` is the ~2080-script cluster corpus: D4rt
+    // fixtures driven over HTTP, not code. Reformatting them changes what the
+    // corpus feeds the interpreter.
+    if (_generatedOutputPackages.contains(name) && dir != 'lib') continue;
+    for (final file in root.listSync(recursive: true).whereType<File>()) {
+      final path = file.path;
+      if (!path.endsWith('.dart')) continue;
+      if (excluded.contains(path)) continue;
+      targets.add(
+        path.startsWith(prefix) ? path.substring(prefix.length) : path,
+      );
+    }
+  }
+  return targets..sort();
+}
+
+/// Every generated file under [package]: the bridges and the version stamp.
+List<String> _generatedFiles(Directory package) {
+  final out = <String>[];
+  for (final dir in const ['lib', 'test', 'bin', 'tool']) {
+    final root = Directory('${package.path}/$dir');
+    if (!root.existsSync()) continue;
+    for (final file in root.listSync(recursive: true).whereType<File>()) {
+      final last = file.path.split(Platform.pathSeparator).last;
+      if (last.endsWith('.b.dart') || _generatedFileNames.contains(last)) {
+        out.add(file.path);
+      }
+    }
+  }
+  return out;
 }
 
 /// Runs the formatter in check mode and returns the files it would rewrite.
@@ -283,6 +321,17 @@ void main() {
           isFalse,
           reason:
               'generator output must not be in the target list — sce123_aimn',
+        );
+        expect(
+          targets.any(
+            (t) => _generatedFileNames.contains(
+              t.split(Platform.pathSeparator).last,
+            ),
+          ),
+          isFalse,
+          reason:
+              'the version stamp is generator output too, and unformatted for '
+              'the same reason — sce124_aimn',
         );
 
         expect(
