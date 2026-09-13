@@ -163,6 +163,29 @@ class InterpretedClass implements Callable, RuntimeType {
     }
   }
 
+  /// The visitor that declared this class, kept so a script's own `toString()`
+  /// override can still be dispatched after the interpreter has unwound.
+  ///
+  /// SCD72. `InterpretedInstance.toString()` is a plain `Object` override with
+  /// nowhere to receive a visitor, and dispatching to interpreted code needs
+  /// one — which is why the diagnostic form was all a host ever saw. Measured:
+  /// inside a `D4rt.onUncaughtError` hook, `D4.activeVisitor` is NULL, because
+  /// the interpreter has already unwound by the time the embedder is called. So
+  /// the ambient visitor cannot carry this and something has to be stored.
+  ///
+  /// ONE REFERENCE PER CLASS, NOT PER INSTANCE, which is the whole reason this
+  /// field is here rather than on `InterpretedInstance`: classes are few and
+  /// instances are many, the class is what owns the method being dispatched,
+  /// and a per-instance reference would add an allocation to every script
+  /// object for a string almost none of them are ever asked for.
+  ///
+  /// Assigned once, from `InterpreterVisitor.visitClassDeclaration` /
+  /// `visitMixinDeclaration`. Measured usable after `execute` returns: a
+  /// visitor captured during execution still dispatches an instance method
+  /// afterwards, because it holds the global environment the D4rt instance
+  /// keeps alive.
+  InterpreterVisitor? declaringVisitor;
+
   // Corrected constructor signature and initialization
   InterpretedClass(
     this.name,
@@ -1428,13 +1451,81 @@ class InterpretedInstance implements RuntimeValue {
     }
   }
 
-  @override
-  String toString() {
+  /// Re-entry guard for [toString].
+  ///
+  /// A script's `toString` can reach this instance again — most simply by
+  /// interpolating a native container that holds it. Identity-keyed rather than
+  /// `==`-keyed because a script may override `==` too, and asking a possibly
+  /// broken `==` while rendering a possibly broken `toString` is how one defect
+  /// becomes two.
+  static final Set<InterpretedInstance> _rendering =
+      Set<InterpretedInstance>.identity();
+
+  /// The interpreter's own description of this instance, used when the script
+  /// declares no `toString` and whenever dispatching to one is not safe.
+  String get _diagnosticString {
     if (typeArguments != null && typeArguments!.isNotEmpty) {
       final typeArgsStr = typeArguments!.map((t) => t.name).join(', ');
       return '<instance of ${klass.name}<$typeArgsStr>>';
     }
     return '<instance of ${klass.name}>';
+  }
+
+  /// SCD72: dispatches to the script's `toString()` when there is one, and
+  /// falls back to [_diagnosticString] otherwise.
+  ///
+  /// THIS METHOD DOES NOT THROW FOR ANYTHING RECOVERABLE, and that is a
+  /// deliberate divergence from `InterpreterVisitor.stringify`, which handles
+  /// interpolation INSIDE a script and must keep Dart's semantics: there a
+  /// throwing `toString` propagates and `toString() => '$this'` overflows the
+  /// stack, exactly as real Dart does — measured, both already did before this
+  /// change and still do. This method is the one HOST code reaches, including
+  /// an `onUncaughtError` hook whose first act is to log the error. A second
+  /// exception raised while reporting the first is worse than an imperfect
+  /// string, which is the same reasoning behind the SDK's own
+  /// `Error.safeToString`.
+  ///
+  /// `StackOverflowError` AND `OutOfMemoryError` ARE RETHROWN, and the reason
+  /// is measured rather than principled. The first draft caught everything, and
+  /// a pair of mutually-interpolating objects (`A.toString() => 'A:$b'`,
+  /// `B.toString() => 'B:$a'`) stopped raising `StackOverflowError` and started
+  /// HANGING: the overflow unwound into this catch, the diagnostic form was
+  /// returned, the caller resumed on a stack that was still full, and it
+  /// overflowed again — forever. Swallowing an unrecoverable VM error turns a
+  /// fast crash into a livelock, which is the one outcome worse than the
+  /// exception. Those two propagate; everything a script can actually do is
+  /// caught.
+  @override
+  String toString() {
+    final method = klass.findInstanceMethod('toString');
+    if (method == null) return _diagnosticString;
+    final visitor = klass.declaringVisitor;
+    if (visitor == null) return _diagnosticString;
+    if (!_rendering.add(this)) return _diagnosticString;
+    try {
+      Object? result;
+      try {
+        result = method
+            .bind(this)
+            .call(visitor, const <Object?>[], const <String, Object?>{});
+      } on ReturnException catch (e) {
+        result = e.value;
+      }
+      if (result is String) return result;
+      if (result == null) return _diagnosticString;
+      return result.toString();
+    } on StackOverflowError {
+      rethrow;
+    } on OutOfMemoryError {
+      rethrow;
+    } catch (_) {
+      // Everything else: a script `toString` that throws, a bridge failure deep
+      // inside it, a cycle this guard did not see. All of it degrades to the
+      // diagnostic form rather than escaping into whatever the host was doing.
+      return _diagnosticString;
+    } finally {
+      _rendering.remove(this);
+    }
   }
 
   /// Non-throwing check: does this instance declare an instance member

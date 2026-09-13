@@ -9830,6 +9830,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       );
     }
     final klass = placeholder;
+    // SCD72: record the visitor so `InterpretedInstance.toString()` can reach a
+    // script's own `toString` override after the interpreter has unwound — which
+    // is exactly when a host reads it (measured: `D4.activeVisitor` is null
+    // inside an `onUncaughtError` hook). Once per class, not per instance.
+    klass.declaringVisitor = this;
     Logger.debug(
       "[Visitor.visitClassDeclaration] Retrieved placeholder for '$className' (hash: ${klass.hashCode})",
     );
@@ -10290,6 +10295,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       );
     }
     final mixinClass = placeholder;
+    // SCD72 — see the note in `visitClassDeclaration`. A mixin can carry the
+    // `toString` an instance ends up dispatching, so it needs the same wiring.
+    mixinClass.declaringVisitor = this;
     Logger.debug(
       "[Visitor.visitMixinDeclaration] Retrieved placeholder for mixin '$mixinName' (hash: ${mixinClass.hashCode})",
     );

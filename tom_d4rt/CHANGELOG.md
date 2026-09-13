@@ -1,3 +1,39 @@
+## 1.93.0
+
+### Fixed — `InterpretedInstance.toString()` reaches the script's override (scd72)
+
+`'$e'` on a script-defined exception printed `<instance of MyErr>` rather than
+the `MyErr: boom` the script wrote. Inside a script, interpolation already
+honoured the override — `InterpreterVisitor.stringify` has dispatched for a long
+time — so the gap showed only where an instance reaches native code, which is
+why it survived. Measured, that was three places and not one: a host
+interpolating a value returned by `execute`, a `D4rt.onUncaughtError` hook, and
+any native container holding the instance (`'${[e]}'` gave
+`[<instance of MyErr>]`, because `List.toString()` is native).
+
+Dispatching needs an `InterpreterVisitor` and `toString()` has nowhere to receive
+one. `D4.activeVisitor` — the ambient one the interpreter already maintains — is
+not enough: measured, it is NULL inside an `onUncaughtError` hook, because the
+interpreter has unwound before the embedder runs. So the visitor is stored on the
+CLASS (`InterpretedClass.declaringVisitor`), one reference per class rather than
+per instance, assigned once from `visitClassDeclaration` / `visitMixinDeclaration`.
+
+The contract splits by caller, and the split is deliberate. `stringify`
+(interpolation inside a script) keeps Dart's semantics: a throwing `toString`
+propagates and `toString() => '$this'` overflows the stack, both before this
+change and after. `toString()` — what host code reaches — does not throw for
+anything recoverable, because a host's first act on receiving an error is to log
+it and a second exception raised while reporting the first is worse than an
+imperfect string. A re-entry guard terminates a cycle that returns through a
+native container.
+
+`StackOverflowError` and `OutOfMemoryError` are rethrown rather than swallowed,
+and that is measured rather than principled: the first draft caught everything,
+and a pair of mutually-interpolating objects then stopped raising
+`StackOverflowError` and started HANGING — the overflow unwound into the catch,
+the fallback was returned, the caller resumed on a still-full stack and
+overflowed again, forever.
+
 ## 1.92.0
 
 ### Fixed — adapter arguments are coerced, not cast (scd70)
