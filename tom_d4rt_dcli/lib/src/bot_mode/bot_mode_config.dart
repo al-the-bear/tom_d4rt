@@ -136,10 +136,7 @@ class VSCodeConfig {
   final String host;
   final int port;
 
-  VSCodeConfig({
-    required this.host,
-    required this.port,
-  });
+  VSCodeConfig({required this.host, required this.port});
 
   factory VSCodeConfig.fromYaml(YamlMap yaml) {
     return VSCodeConfig(
@@ -291,18 +288,8 @@ class DirectoriesConfig {
   factory DirectoriesConfig.defaults() {
     return DirectoriesConfig(
       mode: 'whitelist',
-      allowed: [
-        '~/scripts',
-        '~/notes',
-        '~/.tom',
-        '/tmp/telegram-files',
-      ],
-      blocked: [
-        '~/.ssh',
-        '~/.gnupg',
-        '~/.config/secrets',
-        '~/.aws',
-      ],
+      allowed: ['~/scripts', '~/notes', '~/.tom', '/tmp/telegram-files'],
+      blocked: ['~/.ssh', '~/.gnupg', '~/.config/secrets', '~/.aws'],
     );
   }
 
@@ -338,10 +325,14 @@ class LimitsConfig {
 
   factory LimitsConfig.fromYaml(YamlMap yaml) {
     return LimitsConfig(
-      maxExecutionTime: _parseDuration(yaml['max-execution-time'] as String? ?? '30s'),
+      maxExecutionTime: _parseDuration(
+        yaml['max-execution-time'] as String? ?? '30s',
+      ),
       maxOutputChars: yaml['max-output-chars'] as int? ?? 4000,
       maxFileSize: _parseFileSize(yaml['max-file-size'] as String? ?? '20MB'),
-      minMessageInterval: _parseDuration(yaml['min-message-interval'] as String? ?? '100ms'),
+      minMessageInterval: _parseDuration(
+        yaml['min-message-interval'] as String? ?? '100ms',
+      ),
     );
   }
 
@@ -401,10 +392,10 @@ class OutputConfig {
 
   /// Truncation suffix
   final String truncationSuffix;
-  
+
   /// Auto-attach files from Copilot Chat requestedAttachments
   final bool autoAttachCopilotFiles;
-  
+
   /// Bypass all formatting and pass raw output with Markdown parse mode.
   /// When true, skips all processing and sends output directly.
   final bool rawPassthrough;
@@ -427,10 +418,14 @@ class OutputConfig {
       convertMarkdown: yaml['convert-markdown'] as bool? ?? true,
       maxOutputChars: yaml['long-output-attach-result-limit'] as int? ?? 4000,
       attachFullOutput: yaml['attach-full-output'] as bool? ?? true,
-      truncationSuffix: yaml['truncation-suffix'] as String? ?? 
+      truncationSuffix:
+          yaml['truncation-suffix'] as String? ??
           '\n... (output truncated, {remaining} more chars)',
-      autoAttachCopilotFiles: yaml['auto-attach-copilot-files'] as bool? ?? true,
-      rawPassthrough: yaml['raw-passthrough'] as bool? ?? true,  // Default to true for testing
+      autoAttachCopilotFiles:
+          yaml['auto-attach-copilot-files'] as bool? ?? true,
+      rawPassthrough:
+          yaml['raw-passthrough'] as bool? ??
+          true, // Default to true for testing
     );
   }
 
@@ -443,7 +438,7 @@ class OutputConfig {
       attachFullOutput: true,
       truncationSuffix: '\n... (output truncated, {remaining} more chars)',
       autoAttachCopilotFiles: true,
-      rawPassthrough: true,  // Enable by default for testing
+      rawPassthrough: true, // Enable by default for testing
     );
   }
 }
@@ -471,9 +466,13 @@ class PollingConfig {
 
   factory PollingConfig.fromYaml(YamlMap yaml) {
     return PollingConfig(
-      interval: LimitsConfig._parseDuration(yaml['interval'] as String? ?? '2s'),
+      interval: LimitsConfig._parseDuration(
+        yaml['interval'] as String? ?? '2s',
+      ),
       timeout: LimitsConfig._parseDuration(yaml['timeout'] as String? ?? '30s'),
-      retryDelay: LimitsConfig._parseDuration(yaml['retry-delay'] as String? ?? '5s'),
+      retryDelay: LimitsConfig._parseDuration(
+        yaml['retry-delay'] as String? ?? '5s',
+      ),
       maxRetries: yaml['max-retries'] as int? ?? 3,
     );
   }
@@ -515,7 +514,9 @@ class FileTransferConfig {
 
     return FileTransferConfig(
       tempDirectory: yaml['temp-directory'] as String? ?? '/tmp/telegram-files',
-      cleanupAfter: LimitsConfig._parseDuration(yaml['cleanup-after'] as String? ?? '1h'),
+      cleanupAfter: LimitsConfig._parseDuration(
+        yaml['cleanup-after'] as String? ?? '1h',
+      ),
       allowedExtensions: allowedYaml.map((e) => e as String).toList(),
       blockedExtensions: blockedYaml.map((e) => e as String).toList(),
     );
@@ -536,14 +537,7 @@ class FileTransferConfig {
         '.dcli',
         '.tom',
       ],
-      blockedExtensions: [
-        '.exe',
-        '.sh',
-        '.bash',
-        '.zsh',
-        '.key',
-        '.pem',
-      ],
+      blockedExtensions: ['.exe', '.sh', '.bash', '.zsh', '.key', '.pem'],
     );
   }
 }

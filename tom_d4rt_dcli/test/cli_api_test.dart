@@ -134,12 +134,14 @@ void main() {
     test('push and pop contexts', () {
       final stack = ContextStack('/root');
 
-      stack.push(ExecutionContext(
-        workingDirectory: '/nested',
-        sourceFile: 'test.d4rt',
-        recordToSession: false,
-        silent: true,
-      ));
+      stack.push(
+        ExecutionContext(
+          workingDirectory: '/nested',
+          sourceFile: 'test.d4rt',
+          recordToSession: false,
+          silent: true,
+        ),
+      );
 
       expect(stack.cwd, '/nested');
       expect(stack.silent, true);

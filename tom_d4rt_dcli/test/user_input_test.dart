@@ -504,10 +504,7 @@ void main() {
     });
 
     test('can combine validators with any', () {
-      final validator = Ask.any([
-        Ask.integer,
-        Ask.alpha,
-      ]);
+      final validator = Ask.any([Ask.integer, Ask.alpha]);
 
       // Integer passes first validator
       expect(validator.validate('42'), equals('42'));

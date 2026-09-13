@@ -125,7 +125,6 @@ final _ConsoleToPlaceholders = Markdown.map({
   // ─── Color Tags — strip (Telegram has no color support) ───────────────
   // The `background` property is listed so the tag also matches
   // `<red background>text</red>` etc.
-
   '<black background>': (text, match) => text,
   '<red background>': (text, match) => text,
   '<green background>': (text, match) => text,
@@ -137,7 +136,6 @@ final _ConsoleToPlaceholders = Markdown.map({
   '<gray background>': (text, match) => text,
 
   // ─── HTML-like Tags with Telegram Equivalents ─────────────────────────
-
   '<bold>': (text, match) => '${_fmt('B')}$text${_fmt('/B')}',
   '<b>': (text, match) => '${_fmt('B')}$text${_fmt('/B')}',
   '<italic>': (text, match) => '${_fmt('I')}$text${_fmt('/I')}',
@@ -149,7 +147,6 @@ final _ConsoleToPlaceholders = Markdown.map({
   '<hidden>': (text, match) => '${_fmt('SP')}$text${_fmt('/SP')}',
 
   // ─── HTML-like Tags — strip (no Telegram equivalent) ──────────────────
-
   '<blink>': (text, match) => text,
   '<rapid-blink>': (text, match) => text,
   '<dim>': (text, match) => text,
@@ -163,7 +160,6 @@ final _ConsoleToPlaceholders = Markdown.map({
   '<sub>': (text, match) => text,
 
   // ─── Basic Replacements ───────────────────────────────────────────────
-
   'basic: <reset>': (text, match) => '',
   'basic: <br>': (text, match) => '\n',
 });
@@ -206,39 +202,30 @@ String toTelegramMarkdownV2(String text) {
   var counter = 0;
 
   // Fenced code blocks: ```lang\ncontent```
-  text = text.replaceAllMapped(
-    RegExp(r'```(\w*\n?)([\s\S]*?)```'),
-    (m) {
-      final id = counter++;
-      final lang = m.group(1) ?? '';
-      final code = _escapeCodeText(m.group(2) ?? '');
-      extractions[_ext(id)] = '```$lang$code```';
-      return _ext(id);
-    },
-  );
+  text = text.replaceAllMapped(RegExp(r'```(\w*\n?)([\s\S]*?)```'), (m) {
+    final id = counter++;
+    final lang = m.group(1) ?? '';
+    final code = _escapeCodeText(m.group(2) ?? '');
+    extractions[_ext(id)] = '```$lang$code```';
+    return _ext(id);
+  });
 
   // Inline code: `content`
-  text = text.replaceAllMapped(
-    RegExp(r'`([^`\n]+)`'),
-    (m) {
-      final id = counter++;
-      final code = _escapeCodeText(m.group(1)!);
-      extractions[_ext(id)] = '`$code`';
-      return _ext(id);
-    },
-  );
+  text = text.replaceAllMapped(RegExp(r'`([^`\n]+)`'), (m) {
+    final id = counter++;
+    final code = _escapeCodeText(m.group(1)!);
+    extractions[_ext(id)] = '`$code`';
+    return _ext(id);
+  });
 
   // Markdown links: [text](url)
-  text = text.replaceAllMapped(
-    RegExp(r'\[([^\]]+)\]\(([^)]+)\)'),
-    (m) {
-      final id = counter++;
-      final linkText = _escapePlainText(m.group(1)!);
-      final linkUrl = _escapeLinkUrl(m.group(2)!);
-      extractions[_ext(id)] = '[$linkText]($linkUrl)';
-      return _ext(id);
-    },
-  );
+  text = text.replaceAllMapped(RegExp(r'\[([^\]]+)\]\(([^)]+)\)'), (m) {
+    final id = counter++;
+    final linkText = _escapePlainText(m.group(1)!);
+    final linkUrl = _escapeLinkUrl(m.group(2)!);
+    extractions[_ext(id)] = '[$linkText]($linkUrl)';
+    return _ext(id);
+  });
 
   // Step 3: Strip dynamic color/console tags that the marked parser
   // can't handle (complex regex-based patterns in console_markdown).

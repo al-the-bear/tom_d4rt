@@ -33,16 +33,16 @@ class ExecuteResult {
 
   /// Creates a successful result.
   const ExecuteResult.success(this.result)
-      : success = true,
-        error = null,
-        stackTrace = null,
-        sourcesLoaded = 1;
+    : success = true,
+      error = null,
+      stackTrace = null,
+      sourcesLoaded = 1;
 
   /// Creates a failed result.
   ExecuteResult.failure(this.error, {this.stackTrace})
-      : success = false,
-        result = null,
-        sourcesLoaded = 0;
+    : success = false,
+      result = null,
+      sourcesLoaded = 0;
 }
 
 /// Information about an import.

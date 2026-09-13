@@ -98,9 +98,12 @@ void main() {
       final result = p.join('a', 'b', 'c', 'd');
 
       expect(
-          result,
-          equals('a${Platform.pathSeparator}b${Platform.pathSeparator}'
-              'c${Platform.pathSeparator}d'));
+        result,
+        equals(
+          'a${Platform.pathSeparator}b${Platform.pathSeparator}'
+          'c${Platform.pathSeparator}d',
+        ),
+      );
     });
 
     test('handles empty segments', () {

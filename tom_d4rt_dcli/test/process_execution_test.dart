@@ -28,10 +28,7 @@ void main() {
     });
 
     test('runs command in specific directory', () {
-      'ls -la'.start(
-        workingDirectory: testDir,
-        progress: Progress.devNull(),
-      );
+      'ls -la'.start(workingDirectory: testDir, progress: Progress.devNull());
 
       expect(true, isTrue); // Command executed successfully
     });
@@ -166,9 +163,7 @@ void main() {
     test('executes command with progress tracking', () {
       final lines = <String>[];
 
-      'echo "test output"'.start(
-        progress: Progress((line) => lines.add(line)),
-      );
+      'echo "test output"'.start(progress: Progress((line) => lines.add(line)));
 
       expect(lines, contains('test output'));
     });
@@ -233,8 +228,9 @@ void main() {
       touch(testFile, create: true);
 
       final lines = <String>[];
-      startFromArgs('ls', [testFile],
-          progress: Progress((line) => lines.add(line)));
+      startFromArgs('ls', [
+        testFile,
+      ], progress: Progress((line) => lines.add(line)));
 
       expect(lines.join(), contains('args test.txt'));
     });
@@ -251,8 +247,11 @@ void main() {
     test('handles multiple arguments', () {
       final lines = <String>[];
 
-      startFromArgs('echo', ['-n', 'hello', 'world'],
-          progress: Progress((line) => lines.add(line)));
+      startFromArgs('echo', [
+        '-n',
+        'hello',
+        'world',
+      ], progress: Progress((line) => lines.add(line)));
 
       expect(lines.join(' '), contains('hello'));
       expect(lines.join(' '), contains('world'));
@@ -269,8 +268,10 @@ void main() {
 
       // Instead of: 'cat $testFile | grep ^a'
       // Use Dart filtering:
-      final result =
-          'cat $testFile'.toList().where((l) => l.startsWith('a')).toList();
+      final result = 'cat $testFile'
+          .toList()
+          .where((l) => l.startsWith('a'))
+          .toList();
 
       expect(result.length, equals(2));
       expect(result, containsAll(['apple', 'apricot']));
@@ -320,10 +321,7 @@ void main() {
 
   group('error handling', () {
     test('captures non-existent command error', () {
-      expect(
-        () => 'nonexistent_command_xyz'.run,
-        throwsA(isA<Exception>()),
-      );
+      expect(() => 'nonexistent_command_xyz'.run, throwsA(isA<Exception>()));
     });
 
     test('captures command failure', () {
@@ -352,8 +350,10 @@ void main() {
 
     test('print outputs to console', () {
       // Just verify it doesn't throw
-      expect(() => 'echo "printed"'.start(progress: Progress.print()),
-          returnsNormally);
+      expect(
+        () => 'echo "printed"'.start(progress: Progress.print()),
+        returnsNormally,
+      );
     });
 
     test('custom callback receives lines', () {

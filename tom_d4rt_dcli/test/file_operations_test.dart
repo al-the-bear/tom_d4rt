@@ -70,8 +70,10 @@ void main() {
       touch(source, create: true);
       touch(dest, create: true);
 
-      expect(() => copy(source, dest, overwrite: false),
-          throwsA(isA<CopyException>()));
+      expect(
+        () => copy(source, dest, overwrite: false),
+        throwsA(isA<CopyException>()),
+      );
     });
 
     test('copies empty file', () {
@@ -449,8 +451,10 @@ void main() {
       createDir(destDir);
       copyTree(sourceDir, destDir);
 
-      expect(File(p.join(destDir, 'content.txt')).readAsStringSync(),
-          equals('preserved content'));
+      expect(
+        File(p.join(destDir, 'content.txt')).readAsStringSync(),
+        equals('preserved content'),
+      );
     });
   });
 

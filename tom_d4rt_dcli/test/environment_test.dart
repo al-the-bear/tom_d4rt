@@ -120,7 +120,8 @@ void main() {
       // Probing common config files must not throw, but their presence is
       // environment-dependent so we don't assert on the result.
       expect(
-        () => exists(p.join(HOME, '.bashrc')) ||
+        () =>
+            exists(p.join(HOME, '.bashrc')) ||
             exists(p.join(HOME, '.bash_profile')) ||
             exists(p.join(HOME, '.profile')) ||
             exists(p.join(HOME, '.zshrc')),
@@ -136,7 +137,8 @@ void main() {
       expect(pathDirs, isNotEmpty);
       // Common PATH directories
       final hasCommon = pathDirs.any(
-          (d) => d.contains('bin') || d.contains('usr') || d.contains('local'));
+        (d) => d.contains('bin') || d.contains('usr') || d.contains('local'),
+      );
       expect(hasCommon, isTrue);
     });
 
@@ -217,10 +219,7 @@ void main() {
       await withEnvironmentAsync(() async {
         expect(env['VAR1'], equals('value1'));
         expect(env['VAR2'], equals('value2'));
-      }, environment: {
-        'VAR1': 'value1',
-        'VAR2': 'value2',
-      });
+      }, environment: {'VAR1': 'value1', 'VAR2': 'value2'});
 
       expect(env['VAR1'], isNull);
       expect(env['VAR2'], isNull);

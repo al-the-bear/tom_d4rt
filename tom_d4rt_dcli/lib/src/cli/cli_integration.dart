@@ -53,11 +53,7 @@ class CliReplIntegration {
   /// Initializes the CLI controller with the D4rt instance and ReplState.
   ///
   /// Call this from `onReplStartup` after the REPL has initialized.
-  void initialize(
-    D4rt d4rt,
-    ReplState state, {
-    required String toolName,
-  }) {
+  void initialize(D4rt d4rt, ReplState state, {required String toolName}) {
     // Create CliState that wraps the ReplState
     final cliState = _createCliState(state);
 

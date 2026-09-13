@@ -1,5 +1,5 @@
 /// DCLI - D4rt Command Line Interface with dcli bridges
-/// 
+///
 /// This is the base D4rt REPL tool with only dcli package bridges.
 /// For the full D4rt tool with Tom Framework bridges, use tom_dartscript_bridges.
 library;
@@ -20,34 +20,34 @@ export 'src/cli/vscode_integration.dart';
 export 'package:tom_chattools/tom_chattools.dart';
 
 /// DCLI REPL implementation.
-/// 
+///
 /// This is the concrete implementation of D4rtReplBase for the dcli tool,
 /// providing only dcli package bridges.
 class DcliRepl extends D4rtReplBase with VSCodeIntegrationMixin {
   @override
   String get toolName => 'DCLI';
-  
+
   @override
   String get toolVersion => DcliVersionInfo.versionLong;
-  
+
   @override
   ReplState createReplState() {
     // Initialize VS Code integration before creating state
     initVSCodeIntegration();
     return super.createReplState();
   }
-  
+
   @override
   void registerBridges(D4rt d4rt) {
     TomD4rtDcliBridge.register(d4rt);
   }
-  
+
   @override
   String getImportBlock() {
     // Prepend stdlib imports (available via D4rt's built-in stdlib bridges)
     return getStdlibImports() + TomD4rtDcliBridge.getImportBlock();
   }
-  
+
   @override
   Future<bool> handleAdditionalCommands(
     D4rt d4rt,
@@ -58,21 +58,21 @@ class DcliRepl extends D4rtReplBase with VSCodeIntegrationMixin {
     // Handle VS Code integration commands
     return await handleVSCodeCommands(state, line, silent: silent);
   }
-  
+
   @override
   List<String> getAdditionalHelpSections() {
-    return [
-      getVSCodeIntegrationHelp(),
-    ];
+    return [getVSCodeIntegrationHelp()];
   }
-  
+
   @override
   String getBridgesHelp([D4rt? d4rt]) {
     final buffer = StringBuffer();
     buffer.writeln('<cyan>**Bridges**</cyan>');
-    buffer.writeln('  Use <yellow>**info**</yellow> <package> to see details for a specific package.');
+    buffer.writeln(
+      '  Use <yellow>**info**</yellow> <package> to see details for a specific package.',
+    );
     buffer.writeln('');
-    
+
     if (d4rt != null) {
       // Generate list of info commands from configuration
       final packages = getPackageNames(d4rt);
@@ -81,8 +81,10 @@ class DcliRepl extends D4rtReplBase with VSCodeIntegrationMixin {
       }
       buffer.writeln('');
     }
-    
-    buffer.writeln('  Use <yellow>**classes**</yellow> to list all available classes.');
+
+    buffer.writeln(
+      '  Use <yellow>**classes**</yellow> to list all available classes.',
+    );
     buffer.writeln('');
     buffer.writeln(getStdlibNote());
     return buffer.toString();

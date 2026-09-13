@@ -29,7 +29,10 @@ String getCommonCommandsHelp() {
 }
 
 /// Returns the directory commands section.
-String getDirectoryCommandsHelp(String dataPath, {String replayPatterns = '*.replay.txt, *.dcli'}) {
+String getDirectoryCommandsHelp(
+  String dataPath, {
+  String replayPatterns = '*.replay.txt, *.dcli',
+}) {
   return '''
 <cyan>**Directory**</cyan>
   <yellow>**sessions**</yellow>    List session IDs *(from $dataPath)*

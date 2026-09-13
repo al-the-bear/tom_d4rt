@@ -65,7 +65,7 @@ class VSCodeTestContext {
     d4rt.grant(FilesystemPermission.any);
     d4rt.grant(NetworkPermission.any);
     d4rt.grant(ProcessRunPermission.any);
-    
+
     // Register full bridges including dcli
     TomD4rtDcliBridge.register(d4rt);
 
@@ -83,7 +83,7 @@ class VSCodeTestContext {
     // Try to connect to VS Code bridge
     bridgeClient = VSCodeBridgeClient();
     _bridgeAvailable = await bridgeClient.connect();
-    
+
     if (_bridgeAvailable) {
       final adapter = VSCodeBridgeAdapter(bridgeClient);
       VSCode.initialize(adapter);
@@ -105,11 +105,14 @@ class VSCodeTestContext {
   /// Execute code with VS Code scripting imports and capture output.
   Future<ExecuteResult> exec(String code) async {
     output.clear();
-    return withCapture(output, () => controller.execute('''
+    return withCapture(
+      output,
+      () => controller.execute('''
 import 'package:tom_vscode_scripting_api/script_globals.dart';
 
 $code
-'''));
+'''),
+    );
   }
 }
 
@@ -124,7 +127,7 @@ void main() {
     test('VSCodeBridgeClient can connect when available', () async {
       final client = VSCodeBridgeClient();
       final connected = await client.connect();
-      
+
       if (connected) {
         expect(client.isConnected, true);
         await client.disconnect();
@@ -137,7 +140,7 @@ void main() {
 
   group('VS Code Scripting API - VSCode Class', () {
     late VSCodeTestContext ctx;
-    
+
     setUp(() async {
       ctx = VSCodeTestContext();
       await ctx.setUp();
@@ -152,7 +155,7 @@ void main() {
         print('Skipping: VS Code bridge not available');
         return;
       }
-      
+
       expect(VSCode.isInitialized, true);
     });
 
@@ -183,7 +186,7 @@ void main() {
 
   group('VS Code Scripting API - VSCodeWorkspace', () {
     late VSCodeTestContext ctx;
-    
+
     setUp(() async {
       ctx = VSCodeTestContext();
       await ctx.setUp();
@@ -201,7 +204,7 @@ void main() {
 
       final folders = await ctx.vscode.workspace.getWorkspaceFolders();
       expect(folders, isA<List<WorkspaceFolder>>());
-      
+
       if (folders.isNotEmpty) {
         print('Workspace folders:');
         for (final folder in folders) {
@@ -224,7 +227,7 @@ void main() {
 
   group('VS Code Scripting API - VSCodeWindow', () {
     late VSCodeTestContext ctx;
-    
+
     setUp(() async {
       ctx = VSCodeTestContext();
       await ctx.setUp();
@@ -244,7 +247,7 @@ void main() {
       final result = await ctx.vscode.window.showInformationMessage(
         'Hello from D4rt Bridge Test!',
       );
-      
+
       // showInformationMessage returns null immediately (doesn't wait for user action)
       expect(result, isNull);
     });
@@ -277,7 +280,7 @@ void main() {
 
   group('VS Code Scripting API - VSCodeCommands', () {
     late VSCodeTestContext ctx;
-    
+
     setUp(() async {
       ctx = VSCodeTestContext();
       await ctx.setUp();
@@ -317,7 +320,7 @@ void main() {
 
   group('VS Code Scripting API - VSCodeExtensions', () {
     late VSCodeTestContext ctx;
-    
+
     setUp(() async {
       ctx = VSCodeTestContext();
       await ctx.setUp();
@@ -337,7 +340,7 @@ void main() {
       expect(extensions, isA<List<Extension>>());
       expect(extensions, isNotEmpty);
       print('Total extensions: ${extensions.length}');
-      
+
       // Find Tom CLI Integration extension
       final tomExt = extensions.where((e) => e.id.contains('tom')).toList();
       if (tomExt.isNotEmpty) {
@@ -353,7 +356,7 @@ void main() {
 
       // Try to get a common extension
       final ext = await ctx.vscode.extensions.getExtension('vscode.git');
-      
+
       if (ext != null) {
         print('Found extension: ${ext.id}');
         expect(ext.id, 'vscode.git');

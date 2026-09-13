@@ -1,3 +1,37 @@
+## 1.3.1
+
+### Changed — formatted the tree once (scd82)
+
+Every package in this repo already declares an SDK floor above the 3.7
+tall-style boundary, so the formatter can no longer produce two layouts here.
+What was not true is that the trees were formatted: until this commit, running
+`dart format` on any single file rewrote it wholesale and buried whatever real
+edit came with it. 46 of 60 files under `lib` and `test` were affected.
+
+This package and `tom_dcli_exec` are twins in the sense SCC26 cares about — the
+same REPL on the analyzer line and the analyzer-free line, kept in step by
+diffing — so unformatted layout was actively costing the check that keeps them
+equal, not merely untidy.
+
+**The commit is layout plus twelve brace pairs, and which is which was proven
+rather than asserted.** `git diff -w` cannot establish inertness, because the
+tall style *splits* lines and a whitespace-insensitive diff still counts a moved
+boundary as a change. What was checked is the token stream, per file, twice:
+whitespace stripped, then whitespace and commas stripped. 44 of the 46 files are
+identical to HEAD under that normalisation.
+
+The other two are `lib/src/cli/repl_base.dart` and
+`lib/src/cli/vscode_integration.dart`, which gained braces — ten pairs and two
+pairs. Re-wrapping a long braceless `if` splits it across lines, which is what
+makes `curly_braces_in_flow_control_structures` fire, and it fired twelve times
+here. The braces were added by `dart fix --code=curly_braces_in_flow_control_structures`
+rather than by hand: a first attempt to brace them with a regex over the source
+corrupted a multi-line string, which is the argument for using the parser. Every
+inserted chunk in those two files was then checked to be exactly `{` or `}` and
+nothing else.
+
+`dart analyze` is clean, and the formatter is now idempotent here.
+
 ## 1.3.0
 
 ### Added — the full VS Code scripting API bridge surface

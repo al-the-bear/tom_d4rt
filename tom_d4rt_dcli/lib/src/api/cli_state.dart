@@ -52,10 +52,8 @@ class CliState {
   ///
   /// The [initialDirectory] is the initial working directory.
   /// If not provided, defaults to [dataDirectory].
-  CliState({
-    required this.dataDirectory,
-    String? initialDirectory,
-  }) : contextStack = ContextStack(initialDirectory ?? dataDirectory);
+  CliState({required this.dataDirectory, String? initialDirectory})
+    : contextStack = ContextStack(initialDirectory ?? dataDirectory);
 
   /// The base data directory for CLI files.
   ///

@@ -21,35 +21,36 @@ class VerificationFailure implements Exception {
 }
 
 /// Storage for verification failures during test execution.
-/// 
+///
 /// This list accumulates failures during test mode execution,
 /// allowing the test runner to report all failures at the end.
 final List<String> _verificationFailures = [];
 
 /// Get the list of verification failures.
-/// 
+///
 /// Used by the test runner to check for failures after execution.
-List<String> get verificationFailures => List.unmodifiable(_verificationFailures);
+List<String> get verificationFailures =>
+    List.unmodifiable(_verificationFailures);
 
 /// Clear all verification failures.
-/// 
+///
 /// Called at the start of a new test run.
 void clearVerificationFailures() {
   _verificationFailures.clear();
 }
 
 /// Verify that a condition is true.
-/// 
+///
 /// If [condition] is false, records a verification failure with [errorMessage].
 /// In test mode, failures are collected and reported at the end.
 /// In normal mode, prints an error message.
-/// 
+///
 /// Example:
 /// ```dart
 /// verify(count > 0, 'Count should be positive');
 /// verify(result == expected, 'Result $result did not match expected $expected');
 /// ```
-/// 
+///
 /// Returns `true` if the verification passed, `false` otherwise.
 bool verify(bool condition, String errorMessage) {
   if (!condition) {
@@ -60,15 +61,15 @@ bool verify(bool condition, String errorMessage) {
 }
 
 /// Verify that two values are equal.
-/// 
+///
 /// If [actual] != [expected], records a verification failure.
-/// 
+///
 /// Example:
 /// ```dart
 /// verifyEquals(result, 42, 'Result should be 42');
 /// verifyEquals(name, 'test', 'Name mismatch');
 /// ```
-/// 
+///
 /// Returns `true` if the verification passed, `false` otherwise.
 bool verifyEquals(Object? actual, Object? expected, [String? message]) {
   if (actual != expected) {
@@ -80,12 +81,12 @@ bool verifyEquals(Object? actual, Object? expected, [String? message]) {
 }
 
 /// Verify that a value is not null.
-/// 
+///
 /// Example:
 /// ```dart
 /// verifyNotNull(result, 'Result should not be null');
 /// ```
-/// 
+///
 /// Returns `true` if the verification passed, `false` otherwise.
 bool verifyNotNull(Object? value, [String? message]) {
   if (value == null) {
@@ -97,12 +98,12 @@ bool verifyNotNull(Object? value, [String? message]) {
 }
 
 /// Verify that a value is null.
-/// 
+///
 /// Example:
 /// ```dart
 /// verifyNull(error, 'Error should be null');
 /// ```
-/// 
+///
 /// Returns `true` if the verification passed, `false` otherwise.
 bool verifyNull(Object? value, [String? message]) {
   if (value != null) {
@@ -114,12 +115,12 @@ bool verifyNull(Object? value, [String? message]) {
 }
 
 /// Verify that a string contains a substring.
-/// 
+///
 /// Example:
 /// ```dart
 /// verifyContains(output, 'success', 'Output should contain success');
 /// ```
-/// 
+///
 /// Returns `true` if the verification passed, `false` otherwise.
 bool verifyContains(String actual, String substring, [String? message]) {
   if (!actual.contains(substring)) {
@@ -131,12 +132,12 @@ bool verifyContains(String actual, String substring, [String? message]) {
 }
 
 /// Verify that a string matches a regular expression.
-/// 
+///
 /// Example:
 /// ```dart
 /// verifyMatches(email, r'^[\w.]+@[\w.]+$', 'Invalid email format');
 /// ```
-/// 
+///
 /// Returns `true` if the verification passed, `false` otherwise.
 bool verifyMatches(String actual, String pattern, [String? message]) {
   if (!RegExp(pattern).hasMatch(actual)) {
@@ -148,12 +149,12 @@ bool verifyMatches(String actual, String pattern, [String? message]) {
 }
 
 /// Verify that a list is not empty.
-/// 
+///
 /// Example:
 /// ```dart
 /// verifyNotEmpty(results, 'Results should not be empty');
 /// ```
-/// 
+///
 /// Returns `true` if the verification passed, `false` otherwise.
 bool verifyNotEmpty(List list, [String? message]) {
   if (list.isEmpty) {
@@ -165,12 +166,12 @@ bool verifyNotEmpty(List list, [String? message]) {
 }
 
 /// Verify that a list has a specific length.
-/// 
+///
 /// Example:
 /// ```dart
 /// verifyLength(items, 3, 'Should have exactly 3 items');
 /// ```
-/// 
+///
 /// Returns `true` if the verification passed, `false` otherwise.
 bool verifyLength(List list, int length, [String? message]) {
   if (list.length != length) {
@@ -182,12 +183,12 @@ bool verifyLength(List list, int length, [String? message]) {
 }
 
 /// Verify that a condition throws an exception.
-/// 
+///
 /// Example:
 /// ```dart
 /// verifyThrows(() => divide(1, 0), 'Division by zero should throw');
 /// ```
-/// 
+///
 /// Returns `true` if an exception was thrown, `false` otherwise.
 bool verifyThrows(void Function() fn, [String? message]) {
   try {
@@ -201,7 +202,7 @@ bool verifyThrows(void Function() fn, [String? message]) {
 }
 
 /// Print a test summary.
-/// 
+///
 /// Returns `true` if all verifications passed, `false` otherwise.
 bool testSummary() {
   if (_verificationFailures.isEmpty) {

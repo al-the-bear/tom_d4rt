@@ -1,5 +1,5 @@
 /// DCLI - D4rt Command Line Interface
-/// 
+///
 /// Entry point for the dcli REPL with dcli package bridges.
 ///
 /// This is the surviving D4rt command-line tool. The header used to point at a

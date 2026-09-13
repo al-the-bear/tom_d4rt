@@ -84,7 +84,9 @@ class SecurityManager {
     for (final blocked in config.directories.blocked) {
       final expandedBlocked = _expandPath(blocked);
       if (normalized.startsWith(expandedBlocked)) {
-        return PermissionResult.denied('Path is in blocked directory: $blocked');
+        return PermissionResult.denied(
+          'Path is in blocked directory: $blocked',
+        );
       }
     }
 
@@ -128,7 +130,9 @@ class SecurityManager {
     }
 
     // Handle regular commands - extract function call
-    final match = RegExp(r'^([a-zA-Z_][a-zA-Z0-9_]*(?:\.[a-zA-Z_][a-zA-Z0-9_]*)*)').firstMatch(trimmed);
+    final match = RegExp(
+      r'^([a-zA-Z_][a-zA-Z0-9_]*(?:\.[a-zA-Z_][a-zA-Z0-9_]*)*)',
+    ).firstMatch(trimmed);
     if (match != null) {
       return match.group(1)!;
     }
@@ -155,9 +159,7 @@ class SecurityManager {
 
     // Handle wildcard patterns
     if (pattern.contains('*')) {
-      final regexPattern = pattern
-          .replaceAll('.', r'\.')
-          .replaceAll('*', '.*');
+      final regexPattern = pattern.replaceAll('.', r'\.').replaceAll('*', '.*');
       return RegExp('^$regexPattern\$').hasMatch(value);
     }
 

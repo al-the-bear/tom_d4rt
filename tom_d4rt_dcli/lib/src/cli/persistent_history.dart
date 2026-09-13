@@ -45,7 +45,7 @@ List<String> loadHistory() {
 /// Save a line to persistent history
 void appendToHistory(String line) {
   if (line.trim().isEmpty) return;
-  
+
   try {
     final file = File(historyFilePath);
     final parent = file.parent;
@@ -64,7 +64,7 @@ void truncateHistoryIfNeeded() {
   try {
     final file = File(historyFilePath);
     if (!file.existsSync()) return;
-    
+
     final lines = file.readAsLinesSync();
     if (lines.length > maxHistoryLines) {
       // Keep only the last maxHistoryLines lines
@@ -122,13 +122,13 @@ int loadDefinesFromFile(String path) {
   if (!filePath.contains('.')) {
     filePath = '$filePath.define.txt';
   }
-  
+
   try {
     final file = File(filePath);
     if (!file.existsSync()) {
       return -1;
     }
-    
+
     final lines = file.readAsLinesSync();
     var count = 0;
     for (final line in lines) {
@@ -187,21 +187,21 @@ List<String> parseDefineArgs(String input) {
   final buffer = StringBuffer();
   String? quoteChar;
   var escaped = false;
-  
+
   for (var i = 0; i < input.length; i++) {
     final char = input[i];
-    
+
     if (escaped) {
       buffer.write(char);
       escaped = false;
       continue;
     }
-    
+
     if (char == '\\') {
       escaped = true;
       continue;
     }
-    
+
     if (quoteChar != null) {
       // Inside quotes
       if (char == quoteChar) {
@@ -225,12 +225,12 @@ List<String> parseDefineArgs(String input) {
       }
     }
   }
-  
+
   // Add last argument if any
   if (buffer.isNotEmpty) {
     args.add(buffer.toString());
   }
-  
+
   return args;
 }
 
@@ -240,13 +240,13 @@ List<String> parseDefineArgs(String input) {
 ///   $1, $2, $3, etc. - individual arguments
 String expandDefine(String template, String restOfLine) {
   var result = template;
-  
+
   // Replace $$ with the entire rest of line
   result = result.replaceAll(r'$$', restOfLine);
-  
+
   // Parse arguments for $1, $2, etc.
   final args = parseDefineArgs(restOfLine);
-  
+
   // Replace $1, $2, etc. with corresponding arguments
   // Start from highest number to avoid $1 replacing part of $10
   for (var i = 9; i >= 1; i--) {
@@ -254,7 +254,7 @@ String expandDefine(String template, String restOfLine) {
     final value = i <= args.length ? args[i - 1] : '';
     result = result.replaceAll(placeholder, value);
   }
-  
+
   return result;
 }
 
@@ -262,18 +262,18 @@ String expandDefine(String template, String restOfLine) {
 /// Returns the expanded code if it matches, null otherwise
 String? tryExpandDefine(String line) {
   if (!line.startsWith('@')) return null;
-  
+
   // Find the define name (everything until first space or end of line)
   final spaceIndex = line.indexOf(' ');
-  final defineName = spaceIndex > 0 
-      ? line.substring(1, spaceIndex) 
+  final defineName = spaceIndex > 0
+      ? line.substring(1, spaceIndex)
       : line.substring(1);
-  
+
   if (!_defines.containsKey(defineName)) return null;
-  
+
   final template = _defines[defineName]!;
   final restOfLine = spaceIndex > 0 ? line.substring(spaceIndex + 1) : '';
-  
+
   return expandDefine(template, restOfLine);
 }
 
@@ -325,7 +325,7 @@ class ScrollbackBuffer {
       }
     }
   }
-  
+
   /// Pre-populate with history lines
   void loadHistory(List<String> history) {
     for (final line in history) {
@@ -338,37 +338,39 @@ class ScrollbackBuffer {
 }
 
 /// Console wrapper that exposes the scrollback buffer for pre-population
-/// 
+///
 /// This is a thin wrapper around dart_console's Console that adds
 /// the ability to pre-load history from a file.
 class Console {
   final dc.Console _console;
   final ScrollbackBuffer scrollbackBuffer;
-  
+
   /// Create a console with scrollback history support
-  Console.scrolling({bool recordBlanks = false}) 
+  Console.scrolling({bool recordBlanks = false})
     : _console = dc.Console(),
       scrollbackBuffer = ScrollbackBuffer(recordBlanks: recordBlanks);
-  
+
   /// Pre-populate scrollback with history lines
   void loadHistoryIntoScrollback(List<String> history) {
     scrollbackBuffer.loadHistory(history);
   }
-  
+
   // Delegate common methods to the underlying console
-  
+
   int get windowWidth => _console.windowWidth;
   int get windowHeight => _console.windowHeight;
-  
+
   dc.Coordinate? get cursorPosition => _console.cursorPosition;
-  
+
   void write(String text) => _console.write(text);
   void writeLine([String? text]) => _console.writeLine(text);
-  
-  void setForegroundColor(dc.ConsoleColor color) => _console.setForegroundColor(color);
-  void setBackgroundColor(dc.ConsoleColor color) => _console.setBackgroundColor(color);
+
+  void setForegroundColor(dc.ConsoleColor color) =>
+      _console.setForegroundColor(color);
+  void setBackgroundColor(dc.ConsoleColor color) =>
+      _console.setBackgroundColor(color);
   void resetColorAttributes() => _console.resetColorAttributes();
-  
+
   void clearScreen() => _console.clearScreen();
   void eraseLine() => _console.eraseLine();
   void cursorUp([int count = 1]) {
@@ -376,44 +378,47 @@ class Console {
       _console.cursorUp();
     }
   }
+
   void cursorDown([int count = 1]) {
     for (var i = 0; i < count; i++) {
       _console.cursorDown();
     }
   }
+
   void cursorLeft([int count = 1]) {
     for (var i = 0; i < count; i++) {
       _console.cursorLeft();
     }
   }
+
   void cursorRight([int count = 1]) {
     for (var i = 0; i < count; i++) {
       _console.cursorRight();
     }
   }
-  
+
   void hideCursor() => _console.hideCursor();
   void showCursor() => _console.showCursor();
-  
+
   void setRawMode() => _console.rawMode = true;
   void unsetRawMode() => _console.rawMode = false;
-  
+
   dc.Key readKey() => _console.readKey();
-  
+
   /// Read a line with scrollback history support
-  /// 
+  ///
   /// This is a custom implementation that uses our exposed scrollback buffer
   /// instead of dart_console's private one.
   String? readLine({bool cancelOnBreak = false}) {
     var buffer = '';
     var index = 0; // Cursor position within buffer
-    
+
     _console.rawMode = true;
-    
+
     try {
       while (true) {
         final key = _console.readKey();
-        
+
         // Handle special keys
         if (key.isControl) {
           switch (key.controlChar) {
@@ -421,7 +426,7 @@ class Console {
               _console.writeLine();
               scrollbackBuffer.add(buffer);
               return buffer;
-              
+
             case dc.ControlCharacter.ctrlC:
               if (cancelOnBreak) {
                 _console.writeLine();
@@ -429,7 +434,7 @@ class Console {
               }
               // Otherwise ignore
               break;
-              
+
             case dc.ControlCharacter.ctrlD:
               // End of input
               if (buffer.isEmpty) {
@@ -437,11 +442,12 @@ class Console {
                 return null;
               }
               break;
-              
+
             case dc.ControlCharacter.backspace:
               if (index > 0) {
                 // Delete character before cursor
-                buffer = buffer.substring(0, index - 1) + buffer.substring(index);
+                buffer =
+                    buffer.substring(0, index - 1) + buffer.substring(index);
                 index--;
                 // Redraw line from cursor position
                 _console.cursorLeft();
@@ -454,11 +460,12 @@ class Console {
                 }
               }
               break;
-              
+
             case dc.ControlCharacter.delete:
               if (index < buffer.length) {
                 // Delete character at cursor
-                buffer = buffer.substring(0, index) + buffer.substring(index + 1);
+                buffer =
+                    buffer.substring(0, index) + buffer.substring(index + 1);
                 // Redraw line from cursor position
                 _console.write(buffer.substring(index));
                 _console.write(' '); // Clear last character
@@ -469,21 +476,21 @@ class Console {
                 }
               }
               break;
-              
+
             case dc.ControlCharacter.arrowLeft:
               if (index > 0) {
                 index--;
                 _console.cursorLeft();
               }
               break;
-              
+
             case dc.ControlCharacter.arrowRight:
               if (index < buffer.length) {
                 index++;
                 _console.cursorRight();
               }
               break;
-              
+
             case dc.ControlCharacter.arrowUp:
               // Get previous line from history
               final previous = scrollbackBuffer.up(buffer);
@@ -501,7 +508,7 @@ class Console {
               index = buffer.length;
               _console.write(buffer);
               break;
-              
+
             case dc.ControlCharacter.arrowDown:
               // Get next line from history
               final next = scrollbackBuffer.down();
@@ -521,7 +528,7 @@ class Console {
                 _console.write(buffer);
               }
               break;
-              
+
             case dc.ControlCharacter.home:
               // Move cursor to start
               for (var i = 0; i < index; i++) {
@@ -529,7 +536,7 @@ class Console {
               }
               index = 0;
               break;
-              
+
             case dc.ControlCharacter.end:
               // Move cursor to end
               for (var i = index; i < buffer.length; i++) {
@@ -537,7 +544,7 @@ class Console {
               }
               index = buffer.length;
               break;
-              
+
             case dc.ControlCharacter.ctrlA:
               // Home (like Ctrl-A in readline)
               for (var i = 0; i < index; i++) {
@@ -545,7 +552,7 @@ class Console {
               }
               index = 0;
               break;
-              
+
             case dc.ControlCharacter.ctrlE:
               // End (like Ctrl-E in readline)
               for (var i = index; i < buffer.length; i++) {
@@ -553,7 +560,7 @@ class Console {
               }
               index = buffer.length;
               break;
-              
+
             case dc.ControlCharacter.ctrlU:
               // Delete to start of line
               if (index > 0) {
@@ -577,7 +584,7 @@ class Console {
                 index = 0;
               }
               break;
-              
+
             case dc.ControlCharacter.ctrlK:
               // Delete to end of line
               if (index < buffer.length) {
@@ -591,13 +598,13 @@ class Console {
                 buffer = buffer.substring(0, index);
               }
               break;
-              
+
             case dc.ControlCharacter.ctrlL:
               // Clear screen
               _console.clearScreen();
               // Redraw prompt and buffer (caller needs to handle this)
               break;
-              
+
             default:
               // Ignore other control characters
               break;

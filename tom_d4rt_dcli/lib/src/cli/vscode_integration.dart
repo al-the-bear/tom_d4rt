@@ -18,7 +18,7 @@ export 'package:tom_vscode_scripting_api/script_globals.dart'
 /// Mixin providing VS Code integration for D4rt REPL tools.
 ///
 /// Add this mixin to your REPL class and override [hasVSCodeIntegration] to return true.
-/// Call [initVSCodeIntegration] in [createReplState] and [handleVSCodeCommands] in 
+/// Call [initVSCodeIntegration] in [createReplState] and [handleVSCodeCommands] in
 /// [handleAdditionalCommands].
 mixin VSCodeIntegrationMixin {
   /// The lazy VS Code adapter for deferred connection.
@@ -35,7 +35,8 @@ mixin VSCodeIntegrationMixin {
   }) {
     _lazyAdapter = LazyVSCodeBridgeAdapter(
       port: vscodePort,
-      onStatusMessage: onStatusMessage ?? (msg) => print('<green>✓</green> $msg'),
+      onStatusMessage:
+          onStatusMessage ?? (msg) => print('<green>✓</green> $msg'),
       onErrorMessage: onErrorMessage ?? (msg) => print('<red>✗</red> $msg'),
     );
     // Initialize VSCode with lazy adapter - will auto-connect when first used
@@ -48,7 +49,9 @@ mixin VSCodeIntegrationMixin {
     try {
       final available = await VSCodeBridgeClient.isAvailable(port: vscodePort);
       if (available) {
-        print('  <green>**VS Code server is available on port $vscodePort**</green>');
+        print(
+          '  <green>**VS Code server is available on port $vscodePort**</green>',
+        );
       } else {
         _printVSCodeHint();
       }
@@ -58,7 +61,9 @@ mixin VSCodeIntegrationMixin {
   }
 
   void _printVSCodeHint() {
-    print('  <cyan>**VS Code:**</cyan> <yellow>**connect**</yellow> [<host>]:[<port>]  |  <yellow>**is-available**</yellow> [<host>]:[<port>]  |  Default-Port: **$vscodePort**');
+    print(
+      '  <cyan>**VS Code:**</cyan> <yellow>**connect**</yellow> [<host>]:[<port>]  |  <yellow>**is-available**</yellow> [<host>]:[<port>]  |  Default-Port: **$vscodePort**',
+    );
   }
 
   /// Returns the VS Code integration help section.
@@ -116,7 +121,9 @@ mixin VSCodeIntegrationMixin {
 
     if (line == '.start-vscode-script') {
       state.multilineMode = MultilineMode.vscodeScript;
-      if (!silent) print('(entering VS Code script mode - type .end to execute)');
+      if (!silent) {
+        print('(entering VS Code script mode - type .end to execute)');
+      }
       return true;
     }
 
@@ -145,7 +152,11 @@ mixin VSCodeIntegrationMixin {
   }
 
   /// Handle the 'connect' command.
-  Future<void> _handleConnectCommand(ReplState state, String line, bool silent) async {
+  Future<void> _handleConnectCommand(
+    ReplState state,
+    String line,
+    bool silent,
+  ) async {
     if (_lazyAdapter == null) {
       if (!silent) state.writeError('No VS Code adapter configured.');
       return;
@@ -194,7 +205,11 @@ mixin VSCodeIntegrationMixin {
   }
 
   /// Handle the 'is-available' command.
-  Future<void> _handleIsAvailableCommand(ReplState state, String line, bool silent) async {
+  Future<void> _handleIsAvailableCommand(
+    ReplState state,
+    String line,
+    bool silent,
+  ) async {
     int port = vscodePort;
 
     if (line.length > 12) {
@@ -218,7 +233,11 @@ mixin VSCodeIntegrationMixin {
   }
 
   /// Handle the '.vscode `<file>`' command - execute file in VS Code bridge.
-  Future<void> _handleVscodeFileCommand(ReplState state, String line, bool silent) async {
+  Future<void> _handleVscodeFileCommand(
+    ReplState state,
+    String line,
+    bool silent,
+  ) async {
     final filePath = line.substring(8).trim();
     if (filePath.isEmpty) {
       if (!silent) state.writeError('Usage: .vscode <filepath>');
@@ -229,7 +248,11 @@ mixin VSCodeIntegrationMixin {
   }
 
   /// Handle the 'vscode `<expression>`' command - evaluate expression in VS Code bridge.
-  Future<void> _handleVscodeExpressionCommand(ReplState state, String line, bool silent) async {
+  Future<void> _handleVscodeExpressionCommand(
+    ReplState state,
+    String line,
+    bool silent,
+  ) async {
     final expression = line.substring(7).trim();
     if (expression.isEmpty) {
       if (!silent) state.writeError('Usage: vscode <expression>');
@@ -253,7 +276,11 @@ mixin VSCodeIntegrationMixin {
 
       // Connect if not already connected
       if (!await client.connect()) {
-        if (!silent) state.writeError('Could not connect to VS Code bridge on port $vscodePort');
+        if (!silent) {
+          state.writeError(
+            'Could not connect to VS Code bridge on port $vscodePort',
+          );
+        }
         return;
       }
 
@@ -290,7 +317,9 @@ mixin VSCodeIntegrationMixin {
           }
           // Note exceptions that were caught
           if (result.hasException) {
-            state.writeWarning('Exception during execution: ${result.exception}');
+            state.writeWarning(
+              'Exception during execution: ${result.exception}',
+            );
           }
         } else {
           state.writeError(result.error ?? 'Unknown error');

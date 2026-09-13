@@ -25,16 +25,16 @@ import 'security_manager.dart';
 class PreprocessedMessage {
   /// The original ChatMessage from Telegram.
   final ChatMessage original;
-  
+
   /// User ID (validated).
   final int userId;
-  
+
   /// Original text (from message.text).
   final String originalText;
-  
+
   /// Processed text (with attachments suffix and normalized quotes).
   final String processedText;
-  
+
   /// Paths to saved received attachments.
   final List<String> receivedAttachments;
 
@@ -51,13 +51,13 @@ class PreprocessedMessage {
 enum MessageType {
   /// Trail command (list-attachments, get-references, etc.)
   trailCommand,
-  
+
   /// Explicit Copilot prompt (starts with ?)
   explicitCopilot,
-  
+
   /// Implicit Copilot prompt (ends with . or ?)
   implicitCopilot,
-  
+
   /// REPL command to execute
   replCommand,
 }
@@ -66,22 +66,22 @@ enum MessageType {
 class MessageExecutionResult {
   /// The execution result from REPL or Copilot.
   final ExecutionResult? executionResult;
-  
+
   /// Captured stdout during execution.
   final String capturedOutput;
-  
+
   /// Error that occurred during execution (if any).
   final Object? error;
-  
+
   /// Stack trace (if error occurred).
   final StackTrace? stackTrace;
-  
+
   /// Reply entry for conversation trail.
   final ReplyEntry? replyEntry;
-  
+
   /// Whether this is a trail command result (special handling).
   final bool isTrailCommand;
-  
+
   /// Pre-formatted output (for trail commands).
   final FormattedOutput? preformattedOutput;
 
@@ -94,7 +94,7 @@ class MessageExecutionResult {
     this.isTrailCommand = false,
     this.preformattedOutput,
   });
-  
+
   bool get hasError => error != null;
 }
 
@@ -118,11 +118,11 @@ class TelegramBotServer {
     required this.executeCommand,
     required this.toolName,
     required this.toolVersion,
-  })  : _security = SecurityManager(config.security),
-        _formatter = OutputFormatter(
-          config: config.output,
-          tempDirectory: config.files.tempDirectory,
-        );
+  }) : _security = SecurityManager(config.security),
+       _formatter = OutputFormatter(
+         config: config.output,
+         tempDirectory: config.files.tempDirectory,
+       );
 
   /// Start the bot server.
   Future<void> start() async {
@@ -132,7 +132,8 @@ class TelegramBotServer {
       final token = Platform.environment[botConfig.tokenEnv];
       if (token == null || token.isEmpty) {
         stderr.writeln(
-            'Warning: ${botConfig.tokenEnv} not set, skipping bot "${botConfig.name}"');
+          'Warning: ${botConfig.tokenEnv} not set, skipping bot "${botConfig.name}"',
+        );
         continue;
       }
 
@@ -153,7 +154,7 @@ class TelegramBotServer {
         _bots[botConfig.name] = bot;
         bot.startPolling();
         print('  ✓ Bot "${botConfig.name}" started');
-        
+
         // Send welcome message to allowed users
         await bot.sendWelcomeMessages();
       } catch (e) {
@@ -209,14 +210,14 @@ class BotInstance {
   final Future<ExecutionResult> Function(String command) executeCommand;
   final String toolName;
   final String toolVersion;
-  
+
   /// Conversation trail manager for this bot.
   final ConversationTrailManager trailManager;
 
   late final ChatApi _telegram;
   StreamSubscription<ChatMessage>? _subscription;
   bool _running = false;
-  
+
   /// Whether the bot is currently running.
   bool get isRunning => _running;
 
@@ -253,7 +254,7 @@ class BotInstance {
       pollingTimeout: Duration(seconds: pollingTimeout),
     );
     final telegram = await ChatApi.connect(settings);
-    
+
     // Create and initialize conversation trail manager
     final trailManager = ConversationTrailManager(
       toolName: toolName,
@@ -306,11 +307,13 @@ class BotInstance {
       // Preprocessing failed (unauthorized user or empty message)
       return;
     }
-    
+
     // -------------------------------------------------------------------------
     // STEP 2: Security Check
     // -------------------------------------------------------------------------
-    final securityResult = security.isCommandAllowed(preprocessed.processedText);
+    final securityResult = security.isCommandAllowed(
+      preprocessed.processedText,
+    );
     if (!securityResult.permitted) {
       await _sendReply(
         message,
@@ -318,24 +321,27 @@ class BotInstance {
       );
       return;
     }
-    
+
     // -------------------------------------------------------------------------
     // STEP 3: Execute with Output Capture (runZonedGuarded)
     // -------------------------------------------------------------------------
     await _sendTyping(message);
-    
+
     // Send immediate confirmation for Copilot prompts (VS Code forwarding)
     final messageType = _determineMessageType(preprocessed);
-    if (messageType == MessageType.explicitCopilot || 
+    if (messageType == MessageType.explicitCopilot ||
         messageType == MessageType.implicitCopilot) {
       await _sendReply(
         message,
-        FormattedOutput(text: '📡 Forwarding prompt to VS Code\\. Awaiting reply\\.', parseMode: 'MarkdownV2'),
+        FormattedOutput(
+          text: '📡 Forwarding prompt to VS Code\\. Awaiting reply\\.',
+          parseMode: 'MarkdownV2',
+        ),
       );
     }
-    
+
     final executionResult = await _executeWithCapture(preprocessed);
-    
+
     // -------------------------------------------------------------------------
     // STEP 4: Send Unified Reply
     // -------------------------------------------------------------------------
@@ -359,20 +365,24 @@ class BotInstance {
     // Get command text
     var text = message.text;
     if (text == null || text.isEmpty) return null;
-    
+
     final originalText = text;
-    
+
     // Process and save received file attachments
     final receivedAttachments = <String>[];
     if (message.attachments.isNotEmpty) {
       for (final attachment in message.attachments) {
         try {
           // Download attachment content
-          final fileName = attachment.fileName ?? 
+          final fileName =
+              attachment.fileName ??
               'attachment_${DateTime.now().millisecondsSinceEpoch}';
           final data = await _downloadAttachment(attachment);
           if (data != null) {
-            final savedPath = await trailManager.saveReceivedFile(fileName, data);
+            final savedPath = await trailManager.saveReceivedFile(
+              fileName,
+              data,
+            );
             print('[BOT] Saved attachment to: $savedPath');
             receivedAttachments.add(savedPath);
           } else {
@@ -383,10 +393,11 @@ class BotInstance {
         }
       }
     }
-    
+
     // If there are attachments, append file info to the command
     if (receivedAttachments.isNotEmpty) {
-      final attachmentsSuffix = '''
+      final attachmentsSuffix =
+          '''
 
 The user attached the following files for your reference or because they are referenced in the prompt:
 
@@ -398,11 +409,11 @@ ${receivedAttachments.join('\n')}
     // Normalize quotes: Convert curly quotes to straight quotes
     // Telegram often converts straight quotes to curly quotes
     text = text
-        .replaceAll('\u201C', '"')  // " (left double quotation mark)
-        .replaceAll('\u201D', '"')  // " (right double quotation mark)
-        .replaceAll('\u2018', "'")  // ' (left single quotation mark)
+        .replaceAll('\u201C', '"') // " (left double quotation mark)
+        .replaceAll('\u201D', '"') // " (right double quotation mark)
+        .replaceAll('\u2018', "'") // ' (left single quotation mark)
         .replaceAll('\u2019', "'"); // ' (right single quotation mark)
-    
+
     return PreprocessedMessage(
       original: message,
       userId: userId,
@@ -415,30 +426,30 @@ ${receivedAttachments.join('\n')}
   /// Determine the type of message for routing.
   MessageType _determineMessageType(PreprocessedMessage msg) {
     final originalText = msg.originalText;
-    
+
     // Trail commands
-    if (originalText.startsWith('list-attachments') || 
+    if (originalText.startsWith('list-attachments') ||
         originalText.startsWith('list-references') ||
         originalText.startsWith('get-attachments') ||
         originalText.startsWith('get-references')) {
       return MessageType.trailCommand;
     }
-    
+
     // Explicit Copilot prompt (starts with ?)
     if (originalText.trim().startsWith('?')) {
       return MessageType.explicitCopilot;
     }
-    
+
     // REPL command check - these should NOT go to Copilot
     if (_isReplCommand(originalText)) {
       return MessageType.replCommand;
     }
-    
+
     // Implicit Copilot prompt check
     if (_isCopilotChatPrompt(originalText)) {
       return MessageType.implicitCopilot;
     }
-    
+
     // Default: REPL command
     return MessageType.replCommand;
   }
@@ -448,7 +459,9 @@ ${receivedAttachments.join('\n')}
   // ===========================================================================
 
   /// Execute the message with stdout/stderr capture using runZonedGuarded.
-  Future<MessageExecutionResult> _executeWithCapture(PreprocessedMessage msg) async {
+  Future<MessageExecutionResult> _executeWithCapture(
+    PreprocessedMessage msg,
+  ) async {
     final messageType = _determineMessageType(msg);
     final capturedOutput = StringBuffer();
     ExecutionResult? executionResult;
@@ -457,10 +470,10 @@ ${receivedAttachments.join('\n')}
     StackTrace? stackTrace;
     FormattedOutput? preformattedOutput;
     bool isTrailCommand = false;
-    
+
     // Create a completer to track when execution finishes
     final completer = Completer<void>();
-    
+
     // Run with output capture
     runZonedGuarded(
       () async {
@@ -469,26 +482,28 @@ ${receivedAttachments.join('\n')}
             case MessageType.trailCommand:
               isTrailCommand = true;
               preformattedOutput = await _executeTrailCommand(msg.originalText);
-              
+
             case MessageType.explicitCopilot:
               final prompt = _stripCopilotPrefix(msg.processedText);
               (executionResult, replyEntry) = await _executeCopilotPrompt(
-                prompt, 
+                prompt,
                 msg.receivedAttachments,
               );
-              
+
             case MessageType.implicitCopilot:
               (executionResult, replyEntry) = await _executeCopilotPrompt(
-                msg.processedText, 
+                msg.processedText,
                 msg.receivedAttachments,
               );
-              
+
             case MessageType.replCommand:
               executionResult = await executeCommand(msg.processedText);
               final formatted = formatter.format(executionResult!);
               replyEntry = ReplyEntry(
                 markdown: formatted.text,
-                comment: executionResult!.isError ? executionResult!.errorMessage : null,
+                comment: executionResult!.isError
+                    ? executionResult!.errorMessage
+                    : null,
               );
           }
         } catch (e, st) {
@@ -514,10 +529,10 @@ ${receivedAttachments.join('\n')}
         },
       ),
     );
-    
+
     // Wait for execution to complete
     await completer.future;
-    
+
     return MessageExecutionResult(
       executionResult: executionResult,
       capturedOutput: capturedOutput.toString(),
@@ -534,7 +549,7 @@ ${receivedAttachments.join('\n')}
     final parts = command.split(RegExp(r'\s+'));
     final cmd = parts.first.toLowerCase();
     print('[TRAIL] Handling trail command: "$cmd" (full: "$command")');
-    
+
     switch (cmd) {
       case 'list-attachments':
         final attachments = trailManager.allAttachments;
@@ -548,7 +563,7 @@ ${receivedAttachments.join('\n')}
           }
           return FormattedOutput(text: buffer.toString());
         }
-        
+
       case 'list-references':
         final references = trailManager.allReferences;
         print('[TRAIL] Found ${references.length} references');
@@ -561,14 +576,20 @@ ${receivedAttachments.join('\n')}
           }
           return FormattedOutput(text: buffer.toString());
         }
-        
+
       case 'get-attachments':
         if (parts.length < 2) {
           return FormattedOutput(
-            text: 'Usage: `get-attachments <id1>, <id2>, ...`\n\nExample: `get-attachments A000, A001`',
+            text:
+                'Usage: `get-attachments <id1>, <id2>, ...`\n\nExample: `get-attachments A000, A001`',
           );
         } else {
-          final ids = parts.sublist(1).join(' ').split(',').map((s) => s.trim()).toList();
+          final ids = parts
+              .sublist(1)
+              .join(' ')
+              .split(',')
+              .map((s) => s.trim())
+              .toList();
           final paths = trailManager.getAttachmentPaths(ids);
           if (paths.isEmpty) {
             return FormattedOutput(text: 'No matching attachments found.');
@@ -580,14 +601,20 @@ ${receivedAttachments.join('\n')}
             );
           }
         }
-        
+
       case 'get-references':
         if (parts.length < 2) {
           return FormattedOutput(
-            text: 'Usage: `get-references <id1>, <id2>, ...`\n\nExample: `get-references R000, R001`',
+            text:
+                'Usage: `get-references <id1>, <id2>, ...`\n\nExample: `get-references R000, R001`',
           );
         } else {
-          final ids = parts.sublist(1).join(' ').split(',').map((s) => s.trim()).toList();
+          final ids = parts
+              .sublist(1)
+              .join(' ')
+              .split(',')
+              .map((s) => s.trim())
+              .toList();
           final paths = trailManager.getReferencePaths(ids);
           if (paths.isEmpty) {
             return FormattedOutput(text: 'No matching references found.');
@@ -599,7 +626,7 @@ ${receivedAttachments.join('\n')}
             );
           }
         }
-        
+
       default:
         return FormattedOutput(text: '⚠️ Unknown trail command: `$cmd`');
     }
@@ -612,26 +639,26 @@ ${receivedAttachments.join('\n')}
   ) async {
     // Notify user we're sending to Copilot (will be captured in output)
     print('🤖 Sending to Copilot Chat...');
-    
+
     // Call Copilot Chat
     final response = await VsCodeHelper.askCopilotChat(prompt);
-    
+
     // Parse response
     final copilotResponse = CopilotChatResponse.fromMap(response);
-    
+
     // Create execution result with Copilot response
     final result = ExecutionResult(
       output: copilotResponse.generatedMarkdown,
       copilotResponse: copilotResponse,
     );
-    
+
     final replyEntry = ReplyEntry(
       markdown: copilotResponse.generatedMarkdown,
       comment: copilotResponse.comment,
       references: copilotResponse.references,
       requestedAttachments: copilotResponse.requestedAttachments,
     );
-    
+
     return (result, replyEntry);
   }
 
@@ -646,40 +673,40 @@ ${receivedAttachments.join('\n')}
   ) async {
     // Handle errors
     if (result.hasError) {
-      await _sendReply(
-        msg.original,
-        formatter.formatError('${result.error}'),
-      );
+      await _sendReply(msg.original, formatter.formatError('${result.error}'));
       return;
     }
-    
+
     // Handle trail commands (special formatting)
     if (result.isTrailCommand && result.preformattedOutput != null) {
       await _sendReply(msg.original, result.preformattedOutput!);
-      
+
       // Send file attachments if any
       if (result.preformattedOutput!.attachments != null) {
         await _sendFilesAsAttachments(
-          msg.original, 
+          msg.original,
           result.preformattedOutput!.attachments!.map((f) => f.path).toList(),
         );
       }
       return;
     }
-    
+
     // Build the reply text
     // For REPL commands: use ExecutionResult.output (captured by executeCommand's zone)
     // For trail/copilot: use capturedOutput (captured by our zone)
     String replyText;
-    
-    if (result.executionResult != null && result.executionResult!.output.isNotEmpty) {
+
+    if (result.executionResult != null &&
+        result.executionResult!.output.isNotEmpty) {
       // REPL command - use ExecutionResult.output which has the captured output
       replyText = result.executionResult!.output.trim();
-      
+
       // If there's a return value, append it
       if (result.executionResult!.value != null) {
         final valueStr = '${result.executionResult!.value}';
-        replyText = replyText.isNotEmpty ? '$replyText\n→ $valueStr' : '→ $valueStr';
+        replyText = replyText.isNotEmpty
+            ? '$replyText\n→ $valueStr'
+            : '→ $valueStr';
       }
     } else if (result.capturedOutput.trim().isNotEmpty) {
       // Other commands - use capturedOutput from our zone
@@ -687,10 +714,10 @@ ${receivedAttachments.join('\n')}
     } else {
       replyText = '✓ (no output)';
     }
-    
+
     // Format using the captured output, not ExecutionResult.output
     final formatted = formatter.formatRaw(replyText);
-    
+
     // Record exchange in trail
     if (result.replyEntry != null || result.executionResult != null) {
       final exchange = ConversationExchange(
@@ -699,18 +726,20 @@ ${receivedAttachments.join('\n')}
           text: msg.originalText,
           attachments: msg.receivedAttachments,
         ),
-        reply: result.replyEntry ?? ReplyEntry(
-          markdown: replyText,
-          comment: result.executionResult?.isError == true 
-              ? result.executionResult?.errorMessage 
-              : null,
-        ),
+        reply:
+            result.replyEntry ??
+            ReplyEntry(
+              markdown: replyText,
+              comment: result.executionResult?.isError == true
+                  ? result.executionResult?.errorMessage
+                  : null,
+            ),
       );
       await trailManager.addExchange(exchange);
     }
-    
+
     await _sendReply(msg.original, formatted);
-    
+
     // Send file attachments from formatter (e.g., full output on truncation)
     if (formatted.attachments != null && formatted.attachments!.isNotEmpty) {
       await _sendFilesAsAttachments(
@@ -718,11 +747,11 @@ ${receivedAttachments.join('\n')}
         formatted.attachments!.map((f) => f.path).toList(),
       );
     }
-    
+
     // Send Copilot requested attachments if configured
     final copilot = result.executionResult?.copilotResponse;
-    if (copilot != null && 
-        formatter.config.autoAttachCopilotFiles && 
+    if (copilot != null &&
+        formatter.config.autoAttachCopilotFiles &&
         copilot.requestedAttachments.isNotEmpty) {
       await _sendFilesAsAttachments(msg.original, copilot.requestedAttachments);
     }
@@ -737,8 +766,9 @@ ${receivedAttachments.join('\n')}
     final vsInfo = vscode != null
         ? 'Connected to VS Code on ${vscode!.host}:${vscode!.port}'
         : 'No VS Code connection configured';
-    
-    final welcomeMessage = '''
+
+    final welcomeMessage =
+        '''
 🤖 *$name Bot* started!
 
 *$toolName* v$toolVersion
@@ -764,9 +794,12 @@ Type help for available commands, or enter any REPL command directly.
   // ===========================================================================
   // File Attachments
   // ===========================================================================
-  
+
   /// Send files as attachments to the user.
-  Future<void> _sendFilesAsAttachments(ChatMessage original, List<String> paths) async {
+  Future<void> _sendFilesAsAttachments(
+    ChatMessage original,
+    List<String> paths,
+  ) async {
     for (final path in paths) {
       final file = File(path);
       if (await file.exists()) {
@@ -774,21 +807,17 @@ Type help for available commands, or enter any REPL command directly.
         final extension = path.split('.').last.toLowerCase();
         final attachmentType = _getAttachmentType(extension);
         final fileName = path.split('/').last;
-        
+
         // Create message with attachment
         final messageWithAttachment = ChatMessage(
           id: '',
           sender: const ChatSender.self(),
           timestamp: DateTime.now(),
           attachments: [
-            ChatAttachment(
-              type: attachmentType,
-              url: path,
-              fileName: fileName,
-            ),
+            ChatAttachment(type: attachmentType, url: path, fileName: fileName),
           ],
         );
-        
+
         try {
           await _telegram.send(
             ChatReceiver.id(original.sender.id),
@@ -809,7 +838,7 @@ Type help for available commands, or enter any REPL command directly.
       }
     }
   }
-  
+
   /// Get attachment type from file extension.
   ChatAttachmentType _getAttachmentType(String extension) {
     switch (extension) {
@@ -833,7 +862,7 @@ Type help for available commands, or enter any REPL command directly.
         return ChatAttachmentType.document;
     }
   }
-  
+
   /// Check if text looks like a Copilot Chat prompt.
   /// Returns true if the message:
   /// - Starts with ? (explicit Copilot trigger)
@@ -842,23 +871,23 @@ Type help for available commands, or enter any REPL command directly.
   /// - Ends with at least three dashes (---) on a separate last line
   bool _isCopilotChatPrompt(String text) {
     final trimmed = text.trim();
-    
+
     // Check for ? prefix (explicit Copilot trigger)
     if (trimmed.startsWith('?')) {
       return true;
     }
-    
+
     // Check for TODO: or QUESTION: prefix (case insensitive)
     final upperText = trimmed.toUpperCase();
     if (upperText.startsWith('TODO:') || upperText.startsWith('QUESTION:')) {
       return true;
     }
-    
+
     // Check if ends with . or ?
     if (trimmed.endsWith('.') || trimmed.endsWith('?')) {
       return true;
     }
-    
+
     // Check if last line is at least three dashes
     final lines = trimmed.split('\n');
     if (lines.isNotEmpty) {
@@ -867,10 +896,10 @@ Type help for available commands, or enter any REPL command directly.
         return true;
       }
     }
-    
+
     return false;
   }
-  
+
   /// Remove the ? prefix from a Copilot prompt if present.
   String _stripCopilotPrefix(String text) {
     final trimmed = text.trim();
@@ -879,11 +908,11 @@ Type help for available commands, or enter any REPL command directly.
     }
     return text;
   }
-  
+
   /// Check if text is a known REPL command (to avoid sending commands to Copilot).
   bool _isReplCommand(String text) {
     final trimmed = text.trim().toLowerCase();
-    
+
     // List of known REPL commands that should NOT go to Copilot
     const commands = [
       'help',
@@ -921,19 +950,19 @@ Type help for available commands, or enter any REPL command directly.
       'defines',
       'info',
     ];
-    
+
     // Check exact match or prefix with space
     for (final cmd in commands) {
       if (trimmed == cmd || trimmed.startsWith('$cmd ')) {
         return true;
       }
     }
-    
+
     // Also check for dot-commands (.load, .save, etc.)
     if (trimmed.startsWith('.')) {
       return true;
     }
-    
+
     return false;
   }
 
@@ -950,7 +979,7 @@ Type help for available commands, or enter any REPL command directly.
       parseMode: output.parseMode,
     );
   }
-  
+
   /// Debug wrapper for sending messages - prints exactly what is sent.
   /// Uses stdout directly to avoid being captured by runZonedGuarded.
   Future<void> _debugSendMessage(
@@ -959,20 +988,30 @@ Type help for available commands, or enter any REPL command directly.
     String? parseMode,
   }) async {
     stdout.writeln('');
-    stdout.writeln('╔════════════════════════════════════════════════════════════');
+    stdout.writeln(
+      '╔════════════════════════════════════════════════════════════',
+    );
     stdout.writeln('║ SENDING TO TELEGRAM');
-    stdout.writeln('╠════════════════════════════════════════════════════════════');
+    stdout.writeln(
+      '╠════════════════════════════════════════════════════════════',
+    );
     stdout.writeln('║ receiver: $receiver');
     stdout.writeln('║ parseMode: $parseMode');
-    stdout.writeln('╠════════════════════════════════════════════════════════════');
+    stdout.writeln(
+      '╠════════════════════════════════════════════════════════════',
+    );
     stdout.writeln('║ TEXT:');
-    stdout.writeln('╠════════════════════════════════════════════════════════════');
+    stdout.writeln(
+      '╠════════════════════════════════════════════════════════════',
+    );
     for (final line in text.split('\n')) {
       stdout.writeln('║ $line');
     }
-    stdout.writeln('╚════════════════════════════════════════════════════════════');
+    stdout.writeln(
+      '╚════════════════════════════════════════════════════════════',
+    );
     stdout.writeln('');
-    
+
     await _telegram.sendMessage(receiver, text, parseMode: parseMode);
   }
 
@@ -980,26 +1019,27 @@ Type help for available commands, or enter any REPL command directly.
   Future<void> _sendTyping(ChatMessage message) async {
     // TODO: Implement when ChatApi supports chat actions
   }
-  
+
   /// Download attachment content.
   /// Returns null if download fails or is not supported.
   Future<List<int>?> _downloadAttachment(ChatAttachment attachment) async {
     if (attachment.url.isEmpty) return null;
-    
+
     try {
       // Check if it's a local file path first
-      if (!attachment.url.startsWith('http') && !_isTelegramFileId(attachment.url)) {
+      if (!attachment.url.startsWith('http') &&
+          !_isTelegramFileId(attachment.url)) {
         final file = File(attachment.url);
         if (await file.exists()) {
           return await file.readAsBytes();
         }
       }
-      
+
       // For Telegram file IDs, use the ChatApi's downloadAttachment method
       if (_isTelegramFileId(attachment.url)) {
         return await _telegram.downloadAttachment(attachment);
       }
-      
+
       // For HTTP URLs, use HttpClient to download
       final httpClient = HttpClient();
       try {
@@ -1020,15 +1060,15 @@ Type help for available commands, or enter any REPL command directly.
     }
     return null;
   }
-  
+
   /// Check if a string looks like a Telegram file ID.
   bool _isTelegramFileId(String url) {
     // Telegram file IDs are long base64-like strings starting with specific prefixes
     // They don't contain slashes or protocol prefixes
-    return url.isNotEmpty && 
-           !url.contains('/') && 
-           !url.contains(':') &&
-           url.length > 20;
+    return url.isNotEmpty &&
+        !url.contains('/') &&
+        !url.contains(':') &&
+        url.length > 20;
   }
 
   /// Stop the bot.

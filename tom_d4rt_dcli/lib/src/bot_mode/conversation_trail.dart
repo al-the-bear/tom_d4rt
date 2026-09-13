@@ -76,10 +76,8 @@ class PromptEntry {
   /// File paths of attachments received with the prompt.
   final List<String> attachments;
 
-  PromptEntry({
-    required this.text,
-    List<String>? attachments,
-  }) : attachments = attachments ?? [];
+  PromptEntry({required this.text, List<String>? attachments})
+    : attachments = attachments ?? [];
 }
 
 /// Reply entry in the conversation trail.
@@ -101,9 +99,9 @@ class ReplyEntry {
     String? comment,
     List<String>? references,
     List<String>? requestedAttachments,
-  })  : comment = comment ?? '',
-        references = references ?? [],
-        requestedAttachments = requestedAttachments ?? [];
+  }) : comment = comment ?? '',
+       references = references ?? [],
+       requestedAttachments = requestedAttachments ?? [];
 }
 
 /// Manages the conversation trail for a bot session.
@@ -134,9 +132,10 @@ class ConversationTrailManager {
     required this.botName,
     this.maxEntries = 50,
   }) {
-    final home = Platform.environment['HOME'] ?? 
-                 Platform.environment['USERPROFILE'] ?? 
-                 '.';
+    final home =
+        Platform.environment['HOME'] ??
+        Platform.environment['USERPROFILE'] ??
+        '.';
     _baseDir = '$home/.tom/$toolName/$botName';
   }
 
@@ -204,11 +203,15 @@ class ConversationTrailManager {
 
     // Create/append to trail file
     _trailFile = File('$_baseDir/trail.txt');
-    final header = '# CHAT TRAIL $botName STARTED ${ConversationExchange._formatTimestamp(DateTime.now())}\n\n';
-    
+    final header =
+        '# CHAT TRAIL $botName STARTED ${ConversationExchange._formatTimestamp(DateTime.now())}\n\n';
+
     if (await _trailFile!.exists()) {
       // Append separator for new session
-      await _trailFile!.writeAsString('\n---\n\n$header', mode: FileMode.append);
+      await _trailFile!.writeAsString(
+        '\n---\n\n$header',
+        mode: FileMode.append,
+      );
     } else {
       await _trailFile!.writeAsString(header);
     }
@@ -241,25 +244,29 @@ class ConversationTrailManager {
 
   /// Save a received file attachment.
   /// Returns the full path where the file was saved.
-  Future<String> saveReceivedFile(String originalFilename, List<int> data) async {
+  Future<String> saveReceivedFile(
+    String originalFilename,
+    List<int> data,
+  ) async {
     if (!_initialized) {
       await initialize();
     }
 
     final timestamp = DateTime.now();
-    final tsString = '${timestamp.year}'
+    final tsString =
+        '${timestamp.year}'
         '${ConversationExchange._pad(timestamp.month)}'
         '${ConversationExchange._pad(timestamp.day)}_'
         '${ConversationExchange._pad(timestamp.hour)}'
         '${ConversationExchange._pad(timestamp.minute)}'
         '${ConversationExchange._pad(timestamp.second)}';
-    
+
     final safeFilename = originalFilename.replaceAll(RegExp(r'[^\w\.\-]'), '_');
     final fullPath = '$_baseDir/received/${tsString}_$safeFilename';
-    
+
     final file = File(fullPath);
     await file.writeAsBytes(data);
-    
+
     return fullPath;
   }
 

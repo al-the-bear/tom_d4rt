@@ -37,10 +37,10 @@ class D4rtCliController implements D4rtCliApi {
     required CliState state,
     required String toolName,
     CliRuntime? runtime,
-  })  : _d4rt = d4rt,
-        _state = state,
-        _toolName = toolName,
-        _runtime = runtime ?? CliRuntimeImpl();
+  }) : _d4rt = d4rt,
+       _state = state,
+       _toolName = toolName,
+       _runtime = runtime ?? CliRuntimeImpl();
 
   final D4rt _d4rt;
   final CliState _state;
@@ -322,7 +322,7 @@ class D4rtCliController implements D4rtCliApi {
 
     // Try to find the symbol in configuration
     final config = _d4rt.getConfiguration();
-    
+
     // Check bridged classes from all imports
     for (final imp in config.imports) {
       for (final cls in imp.classes) {
@@ -331,10 +331,7 @@ class D4rtCliController implements D4rtCliApi {
             name: name,
             kind: SymbolKind.class_,
             documentation: 'Bridged class: ${cls.name}',
-            details: {
-              'methods': cls.methods,
-              'constructors': cls.constructors,
-            },
+            details: {'methods': cls.methods, 'constructors': cls.constructors},
           );
         }
       }
@@ -361,11 +358,13 @@ class D4rtCliController implements D4rtCliApi {
     final result = <ClassInfo>[];
     for (final imp in _d4rt.getConfiguration().imports) {
       for (final c in imp.classes) {
-        result.add(ClassInfo(
-          name: c.name,
-          methods: c.methods,
-          constructors: c.constructors,
-        ));
+        result.add(
+          ClassInfo(
+            name: c.name,
+            methods: c.methods,
+            constructors: c.constructors,
+          ),
+        );
       }
     }
     return result;
@@ -376,10 +375,7 @@ class D4rtCliController implements D4rtCliApi {
     final result = <EnumInfo>[];
     for (final imp in _d4rt.getConfiguration().imports) {
       for (final e in imp.enums) {
-        result.add(EnumInfo(
-          name: e.name,
-          values: e.values,
-        ));
+        result.add(EnumInfo(name: e.name, values: e.values));
       }
     }
     return result;
@@ -387,12 +383,16 @@ class D4rtCliController implements D4rtCliApi {
 
   @override
   List<FunctionInfo> methods() {
-    return _d4rt.getConfiguration().globalFunctions
-        .map((f) => FunctionInfo(
-              name: f.name,
-              parameterNames: const [],
-              arity: 0, // arity not available in GlobalFunctionInfo
-            ))
+    return _d4rt
+        .getConfiguration()
+        .globalFunctions
+        .map(
+          (f) => FunctionInfo(
+            name: f.name,
+            parameterNames: const [],
+            arity: 0, // arity not available in GlobalFunctionInfo
+          ),
+        )
         .toList();
   }
 
@@ -400,24 +400,25 @@ class D4rtCliController implements D4rtCliApi {
   List<VariableInfo> variables() {
     final env = _d4rt.getEnvironmentState();
     if (env == null) return [];
-    
+
     return env.variables
-        .map((v) => VariableInfo(
-              name: v.name,
-              valueType: v.valueType,
-            ))
+        .map((v) => VariableInfo(name: v.name, valueType: v.valueType))
         .toList();
   }
 
   @override
   List<ImportInfo> imports() {
-    return _d4rt.getConfiguration().imports
-        .map((i) => ImportInfo(
-              path: i.importPath,
-              classes: i.classes.map((c) => c.name).toList(),
-              enums: i.enums.map((e) => e.name).toList(),
-              functions: const [], // functions not available per-import
-            ))
+    return _d4rt
+        .getConfiguration()
+        .imports
+        .map(
+          (i) => ImportInfo(
+            path: i.importPath,
+            classes: i.classes.map((c) => c.name).toList(),
+            enums: i.enums.map((e) => e.name).toList(),
+            functions: const [], // functions not available per-import
+          ),
+        )
         .toList();
   }
 
@@ -438,11 +439,10 @@ class D4rtCliController implements D4rtCliApi {
 
   @override
   List<VariableInfo> registeredVariables() {
-    return _d4rt.getConfiguration().globalVariables
-        .map((v) => VariableInfo(
-              name: v.name,
-              valueType: v.valueType,
-            ))
+    return _d4rt
+        .getConfiguration()
+        .globalVariables
+        .map((v) => VariableInfo(name: v.name, valueType: v.valueType))
         .toList();
   }
 
@@ -688,7 +688,8 @@ class D4rtCliController implements D4rtCliApi {
 
   Future<dynamic> _executeScript(String code) async {
     // Wrap code in a function to capture return value
-    final wrapperCode = '''
+    final wrapperCode =
+        '''
 dynamic __repl_multiline__() {
 $code
 }
@@ -749,7 +750,10 @@ $code
   }
 
   @override
-  Future<ExecuteResult> executeContinued(String source, {String? basePath}) async {
+  Future<ExecuteResult> executeContinued(
+    String source, {
+    String? basePath,
+  }) async {
     try {
       final result = await _d4rt.continuedExecute(source: source);
       return ExecuteResult.success(result);
@@ -813,12 +817,14 @@ $code
     }
 
     // Push new execution context
-    _state.contextStack.push(ExecutionContext(
-      workingDirectory: file.parent.path,
-      sourceFile: resolved,
-      recordToSession: false,
-      silent: silent,
-    ));
+    _state.contextStack.push(
+      ExecutionContext(
+        workingDirectory: file.parent.path,
+        sourceFile: resolved,
+        recordToSession: false,
+        silent: silent,
+      ),
+    );
 
     try {
       final lines = file.readAsLinesSync();
@@ -829,8 +835,11 @@ $code
           await processPrompt(lines[i]);
           count++;
         } catch (e) {
-          throw ReplayException(resolved, i + 1, 
-            e is CliException ? e : CliException(e.toString()));
+          throw ReplayException(
+            resolved,
+            i + 1,
+            e is CliException ? e : CliException(e.toString()),
+          );
         }
       }
 
@@ -895,7 +904,7 @@ $code
 
   String _loadFileContents(String path, String defaultExt) {
     var resolved = _state.resolvePath(path);
-    
+
     // Add default extension if needed
     if (defaultExt.isNotEmpty && !resolved.contains('.')) {
       resolved = '$resolved$defaultExt';
