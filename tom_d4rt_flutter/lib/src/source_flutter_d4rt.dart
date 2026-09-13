@@ -102,16 +102,16 @@ class SourceFlutterD4rt {
   /// positional argument when [buildContext] is provided. Most corpus
   /// scripts in `send_ast_via_http_scripts/` follow this shape.
   T build<T>(String source, [BuildContext? buildContext]) => _wrapUnwrap(() {
-        final raw = _interpreter.execute(
-          source: source,
-          name: 'build',
-          positionalArgs: buildContext != null ? [buildContext] : null,
-        );
-        // Pass the visitor so that InterpretedInstance proxy resolution
-        // works when unwrapping is called after execute() returns (mirrors
-        // D4rtRunner.executeBundleAs which always passes visitor: _visitor).
-        return D4.unwrapAs<T>(raw, visitor: _interpreter.visitor);
-      });
+    final raw = _interpreter.execute(
+      source: source,
+      name: 'build',
+      positionalArgs: buildContext != null ? [buildContext] : null,
+    );
+    // Pass the visitor so that InterpretedInstance proxy resolution
+    // works when unwrapping is called after execute() returns (mirrors
+    // D4rtRunner.executeBundleAs which always passes visitor: _visitor).
+    return D4.unwrapAs<T>(raw, visitor: _interpreter.visitor);
+  });
 
   /// Execute a multi-file Dart program rooted at [mainFilePath] and return
   /// the result of its `build` function as [T].
@@ -128,12 +128,11 @@ class SourceFlutterD4rt {
   ///
   /// Reads from disk — desktop only. Mobile builds load the source set from
   /// bundled assets via [SampleSource] and run it through [buildProgram].
-  T buildMultiFile<T>(
-    String mainFilePath, {
-    BuildContext? buildContext,
-  }) =>
-      buildProgram<T>(buildDiskProgram(mainFilePath),
-          buildContext: buildContext);
+  T buildMultiFile<T>(String mainFilePath, {BuildContext? buildContext}) =>
+      buildProgram<T>(
+        buildDiskProgram(mainFilePath),
+        buildContext: buildContext,
+      );
 
   /// Run an already-resolved multi-file [program] and return the result of
   /// its `build` function as [T].
@@ -143,10 +142,7 @@ class SourceFlutterD4rt {
   /// access (`allowFileSystemImports: false`). This is the platform-neutral
   /// core shared by the disk path ([buildMultiFile]) and the asset path used
   /// on iOS / iPadOS / Android.
-  T buildProgram<T>(
-    SampleProgram program, {
-    BuildContext? buildContext,
-  }) =>
+  T buildProgram<T>(SampleProgram program, {BuildContext? buildContext}) =>
       _wrapUnwrap(() {
         final raw = _interpreter.execute(
           library: program.libraryUri,
@@ -185,16 +181,15 @@ class SourceFlutterD4rt {
     String name = 'main',
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
-  }) =>
-      _wrapUnwrap(() {
-        final raw = _interpreter.execute(
-          source: source,
-          name: name,
-          positionalArgs: positionalArgs,
-          namedArgs: namedArgs,
-        );
-        return D4.unwrapAs<T>(raw, visitor: _interpreter.visitor);
-      });
+  }) => _wrapUnwrap(() {
+    final raw = _interpreter.execute(
+      source: source,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+    );
+    return D4.unwrapAs<T>(raw, visitor: _interpreter.visitor);
+  });
 
   static T _wrapUnwrap<T>(T Function() body) {
     try {

@@ -42,10 +42,16 @@ class SceneBuilderUserBridge extends D4UserBridge {
     final alpha = D4.getRequiredArg<int>(positional, 0, 'alpha', 'pushOpacity');
     // Web-safe: keep `offset` non-nullable so dart2js accepts the call.
     final ui.Offset offset =
-        D4.getNamedArgWithDefault<ui.Offset?>(named, 'offset', ui.Offset.zero) ??
-            ui.Offset.zero;
-    final oldLayer =
-        D4.getOptionalNamedArg<ui.OpacityEngineLayer?>(named, 'oldLayer');
+        D4.getNamedArgWithDefault<ui.Offset?>(
+          named,
+          'offset',
+          ui.Offset.zero,
+        ) ??
+        ui.Offset.zero;
+    final oldLayer = D4.getOptionalNamedArg<ui.OpacityEngineLayer?>(
+      named,
+      'oldLayer',
+    );
     return t.pushOpacity(alpha, offset: offset, oldLayer: oldLayer);
   }
 }

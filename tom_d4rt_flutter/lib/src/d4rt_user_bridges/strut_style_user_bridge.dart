@@ -29,22 +29,25 @@ class StrutStyleUserBridge extends D4UserBridge {
     Map<String, Object?> named,
   ) {
     return painting.StrutStyle(
-      fontFamily:
-          D4.extractBridgedArgOrNull<String>(named['fontFamily'], 'fontFamily'),
+      fontFamily: D4.extractBridgedArgOrNull<String>(
+        named['fontFamily'],
+        'fontFamily',
+      ),
       fontFamilyFallback: D4.coerceListOrNull<String>(
         named['fontFamilyFallback'],
         'fontFamilyFallback',
       ),
-      fontSize:
-          D4.extractBridgedArgOrNull<double>(named['fontSize'], 'fontSize'),
-      height: D4.extractBridgedArgOrNull<double>(named['height'], 'height'),
-      leadingDistribution:
-          D4.extractBridgedArgOrNull<ui.TextLeadingDistribution>(
-        named['leadingDistribution'],
-        'leadingDistribution',
+      fontSize: D4.extractBridgedArgOrNull<double>(
+        named['fontSize'],
+        'fontSize',
       ),
-      leading:
-          D4.extractBridgedArgOrNull<double>(named['leading'], 'leading'),
+      height: D4.extractBridgedArgOrNull<double>(named['height'], 'height'),
+      leadingDistribution: D4
+          .extractBridgedArgOrNull<ui.TextLeadingDistribution>(
+            named['leadingDistribution'],
+            'leadingDistribution',
+          ),
+      leading: D4.extractBridgedArgOrNull<double>(named['leading'], 'leading'),
       fontWeight: D4.extractBridgedArgOrNull<ui.FontWeight>(
         named['fontWeight'],
         'fontWeight',

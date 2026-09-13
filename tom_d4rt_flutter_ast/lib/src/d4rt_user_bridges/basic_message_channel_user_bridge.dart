@@ -21,8 +21,10 @@ import 'package:tom_d4rt_ast/d4rt.dart';
 
 /// Bypasses `BasicMessageChannel<T>.setMessageHandler`'s typed signature
 /// by installing the handler at the `BinaryMessenger` layer.
-@D4rtUserBridge('package:flutter/src/services/platform_channel.dart',
-    'BasicMessageChannel')
+@D4rtUserBridge(
+  'package:flutter/src/services/platform_channel.dart',
+  'BasicMessageChannel',
+)
 class BasicMessageChannelUserBridge extends D4UserBridge {
   /// Override for `setMessageHandler(Future<T> Function(T? message)? handler)`.
   ///
@@ -48,8 +50,9 @@ class BasicMessageChannelUserBridge extends D4UserBridge {
       return null;
     }
     final codec = channel.codec;
-    channel.binaryMessenger.setMessageHandler(channel.name,
-        (ByteData? message) async {
+    channel.binaryMessenger.setMessageHandler(channel.name, (
+      ByteData? message,
+    ) async {
       final decoded = codec.decodeMessage(message);
       final result = D4.callInterpreterCallback(visitor, handlerRaw, [decoded]);
       final awaited = result is Future ? await result : result;

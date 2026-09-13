@@ -206,20 +206,33 @@ void _registerInterfaceProxies() {
   // …and pass instances directly to bridged Flutter constructors that
   // expect a `Widget` (e.g. `Positioned.fill(child: _MyHost(...))`).
   D4.registerInterfaceProxy('LeafRenderObjectWidget', (visitor, instance) {
-    return _InterpretedLeafRenderObjectWidget(visitor, instance,
-        key: _readKey(instance, visitor));
+    return _InterpretedLeafRenderObjectWidget(
+      visitor,
+      instance,
+      key: _readKey(instance, visitor),
+    );
   });
-  D4.registerInterfaceProxy('SingleChildRenderObjectWidget',
-      (visitor, instance) {
-    return _InterpretedSingleChildRenderObjectWidget(visitor, instance,
-        key: _readKey(instance, visitor),
-        child: _readChildWidget(instance, visitor));
+  D4.registerInterfaceProxy('SingleChildRenderObjectWidget', (
+    visitor,
+    instance,
+  ) {
+    return _InterpretedSingleChildRenderObjectWidget(
+      visitor,
+      instance,
+      key: _readKey(instance, visitor),
+      child: _readChildWidget(instance, visitor),
+    );
   });
-  D4.registerInterfaceProxy('MultiChildRenderObjectWidget',
-      (visitor, instance) {
-    return _InterpretedMultiChildRenderObjectWidget(visitor, instance,
-        key: _readKey(instance, visitor),
-        children: _readChildrenWidgets(instance, visitor));
+  D4.registerInterfaceProxy('MultiChildRenderObjectWidget', (
+    visitor,
+    instance,
+  ) {
+    return _InterpretedMultiChildRenderObjectWidget(
+      visitor,
+      instance,
+      key: _readKey(instance, visitor),
+      children: _readChildrenWidgets(instance, visitor),
+    );
   });
 
   // Intent — scripts that subclass `Intent` (e.g. for `Shortcuts(shortcuts:
@@ -303,8 +316,11 @@ void _registerInterfaceProxies() {
   // PreferredSizeWidget, whose proxy extends StatelessWidget and
   // implements PreferredSizeWidget, satisfying the cast.
   D4.registerInterfaceProxy('PreferredSizeWidget', (visitor, instance) {
-    return _InterpretedPreferredSizeWidget(visitor, instance,
-        key: _readKey(instance, visitor));
+    return _InterpretedPreferredSizeWidget(
+      visitor,
+      instance,
+      key: _readKey(instance, visitor),
+    );
   });
 
   // SlottedMultiChildRenderObjectWidget — scripts that subclass this abstract
@@ -314,10 +330,15 @@ void _registerInterfaceProxies() {
   // this registration, `D4.coerceList<Widget>` cannot walk the bridged super
   // chain back to a concrete native Widget proxy and the InterpretedInstance
   // fails the `is Widget` test.
-  D4.registerInterfaceProxy('SlottedMultiChildRenderObjectWidget',
-      (visitor, instance) {
-    return _InterpretedSlottedMultiChildRenderObjectWidget(visitor, instance,
-        key: _readKey(instance, visitor));
+  D4.registerInterfaceProxy('SlottedMultiChildRenderObjectWidget', (
+    visitor,
+    instance,
+  ) {
+    return _InterpretedSlottedMultiChildRenderObjectWidget(
+      visitor,
+      instance,
+      key: _readKey(instance, visitor),
+    );
   });
 
   // Bug-102: InheritedWidget scripts that wrap a subtree (e.g. PanelTheme,
@@ -325,10 +346,12 @@ void _registerInterfaceProxies() {
   // that expect a Widget accept them. Registered here because the generator
   // does not emit an InheritedWidget proxy.
   D4.registerInterfaceProxy('InheritedWidget', (visitor, instance) {
-    return _InterpretedInheritedWidget(visitor, instance,
-        key: _readKey(instance, visitor),
-        child: _readChildWidget(instance, visitor) ??
-            const _EmptyWidget());
+    return _InterpretedInheritedWidget(
+      visitor,
+      instance,
+      key: _readKey(instance, visitor),
+      child: _readChildWidget(instance, visitor) ?? const _EmptyWidget(),
+    );
   });
 
   // C6b: ThemeExtension scripts subclass `ThemeExtension<T>` (F-bounded
@@ -356,16 +379,16 @@ void _registerInterfaceProxies() {
   //     inherited getters/methods (e.g. `delegate`, `horizontalOffset`,
   //     `viewportDimension`, `buildOrObtainChildFor`, `parentDataOf`)
   //     through the proxy's bridged super class.
-  D4.registerInterfaceProxy('TwoDimensionalScrollView',
-      (visitor, instance) {
+  D4.registerInterfaceProxy('TwoDimensionalScrollView', (visitor, instance) {
     return _InterpretedTwoDimensionalScrollView.create(visitor, instance);
   });
-  D4.registerInterfaceProxy('TwoDimensionalViewport',
-      (visitor, instance) {
+  D4.registerInterfaceProxy('TwoDimensionalViewport', (visitor, instance) {
     return _InterpretedTwoDimensionalViewport.create(visitor, instance);
   });
-  D4.registerInterfaceProxy('RenderTwoDimensionalViewport',
-      (visitor, instance) {
+  D4.registerInterfaceProxy('RenderTwoDimensionalViewport', (
+    visitor,
+    instance,
+  ) {
     return _InterpretedRenderTwoDimensionalViewport.create(visitor, instance);
   });
   // Opt these three proxies into the C7 super-arg capture branch in
@@ -519,8 +542,9 @@ void registerD4rtInterfaceProxyOverrides() {
   // `_NativePath is not a subtype of RRect`.
   D4.registerInterfaceProxy('CustomClipper', (visitor, instance) {
     final typeArgNames = instance.klass.bridgedSuperTypeArgNames;
-    final firstArg =
-        (typeArgNames != null && typeArgNames.isNotEmpty) ? typeArgNames[0] : '';
+    final firstArg = (typeArgNames != null && typeArgNames.isNotEmpty)
+        ? typeArgNames[0]
+        : '';
     final Object proxy;
     switch (firstArg) {
       case 'RRect':
@@ -619,12 +643,16 @@ void registerD4rtInterfaceProxyOverrides() {
   // via `InterpretedInstance.get`. nativeProxy caching ensures the same
   // delegate identity is preserved across boundary crossings so the builder
   // sees a stable object.
-  D4.registerInterfaceProxy('TextSelectionGestureDetectorBuilderDelegate',
-      (visitor, instance) {
+  D4.registerInterfaceProxy('TextSelectionGestureDetectorBuilderDelegate', (
+    visitor,
+    instance,
+  ) {
     final cached = instance.nativeProxy;
     if (cached is TextSelectionGestureDetectorBuilderDelegate) return cached;
-    final proxy =
-        _InterpretedTextSelectionGestureDetectorBuilderDelegate(visitor, instance);
+    final proxy = _InterpretedTextSelectionGestureDetectorBuilderDelegate(
+      visitor,
+      instance,
+    );
     instance.nativeProxy = proxy;
     return proxy;
   });
@@ -663,9 +691,15 @@ void registerD4rtInterfaceProxyOverrides() {
     // mixing both in a single proxy would conflict on `attach`/`detach`/etc.).
     final klass = instance.klass;
     final RenderBox proxy;
-    if (_classChainHasBridgedMixin(klass, 'SlottedContainerRenderObjectMixin')) {
+    if (_classChainHasBridgedMixin(
+      klass,
+      'SlottedContainerRenderObjectMixin',
+    )) {
       proxy = _InterpretedSlottedRenderBox(visitor, instance);
-    } else if (_classChainHasBridgedMixin(klass, 'ContainerRenderObjectMixin')) {
+    } else if (_classChainHasBridgedMixin(
+      klass,
+      'ContainerRenderObjectMixin',
+    )) {
       proxy = _InterpretedRenderBoxContainer(visitor, instance);
     } else {
       proxy = _InterpretedRenderBox(visitor, instance);
@@ -711,7 +745,11 @@ void registerD4rtInterfaceProxyOverrides() {
     if (cached is ParentDataWidget) return cached;
     final child = _readChildWidget(instance, visitor) ?? const SizedBox();
     final proxy = _InterpretedParentDataWidget(
-        visitor, instance, child: child, key: _readKey(instance, visitor));
+      visitor,
+      instance,
+      child: child,
+      key: _readKey(instance, visitor),
+    );
     instance.nativeProxy = proxy;
     return proxy;
   });
@@ -799,7 +837,9 @@ Key? _readKey(InterpretedInstance instance, InterpreterVisitor visitor) {
   try {
     final keyValue = instance.get('key', visitor: visitor);
     if (keyValue is Key) return keyValue;
-  } catch (_) {/* field may not exist */}
+  } catch (_) {
+    /* field may not exist */
+  }
   return null;
 }
 
@@ -808,7 +848,9 @@ Key? _readKey(InterpretedInstance instance, InterpreterVisitor visitor) {
 /// InterpretedInstance. Returns a null-safe placeholder if the field
 /// is absent or null on the instance.
 Widget? _readChildWidget(
-    InterpretedInstance instance, InterpreterVisitor visitor) {
+  InterpretedInstance instance,
+  InterpreterVisitor visitor,
+) {
   Object? raw;
   try {
     raw = instance.get('child', visitor: visitor);
@@ -821,7 +863,9 @@ Widget? _readChildWidget(
 
 /// Read a `children` list field off an interpreted widget instance.
 List<Widget> _readChildrenWidgets(
-    InterpretedInstance instance, InterpreterVisitor visitor) {
+  InterpretedInstance instance,
+  InterpreterVisitor visitor,
+) {
   Object? raw;
   try {
     raw = instance.get('children', visitor: visitor);
@@ -1103,8 +1147,11 @@ class _InterpretedPreferredSizeWidget extends StatelessWidget
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
 
-  const _InterpretedPreferredSizeWidget(this._visitor, this._instance,
-      {super.key});
+  const _InterpretedPreferredSizeWidget(
+    this._visitor,
+    this._instance, {
+    super.key,
+  });
 
   @override
   Size get preferredSize {
@@ -1319,13 +1366,14 @@ class _InterpretedState extends State<_InterpretedStatefulWidget>
       // logic that compares old vs new widget state (controller resets,
       // selection swaps, debounce poisoning, …). This must be done on every
       // State proxy variant (plain / Single+Multi Ticker / Restoration).
-      final didUpdateMethod =
-          _stateInstance.klass.findInstanceMethod('didUpdateWidget');
+      final didUpdateMethod = _stateInstance.klass.findInstanceMethod(
+        'didUpdateWidget',
+      );
       if (didUpdateMethod != null) {
         try {
-          didUpdateMethod
-              .bind(_stateInstance)
-              .call(_visitor, <Object?>[oldWidget._instance], {});
+          didUpdateMethod.bind(_stateInstance).call(_visitor, <Object?>[
+            oldWidget._instance,
+          ], {});
         } catch (_) {
           // Match `_callVoidMethod` posture: lifecycle methods that call
           // `super.didUpdateWidget(...)` may fault on the proxy boundary.
@@ -1464,13 +1512,14 @@ class _InterpretedSingleTickerProviderState
       // logic that compares old vs new widget state (controller resets,
       // selection swaps, debounce poisoning, …). This must be done on every
       // State proxy variant (plain / Single+Multi Ticker / Restoration).
-      final didUpdateMethod =
-          _stateInstance.klass.findInstanceMethod('didUpdateWidget');
+      final didUpdateMethod = _stateInstance.klass.findInstanceMethod(
+        'didUpdateWidget',
+      );
       if (didUpdateMethod != null) {
         try {
-          didUpdateMethod
-              .bind(_stateInstance)
-              .call(_visitor, <Object?>[oldWidget._instance], {});
+          didUpdateMethod.bind(_stateInstance).call(_visitor, <Object?>[
+            oldWidget._instance,
+          ], {});
         } catch (_) {
           // Match `_callVoidMethod` posture: lifecycle methods that call
           // `super.didUpdateWidget(...)` may fault on the proxy boundary.
@@ -1599,13 +1648,14 @@ class _InterpretedMultiTickerProviderState
       // logic that compares old vs new widget state (controller resets,
       // selection swaps, debounce poisoning, …). This must be done on every
       // State proxy variant (plain / Single+Multi Ticker / Restoration).
-      final didUpdateMethod =
-          _stateInstance.klass.findInstanceMethod('didUpdateWidget');
+      final didUpdateMethod = _stateInstance.klass.findInstanceMethod(
+        'didUpdateWidget',
+      );
       if (didUpdateMethod != null) {
         try {
-          didUpdateMethod
-              .bind(_stateInstance)
-              .call(_visitor, <Object?>[oldWidget._instance], {});
+          didUpdateMethod.bind(_stateInstance).call(_visitor, <Object?>[
+            oldWidget._instance,
+          ], {});
         } catch (_) {
           // Match `_callVoidMethod` posture: lifecycle methods that call
           // `super.didUpdateWidget(...)` may fault on the proxy boundary.
@@ -1730,9 +1780,10 @@ class _InterpretedRestorationMixinState
       // `registerForRestoration` for each property.
       final method = _stateInstance.klass.findInstanceMethod('restoreState');
       if (method != null) {
-        method
-            .bind(_stateInstance)
-            .call(_visitor, [oldBucket, initialRestore], {});
+        method.bind(_stateInstance).call(_visitor, [
+          oldBucket,
+          initialRestore,
+        ], {});
       }
     } finally {
       _lifecycleInProgress.remove('restoreState');
@@ -1800,13 +1851,14 @@ class _InterpretedRestorationMixinState
       // logic that compares old vs new widget state (controller resets,
       // selection swaps, debounce poisoning, …). This must be done on every
       // State proxy variant (plain / Single+Multi Ticker / Restoration).
-      final didUpdateMethod =
-          _stateInstance.klass.findInstanceMethod('didUpdateWidget');
+      final didUpdateMethod = _stateInstance.klass.findInstanceMethod(
+        'didUpdateWidget',
+      );
       if (didUpdateMethod != null) {
         try {
-          didUpdateMethod
-              .bind(_stateInstance)
-              .call(_visitor, <Object?>[oldWidget._instance], {});
+          didUpdateMethod.bind(_stateInstance).call(_visitor, <Object?>[
+            oldWidget._instance,
+          ], {});
         } catch (_) {
           // Match `_callVoidMethod` posture: lifecycle methods that call
           // `super.didUpdateWidget(...)` may fault on the proxy boundary.
@@ -2311,7 +2363,8 @@ T _invokeInterpretedAs<T>(
   final method = instance.klass.findInstanceMethod(methodName);
   if (method == null) {
     throw StateError(
-        'Interpreted class ${instance.klass.name} does not implement $methodName()');
+      'Interpreted class ${instance.klass.name} does not implement $methodName()',
+    );
   }
   final raw = method.bind(instance).call(visitor, positionalArgs, {});
   return D4.extractBridgedArg<T>(raw, methodName, visitor);
@@ -2323,9 +2376,12 @@ RenderObject _createRenderObject(
   InterpreterVisitor visitor,
   InterpretedInstance instance,
   BuildContext context,
-) =>
-    _invokeInterpretedAs<RenderObject>(
-        visitor, instance, 'createRenderObject', [context]);
+) => _invokeInterpretedAs<RenderObject>(
+  visitor,
+  instance,
+  'createRenderObject',
+  [context],
+);
 
 void _updateRenderObject(
   InterpreterVisitor visitor,
@@ -2491,7 +2547,8 @@ class _InterpretedSlottedMultiChildRenderObjectWidget
     if (raw is Iterable) return raw;
     if (raw == null) return const <dynamic>[];
     throw StateError(
-        'Interpreted ${_instance.klass.name}.slots must return an Iterable, got ${raw.runtimeType}');
+      'Interpreted ${_instance.klass.name}.slots must return an Iterable, got ${raw.runtimeType}',
+    );
   }
 
   @override
@@ -2499,7 +2556,8 @@ class _InterpretedSlottedMultiChildRenderObjectWidget
     final method = _instance.klass.findInstanceMethod('childForSlot');
     if (method == null) {
       throw StateError(
-          'Interpreted ${_instance.klass.name} does not implement childForSlot()');
+        'Interpreted ${_instance.klass.name} does not implement childForSlot()',
+      );
     }
     final raw = method.bind(_instance).call(_visitor, [slot], {});
     if (raw == null) return null;
@@ -2508,24 +2566,29 @@ class _InterpretedSlottedMultiChildRenderObjectWidget
 
   @override
   SlottedContainerRenderObjectMixin<dynamic, RenderObject> createRenderObject(
-      BuildContext context) {
+    BuildContext context,
+  ) {
     final raw = _invokeInterpretedAs<RenderObject>(
-        _visitor, _instance, 'createRenderObject', [context]);
+      _visitor,
+      _instance,
+      'createRenderObject',
+      [context],
+    );
     if (raw is SlottedContainerRenderObjectMixin<dynamic, RenderObject>) {
       return raw;
     }
     throw StateError(
-        'Interpreted ${_instance.klass.name}.createRenderObject must return a '
-        'RenderObject mixing in SlottedContainerRenderObjectMixin, got '
-        '${raw.runtimeType}');
+      'Interpreted ${_instance.klass.name}.createRenderObject must return a '
+      'RenderObject mixing in SlottedContainerRenderObjectMixin, got '
+      '${raw.runtimeType}',
+    );
   }
 
   @override
   void updateRenderObject(
     BuildContext context,
     SlottedContainerRenderObjectMixin<dynamic, RenderObject> renderObject,
-  ) =>
-      _updateRenderObject(_visitor, _instance, context, renderObject);
+  ) => _updateRenderObject(_visitor, _instance, context, renderObject);
 }
 
 // =============================================================================
@@ -2650,8 +2713,7 @@ class _InterpretedSingleChildLayoutDelegate extends SingleChildLayoutDelegate {
 
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
-    final method =
-        _instance.klass.findInstanceMethod('getConstraintsForChild');
+    final method = _instance.klass.findInstanceMethod('getConstraintsForChild');
     if (method == null) return constraints;
     try {
       final raw = method.bind(_instance).call(_visitor, [constraints], {});
@@ -2676,8 +2738,7 @@ class _InterpretedSingleChildLayoutDelegate extends SingleChildLayoutDelegate {
     final method = _instance.klass.findInstanceMethod('getPositionForChild');
     if (method == null) return Offset.zero;
     try {
-      final raw =
-          method.bind(_instance).call(_visitor, [size, childSize], {});
+      final raw = method.bind(_instance).call(_visitor, [size, childSize], {});
       if (raw is Offset) return raw;
     } catch (_) {}
     return Offset.zero;
@@ -2864,7 +2925,9 @@ class _InterpretedCustomPainter extends CustomPainter
     if (method == null) return;
     try {
       method.bind(_instance).call(_visitor, [canvas, size], const {});
-    } catch (_) {/* silently swallow paint exceptions */}
+    } catch (_) {
+      /* silently swallow paint exceptions */
+    }
   }
 
   @override
@@ -2886,8 +2949,7 @@ class _InterpretedCustomPainter extends CustomPainter
 
   @override
   bool shouldRebuildSemantics(covariant CustomPainter oldDelegate) {
-    final method =
-        _instance.klass.findInstanceMethod('shouldRebuildSemantics');
+    final method = _instance.klass.findInstanceMethod('shouldRebuildSemantics');
     if (method == null) return shouldRepaint(oldDelegate);
     try {
       final Object arg = oldDelegate is D4InterpretedProxy
@@ -2936,8 +2998,11 @@ class _InterpretedRenderBox extends RenderBox implements D4InterpretedProxy {
   /// Invoke an instance method by name, returning [_kNotImplemented] if the
   /// interpreted class doesn't define it (so callers can fall through to the
   /// RenderBox default).
-  Object? _maybeInvoke(String methodName, List<Object?> args,
-      [Map<String, Object?> named = const {}]) {
+  Object? _maybeInvoke(
+    String methodName,
+    List<Object?> args, [
+    Map<String, Object?> named = const {},
+  ]) {
     final method = _instance.klass.findInstanceMethod(methodName);
     if (method == null) return _kNotImplemented;
     return method.bind(_instance).call(_visitor, args, named);
@@ -3063,9 +3128,14 @@ bool _classChainHasBridgedMixin(InterpretedClass? klass, String mixinName) {
 // child container linkage works even when scripts don't override it.
 class _InterpretedRenderBoxContainer extends RenderBox
     with
-        ContainerRenderObjectMixin<RenderBox, ContainerBoxParentData<RenderBox>>,
-        RenderBoxContainerDefaultsMixin<RenderBox,
-            ContainerBoxParentData<RenderBox>>
+        ContainerRenderObjectMixin<
+          RenderBox,
+          ContainerBoxParentData<RenderBox>
+        >,
+        RenderBoxContainerDefaultsMixin<
+          RenderBox,
+          ContainerBoxParentData<RenderBox>
+        >
     implements D4InterpretedProxy {
   _InterpretedRenderBoxContainer(this._visitor, this._instance);
 
@@ -3077,8 +3147,11 @@ class _InterpretedRenderBoxContainer extends RenderBox
   @override
   Object get d4rtInstance => _instance;
 
-  Object? _maybeInvoke(String methodName, List<Object?> args,
-      [Map<String, Object?> named = const {}]) {
+  Object? _maybeInvoke(
+    String methodName,
+    List<Object?> args, [
+    Map<String, Object?> named = const {},
+  ]) {
     final method = _instance.klass.findInstanceMethod(methodName);
     if (method == null) return _kNotImplemented;
     return method.bind(_instance).call(_visitor, args, named);
@@ -3191,8 +3264,11 @@ class _InterpretedSlottedRenderBox extends RenderBox
   @override
   Object get d4rtInstance => _instance;
 
-  Object? _maybeInvoke(String methodName, List<Object?> args,
-      [Map<String, Object?> named = const {}]) {
+  Object? _maybeInvoke(
+    String methodName,
+    List<Object?> args, [
+    Map<String, Object?> named = const {},
+  ]) {
     final method = _instance.klass.findInstanceMethod(methodName);
     if (method == null) return _kNotImplemented;
     return method.bind(_instance).call(_visitor, args, named);
@@ -3258,8 +3334,9 @@ class _InterpretedSlottedRenderBox extends RenderBox
       // Default: walk slot children in reverse paint order.
       for (final child in children.toList().reversed) {
         final parentData = child.parentData;
-        final childOffset =
-            parentData is BoxParentData ? parentData.offset : Offset.zero;
+        final childOffset = parentData is BoxParentData
+            ? parentData.offset
+            : Offset.zero;
         final hit = result.addWithPaintOffset(
           offset: childOffset,
           position: position,
@@ -3293,8 +3370,9 @@ class _InterpretedSlottedRenderBox extends RenderBox
 
   @override
   double computeMinIntrinsicWidth(double height) {
-    final method =
-        _instance.klass.findInstanceMethod('computeMinIntrinsicWidth');
+    final method = _instance.klass.findInstanceMethod(
+      'computeMinIntrinsicWidth',
+    );
     if (method == null) return super.computeMinIntrinsicWidth(height);
     try {
       final raw = method.bind(_instance).call(_visitor, [height], const {});
@@ -3305,8 +3383,9 @@ class _InterpretedSlottedRenderBox extends RenderBox
 
   @override
   double computeMaxIntrinsicWidth(double height) {
-    final method =
-        _instance.klass.findInstanceMethod('computeMaxIntrinsicWidth');
+    final method = _instance.klass.findInstanceMethod(
+      'computeMaxIntrinsicWidth',
+    );
     if (method == null) return super.computeMaxIntrinsicWidth(height);
     try {
       final raw = method.bind(_instance).call(_visitor, [height], const {});
@@ -3317,8 +3396,9 @@ class _InterpretedSlottedRenderBox extends RenderBox
 
   @override
   double computeMinIntrinsicHeight(double width) {
-    final method =
-        _instance.klass.findInstanceMethod('computeMinIntrinsicHeight');
+    final method = _instance.klass.findInstanceMethod(
+      'computeMinIntrinsicHeight',
+    );
     if (method == null) return super.computeMinIntrinsicHeight(width);
     try {
       final raw = method.bind(_instance).call(_visitor, [width], const {});
@@ -3329,8 +3409,9 @@ class _InterpretedSlottedRenderBox extends RenderBox
 
   @override
   double computeMaxIntrinsicHeight(double width) {
-    final method =
-        _instance.klass.findInstanceMethod('computeMaxIntrinsicHeight');
+    final method = _instance.klass.findInstanceMethod(
+      'computeMaxIntrinsicHeight',
+    );
     if (method == null) return super.computeMaxIntrinsicHeight(width);
     try {
       final raw = method.bind(_instance).call(_visitor, [width], const {});
@@ -3358,11 +3439,11 @@ class _InterpretedSlottedRenderBox extends RenderBox
 class _InterpretedRenderAligningShiftedBox extends RenderAligningShiftedBox
     implements D4InterpretedProxy {
   _InterpretedRenderAligningShiftedBox(this._visitor, this._instance)
-      : super(
-          // Safe defaults: center alignment resolves without textDirection.
-          alignment: Alignment.center,
-          textDirection: null,
-        );
+    : super(
+        // Safe defaults: center alignment resolves without textDirection.
+        alignment: Alignment.center,
+        textDirection: null,
+      );
 
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
@@ -3372,8 +3453,11 @@ class _InterpretedRenderAligningShiftedBox extends RenderAligningShiftedBox
   @override
   Object get d4rtInstance => _instance;
 
-  Object? _maybeInvoke(String methodName, List<Object?> args,
-      [Map<String, Object?> named = const {}]) {
+  Object? _maybeInvoke(
+    String methodName,
+    List<Object?> args, [
+    Map<String, Object?> named = const {},
+  ]) {
     final method = _instance.klass.findInstanceMethod(methodName);
     if (method == null) return _kNotImplemented;
     return method.bind(_instance).call(_visitor, args, named);
@@ -3384,8 +3468,9 @@ class _InterpretedRenderAligningShiftedBox extends RenderAligningShiftedBox
     final method = _instance.klass.findInstanceMethod('computeDryLayout');
     if (method == null) return super.computeDryLayout(constraints);
     try {
-      final raw =
-          method.bind(_instance).call(_visitor, [constraints], const {});
+      final raw = method.bind(_instance).call(_visitor, [
+        constraints,
+      ], const {});
       if (raw is Size) return raw;
     } catch (_) {}
     return super.computeDryLayout(constraints);
@@ -3456,8 +3541,12 @@ class _InterpretedRenderAligningShiftedBox extends RenderAligningShiftedBox
 // used only in debug error messages and does not affect runtime behaviour.
 class _InterpretedParentDataWidget extends ParentDataWidget<ParentData>
     implements D4InterpretedProxy {
-  _InterpretedParentDataWidget(this._visitor, this._instance,
-      {required super.child, super.key});
+  _InterpretedParentDataWidget(
+    this._visitor,
+    this._instance, {
+    required super.child,
+    super.key,
+  });
 
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
@@ -3494,9 +3583,9 @@ class _InterpretedParentDataWidget extends ParentDataWidget<ParentData>
       'debugIsValidRenderObject',
     );
     if (method != null) {
-      final result = method
-          .bind(_instance)
-          .call(_visitor, [renderObject], const {});
+      final result = method.bind(_instance).call(_visitor, [
+        renderObject,
+      ], const {});
       if (result is bool) return result;
     }
     return true;
@@ -3615,26 +3704,28 @@ void _registerBridgedMethodInterceptors() {
   // returning the underlying `InterpretedInstance` so script field/method
   // dispatch goes through the `InterpretedClass`. Native ThemeExtensions
   // are matched by `runtimeType.toString()`.
-  D4.registerBridgedMethodInterceptor(
-    'ThemeData',
-    'extension',
-    (visitor, target, positional, named, typeArgs) {
-      final theme = target is ThemeData ? target : null;
-      if (theme == null) return null;
-      if (typeArgs == null || typeArgs.isEmpty) return null;
-      final wantedName = typeArgs[0].name;
-      for (final ext in theme.extensions.values) {
-        if (ext is _InterpretedThemeExtension) {
-          if (ext._instance.klass.name == wantedName) {
-            return ext._instance;
-          }
-        } else if (ext.runtimeType.toString() == wantedName) {
-          return ext;
+  D4.registerBridgedMethodInterceptor('ThemeData', 'extension', (
+    visitor,
+    target,
+    positional,
+    named,
+    typeArgs,
+  ) {
+    final theme = target is ThemeData ? target : null;
+    if (theme == null) return null;
+    if (typeArgs == null || typeArgs.isEmpty) return null;
+    final wantedName = typeArgs[0].name;
+    for (final ext in theme.extensions.values) {
+      if (ext is _InterpretedThemeExtension) {
+        if (ext._instance.klass.name == wantedName) {
+          return ext._instance;
         }
+      } else if (ext.runtimeType.toString() == wantedName) {
+        return ext;
       }
-      return null;
-    },
-  );
+    }
+    return null;
+  });
 
   // Plan E (static): InheritedModel.inheritFrom<T>(context, {aspect}).
   //
@@ -3643,30 +3734,27 @@ void _registerBridgedMethodInterceptors() {
   // interpreted subclasses (every `_InterpretedInheritedWidget` shares the
   // same runtimeType), so we replicate the ancestor walk and aspect-aware
   // dependency registration.
-  D4.registerBridgedStaticMethodInterceptor(
-    'InheritedModel',
-    'inheritFrom',
-    (visitor, positional, named, typeArgs) {
-      final context = positional.isNotEmpty
-          ? (positional[0] is BuildContext
-                ? positional[0] as BuildContext
-                : null)
-          : null;
-      if (context == null) return null;
-      final aspect = named['aspect'];
-      // BuildContext.dependOnInheritedElement requires an Element; in
-      // practice every BuildContext is also an Element.
-      final element = context is Element ? context : null;
-      if (element == null) return null;
-      final matched = _findInheritedElementForType(element, typeArgs);
-      if (matched == null) return null;
-      element.dependOnInheritedElement(matched, aspect: aspect);
-      final widget = matched.widget;
-      return widget is InheritedWidget
-          ? _unwrapInheritedWidget(widget)
-          : widget;
-    },
-  );
+  D4.registerBridgedStaticMethodInterceptor('InheritedModel', 'inheritFrom', (
+    visitor,
+    positional,
+    named,
+    typeArgs,
+  ) {
+    final context = positional.isNotEmpty
+        ? (positional[0] is BuildContext ? positional[0] as BuildContext : null)
+        : null;
+    if (context == null) return null;
+    final aspect = named['aspect'];
+    // BuildContext.dependOnInheritedElement requires an Element; in
+    // practice every BuildContext is also an Element.
+    final element = context is Element ? context : null;
+    if (element == null) return null;
+    final matched = _findInheritedElementForType(element, typeArgs);
+    if (matched == null) return null;
+    element.dependOnInheritedElement(matched, aspect: aspect);
+    final widget = matched.widget;
+    return widget is InheritedWidget ? _unwrapInheritedWidget(widget) : widget;
+  });
 
   // C20f: RadioGroup.maybeOf<T>(context) drops <T> at the bridge boundary.
   // Native lookup uses `dependOnInheritedWidgetOfExactType<_RadioGroupStateScope<T>>()`
@@ -3679,47 +3767,48 @@ void _registerBridgedMethodInterceptors() {
   // names; for unknown `<T>` we fall back to a type-agnostic ancestor walk that
   // returns the first State implementing `RadioGroupRegistry` (RadioGroup<T>'s
   // private state implements `RadioGroupRegistry<T>`).
-  D4.registerBridgedStaticMethodInterceptor(
-    'RadioGroup',
-    'maybeOf',
-    (visitor, positional, named, typeArgs) {
-      if (positional.isEmpty) return null;
-      final ctx = positional[0];
-      if (ctx is! BuildContext) return null;
+  D4.registerBridgedStaticMethodInterceptor('RadioGroup', 'maybeOf', (
+    visitor,
+    positional,
+    named,
+    typeArgs,
+  ) {
+    if (positional.isEmpty) return null;
+    final ctx = positional[0];
+    if (ctx is! BuildContext) return null;
 
-      final typeName = (typeArgs != null && typeArgs.isNotEmpty)
-          ? typeArgs[0].name
-          : null;
+    final typeName = (typeArgs != null && typeArgs.isNotEmpty)
+        ? typeArgs[0].name
+        : null;
 
-      final byType = switch (typeName) {
-        'String' => RadioGroup.maybeOf<String>(ctx),
-        'int' => RadioGroup.maybeOf<int>(ctx),
-        'double' => RadioGroup.maybeOf<double>(ctx),
-        'num' => RadioGroup.maybeOf<num>(ctx),
-        'bool' => RadioGroup.maybeOf<bool>(ctx),
-        'Object' => RadioGroup.maybeOf<Object>(ctx),
-        _ => null,
-      };
-      if (byType != null) return byType;
+    final byType = switch (typeName) {
+      'String' => RadioGroup.maybeOf<String>(ctx),
+      'int' => RadioGroup.maybeOf<int>(ctx),
+      'double' => RadioGroup.maybeOf<double>(ctx),
+      'num' => RadioGroup.maybeOf<num>(ctx),
+      'bool' => RadioGroup.maybeOf<bool>(ctx),
+      'Object' => RadioGroup.maybeOf<Object>(ctx),
+      _ => null,
+    };
+    if (byType != null) return byType;
 
-      // Type-agnostic fallback for script-defined or unsupported `<T>`: walk
-      // ancestors looking for the enclosing RadioGroup's State (which
-      // implements RadioGroupRegistry<T>). Note: this skips inherited-widget
-      // dependency registration — RawRadio rebuilds via its own listener.
-      RadioGroupRegistry? registry;
-      ctx.visitAncestorElements((element) {
-        if (element is StatefulElement) {
-          final state = element.state;
-          if (state is RadioGroupRegistry) {
-            registry = state as RadioGroupRegistry;
-            return false;
-          }
+    // Type-agnostic fallback for script-defined or unsupported `<T>`: walk
+    // ancestors looking for the enclosing RadioGroup's State (which
+    // implements RadioGroupRegistry<T>). Note: this skips inherited-widget
+    // dependency registration — RawRadio rebuilds via its own listener.
+    RadioGroupRegistry? registry;
+    ctx.visitAncestorElements((element) {
+      if (element is StatefulElement) {
+        final state = element.state;
+        if (state is RadioGroupRegistry) {
+          registry = state as RadioGroupRegistry;
+          return false;
         }
-        return true;
-      });
-      return registry;
-    },
-  );
+      }
+      return true;
+    });
+    return registry;
+  });
 }
 
 /// Walk [from]'s ancestors looking for an `InheritedElement` whose widget
@@ -3823,14 +3912,19 @@ class _InterpretedThemeExtension
 
   @override
   ThemeExtension<_InterpretedThemeExtension> lerp(
-      covariant ThemeExtension<_InterpretedThemeExtension>? other, double t) {
+    covariant ThemeExtension<_InterpretedThemeExtension>? other,
+    double t,
+  ) {
     final method = _instance.klass.findInstanceMethod('lerp');
     if (method == null) return this;
-    final otherArg =
-        other is _InterpretedThemeExtension ? other._instance : other;
+    final otherArg = other is _InterpretedThemeExtension
+        ? other._instance
+        : other;
     try {
-      final result =
-          method.bind(_instance).call(_visitor, [otherArg, t], const {});
+      final result = method.bind(_instance).call(_visitor, [
+        otherArg,
+        t,
+      ], const {});
       if (result is InterpretedInstance) {
         return _InterpretedThemeExtension(_visitor, result);
       }
@@ -3924,44 +4018,74 @@ class _InterpretedTwoDimensionalScrollView extends TwoDimensionalScrollView {
     InterpretedInstance instance,
   ) {
     final delegate = _readSuperArg<TwoDimensionalChildDelegate>(
-        instance, 'delegate', visitor);
+      instance,
+      'delegate',
+      visitor,
+    );
     if (delegate == null) {
       throw StateError(
-          'C7: Interpreted TwoDimensionalScrollView subclass '
-          '${instance.klass.name} did not pass a `delegate` to super(...).');
+        'C7: Interpreted TwoDimensionalScrollView subclass '
+        '${instance.klass.name} did not pass a `delegate` to super(...).',
+      );
     }
     final proxy = _InterpretedTwoDimensionalScrollView._(
       visitor,
       instance,
-      key: _readSuperArg<Key>(instance, 'key', visitor) ??
+      key:
+          _readSuperArg<Key>(instance, 'key', visitor) ??
           _readKey(instance, visitor),
       primary: _readSuperArg<bool>(instance, 'primary', visitor),
-      mainAxis: _readSuperArg<Axis>(instance, 'mainAxis', visitor) ??
-          Axis.vertical,
-      verticalDetails: _readSuperArg<ScrollableDetails>(
-              instance, 'verticalDetails', visitor) ??
+      mainAxis:
+          _readSuperArg<Axis>(instance, 'mainAxis', visitor) ?? Axis.vertical,
+      verticalDetails:
+          _readSuperArg<ScrollableDetails>(
+            instance,
+            'verticalDetails',
+            visitor,
+          ) ??
           const ScrollableDetails.vertical(),
-      horizontalDetails: _readSuperArg<ScrollableDetails>(
-              instance, 'horizontalDetails', visitor) ??
+      horizontalDetails:
+          _readSuperArg<ScrollableDetails>(
+            instance,
+            'horizontalDetails',
+            visitor,
+          ) ??
           const ScrollableDetails.horizontal(),
       delegate: delegate,
       scrollCacheExtent: _readSuperArg<ScrollCacheExtent>(
-          instance, 'scrollCacheExtent', visitor),
-      diagonalDragBehavior: _readSuperArg<DiagonalDragBehavior>(
-              instance, 'diagonalDragBehavior', visitor) ??
+        instance,
+        'scrollCacheExtent',
+        visitor,
+      ),
+      diagonalDragBehavior:
+          _readSuperArg<DiagonalDragBehavior>(
+            instance,
+            'diagonalDragBehavior',
+            visitor,
+          ) ??
           DiagonalDragBehavior.none,
-      dragStartBehavior: _readSuperArg<DragStartBehavior>(
-              instance, 'dragStartBehavior', visitor) ??
+      dragStartBehavior:
+          _readSuperArg<DragStartBehavior>(
+            instance,
+            'dragStartBehavior',
+            visitor,
+          ) ??
           DragStartBehavior.start,
-      keyboardDismissBehavior:
-          _readSuperArg<ScrollViewKeyboardDismissBehavior>(
-              instance, 'keyboardDismissBehavior', visitor),
+      keyboardDismissBehavior: _readSuperArg<ScrollViewKeyboardDismissBehavior>(
+        instance,
+        'keyboardDismissBehavior',
+        visitor,
+      ),
       clipBehavior:
           _readSuperArg<Clip>(instance, 'clipBehavior', visitor) ??
-              Clip.hardEdge,
+          Clip.hardEdge,
       hitTestBehavior:
-          _readSuperArg<HitTestBehavior>(instance, 'hitTestBehavior', visitor) ??
-              HitTestBehavior.opaque,
+          _readSuperArg<HitTestBehavior>(
+            instance,
+            'hitTestBehavior',
+            visitor,
+          ) ??
+          HitTestBehavior.opaque,
     );
     instance.nativeProxy ??= proxy;
     return proxy;
@@ -3975,9 +4099,11 @@ class _InterpretedTwoDimensionalScrollView extends TwoDimensionalScrollView {
     BuildContext context,
     ViewportOffset verticalOffset,
     ViewportOffset horizontalOffset,
-  ) =>
-      _invokeInterpretedAs<Widget>(_visitor, _instance, 'buildViewport',
-          [context, verticalOffset, horizontalOffset]);
+  ) => _invokeInterpretedAs<Widget>(_visitor, _instance, 'buildViewport', [
+    context,
+    verticalOffset,
+    horizontalOffset,
+  ]);
 }
 
 // =============================================================================
@@ -4025,36 +4151,47 @@ class _InterpretedBoxScrollView extends BoxScrollView {
     final proxy = _InterpretedBoxScrollView._(
       visitor,
       instance,
-      key: _readSuperArg<Key>(instance, 'key', visitor) ??
+      key:
+          _readSuperArg<Key>(instance, 'key', visitor) ??
           _readKey(instance, visitor),
       scrollDirection:
           _readSuperArg<Axis>(instance, 'scrollDirection', visitor) ??
-              Axis.vertical,
+          Axis.vertical,
       reverse: _readSuperArg<bool>(instance, 'reverse', visitor) ?? false,
-      controller:
-          _readSuperArg<ScrollController>(instance, 'controller', visitor),
+      controller: _readSuperArg<ScrollController>(
+        instance,
+        'controller',
+        visitor,
+      ),
       primary: _readSuperArg<bool>(instance, 'primary', visitor),
-      physics:
-          _readSuperArg<ScrollPhysics>(instance, 'physics', visitor),
-      shrinkWrap:
-          _readSuperArg<bool>(instance, 'shrinkWrap', visitor) ?? false,
+      physics: _readSuperArg<ScrollPhysics>(instance, 'physics', visitor),
+      shrinkWrap: _readSuperArg<bool>(instance, 'shrinkWrap', visitor) ?? false,
       padding: _readSuperArg<EdgeInsetsGeometry>(instance, 'padding', visitor),
       dragStartBehavior:
           _readSuperArg<DragStartBehavior>(
-                  instance, 'dragStartBehavior', visitor) ??
-              DragStartBehavior.start,
+            instance,
+            'dragStartBehavior',
+            visitor,
+          ) ??
+          DragStartBehavior.start,
       keyboardDismissBehavior:
           _readSuperArg<ScrollViewKeyboardDismissBehavior>(
-                  instance, 'keyboardDismissBehavior', visitor) ??
-              ScrollViewKeyboardDismissBehavior.manual,
-      restorationId:
-          _readSuperArg<String>(instance, 'restorationId', visitor),
+            instance,
+            'keyboardDismissBehavior',
+            visitor,
+          ) ??
+          ScrollViewKeyboardDismissBehavior.manual,
+      restorationId: _readSuperArg<String>(instance, 'restorationId', visitor),
       clipBehavior:
-          _readSuperArg<Clip>(instance, 'clipBehavior', visitor) ?? Clip.hardEdge,
+          _readSuperArg<Clip>(instance, 'clipBehavior', visitor) ??
+          Clip.hardEdge,
       hitTestBehavior:
           _readSuperArg<HitTestBehavior>(
-                  instance, 'hitTestBehavior', visitor) ??
-              HitTestBehavior.opaque,
+            instance,
+            'hitTestBehavior',
+            visitor,
+          ) ??
+          HitTestBehavior.opaque,
     );
     instance.nativeProxy ??= proxy;
     return proxy;
@@ -4064,9 +4201,12 @@ class _InterpretedBoxScrollView extends BoxScrollView {
   final InterpretedInstance _instance;
 
   @override
-  Widget buildChildLayout(BuildContext context) =>
-      _invokeInterpretedAs<Widget>(
-          _visitor, _instance, 'buildChildLayout', [context]);
+  Widget buildChildLayout(BuildContext context) => _invokeInterpretedAs<Widget>(
+    _visitor,
+    _instance,
+    'buildChildLayout',
+    [context],
+  );
 }
 
 /// Native [TwoDimensionalViewport] backing an interpreted subclass.
@@ -4090,15 +4230,30 @@ class _InterpretedTwoDimensionalViewport extends TwoDimensionalViewport {
     InterpretedInstance instance,
   ) {
     final delegate = _readSuperArg<TwoDimensionalChildDelegate>(
-        instance, 'delegate', visitor);
+      instance,
+      'delegate',
+      visitor,
+    );
     final verticalOffset = _readSuperArg<ViewportOffset>(
-        instance, 'verticalOffset', visitor);
+      instance,
+      'verticalOffset',
+      visitor,
+    );
     final horizontalOffset = _readSuperArg<ViewportOffset>(
-        instance, 'horizontalOffset', visitor);
+      instance,
+      'horizontalOffset',
+      visitor,
+    );
     final verticalAxisDirection = _readSuperArg<AxisDirection>(
-        instance, 'verticalAxisDirection', visitor);
+      instance,
+      'verticalAxisDirection',
+      visitor,
+    );
     final horizontalAxisDirection = _readSuperArg<AxisDirection>(
-        instance, 'horizontalAxisDirection', visitor);
+      instance,
+      'horizontalAxisDirection',
+      visitor,
+    );
     final mainAxis = _readSuperArg<Axis>(instance, 'mainAxis', visitor);
     if (delegate == null ||
         verticalOffset == null ||
@@ -4107,15 +4262,17 @@ class _InterpretedTwoDimensionalViewport extends TwoDimensionalViewport {
         horizontalAxisDirection == null ||
         mainAxis == null) {
       throw StateError(
-          'C7: Interpreted TwoDimensionalViewport subclass '
-          '${instance.klass.name} did not pass all required '
-          'super-args (delegate / verticalOffset / horizontalOffset / '
-          'verticalAxisDirection / horizontalAxisDirection / mainAxis).');
+        'C7: Interpreted TwoDimensionalViewport subclass '
+        '${instance.klass.name} did not pass all required '
+        'super-args (delegate / verticalOffset / horizontalOffset / '
+        'verticalAxisDirection / horizontalAxisDirection / mainAxis).',
+      );
     }
     final proxy = _InterpretedTwoDimensionalViewport._(
       visitor,
       instance,
-      key: _readSuperArg<Key>(instance, 'key', visitor) ??
+      key:
+          _readSuperArg<Key>(instance, 'key', visitor) ??
           _readKey(instance, visitor),
       verticalOffset: verticalOffset,
       verticalAxisDirection: verticalAxisDirection,
@@ -4124,10 +4281,13 @@ class _InterpretedTwoDimensionalViewport extends TwoDimensionalViewport {
       delegate: delegate,
       mainAxis: mainAxis,
       scrollCacheExtent: _readSuperArg<ScrollCacheExtent>(
-          instance, 'scrollCacheExtent', visitor),
+        instance,
+        'scrollCacheExtent',
+        visitor,
+      ),
       clipBehavior:
           _readSuperArg<Clip>(instance, 'clipBehavior', visitor) ??
-              Clip.hardEdge,
+          Clip.hardEdge,
     );
     instance.nativeProxy ??= proxy;
     return proxy;
@@ -4139,11 +4299,16 @@ class _InterpretedTwoDimensionalViewport extends TwoDimensionalViewport {
   @override
   RenderTwoDimensionalViewport createRenderObject(BuildContext context) {
     final raw = _invokeInterpretedAs<RenderObject>(
-        _visitor, _instance, 'createRenderObject', [context]);
+      _visitor,
+      _instance,
+      'createRenderObject',
+      [context],
+    );
     if (raw is RenderTwoDimensionalViewport) return raw;
     throw StateError(
-        'Interpreted ${_instance.klass.name}.createRenderObject must return a '
-        'RenderTwoDimensionalViewport, got ${raw.runtimeType}');
+      'Interpreted ${_instance.klass.name}.createRenderObject must return a '
+      'RenderTwoDimensionalViewport, got ${raw.runtimeType}',
+    );
   }
 
   @override
@@ -4187,18 +4352,36 @@ class _InterpretedRenderTwoDimensionalViewport
     InterpretedInstance instance,
   ) {
     final delegate = _readSuperArg<TwoDimensionalChildDelegate>(
-        instance, 'delegate', visitor);
+      instance,
+      'delegate',
+      visitor,
+    );
     final verticalOffset = _readSuperArg<ViewportOffset>(
-        instance, 'verticalOffset', visitor);
+      instance,
+      'verticalOffset',
+      visitor,
+    );
     final horizontalOffset = _readSuperArg<ViewportOffset>(
-        instance, 'horizontalOffset', visitor);
+      instance,
+      'horizontalOffset',
+      visitor,
+    );
     final verticalAxisDirection = _readSuperArg<AxisDirection>(
-        instance, 'verticalAxisDirection', visitor);
+      instance,
+      'verticalAxisDirection',
+      visitor,
+    );
     final horizontalAxisDirection = _readSuperArg<AxisDirection>(
-        instance, 'horizontalAxisDirection', visitor);
+      instance,
+      'horizontalAxisDirection',
+      visitor,
+    );
     final mainAxis = _readSuperArg<Axis>(instance, 'mainAxis', visitor);
     final childManager = _readSuperArg<TwoDimensionalChildManager>(
-        instance, 'childManager', visitor);
+      instance,
+      'childManager',
+      visitor,
+    );
     if (delegate == null ||
         verticalOffset == null ||
         horizontalOffset == null ||
@@ -4207,8 +4390,9 @@ class _InterpretedRenderTwoDimensionalViewport
         mainAxis == null ||
         childManager == null) {
       throw StateError(
-          'C7: Interpreted RenderTwoDimensionalViewport subclass '
-          '${instance.klass.name} did not pass all required super-args.');
+        'C7: Interpreted RenderTwoDimensionalViewport subclass '
+        '${instance.klass.name} did not pass all required super-args.',
+      );
     }
     final proxy = _InterpretedRenderTwoDimensionalViewport._(
       visitor,
@@ -4221,10 +4405,13 @@ class _InterpretedRenderTwoDimensionalViewport
       mainAxis: mainAxis,
       childManager: childManager,
       scrollCacheExtent: _readSuperArg<ScrollCacheExtent>(
-          instance, 'scrollCacheExtent', visitor),
+        instance,
+        'scrollCacheExtent',
+        visitor,
+      ),
       clipBehavior:
           _readSuperArg<Clip>(instance, 'clipBehavior', visitor) ??
-              Clip.hardEdge,
+          Clip.hardEdge,
     );
     instance.nativeProxy ??= proxy;
     return proxy;
@@ -4250,8 +4437,9 @@ class _InterpretedRenderTwoDimensionalViewport
     final method = _instance.klass.findInstanceMethod('layoutChildSequence');
     if (method == null) {
       throw StateError(
-          'Interpreted ${_instance.klass.name} does not implement '
-          'layoutChildSequence()');
+        'Interpreted ${_instance.klass.name} does not implement '
+        'layoutChildSequence()',
+      );
     }
     method.bind(_instance).call(_visitor, const [], const {});
   }
@@ -4280,15 +4468,16 @@ class _InterpretedWidgetStatesConstraint with WidgetStatesConstraint {
     final method = _instance.klass.findInstanceMethod('isSatisfiedBy');
     if (method == null) {
       throw StateError(
-          'Interpreted class ${_instance.klass.name} does not implement '
-          'isSatisfiedBy(Set<WidgetState>)');
+        'Interpreted class ${_instance.klass.name} does not implement '
+        'isSatisfiedBy(Set<WidgetState>)',
+      );
     }
-    final result =
-        method.bind(_instance).call(_visitor, [states], const {});
+    final result = method.bind(_instance).call(_visitor, [states], const {});
     if (result is bool) return result;
     throw StateError(
-        'Interpreted ${_instance.klass.name}.isSatisfiedBy must return bool; '
-        'got ${result.runtimeType}');
+      'Interpreted ${_instance.klass.name}.isSatisfiedBy must return bool; '
+      'got ${result.runtimeType}',
+    );
   }
 }
 
@@ -4378,7 +4567,9 @@ class _InterpretedRestorableValue extends RestorableValue<Object?>
 class _InterpretedTextSelectionGestureDetectorBuilderDelegate
     implements TextSelectionGestureDetectorBuilderDelegate, D4InterpretedProxy {
   _InterpretedTextSelectionGestureDetectorBuilderDelegate(
-      this._visitor, this._instance);
+    this._visitor,
+    this._instance,
+  );
 
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
@@ -4457,8 +4648,11 @@ class _InterpretedRouterDelegate extends RouterDelegate<Object>
   @override
   Object get d4rtInstance => _instance;
 
-  Object? _maybeInvoke(String methodName, List<Object?> args,
-      [Map<String, Object?> named = const {}]) {
+  Object? _maybeInvoke(
+    String methodName,
+    List<Object?> args, [
+    Map<String, Object?> named = const {},
+  ]) {
     final method = _instance.klass.findInstanceMethod(methodName);
     if (method == null) return _kNotImplemented;
     return method.bind(_instance).call(_visitor, args, named);
@@ -4538,8 +4732,11 @@ class _InterpretedTextSelectionControls extends TextSelectionControls
   @override
   Object get d4rtInstance => _instance;
 
-  Object? _maybeInvoke(String methodName, List<Object?> args,
-      [Map<String, Object?> named = const {}]) {
+  Object? _maybeInvoke(
+    String methodName,
+    List<Object?> args, [
+    Map<String, Object?> named = const {},
+  ]) {
     final method = _instance.klass.findInstanceMethod(methodName);
     if (method == null) return _kNotImplemented;
     return method.bind(_instance).call(_visitor, args, named);
@@ -4560,10 +4757,8 @@ class _InterpretedTextSelectionControls extends TextSelectionControls
   }
 
   @override
-  Offset getHandleAnchor(
-      TextSelectionHandleType type, double textLineHeight) {
-    final result =
-        _maybeInvoke('getHandleAnchor', [type, textLineHeight]);
+  Offset getHandleAnchor(TextSelectionHandleType type, double textLineHeight) {
+    final result = _maybeInvoke('getHandleAnchor', [type, textLineHeight]);
     if (identical(result, _kNotImplemented)) {
       throw StateError(
         'Interpreted class ${_instance.klass.name} does not implement '
@@ -4580,10 +4775,12 @@ class _InterpretedTextSelectionControls extends TextSelectionControls
     double textLineHeight, [
     VoidCallback? onTap,
   ]) {
-    final result = _maybeInvoke(
-      'buildHandle',
-      [context, type, textLineHeight, onTap],
-    );
+    final result = _maybeInvoke('buildHandle', [
+      context,
+      type,
+      textLineHeight,
+      onTap,
+    ]);
     if (identical(result, _kNotImplemented)) {
       throw StateError(
         'Interpreted class ${_instance.klass.name} does not implement '
@@ -4779,8 +4976,7 @@ class _InterpretedDiagnosticableTreeMixin
   @override
   List<DiagnosticsNode> debugDescribeChildren() {
     if (_inDebugDescribeChildren) return super.debugDescribeChildren();
-    final method =
-        _instance.klass.findInstanceMethod('debugDescribeChildren');
+    final method = _instance.klass.findInstanceMethod('debugDescribeChildren');
     if (method == null) return super.debugDescribeChildren();
     _inDebugDescribeChildren = true;
     try {

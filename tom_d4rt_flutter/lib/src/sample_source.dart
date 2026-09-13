@@ -33,9 +33,7 @@ class SampleAppEntry {
 
   @override
   bool operator ==(Object other) =>
-      other is SampleAppEntry &&
-      other.name == name &&
-      other.locator == locator;
+      other is SampleAppEntry && other.name == name && other.locator == locator;
 
   @override
   int get hashCode => Object.hash(name, locator);
@@ -77,8 +75,7 @@ abstract class SampleSource {
 
 /// `true` on iOS / iPadOS / Android, where the workspace filesystem is
 /// unavailable and samples must come from bundled assets.
-bool get isMobileRuntime =>
-    !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+bool get isMobileRuntime => !kIsWeb && (Platform.isIOS || Platform.isAndroid);
 
 /// Picks the right [SampleSource] for the current platform.
 SampleSource createSampleSource() =>
@@ -125,10 +122,9 @@ class DiskSampleSource implements SampleSource {
       if (entity is! Directory) continue;
       final mainFile = File(p.join(entity.path, 'main.dart'));
       if (!mainFile.existsSync()) continue;
-      result.add(SampleAppEntry(
-        name: p.basename(entity.path),
-        locator: mainFile.path,
-      ));
+      result.add(
+        SampleAppEntry(name: p.basename(entity.path), locator: mainFile.path),
+      );
     }
     result.sort((a, b) => a.name.compareTo(b.name));
     return result;
@@ -180,15 +176,18 @@ class AssetSampleSource implements SampleSource {
     if (_manifest != null) return _manifest!;
     final raw = await rootBundle.loadString(_manifestKey);
     final json = jsonDecode(raw) as Map<String, dynamic>;
-    final samples = (json['samples'] as List)
-        .cast<Map<String, dynamic>>()
-        .map((m) => _AssetSample(
-              name: m['name'] as String,
-              main: m['main'] as String,
-              files: (m['files'] as List).cast<String>(),
-            ))
-        .toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
+    final samples =
+        (json['samples'] as List)
+            .cast<Map<String, dynamic>>()
+            .map(
+              (m) => _AssetSample(
+                name: m['name'] as String,
+                main: m['main'] as String,
+                files: (m['files'] as List).cast<String>(),
+              ),
+            )
+            .toList()
+          ..sort((a, b) => a.name.compareTo(b.name));
     return _manifest = samples;
   }
 
@@ -209,8 +208,7 @@ class AssetSampleSource implements SampleSource {
   Future<List<SampleAppEntry>> list() async {
     final manifest = await _loadManifest();
     return [
-      for (final s in manifest)
-        SampleAppEntry(name: s.name, locator: s.name),
+      for (final s in manifest) SampleAppEntry(name: s.name, locator: s.name),
     ];
   }
 

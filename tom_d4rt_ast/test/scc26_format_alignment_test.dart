@@ -55,7 +55,36 @@ import 'package:test/test.dart';
 const _tallStyleFloor = (major: 3, minor: 7);
 
 /// Packages whose sources are mirrors of one another, relative to the repo root.
-const _mirroredPackages = ['tom_d4rt', 'tom_d4rt_ast', 'tom_d4rt_exec'];
+const _mirroredPackages = [
+  'tom_d4rt',
+  'tom_d4rt_ast',
+  'tom_d4rt_exec',
+  // SCD81 — the Flutter twins are the same kind of pair one layer up: 18
+  // generated bridge files each plus the shared `d4rt_user_bridges/` set that
+  // `tom_d4rt_flutter_ast/tool/sync_shared_user_bridges.dart` derives by
+  // rewriting one import line. That tool compares TEXT and a mirror diff is how
+  // anyone checks it did the right thing, so the same layout noise defeats the
+  // same check.
+  'tom_d4rt_flutter',
+  'tom_d4rt_flutter_ast',
+];
+
+/// The packages whose formatted surface is `lib/` MINUS the generator's output.
+///
+/// SCD81 checked the thing that could have invalidated the whole approach, and
+/// it did invalidate half of it: `tom_d4rt_generator` emits `*.b.dart` by string
+/// concatenation and depends on no formatter at all, so `dart format` rewrites
+/// all 18 in each twin. Formatting them would start a permanent fight — format,
+/// regenerate, and the diff is back — which is why the generated files are
+/// excluded here rather than reformatted. Teaching the generator to format its
+/// own output is sce123_aimn, and it has to come with a workspace-wide
+/// regeneration because every consumer's freshness guard reads committed output.
+///
+/// `test/` is excluded for these two as well, and for a different reason: the
+/// ~2080-script cluster corpus under `test/tom_d4rt_flutter_ast_app/test/` is
+/// D4rt FIXTURES driven over HTTP against a live companion app, not code.
+/// Reformatting them changes what the corpus feeds the interpreter.
+const _generatedOutputPackages = {'tom_d4rt_flutter', 'tom_d4rt_flutter_ast'};
 
 /// The d4rt repo root, found by walking up from the current directory.
 ///
@@ -91,14 +120,40 @@ Directory? _repoRoot() {
 }
 
 /// Paths under [package] that `dart format` should find nothing to do in.
-List<String> _formattedRoots(Directory package) => [
-  'lib',
-  'test',
-].where((d) => Directory('${package.path}/$d').existsSync()).toList();
+///
+/// Two shapes, because the two kinds of package have different surfaces. For the
+/// interpreter trees it is whole directories, which is what makes the check
+/// total. For the Flutter twins it is an explicit FILE list, derived rather than
+/// recorded: every `.dart` under `lib` that is not `*.b.dart`. A recorded list
+/// would go stale the first time somebody adds a file and would then pass by
+/// omission — which is the failure mode this whole suite exists to prevent.
+List<String> _formatTargets(Directory package) {
+  final name = package.path.split(Platform.pathSeparator).last;
+  if (!_generatedOutputPackages.contains(name)) {
+    return [
+      'lib',
+      'test',
+    ].where((d) => Directory('${package.path}/$d').existsSync()).toList();
+  }
+  final lib = Directory('${package.path}/lib');
+  if (!lib.existsSync()) return const [];
+  final prefix = '${package.path}${Platform.pathSeparator}';
+  return lib
+      .listSync(recursive: true)
+      .whereType<File>()
+      .map((f) => f.path)
+      .where((path) => path.endsWith('.dart') && !path.endsWith('.b.dart'))
+      .map(
+        (path) =>
+            path.startsWith(prefix) ? path.substring(prefix.length) : path,
+      )
+      .toList()
+    ..sort();
+}
 
 /// Runs the formatter in check mode and returns the files it would rewrite.
 List<String> _unformattedFiles(Directory package) {
-  final roots = _formattedRoots(package);
+  final roots = _formatTargets(package);
   if (roots.isEmpty) return const [];
   final result = Process.runSync('dart', [
     'format',
@@ -165,6 +220,65 @@ void main() {
         return;
       }
       expect(_unformattedFiles(sibling), isEmpty);
+    });
+
+    test('F-SCD81-1: the Flutter twins are formatted where they are not '
+        'generator output [2026-09-13]', () {
+      if (root == null) {
+        markTestSkipped('d4rt repo root not found — twins not reachable');
+        return;
+      }
+      for (final name in _generatedOutputPackages) {
+        final twin = Directory('${root.path}/$name');
+        if (!twin.existsSync()) {
+          markTestSkipped('$name not checked out beside this package');
+          continue;
+        }
+
+        // Anti-vacuity, in both directions, because this is the one case here
+        // whose subject is DERIVED rather than named. An empty target list would
+        // pass by checking nothing; a list with no exclusions would mean the
+        // `.b.dart` files had vanished — in which case the exclusion is stale
+        // and someone should know, rather than the check quietly widening.
+        final targets = _formatTargets(twin);
+        expect(
+          targets.length,
+          greaterThanOrEqualTo(5),
+          reason:
+              '$name yielded only ${targets.length} format targets, so this is '
+              'not a measurement of it',
+        );
+        final generated = Directory('${twin.path}/lib')
+            .listSync(recursive: true)
+            .whereType<File>()
+            .where((f) => f.path.endsWith('.b.dart'))
+            .length;
+        expect(
+          generated,
+          greaterThan(0),
+          reason:
+              'no `*.b.dart` found in $name, so the exclusion above is '
+              'excluding nothing — either the bridges moved or they are gone, '
+              'and either way the target list needs rereading',
+        );
+        expect(
+          targets.any((t) => t.endsWith('.b.dart')),
+          isFalse,
+          reason:
+              'generator output must not be in the target list — sce123_aimn',
+        );
+
+        expect(
+          _unformattedFiles(twin),
+          isEmpty,
+          reason:
+              'hand-written code in $name is not formatted, so the next '
+              '`dart format` will rewrite it and bury whatever real edit lands '
+              'alongside — and in these two packages that edit is usually a '
+              'mirror change, which is checked by diffing the twins against '
+              'each other',
+        );
+      }
     });
   });
 }

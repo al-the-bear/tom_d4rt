@@ -51,31 +51,54 @@ class TextUserBridge extends D4UserBridge {
     final data = D4.getRequiredArg<String>(positional, 0, 'data', 'Text');
     final key = D4.getOptionalNamedArg<widgets.Key?>(named, 'key');
     final style = D4.getOptionalNamedArg<widgets.TextStyle?>(named, 'style');
-    final strutStyle =
-        D4.getOptionalNamedArg<widgets.StrutStyle?>(named, 'strutStyle');
-    final textAlign =
-        D4.getOptionalNamedArg<widgets.TextAlign?>(named, 'textAlign');
-    final textDirection =
-        D4.getOptionalNamedArg<widgets.TextDirection?>(named, 'textDirection');
+    final strutStyle = D4.getOptionalNamedArg<widgets.StrutStyle?>(
+      named,
+      'strutStyle',
+    );
+    final textAlign = D4.getOptionalNamedArg<widgets.TextAlign?>(
+      named,
+      'textAlign',
+    );
+    final textDirection = D4.getOptionalNamedArg<widgets.TextDirection?>(
+      named,
+      'textDirection',
+    );
     final locale = D4.getOptionalNamedArg<widgets.Locale?>(named, 'locale');
     final softWrap = D4.getOptionalNamedArg<bool?>(named, 'softWrap');
-    final overflow =
-        D4.getOptionalNamedArg<widgets.TextOverflow?>(named, 'overflow');
-    final textScaleFactor =
-        D4.getOptionalNamedArg<double?>(named, 'textScaleFactor');
-    final textScaler =
-        D4.getOptionalNamedArg<widgets.TextScaler?>(named, 'textScaler');
+    final overflow = D4.getOptionalNamedArg<widgets.TextOverflow?>(
+      named,
+      'overflow',
+    );
+    final textScaleFactor = D4.getOptionalNamedArg<double?>(
+      named,
+      'textScaleFactor',
+    );
+    final textScaler = D4.getOptionalNamedArg<widgets.TextScaler?>(
+      named,
+      'textScaler',
+    );
     final maxLines = D4.getOptionalNamedArg<int?>(named, 'maxLines');
-    final semanticsLabel =
-        D4.getOptionalNamedArg<String?>(named, 'semanticsLabel');
-    final semanticsIdentifier =
-        D4.getOptionalNamedArg<String?>(named, 'semanticsIdentifier');
-    final textWidthBasis =
-        D4.getOptionalNamedArg<widgets.TextWidthBasis?>(named, 'textWidthBasis');
-    final textHeightBehavior = D4.getOptionalNamedArg<widgets.TextHeightBehavior?>(
-        named, 'textHeightBehavior');
-    final selectionColor =
-        D4.getOptionalNamedArg<widgets.Color?>(named, 'selectionColor');
+    final semanticsLabel = D4.getOptionalNamedArg<String?>(
+      named,
+      'semanticsLabel',
+    );
+    final semanticsIdentifier = D4.getOptionalNamedArg<String?>(
+      named,
+      'semanticsIdentifier',
+    );
+    final textWidthBasis = D4.getOptionalNamedArg<widgets.TextWidthBasis?>(
+      named,
+      'textWidthBasis',
+    );
+    final textHeightBehavior = D4
+        .getOptionalNamedArg<widgets.TextHeightBehavior?>(
+          named,
+          'textHeightBehavior',
+        );
+    final selectionColor = D4.getOptionalNamedArg<widgets.Color?>(
+      named,
+      'selectionColor',
+    );
     return widgets.Text(
       data.isEmpty ? _emptyTextSentinel : data,
       key: key,

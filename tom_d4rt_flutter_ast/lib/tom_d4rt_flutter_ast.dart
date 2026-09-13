@@ -26,4 +26,3 @@ export 'src/bridges/material_bridges.b.dart' show FlutterMaterialBridges;
 // `tom_d4rt_ast/d4rt.dart`.
 export 'package:tom_d4rt_ast/d4rt.dart'
     show D4rt, D4rtRunner, AstBundle, BridgedInstance, BridgedEnumValue;
-

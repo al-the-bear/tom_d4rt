@@ -53,7 +53,8 @@ class StateUserBridge extends D4UserBridge {
     }
 
     final phase = SchedulerBinding.instance.schedulerPhase;
-    final mustDefer = phase == SchedulerPhase.transientCallbacks ||
+    final mustDefer =
+        phase == SchedulerPhase.transientCallbacks ||
         phase == SchedulerPhase.midFrameMicrotasks ||
         phase == SchedulerPhase.persistentCallbacks;
     if (mustDefer && state.mounted) {

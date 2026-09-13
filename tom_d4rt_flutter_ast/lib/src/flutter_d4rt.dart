@@ -112,25 +112,25 @@ class FlutterD4rt {
   ///
   /// The result is automatically unwrapped from D4rt's [BridgedInstance]
   /// wrapper to return the native Dart/Flutter object.
-  T build<T>(AstBundle bundle, [BuildContext? buildContext]) =>
-      _wrapUnwrap(() => _interpreter.executeBundleAs<T>(
-            bundle,
-            name: 'build',
-            positionalArgs: _argsForContext(buildContext),
-          ));
+  T build<T>(AstBundle bundle, [BuildContext? buildContext]) => _wrapUnwrap(
+    () => _interpreter.executeBundleAs<T>(
+      bundle,
+      name: 'build',
+      positionalArgs: _argsForContext(buildContext),
+    ),
+  );
 
   /// Execute a D4rt bundle asynchronously and extract the result as type [T].
   ///
   /// Same as [build] but handles async entry functions (returning Future).
-  Future<T> buildAsync<T>(
-    AstBundle bundle, [
-    BuildContext? buildContext,
-  ]) =>
-      _wrapUnwrapAsync(() => _interpreter.executeBundleAsAsync<T>(
-            bundle,
-            name: 'build',
-            positionalArgs: _argsForContext(buildContext),
-          ));
+  Future<T> buildAsync<T>(AstBundle bundle, [BuildContext? buildContext]) =>
+      _wrapUnwrapAsync(
+        () => _interpreter.executeBundleAsAsync<T>(
+          bundle,
+          name: 'build',
+          positionalArgs: _argsForContext(buildContext),
+        ),
+      );
 
   /// Execute a named function from the bundle and extract the result.
   ///
@@ -141,13 +141,14 @@ class FlutterD4rt {
     String name = 'main',
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
-  }) =>
-      _wrapUnwrap(() => _interpreter.executeBundleAs<T>(
-            bundle,
-            name: name,
-            positionalArgs: positionalArgs,
-            namedArgs: namedArgs,
-          ));
+  }) => _wrapUnwrap(
+    () => _interpreter.executeBundleAs<T>(
+      bundle,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+    ),
+  );
 
   /// Async version of [execute].
   Future<T> executeAsync<T>(
@@ -155,13 +156,14 @@ class FlutterD4rt {
     String name = 'main',
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
-  }) =>
-      _wrapUnwrapAsync(() => _interpreter.executeBundleAsAsync<T>(
-            bundle,
-            name: name,
-            positionalArgs: positionalArgs,
-            namedArgs: namedArgs,
-          ));
+  }) => _wrapUnwrapAsync(
+    () => _interpreter.executeBundleAsAsync<T>(
+      bundle,
+      name: name,
+      positionalArgs: positionalArgs,
+      namedArgs: namedArgs,
+    ),
+  );
 
   /// §U28 / TODO #14 — Evict script-declared entries from the underlying
   /// interpreter so a follower [build] / [execute] starts with the same
