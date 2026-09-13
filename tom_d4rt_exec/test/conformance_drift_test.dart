@@ -725,33 +725,31 @@ const Map<String, int> _uncoveredBaseline = {
   // copy of `_executeInEnvironment`), so the behaviour is present here — it is
   // only the helper the test calls that is missing.
   'scd73_no_hook_unwrapping_test.dart': 8,
-  // PARTLY PORTABLE, for exactly SCC22's reason and with the same shape of
-  // correction. Re-measured 2026-09-06 against published 0.42.0: 5 of 7 cases
-  // PASS. The three listen-adapter failures this entry recorded against 0.20.1
-  // (F-SCC25-3 ServerSocket, -4 RawDatagramSocket, -5 HttpServer) are gone —
-  // SCC25's fix shipped, so the five behavioural cases now all agree with the
-  // reference tree.
+  // PORTED BY SCD79, by splitting rather than by subtracting. The five
+  // behavioural cases pass in exec verbatim — they have since SCC25's fix
+  // shipped, re-measured against published 0.65.0 — and the two that could not
+  // be ported were never about exec's subject: F-SCC25-6/-7 resolve
+  // `lib/src/stdlib` and `../tom_d4rt_ast/...` relative to the package they run
+  // in, so from here they scan exec's own `lib`, which has no stdlib at all.
   //
-  // What fails is the source-guard pair F-SCC25-6/-7, which the old text
-  // correctly called un-portable but expected to pass: they scan the sibling
-  // trees' stdlib for a privately redefined `_runAction` and for hand-rolled
-  // onError/onDone wrapper trios, and from exec's directory the scan subject is
-  // exec's own `lib`, which contains neither. The reference copy already asks
-  // this of both trees.
+  // SCD157 decided to take the subtraction port. The form it named — port the
+  // file minus that group and record a `_divergentBaseline` entry — was declined
+  // for the cheaper one: such an entry is a blanket (SCD154) that would then
+  // absorb drift in the five behavioural cases the port exists to gain. So the
+  // two source guards moved to `tom_d4rt/test/scc25_listen_duplication_guard_test.dart`,
+  // the shared-name file is a verbatim port on both sides and stays under
+  // F-SCC6-4, and what is recorded uncovered below is the two-case guard file.
   //
-  // 5 portable / 2 structurally single-copy. Same subtraction-port trade as
-  // SCC22 above, tracked together as SCD157. SCD79 remains the record of the
-  // adapter work itself.
+  // This is `_Divergence.necessary`'s own advice — "where the exec-only coverage
+  // is separable, prefer splitting it into its own file over claiming this
+  // category" — applied to REFERENCE-only coverage, which is the same move in
+  // the other direction.
   //
-  // RE-MEASURED 2026-09-12 against published 0.65.0 (scd25_aida), which is 23
-  // releases past the 0.42.0 the numbers above were taken at: UNCHANGED, case
-  // for case. scc22 is still 14/17 with F-SCC22-10/-11/-12 failing, scc25 still
-  // 5/7 with F-SCC25-6/-7, scc27 still 8/9 with F-SCC27-9, and scc23 still does
-  // not compile for the same five `undefined_setter` errors. So none of these
-  // four is a stale pin waiting on a publish that already happened — the
-  // residual failures are source scans over files exec does not own, plus the
-  // one behavioural gap scc27's own note names.
-  'scc25_listen_adapter_test.dart': 7,
+  // NOT PORTABLE, and not a shortfall: what this file reads is two sibling
+  // packages' stdlib sources. A copy under exec would read exec's `lib` and
+  // reach a verdict about nothing. The reference copy already asks the question
+  // of BOTH trees, so a second copy could only ever agree with it or be wrong.
+  'scc25_listen_duplication_guard_test.dart': 2,
   // ONE CASE SHORT, and it is the only entry left here that names a real
   // behavioural gap in this package. Re-measured 2026-09-06 against published
   // 0.42.0: 8 of 9 cases PASS. Everything the old text recorded as blocked has
