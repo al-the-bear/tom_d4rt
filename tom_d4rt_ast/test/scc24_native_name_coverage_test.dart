@@ -59,6 +59,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:mirrors';
 import 'dart:typed_data';
 
 import 'package:test/test.dart';
@@ -476,13 +477,13 @@ _ListEntry _linkedEntry() {
 /// reason. Keep this list short and justified — every entry is a hole in the
 /// sweep.
 const _sweepExemptions = <String, String>{
-  // `Uri.isScheme` is a METHOD in the SDK (`bool isScheme(String)`) but is
-  // registered as a getter returning the tear-off, so the sweep sees a
-  // function object rather than a value. Scripts are unaffected — the
-  // interpreter's getter-then-call path makes `uri.isScheme('https')` work —
-  // so this is a bridge-shape oddity, not a live defect. Normalising it to a
-  // method is tracked separately.
-  'Uri.isScheme': 'method registered as a getter; returns a tear-off',
+  // EMPTY SINCE SCD77, and the emptiness is the point: every entry here was a
+  // member the sweep could not check. Its one entry was `Uri.isScheme`, a
+  // method registered as a getter, whose value was therefore a function object
+  // that resolves to no bridge. SCD77 moved it to `methods` instead of widening
+  // the exemption, and F-SCD77-4 below now catches the shape by reading the
+  // DECLARATION rather than the value — which is what found the second instance
+  // this map never could.
 };
 
 // ---------------------------------------------------------------------------
@@ -1026,5 +1027,123 @@ void main() {
             'Uncovered: ${uncovered.join(', ')}',
       );
     });
+
+    test(
+      'F-SCD77-4: no bridge registers, as a getter, a name the SDK declares as '
+      'a method [2026-09-13]',
+      () {
+        // The declaration-direction companion to F-SCC24-1, and it exists
+        // because F-SCC24-1 structurally cannot see this shape. That sweep
+        // INVOKES each registered getter and asks whether the value resolves to
+        // a bridge; a method registered as a getter yields a tear-off, and a
+        // tear-off only fails to resolve by luck. `Uri.isScheme` failed that
+        // way and so became the map above's one exemption.
+        //
+        // AND THE EXEMPTION HAD ALREADY GONE STALE, which is the strongest
+        // argument for reading declarations. Measured 2026-09-13 by putting
+        // `Uri.isScheme` back as a getter with the exemption map empty:
+        // F-SCC24-1 PASSES. A `Function` bridge exists (`stdlib/core/function.dart`),
+        // so a tear-off resolves like any other value now, and the only thing
+        // that ever made this shape visible to the value sweep — the resolution
+        // failing — is gone. This case is not a second opinion; since that
+        // bridge landed it is the only detector.
+        //
+        // Asking the mirror also found a SECOND instance that could not have
+        // surfaced any other way:
+        // `TimeoutException.toString` was registered as a getter AND as a
+        // method, with the method shadowing it — so the getter was unreachable
+        // and its value, had anything reached it, was a `String` that resolves
+        // perfectly well. Both are fixed; this case is what keeps the class
+        // closed rather than the two instances.
+        //
+        // Neither was user-visible, which is worth stating so nobody reads this
+        // as a bug guard: measured before the change, `uri.isScheme('https')`,
+        // the `uri.isScheme` tear-off, `e.toString()`, `e.toString` and
+        // `'\$e'` all behaved correctly. What a wrong member KIND costs is
+        // checkability, and that is what is being defended here.
+        final env = _stdlibEnvironment();
+        final offenders = <String>[];
+        var reflected = 0;
+
+        for (final bridge in _allBridges(env).values) {
+          final ClassMirror mirror;
+          try {
+            mirror = reflectType(bridge.nativeType) as ClassMirror;
+          } catch (_) {
+            // A bridge whose native type is not a reflectable ClassMirror —
+            // `Function` for the top-level-function bridges, and typedefs.
+            // Nothing to compare, and F-SCC24-9 owns the blind-spot accounting.
+            continue;
+          }
+          reflected++;
+
+          final methods = <String>{};
+          final getters = <String>{};
+          for (
+            ClassMirror? c = mirror;
+            c != null && c.reflectedType != Object;
+            c = c.superclass
+          ) {
+            // `c.declarations.values`, not the map itself: writing the
+            // `Map<Symbol, …>` annotation puts the token `Symbol` in this file,
+            // and F-SCD58-3 reads test sources for bridge names — it fired on
+            // exactly that, reporting the `Symbol` bridge as newly covered when
+            // nothing here tests it. The guard was right; the mention was
+            // incidental.
+            final Iterable<DeclarationMirror> declarations;
+            try {
+              declarations = c.declarations.values;
+            } catch (_) {
+              break;
+            }
+            for (final declaration in declarations) {
+              if (declaration is! MethodMirror) continue;
+              if (declaration.isStatic || declaration.isConstructor) continue;
+              final name = MirrorSystem.getName(declaration.simpleName);
+              if (declaration.isRegularMethod) {
+                methods.add(name);
+              } else if (declaration.isGetter) {
+                getters.add(name);
+              }
+            }
+          }
+
+          for (final name in bridge.getters.keys) {
+            // A name declared BOTH ways in the SDK chain (an interface getter
+            // overridden as a method, or the reverse) is not an error to
+            // register as a getter — so only names the chain declares purely as
+            // methods count.
+            if (methods.contains(name) && !getters.contains(name)) {
+              offenders.add('${bridge.name}.$name  (${bridge.nativeType})');
+            }
+          }
+        }
+
+        // Anti-vacuity: an environment that failed to register, or a mirror
+        // system that reflected nothing, would report zero offenders and look
+        // like success.
+        expect(
+          reflected,
+          greaterThanOrEqualTo(100),
+          reason:
+              'only $reflected bridges were reflectable, so this is not a '
+              'measurement of the registry',
+        );
+
+        offenders.sort();
+        expect(
+          offenders,
+          isEmpty,
+          reason:
+              'These names are methods in the SDK and are registered as '
+              'getters. Move each to the bridge\'s `methods` map, taking its '
+              'arguments from `positionalArgs`. Registering a method as a '
+              'getter happens to work for a script — the interpreter tears the '
+              'value off and calls it — which is exactly why it survives: '
+              'nothing fails, and F-SCC24-1 has to exempt the member.\n'
+              '${offenders.join('\n')}',
+        );
+      },
+    );
   });
 }

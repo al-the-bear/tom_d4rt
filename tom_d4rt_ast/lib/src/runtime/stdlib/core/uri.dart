@@ -133,6 +133,16 @@ class UriCore {
       },
     },
     methods: {
+      // SCD77: `isScheme` is `bool isScheme(String)` in the SDK and was
+      // registered as a getter returning the tear-off. Scripts were unaffected —
+      // the interpreter's property-access-then-call path made
+      // `uri.isScheme('https')` work, and still does, because a bridged METHOD
+      // also tears off. What it cost was the SCC24 sweep: a getter whose value
+      // is a function resolves to no bridge, so the entry had to be exempted,
+      // and an exemption is a member the sweep cannot check.
+      'isScheme': (visitor, target, positionalArgs, namedArgs, _) {
+        return (target as Uri).isScheme(positionalArgs[0] as String);
+      },
       'replace': (visitor, target, positionalArgs, namedArgs, _) {
         return (target as Uri).replace(
           scheme: namedArgs['scheme'] as String?,
@@ -197,7 +207,6 @@ class UriCore {
       'hasEmptyPath': (visitor, target) => (target as Uri).hasEmptyPath,
       'hasAbsolutePath': (visitor, target) => (target as Uri).hasAbsolutePath,
       'origin': (visitor, target) => (target as Uri).origin,
-      'isScheme': (visitor, target) => (target as Uri).isScheme,
       'hashCode': (visitor, target) => (target as Uri).hashCode,
       'runtimeType': (visitor, target) => (target as Uri).runtimeType,
     },

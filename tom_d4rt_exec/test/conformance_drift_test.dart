@@ -349,8 +349,12 @@ const Map<String, _Coverage> _coveredElsewhere = {
     'ast:scc24_native_name_coverage_test.dart',
     _astTwin,
     layer: _Layer.registration,
-    refCases: 9,
-    twinCases: 9,
+    // 9 -> 10 with SCD77's declaration-direction sweep (F-SCD77-4), added to
+    // both copies in the same commit. The sweep it joins reads member VALUES,
+    // which cannot see a method registered as a getter once a `Function` bridge
+    // exists to resolve the tear-off.
+    refCases: 10,
+    twinCases: 10,
   ),
   'dgub5_filesystem_permission_symlink_test.dart': _Coverage(
     'ast:runtime/dgub5_filesystem_permission_symlink_test.dart',

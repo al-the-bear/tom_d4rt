@@ -1,3 +1,38 @@
+## 0.83.0
+
+### Changed — `Uri.isScheme` is a method, and a shadowed `TimeoutException.toString` getter is gone (scd77)
+
+`Uri.isScheme` is `bool isScheme(String)` in the SDK and was registered in the
+`Uri` bridge's `getters` map, returning the native tear-off. **No script
+behaviour changes**: `uri.isScheme('https')` worked before and works now,
+because the interpreter tears a bridged method off just as it tore the native
+closure off. What the wrong member kind cost was checkability — SCC24's sweep
+invokes every registered getter and resolves the value, a tear-off is not a
+value it can resolve, so the member had to be exempted, and an exemption is a
+member the sweep cannot check. That map is now **empty**.
+
+Sweeping for siblings first, as the todo required, found a second instance the
+value sweep could not have surfaced: `TimeoutException.toString` was registered
+as a getter AND as a method, the method shadowing the getter. Nothing ever
+reached the getter, and its value — a `String` — would have resolved fine. It is
+deleted.
+
+**The exemption had already gone stale**, which is the argument for the new
+check. Measured by restoring the getter with the map empty: SCC24's value sweep
+now PASSES, because a `Function` bridge exists and a tear-off resolves like any
+other value. The only thing that ever made this shape visible to it is gone. So
+`F-SCD77-4` reads the DECLARATION instead — `dart:mirrors` over each bridge's
+native type, flagging any getter the SDK declares purely as a method — and that
+is what found the second instance.
+
+One observable difference, and it is a string: `uri.isScheme.runtimeType` read
+`(String) => bool` and now reads `BridgedMethodCallable`, which is what every
+other bridged method already reads. An earlier draft of this entry also claimed
+`uri.isScheme is Function` flipped from `true` to `false`; measured on both
+shapes, it is **false either way** — a script cannot see a native function value
+as a `Function` regardless of which map it came from, while script functions and
+closures can. That is pre-existing and untouched here.
+
 ## 0.82.0
 
 ### Fixed — a no-hook embedder no longer sees the interpreter's exception wrapper (scd73)

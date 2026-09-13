@@ -275,7 +275,6 @@ class TimeoutExceptionAsync {
     getters: {
       'message': (visitor, target) => (target as TimeoutException).message,
       'duration': (visitor, target) => (target as TimeoutException).duration,
-      'toString': (visitor, target) => (target as TimeoutException).toString(),
       'hashCode': (visitor, target) => (target as TimeoutException).hashCode,
       'runtimeType': (visitor, target) =>
           (target as TimeoutException).runtimeType,
