@@ -45,74 +45,64 @@ void main() {
       },
     );
 
-    test(
-      'F-DGUB8-GEN-2: named field keys and types survive conversion '
-      '[2026-07-28] (PASS)',
-      () {
-        // The named KEY is the part that was previously lost outright — the
-        // resolver downstream had to invent `$named0`, which then failed to
-        // match the real key on the record value.
-        final rec = recordReturnTypeOf('''
+    test('F-DGUB8-GEN-2: named field keys and types survive conversion '
+        '[2026-07-28] (PASS)', () {
+      // The named KEY is the part that was previously lost outright — the
+      // resolver downstream had to invent `$named0`, which then failed to
+      // match the real key on the record value.
+      final rec = recordReturnTypeOf('''
 (int, {String label, bool flag}) f() => (1, label: 'a', flag: true);
 ''');
-        expect(rec.positionalFields, hasLength(1));
-        expect(
-          rec.namedFields.map((f) => f.name!.name).toList(),
-          ['label', 'flag'],
-        );
-        expect(
-          rec.namedFields.map((f) => (f.type as SNamedType).name!.name).toList(),
-          ['String', 'bool'],
-        );
-      },
-    );
+      expect(rec.positionalFields, hasLength(1));
+      expect(rec.namedFields.map((f) => f.name!.name).toList(), [
+        'label',
+        'flag',
+      ]);
+      expect(
+        rec.namedFields.map((f) => (f.type as SNamedType).name!.name).toList(),
+        ['String', 'bool'],
+      );
+    });
 
-    test(
-      'F-DGUB8-GEN-3: a nested record field type is itself converted, not '
-      'flattened [2026-07-28] (PASS)',
-      () {
-        // Guards the recursion: the field's type goes through the same
-        // dispatch, so a record inside a record keeps its structure rather
-        // than degrading to an opaque node one level down.
-        final rec = recordReturnTypeOf('''
+    test('F-DGUB8-GEN-3: a nested record field type is itself converted, not '
+        'flattened [2026-07-28] (PASS)', () {
+      // Guards the recursion: the field's type goes through the same
+      // dispatch, so a record inside a record keeps its structure rather
+      // than degrading to an opaque node one level down.
+      final rec = recordReturnTypeOf('''
 ((int, String), {(bool,) inner}) f() => ((1, 'a'), inner: (true,));
 ''');
-        final outerPositional =
-            rec.positionalFields.single.type as SRecordTypeAnnotation;
-        expect(
-          outerPositional.positionalFields
-              .map((f) => (f.type as SNamedType).name!.name)
-              .toList(),
-          ['int', 'String'],
-        );
-        final nestedNamed =
-            rec.namedFields.single.type as SRecordTypeAnnotation;
-        expect(rec.namedFields.single.name!.name, 'inner');
-        expect(
-          (nestedNamed.positionalFields.single.type as SNamedType).name!.name,
-          'bool',
-        );
-      },
-    );
+      final outerPositional =
+          rec.positionalFields.single.type as SRecordTypeAnnotation;
+      expect(
+        outerPositional.positionalFields
+            .map((f) => (f.type as SNamedType).name!.name)
+            .toList(),
+        ['int', 'String'],
+      );
+      final nestedNamed = rec.namedFields.single.type as SRecordTypeAnnotation;
+      expect(rec.namedFields.single.name!.name, 'inner');
+      expect(
+        (nestedNamed.positionalFields.single.type as SNamedType).name!.name,
+        'bool',
+      );
+    });
 
-    test(
-      'F-DGUB8-GEN-4: generic and nullable field types keep their arguments '
-      '[2026-07-28] (PASS)',
-      () {
-        final rec = recordReturnTypeOf('''
+    test('F-DGUB8-GEN-4: generic and nullable field types keep their arguments '
+        '[2026-07-28] (PASS)', () {
+      final rec = recordReturnTypeOf('''
 (List<int>, {String? label}) f() => (<int>[], label: null);
 ''');
-        final listField = rec.positionalFields.single.type as SNamedType;
-        expect(listField.name!.name, 'List');
-        expect(
-          (listField.typeArguments!.arguments.single as SNamedType).name!.name,
-          'int',
-        );
-        final labelField = rec.namedFields.single.type as SNamedType;
-        expect(labelField.name!.name, 'String');
-        expect(labelField.isNullable, isTrue);
-      },
-    );
+      final listField = rec.positionalFields.single.type as SNamedType;
+      expect(listField.name!.name, 'List');
+      expect(
+        (listField.typeArguments!.arguments.single as SNamedType).name!.name,
+        'int',
+      );
+      final labelField = rec.namedFields.single.type as SNamedType;
+      expect(labelField.name!.name, 'String');
+      expect(labelField.isNullable, isTrue);
+    });
 
     test(
       'F-DGUB8-GEN-5: a nullable record annotation keeps its own question mark '

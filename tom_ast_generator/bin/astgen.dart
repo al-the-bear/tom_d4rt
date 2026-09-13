@@ -1,4 +1,5 @@
 #!/usr/bin/env dart
+
 /// AST Generator CLI (astgen)
 ///
 /// Command-line interface for converting Dart source files to serialized

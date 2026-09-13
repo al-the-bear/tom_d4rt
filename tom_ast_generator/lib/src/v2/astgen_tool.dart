@@ -13,7 +13,8 @@ import '../version.versioner.dart';
 const astgenOptions = <OptionDefinition>[
   OptionDefinition.flag(
     name: 'show',
-    description: 'With --list, show buildkit.yaml configuration for each project',
+    description:
+        'With --list, show buildkit.yaml configuration for each project',
   ),
 ];
 

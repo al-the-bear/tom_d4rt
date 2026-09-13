@@ -28,8 +28,9 @@ SCompilationUnit parseSource(String sourceCode, {String? path}) {
   final cu = converter.convertCompilationUnit(result.unit);
 
   // Check for parse errors
-  final hasErrors = result.errors
-      .any((e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR);
+  final hasErrors = result.errors.any(
+    (e) => e.diagnosticCode.severity == DiagnosticSeverity.ERROR,
+  );
 
   // Perform the round-trip: toJson → fromJson
   final json = cu.toJson();

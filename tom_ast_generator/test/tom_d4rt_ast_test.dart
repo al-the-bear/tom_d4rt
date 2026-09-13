@@ -23,11 +23,7 @@ void main() {
     });
 
     test('SIntegerLiteral serialization round-trip', () {
-      final literal = SIntegerLiteral(
-        offset: 10,
-        length: 2,
-        value: 42,
-      );
+      final literal = SIntegerLiteral(offset: 10, length: 2, value: 42);
 
       final json = literal.toJson();
       final restored = SIntegerLiteral.fromJson(json);
@@ -89,9 +85,9 @@ void main() {
 
       // The single resolvable use is `x` inside `print(x)`: same innermost
       // block as its `var x` declaration → depth 0, slot 0.
-      final uses = collectIdentifiers(ast)
-          .where((id) => id.name == 'x' && id.resolvedDepth != null)
-          .toList();
+      final uses = collectIdentifiers(
+        ast,
+      ).where((id) => id.name == 'x' && id.resolvedDepth != null).toList();
       expect(uses, hasLength(1));
       expect(uses.single.resolvedDepth, equals(0));
       expect(uses.single.resolvedSlot, equals(0));
@@ -148,8 +144,8 @@ void main() {
 
   group('Static resolver slot carriers + eligibility (perf plan_3 §4.6 S3b)', () {
     SAstNode convert(String dartCode) => AstConverter().convertCompilationUnit(
-          parseString(content: dartCode).unit,
-        );
+      parseString(content: dartCode).unit,
+    );
 
     List<T> collect<T extends SAstNode>(SAstNode root) {
       final c = _NodeCollector<T>();
@@ -162,8 +158,9 @@ void main() {
     SBlock mainBlock(SAstNode root) => collect<SBlock>(root).first;
 
     SVariableDeclaration declNamed(SAstNode root, String name) =>
-        collect<SVariableDeclaration>(root)
-            .firstWhere((d) => d.name?.name == name);
+        collect<SVariableDeclaration>(
+          root,
+        ).firstWhere((d) => d.name?.name == name);
 
     test('block carries slotCount and declarations carry declSlot', () {
       final ast = convert('''
@@ -191,9 +188,9 @@ void main() {
       // `a` is read from a nested block (depth 1) → escaped → not slotted.
       expect(mainBlock(ast).slotCount, equals(0));
       expect(declNamed(ast, 'a').declSlot, isNull);
-      final use = collect<SSimpleIdentifier>(ast)
-          .where((id) => id.name == 'a' && !id.inDeclarationContext)
-          .single;
+      final use = collect<SSimpleIdentifier>(
+        ast,
+      ).where((id) => id.name == 'a' && !id.inDeclarationContext).single;
       expect(use.resolvedSlot, isNull);
     });
 
@@ -214,9 +211,9 @@ void main() {
       // The read `print(a)` carries the slot coordinate; the assignment-target
       // `a` in `a = 2` is intercepted as a write (no read coordinate), so filter
       // to the use that actually got a slot.
-      final slottedUses = collect<SSimpleIdentifier>(ast)
-          .where((id) => id.name == 'a' && id.resolvedSlot != null)
-          .toList();
+      final slottedUses = collect<SSimpleIdentifier>(
+        ast,
+      ).where((id) => id.name == 'a' && id.resolvedSlot != null).toList();
       expect(slottedUses.length, equals(1));
       expect(slottedUses.single.resolvedSlot, equals(0));
     });
@@ -303,11 +300,12 @@ Iterable<int> main() sync* {
       expect(declNamed(ast, 'a').declSlot, isNull);
     });
 
-    test('a sync closure nested in an async function still slots its locals',
-        () {
-      // Nearest-function-wins: the inner synchronous closure re-enables
-      // slotting for its own body even though the outer function is async.
-      final ast = convert('''
+    test(
+      'a sync closure nested in an async function still slots its locals',
+      () {
+        // Nearest-function-wins: the inner synchronous closure re-enables
+        // slotting for its own body even though the outer function is async.
+        final ast = convert('''
 Future<void> main() async {
   await Future<void>.value();
   [1].forEach((x) {
@@ -316,9 +314,10 @@ Future<void> main() async {
   });
 }
 ''');
-      // `inner` lives in the sync closure's block → slotted at 0.
-      expect(declNamed(ast, 'inner').declSlot, equals(0));
-    });
+        // `inner` lives in the sync closure's block → slotted at 0.
+        expect(declNamed(ast, 'inner').declSlot, equals(0));
+      },
+    );
   });
 }
 

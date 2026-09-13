@@ -73,7 +73,9 @@ class AstgenTestSetup {
     } finally {
       try {
         await lockHandle.unlock();
-      } catch (_) {/* best effort */}
+      } catch (_) {
+        /* best effort */
+      }
       await lockHandle.close();
     }
   }
@@ -100,7 +102,9 @@ class AstgenTestSetup {
         if (sentinelMtime.isAfter(_suiteStartTime)) {
           return true;
         }
-      } catch (_) {/* fall through to full rebuild */}
+      } catch (_) {
+        /* fall through to full rebuild */
+      }
     }
 
     // Step 1: Delete existing d4 binary (we hold the exclusive lock).
@@ -148,7 +152,9 @@ class AstgenTestSetup {
     // Mark the compile as done for siblings still racing against us.
     try {
       sentinel.writeAsStringSync(DateTime.now().toIso8601String());
-    } catch (_) {/* sentinel is an optimisation; skip on failure */}
+    } catch (_) {
+      /* sentinel is an optimisation; skip on failure */
+    }
     return true;
   }
 

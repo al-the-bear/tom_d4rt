@@ -124,10 +124,7 @@ void main() { add(1, 2); }
 ''');
 
       expect(bundle.modules, hasLength(2));
-      expect(
-        bundle.modules.containsKey('package:helper/helper.dart'),
-        isTrue,
-      );
+      expect(bundle.modules.containsKey('package:helper/helper.dart'), isTrue);
     });
 
     test('errors on unresolvable package imports', () async {
@@ -211,9 +208,7 @@ void main() {}
 
     test('respects custom stdlib schemes', () async {
       final bundler = AstBundler(
-        config: const AstBundlerConfig(
-          stdlibSchemes: {'dart', 'ffi'},
-        ),
+        config: const AstBundlerConfig(stdlibSchemes: {'dart', 'ffi'}),
       );
       // dart: and ffi: should both be skipped
       final bundle = await bundler.createFromSource('''
@@ -267,10 +262,8 @@ void main() {}
     test('throws FormatException on parse errors by default', () async {
       final bundler = AstBundler();
       expect(
-        () => bundler.createFromSource(
-          'void main( { }',
-          sourcePath: 'bad.dart',
-        ),
+        () =>
+            bundler.createFromSource('void main( { }', sourcePath: 'bad.dart'),
         throwsA(isA<FormatException>()),
       );
     });
@@ -346,9 +339,7 @@ name: test_pkg
 version: 0.0.1
 ''');
 
-      final utilsFile = File(
-        p.join(tempDir.path, 'lib', 'src', 'utils.dart'),
-      );
+      final utilsFile = File(p.join(tempDir.path, 'lib', 'src', 'utils.dart'));
       utilsFile.writeAsStringSync('String greet() => "hello";');
 
       final mainFile = File(p.join(tempDir.path, 'bin', 'main.dart'));
@@ -419,9 +410,7 @@ int localVal = 42;
       final bundler = AstBundler(
         projectRoot: tempDir.path,
         bridgedLibraries: {'package:flutter/material.dart'},
-        explicitSources: {
-          'package:extra/extra.dart': 'int extraVal = 99;',
-        },
+        explicitSources: {'package:extra/extra.dart': 'int extraVal = 99;'},
       );
       final bundle = await bundler.createFromFile(
         p.join(tempDir.path, 'main.dart'),
@@ -476,9 +465,7 @@ import 'dart:core';
     test('part directive import resolution can be disabled', () async {
       final bundler = AstBundler(
         config: const AstBundlerConfig(followPartDirectives: false),
-        explicitSources: {
-          'my_part.dart': 'part of "main.dart"; int x = 1;',
-        },
+        explicitSources: {'my_part.dart': 'part of "main.dart"; int x = 1;'},
       );
 
       // Source with a part directive — should NOT follow it

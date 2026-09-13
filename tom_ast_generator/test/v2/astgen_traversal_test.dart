@@ -45,8 +45,9 @@ environment:
 
   // Create buildkit.yaml if config provided
   if (astgenConfig != null) {
-    await File(p.join(tempDir.path, 'buildkit.yaml'))
-        .writeAsString(astgenConfig);
+    await File(
+      p.join(tempDir.path, 'buildkit.yaml'),
+    ).writeAsString(astgenConfig);
   }
 
   return tempDir;
@@ -149,8 +150,10 @@ astgen:
           executionRoot: tempDir.parent.path,
         );
 
-        final result =
-            await executor.execute(context, const CliArgs(listOnly: true));
+        final result = await executor.execute(
+          context,
+          const CliArgs(listOnly: true),
+        );
 
         expect(result.success, isTrue);
       } finally {
@@ -200,8 +203,12 @@ astgen:
 
       final tempDir = await createInWorkspaceTempDir('astgen_list_');
       try {
-        final result = await runner
-            .run(['--list', '--scan', tempDir.path, '--not-recursive']);
+        final result = await runner.run([
+          '--list',
+          '--scan',
+          tempDir.path,
+          '--not-recursive',
+        ]);
         expect(result.success, isTrue, reason: output.toString());
       } finally {
         await tempDir.delete(recursive: true);
@@ -218,8 +225,12 @@ astgen:
 
       final tempDir = await createInWorkspaceTempDir('astgen_dry_');
       try {
-        final result = await runner
-            .run(['--dry-run', '--scan', tempDir.path, '--not-recursive']);
+        final result = await runner.run([
+          '--dry-run',
+          '--scan',
+          tempDir.path,
+          '--not-recursive',
+        ]);
         expect(result.success, isTrue, reason: output.toString());
       } finally {
         await tempDir.delete(recursive: true);

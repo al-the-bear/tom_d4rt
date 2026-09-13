@@ -1326,8 +1326,9 @@ class AstConverter {
     return SRecordTypeAnnotation(
       offset: node.offset,
       length: node.length,
-      positionalFields:
-          node.positionalFields.map(_convertRecordTypeField).toList(),
+      positionalFields: node.positionalFields
+          .map(_convertRecordTypeField)
+          .toList(),
       namedFields:
           node.namedFields?.fields.map(_convertRecordTypeField).toList() ??
           const [],
