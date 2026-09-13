@@ -354,6 +354,11 @@ Map<String, Object> _canonicalInstances() => {
   'IOSink': IOSink(StreamController<List<int>>()),
   'Datagram': Datagram(Uint8List(1), InternetAddress.loopbackIPv4, 1),
   'RawSocketOption': RawSocketOption.fromInt(0, 0, 0),
+  // SCD78 — filed as "not publicly constructible", and both are. `const
+  // OutOfMemoryError()` and `StackOverflowError()` are ordinary public
+  // constructors; nothing stood in the way of sweeping them but the claim.
+  'OutOfMemoryError': OutOfMemoryError(),
+  'StackOverflowError': StackOverflowError(),
   // dart:convert sinks
   'Sink': ByteConversionSink.withCallback((_) {}),
   'ByteConversionSink': ByteConversionSink.withCallback((_) {}),
@@ -442,7 +447,120 @@ Future<void> _captureLiveInstances() async {
 
   await server.close();
   client.close();
+
+  // SCD78 — four of these were already in hand and merely unrecorded. The
+  // server, the client request and response, and the request's headers are
+  // objects this fixture has held since SCC62 wrote it; capturing them costs
+  // four assignments and covers four bridges whose getters return `Uri`,
+  // `HttpConnectionInfo`, `X509Certificate` and `List<Cookie>` — the shape this
+  // sweep exists to catch.
+  _liveInstances['HttpServer'] = server;
+  _liveInstances['HttpClientRequest'] = request;
+  _liveInstances['HttpClientResponse'] = response;
+  _liveInstances['HttpHeaders'] = request.headers;
+
+  // No resource at all: a `MultiStreamController` exists only inside
+  // `Stream.multi`'s callback, which runs on the first listen.
+  final controllerCapture = Completer<MultiStreamController<int>>();
+  final multiSub = Stream<int>.multi(controllerCapture.complete).listen(null);
+  _liveInstances['MultiStreamController'] = await controllerCapture.future;
+  await multiSub.cancel();
+
+  // Reads the host's interface list. Nothing is bound and nothing is claimed;
+  // the guard is for a host that reports none, where the bridge stays uncovered
+  // rather than the fixture throwing.
+  final interfaces = await NetworkInterface.list();
+  if (interfaces.isNotEmpty) {
+    _liveInstances['NetworkInterface'] = interfaces.first;
+  }
+
+  // The socket family, on loopback — the resource class this file already
+  // accepted in writing for the HTTP server above: bound, used, closed again,
+  // with no consequence past the test. `startConnect` is used rather than
+  // `connect` because it is the only way to obtain a `ConnectionTask`, and it
+  // yields the connected `Socket` as well, so one exchange covers three bridges.
+  final listener = await ServerSocket.bind(InternetAddress.loopbackIPv4, 0);
+  final accepting = listener.first;
+  final connecting = await Socket.startConnect(
+    InternetAddress.loopbackIPv4,
+    listener.port,
+  );
+  final connected = await connecting.socket;
+  final accepted = await accepting;
+  _liveInstances['ServerSocket'] = listener;
+  _liveInstances['Socket'] = connected;
+  _liveInstances['ConnectionTask'] = connecting;
+  accepted.destroy();
+  connected.destroy();
+  await listener.close();
+
+  final rawListener = await RawServerSocket.bind(
+    InternetAddress.loopbackIPv4,
+    0,
+  );
+  final rawAccepting = rawListener.first;
+  final rawConnected = await RawSocket.connect(
+    InternetAddress.loopbackIPv4,
+    rawListener.port,
+  );
+  final rawAccepted = await rawAccepting;
+  _liveInstances['RawServerSocket'] = rawListener;
+  _liveInstances['RawSocket'] = rawConnected;
+  rawAccepted.close();
+  rawConnected.close();
+  await rawListener.close();
+
+  final datagram = await RawDatagramSocket.bind(
+    InternetAddress.loopbackIPv4,
+    0,
+  );
+  _liveInstances['RawDatagramSocket'] = datagram;
+  datagram.close();
+
+  // A pipe pair, closed again in the same breath. Same class as a loopback
+  // socket: two descriptors, both released here.
+  final pipe = await Pipe.create();
+  _liveInstances['Pipe'] = pipe;
+  await pipe.write.close();
+  await pipe.read.drain<void>();
+
+  // Process globals, read and not claimed. Every getter that needs a real
+  // terminal (`echoMode`, `terminalColumns`) throws under a test runner, and the
+  // sweep already skips a throwing getter — so this reads what is readable and
+  // leaves stdio exactly as it found it.
+  _liveInstances['Stdout'] = stdout;
+  _liveInstances['Stdin'] = stdin;
 }
+
+/// The bridges with instance getters that this sweep deliberately does NOT cover,
+/// each with the reason it is declined rather than acquired.
+///
+/// SCD78 took the blind spot from 20 to 3, and the interesting part is how: it
+/// was filed listing eleven types needing "live network", four needing "live
+/// process / stdio", and five as "not publicly constructible". Measured, all but
+/// these three were obtainable, and four of them were **already in hand** inside
+/// the fixture this file has had since SCC62 — the bound had been recording a
+/// resource cost that was mostly a bookkeeping gap.
+///
+/// A decline is a claim about cost, so each one names the cost:
+const _declinedInstances = <String, String>{
+  'Process':
+      'spawning a process has consequences past the end of the test — '
+      'the one resource class this file has always refused, and the reason it '
+      'accepts a loopback socket, which does not',
+  'FileSystemEvent':
+      'needs a filesystem watcher, whose delivery is platform- and '
+      'timing-dependent. It was measured working on macOS in milliseconds, and '
+      'declined anyway: a watcher with a timeout fallback would leave this '
+      'bridge covered on some hosts and not others, so the number below would '
+      'stop being a fact about the registry and become a fact about the host',
+  'Null':
+      'there is no instance to hold. `null` IS the value, and the instance table '
+      'is `Map<String, Object>` where a null means "no instance" — the signal '
+      'this sweep uses to skip. Covering it would need a sentinel, to sweep '
+      "three getters (`hashCode`, `toString`, `runtimeType`) that cannot go "
+      'inert',
+};
 
 /// Every instance the getter sweep has to work with: the synchronous map plus
 /// the connection-bound captures.
@@ -715,52 +833,60 @@ void main() {
   group('SCC24: native-name coverage', () {
     setUpAll(_captureLiveInstances);
 
-    test(
-      'F-SCC24-1: every instance getter on every bridge returns a value that '
-      'resolves [2026-09-04]',
-      () {
-        final env = _stdlibEnvironment();
-        final instances = _sweepInstances();
-        final inert = <String, String>{};
+    test('F-SCC24-1: every instance getter on every bridge returns a value that '
+        'resolves [2026-09-04]', () {
+      final env = _stdlibEnvironment();
+      final instances = _sweepInstances();
+      final inert = <String, String>{};
 
-        for (final bridge in _allBridges(env).values) {
-          final target = instances[bridge.name];
-          if (target == null) continue; // Blind spot; pinned by F-SCC24-9.
-          for (final getter in bridge.getters.entries) {
-            final key = '${bridge.name}.${getter.key}';
-            if (_sweepExemptions.containsKey(key)) continue;
-            final Object? result;
-            try {
-              result = getter.value(null, target);
-            } catch (_) {
-              // The getter itself refused this target (a type guard, an empty
-              // collection). Not a resolution failure, and not this file's
-              // subject.
-              continue;
-            }
-            if (result == null) continue;
-            final resolved = _resolvedBridgeName(env, result);
-            if (resolved == '<inert: no bridge>') {
-              inert[key] = '${result.runtimeType}';
-            }
+      for (final bridge in _allBridges(env).values) {
+        final target = instances[bridge.name];
+        if (target == null) continue; // Blind spot; pinned by F-SCC24-9.
+        for (final getter in bridge.getters.entries) {
+          final key = '${bridge.name}.${getter.key}';
+          if (_sweepExemptions.containsKey(key)) continue;
+          final Object? result;
+          try {
+            result = getter.value(null, target);
+          } catch (_) {
+            // The getter itself refused this target (a type guard, an empty
+            // collection). Not a resolution failure, and not this file's
+            // subject.
+            continue;
+          }
+          if (result == null) continue;
+          if (result is Future) {
+            // SCD78: a getter can hand back a Future that completes with an
+            // error long after the sweep has read it, and no `try`/`catch`
+            // here can hold that — it escapes to the zone and fails the test.
+            // `Socket.first` on a socket that carried no data is the case that
+            // found it ("Bad state: No element"), and that failure says
+            // nothing about coverage. Marking it ignored keeps the FUTURE as
+            // the value under test, which is the right subject: a `Future` is
+            // claimed by the `Future` bridge whatever it completes with.
+            result.ignore();
+          }
+          final resolved = _resolvedBridgeName(env, result);
+          if (resolved == '<inert: no bridge>') {
+            inert[key] = '${result.runtimeType}';
           }
         }
+      }
 
-        expect(
-          inert,
-          isEmpty,
-          reason:
-              'These getters return a value that no bridge claims, so '
-              'every member call on the result would fail with "Undefined '
-              'property or method ... on _Whatever". Add the private type the '
-              'SDK reported to `nativeNames` on the bridge for the type it '
-              'actually is — and then check whether the member has any test '
-              'coverage at all, because an inert return value means it could '
-              'not have been used, which is how the previous four instances of '
-              'this defect stayed hidden.',
-        );
-      },
-    );
+      expect(
+        inert,
+        isEmpty,
+        reason:
+            'These getters return a value that no bridge claims, so '
+            'every member call on the result would fail with "Undefined '
+            'property or method ... on _Whatever". Add the private type the '
+            'SDK reported to `nativeNames` on the bridge for the type it '
+            'actually is — and then check whether the member has any test '
+            'coverage at all, because an inert return value means it could '
+            'not have been used, which is how the previous four instances of '
+            'this defect stayed hidden.',
+      );
+    });
 
     test(
       'F-SCC24-2: every dart:async member returning a Stream resolves to the '
@@ -985,24 +1111,30 @@ void main() {
       // a bridge forces either an instance (widening the sweep) or a deliberate
       // decision to leave it uncovered — it cannot happen silently.
       //
-      // The 20 are not arbitrary leftovers — every one needs a resource this
-      // suite should not acquire (a bound socket, a spawned process, the real
-      // stdio handles) or cannot be constructed at all (`OutOfMemoryError`,
-      // `StackOverflowError`).
+      // A live connection used to be outside what this suite would acquire, and
+      // is not: `_captureLiveInstances` stands a loopback server up in
+      // `setUpAll`, because the alternative was to raise this baseline and lose
+      // the sweep over the newest and least-exercised bridges in the tree. The
+      // line it drew — a bound loopback socket that is closed again has no
+      // consequence past the test, a spawned process does — is the line SCD78
+      // then followed to its conclusion.
       //
-      // A live connection used to be on that list, and no longer is. The HTTP
-      // server half and the WebSocket block between them added types whose
-      // getters return precisely the shapes this sweep exists to catch, five of
-      // which exist only inside a request handler or past a completed upgrade
-      // handshake, so `_captureLiveInstances` stands a loopback server up in
-      // `setUpAll` and captures them. That is a real widening of what the suite
-      // does, taken because the alternative was to raise this baseline by five
-      // and lose the sweep over the newest and least-exercised bridges in the
-      // tree. It does not generalise: a spawned process or a claimed stdin has
-      // consequences past the end of the test, and a bound loopback socket that
-      // is closed again does not.
+      // **SCD78 TOOK THIS FROM 20 TO 3, and mostly by asking.** The todo listed
+      // eleven types needing live network, four needing live process or stdio,
+      // and five that "cannot be constructed at all". Measured, all but three
+      // were obtainable: `OutOfMemoryError()` and `StackOverflowError()` are
+      // ordinary public constructors, a `MultiStreamController` arrives in
+      // `Stream.multi`'s callback, and FOUR of the HTTP types were already held
+      // by the fixture above and simply never recorded. The socket family needs
+      // only the loopback exchange this file had already accepted in writing.
+      // So most of the blind spot was bookkeeping wearing the costume of a
+      // resource cost.
       //
-      // The bound is `lessThanOrEqualTo`, not `equals`, on purpose: adding a
+      // What remains is in `_declinedInstances`, each with the cost that makes
+      // it not worth acquiring, and the checks below hold the set as well as
+      // the count.
+      //
+      // The bound stays `lessThanOrEqualTo`, not `equals`, on purpose: adding a
       // canonical instance should never fail the guard, only removing
       // coverage should.
       final env = _stdlibEnvironment();
@@ -1016,14 +1148,30 @@ void main() {
               .toList()
             ..sort();
 
+      // SCD78 added the set check beside the count, and the count stays because
+      // the two refuse different things. The subset check refuses a bridge that
+      // is uncovered WITHOUT a recorded reason — the drift this test was written
+      // for — and names it. The count refuses growing the reasons map itself,
+      // so adding a decline stays a deliberate act rather than a way to make
+      // this green.
+      expect(
+        uncovered.where((name) => !_declinedInstances.containsKey(name)),
+        isEmpty,
+        reason:
+            'A bridge with instance getters has no canonical instance and no '
+            'recorded reason, so F-SCC24-1 cannot see it. Add one to '
+            '`_canonicalInstances` (or, if it needs a connection or a socket, to '
+            '`_captureLiveInstances`) — or decline it in `_declinedInstances` '
+            'with the cost that makes it not worth acquiring.\n'
+            'Uncovered: ${uncovered.join(', ')}',
+      );
+
       expect(
         uncovered.length,
-        lessThanOrEqualTo(20),
+        lessThanOrEqualTo(3),
         reason:
-            'A bridge with instance getters was added without a '
-            'canonical instance in `_canonicalInstances` (or, for one that '
-            'needs a live connection, `_liveInstances`), so F-SCC24-1 '
-            'cannot see it. Add one, or lower this baseline deliberately. '
+            'The declined set has grown. Lower this deliberately if a bridge '
+            'genuinely cannot be swept, and say why in `_declinedInstances`. '
             'Uncovered: ${uncovered.join(', ')}',
       );
     });

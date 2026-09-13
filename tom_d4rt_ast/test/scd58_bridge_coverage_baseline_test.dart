@@ -55,12 +55,22 @@ import 'package:tom_d4rt_ast/src/runtime/stdlib/math.dart';
 /// than a different question — so the old 23 was not a smaller gap, it was the
 /// same gap measured through prose.
 ///
-/// **IT IS 63 SINCE SCD71**, having been 65 after SCD70. Each of those three
-/// names — `FileMode`, then `HttpResponse` and `HttpConnectionInfo` — came off
-/// the way the list is meant to shrink: a test named it in code, F-SCD58-3
-/// failed on the commit that added the coverage, and deleting the line was the
-/// fix. That is the ratchet working in the direction nobody has to remember,
-/// and it had never moved that way before SCD70.
+/// **IT IS 55 SINCE SCD78**, having been 63 after SCD71 and 65 after SCD70.
+/// Every name that has come off did so the way the list is meant to shrink: a
+/// test named it in code, F-SCD58-3 failed on the commit that added the
+/// coverage, and deleting the line was the fix. That is the ratchet working in
+/// the direction nobody has to remember, and it had never moved that way before
+/// SCD70.
+///
+/// SCD78's eight — `Socket`, `ServerSocket`, `RawSocket`, `RawServerSocket`,
+/// `RawDatagramSocket`, `MultiStreamController`, `NetworkInterface` and `Pipe` —
+/// came off in one commit because the SCC24 getter sweep acquired instances for
+/// them: a loopback exchange, a `Stream.multi` callback, the host's interface
+/// list, a pipe pair. Note what kind of coverage that is: the sweep invokes
+/// every registered getter and checks the value resolves. It is not behavioural
+/// coverage of what a socket DOES, and this list does not claim to measure
+/// that. `NetworkInterface` is the one conditional entry — a host reporting no
+/// interfaces leaves it unswept, though the name is still in code.
 ///
 /// DELETING A LINE IS HOW COVERAGE IS CLAIMED. `F-SCD58-3` fails on an entry
 /// that IS named now, so the list cannot quietly outlive the gap it records —
@@ -97,20 +107,14 @@ const uncoveredBridges = <String>{
   'JsonCodec',
   'Latin1Codec',
   'Match',
-  'MultiStreamController',
-  'NetworkInterface',
   'Never',
   'Null',
   'Pattern',
-  'Pipe',
   'Point',
   'ProcessStartMode',
   'Random',
   'RandomAccessFile',
-  'RawDatagramSocket',
   'RawReceivePort',
-  'RawServerSocket',
-  'RawSocket',
   'RawSocketEvent',
   'ReceivePort',
   'Rectangle',
@@ -118,9 +122,7 @@ const uncoveredBridges = <String>{
   'RemoteError',
   'Runes',
   'SendPort',
-  'ServerSocket',
   'Sink',
-  'Socket',
   'SocketDirection',
   'SocketOption',
   'Stdin',
