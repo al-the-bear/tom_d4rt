@@ -35,9 +35,14 @@
 // builds its own wrapper trio, which is the moment the cost is one edit rather
 // than fourteen.
 //
-// They also cover the four bridges the behavioural half cannot reach —
-// RawSocket, RawServerSocket, Stdin and the second HttpClient site — for the
-// reasons `scc22_io_error_handler_arity_test.dart`'s header records.
+// They also cover every site including the ones no behavioural case drives.
+// That set shrank to ONE the day after this file was split out: SCD80 measured
+// RawServerSocket, RawSocket and HttpClientResponse all reachable from a script
+// — a loopback pair is two sockets in one process — and added F-SCD80-1/-2 for
+// them. `Stdin` is the one listen bridge with no behavioural case, because
+// subscribing to the test process's stdin mutates global state that outlives the
+// test and the outcome depends on how the runner was invoked; the behavioural
+// file's header carries that argument.
 library;
 
 import 'dart:io';
