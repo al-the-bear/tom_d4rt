@@ -702,38 +702,25 @@ const Map<String, int> _uncoveredBaseline = {
   // residual failures are source scans over files exec does not own, plus the
   // one behavioural gap scc27's own note names.
   'scc22_io_error_handler_arity_test.dart': 17,
-  // BLOCKED ON EXEC-LOCAL WORK — no longer on a publish, and the correction is
-  // the finding. Ported verbatim 2026-09-06 it still does not COMPILE: five
-  // `undefined_setter` errors, because all 16 cases set `D4rt.onUncaughtError`
-  // and this package's `D4rt` has no such member. But the reason recorded here
-  // for years — "the forwarder cannot be written until `tom_d4rt_ast`
-  // publishes" — is now false. `onUncaughtError` IS in published 0.42.0, on
-  // `D4rtRunner` in `lib/src/runtime/d4rt_runner.dart`; grep both the pub cache
-  // copy and the working tree and they agree.
+  // BLOCKED ON A PUBLISH, and measured rather than inferred — the register above
+  // says a pin written from prose rots, so both of these were ported into
+  // `test/` and run against published 0.65.0 before being recorded.
   //
-  // Both halves of the two-part job are therefore unblocked today:
-  //   * `executeBundle` forwards to the inner [D4rtRunner] — a one-line
-  //     forwarder alongside the twenty others in `lib/src/d4rt_base.dart`.
-  //   * The classic `execute()` path does NOT go through the runner (this
-  //     package carries its own third copy of `_executeInEnvironment`), so the
-  //     zone seam has to be mirrored into it separately.
-  //
-  // Doing only one half would ship a hook that fires for `execute()` and
-  // silently does not for `executeBundle()` — the "looks covered" failure this
-  // file exists to catch, in the public API rather than in the suite. That is
-  // still the rule; what changed is that waiting is no longer a reason. SCD74
-  // owns it, and it is an API addition with its own test cycle rather than
-  // census work.
-  //
-  // RE-MEASURED 2026-09-12 against published 0.65.0 (scd25_aida), which is 23
-  // releases past the 0.42.0 the numbers above were taken at: UNCHANGED, case
-  // for case. scc22 is still 14/17 with F-SCC22-10/-11/-12 failing, scc25 still
-  // 5/7 with F-SCC25-6/-7, scc27 still 8/9 with F-SCC27-9, and scc23 still does
-  // not compile for the same five `undefined_setter` errors. So none of these
-  // four is a stale pin waiting on a publish that already happened — the
-  // residual failures are source scans over files exec does not own, plus the
-  // one behavioural gap scc27's own note names.
-  'scc23_uncaught_callback_error_test.dart': 16,
+  // scd72 needs `InterpretedClass.declaringVisitor`, which lands in published
+  // 0.81.0. Ported today: 2 of 7 PASS, and which two is the useful part —
+  // F-SCD72-3 (the no-override rail) and -5 (Dart's in-script semantics) hold
+  // because they assert behaviour that predates the fix. The five that fail are
+  // exactly the five the fix bought.
+  'scd72_instance_tostring_test.dart': 7,
+  // scd73 does not COMPILE against 0.65.0: six `undefined_function` errors for
+  // `unwrapScriptError`, which SCD73 made a public top-level and which lands in
+  // published 0.82.0. It cannot be worked around from here: `d4rt.dart`
+  // re-exports `package:tom_d4rt_ast/runtime.dart`, so a local public function
+  // of that name would become an ambiguous export the day the publish lands.
+  // This package's own seam DOES carry SCD73 (SCD74 mirrored it into the third
+  // copy of `_executeInEnvironment`), so the behaviour is present here — it is
+  // only the helper the test calls that is missing.
+  'scd73_no_hook_unwrapping_test.dart': 8,
   // PARTLY PORTABLE, for exactly SCC22's reason and with the same shape of
   // correction. Re-measured 2026-09-06 against published 0.42.0: 5 of 7 cases
   // PASS. The three listen-adapter failures this entry recorded against 0.20.1
@@ -1095,8 +1082,13 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// same reason, and reading any one of them would not have revealed the other
 /// five.
 ///
-/// EMPTY AS OF 2026-09-06, and the emptiness is the register working rather
-/// than the register being unused. SCC75 published `tom_d4rt_ast` 0.55.0 and
+/// NON-EMPTY AGAIN SINCE 2026-09-13 (SCD74), holding the two entries SCD72 and
+/// SCD73 created in the sibling tree. Both were ported and RUN against the
+/// published copy before being recorded, which is the discipline the paragraph
+/// above demands; scd72 splits 2/7 and scd73 does not compile at all.
+///
+/// It was EMPTY AS OF 2026-09-06, and that emptiness was the register working
+/// rather than the register being unused. SCC75 published `tom_d4rt_ast` 0.55.0 and
 /// raised exec's floor to it; F-SCC43-1 then produced the re-port checklist —
 /// all eighteen entries this map held — and every one of them passed when
 /// ported. Not one had gone stale, which is the opposite of what SCC44 found
@@ -1104,7 +1096,13 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// while these eighteen were each measured against the published copy before
 /// being pinned. Measure before pinning and the pin survives; infer it and it
 /// rots.
-const Map<String, String> _pinnedInterpreterFloors = <String, String>{};
+const Map<String, String> _pinnedInterpreterFloors = <String, String>{
+  // SCD74 measured both of these against published 0.65.0 before pinning them.
+  // When the floor reaches either version, F-SCC43-1 produces the re-port
+  // checklist — and re-measure BOTH, not just the one that came due.
+  'scd72_instance_tostring_test.dart': '0.81.0',
+  'scd73_no_hook_unwrapping_test.dart': '0.82.0',
+};
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
 ///

@@ -1,3 +1,46 @@
+## 1.23.0
+
+### Added — `D4rt.onUncaughtError`, wired to BOTH execution paths (scd74)
+
+This package had no `onUncaughtError` at all, so an error escaping an interpreted
+callback the platform invoked — a `Stream.listen` handler, a `Timer` body — could
+not be observed by an embedder here, only by one using `tom_d4rt` or
+`tom_d4rt_ast` directly.
+
+The addition is two-part because this package has **two** execution paths that do
+not share a seam. `D4rt` is a facade over an inner `D4rtRunner`: `executeBundle`
+delegates to it, while the classic `execute()` carries its own
+`_executeInEnvironment`, because it runs against the analyzer front end's
+`ModuleLoader` rather than a pre-resolved bundle. So the execution seam exists in
+**three** copies (`tom_d4rt`, `tom_d4rt_ast`, here), and the "keep the twins in
+sync" rule as usually stated names only two of them. The setter assigns the
+runner's hook as well as this package's, and the SCC23/SCD73 zone seam is
+mirrored into the third copy — shipping one half would have been a public API
+that looks covered and is not.
+
+`tom_d4rt/test/scc23_uncaught_callback_error_test.dart` is now ported verbatim
+(16 cases, all passing) and its `_uncoveredBaseline` entry is gone. That entry
+had said for months that the forwarder "cannot be written until `tom_d4rt_ast`
+publishes"; the publish had landed long before, and nobody was looking at the
+file at the moment it came due.
+
+**One asymmetry remains, and is asserted rather than left to be found.** SCD73
+made the *unwrapping* unconditional, so a no-hook embedder using its own
+`runZonedGuarded` also receives the value the script threw. The classic path has
+that today. The bundle path's seam lives in the **published** `tom_d4rt_ast` this
+package resolves (DGUC6), currently 0.65.0, which predates SCD73 — so with no
+hook set that path still hands over the internal wrapper. Measured:
+
+| path            | hook set     | no hook                            |
+| --------------- | ------------ | ---------------------------------- |
+| `execute()`     | `StateError` | `StateError`                       |
+| `executeBundle` | `StateError` | `InternalInterpreterD4rtException` |
+
+The hook column — the one this release is about — agrees. F-SCD74-5 pins the
+difference so that raising the constraint turns it red instead of closing it
+quietly, and `_pinnedInterpreterFloors` now carries the flip condition for the
+two reference suites that need the same publish.
+
 ## 1.22.0
 
 ### Changed — module resolution is a visible sequence, not an order of early returns (scd52)
