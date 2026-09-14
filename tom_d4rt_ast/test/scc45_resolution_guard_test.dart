@@ -76,6 +76,30 @@
 // Both skip when the repo root is not reachable: a consumer holding a
 // published copy of this package has no siblings and no repo to check, and a
 // red test there would be noise rather than a finding.
+//
+// THE SCOPE IS ONE REPO, AND THAT IS NOW A DECISION RATHER THAN A DEFAULT
+//
+// SCD128 asked whether this guard should be generalised to the whole
+// workspace, since the mechanism it guards is not d4rt-specific: every `tom_*`
+// package is published to pub.dev, consumed by siblings with the same
+// lower-bound-only constraints, and locked behind the same repo-wide
+// `pubspec.lock` gitignore.
+//
+// It was measured before being decided, read-only, with
+// `_bin/check_frozen_locks.py` at the workspace root — the same pub-cache
+// discriminator as F-SCC45-2, applied to every package under the tree.
+// 2026-09-15: **182 frozen resolutions across 117 packages in 13 repos**, and
+// that is a floor rather than a count (a cold cache under-reports by
+// construction). The d4rt repo's own 44 reproduce this file's current
+// F-SCC45-2 output, which is what validates the script.
+//
+// So the answer is MANY GUARDS, NOT ONE, and not yet. A single guard would
+// need one exception list spanning thirteen repos with no single owner, which
+// is how an exception list rots; and a guard that lands red in thirteen repos
+// is ignored in all thirteen. The order is: sweep a repo, then give that repo
+// its own copy of this file with its own owner-named exception list. SCE145
+// carries the campaign, and the script is how each repo's owner sees their
+// share without running anything of ours.
 
 import 'dart:io';
 
