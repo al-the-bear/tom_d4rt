@@ -20,8 +20,12 @@ regenerating split files needs no script edit.
 A third runner is **not** part of the corpus and answers in seconds:
 
 - `run_guard_tests.sh` — the fast, transport-free guards (no companion app, no
-  HTTP server, no `concurrency: 1`). Currently the AST/non-AST user-bridge
-  de-dup.
+  HTTP server, no `concurrency: 1`): the AST/non-AST user-bridge de-dup, the
+  `doc/`-holds-no-runner-output check, the pooled-registration skip path, and
+  SCD133's registry-wide bridged-enum resolution guard.
+
+`tom_d4rt_flutter` has its own `run_guard_tests.sh` now, covering the checks
+that are genuinely per-twin. Run both; neither is a superset of the other.
 
 It is separate on purpose (SCD108). A test matching neither corpus glob is
 invoked by nothing, which is how `text_user_bridge.dart` stayed duplicated and

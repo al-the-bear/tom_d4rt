@@ -3703,6 +3703,23 @@ Two things follow, and both are cheap:
 Filed as **scd135** (re-triage the open clusters by blast radius rather
 than by observed failure count).
 
+**A registry-wide guard now holds the property.** SCC46's three regression
+tests pin the mechanism with a hand-built two-bridge fixture, which can only
+speak for the pair its author thought of. `scd133_registry_enum_resolution_test.dart`
+in each twin asserts instead that *every* bridged enum in the live registry
+resolves to itself — 213 enums / 857 values on the AST line, 151 / 589 on the
+source line — and runs in about two seconds with no companion app, from each
+twin's `test/run_guard_tests.sh`.
+
+Its fourth case is the measurement this entry was missing. Deleting the
+`value is Enum` branch does not cost "eight scripts in `flutter_base_01`": the
+class-resolution path it falls through to resolves **zero** of the registered
+enums correctly, because a bridged enum is registered in the environment's enum
+table and never in its class table. Every one is then either silently mistyped
+(103 of 213 on the AST line — a >=3-char-prefix bridge name claims it) or
+unresolvable. That is the blast-radius sentence in numbers, and it is what the
+131-failure count was standing in for.
+
 ---
 
 ### [ ] Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`)

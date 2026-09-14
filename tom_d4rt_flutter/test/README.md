@@ -31,6 +31,24 @@ neither glob is invoked by nothing, which is how `text_user_bridge.dart` stayed
 duplicated and unguarded in both twins for months — but folding a one-second
 file check into a sixteen-minute serial suite answers at the wrong cadence.
 
+A third runner here is **not** part of the corpus and answers in seconds:
+
+- `run_guard_tests.sh` — this package's own fast, transport-free guards
+  (no companion app, no HTTP server, no `concurrency: 1`): SCD133's
+  registry-wide bridged-enum resolution guard, the pooled-registration skip
+  path, and the precise-beats-fuzzy bridge-match regression.
+
+The AST twin grew its guard runner first, and the three files above sat here
+reachable by nothing in the meantime — the same SCD108 hole, in the twin that
+had not been bitten by it yet. The two runners are **not** copies: the
+user-bridge de-dup runs only from the AST twin (which owns the source of
+truth), and each twin's registry guard measures its own interpreter's registry,
+which is not the same registry. Run both.
+
+Deliberately NOT in this runner: `interpreter_generator_open_issues_test.dart`,
+which is *expected* to fail — it reproduces known-open defects, so red is its
+correct output.
+
 ## Usage
 
 ```bash

@@ -69,6 +69,20 @@ run "user-bridge sync (test)" \
 run "doc/ holds no runner output" \
   sh -c 'cd ../tom_d4rt && dart test test/scd110_doc_holds_no_runner_output_test.dart'
 
+# SCD133: every bridged enum in the live registry resolves to itself. A
+# registry-wide property test over the real `FlutterD4rt` environment — it
+# needs no companion app because it asks what the registry RESOLVES TO, not
+# what a script renders. Two seconds for 213 enums / 857 values; SCC46, the
+# defect it pins, cost four corpus files of a sixteen-minute suite to find.
+run "bridged enums resolve to themselves" \
+  flutter test test/scd133_registry_enum_resolution_test.dart
+
+# Import-optimization step #20. In-process, no transport — and, until now,
+# invoked by nothing: it matches neither corpus runner's glob. Same SCD108
+# shape as the user-bridge check above.
+run "bridge registration is pooled (step #20)" \
+  flutter test test/registration_skip_test.dart
+
 if [ "$status" -eq 0 ]; then
   echo "all guards passed"
 else
