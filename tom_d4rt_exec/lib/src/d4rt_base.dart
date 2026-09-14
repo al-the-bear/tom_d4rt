@@ -1572,12 +1572,15 @@ class D4rt {
         );
       }
       Logger.debug("[_executeInEnvironment] Finished Pass 2: Interpretation");
-    } on InternalInterpreterD4rtException catch (e) {
-      if (e.originalThrownValue is RuntimeD4rtException) {
-        throw e.originalThrownValue as RuntimeD4rtException;
-      } else {
-        throw e.originalThrownValue!;
-      }
+      // SCD101: the hand-rolled `on InternalInterpreterD4rtException` unwrap
+      // that used to sit here is gone. It was exec's own third copy of a rule
+      // the two interpreters already own — `throwAsHostFacingError` peels that
+      // carrier as its FIRST branch — and being a copy is what let it drift:
+      // it peeled once where the shared helper now peels twice (SCD96), so a
+      // script's `throw FormatException(...)` reached an exec caller as a
+      // `BridgedInstance` shell it could not `catch` on, long after both twins
+      // had stopped doing that. A clause that runs BEFORE the general one and
+      // reimplements part of it cannot inherit a fix.
     } catch (e, s) {
       // SCC27 — the host gets the type the script raised. This clause used to
       // enumerate the types allowed to escape (DFUB13's SourceCodeD4rtException
@@ -1615,12 +1618,8 @@ class D4rt {
           // already handed back the `FormatException` itself.
           onError: throwAsHostFacingError,
         );
-      } on InternalInterpreterD4rtException catch (e) {
-        if (e.originalThrownValue is RuntimeD4rtException) {
-          throw e.originalThrownValue as RuntimeD4rtException;
-        } else {
-          throw e.originalThrownValue!;
-        }
+        // SCD101: same deletion as the synchronous boundary above — one rule,
+        // one implementation.
       } catch (e, s) {
         // SCC27 — same rule as the synchronous boundary above. See the comment
         // there for why the explicit type list is gone.
@@ -2024,11 +2023,11 @@ class D4rt {
         if (evalFunc is Callable) {
           try {
             result = evalFunc.call(_visitor!, [], {});
-          } on InternalInterpreterD4rtException catch (e) {
-            if (e.originalThrownValue is RuntimeD4rtException) {
-              throw e.originalThrownValue as RuntimeD4rtException;
-            }
-            throw e.originalThrownValue ?? e;
+          } on InternalInterpreterD4rtException catch (e, s) {
+            // SCD101: `eval` is a host boundary too, so it answers to the same
+            // rule `execute` does. It carried its own peel, which is how it
+            // came to differ from the shared helper by one level (SCD96).
+            throwAsHostFacingError(e, s);
           }
         }
 
@@ -2073,11 +2072,9 @@ class D4rt {
       if (evalFunc is Callable) {
         try {
           evalFunc.call(_visitor!, [], {});
-        } on InternalInterpreterD4rtException catch (e) {
-          if (e.originalThrownValue is RuntimeD4rtException) {
-            throw e.originalThrownValue as RuntimeD4rtException;
-          }
-          throw e.originalThrownValue ?? e;
+        } on InternalInterpreterD4rtException catch (e, s) {
+          // SCD101: same rule as the other `eval` site above.
+          throwAsHostFacingError(e, s);
         }
       }
 

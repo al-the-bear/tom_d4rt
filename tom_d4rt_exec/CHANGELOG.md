@@ -1,3 +1,48 @@
+## 1.25.0
+
+### Fixed — exec's host boundary is the shared rule, with no copies left (scd101)
+
+SCD101 was filed when exec's boundary was stranded pre-SCC27: it enumerated the
+escaping types one by one and called `isSdkShapedError`, a predicate both
+interpreters had deleted — so exec could not compile against a working-tree
+`tom_d4rt_ast` at all. It was recorded as BLOCKED ON PUBLISHING, because exec
+declared `tom_d4rt_ast: >=0.20.0` and 0.20.1 was the newest published.
+
+**Measured before touching anything, that blocker is gone.** SCD74 and SCD84
+moved both `execute()` clauses to `throwAsHostFacingError`, the constraint is
+now `^0.65.0`, and published 0.65.0 has no `isSdkShapedError`. The eighteen
+failing tests the todo lists do not fail — they were measured against a
+working-tree ast at 0.39.0 under a patch that was applied and reverted, and the
+suite is green at 3740. I-MISC-97, which the todo singled out for investigation
+before editing, returns `'Oops'`; the carrier it reported belonged to that patch
+state, not to a defect that survived.
+
+**What was actually left is the tail of the todo's own fix list**: "deleting the
+hand-rolled unwrap". Four `on InternalInterpreterD4rtException` clauses remained
+— two in `execute()`, two in `eval()` — each peeling the carrier inline, and
+each running BEFORE the general clause that would have done it.
+
+A clause that runs first and reimplements part of the rule **cannot inherit a
+fix**. SCD96 taught `throwAsHostFacingError` a second peel — a bridged exception
+holds its native object one level inside the carrier — and exec's copies still
+peeled once. So a script's `throw FormatException('boom')` was set to reach an
+exec caller as a `BridgedInstance` shell it cannot `catch` on, permanently, no
+matter what the shared helper learned. Deleting the copies is what lets SCD96
+arrive when the constraint is next raised.
+
+**Deleting them changed nothing measurable today**, which is the honest result:
+exec calls the helper it resolves from pub.dev, and published 0.65.0 still peels
+once. `scd101_host_boundary_single_rule_test.dart` is therefore a SOURCE guard
+— it fails on any clause that peels inline, naming the line — plus a
+behavioural case pinning the published state so the day it tightens is visible
+rather than silent.
+
+Two copies survive on purpose and the guard knows about both: `_unwrapScriptError`
+(a documented temporary fourth copy that exists only because the published ast
+keeps `unwrapScriptError` private below 0.82.0 — sce119 deletes it), and
+`_runGuarded`'s fallback, which ends in a diagnostic string rather than a
+host-facing rethrow and is a different contract.
+
 ## 1.24.1
 
 ### Removed — `_executeClassic`, which was dead code pinning a retired contract (scd85)
