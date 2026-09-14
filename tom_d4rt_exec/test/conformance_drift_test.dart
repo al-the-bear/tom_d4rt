@@ -228,6 +228,14 @@ const _partialTwinBudget = 1;
 /// `bridged_enum_memo_test.dart`'s only `execute(` is inside a comment, and a
 /// naive search files it as script-level and inflates this budget.
 ///
+/// 22 -> 23: SCD121 added `scd121_var_decl_multi_await_test.dart`, which runs
+/// source to ask how many times a script's `next()` is called while a
+/// multi-await initializer resumes. Exec resolves tom_d4rt_ast 0.65.0 against a
+/// 0.94.0 tree, so a port would assert the fix against an interpreter that
+/// binds the first awaited value and drops the rest. The copier surface it
+/// would have added is a variable declaration with a binary or interpolated
+/// initializer over awaits, which the corpus copies on every run.
+///
 /// 21 -> 22: SCD119 added `bridge/scd119_interpreted_proxy_binding_test.dart`,
 /// which runs source to ask whether a native proxy binds to a parameter
 /// declared as the interpreted class it stands for. Exec resolves tom_d4rt_ast
@@ -274,7 +282,7 @@ const _partialTwinBudget = 1;
 /// than the tree — the same reason its own entry gives. The copier surface it
 /// would have added is list, set and map literals with type arguments, which
 /// the corpus already copies on every run.
-const _copierGapBudget = 22;
+const _copierGapBudget = 23;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   // ---- Renamed on the exec side -------------------------------------------
@@ -402,6 +410,35 @@ const Map<String, _Coverage> _coveredElsewhere = {
     // exists to resolve the tear-off.
     refCases: 10,
     twinCases: 10,
+  ),
+  // SCD121 made a variable declaration keep every `await` in its initializer,
+  // and made `a + b` stop evaluating `b` while `a` is suspended. The reference
+  // file counts CALLS as well as values, because the defect evaluated the
+  // discarded operands — a repair that gets the sum right by evaluating an
+  // operand twice passes a value-only test and is still wrong, which the first
+  // attempt at the fix did.
+  //
+  // An exec port is publish-blocked: the fix ships in tom_d4rt_ast 0.94.0 and
+  // exec resolves 0.65.0, so a port would assert it against an interpreter that
+  // binds `1`. Revisit when the floor moves — sce137 carries the publish.
+  'scd121_var_decl_multi_await_test.dart': _Coverage(
+    'ast:runtime/scd121_var_decl_multi_await_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 5,
+    twinCases: 2,
+    whyPartial:
+        'the twin carries the claim at two arities (F-SCD121-AST-1/-2: two and '
+        'three awaits in one initializer, each with its call count), which is '
+        'what separates the fix from the near-miss that compounded with arity. '
+        'The three it omits need more hand-built bundles for less: the '
+        'interpolation shape is the same defect wearing a different symptom, '
+        'the one-await case is the fast path the reference already guards, and '
+        'the loop control needs a for-statement in `SAstNode` form. The twin '
+        'does pin one thing the reference cannot reach — its two await sites '
+        'are structurally identical and resolve to different values, which is '
+        'the identity-keying claim `scc40_per_await_site_resumption_test.dart` '
+        'names and leaves unpinned.',
   ),
   // SCD119 repaired the binding check so a native `D4InterpretedProxy` binds to
   // a parameter declared as the interpreted class it stands for — the corpus's

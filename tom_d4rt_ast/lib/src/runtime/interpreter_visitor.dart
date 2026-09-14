@@ -1888,8 +1888,26 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       return rightValue;
     }
 
-    // For all other operators, evaluate both operands
+    // For all other operators, evaluate both operands — LEFT FIRST, and check
+    // it before touching the right.
+    //
+    // SCD121: these two lines used to sit together with both suspension checks
+    // below them, so when the LEFT operand suspended the RIGHT was evaluated
+    // anyway and its value thrown away. For pure operands that is invisible;
+    // for `(await next()) + (await next())` against a counter it is not — the
+    // discarded pass called `next()` an extra time per suspension, so the sum
+    // came out 4 instead of 3 and three awaits cost six calls. Dart evaluates
+    // `a + b` left to right and never reaches `b` while `a` is still
+    // outstanding, which is exactly what returning here restores.
+    //
+    // Nothing is lost by not evaluating the right operand: a suspension means
+    // the enclosing statement will be re-run once the future resolves, and on
+    // that pass the left replays from `resolvedAwaitResults` while the right
+    // is evaluated for the first time.
     final leftOperandValue = node.leftOperand!.accept<Object?>(this);
+    if (leftOperandValue is AsyncSuspensionRequest) {
+      return leftOperandValue;
+    }
     final rightOperandValue = node.rightOperand!.accept<Object?>(this);
 
     if (Logger.isDebug) {
@@ -1900,9 +1918,6 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       Logger.debug("  Right operand value: $rightOperandValue");
     }
 
-    if (leftOperandValue is AsyncSuspensionRequest) {
-      return leftOperandValue;
-    }
     if (rightOperandValue is AsyncSuspensionRequest) {
       return rightOperandValue;
     }

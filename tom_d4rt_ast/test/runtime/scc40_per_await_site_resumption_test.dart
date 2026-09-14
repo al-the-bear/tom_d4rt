@@ -24,15 +24,15 @@
 /// interpreter path — and immunity to two await sites fusing when their entire
 /// subtrees serialize identically.
 ///
-/// The second of those is deliberately NOT pinned here. Constructing it needs
-/// two await sites with identical subtrees but different values, i.e. a
-/// stateful operand such as `await next()` written twice — and that shape
-/// currently hits an unrelated open defect on the variable-declaration
-/// resumption route, which binds the first awaited value straight to the
-/// variable and never evaluates the rest of the initializer. A test written
-/// against it would be red for a reason that has nothing to do with identity
-/// keying. SCD121 carries the reproduction; pin the identity claim there, once
-/// the route is fixed.
+/// The second of those is not pinned here, and is pinned in
+/// `scd121_var_decl_multi_await_test.dart`. Constructing it needs two await
+/// sites with identical subtrees but different values — `await next()` written
+/// twice — and that shape used to hit an unrelated defect on the
+/// variable-declaration resumption route, so a test against it would have been
+/// red for a reason that had nothing to do with identity keying. SCD121 fixed
+/// that route, and its cases are the shape: two structurally identical sites
+/// resolving to 1 and 2, summing to 3. Under value equality they would fuse
+/// into one key and the sum could only be 2 or 4.
 library;
 
 import 'package:test/test.dart';

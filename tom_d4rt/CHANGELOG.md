@@ -1,3 +1,41 @@
+## 1.107.0
+
+### Fixed — a declaration keeps every `await` in its initializer (scd121)
+
+`var s = (await a) + (await b);` bound `s = 1`, not 3. The resumption branch for
+a variable declaration bound `futureResult` — the value of ONE await — straight
+to the variable and moved on, so everything else in the initializer was
+discarded. `var s = '${await a},${await b}';` was the same defect wearing a
+different symptom: `s` held the raw int, and the next line failed its own
+declared type with an error about a value the script never wrote. SCC40 had
+fixed this family on the RETURN route; this branch never got the treatment.
+
+**It was never a missing-evaluation bug.** The discarded operands WERE
+evaluated — visible by counting calls — so a repair that produces the right sum
+by evaluating an operand twice would pass a value-only test and still be wrong.
+The first attempt did exactly that, giving 5 instead of 3: an evaluation started
+inside the resumption branch cannot register its suspension with the state
+machine (the machine only ever attaches to a suspension raised by executing a
+node), so it is discarded and the statement re-executed anyway.
+
+So the branch now evaluates **nothing**. It hands the statement back to the
+machine, which executes the declaration again: sites already resolved replay
+from `resolvedAwaitResults`, the first one not yet reached suspends for real,
+and the variable is bound on the pass where nothing suspends — one evaluation
+per pass. The per-site cache is cleared when that statement completes, which for
+a declaration can only be seen where it is executed; the `return` route clears
+via its own completion path.
+
+### Fixed — `a + b` does not evaluate `b` while `a` is suspended (scd121)
+
+`visitBinaryExpression` evaluated BOTH operands before checking either for a
+suspension, so a suspending left operand still cost a full evaluation of the
+right, whose value was then thrown away. Invisible for pure operands, and
+invisible while a declaration never re-ran; once it did, `(await next()) +
+(await next())` against a counter cost three calls for two awaits and six for
+three. Dart evaluates `a + b` left to right and never reaches `b` while `a` is
+outstanding.
+
 ## 1.106.0
 
 ### Fixed — a native proxy now binds to a parameter declared as the script class it stands for (scd119)
@@ -2375,10 +2413,11 @@ restore the frame's environment became reachable: `return a + await b` raised
 `Undefined variable: b`. The re-evaluation branches now restore
 `visitor.environment` alongside `currentAsyncState`.
 
-**Known limitation, not fixed here.** The variable-declaration resumption route
-still binds the first awaited value straight to the variable instead of
-re-evaluating the initializer, so `var s = (await a) + (await b);` yields `1`
-rather than `3`. The return-statement route is correct. Tracked separately.
+**Known limitation at the time, closed later (scd121).** The
+variable-declaration resumption route still bound the first awaited value
+straight to the variable instead of re-running the declaration, so
+`var s = (await a) + (await b);` yielded `1` rather than `3`. The
+return-statement route was already correct. Fixed in 1.107.0 / 0.94.0.
 
 ## 1.51.0
 

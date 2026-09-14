@@ -3413,6 +3413,21 @@ class InterpretedFunction implements Callable {
           currentState.currentError = null;
           currentState.currentStackTrace = null;
 
+          // SCD121: a statement that was being re-run to replay its resolved
+          // await sites has now completed without suspending, so that
+          // evaluation is over and its per-site cache must go. SCC40 scoped
+          // this cache to ONE evaluation of ONE statement for a reason: a loop
+          // body re-enters the identical AST node, and a surviving entry would
+          // replay the previous iteration's value. The await callback clears it
+          // on the routes that finish inside `_determineNextNodeAfterAwait`
+          // (`return` completes there by returning null); a declaration
+          // finishes HERE instead, by being executed, so this is the only place
+          // that can see it end.
+          if (currentState.resumingStatementHasMoreAwaits) {
+            currentState.resumingStatementHasMoreAwaits = false;
+            currentState.resolvedAwaitResults.clear();
+          }
+
           // Determine the next sequential normal state
           // Use _findNextSequentialNode which now handles try/catch/finally
           final nextNode = _findNextSequentialNode(visitor, currentNode);
@@ -4273,6 +4288,65 @@ class InterpretedFunction implements Callable {
                     awaitExpression),
       );
       targetVar ??= varList.variables.first; // Fallback to first
+
+      // SCD121: the fast path below binds `futureResult` — the value of ONE
+      // await — straight to the variable and moves on. That is right only when
+      // the initializer IS that await. When the initializer merely CONTAINS it,
+      // everything around it was discarded: `var s = (await a) + (await b);`
+      // bound `s = 1` instead of 3, and `var s = '${await a},${await b}';`
+      // bound the raw int, so the next line failed with a type error about a
+      // value the script never wrote. The other operands WERE evaluated and
+      // then thrown away — measured by counting calls, so this was never a
+      // missing-evaluation bug, it was a discarded-result one.
+      //
+      // SCC40 fixed the same family on the RETURN route; this branch never got
+      // the treatment.
+      //
+      // THE REPAIR IS TO EVALUATE NOTHING HERE. Hand the statement back to the
+      // state machine and let it execute the declaration again: the await sites
+      // already resolved replay from `resolvedAwaitResults`, the first one not
+      // yet reached suspends for real, and `visitVariableDeclarationList` binds
+      // the variable on the pass where nothing suspends. One evaluation per
+      // pass, which is what keeps the call counts right.
+      //
+      // The tempting alternative — re-evaluate the initializer here, the way
+      // the return route re-evaluates its expression — was measured and is
+      // wrong for a statement with side effects. That evaluation's suspension
+      // cannot be registered with the machine (the machine only ever attaches
+      // to a suspension raised by executing a node), so it is discarded and the
+      // node is re-executed anyway: every not-yet-resolved await runs TWICE per
+      // pass. With `next()` incrementing a counter, `(await next()) + (await
+      // next())` gave 5 instead of 3. The return route still carries that
+      // double evaluation; it is invisible there only because its cases await
+      // side-effect-free futures.
+      //
+      // `(await f).prop` keeps its own fast path below — it is a working
+      // special case with its own coverage, and it has a single await site.
+      final SExpression? initializer = targetVar.initializer;
+      final bool initializerIsTheAwait =
+          initializer == awaitExpression ||
+          (initializer is SParenthesizedExpression &&
+              initializer.expression == awaitExpression);
+      final bool initializerIsHandledPropertyAccess =
+          initializer is SPropertyAccess &&
+          initializer.target is SParenthesizedExpression;
+      if (initializer != null &&
+          !initializerIsTheAwait &&
+          !initializerIsHandledPropertyAccess) {
+        Logger.debug(
+          "[_determineNextNodeAfterAwait] Initializer of "
+          "'${targetVar.name!.name}' contains more than the await; "
+          "re-running the declaration so the resolved sites replay.",
+        );
+        // Keep the per-site results for that re-run. The machine clears them
+        // once the statement completes without suspending.
+        state.resumingStatementHasMoreAwaits = true;
+        if (visitor.environment != currentExecutionEnvironment) {
+          visitor.environment = currentExecutionEnvironment;
+        }
+        return awaitContextNode;
+      }
+
       if (targetVar.initializer is SPropertyAccess) {
         final propertyAccess = targetVar.initializer as SPropertyAccess;
         if (propertyAccess.target is SParenthesizedExpression) {
