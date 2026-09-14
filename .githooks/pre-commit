@@ -48,15 +48,31 @@ if [ ! -f "$TOOL" ]; then
     exit 0
 fi
 
-# Find a Dart. `dart` is on PATH on a provisioned machine; a Flutter checkout
-# carries one at `bin/dart` reachable through `flutter`, which is what a host
-# with only Flutter installed has.
+# Find a Dart. THREE strategies, and the third is the one that matters:
+# a git hook runs with a minimal PATH, not the interactive shell's, so on a
+# machine where the SDK is on PATH only via a shell profile the first two both
+# miss and the hook would skip on EVERY commit — silently useless, which is the
+# failure mode this file's `$TOOL` check above is also written against. (That
+# is not hypothetical: the commit that introduced this hook tripped exactly
+# that path.)
+#
+# The third reads `flutterRoot` out of the package's OWN resolved
+# `package_config.json`. It is machine-local and repo-derived, so it is correct
+# per host without anything being hardcoded, and it is written by the same
+# `pub get` that makes the package runnable at all.
 DART=""
 if command -v dart >/dev/null 2>&1; then
     DART="dart"
 elif command -v flutter >/dev/null 2>&1; then
     FLUTTER_BIN="$(dirname "$(command -v flutter)")"
     [ -x "$FLUTTER_BIN/dart" ] && DART="$FLUTTER_BIN/dart"
+fi
+if [ -z "$DART" ]; then
+    PKG_CONFIG="$AST_DIR/.dart_tool/package_config.json"
+    if [ -f "$PKG_CONFIG" ]; then
+        FLUTTER_ROOT=$(sed -n 's/.*"flutterRoot"[[:space:]]*:[[:space:]]*"file:\/\/\([^"]*\)".*/\1/p' "$PKG_CONFIG")
+        [ -n "$FLUTTER_ROOT" ] && [ -x "$FLUTTER_ROOT/bin/dart" ] && DART="$FLUTTER_ROOT/bin/dart"
+    fi
 fi
 
 if [ -z "$DART" ]; then
